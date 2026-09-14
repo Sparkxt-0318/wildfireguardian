@@ -579,3 +579,34 @@ HQ's call: make `scripts/auto/gates.py` set `PYTHONPATH` to its own repo root's 
 lines, and it makes the gate self-consistent in any worktree), or have `bootstrap.sh` refuse to
 run when the `.pth` points somewhere other than the checkout it is bootstrapping. **Neither is
 done here** — it is a change to the gate itself, which is not a lap's call.
+
+## 9d. Which runs were read, and the PR this landed on
+
+**Local.** `python scripts/auto/gates.py --mode full`, foreground, exit code read, not piped
+(CHARTER §3.10): **ALL GREEN, exit 0 — 2382 passed, 65 skipped, 3 xfailed, 0 failed**, and
+`--assert-head OK` on the same head before the push.
+
+**GitHub's own run** (CHARTER §4b, and the lesson of NH-061 that a laptop-green tree can be
+red on the runner): `auto-gates` **run 454**, id `34874743707`,
+<https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/34874743707>, on head
+`99beac6`. `gates` **success** (17:27:14 → 17:35:10 UTC), `finals-acts` **success**,
+`promote` **skipped** — correctly, since the head is not `auto/dev`. The preceding head
+`4e3ac1e` was green the same way on run 451 (`34871360711`).
+
+**⚠ The PR this was meant to land on was closed while this work was in flight, and that is
+HQ's to resolve — this session changed nothing about it.** At 17:11 UTC a parallel session
+closed **#36** and opened **#40** from a new branch `auto/truck-crew-replay-v3`. HQ's
+round-two instruction was the opposite ("push to the same branch so #36 stays the one PR. No
+new PR"), and the two are not the same work:
+
+| | #40 (`auto/truck-crew-replay-v3`, `1269ce0`) | this branch (`auto/truck-crew-replay-v2`, `99beac6`) |
+|---|---|---|
+| base | the older `auto/dev` line (`a13a27b`) | current `auto/dev` `7f2c4bd`; merges clean against `67d7369` |
+| §8, the option (b) finals sentence | **absent** | present, KO + EN, NOT QUOTABLE, every number traced |
+| the spelling WC-022 withdraws | all five lines licensed with pragmas | reworded per HQ's instruction; only the frozen output caption licensed, generator corrected |
+| NH-062's fix and its test | not in its base | present |
+| §9, §9b, §9c | absent | present |
+
+Nothing is lost either way: this branch is pushed and intact at `99beac6`, and `#36`'s
+branch history is untouched on origin. **This session did not reopen #36, close #40, or open
+anything** — which PR carries this is HQ's call, as is what to do with the duplicate branch.
