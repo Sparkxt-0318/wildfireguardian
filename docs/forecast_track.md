@@ -4,6 +4,14 @@
 2026-09-14). **Status:** the rule below is **declared before anything runs**, which is the
 whole point of the page; §4 is empty until a run fills it.
 
+⚠ **Naming follows `docs/auto/briefs/K_SPREAD_STAGE2.md`, by the author's decision of
+2026-09-14.** That brief landed the same day as this page and covers the same field under a
+different scheme; running both would have left two artifacts for one entrant. Stage 2 wins:
+the frozen-weather entrant is **F1**, the KMA-forecast one is **F3**, and Stage 2's **F2**
+(observed 산악기상관측망 wind, a hindcast with the right wind) is a *separate* entrant that
+this page does not build. An earlier draft of this page called them E4a and E4b; those
+names are dead and appear nowhere in the scripts.
+
 ## 1. Why this page exists
 
 `docs/benchmark/results_v0.1.md` §2 measured that `forward_simulate` advances each step
@@ -24,11 +32,18 @@ what the same routes do on it.
 
 ## 2. Rule (declared 2026-09-14, before any run)
 
-Two entrants. Both are **leave-one-complex-out** — 영덕 **and** 의성·안동 both held out of
-training, the same fold `scripts/run_leakfree_yeongdeok_fold.py` fits — on the **canonical
-영덕 canvas**, with the **canonical seed**, the **canonical steps**, and **new npz
-filenames**. The canonical npz and every committed artifact are untouched and
-digest-checked before and after.
+Two entrants on this page. Both **reuse E3's fitted model** — the leave-one-complex-out
+fold (영덕 **and** 의성·안동 both held out) that `scripts/run_leakfree_yeongdeok_fold.py`
+produced — on the **canonical 영덕 canvas**, with the **canonical seed**, the **canonical
+steps**, and **new npz filenames**. The canonical npz and every committed artifact are
+untouched and digest-checked before and after.
+
+⚠ **「Reuse」 is checked, not assumed.** No model is persisted anywhere in this repository,
+so E3's is reproduced from the same training rows and the same seed — and the run then
+**refuses to continue** unless that reproduction matches
+`data/processed/leakfree_yeongdeok_fold.json` on training rows, training positives and
+held-out AUC to full precision. Scoring a second, slightly different model under the name
+F1 would make its leaderboard row a comparison of two things at once.
 
 - **F1 — frozen weather at T0 (no forecast at all).** Every step uses the ERA5 values at
   the **last time at or before T0** and holds them for the whole simulation. This is what
@@ -38,16 +53,16 @@ digest-checked before and after.
   the whole point: `WeatherSeries.at` picks the nearest index, which at a step boundary can
   be a **later** observation. An operator standing at T0 cannot see it, however close it
   is. F1 freezes the value arrays so that no lookup can reach past T0.
-- **F2 — KMA 동네예보 issued before T0.** 초단기 where it covers, else 단기, mapped onto the
+- **F3 — KMA 동네예보 issued before T0.** 초단기 where it covers, else 단기, mapped onto the
   model's weather features (10 m wind → u/v, T, RH → VPD, precipitation). This requires the
   archived forecast files from 기상자료개방포털 under `data/raw/kma_forecast/` with a
-  `MANIFEST.json`. **If that manifest is absent the F2 script refuses to run and says why**;
+  `MANIFEST.json`. **If that manifest is absent the F3 script refuses to run and says why**;
   it does not fall back, and it does not substitute reanalysis for a forecast.
 
 For each field that runs:
 
 1. **Score it on the benchmark** with `scripts/benchmark/score_kspread.py`, as entrant
-   **E4a** (F1) or **E4b** (F2), in the **forecast track** — the track the entrant belongs
+   **F1** or **F3**, in the **forecast track** — the track the entrant belongs
    to because no input is an observation after T0. Protocol §3's separation holds: a
    forecast-track score is never reported beside a hindcast-track one as though they
    were comparable.
@@ -72,7 +87,7 @@ registered in `docs/NUMBERS.json` and nothing here goes on a judge surface.
 
 ## 3. The reading rule, fixed now
 
-**Whatever F1 and F2 say is the result.**
+**Whatever F1 and F3 say is the result.**
 
 - If the forecast-track field **recovers most of the hindcast's routing advantage**, then
   the method's value is shown to **survive forecast error**, and the routing headlines mean
@@ -88,7 +103,7 @@ re-cut or re-bucketed after it is seen, and no threshold below is chosen after t
 assumption — no forecast at all, the weather at ignition held flat for twelve hours — so it
 is a **floor** and not an estimate of what a real forecast buys. A large gap between F1 and
 the hindcast bounds how much of the routing advantage came from knowing the weather; only
-F2, on a real issued forecast, says how much of that a forecaster could have recovered.
+F3, on a real issued forecast, says how much of that a forecaster could have recovered.
 Reporting F1 alone as 「the forecast result」 would be the same error this whole correction
 exists to fix, in the opposite direction.
 
@@ -113,7 +128,7 @@ The session that wrote this page was a **cloud container**, not the author's lap
   `{fire}_dem.tif` for the slope walk network
   (`run_leakfree_yeongdeok_fold.py:165`), and `{leak}_detections.csv` for the overlap count
   (`:103`).
-- `data/raw/kma_forecast/MANIFEST.json` does not exist either, so F2 refuses for the reason
+- `data/raw/kma_forecast/MANIFEST.json` does not exist either, so F3 refuses for the reason
   §2 says it should — which is the behaviour the brief asked for, not a failure.
 
 ⚠ **An empty `data/raw` in a fresh checkout is not evidence that the author has no data**
@@ -124,7 +139,7 @@ support: **this session cannot reach the bundle**, so F1 was written and not run
 Both scripts are committed and are the laptop's to run:
 
     python scripts/run_forecast_track_f1.py          # needs the raw bundle
-    python scripts/run_forecast_track_f2_kma.py      # refuses unless data/raw/kma_forecast/MANIFEST.json exists
+    python scripts/run_forecast_track_f3_kma.py      # refuses unless data/raw/kma_forecast/MANIFEST.json exists
 
 Until §4 is filled by such a run, **this page states no result**, and no surface anywhere in
 the repository may cite one from it.

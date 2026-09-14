@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""F1 — the frozen-weather field (Part B of docs/auto/briefs/HINDCAST_CORRECTION.md).
+"""F1 — the frozen-weather field (K-SPREAD Stage 2; docs/auto/briefs/K_SPREAD_STAGE2.md).
 
 The committed 영덕 field is a HINDCAST: ``forward_simulate`` advances each step with the
 ERA5 reanalysis AT THAT STEP, which is weather that had not happened at T0
@@ -16,6 +16,17 @@ miniature, and the one line where it would come back.
 ⚠ F1 IS A FLOOR AND NOT AN ESTIMATE of what a real forecast buys. It is the worst honest
 assumption. Only F2, on an issued 동네예보, says what a forecaster could have recovered.
 docs/forecast_track.md §3 fixes that reading and it is not renegotiated after the numbers.
+
+⚠ NAMING. docs/auto/briefs/K_SPREAD_STAGE2.md is canonical (author's choice, 2026-09-14):
+this entrant is **F1**, its F2 is the observed mountain-station field, and the KMA forecast
+is **F3** (scripts/run_forecast_track_f3_kma.py). An earlier draft called this E4a.
+
+⚠ NO NEW MODEL IS FITTED. Stage 2 says F1 reuses E3's fitted model rather than training a
+second one. No model is persisted anywhere in this repository, so the only way to obtain
+E3's is to reproduce its fold deterministically — same training set, same seed. This script
+does that and then REFUSES TO CONTINUE unless the reproduction matches the committed
+leak-free artifact on training rows, training positives and held-out AUC to full precision.
+That turns 「reuse」 into a checked claim instead of an assumption.
 
 Rule declared before the run: docs/forecast_track.md §2. Laptop only (raw bundle).
 Every output is a NEW filename; the canonical and leak-free npz are digest-checked.
@@ -43,7 +54,8 @@ FIRE, LEAK = "yeongdeok_2025", "uiseong_andong_2025"
 OUTDIR = REPO / "data/processed/forecast_track"
 OUT_NPZ = OUTDIR / "routing_demo_f1_frozen_t0.npz"
 OUT = OUTDIR / "forecast_track_f1.json"
-ENTRANT_DIR = REPO / "data/processed/benchmark/entrants/e4a_wfg_frozen_t0"
+ENTRANT_DIR = REPO / "data/processed/benchmark/entrants/f1_wfg_frozen_t0"
+LEAKFREE_JSON = REPO / "data/processed/leakfree_yeongdeok_fold.json"
 DOC = REPO / "docs/forecast_track.md"
 
 #: Checked BEFORE any heavy import or fit, so a machine without the bundle is told in one
@@ -167,12 +179,31 @@ def main() -> int:
         print(f"STOP: dataset {n_rows}/{n_pos} != canonical {canon_doc['dataset']}", file=sys.stderr)
         return 2
 
-    print("[2/7] fitting leave-one-complex-out (영덕 and 의성·안동 both held out) ...", flush=True)
+    print("[2/7] reproducing E3's fold (no new model) ...", flush=True)
     seed = int(prm["seed"])
-    m_free = IgnitionModelV2(seed=seed).fit(ds[~ds["fire_id"].isin([FIRE, LEAK])])
+    train = ds[~ds["fire_id"].isin([FIRE, LEAK])]
+    m_free = IgnitionModelV2(seed=seed).fit(train)
     test = ds[ds["fire_id"] == FIRE]
     auc_held_out = _safe_auc(test["label"].to_numpy(), m_free.predict_proba(test))
-    print(f"      held-out 영덕 AUC (same fit as the leak-free row): {auc_held_out:.4f}", flush=True)
+
+    # Stage 2: 「F1/F2 reuse E3's fitted model; no refit」. Nothing persists that model, so it
+    # is reproduced from the same rows and seed and then CHECKED against the committed
+    # leak-free artifact. A mismatch means this is a DIFFERENT model and F1 would not be the
+    # entrant Stage 2 asked for -- so it stops rather than quietly scoring a second model.
+    e3 = json.loads(LEAKFREE_JSON.read_text(encoding="utf-8"))["held_out_yeongdeok_auc"]
+    got = {"rows": int(len(train)), "positives": int(train["label"].sum()), "auc": auc_held_out}
+    want = {"rows": int(e3["training_rows"]["leakfree"]),
+            "positives": int(e3["training_positives"]["leakfree"]),
+            "auc": float(e3["leakfree_fold"])}
+    if got["rows"] != want["rows"] or got["positives"] != want["positives"] \
+       or abs(got["auc"] - want["auc"]) > 1e-12:
+        print(f"STOP: this is not E3's model.\n  reproduced {got}\n  committed  {want}\n"
+              f"  ({LEAKFREE_JSON.relative_to(REPO)}). Stage 2 requires F1 to reuse E3's fit;\n"
+              "  scoring a different model under the name F1 would make the leaderboard row a\n"
+              "  comparison of two things at once.", file=sys.stderr)
+        return 2
+    print(f"      reproduced E3 exactly: {got['rows']:,} rows / {got['positives']:,} positives, "
+          f"held-out 영덕 AUC {auc_held_out:.16f} == committed {want['auc']:.16f}", flush=True)
 
     print("[3/7] freezing the weather at T0 and simulating ...", flush=True)
     ev = data.load_event(FIRE)
@@ -237,8 +268,8 @@ def main() -> int:
         "generated_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO,
                                      capture_output=True, text=True).stdout.strip(),
-        "config_hash": config_hash(), "rule_doc": "docs/forecast_track.md §2 (pre-registered)",
-        "entrant": "E4a", "track": "forecast",
+        "config_hash": config_hash(), "rule_doc": "docs/forecast_track.md §2 (pre-registered); naming per docs/auto/briefs/K_SPREAD_STAGE2.md",
+        "entrant": "F1", "track": "forecast",
         "dataset": {"n_rows": n_rows, "n_positives": n_pos},
         "field": field,
     }
@@ -250,8 +281,8 @@ def main() -> int:
     np.savez_compressed(ev_npz, grid_extent=zc["grid_extent"], haz_times=hz_f1.times_min,
                         haz_stack=stack)
     (ENTRANT_DIR / "entrant.json").write_text(json.dumps({
-        "id": "e4a_wfg_frozen_t0", "protocol_entrant": "E4a",
-        "name": "E4a WFG frozen weather at T0 (leave-one-complex-out)",
+        "id": "f1_wfg_frozen_t0", "protocol_entrant": "F1",
+        "name": "F1 WFG frozen weather at T0 (E3's fold, reproduced and checked)",
         "protocol_version": "v0.1", "track": "forecast", "resolution_m": float(cell),
         "inputs_used": ["FIRMS cumulative detections at T0", "SRTM/5 m DEM", "land cover",
                         "ERA5 at the last time AT OR BEFORE T0, held flat for every step"],
@@ -260,8 +291,9 @@ def main() -> int:
                         "⚠ This is the WORST honest assumption (no forecast at all), so it is a "
                         "FLOOR on what a forecast-driven field would score, not an estimate of "
                         "one — docs/forecast_track.md §3.",
-        "what_it_is": "the committed spread_v2 GBM at 500 m, fitted with 영덕 and 의성·안동 both "
-                      "held out, driven by frozen T0 weather",
+        "what_it_is": "E3's own fitted model (reproduced from the same rows and seed, and "
+                      "checked against data/processed/leakfree_yeongdeok_fold.json), driven by "
+                      "frozen T0 weather instead of post-T0 reanalysis",
         "provenance": {"source": str(OUT_NPZ.relative_to(REPO)), "array": "haz_stack",
                        "source_sha256": sha(OUT_NPZ),
                        "fold_artifact": str(OUT.relative_to(REPO)),
@@ -412,7 +444,7 @@ def main() -> int:
     result["seconds"] = round(time.monotonic() - t_start, 1)
     OUT.write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"\nwrote {OUT.relative_to(REPO)} and {OUT_NPZ.relative_to(REPO)} in {result['seconds']:.0f} s")
-    print(f"Now fill {DOC.relative_to(REPO)} §4 from this artifact, and score E4a on the benchmark.")
+    print(f"Now fill {DOC.relative_to(REPO)} §4 from this artifact, and score F1 on the benchmark.")
     return 0
 
 

@@ -131,8 +131,8 @@ either outcome (§3), and its **§4 Results is empty by construction**.
 | The rule, declared first | **done** — §2, both entrants, pre-registered |
 | The reading rule | **done** — §3, fixed before any number exists |
 | F1 script | **written**, not run |
-| F2 script | **written**, and it correctly **refuses** — all four refusal paths exercised |
-| E4a benchmark score, 458-origin routing, 주건물 routing, observed grading, 5-hour counts, NH-057 split, figures | **NOT RUN — no number exists** |
+| F3 script (the KMA one) | **written**, and it correctly **refuses** — all four refusal paths exercised |
+| F1 benchmark score, 458-origin routing, 주건물 routing, observed grading, 5-hour counts, NH-057 split, figures | **NOT RUN — no number exists** |
 
 ### 3a. Why nothing ran, stated as narrowly as the evidence allows
 
@@ -153,11 +153,31 @@ container never sees.
 **No number was estimated, interpolated or carried over from the canonical or leak-free
 rows.** The brief's reading rule is fixed and there was nothing to read.
 
+### 3a-2. The naming collision, and how the author settled it
+
+`docs/auto/briefs/K_SPREAD_STAGE2.md` landed from another lap **the same day**, covering the
+same forecast-track field under a different scheme. Left alone that would have produced two
+artifacts for one entrant, three weeks before the finals. The author chose **Stage 2's
+naming** on 2026-09-14, and this lap applied it:
+
+| this page's earlier draft | now, per Stage 2 |
+|---|---|
+| `E4a` frozen weather, **refitting** leave-one-complex-out | **`F1`**, reusing **E3's** fold |
+| `E4b` / `F2` KMA forecast | **`F3`** (`scripts/run_forecast_track_f3_kma.py`) |
+| — | Stage 2's **`F2`** is the observed mountain-station field, a *different* entrant this page does not build |
+
+⚠ **The refit became a checked reuse rather than a rename.** Stage 2 says 「F1/F2 reuse E3's
+fitted model; no refit」, and nothing in this repository persists that model. So F1 now
+reproduces E3's fold from the same rows and the same seed and **refuses to continue** unless
+it matches `data/processed/leakfree_yeongdeok_fold.json` on training rows (48,419), training
+positives (718) and held-out AUC (0.8690953632436077) to full precision. A silent
+near-miss would have made F1's leaderboard row a comparison of two things at once.
+
 ### 3b. What the laptop runs
 
     python scripts/run_forecast_track_f1.py
-    python scripts/benchmark/score_kspread.py --entrant data/processed/benchmark/entrants/e4a_wfg_frozen_t0
-    python scripts/run_forecast_track_f2_kma.py     # once the KMA archive is under data/raw/kma_forecast/
+    python scripts/benchmark/score_kspread.py --entrant data/processed/benchmark/entrants/f1_wfg_frozen_t0
+    python scripts/run_forecast_track_f3_kma.py     # once the KMA archive is under data/raw/kma_forecast/
 
 F1 refuses in about a second with a per-file list if the bundle is absent, persists each
 stage as it finishes, and runs the NH-057 split **last on purpose** so a failure there
