@@ -26,7 +26,7 @@ of which **8 carry 영덕 in their name** (대봉산, 독경산, 등운산, 명�
 | pull | window (KST) | step | calls | rows | gaps |
 |---|---|---|---:|---:|---|
 | hourly, fire period | 2025-03-22 00:00 – 03-28 23:00 | 60 min | 168 | 15,792 | 0 empty timestamps; 14.2 % of rows carry no wind value (station reported `-`, kept not dropped) |
-| minute, the 영덕 night | 2025-03-25 16:00 – 03-26 03:59 | 1 min | 720 | (see manifest) | — |
+| minute, the 영덕 night | 2025-03-25 16:00 – 03-26 03:59 | 1 min | 720 | 67,680 | 0 empty timestamps; 16.9 % of rows carry no wind value |
 
 Fields per station per timestamp: `ws10m`/`wd10m` (10 m wind speed and direction, plus a
 16-point string), `ws2m`/`wd2m`, `tm10m`/`tm2m` (temperature), `hm10m`/`hm2m` (humidity),
@@ -47,6 +47,25 @@ Strongest hourly 10 m winds in 경상북도, 2025-03-22 to 03-28, from the pull 
 The 03-25 21:00 readings sit in the hours the fire ran from 청송 to the 영덕 coast, and the
 direction is westerly, i.e. offshore, down the slope toward the coastal villages. The
 strongest 영덕-named station reading in the window is 13.6 m/s (명동산, 03-22 21:00).
+
+### At minute resolution, the event the national system missed is in the data
+
+The 720-call, 1-minute pull over the night the fire reached the coast:
+
+| time (KST) | 10 m wind | dir | station |
+|---|---:|---|---|
+| 2025-03-25 21:11 | **25.1 m/s** | W | 울진 가재미재 |
+| 2025-03-25 20:46 | 24.1 m/s | WSW | 울진 아구산 |
+| 2025-03-25 21:17 | 23.9 m/s | W | 울진 아구산 |
+| 2025-03-25 22:08 | **19.4 m/s** | W | 영덕 독경산 |
+
+The agency's own account of why its spread prediction fell behind is that a gust of about
+27 m/s was not anticipated. This network **observed 25.1 m/s at 21:11 that night**, and
+19.4 m/s at a station inside 영덕 an hour later, both westerly. The hourly aggregate of the
+same network tops out at 18.8 m/s for the same night, and a 25 km hourly reanalysis mean
+cannot resolve either. That gap — between what was observed at minute resolution on a public
+free network and what the model was fed — is the specific, checkable opening this project has
+on the environmental-input side.
 
 ⚠ **These are 10 m mean winds at the reporting minute, not 최대순간풍속.** This network does
 not publish a separate gust field, so the 27 m/s the agency quoted is not reproduced here and
