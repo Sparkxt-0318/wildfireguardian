@@ -1,0 +1,478 @@
+<title>산불지킴이 — Resident App Demo</title>
+<style>
+  /* ── Stage tokens (theme-aware). Phone UI is deliberately light-only: the
+     product's own high-contrast choice for elderly eyes. ─────────────── */
+  :root{
+    --stage-bg:#F5F7F4; --stage-ink:#1F2A22; --stage-ink-2:#54655A;
+    --stage-line:#D9E1D8; --stage-card:#FFFFFF; --stage-accent:#1B7F4B;
+    --stage-accent-ink:#FFFFFF; --chart-series:#C2410C; --chart-grid:#E4EAE3;
+    --shadow:0 18px 50px rgba(24,44,32,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --stage-bg:#0F1712; --stage-ink:#E7EFE9; --stage-ink-2:#9FB3A6;
+      --stage-line:#26332B; --stage-card:#17211B; --stage-accent:#4CC38A;
+      --stage-accent-ink:#08130C; --chart-series:#F0763B; --chart-grid:#233029;
+      --shadow:0 18px 50px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --stage-bg:#0F1712; --stage-ink:#E7EFE9; --stage-ink-2:#9FB3A6;
+    --stage-line:#26332B; --stage-card:#17211B; --stage-accent:#4CC38A;
+    --stage-accent-ink:#08130C; --chart-series:#F0763B; --chart-grid:#233029;
+    --shadow:0 18px 50px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--stage-bg); color:var(--stage-ink);
+    font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--stage-accent);font-weight:700}
+  h1{font-size:clamp(26px,4vw,38px);margin:.35em 0 .2em;text-wrap:balance;letter-spacing:-.01em}
+  .lede{max-width:62ch;color:var(--stage-ink-2);margin:0 0 8px;font-size:16px}
+  .lede b{color:var(--stage-ink)}
+  .demo-note{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:6px 12px;border:1.5px dashed var(--stage-accent);border-radius:999px;font-size:13px;font-weight:700;color:var(--stage-accent)}
+  .layout{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;margin-top:30px}
+  .stagecol{flex:1 1 420px;min-width:320px;display:flex;flex-direction:column;gap:22px}
+
+  /* ── Controls ── */
+  .panel{background:var(--stage-card);border:1px solid var(--stage-line);border-radius:14px;padding:18px 20px}
+  .panel h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--stage-ink-2);margin:0 0 12px;font-weight:700}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{border:1.5px solid var(--stage-line);background:transparent;color:var(--stage-ink);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+  .chip[aria-pressed="true"]{background:var(--stage-accent);border-color:var(--stage-accent);color:var(--stage-accent-ink)}
+  .chip:focus-visible,.tbtn:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--stage-accent);outline-offset:2px}
+  .timerow{display:flex;align-items:center;gap:14px;margin-top:14px}
+  .playbtn{width:46px;height:46px;border-radius:50%;border:none;background:var(--stage-accent);color:var(--stage-accent-ink);font-size:18px;cursor:pointer;flex:none}
+  input[type=range]{flex:1;accent-color:var(--stage-accent);height:32px}
+  .tstamp{font-variant-numeric:tabular-nums;font-weight:700;min-width:86px;text-align:right;font-size:15px}
+  .langrow{display:flex;gap:8px;margin-top:2px}
+
+  /* ── Chart ── */
+  .chart-wrap{position:relative}
+  .chart-title{font-size:14px;font-weight:700;margin:0 0 2px}
+  .chart-sub{font-size:12.5px;color:var(--stage-ink-2);margin:0 0 10px}
+  .tooltip{position:absolute;pointer-events:none;background:var(--stage-ink);color:var(--stage-bg);font-size:12.5px;padding:5px 9px;border-radius:7px;transform:translate(-50%,-130%);white-space:nowrap;opacity:0;font-variant-numeric:tabular-nums}
+  .kv{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .kv .cell{border:1px solid var(--stage-line);border-radius:10px;padding:10px 12px}
+  .kv .lbl{font-size:12px;color:var(--stage-ink-2);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+  .kv .val{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+
+  /* ── Phone frame ── */
+  .phonecol{flex:0 0 auto;margin:0 auto}
+  .phone{
+    width:392px;max-width:94vw;height:772px;border-radius:44px;overflow:hidden;position:relative;
+    background:#FFFFFF;border:10px solid #10231A;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;color:#20251F;
+  }
+  /* Everything inside .phone is the product's fixed light theme */
+  .p-demo{background:#374151;color:#fff;font-size:13.5px;font-weight:700;text-align:center;padding:5px 8px;letter-spacing:.05em;flex:none}
+  .screen{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;background:#FAFAF7}
+  .tabbar{flex:none;display:flex;border-top:1.5px solid #E2E4DE;background:#FFFFFF}
+  .tbtn{flex:1;min-height:66px;border:none;background:none;font-family:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:16px;font-weight:700;color:#6B7280}
+  .tbtn[aria-selected="true"]{color:#155E3B}
+  .tbtn svg{width:26px;height:26px}
+
+  /* Home */
+  .status{padding:26px 22px 22px;color:#fff}
+  .status .lv{display:flex;align-items:center;gap:14px}
+  .status .lv svg{width:46px;height:46px;flex:none}
+  .status .word{font-size:42px;font-weight:900;letter-spacing:.02em;line-height:1.05}
+  .status .sub{font-size:19px;font-weight:700;opacity:.95;margin-top:2px}
+  .status .reason{font-size:21px;margin-top:14px;line-height:1.45}
+  .status .eta{margin-top:12px;background:rgba(255,255,255,.16);border-radius:12px;padding:10px 14px;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  .lv-safe{background:#1B7F4B}.lv-watch{background:#B45309}.lv-go{background:#B91C1C}
+  .bigbtn{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px 18px 6px;min-height:76px;border-radius:18px;border:none;font-family:inherit;font-size:24px;font-weight:900;cursor:pointer;width:calc(100% - 36px)}
+  .bigbtn.safe{background:#E7F2EB;color:#14532D;border:2px solid #1B7F4B}
+  .bigbtn.watch{background:#FEF3E2;color:#7C3A06;border:2px solid #B45309}
+  .bigbtn.go{background:#B91C1C;color:#fff}
+  .cards{padding:12px 18px 24px;display:flex;flex-direction:column;gap:12px}
+  .card{background:#FFFFFF;border:1.5px solid #E2E4DE;border-radius:16px;padding:16px;display:flex;gap:14px;align-items:flex-start}
+  .card.route-card{border-color:#B91C1C;background:#FEF1F1}
+  .card .ic{flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .card .ic svg{width:28px;height:28px}
+  .card h3{margin:0 0 4px;font-size:21px;font-weight:800}
+  .card p{margin:0;font-size:19px;line-height:1.5;color:#3F463E}
+  .card .speak{margin-left:auto;flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid #C6CCC2;background:#fff;cursor:pointer;font-size:18px}
+  .readall{margin:0 18px;display:flex;align-items:center;gap:10px;min-height:56px;border-radius:14px;border:1.5px solid #C6CCC2;background:#fff;font-family:inherit;font-size:19px;font-weight:700;color:#20251F;cursor:pointer;justify-content:center;width:calc(100% - 36px)}
+
+  /* Map screen */
+  .mapwrap{position:relative;height:100%}
+  .mapsvg{display:block;width:100%;height:100%}
+  .maplegend{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.94);border:1.5px solid #E2E4DE;border-radius:12px;padding:10px 12px;font-size:14.5px;font-weight:700;display:flex;flex-direction:column;gap:5px}
+  .maplegend .row{display:flex;align-items:center;gap:8px}
+  .sw{width:16px;height:16px;border-radius:4px;flex:none}
+  .windbox{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.94);border:1.5px solid #E2E4DE;border-radius:12px;padding:8px 10px;text-align:center;font-size:13.5px;font-weight:800}
+  .fire-pulse{animation:firepulse 1.6s ease-out infinite}
+  @keyframes firepulse{0%{r:7;opacity:.9}100%{r:22;opacity:0}}
+  .pathdash{stroke-dasharray:10 12;animation:dashmove 1.2s linear infinite}
+  @keyframes dashmove{to{stroke-dashoffset:-22}}
+  @media (prefers-reduced-motion: reduce){
+    .fire-pulse,.pathdash{animation:none}
+  }
+
+  /* Guide screen */
+  .guide-head{padding:18px 18px 4px}
+  .guide-head h2{margin:0;font-size:24px}
+  .guide-head p{margin:4px 0 0;font-size:17px;color:#57604F}
+
+  footer{margin-top:46px;color:var(--stage-ink-2);font-size:13.5px;max-width:70ch}
+  footer code{background:var(--stage-card);border:1px solid var(--stage-line);border-radius:6px;padding:1px 6px;font-size:12.5px}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">WildfireGuardian · Resident App</div>
+  <h1>산불지킴이 — 살아있는 시연 <span style="font-weight:400;color:var(--stage-ink-2)">/ interactive demo</span></h1>
+  <p class="lede">This is the resident-facing app from <b>docs/app/ARCHITECTURE.md</b>, running as a scripted prototype: the same three-level triage rules (<b>SAFE → WATCH → GO</b>), the same design tokens, the same card engine — driven by the bundled synthetic Yeongdeok-style scenario. Drag time forward and watch what an elderly resident would actually see.</p>
+  <div class="demo-note">연습 모드 · Synthetic scenario — not a real fire</div>
+
+  <div class="layout">
+    <div class="phonecol">
+      <div class="phone" id="phone">
+        <div class="p-demo" id="demobanner">연습 모드 · DEMO — 실제 산불이 아닙니다</div>
+        <div class="screen" id="screen"></div>
+        <nav class="tabbar" id="tabbar" role="tablist"></nav>
+      </div>
+    </div>
+
+    <div class="stagecol">
+      <div class="panel">
+        <h2 id="ctl-title">Scenario time · 시나리오 시간</h2>
+        <div class="chips" id="jumpchips"></div>
+        <div class="timerow">
+          <button class="playbtn" id="playbtn" aria-label="Play scenario">▶</button>
+          <input type="range" id="scrub" min="0" max="300" step="1" value="10" aria-label="Scenario time in minutes">
+          <div class="tstamp" id="tstamp">t = 10분</div>
+        </div>
+        <div class="langrow chips">
+          <button class="chip" id="lang-ko" aria-pressed="true">한국어</button>
+          <button class="chip" id="lang-en" aria-pressed="false">English</button>
+        </div>
+      </div>
+
+      <div class="panel chart-wrap">
+        <p class="chart-title" id="chart-title">위성 감지 열점 수 · Satellite hotspot detections</p>
+        <p class="chart-sub" id="chart-sub">Scenario minutes 0–300 · the marker is the current time</p>
+        <svg id="chart" width="100%" height="150" viewBox="0 0 460 150" role="img" aria-label="Detections over scenario time"></svg>
+        <div class="tooltip" id="chart-tip"></div>
+        <div class="kv">
+          <div class="cell"><div class="lbl" data-i18n="kv_dist">불까지 거리</div><div class="val" id="kv-dist">—</div></div>
+          <div class="cell"><div class="lbl" data-i18n="kv_eta">예상 도달</div><div class="val" id="kv-eta">—</div></div>
+          <div class="cell"><div class="lbl" data-i18n="kv_wind">바람</div><div class="val" id="kv-wind">—</div></div>
+          <div class="cell"><div class="lbl" data-i18n="kv_det">감지 열점</div><div class="val" id="kv-det">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    The production app lives in <code>app/frontend</code> (React + Leaflet PWA) and <code>app/backend</code> (FastAPI gateway) on branch <code>claude/wildfire-detection-app-e9k2au</code>; the backend serves this same scenario through <code>GET /v1/situation</code>. In the real app the map is OpenStreetMap tiles, alerts stream over SSE, and every card is read aloud by the phone's Korean voice — the 🔊 buttons here use your browser's speech engine too.
+  </footer>
+</div>
+
+<script>
+'use strict';
+/* ─────────────────────────────────────────────────────────────────────────
+   Scenario model — the same geometry the backend demo provider uses:
+   10 km × 10 km local frame drawn in a 1000×1000 SVG viewBox. North is up.
+   Fire ignites at t=30 SW of the village and runs NE at ~0.92 km/h.
+   ──────────────────────────────────────────────────────────────────────── */
+const USER   = {x:620, y:360};                    // resident's home
+const ORIGIN = {x:300, y:620};                    // ignition point
+const SHELTER_S = {x:700, y:520, ko:'솔티마을회관', en:'Solti Village Hall'};
+const SHELTER_N = {x:760, y:240, ko:'해안보건지소', en:'Coast Health Post'};
+const DIRV = (()=>{ const dx=USER.x-ORIGIN.x, dy=USER.y-ORIGIN.y, n=Math.hypot(dx,dy); return {x:dx/n, y:dy/n}; })();
+const PX_PER_MIN = 1.526;                          // ≈0.92 km/h front speed
+const IGNITE_T = 30, T_MAX = 300;
+const WIND = {speed:8.5, from:'SW'};               // south-westerly, steady
+
+function seededRand(i){ const s=Math.sin(i*127.1+311.7)*43758.5453; return s-Math.floor(s); }
+function frontAt(t){ const d=Math.max(0,t-IGNITE_T)*PX_PER_MIN; return {x:ORIGIN.x+DIRV.x*d, y:ORIGIN.y+DIRV.y*d, d}; }
+function detCount(t){ return t<IGNITE_T?0:Math.min(44, 1+Math.floor((t-IGNITE_T)/7)); }
+function detections(t){
+  const f=frontAt(t), out=[]; const n=detCount(t);
+  for(let i=0;i<n;i++){
+    const back=seededRand(i)*f.d;                  // behind the front, along the run
+    const spread=(seededRand(i+50)-0.5)*(60+back*0.25);
+    out.push({x:ORIGIN.x+DIRV.x*back-DIRV.y*spread, y:ORIGIN.y+DIRV.y*back+DIRV.x*spread,
+              r:3.5+seededRand(i+99)*3});
+  }
+  return out;
+}
+function situation(t){
+  const f=frontAt(t);
+  const distKm=Math.hypot(USER.x-f.x, USER.y-f.y)/100;
+  const active=t>=IGNITE_T;
+  const etaMin=active?Math.round(distKm/0.92*60):null;
+  const toUser={x:USER.x-f.x,y:USER.y-f.y}; const nrm=Math.hypot(toUser.x,toUser.y)||1;
+  const windToward=active && (DIRV.x*toUser.x/nrm + DIRV.y*toUser.y/nrm) > 0.5;
+  let level='SAFE';
+  if(active){ level = (etaMin<=180 || (distKm<5 && windToward)) ? 'GO' : 'WATCH'; }
+  // bearing of the fire as seen from the house
+  const bAng=Math.atan2(-(f.y-USER.y),(f.x-USER.x))*180/Math.PI; // 0=E, CCW
+  const dirs=[['동',,'east',0],['북동','northeast',45],['북','north',90],['북서','northwest',135],['서','west',180],['남서','southwest',-135],['남','south',-90],['남동','southeast',-45]];
+  let bko='남서쪽',ben='southwest',best=1e9;
+  for(const d of [['동','east',0],['북동','northeast',45],['북','north',90],['북서','northwest',135],['서','west',180],['남서','southwest',-135],['남','south',-90],['남동','southeast',-45]]){
+    let diff=Math.abs(((bAng-d[2]+540)%360)-180); if(diff<best){best=diff;bko=d[0]+'쪽';ben=d[1];}
+  }
+  return {t,active,level,distKm,etaMin,windToward,front:f,bearing_ko:bko,bearing_en:ben,det:detCount(t)};
+}
+
+/* ── i18n ─────────────────────────────────────────────────────────────── */
+const STR={
+  ko:{
+    safe:'안전', watch:'주의', go:'대피', safe_sub:'지금은 안전합니다', watch_sub:'준비하세요', go_sub:'지금 대피하세요',
+    reason_safe:'현재 우리 동네 부근에서 감지된 산불이 없습니다.',
+    reason_watch:(s)=>`${s.bearing_ko} ${s.distKm.toFixed(1)} km에서 산불이 감지되었습니다. 바람이 우리 쪽으로 불고 있습니다.`,
+    reason_go:(s)=>`불이 ${s.bearing_ko} ${s.distKm.toFixed(1)} km까지 다가왔습니다. 지금 대피하세요.`,
+    eta:(m)=>`예상 도달까지 약 ${Math.floor(m/60)}시간 ${m%60}분`,
+    btn_safe:'우리 동네 지도 보기', btn_watch:'산불 위치 보기', btn_go:'대피 경로 보기',
+    readall:'🔊 화면 전체 읽어주기',
+    tabs:['홈','지도','안내'],
+    kv_dist:'불까지 거리', kv_eta:'예상 도달', kv_wind:'바람', kv_det:'감지 열점',
+    wind_v:(w)=>`남서풍 ${w} m/s`, none:'없음', map_you:'우리 집', map_shelter:'대피소', map_fire:'산불',
+    lg_fire:'산불 감지', lg_spread:'예측 확산 (1·3·6시간)', lg_path:'예상 진행 방향', lg_route:'대피 경로',
+    guide_t:'지금 할 일', guide_p:'중요한 것부터 순서대로 보여드립니다.',
+    cards:{
+      today:['오늘의 산불 위험','오늘은 감지된 산불이 없습니다. 날씨가 매우 건조하니 논밭두렁 태우기 등 불씨 취급은 하지 마세요.'],
+      knowShelter:['우리 대피소 알아두기','가장 가까운 대피소는 솔티마을회관입니다. 집에서 걸어서 약 14분입니다.'],
+      contacts:['비상 연락 확인','가족 전화번호와 119를 바로 걸 수 있는지 확인해 두세요.'],
+      kit:['비상 가방 준비','약, 물, 손전등, 보청기 배터리를 한 가방에 모아 두세요.'],
+      fireloc:(s)=>['산불 위치',`${s.bearing_ko} ${s.distKm.toFixed(1)} km 산에서 산불이 타고 있습니다. 열점 ${s.det}곳이 감지되었습니다.`],
+      wind:['바람 주의','남서풍이 초속 8미터로 불고 있습니다. 불이 우리 쪽으로 빨라질 수 있습니다.'],
+      prep:['떠날 준비','겉옷, 약, 신분증을 문 앞에 두세요. 이웃 어르신께도 알려 주세요.'],
+      family:['가족에게 알리기','자녀에게 지금 전화해서 상황을 알려 두세요.'],
+      charge:['휴대폰 충전','휴대폰을 지금 충전해 두세요.'],
+      route:['지금 대피하세요','솔티마을회관으로 지금 출발하세요. 남쪽 길을 따라 걸어서 약 14분입니다.'],
+      shelter:['대피소','솔티마을회관 · 남쪽으로 700 m. 문이 열려 있습니다.'],
+      call119:['119 신고','거동이 어렵거나 도움이 필요하면 지금 119를 누르세요.'],
+      donts:['하지 마세요','연기 속으로 운전하지 마세요. 물건을 가지러 집에 돌아가지 마세요.']
+    }
+  },
+  en:{
+    safe:'SAFE', watch:'CAUTION', go:'EVACUATE', safe_sub:'You are safe right now', watch_sub:'Get ready', go_sub:'Leave now',
+    reason_safe:'No wildfire is currently detected near your village.',
+    reason_watch:(s)=>`A wildfire was detected ${s.distKm.toFixed(1)} km to the ${s.bearing_en}. The wind is blowing toward you.`,
+    reason_go:(s)=>`The fire is now ${s.distKm.toFixed(1)} km to the ${s.bearing_en}. Evacuate now.`,
+    eta:(m)=>`Estimated arrival in about ${Math.floor(m/60)} h ${m%60} min`,
+    btn_safe:'View my village map', btn_watch:'See the fire location', btn_go:'See evacuation route',
+    readall:'🔊 Read this screen aloud',
+    tabs:['Home','Map','Guide'],
+    kv_dist:'Distance to fire', kv_eta:'Est. arrival', kv_wind:'Wind', kv_det:'Hotspots',
+    wind_v:(w)=>`SW ${w} m/s`, none:'None', map_you:'My home', map_shelter:'Shelter', map_fire:'Fire',
+    lg_fire:'Fire detections', lg_spread:'Predicted spread (1·3·6 h)', lg_path:'Likely direction', lg_route:'Evacuation route',
+    guide_t:'What to do now', guide_p:'Shown in order of importance.',
+    cards:{
+      today:['Today’s fire risk','No wildfire detected today. It is very dry — please do not burn field edges or trash.'],
+      knowShelter:['Know your shelter','Your nearest shelter is Solti Village Hall — about a 14-minute walk from home.'],
+      contacts:['Check emergency contacts','Make sure you can quickly call your family and 119.'],
+      kit:['Prepare a go-bag','Keep medicine, water, a flashlight and hearing-aid batteries in one bag.'],
+      fireloc:(s)=>['Fire location',`A wildfire is burning ${s.distKm.toFixed(1)} km to the ${s.bearing_en}. ${s.det} hotspots detected.`],
+      wind:['Wind warning','A south-west wind of 8 m/s is blowing. The fire may speed up toward you.'],
+      prep:['Get ready to leave','Put a coat, medicine and ID by the door. Tell your elderly neighbours too.'],
+      family:['Tell your family','Call your children now and let them know the situation.'],
+      charge:['Charge your phone','Charge your phone right now.'],
+      route:['Evacuate now','Leave for Solti Village Hall now. Follow the south road — about a 14-minute walk.'],
+      shelter:['Shelter','Solti Village Hall · 700 m south. The doors are open.'],
+      call119:['Call 119','If you cannot walk or need help, press 119 now.'],
+      donts:['Do not','Do not drive into smoke. Do not go back for belongings.']
+    }
+  }
+};
+
+/* icons: simple, bold, drawn inline */
+const IC={
+  flame:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2c1 4-4 5.5-4 10a4 4 0 0 0 8 0c0-2-1-3-1-3s3 1 3 4.5A6.5 6.5 0 0 1 5.5 13C5.5 7 12 6 12 2z" fill="currentColor"/></svg>',
+  wind:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 8h9a3 3 0 1 0-3-3M3 13h13a3 3 0 1 1-3 3M3 18h6"/></svg>',
+  route:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-6a4 4 0 0 1 4-4h5"/><path d="M12 6l4 4-4 4" transform="translate(3,0)"/><circle cx="6" cy="21" r="1.6" fill="currentColor"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1.4 1.4 0 0 1 1.5-.33c1 .34 2.1.52 3.1.52.8 0 1.4.63 1.4 1.4v3.1c0 .77-.62 1.4-1.4 1.4C10.4 21.3 2.7 13.6 2.7 4.1 2.7 3.3 3.3 2.7 4.1 2.7h3.1c.77 0 1.4.63 1.4 1.4 0 1.1.18 2.1.52 3.1.15.5.03 1.06-.36 1.5l-2.16 2.1z"/></svg>',
+  shelter:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z"/><path d="M9 21v-6h6v6"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 6l.02 7h-2L10 8h2zm-1 9h2v2h-2v-2z" transform="translate(1,0)"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-linecap="round"/></svg>',
+  walk:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="13" cy="4.5" r="2"/><path d="M9 21l2.2-6L9 13v-4l3-2 2.5 2 2.8 1.4-.8 1.7-2.4-1.2-1 2.4 2.4 2.6L17 21h-2.1l-1.4-4-2 2-1 2H9z"/></svg>'
+};
+const ICBG={flame:'#FDE8E0;#B3400F', wind:'#E5EEF7;#1D4ED8', route:'#FDE8E8;#B91C1C', phone:'#E7F2EB;#14532D', shelter:'#E7F2EB;#14532D', clock:'#F1EDE2;#7A5B0F', check:'#E7F2EB;#14532D', warn:'#FEF3E2;#92400E', shield:'#E7F2EB;#14532D', walk:'#FDE8E8;#B91C1C'};
+
+/* ── state ── */
+let state={t:10, lang:'ko', tab:0, playing:false};
+const $=(id)=>document.getElementById(id);
+
+function cardsFor(s,L){
+  const C=L.cards;
+  if(s.level==='SAFE') return [
+    {icon:'flame',c:C.today},{icon:'shelter',c:C.knowShelter},{icon:'phone',c:C.contacts},{icon:'check',c:C.kit}];
+  if(s.level==='WATCH') return [
+    {icon:'flame',c:C.fireloc(s)},{icon:'wind',c:C.wind},{icon:'check',c:C.prep},{icon:'phone',c:C.family},{icon:'clock',c:C.charge}];
+  return [
+    {icon:'route',c:C.route,route:true},{icon:'shelter',c:C.shelter},{icon:'phone',c:C.call119,tel:true},{icon:'warn',c:C.donts}];
+}
+
+/* ── TTS ── */
+function speak(text){
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang = state.lang==='ko' ? 'ko-KR' : 'en-US';
+    u.rate=0.92; speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ── renderers ── */
+function levelIcon(lv){ return lv==='SAFE'?IC.shield: lv==='WATCH'?IC.warn:IC.walk; }
+
+function renderHome(s,L){
+  const cls=s.level==='SAFE'?'lv-safe':s.level==='WATCH'?'lv-watch':'lv-go';
+  const word=s.level==='SAFE'?L.safe:s.level==='WATCH'?L.watch:L.go;
+  const sub=s.level==='SAFE'?L.safe_sub:s.level==='WATCH'?L.watch_sub:L.go_sub;
+  const reason=s.level==='SAFE'?L.reason_safe:(s.level==='WATCH'?L.reason_watch(s):L.reason_go(s));
+  const eta=(s.level!=='SAFE'&&s.etaMin!=null)?`<div class="eta">⏱ ${L.eta(s.etaMin)}</div>`:'';
+  const btncls=s.level==='SAFE'?'safe':s.level==='WATCH'?'watch':'go';
+  const btntxt=s.level==='SAFE'?L.btn_safe:s.level==='WATCH'?L.btn_watch:L.btn_go;
+  const cards=cardsFor(s,L).slice(0, s.level==='GO'?4:6);
+  return `
+    <div class="status ${cls}" role="status">
+      <div class="lv">${levelIcon(s.level)}<div><div class="word">${word}</div><div class="sub">${sub}</div></div></div>
+      <div class="reason">${reason}</div>${eta}
+    </div>
+    <button class="bigbtn ${btncls}" id="primary-act">${btntxt} →</button>
+    <button class="readall" id="readall">${L.readall}</button>
+    <div class="cards">${cards.map((cd,i)=>cardHTML(cd,i)).join('')}</div>`;
+}
+
+function cardHTML(cd,i){
+  const [bg,fg]=ICBG[cd.icon].split(';');
+  const [title,body]=cd.c;
+  return `<div class="card ${cd.route?'route-card':''}">
+    <div class="ic" style="background:${bg};color:${fg}">${IC[cd.icon]}</div>
+    <div><h3>${title}</h3><p>${body}</p></div>
+    <button class="speak" data-say="${(title+'. '+body).replace(/"/g,'&quot;')}" aria-label="Read aloud">🔊</button>
+  </div>`;
+}
+
+function renderMap(s,L){
+  const f=s.front, det=detections(s.t);
+  const ang=Math.atan2(DIRV.y,DIRV.x)*180/Math.PI;
+  const spreads = s.active ? [ [1,60],[3,180],[6,360] ].map(([h,mins],i)=>{
+    const adv=mins*PX_PER_MIN, cx=f.x+DIRV.x*adv*0.55, cy=f.y+DIRV.y*adv*0.55;
+    const rx=adv*0.72+40, ry=adv*0.30+34;
+    const op=[0.42,0.26,0.14][i];
+    return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(${ang} ${cx} ${cy})" fill="#C2410C" opacity="${op}"/>`;
+  }).join('') : '';
+  const paths = s.active ? [-46,0,46].map(off=>{
+    const px=-DIRV.y*off, py=DIRV.x*off;
+    const x1=f.x+px, y1=f.y+py, x2=f.x+DIRV.x*330+px*1.7, y2=f.y+DIRV.y*330+py*1.7;
+    const mx=(x1+x2)/2+px*0.9, my=(y1+y2)/2+py*0.9;
+    return `<path class="pathdash" d="M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}" stroke="#B3400F" stroke-width="5" fill="none" marker-end="url(#arrow)"/>`;
+  }).join('') : '';
+  const dets=det.map((d,i)=>`<circle cx="${d.x}" cy="${d.y}" r="${d.r}" fill="#B91C1C"/><circle class="fire-pulse" cx="${d.x}" cy="${d.y}" r="7" fill="none" stroke="#B91C1C" stroke-width="2"/>`).join('');
+  const route = s.level==='GO' ? `<path d="M${USER.x} ${USER.y} L 620 440 L 662 486 L ${SHELTER_S.x} ${SHELTER_S.y}" stroke="#1D4ED8" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>`:'';
+  return `<div class="mapwrap">
+  <svg class="mapsvg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-label="Village map with fire and evacuation route">
+    <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#B3400F"/></marker></defs>
+    <rect width="1000" height="1000" fill="#EEF1E4"/>
+    <path d="M870 0 Q 840 200 880 380 Q 915 540 872 720 Q 845 870 880 1000 L1000 1000 L1000 0 Z" fill="#BFD9E4"/>
+    <path d="M60 130 Q 200 20 380 120 Q 470 180 420 300 Q 330 380 180 330 Q 40 280 60 130Z" fill="#CFDDC2"/>
+    <path d="M120 520 Q 260 420 400 500 Q 520 570 460 700 Q 380 810 220 760 Q 80 700 120 520Z" fill="#C7D8BA"/>
+    <path d="M560 640 Q 700 580 780 680 Q 830 760 740 830 Q 620 880 560 790 Q 520 700 560 640Z" fill="#D2DFC6"/>
+    <path d="M840 40 L 828 300 L 846 560 L 830 820 L 842 1000" stroke="#D8D2BE" stroke-width="16" fill="none"/>
+    <path d="M${USER.x} ${USER.y} L 620 440 L 662 486 L 700 520 L 760 560 L 832 588" stroke="#E0DACA" stroke-width="12" fill="none"/>
+    <path d="M620 360 L 700 300 L 760 240" stroke="#E0DACA" stroke-width="12" fill="none"/>
+    ${spreads}${paths}${dets}${route}
+    <g transform="translate(${USER.x-19} ${USER.y-46})"><rect x="0" y="0" width="38" height="38" rx="10" fill="#155E3B"/><path d="M8 20l11-9 11 9v10h-8v-7h-6v7H8z" fill="#fff"/></g>
+    ${[SHELTER_S,SHELTER_N].map(sh=>`<g transform="translate(${sh.x-17} ${sh.y-17})"><circle cx="17" cy="17" r="17" fill="#1D4ED8"/><path d="M8 18l9-7 9 7v8H8z" fill="#fff"/></g>`).join('')}
+  </svg>
+  <div class="windbox">💨 ${L.wind_v(WIND.speed)}<br><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#C6CCC2" stroke-width="2"/><g transform="rotate(-51 20 20)"><path d="M8 20h20" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"/><path d="M23 14l7 6-7 6" fill="none" stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+  <div class="maplegend">
+    <div class="row"><span class="sw" style="background:#B91C1C;border-radius:50%"></span>${L.lg_fire}</div>
+    <div class="row"><span class="sw" style="background:#C2410C;opacity:.45"></span>${L.lg_spread}</div>
+    <div class="row"><span class="sw" style="background:#B3400F;height:5px;border-radius:3px"></span>${L.lg_path}</div>
+    <div class="row"><span class="sw" style="background:#1D4ED8;height:6px;border-radius:3px"></span>${L.lg_route}</div>
+  </div></div>`;
+}
+
+function renderGuide(s,L){
+  const cards=cardsFor(s,L);
+  return `<div class="guide-head"><h2>${L.guide_t}</h2><p>${L.guide_p}</p></div>
+  <div class="cards">${cards.map((cd,i)=>cardHTML(cd,i)).join('')}</div>`;
+}
+
+function render(){
+  const L=STR[state.lang], s=situation(state.t);
+  $('demobanner').textContent = state.lang==='ko' ? '연습 모드 · DEMO — 실제 산불이 아닙니다' : 'DEMO MODE — this is not a real fire';
+  const tabs=[renderHome,renderMap,renderGuide];
+  $('screen').innerHTML = tabs[state.tab](s,L);
+  const ticons=[IC.shield,IC.route,IC.check];
+  $('tabbar').innerHTML = L.tabs.map((t,i)=>`<button class="tbtn" role="tab" aria-selected="${i===state.tab}" data-tab="${i}">${ticons[i]}${t}</button>`).join('');
+  // stage
+  $('tstamp').textContent=`t = ${state.t}${state.lang==='ko'?'분':' min'}`;
+  $('kv-dist').textContent = s.active? s.distKm.toFixed(1)+' km' : (state.lang==='ko'?'—':'—');
+  $('kv-eta').textContent  = s.active? Math.floor(s.etaMin/60)+'h '+(s.etaMin%60)+'m' : '—';
+  $('kv-wind').textContent = L.wind_v(WIND.speed);
+  $('kv-det').textContent  = s.det;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent=L[el.dataset.i18n]; });
+  drawChart(s);
+  wire();
+}
+
+function wire(){
+  document.querySelectorAll('.tbtn').forEach(b=>b.onclick=()=>{state.tab=+b.dataset.tab;render();});
+  document.querySelectorAll('.speak').forEach(b=>b.onclick=()=>speak(b.dataset.say));
+  const pa=$('primary-act'); if(pa) pa.onclick=()=>{state.tab=1;render();};
+  const ra=$('readall'); if(ra) ra.onclick=()=>{
+    const s=situation(state.t), L=STR[state.lang];
+    const word=s.level==='SAFE'?L.safe:s.level==='WATCH'?L.watch:L.go;
+    const reason=s.level==='SAFE'?L.reason_safe:(s.level==='WATCH'?L.reason_watch(s):L.reason_go(s));
+    const cardTxt=cardsFor(s,L).slice(0,s.level==='GO'?4:6).map(c=>c.c[0]+'. '+c.c[1]).join(' ');
+    speak(word+'. '+reason+' '+cardTxt);
+  };
+}
+
+/* ── chart: single-series area, crosshair tooltip ── */
+function drawChart(scur){
+  const svg=$('chart'); const W=460,H=150,P={l:34,r:10,t:12,b:22};
+  const maxY=48;
+  const xs=t=>P.l+(W-P.l-P.r)*t/T_MAX, ys=v=>H-P.b-(H-P.b-P.t)*v/maxY;
+  let area=`M${xs(0)} ${ys(0)}`, line='';
+  for(let t=0;t<=T_MAX;t+=5){ const v=detCount(t); area+=` L${xs(t)} ${ys(v)}`; line+=(line?' L':'M')+`${xs(t)} ${ys(v)}`; }
+  area+=` L${xs(T_MAX)} ${ys(0)} Z`;
+  const grid=[0,12,24,36,48].map(v=>`<line x1="${P.l}" y1="${ys(v)}" x2="${W-P.r}" y2="${ys(v)}" stroke="var(--chart-grid)" stroke-width="1"/><text x="${P.l-6}" y="${ys(v)+4}" font-size="10" fill="var(--stage-ink-2)" text-anchor="end" font-variant-numeric="tabular-nums">${v}</text>`).join('');
+  const xt=[0,60,120,180,240,300].map(t=>`<text x="${xs(t)}" y="${H-6}" font-size="10" fill="var(--stage-ink-2)" text-anchor="middle">${t}</text>`).join('');
+  const cur=`<line x1="${xs(scur.t)}" y1="${P.t}" x2="${xs(scur.t)}" y2="${H-P.b}" stroke="var(--stage-ink)" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="${xs(scur.t)}" cy="${ys(detCount(scur.t))}" r="4.5" fill="var(--chart-series)" stroke="var(--stage-card)" stroke-width="2"/>`;
+  svg.innerHTML=`${grid}${xt}<path d="${area}" fill="var(--chart-series)" opacity="0.16"/><path d="${line}" fill="none" stroke="var(--chart-series)" stroke-width="2"/>${cur}`;
+  svg.onmousemove=(e)=>{
+    const r=svg.getBoundingClientRect();
+    const t=Math.max(0,Math.min(T_MAX,Math.round((e.clientX-r.left)/r.width*W-P.l)/( (W-P.l-P.r)/T_MAX)));
+    const tt=Math.round(t/5)*5, tip=$('chart-tip');
+    tip.style.opacity=1; tip.style.left=(e.clientX-r.left)+'px'; tip.style.top=(e.clientY-r.top)+'px';
+    tip.textContent=`t=${tt}${state.lang==='ko'?'분':'m'} · ${detCount(tt)} ${state.lang==='ko'?'열점':'hotspots'}`;
+  };
+  svg.onmouseleave=()=>{$('chart-tip').style.opacity=0;};
+  svg.onclick=(e)=>{
+    const r=svg.getBoundingClientRect();
+    const t=Math.round(((e.clientX-r.left)/r.width*W-P.l)/((W-P.l-P.r)/T_MAX));
+    state.t=Math.max(0,Math.min(T_MAX,t)); $('scrub').value=state.t; render();
+  };
+}
+
+/* ── stage controls ── */
+const JUMPS=[['평시 · Safe',10],['주의 · Caution',60],['대피 · Evacuate',210]];
+$('jumpchips').innerHTML=JUMPS.map(([l,t],i)=>`<button class="chip" data-t="${t}">${l}</button>`).join('');
+document.querySelectorAll('#jumpchips .chip').forEach(b=>b.onclick=()=>{state.t=+b.dataset.t;$('scrub').value=state.t;render();});
+$('scrub').oninput=e=>{state.t=+e.target.value;render();};
+let timer=null;
+$('playbtn').onclick=()=>{
+  state.playing=!state.playing;
+  $('playbtn').textContent=state.playing?'⏸':'▶';
+  if(state.playing){ timer=setInterval(()=>{ state.t=(state.t+2)%(T_MAX+1); $('scrub').value=state.t; render(); },200); }
+  else clearInterval(timer);
+};
+$('lang-ko').onclick=()=>{state.lang='ko';$('lang-ko').setAttribute('aria-pressed','true');$('lang-en').setAttribute('aria-pressed','false');render();};
+$('lang-en').onclick=()=>{state.lang='en';$('lang-en').setAttribute('aria-pressed','true');$('lang-ko').setAttribute('aria-pressed','false');render();};
+
+render();
+</script>

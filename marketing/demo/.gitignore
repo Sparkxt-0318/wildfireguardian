@@ -1,0 +1,3 @@
+# Publishing intermediate: the same page without the standalone document
+# wrapper. Regenerate with app/frontend/scripts/make-offline-demo.mjs.
+*.artifact.html
