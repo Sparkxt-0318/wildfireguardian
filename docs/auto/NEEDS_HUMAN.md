@@ -4161,7 +4161,7 @@ NH-060: <your decision>
 
 ---
 
-## NH-062 · DECISION · open · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
+## NH-062 · DECISION · closed · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
 
 **Severity: DECISION, and the uncertainty is the point — this lap could not determine
 whether it bites in production, only that it can.** Found on 2026-09-14 while building F1
@@ -4256,5 +4256,31 @@ historically under a different xarray. The one command at the top of this entry,
 real file, is still what closes it — it should now be expected to print
 `datetime64[ns, UTC]`, and **if it prints anything else that is the surprising result and
 option B is live.**
+
+
+**CLOSED 2026-09-14 by the author** · channel: Claude Code session (the author ran the check
+on the laptop and pasted the output back) · verbatim output:
+
+    ERA5 time dtype : datetime64[ns, UTC]
+    samples         : 56  from 2025-03-22 00:00:00+00:00  to 2025-03-28 21:00:00+00:00
+    at(time[1]) returned temp_c=19.5121; time[1] is 19.5121, last sample is 1.1706
+    VERDICT: at() resolves CORRECTLY.  ->  NH-062 option A is free
+
+**The measurement decided this entry, not an argument.** The real ERA5 index IS
+nanosecond-resolution, so `at()` was already resolving correctly and **no committed spread
+field, and no registered number, was ever affected**. The proof is the third line and not
+the dtype alone: `at(time[1])` returned **19.5121**, which is `time[1]`'s own value, against
+a last sample of **1.1706** — it did not collapse onto the end of the series, which is the
+failure shape this entry was filed on.
+
+**Option A applied the same day.** Both `view("int64")` idioms in
+`src/wildfireguardian/spread_v2/weather.py` (`at`, and `_precip_24h`'s 24 h window) now
+difference as timedeltas and fix the unit, which is resolution-safe by construction.
+⚠ **This removed a trap; it repaired nothing.** No artifact was re-simulated, so no number
+could move, and `make verify` re-derives every registered number from the committed
+artifacts unchanged. `tests/test_weather_resolution_safety.py` (11 cases) pins the
+behaviour at ns / us / s, pins the specific 「collapsed onto the last sample」 shape, checks
+that us and s now agree with ns exactly, and fails if the banned idiom reappears anywhere
+in the module.
 
 NH-062: <your decision>

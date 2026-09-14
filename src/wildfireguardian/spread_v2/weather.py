@@ -84,7 +84,18 @@ class WeatherSeries:
         when = pd.Timestamp(when)
         if when.tzinfo is None:
             when = when.tz_localize("UTC")
-        idx = int(np.argmin(np.abs(self.time.view("int64") - when.value)))
+        # ⚠ Resolution-safe by construction, and it has to be. `Timestamp.value` is
+        # ALWAYS nanoseconds while `DatetimeIndex.view("int64")` is the index's OWN
+        # resolution, so subtracting one from the other is only correct when the index
+        # happens to be datetime64[ns]. On a [us] or [s] index the two are 1e3 / 1e9
+        # apart, every comparison goes the same way, and this returned the LAST sample
+        # in the series for every query -- silently, with no error anywhere.
+        # Differencing as TIMEDELTAS and then fixing the unit cannot drift that way.
+        # NH-062: measured 2026-09-14 on the real bundle, the ERA5 index IS
+        # datetime64[ns, UTC] and this call already resolved correctly, so no committed
+        # number depends on this change. It removes the trap, it does not repair one.
+        delta = (pd.DatetimeIndex(self.time) - when).to_numpy().astype("timedelta64[ns]")
+        idx = int(np.argmin(np.abs(delta.astype("int64"))))
         return {
             "wind_speed_ms": float(self.wind_speed_ms[idx]),
             "wind_toward_deg": float(self.wind_toward_deg[idx]),
@@ -120,7 +131,12 @@ def _precip_24h(time: pd.DatetimeIndex, tp_m: np.ndarray) -> np.ndarray:
     """Trailing-24 h accumulated precipitation (mm) at each step."""
     tp_mm = np.where(np.isfinite(tp_m), tp_m, 0.0) * 1000.0
     out = np.zeros(len(time), dtype=float)
-    secs = time.view("int64") / 1e9
+    # Same resolution trap as WeatherSeries.at (NH-062): `view("int64") / 1e9` assumes
+    # nanoseconds and is off by 1e3 / 1e9 on a [us] / [s] index, which would silently
+    # widen or collapse this 24 h window. Only RELATIVE offsets are used below, so
+    # differencing against the first sample is both resolution-safe and exact.
+    idx0 = pd.DatetimeIndex(time)
+    secs = (idx0 - idx0[0]).to_numpy().astype("timedelta64[s]").astype("float64")
     for i in range(len(time)):
         lo = secs[i] - 24 * 3600
         mask = (secs <= secs[i]) & (secs >= lo)
