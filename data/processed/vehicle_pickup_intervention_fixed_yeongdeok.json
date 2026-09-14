@@ -1,0 +1,301 @@
+{
+ "schema_version": 1,
+ "title": "Assisted pickup re-run with the two scheduler defects repaired (HQ decision 4)",
+ "generated_utc": "2026-09-14T11:07:24Z",
+ "git_commit": "a3a2b73bb335e1c23e5c2655a28185d3f265dcd5",
+ "rule_doc": "docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md decision 4",
+ "compares_with": "data/processed/vehicle_pickup_intervention_yeongdeok.json (committed, unchanged)",
+ "defects_repaired": [
+  "outcome keyed by drive node while dispatch was per walk node, so one road point could be visited several times and the node counts were really road-point counts",
+  "an unsafe-egress pickup advanced the vehicle's clock, wrote no log entry, and left the vehicle at its previous location"
+ ],
+ "population": {
+  "credible_walk_nodes": 24,
+  "distinct_road_points": 12,
+  "credible_buildings": 74
+ },
+ "committed_result": {
+  "completed_walk_nodes": 9,
+  "credible_walk_nodes": 24,
+  "completed_buildings": 40,
+  "credible_buildings": 74
+ },
+ "headline_moved": false,
+ "headline_fixed": {
+  "completed_walk_nodes": 9,
+  "completed_buildings": 40
+ },
+ "parameters": {
+  "W_min": 75.0,
+  "margin_min": 12.0,
+  "t_load_min": 10.0,
+  "t_unload_min": 10.0,
+  "fleets": [
+   1,
+   2,
+   3,
+   4,
+   6,
+   8
+  ],
+  "dispatch_delays": [
+   30.0,
+   15.0
+  ]
+ },
+ "runs": {
+  "D30_k1": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 1,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D30_k2": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 2,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D30_k3": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 3,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D30_k4": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 4,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D30_k6": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 6,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D30_k8": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 8,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k1": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 1,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k2": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 2,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k3": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 3,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k4": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 4,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k6": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 6,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  },
+  "D15_k8": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 8,
+   "fixed": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 6
+   },
+   "original": {
+    "completed_walk_nodes": 9,
+    "completed_buildings": 40,
+    "completed_road_points": 6,
+    "missed_road_points": 6,
+    "unsafe_egress_road_points": 0,
+    "trips_dispatched": 9
+   },
+   "repeat_visits_removed": 3
+  }
+ },
+ "seconds": 266.2
+}

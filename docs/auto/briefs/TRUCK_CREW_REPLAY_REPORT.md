@@ -223,3 +223,61 @@ would not help: the failure is deterministic and reproduced on two independent m
    README, `web/finals.html`, `docs/auto/JUDGE_QA.md` and the printed kit are untouched.
    If any of these numbers is to be quoted at the booth it needs a registrar entry, which
    this session did not create.
+
+---
+
+# Addendum, 2026-09-14: HQ's six decisions carried out
+
+`docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md` answered the six questions above. This
+addendum records what was done and what it measured. Rules first: §6 of
+`docs/truck_crew_replay.md` was written before the v2 run, §7 is the run's own output and
+§8 the reading. New artifacts, new filenames; v1's are untouched.
+
+| decision | done | where |
+|---|---|---|
+| 1 · success line not quotable, travels with the corridor count | respected; no line filled, nothing judge-facing | §7, §8 |
+| 2 · abort rule v2 on the vehicle's own passage | built and run | §6a, §7, `scripts/build_truck_crew_replay_v2.py` |
+| 3 · four populations, headline from the honest core | built and run | §6b, §7 |
+| 4 · footnote the scheduler defects, fix under a new name, re-run | done | `docs/vehicle_pickup_intervention.md` §4 footnote, `schedule_fixed`, `..._fixed_yeongdeok.json` |
+| 5 · one PR from the green head, then stop re-cutting | done | this PR |
+| 6 · leak-free field as a sensitivity arm | built and run | §6c, §7 |
+
+## What the decisions produced, including where they disappointed
+
+- **Decision 2 did not achieve its purpose, and that is the headline of this addendum.**
+  The rule is now a continuous minute derived from the vehicle's own passage, consistent
+  with the router's own test, and it catches **8** genuine mid-mission aborts instead of
+  about one. But across the 16 v2 runs, **81 of 89 aborts are still the 「never safe to
+  depart」 class** the rule was rebuilt to get away from. The cause is the sampling
+  mismatch `docs/oracle_gap.md` already names: the router tests cell membership at route
+  nodes, the abort rule reads the interpolated field along the driven line at 150 m, and an
+  edge interior between two admissible nodes can be over the cutoff from minute 0. Closing
+  it means making the router and the rule sample the same way, which changes the router.
+  **That is the next decision HQ has to make, and it is not a lap's call.**
+- **Decision 3 changed the picture, downward.** On the honest core at *k* = 4 (canonical
+  field): `core_credible` orders 6 trips, 4 reached, 2 aborted; `no_safe_walk` orders 21,
+  8 reached, 1 not reached, **12 aborted**. v1's 52 / 42 came almost entirely from the 30 %
+  draw. On the population this project can defend, more than half the orders are cancelled
+  by the screen's own rule. The fleet sweep is flat (6 / 4 / 2 at k = 2, 4 and 6).
+- **Decision 4 found the defects real and the published numbers safe.** `schedule_fixed`
+  repairs both; re-run over all 12 fleet × dispatch combinations it returns **9 of 24 nodes
+  and 40 of 74 buildings, identical to the committed table every time**. What moves is the
+  trip count: **9 dispatched trips become 6**, because three were repeat visits to a road
+  point already served. The footnote on `docs/vehicle_pickup_intervention.md` §4 is purely
+  additive; no number there was changed.
+- **Decision 6 is the reassuring one.** The leak-free field moves the immobile arm a lot
+  (52 / 41 / 5 → 54 / 51 / 0 at k = 4) and the honest core almost not at all:
+  `core_credible` is **identical** on both fields, `no_safe_walk` moves from 8 reached / 12
+  aborted to 9 / 9. **The populations a finals sentence would be written from are the ones
+  least sensitive to the training leak.** The canonical field stays the base, as instructed.
+
+## Open questions for HQ, round two
+
+1. **The abort rule's remaining 81-of-89.** Do you want the router and the abort rule to
+   sample the same way (a change to `rescuer_route`'s admissibility test), or should the
+   rule keep the finer sampling and be renamed so it stops claiming to be a mid-mission
+   abort? Either is defensible; both change something this session may not change alone.
+2. **`core_credible` orders six trips.** That may be too small to carry a finals sentence at
+   all. If so, the honest answer at the booth may be the 21-trip `no_safe_walk` line with
+   its 12 aborts, which is a harder story than the one the brief imagined.
+3. **Nothing is registered.** Registration remains an HQ action.
