@@ -555,3 +555,15 @@ outputs/dispatch_real_hazard/*/*/dispatch_a4.pdf
 !outputs/dispatch_real_hazard/*/01-*/dispatch_a4.pdf
 !outputs/dispatch_real_hazard/*/02-*/dispatch_a4.pdf
 !outputs/dispatch_real_hazard/*/03-*/dispatch_a4.pdf
+# 2026-09-14 K-SPREAD-2025 (docs/benchmark/K_SPREAD_2025.md): the entrant bundles, the
+# per-event scores and the leaderboard. The entrant .npz are 500 m probability stacks of a
+# few tens of KB -- the per-entrant equivalent of the already-tracked routing_demo.npz, not
+# bulk figure data -- and tests/test_kspread_scorer.py reads them, so an untracked one fails
+# on a fresh clone the way the mr_* artifacts once did.
+!data/processed/benchmark/
+!data/processed/benchmark/*.json
+!data/processed/benchmark/*/
+!data/processed/benchmark/*/*.json
+!data/processed/benchmark/entrants/*/
+!data/processed/benchmark/entrants/*/*.json
+!data/processed/benchmark/entrants/*/*.npz

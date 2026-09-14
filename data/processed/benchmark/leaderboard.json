@@ -1,0 +1,176 @@
+{
+ "schema_version": 1,
+ "title": "K-SPREAD-2025 leaderboard",
+ "protocol": "docs/benchmark/K_SPREAD_2025.md",
+ "protocol_version": "v0.1",
+ "generated_utc": "2026-09-14T09:31:22Z",
+ "git_commit": "37a441a37aa07af995f329e1861774c84a24ab00",
+ "truth_rule": "docs/regrade_three_way.md §2 (A1-A6), m = 0 headline",
+ "scorer": "scripts/benchmark/score_kspread.py",
+ "conventions": "C1-C6 in scripts/benchmark/kspread_metrics.py",
+ "horizons_min": [
+  180.0,
+  300.0,
+  480.0
+ ],
+ "p_cut": 0.5,
+ "metric3_node_set": {
+  "rule": "every node of the canonical walk network (C5)",
+  "n_nodes": 8443,
+  "origins_subset_n": 458,
+  "source": "data/processed/real_roads_real_hazard_canonical.json",
+  "snapshots": {
+   "dem": "data/snapshots/srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+   "walk": "data/snapshots/osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+   "shelters": "data/snapshots/osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson"
+  }
+ },
+ "events_scored": [
+  "yeongdeok_2025"
+ ],
+ "events_unscorable": {
+  "uiseong_andong_2025": "no committed observed detection stack",
+  "uljin_samcheok_2022": "no committed observed detection stack",
+  "gangneung_2023": "no committed observed detection stack",
+  "hongseong_2023": "no committed observed detection stack",
+  "miryang_2022": "no committed observed detection stack"
+ },
+ "tracks": {
+  "forecast": [
+   {
+    "entrant": "e0_persistence",
+    "protocol_entrant": "E0",
+    "name": "E0 persistence",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 1.0,
+       "300min": 1.0,
+       "480min": 0.6328708644610459
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 1.0,
+       "300min": 1.0,
+       "480min": 0.2657417289220918
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 0.0,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.1832761998041136,
+      "false_safe_nodes": 1497,
+      "nodes_model_calls_safe": 8168,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3906,
+       "buildings_entrant_more_optimistic": 3906,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 15154,
+        "censored|closes_after_5h": 1261,
+        "censored|closes_before_5h": 2645,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 19060,
+        "never": 190
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   }
+  ],
+  "hindcast": [
+   {
+    "entrant": "e3_wfg_canonical",
+    "protocol_entrant": "E3",
+    "name": "E3 WFG canonical (leave-one-complex-out)",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 0.9990475841605919,
+       "300min": 0.9990475841605919,
+       "480min": 0.9790703255126162
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 0.8272425249169435,
+       "300min": 0.6368286445012787,
+       "480min": 0.36059479553903345
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 0.0,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.183043371722617,
+      "false_safe_nodes": 1494,
+      "nodes_model_calls_safe": 8162,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3898,
+       "buildings_entrant_more_optimistic": 3879,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 15147,
+        "censored|closes_after_5h": 1234,
+        "censored|closes_before_5h": 2645,
+        "closes_after_5h|closes_after_5h": 15,
+        "closes_before_5h|censored": 7,
+        "closes_before_5h|closes_after_5h": 12,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 19026,
+        "never": 190,
+        "closes_after_5h": 15,
+        "closes_before_5h": 19
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   }
+  ]
+ },
+ "seconds": 4135.2
+}

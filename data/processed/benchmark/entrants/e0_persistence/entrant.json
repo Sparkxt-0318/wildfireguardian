@@ -1,0 +1,26 @@
+{
+ "id": "e0_persistence",
+ "protocol_entrant": "E0",
+ "name": "E0 persistence",
+ "protocol_version": "v0.1",
+ "track": "forecast",
+ "resolution_m": 500.0,
+ "inputs_used": [
+  "FIRMS cumulative detections at T0"
+ ],
+ "what_it_is": "fire-affected at T0 stays; nothing spreads",
+ "provenance": {
+  "source": "data/processed/routing_demo_canonical.npz",
+  "array": "obs_stack[0]",
+  "source_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "t0_cells": 249
+ },
+ "events": {
+  "yeongdeok_2025": {
+   "npz": "data/processed/benchmark/entrants/e0_persistence/yeongdeok_2025.npz",
+   "sha256": "e1c2ceb900ba8a0dd6e9681474267ac55cc3ad7e83ae8c1d5187847cdcc16707"
+  }
+ },
+ "generated_utc": "2026-09-14T09:06:35Z",
+ "git_commit": "37a441a37aa07af995f329e1861774c84a24ab00"
+}

@@ -1,0 +1,31 @@
+{
+ "id": "e3_wfg_canonical",
+ "protocol_entrant": "E3",
+ "name": "E3 WFG canonical (leave-one-complex-out)",
+ "protocol_version": "v0.1",
+ "track": "hindcast",
+ "resolution_m": 500.0,
+ "inputs_used": [
+  "FIRMS cumulative detections at T0",
+  "SRTM/5 m DEM",
+  "land cover",
+  "ERA5 reanalysis at each forward step (AFTER T0)"
+ ],
+ "track_reason": "forward_simulate advances each step with ERA5 weather at that step, which is an observation after T0; protocol §3 puts that in the hindcast track. The same model run on a KMA forecast issued before T0 would be forecast-track and is not committed.",
+ "what_it_is": "the committed spread_v2 GBM at 500 m, fitted with 영덕 and 의성·안동 both held out",
+ "provenance": {
+  "source": "data/processed/routing_demo_leakfree.npz",
+  "array": "haz_stack",
+  "source_sha256": "05b472d1ee5cce2cce5655bcd5f86199dd368d4d28f3b2f4f1c030ccbecb6c92",
+  "fold_artifact": "data/processed/leakfree_yeongdeok_fold.json",
+  "fitted_by": "scripts/run_leakfree_yeongdeok_fold.py"
+ },
+ "events": {
+  "yeongdeok_2025": {
+   "npz": "data/processed/benchmark/entrants/e3_wfg_canonical/yeongdeok_2025.npz",
+   "sha256": "7a91e0bcb47bfb87a4efcc1e85fd3e91265d9ecb9448e6bf3c7c48a85c2f712d"
+  }
+ },
+ "generated_utc": "2026-09-14T09:06:35Z",
+ "git_commit": "37a441a37aa07af995f329e1861774c84a24ab00"
+}

@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "be4774d7379351f6fff4d928ae127989ce214055",
-  "n_artifacts": 137,
-  "total_bytes": 21157326,
+  "generated_at_git_commit": "1dc17176c9d7b5c3a444fce1c96f6f989587172c",
+  "n_artifacts": 138,
+  "total_bytes": 21163102,
   "total_mib": 20.18,
-  "n_git_tracked": 137,
+  "n_git_tracked": 138,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 12,
+  "n_regenerate_unknown": 13,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -108,6 +108,18 @@
         "docs/auc_intervals.md"
       ],
       "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/benchmark/leaderboard.json",
+      "bytes": 5776,
+      "sha256": "7079d9cf1d5a3772b875b3d69bcdd14c92d96b9a6f0b30a17143e22d97bee89c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/benchmark/results_v0.1.md"
+      ],
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/budget_sweep_experiment.json",
@@ -1351,6 +1363,7 @@
         "docs/auto/reports/2026-09-12T1632Z-dev.md",
         "docs/auto/reports/2026-09-12T1656Z-dev.md",
         "docs/auto/reports/2026-09-12T1705Z-dev.md",
+        "docs/benchmark/results_v0.1.md",
         "docs/corridor_treatment_atlas.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
@@ -1389,6 +1402,7 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/benchmark/results_v0.1.md",
         "docs/leakfree_fold.md"
       ],
       "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
