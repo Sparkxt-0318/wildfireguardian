@@ -813,6 +813,137 @@ def rescuer_route(
         time_step_min=cfg.time_step_min)
 
 
+def edge_line_closing_minutes(
+    drive: RoadNetwork, hazard: HazardSequence, cutoff: float, spacing_m: float,
+) -> dict[tuple[int, int], float]:
+    """Latest clock at which each directed edge may be ENTERED and still traversed
+    with every sampled point below ``cutoff``.
+
+    Added 2026-09-14 for the line-sampled router arm (HQ round-two answer 1,
+    `docs/truck_crew_replay.md` §10). This is the abort rule v2 applied at edge scale:
+    an edge sampled every ``spacing_m`` has points reached at ``t_j`` after entry, each
+    crossing the cutoff at ``T_j`` (interpolated linearly in time between the forecast
+    slices, which is what `HazardSequence.prob_at_points` does), so entering at clock
+    ``c`` is admissible iff ``c + t_j < T_j`` for every j, i.e. ``c < min_j (T_j - t_j)``.
+
+    ``inf`` where no sampled point ever reaches the cutoff. Computed once per
+    (network, field, cutoff, spacing) and reused, because it does not depend on the
+    departure time: the field is monotone in time on this scene, which is what makes a
+    single per-edge number correct.
+    """
+    times = np.asarray(hazard.times_min, float)
+    edges = [(int(u), int(v)) for u, v in drive.graph.edges()]
+    xs_all: list[float] = []
+    ys_all: list[float] = []
+    within: list[float] = []
+    owner: list[int] = []
+    for i, (u, v) in enumerate(edges):
+        xs, ys, _seg = sample_corridor_points(drive, [u, v], spacing_m)
+        n = len(xs)
+        dt = float(drive.graph[u][v].get("time_min", 0.0))
+        frac = np.zeros(n) if n <= 1 else np.arange(n) / (n - 1)
+        xs_all.extend(xs.tolist())
+        ys_all.extend(ys.tolist())
+        within.extend((frac * dt).tolist())
+        owner.extend([i] * n)
+    if not xs_all:
+        return {}
+    XS = np.asarray(xs_all, float)
+    YS = np.asarray(ys_all, float)
+    TW = np.asarray(within, float)
+    OW = np.asarray(owner, int)
+    probs = np.array([hazard.prob_at_points(XS, YS, float(t)) for t in times])
+    T = np.full(len(XS), np.inf)
+    for i in range(len(times)):
+        hit = (probs[i] >= cutoff) & ~np.isfinite(T)
+        if not hit.any():
+            continue
+        if i == 0:
+            T[hit] = 0.0
+            continue
+        p0, p1 = probs[i - 1][hit], probs[i][hit]
+        span = p1 - p0
+        frac = np.where(span > 0, (cutoff - p0) / np.where(span > 0, span, 1.0), 0.0)
+        T[hit] = times[i - 1] + frac * (times[i] - times[i - 1])
+    slack = T - TW
+    out: dict[tuple[int, int], float] = {}
+    for i, (u, v) in enumerate(edges):
+        m = slack[OW == i]
+        e = float(np.min(m)) if len(m) else math.inf
+        # undirected graph: the same physical line bounds both directions
+        out[(u, v)] = e
+        out[(v, u)] = e
+    return out
+
+
+def rescuer_route_line_sampled(
+    drive: RoadNetwork, depot_node: int, home_node: int, hazard: HazardSequence,
+    cfg: RescueConfig, *, departure_min: float | None = None,
+    edge_closing: dict[tuple[int, int], float] | None = None,
+) -> RouteResult:
+    """Responder route whose hazard test reads the SAME 150 m interpolated line the
+    abort rule v2 reads, instead of cell membership at route nodes.
+
+    Added 2026-09-14 (HQ round-two answer 1). `rescuer_route` is UNCHANGED and remains
+    the committed router; this is a separate arm whose only difference is the
+    admissibility test, so the comparison isolates the sampling mismatch that
+    `docs/truck_crew_replay.md` §8 measured and `docs/oracle_gap.md` names.
+
+    An edge is admissible iff the vehicle enters it no later than
+    :func:`edge_line_closing_minutes` allows. Because arriving earlier is never worse
+    under a field that is monotone in time, plain Dijkstra on travel time with the
+    constraint checked at relaxation is optimal here, and the route it returns is the
+    quickest line-admissible one. ``enters_hazard`` is False on every route it returns
+    by construction; a route that cannot be made is returned unreached, never imputed.
+    """
+    dep = cfg.responder_dispatch_delay_min if departure_min is None else departure_min
+    if edge_closing is None:
+        edge_closing = edge_line_closing_minutes(
+            drive, hazard, cfg.vehicle_cutoff, cfg.ingress_sample_spacing_m)
+    budget = cfg.responder_time_budget_min
+    dist = {int(depot_node): 0.0}
+    prev: dict[int, int] = {}
+    heap = [(0.0, int(depot_node))]
+    seen: set[int] = set()
+    target = int(home_node)
+    while heap:
+        d, u = heapq.heappop(heap)
+        if u in seen:
+            continue
+        seen.add(u)
+        if u == target:
+            break
+        if d > budget:
+            continue
+        for v in drive.graph.neighbors(u):
+            if v in seen:
+                continue
+            e = edge_closing.get((u, int(v)), math.inf)
+            if dep + d > e:          # the line is already cut when we would enter it
+                continue
+            nd = d + float(drive.graph[u][v].get("time_min", 0.0))
+            if nd > budget:
+                continue
+            if nd < dist.get(int(v), math.inf):
+                dist[int(v)] = nd
+                prev[int(v)] = u
+                heapq.heappush(heap, (nd, int(v)))
+    if target not in dist:
+        return RouteResult(kind="future_aware", reached=False, route=[], target=None,
+                           departure_min=dep, total_distance_m=0.0, total_time_min=0.0,
+                           note="no line-admissible route within the responder budget")
+    path = [target]
+    while path[-1] != int(depot_node):
+        path.append(prev[path[-1]])
+    path.reverse()
+    total_m = sum(float(drive.graph[path[i]][path[i + 1]].get("length_m", 0.0))
+                  for i in range(len(path) - 1))
+    return RouteResult(kind="future_aware", reached=True, route=path, target=target,
+                       departure_min=dep, total_distance_m=total_m,
+                       total_time_min=dist[target], enters_hazard=False,
+                       note="line-sampled admissibility (docs/truck_crew_replay.md §10)")
+
+
 def rescuer_shortest_ingress(
     drive: RoadNetwork, depot_node: int, home_node: int, hazard: HazardSequence,
     cfg: RescueConfig, *, departure_min: float | None = None,

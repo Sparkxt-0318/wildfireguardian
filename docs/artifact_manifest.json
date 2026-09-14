@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "31ace4f94b62dcd0d4d6ab7dcfa5e4814bde03a9",
-  "n_artifacts": 142,
-  "total_bytes": 24815227,
-  "total_mib": 23.67,
-  "n_git_tracked": 142,
+  "generated_at_git_commit": "494618f90cc83be4b919d6b9c0f2f4effb8cd870",
+  "n_artifacts": 143,
+  "total_bytes": 25896100,
+  "total_mib": 24.7,
+  "n_git_tracked": 143,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 13,
   "artifacts": [
@@ -1615,9 +1615,10 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/truck_crew_replay.md"
       ],
-      "regenerate": "python scripts/build_truck_crew_replay_v2.py"
+      "regenerate": "python scripts/build_truck_crew_replay_linesampled.py"
     },
     {
       "path": "data/processed/truck_crew_replay_yeongdeok.json",
@@ -1633,6 +1634,18 @@
         "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/build_truck_crew_replay.py"
+    },
+    {
+      "path": "data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json",
+      "bytes": 1080873,
+      "sha256": "0d7b8bd8e4fad2461e3fb50d8f9cddc0ac35381787169f27b00fe1c60d60b133",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay_linesampled.py"
     },
     {
       "path": "data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json",
