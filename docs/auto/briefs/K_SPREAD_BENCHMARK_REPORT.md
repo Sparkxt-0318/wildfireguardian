@@ -6,7 +6,7 @@ Protocol: `docs/benchmark/K_SPREAD_2025.md` v0.1, frozen, unchanged by this sess
 Full leaderboard and every caveat: `docs/benchmark/results_v0.1.md`.**
 
 Stage 1 is complete. Stages 2, 3 and 4 did not start, because the brief's Stage 0 files are
-not in `data/raw/` and there is no `MANIFEST.json` there — §4 names exactly what is missing.
+not in `data/raw/` and there is no `MANIFEST.json` there — §5 names exactly what is missing.
 
 ## 1. What ran
 

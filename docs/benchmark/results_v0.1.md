@@ -2,7 +2,7 @@
 
 **Protocol: `docs/benchmark/K_SPREAD_2025.md`, version v0.1, pre-registered 2026-09-14 before
 any entrant was run. This page is the leaderboard as it stands and the list of what could not
-be run. §7 is appended by `scripts/benchmark/render_results_v0_1.py` from the committed
+be run. §8 is appended by `scripts/benchmark/render_results_v0_1.py` from the committed
 artifacts; nothing above that line is edited after a run.**
 
 Scorer: `scripts/benchmark/score_kspread.py`. Truth: `docs/regrade_three_way.md` §2 (A1–A6),
@@ -86,7 +86,7 @@ Everything in protocol §8, plus four things specific to v0.1:
 
 1. **Nothing about five of the six events.** One event, one region, one fire complex.
 2. **Nothing that compares the two tracks.** E0 and E3 are in different tables for a reason.
-3. **Nothing about a 3-hour forecast in 영덕.** §7 shows why: between T0 and the next overpass
+3. **Nothing about a 3-hour forecast in 영덕.** §8 shows why: between T0 and the next overpass
    at 333 minutes there is no observation, so the 3 h and 5 h horizons have the same truth as
    each other and the entire difference between them is unscorable.
 4. **Nothing about passability, households, or the real fire.** It scores what FIRMS saw at
