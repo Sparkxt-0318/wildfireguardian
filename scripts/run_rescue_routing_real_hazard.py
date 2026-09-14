@@ -75,8 +75,11 @@ def _git() -> str:
         return "unknown"
 
 
-def canonical_hazard() -> tuple[HazardSequence, np.ndarray, tuple, tuple]:
-    z = np.load(NPZ)
+def canonical_hazard(npz: Path = NPZ) -> tuple[HazardSequence, np.ndarray, tuple, tuple]:
+    # ``npz`` defaults to the canonical field, so every existing caller is unchanged.
+    # The forecast-track run (docs/forecast_track.md §2 step 5) passes its own field
+    # here to recompute the NH-057 four-way split on it.
+    z = np.load(npz)
     haz = z["haz_stack"].astype(np.float32)
     times = np.asarray(z["haz_times"], float)
     xmin, ymin, xmax, ymax, cell = [float(v) for v in z["grid_extent"]]
@@ -90,10 +93,10 @@ def canonical_hazard() -> tuple[HazardSequence, np.ndarray, tuple, tuple]:
     return hazard, haz, (xmin, ymin, xmax, ymax, cell), ign
 
 
-def build_scenario(cfg: RescueConfig) -> RescueScenario:
+def build_scenario(cfg: RescueConfig, npz: Path = NPZ) -> RescueScenario:
     region = regions.lookup(cfg.region_name)
     bbox = region.bbox_wgs84
-    hazard, haz, extent, ign = canonical_hazard()
+    hazard, haz, extent, ign = canonical_hazard(npz)
     route_grid = gridmod.build_grid(bbox, cell_size_m=cfg.route_cell_m)
     # Real inputs only. The elevation/burnable arguments are the loaders' synthetic
     # fallback; we pass empty arrays and REFUSE any fallback below.

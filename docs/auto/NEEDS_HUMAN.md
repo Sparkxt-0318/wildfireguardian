@@ -4158,3 +4158,76 @@ is the reading the charter text supports and a booth printable is three days fro
 NH-060: <your decision>
 
 **CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "C. Fix it now, before the pause: repair the vehicle-side sentence in this session and rebuild the printables."
+
+---
+
+## NH-062 · DECISION · open · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
+
+**Severity: DECISION, and the uncertainty is the point — this lap could not determine
+whether it bites in production, only that it can.** Found on 2026-09-14 while building F1
+(Part B of `docs/auto/briefs/HINDCAST_CORRECTION.md`), by a unit test that was written to
+check *this lap's own* freeze and failed on the idiom it had copied.
+
+**What was measured, in this container, on the pinned `pandas==3.0.5`.**
+`src/wildfireguardian/spread_v2/weather.py:87` resolves a time with
+
+    idx = int(np.argmin(np.abs(self.time.view("int64") - when.value)))
+
+`Timestamp.value` is **always nanoseconds**. `DatetimeIndex.view("int64")` is the index's
+**own** resolution. Under pandas 3.x an index can be `datetime64[us]` or `[s]`, and then
+those ints are 10³ / 10⁹ times smaller than `when.value`, every comparison goes the same
+way, and `argmin` returns the **last sample in the series** for every query. Measured,
+re-derivable in one process:
+
+| source array | index dtype | `at(T0 + 30 min)` picks |
+|---|---|---|
+| `datetime64[ns]` | `datetime64[ns, UTC]` | index 0 — **correct** |
+| `datetime64[us]` | `datetime64[us, UTC]` | the last index — **wrong** |
+| `datetime64[s]` | `datetime64[s, UTC]` | the last index — **wrong** |
+
+On a 24-hour series with T0 at 10:30, the `[us]` case returned **index 23**, silently.
+`weather.py:123` (`secs = time.view("int64") / 1e9`, the trailing-24 h precipitation window)
+has the same shape and is wrong by 10³ on a `[us]` index.
+
+**Why this is yours and not a lap's.** `WeatherSeries.at` is how `forward_simulate` gets
+the weather for **every step of every committed spread field**. If the real ERA5 index is
+nanosecond-resolution, nothing is wrong and this is a latent trap worth a one-line fix. If
+it is not, then every step of those fields was driven by the **last** weather sample in the
+window rather than that step's — which would be both a correctness bug **and** a second,
+separate post-T0 leak on top of the one `docs/benchmark/results_v0.1.md` §2 already found.
+**Changing `weather.py` could therefore move registered numbers**, which CHARTER §3 rule 3
+and rule 2 reserve to you.
+
+⚠ **This lap did NOT determine which case is real, and states that as the finding.** The
+resolution of `valid_time` in the ERA5 `.nc` files decides it, `data/raw/**` is git-ignored,
+and this session is a cloud container (CHARTER §4 「Sandbox facts」). Asserting either way
+from here would be the failure class commit `4994f99` exists for.
+
+**The one command that settles it**, on the laptop, in about a second:
+
+    python -c "import sys; sys.path.insert(0,'src'); \
+      from wildfireguardian.spread_v2 import data; \
+      from wildfireguardian.spread_v2.weather import weather_series_from_event as W; \
+      print(W(data.load_event('yeongdeok_2025')).time.dtype)"
+
+`datetime64[ns, UTC]` → option A is free. Anything else → the committed fields are affected
+and B or C is a real decision.
+
+**Options:**
+A) **Harden and re-verify, expecting no change.** Replace both `view("int64")` idioms with
+   resolution-safe comparisons, then re-run `make verify` and the baseline: if the dtype is
+   `ns` every number is unchanged by construction and the gate proves it. Cheapest, and it
+   removes the trap for good.
+B) **Harden and accept that numbers move.** If the dtype is not `ns`, fix it and treat the
+   re-simulated fields as new artifacts under new filenames (CHARTER §3 rule 2), with a
+   withdrawn-claim entry for every headline that moves.
+C) **Record and defer past the finals.** Leave the code, keep this entry open, and do
+   nothing before 2026-10-24 — defensible only if the dtype is `ns`, because otherwise the
+   booth would be quoting numbers the repository knows are wrong.
+
+**What this lap did instead.** `scripts/run_forecast_track_f1.py` does **not** use the
+idiom: its freeze compares `Timestamp`s directly and is gated at all three resolutions by
+`tests/test_forecast_track_f1_freeze.py` (14 cases). No committed file's behaviour was
+changed by this lap.
+
+NH-062: <your decision>
