@@ -543,3 +543,39 @@ Cleared as follows, and the split is deliberate:
 No `known_stale` row was added to WC-022 for that line: the registry belongs to the lap that
 wrote it, nothing enforces those rows, and inventing an entry in another lap's ledger is worse
 than naming the debt here. **HQ may want the row added when WC-022 is next revised.**
+
+## 9c. A trap in this sandbox that made the gates lie, and that would have made a lap park green work as red
+
+Worth HQ's attention because it is not about this branch and it will happen again.
+
+After the second rebase, `gates.py --mode full` went **RED** with 7 failures, all in
+`tests/test_weather_resolution_safety.py` — the file `auto/dev` had just added to close
+NH-062. The tests passed on their own and failed in the full run.
+
+**Measured, not guessed.** The same 7 tests fail the full suite on a clean checkout of
+`auto/dev` itself at `7f2c4bd`, with none of this branch's commits present. So they were
+never this branch's failures. The cause:
+
+* `.auto/venv/.../__editable__.wildfireguardian-0.1.0a0.pth` contains the single hard-coded
+  line `/home/user/wildfireguardian/src` — the **main checkout's** source tree.
+* HQ told this session to work in its own worktree. A worktree has its own `src/`, but the
+  `.pth` does not follow it, so whichever test imports `wildfireguardian` first decides which
+  copy of the package the whole session gets. `tests/test_weather_resolution_safety.py`
+  inserts its own `src` at `sys.path[0]`, but by then `tests/test_api.py`,
+  `test_service_layer.py` or `test_spread_v2.py` has already imported the module from the
+  main checkout, which was pinned at `a070258` — **before** the NH-062 fix.
+* The suite therefore tested the *old* `weather.at()` against the *new* test, and failed
+  exactly as NH-062 predicts (`at(time[0])` returning the last sample, 23.0).
+
+**Cleared** by fast-forwarding the main checkout to `7f2c4bd` and running the gates with
+`PYTHONPATH=<worktree>/src`, which wins over the `.pth`. Result: **ALL GREEN, exit 0, 2382
+passed, 0 failed**, `--assert-head OK at 922fbb9`.
+
+**Why this matters beyond today.** This branch also changes `src/wildfireguardian/routing/rescue.py`
+(the new `rescuer_route_line_sampled`). Under the trap, a worktree session can run a full green
+suite against **another commit's source tree** and never know. CHARTER §3.9 would then park
+correct work on `auto/red/<stamp>`, or pass work that was never tested. Two cheap repairs, both
+HQ's call: make `scripts/auto/gates.py` set `PYTHONPATH` to its own repo root's `src` (three
+lines, and it makes the gate self-consistent in any worktree), or have `bootstrap.sh` refuse to
+run when the `.pth` points somewhere other than the checkout it is bootstrapping. **Neither is
+done here** — it is a change to the gate itself, which is not a lap's call.
