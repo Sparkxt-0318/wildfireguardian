@@ -4161,8 +4161,7 @@ NH-060: <your decision>
 
 ---
 
-## NH-062 · DECISION · closed · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
-## NH-061 · FYI · open · `auto/dev` is red on a test that compares two PNG encodings of pixel-identical images, and the only repair it names is one this session is forbidden to make
+## NH-061 · FYI · closed · `auto/dev` is red on a test that compares two PNG encodings of pixel-identical images, and the only repair it names is one this session is forbidden to make
 
 **No reply is requested today.** This is recorded once because a laptop session met a red
 tree it did not cause and could not clear, and the next session will meet the same one.
@@ -4278,7 +4277,9 @@ NH-061: <your decision>
 
 ---
 
-## NH-062 · DECISION · open · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
+**CLOSED 2026-09-14 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-14 · ref: none · verbatim: "A — applied on auto/dev in abe5512 (2026-09-14): the finals payload gate decodes the embedded PNGs and compares pixels; GitHub's auto-gates has been green since, and Main was promoted."
+
+## NH-062 · DECISION · closed · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
 
 **Severity: DECISION, and the uncertainty is the point — this lap could not determine
 whether it bites in production, only that it can.** Found on 2026-09-14 while building F1

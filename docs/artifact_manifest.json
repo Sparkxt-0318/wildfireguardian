@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "abab534ecf70d25b49e23b260436a11ff215f8f3",
+  "generated_at_git_commit": "febe5fe69e88ba41ac31aeb41420174b9949c14c",
   "n_artifacts": 143,
   "total_bytes": 25896100,
   "total_mib": 24.7,
@@ -717,9 +717,11 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/HINDCAST_CORRECTION_REPORT.md",
+        "docs/forecast_track.md",
         "docs/leakfree_fold.md"
       ],
-      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+      "regenerate": "python scripts/run_forecast_track_f1.py"
     },
     {
       "path": "data/processed/lofo_oof_logistic.csv.gz",
@@ -1416,6 +1418,7 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/benchmark/results_v0.1.md",
         "docs/leakfree_fold.md",
         "docs/truck_crew_replay.md"
@@ -1643,6 +1646,7 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/build_truck_crew_replay_linesampled.py"
