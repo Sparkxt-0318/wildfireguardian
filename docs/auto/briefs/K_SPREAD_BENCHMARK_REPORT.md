@@ -163,6 +163,17 @@ that is counted in the artifact, not corrected.
 | protocol §5's mean-over-events and worst-event | one event scored. A mean over one event is that event, so neither is reported rather than reported misleadingly. |
 | a forecast-track WFG entrant | needs a KMA forecast issued before T0; see §4(a). It is the single highest-value next row. |
 
+⚠ **What 「absent from `data/raw/`」 does and does not prove.** This session ran in a fresh
+checkout, and `data/raw/**` is git-ignored, so the directory is empty there **by construction**
+— its emptiness is evidence about this checkout, not about the author's laptop, where the
+FIRMS/ERA5/DEM bundle does exist (CHARTER §4, sandbox facts). The brief's Stage 0 gate was
+applied exactly as written (「only start Stage 2 or 3 if the raw files exist under `data/raw/`
+with a `MANIFEST.json`」) and it did not open, but the independent evidence that the Stage 0
+items are genuinely not yet acquired is `docs/auto/briefs/DATA_VERIFICATION_REPORT.md`, which
+found none of the six on 2026-09-13 and names the route for each. If the 임상도 and KMA files
+have landed on the laptop since, Stage 2 is unblocked there and this session simply could not
+see them.
+
 Nothing was regenerated: no figure under `docs/figures/` was rebuilt, no number was added to
 `docs/NUMBERS.json`, and no new pip dependency was introduced (`check-declared-deps` green).
 Three committed files changed, all additively: `.gitignore` gained a whitelist block for
