@@ -20,9 +20,18 @@ none was faked. What was run is a **ceiling**, and §3 says exactly what that is
 
 ## 1. Every row of the brief, and what happened to it
 
+**Ownership.** `K_SPREAD_STAGE2.md`'s 「Ownership split (HQ, 2026-09-15)」 landed on `auto/dev`
+**while this lap was running** (`d8dba6c`, read at `origin/auto/dev` before this report was
+written; this branch is a PR *into* that base and does not carry it — see §9b). This session
+is **Session B**, which owns **F2, the E1/E2 proxies and F3**; **F1 is Session A's row**, and
+the line below reports only what this machine measured about it, not a claim on it. The
+split's collision rule was honoured and checked: `data/processed/benchmark/` on `auto/dev`
+holds **only E0 and E3**, so the four `e1_*` / `e2_*` bundles here are first writes and
+overwrite nothing.
+
 | brief's row | status |
 |---|---|
-| **F1 frozen weather** | **NOT RUN** — no ERA5 `.nc` for any fire on this machine (§2) |
+| **F1 frozen weather** *(Session A's)* | **NOT RUN on this machine** — no ERA5 `.nc` for any fire (§2). Not this lap's row to deliver |
 | **F2 산악기상 gust-aware** | **NOT RUN** — no `data/raw/mountain_weather/`, and the station coordinates its interpolation needs are not served by the API at all (§2) |
 | **F3 KMA forecast at T0** | **NOT RUN: input missing** — precisely the outcome the brief names for it |
 | **E1 wind-cone proxy** | **BUILT AND SCORED as a ceiling.** The forecast-track E1 is not run |
@@ -41,9 +50,12 @@ This session is a **cloud container**, not the author's laptop. Measured here:
   `scripts/fetch_mountain_weather.py`, `docs/mountain_weather_yeongdeok.md`. No data.
 - `~/.config/wildfireguardian/` does not exist and no `KMA`/`FIRMS`/`CDS`/`DATA_GO` variable
   is set, so nothing could be fetched either.
-- `scripts/run_forecast_track_f1.py` and `scripts/run_forecast_track_f2_kma.py` were **run**,
-  not merely inspected. Both refuse, name the missing files, and exit 0 — the behaviour the
-  previous lap built them to have.
+- the F1 script and the KMA script were **run**, not merely inspected. Both refuse, name the
+  missing files, and exit 0 — the behaviour the previous lap built them to have. ⚠ **The KMA
+  script was renamed mid-lap.** It is `scripts/run_forecast_track_f2_kma.py` on this branch
+  and `scripts/run_forecast_track_f3_kma.py` on `auto/dev` after `7f2c4bd` adopted the F3
+  naming. **Both were run, and the refusal is identical** — only the label in the message
+  differs. This report uses the adopted naming (F3 = KMA) throughout.
 
 ⚠ **An empty `data/raw` in a fresh checkout is not evidence that the author has no data**
 (commit `4994f99`). The claim is the narrow one: **this machine cannot reach the bundle.**
@@ -194,6 +206,28 @@ unchanged; no new pip dependency. 26 tests pass (`test_kspread_scorer.py` 16,
 `test_kspread_stage2_proxies.py` 10). Every artifact staged by explicit path **before** the
 gate, which is commit `cb41adf`'s lesson.
 
+### 9b. Merging the base into this branch turns a gate red, and the reason is worth keeping
+
+Before writing §1's ownership note this lap **did** merge `origin/auto/dev` in, ran the full
+gates, and got **RED**: `tests/test_finals_screen.py::test_the_staleness_threshold_and_its_helper_are_both_graded`
+failed with `['29 commits behind', '31 commits behind']`.
+
+The cause is topology, not content. The test pins `_stamp_commits_behind` against
+`HEAD~29` and `HEAD~31`, and the helper counts **every** commit in `stamp..HEAD`. On a linear
+branch that is 29 and 31; **with a merge commit it became 34 and 36**, because the merge adds
+the base's own commits to the count. Measured both ways on this branch.
+
+So the merge was **dropped** — it was local and unpushed, `origin` never saw it, nothing was
+force-pushed and the commit survives in the reflog — and the report's three corrections were
+made against `origin/auto/dev` by reading it instead. **This branch is linear, its gates are
+green, and GitHub reports the PR `mergeable_state: clean` against the moved base**, so the
+base's commits arrive the normal way, through the merge of this PR.
+
+⚠ **This makes the repository's 「rebase-then-merge」 convention (`d8dba6c`) load-bearing
+rather than stylistic**, and that does not appear to be written down anywhere: a contributor
+who merges `auto/dev` into a feature branch gets a red gate with a message about commit
+counts that says nothing about merges. Worth a line in the CHARTER — **the author's call.**
+
 ### 9a. ⚠ GitHub has NOT verified this commit, and that is stated rather than glossed
 
 The brief's rule is 「check GitHub's `auto-gates` run after pushing (a laptop green is not the
@@ -253,8 +287,15 @@ half no fire reached.
    operating points. **v0.1 was applied as written and not amended.**
 4. **E3's reach at p ≥ 0.5** is the finding with the most consequence for the project (§5), and
    it is a question about the committed field's calibration, not about this benchmark.
-5. **NH-062**, the `weather.py` datetime-resolution bug the previous lap escalated, is still
-   open and still one command away on the laptop.
+5. ~~**NH-062**~~ — **closed while this lap ran** (`4b23b3c` on `auto/dev`). The author ran
+   `scripts/nh062_check.py` against the real bundle: the ERA5 index is `datetime64[ns, UTC]`
+   and `at()` resolves correctly, so the second post-T0 leak the previous lap feared **never
+   existed**. Nothing in Stage 2 depended on it either way — the proxies compare `Timestamp`s
+   and never call `at()` — but the previous report's open item is now answered, and this one
+   would have left a stale escalation standing if the base had not been merged before writing.
 6. **This commit has no GitHub verdict** (§9a). It needs a push or merge to `auto/dev`, or a
    `workflow_dispatch` of `auto-gates.yml` on the branch. Until one happens, the only green
    on this work is this machine's, which is exactly the situation `cb41adf` warns about.
+7. **Should the CHARTER say that a feature branch must be rebased onto `auto/dev` and never
+   merged from it?** §9b is the measured reason: the merge turns a gate red for a topological
+   reason its failure message does not mention.
