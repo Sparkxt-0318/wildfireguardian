@@ -29,7 +29,8 @@ none was faked. What was run is a **ceiling**, and §3 says exactly what that is
 | **E2 Rothermel-family proxy** | **BUILT AND SCORED as a ceiling.** Same caveat |
 | leaderboard beside E0 and E3, rendered from artifacts | **done** — `docs/benchmark/results_v0.2.md` §6 |
 | decision shift on the 19,250 주건물 | **done, for all six entrants** (§5) |
-| gates exit 0, read directly; GitHub's `auto-gates` checked after pushing | **done** (§9) |
+| gates exit 0, read directly | **done** (§9) |
+| GitHub's `auto-gates` checked after pushing | ⚠ **could not run — and this lap does NOT report green** (§9a) |
 
 ## 2. Why the three F-rows could not run, measured rather than assumed
 
@@ -193,6 +194,27 @@ unchanged; no new pip dependency. 26 tests pass (`test_kspread_scorer.py` 16,
 `test_kspread_stage2_proxies.py` 10). Every artifact staged by explicit path **before** the
 gate, which is commit `cb41adf`'s lesson.
 
+### 9a. ⚠ GitHub has NOT verified this commit, and that is stated rather than glossed
+
+The brief's rule is 「check GitHub's `auto-gates` run after pushing (a laptop green is not the
+gate)」, and commit `cb41adf` exists because a local gate once went green on a file it had
+never read. **So this is the one row of the brief this lap could not satisfy, and it is not
+being reported as satisfied.**
+
+`.github/workflows/auto-gates.yml` triggers on `push` to `auto/**` and `Main`, plus
+`workflow_dispatch`. This session's harness pins development to
+`claude/loving-fermi-2sjs7n`, which matches no trigger, so **no run fired**; a
+`workflow_dispatch` on the ref was attempted and refused **403 Resource not accessible by
+integration**. Measured, not assumed: the PR's combined status on `19ee42d` is
+`total_count: 0` — **zero checks**.
+
+**What this lap can say:** `scripts/auto/gates.py --mode full` is ALL GREEN on this exact
+commit, exit code read directly and never piped, and `--assert-head` confirms the recorded
+run is the pushed tree. **What it cannot say:** that a machine sharing nothing with this one
+agrees. Two things settle it, both needing a permission this session lacks — merging or
+pushing the branch to `auto/dev`, which matches the `auto/**` trigger; or dispatching
+`auto-gates.yml` on this ref.
+
 The partial-DEM worry in the rule page closed with a measurement: the committed snapshot
 covers 51.2 % of the canvas but **all 249 T0 cells and all 1,023 ever-detected cells**, and
 **0** cells above p ≥ 0.5 outside its coverage, for every entrant. The half it misses is the
@@ -233,3 +255,6 @@ half no fire reached.
    it is a question about the committed field's calibration, not about this benchmark.
 5. **NH-062**, the `weather.py` datetime-resolution bug the previous lap escalated, is still
    open and still one command away on the laptop.
+6. **This commit has no GitHub verdict** (§9a). It needs a push or merge to `auto/dev`, or a
+   `workflow_dispatch` of `auto-gates.yml` on the branch. Until one happens, the only green
+   on this work is this machine's, which is exactly the situation `cb41adf` warns about.
