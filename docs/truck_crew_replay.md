@@ -484,3 +484,148 @@ nothing to fire on except what is already true before the clock starts. Rebuildi
 a third time would not change that; the limit is in the field, not the rule. **That is the
 honest ceiling on the truck-crew replay as a timeline, and it should be said out loud before
 any part of this reaches a judge.**
+
+## 10. The line-sampled router arm, declared before it ran (2026-09-14)
+
+**Status: §10 pre-registered before `scripts/build_truck_crew_replay_linesampled.py` was
+run; §11 is appended by that run.** HQ's round-two answer 1. *HQ's instruction called this
+「§7」; this page already had §7 to §9 when the instruction was written, so the arm is
+pre-registered here as §10 and nothing was renumbered.*
+
+### 10a. What the arm changes, and what it must not
+
+§8 measured that 81 of 89 v2 aborts are the 「never safe to depart」 class, and §9 found why:
+the router tests **cell membership at route nodes** while the abort rule reads the
+**interpolated field along the driven line every 150 m**, so an edge interior between two
+admissible nodes can be over the cutoff from minute 0. HQ's decision: **do not change
+`rescuer_route`.** Instead, add one arm in which the router's own hazard test reads the same
+line the abort rule reads, and report the difference. The mismatch is a property of the
+router; measuring it is the finding.
+
+- **New function, nothing edited.** `rescue.rescuer_route_line_sampled`, beside
+  `rescuer_route`, which is untouched and remains the committed router.
+- **The test.** `rescue.edge_line_closing_minutes` gives, per directed edge, the latest clock
+  `E_e` at which the edge may be **entered** with every 150 m sampled point still below the
+  vehicle cutoff: `E_e = min_j (T_j − t_j)` over that edge's sampled points, with `T_j` the
+  cutoff-crossing minute interpolated linearly in time between the forecast slices and `t_j`
+  the travel time from the edge's start to that point. This is the **abort rule v2 at edge
+  scale**, and its definition and name are unchanged.
+- **The router.** An edge is admissible iff the vehicle enters it at or before `E_e`. Because
+  the field is monotone in time on this scene (checked, §6a) arriving earlier is never worse,
+  so Dijkstra on travel time with the constraint checked at relaxation returns the quickest
+  line-admissible route. Budget, cutoff, spacing, dispatch delay: all the config's, unchanged.
+- **How the arm is run without editing the scheduler.** The identical scheduler
+  (`run_vehicle_pickup_intervention.schedule`) and the identical build path are used, with the
+  name `rescuer_route` **bound** to `rescuer_route_line_sampled` in the two modules that call
+  it, for the duration of the arm only. Neither module is edited, and the binding is recorded
+  in the artifact.
+
+### 10b. What is run, and what is reported
+
+Three populations — `core_credible`, `no_safe_walk`, `immobile_30pct` (v1's population) — on
+**both** fields, canonical and leak-free, so the table is canonical/leak-free × v2/line-sampled.
+The two honest-core populations at *k* = 2, 4 and 6; `immobile_30pct` at *k* = 4, matching §7's
+shape. Artifact: `data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json`.
+
+Reported beside §7's v2 numbers, for each cell of that table: **trips ordered, reached before
+the observed closure, not reached, aborted by rule**, plus the count of trips with no abort
+minute and the ingress legs graded `inadmissible_all` at *m* = 0. The abort rule applied to
+this arm's trips is **v2, unchanged** — only the router differs.
+
+### 10c. The word 「forecast」 on this page
+
+`docs/benchmark/results_v0.1.md` §2 and `docs/auto/briefs/K_SPREAD_BENCHMARK_REPORT.md` §4a
+establish that `forward_simulate` advances each step with ERA5 reanalysis at times after T0, so
+the committed field is a **hindcast** under the project's own protocol. **Throughout this page,
+including §1 to §9 which are pre-registration and appended results and are therefore not
+rewritten, 「the forecast field」 means「the committed hindcast field (canonical)」 and 「the
+forecast's deadline」 means the deadline that field implies.** Per
+`docs/auto/briefs/HINDCAST_CORRECTION.md` A1 the *method* keeps its name: 「forecast-aware
+routing」 names a router that consumes a time-varying field, which is true however the field was
+made. What is corrected is the description of the **field**, never the method, the classes or
+the keys. This paragraph governs every earlier mention on this page.
+
+## 11. Results, line-sampled arm (appended by `scripts/build_truck_crew_replay_linesampled.py`; §10 is not edited after the run)
+
+_Run 2026-09-14T13:01:44Z at `494618f`; artifact `data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json`; 42 s._
+
+**How much of the road network the line test cuts**, before any trip is planned:
+
+| field | directed edges | ever close | already cut at t = 0 |
+|---|---:|---:|---:|
+| canonical | 4638 | 94 | 46 |
+| leakfree | 4638 | 54 | 46 |
+
+**The four counts, line-sampled router beside the v2 (cell-membership) router.** Same scheduler, same abort rule v2, same populations; only the router's admissibility test differs.
+
+| field | population | k | arm | ordered | reached | not reached | aborted | no abort minute | ingress inadmissible (m = 0) |
+|---|---|---:|---|---:|---:|---:|---:|---:|---:|
+| canonical | core_credible | 2 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| canonical | core_credible | 2 | v2 (cell) | 6 | 4 | 0 | 2 | 3 | 1 |
+| canonical | core_credible | 4 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| canonical | core_credible | 4 | v2 (cell) | 6 | 4 | 0 | 2 | 4 | 1 |
+| canonical | core_credible | 6 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| canonical | core_credible | 6 | v2 (cell) | 6 | 4 | 0 | 2 | 4 | 1 |
+| canonical | immobile_30pct | 4 | **line-sampled** | 55 | 51 | 4 | 0 | 48 | 24 |
+| canonical | immobile_30pct | 4 | v2 (cell) | 52 | 41 | 6 | 5 | 42 | 30 |
+| canonical | no_safe_walk | 2 | **line-sampled** | 11 | 9 | 1 | 1 | 6 | 4 |
+| canonical | no_safe_walk | 2 | v2 (cell) | 20 | 6 | 2 | 12 | 7 | 12 |
+| canonical | no_safe_walk | 4 | **line-sampled** | 11 | 9 | 1 | 1 | 6 | 4 |
+| canonical | no_safe_walk | 4 | v2 (cell) | 21 | 8 | 1 | 12 | 6 | 12 |
+| canonical | no_safe_walk | 6 | **line-sampled** | 11 | 9 | 1 | 1 | 7 | 3 |
+| canonical | no_safe_walk | 6 | v2 (cell) | 21 | 9 | 1 | 11 | 3 | 11 |
+| leakfree | core_credible | 2 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| leakfree | core_credible | 2 | v2 (cell) | 6 | 4 | 0 | 2 | 4 | 1 |
+| leakfree | core_credible | 4 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| leakfree | core_credible | 4 | v2 (cell) | 6 | 4 | 0 | 2 | 4 | 1 |
+| leakfree | core_credible | 6 | **line-sampled** | 4 | 4 | 0 | 0 | 4 | 0 |
+| leakfree | core_credible | 6 | v2 (cell) | 6 | 4 | 0 | 2 | 4 | 1 |
+| leakfree | immobile_30pct | 4 | **line-sampled** | 55 | 51 | 4 | 0 | 52 | 19 |
+| leakfree | immobile_30pct | 4 | v2 (cell) | 54 | 51 | 3 | 0 | 51 | 19 |
+| leakfree | no_safe_walk | 2 | **line-sampled** | 12 | 8 | 3 | 1 | 11 | 6 |
+| leakfree | no_safe_walk | 2 | v2 (cell) | 21 | 6 | 6 | 9 | 12 | 16 |
+| leakfree | no_safe_walk | 4 | **line-sampled** | 12 | 9 | 3 | 0 | 12 | 4 |
+| leakfree | no_safe_walk | 4 | v2 (cell) | 21 | 9 | 3 | 9 | 12 | 11 |
+| leakfree | no_safe_walk | 6 | **line-sampled** | 12 | 9 | 3 | 0 | 12 | 3 |
+| leakfree | no_safe_walk | 6 | v2 (cell) | 21 | 9 | 3 | 9 | 12 | 11 |
+
+Nothing here is quotable (HQ decision 1). The committed field is a hindcast (§10c), so these counts measure what the routing method gains from a given spread field, not the accuracy of a forecast.
+
+## 12. Reading of the line-sampled arm (written after it)
+
+- **The aborts were the router's mistake, not the fire's.** Giving the router the same 150 m
+  line test the abort rule uses collapses the abort count almost to nothing: on the canonical
+  field at *k* = 4, `no_safe_walk` goes from **12 aborts to 1**, `core_credible` from 2 to 0,
+  `immobile_30pct` from 5 to 0. §8 asked whether the 81-of-89 「never safe to depart」 class was
+  a property of the field or of the rule. The answer this arm gives is **neither: it was a
+  property of the router.** The committed router planned trips down lines it had not looked at,
+  and the abort rule then cancelled them. When the two agree, there is almost nothing to cancel.
+- **The price is that far fewer trips are ordered at all.** `no_safe_walk` at *k* = 4 orders
+  **21** trips under the committed router and **11** under the line-sampled one; `core_credible`
+  6 and 4. The pickups that vanish do not become reachable — they move from 「ordered, then
+  aborted」 to 「never ordered」. **That is the more honest bookkeeping and it is a worse
+  headline**, which is the usual direction for this project.
+- **What does not move is the number that mattered.** 「Reached before the observed closure」 is
+  **8** under the committed router and **9** under the line-sampled one for `no_safe_walk` at
+  *k* = 4; on `core_credible` it is 4 under both, on every fleet size and on both fields. The
+  trips this screen would actually have completed are the same trips; what changes is how many
+  doomed orders travel beside them. **A reader who only ever saw the 「reached」 count would not
+  have noticed the defect, which is the argument for printing all four counts.**
+- **The ingress legs the observation condemns roughly halve.** `no_safe_walk` at *k* = 4 goes
+  from **12** `inadmissible_all` ingress legs to **4**; `immobile_30pct` from 30 to 24. The
+  line test refuses some of the corridors FIRMS says were already burning. It does not refuse
+  all of them, because the two tests answer different questions: the router reads the committed
+  hindcast field, the grading reads the observation, and §9's point stands that the field has
+  almost no dynamic road content to read.
+- **The line test cuts about two per cent of the road network, and half of that at minute 0.**
+  Of 4,638 directed edges, **94 ever close** on the canonical field and **54** on the leak-free
+  one; **46 are already cut at t = 0 on both**. So the difference between the two fields, on the
+  roads a vehicle can actually use, is **40 edges** — and the difference between either field
+  and 「nothing closes after minute 0」 is 48 and 8 edges respectively. This is §9's finding at
+  edge resolution and it is the ceiling on everything above.
+- **What this does not license.** Nothing here says the line-sampled router is the right router.
+  It says the committed router's admissibility test and this page's abort rule disagree, that
+  the disagreement explains the abort counts, and that fixing it lowers the headline while
+  leaving 「reached」 alone. Whether `rescuer_route` should change is HQ's call and
+  `docs/oracle_gap.md` is where that argument belongs; §10a records that HQ said not to change
+  it, and it was not changed.

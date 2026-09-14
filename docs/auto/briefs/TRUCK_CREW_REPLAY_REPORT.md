@@ -302,3 +302,101 @@ except minute-0 conditions. **Round-two open question 1 should be read in that l
 third rebuild of the rule cannot fix a limit that lives in the field.** The useful next move
 is probably a forecast-track entrant (the benchmark says one is buildable), not another
 abort rule.
+
+---
+
+# §7. Round-two answers carried out, 2026-09-14 (dated append; nothing above is rewritten)
+
+HQ's round-two answers. Rules first: §10 of `docs/truck_crew_replay.md` was pre-registered
+before the line-sampled arm ran, §11 is its output, §12 the reading. `rescuer_route` is
+unchanged; the abort rule keeps its v2 name and definition; no committed artifact was
+modified and nothing was deleted.
+
+## 7.1 Answer 1 — the line-sampled arm, and what it found
+
+`rescue.rescuer_route_line_sampled` (new, beside the untouched `rescuer_route`) makes the
+router's admissibility test read the same 150 m interpolated line the abort rule v2 reads:
+an edge may be entered no later than `E_e = min_j (T_j − t_j)` over its sampled points. The
+arm runs the identical scheduler and build path with the name `rescuer_route` **bound** to
+the new function for the duration of the run; no module was edited.
+
+**The finding: the aborts were the router's mistake, not the fire's.** At *k* = 4 on the
+canonical field, `no_safe_walk` goes from **12 aborts to 1**, `core_credible` from 2 to 0,
+`immobile_30pct` from 5 to 0. The committed router planned trips down lines it had not
+looked at and the abort rule then cancelled them; when the two tests agree there is almost
+nothing left to cancel. The price is that far fewer trips are ordered — `no_safe_walk` 21 →
+11 — because the doomed ones are now never ordered. **「Reached before the observed closure」
+barely moves: 8 → 9.** The trips the screen would have completed are the same trips.
+
+The road network itself is the ceiling: of 4,638 directed edges, **94 ever close** on the
+canonical field and **54** on the leak-free one, and **46 are already cut at t = 0 on both**.
+
+## 7.2 Answer 2 — the finals sentence, drafted as a proposal
+
+**⚠ NOT QUOTABLE.** HQ decision 1 says no sentence is quotable yet and this one is a draft
+for HQ to accept, amend or reject. It is written from the 21-trip `no_safe_walk` line as
+instructed, and it states the aborts and the corridor count in the same sentence.
+
+> 「2025년 3월 25일 영덕 산불에서, 걸어 나갈 안전한 길이 없는 것으로 분류된 54개 지점(28개
+> 도로 접점, 건물 190동)에 대해 이 화면이 차량 4대에 내린 출동 지시는 **21건**이었다. 그중
+> **8건**은 위성이 관측한 화선이 승차 지점에 도달하기 전에 도착했고, **12건**은 이 화면이
+> 스스로 중단 규칙으로 취소했으며, 같은 21건 가운데 **12건**의 진입로는 관측상 이미 화선
+> 안에 있었다. 이 경로들을 계획한 확산면은 발화 이후 실제로 관측된 기상으로 다시 만든 사후
+> 재구성(hindcast)이다.」
+>
+> EN: 「On the 2025-03-25 영덕 fire, for the 54 points classified as having no safe walk-out
+> (28 road pickups, 190 buildings), this screen issued **21** dispatch orders to four
+> vehicles. **8** arrived before the satellite-observed fire line reached the pickup, **12**
+> were cancelled by the screen's own abort rule, and **12** of those same 21 drove an ingress
+> corridor the observation places inside the footprint. The spread field these routes were
+> planned on is a hindcast, reconstructed with the weather that actually occurred after
+> ignition.」
+
+Every number traces to `data/processed/truck_crew_replay_v2_yeongdeok.json`:
+
+| number | artifact key |
+|---:|---|
+| 54 | `populations["canonical.no_safe_walk"].rescue_needing_walk_nodes` |
+| 28 | `populations["canonical.no_safe_walk"].pickups` |
+| 190 | `populations["canonical.no_safe_walk"].buildings_behind_pickups` |
+| 4 | `runs["canonical.no_safe_walk.k4"].vehicles` |
+| 21 | `runs["canonical.no_safe_walk.k4"].v2.trips_ordered` |
+| 8 | `runs["canonical.no_safe_walk.k4"].v2.reached_before_observed_closure` |
+| 12 (aborted) | `runs["canonical.no_safe_walk.k4"].v2.aborted_by_rule` |
+| 12 (corridors) | `runs["canonical.no_safe_walk.k4"].v2.trips_with_an_inadmissible_ingress_leg_m0` |
+
+The two 12s are different quantities that happen to coincide at this setting; a reader will
+assume they are the same number, so **if this sentence is ever used, one of them should be
+re-expressed** (for example the corridor count as 「21건 중 12건」 spelled differently, or the
+abort count moved to a second sentence). Flagging it rather than silently reusing the digit.
+
+The hindcast clause is `docs/auto/briefs/HINDCAST_CORRECTION.md` A2's wording, shortened;
+the full sentence there is the one for judge surfaces, which this build does not touch.
+
+## 7.3 What a reviewer should attack
+
+1. **The binding trick.** The line-sampled arm swaps `rescuer_route` by rebinding the name in
+   three modules. If any caller resolves the symbol differently, the arm silently ran the old
+   router. Check `arm.how_run` in the artifact and re-derive one route by hand.
+2. **`E_e` is a single number per edge.** That is only correct because the field is monotone
+   in time. If a future field is not monotone, `edge_line_closing_minutes` is wrong and will
+   fail silently. It is checked for these two fields and nowhere else.
+3. **Dijkstra optimality under the time window.** Arriving earlier is never worse *given
+   monotonicity*; that is the whole argument for using plain Dijkstra. Attack the argument,
+   not the code.
+4. **The two 12s** in §7.2, above.
+5. **`core_credible` is six trips and four under the honest router.** Any sentence built on
+   it would be noise; the report says so, but a reviewer should check nothing downstream
+   quietly uses it.
+6. **The abort rule was not re-derived for this arm** — it is v2, unchanged, applied to new
+   routes. That is what HQ asked for, and it means the arm's abort counts are not a test of
+   the abort rule.
+7. **Everything still rests on one fire, one observation, and a hindcast field.**
+
+## 7.4 Gates and which run was read
+
+`python scripts/auto/gates.py --mode full` was run in the foreground on the commit that is
+pushed, its exit code read, and `--assert-head` run before the push. **GitHub's own
+`auto-gates` run on the PR head was then read** (CHARTER §4b, and the lesson of NH-061 that a
+laptop-green tree can be red on the runner). Both results are stated in the PR comment that
+accompanies this push.
