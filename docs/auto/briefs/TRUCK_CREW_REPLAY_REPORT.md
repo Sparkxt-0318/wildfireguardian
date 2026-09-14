@@ -478,14 +478,18 @@ trip; a single trip cannot support any claim about the abort rule working, and �
 HQ's merge path: "Rebase once onto the current green `auto/dev` head, confirm GitHub's
 `auto-gates` is green on the rebased head, then the author merges. No further re-cuts."
 
-Done: the seven commits of `auto/truck-crew-replay-v2` were rebased onto `a13a27b` with
-`git rebase --onto`, giving a linear branch with **zero merge commits** (the merge-commit
+Done, and **twice**: the branch was rebased onto `a13a27b`, and then — because `auto/dev`
+advanced three more commits while the gates were running, and the ledger conflicted again —
+onto `7f2c4bd`. Both were rebases of the same branch into the same PR, not re-cuts: #36 is
+still the one PR and no new branch was made. The result is a linear branch with **zero merge
+commits** (the merge-commit
 route is what broke `test_the_staleness_threshold_and_its_helper_are_both_graded` last time,
 §5). Two files conflicted, both mechanically, both as HQ predicted:
 
-* `docs/auto/NEEDS_HUMAN.md` — **unioned**. `auto/dev` had added NH-062 at the same position
-  this branch adds NH-061. Both entries are kept, in number order, with the file's own `---`
-  separator between them. Neither entry's text was touched.
+* `docs/auto/NEEDS_HUMAN.md` — **unioned**, at both rebases. `auto/dev` had added NH-062 at
+  the same position this branch adds NH-061, and then closed it. Both entries are kept, in
+  number order, with the file's own `---` separator between them; **NH-062 keeps `auto/dev`'s
+  `closed` heading** and NH-061 keeps its `open` one. Neither entry's text was touched.
 * `docs/artifact_manifest.json` — **regenerated** with `python scripts/build_artifact_manifest.py`,
   as instructed, never edited by hand. It now reports 143 artifacts / 24.7 MiB, all git-tracked.
 
@@ -493,6 +497,7 @@ route is what broke `test_the_staleness_threshold_and_its_helper_are_both_graded
 changes one line that has nothing to do with this branch:
 
     data/processed/routing_demo_leakfree.npz
+    data/processed/leakfree_yeongdeok_fold.json
       regenerate: "python scripts/run_leakfree_yeongdeok_fold.py"      (before)
       regenerate: "python scripts/run_forecast_track_f1.py"            (after)
 
@@ -502,10 +507,10 @@ changes one line that has nothing to do with this branch:
 script alphabetically (`by_path.setdefault`), so the reader wins over the writer. This is the
 same mis-attribution class this branch worked around in its own build script by assembling
 input paths from parts; the fix on the other side is not this branch's to make, and editing
-the tool's output by hand would be worse. **The committed regeneration command for
-`routing_demo_leakfree.npz` is now wrong, and `auto/dev`'s own manifest was already stale
-(generated at `a070258`, 138 artifacts, before that lap's five new artifacts).** Flagged here
-for HQ rather than silently carried.
+the tool's output by hand would be worse. **The committed regeneration command for both files is now
+wrong, and `auto/dev`'s own manifest was already stale (generated at `a070258`, 138
+artifacts, before that lap's own new artifacts).** Flagged here for HQ rather than silently
+carried; running the named script would not reproduce either file.
 
 No committed artifact was modified, nothing was deleted, nothing was force-regenerated, and
 no file outside this branch's own set was changed by the rebase.
