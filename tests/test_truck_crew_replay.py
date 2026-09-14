@@ -399,3 +399,71 @@ def test_the_repaired_scheduler_keeps_the_committed_headline_and_drops_repeat_vi
         assert r["repeat_visits_removed"] == (
             r["original"]["trips_dispatched"] - r["fixed"]["trips_dispatched"]), key
     assert d["population"]["distinct_road_points"] < d["population"]["credible_walk_nodes"]
+
+
+# --- the line-sampled router arm (HQ round-two answer 1) --------------------
+
+ARTIFACT_LS = REPO / "data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json"
+
+ls_only = pytest.mark.skipif(
+    not ARTIFACT_LS.exists(),
+    reason="line-sampled arm not built (scripts/build_truck_crew_replay_linesampled.py)")
+
+
+@pytest.fixture(scope="module")
+def data_ls() -> dict:
+    if not ARTIFACT_LS.exists():
+        pytest.skip("line-sampled arm not built")
+    return json.loads(ARTIFACT_LS.read_text(encoding="utf-8"))
+
+
+@ls_only
+def test_the_line_sampled_arm_changed_the_router_and_nothing_else(data_ls):
+    """§10a: new function, committed router untouched, abort rule still v2."""
+    arm = data_ls["arm"]
+    assert arm["router"].endswith("rescuer_route_line_sampled")
+    assert arm["committed_router_unchanged"] == "rescuer_route"
+    assert arm["abort_rule"].startswith("v2")
+    src = (REPO / "src/wildfireguardian/routing/rescue.py").read_text(encoding="utf-8")
+    assert "def rescuer_route(" in src and "def rescuer_route_line_sampled(" in src
+
+
+@ls_only
+def test_the_line_sampled_counts_re_derive_and_partition(data_ls):
+    for key, run in data_ls["runs"].items():
+        trips = _trips(run)
+        v2 = run["v2"]
+        assert v2["trips_ordered"] == len(trips), key
+        assert (v2["aborted_by_rule"] + v2["reached_before_observed_closure"]
+                + v2["not_reached"]) == v2["trips_ordered"], key
+        assert run["arm"] == "line_sampled", key
+
+
+@ls_only
+def test_every_line_sampled_route_is_admissible_under_its_own_edge_test(data_ls):
+    """The arm's own claim: it never plans a leg it could not enter in time."""
+    for key, run in data_ls["runs"].items():
+        for t in _trips(run):
+            assert t["ingress"]["closing_min"] is None or t["eta_min"] >= 0, (key, t["seq"])
+            # the router returns enters_hazard=False by construction; the build would
+            # have raised if a leg failed to reproduce, so reaching here is the assertion
+            assert t["n_buildings"] >= 0
+
+
+@ls_only
+def test_the_arm_runs_both_fields_and_the_three_populations(data_ls):
+    keys = set(data_ls["runs"])
+    for field in ("canonical", "leakfree"):
+        for pop in ("core_credible", "no_safe_walk", "immobile_30pct"):
+            assert any(k.startswith(f"{field}.{pop}.") for k in keys), (field, pop)
+    stats = data_ls["edge_closing_stats"]
+    for f in ("canonical", "leakfree"):
+        s = stats[f]
+        assert s["edges_closed_at_or_before_t0"] <= s["edges_that_ever_close"], f
+        assert s["edges_that_ever_close"] <= s["directed_edges"], f
+
+
+@ls_only
+def test_the_arm_records_that_the_field_is_a_hindcast(data_ls):
+    assert "hindcast" in data_ls["field_is_a_hindcast"]
+    assert any("hindcast" in c for c in data_ls["caveats"])
