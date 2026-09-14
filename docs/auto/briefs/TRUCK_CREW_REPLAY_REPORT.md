@@ -281,3 +281,24 @@ addendum records what was done and what it measured. Rules first: §6 of
    all. If so, the honest answer at the booth may be the 21-trip `no_safe_walk` line with
    its 12 aborts, which is a harder story than the one the brief imagined.
 3. **Nothing is registered.** Registration remains an HQ action.
+
+## Addendum 2, same day: the benchmark changes how this page must be read
+
+`docs/benchmark/results_v0.1.md` landed after the decisions above were carried out. Two of
+its findings bear on this build and are now §9 of `docs/truck_crew_replay.md`:
+
+1. **The committed field is hindcast-track** — `forward_simulate` uses ERA5 at times after
+   T0 — so every 「forecast」 on the replay page is a **reconstruction**, and the screen is
+   not evidence that a forecast was available at minute 0.
+2. **On roads the field is almost entirely static.** Measured at the vehicle cutoff on the
+   drive network (`scripts/measure_field_road_closure.py`): of 1,664 drive nodes, **37 are
+   already at or above 0.7 at t = 0 and the canonical field adds only 9 later; the leak-free
+   field adds 0.**
+
+**Together these explain the v2 result rather than sitting beside it.** The 81-of-89
+「never safe to depart」 aborts and the leak-free arm's zero aborts are the same fact: there
+is almost no dynamic road closure in this field, so the abort rule has nothing to fire on
+except minute-0 conditions. **Round-two open question 1 should be read in that light — a
+third rebuild of the rule cannot fix a limit that lives in the field.** The useful next move
+is probably a forecast-track entrant (the benchmark says one is buildable), not another
+abort rule.
