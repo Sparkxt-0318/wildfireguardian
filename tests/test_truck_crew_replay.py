@@ -287,3 +287,115 @@ def test_the_build_script_imports_rather_than_reimplements_the_pipeline():
         assert name in imported, f"{name} is not imported; the brief forbids a second copy"
     defined = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
     assert not (defined & imported), sorted(defined & imported)
+
+
+# --- v2: HQ decisions 2, 3 and 6 --------------------------------------------
+
+ARTIFACT_V2 = REPO / "data/processed/truck_crew_replay_v2_yeongdeok.json"
+FIXED = REPO / "data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json"
+
+v2_only = pytest.mark.skipif(
+    not ARTIFACT_V2.exists(),
+    reason="v2 replay not built (scripts/build_truck_crew_replay_v2.py)")
+
+
+@pytest.fixture(scope="module")
+def data2() -> dict:
+    if not ARTIFACT_V2.exists():
+        pytest.skip("v2 replay not built")
+    return json.loads(ARTIFACT_V2.read_text(encoding="utf-8"))
+
+
+@v2_only
+def test_v2_counts_re_derive_and_partition_the_ordered_trips(data2):
+    for key, run in data2["runs"].items():
+        trips = _trips(run)
+        v2 = run["v2"]
+        assert v2["trips_ordered"] == len(trips), key
+        assert v2["aborted_by_rule"] == sum(1 for t in trips if t["aborted_by_rule_v2"]), key
+        assert v2["reached_before_observed_closure"] == sum(
+            1 for t in trips if t["reached_before_observed_closure_v2"]), key
+        assert (v2["aborted_by_rule"] + v2["reached_before_observed_closure"]
+                + v2["not_reached"]) == v2["trips_ordered"], key
+        assert v2["not_reached"] >= 0, key
+
+
+@v2_only
+def test_the_v2_abort_minute_is_the_latest_safe_departure_less_the_margin(data2):
+    """Decision 2's rule, re-derived per trip rather than trusted."""
+    margin = data2["parameters"]["safety_margin_min"]
+    for key, run in data2["runs"].items():
+        for t in _trips(run):
+            a = t["abort_v2"]
+            if a["abort_min"] is None:
+                assert a["latest_safe_departure_min"] is None, (key, t["seq"])
+                assert a["never_closes_in_window"] is True
+                assert t["aborted_by_rule_v2"] is False, (key, t["seq"])
+                continue
+            assert a["abort_min"] == pytest.approx(
+                a["latest_safe_departure_min"] - margin, abs=0.011), (key, t["seq"])
+
+
+@v2_only
+def test_a_trip_departing_after_its_v2_abort_minute_is_aborted_and_not_counted_reached(data2):
+    for key, run in data2["runs"].items():
+        for t in _trips(run):
+            a = t["abort_v2"]
+            late = a["abort_min"] is not None and t["ingress"]["departure_min"] > a["abort_min"]
+            assert t["aborted_by_rule_v2"] == late, (key, t["seq"])
+            if late:
+                assert t["reached_before_observed_closure_v2"] is False, (key, t["seq"])
+
+
+@v2_only
+def test_the_four_populations_are_present_and_the_honest_core_nests(data2):
+    """Decision 3: (a) is inside (b), and the 30 % arm reproduces v1's population."""
+    pops = data2["populations"]
+    for field in ("canonical", "leakfree"):
+        for name in ("core_credible", "no_safe_walk", "immobile_10pct", "immobile_30pct"):
+            assert f"{field}.{name}" in pops, f"{field}.{name}"
+        core = pops[f"{field}.core_credible"]
+        wide = pops[f"{field}.no_safe_walk"]
+        assert core["rescue_needing_walk_nodes"] <= wide["rescue_needing_walk_nodes"], field
+    # the refactor that added the population hook must not have moved v1's selection
+    v1 = json.loads(ARTIFACT.read_text(encoding="utf-8"))["population"]
+    same = pops["canonical.immobile_30pct"]
+    for k in ("rescue_needing_walk_nodes", "pickups", "buildings_behind_pickups",
+              "no_safe_walk_nodes", "immobile_draw_nodes"):
+        assert same[k] == v1[k], (k, same[k], v1[k])
+
+
+@v2_only
+def test_the_leak_free_arm_is_a_sensitivity_and_shares_the_observation(data2):
+    """Decision 6: both fields run, canonical stays the base, one observation."""
+    assert set(data2["fields"]) == {"canonical", "leakfree"}
+    assert data2["inputs"]["hazard_npz_canonical"].endswith("routing_demo_canonical.npz")
+    assert data2["inputs"]["hazard_npz_leakfree"].endswith("routing_demo_leakfree.npz")
+    assert (data2["inputs"]["hazard_npz_canonical_sha256"]
+            != data2["inputs"]["hazard_npz_leakfree_sha256"])
+    assert any(k.startswith("leakfree.") for k in data2["runs"])
+    assert any(k.startswith("canonical.") for k in data2["runs"])
+
+
+@v2_only
+def test_no_success_line_is_filled_in_v2(data2):
+    """Decision 1: nothing is quotable yet, so the artifact carries no success line."""
+    assert "success_line_ko" not in data2
+    blob = json.dumps(data2.get("caveats", []), ensure_ascii=False)
+    assert "quotable" in blob
+
+
+@pytest.mark.skipif(not FIXED.exists(), reason="fixed-scheduler re-run not built")
+def test_the_repaired_scheduler_keeps_the_committed_headline_and_drops_repeat_visits():
+    """Decision 4: report whether 9-of-24 / 40-of-74 moves. It does not; trips do."""
+    d = json.loads(FIXED.read_text(encoding="utf-8"))
+    c = d["committed_result"]
+    assert d["headline_moved"] is False
+    for key, r in d["runs"].items():
+        assert r["fixed"]["completed_walk_nodes"] == c["completed_walk_nodes"], key
+        assert r["fixed"]["completed_buildings"] == c["completed_buildings"], key
+        # the defect the fix removes: a road point visited more than once
+        assert r["fixed"]["trips_dispatched"] <= r["original"]["trips_dispatched"], key
+        assert r["repeat_visits_removed"] == (
+            r["original"]["trips_dispatched"] - r["fixed"]["trips_dispatched"]), key
+    assert d["population"]["distinct_road_points"] < d["population"]["credible_walk_nodes"]

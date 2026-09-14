@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "d64a109dab35250dd1f9dba7400a27e3f6d55e57",
-  "n_artifacts": 139,
-  "total_bytes": 22654166,
-  "total_mib": 21.6,
-  "n_git_tracked": 139,
+  "generated_at_git_commit": "df20730408eb9843953980ffe2b2737bb41b3446",
+  "n_artifacts": 141,
+  "total_bytes": 24813519,
+  "total_mib": 23.66,
+  "n_git_tracked": 141,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 13,
   "artifacts": [
@@ -1405,7 +1405,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/benchmark/results_v0.1.md",
-        "docs/leakfree_fold.md"
+        "docs/leakfree_fold.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
     },
@@ -1595,6 +1596,18 @@
       "regenerate": "python scripts/build_timeline_roles.py"
     },
     {
+      "path": "data/processed/truck_crew_replay_v2_yeongdeok.json",
+      "bytes": 2151916,
+      "sha256": "2ba69868b4ac9e5fcddb50c521831763a98ecd7e310bbe759179a7938047b63b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay_v2.py"
+    },
+    {
       "path": "data/processed/truck_crew_replay_yeongdeok.json",
       "bytes": 1491064,
       "sha256": "25cf6b6a5e5c28e3dae5daa00c8be60bf79ad6d030955f94f1ef6b24edccf5bc",
@@ -1608,6 +1621,18 @@
         "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/build_truck_crew_replay.py"
+    },
+    {
+      "path": "data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json",
+      "bytes": 7437,
+      "sha256": "538eef8f23ada1c993cdc82c2063559d9b2ce4ac2d2ff6d4c4093240dfa0e3bf",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/vehicle_pickup_intervention.md"
+      ],
+      "regenerate": "python scripts/run_vehicle_pickup_intervention_fixed.py"
     },
     {
       "path": "data/processed/vehicle_pickup_intervention_yeongdeok.json",
