@@ -131,9 +131,34 @@ def _differences(shipped, rebuilt, path="") -> list[str]:
         else:
             for i, (a, b) in enumerate(zip(shipped, rebuilt)):
                 out += _differences(a, b, f"{path}[{i}]")
+    elif (isinstance(shipped, str) and isinstance(rebuilt, str)
+          and shipped.startswith("data:image/png;base64,")
+          and rebuilt.startswith("data:image/png;base64,")):
+        # NH-061 (2026-09-14): a PNG's BYTES depend on the encoder (zlib level,
+        # palette order, filter choice) and differ between this laptop and
+        # GitHub's runner for pixel-identical hillshades. The screen shows
+        # pixels, so pixels are what must re-derive.
+        if not _same_pixels(shipped, rebuilt):
+            out.append(f"{path}: embedded PNG pixels differ from the derived image")
     elif shipped != rebuilt:
         out.append(f"{path}: screen={shipped!r} derived={rebuilt!r}")
     return out
+
+
+def _same_pixels(a: str, b: str) -> bool:
+    """Decode two data-URI PNGs and compare their RGBA arrays exactly."""
+    import base64
+    import io
+
+    import numpy as np
+    from PIL import Image
+
+    def decode(uri: str) -> np.ndarray:
+        raw = base64.b64decode(uri.split(",", 1)[1])
+        return np.asarray(Image.open(io.BytesIO(raw)).convert("RGBA"))
+
+    x, y = decode(a), decode(b)
+    return x.shape == y.shape and bool(np.array_equal(x, y))
 
 
 def test_every_value_the_screen_displays_is_what_the_builder_derives_today(
