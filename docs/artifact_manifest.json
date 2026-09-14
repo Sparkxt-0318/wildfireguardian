@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "febe5fe69e88ba41ac31aeb41420174b9949c14c",
-  "n_artifacts": 143,
-  "total_bytes": 25896100,
-  "total_mib": 24.7,
-  "n_git_tracked": 143,
+  "generated_at_git_commit": "6d7959f39ebbb61bcd729abd4236bced451395c6",
+  "n_artifacts": 144,
+  "total_bytes": 26312833,
+  "total_mib": 25.09,
+  "n_git_tracked": 144,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 13,
+  "n_regenerate_unknown": 14,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -122,6 +122,18 @@
       "regenerate": "UNKNOWN"
     },
     {
+      "path": "data/processed/benchmark/stage2_wind_sensitivity.json",
+      "bytes": 416733,
+      "sha256": "627dd8e4afad676c9c87e6a3cdc04e82edcf16189e25c9207b3b789564c8aae7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/benchmark/results_v0.2.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
       "path": "data/processed/budget_sweep_experiment.json",
       "bytes": 9669,
       "sha256": "2bd580015dd15e7c3f10495bd01e510fd4a1a0f1667f89e176ab6c46b8119398",
@@ -167,7 +179,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/building_origins_observed_grading.md",
-        "docs/truck_crew_replay.md"
+        "docs/truck_crew_replay.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/grade_building_origins_observed.py"
     },
@@ -719,9 +732,10 @@
       "cited_by_docs": [
         "docs/auto/briefs/HINDCAST_CORRECTION_REPORT.md",
         "docs/forecast_track.md",
-        "docs/leakfree_fold.md"
+        "docs/leakfree_fold.md",
+        "paper/GAPS.md"
       ],
-      "regenerate": "python scripts/run_forecast_track_f1.py"
+      "regenerate": "python scripts/adopt_f1_stage2_naming.py"
     },
     {
       "path": "data/processed/lofo_oof_logistic.csv.gz",
@@ -1134,7 +1148,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/HANDOVER_2026-09-12.md",
-        "docs/regrade_against_observed.md"
+        "docs/regrade_against_observed.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/regrade_against_observed.py"
     },
@@ -1146,7 +1161,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/regrade_three_way.md"
+        "docs/regrade_three_way.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/regrade_three_way.py"
     },
@@ -1380,6 +1396,7 @@
         "docs/auto/reports/2026-09-12T1656Z-dev.md",
         "docs/auto/reports/2026-09-12T1705Z-dev.md",
         "docs/benchmark/results_v0.1.md",
+        "docs/benchmark/stage2_proxy_rules.md",
         "docs/corridor_treatment_atlas.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
@@ -1421,7 +1438,8 @@
         "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/benchmark/results_v0.1.md",
         "docs/leakfree_fold.md",
-        "docs/truck_crew_replay.md"
+        "docs/truck_crew_replay.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/run_forecast_track_f1.py"
     },
