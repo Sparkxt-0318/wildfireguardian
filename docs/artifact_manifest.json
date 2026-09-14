@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "494618f90cc83be4b919d6b9c0f2f4effb8cd870",
+  "generated_at_git_commit": "a9e77a2330ac9bede58d19dc6df09b1c04c018e2",
   "n_artifacts": 143,
   "total_bytes": 25896100,
   "total_mib": 24.7,
@@ -1420,7 +1420,7 @@
         "docs/leakfree_fold.md",
         "docs/truck_crew_replay.md"
       ],
-      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+      "regenerate": "python scripts/run_forecast_track_f1.py"
     },
     {
       "path": "data/processed/routing_objective_experiment.json",
