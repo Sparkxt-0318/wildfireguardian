@@ -91,8 +91,15 @@ def _cell(grid, x: float, y: float) -> tuple[int, int] | None:
     return None
 
 
-def build_population(sc, cfg) -> tuple[list[dict], dict]:
-    """§1: rescue-needing walk nodes, aggregated onto drive nodes (pickups)."""
+def build_population(sc, cfg, select=None) -> tuple[list[dict], dict]:
+    """§1: rescue-needing walk nodes, aggregated onto drive nodes (pickups).
+
+    ``select`` is an optional ``(walk_nodes, no_safe, immobile) -> iterable`` hook
+    used by the v2 build to run the alternative populations HQ asked for
+    (`docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md` decision 3). It defaults to
+    None, which is exactly the §1 rule this page pre-registered, so the committed
+    v1 artifact re-derives unchanged.
+    """
     grading = json.loads(GRADING.read_text(encoding="utf-8"))
     per_node = grading["per_node"]
     walk_nodes = [int(r["node"]) for r in per_node]
@@ -101,7 +108,8 @@ def build_population(sc, cfg) -> tuple[list[dict], dict]:
                if r["forecast_bucket"] == "no_safe_route"}
     # the pipeline's own deterministic draw, same code, same seed, new node list
     immobile = set(_immobile_homes(SimpleNamespace(origins=walk_nodes), cfg))
-    needing = sorted(immobile | no_safe)
+    needing = sorted(immobile | no_safe) if select is None else sorted(
+        select(walk_nodes, no_safe, immobile))
 
     pick: dict[int, dict] = {}
     for w in needing:
@@ -118,6 +126,8 @@ def build_population(sc, cfg) -> tuple[list[dict], dict]:
             p["sources"].add("no_safe_walk")
         if w in immobile:
             p["sources"].add("immobile_draw")
+        if not p["sources"]:
+            p["sources"].add("selected")
 
     pickups = []
     for dn in sorted(pick):

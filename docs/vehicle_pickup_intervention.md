@@ -63,6 +63,24 @@ Baselines: walking completes 0 (the class is defined by it); access-only reading
 | 15 | 6 | 9 | 40 | 15 | 0 | 104.6 |
 | 15 | 8 | 9 | 40 | 15 | 0 | 74.7 |
 
+⚠ **Footnote added 2026-09-14 (HQ decision 4, `docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md`).
+Two defects in `schedule` were found by the truck-crew replay build. No number above is changed.**
+
+1. **The per-home outcome is keyed by drive node while dispatch is per walk node.** The 24
+   credible walk nodes collapse onto **12 distinct road points** (one of them six times), so
+   `runs.*.per_home` holds 12 entries, a vehicle is sent to the same road point up to six
+   times in one run (visible in `runs.D30_k4.vehicle_logs`), and 「completed nodes」 above
+   means 「walk nodes whose road point was completed」 rather than 12 independent errands.
+2. **An unsafe-egress pickup advances the vehicle's clock, writes no log entry, and leaves
+   the vehicle at its previous location** although it had driven to the home.
+
+Both are repaired in `schedule_fixed` (same module, new name; `schedule` is untouched) and
+re-run under a new artifact, `data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json`.
+**The result does not move:** 9 of 24 nodes and 40 of 74 buildings in every one of the 12
+fleet × dispatch-delay combinations, identical to the table above. What moves is the trip
+count — **9 dispatched trips become 6** at every setting, because three were repeat visits to
+a road point already served. The defects were real and the published counts survive them.
+
 ## 5. Reading (written after the run)
 
 - **The intervention resolves 9 of the 24 credible nodes (40 of 74 buildings), and neither

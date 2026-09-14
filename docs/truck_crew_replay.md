@@ -174,6 +174,8 @@ a vehicle was there, that a road was passable, or that anyone was moved.
 
 ## 4. Results
 
+⚠ *Label added 2026-09-14 on HQ's instruction (`docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md` decision 2): this section is the **slice-boundary version** of the abort rule, kept as the record. §6 declares the v2 rule and §7 carries its numbers. **No number in this section was changed.***
+
 _(appended by `scripts/build_truck_crew_replay.py`; nothing above this line is edited after the run)_
 
 _Run 2026-09-13T16:12:50Z at `bb820d6`; artifacts `data/processed/truck_crew_replay_yeongdeok.json`, `web/truck_crew_replay.html`, `outputs/truck_crew_replay/20260913T160454Z/` (24 files); 476 s._
@@ -287,3 +289,157 @@ The three numbers in that sentence are `trips_ordered`, `reached_before_observed
   repository's own forecast and routing would have told a crew on 2025-03-25, graded
   afterwards. It is not a rescue count, not a fleet plan and not a claim that any vehicle
   could have driven any of these roads.
+
+## 6. The v2 rules, declared before the v2 run (2026-09-14)
+
+**Status: §6 pre-registered before `scripts/build_truck_crew_replay_v2.py` was run; §7 is
+appended by that run.** These are HQ's answers to the v1 report, transcribed from
+`docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md`; the wording of the rules is theirs, the
+implementation and the honesty of the report are this build's. §1 to §5 are untouched.
+
+### 6a. The abort rule, rebuilt on the vehicle's own passage (decision 2)
+
+§2's abort rule asked when the corridor *as a whole* first reaches the vehicle cutoff, and
+§5 recorded what that produced: it fired 12 times out of 13 on corridors already cut at
+minute 0, and only once on a corridor closing mid-mission. The v2 rule asks the question the
+crew actually has:
+
+- Sample the trip's **actual ingress route** at 150 m, as before.
+- For each sampled point *i*, let **T_i** be the minute that point reaches the vehicle
+  cutoff (0.7), **interpolated linearly in time between the five forecast slices**.
+  `HazardSequence.prob_at_points` interpolates linearly in time, so T_i is solved exactly
+  from the two bracketing slice values; it is a continuous minute, never a slice index.
+  T_i is `inf` where the point never reaches the cutoff inside the window.
+- Let **t_i** be the travel minute from the route's start to that point, read off the
+  sampler's own construction (it lays points evenly along each segment).
+- Departing at minute *d*, the vehicle is at point *i* at *d + t_i*, so the trip is safe iff
+  `d + t_i < T_i` for every *i*. The forecast field is monotone in time on this scene
+  (checked: no cell's probability ever falls), so the binding constraint is
+  **`d* = min_i (T_i − t_i)`**, the latest safe departure, and
+  **`abort_min = d* − 12`** with 12 the config's responder safety margin.
+- A trip is **aborted by rule v2** iff its actual departure minute is later than
+  `abort_min`. A route on which every T_i is `inf` has no abort minute and cannot be
+  aborted by this rule.
+
+⚠ **v1 and v2 abort minutes are not the same quantity and must never be compared as if they
+were.** v1's is the latest minute to be *at the pickup*; v2's is the latest minute to
+*leave the start*. §7 prints both counts side by side for exactly that reason.
+
+### 6b. Four populations, so a config assumption stops driving the headline (decision 3)
+
+The 30 % immobile draw is an assumption about mobility, not a measurement, and in v1 it
+supplied almost the whole population. v2 runs four and reports all four:
+
+| key | population | role |
+|---|---|---|
+| `core_credible` | the diagnosis's **credible** no-safe-walk nodes, which contain the 10-node cluster | honest core (3a) |
+| `no_safe_walk` | every node in the forecast partition's **no-safe-route** class | honest core (3b) |
+| `immobile_10pct` | the pipeline's own deterministic draw at 0.10, plus the no-safe-walk class | labelled sensitivity (3c) |
+| `immobile_30pct` | the same draw at 0.30 (this is v1's population) | labelled sensitivity (3c) |
+
+The two honest-core populations are run at *k* = 4, 2 and 6; the two sensitivity
+populations at *k* = 4 only, because they are the expensive ones and the fleet sweep already
+has its answer from v1. **Any finals sentence is written from the honest-core populations
+only**, and per decision 1 no sentence is quotable at all yet.
+
+### 6c. A leak-free field arm beside the canonical one (decision 6)
+
+Every population is also run on `data/processed/routing_demo_leakfree.npz`, the refit that
+excludes 의성·안동 from training (`docs/leakfree_fold.md`). The canonical field **stays the
+base**; the leak-free run is a sensitivity arm, reported side by side, and the author
+decides whether the base ever moves. The observation is unchanged between the two files
+(`obs_stack` is byte-identical, checked), so the grading clock never depends on which
+forecast planned the route.
+
+### 6d. What v2 does not change
+
+The scheduler, the deadline, the trip structure, the fleet policy, the grading rule A1 to
+A6 and A6', and every caveat in §3b. The v1 artifact, page and outputs are not rewritten:
+new results get new filenames.
+
+## 7. Results, v2 (appended by `scripts/build_truck_crew_replay_v2.py`; nothing in §6 is edited after the run)
+
+_Run 2026-09-14T10:54:50Z at `a3a2b73`; artifact `data/processed/truck_crew_replay_v2_yeongdeok.json`; 926 s._
+
+**Populations** (pickups are road points; a walk node that shares a road point with another is one pickup):
+
+| field | population | walk nodes | pickups | buildings |
+|---|---|---:|---:|---:|
+| canonical | core_credible | 24 | 12 | 74 |
+| canonical | no_safe_walk | 54 | 28 | 190 |
+| canonical | immobile_10pct | 549 | 394 | 2220 |
+| canonical | immobile_30pct | 1530 | 774 | 5865 |
+| leakfree | core_credible | 24 | 12 | 74 |
+| leakfree | no_safe_walk | 54 | 28 | 190 |
+| leakfree | immobile_10pct | 549 | 394 | 2220 |
+| leakfree | immobile_30pct | 1530 | 774 | 5865 |
+
+**The four counts under the v2 abort rule**, with v1's abort count beside them so the change in the rule is visible:
+
+| field | population | k | ordered | reached | not reached | aborted (v2) | aborted (v1, slice) | no abort minute | ingress inadmissible (m = 0) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| canonical | core_credible | 2 | 6 | 4 | 0 | 2 | 2 | 3 | 1 |
+| canonical | core_credible | 4 | 6 | 4 | 0 | 2 | 2 | 4 | 1 |
+| canonical | core_credible | 6 | 6 | 4 | 0 | 2 | 2 | 4 | 1 |
+| canonical | immobile_10pct | 4 | 48 | 40 | 0 | 8 | 7 | 36 | 17 |
+| canonical | immobile_30pct | 4 | 52 | 41 | 6 | 5 | 3 | 42 | 30 |
+| canonical | no_safe_walk | 2 | 20 | 6 | 2 | 12 | 11 | 7 | 12 |
+| canonical | no_safe_walk | 4 | 21 | 8 | 1 | 12 | 11 | 6 | 12 |
+| canonical | no_safe_walk | 6 | 21 | 9 | 1 | 11 | 10 | 3 | 11 |
+| leakfree | core_credible | 2 | 6 | 4 | 0 | 2 | 2 | 4 | 1 |
+| leakfree | core_credible | 4 | 6 | 4 | 0 | 2 | 2 | 4 | 1 |
+| leakfree | core_credible | 6 | 6 | 4 | 0 | 2 | 2 | 4 | 1 |
+| leakfree | immobile_10pct | 4 | 52 | 49 | 1 | 2 | 5 | 47 | 17 |
+| leakfree | immobile_30pct | 4 | 54 | 51 | 3 | 0 | 0 | 51 | 19 |
+| leakfree | no_safe_walk | 2 | 21 | 6 | 6 | 9 | 9 | 12 | 16 |
+| leakfree | no_safe_walk | 4 | 21 | 9 | 3 | 9 | 9 | 12 | 11 |
+| leakfree | no_safe_walk | 6 | 21 | 9 | 3 | 9 | 9 | 12 | 11 |
+
+The success line is **not** filled here: HQ decision 1 says it is not quotable, and decision 3 says the finals sentence is written from the two honest-core populations only. The numbers above are the record, not a claim.
+
+## 8. Reading of the v2 run (written after it)
+
+- ⚠ **The v2 abort rule is better than v1 and it does not fix what it was asked to fix.**
+  Decision 2 was written because v1 fired 12 times out of 13 on corridors already cut at
+  minute 0 rather than on corridors closing mid-mission. Across the 16 v2 runs there are
+  **89 aborts, of which 81 have a latest-safe-departure of zero or less** — that is, the
+  route was already compromised before the vehicle could leave — and only **8 are the
+  mid-mission case the rule was rebuilt for**, where a real departure window existed and
+  the trip missed it. v1 on the same trips fires 86 times. So the rule is now expressed in
+  continuous minutes, it is consistent with the router's own test, and it catches eight
+  genuine cases instead of about one; the dominant class is unchanged. **This is reported
+  as a partial result, not as the repair decision 2 hoped for.**
+- **Why the class persists, and it is the same gap twice.** The router plans on **cell
+  membership at route nodes**; the abort rule samples the driven line every 150 m and reads
+  the field with `prob_at_points`, which interpolates **bilinearly in space**. An edge
+  interior between two admissible nodes can therefore sit above the cutoff from minute 0.
+  `docs/oracle_gap.md` records this gap for the forecast grading and §5 recorded it for v1;
+  v2 measures it again under a stricter rule. Closing it needs the router and the abort
+  rule to sample the same way, which is a change to the router and not a lap's call.
+- **The honest-core populations are much smaller and much less flattering than v1's
+  headline.** At *k* = 4 on the canonical field: `core_credible` orders **6** trips, 4 of
+  which arrive before the observed footprint reaches the pickup cell, 2 aborted;
+  `no_safe_walk` orders **21**, of which **8** arrive, 1 does not, and **12 are aborted by
+  the rule**. v1's 52-ordered / 42-reached line came almost entirely from the 30 % immobile
+  draw, which decision 3 correctly refused to let drive the headline. On the population
+  this project can actually defend, more than half the orders are cancelled by the screen's
+  own rule.
+- **The fleet sweep is flat on the honest core.** `core_credible` gives 6 / 4 / 2 at
+  *k* = 2, 4 and 6 alike, and `no_safe_walk` moves only from 20 to 21 orders. As in
+  `docs/vehicle_pickup_intervention.md`, access binds and vehicles do not.
+- **The leak-free arm confirms §5's prediction about direction, and barely touches the
+  honest core.** §5 said a smaller field would close fewer corridors and so order more trips
+  and fire the abort rule less, while warning the direction was not obvious. It holds where
+  the field does most of the work: at *k* = 4 the 30 % immobile arm goes from 52 ordered /
+  41 reached / 5 aborted on the canonical field to **54 / 51 / 0** on the leak-free one.
+  But on `core_credible` the two fields give **identical** counts (6 / 4 / 2), and on
+  `no_safe_walk` they differ modestly (8 reached / 12 aborted → 9 reached / 9 aborted).
+  **The populations the finals would quote are the ones least sensitive to the leak**,
+  which is the most reassuring thing in this run. The canonical field remains the base.
+- **What is still not quotable.** Per decision 1, nothing here goes on a judge-facing
+  surface and no success line is filled. Whenever one is, it is written from
+  `core_credible` and `no_safe_walk` only, and it travels with the corridor count in the
+  same sentence. The corridor counts remain the uncomfortable half: 12 of 21 `no_safe_walk`
+  ingress legs at *k* = 4 are `inadmissible_all` on the observation.
+- **What v2 does not touch.** Everything in §3b still holds. Buildings are not households,
+  the deadline is the forecast's, the observation is FIRMS at 500 m, and this is 영덕 only.
