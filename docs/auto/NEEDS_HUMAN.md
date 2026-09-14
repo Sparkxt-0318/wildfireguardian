@@ -4230,4 +4230,31 @@ idiom: its freeze compares `Timestamp`s directly and is gated at all three resol
 `tests/test_forecast_track_f1_freeze.py` (14 cases). No committed file's behaviour was
 changed by this lap.
 
+
+### ⚠ Measured 2026-09-14, after this entry was filed: the evidence now points hard at option A
+
+A later session was asked to run the settling command and could not — same cloud container,
+still no bundle, `load_event` raises `FileNotFoundError`. So it did the next best thing and
+probed **the decode path itself**, through this repository's own `open_era5`, on a
+CDS-shaped zip (an `instant` stream and an `accum` stream, merged exactly as that function
+merges them) built with the two CF time encodings ERA5 actually ships:
+
+| `valid_time` units | decoded dtype | index after `pd.to_datetime(..., utc=True)` | `at()` |
+|---|---|---|---|
+| `seconds since 1970-01-01` | `datetime64[ns]` | `datetime64[ns, UTC]` | **correct** |
+| `hours since 1900-01-01` | `datetime64[ns]` | `datetime64[ns, UTC]` | **correct** |
+
+On the pinned stack (**xarray 2026.7.0, pandas 3.0.5, h5netcdf 1.8.1**), CF decoding
+produces **nanoseconds**, so `view("int64")` and `Timestamp.value` are in the same unit and
+the lookup resolves correctly. **On this evidence no committed number is affected and
+option A is free.**
+
+⚠ **This is not yet the definitive check and the entry stays open.** What was probed is the
+decode PATH on a synthetic file, not the real `yeongdeok_2025_era5.nc`. It does not cover a
+file whose time is already stored decoded at another resolution, nor a field simulated
+historically under a different xarray. The one command at the top of this entry, on the
+real file, is still what closes it — it should now be expected to print
+`datetime64[ns, UTC]`, and **if it prints anything else that is the surprising result and
+option B is live.**
+
 NH-062: <your decision>

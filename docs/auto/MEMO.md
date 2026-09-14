@@ -3947,4 +3947,16 @@ at the bottom of the sweep, on every mask. `measure()` now asserts it and the
 suite re-derives the whole sweep with a KD-tree and a graph solver, sharing no
 code with the thing under test. **A re-derivation test that re-derives only the
 fields that were easy to re-derive certifies nothing about the field that was
-hard**, and the fields that are hard are the ones a reviewer will break.
+hard**, and the fields that are hard are the ones a reviewer will break.- 2026-09-14 · dev · **`git add` BEFORE the gate, or a new file is scanned by nothing.**
+  `check_withdrawn_claims.py` (and every gate built on `tracked_files`) reads
+  `git ls-files`, so an UNTRACKED new document is not scanned at all — the gate passes
+  **vacuously** and says the same word, `PASSED`, that it says for a document it actually
+  read. This lap wrote `docs/auto/briefs/HINDCAST_CORRECTION_REPORT.md`, ran
+  `check_withdrawn_claims` (exit 0), ran `gates.py --mode full` (exit 0), staged, committed
+  and pushed — and GitHub's clean-clone run went **red** on that very file, for an
+  unlicensed 「forecast field」 the local gate had never looked at. The failure is not the
+  checker's: on a clean checkout every file is tracked, which is exactly why CHARTER §4b
+  keeps GitHub as an independent gate. The anti-pattern is running a local gate on a tree
+  whose new files are still untracked and reading the green as coverage. **Stage first,
+  then gate.** Evidence: run 34859016307 red at `e0a1928`; identical content green locally
+  minutes earlier; green again locally only after `git add`.

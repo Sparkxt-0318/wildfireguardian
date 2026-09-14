@@ -97,6 +97,7 @@ That is the measured case for CHARTER §3.5c, restated with this lap's evidence 
 WFG-133's, and it is written into the entry's `limits`.
 
 **Eight dated known-stale exceptions** (CHARTER §3.5c, NH-042 A): the dispatch sheets
+<!-- forbidden-ok: wc022-forecast-field -->
 printed 2026-09-12, the six 「forecast field」 lines, and the brief's own three lines.
 `paper/manuscript.md`'s F6 caption is licensed by a pragma on the line **above** it, so the
 caption is byte-unchanged.
