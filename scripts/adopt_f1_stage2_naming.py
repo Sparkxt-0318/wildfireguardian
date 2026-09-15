@@ -29,7 +29,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import shutil
 import sys
 from pathlib import Path
 
@@ -78,14 +77,28 @@ def main() -> int:
         return 3
     print(f"[verify] npz digest matches the artifact  ({doc['field']['npz_sha256'][:16]}...)")
 
+    # ⚠ REBUILT, not copied. The superseded e4a_ bundle was written with the FIELD npz's key
+    # names (haz_stack / haz_times); scripts/benchmark/score_kspread.py reads stack / times_min
+    # / grid_extent, as the committed e0_persistence and e3_wfg_canonical bundles do. Copying
+    # the old file forward is what made the first score run die with
+    # KeyError: 'stack is not a file in the archive'. The field npz is the source of truth
+    # either way, so this reads it and writes the entrant's own contract.
+    import numpy as np
     NEW_ENTRANT.mkdir(parents=True, exist_ok=True)
-    ev_src = OLD_ENTRANT / f"{FIRE}.npz"
     ev_dst = NEW_ENTRANT / f"{FIRE}.npz"
-    if ev_src.exists() and not ev_dst.exists():
-        shutil.copy2(ev_src, ev_dst)
-    if not ev_dst.exists():
-        print(f"STOP: no event npz at {ev_src.relative_to(REPO)} to adopt.", file=sys.stderr)
-        return 2
+    z = np.load(OUT_NPZ)
+    missing = [k for k in ("grid_extent", "haz_stack", "haz_times") if k not in z.files]
+    if missing:
+        print(f"STOP: {OUT_NPZ.relative_to(REPO)} lacks {missing}; it holds {sorted(z.files)}.",
+              file=sys.stderr)
+        return 3
+    np.savez_compressed(ev_dst, grid_extent=z["grid_extent"], times_min=z["haz_times"],
+                        stack=z["haz_stack"])
+    check = np.load(ev_dst)
+    if sorted(check.files) != ["grid_extent", "stack", "times_min"]:
+        print(f"STOP: wrote {sorted(check.files)}, not the scorer's three keys.", file=sys.stderr)
+        return 3
+    print(f"[write ] {ev_dst.relative_to(REPO)}  keys {sorted(check.files)}")
 
     ent = {
         "id": "f1_wfg_frozen_t0", "protocol_entrant": "F1",

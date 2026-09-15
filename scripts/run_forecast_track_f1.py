@@ -278,8 +278,15 @@ def main() -> int:
     print("[4/7] writing the E4a entrant bundle (forecast track) ...", flush=True)
     ENTRANT_DIR.mkdir(parents=True, exist_ok=True)
     ev_npz = ENTRANT_DIR / f"{FIRE}.npz"
-    np.savez_compressed(ev_npz, grid_extent=zc["grid_extent"], haz_times=hz_f1.times_min,
-                        haz_stack=stack)
+    # ⚠ The ENTRANT npz uses the scorer's key names, which are NOT the field npz's.
+    # scripts/benchmark/score_kspread.py reads e["stack"] / e["times_min"] / e["grid_extent"]
+    # (see the committed e0_persistence and e3_wfg_canonical bundles, which carry exactly
+    # those three). The field npz beside it keeps haz_stack / haz_times because that is the
+    # routing_demo_*.npz contract. Writing the field's names into an entrant bundle is what
+    # made the first F1 score run die with KeyError: 'stack is not a file in the archive',
+    # after the field had already taken 36 minutes to build.
+    np.savez_compressed(ev_npz, grid_extent=zc["grid_extent"], times_min=hz_f1.times_min,
+                        stack=stack)
     (ENTRANT_DIR / "entrant.json").write_text(json.dumps({
         "id": "f1_wfg_frozen_t0", "protocol_entrant": "F1",
         "name": "F1 WFG frozen weather at T0 (E3's fold, reproduced and checked)",
