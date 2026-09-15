@@ -131,6 +131,10 @@ data/processed/**
 !data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json
 !data/processed/field_road_closure_yeongdeok.json
 !data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json
+# 2026-09-15 corridor convergence check (additive diagnostic, exploratory):
+# route-convergence tally + articulation-point/bridge findings.
+!data/processed/corridor_convergence/
+!data/processed/corridor_convergence/*.json
 # G3 / WFG-032 (2026-09-14): the leak-free 영덕 fold and its field.
 !data/processed/leakfree_yeongdeok_fold.json
 !data/processed/routing_demo_leakfree.npz
