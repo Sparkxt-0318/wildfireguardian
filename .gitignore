@@ -122,6 +122,10 @@ data/processed/**
 !data/processed/corridor_treatment_atlas/*.json
 !data/processed/corridor_treatment_atlas/runs/
 !data/processed/corridor_treatment_atlas/runs/*.json
+# 2026-09-15 corridor convergence check (additive diagnostic, exploratory):
+# route-convergence tally + articulation-point/bridge findings.
+!data/processed/corridor_convergence/
+!data/processed/corridor_convergence/*.json
 # G3 / WFG-032 (2026-09-14): the leak-free 영덕 fold and its field.
 !data/processed/leakfree_yeongdeok_fold.json
 !data/processed/routing_demo_leakfree.npz

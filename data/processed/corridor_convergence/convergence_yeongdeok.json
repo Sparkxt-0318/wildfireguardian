@@ -1,0 +1,6364 @@
+{
+ "schema_version": 1,
+ "headline": {
+  "walk": {
+   "worst_chokepoint_households_cut": 138,
+   "worst_chokepoint": [
+    11755003786,
+    11755003792
+   ],
+   "worst_chokepoint_kind": "edge",
+   "worst_chokepoint_fire_exposed": false,
+   "worst_chokepoint_max_p_any_slice": 0.0,
+   "n_full_network_chokepoints": 44,
+   "n_full_network_chokepoints_fire_exposed": 0,
+   "max_households_on_one_edge": 138,
+   "n_top_fire_exposed": 0,
+   "households_routed": 306,
+   "wildfire_specific_finding": false
+  },
+  "drive": {
+   "worst_chokepoint_households_cut": 6,
+   "worst_chokepoint": 437092394,
+   "worst_chokepoint_kind": "node",
+   "worst_chokepoint_fire_exposed": false,
+   "worst_chokepoint_max_p_any_slice": 0.0092,
+   "n_full_network_chokepoints": 44,
+   "n_full_network_chokepoints_fire_exposed": 0,
+   "max_households_on_one_edge": 79,
+   "n_top_fire_exposed": 0,
+   "households_routed": 132,
+   "wildfire_specific_finding": false
+  },
+  "walk_naive_contrast": {
+   "max_households_on_one_edge_naive": 17,
+   "max_households_on_one_edge_deployed": 138,
+   "n_top_fire_exposed_naive": 2,
+   "n_top_fire_exposed_deployed": 0,
+   "fire_exposed_naive_edges": [
+    {
+     "edge": [
+      12032277584,
+      12048638534
+     ],
+     "households": 17,
+     "max_p_any_slice": 0.5633,
+     "first_min_p_ge_0_5": 180.0
+    },
+    {
+     "edge": [
+      12048638534,
+      13418581843
+     ],
+     "households": 17,
+     "max_p_any_slice": 0.5633,
+     "first_min_p_ge_0_5": 180.0
+    }
+   ]
+  }
+ },
+ "title": "Corridor convergence check, 영덕 2025 (deterministic, additive diagnostic)",
+ "generated_utc": "2026-09-15T05:55:52Z",
+ "git_commit": "455729fcdc57598f0d866dd1b079f94ce9c0e78c",
+ "rule_doc": "docs/corridor_convergence_check.md §1-§6 (declared before the run)",
+ "status": "exploratory; not registered in docs/NUMBERS.json; not on any judge-facing surface",
+ "does_not_model": [
+  "road or corridor capacity, flow, queueing or congestion of any kind",
+  "any change to the routes: the tally is read-only and fed back into nothing",
+  "the rescue-UNIT supply capacity layer (RescueCapacityConfig / capacity_triage), which is untouched"
+ ],
+ "reproduction_gate": {
+  "hazard_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "hazard_sha256_source": "data/processed/rescue_routing_real_hazard.json what_is_real.hazard_sha256",
+  "n_origins": 444,
+  "four_way_counts": {
+   "saved_by_rescue_reachable_refuge": 29,
+   "already_safe": 281,
+   "no_safe_pedestrian_route": 132,
+   "no_surviving_vehicle_ingress": 2
+  },
+  "four_way_counts_committed": {
+   "saved_by_rescue_reachable_refuge": 29,
+   "already_safe": 281,
+   "no_safe_pedestrian_route": 132,
+   "no_surviving_vehicle_ingress": 2
+  },
+  "reproduced": true
+ },
+ "scenario": {
+  "walk_nodes": 8443,
+  "drive_nodes": 1664,
+  "refuges": 50,
+  "depots": 4,
+  "refuges_rescue_reachable": 28,
+  "scan_stride": 18,
+  "walk_cutoff": 0.5,
+  "vehicle_cutoff": 0.7
+ },
+ "routes_collected": {
+  "walk_deployed": 306,
+  "walk_naive": 307,
+  "drive_rescuer": 132,
+  "no_route_contributed": 2
+ },
+ "convergence": {
+  "walk_deployed": {
+   "n_edges_used": 2475,
+   "n_edges_shared_by_2_or_more": 1327,
+   "max_households_on_one_edge": 138,
+   "top": [
+    {
+     "edge": [
+      11755003786,
+      11755003792
+     ],
+     "households": 138,
+     "xy": [
+      [
+       1173657.3677312364,
+       1838673.3517782718
+      ],
+      [
+       1173602.587115062,
+       1838694.1566612406
+      ]
+     ],
+     "length_m": 58.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631440197,
+      11755003786
+     ],
+     "households": 136,
+     "xy": [
+      [
+       1173649.2995001534,
+       1838770.1040674604
+      ],
+      [
+       1173657.3677312364,
+       1838673.3517782718
+      ]
+     ],
+     "length_m": 97.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11755003717,
+      12685895492
+     ],
+     "households": 113,
+     "xy": [
+      [
+       1173558.8553744478,
+       1838779.202476487
+      ],
+      [
+       1172330.0826033843,
+       1839472.5976297292
+      ]
+     ],
+     "length_m": 1410.9,
+     "n_samples": 15,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11755003717,
+      11755003747
+     ],
+     "households": 113,
+     "xy": [
+      [
+       1173558.8553744478,
+       1838779.202476487
+      ],
+      [
+       1173612.9229591922,
+       1838762.6338275124
+      ]
+     ],
+     "length_m": 56.5,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11755003747,
+      11755003763
+     ],
+     "households": 113,
+     "xy": [
+      [
+       1173612.9229591922,
+       1838762.6338275124
+      ],
+      [
+       1173633.831872071,
+       1838766.928765662
+      ]
+     ],
+     "length_m": 21.3,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631440197,
+      11755003763
+     ],
+     "households": 113,
+     "xy": [
+      [
+       1173649.2995001534,
+       1838770.1040674604
+      ],
+      [
+       1173633.831872071,
+       1838766.928765662
+      ]
+     ],
+     "length_m": 15.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11754891263,
+      12685895492
+     ],
+     "households": 104,
+     "xy": [
+      [
+       1171681.493258985,
+       1839786.8216796983
+      ],
+      [
+       1172330.0826033843,
+       1839472.5976297292
+      ]
+     ],
+     "length_m": 720.7,
+     "n_samples": 8,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631469920,
+      11754891263
+     ],
+     "households": 104,
+     "xy": [
+      [
+       1171522.4737926456,
+       1839851.9428968441
+      ],
+      [
+       1171681.493258985,
+       1839786.8216796983
+      ]
+     ],
+     "length_m": 171.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631469920,
+      11754990791
+     ],
+     "households": 104,
+     "xy": [
+      [
+       1171522.4737926456,
+       1839851.9428968441
+      ],
+      [
+       1171514.1095193564,
+       1839855.5165454294
+      ]
+     ],
+     "length_m": 9.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11754990787,
+      11754990791
+     ],
+     "households": 103,
+     "xy": [
+      [
+       1171464.567891976,
+       1839873.40874528
+      ],
+      [
+       1171514.1095193564,
+       1839855.5165454294
+      ]
+     ],
+     "length_m": 52.7,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11754990785,
+      11754990787
+     ],
+     "households": 76,
+     "xy": [
+      [
+       1171419.5149497897,
+       1839889.8700587465
+      ],
+      [
+       1171464.567891976,
+       1839873.40874528
+      ]
+     ],
+     "length_m": 48.0,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11754990782,
+      11754990785
+     ],
+     "households": 74,
+     "xy": [
+      [
+       1171312.9381740433,
+       1839892.2772444873
+      ],
+      [
+       1171419.5149497897,
+       1839889.8700587465
+      ]
+     ],
+     "length_m": 106.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11760232592,
+      11760232698
+     ],
+     "households": 73,
+     "xy": [
+      [
+       1171264.5400362236,
+       1839874.7774440672
+      ],
+      [
+       1171201.0447411838,
+       1839831.92805201
+      ]
+     ],
+     "length_m": 76.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631469918,
+      11754990782
+     ],
+     "households": 73,
+     "xy": [
+      [
+       1171282.6385202648,
+       1839886.9908250382
+      ],
+      [
+       1171312.9381740433,
+       1839892.2772444873
+      ]
+     ],
+     "length_m": 30.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631469918,
+      11760232592
+     ],
+     "households": 73,
+     "xy": [
+      [
+       1171282.6385202648,
+       1839886.9908250382
+      ],
+      [
+       1171264.5400362236,
+       1839874.7774440672
+      ]
+     ],
+     "length_m": 21.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11759946708,
+      11760232698
+     ],
+     "households": 72,
+     "xy": [
+      [
+       1171176.0440535292,
+       1839815.0604856776
+      ],
+      [
+       1171201.0447411838,
+       1839831.92805201
+      ]
+     ],
+     "length_m": 30.2,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11759946708,
+      11760232582
+     ],
+     "households": 51,
+     "xy": [
+      [
+       1171176.0440535292,
+       1839815.0604856776
+      ],
+      [
+       1171166.5153455408,
+       1839809.1885507943
+      ]
+     ],
+     "length_m": 11.2,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11760232582,
+      11760232767
+     ],
+     "households": 50,
+     "xy": [
+      [
+       1171166.5153455408,
+       1839809.1885507943
+      ],
+      [
+       1171160.9165507567,
+       1839805.2038252251
+      ]
+     ],
+     "length_m": 6.9,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631469917,
+      11760232612
+     ],
+     "households": 36,
+     "xy": [
+      [
+       1171062.0510188201,
+       1839738.1344792745
+      ],
+      [
+       1171146.2888885257,
+       1839794.9797735333
+      ]
+     ],
+     "length_m": 101.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11756939323,
+      11756939332
+     ],
+     "households": 36,
+     "xy": [
+      [
+       1170900.0337881998,
+       1839689.2021300609
+      ],
+      [
+       1170895.1426618882,
+       1839697.3846476378
+      ]
+     ],
+     "length_m": 9.5,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4676964534,
+      11760232767
+     ],
+     "households": 32,
+     "xy": [
+      [
+       1171037.8434792724,
+       1839857.152835819
+      ],
+      [
+       1171160.9165507567,
+       1839805.2038252251
+      ]
+     ],
+     "length_m": 133.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4676044102,
+      11164826150
+     ],
+     "households": 30,
+     "xy": [
+      [
+       1170371.9213264412,
+       1839768.4028259455
+      ],
+      [
+       1170332.9814365248,
+       1839782.4380010425
+      ]
+     ],
+     "length_m": 41.4,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4676042031,
+      4676044102
+     ],
+     "households": 30,
+     "xy": [
+      [
+       1170383.2369956065,
+       1839765.0085751372
+      ],
+      [
+       1170371.9213264412,
+       1839768.4028259455
+      ]
+     ],
+     "length_m": 11.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      437261633,
+      11756939205
+     ],
+     "households": 29,
+     "xy": [
+      [
+       1170153.5016414304,
+       1839845.2702221563
+      ],
+      [
+       1169960.6562868853,
+       1839910.705642317
+      ]
+     ],
+     "length_m": 203.6,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      437261630,
+      11756939203
+     ],
+     "households": 29,
+     "xy": [
+      [
+       1170263.0817680748,
+       1839808.6910970309
+      ],
+      [
+       1170181.9235557783,
+       1839836.3870046898
+      ]
+     ],
+     "length_m": 85.8,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    }
+   ],
+   "n_top_fire_exposed": 0
+  },
+  "walk_naive": {
+   "n_edges_used": 2319,
+   "n_edges_shared_by_2_or_more": 1072,
+   "max_households_on_one_edge": 17,
+   "top": [
+    {
+     "edge": [
+      12032277584,
+      12048638534
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1160429.7445260317,
+       1828698.3922866855
+      ],
+      [
+       1160049.410656332,
+       1828917.266967662
+      ]
+     ],
+     "length_m": 438.8,
+     "n_samples": 5,
+     "max_p_any_slice": 0.5633,
+     "max_p_by_slice": [
+      0.2783,
+      0.5387,
+      0.5557,
+      0.558,
+      0.5633
+     ],
+     "first_min_p_ge_0_5": 180.0,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": true
+    },
+    {
+     "edge": [
+      12048638534,
+      13418581843
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1160049.410656332,
+       1828917.266967662
+      ],
+      [
+       1159768.8864091646,
+       1829073.713506262
+      ]
+     ],
+     "length_m": 321.2,
+     "n_samples": 4,
+     "max_p_any_slice": 0.5633,
+     "max_p_by_slice": [
+      0.1867,
+      0.5387,
+      0.5557,
+      0.558,
+      0.5633
+     ],
+     "first_min_p_ge_0_5": 180.0,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": true
+    },
+    {
+     "edge": [
+      12032277660,
+      12032277669
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159745.0979940186,
+       1829414.227661068
+      ],
+      [
+       1159724.6836566234,
+       1829286.6375532718
+      ]
+     ],
+     "length_m": 129.2,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1562,
+     "max_p_by_slice": [
+      0.0268,
+      0.112,
+      0.1476,
+      0.1507,
+      0.1562
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277629,
+      13418581843
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159784.66340139,
+       1829133.5331790391
+      ],
+      [
+       1159768.8864091646,
+       1829073.713506262
+      ]
+     ],
+     "length_m": 61.9,
+     "n_samples": 2,
+     "max_p_any_slice": 0.2391,
+     "max_p_by_slice": [
+      0.0928,
+      0.178,
+      0.2278,
+      0.2318,
+      0.2391
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277629,
+      12032277631
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159784.66340139,
+       1829133.5331790391
+      ],
+      [
+       1159758.8838719046,
+       1829172.9304591354
+      ]
+     ],
+     "length_m": 47.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1858,
+     "max_p_by_slice": [
+      0.0013,
+      0.1221,
+      0.174,
+      0.1782,
+      0.1858
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277646,
+      12032277669
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159692.5640571443,
+       1829260.1640744295
+      ],
+      [
+       1159724.6836566234,
+       1829286.6375532718
+      ]
+     ],
+     "length_m": 41.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1797,
+     "max_p_by_slice": [
+      0.0404,
+      0.1352,
+      0.1711,
+      0.1743,
+      0.1797
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277633,
+      12032277639
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159739.1406283132,
+       1829203.006372354
+      ],
+      [
+       1159715.8069780048,
+       1829233.7927943715
+      ]
+     ],
+     "length_m": 38.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1641,
+     "max_p_by_slice": [
+      0.0223,
+      0.1146,
+      0.1546,
+      0.1581,
+      0.1641
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277631,
+      12032277633
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159758.8838719046,
+       1829172.9304591354
+      ],
+      [
+       1159739.1406283132,
+       1829203.006372354
+      ]
+     ],
+     "length_m": 36.0,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1529,
+     "max_p_by_slice": [
+      0.0085,
+      0.0976,
+      0.1424,
+      0.1462,
+      0.1529
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277660,
+      12048311103
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159745.0979940186,
+       1829414.227661068
+      ],
+      [
+       1159779.7460622482,
+       1829421.2606063457
+      ]
+     ],
+     "length_m": 35.4,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1271,
+     "max_p_by_slice": [
+      0.0233,
+      0.0973,
+      0.121,
+      0.1233,
+      0.1271
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      12032277639,
+      12032277646
+     ],
+     "households": 17,
+     "xy": [
+      [
+       1159715.8069780048,
+       1829233.7927943715
+      ],
+      [
+       1159692.5640571443,
+       1829260.1640744295
+      ]
+     ],
+     "length_m": 35.2,
+     "n_samples": 2,
+     "max_p_any_slice": 0.1797,
+     "max_p_by_slice": [
+      0.0404,
+      0.1352,
+      0.1711,
+      0.1743,
+      0.1797
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11749624321,
+      11753630033
+     ],
+     "households": 15,
+     "xy": [
+      [
+       1170653.8598395493,
+       1840994.0590639017
+      ],
+      [
+       1170574.808969258,
+       1840967.3981048954
+      ]
+     ],
+     "length_m": 83.4,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11753630033,
+      11753630042
+     ],
+     "households": 15,
+     "xy": [
+      [
+       1170574.808969258,
+       1840967.3981048954
+      ],
+      [
+       1170511.468908729,
+       1840951.7925892766
+      ]
+     ],
+     "length_m": 65.2,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11749624321,
+      11753629983
+     ],
+     "households": 15,
+     "xy": [
+      [
+       1170653.8598395493,
+       1840994.0590639017
+      ],
+      [
+       1170653.7336863058,
+       1841002.6802132376
+      ]
+     ],
+     "length_m": 8.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436727403,
+      4676042000
+     ],
+     "households": 14,
+     "xy": [
+      [
+       1170671.8137889775,
+       1841319.63888659
+      ],
+      [
+       1170577.384055711,
+       1841517.8865956417
+      ]
+     ],
+     "length_m": 219.6,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436727391,
+      436727403
+     ],
+     "households": 14,
+     "xy": [
+      [
+       1170666.5093557045,
+       1841130.1573595747
+      ],
+      [
+       1170671.8137889775,
+       1841319.63888659
+      ]
+     ],
+     "length_m": 189.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436727391,
+      11753629983
+     ],
+     "households": 14,
+     "xy": [
+      [
+       1170666.5093557045,
+       1841130.1573595747
+      ],
+      [
+       1170653.7336863058,
+       1841002.6802132376
+      ]
+     ],
+     "length_m": 128.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912840,
+      436912846
+     ],
+     "households": 13,
+     "xy": [
+      [
+       1173380.1168612766,
+       1827407.4684298616
+      ],
+      [
+       1173333.447121794,
+       1827517.3077667998
+      ]
+     ],
+     "length_m": 119.3,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0131,
+     "max_p_by_slice": [
+      0.0,
+      0.0065,
+      0.0127,
+      0.013,
+      0.0131
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912840,
+      11911490740
+     ],
+     "households": 13,
+     "xy": [
+      [
+       1173380.1168612766,
+       1827407.4684298616
+      ],
+      [
+       1173439.2431552669,
+       1827331.2859478323
+      ]
+     ],
+     "length_m": 96.4,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0122,
+     "max_p_by_slice": [
+      0.0,
+      0.0061,
+      0.0118,
+      0.0121,
+      0.0122
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11932123643,
+      11935650354
+     ],
+     "households": 13,
+     "xy": [
+      [
+       1171998.6488332564,
+       1826657.674967748
+      ],
+      [
+       1171954.8696289484,
+       1826646.7935410708
+      ]
+     ],
+     "length_m": 45.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0374,
+     "max_p_by_slice": [
+      0.0,
+      0.0206,
+      0.0369,
+      0.0373,
+      0.0374
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11935650354,
+      11935650375
+     ],
+     "households": 13,
+     "xy": [
+      [
+       1171954.8696289484,
+       1826646.7935410708
+      ],
+      [
+       1171948.934838349,
+       1826650.2492497605
+      ]
+     ],
+     "length_m": 6.9,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0345,
+     "max_p_by_slice": [
+      0.0,
+      0.0189,
+      0.034,
+      0.0344,
+      0.0345
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11935650359,
+      11935650375
+     ],
+     "households": 13,
+     "xy": [
+      [
+       1171943.6533895058,
+       1826654.2284822445
+      ],
+      [
+       1171948.934838349,
+       1826650.2492497605
+      ]
+     ],
+     "length_m": 6.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0351,
+     "max_p_by_slice": [
+      0.0,
+      0.0193,
+      0.0346,
+      0.035,
+      0.0351
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912892,
+      11910568333
+     ],
+     "households": 12,
+     "xy": [
+      [
+       1173284.5776254162,
+       1828177.627107629
+      ],
+      [
+       1173292.0098615664,
+       1827868.16946471
+      ]
+     ],
+     "length_m": 309.5,
+     "n_samples": 4,
+     "max_p_any_slice": 0.019,
+     "max_p_by_slice": [
+      0.0,
+      0.0087,
+      0.0185,
+      0.0188,
+      0.019
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912846,
+      11911418797
+     ],
+     "households": 12,
+     "xy": [
+      [
+       1173333.447121794,
+       1827517.3077667998
+      ],
+      [
+       1173309.2662529494,
+       1827818.0056695046
+      ]
+     ],
+     "length_m": 301.7,
+     "n_samples": 4,
+     "max_p_any_slice": 0.0154,
+     "max_p_by_slice": [
+      0.0,
+      0.0073,
+      0.0149,
+      0.0152,
+      0.0154
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11910568333,
+      11911418797
+     ],
+     "households": 12,
+     "xy": [
+      [
+       1173292.0098615664,
+       1827868.16946471
+      ],
+      [
+       1173309.2662529494,
+       1827818.0056695046
+      ]
+     ],
+     "length_m": 53.0,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0165,
+     "max_p_by_slice": [
+      0.0,
+      0.0078,
+      0.016,
+      0.0163,
+      0.0165
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      9210068257,
+      11872368535
+     ],
+     "households": 11,
+     "xy": [
+      [
+       1173222.5338286932,
+       1828341.0978861798
+      ],
+      [
+       1173184.6970202937,
+       1828710.3782591715
+      ]
+     ],
+     "length_m": 371.2,
+     "n_samples": 4,
+     "max_p_any_slice": 0.0621,
+     "max_p_by_slice": [
+      0.0474,
+      0.0542,
+      0.0616,
+      0.0619,
+      0.0621
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    }
+   ],
+   "n_top_fire_exposed": 2
+  },
+  "drive_rescuer": {
+   "n_edges_used": 666,
+   "n_edges_shared_by_2_or_more": 392,
+   "max_households_on_one_edge": 79,
+   "top": [
+    {
+     "edge": [
+      7878950980,
+      12011651425
+     ],
+     "households": 79,
+     "xy": [
+      [
+       1168261.6864624163,
+       1818682.8689947834
+      ],
+      [
+       1168225.8823535333,
+       1818706.1017048624
+      ]
+     ],
+     "length_m": 42.7,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      7878950980,
+      12011651395
+     ],
+     "households": 75,
+     "xy": [
+      [
+       1168261.6864624163,
+       1818682.8689947834
+      ],
+      [
+       1168491.5983948205,
+       1818725.4666883429
+      ]
+     ],
+     "length_m": 233.8,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      7216309641,
+      12011651395
+     ],
+     "households": 75,
+     "xy": [
+      [
+       1168560.4349987733,
+       1818735.7607916668
+      ],
+      [
+       1168491.5983948205,
+       1818725.4666883429
+      ]
+     ],
+     "length_m": 69.6,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      437253067,
+      7216309641
+     ],
+     "households": 72,
+     "xy": [
+      [
+       1168569.3727857778,
+       1818736.8778894623
+      ],
+      [
+       1168560.4349987733,
+       1818735.7607916668
+      ]
+     ],
+     "length_m": 9.0,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      437253067,
+      4746298722
+     ],
+     "households": 69,
+     "xy": [
+      [
+       1168569.3727857778,
+       1818736.8778894623
+      ],
+      [
+       1168660.7508185096,
+       1819063.3299703402
+      ]
+     ],
+     "length_m": 339.0,
+     "n_samples": 4,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4746298722,
+      4746298724
+     ],
+     "households": 69,
+     "xy": [
+      [
+       1168660.7508185096,
+       1819063.3299703402
+      ],
+      [
+       1168706.9020314454,
+       1819134.8452138663
+      ]
+     ],
+     "length_m": 85.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4714351725,
+      12009089635
+     ],
+     "households": 68,
+     "xy": [
+      [
+       1168600.0537983011,
+       1819703.1761909255
+      ],
+      [
+       1168715.2073289,
+       1819442.4246559828
+      ]
+     ],
+     "length_m": 285.0,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631089405,
+      4746298724
+     ],
+     "households": 68,
+     "xy": [
+      [
+       1168741.991983069,
+       1819372.428547707
+      ],
+      [
+       1168706.9020314454,
+       1819134.8452138663
+      ]
+     ],
+     "length_m": 240.2,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4631089405,
+      4714366911
+     ],
+     "households": 68,
+     "xy": [
+      [
+       1168741.991983069,
+       1819372.428547707
+      ],
+      [
+       1168718.7008520681,
+       1819433.5808610122
+      ]
+     ],
+     "length_m": 65.4,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      4714366911,
+      12009089635
+     ],
+     "households": 68,
+     "xy": [
+      [
+       1168718.7008520681,
+       1819433.5808610122
+      ],
+      [
+       1168715.2073289,
+       1819442.4246559828
+      ]
+     ],
+     "length_m": 9.5,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912433,
+      4714351725
+     ],
+     "households": 67,
+     "xy": [
+      [
+       1168868.4054364339,
+       1819763.535659393
+      ],
+      [
+       1168600.0537983011,
+       1819703.1761909255
+      ]
+     ],
+     "length_m": 275.1,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0001,
+     "max_p_by_slice": [
+      0.0,
+      0.0,
+      0.0001,
+      0.0001,
+      0.0001
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912433,
+      5535635783
+     ],
+     "households": 66,
+     "xy": [
+      [
+       1168868.4054364339,
+       1819763.535659393
+      ],
+      [
+       1168882.7381413798,
+       1819919.8436322892
+      ]
+     ],
+     "length_m": 157.0,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0002,
+     "max_p_by_slice": [
+      0.0,
+      0.0001,
+      0.0002,
+      0.0002,
+      0.0002
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912482,
+      5535636106
+     ],
+     "households": 65,
+     "xy": [
+      [
+       1169930.4402532482,
+       1820352.14330102
+      ],
+      [
+       1170731.15101002,
+       1821794.82205636
+      ]
+     ],
+     "length_m": 1650.0,
+     "n_samples": 17,
+     "max_p_any_slice": 0.0035,
+     "max_p_by_slice": [
+      0.0,
+      0.0021,
+      0.0033,
+      0.0035,
+      0.0035
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      5535635783,
+      11991968731
+     ],
+     "households": 65,
+     "xy": [
+      [
+       1168882.7381413798,
+       1819919.8436322892
+      ],
+      [
+       1169773.711489908,
+       1820102.9242860505
+      ]
+     ],
+     "length_m": 909.6,
+     "n_samples": 10,
+     "max_p_any_slice": 0.0012,
+     "max_p_by_slice": [
+      0.0,
+      0.0005,
+      0.0011,
+      0.0012,
+      0.0012
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11991968635,
+      11991968731
+     ],
+     "households": 65,
+     "xy": [
+      [
+       1169890.4575144525,
+       1820376.6189241563
+      ],
+      [
+       1169773.711489908,
+       1820102.9242860505
+      ]
+     ],
+     "length_m": 297.6,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0018,
+     "max_p_by_slice": [
+      0.0,
+      0.0005,
+      0.0017,
+      0.0018,
+      0.0018
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912482,
+      11991968635
+     ],
+     "households": 65,
+     "xy": [
+      [
+       1169930.4402532482,
+       1820352.14330102
+      ],
+      [
+       1169890.4575144525,
+       1820376.6189241563
+      ]
+     ],
+     "length_m": 46.9,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0018,
+     "max_p_by_slice": [
+      0.0,
+      0.0005,
+      0.0017,
+      0.0018,
+      0.0018
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912563,
+      5535636106
+     ],
+     "households": 64,
+     "xy": [
+      [
+       1171033.3811147765,
+       1822990.0379344942
+      ],
+      [
+       1170731.15101002,
+       1821794.82205636
+      ]
+     ],
+     "length_m": 1232.8,
+     "n_samples": 13,
+     "max_p_any_slice": 0.0088,
+     "max_p_by_slice": [
+      0.0,
+      0.005,
+      0.0087,
+      0.0088,
+      0.0088
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912612,
+      436912674
+     ],
+     "households": 63,
+     "xy": [
+      [
+       1171869.1999483453,
+       1823897.0476957846
+      ],
+      [
+       1172877.4420452956,
+       1825154.4985645826
+      ]
+     ],
+     "length_m": 1611.7,
+     "n_samples": 17,
+     "max_p_any_slice": 0.0109,
+     "max_p_by_slice": [
+      0.0,
+      0.0065,
+      0.0107,
+      0.0108,
+      0.0109
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912612,
+      11959426119
+     ],
+     "households": 63,
+     "xy": [
+      [
+       1171869.1999483453,
+       1823897.0476957846
+      ],
+      [
+       1171176.2856467334,
+       1823112.3135845577
+      ]
+     ],
+     "length_m": 1046.9,
+     "n_samples": 11,
+     "max_p_any_slice": 0.0072,
+     "max_p_by_slice": [
+      0.0,
+      0.0036,
+      0.0069,
+      0.0071,
+      0.0072
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      414668537,
+      11959426119
+     ],
+     "households": 63,
+     "xy": [
+      [
+       1171082.587973106,
+       1823027.8565974517
+      ],
+      [
+       1171176.2856467334,
+       1823112.3135845577
+      ]
+     ],
+     "length_m": 126.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0068,
+     "max_p_by_slice": [
+      0.0,
+      0.0016,
+      0.0065,
+      0.0067,
+      0.0068
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      414668537,
+      436912563
+     ],
+     "households": 63,
+     "xy": [
+      [
+       1171082.587973106,
+       1823027.8565974517
+      ],
+      [
+       1171033.3811147765,
+       1822990.0379344942
+      ]
+     ],
+     "length_m": 62.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0063,
+     "max_p_by_slice": [
+      0.0,
+      0.002,
+      0.0061,
+      0.0062,
+      0.0063
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      436912674,
+      11941445158
+     ],
+     "households": 62,
+     "xy": [
+      [
+       1172877.4420452956,
+       1825154.4985645826
+      ],
+      [
+       1172991.4878342445,
+       1825337.7950252364
+      ]
+     ],
+     "length_m": 215.9,
+     "n_samples": 3,
+     "max_p_any_slice": 0.0019,
+     "max_p_by_slice": [
+      0.0,
+      0.0011,
+      0.0018,
+      0.0019,
+      0.0019
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11941445127,
+      11941445158
+     ],
+     "households": 62,
+     "xy": [
+      [
+       1173014.6533034458,
+       1825426.9466364654
+      ],
+      [
+       1172991.4878342445,
+       1825337.7950252364
+      ]
+     ],
+     "length_m": 92.1,
+     "n_samples": 2,
+     "max_p_any_slice": 0.002,
+     "max_p_by_slice": [
+      0.0,
+      0.0011,
+      0.0019,
+      0.002,
+      0.002
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11911490740,
+      11941423817
+     ],
+     "households": 61,
+     "xy": [
+      [
+       1173439.2431552669,
+       1827331.2859478323
+      ],
+      [
+       1173014.8070723785,
+       1825552.4852646117
+      ]
+     ],
+     "length_m": 1828.7,
+     "n_samples": 19,
+     "max_p_any_slice": 0.013,
+     "max_p_by_slice": [
+      0.0,
+      0.0065,
+      0.0127,
+      0.0129,
+      0.013
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    },
+    {
+     "edge": [
+      11941423817,
+      11941445127
+     ],
+     "households": 61,
+     "xy": [
+      [
+       1173014.8070723785,
+       1825552.4852646117
+      ],
+      [
+       1173014.6533034458,
+       1825426.9466364654
+      ]
+     ],
+     "length_m": 125.5,
+     "n_samples": 2,
+     "max_p_any_slice": 0.0025,
+     "max_p_by_slice": [
+      0.0,
+      0.0014,
+      0.0024,
+      0.0024,
+      0.0025
+     ],
+     "first_min_p_ge_0_5": null,
+     "first_min_p_ge_0_7": null,
+     "fire_exposed": false
+    }
+   ],
+   "n_top_fire_exposed": 0
+  }
+ },
+ "structural": {
+  "walk": {
+   "network": "walk",
+   "n_findings_cutting_more_than_one_household": 2134,
+   "n_findings_full_network": 44,
+   "n_findings_used_subgraph_only": 2090,
+   "findings_used_subgraph_only_top50": [
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11754891098,
+     "xy": [
+      1173640.0940833052,
+      1838909.0533835732
+     ],
+     "households_on_it": 23,
+     "households_cut_used_subgraph": 23,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11754891102
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12031801753,
+     "xy": [
+      1161464.038333546,
+      1824384.6066138127
+     ],
+     "households_on_it": 11,
+     "households_cut_used_subgraph": 11,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      12031801844
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12009089475,
+     "xy": [
+      1168486.6909749638,
+      1819751.1575274256
+     ],
+     "households_on_it": 9,
+     "households_cut_used_subgraph": 9,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      12009089476
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11735675996,
+     "xy": [
+      1170979.6352721313,
+      1844464.7849603407
+     ],
+     "households_on_it": 8,
+     "households_cut_used_subgraph": 8,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11735676003
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11784514765,
+     "xy": [
+      1164389.07594403,
+      1840376.0097071375
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11784514768
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12030520741,
+     "xy": [
+      1167032.04758276,
+      1818166.8432230165
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      12030520745
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11825802433,
+     "xy": [
+      1165104.2495343008,
+      1837119.0291502757
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11825802452
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11872367038,
+     "xy": [
+      1173391.8171138905,
+      1829469.7708536794
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11872367043
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11941582646,
+     "xy": [
+      1172431.253154293,
+      1824539.9508746653
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11941582667
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11984959479,
+     "xy": [
+      1170532.479776922,
+      1821516.4699400896
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11984959480
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 436912921,
+     "xy": [
+      1173285.5912422775,
+      1828878.0475479155
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11872368450
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 4676963986,
+     "xy": [
+      1170581.97829447,
+      1839325.8643359272
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11760232903
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11747142988,
+     "xy": [
+      1168435.7974267844,
+      1843681.7800600536
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11747142994
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11872368072,
+     "xy": [
+      1173335.1673284352,
+      1829403.5185061875
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11872368073
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11968186416,
+     "xy": [
+      1168041.5021865147,
+      1824894.6192745005
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11968186417
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12031802123,
+     "xy": [
+      1161737.593896803,
+      1823787.3637542932
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      12031802126
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 436912530,
+     "xy": [
+      1170700.362143114,
+      1821738.2243095748
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11984959408
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 436912696,
+     "xy": [
+      1173069.4150554887,
+      1826156.2841640138
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11936364045
+     ]
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      4631440197,
+      11755003786
+     ],
+     "xy": [
+      [
+       1173649.2995001534,
+       1838770.1040674604
+      ],
+      [
+       1173657.3677312364,
+       1838673.3517782718
+      ]
+     ],
+     "households_on_it": 136,
+     "households_cut_used_subgraph": 136,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 4631440197,
+     "xy": [
+      1173649.2995001534,
+      1838770.1040674604
+     ],
+     "households_on_it": 136,
+     "households_cut_used_subgraph": 136,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11755003717,
+      11755003747
+     ],
+     "xy": [
+      [
+       1173558.8553744478,
+       1838779.202476487
+      ],
+      [
+       1173612.9229591922,
+       1838762.6338275124
+      ]
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11755003717,
+      12685895492
+     ],
+     "xy": [
+      [
+       1173558.8553744478,
+       1838779.202476487
+      ],
+      [
+       1172330.0826033843,
+       1839472.5976297292
+      ]
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11755003747,
+      11755003763
+     ],
+     "xy": [
+      [
+       1173612.9229591922,
+       1838762.6338275124
+      ],
+      [
+       1173633.831872071,
+       1838766.928765662
+      ]
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      4631440197,
+      11755003763
+     ],
+     "xy": [
+      [
+       1173649.2995001534,
+       1838770.1040674604
+      ],
+      [
+       1173633.831872071,
+       1838766.928765662
+      ]
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11755003717,
+     "xy": [
+      1173558.8553744478,
+      1838779.202476487
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11755003747,
+     "xy": [
+      1173612.9229591922,
+      1838762.6338275124
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11755003763,
+     "xy": [
+      1173633.831872071,
+      1838766.928765662
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12685895492,
+     "xy": [
+      1172330.0826033843,
+      1839472.5976297292
+     ],
+     "households_on_it": 113,
+     "households_cut_used_subgraph": 113,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11754891263,
+      12685895492
+     ],
+     "xy": [
+      [
+       1171681.493258985,
+       1839786.8216796983
+      ],
+      [
+       1172330.0826033843,
+       1839472.5976297292
+      ]
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      4631469920,
+      11754891263
+     ],
+     "xy": [
+      [
+       1171522.4737926456,
+       1839851.9428968441
+      ],
+      [
+       1171681.493258985,
+       1839786.8216796983
+      ]
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      4631469920,
+      11754990791
+     ],
+     "xy": [
+      [
+       1171522.4737926456,
+       1839851.9428968441
+      ],
+      [
+       1171514.1095193564,
+       1839855.5165454294
+      ]
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11754891263,
+     "xy": [
+      1171681.493258985,
+      1839786.8216796983
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11754990791,
+     "xy": [
+      1171514.1095193564,
+      1839855.5165454294
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 4631469920,
+     "xy": [
+      1171522.4737926456,
+      1839851.9428968441
+     ],
+     "households_on_it": 104,
+     "households_cut_used_subgraph": 104,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11754990787,
+      11754990791
+     ],
+     "xy": [
+      [
+       1171464.567891976,
+       1839873.40874528
+      ],
+      [
+       1171514.1095193564,
+       1839855.5165454294
+      ]
+     ],
+     "households_on_it": 103,
+     "households_cut_used_subgraph": 103,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11754990787,
+     "xy": [
+      1171464.567891976,
+      1839873.40874528
+     ],
+     "households_on_it": 103,
+     "households_cut_used_subgraph": 103,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11754990785,
+      11754990787
+     ],
+     "xy": [
+      [
+       1171419.5149497897,
+       1839889.8700587465
+      ],
+      [
+       1171464.567891976,
+       1839873.40874528
+      ]
+     ],
+     "households_on_it": 76,
+     "households_cut_used_subgraph": 76,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11754990785,
+     "xy": [
+      1171419.5149497897,
+      1839889.8700587465
+     ],
+     "households_on_it": 76,
+     "households_cut_used_subgraph": 76,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      10076217614,
+      11001085981
+     ],
+     "xy": [
+      [
+       1160028.3379060044,
+       1815458.8869357354
+      ],
+      [
+       1160118.9741361253,
+       1815549.4823812786
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001071994,
+      11001072002
+     ],
+     "xy": [
+      [
+       1160439.1457843303,
+       1819404.3118471627
+      ],
+      [
+       1160466.57947179,
+       1819419.6903583005
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001071994,
+      11001091808
+     ],
+     "xy": [
+      [
+       1160439.1457843303,
+       1819404.3118471627
+      ],
+      [
+       1160446.6253592018,
+       1818620.3535393188
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001081287,
+      11001090711
+     ],
+     "xy": [
+      [
+       1160535.323602346,
+       1817238.2557242732
+      ],
+      [
+       1160538.5362512276,
+       1817220.392692349
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001081287,
+      11001091226
+     ],
+     "xy": [
+      [
+       1160535.323602346,
+       1817238.2557242732
+      ],
+      [
+       1160649.1570579733,
+       1817389.7135744097
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001085598,
+      11001088426
+     ],
+     "xy": [
+      [
+       1160228.0250244224,
+       1816585.5795740876
+      ],
+      [
+       1160229.3095730962,
+       1816578.2567623726
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001085598,
+      11001090711
+     ],
+     "xy": [
+      [
+       1160228.0250244224,
+       1816585.5795740876
+      ],
+      [
+       1160538.5362512276,
+       1817220.392692349
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001085981,
+      11001085982
+     ],
+     "xy": [
+      [
+       1160118.9741361253,
+       1815549.4823812786
+      ],
+      [
+       1159814.3129739827,
+       1816143.0625926668
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001085982,
+      11348184370
+     ],
+     "xy": [
+      [
+       1159814.3129739827,
+       1816143.0625926668
+      ],
+      [
+       1160018.7392142105,
+       1816358.8135436114
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001088426,
+      11348184370
+     ],
+     "xy": [
+      [
+       1160229.3095730962,
+       1816578.2567623726
+      ],
+      [
+       1160018.7392142105,
+       1816358.8135436114
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001091226,
+      11001091313
+     ],
+     "xy": [
+      [
+       1160649.1570579733,
+       1817389.7135744097
+      ],
+      [
+       1160557.8027193346,
+       1817749.1466218715
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11001091313,
+      11001091533
+     ],
+     "xy": [
+      [
+       1160557.8027193346,
+       1817749.1466218715
+      ],
+      [
+       1160552.7995649453,
+       1817931.6305166977
+      ]
+     ],
+     "households_on_it": 28,
+     "households_cut_used_subgraph": 28,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    }
+   ],
+   "used_subgraph": {
+    "nodes": 2461,
+    "edges": 2475
+   },
+   "n_articulation_points": 1952,
+   "n_bridges": 2127,
+   "n_candidates_tested": 4079,
+   "n_candidates_total": 4079,
+   "test_budget": "exhaustive (every articulation point and bridge tested)",
+   "findings": [
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11755003786,
+      11755003792
+     ],
+     "xy": [
+      [
+       1173657.3677312364,
+       1838673.3517782718
+      ],
+      [
+       1173602.587115062,
+       1838694.1566612406
+      ]
+     ],
+     "households_on_it": 138,
+     "households_cut_used_subgraph": 138,
+     "households_cut_full_network": 138,
+     "cut_full_network_households": [
+      436727420,
+      436913131,
+      437261689,
+      4631469917,
+      4676044095,
+      4676964463,
+      4676964512,
+      4677054498,
+      4677054673,
+      4677054832,
+      4677181674,
+      4746359298,
+      4746359627,
+      4746359834,
+      4746359912,
+      5535858289,
+      5537586928,
+      7377524200,
+      7377535932,
+      7377535979
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11755003786,
+     "xy": [
+      1173657.3677312364,
+      1838673.3517782718
+     ],
+     "households_on_it": 138,
+     "households_cut_used_subgraph": 138,
+     "households_cut_full_network": 138,
+     "cut_full_network_households": [
+      436727420,
+      436913131,
+      437261689,
+      4631469917,
+      4676044095,
+      4676964463,
+      4676964512,
+      4677054498,
+      4677054673,
+      4677054832,
+      4677181674,
+      4746359298,
+      4746359627,
+      4746359834,
+      4746359912,
+      5535858289,
+      5537586928,
+      7377524200,
+      7377535932,
+      7377535979
+     ],
+     "max_p_any_slice": 0.0006,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      12000064438,
+      12000161817
+     ],
+     "xy": [
+      [
+       1169734.310078756,
+       1819616.8504971114
+      ],
+      [
+       1169649.9592763942,
+       1819653.8652822413
+      ]
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11984959408,
+      11984959480,
+      11991952353,
+      11991968594,
+      12000064281,
+      12000064743,
+      12000161887
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      437090984,
+      7377497628
+     ],
+     "xy": [
+      [
+       1165289.6088775992,
+       1840486.2004001501
+      ],
+      [
+       1165295.0658819766,
+       1840655.764545592
+      ]
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489,
+      11764332770,
+      11764450482,
+      11764450608
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12000064438,
+     "xy": [
+      1169734.310078756,
+      1819616.8504971114
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11984959408,
+      11984959480,
+      11991952353,
+      11991968594,
+      12000064281,
+      12000064743,
+      12000161887
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12000161817,
+     "xy": [
+      1169649.9592763942,
+      1819653.8652822413
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11984959408,
+      11984959480,
+      11991952353,
+      11991968594,
+      12000064281,
+      12000064743,
+      12000161887
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 437090984,
+     "xy": [
+      1165289.6088775992,
+      1840486.2004001501
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489,
+      11764332770,
+      11764450482,
+      11764450608
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 7377497628,
+     "xy": [
+      1165295.0658819766,
+      1840655.764545592
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 7,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489,
+      11764332770,
+      11764450482,
+      11764450608
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      10281901255,
+      11685186169
+     ],
+     "xy": [
+      [
+       1158733.1712011467,
+       1815629.4971508947
+      ],
+      [
+       1158609.000671906,
+       1816172.6957336352
+      ]
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      437092222,
+      12116928055,
+      12125807803,
+      12128944406
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      437091036,
+      11764332604
+     ],
+     "xy": [
+      [
+       1164854.8323393739,
+       1843051.0380284456
+      ],
+      [
+       1164861.2766999698,
+       1843102.0027525323
+      ]
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      437091036,
+      11764332749
+     ],
+     "xy": [
+      [
+       1164854.8323393739,
+       1843051.0380284456
+      ],
+      [
+       1164889.768905493,
+       1842084.3380469792
+      ]
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 10281901255,
+     "xy": [
+      1158733.1712011467,
+      1815629.4971508947
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      437092222,
+      12116928055,
+      12125807803,
+      12128944406
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11764332604,
+     "xy": [
+      1164861.2766999698,
+      1843102.0027525323
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11764332749,
+     "xy": [
+      1164889.768905493,
+      1842084.3380469792
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 437091036,
+     "xy": [
+      1164854.8323393739,
+      1843051.0380284456
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11758925170,
+      11764332179,
+      11764332316,
+      11764332489
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11731499564,
+      11731499565
+     ],
+     "xy": [
+      [
+       1171004.6831570426,
+       1846322.4932421162
+      ],
+      [
+       1171011.0463292124,
+       1846328.7686032413
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11731499608,
+      11731499609
+     ],
+     "xy": [
+      [
+       1170892.6617555548,
+       1846259.3545270201
+      ],
+      [
+       1170880.217171347,
+       1846265.9216725668
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11731499609,
+      11731499651
+     ],
+     "xy": [
+      [
+       1170880.217171347,
+       1846265.9216725668
+      ],
+      [
+       1170887.918772167,
+       1846277.3511803888
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11741886897,
+      11747142975
+     ],
+     "xy": [
+      [
+       1168834.6516834225,
+       1843040.7571438868
+      ],
+      [
+       1168596.0099818478,
+       1843485.6006363307
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11747142994,
+      11747143257
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11741886924,
+      11747142975
+     ],
+     "xy": [
+      [
+       1168560.4336504824,
+       1843551.0062302258
+      ],
+      [
+       1168596.0099818478,
+       1843485.6006363307
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11747142994,
+      11747143257
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11777716550,
+      11777716569
+     ],
+     "xy": [
+      [
+       1162274.6753864752,
+       1845515.6431612645
+      ],
+      [
+       1162233.5786053878,
+       1845370.669174265
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      11777716613,
+      11777716632
+     ],
+     "xy": [
+      [
+       1162133.5609641382,
+       1844213.2455307678
+      ],
+      [
+       1162186.3179230841,
+       1843988.6713975717
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0003,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      12187916488,
+      12187916520
+     ],
+     "xy": [
+      [
+       1158030.767616752,
+       1816208.666162034
+      ],
+      [
+       1157907.7351098051,
+       1816183.9099710986
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      12187916520,
+      12187916528
+     ],
+     "xy": [
+      [
+       1157907.7351098051,
+       1816183.9099710986
+      ],
+      [
+       1157959.4169930054,
+       1816054.3349726726
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      12187916528,
+      12187916546
+     ],
+     "xy": [
+      [
+       1157959.4169930054,
+       1816054.3349726726
+      ],
+      [
+       1157954.5550344663,
+       1816034.8261631362
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      5537532192,
+      11777716632
+     ],
+     "xy": [
+      [
+       1162190.3270611735,
+       1843631.8319003521
+      ],
+      [
+       1162186.3179230841,
+       1843988.6713975717
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0005,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      5537532215,
+      11777716569
+     ],
+     "xy": [
+      [
+       1162245.0197427585,
+       1845328.7455086007
+      ],
+      [
+       1162233.5786053878,
+       1845370.669174265
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "edge",
+     "id": [
+      5537532215,
+      11777716613
+     ],
+     "xy": [
+      [
+       1162245.0197427585,
+       1845328.7455086007
+      ],
+      [
+       1162133.5609641382,
+       1844213.2455307678
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0002,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11731499564,
+     "xy": [
+      1171004.6831570426,
+      1846322.4932421162
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11731499608,
+     "xy": [
+      1170892.6617555548,
+      1846259.3545270201
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11731499609,
+     "xy": [
+      1170880.217171347,
+      1846265.9216725668
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11731499651,
+     "xy": [
+      1170887.918772167,
+      1846277.3511803888
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11731499309,
+      11731499565
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11741886897,
+     "xy": [
+      1168834.6516834225,
+      1843040.7571438868
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11747142994,
+      11747143257
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11741886924,
+     "xy": [
+      1168560.4336504824,
+      1843551.0062302258
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11747142994,
+      11747143257
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11747142975,
+     "xy": [
+      1168596.0099818478,
+      1843485.6006363307
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11747142994,
+      11747143257
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11777716550,
+     "xy": [
+      1162274.6753864752,
+      1845515.6431612645
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11777716569,
+     "xy": [
+      1162233.5786053878,
+      1845370.669174265
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11777716613,
+     "xy": [
+      1162133.5609641382,
+      1844213.2455307678
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0003,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 11777716632,
+     "xy": [
+      1162186.3179230841,
+      1843988.6713975717
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0005,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12187916488,
+     "xy": [
+      1158030.767616752,
+      1816208.666162034
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12187916520,
+     "xy": [
+      1157907.7351098051,
+      1816183.9099710986
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 12187916528,
+     "xy": [
+      1157959.4169930054,
+      1816054.3349726726
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12187916492,
+      14045090833
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 5537532192,
+     "xy": [
+      1162190.3270611735,
+      1843631.8319003521
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0005,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "walk",
+     "kind": "node",
+     "id": 5537532215,
+     "xy": [
+      1162245.0197427585,
+      1845328.7455086007
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11777716368,
+      11777716556
+     ],
+     "max_p_any_slice": 0.0002,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    }
+   ]
+  },
+  "drive": {
+   "network": "drive",
+   "n_findings_cutting_more_than_one_household": 768,
+   "n_findings_full_network": 44,
+   "n_findings_used_subgraph_only": 724,
+   "findings_used_subgraph_only_top50": [
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11872197536,
+     "xy": [
+      1173477.4706280278,
+      1831047.7659597986
+     ],
+     "households_on_it": 58,
+     "households_cut_used_subgraph": 57,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11872197574
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11786567165,
+     "xy": [
+      1173255.5708588269,
+      1835150.3715781476
+     ],
+     "households_on_it": 48,
+     "households_cut_used_subgraph": 48,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      13607469896
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11736152197,
+     "xy": [
+      1170069.5214947655,
+      1843399.7417388624
+     ],
+     "households_on_it": 7,
+     "households_cut_used_subgraph": 7,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11737947931
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436727485,
+     "xy": [
+      1170092.4599101213,
+      1844366.2339588513
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11736151786
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4185147696,
+     "xy": [
+      1167347.236066405,
+      1825734.4441540833
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11976157126
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4746359713,
+     "xy": [
+      1170549.2795531661,
+      1841527.7179234456
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 1,
+     "cut_full_network_households": [
+      11749624110
+     ]
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      7878950980,
+      12011651425
+     ],
+     "xy": [
+      [
+       1168261.6864624163,
+       1818682.8689947834
+      ],
+      [
+       1168225.8823535333,
+       1818706.1017048624
+      ]
+     ],
+     "households_on_it": 79,
+     "households_cut_used_subgraph": 79,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 7878950980,
+     "xy": [
+      1168261.6864624163,
+      1818682.8689947834
+     ],
+     "households_on_it": 79,
+     "households_cut_used_subgraph": 79,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      7216309641,
+      12011651395
+     ],
+     "xy": [
+      [
+       1168560.4349987733,
+       1818735.7607916668
+      ],
+      [
+       1168491.5983948205,
+       1818725.4666883429
+      ]
+     ],
+     "households_on_it": 75,
+     "households_cut_used_subgraph": 75,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      7878950980,
+      12011651395
+     ],
+     "xy": [
+      [
+       1168261.6864624163,
+       1818682.8689947834
+      ],
+      [
+       1168491.5983948205,
+       1818725.4666883429
+      ]
+     ],
+     "households_on_it": 75,
+     "households_cut_used_subgraph": 75,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12011651395,
+     "xy": [
+      1168491.5983948205,
+      1818725.4666883429
+     ],
+     "households_on_it": 75,
+     "households_cut_used_subgraph": 75,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 7216309641,
+     "xy": [
+      1168560.4349987733,
+      1818735.7607916668
+     ],
+     "households_on_it": 75,
+     "households_cut_used_subgraph": 75,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437253067,
+      7216309641
+     ],
+     "xy": [
+      [
+       1168569.3727857778,
+       1818736.8778894623
+      ],
+      [
+       1168560.4349987733,
+       1818735.7607916668
+      ]
+     ],
+     "households_on_it": 72,
+     "households_cut_used_subgraph": 72,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437253067,
+     "xy": [
+      1168569.3727857778,
+      1818736.8778894623
+     ],
+     "households_on_it": 72,
+     "households_cut_used_subgraph": 72,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437253067,
+      4746298722
+     ],
+     "xy": [
+      [
+       1168569.3727857778,
+       1818736.8778894623
+      ],
+      [
+       1168660.7508185096,
+       1819063.3299703402
+      ]
+     ],
+     "households_on_it": 69,
+     "households_cut_used_subgraph": 69,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4746298722,
+      4746298724
+     ],
+     "xy": [
+      [
+       1168660.7508185096,
+       1819063.3299703402
+      ],
+      [
+       1168706.9020314454,
+       1819134.8452138663
+      ]
+     ],
+     "households_on_it": 69,
+     "households_cut_used_subgraph": 69,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4746298722,
+     "xy": [
+      1168660.7508185096,
+      1819063.3299703402
+     ],
+     "households_on_it": 69,
+     "households_cut_used_subgraph": 69,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4746298724,
+     "xy": [
+      1168706.9020314454,
+      1819134.8452138663
+     ],
+     "households_on_it": 69,
+     "households_cut_used_subgraph": 69,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4631089405,
+      4714366911
+     ],
+     "xy": [
+      [
+       1168741.991983069,
+       1819372.428547707
+      ],
+      [
+       1168718.7008520681,
+       1819433.5808610122
+      ]
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4631089405,
+      4746298724
+     ],
+     "xy": [
+      [
+       1168741.991983069,
+       1819372.428547707
+      ],
+      [
+       1168706.9020314454,
+       1819134.8452138663
+      ]
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4714351725,
+      12009089635
+     ],
+     "xy": [
+      [
+       1168600.0537983011,
+       1819703.1761909255
+      ],
+      [
+       1168715.2073289,
+       1819442.4246559828
+      ]
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4714366911,
+      12009089635
+     ],
+     "xy": [
+      [
+       1168718.7008520681,
+       1819433.5808610122
+      ],
+      [
+       1168715.2073289,
+       1819442.4246559828
+      ]
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12009089635,
+     "xy": [
+      1168715.2073289,
+      1819442.4246559828
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4631089405,
+     "xy": [
+      1168741.991983069,
+      1819372.428547707
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4714351725,
+     "xy": [
+      1168600.0537983011,
+      1819703.1761909255
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4714366911,
+     "xy": [
+      1168718.7008520681,
+      1819433.5808610122
+     ],
+     "households_on_it": 68,
+     "households_cut_used_subgraph": 68,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912433,
+      4714351725
+     ],
+     "xy": [
+      [
+       1168868.4054364339,
+       1819763.535659393
+      ],
+      [
+       1168600.0537983011,
+       1819703.1761909255
+      ]
+     ],
+     "households_on_it": 67,
+     "households_cut_used_subgraph": 67,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436912433,
+     "xy": [
+      1168868.4054364339,
+      1819763.535659393
+     ],
+     "households_on_it": 67,
+     "households_cut_used_subgraph": 67,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912433,
+      5535635783
+     ],
+     "xy": [
+      [
+       1168868.4054364339,
+       1819763.535659393
+      ],
+      [
+       1168882.7381413798,
+       1819919.8436322892
+      ]
+     ],
+     "households_on_it": 66,
+     "households_cut_used_subgraph": 66,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 5535635783,
+     "xy": [
+      1168882.7381413798,
+      1819919.8436322892
+     ],
+     "households_on_it": 66,
+     "households_cut_used_subgraph": 66,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11991968635,
+      11991968731
+     ],
+     "xy": [
+      [
+       1169890.4575144525,
+       1820376.6189241563
+      ],
+      [
+       1169773.711489908,
+       1820102.9242860505
+      ]
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912482,
+      11991968635
+     ],
+     "xy": [
+      [
+       1169930.4402532482,
+       1820352.14330102
+      ],
+      [
+       1169890.4575144525,
+       1820376.6189241563
+      ]
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912482,
+      5535636106
+     ],
+     "xy": [
+      [
+       1169930.4402532482,
+       1820352.14330102
+      ],
+      [
+       1170731.15101002,
+       1821794.82205636
+      ]
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      5535635783,
+      11991968731
+     ],
+     "xy": [
+      [
+       1168882.7381413798,
+       1819919.8436322892
+      ],
+      [
+       1169773.711489908,
+       1820102.9242860505
+      ]
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11991968635,
+     "xy": [
+      1169890.4575144525,
+      1820376.6189241563
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11991968731,
+     "xy": [
+      1169773.711489908,
+      1820102.9242860505
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436912482,
+     "xy": [
+      1169930.4402532482,
+      1820352.14330102
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 65,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 5535636106,
+     "xy": [
+      1170731.15101002,
+      1821794.82205636
+     ],
+     "households_on_it": 65,
+     "households_cut_used_subgraph": 64,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912563,
+      5535636106
+     ],
+     "xy": [
+      [
+       1171033.3811147765,
+       1822990.0379344942
+      ],
+      [
+       1170731.15101002,
+       1821794.82205636
+      ]
+     ],
+     "households_on_it": 64,
+     "households_cut_used_subgraph": 64,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436912563,
+     "xy": [
+      1171033.3811147765,
+      1822990.0379344942
+     ],
+     "households_on_it": 64,
+     "households_cut_used_subgraph": 64,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      414668537,
+      11959426119
+     ],
+     "xy": [
+      [
+       1171082.587973106,
+       1823027.8565974517
+      ],
+      [
+       1171176.2856467334,
+       1823112.3135845577
+      ]
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      414668537,
+      436912563
+     ],
+     "xy": [
+      [
+       1171082.587973106,
+       1823027.8565974517
+      ],
+      [
+       1171033.3811147765,
+       1822990.0379344942
+      ]
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912612,
+      11959426119
+     ],
+     "xy": [
+      [
+       1171869.1999483453,
+       1823897.0476957846
+      ],
+      [
+       1171176.2856467334,
+       1823112.3135845577
+      ]
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912612,
+      436912674
+     ],
+     "xy": [
+      [
+       1171869.1999483453,
+       1823897.0476957846
+      ],
+      [
+       1172877.4420452956,
+       1825154.4985645826
+      ]
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11959426119,
+     "xy": [
+      1171176.2856467334,
+      1823112.3135845577
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 414668537,
+     "xy": [
+      1171082.587973106,
+      1823027.8565974517
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436912612,
+     "xy": [
+      1171869.1999483453,
+      1823897.0476957846
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 63,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 436912674,
+     "xy": [
+      1172877.4420452956,
+      1825154.4985645826
+     ],
+     "households_on_it": 63,
+     "households_cut_used_subgraph": 62,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11941445127,
+      11941445158
+     ],
+     "xy": [
+      [
+       1173014.6533034458,
+       1825426.9466364654
+      ],
+      [
+       1172991.4878342445,
+       1825337.7950252364
+      ]
+     ],
+     "households_on_it": 62,
+     "households_cut_used_subgraph": 62,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      436912674,
+      11941445158
+     ],
+     "xy": [
+      [
+       1172877.4420452956,
+       1825154.4985645826
+      ],
+      [
+       1172991.4878342445,
+       1825337.7950252364
+      ]
+     ],
+     "households_on_it": 62,
+     "households_cut_used_subgraph": 62,
+     "households_cut_full_network": 0,
+     "cut_full_network_households": []
+    }
+   ],
+   "used_subgraph": {
+    "nodes": 668,
+    "edges": 666
+   },
+   "n_articulation_points": 585,
+   "n_bridges": 666,
+   "n_candidates_tested": 1251,
+   "n_candidates_total": 1251,
+   "test_budget": "exhaustive (every articulation point and bridge tested)",
+   "findings": [
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092394,
+     "xy": [
+      1161696.4053358983,
+      1822321.0433343775
+     ],
+     "households_on_it": 15,
+     "households_cut_used_subgraph": 15,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0092,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092353,
+      10002101333
+     ],
+     "xy": [
+      [
+       1162250.8604497085,
+       1820208.9443416249
+      ],
+      [
+       1162365.999072752,
+       1820748.2292949443
+      ]
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092364,
+      10002101333
+     ],
+     "xy": [
+      [
+       1162198.3759521162,
+       1820926.5149331314
+      ],
+      [
+       1162365.999072752,
+       1820748.2292949443
+      ]
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092364,
+      12043427209
+     ],
+     "xy": [
+      [
+       1162198.3759521162,
+       1820926.5149331314
+      ],
+      [
+       1161977.9206228384,
+       1821295.206225233
+      ]
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0009,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092388,
+      12043427209
+     ],
+     "xy": [
+      [
+       1161585.8999193837,
+       1822105.1063699436
+      ],
+      [
+       1161977.9206228384,
+       1821295.206225233
+      ]
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0091,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092388,
+      437092394
+     ],
+     "xy": [
+      [
+       1161585.8999193837,
+       1822105.1063699436
+      ],
+      [
+       1161696.4053358983,
+       1822321.0433343775
+      ]
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0091,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 10002101333,
+     "xy": [
+      1162365.999072752,
+      1820748.2292949443
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12043427209,
+     "xy": [
+      1161977.9206228384,
+      1821295.206225233
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0091,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092353,
+     "xy": [
+      1162250.8604497085,
+      1820208.9443416249
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0001,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092364,
+     "xy": [
+      1162198.3759521162,
+      1820926.5149331314
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0009,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092388,
+     "xy": [
+      1161585.8999193837,
+      1822105.1063699436
+     ],
+     "households_on_it": 6,
+     "households_cut_used_subgraph": 6,
+     "households_cut_full_network": 6,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116754156,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0091,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437090983,
+      5536595856
+     ],
+     "xy": [
+      [
+       1165284.0714816763,
+       1840316.135351813
+      ],
+      [
+       1165360.3416152247,
+       1840291.3414737827
+      ]
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      11784514640,
+      11784514951,
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0003,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092348,
+      12116791091
+     ],
+     "xy": [
+      [
+       1162005.649988256,
+       1819911.3119934488
+      ],
+      [
+       1160685.3450537066,
+       1819597.9413082793
+      ]
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092348,
+      437092353
+     ],
+     "xy": [
+      [
+       1162005.649988256,
+       1819911.3119934488
+      ],
+      [
+       1162250.8604497085,
+       1820208.9443416249
+      ]
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12116791091,
+     "xy": [
+      1160685.3450537066,
+      1819597.9413082793
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092348,
+     "xy": [
+      1162005.649988256,
+      1819911.3119934488
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900,
+      12116790981,
+      12116791192
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 5536595856,
+     "xy": [
+      1165360.3416152247,
+      1840291.3414737827
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 5,
+     "households_cut_full_network": 5,
+     "cut_full_network_households": [
+      11784514640,
+      11784514951,
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0003,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437090983,
+     "xy": [
+      1165284.0714816763,
+      1840316.135351813
+     ],
+     "households_on_it": 5,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11784514951,
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0009,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437261791,
+      9591760265
+     ],
+     "xy": [
+      [
+       1163019.9643942837,
+       1841178.615780789
+      ],
+      [
+       1164556.5792962634,
+       1840394.4809414912
+      ]
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11784514951,
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0048,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 9591760265,
+     "xy": [
+      1164556.5792962634,
+      1840394.4809414912
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 4,
+     "households_cut_full_network": 4,
+     "cut_full_network_households": [
+      11784514951,
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0048,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437261791,
+     "xy": [
+      1163019.9643942837,
+      1841178.615780789
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 3,
+     "cut_full_network_households": [
+      11784515051,
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0074,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437092316,
+      12125807833
+     ],
+     "xy": [
+      [
+       1159908.6726588458,
+       1819194.6659630942
+      ],
+      [
+       1159565.3774093345,
+       1818580.8643579155
+      ]
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 3,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 437092316,
+     "xy": [
+      1159908.6726588458,
+      1819194.6659630942
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 3,
+     "cut_full_network_households": [
+      10235828941,
+      11001091114,
+      11001091900
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 5535584577,
+     "xy": [
+      1167703.8987763976,
+      1817242.5710174798
+     ],
+     "households_on_it": 4,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12023151777,
+      12030520657
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4137622519,
+     "xy": [
+      1174279.4150072106,
+      1836314.4457660408
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 3,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11768209984,
+      11768368433
+     ],
+     "max_p_any_slice": 0.0125,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12125807833,
+     "xy": [
+      1159565.3774093345,
+      1818580.8643579155
+     ],
+     "households_on_it": 3,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11001091114,
+      11001091900
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11842157152,
+      11877066847
+     ],
+     "xy": [
+      [
+       1169384.109977837,
+       1834348.5358163165
+      ],
+      [
+       1168808.5537555516,
+       1834395.508896507
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0258,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11877066847,
+      11877066932
+     ],
+     "xy": [
+      [
+       1168808.5537555516,
+       1834395.508896507
+      ],
+      [
+       1168393.7924084933,
+       1834681.4090878242
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0258,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11877066932,
+      11877066982
+     ],
+     "xy": [
+      [
+       1168393.7924084933,
+       1834681.4090878242
+      ],
+      [
+       1167796.9677248504,
+       1834405.9815533196
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0361,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11877066986,
+      11888500884
+     ],
+     "xy": [
+      [
+       1167769.4915409465,
+       1834413.4157145212
+      ],
+      [
+       1167189.4720628164,
+       1834928.8789800084
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0365,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      11976273525,
+      11976273527
+     ],
+     "xy": [
+      [
+       1167765.001038921,
+       1823991.9359240031
+      ],
+      [
+       1167669.2794736011,
+       1823981.26923751
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11976273526,
+      11985893490
+     ],
+     "max_p_any_slice": 0.0035,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4137622519,
+      11768209954
+     ],
+     "xy": [
+      [
+       1174279.4150072106,
+       1836314.4457660408
+      ],
+      [
+       1174771.0424585515,
+       1836314.9868254769
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11768209984,
+      11768368433
+     ],
+     "max_p_any_slice": 0.0122,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      437261791,
+      11793946245
+     ],
+     "xy": [
+      [
+       1163019.9643942837,
+       1841178.615780789
+      ],
+      [
+       1162483.093383268,
+       1842159.3786537924
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11793946245,
+      11866860531
+     ],
+     "max_p_any_slice": 0.0074,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      4778527808,
+      11985894892
+     ],
+     "xy": [
+      [
+       1167638.2043949352,
+       1822999.2387002965
+      ],
+      [
+       1167547.347672021,
+       1823031.9729702927
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      4778527805,
+      11985894917
+     ],
+     "max_p_any_slice": 0.0092,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "edge",
+     "id": [
+      5535584577,
+      12023151765
+     ],
+     "xy": [
+      [
+       1167703.8987763976,
+       1817242.5710174798
+      ],
+      [
+       1167379.59839236,
+       1817728.3258844342
+      ]
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12023151777,
+      12030520657
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11842157152,
+     "xy": [
+      1169384.109977837,
+      1834348.5358163165
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0258,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11877066847,
+     "xy": [
+      1168808.5537555516,
+      1834395.508896507
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0258,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11877066932,
+     "xy": [
+      1168393.7924084933,
+      1834681.4090878242
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0361,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11877066982,
+     "xy": [
+      1167796.9677248504,
+      1834405.9815533196
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0365,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11877066986,
+     "xy": [
+      1167769.4915409465,
+      1834413.4157145212
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11888500833,
+      11888500969
+     ],
+     "max_p_any_slice": 0.0365,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11976273525,
+     "xy": [
+      1167765.001038921,
+      1823991.9359240031
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      11976273526,
+      11985893490
+     ],
+     "max_p_any_slice": 0.0035,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 11985894892,
+     "xy": [
+      1167547.347672021,
+      1823031.9729702927
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      4778527805,
+      11985894917
+     ],
+     "max_p_any_slice": 0.0102,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 12023151765,
+     "xy": [
+      1167379.59839236,
+      1817728.3258844342
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      12023151777,
+      12030520657
+     ],
+     "max_p_any_slice": 0.0,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    },
+    {
+     "network": "drive",
+     "kind": "node",
+     "id": 4778527808,
+     "xy": [
+      1167638.2043949352,
+      1822999.2387002965
+     ],
+     "households_on_it": 2,
+     "households_cut_used_subgraph": 2,
+     "households_cut_full_network": 2,
+     "cut_full_network_households": [
+      4778527805,
+      11985894917
+     ],
+     "max_p_any_slice": 0.0092,
+     "fire_exposed": false,
+     "first_min_p_ge_0_5": null
+    }
+   ]
+  }
+ },
+ "cross_check": {
+  "walk": {
+   "top_convergence_edges": 25,
+   "full_network_chokepoint_edges": 19,
+   "full_network_chokepoint_nodes": 25,
+   "edges_in_both": [
+    [
+     11755003786,
+     11755003792
+    ]
+   ],
+   "chokepoint_nodes_on_a_top_edge": [
+    11755003786
+   ],
+   "overlap": true
+  },
+  "drive": {
+   "top_convergence_edges": 25,
+   "full_network_chokepoint_edges": 19,
+   "full_network_chokepoint_nodes": 25,
+   "edges_in_both": [],
+   "chokepoint_nodes_on_a_top_edge": [],
+   "overlap": false
+  }
+ },
+ "seconds_total": 452.7
+}
