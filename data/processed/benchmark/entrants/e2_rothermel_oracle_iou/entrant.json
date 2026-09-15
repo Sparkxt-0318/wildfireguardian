@@ -1,0 +1,77 @@
+{
+ "id": "e2_rothermel_oracle_iou",
+ "protocol_entrant": "E2",
+ "name": "E2 Rothermel-family oracle (upper bound) [IoU-selected]",
+ "protocol_version": "v0.1",
+ "track": "hindcast",
+ "resolution_m": 500.0,
+ "inputs_used": [
+  "FIRMS cumulative detections at T0",
+  "SRTM DEM (committed snapshot)",
+  "wind selected against the observation (oracle)"
+ ],
+ "track_reason": "The wind is not an input on this machine; it is SELECTED as the grid point that scores best against the observed footprint, which is an observation after T0. Protocol §3 puts that in the hindcast track. This is an UPPER BOUND on the method class, not a score it achieved: the forecast-track E1 and E2 are NOT RUN (docs/benchmark/stage2_proxy_rules.md §1).",
+ "what_it_is": "E1's cone multiplied by Rothermel's upslope factor on the committed DEM, uniform fuel; the class of the 2003-lineage national system, not NIFoS's implementation",
+ "oracle": {
+  "selection_criterion": "max mean IoU at p >= 0.5 over the three horizons",
+  "rule_page": "docs/benchmark/stage2_proxy_rules.md",
+  "grid_points_searched": 720,
+  "bearing_deg": 140.0,
+  "head_rate_m_per_30min": 100.0,
+  "mean_roc_auc_at_selection": 0.9900190881195335,
+  "mean_iou_at_selection": 0.5516399898231574
+ },
+ "construction": {
+  "backing_fraction": 0.15,
+  "smoothing_sigma_m": 2000.0,
+  "slope_factor": "5.275*beta^-0.3*(tan s)^2, beta=0.05 -> 12.96, upslope only",
+  "fuel": "uniform (임상도 1:5000 not on this machine)",
+  "times_min": [
+   0.0,
+   30.0,
+   60.0,
+   90.0,
+   120.0,
+   150.0,
+   180.0,
+   210.0,
+   240.0,
+   270.0,
+   300.0,
+   330.0,
+   360.0,
+   390.0,
+   420.0,
+   450.0,
+   480.0,
+   510.0,
+   540.0,
+   570.0,
+   600.0,
+   630.0,
+   660.0,
+   690.0,
+   720.0
+  ]
+ },
+ "provenance": {
+  "seed_source": "data/processed/routing_demo_canonical.npz",
+  "seed_array": "obs_stack[0]",
+  "seed_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "t0_cells": 249,
+  "dem": "data/snapshots/srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+  "dem_sha256": "66988bf5545dc4c3abf844a0e72122130ccb27583c9d421dd7228a8e2181ce46",
+  "dem_cells_covered": 14462,
+  "dem_cells_total": 28236,
+  "cells_above_p_cut_outside_dem_coverage": 0
+ },
+ "built_by": "scripts/benchmark/build_entrants_stage2.py",
+ "events": {
+  "yeongdeok_2025": {
+   "npz": "data/processed/benchmark/entrants/e2_rothermel_oracle_iou/yeongdeok_2025.npz",
+   "sha256": "04c5f8798cb6096c09d43d24dbc9b589b6ad25bfcf5e91525ff76c858cccc017"
+  }
+ },
+ "generated_utc": "2026-09-14T16:14:30Z",
+ "git_commit": "caffe3a85b3fac59e893a9342864766997caba3e"
+}
