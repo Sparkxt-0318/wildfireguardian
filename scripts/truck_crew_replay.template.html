@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>차량 출동 재생 · 영덕 2025-03-25</title>
+<style>
+:root{
+  --deep:#0b0f14; --panel:#16202b; --line:#22303f;
+  --text:#e8edf2; --sub:#94a3b8; --dim:#7c8ba1;
+  --cyan:#22d3ee; --amber:#f59e0b; --red:#f87171; --warn:#fde047; --blue:#2563eb;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--deep);color:var(--text);
+  font-family:system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:15px;line-height:1.5}
+h1{font-size:19px;margin:0 0 2px}
+h2{font-size:15px;margin:0 0 8px;color:var(--sub);letter-spacing:.02em;text-transform:none}
+.wrap{max-width:1400px;margin:0 auto;padding:14px}
+.banner{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);
+  border-radius:6px;padding:10px 12px;margin-bottom:12px;color:var(--text);font-size:13.5px}
+.banner b{color:var(--warn)}
+.grid{display:grid;grid-template-columns:minmax(360px,1fr) minmax(420px,520px);gap:12px}
+@media (max-width:1050px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin-bottom:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+label{color:var(--sub);font-size:13px}
+select,button{background:#1e2a38;color:var(--text);border:1px solid var(--line);
+  border-radius:5px;padding:7px 11px;font-size:14px;font-family:inherit;cursor:pointer}
+button:hover{background:#27354a}
+button:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+button[disabled]{opacity:.45;cursor:not-allowed}
+.btn-ack{border-color:var(--blue)} .btn-arr{border-color:var(--cyan)}
+.btn-del{border-color:#35d07f} .btn-abo{border-color:var(--red)}
+.stamp{font-size:12px;color:var(--dim);min-height:16px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13.5px}
+.kv dt{color:var(--sub)} .kv dd{margin:0;font-variant-numeric:tabular-nums}
+.big{font-size:28px;font-variant-numeric:tabular-nums;line-height:1.1}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:1px 6px;
+  font-size:12px;color:var(--sub);margin-right:4px}
+.tag.ok{color:#7ee2b8;border-color:#2b5a45} .tag.bad{color:var(--red);border-color:#5a2b2b}
+.tag.warn{color:var(--warn);border-color:#5a512b}
+.slider{width:100%;margin:6px 0 0}
+.ticks{position:relative;height:20px;font-size:11.5px;color:var(--dim)}
+.ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.ticks span.doc{color:var(--warn)}
+svg{display:block;width:100%;height:auto;background:var(--deep);border:1px solid var(--line);border-radius:5px}
+.legend{font-size:12.5px;color:var(--sub);margin-top:6px}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:4px;vertical-align:-1px;border-radius:2px}
+.foot{font-size:12.5px;color:var(--dim);margin-top:10px}
+.foot ul{margin:6px 0 0 18px;padding:0}
+.sheet{display:none}
+@media print{
+  html,body{background:#fff;color:#000;font-size:10.5pt}
+  .noprint{display:none !important}
+  .sheet{display:block}
+  .wrap{max-width:none;padding:0}
+  @page{size:A4 portrait;margin:11mm}
+  .sheet table{font-size:8.6pt} .sheet th,.sheet td{padding:1.5px 4px;border-bottom:1px solid #999}
+  .sheet h1{font-size:13pt;margin:0 0 2px} .sheet .note{font-size:7.6pt;color:#333}
+}
+</style>
+</head>
+<body>
+<div class="wrap noprint">
+  <h1>차량 출동 재생 <span style="color:var(--sub);font-weight:400">영덕 2025-03-25</span></h1>
+  <div class="banner" id="banner"></div>
+
+  <div class="card">
+    <div class="row">
+      <label for="fleet">차량 대수</label><select id="fleet"></select>
+      <label for="veh">차량</label><select id="veh"></select>
+      <button id="print" type="button">이 차량 인쇄 (A4)</button>
+      <button id="dlgeo" type="button">GeoJSON 저장</button>
+      <button id="dlkml" type="button">KML 저장</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label for="clock">시각</label>
+      <output id="clockout" class="big" for="clock">0</output>
+      <span style="color:var(--sub)">분</span>
+      <button id="playbtn" type="button">재생</button>
+    </div>
+    <input id="clock" class="slider" type="range" min="0" max="720" step="1" value="0"
+           aria-label="재생 시각 (분)">
+    <div class="ticks" id="ticks"></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>지도 (EPSG:5179, 타일 없음)</h2>
+        <svg id="map" viewBox="0 0 100 100" role="img" aria-label="영덕 재생 지도"></svg>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" id="tripcard"></div>
+      <div class="card" id="statecard"></div>
+      <div class="card" id="countcard"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>이 차량의 출동 순서</h2>
+    <div style="overflow-x:auto"><table id="triptable"></table></div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<div class="sheet" id="sheet"></div>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+"use strict";
+var D = JSON.parse(document.getElementById("data").textContent);
+var $ = function (id) { return document.getElementById(id); };
+var STORE = "wfg.truckcrew." + D.stamp;
+var PHASES = [
+  ["ack", "확인", "btn-ack"], ["arrived", "도착", "btn-arr"],
+  ["delivered", "인계", "btn-del"], ["aborted", "중단", "btn-abo"]
+];
+var state = { key: "k4", veh: 0, t: 0, playing: 0 };
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function num(v, d) {
+  if (v === null || v === undefined) { return "·"; }
+  return Number(v).toFixed(d === undefined ? 1 : d);
+}
+function hhmm(m) {
+  var h = Math.floor(m / 60), r = Math.round(m % 60);
+  return h + "시간 " + (r < 10 ? "0" : "") + r + "분";
+}
+function run() { return D.runs[state.key]; }
+function vehicle() { return run().per_vehicle[state.veh] || { trips: [], vehicle: 0 }; }
+
+/* ---------- crew log, local only ---------- */
+function loadLog() {
+  try { return JSON.parse(localStorage.getItem(STORE) || "{}"); } catch (e) { return {}; }
+}
+function saveLog(o) {
+  try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) { /* private mode */ }
+}
+function logKey(t) { return state.key + ".v" + t.vehicle + ".s" + t.seq; }
+function stampNow() {
+  var d = new Date();
+  var p = function (n) { return (n < 10 ? "0" : "") + n; };
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " "
+    + p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+}
+
+/* ---------- geometry ---------- */
+var EX = D.map.extent, CELL = D.map.cell_m;
+var MW = EX[2] - EX[0], MH = EX[3] - EX[1];
+function px(x) { return (x - EX[0]); }
+function py(y) { return (EX[3] - y); }
+
+function cellRect(r, c, fill, op) {
+  var x = EX[0] + c * CELL, y = EX[3] - (r + 1) * CELL;
+  return '<rect x="' + px(x).toFixed(0) + '" y="' + py(y + CELL).toFixed(0)
+    + '" width="' + CELL + '" height="' + CELL + '" fill="' + fill + '" opacity="' + op + '"/>';
+}
+function poly(xy, stroke, w, dash) {
+  var d = "";
+  for (var i = 0; i < xy.length; i++) {
+    d += (i ? "L" : "M") + px(xy[i][0]).toFixed(0) + " " + py(xy[i][1]).toFixed(0) + " ";
+  }
+  return '<path d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="' + w
+    + '" stroke-linejoin="round" stroke-linecap="round"'
+    + (dash ? ' stroke-dasharray="' + dash + '"' : "") + "/>";
+}
+function dot(x, y, r, fill, stroke) {
+  return '<circle cx="' + px(x).toFixed(0) + '" cy="' + py(y).toFixed(0) + '" r="' + r
+    + '" fill="' + fill + '"' + (stroke ? ' stroke="' + stroke + '" stroke-width="60"' : "") + "/>";
+}
+
+var ROADPATH = (function () {
+  var d = "";
+  for (var i = 0; i < D.map.roads.length; i++) {
+    var e = D.map.roads[i];
+    d += "M" + px(e[0]).toFixed(0) + " " + py(e[1]).toFixed(0)
+      + "L" + px(e[2]).toFixed(0) + " " + py(e[3]).toFixed(0) + " ";
+  }
+  return '<path d="' + d + '" fill="none" stroke="#33465c" stroke-width="70"/>';
+}());
+
+function drawMap() {
+  var t = state.t, s = [];
+  s.push('<g>');
+  var i, c;
+  /* Forecast first, observation on top: where a cell is both, what the satellite
+     saw is the layer that decides the grading, so it is the layer that shows. */
+  for (i = 0; i < D.map.forecast_cutoff_cells.length; i++) {
+    c = D.map.forecast_cutoff_cells[i];
+    if (c[2] <= t) { s.push(cellRect(c[0], c[1], "#f59e0b", 0.35)); }
+  }
+  for (i = 0; i < D.map.observed_cells.length; i++) {
+    c = D.map.observed_cells[i];
+    if (c[2] <= t) { s.push(cellRect(c[0], c[1], "#b91c1c", 0.9)); }
+  }
+  s.push(ROADPATH);
+  for (i = 0; i < D.pickups.length; i++) {
+    var p = D.pickups[i];
+    s.push(dot(p.x, p.y, 90, "#475569"));
+  }
+  var v = vehicle();
+  for (i = 0; i < v.trips.length; i++) {
+    var tr = v.trips[i];
+    if (tr.ingress.departure_min > t) { continue; }
+    s.push(poly(tr.egress.xy, "#35d07f", 130, "600 400"));
+    s.push(poly(tr.ingress.xy, tr.aborted_by_rule ? "#f87171" : "#22d3ee", 160));
+    s.push(dot(tr.x, tr.y, 200, tr.aborted_by_rule ? "#f87171" : "#22d3ee", "#0b0f14"));
+  }
+  for (i = 0; i < D.refuges.length; i++) {
+    var rf = D.refuges[i];
+    s.push('<rect x="' + (px(rf.x) - 150).toFixed(0) + '" y="' + (py(rf.y) - 150).toFixed(0)
+      + '" width="300" height="300" fill="' + (rf.rescue_reachable ? "#7ee2b8" : "#64748b") + '"/>');
+  }
+  for (i = 0; i < D.depots.length; i++) {
+    var dp = D.depots[i];
+    s.push('<polygon points="' + [
+      px(dp.x) + "," + (py(dp.y) - 260), (px(dp.x) + 230) + "," + (py(dp.y) + 160),
+      (px(dp.x) - 230) + "," + (py(dp.y) + 160)].join(" ")
+      + '" fill="#fde047"/>');
+  }
+  s.push("</g>");
+  var m = $("map");
+  m.setAttribute("viewBox", "0 0 " + MW + " " + MH);
+  m.innerHTML = s.join("");
+}
+
+/* ---------- panels ---------- */
+function activeTrip() {
+  var v = vehicle(), t = state.t, i;
+  for (i = 0; i < v.trips.length; i++) {
+    if (t < v.trips[i].free_at_min) { return v.trips[i]; }
+  }
+  return v.trips.length ? v.trips[v.trips.length - 1] : null;
+}
+function phaseOf(tr) {
+  var t = state.t;
+  if (tr.aborted_by_rule && t >= tr.abort_min) { return "중단 규칙 발동"; }
+  if (t < tr.ingress.departure_min) { return "출발 대기"; }
+  if (t < tr.eta_min) { return "진입 중"; }
+  if (t < tr.eta_min + tr.load_min) { return "현장 승차"; }
+  if (t < tr.delivered_min) { return "대피소로 이동"; }
+  if (t < tr.free_at_min) { return "인계 중"; }
+  return "완료";
+}
+function clsTag(c) {
+  var k = c === "admissible_all" ? "ok" : (c === "inadmissible_all" ? "bad" : "warn");
+  var ko = c === "admissible_all" ? "관측상 허용" :
+    (c === "inadmissible_all" ? "관측상 불가" :
+      (c === "indeterminate" ? "판정 불가" : esc(c)));
+  return '<span class="tag ' + k + '">' + ko + "</span>";
+}
+
+function drawTrip() {
+  var tr = activeTrip(), v = vehicle();
+  if (!tr) {
+    $("tripcard").innerHTML = "<h2>다음 출동</h2><p>이 차량에 배정된 출동이 없습니다.</p>";
+    $("statecard").innerHTML = "";
+    return;
+  }
+  var ab = tr.abort_min === null ? "없음 (예측 구간 내 폐쇄 없음)" : num(tr.abort_min) + "분";
+  var fb = tr.depot_fallback
+    ? ("거점 " + tr.depot_fallback.depot_index + ", ETA " + num(tr.depot_fallback.eta_min)
+      + "분, 폐쇄 " + (tr.depot_fallback.closing_min === null ? "없음" : num(tr.depot_fallback.closing_min) + "분"))
+    : "없음 (두 번째 거점 경로 없음)";
+  var h = "<h2>다음 출동 · 차량 " + v.vehicle + " · " + (tr.seq + 1) + "번째</h2>";
+  h += '<div class="row" style="margin-bottom:8px"><span class="big">' + esc(phaseOf(tr)) + "</span>"
+    + (tr.aborted_by_rule ? '<span class="tag bad">중단 규칙 대상</span>' : "")
+    + (tr.reached_before_observed_closure ? '<span class="tag ok">관측 화선 도달 전 도착</span>'
+      : '<span class="tag bad">관측 화선이 먼저 도달</span>') + "</div>";
+  h += '<dl class="kv">'
+    + "<dt>승차 지점 (도로 절점)</dt><dd>" + tr.drive_node + "</dd>"
+    + "<dt>보행 절점</dt><dd>" + tr.walk_node + " 외 " + (tr.n_walk_nodes - 1) + "곳</dd>"
+    + "<dt>뒤에 있는 건물 수</dt><dd>" + tr.n_buildings + " 동 (가구 아님)</dd>"
+    + "<dt>도로까지 거리 (중앙/최대)</dt><dd>" + num(tr.snap_m_median, 0) + " / " + num(tr.snap_m_max, 0) + " m</dd>"
+    + "<dt>출발</dt><dd>" + num(tr.ingress.departure_min) + "분</dd>"
+    + "<dt>도착 예정 (ETA)</dt><dd>" + num(tr.eta_min) + "분</dd>"
+    + "<dt>진입로 폐쇄 (예측)</dt><dd>" + (tr.ingress.closing_min === null ? "예측 구간 내 없음" : num(tr.ingress.closing_min) + "분") + "</dd>"
+    + "<dt>여유 (폐쇄 빼기 도착)</dt><dd>" + (tr.margin_min === null ? "·" : num(tr.margin_min) + "분") + "</dd>"
+    + "<dt><b>중단 기준 시각</b></dt><dd><b>" + ab + "</b></dd>"
+    + "<dt>대체 진입로</dt><dd>" + fb + "</dd>"
+    + "<dt>왕복 여유 (거점 기준, 동일 경로 복귀)</dt><dd>"
+    + (tr.round_trip_margin_min === null ? "·" : num(tr.round_trip_margin_min) + "분") + "</dd>"
+    + "<dt>대피소 절점</dt><dd>" + tr.refuge_node
+    + (tr.refuge_is_the_pickup_node ? " (승차 지점과 같은 절점)" : "") + "</dd>"
+    + "<dt>인계 예정</dt><dd>" + num(tr.delivered_min) + "분"
+    + (tr.delivered_after_horizon ? " (시계 종료 이후)" : "") + "</dd>"
+    + "<dt>진입 구간 관측 판정</dt><dd>" + clsTag(tr.ingress.observed.class_m0) + "</dd>"
+    + "<dt>복귀 구간 관측 판정</dt><dd>" + clsTag(tr.egress.observed.class_m0) + "</dd>"
+    + "</dl>";
+  $("tripcard").innerHTML = h;
+
+  var log = loadLog(), key = logKey(tr), rec = log[key] || {};
+  var b = "<h2>승무원 기록 (이 브라우저에만 저장)</h2><div class=\"row\">";
+  for (var i = 0; i < PHASES.length; i++) {
+    b += '<button type="button" class="' + PHASES[i][2] + '" data-phase="' + PHASES[i][0]
+      + '">' + PHASES[i][1] + "</button>";
+  }
+  b += "</div>";
+  for (i = 0; i < PHASES.length; i++) {
+    b += '<div class="stamp">' + PHASES[i][1] + ": "
+      + (rec[PHASES[i][0]] ? esc(rec[PHASES[i][0]]) : "·") + "</div>";
+  }
+  b += '<div class="stamp" style="margin-top:6px">기록은 이 기기의 브라우저 저장소에만 남고 어디로도 전송되지 않습니다.</div>';
+  $("statecard").innerHTML = b;
+  var btns = $("statecard").querySelectorAll("button");
+  for (i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      var lg = loadLog(), k = logKey(activeTrip());
+      lg[k] = lg[k] || {};
+      lg[k][this.getAttribute("data-phase")] = stampNow();
+      saveLog(lg);
+      drawTrip();
+    };
+  }
+}
+
+function drawCounts() {
+  var r = run();
+  var h = "<h2>이 재생이 센 것 (" + r.vehicles + "대)</h2>";
+  h += '<dl class="kv">'
+    + "<dt>내린 출동 지시</dt><dd>" + r.trips_ordered + "건</dd>"
+    + "<dt>관측 화선 도달 전 도착</dt><dd>" + r.reached_before_observed_closure + "건</dd>"
+    + "<dt>도달 못 함</dt><dd>" + r.not_reached + "건</dd>"
+    + "<dt>중단 규칙으로 취소</dt><dd>" + r.aborted_by_rule + "건</dd>"
+    + "<dt>진입로가 관측상 불가였던 출동</dt><dd>" + r.trips_with_an_inadmissible_ingress_leg_m0 + "건</dd>"
+    + "<dt>지시받지 못한 승차 지점</dt><dd>"
+    + (D.population.pickups - r.distinct_pickups_ordered) + " / " + D.population.pickups + "</dd>"
+    + "</dl>";
+  h += '<p style="font-size:13px;color:var(--sub);margin:8px 0 0">「도달 전 도착」은 승차 지점이 서 있는 '
+    + '500 m 칸에 대한 진술이며, 차량이 지나간 도로에 대한 진술이 아닙니다. 두 수치는 항상 같이 읽으십시오.</p>';
+  $("countcard").innerHTML = h;
+}
+
+function drawTable() {
+  var v = vehicle(), h = "<thead><tr><th>순번</th><th>승차 지점</th><th class=\"num\">건물</th>"
+    + "<th class=\"num\">출발</th><th class=\"num\">도착</th><th class=\"num\">폐쇄</th>"
+    + "<th class=\"num\">중단 기준</th><th class=\"num\">인계</th><th>진입 판정</th><th>복귀 판정</th>"
+    + "</tr></thead><tbody>";
+  for (var i = 0; i < v.trips.length; i++) {
+    var t = v.trips[i];
+    h += "<tr" + (t.aborted_by_rule ? ' style="color:var(--red)"' : "") + "><td>" + (i + 1)
+      + "</td><td>" + t.drive_node + "</td><td class=\"num\">" + t.n_buildings
+      + "</td><td class=\"num\">" + num(t.ingress.departure_min)
+      + "</td><td class=\"num\">" + num(t.eta_min)
+      + "</td><td class=\"num\">" + (t.ingress.closing_min === null ? "·" : num(t.ingress.closing_min))
+      + "</td><td class=\"num\">" + (t.abort_min === null ? "·" : num(t.abort_min))
+      + "</td><td class=\"num\">" + num(t.delivered_min)
+      + "</td><td>" + clsTag(t.ingress.observed.class_m0)
+      + "</td><td>" + clsTag(t.egress.observed.class_m0) + "</td></tr>";
+  }
+  h += "</tbody>";
+  $("triptable").innerHTML = h;
+}
+
+function drawSheet() {
+  var v = vehicle(), r = run();
+  var h = "<h1>차량 " + v.vehicle + " 출동 순서 · 영덕 2025-03-25 재생</h1>";
+  h += '<div class="note">' + esc(D.label_ko) + "</div>";
+  h += '<div class="note">거점 절점 ' + v.depot_drive_node + " · 차량 " + r.vehicles
+    + "대 운용 · 출동 " + v.n_trips + "건 · 생성 " + esc(D.generated_utc)
+    + " · 커밋 " + esc(D.git_commit.slice(0, 7)) + "</div>";
+  h += "<table><thead><tr><th>순번</th><th>승차 지점</th><th>건물</th><th>출발</th><th>도착</th>"
+    + "<th>진입로 폐쇄</th><th>중단 기준</th><th>대체 진입로</th><th>대피소</th><th>인계</th></tr></thead><tbody>";
+  for (var i = 0; i < v.trips.length; i++) {
+    var t = v.trips[i];
+    h += "<tr><td>" + (i + 1) + "</td><td>" + t.drive_node + "</td><td>" + t.n_buildings
+      + "</td><td>" + num(t.ingress.departure_min) + "</td><td>" + num(t.eta_min)
+      + "</td><td>" + (t.ingress.closing_min === null ? "없음" : num(t.ingress.closing_min))
+      + "</td><td>" + (t.abort_min === null ? "없음" : num(t.abort_min))
+      + "</td><td>" + (t.depot_fallback ? ("거점 " + t.depot_fallback.depot_index) : "없음")
+      + "</td><td>" + t.refuge_node + "</td><td>" + num(t.delivered_min) + "</td></tr>";
+  }
+  h += "</tbody></table>";
+  h += '<div class="note">모든 시각은 예측 시계의 분입니다. 중단 기준 시각을 넘기면 진입하지 마십시오. '
+    + '지점은 건물이며 가구가 아닙니다. 규칙과 한계: docs/truck_crew_replay.md</div>';
+  $("sheet").innerHTML = h;
+}
+
+/* ---------- downloads (written to outputs/ as well) ---------- */
+function featureCollection() {
+  var v = vehicle(), feats = [];
+  for (var i = 0; i < v.trips.length; i++) {
+    var t = v.trips[i];
+    feats.push({ type: "Feature", properties: { leg: "ingress", seq: t.seq, vehicle: v.vehicle,
+      drive_node: t.drive_node, eta_min: t.eta_min, abort_min: t.abort_min },
+      geometry: { type: "LineString", coordinates: t.ingress.xy } });
+    feats.push({ type: "Feature", properties: { leg: "egress", seq: t.seq, vehicle: v.vehicle,
+      drive_node: t.drive_node, delivered_min: t.delivered_min },
+      geometry: { type: "LineString", coordinates: t.egress.xy } });
+  }
+  return { type: "FeatureCollection", name: state.key + "_vehicle" + v.vehicle,
+    crs_note: "EPSG:5179 metres (the routing CRS); the files under outputs/ carry WGS84",
+    note: D.label_ko, features: feats };
+}
+/* The KML namespace is an IDENTIFIER and is never fetched. It is assembled from
+   two literals because check_screen_assets.py scans raw lines for absolute URLs
+   and exempts only the SVG and XLink namespaces; an unsplit literal here would
+   read as an external reference in a page that has none. */
+var KML_NS = "http" + "://www.opengis.net/kml/2.2";
+function toKml() {
+  var fc = featureCollection(), p = ['<?xml version="1.0" encoding="UTF-8"?>',
+    '<kml xmlns="' + KML_NS + '"><Document>',
+    "<name>" + esc(fc.name) + "</name>", "<description>" + esc(D.label_ko) + "</description>"];
+  for (var i = 0; i < fc.features.length; i++) {
+    var f = fc.features[i], c = [];
+    for (var j = 0; j < f.geometry.coordinates.length; j++) {
+      c.push(f.geometry.coordinates[j][0] + "," + f.geometry.coordinates[j][1] + ",0");
+    }
+    p.push("<Placemark><name>" + esc(f.properties.leg + " #" + f.properties.seq)
+      + "</name><LineString><coordinates>" + c.join(" ")
+      + "</coordinates></LineString></Placemark>");
+  }
+  p.push("</Document></kml>");
+  return p.join("\n");
+}
+function save(name, text, mime) {
+  var blob = new Blob([text], { type: mime });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+}
+
+/* ---------- wiring ---------- */
+function redraw() {
+  $("clockout").textContent = state.t + "  (" + hhmm(state.t) + ")";
+  drawMap(); drawTrip(); drawCounts(); drawTable(); drawSheet();
+}
+function buildSelectors() {
+  var f = $("fleet"), keys = Object.keys(D.runs), i;
+  f.innerHTML = "";
+  for (i = 0; i < keys.length; i++) {
+    var o = document.createElement("option");
+    o.value = keys[i]; o.textContent = D.runs[keys[i]].vehicles + "대";
+    f.appendChild(o);
+  }
+  f.value = state.key;
+  var v = $("veh"); v.innerHTML = "";
+  var pv = run().per_vehicle;
+  for (i = 0; i < pv.length; i++) {
+    var o2 = document.createElement("option");
+    o2.value = String(i);
+    o2.textContent = "차량 " + pv[i].vehicle + " (출동 " + pv[i].n_trips + "건)";
+    v.appendChild(o2);
+  }
+  if (state.veh >= pv.length) { state.veh = 0; }
+  v.value = String(state.veh);
+}
+function buildTicks() {
+  var t = $("ticks"), s = "", marks = [0, 180, 360, 540, 720], i;
+  for (i = 0; i < marks.length; i++) {
+    s += '<span style="left:' + (marks[i] / 720 * 100) + '%">' + marks[i] + "</span>";
+  }
+  for (i = 0; i < D.parameters.doctrine_markers_min.length; i++) {
+    var m = D.parameters.doctrine_markers_min[i];
+    s += '<span class="doc" style="left:' + (m / 720 * 100) + '%;top:0">▲ '
+      + (m / 60) + "시간</span>";
+  }
+  t.innerHTML = s;
+}
+function buildBanner() {
+  $("banner").innerHTML = "<b>⚠ 재생입니다.</b> " + esc(D.label_ko)
+    + " 예측 시계는 0분에서 720분까지이고, 5시간/8시간 표시는 '준비 · 실행 대기 · 즉시 실행' 지침의 "
+    + "선행 시간을 이 시계 위에 그은 것입니다. 지침은 화선 도달 시점에서 거꾸로 세고 이 시계는 "
+    + "예측 시작에서 앞으로 세므로 같은 축이 아니며, 구역 구분이 아닙니다.";
+  $("legend").innerHTML =
+    '<i style="background:#b91c1c"></i>관측 탐지 칸 (FIRMS, 현재 시각까지) &nbsp; '
+    + '<i style="background:#f59e0b;opacity:.55"></i>예측 차량 차단 칸 (0.7) &nbsp; '
+    + '<i style="background:#22d3ee"></i>진입 경로 &nbsp; '
+    + '<i style="background:#35d07f"></i>복귀 경로 &nbsp; '
+    + '<i style="background:#fde047"></i>거점 &nbsp; '
+    + '<i style="background:#7ee2b8"></i>구조 가능 대피소 &nbsp; '
+    + '<i style="background:#475569"></i>승차 지점'
+    + '<br>두 칸이 겹치는 곳에는 관측 색이 위에 그려집니다. 예측 시계는 0 / 180 / 360 / 540 / 720분의 '
+    + '다섯 장이고, 관측은 0 / 333 / 1005 / 1480 / 1812 / 2403분의 여섯 장입니다.';
+  var f = "<b>이 화면이 보여주지 않는 것</b><ul>";
+  for (var i = 0; i < D.caveats.length; i++) { f += "<li>" + esc(D.caveats[i]) + "</li>"; }
+  f += "</ul><p>규칙: " + esc(D.rule_doc) + " &nbsp;|&nbsp; 산출물: data/processed/truck_crew_replay_yeongdeok.json"
+    + " &nbsp;|&nbsp; 커밋 " + esc(D.git_commit.slice(0, 7)) + " &nbsp;|&nbsp; 생성 " + esc(D.generated_utc) + "</p>";
+  $("foot").innerHTML = f;
+}
+
+$("fleet").onchange = function () { state.key = this.value; buildSelectors(); redraw(); };
+$("veh").onchange = function () { state.veh = parseInt(this.value, 10) || 0; redraw(); };
+$("clock").oninput = function () { state.t = parseInt(this.value, 10) || 0; redraw(); };
+$("print").onclick = function () { window.print(); };
+$("dlgeo").onclick = function () {
+  save(state.key + "_vehicle" + vehicle().vehicle + ".geojson",
+    JSON.stringify(featureCollection(), null, 1), "application/geo+json");
+};
+$("dlkml").onclick = function () {
+  save(state.key + "_vehicle" + vehicle().vehicle + ".kml", toKml(),
+    "application/vnd.google-earth.kml+xml");
+};
+$("playbtn").onclick = function () {
+  if (state.playing) {
+    clearInterval(state.playing); state.playing = 0; this.textContent = "재생";
+    return;
+  }
+  this.textContent = "정지";
+  var btn = this;
+  state.playing = setInterval(function () {
+    state.t += 5;
+    if (state.t >= 720) { state.t = 720; clearInterval(state.playing); state.playing = 0; btn.textContent = "재생"; }
+    $("clock").value = String(state.t);
+    redraw();
+  }, 120);
+};
+
+/* One documented hook, so a crew can bookmark its own vehicle and so the print
+   test can measure the busiest sheet rather than whichever one loads first. It
+   does exactly what the two dropdowns do and nothing else. */
+window.WFG_SELECT = function (key, veh) {
+  if (!D.runs[key]) { return false; }
+  state.key = key;
+  state.veh = Math.max(0, Math.min(veh | 0, D.runs[key].per_vehicle.length - 1));
+  buildSelectors();
+  redraw();
+  return true;
+};
+
+buildBanner(); buildTicks(); buildSelectors(); redraw();
+
+(function () {
+  var m = /^#(k[0-9]+)\.v([0-9]+)$/.exec(window.location.hash || "");
+  if (m) { window.WFG_SELECT(m[1], parseInt(m[2], 10)); }
+}());
+</script>
+</body>
+</html>

@@ -122,6 +122,15 @@ data/processed/**
 !data/processed/corridor_treatment_atlas/*.json
 !data/processed/corridor_treatment_atlas/runs/
 !data/processed/corridor_treatment_atlas/runs/*.json
+# Truck-crew replay (docs/truck_crew_replay.md, brief TRUCK_CREW_REPLAY). Carries the
+# trip geometry the offline page draws, so it is larger than its siblings; it is the
+# only copy of what web/truck_crew_replay.html shows and is cited by the doc.
+!data/processed/truck_crew_replay_yeongdeok.json
+# v2 (HQ decisions 2/3/6) and the repaired-scheduler re-run (decision 4).
+!data/processed/truck_crew_replay_v2_yeongdeok.json
+!data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json
+!data/processed/field_road_closure_yeongdeok.json
+!data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json
 # G3 / WFG-032 (2026-09-14): the leak-free 영덕 fold and its field.
 !data/processed/leakfree_yeongdeok_fold.json
 !data/processed/routing_demo_leakfree.npz

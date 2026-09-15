@@ -81,6 +81,86 @@ def schedule(sc, cfg, homes, refuge_nodes, k, D):
     return outcome, vehicles
 
 
+def schedule_fixed(sc, cfg, homes, refuge_nodes, k, D):
+    """`schedule` with the two defects the truck-crew build found, repaired.
+
+    Added 2026-09-14 on HQ's instruction (`docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md`
+    decision 4). `schedule` above is UNCHANGED and still produces
+    `data/processed/vehicle_pickup_intervention_yeongdeok.json`; this twin writes a new
+    artifact under a new name so the committed numbers are not disturbed.
+
+    Defect 1 — **the outcome was keyed by drive node while dispatch was per walk node.**
+    In the committed run the 24 credible walk nodes collapse onto 12 distinct drive nodes
+    (one of them six times), so `outcome` held 12 entries, a vehicle was sent to the same
+    road point up to six times, and 「9 of 24 nodes completed」 really meant 「walk nodes
+    whose drive node was completed」. Repair: walk nodes are grouped onto their drive node
+    and each road point is visited **once**; the per-walk-node outcome is then read off
+    its road point, which is what the original counting was trying to express.
+
+    Defect 2 — **an unsafe-egress pickup advanced the vehicle's clock and wrote no log
+    entry**, and left the vehicle at its PREVIOUS location although it had driven to the
+    home. Repair: the leg is logged, and the vehicle is left at the home it actually
+    reached. This changes where the vehicle continues from, so it can change later trips.
+    """
+    depot_nodes = [sc.drive.nearest_node(d.x, d.y) for d in sc.depots]
+    vehicles = [{"id": i, "at": depot_nodes[i % len(depot_nodes)], "free": D, "log": []}
+                for i in range(k)]
+    # defect 1: one road point is one pickup, carrying every walk node behind it
+    by_node: dict[int, dict] = {}
+    for h in homes:
+        g = by_node.setdefault(int(h["drive_node"]), {
+            "drive_node": int(h["drive_node"]), "deadline": h["deadline"],
+            "walk_nodes": [], "n_buildings": 0})
+        g["walk_nodes"].append(h.get("walk_node", h.get("node")))
+        g["n_buildings"] += int(h.get("n_buildings", 0))
+        g["deadline"] = min(g["deadline"], h["deadline"])
+    pending = sorted(by_node.values(), key=lambda g: g["deadline"])
+    outcome = {g["drive_node"]: None for g in pending}
+    while pending:
+        h = pending.pop(0)
+        best = None
+        for v in vehicles:
+            rt = rescuer_route(sc.drive, v["at"], h["drive_node"], sc.hazard, cfg,
+                               departure_min=v["free"])
+            if not (rt.reached and not rt.enters_hazard):
+                continue
+            arr = v["free"] + rt.total_time_min
+            if arr + MARGIN > h["deadline"]:
+                continue
+            if best is None or arr < best[1]:
+                best = (v, arr, rt)
+        if best is None:
+            outcome[h["drive_node"]] = {"status": "missed",
+                                        "reason": "no vehicle reaches it safely before deadline - margin"}
+            continue
+        v, arr, rt = best
+        dep_out = arr + T_LOAD
+        eg = None
+        for rn in refuge_nodes:
+            r = rescuer_route(sc.drive, h["drive_node"], rn, sc.hazard, cfg, departure_min=dep_out)
+            if r.reached and not r.enters_hazard and (eg is None or r.total_time_min < eg[1].total_time_min):
+                eg = (rn, r)
+        if eg is None:
+            # defect 2: log the leg, and leave the vehicle where it actually is
+            v["at"] = h["drive_node"]
+            v["free"] = dep_out
+            v["log"].append({"home": h["drive_node"], "arrival_min": round(arr, 1),
+                             "deadline_min": h["deadline"], "refuge_node": None,
+                             "free_at": round(v["free"], 1), "status": "unsafe_egress"})
+            outcome[h["drive_node"]] = {"status": "unsafe_egress", "vehicle": v["id"],
+                                        "arrival_min": round(arr, 1)}
+            continue
+        v["at"] = eg[0]
+        v["free"] = dep_out + eg[1].total_time_min + T_UNLOAD
+        v["log"].append({"home": h["drive_node"], "arrival_min": round(arr, 1),
+                         "deadline_min": h["deadline"], "refuge_node": int(eg[0]),
+                         "free_at": round(v["free"], 1), "status": "completed"})
+        outcome[h["drive_node"]] = {"status": "completed", "vehicle": v["id"],
+                                    "arrival_min": round(arr, 1), "refuge_node": int(eg[0]),
+                                    "delivered_min": round(v["free"] - T_UNLOAD, 1)}
+    return outcome, vehicles, by_node
+
+
 def main() -> int:
     t0 = time.monotonic()
     diag = json.loads(DIAG.read_text(encoding="utf-8"))
