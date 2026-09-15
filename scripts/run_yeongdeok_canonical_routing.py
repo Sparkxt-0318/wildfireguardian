@@ -78,6 +78,85 @@ DEM = REPO / "data/raw/firms_data/yeongdeok_2025_dem.tif"
 COMMITTED_459 = REPO / "data/processed/real_roads_real_hazard.json"
 COMMITTED_SLOPE60 = REPO / "data/processed/real_roads_real_hazard_slope_60.json"
 
+# ---------------------------------------------------------------------------
+# ADDITIVE (2026-09-15, WFG-073 / paper gap G6): refuge PROVENANCE.
+# Default behaviour is unchanged — `--refuges osm` is the committed path and is
+# the default, so this script with no flag does exactly what it did before.
+# The rule these sets implement is pre-registered in docs/refuge_provenance.md
+# §2 and was committed BEFORE any of them was run.
+# ---------------------------------------------------------------------------
+
+JUSO_DIR = REPO / "data/processed/external/juso_yeongdeok"
+
+#: Primary designated set (docs/refuge_provenance.md §2.1). The tsunami layer is
+#: deliberately NOT here: a 지진해일 assembly point is coastal and selected for a
+#: different hazard. It is a separate, labelled arm.
+DESIGNATED_PRIMARY = ("samul_eqout_point", "samul_coolingcen_point")
+DESIGNATED_TSUNAMI = ("samul_eqwav_point",)
+
+REFUGE_SETS = {
+    "osm": (),
+    "designated": DESIGNATED_PRIMARY,
+    "union": DESIGNATED_PRIMARY,
+    "designated_plus_tsunami": DESIGNATED_PRIMARY + DESIGNATED_TSUNAMI,
+}
+#: Which sets also include the committed OSM refuge snapshot.
+REFUGE_SETS_WITH_OSM = ("osm", "union")
+
+
+def designated_destinations(layers, walk_bbox):
+    """Designated refuge points, CLIPPED to the canonical walk box, then in 5179.
+
+    docs/refuge_provenance.md §2.2: the designated layers are county-wide while
+    the router's refuges are counted inside the walk box alone, so the clip
+    happens FIRST and the two sets are never differenced as they stand.
+
+    Returns ``(destinations, per_layer_stats)``.
+    """
+    from wildfireguardian.routing.rescue import Destination
+
+    lon0, lat0, lon1, lat1 = [float(v) for v in walk_bbox]
+    out, stats = [], {}
+    for stem in layers:
+        path = JUSO_DIR / f"{stem}.geojson"
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        feats = raw.get("features", [])
+        kept = 0
+        for i, f in enumerate(feats):
+            geom = (f.get("geometry") or {})
+            if geom.get("type") != "Point":
+                continue
+            lon, lat = [float(v) for v in geom["coordinates"][:2]]
+            if not (lon0 <= lon <= lon1 and lat0 <= lat <= lat1):
+                continue
+            x, y = _TO_5179.transform(lon, lat)
+            props = f.get("properties") or {}
+            name = str(props.get("OBJ_MNG_NO") or props.get("name") or f"{stem}_{i}")
+            out.append(Destination(name, float(x), float(y), kind="shelter",
+                                   source=f"juso:{stem}"))
+            kept += 1
+        stats[stem] = {"features": len(feats), "inside_walk_box": kept,
+                       "dropped_outside_walk_box": len(feats) - kept,
+                       "path": str(path.relative_to(REPO))}
+    return out, stats
+
+
+def refuge_destinations(which, walk_bbox):
+    """Build the refuge set named by ``which`` (docs/refuge_provenance.md §2.3)."""
+    dests, n_osm_pois, stats = [], 0, {}
+    if which in REFUGE_SETS_WITH_OSM:
+        osm, n_osm_pois = read_poi_snapshot(snapshot_for(REGION, "shelters"),
+                                            kind="shelter")
+        dests.extend(osm)
+    desig, stats = designated_destinations(REFUGE_SETS[which], walk_bbox)
+    dests.extend(desig)
+    meta = {"refuge_set": which, "n_osm_pois": n_osm_pois,
+            "n_designated_points_used": len(desig),
+            "designated_layers": stats,
+            "rule_doc": "docs/refuge_provenance.md §2 (pre-registered)"}
+    return dests, len(dests), meta
+
+
 
 def _git() -> str:
     try:
@@ -100,6 +179,9 @@ def main() -> int:
                     default=float(_cfg("pedestrian.walk_budget_min", 600.0)))
     ap.add_argument("--time-step-min", type=float,
                     default=float(_cfg("time.routing_time_step_min", 10.0)))
+    ap.add_argument("--refuges", choices=sorted(REFUGE_SETS), default="osm",
+                    help="which refuge set to route to (docs/refuge_provenance.md §2.3); "
+                         "the default reproduces the committed run exactly")
     ap.add_argument("--out", default=str(REPO / "data/processed/real_roads_real_hazard_canonical.json"))
     args = ap.parse_args()
 
@@ -153,12 +235,14 @@ def main() -> int:
     print(f"  boundary: {'REACHED' if any(e['reached'] for e in edge) else 'clear'}")
     print(f"  grid clearance km: {clearance['margins_km']}")
 
-    dests, n_shelter_pois = read_poi_snapshot(snapshot_for(REGION, "shelters"),
-                                              kind="shelter")
+    dests, n_shelter_pois, refuge_meta = refuge_destinations(args.refuges, walk_bbox)
     if not dests:
         print("STOP (GATE A): zero refuges.", file=sys.stderr)
         return 3
-    print(f"  refuges: {n_shelter_pois} POIs")
+    print(f"  refuges: {n_shelter_pois} POIs  [set={args.refuges}]")
+    for stem, st in refuge_meta["designated_layers"].items():
+        print(f"    {stem}: {st['inside_walk_box']}/{st['features']} inside walk box "
+              f"({st['dropped_outside_walk_box']} dropped)")
 
     def run_arm(label, net, apply_slope):
         net.shelters = {net.nearest_node(d.x, d.y) for d in dests}
@@ -212,6 +296,7 @@ def main() -> int:
             "kind": "REAL — OpenStreetMap, snapshot store (data/cache never read)",
             "snapshot_walk": snap.name, "n_refuge_pois": n_shelter_pois,
             "bbox_wgs84": list(walk_bbox),
+            "refuge_provenance": refuge_meta,
         },
         "parameters": {
             "slope_sampling_m": args.sampling_m, "max_abs_slope": args.max_abs_slope,

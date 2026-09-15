@@ -138,3 +138,130 @@ more.
 ## 3. Results
 
 _(appended by `scripts/run_refuge_provenance.py`; nothing above this line is edited after the run)_
+
+_Run 2026-09-15T04:48:01Z at `fa308fb`; artifact `data/processed/refuge_provenance_yeongdeok.json`; 458 origins in every arm; reproduction gate (§2.4) **PASSED**._
+
+### 3.1 The four arms
+
+| arm | refuge POIs | snapped nodes | both_safe | naive_into_FA_safe | no_safe_route | other |
+|---|---:|---:|---:|---:|---:|---:|
+| osm (committed) | 50 | 46 | 414 | 42 | 2 | 0 |
+| designated (primary) | 68 | 68 | 440 | 16 | 2 | 0 |
+| union | 118 | 113 | 435 | 21 | 2 | 0 |
+| designated_plus_tsunami (sensitivity) | 139 | 131 | 447 | 9 | 2 | 0 |
+
+### 3.2 Extent: what the clip to the canonical walk box dropped (§2.2)
+
+| layer | features | inside walk box | dropped |
+|---|---:|---:|---:|
+| `samul_eqout_point` | 64 | 54 | 10 |
+| `samul_coolingcen_point` | 17 | 14 | 3 |
+| `samul_eqwav_point` | 92 | 71 | 21 |
+
+Every layer in the folder, used or not:
+
+| layer | features | used as a refuge candidate? |
+|---|---:|---|
+| `minwon_agencies` | 55 | no — depots (WFG-074) |
+| `samul_busst_point` | 3 | no |
+| `samul_coolingcen_point` | 17 | yes — primary |
+| `samul_emerwat_point` | 0 | no — empty |
+| `samul_eqout_point` | 64 | yes — primary |
+| `samul_eqwav_point` | 92 | sensitivity arm only |
+| `samul_firehydr_point` | 23 | no |
+| `samul_lifesav_point` | 0 | no — empty |
+
+### 3.3 Observed three-way grading (docs/regrade_three_way.md §2–§3, A1–A6)
+
+| arm | route | m | admissible for all | indeterminate | inadmissible for all | unsupported | not reached |
+|---|---|---|---:|---:|---:|---:|---:|
+| osm (committed) | fire-blind | 0 | 329 | 91 | 38 | 0 | 0 |
+| osm (committed) | fire-blind | 1 | 329 | 91 | 38 | 0 | 0 |
+| osm (committed) | fire-blind | inf | 329 | 91 | 38 | 0 | 0 |
+| osm (committed) | forecast-aware | 0 | 351 | 86 | 19 | 0 | 2 |
+| osm (committed) | forecast-aware | 1 | 351 | 86 | 19 | 0 | 2 |
+| osm (committed) | forecast-aware | inf | 351 | 86 | 19 | 0 | 2 |
+| designated (primary) | fire-blind | 0 | 347 | 75 | 36 | 0 | 0 |
+| designated (primary) | fire-blind | 1 | 347 | 75 | 36 | 0 | 0 |
+| designated (primary) | fire-blind | inf | 347 | 75 | 36 | 0 | 0 |
+| designated (primary) | forecast-aware | 0 | 358 | 84 | 14 | 0 | 2 |
+| designated (primary) | forecast-aware | 1 | 358 | 84 | 14 | 0 | 2 |
+| designated (primary) | forecast-aware | inf | 358 | 84 | 14 | 0 | 2 |
+| union | fire-blind | 0 | 347 | 77 | 34 | 0 | 0 |
+| union | fire-blind | 1 | 347 | 77 | 34 | 0 | 0 |
+| union | fire-blind | inf | 347 | 77 | 34 | 0 | 0 |
+| union | forecast-aware | 0 | 358 | 84 | 14 | 0 | 2 |
+| union | forecast-aware | 1 | 358 | 84 | 14 | 0 | 2 |
+| union | forecast-aware | inf | 358 | 84 | 14 | 0 | 2 |
+| designated_plus_tsunami (sensitivity) | fire-blind | 0 | 343 | 94 | 21 | 0 | 0 |
+| designated_plus_tsunami (sensitivity) | fire-blind | 1 | 343 | 94 | 21 | 0 | 0 |
+| designated_plus_tsunami (sensitivity) | fire-blind | inf | 343 | 94 | 21 | 0 | 0 |
+| designated_plus_tsunami (sensitivity) | forecast-aware | 0 | 360 | 82 | 14 | 0 | 2 |
+| designated_plus_tsunami (sensitivity) | forecast-aware | 1 | 360 | 82 | 14 | 0 | 2 |
+| designated_plus_tsunami (sensitivity) | forecast-aware | inf | 360 | 82 | 14 | 0 | 2 |
+
+The forecast-only bucket (`naive_into_FA_safe`) of each arm, forecast-aware route:
+
+- **osm (committed)** (n = 42): m=0: adm 9 / indet 16 / inadm 17; m=1: adm 9 / indet 16 / inadm 17; m=inf: adm 9 / indet 16 / inadm 17
+- **designated (primary)** (n = 16): m=0: adm 0 / indet 12 / inadm 4; m=1: adm 0 / indet 12 / inadm 4; m=inf: adm 0 / indet 12 / inadm 4
+- **union** (n = 21): m=0: adm 0 / indet 13 / inadm 8; m=1: adm 0 / indet 13 / inadm 8; m=inf: adm 0 / indet 13 / inadm 8
+- **designated_plus_tsunami (sensitivity)** (n = 9): m=0: adm 0 / indet 5 / inadm 4; m=1: adm 0 / indet 5 / inadm 4; m=inf: adm 0 / indet 5 / inadm 4
+
+### 3.4 Overlap between the designated sites and the OSM refuges (§2.6)
+
+- **designated**: 68 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (1.5 %). Distance to the nearest OSM refuge POI: min 34 m, median 1329 m, max 6646 m; 3 within 100 m, 14 within 250 m, 19 within 500 m.
+- **designated_plus_tsunami**: 139 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (0.7 %). Distance to the nearest OSM refuge POI: min 34 m, median 1015 m, max 6646 m; 3 within 100 m, 21 within 250 m, 41 within 500 m.
+
+### 3.5 The reading rule (§2.6), applied
+
+- |Δ `naive_into_FA_safe`| = **26** against a threshold of 14.00 (a third of the OSM arm's 42).
+- |Δ `no_safe_route`| = **0** against a threshold of 0.67 (a third of the OSM arm's 2).
+
+**Verdict: the partition depends on refuge provenance.**
+
+### 3.6 What this run does NOT show
+
+- It says nothing about the paired fire-blind versus forecast-aware contrast. Both arms of that contrast route to the same refuge set, whichever set it is, so changing the refuge set moves both together. This is a sensitivity of the ABSOLUTE rates only.
+- None of the 사물주소 categories is a designated **wildfire** refuge — they are earthquake, tsunami and heat. Whether a listed site would be opened, staffed or large enough during a spring wildfire is unknown (NH-012 b, `docs/juso_yeongdeok.md`).
+- It does not say which refuge set is correct. The designated list is an agency record of 2025-03-01; OSM is a volunteer record of 2026-07-24. Neither was verified on the ground.
+- The grading inherits every assumption of `docs/regrade_three_way.md` A1–A6: fire exposure under the model's own admissibility rule rather than road passability, never-detected cells assumed unaffected, node sampling only. No count here is a safety rate.
+- Nothing here is registered in `docs/NUMBERS.json` and nothing is on a judge-facing surface.
+
+## 4. Reading (written after the run; §2 and §3 are unedited)
+
+**The partition depends on refuge provenance, and the dependence is large.** The
+forecast-only bucket — the project's headline count, the 42 — falls to **16** when the
+router aims at the agency-designated sites instead of the OSM points, a drop of 26 against
+a pre-registered threshold of 14. The `no_safe_route` count is **2** in every arm.
+
+**The mechanism is density, not disagreement.** The two provenances are not naming the
+same places: only **1** of the 68 designated points inside the walk box snaps to a node
+already in the OSM shelter set, and the median designated site is 1.3 km from the nearest
+OSM refuge POI. The designated set puts **68** shelter nodes on the graph where the OSM
+set puts 46, spread differently, so more origins have a refuge whose shortest walk never
+enters the forecast hazard at all — they move from the forecast-only bucket into
+`both_safe` (414 → 440). The `union` arm sits between the two (21), and the tsunami
+sensitivity arm, with 131 nodes, drives the bucket down furthest (9). **The direction is
+monotone in refuge density**, which is the reading to hold: a denser refuge set gives the
+fire-blind router more chances to be accidentally right, so the forecast's measured
+advantage shrinks.
+
+**What this does and does not do to the project's claim.** It does not touch the paired
+contrast: in every arm the fire-blind route is the one that enters the forecast hazard and
+the forecast-aware route is the one that does not, on the same refuge set, and the
+forecast-aware router is never worse. What it does is put a number on how conditional the
+*absolute* rate is. 42/458 = 9.2 % is not a property of 영덕; it is a property of 영덕
+**with the OSM refuge set**. On the designated set the same quantity is 16/458 = 3.5 %.
+Any sentence that quotes the 42 as a count of households the forecast saves must carry the
+refuge set it was measured on.
+
+**The observed grading moves the same way and not in the forecast's favour.** Of the OSM
+arm's 42 forecast-only routes, 9 are admissible under every declared bound; of the
+designated arm's 16, **none** is — they are 12 indeterminate and 4 inadmissible for all.
+The forecast-only class on the designated set is smaller *and* less of it survives the
+observation. Arm for arm, though, the forecast-aware route is graded better than the
+fire-blind one under every refuge set (e.g. designated: 14 inadmissible versus 36), so the
+direction of the forecast's help is the one thing all four arms agree on.
+
+**The honest summary for the paper**: the direction of the result is robust to refuge
+provenance; its magnitude is not, and the OSM set is the one that flatters it.
