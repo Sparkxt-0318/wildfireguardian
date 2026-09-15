@@ -113,6 +113,14 @@ are the ones the loop meets daily), from the KCF 운영요강, and from safety.
    real sends (`scripts/send_dispatch_email.py`, `delivery/sms.py`) stay dry-run.
 7. **Never delete.** Archive (`docs/auto/archive/` or a branch), and say why.
 8. **Never force-push. Never rewrite history on a shared branch.**
+   **8b. Linear history only (recorded 2026-09-15).** Never merge `auto/dev` *into* a work
+   branch: rebase onto it, and if the branch is already pushed, re-cut it under a new name
+   rather than force-pushing. A merge commit turns the staleness gate red
+   (`test_the_staleness_threshold_and_its_helper_are_both_graded` counts `stamp..HEAD`,
+   which a merge inflates by the base's commits) with a message that never mentions merges;
+   `auto/dev` has carried zero merge commits since the loop began and this rule makes that
+   convention explicit. Branches meant to run the gate on GitHub must be named `auto/**`
+   (`.github/workflows/auto-gates.yml` triggers on `auto/**` and `Main` only).
 9. **Gates before pushes.** `python scripts/auto/gates.py --mode full` exits 0, or
    the work goes to `auto/red/<stamp>` with a `red` report and a NEEDS_HUMAN entry.
 10. **Never pipe a gate** (`make verify | tail` swallows the exit code; §5 story).
