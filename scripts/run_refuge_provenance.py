@@ -308,7 +308,10 @@ def main() -> int:
                  f"Distance to the nearest OSM refuge POI: min {dd['min']:.0f} m, "
                  f"median {dd['median']:.0f} m, max {dd['max']:.0f} m; "
                  f"{dd['within_100m']} within 100 m, {dd['within_250m']} within 250 m, "
-                 f"{dd['within_500m']} within 500 m.")
+                 f"{dd['within_500m']} within 500 m. "
+                 f"<!-- collision-ok: {ov['share_snapping_to_an_osm_shelter_node'] * 100:.1f} "
+                 f"— a SHARE OF DESIGNATED SITES in per cent, not a walk time in minutes; "
+                 f"it collides by digits only with the registered l0_walk_time_to_refuge_* medians -->")
 
     L += ["", "### 3.5 The reading rule (§2.6), applied", "",
           f"- |Δ `naive_into_FA_safe`| = **{d_fa}** against a threshold of {thr_fa:.2f} "
