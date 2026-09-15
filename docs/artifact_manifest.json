@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "6d7959f39ebbb61bcd729abd4236bced451395c6",
-  "n_artifacts": 144,
-  "total_bytes": 26312833,
-  "total_mib": 25.09,
-  "n_git_tracked": 144,
+  "generated_at_git_commit": "cba195a63f4266bc076a3efdb8c0646e4333570c",
+  "n_artifacts": 145,
+  "total_bytes": 26877241,
+  "total_mib": 25.63,
+  "n_git_tracked": 145,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 14,
   "artifacts": [
@@ -1100,6 +1100,7 @@
         "docs/auto/reports/2026-09-10T0942Z-manual.md",
         "docs/auto/reports/2026-09-10T2028Z-critic.md",
         "docs/multi_region.md",
+        "docs/refuge_provenance.md",
         "docs/walk_bbox_coverage.md",
         "paper/GAPS.md"
       ],
@@ -1138,6 +1139,19 @@
       "n_registry_entries": 8,
       "cited_by_docs": [],
       "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/refuge_provenance_yeongdeok.json",
+      "bytes": 564408,
+      "sha256": "8ee717d0378db10de0c72a5fc5babd5f1f6f53977f2feffed887f83a6f820162",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/refuge_provenance.md",
+        "paper/GAPS.md"
+      ],
+      "regenerate": "python scripts/run_refuge_provenance.py"
     },
     {
       "path": "data/processed/regrade_against_observed_yeongdeok.json",
@@ -1403,6 +1417,7 @@
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",
         "docs/present_perimeter_yeongdeok.md",
+        "docs/refuge_provenance.md",
         "docs/regrade_against_observed.md",
         "docs/regrade_three_way.md",
         "docs/rescue_routing_real_hazard.md",
