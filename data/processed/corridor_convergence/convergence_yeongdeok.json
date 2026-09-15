@@ -58,8 +58,8 @@
   }
  },
  "title": "Corridor convergence check, 영덕 2025 (deterministic, additive diagnostic)",
- "generated_utc": "2026-09-15T05:55:52Z",
- "git_commit": "455729fcdc57598f0d866dd1b079f94ce9c0e78c",
+ "generated_utc": "2026-09-15T06:12:18Z",
+ "git_commit": "82be3496ec0c8709fb94270133189cb75eda04d3",
  "rule_doc": "docs/corridor_convergence_check.md §1-§6 (declared before the run)",
  "status": "exploratory; not registered in docs/NUMBERS.json; not on any judge-facing surface",
  "does_not_model": [
@@ -6360,5 +6360,5 @@
    "overlap": false
   }
  },
- "seconds_total": 452.7
+ "seconds_total": 384.0
 }

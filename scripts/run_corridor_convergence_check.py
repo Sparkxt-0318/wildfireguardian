@@ -350,7 +350,9 @@ def main() -> int:
     for k, s in struct.items():
         print(f"[structural] {k}: used subgraph {s['used_subgraph']}, "
               f"{s['n_articulation_points']} articulation points, {s['n_bridges']} bridges, "
-              f"{len(s['findings'])} cutting >1 household {time.monotonic()-t0:.0f}s", flush=True)
+              f"{s['n_findings_full_network']} cutting >1 household on the full network "
+              f"({s['n_findings_cutting_more_than_one_household']} in the thin used subgraph) "
+              f"{time.monotonic()-t0:.0f}s", flush=True)
 
     # ---- cross-check (§6)
     cross = {}

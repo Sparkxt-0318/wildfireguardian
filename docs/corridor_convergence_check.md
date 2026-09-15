@@ -167,7 +167,7 @@ different things, which is itself the answer to "are these the same diagnostic?"
 _Appended by `scripts/run_corridor_convergence_check.py`. Artifact:
 `data/processed/corridor_convergence/convergence_yeongdeok.json`._
 
-_Run 2026-09-15T05:55:52Z at `455729f`; artifact `data/processed/corridor_convergence/convergence_yeongdeok.json`; figure `docs/figures/corridor_convergence_yeongdeok.png`; 7.5 min._
+_Run 2026-09-15T06:12:18Z at `82be349`; artifact `data/processed/corridor_convergence/convergence_yeongdeok.json`; figure `docs/figures/corridor_convergence_yeongdeok.png`; 6.4 min._
 
 **Gate.** Canonical hazard sha256 `81b4e4d159daa7a8…` matches the committed run. Four-way split re-derived on 444 origins as {'saved_by_rescue_reachable_refuge': 29, 'already_safe': 281, 'no_safe_pedestrian_route': 132, 'no_surviving_vehicle_ingress': 2} — identical to the committed `rescue_routing_real_hazard.json`. Routes collected: 306 deployed resident walks, 307 naive walks, 132 rescuer drives (2 homes with no surviving ingress contribute no route).
 
