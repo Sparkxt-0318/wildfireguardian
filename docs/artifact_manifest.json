@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "cba195a63f4266bc076a3efdb8c0646e4333570c",
-  "n_artifacts": 145,
-  "total_bytes": 26877241,
-  "total_mib": 25.63,
-  "n_git_tracked": 145,
+  "generated_at_git_commit": "48df9ae442c99a572307892f5132bf1506634f39",
+  "n_artifacts": 146,
+  "total_bytes": 27002767,
+  "total_mib": 25.75,
+  "n_git_tracked": 146,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 14,
   "artifacts": [
@@ -250,6 +250,18 @@
         "docs/cluster_sparsity.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/corridor_convergence/convergence_yeongdeok.json",
+      "bytes": 125526,
+      "sha256": "fe371e3a4093da18e006d9036b18fdbfb19f2b10de2c77fb49a7a7462a77d23b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/corridor_convergence_check.md"
+      ],
+      "regenerate": "python scripts/run_corridor_convergence_check.py"
     },
     {
       "path": "data/processed/corridor_treatment_atlas/atlas_yeongdeok.json",
@@ -1295,6 +1307,7 @@
       "n_registry_entries": 9,
       "cited_by_docs": [
         "docs/auto/HANDOVER_2026-09-12.md",
+        "docs/corridor_convergence_check.md",
         "docs/rescue_routing_real_hazard.md",
         "outputs/dispatch_real_hazard/README.md"
       ],
@@ -1411,6 +1424,7 @@
         "docs/auto/reports/2026-09-12T1705Z-dev.md",
         "docs/benchmark/results_v0.1.md",
         "docs/benchmark/stage2_proxy_rules.md",
+        "docs/corridor_convergence_check.md",
         "docs/corridor_treatment_atlas.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
