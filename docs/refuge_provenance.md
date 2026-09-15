@@ -209,8 +209,8 @@ The forecast-only bucket (`naive_into_FA_safe`) of each arm, forecast-aware rout
 
 ### 3.4 Overlap between the designated sites and the OSM refuges (§2.6)
 
-- **designated**: 68 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (1.5 %). Distance to the nearest OSM refuge POI: min 34 m, median 1329 m, max 6646 m; 3 within 100 m, 14 within 250 m, 19 within 500 m.
-- **designated_plus_tsunami**: 139 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (0.7 %). Distance to the nearest OSM refuge POI: min 34 m, median 1015 m, max 6646 m; 3 within 100 m, 21 within 250 m, 41 within 500 m.
+- **designated**: 68 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (1.5 %). Distance to the nearest OSM refuge POI: min 34 m, median 1329 m, max 6646 m; 3 within 100 m, 14 within 250 m, 19 within 500 m. <!-- collision-ok: 1.5 — a SHARE OF DESIGNATED SITES in per cent, not a walk time in minutes; it collides by digits only with the registered l0_walk_time_to_refuge_* medians -->
+- **designated_plus_tsunami**: 139 designated points inside the walk box; **1** of them snap to a walk-graph node that is already in the OSM arm's shelter-node set (0.7 %). Distance to the nearest OSM refuge POI: min 34 m, median 1015 m, max 6646 m; 3 within 100 m, 21 within 250 m, 41 within 500 m. <!-- collision-ok: 0.7 — a SHARE OF DESIGNATED SITES in per cent, not a walk time in minutes; it collides by digits only with the registered l0_walk_time_to_refuge_* medians -->
 
 ### 3.5 The reading rule (§2.6), applied
 
