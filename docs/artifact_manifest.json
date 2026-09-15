@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "a070258c47573ed5077dc375b85d5e361998041c",
-  "n_artifacts": 138,
-  "total_bytes": 21163102,
-  "total_mib": 20.18,
-  "n_git_tracked": 138,
+  "generated_at_git_commit": "febe5fe69e88ba41ac31aeb41420174b9949c14c",
+  "n_artifacts": 143,
+  "total_bytes": 25896100,
+  "total_mib": 24.7,
+  "n_git_tracked": 143,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 13,
   "artifacts": [
@@ -153,7 +153,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
-        "docs/building_origins_juso_yeongdeok.md"
+        "docs/building_origins_juso_yeongdeok.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -165,7 +166,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/building_origins_observed_grading.md"
+        "docs/building_origins_observed_grading.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/grade_building_origins_observed.py"
     },
@@ -629,6 +631,18 @@
       "regenerate": "UNKNOWN"
     },
     {
+      "path": "data/processed/field_road_closure_yeongdeok.json",
+      "bytes": 1708,
+      "sha256": "b8db2ebf05e106e520e7fc6ffb2059ff9161150645d22c6abb2367e9c8202f9b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/measure_field_road_closure.py"
+    },
+    {
       "path": "data/processed/footprint_components/footprint_components_20260912T1602Z.json",
       "bytes": 11008,
       "sha256": "62a696f6214528369af03867a2735b446989ddca7290cc6f47b2e2df7a454c48",
@@ -703,9 +717,11 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/HINDCAST_CORRECTION_REPORT.md",
+        "docs/forecast_track.md",
         "docs/leakfree_fold.md"
       ],
-      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+      "regenerate": "python scripts/run_forecast_track_f1.py"
     },
     {
       "path": "data/processed/lofo_oof_logistic.csv.gz",
@@ -1402,10 +1418,12 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/benchmark/results_v0.1.md",
-        "docs/leakfree_fold.md"
+        "docs/leakfree_fold.md",
+        "docs/truck_crew_replay.md"
       ],
-      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+      "regenerate": "python scripts/run_forecast_track_f1.py"
     },
     {
       "path": "data/processed/routing_objective_experiment.json",
@@ -1593,6 +1611,59 @@
       "regenerate": "python scripts/build_timeline_roles.py"
     },
     {
+      "path": "data/processed/truck_crew_replay_v2_yeongdeok.json",
+      "bytes": 2151916,
+      "sha256": "2ba69868b4ac9e5fcddb50c521831763a98ecd7e310bbe759179a7938047b63b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay_linesampled.py"
+    },
+    {
+      "path": "data/processed/truck_crew_replay_yeongdeok.json",
+      "bytes": 1491064,
+      "sha256": "25cf6b6a5e5c28e3dae5daa00c8be60bf79ad6d030955f94f1ef6b24edccf5bc",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
+        "docs/auto/reports/2026-09-13T1621Z-red.md",
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay.py"
+    },
+    {
+      "path": "data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json",
+      "bytes": 1080873,
+      "sha256": "0d7b8bd8e4fad2461e3fb50d8f9cddc0ac35381787169f27b00fe1c60d60b133",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay_linesampled.py"
+    },
+    {
+      "path": "data/processed/vehicle_pickup_intervention_fixed_yeongdeok.json",
+      "bytes": 7437,
+      "sha256": "538eef8f23ada1c993cdc82c2063559d9b2ce4ac2d2ff6d4c4093240dfa0e3bf",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/vehicle_pickup_intervention.md"
+      ],
+      "regenerate": "python scripts/run_vehicle_pickup_intervention_fixed.py"
+    },
+    {
       "path": "data/processed/vehicle_pickup_intervention_yeongdeok.json",
       "bytes": 46556,
       "sha256": "e468283fa6ae5bcfecf37ecb1628314a2b1ce827faca93683300180c60c42f61",
@@ -1600,6 +1671,7 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/vehicle_pickup_intervention.md"
       ],
       "regenerate": "python scripts/run_vehicle_pickup_intervention.py"

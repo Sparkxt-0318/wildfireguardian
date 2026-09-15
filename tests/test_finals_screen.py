@@ -551,7 +551,15 @@ def _stamp_commits_behind(stamp: str) -> int | None:
         return None
     if _git("cat-file", "-e", f"{stamp}^{{commit}}").returncode != 0:
         return None
-    counted = _git("rev-list", "--count", f"{stamp}..HEAD")
+    # --first-parent, added 2026-09-15 after a merge commit turned this gate red.
+    #「N commits behind」 means N positions along the released line, which is what
+    # the screen's own stamp means and what `HEAD~N` walks. Without --first-parent
+    # this counted every commit a merge dragged in, so merging a pull request on
+    # GitHub (rather than fast-forwarding) inflated the distance and failed the
+    # grader below: HEAD~29 measured 34. The fix is the measure, not the threshold.
+    # A stamp that is NOT on the first-parent line is unreachable and returns None,
+    # which is the same 「unanswerable here」 the shallow boundary already returns.
+    counted = _git("rev-list", "--count", "--first-parent", f"{stamp}..HEAD")
     if counted.returncode != 0:
         return None
     return int(counted.stdout.strip())
