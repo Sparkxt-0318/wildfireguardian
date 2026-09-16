@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "owner": "A6",
+  "created": "2026-09-16",
+  "protocol": "research/eval/NUMBERS_PROTOCOL.md",
+  "states": ["staged", "verified", "disputed", "withdrawn",
+             "withdrawn_pending_condition", "promoted"],
+  "rerun_levels": ["L0", "L1", "L2", "L3"],
+  "required_fields": ["id", "direction", "label", "registrar_entry",
+                      "claim_sentence", "evaluation_frame", "uncertainty",
+                      "prereg", "signoff_record", "split", "inputs",
+                      "producer", "rerun", "forbidden_claim_rules", "state",
+                      "notes"],
+  "registrar_entry_fields": ["value", "unit", "source_file", "json_path",
+                             "derivation", "config_hash",
+                             "config_hash_at_production", "git_commit",
+                             "sample", "caveat", "forbidden_phrasings",
+                             "check", "reproducibility", "reproducible"],
+  "direction_staging_file": "research/<direction>/numbers_staged.json",
+  "note": "Empty by design. No direction has been signed off, so no number from a real outcome exists yet. Entries are appended, never edited in place once verified, and never deleted.",
+  "entries": []
+}
