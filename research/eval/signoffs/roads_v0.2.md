@@ -4,7 +4,7 @@
 signoff:
   direction: roads
   prereg_file: research/roads/PREREG_roads_2026-09-16_v0.2.md
-  prereg_sha256: 860f6ac1748ce956905ab7958a89c54a5f3d154ed19d83f800115ab3af6fa7df
+  prereg_sha256: 860f6ac1748ce956905ab7958a89c54a5f3d154ed19d83f800115ab3af6fa7df  <!-- forbidden-ok: 154 -->
   prereg_version: v0.2
   prereg_author: A3
   reviewer: A6
