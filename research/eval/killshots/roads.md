@@ -225,3 +225,55 @@ Not part of items 1 to 4. A prediction, kept so that it can be scored later.
 
 Scored later against what actually happened. A prior that was wrong is evidence
 that the check worked.
+
+---
+
+## Addendum, 2026-09-16, second sign-off pass
+
+**Not part of items 1 to 4, which are unedited, and not items 5 to 7, which stay
+empty because no result exists.** This records only the discharge of
+pre-conditions that items 1 to 4 themselves state, and the one movement inside the
+appendix prior that the second pass produced. It is appended rather than woven in,
+so that a later reader can still read items 1 to 4 as they stood before any
+pre-registration was signed.
+
+**State of the direction has moved** from `refused` to `signed with conditions`,
+record at `research/eval/signoffs/roads_v0.2.md`, on
+`research/roads/PREREG_roads_2026-09-16_v0.2.md`.
+
+**Two pre-conditions written into item 4 are discharged.**
+
+1. **T2, the daylight contrast, was recorded in item 4 as "not in the
+   pre-registration and a condition of the sign-off record (R6)".** It is now
+   pre-registered at section 12.4.7 of v0.2, with its three outcomes written in
+   advance, with the night indicator computed from the segment's own coordinates
+   rather than from the national sunrise and sunset columns, and with gate N1
+   requiring at least 15 labelled segments in each of day and night before the
+   contrast is estimated at all. Outcome 3 of that section, where the width slope
+   is larger by night than by day, is pre-declared uninterpretable rather than
+   read as confirmation, which is the failure mode the contrast most invites. The
+   two outcomes item 4 wrote for T2 are consistent with the three written there,
+   and where they are read together the pre-registration's wording governs,
+   because it is the signed document.
+2. **The pre-condition on the vocabulary is discharged.** Item 4 says the scope cut
+   is a promise until a claim rule and its detector exist for the assertive
+   spellings. `research/roads/check_vocabulary.py` now holds the roads tree with
+   RV-001 to RV-003, and RC-011 is in the program claims registry with its detector
+   in `research/shared/check_research_claims.py`, whose self-test this round
+   reports 11 rules at 32 of 32 catches and 31 of 31 spares. One gap remains and it
+   is carried as condition C7 of the v0.2 record: both detectors stop at the edge of
+   `research/`, so no width sentence from this direction leaves that tree until the
+   drafted patch to `scripts/check_forbidden.py` lands under WJ-002.
+
+**The pre-condition on all three tests is unchanged and is now sharper.** Item 4
+says none of T1, T2 or T3 is run and no scope-cut sentence is written unless the
+width curve is published at all, and that the order is measurement validity, then
+gates, then curve, then the tests. That stands. What the second pass adds is which
+gate to expect first: the appendix prior rated a failure of at least one of W1, G1
+and M1 more likely than every other outcome combined, and section 4 of the v0.2
+record moves the ordering inside that prior, because the roads width support is
+truncated from below by the per-segment existence check that is the width
+measurement's own null result and from above by the side rule's approach-angle
+requirement, both through the covariate's own machinery. **W1 is now expected to
+fail ahead of M1.** The headline prediction is unchanged; only the order inside it
+has moved, and this sentence is dated so it can be scored against what happens.

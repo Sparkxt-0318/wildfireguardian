@@ -155,3 +155,148 @@ def test_the_roads_killshot_has_no_result_yet():
     tail = tail.split("## Appendix", 1)[0]
     assert "Not written" in tail
     assert not re.search(r"\b(survives|does not survive)\b", tail)
+
+
+# ------------------------------------- the v0.2 record and the record class --
+#
+# Added by the roads v0.2 sign-off (`research/eval/signoffs/roads_v0.2.md`).
+# Two things are pinned here and, as above, only two.
+#
+# 1. **The v0.2 artifacts**: a verdict exists, it declares one of the four
+#    states, the ledger carries the matching row, and the state and the
+#    fit permission in the record agree with each other.
+#
+# 2. **The frozen-record class**, which `research/shared/check_research_claims.py`
+#    declares so that a superseded pre-registration can keep the wording a later
+#    rule exists to stop recurring without being edited to carry a pragma.
+#    Section 7 of the v0.2 record rules that construction sound and names two
+#    narrowings it needs. The second one is fixed here, inside A6's own tree,
+#    because it is the one that matters and pinning a hash touches nobody
+#    else's file: membership in the class is granted by path and not by
+#    content, so being in the class is exactly what removes the checker that
+#    would have noticed an edit. `SIGNOFF.md` section 4 says editing a
+#    superseded pre-registration is the one thing in the protocol that cannot
+#    be repaired afterwards, and until now it was the one rule with no
+#    detector on it.
+
+import hashlib
+
+REPO = EVAL.parent.parent
+
+#: sha256 of `research/roads/PREREGISTRATION.md` (roads v0.1b, superseded and
+#: frozen) as recorded in `research/eval/signoffs/roads_v0.2.md` section 7.
+#: If this moves, the file the protocol says must never be edited has been
+#: edited, and the record class stopped the claims checker from saying so.
+FROZEN_V01B_SHA256 = (
+    "9ddb41f9f86710b62d9732db23079a1c60e1f115ece993ff1e48936f39ed579e"
+)
+
+
+def _sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_the_frozen_superseded_roads_prereg_has_not_been_edited():
+    frozen = REPO / "research" / "roads" / "PREREGISTRATION.md"
+    assert frozen.is_file(), "the superseded record is gone, which is worse"
+    assert _sha256(frozen) == FROZEN_V01B_SHA256, (
+        "research/roads/PREREGISTRATION.md has changed. It is in the claims "
+        "checker's RECORD_CLASS, so the checker is silent on it by design, and "
+        "SIGNOFF.md section 4 says this edit cannot be repaired afterwards."
+    )
+
+
+def test_the_record_class_does_not_shelter_a_live_preregistration():
+    """The first narrowing of v0.2 section 7, as a detector rather than a note.
+
+    ``RECORD_CLASS`` grants a claim-rule exemption by path, and two of the three
+    paths it names do not exist yet. The roads direction wrote v0.1, v0.1a and
+    v0.1b at exactly that path while each was live, so the class currently
+    pre-grants an exemption to where two directions are most likely to write a
+    live first draft. The rule that makes it safe is ``SIGNOFF.md`` section 2:
+    a pre-registration is named ``PREREG_<direction>_<date>_v<n>.md``. This test
+    holds that rule for the paths the exemption covers: a sheltered path may
+    exist only for a direction that also has a versioned file superseding it.
+    """
+    import importlib.util
+
+    checker = REPO / "research" / "shared" / "check_research_claims.py"
+    spec = importlib.util.spec_from_file_location("_claims_checker", checker)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    for rel in mod.RECORD_CLASS:
+        path = REPO / rel
+        if not path.is_file():
+            continue
+        direction_dir = path.parent
+        versioned = sorted(direction_dir.glob("PREREG_*_v*.md"))
+        assert versioned, (
+            "%s is sheltered from the claim rules but nothing supersedes it, "
+            "so the exemption is covering a live pre-registration" % rel
+        )
+
+
+def test_the_roads_v02_verdict_exists_and_declares_one_of_the_four_states():
+    record = EVAL / "signoffs" / "roads_v0.2.md"
+    assert record.is_file()
+    text = record.read_text(encoding="utf-8")
+    declared = re.search(r"^\s*state:\s*(.+?)\s*$", text, re.MULTILINE)
+    assert declared, "the record carries no `state:` field in its yaml block"
+    assert declared.group(1) in FOUR_STATES
+
+
+def test_the_roads_v02_fit_permission_agrees_with_its_state():
+    """`SIGNOFF.md` section 3: only `signed` and `signed with conditions` fit."""
+    text = (EVAL / "signoffs" / "roads_v0.2.md").read_text(encoding="utf-8")
+    state = re.search(r"^\s*state:\s*(.+?)\s*$", text, re.MULTILINE).group(1)
+    permitted = re.search(
+        r"^\s*fits_permitted_on_real_labels:\s*(true|false)\s*$", text, re.MULTILINE)
+    assert permitted, "the record does not say whether a fit is permitted"
+    expected = "true" if state.startswith("signed") else "false"
+    assert permitted.group(1) == expected
+
+
+def test_the_ledger_carries_a_row_for_v02_naming_the_versioned_prereg():
+    text = (EVAL / "signoffs" / "LEDGER.md").read_text(encoding="utf-8")
+    rows = [ln for ln in text.splitlines()
+            if ln.startswith("|") and "roads" in ln and "| v0.2 |" in ln]
+    assert len(rows) == 1, "expected exactly one ledger row for roads v0.2"
+    row = rows[0]
+    assert "`signed with conditions`" in row
+    assert "research/roads/PREREG_roads_2026-09-16_v0.2.md" in row
+    assert "research/eval/signoffs/roads_v0.2.md" in row
+
+
+def test_a_conditional_signature_numbers_its_conditions():
+    """`SIGNOFF.md` section 3: the record lists numbered conditions, each with
+    the verification action that clears it and the phase by which it must
+    clear, and each marked blocking for the primary result or for a named
+    secondary claim. An unnumbered condition is one A3 has to ask about."""
+    text = (EVAL / "signoffs" / "roads_v0.2.md").read_text(encoding="utf-8")
+    state = re.search(r"^\s*state:\s*(.+?)\s*$", text, re.MULTILINE).group(1)
+    if state != "signed with conditions":
+        return
+    ids = re.findall(r"\*\*C(\d+)\*\*", text)
+    assert ids, "a conditional signature with no numbered conditions"
+    numbers = sorted({int(i) for i in ids})
+    assert numbers == list(range(1, len(numbers) + 1)), (
+        "condition numbers are not a gapless run from 1: %r" % numbers)
+    assert "**primary**" in text
+    assert "named secondary claim" in text
+
+
+def test_the_roads_killshot_items_one_to_four_are_still_unedited():
+    """Later writing on the kill-shot file appends and never rewrites.
+
+    Items 1 to 4 were written on 2026-09-16 before any pre-registration was
+    signed. Their whole evidential value is that they predate the design, so an
+    edit to them is not a correction, it is the loss of the record. The v0.2
+    sign-off appended a dated addendum after the appendix; this pins the slice
+    the addendum must not have touched.
+    """
+    text = (EVAL / "killshots" / "roads.md").read_text(encoding="utf-8")
+    body = text.split("## 1. The objection", 1)[1].split("## 5.", 1)[0]
+    assert hashlib.sha256(body.encode("utf-8")).hexdigest() == (
+        "457bc2b7a0ae591b6ab6367d8507006b9c59c1a84002006c948166a09ce512a7"
+    ), "kill-shot items 1 to 4 have changed; they are written before any result "

@@ -303,9 +303,14 @@ RULE_SOURCE = Path(__file__).resolve()
 #: ⚠ Narrow on purpose. It matches the superseded per-direction
 #: ``PREREGISTRATION.md`` only. The live pre-registration of the day is a
 #: versioned file (``PREREG_<direction>_<date>_v<n>.md``) and is NOT exempt.
-RECORD_CLASS = ("research/roads/PREREGISTRATION.md",
-                "research/landslides/PREREGISTRATION.md",
-                "research/suppression/PREREGISTRATION.md")
+#: ⚠ A path joins this tuple only once it is ACTUALLY superseded, never in
+#: advance. A6 caught the first draft pre-granting exemption to the landslide
+#: and suppression pre-registrations, which do not exist yet. That would have
+#: exempted them while they were still live and being written, which is exactly
+#: backwards: the roads direction wrote v0.1 through v0.1b inside this same
+#: filename while it was the working document, and those versions needed the
+#: rules. Superseding is an event, so the entry is added when the event happens.
+RECORD_CLASS = ("research/roads/PREREGISTRATION.md",)
 
 PRAGMA = re.compile(r"research-claim-ok:\s*([A-Z]{2}-\d{3}(?:\s*,\s*[A-Z]{2}-\d{3})*)")
 TEXT_SUFFIXES = {".md", ".py", ".yaml", ".yml", ".txt", ".json", ".bib", ".html", ".stan"}
