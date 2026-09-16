@@ -1,6 +1,11 @@
 # Roads direction, open questions
 
-**Status: written 2026-09-16 by A3, alongside `PREREGISTRATION.md` v0.1a.** These
+**Status: written 2026-09-16 by A3, alongside `PREREGISTRATION.md` v0.1a, and
+updated 2026-09-16 alongside `PREREG_roads_2026-09-16_v0.2.md`. Q1 to Q6 and Q9 to
+Q11 are now closed by A6's sign-off record
+`research/eval/signoffs/roads_v0.1b.md` and by v0.2; the closures are in the table
+at the end of this file, and the question text above each one is kept unedited so
+that what was asked stays visible next to what was decided.** These
 are the design decisions A3 could not settle alone. Each has the options, what
 turns on it, A3's recommendation, and who decides. Every one of them must be
 closed before A6 signs, because a pre-registration with an open question in it is
@@ -295,6 +300,15 @@ than debated when the counts disappoint.
 
 | question | closed by | outcome |
 |---|---|---|
+| **Q5.** What is the smoke mask rule? | A6 ratified the route in `roads_v0.1b.md` section 3.2 and refused to write the rule; **A3 wrote it** in v0.2 section 5.2.1 | Option 2. The Sentinel-2 L2A aerosol raster at 20 m, thresholded **against the scene's own background** rather than absolutely, because Korean spring background haze would make an absolute cut mask whole scenes: smoke-affected at `AOT_excess >= 0.10` or `AOT >= 0.60` absolute, with the reference region defined from the active-fire detection hull and never from the burned mask. Either scene disqualifies a pixel. Grids of {0.05, 0.10, 0.20, 0.40} and {0.45, 0.60, 0.80}, every value reported. Option 1 is available only under two triggers computed and committed before any lee burned fraction exists; option 3 is refused and unreachable. The bias direction goes in the abstract if option 1 is ever taken |
+| **Q1.** Which width is primary? | A6, `roads_v0.1b.md` section 8.5 | `W_cleared` primary, `W_surface` reported alongside, a version bump rather than a silent swap if attachment 2-2 says otherwise |
+| **Q2.** Is the ember arm identifiable, and should it be attempted? | A6, same | Option 1: fit it, with F4 as the automatic exit. F4 now names `lambda` first, by symbol |
+| **Q3.** One width slope or one per barrier type? | A6, same | Option 1 primary, the type-by-width interaction pre-registered as an always-reported secondary |
+| **Q4.** Are the Key and Benson break points right for Korean stands? | A6, same, plus v0.2 section 5.4 | Ratified as an interim. **And the index moved**: A6's scenario S10 showed a dNBR break point applied to RdNBR, so dNBR is now the primary index, RdNBR is a secondary with a 0.10 divisor floor and its own converted threshold of 0.15 |
+| **Q6.** Is the primary metric right for the program? | A6, same | A3's choice stands. A6 will not name a different program-wide primary |
+| **Q9.** Are the feasibility gate numbers right? | A6, `roads_v0.1b.md` sections 8.1 to 8.4 | Smallest effect of interest **not ratified at 0.10**: set at **0.05 in `W_cleared`** at the median approach angle, with 0.10 reported alongside. Recoverability 0.80 ratified, plus a second exclusion-power arm at 0.80 (gate M2). `kappa` 0.70 ratified as a level but refused as defined: it moves to the model's scale and to an interval lower bound. G1 to G3 and P1 ratified; W1 ratified with the requirement that it count in `W_cleared` |
+| **Q10.** What is done with a SHAP-suggested interaction? | A6, same | Keep the strict rule exactly as argued |
+| **Q11.** Segment length once the real counts are known | A6, same | Ratified, and the refusal to shorten segments to clear a gate belongs in the frozen document |
 | how is a flat breach curve to be read, when measurement error and a true null both produce one? | A6, 2026-09-16, written into pre-registration section 11.5 | Five instruments, three running before any label exists: a 30-pair repeat-measurement study, a design-stage recoverability simulation on real geometry with simulated outcomes, a named smallest effect of interest, an equivalence reading of the disattenuated posterior, and measurement validity checks against road class and catchment area. A flat curve is an **informative null** only when all four conditions of section 11.5.6 hold |
 | which parameter can this design not identify? | A6, 2026-09-16, written into pre-registration section 7.7 | The flame-crossing and ember-spotting split. One binary label constrains only the product, so identification comes solely from the far-field spot record, and section 7.7.1 fixes what is reported if it stays unidentified |
 | how is suppression confounding handled? | A6, 2026-09-16, written into pre-registration section 12.4 | It is not separable with available data, and the document says so. The width coefficient is named **operational barrier performance** everywhere, a proximity proxy is rejected as a bad control, and the roads-against-rivers width slope comparison is pre-registered as a weak and explicitly labelled discriminator |
