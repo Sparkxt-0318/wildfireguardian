@@ -21,9 +21,12 @@ Sentinel-2 and the active-fire archive, which are the two datasets the labels ar
 made of. Until WJ-001 clears, this direction can write design and code and
 nothing else.
 
-Two further access routes are now blocked and are new human gates, reported by A1:
-the NGII national base map and the NGII 5 m DEM both returned HTTP 400 on two
-automated attempts, so their access terms are unconfirmed.
+Two further access routes are now blocked and are a human gate, **WJ-011**,
+reported by A1: the NGII national base map and the NGII 5 m DEM both returned HTTP
+400 on two automated attempts, so their access terms are unconfirmed.
+
+The orthoimagery that the width covariate depends on is **WJ-009**, and the
+suppression records of section 12.4 are **WJ-010**.
 
 ---
 
@@ -250,6 +253,14 @@ most damage. The two problems multiply rather than add.
    matter" and the pre-registration says so explicitly.
 4. **F1 is judged only on the errors-in-variables posterior**, never on the naive
    one.
+5. **A pre-registered reading rule for a flat curve**, pre-registration section
+   11.5. A flat curve is what a true null and a badly measured covariate both
+   produce, so the discrimination between them is fixed before the fit and rests on
+   five instruments, three of which (the repeat study, the design-stage
+   recoverability simulation, and the measurement validity checks) run before any
+   label is computed. A flat curve is reported as an **informative null** only when
+   all four conditions of section 11.5.6 hold; otherwise the outcome is **not
+   resolvable at the achieved measurement precision**.
 
 ### 3.6 How many hand-measured segments are needed
 
@@ -260,10 +271,18 @@ needs about 49. Sixty covers both with a margin.
 
 They are drawn 4 per cell from a 5 by 3 stratification of fire complex by
 automatic-width tercile, so the error is estimated across the whole width range
-rather than only where roads are typical. **At least 20 of the 60** get a second
-independent measurement pass, to separate the measuring agent's variance from the
-method's variance. Segments are presented in randomised order with the burn
-footprint and the label withheld.
+rather than only where roads are typical. **At least 30 of the 60** get a second
+independent measurement pass, giving 30 repeat pairs from which the error variance
+is estimated directly. Thirty is A6's number, adopted over an earlier 20: it gives
+`sigma_u` to about 13 per cent relative against about 16 per cent at 20, and it is
+where the error estimate stops being the weakest link in the attenuation
+correction. Segments are presented in randomised order with the burn footprint and
+the label withheld.
+
+**The repeat study is not contingent on anything.** It runs on pre-fire imagery
+and can be completed before a single label exists, which is what makes instruments
+1 and 2 of pre-registration section 11.5 available at design stage rather than
+after the fit.
 
 Sixty segments at a few minutes each is a few hours of work, which is inside scope
 rule 2 (computation and public data only, no field work). None of it requires
@@ -369,9 +388,9 @@ create.
 
 | gap | why it matters | who |
 |---|---|---|
-| **high-resolution pre-fire orthoimagery with per-tile vintage** | the width covariate has no other source; section 3 | A1, new registry entry |
+| **high-resolution pre-fire orthoimagery with per-tile vintage** | the width covariate has no other source; section 3 | A1 for the registry entry, John for access as **WJ-009** |
 | **forest road SHP attribute schema**, specifically a class field and a construction or survey year | the year is what excludes roads built after a fire; without it a post-fire road is scored as a barrier that held | A1 |
-| **suppression resource placement during the five fires** | the confound of section 12.4: a road that held partly measures that a crew was anchored on it. There is no data fix in this round | John, information disclosure request, new human gate |
+| **suppression resource placement during the five fires** | the confound of section 12.4, which A6 names as the strongest objection to this direction: a road that held partly measures that a crew was anchored on it, and no covariate in the planned set separates the two. There is no data fix in this round | John, **WJ-010** on the taskboard |
 
 ---
 

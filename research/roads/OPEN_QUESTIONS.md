@@ -12,7 +12,13 @@ Questions are ordered by how much damage an unlucky answer does.
 
 ## Q1. Which width does the claim under test actually mean?
 
-**Blocked on WJ-004.** The National Institute of Forest Science press release of
+**Blocked on WJ-004.** A7's sweep has since established that the public page
+states the claim in **relative** form (forest roads of that width show the most
+effective firebreak function under Korea-like conditions) and gives no authors, no
+sample size and no rate. That fixes how the claim must be characterised, and it
+does not answer which width it means, which is what Q1 is about.
+
+The National Institute of Forest Science press release of
 2025-04-25 and its attachment 2-2 state a width. The pre-registration measures two
 widths that are not the same thing (section 6.3.1): the running surface, and the
 full canopy gap including cut slope, fill slope and cleared shoulder. On a Korean
@@ -32,7 +38,15 @@ The two are not close enough to hand-wave.
 **Recommendation.** Option 3 as written: `W_cleared` primary because it is the
 physical quantity, `W_surface` reported alongside as the comparable one, and the
 naming settled **before** attachment 2-2 is read if it has to be, so the choice
-cannot be made to suit an answer. If attachment 2-2 turns out to state the running
+cannot be made to suit an answer.
+
+**A7's sweep has strengthened this recommendation with a mechanism.** Kim and Im
+2024 indicate by simulation that widening a road **plus removing fill-slope canopy
+fuel** stops the fire, where as-built width alone does not. Fill-slope canopy is
+precisely the difference between the running surface and the full cleared gap, so
+if that mechanism holds, the canopy gap is the physically relevant width. The
+choice of `W_cleared` was made before A3 saw this; it now has a reason behind it
+rather than only an argument. See pre-registration section 14.1. If attachment 2-2 turns out to state the running
 surface, the comparison table leads with `W_surface` and this is a version bump,
 not a silent swap.
 
@@ -56,7 +70,13 @@ tens, and it could plausibly be near zero.
    distribution as a descriptive figure with no model attached.
 3. Fit the jump distribution but fix the rate from prior literature.
 
-**Recommendation.** Option 1 as pre-registered, with F4 as the automatic exit.
+**Recommendation.** Option 1 as pre-registered, with F4 as the automatic exit, and
+with the identification problem now written up explicitly in pre-registration
+section 7.7.1: one binary label per segment constrains only the **product** of the
+two probabilities, so the split is identified **only** through the far-field spot
+record, and only to the extent that spots are detectable. Section 7.7.1 also fixes
+in advance what is reported if it stays unidentified, including that the flame
+arm's coefficients get renamed as coefficients of a combined breach model.
 Option 3 is rejected outright: the only rate literature available is not Korean,
 and importing a foreign rate into a Korean breach probability is a foreign
 quantity entering a Korean model through a side door. The pre-registration should
@@ -212,11 +232,21 @@ These numbers are A3's judgement and nothing more. They are in the document beca
 a gate with no number is not a gate, and they are listed here because a number
 chosen by one agent should not survive unexamined into a frozen document.
 
+Section 11.5 adds two more numbers needing the same ratification: the
+**recoverability threshold of 0.80** and the **smallest effect of interest**, set
+at a change of 0.10 in the modelled probability of a lee-side burn between 3 m and
+9 m of effective width. The second is the more consequential, because it is what an
+informative null would be null **of**: set too large and a null is easy to declare,
+set too small and it is unreachable.
+
 **Recommendation.** A6 ratifies or replaces each, before the signature, and
 whatever comes out is frozen. The one A3 would defend hardest is P1, because it is
-the only rule that stops a breach curve being drawn out of a prior, and the one
-A3 is least sure of is G1's threshold of 30 held segments, which is a guess about
-how many perimeter-coincident barrier segments five fires contain.
+the only rule that stops a breach curve being drawn out of a prior. The one A3 is
+least sure of is G1's threshold of 30 held segments, which is a guess about how
+many perimeter-coincident barrier segments five fires contain. The one A3 most
+wants a second opinion on is the smallest effect of interest, because it is the
+only number here encoding a judgement about what a county planner would act on,
+and that is not A3's judgement to make alone.
 
 **Decides.** A6.
 
@@ -265,6 +295,10 @@ than debated when the counts disappoint.
 
 | question | closed by | outcome |
 |---|---|---|
+| how is a flat breach curve to be read, when measurement error and a true null both produce one? | A6, 2026-09-16, written into pre-registration section 11.5 | Five instruments, three running before any label exists: a 30-pair repeat-measurement study, a design-stage recoverability simulation on real geometry with simulated outcomes, a named smallest effect of interest, an equivalence reading of the disattenuated posterior, and measurement validity checks against road class and catchment area. A flat curve is an **informative null** only when all four conditions of section 11.5.6 hold |
+| which parameter can this design not identify? | A6, 2026-09-16, written into pre-registration section 7.7 | The flame-crossing and ember-spotting split. One binary label constrains only the product, so identification comes solely from the far-field spot record, and section 7.7.1 fixes what is reported if it stays unidentified |
+| how is suppression confounding handled? | A6, 2026-09-16, written into pre-registration section 12.4 | It is not separable with available data, and the document says so. The width coefficient is named **operational barrier performance** everywhere, a proximity proxy is rejected as a bad control, and the roads-against-rivers width slope comparison is pre-registered as a weak and explicitly labelled discriminator |
+| how should the NIFoS claim be characterised? | A7, 2026-09-16 | As a **relative** claim, not an absolute sufficiency claim, with no authors, sample size or rate on the reachable page. Written into pre-registration sections 1.2 and 14, and nothing may characterise it as stronger or weaker than that |
 | does the forest road layer carry a width attribute? | A1's acquisition round, 2026-09-16 | **No.** Confirmed absent for data.go.kr id 3045621. Image-derived width became the primary path, not a contingency, and gate M1 plus the asymmetric reading of F1 were added |
 | NGII or OpenStreetMap for rivers? | A1, 2026-09-16 | OpenStreetMap under ODbL 1.0. NGII returned HTTP 400 twice and is now a human gate |
 | 5 m or 30 m DEM? | A1, 2026-09-16 | 30 m (Copernicus GLO-30). Consequences for slope, ridges and approach angle are written into pre-registration section 6.7 |

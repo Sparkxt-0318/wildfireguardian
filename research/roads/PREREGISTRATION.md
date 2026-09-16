@@ -601,10 +601,23 @@ seeing which fits better.
 
 ⚠ **A dependency that must clear before the signature.** The effective-width
 formulation is attributed to Swedosh et al. 2021 and A3 has not read that paper.
-The exact formulation used there must be confirmed by A7 before this section is
-frozen. If it differs from the expression above, this section is corrected and the
-version is bumped, and the paper's data has no role either way: it is the source of
-a method, and its data is not used.
+A7 worked from the indexed summary rather than the source PDF, so **the exact
+formula must be confirmed against the PDF before it is hard-coded**. If it differs
+from the expression above, this section is corrected and the version is bumped.
+
+A7 also reports that the effective widths in that paper's validation cases were
+**32.6 m and 33.8 m**, at a fire danger index of 80 with a 25 t/ha fuel load. Two
+things follow, and they are different in kind.
+
+- **Methodologically**, those figures set the scale the formulation was validated
+  at, which is useful context for whether extrapolating it to Korean forest road
+  widths is sound at all. That question belongs in the limitations, and it is
+  raised here rather than discovered later.
+- **Substantively, nothing follows for Korea.** Those are Australian validation
+  cases under Australian fuel and danger conditions. They are not a Korean
+  expectation, they are not a benchmark this study is measured against, and no
+  comparison between them and any Korean width is made anywhere in this direction.
+  The paper is the source of a method, and its data is not used.
 
 ### 6.6 Fire intensity without fire radiative power
 
@@ -1371,11 +1384,37 @@ source says, flagged as unverified, and it must be checked before the signature.
 
 | source | what the design takes from it | how this design differs | verification status |
 |---|---|---|---|
-| NIFoS press release 2025-04-25 and attachment 2-2 | the claim under test, that forest roads of 6 m or wider are the most effective firebreak | this design tests the claim against labelled encounters from real Korean fires, with a pre-registered label rule and a declared falsification condition, rather than restating it | **unverified. The attachment is not in the repository (human gate WJ-004).** Section 15.1 lists what is needed from it |
-| Kim and Im 2024, FDS simulation of Yeongdeok 2022 roads, Korean Society of Forest Engineering | Korean prior art on road firebreak behaviour, and a physical reference for what a flame front does at a gap | that work is a computational fluid dynamics simulation of a case; this design is an observational study over five fires with pre-registered labels and out-of-complex validation. Simulation supplies mechanism, this supplies an encounter record | unverified by A3 |
-| Thompson et al. 2021 (Forests) | fuel-break effectiveness framing and the idea of evaluating breaks against observed fire encounters | **American. Source of a method and framing only. Its fire data is not used for fitting** (scope rule 1, and RC-010) | unverified by A3 |
-| Zong et al. 2026 firebreak review (Fire Ecology) | the review's taxonomy of firebreak effectiveness evidence, for positioning | a review, not a Korean encounter dataset. This design contributes the encounter record the review class of work summarises | unverified by A3 |
-| Swedosh et al. 2021, effective width in Spark | the effective-width formulation of section 6.5 | **Australian. Source of a method, and its data is not used.** This design applies the formulation to Korean encounters and fits the coefficients on Korean data only | unverified by A3, and section 6.5 is blocked on this |
+| NIFoS press release 2025-04-25 and attachment 2-2 | the claim under test: that forest roads of 6 m or wider show the most effective firebreak function under Korea-like conditions | **the claim is relative, not absolute** (section 1.2), so the design tests a comparative proposition against labelled encounters from real Korean fires, with a pre-registered label rule and declared falsification conditions | A7 reached the public page: **no authors, no sample size, no breach rate given there**. Attachment 2-2 itself is still missing (human gate WJ-004) |
+| Kim and Im 2024, FDS simulation of Yeongdeok 2022 roads, Korean Society of Forest Engineering | Korean prior art, and the mechanism hint that **widening a road plus removing fill-slope canopy fuel stops the fire, while as-built width alone does not** | that work simulates a case in computational fluid dynamics; this is an observational study over five fires with pre-registered labels and out-of-complex validation. Its finding is why two of this design's choices exist (see below) | A7 reports a one-page abstract with no DOI. Treated as a mechanism hint, not as a result to reproduce |
+| Kwon, Zoh and Kang 2025, DOI 10.1007/s11629-025-9472-z | Korean prior art relating wider roads to fewer nearby fires | **different outcome entirely.** That is fire **occurrence** in coarse distance bands, not whether an arriving front crossed a barrier. This design conditions on the front having arrived (section 4) and its outcome is a lee-side burn at a 100 m segment. The two cannot confirm or contradict each other | verified by A7, DOI recorded |
+| Thompson et al. 2021 (Forests) | fuel-break effectiveness framing, and the idea of evaluating breaks against observed fire encounters | **American. Source of a method and framing only. Its fire data is not used for fitting** (scope rule 1, and RC-010) | unverified by A3 |
+| Zong et al. 2026 firebreak review (Fire Ecology) | the review's taxonomy of firebreak effectiveness evidence, for positioning | a review, not a Korean encounter dataset. This design contributes the encounter record that the review class of work summarises | unverified by A3 |
+| Swedosh et al. 2021, effective width in Spark | the effective-width formulation of section 6.5 | **Australian. Source of a method, and its data is not used.** Applied to Korean encounters with coefficients fitted on Korean data only | A7 worked from the indexed summary. Section 6.5 is blocked on confirming the formula against the source PDF |
+
+### 14.1 Kim and Im 2024 is why two design choices exist
+
+A7's summary of that work deserves separating out, because it turns two choices in
+this document from arbitrary into motivated, and A6 should see the connection
+rather than have to find it.
+
+Their simulation indicates that widening plus removing fill-slope canopy fuel
+stops the fire, where as-built width alone does not. If that mechanism holds:
+
+1. **The lee-side fuel term is load-bearing, not an afterthought.** It is entirely
+   possible that lee-side fuel dominates width. The design already separates the
+   two (section 6.2), and it can report that separation as a primary finding rather
+   than a control.
+2. **It is a direct argument for `W_cleared` over `W_surface` as the primary width
+   covariate.** Fill-slope canopy is precisely the difference between the running
+   surface and the full cleared gap. If removing fill-slope canopy is what changes
+   the outcome, then the canopy gap is the physically relevant width and the running
+   surface is not. Section 6.3.1 chose `W_cleared` before A3 saw this; the choice now
+   has a mechanism behind it, and question Q1 in `OPEN_QUESTIONS.md` should be
+   resolved with that in mind.
+
+This is prior art shaping a design, which is what prior art is for. It is not
+evidence for any result here, and the simulation's finding is not restated as a
+fact anywhere in this direction.
 
 **The line, stated once and plainly.** Thompson et al. and Swedosh et al. supply
 equations, framings and definitions. No foreign fire, road or landslide record is
@@ -1401,8 +1440,13 @@ prior-art sweep is not finished.
   4. whether the basis is simulation, observation or expert judgement, and on
      which fires;
   5. any stated wind, slope or fuel conditions attached to the claim;
-  6. whether the attachment contains a segment-level or road-level data table. If
-     it does, the design gains a direct comparison and section 14 is rewritten.
+  6. **whether the attachment carries the sample size and the breach rate that the
+     public page does not.** A7 reached the reachable page and reports no authors,
+     no sample size and no rate there. If attachment 2-2 has them, the design gains
+     a direct comparison and section 14 is rewritten; if it does not, then the claim
+     under test has no published evidential base, and that fact is itself a result
+     worth reporting and must be stated neutrally rather than used as a point
+     against it.
 - **WJ-001, the six API keys.** All six are unset in this sandbox. Nothing can be
   fetched until they exist. Sentinel-2 and the active-fire archive are both behind
   them.
@@ -1462,6 +1506,7 @@ the reason must not be that the result was disappointing.
 | version | date | what changed | why |
 |---|---|---|---|
 | v0.1 | 2026-09-16 | first draft, written before any data was touched | task T2.2 |
+| v0.1b | 2026-09-16 | added section 11.5 (the reading rule for a flat breach curve, five instruments, three running before labelling), section 7.7 (what the design cannot identify), rewrote section 12.4 (suppression confounding) with an explicit reading rule for the width coefficient, raised the repeat-measurement subsample from 20 to 30, and rewrote sections 1.2, 6.5 and 14 against A7's completed prior-art sweep. Still before any data was touched | A6 named the null-reading rule and the unidentified parameter as conditions of sign-off, and named suppression confounding as its strongest objection. A7 corrected the NIFoS claim to a relative claim, supplied Kim and Im 2024's mechanism hint, added Kwon, Zoh and Kang 2025, and flagged the Swedosh formula as needing PDF confirmation |
 | v0.1a | 2026-09-16 | sections 3.1, 5.2, 6.2, 6.3, 6.5, 6.7, 1.5, 11.2, 11.3, 12.5 and 15.2 revised, still before any data was touched | A1 confirmed the forest road SHP has no width attribute, NGII base map and NGII 5 m DEM are blocked (HTTP 400, now a human gate), OpenStreetMap and Copernicus GLO-30 are the working routes, and `kfs_fire_stats_csv` covers 2022 to 2025 only. Image-derived width became the primary path, gate M1 and the asymmetric reading of F1 were added |
 
 ---
