@@ -1,0 +1,32 @@
+{
+  "produced_by": "research/shared/qc/timestamps.py flag_kfs_ymdhm_timestamps, run ad hoc by A2 on 2026-09-16 to measure T1.5b defect counts against the real file; not wired into any pipeline script yet",
+  "source_registry_id": "kfs_fire_stats_csv",
+  "source_file": "data/raw/kfs_fire_statistics/산림청_산불통계데이터_20250911.csv",
+  "source_sha256": "ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153",
+  "note_reference_time": "발생일시 is a reported start time, not observed ignition; every duration is report-to-containment, per research/shared/loaders/kfs.py",
+  "counts": {
+    "n_rows": 2020,
+    "missing_containment": 0,
+    "impossible_end_year": 2,
+    "negative_duration": 12,
+    "end_before_start": 12
+  },
+  "impossible_end_year_values": [
+    2055,
+    2223
+  ],
+  "comparison_to_brief": {
+    "brief_negative_duration": 12,
+    "measured_negative_duration": 12,
+    "agrees": true,
+    "brief_impossible_end_years": [
+      2055,
+      2223
+    ],
+    "measured_impossible_end_years": [
+      2055,
+      2223
+    ]
+  },
+  "state_history_file_note": "kfs_fire_state_history_csv is not on disk in this environment as of 2026-09-16; the brief's claim of 41 negative durations for that file could not be independently measured this round. flag_kfs_ymdhm_timestamps / flag_dirty_timestamps are ready to run against it once acquired, and are unit-tested on synthetic frames that model the same defect shapes."
+}

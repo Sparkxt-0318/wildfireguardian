@@ -1,0 +1,286 @@
+% research/lit/bibliography.bib
+% Owner: A7 (Literature and Prior-Art Agent)
+% Every entry below was checked against Crossref (api.crossref.org) or, where
+% no DOI exists, against the publisher or aggregator page, before it was
+% added here. A citation that could not be confirmed this way is not in this
+% file; see UNVERIFIED.md instead.
+%
+% Verification method for each entry is given in a `note` or `annote` field:
+% "verified: crossref DOI lookup on 2026-09-16" or "verified: publisher page
+% fetch on 2026-09-16, no DOI exists for this record".
+%
+% Scope reminder (program rule 1): foreign-data entries are marked
+% `korea_data = {no}` and are prior art / method sources only. They are never
+% pooled into a Korean model.
+
+% ---------------------------------------------------------------------------
+% ROADS DIRECTION (H-ROADS)
+% ---------------------------------------------------------------------------
+
+@misc{nifos2025pressrelease,
+  title        = {국내외 연구 통해 입증된 임도의 산불 대응 효과, 지속적 확충 필요! (Proven wildfire-response effects of forest roads through domestic and international research, continuous expansion necessary)},
+  author       = {{National Institute of Forest Science (NIFoS), Korea Forest Service}},
+  year         = {2025},
+  month        = {4},
+  day          = {25},
+  howpublished = {Press release, nifos.forest.go.kr, nttId 3207026},
+  url          = {https://nifos.forest.go.kr/kfsweb/cop/bbs/selectBoardArticle.do?nttId=3207026&bbsId=BBSMSTR_1036&mn=UKFR_03_03_01&orgId=kfri},
+  note         = {verified: direct page fetch on 2026-09-16. No DOI; this is
+                  a press release, not a journal article. Source of the 6 m
+                  road claim under test (H-ROADS). The evidence attachment
+                  (붙임 2-2) is a session-bound download awaiting human gate
+                  WJ-004; only the page text itself, quoted below, was
+                  confirmed. korea_data = yes (it is the claim under test,
+                  not a data source pooled into a model).},
+}
+
+@article{wilson1988,
+  title    = {Width of firebreak that is necessary to stop grass fires: some field experiments},
+  author   = {Wilson, Andrew A. G.},
+  journal  = {Canadian Journal of Forest Research},
+  volume   = {18},
+  number   = {6},
+  pages    = {682--687},
+  year     = {1988},
+  doi      = {10.1139/x88-104},
+  note     = {verified: crossref DOI lookup on 2026-09-16. Australian
+              grassland field experiments; method and prior-art only,
+              korea_data = no.},
+}
+
+@article{sidle1992,
+  title    = {A theoretical model of the effects of timber harvesting on slope stability},
+  author   = {Sidle, Roy C.},
+  journal  = {Water Resources Research},
+  volume   = {28},
+  number   = {7},
+  pages    = {1897--1910},
+  year     = {1992},
+  month    = {7},
+  doi      = {10.1029/92WR00804},
+  note     = {verified: crossref DOI lookup on 2026-09-16. Load-bearing for
+              H-SLIDE. Root cohesion recovery is modeled as a sigmoid
+              (S-curve) function of time since regrowth begins, and root
+              deterioration of the harvested/burned stand's old root network
+              is modeled as an exponential decay. korea_data = no, method
+              and functional-form source only.},
+}
+
+@article{swedosh2021,
+  title    = {Incorporating directionality in the modelling of firebreaks using a two-dimensional dynamic fire spread simulator},
+  author   = {Swedosh, William and Hilton, James},
+  booktitle= {MODSIM2021, 24th International Congress on Modelling and Simulation},
+  year     = {2021},
+  month    = {12},
+  day      = {16},
+  doi      = {10.36334/modsim.2021.g3.swedosh},
+  note     = {verified: crossref DOI lookup on 2026-09-16, author names taken
+              from the paper PDF (mssanz.org.au/modsim2021/papers/G3/swedosh.pdf)
+              since Crossref returned no author list for this proceedings
+              record. Source of the effective-width formulation the roads
+              model plans to reuse; see roads_prior_art.md for the exact
+              numbers found (effective widths of 32.6 m and 33.8 m in the
+              validation cases, FFDI 80, 25 t/ha fuel load). Australian
+              Spark simulator; korea_data = no, method only.},
+}
+
+@article{thompson2021,
+  title    = {Forest Roads and Operational Wildfire Response Planning},
+  author   = {Thompson, Matthew P. and Gannon, Benjamin M. and Caggiano, Michael D.},
+  journal  = {Forests},
+  volume   = {12},
+  number   = {2},
+  pages    = {110},
+  year     = {2021},
+  month    = {1},
+  doi      = {10.3390/f12020110},
+  note     = {verified: crossref DOI lookup on 2026-09-16. American, about
+              road networks and suppression operations planning, not a
+              breach-probability model. korea_data = no, prior art only.},
+}
+
+@article{zong2026,
+  title    = {Effectiveness of firebreaks: a review},
+  author   = {Zong, Xuezheng and Wang, Xianli and Coogan, Sean C. P. and Flannigan, Mike D.},
+  journal  = {Fire Ecology},
+  volume   = {22},
+  pages    = {17},
+  year     = {2026},
+  month    = {2},
+  day      = {11},
+  doi      = {10.1186/s42408-026-00451-1},
+  note     = {verified: crossref DOI lookup on 2026-09-16. Global review of
+              firebreak effectiveness and breach mechanisms; no Korean fires
+              in its case material as far as this agent could establish.
+              korea_data = no, prior art only.},
+}
+
+@article{kwon2025,
+  title    = {Identifying road-related factors in wildfire risk management: The case of South Korea},
+  author   = {Kwon, Dowoo and Zoh, Hyunmin Daniel and Kang, Hyungsu},
+  journal  = {Journal of Mountain Science},
+  volume   = {22},
+  number   = {11},
+  pages    = {4037--4051},
+  year     = {2025},
+  month    = {11},
+  doi      = {10.1007/s11629-025-9472-z},
+  note     = {verified: crossref DOI lookup on 2026-09-16. Korean data, 225
+              fires 2013 to 2022, cross-tabulation of road width against
+              wildfire occurrence (not spread breach). Does not model a
+              per-segment breach probability. See roads_prior_art.md for the
+              differentiation from H-ROADS.},
+}
+
+@article{aplet2026,
+  title    = {Three-decade record of contiguous-U.S. national forest wildfires indicates increased density of ignitions near roads},
+  author   = {Aplet, Gregory H. and Hartger, Phil and Dietz, Matthew S.},
+  journal  = {Fire Ecology},
+  volume   = {22},
+  year     = {2026},
+  month    = {1},
+  day      = {29},
+  doi      = {10.1186/s42408-026-00450-2},
+  note     = {verified: crossref DOI lookup on 2026-09-16. American, roads as
+              an ignition-density correlate rather than a firebreak;
+              included for contrast with the NIFoS claim. korea_data = no,
+              prior art / context only.},
+}
+
+@article{kang2004,
+  title    = {산불 예방을 위한 방화선 및 내화수림대 조성에 관한 역사적 고찰 -조선시대부터 일제강점기를 중심으로- (A historical review on forest fire prevention and the establishment of fire lines and firebreaks in Korea, during the Joseon Dynasty and Japanese colonial period)},
+  author   = {Kang, Young Ho and Lim, Ju-Hoon and Shin, Soo-Cheol and Lee, Myung Bo},
+  journal  = {Journal of Korean Society of Forest Science (한국산림과학회지)},
+  volume   = {93},
+  number   = {7},
+  pages    = {499--506},
+  year     = {2004},
+  note     = {verified: KCI publisher page fetch on 2026-09-16
+              (kciportal ART000947228). No DOI exists for this record; this
+              is normal for a 2004 Korean-language journal article. Historical
+              account, not a breach-probability model. Included as Korean
+              background on 임도/방화선 practice, not counted toward the
+              roads breach question.},
+}
+
+@inproceedings{kim2024,
+  title     = {화재행동시뮬레이터를 활용한 임도변 연료관리 시나리오별 산불차단 효과 분석 (Analysis of firebreak effectiveness by roadside fuel-management scenario using a Fire Dynamics Simulator)},
+  author    = {Kim, Jungyoon and Im, Sangjun},
+  booktitle = {2024년도 (사)한국산림공학회 임시총회 및 추계학술대회 (Korean Society of Forest Engineering, 2024 autumn conference)},
+  pages     = {11},
+  year      = {2024},
+  month     = {11},
+  note      = {verified: earticle.net aggregator page fetch on 2026-09-16
+               (article A457544). No DOI exists for this record. IMPORTANT
+               CAVEAT: this is a one-page conference abstract (pp. 11--11),
+               not a full journal paper; what this agent could confirm is
+               limited to the abstract's scenario description (FDS
+               simulation of the 2022 Yeongdeok fire site, four scenarios
+               SC1-SC4 varying road width and roadside fuel, breach occurred
+               only in SC3 where fill-slope trees were removed and road
+               widened). The full methods, statistics and figures were not
+               reachable and are not claimed as verified beyond the abstract.
+               Korean data (Yeongdeok 2022); this is the one entry in this
+               file where korea_data = yes and it is prior art, not a
+               fitting input, since it predates and is external to this
+               program's model.},
+}
+
+% ---------------------------------------------------------------------------
+% LANDSLIDES DIRECTION (H-SLIDE) - see sidle1992 above, load-bearing entry
+% ---------------------------------------------------------------------------
+% No additional landslides-direction entries verified this round.
+% See research/lit/landslides_prior_art.md for the stub and what is still
+% owed.
+
+% ---------------------------------------------------------------------------
+% SUPPRESSION DIRECTION (H-SUPP)
+% ---------------------------------------------------------------------------
+
+@inproceedings{ustun2017riskslim,
+  title     = {Optimized Risk Scores},
+  author    = {Ustun, Berk and Rudin, Cynthia},
+  booktitle = {Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {1125--1134},
+  year      = {2017},
+  month     = {8},
+  doi       = {10.1145/3097983.3098161},
+  note      = {verified: crossref DOI lookup on 2026-09-16. Source of the
+               RiskSLIM method planned for the escape-risk score.},
+}
+
+@inproceedings{liu2022fasterrisk,
+  title     = {FasterRisk: Fast and Accurate Interpretable Risk Scores},
+  author    = {Liu, Jiachang and Zhong, Chudi and Li, Boxuan and Seltzer, Margo and Rudin, Cynthia},
+  booktitle = {Advances in Neural Information Processing Systems 35 (NeurIPS 2022)},
+  pages     = {17760--17773},
+  year      = {2022},
+  doi       = {10.52202/068431-1291},
+  note      = {verified: crossref DOI lookup on 2026-09-16. Source of the
+               FasterRisk method planned for the escape-risk score.},
+}
+
+@article{gulia2019,
+  title    = {Real-time discrimination of earthquake foreshocks and aftershocks},
+  author   = {Gulia, Laura and Wiemer, Stefan},
+  journal  = {Nature},
+  volume   = {574},
+  pages    = {193--199},
+  year     = {2019},
+  month    = {10},
+  day      = {9},
+  doi      = {10.1038/s41586-019-1606-4},
+  note     = {verified: crossref DOI lookup on 2026-09-16. Seismology,
+              b-value-style discrimination of sequence type in real time;
+              method analogy only, korea_data = no.},
+}
+
+@article{trugman2021,
+  title    = {Why is Tree Drought Mortality so Hard to Predict?},
+  author   = {Trugman, Anna T. and Anderegg, Leander D. L. and Anderegg, William R. L. and Das, Adrian J. and Stephenson, Nathan L.},
+  journal  = {Trends in Ecology \& Evolution},
+  volume   = {36},
+  number   = {6},
+  pages    = {520--532},
+  year     = {2021},
+  month    = {6},
+  doi      = {10.1016/j.tree.2021.02.001},
+  note     = {verified: crossref DOI lookup on 2026-09-16. IMPORTANT
+              discrepancy: the program brief names this "Anderegg et al.
+              2021". The lead author of the paper found is Trugman;
+              William R. L. Anderegg and Leander D. L. Anderegg are the
+              second and third of five authors. This agent could not find a
+              different 2021 paper with an Anderegg as first author that
+              better fits a tree-drought-mortality-prediction context (see
+              UNVERIFIED.md for the alternates checked and rejected). Cited
+              here as Trugman et al. 2021; the program should call it that
+              going forward, not "Anderegg et al." korea_data = no, method
+              and prior-art only.},
+}
+
+@article{debano2000,
+  title    = {The role of fire and soil heating on water repellency in wildland environments: a review},
+  author   = {DeBano, L. F.},
+  journal  = {Journal of Hydrology},
+  volume   = {231-232},
+  pages    = {195--206},
+  year     = {2000},
+  month    = {5},
+  doi      = {10.1016/S0022-1694(00)00194-3},
+  note     = {verified: crossref DOI lookup on 2026-09-16. korea_data = no,
+              method and prior-art only.},
+}
+
+@article{vanwagner1977,
+  title    = {Conditions for the start and spread of crown fire},
+  author   = {Van Wagner, C. E.},
+  journal  = {Canadian Journal of Forest Research},
+  volume   = {7},
+  number   = {1},
+  pages    = {23--34},
+  year     = {1977},
+  month    = {3},
+  doi      = {10.1139/x77-004},
+  note     = {verified: crossref DOI lookup on 2026-09-16. korea_data = no,
+              method and prior-art only.},
+}
