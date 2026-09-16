@@ -12,6 +12,14 @@ Each item is one action. They are batched so they can be cleared in a single
 sitting. Round 1 added WJ-008 through WJ-016.
 
 **If you clear only one thing, clear WJ-001.** After that, WJ-017.
+**Gate mode, stated precisely:** every research commit was gated with
+`scripts/auto/gates.py --mode quick` (`make verify` plus 40 boot and smoke
+tests), which passed on each exact commit. The CHARTER asks for `--mode full`
+before a push. The full 2,399-test suite has exactly one failure,
+`test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone`, and it is
+WJ-020 below: it is caused by this program's commit count and cannot be fixed
+from inside `research/`. Everything else in the full suite passes.
+
 **Where the data actually stands:** 3 of 18 registry entries are verified, and all
 three are the ones that needed no key and no consent click. 7 are blocked on
 WJ-001, and 8 need a human to click through a consent form, file an application,
@@ -40,6 +48,7 @@ of the three directions cannot be fitted without it.
 | WJ-017 | BLOCKER | Download the forest road SHP yourself: data.go.kr id 3045621 bounces to forest.go.kr, whose zip is served only behind a personal-information consent checkbox. Click through and drop the zip in `research/data/raw/kfs_forest_roads/` | **Now the highest-priority item for the roads direction, ahead of WJ-009.** The consent gate is server-enforced, not cosmetic: a direct GET of the static zip returns HTTP 307 to an error page. Until the file lands, nobody knows the layer's field list, so A3 cannot tell whether the encounter dataset can be dated at all. A road built in 2023 scored as a barrier that held at Uljin in 2022 is a fabricated observation, not a noisy one |
 | WJ-018 | DECISION | Download the forest type map through the FGIS application flow (map.forest.go.kr, a named 신청 with a stated purpose) | Same underlying system as the WJ-012 licence question, so both clear in one sitting. The species contrast is the landslide direction's core arm |
 | WJ-019 | DECISION | Fix the numeric boundary in `scripts/check_forbidden.py` so a decimal rule cannot match inside a hexadecimal string. The guard is `(?<![\d.])VALUE(?![\d])`, which blocks digits but not the letters a to f, so the retired count 154 matched inside the sha256 `...5f3d154ed1...` | This will recur constantly. The research program records a sha256 for every dataset and every frozen artifact by design, so roughly 1 in 16 checksums per rule digit-string will trip a decimal rule. Two line pragmas hold it for now, but pragmas on checksums are noise that trains people to add them without reading. Editing `scripts/` is a change outside `research/` |
+| WJ-020 | BLOCKER | Run `make finals` on `Main` yourself, or tell me which alternative you want. The finals screen `web/finals.html` carries a build stamp, and `tests/test_finals_screen.py` fails once HEAD is more than 30 first-parent commits past it. Base `Main` sits at 20; this branch's 14 research commits take it to 34 | **The research program's commit volume is what ages this gate, and the only sanctioned fix regenerates the finals screen, which this program is forbidden to touch** (scope rule 3, and CHARTER section 3 rule 2 on never regenerating a committed artifact). It gets worse with every research commit, and at 82 behind (this clone's depth) the stamp stops resolving and the failure reads as corruption rather than staleness. Options: (a) rebuild the screen on `Main`, one command, clears it; (b) merge research as a single merge commit, since the measure is first-parent so the distance grows by 1 rather than by the commit count; (c) raise `STAMP_MAX_COMMITS_BEHIND`, which the test's own comment argues against ("the fix is the measure, not the threshold") |
 
 ## Status legend
 
