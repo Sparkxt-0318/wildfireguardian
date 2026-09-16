@@ -24,16 +24,41 @@ THE PRECISION LADDER
 
 1. ``PARCEL``: a 산 (mountain) lot number resolved to a specific parcel via
    the VWorld geocoding API.
-2. ``EUPMYEONDONG_CENTROID``: resolved only to the centroid of the named
-   읍/면/동 (the finer administrative unit below 시군구).
-3. ``SIGUNGU_CENTROID``: resolved only to the centroid of the named 시/군/구
+2. ``RI_CENTROID``: resolved only to the centroid of the named 리 (a village
+   below 읍/면 in the Korean administrative hierarchy; 시/도 > 시/군/구 >
+   읍/면/동 > 리 > lot number). Finer than a 읍면동 centroid, coarser than a
+   real parcel. **Added T1.5g (2026-09-16), forced by a specific dataset:**
+   agent A4 measured the KFS landslide occurrence record
+   (``kfs_landslide_history``, 5,118 rows,
+   ``research/landslides/design/address_precision.py`` /
+   ``design_numbers.json`` key ``address_precision``) and found that ZERO
+   records carry a lot number in any address field, so ``PARCEL`` is
+   unreachable for the entire record; 95.64 % of records instead bottom out
+   at a named 리 (their finest populated address field) and 4.28 % bottom
+   out at 읍면동. Before this rung existed, that 95.64 % had no correct
+   place on the ladder: forcing them to ``EUPMYEONDONG_CENTROID`` would
+   silently claim less precision than the address actually carries, and
+   there is no other landslide dataset in this program to fall back to, so
+   the ladder itself had to grow rather than the caller working around it.
+3. ``EUPMYEONDONG_CENTROID``: resolved only to the centroid of the named
+   읍/면/동 (the finer administrative unit below 시군구; used when no 리 name
+   is available or matched either).
+4. ``SIGUNGU_CENTROID``: resolved only to the centroid of the named 시/군/구
    (coarser than 읍면동; used when even the 읍면동 could not be matched).
-4. ``UNRESOLVED``: no coordinate could be produced at all; ``lat``/``lon``
+5. ``UNRESOLVED``: no coordinate could be produced at all; ``lat``/``lon``
    are ``None``.
 
 Because it is an ``IntEnum`` with values assigned in that order, ordinary
 comparison operators express "more precise than" directly:
 ``GeocodePrecision.PARCEL < GeocodePrecision.SIGUNGU_CENTROID`` is ``True``.
+Adding ``RI_CENTROID`` shifted the underlying integer VALUES of
+``EUPMYEONDONG_CENTROID`` (1 -> 2), ``SIGUNGU_CENTROID`` (2 -> 3) and
+``UNRESOLVED`` (3 -> 4); every existing NAME still works and every existing
+``<``/``<=``/``==`` comparison between names still holds, because nothing in
+this program stores or compares the bare integer value (checked: the only
+importers are this module's own test file and
+``research/landslides/design/address_precision.py``, which reads member
+NAMES via ``[p.name for p in GeocodePrecision]``, never a raw value).
 
 THE VWORLD CLIENT IS BLOCKED THIS ROUND
 ------------------------------------------
@@ -72,9 +97,10 @@ class GeocodePrecision(IntEnum):
     """
 
     PARCEL = 0
-    EUPMYEONDONG_CENTROID = 1
-    SIGUNGU_CENTROID = 2
-    UNRESOLVED = 3
+    RI_CENTROID = 1
+    EUPMYEONDONG_CENTROID = 2
+    SIGUNGU_CENTROID = 3
+    UNRESOLVED = 4
 
 
 #: The ladder in order, most to least precise. Provided alongside the enum
@@ -82,6 +108,7 @@ class GeocodePrecision(IntEnum):
 #: fallback chain) rather than relying on enum member order.
 PRECISION_LADDER: tuple[GeocodePrecision, ...] = (
     GeocodePrecision.PARCEL,
+    GeocodePrecision.RI_CENTROID,
     GeocodePrecision.EUPMYEONDONG_CENTROID,
     GeocodePrecision.SIGUNGU_CENTROID,
     GeocodePrecision.UNRESOLVED,
@@ -175,8 +202,10 @@ def geocode_address(
     address: str,
     client: VWorldClient,
     *,
+    ri: str | None = None,
     eupmyeondong: str | None = None,
     sigungu: str | None = None,
+    ri_centroids: "_CentroidLookup | None" = None,
     eupmyeondong_centroids: "_CentroidLookup | None" = None,
     sigungu_centroids: "_CentroidLookup | None" = None,
 ) -> GeocodeResult:
@@ -185,16 +214,22 @@ def geocode_address(
     Tries, in order, and stops at the first that succeeds:
 
     1. Parcel level via ``client.geocode_parcel(address)``.
-    2. 읍면동 centroid: looks up ``eupmyeondong`` in ``eupmyeondong_centroids``.
-    3. 시군구 centroid: looks up ``sigungu`` in ``sigungu_centroids``.
-    4. ``UNRESOLVED`` (``lat``/``lon`` both ``None``).
+    2. 리 centroid: looks up ``ri`` in ``ri_centroids``. **Added T1.5g**, for
+       records (e.g. ``kfs_landslide_history``) whose finest address field is
+       a 리 name with no lot number, so step 1 can never resolve them; see
+       the module docstring's "THE PRECISION LADDER" section for why.
+    3. 읍면동 centroid: looks up ``eupmyeondong`` in ``eupmyeondong_centroids``.
+    4. 시군구 centroid: looks up ``sigungu`` in ``sigungu_centroids``.
+    5. ``UNRESOLVED`` (``lat``/``lon`` both ``None``).
 
-    A step that is not GIVEN the inputs it needs (e.g. no
-    ``eupmyeondong_centroids`` table) is skipped rather than treated as a
-    failure that stops the ladder. A step whose lookup raises is also treated
-    as "this step did not resolve" and the ladder continues, EXCEPT
-    :class:`VWorldKeyMissingError`, which is re-raised immediately: a missing
-    key is a configuration error the caller must fix, not an
+    A step that is not GIVEN the inputs it needs (e.g. no ``ri_centroids``
+    table, or no ``ri`` for this address) is skipped rather than treated as a
+    failure that stops the ladder, so an existing caller that never passes
+    ``ri``/``ri_centroids`` sees exactly its old behaviour: the ladder falls
+    straight from parcel to 읍면동, unchanged. A step whose lookup raises is
+    also treated as "this step did not resolve" and the ladder continues,
+    EXCEPT :class:`VWorldKeyMissingError`, which is re-raised immediately: a
+    missing key is a configuration error the caller must fix, not an
     address-specific fallback case.
 
     The returned :class:`GeocodeResult` always carries a precision, per the
@@ -212,6 +247,12 @@ def geocode_address(
     if parcel is not None:
         lat, lon = parcel
         return GeocodeResult(address, lat, lon, GeocodePrecision.PARCEL)
+
+    if ri is not None and ri_centroids is not None:
+        hit = ri_centroids.get(ri)
+        if hit is not None:
+            lat, lon = hit
+            return GeocodeResult(address, lat, lon, GeocodePrecision.RI_CENTROID)
 
     if eupmyeondong is not None and eupmyeondong_centroids is not None:
         hit = eupmyeondong_centroids.get(eupmyeondong)

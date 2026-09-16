@@ -9,6 +9,18 @@ single national sunrise time is wrong by several minutes almost everywhere.
 Never use those two raw columns for a day/night classification. Use this
 module instead, computed from the fire's own coordinates.
 
+**Empirically confirmed, not just asserted (T1.5f, round 2, 2026-09-16).**
+The state-history file was not on disk when this module was written in
+round 1, so the claim above was necessarily a documented assumption from
+the task brief. It is now on disk, and
+``research/shared/tests/test_solar.py::test_real_file_sunrise_sunset_is_a_single_national_value_per_date``
+checks it directly: across 607 distinct 산불신고일 dates in the real file,
+zero carry more than one distinct 일출시간 or 일몰시간 value, i.e. every row
+on a given date reports the identical pair regardless of the fire's own
+address. The reason this module exists is pinned by that test, not only by
+this comment; the test skips cleanly if the raw file is absent (it is
+git-ignored).
+
 ROUTE TAKEN AND WHY
 --------------------
 The task instructs: use ``astral`` if available in the venv, else ``pvlib``,

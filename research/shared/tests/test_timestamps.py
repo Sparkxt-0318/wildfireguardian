@@ -11,7 +11,9 @@ import pandas as pd
 
 from research.shared.qc.timestamps import (
     flag_dirty_timestamps,
+    flag_kfs_state_history_timestamps,
     flag_kfs_ymdhm_timestamps,
+    parse_kfs_datetime_column,
     parse_kfs_ymdhm,
 )
 
@@ -124,6 +126,78 @@ def test_custom_year_bounds():
         df, "start_dt", "end_dt", min_reasonable_year=2011, max_reasonable_year=2035
     )
     assert counts_tight["impossible_end_year"] == 1
+
+
+def _synthetic_state_history_frame() -> pd.DataFrame:
+    """Six synthetic records in the CONFIRMED real state-history contract
+    (round 2): already-combined ``"YYYY-MM-DD HH:MM"`` strings, not a
+    y/m/d/시간 quadruple. Column names carry the file's own real trailing
+    whitespace, to exercise the defensive stripping this module now does.
+    Same six defect shapes as :func:`_synthetic_ymdhm_frame`, so the two
+    counts are directly comparable.
+    """
+    rows = [
+        # 0: clean record, positive duration
+        ("2024-03-15 14:00", "2024-03-15 18:30"),
+        # 1: negative duration / end before start, same-day admin error
+        ("2024-04-02 10:00", "2024-04-02 09:00"),
+        # 2: impossible end year, matches the brief's 2055 example
+        ("2023-05-01 09:00", "2055-05-01 12:00"),
+        # 3: impossible end year, matches the brief's 2223 example
+        ("2022-06-10 08:00", "2223-06-10 10:00"),
+        # 4: missing containment (end blank)
+        ("2024-07-04 11:00", None),
+        # 5: clean record, spans midnight
+        ("2025-01-20 06:00", "2025-01-21 02:00"),
+    ]
+    return pd.DataFrame(
+        {
+            "진화시작시간          ": [r[0] for r in rows],
+            "진화완료시간          ": [r[1] for r in rows],
+        }
+    )
+
+
+def test_parse_kfs_datetime_column_basic():
+    df = _synthetic_state_history_frame()
+    start = parse_kfs_datetime_column(df, "진화시작시간")
+    assert pd.api.types.is_datetime64_any_dtype(start)
+    assert start.iloc[0] == pd.Timestamp("2024-03-15 14:00")
+    end = parse_kfs_datetime_column(df, "진화완료시간")
+    assert pd.isna(end.iloc[4])
+    assert len(end) == len(df)
+
+
+def test_parse_kfs_datetime_column_strips_whitespace_column_names():
+    """The real state-history file's header row carries trailing whitespace
+    on every column (round 2 finding); the caller passes the clean name and
+    this function must still find it against an unstripped frame."""
+    df = _synthetic_state_history_frame()
+    assert "진화시작시간" not in df.columns  # only the padded name is present
+    start = parse_kfs_datetime_column(df, "진화시작시간")
+    assert start.notna().sum() == 6
+
+
+def test_flag_kfs_state_history_timestamps_matches_synthetic_design():
+    """flag_kfs_ymdhm_timestamps does NOT apply to this file's shape (see
+    module docstring); this is the function this program's directions
+    actually run against kfs_fire_state_history_csv."""
+    df = _synthetic_state_history_frame()
+    out, counts = flag_kfs_state_history_timestamps(df, "진화시작시간", "진화완료시간")
+    assert len(out) == len(df)
+    assert counts["n_rows"] == 6
+    assert counts["missing_containment"] == 1  # row 4
+    assert counts["impossible_end_year"] == 2  # rows 2, 3
+    assert counts["negative_duration"] == 1  # row 1
+    assert counts["end_before_start"] == 1  # row 1, identical by construction
+
+
+def test_flag_kfs_state_history_timestamps_default_column_names():
+    """Defaults match the state-history file's own real column names."""
+    df = _synthetic_state_history_frame()
+    out, counts = flag_kfs_state_history_timestamps(df)
+    assert counts["n_rows"] == 6
+    assert counts["negative_duration"] == 1
 
 
 def test_generic_flag_dirty_timestamps_on_prebuilt_columns():

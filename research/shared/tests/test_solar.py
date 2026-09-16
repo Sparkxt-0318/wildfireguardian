@@ -23,6 +23,7 @@ enough to catch a real bug while tolerating the documented approximation.
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta
+from pathlib import Path
 
 import pytest
 
@@ -32,6 +33,17 @@ from research.shared.geo.solar import (
     local_solar_times,
     local_sunrise,
     local_sunset,
+)
+
+#: raw data is git-ignored (see research/data/REGISTRY.yaml); this file only
+#: exists in an environment that fetched it (A1, round 2, 2026-09-16).
+REAL_STATE_HISTORY_CSV = (
+    Path(__file__).resolve().parents[3]
+    / "research"
+    / "data"
+    / "raw"
+    / "kfs_fire_state_history_csv"
+    / "산불상태별이력_2025.11.10.csv"
 )
 
 INCHEON = (37.4563, 126.7052)
@@ -145,3 +157,42 @@ def test_local_solar_times_accepts_datetime_or_date():
     from_datetime = local_solar_times(lat, lon, datetime(2025, 6, 21, 15, 30))
     assert from_date.sunrise == from_datetime.sunrise
     assert from_date.sunset == from_datetime.sunset
+
+
+def test_real_file_sunrise_sunset_is_a_single_national_value_per_date():
+    """T1.5f: pins WHY THIS MODULE EXISTS by a test, not just by the module
+    docstring's comment. The KFS state-history file's 일출시간/일몰시간
+    columns report ONE value per calendar date for the whole of South Korea,
+    never a value local to a fire's own address; that is exactly the gap
+    this module (local computation from lat/lon) exists to fill. Confirmed
+    empirically against the real file (round 2, 2026-09-16): across 607
+    distinct 산불신고일 dates, zero carry more than one distinct 일출시간 or
+    일몰시간 value. Skips cleanly if the file is absent, since raw data is
+    git-ignored (research/data/REGISTRY.yaml).
+    """
+    if not REAL_STATE_HISTORY_CSV.exists():
+        pytest.skip(
+            "kfs_fire_state_history_csv raw file not present in this "
+            "environment (raw data is git-ignored)"
+        )
+
+    pd = pytest.importorskip("pandas")
+
+    df = pd.read_csv(REAL_STATE_HISTORY_CSV, encoding="cp949")
+    # Defensive: this file's real header row carries trailing whitespace on
+    # every column name (see research/shared/qc/timestamps.py).
+    df.columns = [c.strip() if isinstance(c, str) else c for c in df.columns]
+
+    report_date = pd.to_datetime(df["산불신고일"], errors="coerce").dt.date
+    by_date = df.groupby(report_date)[["일출시간", "일몰시간"]].nunique()
+
+    # Guard against a vacuous pass (e.g. an empty or truncated file).
+    assert len(by_date) > 0
+
+    multi_value_dates = by_date[(by_date["일출시간"] > 1) | (by_date["일몰시간"] > 1)]
+    assert len(multi_value_dates) == 0, (
+        f"{len(multi_value_dates)} date(s) carry more than one distinct "
+        "일출시간 or 일몰시간 value; this would contradict the 'single "
+        "national value per day' premise this module exists to work "
+        "around, and must be reported, not silently kept."
+    )
