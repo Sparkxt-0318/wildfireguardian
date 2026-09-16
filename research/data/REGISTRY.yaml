@@ -46,7 +46,7 @@ datasets:
     key_env: null
     license: "confirm on the portal page"
     directions: [suppression, roads]
-    temporal_coverage: "TBD: confirm from the file, 2020 rows present in the committed copy"
+    temporal_coverage: "verified 2026-09-16: 발생일시_년 (report time, KST) ranges 2022 to 2025 across 2020 rows; see research/data/checks/check_kfs_fire_stats_csv.py"
     spatial_coverage: South Korea, address level
     crs: none (addresses)
     files:
@@ -55,12 +55,13 @@ datasets:
         bytes: 195891
         accessed_utc: "already in the repository before this program started"
     known_issues:
-      - "12 negative durations, to be flagged and counted, never silently dropped"
-      - "impossible end years (2055, 2223) present"
+      - "12 negative durations (진화종료시간 earlier than 발생일시), independently re-counted 2026-09-16 and agrees with the program brief's figure of 12; never silently dropped"
+      - "2 impossible end years present (진화종료시간_년 = 2055 and 2223), independently counted 2026-09-16; 발생일시_년 for these two rows is 2025 and 2023 respectively"
       - "발생일시 is a reported start time, not observed ignition; every duration is report-to-containment"
-      - "portal ships CP949/EUC-KR, not UTF-8"
+      - "portal ships CP949/EUC-KR, not UTF-8 (confirmed: UTF-8 decode fails on this file)"
+      - "13 nulls in 발생장소_시군구, 307 nulls in 발생장소_읍면, 1 null in 발생장소_동리, 294 nulls in 발생원인_구분 (independently counted 2026-09-16)"
     loader: research.shared.loaders.kfs.load_fire_stats_csv
-    status: pending
+    status: verified
 
   - id: kfs_fire_state_history_csv
     title: 산림청 산불상태이력 (CSV)
@@ -118,10 +119,11 @@ datasets:
   - id: dem_korea
     title: DEM for slope, aspect and slope units
     provider: NGII 5 m if obtainable, else Copernicus GLO-30
-    url: "verify: NGII access terms; fallback https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model"
+    url: "NGII terms could not be confirmed 2026-09-16 (map.ngii.go.kr/ms/map/NlipMap.do and map.ngii.go.kr/ both returned HTTP 400 to a page fetch; www.ngii.go.kr content page carried no procedural detail); fallback confirmed working: https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+    endpoint: "Copernicus GLO-30: registration required (free for research institutions and public authorities; general public gets free view plus GLO-30 download), via dataspace.copernicus.eu, key_env COPERNICUS_USER/COPERNICUS_PASS"
     access: request
     key_env: null
-    license: "verify"
+    license: "GLO-30 fallback: free worldwide licence, DOI citation required (https://doi.org/10.5270/ESA-c5d3d65), confirmed 2026-09-16. NGII 5 m licence not confirmed: the portal did not state it on the pages reached."
     directions: [roads, landslides]
     temporal_coverage: static
     spatial_coverage: South Korea
@@ -129,39 +131,42 @@ datasets:
     files: []
     known_issues:
       - "never mosaic two DEM providers (HANDOFF_ROUND3 section 5 rule 17)"
+      - "NGII 5 m DEM access route not confirmed as of 2026-09-16; two portal pages returned HTTP 400 or no procedural detail (see url field). Logged as a human-gate candidate rather than looped on further."
+      - "GLO-30 is 30 m, coarser than the NGII 5 m target; using it changes the slope-unit resolution and that tradeoff must be stated wherever it is used"
     loader: research.shared.loaders.dem.load_dem
     status: pending
 
   - id: kfs_forest_type_map
     title: 임상도 KFS forest type map (pine versus broadleaf)
-    provider: Korea Forest Service / Forest Spatial Information Service
-    url: "verify: data.go.kr or the Forest Spatial Information Service"
-    access: request
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/15093362/fileData.do (confirmed 2026-09-16: 산림청_임상도(산림공간정보 1:5000)_08/31/2021, SHP file download; a coarser 1:25,000 edition also exists at https://www.data.go.kr/data/3045619/fileData.do)"
+    access: open
     key_env: null
-    license: "verify"
+    license: "공공저작물 : 출처표시, 변경금지 (제 3유형) = KOGL Type 3, attribution required, NO MODIFICATION -- confirmed on the portal page 2026-09-16. Flag before deriving any product from this layer; KOGL-3 restricts modification of the work itself, confirm interpretation before redistributing a derived layer."
     directions: [landslides, roads]
-    temporal_coverage: "verify edition year"
+    temporal_coverage: "portal shows last registration/modification date 2021-10-21 for the 1:5,000 edition (filename dated 2021-08-31); next scheduled registration 2022-10-21 per the portal, which may mean the listing is stale -- not independently re-verified against a fresher edition"
     spatial_coverage: South Korea
-    crs: "verify, likely EPSG:5186 or EPSG:5179"
+    crs: "not stated on the portal page reached; verify from the SHP itself once downloaded"
     files: []
-    known_issues: []
+    known_issues:
+      - "KOGL Type 3 licence forbids modification of the work; using it to derive a pine/broadleaf covariate needs a documented reading of what counts as modification versus analytical use, before any derived layer is shared"
     loader: research.shared.loaders.forest.load_forest_type
     status: pending
 
   - id: kfs_forest_roads
     title: Forest road network with width attributes
-    provider: Korea Forest Service
-    url: "verify availability"
-    access: request
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/3045621/fileData.do (confirmed 2026-09-16: 산림청_임도망도(산림공간정보)_20200914, SHP file download)"
+    access: open
     key_env: null
-    license: "verify"
+    license: "\"이용허락범위 제한 없음\" (no usage restrictions stated) -- confirmed on the portal page 2026-09-16"
     directions: [roads]
-    temporal_coverage: "verify edition year"
+    temporal_coverage: "filename dated 2020-09-14; portal's most-recent-update field showed 2025-11-20 at the time of this check (2026-09-16), so the file itself may have been refreshed since the 2020 filename -- confirm the actual download's internal date, do not assume 2020"
     spatial_coverage: South Korea
-    crs: "verify"
+    crs: "not stated on the portal page reached; verify from the SHP itself once downloaded"
     files: []
     known_issues:
-      - "if width is missing, derive it from high-resolution imagery on a sample and log the method"
+      - "confirmed 2026-09-16: the portal description lists route line, coordinate position, section and connection-structure attributes, and does not mention a road-width attribute; if width is missing, derive it from high-resolution imagery on a sample and log the method"
     loader: research.shared.loaders.roads.load_forest_roads
     status: pending
 
@@ -186,82 +191,88 @@ datasets:
 
   - id: kfs_landslide_history
     title: KFS landslide occurrence history (date, address or coordinates, area)
-    provider: Korea Forest Service
-    url: "verify dataset id on data.go.kr"
-    access: request
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/15125006/fileData.do (confirmed 2026-09-16: 산림청_최근 5년간 전국 산사태 발생 이력_20250101, both file (CSV) and API (XML/JSON))"
+    access: open
     key_env: null
-    license: "verify"
+    license: "공공저작물 : 출처표시 (제 1유형) = KOGL Type 1, attribution required -- confirmed on the portal page 2026-09-16"
     directions: [landslides]
-    temporal_coverage: "verify"
-    spatial_coverage: South Korea
-    crs: "verify"
+    temporal_coverage: "confirmed 2026-09-16: covers 2021 to 2025 (a rolling 5-year window per the title), annual update, next registration scheduled 2026-11-27; 5,118 records at the time of this check"
+    spatial_coverage: "South Korea, address level only (시도/시군구/읍면/리); confirmed 2026-09-16 that no coordinates are provided, contrary to the registry title's 'address or coordinates' -- geocoding via vworld_geocoder would be needed for any spatial join"
+    crs: "none (addresses only)"
     files: []
-    known_issues: []
+    known_issues:
+      - "address-level only, no coordinates, confirmed 2026-09-16; any coordinate-based use requires geocoding via vworld_geocoder and its precision-level caveat"
     loader: research.shared.loaders.landslide.load_landslide_history
     status: pending
 
   - id: kma_radar_qpe
     title: KMA radar quantitative precipitation estimate, hourly or finer
-    provider: Korea Meteorological Administration
-    url: "verify product and access"
-    access: request
+    provider: Korea Meteorological Administration (API Hub)
+    url: "https://apihub.kma.go.kr/apiList.do?seqApi=5 (confirmed 2026-09-16: 레이더 section lists HSR, hybrid surface rainfall, the primary QPE product, plus accumulated-precipitation variants PCPH/PCPP)"
+    access: api_key
     key_env: KMA_APIHUB_KEY
-    license: "verify"
+    license: "공공누리 (public licence) mark shown on the page; specific type not stated on the page reached, confirmed 2026-09-16"
     directions: [landslides]
-    temporal_coverage: "storm windows over the landslide record"
-    spatial_coverage: South Korea
-    crs: "verify"
+    temporal_coverage: "storm windows over the landslide record; the product itself is delivered at 5-minute intervals (confirmed 2026-09-16), with PCP accumulation products offered at 60-minute intervals"
+    spatial_coverage: South Korea, radar composite grid
+    crs: "not stated on the page reached; verify from the product documentation after key access"
     files: []
-    known_issues: []
+    known_issues:
+      - "API key required (authKey parameter), same key as kma_asos_aws (KMA_APIHUB_KEY), blocked on WJ-001"
     loader: research.shared.loaders.kma.load_radar_qpe
     status: pending
 
   - id: naas_soil_map
     title: Soil map (흙토람)
-    provider: National Institute of Agricultural Sciences
-    url: "verify access and license"
+    provider: National Institute of Agricultural Sciences (농촌진흥청 국립농업과학원)
+    url: "http://soil.rda.go.kr/ (confirmed 2026-09-16: the spatial 토양도 is not a data.go.kr file download -- data.go.kr search for 흙토람 returns only tabular soil-series and fertilizer-recommendation datasets, not a spatial layer -- soil.rda.go.kr instead runs a '토양도 신청' (soil map application) service at /community/application.do)"
     access: request
     key_env: null
-    license: "verify"
+    license: "OPEN 공공누리 mark shown on the site footer; specific KOGL type not stated on the page reached, confirmed 2026-09-16"
     directions: [landslides]
     temporal_coverage: static
     spatial_coverage: South Korea
-    crs: "verify"
+    crs: "not stated on the page reached; verify once a request is answered"
     files: []
-    known_issues: []
+    known_issues:
+      - "confirmed 2026-09-16: access is application-based (application form), not a bulk download; support line 1544-2472 listed on the site if a request is filed"
     loader: research.shared.loaders.soil.load_soil_map
     status: pending
 
   - id: kigam_geology_map
     title: Geology map
-    provider: KIGAM
-    url: "verify access and license"
+    provider: KIGAM (한국지질자원연구원), Geo Big Data Open Platform
+    url: "https://data.kigam.re.kr/ (confirmed 2026-09-16: geology map catalogue at four scales, 1:5,000 / 1:25,000 / 1:250,000 / 1:1,000,000, browsable through a data catalog and search)"
     access: request
     key_env: null
-    license: "verify"
+    license: "not stated on the page reached, confirmed 2026-09-16; the site references 'KIGAM Data Management Guidelines' including an 'Ethics, Copyright, and License Guideline' page not read in this check"
     directions: [landslides]
     temporal_coverage: static
     spatial_coverage: South Korea
-    crs: "verify"
+    crs: "not stated on the page reached; verify once a request is answered"
     files: []
-    known_issues: []
+    known_issues:
+      - "confirmed 2026-09-16: a 'Request data' option is shown, suggesting some layers need a formal request rather than open bulk download; not resolved further to respect the failure-policy limit on alternative routes"
     loader: research.shared.loaders.geology.load_geology_map
     status: pending
 
   - id: base_map_linear_features
     title: Road, river and ridge vectors
     provider: NGII national base map, OpenStreetMap as fallback
-    url: "verify NGII access; https://download.geofabrik.de/asia/south-korea.html for OSM"
+    url: "NGII terms not confirmed 2026-09-16 (map.ngii.go.kr/ms/map/NlipMap.do and map.ngii.go.kr/ both returned HTTP 400 to a page fetch, same result as for dem_korea -- likely the same viewer requires a browser session WebFetch cannot provide); OSM fallback confirmed working: https://download.geofabrik.de/asia/south-korea.html"
     access: request
     key_env: null
-    license: "NGII terms to verify; OSM is ODbL"
+    license: "NGII terms not confirmed, see url field. OSM: ODbL 1.0, confirmed 2026-09-16 on the Geofabrik page."
     directions: [roads]
-    temporal_coverage: "verify edition"
+    temporal_coverage: "OSM South Korea extract confirmed 2026-09-16 as current to 2026-09-15 20:20 UTC (rolling extract, always near-current); NGII edition not confirmed"
     spatial_coverage: South Korea
-    crs: "NGII EPSG:5179 or EPSG:5186; OSM EPSG:4326"
+    crs: "NGII EPSG:5179 or EPSG:5186 (not independently confirmed); OSM EPSG:4326, confirmed by format (PBF/Shapefile/GeoPackage all in WGS84 by Geofabrik convention)"
     files: []
     known_issues:
       - "ridges are not a base-map layer; they are derived from the DEM, so the derivation must be documented"
+      - "NGII map viewer returned HTTP 400 on two attempts 2026-09-16, same failure mode as dem_korea; logged as a human-gate candidate rather than looped on further"
+      - "CHARTER.md (autonomous-loop, not this program) instructs the finals-build loop not to re-acquire Yeongdeok OSM data; that rule is about the frozen finals build under src/wildfireguardian/, not this research program, but any OSM download here should still avoid duplicating that specific extract without checking first"
     loader: research.shared.loaders.roads.load_linear_features
     status: pending
 
