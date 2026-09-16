@@ -24,7 +24,21 @@ from the encounters where it did not?
 ### 1.2 The claim under test
 
 The National Institute of Forest Science press release of 2025-04-25 and its
-attachment 2-2 state that forest roads of 6 m or wider are the most effective firebreak; this is the claim under test, and it is prior art rather than a result.
+attachment 2-2 state that forest roads of 6 m or wider show the most effective firebreak function under Korea-like conditions; this is the claim under test, and it is prior art rather than a result.
+
+**A7's prior-art sweep has corrected how this document must characterise that
+claim, and the correction matters.** In its actual wording the claim is
+**relative**, not absolute: it ranks forest roads of that width above the other
+options considered. It is not a statement that such a road will hold a front. The
+reachable page gives **no authors, no sample size and no breach rate**. So:
+
+- the design tests a **comparative** proposition, and section 1.5's F3 is written
+  as a contrast between widths rather than as a threshold test;
+- nothing in this direction may characterise the claim as stronger than a relative
+  ranking, and nothing may characterise it as weaker either;
+- whether attachment 2-2 carries the sample and the rate that the public page does
+  not is question 6 in section 15.1, and it is the main reason WJ-004 matters.
+
 Whether that width is enough under Korean approach angles, slope directions and
 lee-side fuels is the hypothesis, not the finding.
 
@@ -73,6 +87,12 @@ evidence bearing on the hypothesis only when the measurement gate M1 of section
 11.3 is met. When M1 is not met, the outcome reported is **not resolvable at the
 achieved measurement precision**, which is a different sentence from "width does
 not matter" and must never be written as if it were the same one.
+
+**Section 11.5 is the procedure that decides between those two sentences**, and it
+is pre-registered in full because a flat curve is what a true null and a badly
+measured covariate both produce. A6 rates that procedure the most important thing
+in this document, and A3 agrees: without it a null result is uninterpretable
+rather than informative.
 
 ---
 
@@ -471,9 +491,18 @@ Both land in the same place, so the pre-registered requirement is:
 > **At least 60 hand-measured segments**, drawn as 4 per cell from a 5 by 3
 > stratification of fire complex by automatic-width tercile, so that the error is
 > estimated across the whole width range rather than only where roads are typical.
-> **At least 20 of those 60** are measured a second time, independently, to split
-> the variance. Segments are presented in randomised order with the burn footprint
-> and the label withheld.
+> **At least 30 of those 60 are measured a second time, independently**, giving 30
+> repeat pairs from which the error variance is estimated directly. Segments are
+> presented in randomised order with the burn footprint and the label withheld.
+
+The repeat count of 30 is A6's number and A3 has adopted it over an earlier 20.
+The arithmetic supports it: 30 paired repeats give `sigma_u` to about 13 per cent
+relative, against about 16 per cent at 20, and 30 is where the estimate stops
+being the weakest link in the attenuation correction. It is a few hours of work
+and it is the difference between a reportable slope and an uninterpretable one.
+The repeat study is **not optional and is not contingent on the sample size that
+the labelling produces**: it runs on the pre-fire imagery and can be done before
+any label exists.
 
 If fewer than 60 can be measured, for example because pre-fire orthoimagery of
 adequate vintage does not exist for one fire, the shortfall is reported per fire
@@ -507,6 +536,10 @@ Three things are done about it, all pre-registered:
    the breach curve. A reader can then see how much of the curve is measurement.
 3. **F1 becomes asymmetric**, which is the change that matters most. See section
    1.5 and gate M1.
+4. **A pre-registered reading rule for a flat curve**, section 11.5, which decides
+   before the fit how a true null is told apart from an attenuated one. The
+   discrimination does not rest on the fitted slope alone, because the fitted slope
+   is the thing under suspicion.
 
 #### 6.3.5 What still cannot be fixed
 
@@ -773,6 +806,70 @@ size above 400. Divergences must be zero; a non-zero count triggers
 reparameterisation, and both the failure and the fix are recorded. A fit that
 cannot clear these gates is not reported as a result at all.
 
+### 7.7 What this design cannot identify, named in advance
+
+A pre-registration that names no unidentified parameter has not looked hard
+enough. Two are named here, and the first is structural.
+
+#### 7.7.1 The flame-crossing and ember-spotting split
+
+**The problem.** The label is one binary outcome per segment, and the model is
+
+    P(breach) = 1 - (1 - p_flame) * (1 - p_spot)
+
+Only the **product** is constrained by that label. Infinitely many pairs
+`(p_flame, p_spot)` give the same product, so a held-or-crossed label cannot
+apportion a breach between the two mechanisms. No amount of data of that one kind
+fixes it, and no prior choice fixes it honestly either: a tighter prior on
+`p_spot` would simply move the answer to wherever the prior was put and dress the
+result up as an inference.
+
+**What identifies it.** Information of a **different kind**, observed on a
+different support. That is exactly what the far-field spot record of section 7.3
+is, and it is why the ember jump-distance distribution is load-bearing rather than
+decorative:
+
+- **spot fires detected beyond the barrier**, at distances between 50 m and 2 km,
+  with their counts and their distances, pin the spotting rate `lambda` and the
+  jump distribution `F` **without** reference to the held-or-crossed label;
+- with `lambda` and `F` estimated externally, `p_spot` at a segment becomes a
+  computed quantity rather than a free one, and the label is then free to identify
+  `p_flame`.
+
+So the split is identified only through the spot record, and only to the extent
+that spots are detectable. That is the whole argument for the 50 m boundary of
+section 5.3: it is the line that keeps the two kinds of evidence on separate
+supports so one can identify what the other cannot.
+
+**What is reported if it stays unidentified.** Condition F4 of section 1.5 is the
+trigger, and the consequence is spelled out now so it cannot be softened later:
+
+1. **Only the combined breach probability is reported.** The decomposition is
+   stated as not estimable on this record, in the abstract and not only in a
+   limitations paragraph.
+2. **The ember arm is withdrawn**, not published with wide intervals as if wide
+   intervals were an estimate. The jump distances that were observed are published
+   as a descriptive figure, under the name of what they are: detectable spot
+   distances, truncated at both ends.
+3. **The flame arm's coefficients are renamed.** With no separable ember term, the
+   fitted logistic is a model of **breach**, not of flame crossing, and every
+   coefficient is reported under that name. Width, angle, slope and lee fuel then
+   describe the combined mechanism. This is a real loss: the mechanistic reading
+   that motivated the product form is gone, and the model becomes a well-specified
+   empirical one instead. It is reported as that.
+4. **No sentence anywhere attributes a breach to flames rather than to embers, or
+   the reverse.**
+
+If the spot count is literally zero across all five fires, the product collapses to
+a single logistic by construction and item 3 is the whole outcome. Given the
+detection floor and five fires, that is a live possibility and not a remote one.
+
+#### 7.7.2 Barrier physics against suppression effort
+
+The second unidentified quantity is the split between what the barrier did and
+what the people standing on it did. It has its own section because it is A6's
+strongest objection to this direction: section 12.4.
+
 ---
 
 ## 8. The comparison model, pre-registered so it cannot become a rescue
@@ -962,6 +1059,107 @@ appended to. What is **not** done in that branch: fitting anyway, reporting a
 curve with an interval spanning most of the unit interval, or quietly relaxing a
 threshold from section 5 to manufacture rows.
 
+### 11.5 The reading rule for a flat breach curve
+
+**This is the section A6 asked for, and it is the one to read first.** The road
+layer has no width attribute (section 6.3), so width is measured, and classical
+measurement error attenuates a slope toward zero. **A flat curve is therefore what
+a true null and a badly measured covariate both produce.** Deciding between them
+after seeing a flat curve would be exactly the kind of reasoning this document
+exists to forbid, so the procedure is fixed here, before the fit, and it does not
+rest on the fitted slope, because the fitted slope is the thing under suspicion.
+
+Five instruments, three of which run **before any label is computed**.
+
+#### 11.5.1 Instrument 1: the repeat-measurement study, before labelling
+
+Thirty segments measured twice, independently (section 6.3.3). This yields
+`sigma_u`, the measurement error standard deviation, to about 13 per cent
+relative, and with the observed spread of measured widths `sigma_obs` it yields
+the attenuation factor
+
+    kappa = (sigma_obs^2 - sigma_u^2) / sigma_obs^2
+
+with an interval. `kappa` says how much slope the measurement is expected to eat,
+as a number, independently of any outcome. It is reported beside the curve.
+
+#### 11.5.2 Instrument 2: design-stage recoverability, before labelling
+
+This is the decisive one, and it is available before a single label exists.
+
+Take the **real** segment geometry and the **real** measured width distribution,
+including its real measurement error from instrument 1. Simulate outcomes under a
+pre-registered non-null slope equal to the smallest effect of interest (section
+11.5.3). Refit the pre-registered model to the simulated outcomes. Repeat 500
+times. The **recoverability** is the fraction of simulations in which the fitted
+model reaches the F1 threshold of `P(beta_width < 0)` at or above 0.90.
+
+- Recoverability is computed on **simulated outcomes only**. The real labels are
+  never touched, so this can and must be run while the labelling is still in
+  progress, and the number is committed before any real fit.
+- **If recoverability is below 0.80, a flat curve is uninformative whatever the
+  real fit produces, and that is known in advance.** The pre-registered consequence
+  is that the width result is reported as **not resolvable at the achieved
+  measurement precision and sample size**, and F1 is not reported as evidence
+  either way.
+- If recoverability is at or above 0.80, the design can see an effect of the size
+  that would matter, and a flat curve then means something.
+
+#### 11.5.3 Instrument 3: a smallest effect of interest, named now
+
+The null has to be null **of something**, or an equivalence claim is unfalsifiable.
+The pre-registered smallest effect of interest is:
+
+> a change of **0.10** in the modelled probability of a lee-side burn, between a
+> 3 m and a 9 m effective width, holding all other covariates at their sample
+> medians.
+
+Three metres to nine metres brackets the width in the claim under test, and 0.10
+is chosen as the smallest change a county planner could act on. The number is
+A3's judgement, it is listed in `OPEN_QUESTIONS.md` as Q9 for A6 to ratify or
+replace, and once ratified it is frozen.
+
+#### 11.5.4 Instrument 4: the equivalence reading of the disattenuated posterior
+
+After the fit, on the **errors-in-variables posterior only**, never the naive one:
+
+| what the disattenuated interval does | how it is read |
+|---|---|
+| excludes zero in the hypothesised direction | the width term is reported with its interval, and F1 does not fire |
+| **excludes the smallest effect of interest**, and instruments 1, 2 and 5 all pass | **an informative null.** The record is reported as inconsistent with a width effect large enough to matter, with the effect size it can exclude stated explicitly |
+| includes both zero and the smallest effect of interest | **uninterpretable.** Reported as not resolvable at the achieved measurement precision, and F1 is not reported as evidence either way |
+
+The middle row is the outcome that makes a null worth publishing. The bottom row
+is the outcome this section exists to stop being mistaken for it.
+
+#### 11.5.5 Instrument 5: is the measurement a measurement at all?
+
+Attenuation assumes the ruler is noisy. A broken ruler is a different failure and
+needs a different check, so the measured width is validated against things it must
+predict **if it is a real measurement**, none of which involve the outcome:
+
+- measured road width against the road class field, if the SHP carries one
+  (section 6.3.5): the class design widths must order correctly;
+- measured river width against upstream flow accumulation from the DEM: a wider
+  channel must sit on a larger catchment;
+- measured width against itself across the two independent passes of instrument 1.
+
+If width fails these, **the measurement is broken and the hypothesis has not been
+tested**. That is reported as a measurement failure, and no curve is published.
+
+There is also a negative control available for free: ridges carry zero width by
+construction (section 3.1). A width effect appearing where no width exists is a
+sign that the pipeline is wrong, not that ridges are narrow.
+
+#### 11.5.6 The decision, in one place
+
+A flat curve is reported as an **informative null** only when all four hold:
+`kappa` at or above 0.70 (gate M1), recoverability at or above 0.80, the
+disattenuated interval excluding the smallest effect of interest, and the
+measurement passing instrument 5. If any one fails, the outcome is **not
+resolvable at the achieved measurement precision**, and the document says in terms
+that this is not a synonym for "width does not matter".
+
 ---
 
 ## 12. Leakage traps, addressed before A6 raises them
@@ -1000,28 +1198,90 @@ the boundary were not fixed. The 50 m boundary of section 5.3 is one boundary fo
 both arms, and a lee burn not contiguous with the barrier edge is a spot and not a
 crossing (section 5.5). The flame arm is a near-field statement by construction.
 
-### 12.4 Selection: barriers exist where people built them, and crews stand on them
+### 12.4 Confounding by suppression effort, which is the strongest objection to this direction
 
-Forest roads are built on the terrain that admits a road, and during a fire crews
-anchor on roads and burn out from them. So a road that held partly measures that
-a crew was there. This does not have a data fix in this round, because suppression
-resource placement records are not in `research/data/REGISTRY.yaml` and obtaining
-them is an information-disclosure request and therefore a human gate.
+**A6 names this as its strongest prior objection, and it is correct.** It is set
+out here in full rather than as a caveat, because a document that does not notice
+the problem is weaker than one that states it and bounds it.
 
-What is done instead:
+#### 12.4.1 The mechanism
 
-- the estimand is stated as associational and operational (section 1.4): the
-  probability that a barrier **as used in Korean operations** shows no lee-side
-  burn, which includes its use as an anchor;
-- no sentence in any output attributes the estimate to the physical gap alone;
-- a suppression-presence indicator is added as a covariate the moment such a
-  record exists, and the request for it is raised as a new human-gate item (see
-  the round report).
+A wide Korean forest road is also the road the engines drove in on and the line
+the crews held. Width, access and suppression effort are produced by the same
+decisions: roads are built where machinery can go, wider roads are built on the
+routes that matter, and a crew that has to anchor a line anchors it on the widest
+road it can reach. So a segment that held may have held because the gap was wide,
+or because two engines and a crew were standing on it, and the two arrive together.
 
-A3's judgement, recorded here because a pre-registration should say where it is
-weakest: this and section 11.2 are the two threats that could make the headline
-number meaningless, and of the two, 11.2 is the one that can stop the study
-producing a curve at all.
+This lands specifically on the width coefficient, which is the coefficient the
+whole direction is about. It is not a general caveat about observational data.
+
+#### 12.4.2 Nothing in the planned covariate set separates them
+
+Said plainly, because it is true: **the covariate set of section 6.2 cannot
+separate barrier physics from suppression effort.** There is no suppression
+resource placement record in `research/data/REGISTRY.yaml`, and obtaining one is an
+information-disclosure request and therefore a human gate (WJ-010 on the
+taskboard).
+
+A proximity proxy is also rejected, and the reason is worth stating because the
+proxy is the obvious move. Distance to the nearest station, or road-class-based
+accessibility, is a function of the road network, which **is** the barrier layer.
+Controlling for it would put the exposure inside its own control variable, and
+what came out would be neither the physical effect nor the operational one. A bad
+control is worse than an acknowledged confound.
+
+#### 12.4.3 The one discriminator the design does have
+
+Rivers and ridges are barriers that crews cannot drive along. Access to a river
+line is not produced by the river's width the way access to a road is produced by
+the road's width, so the access confound is weaker there, although it is not
+absent (crews still work from riverbanks, and rivers carry their own confounds in
+riparian fuel, valley position and humidity).
+
+Pre-registered as a secondary analysis, always reported:
+
+> the width slope estimated on roads is compared with the width slope estimated on
+> rivers. A width effect of similar sign and magnitude on rivers, where the access
+> mechanism is weaker, is weak evidence that the road slope is not purely access. A
+> width effect on roads and none on rivers is consistent with access driving the
+> road slope, and is also consistent with rivers simply being a different kind of
+> barrier.
+
+This is a weak instrument and it is labelled as one. It cannot settle the question.
+It is pre-registered anyway, because a weak discriminator declared in advance is
+worth more than a strong one invented afterwards, and because its two possible
+outcomes are both written down here before it is run.
+
+#### 12.4.4 What the width coefficient can and cannot be read as
+
+This is the reading rule, and it governs every output of this direction.
+
+**It can be read as:** the association between a barrier's measured width and the
+absence of a lee-side burn, given front arrival, **for barriers as they are
+actually used in Korean wildfire operations**, which includes their use as access
+routes and as anchor lines. That is a real and operationally meaningful quantity.
+A planner comparing "a landscape with wider forest roads" against "a landscape
+without" is asking about roughly that bundle, and this direction can speak to it.
+
+**It cannot be read as:** the effect of the fuel gap on flame propagation; the
+effect of widening an existing road; a prediction of what a 6 m road would do
+without crews on it; or grounds for any counterfactual about construction policy.
+
+**Concretely, in the outputs:** the estimated quantity is named **operational
+barrier performance** in every table, figure caption and abstract sentence, never
+"barrier effectiveness" and never "the effect of width". The distinction is
+enforced in the same way as the claim rules: a fixed vocabulary, used everywhere or
+nowhere.
+
+#### 12.4.5 Selection, the general form of the same problem
+
+Underneath the suppression confound is a plainer one: a barrier that stopped a
+fire is, by construction, part of that fire's perimeter, and everything else that
+decides where a fire stops (a wind drop, nightfall, rain, a fuel change) arrives
+bundled into the same encounter. Conditioning on arrival (section 4) and on
+arrival-hour weather (section 6.2) does real work against this, and it does not
+finish the job. Section 1.4 states the estimand as associational for this reason.
 
 ### 12.5 Analyst leakage through width measurement
 
