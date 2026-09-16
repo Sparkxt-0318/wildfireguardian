@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "owner": "A5",
+  "direction": "suppression",
+  "produced": "2026-09-16",
+  "script": "research/suppression/design/clock_and_address.py",
+  "outcome_free": true,
+  "note": "Design-side measurements only. No burned area and no duration is read. See the module docstring for what is deliberately not measured and why.",
+  "measurements": {
+    "rows": 2020,
+    "source": {
+      "dataset_id": "kfs_fire_stats_csv",
+      "path": "data/raw/kfs_fire_statistics/산림청_산불통계데이터_20250911.csv",
+      "encoding": "cp949",
+      "outcome_columns_not_touched": [
+        "피해면적_합계",
+        "any duration from 발생일시 and 진화종료시간"
+      ]
+    },
+    "report_clock": {
+      "non_null": 2020,
+      "minute_resolved": {
+        "share_on_the_hour_pct": 2.48,
+        "share_on_hour_or_half_pct": 4.11,
+        "reading": "minute-resolved; there is no hour-rounding artefact, so an hourly discrete-time hazard has a clock that can carry it"
+      },
+      "hour_histogram_kst": {
+        "0": 18,
+        "1": 14,
+        "2": 13,
+        "3": 7,
+        "4": 18,
+        "5": 28,
+        "6": 16,
+        "7": 12,
+        "8": 28,
+        "9": 47,
+        "10": 91,
+        "11": 177,
+        "12": 240,
+        "13": 285,
+        "14": 310,
+        "15": 233,
+        "16": 147,
+        "17": 93,
+        "18": 76,
+        "19": 55,
+        "20": 29,
+        "21": 41,
+        "22": 30,
+        "23": 12
+      },
+      "counts": {
+        "h00_to_h05": 98,
+        "h20_to_h23": 112,
+        "h10_to_h17": 1576
+      },
+      "night_by_clock_hour": {
+        "definition": "report hour in 20:00-05:59 KST, a clock-hour proxy only",
+        "count": 210,
+        "share_pct": 10.4,
+        "what_this_is_not": "the night arm's exposure in the containment hazard, which is counted in fire-hours and therefore depends on durations, which are the outcome and are not measured here"
+      }
+    },
+    "address": {
+      "presence_pattern_시도_시군구_읍면_동리": {
+        "1111": {
+          "rows": 1703,
+          "share_pct": 84.31
+        },
+        "1101": {
+          "rows": 303,
+          "share_pct": 15.0
+        },
+        "1011": {
+          "rows": 9,
+          "share_pct": 0.45
+        },
+        "1001": {
+          "rows": 4,
+          "share_pct": 0.2
+        },
+        "1110": {
+          "rows": 1,
+          "share_pct": 0.05
+        }
+      },
+      "rows_with_a_lot_number_in_the_finest_field": 0,
+      "finest_reachable_rung": "RI_CENTROID (the 리 or 동 polygon)",
+      "parcel_rung_reachable": false,
+      "distinct_full_four_tuples": 1503,
+      "distinct_finest_names": 1250,
+      "finest_names_under_more_than_one_parent_path": 191,
+      "rows_with_finest_but_no_읍면": 307,
+      "rows_with_no_시군구": 13,
+      "province_values_raw": 18,
+      "province_values_after_strip": 17,
+      "rows_carrying_a_whitespace_variant_province": 1
+    },
+    "cause": {
+      "coarse_column_distinct_values": [
+        "기",
+        "담",
+        "쓰",
+        "입"
+      ],
+      "coarse_column_nulls": 294,
+      "detail_column_nulls": 0,
+      "detail_value_counts": {
+        "기타(직접입력)": 1479,
+        "작업장실화": 111,
+        "담뱃불실화": 97,
+        "쓰레기소각": 94,
+        "농산폐기물소각": 84,
+        "주택화재비화": 80,
+        "논밭두렁소각": 33,
+        "방화": 23,
+        "성묘객실화": 10,
+        "낙뢰": 8,
+        "어린이불장난": 1
+      },
+      "rows_whose_detail_is_free_text_other": 1479,
+      "rows_whose_detail_is_free_text_other_pct": 73.22,
+      "distinct_free_text_values": 454,
+      "rows_marked_under_investigation_presumed_or_unknown": 702,
+      "rows_marked_under_investigation_presumed_or_unknown_pct": 34.75,
+      "by_marker": {
+        "조사중": 39,
+        "추정": 402,
+        "미상": 270
+      },
+      "reading": "the cause field carries its own investigation status, so it is an outcome of an enquiry and not an observation available at the prediction horizon"
+    }
+  }
+}
