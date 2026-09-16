@@ -1,0 +1,318 @@
+# Dataset registry for the WildfireGuardian research program.
+#
+# One entry per dataset. The acquisition agent (A1) fills `files`, `status` and
+# `temporal_coverage` from an actual download, never from the portal blurb.
+#
+# Field meanings
+#   access      open | api_key | request | paid
+#   status      pending  nothing fetched yet
+#               fetched  bytes on disk with a recorded sha256
+#               verified a script in research/data/checks/ passes against it
+#               blocked  cannot proceed, with a Waiting-on-John item to match
+#   directions  which of roads / landslides / suppression needs it
+#   files       list of {path, sha256, bytes, accessed_utc}
+#   loader      dotted path to load_<name>() in research/shared/loaders/
+#
+# Priority order is section 6 of the program brief: priority 1 first.
+# Every entry must be Korean in coverage. A non-Korean dataset proposed for
+# fitting is a human gate, not an agent decision.
+
+datasets:
+
+  # ------------------------------------------------------------------ P1 ----
+
+  - id: kfs_fire_stats_api
+    title: KFS wildfire occurrence statistics (Open API)
+    provider: Korea Forest Service
+    url: https://www.data.go.kr/data/3070842/openapi.do
+    endpoint: https://apis.data.go.kr/1400000/forestStusService/getfirestatsservice
+    access: api_key
+    key_env: DATA_GO_KR_KEY
+    license: "unrestricted (KOGL per portal), confirm on the portal page"
+    directions: [suppression]
+    temporal_coverage: "TBD: probe query for 1991 to 2001 answers how far back the record goes"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.kfs.load_fire_stats
+    status: pending
+
+  - id: kfs_fire_stats_csv
+    title: 산림청 산불통계데이터 (CSV)
+    provider: Korea Forest Service
+    url: https://www.data.go.kr/data/15121380/fileData.do
+    access: open
+    key_env: null
+    license: "confirm on the portal page"
+    directions: [suppression, roads]
+    temporal_coverage: "TBD: confirm from the file, 2020 rows present in the committed copy"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files:
+      - path: data/raw/kfs_fire_statistics/산림청_산불통계데이터_20250911.csv
+        sha256: ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153
+        bytes: 195891
+        accessed_utc: "already in the repository before this program started"
+    known_issues:
+      - "12 negative durations, to be flagged and counted, never silently dropped"
+      - "impossible end years (2055, 2223) present"
+      - "발생일시 is a reported start time, not observed ignition; every duration is report-to-containment"
+      - "portal ships CP949/EUC-KR, not UTF-8"
+    loader: research.shared.loaders.kfs.load_fire_stats_csv
+    status: pending
+
+  - id: kfs_fire_state_history_csv
+    title: 산림청 산불상태이력 (CSV)
+    provider: Korea Forest Service
+    url: https://www.data.go.kr/data/15121205/fileData.do
+    access: open
+    key_env: null
+    license: "confirm on the portal page"
+    directions: [suppression, roads]
+    temporal_coverage: "TBD: confirm from the file"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files: []
+    known_issues:
+      - "the sunrise and sunset columns are a single national value, not local; never use them, compute local solar times from coordinates instead"
+      - "41 negative durations, to be flagged and counted"
+      - "Uiseong 2025 appears as two same-day records (52,707 ha and 46,575 ha); apply the K-SPREAD complex rule"
+    loader: research.shared.loaders.kfs.load_fire_state_history
+    status: pending
+
+  - id: firms_active_fire_korea
+    title: NASA FIRMS active fire archive over Korea (VIIRS SNPP, NOAA-20, NOAA-21)
+    provider: NASA FIRMS / LANCE
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+    access: api_key
+    key_env: FIRMS_MAP_KEY
+    license: "NASA open data, attribution required"
+    directions: [roads, suppression]
+    temporal_coverage: "all dates of the five study fires: Goseong 2019, Uljin 2022, Gangneung 2023, Uiseong 2025, Sancheong 2025"
+    spatial_coverage: South Korea bounding box
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "375 m fire radiative power saturates at intense fronts; do not use it as an intensity measure there"
+      - "Suomi NPP delivery ends 2026-11-01; NOAA-20/21 are the forward-looking products"
+    loader: research.shared.loaders.firms.load_active_fire
+    status: pending
+
+  - id: sentinel2_l2a_dnbr
+    title: Sentinel-2 L2A scenes for pre- and post-fire dNBR
+    provider: ESA Copernicus / Microsoft Planetary Computer
+    url: https://dataspace.copernicus.eu/
+    access: api_key
+    key_env: COPERNICUS_USER
+    license: "Copernicus open licence"
+    directions: [roads, landslides]
+    temporal_coverage: "pre and post windows for the five study fires, plus pre and post July 2025 for Sancheong"
+    spatial_coverage: South Korea, scene level
+    crs: EPSG:32652 (native UTM), reproject to EPSG:5186 for analysis
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.sentinel2.load_scene
+    status: pending
+
+  - id: dem_korea
+    title: DEM for slope, aspect and slope units
+    provider: NGII 5 m if obtainable, else Copernicus GLO-30
+    url: "verify: NGII access terms; fallback https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [roads, landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: EPSG:5186 after reprojection
+    files: []
+    known_issues:
+      - "never mosaic two DEM providers (HANDOFF_ROUND3 section 5 rule 17)"
+    loader: research.shared.loaders.dem.load_dem
+    status: pending
+
+  - id: kfs_forest_type_map
+    title: 임상도 KFS forest type map (pine versus broadleaf)
+    provider: Korea Forest Service / Forest Spatial Information Service
+    url: "verify: data.go.kr or the Forest Spatial Information Service"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [landslides, roads]
+    temporal_coverage: "verify edition year"
+    spatial_coverage: South Korea
+    crs: "verify, likely EPSG:5186 or EPSG:5179"
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.forest.load_forest_type
+    status: pending
+
+  - id: kfs_forest_roads
+    title: Forest road network with width attributes
+    provider: Korea Forest Service
+    url: "verify availability"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [roads]
+    temporal_coverage: "verify edition year"
+    spatial_coverage: South Korea
+    crs: "verify"
+    files: []
+    known_issues:
+      - "if width is missing, derive it from high-resolution imagery on a sample and log the method"
+    loader: research.shared.loaders.roads.load_forest_roads
+    status: pending
+
+  - id: kma_asos_aws
+    title: KMA ASOS and AWS hourly observations (wind, humidity, temperature, precipitation)
+    provider: Korea Meteorological Administration API Hub
+    url: https://apihub.kma.go.kr/
+    access: api_key
+    key_env: KMA_APIHUB_KEY
+    license: "verify on the API Hub"
+    directions: [suppression, roads, landslides]
+    temporal_coverage: "all study fire windows, plus the storm record for the landslide direction"
+    spatial_coverage: South Korea, station point
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "times are KST; record the time zone on every loader output"
+    loader: research.shared.loaders.kma.load_surface_obs
+    status: pending
+
+  # ------------------------------------------------------------------ P2 ----
+
+  - id: kfs_landslide_history
+    title: KFS landslide occurrence history (date, address or coordinates, area)
+    provider: Korea Forest Service
+    url: "verify dataset id on data.go.kr"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [landslides]
+    temporal_coverage: "verify"
+    spatial_coverage: South Korea
+    crs: "verify"
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.landslide.load_landslide_history
+    status: pending
+
+  - id: kma_radar_qpe
+    title: KMA radar quantitative precipitation estimate, hourly or finer
+    provider: Korea Meteorological Administration
+    url: "verify product and access"
+    access: request
+    key_env: KMA_APIHUB_KEY
+    license: "verify"
+    directions: [landslides]
+    temporal_coverage: "storm windows over the landslide record"
+    spatial_coverage: South Korea
+    crs: "verify"
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.kma.load_radar_qpe
+    status: pending
+
+  - id: naas_soil_map
+    title: Soil map (흙토람)
+    provider: National Institute of Agricultural Sciences
+    url: "verify access and license"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: "verify"
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.soil.load_soil_map
+    status: pending
+
+  - id: kigam_geology_map
+    title: Geology map
+    provider: KIGAM
+    url: "verify access and license"
+    access: request
+    key_env: null
+    license: "verify"
+    directions: [landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: "verify"
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.geology.load_geology_map
+    status: pending
+
+  - id: base_map_linear_features
+    title: Road, river and ridge vectors
+    provider: NGII national base map, OpenStreetMap as fallback
+    url: "verify NGII access; https://download.geofabrik.de/asia/south-korea.html for OSM"
+    access: request
+    key_env: null
+    license: "NGII terms to verify; OSM is ODbL"
+    directions: [roads]
+    temporal_coverage: "verify edition"
+    spatial_coverage: South Korea
+    crs: "NGII EPSG:5179 or EPSG:5186; OSM EPSG:4326"
+    files: []
+    known_issues:
+      - "ridges are not a base-map layer; they are derived from the DEM, so the derivation must be documented"
+    loader: research.shared.loaders.roads.load_linear_features
+    status: pending
+
+  - id: vworld_geocoder
+    title: VWorld geocoder and parcel lookup
+    provider: VWorld (MOLIT)
+    url: https://www.vworld.kr/dev/v4dv_geocoderguide2_s001.do
+    access: api_key
+    key_env: VWORLD_KEY
+    license: "verify on the developer page"
+    directions: [suppression, roads, landslides]
+    temporal_coverage: n/a
+    spatial_coverage: South Korea
+    crs: EPSG:4326 or EPSG:5186 depending on request
+    files: []
+    known_issues:
+      - "fire locations are addresses; store the geocoding precision level as a column and never mix levels silently"
+    loader: research.shared.loaders.vworld.geocode
+    status: pending
+
+  # ------------------------------------------------------------------ P3 ----
+
+  - id: gedi_l2ab_korea
+    title: GEDI L2A and L2B canopy structure over Korea
+    provider: NASA / USGS
+    url: https://search.earthdata.nasa.gov/
+    access: api_key
+    key_env: EARTHDATA_TOKEN
+    license: "NASA open data"
+    directions: []
+    temporal_coverage: "later phase, crown-fire extension"
+    spatial_coverage: South Korea
+    crs: EPSG:4326
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.gedi.load_gedi
+    status: pending
+
+  - id: nex_gddp_cmip6_korea
+    title: NEX-GDDP-CMIP6 daily fields, SSP2-4.5 and SSP5-8.5, Korea subset
+    provider: NASA NEX
+    url: https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6
+    access: open
+    key_env: null
+    license: "open, attribution required"
+    directions: []
+    temporal_coverage: "phase 5 scenarios only"
+    spatial_coverage: South Korea subset of a global grid
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "this is a downscaled global product, used only to drive Korean-fitted models forward; it is never fitting data"
+    loader: research.shared.loaders.scenarios.load_nex_gddp
+    status: pending
