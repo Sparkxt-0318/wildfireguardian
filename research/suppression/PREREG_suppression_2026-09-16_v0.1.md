@@ -1704,7 +1704,7 @@ direction has yet been run, and `OPEN_QUESTIONS.md` Q5 asks for one.
 2. **No statement that suppression censoring has been corrected**, because it has
    not and cannot be, and section 3.1 says why in a stronger form than
    "insufficient data". <!-- research-claim-ok: RC-006 -->
-3. **No causal statement about night.** Not "night causes faster growth", not
+3. **No causal statement about night.** Not "night causes faster growth", not <!-- research-claim-ok: RC-007 -->
    "growth is driven by the diurnal shift", not any Korean equivalent. Rule
    RC-007 governs the sentence; sections 12.3 and 12.4 govern the reading. <!-- research-claim-ok: RC-007 -->
 4. **No score quoted without its held-out report years**, its fold count, its
