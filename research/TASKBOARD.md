@@ -4,14 +4,18 @@ Single source of truth for task status. The orchestrator maintains this file;
 agents report into `research/reports/<agent>/` and the orchestrator brings the
 status back here.
 
-Last updated: 2026-09-16, end of round 1. All five dispatched agents delivered.
+Last updated: 2026-09-16, end of round 2.
 
 ## Waiting on John
 
 Each item is one action. They are batched so they can be cleared in a single
 sitting. Round 1 added WJ-008 through WJ-016.
 
-**If you clear only one thing, clear WJ-001.** It unblocks the API probe,
+**If you clear only one thing, clear WJ-001.** After that, WJ-017.
+**Where the data actually stands:** 3 of 18 registry entries are verified, and all
+three are the ones that needed no key and no consent click. 7 are blocked on
+WJ-001, and 8 need a human to click through a consent form, file an application,
+or register an account. No agent may do any of those. It unblocks the API probe,
 Sentinel-2, the active-fire archive, KMA and VWorld in a single action, and two
 of the three directions cannot be fitted without it.
 
@@ -33,6 +37,8 @@ of the three directions cannot be fitted without it.
 | WJ-014 | FYI | The brief's **"Anderegg et al. 2021"** is mislabelled | The relevant paper is Trugman, Anderegg, Anderegg, Das and Stephenson 2021, DOI 10.1016/j.tree.2021.02.001. Entered under correct authorship with the correction noted. Mislabelled upstream, not fabricated |
 | WJ-015 | DECISION | Agents here never run git, so a registered number cannot bind itself to a commit hash. Decide whether the orchestrator stamping the commit at registration time is acceptable provenance | Raised by A6. Currently the number-to-commit link is only a script and input hash |
 | WJ-016 | DECISION | A6 re-runs numbers it has already seen produced, so it is not blind at re-run time | Raised by A6 as a known weakness of single-repository validation. Worth deciding whether that is acceptable or whether a stronger arrangement is wanted |
+| WJ-017 | BLOCKER | Download the forest road SHP yourself: data.go.kr id 3045621 bounces to forest.go.kr, whose zip is served only behind a personal-information consent checkbox. Click through and drop the zip in `research/data/raw/kfs_forest_roads/` | **Now the highest-priority item for the roads direction, ahead of WJ-009.** The consent gate is server-enforced, not cosmetic: a direct GET of the static zip returns HTTP 307 to an error page. Until the file lands, nobody knows the layer's field list, so A3 cannot tell whether the encounter dataset can be dated at all. A road built in 2023 scored as a barrier that held at Uljin in 2022 is a fabricated observation, not a noisy one |
+| WJ-018 | DECISION | Download the forest type map through the FGIS application flow (map.forest.go.kr, a named 신청 with a stated purpose) | Same underlying system as the WJ-012 licence question, so both clear in one sitting. The species contrast is the landslide direction's core arm |
 
 ## Status legend
 
@@ -76,7 +82,10 @@ because that file is not on disk, and it stays unverified rather than assumed.
 |---|---|---|---|---|
 | T2.1 Sign-off protocol, leakage checklist, shared splits, kill-shot template, numbers protocol | A6 | done | none | `reports/A6/2026-09-16_round1.md` |
 | T2.2 Roads pre-registration draft | A3 | done | none | `reports/A3/2026-09-16_round1.md` |
-| T2.3 A6 signs the roads pre-registration | A6 | not started | needs A6 to review A3 v0.1a; Q5 smoke mask and Q9 gate numbers must close first | |
+| T2.3 A6 signs the roads pre-registration | A6 | **done, verdict `refused`** | none | `eval/signoffs/roads_v0.1b.md` |
+| T2.6 Keyless open-data downloads | A1 | done | 2 of 4 landed; 2 need WJ-017 and WJ-018 | `reports/A1/2026-09-16_round2.md` |
+| T2.7 Forest road attribute schema | A1 | blocked | WJ-017, the SHP never landed | same |
+| T2.11 Roads pre-registration v0.2, conditions R1 to R7 | A3 | dispatched | none, R1 is design work and needs no data | |
 | T2.4 Landslides pre-registration | A4 | not started | roads reaches phase 3 | |
 | T2.5 Suppression pre-registration | A5 | not started | landslides reaches phase 3, and WJ-001 | |
 

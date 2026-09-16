@@ -177,6 +177,25 @@ datasets:
     loader: research.shared.loaders.roads.load_forest_roads
     status: pending
 
+  - id: korea_prefire_orthoimagery
+    title: High-resolution pre-fire Korean orthoimagery (>=50cm) with per-tile vintage
+    provider: "NGII (국토지리정보원) 국토정보플랫폼, and/or VWorld (MOLIT)"
+    url: "investigated only 2026-09-16, no account created, no terms accepted. Two candidates: (1) NGII 국토정보플랫폼 정사영상 (orthoimage), catalogued keyless on data.go.kr at https://www.data.go.kr/data/15059919/fileData.do (등록일 2024-09-24) but the actual data is served only through https://map.ngii.go.kr/ms/map/NlipMap.do -- confirmed 2026-09-16 that this endpoint returns HTTP 400 'Request Blocked' to a non-browser fetch, and separately confirmed (WebSearch, since the live fetch is blocked) that 국토정보플랫폼 is 'a system that requires login and membership registration' and downloads need a separate 대용량 파일전송 (large-file-transfer) client program. (2) VWorld Open API / WMS-WFS, https://www.vworld.kr/dev/ -- unreachable this session (persistent HTTP 502 from the VWorld origin itself across 6+ retries on 3 different paths and both http/https, not a proxy failure per /__agentproxy/status; confirmed via WebSearch instead that VWorld's Open API requires 회원가입 (membership signup) -> API-key request -> email verification -> key activation, i.e. an account, before any key-gated endpoint including its orthoimagery layers can be called"
+    access: request
+    key_env: null
+    license: "NGII 정사영상 listing on data.go.kr states '이용허락범위 제한 없음' (no usage restriction), confirmed 2026-09-16 -- if accurate for the imagery itself (not just the catalogue-page metadata), this permits derived measurement, but this was not independently confirmed inside the actual terms page because that page sits behind the same blocked map.ngii.go.kr viewer. VWorld's specific terms for its orthoimagery API were not reachable this round (see url field) and are not confirmed either way."
+    directions: [roads]
+    temporal_coverage: "NGII 정사영상 catalogue states 2010-present (aerial photos before 2010 are not converted to ortho product); resolution stated as 12cm in city areas, 25cm in general areas (both comfortably finer than the ~50cm target), format TIFF. Per-tile vintage (an individual capture date per tile, which is what the roads direction actually needs to confirm imagery predates a given fire) was NOT confirmed either way this round -- the map viewer that would show it per-tile is the same one blocked at HTTP 400. VWorld's per-tile vintage exposure was not reachable this round either."
+    spatial_coverage: South Korea
+    crs: "not confirmed this round; would need the actual product documentation, reachable only after the login/account gate"
+    files: []
+    known_issues:
+      - "BOTH candidate routes are account-gated: NGII 국토정보플랫폼 requires login and membership registration plus installing a large-file-transfer client; VWorld's Open API requires member signup, an API-key request and email verification. Per this program's scope rules, an agent may not create either account. This is human gate WJ-009 (see research/reports/A1/2026-09-16_round2.md for the exact ask)."
+      - "per-tile vintage exposure is unconfirmed for both candidates; this must be checked once a human has logged in, because the roads direction's use case (confirming imagery predates a specific fire, e.g. Uljin 2022) depends on it and a wrong assumption here would fabricate an observation, not just a covariate gap"
+      - "derived-measurement permission is stated favorably ('이용허락범위 제한 없음') only at the data.go.kr catalogue-page level for the NGII product; the operative terms text behind the login gate was not read and could differ"
+    loader: research.shared.loaders.orthoimagery.load_prefire_orthoimagery
+    status: pending
+
   - id: kma_asos_aws
     title: KMA ASOS and AWS hourly observations (wind, humidity, temperature, precipitation)
     provider: Korea Meteorological Administration API Hub
