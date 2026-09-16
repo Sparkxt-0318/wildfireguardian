@@ -4,22 +4,35 @@ Single source of truth for task status. The orchestrator maintains this file;
 agents report into `research/reports/<agent>/` and the orchestrator brings the
 status back here.
 
-Last updated: 2026-09-16, end of round 1 dispatch.
+Last updated: 2026-09-16, end of round 1. All five dispatched agents delivered.
 
 ## Waiting on John
 
 Each item is one action. They are batched so they can be cleared in a single
-sitting.
+sitting. Round 1 added WJ-008 through WJ-016.
+
+**If you clear only one thing, clear WJ-001.** It unblocks the API probe,
+Sentinel-2, the active-fire archive, KMA and VWorld in a single action, and two
+of the three directions cannot be fitted without it.
 
 | id | severity | action | why it needs a human |
 |---|---|---|---|
-| WJ-001 | BLOCKER | Provide the six API keys as environment variables in the research sandbox: `DATA_GO_KR_KEY`, `KMA_APIHUB_KEY`, `VWORLD_KEY`, `FIRMS_MAP_KEY`, `EARTHDATA_TOKEN`, and `COPERNICUS_USER` with `COPERNICUS_PASS` | All six are unset in this sandbox, confirmed by probe. The KFS statistics API answers 401 without one. Agents must never create accounts or accept terms |
-| WJ-002 | DECISION | Approve moving the ten research claim rules from `research/shared/check_research_claims.py` into `scripts/check_forbidden.py` | Editing `scripts/` is a change outside `research/`, which the brief makes a human gate. The rules are written and validated; only the move needs the word |
-| WJ-003 | DECISION | Confirm the branch: keep research work on `claude/wonderful-gates-jlutm9`, or re-cut each direction onto `research/<direction>-<topic>` | The brief asks for per-direction branches; this session is instructed never to push to a branch other than its designated one. See DECISIONS D-003 |
-| WJ-004 | BLOCKER | Open the NIFoS press release of 2025-04-25 in a browser and save attachment 2-2 to `research/lit/sources/` | Session-bound download. It is the source of the 6 m firebreak claim that the roads direction exists to test. Page link is in the roads prior-art note |
-| WJ-005 | DECISION | Send the drafted request for the Sancheong landslide inventory (Nguyen, Song and Kim 2026, 568 initiation points) to the Pukyong National University group | Outgoing email is a human gate. The draft will be in `research/reports/requests/` |
-| WJ-006 | DECISION | If the KFS Open API does not reach back to 1991, send the drafted records request to KFS or NIFoS | Outgoing email is a human gate. Blocked behind WJ-001, since the probe needs the key |
-| WJ-007 | FYI | The FIRMS NOAA-20/21 branch is not yet cut. It touches finals code, so it lands on `fix/firms-noaa20-21` for review and is never merged by an agent | Suomi NPP delivery ends 2026-11-01. Deferred to round 2 to avoid branch switching while parallel agents share one working tree |
+| WJ-001 | BLOCKER | Provide the six API keys as environment variables: `DATA_GO_KR_KEY`, `KMA_APIHUB_KEY`, `VWORLD_KEY`, `FIRMS_MAP_KEY`, `EARTHDATA_TOKEN`, and `COPERNICUS_USER` with `COPERNICUS_PASS` | All six unset, confirmed by probe. The KFS statistics API answers 401. Agents must never create accounts or accept terms |
+| WJ-002 | DECISION | Approve moving the ten research claim rules from `research/shared/check_research_claims.py` into `scripts/check_forbidden.py` | Editing `scripts/` is a change outside `research/`. Rules are written and validated; only the move needs the word |
+| WJ-003 | DECISION | Confirm the branch: keep research work on `claude/wonderful-gates-jlutm9`, or re-cut onto `research/<direction>-<topic>` | The brief asks for per-direction branches; this session may push only to its designated branch. See DECISIONS D-003 |
+| WJ-004 | BLOCKER | Open the NIFoS press release of 2025-04-25 in a browser and save attachment 2-2 to `research/lit/sources/` | Session-bound download. **One question in it changes the roads design: which width the 6 m claim means, running surface or the full cleared gap including cut slope, fill slope and shoulder.** On a Korean mountain forest road those differ by a multiple, and testing the wrong one is not a test of the claim |
+| WJ-005 | DECISION | Send the drafted Sancheong landslide inventory request to the Pukyong National University group | Outgoing email is a human gate. Draft is in `research/reports/requests/`. Author contact details still need filling in from the paper |
+| WJ-006 | DECISION | If the KFS Open API does not reach back to 1991, send the drafted records request to KFS or NIFoS | Outgoing email is a human gate. Blocked behind WJ-001 |
+| WJ-007 | FYI | The FIRMS NOAA-20/21 branch is not yet cut. It touches finals code, so it lands on `fix/firms-noaa20-21` for review and is never merged by an agent | Suomi NPP delivery ends 2026-11-01 |
+| WJ-008 | DECISION | Research work on a `claude/**` branch gets **no CI**. Either rename the branch to `auto/**` (which also settles WJ-003) or widen the branch filter in `.github/workflows/auto-gates.yml` | `auto-gates.yml` triggers only on push to `auto/**` and `Main`. Verified: PR 50 has zero check runs and always will. Gates are being run locally on each exact commit as the substitute. Widening the filter is a change outside `research/` |
+| WJ-009 | BLOCKER | Confirm a source of high-resolution **pre-fire** Korean orthoimagery, about 50 cm or better, with per-tile vintage, on terms permitting programmatic tile access and derived measurement. Candidates: VWorld orthoimagery, 국토정보플랫폼 | The forest road layer has no width attribute, so width must be measured from imagery. This is now the primary path for the roads direction, not a fallback. Neither candidate is verified |
+| WJ-010 | DECISION | Decide whether to request suppression resource placement records for the five study fires | A road that held partly measures that a crew was standing on it. This is the strongest objection to the roads direction and there is no data fix without these records |
+| WJ-011 | DECISION | Decide whether to pursue NGII access for the 5 m DEM and the national base map | NGII returned HTTP 400 to automated fetch on two separate attempts. Without it the DEM is Copernicus GLO-30 at 30 m, which makes the ridge sample systematically incomplete and skewed toward large ridges |
+| WJ-012 | DECISION | Read the KOGL Type 3 (no modification) licence on the forest type map, data.go.kr id 15093362, against the plan to derive a pine and broadleaf covariate from it | A derived layer from a no-modification source is a licence question, not an engineering one. The species contrast is the landslide direction's core arm |
+| WJ-013 | FYI | Supply the correct reference for what the brief calls **"Keeling et al. 2001"** | No paper matching that author and year exists in any plausible context for this program. Verified against Crossref independently of the agent that first found it. Not in the bibliography; search log in `research/lit/UNVERIFIED.md` |
+| WJ-014 | FYI | The brief's **"Anderegg et al. 2021"** is mislabelled | The relevant paper is Trugman, Anderegg, Anderegg, Das and Stephenson 2021, DOI 10.1016/j.tree.2021.02.001. Entered under correct authorship with the correction noted. Mislabelled upstream, not fabricated |
+| WJ-015 | DECISION | Agents here never run git, so a registered number cannot bind itself to a commit hash. Decide whether the orchestrator stamping the commit at registration time is acceptable provenance | Raised by A6. Currently the number-to-commit link is only a script and input hash |
+| WJ-016 | DECISION | A6 re-runs numbers it has already seen produced, so it is not blind at re-run time | Raised by A6 as a known weakness of single-repository validation. Worth deciding whether that is acceptable or whether a stronger arrangement is wanted |
 
 ## Status legend
 
@@ -41,23 +54,34 @@ must clear first. `not started` queued behind its phase.
 
 | task | agent | status | blocker | report |
 |---|---|---|---|---|
-| T1.1 Verify the committed KFS statistics CSV, register it, write its check | A1 | dispatched | none | |
-| T1.2 Confirm dataset ids, endpoints and licences for every priority 1 entry | A1 | dispatched | none | |
-| T1.3 KFS API probe for 1991 to 2001 | A1 | blocked | WJ-001 | |
-| T1.4 Draft the request letters for the request-only items | A1 | dispatched | none | |
-| T1.5 Local solar times, complex rule, dirty-timestamp QC, geocoding precision | A2 | dispatched | none | |
-| T1.6 Roads prior-art note and verified bibliography | A7 | dispatched | none | |
-| T1.7 Verify Wilson 1988 and Sidle 1992 | A7 | dispatched | none | |
+| T1.1 Verify the committed KFS statistics CSV, register it, write its check | A1 | done | none | `reports/A1/2026-09-16_round1.md` |
+| T1.2 Confirm dataset ids, endpoints and licences for priority 1 and 2 | A1 | done | NGII blocked, see WJ-011 | same |
+| T1.3 KFS API probe for 1991 to 2001 | A1 | blocked | WJ-001 | probe script written and tested |
+| T1.4 Draft the request letters | A1 | done | WJ-005, WJ-006 to send | `reports/requests/` |
+| T1.5 Solar times, complex rule, timestamp QC, geocoding precision, CRS | A2 | done | none | `reports/A2/2026-09-16_round1.md` |
+| T1.5f Settle the brief's 41-negative-duration claim | A2 | blocked | fire state history CSV not on disk | transform written and tested on synthetic frames |
+| T1.6 Roads prior-art note and verified bibliography | A7 | done | none | `reports/A7/2026-09-16_round1.md` |
+| T1.7 Verify Wilson 1988 and Sidle 1992 | A7 | done | none | both verified, DOIs recorded |
+| T1.8 Korean-language sweep, roads | A7 | done | none | no paper found that answers the roads question |
+
+**Measured, not assumed.** The KFS statistics CSV is 2020 rows covering 2022 to
+2025 only. Negative durations: 12, which agrees with the brief and was counted
+independently twice. Impossible end years: 2 (2055 and 2223). The brief's second
+claim of 41 negative durations in the state-history file could NOT be tested,
+because that file is not on disk, and it stays unverified rather than assumed.
 
 ## Phase 2, design
 
 | task | agent | status | blocker | report |
 |---|---|---|---|---|
-| T2.1 Shared evaluation harness, CV split contracts, sign-off protocol | A6 | dispatched | none | |
-| T2.2 Roads pre-registration draft | A3 | dispatched | none | |
-| T2.3 A6 signs the roads pre-registration | A6 | not started | T2.1, T2.2 | |
+| T2.1 Sign-off protocol, leakage checklist, shared splits, kill-shot template, numbers protocol | A6 | done | none | `reports/A6/2026-09-16_round1.md` |
+| T2.2 Roads pre-registration draft | A3 | done | none | `reports/A3/2026-09-16_round1.md` |
+| T2.3 A6 signs the roads pre-registration | A6 | not started | needs A6 to review A3 v0.1a; Q5 smoke mask and Q9 gate numbers must close first | |
 | T2.4 Landslides pre-registration | A4 | not started | roads reaches phase 3 | |
-| T2.5 Suppression pre-registration | A5 | not started | landslides reaches phase 3 | |
+| T2.5 Suppression pre-registration | A5 | not started | landslides reaches phase 3, and WJ-001 | |
+
+**Sign-off ledger:** `research/eval/signoffs/LEDGER.md`, three rows, all
+`unsigned`. Nothing may be fitted until a row says otherwise.
 
 ## Phase 3 to 6
 
