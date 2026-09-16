@@ -1,0 +1,1099 @@
+{
+  "address_precision": {
+    "address_columns": [
+      "상세주소_시도",
+      "상세주소_시군구",
+      "상세주소_읍면도",
+      "상세주소_리"
+    ],
+    "committed_ladder": [
+      "PARCEL",
+      "EUPMYEONDONG_CENTROID",
+      "SIGUNGU_CENTROID",
+      "UNRESOLVED"
+    ],
+    "distinct_values": {
+      "상세주소_리": 1427,
+      "상세주소_시군구": 154,
+      "상세주소_시도": 18,
+      "상세주소_읍면도": 704
+    },
+    "finding": "no record carries a lot number, so GeocodePrecision.PARCEL is unreachable for the whole record. The committed ladder has no rung between PARCEL and EUPMYEONDONG_CENTROID, and the modal record bottoms out at a 리, which sits between them. A rung must be added or the record must be carried at EUPMYEONDONG_CENTROID, which is coarser than the address actually is.",
+    "generated_by": "research/landslides/design/address_precision.py",
+    "inputs": [
+      {
+        "dataset_id": "kfs_landslide_history",
+        "status": "verified"
+      }
+    ],
+    "parcel_rung_reachable": false,
+    "presence_pattern_counts": {
+      "1100": 1,
+      "1101": 3,
+      "1110": 219,
+      "1111": 4895
+    },
+    "presence_pattern_rung": {
+      "1100": "SIGUNGU_CENTROID",
+      "1101": "RI_CENTROID_NO_EUPMYEON",
+      "1110": "EUPMYEONDONG_CENTROID",
+      "1111": "RI_CENTROID"
+    },
+    "presence_pattern_share": {
+      "1100": 0.000195,
+      "1101": 0.000586,
+      "1110": 0.04279,
+      "1111": 0.956428
+    },
+    "reads": "address columns only; no year, no storm window, no damaged area",
+    "records_with_a_lot_number_in_the_finest_field": 0,
+    "rows": 5118,
+    "share_with_a_lot_number": 0.0
+  },
+  "aliasing": {
+    "committed_record": {
+      "floor_100_ha": {
+        "cohorts_by_area_ha": {
+          "2022": 24015.67,
+          "2023": 3769.22,
+          "2025": 104191.24
+        },
+        "cohorts_by_count": {
+          "2022": 11,
+          "2023": 8,
+          "2025": 6
+        },
+        "weighted_by_burned_area": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2025
+            ],
+            "1": [
+              2023,
+              2024
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 8,
+          "n_calendar_years_per_t": {
+            "0": 3,
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.2124,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 5,
+              "deficiency": 1,
+              "rank": 4
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 9,
+              "deficiency": 3,
+              "rank": 6
+            }
+          },
+          "residual_share_of_t": 0.7876,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.27
+        },
+        "weighted_by_fire_count": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2025
+            ],
+            "1": [
+              2023,
+              2024
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 8,
+          "n_calendar_years_per_t": {
+            "0": 3,
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.4769,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 5,
+              "deficiency": 1,
+              "rank": 4
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 9,
+              "deficiency": 3,
+              "rank": 6
+            }
+          },
+          "residual_share_of_t": 0.5231,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.912
+        }
+      },
+      "floor_10_ha": {
+        "cohorts_by_area_ha": {
+          "2022": 24402.1,
+          "2023": 4696.77,
+          "2024": 19.79,
+          "2025": 104774.73
+        },
+        "cohorts_by_count": {
+          "2022": 26,
+          "2023": 32,
+          "2024": 1,
+          "2025": 19
+        },
+        "weighted_by_burned_area": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2024,
+              2025
+            ],
+            "1": [
+              2023,
+              2024,
+              2025
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 10,
+          "n_calendar_years_per_t": {
+            "0": 4,
+            "1": 3,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.2061,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 11,
+              "deficiency": 3,
+              "rank": 8
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            }
+          },
+          "residual_share_of_t": 0.7939,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.26
+        },
+        "weighted_by_fire_count": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2024,
+              2025
+            ],
+            "1": [
+              2023,
+              2024,
+              2025
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 10,
+          "n_calendar_years_per_t": {
+            "0": 4,
+            "1": 3,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.4409,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 11,
+              "deficiency": 3,
+              "rank": 8
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            }
+          },
+          "residual_share_of_t": 0.5591,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.789
+        }
+      },
+      "floor_1_ha": {
+        "cohorts_by_area_ha": {
+          "2022": 24693.5,
+          "2023": 4894.66,
+          "2024": 86.5,
+          "2025": 104941.94
+        },
+        "cohorts_by_count": {
+          "2022": 128,
+          "2023": 111,
+          "2024": 32,
+          "2025": 72
+        },
+        "weighted_by_burned_area": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2024,
+              2025
+            ],
+            "1": [
+              2023,
+              2024,
+              2025
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 10,
+          "n_calendar_years_per_t": {
+            "0": 4,
+            "1": 3,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.2042,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 11,
+              "deficiency": 3,
+              "rank": 8
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            }
+          },
+          "residual_share_of_t": 0.7958,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.257
+        },
+        "weighted_by_fire_count": {
+          "calendar_years_per_t": {
+            "0": [
+              2022,
+              2023,
+              2024,
+              2025
+            ],
+            "1": [
+              2023,
+              2024,
+              2025
+            ],
+            "2": [
+              2024,
+              2025
+            ],
+            "3": [
+              2025
+            ]
+          },
+          "cells": 10,
+          "n_calendar_years_per_t": {
+            "0": 4,
+            "1": 3,
+            "2": 2,
+            "3": 1
+          },
+          "r2_t_on_calendar_year": 0.4145,
+          "ranks": {
+            "1_t_cohort": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_tsq_year_cohort": {
+              "columns": 11,
+              "deficiency": 3,
+              "rank": 8
+            },
+            "1_t_year": {
+              "columns": 6,
+              "deficiency": 1,
+              "rank": 5
+            },
+            "1_t_year_cohort": {
+              "columns": 10,
+              "deficiency": 3,
+              "rank": 7
+            }
+          },
+          "residual_share_of_t": 0.5855,
+          "t_max": 3,
+          "t_values_observed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "variance_inflation_on_t": 1.708
+        }
+      }
+    },
+    "counterfactual": {
+      "back_to_2011": {
+        "calendar_years_per_t": {
+          "0": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "1": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "10": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "11": [
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "12": [
+            2023,
+            2024,
+            2025
+          ],
+          "13": [
+            2024,
+            2025
+          ],
+          "14": [
+            2025
+          ],
+          "2": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "3": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "4": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "5": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "6": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "7": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "8": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "9": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ]
+        },
+        "cells": 65,
+        "n_calendar_years_per_t": {
+          "0": 5,
+          "1": 5,
+          "10": 5,
+          "11": 4,
+          "12": 3,
+          "13": 2,
+          "14": 1,
+          "2": 5,
+          "3": 5,
+          "4": 5,
+          "5": 5,
+          "6": 5,
+          "7": 5,
+          "8": 5,
+          "9": 5
+        },
+        "r2_t_on_calendar_year": 0.033,
+        "ranks": {
+          "1_t_cohort": {
+            "columns": 17,
+            "deficiency": 1,
+            "rank": 16
+          },
+          "1_t_tsq_year_cohort": {
+            "columns": 23,
+            "deficiency": 3,
+            "rank": 20
+          },
+          "1_t_year": {
+            "columns": 7,
+            "deficiency": 1,
+            "rank": 6
+          },
+          "1_t_year_cohort": {
+            "columns": 22,
+            "deficiency": 3,
+            "rank": 19
+          }
+        },
+        "residual_share_of_t": 0.967,
+        "t_max": 14,
+        "t_values_observed": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "variance_inflation_on_t": 1.034
+      },
+      "back_to_2011_with_matching_occurrence_record": {
+        "calendar_years_per_t": {
+          "0": [
+            2011,
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "1": [
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "10": [
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "11": [
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "12": [
+            2023,
+            2024,
+            2025
+          ],
+          "13": [
+            2024,
+            2025
+          ],
+          "14": [
+            2025
+          ],
+          "2": [
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "3": [
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "4": [
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "5": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "6": [
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "7": [
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "8": [
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ],
+          "9": [
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025
+          ]
+        },
+        "cells": 120,
+        "n_calendar_years_per_t": {
+          "0": 15,
+          "1": 14,
+          "10": 5,
+          "11": 4,
+          "12": 3,
+          "13": 2,
+          "14": 1,
+          "2": 13,
+          "3": 12,
+          "4": 11,
+          "5": 10,
+          "6": 9,
+          "7": 8,
+          "8": 7,
+          "9": 6
+        },
+        "r2_t_on_calendar_year": 0.25,
+        "ranks": {
+          "1_t_cohort": {
+            "columns": 17,
+            "deficiency": 1,
+            "rank": 16
+          },
+          "1_t_tsq_year_cohort": {
+            "columns": 33,
+            "deficiency": 3,
+            "rank": 30
+          },
+          "1_t_year": {
+            "columns": 17,
+            "deficiency": 1,
+            "rank": 16
+          },
+          "1_t_year_cohort": {
+            "columns": 32,
+            "deficiency": 3,
+            "rank": 29
+          }
+        },
+        "residual_share_of_t": 0.75,
+        "t_max": 14,
+        "t_values_observed": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "variance_inflation_on_t": 1.333
+      },
+      "back_to_2019": {
+        "calendar_years_per_t": {
+          "0": [
+            2022,
+            2023,
+            2025
+          ],
+          "1": [
+            2023,
+            2024
+          ],
+          "2": [
+            2021,
+            2024,
+            2025
+          ],
+          "3": [
+            2022,
+            2025
+          ],
+          "4": [
+            2023
+          ],
+          "5": [
+            2024
+          ],
+          "6": [
+            2025
+          ]
+        },
+        "cells": 13,
+        "n_calendar_years_per_t": {
+          "0": 3,
+          "1": 2,
+          "2": 3,
+          "3": 2,
+          "4": 1,
+          "5": 1,
+          "6": 1
+        },
+        "r2_t_on_calendar_year": 0.0841,
+        "ranks": {
+          "1_t_cohort": {
+            "columns": 6,
+            "deficiency": 1,
+            "rank": 5
+          },
+          "1_t_tsq_year_cohort": {
+            "columns": 12,
+            "deficiency": 3,
+            "rank": 9
+          },
+          "1_t_year": {
+            "columns": 7,
+            "deficiency": 1,
+            "rank": 6
+          },
+          "1_t_year_cohort": {
+            "columns": 11,
+            "deficiency": 3,
+            "rank": 8
+          }
+        },
+        "residual_share_of_t": 0.9159,
+        "t_max": 6,
+        "t_values_observed": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "variance_inflation_on_t": 1.092
+      }
+    },
+    "generated_by": "research/landslides/design/aliasing_separation.py",
+    "inputs": [
+      {
+        "dataset_id": "kfs_fire_stats_csv",
+        "status": "verified"
+      }
+    ],
+    "note": "every separation figure here is a ceiling; see the module docstring. The grid weights each cohort equally in every later year, which the realised design will not.",
+    "observation_years": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "outcome_free": true
+  },
+  "split_demo": {
+    "A_fires_only": {
+      "dropped_to_buffer": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fingerprint": "7eab0f0267fb318ad36a9bcb70106b7da64955b4469a76094f66e60d5732a5f3",
+      "n_blocks_total": 196,
+      "n_folds": 5,
+      "outcome": "ok",
+      "test_sizes": [
+        400,
+        200,
+        200,
+        200,
+        200
+      ],
+      "train_sizes": [
+        800,
+        1000,
+        1000,
+        1000,
+        1000
+      ]
+    },
+    "B_controls_share_one_sentinel_id": {
+      "message": "1 spatial group(s) at block_size_m=5000 cannot fill 5 folds. Use a smaller block, fewer folds, or accept that the data does not support this many spatially independent folds.",
+      "outcome": "LeakageRefusal"
+    },
+    "C_controls_carry_a_unique_id_each": {
+      "dropped_to_buffer": [
+        1,
+        2,
+        0,
+        2,
+        1
+      ],
+      "fingerprint": "5138895ca17fe17af909f3ce39618026e1e828d54c5bce464a30bad65e046178",
+      "n_blocks_total": 1254,
+      "n_folds": 5,
+      "outcome": "ok",
+      "test_sizes": [
+        480,
+        480,
+        480,
+        480,
+        480
+      ],
+      "train_sizes": [
+        1919,
+        1918,
+        1920,
+        1918,
+        1919
+      ]
+    },
+    "D_block_size_sensitivity": {
+      "block_size_m_10000": {
+        "dropped_to_buffer": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "fingerprint": "aa2c431dd4f974fba1d86733052523d1be804100e11b49b612c816ea8a8c0bc5",
+        "n_blocks_total": 79,
+        "n_folds": 5,
+        "outcome": "ok",
+        "test_sizes": [
+          400,
+          200,
+          200,
+          200,
+          200
+        ],
+        "train_sizes": [
+          800,
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      },
+      "block_size_m_2000": {
+        "dropped_to_buffer": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "fingerprint": "2b35292eb9315e50bc605a4b449c017fbdb73f01eb9181bcab0e1dc2aacb6cca",
+        "n_blocks_total": 656,
+        "n_folds": 5,
+        "outcome": "ok",
+        "test_sizes": [
+          400,
+          200,
+          200,
+          200,
+          200
+        ],
+        "train_sizes": [
+          800,
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      },
+      "block_size_m_5000": {
+        "dropped_to_buffer": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "fingerprint": "7eab0f0267fb318ad36a9bcb70106b7da64955b4469a76094f66e60d5732a5f3",
+        "n_blocks_total": 196,
+        "n_folds": 5,
+        "outcome": "ok",
+        "test_sizes": [
+          400,
+          200,
+          200,
+          200,
+          200
+        ],
+        "train_sizes": [
+          800,
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      }
+    },
+    "E_degrees_are_refused": {
+      "message": "these coordinates fall inside the Korean longitude and latitude box, so they look like degrees rather than projected metres. block_size_m is metres, so a block would span the whole country. Project to EPSG:5179 first, or pass allow_degrees=True and say in the pre-registration what unit block_size_m is in.",
+      "outcome": "LeakageRefusal"
+    },
+    "demo_geometry": {
+      "clusters": 6,
+      "control_seed": 1,
+      "controls": 1200,
+      "crs_note": "projected metres, EPSG:5186-like; degrees would raise",
+      "seed": 20260916,
+      "spread_m": 12000.0,
+      "units_per_cluster": 200
+    },
+    "generated_by": "research/landslides/design/split_demonstration.py",
+    "primary_split_spec": {
+      "data_note": "the landslide occurrence record on hand covers 2021 to 2025 and is address-level, so a spatial split does not by itself make the unit assignment valid. See LEAKAGE.md items C2 and C10 before using this scheme.",
+      "kwargs": {
+        "block_size_m": 5000.0,
+        "buffer_m": 1000.0,
+        "n_folds": 5,
+        "require_fire_disjoint": true,
+        "seed": 20260916
+      },
+      "minimum_units": 5,
+      "scheme": "spatial_block_cv",
+      "why": "slope units share storms, geology and a fire with their neighbours. Block size and buffer are pre-registered, with a declared sensitivity grid of 2000, 5000 and 10000 m."
+    },
+    "purpose": "demonstrates the call and the fingerprint mechanism on a declared synthetic geometry. These fingerprints are NOT the pre-registered split fingerprint and must never be quoted as one."
+  }
+}

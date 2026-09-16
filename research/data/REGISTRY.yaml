@@ -1,0 +1,362 @@
+# Dataset registry for the WildfireGuardian research program.
+#
+# One entry per dataset. The acquisition agent (A1) fills `files`, `status` and
+# `temporal_coverage` from an actual download, never from the portal blurb.
+#
+# Field meanings
+#   access      open | api_key | request | paid
+#   status      pending  nothing fetched yet
+#               fetched  bytes on disk with a recorded sha256
+#               verified a script in research/data/checks/ passes against it
+#               blocked  cannot proceed, with a Waiting-on-John item to match
+#   directions  which of roads / landslides / suppression needs it
+#   files       list of {path, sha256, bytes, accessed_utc}
+#   loader      dotted path to load_<name>() in research/shared/loaders/
+#
+# Priority order is section 6 of the program brief: priority 1 first.
+# Every entry must be Korean in coverage. A non-Korean dataset proposed for
+# fitting is a human gate, not an agent decision.
+
+datasets:
+
+  # ------------------------------------------------------------------ P1 ----
+
+  - id: kfs_fire_stats_api
+    title: KFS wildfire occurrence statistics (Open API)
+    provider: Korea Forest Service
+    url: https://www.data.go.kr/data/3070842/openapi.do
+    endpoint: https://apis.data.go.kr/1400000/forestStusService/getfirestatsservice
+    access: api_key
+    key_env: DATA_GO_KR_KEY
+    license: "unrestricted (KOGL per portal), confirm on the portal page"
+    directions: [suppression]
+    temporal_coverage: "TBD: probe query for 1991 to 2001 answers how far back the record goes"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.kfs.load_fire_stats
+    status: pending
+
+  - id: kfs_fire_stats_csv
+    title: 산림청 산불통계데이터 (CSV)
+    provider: Korea Forest Service
+    url: https://www.data.go.kr/data/15121380/fileData.do
+    access: open
+    key_env: null
+    license: "confirm on the portal page"
+    directions: [suppression, roads]
+    temporal_coverage: "verified 2026-09-16: 발생일시_년 (report time, KST) ranges 2022 to 2025 across 2020 rows; see research/data/checks/check_kfs_fire_stats_csv.py"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files:
+      - path: data/raw/kfs_fire_statistics/산림청_산불통계데이터_20250911.csv
+        sha256: ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153
+        bytes: 195891
+        accessed_utc: "already in the repository before this program started"
+    known_issues:
+      - "12 negative durations (진화종료시간 earlier than 발생일시), independently re-counted 2026-09-16 and agrees with the program brief's figure of 12; never silently dropped"
+      - "2 impossible end years present (진화종료시간_년 = 2055 and 2223), independently counted 2026-09-16; 발생일시_년 for these two rows is 2025 and 2023 respectively"
+      - "발생일시 is a reported start time, not observed ignition; every duration is report-to-containment"
+      - "portal ships CP949/EUC-KR, not UTF-8 (confirmed: UTF-8 decode fails on this file)"
+      - "13 nulls in 발생장소_시군구, 307 nulls in 발생장소_읍면, 1 null in 발생장소_동리, 294 nulls in 발생원인_구분 (independently counted 2026-09-16)"
+    loader: research.shared.loaders.kfs.load_fire_stats_csv
+    status: verified
+
+  - id: kfs_fire_state_history_csv
+    title: 산림청 산불상태이력 (CSV)
+    provider: Korea Forest Service
+    url: "https://www.data.go.kr/data/15121205/fileData.do (fetched keyless 2026-09-16: 원문파일등록, portal states 파일데이터는 로그인 없이 다운로드를 통해 이용하실 수 있습니다; direct link https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003518464&fileDetailSn=1&insertDataPrcus=N, no account, no terms click, no captcha)"
+    access: open
+    key_env: null
+    license: "이용허락범위 제한 없음 (no usage restriction stated) -- confirmed on the portal page 2026-09-16"
+    directions: [suppression, roads]
+    temporal_coverage: "verified 2026-09-16: 산불신고일 ranges 2022-01-01 to 2025-11-10 across 2030 rows; portal shows 등록일 2025-11-10, 수정일 2026-08-13, 업데이트 주기 연간 (annual); see research/data/checks/check_kfs_fire_state_history_csv.py"
+    spatial_coverage: South Korea, address level
+    crs: none (addresses)
+    files:
+      - path: "research/data/raw/kfs_fire_state_history_csv/산불상태별이력_2025.11.10.csv"
+        sha256: "2e94ab963feeb9ad998761537a397e4d5912ac7f90e147487ef43aafc1512c00"
+        bytes: 274225
+        accessed_utc: "2026-09-16"
+    known_issues:
+      - "the sunrise and sunset columns (일출시간/일몰시간) are a single national value per calendar date, not local to the fire's address; independently confirmed 2026-09-16 (every row on the same date carries the same value); never use them for a specific fire, compute local solar times from coordinates instead"
+      - "41 negative durations (진화완료시간 earlier than 진화시작시간), independently counted 2026-09-16 and agrees exactly with the program brief's figure of 41 -- this settles A2's open item on this number"
+      - "Uiseong 2025 appears as two same-day records (52,707 ha and 46,575 ha); apply the K-SPREAD complex rule; not independently re-verified against 피해면적 in this file this round, only carried over from the brief"
+      - "산불정보아이디 in this file is not confirmed to be the same identifier space as any column in kfs_fire_stats_csv; do not join the two files on identifier without checking first"
+    loader: research.shared.loaders.kfs.load_fire_state_history
+    status: verified
+
+  - id: firms_active_fire_korea
+    title: NASA FIRMS active fire archive over Korea (VIIRS SNPP, NOAA-20, NOAA-21)
+    provider: NASA FIRMS / LANCE
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+    access: api_key
+    key_env: FIRMS_MAP_KEY
+    license: "NASA open data, attribution required"
+    directions: [roads, suppression]
+    temporal_coverage: "all dates of the five study fires: Goseong 2019, Uljin 2022, Gangneung 2023, Uiseong 2025, Sancheong 2025"
+    spatial_coverage: South Korea bounding box
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "375 m fire radiative power saturates at intense fronts; do not use it as an intensity measure there"
+      - "Suomi NPP delivery ends 2026-11-01; NOAA-20/21 are the forward-looking products"
+    loader: research.shared.loaders.firms.load_active_fire
+    status: pending
+
+  - id: sentinel2_l2a_dnbr
+    title: Sentinel-2 L2A scenes for pre- and post-fire dNBR
+    provider: ESA Copernicus / Microsoft Planetary Computer
+    url: https://dataspace.copernicus.eu/
+    access: api_key
+    key_env: COPERNICUS_USER
+    license: "Copernicus open licence"
+    directions: [roads, landslides]
+    temporal_coverage: "pre and post windows for the five study fires, plus pre and post July 2025 for Sancheong"
+    spatial_coverage: South Korea, scene level
+    crs: EPSG:32652 (native UTM), reproject to EPSG:5186 for analysis
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.sentinel2.load_scene
+    status: pending
+
+  - id: dem_korea
+    title: DEM for slope, aspect and slope units
+    provider: NGII 5 m if obtainable, else Copernicus GLO-30
+    url: "NGII terms could not be confirmed 2026-09-16 (map.ngii.go.kr/ms/map/NlipMap.do and map.ngii.go.kr/ both returned HTTP 400 to a page fetch; www.ngii.go.kr content page carried no procedural detail); fallback confirmed working: https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+    endpoint: "Copernicus GLO-30: registration required (free for research institutions and public authorities; general public gets free view plus GLO-30 download), via dataspace.copernicus.eu, key_env COPERNICUS_USER/COPERNICUS_PASS"
+    access: request
+    key_env: null
+    license: "GLO-30 fallback: free worldwide licence, DOI citation required (https://doi.org/10.5270/ESA-c5d3d65), confirmed 2026-09-16. NGII 5 m licence not confirmed: the portal did not state it on the pages reached."
+    directions: [roads, landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: EPSG:5186 after reprojection
+    files: []
+    known_issues:
+      - "never mosaic two DEM providers (HANDOFF_ROUND3 section 5 rule 17)"
+      - "NGII 5 m DEM access route not confirmed as of 2026-09-16; two portal pages returned HTTP 400 or no procedural detail (see url field). Logged as a human-gate candidate rather than looped on further."
+      - "GLO-30 is 30 m, coarser than the NGII 5 m target; using it changes the slope-unit resolution and that tradeoff must be stated wherever it is used"
+    loader: research.shared.loaders.dem.load_dem
+    status: pending
+
+  - id: kfs_forest_type_map
+    title: 임상도 KFS forest type map (pine versus broadleaf)
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/15093362/fileData.do (attempted 2026-09-16, BLOCKED before download: this is a '기관자체에서 다운로드(제공데이터URL기재)' listing, i.e. data.go.kr itself does not host the file; the portal's own URL field points to https://www.forest.go.kr/newkfsweb/html/HtmlPage.do?pg=/fgis/UI_KFS_5002_020100.html&mn=KFS_02_04_03_04_01&orgId=fgis (산림공간정보서비스, FGIS), whose own instructions for the SHP say: '지도 화면 왼쪽 상단의 산림공간정보 다운로드 무료신청 > 일반인 신청 > 대축척 임상도 선택 > 다운받을 지도 위치 선택 > 신청 목적 입력 > shp 파일 다운로드' -- i.e. a named application form ('신청') with a stated purpose, not a direct download. The 1:25,000 edition at https://www.data.go.kr/data/3045619/fileData.do bounces the same way, to forest.go.kr's fTMap.do trail page for PBD0000059, structurally identical to the roads dataset's gate below and not independently re-confirmed further this round to respect the two-alternative-route limit)"
+    access: request
+    key_env: null
+    license: "공공저작물 : 출처표시, 변경금지 (제 3유형) = KOGL Type 3, attribution required, NO MODIFICATION -- confirmed on the portal page 2026-09-16. Flag before deriving any product from this layer; KOGL-3 restricts modification of the work itself, confirm interpretation before redistributing a derived layer."
+    directions: [landslides, roads]
+    temporal_coverage: "portal shows last registration/modification date 2021-10-21 for the 1:5,000 edition (filename dated 2021-08-31); next scheduled registration 2022-10-21 per the portal, which may mean the listing is stale -- not independently re-verified against a fresher edition"
+    spatial_coverage: South Korea
+    crs: "not stated on the portal page reached; verify from the SHP itself once downloaded"
+    files: []
+    known_issues:
+      - "KOGL Type 3 licence forbids modification of the work; using it to derive a pine/broadleaf covariate needs a documented reading of what counts as modification versus analytical use, before any derived layer is shared"
+      - "reclassified access from open to request 2026-09-16: the actual SHP download requires filing a named application ('신청') on the FGIS map viewer (map.forest.go.kr) with a stated purpose of use, which this program's scope rules treat the same as a data-request form -- an agent must not submit it; this is a human gate, not an agent-doable download, see WJ-009-adjacent note in the round-2 A1 report"
+    loader: research.shared.loaders.forest.load_forest_type
+    status: pending
+
+  - id: kfs_forest_roads
+    title: Forest road network with width attributes
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/3045621/fileData.do (download ATTEMPTED and BLOCKED 2026-09-16, see known_issues -- confirmed 2026-09-16: 산림청_임도망도(산림공간정보)_20200914, listed as SHP but this is a '기관자체에서 다운로드(제공데이터URL기재)' listing; data.go.kr's own URL field points to https://www.forest.go.kr/kfsweb/kfi/kfs/trail/fRMap.do?pblicDataId=PBD0000062&tabs=1&mn=NKFS_06_08_02&subTitle=임도망도, which offers a nationwide zip at /imdo/imdo.zip plus two Jeju-region SHP zips)"
+    access: request
+    key_env: null
+    license: "\"이용허락범위 제한 없음\" (no usage restrictions stated) -- confirmed on the portal page 2026-09-16. NOTE: this is the reuse licence on data.go.kr's metadata page, not a statement about the download mechanism itself, which is gated (see known_issues)."
+    directions: [roads]
+    temporal_coverage: "filename dated 2020-09-14; portal's most-recent-update field showed 2025-11-20 at the time of this check (2026-09-16), so the file itself may have been refreshed since the 2020 filename -- confirm the actual download's internal date, do not assume 2020. Not resolved this round because the download never completed."
+    spatial_coverage: South Korea
+    crs: "not stated on the portal page reached; could not verify from the SHP itself, the download is blocked (see known_issues)"
+    files: []
+    known_issues:
+      - "the portal description lists route line, coordinate position, section and connection-structure attributes, and does not mention a road-width attribute; this is the PRIMARY path now, not a contingency -- the image-derived width method (deriving width from high-resolution pre-fire orthoimagery, see registry entry korea_prefire_orthoimagery, WJ-009) is how width will be obtained, because no width field exists anywhere in this dataset to fall back to. Reworded 2026-09-16 per A3's request; the previous wording ('if width is missing, derive it from imagery on a sample') implied width might still turn up in the file, which round 2's attempted download and the FGIS attribute-schema search both contradict."
+      - "download BLOCKED 2026-09-16, reclassified access from open to request: the file is not hosted on data.go.kr itself. Following data.go.kr's own URL to forest.go.kr's fRMap.do trail page, the actual zip download (/imdo/imdo.zip) is served only through a JS popup (fileDownloadPopup.do) that requires checking '개인정보 수집·이용 동의' (personal information collection/use consent) plus selecting a 활용목적 (purpose of use) before the form submits to insertDownHistory.do. Confirmed server-enforced, not just UI theater: a direct GET of https://www.forest.go.kr/imdo/imdo.zip (bypassing the consent form) returned HTTP 307 to /error.html. This program's scope rules forbid an agent from accepting that consent, so the SHP was never downloaded and the full attribute schema could not be confirmed from the file itself this round; only the portal's generic marketing description (route/coordinate/section/connection-structure attributes, no width, no explicit date field mentioned) is available. See research/reports/A1/2026-09-16_round2.md for the human-gate writeup (new item, not WJ-009, not yet numbered by John) and A3's two questions."
+    loader: research.shared.loaders.roads.load_forest_roads
+    status: pending
+
+  - id: korea_prefire_orthoimagery
+    title: High-resolution pre-fire Korean orthoimagery (>=50cm) with per-tile vintage
+    provider: "NGII (국토지리정보원) 국토정보플랫폼, and/or VWorld (MOLIT)"
+    url: "investigated only 2026-09-16, no account created, no terms accepted. Two candidates: (1) NGII 국토정보플랫폼 정사영상 (orthoimage), catalogued keyless on data.go.kr at https://www.data.go.kr/data/15059919/fileData.do (등록일 2024-09-24) but the actual data is served only through https://map.ngii.go.kr/ms/map/NlipMap.do -- confirmed 2026-09-16 that this endpoint returns HTTP 400 'Request Blocked' to a non-browser fetch, and separately confirmed (WebSearch, since the live fetch is blocked) that 국토정보플랫폼 is 'a system that requires login and membership registration' and downloads need a separate 대용량 파일전송 (large-file-transfer) client program. (2) VWorld Open API / WMS-WFS, https://www.vworld.kr/dev/ -- unreachable this session (persistent HTTP 502 from the VWorld origin itself across 6+ retries on 3 different paths and both http/https, not a proxy failure per /__agentproxy/status; confirmed via WebSearch instead that VWorld's Open API requires 회원가입 (membership signup) -> API-key request -> email verification -> key activation, i.e. an account, before any key-gated endpoint including its orthoimagery layers can be called"
+    access: request
+    key_env: null
+    license: "NGII 정사영상 listing on data.go.kr states '이용허락범위 제한 없음' (no usage restriction), confirmed 2026-09-16 -- if accurate for the imagery itself (not just the catalogue-page metadata), this permits derived measurement, but this was not independently confirmed inside the actual terms page because that page sits behind the same blocked map.ngii.go.kr viewer. VWorld's specific terms for its orthoimagery API were not reachable this round (see url field) and are not confirmed either way."
+    directions: [roads]
+    temporal_coverage: "NGII 정사영상 catalogue states 2010-present (aerial photos before 2010 are not converted to ortho product); resolution stated as 12cm in city areas, 25cm in general areas (both comfortably finer than the ~50cm target), format TIFF. Per-tile vintage (an individual capture date per tile, which is what the roads direction actually needs to confirm imagery predates a given fire) was NOT confirmed either way this round -- the map viewer that would show it per-tile is the same one blocked at HTTP 400. VWorld's per-tile vintage exposure was not reachable this round either."
+    spatial_coverage: South Korea
+    crs: "not confirmed this round; would need the actual product documentation, reachable only after the login/account gate"
+    files: []
+    known_issues:
+      - "BOTH candidate routes are account-gated: NGII 국토정보플랫폼 requires login and membership registration plus installing a large-file-transfer client; VWorld's Open API requires member signup, an API-key request and email verification. Per this program's scope rules, an agent may not create either account. This is human gate WJ-009 (see research/reports/A1/2026-09-16_round2.md for the exact ask)."
+      - "per-tile vintage exposure is unconfirmed for both candidates; this must be checked once a human has logged in, because the roads direction's use case (confirming imagery predates a specific fire, e.g. Uljin 2022) depends on it and a wrong assumption here would fabricate an observation, not just a covariate gap"
+      - "derived-measurement permission is stated favorably ('이용허락범위 제한 없음') only at the data.go.kr catalogue-page level for the NGII product; the operative terms text behind the login gate was not read and could differ"
+    loader: research.shared.loaders.orthoimagery.load_prefire_orthoimagery
+    status: pending
+
+  - id: kma_asos_aws
+    title: KMA ASOS and AWS hourly observations (wind, humidity, temperature, precipitation)
+    provider: Korea Meteorological Administration API Hub
+    url: https://apihub.kma.go.kr/
+    access: api_key
+    key_env: KMA_APIHUB_KEY
+    license: "verify on the API Hub"
+    directions: [suppression, roads, landslides]
+    temporal_coverage: "all study fire windows, plus the storm record for the landslide direction"
+    spatial_coverage: South Korea, station point
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "times are KST; record the time zone on every loader output"
+    loader: research.shared.loaders.kma.load_surface_obs
+    status: pending
+
+  # ------------------------------------------------------------------ P2 ----
+
+  - id: kfs_landslide_history
+    title: KFS landslide occurrence history (date, address or coordinates, area)
+    provider: Korea Forest Service (산림청)
+    url: "https://www.data.go.kr/data/15125006/fileData.do (fetched keyless 2026-09-16: 원문파일등록, portal states 파일데이터는 로그인 없이 다운로드를 통해 이용하실 수 있습니다; direct link https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003651034&fileDetailSn=1&insertDataPrcus=N, no account, no terms click, no captcha)"
+    access: open
+    key_env: null
+    license: "공공저작물 : 출처표시 (제 1유형) = KOGL Type 1, attribution required -- confirmed on the portal page 2026-09-16"
+    directions: [landslides]
+    temporal_coverage: "verified 2026-09-16: 연도 ranges 2021 to 2025 across 5118 rows, matching the portal's stated record count exactly; a rolling 5-year window per the title, annual update, next registration scheduled 2026-11-27; see research/data/checks/check_kfs_landslide_history.py"
+    spatial_coverage: "South Korea, address level only (시도/시군구/읍면/리); verified 2026-09-16 from the file itself that no coordinate columns are present, contrary to the registry title's 'address or coordinates' -- geocoding via vworld_geocoder would be needed for any spatial join"
+    crs: "none (addresses only)"
+    files:
+      - path: "research/data/raw/kfs_landslide_history/전국 산사태 발생 이력(21년~25년).csv"
+        sha256: "b7413e72b18b84c9c379a97111aef1f5794efb6590974679567e7d0c61c8211f"
+        bytes: 399075
+        accessed_utc: "2026-09-16"
+    known_issues:
+      - "address-level only, no coordinates, verified 2026-09-16 from the file; any coordinate-based use requires geocoding via vworld_geocoder and its precision-level caveat"
+      - "220 nulls (4.3%) in 상세주소_리, 4 nulls in 상세주소_읍면도, independently counted 2026-09-16"
+      - "재난구분 is a multi-day storm date range (e.g. 2021-07-05~07-08), not a single event date; do not parse it as one date"
+      - "the API alternative (XML/JSON) noted in round 1 was not attempted this round since the file download succeeded keyless; not needed unless the file route breaks"
+    loader: research.shared.loaders.landslide.load_landslide_history
+    status: verified
+
+  - id: kma_radar_qpe
+    title: KMA radar quantitative precipitation estimate, hourly or finer
+    provider: Korea Meteorological Administration (API Hub)
+    url: "https://apihub.kma.go.kr/apiList.do?seqApi=5 (confirmed 2026-09-16: 레이더 section lists HSR, hybrid surface rainfall, the primary QPE product, plus accumulated-precipitation variants PCPH/PCPP)"
+    access: api_key
+    key_env: KMA_APIHUB_KEY
+    license: "공공누리 (public licence) mark shown on the page; specific type not stated on the page reached, confirmed 2026-09-16"
+    directions: [landslides]
+    temporal_coverage: "storm windows over the landslide record; the product itself is delivered at 5-minute intervals (confirmed 2026-09-16), with PCP accumulation products offered at 60-minute intervals"
+    spatial_coverage: South Korea, radar composite grid
+    crs: "not stated on the page reached; verify from the product documentation after key access"
+    files: []
+    known_issues:
+      - "API key required (authKey parameter), same key as kma_asos_aws (KMA_APIHUB_KEY), blocked on WJ-001"
+    loader: research.shared.loaders.kma.load_radar_qpe
+    status: pending
+
+  - id: naas_soil_map
+    title: Soil map (흙토람)
+    provider: National Institute of Agricultural Sciences (농촌진흥청 국립농업과학원)
+    url: "http://soil.rda.go.kr/ (confirmed 2026-09-16: the spatial 토양도 is not a data.go.kr file download -- data.go.kr search for 흙토람 returns only tabular soil-series and fertilizer-recommendation datasets, not a spatial layer -- soil.rda.go.kr instead runs a '토양도 신청' (soil map application) service at /community/application.do)"
+    access: request
+    key_env: null
+    license: "OPEN 공공누리 mark shown on the site footer; specific KOGL type not stated on the page reached, confirmed 2026-09-16"
+    directions: [landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: "not stated on the page reached; verify once a request is answered"
+    files: []
+    known_issues:
+      - "confirmed 2026-09-16: access is application-based (application form), not a bulk download; support line 1544-2472 listed on the site if a request is filed"
+    loader: research.shared.loaders.soil.load_soil_map
+    status: pending
+
+  - id: kigam_geology_map
+    title: Geology map
+    provider: KIGAM (한국지질자원연구원), Geo Big Data Open Platform
+    url: "https://data.kigam.re.kr/ (confirmed 2026-09-16: geology map catalogue at four scales, 1:5,000 / 1:25,000 / 1:250,000 / 1:1,000,000, browsable through a data catalog and search)"
+    access: request
+    key_env: null
+    license: "not stated on the page reached, confirmed 2026-09-16; the site references 'KIGAM Data Management Guidelines' including an 'Ethics, Copyright, and License Guideline' page not read in this check"
+    directions: [landslides]
+    temporal_coverage: static
+    spatial_coverage: South Korea
+    crs: "not stated on the page reached; verify once a request is answered"
+    files: []
+    known_issues:
+      - "confirmed 2026-09-16: a 'Request data' option is shown, suggesting some layers need a formal request rather than open bulk download; not resolved further to respect the failure-policy limit on alternative routes"
+    loader: research.shared.loaders.geology.load_geology_map
+    status: pending
+
+  - id: base_map_linear_features
+    title: Road, river and ridge vectors
+    provider: NGII national base map, OpenStreetMap as fallback
+    url: "NGII terms not confirmed 2026-09-16 (map.ngii.go.kr/ms/map/NlipMap.do and map.ngii.go.kr/ both returned HTTP 400 to a page fetch, same result as for dem_korea -- likely the same viewer requires a browser session WebFetch cannot provide); OSM fallback confirmed working: https://download.geofabrik.de/asia/south-korea.html"
+    access: request
+    key_env: null
+    license: "NGII terms not confirmed, see url field. OSM: ODbL 1.0, confirmed 2026-09-16 on the Geofabrik page."
+    directions: [roads]
+    temporal_coverage: "OSM South Korea extract confirmed 2026-09-16 as current to 2026-09-15 20:20 UTC (rolling extract, always near-current); NGII edition not confirmed"
+    spatial_coverage: South Korea
+    crs: "NGII EPSG:5179 or EPSG:5186 (not independently confirmed); OSM EPSG:4326, confirmed by format (PBF/Shapefile/GeoPackage all in WGS84 by Geofabrik convention)"
+    files: []
+    known_issues:
+      - "ridges are not a base-map layer; they are derived from the DEM, so the derivation must be documented"
+      - "NGII map viewer returned HTTP 400 on two attempts 2026-09-16, same failure mode as dem_korea; logged as a human-gate candidate rather than looped on further"
+      - "CHARTER.md (autonomous-loop, not this program) instructs the finals-build loop not to re-acquire Yeongdeok OSM data; that rule is about the frozen finals build under src/wildfireguardian/, not this research program, but any OSM download here should still avoid duplicating that specific extract without checking first"
+    loader: research.shared.loaders.roads.load_linear_features
+    status: pending
+
+  - id: vworld_geocoder
+    title: VWorld geocoder and parcel lookup
+    provider: VWorld (MOLIT)
+    url: https://www.vworld.kr/dev/v4dv_geocoderguide2_s001.do
+    access: api_key
+    key_env: VWORLD_KEY
+    license: "verify on the developer page"
+    directions: [suppression, roads, landslides]
+    temporal_coverage: n/a
+    spatial_coverage: South Korea
+    crs: EPSG:4326 or EPSG:5186 depending on request
+    files: []
+    known_issues:
+      - "fire locations are addresses; store the geocoding precision level as a column and never mix levels silently"
+    loader: research.shared.loaders.vworld.geocode
+    status: pending
+
+  # ------------------------------------------------------------------ P3 ----
+
+  - id: gedi_l2ab_korea
+    title: GEDI L2A and L2B canopy structure over Korea
+    provider: NASA / USGS
+    url: https://search.earthdata.nasa.gov/
+    access: api_key
+    key_env: EARTHDATA_TOKEN
+    license: "NASA open data"
+    directions: []
+    temporal_coverage: "later phase, crown-fire extension"
+    spatial_coverage: South Korea
+    crs: EPSG:4326
+    files: []
+    known_issues: []
+    loader: research.shared.loaders.gedi.load_gedi
+    status: pending
+
+  - id: nex_gddp_cmip6_korea
+    title: NEX-GDDP-CMIP6 daily fields, SSP2-4.5 and SSP5-8.5, Korea subset
+    provider: NASA NEX
+    url: https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6
+    access: open
+    key_env: null
+    license: "open, attribution required"
+    directions: []
+    temporal_coverage: "phase 5 scenarios only"
+    spatial_coverage: South Korea subset of a global grid
+    crs: EPSG:4326
+    files: []
+    known_issues:
+      - "this is a downscaled global product, used only to drive Korean-fitted models forward; it is never fitting data"
+    loader: research.shared.loaders.scenarios.load_nex_gddp
+    status: pending

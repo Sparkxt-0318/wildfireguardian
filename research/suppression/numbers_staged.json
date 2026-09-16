@@ -1,0 +1,556 @@
+{
+  "schema_version": 1,
+  "owner": "A5",
+  "direction": "suppression",
+  "created": "2026-09-16",
+  "protocol": "research/eval/NUMBERS_PROTOCOL.md",
+  "prereg": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+  "signoff_record": null,
+  "note": "Empty by design. The direction is unsigned, and a second gate sits underneath that one: the registered split forward_chaining_by_year with min_train_years=10 refuses the committed four-year record, so no fold exists and no fit on a real outcome is possible even with a signature. Every entry below is written in the registrar's entry() shape so that the eventual patch is mechanical rather than a re-derivation, per NUMBERS_PROTOCOL.md section 5. Every value is null and every entry is state 'not_produced'. A number moves to 'staged' only after A6 signs the pre-registration, gates G1 to G4 pass, and the pre-registered fit has been run once. git_commit is left empty for the orchestrator, because agents in this program never run git.",
+  "design_side_artifact": {
+    "path": "research/suppression/design/design_numbers.json",
+    "script": "research/suppression/design/clock_and_address.py",
+    "outcome_free": true,
+    "note": "Committed and re-runnable today. It carries the report-clock granularity, the report-hour histogram, the address-precision ceiling and the cause-field informativeness. None of it is a result of the hypothesis and none of it is staged as one. It reads neither 피해면적_합계 nor any duration, and its module docstring states what it deliberately does not measure and why.",
+    "key_paths": [
+      "measurements.report_clock.minute_resolved.share_on_the_hour_pct",
+      "measurements.report_clock.counts.h10_to_h17",
+      "measurements.report_clock.night_by_clock_hour.share_pct",
+      "measurements.address.rows_with_a_lot_number_in_the_finest_field",
+      "measurements.address.finest_names_under_more_than_one_parent_path",
+      "measurements.address.rows_carrying_a_whitespace_variant_province",
+      "measurements.cause.rows_whose_detail_is_free_text_other_pct",
+      "measurements.cause.rows_marked_under_investigation_presumed_or_unknown_pct"
+    ]
+  },
+  "gates_that_must_pass_before_any_entry_is_staged": [
+    {
+      "id": "G1",
+      "what": "the registered split returns at least two folds",
+      "state": "shut",
+      "evidence": "research/eval/tests/test_splits.py asserts the refusal"
+    },
+    {
+      "id": "G2",
+      "what": "at least 50 exceedances per training fold at the threshold",
+      "state": "not evaluated"
+    },
+    {
+      "id": "G3",
+      "what": "no complex contributes more than 25 per cent of a fold's excess",
+      "state": "not evaluated"
+    },
+    {
+      "id": "G4",
+      "what": "the tail recoverability instrument passes at its declared operating characteristic",
+      "state": "not evaluated"
+    },
+    {
+      "id": "G5",
+      "what": "at least 250 exceedances before the shape carries covariates",
+      "state": "not evaluated"
+    },
+    {
+      "id": "G6",
+      "what": "the neural extreme-value model, not available in v0.1",
+      "state": "closed by design"
+    }
+  ],
+  "entries": [
+    {
+      "id": "RES-SUPP-0001",
+      "direction": "suppression",
+      "label": "held-out mean log predictive density per fire of the 10 ha exceedance at horizon H3, primary metric",
+      "registrar_entry": {
+        "value": null,
+        "unit": "nats per fire",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "held_out.primary_metric.value",
+        "derivation": "mean log predictive density of the 10 ha exceedance indicator predicted from covariates knowable three fire-hours after the report time, averaged over the forward-chaining folds with each fold weighted by its day-province cluster count",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "forward chaining by report year over Korean forest fires, complexes collapsed, held-out years named in held_out.frame.test_years",
+        "caveat": "",
+        "forbidden_phrasings": [
+          "the metric quoted without its held-out report years, fold count, cluster count and horizon"
+        ],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the held-out report years, the fold count, the day-province cluster count, and horizon H3",
+      "uncertainty": {
+        "type": "cluster bootstrap over day-province clusters",
+        "level": 0.9,
+        "low": null,
+        "high": null,
+        "resamples": 2000
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced. Gate G1 of pre-registration section 4.5 is shut: the registered split refuses the committed four-year record. Pre-registration section 4.3 gives the depth the Korean record must reach before a single fold exists."
+    },
+    {
+      "id": "RES-SUPP-0002",
+      "direction": "suppression",
+      "label": "margin of the primary model over baseline B0, held out",
+      "registrar_entry": {
+        "value": null,
+        "unit": "nats per fire",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "held_out.margin_vs_b0.value",
+        "derivation": "difference in held-out mean log predictive density between the primary model and B0, the training-window exceedance base rate, with the interval computed on the difference and not on the two scores separately",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "same folds as RES-SUPP-0001",
+        "caveat": "",
+        "forbidden_phrasings": [
+          "the margin quoted without its interval",
+          "the margin quoted without the pre-registered threshold of 0.02 nats per fire"
+        ],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the same held-out report years as RES-SUPP-0001",
+      "uncertainty": {
+        "type": "cluster bootstrap over day-province clusters",
+        "level": 0.9,
+        "low": null,
+        "high": null,
+        "resamples": 2000
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced. This is the number failing condition F1 is keyed on: the margin must reach 0.02 nats per fire AND its 90 per cent interval must exclude zero, both fixed in pre-registration section 15 before any fit."
+    },
+    {
+      "id": "RES-SUPP-0003",
+      "direction": "suppression",
+      "label": "baseline B0, the training-window exceedance base rate, held out",
+      "registrar_entry": {
+        "value": null,
+        "unit": "nats per fire",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "held_out.baseline_b0.value",
+        "derivation": "held-out mean log predictive density of a constant prediction equal to the share of training-window complexes reaching 10 ha",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "same folds as RES-SUPP-0001",
+        "caveat": "",
+        "forbidden_phrasings": [],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the same held-out report years as RES-SUPP-0001",
+      "uncertainty": {
+        "type": "cluster bootstrap over day-province clusters",
+        "level": 0.9,
+        "low": null,
+        "high": null,
+        "resamples": 2000
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced. Its own code path, per item P8."
+    },
+    {
+      "id": "RES-SUPP-0004",
+      "direction": "suppression",
+      "label": "night-against-day containment hazard contrast at the naive offset cell",
+      "registrar_entry": {
+        "value": null,
+        "unit": "log hazard ratio",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "night.contrast.value",
+        "derivation": "coefficient on the local solar phase indicator in the complementary log-log discrete-time containment hazard, with the pre-registered weather covariates entered, at the report-offset grid cell m=0 and d=0",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "fire-hours of Korean forest fires, day-province random intercept",
+        "caveat": "this is a containment contrast and not a growth contrast; the record carries no fire size at any intermediate hour",
+        "forbidden_phrasings": [
+          "any causal wording about night",
+          "the contrast quoted without its report-offset grid",
+          "the contrast quoted without the night stratum's fire-hour exposure"
+        ],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the held-out report years, and the offset grid cell the value comes from",
+      "uncertainty": {
+        "type": "posterior interval",
+        "level": 0.9,
+        "low": null,
+        "high": null
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-007",
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced, and withdrawn outright under failing condition F4 if the sign changes anywhere inside the sixteen-cell report-offset grid of pre-registration section 5.4. The E-value at night.e_value.value is reported beside it with the fixed statement that it bounds unmeasured confounding only and bounds neither of the two named biases."
+    },
+    {
+      "id": "RES-SUPP-0005",
+      "direction": "suppression",
+      "label": "generalised Pareto shape for recorded fire sizes above 10 ha, under the operative suppression regime",
+      "registrar_entry": {
+        "value": null,
+        "unit": "dimensionless",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "tail.xi.value",
+        "derivation": "shape parameter of the generalised Pareto exceedance model at the pre-registered threshold of 10 ha, shape held constant across covariates unless gate G5 opened",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "exceedances in the training folds, complexes collapsed",
+        "caveat": "the tail of the RECORDED sizes under the suppression regime that operated; it is not and never becomes a statement about unsuppressed sizes",
+        "forbidden_phrasings": [
+          "any description of this as a suppression-free or uncensored tail",
+          "the shape quoted without its threshold and its exceedance count"
+        ],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the threshold, the exceedance count per training fold, and the held-out report years",
+      "uncertainty": {
+        "type": "posterior interval",
+        "level": 0.9,
+        "low": null,
+        "high": null
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-006",
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced. Gated behind G2, G3 and G4 of pre-registration section 4.5. If G4 fails, no generalised Pareto model is fitted at all and the tail is reported as exceedance counts by report year and season."
+    },
+    {
+      "id": "RES-SUPP-0006",
+      "direction": "suppression",
+      "label": "the integer escape-risk score's held-out mean log predictive density",
+      "registrar_entry": {
+        "value": null,
+        "unit": "nats per fire",
+        "source_file": "research/suppression/results/suppression_v0.1.json",
+        "json_path": "score.held_out.value",
+        "derivation": "held-out mean log predictive density of the FasterRisk integer point score, distilled entirely inside each fold's training window on a declared inner forward chain, at most 8 features and integer coefficients in the range -5 to 5",
+        "config_hash": null,
+        "config_hash_at_production": null,
+        "git_commit": "",
+        "sample": "same folds as RES-SUPP-0001",
+        "caveat": "",
+        "forbidden_phrasings": [
+          "the score quoted without its held-out report years",
+          "any statement that the score is ready for operational dispatch use"
+        ],
+        "check": "",
+        "reproducibility": null,
+        "reproducible": false
+      },
+      "claim_sentence": "not written; A6 writes the permitted claim sentence at verification time",
+      "evaluation_frame": "the held-out report years, the fold count, the cluster count, and horizon H3",
+      "uncertainty": {
+        "type": "cluster bootstrap over day-province clusters",
+        "level": 0.9,
+        "low": null,
+        "high": null,
+        "resamples": 2000
+      },
+      "prereg": {
+        "path": "research/suppression/PREREG_suppression_2026-09-16_v0.1.md",
+        "version": 1
+      },
+      "signoff_record": null,
+      "split": {
+        "call": "forward_chaining_by_year(report_years, **PRIMARY_SPLITS['suppression']['kwargs'])",
+        "kwargs": {
+          "min_train_years": 10,
+          "horizon": 1,
+          "gap_years": 0
+        },
+        "fingerprint": null,
+        "status": "the registered call refuses the committed four-year record, so no fold and no fingerprint exists; pre-registration section 4.2 quotes the refusal"
+      },
+      "inputs": [
+        {
+          "dataset_id": "kfs_fire_stats_csv",
+          "path": "",
+          "sha256": ""
+        },
+        {
+          "dataset_id": "kfs_fire_stats_api",
+          "path": "",
+          "sha256": ""
+        }
+      ],
+      "producer": {
+        "script": "",
+        "script_sha256": "",
+        "commit_claimed": "",
+        "seed": 20260916,
+        "python": "",
+        "packages": {}
+      },
+      "rerun": {
+        "level": "L0",
+        "by": "A6",
+        "date": null,
+        "path": "",
+        "value_obtained": null,
+        "tolerance": null,
+        "seed_sweep": [],
+        "verdict": "not run"
+      },
+      "forbidden_claim_rules": [
+        "RC-008"
+      ],
+      "state": "not_produced",
+      "notes": "Not produced. Failing condition F5 is keyed on score.distillation_loss_nats: if the score is worse than the hazard model by more than 0.01 nats per fire, the distillation is reported as lossy and the score is not recommended."
+    }
+  ]
+}

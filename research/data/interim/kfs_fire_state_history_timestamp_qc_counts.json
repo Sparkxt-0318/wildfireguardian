@@ -1,0 +1,27 @@
+{
+  "comparison_to_brief": {
+    "agrees": true,
+    "brief_negative_duration": 41,
+    "independent_counts_now_in_agreement": [
+      "A1 check script (research/data/checks/check_kfs_fire_state_history_csv.py)",
+      "orchestrator's own count",
+      "A2's flag_kfs_state_history_timestamps (this artifact)"
+    ],
+    "measured_negative_duration": 41
+  },
+  "counts": {
+    "end_before_start": 41,
+    "impossible_end_year": 0,
+    "missing_containment": 0,
+    "n_rows": 2030,
+    "negative_duration": 41
+  },
+  "impossible_end_year_values": [],
+  "note_column_shape": "this file's 진화시작시간/진화완료시간 are already combined \"YYYY-MM-DD HH:MM\" strings, NOT the _년/_월/_일/_시간 quadruple the statistics file uses; flag_kfs_ymdhm_timestamps (the quadruple transform) does not apply here, flag_kfs_state_history_timestamps (the combined-string transform) does. Column names in the raw file carry trailing whitespace; handled by defensive stripping in timestamps.py.",
+  "note_reference_time": "진화시작시간 is a reported suppression-start time and 진화완료시간 a reported containment-declared time, per research/shared/loaders/kfs.py; both are administrative report times, not physically observed instants",
+  "produced_by": "research/shared/qc/timestamps.py flag_kfs_state_history_timestamps, run ad hoc by A2 on 2026-09-16 (T1.5f) to independently measure the state-history file's defect counts; this is the third independent count, after A1's check script and the orchestrator, and the first one produced by the transform this program's directions actually run",
+  "source_bytes": 274225,
+  "source_file": "research/data/raw/kfs_fire_state_history_csv/산불상태별이력_2025.11.10.csv",
+  "source_registry_id": "kfs_fire_state_history_csv",
+  "source_sha256": "2e94ab963feeb9ad998761537a397e4d5912ac7f90e147487ef43aafc1512c00"
+}
