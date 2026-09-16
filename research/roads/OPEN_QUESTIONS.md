@@ -1,11 +1,12 @@
 # Roads direction, open questions
 
-**Status: written 2026-09-16 by A3, alongside `PREREGISTRATION.md` v0.1a, and
-updated 2026-09-16 alongside `PREREG_roads_2026-09-16_v0.2.md`. Q1 to Q6 and Q9 to
-Q11 are now closed by A6's sign-off record
-`research/eval/signoffs/roads_v0.1b.md` and by v0.2; the closures are in the table
-at the end of this file, and the question text above each one is kept unedited so
-that what was asked stays visible next to what was decided.** These
+**Status: written 2026-09-16 by A3, alongside `PREREGISTRATION.md` v0.1a, updated
+alongside `PREREG_roads_2026-09-16_v0.2.md`, and updated again alongside
+`PREREG_roads_2026-09-16_v0.3.md`, which answers the ten conditions of
+`research/eval/signoffs/roads_v0.2.md`. Q1 to Q6 and Q9 to Q11 are closed; the
+closures are in the table at the end of this file, and the question text above each
+one is kept unedited so that what was asked stays visible next to what was decided.
+Q12 and Q13 are new at v0.3 and are open.** These
 are the design decisions A3 could not settle alone. Each has the options, what
 turns on it, A3's recommendation, and who decides. Every one of them must be
 closed before A6 signs, because a pre-registration with an open question in it is
@@ -296,6 +297,79 @@ than debated when the counts disappoint.
 
 ---
 
+## Q12. Is `alpha` = 0.01 the right per-tier false-assignment rate?
+
+**New at v0.3, and it is the same class of question as Q9.** Condition C2 of
+`research/eval/signoffs/roads_v0.2.md` required the side cutoff to be set from a
+stated false-assignment rate rather than from a round number. It did not say which
+rate, and A6 was right not to: naming the level would have been A6 designing the
+thing it signs. So the level is A3's, and a level chosen by one agent should not
+survive unexamined into a frozen document, which is exactly Q9's reasoning applied
+to a new number.
+
+**What is chosen, and the reasoning, in full, so it can be attacked.**
+`alpha` = 0.01 per tier, union bound 0.02 across the two tiers by Bonferroni, grid
+{0.005, 0.01, 0.025}. Three reasons, in pre-registration section 5.1.2a: a wrong
+side removes a **hold**, so the rate is a tax on the rare class, and 0.02 puts the
+expected number of holds destroyed below one at the gate G1 threshold; a smaller
+`alpha` does not remove the leak but moves it into the `SIDE` exclusion, which is
+outcome dependent in the same direction and is harder to see; and 0.02 across two
+tiers lands within a rounding of the 0.023 per tail that v0.2's 2.0 was evidently
+meant to buy, so the change reads as a corrected instrument rather than a new
+ambition.
+
+**What turns on it.** The pass fraction, hence gate S1, hence whether any label is
+computed at all. The corrected cutoff is 6.97 at the C4 minimum against the 2.0 it
+replaces, so the bottom of the detection range stops contributing entirely, and
+section 5.1.3's recomputed table shows `n_det` of 5 unresolvable at any approach
+angle once the front irregularity passes about 0.16. A materially looser `alpha`
+buys that corner back at a wrong-side rate on the rare class.
+
+**Options.** (1) 0.01 per tier, as written. (2) A looser 0.025 per tier, union
+0.05, trading holds for labels. (3) A tighter 0.005, union 0.01, trading labels for
+holds. (4) An unequal split across the tiers, tighter on S-B because tier S-B's
+geometry is itself outcome dependent at 3 km (section 5.1.2b).
+
+**Recommendation.** Option 1, with option 4 as the one A3 would most want examined
+rather than dismissed, because the argument for an unequal split is real and A3
+declined it only on the grounds that an unequal split needs a justification for its
+ratio and Bonferroni needs none.
+
+**Decides.** A6.
+
+---
+
+## Q13. Is the `W_floor` rule the right existence floor, and is a factor of three right?
+
+**New at v0.3.** Condition C5(a) required the classifier's minimum detectable gap
+width to be declared as a number before any measurement. The imagery has not been
+obtained, so its ground sample distance is unknown, and pre-registration section
+3.4.1 declares a rule rather than a bare number: `W_floor = max(3 * GSD, 1.0 m)`,
+with the value it takes at each plausible delivery and a tripwire at 2 m, where
+`W_floor` reaches the 6 m of the claim under test and the existence route closes.
+
+**What is uncertain.** The factor of three is the ordinary requirement that a
+linear feature span enough pixels to be delineated rather than aliased. It is a
+convention rather than a measured detection limit for a canopy gap over a Korean
+forest road, and A3 has not found a Korean source for one. A factor of two would
+admit narrower roads at a higher false-positive rate on the existence check; a
+factor of four or five would be defensible for an automatic classifier under closed
+canopy and would push the tripwire down to 1.5 m or 1.2 m of ground sample distance,
+which is a much more likely delivery and therefore a much more consequential choice.
+
+**What turns on it.** Gate E1 in the bounding case of section 3.4, and therefore
+whether the roads arm exists at all. Also the lower truncation of `W_cleared`, which
+by section 17.5 is the truncation that actually reaches gate W1.
+
+**Recommendation.** Keep the rule shape, which A3 would defend, and have the factor
+either ratified or replaced before the imagery arrives, because after it arrives any
+change to the factor is a change made with the data in view.
+
+**Decides.** A6, and A7 if a Korean canopy-gap detection limit exists in the
+literature.
+
+---
+
 ## Closed since v0.1
 
 | question | closed by | outcome |
@@ -308,6 +382,7 @@ than debated when the counts disappoint.
 | **Q6.** Is the primary metric right for the program? | A6, same | A3's choice stands. A6 will not name a different program-wide primary |
 | **Q9.** Are the feasibility gate numbers right? | A6, `roads_v0.1b.md` sections 8.1 to 8.4 | Smallest effect of interest **not ratified at 0.10**: set at **0.05 in `W_cleared`** at the median approach angle, with 0.10 reported alongside. Recoverability 0.80 ratified, plus a second exclusion-power arm at 0.80 (gate M2). `kappa` 0.70 ratified as a level but refused as defined: it moves to the model's scale and to an interval lower bound. G1 to G3 and P1 ratified; W1 ratified with the requirement that it count in `W_cleared` |
 | **Q10.** What is done with a SHAP-suggested interaction? | A6, same | Keep the strict rule exactly as argued |
+| **Q9b.** Is the side cutoff on the right sampling scale? | A6, `roads_v0.2.md` condition C2, answered in v0.3 sections 5.1.2a to 5.1.3 | **No, and v0.2 was wrong.** The statistic is Student's t on `n_det - 3`, not normal, so a fixed 2.0 delivered 0.0918 per tail at the C4 minimum against the 0.0228 it implied. The cutoff is now `t_{1 - alpha}(n_det - 3)` at a declared rate, the two tiers are budgeted as one two-stage procedure, and two-epoch segments are a separate stratum. The level itself is now Q12 |
 | **Q11.** Segment length once the real counts are known | A6, same | Ratified, and the refusal to shorten segments to clear a gate belongs in the frozen document |
 | how is a flat breach curve to be read, when measurement error and a true null both produce one? | A6, 2026-09-16, written into pre-registration section 11.5 | Five instruments, three running before any label exists: a 30-pair repeat-measurement study, a design-stage recoverability simulation on real geometry with simulated outcomes, a named smallest effect of interest, an equivalence reading of the disattenuated posterior, and measurement validity checks against road class and catchment area. A flat curve is an **informative null** only when all four conditions of section 11.5.6 hold |
 | which parameter can this design not identify? | A6, 2026-09-16, written into pre-registration section 7.7 | The flame-crossing and ember-spotting split. One binary label constrains only the product, so identification comes solely from the far-field spot record, and section 7.7.1 fixes what is reported if it stays unidentified |
