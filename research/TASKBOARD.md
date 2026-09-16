@@ -4,7 +4,7 @@ Single source of truth for task status. The orchestrator maintains this file;
 agents report into `research/reports/<agent>/` and the orchestrator brings the
 status back here.
 
-Last updated: 2026-09-16, end of round 2.
+Last updated: 2026-09-16, end of the design phase. All three directions have a pre-registration; two are signed with conditions.
 
 ## Waiting on John
 
@@ -86,21 +86,48 @@ independently twice. Impossible end years: 2 (2055 and 2223). The brief's second
 claim of 41 negative durations in the state-history file could NOT be tested,
 because that file is not on disk, and it stays unverified rather than assumed.
 
-## Phase 2, design
+## Phase 2, design: COMPLETE for all three directions
 
 | task | agent | status | blocker | report |
 |---|---|---|---|---|
-| T2.1 Sign-off protocol, leakage checklist, shared splits, kill-shot template, numbers protocol | A6 | done | none | `reports/A6/2026-09-16_round1.md` |
-| T2.2 Roads pre-registration draft | A3 | done | none | `reports/A3/2026-09-16_round1.md` |
-| T2.3 A6 signs the roads pre-registration | A6 | **done, verdict `refused`** | none | `eval/signoffs/roads_v0.1b.md` |
-| T2.6 Keyless open-data downloads | A1 | done | 2 of 4 landed; 2 need WJ-017 and WJ-018 | `reports/A1/2026-09-16_round2.md` |
-| T2.7 Forest road attribute schema | A1 | blocked | WJ-017, the SHP never landed | same |
-| T2.11 Roads pre-registration v0.2, conditions R1 to R7 | A3 | dispatched | none, R1 is design work and needs no data | |
-| T2.4 Landslides pre-registration | A4 | not started | roads reaches phase 3 | |
-| T2.5 Suppression pre-registration | A5 | not started | landslides reaches phase 3, and WJ-001 | |
+| T2.1 Sign-off protocol, leakage checklist, splits, kill-shot, numbers protocol | A6 | done | none | `reports/A6/2026-09-16_round1.md` |
+| T2.2 Roads pre-registration v0.1b | A3 | done | none | `reports/A3/2026-09-16_round1.md` |
+| T2.3 A6 reviews roads v0.1b | A6 | done, **refused** | none | `eval/signoffs/roads_v0.1b.md` |
+| T2.11 Roads v0.2 answering the refusal | A3 | done | none | `reports/A3/2026-09-16_round2.md` |
+| T2.12 A6 reviews roads v0.2 | A6 | done, **signed with conditions** | none | `eval/signoffs/roads_v0.2.md` |
+| T2.13 Roads v0.3 answering C1 to C10 | A3 | done | none | `reports/A3/2026-09-16_round3.md` |
+| T2.4 Landslides pre-registration v0.1 | A4 | done | none | `reports/A4/2026-09-16_round1.md` |
+| T2.14 A6 prior leakage read, landslides | A6 | done | none | `eval/leakage_reads/landslides_A6_prior.md` |
+| T2.15 A6 reviews landslides v0.1 | A6 | done, **signed with conditions** | none | `eval/signoffs/landslides_v0.1.md` |
+| T2.5 Suppression pre-registration v0.1 | A5 | done | none | `reports/A5/2026-09-16_round1.md` |
+| T2.16 A6 prior leakage read, suppression | A6 | done | none | `eval/leakage_reads/suppression_A6_prior.md` |
+| T2.17 A6 reviews suppression v0.1 | A6 | not started | next round | |
 
-**Sign-off ledger:** `research/eval/signoffs/LEDGER.md`, three rows, all
-`unsigned`. Nothing may be fitted until a row says otherwise.
+**Sign-off ledger** (`research/eval/signoffs/LEDGER.md`): roads
+`signed with conditions`, landslides `signed with conditions`, suppression
+awaiting review. **Nothing may be fitted** on any direction, and on today's
+data nothing could be.
+
+## Phase 3, modeling: BLOCKED, and not on agent effort
+
+Every direction is blocked on datasets that only a human can obtain. This
+is the honest state of the program, not a scheduling delay.
+
+| direction | what stops the fit |
+|---|---|
+| roads | WJ-017 the road layer will not download past a consent form, so there is no barrier layer at all. WJ-009 no pre-fire orthoimagery, so no width covariate, no error variance, no attenuation gate, no recoverability simulation, and no per-segment existence check. WJ-001 no keys, so no scenes and no detections |
+| landslides | WJ-001 no rainfall means no storm, so no risk set and no rows. No DEM means no unit. The 리 boundary layer is not even a registry entry yet |
+| suppression | the registered split refuses the committed extract outright, and A6 wrote the test that says so. The record must reach 2015 for one fold to exist and 2010 for the season ledger to mean anything |
+
+## Process findings, recorded because they cost something
+
+| id | finding |
+|---|---|
+| PF-1 | A reversed review order without an information barrier is a ritual. On landslides the order was followed, but the orchestrator's briefing had already named six of the ten convergent items, so only two convergences were independent. The successor fix is that the reviewer's prior-read briefing is drawn from the program brief and committed data alone |
+| PF-2 | Timing is a weaker barrier than it looks. The suppression prior read was framed as written before the reviewed document existed; it was not, because drafting ran in parallel. What held was the never-read attestation, not the schedule |
+| PF-3 | A gate read through a pipeline ending in `tail` is not read at all. This happened twice, and the second time it pushed a live claims finding. Gates are now read by exit code |
+| PF-4 | Both checkers enumerate through git, so a tree-wide pass is vacuous for exactly the new files most likely to be wrong. Agents now scan their own paths directly |
+| PF-5 | The per-line pragma convention looks on the offending line or the line above, never below. In wrapped prose a writer reaches for the end of the sentence, which is the wrong place. Kept as is for consistency with the repository's own checker, but it will recur |
 
 ## Phase 3 to 6
 
