@@ -158,7 +158,7 @@ used everywhere or nowhere". The claim rules are enforced by
 vocabulary. A fixed vocabulary that nothing checks lasts until the first author
 who writes a figure caption in a hurry. There must be a rule in
 `FORBIDDEN_CLAIMS.md` with a detector, firing on the assertive spellings
-("barrier effectiveness", "the effect of width", "wider roads hold fires") and
+("barrier effectiveness", "the effect of width", "wider roads hold fires") and <!-- research-claim-ok: RC-011 -->
 sparing the permitted one. I do not own that file or that script, so this is a
 condition on A3 and the orchestrator and not something I will write into
 compliance myself.

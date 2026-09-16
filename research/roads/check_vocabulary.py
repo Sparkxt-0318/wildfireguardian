@@ -78,14 +78,14 @@ RULES: list[tuple[str, str, str, list[str], list[str]]] = [
      r"|effectiveness\s+of\s+(?:the\s+)?(?:barrier|road|firebreak)"
      r"|방화선\s*효과|임도\s*효과)",
      "the estimand is operational barrier performance, an association under "
-     "Korean suppression practice. 'Barrier effectiveness' reads as a physical "
+     "Korean suppression practice. 'Barrier effectiveness' reads as a physical "  # research-claim-ok: RC-011
      "property of the barrier, which is the counterfactual reading section "
      "12.4.4 forecloses.",
-     ["Barrier effectiveness rises with cleared width.",
-      "We report the effectiveness of the barrier per segment.",
+     ["Barrier effectiveness rises with cleared width.",  # research-claim-ok: RC-011
+      "We report the effectiveness of the barrier per segment.",  # research-claim-ok: RC-011
       "임도 효과가 폭에 따라 증가한다."],
      ["The estimated quantity is operational barrier performance.",
-      "This cannot be read as barrier effectiveness in the physical sense.",
+      "This cannot be read as barrier effectiveness in the physical sense.",  # research-claim-ok: RC-011
       "Whether barrier effectiveness is separable from suppression effort is "
       "the question, not the answer."]),
 
@@ -96,8 +96,8 @@ RULES: list[tuple[str, str, str, list[str], list[str]]] = [
      "the width coefficient is an association, not an effect. Section 1.4 "
      "states the estimand as associational and section 12.4.4 lists 'the effect "
      "of width' among the readings this direction does not support.",
-     ["The effect of width is 0.3 on the logit scale.",
-      "We estimate the effect of road width on breach.",
+     ["The effect of width is 0.3 on the logit scale.",  # research-claim-ok: RC-011
+      "We estimate the effect of road width on breach.",  # research-claim-ok: RC-011
       "Width's effect on breach is reported per barrier type."],
      ["The width slope is reported with its interval.",
       "The association between width and the absence of a lee-side burn is "
@@ -112,9 +112,9 @@ RULES: list[tuple[str, str, str, list[str], list[str]]] = [
      "H-ROADS is untested and the design is observational. A sentence of this "
      "shape is both a result claim and a counterfactual about construction "
      "policy, which section 12.4.4 refuses explicitly.",
-     ["Wider roads hold fires.",
+     ["Wider roads hold fires.",  # research-claim-ok: RC-011
       "Widening roads stops the front at Korean approach angles.",
-      "넓은 임도가 산불을 막는다."],
+      "넓은 임도가 산불을 막는다."],  # research-claim-ok: RC-011
      ["Whether wider roads hold fires is the hypothesis, not the finding.",
       "The result cannot be read as grounds for a claim that wider roads hold "
       "fires.",

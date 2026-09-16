@@ -58,6 +58,9 @@ separated from the rest using information available in the first hours.
 | RC-008 | an escape-risk score's discrimination quoted without the held-out year it came from | a score quoted without its evaluation frame is not a result |
 | RC-009 | "first", "novel" or "no prior work" for any direction | A7 has not finished the prior-art sweep; novelty is a claim like any other | <!-- research-claim-ok: RC-009 -->
 | RC-010 | a foreign dataset named as a fitting input for a Korean model | scope rule 1 is non-negotiable and a human gate |
+| RC-011 | the roads estimand stated as barrier effectiveness or as the effect of width | the quantity is an association under Korean suppression practice. A wide Korean forest road is also the road the engines used and the line the crews held, so the width coefficient may be measuring access. Permitted vocabulary: operational barrier performance, the width slope, the association between width and | <!-- research-claim-ok: RC-011 -->
+
+RC-011 was drafted by the roads modeller, which does not own this file, and added by the orchestrator after validating it both directions. The roads tree also carries its own local detector, `research/roads/check_vocabulary.py`, which covers the same ground inside that direction.
 
 Each rule's regexes live in the checker with the same id, together with the
 validation record: what the rule caught on a corpus of overclaim spellings, and

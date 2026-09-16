@@ -2451,7 +2451,7 @@ without crews on it; or grounds for any counterfactual about construction policy
 
 **Concretely, in the outputs:** the estimated quantity is named **operational
 barrier performance** in every table, figure caption and abstract sentence, never
-"barrier effectiveness" and never "the effect of width". The distinction is <!-- research-vocab-ok: RV-001, RV-002 -->
+"barrier effectiveness" and never "the effect of width". The distinction is <!-- research-vocab-ok: RV-001, RV-002 --> <!-- research-claim-ok: RC-011 -->
 enforced in the same way as the claim rules: a fixed vocabulary, used everywhere or
 nowhere.
 
@@ -2499,7 +2499,7 @@ the program-wide version is drafted here as **RC-011** and is a dependency in
 section 15.4, not something this document can land:
 
 <!-- research-vocab-ok: RV-001, RV-002 -->
-> **RC-011.** The roads direction's estimand stated as barrier effectiveness or as
+> **RC-011.** The roads direction's estimand stated as barrier effectiveness or as <!-- research-claim-ok: RC-011 -->
 > the effect of width. *Why:* the quantity is an association under Korean
 > suppression practice, and 12.4.4 forecloses the counterfactual reading that a
 > county planner would otherwise take by default. The fixed term is **operational

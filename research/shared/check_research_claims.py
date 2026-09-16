@@ -78,6 +78,7 @@ HEDGE = re.compile(
     r"E-?value|associat|confound|reverse causal|not causal|"
     r"held[- ]out|hold[- ]out|test year|\bfold\b|cross-?validat|block cv|"
     r"is not used|not used for fitting|not Korean|"
+    r"operational barrier performance|width slope|association between|"
     r"가설|검증할|여부|예정|아직|선행\s*연구|예시"
     r")",
     re.IGNORECASE)
@@ -254,6 +255,25 @@ RULES: list[tuple[str, str, str, list[str], list[str]]] = [
      ["Californian fire data is cited as prior art for the method only.",
       "The Australian study supplies the effective-width equation; its data is "
       "not used."]),
+
+    ("RC-011",
+     r"(?:barrier effectiveness|effectiveness of the barrier|\ubc29\ud654\uc120\s*\ud6a8\uacfc"
+     r"|the effect of (?:road )?width|width effect on breach"
+     r"|wider roads (?:hold|stop) (?:fires|the fire)"
+     r"|\ub113\uc740\s*\uc784\ub3c4\uac00\s*\uc0b0\ubd88\uc744\s*\ub9c9\ub294\ub2e4)",
+     "The roads estimand is an association under Korean suppression practice, "
+     "not barrier physics and not the effect of widening a road. A wide Korean "
+     "forest road is also the road the engines used and the line the crews "
+     "held. Say 'operational barrier performance', 'the width slope', or "
+     "'the association between width and'.",
+     ["We report barrier effectiveness by width.",
+      "This estimates the effect of road width on breaching.",
+      "Wider roads hold fires.",
+      "\ub113\uc740 \uc784\ub3c4\uac00 \uc0b0\ubd88\uc744 \ub9c9\ub294\ub2e4."],
+     ["We report operational barrier performance by width.",
+      "The width slope is reported with its interval.",
+      "The association between width and lee-side burning is the estimand.",
+      "Whether wider roads hold fires is the hypothesis, not the finding."]),
 ]
 
 #: The one file the CLAIM rules do not scan, resolved from ``__file__`` so it
@@ -265,6 +285,27 @@ RULES: list[tuple[str, str, str, list[str], list[str]]] = [
 #: file that cannot state its own rule is not writable. The EM-DASH check still
 #: applies here, and so does every rule when the same text appears anywhere else.
 RULE_SOURCE = Path(__file__).resolve()
+
+#: Frozen superseded records, exempt from the CLAIM rules but NOT from the
+#: em-dash check.
+#:
+#: A refused or superseded pre-registration is kept and never edited
+#: (``research/eval/SIGNOFF.md``), because the point of keeping it is to show
+#: what was proposed before it was corrected. It therefore contains, by
+#: construction, the wording a later rule exists to stop recurring, and it
+#: cannot be given a pragma without editing the thing that must not be edited.
+#:
+#: This mirrors the record class the repository already declares for the same
+#: reason (``docs/auto/CHARTER.md`` section 3, rule 5c): pages that exist to
+#: quote a withdrawn claim in order to record it are exempt by design, and the
+#: registration is what makes the machine read everything else.
+#:
+#: ⚠ Narrow on purpose. It matches the superseded per-direction
+#: ``PREREGISTRATION.md`` only. The live pre-registration of the day is a
+#: versioned file (``PREREG_<direction>_<date>_v<n>.md``) and is NOT exempt.
+RECORD_CLASS = ("research/roads/PREREGISTRATION.md",
+                "research/landslides/PREREGISTRATION.md",
+                "research/suppression/PREREGISTRATION.md")
 
 PRAGMA = re.compile(r"research-claim-ok:\s*([A-Z]{2}-\d{3}(?:\s*,\s*[A-Z]{2}-\d{3})*)")
 TEXT_SUFFIXES = {".md", ".py", ".yaml", ".yml", ".txt", ".json", ".bib", ".html", ".stan"}
@@ -306,7 +347,7 @@ def scan(paths: list[Path]) -> list[tuple[str, int, str, str]]:
             if EM_DASH in line:
                 findings.append((rel, i + 1, "EM-DASH",
                                  "em dash is forbidden program-wide, no pragma"))
-            if path.resolve() == RULE_SOURCE:
+            if path.resolve() == RULE_SOURCE or rel in RECORD_CLASS:
                 continue          # claim rules only; the em-dash check above ran
             licensed = pragmas_for(lines, i)
             for rid, rx, why in compiled:
