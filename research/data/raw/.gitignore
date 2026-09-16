@@ -1,0 +1,19 @@
+# Raw data files under research/data/raw/ are never tracked: they are
+# large, and several carry a restrictive licence (KOGL Type 3 forbids
+# modification, e.g. kfs_forest_type_map once/if it lands here).
+#
+# What stays tracked: this file, .gitkeep placeholders that hold the
+# directory structure, and any small manifest file (MANIFEST*.md,
+# manifest*.json) an agent adds to record what was fetched. The real
+# record of what each file is lives in research/data/REGISTRY.yaml (sha256,
+# byte size, access date, source URL, licence) -- that plus the checksum is
+# what lets someone re-download the exact same file; this .gitignore is
+# what keeps the file itself out of the repository.
+
+*
+!.gitignore
+!.gitkeep
+!*/
+!**/.gitkeep
+!**/MANIFEST*.md
+!**/manifest*.json

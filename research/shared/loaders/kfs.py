@@ -1,7 +1,8 @@
 """Loaders for Korea Forest Service (KFS) datasets.
 
-Owned by A1 (data acquisition). Only ``load_fire_stats_csv`` is implemented
-so far, for the registry entry ``kfs_fire_stats_csv``. The Open API loader
+Owned by A1 (data acquisition). ``load_fire_stats_csv`` (registry entry
+``kfs_fire_stats_csv``) and ``load_fire_state_history`` (registry entry
+``kfs_fire_state_history_csv``) are implemented. The Open API loader
 (``load_fire_stats``, registry entry ``kfs_fire_stats_api``) is blocked on
 WJ-001 (DATA_GO_KR_KEY unset) and is not implemented here; see
 ``research/data/checks/probe_kfs_api.py``, which is the one command to run the
@@ -15,6 +16,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 DEFAULT_CSV = REPO / "data" / "raw" / "kfs_fire_statistics" / \
     "산림청_산불통계데이터_20250911.csv"
+DEFAULT_STATE_HISTORY_CSV = REPO / "research" / "data" / "raw" / \
+    "kfs_fire_state_history_csv" / "산불상태별이력_2025.11.10.csv"
 
 #: CP949 / EUC-KR only. The portal does not ship UTF-8 for this file.
 ENCODING = "cp949"
@@ -131,3 +134,100 @@ def load_fire_stats_csv(path: "Path | None" = None):
             f"research/data/REGISTRY.yaml for the source URL and checksum."
         )
     return pd.read_csv(csv_path, encoding=ENCODING)
+
+
+def load_fire_state_history(path: "Path | None" = None):
+    """Load 산불상태별이력 (KFS fire state-history CSV).
+
+    Registry id: ``kfs_fire_state_history_csv``. Source:
+    https://www.data.go.kr/data/15121205/fileData.do -- fetched keyless
+    round 2 (2026-09-16): the portal serves this file directly
+    (원문파일등록, "파일데이터는 로그인 없이 다운로드를 통해 이용하실 수
+    있습니다"), no account, no terms click, no captcha.
+
+    Parameters
+    ----------
+    path:
+        Optional override. Defaults to the committed copy under
+        ``research/data/raw/kfs_fire_state_history_csv/``.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per fire per the state-history record, 2,030 rows as fetched
+        2026-09-16 (sha256
+        2e94ab963feeb9ad998761537a397e4d5912ac7f90e147487ef43aafc1512c00).
+        Temporal coverage of 산불신고일 is 2022-01-01 to 2025-11-10 (measured
+        by ``research/data/checks/check_kfs_fire_state_history_csv.py``, not
+        assumed).
+
+    Columns, units and time zone
+    -----------------------------
+    All date and time fields are KST (UTC+9); none carry an explicit zone
+    marker.
+
+    ``산불정보아이디``
+        int, KFS internal fire identifier. Not the same numbering as
+        ``kfs_fire_stats_csv``; do not join on identifier without first
+        checking whether the two datasets share a key at all (not verified in
+        this round).
+    ``산불신고일``
+        str "YYYY-MM-DD". Reported date, same reporting caveat as
+        ``kfs_fire_stats_csv``'s 발생일시: this is when the fire was reported,
+        not necessarily observed ignition.
+    ``산불발생주소``
+        str, free-text Korean address, not split into administrative-level
+        columns the way ``kfs_fire_stats_csv`` is. Address only, no
+        coordinates.
+    ``진화시작시간`` / ``진화완료시간``
+        str "YYYY-MM-DD HH:MM", suppression-start and containment-declared
+        timestamps.
+        ⚠ 41 rows (measured 2026-09-16, matches the program brief's claim of
+        41 exactly) have 진화완료시간 earlier than 진화시작시간, producing a
+        negative duration. Same nature as the 12 negative-duration rows in
+        ``kfs_fire_stats_csv``: administrative recording errors, not fires
+        contained before suppression started. Never silently drop; flag or
+        impute explicitly. See
+        ``research/data/checks/check_kfs_fire_state_history_csv.py`` for a
+        re-run count.
+        ⚠ Uiseong 2025 appears as two same-day records in this file (52,707
+        ha and 46,575 ha per the registry's known_issues); apply the
+        K-SPREAD complex-fire rule rather than summing or averaging them as
+        one event, and check whether that rule applies to any other date
+        pair before aggregating by date.
+    ``관할기관명``
+        str, the KFS/local office responsible for suppression.
+    ``문자전송여부``
+        str "Y"/"N", whether an emergency text alert was sent. Not a measure
+        of fire severity; this is a dispatch/notification flag.
+    ``일출시간`` / ``일몰시간``
+        str "HH:MM:SS". ⚠ Confirmed 2026-09-16 (see the check script): these
+        are a single national value per calendar date, identical across every
+        row on that date regardless of the fire's address. Never use them as
+        the local sunrise/sunset for a specific fire location; compute local
+        solar times from coordinates instead, as the registry's known_issues
+        already state.
+
+    Known defects (see check_kfs_fire_state_history_csv.py for a re-run count)
+    -----------------------------------------------------------------------------
+    - 41 negative-duration rows (진화완료시간 earlier than 진화시작시간).
+    - Uiseong 2025 double-counted as two same-day records; apply the
+      K-SPREAD complex rule.
+    - 일출시간/일몰시간 are a national daily value, not local to the address.
+    - Portal ships CP949/EUC-KR, not UTF-8.
+
+    This function does no cleaning, no filtering and no derivation (no
+    duration column is added). It only decodes and returns the raw table.
+    """
+    import pandas as pd
+
+    csv_path = Path(path) if path is not None else DEFAULT_STATE_HISTORY_CSV
+    if not csv_path.exists():
+        raise FileNotFoundError(
+            f"{csv_path} not found. Registry id kfs_fire_state_history_csv; "
+            f"see research/data/REGISTRY.yaml for the source URL and "
+            f"checksum."
+        )
+    df = pd.read_csv(csv_path, encoding=ENCODING)
+    df.columns = [c.strip() for c in df.columns]
+    return df
