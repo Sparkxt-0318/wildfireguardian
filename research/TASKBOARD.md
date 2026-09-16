@@ -117,7 +117,7 @@ is the honest state of the program, not a scheduling delay.
 |---|---|
 | roads | WJ-017 the road layer will not download past a consent form, so there is no barrier layer at all. WJ-009 no pre-fire orthoimagery, so no width covariate, no error variance, no attenuation gate, no recoverability simulation, and no per-segment existence check. WJ-001 no keys, so no scenes and no detections |
 | landslides | WJ-001 no rainfall means no storm, so no risk set and no rows. No DEM means no unit. The 리 boundary layer is not even a registry entry yet |
-| suppression | the registered split refuses the committed extract outright, and A6 wrote the test that says so. The record must reach 2015 for one fold to exist and 2010 for the season ledger to mean anything |
+| suppression | the registered split refuses the committed extract outright, and A6 wrote the test that says so. The record must reach **2014**, not 2015, because the registered gate needs two folds and `max(0, Y-10)` folds on Y years means 12 years. 2015 gives one fold and leaves the gate shut. Corrected by A6 as condition C8 after the pre-registration, its data requirements and this board all carried 2015 |
 
 ## Process findings, recorded because they cost something
 
