@@ -580,3 +580,10 @@ outputs/dispatch_real_hazard/*/*/dispatch_a4.pdf
 !data/processed/benchmark/entrants/*/
 !data/processed/benchmark/entrants/*/*.json
 !data/processed/benchmark/entrants/*/*.npz
+# 3D booth replay (web/finals3d.html; docs/finals3d.md): the six per-node deadline runs and
+# the scene record the tests read. Small JSON, regenerable via scripts/build_finals3d.py.
+!data/processed/finals3d/
+!data/processed/finals3d/*.json
+# The page's build tooling: only its source, package.json and lockfile are tracked; the
+# bundle it emits (web/assets/finals3d/app.js) is committed so the booth needs no npm.
+web/src/finals3d/node_modules/

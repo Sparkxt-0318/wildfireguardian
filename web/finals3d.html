@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WildfireGuardian 3D · 영덕 2025</title>
+<style>
+@font-face { font-family: 'IBM Plex Sans KR'; font-weight: 400; src: url('assets/fonts/IBMPlexSansKR-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Sans KR'; font-weight: 600; src: url('assets/fonts/IBMPlexSansKR-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; src: url('assets/fonts/IBMPlexMono-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; src: url('assets/fonts/IBMPlexMono-SemiBold.woff2') format('woff2'); }
+:root {
+  --bg: #05070d; --panel: rgba(10, 14, 22, 0.86); --line: #2a3446; --ink: #eef2f7; --ink2: #b9c3d2;
+  --open: #4ade80; --unk: #fbbf24; --late: #f87171; --refuge: #67e8f9; --fc: #c4b5fd;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden;
+  font-family: 'IBM Plex Sans KR', system-ui, sans-serif; }
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.panel { position: fixed; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  backdrop-filter: blur(6px); }
+
+#brand { top: 16px; left: 16px; padding: 12px 16px; max-width: 360px; }
+#brand h1 { margin: 0; font-size: 15px; letter-spacing: 0.14em; font-weight: 600; }
+#brand p { margin: 4px 0 0; font-size: 13px; color: var(--ink2); }
+
+#clock { top: 16px; right: 16px; padding: 12px 18px; text-align: right; min-width: 210px; }
+#clock-hm { font-size: 44px; font-weight: 600; line-height: 1; }
+#clock-md { font-size: 14px; color: var(--ink2); margin-top: 4px; }
+#clock-rel { font-size: 13px; color: var(--ink2); }
+
+#gap { position: fixed; top: 18px; left: 50%; transform: translate(-50%, -140%); transition: transform .5s;
+  padding: 10px 18px; text-align: center; border-color: #7c5a12; }
+#gap.on { transform: translate(-50%, 0); }
+#gap b { color: var(--unk); font-size: 15px; }
+#gap div { font-size: 13px; color: var(--ink2); margin-top: 2px; }
+
+#counts { right: 16px; top: 140px; width: 300px; padding: 14px 16px; }
+#counts h2 { margin: 0 0 10px; font-size: 13px; font-weight: 600; color: var(--ink2); }
+.row { margin: 10px 0; }
+.row .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; }
+.row .n { font-size: 24px; font-weight: 600; }
+.bar { height: 6px; background: #1b2230; border-radius: 3px; margin-top: 5px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; transition: width .25s; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 7px; }
+#counts .foot { font-size: 12px; color: var(--ink2); margin-top: 10px; line-height: 1.5; }
+
+#speedbox { right: 16px; top: 420px; width: 300px; padding: 12px 16px; }
+#speedbox h2 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--ink2); }
+.btns { display: flex; gap: 6px; flex-wrap: wrap; }
+button { font: inherit; font-size: 13px; color: var(--ink); background: #141b27; border: 1px solid var(--line);
+  border-radius: 7px; padding: 7px 10px; cursor: pointer; }
+button:hover { border-color: #56657d; }
+button.on { background: #22304a; border-color: #8fb3ff; }
+#sp-note { font-size: 12px; color: var(--ink2); margin-top: 8px; }
+
+#legend { left: 16px; bottom: 112px; padding: 12px 16px; font-size: 13px; line-height: 1.9; max-width: 360px; }
+#legend .fc { display: none; }
+#legend .fc.on { display: block; }
+#layers { left: 16px; top: 104px; padding: 10px 14px; font-size: 13px; line-height: 1.9; }
+#layers label { display: block; cursor: pointer; }
+#views { left: 16px; top: 250px; padding: 10px 12px; }
+#views h2 { margin: 0 0 6px; font-size: 12px; color: var(--ink2); font-weight: 600; }
+
+#timeline { left: 16px; right: 16px; bottom: 16px; padding: 12px 16px 14px; display: flex; gap: 14px; align-items: center; }
+#tl-track { position: relative; flex: 1; height: 38px; cursor: pointer; touch-action: none; }
+#tl-track::before { content: ''; position: absolute; left: 0; right: 0; top: 22px; height: 4px; background: #253045; border-radius: 2px; }
+#tl-head { position: absolute; top: 12px; width: 3px; height: 24px; background: var(--ink); transform: translateX(-1px); border-radius: 2px; }
+.pass { position: absolute; top: 14px; width: 2px; height: 20px; background: var(--refuge); }
+.pass span { position: absolute; top: -14px; left: 4px; font-size: 11px; color: var(--refuge); white-space: nowrap; font-family: 'IBM Plex Mono', monospace; }
+.gap { position: absolute; top: 22px; height: 4px; background: repeating-linear-gradient(90deg, #7c5a12 0 6px, transparent 6px 10px); }
+.tl-ends { font-size: 12px; color: var(--ink2); white-space: nowrap; }
+
+#caption { position: fixed; left: 50%; bottom: 120px; transform: translateX(-50%); max-width: 820px; text-align: center;
+  font-size: 24px; font-weight: 600; text-shadow: 0 2px 12px #000, 0 0 3px #000; opacity: 0; transition: opacity .6s; pointer-events: none; }
+#caption.on { opacity: 1; }
+
+#card { right: 332px; top: 140px; width: 330px; padding: 14px 16px; display: none; }
+#card.on { display: block; }
+#card h3 { margin: 0 24px 6px 0; font-size: 14px; font-weight: 600; }
+#card .state { font-size: 18px; font-weight: 600; margin: 6px 0 8px; }
+#card .state.open { color: var(--open); } #card .state.unknown { color: var(--unk); } #card .state.late { color: var(--late); } #card .state.na { color: var(--ink2); }
+#card p { margin: 6px 0; font-size: 14px; line-height: 1.5; }
+#card .sub { color: var(--ink2); font-size: 12px; }
+#c-note { color: var(--unk); }
+#c-close { position: absolute; right: 8px; top: 8px; padding: 2px 8px; }
+
+#labels { position: fixed; inset: 0; pointer-events: none; }
+.lbl { position: absolute; left: 0; top: 0; font-size: 12px; padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+  background: rgba(5, 7, 13, 0.78); border: 1px solid var(--line); color: var(--ink); }
+.lbl.fire-st { color: #fecaca; border-color: #5b2323; }
+
+#flash { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 40%, rgba(220,245,255,0.55), rgba(120,200,255,0.12) 60%, transparent);
+  opacity: 0; display: flex; align-items: center; justify-content: center; }
+#flash span { font-size: 30px; font-weight: 600; color: #e0f7ff; text-shadow: 0 0 18px #0af; }
+#flash.go { animation: flash 2.2s ease-out; }
+@keyframes flash { 0% { opacity: 0; } 8% { opacity: 1; } 100% { opacity: 0; } }
+
+#intro { position: fixed; inset: 0; background: radial-gradient(circle at 50% 45%, rgba(20,10,5,0.55), rgba(3,4,8,0.94));
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: opacity 1.2s; z-index: 5; }
+#intro.off { opacity: 0; pointer-events: none; }
+#intro .d { font-size: 16px; letter-spacing: 0.2em; color: var(--ink2); }
+#intro h2 { font-size: 40px; margin: 14px 0 8px; font-weight: 600; }
+#intro p { font-size: 17px; color: var(--ink2); margin: 0 0 26px; max-width: 640px; line-height: 1.6; }
+#intro button { font-size: 18px; padding: 12px 30px; background: #3a1d0c; border-color: #f59e0b; }
+#foot { position: fixed; left: 50%; transform: translateX(-50%); bottom: 88px; font-size: 11px; color: var(--ink2); white-space: nowrap;
+  background: rgba(5,7,13,0.7); padding: 2px 8px; border-radius: 4px; pointer-events: none; }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="labels"></div>
+
+<div id="brand" class="panel">
+  <h1>WILDFIRE GUARDIAN 3D</h1>
+  <p>집마다 걸어서 나갈 수 있는 마지막 시각</p>
+</div>
+
+<div id="layers" class="panel">
+  <label><input type="checkbox" id="t-roads" checked> 도로 (닫히면 빨강)</label>
+  <label><input type="checkbox" id="t-smoke" checked> 연기와 불티</label>
+  <label><input type="checkbox" id="t-fc"> 모델 예측 겹쳐 보기</label>
+  <label><input type="checkbox" id="t-cap" checked> 자막</label>
+</div>
+
+<div id="views" class="panel">
+  <h2>시점</h2>
+  <div class="btns">
+    <button data-view="all">전체</button>
+    <button data-view="front">불길 앞</button>
+    <button data-view="coast">영덕읍</button>
+  </div>
+</div>
+
+<div id="clock" class="panel">
+  <div id="clock-hm" class="mono">21:25</div>
+  <div id="clock-md">3월 25일 밤</div>
+  <div id="clock-rel" class="mono">T+00:00</div>
+</div>
+
+<div id="gap" class="panel">
+  <b>위성 관측 공백</b>
+  <div>마지막 관측 뒤 <span id="gap-since" class="mono"></span> · 다음 관측까지 <span id="gap-left" class="mono"></span></div>
+</div>
+
+<div id="counts" class="panel">
+  <h2>주건물 <span id="n-tot" class="mono"></span>동, 지금 이 순간</h2>
+  <div class="row"><div class="top"><span><i class="sw" style="background:var(--open)"></i>걸어서 대피 가능</span><span id="n-open" class="n mono"></span></div><div class="bar"><i id="b-open" style="background:var(--open)"></i></div></div>
+  <div class="row"><div class="top"><span><i class="sw" style="background:var(--unk)"></i>위성으로는 판단 불가</span><span id="n-unk" class="n mono"></span></div><div class="bar"><i id="b-unk" style="background:var(--unk)"></i></div></div>
+  <div class="row"><div class="top"><span><i class="sw" style="background:var(--late)"></i>걸어서는 이미 늦음</span><span id="n-late" class="n mono"></span></div><div class="bar"><i id="b-late" style="background:var(--late)"></i></div></div>
+  <div class="foot">도로명주소 주건물 기준. 불이 위성에 처음 잡힌 시각과 그 직전 관측 시각 사이 어디든 가능하다고 보고, 두 경우 모두 계산했습니다.</div>
+</div>
+
+<div id="speedbox" class="panel">
+  <h2>걷는 속도</h2>
+  <div class="btns">
+    <button data-speed="1.2">일반 1.2 m/s</button>
+    <button data-speed="0.7">고령 0.7 m/s</button>
+    <button data-speed="0.5">거동 불편 0.5 m/s</button>
+  </div>
+  <div id="sp-note"></div>
+</div>
+
+<div id="card" class="panel">
+  <button id="c-close">닫기</button>
+  <h3 id="c-where"></h3>
+  <div class="sub">걷는 속도: <span id="c-speed"></span></div>
+  <div id="c-state" class="state"></div>
+  <p id="c-dead"></p>
+  <p id="c-walk" class="sub"></p>
+  <p id="c-note"></p>
+</div>
+
+<div id="legend" class="panel">
+  <div><i class="sw" style="background:#fb923c"></i>불: 위성이 확인한 곳 (오래되면 검게 탐)</div>
+  <div><i class="sw" style="background:#4b3f38"></i>흐린 연기: 위성이 보지 못한 사이 불이 있었을 수 있는 곳</div>
+  <div><i class="sw" style="background:var(--refuge)"></i>대피소 (OSM)</div>
+  <div><i class="sw" style="background:var(--open)"></i><i class="sw" style="background:var(--unk)"></i><i class="sw" style="background:var(--late)"></i>집: 걸어서 대피 가능 · 판단 불가 · 이미 늦음</div>
+  <div class="fc" id="fc-legend"><i class="sw" style="background:var(--fc)"></i>보라 빗금: 모델이 예측한 확산 (사후 재현)</div>
+</div>
+
+<div id="caption"></div>
+
+<div id="timeline" class="panel">
+  <button id="guide">안내 시연</button>
+  <button id="play">재생</button>
+  <button id="restart">처음부터</button>
+  <div class="btns"><button data-rate="3">느리게</button><button data-rate="6" class="on">보통</button><button data-rate="15">빠르게</button></div>
+  <span id="tl-start" class="tl-ends mono"></span>
+  <div id="tl-track"><div id="tl-head"></div></div>
+  <span id="tl-end" class="tl-ends mono"></span>
+</div>
+<div id="foot">재생 모드 · 2025년 3월 25일 영덕 산불의 위성 관측(FIRMS)을 다시 그린 것이며 실시간 예측이 아닙니다 · 보행망 OSM · 지형 SRTM</div>
+
+<div id="flash"><span id="flash-t"></span></div>
+
+<div id="intro">
+  <div class="d">2025. 3. 25 · 경상북도 영덕군</div>
+  <h2>그날 밤, 이 집들은 언제까지 걸어서 나갈 수 있었을까</h2>
+  <p>위성이 실제로 본 불의 기록과 실제 도로, 실제 건물로 다시 그린 3D 재생입니다.</p>
+  <div class="btns" style="justify-content:center"><button id="start">직접 탐색</button><button id="start-guide">안내 시연으로 시작</button></div>
+</div>
+
+<script src="assets/finals3d/data.js"></script>
+<script src="assets/finals3d/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "wfg-finals3d",
+  "private": true,
+  "version": "0.1.0",
+  "description": "3D booth replay of the 2025-03-25 Yeongdeok night (web/finals3d.html). Bundled to one offline file.",
+  "scripts": {
+    "build": "esbuild main.js --bundle --format=iife --minify --target=es2020 --legal-comments=none --outfile=../../assets/finals3d/app.js"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
+  }
+}

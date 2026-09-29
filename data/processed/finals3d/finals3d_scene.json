@@ -1,0 +1,129 @@
+{
+ "schema_version": 1,
+ "title": "3D booth replay scene: what the page draws, counted here",
+ "generated_utc": "2026-09-29T11:25:24Z",
+ "git_commit": "f6641bc15de51c1e189ffcb49199f85813e032c3",
+ "rule": "Data for the 3D booth replay (web/finals3d.html): the 2025-03-25 영덕 night, rebuilt from\ncommitted evidence only, with every building's walk-out deadline bracketed by what the\nsatellites actually saw.\n\nRule (declared before the run; proposed by the author's review session 2026-09-29):\n\n* Fire. The observed cumulative footprint ``obs_stack`` of\n  ``data/processed/routing_demo_canonical.npz`` (500 m cells, overpasses at ``obs_times``\n  minutes after T0 = 2025-03-25 12:25 UTC = 21:25 KST). A cell first detected at pass k\n  was not detected at pass k-1, so its arrival lies in (t[k-1], t[k]] (miss allowance 0).\n  Never detected = never burned (the A4 assumption of docs/regrade_three_way.md).\n* Two readings of that one observation, both HazardSequences that step:\n  - ``R`` (optimistic, \"as late as the record allows\"): burning from t[k], the time it was\n    seen. This is ``score_kspread.step_hazard_from_observation``, unchanged.\n  - ``L`` (pessimistic, \"as early as the record allows\"): burning from just after t[k-1].\n* Deadline. For each building-origin walk node (the fixed 19,250-building population of\n  ``score_kspread.building_nodes``), LSD = ``measure_last_safe_departure.lsd_search``:\n  the latest departure on the 10-min grid, <= 600 min, at which the committed time-aware\n  search still reaches a refuge without entering a burning cell. -1 = never. Run under\n  R and under L, so the true walk-out deadline of every history consistent with the\n  record lies between LSD_L and LSD_R (up to the 10-min grid and the router's bilinear\n  sampling, which docs/regrade_three_way.md §A5 describes).\n* Walking speed. The committed network rule (60 m slope sampling, |slope| <= 0.6,\n  Tobler scaling) at three flat speeds: 1.2 m/s (assumed general adult), 0.7 m/s (the\n  committed elderly value, config/default.yaml ``pedestrian.elderly_flat_speed_ms``) and\n  0.5 m/s (assumed frail). Only the speed changes between runs.\n\nThis is a hindcast replay of observations, not a forecast; the page says so. The model\nforecast (``haz_stack``) is carried beside it only as an optional overlay. Nothing\ncommitted is modified; outputs are new files.\n\n    python scripts/build_finals3d.py lsd --bound R --speed 0.7   # one sweep (~minutes)\n    python scripts/build_finals3d.py assemble                     # scene + web payload\n",
+ "web_payload": "web/assets/finals3d/data.js",
+ "web_payload_sha256": "61e2aae142044ca2bad33fe24bb632dd295b2f93ee3089f17eec9fc8dfc27377",
+ "roi_5179": [
+  1153440.0,
+  1809810.0,
+  1178010.0,
+  1849680.0
+ ],
+ "terrain_grid": [
+  274,
+  444
+ ],
+ "terrain_step_m": 90.0,
+ "buildings_in_roi": 19959,
+ "buildings_routable_in_roi": 19250,
+ "buildings_routable_total": 19250,
+ "nodes": 4970,
+ "road_segments": 92026,
+ "refuges_in_roi": 50,
+ "status_rule": "too_late if LSD_R < 0 or t > LSD_R; walk_out_open if LSD_L >= 0 and t <= LSD_L; else undetermined",
+ "status_counts_buildings": {
+  "1.2": {
+   "0": {
+    "walk_out_open": 15524,
+    "undetermined": 3536,
+    "too_late": 190
+   },
+   "60": {
+    "walk_out_open": 15354,
+    "undetermined": 3706,
+    "too_late": 190
+   },
+   "180": {
+    "walk_out_open": 15354,
+    "undetermined": 3703,
+    "too_late": 193
+   },
+   "332": {
+    "walk_out_open": 15351,
+    "undetermined": 3,
+    "too_late": 3896
+   },
+   "334": {
+    "walk_out_open": 15351,
+    "undetermined": 3,
+    "too_late": 3896
+   },
+   "600": {
+    "walk_out_open": 15351,
+    "undetermined": 3,
+    "too_late": 3896
+   },
+   "bracket_violations": 0
+  },
+  "0.7": {
+   "0": {
+    "walk_out_open": 15323,
+    "undetermined": 3737,
+    "too_late": 190
+   },
+   "60": {
+    "walk_out_open": 15154,
+    "undetermined": 3906,
+    "too_late": 190
+   },
+   "180": {
+    "walk_out_open": 15154,
+    "undetermined": 3815,
+    "too_late": 281
+   },
+   "332": {
+    "walk_out_open": 15151,
+    "undetermined": 3,
+    "too_late": 4096
+   },
+   "334": {
+    "walk_out_open": 15151,
+    "undetermined": 3,
+    "too_late": 4096
+   },
+   "600": {
+    "walk_out_open": 15151,
+    "undetermined": 3,
+    "too_late": 4096
+   },
+   "bracket_violations": 0
+  },
+  "0.5": {
+   "0": {
+    "walk_out_open": 15191,
+    "undetermined": 3762,
+    "too_late": 297
+   },
+   "60": {
+    "walk_out_open": 15025,
+    "undetermined": 3844,
+    "too_late": 381
+   },
+   "180": {
+    "walk_out_open": 15025,
+    "undetermined": 3330,
+    "too_late": 895
+   },
+   "332": {
+    "walk_out_open": 15022,
+    "undetermined": 3,
+    "too_late": 4225
+   },
+   "334": {
+    "walk_out_open": 15022,
+    "undetermined": 3,
+    "too_late": 4225
+   },
+   "600": {
+    "walk_out_open": 15022,
+    "undetermined": 3,
+    "too_late": 4225
+   },
+   "bracket_violations": 0
+  }
+ },
+ "seconds": 39.8
+}

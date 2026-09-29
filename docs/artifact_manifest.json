@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "48df9ae442c99a572307892f5132bf1506634f39",
-  "n_artifacts": 146,
-  "total_bytes": 27002767,
-  "total_mib": 25.75,
-  "n_git_tracked": 146,
+  "generated_at_git_commit": "f6641bc15de51c1e189ffcb49199f85813e032c3",
+  "n_artifacts": 148,
+  "total_bytes": 27024295,
+  "total_mib": 25.77,
+  "n_git_tracked": 148,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 14,
+  "n_regenerate_unknown": 15,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -118,6 +118,18 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/benchmark/results_v0.1.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/benchmark/leaderboard_v0_2.json",
+      "bytes": 16595,
+      "sha256": "e9bb01eb175e7fedd65f4e127004bb13ec9509b6507805e6a0fe36db186b77dc",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/finals3d.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -666,6 +678,18 @@
         "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/measure_field_road_closure.py"
+    },
+    {
+      "path": "data/processed/finals3d/finals3d_scene.json",
+      "bytes": 4933,
+      "sha256": "52883c1867f8971a532e4e07f2a0c796040e9332d9e83b21b7f81ddb8e703809",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/finals3d.md"
+      ],
+      "regenerate": "python scripts/build_finals3d.py"
     },
     {
       "path": "data/processed/footprint_components/footprint_components_20260912T1602Z.json",
@@ -1426,6 +1450,7 @@
         "docs/benchmark/stage2_proxy_rules.md",
         "docs/corridor_convergence_check.md",
         "docs/corridor_treatment_atlas.md",
+        "docs/finals3d.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
