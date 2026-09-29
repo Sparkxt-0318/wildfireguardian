@@ -16,8 +16,8 @@
     },
     {
       "path": "README_KO.md",
-      "sha256": "690259d147fc9014216941ad25e620e011c0b8d7758899702292e42cc63e48fe",
-      "bytes": 7414,
+      "sha256": "c11ae1b62bf5bd326632614c9ab6c9230664a7975098671f1ddf2255c148f655",
+      "bytes": 7718,
       "source": "release/kcf-finals-2026/README_KO.md"
     },
     {
@@ -37,6 +37,18 @@
       "sha256": "446ee4d4381e7f625e4e225a155dded5db8c7ca88530ec8a9219c93c53ce0bfb",
       "bytes": 5626,
       "source": "docs/auto/finals/printables/manifest_20260914T1349Z.json"
+    },
+    {
+      "path": "web/assets/finals3d/app.js",
+      "sha256": "16e8c63a91cd5f7c234b69d39f229d461fef1edd9af86a36f6af53b86350883e",
+      "bytes": 559556,
+      "source": "web/assets/finals3d/app.js"
+    },
+    {
+      "path": "web/assets/finals3d/data.js",
+      "sha256": "61e2aae142044ca2bad33fe24bb632dd295b2f93ee3089f17eec9fc8dfc27377",
+      "bytes": 2363927,
+      "source": "web/assets/finals3d/data.js"
     },
     {
       "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",
@@ -109,6 +121,12 @@
       "sha256": "2e2f5e2b2cb57c0c4e6e013b3e670219ee7a182dcdcb99cac5aa973a24343eb0",
       "bytes": 2116083,
       "source": "web/finals.html"
+    },
+    {
+      "path": "web/finals3d.html",
+      "sha256": "a900a4a2b71c08e9a31dc6977196d771bc36c3010bc46d4b9726c9537d30947f",
+      "bytes": 12417,
+      "source": "web/finals3d.html"
     },
     {
       "path": "web/refuge_placement.html",

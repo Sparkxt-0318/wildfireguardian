@@ -57,6 +57,9 @@ MANIFEST = BUNDLE / "MANIFEST.json"
 #: shipping a bundle with a hole in it.
 PAYLOAD: tuple[tuple[str, str], ...] = (
     ("web/finals.html", "web/finals.html"),
+    # The 3D replay of the 영덕 night (docs/finals3d.md); its data and bundled engine
+    # travel under web/assets/finals3d/, which the web/assets entry already copies.
+    ("web/finals3d.html", "web/finals3d.html"),
     ("web/console.html", "web/console.html"),
     ("web/field_view.html", "web/field_view.html"),
     ("web/refuge_placement.html", "web/refuge_placement.html"),
