@@ -1,0 +1,10 @@
+{
+  "delivered_source_files": 100,
+  "delivered_source_mismatches": [],
+  "upstream_manifest_files": 255,
+  "upstream_manifest_mismatches": [],
+  "byte_identical_validation": true,
+  "byte_identical_independent": true,
+  "byte_identical_core_after_admission": true,
+  "dependencies_added": []
+}

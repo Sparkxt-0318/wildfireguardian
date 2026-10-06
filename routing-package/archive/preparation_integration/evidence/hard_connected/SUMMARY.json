@@ -1,0 +1,177 @@
+{
+  "rows": 18,
+  "pairs": 9,
+  "errors": [],
+  "semantic_disagreements": [],
+  "deterministic_metric_disagreements": [],
+  "extra_witness_checks": 12,
+  "extra_witness_failures": [],
+  "nested_status_counts": {
+    "baseline:ACCEPTED_UPDATE": 18,
+    "baseline:CHECKED_ROUTE": 6,
+    "baseline:RESET": 6,
+    "baseline:TIMEOUT": 18,
+    "candidate:ACCEPTED_UPDATE": 18,
+    "candidate:CHECKED_ROUTE": 6,
+    "candidate:RESET": 6,
+    "candidate:TIMEOUT": 18
+  },
+  "summary": [
+    {
+      "scope": "full_road_connected_diagnostic",
+      "mode": "cold_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 10.564240166997479,
+        "candidate": 3.002076750002743,
+        "paired_ratio": 0.2841734665765347
+      },
+      "process_s": {
+        "baseline": 10.59627462500066,
+        "candidate": 3.033546040998772,
+        "paired_ratio": 0.2862842034918081
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 130990080,
+        "candidate": 154632192
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.28615517647329763,
+        0.2841734665765347,
+        0.28321923191449433
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 10.564216500002658,
+          "candidate": 3.00205575000291
+        },
+        "first_request_s": {
+          "baseline": 5.41847395899822,
+          "candidate": 0.3072772499945131
+        },
+        "initial_hazard_s": {
+          "baseline": 2.548136459001398,
+          "candidate": 0.014546833001077175
+        },
+        "initialization_s": {
+          "baseline": 2.557589125004597,
+          "candidate": 2.640390042004583
+        },
+        "parse_s": {
+          "baseline": 0.03040829200472217,
+          "candidate": 0.03031741700397106
+        },
+        "reset_s": {
+          "baseline": 1.237499964190647e-05,
+          "candidate": 1.3165998097974807e-05
+        }
+      }
+    },
+    {
+      "scope": "full_road_connected_diagnostic",
+      "mode": "repeated_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 21.53594087500096,
+        "candidate": 3.6042925829970045,
+        "paired_ratio": 0.1661929976120895
+      },
+      "process_s": {
+        "baseline": 21.568436417001067,
+        "candidate": 3.6427528749991325,
+        "paired_ratio": 0.16770083088753063
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 135806976,
+        "candidate": 158105600
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.16585972539317295,
+        0.1661929976120895,
+        0.16894304252195735
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 10.660607790996437,
+          "candidate": 3.018154749996029
+        },
+        "first_request_s": {
+          "baseline": 5.482421166998392,
+          "candidate": 0.30868249999912223
+        },
+        "initial_hazard_s": {
+          "baseline": 2.562101083000016,
+          "candidate": 0.014585666998755187
+        },
+        "initialization_s": {
+          "baseline": 2.578725500003202,
+          "candidate": 2.6511403749973397
+        },
+        "parse_s": {
+          "baseline": 0.030351334004080854,
+          "candidate": 0.030405542005610187
+        },
+        "reset_s": {
+          "baseline": 1.2958000297658145e-05,
+          "candidate": 1.4500001270789653e-05
+        },
+        "warm_request_0_s": {
+          "baseline": 5.430616582998482,
+          "candidate": 0.2913515840045875
+        },
+        "warm_request_1_s": {
+          "baseline": 5.444671625002229,
+          "candidate": 0.2947547500007204
+        }
+      }
+    },
+    {
+      "scope": "full_road_connected_diagnostic",
+      "mode": "return_fallback",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 20.599078375002136,
+        "candidate": 2.7897923749987967,
+        "paired_ratio": 0.1353777961437364
+      },
+      "process_s": {
+        "baseline": 20.63135804200283,
+        "candidate": 2.820933540999249,
+        "paired_ratio": 0.1366967152263066
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 124190720,
+        "candidate": 132136960
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.14266351143466152,
+        0.13413323357849505,
+        0.1353777961437364
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "first_primary_and_return_s": {
+          "baseline": 10.298137792000489,
+          "candidate": 0.05630529199697776
+        },
+        "initialization_s": {
+          "baseline": null,
+          "candidate": 2.6355754999967758
+        },
+        "parse_s": {
+          "baseline": 0.030358416996023152,
+          "candidate": 0.030558250000467524
+        },
+        "warm_primary_and_return_s": {
+          "baseline": 10.263295208002091,
+          "candidate": 0.05686550000245916
+        }
+      }
+    }
+  ]
+}

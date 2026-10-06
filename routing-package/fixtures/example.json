@@ -1,0 +1,362 @@
+{
+  "graph": {
+    "revision": "labelled-fixture-road-v1",
+    "crs": "EPSG:5179",
+    "grid": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "resolution": 10.0,
+      "width": 4,
+      "height": 2
+    },
+    "nodes": [
+      {
+        "id": "O",
+        "x": 5.0,
+        "y": 5.0,
+        "waitable": false
+      },
+      {
+        "id": "A",
+        "x": 15.0,
+        "y": 5.0,
+        "waitable": true
+      },
+      {
+        "id": "D",
+        "x": 25.0,
+        "y": 5.0,
+        "waitable": false
+      },
+      {
+        "id": "B",
+        "x": 15.0,
+        "y": 15.0,
+        "waitable": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "OA",
+        "u": "O",
+        "v": "A",
+        "travel_ticks": 2,
+        "reverse_edge": "AO",
+        "segments": [
+          {
+            "cell": 0,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 1,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "AO",
+        "u": "A",
+        "v": "O",
+        "travel_ticks": 2,
+        "reverse_edge": "OA",
+        "segments": [
+          {
+            "cell": 1,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 0,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "AD",
+        "u": "A",
+        "v": "D",
+        "travel_ticks": 2,
+        "reverse_edge": "DA",
+        "segments": [
+          {
+            "cell": 1,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 2,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "DA",
+        "u": "D",
+        "v": "A",
+        "travel_ticks": 2,
+        "reverse_edge": "AD",
+        "segments": [
+          {
+            "cell": 2,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 1,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "OB",
+        "u": "O",
+        "v": "B",
+        "travel_ticks": 3,
+        "reverse_edge": "BO",
+        "segments": [
+          {
+            "cell": 0,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 5,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "BO",
+        "u": "B",
+        "v": "O",
+        "travel_ticks": 3,
+        "reverse_edge": "OB",
+        "segments": [
+          {
+            "cell": 5,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 0,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "BD",
+        "u": "B",
+        "v": "D",
+        "travel_ticks": 3,
+        "reverse_edge": "DB",
+        "segments": [
+          {
+            "cell": 5,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 2,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      },
+      {
+        "id": "DB",
+        "u": "D",
+        "v": "B",
+        "travel_ticks": 3,
+        "reverse_edge": "BD",
+        "segments": [
+          {
+            "cell": 2,
+            "start": 0.0,
+            "end": 0.5
+          },
+          {
+            "cell": 5,
+            "start": 0.5,
+            "end": 1.0
+          }
+        ]
+      }
+    ],
+    "forbidden_turns": [],
+    "mid_edge_reversal": false
+  },
+  "hazard": {
+    "schema": "wfg.routing.edgegrid/1",
+    "version": 1,
+    "graph_revision": "labelled-fixture-road-v1",
+    "crs": "EPSG:5179",
+    "grid": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "resolution": 10.0,
+      "width": 4,
+      "height": 2
+    },
+    "dt": 1.0,
+    "time_origin": "2026-10-04T00:00:00+08:00",
+    "issued_at": "2026-10-04T00:00:00+08:00",
+    "available_at": "2026-10-04T00:00:00+08:00",
+    "valid_from": 0.0,
+    "valid_until": 30.0,
+    "units": {
+      "time": "s",
+      "flux": "kW/m2",
+      "dose": "kJ/m2"
+    },
+    "evidence_class": "LABELLED_FIXTURE",
+    "provenance": {
+      "source": "local deterministic example",
+      "interpretation": "generated incident heat-flux proxy, not forecast/physical truth"
+    },
+    "channels": [
+      "flame_contact",
+      "incident_heat_flux"
+    ],
+    "unsupported_channels": [
+      "embers",
+      "secondary_ignition"
+    ],
+    "members": [
+      {
+        "id": "m0",
+        "breakpoints": [
+          0.0,
+          30.0
+        ],
+        "flux": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "flame": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ],
+        "support": [
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        ]
+      },
+      {
+        "id": "m1",
+        "breakpoints": [
+          0.0,
+          30.0
+        ],
+        "flux": [
+          [
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0
+          ]
+        ],
+        "flame": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ],
+        "support": [
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        ]
+      }
+    ]
+  },
+  "request": {
+    "position": {
+      "node": "O"
+    },
+    "incoming_edge": null,
+    "departure": 0.0,
+    "horizon": 20.0,
+    "destinations": [
+      {
+        "node": "D",
+        "dwell": 2.0,
+        "open_intervals": [
+          [
+            0.0,
+            30.0
+          ]
+        ]
+      }
+    ],
+    "incurred": {
+      "m0": 0.0,
+      "m1": 0.0
+    },
+    "hazard_version": 1,
+    "as_of": "2026-10-04T00:00:00+08:00",
+    "objective": "earliest_arrival",
+    "exposure_scope": "route_only",
+    "budgets": {
+      "peak": 10.0,
+      "dose": {
+        "m0": 25.0,
+        "m1": 25.0
+      }
+    },
+    "limits": {
+      "wall_s": 5.0,
+      "max_labels": 100000,
+      "max_expansions": 100000,
+      "frontier_width": 4096
+    },
+    "solver": "baseline"
+  }
+}

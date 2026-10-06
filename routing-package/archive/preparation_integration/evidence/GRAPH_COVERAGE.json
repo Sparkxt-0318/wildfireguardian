@@ -1,0 +1,344 @@
+{
+  "baseline": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"project\":\"routing-delivery-20261004-v1\",\"signal\":\"best_effort\",\"indexed_at\":\"2026-10-03T18:42:08Z\",\"metadata\":{\"generation\":\"2026-10-03T18:42:08Z\",\"index_mode\":\"fast\",\"recorded_at\":\"2026-10-03T18:42:08Z\",\"recording_status\":\"complete\",\"ignored_files_stored\":0,\"ignored_files_total\":0,\"hash_records_complete\":true,\"coverage_version\":3,\"generation_matches\":true},\"paths\":[{\"requested_path\":\"routing/session.py\",\"path\":\"routing/session.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/core.py\",\"path\":\"routing/core.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/validation.py\",\"path\":\"routing/validation.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/independent.py\",\"path\":\"routing/independent.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fallback.py\",\"path\":\"routing/fallback.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/service.py\",\"path\":\"routing/service.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/replay.py\",\"path\":\"routing/replay.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"run.py\",\"path\":\"run.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fixture.py\",\"path\":\"routing/fixture.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]}],\"scopes\":[{\"requested_scope\":\"tests\",\"scope\":\"tests\",\"total\":1,\"has_more\":false,\"entries\":[{\"path\":\"tests/__pycache__\",\"kind\":\"not_indexed_dir\",\"detail\":\"excluded subtree\"}],\"status\":\"known_gaps\"}],\"caveat\":\"Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable.\"}"
+      }
+    ],
+    "structuredContent": {
+      "project": "routing-delivery-20261004-v1",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-03T18:42:08Z",
+      "metadata": {
+        "generation": "2026-10-03T18:42:08Z",
+        "index_mode": "fast",
+        "recorded_at": "2026-10-03T18:42:08Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 0,
+        "ignored_files_total": 0,
+        "hash_records_complete": true,
+        "coverage_version": 3,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "routing/session.py",
+          "path": "routing/session.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/core.py",
+          "path": "routing/core.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/validation.py",
+          "path": "routing/validation.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/independent.py",
+          "path": "routing/independent.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fallback.py",
+          "path": "routing/fallback.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/service.py",
+          "path": "routing/service.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/replay.py",
+          "path": "routing/replay.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "run.py",
+          "path": "run.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fixture.py",
+          "path": "routing/fixture.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "scopes": [
+        {
+          "requested_scope": "tests",
+          "scope": "tests",
+          "total": 1,
+          "has_more": false,
+          "entries": [
+            {
+              "path": "tests/__pycache__",
+              "kind": "not_indexed_dir",
+              "detail": "excluded subtree"
+            }
+          ],
+          "status": "known_gaps"
+        }
+      ],
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    },
+    "isError": false
+  },
+  "candidate_initial": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"project\":\"routing-preparation-integration-20261005\",\"signal\":\"best_effort\",\"indexed_at\":\"2026-10-05T07:22:25Z\",\"metadata\":{\"generation\":\"2026-10-05T07:22:25Z\",\"index_mode\":\"fast\",\"recorded_at\":\"2026-10-05T07:22:25Z\",\"recording_status\":\"complete\",\"ignored_files_stored\":0,\"ignored_files_total\":0,\"hash_records_complete\":true,\"coverage_version\":3,\"generation_matches\":true},\"paths\":[{\"requested_path\":\"routing/session.py\",\"path\":\"routing/session.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/prepared.py\",\"path\":\"routing/prepared.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/core.py\",\"path\":\"routing/core.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fallback.py\",\"path\":\"routing/fallback.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/service.py\",\"path\":\"routing/service.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/replay.py\",\"path\":\"routing/replay.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/validation.py\",\"path\":\"routing/validation.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/independent.py\",\"path\":\"routing/independent.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fixture.py\",\"path\":\"routing/fixture.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"run.py\",\"path\":\"run.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]}],\"scopes\":[],\"caveat\":\"Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable.\"}"
+      }
+    ],
+    "structuredContent": {
+      "project": "routing-preparation-integration-20261005",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-05T07:22:25Z",
+      "metadata": {
+        "generation": "2026-10-05T07:22:25Z",
+        "index_mode": "fast",
+        "recorded_at": "2026-10-05T07:22:25Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 0,
+        "ignored_files_total": 0,
+        "hash_records_complete": true,
+        "coverage_version": 3,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "routing/session.py",
+          "path": "routing/session.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/prepared.py",
+          "path": "routing/prepared.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/core.py",
+          "path": "routing/core.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fallback.py",
+          "path": "routing/fallback.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/service.py",
+          "path": "routing/service.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/replay.py",
+          "path": "routing/replay.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/validation.py",
+          "path": "routing/validation.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/independent.py",
+          "path": "routing/independent.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fixture.py",
+          "path": "routing/fixture.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "run.py",
+          "path": "run.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "scopes": [],
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    },
+    "isError": false
+  },
+  "candidate_final": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"project\":\"routing-preparation-integration-20261005\",\"signal\":\"best_effort\",\"indexed_at\":\"2026-10-05T07:32:37Z\",\"metadata\":{\"generation\":\"2026-10-05T07:32:37Z\",\"index_mode\":\"fast\",\"recorded_at\":\"2026-10-05T07:38:34Z\",\"recording_status\":\"complete\",\"ignored_files_stored\":0,\"ignored_files_total\":0,\"hash_records_complete\":true,\"coverage_version\":3,\"generation_matches\":true},\"paths\":[{\"requested_path\":\"routing/session.py\",\"path\":\"routing/session.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/prepared.py\",\"path\":\"routing/prepared.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/core.py\",\"path\":\"routing/core.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fallback.py\",\"path\":\"routing/fallback.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/service.py\",\"path\":\"routing/service.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/replay.py\",\"path\":\"routing/replay.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/validation.py\",\"path\":\"routing/validation.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/independent.py\",\"path\":\"routing/independent.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fixture.py\",\"path\":\"routing/fixture.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"run.py\",\"path\":\"run.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_prepared.py\",\"path\":\"tests/test_prepared.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]}],\"scopes\":[],\"caveat\":\"Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable.\"}"
+      }
+    ],
+    "structuredContent": {
+      "project": "routing-preparation-integration-20261005",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-05T07:32:37Z",
+      "metadata": {
+        "generation": "2026-10-05T07:32:37Z",
+        "index_mode": "fast",
+        "recorded_at": "2026-10-05T07:38:34Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 0,
+        "ignored_files_total": 0,
+        "hash_records_complete": true,
+        "coverage_version": 3,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "routing/session.py",
+          "path": "routing/session.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/prepared.py",
+          "path": "routing/prepared.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/core.py",
+          "path": "routing/core.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fallback.py",
+          "path": "routing/fallback.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/service.py",
+          "path": "routing/service.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/replay.py",
+          "path": "routing/replay.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/validation.py",
+          "path": "routing/validation.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/independent.py",
+          "path": "routing/independent.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fixture.py",
+          "path": "routing/fixture.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "run.py",
+          "path": "run.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_prepared.py",
+          "path": "tests/test_prepared.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "scopes": [],
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    },
+    "isError": false
+  }
+}

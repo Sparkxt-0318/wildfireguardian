@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "method": "locked fresh baseline copy; patch -p1 --batch; full expected byte checks; patched run.py check",
+  "changed_files_checked": 28,
+  "mismatches": [],
+  "package_tests": 84,
+  "code_hashes_checked": 21,
+  "raw_prepared_replay_equal_and_deterministic": true,
+  "full_road_witness_checked": true
+}

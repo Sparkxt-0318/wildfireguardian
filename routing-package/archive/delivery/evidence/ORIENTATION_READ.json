@@ -1,0 +1,2025 @@
+{
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_completion_20261003_v1/FORECAST_ROUTING_HANDOFF.md": {
+    "sha256": "8745dea673a4aa5107fec9910e05b0d86926314f7233de57d96eb32fd597d162",
+    "bytes": 3021,
+    "headings": [
+      "# Forecast-to-routing handoff 0.1 \u2014 experimental interface"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_completion_20261003_v1/REPORT.md": {
+    "sha256": "0ea8bdf5e945d7357e1057761aa6f25bfce9899826f2b1f6c2fd381370cb1828",
+    "bytes": 10564,
+    "headings": [
+      "# Routing completion experiments \u2014 3 October 2026",
+      "## Results verified from saved rows and fresh runs",
+      "## What changed, and why the certificates work",
+      "## Budget and event-count caveat",
+      "## Adversarial finding and repair",
+      "## Figures and forecast handoff",
+      "## Contribution discussion after this stage",
+      "## Reproduce"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_controlled_validation_20261003_v1/CLAUDE_REVIEW_PROMPT.md": {
+    "sha256": "0910d955dfe051cb89cbaeae3551cf98dc01020cc10708d717ce03b27b111daf",
+    "bytes": 6219,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_controlled_validation_20261003_v1/FRESH_CASES_FROZEN.json": {
+    "sha256": "5d5e8152a6c9df3a7efd22ff657f2edd29e4ee1975c34664dc0575eb6b69b242",
+    "bytes": 5734,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_controlled_validation_20261003_v1/MATHEMATICS.md": {
+    "sha256": "3db6cc49ff8d52e18c87dd32539c72ed2eb16b4ce40de1c5f9d06c451add5267",
+    "bytes": 4004,
+    "headings": [
+      "# Mathematical contract and what this run changed"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_controlled_validation_20261003_v1/PROTOCOL.md": {
+    "sha256": "4ce3c83dbe0a7a923a36bdd0b18847e601398e1ac91e5209049530520530145e",
+    "bytes": 3280,
+    "headings": [
+      "# Controlled routing validation \u2014 protocol fixed before this run",
+      "## Exploratory bound/tie-order follow-up, fixed after first cached road failure"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_controlled_validation_20261003_v1/REPORT.md": {
+    "sha256": "dc719a8aeaa920f1f50408a780bbf53e3c8e8dda33bab55a7d8cc57a41452aa1",
+    "bytes": 8646,
+    "headings": [
+      "# Controlled routing validation \u2014 3 October 2026",
+      "## Decision",
+      "## Controlled results",
+      "## Measured bottlenecks",
+      "## Successful route and practicality gap",
+      "## Mathematics and claim limits",
+      "## Reproduction and provenance",
+      "## Next discussion and Claude review"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_diagnosis_20261003_v1/DIAGNOSIS.md": {
+    "sha256": "c36aa0c007ad991a746b574ca5bb2d7463e8c2bf6fc5757f1a1be3bb883cf6e6",
+    "bytes": 7046,
+    "headings": [
+      "# Routing novelty diagnosis \u2014 2026-10-03",
+      "## Verified findings",
+      "## Interpretation",
+      "## Recommended sequence (PROPOSED, not additional owner-approved experiments)",
+      "## Primary research grounding"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/FORECAST_HANDOFF.md": {
+    "sha256": "7ced11f3a06c76d1450e430a9810056163f292fa7875d002f88d72095c6656fa",
+    "bytes": 2276,
+    "headings": [
+      "# Mentor forecast handoff: routing interface draft"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/MATHEMATICAL_SCOPE.md": {
+    "sha256": "8ec3ff8d91718d12925ba9d218293e68a21667ec27fa43bd57d74fcb3aa8130c",
+    "bytes": 2239,
+    "headings": [
+      "# Selective exposure activation: claim boundary"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/NEXT_GATES.md": {
+    "sha256": "2019d763451cd4a99684db5ea322f931a8564b9ea497e58be208dc6360791564",
+    "bytes": 2892,
+    "headings": [
+      "# Gates still needed before a superiority or real-fire claim"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/PROTOCOL.md": {
+    "sha256": "e616fb651f787f64c352dcc4209d5e5e9a058dfa89788bdf93ac41c8f6695b9d",
+    "bytes": 2929,
+    "headings": [
+      "# Routing novelty validation: pre-run protocol",
+      "## Controlled road diagnostic, fixed before reruns",
+      "## Exploratory follow-up to observed lazy regressions"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/REAL_VS_ASSUMED.md": {
+    "sha256": "b9b19d15c26b4ad7de2d5399c97e0f83ce1652e572764501b4f2786f00e28bd8",
+    "bytes": 2914,
+    "headings": [
+      "# What is real, derived, simulated, or unavailable?"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_novelty_validation_20261003_v1/REPORT.md": {
+    "sha256": "6fd51dc1583122f69747d203748c73fb76eed9948f6c0fc952dbc82e56092b9e",
+    "bytes": 5811,
+    "headings": [
+      "# Routing novelty validation \u2014 2026-10-03",
+      "## Independently recomputed small problems",
+      "## Controlled exposed-road diagnostic",
+      "## Lazy evaluator and forecast interface",
+      "## Real vs simulated and claims",
+      "## Reproduce"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/ACTION_REQUIRED.md": {
+    "sha256": "1eeed0e0740378ec25e7faa19634e99f2c8a881790f0232643b35b1f68e32d1e",
+    "bytes": 3706,
+    "headings": [
+      "# ACTION_REQUIRED \u2014 items that need the user/owner, not the lane",
+      "## Explicitly NOT requested"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/FINAL_RESULTS.md": {
+    "sha256": "85dadbc9fe1cfe2a9c77d939fa1f2caff89b8be5d22b816ea3966eeff268d65e",
+    "bytes": 29042,
+    "headings": [
+      "# FINAL_RESULTS \u2014 WildfireGuardian routing integration round, 2026-10-03",
+      "## 0. Does the combined pipeline work?",
+      "## 1. T1 \u2014 algorithm correctness. COMPLETE.",
+      "### 1.1 Agreement with the exact reference: exact, on every query",
+      "### 1.2 The exact fallback fires exactly where it must, and nowhere else",
+      "### 1.3 The measured advantage, and the measured cost",
+      "### 1.4 What `ROUTE_PROVEN_OPTIMAL` actually means \u2014 a CONDITIONAL label (owner ruling R5)",
+      "### 1.5 A previously open question, now closed",
+      "## 2. T2 \u2014 decision performance under uncertainty. PARTIAL. The claim is NOT established.",
+      "### 2.1 The joint construction does what it was designed to do",
+      "### 2.2 W-SMALL against `#5`, the primary uncertainty baseline: an honest NULL, at 7.3x the cost",
+      "### 2.3 What would make the joint arm worth having, and why it is not yet shown",
+      "## 3. T3 \u2014 real-observation integration. COMPLETE, and the answer is negative.",
+      "### 3.1 What real observations were used",
+      "### 3.2 Observation-constrained reconstruction: deliberately NOT BUILT",
+      "### 3.3 The real-data gate: rechecked, STILL CLOSED",
+      "### 3.4 Was any independent historical validation possible? NO.",
+      "### 3.5 The pipeline refuses rather than invents \u2014 tested, not asserted",
+      "## 4. Unresolved issues",
+      "## 5. Artifact paths",
+      "### Reproducible quick command"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/OWNER_DECISION_2026-10-03.md": {
+    "sha256": "2203a260b034aa11f2559b7adbc54046b804c80b8c522807f1ffa647303d090b",
+    "bytes": 3529,
+    "headings": [
+      "# OWNER DECISION RECORD \u2014 2026-10-03 (routing integration round)",
+      "## Decision as given",
+      "## Exact scope (what it DOES authorize)",
+      "## Exact scope (what it does NOT authorize)",
+      "## Consequences fixed for this round",
+      "## Status of the previous round's open owner question"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/PIPELINE_CONTRACT.md": {
+    "sha256": "df3634adccc0d2fe25729db6fd5d2429e310d284676f47e2afffbe7a45100eb1",
+    "bytes": 86842,
+    "headings": [
+      "# PIPELINE_CONTRACT \u2014 RPIPE-1 contract and integration semantics",
+      "## Clause A \u2014 ONE cumulative exposure definition (closes defect X2)",
+      "### A.1 Symbol, units, scale factor",
+      "### A.2 What the integral runs over: route occupancy, waits INCLUDED",
+      "### A.3 Destination dwell EXCLUDED from E_route, reported separately",
+      "### A.4 The grid-line max-q rule and the de-overlap rule",
+      "### A.5 The single tolerance on E: none",
+      "### A.6 Defect X2: what it was, and why this clause closes it",
+      "## Clause B \u2014 Units and tolerance table",
+      "### B.1 Quantities, units, constants",
+      "### B.2 Closed vs open comparisons \u2014 the normative table",
+      "### B.3 Which comparisons are open",
+      "### B.4 Occupancy model and the one permitted conservative deviation",
+      "### B.5 Determinism requirement",
+      "## Clause C \u2014 Threshold equality convention and the exact predicates",
+      "### C.1 PEAK \u2014 exact predicate",
+      "### C.2 FLAME \u2014 exact predicate",
+      "### C.3 DESTINATION \u2014 exact predicate",
+      "### C.4 HORIZON \u2014 exact predicate",
+      "### C.5 EXPOSURE \u2014 exact predicate",
+      "### C.6 Summary of the asymmetry, so it cannot be misread",
+      "## Clause D \u2014 C3 / C3a arrival semantics as implementable rules",
+      "### D.1 Arrival time",
+      "### D.2 Trailing waits: what they do NOT move",
+      "### D.3 Trailing waits: what they ARE still checked for (C3a)",
+      "### D.4 Planners MUST emit EDGE-terminated routes",
+      "### D.5 The `T_ARR_CLAIM_DECLARED_END_PRE_C3` allowance",
+      "### D.6 Invariant that every verifier must assert",
+      "## Clause E \u2014 Spatial and temporal support",
+      "### E.1 \"Supported\" for geometry"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/PIPELINE_CONTRACT_v1_1_ADDENDUM.md": {
+    "sha256": "bec1fcf0e28a9fa93b761290dafdf6032b1d09ac93ab584a1a2bb52be30b801c",
+    "bytes": 6324,
+    "headings": [
+      "# PIPELINE_CONTRACT v1.1 \u2014 ADDENDUM to `RPIPE-CONTRACT-1.0`",
+      "## A1 \u2014 Clause F, invariant **I13**, WIDENED (owner ruling R6)",
+      "## A2 \u2014 `ROUTE_PROVEN_OPTIMAL` is a CONDITIONAL label (owner ruling R5)",
+      "## A3 \u2014 Status assignment for cap-driven non-answers (owner finding F7)",
+      "## A4 \u2014 `ERROR` is a distinct terminal status (lane E finding F6)",
+      "## A5 \u2014 Declared caps must be enforced, and declared-vs-realized must be checkable (findings F3, F4, F4-b, F5)",
+      "## A6 \u2014 Every proof-claiming row must carry a machine-readable `search_class` (lane D finding D-3)",
+      "## Conformance",
+      "## Preserved"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/REAL_INPUT_STATUS.md": {
+    "sha256": "ed2abf5663994ff314ad4037294e8349b73a7387e31259986ce39711e1df72b6",
+    "bytes": 35214,
+    "headings": [
+      "# REAL_INPUT_STATUS \u2014 Nangok 2023 real observations, as applied by LANE C",
+      "## 1. The owner decision and its exact scope, as applied by lane C",
+      "## 2. Precondition: the ledger lane C relied on is the real one",
+      "## 3. What real observations were actually found, with hashes",
+      "### 3.1 Held Nangok fire-observation granules (the only ones that exist here)",
+      "### 3.2 Held context and metadata records",
+      "### 3.3 Named by the ledger, absent from this machine",
+      "### 3.4 Newly downloaded, public, no login (lane C, this session)",
+      "## 4. Which passed the three checks, and which were refused and why",
+      "### Admitted",
+      "### Refused",
+      "## 5. What this support PERMITS, and what it does not",
+      "### 5.1 The availability-time finding, which decides most of this",
+      "### 5.2 What the support permits",
+      "### 5.3 What the support does NOT permit \u2014 explicitly",
+      "### 5.4 Observation-constrained reconstruction (brief STEP 4): **NOT BUILT, and here is why**",
+      "## 6. THE REAL-DATA GATE \u2014 rechecked this session",
+      "## 7. The exact list of records that WOULD be needed for a historical observed-routing-hazard evaluation",
+      "## 8. Every access blocker lane C hit",
+      "## 9. Is any independent historical validation possible with what is on this machine?"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/REPAIR_AND_REVIEW.md": {
+    "sha256": "ea12f00977290c83a982da5e71771d3d699416b26b7a918a9157b818a530f548",
+    "bytes": 55794,
+    "headings": [
+      "# REPAIR_AND_REVIEW.md \u2014 lane D, independent evaluation and adversarial review of RPIPE-1",
+      "## 0. Verdict",
+      "### `ACCEPTED_WITH_LIMITS`",
+      "## 1. What lane D built, and how independent it actually is",
+      "### 1.1 Declared interpretation D-I1 (lane D's own reading, flagged in case it is wrong)",
+      "## 2. Defects found",
+      "### D-1 \u2014 **DEFECT OF THE EVALUATOR (lane D's own instrument)** \u2014 severity HIGH \u2014 **FIXED**",
+      "### D-2 \u2014 `E_route` does not agree bit-for-bit between engines \u2014 severity LOW \u2014 **OPEN**",
+      "### D-3 \u2014 1095 proof-claiming rows carry no machine-readable `search_class` \u2014 severity LOW\u2013MEDIUM \u2014 **OPEN**",
+      "### D-4 \u2014 `--te-max-decisions` is a dead cap \u2014 severity LOW \u2014 **OPEN** (inherited from #1)",
+      "### D-7 \u2014 the freeze-conformance refusal covers only 4 of the 6 cap knobs it detects \u2014 severity MEDIUM \u2014 **OPEN**",
+      "### D-5 \u2014 latent C2 surface: `bench_io.instances()` returns unsanitized records \u2014 severity INFO \u2014 **OPEN**",
+      "### D-6 \u2014 `support_mask_identity` is a summary, not a hash of the mask \u2014 severity INFO \u2014 **OPEN**",
+      "### Lane D's own expectation errors (kept visible)",
+      "## 3. J1 \u2014 lane D's own checker",
+      "## 4. J3 \u2014 adversarial mutants",
+      "### 4.1 Route mutants \u2014 **108 applied, 108 killed, 0 survivors**",
+      "### 4.2 Pipeline / checker mutants \u2014 **8 built, 8 detected**",
+      "### 4.3 Freeze-conformance mutants \u2014 **5 built, 4 killed, 1 SURVIVOR**",
+      "### 4.4 The remaining two pipeline mutants named in the brief",
+      "## 5. J5 \u2014 reproduction of the prior round's counterexamples",
+      "### 5.1 The 22 E-binding queries \u2014 **PASS (22 / 22)**",
+      "### 5.2 The 2 #7 STRESS trailing-wait routes \u2014 **PASS (2 / 2)**",
+      "### 5.3 m02-M1 `S1` and `S2`, the continuous-time gap \u2014 **PASS**",
+      "### 5.4 The m07 reviewer counterexample, `ROUTE 101.3759765625` \u2014 **PASS**",
+      "### 5.5 The m05 review counterexample `CX1` (trailing wait) \u2014 **PASS**",
+      "## 6. J4 \u2014 the two headline comparisons",
+      "### 6.1 (a) SINGLE-HAZARD vs #1 on all 946 original queries \u2014 **clean**",
+      "#1 = `TE_exact_delta2^-10` (193 + 753), #2 = `sipp_peak`, plus `sipp_peak_posthoc_Emax_refuse` for reporting.",
+      "### 6.2 (b) SCENARIO arm vs #5 and vs lane D's own exact joint reference \u2014 **clean, 193/193**"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/BASELINE_NUMBERS_FROM_PRIOR_ROUND.md": {
+    "sha256": "d007804e90f3e2ce899e34d0293954b69ebca4397ca1aa47ff2866f0f0a3c6d2",
+    "bytes": 5179,
+    "headings": [
+      "# BASELINE NUMBERS CARRIED IN FROM THE PREVIOUS ROUND (owner extract, verified against source)",
+      "## Track-1 reference, all 946 queries (W-SMALL 193 + W-MAIN 753)",
+      "#1's admissibility (671/671 on W-MAIN; no refusal of a feasible query) while paying #1's cost on only the queries",
+      "## Track-2 baseline, #5 raw-ensemble robust routing (the primary uncertainty baseline)",
+      "## Standing limits inherited (not introduced by this round)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/COORDINATOR_LOG.md": {
+    "sha256": "4c2571e67417591b277d08bb501ba960e29ed9d8d6c867f3a6787a9573fd2445",
+    "bytes": 54323,
+    "headings": [
+      "# COORDINATOR LOG \u2014 routing integration round, 2026-10-03",
+      "## 02:45:41 \u2014 round opened",
+      "## 02:46\u201302:52 \u2014 required reading completed by the owner before any implementation",
+      "## 02:52 \u2014 owner decision recorded",
+      "## 02:53 \u2014 architecture frozen before any lane code",
+      "## 02:52 \u2014 canonical context",
+      "## 02:55\u201302:58 \u2014 five lanes launched, exclusive write directories, one owner",
+      "## 03:08 \u2014 LANE A COMPLETE",
+      "## 02:55 \u2014 LANE E first deliverables (ahead of its 25-minute target)",
+      "## 03:12 \u2014 OWNER FINDING F1: lane D's reference loader was reading COARSE #1 variants",
+      "#5 references; treat `t_arr_agreement` as NOT_APPLICABLE on REFUSED rows; keep the defective CSV as",
+      "## 03:12 \u2014 lane E re-measured resources on schedule",
+      "## 03:16 \u2014 OWNER VERIFICATION OF T1 (the headline). `integration/OWNER_VERIFICATION_T1.md`, sha256 2fa42f1c9202892e\u2026",
+      "#1's (25 at issue + 3 disconnected + 54 horizon = 82). Two independent checkers call the routes admissible",
+      "## 03:20 \u2014 LANE C delivered `REAL_INPUT_STATUS.md` and `ACTION_REQUIRED.md`",
+      "## 03:37 \u2014 the joint scenario arm has started (W-SMALL, raw 30-member planning ensemble)",
+      "## 03:19 \u2014 OWNER FINDING F2: an UNKNOWN-support refusal is reported as PROVEN INFEASIBILITY",
+      "## 03:21 \u2014 OWNER VERIFICATION OF T2, interim. `integration/OWNER_VERIFICATION_T2_interim.md`, sha256 97cd8cca0d844a1c\u2026",
+      "## 03:24 \u2014 OWNER FINDING F3: the joint arm ran at a 600 s declared budget, not the frozen 240 s",
+      "## 03:23 \u2014 OWNER INTEGRATION CHECKS recorded. `integration/OWNER_INTEGRATION_CHECKS.md`, sha256 9b4533fd4a244796\u2026",
+      "## 03:27 \u2014 OWNER RULING R4: lane E's F-E-005 resolved; the R-D5 audit is complete",
+      "## 03:27 \u2014 lane B delivered SEARCH_CLASS.md, and it is the right artefact",
+      "## 03:34 \u2014 FINAL_RESULTS.md written (sha256 102649b68168634d\u2026), marked LIVE",
+      "## 03:30 \u2014 lane B acted on F3",
+      "## 03:33 \u2014 F3 item 4 VERIFIED POSITIVE: the 240 s joint re-run is decision-identical to the superseded 600 s run",
+      "## 03:32 \u2014 the #5 baseline arm has appeared, with two gaps flagged before it completes",
+      "## 03:37 \u2014 OWNER SELF-CORRECTION: timestamps in this log were overstated, now corrected",
+      "## 03:38 \u2014 OWNER FINDING F4: the R3 frontier width actually used was 6, not the frozen 4096",
+      "## 03:39 \u2014 lane D delivered `comparison_joint.csv`, with its own independent exact joint reference",
+      "## 03:46 \u2014 housekeeping sweep of PRIOR, per the ruling in OWNER_RULINGS_v1"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/DECISIVE_SET_T2.md": {
+    "sha256": "96eae0f252b216ce30f2a98c6075c98ea71d870442b3356abcab3b31d7bcf22a",
+    "bytes": 4623,
+    "headings": [
+      "# THE DECISIVE QUERY SET FOR T2 \u2014 identified exactly, before the joint arm reached it",
+      "## Why there is a decisive set at all",
+      "## The set, from this round's own budget-matched `#5` run (240 s, its own released code path)",
+      "## The test, stated before the answer is known",
+      "# FINDING F8 (minor) \u2014 the frozen budget overshoots by up to 4% because it is checked between steps"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/DESIGN_NOTE_v1.md": {
+    "sha256": "f962952877123cb5ca5a836552db500aef9c05b966f914e6d0054587553bba0d",
+    "bytes": 10959,
+    "headings": [
+      "# COORDINATOR DESIGN NOTE v1 \u2014 combined exposure-aware route generator (2026-10-03)",
+      "## 0. What we are building",
+      "## 1. Why S1->S3 is sound (the single-hazard optimality argument)",
+      "## 2. The joint scenario problem, stated exactly",
+      "### R1 JOINT-UPPER (sound for admissibility; may be incomplete)",
+      "### R2 JOINT-LOWER (sound for infeasibility; may be optimistic)",
+      "### R3 gap closing",
+      "## 3. Status vocabulary (exactly these; no synonyms)",
+      "## 4. Non-negotiable semantics (bind the contract, lane A formalises)",
+      "## 5. Freeze and budget discipline (lane E owns, everyone obeys)",
+      "## 6. Defects that must not be reintroduced"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_FINDING_F1_laneD_variant_mixup.md": {
+    "sha256": "67b7632ab43f011b51b172d7f2afb4406dba765bcd6e859310c1fe7ea17d8ca1",
+    "bytes": 4633,
+    "headings": [
+      "# OWNER FINDING F1 \u2014 lane D's #1 reference loader reads COARSE variants, not the exact variant",
+      "## What lane D reported",
+      "## What is actually true",
+      "## Owner's independent re-derivation, exact variant only",
+      "## Why this matters beyond the one number",
+      "## Required corrections (assigned to lane D)",
+      "## What this finding does NOT establish"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_FINDING_F2_unknown_support_as_proven.md": {
+    "sha256": "5460977043a168ee13c55789d719441390ad7d5c5228d83508d8fc551a339986",
+    "bytes": 5569,
+    "headings": [
+      "# OWNER FINDING F2 \u2014 an UNKNOWN-support refusal is reported as PROVEN INFEASIBILITY",
+      "## The defect",
+      "## The reproduction",
+      "## Why this is not a style point",
+      "## Why it did not show up in the 946-query run",
+      "## Required correction (lane B)",
+      "## Verified side effects of the same test (all PASS, worth keeping in the report)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_FINDING_F3_joint_arm_budget_violation.md": {
+    "sha256": "af347c8ca95d75e436e70f656e00a1833bc7a51c90442ad770e9dd7a7e05c715",
+    "bytes": 7200,
+    "headings": [
+      "# OWNER FINDING F3 \u2014 the joint arm ran at a 600 s declared budget, not the frozen 240 s",
+      "## The violation",
+      "## Why no number is wrong yet",
+      "## Required correction (lane B)",
+      "## Not a defence, but on the record",
+      "# CORRECTION to this finding, 03:45 +0800 \u2014 the owner's \"worst case 11.47 s\" was WRONG. It is 149.402 s.",
+      "## The substantive consequence: \u00a72 point 3 is LIVE, not hypothetical"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_FINDING_F4_declared_vs_actual_pattern.md": {
+    "sha256": "615e9724c3e8c0b9d5acaeac7130074fc114b7c63d7d5302d7ba5420ac87d8ee",
+    "bytes": 8610,
+    "headings": [
+      "# OWNER FINDING F4 \u2014 the R3 frontier width actually used was 6, not the frozen 4096; and this is the THIRD",
+      "# instance of one systemic defect",
+      "## 1. The specific defect",
+      "## 2. Why it did not corrupt the W-SMALL result I verified",
+      "## 3. The systemic defect: THREE instances in 50 minutes, one cause",
+      "## 4. Required",
+      "## 5. What this finding does not do",
+      "# ADDENDUM F4-b, 03:43 +0800 \u2014 a FOURTH instance, found by lane D, and it reaches into the frozen budget",
+      "## Why it still matters: the frozen budget declares a cap that cannot fire",
+      "## Required"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_RULINGS_v1.md": {
+    "sha256": "32813290550f5c3b969faac0cc90b1707fbc2fa6191744cfa32345bfcadc007a",
+    "bytes": 6477,
+    "headings": [
+      "# OWNER RULINGS v1 \u2014 on lane A's flagged items (2026-10-03 03:10 +0800)",
+      "## R-D1 \u2014 RATIFIED AS WRITTEN (the raster-margin precondition)",
+      "## R-D2 \u2014 RATIFIED (status disambiguation)",
+      "## R-D3 \u2014 RATIFIED (how a verifier emits a legacy trailing-wait row)",
+      "## R-D4 \u2014 RATIFIED (R2 relaxes the exposure budget only)",
+      "## R-D5 \u2014 RATIFIED WITH A CORRECTION TO MY OWN WORDING",
+      "## Rulings on lane A's open items",
+      "## Housekeeping ruling \u2014 byte-compilation inside PRIOR"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_RULING_R4_E_binding_and_deltaE.md": {
+    "sha256": "6db345dcdd610d169efbabb5fd39fbdc62d1fed6bcc2398989c9542d1435cb38",
+    "bytes": 5160,
+    "headings": [
+      "# OWNER RULING R4 \u2014 resolving lane E's finding F-E-005 (E-binding 173 vs 22), and the R-D5 audit result",
+      "## 1. F-E-005 RESOLVED: the authoritative E-binding figure is 22/946. The 173 is a different quantity.",
+      "## 2. The R-D5 audit, which the previous round never ran: COMPLETE, and the answer is zero.",
+      "## 3. Status of the corrected lane D comparison, owner-verified",
+      "## 4. Consequential instruction to lane E"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_RULING_R5_and_FINDING_F5.md": {
+    "sha256": "45136283b9fae72b1b4de9997411227609705376b7248a3c732001603b106abb",
+    "bytes": 6764,
+    "headings": [
+      "# OWNER RULING R5 + FINDING F5 \u2014 on lane D's final report (2026-10-03 03:50 +0800)",
+      "# FINDING F5 \u2014 the conformance mutant I required FOUND A SURVIVOR. Fifth instance of the same class.",
+      "# RULING R5 \u2014 the `ROUTE_PROVEN_OPTIMAL` label is CONDITIONAL, and lane D is right that lane B understates it",
+      "# Accepted from lane D without change"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/OWNER_RULING_R6_I13_and_FINDING_F7.md": {
+    "sha256": "164de67ff257f1a759ade86322b135ec74438793fb17a1f0d26b49f331e8eb0a",
+    "bytes": 8186,
+    "headings": [
+      "# OWNER RULING R6 (clause F I13) + FINDING F7 (a capped R3 is labelled UNKNOWN, not TIMEOUT)",
+      "# RULING R6 \u2014 I13 is WIDENED. Lane B's containment proof is sound and its refusal to fake the field was right.",
+      "# FINDING F7 \u2014 a capped R3 is reported as `UNKNOWN`. It is a `TIMEOUT`. Mirror image of F2.",
+      "## Owner decision on HOW to remediate F7, given the run is in flight"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/THREE_EVALUATIONS.md": {
+    "sha256": "05f430fb68c25ee7993e9c0a30f5b05d6b14c7fec5c01fd991aa86339e904851",
+    "bytes": 4371,
+    "headings": [
+      "# THE THREE EVALUATIONS, KEPT SEPARATE (owner ruling for this round)",
+      "## T1_ALGORITHM_CORRECTNESS",
+      "## T2_DECISION_UNCERTAINTY",
+      "## T3_REAL_OBSERVATION_INTEGRATION",
+      "## Cross-cutting rules"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/coordinator/entry_start.md": {
+    "sha256": "fa33e500a9f934789b3f000e8901dc1c719022995a90dc3409ea050c4c71fef1",
+    "bytes": 2854,
+    "headings": [
+      "### 2026-10-03T02:55+08:00 \u2014 Routing integration round STARTED; packet outputs/routing_pipeline_overnight_20261003_v1/"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/BUDGET_FROZEN.json": {
+    "sha256": "0a76c8339092270f21e832f04968eb1ecdc71a2250b2c922df2df6e9bff9fe22",
+    "bytes": 13143,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/BUDGET_FROZEN.sha256": {
+    "sha256": "6858221c82ed7f38a8c26ef58a197446d1b11046d7690f39abceeff9a675e55c",
+    "bytes": 278,
+    "headings": [
+      "# sha256 of the final file bytes; frozen 2026-10-02T18:55:42Z / 2026-10-03T02:55:42+0800",
+      "# sha256_of_body (content-canonical) = 7ab3aa74c81eab0aeeb2721fe195fc04f80f90081c47bcce396bfd96c5f86e9a"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/BUDGET_FROZEN_CORRECTION_1.json": {
+    "sha256": "f3b9dd94188dd4f470da9fc05d4e987a8c3dd51d2d20de74605c971820f42550",
+    "bytes": 10326,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/BUDGET_FROZEN_CORRECTION_1.sha256": {
+    "sha256": "4101cd09a76554d432cbb8a1ea8ba7168966fe16564e17d09a47dd8888cef494",
+    "bytes": 288,
+    "headings": [
+      "# dated 2026-10-02T19:46:01Z / 2026-10-03T03:46:01+0800",
+      "# corrects BUDGET_FROZEN.json (sha256 0a76c8339092270f21e832f04968eb1ecdc71a2250b2c922df2df6e9bff9fe22), which is left BYTE-IDENTICAL"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/CONFIG_FROZEN.json": {
+    "sha256": "c424ee0506afbbd8cc0f5d443b06aef8bce3cd2bb5d9a7b21ea66be78f93678f",
+    "bytes": 37102,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/CONFIG_FROZEN.sha256": {
+    "sha256": "ea8338cae4589790a39abc5149807a562a0fe5a584c71d652746e76dc62dd626",
+    "bytes": 118,
+    "headings": [
+      "# refreshed 2026-10-02T19:12:34Z"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/SPLITS_FROZEN.json": {
+    "sha256": "58030acb56c98dbd450c9f747bd3d29807c83a6d7ea6e99b00161f6c939b51c1",
+    "bytes": 16697,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/frozen/SPLITS_FROZEN.sha256": {
+    "sha256": "79847dfd89b0a23144769b2548a46d17dfc5f58d1ffcb312e27ac47cbf326978",
+    "bytes": 237,
+    "headings": [
+      "# source splits.json sha256 = 53192ba02d36e3742fd245492dd37087c7fe5632b3da1baf7b3524ea935e317c",
+      "# frozen 2026-10-02T18:56:57Z / 2026-10-03T02:56:57+0800"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/integration/OWNER_INTEGRATION_CHECKS.md": {
+    "sha256": "9b4533fd4a24479685e10e26702db99c2f21eade965bfefa7b69a8b778e1a989",
+    "bytes": 5555,
+    "headings": [
+      "# OWNER INTEGRATION CHECKS \u2014 run by the integration owner, not reported on trust",
+      "## IC-O1 \u2014 lane A's contract validator, re-run by the owner",
+      "## IC-O2 \u2014 lane C's adapter tests, re-run by the owner",
+      "## IC-O3 \u2014 the cross-lane real-input standing refusal (lane C open item OI-5)",
+      "## IC-O4 \u2014 lane E's reproducible quick command, run twice by the owner",
+      "## IC-O5 \u2014 the previous round is byte-intact",
+      "## IC-O6 \u2014 owner acceptance harness"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/integration/OWNER_VERIFICATION_T1.md": {
+    "sha256": "2fa42f1c9202892ea0ca42cfd7f63ed174f07a13cc0780ce5d816540faefd0d6",
+    "bytes": 6048,
+    "headings": [
+      "# OWNER VERIFICATION \u2014 T1, the single-hazard arm against the exact #1 reference",
+      "## 1. Agreement",
+      "## 2. The fallback fires exactly where the previous round said it must",
+      "## 3. Cost, with the shared compile counted ONCE",
+      "#1's includes neither. RPIPE-1's internal split on W-MAIN is preprocess 0.0032 s / solve 0.0112 s / verify 0.0017 s",
+      "## 4. What this does and does not establish"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/integration/OWNER_VERIFICATION_T2_FINAL.md": {
+    "sha256": "252d2d3193b465b308a04077b383bad47ce67a2bc1eee30b01477d9d7817d081",
+    "bytes": 7817,
+    "headings": [
+      "# OWNER VERIFICATION \u2014 T2 FINAL. The scenario arm, W-MAIN complete (753/753).",
+      "## 1. THE GAIN \u2014 real, narrow, and independently verified",
+      "## 2. THE LOSS \u2014 larger than the gain",
+      "## 3. Net result over ALL 753 queries",
+      "## 4. Why \u2014 and this is a finding against the owner's own design",
+      "## 5. What survives",
+      "## 6. Limits"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/integration/OWNER_VERIFICATION_T2_interim.md": {
+    "sha256": "05df0c009491c786c2e1637a9f6155d35b16af852c672319e3a9ccbc08474519",
+    "bytes": 9142,
+    "headings": [
+      "# OWNER VERIFICATION \u2014 T2 interim, the joint scenario arm (W-SMALL complete, W-MAIN running)",
+      "## 1. The joint construction does what it was designed to do",
+      "## 2. Against #5, the primary uncertainty baseline, on W-SMALL: IDENTICAL",
+      "## 3. The honest reading: on W-SMALL this is a NULL RESULT, not an advance",
+      "## 4. Cost, W-SMALL (193 queries, frozen 240 s per-query budget)",
+      "## 5. Scope limits that travel with every T2 number",
+      "# ADDENDUM, 03:33:54 +0800 (corrected from a mis-stated 04:50) \u2014 W-SMALL is now COMPLETE at the frozen budget, with #5 re-run in the same session",
+      "## A. Finding F3 cost no results \u2014 verified, with the expectation fixed in advance",
+      "## B. Joint arm vs #5, both run in this session, W-SMALL complete",
+      "## C. The cost of that null, measured \u2014 and it is an ADVERSE result",
+      "## D. What follows for the T2 verdict"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/CHECKPOINT.md": {
+    "sha256": "d8bd1777aa1d90d886a494ac901fc960f7da7329460daecb105714d00f8531db",
+    "bytes": 32836,
+    "headings": [
+      "# LANE B INTERIM CHECKPOINT \u2014 combined exposure-aware route generator (RPIPE-1)",
+      "## 1. What is done",
+      "## 2. Both engines were reusable AS-IS. No engine was rewritten.",
+      "## 3. Single-hazard arm: results against the TRUTH member (ORACLE_KNOWN_HAZARD), 946/946 queries",
+      "### 3.1 Agreement with the `#1` exact reference: 946/946, zero disagreements",
+      "### 3.2 Independent scoring by lane F (`LANE-F-EVAL-1.1`), scenarios = truth",
+      "### 3.3 Measured budget and cost (one declared total per-query budget = **240 s**, identical to the `#1` arm)",
+      "### 3.4 Invariants and self-checks, all 946 rows",
+      "## 4. Scenario arm: fixture evidence now, W-SMALL run in progress",
+      "## 5. Fixtures: 80/80 checks pass, expectations committed first",
+      "## 6. Decisions taken that the owner may want to overrule",
+      "## 7. Open items and honest limits",
+      "# ADDENDUM 1 \u2014 owner findings F2, F3, F4 and what changed (03:45 local)",
+      "## A1.1 \u2014 OWNER FINDING F2: an UNKNOWN-support refusal was reported as PROVEN infeasibility",
+      "## A1.2 \u2014 OWNER FINDING F3: the joint arm ran at 600 s against a frozen 240 s",
+      "## A1.3 \u2014 OWNER FINDING F4: every pre-03:37 run used frontier width 6 against a frozen 4096",
+      "## A1.4 \u2014 the class, closed in code (three required changes, all in)",
+      "## A1.5 \u2014 no pre-03:37 joint count is quoted anywhere",
+      "## A1.6 \u2014 joint arm and #5 baseline at the frozen 240 s, W-SMALL, 193 queries",
+      "## A1.7 \u2014 still open",
+      "# ADDENDUM 2 \u2014 the owner's consolidated four items, and independent scoring of the joint arm (04:06)",
+      "## A2.1 All four items are done",
+      "## A2.2 The re-runs are row-identical \u2014 verified, not assumed",
+      "## A2.3 The joint arm's W-SMALL routes are independently admissible on all 30 planning members",
+      "## A2.4 The owner's runtime correction is accepted and acted on",
+      "## A2.5 One open question that needs the owner, not lane B",
+      "# ADDENDUM 3 \u2014 the `#5` baseline on W-MAIN at the frozen 240 s is complete (04:07)",
+      "## Live frozen artefacts as of 04:07"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/M05_STATUS_MAPPING.md": {
+    "sha256": "26c83d3cc3e8ff0277ad0b0c6a3e1dcb890a841a8da6dab4d342314300e6385a",
+    "bytes": 7345,
+    "headings": [
+      "# M05_STATUS_MAPPING \u2014 the declared mapping from #5's own statuses into the contract vocabulary",
+      "## 1. THE TRAP, stated first because it is the one that matters",
+      "## 2. The full mapping",
+      "### 2.1 By `refusal_reason` (checked first, because it is the more specific signal)",
+      "### 2.2 By `(status, solver_status)`",
+      "### 2.3 #5 statuses with NO contract equivalent \u2014 stated, not coerced",
+      "## 3. What the mapping does NOT do",
+      "## 4. Measured, W-SMALL, 193 queries, budget 240.0 s (frozen)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/OPEN_QUESTION_I13_peak_only_proof.md": {
+    "sha256": "2c12627ad156b97dec2bb4b7ca965905e424bd549f96c7b20aa0beaee1fb309c",
+    "bytes": 4890,
+    "headings": [
+      "# OPEN QUESTION for the integration owner \u2014 Clause F invariant I13 vs the S1 containment proof",
+      "## The conflict, in four lines",
+      "## The lemma, so the owner can judge it rather than take it on trust",
+      "## Affected rows, counted",
+      "## The three options, with their costs",
+      "## What lane B has done in the meantime"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/SEARCH_CLASS.md": {
+    "sha256": "4d0065015e44db9f3809713ada5c3935b15ba09d7aee1a839e80b78187abb467",
+    "bytes": 29445,
+    "headings": [
+      "# SEARCH_CLASS.md \u2014 the supported search class and the optimality / infeasibility conditions of RPIPE-1",
+      "## 0. The base route class `L` (shared by every stage)",
+      "### 0.1 THE LATTICE LIMIT \u2014 the single most important restriction here",
+      "### 0.2 P1 (no repeated directed edge inside a macro): NOT enforced anywhere in RPIPE",
+      "### 0.3 Support",
+      "## 1. S1 \u2014 `#2` SIPP fast pass",
+      "## 2. S2 \u2014 the mandatory complete check (a gate, not a search)",
+      "## 3. S3 \u2014 `#1` TESolver, E-aware exact",
+      "## 4. The joint problem and the two surrogates",
+      "### 4.1 Representation of `q_U` and `q_L`",
+      "### 4.2 `q_U`-based routing is SOUND but INCOMPLETE",
+      "### 4.3 `q_L`-based refusal is COMPLETE but CONSERVATIVE",
+      "### 4.4 R3 \u2014 bounded exact M-budget search",
+      "## 5. Status vocabulary, with the exact class each status is about",
+      "## 6. What is NOT claimed, stated once, plainly",
+      "## 7. The SUPPORT precondition on every proof (added 03:45, OWNER FINDING F2)",
+      "## 8. The `#5` baseline arm is a DIFFERENT search class",
+      "## 9. Declared caps come from the freeze, not from code (OWNER FINDINGS F3, F4)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/tests/EXPECTED.md": {
+    "sha256": "aa2e693d2b80eb4abd62d483dc91e843132e1fd988221ad08ad7fe563520f10c",
+    "bytes": 14277,
+    "headings": [
+      "# EXPECTED.md \u2014 hand-derived expectations for the RPIPE-1 fixture suite (lane B)",
+      "## 0. The HZ-1 arithmetic these fixtures rest on",
+      "## 1. The fixture geometry (shared by F1\u2013F7)",
+      "## 2. F1 \u2014 E-binding query: S1 must fall through to S3 (full pipeline)",
+      "### F1 expectations",
+      "## 3. F2 \u2014 trailing wait at the destination (C3)",
+      "## 4. F3 \u2014 wait on a non-waitable node",
+      "## 5. F4 \u2014 banned turn",
+      "## 6. F5 \u2014 destination goes bad during the dwell",
+      "## 7. F6 \u2014 unsupported cell",
+      "## 8. F7 \u2014 joint arm: q_U sound, q_L refuse",
+      "### F7a \u2014 q_U sound, R2 optimistic, R3 closes the gap (2-member ensemble, `A` waitable)",
+      "### F7b \u2014 q_L refuses, so joint infeasibility is PROVEN",
+      "### F7c \u2014 surrogate correctness against the raw members",
+      "## 9. F8 \u2014 the capped-search rule (#6 L1 must not come back)",
+      "## 10. F9 \u2014 real-data cross-check (NOT hand-derived; disclosed)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_B_search/tests/EXPECTED_F2.md": {
+    "sha256": "8d9e7e38bed8635aaa95a8fb01c93d7f359d1aa3e4ad4c48b5516f166a91adde",
+    "bytes": 9627,
+    "headings": [
+      "# EXPECTED_F2.md \u2014 hand-derived expectations for the SUPPORT-VERDICT regression (OWNER FINDING F2)",
+      "## G1 \u2014 the mapping tables must be SAFE BY DEFAULT",
+      "## G2 \u2014 `sipp_status` promotes to a proof only under an established verdict",
+      "## G3 \u2014 the verdict itself, on real and broken inputs",
+      "## G4 \u2014 single arm end to end: an UNKNOWN-support refusal is UNKNOWN",
+      "## G5 \u2014 single arm: a ROUTE is never certified on unsupported geography",
+      "## G6 \u2014 joint arm: an R2 refusal with incomplete support is UNKNOWN, NOT a joint proof",
+      "## G7 \u2014 the R3 table cap is a CAP, never a refusal",
+      "## G8 \u2014 the launcher refuses a budget that disagrees with the freeze (OWNER FINDING F3)",
+      "## AMENDMENT A1 \u2014 2026-10-03 03:40 +0800, disclosed, not a rewrite"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_C_realinput/PROVENANCE_CHECKS.md": {
+    "sha256": "04ce1c71d9cd09496a1260b59807b7d6f1fb472a78de45f34e96ca5ced14248e",
+    "bytes": 13339,
+    "headings": [
+      "# PROVENANCE_CHECKS \u2014 lane C, Nangok 2023 observation records",
+      "## 0. What each check means here",
+      "## 1. Decision-record hash verification (precondition)",
+      "## 2. Per-record result",
+      "### PASS / PASS / PASS, admitted",
+      "### provenance UNKNOWN (never opened) \u2192 refused",
+      "### provenance FAIL \u2192 refused",
+      "### grouping FAIL \u2192 refused, not opened",
+      "### overlap",
+      "## 3. The availability-time finding, stated separately because it decides everything",
+      "## 4. What lane C did not read",
+      "## 5. Limits carried forward verbatim from `NANGOK_SUPPORT_RESULTS.json`"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_C_realinput/adapter/README.md": {
+    "sha256": "f2edbd004b65ed2b93b1133d638e2a5079b19ef919b3a314aadce3e773c3bf47",
+    "bytes": 5018,
+    "headings": [
+      "# lane C adapter \u2014 real Nangok observations to routing hazard inputs",
+      "## What the adapter does on today's holdings",
+      "## The eight prohibitions, and where each is enforced",
+      "## Design notes"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_D_evaluator/CACHE_AUDIT.md": {
+    "sha256": "14ee244bab8f86ebbd30ebd623225ba46360b9abb971ffaee054feb85f52cece",
+    "bytes": 4963,
+    "headings": [
+      "# CACHE_AUDIT.md \u2014 lane D, J2 audit of the RPIPE-1 result cache",
+      "## Verdict: **NO CACHE DEFECT FOUND.** 19 components mutated, 19 correct MISSes, 0 improper hits.",
+      "## What the key binds",
+      "## Component-by-component mutation test",
+      "## Adversarial test: a forged record with a colliding digest",
+      "## Observations (no defect, but worth recording)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_D_evaluator/SELF_CORRECTIONS.md": {
+    "sha256": "02a6fa5fe7c90cee22b4d9221b31618e8e2d3927ca3be5e1d3ae07f4aad78d50",
+    "bytes": 1914,
+    "headings": [
+      "# Lane D self-corrections (errors I made, kept visible)",
+      "## SC-1 \u2014 2026-10-03 \u2014 I compared lane B against a COARSE #1 variant and produced 172 spurious defects",
+      "## SC-2 \u2014 2026-10-03 \u2014 two of my own hand-derived expectations were incomplete"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_D_evaluator/dcheck/EXPECTED.md": {
+    "sha256": "c53839664498e0c4b32b2bb9835ee4401700040bcfeeee06cba7e9b347914bcd",
+    "bytes": 26704,
+    "headings": [
+      "# LANE-D-DCHECK EXPECTED.md \u2014 hand-derived expectations for the independent ADM-1 route checker",
+      "## 0. Semantics I commit to here (my reading of the contract; deviations are defects in me or in the pipeline)",
+      "## 1. Fixture `DF-1` (synthetic, declared here, built by the code from this text)",
+      "### Nodes",
+      "### Directed edges (`edge_id = \"u>v\"`)",
+      "### Hand-derived occupancy of the three chords used below",
+      "### Hazard members (all unlisted cells have `A = +inf`)",
+      "### Routes used below",
+      "## 2. Case table \u2014 hand-derived expectations",
+      "### 2.1 Exposure over edges and waits, with exact occupancy",
+      "### 2.2 Peak / timing boundary cases",
+      "### 2.3 `E` exactly at `E_max`",
+      "### 2.4 Destination flame and thermal limits throughout the whole dwell",
+      "### 2.5 Horizon",
+      "### 2.6 C3 / C3a trailing-wait handling",
+      "### 2.7 Unsupported cells and unsupported times",
+      "### 2.8 Legality",
+      "### 2.9 Origin bad at issue",
+      "### 2.10 `post_burn = CLOSED_AFTER_IGNITION`",
+      "## 3. Summary of the committed expectations"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_D_evaluator/dcheck/EXPECTED_AMENDMENTS.md": {
+    "sha256": "3637dd053bcfb63bd063b85f8d10f2576edba075588f6831a09650860a1bd881",
+    "bytes": 2386,
+    "headings": [
+      "# EXPECTED.md amendments (lane D)",
+      "## A1 \u2014 2026-10-02T19:05:00Z \u2014 OI-1 expectation was INCOMPLETE (my error, not the checker's)",
+      "## A2 \u2014 2026-10-02T19:05:00Z \u2014 LG-1 expectation was INCOMPLETE (my error, not the checker's)",
+      "## Net result of the first run of the committed suite"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_D_evaluator/work/REPAIR_AND_REVIEW_draft1.md": {
+    "sha256": "c69abbc84ecc6a1b5b39ae44bff0dfa2e1910d715f08bc15b789e58ffdae20c2",
+    "bytes": 31919,
+    "headings": [
+      "# REPAIR_AND_REVIEW.md \u2014 lane D, independent evaluation and adversarial review of RPIPE-1",
+      "## 0. Verdict",
+      "### `ACCEPTED_WITH_LIMITS`",
+      "## 1. What lane D built, and how independent it actually is",
+      "### 1.1 Declared interpretation D-I1 (lane D's own reading, flagged in case it is wrong)",
+      "## 2. Defects found",
+      "### D-1 \u2014 **DEFECT OF THE EVALUATOR (lane D's own instrument)** \u2014 severity HIGH \u2014 **FIXED**",
+      "### D-2 \u2014 `E_route` does not agree bit-for-bit between engines \u2014 severity LOW \u2014 **OPEN**",
+      "### D-3 \u2014 1095 proof-claiming rows carry no machine-readable `search_class` \u2014 severity LOW\u2013MEDIUM \u2014 **OPEN**",
+      "### D-4 \u2014 `--te-max-decisions` is a dead cap \u2014 severity LOW \u2014 **OPEN** (inherited from #1)",
+      "### D-5 \u2014 latent C2 surface: `bench_io.instances()` returns unsanitized records \u2014 severity INFO \u2014 **OPEN**",
+      "### D-6 \u2014 `support_mask_identity` is a summary, not a hash of the mask \u2014 severity INFO \u2014 **OPEN**",
+      "### Lane D's own expectation errors (kept visible)",
+      "## 3. J1 \u2014 lane D's own checker",
+      "## 4. J3 \u2014 adversarial mutants",
+      "### 4.1 Route mutants \u2014 **108 applied, 108 killed, 0 survivors**",
+      "### 4.2 Pipeline / checker mutants \u2014 **8 built, 8 detected**",
+      "## 5. J5 \u2014 reproduction of the prior round's counterexamples",
+      "### 5.1 The 22 E-binding queries \u2014 **PASS (22 / 22)**",
+      "### 5.2 The 2 #7 STRESS trailing-wait routes \u2014 **PASS (2 / 2)**",
+      "### 5.3 m02-M1 `S1` and `S2`, the continuous-time gap \u2014 **PASS**",
+      "### 5.4 The m07 reviewer counterexample, `ROUTE 101.3759765625` \u2014 **PASS**",
+      "### 5.5 The m05 review counterexample `CX1` (trailing wait) \u2014 **PASS**",
+      "## 6. J4 \u2014 the two headline comparisons",
+      "### 6.1 (a) SINGLE-HAZARD vs #1 on all 946 original queries \u2014 **clean**",
+      "#1 = `TE_exact_delta2^-10` (193 + 753), #2 = `sipp_peak`, plus `sipp_peak_posthoc_Emax_refuse` for reporting.",
+      "### 6.2 (b) SCENARIO arm vs #5 and vs lane D's own exact joint reference",
+      "### 6.3 Lane D's BOUNDED EXACT JOINT REFERENCE \u2014 construction and why the subset is the subset",
+      "## 7. Limits on everything above"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_E_eval_report/CONVERGENCE.md": {
+    "sha256": "1b3b33decc4a938f766c942e8c421658d4f0ca65600a502873a031719654db3c",
+    "bytes": 16058,
+    "headings": [
+      "# CONVERGENCE \u2014 resolution convergence checks demanded and recorded by lane E (E6)",
+      "## 1. Time lattice `DELTA` \u2014 UNCHANGED at `2^-10` min",
+      "### Standing convergence evidence, carried in and cited, not re-derived",
+      "## 2. Segment grid `h` \u2014 UNCHANGED at 30.0 m",
+      "## 3. R3 Pareto **frontier width** \u2014 NEW this round, convergence check **DEMANDED**",
+      "### Why it is demanded",
+      "### The protocol, stated in advance (so the result cannot shape it)",
+      "### Provenance of the realized width: the per-file manifests",
+      "### A width variant has appeared, and it is NOT yet the sweep",
+      "### If the check is not supplied",
+      "## 4. Other declared caps that are NOT resolutions",
+      "## 5. Favourable-resolution probe \u2014 standing, currently clean",
+      "## 6. Re-checking this file",
+      "# the carried-in delta table"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_E_eval_report/INTEGRATION_CHECK_LOG.md": {
+    "sha256": "5244455b601510e6642f90089a54a58bfa710cced4a973357e9503d8f806626c",
+    "bytes": 38863,
+    "headings": [
+      "# INTEGRATION_CHECK_LOG \u2014 end-to-end integration checks lane E actually ran",
+      "## IC-01 \u2014 measure the machine; do not assume it",
+      "## IC-02 \u2014 establish that NO new result existed before the budget was frozen",
+      "## IC-03 \u2014 freeze the budget",
+      "## IC-04 \u2014 freeze the splits, by value, from the read-only prior round",
+      "## IC-05 \u2014 freeze configurations and code identity",
+      "## IC-06 \u2014 poll lane B for frozen route files (no messaging)",
+      "## IC-07 \u2014 metrics known-answer self-test (23 checks)",
+      "## IC-08 \u2014 confirm lane E wrote nothing into `PRIOR` and nothing outside its own paths",
+      "## IC-09 \u2014 THE QUICK COMMAND: full end-to-end slice",
+      "## IC-10 \u2014 the quick command's slice override path",
+      "## IC-11 \u2014 `METHOD_COMPARISON.csv` machine-readability and discipline audit",
+      "## IC-12 \u2014 lane D's `comparison_single.csv` appeared; metrics computed from it",
+      "## IC-13 \u2014 re-measurement of resources (45-minute obligation)",
+      "## IC-14 \u2014 lane E wrote bytecode into the read-only prior round; found, disclosed, fixed, re-verified",
+      "## IC-15 \u2014 lane B froze route files; the planner-side metrics are now measured, not PENDING",
+      "## IC-16 \u2014 final re-validation of everything, after the last patch",
+      "## IC-17 \u2014 BUDGET CONFORMANCE gate built and wired in (OWNER FINDING F3)",
+      "## IC-18 \u2014 material update to the owner's own F3 measurement",
+      "## IC-19 \u2014 the joint 240 s re-run verified byte-identical to the withdrawn run",
+      "## IC-20 \u2014 the #5 baseline file appeared, and its budget is UNVERIFIABLE",
+      "## IC-21 \u2014 OWNER RULING R4 applied; final re-validation",
+      "## IC-22 \u2014 OWNER FINDING F4-b: the frozen cap list corrected, original preserved",
+      "## IC-23 \u2014 CONFIG CONFORMANCE check added (OWNER FINDING F4), arm-aware",
+      "## IC-24 \u2014 a denominator defect lane E found in its own metrics, fixed in-build",
+      "## IC-25 \u2014 three structural guards added while chasing the above",
+      "## OPEN \u2014 what lane E has NOT been able to check yet, and why",
+      "## How to re-run everything in this log"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_E_eval_report/METHOD_COMPARISON_SCHEMA.md": {
+    "sha256": "cf3ed0c7ff6f72b8224d8d6a7e1d8c3f30770f203067e8cd530ce9285e09736f",
+    "bytes": 18712,
+    "headings": [
+      "# METHOD_COMPARISON_SCHEMA \u2014 the column contract for `NEW/METHOD_COMPARISON.csv`",
+      "## Hard rules the file obeys",
+      "## Columns",
+      "## The three tracks",
+      "## Metrics",
+      "### Cost and resources",
+      "### Fallback",
+      "### Service",
+      "### Violations (independent evaluator's verdict, codes per `LANE-F-EVAL-1.1`)",
+      "### Statuses \u2014 kept DISTINCT, never merged",
+      "## Metrics measured this round (added once lane D's `comparison_single.csv` appeared)",
+      "## Budget conformance \u2014 the gate that decides whether a row may exist at all",
+      "## Metrics added under OWNER RULING R4",
+      "## Reading a `PENDING` row",
+      "## Rebuilding"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_pipeline_overnight_20261003_v1/lane_E_eval_report/QUICK_COMMAND.md": {
+    "sha256": "17d260fdc29d4547d39af0c8fcafca7d4179f37ffab5ebef3d04432415189673",
+    "bytes": 14425,
+    "headings": [
+      "# QUICK_COMMAND \u2014 one reproducible invocation that re-runs an end-to-end pipeline slice",
+      "## The command",
+      "## What makes it end-to-end rather than a unit test",
+      "## The headline numbers it re-derives",
+      "## Real recorded output",
+      "## Timing and cost, measured",
+      "## How to read a failure",
+      "## When the round's own arms exist"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/EXPERIMENT_LEDGER.jsonl": {
+    "sha256": "d3df5a3041c150ead321bd2db335ecb0bc25854d480cb491f537ea7d540d3d0c",
+    "bytes": 24417,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/CIRCLING_DIAGNOSIS.md": {
+    "sha256": "c8f553f7a524771d4c7a032595cb3ee8f4aa08f14966bffa02afb9fa859289c5",
+    "bytes": 10378,
+    "headings": [
+      "# Circling diagnosis: RB1-MAIN-STRESS-10-Q07 (A1, 2026-10-03)",
+      "## 1. Data",
+      "## 2. Why it circles (answer to the question asked)",
+      "## 3. Objective tracks",
+      "### P1: what equivalent tie-breaking resolves (no change to the problem)",
+      "### Decisions that need the OWNER (with consequences)",
+      "## 4. Reproduce"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/MATHEMATICAL_FOUNDATIONS.md": {
+    "sha256": "866ec2c637be2b65de8ffaeb947483d11754b2027e2e7566aeb81f421002225f",
+    "bytes": 23454,
+    "headings": [
+      "# Mathematical foundations of WildfireGuardian specialized routing",
+      "## 1. Problem P0, as implemented (the contract)",
+      "### 1.1 Data",
+      "### 1.2 Feasible set",
+      "### 1.3 Status semantics",
+      "## 2. Numeric semantics and decision D1",
+      "## 3. Objective tracks",
+      "## 4. Lemmas (problem-level)",
+      "## 5. Proofs for the accepted candidates",
+      "### 5.1 A2-C1 IDEP: scalar interval / potential envelope (r0 accepted; r1 reviewed for PO8b and PO10)",
+      "### 5.2 A2-C2 IDEP-vec (accepted, low priority)",
+      "### 5.3 A4-C1 cascade with horizon windows (accepted)",
+      "### 5.4 A4-C2 union zero-exposure screen (accepted)",
+      "### 5.5 A3-C1 backward block time bound V (accepted as a component)",
+      "### 5.6 A3-C3 corridor (accepted for testing, conditional)",
+      "### 5.7 A4 P1 stage (REPAIR-REQUIRED)",
+      "## 6. Window and corridor negative controls (why the rules matter)",
+      "## 7. Breakpoint lower bound (A6 claim, verified TRUE)",
+      "## 8. Contribution boundaries (A1 view, consistent with A6)",
+      "## 9. Counterexample and test index (all executable)",
+      "## 10. Open obligations"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/MATHEMATICAL_FOUNDATIONS_draft.md": {
+    "sha256": "312d7c921fa42e5cbb32304e2e72a2735b0a195054a00450cb13cdcf451ff38c",
+    "bytes": 24926,
+    "headings": [
+      "# Mathematical foundations of P0 (draft, A1, 2026-10-03)",
+      "## 1. Problem P0 exactly as implemented",
+      "### 1.1 Data",
+      "### 1.2 Feasible set",
+      "### 1.3 Status semantics (ActiveScenarioArm)",
+      "### 1.4 Floating-point vs exact",
+      "## 2. Lemmas",
+      "## 3. Objective tracks (summary; details in CIRCLING_DIAGNOSIS.md)",
+      "## 4. Open obligations (owner of the obligation in brackets)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/REVIEW_CHECKLIST.md": {
+    "sha256": "110d5e7c58e95cb55d83ea595c4fbdd1ed815c3fd15ec4ff91dcb05001585da7",
+    "bytes": 7413,
+    "headings": [
+      "# A1 adversarial review checklist (applied to every A2/A3/A4 candidate)",
+      "## A. Problem identity (same P0)",
+      "## B. Legality and state",
+      "## C. Destination, horizon, origin",
+      "## D. Exposure",
+      "## E. Bounds, ordering, certificates",
+      "## F. Floating point",
+      "## G. Support and caps",
+      "## H. Required tests before road scale"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A2-C1_review.md": {
+    "sha256": "67d83b0a95ebecebf609c0a06d34b008b035ef2897abea974f180f0baa47dc19",
+    "bytes": 8078,
+    "headings": [
+      "# A1 review of A2-C1: IDEP scalar exact interval / potential-transformed envelope subsolver",
+      "## Executable evidence (A1, independent of A2's tests)",
+      "## Proof obligations",
+      "## Checklist items with findings",
+      "## Required repairs",
+      "## Recommended repair (before timed evaluation; affects completeness only)",
+      "## Remaining risks (not blocking)",
+      "## Reviewed versions (sha256, first 16 hex)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A2-C2_review.md": {
+    "sha256": "4caadfbf7bc60b56b7f87c55236437b577f9720f7e3499a870061cac6b1426bb",
+    "bytes": 3115,
+    "headings": [
+      "# A1 review of A2-C2: exact vector interval labels with dominance splitting and sign-compressed carries",
+      "## Executable evidence (A1)",
+      "## Proof obligations",
+      "## Expected value",
+      "## Reviewed versions (sha256, first 16 hex)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A3-C1_review.md": {
+    "sha256": "9f394fe95e872946dd0391b5da151381c39ef8c9a558e455dd2f6996b353597b",
+    "bytes": 2771,
+    "headings": [
+      "# A1 review of A3-C1: block-relaxed backward time bound V (+ deadline-sliced label A*)",
+      "## Admissibility (claim: every real continuation from a non-goal label (x, k) reaching a goal at T \u2264 U has T \u2265 V[k//B, x]) \u2014 PROVEN",
+      "## Conditions"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A3-C3_review.md": {
+    "sha256": "82916b890c6f74f47405cc8b31e5b97568050214a2e5020509096af1f12850be",
+    "bytes": 4678,
+    "headings": [
+      "# A1 review of A3-C3: bound-derived space-time corridor + deadline for unchanged TE / r3",
+      "## Proofs",
+      "## Executable evidence (`reviews/a3_corridor_attack.py`; 329 instances \u00d7 B \u2208 {1, 2, 4} \u00d7 U \u2208 {k*, k*\u22121}, or K for refusals)",
+      "## Required repairs / conditions"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A4-C1_review.md": {
+    "sha256": "bc6596f0d859382a3426ffd97e6df17759d67fad9e820f7aa598a607cc4a0659",
+    "bytes": 6103,
+    "headings": [
+      "# A1 review of A4-C1: certificate-first exact cascade with lower-bound-anchored horizon windows",
+      "## Executable evidence (A1)",
+      "## Proof obligations",
+      "## Required hardening",
+      "## Obligation for planned revision r1 (window-clipped profiles)",
+      "## Reviewed versions (sha256, first 16 hex)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A4-C2_review.md": {
+    "sha256": "67963e76ad2cb48e57436daeb9cd248b9a73bcd128571524690f281b427db863",
+    "bytes": 4366,
+    "headings": [
+      "# A1 review of A4-C2: exact union zero-exposure screen in place of 30 per-member checks",
+      "## Soundness argument (checked against code)",
+      "## Executable evidence (A1)",
+      "## Conditions",
+      "## Reviewed versions (sha256, first 16 hex)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A4-P1_review.md": {
+    "sha256": "dacd277a47fa919982b4e8c5aa65c98e54636048ad51ce3f4fe1d921d7e9ef4c",
+    "bytes": 4451,
+    "headings": [
+      "# A1 review of A4's experimental P1 stage (`p1_stage.py`, `PHASE2_NOTES.md` \u00a71)",
+      "## Counterexample (executable): `reviews/a4_p1_origin_dest_ce.py`",
+      "## Findings by item",
+      "## Required repairs",
+      "## Notes"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/A6_breakpoint_review.md": {
+    "sha256": "297f554908a46a2b7c90417e9051da71bb95f612a76c5ec06df91086417ef1ec",
+    "bytes": 3146,
+    "headings": [
+      "# A1 verdict on A6's claim (NOVELTY_MATRIX \u00a75.3, COORD-LIT2): the Batz\u2013Sanders breakpoint blow-up transfers to P0",
+      "## Statement as verified",
+      "## Construction (`reviews/a6_breakpoint_blowup.py`)",
+      "## Corrections to A6's derivation",
+      "## Consequence for claims"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/CAND-1_review.md": {
+    "sha256": "fe325f0d4414dc83b083f78215ca9b3abb594d6007391b21353b751cf6558464",
+    "bytes": 9413,
+    "headings": [
+      "# A1 review of the frozen CAND-1 integration (and its CAND-1.1 repackaging)",
+      "## 1. Executable integration test (independent)",
+      "### D-A: zero-leg optimum rejected by the synthetic structural check (completeness only)",
+      "## 2. Item-by-item review (code read against D1/D1.1, H1\u2013H3, S1\u2013S4, P1 repairs)",
+      "## 3. Floating-point stress of the frozen IDEP-r1 (A1's `--fp` test)",
+      "## 4. CAND-1.1 packaging check",
+      "## 5. FP stress result for the frozen IDEP-r1 (`a2_r1_fp_stress.py` \u2192 `A2-C1r1_fp_stress_frozen.json`)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a1_math/reviews/D1_review.md": {
+    "sha256": "c976010cb1743ab777e193f1cb8077d658925cd6ae18502295ab0ebf367ae209",
+    "bytes": 2238,
+    "headings": [
+      "# A1 check of coordinator decision D1 (numeric band)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a2_timestate/FREEZE_CANDIDATE.md": {
+    "sha256": "ca0a7ec256c27f216375d072349a82aee290b1080fbcb74bef4cfe2ab98b7b36",
+    "bytes": 7640,
+    "headings": [
+      "# A2 freeze candidate \u2014 the scalar subsolver for A4 to integrate (2026-10-03 ~17:50 +08)",
+      "## Files (import read-only from `a2_timestate/` with that directory on sys.path)",
+      "## Contract (P0 semantics, single active member)",
+      "## Test record for exactly these hashes",
+      "## Not part of the candidate / open",
+      "## Addendum 2026-10-03 (after the queued run): A1 `a2_c1_attack.py --fp` on exactly these hashes"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a2_timestate/R1_NOTES.md": {
+    "sha256": "af1b869065f11d3448558f208f13899cf77baaa6b2cbdf09c6741de025ead2df",
+    "bytes": 11507,
+    "headings": [
+      "# A2-C1-r1: notes on revision 1 (substantial revision 1 of 2)",
+      "## Files (r0 is kept unchanged for reproducibility)",
+      "## What changed",
+      "## Tests after R1 (all recorded; no disagreement was tuned away)",
+      "## Road diagnostics (development-only, dev lock; `results/diag_road_RB1-MAIN-*.json`, `diag_r1_*.log`)",
+      "## Known limits / open items",
+      "## 2026-10-03 ~17:40 +08 \u2014 repair pass after A1 review (R1, R2, L16b) and coordinator decisions D1 / D1.1"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a2_timestate/proposals/A2-C1.md": {
+    "sha256": "870951344e8011319acbfbab5f69f783d9070a47270eeb0eb2013f03c57b499e",
+    "bytes": 14446,
+    "headings": [
+      "# A2-C1 \u2014 Exact Interval Dose-Envelope Propagation (IDEP), scalar subsolver",
+      "## 1. Problem slice addressed",
+      "## 2. Bottleneck addressed (measured, prior deliveries)",
+      "## 3. Mechanism",
+      "## 4. Which departure times must remain representable, and why",
+      "## 5. Mathematical assumptions and proof obligations (for A1)",
+      "## 6. Closest prior work (A6 to verify)",
+      "## 7. Expected failure modes",
+      "## 8. Minimal implementation and falsification experiments",
+      "## 9. Expected benefit vs cost",
+      "## 10. Revision budget",
+      "## 11. Early evidence (phase 1; correctness tests + DEVELOPMENT-ONLY representation counts, no performance claim)",
+      "## 12. Revision R1 (A2-C1-r1; substantial revision 1 of 2) \u2014 see `R1_NOTES.md`"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a2_timestate/proposals/A2-C2.md": {
+    "sha256": "bd59c3abb1929c73960fdb16bd1212fe17288fb86c95f59ee0ce4079917af50a",
+    "bytes": 5655,
+    "headings": [
+      "# A2-C2 \u2014 Exact vector interval labels with componentwise dominance splitting and sign-compressed carries",
+      "## 1. Problem slice",
+      "## 2. Bottleneck",
+      "## 3. Mechanism",
+      "## 4. Which departure times must remain representable",
+      "## 5. Proof obligations (for A1)",
+      "## 6. Closest prior work (A6)",
+      "## 7. Expected failure modes",
+      "## 8. Falsification",
+      "## 9. Benefit vs cost",
+      "## 10. Early evidence (phase 1)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a3_bounds/FREEZE_CANDIDATE.md": {
+    "sha256": "99964afaa905443a7142bbcf46848a0eeea6b9b76da7335923f807d1141be903",
+    "bytes": 6447,
+    "headings": [
+      "# A3-C3 freeze candidate \u2014 corridor-restricted exact subsolver",
+      "## Files (sha256)",
+      "## API (A5 INTERFACE.md \u00a72 plus the A2/A4 window convention)",
+      "## Exact configuration (fixed a priori)",
+      "## How A4 adds the configs",
+      "## Evidence"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a3_bounds/FROZEN_C3.json": {
+    "sha256": "d44982c310e6acfa3b21311f2184cfc7a6f302dee48172749151b54da66ef8e8",
+    "bytes": 5573,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a3_bounds/proposals/A3-C1.md": {
+    "sha256": "3062fabb603b524fcdcf90184a83c953837f56e2388f7133bfadbc441e381327",
+    "bytes": 7772,
+    "headings": [
+      "# A3-C1 \u2014 Block-relaxed backward time bound V + deadline-sliced exact label A*",
+      "## 1. Mechanism",
+      "## 2. Bottleneck addressed (measured)",
+      "## 3. Admissibility / consistency proof sketch (for A1 to attack)",
+      "## 4. F1 \u2014 defect found in the prior label engine (independent replication of A5's report)",
+      "## 5. Closest prior work (A6 to verify)",
+      "## 6. Tiny exhaustive results (`results/TINY_SUMMARY.json`)",
+      "## 7. Road development diagnostics (dev lock, NOT reportable; `results/road_*`)",
+      "## 8. Failure modes",
+      "## 9. Cost/benefit and revision budget"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a3_bounds/proposals/A3-C2.md": {
+    "sha256": "3678452497f9a35fb2e3c84df40a01b6613c698fc5375f95e3d99cccc46d3684",
+    "bytes": 4437,
+    "headings": [
+      "# A3-C2 \u2014 Per-member dose-to-go lower bound H^U_m (thermal budget used as a bound)",
+      "## 1. Mechanism",
+      "## 2. Bottleneck addressed",
+      "## 3. Admissibility sketch (A1)",
+      "## 4. Results",
+      "## 5. Why it is weak (diagnosis)",
+      "## 6. Prior work (A6)",
+      "## 7. Revision budget"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a3_bounds/proposals/A3-C3.md": {
+    "sha256": "ffde092afa1f3590d9e5b7220d74626f5f93920b6da9b1ac4821836e67a4641d",
+    "bytes": 9281,
+    "headings": [
+      "# A3-C3 \u2014 Bound-derived space-time corridor + deadline for the exact eager subsolvers (TE DP / r3)",
+      "## 1. Mechanism",
+      "## 2. Bottleneck addressed (measured)",
+      "## 3. Lemma C3 and proof sketch (for A1)",
+      "## 4. Tiny exhaustive results (`results/C3_TINY_SUMMARY.json`)",
+      "## 5. Road development diagnostics (dev lock, fresh process per run, NOT reportable; `results/road_c3_*.json`)",
+      "## 6. Closest prior work (A6 to verify)",
+      "## 7. Expected failure modes",
+      "## 8. Minimal falsification experiment for A5",
+      "## 9. Cost/benefit, revision budget"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/CANDIDATE_CARD.md": {
+    "sha256": "781d0ae0b9322624646cd5d3d3e9f6862a5d6bc2478fbc92d59028463ee997ed",
+    "bytes": 9728,
+    "headings": [
+      "# CAND-1 candidate card (A4)",
+      "## Mechanism (configuration `CAND-1`)",
+      "## Configurations",
+      "## Claimed exactness conditions",
+      "## Evidence (A4 development; correctness only)",
+      "## Known limits"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/COST_ANATOMY.md": {
+    "sha256": "316f9bf8ed2fd0632bd0bcd7b1503c7aff44dd242e445f051bc8e8fe27add404",
+    "bytes": 7512,
+    "headings": [
+      "# A4 cost anatomy of the current architecture (ActiveScenarioArm) \u2014 W-MAIN, 753 queries",
+      "## 1. Cascade stage outcomes (A, confirmed by B)",
+      "## 2. Where the time goes (B, development-only)",
+      "## 3. Cheap diagnostics available before expensive search (B; exploratory; W-MAIN only)",
+      "## 4. Prototype check (development-only)",
+      "## 5. Conclusions for the architecture"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/FROZEN.json": {
+    "sha256": "5573d6226320ad4d0dee9e8e018cb5d604733f40df749eee38cc3c4d59aef125",
+    "bytes": 4784,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/FROZEN_v1_1.json": {
+    "sha256": "2814eaebea759b392219080d3dd7c73b2025380c6095794d7369462effdbb7cc",
+    "bytes": 6199,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/PHASE2_NOTES.md": {
+    "sha256": "804c23c04a399b3c794eade01a110c40fc050b96a42342fa72a27a44ce641847",
+    "bytes": 6663,
+    "headings": [
+      "# A4 phase 2 notes",
+      "## 1. Track P1 stage (`p1_stage.py`) \u2014 lexicographic (t_arr, driving time)",
+      "## 2. A2 scalar slot (`slots.py`)",
+      "## 3. Files touched this phase (all in `a4_portfolio/`)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/dev_runs/A5H_FROZEN_EXPOSED_SUMMARY.json": {
+    "sha256": "f9566ccd8759b444023ff40f3465017d75b398b87f2b5591d918b151cbdd1e22",
+    "bytes": 9270,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/proposals/A4-C1.md": {
+    "sha256": "eee901d020c99cc01f375caad4d429d5f339c4af46e4c4bac33c36ed1aea6485",
+    "bytes": 11419,
+    "headings": [
+      "# A4-C1 \u2014 Certificate-first exact cascade with lower-bound-anchored horizon staging",
+      "## 1. Mechanism",
+      "## 2. Bottleneck addressed (measured)",
+      "## 3. Assumptions and proof obligations (for A1)",
+      "## 4. Closest prior work (A6 to verify claim-level overlap)",
+      "## 5. Expected failure modes",
+      "## 6. Minimal implementation and falsification experiment",
+      "## 7. Benefit vs cost",
+      "## 8. Planned revisions (\u2264 2)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a4_portfolio/proposals/A4-C2.md": {
+    "sha256": "8d7592cb5aa963b08547e400d636a11440acf19b565bb857bc45c20dd7ba5d30",
+    "bytes": 4614,
+    "headings": [
+      "# A4-C2 \u2014 Exact union zero-exposure screen (one-pass certificate in place of 30 member checks)",
+      "## 1. Mechanism",
+      "## 2. Bottleneck addressed (measured, development-only)",
+      "## 3. Proof obligations (for A1)",
+      "## 4. Closest prior work",
+      "## 5. Expected failure modes",
+      "## 6. Evidence so far (exploratory, exposed W-MAIN set; development-only timings)",
+      "## 7. Falsification experiment (A5 DEV)",
+      "## 8. Benefit vs cost"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/BASELINE_P1.md": {
+    "sha256": "e6a7b63910b5feb398ae98090ba14ef6513b18896de806c1937a9dcdca49471b",
+    "bytes": 5820,
+    "headings": [
+      "# A5 phase-1 baseline results (DEV sets only; AS_FROZEN unless labelled D1)",
+      "## T1 \u2014 correctness on DEV-TINY (212 cases; reference: 166 ROUTE / 46 REFUSED)",
+      "## T2 \u2014 DEV-ROAD (fresh hazards on real roads; 40 instances / 429 queries; HZ-1, E_max = 600), cold 60 s",
+      "## T2 \u2014 EXPOSED-DEV (753 W-MAIN bench queries; exposed), cold 60 s",
+      "## T2 \u2014 DEV-MEDIUM v2 (48 synthetic grids; Pareto reference 30 ROUTE / 14 REFUSED / 4 caps), cold 60 s",
+      "## Pending at the time of writing (queued; results appended to this file and the ledger when complete)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/EVAL_PROTOCOL.md": {
+    "sha256": "0ada3c01967d752cd381a86c03a723cd18d8909ceca439c385c452c70b10017b",
+    "bytes": 26332,
+    "headings": [
+      "# A5 evaluation protocol \u2014 specialized routing research (v1.0, FROZEN)",
+      "## 0. D2 amendments (binding)",
+      "## 1. Problem under test",
+      "## 2. Result statuses (exactly these)",
+      "### 2a. Floating-point budget band \u2014 coordinator decision D1 (frozen; applies to EVERY arm, baselines included)",
+      "## 3. Tracks (kept separate; never pooled)",
+      "### T1 \u2014 mathematical correctness and certificates (synthetic, independently solved)",
+      "### T2 \u2014 computational performance (frozen generated hazards; synthetic and real Korean road networks)",
+      "### T3 \u2014 real observation / payload integration",
+      "## 4. Benchmarks",
+      "## 5. Arms",
+      "## 6. Limits and cost accounting",
+      "## 7. Measurement environment",
+      "## 8. Endpoints and analysis (fixed before any candidate result)",
+      "## 9. Information guard and fairness",
+      "## 10. Known limitations and deviations (current)",
+      "## 11. Phase-1 runs (official, exclusive lock) and status"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/INTERFACE.md": {
+    "sha256": "f16796f71cf29bcaa5503e909c969c5891ce303b2b51dba9b96fd567219c657a",
+    "bytes": 10894,
+    "headings": [
+      "# A5 harness interface (v1.0-draft) \u2014 how candidates are evaluated",
+      "## 1. Data formats",
+      "## 2. Subsolver API (activation loop and full-member mode)",
+      "## 3. Whole-query API (cascades, portfolios, new architectures)",
+      "### 3a. Ablation configurations, method labels and the P1 stage",
+      "## 4. Result row schema (one JSON line per (query, arm))",
+      "## 5. Commands",
+      "# official timed evaluation of a frozen candidate (A5 only), e.g. as a subsolver inside the validated arm on DEV-ROAD:",
+      "# whole-query candidate: --arms AS-EAGER CAND-QUERY ; synthetic sets: --set DEV-MEDIUM --arms SYN-ACT-TE CAND-ACT",
+      "# T1 correctness (in-process) on DEV-TINY against the independent reference:",
+      "# independent road checks after a run (not charged):",
+      "## 6. Self-tests"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/PROTOCOL_FREEZE.json": {
+    "sha256": "2dd93030ddb0b05d2f994843fe201027f65964be5aff5db8348afb81902b4e6a",
+    "bytes": 357,
+    "headings": []
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/README.md": {
+    "sha256": "7116af03bdcbae006ee9b9442aad5a12415a0cdf661529b68941f51a1a7402ec",
+    "bytes": 2006,
+    "headings": [
+      "# A5 \u2014 independent evaluator (phase 1)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/checkers/README.md": {
+    "sha256": "857ca8d8df82662f087f00a71a61cd9947a5d558345001856db807e98bec8adf",
+    "bytes": 8400,
+    "headings": [
+      "# A5 checkers (A5-H2): lane-F road check + independent refusal audit",
+      "## Files",
+      "## road_check API",
+      "## refusal_audit API",
+      "## Independence statement",
+      "## Costs (development timings, measured under run_locked dev; machine shared)",
+      "## Limits"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a5_evaluator/dev_road/README.md": {
+    "sha256": "11968cf2fe30448df4d454aca9a387c3420a79606a7e2af65c8af2de3e6f213e",
+    "bytes": 5316,
+    "headings": [
+      "# A5 DEV-ROAD v1 (built by A5-H1)",
+      "## Generator",
+      "## Seeds and grouping",
+      "## Counts (v1)",
+      "## Load",
+      "## C2 information guard",
+      "## Limitations"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a6_literature/IMPLEMENTATION_HINTS.md": {
+    "sha256": "48059e12741b473a0c9dbe903f80d9ae60767196037a6b904705cf98fdd99043",
+    "bytes": 14990,
+    "headings": [
+      "# Implementation hints from the literature (for A2 / A3 / A4; A1 for proof obligations)",
+      "## 1. Tick-table baselines and waiting policies (what any compression must beat)",
+      "## 2. Symbolic / profile propagation (A2)",
+      "## 3. Admissible bounds and pruning (A3)",
+      "## 4. Interval states (A2/A3)",
+      "## 5. Bidirectional search (A3)",
+      "## 6. Constraint activation and relaxation loops (A4/A3)",
+      "## 7. Circling and objective tracks (A1)",
+      "## 8. Portfolios / cascades (A4)",
+      "## 9. Hazard-routing practice notes (context)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a6_literature/NOVELTY_MATRIX.md": {
+    "sha256": "d6985dbd924a3b9c6400f07e2d11421b6b888c31542d44d4902529ba0e3c5542",
+    "bytes": 44228,
+    "headings": [
+      "# A6 novelty matrix \u2014 Phase 1 (pre-freeze), 2026-10-03",
+      "## 0. The problem class itself (context for every row)",
+      "## 1. Summary matrix",
+      "## 2. Details per claim",
+      "### C1 \u2014 Event-driven minimum-dose function propagation",
+      "### C2 \u2014 Per-member dose-to-go bounds",
+      "### C3 \u2014 Constraint activation with conditional certificates",
+      "### C4 \u2014 Lexicographic objective against circling (track P1)",
+      "### C5 \u2014 Exact cascade with diagnostic selection",
+      "### C6 \u2014 Dose-aware interval-label dominance (most plausible residual)",
+      "### C7\u2013C10",
+      "## 3. What could constitute a defensible contribution (if experiments support it)",
+      "## 4. Phase-2 checklist (A6 will apply to frozen candidates)",
+      "## 5. Phase 2 update (2026-10-03, ~16:10 +08) \u2014 falsification tests F1a / F6a executed",
+      "### 5.1 Per-source answers to the four questions",
+      "### 5.2 Verdict changes",
+      "### 5.3 Batz & Sanders Thm 2, and whether it transfers to P0",
+      "### 5.4 Consequences for the team",
+      "## 6. Phase 3 \u2014 frozen candidates (2026-10-03, ~20:45 +08)",
+      "### 6.1 Key new finding: the potential transform for waiting cost is classical",
+      "### 6.2 Per-component verdicts",
+      "### 6.3 Contribution statement (does not overclaim)",
+      "### 6.4 Remaining falsification tests"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a6_literature/NOVELTY_MATRIX_FINAL.md": {
+    "sha256": "6d2fac6ab0659bad19706a644f5f3b7ab216805fb3b582a3650a4697814e488d",
+    "bytes": 16675,
+    "headings": [
+      "# Novelty matrix \u2014 final (A6, 2026-10-03)",
+      "## 1. Method and limits",
+      "## 2. Problem-class positioning",
+      "## 3. Claim-level matrix (final verdicts)",
+      "## 4. Contribution statement (approved wording for reports; does not overclaim)",
+      "## 5. Claims not supported",
+      "## 6. Remaining falsification tests",
+      "## 7. Key sources and access depth (full list: `SOURCES.md`)",
+      "## 8. Verdict history (abridged; details in `NOVELTY_MATRIX.md`)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/a6_literature/SOURCES.md": {
+    "sha256": "83ba8c88139fccc2527d9a902adb3163693335f4e51cd01614dc1b888656d03c",
+    "bytes": 33768,
+    "headings": [
+      "# A6 bibliography with access depth (Phase 1, 2026-10-03)",
+      "## A. Search, safe intervals, A*",
+      "## B. Time-dependent shortest paths, waiting, profiles",
+      "## C. Resource-constrained shortest paths (labels, bounds, bidirectional, constraint generation)",
+      "## D. Robust / scenario / constraint generation",
+      "## E. Hazard / dose / evacuation routing",
+      "## F. Algorithm selection / portfolios",
+      "## G. Phase 2 additions (2026-10-03, F1a/F6a literature tests)",
+      "## H. Phase 3 additions (frozen-candidate assessment)",
+      "## Known gaps (honest list)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/AGENTS.md": {
+    "sha256": "22e4529ec32112dc570bdc251d33aed76fe3910bfef7a89a673172b8f7951b20",
+    "bytes": 1047,
+    "headings": [
+      "# Team roster (coordinator-maintained)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/DECISION_D1_numeric_band.md": {
+    "sha256": "44f6c5edf352606350a773c9fad72f2d0edce99f5c90c010a446094d5261a83d",
+    "bytes": 2332,
+    "headings": [
+      "# Coordinator decision D1 \u2014 budget floating-point band (2026-10-03 ~17:45 +08)",
+      "## Amendment D1.1 (2026-10-03 ~18:20 +08, after A1 review a1_math/reviews/D1_review.md)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/DECISION_D2_protocol_approval.md": {
+    "sha256": "880a47c526b92ab71498ec9f01baa134cdeaf260d5b86ef20d6b04b380aa915d",
+    "bytes": 1858,
+    "headings": [
+      "# Coordinator decision D2 \u2014 evaluation protocol approval (system time see ledger COORD-D2)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/TEAM_CHARTER.md": {
+    "sha256": "4f56b1a940392872196eaa19f5076872492eddd292eebee14ef5705f7800d458",
+    "bytes": 12499,
+    "headings": [
+      "# WildfireGuardian specialized-routing research team \u2014 charter (coordinator-owned)",
+      "## Mission (owner's words, condensed)",
+      "## You are not alone",
+      "## Prior evidence (verified by coordinator: manifests 50/50, 53/53, 32/32 match)",
+      "## Current findings to build on",
+      "## Mathematical contract (A1 formalizes; nobody may silently change it)",
+      "## Common interfaces (A5 finalizes in `$R/a5_evaluator/INTERFACE.md`; start from these)",
+      "## Fairness rules",
+      "## Machine sharing (mandatory)",
+      "## Ledger (coordinator merges into `$R/EXPERIMENT_LEDGER.jsonl`)",
+      "## Candidate proposal template (A2, A3, A4 \u2014 at least one each)",
+      "## Research loop",
+      "## Boundaries",
+      "## Messages",
+      "## Amendment (2026-10-03 ~19:15 +08): frozen files are immutable"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1529_a5_to_coordinator_a1_a3.md": {
+    "sha256": "2659c9886e6c4393965b97f1ed8404c8f690a424b94a2d7f734f2b4312a41a0d",
+    "bytes": 2414,
+    "headings": [
+      "# A5 -> coordinator, A1, A3 (relay to A2/A4): correctness defect in the prior label engine (engine.py / engine_bound.py)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1532_a3_to_coordinator_A1_A5.md": {
+    "sha256": "ab7f55aa8d0d3a441359cceeac4551601c9cc9a4facd0ae03d14c3a9c19f12dd",
+    "bytes": 1831,
+    "headings": [
+      "# A3 -> coordinator (please relay to A1, A4, A5): correctness bug in the prior label engine (F1)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1537_a1_to_coordinator.md": {
+    "sha256": "055016fc804f1bcaf57b709058e96d0172b0dbd1e9b2665b0e72d2e3f91364a8",
+    "bytes": 2198,
+    "headings": [
+      "# A1 -> coordinator (relay to A2, A3, A4, A5): phase-1 findings that affect other lanes"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1537_a2_to_coordinator_a1_a3_a5.md": {
+    "sha256": "c4a74f26fd7fac20244cdeb314f5ba86f91917991fd6390dac33d1127d957c68",
+    "bytes": 2105,
+    "headings": [
+      "# A2 -> coordinator, A1, A3, A5: defect in engine.py label A*/Dijkstra (false refusals under P0)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1545_a6_to_coordinator.md": {
+    "sha256": "931233c59381d8173e51553cc92feff29eb9bd01d64e768b126e22badb1377f8",
+    "bytes": 1818,
+    "headings": [
+      "# A6 -> coordinator (relay to A1, A2, A3, A4 as useful): Phase-1 literature outputs ready"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1555_a4_to_coordinator_a1_a2_a3_a5.md": {
+    "sha256": "7c97e28c1b69c22f3fd01700d562684fd517ddb22093bdacb3cc6438c53f552a",
+    "bytes": 2169,
+    "headings": [
+      "# A4 -> coordinator (relay to A1, A2, A3, A5): phase-1 outputs and requests"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1612_a6_to_coordinator.md": {
+    "sha256": "712ed556975dbc9c5655d782d9bec7cabf9c14362a01b926f5f39119e659ce6e",
+    "bytes": 1061,
+    "headings": [
+      "# A6 -> coordinator: Phase-2 F1a/F6a literature tests done"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1640_a2_to_a4_coordinator.md": {
+    "sha256": "2a25f6dc76442bb6806b4c60f934618e412ec3f6db649a62da93ae095c37cb11",
+    "bytes": 3163,
+    "headings": [
+      "# A2 -> A4 (cc coordinator): IDEP-r1 cascade-slot interface (horizon window, resumable, lazy window dose functions)",
+      "## Call",
+      "# on r['status'] == 'WINDOW_EXHAUSTED': r2 = sess.run(k_limit=Kw2) with Kw2 > Kw (state reused), or k_limit=None (= K)",
+      "# on CAP 'WALL_CLOCK': calling sess.run(...) again continues the same search",
+      "## Statuses (contract)",
+      "## Please pass the FULL union `cp`, not your K-proxy",
+      "## Exposure providers",
+      "## Evidence so far (tests are light; road numbers are development-only, dev lock)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1640_a2_to_a4_reply.md": {
+    "sha256": "bc07ad3b5d04a25a60e93916bf409cf9288fb835cebd4bd5c56b7df134cb4603",
+    "bytes": 1747,
+    "headings": [
+      "# A2 -> A4 (cc coordinator): reply to 20261003T1640_a4_to_a2 \u2014 contract confirmed with two amendments"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1640_a4_to_a2_coordinator.md": {
+    "sha256": "64a24b9aa2ce8fca5b0b835a8aeda42d2257a878de3293f3c148047095b77328",
+    "bytes": 2258,
+    "headings": [
+      "# A4 -> A2 (via coordinator): interface for the A2 scalar slot in the A4-C1 cascade"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1655_a1_to_coordinator.md": {
+    "sha256": "e7968bc2a3c6006c2699da39adfbde31b0d198fb9c37c03e78062065ce01f1e0",
+    "bytes": 1979,
+    "headings": [
+      "# A1 -> coordinator: phase-2 review verdicts (details are in a1_math/reviews/)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1656_a3_to_coordinator_A1_A4_A6.md": {
+    "sha256": "2ccc0c23cf29820ef4ed341caee65a655af6ad0e0dc7a78d87cc730ad71a9952",
+    "bytes": 1964,
+    "headings": [
+      "# A3 -> coordinator (relay A1, A4, A6): phase-1 status + interface note"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1711_a2_to_a4_coordinator_repairs.md": {
+    "sha256": "ec6d0ab80668650cb968e961153103763ce51e57c6be75c2f922f30d824af56a",
+    "bytes": 1877,
+    "headings": [
+      "# A2 -> A4 (cc coordinator, A5): idep_r1 after A1 repairs R1/R2 and decision D1 \u2014 interface deltas"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1713_a5_to_coordinator_a4.md": {
+    "sha256": "ec82206fa388c2831a953ec5ba41a79b46144499b341bd1b8eb358c5963c9d5e",
+    "bytes": 2491,
+    "headings": [
+      "# A5 -> coordinator (relay to A4, A2, A3): D1 incorporated; harness supports A4 ablation configs + P1 stage; early road finding"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1725_a1_to_coordinator.md": {
+    "sha256": "4a7d63e24f31033530c494bee3d36f0cdf829b0da72d788197e8502205628feb",
+    "bytes": 1597,
+    "headings": [
+      "# A1 -> coordinator: phase-3 verdicts (details are in a1_math/reviews/ and MATHEMATICAL_FOUNDATIONS.md)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1745_KSA_coordinator_to_routing_coordinator.md": {
+    "sha256": "bd01868cf40720dce7ca5145e1c3f0ec08349975ef149d89311e3cdf35c84c1f",
+    "bytes": 794,
+    "headings": [
+      "# From: KSA (korean_specialist_architectures_20261003_v1) coordinator \u2014 To: routing study coordinator"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1750_a2_to_a4_coordinator_correction.md": {
+    "sha256": "46d6b298a0a29443b564fccb3af1afe88f81ea3136707cd7f5cf856bb4d2444c",
+    "bytes": 951,
+    "headings": [
+      "# A2 -> A4 (cc coordinator, A1, A5): correction + final freeze-candidate pointer"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1850_a4_to_a5_coordinator.md": {
+    "sha256": "ebcf94504b28ff7ba5f7f4f483e6e22b9cdf7452caed6f0608a16da309cbefd8",
+    "bytes": 2374,
+    "headings": [
+      "# A4 -> A5 (cc coordinator): CAND-1 run interface (whole-query API) \u2014 draft until FROZEN.json exists"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1930_a1_to_coordinator.md": {
+    "sha256": "0321d62cfd65ba4e169145d5302448c00ce9eb5ed605880646b6c89bfc54c3f5",
+    "bytes": 1444,
+    "headings": [
+      "# A1 -> coordinator: CAND-1 / CAND-1.1 review (a1_math/reviews/CAND-1_review.md)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1935_a4_to_a3_coordinator.md": {
+    "sha256": "8817c49437b6c497b46e768f359337755ba59d792bf3bc1aed9707b6b7092cb4",
+    "bytes": 1239,
+    "headings": [
+      "# A4 -> A3 (cc coordinator, A5): AS+CORRIDOR-TE integration finding"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1940_a4_to_a5_coordinator_frozen.md": {
+    "sha256": "e110dd1b4cf48eb479646dde98ace333e64e892c5c02045b9cb41d23b1d18d72",
+    "bytes": 767,
+    "headings": [
+      "# A4 -> A5 (cc coordinator): CAND-1 frozen"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T1951_a3_to_a5_coordinator_A4.md": {
+    "sha256": "738305588da5fa2b5de5f39ac2992fc7a5210ae146c225987cd03cb7b508858f",
+    "bytes": 1833,
+    "headings": [
+      "# A3 -> A5 (cc coordinator, A4): frozen candidate A3-C3-r2 (corridor subsolver)"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T2030_a4_to_a5_coordinator_cand1_1.md": {
+    "sha256": "ae21de0f966edf1cb340e7de806a1295dea8474d6a1045330979a8521988a79c",
+    "bytes": 1603,
+    "headings": [
+      "# A4 -> A5 (cc coordinator): CAND-1.1 replaces CAND-1 for evaluation"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/messages/20261003T2050_a6_to_coordinator.md": {
+    "sha256": "d7d7d7858c6defebb1045a1c426fe28a4e9552c5af7f816422e4ef29891384f3",
+    "bytes": 1173,
+    "headings": [
+      "# A6 -> coordinator: Phase 3 frozen-candidate novelty assessment done"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/WildfireGuardian_Canonical_Context.md": {
+    "sha256": "afaa95ccd5e830bb87264e843d2c03891e90a12d6da6bfe9c089d0a4bd601941",
+    "bytes": 500759,
+    "headings": [
+      "# WildfireGuardian canonical project context",
+      "## Purpose and authority",
+      "## 1. Project purpose and present position",
+      "## 2. Architecture and evidence boundaries",
+      "## 3. Workstream ledger",
+      "## 4. Engineering, routing and benchmark record",
+      "### A1, A3 and integration",
+      "### A5-P presentation closure",
+      "### A6-B benchmark",
+      "## 5. Data, legacy transfer and Korean imagery",
+      "### Inventory and transfer",
+      "### A4-R: Uiseong K1 closure",
+      "## 6. Fuel and ecological branches",
+      "### Fuel evidence and repair",
+      "### Ecological exposure",
+      "## 7. Video branch",
+      "## 8. Statistical design: corrected interpretation",
+      "## 9. S1: final accepted interpretation",
+      "### Scope and integrity",
+      "### Correct risk definition and results",
+      "### Theorem addendum",
+      "### Delivery is not yet confirmed on the Mac",
+      "## 10. Agreed next substantive experiment",
+      "## 11. Product and social-impact direction",
+      "## 12. Documents, locations and future continuity",
+      "### Operating process agreed with the user",
+      "## 13. Change record",
+      "## 14. Component ablations and loss clarification (26 September)",
+      "## 15. EXP2 in progress: code-freeze permission issue (26 September)",
+      "### EXP2 subsequent checkpoint (26 September)",
+      "## 16. Component-ablation delivery and native verification (26 September)",
+      "## 17. EXP2 completed: PREFER MEDIAN; delivery pending (26 September)",
+      "## 18. EXP2 final delivery handoff (27 September)",
+      "## 19. Timing readiness supplement: semantic issues before study (27 September)",
+      "## 20. Proposed overnight parallel packet (27 September)",
+      "## 21. WildfireSpreadTS / SSL / global future-work review (27 September)",
+      "## 22. User decision: SSL planning and global PoC scope (27 September 2026)",
+      "## 23. Timing semantics revision delivered (27 September 2026)",
+      "## 24. Forecast bridge foundation delivered (27 September 2026)",
+      "## 25. SSL literature audit received; training deferred (27 September 2026)",
+      "## 26. SSL clarification accepted; packet closed (27 September 2026)",
+      "## 27. Partial-support integration received; acceptance runner gap (27 September 2026)",
+      "## 28. Exploratory timing study delivered and closed (27 September 2026)",
+      "## 29. Acceptance supplement received; native run independently FAIL (27 September 2026)",
+      "## 30. Native v1.1 rerun resolves regressions; proposed replay probe blocked (27 September 2026)",
+      "## 31. Replay-probe diagnosis closed; fixture-contract check passes (27 September 2026)",
+      "## 32. User retains SSL/MoE; current novelty comparison (27 September 2026)",
+      "## 33. Sparse conditional computation research prompt (27 September 2026)",
+      "## 34. Alarm credibility and assistance discussion (27 September 2026)",
+      "## 35. Elderly-specific wildfire warning-to-assistance scope agreed (27 September 2026)",
+      "## Extension concept brainstorm: elderly wildfire awareness and evacuation (27 September 2026)",
+      "## Talking-lamp concept selected for deeper development (27 September 2026)",
+      "## 36. Executive comparison of architecture research packets (27 September 2026)",
+      "## 37. Architecture accepted and feasibility work started (27 September 2026)",
+      "## Household communication device concept agreed (27 September 2026)",
+      "## 38. Korean shortlist crosswalk and observation-opportunity audit (27 September 2026)",
+      "## 39. Two parallel task prompts prepared (27 September 2026)",
+      "## 40. Donghaeng concept review and optional third parallel packet (27 September 2026)",
+      "## 41. Global future-work PoC authorized as a bounded independent task (27 September 2026)",
+      "## 42. P1 catalog/custody delivery received; sample awaits Earthdata access (27 September 2026)",
+      "## 43. P2 native reproduction and bounded repair disposition (27 September 2026)",
+      "## 44. Human-assisted data access priorities (27 September 2026)",
+      "## P3 Donghaeng software foundation completed (27 September 2026)",
+      "### Orchestrator disposition on P3 delivery (27 September 2026)",
+      "## 45. P1 sample follow-up received; acquisition and custody remain separate gates (27 September 2026)",
+      "## 46. Legacy data reuse authorization and scope (27 September 2026)",
+      "## 47. P1 six-file acquisition delivered; retrospective VIIRS technical evidence only (27 September 2026)",
+      "## 48. P2 v0.2 independently passes native acceptance (27 September 2026)",
+      "## 49. P1 v3.1 closure and prospective protocol direction (27 September 2026)",
+      "## 50. P4 quick review and legacy-library delivery gap (27 September 2026)",
+      "## 51. Library delivered; inventory accepted, scientific admission flags require correction (27 September 2026)",
+      "## 52. Four specialist reviews: arrival-aware assistance research direction (27 September 2026)",
+      "## 53. Prof. Im paper and user notes: state, behavior and timely assistance refinement (27 September 2026)",
+      "## 54. Next-hour execution authorized and three bounded jobs launched (27 September 2026)",
+      "## 55. Library v2 delivery accepted within inventory/engineering scope; N1 completed (27 September 2026)",
+      "## 56. N1 independently revalidated; duplicate ownership clarified; N2/N3 delivered (27 September 2026)",
+      "## 57. Whole-trajectory grading repair started; forecast endpoint reconciled (27 September 2026)",
+      "## 58. N4 completed; status received by orchestrator (27 September 2026)",
+      "## 59. N5 delivery reviewed; overnight integration scope clarified (28 September 2026)",
+      "## 60. User sets real-data priority and dual forecast/assistance objectives (28 September 2026)",
+      "## 61. Time-buffer accepted conceptually; uncertain trajectory evaluation proposed (28 September 2026)",
+      "## 62. Priorities confirmed; Korean progression feasibility begun (28 September 2026)",
+      "## 63. Overnight integration independently reproduced natively; scientific pilot remains blocked (28 September 2026)",
+      "## 64. Progression follow-up reviewed; Sancheong remains conditional development lead (28 September 2026)",
+      "## 65. Prospective pivot if Korean arrival reference cannot be established (28 September 2026)",
+      "## 66. Combined research questions selected; Rothermel improvement opportunities reviewed (28 September 2026)",
+      "## 67. Sancheong addendum reviewed; recommend pause rather than acquisition or more paperwork (28 September 2026)",
+      "## 68. Execution-event r2 independently accepted natively within prototype scope (28 September 2026)",
+      "## 69. Rothermel frontier and ignition-information theorem (28 September 2026)",
+      "## 70. Orchestrator assessment of ignition report and next experiment proposal (28 September 2026)",
+      "## 71. Track A execution prioritized; independent Track B dispatched (28 September 2026)",
+      "## 72. Track A and B completed; orchestrator read both handoffs (28 September 2026)",
+      "## 73. Independent A/B reruns pass; requested follow-ups dispatched (28 September 2026)",
+      "## 74. Progress estimate and external feedback outreach options (28 September 2026)",
+      "## 75. Track A diagnosis and Track B historical recovery completed (28 September 2026)",
+      "## 76. User-authorized destination experiment and historical-input reconciliation started (28 September 2026)",
+      "## 77. A2 destination study and B input reconciliation completed (28 September 2026)",
+      "## 78. Spotting diagnosis and bounded historical comparison authorized and dispatched (28 September 2026)",
+      "## 79. Spotting diagnosis and historical comparison completed (28 September 2026)",
+      "## 80. Remote-ignition experiment and independent empirical feasibility started (28 September 2026)",
+      "## 81. Remote-ignition union stopped; independent-data fit remains blocked (28 September 2026)",
+      "## 82. Discussion of losses and user-assisted archive access (28 September 2026)",
+      "## 83. Consolidated A/B external review dossier and archive alternatives (28 September 2026)",
+      "## 84. External critique assessment; redesign discussion only (28 September 2026)",
+      "## 85. Source-grounded architecture critique and mathematical redesign proposals (28 September 2026)",
+      "## 85. Second external mathematical review assessed (28 September 2026)",
+      "## 86. Candidate mathematical novelty: paired occupancy loss bounds and selective refinement (28 September 2026)",
+      "## 87. Mathematical selective-refinement feasibility executed (28 September 2026)",
+      "## 88. Active-action refinement follow-up completed (28 September 2026)",
+      "## 89. Directional provider numerical feasibility completed (28 September 2026)",
+      "## 90. Coherent uncertainty and symmetric-action development baseline completed (28 September 2026)",
+      "## 91. Observation-driven uncertainty priority (28 September 2026)",
+      "## 92. Observation update engineering prototype (28 September 2026)",
+      "## 93. Paired observation-value pilot (28 September 2026)",
+      "## 94. Action-phase feasibility diagnosis (28 September 2026)",
+      "## 95. Methodology consolidation and structural action interface (28 September 2026)",
+      "## 96. Autonomous action-menu \u00d7 observation experiment (28 September 2026)",
+      "## 97. Resident uncertainty opportunity study (28 September 2026)",
+      "## 98. Synthetic-generator audit and richer state-information controls (28 September 2026)",
+      "## 99. KMA API transfer check \u2014 2026-09-28",
+      "### Section 99 addendum \u2014 screenshot credential retry, 2026-09-28",
+      "### Section 99 addendum \u2014 user-provided GK2A sample, 2026-09-28",
+      "### Section 99 addendum \u2014 user-provided FF/CLD lists, 2026-09-28",
+      "### Section 99 addendum \u2014 matched FF/CLD payload metadata, 2026-09-28",
+      "## 100. GK2A support decoder engineering packet \u2014 2026-09-28",
+      "## 101. GK2A semantic resolution and geometry discrepancy \u2014 2026-09-28",
+      "## 102. Declared KO grid resolved and synthetic observability counterexample \u2014 2026-09-28",
+      "## 103. Observation-conditioned proposal comparison \u2014 2026-09-28",
+      "## 104. Development-only posterior approximation diagnostic \u2014 2026-09-28",
+      "## 105. Task-feasibility dependency stop \u2014 2026-09-28",
+      "## 106. Feasibility audit delivered; epoch-sensitivity development authorized \u2014 2026-09-28",
+      "## 107. Complete project overview and visual snapshot \u2014 2026-09-28",
+      "## 108. Epoch repair v2 reviewed; conditional evaluation continuation \u2014 2026-09-28",
+      "## 109. Parallel audit handoff reconciled with restored state \u2014 2026-09-28",
+      "## 110. Epoch evaluation completed; partial durable delivery \u2014 2026-09-28",
+      "## 111. Original evaluation downloads offered; local receipt still pending \u2014 2026-09-28",
+      "## 112. Epoch evaluation originals recovered and native recomputation passed \u2014 2026-09-28",
+      "## 113. Action-continuation next-step brief \u2014 2026-09-28",
+      "## 114. Donghaeng scope narrowed; core code prioritized \u2014 2026-09-28",
+      "## 115. Endpoint disagreement and targeted uncertainty literature review \u2014 2026-09-28",
+      "## 116. Departure/exit endpoints, intermittent position evidence and architecture comparison \u2014 2026-09-28",
+      "## 117. Scope and MoE preferences clarified; Donghaeng parked \u2014 2026-09-28",
+      "## 118. Three independent overnight preparation briefs \u2014 2026-09-28",
+      "## 119. Action-continuation result reviewed; bounded selector follow-up prepared \u2014 2026-09-28",
+      "## 120. O1 initialization foundation accepted as engineering; native check \u2014 2026-09-29",
+      "## 121. O2 reviewed and natively reproduced; narrow no-label verdict \u2014 2026-09-29",
+      "## 122. O3 native acceptance; reduced scenarios remain summaries \u2014 2026-09-29",
+      "## 123. O3 addendum closure and research-backed design brief \u2014 2026-09-29",
+      "## 124. O2 addendum native reproduction and design-review supplement \u2014 2026-09-29",
+      "## 125. Observation-history foundation native acceptance \u2014 2026-09-29",
+      "## 126. Initialization prior adapter native acceptance \u2014 2026-09-29",
+      "## 127. Design research reviewed; RB1 remains proposed \u2014 2026-09-29",
+      "## 128. RB1 bounded exploratory diagnostic completed; external feedback triaged \u2014 2026-09-29",
+      "## 129. RB1 held-out fitted-gate pilot completed; O1 decisions received \u2014 2026-09-29",
+      "## 130. Post-gate next-step recommendation and Lenia assessment \u2014 2026-09-29",
+      "## 131. Next diagnostic prompts prepared \u2014 2026-09-29",
+      "## 132. Agent A capacity diagnostic native tests accepted \u2014 2026-09-29",
+      "## 133. Agent B information diagnostic received and natively reproduced \u2014 2026-09-29",
+      "## 134. Lenia feasibility received: park current branch \u2014 2026-09-29",
+      "## 135. Agent C synthesis accepted with prospective design corrections \u2014 2026-09-29",
+      "## 136. Corrected RB1-W execution prompts prepared \u2014 2026-09-29",
+      "## 137. Future-work roadmap refresh and resource preference \u2014 2026-09-29",
+      "## 138. Wind realism review received \u2014 2026-09-29",
+      "## 139. RB1-W delivered; independent acceptance pending \u2014 2026-09-29",
+      "## 140. Observation-ambiguity foundation delivered \u2014 2026-09-29",
+      "## 141. RB1-W acceptance received: close current candidate \u2014 2026-09-29",
+      "## 142. Held-station audit executed \u2014 2026-09-29",
+      "## 143. Station-to-model design received; OMS-1 not ready to freeze \u2014 2026-09-29",
+      "## 144. Agent A semantics review and audit correction \u2014 2026-09-29",
+      "## 145. Semantics wording corrections filed \u2014 2026-09-29",
+      "## 146. WOC-1 returned; independent acceptance pending \u2014 2026-09-29",
+      "## 147. WOC-1 author-led acceptance received; precision correction \u2014 2026-09-29",
+      "## 148. RWC-1 robust-component follow-up frozen and started \u2014 2026-09-29",
+      "## 149. RWC-1 completed: component benefits with clean-data regressions \u2014 2026-09-29",
+      "## 150. Post-RWC external-agent task plan prepared \u2014 2026-09-29",
+      "## 151. Outcome priority and narrow crew-contact scope agreed \u2014 2026-09-29",
+      "## 152. External RWC challenge received and missing source supplement prepared \u2014 2026-09-29",
+      "## 153. Changing-wind foundation received and native tests passed \u2014 2026-09-29",
+      "## 154. Agent B draft received; pre-freeze statistical clarifications \u2014 2026-09-29",
+      "## 155. Transfer learning discussed as future data-efficiency route \u2014 2026-09-29",
+      "## 156. Agent A decision-transfer diagnostic received: no downstream benefit observed \u2014 2026-09-29",
+      "## 157. Final RWC-D protocol received; prospective confirmation recommendation \u2014 2026-09-29",
+      "## 158. Transfer-learning feasibility packet received; eligibility reconciliation remains open \u2014 2026-09-29",
+      "## 159. Agent A AM7 finalization received; wording qualifications before freeze \u2014 2026-09-29",
+      "## 160. Assistance definition and evidence-status clarification \u2014 2026-09-29",
+      "## 161. User prioritizes routing realism and metadata reconciliation started \u2014 2026-09-29",
+      "## 162. Qualified AM7 verified; parallel work prompts prepared \u2014 2026-09-29",
+      "## Methodology alternatives review \u2014 2026-09-29",
+      "## Korean metadata reconciliation v2 received \u2014 2026-09-29",
+      "## Routing foundation received \u2014 2026-09-29",
+      "## Korean metadata readiness follow-up received \u2014 2026-09-29",
+      "## Routing verification native reproduction completed \u2014 2026-09-29",
+      "## Routing-information development received \u2014 2026-09-29",
+      "## RWC-D native execution handoff verified \u2014 2026-09-30",
+      "## RWC-D native evaluation launched \u2014 2026-09-30",
+      "## Routing foundation v2 repair received \u2014 2026-09-30",
+      "## RWC-D completed generation/analysis; checker FAIL \u2014 2026-09-30",
+      "## Native routing v2 acceptance launched \u2014 2026-09-30",
+      "## Native routing v2 acceptance PASS \u2014 2026-09-30",
+      "## Routing decisions and restored workspace access \u2014 2026-09-30",
+      "## Routing denominator, development replay and training decisions \u2014 2026-09-30",
+      "## RWC-D corrected acceptance, accepted with disclosure, 2026-09-30",
+      "## Historical routing scope and timing/hazard literature review, 2026-09-30",
+      "## Historical replay methods approved and next-task sequencing, 2026-09-30",
+      "## WiSE2 routing paper and benchmark direction reviewed, 2026-09-30",
+      "## Benchmark project dropped; routing returns reviewed, 2026-09-30",
+      "## Camp timing/persistence protocol v2 received and verified, 2026-09-30",
+      "## Routing policy decisions and routes-only native preflight, 2026-09-30",
+      "## Native v3 and routes-only routing acceptance completed, 2026-09-30",
+      "## Evacuation-first v2 and Camp reference second pass received, 2026-09-30",
+      "## Evacuation-first v2 independent review interrupted, 2026-09-30",
+      "## Camp reference independent review interrupted, preliminary findings, 2026-09-30",
+      "## Camp reference independent review complete, mapping changes required, 2026-09-30",
+      "## Evacuation-first v2 independent review changes required, 2026-09-30",
+      "## Parallel ownership and reviewer independence correction, 2026-09-30",
+      "## Camp reference mapping v2 delivered, graph topology gate remains, 2026-09-30",
+      "## Reference-v2 independent recheck complete, candidate-only acceptance, 2026-09-30",
+      "## Evacuation-first v3 delivered, fresh review already claimed, 2026-09-30",
+      "## Camp protocol alignment received, exposure and behaviour distinctions, 2026-09-30",
+      "## Fictional runner foundation delivered, integration conflicts recorded, 2026-09-30",
+      "## Evacuation-first v3 native acceptance passed, 2026-09-30",
+      "## Camp road topology audit received, original graph rejected, 2026-09-30",
+      "## Surface-road first historical replay scope approved, 2026-09-30",
+      "## Live parallel status and runner v2 receipt, 2026-09-30",
+      "## Reference-unexposed protocol/interface review delivered, runner-v1 findings, 2026-09-30",
+      "## Runner v2 independent interface review, changes required, 2026-09-30",
+      "## Road-topology second check received, 2026-09-30",
+      "## Live five-hour progress assessment, 2026-09-30",
+      "## Overnight preparation authorization and Stage-0 update, 2026-10-01",
+      "## Completed graph candidates received during overnight run, 2026-10-01",
+      "## Korean alternatives and method-status clarification, 2026-10-01",
+      "## Live Korean data preparation narrowing and product vision, 2026-10-01",
+      "## Korea Code Fair / ISEF example comparison and data reminder, 2026-10-01",
+      "## Software-only demonstrability ideation, 2026-10-01",
+      "## Laptop and iPad mission-console experience discussed, 2026-10-01",
+      "## Overnight preparation progress snapshot and demo discussion, 2026-10-01",
+      "## Visual prototype v1, 2026-10-01",
+      "## Korean interactive map prototype v2, 2026-10-01",
+      "### Visual map camera addition, 2026-10-01",
+      "## CAD-like map navigation and bounded visual segments, 2026-10-01",
+      "### Visual relief and model-state placeholder, 2026-10-01",
+      "## Overnight preparation coordinator delivery, 2026-10-01",
+      "## Desktop mission demonstration implementation, 2026-10-01",
+      "## Desktop integration readiness check \u2014 2026-10-01T10:16:16.459913+00:00",
+      "## Desktop explanation and judge walkthrough \u2014 2026-10-01T11:17:29.397624+00:00",
+      "## Connected fictional desktop demo delivered for mentor review, 2026-10-01",
+      "## Mentor handoff and real browser control check \u2014 2026-10-01T15:16:00.131076+00:00",
+      "## Post-delivery development assessment \u2014 2026-10-01T15:29:51.733381+00:00",
+      "## Korean overnight planning priorities clarified \u2014 2026-10-01T15:47:53.473670+00:00",
+      "## 2026-10-01T15:57:28.979802+00:00 \u2014 Korean overnight planning: repository reuse inventory",
+      "## 2026-10-01T16:38:00.248968+00:00 \u2014 Archify code-only architecture feasibility and first artifact",
+      "## 2026-10-01T17:51:34.778417+00:00 \u2014 Review of Korean overnight launch plan",
+      "## 2026-10-01T17:54:15.053042+00:00 \u2014 Owner decisions and minute-weather steering incorporated",
+      "## 2026-10-01T17:58:35.202016+00:00 \u2014 Optional AWS minute ZIP input handoff",
+      "## Korean real-fire development study launched under revised plan \u2014 2026-10-01T18:05Z",
+      "## Korean study custody screens completed \u2014 2026-10-01T19:23Z",
+      "## 2026-10-01T19:32:44.252289+00:00 \u2014 English research manuscript drafting started",
+      "## 2026-10-01T19:42:19.062556+00:00 \u2014 English paper Word draft and existing figure collection",
+      "## Korean study development model status \u2014 2026-10-01T20:34Z",
+      "## Korean real-fire development night closed \u2014 2026-10-01T22:38Z",
+      "## Owner budget instruction for future runs \u2014 2026-10-02T03:34Z",
+      "## 2026-10-02T04:07:14.756055+00:00 \u2014 Owner evaluation separation and overnight interpretation clarified",
+      "## 2026-10-02T04:30:31.830840+00:00 \u2014 Forecast mathematics audit and owner full-system objective",
+      "## 2026-10-02T04:39:42.097253+00:00 \u2014 Proposed answers to diagnostic clarification round",
+      "## 2026-10-02T05:11:08.181694+00:00 \u2014 Claude diagnostic plan reviewed and amended",
+      "## kdev static-forward diagnostic launched under the reviewed plan \u2014 2026-10-02T05:20Z",
+      "## 2026-10-02T06:58:36.564977+00:00 \u2014 Mentor discussion preparation",
+      "### 2026-10-02T07:41:14.574392+00:00 \u2014 Mentor explanation: trained AI versus proposed full forecaster",
+      "### 2026-10-02T08:07:40.143798+00:00 \u2014 Owner direction: full forecasting and specialist research",
+      "### 2026-10-02T12:43:27.866091+00:00 \u2014 Owner mentor steering: routing only today",
+      "### 2026-10-02T12:45:20.776951+00:00 \u2014 Owner routing scope and throughput policy clarified",
+      "### 2026-10-02T12:52:46.845930+00:00 \u2014 Routing methodology discussion: multiple hazards and comparative experiments",
+      "### 2026-10-02T13:18:49.029460+00:00 \u2014 Owner narrows routing hazard scope; survival/point-process candidate review",
+      "### 2026-10-02T13:38:48.247961+00:00 \u2014 Owner authorizes parallel routing comparison; Claude execution prompt prepared",
+      "## kdev static-forward diagnostic completed \u2014 2026-10-02T13:39Z",
+      "### 2026-10-02T13:45:37.902196+00:00 \u2014 Owner reports routing Claude session started; diagnostic close-out received",
+      "### 2026-10-02T14:14:08.718265+00:00 \u2014 Mentor reading shortlist: transfer learning and MoE",
+      "### 2026-10-02T14:22:29.905502+00:00 \u2014 Korean fuel composition / humidity holdings checked",
+      "### 2026-10-02T14:54:19.625182+00:00 \u2014 Specific Korean fuel/humidity acquisition checklist",
+      "### 2026-10-02 \u2014 Korean fuel acquisition clarification",
+      "### 2026-10-03 \u2014 Read-only Claude routing progress check",
+      "### 2026-10-03T02:30+08:00 \u2014 Korean routing comparison executed (first checkpoint + repair round); packet outputs/korean_routing_comparison_20261002_v1/",
+      "### 2026-10-03 \u2014 Codex final routing-delivery inspection",
+      "### 2026-10-03 \u2014 Next routing session and explicit Nangok development authorization",
+      "### 2026-10-03 \u2014 Routing presentation comparison slide",
+      "### 2026-10-03 \u2014 Mentor deck with all-method bar chart",
+      "### 2026-10-03T02:55+08:00 \u2014 Routing integration round STARTED; packet outputs/routing_pipeline_overnight_20261003_v1/",
+      "### 2026-10-03 \u2014 Firefighter route-logger accessory discussion (PROPOSAL)",
+      "### 2026-10-03 \u2014 Owner clarification: compact field route recorder (DESIGN INTENT; unbuilt)",
+      "### 2026-10-03 \u2014 Owner requests rapid low-cost recorder planning and CAD",
+      "### 2026-10-03 \u2014 Compass and behind-wall sensing discussion (PROPOSALS; not adopted)",
+      "### 2026-10-03 \u2014 Final recorder prompt: Blender MCP and timed delivery",
+      "## 2026-10-03 - Educational foundations: specialists, representations and event time",
+      "## 2026-10-03 - Responsibility split, bounded A* check, full FireEx attachment",
+      "## 2026-10-03 - Routing-first priority, A*-SIPP pilot, publication figures",
+      "## 2026-10-03 - Claude final T2 reconciliation (saved report verified)",
+      "## 2026-10-03 - Completed routing experiments, escape figures and normalized results",
+      "## 2026-10-03 - Routing novelty discussion and narrowed claim scope",
+      "## 2026-10-03 \u2014 owner adopted routing novelty direction; first bounded validation",
+      "## 2026-10-03 \u2014 novelty failure analysis and next-test proposals",
+      "### 2026-10-03 \u2014 Controlled routing optimization results (Codex; experimental)",
+      "## 2026-10-03 \u2014 Korean fire-condition classification v1: BLOCKED (engineering delivered)",
+      "## 2026-10-03 \u2014 Korean specialist architectures (KSA v1): fixture-only preparation; real data BLOCKED",
+      "### 2026-10-03 \u2014 KCF owner-supplied final-round notice and routing policy clarification",
+      "### 2026-10-03 \u2014 Submission deadline corrected; classification/specialist delivery read",
+      "### 2026-10-03 \u2014 Owner authorizes Korean coordinate/weather acquisition",
+      "### 2026-10-03 \u2014 Authorized Korean acquisition initial result (access blocked)",
+      "### 2026-10-03 \u2014 Specialist code delivery checked by Codex",
+      "## 2026-10-03 \u2014 route logger prearrival preparation v2 (Asia/Shanghai)",
+      "### 2026-10-03 \u2014 Korean acquisition guidance and VWorld correction",
+      "## 2026-10-03T14:52:47.188933+00:00 \u2014 Logged-in acquisition continuation",
+      "## 2026-10-03T15:13:27.062503+00:00 \u2014 Forest acquisition started; DEM request prepared",
+      "### Korean acquisition recheck \u2014 2026-10-03T15:52:15.890629+00:00",
+      "### Korean acquisition continuation \u2014 2026-10-03T15:57:10.545019+00:00",
+      "### Acquisition completion check \u2014 2026-10-03T16:14:23.883912+00:00",
+      "### Pending-data handoff \u2014 2026-10-03T16:24:35.806468+00:00",
+      "### Weather download received \u2014 2026-10-03T16:27:49.150600+00:00",
+      "### Download status correction \u2014 2026-10-03T16:44:00.607204+00:00",
+      "### DEM retry diagnosis \u2014 2026-10-03T16:49:57.680257+00:00",
+      "### Authorized DEM retry and alternative \u2014 2026-10-03T17:07:49.754100+00:00",
+      "### Copernicus terrain download verified \u2014 2026-10-03T17:24:00.197403+00:00",
+      "### Routing overnight readiness \u2014 2026-10-03T17:26:07.774164+00:00"
+    ]
+  },
+  "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_overnight_readiness_20261004_v1/READINESS.md": {
+    "sha256": "e1d50e5b7eff70d2bf07bb00eef897b20c41164c2ba09c23b949b7d6666ecde9",
+    "bytes": 3431,
+    "headings": [
+      "# Routing overnight readiness \u2014 4 October 2026",
+      "## Delivery boundary",
+      "## Verified current inputs and limits",
+      "## Mandatory startup preflight",
+      "## Completion criteria",
+      "## External input that cannot be invented",
+      "## Final reporting"
+    ]
+  }
+}

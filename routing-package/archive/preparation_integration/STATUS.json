@@ -1,0 +1,38 @@
+{
+  "implementation": "COMPLETE_ISOLATED_ENGINEERING_CANDIDATE",
+  "flows": [
+    "optional owned/checked session preparation",
+    "progress/hazard/commit/retained lifecycle",
+    "owned/checked primary and recorded-return facade",
+    "process-local replay/CLI option",
+    "atomic explicit graph replacement and reset"
+  ],
+  "recommended_optional_adoption": [
+    "stable large-graph sessions",
+    "checked-authority repeated requests",
+    "multi-event replay",
+    "compatible primary-plus-recorded-return with lifecycle savings",
+    "measured full session replacement lifecycle with rebuild charged"
+  ],
+  "raw_defaults": [
+    "tiny graphs",
+    "successful one-shot CLI",
+    "rebuild-dominated direct requests"
+  ],
+  "experimental": [
+    "post-main connected capped-search diagnostic",
+    "untested full-budget hard search efficiency"
+  ],
+  "unverified": [
+    "universal speedup",
+    "full-budget many-member exposure-active road efficacy",
+    "independent large-road optimum/refusal certificates",
+    "simultaneous multi-thread hosting or external mutation",
+    "actual thermal forecast ingestion",
+    "physical road passability/safety",
+    "deployment"
+  ],
+  "new_dependencies": [],
+  "github_push_merge_deployment": false,
+  "parent_delivery_and_separate_research_recommendation": "PRESERVED"
+}

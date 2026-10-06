@@ -1,0 +1,72 @@
+{
+  "status": "CONDITIONAL_OPTIMUM",
+  "reason": "EXACT_SEARCH_CHECKED",
+  "legs": [
+    {
+      "kind": "EDGE",
+      "edge": "N10080899976>N3247356527",
+      "start": 0.0,
+      "end": 11.6015625,
+      "from_fraction": 0,
+      "to_fraction": 1
+    }
+  ],
+  "arrival": 11.6015625,
+  "destination": "N3247356527",
+  "per_member": {
+    "road-fixture-m0": {
+      "dose": 11.6015625,
+      "dose_exact": "1485/128",
+      "peak": 1.0
+    },
+    "road-fixture-m1": {
+      "dose": 23.203125,
+      "dose_exact": "1485/64",
+      "peak": 2.0
+    }
+  },
+  "solver_status": "EXACT_OPTIMUM",
+  "metrics": {
+    "labels": 2,
+    "expansions": 1,
+    "dominated": 0,
+    "peak_frontier": 1,
+    "edge_candidates": 1,
+    "wait_candidates": 0,
+    "occupancy_evaluations": 3,
+    "peak_rss_mb": 64.375,
+    "wall_s": 2.8799426660407335
+  },
+  "hazard_version": 1,
+  "provenance": {
+    "solver": "baseline",
+    "evidence_class": "LABELLED_FIXTURE",
+    "model": "EXACT_LATTICE_EDGEGRID",
+    "physical_safety_claim": false
+  },
+  "certificate_conditions": [
+    "supplied ensemble only",
+    "declared lattice and geometry",
+    "complete search before caps",
+    "independent route check",
+    "no physical safety claim"
+  ],
+  "checker": {
+    "ok": true,
+    "status": "CHECKED_ROUTE",
+    "codes": [],
+    "per_member": {
+      "road-fixture-m0": {
+        "dose": 11.6015625,
+        "dose_exact": "1485/128",
+        "peak": 1.0
+      },
+      "road-fixture-m1": {
+        "dose": 23.203125,
+        "dose_exact": "1485/64",
+        "peak": 2.0
+      }
+    },
+    "arrival": 11.6015625
+  }
+}

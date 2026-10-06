@@ -1,0 +1,22 @@
+{
+  "byte_identical_original_copies": 92,
+  "failures": [],
+  "interpretation": "Preservation and packaging check; not physical or performance validation",
+  "original_source_verification": "PASS",
+  "release_files_checked": 264,
+  "status": "PASS",
+  "unchanged_library_syntax_trees": [
+    "routing/__init__.py",
+    "routing/core.py",
+    "routing/fallback.py",
+    "routing/fixture.py",
+    "routing/independent.py",
+    "routing/legacy_bridge.py",
+    "routing/optimization.py",
+    "routing/prepared.py",
+    "routing/replay.py",
+    "routing/service.py",
+    "routing/session.py",
+    "routing/validation.py"
+  ]
+}

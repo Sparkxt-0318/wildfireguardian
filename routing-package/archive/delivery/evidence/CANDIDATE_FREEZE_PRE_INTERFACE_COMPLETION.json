@@ -1,0 +1,29 @@
+{
+  "frozen_at": "2026-10-04T02:09:31.478294+08:00",
+  "hashes": {
+    "benchmark.py": "a622e9dfb7784765aff3288ec788baa92aab664071d2b41ad155a8d792f48f37",
+    "build_road_fixture.py": "6a7b9edbd68e5e807a46c601a2d96dfe76ca3dc70df989c18673eb544622061e",
+    "routing/__init__.py": "7b663a17caee6db3cdd4806d41a8f00438dd4e829a569357418e6c75bf320b33",
+    "routing/core.py": "fbe488b9d8867fec31f41e09b9568d461830246551a902f516602c01e3aeea2c",
+    "routing/fallback.py": "749087de1deb535b06eb827639c85233a354c74a2dea1912715dbd2dd9e56fca",
+    "routing/fixture.py": "120b32a6954febfc3c612d4312e4126e6eb318d935293c605a6e7f9f30f159f4",
+    "routing/independent.py": "af2d8529efb1c2f65f511eb2a39bc2acc30e3a7088ee0e9e0c9eb48f0398d8bf",
+    "routing/legacy_bridge.py": "752cd6e957344f1dc197cd970cca89d38d3367efdf428d55c5ac25fd511d352a",
+    "routing/optimization.py": "418097da884361dbfc8ba947a520ccb43058791785ed51922b67503774a3ec84",
+    "routing/replay.py": "03da7f2808a5adeb4c14df82861775d1614278dffbaa800eb3a4e63893afc1b8",
+    "routing/session.py": "d160d7eaab98d8a0930a6eeeadc89b7740f13df0f775a7dba921a83a0791fac4",
+    "routing/validation.py": "7f71040d3a2ae5dd329ade26b23f1ef50154575d64840f0e7dcaffed5de71ad0",
+    "run_measurements.py": "fa700f40c7e19fdb4935627d2e8256ac8f5aec99a117699bb6e1073d663ddb60",
+    "tests/test_core.py": "c7fd99123afc98319ce69c6e8bdec63631dd2f14ae9ed5167576272a7be2a800",
+    "tests/test_crossreview.py": "f738f4a61927514317e9aa2bb50ea603df7fde0cb65aa4df98504ef365cabd64",
+    "tests/test_independent.py": "d70dd55809b0cc791c42f565e3d11810153e8787575c806e241c737d47e5c18a",
+    "tests/test_optimization.py": "400d59b0bf17147652612f57d15643fead2d47c74d9d379e31a7b393db6febc4",
+    "tests/test_session_fallback.py": "d92454797ba673ea02e8bf82fb47f273c0cec335f602809134e2c5fac43ea7e3",
+    "tests/test_validation.py": "93842f3450d35a8b1e393c299d200e21bc35bee99b11084d2f36ba02b26e51f1",
+    "vendor/r3_sparse.py": "7e56ef8f49e5dd21a6397d25c1e18d80f629d9a245cf89f9af2f3677f6ecd9a9",
+    "fixtures/example.json": "1076ddfd7ce4d93b355b4a7de84f9b41288bf935131e1202e91dbb21df31fbef",
+    "fixtures/nangok_full_graph_fixture.json": "c70d7ccf873c344117c0ee527adb4c609fdf6dfd1ea771ce02f8572de0a6dd70"
+  },
+  "protocol": "benchmarks no changes after freeze; correctness repairs followed by re-freeze explicit",
+  "optional_optimization": "static legal suffix pruning; baseline default; no promotion"
+}

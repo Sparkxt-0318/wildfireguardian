@@ -1,0 +1,122 @@
+[
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 0,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 0,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 0,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 0,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 1,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 1,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 1,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 1,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 2,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 2,
+    "arm": "baseline",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 2,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  },
+  {
+    "id": "connected_hard_diagnostic",
+    "mode": "return_fallback",
+    "repeat": 2,
+    "arm": "candidate",
+    "ok": true,
+    "exact_match": true,
+    "status": "CHECKED_ROUTE",
+    "codes": []
+  }
+]

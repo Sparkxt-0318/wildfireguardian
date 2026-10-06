@@ -1,0 +1,138 @@
+[
+  {
+    "id": "plain_one_way",
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": null,
+    "arrival": 2,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 2
+  },
+  {
+    "id": "legal_circling_nonwaitable_empty_layer_future_admission",
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": null,
+    "arrival": 4,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 4
+  },
+  {
+    "id": "forbidden_turn_blocks_destination",
+    "status": "PROVEN_INFEASIBLE",
+    "reason": null,
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "zero_leg_destination",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_ZERO_LEG_ADMISSION_NOT_IMPLEMENTED",
+    "arrival": null,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 0
+  },
+  {
+    "id": "mid_edge_residual",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_API_NO_CURRENT_CONTEXT_OR_VARIABLE_INCURRED_BUDGETS",
+    "arrival": null,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 2
+  },
+  {
+    "id": "horizon_exact_arrival",
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": null,
+    "arrival": 2,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 2
+  },
+  {
+    "id": "horizon_too_short",
+    "status": "PROVEN_INFEASIBLE",
+    "reason": null,
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "opening_endpoint_with_dwell",
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": null,
+    "arrival": 2,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 2
+  },
+  {
+    "id": "dwell_past_horizon",
+    "status": "PROVEN_INFEASIBLE",
+    "reason": null,
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "incurred_budget_failure",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_API_NO_CURRENT_CONTEXT_OR_VARIABLE_INCURRED_BUDGETS",
+    "arrival": null,
+    "reference": "AT_ISSUE_FAILURE",
+    "reference_arrival": null
+  },
+  {
+    "id": "missing_support_no_infeasibility_proof",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_COMPLETE_SUPPORT_REQUIRED",
+    "arrival": null,
+    "reference": "UNSUPPORTED",
+    "reference_arrival": null
+  },
+  {
+    "id": "disconnected",
+    "status": "PROVEN_INFEASIBLE",
+    "reason": null,
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "closure_at_arrival_tie",
+    "status": "PROVEN_INFEASIBLE",
+    "reason": null,
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "multiple_member_dose_failure",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_API_NO_CURRENT_CONTEXT_OR_VARIABLE_INCURRED_BUDGETS",
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "route_only_excludes_dwell_dose",
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": null,
+    "arrival": 2,
+    "reference": "CONDITIONAL_OPTIMUM",
+    "reference_arrival": 2
+  },
+  {
+    "id": "including_dwell_counts_dose",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_API_NO_CURRENT_CONTEXT_OR_VARIABLE_INCURRED_BUDGETS",
+    "arrival": null,
+    "reference": "PROVEN_INFEASIBLE",
+    "reference_arrival": null
+  },
+  {
+    "id": "checked_route_partial_global_support",
+    "status": "UNAVAILABLE",
+    "reason": "HISTORICAL_COMPLETE_SUPPORT_REQUIRED",
+    "arrival": null,
+    "reference": "CHECKED_ROUTE",
+    "reference_arrival": 1
+  }
+]

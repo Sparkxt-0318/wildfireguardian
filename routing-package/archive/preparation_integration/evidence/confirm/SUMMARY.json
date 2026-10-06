@@ -1,0 +1,1061 @@
+{
+  "rows": 120,
+  "pairs": 60,
+  "errors": [],
+  "semantic_disagreements": [],
+  "deterministic_metric_disagreements": [],
+  "extra_witness_checks": 312,
+  "extra_witness_failures": [],
+  "nested_status_counts": {
+    "baseline:ACCEPTED_UPDATE": 276,
+    "baseline:CHECKED_ROUTE": 276,
+    "baseline:CONDITIONAL_OPTIMUM": 114,
+    "baseline:DISCONNECTED": 12,
+    "baseline:INVALID_ROUTE": 6,
+    "baseline:PLAN_COMMITTED": 12,
+    "baseline:PROGRESS_ACCEPTED": 6,
+    "baseline:PROVEN_INFEASIBLE": 6,
+    "baseline:RESET": 60,
+    "baseline:STALE_UPDATE": 12,
+    "baseline:TIMEOUT": 6,
+    "baseline:UNSUPPORTED": 30,
+    "candidate:ACCEPTED_UPDATE": 276,
+    "candidate:CHECKED_ROUTE": 276,
+    "candidate:CONDITIONAL_OPTIMUM": 114,
+    "candidate:DISCONNECTED": 12,
+    "candidate:INVALID_ROUTE": 6,
+    "candidate:PLAN_COMMITTED": 12,
+    "candidate:PROGRESS_ACCEPTED": 6,
+    "candidate:PROVEN_INFEASIBLE": 6,
+    "candidate:RESET": 60,
+    "candidate:STALE_UPDATE": 12,
+    "candidate:TIMEOUT": 6,
+    "candidate:UNSUPPORTED": 30
+  },
+  "summary": [
+    {
+      "scope": "full_road_bounded_hard",
+      "mode": "cold_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 10.473793666002166,
+        "candidate": 2.7774845419990015,
+        "paired_ratio": 0.2661034497603648
+      },
+      "process_s": {
+        "baseline": 10.518014124994806,
+        "candidate": 2.8082915830018464,
+        "paired_ratio": 0.26812704010006316
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 119570432,
+        "candidate": 137658368
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.2661034497603648,
+        0.26482503128457563,
+        0.272506044611603
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 10.473755457998777,
+          "candidate": 2.7774625419988297
+        },
+        "first_request_s": {
+          "baseline": 5.245040207999409,
+          "candidate": 0.06999699999869335
+        },
+        "initial_hazard_s": {
+          "baseline": 2.5778215829996043,
+          "candidate": 0.018562333003501408
+        },
+        "initialization_s": {
+          "baseline": 2.580437165997864,
+          "candidate": 2.623763000003237
+        },
+        "parse_s": {
+          "baseline": 0.055879457999253646,
+          "candidate": 0.0563877499953378
+        },
+        "reset_s": {
+          "baseline": 2.995900285895914e-05,
+          "candidate": 1.4625002222601324e-05
+        }
+      }
+    },
+    {
+      "scope": "full_road_bounded_hard",
+      "mode": "repeated_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 20.982199582998874,
+        "candidate": 2.953742041994701,
+        "paired_ratio": 0.14040836229779854
+      },
+      "process_s": {
+        "baseline": 21.012675209000008,
+        "candidate": 2.9834190839974326,
+        "paired_ratio": 0.14176603208147595
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 126205952,
+        "candidate": 144097280
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.1386642506770801,
+        0.14077370822399443,
+        0.14040836229779854
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 10.475727749995713,
+          "candidate": 2.813407666995772
+        },
+        "first_request_s": {
+          "baseline": 5.25272083299933,
+          "candidate": 0.07320033300493378
+        },
+        "initial_hazard_s": {
+          "baseline": 2.581303584003763,
+          "candidate": 0.01917249999678461
+        },
+        "initialization_s": {
+          "baseline": 2.578452791000018,
+          "candidate": 2.6559906669936026
+        },
+        "parse_s": {
+          "baseline": 0.056852333997085225,
+          "candidate": 0.055436708993511274
+        },
+        "reset_s": {
+          "baseline": 1.2916003470309079e-05,
+          "candidate": 1.454199809813872e-05
+        },
+        "warm_request_0_s": {
+          "baseline": 5.258058417006396,
+          "candidate": 0.07548087499890244
+        },
+        "warm_request_1_s": {
+          "baseline": 5.248381083001732,
+          "candidate": 0.06452429199998733
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "checked_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 28.896075000004203,
+        "candidate": 3.444013291002193,
+        "paired_ratio": 0.11860180091058513
+      },
+      "process_s": {
+        "baseline": 28.93640058299934,
+        "candidate": 3.4763299580008606,
+        "paired_ratio": 0.11952434335270942
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 147193856,
+        "candidate": 192217088
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.1208057221957447,
+        0.11860180091058513,
+        0.11763556758829465
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 13.16723004099913,
+          "candidate": 3.0115195000034873
+        },
+        "first_request_s": {
+          "baseline": 7.895951124999556,
+          "candidate": 0.22211349999997765
+        },
+        "initial_hazard_s": {
+          "baseline": 2.59168920799857,
+          "candidate": 0.05958712499705143
+        },
+        "initialization_s": {
+          "baseline": 2.598338458003127,
+          "candidate": 2.6621643750040676
+        },
+        "parse_s": {
+          "baseline": 0.05595504099619575,
+          "candidate": 0.05509395900298841
+        },
+        "reset_s": {
+          "baseline": 1.49589977809228e-05,
+          "candidate": 1.45840022014454e-05
+        },
+        "warm_request_0_s": {
+          "baseline": 7.8619177080036025,
+          "candidate": 0.21621274999779416
+        },
+        "warm_request_1_s": {
+          "baseline": 7.835383124998771,
+          "candidate": 0.21694791699701454
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "cli_replay",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 23.828868083000998,
+        "candidate": 3.02985912499571,
+        "paired_ratio": 0.12701961095083614
+      },
+      "process_s": {
+        "baseline": 23.862552917002176,
+        "candidate": 3.065214666996326,
+        "paired_ratio": 0.12829414394770572
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 104284160,
+        "candidate": 120324096
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.12854029139478038,
+        0.1255892865568242,
+        0.12701961095083614
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "cli_process_s": {
+          "baseline": 23.76910983400012,
+          "candidate": 2.9644043750013225
+        },
+        "parse_s": {
+          "baseline": 0.05552308300684672,
+          "candidate": 0.055552958001499064
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "cli_solve",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 2.698972040998342,
+        "candidate": 2.791221957995731,
+        "paired_ratio": 1.0362234366127545
+      },
+      "process_s": {
+        "baseline": 2.7322307499998715,
+        "candidate": 2.8230523749953136,
+        "paired_ratio": 1.036812774536956
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 71761920,
+        "candidate": 97894400
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.9664018140268268,
+        1.0362234366127545,
+        1.042719860469678
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "cli_process_s": {
+          "baseline": 2.6358050420021755,
+          "candidate": 2.724554749998788
+        },
+        "parse_s": {
+          "baseline": 0.05613208300201222,
+          "candidate": 0.0569914589941618
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "cold_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 13.131982291997701,
+        "candidate": 2.862189749997924,
+        "paired_ratio": 0.21807418263617584
+      },
+      "process_s": {
+        "baseline": 13.164567375002662,
+        "candidate": 2.899650459003169,
+        "paired_ratio": 0.2202617356426863
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 140705792,
+        "candidate": 160333824
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.21807418263617584,
+        0.2179556510476008,
+        0.21914023026110532
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 13.131934291996004,
+          "candidate": 2.8621689159990638
+        },
+        "first_request_s": {
+          "baseline": 7.86916008299886,
+          "candidate": 0.10754229200392729
+        },
+        "initial_hazard_s": {
+          "baseline": 2.596482624998316,
+          "candidate": 0.022923832999367733
+        },
+        "initialization_s": {
+          "baseline": 2.6043930419982644,
+          "candidate": 2.6694609159967513
+        },
+        "parse_s": {
+          "baseline": 0.05517662499914877,
+          "candidate": 0.05437016600626521
+        },
+        "reset_s": {
+          "baseline": 4.108300345251337e-05,
+          "candidate": 1.424999936716631e-05
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "hazard_update",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 34.0445695419985,
+        "candidate": 3.1018833339985576,
+        "paired_ratio": 0.0908329444342735
+      },
+      "process_s": {
+        "baseline": 34.08215429199481,
+        "candidate": 3.1459447919987724,
+        "paired_ratio": 0.09171955310674913
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 146620416,
+        "candidate": 165822464
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.09111242632020865,
+        0.0908329444342735,
+        0.08996431226599481
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 13.121480624999094,
+          "candidate": 2.850612166999781
+        },
+        "first_request_s": {
+          "baseline": 7.8502010840020375,
+          "candidate": 0.11432795799919404
+        },
+        "hazard_update_0_s": {
+          "baseline": 2.590593374996388,
+          "candidate": 0.0256201250012964
+        },
+        "hazard_update_1_s": {
+          "baseline": 2.5947972499998286,
+          "candidate": 0.014179000005242415
+        },
+        "initial_hazard_s": {
+          "baseline": 2.5897341250019963,
+          "candidate": 0.023873999998613726
+        },
+        "initialization_s": {
+          "baseline": 2.6030658750023576,
+          "candidate": 2.6478838749972056
+        },
+        "parse_s": {
+          "baseline": 0.055293791003350634,
+          "candidate": 0.05574495800101431
+        },
+        "reset_s": {
+          "baseline": 1.9625003915280104e-05,
+          "candidate": 1.8124999769497663e-05
+        },
+        "warm_request_0_s": {
+          "baseline": 7.869935583999904,
+          "candidate": 0.10202700000081677
+        },
+        "warm_request_1_s": {
+          "baseline": 7.934972374998324,
+          "candidate": 0.11127091699745506
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "repeated_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 29.28634879099991,
+        "candidate": 3.043598167001619,
+        "paired_ratio": 0.10351125610203787
+      },
+      "process_s": {
+        "baseline": 29.320259749998513,
+        "candidate": 3.076245583994023,
+        "paired_ratio": 0.10451572513779993
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 142721024,
+        "candidate": 163233792
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.10590084518340999,
+        0.10351125610203787,
+        0.10243565721542247
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 13.432283916001325,
+          "candidate": 2.833838417005609
+        },
+        "first_request_s": {
+          "baseline": 8.098139166002511,
+          "candidate": 0.11018574999616249
+        },
+        "initial_hazard_s": {
+          "baseline": 2.5984966670002905,
+          "candidate": 0.02319908299978124
+        },
+        "initialization_s": {
+          "baseline": 2.6143412919991533,
+          "candidate": 2.634962000003725
+        },
+        "parse_s": {
+          "baseline": 0.05683462500019232,
+          "candidate": 0.054722541994124185
+        },
+        "reset_s": {
+          "baseline": 1.5458004781976342e-05,
+          "candidate": 1.3459000911097974e-05
+        },
+        "warm_request_0_s": {
+          "baseline": 7.964178583002649,
+          "candidate": 0.10620220899727428
+        },
+        "warm_request_1_s": {
+          "baseline": 7.889846584002953,
+          "candidate": 0.1034371249988908
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "replacement",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 26.605068917000608,
+        "candidate": 5.798561334006081,
+        "paired_ratio": 0.2179494949663824
+      },
+      "process_s": {
+        "baseline": 26.63859829199646,
+        "candidate": 5.831222749999142,
+        "paired_ratio": 0.21890126072253313
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 145522688,
+        "candidate": 171835392
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.2179494949663824,
+        0.21723016612348836,
+        0.21889265734403995
+      ],
+      "retained_bytes": 3858150,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 13.281179791003524,
+          "candidate": 2.8905542499996955
+        },
+        "first_request_s": {
+          "baseline": 7.976814541005297,
+          "candidate": 0.11006049999559764
+        },
+        "initial_hazard_s": {
+          "baseline": 2.6169604579990846,
+          "candidate": 0.023206166995805688
+        },
+        "initialization_s": {
+          "baseline": 2.5953267920049257,
+          "candidate": 2.685631041000306
+        },
+        "parse_s": {
+          "baseline": 0.054805125000711996,
+          "candidate": 0.05543562499951804
+        },
+        "rebuild_s": {
+          "baseline": 2.708566624998639,
+          "candidate": 2.7808124169969233
+        },
+        "replacement_hazard_s": {
+          "baseline": 2.599764291997417,
+          "candidate": 0.023527416997239925
+        },
+        "replacement_request_s": {
+          "baseline": 7.880304167003487,
+          "candidate": 0.10131945899775019
+        },
+        "reset_s": {
+          "baseline": 1.5167002857197076e-05,
+          "candidate": 1.424999936716631e-05
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "replay",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 23.54947587499919,
+        "candidate": 3.0397872499961522,
+        "paired_ratio": 0.12966954876617912
+      },
+      "process_s": {
+        "baseline": 23.580860082998697,
+        "candidate": 3.072392458001559,
+        "paired_ratio": 0.13088486404817898
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 148275200,
+        "candidate": 166281216
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.128470398112669,
+        0.1299147351711049,
+        0.12966954876617912
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "complete_replay_s": {
+          "baseline": 23.486348124999495,
+          "candidate": 2.9755374169981224
+        },
+        "parse_s": {
+          "baseline": 0.056956583001010586,
+          "candidate": 0.05535845800477546
+        }
+      }
+    },
+    {
+      "scope": "full_road_simple",
+      "mode": "return_fallback",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 20.914212084004248,
+        "candidate": 2.8648847500007832,
+        "paired_ratio": 0.13660945602993843
+      },
+      "process_s": {
+        "baseline": 20.959622041998955,
+        "candidate": 2.897327625003527,
+        "paired_ratio": 0.13823377249827562
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 133922816,
+        "candidate": 139673600
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.13660945602993843,
+        0.13506244590654473,
+        0.13698267658822894
+      ],
+      "retained_bytes": 3858130,
+      "phases": {
+        "first_primary_and_return_s": {
+          "baseline": 10.495482749996881,
+          "candidate": 0.060470374999567866
+        },
+        "initialization_s": {
+          "baseline": null,
+          "candidate": 2.672765374998562
+        },
+        "parse_s": {
+          "baseline": 0.05484249999426538,
+          "candidate": 0.05749337500310503
+        },
+        "warm_primary_and_return_s": {
+          "baseline": 10.354393499997968,
+          "candidate": 0.059135166004125495
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "checked_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.0795459579967428,
+        "candidate": 0.08105308299855096,
+        "paired_ratio": 1.0181979838384771
+      },
+      "process_s": {
+        "baseline": 0.10619133400177816,
+        "candidate": 0.1081682920048479,
+        "paired_ratio": 1.0098348326207598
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106627072,
+        "candidate": 108003328
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        1.0181979838384771,
+        1.0072573392719066,
+        1.0213379691524602
+      ],
+      "retained_bytes": 1521,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 0.07155595799849834,
+          "candidate": 0.07469537499855505
+        },
+        "first_request_s": {
+          "baseline": 0.005440542001451831,
+          "candidate": 0.004852375001064502
+        },
+        "initial_hazard_s": {
+          "baseline": 0.00034741700073936954,
+          "candidate": 0.00010795799607876688
+        },
+        "initialization_s": {
+          "baseline": 0.00039975000254344195,
+          "candidate": 0.0004917919941362925
+        },
+        "parse_s": {
+          "baseline": 0.05871299999853363,
+          "candidate": 0.059612167002342176
+        },
+        "reset_s": {
+          "baseline": 2.624998160172254e-06,
+          "candidate": 2.8750000637955964e-06
+        },
+        "warm_request_0_s": {
+          "baseline": 0.004056000005220994,
+          "candidate": 0.0032084999984363094
+        },
+        "warm_request_1_s": {
+          "baseline": 0.004016582999611273,
+          "candidate": 0.0032369590044254437
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "cli_replay",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.11416441699839197,
+        "candidate": 0.11418550000234973,
+        "paired_ratio": 1.0017205345626878
+      },
+      "process_s": {
+        "baseline": 0.1428356670003268,
+        "candidate": 0.14379224999720464,
+        "paired_ratio": 1.005996845047821
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 22429696,
+        "candidate": 22691840
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.9777973118532336,
+        1.007718394435642,
+        1.0017205345626878
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "cli_process_s": {
+          "baseline": 0.046609375000116415,
+          "candidate": 0.04291150000062771
+        },
+        "parse_s": {
+          "baseline": 0.05971645899990108,
+          "candidate": 0.05967620800220175
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "cli_solve",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.0985239579968038,
+        "candidate": 0.10614670799986925,
+        "paired_ratio": 1.0724519309282285
+      },
+      "process_s": {
+        "baseline": 0.12611912499414757,
+        "candidate": 0.13373908300127368,
+        "paired_ratio": 1.0604187351242702
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 21037056,
+        "candidate": 22495232
+      },
+      "slower_over_5pct": 2,
+      "ratios": [
+        0.9771149796879529,
+        1.0724519309282285,
+        1.0961770777347966
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "cli_process_s": {
+          "baseline": 0.03451887499977602,
+          "candidate": 0.038209999998798594
+        },
+        "parse_s": {
+          "baseline": 0.05782691700005671,
+          "candidate": 0.05891937499836786
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "cold_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.07203233299514977,
+        "candidate": 0.07359091700345743,
+        "paired_ratio": 1.024555502127014
+      },
+      "process_s": {
+        "baseline": 0.0999301670017303,
+        "candidate": 0.10154441700433381,
+        "paired_ratio": 1.0161537806954286
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106938368,
+        "candidate": 107921408
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        1.024555502127014,
+        1.011515662011765,
+        1.0251930067629524
+      ],
+      "retained_bytes": 1521,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 0.07202287499967497,
+          "candidate": 0.07358520900015719
+        },
+        "first_request_s": {
+          "baseline": 0.005545917003473733,
+          "candidate": 0.004779041002620943
+        },
+        "initial_hazard_s": {
+          "baseline": 0.00034449999657226726,
+          "candidate": 7.23750054021366e-05
+        },
+        "initialization_s": {
+          "baseline": 0.000410084001487121,
+          "candidate": 0.0004893750010523945
+        },
+        "parse_s": {
+          "baseline": 0.059230792001471855,
+          "candidate": 0.05861400000139838
+        },
+        "reset_s": {
+          "baseline": 6.6250067902728915e-06,
+          "candidate": 2.4170003598555923e-06
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "hazard_update",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.08001679100561887,
+        "candidate": 0.08093733299756423,
+        "paired_ratio": 1.0069839591424552
+      },
+      "process_s": {
+        "baseline": 0.10747441599960439,
+        "candidate": 0.10888104100013152,
+        "paired_ratio": 1.0151467455718273
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106545152,
+        "candidate": 108183552
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        1.0053841110356796,
+        1.0118737179442832,
+        1.0069839591424552
+      ],
+      "retained_bytes": 1521,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 0.07137954099744093,
+          "candidate": 0.07451554199360544
+        },
+        "first_request_s": {
+          "baseline": 0.005596625000180211,
+          "candidate": 0.004856875006225891
+        },
+        "hazard_update_0_s": {
+          "baseline": 0.0003589170009945519,
+          "candidate": 7.062499935273081e-05
+        },
+        "hazard_update_1_s": {
+          "baseline": 0.00035566599399317056,
+          "candidate": 6.612500146729872e-05
+        },
+        "initial_hazard_s": {
+          "baseline": 0.0003410829958738759,
+          "candidate": 7.200000254670158e-05
+        },
+        "initialization_s": {
+          "baseline": 0.0004071670045959763,
+          "candidate": 0.000469292004709132
+        },
+        "parse_s": {
+          "baseline": 0.058551250003802124,
+          "candidate": 0.05938112500007264
+        },
+        "reset_s": {
+          "baseline": 2.707995008677244e-06,
+          "candidate": 3.0000010156072676e-06
+        },
+        "warm_request_0_s": {
+          "baseline": 0.003982749993156176,
+          "candidate": 0.0031177080018096603
+        },
+        "warm_request_1_s": {
+          "baseline": 0.003957708002417348,
+          "candidate": 0.003116583000519313
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "repeated_session",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.08097316700150259,
+        "candidate": 0.08090775000164285,
+        "paired_ratio": 1.0086712610834632
+      },
+      "process_s": {
+        "baseline": 0.10779050000564894,
+        "candidate": 0.10962033399846405,
+        "paired_ratio": 1.0233271005454214
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106774528,
+        "candidate": 108150784
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        1.0386588368652403,
+        0.9903126303168334,
+        1.0086712610834632
+      ],
+      "retained_bytes": 1521,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 0.07313479200092843,
+          "candidate": 0.074716333001561
+        },
+        "first_request_s": {
+          "baseline": 0.005541291000554338,
+          "candidate": 0.004713332993560471
+        },
+        "initial_hazard_s": {
+          "baseline": 0.00034220799716422334,
+          "candidate": 7.283299783011898e-05
+        },
+        "initialization_s": {
+          "baseline": 0.000415540998801589,
+          "candidate": 0.0005113340012030676
+        },
+        "parse_s": {
+          "baseline": 0.06027570799778914,
+          "candidate": 0.05983462499716552
+        },
+        "reset_s": {
+          "baseline": 2.8330032364465296e-06,
+          "candidate": 2.624998160172254e-06
+        },
+        "warm_request_0_s": {
+          "baseline": 0.0038835000013932586,
+          "candidate": 0.0031234170019160956
+        },
+        "warm_request_1_s": {
+          "baseline": 0.003974541999923531,
+          "candidate": 0.0030977920032455586
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "replacement",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.07742333300120663,
+        "candidate": 0.08064495800499571,
+        "paired_ratio": 1.019178256095072
+      },
+      "process_s": {
+        "baseline": 0.10403762500209268,
+        "candidate": 0.1082310839992715,
+        "paired_ratio": 1.0254872403632482
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106971136,
+        "candidate": 108085248
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        1.0184910625398995,
+        1.041610518159156,
+        1.019178256095072
+      ],
+      "retained_bytes": 1541,
+      "phases": {
+        "cold_until_first_s": {
+          "baseline": 0.07125079200341133,
+          "candidate": 0.07543441600137157
+        },
+        "first_request_s": {
+          "baseline": 0.005480374995386228,
+          "candidate": 0.004726333994767629
+        },
+        "initial_hazard_s": {
+          "baseline": 0.0003472499956842512,
+          "candidate": 7.179200474638492e-05
+        },
+        "initialization_s": {
+          "baseline": 0.000398583993955981,
+          "candidate": 0.0004791250030393712
+        },
+        "parse_s": {
+          "baseline": 0.05854008300229907,
+          "candidate": 0.06045704099960858
+        },
+        "rebuild_s": {
+          "baseline": 0.0003372920036781579,
+          "candidate": 0.0003983749993494712
+        },
+        "replacement_hazard_s": {
+          "baseline": 0.00035224999737692997,
+          "candidate": 6.533299892907962e-05
+        },
+        "replacement_request_s": {
+          "baseline": 0.005486290996486787,
+          "candidate": 0.0047411249979631975
+        },
+        "reset_s": {
+          "baseline": 2.124994352925569e-06,
+          "candidate": 2.167005732189864e-06
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "replay",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.0776578749937471,
+        "candidate": 0.07752091700240271,
+        "paired_ratio": 0.9801951830780474
+      },
+      "process_s": {
+        "baseline": 0.10403258300357265,
+        "candidate": 0.10510525000427151,
+        "paired_ratio": 0.9924779239661284
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106381312,
+        "candidate": 107970560
+      },
+      "slower_over_5pct": 0,
+      "ratios": [
+        0.9103110866758127,
+        1.0109374654196184,
+        0.9801951830780474
+      ],
+      "retained_bytes": null,
+      "phases": {
+        "complete_replay_s": {
+          "baseline": 0.013063834005151875,
+          "candidate": 0.008281624999654014
+        },
+        "parse_s": {
+          "baseline": 0.0583215839942568,
+          "candidate": 0.05960341700119898
+        }
+      }
+    },
+    {
+      "scope": "tiny_exact",
+      "mode": "return_fallback",
+      "pairs": 3,
+      "lifecycle_s": {
+        "baseline": 0.07028125000215368,
+        "candidate": 0.07225816699792631,
+        "paired_ratio": 1.0426030293421185
+      },
+      "process_s": {
+        "baseline": 0.09681858299882151,
+        "candidate": 0.0993979999984731,
+        "paired_ratio": 1.0337990972032136
+      },
+      "production_peak_rss_bytes": {
+        "baseline": 106856448,
+        "candidate": 108216320
+      },
+      "slower_over_5pct": 1,
+      "ratios": [
+        1.0991429475587935,
+        1.0426030293421185,
+        1.0223542410184405
+      ],
+      "retained_bytes": 1521,
+      "phases": {
+        "first_primary_and_return_s": {
+          "baseline": 0.003457500002696179,
+          "candidate": 0.0022623330005444586
+        },
+        "initialization_s": {
+          "baseline": null,
+          "candidate": 0.0004780000017490238
+        },
+        "parse_s": {
+          "baseline": 0.05837112500012154,
+          "candidate": 0.05908208299661055
+        },
+        "warm_primary_and_return_s": {
+          "baseline": 0.00188124999840511,
+          "candidate": 0.0007878750038798898
+        }
+      }
+    }
+  ]
+}

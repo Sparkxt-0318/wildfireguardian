@@ -1,0 +1,1082 @@
+[
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 0,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.136554361246822,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 1,
+    "admissible": true,
+    "codes": [],
+    "dose": 8.028367162221672,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 2,
+    "admissible": true,
+    "codes": [],
+    "dose": 108.92011957556606,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 3,
+    "admissible": true,
+    "codes": [],
+    "dose": 8.120633994857112,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 4,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.137651034665952,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 5,
+    "admissible": true,
+    "codes": [],
+    "dose": 23.005696596055994,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 6,
+    "admissible": true,
+    "codes": [],
+    "dose": 90.21144383117239,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 7,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 8,
+    "admissible": true,
+    "codes": [],
+    "dose": 8.173706322368046,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 9,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.12130047488584428,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 10,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.136972575315681,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 11,
+    "admissible": true,
+    "codes": [],
+    "dose": 54.065452584717704,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 12,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 13,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 14,
+    "admissible": true,
+    "codes": [],
+    "dose": 21.062154915248925,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 15,
+    "admissible": true,
+    "codes": [],
+    "dose": 22.345584603146808,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 16,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.866977911999221,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 17,
+    "admissible": true,
+    "codes": [],
+    "dose": 5.675929596593131,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 18,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.378996190623948,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 19,
+    "admissible": true,
+    "codes": [],
+    "dose": 8.280502456637773,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 20,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.2727642285354,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 21,
+    "admissible": true,
+    "codes": [],
+    "dose": 23.55057590513975,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 22,
+    "admissible": true,
+    "codes": [],
+    "dose": 14.596030063675794,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 23,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 24,
+    "admissible": true,
+    "codes": [],
+    "dose": 9.876554816825895,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 25,
+    "admissible": true,
+    "codes": [],
+    "dose": 14.51306753798723,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 26,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 27,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 28,
+    "admissible": true,
+    "codes": [],
+    "dose": 17.860514943310488,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-LINE-09-Q07",
+    "arm": "established",
+    "member": 29,
+    "admissible": true,
+    "codes": [],
+    "dose": 8.024182829401576,
+    "arrival": 41.6201171875
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 0,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.539306664486748,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 1,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.685082820043886,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 2,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.2322395494953553,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 3,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.3011064360238347,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 4,
+    "admissible": true,
+    "codes": [],
+    "dose": 26.919844664724746,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 5,
+    "admissible": true,
+    "codes": [],
+    "dose": 11.073858731664195,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 6,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.26716972390195,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 7,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.8493002456556633,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 8,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.583913572661862,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 9,
+    "admissible": true,
+    "codes": [],
+    "dose": 3.054961524474096,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 10,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.5519955720560423,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 11,
+    "admissible": true,
+    "codes": [],
+    "dose": 6.385879685766642,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 12,
+    "admissible": true,
+    "codes": [],
+    "dose": 3.0487834111488756,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 13,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.562555331390419,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 14,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.36389382968773554,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 15,
+    "admissible": true,
+    "codes": [],
+    "dose": 6.611003673506667,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 16,
+    "admissible": true,
+    "codes": [],
+    "dose": 16.30060286646572,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 17,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.759767344080995,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 18,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.276206893583538,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 19,
+    "admissible": true,
+    "codes": [],
+    "dose": 12.713637570898364,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 20,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.693059773837755,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 21,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.6226020103786776,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 22,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.96307496820409,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 23,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.470505438153968,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 24,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.172161512070014,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 25,
+    "admissible": true,
+    "codes": [],
+    "dose": 5.287734784584728,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 26,
+    "admissible": true,
+    "codes": [],
+    "dose": 5.32091325801275,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 27,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.5829113095021987,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 28,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.415408490869826,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q03",
+    "arm": "established",
+    "member": 29,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.6398552024383646,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 0,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.539306664486748,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 1,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.685082820043886,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 2,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.2322395494953553,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 3,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.3011064360238347,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 4,
+    "admissible": true,
+    "codes": [],
+    "dose": 26.919844664724746,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 5,
+    "admissible": true,
+    "codes": [],
+    "dose": 11.073858731664195,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 6,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.26716972390195,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 7,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.8493002456556633,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 8,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.583913572661862,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 9,
+    "admissible": true,
+    "codes": [],
+    "dose": 3.054961524474096,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 10,
+    "admissible": true,
+    "codes": [],
+    "dose": 1.5519955720560423,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 11,
+    "admissible": true,
+    "codes": [],
+    "dose": 6.385879685766642,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 12,
+    "admissible": true,
+    "codes": [],
+    "dose": 3.0487834111488756,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 13,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.562555331390419,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 14,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.36389382968773554,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 15,
+    "admissible": true,
+    "codes": [],
+    "dose": 6.611003673506667,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 16,
+    "admissible": true,
+    "codes": [],
+    "dose": 16.30060286646572,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 17,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.759767344080995,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 18,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.276206893583538,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 19,
+    "admissible": true,
+    "codes": [],
+    "dose": 12.713637570898364,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 20,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.693059773837755,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 21,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.6226020103786776,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 22,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.96307496820409,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 23,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.470505438153968,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 24,
+    "admissible": true,
+    "codes": [],
+    "dose": 4.172161512070014,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 25,
+    "admissible": true,
+    "codes": [],
+    "dose": 5.287734784584728,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 26,
+    "admissible": true,
+    "codes": [],
+    "dose": 5.32091325801275,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 27,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.5829113095021987,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 28,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.415408490869826,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q05",
+    "arm": "established",
+    "member": 29,
+    "admissible": true,
+    "codes": [],
+    "dose": 2.6398552024383646,
+    "arrival": 16.5625
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 0,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 1,
+    "admissible": true,
+    "codes": [],
+    "dose": 340.00243445157747,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 2,
+    "admissible": true,
+    "codes": [],
+    "dose": 0.0,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 3,
+    "admissible": true,
+    "codes": [],
+    "dose": 35.624367192458145,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 4,
+    "admissible": true,
+    "codes": [],
+    "dose": 163.1929714182657,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 5,
+    "admissible": true,
+    "codes": [],
+    "dose": 101.52689995132282,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 6,
+    "admissible": true,
+    "codes": [],
+    "dose": 100.3164821095783,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 7,
+    "admissible": true,
+    "codes": [],
+    "dose": 57.70626806778566,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 8,
+    "admissible": true,
+    "codes": [],
+    "dose": 24.766271670691268,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 9,
+    "admissible": true,
+    "codes": [],
+    "dose": 10.33198408367369,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 10,
+    "admissible": true,
+    "codes": [],
+    "dose": 36.31916791808247,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 11,
+    "admissible": true,
+    "codes": [],
+    "dose": 78.55752429456932,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 12,
+    "admissible": true,
+    "codes": [],
+    "dose": 11.37777238898343,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 13,
+    "admissible": true,
+    "codes": [],
+    "dose": 94.33460162536352,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 14,
+    "admissible": true,
+    "codes": [],
+    "dose": 15.31721321309162,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 15,
+    "admissible": true,
+    "codes": [],
+    "dose": 7.522044823951893,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 16,
+    "admissible": true,
+    "codes": [],
+    "dose": 191.27879292997002,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 17,
+    "admissible": true,
+    "codes": [],
+    "dose": 123.19487483191426,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 18,
+    "admissible": true,
+    "codes": [],
+    "dose": 104.74972542183477,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 19,
+    "admissible": true,
+    "codes": [],
+    "dose": 128.88916410212937,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 20,
+    "admissible": true,
+    "codes": [],
+    "dose": 69.27702309580069,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 21,
+    "admissible": true,
+    "codes": [],
+    "dose": 29.011509176115187,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 22,
+    "admissible": true,
+    "codes": [],
+    "dose": 25.9345760309358,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 23,
+    "admissible": true,
+    "codes": [],
+    "dose": 49.56848127307198,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 24,
+    "admissible": true,
+    "codes": [],
+    "dose": 66.63676765407551,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 25,
+    "admissible": true,
+    "codes": [],
+    "dose": 76.10673387799334,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 26,
+    "admissible": true,
+    "codes": [],
+    "dose": 64.37414650903231,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 27,
+    "admissible": true,
+    "codes": [],
+    "dose": 35.831022633991594,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 28,
+    "admissible": true,
+    "codes": [],
+    "dose": 92.37692130247176,
+    "arrival": 74.8193359375
+  },
+  {
+    "query_id": "RB1-MAIN-STRESS-10-Q07",
+    "arm": "established",
+    "member": 29,
+    "admissible": true,
+    "codes": [],
+    "dose": 47.835116171763175,
+    "arrival": 74.8193359375
+  }
+]

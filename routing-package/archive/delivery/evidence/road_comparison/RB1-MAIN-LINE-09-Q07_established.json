@@ -1,0 +1,545 @@
+{
+  "status": "ROUTE_JOINT_OPTIMAL",
+  "legs": [
+    {
+      "type": "EDGE",
+      "edge_id": "N436605413>N10654980746",
+      "t_enter": 0.0,
+      "t_exit": 0.0224609375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10654980746>N748738176",
+      "t_enter": 0.0224609375,
+      "t_exit": 0.4501953125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N748738176>N10654980774",
+      "t_enter": 0.4501953125,
+      "t_exit": 0.5888671875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10654980774>N2581351762",
+      "t_enter": 0.5888671875,
+      "t_exit": 1.009765625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N2581351762>N10654980762",
+      "t_enter": 1.009765625,
+      "t_exit": 1.130859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10654980762>N2581351764",
+      "t_enter": 1.130859375,
+      "t_exit": 1.4306640625
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N2581351764",
+      "t_start": 1.4306640625,
+      "t_end": 5.0859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N2581351764>N436605427",
+      "t_enter": 5.0859375,
+      "t_exit": 5.525390625
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N436605427",
+      "t_start": 5.525390625,
+      "t_end": 21.84375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N436605427>N10655395134",
+      "t_enter": 21.84375,
+      "t_exit": 22.2880859375
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N10655395134",
+      "t_start": 22.2880859375,
+      "t_end": 24.5576171875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395134>N5569889749",
+      "t_enter": 24.5576171875,
+      "t_exit": 24.5751953125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5569889749>N10655395128",
+      "t_enter": 24.5751953125,
+      "t_exit": 24.5810546875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395128>N10655395131",
+      "t_enter": 24.5810546875,
+      "t_exit": 24.6142578125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N10655395131",
+      "t_start": 24.6142578125,
+      "t_end": 26.837890625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395131>N10655395133",
+      "t_enter": 26.837890625,
+      "t_exit": 26.859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395133>N10655395136",
+      "t_enter": 26.859375,
+      "t_exit": 26.8701171875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395136>N10655395144",
+      "t_enter": 26.8701171875,
+      "t_exit": 26.888671875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395144>N10655395155",
+      "t_enter": 26.888671875,
+      "t_exit": 26.91015625
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N10655395155",
+      "t_start": 26.91015625,
+      "t_end": 28.810546875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395155>N1982449829",
+      "t_enter": 28.810546875,
+      "t_exit": 28.921875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N1982449829",
+      "t_start": 28.921875,
+      "t_end": 37.162109375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N1982449829>N10655395191",
+      "t_enter": 37.162109375,
+      "t_exit": 37.4638671875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395191>N10655395184",
+      "t_enter": 37.4638671875,
+      "t_exit": 37.6259765625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395184>N670247200",
+      "t_enter": 37.6259765625,
+      "t_exit": 37.74609375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N670247200>N670247206",
+      "t_enter": 37.74609375,
+      "t_exit": 37.8271484375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N670247206>N436735366",
+      "t_enter": 37.8271484375,
+      "t_exit": 38.142578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N436735366>N10655395199",
+      "t_enter": 38.142578125,
+      "t_exit": 38.1611328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655395199>N436735367",
+      "t_enter": 38.1611328125,
+      "t_exit": 38.55859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N436735367>N4748253841",
+      "t_enter": 38.55859375,
+      "t_exit": 38.6572265625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253841>N10655425718",
+      "t_enter": 38.6572265625,
+      "t_exit": 39.1357421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N10655425718>N5415640819",
+      "t_enter": 39.1357421875,
+      "t_exit": 39.1787109375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5415640819>N5415640818",
+      "t_enter": 39.1787109375,
+      "t_exit": 39.21875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5415640818>N4748253859",
+      "t_enter": 39.21875,
+      "t_exit": 39.578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253859>N4748253848",
+      "t_enter": 39.578125,
+      "t_exit": 39.84375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253848>N4748253849",
+      "t_enter": 39.84375,
+      "t_exit": 39.8974609375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253849>N4748253867",
+      "t_enter": 39.8974609375,
+      "t_exit": 40.236328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253867>N4748253872",
+      "t_enter": 40.236328125,
+      "t_exit": 40.6728515625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4748253872>N3308764776",
+      "t_enter": 40.6728515625,
+      "t_exit": 41.0361328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3308764776>N3308764783",
+      "t_enter": 41.0361328125,
+      "t_exit": 41.154296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3308764783>N1939561232",
+      "t_enter": 41.154296875,
+      "t_exit": 41.2734375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N1939561232>N1939561240",
+      "t_enter": 41.2734375,
+      "t_exit": 41.42578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N1939561240>N3213705797",
+      "t_enter": 41.42578125,
+      "t_exit": 41.484375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3213705797>N3213705796",
+      "t_enter": 41.484375,
+      "t_exit": 41.55859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3213705796>N3213705795",
+      "t_enter": 41.55859375,
+      "t_exit": 41.6201171875
+    }
+  ],
+  "t_arr": 41.6201171875,
+  "destination_node": "N3213705795",
+  "active_members": [
+    2
+  ],
+  "rounds": [
+    {
+      "activated_member": 2,
+      "active_members": [
+        2
+      ],
+      "table_build_s": 14.547084874939173,
+      "events": 21060477,
+      "rss_mb": 936.214528,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "ROUTE",
+      "relaxed_arrival": 41.6201171875
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 41.6201171875,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": true,
+      "codes": [],
+      "E": 7.136554375837092
+    },
+    {
+      "member": 1,
+      "ok": true,
+      "codes": [],
+      "E": 8.028367176992385
+    },
+    {
+      "member": 2,
+      "ok": true,
+      "codes": [],
+      "E": 108.92011985210307
+    },
+    {
+      "member": 3,
+      "ok": true,
+      "codes": [],
+      "E": 8.12063400525318
+    },
+    {
+      "member": 4,
+      "ok": true,
+      "codes": [],
+      "E": 4.1376510414419645
+    },
+    {
+      "member": 5,
+      "ok": true,
+      "codes": [],
+      "E": 23.00569663318076
+    },
+    {
+      "member": 6,
+      "ok": true,
+      "codes": [],
+      "E": 90.21144406654037
+    },
+    {
+      "member": 7,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 8,
+      "ok": true,
+      "codes": [],
+      "E": 8.17370633620996
+    },
+    {
+      "member": 9,
+      "ok": true,
+      "codes": [],
+      "E": 0.12130047651947361
+    },
+    {
+      "member": 10,
+      "ok": true,
+      "codes": [],
+      "E": 10.13697259975742
+    },
+    {
+      "member": 11,
+      "ok": true,
+      "codes": [],
+      "E": 54.06545269619317
+    },
+    {
+      "member": 12,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 13,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 14,
+      "ok": true,
+      "codes": [],
+      "E": 21.0621549521586
+    },
+    {
+      "member": 15,
+      "ok": true,
+      "codes": [],
+      "E": 22.345584636990264
+    },
+    {
+      "member": 16,
+      "ok": true,
+      "codes": [],
+      "E": 10.866977927160855
+    },
+    {
+      "member": 17,
+      "ok": true,
+      "codes": [],
+      "E": 5.675929617407928
+    },
+    {
+      "member": 18,
+      "ok": true,
+      "codes": [],
+      "E": 4.378996205460596
+    },
+    {
+      "member": 19,
+      "ok": true,
+      "codes": [],
+      "E": 8.280502481515727
+    },
+    {
+      "member": 20,
+      "ok": true,
+      "codes": [],
+      "E": 4.272764242008727
+    },
+    {
+      "member": 21,
+      "ok": true,
+      "codes": [],
+      "E": 23.550575940441206
+    },
+    {
+      "member": 22,
+      "ok": true,
+      "codes": [],
+      "E": 14.596030085191462
+    },
+    {
+      "member": 23,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 24,
+      "ok": true,
+      "codes": [],
+      "E": 9.876554835032627
+    },
+    {
+      "member": 25,
+      "ok": true,
+      "codes": [],
+      "E": 14.513067561212313
+    },
+    {
+      "member": 26,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 27,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 28,
+      "ok": true,
+      "codes": [],
+      "E": 17.86051497346767
+    },
+    {
+      "member": 29,
+      "ok": true,
+      "codes": [],
+      "E": 8.02418284035742
+    }
+  ],
+  "certificate": "EXACT_RELAXED_OPTIMUM_PASSES_ALL_PLANNING_MEMBERS",
+  "reason": null,
+  "wall_s_query": 32.56060108309612,
+  "current_rss_mb": 997.04832,
+  "query_id": "RB1-MAIN-LINE-09-Q07",
+  "instance_id": "RB1-MAIN-LINE-09",
+  "arm": "established",
+  "cold_prep_s": 2.235227750032209,
+  "solver_profiles": [],
+  "pruning": [],
+  "measured_stage_s": 32.689856334007345,
+  "peak_rss_mb": 1164.828125,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

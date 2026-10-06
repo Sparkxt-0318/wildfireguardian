@@ -1,0 +1,15 @@
+{
+  "candidate_hashes": 25,
+  "deterministic_replay": true,
+  "elapsed_s": 2.2680168750230223,
+  "forecast_integration": "NOT_AVAILABLE",
+  "full_road_witness_checked": true,
+  "physical_safety_claim": false,
+  "status": "PASS"
+}
+
+.........................................................................
+----------------------------------------------------------------------
+Ran 73 tests in 2.148s
+
+OK

@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-10-04T03:15:21.936365+08:00",
+  "start_files": 682,
+  "unchanged": 682,
+  "changed_since_start": [],
+  "frozen_delivery_changes": 0,
+  "coordinator_original_writes": "canonical append and authorized shared lock metadata only; delivery/scratch/output writes isolated",
+  "concurrent_specialized_changes": "Listed honestly, not claimed preserved byte for byte; this task did not edit them",
+  "startup_pipeline_manifest_stale": {
+    "mismatches": 236,
+    "total": 472,
+    "python_mismatch": "lane_B_search/check_freeze_agreement.py",
+    "origin": "already present at preflight"
+  },
+  "road_dependency_freeze_verified": 62,
+  "candidate_freeze_verified": 25
+}

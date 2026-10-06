@@ -1,0 +1,332 @@
+{
+  "status": "REFUSED_JOINT_PROVEN",
+  "legs": [],
+  "t_arr": null,
+  "destination_node": null,
+  "active_members": [
+    15
+  ],
+  "rounds": [
+    {
+      "activated_member": 15,
+      "active_members": [
+        15
+      ],
+      "table_build_s": 1.228706624940969,
+      "events": 991107,
+      "rss_mb": 758.9888,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "REFUSED"
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 126.501953125,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3619.478663809775
+    },
+    {
+      "member": 1,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3404.682601946583
+    },
+    {
+      "member": 2,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2868.824865021679
+    },
+    {
+      "member": 3,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2877.679335582159
+    },
+    {
+      "member": 4,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3052.024459209454
+    },
+    {
+      "member": 5,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2257.3984625839194
+    },
+    {
+      "member": 6,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3285.4125205262144
+    },
+    {
+      "member": 7,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2965.572741918896
+    },
+    {
+      "member": 8,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2538.77916080221
+    },
+    {
+      "member": 9,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3134.639005536139
+    },
+    {
+      "member": 10,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2864.3270623964736
+    },
+    {
+      "member": 11,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2997.706157765853
+    },
+    {
+      "member": 12,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3052.788361764672
+    },
+    {
+      "member": 13,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3246.888046380417
+    },
+    {
+      "member": 14,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2374.7263789439126
+    },
+    {
+      "member": 15,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3739.8319115550107
+    },
+    {
+      "member": 16,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2388.5494049432837
+    },
+    {
+      "member": 17,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3107.0861503133947
+    },
+    {
+      "member": 18,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2755.105668866803
+    },
+    {
+      "member": 19,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2495.6659724460396
+    },
+    {
+      "member": 20,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2851.0075242800676
+    },
+    {
+      "member": 21,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2879.8056703448037
+    },
+    {
+      "member": 22,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2674.444017059948
+    },
+    {
+      "member": 23,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2902.2342311805382
+    },
+    {
+      "member": 24,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2873.4159597951993
+    },
+    {
+      "member": 25,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2704.317171744119
+    },
+    {
+      "member": 26,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3177.637306398929
+    },
+    {
+      "member": 27,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3025.5476285821655
+    },
+    {
+      "member": 28,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2809.9983957910945
+    },
+    {
+      "member": 29,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 3096.540582607268
+    }
+  ],
+  "reason": "te_NO_ADMISSIBLE_LATTICE_ROUTE_WITHIN_HORIZON_support_established:SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+  "wall_s_query": 27.77462550008204,
+  "current_rss_mb": 631.701504,
+  "query_id": "RB1-MAIN-STRESS-08-Q06",
+  "instance_id": "RB1-MAIN-STRESS-08",
+  "arm": "established",
+  "cold_prep_s": 0.9611340831033885,
+  "solver_profiles": [],
+  "pruning": [],
+  "measured_stage_s": 27.90288954100106,
+  "peak_rss_mb": 851.78125,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

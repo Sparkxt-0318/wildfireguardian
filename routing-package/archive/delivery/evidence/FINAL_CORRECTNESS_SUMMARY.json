@@ -1,0 +1,14 @@
+{
+  "rows": 510,
+  "eligible": 468,
+  "legacy_unavailable": 42,
+  "independent_route_checks": 222,
+  "failed_route_checks": 0,
+  "normalized_outcome_disagreements": [],
+  "independent_conditional_optimum_rows": 198,
+  "independent_infeasibility_or_disconnection_rows": 198,
+  "partial_support_route_rows": 24,
+  "at_issue_rows": 24,
+  "unsupported_rows": 24,
+  "routing_core_changed_after_final_freeze": false
+}

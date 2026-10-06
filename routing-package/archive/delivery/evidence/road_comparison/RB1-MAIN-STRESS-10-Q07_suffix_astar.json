@@ -1,0 +1,355 @@
+{
+  "status": "TIMEOUT",
+  "legs": [],
+  "t_arr": null,
+  "destination_node": null,
+  "active_members": [
+    15
+  ],
+  "rounds": [
+    {
+      "activated_member": 15,
+      "active_members": [
+        15
+      ],
+      "table_build_s": 2.8878001250559464,
+      "events": 0,
+      "rss_mb": 1114.27584,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "TIMEOUT"
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 74.8193359375,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": true,
+      "codes": [],
+      "E": 170.79740033331143
+    },
+    {
+      "member": 1,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 4332.932526636043
+    },
+    {
+      "member": 2,
+      "ok": true,
+      "codes": [],
+      "E": 507.049783164164
+    },
+    {
+      "member": 3,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 911.6970649214342
+    },
+    {
+      "member": 4,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2421.986056564976
+    },
+    {
+      "member": 5,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1409.069450865137
+    },
+    {
+      "member": 6,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1031.7623425856223
+    },
+    {
+      "member": 7,
+      "ok": true,
+      "codes": [],
+      "E": 410.1208379371816
+    },
+    {
+      "member": 8,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 630.7796133130352
+    },
+    {
+      "member": 9,
+      "ok": true,
+      "codes": [],
+      "E": 484.7021150740433
+    },
+    {
+      "member": 10,
+      "ok": true,
+      "codes": [],
+      "E": 310.3526564929225
+    },
+    {
+      "member": 11,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 653.1295883883943
+    },
+    {
+      "member": 12,
+      "ok": true,
+      "codes": [],
+      "E": 478.885528969494
+    },
+    {
+      "member": 13,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 839.3460604816197
+    },
+    {
+      "member": 14,
+      "ok": true,
+      "codes": [],
+      "E": 243.60335042911078
+    },
+    {
+      "member": 15,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 6524.43382485961
+    },
+    {
+      "member": 16,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1636.2957974583885
+    },
+    {
+      "member": 17,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1572.6778718606474
+    },
+    {
+      "member": 18,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 894.6065803472119
+    },
+    {
+      "member": 19,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1451.4402196129402
+    },
+    {
+      "member": 20,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 984.5379519722537
+    },
+    {
+      "member": 21,
+      "ok": true,
+      "codes": [],
+      "E": 395.53798680166074
+    },
+    {
+      "member": 22,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1611.1419638772168
+    },
+    {
+      "member": 23,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 1325.3019320550611
+    },
+    {
+      "member": 24,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 770.3438098356696
+    },
+    {
+      "member": 25,
+      "ok": true,
+      "codes": [],
+      "E": 364.74942973749484
+    },
+    {
+      "member": 26,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 619.955875185222
+    },
+    {
+      "member": 27,
+      "ok": true,
+      "codes": [],
+      "E": 231.05847666283756
+    },
+    {
+      "member": 28,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 2172.007069528319
+    },
+    {
+      "member": 29,
+      "ok": true,
+      "codes": [],
+      "E": 394.57075361236235
+    }
+  ],
+  "reason": "TOTAL_BUDGET_EXCEEDED",
+  "wall_s_query": 60.46979466709308,
+  "current_rss_mb": 824.328192,
+  "query_id": "RB1-MAIN-STRESS-10-Q07",
+  "instance_id": "RB1-MAIN-STRESS-10",
+  "arm": "suffix_astar",
+  "cold_prep_s": 1.9653910420602188,
+  "solver_profiles": [
+    {
+      "status": "CAP",
+      "pops": 1689216,
+      "metrics": {
+        "exposure_s": 9.974772833986208,
+        "interval_query_s": 13.789233126793988,
+        "dominance_s": 6.996721770730801,
+        "memory_check_s": 2.5565208254847676,
+        "wait_candidates": 1612260,
+        "edge_candidates": 3433920,
+        "dominated": 3124083,
+        "peak_heap": 49702,
+        "peak_records": 1922098
+      },
+      "edge_tables": [
+        {
+          "calls": 3433920,
+          "hits": 3433547,
+          "functions_built": 373,
+          "evictions": 0,
+          "build_s": 0.1650091864867136,
+          "eval_s": 4.63821212912444,
+          "cache_bytes": 1002400,
+          "peak_cache_bytes": 1002400
+        }
+      ],
+      "wait_tables": [
+        {
+          "calls": 1612260,
+          "hits": 1612128,
+          "functions_built": 132,
+          "evictions": 0,
+          "build_s": 0.007693919236771762,
+          "eval_s": 2.0511108165374026,
+          "cache_bytes": 100008,
+          "peak_cache_bytes": 100008
+        }
+      ]
+    }
+  ],
+  "pruning": [
+    {
+      "removed_edge_states": 76,
+      "retained_edge_states": 6553
+    }
+  ],
+  "measured_stage_s": 60.67440854199231,
+  "peak_rss_mb": 1204.859375,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

@@ -1,0 +1,14 @@
+{
+  "sha256": "c91e1c73fbef31e671be08f12a581817830f0b50c6f719e0fe083caacd2044e4",
+  "reason": "Coordinator-found non-Boolean reset admission gap; explicit fixed reset test values before rerun",
+  "values": [
+    "false",
+    [],
+    [
+      1
+    ],
+    0,
+    1,
+    null
+  ]
+}

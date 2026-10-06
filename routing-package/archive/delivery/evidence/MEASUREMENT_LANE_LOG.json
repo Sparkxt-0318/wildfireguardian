@@ -1,0 +1,79 @@
+[
+  {
+    "owner": "routing_delivery",
+    "mode": "exclusive",
+    "label": "routing delivery frozen road smoke and 510 tiny paired cases",
+    "cmd": [
+      "/Users/jp/miniforge3/envs/wfg311/bin/python",
+      "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/run_measurements.py"
+    ],
+    "host": "Johns-mac.local",
+    "waited_s": 1567.3,
+    "load_before": [
+      6.29296875,
+      6.11572265625,
+      6.1630859375
+    ],
+    "start": "2026-10-04T02:35:38+0800",
+    "wall_s": 28.649,
+    "exit": 0,
+    "load_after": [
+      6.23779296875,
+      6.1064453125,
+      6.15673828125
+    ],
+    "child_maxrss_mb": 68.4
+  },
+  {
+    "owner": "routing_delivery",
+    "mode": "exclusive",
+    "label": "routing delivery six exposed road regressions, four matched arms, caps preserved",
+    "cmd": [
+      "/Users/jp/miniforge3/envs/wfg311/bin/python",
+      "-B",
+      "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/road_comparison.py"
+    ],
+    "host": "Johns-mac.local",
+    "waited_s": 761.1,
+    "load_before": [
+      5.22412109375,
+      5.71923828125,
+      5.923828125
+    ],
+    "start": "2026-10-04T02:50:47+0800",
+    "wall_s": 1297.817,
+    "exit": 0,
+    "load_after": [
+      6.15576171875,
+      6.03076171875,
+      5.84619140625
+    ],
+    "child_maxrss_mb": 1374.4
+  },
+  {
+    "owner": "routing_delivery",
+    "mode": "exclusive",
+    "label": "fresh extracted routing package integration check",
+    "cmd": [
+      "/Users/jp/miniforge3/envs/wfg311/bin/python",
+      "-B",
+      "/Users/jp/Documents/Codex/2026-10-04/run-x20/work/package_check.py"
+    ],
+    "host": "Johns-mac.local",
+    "waited_s": 1481.9,
+    "load_before": [
+      6.14306640625,
+      6.02978515625,
+      5.8466796875
+    ],
+    "start": "2026-10-04T03:12:26+0800",
+    "wall_s": 2.39,
+    "exit": 0,
+    "load_after": [
+      6.14306640625,
+      6.02978515625,
+      5.8466796875
+    ],
+    "child_maxrss_mb": 54.8
+  }
+]

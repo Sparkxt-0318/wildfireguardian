@@ -1,0 +1,7 @@
+{
+  "input": "fixtures/evaluation_cases.json",
+  "sha256": "07cb746c06ec8ba3d6ec294e2e168d684b5c3fdf1977826ef9b95763fb3fc4d2",
+  "cases": 17,
+  "stage": "inputs validated before candidate comparison",
+  "protected_final_sets_used": false
+}

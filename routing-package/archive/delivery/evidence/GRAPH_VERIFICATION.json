@@ -1,0 +1,266 @@
+{
+  "tier": "Verify",
+  "project": "routing-delivery-20261004-v1",
+  "generation": "2026-10-03T18:42:08Z",
+  "traces_and_snippets": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "function: routing-delivery-20261004-v1.routing.core.solve\ndirection: both\ncallees_total: 15\ncallees: 15  (rows: name hop; qn = group prefix + \".\" + name)\nbuiltins.dict:\n  get 1\nbuiltins:\n  len 1\n  list 1\nbuiltins.list:\n  append 1\n  pop 1\nbuiltins:\n  str 1\nrouting-delivery-20261004-v1.routing.core:\n  _globally_supported 1\n  _lower_bounds 1\n  check_route 1\n  edge_occupancies 1\n  evaluate_occupancy 1\n  node_cell 1\nrouting-delivery-20261004-v1.routing.validation:\n  validate_graph 1\n  validate_hazard 1\n  validate_request 1\ncallers_total: 3\ncallers: 3  (rows: name hop; qn = group prefix + \".\" + name)\nrouting-delivery-20261004-v1.benchmark:\n  _solve 1\nrouting-delivery-20261004-v1.routing.service:\n  plan_with_return 1\nrouting-delivery-20261004-v1:\n  run_measurements 1\n"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"name\":\"commit\",\"qualified_name\":\"routing-delivery-20261004-v1.routing.session.RoutingSession.commit\",\"label\":\"Method\",\"file_path\":\"/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/session.py\",\"start_line\":210,\"end_line\":235,\"source\":\"    def commit(self, result):\\n        \\\"\\\"\\\"False for stale, rejected, or independently inadmissible completions.\\\"\\\"\\\"\\n        if (not isinstance(result, dict) or self.hazard is None or result.get(\\\"hazard_version\\\") != self.hazard[\\\"version\\\"] or\\n                result.get(\\\"request_generation\\\") != self.generation or\\n                result.get(\\\"status\\\") not in {\\\"CHECKED_ROUTE\\\", \\\"CONDITIONAL_OPTIMUM\\\"}):\\n            return False\\n        from .independent import check_route\\n        req = result.get(\\\"request\\\")\\n        if not isinstance(req, dict):\\n            return False\\n        if req != self._pending_request:\\n            return False\\n        if self.progress is not None and any(req.get(k) != self.progress[k] for k in (\\\"position\\\", \\\"incoming_edge\\\", \\\"departure\\\", \\\"incurred\\\")):\\n            return False\\n        try:\\n            checked = check_route(self.graph, self.hazard, req, result.get(\\\"legs\\\", []), result.get(\\\"destination\\\"))\\n        except (ValueError, TypeError, KeyError):\\n            return False\\n        if not checked.get(\\\"ok\\\"):\\n            return False\\n        if result.get(\\\"request_generation\\\") != self.generation or result.get(\\\"hazard_version\\\") != self.hazard[\\\"version\\\"]:\\n            return False\\n        self.retained = deepcopy(result)\\n        self.retained[\\\"per_member\\\"] = checked[\\\"per_member\\\"]\\n        self._last_request = deepcopy(req)\\n        return True\\n\",\"callers\":7,\"callees\":2}"
+          }
+        ],
+        "structuredContent": {
+          "name": "commit",
+          "qualified_name": "routing-delivery-20261004-v1.routing.session.RoutingSession.commit",
+          "label": "Method",
+          "file_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/session.py",
+          "start_line": 210,
+          "end_line": 235,
+          "source": "    def commit(self, result):\n        \"\"\"False for stale, rejected, or independently inadmissible completions.\"\"\"\n        if (not isinstance(result, dict) or self.hazard is None or result.get(\"hazard_version\") != self.hazard[\"version\"] or\n                result.get(\"request_generation\") != self.generation or\n                result.get(\"status\") not in {\"CHECKED_ROUTE\", \"CONDITIONAL_OPTIMUM\"}):\n            return False\n        from .independent import check_route\n        req = result.get(\"request\")\n        if not isinstance(req, dict):\n            return False\n        if req != self._pending_request:\n            return False\n        if self.progress is not None and any(req.get(k) != self.progress[k] for k in (\"position\", \"incoming_edge\", \"departure\", \"incurred\")):\n            return False\n        try:\n            checked = check_route(self.graph, self.hazard, req, result.get(\"legs\", []), result.get(\"destination\"))\n        except (ValueError, TypeError, KeyError):\n            return False\n        if not checked.get(\"ok\"):\n            return False\n        if result.get(\"request_generation\") != self.generation or result.get(\"hazard_version\") != self.hazard[\"version\"]:\n            return False\n        self.retained = deepcopy(result)\n        self.retained[\"per_member\"] = checked[\"per_member\"]\n        self._last_request = deepcopy(req)\n        return True\n",
+          "callers": 7,
+          "callees": 2
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"name\":\"plan_with_return\",\"qualified_name\":\"routing-delivery-20261004-v1.routing.service.plan_with_return\",\"label\":\"Function\",\"file_path\":\"/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/service.py\",\"start_line\":7,\"end_line\":14,\"source\":\"def plan_with_return(graph,hazard,request,history=None,endpoint=None,*,return_budget_s=5.):\\n    start=time.perf_counter();escape=solve(graph,hazard,request)\\n    output={'escape':escape,'return_alternative':None,'primary_problem_resolved':escape['status'] in ['CONDITIONAL_OPTIMUM','PROVEN_INFEASIBLE','DISCONNECTED','AT_ISSUE_FAILURE'],'return_policy':'recorded path only; separately declared wall budget; never turns timeout into infeasibility','return_budget_s':return_budget_s}\\n    if escape['status'] in ['PROVEN_INFEASIBLE','DISCONNECTED','TIMEOUT'] and history is not None and endpoint is not None:\\n        q=deepcopy(request);q['limits']['wall_s']=return_budget_s\\n        output['return_alternative']=checked_return(graph,hazard,q,history,endpoint)\\n    output['end_to_end_s']=time.perf_counter()-start\\n    return output\\n\",\"callers\":2,\"callees\":2}"
+          }
+        ],
+        "structuredContent": {
+          "name": "plan_with_return",
+          "qualified_name": "routing-delivery-20261004-v1.routing.service.plan_with_return",
+          "label": "Function",
+          "file_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/service.py",
+          "start_line": 7,
+          "end_line": 14,
+          "source": "def plan_with_return(graph,hazard,request,history=None,endpoint=None,*,return_budget_s=5.):\n    start=time.perf_counter();escape=solve(graph,hazard,request)\n    output={'escape':escape,'return_alternative':None,'primary_problem_resolved':escape['status'] in ['CONDITIONAL_OPTIMUM','PROVEN_INFEASIBLE','DISCONNECTED','AT_ISSUE_FAILURE'],'return_policy':'recorded path only; separately declared wall budget; never turns timeout into infeasibility','return_budget_s':return_budget_s}\n    if escape['status'] in ['PROVEN_INFEASIBLE','DISCONNECTED','TIMEOUT'] and history is not None and endpoint is not None:\n        q=deepcopy(request);q['limits']['wall_s']=return_budget_s\n        output['return_alternative']=checked_return(graph,hazard,q,history,endpoint)\n    output['end_to_end_s']=time.perf_counter()-start\n    return output\n",
+          "callers": 2,
+          "callees": 2
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"name\":\"prune\",\"qualified_name\":\"routing-delivery-20261004-v1.road_comparison.prune\",\"label\":\"Function\",\"file_path\":\"/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/road_comparison.py\",\"start_line\":31,\"end_line\":49,\"source\":\"def prune(cp, dests):\\n    \\\"\\\"\\\"The SAME selected static legal-suffix pruning, applied to compiled turns.\\n\\n    Every edge-state on a legal suffix to a destination is retained. Waiting\\n    leaves that state unchanged. No time or resource labels are merged.\\n    \\\"\\\"\\\"\\n    reverse=[[] for _ in range(cp.pb.n_edges)]\\n    for e,ss in enumerate(cp.succ):\\n        for f in ss:reverse[int(f)].append(e)\\n    goals=set(int(x) for x in dests)\\n    keep={e for e,v in enumerate(cp.pb.ev) if int(v) in goals}\\n    todo=list(keep)\\n    while todo:\\n        for e in reverse[todo.pop()]:\\n            if e not in keep:keep.add(e);todo.append(e)\\n    removed=cp.pb.n_edges-len(keep)\\n    cp.succ=[[int(f) for f in ss if int(f) in keep] for ss in cp.succ]\\n    cp.out_by_node=[[int(f) for f in ss if int(f) in keep] for ss in cp.out_by_node]\\n    return {'removed_edge_states':removed,'retained_edge_states':len(keep)}\\n\",\"callers\":1,\"callees\":6}"
+          }
+        ],
+        "structuredContent": {
+          "name": "prune",
+          "qualified_name": "routing-delivery-20261004-v1.road_comparison.prune",
+          "label": "Function",
+          "file_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/road_comparison.py",
+          "start_line": 31,
+          "end_line": 49,
+          "source": "def prune(cp, dests):\n    \"\"\"The SAME selected static legal-suffix pruning, applied to compiled turns.\n\n    Every edge-state on a legal suffix to a destination is retained. Waiting\n    leaves that state unchanged. No time or resource labels are merged.\n    \"\"\"\n    reverse=[[] for _ in range(cp.pb.n_edges)]\n    for e,ss in enumerate(cp.succ):\n        for f in ss:reverse[int(f)].append(e)\n    goals=set(int(x) for x in dests)\n    keep={e for e,v in enumerate(cp.pb.ev) if int(v) in goals}\n    todo=list(keep)\n    while todo:\n        for e in reverse[todo.pop()]:\n            if e not in keep:keep.add(e);todo.append(e)\n    removed=cp.pb.n_edges-len(keep)\n    cp.succ=[[int(f) for f in ss if int(f) in keep] for ss in cp.succ]\n    cp.out_by_node=[[int(f) for f in ss if int(f) in keep] for ss in cp.out_by_node]\n    return {'removed_edge_states':removed,'retained_edge_states':len(keep)}\n",
+          "callers": 1,
+          "callees": 6
+        },
+        "isError": false
+      }
+    }
+  ],
+  "coverage": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"project\":\"routing-delivery-20261004-v1\",\"signal\":\"best_effort\",\"indexed_at\":\"2026-10-03T18:42:08Z\",\"metadata\":{\"generation\":\"2026-10-03T18:42:08Z\",\"index_mode\":\"fast\",\"recorded_at\":\"2026-10-03T18:42:08Z\",\"recording_status\":\"complete\",\"ignored_files_stored\":0,\"ignored_files_total\":0,\"hash_records_complete\":true,\"coverage_version\":3,\"generation_matches\":true},\"paths\":[{\"requested_path\":\"routing/__init__.py\",\"path\":\"routing/__init__.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/core.py\",\"path\":\"routing/core.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fallback.py\",\"path\":\"routing/fallback.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/fixture.py\",\"path\":\"routing/fixture.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/independent.py\",\"path\":\"routing/independent.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/legacy_bridge.py\",\"path\":\"routing/legacy_bridge.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/optimization.py\",\"path\":\"routing/optimization.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/replay.py\",\"path\":\"routing/replay.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/service.py\",\"path\":\"routing/service.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/session.py\",\"path\":\"routing/session.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"routing/validation.py\",\"path\":\"routing/validation.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_core.py\",\"path\":\"tests/test_core.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_crossreview.py\",\"path\":\"tests/test_crossreview.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_independent.py\",\"path\":\"tests/test_independent.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_optimization.py\",\"path\":\"tests/test_optimization.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_service.py\",\"path\":\"tests/test_service.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_session_fallback.py\",\"path\":\"tests/test_session_fallback.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]},{\"requested_path\":\"tests/test_validation.py\",\"path\":\"tests/test_validation.py\",\"status\":\"no_recorded_issue\",\"freshness\":\"metadata_match\",\"recommended_action\":\"use_graph_with_best_effort_caveat\",\"coverage\":[]}],\"scopes\":[],\"caveat\":\"Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable.\"}"
+      }
+    ],
+    "structuredContent": {
+      "project": "routing-delivery-20261004-v1",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-03T18:42:08Z",
+      "metadata": {
+        "generation": "2026-10-03T18:42:08Z",
+        "index_mode": "fast",
+        "recorded_at": "2026-10-03T18:42:08Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 0,
+        "ignored_files_total": 0,
+        "hash_records_complete": true,
+        "coverage_version": 3,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "routing/__init__.py",
+          "path": "routing/__init__.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/core.py",
+          "path": "routing/core.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fallback.py",
+          "path": "routing/fallback.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/fixture.py",
+          "path": "routing/fixture.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/independent.py",
+          "path": "routing/independent.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/legacy_bridge.py",
+          "path": "routing/legacy_bridge.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/optimization.py",
+          "path": "routing/optimization.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/replay.py",
+          "path": "routing/replay.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/service.py",
+          "path": "routing/service.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/session.py",
+          "path": "routing/session.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "routing/validation.py",
+          "path": "routing/validation.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_core.py",
+          "path": "tests/test_core.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_crossreview.py",
+          "path": "tests/test_crossreview.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_independent.py",
+          "path": "tests/test_independent.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_optimization.py",
+          "path": "tests/test_optimization.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_service.py",
+          "path": "tests/test_service.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_session_fallback.py",
+          "path": "tests/test_session_fallback.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "tests/test_validation.py",
+          "path": "tests/test_validation.py",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "scopes": [],
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    },
+    "isError": false
+  },
+  "excluded_direct_source_fallback": [
+    "fixtures read via full validators and case source; exact JSON remains hashed",
+    "vendor/r3_sparse.py read and byte hash compared to original"
+  ],
+  "limits": "graph is best effort; excluded fixtures/vendor and non-code reports not claimed indexed; old generated paths unavailable require exact reads"
+}

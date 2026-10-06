@@ -1,0 +1,7004 @@
+{
+  "replay": {
+    "prepared": {
+      "events": [
+        {
+          "hazard_version": 1,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 1,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "request_generation": 2,
+          "result": {
+            "arrival": 4.0,
+            "certificate_conditions": [
+              "supplied ensemble only",
+              "declared lattice and geometry",
+              "complete search before caps",
+              "independent route check",
+              "no physical safety claim"
+            ],
+            "checker": {
+              "arrival": 4.0,
+              "codes": [],
+              "ok": true,
+              "per_member": {
+                "m0": {
+                  "dose": 4.0,
+                  "dose_exact": "4",
+                  "peak": 1.0
+                },
+                "m1": {
+                  "dose": 8.0,
+                  "dose_exact": "8",
+                  "peak": 2.0
+                }
+              },
+              "status": "CHECKED_ROUTE"
+            },
+            "destination": "D",
+            "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+            "hazard_version": 1,
+            "legs": [
+              {
+                "edge": "OA",
+                "end": 2.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 0.0,
+                "to_fraction": 1
+              },
+              {
+                "edge": "AD",
+                "end": 4.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 2.0,
+                "to_fraction": 1
+              }
+            ],
+            "metrics": {
+              "dominated": 0,
+              "edge_candidates": 10,
+              "expansions": 5,
+              "labels": 13,
+              "occupancy_evaluations": 14,
+              "peak_frontier": 1,
+              "wait_candidates": 2
+            },
+            "per_member": {
+              "m0": {
+                "dose": 4.0,
+                "dose_exact": "4",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 8.0,
+                "dose_exact": "8",
+                "peak": 2.0
+              }
+            },
+            "provenance": {
+              "evidence_class": "LABELLED_FIXTURE",
+              "model": "EXACT_LATTICE_EDGEGRID",
+              "physical_safety_claim": false,
+              "solver": "baseline"
+            },
+            "reason": "EXACT_SEARCH_CHECKED",
+            "request": {
+              "as_of": "2026-10-04T00:00:00+08:00",
+              "budgets": {
+                "dose": {
+                  "m0": 25.0,
+                  "m1": 25.0
+                },
+                "peak": 10.0
+              },
+              "departure": 0.0,
+              "destinations": [
+                {
+                  "dwell": 2.0,
+                  "node": "D",
+                  "open_intervals": [
+                    [
+                      0.0,
+                      30.0
+                    ]
+                  ]
+                }
+              ],
+              "exposure_scope": "route_only",
+              "hazard_version": 1,
+              "horizon": 20.0,
+              "incoming_edge": null,
+              "incurred": {
+                "m0": 0.0,
+                "m1": 0.0
+              },
+              "limits": {
+                "frontier_width": 4096,
+                "max_expansions": 100000,
+                "max_labels": 100000,
+                "wall_s": 5.0
+              },
+              "objective": "earliest_arrival",
+              "position": {
+                "node": "O"
+              },
+              "solver": "baseline"
+            },
+            "request_generation": 2,
+            "solver_status": "EXACT_OPTIMUM",
+            "status": "CONDITIONAL_OPTIMUM",
+            "update_status": {
+              "hazard_version": 1,
+              "mapping_applied": false,
+              "reason": "VALIDATED_FORECAST_ADMITTED",
+              "request_generation": 1,
+              "status": "ACCEPTED_UPDATE"
+            }
+          },
+          "status": "PLAN_COMMITTED"
+        },
+        {
+          "hazard_version": 2,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 3,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "codes": [
+            "MISSING_SUPPORT"
+          ],
+          "hazard_version": 2,
+          "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+          "request_generation": 3,
+          "status": "UNSUPPORTED",
+          "update_status": {
+            "hazard_version": 2,
+            "mapping_applied": false,
+            "reason": "VALIDATED_FORECAST_ADMITTED",
+            "request_generation": 3,
+            "status": "ACCEPTED_UPDATE"
+          }
+        },
+        {
+          "committed": true,
+          "request_generation": 4,
+          "result": {
+            "arrival": 6.0,
+            "certificate_conditions": [
+              "independent route check",
+              "no global optimality claim"
+            ],
+            "checker": {
+              "arrival": 6.0,
+              "codes": [],
+              "ok": true,
+              "per_member": {
+                "m0": {
+                  "dose": 6.0,
+                  "dose_exact": "6",
+                  "peak": 1.0
+                },
+                "m1": {
+                  "dose": 12.0,
+                  "dose_exact": "12",
+                  "peak": 2.0
+                }
+              },
+              "status": "CHECKED_ROUTE"
+            },
+            "destination": "D",
+            "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+            "hazard_version": 2,
+            "legs": [
+              {
+                "edge": "OB",
+                "end": 3.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 0.0,
+                "to_fraction": 1
+              },
+              {
+                "edge": "BD",
+                "end": 6.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 3.0,
+                "to_fraction": 1
+              }
+            ],
+            "metrics": {
+              "dominated": 0,
+              "edge_candidates": 6,
+              "expansions": 3,
+              "labels": 5,
+              "occupancy_evaluations": 8,
+              "peak_frontier": 1,
+              "wait_candidates": 0
+            },
+            "per_member": {
+              "m0": {
+                "dose": 6.0,
+                "dose_exact": "6",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 12.0,
+                "dose_exact": "12",
+                "peak": 2.0
+              }
+            },
+            "provenance": {
+              "evidence_class": "LABELLED_FIXTURE",
+              "model": "EXACT_LATTICE_EDGEGRID",
+              "physical_safety_claim": false,
+              "solver": "baseline"
+            },
+            "reason": "PARTIAL_GLOBAL_SUPPORT",
+            "request": {
+              "as_of": "2026-10-04T00:00:00+08:00",
+              "budgets": {
+                "dose": {
+                  "m0": 25.0,
+                  "m1": 25.0
+                },
+                "peak": 10.0
+              },
+              "departure": 0.0,
+              "destinations": [
+                {
+                  "dwell": 2.0,
+                  "node": "D",
+                  "open_intervals": [
+                    [
+                      0.0,
+                      30.0
+                    ]
+                  ]
+                }
+              ],
+              "exposure_scope": "route_only",
+              "hazard_version": 2,
+              "horizon": 20.0,
+              "incoming_edge": null,
+              "incurred": {
+                "m0": 0.0,
+                "m1": 0.0
+              },
+              "limits": {
+                "frontier_width": 4096,
+                "max_expansions": 100000,
+                "max_labels": 100000,
+                "wall_s": 5.0
+              },
+              "objective": "earliest_arrival",
+              "position": {
+                "node": "O"
+              },
+              "solver": "baseline"
+            },
+            "request_generation": 4,
+            "solver_status": "ADMISSIBLE_ONLY",
+            "status": "CHECKED_ROUTE",
+            "update_status": {
+              "hazard_version": 2,
+              "mapping_applied": false,
+              "reason": "VALIDATED_FORECAST_ADMITTED",
+              "request_generation": 3,
+              "status": "ACCEPTED_UPDATE"
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        {
+          "hazard_version": 2,
+          "reason": "ACTUAL_STATE_RECORDED",
+          "request_generation": 5,
+          "status": "PROGRESS_ACCEPTED"
+        },
+        {
+          "arrival": 6.0,
+          "certificate_conditions": [
+            "Recorded directed path only",
+            "Actual departure and incurred exposure",
+            "Declared member set, grid support, and endpoint dwell"
+          ],
+          "destination": "O",
+          "endpoint_availability": "POINT_SUPPORT_CHECKED_NO_VERIFIED_SHELTER_OR_OPENING_REQUIREMENT",
+          "hazard_version": 2,
+          "legs": [
+            {
+              "edge": "BO",
+              "end": 6.0,
+              "from_fraction": 0,
+              "kind": "EDGE",
+              "start": 3,
+              "to_fraction": 1
+            }
+          ],
+          "per_member": {
+            "m0": {
+              "dose": 6.0,
+              "dose_exact": "6",
+              "peak": 1.0
+            },
+            "m1": {
+              "dose": 12.0,
+              "dose_exact": "12",
+              "peak": 2.0
+            }
+          },
+          "provenance": {
+            "interpretation": "generated incident heat-flux proxy, not forecast/physical truth",
+            "source": "local deterministic example"
+          },
+          "reason": "RECORDED_RETURN_INDEPENDENTLY_CHECKED",
+          "solver_status": "RETURN_ONLY_CHECKED",
+          "status": "CHECKED_ROUTE"
+        },
+        {
+          "hazard_version": 3,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 6,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "check": {
+            "arrival": 6.0,
+            "codes": [
+              "MISSING_SUPPORT"
+            ],
+            "ok": false,
+            "per_member": {
+              "m0": {
+                "dose": 4.5,
+                "dose_exact": "9/2",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 9.0,
+                "dose_exact": "9",
+                "peak": 2.0
+              }
+            },
+            "status": "UNSUPPORTED"
+          },
+          "codes": [
+            "MISSING_SUPPORT"
+          ],
+          "hazard_version": 3,
+          "legs": [],
+          "reason": "RECORDED_RETURN_REFUSED",
+          "solver_status": "NOT_SEARCHED",
+          "status": "UNSUPPORTED"
+        },
+        {
+          "hazard_version": 3,
+          "reason": "VERSION_NOT_NEWER",
+          "rejected_version": 2,
+          "request_generation": 7,
+          "status": "STALE_UPDATE"
+        },
+        {
+          "codes": [
+            "ROUTE_STRUCTURE"
+          ],
+          "hazard_version": 3,
+          "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+          "request_generation": 7,
+          "status": "UNSUPPORTED",
+          "update_status": {
+            "hazard_version": 3,
+            "reason": "VERSION_NOT_NEWER",
+            "rejected_version": 2,
+            "request_generation": 7,
+            "status": "STALE_UPDATE"
+          }
+        },
+        {
+          "hazard_version": null,
+          "reason": "SESSION_STATE_CLEARED",
+          "request_generation": 8,
+          "status": "RESET"
+        }
+      ],
+      "evidence_class": "LABELLED_FIXTURE",
+      "interpretation": "Declared fixture routing check; no physical road tenability validation",
+      "result": null,
+      "status": "RESET",
+      "timing": "Wall duration and process RSS excluded from deterministic replay; resource completion still runtime dependent"
+    },
+    "raw": {
+      "events": [
+        {
+          "hazard_version": 1,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 1,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "request_generation": 2,
+          "result": {
+            "arrival": 4.0,
+            "certificate_conditions": [
+              "supplied ensemble only",
+              "declared lattice and geometry",
+              "complete search before caps",
+              "independent route check",
+              "no physical safety claim"
+            ],
+            "checker": {
+              "arrival": 4.0,
+              "codes": [],
+              "ok": true,
+              "per_member": {
+                "m0": {
+                  "dose": 4.0,
+                  "dose_exact": "4",
+                  "peak": 1.0
+                },
+                "m1": {
+                  "dose": 8.0,
+                  "dose_exact": "8",
+                  "peak": 2.0
+                }
+              },
+              "status": "CHECKED_ROUTE"
+            },
+            "destination": "D",
+            "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+            "hazard_version": 1,
+            "legs": [
+              {
+                "edge": "OA",
+                "end": 2.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 0.0,
+                "to_fraction": 1
+              },
+              {
+                "edge": "AD",
+                "end": 4.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 2.0,
+                "to_fraction": 1
+              }
+            ],
+            "metrics": {
+              "dominated": 0,
+              "edge_candidates": 10,
+              "expansions": 5,
+              "labels": 13,
+              "occupancy_evaluations": 14,
+              "peak_frontier": 1,
+              "wait_candidates": 2
+            },
+            "per_member": {
+              "m0": {
+                "dose": 4.0,
+                "dose_exact": "4",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 8.0,
+                "dose_exact": "8",
+                "peak": 2.0
+              }
+            },
+            "provenance": {
+              "evidence_class": "LABELLED_FIXTURE",
+              "model": "EXACT_LATTICE_EDGEGRID",
+              "physical_safety_claim": false,
+              "solver": "baseline"
+            },
+            "reason": "EXACT_SEARCH_CHECKED",
+            "request": {
+              "as_of": "2026-10-04T00:00:00+08:00",
+              "budgets": {
+                "dose": {
+                  "m0": 25.0,
+                  "m1": 25.0
+                },
+                "peak": 10.0
+              },
+              "departure": 0.0,
+              "destinations": [
+                {
+                  "dwell": 2.0,
+                  "node": "D",
+                  "open_intervals": [
+                    [
+                      0.0,
+                      30.0
+                    ]
+                  ]
+                }
+              ],
+              "exposure_scope": "route_only",
+              "hazard_version": 1,
+              "horizon": 20.0,
+              "incoming_edge": null,
+              "incurred": {
+                "m0": 0.0,
+                "m1": 0.0
+              },
+              "limits": {
+                "frontier_width": 4096,
+                "max_expansions": 100000,
+                "max_labels": 100000,
+                "wall_s": 5.0
+              },
+              "objective": "earliest_arrival",
+              "position": {
+                "node": "O"
+              },
+              "solver": "baseline"
+            },
+            "request_generation": 2,
+            "solver_status": "EXACT_OPTIMUM",
+            "status": "CONDITIONAL_OPTIMUM",
+            "update_status": {
+              "hazard_version": 1,
+              "mapping_applied": false,
+              "reason": "VALIDATED_FORECAST_ADMITTED",
+              "request_generation": 1,
+              "status": "ACCEPTED_UPDATE"
+            }
+          },
+          "status": "PLAN_COMMITTED"
+        },
+        {
+          "hazard_version": 2,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 3,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "codes": [
+            "MISSING_SUPPORT"
+          ],
+          "hazard_version": 2,
+          "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+          "request_generation": 3,
+          "status": "UNSUPPORTED",
+          "update_status": {
+            "hazard_version": 2,
+            "mapping_applied": false,
+            "reason": "VALIDATED_FORECAST_ADMITTED",
+            "request_generation": 3,
+            "status": "ACCEPTED_UPDATE"
+          }
+        },
+        {
+          "committed": true,
+          "request_generation": 4,
+          "result": {
+            "arrival": 6.0,
+            "certificate_conditions": [
+              "independent route check",
+              "no global optimality claim"
+            ],
+            "checker": {
+              "arrival": 6.0,
+              "codes": [],
+              "ok": true,
+              "per_member": {
+                "m0": {
+                  "dose": 6.0,
+                  "dose_exact": "6",
+                  "peak": 1.0
+                },
+                "m1": {
+                  "dose": 12.0,
+                  "dose_exact": "12",
+                  "peak": 2.0
+                }
+              },
+              "status": "CHECKED_ROUTE"
+            },
+            "destination": "D",
+            "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+            "hazard_version": 2,
+            "legs": [
+              {
+                "edge": "OB",
+                "end": 3.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 0.0,
+                "to_fraction": 1
+              },
+              {
+                "edge": "BD",
+                "end": 6.0,
+                "from_fraction": 0,
+                "kind": "EDGE",
+                "start": 3.0,
+                "to_fraction": 1
+              }
+            ],
+            "metrics": {
+              "dominated": 0,
+              "edge_candidates": 6,
+              "expansions": 3,
+              "labels": 5,
+              "occupancy_evaluations": 8,
+              "peak_frontier": 1,
+              "wait_candidates": 0
+            },
+            "per_member": {
+              "m0": {
+                "dose": 6.0,
+                "dose_exact": "6",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 12.0,
+                "dose_exact": "12",
+                "peak": 2.0
+              }
+            },
+            "provenance": {
+              "evidence_class": "LABELLED_FIXTURE",
+              "model": "EXACT_LATTICE_EDGEGRID",
+              "physical_safety_claim": false,
+              "solver": "baseline"
+            },
+            "reason": "PARTIAL_GLOBAL_SUPPORT",
+            "request": {
+              "as_of": "2026-10-04T00:00:00+08:00",
+              "budgets": {
+                "dose": {
+                  "m0": 25.0,
+                  "m1": 25.0
+                },
+                "peak": 10.0
+              },
+              "departure": 0.0,
+              "destinations": [
+                {
+                  "dwell": 2.0,
+                  "node": "D",
+                  "open_intervals": [
+                    [
+                      0.0,
+                      30.0
+                    ]
+                  ]
+                }
+              ],
+              "exposure_scope": "route_only",
+              "hazard_version": 2,
+              "horizon": 20.0,
+              "incoming_edge": null,
+              "incurred": {
+                "m0": 0.0,
+                "m1": 0.0
+              },
+              "limits": {
+                "frontier_width": 4096,
+                "max_expansions": 100000,
+                "max_labels": 100000,
+                "wall_s": 5.0
+              },
+              "objective": "earliest_arrival",
+              "position": {
+                "node": "O"
+              },
+              "solver": "baseline"
+            },
+            "request_generation": 4,
+            "solver_status": "ADMISSIBLE_ONLY",
+            "status": "CHECKED_ROUTE",
+            "update_status": {
+              "hazard_version": 2,
+              "mapping_applied": false,
+              "reason": "VALIDATED_FORECAST_ADMITTED",
+              "request_generation": 3,
+              "status": "ACCEPTED_UPDATE"
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        {
+          "hazard_version": 2,
+          "reason": "ACTUAL_STATE_RECORDED",
+          "request_generation": 5,
+          "status": "PROGRESS_ACCEPTED"
+        },
+        {
+          "arrival": 6.0,
+          "certificate_conditions": [
+            "Recorded directed path only",
+            "Actual departure and incurred exposure",
+            "Declared member set, grid support, and endpoint dwell"
+          ],
+          "destination": "O",
+          "endpoint_availability": "POINT_SUPPORT_CHECKED_NO_VERIFIED_SHELTER_OR_OPENING_REQUIREMENT",
+          "hazard_version": 2,
+          "legs": [
+            {
+              "edge": "BO",
+              "end": 6.0,
+              "from_fraction": 0,
+              "kind": "EDGE",
+              "start": 3,
+              "to_fraction": 1
+            }
+          ],
+          "per_member": {
+            "m0": {
+              "dose": 6.0,
+              "dose_exact": "6",
+              "peak": 1.0
+            },
+            "m1": {
+              "dose": 12.0,
+              "dose_exact": "12",
+              "peak": 2.0
+            }
+          },
+          "provenance": {
+            "interpretation": "generated incident heat-flux proxy, not forecast/physical truth",
+            "source": "local deterministic example"
+          },
+          "reason": "RECORDED_RETURN_INDEPENDENTLY_CHECKED",
+          "solver_status": "RETURN_ONLY_CHECKED",
+          "status": "CHECKED_ROUTE"
+        },
+        {
+          "hazard_version": 3,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 6,
+          "status": "ACCEPTED_UPDATE"
+        },
+        {
+          "check": {
+            "arrival": 6.0,
+            "codes": [
+              "MISSING_SUPPORT"
+            ],
+            "ok": false,
+            "per_member": {
+              "m0": {
+                "dose": 4.5,
+                "dose_exact": "9/2",
+                "peak": 1.0
+              },
+              "m1": {
+                "dose": 9.0,
+                "dose_exact": "9",
+                "peak": 2.0
+              }
+            },
+            "status": "UNSUPPORTED"
+          },
+          "codes": [
+            "MISSING_SUPPORT"
+          ],
+          "hazard_version": 3,
+          "legs": [],
+          "reason": "RECORDED_RETURN_REFUSED",
+          "solver_status": "NOT_SEARCHED",
+          "status": "UNSUPPORTED"
+        },
+        {
+          "hazard_version": 3,
+          "reason": "VERSION_NOT_NEWER",
+          "rejected_version": 2,
+          "request_generation": 7,
+          "status": "STALE_UPDATE"
+        },
+        {
+          "codes": [
+            "ROUTE_STRUCTURE"
+          ],
+          "hazard_version": 3,
+          "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+          "request_generation": 7,
+          "status": "UNSUPPORTED",
+          "update_status": {
+            "hazard_version": 3,
+            "reason": "VERSION_NOT_NEWER",
+            "rejected_version": 2,
+            "request_generation": 7,
+            "status": "STALE_UPDATE"
+          }
+        },
+        {
+          "hazard_version": null,
+          "reason": "SESSION_STATE_CLEARED",
+          "request_generation": 8,
+          "status": "RESET"
+        }
+      ],
+      "evidence_class": "LABELLED_FIXTURE",
+      "interpretation": "Declared fixture routing check; no physical road tenability validation",
+      "result": null,
+      "status": "RESET",
+      "timing": "Wall duration and process RSS excluded from deterministic replay; resource completion still runtime dependent"
+    }
+  },
+  "rows": [
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.765625,
+          "wait_candidates": 0,
+          "wall_s": 0.0010015419975388795
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.765625,
+          "wait_candidates": 0,
+          "wall_s": 0.0007109580037649721
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.765625,
+          "wait_candidates": 0,
+          "wall_s": 0.0007037920004222542
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.78125,
+          "wait_candidates": 0,
+          "wall_s": 0.0005735410086344928
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.78125,
+          "wait_candidates": 0,
+          "wall_s": 0.0007757910061627626
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "plain_one_way",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.78125,
+          "wait_candidates": 0,
+          "wall_s": 0.0006625420064665377
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 7,
+          "expansions": 6,
+          "labels": 8,
+          "occupancy_evaluations": 9,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.78125,
+          "wait_candidates": 0,
+          "wall_s": 0.0012723330000881106
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 7,
+          "expansions": 6,
+          "labels": 8,
+          "occupancy_evaluations": 9,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.796875,
+          "wait_candidates": 0,
+          "wall_s": 0.0011523329885676503
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 5,
+          "labels": 7,
+          "occupancy_evaluations": 8,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.8125,
+          "wait_candidates": 0,
+          "wall_s": 0.0011303750216029584
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 5,
+          "labels": 7,
+          "occupancy_evaluations": 8,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.8125,
+          "wait_candidates": 0,
+          "wall_s": 0.0010021670022979379
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 7,
+          "expansions": 6,
+          "labels": 8,
+          "occupancy_evaluations": 9,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.8125,
+          "wait_candidates": 0,
+          "wall_s": 0.0012294999905861914
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "independent_check": {
+        "arrival": 4,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 4,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e10",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e01",
+            "end": 3,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 4,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 7,
+          "expansions": 6,
+          "labels": 8,
+          "occupancy_evaluations": 9,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.8125,
+          "wait_candidates": 0,
+          "wall_s": 0.0011208749783691019
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00017012501484714448
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 5.570799112319946e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00016241701086983085
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 6.187500548548996e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.0001630839833524078
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "forbidden_turn_blocks_destination",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 5.3625000873580575e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 0.00018845900194719434
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 8.254198473878205e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 0.00019033299759030342
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 8.183298632502556e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 0.00019175000488758087
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "zero_leg_destination",
+      "independent_check": {
+        "arrival": 0,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n0",
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 8.216701098717749e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.828125,
+          "wait_candidates": 0,
+          "wall_s": 0.0007942079973872751
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.84375,
+          "wait_candidates": 0,
+          "wall_s": 0.0006791249907109886
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 2,
+          "expansions": 1,
+          "labels": 3,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.84375,
+          "wait_candidates": 0,
+          "wall_s": 0.0006846670003142208
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 2,
+          "expansions": 1,
+          "labels": 3,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.84375,
+          "wait_candidates": 0,
+          "wall_s": 0.0005984579911455512
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.859375,
+          "wait_candidates": 0,
+          "wall_s": 0.0007694170053582639
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "mid_edge_residual",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0.5,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0006166249804664403
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0006007089978083968
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.000510042009409517
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0006106659711804241
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0005050420004408807
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0006251669838093221
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "horizon_exact_arrival",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0005070829938631505
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00025312500656582415
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00014829199062660336
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00025108401314355433
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00015662499936297536
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00025187499704770744
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "horizon_too_short",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 2,
+          "labels": 2,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.00015050001093186438
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.875,
+          "wait_candidates": 0,
+          "wall_s": 0.0007017909956630319
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.890625,
+          "wait_candidates": 0,
+          "wall_s": 0.0005946249875705689
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.890625,
+          "wait_candidates": 0,
+          "wall_s": 0.0006096250144764781
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.890625,
+          "wait_candidates": 0,
+          "wall_s": 0.0005110409983899444
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.890625,
+          "wait_candidates": 0,
+          "wall_s": 0.0006976659933570772
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "opening_endpoint_with_dwell",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.90625,
+          "wait_candidates": 0,
+          "wall_s": 0.0006074999982956797
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.90625,
+          "wait_candidates": 0,
+          "wall_s": 0.0004478330083657056
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00034050000249408185
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00043925002682954073
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.0003503749903757125
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.0004312499950174242
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "dwell_past_horizon",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00032645900500938296
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.0001547090068925172
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.941600491292775e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00014970899792388082
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.9084017518907785e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.0001489589922130108
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "incurred_budget_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.729200736619532e-05
+        },
+        "per_member": {
+          "m0": {
+            "dose": 51,
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+        "solver_status": "AT_ISSUE_FAILURE",
+        "status": "AT_ISSUE_FAILURE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.0002467079902999103
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00014366698451340199
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00025358301354572177
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.0001439159968867898
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00023416697513312101
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "missing_support_no_infeasibility_proof",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 1,
+          "occupancy_evaluations": 2,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.921875,
+          "wait_candidates": 0,
+          "wall_s": 0.00013987498823553324
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "MISSING_GLOBAL_SUPPORT",
+        "solver_status": "SUPPORT_INCOMPLETE",
+        "status": "UNSUPPORTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00011833399184979498
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.6667002607136965e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00012333397171460092
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.6999979531392455e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 0.00011599998106248677
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "disconnected",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "declared directed graph and turn rules",
+          "independent of forecast",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 0,
+          "expansions": 0,
+          "labels": 0,
+          "occupancy_evaluations": 1,
+          "peak_frontier": 0,
+          "wait_candidates": 0,
+          "wall_s": 4.6542001655325294e-05
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "TURN_GRAPH_DISCONNECTED",
+        "solver_status": "STRUCTURAL_DISCONNECT",
+        "status": "DISCONNECTED"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.9375,
+          "wait_candidates": 0,
+          "wall_s": 0.00041941599920392036
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.9375,
+          "wait_candidates": 0,
+          "wall_s": 0.00033695800811983645
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.9375,
+          "wait_candidates": 0,
+          "wall_s": 0.0004433340218383819
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.9375,
+          "wait_candidates": 0,
+          "wall_s": 0.00032912500319071114
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.9375,
+          "wait_candidates": 0,
+          "wall_s": 0.0004488329868763685
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "closure_at_arrival_tie",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 3,
+          "labels": 3,
+          "occupancy_evaluations": 4,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.0003245410043746233
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.0007982920214999467
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.0007006670057307929
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.000803167000412941
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.000709832995198667
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.953125,
+          "wait_candidates": 0,
+          "wall_s": 0.000807542004622519
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "multiple_member_dose_failure",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 4,
+          "labels": 4,
+          "occupancy_evaluations": 7,
+          "peak_frontier": 1,
+          "peak_rss_mb": 18.96875,
+          "wait_candidates": 0,
+          "wall_s": 0.0007052079890854657
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0,
+          "wait_candidates": 0,
+          "wall_s": 0.0007699159905314445
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.03125,
+          "wait_candidates": 0,
+          "wall_s": 0.0006264999974519014
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.03125,
+          "wait_candidates": 0,
+          "wall_s": 0.0005952909996267408
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 3,
+          "expansions": 2,
+          "labels": 4,
+          "occupancy_evaluations": 5,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.03125,
+          "wait_candidates": 0,
+          "wall_s": 0.0004997920186724514
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.03125,
+          "wait_candidates": 0,
+          "wall_s": 0.000661291996948421
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "route_only_excludes_dwell_dose",
+      "independent_check": {
+        "arrival": 2,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 2,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 2,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 2.0,
+              "dose_exact": "2",
+              "peak": 8
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n2",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "e12",
+            "end": 2,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 1,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 4,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 6,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.046875,
+          "wait_candidates": 0,
+          "wall_s": 0.0005670829850714654
+        },
+        "per_member": {
+          "m0": {
+            "dose": 2.0,
+            "dose_exact": "2",
+            "peak": 8
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.046875,
+          "wait_candidates": 0,
+          "wall_s": 0.0009524999768473208
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.000861834007082507
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0009908750071190298
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0008876659849192947
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": false,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0010279160051140934
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "including_dwell_counts_dose",
+      "independent_check": null,
+      "prepared": true,
+      "result": {
+        "arrival": null,
+        "certificate_conditions": [
+          "complete supported lattice search",
+          "supplied ensemble only",
+          "no physical safety claim"
+        ],
+        "destination": null,
+        "hazard_version": 1,
+        "legs": [],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 9,
+          "expansions": 10,
+          "labels": 10,
+          "occupancy_evaluations": 12,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0008830419974401593
+        },
+        "per_member": {},
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "EXACT_FRONTIER_EXHAUSTED",
+        "solver_status": "EXHAUSTED",
+        "status": "PROVEN_INFEASIBLE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0003435419930610806
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.00025233300402760506
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "baseline"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0003386670141480863
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.00025116599863395095
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "astar"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "astar"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": false,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.0003403750015422702
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "dijkstra"
+    },
+    {
+      "case": "checked_route_partial_global_support",
+      "independent_check": {
+        "arrival": 1,
+        "codes": [],
+        "ok": true,
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "status": "CHECKED_ROUTE"
+      },
+      "prepared": true,
+      "result": {
+        "arrival": 1,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 1,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 0.0,
+              "dose_exact": "0",
+              "peak": 0.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "n1",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "e01",
+            "end": 1,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 1,
+          "expansions": 1,
+          "labels": 2,
+          "occupancy_evaluations": 3,
+          "peak_frontier": 1,
+          "peak_rss_mb": 19.0625,
+          "wait_candidates": 0,
+          "wall_s": 0.00023870798759162426
+        },
+        "per_member": {
+          "m0": {
+            "dose": 0.0,
+            "dose_exact": "0",
+            "peak": 0.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "dijkstra"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE"
+      },
+      "solver": "dijkstra"
+    }
+  ]
+}

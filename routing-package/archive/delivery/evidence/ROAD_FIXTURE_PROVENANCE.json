@@ -1,0 +1,21 @@
+{
+  "source_hashes": {
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/graph/nodes.csv": "89c93d08ae236cdcf7f46e7d9d74eddff10d0ba25f051dd14caba732e2599c8e",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/graph/edges.csv": "4afd01859de7fff53488d08f0b1b67c87dab772707a65371c88c2c99831fc128",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/graph/banned_turns.csv": "10301cf4633f001c75c9ba154310e0c2fc82230521de25a61d58abeec9da096a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/graph/build_report.json": "898ec8a2f3cddc6cf4cefb1e3bf2918abd32683dc88d2fd17c92670c71f3c617",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/GRAPH_CARD.md": "95ae4e945e21bd39e32d00896854c997989893c4d417e64ed640a01e64d61739"
+  },
+  "nodes": 5765,
+  "edges": 13976,
+  "encoded_forbidden_pairs": 12573,
+  "dt_seconds": 0.05859375,
+  "evidence_class": "REAL_ROAD_LABELLED_FIXTURE_HAZARD",
+  "limits": [
+    "full graph no edges omitted",
+    "waits disallowed in this declared smoke fixture (not prior benchmark protocol)",
+    "all encoded node-triple restrictions and original uturn flags preserved",
+    "unencoded viaway/conditional/malformed restrictions remain permissive gaps",
+    "generated uniform hazards, assumed40km/h, chord geometry, no actual forecasting"
+  ]
+}

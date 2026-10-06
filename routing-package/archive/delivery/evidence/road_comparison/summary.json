@@ -1,0 +1,7 @@
+{
+  "rows": 24,
+  "independent_route_member_checks": 120,
+  "independent_failures": [],
+  "global_optima_or_refusals_independently_recertified": false,
+  "warm_and_repeats": "NOT_RUN_ON_HARD_ROADS; TINY_MATCHED_STUDY_HAS_BOTH"
+}

@@ -1,0 +1,14 @@
+....................................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 1.987s
+
+OK
+{
+  "candidate_hashes": 27,
+  "deterministic_replay": true,
+  "elapsed_s": 2.111976042004244,
+  "forecast_integration": "NOT_AVAILABLE",
+  "full_road_witness_checked": true,
+  "physical_safety_claim": false,
+  "status": "PASS"
+}

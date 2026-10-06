@@ -1,0 +1,34 @@
+{
+  "baseline": {
+    "fixtures/evaluation_cases.json": "07cb746c06ec8ba3d6ec294e2e168d684b5c3fdf1977826ef9b95763fb3fc4d2",
+    "routing/__init__.py": "7b663a17caee6db3cdd4806d41a8f00438dd4e829a569357418e6c75bf320b33",
+    "routing/core.py": "fbe488b9d8867fec31f41e09b9568d461830246551a902f516602c01e3aeea2c",
+    "routing/fallback.py": "749087de1deb535b06eb827639c85233a354c74a2dea1912715dbd2dd9e56fca",
+    "routing/fixture.py": "120b32a6954febfc3c612d4312e4126e6eb318d935293c605a6e7f9f30f159f4",
+    "routing/independent.py": "af2d8529efb1c2f65f511eb2a39bc2acc30e3a7088ee0e9e0c9eb48f0398d8bf",
+    "routing/legacy_bridge.py": "752cd6e957344f1dc197cd970cca89d38d3367efdf428d55c5ac25fd511d352a",
+    "routing/optimization.py": "418097da884361dbfc8ba947a520ccb43058791785ed51922b67503774a3ec84",
+    "routing/replay.py": "fbcda3e482cae396782c7a8f5d4813179a46b054b2127b0d9b52384611ed5cdf",
+    "routing/service.py": "14776672177576d9fed23c5797be5d27e1db3d608cdc732de9b0749524aee4e5",
+    "routing/session.py": "7ad5232bd58e8f1e6f914c39c0a63b7c10385ef27e3c1ee0fb0bbd4d636eff3a",
+    "routing/validation.py": "7f71040d3a2ae5dd329ade26b23f1ef50154575d64840f0e7dcaffed5de71ad0",
+    "run.py": "1cf4d4e36477a6607735ef08be0328433c8dcbfe8648dcc70dc4406a130fe0ca"
+  },
+  "candidate": {
+    "fixtures/evaluation_cases.json": "07cb746c06ec8ba3d6ec294e2e168d684b5c3fdf1977826ef9b95763fb3fc4d2",
+    "routing/__init__.py": "dd99776050b60436a8099d8d709e35928de463b449501cec66d03f00cc70f1f3",
+    "routing/core.py": "66b9f3bb8a2b8c02908a4b42884c652b29dc13b76f5b9519800233222700ba28",
+    "routing/fallback.py": "74143f7c99174299387bb017242cd50a22e4c47a11cbb22135cec8f386c940bb",
+    "routing/fixture.py": "120b32a6954febfc3c612d4312e4126e6eb318d935293c605a6e7f9f30f159f4",
+    "routing/independent.py": "af2d8529efb1c2f65f511eb2a39bc2acc30e3a7088ee0e9e0c9eb48f0398d8bf",
+    "routing/legacy_bridge.py": "752cd6e957344f1dc197cd970cca89d38d3367efdf428d55c5ac25fd511d352a",
+    "routing/optimization.py": "418097da884361dbfc8ba947a520ccb43058791785ed51922b67503774a3ec84",
+    "routing/prepared.py": "3e99995efb944bfc8897dd52716926cda88f1e2377d1e027843b1aa92c56c92f",
+    "routing/replay.py": "e155da8f1c8c3bb4cb36241383a99bc1d88270f7821f733ecdfe5e542f2ec32b",
+    "routing/service.py": "22a619efcc69d61ac08caba3fe825a3b7e0fdf7987e7f3c4983ee0045014f1ef",
+    "routing/session.py": "444b280d88fb7c8d8279efc0c6bc2fef218e2f7a20b460f87e13c306ef791c06",
+    "routing/validation.py": "7f71040d3a2ae5dd329ade26b23f1ef50154575d64840f0e7dcaffed5de71ad0",
+    "run.py": "10ead626712de89a3c070e06cc655b24ad157ea3ad0b152d190e518675399787"
+  },
+  "script_sha256": "c91e1c73fbef31e671be08f12a581817830f0b50c6f719e0fe083caacd2044e4"
+}

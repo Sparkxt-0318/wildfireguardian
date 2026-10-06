@@ -1,0 +1,15 @@
+{
+  "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+  "executable": "/Users/jp/miniforge3/envs/wfg311/bin/python",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "logical_cpu_count": 15,
+  "dependencies_added": [],
+  "lock_wrapper": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/run_locked.py",
+  "time_basis": "User-facing date2026-10-05 Asia/Shanghai; rows CPU clocks monotonic; UTC evidence stamps explicit",
+  "process": "fresh subprocess each arm; no affinity/daemon/persistent cache; other OS activity uncontrolled",
+  "hw.model": "Mac17,9",
+  "hw.memsize": "25769803776",
+  "machdep.cpu.brand_string": "Apple M5 Pro"
+}

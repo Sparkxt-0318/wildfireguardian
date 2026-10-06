@@ -1,0 +1,287 @@
+{
+  "cases": {
+    "checked_route_partial_global_support": {
+      "arrival": 1,
+      "destination": "n1",
+      "elapsed_s_untimed": 0.00010775006376206875,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CHECKED_ROUTE",
+      "walks": 2
+    },
+    "closure_at_arrival_tie": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 0.0003161249915137887,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 4
+    },
+    "disconnected": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 3.475008998066187e-05,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 7
+    },
+    "dwell_past_horizon": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 3.208394628018141e-05,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 4
+    },
+    "forbidden_turn_blocks_destination": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 3.3624935895204544e-05,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 7
+    },
+    "horizon_exact_arrival": {
+      "arrival": 2,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.00020145904272794724,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 4
+    },
+    "horizon_too_short": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 1.4666002243757248e-05,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 2
+    },
+    "including_dwell_counts_dose": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 0.0006302091060206294,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 10
+    },
+    "incurred_budget_failure": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 7.874914444983006e-06,
+      "legs": [],
+      "reason": "ISSUE_OCCUPANCY_OR_INCURRED_BUDGET",
+      "status": "AT_ISSUE_FAILURE",
+      "walks": 0
+    },
+    "legal_circling_nonwaitable_empty_layer_future_admission": {
+      "arrival": 4,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.0006461249431595206,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e10",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e01",
+          "end": 3,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 2,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 4,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 3,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 7
+    },
+    "mid_edge_residual": {
+      "arrival": 2,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.0002227500081062317,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0.5,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 4
+    },
+    "missing_support_no_infeasibility_proof": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 0.0011219579027965665,
+      "legs": [],
+      "reason": "INCOMPLETE_SUPPORT",
+      "status": "UNSUPPORTED",
+      "walks": 10
+    },
+    "multiple_member_dose_failure": {
+      "arrival": null,
+      "destination": null,
+      "elapsed_s_untimed": 0.0014237919822335243,
+      "legs": [],
+      "reason": "COMPLETE_TIMED_WALK_ENUMERATION",
+      "status": "PROVEN_INFEASIBLE",
+      "walks": 10
+    },
+    "opening_endpoint_with_dwell": {
+      "arrival": 2,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.00019979197531938553,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 4
+    },
+    "plain_one_way": {
+      "arrival": 2,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.0006132089765742421,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 4
+    },
+    "route_only_excludes_dwell_dose": {
+      "arrival": 2,
+      "destination": "n2",
+      "elapsed_s_untimed": 0.00020037498325109482,
+      "legs": [
+        {
+          "edge": "e01",
+          "end": 1,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 0,
+          "to_fraction": 1
+        },
+        {
+          "edge": "e12",
+          "end": 2,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 1,
+          "to_fraction": 1
+        }
+      ],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 4
+    },
+    "zero_leg_destination": {
+      "arrival": 0,
+      "destination": "n0",
+      "elapsed_s_untimed": 4.766695201396942e-05,
+      "legs": [],
+      "reason": null,
+      "status": "CONDITIONAL_OPTIMUM",
+      "walks": 1
+    }
+  },
+  "fixture_sha256": "07cb746c06ec8ba3d6ec294e2e168d684b5c3fdf1977826ef9b95763fb3fc4d2",
+  "reference": "routing.independent.exhaustive",
+  "timing_role": "separate untimed checker evidence; never charged to a method"
+}

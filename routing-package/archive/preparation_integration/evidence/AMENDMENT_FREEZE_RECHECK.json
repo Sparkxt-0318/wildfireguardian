@@ -1,0 +1,7 @@
+{
+  "changed_paths": [
+    "candidate/routing/session.py"
+  ],
+  "confirm_input_hash_unchanged": true,
+  "only_change": "strict Boolean graph-replacement reset admission before mutation; no numerical/search change"
+}

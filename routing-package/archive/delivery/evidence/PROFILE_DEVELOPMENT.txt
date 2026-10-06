@@ -1,0 +1,29 @@
+DEVELOPMENT_ONLY_UNTIMED_OFFICIAL
+         41462 function calls (40637 primitive calls) in 0.011 seconds
+
+   Ordered by: cumulative time
+   List reduced from 223 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.011    0.011 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/core.py:117(solve)
+        1    0.000    0.000    0.005    0.005 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/core.py:83(check_route)
+     1766    0.001    0.000    0.003    0.000 /Users/jp/miniforge3/envs/wfg311/lib/python3.11/fractions.py:357(forward)
+        1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap>:1165(_find_and_load)
+        1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap>:1120(_find_and_load_unlocked)
+        1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap>:666(_load_unlocked)
+        1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap_external>:934(exec_module)
+        1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap_external>:1007(get_code)
+        7    0.000    0.000    0.002    0.000 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/core.py:20(edge_occupancies)
+        4    0.000    0.000    0.002    0.001 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:118(validate_graph)
+        4    0.000    0.000    0.002    0.001 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:82(_validate_graph)
+        3    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:233(_call_with_frames_removed)
+        1    0.000    0.000    0.002    0.002 <frozen importlib._bootstrap_external>:999(source_to_code)
+        1    0.002    0.002    0.002    0.002 {built-in method builtins.compile}
+        1    0.000    0.000    0.002    0.002 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/independent.py:169(check_route)
+     3487    0.001    0.000    0.002    0.000 /Users/jp/miniforge3/envs/wfg311/lib/python3.11/fractions.py:62(__new__)
+       12    0.000    0.000    0.001    0.000 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:66(chord_segments)
+        1    0.000    0.000    0.001    0.001 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:226(validate_request)
+        1    0.000    0.000    0.001    0.001 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:166(_validate_request)
+        2    0.000    0.000    0.001    0.001 /Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_delivery_overnight_20261004_v1/routing/validation.py:162(validate_hazard)
+
+

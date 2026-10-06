@@ -1,0 +1,3457 @@
+{
+  "schema": "wfg.routing.c-independent-evaluation/1",
+  "freeze": "candidate comparisons forbidden until this file validated and hashed by coordinator",
+  "cases": [
+    {
+      "id": "plain_one_way",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 2
+      }
+    },
+    {
+      "id": "legal_circling_nonwaitable_empty_layer_future_admission",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                4,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 4
+      }
+    },
+    {
+      "id": "forbidden_turn_blocks_destination",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [
+          [
+            "e01",
+            "e12"
+          ]
+        ],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "zero_leg_destination",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n0",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 0
+      }
+    },
+    {
+      "id": "mid_edge_residual",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "edge": "e01",
+          "fraction": 0.5
+        },
+        "incoming_edge": "e01",
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 2
+      }
+    },
+    {
+      "id": "horizon_exact_arrival",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 2,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 2
+      }
+    },
+    {
+      "id": "horizon_too_short",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 1,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "opening_endpoint_with_dwell",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 1,
+            "open_intervals": [
+              [
+                2,
+                3
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 2
+      }
+    },
+    {
+      "id": "dwell_past_horizon",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 2,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 1,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "incurred_budget_failure",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 51
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "AT_ISSUE_FAILURE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "missing_support_no_infeasibility_proof",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                false,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "UNSUPPORTED",
+        "arrival": null
+      }
+    },
+    {
+      "id": "disconnected",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "closure_at_arrival_tie",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              2,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ],
+              [
+                false,
+                false,
+                true
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ],
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 2,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "multiple_member_dose_failure",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          },
+          {
+            "id": "m1",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                4,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0,
+          "m1": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50,
+            "m1": 3
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "route_only_excludes_dwell_dose",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                8
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 1,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 5
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CONDITIONAL_OPTIMUM",
+        "arrival": 2
+      }
+    },
+    {
+      "id": "including_dwell_counts_dose",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                8
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                true
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n2",
+            "dwell": 1,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "including_dwell",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 5
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "PROVEN_INFEASIBLE",
+        "arrival": null
+      }
+    },
+    {
+      "id": "checked_route_partial_global_support",
+      "graph": {
+        "revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "nodes": [
+          {
+            "id": "n0",
+            "x": 0.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n1",
+            "x": 1.25,
+            "y": 0.5,
+            "waitable": false
+          },
+          {
+            "id": "n2",
+            "x": 2.25,
+            "y": 0.5,
+            "waitable": false
+          }
+        ],
+        "edges": [
+          {
+            "id": "e01",
+            "u": "n0",
+            "v": "n1",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 0,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 1,
+                "start": 0.75,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e10"
+          },
+          {
+            "id": "e10",
+            "u": "n1",
+            "v": "n0",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.25
+              },
+              {
+                "cell": 0,
+                "start": 0.25,
+                "end": 1
+              }
+            ],
+            "reverse_edge": "e01"
+          },
+          {
+            "id": "e12",
+            "u": "n1",
+            "v": "n2",
+            "travel_ticks": 1,
+            "segments": [
+              {
+                "cell": 1,
+                "start": 0,
+                "end": 0.75
+              },
+              {
+                "cell": 2,
+                "start": 0.75,
+                "end": 1
+              }
+            ]
+          }
+        ],
+        "forbidden_turns": [],
+        "mid_edge_reversal": false
+      },
+      "hazard": {
+        "schema": "wfg.routing.edgegrid/1",
+        "version": 1,
+        "graph_revision": "c-fixture-v1",
+        "crs": "EPSG:5179",
+        "grid": {
+          "x0": 0,
+          "y0": 0,
+          "resolution": 1,
+          "width": 3,
+          "height": 1
+        },
+        "dt": 1,
+        "time_origin": "2026-10-04T00:00:00Z",
+        "issued_at": "2026-10-04T00:00:00Z",
+        "available_at": "2026-10-04T00:00:00Z",
+        "valid_from": 0,
+        "valid_until": 10,
+        "evidence_class": "LABELLED_FIXTURE",
+        "provenance": {
+          "source": "C independently authored finite fixture",
+          "interpretation": "incident heat flux on vehicle proxy; no physical safety claim"
+        },
+        "channels": [
+          "flame_contact",
+          "incident_heat_flux"
+        ],
+        "unsupported_channels": [
+          "smoke",
+          "visibility",
+          "tree_fall"
+        ],
+        "members": [
+          {
+            "id": "m0",
+            "breakpoints": [
+              0,
+              10
+            ],
+            "flux": [
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "flame": [
+              [
+                false,
+                false,
+                false
+              ]
+            ],
+            "support": [
+              [
+                true,
+                true,
+                false
+              ]
+            ]
+          }
+        ]
+      },
+      "request": {
+        "position": {
+          "node": "n0"
+        },
+        "incoming_edge": null,
+        "departure": 0,
+        "horizon": 6,
+        "destinations": [
+          {
+            "node": "n1",
+            "dwell": 0,
+            "open_intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ],
+        "incurred": {
+          "m0": 0
+        },
+        "hazard_version": 1,
+        "as_of": "2026-10-04T00:00:00Z",
+        "objective": "earliest_arrival",
+        "exposure_scope": "route_only",
+        "budgets": {
+          "peak": 20,
+          "dose": {
+            "m0": 50
+          }
+        },
+        "limits": {
+          "wall_s": 2,
+          "max_labels": 10000,
+          "max_expansions": 10000,
+          "frontier_width": 10000
+        },
+        "solver": "baseline"
+      },
+      "expected": {
+        "status": "CHECKED_ROUTE",
+        "arrival": 1
+      }
+    }
+  ]
+}

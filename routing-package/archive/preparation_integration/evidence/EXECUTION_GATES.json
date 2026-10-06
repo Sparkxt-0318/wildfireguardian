@@ -1,0 +1,18 @@
+{
+  "primary_confirmation_rows": 120,
+  "primary_pairs": 60,
+  "supplemental_diagnostic_rows": 18,
+  "supplemental_pairs": 9,
+  "combined_executed_rows": 138,
+  "combined_pairs": 69,
+  "extra_witness_checks": 324,
+  "new_semantic_disagreements": 0,
+  "new_search_counter_disagreements": 0,
+  "child_errors": 0,
+  "independent_integration_groups": 41,
+  "finite_session_reference_comparisons": 153,
+  "upstream_adversarial_gates_reproduced": 499,
+  "integrated_package_tests": 84,
+  "partial_pre_repair_rows": "retained, excluded from final adoption",
+  "phase_studies_pooled_for_promotion": false
+}

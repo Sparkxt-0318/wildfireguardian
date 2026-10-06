@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-10-05T07:52:49.463044+00:00",
+  "reason": "Original intended difficult case was structurally DISCONNECTED; preserve it, add separate diagnostic, no candidate/source/budget/adoption tuning",
+  "selection": "deterministic sorted first edge with legal mutual reverse, <=8 ticks and >=500 legally turn-reachable nodes; choose furthest static shortest travel-time reachable destination; graph/hazards unchanged",
+  "origin": "N3708181365",
+  "destination": "N3946839895",
+  "reachable_nodes": 5689,
+  "reachable_turn_states": 13690,
+  "static_shortest_ticks_to_goal": 38579,
+  "return_edge": "N3708181365>N3708181364",
+  "legal_reverse_candidate_edges": 3,
+  "caps": "primary500expansions; fallback primary1expansion; wall60; three paired repeats; cold/repeated/return only",
+  "candidate_hashes_unchanged": true,
+  "statistical_role": "supplemental diagnostic after main outcomes; no independent confirmatory efficacy/promotion claim"
+}

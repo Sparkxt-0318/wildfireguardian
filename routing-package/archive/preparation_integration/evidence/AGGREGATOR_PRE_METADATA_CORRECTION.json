@@ -1,0 +1,5 @@
+{
+  "sha256": "bcd21790abea61587fc6a65980389e84c99906ffca2c73da851bc434bdd3c5f0",
+  "created_at": "2026-10-05T07:36:31.417337+00:00",
+  "scope": "Frozen before reading raw confirmatory rows for inference; source after timing run start; independent review frozen separately before tests; no candidate/timing tuning"
+}

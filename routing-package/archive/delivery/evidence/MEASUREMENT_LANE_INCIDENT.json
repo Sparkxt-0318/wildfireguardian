@@ -1,0 +1,7 @@
+{
+  "recorded_at": "2026-10-03T18:07:14.890894+00:00",
+  "own_operation": "build_road_fixture.py complete full-road geometry fixture export",
+  "incident": "Unexpected export exceeded10s light-work threshold before completion, outside wrapper while external exclusive study alive",
+  "action": "Detected yielded command; attempted terminate own job only, but it had already completed. All further road-scale tests and all reported timed measurements queue through existing wrapper. No other process interrupted or artifacts altered.",
+  "timing_consequence": "No performance claim from export; external concurrent timing during overlap may be perturbed. Exact affected external rows unknown; their conclusions are not used as controlled timing evidence here."
+}

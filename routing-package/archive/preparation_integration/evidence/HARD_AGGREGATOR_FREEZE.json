@@ -1,0 +1,5 @@
+{
+  "sha256": "b53a79f95d8ebb998466f1f2b198fb9dacc59aa4f13a63570b94e846d4812392",
+  "created_at": "2026-10-05T07:56:51.341384+00:00",
+  "role": "supplemental diagnostic only, no promotion inference; frozen before rows read for inference"
+}

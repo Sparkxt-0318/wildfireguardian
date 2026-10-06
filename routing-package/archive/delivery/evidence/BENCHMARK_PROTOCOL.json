@@ -1,0 +1,78 @@
+{
+  "schema": "wfg.routing-mechanical-benchmark/1",
+  "status": "protocol-only; no official timing run started by the benchmark owner",
+  "fixture": {
+    "path": "fixtures/evaluation_cases.json",
+    "freeze_path": "evidence/EVALUATION_FREEZE.json",
+    "sha256": "07cb746c06ec8ba3d6ec294e2e168d684b5c3fdf1977826ef9b95763fb3fc4d2",
+    "case_count": 17,
+    "freeze_checked_before_reference_and_each_child": true
+  },
+  "methods": [
+    "legacy",
+    "baseline",
+    "astar",
+    "dijkstra",
+    "suffix"
+  ],
+  "design": {
+    "process_isolation": "one new subprocess per frozen case, method, mode, and repetition",
+    "repetitions": 3,
+    "order": "rotate method order by case index and repetition; preserve actual run order in every row",
+    "modes": {
+      "cold": "one measured public solver call in a fresh process",
+      "warm": "one unmeasured public solver call followed by one measured call in the same fresh process; no cross-process cache reuse and no cache reuse claim"
+    },
+    "expected_rows": 408,
+    "timing": {
+      "charged_elapsed_s": "parent-child call window around the public solve method; includes method preparation, validation, search, and the solver's route check; excludes process startup and the post-hoc independent checker",
+      "process_elapsed_s": "fresh subprocess wall time including interpreter/module startup and output collection; diagnostic only",
+      "warmup_elapsed_s": "separately recorded, uncharged warm-mode call",
+      "reference_elapsed_s": "separate untimed reference pass; never included in a method row's charged time"
+    },
+    "memory": "record resource.getrusage(RUSAGE_SELF).ru_maxrss high-water in bytes for each child; warm mode includes its warm-up and measured invocation",
+    "caps": "retain timeouts, limits, exceptions, child failures, unavailable dependencies, and every other non-success row in place"
+  },
+  "reference_and_checks": {
+    "reference": "routing.independent.exhaustive(graph, hazard, request), run separately once per case before candidate children",
+    "oracle_boundary": "the core solver is never used as the reference oracle",
+    "route_check": "for any returned legs, run routing.independent.check_route after the charged method interval and retain its full outcome",
+    "agreement": "mechanical tri-state comparison of resolved status/arrival; unresolved reference or method outcomes are null, not disagreements",
+    "semantic_adjudication": "status refinements such as DISCONNECTED versus PROVEN_INFEASIBLE remain visible for independent reviewer/root adjudication"
+  },
+  "paired_reporting": {
+    "key": [
+      "case_id",
+      "mode",
+      "repetition"
+    ],
+    "metrics": [
+      "charged_elapsed_s",
+      "metrics.expansions"
+    ],
+    "output": "paired_comparisons.json",
+    "rule": "emit every pair and every case/mode/repetition; report positive time and expansion deltas as regressions, retaining nulls when a row lacks a metric"
+  },
+  "official_execution": {
+    "owner": "coordinator selects frozen source versions and starts the run",
+    "required_lane": "../routing_specialized_research_20261003_v1/coordination/run_locked.py --mode exclusive --owner routing_delivery",
+    "benchmark_entry": "python benchmark.py --run --out evidence/benchmark_run_v1 --python <standard-library-environment> --legacy-python <wfg311-or-wfg-environment>",
+    "restriction": "do not run the official benchmark outside the shared exclusive lane; this driver has not been executed with --run"
+  },
+  "scope": {
+    "maximum_optimization_variants": 1,
+    "variant_status": "none selected in this driver; add one only after coordinator selection and freeze",
+    "excluded": [
+      "sealed datasets",
+      "field-safety claims",
+      "physical-model validation",
+      "unfrozen optimization comparisons"
+    ]
+  },
+  "planned_rows": 510,
+  "one_selected_optimization": "static legal-suffix edge pruning; generic, not default",
+  "legacy_scope": "frozen repaired vector component tractable API-compatible exact-addition subset, not full historical eager/SIPP activation arm",
+  "selection": "after working integration checks; structural reachability, no benchmark outcome tuning",
+  "external_watchdog": "each subprocess percase wall_s+10 sec; external timeout preserved",
+  "freeze": "source hashes checked before each child, final fixtures unchanged"
+}

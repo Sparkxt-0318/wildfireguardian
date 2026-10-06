@@ -1,0 +1,581 @@
+{
+  "status": "ROUTE_JOINT_OPTIMAL",
+  "legs": [
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852398>N3248852399",
+      "t_enter": 0.0,
+      "t_exit": 0.142578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852399>N3248852400",
+      "t_enter": 0.142578125,
+      "t_exit": 0.1943359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852400>N3248849831",
+      "t_enter": 0.1943359375,
+      "t_exit": 0.2529296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849831>N3248849832",
+      "t_enter": 0.2529296875,
+      "t_exit": 0.3193359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849832>N3248849830",
+      "t_enter": 0.3193359375,
+      "t_exit": 0.3720703125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849830>N3248849828",
+      "t_enter": 0.3720703125,
+      "t_exit": 0.4267578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849828>N3248849826",
+      "t_enter": 0.4267578125,
+      "t_exit": 0.486328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849826>N3248849823",
+      "t_enter": 0.486328125,
+      "t_exit": 0.54296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849823>N3248849821",
+      "t_enter": 0.54296875,
+      "t_exit": 0.6015625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849821>N3248849820",
+      "t_enter": 0.6015625,
+      "t_exit": 0.755859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849820>N3248849782",
+      "t_enter": 0.755859375,
+      "t_exit": 0.76953125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248849782",
+      "t_start": 0.76953125,
+      "t_end": 2.9208984375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849782>N3248849786",
+      "t_enter": 2.9208984375,
+      "t_exit": 3.296875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248849786",
+      "t_start": 3.296875,
+      "t_end": 3.66015625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849786>N5421687767",
+      "t_enter": 3.66015625,
+      "t_exit": 3.87109375
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N5421687767",
+      "t_start": 3.87109375,
+      "t_end": 5.7978515625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5421687767>N4676208523",
+      "t_enter": 5.7978515625,
+      "t_exit": 5.982421875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N4676208523",
+      "t_start": 5.982421875,
+      "t_end": 7.5185546875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208523>N5176798630",
+      "t_enter": 7.5185546875,
+      "t_exit": 7.8662109375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176798630>N3248849779",
+      "t_enter": 7.8662109375,
+      "t_exit": 8.0244140625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849779>N5421687747",
+      "t_enter": 8.0244140625,
+      "t_exit": 8.1650390625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5421687747>N5176643568",
+      "t_enter": 8.1650390625,
+      "t_exit": 8.375
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N5176643568",
+      "t_start": 8.375,
+      "t_end": 10.8232421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176643568>N3248848540",
+      "t_enter": 10.8232421875,
+      "t_exit": 11.0361328125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248848540",
+      "t_start": 11.0361328125,
+      "t_end": 29.384765625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248848540>N4676208527",
+      "t_enter": 29.384765625,
+      "t_exit": 29.79296875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N4676208527",
+      "t_start": 29.79296875,
+      "t_end": 40.8544921875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208527>N4676208585",
+      "t_enter": 40.8544921875,
+      "t_exit": 41.177734375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208585>N4676208571",
+      "t_enter": 41.177734375,
+      "t_exit": 41.2001953125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208571>N4676208574",
+      "t_enter": 41.2001953125,
+      "t_exit": 41.265625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208574>N4676208571",
+      "t_enter": 41.265625,
+      "t_exit": 41.3310546875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N4676208571",
+      "t_start": 41.3310546875,
+      "t_end": 42.83203125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208571>N4676208567",
+      "t_enter": 42.83203125,
+      "t_exit": 42.94140625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208567>N3248848527",
+      "t_enter": 42.94140625,
+      "t_exit": 43.048828125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248848527",
+      "t_start": 43.048828125,
+      "t_end": 48.1923828125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248848527>N3248848526",
+      "t_enter": 48.1923828125,
+      "t_exit": 48.33203125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248848526",
+      "t_start": 48.33203125,
+      "t_end": 51.947265625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248848526>N3248848514",
+      "t_enter": 51.947265625,
+      "t_exit": 52.0732421875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248848514",
+      "t_start": 52.0732421875,
+      "t_end": 56.099609375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248848514>N3248848525",
+      "t_enter": 56.099609375,
+      "t_exit": 56.2451171875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248848525",
+      "t_start": 56.2451171875,
+      "t_end": 59.853515625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248848525>N4674515239",
+      "t_enter": 59.853515625,
+      "t_exit": 59.935546875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4674515239>N414903697",
+      "t_enter": 59.935546875,
+      "t_exit": 59.96875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N414903697",
+      "t_start": 59.96875,
+      "t_end": 71.7958984375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N414903697>N3248801534",
+      "t_enter": 71.7958984375,
+      "t_exit": 71.9716796875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248801534",
+      "t_start": 71.9716796875,
+      "t_end": 73.173828125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248801534>N3248801533",
+      "t_enter": 73.173828125,
+      "t_exit": 73.2646484375
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248801533",
+      "t_start": 73.2646484375,
+      "t_end": 74.4345703125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248801533>N3248801537",
+      "t_enter": 74.4345703125,
+      "t_exit": 74.607421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248801537>N3248801532",
+      "t_enter": 74.607421875,
+      "t_exit": 74.7890625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248801532>N2154239248",
+      "t_enter": 74.7890625,
+      "t_exit": 74.8193359375
+    }
+  ],
+  "t_arr": 74.8193359375,
+  "destination_node": "N2154239248",
+  "active_members": [
+    15
+  ],
+  "rounds": [
+    {
+      "activated_member": 15,
+      "active_members": [
+        15
+      ],
+      "table_build_s": 9.724236709065735,
+      "events": 13311597,
+      "rss_mb": 1054.670848,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "ROUTE",
+      "relaxed_arrival": 74.8193359375
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 74.8193359375,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 1,
+      "ok": true,
+      "codes": [],
+      "E": 340.0024345280475
+    },
+    {
+      "member": 2,
+      "ok": true,
+      "codes": [],
+      "E": 0.0
+    },
+    {
+      "member": 3,
+      "ok": true,
+      "codes": [],
+      "E": 35.624367209311885
+    },
+    {
+      "member": 4,
+      "ok": true,
+      "codes": [],
+      "E": 163.19297144684413
+    },
+    {
+      "member": 5,
+      "ok": true,
+      "codes": [],
+      "E": 101.52689996770505
+    },
+    {
+      "member": 6,
+      "ok": true,
+      "codes": [],
+      "E": 100.31648212941661
+    },
+    {
+      "member": 7,
+      "ok": true,
+      "codes": [],
+      "E": 57.70626808370225
+    },
+    {
+      "member": 8,
+      "ok": true,
+      "codes": [],
+      "E": 24.766271688956827
+    },
+    {
+      "member": 9,
+      "ok": true,
+      "codes": [],
+      "E": 10.331984099950756
+    },
+    {
+      "member": 10,
+      "ok": true,
+      "codes": [],
+      "E": 36.319167933246405
+    },
+    {
+      "member": 11,
+      "ok": true,
+      "codes": [],
+      "E": 78.55752431085922
+    },
+    {
+      "member": 12,
+      "ok": true,
+      "codes": [],
+      "E": 11.377772406878218
+    },
+    {
+      "member": 13,
+      "ok": true,
+      "codes": [],
+      "E": 94.33460164743136
+    },
+    {
+      "member": 14,
+      "ok": true,
+      "codes": [],
+      "E": 15.317213237655592
+    },
+    {
+      "member": 15,
+      "ok": true,
+      "codes": [],
+      "E": 7.5220448354297424
+    },
+    {
+      "member": 16,
+      "ok": true,
+      "codes": [],
+      "E": 191.2787929639798
+    },
+    {
+      "member": 17,
+      "ok": true,
+      "codes": [],
+      "E": 123.19487485629263
+    },
+    {
+      "member": 18,
+      "ok": true,
+      "codes": [],
+      "E": 104.74972544471159
+    },
+    {
+      "member": 19,
+      "ok": true,
+      "codes": [],
+      "E": 128.88916412572704
+    },
+    {
+      "member": 20,
+      "ok": true,
+      "codes": [],
+      "E": 69.27702311164492
+    },
+    {
+      "member": 21,
+      "ok": true,
+      "codes": [],
+      "E": 29.0115091964487
+    },
+    {
+      "member": 22,
+      "ok": true,
+      "codes": [],
+      "E": 25.93457605600262
+    },
+    {
+      "member": 23,
+      "ok": true,
+      "codes": [],
+      "E": 49.56848128816744
+    },
+    {
+      "member": 24,
+      "ok": true,
+      "codes": [],
+      "E": 66.63676767268791
+    },
+    {
+      "member": 25,
+      "ok": true,
+      "codes": [],
+      "E": 76.10673389551971
+    },
+    {
+      "member": 26,
+      "ok": true,
+      "codes": [],
+      "E": 64.37414652701273
+    },
+    {
+      "member": 27,
+      "ok": true,
+      "codes": [],
+      "E": 35.8310226600001
+    },
+    {
+      "member": 28,
+      "ok": true,
+      "codes": [],
+      "E": 92.37692132248644
+    },
+    {
+      "member": 29,
+      "ok": true,
+      "codes": [],
+      "E": 47.8351161901801
+    }
+  ],
+  "certificate": "EXACT_RELAXED_OPTIMUM_PASSES_ALL_PLANNING_MEMBERS",
+  "reason": null,
+  "wall_s_query": 43.41638945811428,
+  "current_rss_mb": 927.98976,
+  "query_id": "RB1-MAIN-STRESS-10-Q07",
+  "instance_id": "RB1-MAIN-STRESS-10",
+  "arm": "established",
+  "cold_prep_s": 1.968945583095774,
+  "solver_profiles": [],
+  "pruning": [],
+  "measured_stage_s": 43.55990470806137,
+  "peak_rss_mb": 1123.484375,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

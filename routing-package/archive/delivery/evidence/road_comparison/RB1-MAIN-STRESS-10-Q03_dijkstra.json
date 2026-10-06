@@ -1,0 +1,314 @@
+{
+  "status": "TIMEOUT",
+  "legs": [],
+  "t_arr": null,
+  "destination_node": null,
+  "active_members": [
+    16
+  ],
+  "rounds": [
+    {
+      "activated_member": 16,
+      "active_members": [
+        16
+      ],
+      "table_build_s": 5.337254749960266,
+      "events": 0,
+      "rss_mb": 1199.63648,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "TIMEOUT"
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 16.5625,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": true,
+      "codes": [],
+      "E": 76.72278335665146
+    },
+    {
+      "member": 1,
+      "ok": true,
+      "codes": [],
+      "E": 172.23384529807555
+    },
+    {
+      "member": 2,
+      "ok": true,
+      "codes": [],
+      "E": 58.62954742801243
+    },
+    {
+      "member": 3,
+      "ok": true,
+      "codes": [],
+      "E": 115.31834515707271
+    },
+    {
+      "member": 4,
+      "ok": true,
+      "codes": [],
+      "E": 478.4629625127662
+    },
+    {
+      "member": 5,
+      "ok": true,
+      "codes": [],
+      "E": 264.64907599132226
+    },
+    {
+      "member": 6,
+      "ok": true,
+      "codes": [],
+      "E": 250.2876866059405
+    },
+    {
+      "member": 7,
+      "ok": true,
+      "codes": [],
+      "E": 177.5322924518409
+    },
+    {
+      "member": 8,
+      "ok": true,
+      "codes": [],
+      "E": 97.46746153807999
+    },
+    {
+      "member": 9,
+      "ok": true,
+      "codes": [],
+      "E": 101.22687627297452
+    },
+    {
+      "member": 10,
+      "ok": true,
+      "codes": [],
+      "E": 111.95242519619127
+    },
+    {
+      "member": 11,
+      "ok": true,
+      "codes": [],
+      "E": 234.6011627607866
+    },
+    {
+      "member": 12,
+      "ok": true,
+      "codes": [],
+      "E": 95.69165264673634
+    },
+    {
+      "member": 13,
+      "ok": true,
+      "codes": [],
+      "E": 301.6767147471926
+    },
+    {
+      "member": 14,
+      "ok": true,
+      "codes": [],
+      "E": 88.12691724452736
+    },
+    {
+      "member": 15,
+      "ok": true,
+      "codes": [],
+      "E": 107.18663778271086
+    },
+    {
+      "member": 16,
+      "ok": false,
+      "codes": [
+        "INTEGRATED_EXPOSURE"
+      ],
+      "E": 730.5893319503678
+    },
+    {
+      "member": 17,
+      "ok": true,
+      "codes": [],
+      "E": 354.0111061051758
+    },
+    {
+      "member": 18,
+      "ok": true,
+      "codes": [],
+      "E": 314.2103912960633
+    },
+    {
+      "member": 19,
+      "ok": true,
+      "codes": [],
+      "E": 417.80992466502096
+    },
+    {
+      "member": 20,
+      "ok": true,
+      "codes": [],
+      "E": 218.90806778785594
+    },
+    {
+      "member": 21,
+      "ok": true,
+      "codes": [],
+      "E": 127.51793024971202
+    },
+    {
+      "member": 22,
+      "ok": true,
+      "codes": [],
+      "E": 118.60838532351517
+    },
+    {
+      "member": 23,
+      "ok": true,
+      "codes": [],
+      "E": 136.65678702875772
+    },
+    {
+      "member": 24,
+      "ok": true,
+      "codes": [],
+      "E": 181.14277469941885
+    },
+    {
+      "member": 25,
+      "ok": true,
+      "codes": [],
+      "E": 195.59696060065193
+    },
+    {
+      "member": 26,
+      "ok": true,
+      "codes": [],
+      "E": 204.95894674468303
+    },
+    {
+      "member": 27,
+      "ok": true,
+      "codes": [],
+      "E": 115.60415760780855
+    },
+    {
+      "member": 28,
+      "ok": true,
+      "codes": [],
+      "E": 284.5200362650745
+    },
+    {
+      "member": 29,
+      "ok": true,
+      "codes": [],
+      "E": 140.07442098524882
+    }
+  ],
+  "reason": "TOTAL_BUDGET_EXCEEDED",
+  "wall_s_query": 60.369110040948726,
+  "current_rss_mb": 773.914624,
+  "query_id": "RB1-MAIN-STRESS-10-Q03",
+  "instance_id": "RB1-MAIN-STRESS-10",
+  "arm": "dijkstra",
+  "cold_prep_s": 2.07957408297807,
+  "solver_profiles": [
+    {
+      "status": "CAP",
+      "pops": 1465216,
+      "metrics": {
+        "exposure_s": 9.989967331523076,
+        "interval_query_s": 11.819826810155064,
+        "dominance_s": 5.9527127356268466,
+        "memory_check_s": 2.2077290404122323,
+        "wait_candidates": 1394713,
+        "edge_candidates": 2962954,
+        "dominated": 2732862,
+        "peak_heap": 45578,
+        "peak_records": 1624806
+      },
+      "edge_tables": [
+        {
+          "calls": 2962954,
+          "hits": 2962580,
+          "functions_built": 374,
+          "evictions": 0,
+          "build_s": 0.18374417047016323,
+          "eval_s": 5.022356670699082,
+          "cache_bytes": 2600192,
+          "peak_cache_bytes": 2600192
+        }
+      ],
+      "wait_tables": [
+        {
+          "calls": 1394713,
+          "hits": 1394577,
+          "functions_built": 136,
+          "evictions": 0,
+          "build_s": 0.009489123476669192,
+          "eval_s": 2.0965221190126613,
+          "cache_bytes": 249136,
+          "peak_cache_bytes": 249136
+        }
+      ]
+    }
+  ],
+  "pruning": [],
+  "measured_stage_s": 60.600314124953,
+  "peak_rss_mb": 1153.625,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

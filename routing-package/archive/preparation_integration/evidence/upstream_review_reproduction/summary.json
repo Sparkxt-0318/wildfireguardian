@@ -1,0 +1,11 @@
+{
+  "cases": 51,
+  "exhaustive_cap": 20000,
+  "failures": [],
+  "oracle_sha256": "af2d8529efb1c2f65f511eb2a39bc2acc30e3a7088ee0e9e0c9eb48f0398d8bf",
+  "passed": true,
+  "reference": "unchanged baseline independent exhaustive/check_route; direct mathematical assertions",
+  "review_script_sha256": "5010c988e9f399fc46691ce33485d1bdfe01033937d47660e91da6b8371484ef",
+  "rows": 499,
+  "seed": 10052026
+}

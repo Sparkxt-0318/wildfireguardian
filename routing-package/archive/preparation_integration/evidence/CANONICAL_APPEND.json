@@ -1,0 +1,11 @@
+{
+  "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/WildfireGuardian_Canonical_Context.md",
+  "timestamp": "2026-10-05T16:00:37.417453+08:00",
+  "locking": "existing file-inode fcntl.flock exclusive; append only; fsync; prefix verified under lock",
+  "inode": 56896549,
+  "prior_prefix_sha256": "baa90494da206c61dca9689008a429c53f682f2ff728ce9d3b44e92f33f8a1c5",
+  "prior_prefix_bytes": 542526,
+  "append_sha256": "313280a8509fc48a0275f6cd45f34522c5f1ce122a269fb556b7fb0501d898fc",
+  "append_bytes": 4302,
+  "prior_prefix_preserved": true
+}

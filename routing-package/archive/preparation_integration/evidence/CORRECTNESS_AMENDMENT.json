@@ -1,0 +1,7 @@
+{
+  "date": "2026-10-05T07:33:51.352040+00:00",
+  "issue": "Non-Boolean truthy reset accepted by new graph replacement API",
+  "repair": "strict Boolean guard before graph validation or mutation; invalid flag preserves state",
+  "discovery": "coordinator source audit, not benchmark result tuning",
+  "disposition": "initial partial measurement aborted and retained; fresh freeze on unchanged confirmatory inputs; no promotion inference from partial rows"
+}

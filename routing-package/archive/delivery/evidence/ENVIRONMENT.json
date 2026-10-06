@@ -1,0 +1,11 @@
+{
+  "python": "/Users/jp/miniforge3/envs/wfg311/bin/python",
+  "python_version": "3.11.15",
+  "numpy": "2.4.6",
+  "pandas": "3.0.5",
+  "networkx": "3.6.1",
+  "pyproj": "3.7.2",
+  "pytest": "9.1.1",
+  "core_dependencies": "stdlib only",
+  "other_usable_environment": "wfg Python3.11.15 numpy2.4.6 pandas3.0.3 pyproj3.7.2 pytest missing; not modified"
+}

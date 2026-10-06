@@ -1,0 +1,73 @@
+{
+  "written_at": "2026-10-04T01:55:14.439914+08:00",
+  "required": {
+    "directed_graph": {
+      "state": "AVAILABLE",
+      "fixture": "fixtures/example.json",
+      "historical_source": "outputs/korean_realfire_study_20261002_v1/workers/graph_nangok_r1/graph",
+      "limitations": "historical mapped straight chords, permissive gaps via-way/conditional turns; no live passability"
+    },
+    "hazard_payload": {
+      "state": "AVAILABLE_LABELLED_FIXTURE",
+      "mentor_output": "MISSING_NOT_INTEGRATED"
+    },
+    "destination_dwell_budgets": {
+      "state": "AVAILABLE_ASSUMPTIONS",
+      "calibrated_physical_thresholds": "MISSING"
+    },
+    "time_members_support": {
+      "state": "AVAILABLE_SCHEMA_FIXTURES"
+    },
+    "environment": {
+      "python": "/Users/jp/miniforge3/envs/wfg311/bin/python",
+      "python_version": "3.11.15",
+      "numpy": "2.4.6",
+      "pandas": "3.0.5",
+      "networkx": "3.6.1",
+      "pyproj": "3.7.2",
+      "pytest": "9.1.1",
+      "core_dependencies": "stdlib only",
+      "other_usable_environment": "wfg Python3.11.15 numpy2.4.6 pandas3.0.3 pyproj3.7.2 pytest missing; not modified"
+    }
+  },
+  "missing": {
+    "mentor_forecast": "must supply compatible payload/sample, quantities/units/causal timestamps/full support/stable scenario identities; no probability/intensity conversion",
+    "independent_time_resolved_road_thermal_truth": "NOT AVAILABLE",
+    "observed_destination_conditions": "NOT AVAILABLE",
+    "NGII_DEM": "NOT AVAILABLE verified acquisition registry",
+    "wildfire_whitepaper": "INCOMPLETE_UNUSABLE registry"
+  },
+  "optional": {
+    "Daejeon_weather2025": "DOWNLOADED not Nangok2023 support",
+    "Daejeon_forest2024": "DOWNLOADED not Nangok2023 support",
+    "Copernicus_N36E127": "DOWNLOADED DSM includes vegetation/buildings no passability; geographically mismatched",
+    "satellite_login_HDF4_custody": "not core routing prerequisites",
+    "embers_secondary_ignition": "ABSENT_NO_ELIGIBLE_DATA"
+  },
+  "scope": "routing only; best-case vehicle/passability, no traffic/debris/fleet/pickups/forecast training",
+  "locks": {
+    "heavy_dev_official_wrapper": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_specialized_research_20261003_v1/coordination/run_locked.py",
+    "official_timing": "exclusive wrapper used; evidence/MEASUREMENT_LANE_LOG.json",
+    "canonical": "flock canonical file inode append-only"
+  },
+  "graph_evidence": {
+    "old_project": "Users-jp-Documents-Codex-2026-09-24-fu",
+    "old_generation": "2026-10-02T04:21:31Z",
+    "old_generated_coverage": "unavailable/nottracked; exactsource fallback",
+    "new_project": "routing-delivery-20261004-v1",
+    "new_generation": "2026-10-03T18:42:08Z",
+    "new_sources_changing": "final source coverage metadata_match; excluded fixtures/vendor checked directly"
+  },
+  "source_manifest_preflight": "evidence/MANIFEST_PREFLIGHT.json",
+  "pipeline_manifest_mismatches": 236,
+  "scientific_eligibility_changes": false,
+  "finalized_at": "2026-10-04T03:15:21.632489+08:00",
+  "final_states": {
+    "routing_library": "COMPLETE_DECLARED_CONTRACT",
+    "labelled_fixture_integration": "PASS",
+    "forecast_integration": "NOT_AVAILABLE",
+    "independent_historical_real_fire_validation": "NOT_AVAILABLE",
+    "novelty": "NOT_ESTABLISHED",
+    "optimization_promotion": false
+  }
+}

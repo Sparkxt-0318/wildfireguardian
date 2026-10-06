@@ -1,0 +1,87 @@
+{
+  "end_to_end_s": 0.003993666003225371,
+  "escape": {
+    "arrival": 4.0,
+    "certificate_conditions": [
+      "supplied ensemble only",
+      "declared lattice and geometry",
+      "complete search before caps",
+      "independent route check",
+      "no physical safety claim"
+    ],
+    "checker": {
+      "arrival": 4.0,
+      "codes": [],
+      "ok": true,
+      "per_member": {
+        "m0": {
+          "dose": 4.0,
+          "dose_exact": "4",
+          "peak": 1.0
+        },
+        "m1": {
+          "dose": 8.0,
+          "dose_exact": "8",
+          "peak": 2.0
+        }
+      },
+      "status": "CHECKED_ROUTE"
+    },
+    "destination": "D",
+    "hazard_version": 1,
+    "legs": [
+      {
+        "edge": "OA",
+        "end": 2.0,
+        "from_fraction": 0,
+        "kind": "EDGE",
+        "start": 0.0,
+        "to_fraction": 1
+      },
+      {
+        "edge": "AD",
+        "end": 4.0,
+        "from_fraction": 0,
+        "kind": "EDGE",
+        "start": 2.0,
+        "to_fraction": 1
+      }
+    ],
+    "metrics": {
+      "dominated": 0,
+      "edge_candidates": 10,
+      "expansions": 5,
+      "labels": 13,
+      "occupancy_evaluations": 14,
+      "peak_frontier": 1,
+      "peak_rss_mb": 23.84375,
+      "wait_candidates": 2,
+      "wall_s": 0.003982333997555543
+    },
+    "per_member": {
+      "m0": {
+        "dose": 4.0,
+        "dose_exact": "4",
+        "peak": 1.0
+      },
+      "m1": {
+        "dose": 8.0,
+        "dose_exact": "8",
+        "peak": 2.0
+      }
+    },
+    "provenance": {
+      "evidence_class": "LABELLED_FIXTURE",
+      "model": "EXACT_LATTICE_EDGEGRID",
+      "physical_safety_claim": false,
+      "solver": "baseline"
+    },
+    "reason": "EXACT_SEARCH_CHECKED",
+    "solver_status": "EXACT_OPTIMUM",
+    "status": "CONDITIONAL_OPTIMUM"
+  },
+  "primary_problem_resolved": true,
+  "return_alternative": null,
+  "return_budget_s": 5,
+  "return_policy": "recorded path only; separately declared wall budget; never turns timeout into infeasibility"
+}

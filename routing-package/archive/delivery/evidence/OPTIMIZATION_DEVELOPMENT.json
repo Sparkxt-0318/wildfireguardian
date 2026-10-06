@@ -1,0 +1,29 @@
+{
+  "case": "legal_circling_nonwaitable_empty_layer_future_admission",
+  "baseline": {
+    "labels": 8,
+    "expansions": 6,
+    "dominated": 0,
+    "peak_frontier": 1,
+    "edge_candidates": 7,
+    "wait_candidates": 0,
+    "occupancy_evaluations": 9,
+    "peak_rss_mb": 18.203125,
+    "wall_s": 0.011028500040993094
+  },
+  "suffix": {
+    "labels": 8,
+    "expansions": 6,
+    "dominated": 0,
+    "peak_frontier": 1,
+    "edge_candidates": 7,
+    "wait_candidates": 0,
+    "occupancy_evaluations": 9,
+    "peak_rss_mb": 19.09375,
+    "wall_s": 0.0029925000853836536,
+    "suffix_preparation_s": 0.0004128341097384691,
+    "edges_before": 3,
+    "edges_after": 3
+  },
+  "interpretation": "generic topology preprocessing; no state merging or novelty; no timing adoption decision"
+}

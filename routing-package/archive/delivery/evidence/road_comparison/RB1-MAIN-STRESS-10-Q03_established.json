@@ -1,0 +1,497 @@
+{
+  "status": "ROUTE_JOINT_OPTIMAL",
+  "legs": [
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852398>N3248852399",
+      "t_enter": 0.0,
+      "t_exit": 0.142578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852399>N3248852400",
+      "t_enter": 0.142578125,
+      "t_exit": 0.1943359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248852400>N3248849831",
+      "t_enter": 0.1943359375,
+      "t_exit": 0.2529296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849831>N3248849832",
+      "t_enter": 0.2529296875,
+      "t_exit": 0.3193359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849832>N3248849830",
+      "t_enter": 0.3193359375,
+      "t_exit": 0.3720703125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849830>N3248849828",
+      "t_enter": 0.3720703125,
+      "t_exit": 0.4267578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849828>N3248849826",
+      "t_enter": 0.4267578125,
+      "t_exit": 0.486328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849826>N3248849823",
+      "t_enter": 0.486328125,
+      "t_exit": 0.54296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849823>N3248849821",
+      "t_enter": 0.54296875,
+      "t_exit": 0.6015625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849821>N3248849820",
+      "t_enter": 0.6015625,
+      "t_exit": 0.755859375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849820>N3248849782",
+      "t_enter": 0.755859375,
+      "t_exit": 0.76953125
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248849782",
+      "t_start": 0.76953125,
+      "t_end": 9.453125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849782>N3248849786",
+      "t_enter": 9.453125,
+      "t_exit": 9.8291015625
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N3248849786",
+      "t_start": 9.8291015625,
+      "t_end": 10.193359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849786>N5421687767",
+      "t_enter": 10.193359375,
+      "t_exit": 10.404296875
+    },
+    {
+      "type": "WAIT",
+      "node_id": "N5421687767",
+      "t_start": 10.404296875,
+      "t_end": 11.9482421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5421687767>N4676208523",
+      "t_enter": 11.9482421875,
+      "t_exit": 12.1328125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N4676208523>N5176798630",
+      "t_enter": 12.1328125,
+      "t_exit": 12.48046875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176798630>N3248849779",
+      "t_enter": 12.48046875,
+      "t_exit": 12.638671875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3248849779>N5421687747",
+      "t_enter": 12.638671875,
+      "t_exit": 12.779296875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5421687747>N5176643568",
+      "t_enter": 12.779296875,
+      "t_exit": 12.9892578125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176643568>N5176643563",
+      "t_enter": 12.9892578125,
+      "t_exit": 13.40625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176643563>N5176643559",
+      "t_enter": 13.40625,
+      "t_exit": 13.939453125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176643559>N5176643551",
+      "t_enter": 13.939453125,
+      "t_exit": 14.115234375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176643551>N5176798644",
+      "t_enter": 14.115234375,
+      "t_exit": 14.5185546875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176798644>N5176518720",
+      "t_enter": 14.5185546875,
+      "t_exit": 15.365234375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176518720>N5184162448",
+      "t_enter": 15.365234375,
+      "t_exit": 15.421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162448>N5184162445",
+      "t_enter": 15.421875,
+      "t_exit": 15.4384765625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162445>N5184162474",
+      "t_enter": 15.4384765625,
+      "t_exit": 15.443359375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162474>N5184162470",
+      "t_enter": 15.443359375,
+      "t_exit": 15.4765625
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162470>N5184162429",
+      "t_enter": 15.4765625,
+      "t_exit": 15.4814453125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162429>N5184162466",
+      "t_enter": 15.4814453125,
+      "t_exit": 15.5107421875
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162466>N5184162464",
+      "t_enter": 15.5107421875,
+      "t_exit": 15.53125
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5184162464>N5176521023",
+      "t_enter": 15.53125,
+      "t_exit": 15.5771484375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N5176521023>N3245592916",
+      "t_enter": 15.5771484375,
+      "t_exit": 16.0537109375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3245592916>N3245592911",
+      "t_enter": 16.0537109375,
+      "t_exit": 16.15234375
+    },
+    {
+      "type": "EDGE",
+      "edge_id": "N3245592911>N3239009156",
+      "t_enter": 16.15234375,
+      "t_exit": 16.5625
+    }
+  ],
+  "t_arr": 16.5625,
+  "destination_node": "N3239009156",
+  "active_members": [
+    16
+  ],
+  "rounds": [
+    {
+      "activated_member": 16,
+      "active_members": [
+        16
+      ],
+      "table_build_s": 21.60438683303073,
+      "events": 34747094,
+      "rss_mb": 906.0352,
+      "subsolver": "SCALAR_EXACT_LATTICE_DP",
+      "raw_status": "ROUTE",
+      "relaxed_arrival": 16.5625
+    }
+  ],
+  "budget_s": 60.0,
+  "support": {
+    "support_complete": true,
+    "support_reason": "SUPPORT_ESTABLISHED_FOR_EVERY_ENSEMBLE_MEMBER",
+    "n_unsupported_elements": 0,
+    "detail": {
+      "n_members": 30,
+      "n_members_unsupported": 0,
+      "unsupported_members": [],
+      "n_nan_total": 0,
+      "per_member": [
+        {
+          "label": "member_0",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_1",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_2",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "label": "member_3",
+          "ok": true,
+          "n_nan_in_arrival_raster": 0,
+          "n_cells_out_of_raster": 0,
+          "n_cells_referenced": 9568,
+          "outside_raster_rule": "WINDOW_RULE_6_OUTSIDE_RASTER_PLUS_INF_NEVER_BURNING"
+        },
+        {
+          "...": "26 more"
+        }
+      ]
+    }
+  },
+  "evidence_class": "REAL_ROAD_CONTROLLED_HAZARD",
+  "oracle": false,
+  "guarantee": "30 planning members only, lattice delta=2^-10 min; no physical safety claim",
+  "peak_lower_bound": 16.5625,
+  "last_verification": [
+    {
+      "member": 0,
+      "ok": true,
+      "codes": [],
+      "E": 1.5393066674668308
+    },
+    {
+      "member": 1,
+      "ok": true,
+      "codes": [],
+      "E": 7.685082830698342
+    },
+    {
+      "member": 2,
+      "ok": true,
+      "codes": [],
+      "E": 2.2322395526742733
+    },
+    {
+      "member": 3,
+      "ok": true,
+      "codes": [],
+      "E": 0.30110643728607833
+    },
+    {
+      "member": 4,
+      "ok": true,
+      "codes": [],
+      "E": 26.919844734686325
+    },
+    {
+      "member": 5,
+      "ok": true,
+      "codes": [],
+      "E": 11.073858749915832
+    },
+    {
+      "member": 6,
+      "ok": true,
+      "codes": [],
+      "E": 10.267169741092173
+    },
+    {
+      "member": 7,
+      "ok": true,
+      "codes": [],
+      "E": 0.8493002479140492
+    },
+    {
+      "member": 8,
+      "ok": true,
+      "codes": [],
+      "E": 1.58391357530763
+    },
+    {
+      "member": 9,
+      "ok": true,
+      "codes": [],
+      "E": 3.05496152810874
+    },
+    {
+      "member": 10,
+      "ok": true,
+      "codes": [],
+      "E": 1.5519955751979537
+    },
+    {
+      "member": 11,
+      "ok": true,
+      "codes": [],
+      "E": 6.385879695768433
+    },
+    {
+      "member": 12,
+      "ok": true,
+      "codes": [],
+      "E": 3.0487834161095004
+    },
+    {
+      "member": 13,
+      "ok": true,
+      "codes": [],
+      "E": 7.562555345828871
+    },
+    {
+      "member": 14,
+      "ok": true,
+      "codes": [],
+      "E": 0.3638938312883827
+    },
+    {
+      "member": 15,
+      "ok": true,
+      "codes": [],
+      "E": 6.611003682369814
+    },
+    {
+      "member": 16,
+      "ok": true,
+      "codes": [],
+      "E": 16.300602895759358
+    },
+    {
+      "member": 17,
+      "ok": true,
+      "codes": [],
+      "E": 7.759767366613083
+    },
+    {
+      "member": 18,
+      "ok": true,
+      "codes": [],
+      "E": 10.276206910690968
+    },
+    {
+      "member": 19,
+      "ok": true,
+      "codes": [],
+      "E": 12.713637600382528
+    },
+    {
+      "member": 20,
+      "ok": true,
+      "codes": [],
+      "E": 10.693059792072733
+    },
+    {
+      "member": 21,
+      "ok": true,
+      "codes": [],
+      "E": 2.6226020141379314
+    },
+    {
+      "member": 22,
+      "ok": true,
+      "codes": [],
+      "E": 2.9630749722518863
+    },
+    {
+      "member": 23,
+      "ok": true,
+      "codes": [],
+      "E": 4.470505444048093
+    },
+    {
+      "member": 24,
+      "ok": true,
+      "codes": [],
+      "E": 4.172161518151478
+    },
+    {
+      "member": 25,
+      "ok": true,
+      "codes": [],
+      "E": 5.287734791674119
+    },
+    {
+      "member": 26,
+      "ok": true,
+      "codes": [],
+      "E": 5.320913264418646
+    },
+    {
+      "member": 27,
+      "ok": true,
+      "codes": [],
+      "E": 2.582911313430647
+    },
+    {
+      "member": 28,
+      "ok": true,
+      "codes": [],
+      "E": 10.41540850831694
+    },
+    {
+      "member": 29,
+      "ok": true,
+      "codes": [],
+      "E": 2.639855206129835
+    }
+  ],
+  "certificate": "EXACT_RELAXED_OPTIMUM_PASSES_ALL_PLANNING_MEMBERS",
+  "reason": null,
+  "wall_s_query": 33.81769233290106,
+  "current_rss_mb": 1080.1152,
+  "query_id": "RB1-MAIN-STRESS-10-Q03",
+  "instance_id": "RB1-MAIN-STRESS-10",
+  "arm": "established",
+  "cold_prep_s": 2.277873874991201,
+  "solver_profiles": [],
+  "pruning": [],
+  "measured_stage_s": 33.958020583959296,
+  "peak_rss_mb": 1173.984375,
+  "mode": "cold",
+  "repetition": 0,
+  "event_proxy_limit": null,
+  "independent_global_certificate": false
+}

@@ -1,0 +1,415 @@
+{
+  "events": [
+    {
+      "hazard_version": 1,
+      "mapping_applied": false,
+      "reason": "VALIDATED_FORECAST_ADMITTED",
+      "request_generation": 1,
+      "status": "ACCEPTED_UPDATE"
+    },
+    {
+      "request_generation": 2,
+      "result": {
+        "arrival": 4.0,
+        "certificate_conditions": [
+          "supplied ensemble only",
+          "declared lattice and geometry",
+          "complete search before caps",
+          "independent route check",
+          "no physical safety claim"
+        ],
+        "checker": {
+          "arrival": 4.0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 4.0,
+              "dose_exact": "4",
+              "peak": 1.0
+            },
+            "m1": {
+              "dose": 8.0,
+              "dose_exact": "8",
+              "peak": 2.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "D",
+        "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+        "hazard_version": 1,
+        "legs": [
+          {
+            "edge": "OA",
+            "end": 2.0,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0.0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "AD",
+            "end": 4.0,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 2.0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 10,
+          "expansions": 5,
+          "labels": 13,
+          "occupancy_evaluations": 14,
+          "peak_frontier": 1,
+          "wait_candidates": 2
+        },
+        "per_member": {
+          "m0": {
+            "dose": 4.0,
+            "dose_exact": "4",
+            "peak": 1.0
+          },
+          "m1": {
+            "dose": 8.0,
+            "dose_exact": "8",
+            "peak": 2.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "EXACT_SEARCH_CHECKED",
+        "request": {
+          "as_of": "2026-10-04T00:00:00+08:00",
+          "budgets": {
+            "dose": {
+              "m0": 25.0,
+              "m1": 25.0
+            },
+            "peak": 10.0
+          },
+          "departure": 0.0,
+          "destinations": [
+            {
+              "dwell": 2.0,
+              "node": "D",
+              "open_intervals": [
+                [
+                  0.0,
+                  30.0
+                ]
+              ]
+            }
+          ],
+          "exposure_scope": "route_only",
+          "hazard_version": 1,
+          "horizon": 20.0,
+          "incoming_edge": null,
+          "incurred": {
+            "m0": 0.0,
+            "m1": 0.0
+          },
+          "limits": {
+            "frontier_width": 4096,
+            "max_expansions": 100000,
+            "max_labels": 100000,
+            "wall_s": 5.0
+          },
+          "objective": "earliest_arrival",
+          "position": {
+            "node": "O"
+          },
+          "solver": "baseline"
+        },
+        "request_generation": 2,
+        "solver_status": "EXACT_OPTIMUM",
+        "status": "CONDITIONAL_OPTIMUM",
+        "update_status": {
+          "hazard_version": 1,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 1,
+          "status": "ACCEPTED_UPDATE"
+        }
+      },
+      "status": "PLAN_COMMITTED"
+    },
+    {
+      "hazard_version": 2,
+      "mapping_applied": false,
+      "reason": "VALIDATED_FORECAST_ADMITTED",
+      "request_generation": 3,
+      "status": "ACCEPTED_UPDATE"
+    },
+    {
+      "codes": [
+        "MISSING_SUPPORT"
+      ],
+      "hazard_version": 2,
+      "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+      "request_generation": 3,
+      "status": "UNSUPPORTED",
+      "update_status": {
+        "hazard_version": 2,
+        "mapping_applied": false,
+        "reason": "VALIDATED_FORECAST_ADMITTED",
+        "request_generation": 3,
+        "status": "ACCEPTED_UPDATE"
+      }
+    },
+    {
+      "committed": true,
+      "request_generation": 4,
+      "result": {
+        "arrival": 6.0,
+        "certificate_conditions": [
+          "independent route check",
+          "no global optimality claim"
+        ],
+        "checker": {
+          "arrival": 6.0,
+          "codes": [],
+          "ok": true,
+          "per_member": {
+            "m0": {
+              "dose": 6.0,
+              "dose_exact": "6",
+              "peak": 1.0
+            },
+            "m1": {
+              "dose": 12.0,
+              "dose_exact": "12",
+              "peak": 2.0
+            }
+          },
+          "status": "CHECKED_ROUTE"
+        },
+        "destination": "D",
+        "guidance_version_label": "CURRENT_ACCEPTED_VERSION",
+        "hazard_version": 2,
+        "legs": [
+          {
+            "edge": "OB",
+            "end": 3.0,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 0.0,
+            "to_fraction": 1
+          },
+          {
+            "edge": "BD",
+            "end": 6.0,
+            "from_fraction": 0,
+            "kind": "EDGE",
+            "start": 3.0,
+            "to_fraction": 1
+          }
+        ],
+        "metrics": {
+          "dominated": 0,
+          "edge_candidates": 6,
+          "expansions": 3,
+          "labels": 5,
+          "occupancy_evaluations": 8,
+          "peak_frontier": 1,
+          "wait_candidates": 0
+        },
+        "per_member": {
+          "m0": {
+            "dose": 6.0,
+            "dose_exact": "6",
+            "peak": 1.0
+          },
+          "m1": {
+            "dose": 12.0,
+            "dose_exact": "12",
+            "peak": 2.0
+          }
+        },
+        "provenance": {
+          "evidence_class": "LABELLED_FIXTURE",
+          "model": "EXACT_LATTICE_EDGEGRID",
+          "physical_safety_claim": false,
+          "solver": "baseline"
+        },
+        "reason": "PARTIAL_GLOBAL_SUPPORT",
+        "request": {
+          "as_of": "2026-10-04T00:00:00+08:00",
+          "budgets": {
+            "dose": {
+              "m0": 25.0,
+              "m1": 25.0
+            },
+            "peak": 10.0
+          },
+          "departure": 0.0,
+          "destinations": [
+            {
+              "dwell": 2.0,
+              "node": "D",
+              "open_intervals": [
+                [
+                  0.0,
+                  30.0
+                ]
+              ]
+            }
+          ],
+          "exposure_scope": "route_only",
+          "hazard_version": 2,
+          "horizon": 20.0,
+          "incoming_edge": null,
+          "incurred": {
+            "m0": 0.0,
+            "m1": 0.0
+          },
+          "limits": {
+            "frontier_width": 4096,
+            "max_expansions": 100000,
+            "max_labels": 100000,
+            "wall_s": 5.0
+          },
+          "objective": "earliest_arrival",
+          "position": {
+            "node": "O"
+          },
+          "solver": "baseline"
+        },
+        "request_generation": 4,
+        "solver_status": "ADMISSIBLE_ONLY",
+        "status": "CHECKED_ROUTE",
+        "update_status": {
+          "hazard_version": 2,
+          "mapping_applied": false,
+          "reason": "VALIDATED_FORECAST_ADMITTED",
+          "request_generation": 3,
+          "status": "ACCEPTED_UPDATE"
+        }
+      },
+      "status": "CHECKED_ROUTE"
+    },
+    {
+      "hazard_version": 2,
+      "reason": "ACTUAL_STATE_RECORDED",
+      "request_generation": 5,
+      "status": "PROGRESS_ACCEPTED"
+    },
+    {
+      "arrival": 6.0,
+      "certificate_conditions": [
+        "Recorded directed path only",
+        "Actual departure and incurred exposure",
+        "Declared member set, grid support, and endpoint dwell"
+      ],
+      "destination": "O",
+      "endpoint_availability": "POINT_SUPPORT_CHECKED_NO_VERIFIED_SHELTER_OR_OPENING_REQUIREMENT",
+      "hazard_version": 2,
+      "legs": [
+        {
+          "edge": "BO",
+          "end": 6.0,
+          "from_fraction": 0,
+          "kind": "EDGE",
+          "start": 3,
+          "to_fraction": 1
+        }
+      ],
+      "per_member": {
+        "m0": {
+          "dose": 6.0,
+          "dose_exact": "6",
+          "peak": 1.0
+        },
+        "m1": {
+          "dose": 12.0,
+          "dose_exact": "12",
+          "peak": 2.0
+        }
+      },
+      "provenance": {
+        "interpretation": "generated incident heat-flux proxy, not forecast/physical truth",
+        "source": "local deterministic example"
+      },
+      "reason": "RECORDED_RETURN_INDEPENDENTLY_CHECKED",
+      "solver_status": "RETURN_ONLY_CHECKED",
+      "status": "CHECKED_ROUTE"
+    },
+    {
+      "hazard_version": 3,
+      "mapping_applied": false,
+      "reason": "VALIDATED_FORECAST_ADMITTED",
+      "request_generation": 6,
+      "status": "ACCEPTED_UPDATE"
+    },
+    {
+      "check": {
+        "arrival": 6.0,
+        "codes": [
+          "MISSING_SUPPORT"
+        ],
+        "ok": false,
+        "per_member": {
+          "m0": {
+            "dose": 4.5,
+            "dose_exact": "9/2",
+            "peak": 1.0
+          },
+          "m1": {
+            "dose": 9.0,
+            "dose_exact": "9",
+            "peak": 2.0
+          }
+        },
+        "status": "UNSUPPORTED"
+      },
+      "codes": [
+        "MISSING_SUPPORT"
+      ],
+      "hazard_version": 3,
+      "legs": [],
+      "reason": "RECORDED_RETURN_REFUSED",
+      "solver_status": "NOT_SEARCHED",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "hazard_version": 3,
+      "reason": "VERSION_NOT_NEWER",
+      "rejected_version": 2,
+      "request_generation": 7,
+      "status": "STALE_UPDATE"
+    },
+    {
+      "codes": [
+        "ROUTE_STRUCTURE"
+      ],
+      "hazard_version": 3,
+      "reason": "RETAINED_PLAN_RECHECK_REFUSED",
+      "request_generation": 7,
+      "status": "UNSUPPORTED",
+      "update_status": {
+        "hazard_version": 3,
+        "reason": "VERSION_NOT_NEWER",
+        "rejected_version": 2,
+        "request_generation": 7,
+        "status": "STALE_UPDATE"
+      }
+    },
+    {
+      "hazard_version": null,
+      "reason": "SESSION_STATE_CLEARED",
+      "request_generation": 8,
+      "status": "RESET"
+    }
+  ],
+  "evidence_class": "LABELLED_FIXTURE",
+  "interpretation": "Declared fixture routing check; no physical road tenability validation",
+  "result": null,
+  "status": "RESET",
+  "timing": "Wall duration and process RSS excluded from deterministic replay; resource completion still runtime dependent"
+}

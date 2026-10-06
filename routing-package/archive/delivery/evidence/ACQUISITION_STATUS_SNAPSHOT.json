@@ -1,0 +1,168 @@
+{
+  "updated_utc": "2026-10-03T17:24:00.197403+00:00",
+  "weather": {
+    "api": "HTTP_403_ACCESS_DENIED_NO_OBSERVATIONS",
+    "portal": "OWNER_DOWNLOAD_COMPLETE; nested ZIP integrity verified",
+    "pilot_archive": "SURFACE_ASOS_133_HR_2025_2025_2026.zip",
+    "2026_bulk_search": "NO_ANNUAL_FILE_FOR_DAEJEON_133; use interactive hourly query for June 2026",
+    "eligibility": "No new observations or incident eligibility assigned",
+    "downloaded": true,
+    "manifest": "metadata/WEATHER_ARCHIVE_MANIFEST.json"
+  },
+  "forest": {
+    "portal": "Research purpose filled; Daejeon 2024/2025 forest map links generated; owner started both downloads",
+    "needed": "Pre-incident forest-type archive with all shapefile components, CRS and survey year",
+    "source_2024": "https://map.forest.go.kr/fgisfile/fgisData/DATA051/sido/30.zip",
+    "expected_bytes_2024": 75669508,
+    "downloaded": true,
+    "resumable_job_session": 30019,
+    "manifest": "metadata/FOREST_ACQUISITION_MANIFEST.json",
+    "note": "First direct transfer reset at 227568 bytes, ZIP incomplete. Browser copies remain .crdownload; three active copies have forest-map documentation in ZIP header. Do not treat as DEM or completed archives.",
+    "bytes_snapshot": 75669508,
+    "state": "ARCHIVE_INTEGRITY_VERIFIED_NOT_SCIENTIFICALLY_ADMITTED",
+    "sha256": "28032c35e52cda91f9740287013d68e359ded28b1d078dcbaf55a4ae65f114ec",
+    "browser_download_complete": true,
+    "browser_sha256": "28032c35e52cda91f9740287013d68e359ded28b1d078dcbaf55a4ae65f114ec"
+  },
+  "terrain": {
+    "portal": "2024 Daejeon 36710 selected; application purpose/detail filled; birthdate and agreement left for owner",
+    "downloaded": false,
+    "agreement": "OWNER_HANDLES_DOWNLOAD; completion not verified",
+    "note": "Earlier accessibility setValue did not populate actual DOM dropdown values correctly. Corrected using native option codes CAAAC / CAAAC00006 and actual input fill. Owner agreement already checked. Submission closed modal, but no new local DEM file and account download history remained zero. No explicit page error recorded; unresolved.",
+    "status": "CORRECTED_FORM_SUBMITTED_NO_REGISTERED_DOWNLOAD",
+    "ngii_status": "VALID_FORM_AND_AUTHORIZED_AGREEMENT_SUBMITTED_NO_LOCAL_DOWNLOAD",
+    "alternative": {
+      "source": "https://registry.opendata.aws/copernicus-dem/",
+      "product": "Copernicus GLO-30 DSM 2021 release",
+      "tile": "N36 E127",
+      "state": "DOWNLOADED_BYTE_COUNTS_AND_RASTER_READ_VERIFIED_PENDING_ADMISSION",
+      "session": 4121,
+      "expected_raster_bytes": 49583060,
+      "directory": "raw/terrain/copernicus_daejeon",
+      "limits": "Approx 30m surface elevation includes vegetation/buildings; not equivalent to bare-earth NGII DEM. No training/evaluation admission.",
+      "manifest": "metadata/COPERNICUS_TERRAIN_MANIFEST.json",
+      "downloaded": true
+    }
+  },
+  "behaviour": {
+    "source_page": "https://www.korea.kr/archive/expDocView.do?docId=40885",
+    "download_url": "https://www.korea.kr/common/download.do?fileId=197700012&tblKey=EDN",
+    "expected_bytes_approx": 76000000,
+    "state": "PUBLISHER_TRANSFER_FAILED_INCOMPLETE_DO_NOT_USE",
+    "quarantine": true,
+    "label_extraction": false,
+    "manifest": "quarantine/behaviour/source_manifest.json",
+    "download_session": 93825,
+    "expected_bytes": 75924853,
+    "partial_bytes_snapshot": 5763072,
+    "publisher_download_url": "https://www.forest.go.kr/kfsweb/cmm/fms/FileDown.do?atchFileId=FILE_000000020113176&fileSn=1&dwldHistYn=Y&bbsId=BBSMSTR_1008&dnldCntYn=Y",
+    "publisher_download_session": 51744,
+    "publisher_path": "quarantine/behaviour/KFS_2023_publisher.pdf.part",
+    "publisher_partial_bytes": 74177288,
+    "missing_bytes": 1747565
+  },
+  "overnight_priority": [
+    "Finish eligible weather/map acquisition; verify hashes, coverage, CRS, station history and time support",
+    "Review eligible independent behaviour references under custody protocol",
+    "Existing routing benchmark stress and compute-cost audit can run independently of missing real labels"
+  ],
+  "not_ready": [
+    "Korean supervised classification training",
+    "MoE superiority study on real Korean labels"
+  ],
+  "frozen_protocols_changed": false,
+  "latest_check": {
+    "checked_utc": "2026-10-03T15:52:15.890629+00:00",
+    "kma_browser_authenticated": true,
+    "forest_bytes_received": 48463872,
+    "forest_expected_bytes": 75669508,
+    "whitepaper_state": "INCOMPLETE_DO_NOT_USE",
+    "recent_downloads": [
+      {
+        "name": "Unconfirmed 135619.crdownload",
+        "bytes": 2988841,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 707994.crdownload",
+        "bytes": 3434457,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 223655.crdownload",
+        "bytes": 1748617,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 40067.crdownload",
+        "bytes": 3715481,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 56391.crdownload",
+        "bytes": 1064729,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 511215.crdownload",
+        "bytes": 3632909,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 234790.crdownload",
+        "bytes": 2776161,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 642912.crdownload",
+        "bytes": 2776161,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 184811.crdownload",
+        "bytes": 1202494,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 748082.crdownload",
+        "bytes": 523633,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      },
+      {
+        "name": "Unconfirmed 141064.crdownload",
+        "bytes": 523633,
+        "first_zip_member": "DATA003_\uc784\uc0c1\ub3c4(5000).pdf",
+        "complete": false
+      }
+    ],
+    "ngii_form_closed": true,
+    "dem_completion_verified": false
+  },
+  "pending_data": [
+    {
+      "item": "KMA hourly weather",
+      "status": "DOWNLOADED_ZIP_VERIFIED_PENDING_DATA_QC",
+      "selection": "ASOS Daejeon 133, hourly, 2025",
+      "file": "SURFACE_ASOS_133_HR_2025_2025_2026.zip",
+      "owner_action": "Login if prompted, click \ub2e4\uc6b4\ub85c\ub4dc; choose \ud559\uc220/\uc5f0\uad6c if purpose dialog appears. Previous submission was blocked by Chrome.",
+      "limits": "Portal pilot only; does not fill June 2026 eligible incident windows."
+    },
+    {
+      "item": "NGII DEM",
+      "status": "FORM_PREPARED_OWNER_FIELDS_PENDING",
+      "selection": "2024 Daejeon tile 36710",
+      "owner_action": "Enter correct birth date; review and accept terms personally if appropriate; press final \ub2e4\uc6b4\ub85c\ub4dc.",
+      "prefilled": "\uc81c\uc791 \ubc0f \ud65c\uc6a9 / \uad50\uc721, \ud559\uc220, \uc5f0\uad6c; project-use explanation"
+    }
+  ]
+}
