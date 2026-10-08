@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wildfireguardian-routing"
+version = "0.1.0"
+description = "Model-conditional WildfireGuardian routing API and release integration client"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+classifiers = ["Operating System :: MacOS", "Operating System :: POSIX :: Linux", "Programming Language :: Python :: 3"]
+
+[project.optional-dependencies]
+integration = ["numpy==1.26.4", "torch==2.5.1", "scipy==1.13.1", "rasterio==1.4.3", "pandas==2.2.3", "pyproj==3.7.0", "affine==3.0.1", "pytest==8.3.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

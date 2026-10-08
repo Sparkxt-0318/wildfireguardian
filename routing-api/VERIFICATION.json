@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "installed_package_tests": 11,
+  "finite_exhaustive_reference_cases": 17,
+  "fresh_no_dependency_venv_install": true,
+  "example_run_from_unrelated_directory": true,
+  "original_engine_files_byte_identical": 6,
+  "integration_smoke": {
+    "strict": {
+      "status": "UNSUPPORTED",
+      "independent_checker": null
+    },
+    "research": {
+      "status": "CONDITIONAL_OPTIMUM",
+      "independent_checker": {
+        "ok": true,
+        "status": "CHECKED_ROUTE",
+        "codes": [],
+        "per_member": {
+          "construction:b2b0cf1e1342fe284f63:0": {
+            "dose": 4.105429163179721,
+            "dose_exact": "147913673995937265/36028797018963968",
+            "peak": 0.0315802243321517
+          },
+          "construction:b2b0cf1e1342fe284f63:1": {
+            "dose": 0.22405697689126108,
+            "dose_exact": "516640213830268515/2305843009213693952",
+            "peak": 0.0017235152068558544
+          },
+          "construction:b2b0cf1e1342fe284f63:2": {
+            "dose": 1.579120515396062,
+            "dose_exact": "227575250070745915/144115188075855872",
+            "peak": 0.012147080887662014
+          },
+          "construction:b2b0cf1e1342fe284f63:3": {
+            "dose": 0.2648217291256739,
+            "dose_exact": "152659333198079435/576460752303423488",
+            "peak": 0.0020370902240436457
+          }
+        },
+        "arrival": 10.0
+      }
+    },
+    "hybrid_control": {
+      "status": "CERTIFIED_ADMISSIBLE",
+      "outer_wall_s": 0.14163508400088176
+    }
+  },
+  "native_smoke": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "original_model_rerun": true,
+    "route_check": true,
+    "api_process_wall_s": 36.88676262499939
+  },
+  "platform": "macOS arm64, Python 3.12",
+  "limits": [
+    "No new hard-road search efficacy or physical-safety validation",
+    "Linux intended but not tested; Windows unsupported",
+    "Process wrapper adds startup overhead and does not persist checker cache across calls",
+    "Original full package tests and model tests were not rerun for this packaging change"
+  ],
+  "correction": "Exact Fraction checker outputs serialize to rational strings, covered by test; backend arithmetic remains unchanged."
+}
