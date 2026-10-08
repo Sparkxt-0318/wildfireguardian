@@ -1,0 +1,684 @@
+{
+ "routingkit_load": {
+  "ok": true,
+  "nodes": 5765,
+  "edges": 13976,
+  "turn_arcs": 25560,
+  "forbidden": 12573,
+  "cch_order_ms": 320.168,
+  "cch_build_ms": 14.685,
+  "cch_customize_ms": 10.373
+ },
+ "routingkit_bench": {
+  "node_dijkstra": {
+   "mean_us": 222.803,
+   "median_us": 221,
+   "p95_us": 451
+  },
+  "node_ch_build_ms": 116.775,
+  "node_ch_query": {
+   "mean_us": 8.026,
+   "median_us": 8,
+   "p95_us": 11
+  },
+  "node_ch_mismatch": 0,
+  "turn_dijkstra": {
+   "mean_us": 493.753,
+   "median_us": 510,
+   "p95_us": 914
+  },
+  "turn_ch_build_ms": 2565.99,
+  "turn_ch_query": {
+   "mean_us": 27.1285,
+   "median_us": 27,
+   "p95_us": 41
+  },
+  "turn_ch_mismatch": 0,
+  "turn_cch_order_ms": 320.168,
+  "turn_cch_build_ms": 14.685,
+  "turn_cch_customize_ms": 10.373,
+  "turn_cch_query": {
+   "mean_us": 17.6095,
+   "median_us": 16,
+   "p95_us": 34
+  },
+  "turn_cch_mismatch": 0,
+  "turn_cch_full_recustomize_ms": 9.743,
+  "partial_customize": [
+   {
+    "blocked_edges": 10,
+    "ms": 1.152
+   },
+   {
+    "blocked_edges": 100,
+    "ms": 7.509
+   },
+   {
+    "blocked_edges": 1000,
+    "ms": 29.377
+   }
+  ],
+  "turn_td_deadline_dijkstra": {
+   "mean_us": 438.813,
+   "median_us": 485,
+   "p95_us": 812
+  }
+ },
+ "ours_prepare_graph_s": 6.458135910999999,
+ "ours_baseline": {
+  "median_ms": 21694.45171949985,
+  "timeouts": 28,
+  "n": 30
+ },
+ "ours_astar": {
+  "median_ms": 431.1700090000272,
+  "timeouts": 0,
+  "n": 30
+ },
+ "arrival_abs_diff_s": {
+  "max": 81.86899999999991,
+  "median": 25.363
+ },
+ "rows": [
+  {
+   "src": 4678,
+   "dst": 493,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05509424000002,
+    "labels": 40545,
+    "expansions": 36637
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1087.0,
+    "wall_s": 0.39211936800006697,
+    "labels": 78,
+    "expansions": 58
+   },
+   "rk_td_arrival_s": 1058.088,
+   "rk_td_us": 758
+  },
+  {
+   "src": 1034,
+   "dst": 1365,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05289282000001,
+    "labels": 38284,
+    "expansions": 30926
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 316.0,
+    "wall_s": 0.31889772299996366,
+    "labels": 55,
+    "expansions": 31
+   },
+   "rk_td_arrival_s": 300.661,
+   "rk_td_us": 297
+  },
+  {
+   "src": 1045,
+   "dst": 4619,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.0444753700001,
+    "labels": 33812,
+    "expansions": 26737
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 843.0,
+    "wall_s": 0.43079498200006583,
+    "labels": 115,
+    "expansions": 62
+   },
+   "rk_td_arrival_s": 811.54,
+   "rk_td_us": 1438
+  },
+  {
+   "src": 5011,
+   "dst": 3356,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04710718299998,
+    "labels": 36558,
+    "expansions": 32120
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 2057.0,
+    "wall_s": 0.8552861640000629,
+    "labels": 288,
+    "expansions": 164
+   },
+   "rk_td_arrival_s": 1975.93,
+   "rk_td_us": 1284
+  },
+  {
+   "src": 227,
+   "dst": 542,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04884490000006,
+    "labels": 37601,
+    "expansions": 32287
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 557.0,
+    "wall_s": 0.4055847370000265,
+    "labels": 97,
+    "expansions": 50
+   },
+   "rk_td_arrival_s": 531.853,
+   "rk_td_us": 408
+  },
+  {
+   "src": 1915,
+   "dst": 2496,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04462833699995,
+    "labels": 32230,
+    "expansions": 25246
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 337.0,
+    "wall_s": 0.48277720700002646,
+    "labels": 176,
+    "expansions": 88
+   },
+   "rk_td_arrival_s": 312.098,
+   "rk_td_us": 741
+  },
+  {
+   "src": 3581,
+   "dst": 2761,
+   "baseline": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 194.0,
+    "wall_s": 41.64574919199981,
+    "labels": 25769,
+    "expansions": 22380
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 194.0,
+    "wall_s": 0.33123657700002695,
+    "labels": 35,
+    "expansions": 21
+   },
+   "rk_td_arrival_s": 185.275,
+   "rk_td_us": 76
+  },
+  {
+   "src": 1526,
+   "dst": 920,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.051691104000156,
+    "labels": 34410,
+    "expansions": 26708
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 422.0,
+    "wall_s": 0.39294516200016005,
+    "labels": 101,
+    "expansions": 45
+   },
+   "rk_td_arrival_s": 398.576,
+   "rk_td_us": 1078
+  },
+  {
+   "src": 3986,
+   "dst": 4234,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.048665735999975,
+    "labels": 36048,
+    "expansions": 30530
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 961.0,
+    "wall_s": 0.5735141429997839,
+    "labels": 151,
+    "expansions": 83
+   },
+   "rk_td_arrival_s": 920.599,
+   "rk_td_us": 555
+  },
+  {
+   "src": 188,
+   "dst": 655,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05262254199988,
+    "labels": 38573,
+    "expansions": 32912
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 692.0,
+    "wall_s": 0.6147907629999736,
+    "labels": 145,
+    "expansions": 80
+   },
+   "rk_td_arrival_s": 652.376,
+   "rk_td_us": 800
+  },
+  {
+   "src": 2606,
+   "dst": 2255,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05258714299998,
+    "labels": 34673,
+    "expansions": 27247
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 483.0,
+    "wall_s": 0.40693702900011886,
+    "labels": 99,
+    "expansions": 49
+   },
+   "rk_td_arrival_s": 463.018,
+   "rk_td_us": 892
+  },
+  {
+   "src": 5118,
+   "dst": 2979,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.059182256999975,
+    "labels": 39579,
+    "expansions": 34033
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 735.0,
+    "wall_s": 0.47936610700003257,
+    "labels": 75,
+    "expansions": 51
+   },
+   "rk_td_arrival_s": 711.788,
+   "rk_td_us": 292
+  },
+  {
+   "src": 2421,
+   "dst": 2482,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05053292299999,
+    "labels": 36262,
+    "expansions": 26502
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 203.0,
+    "wall_s": 0.3629157349998877,
+    "labels": 49,
+    "expansions": 23
+   },
+   "rk_td_arrival_s": 190.406,
+   "rk_td_us": 310
+  },
+  {
+   "src": 3841,
+   "dst": 3382,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04989026300018,
+    "labels": 36987,
+    "expansions": 29698
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 578.0,
+    "wall_s": 0.4197239190000346,
+    "labels": 73,
+    "expansions": 41
+   },
+   "rk_td_arrival_s": 560.535,
+   "rk_td_us": 966
+  },
+  {
+   "src": 996,
+   "dst": 4253,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05158940000001,
+    "labels": 37340,
+    "expansions": 32438
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 941.0,
+    "wall_s": 0.514533037000092,
+    "labels": 127,
+    "expansions": 72
+   },
+   "rk_td_arrival_s": 907.351,
+   "rk_td_us": 1004
+  },
+  {
+   "src": 4362,
+   "dst": 5512,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.044934870999896,
+    "labels": 35878,
+    "expansions": 32598
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1769.0,
+    "wall_s": 0.8810476189999008,
+    "labels": 290,
+    "expansions": 159
+   },
+   "rk_td_arrival_s": 1687.131,
+   "rk_td_us": 1288
+  },
+  {
+   "src": 4532,
+   "dst": 1638,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.045334744,
+    "labels": 39241,
+    "expansions": 35289
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 864.0,
+    "wall_s": 0.4773262190001333,
+    "labels": 144,
+    "expansions": 79
+   },
+   "rk_td_arrival_s": 828.394,
+   "rk_td_us": 566
+  },
+  {
+   "src": 1844,
+   "dst": 3738,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.053162939,
+    "labels": 33915,
+    "expansions": 26961
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1269.0,
+    "wall_s": 0.623719938000022,
+    "labels": 151,
+    "expansions": 86
+   },
+   "rk_td_arrival_s": 1223.389,
+   "rk_td_us": 1125
+  },
+  {
+   "src": 3749,
+   "dst": 4013,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05037940000011,
+    "labels": 36162,
+    "expansions": 30890
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1512.0,
+    "wall_s": 0.7478993209999771,
+    "labels": 213,
+    "expansions": 118
+   },
+   "rk_td_arrival_s": 1455.946,
+   "rk_td_us": 1019
+  },
+  {
+   "src": 5011,
+   "dst": 1687,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05153691099986,
+    "labels": 36696,
+    "expansions": 32238
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1590.0,
+    "wall_s": 0.7782752049999999,
+    "labels": 220,
+    "expansions": 117
+   },
+   "rk_td_arrival_s": 1534.979,
+   "rk_td_us": 924
+  },
+  {
+   "src": 5411,
+   "dst": 8,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04733170700001,
+    "labels": 36403,
+    "expansions": 30693
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1317.0,
+    "wall_s": 0.4315450359999886,
+    "labels": 71,
+    "expansions": 50
+   },
+   "rk_td_arrival_s": 1291.421,
+   "rk_td_us": 969
+  },
+  {
+   "src": 443,
+   "dst": 5611,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04804586099999,
+    "labels": 37547,
+    "expansions": 32373
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1212.0,
+    "wall_s": 0.5669788140000946,
+    "labels": 153,
+    "expansions": 90
+   },
+   "rk_td_arrival_s": 1166.963,
+   "rk_td_us": 1105
+  },
+  {
+   "src": 5441,
+   "dst": 1720,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04918013700012,
+    "labels": 38946,
+    "expansions": 32930
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 560.0,
+    "wall_s": 0.3877300290000676,
+    "labels": 81,
+    "expansions": 47
+   },
+   "rk_td_arrival_s": 538.782,
+   "rk_td_us": 190
+  },
+  {
+   "src": 802,
+   "dst": 1810,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04635340899995,
+    "labels": 36641,
+    "expansions": 29633
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 212.0,
+    "wall_s": 0.3038233699999182,
+    "labels": 51,
+    "expansions": 21
+   },
+   "rk_td_arrival_s": 200.488,
+   "rk_td_us": 244
+  },
+  {
+   "src": 248,
+   "dst": 5140,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04567533599993,
+    "labels": 37863,
+    "expansions": 31582
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 347.0,
+    "wall_s": 0.2861005500003557,
+    "labels": 45,
+    "expansions": 27
+   },
+   "rk_td_arrival_s": 334.953,
+   "rk_td_us": 124
+  },
+  {
+   "src": 3820,
+   "dst": 3373,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.054212535999795,
+    "labels": 37680,
+    "expansions": 32281
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 1946.0,
+    "wall_s": 0.8099202580001474,
+    "labels": 254,
+    "expansions": 145
+   },
+   "rk_td_arrival_s": 1880.247,
+   "rk_td_us": 1188
+  },
+  {
+   "src": 1410,
+   "dst": 2717,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04739840599996,
+    "labels": 34554,
+    "expansions": 28498
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 610.0,
+    "wall_s": 0.41405047899979763,
+    "labels": 93,
+    "expansions": 48
+   },
+   "rk_td_arrival_s": 584.923,
+   "rk_td_us": 1325
+  },
+  {
+   "src": 1097,
+   "dst": 4457,
+   "baseline": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 96.0,
+    "wall_s": 1.743154246999893,
+    "labels": 961,
+    "expansions": 615
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 96.0,
+    "wall_s": 0.27250378000007913,
+    "labels": 24,
+    "expansions": 14
+   },
+   "rk_td_arrival_s": 89.7,
+   "rk_td_us": 32
+  },
+  {
+   "src": 2735,
+   "dst": 174,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.05396354699997,
+    "labels": 36801,
+    "expansions": 32198
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 980.0,
+    "wall_s": 0.4661368229999425,
+    "labels": 107,
+    "expansions": 71
+   },
+   "rk_td_arrival_s": 949.656,
+   "rk_td_us": 1038
+  },
+  {
+   "src": 1466,
+   "dst": 4075,
+   "baseline": {
+    "status": "TIMEOUT",
+    "arrival": null,
+    "wall_s": 60.04454018300021,
+    "labels": 36129,
+    "expansions": 28465
+   },
+   "astar": {
+    "status": "CONDITIONAL_OPTIMUM",
+    "arrival": 190.0,
+    "wall_s": 0.3153748979998454,
+    "labels": 70,
+    "expansions": 31
+   },
+   "rk_td_arrival_s": 175.398,
+   "rk_td_us": 279
+  }
+ ]
+}

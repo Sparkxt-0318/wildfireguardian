@@ -1,0 +1,6 @@
+rk/rk_tool
+rk/RoutingKit/
+results/*_graph*.txt
+results/*.log
+results/scenario_map_draft.png
+__pycache__/
