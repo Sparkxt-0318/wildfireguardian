@@ -1,0 +1,8134 @@
+{
+ "config": {
+  "walk_ms": 1.2,
+  "truck_kmh": 30.000000000000004,
+  "dispatch_s": 120.0,
+  "board_s": 60.0,
+  "walk_peak": 2.5,
+  "margin_s": 0.0,
+  "truck_peak": 10.0,
+  "stations": [
+   1140,
+   4953,
+   919
+  ],
+  "shelters": [
+   931,
+   707,
+   4568,
+   5445,
+   77,
+   5068
+  ],
+  "pedestrians": 40,
+  "target": "shelters",
+  "head_ros": "1.6"
+ },
+ "summary": {
+  "WALK": {
+   "n": 200,
+   "safe": 154,
+   "unsafe": 14,
+   "no_plan": 32,
+   "mean_time_to_safety_min": 81.76709956709958
+  },
+  "WALK_STATIC": {
+   "n": 200,
+   "safe": 171,
+   "unsafe": 29,
+   "no_plan": 0,
+   "mean_time_to_safety_min": 81.55692007797272
+  },
+  "DOOR": {
+   "n": 200,
+   "safe": 135,
+   "unsafe": 21,
+   "no_plan": 44,
+   "mean_time_to_safety_min": 23.238765432098766
+  },
+  "MEET": {
+   "n": 200,
+   "safe": 179,
+   "unsafe": 13,
+   "no_plan": 8,
+   "mean_time_to_safety_min": 23.299348230912475
+  },
+  "MEET_STATIC": {
+   "n": 200,
+   "safe": 156,
+   "unsafe": 44,
+   "no_plan": 0,
+   "mean_time_to_safety_min": 20.197329059829062
+  },
+  "BEST": {
+   "n": 200,
+   "safe": 179,
+   "unsafe": 13,
+   "no_plan": 8,
+   "mean_time_to_safety_min": 23.299348230912475
+  },
+  "paired_meet_minus_walk_min": {
+   "n": 149,
+   "mean": -57.941722595078296,
+   "share_meet_faster": 1.0
+  },
+  "rescued_by_meet": 11,
+  "meet_points": {
+   "share_at_home": 0.0,
+   "median_walk_m": 477.3358178674357,
+   "median_person_wait_s": 32.0,
+   "median_truck_wait_s": 0.0
+  },
+  "compute_ms": {
+   "walk_median": 0.8250475002569146,
+   "meet_median": 9.215686499828735,
+   "meet_p95": 12.876836349641959
+  }
+ },
+ "rows": [
+  {
+   "k": 0,
+   "P": 2819,
+   "timing": {
+    "walk_ms": 0.3276229999755742,
+    "meet_ms": 4.025036000712134
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "meet_detail": {
+    "meet_node": 509,
+    "pickup_ms": 778000,
+    "walk_ms": 638000,
+    "truck_ms": 718000,
+    "meet_is_home": false,
+    "walk_m": 632.583731432538
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2875,
+   "timing": {
+    "walk_ms": 0.44198100022185827,
+    "meet_ms": 6.029008999576035
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1297000,
+    "walk_ms": 1190000,
+    "truck_ms": 1237000,
+    "meet_is_home": false,
+    "walk_m": 1342.7035558822265
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 5388,
+   "timing": {
+    "walk_ms": 0.3652119994512759,
+    "meet_ms": 4.219035000460281
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "meet_detail": {
+    "meet_node": 1446,
+    "pickup_ms": 650000,
+    "walk_ms": 590000,
+    "truck_ms": 585000,
+    "meet_is_home": false,
+    "walk_m": 644.3357756816389
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1297.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4847.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2878,
+   "timing": {
+    "walk_ms": 0.5475029993249336,
+    "meet_ms": 6.2219780002124025
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7579.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 5224,
+    "pickup_ms": 1318000,
+    "walk_ms": 1258000,
+    "truck_ms": 1227000,
+    "meet_is_home": false,
+    "walk_m": 1459.6021647786927
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6468.0
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1301,
+   "timing": {
+    "walk_ms": 0.9040619997904287,
+    "meet_ms": 10.411937999379006
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1265.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 557,
+    "pickup_ms": 544000,
+    "walk_ms": 469000,
+    "truck_ms": 484000,
+    "meet_is_home": false,
+    "walk_m": 410.0073430311844
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 3509,
+   "timing": {
+    "walk_ms": 0.5643410004267935,
+    "meet_ms": 5.563009000070451
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 5656,
+    "pickup_ms": 753000,
+    "walk_ms": 518000,
+    "truck_ms": 693000,
+    "meet_is_home": false,
+    "walk_m": 585.2983016710403
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1531,
+   "timing": {
+    "walk_ms": 1.1491200002637925,
+    "meet_ms": 16.038803999435913
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 959.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "meet_detail": {
+    "meet_node": 2582,
+    "pickup_ms": 376000,
+    "walk_ms": 265000,
+    "truck_ms": 316000,
+    "meet_is_home": false,
+    "walk_m": 287.4477291928371
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 501,
+   "timing": {
+    "walk_ms": 0.4880050000792835,
+    "meet_ms": 10.333907000131148
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 5225,
+    "pickup_ms": 1252000,
+    "walk_ms": 1169000,
+    "truck_ms": 1192000,
+    "meet_is_home": false,
+    "walk_m": 1102.3781840773206
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 5640,
+   "timing": {
+    "walk_ms": 0.32484600069437874,
+    "meet_ms": 5.779305999567441
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "meet_detail": {
+    "meet_node": 509,
+    "pickup_ms": 778000,
+    "walk_ms": 607000,
+    "truck_ms": 718000,
+    "meet_is_home": false,
+    "walk_m": 659.2733893817219
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 5583,
+   "timing": {
+    "walk_ms": 1.0427919996800483,
+    "meet_ms": 9.81612000032328
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1130.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "meet_detail": {
+    "meet_node": 1045,
+    "pickup_ms": 390000,
+    "walk_ms": 330000,
+    "truck_ms": 323000,
+    "meet_is_home": false,
+    "walk_m": 384.6733488461967
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1324,
+   "timing": {
+    "walk_ms": 0.41603199952078285,
+    "meet_ms": 5.594217000179924
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1377.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "meet_detail": {
+    "meet_node": 1342,
+    "pickup_ms": 594000,
+    "walk_ms": 513000,
+    "truck_ms": 534000,
+    "meet_is_home": false,
+    "walk_m": 438.2870717075746
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4467.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1505,
+   "timing": {
+    "walk_ms": 0.8279090006908518,
+    "meet_ms": 10.018719000072451
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 945.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "meet_detail": {
+    "meet_node": 4852,
+    "pickup_ms": 482000,
+    "walk_ms": 414000,
+    "truck_ms": 422000,
+    "meet_is_home": false,
+    "walk_m": 492.8241986519932
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1457,
+   "timing": {
+    "walk_ms": 1.1360309999872698,
+    "meet_ms": 11.68259099995339
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1237.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 481000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 468.7360096516723
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4705,
+   "timing": {
+    "walk_ms": 0.665765999656287,
+    "meet_ms": 8.046742999795242
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1208.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "meet_detail": {
+    "meet_node": 4598,
+    "pickup_ms": 575000,
+    "walk_ms": 389000,
+    "truck_ms": 515000,
+    "meet_is_home": false,
+    "walk_m": 219.71202561057913
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2597,
+   "timing": {
+    "walk_ms": 0.9595339997758856,
+    "meet_ms": 9.6724439999889
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 969.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "meet_detail": {
+    "meet_node": 625,
+    "pickup_ms": 377000,
+    "walk_ms": 306000,
+    "truck_ms": 317000,
+    "meet_is_home": false,
+    "walk_m": 298.04166644211887
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2870,
+   "timing": {
+    "walk_ms": 0.532570999894233,
+    "meet_ms": 8.412786999542732
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1297000,
+    "walk_ms": 1038000,
+    "truck_ms": 1237000,
+    "meet_is_home": false,
+    "walk_m": 1085.9588844015893
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2252,
+   "timing": {
+    "walk_ms": 0.7341410000663018,
+    "meet_ms": 13.05344799948216
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1995.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 2249,
+    "pickup_ms": 862000,
+    "walk_ms": 802000,
+    "truck_ms": 789000,
+    "meet_is_home": false,
+    "walk_m": 860.4593766009333
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1265,
+   "timing": {
+    "walk_ms": 0.4361119999884977,
+    "meet_ms": 5.769344000327692
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1421.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "meet_detail": {
+    "meet_node": 1339,
+    "pickup_ms": 610000,
+    "walk_ms": 543000,
+    "truck_ms": 550000,
+    "meet_is_home": false,
+    "walk_m": 485.9356260831991
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4733.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4982,
+   "timing": {
+    "walk_ms": 0.28921699959028047,
+    "meet_ms": 9.78352000038285
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "meet_detail": {
+    "meet_node": 2741,
+    "pickup_ms": 1333000,
+    "walk_ms": 1204000,
+    "truck_ms": 1273000,
+    "meet_is_home": false,
+    "walk_m": 986.09031904747
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 5331,
+   "timing": {
+    "walk_ms": 0.666507999994792,
+    "meet_ms": 8.928174999709881
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 5334,
+    "pickup_ms": 1402000,
+    "walk_ms": 1030000,
+    "truck_ms": 1342000,
+    "meet_is_home": false,
+    "walk_m": 1185.639566004621
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1622,
+   "timing": {
+    "walk_ms": 1.4061629999559955,
+    "meet_ms": 9.975173999919207
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4941.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1295.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "meet_detail": {
+    "meet_node": 1609,
+    "pickup_ms": 495000,
+    "walk_ms": 403000,
+    "truck_ms": 435000,
+    "meet_is_home": false,
+    "walk_m": 423.52887423597804
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4928.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 3646,
+   "timing": {
+    "walk_ms": 1.3747000002695131,
+    "meet_ms": 10.29077299972414
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1205.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "meet_detail": {
+    "meet_node": 536,
+    "pickup_ms": 469000,
+    "walk_ms": 373000,
+    "truck_ms": 409000,
+    "meet_is_home": false,
+    "walk_m": 442.55133556539306
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2610,
+   "timing": {
+    "walk_ms": 1.1959359999309527,
+    "meet_ms": 8.740827999645262
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 916.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "meet_detail": {
+    "meet_node": 2637,
+    "pickup_ms": 390000,
+    "walk_ms": 291000,
+    "truck_ms": 330000,
+    "meet_is_home": false,
+    "walk_m": 303.74477151619055
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1464,
+   "timing": {
+    "walk_ms": 1.1074150006606942,
+    "meet_ms": 9.591074999661942
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "meet_detail": {
+    "meet_node": 1525,
+    "pickup_ms": 466000,
+    "walk_ms": 376000,
+    "truck_ms": 406000,
+    "meet_is_home": false,
+    "walk_m": 336.3268483956971
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1355,
+   "timing": {
+    "walk_ms": 0.9185899998556124,
+    "meet_ms": 14.541169999574777
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1169.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "meet_detail": {
+    "meet_node": 1380,
+    "pickup_ms": 526000,
+    "walk_ms": 386000,
+    "truck_ms": 466000,
+    "meet_is_home": false,
+    "walk_m": 457.9134377623537
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4723,
+   "timing": {
+    "walk_ms": 0.6868230002510245,
+    "meet_ms": 7.836847000362468
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4338.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "meet_detail": {
+    "meet_node": 4789,
+    "pickup_ms": 619000,
+    "walk_ms": 559000,
+    "truck_ms": 557000,
+    "meet_is_home": false,
+    "walk_m": 539.8188259213264
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3927.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4780,
+   "timing": {
+    "walk_ms": 0.9404680004081456,
+    "meet_ms": 8.135571999446256
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4485.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "meet_detail": {
+    "meet_node": 1350,
+    "pickup_ms": 571000,
+    "walk_ms": 511000,
+    "truck_ms": 499000,
+    "meet_is_home": false,
+    "walk_m": 609.1910659380329
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1158.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4066.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4856,
+   "timing": {
+    "walk_ms": 0.5826119995617773,
+    "meet_ms": 9.529489000669855
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1996.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "meet_detail": {
+    "meet_node": 2766,
+    "pickup_ms": 848000,
+    "walk_ms": 722000,
+    "truck_ms": 788000,
+    "meet_is_home": false,
+    "walk_m": 843.0337402004883
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1569,
+   "timing": {
+    "walk_ms": 1.3411259997155867,
+    "meet_ms": 15.532134000750375
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1054.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "meet_detail": {
+    "meet_node": 641,
+    "pickup_ms": 392000,
+    "walk_ms": 311000,
+    "truck_ms": 332000,
+    "meet_is_home": false,
+    "walk_m": 366.6059729884994
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 2816,
+   "timing": {
+    "walk_ms": 0.3891159994964255,
+    "meet_ms": 4.913423000289185
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "meet_detail": {
+    "meet_node": 509,
+    "pickup_ms": 778000,
+    "walk_ms": 510000,
+    "truck_ms": 718000,
+    "meet_is_home": false,
+    "walk_m": 467.9371984327212
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1392,
+   "timing": {
+    "walk_ms": 0.7921659998828545,
+    "meet_ms": 10.459316999913426
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "meet_detail": {
+    "meet_node": 139,
+    "pickup_ms": 579000,
+    "walk_ms": 440000,
+    "truck_ms": 519000,
+    "meet_is_home": false,
+    "walk_m": 449.1582892648571
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1251,
+   "timing": {
+    "walk_ms": 0.9053910007423838,
+    "meet_ms": 8.450172999800998
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 5085.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1341.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "meet_detail": {
+    "meet_node": 1347,
+    "pickup_ms": 577000,
+    "walk_ms": 511000,
+    "truck_ms": 517000,
+    "meet_is_home": false,
+    "walk_m": 505.56849833444363
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4602.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1399,
+   "timing": {
+    "walk_ms": 0.8317900001202361,
+    "meet_ms": 8.471260000078473
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 1382,
+    "pickup_ms": 552000,
+    "walk_ms": 441000,
+    "truck_ms": 492000,
+    "meet_is_home": false,
+    "walk_m": 523.8005905550351
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 4127,
+   "timing": {
+    "walk_ms": 0.4121809997741366,
+    "meet_ms": 4.351162999228109
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6034.0
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 0,
+   "P": 538,
+   "timing": {
+    "walk_ms": 1.084106999769574,
+    "meet_ms": 10.190236000198638
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1069.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "meet_detail": {
+    "meet_node": 643,
+    "pickup_ms": 400000,
+    "walk_ms": 340000,
+    "truck_ms": 340000,
+    "meet_is_home": false,
+    "walk_m": 362.27062673512734
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1283,
+   "timing": {
+    "walk_ms": 1.3615610005217604,
+    "meet_ms": 10.101282000505307
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1281.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 459000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 417.4286990363383
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1847,
+   "timing": {
+    "walk_ms": 0.9917699999277829,
+    "meet_ms": 9.427308000340417
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 993.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "meet_detail": {
+    "meet_node": 1731,
+    "pickup_ms": 327000,
+    "walk_ms": 267000,
+    "truck_ms": 267000,
+    "meet_is_home": false,
+    "walk_m": 250.05895125415893
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1512,
+   "timing": {
+    "walk_ms": 0.8603500000390341,
+    "meet_ms": 8.610355999735475
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1009.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "meet_detail": {
+    "meet_node": 1483,
+    "pickup_ms": 452000,
+    "walk_ms": 392000,
+    "truck_ms": 392000,
+    "meet_is_home": false,
+    "walk_m": 343.1355422997358
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 5173,
+   "timing": {
+    "walk_ms": 0.7193720002760529,
+    "meet_ms": 7.8280269999595475
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1992.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 5594,
+    "pickup_ms": 1150000,
+    "walk_ms": 1030000,
+    "truck_ms": 1090000,
+    "meet_is_home": false,
+    "walk_m": 1207.4869817987803
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 0,
+   "P": 1634,
+   "timing": {
+    "walk_ms": 1.0605699999359786,
+    "meet_ms": 9.410800000296149
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4894.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1262.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "meet_detail": {
+    "meet_node": 530,
+    "pickup_ms": 490000,
+    "walk_ms": 423000,
+    "truck_ms": 430000,
+    "meet_is_home": false,
+    "walk_m": 464.3087874922326
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4881.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2819,
+   "timing": {
+    "walk_ms": 0.21243600076559233,
+    "meet_ms": 3.3294849999947473
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "meet_detail": {
+    "meet_node": 3476,
+    "pickup_ms": 1512000,
+    "walk_ms": 1359000,
+    "truck_ms": 1452000,
+    "meet_is_home": false,
+    "walk_m": 1503.6851008324904
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1619.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2875,
+   "timing": {
+    "walk_ms": 0.3562030005923589,
+    "meet_ms": 6.057081000108155
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1190000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1342.7035558822265
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 5388,
+   "timing": {
+    "walk_ms": 0.3052000001844135,
+    "meet_ms": 4.479193999941344
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "meet_detail": {
+    "meet_node": 1446,
+    "pickup_ms": 650000,
+    "walk_ms": 590000,
+    "truck_ms": 585000,
+    "meet_is_home": false,
+    "walk_m": 644.3357756816389
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1297.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2878,
+   "timing": {
+    "walk_ms": 0.4803710007763584,
+    "meet_ms": 6.307568000011088
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7579.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5381,
+    "pickup_ms": 1643000,
+    "walk_ms": 1530000,
+    "truck_ms": 1583000,
+    "meet_is_home": false,
+    "walk_m": 1767.1935354055527
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6468.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1301,
+   "timing": {
+    "walk_ms": 1.0443990004205261,
+    "meet_ms": 9.246343999620876
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1265.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 557,
+    "pickup_ms": 544000,
+    "walk_ms": 469000,
+    "truck_ms": 484000,
+    "meet_is_home": false,
+    "walk_m": 410.0073430311844
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 3509,
+   "timing": {
+    "walk_ms": 0.5177209995963494,
+    "meet_ms": 5.507173000296461
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "meet_detail": {
+    "meet_node": 5656,
+    "pickup_ms": 753000,
+    "walk_ms": 518000,
+    "truck_ms": 693000,
+    "meet_is_home": false,
+    "walk_m": 585.2983016710403
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1608.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1531,
+   "timing": {
+    "walk_ms": 0.9983090003515827,
+    "meet_ms": 9.787967999727698
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 959.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "meet_detail": {
+    "meet_node": 2582,
+    "pickup_ms": 376000,
+    "walk_ms": 265000,
+    "truck_ms": 316000,
+    "meet_is_home": false,
+    "walk_m": 287.4477291928371
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 501,
+   "timing": {
+    "walk_ms": 0.45802600016031647,
+    "meet_ms": 7.831277999684971
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2956.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1524000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1382.6998804830992
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 5640,
+   "timing": {
+    "walk_ms": 0.31066500014276244,
+    "meet_ms": 5.20399000015459
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2076.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "meet_detail": {
+    "meet_node": 3509,
+    "pickup_ms": 826000,
+    "walk_ms": 732000,
+    "truck_ms": 766000,
+    "meet_is_home": false,
+    "walk_m": 675.6140447274263
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1651.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 5583,
+   "timing": {
+    "walk_ms": 1.3309870000739465,
+    "meet_ms": 15.403206999508257
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1130.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "meet_detail": {
+    "meet_node": 1045,
+    "pickup_ms": 390000,
+    "walk_ms": 330000,
+    "truck_ms": 323000,
+    "meet_is_home": false,
+    "walk_m": 384.6733488461967
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1324,
+   "timing": {
+    "walk_ms": 0.3332460000819992,
+    "meet_ms": 4.4031950001226505
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1377.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "meet_detail": {
+    "meet_node": 1342,
+    "pickup_ms": 594000,
+    "walk_ms": 513000,
+    "truck_ms": 534000,
+    "meet_is_home": false,
+    "walk_m": 438.2870717075746
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1505,
+   "timing": {
+    "walk_ms": 1.171360999251192,
+    "meet_ms": 11.311294000734051
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 945.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "meet_detail": {
+    "meet_node": 4852,
+    "pickup_ms": 482000,
+    "walk_ms": 414000,
+    "truck_ms": 422000,
+    "meet_is_home": false,
+    "walk_m": 492.8241986519932
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1457,
+   "timing": {
+    "walk_ms": 1.391901000715734,
+    "meet_ms": 13.417500999821641
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1237.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 481000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 468.7360096516723
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4705,
+   "timing": {
+    "walk_ms": 0.6453059995692456,
+    "meet_ms": 7.264150000082736
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1208.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "meet_detail": {
+    "meet_node": 4598,
+    "pickup_ms": 575000,
+    "walk_ms": 389000,
+    "truck_ms": 515000,
+    "meet_is_home": false,
+    "walk_m": 219.71202561057913
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2597,
+   "timing": {
+    "walk_ms": 0.9323159993073205,
+    "meet_ms": 8.873708999999508
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 969.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "meet_detail": {
+    "meet_node": 625,
+    "pickup_ms": 377000,
+    "walk_ms": 306000,
+    "truck_ms": 317000,
+    "meet_is_home": false,
+    "walk_m": 298.04166644211887
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2870,
+   "timing": {
+    "walk_ms": 0.3949270003431593,
+    "meet_ms": 6.188958999700844
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2829.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5333,
+    "pickup_ms": 1786000,
+    "walk_ms": 1709000,
+    "truck_ms": 1726000,
+    "meet_is_home": false,
+    "walk_m": 1607.983124966824
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2252,
+   "timing": {
+    "walk_ms": 0.551670999811904,
+    "meet_ms": 8.0717580003693
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1995.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 2249,
+    "pickup_ms": 862000,
+    "walk_ms": 802000,
+    "truck_ms": 789000,
+    "meet_is_home": false,
+    "walk_m": 860.4593766009333
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1265,
+   "timing": {
+    "walk_ms": 0.29735200041614007,
+    "meet_ms": 4.724507999526395
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1421.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "meet_detail": {
+    "meet_node": 1339,
+    "pickup_ms": 610000,
+    "walk_ms": 543000,
+    "truck_ms": 550000,
+    "meet_is_home": false,
+    "walk_m": 485.9356260831991
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4982,
+   "timing": {
+    "walk_ms": 0.48240799969789805,
+    "meet_ms": 8.159913000781671
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2282.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "meet_detail": {
+    "meet_node": 2741,
+    "pickup_ms": 1333000,
+    "walk_ms": 1204000,
+    "truck_ms": 1273000,
+    "meet_is_home": false,
+    "walk_m": 986.09031904747
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 5331,
+   "timing": {
+    "walk_ms": 0.4557939992082538,
+    "meet_ms": 6.442413999138807
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "meet_detail": {
+    "meet_node": 190,
+    "pickup_ms": 1472000,
+    "walk_ms": 1363000,
+    "truck_ms": 1412000,
+    "meet_is_home": false,
+    "walk_m": 1250.4701182608705
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1622,
+   "timing": {
+    "walk_ms": 1.1036819996661507,
+    "meet_ms": 13.38880599996628
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4941.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1295.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "meet_detail": {
+    "meet_node": 1609,
+    "pickup_ms": 495000,
+    "walk_ms": 403000,
+    "truck_ms": 435000,
+    "meet_is_home": false,
+    "walk_m": 423.52887423597804
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4928.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 3646,
+   "timing": {
+    "walk_ms": 0.908575000721612,
+    "meet_ms": 9.185029000036593
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1205.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "meet_detail": {
+    "meet_node": 536,
+    "pickup_ms": 469000,
+    "walk_ms": 373000,
+    "truck_ms": 409000,
+    "meet_is_home": false,
+    "walk_m": 442.55133556539306
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2610,
+   "timing": {
+    "walk_ms": 0.8046269995247712,
+    "meet_ms": 8.40290999985882
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 916.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "meet_detail": {
+    "meet_node": 2637,
+    "pickup_ms": 390000,
+    "walk_ms": 291000,
+    "truck_ms": 330000,
+    "meet_is_home": false,
+    "walk_m": 303.74477151619055
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1464,
+   "timing": {
+    "walk_ms": 1.105448999624059,
+    "meet_ms": 12.361016999420826
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "meet_detail": {
+    "meet_node": 1525,
+    "pickup_ms": 466000,
+    "walk_ms": 376000,
+    "truck_ms": 406000,
+    "meet_is_home": false,
+    "walk_m": 336.3268483956971
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1355,
+   "timing": {
+    "walk_ms": 1.0186800000155927,
+    "meet_ms": 11.184599999978673
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1169.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "meet_detail": {
+    "meet_node": 1380,
+    "pickup_ms": 526000,
+    "walk_ms": 386000,
+    "truck_ms": 466000,
+    "meet_is_home": false,
+    "walk_m": 457.9134377623537
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4723,
+   "timing": {
+    "walk_ms": 0.8158910004567588,
+    "meet_ms": 7.064274000185833
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4338.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "meet_detail": {
+    "meet_node": 4789,
+    "pickup_ms": 619000,
+    "walk_ms": 559000,
+    "truck_ms": 557000,
+    "meet_is_home": false,
+    "walk_m": 539.8188259213264
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3927.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4780,
+   "timing": {
+    "walk_ms": 0.6784950001019752,
+    "meet_ms": 7.520161999309494
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4485.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "meet_detail": {
+    "meet_node": 1350,
+    "pickup_ms": 571000,
+    "walk_ms": 511000,
+    "truck_ms": 499000,
+    "meet_is_home": false,
+    "walk_m": 609.1910659380329
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1158.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4066.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4856,
+   "timing": {
+    "walk_ms": 0.7289850000233855,
+    "meet_ms": 9.489716000643966
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1996.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "meet_detail": {
+    "meet_node": 2766,
+    "pickup_ms": 848000,
+    "walk_ms": 722000,
+    "truck_ms": 788000,
+    "meet_is_home": false,
+    "walk_m": 843.0337402004883
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1908.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1569,
+   "timing": {
+    "walk_ms": 0.9148799999820767,
+    "meet_ms": 10.604785999930755
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1054.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "meet_detail": {
+    "meet_node": 641,
+    "pickup_ms": 392000,
+    "walk_ms": 311000,
+    "truck_ms": 332000,
+    "meet_is_home": false,
+    "walk_m": 366.6059729884994
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 2816,
+   "timing": {
+    "walk_ms": 0.34303900065424386,
+    "meet_ms": 3.0371130005732994
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1583.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 1,
+   "P": 1392,
+   "timing": {
+    "walk_ms": 0.6098269996073213,
+    "meet_ms": 7.451180000316526
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "meet_detail": {
+    "meet_node": 139,
+    "pickup_ms": 579000,
+    "walk_ms": 440000,
+    "truck_ms": 519000,
+    "meet_is_home": false,
+    "walk_m": 449.1582892648571
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1251,
+   "timing": {
+    "walk_ms": 0.9231530002580257,
+    "meet_ms": 10.10309600042092
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 5085.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1341.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "meet_detail": {
+    "meet_node": 1347,
+    "pickup_ms": 577000,
+    "walk_ms": 511000,
+    "truck_ms": 517000,
+    "meet_is_home": false,
+    "walk_m": 505.56849833444363
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4602.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1399,
+   "timing": {
+    "walk_ms": 0.7271490003404324,
+    "meet_ms": 8.036772999730601
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 1382,
+    "pickup_ms": 552000,
+    "walk_ms": 441000,
+    "truck_ms": 492000,
+    "meet_is_home": false,
+    "walk_m": 523.8005905550351
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 4127,
+   "timing": {
+    "walk_ms": 0.38169100025697844,
+    "meet_ms": 3.2985090001602657
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6034.0
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 1,
+   "P": 538,
+   "timing": {
+    "walk_ms": 1.1956770003962447,
+    "meet_ms": 9.462947000429267
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1069.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "meet_detail": {
+    "meet_node": 643,
+    "pickup_ms": 400000,
+    "walk_ms": 340000,
+    "truck_ms": 340000,
+    "meet_is_home": false,
+    "walk_m": 362.27062673512734
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1283,
+   "timing": {
+    "walk_ms": 0.8121189994199085,
+    "meet_ms": 8.330964999913704
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1281.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 459000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 417.4286990363383
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1847,
+   "timing": {
+    "walk_ms": 1.1230009995415458,
+    "meet_ms": 9.429888999875402
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 993.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "meet_detail": {
+    "meet_node": 1731,
+    "pickup_ms": 327000,
+    "walk_ms": 267000,
+    "truck_ms": 267000,
+    "meet_is_home": false,
+    "walk_m": 250.05895125415893
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1512,
+   "timing": {
+    "walk_ms": 0.8141030002661864,
+    "meet_ms": 10.664534000170534
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1009.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "meet_detail": {
+    "meet_node": 1483,
+    "pickup_ms": 452000,
+    "walk_ms": 392000,
+    "truck_ms": 392000,
+    "meet_is_home": false,
+    "walk_m": 343.1355422997358
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 5173,
+   "timing": {
+    "walk_ms": 0.5628389999401406,
+    "meet_ms": 11.660842999845045
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1992.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 5594,
+    "pickup_ms": 1150000,
+    "walk_ms": 1030000,
+    "truck_ms": 1090000,
+    "meet_is_home": false,
+    "walk_m": 1207.4869817987803
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 1,
+   "P": 1634,
+   "timing": {
+    "walk_ms": 0.9482810000918107,
+    "meet_ms": 9.136161000242282
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4894.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1262.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "meet_detail": {
+    "meet_node": 530,
+    "pickup_ms": 490000,
+    "walk_ms": 423000,
+    "truck_ms": 430000,
+    "meet_is_home": false,
+    "walk_m": 464.3087874922326
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4881.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2819,
+   "timing": {
+    "walk_ms": 0.49812299948825967,
+    "meet_ms": 7.077287000356591
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "meet_detail": {
+    "meet_node": 3476,
+    "pickup_ms": 1512000,
+    "walk_ms": 1359000,
+    "truck_ms": 1452000,
+    "meet_is_home": false,
+    "walk_m": 1503.6851008324904
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1619.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6118.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2875,
+   "timing": {
+    "walk_ms": 0.5085890006739646,
+    "meet_ms": 6.931843000529625
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1190000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1342.7035558822265
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 5388,
+   "timing": {
+    "walk_ms": 0.37700699976994656,
+    "meet_ms": 4.658463999476226
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "meet_detail": {
+    "meet_node": 1446,
+    "pickup_ms": 650000,
+    "walk_ms": 590000,
+    "truck_ms": 585000,
+    "meet_is_home": false,
+    "walk_m": 644.3357756816389
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1297.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4847.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2878,
+   "timing": {
+    "walk_ms": 0.49623400082055014,
+    "meet_ms": 6.2989259995447355
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5381,
+    "pickup_ms": 1643000,
+    "walk_ms": 1530000,
+    "truck_ms": 1583000,
+    "meet_is_home": false,
+    "walk_m": 1767.1935354055527
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1301,
+   "timing": {
+    "walk_ms": 0.7872460000726278,
+    "meet_ms": 8.719518999896536
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1265.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 557,
+    "pickup_ms": 544000,
+    "walk_ms": 469000,
+    "truck_ms": 484000,
+    "meet_is_home": false,
+    "walk_m": 410.0073430311844
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 3509,
+   "timing": {
+    "walk_ms": 0.8572110000386601,
+    "meet_ms": 11.26380000005156
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "meet_detail": {
+    "meet_node": 5656,
+    "pickup_ms": 753000,
+    "walk_ms": 518000,
+    "truck_ms": 693000,
+    "meet_is_home": false,
+    "walk_m": 585.2983016710403
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1608.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6231.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1531,
+   "timing": {
+    "walk_ms": 1.0134620006283512,
+    "meet_ms": 9.49109200064413
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 959.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "meet_detail": {
+    "meet_node": 2582,
+    "pickup_ms": 376000,
+    "walk_ms": 265000,
+    "truck_ms": 316000,
+    "meet_is_home": false,
+    "walk_m": 287.4477291928371
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 501,
+   "timing": {
+    "walk_ms": 0.4150180002397974,
+    "meet_ms": 6.743265999830328
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1524000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1382.6998804830992
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 5640,
+   "timing": {
+    "walk_ms": 0.42318200030422304,
+    "meet_ms": 9.108412999921711
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2076.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "meet_detail": {
+    "meet_node": 3509,
+    "pickup_ms": 826000,
+    "walk_ms": 732000,
+    "truck_ms": 766000,
+    "meet_is_home": false,
+    "walk_m": 675.6140447274263
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1651.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6421.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 5583,
+   "timing": {
+    "walk_ms": 1.1302630000500358,
+    "meet_ms": 9.531706999950984
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1130.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "meet_detail": {
+    "meet_node": 1045,
+    "pickup_ms": 390000,
+    "walk_ms": 330000,
+    "truck_ms": 323000,
+    "meet_is_home": false,
+    "walk_m": 384.6733488461967
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1324,
+   "timing": {
+    "walk_ms": 0.361700000212295,
+    "meet_ms": 4.068723000273167
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1377.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "meet_detail": {
+    "meet_node": 1342,
+    "pickup_ms": 594000,
+    "walk_ms": 513000,
+    "truck_ms": 534000,
+    "meet_is_home": false,
+    "walk_m": 438.2870717075746
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4467.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1505,
+   "timing": {
+    "walk_ms": 0.9007409998957883,
+    "meet_ms": 9.286032000090927
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 945.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "meet_detail": {
+    "meet_node": 4852,
+    "pickup_ms": 482000,
+    "walk_ms": 414000,
+    "truck_ms": 422000,
+    "meet_is_home": false,
+    "walk_m": 492.8241986519932
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1457,
+   "timing": {
+    "walk_ms": 0.9418109993930557,
+    "meet_ms": 10.046926000541134
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1237.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 481000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 468.7360096516723
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4705,
+   "timing": {
+    "walk_ms": 0.6513130001621903,
+    "meet_ms": 9.146153999608941
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1208.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "meet_detail": {
+    "meet_node": 4598,
+    "pickup_ms": 575000,
+    "walk_ms": 389000,
+    "truck_ms": 515000,
+    "meet_is_home": false,
+    "walk_m": 219.71202561057913
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2597,
+   "timing": {
+    "walk_ms": 1.1504670001158956,
+    "meet_ms": 12.367944999823521
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 969.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "meet_detail": {
+    "meet_node": 625,
+    "pickup_ms": 377000,
+    "walk_ms": 306000,
+    "truck_ms": 317000,
+    "meet_is_home": false,
+    "walk_m": 298.04166644211887
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2870,
+   "timing": {
+    "walk_ms": 0.5063250000603148,
+    "meet_ms": 9.18269399971905
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5333,
+    "pickup_ms": 1786000,
+    "walk_ms": 1709000,
+    "truck_ms": 1726000,
+    "meet_is_home": false,
+    "walk_m": 1607.983124966824
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2252,
+   "timing": {
+    "walk_ms": 0.5959400004940107,
+    "meet_ms": 8.512532999702671
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1995.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 2249,
+    "pickup_ms": 862000,
+    "walk_ms": 802000,
+    "truck_ms": 789000,
+    "meet_is_home": false,
+    "walk_m": 860.4593766009333
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1265,
+   "timing": {
+    "walk_ms": 0.3831020003417507,
+    "meet_ms": 4.414205000102811
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1421.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "meet_detail": {
+    "meet_node": 1339,
+    "pickup_ms": 610000,
+    "walk_ms": 543000,
+    "truck_ms": 550000,
+    "meet_is_home": false,
+    "walk_m": 485.9356260831991
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4733.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4982,
+   "timing": {
+    "walk_ms": 0.4387029994177283,
+    "meet_ms": 6.56671699925937
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2282.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "meet_detail": {
+    "meet_node": 2741,
+    "pickup_ms": 1333000,
+    "walk_ms": 1204000,
+    "truck_ms": 1273000,
+    "meet_is_home": false,
+    "walk_m": 986.09031904747
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 5331,
+   "timing": {
+    "walk_ms": 0.4941689994666376,
+    "meet_ms": 6.569952000063495
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "meet_detail": {
+    "meet_node": 190,
+    "pickup_ms": 1472000,
+    "walk_ms": 1363000,
+    "truck_ms": 1412000,
+    "meet_is_home": false,
+    "walk_m": 1250.4701182608705
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1622,
+   "timing": {
+    "walk_ms": 0.9807799997361144,
+    "meet_ms": 9.457381000174792
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4941.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1295.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "meet_detail": {
+    "meet_node": 1609,
+    "pickup_ms": 495000,
+    "walk_ms": 403000,
+    "truck_ms": 435000,
+    "meet_is_home": false,
+    "walk_m": 423.52887423597804
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4928.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 3646,
+   "timing": {
+    "walk_ms": 1.0192310001002625,
+    "meet_ms": 12.10306600023614
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1205.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "meet_detail": {
+    "meet_node": 536,
+    "pickup_ms": 469000,
+    "walk_ms": 373000,
+    "truck_ms": 409000,
+    "meet_is_home": false,
+    "walk_m": 442.55133556539306
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2610,
+   "timing": {
+    "walk_ms": 0.8787090000623721,
+    "meet_ms": 9.38156899974274
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 916.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "meet_detail": {
+    "meet_node": 2637,
+    "pickup_ms": 390000,
+    "walk_ms": 291000,
+    "truck_ms": 330000,
+    "meet_is_home": false,
+    "walk_m": 303.74477151619055
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1464,
+   "timing": {
+    "walk_ms": 1.1558559999684803,
+    "meet_ms": 9.572103000209609
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "meet_detail": {
+    "meet_node": 1525,
+    "pickup_ms": 466000,
+    "walk_ms": 376000,
+    "truck_ms": 406000,
+    "meet_is_home": false,
+    "walk_m": 336.3268483956971
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1355,
+   "timing": {
+    "walk_ms": 0.9243640006388887,
+    "meet_ms": 10.177393999583728
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1169.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "meet_detail": {
+    "meet_node": 1380,
+    "pickup_ms": 526000,
+    "walk_ms": 386000,
+    "truck_ms": 466000,
+    "meet_is_home": false,
+    "walk_m": 457.9134377623537
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4723,
+   "timing": {
+    "walk_ms": 0.6064709996280726,
+    "meet_ms": 7.243967999784218
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4338.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "meet_detail": {
+    "meet_node": 4789,
+    "pickup_ms": 619000,
+    "walk_ms": 559000,
+    "truck_ms": 557000,
+    "meet_is_home": false,
+    "walk_m": 539.8188259213264
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3927.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4780,
+   "timing": {
+    "walk_ms": 0.7279580004251329,
+    "meet_ms": 9.252015000129177
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4485.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "meet_detail": {
+    "meet_node": 1350,
+    "pickup_ms": 571000,
+    "walk_ms": 511000,
+    "truck_ms": 499000,
+    "meet_is_home": false,
+    "walk_m": 609.1910659380329
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1158.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4066.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4856,
+   "timing": {
+    "walk_ms": 0.5674000003637047,
+    "meet_ms": 8.532032999937655
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1996.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "meet_detail": {
+    "meet_node": 2766,
+    "pickup_ms": 848000,
+    "walk_ms": 722000,
+    "truck_ms": 788000,
+    "meet_is_home": false,
+    "walk_m": 843.0337402004883
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1908.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1569,
+   "timing": {
+    "walk_ms": 0.9912940004142001,
+    "meet_ms": 10.586196000076598
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1054.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "meet_detail": {
+    "meet_node": 641,
+    "pickup_ms": 392000,
+    "walk_ms": 311000,
+    "truck_ms": 332000,
+    "meet_is_home": false,
+    "walk_m": 366.6059729884994
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 2816,
+   "timing": {
+    "walk_ms": 0.2269039996463107,
+    "meet_ms": 3.0871940007273224
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1583.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 5999.0
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 2,
+   "P": 1392,
+   "timing": {
+    "walk_ms": 0.7706079995841719,
+    "meet_ms": 8.588341000177024
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "meet_detail": {
+    "meet_node": 139,
+    "pickup_ms": 579000,
+    "walk_ms": 440000,
+    "truck_ms": 519000,
+    "meet_is_home": false,
+    "walk_m": 449.1582892648571
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1251,
+   "timing": {
+    "walk_ms": 1.0293010000168579,
+    "meet_ms": 9.821669999837468
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 5085.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1341.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "meet_detail": {
+    "meet_node": 1347,
+    "pickup_ms": 577000,
+    "walk_ms": 511000,
+    "truck_ms": 517000,
+    "meet_is_home": false,
+    "walk_m": 505.56849833444363
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4602.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1399,
+   "timing": {
+    "walk_ms": 1.126729000134219,
+    "meet_ms": 11.568408999664825
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 1382,
+    "pickup_ms": 552000,
+    "walk_ms": 441000,
+    "truck_ms": 492000,
+    "meet_is_home": false,
+    "walk_m": 523.8005905550351
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 4127,
+   "timing": {
+    "walk_ms": 0.3955990005124477,
+    "meet_ms": 6.268846000239137
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "meet_detail": {
+    "meet_node": 3323,
+    "pickup_ms": 1977000,
+    "walk_ms": 1764000,
+    "truck_ms": 1917000,
+    "meet_is_home": false,
+    "walk_m": 1526.7616190107124
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 538,
+   "timing": {
+    "walk_ms": 1.2228689993207809,
+    "meet_ms": 9.637632000703888
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1069.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "meet_detail": {
+    "meet_node": 643,
+    "pickup_ms": 400000,
+    "walk_ms": 340000,
+    "truck_ms": 340000,
+    "meet_is_home": false,
+    "walk_m": 362.27062673512734
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1283,
+   "timing": {
+    "walk_ms": 0.8846639993862482,
+    "meet_ms": 9.769181000592653
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1281.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 459000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 417.4286990363383
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1847,
+   "timing": {
+    "walk_ms": 1.0464089991728542,
+    "meet_ms": 9.762896000211185
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 993.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "meet_detail": {
+    "meet_node": 1731,
+    "pickup_ms": 327000,
+    "walk_ms": 267000,
+    "truck_ms": 267000,
+    "meet_is_home": false,
+    "walk_m": 250.05895125415893
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1512,
+   "timing": {
+    "walk_ms": 0.8963400005086442,
+    "meet_ms": 9.021783999742183
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1009.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "meet_detail": {
+    "meet_node": 1483,
+    "pickup_ms": 452000,
+    "walk_ms": 392000,
+    "truck_ms": 392000,
+    "meet_is_home": false,
+    "walk_m": 343.1355422997358
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 5173,
+   "timing": {
+    "walk_ms": 0.6313130006674328,
+    "meet_ms": 8.965621999777795
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1992.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 5594,
+    "pickup_ms": 1150000,
+    "walk_ms": 1030000,
+    "truck_ms": 1090000,
+    "meet_is_home": false,
+    "walk_m": 1207.4869817987803
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 2,
+   "P": 1634,
+   "timing": {
+    "walk_ms": 0.964026000474405,
+    "meet_ms": 10.019078999903286
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4894.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1262.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "meet_detail": {
+    "meet_node": 530,
+    "pickup_ms": 490000,
+    "walk_ms": 423000,
+    "truck_ms": 430000,
+    "meet_is_home": false,
+    "walk_m": 464.3087874922326
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4881.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2819,
+   "timing": {
+    "walk_ms": 0.1380319999952917,
+    "meet_ms": 3.1405090003318037
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "meet_detail": {
+    "meet_node": 3476,
+    "pickup_ms": 1512000,
+    "walk_ms": 1359000,
+    "truck_ms": 1452000,
+    "meet_is_home": false,
+    "walk_m": 1503.6851008324904
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2875,
+   "timing": {
+    "walk_ms": 0.38498200046888087,
+    "meet_ms": 5.999296000481991
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1190000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1342.7035558822265
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 5388,
+   "timing": {
+    "walk_ms": 0.3741079999599606,
+    "meet_ms": 3.997957999672508
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "meet_detail": {
+    "meet_node": 1446,
+    "pickup_ms": 650000,
+    "walk_ms": 590000,
+    "truck_ms": 585000,
+    "meet_is_home": false,
+    "walk_m": 644.3357756816389
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1297.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4847.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1330.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2878,
+   "timing": {
+    "walk_ms": 0.3306779999547871,
+    "meet_ms": 5.865997999535466
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7579.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5381,
+    "pickup_ms": 1643000,
+    "walk_ms": 1530000,
+    "truck_ms": 1583000,
+    "meet_is_home": false,
+    "walk_m": 1767.1935354055527
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6468.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1301,
+   "timing": {
+    "walk_ms": 0.8221859998229775,
+    "meet_ms": 8.258048000243434
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1265.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 557,
+    "pickup_ms": 544000,
+    "walk_ms": 469000,
+    "truck_ms": 484000,
+    "meet_is_home": false,
+    "walk_m": 410.0073430311844
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 3509,
+   "timing": {
+    "walk_ms": 0.5427750002127141,
+    "meet_ms": 5.449966000014683
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "meet_detail": {
+    "meet_node": 5656,
+    "pickup_ms": 753000,
+    "walk_ms": 518000,
+    "truck_ms": 693000,
+    "meet_is_home": false,
+    "walk_m": 585.2983016710403
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1608.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1531,
+   "timing": {
+    "walk_ms": 1.0398839995104936,
+    "meet_ms": 12.343437999334128
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 959.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "meet_detail": {
+    "meet_node": 2582,
+    "pickup_ms": 376000,
+    "walk_ms": 265000,
+    "truck_ms": 316000,
+    "meet_is_home": false,
+    "walk_m": 287.4477291928371
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 501,
+   "timing": {
+    "walk_ms": 0.6233180001800065,
+    "meet_ms": 10.858998999538017
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2956.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1524000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1382.6998804830992
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 5640,
+   "timing": {
+    "walk_ms": 0.29454099967551883,
+    "meet_ms": 4.018696000457567
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2076.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "meet_detail": {
+    "meet_node": 3509,
+    "pickup_ms": 826000,
+    "walk_ms": 732000,
+    "truck_ms": 766000,
+    "meet_is_home": false,
+    "walk_m": 675.6140447274263
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1832.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 5583,
+   "timing": {
+    "walk_ms": 1.1739479996322189,
+    "meet_ms": 12.867540999650373
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1130.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "meet_detail": {
+    "meet_node": 1045,
+    "pickup_ms": 390000,
+    "walk_ms": 330000,
+    "truck_ms": 323000,
+    "meet_is_home": false,
+    "walk_m": 384.6733488461967
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1324,
+   "timing": {
+    "walk_ms": 0.29512500077544246,
+    "meet_ms": 4.757171000164817
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1377.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "meet_detail": {
+    "meet_node": 1342,
+    "pickup_ms": 594000,
+    "walk_ms": 513000,
+    "truck_ms": 534000,
+    "meet_is_home": false,
+    "walk_m": 438.2870717075746
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4467.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1505,
+   "timing": {
+    "walk_ms": 0.887701000465313,
+    "meet_ms": 13.161464999939199
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 945.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "meet_detail": {
+    "meet_node": 4852,
+    "pickup_ms": 482000,
+    "walk_ms": 414000,
+    "truck_ms": 422000,
+    "meet_is_home": false,
+    "walk_m": 492.8241986519932
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1457,
+   "timing": {
+    "walk_ms": 0.9972050002033939,
+    "meet_ms": 11.656093999590666
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1237.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 481000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 468.7360096516723
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4705,
+   "timing": {
+    "walk_ms": 0.6348970000544796,
+    "meet_ms": 7.343710999521136
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1208.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "meet_detail": {
+    "meet_node": 4598,
+    "pickup_ms": 575000,
+    "walk_ms": 389000,
+    "truck_ms": 515000,
+    "meet_is_home": false,
+    "walk_m": 219.71202561057913
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2597,
+   "timing": {
+    "walk_ms": 0.9775669996088254,
+    "meet_ms": 9.40760399953433
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 969.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "meet_detail": {
+    "meet_node": 625,
+    "pickup_ms": 377000,
+    "walk_ms": 306000,
+    "truck_ms": 317000,
+    "meet_is_home": false,
+    "walk_m": 298.04166644211887
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2870,
+   "timing": {
+    "walk_ms": 0.5173830004423507,
+    "meet_ms": 8.781784000348125
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2829.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5333,
+    "pickup_ms": 1786000,
+    "walk_ms": 1709000,
+    "truck_ms": 1726000,
+    "meet_is_home": false,
+    "walk_m": 1607.983124966824
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2252,
+   "timing": {
+    "walk_ms": 0.6509660006486229,
+    "meet_ms": 8.183581000594131
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1995.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 2249,
+    "pickup_ms": 862000,
+    "walk_ms": 802000,
+    "truck_ms": 789000,
+    "meet_is_home": false,
+    "walk_m": 860.4593766009333
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1265,
+   "timing": {
+    "walk_ms": 0.35679200027516345,
+    "meet_ms": 4.435206000380276
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1421.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "meet_detail": {
+    "meet_node": 1339,
+    "pickup_ms": 610000,
+    "walk_ms": 543000,
+    "truck_ms": 550000,
+    "meet_is_home": false,
+    "walk_m": 485.9356260831991
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4733.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4982,
+   "timing": {
+    "walk_ms": 0.5648229998769239,
+    "meet_ms": 6.703820999973686
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2282.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "meet_detail": {
+    "meet_node": 2741,
+    "pickup_ms": 1333000,
+    "walk_ms": 1204000,
+    "truck_ms": 1273000,
+    "meet_is_home": false,
+    "walk_m": 986.09031904747
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 5331,
+   "timing": {
+    "walk_ms": 0.41202000011253403,
+    "meet_ms": 6.546251999679953
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "meet_detail": {
+    "meet_node": 190,
+    "pickup_ms": 1472000,
+    "walk_ms": 1363000,
+    "truck_ms": 1412000,
+    "meet_is_home": false,
+    "walk_m": 1250.4701182608705
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1622,
+   "timing": {
+    "walk_ms": 1.2139039999965462,
+    "meet_ms": 10.050000000774162
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4941.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1295.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "meet_detail": {
+    "meet_node": 1609,
+    "pickup_ms": 495000,
+    "walk_ms": 403000,
+    "truck_ms": 435000,
+    "meet_is_home": false,
+    "walk_m": 423.52887423597804
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4928.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 3646,
+   "timing": {
+    "walk_ms": 1.1125170003651874,
+    "meet_ms": 9.71695800035377
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1205.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "meet_detail": {
+    "meet_node": 536,
+    "pickup_ms": 469000,
+    "walk_ms": 373000,
+    "truck_ms": 409000,
+    "meet_is_home": false,
+    "walk_m": 442.55133556539306
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2610,
+   "timing": {
+    "walk_ms": 0.847016999614425,
+    "meet_ms": 9.2625159995805
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 916.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "meet_detail": {
+    "meet_node": 2637,
+    "pickup_ms": 390000,
+    "walk_ms": 291000,
+    "truck_ms": 330000,
+    "meet_is_home": false,
+    "walk_m": 303.74477151619055
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1464,
+   "timing": {
+    "walk_ms": 1.052429000083066,
+    "meet_ms": 12.321496999902593
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "meet_detail": {
+    "meet_node": 1525,
+    "pickup_ms": 466000,
+    "walk_ms": 376000,
+    "truck_ms": 406000,
+    "meet_is_home": false,
+    "walk_m": 336.3268483956971
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1355,
+   "timing": {
+    "walk_ms": 0.8506410003974452,
+    "meet_ms": 8.631281999441853
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1169.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "meet_detail": {
+    "meet_node": 1380,
+    "pickup_ms": 526000,
+    "walk_ms": 386000,
+    "truck_ms": 466000,
+    "meet_is_home": false,
+    "walk_m": 457.9134377623537
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4723,
+   "timing": {
+    "walk_ms": 0.6033299996488495,
+    "meet_ms": 7.367290000729554
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4338.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "meet_detail": {
+    "meet_node": 4789,
+    "pickup_ms": 619000,
+    "walk_ms": 559000,
+    "truck_ms": 557000,
+    "meet_is_home": false,
+    "walk_m": 539.8188259213264
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3927.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4780,
+   "timing": {
+    "walk_ms": 0.6316589997368283,
+    "meet_ms": 7.870737000303052
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4485.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "meet_detail": {
+    "meet_node": 1350,
+    "pickup_ms": 571000,
+    "walk_ms": 511000,
+    "truck_ms": 499000,
+    "meet_is_home": false,
+    "walk_m": 609.1910659380329
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1158.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4066.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1165.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4856,
+   "timing": {
+    "walk_ms": 0.480083000184095,
+    "meet_ms": 7.821926999895368
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1996.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "meet_detail": {
+    "meet_node": 2766,
+    "pickup_ms": 848000,
+    "walk_ms": 722000,
+    "truck_ms": 788000,
+    "meet_is_home": false,
+    "walk_m": 843.0337402004883
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1908.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1569,
+   "timing": {
+    "walk_ms": 1.0832159996425617,
+    "meet_ms": 11.560834000192699
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1054.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "meet_detail": {
+    "meet_node": 641,
+    "pickup_ms": 392000,
+    "walk_ms": 311000,
+    "truck_ms": 332000,
+    "meet_is_home": false,
+    "walk_m": 366.6059729884994
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 2816,
+   "timing": {
+    "walk_ms": 0.18887399983213982,
+    "meet_ms": 2.8146670001660823
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 3,
+   "P": 1392,
+   "timing": {
+    "walk_ms": 0.6309380005404819,
+    "meet_ms": 7.398830000056478
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "meet_detail": {
+    "meet_node": 139,
+    "pickup_ms": 579000,
+    "walk_ms": 440000,
+    "truck_ms": 519000,
+    "meet_is_home": false,
+    "walk_m": 449.1582892648571
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1251,
+   "timing": {
+    "walk_ms": 0.7819339998604846,
+    "meet_ms": 8.172278000529332
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 5085.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1341.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "meet_detail": {
+    "meet_node": 1347,
+    "pickup_ms": 577000,
+    "walk_ms": 511000,
+    "truck_ms": 517000,
+    "meet_is_home": false,
+    "walk_m": 505.56849833444363
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4602.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1399,
+   "timing": {
+    "walk_ms": 0.5961039996691397,
+    "meet_ms": 7.106708999344846
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 1382,
+    "pickup_ms": 552000,
+    "walk_ms": 441000,
+    "truck_ms": 492000,
+    "meet_is_home": false,
+    "walk_m": 523.8005905550351
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 4127,
+   "timing": {
+    "walk_ms": 0.1995290003833361,
+    "meet_ms": 2.827922000506078
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6034.0
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 3,
+   "P": 538,
+   "timing": {
+    "walk_ms": 1.0374210005466011,
+    "meet_ms": 9.618445999876712
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1069.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "meet_detail": {
+    "meet_node": 643,
+    "pickup_ms": 400000,
+    "walk_ms": 340000,
+    "truck_ms": 340000,
+    "meet_is_home": false,
+    "walk_m": 362.27062673512734
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1283,
+   "timing": {
+    "walk_ms": 0.887321999471169,
+    "meet_ms": 8.269490999737172
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1281.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 459000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 417.4286990363383
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1847,
+   "timing": {
+    "walk_ms": 1.0321469999325927,
+    "meet_ms": 9.370368000418239
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 993.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "meet_detail": {
+    "meet_node": 1731,
+    "pickup_ms": 327000,
+    "walk_ms": 267000,
+    "truck_ms": 267000,
+    "meet_is_home": false,
+    "walk_m": 250.05895125415893
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1512,
+   "timing": {
+    "walk_ms": 0.8369279994440149,
+    "meet_ms": 9.497549000116123
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1009.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "meet_detail": {
+    "meet_node": 1483,
+    "pickup_ms": 452000,
+    "walk_ms": 392000,
+    "truck_ms": 392000,
+    "meet_is_home": false,
+    "walk_m": 343.1355422997358
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 5173,
+   "timing": {
+    "walk_ms": 0.44704799984174315,
+    "meet_ms": 7.655674000488943
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1992.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 5594,
+    "pickup_ms": 1150000,
+    "walk_ms": 1030000,
+    "truck_ms": 1090000,
+    "meet_is_home": false,
+    "walk_m": 1207.4869817987803
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 3,
+   "P": 1634,
+   "timing": {
+    "walk_ms": 1.0265250002703397,
+    "meet_ms": 9.450693999497162
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4894.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1262.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "meet_detail": {
+    "meet_node": 530,
+    "pickup_ms": 490000,
+    "walk_ms": 423000,
+    "truck_ms": 430000,
+    "meet_is_home": false,
+    "walk_m": 464.3087874922326
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4881.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2819,
+   "timing": {
+    "walk_ms": 0.28172200018161675,
+    "meet_ms": 3.362918999300746
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "meet_detail": {
+    "meet_node": 3476,
+    "pickup_ms": 1512000,
+    "walk_ms": 1359000,
+    "truck_ms": 1452000,
+    "meet_is_home": false,
+    "walk_m": 1503.6851008324904
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2524.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2875,
+   "timing": {
+    "walk_ms": 0.41354800032422645,
+    "meet_ms": 8.076494999841088
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1190000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1342.7035558822265
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6920.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 5388,
+   "timing": {
+    "walk_ms": 0.9317109997937223,
+    "meet_ms": 9.69281499965291
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 4603,
+    "pickup_ms": 665000,
+    "walk_ms": 576000,
+    "truck_ms": 605000,
+    "meet_is_home": false,
+    "walk_m": 687.3493699250787
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2878,
+   "timing": {
+    "walk_ms": 0.43957399975624867,
+    "meet_ms": 7.036037999569089
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7579.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5381,
+    "pickup_ms": 1643000,
+    "walk_ms": 1530000,
+    "truck_ms": 1583000,
+    "meet_is_home": false,
+    "walk_m": 1767.1935354055527
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6468.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1301,
+   "timing": {
+    "walk_ms": 0.9433220002392773,
+    "meet_ms": 9.876602000076673
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1265.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 557,
+    "pickup_ms": 544000,
+    "walk_ms": 469000,
+    "truck_ms": 484000,
+    "meet_is_home": false,
+    "walk_m": 410.0073430311844
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4344.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 3509,
+   "timing": {
+    "walk_ms": 1.006206999591086,
+    "meet_ms": 11.733676999938325
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "meet_detail": {
+    "meet_node": 5656,
+    "pickup_ms": 753000,
+    "walk_ms": 518000,
+    "truck_ms": 693000,
+    "meet_is_home": false,
+    "walk_m": 585.2983016710403
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1608.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1666.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1531,
+   "timing": {
+    "walk_ms": 1.3004749998799525,
+    "meet_ms": 9.626257000491023
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 959.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "meet_detail": {
+    "meet_node": 2582,
+    "pickup_ms": 376000,
+    "walk_ms": 265000,
+    "truck_ms": 316000,
+    "meet_is_home": false,
+    "walk_m": 287.4477291928371
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3677.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 909.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 501,
+   "timing": {
+    "walk_ms": 0.4388050001580268,
+    "meet_ms": 7.329976000619354
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2956.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 3120,
+    "pickup_ms": 1689000,
+    "walk_ms": 1524000,
+    "truck_ms": 1629000,
+    "meet_is_home": false,
+    "walk_m": 1382.6998804830992
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6944.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 5640,
+   "timing": {
+    "walk_ms": 0.2742910000961274,
+    "meet_ms": 4.598920000717044
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "meet_detail": {
+    "meet_node": 3509,
+    "pickup_ms": 826000,
+    "walk_ms": 732000,
+    "truck_ms": 766000,
+    "meet_is_home": false,
+    "walk_m": 675.6140447274263
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 5583,
+   "timing": {
+    "walk_ms": 0.994846999674337,
+    "meet_ms": 10.07017700067081
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1130.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "meet_detail": {
+    "meet_node": 1045,
+    "pickup_ms": 390000,
+    "walk_ms": 330000,
+    "truck_ms": 323000,
+    "meet_is_home": false,
+    "walk_m": 384.6733488461967
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4653.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1030.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1324,
+   "timing": {
+    "walk_ms": 1.0763079999378533,
+    "meet_ms": 10.971955000059097
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1377.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "meet_detail": {
+    "meet_node": 1342,
+    "pickup_ms": 594000,
+    "walk_ms": 513000,
+    "truck_ms": 534000,
+    "meet_is_home": false,
+    "walk_m": 438.2870717075746
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1223.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1505,
+   "timing": {
+    "walk_ms": 0.889597999957914,
+    "meet_ms": 9.793105999960972
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 945.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "meet_detail": {
+    "meet_node": 4852,
+    "pickup_ms": 482000,
+    "walk_ms": 414000,
+    "truck_ms": 422000,
+    "meet_is_home": false,
+    "walk_m": 492.8241986519932
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3328.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 917.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1457,
+   "timing": {
+    "walk_ms": 1.31890300053783,
+    "meet_ms": 12.60734199968283
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1237.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 481000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 468.7360096516723
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4429.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4705,
+   "timing": {
+    "walk_ms": 1.0559049997027614,
+    "meet_ms": 11.08533200022066
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "meet_detail": {
+    "meet_node": 4598,
+    "pickup_ms": 575000,
+    "walk_ms": 389000,
+    "truck_ms": 515000,
+    "meet_is_home": false,
+    "walk_m": 219.71202561057913
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3590.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1050.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2597,
+   "timing": {
+    "walk_ms": 1.051019999977143,
+    "meet_ms": 9.920283000610652
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 969.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "meet_detail": {
+    "meet_node": 625,
+    "pickup_ms": 377000,
+    "walk_ms": 306000,
+    "truck_ms": 317000,
+    "meet_is_home": false,
+    "walk_m": 298.04166644211887
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3641.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 879.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2870,
+   "timing": {
+    "walk_ms": 0.43810299939650577,
+    "meet_ms": 7.650690999980725
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2829.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "meet_detail": {
+    "meet_node": 5333,
+    "pickup_ms": 1786000,
+    "walk_ms": 1709000,
+    "truck_ms": 1726000,
+    "meet_is_home": false,
+    "walk_m": 1607.983124966824
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6760.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2578.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2252,
+   "timing": {
+    "walk_ms": 1.1027519994968316,
+    "meet_ms": 12.279169000066759
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1995.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 2249,
+    "pickup_ms": 862000,
+    "walk_ms": 802000,
+    "truck_ms": 789000,
+    "meet_is_home": false,
+    "walk_m": 860.4593766009333
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6981.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1265,
+   "timing": {
+    "walk_ms": 1.086942999791063,
+    "meet_ms": 11.020898999959172
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1421.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "meet_detail": {
+    "meet_node": 1339,
+    "pickup_ms": 610000,
+    "walk_ms": 543000,
+    "truck_ms": 550000,
+    "meet_is_home": false,
+    "walk_m": 485.9356260831991
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1255.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4982,
+   "timing": {
+    "walk_ms": 0.44857200009573717,
+    "meet_ms": 11.111401999187365
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 2282.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "meet_detail": {
+    "meet_node": 2741,
+    "pickup_ms": 1333000,
+    "walk_ms": 1204000,
+    "truck_ms": 1273000,
+    "meet_is_home": false,
+    "walk_m": 986.09031904747
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6041.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2041.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 5331,
+   "timing": {
+    "walk_ms": 0.27824100016005104,
+    "meet_ms": 6.789502000174252
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "meet_detail": {
+    "meet_node": 190,
+    "pickup_ms": 1472000,
+    "walk_ms": 1363000,
+    "truck_ms": 1412000,
+    "meet_is_home": false,
+    "walk_m": 1250.4701182608705
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6290.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 2444.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1622,
+   "timing": {
+    "walk_ms": 1.029554000524513,
+    "meet_ms": 13.061947000096552
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1295.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "meet_detail": {
+    "meet_node": 1609,
+    "pickup_ms": 495000,
+    "walk_ms": 403000,
+    "truck_ms": 435000,
+    "meet_is_home": false,
+    "walk_m": 423.52887423597804
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1175.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 3646,
+   "timing": {
+    "walk_ms": 1.0486600003787316,
+    "meet_ms": 10.212871000476298
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1205.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "meet_detail": {
+    "meet_node": 536,
+    "pickup_ms": 469000,
+    "walk_ms": 373000,
+    "truck_ms": 409000,
+    "meet_is_home": false,
+    "walk_m": 442.55133556539306
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4613.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1108.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2610,
+   "timing": {
+    "walk_ms": 0.8665510003993404,
+    "meet_ms": 9.931995999977516
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 916.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "meet_detail": {
+    "meet_node": 2637,
+    "pickup_ms": 390000,
+    "walk_ms": 291000,
+    "truck_ms": 330000,
+    "meet_is_home": false,
+    "walk_m": 303.74477151619055
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3294.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 838.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1464,
+   "timing": {
+    "walk_ms": 1.1421760000303038,
+    "meet_ms": 10.134323000784207
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "meet_detail": {
+    "meet_node": 1525,
+    "pickup_ms": 466000,
+    "walk_ms": 376000,
+    "truck_ms": 406000,
+    "meet_is_home": false,
+    "walk_m": 336.3268483956971
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4352.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1067.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1355,
+   "timing": {
+    "walk_ms": 1.3569020002250909,
+    "meet_ms": 10.237202000098478
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1169.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "meet_detail": {
+    "meet_node": 1380,
+    "pickup_ms": 526000,
+    "walk_ms": 386000,
+    "truck_ms": 466000,
+    "meet_is_home": false,
+    "walk_m": 457.9134377623537
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4027.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1071.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4723,
+   "timing": {
+    "walk_ms": 1.0251500007143477,
+    "meet_ms": 11.025038000298082
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "meet_detail": {
+    "meet_node": 4789,
+    "pickup_ms": 619000,
+    "walk_ms": 559000,
+    "truck_ms": 557000,
+    "meet_is_home": false,
+    "walk_m": 539.8188259213264
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1132.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4780,
+   "timing": {
+    "walk_ms": 0.9389079996253713,
+    "meet_ms": 9.423915999832388
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "meet_detail": {
+    "meet_node": 4600,
+    "pickup_ms": 629000,
+    "walk_ms": 500000,
+    "truck_ms": 569000,
+    "meet_is_home": false,
+    "walk_m": 568.1219030213471
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4856,
+   "timing": {
+    "walk_ms": 0.84242000048107,
+    "meet_ms": 10.756446999948821
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1996.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "meet_detail": {
+    "meet_node": 2766,
+    "pickup_ms": 848000,
+    "walk_ms": 722000,
+    "truck_ms": 788000,
+    "meet_is_home": false,
+    "walk_m": 843.0337402004883
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 7161.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1922.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1569,
+   "timing": {
+    "walk_ms": 0.9580430005371454,
+    "meet_ms": 9.592786000212072
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1054.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "meet_detail": {
+    "meet_node": 641,
+    "pickup_ms": 392000,
+    "walk_ms": 311000,
+    "truck_ms": 332000,
+    "meet_is_home": false,
+    "walk_m": 366.6059729884994
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4126.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 964.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 2816,
+   "timing": {
+    "walk_ms": 0.3169700003127218,
+    "meet_ms": 4.673649999858753
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 4,
+   "P": 1392,
+   "timing": {
+    "walk_ms": 0.9873499993773294,
+    "meet_ms": 10.672516000340693
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "meet_detail": {
+    "meet_node": 139,
+    "pickup_ms": 579000,
+    "walk_ms": 440000,
+    "truck_ms": 519000,
+    "meet_is_home": false,
+    "walk_m": 449.1582892648571
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3917.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1147.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1251,
+   "timing": {
+    "walk_ms": 0.9570069996698294,
+    "meet_ms": 11.929558000701945
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1341.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "meet_detail": {
+    "meet_node": 1347,
+    "pickup_ms": 577000,
+    "walk_ms": 511000,
+    "truck_ms": 517000,
+    "meet_is_home": false,
+    "walk_m": 505.56849833444363
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1189.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1399,
+   "timing": {
+    "walk_ms": 1.29962700066244,
+    "meet_ms": 11.921684000299138
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "DOOR": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "meet_detail": {
+    "meet_node": 1382,
+    "pickup_ms": 552000,
+    "walk_ms": 441000,
+    "truck_ms": 492000,
+    "meet_is_home": false,
+    "walk_m": 523.8005905550351
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3940.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1123.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 4127,
+   "timing": {
+    "walk_ms": 0.3714820004461217,
+    "meet_ms": 3.623083999627852
+   },
+   "WALK": {
+    "outcome": "NO_PLAN"
+   },
+   "DOOR": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET": {
+    "outcome": "NO_PLAN"
+   },
+   "MEET_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "truck-edge"
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6034.0
+   },
+   "BEST": {
+    "outcome": "NO_PLAN"
+   },
+   "BEST_choice": null
+  },
+  {
+   "k": 4,
+   "P": 538,
+   "timing": {
+    "walk_ms": 1.1039119999622926,
+    "meet_ms": 9.999429000345117
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1069.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "meet_detail": {
+    "meet_node": 643,
+    "pickup_ms": 400000,
+    "walk_ms": 340000,
+    "truck_ms": 340000,
+    "meet_is_home": false,
+    "walk_m": 362.27062673512734
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4208.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 980.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1283,
+   "timing": {
+    "walk_ms": 0.8785749996604864,
+    "meet_ms": 9.699833000013314
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1281.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "meet_detail": {
+    "meet_node": 1343,
+    "pickup_ms": 555000,
+    "walk_ms": 459000,
+    "truck_ms": 495000,
+    "meet_is_home": false,
+    "walk_m": 417.4286990363383
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4396.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1145.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1847,
+   "timing": {
+    "walk_ms": 1.1412990006647306,
+    "meet_ms": 10.036771999693883
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 993.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "meet_detail": {
+    "meet_node": 1731,
+    "pickup_ms": 327000,
+    "walk_ms": 267000,
+    "truck_ms": 267000,
+    "meet_is_home": false,
+    "walk_m": 250.05895125415893
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 4233.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 928.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1512,
+   "timing": {
+    "walk_ms": 0.9767070005182177,
+    "meet_ms": 14.176290999785124
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1009.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "meet_detail": {
+    "meet_node": 1483,
+    "pickup_ms": 452000,
+    "walk_ms": 392000,
+    "truck_ms": 392000,
+    "meet_is_home": false,
+    "walk_m": 343.1355422997358
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 3560.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 933.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 5173,
+   "timing": {
+    "walk_ms": 0.8685370003149728,
+    "meet_ms": 9.901347999402788
+   },
+   "WALK": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1992.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "meet_detail": {
+    "meet_node": 5594,
+    "pickup_ms": 1150000,
+    "walk_ms": 1030000,
+    "truck_ms": 1090000,
+    "meet_is_home": false,
+    "walk_m": 1207.4869817987803
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "WALK_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 6623.0
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1971.0
+   },
+   "BEST_choice": "MEET"
+  },
+  {
+   "k": 4,
+   "P": 1634,
+   "timing": {
+    "walk_ms": 1.07151599968347,
+    "meet_ms": 9.53386700075498
+   },
+   "WALK": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "DOOR": {
+    "outcome": "SAFE",
+    "arrival_s": 1262.0
+   },
+   "MEET": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "meet_detail": {
+    "meet_node": 530,
+    "pickup_ms": 490000,
+    "walk_ms": 423000,
+    "truck_ms": 430000,
+    "meet_is_home": false,
+    "walk_m": 464.3087874922326
+   },
+   "MEET_STATIC": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "WALK_STATIC": {
+    "outcome": "UNSAFE",
+    "where": "ped-edge"
+   },
+   "BEST": {
+    "outcome": "SAFE",
+    "arrival_s": 1159.0
+   },
+   "BEST_choice": "MEET"
+  }
+ ]
+}
