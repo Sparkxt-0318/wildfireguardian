@@ -1,0 +1,1 @@
+This folder is a byte-identical source/document subset of the named portable delivery. It is for code review, not standalone reproduction: checkpoints, fixture graphs, saved arrays, full evidence and manifests are in the release ZIP. Extract the matching ZIP and follow its REPRODUCE.md. No default promotion is implied.

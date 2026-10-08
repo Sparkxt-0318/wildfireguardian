@@ -1,0 +1,2306 @@
+[
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/ASSUMPTIONS.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/ASSUMPTIONS.md",
+    "sha256": "0819b04d8943a272637d8864a3a2ef62861e94aeb5ca3d58d343c7a9d5a8bac4"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/INDEPENDENT_REVIEW.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/INDEPENDENT_REVIEW.md",
+    "sha256": "23f73a9f64a8849f72eda5515706eff922a33dd6251c726e175fcfd0b66482a3"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/MENTOR_OPTIONAL_REVIEW.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/MENTOR_OPTIONAL_REVIEW.md",
+    "sha256": "961d9c9a799c54c890c25cc22bb5b7a3ad747ceca978f79b6145664f1cae7713"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/OWNER_HANDOFF.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/OWNER_HANDOFF.md",
+    "sha256": "c912b122233cdc6a9c56569280c5472f0f7054a9ccd6e93889785ea2cf56af4b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/README.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/README.md",
+    "sha256": "a18eca1707a4fda7c088c5fef3d5beca424f05cd16521ab85bf25c12775b4d83"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/REPRODUCE.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/REPRODUCE.md",
+    "sha256": "43a084e14366cddc8592f3b8e489dbe583b4f771679deacfcd120c64cd9045ab"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/SUPPORT_DIAGNOSIS.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/SUPPORT_DIAGNOSIS.md",
+    "sha256": "0b10eb4ce20daf662286b6d1d9d815ea15dd340f90dc71fc7c3271bb4804fa3b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/VALIDATION_BOUNDARIES.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/VALIDATION_BOUNDARIES.md",
+    "sha256": "1aa45543d4826ac3c4571a34ce2cce6e0515c5cc6e4eb987f7573fd7b6ce7c02"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/forecast_bridge.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/forecast_bridge.py",
+    "sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/hazard_constructor.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/hazard_constructor.py",
+    "sha256": "fde4a5afe010d8a90695f719e43136d84e5f9128b3261a63b0480e002d4bd013"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/hourly.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/hourly.py",
+    "sha256": "74c3ee0ebb2dacd9b9d0da5f3b781fbc965834bb5c7e4b1d3d7cea3b847d99a5"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/integrate.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/integrate.py",
+    "sha256": "39b0ef4a3d02b60025843ebe640d57af5d38fec58ba9a33237d4d340895487f3"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "sha256": "f38900b8fb2a3b97d4d272d5339fb18db3341de703931fa9f5268985f1887173"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "sha256": "ee55941674e5fc363141f5ca456e8e7207037c256f000d5529c3ea76ebd5b433"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "sha256": "430e89fd20dbcaf5cd037536d3b35ef94edf19b4917593b028c1297d037b2aa9"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "sha256": "abc9b84c31a1d15ced3f31819da7a9d8278c81884114ad573f02592e6065f93f"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "sha256": "70753a67033e34863fbee2fb6123b108016350e76eb301f22b8962cb61540a29"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "sha256": "8d0abf8b933b93304b455bb4e2a0ac5b9166da818471da068080215cdf45623d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "sha256": "edd106808cee00bd1b724a9431881c085cc3f7269fc0a1e9feac9e81165aa6fc"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "sha256": "ee6d58f59aaa419c540179ed80b33f58f275118609416a1d9bb0535f5f48eb97"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "sha256": "ede5d44f6514d315ebac5994af733b6bdd4855ae9b8a117e79b4fca4b3c27f01"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "sha256": "97798d36553c3d431d97c3c50aab42d1e4f49926282eacf771ec11a7675de72d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "sha256": "e914873a50fe24eb71844cdc94928b18240d44d62df4019ddccb7c80bcf67dd5"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "sha256": "482f0cbb8354348e740d44b0e0e9494bca24ded4d79b3ed3a35e337795a0a0ab"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "sha256": "2f25c70c2118762803d8f0743b650966af890ee5df1141360e9058c4f9c2d92a"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "sha256": "1907ec914b99090c74c28153f81d6392352c88f692d0729ad4156e36377d84fc"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "sha256": "9a69803d14646af8374fcb7b639c101520f56541b080142429240a7f9351aff6"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "sha256": "28b59e6f97023eccf40c39a6bcb1454a4be2d7227b82c3b0cf463aea2ee950e8"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "sha256": "f44a5b71bf5a19bd964ecff8e66183059152d036ad4266ad2238e5a49d7e2898"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "sha256": "dda17bcf477cc1c8ccecaa65337c1e03b1a3329020e26f11da11668b756b648e"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "sha256": "e346c912fcb9baf6687748291f1c4dcf4640a5a5f4990f677cfb685db7030c71"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "sha256": "0349bf0aedf041087fa6f1c51d2be105cd49e55e259b1c1058e9aa245aca1a19"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "sha256": "eed4efba71794e91f57745832bad691943974af5bbb37e494e68aa8160920965"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "sha256": "38a39ad0d1e53056ffc53b5adb93dba73e55bbf479b347a5899caa730dfd5955"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "sha256": "8ba2cc24b82b6ea038f68551bcf81c604d4c7a68366be4fbd88c540fdd47566a"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "sha256": "1ccec127f2afa1dd59b184a16d10ad02b053a24bf49e6347a2570b025243332d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "sha256": "65962f531831b274727e496545e2fb0d85ea793150b0a99ca786c469c91baf11"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "sha256": "48f5cdef4891f87928aa4fe13dd0ef74c6e7f80086b728f50522e92dddb110c3"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "sha256": "04f8967466853b89f85d8e21f64402df335520c340621e2b78d2af73fa1a0945"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "sha256": "b4dd342e96eb8fa237f2c847d60e54f95d4144c4d31fcb851851b03ef41a4c5d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "sha256": "5f9157369e0385e3575f273e10503b03c17846ce3498d044bb57c82c9649ba86"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "sha256": "122048ae09dc061b3e2c2715a6ef0065d13502a28cc2045c47a96ec1540c317c"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "sha256": "e7fd8de1867da1ae1608fb2d23b618701ae21c7364641a8acc25ff468e6a24aa"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "sha256": "a24cd994344cdd1131fb56bc75bdcdb6b874b02cf9c2a56ccd1fd8c39c931ef6"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "sha256": "e61da7d553de4f3bef954b048f3cf393dd9d8737910cd2ffc2cec82abc500145"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "sha256": "fbca229aa058d452ae789d02ed301f0e37ad820eb4e423c7886400f0c828446b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "sha256": "2719b64889a96540350da99c97d0d7ec5aa2f694e5590a3e15b34fd3a849bad0"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "sha256": "dec4b3b4702219d55c721c5a341247a9a659ac8318163b09d78ddb7d9afd2bf0"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "sha256": "afea7b4d5753dcd1b5522b8263199c064a66230e63d2865a6721063ec2e6f6e1"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "sha256": "3ee57e71333093358725063df30ce8843f00f0c93286fab25541273d1dda80e1"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "sha256": "688db50c2b9a77129011b158ea811bd1a35c59fbad5b06a0ed83349a375b9732"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "sha256": "7c6c970e847b6395b32c0b2c9583bdb3f4c0ae89091504c81b1b6a8aa6d09212"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "sha256": "ff11faa3f856da6c21e7b541d57a2465aa70698453990b142ea84239e270f950"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "sha256": "bc3d3e6e3b56b0ee40d283c2574010269e6c179cec871336f92167a7381a8097"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "sha256": "e414005d259cd936fb75adf9cab100b1e704d53d69dc1bbdd3a6485463914f47"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/native_forecast.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/native_forecast.py",
+    "sha256": "c4dc3794c8e4e191f5afc0bd18152b4dbe41460ee43dd7db0496e74128080459"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/replay_with_provenance.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/replay_with_provenance.py",
+    "sha256": "99ee2ba57ec6ef61e50f9e2e83b5c27392907f808229f7c7907119d5823598d8"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "sha256": "782cba6d5a027e78e68060ee408d505854712ecc463bbaca93a701c222795d83"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/README.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/README.md",
+    "sha256": "87ea702b05ccff8ca3639f1f3837be46877eea415690465e27a340d73a397c2c"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "sha256": "fda4ff4cdb445587ee9cc1a01cc9d761664f63aaa3f0a2c18afcf78def8ddb85"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "sha256": "1bc1bfbbb827488ae7fd10c4d2681e5091310ae92c4cddd79276580a56589f51"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "sha256": "a1ffe63ea0c22b15348c427f09fdb9eef632c21ba703faff7c5984c77d55f4d4"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "sha256": "80ba032ba724464ae9c68f029641e1a8b3111d771ba407ffe7ce4a631676ff9e"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "sha256": "404c1ee7811c49208d5b483d10a408ecb9df1e25ecf9f66cbb6ddedc316ea8b5"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "sha256": "56968e56d25f92b8e8da5d68cb056ddc6265972138a450613d0981bfa6c09570"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "sha256": "121980825f08e038f123b1811ff0f8adfcfc63601b592b1efdcfca17d1719522"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "sha256": "206ce8b31cf077b47edfdb4480dbc9aaf0c2c4f180a2e03925db9b3ab38724c7"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "sha256": "f66806efc734f30feb332ed0de4ea8c5ab08ef675c0d0061d7b32ddf3093782d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/checks.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/checks.py",
+    "sha256": "d9223bc58850a7571efcdecd0dfa59bb5dcd48b9be4499954d8bb6d77b80a7dd"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/cli.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/cli.py",
+    "sha256": "4c755bed06716b17c6e18e297eef9be8b47997c78c8d609574ec5f205b4154ea"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/core.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/core.py",
+    "sha256": "daf184164cbd1c5151885744b97911e1562e2fb69f161d0af420464ab19aac52"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "sha256": "765872406f331d88a6e2bf1c14a782e7cb52bd81bc68ffe83e42ce6f44ddaf2d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/independent.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/independent.py",
+    "sha256": "41fcfee25b980b080287025e2b883e5f0f78d7d21580a5c1633375cf1e64ca2a"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "sha256": "1b54ce9712ae3ef0ed76ddfc6a95363501f69d850acb33cd22c823275009bfeb"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "sha256": "d3b2cddb30f407dbba43210cefbee78e4a52573cd4e79e5ea337c2c9082f2294"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/replay.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/replay.py",
+    "sha256": "c6656e46b8bb47591dc307b7a5473e6f5fa157dfd96ab32cff7e0f2c828dbaa7"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/service.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/service.py",
+    "sha256": "2ac5a5f39274a346ef6084ac5870c70840f3e693626bf38ec48c2a748802e373"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/session.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/session.py",
+    "sha256": "451e1a9930e00b7ecc4d2c87bb8939c74a715eee03e66910eef0901888078148"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/validation.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/routing/validation.py",
+    "sha256": "259248a464172746aae1211480e8d651eab0e77f88cc91d4081b1e1cfc7866d1"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/run.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/run.py",
+    "sha256": "ad0e46b4b9447a14953c606fc356bcc2f5c3ab653a7dece742ae22515831b3c7"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "sha256": "1d13b16997fa4b3850582016482c60b30e227ef0f7eb0822e4750bf0ff2da94d"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "sha256": "c7fd99123afc98319ce69c6e8bdec63631dd2f14ae9ed5167576272a7be2a800"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "sha256": "f738f4a61927514317e9aa2bb50ea603df7fde0cb65aa4df98504ef365cabd64"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "sha256": "d70dd55809b0cc791c42f565e3d11810153e8787575c806e241c737d47e5c18a"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "sha256": "400d59b0bf17147652612f57d15643fead2d47c74d9d379e31a7b393db6febc4"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "sha256": "5ef527410324d7fcf449f518b24275f97c2ae56faa914fdbf17133e81430bc38"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "sha256": "2884040269beed2dafbac989f00037566ded90ba370931efa1a50bd987efcd05"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "sha256": "d92454797ba673ea02e8bf82fb47f273c0cec335f602809134e2c5fac43ea7e3"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "sha256": "93842f3450d35a8b1e393c299d200e21bc35bee99b11084d2f36ba02b26e51f1"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "sha256": "5307c6f4705fe5a5ed0419b1fba29d02c0c0980c154b0e350d09f522b1a084d2"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "sha256": "a011b20f10322953699edfc9e33df35ff9b559386a20407ee0e484516f5acae7"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/vendor/README.md",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/vendor/README.md",
+    "sha256": "d16caf8ad04b6d30fc1c1f6f01ac72b35ef9d4f78ae4684740320b1a9463b096"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "sha256": "7e56ef8f49e5dd21a6397d25c1e18d80f629d9a245cf89f9af2f3677f6ecd9a9"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/test_forecast_bridge.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/test_forecast_bridge.py",
+    "sha256": "8908843f6faa6272fadf2bdd4398ff86f7359cb995fd1f0c4d9c959b91e4519b"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/candidate/test_hazard_constructor.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/candidate/test_hazard_constructor.py",
+    "sha256": "0a0db12bd020075b402f97a88419b737ba7ef7794a65aca42459893bb5958965"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/constraints.txt",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/constraints.txt",
+    "sha256": "13d753d3dabea173c9465c722741e5082dd3d156f9bbeb4b9e8541e9555f6231"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/requirements.txt",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/requirements.txt",
+    "sha256": "ad579cb5766de16ab854bd1aa385a0d99e1c6aa8ace0dec2528f133d9d17fe76"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/tests/independent_checks.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/tests/independent_checks.py",
+    "sha256": "851982c4f105b554ffe17a7a64ba978b092187652c71715bd52531f8dda63616"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/tests/independent_delivery.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/tests/independent_delivery.py",
+    "sha256": "c42cf7e86f6a18aa6c0dd80eb9e7d5f9e1ea502e3244eb6d27d483b7130688b2"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/tests/independent_reference.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/tests/independent_reference.py",
+    "sha256": "09aad141090061f93dbb58684394b64f4a16bacd288648aab20c566b576535e0"
+  },
+  {
+    "path": "routing-review/forecast_routing_hourly_integration_20261008_v1/tests/test_hourly_integration.py",
+    "archive": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "member": "forecast_routing_hourly_integration_20261008_v1/tests/test_hourly_integration.py",
+    "sha256": "dbb3f2b99c4df592d3d16c919393a58fdb86f4c532215d0c5836c2a8d7f980a8"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/CANONICAL_APPEND.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/CANONICAL_APPEND.md",
+    "sha256": "3220c802cf40df93d6851db5a0d70a2d83757b0ddaa64cc6ea919cf39f472127"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/CERTIFICATE_EXAMPLES.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/CERTIFICATE_EXAMPLES.md",
+    "sha256": "a1c31927d7db57ca42487c2273c7a30852b03d26f1740923a30ba635bd095e1c"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/DIAGNOSIS.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/DIAGNOSIS.md",
+    "sha256": "6346e57fa610b7238c0279357fe7493fa1e9ce59ea49d982979bf135e3da1b9e"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/HYBRID_RADIATION_SPEC.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/HYBRID_RADIATION_SPEC.md",
+    "sha256": "aed010215c28d40ae66b37d249d6b9ff6887aa84d1898c92f268a944218ae2a5"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/INDEPENDENT_HYBRID_REVIEW.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/INDEPENDENT_HYBRID_REVIEW.md",
+    "sha256": "daa3a9b6b6a9d9add3889c41eb90704c50a284059cb43acc46f2786ea4e49267"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/OUTCOMES_AND_COST.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/OUTCOMES_AND_COST.md",
+    "sha256": "118cd781480f902a583f4748567ef46bfdcb6ee21938ede5d84c74776bd1b686"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/OWNER_HANDOFF.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/OWNER_HANDOFF.md",
+    "sha256": "88dce5e97b070ade8268a7c022ed1758fc74aa9fc42fa46253f29c9079e10977"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/PIPELINE_SPEC.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/PIPELINE_SPEC.md",
+    "sha256": "e6133d432e67143a289efa3bf150dfb13d8754b4350203c94fe7e698f736eb50"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/PREPARATION.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/PREPARATION.md",
+    "sha256": "74522f9a52fd77484312d512ad09e0be763ae7161014a804c1ddff1e7568ef00"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/REPRODUCE.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/REPRODUCE.md",
+    "sha256": "264de99ca7cf2477bde06d16f7def0d56645437ff445881536a05eee5737a6fb"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/contact_first.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/contact_first.py",
+    "sha256": "ea4a65a6acbac1c6b0975e716ff02b0927104ffe6c0a58f6dd4875d35b3385e5"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/diagnostic_search.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/diagnostic_search.py",
+    "sha256": "7c8c69b3bcb5764cfbbeb89f5fd2cdce1bb13b66f549641aeadd6be57f9c700d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/event_reference.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/event_reference.py",
+    "sha256": "351d7035f6e57732427ffe50ff02b5cd25f08abd94dca92b854725b642bfa528"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/forecast_bridge.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/forecast_bridge.py",
+    "sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/hazard_constructor.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/hazard_constructor.py",
+    "sha256": "fde4a5afe010d8a90695f719e43136d84e5f9128b3261a63b0480e002d4bd013"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/hourly.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/hourly.py",
+    "sha256": "74c3ee0ebb2dacd9b9d0da5f3b781fbc965834bb5c7e4b1d3d7cea3b847d99a5"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/hybrid_checker.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/hybrid_checker.py",
+    "sha256": "0a0b145ad95bff3dacf1fbd3a524d72330b357d6028dcd3a6ddeff830f2ced0d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/hybrid_radiation.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/hybrid_radiation.py",
+    "sha256": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/hybrid_shadow.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/hybrid_shadow.py",
+    "sha256": "f9ddb4fde7e89b7392903622e0f7eaa86a264c46ce597e26a24c1bf2e3f4a642"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/integrate.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/integrate.py",
+    "sha256": "39b0ef4a3d02b60025843ebe640d57af5d38fec58ba9a33237d4d340895487f3"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "sha256": "f38900b8fb2a3b97d4d272d5339fb18db3341de703931fa9f5268985f1887173"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "sha256": "ee55941674e5fc363141f5ca456e8e7207037c256f000d5529c3ea76ebd5b433"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "sha256": "430e89fd20dbcaf5cd037536d3b35ef94edf19b4917593b028c1297d037b2aa9"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "sha256": "abc9b84c31a1d15ced3f31819da7a9d8278c81884114ad573f02592e6065f93f"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "sha256": "70753a67033e34863fbee2fb6123b108016350e76eb301f22b8962cb61540a29"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "sha256": "8d0abf8b933b93304b455bb4e2a0ac5b9166da818471da068080215cdf45623d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "sha256": "edd106808cee00bd1b724a9431881c085cc3f7269fc0a1e9feac9e81165aa6fc"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "sha256": "ee6d58f59aaa419c540179ed80b33f58f275118609416a1d9bb0535f5f48eb97"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "sha256": "ede5d44f6514d315ebac5994af733b6bdd4855ae9b8a117e79b4fca4b3c27f01"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "sha256": "97798d36553c3d431d97c3c50aab42d1e4f49926282eacf771ec11a7675de72d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "sha256": "e914873a50fe24eb71844cdc94928b18240d44d62df4019ddccb7c80bcf67dd5"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "sha256": "482f0cbb8354348e740d44b0e0e9494bca24ded4d79b3ed3a35e337795a0a0ab"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "sha256": "2f25c70c2118762803d8f0743b650966af890ee5df1141360e9058c4f9c2d92a"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "sha256": "1907ec914b99090c74c28153f81d6392352c88f692d0729ad4156e36377d84fc"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "sha256": "9a69803d14646af8374fcb7b639c101520f56541b080142429240a7f9351aff6"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "sha256": "28b59e6f97023eccf40c39a6bcb1454a4be2d7227b82c3b0cf463aea2ee950e8"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "sha256": "f44a5b71bf5a19bd964ecff8e66183059152d036ad4266ad2238e5a49d7e2898"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "sha256": "dda17bcf477cc1c8ccecaa65337c1e03b1a3329020e26f11da11668b756b648e"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "sha256": "e346c912fcb9baf6687748291f1c4dcf4640a5a5f4990f677cfb685db7030c71"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "sha256": "0349bf0aedf041087fa6f1c51d2be105cd49e55e259b1c1058e9aa245aca1a19"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "sha256": "eed4efba71794e91f57745832bad691943974af5bbb37e494e68aa8160920965"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "sha256": "38a39ad0d1e53056ffc53b5adb93dba73e55bbf479b347a5899caa730dfd5955"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "sha256": "8ba2cc24b82b6ea038f68551bcf81c604d4c7a68366be4fbd88c540fdd47566a"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "sha256": "1ccec127f2afa1dd59b184a16d10ad02b053a24bf49e6347a2570b025243332d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "sha256": "65962f531831b274727e496545e2fb0d85ea793150b0a99ca786c469c91baf11"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "sha256": "48f5cdef4891f87928aa4fe13dd0ef74c6e7f80086b728f50522e92dddb110c3"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "sha256": "04f8967466853b89f85d8e21f64402df335520c340621e2b78d2af73fa1a0945"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "sha256": "b4dd342e96eb8fa237f2c847d60e54f95d4144c4d31fcb851851b03ef41a4c5d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "sha256": "5f9157369e0385e3575f273e10503b03c17846ce3498d044bb57c82c9649ba86"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "sha256": "122048ae09dc061b3e2c2715a6ef0065d13502a28cc2045c47a96ec1540c317c"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "sha256": "e7fd8de1867da1ae1608fb2d23b618701ae21c7364641a8acc25ff468e6a24aa"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "sha256": "a24cd994344cdd1131fb56bc75bdcdb6b874b02cf9c2a56ccd1fd8c39c931ef6"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "sha256": "e61da7d553de4f3bef954b048f3cf393dd9d8737910cd2ffc2cec82abc500145"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "sha256": "fbca229aa058d452ae789d02ed301f0e37ad820eb4e423c7886400f0c828446b"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "sha256": "2719b64889a96540350da99c97d0d7ec5aa2f694e5590a3e15b34fd3a849bad0"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "sha256": "dec4b3b4702219d55c721c5a341247a9a659ac8318163b09d78ddb7d9afd2bf0"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "sha256": "afea7b4d5753dcd1b5522b8263199c064a66230e63d2865a6721063ec2e6f6e1"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "sha256": "3ee57e71333093358725063df30ce8843f00f0c93286fab25541273d1dda80e1"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "sha256": "688db50c2b9a77129011b158ea811bd1a35c59fbad5b06a0ed83349a375b9732"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "sha256": "7c6c970e847b6395b32c0b2c9583bdb3f4c0ae89091504c81b1b6a8aa6d09212"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "sha256": "ff11faa3f856da6c21e7b541d57a2465aa70698453990b142ea84239e270f950"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "sha256": "bc3d3e6e3b56b0ee40d283c2574010269e6c179cec871336f92167a7381a8097"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "sha256": "e414005d259cd936fb75adf9cab100b1e704d53d69dc1bbdd3a6485463914f47"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/mission_contract.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/mission_contract.py",
+    "sha256": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/native_forecast.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/native_forecast.py",
+    "sha256": "c4dc3794c8e4e191f5afc0bd18152b4dbe41460ee43dd7db0496e74128080459"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/opt_in_shadow.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/opt_in_shadow.py",
+    "sha256": "c95bf7d438eaeff3cc32f1b7f6660e2badf98d2bfd4fa78809bd3df897ab5d13"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/practical_checker.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/practical_checker.py",
+    "sha256": "8502e6a215411ee17020346a1581ba74535c020d51c7190f52dfa04068dcdfa8"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/radiation_bounds.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/radiation_bounds.py",
+    "sha256": "e37a92b6717a5c18a2030902748ad68b47900fd4f42530caf9d7fc9f886a36ec"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/replay_with_provenance.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/replay_with_provenance.py",
+    "sha256": "99ee2ba57ec6ef61e50f9e2e83b5c27392907f808229f7c7907119d5823598d8"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/road_exposure.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/road_exposure.py",
+    "sha256": "415498da9cd45580d11263e92beaa3fcc85f525735783d7129cc9b06770a0f14"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "sha256": "782cba6d5a027e78e68060ee408d505854712ecc463bbaca93a701c222795d83"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/README.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/README.md",
+    "sha256": "87ea702b05ccff8ca3639f1f3837be46877eea415690465e27a340d73a397c2c"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "sha256": "fda4ff4cdb445587ee9cc1a01cc9d761664f63aaa3f0a2c18afcf78def8ddb85"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "sha256": "1bc1bfbbb827488ae7fd10c4d2681e5091310ae92c4cddd79276580a56589f51"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "sha256": "a1ffe63ea0c22b15348c427f09fdb9eef632c21ba703faff7c5984c77d55f4d4"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "sha256": "80ba032ba724464ae9c68f029641e1a8b3111d771ba407ffe7ce4a631676ff9e"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "sha256": "404c1ee7811c49208d5b483d10a408ecb9df1e25ecf9f66cbb6ddedc316ea8b5"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "sha256": "56968e56d25f92b8e8da5d68cb056ddc6265972138a450613d0981bfa6c09570"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "sha256": "121980825f08e038f123b1811ff0f8adfcfc63601b592b1efdcfca17d1719522"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "sha256": "206ce8b31cf077b47edfdb4480dbc9aaf0c2c4f180a2e03925db9b3ab38724c7"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "sha256": "f66806efc734f30feb332ed0de4ea8c5ab08ef675c0d0061d7b32ddf3093782d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/checks.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/checks.py",
+    "sha256": "d9223bc58850a7571efcdecd0dfa59bb5dcd48b9be4499954d8bb6d77b80a7dd"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/cli.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/cli.py",
+    "sha256": "4c755bed06716b17c6e18e297eef9be8b47997c78c8d609574ec5f205b4154ea"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/core.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/core.py",
+    "sha256": "b8168943168603f9beccfd2a0ca2b18b8cb77fac91de4f7dda481b2d2faa157c"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "sha256": "765872406f331d88a6e2bf1c14a782e7cb52bd81bc68ffe83e42ce6f44ddaf2d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/independent.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/independent.py",
+    "sha256": "41fcfee25b980b080287025e2b883e5f0f78d7d21580a5c1633375cf1e64ca2a"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "sha256": "1b54ce9712ae3ef0ed76ddfc6a95363501f69d850acb33cd22c823275009bfeb"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "sha256": "d3b2cddb30f407dbba43210cefbee78e4a52573cd4e79e5ea337c2c9082f2294"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/replay.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/replay.py",
+    "sha256": "c6656e46b8bb47591dc307b7a5473e6f5fa157dfd96ab32cff7e0f2c828dbaa7"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/service.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/service.py",
+    "sha256": "2ac5a5f39274a346ef6084ac5870c70840f3e693626bf38ec48c2a748802e373"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/session.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/session.py",
+    "sha256": "451e1a9930e00b7ecc4d2c87bb8939c74a715eee03e66910eef0901888078148"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/validation.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/routing/validation.py",
+    "sha256": "259248a464172746aae1211480e8d651eab0e77f88cc91d4081b1e1cfc7866d1"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/run.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/run.py",
+    "sha256": "ad0e46b4b9447a14953c606fc356bcc2f5c3ab653a7dece742ae22515831b3c7"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "sha256": "1d13b16997fa4b3850582016482c60b30e227ef0f7eb0822e4750bf0ff2da94d"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "sha256": "c7fd99123afc98319ce69c6e8bdec63631dd2f14ae9ed5167576272a7be2a800"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "sha256": "f738f4a61927514317e9aa2bb50ea603df7fde0cb65aa4df98504ef365cabd64"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "sha256": "d70dd55809b0cc791c42f565e3d11810153e8787575c806e241c737d47e5c18a"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "sha256": "400d59b0bf17147652612f57d15643fead2d47c74d9d379e31a7b393db6febc4"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "sha256": "5ef527410324d7fcf449f518b24275f97c2ae56faa914fdbf17133e81430bc38"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "sha256": "2884040269beed2dafbac989f00037566ded90ba370931efa1a50bd987efcd05"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "sha256": "d92454797ba673ea02e8bf82fb47f273c0cec335f602809134e2c5fac43ea7e3"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "sha256": "93842f3450d35a8b1e393c299d200e21bc35bee99b11084d2f36ba02b26e51f1"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "sha256": "5307c6f4705fe5a5ed0419b1fba29d02c0c0980c154b0e350d09f522b1a084d2"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "sha256": "a011b20f10322953699edfc9e33df35ff9b559386a20407ee0e484516f5acae7"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/vendor/README.md",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/vendor/README.md",
+    "sha256": "d16caf8ad04b6d30fc1c1f6f01ac72b35ef9d4f78ae4684740320b1a9463b096"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "sha256": "7e56ef8f49e5dd21a6397d25c1e18d80f629d9a245cf89f9af2f3677f6ecd9a9"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/temporal_contract.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/temporal_contract.py",
+    "sha256": "182bdfa86469fa12cc00cb3615ad1fdf0c9e499f6cc6888c33a5d143c9d527e9"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/test_forecast_bridge.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/test_forecast_bridge.py",
+    "sha256": "8908843f6faa6272fadf2bdd4398ff86f7359cb995fd1f0c4d9c959b91e4519b"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/candidate/test_hazard_constructor.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/candidate/test_hazard_constructor.py",
+    "sha256": "0a0db12bd020075b402f97a88419b737ba7ef7794a65aca42459893bb5958965"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/requirements.txt",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/requirements.txt",
+    "sha256": "e77e7045d01a9431264f9262c6b199d8e7988c139276a5266a3cf689588ad66e"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/hybrid_radiation_development.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/hybrid_radiation_development.py",
+    "sha256": "b6a18f4ae57f35a64f6e05248c33a3ef8346de6ff2cbbe897acca2d7dcdc3059"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/hybrid_radiation_unit.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/hybrid_radiation_unit.py",
+    "sha256": "6d0138fe8cef06702c40266a6c61bb913196b0e6770f1caa6bfcff89774fd3ed"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/hybrid_wrapper_checks.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/hybrid_wrapper_checks.py",
+    "sha256": "a39dcdd470560c3009dc814815c45756151c492970b7127d484f8ff40986b217"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_bounds.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_bounds.py",
+    "sha256": "3b91771efb19e71b5cd2cc7880e2175dd8bf85c1960482d87646fc4145e1a609"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_confirmation.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_confirmation.py",
+    "sha256": "9dc7a9a6b7748b6800e562a71f56f5d0385a122ee637f06d12fe5a15ff4ea6c0"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_confirmation_schema_addendum.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_confirmation_schema_addendum.py",
+    "sha256": "9b54115ec85e948c71ad10e4d4089699777aded6f655e4323d8b37494b729c89"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_driver.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_driver.py",
+    "sha256": "b395e6eb02d8331445c2460c6d58280fccddd93395999854d12aeebd6c33fcb0"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_reference.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_reference.py",
+    "sha256": "eef949add7f60d0a0821d376358bc72dabeaecbac486978f58b73b86f72bcfb2"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_shadow.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_shadow.py",
+    "sha256": "2cd243215f44ef6dc98282cadce07b6cf26038ba99d2e327d7c37758955debc1"
+  },
+  {
+    "path": "routing-review/routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_wrapper.py",
+    "archive": "routing_hybrid_road_checker_20261008_v1.zip",
+    "member": "routing_hybrid_road_checker_20261008_v1/tests/independent_hybrid_wrapper.py",
+    "sha256": "42fd87df593412e7d8b4ab82ecc21dee56a846d1c661dd16c272eb4a24434205"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/CACHE_SPEC.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/CACHE_SPEC.md",
+    "sha256": "bb72e5f78e50ba4c0a7d8c2d7280dc509a2c1dcdd61d59867789c4afc24a5ca1"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/CANONICAL_APPEND.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/CANONICAL_APPEND.md",
+    "sha256": "2c0f74c98e57fb54306a8ead24012af5be80babb482dad2161524926b1dece81"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/COST_SCOPE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/COST_SCOPE.md",
+    "sha256": "94500bdc608a7002331b559b025cef2562412331ae2e7f08214166629de29950"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/DELIVERY_COMPLETION.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/DELIVERY_COMPLETION.md",
+    "sha256": "e62c2bd1e1a2451104473bf55a0ac656c6ebe105ed513eddaea64435b29ce6ee"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/DEVELOPMENT_DIAGNOSIS.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/DEVELOPMENT_DIAGNOSIS.md",
+    "sha256": "a43380f7ae5e6c2f3d897d3bb6c52bf8db8c7ca7e585d572ade4e745f497a975"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/EXPERIMENT_LINEAGE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/EXPERIMENT_LINEAGE.md",
+    "sha256": "b7f65cb7fa2c748fc4d2ee4001070767e9361bb98a2216e0bcd78ca1d441736f"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/INDEPENDENT_FINAL_REVIEW.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/INDEPENDENT_FINAL_REVIEW.md",
+    "sha256": "018cf019be7966448f07340b61b34af3213b3eee26a3dacd40425a2158e3ccca"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/INDEPENDENT_REVIEW.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/INDEPENDENT_REVIEW.md",
+    "sha256": "e6891f9a295ba1d7e92e5c8acda5a5550d51ccae6392603e86f7895c2c3b47c8"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/NEXT_EXPERIMENT_PROPOSAL.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/NEXT_EXPERIMENT_PROPOSAL.md",
+    "sha256": "98a5499112a69879cc8761a30e0b452c06bd1a3f1b7a03a79318123bd6c2aa13"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/OUTCOMES_AND_WORK.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/OUTCOMES_AND_WORK.md",
+    "sha256": "64750baf6e162d7487f14b557c0608ec2773a17f39c552bc70f3c09c41598851"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/OWNER_HANDOFF.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/OWNER_HANDOFF.md",
+    "sha256": "d3238c8639c00b22a76546d5211befd285a1f8c9e2183baf76e5e45ce6857b51"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/REPRODUCE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/REPRODUCE.md",
+    "sha256": "9127dd8326162aac22a33ffed7ff5590f96d0d2b5c422edb445c26503c6453e8"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/SEARCH_SPEC.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/SEARCH_SPEC.md",
+    "sha256": "91b01fb001a4b6c2d41d5d938c2fbef81e80b72e80dbe10233823a53c3db96ca"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/WITNESS_EXAMPLES.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/WITNESS_EXAMPLES.md",
+    "sha256": "5a0187317482781b7cf6a11563458b98efd56a0611f06a13786d2c2390735121"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/contact_first.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/contact_first.py",
+    "sha256": "ea4a65a6acbac1c6b0975e716ff02b0927104ffe6c0a58f6dd4875d35b3385e5"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/diagnostic_search.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/diagnostic_search.py",
+    "sha256": "7c8c69b3bcb5764cfbbeb89f5fd2cdce1bb13b66f549641aeadd6be57f9c700d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/event_reference.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/event_reference.py",
+    "sha256": "351d7035f6e57732427ffe50ff02b5cd25f08abd94dca92b854725b642bfa528"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/forecast_bridge.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/forecast_bridge.py",
+    "sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/hazard_constructor.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/hazard_constructor.py",
+    "sha256": "fde4a5afe010d8a90695f719e43136d84e5f9128b3261a63b0480e002d4bd013"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/hourly.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/hourly.py",
+    "sha256": "74c3ee0ebb2dacd9b9d0da5f3b781fbc965834bb5c7e4b1d3d7cea3b847d99a5"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/hybrid_checker.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/hybrid_checker.py",
+    "sha256": "0a0b145ad95bff3dacf1fbd3a524d72330b357d6028dcd3a6ddeff830f2ced0d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/hybrid_radiation.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/hybrid_radiation.py",
+    "sha256": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/hybrid_shadow.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/hybrid_shadow.py",
+    "sha256": "f9ddb4fde7e89b7392903622e0f7eaa86a264c46ce597e26a24c1bf2e3f4a642"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/integrate.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/integrate.py",
+    "sha256": "39b0ef4a3d02b60025843ebe640d57af5d38fec58ba9a33237d4d340895487f3"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/__init__.py",
+    "sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/ecology.py",
+    "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/example.py",
+    "sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/integrated_example.py",
+    "sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/model.py",
+    "sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/pipeline.py",
+    "sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/expected_heat_flux/temporal.py",
+    "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__init__.py",
+    "sha256": "f38900b8fb2a3b97d4d272d5339fb18db3341de703931fa9f5268985f1887173"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/__main__.py",
+    "sha256": "ee55941674e5fc363141f5ca456e8e7207037c256f000d5529c3ea76ebd5b433"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api.py",
+    "sha256": "430e89fd20dbcaf5cd037536d3b35ef94edf19b4917593b028c1297d037b2aa9"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/api_example.py",
+    "sha256": "abc9b84c31a1d15ced3f31819da7a9d8278c81884114ad573f02592e6065f93f"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/__init__.py",
+    "sha256": "70753a67033e34863fbee2fb6123b108016350e76eb301f22b8962cb61540a29"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+    "sha256": "8d0abf8b933b93304b455bb4e2a0ac5b9166da818471da068080215cdf45623d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+    "sha256": "edd106808cee00bd1b724a9431881c085cc3f7269fc0a1e9feac9e81165aa6fc"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+    "sha256": "ee6d58f59aaa419c540179ed80b33f58f275118609416a1d9bb0535f5f48eb97"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+    "sha256": "ede5d44f6514d315ebac5994af733b6bdd4855ae9b8a117e79b4fca4b3c27f01"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/make_preview.py",
+    "sha256": "97798d36553c3d431d97c3c50aab42d1e4f49926282eacf771ec11a7675de72d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+    "sha256": "e914873a50fe24eb71844cdc94928b18240d44d62df4019ddccb7c80bcf67dd5"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/__init__.py",
+    "sha256": "482f0cbb8354348e740d44b0e0e9494bca24ded4d79b3ed3a35e337795a0a0ab"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/_inference.py",
+    "sha256": "2f25c70c2118762803d8f0743b650966af890ee5df1141360e9058c4f9c2d92a"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+    "sha256": "1907ec914b99090c74c28153f81d6392352c88f692d0729ad4156e36377d84fc"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/cache.py",
+    "sha256": "9a69803d14646af8374fcb7b639c101520f56541b080142429240a7f9351aff6"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+    "sha256": "28b59e6f97023eccf40c39a6bcb1454a4be2d7227b82c3b0cf463aea2ee950e8"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+    "sha256": "f44a5b71bf5a19bd964ecff8e66183059152d036ad4266ad2238e5a49d7e2898"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+    "sha256": "dda17bcf477cc1c8ccecaa65337c1e03b1a3329020e26f11da11668b756b648e"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+    "sha256": "e346c912fcb9baf6687748291f1c4dcf4640a5a5f4990f677cfb685db7030c71"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+    "sha256": "0349bf0aedf041087fa6f1c51d2be105cd49e55e259b1c1058e9aa245aca1a19"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+    "sha256": "eed4efba71794e91f57745832bad691943974af5bbb37e494e68aa8160920965"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+    "sha256": "38a39ad0d1e53056ffc53b5adb93dba73e55bbf479b347a5899caa730dfd5955"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+    "sha256": "8ba2cc24b82b6ea038f68551bcf81c604d4c7a68366be4fbd88c540fdd47566a"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/example.py",
+    "sha256": "1ccec127f2afa1dd59b184a16d10ad02b053a24bf49e6347a2570b025243332d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/filter_contact.py",
+    "sha256": "65962f531831b274727e496545e2fb0d85ea793150b0a99ca786c469c91baf11"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/inference.py",
+    "sha256": "48f5cdef4891f87928aa4fe13dd0ef74c6e7f80086b728f50522e92dddb110c3"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/input_schema.py",
+    "sha256": "04f8967466853b89f85d8e21f64402df335520c340621e2b78d2af73fa1a0945"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/metrics.py",
+    "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/model.py",
+    "sha256": "b4dd342e96eb8fa237f2c847d60e54f95d4144c4d31fcb851851b03ef41a4c5d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+    "sha256": "5f9157369e0385e3575f273e10503b03c17846ce3498d044bb57c82c9649ba86"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/report_training.py",
+    "sha256": "122048ae09dc061b3e2c2715a6ef0065d13502a28cc2045c47a96ec1540c317c"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/runtime.py",
+    "sha256": "e7fd8de1867da1ae1608fb2d23b618701ae21c7364641a8acc25ff468e6a24aa"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/subset_country.py",
+    "sha256": "a24cd994344cdd1131fb56bc75bdcdb6b874b02cf9c2a56ccd1fd8c39c931ef6"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/train.py",
+    "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+    "sha256": "e61da7d553de4f3bef954b048f3cf393dd9d8737910cd2ffc2cec82abc500145"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/probability_model/verify_training.py",
+    "sha256": "fbca229aa058d452ae789d02ed301f0e37ad820eb4e423c7886400f0c828446b"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/__init__.py",
+    "sha256": "2719b64889a96540350da99c97d0d7ec5aa2f694e5590a3e15b34fd3a849bad0"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "sha256": "dec4b3b4702219d55c721c5a341247a9a659ac8318163b09d78ddb7d9afd2bf0"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/example.py",
+    "sha256": "afea7b4d5753dcd1b5522b8263199c064a66230e63d2865a6721063ec2e6f6e1"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/pytorch_loader/validate_real_data.py",
+    "sha256": "3ee57e71333093358725063df30ce8843f00f0c93286fab25541273d1dda80e1"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+    "sha256": "688db50c2b9a77129011b158ea811bd1a35c59fbad5b06a0ed83349a375b9732"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+    "sha256": "7c6c970e847b6395b32c0b2c9583bdb3f4c0ae89091504c81b1b6a8aa6d09212"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+    "sha256": "ff11faa3f856da6c21e7b541d57a2465aa70698453990b142ea84239e270f950"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+    "sha256": "bc3d3e6e3b56b0ee40d283c2574010269e6c179cec871336f92167a7381a8097"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mentor_runtime/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+    "sha256": "e414005d259cd936fb75adf9cab100b1e704d53d69dc1bbdd3a6485463914f47"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/mission_contract.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/mission_contract.py",
+    "sha256": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/native_forecast.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/native_forecast.py",
+    "sha256": "c4dc3794c8e4e191f5afc0bd18152b4dbe41460ee43dd7db0496e74128080459"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/opt_in_shadow.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/opt_in_shadow.py",
+    "sha256": "c95bf7d438eaeff3cc32f1b7f6660e2badf98d2bfd4fa78809bd3df897ab5d13"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/practical_checker.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/practical_checker.py",
+    "sha256": "8502e6a215411ee17020346a1581ba74535c020d51c7190f52dfa04068dcdfa8"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/radiation_bounds.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/radiation_bounds.py",
+    "sha256": "e37a92b6717a5c18a2030902748ad68b47900fd4f42530caf9d7fc9f886a36ec"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/replay_with_provenance.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/replay_with_provenance.py",
+    "sha256": "99ee2ba57ec6ef61e50f9e2e83b5c27392907f808229f7c7907119d5823598d8"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/road_exposure.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/road_exposure.py",
+    "sha256": "415498da9cd45580d11263e92beaa3fcc85f525735783d7129cc9b06770a0f14"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/OWNER_HANDOFF.md",
+    "sha256": "782cba6d5a027e78e68060ee408d505854712ecc463bbaca93a701c222795d83"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/README.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/README.md",
+    "sha256": "87ea702b05ccff8ca3639f1f3837be46877eea415690465e27a340d73a397c2c"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/REPRODUCE.md",
+    "sha256": "fda4ff4cdb445587ee9cc1a01cc9d761664f63aaa3f0a2c18afcf78def8ddb85"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/ARCHITECTURE.md",
+    "sha256": "1bc1bfbbb827488ae7fd10c4d2681e5091310ae92c4cddd79276580a56589f51"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/CONTRACT_WORKING.md",
+    "sha256": "a1ffe63ea0c22b15348c427f09fdb9eef632c21ba703faff7c5984c77d55f4d4"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/INTERFACE.md",
+    "sha256": "80ba032ba724464ae9c68f029641e1a8b3111d771ba407ffe7ce4a631676ff9e"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/PREPARATION_LIFECYCLE.md",
+    "sha256": "404c1ee7811c49208d5b483d10a408ecb9df1e25ecf9f66cbb6ddedc316ea8b5"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/PREPARED_GRAPH.md",
+    "sha256": "56968e56d25f92b8e8da5d68cb056ddc6265972138a450613d0981bfa6c09570"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/REFACTOR_REPORT.md",
+    "sha256": "121980825f08e038f123b1811ff0f8adfcfc63601b592b1efdcfca17d1719522"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/docs/ROUTING_SPEC.md",
+    "sha256": "206ce8b31cf077b47edfdb4480dbc9aaf0c2c4f180a2e03925db9b3ab38724c7"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/__init__.py",
+    "sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/__main__.py",
+    "sha256": "f66806efc734f30feb332ed0de4ea8c5ab08ef675c0d0061d7b32ddf3093782d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/checks.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/checks.py",
+    "sha256": "d9223bc58850a7571efcdecd0dfa59bb5dcd48b9be4499954d8bb6d77b80a7dd"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/cli.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/cli.py",
+    "sha256": "4c755bed06716b17c6e18e297eef9be8b47997c78c8d609574ec5f205b4154ea"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/core.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/core.py",
+    "sha256": "b8168943168603f9beccfd2a0ca2b18b8cb77fac91de4f7dda481b2d2faa157c"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/core_cached.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/core_cached.py",
+    "sha256": "e2e1d2c233c3a7294fc7b0559df5f27aba0c812e1a4e5b3964e5973ef40159ba"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/fallback.py",
+    "sha256": "765872406f331d88a6e2bf1c14a782e7cb52bd81bc68ffe83e42ce6f44ddaf2d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/fixture.py",
+    "sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/independent.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/independent.py",
+    "sha256": "41fcfee25b980b080287025e2b883e5f0f78d7d21580a5c1633375cf1e64ca2a"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/legacy_bridge.py",
+    "sha256": "1b54ce9712ae3ef0ed76ddfc6a95363501f69d850acb33cd22c823275009bfeb"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/optimization.py",
+    "sha256": "d3b2cddb30f407dbba43210cefbee78e4a52573cd4e79e5ea337c2c9082f2294"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/prepared.py",
+    "sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/replay.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/replay.py",
+    "sha256": "c6656e46b8bb47591dc307b7a5473e6f5fa157dfd96ab32cff7e0f2c828dbaa7"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/search_geometry_cache.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/search_geometry_cache.py",
+    "sha256": "0672ccebbab3a58cdcc42fec23d18e2f2112e7502e82aa38362695cc41939932"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/service.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/service.py",
+    "sha256": "2ac5a5f39274a346ef6084ac5870c70840f3e693626bf38ec48c2a748802e373"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/session.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/session.py",
+    "sha256": "451e1a9930e00b7ecc4d2c87bb8939c74a715eee03e66910eef0901888078148"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/validation.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/routing/validation.py",
+    "sha256": "259248a464172746aae1211480e8d651eab0e77f88cc91d4081b1e1cfc7866d1"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/run.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/run.py",
+    "sha256": "ad0e46b4b9447a14953c606fc356bcc2f5c3ab653a7dece742ae22515831b3c7"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_cli.py",
+    "sha256": "1d13b16997fa4b3850582016482c60b30e227ef0f7eb0822e4750bf0ff2da94d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_core.py",
+    "sha256": "c7fd99123afc98319ce69c6e8bdec63631dd2f14ae9ed5167576272a7be2a800"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_crossreview.py",
+    "sha256": "f738f4a61927514317e9aa2bb50ea603df7fde0cb65aa4df98504ef365cabd64"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_independent.py",
+    "sha256": "d70dd55809b0cc791c42f565e3d11810153e8787575c806e241c737d47e5c18a"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_optimization.py",
+    "sha256": "400d59b0bf17147652612f57d15643fead2d47c74d9d379e31a7b393db6febc4"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_prepared.py",
+    "sha256": "5ef527410324d7fcf449f518b24275f97c2ae56faa914fdbf17133e81430bc38"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_service.py",
+    "sha256": "2884040269beed2dafbac989f00037566ded90ba370931efa1a50bd987efcd05"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_session_fallback.py",
+    "sha256": "d92454797ba673ea02e8bf82fb47f273c0cec335f602809134e2c5fac43ea7e3"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tests/test_validation.py",
+    "sha256": "93842f3450d35a8b1e393c299d200e21bc35bee99b11084d2f36ba02b26e51f1"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tools/collect_regression_results.py",
+    "sha256": "5307c6f4705fe5a5ed0419b1fba29d02c0c0980c154b0e350d09f522b1a084d2"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/tools/verify_refactor.py",
+    "sha256": "a011b20f10322953699edfc9e33df35ff9b559386a20407ee0e484516f5acae7"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/vendor/README.md",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/vendor/README.md",
+    "sha256": "d16caf8ad04b6d30fc1c1f6f01ac72b35ef9d4f78ae4684740320b1a9463b096"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/routing-package/vendor/r3_sparse.py",
+    "sha256": "7e56ef8f49e5dd21a6397d25c1e18d80f629d9a245cf89f9af2f3677f6ecd9a9"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/search_followup.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/search_followup.py",
+    "sha256": "cad2f4262555f0f6875cb76f84bb422b80ff2ae338ea338c7d6c4b2744c31d2f"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/temporal_contract.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/temporal_contract.py",
+    "sha256": "182bdfa86469fa12cc00cb3615ad1fdf0c9e499f6cc6888c33a5d143c9d527e9"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/test_forecast_bridge.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/test_forecast_bridge.py",
+    "sha256": "8908843f6faa6272fadf2bdd4398ff86f7359cb995fd1f0c4d9c959b91e4519b"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/candidate/test_hazard_constructor.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/candidate/test_hazard_constructor.py",
+    "sha256": "0a0db12bd020075b402f97a88419b737ba7ef7794a65aca42459893bb5958965"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/requirements.txt",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/requirements.txt",
+    "sha256": "e77e7045d01a9431264f9262c6b199d8e7988c139276a5266a3cf689588ad66e"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/cache_development.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/cache_development.py",
+    "sha256": "9ece50100132842291b7902401d813994f54542eb63f28e2cc3db4681206db39"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_confirmation.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_confirmation.py",
+    "sha256": "d98dc77806b63d475fcf407e27f10986ef930e420637bd916695b4c79192bb37"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_driver.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_driver.py",
+    "sha256": "63d01e968edc5f300ba6e06d66fb847a14612e7ec4c539e5f6216cdbd0c94791"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_geometry.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_geometry.py",
+    "sha256": "44f1acc9b93c41d7100c23cb5b1e8391076a454428a053fe1dc9545dd476e94d"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_reference.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_reference.py",
+    "sha256": "f589a1f9cbf8a80222531102d5451a39f41c6bf9f9de09380b64e5b2009d4abf"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_schema.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_schema.py",
+    "sha256": "82cde6812338ddc3b21ddf995560ecfffe7b7d66c723ba52f8b1933bd13db49b"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_source.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_source.py",
+    "sha256": "dc5031d8d816d1edd62682b919bbd59db719910ede140d39d9d9a09d52a6f934"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/independent_search_wrapper.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/independent_search_wrapper.py",
+    "sha256": "93183c820b3dd474eb5ad37e53e5a058a75c00354abcf6d259e64b45e47c3c42"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/reference_fixtures.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/reference_fixtures.py",
+    "sha256": "1e8d4b3fad074af7c4cff34293d0bc919d603d751c11a58a2da75815d2c9e9be"
+  },
+  {
+    "path": "routing-review/routing_integrated_search_followup_20261008_v1/tests/search_development.py",
+    "archive": "routing_integrated_search_followup_20261008_v1.zip",
+    "member": "routing_integrated_search_followup_20261008_v1/tests/search_development.py",
+    "sha256": "4629c6a010de832076c11b3a673545b14a8e2e520f25175f2d5c90b43edbf5f1"
+  }
+]

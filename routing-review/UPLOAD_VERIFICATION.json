@@ -1,0 +1,21 @@
+{
+  "hourly_release_tests": "PASS in fresh original hourly ZIP extraction; see retained hourly-tests.log",
+  "hybrid_confirmation_schema_addendum": {
+    "status": "PASS",
+    "cases": 18
+  },
+  "hybrid_wrapper": {
+    "status": "PASS",
+    "checks": 72
+  },
+  "archives": "CRC passed; source-subset bytes verified against original archive members",
+  "not_rerun": [
+    "full timed search panels",
+    "436 original forecasting model tests"
+  ],
+  "retained_attempts": [
+    "Inherited hourly test runner invoked in hybrid ZIP: 91 routing tests passed, then bridge tests failed writing absent audit directory. Use hourly archive for hourly.py tests and documented hybrid test commands for hybrid archive.",
+    "An independent-check attempt first used the source folder rather than extraction and was interrupted; its report was restored byte-for-byte from the preserved ZIP. Completed repeat used disposable extraction."
+  ],
+  "scientific_status": "No default promotion. Integrated difficult-query timeouts remain unresolved."
+}

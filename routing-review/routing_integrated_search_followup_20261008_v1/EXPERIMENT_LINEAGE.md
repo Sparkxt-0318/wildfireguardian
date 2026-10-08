@@ -1,0 +1,13 @@
+# Stage 2 experiment lineage
+
+The original hourly release, diagnosis, hazard-contract experiment, practical checker and accepted opt-in HybridChecker are preserved. The independent preservation manifest checks 3,953 source/delivery files; inherited candidate equality checks 343 files. Stage 2 adds only `search_followup.py`, `routing/core_cached.py` and `routing/search_geometry_cache.py` to its isolated copied candidate. The original routing core is unchanged.
+
+Original 78 outcomes, all 27 TIMEOUT reports and all 24 AT_ISSUE_FAILURE reports remain in the portable baseline. The two unchanged selected timeout packets are the development cohort. Their measured work applies only to those two; the other 25 are unprofiled here. The earlier diagnosis remains the source of cohort census, not a substitute for new measurement.
+
+`development/modes_v1` is the preserved failed wrapper source-binding attempt. `development/modes_v2` follows namespace correction and precedes the final content-derived construction hash guard. These 16 completed phases all TIMEOUT. The final guard changes provenance admission only; 13 author methods and 11 independent real-source controls pass before the seal. Other preserved prefreeze code/test corrections are catalogued under `results/corrections`, `development` and `review`.
+
+The scientific seal binds 584 direct files before panel opening. `requirements.txt` and `review/GRAPH_SCOPE.json` are additionally bound by the sealed readiness gates, verified in `evidence/TRANSITIVE_GATE_BINDING.json`. Final integrity checks both direct file hashes and all transitive gate dependencies. No scientific edits after opening are permitted.
+
+The fresh panel uses 6 incident requests over 3 separately seeded constructions of unchanged saved original hourly forecasts and 17 known exact-reference controls. Known controls are explicitly labelled and cannot support a fresh general-performance claim. Selection depends on retained original hard query and first fixed topology-only selector output, not fresh hazard or routing outcomes. Original 30-second primary solver caps are retained; source/epoch/preparation/import work is external and fully charged. Whole-road checking has a separate 30-second cap. Four modes run in serial isolated processes; one case/mode process owns cold and warm calls.
+
+A source construction is a declared finite surrogate, not an observed fire. A centre-contract optimum and a continuous-road witness certificate have different authority. TIMEOUT, unavailable support and missing evidence remain unresolved. A road-rejected centre route cannot establish road infeasibility or optimum. No rejected-route blacklisting, budget relaxation, model change or favourable query replacement is performed.

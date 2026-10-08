@@ -1,0 +1,17 @@
+[
+  {
+    "file": "forecast_routing_hourly_integration_20261008_v1.zip",
+    "sha256": "142046fcccf998715a7d35ce0135bcda33a0b164c1b51994f149aa48b1ba2d1b",
+    "bytes": 106829249
+  },
+  {
+    "file": "routing_hybrid_road_checker_20261008_v1.zip",
+    "sha256": "2fbc8f90bd4ef848a5f37e6ccae401475f3327d2eb8d36cb9298962d4b575b5a",
+    "bytes": 19894363
+  },
+  {
+    "file": "routing_integrated_search_followup_20261008_v1.zip",
+    "sha256": "356243f184e74cbf589ffcea08fd1420ccfd5d0ab530fbae3d791944d34f5211",
+    "bytes": 27221483
+  }
+]

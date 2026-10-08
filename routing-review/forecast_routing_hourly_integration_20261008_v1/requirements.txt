@@ -1,0 +1,9 @@
+# Original tested versions; Python 3.12.1 on macOS arm64.
+numpy==1.26.4
+torch==2.5.1
+scipy==1.13.1
+rasterio==1.4.3
+pandas==2.2.3
+pyproj==3.7.0
+affine==3.0.1
+pytest==8.3.4

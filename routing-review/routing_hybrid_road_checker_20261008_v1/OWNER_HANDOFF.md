@@ -1,0 +1,48 @@
+# Hybrid continuous-road checker owner handoff — Stage 1
+
+Decision: **GO for the explicit optional fixed-witness API under the represented constructed-hazard contract.** Default replacement is **NO_GO**. Network search, global optimality/infeasibility, empirical forecast validity and physical safety remain **UNRESOLVED**. Independent decision: `review/FINAL_GATES.json`; mathematical audit: `review/HYBRID_PROOF_AUDIT.md`; final narrative: `INDEPENDENT_HYBRID_REVIEW.md`.
+
+## Accepted API and ownership
+
+`candidate/hybrid_checker.py`: `HybridChecker(case_directory, settings=None).check(graph, request, legs, destination, *, wall_s=30, deadline=None, expected_graph_revision=None, expected_graph_sha256=None)`.
+
+The owner serializes calls and authority updates. One instance binds immutable source NPZ/report, full graph content, directory and numerical settings. Any epoch change requires an explicit new checker. Mission/budgets/incurred exposure are evaluated on every call; only compatible geometric enclosures are cached. Before/after guards detect persistent mutation, not malicious change-and-restore between probes. Partial-edge initial positions and trailing destination WAIT are unsupported. Supported missions begin at a graph node and use complete directed edges, validated turns/waits and full destination dwell within declared support/time horizons. This release tests 120-second destination dwell. The 30-second primary cap and measured 3072 MiB lifetime RSS guard fail closed; RSS is not an OS allocation ceiling. Cold callers start the shared deadline before constructing the checker.
+
+`candidate/hybrid_radiation.py`: `HybridRadiationBounds.trajectory_bound` is a conditional radiation enclosure only. It cannot authorize a road mission without contact, grammar, identity and support checks.
+
+`candidate/hybrid_shadow.py`: `HybridShadowWitnessAdapter.check` is **disabled by default** (`enabled=False`). A caller explicitly binds context before primary routing and supplies an independently budgeted full witness. The copied primary report remains unchanged. Only an explicitly CHECKED_ROUTE incumbent may accompany a primary TIMEOUT; the TIMEOUT remains unresolved. No shipped primary/default routing module was replaced.
+
+## What changed and why
+
+The practical checker's loose source-area radial bounds dominated its remaining development dose interval and near-source controls. Receiver refinement alone could not repair a fixed dwell's source uncertainty. Deterministic analytic translated-rectangle bounds now refine selected close/sparse source terms, intersected with compatible coarse radial enclosures of the same physical law. Other near terms retain 8x8 subdivision and distant terms retain efficient whole-cell reuse. Exact contact clipping and event overlaps are inherited. Directed rational sqrt/atan/pi brackets, outward binary64 conversion, interior peak upper bounds, incurred dose, source support and cache dependency guards were independently audited. See `DIAGNOSIS.md`, `HYBRID_RADIATION_SPEC.md` and `PIPELINE_SPEC.md`.
+
+The old development dose interval [20.1278095, 746.9777517] kJ/m² became [111.497580, 120.360440], a justified fixed-path rejection at unchanged 100 kJ/m². This was representation conservatism, not an event or physical-law repair. All old cases are development only. Selected analytic terms skip tiled practical bounds, so universal tightening is not claimed.
+
+## Fresh evidence and regressions
+
+Implementations/settings/selection/physics/budgets/reference code and new source/control inputs were sealed before outcomes: `IMPLEMENTATION_FREEZE.json`, 565 files. All remain unchanged. Paths were selected by topology, not hazards: 79 edges/265 seconds and 62 edges/473 seconds; three original forecast cutoffs, new frozen seeds, departures 0/60 and unchanged 120-second dwell. Six labelled controls are separately reported.
+
+| Primary cohort, each phase | Old strong | Practical | Hybrid |
+|---|---|---|---|
+| 12 incident-derived missions | 12 unresolved | 4 certificates, 6 contact rejects, 2 unresolved | 6 certificates, 6 contact rejects |
+| 6 labelled controls | 4 certificates, 1 reject, 1 unresolved | 2 certificates, 4 unresolved | 4 certificates, 1 reject, 1 unresolved |
+
+Cold and warm counts agree. Six conditional multi-edge fixed-witness certificates are meaningful checking evidence under the declared law. They do not demonstrate integrated search efficiency. No practical resolved outcome was lost. All three near/overlap/threshold controls recovered; unknown support remains unresolved. The fresh panel is finite, with only two road topologies and four constructed members per incident history; no population-wide gain is claimed.
+
+Incident complete primary cold time totals: hybrid 42.653 s, practical 55.647 s, old strong 360.095 s. Warm hybrid 4.631 s is slightly slower than practical 4.620 s. Some already-resolved incident cold checks also regress; old strong remains faster on small controls. Full 54-worker launcher cost is 848.118 s wall, 857.535 s child user CPU plus 163.106 s system CPU; shared unique source construction adds 0.317353 s separately. Every worker/phase and failure is retained. Phase and component measurements overlap and must not be added to launcher totals. Lifetime RSS includes imports/cold work, not incremental live cache memory. See `OUTCOMES_AND_COST.md`, `results/CASE_CLASSIFICATIONS.csv`, `results/COMPUTATIONAL_WORK.csv`, `results/MEMBER_BOUNDS.csv` and `CERTIFICATE_EXAMPLES.md`.
+
+Independent work: 89 finite pre-opening checks plus 10 topology checks; all 18 fresh cases/108 engine-phase records checked. Exact contact witnesses, mission identity/support/budgets and completed enclosure claims were reviewed. Supplemental Gauss16/32 integration and sampled peaks are diagnostics, never certificate authority. The sealed verifier passed 15 cases then failed parsing intentionally null unsupported-baseline bounds. Its code/failure/cost remain intact. An additive review-only parser validates that unsupported-null schema and retains every finite-bound/reference check; all 18 pass. Independent total including failure: 73.95 s wall, 81.07 s CPU, max lifetime RSS 233.4375 MiB. See `review/CONFIRMATION_SCHEMA_CORRECTION.json`. No candidate, scientific/numerical reference, physics, selection, setting or input correction occurred after opening. We interpret the fresh-panel correction rule as prohibiting scientific correctness changes/tuning on opened outcomes; this additive negative-record schema check confers no numerical improvement. Any subsequent scientific correction requires a newly frozen panel.
+
+## Assumptions and unavailable evidence
+
+Original forecast outputs and prior raw failures are preserved. Endpoint-to-ignition construction, unknown future probability 0.5, unknown-current cold, initial active fire, uniform finite-event timing, four independent members and 300-second burn/current lifetime remain explicit research assumptions. The 10 kg/m² ×18 MJ/kg ×0.1 consumed fraction gives 18 MJ/m² per source phase; /300 s gives 60 kW/m² HRR and ×0.3 gives 18 kW/m² radiant density. Emission/receiver heights are 5/0 m, transmissivity 1 and cell spacing 375 m. These bookkeeping checks do not prove physical conservation for overlapping forecasts or empirically calibrated source support. Much of generated future ignition comes from unknown-probability assumptions. Heat is now enclosed along represented full road chords rather than sampled only at cell centres; road geometry, source-plane combustion and actual field hazards remain unvalidated. No hazards/budgets were reduced to obtain routes.
+
+## Stage 2 entry gates and next experiment
+
+Retain this opt-in checker as a bounded reviewed component. Start Stage 2 with small deterministic search reproductions and profiling of the original 27 TIMEOUT queries: labels/generated/retained/dominated/expanded, departure/wait alternatives, frontier/RSS, exposure constraints, geometry/dominance/heuristic/check work and checked incumbents. Distinguish no witness, checked witness without optimality, and proved infeasible. Existing TIMEOUTs remain unresolved. Do not begin another broad sweep or prioritize latency before causes are established.
+
+Stage 2 integration requires explicit source/graph/request/member/incurred binding, cache ownership/replacement, mission grammar/support coverage, complete shared-budget accounting, independent every-witness checking and primary outcome preservation. Test tiny exhaustive search/contact/radiation references and retain adverse cases. Freeze any chosen candidate and a fresh confirmation panel before evaluating improvement. Default promotion, concurrent service ownership, partial-edge routing and real-fire validity need separate evidence and review. No merge, push, deployment or outreach is authorized by this delivery.
+
+## Reproduction and records
+
+`REPRODUCE.md` names the frozen original verifier's expected schema failure and the explicit completion schedule. `tools/verify_delivery.py` checks the delivered manifest; `tools/portable_verify.py` extracts into a new directory and checks archive SHA/CRC/all files/scientific immutability while measuring the disclosed command schedule. `evidence/PORTABLE_VERIFICATION.json` and schedule binding record the successful completion; the original failed attempt is preserved separately. Host original preservation is recorded in `evidence/ORIGINAL_PRESERVATION.json` and verification receipts. Canonical upkeep uses the existing inode lock and preserves concurrent content. Final ZIP/checksum sit beside this directory; final archive receipt is copied to the coordinating workspace.
