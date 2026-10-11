@@ -180,11 +180,11 @@ python routing-api/examples/quickstart.py
 The six `_engine` files are byte-identical copies of the current hourly release core, checker, validation, preparation and fixture modules; only their enclosing Python namespace differs. `ENGINE_PROVENANCE.json` records hashes. The independent 17-case finite reference panel is included. Packaging changes are separate from frozen source releases and do not promote rejected experimental solvers.
 
 
-## Current integration evidence and mentor feedback
+## Current integration evidence and technical review
 
 [Current review guide and source snapshots](routing-review/README.md) · [Full reproducible research packages](https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/routing-mentor-review-20261008). The original `routing-package/` remains preserved.
 
 
-## Final mentor forecast
+## Final forecast
 
 The final 11 October 2026 forecast code, tests and supported checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for installation and the large data files required for inference.
