@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "verified_at_utc": "2026-10-08T21:05:44.393199+00:00",
+  "user_facing_date": "2026-10-09 Asia/Seoul",
+  "verification_platform": "macOS",
+  "actual_cli": "python -m wildfire_burned_area_hourly.portable_search run --device cpu --check-only",
+  "path_relocation_checked_with_real_cache": true,
+  "real_source_files_verified": 486,
+  "original_cache_preserved": true,
+  "prepared_array_hashes_preserved": true,
+  "metadata_fields_changed": [
+    "data_root"
+  ],
+  "candidate_count": 368,
+  "experiment_output_modified": false,
+  "full_512_4096_epoch_search_started": false,
+  "actual_cli_passes": 2,
+  "repeat_status": "already_present",
+  "cuda_execution_checked": false,
+  "actual_execution_device": "cpu",
+  "automatic_backend_selection_tests": [
+    "cuda",
+    "mps",
+    "cpu"
+  ],
+  "tests": {
+    "passed": 90,
+    "elapsed_seconds": 24.27,
+    "warning_count": 236,
+    "warning_summary": "Existing Matplotlib/Pyparsing dependency deprecations",
+    "new_relocation_cases": 40,
+    "new_portable_cases": 36,
+    "existing_multiscale_cases": 14
+  },
+  "reduced_end_to_end": {
+    "execution_device": "cpu",
+    "candidate_epochs": 2,
+    "finalist_epochs": 4,
+    "kernel_candidates": 46,
+    "neural_finalists": 6,
+    "evaluated_saved_models": 28,
+    "reports_metrics_saved": true,
+    "resume_passed": true,
+    "candidate_histories_byte_identical_on_resume": true
+  },
+  "original_runner_sha256": "fc718f903019a2b78458ad529892d4bdce3dece81ebfc4c58fe00fad89d3e55f",
+  "transfer_archive": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/portable_kernel_search_update.zip",
+  "transfer_archive_sha256": "0e4d61c19d7742cc714d159d8fbfb3d6c62875b9490c9439288a82d7dce36117",
+  "logs": {
+    "real_preflight": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/portable_kernel_search_verification/real_cache_preflight.log",
+    "repeat": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/portable_kernel_search_verification/repeat_preflight.log",
+    "tests": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/portable_kernel_search_verification/tests.log"
+  },
+  "temporary_check_files_retained": false
+}

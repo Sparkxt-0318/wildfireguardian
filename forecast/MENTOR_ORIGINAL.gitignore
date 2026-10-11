@@ -1,0 +1,93 @@
+# Python environments and bytecode
+.venv/
+venv/
+env/
+ENV/
+__pypackages__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python packaging and build output
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# Test, coverage, type-checker, and linter caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Local environment settings; keep example configuration files
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Notebook, editor, and operating-system temporary files
+.ipynb_checkpoints/
+.idea/
+.vscode/*.local.json
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Local scratch directories
+/tmp/
+/temp/
+/logs/
+
+# Generated experiments: caches, model checkpoints, histories, and predictions
+/runs/
+/demonstration/probability/
+/demonstration/heat/
+/demonstration/*/runs/
+
+# Downloaded weather/raster payloads. Acquisition code, catalogs, source
+# manifests, biome classes, and other metadata remain eligible for tracking.
+/data/environment/raw/
+/data/environment/previews/
+/data/environment/regions/**/*.tif
+/data/environment/regions/**/*.tiff
+/data/environment/regions/**/*.npz
+/data/environment/regions/**/*.npy
+/data/environment/quality_flags/**/*.npz
+/data/environment/quality_flags/**/*.npy
+/data/environment/sources/**/*.zip
+/data/environment/sources/resolve_ecoregions_2017/extracted/
+
+# Reconstructed raster/array payloads; preserve catalogs and source records
+/data/regions/**/*.tif
+/data/regions/**/*.tiff
+/data/regions/**/*.npz
+/data/regions/**/*.npy
+/data/bitmaps/**/*.tif
+/data/bitmaps/**/*.tiff
+/data/bitmaps/**/*.npz
+/data/bitmaps/**/*.npy
+/data/sources/zenodo_21788344/*.zip
+/data/sources/zenodo_21788344/extracted/rasters_kr/
+/data/sources/zenodo_21788344/extracted/rasters_us/
+
+# LaTeX intermediates; keep manuscript sources, bibliography, and final PDFs
+/documents/*.aux
+/documents/*.bbl
+/documents/*.blg
+/documents/*.fdb_latexmk
+/documents/*.fls
+/documents/*.synctex.gz
+/documents/*.toc

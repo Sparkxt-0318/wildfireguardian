@@ -1,0 +1,3024 @@
+{
+  "created_on": "2026-10-08",
+  "timezone": "Asia/Seoul",
+  "scope": "Current maintained hourly arrival/environment/probability/flame-residence/expected-radiation workflow; upstream reconstruction provenance; explicitly tagged supporting/background sources; declared scientific and geospatial software.",
+  "artifact": {
+    "path": "documents/wildfire_references.bib",
+    "sha256": "5ebb8d25ece7980a8f0506f5dae995811761cfddbd62146fd588a2063cbb8f46",
+    "bytes": 62474,
+    "entry_count": 88
+  },
+  "group_counts": {
+    "Published reconstruction, upstream fire observations, and environmental data": 28,
+    "Mathematical, optimization, scoring, and archived-validation foundations": 18,
+    "Fuel, flame residence, heat release, and radiation": 19,
+    "Scientific software, geospatial software, and local implementation records": 23
+  },
+  "local_sources": [
+    {
+      "path": "README.md",
+      "sha256": "06fb35b3b20a971e6b8a9b0d42f123a3456478daa251c69f2da094d99da9fe8f"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "86fca0dd6a74433485493aeb29272f44098d626ad31b970e086ece54a2f62ed2"
+    },
+    {
+      "path": "documents/wildfire_methods.tex",
+      "sha256": "433fa956efc75c625007f1a9dcf274834f0af23ad0c41689fc138f5ae8bfc18c"
+    },
+    {
+      "path": "documents/flame_residence_literature.md",
+      "sha256": "50aae8587c480166488283a904917c4ac2e457ada024758122cf16df25c1cca7"
+    },
+    {
+      "path": "documents/renewal_process.tex",
+      "sha256": "3c9e6813dad3dd44e1bb6d5e51f372519a10c4ebb480eeb1598bb9d7b3ab4357"
+    },
+    {
+      "path": "expected_heat_flux/sources.json",
+      "sha256": "afdda28df1d4c43d767081ceff7b92c5d3e95c24858fdd6ea6c049d14c72e3d6"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/source_manifest.json",
+      "sha256": "de8a3c5a3980eb3006590591ea340a11dc5c633c4b037cd1fa3fb5192e88c26e"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+      "sha256": "75d94e691206b4c8729c26eb29692047a0330c1022e26dd4131ddb37867c325a"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+      "sha256": "765ee9bb56c6c74bdf127717cc5de03e90abfb0b073fa1fb56224317ea8da82d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/publications/kjrs_2025_41_5_13.html",
+      "sha256": "abf12d0fbfe51fcb7f8ab7c1306931a1a182063bcb4227ba449ebc025bac657c"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+      "sha256": "765ee9bb56c6c74bdf127717cc5de03e90abfb0b073fa1fb56224317ea8da82d"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/record.json",
+      "sha256": "68b777ce242f6845fb1834ddcd107ea40d0ae0313868a0c30637768cf33ed3d1"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/weather/ecmwf_ifs/hourly_cached_bf09e4781ae4cbbb.json.source.json",
+      "sha256": "568e6694054caeaa1a6a49fb60a0ffd36401196fa237085a2cce51fe14918ab9"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/weather/era5/hourly_cached_b784f893281a2e3e.json.source.json",
+      "sha256": "6ec33c28f5077fb0625525ad53598cd475596f21f6f4c84773b83d1b189793ce"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/dem/Copernicus_DSM_COG_10_N36_00_W119_00_DEM.tif.source.json",
+      "sha256": "67543470cdce419ea86a6765e84d67f9913ac40aba6e44544dc33b9ad69d6dac"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landcover_2019/landcover_class.tif.source.json",
+      "sha256": "e7f2ddd883e2c6a507b9850945c39898b4b86ee6c1414e50bb7426e5f7fe153f"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/canopy_2019.tif.source.json",
+      "sha256": "b35127e6174eb4e527eab4cccadb76661cfd40447fdc21768eefd169e229b445"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/gridmet/fm100.nc.source.json",
+      "sha256": "177cb027e09d05e65164feb49c3f16d93e56e1246ae1a415e5f44f1370cc16f4"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/sources/resolve_ecoregions_2017/source.json",
+      "sha256": "189e344614e63de18ae6b6b19d780c168b11de3ee49610043e2765e03e612382"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landfire_2016/FCCS.tif.source.json",
+      "sha256": "937092a16a7d4cba7822705249d73545fbf7a50a3b5ada497c60cf796c4393a9"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landfire_2016/FBFM40.tif.source.json",
+      "sha256": "c7ebe76f62d5b515fe52116a054a081ef7051dd744beab54d6629ad624e73a78"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/kjrs_2025_41_5_13.html",
+      "sha256": "abf12d0fbfe51fcb7f8ab7c1306931a1a182063bcb4227ba449ebc025bac657c"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/train.py",
+      "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+      "sha256": "eed4efba71794e91f57745832bad691943974af5bbb37e494e68aa8160920965"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/metrics.py",
+      "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+      "sha256": "5f9157369e0385e3575f273e10503b03c17846ce3498d044bb57c82c9649ba86"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/expected_heat_flux/model.py",
+      "sha256": "2f238cbbcc9a26b5c1138cf012494c710c94f566eebc1db8cee472cbc83954ee"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+      "sha256": "7c6c970e847b6395b32c0b2c9583bdb3f4c0ae89091504c81b1b6a8aa6d09212"
+    },
+    {
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/renewal_process.tex",
+      "sha256": "3c9e6813dad3dd44e1bb6d5e51f372519a10c4ebb480eeb1598bb9d7b3ab4357"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+      "sha256": "dec4b3b4702219d55c721c5a341247a9a659ac8318163b09d78ddb7d9afd2bf0"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+      "sha256": "edd106808cee00bd1b724a9431881c085cc3f7269fc0a1e9feac9e81165aa6fc"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/model.py",
+      "sha256": "b4dd342e96eb8fa237f2c847d60e54f95d4144c4d31fcb851851b03ef41a4c5d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/train.py",
+      "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/metrics.py",
+      "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+    },
+    {
+      "path": "expected_heat_flux/model.py",
+      "sha256": "2f238cbbcc9a26b5c1138cf012494c710c94f566eebc1db8cee472cbc83954ee"
+    },
+    {
+      "path": "expected_heat_flux/temporal.py",
+      "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+    },
+    {
+      "path": "expected_heat_flux/pipeline.py",
+      "sha256": "f7db5f0163e476846978e807e20d442e95ef28ecd14650b3a0ca21a5ea268bd1"
+    },
+    {
+      "path": "expected_heat_flux/ecology.py",
+      "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+    },
+    {
+      "path": "expected_heat_flux/residence.py",
+      "sha256": "d39ac6de9751746f4089a78801910e02b604cede7c0c52c9070d582f0047998a"
+    },
+    {
+      "path": "expected_heat_flux/flames.py",
+      "sha256": "187e11e850fe53e36e3c9dc8974f6ee736349138db3882c886286c94eb5db097"
+    }
+  ],
+  "verification": {
+    "unique_citation_keys": true,
+    "ascii_TeX_compatible": true,
+    "bibtex_and_LaTeX_compilation": "passed: all 88 entries compiled using BibTeX plainnat and pdfTeX; no syntax errors, missing citations, or duplicate keys",
+    "entry_metadata_and_roles": [
+      {
+        "key": "choi2026wildfiretoa",
+        "type": "article",
+        "fields": {
+          "author": "Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu",
+          "title": "{Wildfire Time-of-Arrival Reconstruction from Satellite Active-Fire Detections: External Evaluation of Variance-Weighted Kriging and Application to South Korea}",
+          "journal": "Remote Sensing",
+          "year": "2026",
+          "volume": "18",
+          "number": "19",
+          "pages": "3321",
+          "doi": "10.3390/rs18193321",
+          "url": "https://doi.org/10.3390/rs18193321",
+          "note": "Published 26 September 2026.",
+          "annotation": "Published arrival reconstruction method",
+          "urldate": "2026-10-08"
+        },
+        "role": "Published arrival reconstruction method",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Live publisher page was unavailable; bibliographic metadata verified against the retained publisher PDF, pages 1 and 23.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 39
+      },
+      {
+        "key": "toadeposit",
+        "type": "misc",
+        "fields": {
+          "author": "Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu",
+          "title": "{Wildfire time-of-arrival dataset and method code: variance-weighted kriging of satellite active-fire detections, evaluated in the United States and applied to South Korea}",
+          "year": "2026",
+          "month": "sep",
+          "howpublished": "Zenodo",
+          "version": "3.0.0",
+          "doi": "10.5281/zenodo.21788344",
+          "url": "https://zenodo.org/records/21788344",
+          "note": "Published 26 September 2026; version 3.0.0. Derived 375 m arrival-time and kriging-standard-deviation rasters, method code, and evaluation records.",
+          "annotation": "Primary published dataset and archived method code",
+          "urldate": "2026-10-08"
+        },
+        "role": "Primary published dataset and archived method code",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/record.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Live Zenodo record unavailable; exact saved publisher metadata inspected.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 55
+      },
+      {
+        "key": "magstadt2026niropsdataset",
+        "type": "misc",
+        "fields": {
+          "author": "Magstadt, S. and Wadhwani, R. and Whitley, M. A. and Martin, T. J. and Sitter, E. and Wei, Y. and O'Connor, C. D.",
+          "title": "{A High Spatial Resolution Daily Fire Perimeter Progression Dataset for Wildfires in the Western United States: 2020--2024}",
+          "year": "2026",
+          "howpublished": "Mendeley Data",
+          "version": "1",
+          "doi": "10.17632/95rj5d379g.1",
+          "url": "https://data.mendeley.com/datasets/95rj5d379g/1",
+          "note": "Version 1; upstream aerial-infrared fire perimeters used for external evaluation in the published arrival reconstruction.",
+          "annotation": "Upstream NIROPS external reference",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream NIROPS external reference",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Live Mendeley title fetched once, subsequent fetches timed out. Year and complete initials verified from retained publisher article reference 26; full first names not invented.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 70
+      },
+      {
+        "key": "zippenfenig2023openmeteo",
+        "type": "misc",
+        "fields": {
+          "author": "Zippenfenig, Patrick",
+          "title": "{{Open-Meteo.com} Weather {API}}",
+          "year": "2023",
+          "howpublished": "Zenodo",
+          "doi": "10.5281/zenodo.7970649",
+          "url": "https://doi.org/10.5281/zenodo.7970649",
+          "note": "Computer software; citation recommended by the official Historical Weather API documentation.",
+          "annotation": "Weather API software",
+          "urldate": "2026-10-08"
+        },
+        "role": "Weather API software",
+        "verification_sources": [
+          {
+            "url": "https://open-meteo.com/en/docs/historical-weather-api",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 84
+      },
+      {
+        "key": "openmeteoHistoricalWeatherDocs",
+        "type": "misc",
+        "fields": {
+          "author": "{Open-Meteo}",
+          "title": "{Historical Weather {API}}",
+          "howpublished": "Official API documentation",
+          "url": "https://open-meteo.com/en/docs/historical-weather-api",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Saved project queries request ecmwf\\_ifs weather and era5 boundary-layer height separately.",
+          "annotation": "Weather acquisition, spatial support, and temporal conventions"
+        },
+        "role": "Weather acquisition, spatial support, and temporal conventions",
+        "verification_sources": [
+          {
+            "url": "https://open-meteo.com/en/docs/historical-weather-api",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/weather/ecmwf_ifs/hourly_cached_bf09e4781ae4cbbb.json.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/weather/era5/hourly_cached_b784f893281a2e3e.json.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 97
+      },
+      {
+        "key": "ecmwfIFSDocumentation",
+        "type": "misc",
+        "fields": {
+          "author": "{European Centre for Medium-Range Weather Forecasts}",
+          "title": "{{IFS} Documentation}",
+          "howpublished": "Official model documentation",
+          "url": "https://www.ecmwf.int/en/publications/ifs-documentation",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. General documentation for the Integrated Forecasting System.",
+          "annotation": "Underlying IFS model documentation"
+        },
+        "role": "Underlying IFS model documentation",
+        "verification_sources": [
+          {
+            "url": "https://www.ecmwf.int/en/publications/ifs-documentation",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "limitations": "Saved acquisitions do not bind historical observations to specific IFS cycles; no fixed cycle is asserted.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 108
+      },
+      {
+        "key": "hersbach2020era5",
+        "type": "article",
+        "fields": {
+          "author": "Hersbach, Hans and Bell, Bill and Berrisford, Paul and Hirahara, Shoji and Hor{\\'a}nyi, Andr{\\'a}s and Mu{\\~n}oz-Sabater, Joaqu{\\'i}n and Nicolas, Julien and Peubey, Carole and Radu, Raluca and Schepers, Dinand and Simmons, Adrian and Soci, Cornel and Abdalla, Saleh and Abellan, Xavier and Balsamo, Gianpaolo and Bechtold, Peter and Biavati, Gionata and Bidlot, Jean and Bonavita, Massimo and De Chiara, Giovanna and Dahlgren, Per and Dee, Dick and Diamantakis, Michail and Dragani, Rossana and Flemming, Johannes and Forbes, Richard and Fuentes, Manuel and Geer, Alan and Haimberger, Leo and Healy, Sean and Hogan, Robin J. and H{\\'o}lm, El{\\'i}as and Janiskov{\\'a}, Marta and Keeley, Sarah and Laloyaux, Patrick and Lopez, Philippe and Lupu, Cristina and Radnoti, Gabor and de Rosnay, Patricia and Rozum, Iryna and Vamborg, Freja and Villaume, Sebastien and Th{\\'e}paut, Jean-No{\\\"e}l",
+          "title": "{The {ERA5} Global Reanalysis}",
+          "journal": "Quarterly Journal of the Royal Meteorological Society",
+          "year": "2020",
+          "volume": "146",
+          "number": "730",
+          "pages": "1999--2049",
+          "doi": "10.1002/qj.3803",
+          "url": "https://doi.org/10.1002/qj.3803",
+          "annotation": "ERA5 underlying reanalysis method",
+          "urldate": "2026-10-08"
+        },
+        "role": "ERA5 underlying reanalysis method",
+        "verification_sources": [
+          {
+            "url": "https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 119
+      },
+      {
+        "key": "hersbach2023era5singlelevels",
+        "type": "misc",
+        "fields": {
+          "author": "Hersbach, H. and Bell, B. and Berrisford, P. and Biavati, G. and Hor{\\'a}nyi, A. and Mu{\\~n}oz Sabater, J. and Nicolas, J. and Peubey, C. and Radu, R. and Rozum, I. and Schepers, D. and Simmons, A. and Soci, C. and Dee, D. and Th{\\'e}paut, J.-N.",
+          "title": "{{ERA5} Hourly Data on Single Levels from 1940 to Present}",
+          "year": "2023",
+          "howpublished": "Copernicus Climate Change Service Climate Data Store, ECMWF",
+          "doi": "10.24381/cds.adbb2d47",
+          "url": "https://doi.org/10.24381/cds.adbb2d47",
+          "note": "Dataset citation recommended by the official Open-Meteo Historical Weather API documentation.",
+          "annotation": "ERA5 upstream dataset, accessed through Open-Meteo",
+          "urldate": "2026-10-08"
+        },
+        "role": "ERA5 upstream dataset, accessed through Open-Meteo",
+        "verification_sources": [
+          {
+            "url": "https://open-meteo.com/en/docs/historical-weather-api",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 134
+      },
+      {
+        "key": "copernicusDEM",
+        "type": "misc",
+        "fields": {
+          "author": "{European Space Agency} and {European Union}",
+          "title": "{Copernicus {DEM}: Global and European Digital Elevation Model}",
+          "howpublished": "Copernicus Data Space Ecosystem",
+          "doi": "10.5270/ESA-c5d3d65",
+          "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Project inputs are GLO-30 digital surface model tiles obtained from the public AWS distribution.",
+          "annotation": "Terrain DSM data"
+        },
+        "role": "Terrain DSM data",
+        "verification_sources": [
+          {
+            "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/dem/Copernicus_DSM_COG_10_N36_00_W119_00_DEM.tif.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Specific Copernicus DEM release is absent from acquisition sidecars; no release year assigned.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 147
+      },
+      {
+        "key": "copernicusDEMAWS",
+        "type": "misc",
+        "fields": {
+          "author": "{Sinergise}",
+          "title": "{Copernicus Digital Elevation Model ({DEM})}",
+          "howpublished": "Registry of Open Data on AWS",
+          "url": "https://registry.opendata.aws/copernicus-dem/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Documents the public GLO-30 S3 distribution used in the project.",
+          "annotation": "DSM acquisition distribution"
+        },
+        "role": "DSM acquisition distribution",
+        "verification_sources": [
+          {
+            "url": "https://registry.opendata.aws/copernicus-dem/",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 159
+      },
+      {
+        "key": "buchhorn2020copernicuslandcover2019",
+        "type": "misc",
+        "fields": {
+          "author": "Buchhorn, Marcel and Smets, Bruno and Bertels, Luc and De Roo, Bert and Lesiv, Myroslava and Tsendbazar, Nandin-Erdene and Herold, Martin and Fritz, Steffen",
+          "title": "{Copernicus Global Land Service: Land Cover 100m: Collection 3: Epoch 2019: Globe}",
+          "year": "2020",
+          "month": "sep",
+          "howpublished": "Zenodo",
+          "version": "V3.0.1",
+          "doi": "10.5281/zenodo.3939050",
+          "url": "https://zenodo.org/records/3939050",
+          "note": "Published 8 September 2020; version V3.0.1. Saved acquisition URLs identify the 2019-nrt discrete, fractional-cover, and forest-type layers.",
+          "annotation": "Land-cover data",
+          "urldate": "2026-10-08"
+        },
+        "role": "Land-cover data",
+        "verification_sources": [
+          {
+            "url": "https://zenodo.org/records/3939050",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landcover_2019/landcover_class.tif.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 170
+      },
+      {
+        "key": "potapov2021forestcanopyheight",
+        "type": "article",
+        "fields": {
+          "author": "Potapov, P. and Li, X. and Hernandez-Serna, A. and Tyukavina, A. and Hansen, M. C. and Kommareddy, A. and Pickens, A. and Turubanova, S. and Tang, H. and Silva, C. E. and Armston, J. and Dubayah, R. and Blair, J. B. and Hofton, M.",
+          "title": "{Mapping Global Forest Canopy Height through Integration of {GEDI} and Landsat Data}",
+          "journal": "Remote Sensing of Environment",
+          "year": "2021",
+          "volume": "253",
+          "pages": "112165",
+          "doi": "10.1016/j.rse.2020.112165",
+          "url": "https://doi.org/10.1016/j.rse.2020.112165",
+          "annotation": "GLAD 2019 canopy-height underlying method",
+          "urldate": "2026-10-08"
+        },
+        "role": "GLAD 2019 canopy-height underlying method",
+        "verification_sources": [
+          {
+            "url": "https://glad.umd.edu/dataset/gedi",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "url": "https://www.sciencedirect.com/science/article/pii/S0034425720305381",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "limitations": "GLAD provider page gives 2020 online citation; final journal issue year is 2021. First successful publisher snippet provided title and abstract but not full author metadata. Author initials follow provider recommended citation; root should verify issue-year through publisher metadata if available.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 185
+      },
+      {
+        "key": "glad2019ForestCanopyHeight",
+        "type": "misc",
+        "fields": {
+          "author": "{Global Land Analysis and Discovery, University of Maryland}",
+          "title": "{Global Forest Canopy Height, 2019}",
+          "howpublished": "Official dataset distribution",
+          "url": "https://glad.umd.edu/dataset/gedi",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Project source URLs identify the 2019 continental forest-height GeoTIFF mosaics.",
+          "annotation": "GLAD canopy dataset access"
+        },
+        "role": "GLAD canopy dataset access",
+        "verification_sources": [
+          {
+            "url": "https://glad.umd.edu/dataset/gedi",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/canopy_2019.tif.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 199
+      },
+      {
+        "key": "abatzoglou2013gridmet",
+        "type": "article",
+        "fields": {
+          "author": "Abatzoglou, John T.",
+          "title": "{Development of Gridded Surface Meteorological Data for Ecological Applications and Modelling}",
+          "journal": "International Journal of Climatology",
+          "year": "2013",
+          "volume": "33",
+          "pages": "121--131",
+          "url": "https://www.climatologylab.org/gridmet.html",
+          "doi": "10.1002/joc.3413",
+          "annotation": "gridMET underlying method",
+          "urldate": "2026-10-08"
+        },
+        "role": "gridMET underlying method",
+        "verification_sources": [
+          {
+            "url": "https://www.climatologylab.org/gridmet.html",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "url": "https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/joc.3413",
+            "status": "Primary publisher DOI and journal metadata inspected online on 2026-10-08"
+          }
+        ],
+        "limitations": "Bibliographic metadata and DOI verified against the official provider and primary publisher page. Full article text was not reviewed for this bibliography.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 210
+      },
+      {
+        "key": "gridmetDataset",
+        "type": "misc",
+        "fields": {
+          "author": "Abatzoglou, John T.",
+          "title": "{{gridMET}}",
+          "howpublished": "Climatology Lab",
+          "url": "https://www.climatologylab.org/gridmet.html",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Project acquires daily 100-hour and 1000-hour dead fuel moisture through the University of Idaho THREDDS distribution; the native daily boundary is 07:00 UTC.",
+          "annotation": "Dead-fuel-moisture environmental data"
+        },
+        "role": "Dead-fuel-moisture environmental data",
+        "verification_sources": [
+          {
+            "url": "https://www.climatologylab.org/gridmet.html",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/gridmet/fm100.nc.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 224
+      },
+      {
+        "key": "dinerstein2017ecoregions",
+        "type": "article",
+        "fields": {
+          "author": "Dinerstein, Eric and Olson, David and Joshi, Anup and Vynne, Carly and Burgess, Neil D. and others",
+          "title": "{An Ecoregion-Based Approach to Protecting Half the Terrestrial Realm}",
+          "journal": "BioScience",
+          "year": "2017",
+          "volume": "67",
+          "number": "6",
+          "pages": "534--545",
+          "doi": "10.1093/biosci/bix014",
+          "url": "https://doi.org/10.1093/biosci/bix014",
+          "annotation": "RESOLVE 2017 underlying method",
+          "urldate": "2026-10-08"
+        },
+        "role": "RESOLVE 2017 underlying method",
+        "verification_sources": [
+          {
+            "url": "https://data-gis.unep-wcmc.org/server/rest/services/Bio-geographicalRegions/Resolve_Ecoregions/FeatureServer/0/metadata?f=html&format=default",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "url": "https://pubmed.ncbi.nlm.nih.gov/28608869/",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "limitations": "Full author list unavailable from accessible primary publisher/PMC pages; BibTeX and others explicitly abbreviates it.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 235
+      },
+      {
+        "key": "resolveEcoregions2017",
+        "type": "misc",
+        "fields": {
+          "author": "{RESOLVE}",
+          "title": "{Ecoregions 2017}",
+          "year": "2017",
+          "howpublished": "Official dataset distribution",
+          "url": "https://ecoregions.world/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Project source metadata identifies Ecoregions2017.zip from the teow2016 public distribution; the 14-class biome field is derived from these polygons.",
+          "annotation": "Biome polygons"
+        },
+        "role": "Biome polygons",
+        "verification_sources": [
+          {
+            "url": "https://ecoregions.world/",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/sources/resolve_ecoregions_2017/source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 250
+      },
+      {
+        "key": "landfire2016Remap",
+        "type": "misc",
+        "fields": {
+          "author": "{LANDFIRE}",
+          "title": "{{LANDFIRE 2016 Remap}: Fuel and Vegetation Products}",
+          "howpublished": "U.S. Department of the Interior and U.S. Department of Agriculture",
+          "url": "https://www.landfire.gov/",
+          "urldate": "2026-10-08",
+          "note": "Acquisition URLs explicitly identify Landfire\\_LF2016 services for fuel behavior models, FCCS, canopy cover, height, base height, and bulk density. The 2016 source epoch is distinct from the current reference loading table.",
+          "annotation": "Archived fuel and canopy raster release"
+        },
+        "role": "Archived fuel and canopy raster release",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landfire_2016/FCCS.tif.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/raw/CA-SQF-002622_SQFComplex/landfire_2016/FBFM40.tif.source.json",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "2016 identifies archived raster source epoch, not a verified publication date; year omitted.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 262
+      },
+      {
+        "key": "nasaFIRMSActiveFire",
+        "type": "misc",
+        "fields": {
+          "author": "{NASA Land, Atmosphere Near real-time Capability for EOS}",
+          "title": "{Fire Information for Resource Management System: Active Fire Data}",
+          "howpublished": "NASA FIRMS",
+          "url": "https://firms.modaps.eosdis.nasa.gov/active_fire",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Upstream access provider for the VIIRS active-fire detections used in the published arrival reconstruction.",
+          "annotation": "Upstream VIIRS acquisition provider"
+        },
+        "role": "Upstream VIIRS acquisition provider",
+        "verification_sources": [
+          {
+            "url": "https://firms.modaps.eosdis.nasa.gov/active_fire",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "The provider also distributes MODIS. This citation does not imply MODIS detections were used in the arrival reconstruction.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 273
+      },
+      {
+        "key": "schroeder2014viirs",
+        "type": "article",
+        "fields": {
+          "author": "Schroeder, Wilfrid and Oliva, Patricia and Giglio, Louis and Csiszar, Ivan A.",
+          "title": "{The New {VIIRS} 375 m Active Fire Detection Data Product: Algorithm Description and Initial Assessment}",
+          "journal": "Remote Sensing of Environment",
+          "year": "2014",
+          "volume": "143",
+          "pages": "85--96",
+          "doi": "10.1016/j.rse.2013.12.008",
+          "annotation": "VIIRS underlying detection method"
+        },
+        "role": "VIIRS underlying detection method",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "url": "https://viirsland.gsfc.nasa.gov/Val/Fire_Val.html",
+            "status": "NASA product-validation references verify original paper DOI and metadata on 2026-10-08"
+          },
+          {
+            "url": "https://www.earthdata.nasa.gov/sites/default/files/imported/Schroeder_et_al_2014b_RSE.pdf",
+            "status": "NASA-hosted original paper indexed front matter verifies full author names and journal metadata"
+          }
+        ],
+        "limitations": "Bibliographic metadata, DOI, and full author names verified against NASA references and NASA-hosted original-paper front matter. This bibliography audit does not constitute a full algorithm review.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 284
+      },
+      {
+        "key": "giglio2024vnp14img",
+        "type": "misc",
+        "fields": {
+          "author": "Giglio, L.",
+          "title": "{{VIIRS/NPP} Active Fires 6-Min {L2} Swath 375 m {V002} ({VNP14IMG})}",
+          "year": "2024",
+          "howpublished": "NASA EOSDIS Land Processes Distributed Active Archive Center",
+          "url": "https://lpdaac.usgs.gov/products/vnp14imgv002/",
+          "note": "Upstream satellite product identified in the published arrival reconstruction.",
+          "doi": "10.5067/VIIRS/VNP14IMG.002",
+          "annotation": "Upstream VIIRS satellite product",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream VIIRS satellite product",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "url": "https://www.earthdata.nasa.gov/s3fs-public/2024-07/VIIRS_C2_AF-375m_User_Guide_1.0.pdf",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "url": "https://forum.earthdata.nasa.gov/viewtopic.php?t=5486",
+            "status": "NASA product-release announcement indexed official citation verifies V002 DOI"
+          }
+        ],
+        "limitations": "V002 DOI verified against the official NASA product-release citation. Product metadata also checked against the retained publisher article; no product version is inferred solely from its name.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 296
+      },
+      {
+        "key": "giglio2024vj114img",
+        "type": "misc",
+        "fields": {
+          "author": "Giglio, L.",
+          "title": "{{VIIRS/JPSS1} Active Fires 6-Min {L2} Swath 375 m {V002} ({VJ114IMG})}",
+          "year": "2024",
+          "howpublished": "NASA EOSDIS Land Processes Distributed Active Archive Center",
+          "url": "https://lpdaac.usgs.gov/products/vj114imgv002/",
+          "note": "Upstream satellite product identified in the published arrival reconstruction.",
+          "annotation": "Upstream VIIRS satellite product",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream VIIRS satellite product",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "url": "https://www.earthdata.nasa.gov/s3fs-public/2024-07/VIIRS_C2_AF-375m_User_Guide_1.0.pdf",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "limitations": "Author/year/product version checked in retained publisher article references31\u201333. Product DOI omitted; no DOI inferred from product name. 2024 guide documents VNP14IMG and VJ114IMG, while VJ214IMG availability verified in official 2026 NASA user-support response.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 309
+      },
+      {
+        "key": "giglio2026vj214img",
+        "type": "misc",
+        "fields": {
+          "author": "Giglio, L.",
+          "title": "{{VIIRS/JPSS2} Thermal Anomalies/Fire 6-Min {L2} Swath 375 m {V002} ({VJ214IMG})}",
+          "year": "2026",
+          "howpublished": "NASA EOSDIS Land Processes Distributed Active Archive Center",
+          "url": "https://search.earthdata.nasa.gov/search/granules?p=C2831626262-LPCLOUD",
+          "note": "Upstream satellite product identified in the published arrival reconstruction.",
+          "annotation": "Upstream VIIRS satellite product",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream VIIRS satellite product",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "url": "https://www.earthdata.nasa.gov/s3fs-public/2024-07/VIIRS_C2_AF-375m_User_Guide_1.0.pdf",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "limitations": "Author/year/product version checked in retained publisher article references31\u201333. Product DOI omitted; no DOI inferred from product name. 2024 guide documents VNP14IMG and VJ114IMG, while VJ214IMG availability verified in official 2026 NASA user-support response.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 321
+      },
+      {
+        "key": "schmidt2020goesfire",
+        "type": "techreport",
+        "fields": {
+          "author": "Schmidt, C. C. and Hoffman, J. and Prins, E. and Lindstrom, S.",
+          "title": "{{GOES-R} Advanced Baseline Imager ({ABI}) Algorithm Theoretical Basis Document for Fire/Hot Spot Characterization}",
+          "institution": "NOAA, NESDIS, STAR",
+          "year": "2020",
+          "version": "2.7",
+          "url": "https://www.star.nesdis.noaa.gov/goesr/documents/ATBDs/Enterprise/ATBD_Enterprise_Fire_Hot_Spot_v2.7_2020-10-31.pdf",
+          "note": "Version 2.7, 31 October 2020.",
+          "annotation": "Upstream GOES fire detection algorithm",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream GOES fire detection algorithm",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "url": "https://www.star.nesdis.noaa.gov/goesr/documentation_ATBDs.php",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 333
+      },
+      {
+        "key": "noaaGOESFireProduct",
+        "type": "misc",
+        "fields": {
+          "author": "{NOAA NESDIS STAR}",
+          "title": "{{GOES-R} Fire and Hot Spot Characterization}",
+          "howpublished": "Official satellite product documentation",
+          "url": "https://www.star.nesdis.noaa.gov/goesr/product_land_fire.php",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Upstream GOES ABI fire product used in the published arrival reconstruction.",
+          "annotation": "Upstream GOES product description"
+        },
+        "role": "Upstream GOES product description",
+        "verification_sources": [
+          {
+            "url": "https://www.star.nesdis.noaa.gov/goesr/product_land_fire.php",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 346
+      },
+      {
+        "key": "jaxa2020himawariwildfire",
+        "type": "misc",
+        "fields": {
+          "author": "{Japan Aerospace Exploration Agency Earth Observation Research Center}",
+          "title": "{Himawari-8 Wild Fire Product ({L2WLF}), Version 1.00: Product Description}",
+          "year": "2020",
+          "howpublished": "JAXA EORC, P-Tree",
+          "version": "1.00",
+          "url": "https://www.eorc.jaxa.jp/ptree/documents/README_H08_L2WLF.txt",
+          "note": "Upstream Himawari wildfire product documentation. Published arrival archive identifies Himawari-8/9 L2WLF via JAXA P-Tree.",
+          "annotation": "Upstream Himawari wildfire product",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream Himawari wildfire product",
+        "verification_sources": [
+          {
+            "url": "https://www.eorc.jaxa.jp/ptree/documents/README_H08_L2WLF.txt",
+            "status": "Primary provider or publisher page inspected with the web tool on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 357
+      },
+      {
+        "key": "kfsNationalForestFireInformation",
+        "type": "misc",
+        "fields": {
+          "author": "{Korea Forest Service}",
+          "title": "{National Forest Fire Information System}",
+          "howpublished": "Official wildfire situation-map service",
+          "url": "https://fd.forest.go.kr/",
+          "note": "Upstream Korean fire perimeters and ignition times identified in the published arrival dataset provenance.",
+          "annotation": "Upstream Korean perimeter and ignition-time provenance",
+          "urldate": "2026-10-08"
+        },
+        "role": "Upstream Korean perimeter and ignition-time provenance",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Live service contents were not inspected in this bibliography task; metadata and provenance come from retained publisher originals.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 370
+      },
+      {
+        "key": "lee2025gk2aviirs",
+        "type": "article",
+        "fields": {
+          "author": "Lee, Doi and Kim, Sang-il and Ahn, Do-Seob and Kim, Seung-Chul and Seo, Dongju and Choi, Minha and Lee, Yangwon and Kim, Jinsoo",
+          "title": "{Machine Learning-Based Near-Real-Time Monitoring of Wildfire Spread Extent Using {GK2A} and {VIIRS}}",
+          "journal": "Korean Journal of Remote Sensing",
+          "year": "2025",
+          "volume": "41",
+          "number": "5",
+          "pages": "869--881",
+          "doi": "10.7780/kjrs.2025.41.5.13",
+          "url": "https://www.kjrs.org/journal/view.html?doi=10.7780/kjrs.2025.41.5.13",
+          "annotation": "Related literature retained locally, not current variance-weighted arrival method",
+          "urldate": "2026-10-08"
+        },
+        "role": "Related literature retained locally, not current variance-weighted arrival method",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/kjrs_2025_41_5_13.html",
+            "status": "Retained publisher original or recorded acquisition provenance inspected locally on 2026-10-08."
+          }
+        ],
+        "limitations": "Live publisher page inaccessible; exact bibliographic metadata verified from retained publisher HTML meta tags.",
+        "group": "data",
+        "group_title": "Published reconstruction, upstream fire observations, and environmental data",
+        "bib_line": 381
+      },
+      {
+        "key": "kingma2015adam",
+        "type": "inproceedings",
+        "fields": {
+          "author": "Kingma, Diederik P. and Ba, Jimmy",
+          "title": "{{Adam}: A Method for Stochastic Optimization}",
+          "booktitle": "Proceedings of the 3rd International Conference on Learning Representations",
+          "year": "2015",
+          "eprint": "1412.6980",
+          "archivePrefix": "arXiv",
+          "primaryClass": "cs.LG",
+          "doi": "10.48550/arXiv.1412.6980",
+          "url": "https://arxiv.org/abs/1412.6980",
+          "annotation": "Adam optimizer actually used by both probability model training implementations",
+          "urldate": "2026-10-08"
+        },
+        "role": "Adam optimizer actually used by both probability model training implementations",
+        "verification_sources": [
+          {
+            "url": "https://arxiv.org/abs/1412.6980",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/train.py",
+            "status": "Adam_call_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+            "status": "Adam_call_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 400
+      },
+      {
+        "key": "brier1950verification",
+        "type": "article",
+        "fields": {
+          "author": "Brier, Glenn W.",
+          "title": "{Verification of Forecasts Expressed in Terms of Probability}",
+          "journal": "Monthly Weather Review",
+          "year": "1950",
+          "volume": "78",
+          "number": "1",
+          "pages": "1--3",
+          "doi": "10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2",
+          "url": "https://journals.ametsoc.org/doi/abs/10.1175/1520-0493%281950%29078%3C0001%3AVOFEIT%3E2.0.CO%3B2",
+          "annotation": "Quadratic probability-score foundation for locally implemented weighted binary Brier score",
+          "urldate": "2026-10-08"
+        },
+        "role": "Quadratic probability-score foundation for locally implemented weighted binary Brier score",
+        "verification_sources": [
+          {
+            "url": "https://journals.ametsoc.org/doi/abs/10.1175/1520-0493%281950%29078%3C0001%3AVOFEIT%3E2.0.CO%3B2",
+            "status": "primary_publisher_indexed_metadata_verified_direct_open_403"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/metrics.py",
+            "status": "weighted_binary_Brier_formula_verified"
+          }
+        ],
+        "limitations": "Original publisher full text not inspected this turn. Binary score scaling and population weights follow local implementation.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 415
+      },
+      {
+        "key": "horvitz1952sampling",
+        "type": "article",
+        "fields": {
+          "author": "Horvitz, D. G. and Thompson, D. J.",
+          "title": "{A Generalization of Sampling Without Replacement from a Finite Universe}",
+          "journal": "Journal of the American Statistical Association",
+          "year": "1952",
+          "volume": "47",
+          "number": "260",
+          "pages": "663--685",
+          "doi": "10.1080/01621459.1952.10483446",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1952.10483446",
+          "annotation": "Inverse inclusion-probability weighting for stratified sampled negatives; Horvitz-Thompson total foundation",
+          "urldate": "2026-10-08"
+        },
+        "role": "Inverse inclusion-probability weighting for stratified sampled negatives; Horvitz-Thompson total foundation",
+        "verification_sources": [
+          {
+            "url": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1952.10483446",
+            "status": "primary_publisher_indexed_metadata_verified_direct_open_403"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/prepare_training.py",
+            "status": "inverse_candidate_inclusion_probability_formula_verified"
+          }
+        ],
+        "limitations": "The unbiased Horvitz-Thompson total is distinct from local normalized weighted metrics and minibatch ratios. Do not label those ratios exactly unbiased in general; do not claim asymptotic consistency without sampling assumptions. Full original text not inspected this turn.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 430
+      },
+      {
+        "key": "gneiting2007proper",
+        "type": "article",
+        "fields": {
+          "author": "Gneiting, Tilmann and Raftery, Adrian E.",
+          "title": "{Strictly Proper Scoring Rules, Prediction, and Estimation}",
+          "journal": "Journal of the American Statistical Association",
+          "year": "2007",
+          "volume": "102",
+          "number": "477",
+          "pages": "359--378",
+          "doi": "10.1198/016214506000001437",
+          "url": "https://doi.org/10.1198/016214506000001437",
+          "annotation": "Proper scoring-rule foundation for Brier and exact logarithmic score interpretation",
+          "urldate": "2026-10-08"
+        },
+        "role": "Proper scoring-rule foundation for Brier and exact logarithmic score interpretation",
+        "verification_sources": [
+          {
+            "url": "https://doi.org/10.1198/016214506000001437",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "url": "https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf",
+            "status": "author_hosted_original_article_metadata_verified"
+          }
+        ],
+        "limitations": "Local prevalence scaling, raw signed-score training, clipping and likelihood floors are local choices; this source does not validate those choices or field performance.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 445
+      },
+      {
+        "key": "fawcett2006roc",
+        "type": "article",
+        "fields": {
+          "author": "Fawcett, Tom",
+          "title": "{An Introduction to {ROC} Analysis}",
+          "journal": "Pattern Recognition Letters",
+          "year": "2006",
+          "volume": "27",
+          "number": "8",
+          "pages": "861--874",
+          "doi": "10.1016/j.patrec.2005.10.010",
+          "url": "https://www.sciencedirect.com/science/article/pii/S016786550500303X",
+          "annotation": "ROC curve and area foundation for locally implemented weighted threshold-group evaluation",
+          "urldate": "2026-10-08"
+        },
+        "role": "ROC curve and area foundation for locally implemented weighted threshold-group evaluation",
+        "verification_sources": [
+          {
+            "url": "https://www.sciencedirect.com/science/article/pii/S016786550500303X",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/metrics.py",
+            "status": "weighted_grouped_threshold_ROC_AUC_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 460
+      },
+      {
+        "key": "davis2006precisionrecall",
+        "type": "inproceedings",
+        "fields": {
+          "author": "Davis, Jesse and Goadrich, Mark",
+          "title": "{The Relationship between Precision-Recall and {ROC} Curves}",
+          "booktitle": "Proceedings of the 23rd International Conference on Machine Learning",
+          "year": "2006",
+          "pages": "233--240",
+          "publisher": "ACM",
+          "doi": "10.1145/1143844.1143874",
+          "url": "https://dl.acm.org/doi/10.1145/1143844.1143874",
+          "annotation": "Precision-recall and ROC interpretation, especially for low-prevalence targets",
+          "urldate": "2026-10-08"
+        },
+        "role": "Precision-recall and ROC interpretation, especially for low-prevalence targets",
+        "verification_sources": [
+          {
+            "url": "https://ftp.cs.wisc.edu/machine-learning/shavlik-group/davis.icml06.pdf",
+            "status": "author_hosted_original_article_verified"
+          },
+          {
+            "url": "https://dl.acm.org/doi/10.1145/1143844.1143874",
+            "status": "primary_publisher_indexed_metadata_verified_direct_open_unavailable"
+          }
+        ],
+        "limitations": "Population weighting and tied-score implementation belong to the current local code; do not equate arbitrary PR trapezoidal area with local uninterpolated AP.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 475
+      },
+      {
+        "key": "manning2008informationretrieval",
+        "type": "book",
+        "fields": {
+          "author": "Manning, Christopher D. and Raghavan, Prabhakar and Sch{\\\"u}tze, Hinrich",
+          "title": "{Introduction to Information Retrieval}",
+          "publisher": "Cambridge University Press",
+          "year": "2008",
+          "isbn": "9780521865715",
+          "doi": "10.1017/CBO9780511809071",
+          "url": "https://nlp.stanford.edu/IR-book/",
+          "note": "Chapter 8 provides the average-precision foundation; population weights and tied-score grouping follow the current local implementation",
+          "annotation": "Average-precision definition foundation",
+          "urldate": "2026-10-08"
+        },
+        "role": "Average-precision definition foundation",
+        "verification_sources": [
+          {
+            "url": "https://www.cambridge.org/highereducation/books/introduction-to-information-retrieval/669D108D20F556C5C30957D63B5AB65C",
+            "status": "primary_publisher_book_metadata_verified"
+          },
+          {
+            "url": "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html",
+            "status": "author_hosted_original_chapter_AP_definition_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 489
+      },
+      {
+        "key": "cressie1993spatial",
+        "type": "book",
+        "fields": {
+          "author": "Cressie, Noel A. C.",
+          "title": "{Statistics for Spatial Data}",
+          "edition": "Revised",
+          "publisher": "John Wiley \\& Sons",
+          "address": "New York",
+          "year": "1993",
+          "isbn": "9780471002550",
+          "doi": "10.1002/9781119115151",
+          "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119115151",
+          "annotation": "Ordinary kriging and variogram foundation explicitly cited by retained arrival reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Ordinary kriging and variogram foundation explicitly cited by retained arrival reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119115151",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 503
+      },
+      {
+        "key": "chiles2012geostatistics",
+        "type": "book",
+        "fields": {
+          "author": "Chil{\\`e}s, Jean-Paul and Delfiner, Pierre",
+          "title": "{Geostatistics: Modeling Spatial Uncertainty}",
+          "edition": "2",
+          "publisher": "John Wiley \\& Sons",
+          "address": "Hoboken, NJ",
+          "year": "2012",
+          "isbn": "9780470183151",
+          "doi": "10.1002/9781118136188",
+          "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781118136188",
+          "annotation": "Kriging, covariance and uncertainty foundation explicitly cited by retained arrival reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Kriging, covariance and uncertainty foundation explicitly cited by retained arrival reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781118136188",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 518
+      },
+      {
+        "key": "oliver2014geostatistics",
+        "type": "article",
+        "fields": {
+          "author": "Oliver, M. A. and Webster, R.",
+          "title": "{A Tutorial Guide to Geostatistics: Computing and Modelling Variograms and Kriging}",
+          "journal": "CATENA",
+          "year": "2014",
+          "volume": "113",
+          "pages": "56--69",
+          "doi": "10.1016/j.catena.2013.09.006",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0341816213002385",
+          "annotation": "Variogram and kriging guide explicitly cited by retained arrival reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Variogram and kriging guide explicitly cited by retained arrival reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S0341816213002385",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 533
+      },
+      {
+        "key": "silva2025measurementerror",
+        "type": "article",
+        "fields": {
+          "author": "Silva, Victor Miguel and Coimbra Costa Leite, Jo{\\~a}o Felipe and Deutsch, Clayton V.",
+          "title": "{Kriging Data with Measurement Error: A Review and a Generalized Approach}",
+          "journal": "Applied Earth Science",
+          "year": "2025",
+          "volume": "134",
+          "number": "1",
+          "pages": "5--17",
+          "doi": "10.1177/25726838241311754",
+          "url": "https://journals.sagepub.com/doi/abs/10.1177/25726838241311754",
+          "annotation": "Measurement-error kriging reference explicitly cited by retained arrival reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Measurement-error kriging reference explicitly cited by retained arrival reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://journals.sagepub.com/doi/abs/10.1177/25726838241311754",
+            "status": "primary_publisher_indexed_metadata_verified_direct_open_unavailable"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "limitations": "Bibliographic metadata and source use verified; complete publisher full text not inspected this turn.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 547
+      },
+      {
+        "key": "cooley1965fft",
+        "type": "article",
+        "fields": {
+          "author": "Cooley, James W. and Tukey, John W.",
+          "title": "{An Algorithm for the Machine Calculation of Complex Fourier Series}",
+          "journal": "Mathematics of Computation",
+          "year": "1965",
+          "volume": "19",
+          "number": "90",
+          "pages": "297--301",
+          "doi": "10.1090/S0025-5718-1965-0178586-1",
+          "url": "https://www.ams.org/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf",
+          "note": "Historical FFT foundation; the current project uses NumPy FFT routines",
+          "annotation": "Historical FFT foundation for radiation convolution implementation",
+          "urldate": "2026-10-08"
+        },
+        "role": "Historical FFT foundation for radiation convolution implementation",
+        "verification_sources": [
+          {
+            "url": "https://www.ams.org/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf",
+            "status": "primary_publisher_original_PDF_and_indexed_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/expected_heat_flux/model.py",
+            "status": "NumPy_rfft2_irfft2_zero_padded_convolution_verified"
+          }
+        ],
+        "limitations": "Do not imply NumPy exclusively implements the original radix algorithm. Exact algorithm backend should be cited through NumPy documentation if a stronger implementation claim is needed.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 562
+      },
+      {
+        "key": "demsar2006comparisons",
+        "type": "article",
+        "fields": {
+          "author": "Dem{\\v s}ar, Janez",
+          "title": "{Statistical Comparisons of Classifiers over Multiple Data Sets}",
+          "journal": "Journal of Machine Learning Research",
+          "year": "2006",
+          "volume": "7",
+          "number": "1",
+          "pages": "1--30",
+          "url": "https://jmlr.org/papers/v7/demsar06a.html",
+          "note": "Reference cited by the retained arrival-reconstruction publication for comparisons across events",
+          "annotation": "Archived reconstruction evaluation method reference",
+          "urldate": "2026-10-08"
+        },
+        "role": "Archived reconstruction evaluation method reference",
+        "verification_sources": [
+          {
+            "url": "https://jmlr.org/papers/v7/demsar06a.html",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "limitations": "Do not claim the current probability model reports implemented statistical tests across events merely because archived reconstruction evaluation does.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 578
+      },
+      {
+        "key": "holm1979multiple",
+        "type": "article",
+        "fields": {
+          "author": "Holm, Sture",
+          "title": "{A Simple Sequentially Rejective Multiple Test Procedure}",
+          "journal": "Scandinavian Journal of Statistics",
+          "year": "1979",
+          "volume": "6",
+          "pages": "65--70",
+          "url": "https://www.jstor.org/stable/4615733",
+          "note": "Reference cited by the retained arrival-reconstruction publication; its archived evaluation code applies Holm correction",
+          "annotation": "Archived reconstruction paired-testing multiple-comparison adjustment",
+          "urldate": "2026-10-08"
+        },
+        "role": "Archived reconstruction paired-testing multiple-comparison adjustment",
+        "verification_sources": [
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+            "status": "Holm_adjustment_implementation_verified"
+          },
+          {
+            "url": "https://www.jstor.org/stable/4615733",
+            "status": "primary_page_opened_metadata_not_exposed"
+          }
+        ],
+        "limitations": "Exact title, author, volume, year and pages corroborated from retained publisher original. DOI and issue number deliberately omitted rather than assert metadata not confirmed from primary current access.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 593
+      },
+      {
+        "key": "roberts2017crossvalidation",
+        "type": "article",
+        "fields": {
+          "author": "Roberts, David R. and Bahn, Volker and Ciuti, Simone and Boyce, Mark S. and Elith, Jane and Guillera-Arroita, Gurutzeta and Hauenstein, Severin and Lahoz-Monfort, Jos{\\'e} J. and Schr{\\\"o}der, Boris and Thuiller, Wilfried and Warton, David I. and Wintle, Brendan A. and Hartig, Florian and Dormann, Carsten F.",
+          "title": "{Cross-Validation Strategies for Data with Temporal, Spatial, Hierarchical, or Phylogenetic Structure}",
+          "journal": "Ecography",
+          "year": "2017",
+          "volume": "40",
+          "number": "8",
+          "pages": "913--929",
+          "doi": "10.1111/ecog.02881",
+          "url": "https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.02881",
+          "annotation": "Structured cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Structured cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.02881",
+            "status": "primary_metadata_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 607
+      },
+      {
+        "key": "pohjankukka2017spatialcv",
+        "type": "article",
+        "fields": {
+          "author": "Pohjankukka, Jonne and Pahikkala, Tapio and Nevalainen, Paavo and Heikkonen, Jukka",
+          "title": "{Estimating the Prediction Performance of Spatial Models via Spatial {$k$}-Fold Cross Validation}",
+          "journal": "International Journal of Geographical Information Science",
+          "year": "2017",
+          "volume": "31",
+          "number": "10",
+          "pages": "2001--2019",
+          "doi": "10.1080/13658816.2017.1346255",
+          "url": "https://doi.org/10.1080/13658816.2017.1346255",
+          "annotation": "Spatial cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+          "urldate": "2026-10-08"
+        },
+        "role": "Spatial cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+        "verification_sources": [
+          {
+            "url": "https://arxiv.org/abs/2005.14263",
+            "status": "author_uploaded_original_article_journal_reference_and_DOI_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/publications/rs18193321.pdf",
+            "status": "retained_source_reference_verified"
+          }
+        ],
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 622
+      },
+      {
+        "key": "daley2003pointprocesses",
+        "type": "book",
+        "fields": {
+          "author": "Daley, D. J. and Vere-Jones, D.",
+          "title": "{An Introduction to the Theory of Point Processes: Volume {I}: Elementary Theory and Methods}",
+          "edition": "2",
+          "publisher": "Springer",
+          "address": "New York",
+          "series": "Probability and Its Applications",
+          "year": "2003",
+          "isbn": "9780387955414",
+          "doi": "10.1007/b97277",
+          "url": "https://link.springer.com/book/10.1007/b97277",
+          "note": "Background for renewal processes and conditional intensities only; the current wildfire predictor is not documented as a fitted renewal-process model",
+          "annotation": "Theory background for the local renewal-process note and conditional-intensity semantics",
+          "urldate": "2026-10-08"
+        },
+        "role": "Theory background for the local renewal-process note and conditional-intensity semantics",
+        "verification_sources": [
+          {
+            "url": "https://link.springer.com/book/10.1007/b97277",
+            "status": "primary_publisher_metadata_and_renewal_chapter_scope_verified"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/renewal_process.tex",
+            "status": "local_theory_note_inspected_not_validated"
+          }
+        ],
+        "limitations": "Current exponential predictor supplies an interval transition probability; no full renewal-process model was fitted. The local theoretical note incorrectly says ordinary renewal interarrival times are not IID; do not claim this reference validates that statement.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 637
+      },
+      {
+        "key": "efron1979bootstrap",
+        "type": "article",
+        "fields": {
+          "author": "Efron, B.",
+          "title": "{Bootstrap Methods: Another Look at the Jackknife}",
+          "journal": "The Annals of Statistics",
+          "year": "1979",
+          "volume": "7",
+          "number": "1",
+          "pages": "1--26",
+          "doi": "10.1214/aos/1176344552",
+          "url": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full",
+          "note": "Bootstrap foundation for the retained publication's event-resampling evaluation; no bootstrap uncertainty was newly fitted for the current probability models",
+          "annotation": "Background for archived event-resampling percentile bootstrap",
+          "urldate": "2026-10-08"
+        },
+        "role": "Background for archived event-resampling percentile bootstrap",
+        "verification_sources": [
+          {
+            "url": "https://www.jstor.org/stable/i348796",
+            "status": "primary_IMS_issue_metadata_verified"
+          },
+          {
+            "url": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full",
+            "status": "primary_DOI_page_opened_iframe_only"
+          },
+          {
+            "local_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+            "status": "event_resampling_bootstrap_verified"
+          }
+        ],
+        "limitations": "Metadata only; original complete text not inspected this turn.",
+        "group": "methods",
+        "group_title": "Mathematical, optimization, scoring, and archived-validation foundations",
+        "bib_line": 654
+      },
+      {
+        "key": "overholt2014",
+        "type": "techreport",
+        "fields": {
+          "author": "Overholt, Kristopher J.",
+          "title": "{Verification and Validation of Commonly Used Empirical Correlations for Fire Scenarios}",
+          "institution": "National Institute of Standards and Technology",
+          "type": "{NIST} Special Publication",
+          "number": "1169",
+          "address": "Gaithersburg, MD",
+          "year": "2014",
+          "month": "March",
+          "doi": "10.6028/NIST.SP.1169",
+          "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,radiation,method",
+          "note": "Point-source radiation: Section 6.1, Equation (6.1), printed page 39. The finite-footprint integration is an extension in this project.",
+          "annotation": "Direct foundation: isotropic radiation with receiver orientation"
+        },
+        "role": "Direct foundation: isotropic radiation with receiver orientation",
+        "verification_sources": [
+          {
+            "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Point-source radiation: Section 6.1, Equation (6.1), printed page 39. The finite-footprint integration is an extension in this project.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 674
+      },
+      {
+        "key": "bryant2003nist1007",
+        "type": "techreport",
+        "fields": {
+          "author": "Bryant, Rodney A. and Ohlemiller, Thomas J. and Johnsson, Erik L. and Hamins, Anthony and Grove, Brian S. and Guthrie, William F. and Maranghides, Alexander and Mulholland, George W.",
+          "title": "{The {NIST} 3 Megawatt Quantitative Heat Release Rate Facility}",
+          "institution": "National Institute of Standards and Technology",
+          "type": "{NIST} Special Publication",
+          "number": "1007",
+          "address": "Gaithersburg, MD",
+          "year": "2003",
+          "month": "December",
+          "doi": "10.6028/NIST.SP.1007",
+          "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication1007.pdf",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,heat-release,method",
+          "note": "Author list and December 2003 date verified from the report title page; the current NIST HTML entry duplicates the first author.",
+          "annotation": "Heat-release relation physical context"
+        },
+        "role": "Heat-release relation physical context",
+        "verification_sources": [
+          {
+            "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication1007.pdf",
+            "status": "Official PDF front matter verified full eight-author list and December 2003 date; NIST HTML author field is malformed"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Author list and December 2003 date verified from the report title page; the current NIST HTML entry duplicates the first author.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 692
+      },
+      {
+        "key": "mcgrattan2000nist6546",
+        "type": "techreport",
+        "fields": {
+          "author": "McGrattan, Kevin B. and Baum, Howard R. and Hamins, Anthony",
+          "title": "{Thermal Radiation from Large Pool Fires}",
+          "institution": "National Institute of Standards and Technology",
+          "type": "{NIST} Interagency Report",
+          "number": "6546",
+          "address": "Gaithersburg, MD",
+          "year": "2000",
+          "month": "November",
+          "doi": "10.6028/NIST.IR.6546",
+          "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir6546.pdf",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,radiation,context",
+          "note": "Large-pool-fire radiation and transmission context; this report does not validate the project's wildfire footprint model.",
+          "annotation": "Radiation/transmission and near-source limitation context"
+        },
+        "role": "Radiation/transmission and near-source limitation context",
+        "verification_sources": [
+          {
+            "url": "https://www.nist.gov/publications/thermal-radiation-large-pool-fires",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir6546.pdf",
+            "status": "Official front matter verifies author list and November 2000 date"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Large-pool-fire radiation and transmission context; this report does not validate the project's wildfire footprint model.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 710
+      },
+      {
+        "key": "frankman2013wildlandheating",
+        "type": "article",
+        "fields": {
+          "author": "Frankman, David and Webb, Brent W. and Butler, Bret W. and Jimenez, Daniel and Forthofer, Jason M. and Sopko, Paul and Shannon, Kyle S. and Hiers, J. Kevin and Ottmar, Roger D.",
+          "title": "{Measurements of convective and radiative heating in wildland fires}",
+          "journal": "International Journal of Wildland Fire",
+          "volume": "22",
+          "number": "2",
+          "pages": "157--167",
+          "year": "2013",
+          "month": "March",
+          "doi": "10.1071/WF11097",
+          "url": "https://connectsci.au/wf/article-abstract/22/2/157/23395/Measurements-of-convective-and-radiative-heating",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,radiation,context",
+          "note": "First published online 11 September 2012; the publisher's final volume-and-issue citation is 2013. Context for distinguishing radiation from convection; not a calibration dataset for this project.",
+          "annotation": "Wildfire radiation-versus-convection observational context"
+        },
+        "role": "Wildfire radiation-versus-convection observational context",
+        "verification_sources": [
+          {
+            "url": "https://connectsci.au/wf/article-abstract/22/2/157/23395/Measurements-of-convective-and-radiative-heating",
+            "status": "Publisher metadata verifies final issue year 2013 and first online date 2012-09-11"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "First published online 11 September 2012; the publisher's final volume-and-issue citation is 2013. Context for distinguishing radiation from convection; not a calibration dataset for this project.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 728
+      },
+      {
+        "key": "angelidis2004",
+        "type": "techreport",
+        "fields": {
+          "author": "Angelidis, Alexis",
+          "title": "{Spherical Springs}",
+          "institution": "Department of Computer Science, University of Otago",
+          "type": "Technical Report",
+          "number": "OUCS-2004-01",
+          "year": "2004",
+          "url": "https://cs.otago.ac.nz/research/publications/oucs-2004-01.pdf",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,geometry,method",
+          "note": "Section 3.2 records the triangular solid-angle expression and cites van Oosterom and Strackee (1983). This accessible report was the inspected formula source.",
+          "annotation": "Inspected solid-angle formula reference"
+        },
+        "role": "Inspected solid-angle formula reference",
+        "verification_sources": [
+          {
+            "url": "https://cs.otago.ac.nz/research/publications/oucs-2004-01.pdf",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Section 3.2 records the triangular solid-angle expression and cites van Oosterom and Strackee (1983). This accessible report was the inspected formula source.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 746
+      },
+      {
+        "key": "vanoosterom1983",
+        "type": "article",
+        "fields": {
+          "author": "van Oosterom, A. and Strackee, J.",
+          "title": "{The Solid Angle of a Plane Triangle}",
+          "journal": "IEEE Transactions on Biomedical Engineering",
+          "volume": "BME-30",
+          "number": "2",
+          "pages": "125--126",
+          "year": "1983",
+          "month": "February",
+          "doi": "10.1109/TBME.1983.325207",
+          "url": "https://doi.org/10.1109/TBME.1983.325207",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,geometry,original-attribution",
+          "note": "Original solid-angle attribution; bibliographic metadata confirmed by PubMed PMID 6832789. Original full text was not inspected; the formula was checked in Angelidis (2004).",
+          "annotation": "Original solid-angle formula attribution"
+        },
+        "role": "Original solid-angle formula attribution",
+        "verification_sources": [
+          {
+            "url": "https://pubmed.ncbi.nlm.nih.gov/6832789/",
+            "status": "Bibliographic metadata verified in PubMed; original full text not inspected"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Original solid-angle attribution; bibliographic metadata confirmed by PubMed PMID 6832789. Original full text was not inspected; the formula was checked in Angelidis (2004).",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 761
+      },
+      {
+        "key": "landfirefccs",
+        "type": "misc",
+        "fields": {
+          "author": "{LANDFIRE}",
+          "title": "{Fuel Characteristic Classification System Fuelbeds}",
+          "howpublished": "Official product documentation",
+          "url": "https://www.landfire.gov/fuel/fccs",
+          "urldate": "2026-10-08",
+          "keywords": "fuel,environmental-data,data-documentation",
+          "note": "Undated general product description. Raster release versions are separately identified by the project data provenance.",
+          "annotation": "Fuel raster product documentation"
+        },
+        "role": "Fuel raster product documentation",
+        "verification_sources": [
+          {
+            "url": "https://www.landfire.gov/fuel/fccs",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Undated general product description. Raster release versions are separately identified by the project data provenance.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 779
+      },
+      {
+        "key": "landfireconsumeloadings",
+        "type": "misc",
+        "fields": {
+          "author": "{LANDFIRE}",
+          "title": "{{FCCS} Consume Input Tables}",
+          "howpublished": "CSV reference fuel-loading table",
+          "url": "https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv",
+          "urldate": "2026-10-08",
+          "keywords": "fuel,environmental-data,data-documentation",
+          "note": "Loading units are tons per acre; product description at https://www.landfire.gov/fuel/fccs. Exact archived table release and checksum belong to the project provenance record.",
+          "annotation": "Referenced FCCS dry-loading lookup table"
+        },
+        "role": "Referenced FCCS dry-loading lookup table",
+        "verification_sources": [
+          {
+            "url": "https://www.landfire.gov/fuel/fccs",
+            "status": "Official product page verified table title, units, and link; table content was not downloaded in this audit"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Loading units are tons per acre; product description at https://www.landfire.gov/fuel/fccs. Exact archived table release and checksum belong to the project provenance record.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 791
+      },
+      {
+        "key": "prichard2013",
+        "type": "techreport",
+        "fields": {
+          "author": "Prichard, Susan J. and Sandberg, David V. and Ottmar, Roger D. and Eberhardt, Ellen and Andreu, Anne and Eagle, Paige and Swedin, Kjell",
+          "title": "{Fuel Characteristic Classification System version 3.0: technical documentation}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Pacific Northwest Research Station",
+          "type": "General Technical Report",
+          "number": "PNW-GTR-887",
+          "address": "Portland, OR",
+          "year": "2013",
+          "doi": "10.2737/PNW-GTR-887",
+          "url": "https://research.fs.usda.gov/treesearch/45283",
+          "urldate": "2026-10-08",
+          "keywords": "fuel,method,data-documentation",
+          "note": "Reference fuel characteristics and six fuel strata. Reference fuelbeds are not event-date measurements of consumed fuel.",
+          "annotation": "FCCS physical fuelbed definitions"
+        },
+        "role": "FCCS physical fuelbed definitions",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/45283",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Reference fuel characteristics and six fuel strata. Reference fuelbeds are not event-date measurements of consumed fuel.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 803
+      },
+      {
+        "key": "sung2025nist2314",
+        "type": "techreport",
+        "fields": {
+          "author": "Sung, Kunhyuk and Mueller, Eric and Bundy, Matthew and Fernandez, Marco and Hamins, Anthony",
+          "title": "{Global Burning Properties of Little Bluestem, Excelsior and Douglas Fir}",
+          "institution": "National Institute of Standards and Technology",
+          "type": "{NIST} Technical Note",
+          "number": "2314",
+          "address": "Gaithersburg, MD",
+          "year": "2025",
+          "month": "April",
+          "doi": "10.6028/NIST.TN.2314",
+          "url": "https://www.nist.gov/publications/global-burning-properties-little-bluestem-excelsior-and-douglas-fir",
+          "urldate": "2026-10-08",
+          "keywords": "heat-flux,radiative-fraction,context",
+          "note": "Primary publication record dated 15 April 2025. Vegetation combustion measurements provide physical context; the project's illustrative parameters are not fitted to these data.",
+          "annotation": "Vegetation radiative-fraction context"
+        },
+        "role": "Vegetation radiative-fraction context",
+        "verification_sources": [
+          {
+            "url": "https://www.nist.gov/publications/global-burning-properties-little-bluestem-excelsior-and-douglas-fir",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Primary publication record dated 15 April 2025. Vegetation combustion measurements provide physical context; the project's illustrative parameters are not fitted to these data.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 820
+      },
+      {
+        "key": "anderson1969",
+        "type": "techreport",
+        "fields": {
+          "author": "Anderson, Hal E.",
+          "title": "{Heat transfer and fire spread}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station",
+          "type": "Research Paper",
+          "number": "INT-RP-69",
+          "address": "Ogden, UT",
+          "year": "1969",
+          "url": "https://research.fs.usda.gov/treesearch/40489",
+          "urldate": "2026-10-08",
+          "keywords": "residence,method",
+          "note": "Printed report identifier INT-69; agency catalog identifier INT-RP-69. Residence approximation on printed pages 15--16. This is distinct from Anderson's 1982 fuel catalog.",
+          "annotation": "Direct residence relation foundation"
+        },
+        "role": "Direct residence relation foundation",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/40489",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Printed report identifier INT-69; agency catalog identifier INT-RP-69. Residence approximation on printed pages 15--16. This is distinct from Anderson's 1982 fuel catalog.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 838
+      },
+      {
+        "key": "andrews2018",
+        "type": "techreport",
+        "fields": {
+          "author": "Andrews, Patricia L.",
+          "title": "{The {Rothermel} surface fire spread model and associated developments: A comprehensive explanation}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station",
+          "type": "General Technical Report",
+          "number": "RMRS-GTR-371",
+          "address": "Fort Collins, CO",
+          "year": "2018",
+          "doi": "10.2737/RMRS-GTR-371",
+          "url": "https://research.fs.usda.gov/treesearch/55928",
+          "urldate": "2026-10-08",
+          "keywords": "residence,fuel,method",
+          "note": "Characteristic SAV weighting: Sections 3.2.3--3.2.5; passing-front residence: Section 4.2. This project uses those relations and does not implement the complete Rothermel spread model.",
+          "annotation": "Direct characteristic SAV and residence relation source"
+        },
+        "role": "Direct characteristic SAV and residence relation source",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/55928",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Characteristic SAV weighting: Sections 3.2.3--3.2.5; passing-front residence: Section 4.2. This project uses those relations and does not implement the complete Rothermel spread model.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 854
+      },
+      {
+        "key": "scottburgan2005",
+        "type": "techreport",
+        "fields": {
+          "author": "Scott, Joe H. and Burgan, Robert E.",
+          "title": "{Standard fire behavior fuel models: a comprehensive set for use with {Rothermel}'s surface fire spread model}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station",
+          "type": "General Technical Report",
+          "number": "RMRS-GTR-153",
+          "address": "Fort Collins, CO",
+          "year": "2005",
+          "doi": "10.2737/RMRS-GTR-153",
+          "url": "https://research.fs.usda.gov/treesearch/9521",
+          "urldate": "2026-10-08",
+          "keywords": "residence,fuel,method",
+          "note": "The 40 standard burnable reference models; component parameters in Table 7. These are distinct from Anderson's original 13 models.",
+          "annotation": "Direct implemented FBFM40 parameter catalog"
+        },
+        "role": "Direct implemented FBFM40 parameter catalog",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/9521",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "The 40 standard burnable reference models; component parameters in Table 7. These are distinct from Anderson's original 13 models.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 871
+      },
+      {
+        "key": "burrows1994",
+        "type": "phdthesis",
+        "fields": {
+          "author": "Burrows, Neil D.",
+          "title": "{Experimental development of a fire management model for jarrah ({Eucalyptus marginata} Donn ex Sm.) forest}",
+          "school": "Australian National University",
+          "address": "Canberra, Australia",
+          "year": "1994",
+          "doi": "10.25911/5d78d89a1d6c0",
+          "url": "https://openresearch-repository.anu.edu.au/items/353db42d-2a6a-48fd-902c-027a93ac0bd6",
+          "urldate": "2026-10-08",
+          "keywords": "residence,method",
+          "note": "Implemented particle-size power law: printed page 69, Equation 6-1, in the government-hosted thesis copy at https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf. The ANU repository records year 1994 even though its attached PDF filename contains 1992.",
+          "annotation": "Direct implemented jarrah particle-duration equation"
+        },
+        "role": "Direct implemented jarrah particle-duration equation",
+        "verification_sources": [
+          {
+            "url": "https://openresearch-repository.anu.edu.au/items/353db42d-2a6a-48fd-902c-027a93ac0bd6",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Implemented particle-size power law: printed page 69, Equation 6-1, in the government-hosted thesis copy at https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf. The ANU repository records year 1994 even though its attached PDF filename contains 1992.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 888
+      },
+      {
+        "key": "burrows2001particles",
+        "type": "article",
+        "fields": {
+          "author": "Burrows, N. D.",
+          "title": "{Flame residence times and rates of weight loss of eucalypt forest fuel particles}",
+          "journal": "International Journal of Wildland Fire",
+          "volume": "10",
+          "number": "2",
+          "pages": "137--143",
+          "year": "2001",
+          "month": "July",
+          "doi": "10.1071/WF01005",
+          "url": "https://doi.org/10.1071/WF01005",
+          "urldate": "2026-10-08",
+          "keywords": "residence,context",
+          "note": "Publisher record dated 13 July 2001. Publisher abstract and bibliographic metadata inspected; the exact implemented power law was verified from the 1994 thesis rather than this article's full text.",
+          "annotation": "Peer-reviewed particle-duration literature context"
+        },
+        "role": "Peer-reviewed particle-duration literature context",
+        "verification_sources": [
+          {
+            "url": "https://connectsci.au/wf/article/10/2/137/22558/Flame-residence-times-and-rates-of-weight-loss-of",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Publisher record dated 13 July 2001. Publisher abstract and bibliographic metadata inspected; the exact implemented power law was verified from the 1994 thesis rather than this article's full text.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 903
+      },
+      {
+        "key": "wotton2012flamefront",
+        "type": "article",
+        "fields": {
+          "author": "Wotton, B. Mike and Gould, James S. and McCaw, W. Lachlan and Cheney, N. Phillip and Taylor, Stephen W.",
+          "title": "{Flame temperature and residence time of fires in dry eucalypt forest}",
+          "journal": "International Journal of Wildland Fire",
+          "volume": "21",
+          "number": "3",
+          "pages": "270--281",
+          "year": "2012",
+          "doi": "10.1071/WF10127",
+          "url": "https://doi.org/10.1071/WF10127",
+          "urldate": "2026-10-08",
+          "keywords": "residence,context",
+          "note": "First published online 15 December 2011; final journal issue year is 2012. Main-front and later residual flaming have different endpoints.",
+          "annotation": "Main-front versus residual-flaming observational context"
+        },
+        "role": "Main-front versus residual-flaming observational context",
+        "verification_sources": [
+          {
+            "url": "https://connectsci.au/wf/article-abstract/21/3/270/119209/Flame-temperature-and-residence-time-of-fires-in?redirectedFrom=fulltext",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "First published online 15 December 2011; final journal issue year is 2012. Main-front and later residual flaming have different endpoints.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 921
+      },
+      {
+        "key": "moody2022qesfire",
+        "type": "article",
+        "fields": {
+          "author": "Moody, Matthew J. and Gibbs, Jeremy A. and Krueger, Steven and Mallia, Derek and Pardyjak, Eric R. and Kochanski, Adam K. and Bailey, Brian N. and Stoll, Rob",
+          "title": "{{QES-Fire}: a dynamically coupled fast-response wildfire model}",
+          "journal": "International Journal of Wildland Fire",
+          "volume": "31",
+          "number": "3",
+          "pages": "306--325",
+          "year": "2022",
+          "month": "March",
+          "doi": "10.1071/WF21057",
+          "url": "https://connectsci.au/wf/article/31/3/306/187714/QES-Fire-a-dynamically-coupled-fast-response",
+          "urldate": "2026-10-08",
+          "keywords": "residence,context",
+          "note": "Published 18 March 2022. Precedent for time-on-fire gating; cited model performance does not transfer to this project.",
+          "annotation": "Precedent for age-gated flame map"
+        },
+        "role": "Precedent for age-gated flame map",
+        "verification_sources": [
+          {
+            "url": "https://connectsci.au/wf/article/31/3/306/187714/QES-Fire-a-dynamically-coupled-fast-response",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Published 18 March 2022. Precedent for time-on-fire gating; cited model performance does not transfer to this project.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 938
+      },
+      {
+        "key": "anderson1982fuelmodels",
+        "type": "techreport",
+        "fields": {
+          "author": "Anderson, Hal E.",
+          "title": "{Aids to determining fuel models for estimating fire behavior}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station",
+          "type": "General Technical Report",
+          "number": "INT-GTR-122",
+          "address": "Ogden, UT",
+          "year": "1982",
+          "doi": "10.2737/INT-GTR-122",
+          "url": "https://research.fs.usda.gov/treesearch/6447",
+          "urldate": "2026-10-08",
+          "keywords": "fuel,background",
+          "note": "The original 13 fire-behavior fuel models; background source, distinct from the implemented 40-model Scott and Burgan catalog.",
+          "annotation": "Historical background only; original 13 fuel models"
+        },
+        "role": "Historical background only; original 13 fuel models",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/6447",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "The original 13 fire-behavior fuel models; background source, distinct from the implemented 40-model Scott and Burgan catalog.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 956
+      },
+      {
+        "key": "rothermel1972spread",
+        "type": "techreport",
+        "fields": {
+          "author": "Rothermel, Richard C.",
+          "title": "{A mathematical model for predicting fire spread in wildland fuels}",
+          "institution": "U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station",
+          "type": "Research Paper",
+          "number": "INT-RP-115",
+          "address": "Ogden, UT",
+          "year": "1972",
+          "doi": "10.2737/INT-RP-115",
+          "url": "https://research.fs.usda.gov/treesearch/32533",
+          "urldate": "2026-10-08",
+          "keywords": "fuel,background",
+          "note": "Historical model background; the current project's learned hourly predictor is not the complete Rothermel fire-spread model.",
+          "annotation": "Historical background only; not complete implementation"
+        },
+        "role": "Historical background only; not complete implementation",
+        "verification_sources": [
+          {
+            "url": "https://research.fs.usda.gov/treesearch/32533",
+            "status": "Primary bibliographic metadata verified online on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/sources.json",
+            "status": "Existing local project reference/provenance record inspected read-only"
+          }
+        ],
+        "limitations": "Historical model background; the current project's learned hourly predictor is not the complete Rothermel fire-spread model.",
+        "group": "heat",
+        "group_title": "Fuel, flame residence, heat release, and radiation",
+        "bib_line": 973
+      },
+      {
+        "key": "paszke2019pytorch",
+        "type": "inproceedings",
+        "fields": {
+          "author": "Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith",
+          "title": "{{PyTorch}: An Imperative Style, High-Performance Deep Learning Library}",
+          "booktitle": "Advances in Neural Information Processing Systems",
+          "volume": "32",
+          "year": "2019",
+          "publisher": "Curran Associates, Inc.",
+          "url": "https://papers.neurips.cc/paper_files/paper/2019/hash/bdbca288fee7f92f2bfa9f7012727740-Abstract.html",
+          "note": "General software paper. Current project declares torch version 2.5.1.",
+          "keywords": "software",
+          "annotation": "Software foundation: tensor computation, differentiation, model training",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: tensor computation, differentiation, model training",
+        "verification_sources": [
+          {
+            "url": "https://papers.neurips.cc/paper_files/paper/2019/hash/bdbca288fee7f92f2bfa9f7012727740-Abstract.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 994
+      },
+      {
+        "key": "harris2020numpy",
+        "type": "article",
+        "fields": {
+          "author": "Harris, Charles R. and Millman, K. Jarrod and van der Walt, St{\\'e}fan J. and Gommers, Ralf and Virtanen, Pauli and Cournapeau, David and Wieser, Eric and Taylor, Julian and Berg, Sebastian and Smith, Nathaniel J. and Kern, Robert and Picus, Matti and Hoyer, Stephan and van Kerkwijk, Marten H. and Brett, Matthew and Haldane, Allan and Fern{\\'a}ndez del R{\\'i}o, Jaime and Wiebe, Mark and Peterson, Pearu and G{\\'e}rard-Marchant, Pierre and Sheppard, Kevin and Reddy, Tyler and Weckesser, Warren and Abbasi, Hameer and Gohlke, Christoph and Oliphant, Travis E.",
+          "title": "{Array Programming with {NumPy}}",
+          "journal": "Nature",
+          "year": "2020",
+          "volume": "585",
+          "number": "7825",
+          "pages": "357--362",
+          "doi": "10.1038/s41586-020-2649-2",
+          "url": "https://doi.org/10.1038/s41586-020-2649-2",
+          "note": "Current project declares NumPy 1.26.4; the retained publisher code declares NumPy 2.3.5.",
+          "keywords": "software",
+          "annotation": "Software foundation: arrays and numerical computation",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: arrays and numerical computation",
+        "verification_sources": [
+          {
+            "url": "https://numpy.org/citing-numpy/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1009
+      },
+      {
+        "key": "virtanen2020scipy",
+        "type": "article",
+        "fields": {
+          "author": "Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and Haberland, Matt and Reddy, Tyler and Cournapeau, David and Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and Bright, Jonathan and {van der Walt}, St{\\'e}fan J. and Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and Kern, Robert and Larson, Eric and Carey, C. J. and Polat, {\\.I}lhan and Feng, Yu and Moore, Eric W. and {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and Harris, Charles R. and Archibald, Anne M. and Ribeiro, Ant{\\^o}nio H. and Pedregosa, Fabian and {van Mulbregt}, Paul and {SciPy 1.0 Contributors}",
+          "title": "{{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in {Python}}",
+          "journal": "Nature Methods",
+          "year": "2020",
+          "volume": "17",
+          "number": "3",
+          "pages": "261--272",
+          "doi": "10.1038/s41592-019-0686-2",
+          "url": "https://doi.org/10.1038/s41592-019-0686-2",
+          "note": "Current project declares SciPy 1.13.1; the retained publisher code declares SciPy 1.17.1.",
+          "keywords": "software",
+          "annotation": "Software foundation: optimization, interpolation and numerical routines",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: optimization, interpolation and numerical routines",
+        "verification_sources": [
+          {
+            "url": "https://scipy.org/citing-scipy/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1026
+      },
+      {
+        "key": "mckinney2010pandas",
+        "type": "inproceedings",
+        "fields": {
+          "author": "McKinney, Wes",
+          "title": "{Data Structures for Statistical Computing in {Python}}",
+          "booktitle": "Proceedings of the 9th Python in Science Conference",
+          "editor": "van der Walt, St{\\'e}fan and Millman, Jarrod",
+          "year": "2010",
+          "pages": "56--61",
+          "doi": "10.25080/Majora-92bf1922-00a",
+          "url": "https://doi.org/10.25080/Majora-92bf1922-00a",
+          "keywords": "software",
+          "annotation": "Software foundation: tabular and time-indexed data",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: tabular and time-indexed data",
+        "verification_sources": [
+          {
+            "url": "https://pandas.pydata.org/about/citing.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1043
+      },
+      {
+        "key": "pandas223",
+        "type": "misc",
+        "fields": {
+          "author": "{The pandas development team}",
+          "title": "{{pandas}: Version 2.2.3}",
+          "year": "2024",
+          "month": "September",
+          "version": "2.2.3",
+          "howpublished": "Software release",
+          "url": "https://github.com/pandas-dev/pandas/releases/tag/v2.2.3",
+          "note": "Released 20 September 2024. Current project declares this version; the retained publisher code declares pandas 2.3.3.",
+          "keywords": "software",
+          "annotation": "Software release: current tabular-data dependency",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software release: current tabular-data dependency",
+        "verification_sources": [
+          {
+            "url": "https://github.com/pandas-dev/pandas/releases/tag/v2.2.3",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "url": "https://github.com/pandas-dev/pandas-dev.github.io/blob/main/releases.json",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "No version-specific Zenodo DOI was verified for pandas 2.2.3; no DOI is assigned.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1058
+      },
+      {
+        "key": "hunter2007matplotlib",
+        "type": "article",
+        "fields": {
+          "author": "Hunter, John D.",
+          "title": "{{Matplotlib}: A 2D Graphics Environment}",
+          "journal": "Computing in Science \\& Engineering",
+          "year": "2007",
+          "volume": "9",
+          "number": "3",
+          "pages": "90--95",
+          "doi": "10.1109/MCSE.2007.55",
+          "url": "https://doi.org/10.1109/MCSE.2007.55",
+          "note": "Current project declares Matplotlib 3.9.2.",
+          "keywords": "software",
+          "annotation": "Software foundation: scientific plots and reports",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: scientific plots and reports",
+        "verification_sources": [
+          {
+            "url": "https://matplotlib.org/stable/project/citing.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1073
+      },
+      {
+        "key": "rasterioGeoreferencing",
+        "type": "manual",
+        "fields": {
+          "author": "{Rasterio contributors}",
+          "title": "{{Rasterio} Documentation: Georeferencing}",
+          "url": "https://rasterio.readthedocs.io/en/stable/topics/georeferencing.html",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Direct documentation of raster coordinate reference systems and affine transforms. Current project declares Rasterio 1.4.3; the retained publisher code declares 1.4.4.",
+          "keywords": "software",
+          "annotation": "Software documentation: raster I/O, coordinate systems and affine cell geometry"
+        },
+        "role": "Software documentation: raster I/O, coordinate systems and affine cell geometry",
+        "verification_sources": [
+          {
+            "url": "https://rasterio.readthedocs.io/en/stable/topics/georeferencing.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1090
+      },
+      {
+        "key": "affineSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{affine contributors}",
+          "title": "{{affine}: Affine Transformation Matrices}",
+          "url": "https://affine.readthedocs.io/en/latest/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares affine 3.0.1; the retained publisher code declares 2.4.0.",
+          "keywords": "software",
+          "annotation": "Software documentation: affine raster index-to-coordinate transformations"
+        },
+        "role": "Software documentation: affine raster index-to-coordinate transformations",
+        "verification_sources": [
+          {
+            "url": "https://affine.readthedocs.io/en/latest/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1101
+      },
+      {
+        "key": "gdalSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{GDAL/OGR contributors}",
+          "title": "{{GDAL/OGR} Geospatial Data Abstraction Software Library}",
+          "organization": "Open Source Geospatial Foundation",
+          "year": "2026",
+          "doi": "10.5281/zenodo.5884351",
+          "url": "https://gdal.org/",
+          "note": "General all-version software citation recommended by GDAL. Used through the raster-processing stack; this citation does not identify the installed GDAL backend release.",
+          "keywords": "software",
+          "annotation": "Software foundation: raster and vector data backend",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: raster and vector data backend",
+        "verification_sources": [
+          {
+            "url": "https://github.com/OSGeo/gdal/blob/master/CITATION",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "url": "https://gdal.org/en/stable/about.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "General software DOI, not a version-specific backend binding.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1112
+      },
+      {
+        "key": "projSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{PROJ contributors}",
+          "title": "{{PROJ} Coordinate Transformation Software Library}",
+          "organization": "Open Source Geospatial Foundation",
+          "year": "2026",
+          "doi": "10.5281/zenodo.5884394",
+          "url": "https://proj.org/",
+          "note": "General all-version software citation recommended by PROJ. Coordinate transformations are accessed through pyproj; this citation does not identify the installed PROJ backend release.",
+          "keywords": "software",
+          "annotation": "Software foundation: coordinate-reference-system transformations",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: coordinate-reference-system transformations",
+        "verification_sources": [
+          {
+            "url": "https://proj.org/en/stable/about.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "General software DOI, not a version-specific backend binding.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1126
+      },
+      {
+        "key": "pyprojSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{pyproj contributors}",
+          "title": "{{pyproj}: Python Interface to {PROJ}}",
+          "url": "https://pyproj4.github.io/pyproj/stable/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares pyproj 3.7.0; the retained publisher code declares 3.7.2.",
+          "keywords": "software",
+          "annotation": "Software documentation: Python coordinate transformations"
+        },
+        "role": "Software documentation: Python coordinate transformations",
+        "verification_sources": [
+          {
+            "url": "https://pyproj4.github.io/pyproj/stable/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1140
+      },
+      {
+        "key": "shapely206",
+        "type": "misc",
+        "fields": {
+          "author": "Gillies, Sean and van der Wel, Casper and Van den Bossche, Joris and Taves, Mike W. and Arnott, Joshua and Ward, Brendan C. and others",
+          "title": "{{Shapely}}",
+          "year": "2024",
+          "month": "August",
+          "version": "2.0.6",
+          "howpublished": "Zenodo software release",
+          "doi": "10.5281/zenodo.13345370",
+          "url": "https://zenodo.org/records/13345370",
+          "note": "Version 2.0.6, released 19 August 2024, is declared by the current project. The retained publisher code declares Shapely 2.1.2.",
+          "keywords": "software",
+          "annotation": "Software release: planar geometry operations",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software release: planar geometry operations",
+        "verification_sources": [
+          {
+            "url": "https://zenodo.org/records/13345370",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1151
+      },
+      {
+        "key": "fleischmann2026geopandas",
+        "type": "article",
+        "fields": {
+          "author": "Fleischmann, M. and Van den Bossche, J. and Jordahl, K. and Richards, M. J. and McBride, J. and Wasserman, J. and Ward, B. and Wolf, L. J.",
+          "title": "{{GeoPandas}: Fundamental Data Structures for Vector Spatial Data in {Python}}",
+          "journal": "Computers, Environment and Urban Systems",
+          "year": "2026",
+          "volume": "130",
+          "pages": "102495",
+          "doi": "10.1016/j.compenvurbsys.2026.102495",
+          "url": "https://doi.org/10.1016/j.compenvurbsys.2026.102495",
+          "keywords": "software, archived reconstruction",
+          "note": "Canonical software citation recommended by the official project. GeoPandas 1.1.3 is declared in the retained publisher-code environment; GeoPandas is not a declared dependency of the current root package.",
+          "annotation": "Software foundation: retained publisher reconstruction code only",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: retained publisher reconstruction code only",
+        "verification_sources": [
+          {
+            "url": "https://geopandas.org/en/stable/about/citing.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "Direct DOI page could not be retrieved; metadata follows the current official GeoPandas canonical citation page.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1167
+      },
+      {
+        "key": "pedregosa2011sklearn",
+        "type": "article",
+        "fields": {
+          "author": "Pedregosa, Fabian and Varoquaux, Ga{\\\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and Cournapeau, David and Brucher, Matthieu and Perrot, Matthieu and Duchesnay, {\\'E}douard",
+          "title": "{{Scikit-learn}: Machine Learning in {Python}}",
+          "journal": "Journal of Machine Learning Research",
+          "year": "2011",
+          "volume": "12",
+          "number": "85",
+          "pages": "2825--2830",
+          "url": "https://jmlr.org/papers/v12/pedregosa11a.html",
+          "keywords": "software, archived reconstruction",
+          "note": "Scikit-learn 1.8.0 is declared in the retained publisher-code environment; it is not a declared dependency of the current root package.",
+          "annotation": "Software foundation: retained publisher reconstruction code only",
+          "urldate": "2026-10-08"
+        },
+        "role": "Software foundation: retained publisher reconstruction code only",
+        "verification_sources": [
+          {
+            "url": "https://jmlr.org/papers/v12/pedregosa11a.html",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/requirements.txt",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1183
+      },
+      {
+        "key": "pillowSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{Pillow contributors}",
+          "title": "{{Pillow}: Python Imaging Library}",
+          "url": "https://pillow.readthedocs.io/en/stable/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares version 12.3.0.",
+          "keywords": "software",
+          "annotation": "Software documentation: image processing and bitmap exports"
+        },
+        "role": "Software documentation: image processing and bitmap exports",
+        "verification_sources": [
+          {
+            "url": "https://pillow.readthedocs.io/en/stable/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "Documentation citation; no unverified release date or DOI assigned.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1199
+      },
+      {
+        "key": "requestsSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{Requests contributors}",
+          "title": "{{Requests}: HTTP for Humans}",
+          "url": "https://requests.readthedocs.io/en/latest/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares version 2.34.2.",
+          "keywords": "software",
+          "annotation": "Software documentation: HTTP acquisition"
+        },
+        "role": "Software documentation: HTTP acquisition",
+        "verification_sources": [
+          {
+            "url": "https://requests.readthedocs.io/en/latest/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "Documentation citation; no unverified release date or DOI assigned.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1210
+      },
+      {
+        "key": "pyshpSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{PyShp contributors}",
+          "title": "{{PyShp}: Python Shapefile Library}",
+          "url": "https://github.com/GeospatialPython/pyshp",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares version 2.3.1.",
+          "keywords": "software",
+          "annotation": "Software documentation: vector shapefile reading"
+        },
+        "role": "Software documentation: vector shapefile reading",
+        "verification_sources": [
+          {
+            "url": "https://github.com/GeospatialPython/pyshp",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "Documentation citation; no unverified release date or DOI assigned.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1221
+      },
+      {
+        "key": "pytestSoftware",
+        "type": "manual",
+        "fields": {
+          "author": "{pytest contributors}",
+          "title": "{{pytest}: Testing Framework}",
+          "url": "https://docs.pytest.org/en/stable/",
+          "urldate": "2026-10-08",
+          "note": "Accessed 8 October 2026. Current project declares version 8.3.4.",
+          "keywords": "software",
+          "annotation": "Software documentation: optional test dependency"
+        },
+        "role": "Software documentation: optional test dependency",
+        "verification_sources": [
+          {
+            "url": "https://docs.pytest.org/en/stable/",
+            "status": "Official project or publisher metadata inspected online on 2026-10-08"
+          },
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "Documentation citation; no unverified release date or DOI assigned.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1232
+      },
+      {
+        "key": "wildfireguardian2026",
+        "type": "misc",
+        "fields": {
+          "author": "{WildfireGuardian project}",
+          "title": "{{WildfireGuardian}: Hourly Burned-Area Prediction and Expected Incident Radiant Heat}",
+          "year": "2026",
+          "howpublished": "Unpublished local software and documentation",
+          "keywords": "local implementation",
+          "note": "Current local project, version 0.1.0, inspected 8 October 2026. Unpublished software; no public repository URL, release DOI, or individual authorship is asserted.",
+          "annotation": "Local project software citation"
+        },
+        "role": "Local project software citation",
+        "verification_sources": [
+          {
+            "local_path": "pyproject.toml",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "README.md",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1243
+      },
+      {
+        "key": "codeprob",
+        "type": "misc",
+        "fields": {
+          "author": "{WildfireGuardian project}",
+          "title": "{{WildfireGuardian}: Environment-Conditioned Burn-Probability Models and Saved Experiments}",
+          "year": "2026",
+          "howpublished": "Unpublished local software and documentation",
+          "keywords": "local implementation",
+          "note": "Local implementation and saved records under \\path{wildfire_burned_area_hourly/probability_model/}, inspected 8 October 2026. Covers the exponential model, signed direct convolution, training, metrics, and checkpoint contracts.",
+          "annotation": "Local implementation: probability-model definitions and experiment records"
+        },
+        "role": "Local implementation: probability-model definitions and experiment records",
+        "verification_sources": [
+          {
+            "local_path": "wildfire_burned_area_hourly/probability_model/model.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/probability_model/train.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/probability_model/metrics.py",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1254
+      },
+      {
+        "key": "codeheat",
+        "type": "misc",
+        "fields": {
+          "author": "{WildfireGuardian project}",
+          "title": "{{WildfireGuardian}: Expected Radiant Heat and Temporal Occupancy Implementation}",
+          "year": "2026",
+          "howpublished": "Unpublished local software and documentation",
+          "keywords": "local implementation",
+          "note": "Local implementation under \\path{expected_heat_flux/}, inspected 8 October 2026. Prescribed combustion, arrival timing, finite-source radiation, and integrated forecasting are package modeling assumptions.",
+          "annotation": "Local implementation: heat-flux and timing extensions"
+        },
+        "role": "Local implementation: heat-flux and timing extensions",
+        "verification_sources": [
+          {
+            "local_path": "expected_heat_flux/model.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/temporal.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/pipeline.py",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1265
+      },
+      {
+        "key": "coderesidence",
+        "type": "misc",
+        "fields": {
+          "author": "{WildfireGuardian project}",
+          "title": "{{WildfireGuardian}: Fuel Loading, Flame Residence, and Active-Flame Implementation}",
+          "year": "2026",
+          "howpublished": "Unpublished local software and documentation",
+          "keywords": "local implementation",
+          "note": "Local sources \\path{expected_heat_flux/ecology.py}, \\path{residence.py}, and \\path{flames.py}, with \\path{documents/flame_residence_literature.md}, inspected 8 October 2026.",
+          "annotation": "Local implementation: ecology, residence and flame-state contracts"
+        },
+        "role": "Local implementation: ecology, residence and flame-state contracts",
+        "verification_sources": [
+          {
+            "local_path": "expected_heat_flux/ecology.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/residence.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "expected_heat_flux/flames.py",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "documents/flame_residence_literature.md",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release.",
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1276
+      },
+      {
+        "key": "codetoa",
+        "type": "misc",
+        "fields": {
+          "author": "Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu",
+          "title": "{Archived Method Code for the Wildfire Time-of-Arrival Dataset}",
+          "year": "2026",
+          "howpublished": "Code supplied with Zenodo record 21788344",
+          "url": "https://zenodo.org/records/21788344",
+          "keywords": "archived reconstruction, software",
+          "note": "Retained locally under \\path{wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/}. Cite the associated article and dataset deposit for the scientific method and source release.",
+          "annotation": "Local archive: publisher reconstruction code",
+          "urldate": "2026-10-08"
+        },
+        "role": "Local archive: publisher reconstruction code",
+        "verification_sources": [
+          {
+            "local_path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+            "status": "Current local source inspected on 2026-10-08"
+          },
+          {
+            "local_path": "wildfire_burned_area_hourly/source_manifest.json",
+            "status": "Current local source inspected on 2026-10-08"
+          }
+        ],
+        "group": "root",
+        "group_title": "Scientific software, geospatial software, and local implementation records",
+        "bib_line": 1287
+      }
+    ],
+    "bibtex_exit_code": 0,
+    "final_pdftex_exit_code": 0,
+    "final_latex_diagnostics": [],
+    "bibtex_undated_reference_warnings": {
+      "count": 19,
+      "keys": [
+        "gridmetDataset",
+        "affineSoftware",
+        "ecmwfIFSDocumentation",
+        "copernicusDEM",
+        "glad2019ForestCanopyHeight",
+        "kfsNationalForestFireInformation",
+        "landfire2016Remap",
+        "landfireconsumeloadings",
+        "landfirefccs",
+        "nasaFIRMSActiveFire",
+        "noaaGOESFireProduct",
+        "openmeteoHistoricalWeatherDocs",
+        "pillowSoftware",
+        "pyprojSoftware",
+        "pyshpSoftware",
+        "pytestSoftware",
+        "rasterioGeoreferencing",
+        "requestsSoftware",
+        "copernicusDEMAWS"
+      ],
+      "interpretation": "plainnat reports missing publication years for intentionally undated web/software documentation. Access dates are supplied; publication years were not invented."
+    },
+    "other_bibtex_warnings": [],
+    "compiled_entry_count": 88,
+    "unique_nonempty_doi_count": 53,
+    "review": "Independent read-only reviews of assembled fire/fuel/radiation entries and mathematics/software entries found no required corrections.",
+    "temporary_compile_directory": "/private/tmp/wildfire_bib_check",
+    "compile_scope": "Bibliography smoke document only; existing wildfire_methods.tex and its PDF were not changed or rebuilt.",
+    "local_source_hashes_verified": 42,
+    "existing_methods_artifacts_unchanged": true
+  },
+  "existing_document_key_mapping": {
+    "heatrefs": [
+      "overholt2014",
+      "angelidis2004",
+      "vanoosterom1983"
+    ],
+    "toadeposit": [
+      "toadeposit",
+      "choi2026wildfiretoa"
+    ]
+  },
+  "metadata_decisions": [
+    "Frankman article uses final journal issue year 2013; first online publication was 2012.",
+    "Potapov canopy-height article uses final journal issue year 2021; provider gives 2020 online citation.",
+    "Wotton article uses final journal issue year 2012; first online publication was 2011.",
+    "NIST SP1007 author list follows the official eight-author PDF rather than malformed current HTML metadata.",
+    "Burrows thesis uses ANU repository year 1994 despite an attached file name containing 1992.",
+    "CopernicusDEM acquisition release, historical IFS cycles, and undated LANDFIRE loading-table publication dates are not inferred.",
+    "Dinerstein author list is explicitly abbreviated with and others because full primary author metadata was inaccessible.",
+    "Dataset/software @misc entries provide compatibility with conventional BibTeX; roles are not validation claims.",
+    "Current root dependency declarations and retained publisher requirements are distinct environments.",
+    "Local software entries use a project collective label, do not assert individual authorship or a public DOI/URL.",
+    "The legacy renewal-process note is not a fitted model and contains an incorrect non-IID definition; the background reference does not validate that note.",
+    "No existing methods document or source metadata file was modified for this bibliography."
+  ],
+  "limits": [
+    "Metadata verification does not mean every article was read in full. Each entry records live metadata, retained-original, or accessible-formula verification as applicable.",
+    "Some live publisher/agency endpoints failed; retained publisher snapshots or official indexed metadata were used and explicitly recorded.",
+    "Background and upstream-source references do not imply implementation, calibration, observational validation, or transfer of reported performance.",
+    "The original IEEE solid-angle paper full text was not inspected; the implemented formula was checked in the accessible Angelidis report.",
+    "The exact Burrows particle-duration power law is attributed to the inspected 1994 thesis, not an uninspected equation in the 2001 follow-up."
+  ]
+}

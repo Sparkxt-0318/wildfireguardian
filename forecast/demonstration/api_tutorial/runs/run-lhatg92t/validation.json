@@ -1,0 +1,33 @@
+{
+  "notebook": "api_tutorial.ipynb",
+  "html_preview": "demonstration/api_tutorial/api_tutorial.html",
+  "executed_code_cells": 20,
+  "error_outputs": 0,
+  "elapsed_seconds": 18.38,
+  "kernel_python": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/.venv/bin/python",
+  "run_directory": "demonstration/api_tutorial/runs/run-lhatg92t",
+  "probability_shape": [
+    1,
+    1,
+    103,
+    73
+  ],
+  "coordinate_shape": [
+    103,
+    73,
+    2
+  ],
+  "known_prediction_cells": 225,
+  "unknown_prediction_cells": 7294,
+  "heat_complete": false,
+  "verified_artifact_checksums": 7,
+  "training_executed": false,
+  "notebook_sha256": "c133a4ae7f29a491bee38ab8239b93b0ce69a1b8c50887d829b32fb640cb3759",
+  "local_html_links_verified": 6,
+  "physical_parameters_recorded": true,
+  "plots_visually_verified": [
+    "probability_and_coordinates.png",
+    "heat_bounds.png"
+  ],
+  "html_sha256": "8c79f9c7d647ed12e5e2f165a2d7d54a47dfbc41f1d05869673e16efdaf2a199"
+}

@@ -1,0 +1,44 @@
+{
+  "event_id": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-23T00:00:00Z",
+  "t0_utc": "2024-08-21 00:00:00",
+  "cutoff_hours": 48.0,
+  "shape": [
+    103,
+    73
+  ],
+  "nodata": -1.0,
+  "estimated_burned_cells": 191,
+  "estimated_not_yet_burned_cells": 2451,
+  "source_nodata_cells": 4877,
+  "source_path": "wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/arrival_time_hours.tif",
+  "source_sha256": "f69a283c0fa40f3f89c9e7ac032614bf93ed3c7eda322b50a44d48ddf6661996",
+  "examples": {
+    "A": {
+      "row": 22,
+      "column": 31,
+      "source_arrival_hours": 33.963951110839844,
+      "arrival_valid": true
+    },
+    "B": {
+      "row": 56,
+      "column": 29,
+      "source_arrival_hours": 932.10009765625,
+      "arrival_valid": true
+    },
+    "C": {
+      "row": 30,
+      "column": 62,
+      "source_arrival_hours": -1.0,
+      "arrival_valid": false
+    },
+    "D": {
+      "row": 7,
+      "column": 19,
+      "source_arrival_hours": 417.5344543457031,
+      "arrival_valid": true
+    }
+  },
+  "D_unknown_source_cells": 8,
+  "figure_semantics": "Source reconstruction support and arrival-only loader states, not independent observed fire states"
+}

@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-09T12:59:06.475460+00:00",
+  "environment": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/.venv",
+  "installed_versions": {
+    "scikit-learn": "1.5.2",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "torch": "2.5.1"
+  },
+  "pip_check": "No broken requirements found",
+  "tests": {
+    "passed": 27,
+    "elapsed_seconds": 31.11,
+    "warnings": 2,
+    "files": [
+      "tests/probability/baselines/test_model.py",
+      "tests/probability/test_kernel_search_forest.py"
+    ]
+  },
+  "resume_run": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/wildfire_burned_area_hourly/probability_model/training_runs/20261009_multiscale_mps_lr_0p001_0p01_0p1_floor_0p1",
+  "neural_complete": {
+    "completed": true,
+    "candidates": 276,
+    "long_finalists": 6,
+    "test_used_for_selection": false
+  },
+  "saved_settings": {
+    "candidate_epochs": 128,
+    "finalist_epochs": 1024,
+    "warmup_epochs": 10,
+    "learning_rates": [
+      0.001,
+      0.01,
+      0.1
+    ],
+    "schedules": [
+      "constant",
+      "warmup_cosine"
+    ],
+    "minimum_lr_factor": 0.1,
+    "seed": 7,
+    "forest_trees": 100,
+    "restart_period": 512,
+    "cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all"
+  },
+  "resume_stages_parsed": [
+    "forests",
+    "finalize"
+  ],
+  "frozen_cache_and_training_source_hashes_verified": true,
+  "full_forest_stage_started": false,
+  "full_finalize_started": false,
+  "documentation_change": "Installation uses .[test,baseline]; explains optional dependency and staged resume."
+}

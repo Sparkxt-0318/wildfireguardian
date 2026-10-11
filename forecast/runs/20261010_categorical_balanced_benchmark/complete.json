@@ -1,0 +1,13 @@
+{
+  "completed": true,
+  "neural_candidates": 276,
+  "forest_candidates": 6,
+  "evaluated_models": 28,
+  "test_used_for_selection": false,
+  "cache_sha256_verified": {
+    "metadata.json": true,
+    "train.npz": true,
+    "validation.npz": true,
+    "test.npz": true
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "event_id": "KFS_01",
+  "event_name": "Uiseong",
+  "partition": "test",
+  "cutoff_utc": "2025-03-24T02:00:00+00:00",
+  "updated_utc": "2025-03-24T03:00:00+00:00",
+  "main_kernel_size": 5,
+  "loaded_kernel_sizes": [
+    3,
+    5,
+    7,
+    9
+  ],
+  "model_families": [
+    "original",
+    "direct"
+  ],
+  "device": "mps",
+  "per_checkpoint_inference_devices": {
+    "original": {
+      "3": "mps",
+      "5": "mps",
+      "7": "mps",
+      "9": "cpu"
+    },
+    "direct": {
+      "3": "mps",
+      "5": "mps",
+      "7": "mps",
+      "9": "cpu"
+    }
+  },
+  "per_checkpoint_fallback_reasons": {
+    "original": {
+      "3": null,
+      "5": null,
+      "7": null,
+      "9": "MPS 9x9 average-pool binary-context rounding; use CPU for exact completeness masks"
+    },
+    "direct": {
+      "3": null,
+      "5": null,
+      "7": null,
+      "9": "MPS 9x9 average-pool binary-context rounding; use CPU for exact completeness masks"
+    }
+  },
+  "torch_version": "2.5.1",
+  "shape": [
+    79,
+    237
+  ],
+  "epsg": 5179,
+  "affine_transform": [
+    375.0,
+    0.0,
+    1085250.0,
+    0.0,
+    -375.0,
+    1845375.0
+  ],
+  "channel_names": [
+    "weather.temperature_2m",
+    "weather.wind_eastward_10m",
+    "weather.wind_northward_10m",
+    "terrain.slope_degrees",
+    "vegetation.tree_cover_percent",
+    "biome.biome_class=1",
+    "biome.biome_class=2",
+    "biome.biome_class=3",
+    "biome.biome_class=4",
+    "biome.biome_class=5",
+    "biome.biome_class=6",
+    "biome.biome_class=7",
+    "biome.biome_class=8",
+    "biome.biome_class=9",
+    "biome.biome_class=10",
+    "biome.biome_class=11",
+    "biome.biome_class=12",
+    "biome.biome_class=13",
+    "biome.biome_class=14"
+  ],
+  "coverage": {
+    "known_label_cells": 10955,
+    "current_burned_cells": 917,
+    "updated_burned_cells": 935,
+    "actual_new_cells_all_known": 18,
+    "eligible_unburned_cells_main_kernel": 293,
+    "actual_new_cells_eligible_main_kernel": 17,
+    "actual_new_cells_excluded_main_kernel": 1,
+    "cell_area_ha": 14.0625
+  },
+  "common_eligible_cells": 126,
+  "native_eligibility_scores": [
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "3\u00d73",
+      "eligible_cells": 158,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.10759493670886076,
+      "expected_new_cells": 39.129150450229645,
+      "mean_probability": 0.24765285095082054,
+      "brier": 0.10696786102600182,
+      "exact_log_loss": 0.3530709895653346,
+      "positive_brier": 0.3752745426390386,
+      "negative_brier": 0.07461882849109668,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "5\u00d75",
+      "eligible_cells": 293,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.05802047781569966,
+      "expected_new_cells": 58.90704548358917,
+      "mean_probability": 0.2010479368040586,
+      "brier": 0.088159629252693,
+      "exact_log_loss": 0.26264697125473957,
+      "positive_brier": 0.18163411045723438,
+      "negative_brier": 0.08240214309154371,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "7\u00d77",
+      "eligible_cells": 402,
+      "actual_new_cells": 16,
+      "outcome_rate": 0.03980099502487562,
+      "expected_new_cells": 26.951041221618652,
+      "mean_probability": 0.06704239109855387,
+      "brier": 0.03549134426807993,
+      "exact_log_loss": 0.1329158088523813,
+      "positive_brier": 0.6543052407311134,
+      "negative_brier": 0.009841027316244342,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "9\u00d79",
+      "eligible_cells": 491,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.03054989816700611,
+      "expected_new_cells": 43.296032826110604,
+      "mean_probability": 0.08817929292486885,
+      "brier": 0.030426640025864548,
+      "exact_log_loss": 0.11661546115012182,
+      "positive_brier": 0.35236935157846416,
+      "negative_brier": 0.020281386510551534,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "3\u00d73",
+      "eligible_cells": 158,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.10759493670886076,
+      "expected_new_cells": 25.06494630035013,
+      "mean_probability": 0.1586389006351274,
+      "brier": 0.08608062219735854,
+      "exact_log_loss": 0.2951703509053432,
+      "positive_brier": 0.5550653312997904,
+      "negative_brier": 0.029536366489973147,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "5\u00d75",
+      "eligible_cells": 293,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.05802047781569966,
+      "expected_new_cells": 30.34507596795447,
+      "mean_probability": 0.10356681217731901,
+      "brier": 0.04900568979353801,
+      "exact_log_loss": 0.16880939342511628,
+      "positive_brier": 0.4779888391911244,
+      "negative_brier": 0.022582814649483782,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "7\u00d77",
+      "eligible_cells": 402,
+      "actual_new_cells": 16,
+      "outcome_rate": 0.03980099502487562,
+      "expected_new_cells": 36.01765811047517,
+      "mean_probability": 0.08959616445391833,
+      "brier": 0.034914192632058604,
+      "exact_log_loss": 0.13613689760466974,
+      "positive_brier": 0.49866031382354287,
+      "negative_brier": 0.01569155548422506,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "9\u00d79",
+      "eligible_cells": 491,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.03054989816700611,
+      "expected_new_cells": 6.162506864173338,
+      "mean_probability": 0.012550930476931442,
+      "brier": 0.027078650385196357,
+      "exact_log_loss": 0.09512667736873005,
+      "positive_brier": 0.8666624196574786,
+      "negative_brier": 0.0006211786644311628,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    }
+  ],
+  "shared_eligibility_scores": [
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "3\u00d73",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 32.6834699511528,
+      "mean_probability": 0.25939261865994284,
+      "brier": 0.11736767049409891,
+      "exact_log_loss": 0.3780349076225905,
+      "positive_brier": 0.3840964242537827,
+      "negative_brier": 0.08132324431035785,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "5\u00d75",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 50.55877423286438,
+      "mean_probability": 0.40126011295924113,
+      "brier": 0.18475832172255965,
+      "exact_log_loss": 0.5288630560130004,
+      "positive_brier": 0.17038895601030007,
+      "negative_brier": 0.18670012789989202,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "7\u00d77",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 18.589946746826172,
+      "mean_probability": 0.1475392598954458,
+      "brier": 0.10300319122343649,
+      "exact_log_loss": 0.3476731405061421,
+      "positive_brier": 0.6681078295765597,
+      "negative_brier": 0.026637699554095513,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Original exponential",
+      "family": "original",
+      "kernel": "9\u00d79",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 34.83281386271119,
+      "mean_probability": 0.27645090367231107,
+      "brier": 0.11452403854732224,
+      "exact_log_loss": 0.38512267336856865,
+      "positive_brier": 0.35236935157846416,
+      "negative_brier": 0.08238278002960037,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "3\u00d73",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 20.732286925427616,
+      "mean_probability": 0.164541959725616,
+      "brier": 0.09523598277594984,
+      "exact_log_loss": 0.31903192087403964,
+      "positive_brier": 0.5656082661969919,
+      "negative_brier": 0.03167216069202527,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "5\u00d75",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 24.678964741528034,
+      "mean_probability": 0.19586479953593677,
+      "brier": 0.10066565346355777,
+      "exact_log_loss": 0.33644292957851973,
+      "positive_brier": 0.5009302484984492,
+      "negative_brier": 0.0465758433237076,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "7\u00d77",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 26.121425416320562,
+      "mean_probability": 0.20731290012952827,
+      "brier": 0.10135998856185871,
+      "exact_log_loss": 0.34585466390985387,
+      "positive_brier": 0.5018640367157297,
+      "negative_brier": 0.04723781989241671,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    },
+    {
+      "model": "Signed direct (clipped)",
+      "family": "direct",
+      "kernel": "9\u00d79",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 5.584824183839373,
+      "mean_probability": 0.044324001459042646,
+      "brier": 0.10547283884474837,
+      "exact_log_loss": 0.36608310590003446,
+      "positive_brier": 0.8666624196574786,
+      "negative_brier": 0.0026093819781632084,
+      "positive_labels_at_p_zero": 0,
+      "negative_labels_at_p_one": 0
+    }
+  ],
+  "direct_native_raw_diagnostics": [
+    {
+      "kernel": "3\u00d73",
+      "eligible_cells": 158,
+      "raw_min": 0.008522158488631248,
+      "raw_max": 0.3712444007396698,
+      "raw_brier": 0.08608062219735854,
+      "raw_below_zero_cells": 0,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.0,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "5\u00d75",
+      "eligible_cells": 293,
+      "raw_min": -0.04723675921559334,
+      "raw_max": 0.45649752020835876,
+      "raw_brier": 0.04917197865952445,
+      "raw_below_zero_cells": 111,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.378839590443686,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "7\u00d77",
+      "eligible_cells": 402,
+      "raw_min": -0.01092598121613264,
+      "raw_max": 0.43679216504096985,
+      "raw_brier": 0.03491556525170463,
+      "raw_below_zero_cells": 19,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.0472636815920398,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "9\u00d79",
+      "eligible_cells": 491,
+      "raw_min": -0.025465305894613266,
+      "raw_max": 0.1305938959121704,
+      "raw_brier": 0.02713071002807031,
+      "raw_below_zero_cells": 297,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.604887983706721,
+      "raw_above_one_fraction": 0.0
+    }
+  ],
+  "direct_shared_raw_diagnostics": [
+    {
+      "kernel": "3\u00d73",
+      "eligible_cells": 126,
+      "raw_min": 0.013347948901355267,
+      "raw_max": 0.3712444007396698,
+      "raw_brier": 0.09523598277594984,
+      "raw_below_zero_cells": 0,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.0,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "5\u00d75",
+      "eligible_cells": 126,
+      "raw_min": -0.02793135680258274,
+      "raw_max": 0.45649752020835876,
+      "raw_brier": 0.10068925176496603,
+      "raw_below_zero_cells": 12,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.09523809523809523,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "7\u00d77",
+      "eligible_cells": 126,
+      "raw_min": 0.014376645907759666,
+      "raw_max": 0.43679216504096985,
+      "raw_brier": 0.10135998856185871,
+      "raw_below_zero_cells": 0,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.0,
+      "raw_above_one_fraction": 0.0
+    },
+    {
+      "kernel": "9\u00d79",
+      "eligible_cells": 126,
+      "raw_min": -0.014605455100536346,
+      "raw_max": 0.1305938959121704,
+      "raw_brier": 0.10548119180053867,
+      "raw_below_zero_cells": 14,
+      "raw_above_one_cells": 0,
+      "raw_below_zero_fraction": 0.1111111111111111,
+      "raw_above_one_fraction": 0.0
+    }
+  ],
+  "checkpoint_sha256": {
+    "original": {
+      "3": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+      "5": "b985b5bf0bd6f218e2623a8ffdcf27d742944dfbb60a8f1dd7de7337d8e68ae7",
+      "7": "eb9d38c4509bee997e784ca715d337af64a3d8de5740f3e8e1cd1cd03029c86e",
+      "9": "6b01d4004c1e76286e92f15cca1bb570ffcd93f2f043b8c579c505beebd98a18"
+    },
+    "direct": {
+      "3": "833a4da7de9c8b2a22decf0809201fc6a1dc5d688ba936680fbcf510c906ba7c",
+      "5": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+      "7": "88e6018d9ff15f42a670bdacbe9d916f5a8a6e10b640eead0222fb7ca998ad34",
+      "9": "a1ae455c007e145e963e5b4ab08133379c24f516c4b44c5e18080df2ca633339"
+    }
+  },
+  "checkpoint_paths": {
+    "original": {
+      "3": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+      "5": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt",
+      "7": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt",
+      "9": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt"
+    },
+    "direct": {
+      "3": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/3x3/fitted/checkpoint.pt",
+      "5": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "7": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/7x7/fitted/checkpoint.pt",
+      "9": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/9x9/fitted/checkpoint.pt"
+    }
+  },
+  "saved_epochs": {
+    "original": {
+      "3": 2,
+      "5": 8,
+      "7": 5,
+      "9": 3
+    },
+    "direct": {
+      "3": 4,
+      "5": 1,
+      "7": 4,
+      "9": 6
+    }
+  },
+  "checks": {
+    "exact_one_hour_pair": true,
+    "arrival_labels_reproduced": true,
+    "complete_context_and_contact_masks_reproduced": true,
+    "prediction_uses_only_current_snapshot": true,
+    "probability_bounds_and_missing_masks": true,
+    "direct_probability_equals_clipped_raw_score": true,
+    "paired_family_eligibility_identical": true
+  },
+  "direct_output_definition": "Raw signed convolution; probability = clip(raw,0,1); no training clipping",
+  "metric_scope": "Full-grid single-hour eligible-cell census; unit weights; no fitting",
+  "actual_label_interpretation": "Retrospective reconstructed arrivals; not independent hourly observations"
+}

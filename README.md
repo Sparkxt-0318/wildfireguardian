@@ -183,3 +183,8 @@ The six `_engine` files are byte-identical copies of the current hourly release 
 ## Current integration evidence and mentor feedback
 
 [Current review guide and source snapshots](routing-review/README.md) · [Full reproducible research packages](https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/routing-mentor-review-20261008). The original `routing-package/` remains preserved.
+
+
+## Final mentor forecast
+
+The final 11 October 2026 forecast code, tests and supported checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for installation and the large data files required for inference.

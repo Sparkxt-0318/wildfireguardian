@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-09T10:03:54.745882+00:00",
+  "diagnosis": "Probable TF32 asymmetry between flattened linear cached path and cuDNN public convolution; actual failing CUDA checkpoint unavailable locally.",
+  "primary_reference": "https://github.com/pytorch/pytorch/blob/v2.5.1/docs/source/notes/cuda.rst",
+  "change": "Portable and locally prepared-cache entry points scope full-float32 CUDA arithmetic to equivalence verification and restore original precision afterwards.",
+  "original_float32_tolerances": {
+    "atol": 2e-06,
+    "rtol": 2e-05
+  },
+  "original_cpu_float64_tolerances": {
+    "atol": 1e-12,
+    "rtol": 1e-12
+  },
+  "frozen_runner_sha256": "fc718f903019a2b78458ad529892d4bdce3dece81ebfc4c58fe00fad89d3e55f",
+  "matches_previous_portability_record": true,
+  "files": {
+    "wildfire_burned_area_hourly/probability_model/cuda_equivalence.py": "50e3ba1d286aac0bf606f3740e15ed0d31367be548a5f0434756208d4238af0a",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_portable.py": "037ef8aeb3ed195eed39130623539933cd268c20a7307e2222e04c5cf0939fc6",
+    "wildfire_burned_area_hourly/precision_search.py": "b57112e5fbac0ccd29433ba4c702387771c9e3b9118cc711d51dc287aa2a5ca1",
+    "tests/probability/test_cuda_equivalence.py": "beb49ed241444d9d9ebd3852e7f9a5d255096fe7bf6e75aab4ee7fa43bbef7c5",
+    "tests/probability/test_cuda_equivalence_resume.py": "4a7c4f16f88aa87a5ead66d9efcca12a8ecfbe93fb0bcbf74afa811eefd192dd"
+  },
+  "tests": {
+    "passed": 109,
+    "skipped": 8,
+    "elapsed_seconds": 24.19,
+    "warnings": 236,
+    "warning_scope": "Existing Matplotlib/Pyparsing dependency deprecations",
+    "command": "python -m pytest -q --disable-warnings tests/probability/test_cuda_equivalence.py tests/probability/test_cuda_equivalence_resume.py tests/probability/test_kernel_search_portable.py tests/probability/test_kernel_search_multiscale.py tests/probability/test_search_cache_relocation.py"
+  },
+  "checked": {
+    "highest_high_medium_restored_exactly": true,
+    "settings_restored_after_exception": true,
+    "unrelated_cudnn_settings_preserved": true,
+    "cpu_mps_delegate_unchanged": true,
+    "real_deliberate_mismatch_rejected": true,
+    "same_output_completed_checkpoint_resume": true,
+    "no_additional_optimizer_steps_on_retry": true,
+    "histories_and_saved_optimizer_rng_parameters_unchanged_on_retry": true,
+    "protocol_and_frozen_source_snapshots_unchanged": true,
+    "fresh_cache_driver_arguments_preserved": true,
+    "reduced_cpu_full_search_reports_and_resume_passed": true,
+    "bundle_payload_bytes_verified": true,
+    "readme_internal_anchors_resolve": true
+  },
+  "local_runtime": {
+    "torch": "2.5.1",
+    "cuda_available": false,
+    "mps_available": false
+  },
+  "limitations": [
+    "Eight actual CUDA family tests skipped because no NVIDIA GPU is available here.",
+    "The actual user checkpoint/GPU mismatch has not been reproduced.",
+    "No full512/4096epoch training or user dataset changed."
+  ],
+  "transfer_archive": "documents/cuda_equivalence_update.zip",
+  "archive_sha256": "07e136c9cb08a27bbc18ea2bd8704120940eb92440e38856a33ffdd46406ea0d"
+}

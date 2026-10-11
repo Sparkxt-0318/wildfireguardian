@@ -1,0 +1,1075 @@
+{
+  "passed": true,
+  "verified_at_utc": "2026-10-07T13:21:13.425772+00:00",
+  "destination": "README.md",
+  "scope": "Markdown guides and reports outside legacy; generated environment/cache metadata excluded",
+  "eligible_markdown_files": 19,
+  "appended_unique_documents": 17,
+  "byte_identical_alias": {
+    "alias": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+    "canonical": "wildfire_burned_area_hourly/sources/zenodo_21788344/README.md",
+    "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2"
+  },
+  "coverage": [
+    {
+      "source": "README.md",
+      "anchor": "workspace-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "anchor": "data-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/bitmaps/README.md",
+      "anchor": "bitmap-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "anchor": "environment-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/environmental_data/BIOME_README.md",
+      "anchor": "biome-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/pytorch_loader/README.md",
+      "anchor": "loader-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "anchor": "probability-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "anchor": "direct-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "expected_heat_flux/README.md",
+      "anchor": "heat-guide",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "anchor": "report-five-input",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "anchor": "report-biome-3x3",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "anchor": "report-exponential-kernels",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "anchor": "report-exponential-5x5",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "anchor": "report-exponential-7x7",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "anchor": "report-exponential-9x9",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "anchor": "report-signed-kernels",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/sources/zenodo_21788344/README.md",
+      "anchor": "source-readme",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/MANIFEST.md",
+      "anchor": "source-manifest",
+      "complete_content_preserved": true
+    },
+    {
+      "source": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "anchor": "source-readme",
+      "complete_content_preserved": true,
+      "byte_identical_to": "wildfire_burned_area_hourly/sources/zenodo_21788344/README.md"
+    }
+  ],
+  "source_documents": [
+    {
+      "path": "README.md",
+      "sha256_before": "aba092030489632a7265db1a5bfa265fe9b1b0f37bc5477c6d7fcd1562885d67",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "f1dfc686f85681de2ee12bf675a785b05e3e71591dbccf7d26943b0ad8b99a8b",
+      "unchanged_after_installation": false,
+      "destination_updated_intentionally": true
+    },
+    {
+      "path": "expected_heat_flux/README.md",
+      "sha256_before": "d6869f852ca93dcee5c702a99790d33f0d51abf912a409e65466b59a2586ebea",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "d6869f852ca93dcee5c702a99790d33f0d51abf912a409e65466b59a2586ebea",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/README.md",
+      "sha256_before": "ef82cf5c0f9b3c50a303212b6456ef23b8f5099322ef17c16fb06394d36ba8d9",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "ef82cf5c0f9b3c50a303212b6456ef23b8f5099322ef17c16fb06394d36ba8d9",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/bitmaps/README.md",
+      "sha256_before": "aae334858a7fca9fea6270b5b878a7a796439e27d898d7043064db961b261adc",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "aae334858a7fca9fea6270b5b878a7a796439e27d898d7043064db961b261adc",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/BIOME_README.md",
+      "sha256_before": "5283ea8007e939e356f6ed6eea15de9b615c53adc4176a800977ca0c9d6139e8",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "5283ea8007e939e356f6ed6eea15de9b615c53adc4176a800977ca0c9d6139e8",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "sha256_before": "e8d4e2403fb4db6c02a4d54787360411ecbb29f1b446720aa8110c991d0030ef",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "e8d4e2403fb4db6c02a4d54787360411ecbb29f1b446720aa8110c991d0030ef",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/README.md",
+      "sha256_before": "d998d9a4962ccca9645e8c15608acf59bd6099e8b6e9ea7772ead0a91553b5f5",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "d998d9a4962ccca9645e8c15608acf59bd6099e8b6e9ea7772ead0a91553b5f5",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "sha256_before": "383057a470dd7b0fa9fc3f11f4877d6a4dd4dc1452f4c9dde121fb746a81b26c",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "383057a470dd7b0fa9fc3f11f4877d6a4dd4dc1452f4c9dde121fb746a81b26c",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "sha256_before": "33b5977e187f501a03018f4cf639404bfc67aff370659408fe2e7687c83c86e2",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "33b5977e187f501a03018f4cf639404bfc67aff370659408fe2e7687c83c86e2",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "sha256_before": "fca26077ab13c9532c993280e8ee33211cc931ddb0874d08444505077111f524",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "fca26077ab13c9532c993280e8ee33211cc931ddb0874d08444505077111f524",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "sha256_before": "f85776979e7aab920c1104f511f2443dd2c08b0d957241fe1b0334b7aeb54448",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "f85776979e7aab920c1104f511f2443dd2c08b0d957241fe1b0334b7aeb54448",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "sha256_before": "b6f9b1455a90313d058f4c909fb224d581691f4cd6256b09f956b7178c4e92fa",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "b6f9b1455a90313d058f4c909fb224d581691f4cd6256b09f956b7178c4e92fa",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "sha256_before": "917eb2f1174c75fdc07f2b515781eb30184ff8e36688579d26c466aa8237333d",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "917eb2f1174c75fdc07f2b515781eb30184ff8e36688579d26c466aa8237333d",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "sha256_before": "b33b7960b192ae850399877db6110241efd9f1719703163a55da6aa0a1565481",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "b33b7960b192ae850399877db6110241efd9f1719703163a55da6aa0a1565481",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "sha256_before": "aac82521c248c98b486eaec5f836515d15e87c5c1437186c3960953f3cb8e77a",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "aac82521c248c98b486eaec5f836515d15e87c5c1437186c3960953f3cb8e77a",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/pytorch_loader/README.md",
+      "sha256_before": "73c11b73e397b8a9c672aca4845f64da74689a0b8606def709d3b5111824e795",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "73c11b73e397b8a9c672aca4845f64da74689a0b8606def709d3b5111824e795",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/README.md",
+      "sha256_before": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/MANIFEST.md",
+      "sha256_before": "73a5fc77bc9cc3b6aab3ba45b4beebf79097a68653606d8ee3f221394f3450f6",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "73a5fc77bc9cc3b6aab3ba45b4beebf79097a68653606d8ee3f221394f3450f6",
+      "unchanged_after_installation": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "sha256_before": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "source_unchanged_before_installation": true,
+      "sha256_after": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "unchanged_after_installation": true
+    }
+  ],
+  "readme_sha256": "f1dfc686f85681de2ee12bf675a785b05e3e71591dbccf7d26943b0ad8b99a8b",
+  "readme_bytes": 299634,
+  "readme_lines": 4245,
+  "explicit_anchors": 142,
+  "local_links_and_anchors_checked": 181,
+  "linked_figures_checked": 7,
+  "external_links_preserved_without_network_check": 37,
+  "links_rebased": [
+    {
+      "source": "README.md",
+      "original": "wildfire_burned_area_hourly/README.md",
+      "integrated": "#data-guide"
+    },
+    {
+      "source": "README.md",
+      "original": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "integrated": "#environment-guide"
+    },
+    {
+      "source": "README.md",
+      "original": "wildfire_burned_area_hourly/pytorch_loader/README.md",
+      "integrated": "#loader-guide"
+    },
+    {
+      "source": "README.md",
+      "original": "wildfire_burned_area_hourly/probability_model/README.md",
+      "integrated": "#probability-guide"
+    },
+    {
+      "source": "README.md",
+      "original": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "integrated": "#direct-guide"
+    },
+    {
+      "source": "README.md",
+      "original": "expected_heat_flux/README.md",
+      "integrated": "#heat-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "../README.md",
+      "integrated": "#workspace-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "bitmaps/README.md",
+      "integrated": "#bitmap-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "environmental_data/BIOME_README.md",
+      "integrated": "#biome-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "pytorch_loader/README.md",
+      "integrated": "#loader-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/README.md",
+      "integrated": "#probability-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "integrated": "#report-biome-3x3"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "integrated": "#report-five-input"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "integrated": "#report-exponential-kernels"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/burn_probability_map_demo.ipynb",
+      "integrated": "wildfire_burned_area_hourly/probability_model/burn_probability_map_demo.ipynb"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/direct_convolution/README.md",
+      "integrated": "#direct-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/README.md",
+      "original": "probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "integrated": "#report-signed-kernels"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "original": "BIOME_README.md",
+      "integrated": "#biome-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "original": "../pytorch_loader/README.md",
+      "integrated": "#loader-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/pytorch_loader/README.md",
+      "original": "../environmental_data/BIOME_README.md",
+      "integrated": "#biome-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "integrated": "#report-biome-3x3"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "training_runs/20261007_1h_contact_only/report.md",
+      "integrated": "#report-five-input"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "integrated": "#report-exponential-kernels"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "burn_probability_map_demo.ipynb",
+      "integrated": "wildfire_burned_area_hourly/probability_model/burn_probability_map_demo.ipynb"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "direct_convolution/README.md",
+      "integrated": "#direct-guide"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "integrated": "#report-signed-kernels"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/README.md",
+      "original": "training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "original": "../training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "integrated": "#report-signed-kernels"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "original": "../burn_probability_map_demo.ipynb",
+      "integrated": "wildfire_burned_area_hourly/probability_model/burn_probability_map_demo.ipynb"
+    },
+    {
+      "source": "expected_heat_flux/README.md",
+      "original": "../README.md",
+      "integrated": "#workspace-guide"
+    },
+    {
+      "source": "expected_heat_flux/README.md",
+      "original": "wildfire_expected_heat_demo.ipynb",
+      "integrated": "expected_heat_flux/wildfire_expected_heat_demo.ipynb"
+    },
+    {
+      "source": "expected_heat_flux/README.md",
+      "original": "sources.json",
+      "integrated": "expected_heat_flux/sources.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/configuration.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/configuration.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/history.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/history.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/prepared/metadata.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/prepared/metadata.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/train_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/train_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/validation_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/validation_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/test_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/test_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/configuration.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/configuration.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/history.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/history.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/prepared/metadata.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/prepared/metadata.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/train_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/train_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/validation_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/validation_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/test_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/test_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/kernel_comparison.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/kernel_comparison.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_predictions",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_predictions"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/kernel_comparison.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/kernel_comparison.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "integrated": "#report-biome-3x3"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "integrated": "#report-exponential-5x5"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "integrated": "#report-exponential-7x7"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "integrated": "#report-exponential-9x9"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_audit.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_audit.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/configuration.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/configuration.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/history.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/history.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/prepared/metadata.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/prepared/metadata.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/train_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/train_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/validation_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/validation_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/test_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/test_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/configuration.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/configuration.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/history.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/history.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/prepared/metadata.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/prepared/metadata.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/train_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/train_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/validation_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/validation_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/test_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/test_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/configuration.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/configuration.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/history.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/history.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared/metadata.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared/metadata.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/train_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/train_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/validation_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/validation_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/test_predictions.npz",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/test_predictions.npz"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/training_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/training_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "comparison_results.png",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_results.png"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/3x3/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/3x3/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/7x7/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/7x7/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/9x9/fitted/checkpoint.pt",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/9x9/fitted/checkpoint.pt"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/protocol.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/protocol.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_metrics.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_metrics.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_selection.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_selection.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/report_audit.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/report_audit.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/verification_separate_tolerances.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/verification_separate_tolerances.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/verification.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/verification.json"
+    },
+    {
+      "source": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "original": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/cpu_precision_audit.json",
+      "integrated": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/cpu_precision_audit.json"
+    }
+  ],
+  "original_table_lines_preserved": 694,
+  "original_tables_preserved": 74,
+  "rendered_tables": 75,
+  "original_display_math_formulas_preserved": 21,
+  "original_inline_math_formulas_preserved": 6,
+  "rendered_display_math_blocks": 21,
+  "fenced_code_blocks_preserved": 55,
+  "code_example_syntax_checks": [
+    {
+      "block": 0,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 1,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 3,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 4,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 5,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 6,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 7,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 8,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 9,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 10,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 11,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 12,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 13,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 16,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 17,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 18,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 20,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 21,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 22,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 23,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 24,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 25,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 26,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 28,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 29,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 30,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 31,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 32,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 33,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 35,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 36,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 37,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 38,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 39,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 40,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 41,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 42,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 43,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "block": 44,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 45,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 46,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 47,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 48,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 49,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 50,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 51,
+      "language": "python",
+      "passed": true
+    },
+    {
+      "block": 52,
+      "language": "bash",
+      "passed": true
+    },
+    {
+      "block": 53,
+      "language": "python",
+      "passed": true
+    }
+  ],
+  "legacy_files_sha256_verified_unchanged": 3162,
+  "python_package_and_notebook_files_hashed_before_installation": 78,
+  "application_tests_rerun": false,
+  "application_tests_reason": "Documentation-only integration; code, packaging, notebooks and scientific artifacts are not edited.",
+  "errors": [],
+  "installed_and_verified_at_utc": "2026-10-07T13:22:15.807349+00:00",
+  "unchanged_original_nested_markdown_files": 18,
+  "unchanged_python_package_and_notebook_files": 78,
+  "validation_record_link_resolved_after_installation": true,
+  "completed": true
+}

@@ -1,0 +1,62 @@
+{
+  "checked_on": "2026-10-07",
+  "timezone": "Asia/Seoul",
+  "scope": "Numerical verification of the stated radiation idealization; no measured-wildfire calibration or validation",
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "1.26.4",
+    "device": "CPU"
+  },
+  "tests": {
+    "command_from_workspace": ".venv/bin/python -m pytest expected_heat_flux/tests/test_model.py -q",
+    "passed": 69,
+    "failed": 0
+  },
+  "physics_checks": [
+    "independent Gauss-Legendre source-area integration",
+    "analytic finite rectangle solid angle",
+    "far-field orientation-corrected isotropic point-source limit",
+    "half of total isotropic radiation intercepted by infinite horizontal receiving plane",
+    "correlated burning distributions with identical marginals give identical expectations",
+    "linear probability/source superposition",
+    "zero-padded FFT has no periodic wrap",
+    "full affine metric grid including rotation and shear",
+    "flux, power and dose dimensions",
+    "unknown and masked source probabilities rejected"
+  ],
+  "single_square_check": {
+    "cell_side_m": 10.0,
+    "source_receiver_separation_m": 5.0,
+    "active_burning_probability": 1.0,
+    "solid_angle_sr": 2.0943951023931953,
+    "transfer_factor": 0.16666666666666666,
+    "analytic_incident_heat_flux_w_m2": 15000.0,
+    "computed_incident_heat_flux_w_m2": 15000.0,
+    "absolute_error_w_m2": 0.0,
+    "passed": true
+  },
+  "demo_checks": {
+    "shape": [
+      100,
+      100
+    ],
+    "flux_finite": true,
+    "dose_equals_flux_times_60s": true,
+    "figure_visually_inspected": true
+  },
+  "standalone_package": {
+    "wheel": "distribution/expected_heat_flux-0.1.0-py3-none-any.whl",
+    "sha256": "a027b2038b734020f489434d17e237dc646ad2dd177361d43b1aef5a4e75e0ed",
+    "import_from_external_temporary_installation": "passed",
+    "sources_and_readme_packaged": true
+  },
+  "source_sha256": {
+    "__init__.py": "88ef09d788a868c598964cb204cb1ab6bbf8bccaac3a9bd1aa03d338541cb8cf",
+    "model.py": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed",
+    "example.py": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899",
+    "pyproject.toml": "85dd2fb4b2bde45174792a4872677a1c5e5c22a2a9a071533b6eaa01c97c9fd7",
+    "README.md": "d21fc427bfb81a91f11989f53f035435c768dbdfc8c3ef8bdcd324d1665e5726",
+    "sources.json": "3fedf6f50ab538c90670f781c32a8b23c8cfbd8dd13d1cdb4c35b3d4d165b616",
+    "tests/test_model.py": "306c61ee583763c44572d6781f844996cbd1927c7648ca5a354c8dd36fc26a49"
+  }
+}

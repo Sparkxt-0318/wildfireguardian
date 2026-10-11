@@ -1,0 +1,313 @@
+{
+  "reviewed_on": "2026-10-08",
+  "review_timezone": "Asia/Seoul",
+  "model_name": "Expected incident radiant heat from active-burning probabilities or integrated one-hour wildfire forecasts",
+  "probability_semantics": "Radiation-only: P(cell actively burns at an instant). Integration input: P(first new burning during next exact hour), explicitly converted to time-mean/endpoint active occupancy.",
+  "sources": [
+    {
+      "id": "nist_sp_1169",
+      "title": "Verification and Validation of Commonly Used Empirical Correlations for Fire Scenarios",
+      "authors": [
+        "Kristopher J. Overholt"
+      ],
+      "year": 2014,
+      "publisher": "National Institute of Standards and Technology",
+      "document": "NIST Special Publication 1169",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf",
+      "doi": "10.6028/NIST.SP.1169",
+      "location": "Section 6.1, Equation (6.1), printed page 39, PDF page 53",
+      "supported_role": "Isotropic point-source radiation equals radiative fraction times HRR times receiver cosine, divided by 4*pi*distance squared.",
+      "package_extension": "Integrate infinitesimal isotropic emitters uniformly over each cell footprint and prescribe their common elevation rather than infer flame height.",
+      "access_status": "PDF text inspected online"
+    },
+    {
+      "id": "nist_sp_1007",
+      "title": "The NIST 3 Megawatt Quantitative Heat Release Rate Facility",
+      "authors": [
+        "Rodney A. Bryant",
+        "Thomas J. Ohlemiller",
+        "Erik L. Johnsson",
+        "Anthony Hamins",
+        "Brian S. Grove",
+        "William F. Guthrie",
+        "Alexander Maranghides",
+        "George W. Mulholland"
+      ],
+      "year": 2003,
+      "publisher": "National Institute of Standards and Technology",
+      "document": "NIST Special Publication 1007",
+      "url": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=911301",
+      "location": "Introduction, Equation (1), printed page 1, PDF page 8",
+      "supported_role": "For a known combustion heat, HRR equals mass-loss rate times combustion heat; complex/charring materials can have variable combustion heat.",
+      "package_extension": "The optional fuel converter assumes consumed mass per unit area is released at constant rate over a supplied burning duration.",
+      "access_status": "PDF text inspected online"
+    },
+    {
+      "id": "nistir_6546",
+      "title": "Thermal Radiation from Large Pool Fires",
+      "authors": [
+        "Kevin B. McGrattan",
+        "Howard R. Baum",
+        "Anthony Hamins"
+      ],
+      "year": 2000,
+      "publisher": "National Institute of Standards and Technology",
+      "document": "NISTIR 6546",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir6546.pdf",
+      "location": "Section 3, printed page 3; Equation (1); point-source discussion and Equation (7)",
+      "supported_role": "Provides atmospheric-transmission and source-geometry context and warns that a single-point source can misrepresent radiation within a few fire diameters.",
+      "limitation": "This large-pool-fire/combustible-gas report does not validate the footprint model for wildfires or establish near-flame accuracy.",
+      "access_status": "PDF text inspected online"
+    },
+    {
+      "id": "frankman_2012",
+      "title": "Measurements of convective and radiative heating in wildland fires",
+      "authors": [
+        "David Frankman",
+        "Brent W. Webb",
+        "Bret W. Butler",
+        "Daniel Jimenez",
+        "Jason M. Forthofer",
+        "Paul A. Sopko",
+        "Kyle S. Shannon",
+        "J. Kevin Hiers",
+        "Roger D. Ottmar"
+      ],
+      "year": 2012,
+      "journal": "International Journal of Wildland Fire",
+      "volume_pages": "22:157-167",
+      "url": "https://research.fs.usda.gov/treesearch/42185",
+      "pdf_url": "https://research.fs.usda.gov/download/treesearch/42185.pdf",
+      "doi": "10.1071/WF11097",
+      "location": "US Forest Service author publication record and abstract",
+      "supported_role": "Wildland-fire measurements distinguish irradiance from convective heating/cooling and show that their relative contributions depend on fuel/environment.",
+      "limitation": "Supports radiation-only scope; it was not used as a calibration dataset.",
+      "access_status": "Primary author-agency publication record and abstract inspected online"
+    },
+    {
+      "id": "angelidis_2004",
+      "title": "Spherical Springs",
+      "authors": [
+        "Alexis Angelidis"
+      ],
+      "year": 2004,
+      "publisher": "Department of Computer Science, University of Otago",
+      "document": "Technical Report OUCS-2004-01 (unpublished)",
+      "url": "https://cs.otago.ac.nz/research/publications/oucs-2004-01.pdf",
+      "location": "Section 3.2, Solid angle spring, printed page 2, PDF page 3",
+      "supported_role": "Records normalized-vector triangle solid angle and attributes it to van Oosterom and Strackee (1983).",
+      "package_extension": "Rescale to unnormalized vectors, use atan2 for branch selection, take positive solid angle, and sum two triangles for a parallelogram.",
+      "access_status": "PDF text inspected online"
+    },
+    {
+      "id": "van_oosterom_strackee_1983",
+      "title": "The Solid Angle of a Plane Triangle",
+      "authors": [
+        "A. van Oosterom",
+        "J. Strackee"
+      ],
+      "year": 1983,
+      "journal": "IEEE Transactions on Biomedical Engineering",
+      "volume_pages": "BME-30(2):125-126",
+      "url": "https://doi.org/10.1109/TBME.1983.325207",
+      "doi": "10.1109/TBME.1983.325207",
+      "supported_role": "Original triangle solid-angle attribution.",
+      "access_status": "DOI open failed in the browsing tool; formula verified using the accessible Angelidis report, which cites this original work"
+    },
+    {
+      "id": "landfire_fccs",
+      "title": "Fuel Characteristic Classification System Fuelbeds",
+      "publisher": "LANDFIRE",
+      "url": "https://www.landfire.gov/fuel/fccs",
+      "reference_loading_table_url": "https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv",
+      "location": "Product Description, reference fuelbed assignment and fuel loading / Consume Input Tables paragraphs",
+      "supported_role": "LANDFIRE maps vegetation to FCCS reference fuelbeds; reference attributes include loading in tons per acre, useful as physical fuel inputs.",
+      "package_extension": "Read existing whole-grid mapped-part mean loading and lookup coverage rasters; convert U.S. short tons/acre to kg/m2, preserve incomplete coverage, and permit only an explicit fallback for unmapped fractions.",
+      "limitation": "Reference loading is not a measurement of event-date available or consumed fuel; no field heat-accuracy improvement is implied.",
+      "access_status": "Primary product page inspected online 2026-10-07; the existing bundle provenance supplies the local raster/lookup-table record"
+    },
+    {
+      "id": "fccs_technical_2013",
+      "title": "Fuel Characteristic Classification System version 3.0: technical documentation",
+      "authors": [
+        "Susan J. Prichard",
+        "David V. Sandberg",
+        "Roger D. Ottmar",
+        "Ellen Eberhardt",
+        "Anne Andreu",
+        "Paige Eagle",
+        "Kjell Swedin"
+      ],
+      "year": 2013,
+      "publisher": "US Department of Agriculture Forest Service, Pacific Northwest Research Station",
+      "document": "PNW-GTR-887",
+      "url": "https://research.fs.usda.gov/treesearch/45283",
+      "pdf_url": "https://research.fs.usda.gov/treesearch/download/45283.pdf",
+      "original_pdf_url": "https://www.fs.usda.gov/pnw/pubs/pnw_gtr887.pdf",
+      "doi": "10.2737/PNW-GTR-887",
+      "location": "Introduction, printed pages 1-4, PDF pages 7-10; source record abstract",
+      "supported_role": "FCCS describes six fuel strata and physical fuelbed loading and distinguishes available-fuel potentials from fuel characteristics. Reference fuelbeds may require site-specific customization.",
+      "limitation": "Does not establish actual event-date consumed mass, burning duration, or radiative fraction; the package does not claim to implement the complete FCCS fire-behavior or consumption model.",
+      "access_status": "Primary agency record and official PDF mirror inspected online 2026-10-07; original PDF URL returned HTTP 403"
+    },
+    {
+      "id": "nist_tn2314_2025",
+      "title": "Global Burning Properties of Little Bluestem, Excelsior and Douglas Fir",
+      "authors": [
+        "Kunhyuk Sung",
+        "Eric Mueller",
+        "Matthew Bundy",
+        "Marco Fernandez",
+        "Anthony Hamins"
+      ],
+      "year": 2025,
+      "publisher": "National Institute of Standards and Technology",
+      "document": "NIST Technical Note 2314",
+      "url": "https://www.nist.gov/publications/global-burning-properties-little-bluestem-excelsior-and-douglas-fir",
+      "pdf_url": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=958825",
+      "doi": "10.6028/NIST.TN.2314",
+      "location": "Primary publication abstract, findings concerning moisture, HRR, and radiative fraction",
+      "supported_role": "Measured vegetation combustion properties and radiant fractions depend on moisture and fuel conditions; radiative fraction is an explicit physical parameter.",
+      "limitation": "Douglas-fir specimen relationships are not transferred to all ecological classes. The illustrative radiative fraction 0.30 and combustion parameters are not calibrated to the demonstration wildfire.",
+      "access_status": "Primary NIST publication record and abstract inspected online 2026-10-07"
+    },
+    {
+      "id": "anderson_1969_residence",
+      "title": "Heat transfer and fire spread",
+      "authors": [
+        "Hal E. Anderson"
+      ],
+      "year": 1969,
+      "publisher": "USDA Forest Service",
+      "document": "INT-RP-69",
+      "url": "https://research.fs.usda.gov/treesearch/40489",
+      "pdf_url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+      "location": "Printed pages 15-16",
+      "supported_role": "Porous-bed approximation: residence minutes = 8 times particle diameter or thickness in inches.",
+      "limitation": "Fuel-bed porosity can strongly change residence; not universal complete flame extinction.",
+      "access_status": "Primary PDF text inspected"
+    },
+    {
+      "id": "andrews_2018_residence",
+      "title": "The Rothermel surface fire spread model and associated developments: A comprehensive explanation",
+      "authors": [
+        "Patricia L. Andrews"
+      ],
+      "year": 2018,
+      "publisher": "USDA Forest Service",
+      "document": "RMRS-GTR-371",
+      "doi": "10.2737/RMRS-GTR-371",
+      "url": "https://research.fs.usda.gov/treesearch/55928",
+      "pdf_url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+      "location": "Sections 3.2.3-3.2.5, printed pages 21-24; section 4.2, printed page 27",
+      "supported_role": "Characteristic SAV surface-area weighting and residence_minutes = 384 / SAV_ft_inverse; exact SI residence_seconds = 75590.55118110236 / SAV_m_inverse.",
+      "limitation": "Passing-front residence excludes indefinite trailing edge and assumes no fuel-bed packing effect.",
+      "access_status": "Primary PDF equations inspected"
+    },
+    {
+      "id": "scott_burgan_2005_fbfm40",
+      "title": "Standard fire behavior fuel models: a comprehensive set for use with Rothermel surface fire spread model",
+      "authors": [
+        "Joe H. Scott",
+        "Robert E. Burgan"
+      ],
+      "year": 2005,
+      "publisher": "USDA Forest Service",
+      "document": "RMRS-GTR-153",
+      "doi": "10.2737/RMRS-GTR-153",
+      "url": "https://research.fs.usda.gov/treesearch/9521",
+      "pdf_url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+      "location": "Table 7, printed page 18; constants page 17; curing page 6",
+      "supported_role": "40 reference fuel models: class loadings, SAV, common density and numeric codes. Characteristic SAV is computed from source parameters.",
+      "limitation": "Reference front-behavior models do not measure event-date fuel or residual combustion. GS4 summary SAV 1674 conflicts with table-derived 1631, supported by Andrews.",
+      "access_status": "Primary PDF parameter tables inspected and all 40 rounded characteristic SAV values independently checked"
+    },
+    {
+      "id": "burrows_1994_jarrah_flameout",
+      "title": "Experimental development of a fire management model for jarrah (Eucalyptus marginata Donn ex Sm.) forest",
+      "authors": [
+        "Neil D. Burrows"
+      ],
+      "year": 1994,
+      "document": "PhD thesis, Australian National University",
+      "url": "https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf",
+      "location": "Printed page 69, equation 6-1; methods page 67",
+      "supported_role": "Individual oven-dry jarrah twig residence_seconds = 0.871 * diameter_mm**1.875, tested diameter 1-16 mm.",
+      "limitation": "Individual 10 cm twigs in still air; not a general fuelbed, species or moisture law.",
+      "access_status": "Original thesis PDF equation visually inspected"
+    },
+    {
+      "id": "burrows_2001_fuel_particles",
+      "title": "Flame residence times and rates of weight loss of eucalypt forest fuel particles",
+      "authors": [
+        "Neil D. Burrows"
+      ],
+      "year": 2001,
+      "journal": "International Journal of Wildland Fire",
+      "volume_pages": "10(2):137-143",
+      "doi": "10.1071/WF01005",
+      "url": "https://doi.org/10.1071/WF01005",
+      "supported_role": "Peer-reviewed follow-up on fuel-particle size, eucalypt leaves and round wood; leaves comparable to 4 mm wood.",
+      "limitation": "Exact implemented power law verified in 1994 thesis; full 2001 paper equation not claimed as directly inspected.",
+      "access_status": "Primary publisher abstract inspected"
+    },
+    {
+      "id": "wotton_2012_flame_front",
+      "title": "Flame temperature and residence time of fires in dry eucalypt forest",
+      "authors": [
+        "B. M. Wotton",
+        "J. S. Gould",
+        "W. L. McCaw",
+        "N. P. Cheney",
+        "S. W. Taylor"
+      ],
+      "year": 2012,
+      "journal": "International Journal of Wildland Fire",
+      "volume_pages": "21(3):270-281",
+      "doi": "10.1071/WF10127",
+      "url": "https://doi.org/10.1071/WF10127",
+      "supported_role": "Mean main-front residence 37 seconds, standard deviation 14 seconds, n=77; separates later continuous/intermittent flames.",
+      "limitation": "Elevated thermocouple temperature threshold in dry eucalypt forest; not a universal complete flame-out time.",
+      "access_status": "Primary author-hosted PDF inspected"
+    },
+    {
+      "id": "moody_2022_qes_fire",
+      "title": "QES-Fire: a dynamically coupled fast-response wildfire model",
+      "authors": [
+        "M. J. Moody",
+        "et al."
+      ],
+      "year": 2022,
+      "journal": "International Journal of Wildland Fire",
+      "volume_pages": "31(3):306-325",
+      "doi": "10.1071/WF21057",
+      "url": "https://connectsci.au/wf/article/31/3/306/187714/QES-Fire-a-dynamically-coupled-fast-response",
+      "location": "Fire map subsection; residence parameterization",
+      "supported_role": "Model precedent for time-on-fire gating against residence time and coefficient approximately 75591 s/m divided by SAV_m_inverse.",
+      "limitation": "Implementation precedent does not validate this package or transfer its model performance.",
+      "access_status": "Open primary publisher article inspected"
+    }
+  ],
+  "additional_modeling_assumptions": [
+    "A cell indicator activates a uniform footprint over its entire area using whole-cell averaged conditional HRR density; partial burning coverage must be reflected in that density.",
+    "Infinitesimal emitters are isotropic at one elevation above upward-facing horizontal receivers.",
+    "Conditional source strengths are prescribed; probabilities mean active burning, not cumulative burned area or new ignition.",
+    "Atmospheric transmission is one scalar shared by all paths; path-dependent absorption and geometric blocking are omitted.",
+    "Linearity of expectation does not require cell independence.",
+    "Only supplied cells emit; exterior source contributions are omitted.",
+    "Synthetic demo parameters are illustrative and are not fitted to wildfire measurements.",
+    "The integrated forecast converts first-new-burning probability for an exact one-hour endpoint through a Uniform(0,3600s) conditional ignition time and a supplied deterministic constant-emission duration.",
+    "Time-mean source occupancy and endpoint source occupancy are distinct; mean heat flux multiplied by 3600s gives expected incident radiant energy per area during the forecast interval.",
+    "Cumulative burned state is not active combustion. Existing fire contributes only when initial active probability and remaining combustion duration are explicitly supplied.",
+    "Unknown model probabilities remain unknown. Bounds permit those probabilities to range over [0,1] only while prescribed combustion, geometry and timing assumptions remain fixed.",
+    "Ecological loading is a reference estimate. Partial lookup coverage requires an explicit unmapped-loading fallback, blended by mapped coverage; consumed fraction, duration, effective heat and radiative fraction remain caller assumptions.",
+    "The integrated example uses retrospective arrival/final-extent-derived current burned state and is not operational live forecast validation.",
+    "Flame residence at a fixed fuel point is assigned to representative raster locations; subcell propagation and exact flame geometry are unresolved.",
+    "Known or point-estimate arrival scenario uses activity on the half-open interval [arrival,arrival+residence). Unknown arrival remains unknown.",
+    "The FBFM40 catalog describes reference surface-front fuels; nonburnable, custom and missing codes require explicit scenario overrides, recorded separately.",
+    "Residence duration in the heat bridge must equal combustion duration; consumed fuel fraction must refer to the modeled flaming phase.",
+    "The active-flame example retains zero nominal flames and unthresholded probability coordinates; no active-flame observational calibration is claimed."
+  ],
+  "validation_status": "Analytic/numerical verification of this mathematical model is separate from experimental wildfire validation; no experimental validation is claimed.",
+  "flame_residence_semantics": "Estimated surface-front flaming at representative grid locations under explicit reference-fuel and conditional-arrival assumptions; particle flame-out available as a separate laboratory scenario."
+}

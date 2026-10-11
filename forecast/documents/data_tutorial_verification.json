@@ -1,0 +1,217 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-08T22:06:43.239113+00:00",
+  "readme": "README.md",
+  "readme_sha256": "61975928d56bc9f82a59e45ade8695ad6ee60d9c363f7d14ae9b3ddde684f825",
+  "scope": "Documentation verification; no new complete provider acquisition, processing rebuild, cache preparation, smoke training or full search executed.",
+  "python_version": "3.12",
+  "python_blocks": {
+    "download_arrival_data.py": "1208a9ebe2c3b19efb59032dc8461f331dd92b7876d631fd17dc89ec7bb57e59",
+    "reopen_incomplete_stages.py": "87580e6134eaf7846f526d21740c3f6b24cd83add9d300ee9971b3efa3fe59c3",
+    "check_fuel_lookup.py": "3fe02cfec11338066c4986312e37dc201f65018e0e72cd53cc118f6446ae1af3",
+    "check_processed_data.py": "2d32b2a42a0019bf9bdd64d0e977e4a0bd328c2a890db8c4b5d547d547cc0516"
+  },
+  "archive_script_checks": {
+    "status": "passed",
+    "script_sha256": "1208a9ebe2c3b19efb59032dc8461f331dd92b7876d631fd17dc89ec7bb57e59",
+    "network_access_blocked": true,
+    "production_data_modified": false,
+    "checks": {
+      "initial_extraction": {
+        "status": "passed",
+        "files_independently_hashed": 132,
+        "output": "Verified 132 archive files; restored 132: wildfire_burned_area_hourly/sources/zenodo_21788344/extracted"
+      },
+      "cached_rerun": {
+        "status": "passed",
+        "matching_files_untouched": 132,
+        "output": "Verified 132 archive files; restored 0: wildfire_burned_area_hourly/sources/zenodo_21788344/extracted"
+      },
+      "missing_member_recovery": {
+        "status": "passed",
+        "member": "rasters_kr/KFS_01_pswt_ok_toa.tif",
+        "output": "Verified 132 archive files; restored 1: wildfire_burned_area_hourly/sources/zenodo_21788344/extracted"
+      },
+      "changed_member_rejection": {
+        "status": "passed",
+        "no_files_changed_on_failure": true,
+        "member": "README.md",
+        "error": "Existing extracted file differs: wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md"
+      },
+      "missing_zip_mock_download": {
+        "status": "passed",
+        "urlopen_mock_calls": [
+          {
+            "url": "https://zenodo.org/api/records/21788344/files/wildfire_toa_dataset_and_code.zip/content",
+            "timeout": 120
+          }
+        ],
+        "archive_exactly_preserved": true,
+        "files_independently_hashed": 132,
+        "temporary_download_file_cleaned": true,
+        "real_network_access": false,
+        "output": "Verified 132 archive files; restored 132: wildfire_burned_area_hourly/sources/zenodo_21788344/extracted"
+      }
+    }
+  },
+  "environment_script_checks": {
+    "status": "passed",
+    "date": "2026-10-09",
+    "timezone": "Asia/Seoul",
+    "readme": "/Users/movinggk/Documents/영재멘토/WildfireGuardian/README.md",
+    "python_blocks": {
+      "reopen_incomplete_stages.py": {
+        "sha256": "87580e6134eaf7846f526d21740c3f6b24cd83add9d300ee9971b3efa3fe59c3",
+        "hash_scope": "UTF-8 fence body without surrounding fence or final newline"
+      },
+      "check_fuel_lookup.py": {
+        "sha256": "3fe02cfec11338066c4986312e37dc201f65018e0e72cd53cc118f6446ae1af3",
+        "hash_scope": "UTF-8 fence body without surrounding fence or final newline"
+      },
+      "check_processed_data.py": {
+        "sha256": "2d32b2a42a0019bf9bdd64d0e977e4a0bd328c2a890db8c4b5d547d547cc0516",
+        "hash_scope": "UTF-8 fence body without surrounding fence or final newline"
+      }
+    },
+    "production_read_only": {
+      "fuel_lookup": {
+        "status": "passed",
+        "file": "wildfire_burned_area_hourly/environmental_data/sources/LF_ConsumeLoadings.csv",
+        "sha256": "1621b8e316fe1760a80e9bfcbdfe01efb4b7d03c948e27daf7ac63b1dbf74c73",
+        "unchanged_mtime": true,
+        "network_blocked": true
+      },
+      "processed_report_gate": {
+        "status": "passed",
+        "environment_regions": 44,
+        "biome_regions": 44,
+        "quality_passed": true,
+        "out_of_range_source_values_fire_window": 22
+      }
+    },
+    "negative_report_gate_fixtures": [
+      {
+        "case": "environment_failed",
+        "rejected": true,
+        "reason": "Environmental validation incomplete; inspect validation_summary.json"
+      },
+      {
+        "case": "pending_region",
+        "rejected": true,
+        "reason": "Environmental validation incomplete; inspect validation_summary.json"
+      },
+      {
+        "case": "region_count",
+        "rejected": true,
+        "reason": "Environmental validation incomplete; inspect validation_summary.json"
+      },
+      {
+        "case": "biome_failed",
+        "rejected": true,
+        "reason": "Biome validation incomplete; inspect biome_validation.json"
+      },
+      {
+        "case": "quality_failed",
+        "rejected": true,
+        "reason": "Quality-flag validation incomplete; inspect quality_flags/validation.json"
+      },
+      {
+        "case": "missing_manifest",
+        "rejected": true,
+        "reason": "Completed environmental file manifest is missing"
+      },
+      {
+        "case": "missing_pending_field",
+        "rejected": true,
+        "reason": "Environmental validation incomplete; inspect validation_summary.json"
+      }
+    ],
+    "marker_fixtures": {
+      "status": "passed",
+      "complete_markers_preserved": 3,
+      "incomplete_markers_moved": 3,
+      "cases": [
+        "IFS missing finite variable TIFF",
+        "ERA5 missing native_nodes.npz",
+        "terrain missing elevation_std_3375m_m TIFF"
+      ],
+      "all_existing_payload_bytes_unchanged": true,
+      "backup_markers_byte_identical": true,
+      "zero_finite_variable_not_required": true,
+      "second_execution_markers_moved": 0,
+      "second_execution_all_files_byte_identical": true,
+      "fixture_mutation_scope": "TemporaryDirectory under /private/tmp"
+    },
+    "source_audit": {
+      "terrain_provider": "Copernicus GLO-30 DSM public S3",
+      "korea_crs": "EPSG:5179",
+      "us_crs": "EPSG:5070",
+      "pixel_size_m": 375,
+      "fresh_biome_path": "full acquire_environment validator after biome acquisition",
+      "incremental_refresh_omitted": true,
+      "main_raster_missing_checked_before_validation_progress_reuse": true,
+      "reuse_signature": "validator SHA-256 and per-region relative path, size, mtime_ns signature"
+    },
+    "safe_help_checks": [
+      "wildfire_burned_area_hourly environment --help",
+      "wildfire_burned_area_hourly biome --help",
+      "wildfire_burned_area_hourly.environmental_data.enrich_environment --help"
+    ],
+    "live_data_downloads": false,
+    "production_data_mutations": false,
+    "acquisition_stages_executed": false,
+    "full_environment_validator_executed": false
+  },
+  "cli_verification": {
+    "method": "Actual parsers, with preparation/training/setup bodies not executed",
+    "commands_parsed": [
+      "fresh 9x9 prepare",
+      "fresh-cache CPU smoke",
+      "fresh-cache full CUDA search",
+      "original-cache portable run --device auto --check-only"
+    ],
+    "all_parsed": true,
+    "full_default_kernel_candidates": 368
+  },
+  "real_data_loader_execution": {
+    "exit_code": 0,
+    "event": "WY-BTF-002416_FishCreek",
+    "source_fields": 72,
+    "expanded_channels": 741,
+    "input_shape": [
+      1,
+      2,
+      741,
+      32,
+      64
+    ],
+    "target_shape": [
+      1,
+      2,
+      1,
+      32,
+      64
+    ],
+    "samples": 6560,
+    "valid_input_values": 3002300,
+    "device": "cpu",
+    "torch": "2.5.1",
+    "read_only": true
+  },
+  "markdown_checks": {
+    "tutorial_python_blocks_parsed": 4,
+    "tutorial_internal_links_resolved": 4,
+    "tutorial_local_file_links_resolved": 2,
+    "balanced_code_fences": true
+  },
+  "limitations": {
+    "live_provider_endpoints_checked": false,
+    "full_acquisition_executed": false,
+    "full_environment_validator_executed": false,
+    "fresh_cache_preparation_executed": false,
+    "smoke_search_executed_this_request": false,
+    "full_training_executed": false,
+    "cuda_execution_available_here": false,
+    "production_data_modified": false
+  }
+}

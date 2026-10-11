@@ -1,0 +1,122 @@
+{
+  "legacy": {
+    "candidate": "k3_legacy_02_lr0.05_constant",
+    "best_first_stage_validation_brier": 0.02550742940201892,
+    "best_late_validation_brier": 0.0271487882490408,
+    "relative_late_improvement": -0.06434826579945233,
+    "best_epoch": 5,
+    "final_training_brier": 0.024812195804003772,
+    "minimum_training_brier": 0.023893681393059953,
+    "peak_learning_rate": 0.05,
+    "scheduler": {
+      "name": "constant",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.05,
+    "final_learning_rate": 0.05,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  },
+  "cnn": {
+    "candidate": "k3_cnn_03_lr0.05_constant",
+    "best_first_stage_validation_brier": 0.02549354316863261,
+    "best_late_validation_brier": 0.028326045833089186,
+    "relative_late_improvement": -0.11110666907774921,
+    "best_epoch": 8,
+    "final_training_brier": 0.024838140359526275,
+    "minimum_training_brier": 0.0242924621254717,
+    "peak_learning_rate": 0.05,
+    "scheduler": {
+      "name": "constant",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.05,
+    "final_learning_rate": 0.05,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  },
+  "mlp": {
+    "candidate": "k7_mlp_06_lr0.05_warmup_cosine",
+    "best_first_stage_validation_brier": 0.025112951952935204,
+    "best_late_validation_brier": 0.025827454877894427,
+    "relative_late_improvement": -0.028451570579925846,
+    "best_epoch": 442,
+    "final_training_brier": 0.023741349055335592,
+    "minimum_training_brier": 0.023726428451647706,
+    "peak_learning_rate": 0.05,
+    "scheduler": {
+      "name": "warmup_cosine",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.0015625,
+    "final_learning_rate": 0.0005,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  },
+  "residual_mlp": {
+    "candidate": "k5_residual_mlp_09_lr0.01_constant",
+    "best_first_stage_validation_brier": 0.025230682170537984,
+    "best_late_validation_brier": 0.025892769302840173,
+    "relative_late_improvement": -0.026241348839759544,
+    "best_epoch": 266,
+    "final_training_brier": 0.024611620542164227,
+    "minimum_training_brier": 0.024082557704123868,
+    "peak_learning_rate": 0.01,
+    "scheduler": {
+      "name": "constant",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.01,
+    "final_learning_rate": 0.01,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  },
+  "mixed": {
+    "candidate": "mixed_3_5_7_9_01_lr0.1_warmup_cosine",
+    "best_first_stage_validation_brier": 0.02545807306858127,
+    "best_late_validation_brier": 0.027702628975270142,
+    "relative_late_improvement": -0.08816676347193612,
+    "best_epoch": 205,
+    "final_training_brier": 0.023747603998149472,
+    "minimum_training_brier": 0.023742489498168245,
+    "peak_learning_rate": 0.1,
+    "scheduler": {
+      "name": "warmup_cosine",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.003125,
+    "final_learning_rate": 0.001,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  },
+  "neural_mixed": {
+    "candidate": "neural_mixed_3_5_7_9_02_lr0.05_warmup_cosine",
+    "best_first_stage_validation_brier": 0.025551879854299804,
+    "best_late_validation_brier": 0.029517397694005933,
+    "relative_late_improvement": -0.15519475914562983,
+    "best_epoch": 73,
+    "final_training_brier": 0.020366635337067708,
+    "minimum_training_brier": 0.020321200445001224,
+    "peak_learning_rate": 0.05,
+    "scheduler": {
+      "name": "warmup_cosine",
+      "horizon": 4096,
+      "warmup_epochs": 32,
+      "minimum_lr_factor": 0.01,
+      "restart_period": 512
+    },
+    "initial_learning_rate": 0.0015625,
+    "final_learning_rate": 0.0005,
+    "interpretation": "Descriptive late improvement only. Training and validation use disjoint cell-hour rows sampled from the pooled development fires. Validation can share fires, overlapping spatial contexts, and fire histories with training, so it evaluates within-fire cell-hour interpolation. The test partition retains its original whole fires, which are absent from training and validation. No verified interpolation threshold or multi-seed grokking claim."
+  }
+}

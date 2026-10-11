@@ -1,0 +1,411 @@
+{
+  "verified_at_utc": "2026-10-09T14:34:48.289920+00:00",
+  "cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_weighted_stratified_split/prepared_all",
+  "original_cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all",
+  "split_seed": 7,
+  "requested_validation_weight_share": 0.2,
+  "realized_validation_weight_share": 0.20005804427659363,
+  "partition_integrity": {
+    "split_unit": "cell_hour",
+    "disjoint_cell_hour_identities": true,
+    "disjoint_contributing_fire_sets": false,
+    "test_fires_disjoint_from_training_validation": true
+  },
+  "categorical_coverage_independently_recomputed": {
+    "train": {
+      "full_patch": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_3x3": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_5x5": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_7x7": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_9x9": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ]
+    },
+    "validation": {
+      "full_patch": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_3x3": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_5x5": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_7x7": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ],
+      "native_9x9": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=8",
+        "biome.biome_class=12",
+        "biome.biome_class=13"
+      ]
+    },
+    "test": {
+      "full_patch": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=13"
+      ],
+      "native_3x3": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=13"
+      ],
+      "native_5x5": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=13"
+      ],
+      "native_7x7": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=13"
+      ],
+      "native_9x9": [
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=13"
+      ]
+    }
+  },
+  "frequencies": {
+    "train": {
+      "base": {
+        "samples": 199185,
+        "positive_rows": 64420,
+        "population_weight": 34481268.64050001,
+        "positive_weight": 64420.0,
+        "weighted_frequency": 0.0018682607264726746
+      },
+      "native_3x3": {
+        "samples": 89874,
+        "positive_rows": 56694,
+        "population_weight": 2107691.9298,
+        "positive_weight": 56694.0,
+        "weighted_frequency": 0.026898617961392358
+      },
+      "native_5x5": {
+        "samples": 117500,
+        "positive_rows": 60103,
+        "population_weight": 3579777.6622,
+        "positive_weight": 60103.0,
+        "weighted_frequency": 0.01678959021244434
+      },
+      "native_7x7": {
+        "samples": 139323,
+        "positive_rows": 61588,
+        "population_weight": 4834152.6436,
+        "positive_weight": 61588.0,
+        "weighted_frequency": 0.012740185207336633
+      },
+      "native_9x9": {
+        "samples": 158561,
+        "positive_rows": 62397,
+        "population_weight": 5924361.291999999,
+        "positive_weight": 62397.0,
+        "weighted_frequency": 0.0105322746072658
+      },
+      "common_3x3": {
+        "samples": 89874,
+        "positive_rows": 56694,
+        "population_weight": 2107691.9298,
+        "positive_weight": 56694.0,
+        "weighted_frequency": 0.026898617961392358
+      }
+    },
+    "validation": {
+      "base": {
+        "samples": 49900,
+        "positive_rows": 16099,
+        "population_weight": 8623444.6375,
+        "positive_weight": 16099.0,
+        "weighted_frequency": 0.0018668873839569544
+      },
+      "native_3x3": {
+        "samples": 22528,
+        "positive_rows": 14170,
+        "population_weight": 526919.1682,
+        "positive_weight": 14170.0,
+        "weighted_frequency": 0.026892170289431503
+      },
+      "native_5x5": {
+        "samples": 29454,
+        "positive_rows": 15023,
+        "population_weight": 895278.9396,
+        "positive_weight": 15023.0,
+        "weighted_frequency": 0.016780245056040408
+      },
+      "native_7x7": {
+        "samples": 34980,
+        "positive_rows": 15394,
+        "population_weight": 1209141.9422,
+        "positive_weight": 15394.0,
+        "weighted_frequency": 0.012731342336856704
+      },
+      "native_9x9": {
+        "samples": 39776,
+        "positive_rows": 15596,
+        "population_weight": 1481807.708,
+        "positive_weight": 15596.0,
+        "weighted_frequency": 0.010524982368360037
+      },
+      "common_3x3": {
+        "samples": 22528,
+        "positive_rows": 14170,
+        "population_weight": 526919.1682,
+        "positive_weight": 14170.0,
+        "weighted_frequency": 0.026892170289431503
+      }
+    },
+    "test": {
+      "base": {
+        "samples": 61965,
+        "positive_rows": 11924,
+        "population_weight": 3505209.0,
+        "positive_weight": 11924.0,
+        "weighted_frequency": 0.003401794300996032
+      },
+      "native_3x3": {
+        "samples": 16807,
+        "positive_rows": 7378,
+        "population_weight": 85133.32359999999,
+        "positive_weight": 7378.0,
+        "weighted_frequency": 0.08666406629048841
+      },
+      "native_5x5": {
+        "samples": 26943,
+        "positive_rows": 8815,
+        "population_weight": 155818.93899999998,
+        "positive_weight": 8815.0,
+        "weighted_frequency": 0.056572070484962045
+      },
+      "native_7x7": {
+        "samples": 36287,
+        "positive_rows": 9621,
+        "population_weight": 222191.122,
+        "positive_weight": 9621.0,
+        "weighted_frequency": 0.04330055995666649
+      },
+      "native_9x9": {
+        "samples": 45391,
+        "positive_rows": 10113,
+        "population_weight": 287415.0,
+        "positive_weight": 10113.0,
+        "weighted_frequency": 0.035186055007567454
+      },
+      "common_3x3": {
+        "samples": 16807,
+        "positive_rows": 7378,
+        "population_weight": 85133.32359999999,
+        "positive_weight": 7378.0,
+        "weighted_frequency": 0.08666406629048841
+      }
+    }
+  },
+  "original_frequencies": {
+    "train": {
+      "base": {
+        "samples": 220744,
+        "positive_rows": 73178,
+        "population_weight": 38221194.278,
+        "positive_weight": 73178.0,
+        "weighted_frequency": 0.0019145921885052408
+      },
+      "native_3x3": {
+        "samples": 100259,
+        "positive_rows": 64285,
+        "population_weight": 2291049.6466,
+        "positive_weight": 64285.0,
+        "weighted_frequency": 0.028059191163928396
+      },
+      "native_5x5": {
+        "samples": 130649,
+        "positive_rows": 68118,
+        "population_weight": 3899283.9362,
+        "positive_weight": 68118.0,
+        "weighted_frequency": 0.017469361327501473
+      },
+      "native_7x7": {
+        "samples": 154797,
+        "positive_rows": 69786,
+        "population_weight": 5278408.480800001,
+        "positive_weight": 69786.0,
+        "weighted_frequency": 0.013221030591672428
+      },
+      "native_9x9": {
+        "samples": 176073,
+        "positive_rows": 70729,
+        "population_weight": 6471684.0,
+        "positive_weight": 70729.0,
+        "weighted_frequency": 0.010928994678973819
+      },
+      "common_3x3": {
+        "samples": 100259,
+        "positive_rows": 64285,
+        "population_weight": 2291049.6466,
+        "positive_weight": 64285.0,
+        "weighted_frequency": 0.028059191163928396
+      }
+    },
+    "validation": {
+      "base": {
+        "samples": 28341,
+        "positive_rows": 7341,
+        "population_weight": 4883519.000000001,
+        "positive_weight": 7341.0,
+        "weighted_frequency": 0.0015032192973959964
+      },
+      "native_3x3": {
+        "samples": 12143,
+        "positive_rows": 6579,
+        "population_weight": 343561.4514,
+        "positive_weight": 6579.0,
+        "weighted_frequency": 0.019149412639837275
+      },
+      "native_5x5": {
+        "samples": 16305,
+        "positive_rows": 7008,
+        "population_weight": 575772.6656000001,
+        "positive_weight": 7008.0,
+        "weighted_frequency": 0.012171470475586258
+      },
+      "native_7x7": {
+        "samples": 19506,
+        "positive_rows": 7196,
+        "population_weight": 764886.1050000001,
+        "positive_weight": 7196.0,
+        "weighted_frequency": 0.009407936623453239
+      },
+      "native_9x9": {
+        "samples": 22264,
+        "positive_rows": 7264,
+        "population_weight": 934485.0,
+        "positive_weight": 7264.0,
+        "weighted_frequency": 0.0077732654884776105
+      },
+      "common_3x3": {
+        "samples": 12143,
+        "positive_rows": 6579,
+        "population_weight": 343561.4514,
+        "positive_weight": 6579.0,
+        "weighted_frequency": 0.019149412639837275
+      }
+    }
+  },
+  "preserved_pooled_fields": [
+    "target",
+    "weight",
+    "burned",
+    "event_index",
+    "time_utc",
+    "row",
+    "col"
+  ],
+  "pooled_rows_preserved_exactly": 249085,
+  "source_hashes_unchanged": {
+    "metadata.json": "5a83a0d0e3ec4dcff75cf9cb23efd560724169186175a6328496e878086a95c2",
+    "train.npz": "b173420d618679ad0f70920cde12fce4ae595b245478e90ad3339cec23261a32",
+    "validation.npz": "0c6520af473cfb672bb9d121a2adaffda8448b8bd733cecfe15c1ed73f9e2174",
+    "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+  },
+  "output_cache_sha256": {
+    "metadata.json": "3f1a68e28217d198d32c705b3753e79624690dc8bc224dceb5428b10e850e7bf",
+    "train.npz": "44ecb4fea32c866d7ee702765f505cdef93d2d4d5e959ba02d0432eb5cb80a11",
+    "validation.npz": "36c3d4f53782fe0694249a7cff3eb6835115d6f511a4424e800b75a3aca45ef8",
+    "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+  },
+  "test_archive_byte_identical": true,
+  "mirrored_array_archives_byte_identical": true,
+  "reviewed_source_sha256": {
+    "wildfire_burned_area_hourly/probability_model/weighted_split.py": "0d3d65e9f3d0ccdca151cff4fd8b5a9adfd5a09932901d19da8357349aa45bc9",
+    "wildfire_burned_area_hourly/probability_model/resplit_training.py": "eb432341be55befcd9503a5c7de92a2ed530411ecb63caac648bcd459bd16273",
+    "wildfire_burned_area_hourly/probability_model/cache.py": "4a4d151ce355c53a79df15ab6d042c73e929959a97fa22c515dc970759255cc2",
+    "wildfire_burned_area_hourly/probability_model/prepare_training.py": "8b3f08292b511bd8715ea43639aea5983cf016f29401d9d519bc1780f71a6b19",
+    "wildfire_burned_area_hourly/probability_model/filter_contact.py": "15ad2fb534cbee162a0876222e06cebe0c4871784ed18fe185c91744f1ace64f",
+    "wildfire_burned_area_hourly/probability_model/subset_country.py": "5f6cf3c70561a47c23ed0079e0c08e2eba01e32e9a6b4a3737fec9e8ae6dfbd9",
+    "wildfire_burned_area_hourly/probability_model/train.py": "2cfb021467c80ea2044cf1f599b999fe668fedbcd46e60f0381920b68c1a6828",
+    "wildfire_burned_area_hourly/probability_model/verify_training.py": "4d9f02f29477cb1e854f5a3d192a1621d0c2f5eb549602a837ceb54e4f359e34",
+    "wildfire_burned_area_hourly/probability_model/report_training.py": "dbedf55b040b1627fbf411092cf8c1fcd51dc4e544bb98a6abc244ec2943a99e",
+    "wildfire_burned_area_hourly/probability_model/kernel_search.py": "ae78e99f055c89c12d265bc3cb61831faa86acaec94cb35a97bfe013def222c9",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_scheduled.py": "7ca7488d7ac4dfc489ff260f0b0d408aadb9d4506f48b8dfc558351397ca7614",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_mixed.py": "f82d9eccdc9700a537595e5fdb8cb34009b97e06f2f630ef28fe4c220dacd7bc",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_multiscale.py": "7b280fbab602173a2afaf18f82b10e5e1cf51bab442ecca9abe6179d77f309eb",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_portable.py": "95ae09cd79aded8052370b642e9fe871761ec3f2951802ca33bfef328c1da23e",
+    "wildfire_burned_area_hourly/__main__.py": "c2e71945a6da801577abf3dcf075f31c882e04c31c15b71ccb8156469844052c",
+    "tests/probability/test_weighted_split.py": "33071fc9bcdcb832646f95180aacc3acffd66f67c55b7b3a4737e0a2dd737abd",
+    "tests/probability/test_weighted_resplit.py": "aef313befcc544a2e2ff2b8b9f0149f0f19ee09bd882365f81d6287022346d5c",
+    "tests/probability/test_row_split_contract.py": "888f1dcb0f98a5f2f95a377f131f2538862d282e0faabac9c88fbd42cf325316",
+    "tests/probability/test_search_row_split.py": "9fd52fe293cf70daf9ce97444a8ddab9f8c64602844d3458e6a60098b04637d0",
+    "tests/probability/test_preparation_split_policy.py": "17329e6390c5c7a5c9fb852bc4943fac28d2cc9a062280265682e6886dc5e63d"
+  },
+  "mirrored_code_and_tests_byte_identical": true,
+  "generation_audit": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_weighted_stratified_split/prepared_all/resplit.json",
+  "generation_audit_timestamp": "2026-10-09T14:25:03.333081+00:00",
+  "source_files_verified_during_generation": 486,
+  "stratum_count": 163,
+  "singleton_stratum_count": 13,
+  "training_started": false,
+  "fitted_state_reused": false,
+  "regression_verification": {
+    "command": ".venv/bin/python -m pytest tests/probability tests/test_api.py tests/test_workspace.py -q",
+    "passed": 827,
+    "skipped": 8,
+    "warnings": 272,
+    "seconds": 64.63,
+    "log": "/private/tmp/wildfire-stratified-reviewed-regression.log",
+    "scope": "Final reviewed source, including cleanup and split-map validation repairs; fixture training only"
+  },
+  "actual_cache_search_preflight": {
+    "cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_weighted_stratified_split/prepared_all",
+    "split_unit": "cell_hour",
+    "verified_source_files": 486,
+    "test_used_for_selection": false,
+    "protocol_file": "/private/tmp/wildfire-weighted-split-preflight/protocol.json",
+    "training_invoked": false
+  }
+}

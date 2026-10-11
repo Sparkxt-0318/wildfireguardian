@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "verified_at_utc": "2026-10-08T20:53:36.614591+00:00",
+  "execution_host": "macOS; Linux path relocation simulated with a separate data directory",
+  "cuda_execution_checked": false,
+  "training_started": false,
+  "real_source_files_verified": 486,
+  "candidate_count": 368,
+  "metadata_fields_changed": [
+    "data_root"
+  ],
+  "original_cache_preserved": true,
+  "prepared_array_hashes_preserved": true,
+  "original_cache_sha256": {
+    "metadata.json": "5a83a0d0e3ec4dcff75cf9cb23efd560724169186175a6328496e878086a95c2",
+    "train.npz": "b173420d618679ad0f70920cde12fce4ae595b245478e90ad3339cec23261a32",
+    "validation.npz": "0c6520af473cfb672bb9d121a2adaffda8448b8bd733cecfe15c1ed73f9e2174",
+    "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+  },
+  "relocated_cache_sha256": {
+    "metadata.json": "f4bcd021d4da5034f53a61ee08025fcb81950625b3d7baf9c2a8840fe12bcba5",
+    "train.npz": "b173420d618679ad0f70920cde12fce4ae595b245478e90ad3339cec23261a32",
+    "validation.npz": "0c6520af473cfb672bb9d121a2adaffda8448b8bd733cecfe15c1ed73f9e2174",
+    "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+  },
+  "repeat_status": "already_present",
+  "temporary_verification_files_retained": false
+}

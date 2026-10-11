@@ -1,0 +1,67 @@
+{
+  "verified_at_utc": "2026-10-09T15:06:18.928538+00:00",
+  "regression": {
+    "passed": 891,
+    "skipped": 8,
+    "warnings": 272,
+    "seconds": 54.28,
+    "command": ".venv/bin/python -m pytest tests/probability tests/test_api.py tests/test_workspace.py -q",
+    "log": "/private/tmp/wildfire-categorical-reviewed-regression.log",
+    "environment_note": "Shared-memory access for OpenMP subprocess imports; failed sandbox subprocess reached no test assertion"
+  },
+  "training_data_audit_sha256": "ff0f88c2b452976254cdb0aebfcca39d27537acdd2945f2609667d4f34cf69ab",
+  "source_sha256": {
+    "wildfire_burned_area_hourly/api.py": "965bbd4d21699469a3740804d95712f097fe0289a036dc5efeeebe2b1ae79801",
+    "wildfire_burned_area_hourly/probability_model/cache.py": "033c79f22707ff91518df2ff5bc8a982d186cbc0824c253faa87e0551a46264c",
+    "wildfire_burned_area_hourly/probability_model/train.py": "23d8a25e613758a570edca5061d5745d80c10a109c7e22147715cf450530a5f4",
+    "wildfire_burned_area_hourly/probability_model/verify_training.py": "da02e29b38b18ba546f13fdddf6880700fa075c15b8a654bf6f34c2c93b1366c",
+    "wildfire_burned_area_hourly/probability_model/report_training.py": "cfdaf96bef76535f3d46258133b9ab43ea491afc4ea60b52a0585278a4045d7c",
+    "wildfire_burned_area_hourly/probability_model/categorical_balance.py": "ca3369de06be01d3111a3bd2302fd11c879fd015578725acb7b0cd3706d4fec7",
+    "wildfire_burned_area_hourly/probability_model/kernel_search.py": "07f40ac10759d961d99bf2ffd4eecc926d98a025c633fbad5a35f0ef01425e90",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_scheduled.py": "874cfa602b0d1e2ae95e5fda36c3a84698de30aa5c8a9b65ead27afd3a5902b0",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_mixed.py": "f63ccb688bb70c5bd610399989cecec8cc0230a2ebc7f01405b50f9963b43071",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_multiscale.py": "44c4206a8381a418cd4644b5e97e4aff49a30beee6b6e5bfd0f96386ccdf8d87",
+    "wildfire_burned_area_hourly/probability_model/kernel_search_portable.py": "72495622cefaaa2efd3e681609732a2fcf8f2a1aef9397c754e7b842b92d7a74"
+  },
+  "test_sha256": {
+    "tests/probability/test_categorical_balance.py": "efd250029e8725ec341e2fcd01b775460f33f96c38ea531768c59a70b1b71999",
+    "tests/probability/test_categorical_training.py": "45b669457f645c9684224fbebc096de2327fa9f101027b84220383733102f0b0",
+    "tests/probability/test_search_row_split.py": "1f428c24b08e65b9870c123450f3503ea7a81eb2e3df7a3fe1fce89f1ae9f7fe",
+    "tests/probability/test_kernel_search_portable.py": "f6d15816e37bd317ff21c3db2ec24f7474091dfc6ddc500ae41b7af46e822bae",
+    "tests/probability/test_kernel_search_forest.py": "d98fdc41ae963d563ed046a539d91ce9bc25c5914676e84ad23a021115a6b66e"
+  },
+  "mirrors_byte_identical": true,
+  "prepared_cache_hashes_unchanged": {
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_weighted_stratified_split/prepared_all": {
+      "metadata.json": "3f1a68e28217d198d32c705b3753e79624690dc8bc224dceb5428b10e850e7bf",
+      "train.npz": "44ecb4fea32c866d7ee702765f505cdef93d2d4d5e959ba02d0432eb5cb80a11",
+      "validation.npz": "36c3d4f53782fe0694249a7cff3eb6835115d6f511a4424e800b75a3aca45ef8",
+      "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+    },
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/wildfire_burned_area_hourly/probability_model/training_runs/20261009_weighted_stratified_split/prepared_all": {
+      "metadata.json": "6cd4ae585ac94609cd4bc0ad84a9af55301ebc93e1c6dc3e75c7692adffa87e8",
+      "train.npz": "44ecb4fea32c866d7ee702765f505cdef93d2d4d5e959ba02d0432eb5cb80a11",
+      "validation.npz": "36c3d4f53782fe0694249a7cff3eb6835115d6f511a4424e800b75a3aca45ef8",
+      "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+    }
+  },
+  "array_archives_byte_identical_between_workspaces": true,
+  "real_cache_preflight": {
+    "protocol_path": "/private/tmp/wildfire-categorical-balance-preflight/protocol.json",
+    "protocol_sha256": "c5a06ef1d2690397596b99812e74ffbcca4334d594396161fc5bdba6881d0a92",
+    "verified_source_files": 486,
+    "split_unit": "cell_hour",
+    "settings": {
+      "mode": "inverse-sqrt",
+      "min_frequency": 0.001,
+      "max_factor": 10.0,
+      "chunk_size": 512
+    },
+    "test_used_for_selection": false,
+    "training_invoked": false
+  },
+  "actual_probability_model_training_performed": false,
+  "synthetic_fit_tests_only": true,
+  "full_dataset_predictive_performance_measured": false,
+  "tutorial_training_disabled": true
+}

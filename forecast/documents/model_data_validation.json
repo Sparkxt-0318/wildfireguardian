@@ -1,0 +1,123 @@
+{
+  "checked_at_utc": "2026-10-07T07:59:56.026907+00:00",
+  "interpretation": "Untrained technical integration checks; no fitting or forecast-skill evaluation",
+  "torch_version": "2.5.1",
+  "device": "cpu",
+  "mps_available": false,
+  "cuda_available": false,
+  "channel_names": [
+    "weather.temperature_2m",
+    "weather.wind_eastward_10m",
+    "weather.wind_northward_10m",
+    "terrain.slope_degrees",
+    "vegetation.tree_cover_percent"
+  ],
+  "kernel_size": 3,
+  "boundary": "unknown",
+  "individual_sequences": [
+    {
+      "output_shape": [
+        2,
+        1,
+        79,
+        237
+      ],
+      "valid_probabilities": 20618,
+      "valid_unburned_targets": 20618,
+      "positive_new_burn_probabilities": 0,
+      "unknown_probabilities": 16828,
+      "valid_rates": 20618,
+      "event_id": "KFS_01",
+      "sample_index": 0,
+      "input_shape": [
+        2,
+        5,
+        79,
+        237
+      ]
+    },
+    {
+      "output_shape": [
+        2,
+        1,
+        79,
+        237
+      ],
+      "valid_probabilities": 20674,
+      "valid_unburned_targets": 19532,
+      "positive_new_burn_probabilities": 304,
+      "unknown_probabilities": 16772,
+      "valid_rates": 20618,
+      "event_id": "KFS_01",
+      "sample_index": 14,
+      "input_shape": [
+        2,
+        5,
+        79,
+        237
+      ]
+    },
+    {
+      "output_shape": [
+        2,
+        1,
+        318,
+        309
+      ],
+      "valid_probabilities": 49546,
+      "valid_unburned_targets": 49546,
+      "positive_new_burn_probabilities": 0,
+      "unknown_probabilities": 146978,
+      "valid_rates": 49546,
+      "event_id": "CA-BTU-009205_Dixie",
+      "sample_index": 0,
+      "input_shape": [
+        2,
+        5,
+        318,
+        309
+      ]
+    },
+    {
+      "output_shape": [
+        2,
+        1,
+        318,
+        309
+      ],
+      "valid_probabilities": 51100,
+      "valid_unburned_targets": 30293,
+      "positive_new_burn_probabilities": 1138,
+      "unknown_probabilities": 145424,
+      "valid_rates": 49546,
+      "event_id": "CA-BTU-009205_Dixie",
+      "sample_index": 276,
+      "input_shape": [
+        2,
+        5,
+        318,
+        309
+      ]
+    }
+  ],
+  "mixed_rectangular_batch": {
+    "output_shape": [
+      2,
+      2,
+      1,
+      318,
+      309
+    ],
+    "valid_probabilities": 71774,
+    "valid_unburned_targets": 49825,
+    "positive_new_burn_probabilities": 1442,
+    "unknown_probabilities": 321274,
+    "valid_rates": 70164
+  },
+  "spatial_padding_stays_unknown": true,
+  "per_snapshot_horizons_checked": true,
+  "finite_nonzero_parameter_gradients": true,
+  "finite_environment_gradients": true,
+  "zero_horizon_checked": true,
+  "passed": true
+}

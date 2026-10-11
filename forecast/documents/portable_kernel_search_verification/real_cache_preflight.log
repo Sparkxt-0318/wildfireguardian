@@ -1,0 +1,14 @@
+Execution device: cpu
+Cache relocated: /private/tmp/wildfire-portable-command-34ybbxdp/relocated_cache
+Verified original environmental sources: 486
+Experiment output: /private/tmp/wildfire-portable-command-34ybbxdp/never_started_run
+{
+  "status": "passed",
+  "device": "cpu",
+  "candidate_count": 368,
+  "verified_source_files": 486,
+  "cache": "/private/tmp/wildfire-portable-command-34ybbxdp/relocated_cache",
+  "intended_output": "/private/tmp/wildfire-portable-command-34ybbxdp/never_started_run",
+  "training_started": false,
+  "experiment_output_modified": false
+}

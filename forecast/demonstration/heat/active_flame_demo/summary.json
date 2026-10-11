@@ -1,0 +1,192 @@
+{
+  "event_id": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-23T00:00:00+00:00",
+  "endpoint_utc": "2024-08-23T01:00:00+00:00",
+  "shape": [
+    103,
+    73
+  ],
+  "epsg": 5070,
+  "cell_area_m2": 140625.0,
+  "checkpoint": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+  "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+  "inference_input_keys": [
+    "burned_area",
+    "features",
+    "channel_names",
+    "burned_area_valid",
+    "feature_valid",
+    "affine_transform",
+    "epsg",
+    "time_utc",
+    "time_valid"
+  ],
+  "residence_time": {
+    "method": "scott_burgan_2005_fbfm40_anderson_residence",
+    "equation": "sigma_ft_inv = sum(load * particle_sav_ft_inv**2) / sum(load * particle_sav_ft_inv); duration_s = 384 * 60 / sigma_ft_inv",
+    "output_unit": "seconds",
+    "sources": [
+      {
+        "author_year": "Anderson 1969",
+        "url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+        "location": "printed pp.15-16"
+      },
+      {
+        "author_year": "Andrews 2018",
+        "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+        "location": "section 4.2, printed p.27"
+      }
+    ],
+    "meaning": "point-scale passing surface-fire flaming-front residence time",
+    "limitations": [
+      "excludes indefinite trailing burning and smouldering",
+      "assumes no fuel-bed packing effect",
+      "does not determine coarse-cell traversal time or subcell flame positions",
+      "does not establish arrival time or an active-flame observation"
+    ],
+    "fuel_catalog": {
+      "author_year": "Scott and Burgan 2005",
+      "url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+      "location": "table 7, p.18; constants p.17; code assignment table 1, p.5"
+    },
+    "sav_weighting_source": {
+      "author_year": "Andrews 2018",
+      "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+      "location": "sections 3.2.3-3.2.5, pp.21-24"
+    },
+    "dynamic_curing": "characteristic SAV invariant because transferred herbaceous load preserves SAV (Scott and Burgan p.6)",
+    "gs4_source_note": "table 7 parameters imply approximately 1631 ft^-1, consistent with Andrews table 8c; Scott and Burgan GS4 summary reports 1674 ft^-1",
+    "catalog_codes_used": {
+      "101": "GR1",
+      "102": "GR2",
+      "121": "GS1",
+      "122": "GS2",
+      "142": "SH2",
+      "161": "TU1",
+      "165": "TU5",
+      "181": "TL1",
+      "183": "TL3",
+      "188": "TL8"
+    },
+    "catalog_cell_count": 7346,
+    "fallback_cell_count": 173,
+    "missing_code_cell_count": 0,
+    "unsupported_finite_codes": [
+      98,
+      99
+    ],
+    "fallback_scenario_supplied": true,
+    "fallback_sav_m_inv": 6561.679790026246
+  },
+  "fuel_raster": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/landfire_2016_fbfm40_375m.tif",
+  "fuel_raster_sha256": "27bbcdcc85dadddf69ed82abf91213dccd8795686960e0e54b15564861c5c666",
+  "fuel_reference_epoch": 2016,
+  "fuel_class_aggregation": "modal native LANDFIRE class in each 375 m cell",
+  "fallback_sav_ft_inv": 2000.0,
+  "residence_fallback_cells": 173,
+  "residence_duration_s": {
+    "finite_cells": 7519,
+    "minimum": 11.219002375296913,
+    "median": 18.83071682602384,
+    "maximum": 18.83071682602384
+  },
+  "nominal_current_active_locations": 0,
+  "nominal_arrival_valid_locations": 2642,
+  "arrival_kriging_std_hours": {
+    "finite_cells": 2642,
+    "minimum": 32.776554107666016,
+    "median": 87.61341857910156,
+    "maximum": 246.66561889648438
+  },
+  "forecast_endpoint_probability": {
+    "finite_cells": 225,
+    "minimum": 0.0,
+    "median": 0.0,
+    "maximum": 0.00047504848544397576
+  },
+  "forecast_selected_candidates": 0,
+  "forecast_positive_probability_locations": 23,
+  "forecast_selected_fallback_candidates": 0,
+  "candidate_selection_min_probability": 0.001,
+  "forecast_metadata": {
+    "scope": "newly igniting locations only; ongoing flames require separate age or present-flame inputs",
+    "arrival_time_assumption": "uniform within forecast interval conditional on first-new-burning event",
+    "residence_time": {
+      "method": "scott_burgan_2005_fbfm40_anderson_residence",
+      "equation": "sigma_ft_inv = sum(load * particle_sav_ft_inv**2) / sum(load * particle_sav_ft_inv); duration_s = 384 * 60 / sigma_ft_inv",
+      "output_unit": "seconds",
+      "sources": [
+        {
+          "author_year": "Anderson 1969",
+          "url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+          "location": "printed pp.15-16"
+        },
+        {
+          "author_year": "Andrews 2018",
+          "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+          "location": "section 4.2, printed p.27"
+        }
+      ],
+      "meaning": "point-scale passing surface-fire flaming-front residence time",
+      "limitations": [
+        "excludes indefinite trailing burning and smouldering",
+        "assumes no fuel-bed packing effect",
+        "does not determine coarse-cell traversal time or subcell flame positions",
+        "does not establish arrival time or an active-flame observation"
+      ],
+      "fuel_catalog": {
+        "author_year": "Scott and Burgan 2005",
+        "url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+        "location": "table 7, p.18; constants p.17; code assignment table 1, p.5"
+      },
+      "sav_weighting_source": {
+        "author_year": "Andrews 2018",
+        "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+        "location": "sections 3.2.3-3.2.5, pp.21-24"
+      },
+      "dynamic_curing": "characteristic SAV invariant because transferred herbaceous load preserves SAV (Scott and Burgan p.6)",
+      "gs4_source_note": "table 7 parameters imply approximately 1631 ft^-1, consistent with Andrews table 8c; Scott and Burgan GS4 summary reports 1674 ft^-1",
+      "catalog_codes_used": {
+        "101": "GR1",
+        "102": "GR2",
+        "121": "GS1",
+        "122": "GS2",
+        "142": "SH2",
+        "161": "TU1",
+        "165": "TU5",
+        "181": "TL1",
+        "183": "TL3",
+        "188": "TL8"
+      },
+      "catalog_cell_count": 7346,
+      "fallback_cell_count": 173,
+      "missing_code_cell_count": 0,
+      "unsupported_finite_codes": [
+        98,
+        99
+      ],
+      "fallback_scenario_supplied": true,
+      "fallback_sav_m_inv": 6561.679790026246
+    },
+    "forecast_interval_s": 3600.0,
+    "position_semantics": "projected grid-cell centers with estimated instantaneous probability",
+    "calibration": "derived timing scenario; not calibrated against active-flame observations",
+    "predictor": {
+      "checkpoint_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+      "architecture": "DirectEnvironmentConditionedConvolution",
+      "probability_semantics": "first new cumulative burning during next exact hour"
+    },
+    "epsg": 5070,
+    "cutoff_unix_s": 1724371200
+  },
+  "limitations": [
+    "Retrospective reconstructed arrivals are not observed exact flaming onsets.",
+    "Arrival uncertainty is much greater than point flaming residence; the nominal indicator is a scenario.",
+    "Forecast probabilities add uniform within-hour arrival and reference-fuel residence assumptions.",
+    "These grid centers are not observed flame coordinates or subcell flame-front geometry.",
+    "Main-front residence excludes smoldering and does not guarantee extinction of all trailing flames.",
+    "A selected probability threshold is not evidence of calibrated active-flame detection skill.",
+    "Ongoing flames are excluded from the new-ignition forecast; the nominal current calculation is separate."
+  ]
+}

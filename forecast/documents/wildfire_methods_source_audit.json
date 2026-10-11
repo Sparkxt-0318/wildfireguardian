@@ -1,0 +1,428 @@
+{
+  "created_at": "2026-10-08T19:28:14.294031+09:00",
+  "scope": "Full maintained hourly reconstruction/probability/residence/radiation workflow; no training or publisher-study rerun",
+  "artifacts": {
+    "latex": {
+      "path": "documents/wildfire_methods.tex",
+      "sha256": "433fa956efc75c625007f1a9dcf274834f0af23ad0c41689fc138f5ae8bfc18c",
+      "lines": 2957,
+      "whitespace_token_count": 18341
+    },
+    "pdf": {
+      "path": "documents/wildfire_methods.pdf",
+      "sha256": "9410c19f52e7448a34a992f0c974313542ba71bcedefdfe9953f41366ae1e066",
+      "bytes": 595486,
+      "pages": 46
+    }
+  },
+  "source_file_count": 67,
+  "source_files": [
+    {
+      "path": "README.md",
+      "bytes": 46230,
+      "sha256": "06fb35b3b20a971e6b8a9b0d42f123a3456478daa251c69f2da094d99da9fe8f"
+    },
+    {
+      "path": "documents/flame_residence_literature.md",
+      "bytes": 21824,
+      "sha256": "50aae8587c480166488283a904917c4ac2e457ada024758122cf16df25c1cca7"
+    },
+    {
+      "path": "expected_heat_flux/__init__.py",
+      "bytes": 1162,
+      "sha256": "08d7766afaaa417e004400e236fbf7b44d4475c8228ce84e0e28ef4cebd37219"
+    },
+    {
+      "path": "expected_heat_flux/active_flame_example.py",
+      "bytes": 11833,
+      "sha256": "cd142ebc98ada601dd7c98ccd99951d27dd93eade700206fa6b39ad5f4ef64c8"
+    },
+    {
+      "path": "expected_heat_flux/ecology.py",
+      "bytes": 13779,
+      "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+    },
+    {
+      "path": "expected_heat_flux/example.py",
+      "bytes": 8404,
+      "sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899"
+    },
+    {
+      "path": "expected_heat_flux/flames.py",
+      "bytes": 12983,
+      "sha256": "187e11e850fe53e36e3c9dc8974f6ee736349138db3882c886286c94eb5db097"
+    },
+    {
+      "path": "expected_heat_flux/integrated_example.py",
+      "bytes": 16162,
+      "sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b"
+    },
+    {
+      "path": "expected_heat_flux/model.py",
+      "bytes": 21078,
+      "sha256": "2f238cbbcc9a26b5c1138cf012494c710c94f566eebc1db8cee472cbc83954ee"
+    },
+    {
+      "path": "expected_heat_flux/outputs/active_flame_demo/summary.json",
+      "bytes": 8279,
+      "sha256": "27ca11e8b8d416deb5373cd0a7104edb03f94af2c63f24a74d23230d872faac7"
+    },
+    {
+      "path": "expected_heat_flux/outputs/integrated_demo/summary.json",
+      "bytes": 13404,
+      "sha256": "f1d4f7ce5ef26afb5d4f36cfeeb4bdf10470826b1d89b22cea781fdc16990b4a"
+    },
+    {
+      "path": "expected_heat_flux/pipeline.py",
+      "bytes": 20680,
+      "sha256": "f7db5f0163e476846978e807e20d442e95ef28ecd14650b3a0ca21a5ea268bd1"
+    },
+    {
+      "path": "expected_heat_flux/residence.py",
+      "bytes": 19528,
+      "sha256": "d39ac6de9751746f4089a78801910e02b604cede7c0c52c9070d582f0047998a"
+    },
+    {
+      "path": "expected_heat_flux/sources.json",
+      "bytes": 18797,
+      "sha256": "afdda28df1d4c43d767081ceff7b92c5d3e95c24858fdd6ea6c049d14c72e3d6"
+    },
+    {
+      "path": "expected_heat_flux/temporal.py",
+      "bytes": 8490,
+      "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 1359,
+      "sha256": "86fca0dd6a74433485493aeb29272f44098d626ad31b970e086ece54a2f62ed2"
+    },
+    {
+      "path": "tests/heat/test_ecology.py",
+      "bytes": 8025,
+      "sha256": "5881f54cc939bed76a601d1ee9424230ac8f243a2c7fb67de0abf823316acec8"
+    },
+    {
+      "path": "tests/heat/test_residence.py",
+      "bytes": 8739,
+      "sha256": "ba7bbf017a44f0f3e60451334363f3e838b0b774006e3e65af34bf63d34b57bb"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/api.py",
+      "bytes": 20481,
+      "sha256": "d531ea34a9beff64ef8629940b20741f2231af81b1b8aa48c1be44b8d4c38d92"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/api_example.py",
+      "bytes": 3793,
+      "sha256": "abc9b84c31a1d15ced3f31819da7a9d8278c81884114ad573f02592e6065f93f"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+      "bytes": 11984,
+      "sha256": "8d0abf8b933b93304b455bb4e2a0ac5b9166da818471da068080215cdf45623d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/acquire_environment.py",
+      "bytes": 44073,
+      "sha256": "edd106808cee00bd1b724a9431881c085cc3f7269fc0a1e9feac9e81165aa6fc"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+      "bytes": 4674,
+      "sha256": "ee6d58f59aaa419c540179ed80b33f58f275118609416a1d9bb0535f5f48eb97"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+      "bytes": 7031,
+      "sha256": "ede5d44f6514d315ebac5994af733b6bdd4855ae9b8a117e79b4fca4b3c27f01"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/validation_summary.json",
+      "bytes": 715802,
+      "sha256": "04948d4d6545e7bc5257fa11c12accaa7cbff31d16681614c05ba7bab9980d23"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/__init__.py",
+      "bytes": 377,
+      "sha256": "482f0cbb8354348e740d44b0e0e9494bca24ded4d79b3ed3a35e337795a0a0ab"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/_inference.py",
+      "bytes": 2881,
+      "sha256": "2f25c70c2118762803d8f0743b650966af890ee5df1141360e9058c4f9c2d92a"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+      "bytes": 29859,
+      "sha256": "1907ec914b99090c74c28153f81d6392352c88f692d0729ad4156e36377d84fc"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/cache.py",
+      "bytes": 5977,
+      "sha256": "9a69803d14646af8374fcb7b639c101520f56541b080142429240a7f9351aff6"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/__init__.py",
+      "bytes": 489,
+      "sha256": "28b59e6f97023eccf40c39a6bcb1454a4be2d7227b82c3b0cf463aea2ee950e8"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+      "bytes": 9043,
+      "sha256": "f44a5b71bf5a19bd964ecff8e66183059152d036ad4266ad2238e5a49d7e2898"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+      "bytes": 3928,
+      "sha256": "dda17bcf477cc1c8ccecaa65337c1e03b1a3329020e26f11da11668b756b648e"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/model.py",
+      "bytes": 10760,
+      "sha256": "e346c912fcb9baf6687748291f1c4dcf4640a5a5f4990f677cfb685db7030c71"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+      "bytes": 42557,
+      "sha256": "0349bf0aedf041087fa6f1c51d2be105cd49e55e259b1c1058e9aa245aca1a19"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+      "bytes": 23665,
+      "sha256": "eed4efba71794e91f57745832bad691943974af5bbb37e494e68aa8160920965"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+      "bytes": 26161,
+      "sha256": "38a39ad0d1e53056ffc53b5adb93dba73e55bbf479b347a5899caa730dfd5955"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+      "bytes": 9530,
+      "sha256": "8ba2cc24b82b6ea038f68551bcf81c604d4c7a68366be4fbd88c540fdd47566a"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/example.py",
+      "bytes": 3036,
+      "sha256": "1ccec127f2afa1dd59b184a16d10ad02b053a24bf49e6347a2570b025243332d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/filter_contact.py",
+      "bytes": 4559,
+      "sha256": "65962f531831b274727e496545e2fb0d85ea793150b0a99ca786c469c91baf11"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/inference.py",
+      "bytes": 3229,
+      "sha256": "48f5cdef4891f87928aa4fe13dd0ef74c6e7f80086b728f50522e92dddb110c3"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/input_schema.py",
+      "bytes": 3523,
+      "sha256": "04f8967466853b89f85d8e21f64402df335520c340621e2b78d2af73fa1a0945"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/metrics.py",
+      "bytes": 7684,
+      "sha256": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/model.py",
+      "bytes": 14576,
+      "sha256": "b4dd342e96eb8fa237f2c847d60e54f95d4144c4d31fcb851851b03ef41a4c5d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/prepare_training.py",
+      "bytes": 16157,
+      "sha256": "5f9157369e0385e3575f273e10503b03c17846ce3498d044bb57c82c9649ba86"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/report_training.py",
+      "bytes": 43213,
+      "sha256": "122048ae09dc061b3e2c2715a6ef0065d13502a28cc2045c47a96ec1540c317c"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/runtime.py",
+      "bytes": 811,
+      "sha256": "e7fd8de1867da1ae1608fb2d23b618701ae21c7364641a8acc25ff468e6a24aa"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/subset_country.py",
+      "bytes": 5816,
+      "sha256": "a24cd994344cdd1131fb56bc75bdcdb6b874b02cf9c2a56ccd1fd8c39c931ef6"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/train.py",
+      "bytes": 21825,
+      "sha256": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "bytes": 65988,
+      "sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_metrics.json",
+      "bytes": 123306,
+      "sha256": "0823b69120f044c352bd181d5a66e970f276474508136a56cf6dccf640749a77"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/common_selection.json",
+      "bytes": 215,
+      "sha256": "9179b9e545373938eb4209ce05dbf6b4a93660d0189900fa7dcf80534ec05643"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "bytes": 16325,
+      "sha256": "f85776979e7aab920c1104f511f2443dd2c08b0d957241fe1b0334b7aeb54448"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/protocol.json",
+      "bytes": 5152,
+      "sha256": "957bde232b2d671a8b2a008746115ccbd83ad49cbc701cb39b1a79404a77ff97"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_metrics.json",
+      "bytes": 77271,
+      "sha256": "dae8fd52ed071943f8a2a7cd09c1c86bdde21f705d20424bd215474a0e370a8c"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/common_selection.json",
+      "bytes": 207,
+      "sha256": "149974d341e204b11b86ad46c3ed36e4bf3873d5756e32912c889d2f6dd04d62"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "bytes": 13904,
+      "sha256": "aac82521c248c98b486eaec5f836515d15e87c5c1437186c3960953f3cb8e77a"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/protocol.json",
+      "bytes": 1683,
+      "sha256": "c6d84876b69308db5ba7ed2afbd1efcfac0939232460a0560c2fa1e2eea3ce0c"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/validate_real_data.py",
+      "bytes": 4945,
+      "sha256": "e61da7d553de4f3bef954b048f3cf393dd9d8737910cd2ffc2cec82abc500145"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/verify_training.py",
+      "bytes": 6148,
+      "sha256": "fbca229aa058d452ae789d02ed301f0e37ad820eb4e423c7886400f0c828446b"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+      "bytes": 30264,
+      "sha256": "dec4b3b4702219d55c721c5a341247a9a659ac8318163b09d78ddb7d9afd2bf0"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/pytorch_loader/real_data_validation.json",
+      "bytes": 654090,
+      "sha256": "9a22b984a114bb2450456e9ea4783988a15b7083b8f0acddc6564e5b1caa03ca"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/source_manifest.json",
+      "bytes": 2646,
+      "sha256": "de8a3c5a3980eb3006590591ea340a11dc5c633c4b037cd1fa3fb5192e88c26e"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/block_cv.py",
+      "bytes": 5476,
+      "sha256": "688db50c2b9a77129011b158ea811bd1a35c59fbad5b06a0ed83349a375b9732"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/evaluate_sc.py",
+      "bytes": 4111,
+      "sha256": "7c6c970e847b6395b32c0b2c9583bdb3f4c0ae89091504c81b1b6a8aa6d09212"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/preprocess.py",
+      "bytes": 2613,
+      "sha256": "ff11faa3f856da6c21e7b541d57a2465aa70698453990b142ea84239e270f950"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/produce_rasters.py",
+      "bytes": 3579,
+      "sha256": "bc3d3e6e3b56b0ee40d283c2574010269e6c179cec871336f92167a7381a8097"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/toa_kriging.py",
+      "bytes": 6173,
+      "sha256": "e414005d259cd936fb75adf9cab100b1e704d53d69dc1bbdd3a6485463914f47"
+    }
+  ],
+  "verification": {
+    "desktop_latex_compiler": "success on final source",
+    "export_compiler": "pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew)",
+    "final_latex_diagnostics": [],
+    "missing_references": [],
+    "missing_citations": [],
+    "duplicate_labels": [],
+    "document_python_examples": [
+      {
+        "example": 1,
+        "code_sha256": "98da7b0a832f67e3bb2589a7057a5ee774c4af16fd1ea1f131b7096cf04ef878",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "example": 2,
+        "code_sha256": "2584d5829d14e526350f21a4e5c2f3b38a2f26afb14a0e518d823010d3fa0b1c",
+        "exit_code": 0,
+        "stdout": "225",
+        "stderr": ""
+      }
+    ],
+    "selected_tests": {
+      "command": ".venv/bin/python -m pytest tests/heat/test_residence.py tests/heat/test_ecology.py -q -p no:cacheprovider",
+      "passed": 118,
+      "failed": 0,
+      "elapsed_s": 0.37,
+      "evidence": "Current task collaborator tool execution, exit code 0; output captured in conversation transcript, no separate test log",
+      "scope": "residence and ecological-reader contracts only"
+    },
+    "worked_calculations": {
+      "mean_flux_w_m2": 196.66666666666669,
+      "endpoint_flux_w_m2": 200.0,
+      "hourly_dose_j_m2": 708000.0000000001,
+      "residence_s": 11.52,
+      "mean_flame_probability": 0.002555904,
+      "endpoint_flame_probability": 0.0025599999999999998
+    },
+    "saved_cpu_example": {
+      "command": ".venv/bin/python -m wildfire_burned_area_hourly.api_example --device cpu",
+      "exit_code": 0,
+      "shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "channel_count": 19,
+      "valid": 225,
+      "unknown": 7294,
+      "maximum_known_probability": 0.09081834554672241
+    },
+    "visual_inspection": "All-page overview inspected; final representative pages inspected at larger scale after final text edits",
+    "final_rendered_pages_inspected": [
+      1,
+      16,
+      24,
+      35,
+      40,
+      46
+    ],
+    "hashes_verified_at_delivery": {
+      "artifacts": 2,
+      "source_files": 67
+    }
+  },
+  "limitations": [
+    "Software and mathematical checks do not establish observed hourly burned-area accuracy, active-flame detection skill, physical parameter calibration, measured heat-flux agreement, or operational forecast performance.",
+    "Saved experimental scores were read and checked against saved records; models were not refitted.",
+    "No full-data acquisition, checksum revalidation, or published reconstruction rerun was performed for document authorship."
+  ]
+}

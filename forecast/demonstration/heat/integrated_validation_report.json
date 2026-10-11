@@ -1,0 +1,71 @@
+{
+  "checked_on": "2026-10-07",
+  "timezone": "Asia/Seoul",
+  "package_version": "0.2.0",
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "1.26.4",
+    "torch": "2.5.1",
+    "device": "CPU",
+    "mps_available": false,
+    "cuda_available": false
+  },
+  "tests": {
+    "command_from_workspace": ".venv/bin/python -m pytest expected_heat_flux/tests -q",
+    "passed": 225,
+    "failed": 0,
+    "component_counts": {
+      "radiation": 69,
+      "ecology": 26,
+      "temporal": 75,
+      "pipeline": 55
+    }
+  },
+  "verification_scope": "Mathematical/numerical integration and saved-model/data provenance; no measured heat-flux calibration or accuracy validation",
+  "integrated_example": {
+    "event": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00+00:00",
+    "shape": [
+      103,
+      73
+    ],
+    "known_probability_cells": 225,
+    "unknown_probability_cells": 7294,
+    "complete_full_domain_expectation": false,
+    "known_source_peak_w_m2": 147.87655962194273,
+    "upper_bound_peak_w_m2": 1878.980434455931,
+    "expected_flux_unknown_preserved": true,
+    "bounds_order_checked": true,
+    "dose_identity_checked": true,
+    "saved_array_count": 26,
+    "source_masks_and_external_estimates_preserved": true,
+    "figure_visually_inspected": true,
+    "source_and_checkpoint_provenance": "integrated_demo/summary.json"
+  },
+  "packaging": {
+    "wheel": "distribution/expected_heat_flux-0.2.0-py3-none-any.whl",
+    "sha256": "39bba858c263218ad73b965dd4f0d99fff02fac0a0bf62080438e09f5fa91905",
+    "external_installed_import": "passed",
+    "actual_trained_architecture_loads": [
+      "DirectEnvironmentConditionedConvolution",
+      "EnvironmentConditionedConvolution"
+    ],
+    "complete_single_cell_new_burn_mean_flux_w_m2": 47.91666666666666
+  },
+  "source_sha256": {
+    "__init__.py": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d",
+    "model.py": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed",
+    "pipeline.py": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942",
+    "ecology.py": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca",
+    "temporal.py": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b",
+    "integrated_example.py": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b",
+    "example.py": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899",
+    "README.md": "e21511a93e97fc4c2ebd570592643fee1d33b1074bb003b2f0a19d4bddb7b0ff",
+    "sources.json": "e285e7dd1f513f57a2f545644d441cb01006baeeae1f91f2a7ed2450396a1cf6",
+    "pyproject.toml": "60ecba5c4eb9d896416a39b99822d30412362004338db64cf67570d0d7a286e5",
+    "tests/test_model.py": "306c61ee583763c44572d6781f844996cbd1927c7648ca5a354c8dd36fc26a49",
+    "tests/test_ecology.py": "5881f54cc939bed76a601d1ee9424230ac8f243a2c7fb67de0abf823316acec8",
+    "tests/test_temporal.py": "c2056da9d8887f0b8cc4d9784e5c049570679395a6db06929ff63d1033aed77f",
+    "tests/test_pipeline.py": "9027604b69f9b6a502f467ce5176037cbc60a4253f55017875d576a5ca1e386e"
+  }
+}

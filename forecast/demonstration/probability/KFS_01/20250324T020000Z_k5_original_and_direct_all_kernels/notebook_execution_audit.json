@@ -1,0 +1,72 @@
+{
+  "result": "passed",
+  "elapsed_seconds": 6.275757041999896,
+  "notebook_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/burn_probability_map_demo.ipynb",
+  "notebook_sha256": "6faafe2966a6f6d12ea05839af074845c02159723e5056381eb4cd3638298a33",
+  "executed_code_cells": 9,
+  "error_outputs": 0,
+  "preferred_inference_device": "mps",
+  "per_checkpoint_inference_devices": {
+    "original": {
+      "3": "mps",
+      "5": "mps",
+      "7": "mps",
+      "9": "cpu"
+    },
+    "direct": {
+      "3": "mps",
+      "5": "mps",
+      "7": "mps",
+      "9": "cpu"
+    }
+  },
+  "per_checkpoint_fallback_reasons": {
+    "original": {
+      "3": null,
+      "5": null,
+      "7": null,
+      "9": "MPS 9x9 average-pool binary-context rounding; use CPU for exact completeness masks"
+    },
+    "direct": {
+      "3": null,
+      "5": null,
+      "7": null,
+      "9": "MPS 9x9 average-pool binary-context rounding; use CPU for exact completeness masks"
+    }
+  },
+  "all_eight_checkpoints_unchanged": true,
+  "previous_demonstration_outputs_unchanged": true,
+  "checkpoint_sha256": {
+    "original_3": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+    "original_5": "b985b5bf0bd6f218e2623a8ffdcf27d742944dfbb60a8f1dd7de7337d8e68ae7",
+    "original_7": "eb9d38c4509bee997e784ca715d337af64a3d8de5740f3e8e1cd1cd03029c86e",
+    "original_9": "6b01d4004c1e76286e92f15cca1bb570ffcd93f2f043b8c579c505beebd98a18",
+    "direct_3": "833a4da7de9c8b2a22decf0809201fc6a1dc5d688ba936680fbcf510c906ba7c",
+    "direct_5": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+    "direct_7": "88e6018d9ff15f42a670bdacbe9d916f5a8a6e10b640eead0222fb7ca998ad34",
+    "direct_9": "a1ae455c007e145e963e5b4ab08133379c24f516c4b44c5e18080df2ca633339"
+  },
+  "previous_demonstration_sha256": {
+    "demonstration_outputs/KFS_01/20250324T020000Z_k5/probability_vs_updated_burned_area.png": "998929a3ea4fdd3376258595da555d2c8f21a44f2f232d87d5183cc36f48f1c9",
+    "demonstration_outputs/KFS_01/20250324T020000Z_k5/probability_vs_updated_burned_area_detail.png": "008cdf1839a42a12ed77e66be2f0397e21248524cc38b9037501f81173301732",
+    "demonstration_outputs/KFS_01/20250324T020000Z_k5/demonstration_summary.json": "20c64bc0fad4fdba7a8ada63fd5fae222096eb86b6e159db360bf70094d3a4cd",
+    "demonstration_outputs/KFS_01/20250324T020000Z_k5/probability_map_arrays.npz": "6c55c6e1afc297db0dfaa211c315fcb29e378be757906024b3c4df09f160e25c",
+    "demonstration_outputs/KFS_01/20250324T020000Z_k5/kernel_probability_maps_common_cells.png": "7bd89894914a2d1c1f73a297abfc7872f9e510475bd15b189cc23862521e9f45"
+  },
+  "artifact_sha256": {
+    "probability_vs_updated_burned_area.png": "f2f36c461f9be9fc55ab44b0fd9b7fb4fc3d4b285226d0ea316b88e4161ec0c5",
+    "probability_vs_updated_burned_area_detail.png": "d227cda397d7baab6f021346425924ecc2f70e85bada8830408556680a328883",
+    "demonstration_summary.json": "728b3b26b3f8412ffd8eeb00c60de12aa2162e6acc716ce5dc03b471377aae9f",
+    "probability_map_arrays.npz": "1227b9a9948826ca01799d08e3ab19fcae60bd2537a1454f075b339ec6895fae",
+    "kernel_probability_maps_common_cells.png": "837da2d3e06a8a20bdb787588909cd4379781b447e561849ced51e147cc18007"
+  },
+  "checks": {
+    "exact_one_hour_pair": true,
+    "arrival_labels_reproduced": true,
+    "complete_context_and_contact_masks_reproduced": true,
+    "prediction_uses_only_current_snapshot": true,
+    "probability_bounds_and_missing_masks": true,
+    "direct_probability_equals_clipped_raw_score": true,
+    "paired_family_eligibility_identical": true
+  }
+}

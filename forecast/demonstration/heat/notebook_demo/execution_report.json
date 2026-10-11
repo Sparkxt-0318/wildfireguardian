@@ -1,0 +1,22 @@
+{
+  "notebook": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/expected_heat_flux/wildfire_expected_heat_demo.ipynb",
+  "executed_interpreter": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/.venv/bin/python",
+  "code_cells_executed": 12,
+  "total_cells": 26,
+  "error_outputs": 0,
+  "embedded_png_outputs": 4,
+  "execution_seconds": 17.344,
+  "valid_nbformat": true,
+  "real_event_round_trip_checked": true,
+  "complete_synthetic_round_trip_checked": true,
+  "analytic_active_one_cell_check_w_m2": 15000.0,
+  "notebook_sha256": "74fa0dcb6f3b06ce53046d2396331d5e09856596ae9d2e5bd261c93b0b312551",
+  "html_relative_document_links_checked": true,
+  "figure_layout_visually_checked": true,
+  "artifacts_sha256": {
+    "real_event_heat_arrays.npz": "73a4becc1a46ef87dad91f2c7ed159a1d953207089936749d499607fc4e6ca93",
+    "complete_synthetic_heat_arrays.npz": "642c0109026593821004eb7a501ebb07350e0eadf6ec2561f6579febe12ba207",
+    "summary.json": "aa6c5f295eb32ef2995858cdb5d2d8b9dfd8afef5a64b8e4e063f6ca1e3ec690",
+    "wildfire_expected_heat_demo.html": "b311e2310501708239c25fc62cb950b67c1467f6f2306d6443c81e038b5be1c2"
+  }
+}

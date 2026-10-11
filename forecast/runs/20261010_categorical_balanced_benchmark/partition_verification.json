@@ -1,0 +1,6 @@
+{
+  "split_unit": "cell_hour",
+  "disjoint_cell_hour_identities": true,
+  "disjoint_contributing_fire_sets": false,
+  "test_fires_disjoint_from_training_validation": true
+}

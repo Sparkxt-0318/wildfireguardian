@@ -1,0 +1,16 @@
+split,scope,base_sample_count,sample_count,positive_sample_count,represented_population_weight,weighted_prevalence,contributing_events,excluded_sample_count,excluded_positive_sample_count,contact_kernel_size
+train,common,3,3,2,3.0,0.6666666666666666,1,0,0,3
+train,native_k3,3,3,2,3.0,0.6666666666666666,1,0,0,3
+train,native_k5,3,3,2,3.0,0.6666666666666666,1,0,0,5
+train,native_k7,3,3,2,3.0,0.6666666666666666,1,0,0,7
+train,native_k9,3,3,2,3.0,0.6666666666666666,1,0,0,9
+validation,common,3,3,2,3.0,0.6666666666666666,1,0,0,3
+validation,native_k3,3,3,2,3.0,0.6666666666666666,1,0,0,3
+validation,native_k5,3,3,2,3.0,0.6666666666666666,1,0,0,5
+validation,native_k7,3,3,2,3.0,0.6666666666666666,1,0,0,7
+validation,native_k9,3,3,2,3.0,0.6666666666666666,1,0,0,9
+test,common,3,3,2,3.0,0.6666666666666666,1,0,0,3
+test,native_k3,3,3,2,3.0,0.6666666666666666,1,0,0,3
+test,native_k5,3,3,2,3.0,0.6666666666666666,1,0,0,5
+test,native_k7,3,3,2,3.0,0.6666666666666666,1,0,0,7
+test,native_k9,3,3,2,3.0,0.6666666666666666,1,0,0,9

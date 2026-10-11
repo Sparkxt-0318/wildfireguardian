@@ -1,0 +1,523 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Seoul",
+  "workspace": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian",
+  "scope": [
+    "wildfire_burned_area_hourly",
+    "expected_heat_flux"
+  ],
+  "legacy_modified": false,
+  "baseline_tests": {
+    "passed": 402,
+    "failed": 0
+  },
+  "final_tests": {
+    "passed": 410,
+    "failed": 0,
+    "warnings": 0,
+    "duration_seconds": 9.11,
+    "command": ".venv/bin/python -m pytest -q",
+    "worker_tests": "Completed with operating-system shared-memory support enabled"
+  },
+  "changes": {
+    "test_file_moves": [
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/direct_convolution/test_evaluate.py",
+        "after": "tests/probability/direct/test_evaluate.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/direct_convolution/test_model.py",
+        "after": "tests/probability/direct/test_model.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/direct_convolution/test_training.py",
+        "after": "tests/probability/direct/test_training.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/test_broader_kernels.py",
+        "after": "tests/probability/test_broader_kernels.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/test_model.py",
+        "after": "tests/probability/test_model.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/test_training.py",
+        "after": "tests/probability/test_training.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/probability_model/test_updated_inputs.py",
+        "after": "tests/probability/test_updated_inputs.py"
+      },
+      {
+        "before": "wildfire_burned_area_hourly/pytorch_loader/test_dataset.py",
+        "after": "tests/loader/test_dataset.py"
+      },
+      {
+        "before": "expected_heat_flux/tests/test_ecology.py",
+        "after": "tests/heat/test_ecology.py"
+      },
+      {
+        "before": "expected_heat_flux/tests/test_model.py",
+        "after": "tests/heat/test_model.py"
+      },
+      {
+        "before": "expected_heat_flux/tests/test_pipeline.py",
+        "after": "tests/heat/test_pipeline.py"
+      },
+      {
+        "before": "expected_heat_flux/tests/test_temporal.py",
+        "after": "tests/heat/test_temporal.py"
+      }
+    ],
+    "extracted_objects": [
+      "CachedSplit",
+      "cache_kernel_size",
+      "load_split",
+      "fit_normalization",
+      "brier",
+      "weighted_rank_metrics",
+      "probability_metrics",
+      "weighted_calibration",
+      "scoped_metrics",
+      "country_for_event",
+      "split_metrics",
+      "write_json",
+      "choose_device",
+      "center_probability"
+    ],
+    "shared_inference": "Saved normalization, categorical checks and burned-neighbor contact masks",
+    "compatibility": "Existing public model imports, training helper imports, original module command options and checkpoint state keys retained",
+    "radiation_python_modules": "All seven remain byte-identical",
+    "package_installation": "Both components installed together into the existing .venv; independent radiation installation retained"
+  },
+  "checkpoint_validation": {
+    "checkpoints": 12,
+    "arrays": 44,
+    "comparison": "Exact array equality, including NaNs and masks, on deterministic CPU inputs; state dictionary keys identical",
+    "cases": [
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_all44/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted_cpu_precision_diagnostic/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted_mps_precision_diagnostic/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/3x3/fitted/checkpoint.pt",
+        "direct": true,
+        "fields": [
+          "raw_score",
+          "probability",
+          "valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+        "direct": true,
+        "fields": [
+          "raw_score",
+          "probability",
+          "valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/7x7/fitted/checkpoint.pt",
+        "direct": true,
+        "fields": [
+          "raw_score",
+          "probability",
+          "valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/9x9/fitted/checkpoint.pt",
+        "direct": true,
+        "fields": [
+          "raw_score",
+          "probability",
+          "valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      },
+      {
+        "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt",
+        "direct": false,
+        "fields": [
+          "probability",
+          "valid",
+          "rate",
+          "rate_valid"
+        ],
+        "state_keys": [
+          "mean",
+          "std",
+          "neighbor_stencil",
+          "model.off_center",
+          "model.kernel_network.0.weight",
+          "model.kernel_network.0.bias",
+          "model.kernel_network.2.weight",
+          "model.kernel_network.2.bias"
+        ]
+      }
+    ]
+  },
+  "integrated_demo": {
+    "event": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00Z",
+    "device": "cpu",
+    "shape": [
+      103,
+      73
+    ],
+    "arrays_compared": 26,
+    "comparison": "Exact equality with the previously saved demonstration",
+    "output_directory": "/private/tmp/wildfire-refactor-20261007/integrated-demo",
+    "interpretation": "Regression verification; no new training or scientific accuracy validation"
+  },
+  "packaging": {
+    "wheel_validation": {
+      "imported_from": "/private/tmp/wildfire-refactor-20261007/wheel-install",
+      "saved_checkpoints": 12,
+      "exact_prediction_arrays": 44,
+      "exact_integrated_demo_arrays": 26,
+      "shape": [
+        103,
+        73
+      ],
+      "explicit_data_and_checkpoint_paths": true
+    },
+    "editable_commands_outside_workspace": [
+      "wildfire --help",
+      "wildfire-heat --help"
+    ],
+    "workflow_help_checks": [
+      {
+        "command": "wildfire_burned_area_hourly --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly load --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly prepare --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly filter-contact --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly subset-country --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly train --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly train-direct --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly evaluate --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly evaluate-direct --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly report --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly report-kernels --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly report-direct --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly verify --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly verify-direct --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly environment --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly biome --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly bitmaps --help",
+        "returncode": 0
+      },
+      {
+        "command": "wildfire_burned_area_hourly build-bundle --help",
+        "returncode": 0
+      },
+      {
+        "command": "expected_heat_flux.integrated_example --help",
+        "returncode": 0
+      }
+    ],
+    "dependency_check": "No broken requirements found",
+    "excluded_from_wheel": [
+      "legacy",
+      "tests",
+      "documents",
+      "data bundles",
+      "saved training runs",
+      "notebooks"
+    ]
+  },
+  "file_preservation": {
+    "wildfire_burned_area_hourly": {
+      "unchanged": 13164,
+      "changed": [
+        "wildfire_burned_area_hourly/README.md",
+        "wildfire_burned_area_hourly/environmental_data/BIOME_README.md",
+        "wildfire_burned_area_hourly/environmental_data/acquire_biome.py",
+        "wildfire_burned_area_hourly/environmental_data/audit_source_quality.py",
+        "wildfire_burned_area_hourly/environmental_data/enrich_environment.py",
+        "wildfire_burned_area_hourly/environmental_data/make_preview.py",
+        "wildfire_burned_area_hourly/environmental_data/refresh_biome_inventory.py",
+        "wildfire_burned_area_hourly/probability_model/README.md",
+        "wildfire_burned_area_hourly/probability_model/broader_comparison.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/evaluate.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/report.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/train.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/verify.py",
+        "wildfire_burned_area_hourly/probability_model/evaluate_kernels.py",
+        "wildfire_burned_area_hourly/probability_model/example.py",
+        "wildfire_burned_area_hourly/probability_model/inference.py",
+        "wildfire_burned_area_hourly/probability_model/input_schema.py",
+        "wildfire_burned_area_hourly/probability_model/model.py",
+        "wildfire_burned_area_hourly/probability_model/prepare_training.py",
+        "wildfire_burned_area_hourly/probability_model/subset_country.py",
+        "wildfire_burned_area_hourly/probability_model/train.py",
+        "wildfire_burned_area_hourly/probability_model/verify_training.py",
+        "wildfire_burned_area_hourly/pytorch_loader/README.md"
+      ],
+      "missing": [
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/test_evaluate.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/test_model.py",
+        "wildfire_burned_area_hourly/probability_model/direct_convolution/test_training.py",
+        "wildfire_burned_area_hourly/probability_model/test_broader_kernels.py",
+        "wildfire_burned_area_hourly/probability_model/test_model.py",
+        "wildfire_burned_area_hourly/probability_model/test_training.py",
+        "wildfire_burned_area_hourly/probability_model/test_updated_inputs.py",
+        "wildfire_burned_area_hourly/pytorch_loader/test_dataset.py"
+      ]
+    },
+    "expected_heat_flux": {
+      "unchanged": 28,
+      "changed": [
+        "expected_heat_flux/README.md",
+        "expected_heat_flux/pyproject.toml"
+      ],
+      "missing": [
+        "expected_heat_flux/tests/test_ecology.py",
+        "expected_heat_flux/tests/test_model.py",
+        "expected_heat_flux/tests/test_pipeline.py",
+        "expected_heat_flux/tests/test_temporal.py"
+      ]
+    },
+    "legacy": {
+      "unchanged": 3162,
+      "changed": [],
+      "missing": []
+    }
+  },
+  "hash_check_exclusions": [
+    "__pycache__",
+    ".pytest_cache",
+    ".DS_Store"
+  ],
+  "scientific_artifacts": "Existing data, original sources, notebooks, saved outputs and checkpoints keep their original SHA-256 hashes",
+  "source_syntax_checked": 66,
+  "workspace_guide_links_checked": 9,
+  "backup_directory": "/private/tmp/wildfire-refactor-20261007",
+  "note": "This workspace has no Git repository. Before/after snapshots, SHA-256 comparisons, exact prediction comparisons and runtime checks were used."
+}

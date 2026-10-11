@@ -1,0 +1,633 @@
+{
+  "created_at_utc": "2026-10-08T13:37:50.726746+00:00",
+  "event_id": "WY-BTF-002416_FishCreek",
+  "training_event_split": "test",
+  "cutoff_utc": "2024-08-23T00:00:00+00:00",
+  "forecast_interval_s": 3600.0,
+  "checkpoint": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+  "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+  "checkpoint_architecture": "DirectEnvironmentConditionedConvolution",
+  "checkpoint_best_epoch": 1,
+  "checkpoint_channel_count": 19,
+  "device": "cpu",
+  "shape": [
+    103,
+    73
+  ],
+  "epsg": 5070,
+  "affine_transform": [
+    375.0,
+    0.0,
+    -1141125.0,
+    0.0,
+    -375.0,
+    2393250.0
+  ],
+  "inference_input_keys": [
+    "burned_area",
+    "features",
+    "channel_names",
+    "burned_area_valid",
+    "feature_valid",
+    "affine_transform",
+    "epsg",
+    "pixel_valid",
+    "time_valid",
+    "arrival_hours",
+    "arrival_valid",
+    "elapsed_hours",
+    "event_t0_utc",
+    "event_id",
+    "time_utc"
+  ],
+  "inference_input_scope": "heat wrapper input; timing fields are used only after checkpoint inference",
+  "new_burn_predictor_input_fields": [
+    "burned_area",
+    "features",
+    "channel_names",
+    "burned_area_valid",
+    "feature_valid"
+  ],
+  "current_burned_state_provenance": {
+    "arrival_surface_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/arrival_time_hours.tif",
+    "arrival_surface_sha256": "f69a283c0fa40f3f89c9e7ac032614bf93ed3c7eda322b50a44d48ddf6661996",
+    "construction": "arrival_time_hours <= elapsed hours at cutoff, restricted by retrospective arrival validity",
+    "event_t0_utc": "2024-08-21T00:00:00+00:00"
+  },
+  "input_feature_intervals_end_by_cutoff": true,
+  "excluded_loader_fields": [
+    "newly_burned_area",
+    "arrival_std_hours",
+    "arrival_std_valid"
+  ],
+  "retrospective_input_limitation": "Current burned-area input is reconstructed from retrospective arrival-time/final-extent data. Restricting tensor timestamps does not make this an operational live forecast validation.",
+  "forecast_scope": "Existing burning inferred from past point arrival and reference-fuel residence, plus predicted new-ignition radiation",
+  "initial_active_burning_probability_supplied": false,
+  "initial_active_burning_probability_derived_from_sample_arrivals": true,
+  "initial_burning_scenario": {
+    "rule": "known already-burned cell is active iff arrival_s <= cutoff_s < arrival_s + duration_s",
+    "time_origin": "2024-08-21T00:00:00+00:00",
+    "current_elapsed_hours": 48.0,
+    "unknown_age_policy": "unknown activity and remaining duration retained as NaN on known burned cells with missing arrivals",
+    "missing_cumulative_state_policy": "existing burning included only on known already-burned support; zeros outside that support denote exclusion, not observed inactivity",
+    "future_arrival_policy": "future and unburned arrival entries are ignored when inferring existing burning",
+    "arrival_uncertainty": "retrospective nominal arrivals used; kriging standard deviations are not integrated",
+    "interpretation": "deterministic point-scale front scenario, not observed active flames or coarse-cell traversal"
+  },
+  "known_initial_active_burning_cells": 0,
+  "known_extinguished_already_burned_cells": 191,
+  "unknown_initial_burning_cells": 0,
+  "known_already_burned_cells_excluded_from_new_ignition": 191,
+  "known_current_burn_state_cells": 2642,
+  "known_new_ignition_probability_cells": 1246,
+  "unknown_new_ignition_probability_cells": 6273,
+  "positive_known_new_ignition_cells": 23,
+  "known_new_ignition_probability_sum": 0.8974472323898226,
+  "complete_expected_flux_available": false,
+  "missing_probability_policy": "Unknown new-ignition probabilities remain NaN. Their nonnegative contribution is bounded by q=0 and q=1 under the specified arrival and combustion assumptions. Missing ages on known already-burned cells leave existing activity unresolved, bounded by remaining duration in [0,T]. Neither bound is an observed value.",
+  "known_source_heat_meaning": "Finite contribution from known new-ignition probabilities and known existing-burning scenarios; not the full expected heat field",
+  "bound_scope": "Supplied source grid only, with specified conditional source strength and ignition-time assumptions. Existing burning is restricted to known already-burned support; hidden existing fire under missing cumulative-state coverage and exterior fire sources are omitted.",
+  "fuel_source_provenance": {
+    "source": "LANDFIRE FCCS reference fuelbed loading",
+    "source_url": "https://www.landfire.gov/fuel/fccs",
+    "reference_table_url": "https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv",
+    "physical_definition": "reference dry fuelbed loading, not measured event-date available fuel",
+    "loading_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/total_available_fuel_loading_tons_per_acre_375m.tif",
+    "coverage_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/fuel_loading_lookup_coverage_fraction_375m.tif",
+    "loading_sha256": "0cc22a002cc1c333c038501294c095d3c665f9d1d745f4ed5ddc8c762321aa2e",
+    "coverage_sha256": "dd36a9352c7ef6ed17499d338711b844f8c53a307244af8a49a82f2036ea261e",
+    "original_loading_units": "U.S. short tons per acre",
+    "loading_units": "kg/m2",
+    "conversion_factor": 0.2241702312388912,
+    "crs": "EPSG:5070",
+    "transform": [
+      375.0,
+      0.0,
+      -1141125.0,
+      0.0,
+      -375.0,
+      2393250.0
+    ],
+    "shape": [
+      103,
+      73
+    ],
+    "full_coverage_tolerance": 1e-06,
+    "partial_coverage_policy": "retain mapped-part mean; reject as whole-cell combustion input unless explicit fallback is supplied",
+    "fallback_policy": "caller loading describes unmapped fraction: coverage*mapped_mean + (1-coverage)*fallback; unreadable mapped mean or coverage uses fallback for entire cell",
+    "zero_bound_policy": "zero for unknown data is a nonnegative mathematical lower bound, not an observed or assumed zero fuel load",
+    "ecological_limitations": "no automatic biome-to-mass, canopy-to-mass, or moisture damping; consumption fraction, heat yield and duration remain caller assumptions"
+  },
+  "flame_residence_time_provenance": {
+    "method": "scott_burgan_2005_fbfm40_anderson_residence",
+    "equation": "sigma_ft_inv = sum(load * particle_sav_ft_inv**2) / sum(load * particle_sav_ft_inv); duration_s = 384 * 60 / sigma_ft_inv",
+    "output_unit": "seconds",
+    "sources": [
+      {
+        "author_year": "Anderson 1969",
+        "url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+        "location": "printed pp.15-16"
+      },
+      {
+        "author_year": "Andrews 2018",
+        "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+        "location": "section 4.2, printed p.27"
+      }
+    ],
+    "meaning": "point-scale passing surface-fire flaming-front residence time",
+    "limitations": [
+      "excludes indefinite trailing burning and smouldering",
+      "assumes no fuel-bed packing effect",
+      "does not determine coarse-cell traversal time or subcell flame positions",
+      "does not establish arrival time or an active-flame observation"
+    ],
+    "input_provenance": {
+      "source": "FBFM40 reference-fuel raster",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/landfire_2016_fbfm40_375m.tif",
+      "crs": "EPSG:5070",
+      "epsg": 5070,
+      "transform": [
+        375.0,
+        0.0,
+        -1141125.0,
+        0.0,
+        -375.0,
+        2393250.0
+      ],
+      "shape": [
+        103,
+        73
+      ],
+      "source_tags": {
+        "native_resolution_m": "30",
+        "product": "FBFM40",
+        "resampling": "mode",
+        "source": "LANDFIRE 2016 Remap, LF2.0.0",
+        "temporal_note": "static 2016 Remap baseline, including capable fuels conventions; not event-date field measurements",
+        "units": "official encoded product value; consult product legend",
+        "AREA_OR_POINT": "Area"
+      },
+      "physical_definition": "reference fuel classes, not measured event-specific flaming durations",
+      "alignment_checks": {
+        "affine_transform": true,
+        "shape": true,
+        "epsg": true
+      },
+      "sha256": "27bbcdcc85dadddf69ed82abf91213dccd8795686960e0e54b15564861c5c666"
+    },
+    "fuel_catalog": {
+      "author_year": "Scott and Burgan 2005",
+      "url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+      "location": "table 7, p.18; constants p.17; code assignment table 1, p.5"
+    },
+    "sav_weighting_source": {
+      "author_year": "Andrews 2018",
+      "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+      "location": "sections 3.2.3-3.2.5, pp.21-24"
+    },
+    "dynamic_curing": "characteristic SAV invariant because transferred herbaceous load preserves SAV (Scott and Burgan p.6)",
+    "gs4_source_note": "table 7 parameters imply approximately 1631 ft^-1, consistent with Andrews table 8c; Scott and Burgan GS4 summary reports 1674 ft^-1",
+    "catalog_codes_used": {
+      "101": "GR1",
+      "102": "GR2",
+      "121": "GS1",
+      "122": "GS2",
+      "142": "SH2",
+      "161": "TU1",
+      "165": "TU5",
+      "181": "TL1",
+      "183": "TL3",
+      "188": "TL8"
+    },
+    "catalog_cell_count": 7346,
+    "fallback_cell_count": 173,
+    "missing_code_cell_count": 0,
+    "unsupported_finite_codes": [
+      98,
+      99
+    ],
+    "fallback_scenario_supplied": true,
+    "fallback_sav_m_inv": 6561.679790026246
+  },
+  "flame_residence_duration_s_statistics": {
+    "finite_cells": 7519,
+    "unknown_cells": 0,
+    "minimum": 11.219002375296913,
+    "maximum": 18.83071682602384,
+    "mean": 16.018335832236364,
+    "sum": 120441.86712258523
+  },
+  "fuel_cells_with_complete_lookup_coverage": 6016,
+  "fuel_coverage_fraction_statistics": {
+    "finite_cells": 7519,
+    "unknown_cells": 0,
+    "minimum": 0.0,
+    "maximum": 1.0,
+    "mean": 0.9766817931994977,
+    "sum": 7343.670403067023
+  },
+  "illustrative_parameters": {
+    "heat_of_combustion_j_kg": 18000000.0,
+    "burning_duration_s": "per-cell FBFM40 characteristic-SAV residence, with explicit fallback scenario",
+    "explicit_unsupported_sav_fallback_ft_inv": 2000.0,
+    "explicit_unsupported_sav_fallback_m_inv": 6561.679790026246,
+    "explicit_unsupported_sav_fallback_duration_s": 11.52,
+    "residence_spatial_assumption": "representative point-scale front duration assigned to each 375 m cell; no cell-traversal timing is inferred",
+    "consumed_fraction": 0.1,
+    "explicit_unmapped_fuel_fallback_kg_m2": 10.0,
+    "radiative_fraction": 0.3,
+    "emission_height_m": 5.0,
+    "receiver_height_m": 0.0,
+    "atmospheric_transmissivity": 1.0,
+    "conditional_ignition_time": "Uniform over next hour given ignition occurs",
+    "flaming_duration_limitation": "excludes smouldering, crown fire, reignition, and indefinite trailing combustion"
+  },
+  "matrix_statistics": {
+    "new_burn_probability": {
+      "finite_cells": 1246,
+      "unknown_cells": 6273,
+      "minimum": 0.0,
+      "maximum": 0.09081834554672241,
+      "mean": 0.0007202626263160695,
+      "sum": 0.8974472323898226
+    },
+    "mean_active_burning_probability": {
+      "finite_cells": 1246,
+      "unknown_cells": 6273,
+      "minimum": 0.0,
+      "maximum": 0.0004738060544011942,
+      "mean": 3.756738686058551e-06,
+      "sum": 0.004680896402828955
+    },
+    "endpoint_active_burning_probability": {
+      "finite_cells": 1246,
+      "unknown_cells": 6273,
+      "minimum": 0.0,
+      "maximum": 0.00047504848544397576,
+      "mean": 3.7665881084673717e-06,
+      "sum": 0.004693168783150345
+    },
+    "initial_active_burning_probability": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "sum": 0.0
+    },
+    "initial_remaining_burning_duration_s": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0,
+      "sum": 0.0
+    },
+    "expected_heat_flux_w_m2": {
+      "finite_cells": 0,
+      "unknown_cells": 7519,
+      "minimum": null,
+      "maximum": null,
+      "mean": null,
+      "sum": null
+    },
+    "known_source_heat_flux_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 4.303443790062665e-06,
+      "maximum": 153.902406907242,
+      "mean": 0.20290478759788236,
+      "sum": 1525.6410979484774
+    },
+    "heat_flux_lower_bound_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 4.303443790062665e-06,
+      "maximum": 153.902406907242,
+      "mean": 0.20290478759788236,
+      "sum": 1525.6410979484774
+    },
+    "heat_flux_upper_bound_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.7114765110942277,
+      "maximum": 1955.505394672241,
+      "mean": 844.7656881792323,
+      "sum": 6351793.209419647
+    },
+    "expected_incident_energy_j_m2": {
+      "finite_cells": 0,
+      "unknown_cells": 7519,
+      "minimum": null,
+      "maximum": null,
+      "mean": null,
+      "sum": null
+    },
+    "incident_energy_lower_bound_j_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.015492397644225595,
+      "maximum": 554048.6648660712,
+      "mean": 730.4572353523765,
+      "sum": 5492307.952614519
+    },
+    "incident_energy_upper_bound_j_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 2561.3154399392197,
+      "maximum": 7039819.420820068,
+      "mean": 3041156.477445236,
+      "sum": 22866455553.91073
+    },
+    "endpoint_heat_flux_lower_bound_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 4.314728204234172e-06,
+      "maximum": 154.30597525767936,
+      "mean": 0.20343683876628757,
+      "sum": 1529.6415906837162
+    },
+    "endpoint_heat_flux_upper_bound_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.7131630990427301,
+      "maximum": 1960.6328812024663,
+      "mean": 846.8114958056469,
+      "sum": 6367175.63696266
+    },
+    "expected_endpoint_heat_flux_w_m2": {
+      "finite_cells": 0,
+      "unknown_cells": 7519,
+      "minimum": null,
+      "maximum": null,
+      "mean": null,
+      "sum": null
+    },
+    "uniform_known_source_heat_flux_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 1.8910417417211504e-06,
+      "maximum": 66.3880748089248,
+      "mean": 0.08925163909536825,
+      "sum": 671.0830743580739
+    },
+    "uniform_heat_flux_upper_bound_w_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.6791461412804947,
+      "maximum": 748.4541813570771,
+      "mean": 623.6313840700954,
+      "sum": 4689084.376823047
+    },
+    "fuel_load_reference_mapped_mean_kg_m2": {
+      "finite_cells": 7518,
+      "unknown_cells": 1,
+      "minimum": 0.6686554482957516,
+      "maximum": 26.209957371736163,
+      "mean": 13.848284395216243,
+      "sum": 104111.40208323572
+    },
+    "fuel_load_with_explicit_fallback_kg_m2": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.6686554482957516,
+      "maximum": 26.209957371736163,
+      "mean": 13.892563505057646,
+      "sum": 104458.18499452845
+    },
+    "fuel_loading_coverage_fraction": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "mean": 0.9766817931994977,
+      "sum": 7343.670403067023
+    },
+    "flame_residence_duration_s": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 11.219002375296913,
+      "maximum": 18.83071682602384,
+      "mean": 16.018335832236364,
+      "sum": 120441.86712258523
+    },
+    "source_burned_area": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "mean": 0.025402314960956573,
+      "sum": 191.0
+    },
+    "source_arrival_hours": {
+      "finite_cells": 7519,
+      "unknown_cells": 0,
+      "minimum": 0.0,
+      "maximum": 1361.5968017578125,
+      "mean": 310.127685546875,
+      "sum": 2331850.0
+    }
+  },
+  "ecology_vs_uniform_identical_probability_comparison": {
+    "uniform_loading_kg_m2": 10.0,
+    "shared_inputs": "same new-burn probabilities, already-burned mask, past arrival times, cutoff, arrival validity, and per-cell residence durations",
+    "maximum_absolute_known_source_flux_difference_w_m2": 87.51433209831721,
+    "mean_known_source_flux_difference_w_m2": 0.11365314850251411,
+    "interpretation": "Sensitivity to reference spatial fuel loading; no measured accuracy improvement is established"
+  },
+  "pipeline_metadata": {
+    "affine_transform": [
+      375.0,
+      0.0,
+      -1141125.0,
+      0.0,
+      -375.0,
+      2393250.0
+    ],
+    "epsg": 5070,
+    "forecast_interval_s": 3600.0,
+    "heat_flux_semantics": "interval-mean incident radiant flux in W/m2",
+    "dose_semantics": "integral of interval-mean radiant flux over forecast interval in J/m2",
+    "scope": "newly igniting cells plus existing burning under supplied arrival and duration scenario",
+    "arrival_time_assumption": "conditional on a first-new-burning event, arrival is uniform within the hour",
+    "burning_profile_assumption": "constant conditional HRR for the supplied residence duration after arrival",
+    "present_burning_assumption": "activity inferred from past arrival and supplied duration on known already-burned cells",
+    "activity_interval": "[arrival_time_s, arrival_time_s + burning_duration_s); inactive at exact extinction",
+    "unknown_probability_policy": "full expectation is NaN when emitting-source activity is unresolved; nonnegative-source endpoints yield bounds",
+    "unknown_current_age_policy": "remaining duration in [0,T]; mean occupancy upper min(T/D,1); endpoint upper 1 if T>D, otherwise 0",
+    "source_cells": 7519,
+    "original_probability_valid_cells": 1246,
+    "externally_supplied_probability_cells": 0,
+    "unresolved_probability_cells": 6273,
+    "unresolved_initial_burning_cells": 0,
+    "known_initial_active_cells": 0,
+    "unresolved_emitting_source_cells": 6273,
+    "complete_full_domain_expectation": false,
+    "complete_endpoint_expectation": false,
+    "bounds_scope": "fixed supplied combustion, duration, geometry, and finite source domain; existing fire restricted to known already-burned support; excludes existing fire hidden by unknown cumulative state, omitted transport and parameter uncertainty",
+    "predictor": {
+      "checkpoint_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+      "architecture": "DirectEnvironmentConditionedConvolution",
+      "best_epoch": 1,
+      "device": "cpu",
+      "channel_names": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class=1",
+        "biome.biome_class=2",
+        "biome.biome_class=3",
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=6",
+        "biome.biome_class=7",
+        "biome.biome_class=8",
+        "biome.biome_class=9",
+        "biome.biome_class=10",
+        "biome.biome_class=11",
+        "biome.biome_class=12",
+        "biome.biome_class=13",
+        "biome.biome_class=14"
+      ],
+      "source_channels": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class"
+      ],
+      "categorical_classes": {
+        "biome.biome_class": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      "normalization": "checkpoint's saved training-only statistics",
+      "probability_semantics": "new cumulative burning during the next exact hour"
+    },
+    "residence_time": {
+      "method": "scott_burgan_2005_fbfm40_anderson_residence",
+      "equation": "sigma_ft_inv = sum(load * particle_sav_ft_inv**2) / sum(load * particle_sav_ft_inv); duration_s = 384 * 60 / sigma_ft_inv",
+      "output_unit": "seconds",
+      "sources": [
+        {
+          "author_year": "Anderson 1969",
+          "url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+          "location": "printed pp.15-16"
+        },
+        {
+          "author_year": "Andrews 2018",
+          "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+          "location": "section 4.2, printed p.27"
+        }
+      ],
+      "meaning": "point-scale passing surface-fire flaming-front residence time",
+      "limitations": [
+        "excludes indefinite trailing burning and smouldering",
+        "assumes no fuel-bed packing effect",
+        "does not determine coarse-cell traversal time or subcell flame positions",
+        "does not establish arrival time or an active-flame observation"
+      ],
+      "input_provenance": {
+        "source": "FBFM40 reference-fuel raster",
+        "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/landfire_2016_fbfm40_375m.tif",
+        "crs": "EPSG:5070",
+        "epsg": 5070,
+        "transform": [
+          375.0,
+          0.0,
+          -1141125.0,
+          0.0,
+          -375.0,
+          2393250.0
+        ],
+        "shape": [
+          103,
+          73
+        ],
+        "source_tags": {
+          "native_resolution_m": "30",
+          "product": "FBFM40",
+          "resampling": "mode",
+          "source": "LANDFIRE 2016 Remap, LF2.0.0",
+          "temporal_note": "static 2016 Remap baseline, including capable fuels conventions; not event-date field measurements",
+          "units": "official encoded product value; consult product legend",
+          "AREA_OR_POINT": "Area"
+        },
+        "physical_definition": "reference fuel classes, not measured event-specific flaming durations",
+        "alignment_checks": {
+          "affine_transform": true,
+          "shape": true,
+          "epsg": true
+        },
+        "sha256": "27bbcdcc85dadddf69ed82abf91213dccd8795686960e0e54b15564861c5c666"
+      },
+      "fuel_catalog": {
+        "author_year": "Scott and Burgan 2005",
+        "url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+        "location": "table 7, p.18; constants p.17; code assignment table 1, p.5"
+      },
+      "sav_weighting_source": {
+        "author_year": "Andrews 2018",
+        "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+        "location": "sections 3.2.3-3.2.5, pp.21-24"
+      },
+      "dynamic_curing": "characteristic SAV invariant because transferred herbaceous load preserves SAV (Scott and Burgan p.6)",
+      "gs4_source_note": "table 7 parameters imply approximately 1631 ft^-1, consistent with Andrews table 8c; Scott and Burgan GS4 summary reports 1674 ft^-1",
+      "catalog_codes_used": {
+        "101": "GR1",
+        "102": "GR2",
+        "121": "GS1",
+        "122": "GS2",
+        "142": "SH2",
+        "161": "TU1",
+        "165": "TU5",
+        "181": "TL1",
+        "183": "TL3",
+        "188": "TL8"
+      },
+      "catalog_cell_count": 7346,
+      "fallback_cell_count": 173,
+      "missing_code_cell_count": 0,
+      "unsupported_finite_codes": [
+        98,
+        99
+      ],
+      "fallback_scenario_supplied": true,
+      "fallback_sav_m_inv": 6561.679790026246
+    },
+    "present_burning_timing_source": {
+      "source": "sample arrival_hours and elapsed_hours",
+      "units_conversion": "hours multiplied by 3600 to seconds",
+      "time_origin": "2024-08-21T00:00:00+00:00",
+      "event_id": "WY-BTF-002416_FishCreek",
+      "interpretation": "supplied point-arrival scenario; dataset arrivals are retrospective reconstructions",
+      "arrival_uncertainty": "not integrated; nominal arrival estimates are used",
+      "future_arrival_policy": "only known already-burned cells use arrival values; new-burn predictions use current inputs"
+    },
+    "cutoff_unix_s": 1724371200,
+    "endpoint_unix_s": 1724374800
+  },
+  "validation_scope": "End-to-end inference and units/provenance demonstration; no measured wildfire heat-flux validation or calibration",
+  "artifacts": [
+    "integrated_heat_arrays.npz",
+    "summary.json",
+    "integrated_heat_demo.png"
+  ]
+}

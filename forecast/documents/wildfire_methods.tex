@@ -1,0 +1,2957 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=25mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array,enumitem}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{microtype,xcolor,xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Ind}{\mathbf{1}}
+\DeclareMathOperator{\clip}{clip}
+\DeclareMathOperator{\softplus}{softplus}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\median}{median}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\argmin}{argmin}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}[section]
+\setlist{itemsep=3pt,topsep=5pt}
+\setlength{\emergencystretch}{2em}
+\setlength{\LTpre}{7pt}
+\setlength{\LTpost}{7pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small WildfireGuardian: mathematical methods}
+\fancyhead[R]{\small 8 October 2026}
+\fancyfoot[C]{\thepage}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,
+ keepspaces=true,showstringspaces=false,frame=single,rulecolor=\color{black!20},
+ aboveskip=9pt,belowskip=9pt}
+\hypersetup{pdftitle={WildfireGuardian: mathematical methods for burned-area prediction, active flames, and expected radiant heat},pdfauthor={WildfireGuardian methods documentation}}
+\title{\textbf{WildfireGuardian: Mathematical Methods}\\[5pt]
+\large A step-by-step account of retrospective arrival reconstruction,\\
+hourly transition prediction, flame residence, and expected radiant heat}
+\author{Methods document grounded in the current project implementation}
+\date{8 October 2026 (Asia/Seoul)}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document specifies the maintained WildfireGuardian workflow as it exists
+on 8 October 2026. It follows the calculation from published satellite-based
+time-of-arrival reconstructions to aligned environmental tensors, two trained
+environment-conditioned spatial models, assumed active-flame probabilities,
+and an expected incident radiant-heat field. Each mathematical object is tied
+to its units, spatial support, time convention, validity conditions, and
+implementation. The nonnegative exponential-link model and signed direct-score
+model are treated separately. Derivations distinguish reconstructed labels,
+learned next-hour transition probabilities, deterministic residence scenarios,
+and the additional physical and timing assumptions required for radiation.
+Saved comparisons and demonstrations are reported as recorded evidence, not
+as fresh model fitting or independent physical validation. In particular,
+375 m raster spacing and hourly output do not imply corresponding observation
+accuracy; a cumulative burned state is not an active-flame map; and a mean
+radiant flux does not determine a heat-exceedance probability.
+\end{abstract}
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Scope, objects, and the calculation being performed}
+\label{sec:scope}
+\subsection{Exactly which workflow is described}
+The scope is the current root \path{README.md}, the maintained Python packages
+\path{wildfire_burned_area_hourly/} and \path{expected_heat_flux/}, their saved
+experiments, and the publisher reconstruction code retained under
+\path{wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/}.
+The published reconstruction is an upstream method. The local bundle consumes
+its supplied rasters and constructs labels from them; ordinary model inference
+does not re-run kriging. Other historical projects, routing algorithms, and
+previous neural-network packages are outside this document's scope.
+
+There are six successive operations:
+\begin{enumerate}
+\item Estimate an arrival time at each covered location from event-wide
+active-fire detections and a known final perimeter, using the published
+variance-weighted ordinary-kriging procedure.
+\item Compare arrival time with each snapshot's event-relative clock to obtain
+cumulative burned-state and hourly transition labels.
+\item Align environmental sources to the original rectangular grid, retaining
+each source's coverage, units, native support, and categorical vocabulary.
+\item Fit or load an environment-conditioned spatial model for a currently
+unburned target cell's first new burning during the next hour.
+\item Supply a flame or burning duration and an arrival-time assumption to
+convert that transition probability into activity at an instant or mean activity
+over an interval.
+\item Supply dry fuel, combustion, radiation, and geometry assumptions to
+integrate the activity-weighted emitting sources into a radiant-heat field.
+\end{enumerate}
+
+Every later operation depends on the earlier contracts, but it does not erase
+their uncertainty or turn retrospective information into live observations.
+The learned probability model receives only current-state and current
+environmental tensors at inference. Nevertheless, the current burned-state
+tensor itself was reconstructed using final extent and event-wide information.
+Restricting tensor timestamps to the cutoff does not make that input
+operationally available at the cutoff.
+
+\subsection{Global notation and units}
+\label{sec:notation}
+The following notation is used throughout. Sections may introduce additional
+locally defined indices; the domain and units are stated where introduced.
+\begin{longtable}{@{}P{0.17\linewidth}P{0.76\linewidth}@{}}
+\toprule Symbol & Definition and units\\\midrule
+\endfirsthead
+\toprule Symbol & Definition and units\\\midrule
+\endhead
+$e$ & A fire event with its own raster, coordinate reference system, and time origin.\\
+$\mathcal G_e$ & The finite rectangular grid of event $e$; a cell index is $i=(r,c)$ with zero-based row $r$ and column $c$.\\
+$S_i$ & The horizontal ground footprint of cell $i$, in a projected metric plane; its area is $|S_i|$ in $\mathrm{m^2}$.\\
+$x_i$ & The projected horizontal center of $S_i$, in metres.\\
+$t_{0,e}$ & Event-specific UTC origin of the arrival raster.\\
+$t$, $h_e(t)$ & Absolute UTC snapshot time and elapsed hours $h_e(t)=(t-t_{0,e})/(3600\ \mathrm{s})$.\\
+$\widehat a_i$ & Reconstructed arrival time, in hours since $t_{0,e}$; defined only where its raster mask is valid.\\
+$M_i^A$ & Boolean arrival-coverage indicator; one denotes a known reconstruction, zero denotes unavailable arrival.\\
+$B_i(t)$ & Reconstructed cumulative burned state, $\Ind\{\widehat a_i\le h_e(t)\}$ where $M_i^A=1$; dimensionless.\\
+$Y_i(t)$ & Binary label for new burning during $(t,t+1\ \mathrm{h}]$, on a known currently unburned target.\\
+$E_i(t)$ & Ordered environmental feature vector; raw continuous entries retain their recorded physical units and one-hot entries are dimensionless.\\
+$s_i(t)$ & Unclipped signed direct-model score, dimensionless; it may lie outside $[0,1]$.\\
+$\lambda_i(t)$ & Nonnegative exponential-model rate in $\mathrm{h^{-1}}$, under a frozen current input state.\\
+$q_i(t)$ & Usable next-hour new-burn probability, dimensionless in $[0,1]$, or unavailable with a false prediction mask.\\
+$D$ & Duration of the heat forecast interval in seconds; the composed current model requires $D=3600\ \mathrm{s}$.\\
+$T_i$ & Supplied positive conditional burning duration for the heat calculation, in seconds.\\
+$\tau_i^{\mathrm{fl}}$ & Surface-flame residence time in seconds; it equals $T_i$ only when explicitly made consistent by the caller.\\
+$p_i(u)$, $\overline p_i$ & Active-burning probability at elapsed seconds $u$ and its time average over $[0,D]$; dimensionless.\\
+$w_i$, $f_i$, $H_{c,i}$ & Dry fuel loading in $\mathrm{kg\,m^{-2}}$, consumed fraction in $[0,1]$, and effective heat of combustion in $\mathrm{J\,kg^{-1}}$.\\
+$Q_i$ & Heat-release-rate density conditional on modeled activity, in $\mathrm{W\,m^{-2}}$.\\
+$\chi_i$ & Radiative fraction of conditional heat release, dimensionless in $[0,1]$.\\
+$\mathcal T$ & Atmospheric transmissivity, dimensionless in $[0,1]$; distinct from duration and from flame residence.\\
+$\Omega_i(x)$ & Solid angle of elevated source footprint $S_i$ seen from receiver point $x$, in steradians.\\
+$F(x,u)$ & Incident radiant flux at a horizontal point receiver, in $\mathrm{W\,m^{-2}}$; mean flux and endpoint flux are different outputs.\\
+$\mathcal E(x)$ & Time-integrated expected incident radiant energy, in $\mathrm{J\,m^{-2}}$.\\
+\bottomrule
+\end{longtable}
+
+The code field named \path{atmospheric_transmissivity} is denoted by
+$\mathcal T$ here even when a later equation or quoted method uses another
+letter. The field \path{burning_duration_s} is $T_i$; the residence object's
+\path{duration_s} is $\tau_i^{\mathrm{fl}}$. A notation reused within a section
+is explicitly identified. Tensor time length is denoted $L$, and batch size
+$N_b$, to avoid confusing these array dimensions with physical duration or
+burned state.
+
+\subsection{Six statements that are not interchangeable}
+\begin{enumerate}
+\item A sensor detected active fire at a location and acquisition time.
+\item A retrospective arrival reconstruction is valid at a raster cell.
+\item A raster cell is classified as cumulatively burned at a snapshot time.
+\item A model assigns probability $q_i$ to its first new burning in the next hour.
+\item A timing-and-residence scenario assigns probability $p_i(u)$ to a
+representative location being actively flaming at an instant.
+\item A radiation scenario gives an expected incident flux at a receiver.
+\end{enumerate}
+The numerical outputs support only the corresponding statement. For example,
+$B_i=1$ does not imply present activity, and $q_i=0.8$ does not imply an 80\%
+chance of flames at the one-hour endpoint. A validity mask is required even
+when a stored numeric value is zero.
+
+\section{Step 1: published retrospective arrival-time reconstruction}
+\label{sec:reconstruction}
+\subsection{Source product and observation preprocessing}
+The retained deposit supplies 30 Korean rasters (15 fires times arrival and
+kriging standard deviation) and 58 U.S. rasters (29 fires times the same two
+quantities). Korean output grids use EPSG:5179 and U.S. output grids use
+EPSG:5070. Both have 375 m output spacing. The source is the dataset and code
+identified by DOI \href{https://doi.org/10.5281/zenodo.21788344}{10.5281/zenodo.21788344}
+\cite{toadeposit,codetoa}. This document explains the archived implementation;
+it does not claim that the raw detections or aerial reference perimeters were
+downloaded again or that the published study was independently reproduced.
+
+Let an input detection record contain longitude, latitude, UTC acquisition time,
+and sensor. The archived \path{preprocess.select} removes fully identical rows,
+retains times within a closed collection interval $[t_{\min},t_{\max}]$, and
+uses strict spatial inclusion in the final perimeter. Geostationary detections
+are selected inside a perimeter expanded by 2000 m; VIIRS uses no expansion.
+Boundary points are excluded by the implemented strict containment predicate.
+
+U.S. analysis coordinates are EPSG:5070 coordinates divided by 1000, in km.
+Korean analysis coordinates are the source's approximation
+\begin{equation}
+x=111\,\ell\cos(\varphi_0),\qquad y=111\,\varphi,
+\end{equation}
+where longitude $\ell$, latitude $\varphi$, and event-center latitude
+$\varphi_0$ are in degrees and the outputs are in km. The cosine argument is
+converted to radians in code. These Korean \emph{analysis} coordinates differ
+from the projected EPSG:5179 coordinates of the delivered raster.
+
+VIIRS detections are grouped using
+\begin{equation}
+(g_x,g_y)=\left(\operatorname{round}(x/0.375),
+                     \operatorname{round}(y/0.375)\right).
+\end{equation}
+The implementation uses NumPy rounding, including its ties-to-even convention.
+Each occupied analysis cell contributes the median detection time; its
+representative location is the earliest detection's location, breaking time
+ties by smaller latitude and then longitude. Thus the temporal statistic is
+the \emph{median}, whereas the representative spatial point comes from the
+\emph{earliest} detection. Neither operation establishes exact physical
+ignition time.
+
+\subsection{Event-relative clocks}
+Each detection time is converted to hours after its event origin. In the U.S.,
+the origin is midnight UTC on the day containing the start of the collection
+window, whose start is the first NIROPS survey minus 24 hours. For Korea,
+the origin is the Korea Forest Service situation-map ignition time.
+The authoritative local origin comes from GeoTIFF tags and event metadata.
+Never compare arrival numbers from two events before adding their respective
+origins. Valid U.S. arrival predictions may be negative: validity is read from
+NoData and coverage metadata, not inferred from the sign.
+
+\subsection{Empirical semivariogram and fitted covariance}
+Let $z_j$ be the detection-cell summary time in hours at analysis point
+$\xi_j\in\R^2$ in km, for $j=1,\ldots,n$. For each nonempty lag bin
+$\mathcal P_k$ of unordered point pairs, define
+\begin{equation}
+\widehat h_k=\frac1{|\mathcal P_k|}\sum_{(j,l)\in\mathcal P_k}
+\|\xi_j-\xi_l\|_2,\qquad
+\widehat\gamma_k=\frac1{2|\mathcal P_k|}
+\sum_{(j,l)\in\mathcal P_k}(z_j-z_l)^2.
+\end{equation}
+The code uses 20 equal-width bins between the smallest and largest pair
+distance, with a final edge extended by 0.001 km. Empty bins are omitted.
+For more than 15,000 observations it accumulates the same pair statistics in
+chunks instead of materializing all pairs at once.
+
+The fitted model is
+\begin{equation}
+\gamma(h)=p\left(1-e^{-3h/r_0}\right)+c_0,
+\qquad p\ge0,\quad r_0>0,\quad c_0\ge0,
+\label{eq:variogram}
+\end{equation}
+where $p$ is the partial sill in $\mathrm{h^2}$, $c_0$ is the nugget in
+$\mathrm{h^2}$, and $r_0$ is the effective range in km. At $h=r_0$ the
+structured term is $(1-e^{-3})p\simeq0.9502p$. Bounded SciPy least squares
+uses the \path{soft_l1} loss on residuals
+$\gamma(\widehat h_k)-\widehat\gamma_k$ with its default unit scale, tight
+termination tolerances $10^{-15}$, and at most 2,000,000 function evaluations.
+The initial values are
+\begin{equation}
+\left(\max_k\widehat\gamma_k-\min_k\widehat\gamma_k,
+       \tfrac14\max_k\widehat h_k,
+       \min_k\widehat\gamma_k\right),
+\end{equation}
+and upper parameter bounds are
+$(10\max_k\widehat\gamma_k,\max_k\widehat h_k,
+\max_k\widehat\gamma_k)$. The returned nugget is floored to
+$\max(c_0,0.001p)$. A failed convergence status raises an error.
+The implemented covariance is
+\begin{equation}
+C(h)=\begin{cases}p+c_0,&h=0,\\p e^{-3h/r_0},&h>0.\end{cases}
+\end{equation}
+The nugget at zero is an explicit implementation convention, not a claim that
+the semivariogram expression at zero directly equals the variance of a
+difference between a variable and itself.
+
+\subsection{Local ordinary kriging with observation-dependent error variance}
+At a target point $\xi$, choose the nearest $m=\min(50,n_{\mathrm{all}})$
+observations from the combined VIIRS and geostationary table. At least three
+neighbors are required for a finite prediction. The production procedure also
+requires at least five VIIRS summary cells to fit an event product.
+The variogram is fitted on VIIRS summary cells, before adding geostationary
+points to the kriging system.
+
+Let $v_j$ denote assigned error variance, in $\mathrm{h^2}$:
+\begin{equation}
+v_j=\begin{cases}
+0,&\text{VIIRS summary cell},\\
+27.4\max(c_0,1\ \mathrm{h^2}),&\text{geostationary point}.
+\end{cases}
+\end{equation}
+The source's factor 27.4 is a rounded resolution-based inflation factor; its
+comment motivates it by $(2/0.375)^2-1$. It is a prescribed error model,
+not an empirically calibrated uncertainty for every geostationary observation.
+Write $\epsilon=10^{-4}p$ for the numerical ridge, and set
+\begin{equation}
+K_{jl}=C(\|\xi_j-\xi_l\|_2)+\Ind\{j=l\}(v_j+\epsilon),
+\qquad c_j=C(\|\xi_j-\xi\|_2).
+\end{equation}
+The weights $\alpha\in\R^m$ and Lagrange multiplier $\mu\in\R$ solve
+\begin{equation}
+\begin{pmatrix}K&\boldsymbol 1\\\boldsymbol 1^\top&0\end{pmatrix}
+\begin{pmatrix}\alpha\\\mu\end{pmatrix}
+=\begin{pmatrix}c\\1\end{pmatrix}.
+\label{eq:krigingsystem}
+\end{equation}
+The last row enforces $\boldsymbol1^\top\alpha=1$, the ordinary-kriging
+unbiasedness constraint under an unknown constant mean.
+To derive the system, minimize the mean-squared error
+\begin{equation}
+V(\alpha)=C(0)-2\alpha^\top c+\alpha^\top K\alpha
+\end{equation}
+subject to that constraint. Differentiating the Lagrangian
+$V(\alpha)+2\mu(\boldsymbol1^\top\alpha-1)$ yields
+$K\alpha+\mu\boldsymbol1=c$, exactly the first block row.
+Therefore
+\begin{equation}
+\widehat a(\xi)=\alpha^\top z,\qquad
+\widehat V(\xi)=\max\{p+c_0-\alpha^\top c-\mu,0\}.
+\end{equation}
+The variance simplification follows by multiplying the first block row by
+$\alpha^\top$: $\alpha^\top K\alpha=\alpha^\top c-\mu$.
+The nonnegative floor is a numerical safeguard. The delivered uncertainty
+raster is $\sqrt{\widehat V}$ in hours. It is a model-based kriging standard
+deviation; the local downstream methods do not treat it as a calibrated
+Gaussian posterior, sample arrival-time realizations, or convert it into
+flame-confidence intervals.
+
+\subsection{Reference evaluation and internal cross-validation}
+The upstream code compares five interpolation configurations: VIIRS-only IDW,
+VIIRS-plus-geostationary IDW, VIIRS-only ordinary kriging, pooled unweighted
+ordinary kriging, and the variance-weighted pooled method above. IDW uses
+20 nearest observations and weights proportional to
+$\max(\|\xi_j-\xi\|_2,10^{-10}\ \mathrm{km})^{-2}$.
+These are reconstruction comparators, distinct from the later learned
+exponential and signed direct probability models.
+
+U.S. external reference arrival is the time of the first aerial infrared survey
+whose cumulative union encloses a cell center. It is stepwise at survey times,
+not continuously observed physical arrival. At survey time $t_s$, let $H_s$,
+$M_s$, and $F_s$ be counts of intersection, reference-only, and prediction-only
+burned cells, respectively, within the final reference support. The implemented
+S\o rensen coefficient is
+\begin{equation}
+\mathrm{SC}_s=\frac{2H_s}{2H_s+M_s+F_s}.
+\end{equation}
+The default growth window retains surveys with reference count
+$\max(1,0.01N)\le N_s<0.90N$, where $N$ is the final reference count. An event
+score is the median over eligible surveys, rounded to four decimals.
+
+Spatial-block internal validation withholds VIIRS cells while retaining
+geostationary observations. Block width is
+\begin{equation}
+b=\min\{30,\max(5,r_0/2)\}\quad\mathrm{km}.
+\end{equation}
+The U.S. procedure withholds each occupied block, requires at least five
+training cells, refits the variogram for each fold, and uses a fold only when
+all five configurations return finite predictions. The Korean procedure uses
+at most ten grouped folds, at least 20 training and three validation cells
+per fold, and adoption conditions including whole-data range at least 0.5 km,
+three occupied blocks, ten pooled validation pairs, and nonzero observation
+and prediction variance. Withheld evaluation is an unavailable assessment,
+not proof of inaccurate reconstruction.
+
+For residuals $d_j=\widehat z_j-z_j$, timing scores are
+\begin{equation}
+\mathrm{ME}=\frac1n\sum_jd_j,\qquad
+\mathrm{MAE}=\frac1n\sum_j|d_j|,
+\end{equation}
+in hours, with Pearson correlation also reported. Across events, paired exact
+two-sided sign tests omit zero differences, and Holm adjustment controls the
+family of ten configuration pairs. If ordered raw values are $p_{(1)}\le
+\cdots\le p_{(10)}$, adjusted values are
+$\widetilde p_{(k)}=\max_{j\le k}\min\{1,(11-j)p_{(j)}\}$.
+Percentile intervals for median paired differences and Spearman correlations
+resample entire event pairs 10,000 times with saved seed 20260906.
+These source-study statistical procedures were read from retained code;
+they were not rerun to author this document.
+
+\section{Step 2: converting arrival time to hourly labels}
+\label{sec:labels}
+\subsection{Cumulative state and transition intervals}
+For $M_i^A=1$, the reconstructed cumulative state is
+\begin{equation}
+B_i(t)=\Ind\{\widehat a_i\le h_e(t)\}.
+\end{equation}
+It is nondecreasing in $t$. At the precise reconstructed arrival time it is
+already one. Where $M_i^A=0$, the physical state remains unknown even though a
+storage tensor may contain zero.
+The loader's field \path{newly_burned_area} at snapshot $t$ means the
+\emph{preceding} hour:
+\begin{equation}
+N_i^{\mathrm{past}}(t)=
+\Ind\{h_e(t)-1<\widehat a_i\le h_e(t)\}.
+\label{eq:pastlabel}
+\end{equation}
+The model's training label instead means the \emph{following} hour:
+\begin{equation}
+Y_i(t)=\Ind\{h_e(t)<\widehat a_i\le h_e(t)+1\}
+       =B_i(t+1\ \mathrm h)-B_i(t).
+\label{eq:futurelabel}
+\end{equation}
+This equality assumes the same valid reconstructed arrival is used at both
+times. Training candidates have known $B_i(t)=0$, so the future burned value
+also equals $Y_i(t)$ on those candidates. The training preparation loads current environmental and burned-state
+contexts in 24-hour chunks. For a chosen cutoff, it computes the next-hour
+target state directly from the arrival raster using the next elapsed-hour
+boundary, then checks equality with the independently enumerated candidate
+label. It does not use the loader's preceding-hour field as the forecast
+target. The precise eligibility and sampling procedure is given
+in the probability-method section.
+
+\subsection{Mask encoding, area, and temporal precision}
+Exported categorical hourly masks use code 1 for estimated burned, code 0 for
+estimated not yet burned \emph{inside} valid reconstruction support, and code
+255 for unavailable. Code 0 outside a tensor's validity mask cannot be
+interpreted as measured unburned ground.
+At square 375 m spacing,
+\begin{equation}
+|S_i|=375^2=140625\ \mathrm{m^2}=14.0625\ \mathrm{ha}.
+\end{equation}
+The cumulative raster-support area is
+$\mathcal A_e(t)=14.0625\sum_{i:M_i^A=1}B_i(t)$ hectares. It counts entire projected
+supports selected by a center-in-perimeter rule. It need not equal the exact
+vector-perimeter area or administrative forest-damage area, and no such area
+equality or rescaling is imposed.
+
+One-hour output spacing is a thresholding schedule for a continuous
+reconstruction, not a one-hour accuracy statement. For example, the retained
+Uljin regional metadata reports block-validation MAE about 10.44 hours and
+kriging standard deviation about 4.40--52.96 hours. The current active-flame
+example has much larger arrival uncertainty than its seconds-long residence
+scenario. Thresholding uncertainty at a finer clock does not remove it.
+
+\section{Step 3: aligning and loading environmental inputs}
+\label{sec:environment}
+\subsection{Spatial alignment and the original rectangular grid}
+The environmental package retains each event's original arrival-raster shape,
+CRS, and affine transform. The environment occupies the \emph{rectangular}
+grid and is not cropped to future final burned extent. Arrival labels retain
+their own reconstruction mask. Write the affine coefficients as
+$(a,b,c,d,e,f)$, using the conventional raster corner transform. For zero-based
+row $r$ and column $c_{\mathrm{col}}$, the cell center is
+\begin{equation}
+\begin{pmatrix}x_{r,c_{\mathrm{col}}}\\y_{r,c_{\mathrm{col}}}\end{pmatrix}
+=\begin{pmatrix}a&b\\d&e\end{pmatrix}
+\begin{pmatrix}c_{\mathrm{col}}+1/2\\r+1/2\end{pmatrix}
++\begin{pmatrix}c\\f\end{pmatrix}.
+\end{equation}
+The corner coordinate $c$ in this equation is an affine coefficient, not the
+column index. The cell area is $|ae-bd|$ in square metres. On an extracted
+patch beginning at row $r_0$, column $c_0$, its affine transform is the event
+transform composed with pixel translation $(c_0,r_0)$. Coordinates and masks
+are supplied along with values; padded spatial coordinates are NaN.
+
+\subsection{Source support and resampling}
+\begin{longtable}{@{}P{0.23\linewidth}P{0.31\linewidth}P{0.38\linewidth}@{}}
+\toprule Input family & Source/support in this bundle & Alignment and interpretation\\\midrule
+\endfirsthead
+\toprule Input family & Source/support in this bundle & Alignment and interpretation\\\midrule
+\endhead
+Weather & Archived IFS model values, roughly 9 km and hourly & Nearest returned native model-node center in the event metric plane; all its assigned pixels share the same node value.\\
+Mixing depth & ERA5, about $0.25^\circ$ and hourly & Nearest native-node mapping; boundary-layer height is a mixing-depth proxy.\\
+Terrain & Copernicus GLO-30 DSM, nominal 30 m & Bilinear reprojection to 31.25 m intermediate grid, terrain derivatives there, then finite-value aggregation to 375 m.\\
+Land cover & Copernicus global land-cover 2019, 100 m & Modal class for categorical layers; valid-pixel averages for continuous percent covers.\\
+Canopy height & GLAD GEDI--Landsat 2019 map, about 30 m & Valid-pixel averages; map epoch and model limitations are retained.\\
+Fuel classes/structure & U.S. LANDFIRE 2016 Remap, 30 m & Modal class for FBFM40/FCCS; averages for numeric encodings, followed by stated physical-unit conversions.\\
+Reference dry loading & LANDFIRE FCCS lookup library & Lookup on the original native 30 m codes \emph{before} valid-pixel averaging; coverage fraction stored separately.\\
+Fuel moisture & U.S. gridMET 100-hour and 1000-hour dead-fuel moisture, about 4 km, daily & Nearest spatial resampling; values are percent of dry fuel mass. These are not live/fine fuel moisture or hourly measurements.\\
+Biome & RESOLVE Ecoregions 2017 polygons & Static broad-scale biome assignment at cell centers; fixed 14-class one-hot vocabulary for trained inputs.\\
+\bottomrule
+\end{longtable}
+Resampling coarser sources to 375 m does not produce independent 375 m weather
+observations. Static source years may precede or follow an event; the data do
+not establish event-date measured fuel or vegetation. Some environmental
+variables are available to the general loader but are not inputs to the saved
+19-channel predictor. In particular, a moisture raster in the bundle is not
+evidence of a learned moisture effect in that fitted model.
+
+For a target center $x_i$ and returned native-node centers $\eta_j$, weather
+mapping is
+\begin{equation}
+j(i)=\argmin_j\|x_i-\eta_j\|_2,\qquad E_i(t)=V_{j(i)}(t).
+\end{equation}
+The saved node-index and node-distance rasters retain the mapping. Selection
+uses the metric projection, not naive Euclidean distance in latitude/longitude.
+For continuous native rasters, a valid-support average can be expressed as
+\begin{equation}
+\overline v_i=
+\frac{\sum_j \omega_{ij}m_jv_j}{\sum_j\omega_{ij}m_j},
+\label{eq:validaverage}
+\end{equation}
+where $\omega_{ij}\ge0$ are reprojection overlap weights and $m_j$ is native
+validity. An empty denominator produces unavailable output. A modal class
+is the code with greatest aggregated valid weight, not the average of numeric
+class codes.
+
+\subsection{Derived meteorological and terrain features}
+If wind speed $v$ is in $\mathrm{m\,s^{-1}}$ and meteorological direction
+$\theta$ is the direction \emph{from which} wind blows, clockwise from north,
+the saved eastward and northward components are
+\begin{equation}
+u=-v\sin\theta,\qquad v_N=-v\cos\theta.
+\end{equation}
+Angles are converted from degrees to radians. The negative signs convert
+``from'' into vector direction ``toward.'' For hourly preceding-interval
+precipitation $P_k$ in mm, trailing precipitation is
+\begin{equation}
+P_k^{(m)}=\sum_{j=0}^{m-1}P_{k-j},\qquad m\in\{24,168,720\},
+\end{equation}
+with all $m$ values required. The dry-hour recurrence resets to zero when
+$P_k\ge0.1$ mm and otherwise increments the previous count for finite
+precipitation. It is a lower bound when a dry spell reaches the beginning of
+downloaded history; missing source precipitation keeps the streak unavailable.
+
+On the 31.25 m intermediate terrain grid, let $z$ be elevation and $g_x,g_s$
+its finite-difference gradients in eastward and increasing-row (southward)
+directions. The source code computes
+\begin{equation}
+\alpha=\frac{180}{\pi}\arctan\sqrt{g_x^2+g_s^2},\qquad
+\beta=\operatorname{atan2}(-g_x,g_s)\pmod{2\pi}.
+\end{equation}
+$\alpha$ is slope in degrees; $\beta$ is downslope aspect clockwise from
+projected-grid north. Near-flat fine pixels with gradient magnitude below
+$10^{-5}$ have unavailable aspect. Coarse circular averaging uses
+\begin{equation}
+e_i=\overline{\sin\beta},\quad n_i=\overline{\cos\beta},\quad
+\beta_i=\operatorname{atan2}(e_i,n_i),\quad
+\rho_i=\sqrt{e_i^2+n_i^2},
+\end{equation}
+rather than an arithmetic mean of angles; $\rho_i<10^{-5}$ makes coarse
+aspect unavailable. Terrain position index is $z_i-\overline z_{\mathcal N_i}$,
+and neighborhood elevation standard deviation is
+$\sqrt{\max(\overline{z^2}_{\mathcal N_i}-\overline z_{\mathcal N_i}^2,0)}$,
+using available cells of a $9\times9$ neighborhood, nominal width 3375 m.
+Vegetated cover is the sum of tree, shrub, grass, and crop percentages with
+all four required. Its $3\times3$ neighborhood mean is a coverage proxy, not
+a measurement of subpixel fuel connectivity.
+
+\subsection{Temporal support and the completed-day convention}
+\label{sec:timesupport}
+Snapshot clocks and dynamic feature supports are distinct. Instantaneous
+hourly fields are tagged $[t,t]$. Precipitation, rain, radiation, and
+evapotranspiration fields summarize the preceding hour $[t-3600,t]$.
+Trailing rainfall support begins 24 hours, seven days, or 30 days before $t$.
+The loader stores the support start and end as Unix seconds for each channel.
+These metadata describe source support, not verified publication availability.
+
+Daily gridMET labels correspond to nominal midnight-to-midnight Mountain
+Standard Time, with a fixed 07:00 UTC boundary. Let $s_d$ be the UTC start
+of daily source interval $d$. The default \path{completed_day} policy chooses
+the latest $d$ with
+\begin{equation}
+s_d+86400\le t<s_d+2\cdot86400.
+\end{equation}
+No missing date is extrapolated, and no selection is extended beyond the
+downloaded series. The optional \path{containing_day} policy instead chooses
+the interval with $s_d\le t<s_d+86400$; a full-day value then includes times
+after a within-day cutoff and is suitable only under an explicit retrospective
+interpretation. Repeating a selected daily or static value over a sequence
+does not turn it into a newly observed hourly quantity.
+
+\subsection{Categorical encoding and independent validity masks}
+For categorical source $Z$, freeze ascending distinct class codes
+$\mathcal C_Z=(c_1,\ldots,c_J)$. At a known source value $z_i$, indicator
+channel $j$ is
+\begin{equation}
+X_{i,j}=\Ind\{z_i=c_j\}.
+\end{equation}
+Known membership implies exactly one active indicator, with every indicator's
+validity mask true. Missing, absent, unknown-category, or padded membership
+gives all-zero indicators and false masks for the entire group. A valid
+numeric class code zero is preserved when it belongs to the vocabulary;
+numeric zeros are not automatically missing.
+
+Bundle-wide discovery before event/time filtering prevents a changing schema
+between subsets. The full recorded loader schema expands 72 source fields
+into 741 channels: 65 continuous channels and 676 indicators. This is a
+schema width, not a statement that all channels are available for every event.
+The fitted predictor freezes a different subset: five continuous channels
+and 14 biome indicators, for 19 inputs. The checkpoint saves their order,
+categories, groups, and normalization. Re-discovering a smaller vocabulary
+at inference would change parameter meaning and is rejected.
+
+The quality codes are 0 valid, 1 out of range, 2 source missing, 3 channel
+absent, 4 spatial padding, 5 temporal padding, and 6 unknown category.
+Flagged raw observations remain in source records but have false loader
+masks. A finite fill value is a storage convenience; its number carries no
+missingness semantics. The general loader returns environmental values and
+masks with shape $[L,C,H,W]$, current labels and masks with shape $[L,1,H,W]$,
+and a collated batch adds a leading dimension $N_b$. Coordinates have shape
+$[2,H,W]$, ordered projected $x$ then $y$. The \path{pixel_valid} mask
+describes padding, and \path{time_valid} describes padded times; neither is
+a substitute for environmental or arrival coverage.
+
+\subsection{Geographic bitmap and array exports}
+The image bundle contains 1,380 BMP files with geographic sidecars. Categorical
+meaning is in palette indices, not displayed RGB brightness. Exact continuous
+values are retained separately in \path{.values.npy}; quantized image colors
+must not be used to recover scientific precision. A world file lists
+$A,D,B,E,C,F$ with upper-left \emph{pixel-center} coordinates, giving
+\begin{equation}
+x=A\,c+B\,r+C,\qquad y=D\,c+E\,r+F.
+\end{equation}
+This differs from the pixel-corner affine transform, whose center evaluation
+requires the half-pixel shift. CRS, coordinates, timestamps, range, and mask
+metadata must travel with a numeric export.
+
+
+\section{Step 4: exact next-hour transition targets and the statistical population}
+\label{sec:probability-targets}
+
+The probability experiments operate on the reconstructed burned-area bundle.
+Consequently, their labels describe transitions in a retrospective arrival-time
+reconstruction. They are not independently observed hourly ground-truth
+measurements. The code implementing this section is
+\path{wildfire_burned_area_hourly/probability_model/prepare_training.py},
+\path{wildfire_burned_area_hourly/probability_model/filter_contact.py}, and
+\path{wildfire_burned_area_hourly/probability_model/cache.py}.\cite{codeprob}
+
+\subsection{Define each example before defining a model}
+
+Let $e$ denote a fire event, $i=(r,c)$ a raster-cell index, and $t$ an
+hourly UTC cutoff. In the global notation of Section~\ref{sec:notation},
+$A_e(i)=\widehat a_i$ and $a_e(t)=h_e(t)$ below. Let $A_e(i)$ be the reconstructed arrival time at cell $i$,
+measured in hours from that event's recorded origin $t_{0,e}$, and let
+$a_e(t)=(t-t_{0,e})/(3600\ \mathrm{s})$ be the elapsed time at cutoff $t$.
+At cells with valid reconstructed arrival data, define the cumulative state
+\begin{equation}
+ B_{e,t}(i)=\Ind\{A_e(i)\leq a_e(t)\}\in\{0,1\}.
+ \label{eq:prob-cumulative-state}
+\end{equation}
+This state remains one after arrival; it does not identify an actively flaming
+cell. A currently unburned cell has $B_{e,t}(i)=0$. Its exact next-hour target is
+\begin{align}
+ Y_{e,t}(i)
+ &=\Ind\{B_{e,t}(i)=0,\ B_{e,t+3600\mathrm{s}}(i)=1\}\nonumber\\
+ &=\Ind\{a_e(t)<A_e(i)\leq a_e(t)+1\}.
+ \label{eq:prob-next-hour-target}
+\end{align}
+The second expression applies only where arrival time is valid. Thus a target
+is positive precisely when arrival lies in the half-open interval $(t,t+1
+\text{ hour}]$, interpreted through the event origin. A cell burned exactly
+at $t$ is already burned and is excluded from the at-risk training population;
+a cell burned exactly at $t+1$ hour gives a positive target.
+
+The preparation code enumerates actual hourly timestamps from the catalog
+start through end. It uses \texttt{searchsorted(..., side="left")} to find the
+first hourly state satisfying $A_e(i)\leq a_e(t)$. It checks that the current
+snapshot is exactly at the recorded cutoff, the next snapshot is exactly
+3,600 seconds later and inside the event interval, and every dynamic input
+has an interval-end timestamp no later than the current cutoff. Fractional
+event origins are retained in the elapsed-time calculation rather than
+rounded to an integer hour.
+
+\subsection{Spatial support, masks, and contact}
+
+For an odd side length $K\geq3$, put $R_K=(K-1)/2$ and define the offset set
+\begin{equation}
+ \mathcal D_K=\{-R_K,\ldots,R_K\}^{2},\qquad
+ \mathcal D_K^*=\mathcal D_K\setminus\{(0,0)\}.
+\end{equation}
+Offsets are enumerated in row order. The source associated with target $i$
+and offset $\delta$ is $i+\delta$. This is the PyTorch cross-correlation
+convention; no reversal of the offsets is made. Define the number of currently
+burned neighboring cells by
+\begin{equation}
+ n_{e,t,K}(i)=\sum_{\delta\in\mathcal D_K^*}B_{e,t}(i+\delta),
+ \qquad C_{e,t,K}(i)=\Ind\{n_{e,t,K}(i)>0\}.
+ \label{eq:prob-contact}
+\end{equation}
+Here $C=1$ means contact with a previously burned cell within the support; it
+does not imply physical flame contact or an observed heat-transfer pathway.
+
+Let $M^B_{e,t}(j)$ indicate that burned state is known at source cell $j$.
+Let $X_{e,t,c}(j)$ be environmental channel $c$ at that cutoff, and let
+$M^X_{e,t,c}(j)$ indicate that its value is valid and finite. Before contact
+filtering, a training target must satisfy all of the following conditions:
+\begin{enumerate}
+ \item Its current and exact next-hour arrival-derived states are known, its
+ current state is zero, and the next hour is inside the catalog interval.
+ \item Every burned-state source in $i+\mathcal D_K$ is known.
+ \item Every selected environmental channel at every position in
+ $i+\mathcal D_K$ is known and finite.
+ \item The entire square support lies inside the raster. The saved fitting
+ contract uses unknown exterior boundaries and complete interior patches.
+\end{enumerate}
+Let $\mathcal U_K$ denote the finite population of such cell-hours. The
+maintained contact-only experiments use the restricted population
+\begin{equation}
+ \mathcal U_K^+=\{(e,t,i)\in\mathcal U_K:C_{e,t,K}(i)=1\}.
+ \label{eq:prob-population}
+\end{equation}
+The empirical probability target is therefore conditional on complete
+reconstruction context and, in the maintained fits, on current burned-neighbor
+contact. Moreover, the arrival bundle supplies a final-perimeter-constrained
+retrospective support. Evaluation on this population does not estimate the
+probability of ignition anywhere in a surrounding landscape.
+
+\subsection{Why the contact restriction changes the task}
+
+Both architectures below sum coefficients multiplied by the current burned
+state, with no intercept after that sum. Therefore
+\begin{equation}
+ n_{e,t,K}(i)=0\quad\Longrightarrow\quad
+ \lambda_{e,t}(i)=0,\quad q_{e,t}(i)=0,\quad s_{e,t}(i)=0.
+ \label{eq:prob-no-contact-zero}
+\end{equation}
+This is an algebraic property, independent of training. In the earlier
+five-channel unrestricted $3\times3$ experiment, 5,549 of 20,345 positive
+test targets had no current burned neighbor: $27.2745\%$ of positive targets.
+All of those targets necessarily received probability zero, so the exact
+Bernoulli negative log likelihood was infinite. The source for these counts is
+\path{probability_model/training_runs/20261007_1h_all44/fitted/metrics.json}
+relative to the burned-area package directory. Filtering to
+$\mathcal U_K^+$ removes this structurally unsupported part of the task.
+It does not repair the model's ability to predict disconnected arrivals; it
+defines a narrower task and must be reported as such.
+
+\section{Sample preparation, inverse inclusion weights, and fixed splits}
+\label{sec:probability-preparation}
+
+\subsection{Retain positives and sample negative cell-hours}
+
+Preparation first identifies candidate currently unburned cell-hours with
+complete arrival-derived burned context. It retains every positive candidate.
+Within each fire, negative candidates are divided into two strata: current
+contact and current no-contact. For a stratum $h$ with $N_h$ negative
+cell-hours, the code draws
+\begin{equation}
+ m_h=\min(N_h,L_h)
+\end{equation}
+uniformly without replacement. The recorded limits are $L_h=5{,}000$ for
+contact negatives and $L_h=2{,}000$ for no-contact negatives, with seed 7.
+Each selected negative has inclusion probability $\pi_u=m_h/N_h$ and
+weight $w_u=1/\pi_u=N_h/m_h$. Every positive has $\pi_u=1$ and $w_u=1$.
+There is no draw when $N_h=0$. The implementation samples integer time
+segments per cell using cumulative segment lengths; this is equivalent to
+uniform sampling from the stratum's disjoint cell-hour identities.
+
+Environmental validity is checked after candidate sampling. Invalid selected
+examples are removed without replacement draws and without changing their
+weights. Contact filtering likewise retains the original weights exactly.
+For a fixed finite valid target population $\mathcal V$ and any fixed
+quantity $f_u$, let $I_u$ indicate initial sampling. Then
+\begin{equation}
+ \E_{\rm sampling}\!\left[
+   \sum_{u\in\mathcal V}I_uw_uf_u
+ \right]
+ =\sum_{u\in\mathcal V}f_u,
+ \label{eq:prob-ht-total}
+\end{equation}
+because $\E[I_u]=\pi_u$ and $w_u\pi_u=1$. Filtering a deterministic valid
+subset preserves this identity for totals; a replacement draw would change
+the inclusion design and require a new calculation.
+
+Most reported means use the ratio
+\begin{equation}
+ \widehat\mu_f=\frac{\sum_{u\in\mathcal S}w_uf_u}
+                    {\sum_{u\in\mathcal S}w_u},
+ \label{eq:prob-ratio-mean}
+\end{equation}
+where $\mathcal S$ is the retained sampled population. This is an
+inverse-inclusion-weighted ratio estimate, not an exhaustive full-grid mean.
+Equation~\eqref{eq:prob-ht-total} makes the numerator and denominator unbiased
+estimators of their respective totals for fixed $f$; it does not make their
+ratio exactly unbiased. It also does not establish independence between
+neighboring cell-hours or eliminate the effect of model fitting on the same
+training sample. The weighted rank and reliability diagnostics below are
+also sample-based descriptive estimates, with no reported confidence intervals.
+
+\subsection{Whole-season partitions}
+
+The split function is fixed by country and year before fitting:
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Partition & Country-year seasons & Catalog events\\
+\hline
+Training & Korea 2022; United States 2020 and 2021 & 27\\
+Validation & Korea 2023; United States 2022 & 7\\
+Test & Korea 2025; United States 2024 & 10\\
+\hline
+\end{tabular}
+\end{center}
+All cell-hours of a fire remain in its assigned partition. One model per
+kernel pools the two countries; the maintained runs do not fit separate
+country-specific models. A catalog fire can contribute no eligible targets
+after complete-context and contact restrictions, so catalog event counts and
+contributing event counts differ.
+
+For the 19-channel maintained native $3\times3$ cache, the saved counts are:
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Partition & Contributing fires & Samples & Positives & $\sum w$\\
+\hline
+Training & 25 & 205,841 & 99,850 & 3,867,244\\
+Validation & 5 & 28,318 & 12,936 & 745,565\\
+Test & 10 & 53,292 & 14,796 & 315,920\\
+\hline
+\end{tabular}
+\end{center}
+The test sample positive fraction is $14{,}796/53{,}292=0.277640$, whereas
+the weighted test prevalence is $14{,}796/315{,}920=0.0468346$. The large
+difference follows from retaining all positive targets while sampling
+negatives. Treating the sample fraction as the target-population prevalence
+would be incorrect. Counts are from
+\path{probability_model/training_runs/20261007_1h_biome_onehot_pooled/prepared/metadata.json}.
+
+\section{Input encoding and training-only normalization}
+\label{sec:probability-features}
+
+\subsection{The fitted probability models use nineteen channels}
+
+The probability-model input schema selects five continuous source fields:
+temperature at 2 m, eastward wind at 10 m, northward wind at 10 m, terrain
+slope in degrees, and tree-cover percentage. It also selects
+\texttt{biome.biome\_class}. The frozen biome vocabulary contains class
+codes $1,\ldots,14$, expanded into fourteen distinct indicator channels:
+\begin{equation}
+ X_{e,t,5+\ell}(j)=\Ind\{\operatorname{biome}_e(j)=\ell\},
+ \qquad \ell=1,\ldots,14.
+\end{equation}
+For a valid categorical cell, every indicator is exactly zero or one and
+their sum is exactly one. A missing biome is invalid; it is not represented
+by an all-zero known vector. Vocabulary and ordered channel names are frozen
+from the source legend and carried in cache metadata and the checkpoint.
+The integers assigned to biome classes are not treated as continuous ordered
+measurements. Thus $C=5+14=19$ for these fits, even though the general loader
+can expose a broader environmental schema.
+
+\subsection{Weighted moments across training patches}
+
+Index the retained training examples by $u\in\mathcal S_{\mathrm{tr}}$.
+Write $X_{u,c,\delta}$ for channel $c$ at offset $\delta$ in example $u$.
+Put $W_{\mathrm{tr}}=\sum_{u\in\mathcal S_{\mathrm{tr}}}w_u$. The code calculates
+\begin{align}
+ \mu_c&=\frac{1}{W_{\mathrm{tr}}K^2}
+   \sum_{u\in\mathcal S_{\mathrm{tr}}}w_u
+   \sum_{\delta\in\mathcal D_K}X_{u,c,\delta},\\
+ v_c&=\frac{1}{W_{\mathrm{tr}}K^2}
+   \sum_{u\in\mathcal S_{\mathrm{tr}}}w_u
+   \sum_{\delta\in\mathcal D_K}(X_{u,c,\delta}-\mu_c)^2,\\
+ \sigma_c&=\begin{cases}\sqrt{v_c},&\sqrt{v_c}\geq10^{-6},\\
+                           1,&\sqrt{v_c}<10^{-6},\end{cases}\qquad
+ Z_{u,c,\delta}=\frac{X_{u,c,\delta}-\mu_c}{\sigma_c}.
+ \label{eq:prob-normalization}
+\end{align}
+All moments use training examples only. Each target's weight applies equally
+to all $K^2$ positions in its patch. These are moments of the weighted patch
+distribution, not moments of unique raster cells: overlapping patches can
+contain the same physical cell multiple times. The calculation uses float64
+accumulation and a second centered pass for variance, then saves float32
+means and scales. One-hot channels receive the same normalization rule after
+their raw indicator validity is checked.
+
+Validation, test, demonstration, and inference reuse the saved $\mu_c$ and
+$\sigma_c$ without refitting. Each kernel has its own native training
+population and hence its own saved moments. Center-cropping a $9\times9$
+evaluation patch to a smaller support does not change that smaller model's
+normalization parameters. This distinction matters in the common comparison.
+
+\section{Environmental kernel generator and the two output formulas}
+\label{sec:probability-models}
+
+\subsection{Shared position-dependent coefficient generator}
+
+The generator receives the normalized environmental $K\times K$ context of
+each target. With $d_h=16$ hidden channels, define first-layer weights
+$U_{h,c,\delta}\in\R$, hidden biases $b_h\in\R$, second-layer weights
+$V_{\eta,h}\in\R$, and output biases $d_\eta\in\R$, where
+$h=1,\ldots,d_h$, $c=1,\ldots,C$, and $\delta,\eta\in\mathcal D_K$.
+At a target $u=(e,t,i)$ the exact center computation is
+\begin{align}
+ a_{u,h}&=b_h+\sum_{c=1}^{C}\sum_{\delta\in\mathcal D_K}
+                         U_{h,c,\delta}Z_{u,c,\delta},\\
+ H_{u,h}&=\operatorname{SiLU}(a_{u,h})
+          =a_{u,h}\operatorname{sigmoid}(a_{u,h}),\\
+ z_{u,\eta}&=d_\eta+\sum_{h=1}^{d_h}V_{\eta,h}H_{u,h}.
+ \label{eq:prob-generator}
+\end{align}
+Here $\operatorname{sigmoid}(a)=1/(1+e^{-a})$. The quantity $d_h$
+is hidden width, distinct from the raster's row count $H$.
+The first layer is a $K\times K$ convolution and the second a $1\times1$
+convolution with $K^2$ outputs. Applying these convolutions across a full grid
+produces a different vector $(z_{u,\eta})_\eta$ at every target. The same
+learned parameter arrays are shared across targets and events. The generator
+reads environmental data; the generated coefficients act on the burned-state
+map. The burned map is not an additional input channel to the generator.
+Leading time and batch dimensions are independent snapshots; these modules
+have no temporal recurrence.
+
+Let $m_\eta=\Ind\{\eta\neq(0,0)\}$. Both models fix their center coefficient
+to zero by multiplication by $m_\eta$. The output biases $d_\eta$ are biases
+of the coefficient generator; they are not an additive intercept after the
+burned-source sum. No normalization makes neighboring coefficients sum to one.
+
+The allocated trainable parameter count is
+\begin{equation}
+ P_K=d_hCK^2+d_h+d_hK^2+K^2=K^2\{d_h(C+1)+1\}+d_h.
+\end{equation}
+For $C=19$ and $d_h=16$, $P_K$ is 2,905, 8,041, 15,745, and 26,017 for
+$K=3,5,7,9$, respectively. The allocated center-output parameters are
+mathematically inactive because of the fixed mask. Holding $d_h$ constant
+therefore does not hold model capacity constant across kernel sizes.
+
+\subsection{Original nonnegative rate and exponential-link model}
+
+The original architecture maps logits to nonnegative hourly contributions:
+\begin{align}
+ k_{u,\eta}&=m_\eta\operatorname{softplus}(z_{u,\eta})
+            =m_\eta\log(1+\exp z_{u,\eta}),\\
+ \lambda_u&=\sum_{\eta\in\mathcal D_K}k_{u,\eta}B_{e,t}(i+\eta),\\
+ q_u(\Delta)&=(1-B_{e,t}(i))\{1-\exp(-\Delta\lambda_u)\},
+ \qquad \Delta\geq0\text{ in hours}.
+ \label{eq:prob-original}
+\end{align}
+The neural formulas use numerical rate values expressed in $\mathrm{h^{-1}}$
+and numerical elapsed durations expressed in hours. Equivalently, the
+physical rate corresponding to a softplus output is that output times
+$1\ \mathrm{h^{-1}}$. Each $k_{u,\eta}$ has units of inverse hours per burned neighboring cell,
+so $\lambda_u$ is an inverse-hour rate and $\Delta\lambda_u$ is dimensionless.
+All fitting examples have $B_{e,t}(i)=0$ and $\Delta=1$. The implementation
+evaluates $1-e^{-x}$ as $-\operatorname{expm1}(-x)$ for numerical accuracy near
+zero. Its training output is $q_u(1)$, not $\lambda_u$ and not a thresholded
+classification.
+
+The exponential formula has a constant-rate survival interpretation. If
+$S_u(v)$ is the conditional probability that an initially unburned target
+has not transitioned by elapsed time $v$, and one assumes
+\begin{equation}
+ \frac{dS_u(v)}{dv}=-\lambda_uS_u(v),\qquad S_u(0)=1,
+\end{equation}
+then separation of variables gives $S_u(v)=e^{-v\lambda_u}$ and transition
+probability $1-S_u(\Delta)=q_u(\Delta)$. This is a modeling assumption used
+to motivate the link, not a fact established by the reconstruction. During
+one call, the current burned map and environmental kernel are held fixed;
+the code does not let newly burned cells become new sources within that call.
+Although the low-level formula accepts other nonnegative durations, the saved
+experiments fit and validate only the one-hour endpoint. Good behavior at a
+different duration is not demonstrated by these experiments.
+
+At fixed environmental context, with the target held currently unburned,
+$\lambda_u$ and $q_u$ cannot decrease when a known off-center source changes
+from unburned to burned, because all contributions are nonnegative. If every source is unburned, both values are exactly zero.
+These constraints express the chosen architecture and do not prove a causal
+effect of any individual environmental channel.
+
+\subsection{Signed direct-convolution model}
+
+The separate direct experiment removes the coefficient nonnegativity
+constraint and the exponential output link:
+\begin{align}
+ w^{\rm ker}_{u,\eta}&=m_\eta z_{u,\eta}\in\R,\\
+ s_u&=(1-B_{e,t}(i))\sum_{\eta\in\mathcal D_K}
+                  w^{\rm ker}_{u,\eta}B_{e,t}(i+\eta),\\
+ p_u&=\operatorname{clip}_{[0,1]}(s_u)
+        =\min\{1,\max\{0,s_u\}\}.
+ \label{eq:prob-direct}
+\end{align}
+For $u=(e,t,i)$, the local clipped output $p_u$ is the global next-hour
+new-burn probability $q_i(t)$. It is distinct from the active-burning
+marginal $p_i(v)$ in the heat calculation.
+Here $w^{\rm ker}$ is a dimensionless kernel coefficient, distinct from the
+inverse inclusion weight $w_u$. The raw score $s_u$ can be negative or exceed
+one and has no hazard-rate interpretation. The fitted signed model trains
+against $s_u$ with an identity link. It applies no softplus, sigmoid,
+exponential conversion, or clipping in the training objective. The separate
+probability field $p_u$ is used for checkpoint selection and all reported
+probability metrics. The direct model rejects durations other than exactly
+one hour. Adding a burned source can decrease $s_u$ when its signed
+coefficient is negative, so monotonicity in burned-source count is not a
+property of this model.
+
+\subsection{Availability is an output of inference}
+
+Numerical zeros used internally to clean invalid inputs are accompanied by
+availability masks. They do not turn missing observations into known
+unburned cells. The original low-level sum can disregard an unknown source
+only when its coefficient is exactly zero; otherwise every contributing
+source must be known. Its generator requires all selected environmental
+channels throughout the $K\times K$ context. The direct model requires the
+complete burned-source context, including positions with a zero coefficient.
+
+The boundary mode \texttt{unknown} invalidates required outside-grid
+context. Opting explicitly into \texttt{zero} assumes zero outside-grid
+features in the coordinates passed to the low-level model and no exterior
+burned-source contribution. Saved wrappers normalize first: exterior zero
+in normalized feature coordinates corresponds to each channel's raw training
+mean, which need not be zero in physical units. The
+training caches use complete interior contexts under \texttt{unknown}.
+A known already-burned target has zero new-burn probability even when its
+rate or environmental context is unavailable. For the original low-level
+model, a known target also has zero new-burn probability at zero duration
+even when its rate is unavailable. Probability validity and rate validity
+are therefore different objects.
+
+The saved contact-only wrappers impose the fitted domain again at prediction:
+an unburned target without a known burned neighbor is returned as unavailable
+with a false validity mask and a NaN value, rather than accepted as a
+validated zero-probability forecast. The algebraic low-level zero in
+Equation~\eqref{eq:prob-no-contact-zero} and this fitted-wrapper availability
+rule must not be confused.
+
+\section{Initialization, fitting objective, gradients, and model selection}
+\label{sec:probability-fitting}
+
+\subsection{Train-only baseline initialization}
+
+For the original family, the trainer first fits a constant nonnegative
+per-neighbor rate $r$ on the native training sample:
+\begin{equation}
+ \widehat r_{\rm exp}\approx
+ \arg\min_{0\leq r\leq20}
+ \frac{1}{W_{\mathrm{tr}}}
+ \sum_{u\in\mathcal S_{\mathrm{tr}}}w_u
+  \{1-e^{-r n_{u,K}}-Y_u\}^{2}.
+ \label{eq:prob-rate-init}
+\end{equation}
+A bounded scalar numerical search fits this baseline; the code explicitly
+compares candidate endpoints. For larger supports it scales the search
+bracket by the smallest occupied positive neighbor count to avoid a saturated
+initial search, while retaining the original admissible endpoint candidates.
+This numerical procedure is not a proof that every possible nonconvex scalar
+objective attains its global minimum at the returned rate. The final-layer
+weights are set to zero and every output bias is set to the inverse softplus
+of $\max(\widehat r_{\rm exp},10^{-8})$. Consequently, before training every
+off-center coefficient equals this common initialized rate.
+
+For the signed family, a constant linear coefficient has a closed-form
+training-only least-squares solution. Let $n_u=n_{u,K}$. Differentiating
+\begin{equation}
+ F(r)=\sum_{u\in\mathcal S_{\mathrm{tr}}}w_u(rn_u-Y_u)^2
+\end{equation}
+gives $F'(r)=2\sum_uw_un_u(rn_u-Y_u)$. Since
+$\sum_uw_un_u^2>0$ on a nonempty contact-only sample, the unique minimizing
+coefficient is
+\begin{equation}
+ \widehat r_{\rm lin}=
+ \frac{\sum_uw_un_uY_u}{\sum_uw_un_u^2}.
+ \label{eq:prob-linear-init}
+\end{equation}
+The allowed coefficient is signed, although this particular baseline is
+nonnegative because its numerator is nonnegative. No clipping is used to fit
+it. The direct model initializes final-layer weights to zero and output
+biases to $\widehat r_{\rm lin}$, then masks the center coefficient to zero.
+
+\subsection{Weighted squared error, with two fixed scaling factors}
+
+Write $N_{\mathrm{tr}}=|\mathcal S_{\mathrm{tr}}|$, and define the global mean
+training weight and weighted training prevalence by
+\begin{equation}
+ \overline w_{\rm tr}=\frac{W_{\mathrm{tr}}}{N_{\mathrm{tr}}},\qquad
+ \rho_{\mathrm{tr}}=\frac{\sum_{u\in\mathcal S_{\mathrm{tr}}}w_uY_u}{W_{\mathrm{tr}}}.
+\end{equation}
+The trainers require $0<\rho_{\mathrm{tr}}<1$. On a minibatch $\mathcal B$ of
+$b$ examples, the exact mathematical objective before float32 rounding is
+\begin{equation}
+ L_{\mathcal B}(\theta)=
+ \frac{1}{b\rho_{\mathrm{tr}}}
+ \sum_{u\in\mathcal B}\frac{w_u}{\overline w_{\rm tr}}
+    \{f_\theta(u)-Y_u\}^{2},
+ \quad
+ f_\theta(u)=
+ \begin{cases}q_u(1),&\text{original family},\\
+               s_u,&\text{signed direct family}.
+ \end{cases}
+ \label{eq:prob-minibatch-loss}
+\end{equation}
+Both scaling factors are fitted once from the full native training partition;
+neither is recalculated within a minibatch. In particular, the denominator
+does not sum minibatch weights. With uniformly shuffled training identities,
+the expectation of a fixed-size randomly selected batch loss, conditional on
+the prepared sample and fixed parameters, equals
+\begin{equation}
+ \frac{1}{\rho_{\mathrm{tr}}W_{\mathrm{tr}}}
+ \sum_{u\in\mathcal S_{\mathrm{tr}}}w_u\{f_\theta(u)-Y_u\}^{2}.
+\end{equation}
+Thus the two positive global scaling factors change gradient magnitudes but
+not the minimizers of the unregularized full-sample weighted squared error.
+The sampling weights are not replaced by an arbitrary class-balancing loss.
+The optimizer separately uses a recorded weight-decay coefficient.
+
+For an ideal population and unrestricted function class, squared loss has
+conditional mean $\E[Y\mid\text{model inputs, eligibility}]$ as its minimizer:
+if $m=\E[Y\mid X]$, then
+\begin{equation}
+ \E[(f-Y)^2\mid X]=(f-m)^2+\operatorname{Var}(Y\mid X).
+\end{equation}
+This explains the probability interpretation of fitting a binary response
+with squared error. The finite neural architecture, selected training sample,
+regularization, optimizer, and retrospective label definition still constrain
+what the fitted output estimates. Neither this identity nor a low Brier score
+establishes calibration of a fitted model.
+
+\subsection{Gradients show exactly which quantity is fitted}
+
+For $\alpha_u=2w_u/(b\overline w_{\rm tr}\rho_{\mathrm{tr}})$, a batch example
+has derivative $\partial L/\partial f_u=\alpha_u(f_u-Y_u)$. In the original
+family, on a currently unburned valid target, the chain rule gives
+\begin{align}
+ \frac{\partial q_u(\Delta)}{\partial\lambda_u}
+   &=\Delta e^{-\Delta\lambda_u},\\
+ \frac{\partial\lambda_u}{\partial z_{u,\eta}}
+   &=m_\eta B_{e,t}(i+\eta)\operatorname{sigmoid}(z_{u,\eta}),\\
+ \frac{\partial L}{\partial z_{u,\eta}}
+   &=\alpha_u(q_u-Y_u)\Delta e^{-\Delta\lambda_u}
+      m_\eta B_{e,t}(i+\eta)\operatorname{sigmoid}(z_{u,\eta}).
+ \label{eq:prob-original-gradient}
+\end{align}
+The actual fitting duration is $\Delta=1$. Hence the loss acts on the linked
+probability while gradients pass through its rate. It is not squared error
+between rate and target.
+
+For the signed identity-link family,
+\begin{equation}
+ \frac{\partial L}{\partial z_{u,\eta}}
+ =\alpha_u(s_u-Y_u)m_\eta B_{e,t}(i+\eta).
+ \label{eq:prob-direct-gradient}
+\end{equation}
+A negative raw score on a positive target still gives a nonzero training
+gradient when a burned source contributes. If clipping had been placed inside
+the objective, its derivative outside $(0,1)$ would instead be zero almost
+everywhere. The code intentionally trains the unclipped score. In both models,
+an inactive source or the fixed center yields zero derivative through that
+coefficient for this example. Backpropagation through the shared hidden layer
+uses
+\begin{equation}
+ \operatorname{SiLU}'(a)=\operatorname{sigmoid}(a)
+   +a\operatorname{sigmoid}(a)\{1-\operatorname{sigmoid}(a)\}.
+\end{equation}
+For example, if $g_{u,\eta}=\partial L/\partial z_{u,\eta}$, then the data-loss
+gradients are
+\begin{align}
+ \frac{\partial L}{\partial V_{\eta,h}}
+    &=\sum_{u\in\mathcal B}g_{u,\eta}H_{u,h},&
+ \frac{\partial L}{\partial d_\eta}
+    &=\sum_{u\in\mathcal B}g_{u,\eta},\\
+ \frac{\partial L}{\partial U_{h,c,\delta}}
+    &=\sum_{u\in\mathcal B}
+       \left(\sum_{\eta}g_{u,\eta}V_{\eta,h}\right)
+       \operatorname{SiLU}'(a_{u,h})Z_{u,c,\delta}.
+\end{align}
+These formulas describe the differentiable complete-patch training path.
+They do not differentiate through availability masks or the discrete process
+that constructs reconstructed labels.
+
+\subsection{The Adam update used by the trainers}
+Let $\theta^{(k-1)}\in\R^{P_K}$ be the flattened parameter vector before
+minibatch update $k$, and let $g^{(k)}=\nabla_\theta L_{\mathcal B_k}$ be
+the data-loss gradient above. The current trainers use PyTorch 2.5.1
+\path{torch.optim.Adam}, with learning rate $\eta=10^{-3}$ and coupled
+weight decay $\lambda_{\mathrm{wd}}=10^{-4}$. No optimizer-specific
+defaults are overridden for the moment coefficients or denominator constant,
+so $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon_{\mathrm{Adam}}=10^{-8}$.
+These defaults were checked in the locally installed pinned optimizer source.
+
+For each parameter coordinate, the mathematical update is
+\begin{align}
+\widetilde g^{(k)}&=g^{(k)}+\lambda_{\mathrm{wd}}\theta^{(k-1)},\\
+m^{(k)}&=\beta_1m^{(k-1)}+(1-\beta_1)\widetilde g^{(k)},\\
+v^{(k)}&=\beta_2v^{(k-1)}+(1-\beta_2)(\widetilde g^{(k)})^2,\\
+\widehat m^{(k)}&=m^{(k)}/(1-\beta_1^k),\qquad
+\widehat v^{(k)}=v^{(k)}/(1-\beta_2^k),\\
+\theta^{(k)}&=\theta^{(k-1)}-
+\eta\frac{\widehat m^{(k)}}{\sqrt{\widehat v^{(k)}}+\epsilon_{\mathrm{Adam}}},
+\end{align}
+starting from $m^{(0)}=v^{(0)}=0$. Products, powers, square roots, and division
+are componentwise. The index $k$ counts minibatch updates, not epochs.
+Coupled weight decay adds the derivative of
+$\lambda_{\mathrm{wd}}\|\theta\|_2^2/2$ to the data gradient before the
+moment calculations; it is not an independent multiplicative shrinkage step.
+The first and second moment recurrences and their bias corrections adapt the
+step to the accumulated gradient history. Floating-point and backend execution
+can give small differences from these real-arithmetic equations.
+
+The trainers clear old gradients for each batch, evaluate the appropriate
+linked probability or raw score, reject a nonfinite loss, backpropagate,
+reject any nonfinite parameter gradient, and perform the optimizer update.
+They do not clip gradients in the maintained fitting loop. Validation and
+test calculations do not update the optimizer or preprocessing statistics.
+
+
+\subsection{Epoch selection precedes test evaluation}
+
+The saved runs use Adam, learning rate $10^{-3}$, weight decay $10^{-4}$,
+batch size 2,048, hidden width 16, seed 7, at most 30 epochs, and patience 6,
+with float32 model calculations on the recorded MPS device. Each epoch
+shuffles training examples, performs the minibatch updates, and computes
+native weighted validation Brier. A checkpoint is saved only on a strict
+improvement, and training stops after six successive epochs without one.
+The original family selects by $q_u$; the direct family selects by
+$\operatorname{clip}(s_u,0,1)$. The direct raw squared error used for
+optimization and clipped squared error used for selection are distinct
+quantities. Clipping cannot increase squared error against a binary response,
+since projecting onto $[0,1]$ cannot increase distance to either $0$ or $1$.
+
+The selected checkpoint is reloaded before the trainer first loads the test
+cache. Selected epochs for $K=3,5,7,9$ were respectively $2,8,5,3$ in the
+original family and $4,1,4,6$ in the signed family. Optimization is finite and
+nonconvex; no guarantee of a global neural-network minimum is claimed.
+
+The optimized center-patch computation is algebraically the center of the
+public full-spatial forward calculation. The trainers verify this agreement
+on up to 32 examples in float32 and independently with a CPU float64 model.
+Separate float32 tolerances account for different accumulation orders.
+Reloaded checkpoints also carry the ordered channel schema, normalization,
+one-hour target, zero-center constraint, split assignments, contact rule, and
+prepared-metadata hash. Prediction therefore has an explicit saved contract.
+
+\section{A common cohort for comparing kernel sizes and model families}
+\label{sec:probability-common}
+
+\subsection{Native populations are different}
+
+Increasing $K$ changes both the complete-context requirement and the contact
+requirement. More cells lose full context near a missing-data boundary, while
+more distant burned sources can satisfy contact. Native eligible populations
+and their sampling weights consequently differ. Even the training-only
+normalization distribution differs. Comparing native metrics as though the
+models had been evaluated on the same examples is invalid.
+
+The preserved comparison takes the native $9\times9$ prepared sample and
+retains only anchors having current burned contact inside its centered
+$3\times3$ support:
+\begin{equation}
+ \mathcal S_{\rm common}
+ =\{u\in\mathcal S_9^+:n_{u,3}>0\}.
+ \label{eq:prob-common-cohort}
+\end{equation}
+The complete $9\times9$ patch guarantees that each smaller centered patch
+is complete. Membership depends on current context and current burned state;
+it does not use the next-hour target. Every model receives the same event,
+cutoff, row, column, label, and original $9\times9$ inverse inclusion weight.
+For $K<9$, the model reads only the centered $K\times K$ crop and applies its
+own saved normalization. There is no intersection of independently sampled
+negative rows and no refitting on the common evaluation cohort.
+
+\begin{center}
+\begin{tabular}{lrrrrr}
+\hline
+Common partition & Fires & Samples & Positives & $\sum w$ & Prevalence\\
+\hline
+Training & 22 & 100,259 & 64,285 & 2,291,049.6466 & 0.0280592\\
+Validation & 3 & 12,143 & 6,579 & 343,561.4514 & 0.0191494\\
+Test & 8 & 16,807 & 7,378 & 85,133.3236 & 0.0866641\\
+\hline
+\end{tabular}
+\end{center}
+The represented populations are weighted estimates of the complete
+$9\times9$, current $3\times3$-contact subpopulation. The common validation
+cohort contributes only three fires, all in the United States; no Korean fire
+survives its complete $9\times9$ context and centered $3\times3$ contact
+requirements. The common training evaluation covers two Korean and twenty
+US fires, and common test covers two Korean and six US fires. Kernel-size
+selection therefore has direct common-validation evidence only from the
+retained US fires, despite fitting pooled-country models. No uncertainty
+intervals or independent fire-level resampling were supplied with these results.
+
+\subsection{Kernel selection is a separate validation operation}
+
+Each already fitted kernel keeps the epoch selected on its own native
+validation population. The common validation population then selects the
+kernel size by minimum weighted Brier, breaking exact ties toward the smaller
+kernel. The choice is saved before the common test cache is read. Both
+families selected $5\times5$. The shared validation Brier values are:
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Family & $3\times3$ & $5\times5$ & $7\times7$ & $9\times9$\\
+\hline
+Original & 0.01868646 & 0.01859248 & 0.01869454 & 0.01867230\\
+Signed direct, clipped & 0.01869695 & 0.01859025 & 0.01868570 & 0.01865468\\
+\hline
+\end{tabular}
+\end{center}
+Kernel geometry, training population, parameter count, and fitted
+normalization all vary across supports. This comparison tests the resulting
+trained systems on a common evaluation population; it is not an isolated,
+equal-capacity ablation of spatial radius.
+
+\section{Metrics, saved numerical results, and failure modes}
+\label{sec:probability-metrics}
+
+\subsection{Weighted Brier and exact Bernoulli log loss}
+
+Sampling weights $w_u$ are indexed by examples $u$ and are distinct from
+physical dry fuel loading $w_i$ indexed by cells $i$.
+For evaluation examples $u\in\mathcal S$ with positive weights, labels
+$Y_u\in\{0,1\}$ and probability outputs $p_u\in[0,1]$, put
+$W=\sum_uw_u$. The weighted Brier score is
+\begin{equation}
+ \widehat{\operatorname{BS}}=\frac{1}{W}\sum_uw_u(p_u-Y_u)^2.
+\end{equation}
+The original model supplies $p_u=q_u(1)$; the direct model supplies the clipped
+view from Equation~\eqref{eq:prob-direct}. The direct raw-score mean squared
+error is recorded separately and must not be called a probability Brier score
+without explaining that scores may lie outside $[0,1]$.
+
+Define the Bernoulli negative log-likelihood contribution without an ambiguous
+$0\log0$ expression:
+\begin{equation}
+ \ell(Y,p)=\begin{cases}-\log p,&Y=1,\\-\log(1-p),&Y=0,\end{cases}
+ \qquad -\log0=+\infty.
+\end{equation}
+The exact weighted mean is $\sum_uw_u\ell(Y_u,p_u)/W$. A single positive
+target with $p_u=0$, or negative target with $p_u=1$, makes it infinite.
+This does not imply infinite squared error. It is a support failure under
+the fitted Bernoulli probabilities.
+
+The code additionally reports a diagnostic finite log loss using
+\begin{equation}
+ p_u^{(\epsilon)}=\min\{1-\epsilon,\max\{\epsilon,p_u\}\},
+ \qquad \epsilon=10^{-7}.
+\end{equation}
+Its weighted log loss uses $p_u^{(\epsilon)}$ in place of $p_u$. The finite
+diagnostic is not the exact NLL and does not change the fitted model or its
+unmodified output probabilities.
+
+\subsection{Weighted ranking metrics, with explicit tie treatment}
+
+Let $P=\sum_uw_uY_u$ and $N=\sum_uw_u(1-Y_u)$. Sort distinct scores in
+descending order, and let $\tau_j$ be the $j$th distinct threshold. All
+examples tied at a threshold enter simultaneously. Define
+\begin{align}
+ \operatorname{TP}_j&=\sum_{u:p_u\geq\tau_j}w_uY_u,&
+ \operatorname{FP}_j&=\sum_{u:p_u\geq\tau_j}w_u(1-Y_u),\\
+ R_j&=\operatorname{TP}_j/P,&
+ F_j&=\operatorname{FP}_j/N,\\
+ \Pi_j&=\operatorname{TP}_j/(\operatorname{TP}_j+\operatorname{FP}_j).
+\end{align}
+With $R_0=F_0=0$, the implemented average precision and trapezoidal ROC
+area are
+\begin{equation}
+ \widehat{\operatorname{AP}}=\sum_j(R_j-R_{j-1})\Pi_j,\qquad
+ \widehat{\operatorname{AUC}}=\sum_j(F_j-F_{j-1})\frac{R_j+R_{j-1}}{2}.
+\end{equation}
+AP is undefined when there are no weighted positives; ROC AUC additionally
+requires weighted negatives. The code returns unavailable values in these
+cases. Ranking measures do not test probability calibration, and clipping
+can introduce ties that affect ranking.
+
+\subsection{Fixed-bin reliability}
+
+The descriptive reliability calculation fixes bin edges in advance at
+\begin{equation}
+ 0,\ 0.01,\ 0.02,\ 0.05,\ 0.10,\ 0.20,\ 0.50,\ 1.
+\end{equation}
+Each bin is left closed and right open, except the final bin includes one.
+For a nonempty bin $b$, define
+\begin{equation}
+ W_b=\sum_{u\in b}w_u,\qquad
+ \overline p_b=\frac{\sum_{u\in b}w_up_u}{W_b},\qquad
+ \overline y_b=\frac{\sum_{u\in b}w_uY_u}{W_b}.
+\end{equation}
+The recorded weighted expected calibration error is
+\begin{equation}
+ \widehat{\operatorname{ECE}}=\sum_{b:W_b>0}\frac{W_b}{W}
+                   |\overline p_b-\overline y_b|.
+\end{equation}
+It is a fixed-bin descriptive statistic, sensitive to the stated bins and
+population. It provides no confidence interval and no general calibration
+guarantee. The saved metric calculations are in
+\path{wildfire_burned_area_hourly/probability_model/metrics.py}.
+
+\subsection{Saved common test results}
+
+The following table reproduces the saved common test comparison, rounded for
+readability. Every row uses the same 16,807 identities, 7,378 positive labels,
+and weights. ``Zero positive'' counts realized positive labels given exact
+probability zero.
+\begin{center}
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrrrr}
+\hline
+Family & $K$ & Brier & AP & ROC AUC & Floor LL & Exact NLL & Zero-pos.\\
+\hline
+Original & 3 & 0.067219 & 0.383729 & 0.831045 & 0.242273 & 0.242273 & 0\\
+Original & 5 & 0.069587 & 0.333213 & 0.825043 & 0.249690 & 0.249690 & 0\\
+Original & 7 & 0.071997 & 0.387380 & 0.838929 & 0.259517 & 0.259517 & 0\\
+Original & 9 & 0.068417 & 0.363097 & 0.829479 & 0.251728 & 0.251728 & 0\\
+Signed direct & 3 & 0.069701 & 0.432513 & 0.823782 & 0.274618 & $+\infty$ & 164\\
+Signed direct & 5 & 0.064982 & 0.471449 & 0.842467 & 0.262619 & $+\infty$ & 215\\
+Signed direct & 7 & 0.067309 & 0.429701 & 0.840482 & 0.244700 & $+\infty$ & 61\\
+Signed direct & 9 & 0.077888 & 0.289826 & 0.767516 & 0.329989 & $+\infty$ & 290\\
+\hline
+\end{tabular}
+\endgroup
+\end{center}
+No common test row had a negative label assigned probability one. Thus the
+infinite exact NLL of every signed direct model is caused by positive labels
+receiving probability zero. In these models, negative raw scores are clipped
+to zero; contact conditioning does not prevent this different support failure.
+
+For the selected direct $5\times5$ model, saved common test raw scores range
+from $-0.0415605344$ to $0.7262458205$. There are 2,162 negative raw scores,
+or $12.8637\%$ of sampled targets and $19.5557\%$ of represented population
+weight; no raw score exceeds one. Of the 7,378 positive targets, 215 receive
+zero probability. Its raw weighted squared error is $0.0650427772$ and its
+clipped Brier is $0.0649824060$. Mean clipped probability is $0.0458195$,
+below weighted outcome prevalence $0.0866641$. Its fixed-bin ECE is
+$0.0408446$, compared with $0.0379574$ for the original $5\times5$ model.
+These results do not support describing the direct model as calibrated.
+
+The selected direct $5\times5$ improves common test Brier and ranking relative
+to the original $5\times5$, but worsens its floor log loss and has infinite
+exact NLL. The direct $3\times3$ and $9\times9$ have worse Brier than their
+same-size original counterparts, while $5\times5$ and $7\times7$ improve it.
+Therefore the experiment does not establish uniform superiority of the signed
+family. Also, although both validation selections chose $5\times5$, the
+original $3\times3$ has lower descriptive test Brier than the selected original
+$5\times5$; the kernel choice is not revised using that test observation.
+
+\subsection{Result files and reproducibility boundaries}
+
+The primary saved evidence is
+\path{probability_model/training_runs/20261007_1h_kernel_sweep/common_metrics.json}
+and
+\path{probability_model/training_runs/20261007_1h_direct_convolution_signed/common_metrics.json}
+relative to \path{wildfire_burned_area_hourly/}. Associated
+\texttt{common\_predictions} archives retain labels, weights, cell-hour
+identities, per-kernel neighbor counts, and probabilities; direct archives
+also retain unclipped raw scores. The saved protocols declare kernel sizes,
+source/cache identities, training parameters, clipping behavior, and
+validation-only selection. The direct evaluation code checks exact equality
+of all shared identities, labels, weights, and neighbor counts against the
+preceding original common-cohort archives.
+
+The saved common test public-wrapper versus center-computation checks have
+maximum absolute discrepancies no greater than $1.79\times10^{-7}$ for the
+original family and $5.97\times10^{-8}$ for the signed family, below their
+respective recorded float32 tolerances. These are computational agreement
+checks. They do not validate the reconstructed label against an independent
+observation or quantify generalization uncertainty. The experiments use one
+fixed sampling seed and one fitted run per configuration; the reported
+comparisons are retrospective, population-conditioned, and descriptive.
+
+\section{Step 5: ecological fuel loading and its coverage contract}
+\label{sec:ecological-fuel}
+
+\subsection{Two different reference catalogs have two different roles}
+
+The radiation extension uses FCCS dry loading to prescribe a conditional heat
+source, whereas the residence extension uses the Scott--Burgan FBFM40 catalog
+to prescribe a passing-front duration. These are separate inputs. A code in one
+catalog is not a code in the other catalog. A biome class is neither a dry mass
+nor a particle diameter. No conversion from a biome label, canopy height,
+relative humidity, or soil moisture to dry fuel mass is implemented by
+\texttt{EcologicalFuelMaps}. The implemented contracts are in
+\path{expected_heat_flux/ecology.py} and
+\path{expected_heat_flux/residence.py}.\cite{coderesidence}
+
+LANDFIRE assigns vegetation to reference FCCS fuelbeds. The reference loading
+table describes fuelbed attributes, rather than a field measurement of the
+fuel available on the date of a particular fire.\cite{landfirefccs}
+FCCS represents canopy, shrub, herbaceous, woody, litter--lichen--moss, and
+ground-fuel strata; a reference fuelbed may need customization for an actual
+site.\cite{prichard2013} The package reads the previously prepared total-loading
+raster. It does not implement all FCCS fire-behavior, consumption, or emissions
+calculations.
+
+\subsection{Objects, units, and conversion to SI}
+
+Let $i$ denote one cell of a target raster with shape $[H,W]$, where $H$ and $W$
+are positive integer numbers of rows and columns. Let
+$w_i^{\mathrm{mapped}}$ be the mean reference dry loading over the mapped
+portion of cell $i$, in $\mathrm{kg\,m^{-2}}$ of that portion, and let
+$c_i\in[0,1]$ be the fraction of the cell described by the mapped loading.
+An unreadable loading or coverage is represented as missing, not as zero.
+The distinction between a mapped-part mean and a whole-cell mean is essential:
+if $c_i=1/2$, then $w_i^{\mathrm{mapped}}$ is the mean over half of the cell.
+Multiplication by $c_i$ yields its contribution per unit \emph{whole-cell} area.
+
+The raster loading is interpreted as U.S. short tons per international acre.
+One U.S. short ton is $2000$ international pounds, one international pound is
+exactly $0.45359237\,\mathrm{kg}$, one international acre is
+$43560$ square international feet, and one international foot is exactly
+$0.3048\,\mathrm{m}$. Hence the implemented conversion factor is
+\begin{align}
+ C_w
+ &=\frac{2000\times0.45359237}
+          {43560\times(0.3048)^2}
+   \frac{\mathrm{kg\,m^{-2}}}{\mathrm{short\ ton\,acre^{-1}}}
+   \nonumber\\
+ &=0.2241702312388912
+   \frac{\mathrm{kg\,m^{-2}}}{\mathrm{short\ ton\,acre^{-1}}},
+ \qquad
+ w_i^{\mathrm{mapped}}=C_w L_i,
+ \label{eq:fccs-si}
+\end{align}
+where $L_i$ is the loading quantity read from the raster, expressed in
+U.S. short tons per international acre; the stored scalar is its numerical
+magnitude in those units. This is a unit
+conversion; it supplies no information about the event's actual consumed mass.
+
+\subsection{Alignment, physical validity, and complete coverage}
+
+The loading and coverage rasters must each have one static band. Their shapes,
+coordinate reference systems (CRSs), and six affine-transform coefficients must
+agree exactly. Their CRS must be projected with a linear unit equal to one
+metre. If a prediction grid or an expected shape is supplied, the reader checks
+that alignment as well. Shape equality by itself is insufficient: a shifted
+grid would associate the loading with a different location.
+
+The reader replaces a negative or nonfinite loading by missing data. It also
+replaces a nonfinite coverage or a coverage outside $[0,1]$ by missing data.
+The numerical tolerance for declaring coverage complete is a caller-selected
+$\varepsilon_c\in[0,1)$, whose default is $10^{-6}$. The reader's complete-input
+indicator is
+\begin{equation}
+ V_i^{\mathrm{fuel}}
+ =\Ind\{w_i^{\mathrm{mapped}}\text{ is finite}\}
+  \Ind\{c_i\text{ is finite}\}
+  \Ind\{c_i\geq1-\varepsilon_c\}.
+ \label{eq:fccs-complete}
+\end{equation}
+Here $\Ind\{\mathcal A\}$ equals one if statement $\mathcal A$ is true and zero
+otherwise. A finite, nonnegative loading of zero is legitimate when it was
+actually supplied with valid coverage; missing loading is a different state.
+The accepted tolerance concerns numerical coverage. It does not quantify
+uncertainty in fuel mass. Setting $\varepsilon_c=0$ requires exact coverage
+$c_i=1$.
+
+Without an explicit fallback loading, the conversion to combustion parameters
+requires every cell to satisfy \eqref{eq:fccs-complete}; otherwise it fails. If a
+coverage just below one is accepted within tolerance and no fallback is given,
+the implementation uses $w_i^{\mathrm{mapped}}$ directly as the whole-cell
+loading. This is the precise numerical tolerance convention used by the code.
+
+\subsection{Explicit completion of the unmapped fraction}
+
+Let $w_i^{\mathrm{fallback}}\geq0$ be a finite loading supplied by the caller for
+the \emph{unmapped} portion, in $\mathrm{kg\,m^{-2}}$ of that portion. A scalar
+fallback applies to every cell; an array must broadcast to the existing spatial
+shape $[H,W]$, without introducing a batch or time dimension. When a fallback
+is supplied, the whole-cell dry loading is
+\begin{equation}
+ w_i=
+ \begin{cases}
+ c_i w_i^{\mathrm{mapped}}
+ +(1-c_i)w_i^{\mathrm{fallback}},
+ &w_i^{\mathrm{mapped}}\text{ and }c_i\text{ are readable},\\[2pt]
+ w_i^{\mathrm{fallback}},
+ &\text{otherwise}.
+ \end{cases}
+ \label{eq:fccs-fallback}
+\end{equation}
+For a cell of area $|S_i|$ in $\mathrm{m^2}$, the first case follows from adding
+the dry masses $|S_i| c_i w_i^{\mathrm{mapped}}$ and
+$|S_i|(1-c_i)w_i^{\mathrm{fallback}}$, then dividing by $|S_i|$. If $c_i=1$, the
+fallback contributes nothing. If $c_i=0$, the fallback supplies the whole-cell
+loading. If either mapped input is unreadable, the implementation uses the
+fallback for the entire cell; it cannot recover a known mapped contribution
+from unreadable data.
+
+For example, if $c_i=0.4$, $w_i^{\mathrm{mapped}}=2$, and
+$w_i^{\mathrm{fallback}}=10$ in $\mathrm{kg\,m^{-2}}$, then
+$w_i=0.4(2)+0.6(10)=6.8\,\mathrm{kg\,m^{-2}}$. Replacing the whole cell by the
+fallback would discard the mapped information; using the mapped mean alone
+would leave the unmapped fraction unspecified.
+
+Under the \emph{reference-input assumptions}, and assuming only that the
+unmapped loading is nonnegative, a mathematical lower bound is
+\begin{equation}
+ w_i^{\mathrm{lower}}=
+ \begin{cases}
+ c_i w_i^{\mathrm{mapped}},&\text{both mapped inputs are readable},\\
+ 0,&\text{otherwise}.
+ \end{cases}
+ \label{eq:fccs-lower}
+\end{equation}
+Indeed, the unknown nonnegative mass contributes a nonnegative summand in
+\eqref{eq:fccs-fallback}. This is not a lower bound on true field fuel mass,
+because the reference loading itself can be inaccurate. The zero in the second
+case is the trivial nonnegative bound, not an observed zero loading.
+
+\subsection{Dry fuel, moisture, and prescribed combustion parameters}
+
+For a fuel sample with dry mass $m_{\mathrm{dry}}>0$ and water mass
+$m_{\mathrm{water}}\geq0$, dry-basis moisture would be
+$M=m_{\mathrm{water}}/m_{\mathrm{dry}}$ (dimensionless), or $100M$ percent. That
+physical definition is distinct from relative humidity, soil-water content,
+and a categorical biome label. The ecological reader neither derives
+dead-fuel moisture nor estimates live-fuel moisture. Weather and fuel-moisture
+fields can be predictor covariates, but the heat extension does not
+automatically turn them into a moisture correction of dry loading, combustion
+heat, consumed fraction, or residence time.
+
+After specifying $w_i$, the caller must also specify a positive effective heat
+of combustion $H_{c,i}$ in $\mathrm{J\,kg^{-1}}$, a positive combustion-phase
+duration $T_i$ in seconds, and a consumed dry-mass fraction $f_i\in[0,1]$.
+The conditional uniform heat-release-rate density is
+\begin{equation}
+ Q_i=\frac{w_i f_i H_{c,i}}{T_i}
+ \quad[\mathrm{W\,m^{-2}}].
+ \label{eq:ecology-conditional-hrr}
+\end{equation}
+The effective heat is supplied, rather than inferred as a moisture-corrected
+gross calorific value. If $T_i$ is a main-front flaming duration, $f_i$ must
+refer to dry fuel consumed in that modeled phase; it must not silently mean
+all fuel eventually consumed by residual flaming and smouldering. A separate
+radiative fraction is required by the radiation operator.
+
+The completed integrated FishCreek demonstration prescribes
+$H_c=18\times10^6\,\mathrm{J\,kg^{-1}}$, $T=300\,\mathrm{s}$,
+$f=0.10$, an unmapped-loading fallback of
+$10\,\mathrm{kg\,m^{-2}}$, and radiative fraction $0.30$.
+These are illustrative scenario parameters in its saved summary. They are not
+estimated from observations of FishCreek combustion. The $300\,\mathrm{s}$
+duration in that demonstration is separate from the FBFM40 passing-front
+durations used by the active-flame demonstration described below.
+
+\section{Fuel-dependent surface-flame residence scenarios}
+\label{sec:residence}
+
+\subsection{What duration is being assigned}
+
+In this section, duration is denoted $\tau_i^{\mathrm{fl}}$ to distinguish
+it from a separately supplied heat-emission duration $T_i$.
+At a representative grid location $i$, let $\tau_i^{\mathrm{fl}}>0$ be a deterministic, finite
+duration in seconds. Anderson's passing-front approximation and its Andrews
+formulation describe the time for a surface-fire flaming front to pass one
+fixed fuel location. The formulation excludes the indefinite trailing edge and
+assumes no effect of fuel-bed packing.\cite{anderson1969,andrews2018}
+It is distinct from the time since ignition, the time to traverse a coarse
+cell, the interval during which some part of that cell contains any flame,
+residual-flame extinction, crown-fire duration, or smouldering duration.
+
+The object \texttt{FlameResidenceTime} stores either one scalar duration or a
+complete matrix of shape $[H,W]$, plus immutable provenance. A scalar declares
+the same scenario duration at all locations to which it is applied. A matrix
+must align with the consumer's spatial grid. Zero, negative, nonfinite, masked,
+boolean, string, and complex durations are rejected; a missing duration is not
+assigned zero. The class copies the input and freezes its duration and
+provenance. Direct construction requires a provenance mapping.
+
+Assigning a point-scale $\tau_i^{\mathrm{fl}}$ to a $375\,\mathrm{m}$ grid cell is an additional
+spatial modeling assumption. It assigns a duration to a representative
+location; it does not resolve the arrival progression or flame geometry within
+the footprint. A catalog assignment supplies a reference-fuel scenario, not an
+event-specific measurement of duration.
+
+The heat-emission duration $T_i$ in
+\eqref{eq:ecology-conditional-hrr} and the flame residence
+$\tau_i^{\mathrm{fl}}$ are separate objects. The helper
+\texttt{CombustionParameters.from\_flame\_residence} explicitly sets
+$T_i=\tau_i^{\mathrm{fl}}$ when constructing combustion parameters from the
+residence scenario. When \texttt{WildfireHeatModel} is also supplied a
+\texttt{residence\_time}, it enforces this equality and rejects a mismatch.
+The equality is a chosen bridge between modeled phases, not a conclusion that
+all reference fuel is consumed during front passage; the consumed fraction
+must describe that same phase. Without this explicit bridge, an independently
+supplied heat duration and a flame residence must retain their distinct
+meanings.
+
+\subsection{From particle diameter: the Anderson relation}
+
+Let $d_i>0$ be the particle diameter in metres. Define the dimensionless
+original-unit numerical values $d_{\mathrm{inch}}=d_i/(0.0254\,\mathrm m)$
+and $\tau_{\mathrm{min}}^{\mathrm{fl}}=\tau_i^{\mathrm{fl}}/(60\,\mathrm s)$.
+The implemented source law is
+$\tau_{\mathrm{min}}^{\mathrm{fl}}=8d_{\mathrm{inch}}$. Converting units gives
+\begin{align}
+ d_{\mathrm{inch}}&=\frac{d_i}{0.0254\,\mathrm{m}},\\
+ \tau_i^{\mathrm{fl}}&=8\frac{\mathrm{min}}{\mathrm{inch}}
+       \frac{d_i}{0.0254\,\mathrm{m}/\mathrm{inch}}
+       \frac{60\,\mathrm{s}}{\mathrm{min}}
+      =C_d d_i,
+ \quad
+ C_d=18\,897.63779527559\,\mathrm{s\,m^{-1}}.
+ \label{eq:residence-diameter}
+\end{align}
+Thus a particle of diameter one inch, $d_i=0.0254\,\mathrm{m}$, gives
+$\tau_i^{\mathrm{fl}}=480\,\mathrm{s}$. A particle of diameter $0.002\,\mathrm{m}$ gives
+$\tau_i^{\mathrm{fl}}=37.79527559055118\,\mathrm{s}$. The law approximates a uniform fuel array;
+it does not establish that every fuel particle in a heterogeneous cell burns
+out by this time. The public Anderson constructor validates positivity and
+finiteness but does not impose a calibrated species-specific diameter range.
+Allowing a numerical input therefore does not validate its physical use.
+
+\subsection{From characteristic surface-area-to-volume ratio}
+
+Let $\sigma_i>0$ be characteristic fuel-particle surface area divided by
+particle volume, in $\mathrm{m^{-1}}$. Its numerical value in
+$\mathrm{ft^{-1}}$ is $0.3048$ times its numerical value in
+$\mathrm{m^{-1}}$. Andrews's residence relation is
+$\tau_{\mathrm{min}}^{\mathrm{fl}}=384/\sigma_{\mathrm{ft^{-1}}}$.\cite{andrews2018}
+The implemented SI form is consequently
+\begin{equation}
+ \tau_i^{\mathrm{fl}}=\frac{C_\sigma}{\sigma_i},\qquad
+ C_\sigma=\frac{384\times60}{0.3048}
+          \,\mathrm{s\,m^{-1}}
+ =75\,590.55118110236\,\mathrm{s\,m^{-1}}.
+ \label{eq:residence-sav}
+\end{equation}
+The unit check is
+$(\mathrm{s\,m^{-1}})/(\mathrm{m^{-1}})=\mathrm{s}$.
+Using $384/\sigma_i$ with an SI input would omit both conversions.
+
+For a cylinder of diameter $d_i$ and length $\ell>0$, neglecting its end area,
+the side area is $\pi d_i\ell$ and the volume is $\pi d_i^2\ell/4$. Hence
+$\sigma_i=4/d_i$, so
+\begin{equation}
+ \frac{C_\sigma}{\sigma_i}
+ =\frac{C_\sigma d_i}{4}=C_d d_i,
+ \qquad
+ \frac{384\times60}{4\times0.3048}
+ =\frac{8\times60}{0.0254}.
+\end{equation}
+The equality is exact because $0.3048=12(0.0254)$. This geometric argument
+depends on the long-cylinder approximation. It is not a general conversion
+from leaf geometry, tree height, or raster width to a particle diameter.
+
+\subsection{From the FBFM40 reference catalog}
+
+The catalog constructor supports exactly the 40 burnable standard numeric
+identifiers shown in Table~\ref{tab:fbfm-groups}. The components of each model
+are dead 1-hour, dead 10-hour, dead 100-hour, live herbaceous, and live woody
+fuel. These time-lag class names classify fuel components; they are not assigned
+flaming durations. The code transcribes the dry loads and particle SAV values
+from Scott--Burgan table~7.\cite{scottburgan2005}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\hline
+Reference group & Supported numeric identifiers & Number\\
+\hline
+Grass (GR) & $101$--$109$ & $9$\\
+Grass--shrub (GS) & $121$--$124$ & $4$\\
+Shrub (SH) & $141$--$149$ & $9$\\
+Timber understory (TU) & $161$--$165$ & $5$\\
+Timber litter (TL) & $181$--$189$ & $9$\\
+Slash/blowdown (SB) & $201$--$204$ & $4$\\
+\hline
+\end{tabular}
+\caption{The complete set of burnable FBFM40 codes accepted by the residence
+catalog constructor. Numeric gaps between groups are not additional supported
+models.}
+\label{tab:fbfm-groups}
+\end{table}
+
+For one reference fuelbed, index its components by $j$. Let $w_j\geq0$ be the
+dry loading in $\mathrm{kg\,m^{-2}}$, $\rho_j>0$ the particle material density
+in $\mathrm{kg\,m^{-3}}$, and $\sigma_j>0$ its particle SAV in
+$\mathrm{m^{-1}}$.
+The particle volume per unit ground area is $w_j/\rho_j$. Its surface area per
+unit ground area is consequently
+\begin{equation}
+ a_j^{\mathrm{surf}}=\frac{w_j\sigma_j}{\rho_j}.
+ \label{eq:component-surface}
+\end{equation}
+The ratio $a_j^{\mathrm{surf}}$ has units of fuel surface area per ground
+area, $\mathrm{m^2}/\mathrm{m^2}$, hence is dimensionless; it is distinct
+from the footprint set $S_j$. Surface-area weighting means taking the arithmetic mean of the particle SAVs
+with weights proportional to these surfaces, not to dry loads alone:
+\begin{equation}
+ \overline\sigma
+ =\frac{\sum_j a_j^{\mathrm{surf}}\sigma_j}{\sum_j a_j^{\mathrm{surf}}}
+ =\frac{\sum_j w_j\sigma_j^2/\rho_j}
+        {\sum_j w_j\sigma_j/\rho_j}.
+ \label{eq:characteristic-sav-general}
+\end{equation}
+This collapses the live/dead category weighting and within-category surface
+weighting described by Andrews into one expression.\cite{andrews2018}
+Scott--Burgan uses one common particle density of
+$32\,\mathrm{lb\,ft^{-3}}$, dead 10-hour SAV of $109\,\mathrm{ft^{-1}}$, and
+dead 100-hour SAV of $30\,\mathrm{ft^{-1}}$.\cite{scottburgan2005}
+The common density and any common loading-unit conversion cancel, giving the
+implemented formula
+\begin{equation}
+ \overline\sigma_{\mathrm{ft^{-1}}}
+ =\frac{\sum_{j=1}^{5}w_j\sigma_{j,\mathrm{ft^{-1}}}^{\,2}}
+        {\sum_{j=1}^{5}w_j\sigma_{j,\mathrm{ft^{-1}}}},
+ \qquad
+ \overline\sigma_i=\frac{\overline\sigma_{\mathrm{ft^{-1}}}}{0.3048}
+ \,\mathrm{m^{-1}},
+ \qquad
+ \tau_i^{\mathrm{fl}}=\frac{384\times60}{\overline\sigma_{\mathrm{ft^{-1}}}}\,\mathrm{s}.
+ \label{eq:fbfm-residence}
+\end{equation}
+The subscript on a SAV numerical value declares its unit. Entries with zero
+loading contribute zero to both sums. In particular, the source-table SAV
+placeholder $9999$ in a zero-load component is not physically weighted as
+fine fuel.
+
+For GR1, only the dead 1-hour and live-herbaceous entries have positive load:
+$w=(0.10,0.30)$ in short tons per acre, with particle SAVs
+$(2200,2000)\,\mathrm{ft^{-1}}$. Thus
+\begin{align}
+ \overline\sigma_{\mathrm{ft^{-1}}}
+ &=\frac{0.10(2200)^2+0.30(2000)^2}
+         {0.10(2200)+0.30(2000)}
+   =\frac{1\,684\,000}{820}
+   =2053.658536585366,\\
+ \tau^{\mathrm{fl}}&=\frac{23040}{2053.658536585366}\,\mathrm{s}
+   =11.219002375296912\,\mathrm{s}.
+\end{align}
+The published rounded characteristic SAV, $2054\,\mathrm{ft^{-1}}$, is useful
+for checking the transcription, but the constructor calculates the weighted
+ratio from the component parameters before converting to duration.
+
+The GS4 source has a recorded inconsistency: its component values in table~7
+imply approximately $1631\,\mathrm{ft^{-1}}$, consistent with Andrews's
+table~8c, while Scott--Burgan's individual GS4 summary prints
+$1674\,\mathrm{ft^{-1}}$. The implementation consistently uses the component
+table calculation and records the discrepancy in provenance. It does not
+silently substitute the inconsistent summary value.
+
+\subsection{Why curing does not change this particular characteristic SAV}
+
+Let a live-herbaceous component have dry loading $w_h$, SAV $\sigma_h$, and
+density $\rho_h$. Let $\alpha\in[0,1]$ be the fraction transferred to a new dead
+herbaceous component. Scott--Burgan preserves particle SAV during that transfer;
+it does not simply combine the transferred material with a dead 1-hour
+component of another SAV.\cite{scottburgan2005}
+If the transfer also retains the common catalog density, then the contributions
+to the denominator of \eqref{eq:characteristic-sav-general} are
+\begin{equation}
+ \frac{(1-\alpha)w_h\sigma_h}{\rho_h}
+ +\frac{\alpha w_h\sigma_h}{\rho_h}
+ =\frac{w_h\sigma_h}{\rho_h},
+\end{equation}
+and the corresponding numerator contributions are
+\begin{equation}
+ \frac{(1-\alpha)w_h\sigma_h^2}{\rho_h}
+ +\frac{\alpha w_h\sigma_h^2}{\rho_h}
+ =\frac{w_h\sigma_h^2}{\rho_h}.
+\end{equation}
+Therefore both sums, $\overline\sigma$, and this SAV-based $\tau^{\mathrm{fl}}$ are invariant to
+$\alpha$. The constructor can compute this duration without choosing a live
+moisture or curing fraction. This algebraic invariance is specific to this
+duration calculation. It does not imply that moisture and curing have no effect
+on ignition, spread, heat release, or consumption. The package does not
+estimate a curing fraction from moisture as part of the residence constructor.
+
+\subsection{Unsupported, missing, and nonburnable codes}
+
+The input codes must be numeric integer-valued identifiers in a scalar or a
+nonempty spatial matrix. A finite noninteger code is rejected even when a
+fallback is supplied. Missing, masked, custom, and unsupported integer codes,
+including standard nonburnable codes $91,92,93,98,99$, have no residence assigned
+by the burnable catalog. If any such location occurs, the constructor fails
+unless the caller explicitly supplies a strictly positive, finite
+\texttt{fallback\_sav\_m\_inv}. That fallback must be a scalar or match the
+code matrix shape exactly.
+
+On a supported cell the catalog SAV is retained. On an unsupported or missing
+cell the fallback SAV is substituted and \eqref{eq:residence-sav} is applied.
+Overriding a nonburnable class in this way is a caller's combustion scenario;
+it is not a duration attributed to the mapped class and is not evidence that
+the cell has combustible fuel. Provenance separately records catalog-cell,
+fallback-cell, and missing-code counts, finite unsupported codes, and the
+fallback value. No fallback is implicit in the public catalog constructor.
+
+The active-flame example \emph{does} explicitly set
+$\sigma_{\mathrm{fallback}}=2000\,\mathrm{ft^{-1}}
+=6561.679790026246\,\mathrm{m^{-1}}$, giving $\tau^{\mathrm{fl}}=11.52\,\mathrm{s}$ on fallback
+locations. This is an example argument, not a universal residence-time default.
+
+\subsection{A distinct laboratory relation for jarrah round wood}
+
+\texttt{from\_eucalypt\_wood\_diameter} implements Burrows's thesis equation~6-1:
+\begin{equation}
+ \tau_i^{\mathrm{fl}}=0.871\left(\frac{d_i}{1\,\mathrm{mm}}\right)^{1.875}\,\mathrm{s},
+ \qquad 1\,\mathrm{mm}\leq d_i\leq16\,\mathrm{mm}.
+ \label{eq:burrows-residence}
+\end{equation}
+The dimensionless ratio in the power makes the unit convention explicit.
+This numerical law uses a \emph{millimetre} input, while
+\eqref{eq:residence-diameter} uses a metre input. The constructor rejects
+extrapolation outside the closed experimental interval.
+
+The original methods describe individual oven-dried jarrah
+(\emph{Eucalyptus marginata}) round-wood particles cut to $10\,\mathrm{cm}$,
+ignited over a pilot flame, then allowed to burn after the pilot was
+extinguished. The measured endpoint is flame-out, distinguished from
+cessation of glowing combustion.\cite{burrows1994}
+This fuel-specific particle flame-out relation is separate from Anderson's
+passing-front approximation. Neither law is selected merely from a biome label.
+The thesis includes still-air laboratory context and ambient temperatures of
+$26$--$32\,^{\circ}\mathrm C$ in the surrounding experimental description;
+the code records these conditions as scenario metadata. Transferring the law
+to another species, wet fuel, wind, a whole fuelbed, or a coarse cell requires
+additional evidence that the present package does not supply.
+
+The constants $0.871$ and $1.875$ are treated as fixed in the implemented
+scenario. Although the thesis prints regression standard errors, the package
+does not sample those parameters, propagate their uncertainty, or construct a
+flame-duration confidence interval. The exact implemented equation is supported
+by the 1994 thesis; the source register distinguishes this from the later
+2001 article, whose full equation was not recorded as inspected.
+
+\subsection{Deterministic durations and the limits of uncertainty claims}
+
+There is no implemented residence-time probability distribution, moisture-based
+duration fit, quantile sampler, or Monte Carlo propagation of ecological
+parameter uncertainty in these modules. A duration fixed by a scenario can
+formally be represented by a point mass at $\tau_i^{\mathrm{fl}}$, but that mathematical
+representation is not a fitted uncertainty model. The within-hour uniform
+arrival assumption used by the forecast bridge concerns arrival time, not
+uncertainty in $\tau_i^{\mathrm{fl}}$. A spatial collection of different prescribed durations
+is also not a probability distribution of the unknown duration at a given cell.
+
+Likewise, an arrival-time standard deviation alone does not identify an arrival
+distribution or its quantiles. A mean and variance can be shared by many
+distributions with different tail probabilities. None of the residence
+constructors converts a kriging standard-deviation raster into a normal,
+lognormal, or calibrated arrival law. Conditional source-strength assumptions
+and fuel uncertainty therefore remain outside the computed heat bounds unless
+an additional model is supplied explicitly.
+
+\subsection{Saved FishCreek scenario and verification scope}
+
+The active-flame demonstration uses the $2016$ LANDFIRE modal FBFM40 class in
+each $375\,\mathrm{m}$ cell for a $2024$ event. The saved grid has
+$H=103$, $W=73$, and $HW=7519$ cells. It assigns $7346$ durations from burnable
+catalog classes and $173$ durations from the explicit fallback for codes $98$
+and $99$. Its assigned durations have minimum
+$11.219002375296913\,\mathrm{s}$, median
+$18.83071682602384\,\mathrm{s}$, and maximum
+$18.83071682602384\,\mathrm{s}$. Those numbers describe the saved reference-fuel
+scenario, not measured flame durations.
+
+For the same event, $2642$ saved valid arrival-standard-deviation values have
+minimum $32.776554107666016\,\mathrm h$, median
+$87.61341857910156\,\mathrm h$, and maximum
+$246.66561889648438\,\mathrm h$. These exact raster values show that the
+reported arrival uncertainty is much larger than the selected point durations.
+The nominal current-flame map at the saved cutoff has an empty active-position
+selection. This outcome cannot establish absence of observed flames: the
+calculation uses reconstructed point arrivals and does not integrate their
+uncertainty or represent residual flames.
+
+Current verification of the residence and ecological-reader contracts passed
+$118$ selected tests. They check the original and SI unit equations, cylinder
+geometry, all $40$ rounded characteristic SAVs, zero-load placeholders,
+immutable residence provenance, unsupported-code fallbacks, Burrows's tested
+range, metric raster alignment, incomplete coverage, nonnegative lower bounds,
+and the exact coverage-weighted fallback formula. These are mathematical and
+software checks. They are not observational calibration of duration, fuel
+consumption, active-flame positions, or wildfire heat exposure.
+
+\section{Step 6: activity conversion and expected incident radiant heat}
+\label{sec:heat}
+
+This section documents the methods implemented in
+\path{expected_heat_flux/model.py}, \path{expected_heat_flux/temporal.py},
+\path{expected_heat_flux/pipeline.py}, and \path{expected_heat_flux/flames.py}.
+The result is the expected \emph{incident radiant irradiance} at specified
+receiver points, in $\mathrm{W\,m^{-2}}$, under an explicit combustion, timing,
+and geometry scenario. It is not an estimate of every component of wildfire
+heat transfer. In particular, convection, receiver absorption, temperature,
+conduction, terrain obstruction, smoke-dependent attenuation, and emission
+from outside the supplied source raster are absent from this implementation.
+The mathematical calculations can be verified without establishing that the
+physical assumptions accurately describe a particular wildfire.\cite{codeheat}
+
+\subsection{Objects, units, and the source-state interpretation}
+\label{sec:heat-objects}
+
+Let $\mathcal J=\{0,\ldots,H-1\}\times\{0,\ldots,W-1\}$ be the finite
+source-cell index set, where $H,W$ are positive integers. Index $j=(r,c)$
+denotes row $r$ and column $c$, with both indices starting at zero. A projected
+affine grid in metres has coefficients $(a,b,c_0,d,e,f_0)$ and pixel-corner map
+\begin{equation}
+ (x,y)=(ac+br+c_0,\;dc+er+f_0).
+\end{equation}
+The column and row edge vectors are $\mathbf u=(a,d)$ and $\mathbf v=(b,e)$,
+respectively. Each cell has horizontal ground area
+\begin{equation}
+ A_{\rm cell}=|ae-bd|>0 \qquad[\mathrm{m^2}],
+\end{equation}
+and centre
+\begin{equation}
+ \mathbf x_j=(a(c+\tfrac12)+b(r+\tfrac12)+c_0,
+              d(c+\tfrac12)+e(r+\tfrac12)+f_0).
+\end{equation}
+This representation supports rotation, shear, rectangular spacing, and either
+row direction. Longitude and latitude are angular coordinates and cannot be
+used as metre coordinates. The radiation calculation requires a projected
+metric grid; $\texttt{AffineGrid}$ itself does not inspect a coordinate-system
+identifier. The caller or data adapter must establish that requirement.
+
+Let $\mathcal F_0$ denote the information used at forecast time zero. For
+cell $j$, let $Z_j(t)\in\{0,1\}$ indicate active burning at relative time
+$t$ seconds, and let
+\begin{equation}
+ p_j(t)=\mathbb P(Z_j(t)=1\mid\mathcal F_0)
+\end{equation}
+be its active-burning marginal probability. Throughout the timing bridge,
+$t$ is numeric seconds relative to the forecast cutoff. The indicator activates the
+model's prescribed uniform source footprint over the entire cell. This is a
+spatial idealization: partial active coverage must be represented through the
+conditional whole-cell source density, rather than interpreted as a measured
+flame filling the raster cell. A cumulative burned-state indicator and a
+probability of first burning sometime during the next hour are different
+objects from $Z_j(t)$ and $p_j(t)$.
+
+The combustion inputs for cell $j$ are dry fuel loading $w_j\ge0$ in
+$\mathrm{kg\,m^{-2}}$, phase-specific consumed fraction $f_j\in[0,1]$,
+effective released heat per fuel mass $H_{c,j}>0$ in $\mathrm{J\,kg^{-1}}$, and
+constant-emission duration $T_j>0$ in seconds. Loading is mass per entire
+horizontal ground-cell area. The consumed fraction describes fuel consumed
+in the modeled phase, and effective released heat is a supplied value; neither
+is automatically corrected for moisture. Define the conditional released
+energy density and conditional heat-release-rate density by
+\begin{align}
+ e_j&=w_jf_j H_{c,j}
+       &&[\mathrm{J\,m^{-2}}],\\
+ Q_j&=\frac{e_j}{T_j}=\frac{w_jf_j H_{c,j}}{T_j}
+       &&[\mathrm{W\,m^{-2}}].
+ \label{eq:heat-hrr}
+\end{align}
+For an active cell, the modeled total heat-release rate is
+$Q_jA_{\rm cell}$ watts. With prescribed radiative fraction
+$\chi_j\in[0,1]$, the active-cell radiant rate is
+$\chi_j Q_j A_{\rm cell}$ watts. The radiative fraction partitions released
+power; it is not receiver absorptivity or atmospheric transmissivity.
+The \texttt{CombustionParameters} object evaluates
+\eqref{eq:heat-hrr}. Its fields can broadcast during construction, but the
+radiation model ultimately requires $Q_j$ and $\chi_j$ to be either scalars
+or spatial maps with exactly the probability map's $[H,W]$ shape.
+
+\subsection{From a first-burning probability to active occupancy}
+\label{sec:heat-timing}
+
+The maintained checkpoint predicts first new cumulative burning during an
+exact one-hour interval, whose duration is
+$D=3600\ \mathrm{s}$. Let $N_j$ be that event, and define its
+\emph{unconditional with respect to initial activity status} forecast
+probability, conditional on the supplied information $\mathcal F_0$, by
+\begin{equation}
+ q_j=\mathbb P(N_j\mid\mathcal F_0).
+\end{equation}
+Let $U_j$ be the arrival time, relative to the cutoff, conditional on $N_j$.
+The temporal bridge adds the assumptions
+\begin{equation}
+ U_j\mid(N_j,\mathcal F_0)\sim\operatorname{Uniform}(0,D),
+ \qquad
+ Z_j^{\rm new}(t)=\Ind_{N_j}\Ind_{\{U_j\le t<U_j+T_j\}}.
+ \label{eq:heat-uniform-arrival}
+\end{equation}
+The conditional law is required only when $q_j>0$. When $q_j=0$,
+new activity is identically zero. Extend $U_j$ arbitrarily off $N_j$, where
+its value cannot affect the indicator. A product of $q_j$ and a conditional
+expectation given $N_j$ is interpreted as zero in the $q_j=0$ branch.
+The assigned model or scenario probability $q_j$ is not an independently
+established true physical arrival probability. All expectation identities
+below are exact under the assigned probability law and supplied parameters.
+The trained predictor supplies $q_j$; it does not supply the uniform
+conditional arrival law or $T_j$. No assumption about dependence between
+arrival times in different cells is required for the expectations below.
+
+For $0\le t\le D$, the conditional interval of arrivals that remain active
+at $t$ is $(\max(0,t-T_j),t]$. Its length is $\min(t,T_j)$, except for
+endpoints of zero probability under the continuous uniform law. Consequently,
+\begin{equation}
+ p_j^{\rm new}(t)
+ =\mathbb P(Z_j^{\rm new}(t)=1\mid\mathcal F_0)
+ =q_j\frac{\min(t,T_j)}{D}.
+ \label{eq:heat-instantaneous-occupancy}
+\end{equation}
+Define the time-mean active probability and endpoint active probability by
+\begin{equation}
+ \bar p_j^{\rm new}=\frac1D\int_0^D p_j^{\rm new}(t)\,dt,
+ \qquad p_{j,D}^{\rm new}=p_j^{\rm new}(D).
+\end{equation}
+If $T_j\le D$, split the integral at $T_j$:
+\begin{align}
+ \bar p_j^{\rm new}
+ &=\frac{q_j}{D^2}
+      \left(\int_0^{T_j}t\,dt+\int_{T_j}^D T_j\,dt\right)\\
+ &=q_j\left(\frac{T_j}{D}-\frac{T_j^2}{2D^2}\right).
+\end{align}
+If $T_j\ge D$, the integrand is $q_jt/D$ over the whole forecast interval,
+so $\bar p_j^{\rm new}=q_j/2$. Writing
+$\rho_j=\min(T_j,D)/D\in(0,1]$ gives both cases in one expression:
+\begin{equation}
+ \boxed{\bar p_j^{\rm new}=q_j(\rho_j-\rho_j^2/2),
+ \qquad p_{j,D}^{\rm new}=q_j\rho_j.}
+ \label{eq:heat-occupancy-bridge}
+\end{equation}
+Equivalently, a cell arriving at time $u$ burns for
+$\min(T_j,D-u)$ seconds within $[0,D]$, and
+$\bar p_j^{\rm new}=q_j\E[\min(T_j,D-U_j)\mid N_j,\mathcal F_0]/D$.
+The corresponding expected radiant energy emitted by a newly igniting cell
+\emph{within the forecast interval}, before atmospheric loss, is
+\begin{equation}
+ A_{\rm cell}\chi_j Q_jD\bar p_j^{\rm new}
+ =A_{\rm cell}\chi_j e_jq_j
+ \begin{cases}
+  1-T_j/(2D),&T_j\le D,\\
+  D/(2T_j),&T_j\ge D.
+ \end{cases}
+\end{equation}
+This generally differs from $A_{\rm cell}\chi_j e_jq_j$, because a cell
+arriving late can continue burning beyond the forecast interval. Thus the
+time-mean occupancy is the expected fraction of the forecast interval spent
+active; it is not an instantaneous state at the midpoint.
+For example, $T_j=300\ \mathrm{s}$ and $D=3600\ \mathrm{s}$ give
+$\rho_j=1/12$, $\bar p_j^{\rm new}=(23/288)q_j$, and
+$p_{j,D}^{\rm new}=q_j/12$.
+
+The probability $q_j$ alone does not determine active occupancy. Arrivals
+concentrated near zero and arrivals concentrated near $D$ can have the same
+$q_j$ and different interval dose and endpoint activity. Equation
+\eqref{eq:heat-occupancy-bridge} is valid for the implemented additional
+arrival scenario. The generic temporal utilities allow any positive numeric
+$D$, while \texttt{WildfireHeatModel} enforces $D=3600$ because its maintained
+predictors were fitted on exact one-hour pairs.
+
+\subsection{Explicit contribution from fire already active at the cutoff}
+\label{sec:heat-present}
+
+Cumulative burning by time zero does not establish current combustion.
+Existing fire is included only when the caller supplies both its
+initial active probability $p_{j,0}^{\rm old}\in[0,1]$ and its deterministic
+remaining active duration $R_j\ge0$ seconds conditional on that initial
+state. The modeled old-fire contribution has active interval $[0,R_j)$:
+\begin{equation}
+ p_j^{\rm old}(t)=p_{j,0}^{\rm old}\Ind_{\{0\le t<R_j\}},
+ \qquad
+ \bar p_j^{\rm old}=p_{j,0}^{\rm old}\frac{\min(R_j,D)}{D},
+ \qquad
+ p_{j,D}^{\rm old}=p_{j,0}^{\rm old}\Ind_{\{R_j>D\}}.
+ \label{eq:heat-initial-occupancy}
+\end{equation}
+The strict endpoint inequality matters: $R_j=D$ gives extinction exactly
+at the endpoint and therefore zero endpoint activity. The API permits
+$R_j=0$, which contributes zero throughout the modeled interval. The same
+prescribed conditional source density $\chi_jQ_j$ is applied to present
+fire as to new fire. The numerical checks require $R_j\ge0$ but do not
+require $R_j\le T_j$ or verify the remaining fuel inventory; consistency
+of an old-fire phase and its remaining duration is a caller-supplied
+physical assumption.
+
+The pipeline requires positive initial active probability only in explicitly
+known already-burned cells. It sets the first-new-burning probability to zero
+in those cells and marks that zero valid even if the learned neighborhood is
+unsupported. Initial-active sources and possible first-new-burning sources
+therefore have disjoint cell support in this implementation. Then
+\begin{equation}
+ \bar p_j=\bar p_j^{\rm new}+\bar p_j^{\rm old},
+ \qquad p_{j,D}=p_{j,D}^{\rm new}+p_{j,D}^{\rm old}.
+\end{equation}
+These additions use unconditional event probabilities. More general
+same-cell combinations would require disjoint events and consistent
+conditioning; a probability conditional on initially being unburned would
+first need multiplication by the probability of that conditioning event.
+The implementation rejects overlapping positive initial activity and
+possible new burning instead of silently treating them as independent.
+If initial inputs are absent, $p_j^{\rm old}(t)$ is set to zero as an explicit
+\emph{new-ignition-only scope}; no inference of old-fire age is made.
+
+\subsection{Radiation geometry and the exact finite-cell transfer}
+\label{sec:heat-geometry}
+
+All source cells are represented by horizontal emitting sheets at common
+height $z_s$, and all receivers lie at common height $z_r$ in the same datum.
+The required separation is $\ell=z_s-z_r>0$. The receivers are upward-facing
+horizontal surfaces with unit normal $\mathbf n=(0,0,1)$. The common datum
+can be shifted, even to negative heights; only $\ell$ affects this model.
+Terrain elevation, slope, and wind may affect the learned probability model,
+but they do not tilt a receiver, bend a flame, or change the sheet heights in
+the radiation operator.
+
+For a horizontal receiver point $\mathbf x_i$ and horizontal source location
+$\mathbf y\in S_j$, where $S_j$ is cell $j$'s footprint, define
+\begin{equation}
+ r(\mathbf y,\mathbf x_i)=
+    \sqrt{\|\mathbf y-\mathbf x_i\|^2+\ell^2},
+ \qquad
+ \cos\theta=\frac{\ell}{r(\mathbf y,\mathbf x_i)}.
+\end{equation}
+The angle $\theta$ is between the upward receiver normal and the direction
+from the receiver toward the source. An infinitesimal horizontal source
+area $dA$ has isotropic radiant power density $\chi_jQ_j$, giving conditional
+radiant rate $\chi_jQ_j\,dA$. Isotropic emission spreads that rate over
+$4\pi r^2$, and projecting it onto the receiver contributes the factor
+$\cos\theta$. For fixed scalar atmospheric transmissivity
+$\mathcal T\in[0,1]$, the resulting transfer is
+\begin{equation}
+ K_{ij}=\frac1{4\pi}\int_{S_j}
+        \frac{\ell}{(\|\mathbf y-\mathbf x_i\|^2+\ell^2)^{3/2}}\,dA
+       =\frac{\Omega_{ij}}{4\pi}.
+ \label{eq:heat-transfer}
+\end{equation}
+Here $\Omega_{ij}$ is the solid angle in steradians subtended by the
+horizontal parallelogram at the receiver. The integral is dimensionless:
+$\ell/r^3$ has unit $\mathrm{m^{-2}}$ and $dA$ has unit $\mathrm{m^2}$.
+The equality to solid angle uses the horizontal source sheet and parallel
+horizontal receiver normal. There is no additional Lambertian source-normal
+factor: the infinitesimal emitters are isotropic, rather than a solid-flame
+surface with a directional emission law. Arbitrary receiver normals or
+vertical receiving walls are not supported by the current API.\cite{heatrefs}
+
+For completeness, the implemented solid-angle calculation is as follows.
+Write the four source-corner vectors from the receiver as
+\begin{equation}
+ \mathbf v_k=(\mathbf x_j-\mathbf x_i
+             +\tfrac12(\alpha_k\mathbf u+\beta_k\mathbf v),\;\ell),
+ \quad
+ (\alpha_k,\beta_k)\in\{(-1,-1),(1,-1),(1,1),(-1,1)\},
+\end{equation}
+in the displayed order $k=0,1,2,3$. For a triangle with corner indices
+$(a_1,a_2,a_3)$, put $n_k=\|\mathbf v_k\|$ and define
+\begin{align}
+ D_{a_1a_2a_3}
+ &=n_{a_1}n_{a_2}n_{a_3}
+ +(\mathbf v_{a_1}\cdot\mathbf v_{a_2})n_{a_3}
+ +(\mathbf v_{a_2}\cdot\mathbf v_{a_3})n_{a_1}
+ +(\mathbf v_{a_3}\cdot\mathbf v_{a_1})n_{a_2},\\
+ \Omega_{a_1a_2a_3}
+ &=2\operatorname{atan2}(\ell A_{\rm cell},D_{a_1a_2a_3}).
+\end{align}
+The magnitude of the triple product for either triangular half of the cell
+is $\ell A_{\rm cell}$. Splitting along diagonal $(0,2)$ gives
+\begin{equation}
+ \Omega_{ij}=\Omega_{012}+\Omega_{023},
+ \qquad K_{ij}=\frac{\Omega_{012}+\Omega_{023}}{4\pi}.
+\end{equation}
+The routine constrains roundoff to $0\le K_{ij}\le1/2$. The use of finite
+cells and strictly positive separation replaces the singular same-location
+point-source approximation with a finite integral. There is no tunable
+minimum distance, added squared-distance constant, distance cutoff, or
+normalized spatial kernel. At a receiver under the interior of a cell,
+$\ell\downarrow0$ gives $\Omega_{ij}\to2\pi$ and $K_{ij}\to1/2$.
+
+In the far field, when a cell is small compared with its distance $r_{ij}$
+from the receiver, the transfer approaches
+\begin{equation}
+ K_{ij}\simeq\frac{A_{\rm cell}\ell}{4\pi r_{ij}^3},
+ \qquad
+ F_{ij}\simeq\frac{\mathcal T P_j^{\rm rad}}{4\pi r_{ij}^2}\frac{\ell}{r_{ij}},
+\end{equation}
+where $P_j^{\rm rad}=\chi_j Q_jA_{\rm cell}$ is active-cell radiant power. The factor
+$\ell/r_{ij}$ is required by the upward receiver orientation. As a separate
+consistency check, the infinite horizontal receiving plane intercepts
+$\mathcal T/2$ of total isotropic source power; a uniform infinite source sheet
+of density $s$ gives flux $\mathcal T s/2$. Neither identity permits identifying
+the sum of finite-grid receiver samples with emitted source power.
+
+Atmospheric transmissivity is a single supplied path-independent scalar.
+The implementation multiplies the final irradiance by $\mathcal T$, without
+changing the emitted radiant source power. It does not compute path length,
+humidity or smoke absorption, occlusion, shielding, or source temperature.
+
+\subsection{Why marginal probabilities suffice for the expected flux}
+\label{sec:heat-expectation}
+
+Condition on $\mathcal F_0$ and on the supplied fixed physical parameters and
+geometry. The instantaneous incident radiant flux is the modeled random sum
+\begin{equation}
+ F_i(t)=\mathcal T\sum_{j\in\mathcal J}K_{ij}\chi_jQ_jZ_j(t)
+ \qquad[\mathrm{W\,m^{-2}}].
+\end{equation}
+Because the source domain is finite, expectation can be taken term by term:
+\begin{align}
+ \E[F_i(t)\mid\mathcal F_0]
+ &=\mathcal T\sum_{j\in\mathcal J}K_{ij}\chi_jQ_j
+       \E[Z_j(t)\mid\mathcal F_0]\\
+ &=\boxed{\mathcal T\sum_{j\in\mathcal J}K_{ij}\chi_jQ_jp_j(t)}.
+ \label{eq:heat-linear-expectation}
+\end{align}
+This calculation requires no independence between the $Z_j(t)$. For
+example, perfectly correlated burning in two cells and mutually exclusive
+burning in those cells can yield identical marginal probabilities and thus
+identical expected fluxes, even though their fluctuation and exceedance
+probabilities differ. The present API computes an expectation, not those
+joint-distribution-dependent quantities.
+
+The source strengths are prescribed conditional strengths, not random
+unconditional averages. If actual active source density $\Xi_j$ in $\mathrm{W\,m^{-2}}$ were random,
+then in general
+\begin{equation}
+ \E[Z_j \Xi_j\mid\mathcal F_0]
+ =p_j\E[\Xi_j\mid Z_j=1,\mathcal F_0],
+\end{equation}
+whenever the conditional expectation is defined. It need not equal
+$p_j\E[\Xi_j\mid\mathcal F_0]$. Treating $\chi_jQ_j$ as fixed avoids
+silently imposing that incorrect factorization. Uncertainty in fuel,
+consumption, duration, radiative fraction, geometry, and transmission is not
+marginalized by this package.
+
+The expected radiant source power returned by the radiation-only model is
+\begin{equation}
+ \E[P_{\rm radiant}(t)\mid\mathcal F_0]
+ =A_{\rm cell}\sum_{j\in\mathcal J}\chi_jQ_jp_j(t)
+ \qquad[\mathrm W].
+ \label{eq:heat-source-power}
+\end{equation}
+This emitted source power excludes atmospheric loss. It is distinct from
+incident receiver flux or power.
+
+Since the operator and source strengths are time independent, integration
+in time commutes with the finite sum. The interval-mean expected flux,
+expected dose per receiver area, and endpoint expected flux are respectively
+\begin{align}
+ \bar F_i&=\mathcal T\sum_j K_{ij}\chi_jQ_j\bar p_j
+           &&[\mathrm{W\,m^{-2}}],\\
+ \mathcal E_i&=\int_0^D\E[F_i(t)\mid\mathcal F_0]\,dt
+             =D\bar F_i
+           &&[\mathrm{J\,m^{-2}}],\\
+ F_{i,D}:=\E[F_i(D)\mid\mathcal F_0]&=\mathcal T\sum_j K_{ij}\chi_jQ_jp_{j,D}
+           &&[\mathrm{W\,m^{-2}}].
+ \label{eq:heat-mean-dose}
+\end{align}
+Thus multiplying the exact interval mean by $D$ is valid even when
+instantaneous occupancy changes during the hour. Multiplying endpoint flux
+by $D$ would require a different constant-flux assumption and is not this
+pipeline's dose calculation.
+
+\subsection{Evaluation at raster centres or arbitrary points}
+\label{sec:heat-evaluation}
+
+For an aligned affine source and receiver grid with common heights,
+$K_{ij}$ depends only on row and column displacement. The source matrix is
+$s_j=p_j\chi_jQ_j$. The implementation builds the transfer array with
+shape $[2H-1,2W-1]$ and evaluates the linear convolution of that array with
+$s$. It pads both arrays to full convolution shape
+$[3H-2,3W-2]$ before transforming them, multiplies their Fourier transforms,
+inverts the transform, and extracts rows $H-1$ through $2H-2$ and columns
+$W-1$ through $2W-2$. The Fourier transform accelerates this sum; it does
+not change the radiation law or approximate the finite-cell solid angles.
+Padding prevents a source near one edge from wrapping periodically to the
+opposite edge. Source values outside the supplied raster are excluded by a
+finite-domain assumption; this padding does not establish that unavailable
+source data are physically zero. Small negative floating-point values after
+the inverse transform are replaced by zero because the exact mathematical
+sum is nonnegative. Input probabilities are validated rather than clipped.
+
+Alternatively, \texttt{predict\_at\_points} accepts an $[N,2]$ array of
+arbitrary horizontal projected receiver coordinates and sums the same exact
+cell transfers directly. Its default target and source chunk sizes are
+128 and 1024, respectively. Chunking bounds temporary memory usage and has
+no physical meaning. Zero-strength cells can be skipped in this direct sum.
+Every receiver still lies on the configured common horizontal plane.
+
+The raster output contains flux values at receiver cell \emph{centres}, not
+averages of flux over receiver cells. If a small receiving area
+$A_i^{\rm recv}\ge0$ is assumed to experience uniform flux, then its
+incident radiant power is $\bar F_iA_i^{\rm recv}$ watts, and its
+interval incident energy is $D\bar F_iA_i^{\rm recv}$ joules. A large
+receiving patch $S$ requires the area integral
+$\int_S\bar F(\mathbf x)\,dA$, or a sufficiently resolved numerical
+approximation. Multiplication of one point sample by the whole source-cell
+area is not generally that integral. None of these quantities is absorbed
+heat; that would additionally require an appropriate receiver absorption
+model.
+
+For a separate sampled flux time series at strictly increasing seconds
+$t_0<\cdots<t_M$, \path{integrate_heat_flux} uses the trapezoidal rule
+\begin{equation}
+ \mathcal E_i^{\rm trap}
+ =\sum_{m=0}^{M-1}\frac{F_i(t_m)+F_i(t_{m+1})}{2}(t_{m+1}-t_m).
+\end{equation}
+This assumes linear interpolation between supplied samples. It does not
+reconstruct missing intervals or rapid unsampled variations. For
+piecewise-constant interval forecasts, the corresponding calculation is
+$\sum_m\bar F_{i,m}\Delta t_m$.
+
+\subsection{Unknown sources, explicit estimates, and monotone bounds}
+\label{sec:heat-bounds}
+
+The radiation-only model rejects missing, masked, nonfinite, negative, or
+above-one active probabilities. The integrated pipeline can preserve
+unsupported learned probabilities using an explicit Boolean validity mask.
+Let $V\subseteq\mathcal J$ be the set of resolved $q_j$, after setting
+known already-burned first-event probabilities to zero. A valid entry must
+be finite and in $[0,1]$. An invalid entry is retained as NaN even when its
+raw stored number is finite; validity is part of the data contract.
+
+An optional externally justified probability map can be supplied for
+unsupported entries. It changes only those entries and is recorded using
+an externally-supplied-probability mask. The pipeline also retains the
+original validity mask, so a supplied estimate cannot be mistaken for the
+checkpoint's supported prediction.
+
+For entries still unresolved, let
+\begin{equation}
+ q_j^-=
+ \begin{cases}q_j,&j\in V,\\0,&j\notin V,\end{cases}
+ \qquad
+ q_j^+=
+ \begin{cases}q_j,&j\in V,\\1,&j\notin V.\end{cases}
+\end{equation}
+Put $g_j=\rho_j-\rho_j^2/2$ and $b_j=\bar p_j^{\rm old}$.
+For any complete map $q^*$ consistent with the known entries and
+$0\le q_j^*\le1$, define
+\begin{equation}
+ \bar F_i(q^*)=\mathcal T\sum_jK_{ij}\chi_jQ_j(g_jq_j^*+b_j).
+\end{equation}
+Every coefficient in this sum is nonnegative. Therefore the implemented
+interval-mean bounds satisfy
+\begin{equation}
+ \boxed{\bar F_i^-:=\bar F_i(q^-)
+ \ \le\ \bar F_i(q^*)\ \le\ \bar F_i(q^+)=:\bar F_i^+.}
+ \label{eq:heat-bounds}
+\end{equation}
+Endpoint bounds replace $g_j$ by $\rho_j$ and $b_j$ by
+$p_{j,D}^{\rm old}$. Dose bounds are $D\bar F_i^-$ and $D\bar F_i^+$.
+The lower and upper substitutions are mathematical uncertainty endpoints,
+not observations or default assumptions about missing fire.
+The finite known-source contribution is $\bar F_i^-$, including any
+explicitly supplied present-active sources. It is not the unknown full
+expectation.
+
+With $\ell>0$ every nonempty source cell has positive geometric transfer to
+every finite receiver point. Consequently, an unresolved $q_j$ for which
+$\mathcal T\chi_jQ_j>0$ can affect the entire receiver field, not merely its
+corresponding pixel. The pipeline marks the full expected mean flux and
+expected dose as NaN throughout the receiver raster if any such emitting
+source remains unresolved, and sets \texttt{complete=False}. The bounds
+and known-source contribution remain finite. If every unresolved cell has
+zero source density, zero radiative fraction, or $\mathcal T=0$, the full flux is
+nevertheless determined, so \texttt{complete=True} is possible even with
+unresolved probability entries. The occupancy entries themselves remain
+unknown.
+
+These are bounds for fixed supplied combustion, timing, transmission,
+geometry, and finite source domain. They do not bound unmodeled transport,
+outside-domain fires, parameter error, active flames omitted from the
+present-fire scope, or errors in the learned probability model.
+
+\subsection{Surface-flame scenarios and position selection}
+\label{sec:heat-flames}
+
+The point-residence construction and its reference-fuel assumptions are
+described in Section~\ref{sec:residence}. A residence duration describes
+flaming at a representative fuel location, not time to cross the entire
+375 m raster cell or time until all smoldering and trailing combustion ends.
+
+For a supplied known or estimated arrival $a_j$ seconds and query time
+$t$ seconds sharing a common origin, \texttt{active\_flames\_from\_arrival}
+defines the scenario indicator and remaining duration by
+\begin{align}
+ z_j^{\rm scenario}(t)&=\Ind_{\{a_j\le t<a_j+\tau_j^{\mathrm{fl}}\}},\\
+ R_j^{\rm scenario}(t)&=
+ \begin{cases}\tau_j^{\mathrm{fl}}-(t-a_j),&a_j\le t<a_j+\tau_j^{\mathrm{fl}},\\0,&\text{otherwise.}\end{cases}
+\end{align}
+If a reconstructed arrival $\widehat a_j$ is recorded in hours from the
+event origin and the query uses that same origin, its conversion is
+$a_j=3600\widehat a_j$ seconds. If time zero instead denotes the forecast
+cutoff, subtract the cutoff elapsed time from that converted arrival before
+forming $t-a_j$. Mixing event-relative hours and cutoff-relative seconds
+would give an incorrect activity indicator.
+The implementation compares elapsed age $t-a_j$ with $\tau_j^{\mathrm{fl}}$, avoiding an
+unnecessary overflow from forming $a_j+\tau_j^{\mathrm{fl}}$. It permits negative arrival
+and query times when their common origin warrants them. At exactly
+$a_j+\tau_j^{\mathrm{fl}}$, the location is inactive. Invalid arrivals remain NaN and
+unclassified. An estimated reconstructed arrival yields a nominal scenario;
+this function does not integrate arrival uncertainty or identify measured
+flame positions.
+
+Define $\rho_j^{\mathrm{fl}}=\min(\tau_j^{\mathrm{fl}},D)/D$. The
+flame-specific mean is $q_j[\rho_j^{\mathrm{fl}}-\tfrac12(\rho_j^{\mathrm{fl}})^2]$,
+and the endpoint is $q_j\rho_j^{\mathrm{fl}}$. These specialize the timing
+bridge to surface-flame residence; they agree with the heat-emission bridge
+only when the caller explicitly sets $T_j=\tau_j^{\mathrm{fl}}$.
+For uncertain new arrivals, \texttt{forecast\_active\_flames} returns
+$q_j$, the mean flame occupancy specialized above, and an
+endpoint map containing $q_j\rho_j^{\mathrm{fl}}$. Existing flames are excluded from
+this forecast unless supplied separately through the integrated heat
+pipeline. Unknown probabilities remain NaN. A requested selection cutoff
+$\alpha\in(0,1]$ returns exactly the valid cells whose instantaneous
+probability is at least $\alpha$, together with their zero-based row and
+column indices and projected cell-centre coordinates. There is no implicit
+selection threshold. Thresholding is a display or candidate-selection rule;
+it does not establish detection accuracy or calibration against active-flame
+observations. Empty selections remain usable arrays of shape $[0,2]$ for
+indices and coordinates and $[0]$ for probabilities.
+
+\subsection{The composed checkpoint-to-heat procedure}
+\label{sec:heat-pipeline}
+
+The public \texttt{WildfireHeatModel} executes the following sequence for
+one spatial snapshot.
+\begin{enumerate}
+ \item Load the saved checkpoint, identify either the maintained direct
+ environment-conditioned convolution or survival-intensity convolution
+ architecture, and reuse its saved channel schema, categorical vocabulary,
+ fitted weights, and training-only normalization statistics. The integration
+ does not train or fit preprocessing. Checkpoint path, SHA-256, architecture,
+ selected epoch, channel information, and device are recorded. CPU is the
+ default device.
+ \item Establish a common projected affine grid, complete combustion scenario,
+ radiative fraction, source/receiver heights, and transmission scalar. If a
+ \texttt{FlameResidenceTime} object is also supplied, its duration must equal
+ \texttt{combustion.burning\_duration\_s} exactly at every represented cell.
+ The same duration then governs active occupancy and the denominator in
+ conditional heat release. Consumed fraction must concern that modeled
+ flaming phase.
+ \item Pass the current cumulative burned state, current environmental tensor,
+ exact channel order, and separate validity masks to the saved predictor.
+ Use a one-hour interval, \path{dt_hours=1.0}, and an unknown boundary,
+ \path{boundary="unknown"}. Only a
+ single $[H,W]$ snapshot, possibly with singleton leading dimensions, is
+ accepted. For sample-based heat prediction, the affine coefficients must
+ agree with the configured radiation grid to absolute tolerance $10^{-9}$
+ and zero relative tolerance.
+ \item Take the predictor's evaluated probability and validity outputs. For a
+ direct convolution this means its bounded evaluation probability, not its
+ unbounded signed raw score. Resolve first-new-burning probability to zero
+ in known already-burned cells. Retain unsupported entries and separately
+ record any caller-supplied estimates.
+ \item Convert new-event probabilities to mean and endpoint active occupancy
+ using the uniform-arrival and constant-duration scenario. Add only explicitly
+ supplied initial-active contributions with known already-burned support
+ and remaining durations.
+ \item Apply the fixed radiation operator to lower and upper mean occupancies
+ and lower and upper endpoint occupancies. Return a complete expected mean
+ only when unknown emitting contributions are absent. Otherwise return
+ the finite known-source contribution and monotone bounds, preserving NaN
+ for the unresolved full expectation.
+ \item Multiply mean flux and its bounds by $3600\ \mathrm{s}$ to obtain
+ interval radiant dose per receiver area. Preserve probability masks,
+ externally supplied masks, temporal and physical assumptions, coverage
+ counts, completeness, and provenance in the result.
+\end{enumerate}
+The sample adapter does not consume arrival surfaces, arrival uncertainty,
+or next-hour labels to run the checkpoint. Nevertheless, a current burned
+state reconstructed retrospectively using an arrival surface and final
+extent remains a retrospective input. Restricting environmental intervals
+to end before the cutoff does not convert that reconstruction into an
+operationally observed current fire state.
+
+\subsection{Exact scope of the saved demonstrations and verification}
+\label{sec:heat-demo}
+
+The saved \path{integrated_example.py} demonstration uses the Fish Creek
+event (identifier \path{WY-BTF-002416_FishCreek}). Its cutoff is
+\path{2024-08-23T00:00:00Z}; it uses the signed direct $5\times5$ checkpoint,
+and a $103\times73$ grid in EPSG:5070 with 375 m cells. Its specified
+parameters are $H_{c,j}=18{,}000{,}000\ \mathrm{J\,kg^{-1}}$,
+$T_j=300\ \mathrm{s}$, $f_j=0.10$, $\chi_j=0.30$,
+$z_s=5\ \mathrm m$, $z_r=0\ \mathrm m$, and $\mathcal T=1$.
+The ecological loading adapter uses an explicit
+$10\ \mathrm{kg\,m^{-2}}$ loading scenario for unmapped fractions.
+Those are illustrative scenario values, not fitted heat-flux parameters.
+The saved reference-versus-uniform comparison keeps the same probability
+map and compares ecological loading with constant
+$10\ \mathrm{kg\,m^{-2}}$ loading. It establishes sensitivity to that
+input, not an accuracy improvement. The historical summary records
+225 resolved probabilities, 7294 unresolved probabilities, and
+\path{complete_expected_flux_available=False}; the finite plotted
+known-source contribution must therefore not be relabeled as full expected
+heat.\cite{codeheat}
+
+The separate \texttt{active\_flame\_example.py} uses the same default event,
+cutoff, and checkpoint but constructs a spatial reference-fuel residence
+map, rather than using the heat demonstration's constant 300 s duration.
+Its default unsupported-code SAV fallback is explicitly
+$2000\ \mathrm{ft^{-1}}$, and the default candidate cutoff is $0.001$.
+The saved example preserves a zero nominal-current-flame selection and
+zero forecast candidates at that cutoff, while also exporting all positive
+endpoint probabilities. A zero selected count is retained as a result of
+the specified scenario and threshold. It is not evidence that no flames
+physically existed. The reconstructed-arrival uncertainty is much larger
+than the point-scale residence duration, and is not integrated into the
+nominal indicator.
+
+The current source tests in \path{tests/heat/test_model.py},
+\path{tests/heat/test_temporal.py}, \path{tests/heat/test_pipeline.py},
+\path{tests/heat/test_flames.py}, and
+\path{tests/heat/test_flame_integration.py} specify independent mathematical
+checks: source-area Gauss--Legendre integration, analytic rectangle solid
+angles, the orientation-corrected far-field limit, half-power interception
+by an infinite receiver plane, equal expectations for distinct dependence
+structures with identical marginals, affine rotation/shear, lack of periodic
+wrap, temporal indicator quadrature, endpoint extinction conventions,
+unknown-source bounds, units, and preservation of saved preprocessing and
+masks. These checks verify the stated mathematical model and software
+contracts. Historical validation-report files record earlier runs, sometimes
+using paths predating test relocation. They are not substitutes for a fresh
+current test result and do not constitute measured-wildfire heat or
+active-flame calibration.
+
+\section{Step-by-step worked calculations and public interfaces}
+\label{sec:worked}
+\subsection{A complete one-cell calculation with an analytic answer}
+This example isolates the timing and radiation equations. It is synthetic and
+is not a fitted fire scenario. Consider one square $10\ \mathrm m$ cell,
+with its receiver at the horizontal center, source height 5 m, receiver height
+0 m, and transmissivity $\mathcal T=1$. Supply $q=0.8$ for first new burning
+in the next $D=3600$ seconds, no initial active fire, and
+\begin{equation}
+w=1\ \mathrm{kg\,m^{-2}},\quad f=1,\quad
+H_c=18{,}000{,}000\ \mathrm{J\,kg^{-1}},\quad
+T=120\ \mathrm s,\quad\chi=0.3.
+\end{equation}
+Each step is now fully determined:
+\begin{enumerate}
+\item The cell area is $100\ \mathrm{m^2}$, but dry fuel loading is already
+mass per unit whole-cell ground area. Released energy density is
+$e=w f H_c=18{,}000{,}000\ \mathrm{J\,m^{-2}}$.
+\item Conditional heat-release density is $Q=e/T=150{,}000\ \mathrm{W\,m^{-2}}$.
+An active cell therefore releases $15{,}000{,}000$ W in total, of which
+$4{,}500{,}000$ W is radiative under $\chi=0.3$.
+\item The capped duration ratio is $r=T/D=1/30$. Under the uniform-arrival
+law, the mean and endpoint activity probabilities are
+\begin{equation}
+\overline p=0.8\left(\frac1{30}-\frac1{1800}\right)
+=\frac{59}{2250}\simeq0.02622222,
+\qquad p(D)=\frac{0.8}{30}=\frac2{75}\simeq0.02666667.
+\end{equation}
+\item For a centered rectangle with half-width $a=5$ m, half-height $b=5$ m,
+and vertical separation $\ell=5$ m, its solid angle is
+\begin{equation}
+\Omega=4\arctan\left(\frac{ab}{\ell\sqrt{\ell^2+a^2+b^2}}\right)
+=4\arctan(1/\sqrt3)=\frac{2\pi}{3}.
+\end{equation}
+Thus the finite-cell transfer $\Omega/(4\pi)$ is $1/6$.
+\item Mean incident radiant flux is
+\begin{equation}
+\overline F=\mathcal T\,\overline p\,\chi Q\frac16
+=\frac{590}{3}\ \mathrm{W\,m^{-2}}
+\simeq196.6666667\ \mathrm{W\,m^{-2}}.
+\end{equation}
+Endpoint flux is $F_D=p(D)\chi Q/6=200\ \mathrm{W\,m^{-2}}$.
+Neither equals the next-hour transition probability multiplied directly by
+the conditional active-cell flux.
+\item Expected interval incident energy is
+\begin{equation}
+\mathcal E=D\overline F=708{,}000\ \mathrm{J\,m^{-2}}.
+\end{equation}
+This is a point receiver's dose per receiver area, not total energy received
+by the whole ground cell.
+\item All source probabilities and physical parameters are supplied and finite,
+so this single-source calculation is complete. A missing $q$ would instead
+produce a range by substituting 0 and 1, under the same fixed scenario.
+\end{enumerate}
+
+The public objects evaluate this example without any wildfire checkpoint:
+\begin{lstlisting}[language=Python]
+import numpy as np
+from expected_heat_flux import (
+    AffineGrid, CombustionParameters, ExpectedHeatFluxModel,
+    ignition_to_active_probability,
+)
+
+combustion = CombustionParameters(
+    fuel_load_kg_m2=1.0,
+    heat_of_combustion_j_kg=18_000_000.0,
+    burning_duration_s=120.0,
+    consumed_fraction=1.0,
+)
+timing = ignition_to_active_probability(
+    np.array([[0.8]]), 120.0, 3600.0,
+)
+radiation = ExpectedHeatFluxModel(
+    grid=AffineGrid.from_cell_size(10.0),
+    heat_release_rate_density_w_m2=(
+        combustion.heat_release_rate_density_w_m2
+    ),
+    radiative_fraction=0.3,
+    emission_height_m=5.0,
+    receiver_height_m=0.0,
+    atmospheric_transmissivity=1.0,
+)
+mean = radiation.predict(timing.mean_active_probability)
+endpoint = radiation.predict(timing.endpoint_active_probability)
+mean_flux = mean.incident_heat_flux_w_m2[0, 0]
+endpoint_flux = endpoint.incident_heat_flux_w_m2[0, 0]
+np.testing.assert_allclose(mean_flux, 590.0 / 3.0)
+np.testing.assert_allclose(endpoint_flux, 200.0)
+np.testing.assert_allclose(mean_flux * 3600.0, 708_000.0)
+\end{lstlisting}
+The code names, call signatures, and assertions above were executed against
+the current package during document preparation. Only the array's active probability is
+passed to the independent radiation object; no event-transition probability
+is implicitly reinterpreted inside that object.
+
+\subsection{A residence-based endpoint example}
+With characteristic SAV $2000\ \mathrm{ft^{-1}}$, the correctly converted SI
+value is $2000/0.3048\ \mathrm{m^{-1}}$. Anderson--Andrews residence is
+$\tau^{\mathrm{fl}}=11.52$ s. For $q=0.8$ and the same one-hour horizon,
+\begin{equation}
+p^{\mathrm{fl}}(D)=0.8\frac{11.52}{3600}=0.00256,
+\qquad
+\overline p^{\mathrm{fl}}
+=0.8\left(0.0032-\frac{0.0032^2}{2}\right)=0.002555904.
+\end{equation}
+The calculation does not reduce the probability of burning sometime during
+the hour; that remains 0.8. It changes the event whose probability is being
+asked for. Endpoint flame activity requires ignition sufficiently close to
+the endpoint to remain active under the supplied short residence duration.
+
+\subsection{Loading exactly the saved model's input contract}
+Run the following from the directory containing the root \path{README.md}
+and \path{pyproject.toml}, using the project's Python 3.12 environment. Its
+dependency pins include NumPy 1.26.4 and PyTorch 2.5.1. The source/data paths
+below are repository-relative for portability. An installed code-only wheel
+requires explicit access to the separately retained data and checkpoint.
+\begin{lstlisting}[language=Python]
+from pathlib import Path
+from wildfire_burned_area_hourly import load_model
+
+root = Path.cwd()
+checkpoint = (
+    root / "wildfire_burned_area_hourly/probability_model"
+    / "training_runs/20261007_1h_direct_convolution_signed"
+    / "5x5/fitted/checkpoint.pt"
+)
+model = load_model(checkpoint, device="cpu")
+with model.load_data(
+    root / "wildfire_burned_area_hourly/environmental_data",
+    events=["WY-BTF-002416_FishCreek"],
+    sequence_length=1,
+    time_range=("2024-08-23T00:00:00Z", "2024-08-23T00:00:00Z"),
+) as dataset:
+    assert len(dataset) == 1
+    sample = dataset[0]
+
+prediction = model.predict_sample(sample)
+assert tuple(sample["channel_names"]) == model.channel_names
+assert tuple(prediction.probability.shape) == (1, 1, 103, 73)
+print(int(prediction.valid.sum()))  # 225 in the verified example
+\end{lstlisting}
+The example's 7519 raster locations comprise 225 valid probabilities and 7294
+unknown probabilities. The CPU run during authorship produced maximum known
+probability $0.09081834554672241$. These counts describe prediction coverage,
+not accuracy; the example itself does not consume future labels for inference.
+The checkpoint predicts raw and clipped values separately. Use
+\path{prediction.probability} and \path{prediction.valid} for probability
+calculations, and retain \path{prediction.raw_score} for raw-score analysis.
+
+To connect this snapshot to heat, construct a metric \path{AffineGrid} from
+the sample's six affine coefficients, supply complete combustion inputs and
+geometry, and call \path{model.heat_model(...).predict_sample(sample)}.
+The result's \path{complete} field determines whether the full supplied-domain
+expected heat is known. Export arrays, their masks, affine transform, CRS,
+timestamp, physical assumptions, and provenance together. A local valid
+probability does not suffice to establish a locally complete heat prediction
+when radiation from another source is unknown.
+
+\section{What the calculation establishes, and what remains unspecified}
+\label{sec:limits}
+\subsection{Learned quantities, supplied quantities, and absent quantities}
+\begin{longtable}{@{}P{0.25\linewidth}P{0.34\linewidth}P{0.33\linewidth}@{}}
+\toprule Stage & Computed or learned here & Additional information not supplied by that stage\\\midrule
+\endfirsthead
+\toprule Stage & Computed or learned here & Additional information not supplied by that stage\\\midrule
+\endhead
+Arrival product & Retrospective location-specific time and kriging standard deviation & Live arrival measurements, calibrated true-arrival distribution, or support beyond final perimeter.\\
+Environmental alignment & Common grid values, categories, support metadata, and masks & Finer independent information than each native source or proven cutoff publication availability.\\
+Probability predictor & Conditional next-hour transition estimates on its saved input and contact contract & Within-hour arrival density, an active flame front, spontaneous ignition, or physical propagation trajectories.\\
+Residence assignment & Deterministic fuel-reference or explicit duration scenario & Measured flame geometry, a random duration law, crown/residual duration, or species-wide validated duration.\\
+Occupancy bridge & Activity marginals under uniform arrival and constant duration & Learned arrival-time shape, existing-fire age, or a joint distribution of activity across cells.\\
+Radiation operator & Incident mean flux, endpoint flux, dose, and conditional missing-source bounds & Heat variance, exceedance probability, absorbed flux, temperature, convection, terrain shielding, or exterior-source contribution.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Why expectation cannot determine a danger probability}
+Let receiver flux be $F(x)=\sum_i k_i(x)Z_i$, with deterministic nonnegative
+source-transfer coefficients $k_i(x)$. Marginal active probabilities determine
+$\E[F(x)]=\sum_i k_i(x)p_i$. They do not determine
+\begin{equation}
+\Var(F(x))=\sum_i k_i(x)^2p_i(1-p_i)
++2\sum_{i<j}k_i(x)k_j(x)\Cov(Z_i,Z_j).
+\end{equation}
+Covariances and the full joint law are absent. For a concrete counterexample,
+two sources of unit strength can each have marginal probability 0.4. If they
+are perfectly correlated, total flux is 2 with probability 0.4 and 0 with
+probability 0.6. If they are mutually exclusive, total flux is 1 with
+probability 0.8 and 0 with probability 0.2. Both have mean 0.8, but
+$\mathbb P(F>1.5)$ is 0.4 in the first case and zero in the second.
+Thus a threshold applied to the expected field is a threshold on a mean
+scenario output, not an estimated probability of harmful heat exposure.
+
+\subsection{Conditions needed for an operational interpretation}
+An operational evaluation would need a current fire-state product actually
+available at each cutoff, feature availability and latency records, future
+outcomes independent of reconstruction inputs, sufficient independent events,
+and appropriate calibration of the intended endpoint. Active flames would
+add event-specific arrival-age and duration evidence at a commensurate time
+scale. Heat exposure would add fuel/consumption/radiation measurements and
+validation for the intended receiver geometry and heat mechanism. None of
+these missing quantities is inferred merely from a passing numerical test,
+stored checkpoint, map image, or the algebraic timing bridge.
+
+\appendix
+\section{Source map and evidence conventions}
+\label{app:sources}
+Paths in this appendix are relative to the project root. The companion
+\path{documents/wildfire_methods_source_audit.json} records SHA-256 hashes of
+the inspected implementation and key saved records at document creation.
+It also records current verification separately from saved historical reports.
+The document is a description of that snapshot; later code edits require
+checking these bindings before treating it as unchanged documentation.
+\begin{longtable}{@{}P{0.27\linewidth}P{0.65\linewidth}@{}}
+\toprule Method / evidence & Primary local location\\\midrule
+\endfirsthead
+\toprule Method / evidence & Primary local location\\\midrule
+\endhead
+Published reconstruction & \path{wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/} and its retained \path{README.md}, \path{results/}, and original rasters.\\
+Source provenance & \path{wildfire_burned_area_hourly/source_manifest.json} and \path{records/}.\\
+Environmental acquisition & \path{wildfire_burned_area_hourly/environmental_data/acquire_environment.py}, \path{enrich_environment.py}, \path{audit_source_quality.py}, and \path{acquire_biome.py}.\\
+Tensor and label contract & \path{wildfire_burned_area_hourly/pytorch_loader/dataset.py}.\\
+Preparation and sampling & \path{wildfire_burned_area_hourly/probability_model/prepare_training.py} and \path{filter_contact.py}.\\
+Exponential family & \path{wildfire_burned_area_hourly/probability_model/model.py}, \path{train.py}, and \path{inference.py}.\\
+Signed direct family & \path{wildfire_burned_area_hourly/probability_model/direct_convolution/model.py}, \path{train.py}, \path{inference.py}, and \path{evaluate.py}.\\
+Schema and scoring & \path{wildfire_burned_area_hourly/probability_model/input_schema.py}, \path{metrics.py}, and \path{broader_comparison.py}.\\
+Saved kernel comparison & \path{wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/} and \path{20261007_1h_kernel_sweep/}.\\
+Public model API & \path{wildfire_burned_area_hourly/api.py} and \path{api_example.py}.\\
+Ecological loading & \path{expected_heat_flux/ecology.py}.\\
+Residence scenarios & \path{expected_heat_flux/residence.py}, \path{sources.json}, and \path{documents/flame_residence_literature.md}.\\
+Occupancy and flames & \path{expected_heat_flux/temporal.py} and \path{flames.py}.\\
+Radiation and composition & \path{expected_heat_flux/model.py} and \path{pipeline.py}.\\
+Saved heat demonstrations & \path{expected_heat_flux/outputs/integrated_demo/summary.json} and \path{active_flame_demo/summary.json}.\\
+Current contract tests & \path{tests/loader/}, \path{tests/probability/}, \path{tests/heat/}, and \path{tests/test_api.py}.\\
+\bottomrule
+\end{longtable}
+
+Claims labeled ``saved'' describe the preserved experiment or demonstration,
+including its configured parameters and date. Statements about current
+equations and contracts were checked against the implementation during
+authorship. No probability models were refitted and no publisher study was
+rerun for this document. Source-data integrity validation is distinct from
+predictive or physical validation. In particular, the recorded full
+environmental audit and its later biome extension explicitly distinguish
+previously checked unchanged files from newly reread raster bands.
+
+\section{Reproducibility and numerical checks}
+The document itself is a standalone LaTeX source: all prose, mathematics,
+tables, examples, and bibliography are contained in one \path{.tex} file.
+It requires ordinary TeX packages, but no external figure, bibliography,
+data, or code file to typeset. The companion PDF is an exported build of that
+source. LaTeX compilation, resolution of cross-references/citations, final-log
+diagnostics, and rendered-page layout are checked before delivery.
+
+The one-cell calculation in Section~\ref{sec:worked} is checked through the
+public temporal and radiation interfaces. The saved CPU inference example is
+rerun to verify shape, schema, counts, and a known-probability range. Selected
+residence and ecological-reader contract tests are run against the current
+project source. Exact commands, counts, outputs, and source hashes are recorded
+in the companion audit. These checks support the documented mathematical and
+software behavior; they are not a new performance or field-calibration study.
+
+\begin{thebibliography}{99}
+\bibitem{toadeposit}
+C. Choi, H. Seo, and J. Cha.
+\emph{Wildfire time-of-arrival dataset and method code: variance-weighted
+kriging of satellite active-fire detections, evaluated in the United States
+and applied to South Korea}. Zenodo, record 21788344, 26 September 2026.
+\url{https://doi.org/10.5281/zenodo.21788344}.
+Companion article: \emph{Remote Sensing} 18(19), 3321 (2026),
+\url{https://doi.org/10.3390/rs18193321}.
+Record metadata and archived method code were inspected locally.
+
+\bibitem{codetoa}
+Choi, Seo, and Cha, retained dataset method code.
+\path{preprocess.py}, \path{toa_kriging.py}, \path{produce_rasters.py},
+\path{block_cv.py}, and \path{evaluate_sc.py} under the archived code
+directory identified in Appendix~\ref{app:sources}. Units and source
+conventions follow these archived files.
+
+\bibitem{codeprob}
+WildfireGuardian probability implementation and saved experiment records,
+inspected 8 October 2026. Sources and records are located in
+\path{wildfire_burned_area_hourly/probability_model/}; see
+Appendix~\ref{app:sources} and the companion source-hash audit.
+
+\bibitem{codeheat}
+WildfireGuardian radiation, temporal, flame, and composed API implementation,
+inspected 8 October 2026. \path{expected_heat_flux/model.py},
+\path{temporal.py}, \path{pipeline.py}, and \path{flames.py}; saved
+demonstrations are explicitly identified in the text.
+
+\bibitem{heatrefs}
+K.~J. Overholt.
+\emph{Verification and Validation of Commonly Used Empirical Correlations
+for Fire Scenarios}. NIST Special Publication 1169, March 2014,
+Section~6.1, equation~(6.1), printed p.~39 (PDF page~53).
+\url{https://doi.org/10.6028/NIST.SP.1169}.
+\url{https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf}.
+The isotropic point-source law includes the receiver-orientation cosine.
+The local radiation method integrates that differential source law over a
+horizontal finite footprint; this is a package modeling extension.
+A. Angelidis, \emph{Spherical Springs}, University of Otago Technical Report
+OUCS-2004-01, 2004, Section~3.2, printed p.~2,
+\url{https://cs.otago.ac.nz/research/publications/oucs-2004-01.pdf},
+records the triangle solid-angle formula and attributes it to A. van Oosterom
+and J. Strackee, \emph{The Solid Angle of a Plane Triangle}, IEEE Transactions
+on Biomedical Engineering BME-30(2), 125--126 (1983),
+\url{https://doi.org/10.1109/TBME.1983.325207}.
+The accessible NIST and Otago PDFs were checked during preparation; the
+original IEEE paper is an attribution from the accessible report, not a
+claimed full-text inspection. The complete reference record is retained in
+\path{expected_heat_flux/sources.json}.
+
+
+\bibitem{coderesidence}
+WildfireGuardian source and saved artifacts inspected on 8 October 2026.
+\path{expected_heat_flux/residence.py},
+\path{expected_heat_flux/ecology.py},
+\path{expected_heat_flux/sources.json},
+\path{tests/heat/test_residence.py},
+\path{tests/heat/test_ecology.py},
+\path{documents/flame_residence_literature.md}, and
+\path{expected_heat_flux/outputs/active_flame_demo/summary.json}.
+The separate $300\,\mathrm s$ integrated combustion scenario is recorded in
+\path{expected_heat_flux/outputs/integrated_demo/summary.json}.
+
+\bibitem{landfirefccs}
+LANDFIRE.
+\emph{Fuel Characteristic Classification System Fuelbeds}, official product
+description and loading-table link.
+\url{https://www.landfire.gov/fuel/fccs}.
+Product description inspected online on 8 October 2026.
+Reference loading table:
+\url{https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv}.
+The existing workflow uses archived inputs with recorded source epochs;
+the current web page is not substituted for the archived raster release.
+
+\bibitem{prichard2013}
+S.~J. Prichard, D.~V. Sandberg, R.~D. Ottmar, E. Eberhardt, A. Andreu,
+P. Eagle, and K. Swedin.
+\emph{Fuel Characteristic Classification System version 3.0: technical
+documentation}. USDA Forest Service, Pacific Northwest Research Station,
+General Technical Report PNW-GTR-887, 2013.
+\url{https://doi.org/10.2737/PNW-GTR-887}.
+Official agency record and abstract:
+\url{https://research.fs.usda.gov/treesearch/45283}.
+
+\bibitem{anderson1969}
+H.~E. Anderson.
+\emph{Heat transfer and fire spread}. USDA Forest Service,
+Research Paper INT-69, 1969, printed pp.~15--16.
+\url{https://research.fs.usda.gov/download/treesearch/40489.pdf}.
+
+\bibitem{andrews2018}
+P.~L. Andrews.
+\emph{The Rothermel surface fire spread model and associated developments:
+A comprehensive explanation}. USDA Forest Service, Rocky Mountain Research
+Station, General Technical Report RMRS-GTR-371, 2018.
+\url{https://doi.org/10.2737/RMRS-GTR-371}.
+Official PDF:
+\url{https://research.fs.usda.gov/download/treesearch/55928.pdf}.
+Surface-area weighting: Sections~3.2.3--3.2.5, printed pp.~21--24.
+Residence relation and scope: Section~4.2, printed p.~27.
+These sections were checked in the available official-PDF local snapshot;
+the browsing service could not retrieve the large PDF in this audit.
+
+\bibitem{scottburgan2005}
+J.~H. Scott and R.~E. Burgan.
+\emph{Standard fire behavior fuel models: a comprehensive set for use with
+Rothermel's surface fire spread model}. USDA Forest Service, Rocky Mountain
+Research Station, General Technical Report RMRS-GTR-153, 2005.
+\url{https://doi.org/10.2737/RMRS-GTR-153}.
+\url{https://research.fs.usda.gov/download/treesearch/9521.pdf}.
+Component parameters: Table~7, printed p.~18. Common constants: p.~17.
+Dynamic curing: p.~6. The source GS4 summary SAV differs from its table-derived
+value; the implementation records and resolves this as explained in the text.
+The relevant local official-PDF snapshot was inspected.
+
+\bibitem{burrows1994}
+N.~D. Burrows.
+\emph{Experimental development of a fire management model for jarrah
+(Eucalyptus marginata Donn ex Sm.) forest}.
+PhD thesis, Australian National University, 1994.
+Government-hosted original thesis:
+\url{https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf}.
+Individual-particle methods: printed p.~67 (PDF page~76).
+Implemented diameter equation: printed p.~69, equation~6-1 (PDF page~78).
+These scanned pages were visually checked in the available local PDF;
+the browsing service could not retrieve the large PDF in this audit.
+
+
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,44 @@
+{
+  "notebook": "api_tutorial.ipynb",
+  "html_preview": "demonstration/api_tutorial/api_tutorial.html",
+  "executed_code_cells": 20,
+  "error_outputs": 0,
+  "elapsed_seconds": 16.87,
+  "kernel_python": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/.venv/bin/python",
+  "run_directory": "demonstration/api_tutorial/runs/run-cauhomjf",
+  "known_prediction_cells": 1246,
+  "unknown_prediction_cells": 6273,
+  "heat_complete": false,
+  "training_executed": false,
+  "verified_artifact_checksums": 7,
+  "notebook_sha256": "04d16ae906d826d2f28ed2f3820938b7d3cc0e81ece80150b74513cc7734e059",
+  "html_sha256": "e030fb3eee24c484de8ddb60e6a2d92575ba5a9391b546886c16716a7e726bb4",
+  "duration_range_s": {
+    "minimum": 11.219002375296913,
+    "maximum": 18.83071682602384,
+    "array_file": "heat.npz",
+    "array_key": "burning_duration_s"
+  },
+  "duration_fallback_cells": 173,
+  "known_initial_active_cells": 0,
+  "verified": [
+    "raw/sample probability equivalence",
+    "static coordinates across T",
+    "batch coordinate alignment",
+    "spatial-padding coordinates",
+    "save/reload equivalence",
+    "wildfire/heat coordinate alignment",
+    "heat tuple/details equivalence",
+    "sample/raw/probability-bridge activity equivalence",
+    "endpoint flame-map consistency",
+    "current/endpoint activity and duration export readback"
+  ],
+  "local_html_links_verified": 6,
+  "plots_visually_verified": [
+    "heat_bounds.png"
+  ],
+  "executed_html_record": "demonstration/api_tutorial/runs/run-cauhomjf/api_tutorial.html",
+  "executed_validation_record": "demonstration/api_tutorial/runs/run-cauhomjf/validation.json",
+  "preserved_previous_preview": "demonstration/api_tutorial/runs/run-lhatg92t/api_tutorial.html",
+  "preserved_previous_validation": "demonstration/api_tutorial/runs/run-lhatg92t/validation.json"
+}

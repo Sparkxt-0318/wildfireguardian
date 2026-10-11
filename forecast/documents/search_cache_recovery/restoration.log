@@ -1,0 +1,27 @@
+{
+  "status": "restored",
+  "restored_at_utc": "2026-10-08T19:42:15.148301+00:00",
+  "archive": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian.zip",
+  "archive_members": {
+    "metadata.json": "WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all/metadata.json",
+    "train.npz": "WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all/train.npz",
+    "validation.npz": "WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all/validation.npz",
+    "test.npz": "WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all/test.npz"
+  },
+  "cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/prepared_all",
+  "training_started": false,
+  "optimizer_state_recovered": false,
+  "cache_sha256": {
+    "metadata.json": "5a83a0d0e3ec4dcff75cf9cb23efd560724169186175a6328496e878086a95c2",
+    "train.npz": "b173420d618679ad0f70920cde12fce4ae595b245478e90ad3339cec23261a32",
+    "validation.npz": "0c6520af473cfb672bb9d121a2adaffda8448b8bd733cecfe15c1ed73f9e2174",
+    "test.npz": "e36391d77a6e5909ad4dfae8de4d14c50d6da28a4caf18409f1f0b19cbef8e0e"
+  },
+  "source_files_verified": 486,
+  "split_rows": {
+    "train": 220744,
+    "validation": 28341,
+    "test": 61965
+  },
+  "channels": 19
+}

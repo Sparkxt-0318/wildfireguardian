@@ -1,0 +1,339 @@
+{
+  "passed": true,
+  "verified_at_utc": "2026-10-07T18:16:30.125060+00:00",
+  "client_date": "2026-10-08",
+  "client_timezone": "Asia/Seoul",
+  "workspace": "/Users/movinggk/Documents/영재멘토/WildfireGuardian",
+  "scope": "Remove overlapping Markdown guides and reports from the two active components; exclude legacy and non-Markdown documents.",
+  "markdown_files_before": 19,
+  "markdown_files_after": 10,
+  "removed_documents": [
+    {
+      "path": "expected_heat_flux/README.md",
+      "sha256_before_removal": "d6869f852ca93dcee5c702a99790d33f0d51abf912a409e65466b59a2586ebea",
+      "bytes_before_removal": 34519,
+      "canonical_content": "README.md#heat-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/README.md",
+      "sha256_before_removal": "ef82cf5c0f9b3c50a303212b6456ef23b8f5099322ef17c16fb06394d36ba8d9",
+      "bytes_before_removal": 15189,
+      "canonical_content": "README.md#data-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/bitmaps/README.md",
+      "sha256_before_removal": "aae334858a7fca9fea6270b5b878a7a796439e27d898d7043064db961b261adc",
+      "bytes_before_removal": 7562,
+      "canonical_content": "README.md#bitmap-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/README.md",
+      "sha256_before_removal": "e8d4e2403fb4db6c02a4d54787360411ecbb29f1b446720aa8110c991d0030ef",
+      "bytes_before_removal": 19819,
+      "canonical_content": "README.md#environment-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/environmental_data/BIOME_README.md",
+      "sha256_before_removal": "5283ea8007e939e356f6ed6eea15de9b615c53adc4176a800977ca0c9d6139e8",
+      "bytes_before_removal": 7445,
+      "canonical_content": "README.md#biome-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/pytorch_loader/README.md",
+      "sha256_before_removal": "73c11b73e397b8a9c672aca4845f64da74689a0b8606def709d3b5111824e795",
+      "bytes_before_removal": 14614,
+      "canonical_content": "README.md#loader-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/README.md",
+      "sha256_before_removal": "d998d9a4962ccca9645e8c15608acf59bd6099e8b6e9ea7772ead0a91553b5f5",
+      "bytes_before_removal": 22555,
+      "canonical_content": "README.md#probability-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/direct_convolution/README.md",
+      "sha256_before_removal": "383057a470dd7b0fa9fc3f11f4877d6a4dd4dc1452f4c9dde121fb746a81b26c",
+      "bytes_before_removal": 6985,
+      "canonical_content": "README.md#direct-guide",
+      "reason": "Overlapping component guide; essential contracts and interpretation are now in the root README"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/README.md",
+      "sha256_before_removal": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "bytes_before_removal": 6938,
+      "canonical_content": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "reason": "Byte-identical duplicate of the retained archive README"
+    }
+  ],
+  "remaining_markdown": [
+    {
+      "path": "README.md",
+      "sha256": "e69af80154945d11239c479c9ae6173feeabe14cbb2fa7726c2e63d4959bb9ea"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/report.md",
+      "sha256": "33b5977e187f501a03018f4cf639404bfc67aff370659408fe2e7687c83c86e2"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/report.md",
+      "sha256": "fca26077ab13c9532c993280e8ee33211cc931ddb0874d08444505077111f524"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/comparison_report.md",
+      "sha256": "f85776979e7aab920c1104f511f2443dd2c08b0d957241fe1b0334b7aeb54448"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/report.md",
+      "sha256": "b6f9b1455a90313d058f4c909fb224d581691f4cd6256b09f956b7178c4e92fa"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/report.md",
+      "sha256": "917eb2f1174c75fdc07f2b515781eb30184ff8e36688579d26c466aa8237333d"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/report.md",
+      "sha256": "b33b7960b192ae850399877db6110241efd9f1719703163a55da6aa0a1565481"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/comparison_report.md",
+      "sha256": "aac82521c248c98b486eaec5f836515d15e87c5c1437186c3960953f3cb8e77a"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/MANIFEST.md",
+      "sha256": "73a5fc77bc9cc3b6aab3ba45b4beebf79097a68653606d8ee3f221394f3450f6"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/README.md",
+      "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2"
+    }
+  ],
+  "modified_supporting_files": [
+    {
+      "path": "README.md",
+      "sha256_before": "28b52f6c9f0ffadeebd38524781e0c4adc4ecb0e06fdf9af93a79c49c33e9ed1",
+      "sha256_after": "e69af80154945d11239c479c9ae6173feeabe14cbb2fa7726c2e63d4959bb9ea"
+    },
+    {
+      "path": "expected_heat_flux/pyproject.toml",
+      "sha256_before": "adb4c2fd2a445f845f01e130840958f2d2c0da43226452aa1896590b0d9082a5",
+      "sha256_after": "c217f7c8255d22cbc74fa744cba607c80edce97ed959e1e4cf9ad5352f28c635"
+    },
+    {
+      "path": "expected_heat_flux/wildfire_expected_heat_demo.ipynb",
+      "sha256_before": "74fa0dcb6f3b06ce53046d2396331d5e09856596ae9d2e5bd261c93b0b312551",
+      "sha256_after": "7cd4f5168e3ba66dd0423794bd4a1743c353313e76e66d9dafbf2a8c9fe109d8"
+    },
+    {
+      "path": "wildfire_burned_area_hourly/source_manifest.json",
+      "sha256_before": "36f75f05802b999f9702b49734fc956226a4262bcef2b571beeec1c4607a3695",
+      "sha256_after": "de8a3c5a3980eb3006590591ea340a11dc5c633c4b037cd1fa3fb5192e88c26e"
+    },
+    {
+      "path": "expected_heat_flux/outputs/notebook_demo/wildfire_expected_heat_demo.html",
+      "sha256_before": "b311e2310501708239c25fc62cb950b67c1467f6f2306d6443c81e038b5be1c2",
+      "sha256_after": "17bcc0db42d31d8f7f4109b3dbf329b196955e36a27fd94a03b8c943083aaf85"
+    }
+  ],
+  "readme_sha256": "e69af80154945d11239c479c9ae6173feeabe14cbb2fa7726c2e63d4959bb9ea",
+  "static_checks": {
+    "passed": true,
+    "markdown_files_before": 19,
+    "markdown_files_after": 10,
+    "readme_links_and_anchors_checked": 49,
+    "syntax_checks": [
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "386fe6592399ffd8f92f2915ca2ae70503ac3fb8f7f9a955eb30e35f17cc06b5"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "0ec202a8080fc44a419a5d87d332ccd7bffcfce6c76571f952200e0801408413"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "91090274cd0cc231a810f1f3130a4b8c7d8c90bd6fcae53a414ebfa76a241ba7"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "f6be5729903c5618ed4f0608830c3f1f0898a1f5c754275d1d22a04befdbafe9"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "455ec827e62099373392207ea2150b59012cbc9464938c4dc92deb3e6c5deec5"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "720d18436103c534621c1c3cbbaeaca83d96d6000ecb74b0d02fdc01a672c5ad"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "4b509716e0a052c84f92f4306fb69e4a21b01e9f4a36cdbe904671bbef788547"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "2453268d26697e0f93ebfbbebb69af625c344d223c8568fc76ab8618f7eedec8"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "905e42363c0e091682aee5efb59b5ceea085bd05a61731f651f5db8aa501ba10"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "0e5439074410b95c2faa857104348b0d8f82112a846056bc2f377117485d7e01"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "d25d52a90be80d4df181026246329c1d3d849c77189702b6ab2829c880419dbb"
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "56da47c129417419e6a2cf5cd333e0b226a45df14188b8a3326563c3cafc2311"
+      },
+      {
+        "language": "python",
+        "passed": true,
+        "sha256": "e5748ad5dc6e11b8c39bac2cd4eaa1d0bcc5f01f353cb1d2018762c9ef7f6327"
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      }
+    ],
+    "python_example_bodies_unchanged": true,
+    "notebook_code_and_outputs_unchanged": true,
+    "html_only_documentation_links_changed": true,
+    "canonical_publisher_readme_matches_removed_duplicate": true,
+    "archive_members_verified_byte_identical": 132,
+    "download_url_and_publisher_checksums_preserved": true,
+    "all_local_readme_links_resolve": true,
+    "explicit_readme_anchors": 31
+  },
+  "source_download_hashes_verified": 5,
+  "source_metadata_preserved_except_canonical_storage_path": true,
+  "package_builds": [
+    {
+      "name": "combined",
+      "wheel": "/private/tmp/wildfire-document-cleanup-20261008/wheels/combined/wildfire_guardian-0.1.0-py3-none-any.whl",
+      "sha256": "c01cd67bcc16e974c2c611104300a28ac0932b7972180cc5a97bfc5d50b515ea",
+      "installed_target": "/private/tmp/wildfire-document-cleanup-20261008/installed/combined",
+      "passed": true,
+      "physics_source_resource_present": true,
+      "retired_readme_resource_absent": true
+    },
+    {
+      "name": "heat",
+      "wheel": "/private/tmp/wildfire-document-cleanup-20261008/wheels/heat/expected_heat_flux-0.2.0-py3-none-any.whl",
+      "sha256": "358ce2d757b589388dda70a7030ef1a599716869e6c8ac746725d053e88c1c30",
+      "installed_target": "/private/tmp/wildfire-document-cleanup-20261008/installed/heat",
+      "passed": true,
+      "physics_source_resource_present": true,
+      "retired_readme_resource_absent": true
+    }
+  ],
+  "installed_package_checks": [
+    {
+      "package": "combined",
+      "passed": true,
+      "import_path": "/private/tmp/wildfire-document-cleanup-20261008/installed/combined/expected_heat_flux/__init__.py",
+      "sources_resource_available": true,
+      "removed_readme_resource_not_needed": true,
+      "standalone_radiation_shape": [
+        2,
+        3
+      ],
+      "wildfire_import_path": "/private/tmp/wildfire-document-cleanup-20261008/installed/combined/wildfire_burned_area_hourly/__init__.py",
+      "probability_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "valid_predictions": 225,
+      "checkpoint_save_reload_exact": true,
+      "integrated_heat_shape": [
+        103,
+        73
+      ]
+    },
+    {
+      "package": "heat",
+      "passed": true,
+      "import_path": "/private/tmp/wildfire-document-cleanup-20261008/installed/heat/expected_heat_flux/__init__.py",
+      "sources_resource_available": true,
+      "removed_readme_resource_not_needed": true,
+      "standalone_radiation_shape": [
+        2,
+        3
+      ],
+      "numpy_only_without_torch_import": true
+    }
+  ],
+  "preservation_checks": {
+    "passed": true,
+    "active_python_files_unchanged": 74,
+    "saved_report_files_unchanged": 7,
+    "saved_checkpoints_unchanged": 12,
+    "legacy_check": {
+      "status": "unavailable",
+      "folder_present": false,
+      "older_baseline_files": 3162,
+      "operations_on_legacy": 0,
+      "note": "The legacy folder is currently absent. This documentation cleanup did not perform any operations on legacy, and cannot verify its earlier inventory."
+    }
+  },
+  "verification_limits": [
+    "Legacy is excluded. Its folder is currently absent, so the 3,162-file inventory from the earlier refactor cannot be verified. This cleanup performed no operations on legacy.",
+    "The active full test suite and training examples were not rerun for this documentation-only cleanup. Earlier test and training results remain in their original validation records.",
+    "The 13 Python example bodies are unchanged from the previously executed guide. Syntax was rechecked; package installation, radiation, saved-model inference, integrated heat, and checkpoint save/reload were exercised in this cleanup.",
+    "Historical inventories and validation records retain their original paths and hashes, including the intentionally removed documents. This record explains the removals without rewriting those historical records."
+  ],
+  "recoverable_pre_cleanup_copies": "/private/tmp/wildfire-document-cleanup-20261008/before",
+  "backup_storage_note": "Temporary local recovery copies; not a permanent archival guarantee."
+}

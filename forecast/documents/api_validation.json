@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Seoul",
+  "api_kind": "Importable Python interface",
+  "public_exports": [
+    "WildfireModel",
+    "TrainingConfig",
+    "load_model",
+    "load_data",
+    "WildfireSequenceDataset",
+    "collate_fire_sequences"
+  ],
+  "files": [
+    "wildfire_burned_area_hourly/api.py",
+    "wildfire_burned_area_hourly/api_example.py",
+    "wildfire_burned_area_hourly/__init__.py",
+    "wildfire_burned_area_hourly/pytorch_loader/dataset.py",
+    "tests/test_api.py"
+  ],
+  "model_families": [
+    "exponential",
+    "direct"
+  ],
+  "contracts": {
+    "output_shape": "[..., 1, H, W]",
+    "unknown_values": "NaN plus false boolean validity mask",
+    "categorical_schema": "Saved channel order and categorical vocabulary are retained",
+    "normalization": "Saved training-only normalization reused for inference; training fits original train partition only",
+    "horizon": "Exactly one hour for the direct model; exponential rescaling follows original constant-rate implementation",
+    "heat": "Original explicit active-burning conversion and radiation calculation; one spatial snapshot per invocation",
+    "save": "Atomic; existing destinations protected unless overwrite=True"
+  },
+  "tests": {
+    "api_tests_passed": 26,
+    "complete_suite_passed": 436,
+    "failures": 0,
+    "full_suite_seconds": 11.3,
+    "shared_memory_worker_access": "Enabled for tests requiring native-library initialization or worker processes"
+  },
+  "checkpoint_validation": [
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_all44/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "04fa55c54c88adc4d5e0da9344baac50d0330ef88b9016b01153ac7b965b824e",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted_cpu_precision_diagnostic/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_biome_onehot_pooled/fitted_mps_precision_diagnostic/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_contact_only/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "8a0db423e47f9d23c5ccbfad0bd8edc1d9cd23643a7a9f79003c33ad7d8c1cd6",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/3x3/fitted/checkpoint.pt",
+      "family": "direct",
+      "arrays_compared": 3,
+      "checkpoint_sha256": "833a4da7de9c8b2a22decf0809201fc6a1dc5d688ba936680fbcf510c906ba7c",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "family": "direct",
+      "arrays_compared": 3,
+      "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/7x7/fitted/checkpoint.pt",
+      "family": "direct",
+      "arrays_compared": 3,
+      "checkpoint_sha256": "88e6018d9ff15f42a670bdacbe9d916f5a8a6e10b640eead0222fb7ca998ad34",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/9x9/fitted/checkpoint.pt",
+      "family": "direct",
+      "arrays_compared": 3,
+      "checkpoint_sha256": "a1ae455c007e145e963e5b4ab08133379c24f516c4b44c5e18080df2ca633339",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/5x5/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "b985b5bf0bd6f218e2623a8ffdcf27d742944dfbb60a8f1dd7de7337d8e68ae7",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/7x7/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "eb9d38c4509bee997e784ca715d337af64a3d8de5740f3e8e1cd1cd03029c86e",
+      "reload_exact": true
+    },
+    {
+      "path": "wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_kernel_sweep/9x9/fitted/checkpoint.pt",
+      "family": "exponential",
+      "arrays_compared": 4,
+      "checkpoint_sha256": "6b01d4004c1e76286e92f15cca1bb570ffcd93f2f043b8c579c505beebd98a18",
+      "reload_exact": true
+    }
+  ],
+  "installed_package_validation": {
+    "api_import_path": "/private/tmp/wildfire-api-validation-20261007/installed/wildfire_burned_area_hourly/api.py",
+    "probability_shape": [
+      1,
+      1,
+      103,
+      73
+    ],
+    "known_predictions": 225,
+    "unknown_predictions": 7294,
+    "resident_predictor_heat": true,
+    "probability_and_heat_outputs_match_workspace": true
+  },
+  "artifact_preservation": {
+    "files_checked": 16316,
+    "legacy_files_checked": 3162,
+    "all_equal": true
+  },
+  "example": {
+    "command": ".venv/bin/python -m wildfire_burned_area_hourly.api_example --heat --output NEW_FILE.npz",
+    "event": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00Z",
+    "device": "cpu",
+    "probability_shape": [
+      1,
+      1,
+      103,
+      73
+    ],
+    "known_predictions": 225,
+    "unknown_predictions": 7294,
+    "array_output": "/private/tmp/wildfire-api-example-20261007.npz",
+    "physical_parameters": "Illustrative uniform fuel/combustion; not measurement-calibrated"
+  },
+  "reported_crash": {
+    "report_file": "/Users/movinggk/.codex/attachments/ef56d514-3ce7-49af-b419-b0aa6c984655/Pasted text.txt",
+    "report_exception": "EXC_CRASH (SIGABRT)",
+    "report_frames": [
+      "__kmp_abort_process",
+      "__kmp_fatal",
+      "__kmp_register_library_startup",
+      "omp_set_num_threads"
+    ],
+    "observed_test_stderr": "OMP: Error #179: Function Can't open SHM failed",
+    "assessment": "Crash during native OpenMP initialization, consistent with the observed sandboxed import subprocess failing to open shared memory",
+    "verification": "API tests and full suite pass with shared-memory access enabled; independently installed API also executes successfully",
+    "dependency_versions": "Unchanged"
+  },
+  "dependency_check": "No broken requirements found",
+  "verification_directory": "/private/tmp/wildfire-api-validation-20261007",
+  "scope_note": "Existing weights are used for real-data checks. Training is tested on temporary synthetic caches for each family. Archived project and scientific artifacts are preserved."
+}

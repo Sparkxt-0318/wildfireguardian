@@ -1,0 +1,49 @@
+\documentclass{article}[notitlepage]
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{derivative}
+\usepackage{kotex}
+\usepackage{fullpage}
+\usepackage{mdframed}
+
+\newtheorem*{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\mdfdefinestyle{MyFrame}{
+    outerlinewidth=2pt,
+    roundcorner=20pt
+}
+\def \dd{\mathrm d}
+
+\title{Renewal Process for Wildfire Spreading}
+\author{이동하}
+\date{}
+
+\begin{document}
+\maketitle
+The occurance of wildfire, which is modeled with the probability, can be viewed as a kind of point processes, especially the renewal process. The renewal process refers to the point process whose inter-point time interval distribution is not i.i.d.(independent and identically distributed).
+
+\section{Theory}
+
+\subsection{Renewal Process}
+Consider two different incidents of a point process which is occured at different time points $t_0$ and $t$, where $t_0 < t$. Define the followings:
+\begin{enumerate}
+    \item \textbf{next point distribution $p(t|t_0)$:} the probability distribution for time point of the next event, given event at $t_0$,
+    \item \textbf{survivor function $S(t|t_0)$:} the probability of not-occurance of event until time $t$, given event at $t_0$, and
+    \item \textbf{hazard function $\rho(t|t_0)$:} the probability distribution for the chance of occurance of event at time point $t$, given event at $t_0$.
+\end{enumerate}
+Observe that the following equations are plausible:
+\[p(t|t_0) = S(t|t_0) \rho(t|t_0), \qquad S(t|t_0) = 1 - \int^{t}_{t_0} p(\tau|t_0) \dd \tau.\]
+From these two equations, the differential equation
+\[\pdv*{S(t|t_0) }{t} = - S(t|t_0) \rho(t|t_0)\]
+can be established. Since $S(t_0|t_0) = 1$, solving the differential equation, we have
+\[S(t|t_0) = \exp\left[-\int^t_{t_0} \rho(\tau|t_0) \dd{\tau}\right],\]
+and hence
+\[p(t|t_0) = \rho(t|t_0) \exp\left[-\int^t_{t_0} \rho(\tau|t_0) \dd{\tau}\right].\]
+Note that if $\rho(t|t_0)$ does not depend on $t_0$, that renewal process is Poisson process.
+
+
+\end{document}

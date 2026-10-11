@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "tests_passed": 991,
+  "new_model_tests": 61,
+  "new_harness_tests": 12,
+  "new_integration_tests": 8,
+  "real_cache_mps_smoke": {
+    "completed": true,
+    "neural_candidates": 344,
+    "forest_candidates": 6,
+    "evaluated_models": 27,
+    "test_used_for_selection": false,
+    "cache_sha256_verified": {
+      "metadata.json": true,
+      "train.npz": true,
+      "validation.npz": true,
+      "test.npz": true
+    }
+  },
+  "initial_epochs": 2,
+  "finalist_epochs": 4,
+  "long_finalists": 5,
+  "full_scheduled_experiment_executed": false,
+  "source_hashes_match": true,
+  "output": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_mixed_kernel_smoke",
+  "scope": "Single-scale plus linear mixed-kernel model; neural mixed extension verified separately",
+  "new_files": [
+    "mixed_kernels.py",
+    "mixed_inference.py",
+    "kernel_search_mixed.py"
+  ],
+  "sources": {
+    "kernel_search_mixed.py": "43e635f2ea618ff32d791d5e36e80b2d2130ad9eb7a5630b3fcb441cbd12858f",
+    "mixed_kernels.py": "4a183fb7fac145e9bfedddb52988920f6f9a050d68954d30b3d73b37e27569b2",
+    "mixed_inference.py": "6ebb9c5308af476aa58dbbd37566e30879c5e6ba54a3af95cda185cef052a45d",
+    "learning_rate_schedules.py": "68cddd73247c0285a32bbaf2ff4fc118ed7470f81cc6d8a10f7ae2bd2854ca49",
+    "kernel_models.py": "288fc680544ce528580060dbcc9b40a590b8affe6a249c1cb5ca5fa6bf60d084",
+    "kernel_cohort.py": "5a01e68681a6a404a1236541d454a70a0d7efddd28fa6abc2f1ef8f4d8a45be0",
+    "model.py": "c93f60977b527dc9b0cd983d820f668984747aff4cd134ab92cd3018e1520d51",
+    "inference.py": "bce45a568ec0607ca0589cfdaff30da9f38aa9b8526932c66194a5d3bee7962c",
+    "_inference.py": "6ee40f84b42f5251cd1c1fed0b24c9c196cf455a0bc86c1adac420931b28b3f1",
+    "cache.py": "9a69803d14646af8374fcb7b639c101520f56541b080142429240a7f9351aff6",
+    "train.py": "edede7a2b9583a09513b27d54797ab4b26860133e47c57b51e3abe6728852dcf",
+    "metrics.py": "ab241c2642c0f2f8c95eec429ec6ccdf1b76b8c47ce13dcd28ead47c71e3daae",
+    "input_schema.py": "04f8967466853b89f85d8e21f64402df335520c340621e2b78d2af73fa1a0945",
+    "runtime.py": "e7fd8de1867da1ae1608fb2d23b618701ae21c7364641a8acc25ff468e6a24aa",
+    "baselines/model.py": "3f2a56f3db080e7cd3ebae58c1b456f3dc75be4c9600969162452702bac1ce32",
+    "baselines/classification.py": "3a7a4d7ee13d6c8bc2f5790599b02db906a908a21dce224934043b824b9a0e6d",
+    "baselines/metric_set.py": "2885d232df3cdaf0017477322a1547fd5d2e1c4ae03eca1f1e90cb6590cab586",
+    "baselines/kl.py": "417755515d4a3a1d9b78b100a08a9d19fe4effb1c7c2d442624e27b85b91bbc2",
+    "baselines/distances.py": "1ccce85ee6294e63827c31c1c0dc3cadb55ae4cfda19724d4dab231feb257bfd"
+  }
+}

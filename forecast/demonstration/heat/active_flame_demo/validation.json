@@ -1,0 +1,22 @@
+{
+  "verified_at_utc": "2026-10-08T09:55:48.193678+00:00",
+  "full_test_suite": {
+    "passed": 627,
+    "skipped": 1,
+    "duration_s": 10.07,
+    "skip_reason": "Direct-score clipping case does not apply to exponential family"
+  },
+  "test_environment": "Normal local system access; restricted sandbox prevents OpenMP shared-memory startup in existing test subprocesses",
+  "real_example_checks": [
+    "Endpoint probabilities recomputed from q and residence",
+    "Interval means recomputed independently",
+    "Unknown support retained as NaN",
+    "Nominal arrival mask recomputed",
+    "23 ranked CSV probabilities match raster cells exactly",
+    "Projected coordinates match affine centers exactly",
+    "Nominal and thresholded selections honestly empty",
+    "Literature local source links exist"
+  ],
+  "visual_review": "Rendered three-panel map inspected; labels, units, unknown gray mask and probability scale verified",
+  "scientific_validation": "Mathematical/software verification only; no active-flame observational calibration"
+}

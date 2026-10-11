@@ -1,0 +1,29 @@
+{
+  "verified_at_utc": "2026-10-08T13:07:40.189658+00:00",
+  "event_id": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-23T00:00:00Z",
+  "family": "direct",
+  "kernel_size": 5,
+  "boundary": "unknown",
+  "device": "cpu",
+  "total_cells": 7519,
+  "previous_valid_cells": 225,
+  "new_structural_zero_cells": 1021,
+  "current_valid_cells": 1246,
+  "current_unresolved_cells": 6273,
+  "all_added_cells_match_complete_all_unburned_neighborhoods": true,
+  "all_added_probabilities_and_raw_scores_exactly_zero": true,
+  "previous_valid_probabilities_preserved_exactly": true,
+  "remaining_unresolved_probabilities_are_nan": true,
+  "heat_pipeline_uses_updated_probability_and_validity": true,
+  "complete_expected_heat_available": false,
+  "training_executed": false,
+  "comparison_source": "expected_heat_flux/outputs/integrated_demo/integrated_heat_arrays.npz",
+  "prediction_arrays": "demonstration/zero_ignition_prediction/prediction.npz",
+  "prediction_sha256": "d3c180711c66b57f495e8f5c7cf269028d9f91b2f5b484e182a60cdae22a130d",
+  "inference_source_sha256": {
+    "wildfire_burned_area_hourly/probability_model/_inference.py": "6ee40f84b42f5251cd1c1fed0b24c9c196cf455a0bc86c1adac420931b28b3f1",
+    "wildfire_burned_area_hourly/probability_model/inference.py": "0f6484ee66013237cfe1538e922fa4bcd0d2248b1670b3280dab0b1a972af292",
+    "wildfire_burned_area_hourly/probability_model/direct_convolution/inference.py": "91121fb57ff2e13afc7b8049f0857ba6ad815d484a46332a1bd4039e05dcd5fa"
+  }
+}

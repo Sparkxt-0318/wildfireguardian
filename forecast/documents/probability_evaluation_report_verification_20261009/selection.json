@@ -1,0 +1,1219 @@
+{
+  "selected": [
+    {
+      "candidate": {
+        "id": "k3_constant_00_lr0.003_constant",
+        "base_configuration_id": "k3_constant_00",
+        "kernel_size": 3,
+        "family": "constant",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_constant_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "5a1001279e270037cbacc5af011a32640d9e935d795f91d3e0c349f11338a6c4",
+      "trainable_parameters": 9,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "c8a9eae3c927c6f5a8a0ca3263172e28a885948d1405ccc0c7e68fb9eebb9ef4",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_constant_00_lr0.003_constant",
+        "base_configuration_id": "k5_constant_00",
+        "kernel_size": 5,
+        "family": "constant",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222223057867888,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_constant_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "0f6e611d82eb5aff755870ad548e709da23b822bf0f9141dc7862dc2198727a3",
+      "trainable_parameters": 25,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "5e0933dfadd1fb5d5aa78049ec278b814073c4ca93b56f375386645703d91630",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_constant_00_lr0.003_constant",
+        "base_configuration_id": "k7_constant_00",
+        "kernel_size": 7,
+        "family": "constant",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222455699617,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_constant_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "f4ee95e16c715c515efd4030f066e062856a5433fe94fe32e927e493e594ab7f",
+      "trainable_parameters": 49,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "81df8ac9538a64e5a9c51d499e458cc8a0fb3bfb1fb8abb90f31b30da533d3c9",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_constant_00_lr0.003_constant",
+        "base_configuration_id": "k9_constant_00",
+        "kernel_size": 9,
+        "family": "constant",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222222222263,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_constant_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "ade573bdef63a604981cbc889ab132ff8b8be953a7db1551fdbf6797a855acf1",
+      "trainable_parameters": 81,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "6dab05bac629f24c97a5035f5598841eb34e72b8b3466741c145b22a9720adb7",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k3_linear_01_lr0.003_constant",
+        "base_configuration_id": "k3_linear_01",
+        "kernel_size": 3,
+        "family": "linear",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_linear_01_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "fe58758cb5f42286435c825586f12f18de848a505a03b235146397ce212f7287",
+      "trainable_parameters": 27,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "f62906db7185ba0c3a6aeed03f03e49760844151f792d3cec0996e6b617bfcfc",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_linear_01_lr0.003_constant",
+        "base_configuration_id": "k5_linear_01",
+        "kernel_size": 5,
+        "family": "linear",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222221727518487,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_linear_01_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "7f25687120d10f550a5f0f63efc25f35179c3c79bbbbfd7c9478bcf2af386ecc",
+      "trainable_parameters": 75,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "57415196caca518dc680fda64d4e49b7509ac1e05008d3009f9a28e6c64a93d4",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_linear_01_lr0.003_constant",
+        "base_configuration_id": "k7_linear_01",
+        "kernel_size": 7,
+        "family": "linear",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222465594518,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_linear_01_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "3f6c2a682612c15756bcfb4d17c47bf2406486de1a6713ce90f345a77278e35e",
+      "trainable_parameters": 147,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "bcca84d535febdb599f14edca38af345b7eca6f564139002f7074e82f9c0bc4d",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_linear_01_lr0.003_constant",
+        "base_configuration_id": "k9_linear_01",
+        "kernel_size": 9,
+        "family": "linear",
+        "hidden_channels": 1,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222222246893,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_linear_01_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "7b7c250b0d1081e471d8a1311081746310369d5ea73ec65a7915abbe62491cde",
+      "trainable_parameters": 243,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 2.220446049250313e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "1d7761e1243fe24d46271235f3ca88ac5c6b1754a710b5ae85f11084439872a2",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k3_legacy_02_lr0.003_constant",
+        "base_configuration_id": "k3_legacy_02",
+        "kernel_size": 3,
+        "family": "legacy",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_legacy_02_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "82f17aec1ed49d86de7ca18d672b6ab8775c1cf8a20db615e0a888fc25a588c2",
+      "trainable_parameters": 457,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "8a20973ad43b49158c3382b60ee923b0dbe6634116659e9531f6d40211c9a95a",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_legacy_02_lr0.003_constant",
+        "base_configuration_id": "k5_legacy_02",
+        "kernel_size": 5,
+        "family": "legacy",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222223103144265,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_legacy_02_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "c69f6ae8b5d26e3c61921ba1e8f52803fd97d265aa35db8de961a3b52aa67027",
+      "trainable_parameters": 1241,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "1390c4f467649fdcc29d3939d9bf1488e4437cfdf8f486bbd18ccfb96822c97f",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_legacy_02_lr0.003_constant",
+        "base_configuration_id": "k7_legacy_02",
+        "kernel_size": 7,
+        "family": "legacy",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.2222222247329976,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_legacy_02_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "298014895b4f27a5fb8a014454b2aed04a1dc9ce0c7aa50769bc37a314de815c",
+      "trainable_parameters": 2417,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.7881393432617188e-07,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "c4d11a5f3e102d591ff1d6f1861bce8d25daae8d6806d2e65e8e2802e054081e",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_legacy_02_lr0.003_constant",
+        "base_configuration_id": "k9_legacy_02",
+        "kernel_size": 9,
+        "family": "legacy",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222222246893,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_legacy_02_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "5e8453512a95beb0e2acdf770f8cff78768ce26d12884b9eefb3ec991dca5703",
+      "trainable_parameters": 3985,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 2.220446049250313e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "749985f755477f97acfb84517b7f332b7071a740d54b9bfe5a19bf92e95b6e8c",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k3_cnn_03_lr0.003_constant",
+        "base_configuration_id": "k3_cnn_03",
+        "kernel_size": 3,
+        "family": "cnn",
+        "hidden_channels": 32,
+        "depth": 1,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_cnn_03_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "085d4f61042e2e997742797a884de44e1effa2e10e972d8191dcaa2b79e6e844",
+      "trainable_parameters": 905,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "7b3e8d82a39ef60af12654d58f53b7f0e1b1a952216fa52cdf911e55d6082f82",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_cnn_03_lr0.003_constant",
+        "base_configuration_id": "k5_cnn_03",
+        "kernel_size": 5,
+        "family": "cnn",
+        "hidden_channels": 32,
+        "depth": 1,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.2222223585977036,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_cnn_03_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "5860b72d6daa6dd4ae2beef1037d12b77ac33ffed302b5df06d60cdc7840b494",
+      "trainable_parameters": 2457,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 2.220446049250313e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "6f96da0417d73ed6f4f0a7153d1e47fd8bb59b5b90ec3f9322649c1dadfd121f",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_cnn_03_lr0.003_constant",
+        "base_configuration_id": "k7_cnn_03",
+        "kernel_size": 7,
+        "family": "cnn",
+        "hidden_channels": 32,
+        "depth": 1,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222368044697,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_cnn_03_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "b659c92052af00e0d5cc6397f50d2fc9f5116da79ce8024859c5440bde3880ec",
+      "trainable_parameters": 4785,
+      "verification": {
+        "device_float32_max_error": 1.1920928955078125e-07,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.1920928955078125e-07,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "1b4ed94cc0615ec51940976b4446bc031035352048db42ffcb80f505136a0775",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_cnn_03_lr0.003_constant",
+        "base_configuration_id": "k9_cnn_03",
+        "kernel_size": 9,
+        "family": "cnn",
+        "hidden_channels": 32,
+        "depth": 1,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222505956188,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_cnn_03_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "c46dc3f3562df85b1625ddc6f9c67a7f6d4c1ee5ab29864bd72edcdcf4ece4d6",
+      "trainable_parameters": 7889,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.7881393432617188e-07,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "9e856eba8ff39889b12afd02b1606a56fb52840139db603cbcb188111556a59d",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k3_mlp_04_lr0.003_constant",
+        "base_configuration_id": "k3_mlp_04",
+        "kernel_size": 3,
+        "family": "mlp",
+        "hidden_channels": 8,
+        "depth": 2,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_mlp_04_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "bfc659f116f7b27f2259f09198a429da1d9e6f4c39482c21500c5ae04dfe9427",
+      "trainable_parameters": 177,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "9fcb1fa686d2acb6e86efaf78f8f9c25c034c4d28c8c5a53036db4e37e9873b3",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_mlp_05_lr0.003_constant",
+        "base_configuration_id": "k5_mlp_05",
+        "kernel_size": 5,
+        "family": "mlp",
+        "hidden_channels": 32,
+        "depth": 2,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 2,
+      "validation_common_brier": 0.22222222985061535,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_mlp_05_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "7858c0adcbcda3feb2a0c107419e05e7257955ca5ab66b0c1a08f999874d5f71",
+      "trainable_parameters": 1977,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "10a44c1ff96bee811e2ce4a5c5306b9c3425e0b96af483af72d81f4dd823b55d",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_mlp_04_lr0.003_constant",
+        "base_configuration_id": "k7_mlp_04",
+        "kernel_size": 7,
+        "family": "mlp",
+        "hidden_channels": 8,
+        "depth": 2,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222493398527,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_mlp_04_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "810f83ad20683a1f395b2777c15f85c0e250cb7280f97cebc568d451fd07cf45",
+      "trainable_parameters": 537,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.1920928955078125e-07,
+          "cpu_float64_max_error": 2.220446049250313e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "8002e71bb16a0b5f1dd7dce29bdf786f35f27ad3ca4fba29557ce0e7655e34ab",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_mlp_04_lr0.003_constant",
+        "base_configuration_id": "k9_mlp_04",
+        "kernel_size": 9,
+        "family": "mlp",
+        "hidden_channels": 8,
+        "depth": 2,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 1,
+      "validation_common_brier": 0.2222222222229521,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_mlp_04_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "75408b2d2655e49b42e81944f1cb86a62d19d41a69bf219b57e29f268c2b5460",
+      "trainable_parameters": 825,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 5.960464477539063e-08,
+          "cpu_float64_max_error": 4.440892098500626e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "4802cea1a6267f651ae0f7e503ecc168a06fb5996311bf79e7a53361634c2659",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k3_residual_mlp_08_lr0.003_constant",
+        "base_configuration_id": "k3_residual_mlp_08",
+        "kernel_size": 3,
+        "family": "residual_mlp",
+        "hidden_channels": 32,
+        "depth": 3,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "validation_common_brier": 0.3333333333333333,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k3_residual_mlp_08_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "20c13d468b4821782ad0dfdde36f891cb59596eae4fc65512dd72f48930f84bc",
+      "trainable_parameters": 4617,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "a77b35334d0a28eb7e84e6de1dca9b2be1317bd0726937a464f92a21f43e797b",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k5_residual_mlp_09_lr0.003_constant",
+        "base_configuration_id": "k5_residual_mlp_09",
+        "kernel_size": 5,
+        "family": "residual_mlp",
+        "hidden_channels": 128,
+        "depth": 3,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.01,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 2,
+      "validation_common_brier": 0.22222224209895103,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_residual_mlp_09_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "3515e632156e805af94bb70bf993ac5e068ddd848895d61ae86e67c96910ddff",
+      "trainable_parameters": 69657,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 0.0,
+          "cpu_float64_max_error": 3.3306690738754696e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "64bc08ea28d629e278deb35c23728051fd0c41144cc4637c4faf3adcceebd36a",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k7_residual_mlp_08_lr0.003_constant",
+        "base_configuration_id": "k7_residual_mlp_08",
+        "kernel_size": 7,
+        "family": "residual_mlp",
+        "hidden_channels": 32,
+        "depth": 3,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 1,
+      "validation_common_brier": 0.22222222824788082,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k7_residual_mlp_08_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "b6c632ea2d82aa531faea42fcb178b5aa4f6399eddfbecd70d98e464f9392f08",
+      "trainable_parameters": 5937,
+      "verification": {
+        "device_float32_max_error": 0.0,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.1920928955078125e-07,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "7339775f201690739ec25da515a835ae7a2a560a74189846258962d3a1e760cf",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "k9_residual_mlp_08_lr0.003_constant",
+        "base_configuration_id": "k9_residual_mlp_08",
+        "kernel_size": 9,
+        "family": "residual_mlp",
+        "hidden_channels": 32,
+        "depth": 3,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 2,
+      "best_epoch": 2,
+      "validation_common_brier": 0.22222223226930637,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k9_residual_mlp_08_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "7651af794b06a649c03023f464827d04ac46acd7b3597f7d9972416a128a01a0",
+      "trainable_parameters": 6993,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 0.0,
+        "selected_checkpoint": {
+          "device_float32_max_error": 2.384185791015625e-07,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "c69499c2e5ea84d4babb354082df37b23888ebc33426f43614d2ed81e1584447",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4
+    },
+    {
+      "candidate": {
+        "id": "mixed_3_5_7_9_00_lr0.003_constant",
+        "base_configuration_id": "mixed_3_5_7_9_00",
+        "kernel_size": 9,
+        "family": "mixed",
+        "kernel_sizes": [
+          3,
+          5,
+          7,
+          9
+        ],
+        "branch_architecture": "cnn",
+        "mixing_constraint": "nonnegative",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 3,
+      "validation_common_brier": 0.22222225913448312,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/mixed_3_5_7_9_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "5526826b3b9d4c2c7d0285e3af231662d5d8dc0653fc86087a662d665cca6e2e",
+      "trainable_parameters": 8104,
+      "verification": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.7881393432617188e-07,
+          "cpu_float64_max_error": 2.220446049250313e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "7053989515531ec9b5bec2701239c2b66618aefa777bbc6d18c3b1cba40b424a",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4,
+      "selected_mixing_weights": {
+        "3": 1.0003811120986938,
+        "5": 1.000238299369812,
+        "7": 1.0000773668289185,
+        "9": 0.9995192289352417
+      },
+      "mixing_interpretation": "Predictive coefficients; branch scale and mixing amplitude are not separately identifiable"
+    },
+    {
+      "candidate": {
+        "id": "neural_mixed_3_5_7_9_00_lr0.003_constant",
+        "base_configuration_id": "neural_mixed_3_5_7_9_00",
+        "kernel_size": 9,
+        "family": "neural_mixed",
+        "kernel_sizes": [
+          3,
+          5,
+          7,
+          9
+        ],
+        "branch_architecture": "cnn",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "combiner_hidden_channels": 8,
+        "combiner_dropout": 0.0,
+        "combiner_input_transform": "identity",
+        "learning_rate": 0.003,
+        "weight_decay": 0.0001,
+        "scheduler": {
+          "name": "constant",
+          "horizon": 4,
+          "warmup_epochs": 1,
+          "minimum_lr_factor": 0.01,
+          "restart_period": 2
+        }
+      },
+      "epochs_completed": 4,
+      "best_epoch": 3,
+      "validation_common_brier": 0.22222241947730006,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/neural_mixed_3_5_7_9_00_lr0.003_constant/checkpoint.pt",
+      "train_sample_count": 3,
+      "validation_native_sample_count": 3,
+      "validation_common_sample_count": 3,
+      "early_stopped": false,
+      "checkpoint_sha256": "619e2bbc2907aa24c9e6d016dcdbee34844321f767ba588088e2dd64cab7be58",
+      "trainable_parameters": 8149,
+      "verification": {
+        "device_float32_max_error": 1.1920928955078125e-07,
+        "cpu_float64_max_error": 1.1102230246251565e-16,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.1920928955078125e-07,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "test_used_for_selection": false,
+      "device": "cpu",
+      "initial_parameter_sha256": "219e5ecf21a0d5d7a3eade60222bda428e70d3747ec5242b8c05052b1d8e0d01",
+      "final_learning_rate": 0.003,
+      "scheduling_horizon": 4,
+      "combiner_readout": "lambda=sum(branch_rates)*softplus(MLP(branch_rates)); scalar nonnegative output, zero at all-zero rates",
+      "combiner_parameters": 49
+    },
+    {
+      "id": "rf3_depth8",
+      "family": "random_forest",
+      "kernel_size": 3,
+      "max_depth": 8,
+      "n_estimators": 3,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/forests/rf3_depth8.joblib",
+      "validation_common_brier": 0.271604938271605,
+      "train_sample_count": 3,
+      "checkpoint_sha256": "dbe9c9a3bb24f6f092970989f44e9d2b13cbb7ac658c4acfd0bd37d3af9b8262",
+      "fit_seconds": 0.2130459579930175,
+      "test_used_for_selection": false
+    },
+    {
+      "id": "rf5_depth8",
+      "family": "random_forest",
+      "kernel_size": 5,
+      "max_depth": 8,
+      "n_estimators": 3,
+      "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/forests/rf5_depth8.joblib",
+      "validation_common_brier": 0.271604938271605,
+      "train_sample_count": 3,
+      "checkpoint_sha256": "4ca46b69f7042d5d0d9dcbe4d690066ee039cc91b576e7b0356b16eeb7560044",
+      "fit_seconds": 0.004033042001537979,
+      "test_used_for_selection": false
+    }
+  ],
+  "best": {
+    "candidate": {
+      "id": "k5_linear_01_lr0.003_constant",
+      "base_configuration_id": "k5_linear_01",
+      "kernel_size": 5,
+      "family": "linear",
+      "hidden_channels": 1,
+      "depth": 1,
+      "dropout": 0.0,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "scheduler": {
+        "name": "constant",
+        "horizon": 4,
+        "warmup_epochs": 1,
+        "minimum_lr_factor": 0.01,
+        "restart_period": 2
+      }
+    },
+    "epochs_completed": 2,
+    "best_epoch": 1,
+    "validation_common_brier": 0.22222221727518487,
+    "checkpoint": "/private/tmp/wildfire-complete-evaluation-verified/test_complete_portable_run_tra0/portable_full_smoke/candidates/k5_linear_01_lr0.003_constant/checkpoint.pt",
+    "train_sample_count": 3,
+    "validation_native_sample_count": 3,
+    "validation_common_sample_count": 3,
+    "early_stopped": false,
+    "checkpoint_sha256": "7f25687120d10f550a5f0f63efc25f35179c3c79bbbbfd7c9478bcf2af386ecc",
+    "trainable_parameters": 75,
+    "verification": {
+      "device_float32_max_error": 0.0,
+      "cpu_float64_max_error": 0.0,
+      "selected_checkpoint": {
+        "device_float32_max_error": 5.960464477539063e-08,
+        "cpu_float64_max_error": 1.1102230246251565e-16
+      }
+    },
+    "test_used_for_selection": false,
+    "device": "cpu",
+    "initial_parameter_sha256": "57415196caca518dc680fda64d4e49b7509ac1e05008d3009f9a28e6c64a93d4",
+    "final_learning_rate": 0.003,
+    "scheduling_horizon": 4
+  },
+  "test_used_for_selection": false
+}

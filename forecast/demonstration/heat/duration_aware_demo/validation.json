@@ -1,0 +1,61 @@
+{
+  "scope": "Duration-aware source/artifact verification and maintained test suite; no retraining or measured active-flame/heat validation",
+  "checks": {
+    "arrival_age_activity_rule": true,
+    "remaining_duration_rule": true,
+    "unknown_probabilities_retained": true,
+    "mean_and_endpoint_bounds_ordered": true,
+    "unresolved_full_heat_retained": true,
+    "activity_masks_aligned": true
+  },
+  "tests": {
+    "first_full_suite": {
+      "passed": 766,
+      "skipped": 1,
+      "sandbox_blocked": 4
+    },
+    "sandbox_blocked_tests_retry_outside_sandbox": {
+      "passed": 4
+    },
+    "new_arrival_heat_regressions": {
+      "passed": 37
+    }
+  },
+  "artifact_sha256": {
+    "integrated_heat_arrays.npz": "f00a8ea8e1bccc9faa06ca2db4488bbc11795e9a2730fef8179a7fc062176801",
+    "integrated_heat_demo.png": "ef4c751f077e6d57414f837ccabb7993d5e8e3c5554292262219b86937434cc6",
+    "summary.json": "8cbff615e2045412f73350a93d2f3b05b8e28cd169a3d9d77e36e689e489fc38"
+  },
+  "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+  "known_already_burned_cells": 191,
+  "known_active_existing_cells": 0,
+  "catalog_residence_cells": 7346,
+  "explicit_fallback_cells": 173,
+  "cli_smoke": {
+    "data_derived_residence": {
+      "succeeded": true,
+      "shape": [
+        103,
+        73
+      ],
+      "minimum_s": 11.219002375296913,
+      "maximum_s": 18.83071682602384,
+      "known_initial_active_cells": 0
+    },
+    "explicit_7200_second_scenario": {
+      "succeeded": true,
+      "known_initial_active_cells": 10,
+      "existing_cells_active_at_next_hour_endpoint": 5,
+      "meaning": "Explicit duration assumption; not a measured 2-hour duration"
+    }
+  },
+  "tutorial": {
+    "notebook": "api_tutorial.ipynb",
+    "run_directory": "demonstration/api_tutorial/runs/run-cauhomjf",
+    "executed_code_cells": 20,
+    "error_outputs": 0,
+    "training_executed": false,
+    "sample_raw_probability_activity_routes_agree": true,
+    "verified_artifact_checksums": 7
+  }
+}

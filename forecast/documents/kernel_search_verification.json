@@ -1,0 +1,45 @@
+{
+  "client_date": "2026-10-09",
+  "status": "passed",
+  "full_512_4096_epoch_search_executed": false,
+  "executed_real_data_smoke": {
+    "device": "mps",
+    "train_rows": 512,
+    "validation_rows": 256,
+    "test_rows": 256,
+    "kernel_candidates": 40,
+    "forest_candidates": 6,
+    "kernel_initial_epochs": 2,
+    "neural_finalists": 4,
+    "finalist_total_epochs": 4,
+    "trees_per_forest": 9,
+    "evaluated_selected_models": 26,
+    "verified_original_source_files": 486,
+    "report": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_unsigned_kernel_smoke/report.md",
+    "protocol": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_unsigned_kernel_smoke/protocol.json",
+    "completion": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_unsigned_kernel_smoke/complete.json"
+  },
+  "repeat_command_resume_check": "passed",
+  "tests": {
+    "passed": 864,
+    "warnings": 14,
+    "warning_type": "Existing Matplotlib/Pyparsing deprecation notices",
+    "scopes": [
+      "tests/probability",
+      "tests/test_api.py",
+      "tests/heat",
+      "tests/test_workspace.py"
+    ],
+    "log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_unsigned_kernel_smoke/tests.log"
+  },
+  "verified_behavior": [
+    "Cached/public probability and gradient equivalence",
+    "CPU interrupted and uninterrupted dropout/AdamW training agree exactly",
+    "Same-device state restore checked on MPS repeat run",
+    "Cache/source/checkpoint drift rejected before test arrays load",
+    "Recorded selection Brier reproduced from selected checkpoint",
+    "No-contact prediction support retained while excluded from scores",
+    "Native and common thresholds fitted on validation only",
+    "Full inference, calibration, metrics, CSV and plotted report generated"
+  ]
+}

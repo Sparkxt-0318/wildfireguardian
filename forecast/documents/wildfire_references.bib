@@ -1,0 +1,1298 @@
+% WildfireGuardian project bibliography
+% Created and checked: 2026-10-08 (Asia/Seoul).
+%
+% Scope: the current maintained wildfire_burned_area_hourly and expected_heat_flux
+% workflow, retained publisher reconstruction code/data, and clearly marked
+% mathematical or historical background. Absent legacy applications are excluded.
+%
+% Entries use conventional BibTeX types, including misc for datasets/software,
+% for compatibility with BibTeX and biblatex. No guessed DOI, release date, or
+% individual author is assigned where the available sources do not support one.
+% Web access dates identify consultation, not publication or data acquisition.
+% Software paper years identify publications, not the installed package release.
+% Primary-source metadata access and full-text inspection are different checks.
+% Entry-specific roles and verification boundaries are recorded in the companion
+% wildfire_references_audit.json. keywords and annotation fields can be used by
+% biblatex or reference managers; traditional BibTeX generally ignores them.
+%
+% Example (main .tex and this .bib in the same directory):
+%   \usepackage[numbers]{natbib}
+%   \usepackage{url}
+%   ...
+%   \cite{choi2026wildfiretoa,toadeposit}
+%   \bibliographystyle{plainnat}
+%   \bibliography{wildfire_references}
+% Use \nocite{*} only when the intention is to print this complete inventory.
+%
+% The existing wildfire_methods.tex uses an inline thebibliography environment.
+% To migrate it, replace that environment with the two bibliography commands and
+% load a suitable citation package. Most existing keys are retained. Its combined
+% heatrefs item must be replaced by the three separate keys:
+%   overholt2014, angelidis2004, vanoosterom1983.
+% The article choi2026wildfiretoa and dataset toadeposit are separate works.
+%
+
+% ============================================================================
+% Published reconstruction, upstream fire observations, and environmental data
+% ============================================================================
+% Role: Published arrival reconstruction method
+@article{choi2026wildfiretoa,
+  author = {Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu},
+  title = {{Wildfire Time-of-Arrival Reconstruction from Satellite Active-Fire Detections: External Evaluation of Variance-Weighted Kriging and Application to South Korea}},
+  journal = {Remote Sensing},
+  year = {2026},
+  volume = {18},
+  number = {19},
+  pages = {3321},
+  doi = {10.3390/rs18193321},
+  url = {https://doi.org/10.3390/rs18193321},
+  note = {Published 26 September 2026.},
+  annotation = {Published arrival reconstruction method},
+  urldate = {2026-10-08},
+}
+
+% Role: Primary published dataset and archived method code
+@misc{toadeposit,
+  author = {Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu},
+  title = {{Wildfire time-of-arrival dataset and method code: variance-weighted kriging of satellite active-fire detections, evaluated in the United States and applied to South Korea}},
+  year = {2026},
+  month = {sep},
+  howpublished = {Zenodo},
+  version = {3.0.0},
+  doi = {10.5281/zenodo.21788344},
+  url = {https://zenodo.org/records/21788344},
+  note = {Published 26 September 2026; version 3.0.0. Derived 375 m arrival-time and kriging-standard-deviation rasters, method code, and evaluation records.},
+  annotation = {Primary published dataset and archived method code},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream NIROPS external reference
+@misc{magstadt2026niropsdataset,
+  author = {Magstadt, S. and Wadhwani, R. and Whitley, M. A. and Martin, T. J. and Sitter, E. and Wei, Y. and O'Connor, C. D.},
+  title = {{A High Spatial Resolution Daily Fire Perimeter Progression Dataset for Wildfires in the Western United States: 2020--2024}},
+  year = {2026},
+  howpublished = {Mendeley Data},
+  version = {1},
+  doi = {10.17632/95rj5d379g.1},
+  url = {https://data.mendeley.com/datasets/95rj5d379g/1},
+  note = {Version 1; upstream aerial-infrared fire perimeters used for external evaluation in the published arrival reconstruction.},
+  annotation = {Upstream NIROPS external reference},
+  urldate = {2026-10-08},
+}
+
+% Role: Weather API software
+@misc{zippenfenig2023openmeteo,
+  author = {Zippenfenig, Patrick},
+  title = {{{Open-Meteo.com} Weather {API}}},
+  year = {2023},
+  howpublished = {Zenodo},
+  doi = {10.5281/zenodo.7970649},
+  url = {https://doi.org/10.5281/zenodo.7970649},
+  note = {Computer software; citation recommended by the official Historical Weather API documentation.},
+  annotation = {Weather API software},
+  urldate = {2026-10-08},
+}
+
+% Role: Weather acquisition, spatial support, and temporal conventions
+@misc{openmeteoHistoricalWeatherDocs,
+  author = {{Open-Meteo}},
+  title = {{Historical Weather {API}}},
+  howpublished = {Official API documentation},
+  url = {https://open-meteo.com/en/docs/historical-weather-api},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Saved project queries request ecmwf\_ifs weather and era5 boundary-layer height separately.},
+  annotation = {Weather acquisition, spatial support, and temporal conventions},
+}
+
+% Role: Underlying IFS model documentation
+@misc{ecmwfIFSDocumentation,
+  author = {{European Centre for Medium-Range Weather Forecasts}},
+  title = {{{IFS} Documentation}},
+  howpublished = {Official model documentation},
+  url = {https://www.ecmwf.int/en/publications/ifs-documentation},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. General documentation for the Integrated Forecasting System.},
+  annotation = {Underlying IFS model documentation},
+}
+
+% Role: ERA5 underlying reanalysis method
+@article{hersbach2020era5,
+  author = {Hersbach, Hans and Bell, Bill and Berrisford, Paul and Hirahara, Shoji and Hor{\'a}nyi, Andr{\'a}s and Mu{\~n}oz-Sabater, Joaqu{\'i}n and Nicolas, Julien and Peubey, Carole and Radu, Raluca and Schepers, Dinand and Simmons, Adrian and Soci, Cornel and Abdalla, Saleh and Abellan, Xavier and Balsamo, Gianpaolo and Bechtold, Peter and Biavati, Gionata and Bidlot, Jean and Bonavita, Massimo and De Chiara, Giovanna and Dahlgren, Per and Dee, Dick and Diamantakis, Michail and Dragani, Rossana and Flemming, Johannes and Forbes, Richard and Fuentes, Manuel and Geer, Alan and Haimberger, Leo and Healy, Sean and Hogan, Robin J. and H{\'o}lm, El{\'i}as and Janiskov{\'a}, Marta and Keeley, Sarah and Laloyaux, Patrick and Lopez, Philippe and Lupu, Cristina and Radnoti, Gabor and de Rosnay, Patricia and Rozum, Iryna and Vamborg, Freja and Villaume, Sebastien and Th{\'e}paut, Jean-No{\"e}l},
+  title = {{The {ERA5} Global Reanalysis}},
+  journal = {Quarterly Journal of the Royal Meteorological Society},
+  year = {2020},
+  volume = {146},
+  number = {730},
+  pages = {1999--2049},
+  doi = {10.1002/qj.3803},
+  url = {https://doi.org/10.1002/qj.3803},
+  annotation = {ERA5 underlying reanalysis method},
+  urldate = {2026-10-08},
+}
+
+% Role: ERA5 upstream dataset, accessed through Open-Meteo
+@misc{hersbach2023era5singlelevels,
+  author = {Hersbach, H. and Bell, B. and Berrisford, P. and Biavati, G. and Hor{\'a}nyi, A. and Mu{\~n}oz Sabater, J. and Nicolas, J. and Peubey, C. and Radu, R. and Rozum, I. and Schepers, D. and Simmons, A. and Soci, C. and Dee, D. and Th{\'e}paut, J.-N.},
+  title = {{{ERA5} Hourly Data on Single Levels from 1940 to Present}},
+  year = {2023},
+  howpublished = {Copernicus Climate Change Service Climate Data Store, ECMWF},
+  doi = {10.24381/cds.adbb2d47},
+  url = {https://doi.org/10.24381/cds.adbb2d47},
+  note = {Dataset citation recommended by the official Open-Meteo Historical Weather API documentation.},
+  annotation = {ERA5 upstream dataset, accessed through Open-Meteo},
+  urldate = {2026-10-08},
+}
+
+% Role: Terrain DSM data
+@misc{copernicusDEM,
+  author = {{European Space Agency} and {European Union}},
+  title = {{Copernicus {DEM}: Global and European Digital Elevation Model}},
+  howpublished = {Copernicus Data Space Ecosystem},
+  doi = {10.5270/ESA-c5d3d65},
+  url = {https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Project inputs are GLO-30 digital surface model tiles obtained from the public AWS distribution.},
+  annotation = {Terrain DSM data},
+}
+
+% Role: DSM acquisition distribution
+@misc{copernicusDEMAWS,
+  author = {{Sinergise}},
+  title = {{Copernicus Digital Elevation Model ({DEM})}},
+  howpublished = {Registry of Open Data on AWS},
+  url = {https://registry.opendata.aws/copernicus-dem/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Documents the public GLO-30 S3 distribution used in the project.},
+  annotation = {DSM acquisition distribution},
+}
+
+% Role: Land-cover data
+@misc{buchhorn2020copernicuslandcover2019,
+  author = {Buchhorn, Marcel and Smets, Bruno and Bertels, Luc and De Roo, Bert and Lesiv, Myroslava and Tsendbazar, Nandin-Erdene and Herold, Martin and Fritz, Steffen},
+  title = {{Copernicus Global Land Service: Land Cover 100m: Collection 3: Epoch 2019: Globe}},
+  year = {2020},
+  month = {sep},
+  howpublished = {Zenodo},
+  version = {V3.0.1},
+  doi = {10.5281/zenodo.3939050},
+  url = {https://zenodo.org/records/3939050},
+  note = {Published 8 September 2020; version V3.0.1. Saved acquisition URLs identify the 2019-nrt discrete, fractional-cover, and forest-type layers.},
+  annotation = {Land-cover data},
+  urldate = {2026-10-08},
+}
+
+% Role: GLAD 2019 canopy-height underlying method
+@article{potapov2021forestcanopyheight,
+  author = {Potapov, P. and Li, X. and Hernandez-Serna, A. and Tyukavina, A. and Hansen, M. C. and Kommareddy, A. and Pickens, A. and Turubanova, S. and Tang, H. and Silva, C. E. and Armston, J. and Dubayah, R. and Blair, J. B. and Hofton, M.},
+  title = {{Mapping Global Forest Canopy Height through Integration of {GEDI} and Landsat Data}},
+  journal = {Remote Sensing of Environment},
+  year = {2021},
+  volume = {253},
+  pages = {112165},
+  doi = {10.1016/j.rse.2020.112165},
+  url = {https://doi.org/10.1016/j.rse.2020.112165},
+  annotation = {GLAD 2019 canopy-height underlying method},
+  urldate = {2026-10-08},
+}
+
+% Role: GLAD canopy dataset access
+@misc{glad2019ForestCanopyHeight,
+  author = {{Global Land Analysis and Discovery, University of Maryland}},
+  title = {{Global Forest Canopy Height, 2019}},
+  howpublished = {Official dataset distribution},
+  url = {https://glad.umd.edu/dataset/gedi},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Project source URLs identify the 2019 continental forest-height GeoTIFF mosaics.},
+  annotation = {GLAD canopy dataset access},
+}
+
+% Role: gridMET underlying method
+@article{abatzoglou2013gridmet,
+  author = {Abatzoglou, John T.},
+  title = {{Development of Gridded Surface Meteorological Data for Ecological Applications and Modelling}},
+  journal = {International Journal of Climatology},
+  year = {2013},
+  volume = {33},
+  pages = {121--131},
+  url = {https://www.climatologylab.org/gridmet.html},
+  doi = {10.1002/joc.3413},
+  annotation = {gridMET underlying method},
+  urldate = {2026-10-08},
+}
+
+% Role: Dead-fuel-moisture environmental data
+@misc{gridmetDataset,
+  author = {Abatzoglou, John T.},
+  title = {{{gridMET}}},
+  howpublished = {Climatology Lab},
+  url = {https://www.climatologylab.org/gridmet.html},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Project acquires daily 100-hour and 1000-hour dead fuel moisture through the University of Idaho THREDDS distribution; the native daily boundary is 07:00 UTC.},
+  annotation = {Dead-fuel-moisture environmental data},
+}
+
+% Role: RESOLVE 2017 underlying method
+@article{dinerstein2017ecoregions,
+  author = {Dinerstein, Eric and Olson, David and Joshi, Anup and Vynne, Carly and Burgess, Neil D. and others},
+  title = {{An Ecoregion-Based Approach to Protecting Half the Terrestrial Realm}},
+  journal = {BioScience},
+  year = {2017},
+  volume = {67},
+  number = {6},
+  pages = {534--545},
+  doi = {10.1093/biosci/bix014},
+  url = {https://doi.org/10.1093/biosci/bix014},
+  annotation = {RESOLVE 2017 underlying method},
+  urldate = {2026-10-08},
+}
+
+% Role: Biome polygons
+@misc{resolveEcoregions2017,
+  author = {{RESOLVE}},
+  title = {{Ecoregions 2017}},
+  year = {2017},
+  howpublished = {Official dataset distribution},
+  url = {https://ecoregions.world/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Project source metadata identifies Ecoregions2017.zip from the teow2016 public distribution; the 14-class biome field is derived from these polygons.},
+  annotation = {Biome polygons},
+}
+
+% Role: Archived fuel and canopy raster release
+@misc{landfire2016Remap,
+  author = {{LANDFIRE}},
+  title = {{{LANDFIRE 2016 Remap}: Fuel and Vegetation Products}},
+  howpublished = {U.S. Department of the Interior and U.S. Department of Agriculture},
+  url = {https://www.landfire.gov/},
+  urldate = {2026-10-08},
+  note = {Acquisition URLs explicitly identify Landfire\_LF2016 services for fuel behavior models, FCCS, canopy cover, height, base height, and bulk density. The 2016 source epoch is distinct from the current reference loading table.},
+  annotation = {Archived fuel and canopy raster release},
+}
+
+% Role: Upstream VIIRS acquisition provider
+@misc{nasaFIRMSActiveFire,
+  author = {{NASA Land, Atmosphere Near real-time Capability for EOS}},
+  title = {{Fire Information for Resource Management System: Active Fire Data}},
+  howpublished = {NASA FIRMS},
+  url = {https://firms.modaps.eosdis.nasa.gov/active_fire},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Upstream access provider for the VIIRS active-fire detections used in the published arrival reconstruction.},
+  annotation = {Upstream VIIRS acquisition provider},
+}
+
+% Role: VIIRS underlying detection method
+@article{schroeder2014viirs,
+  author = {Schroeder, Wilfrid and Oliva, Patricia and Giglio, Louis and Csiszar, Ivan A.},
+  title = {{The New {VIIRS} 375 m Active Fire Detection Data Product: Algorithm Description and Initial Assessment}},
+  journal = {Remote Sensing of Environment},
+  year = {2014},
+  volume = {143},
+  pages = {85--96},
+  doi = {10.1016/j.rse.2013.12.008},
+  annotation = {VIIRS underlying detection method},
+}
+
+% Role: Upstream VIIRS satellite product
+@misc{giglio2024vnp14img,
+  author = {Giglio, L.},
+  title = {{{VIIRS/NPP} Active Fires 6-Min {L2} Swath 375 m {V002} ({VNP14IMG})}},
+  year = {2024},
+  howpublished = {NASA EOSDIS Land Processes Distributed Active Archive Center},
+  url = {https://lpdaac.usgs.gov/products/vnp14imgv002/},
+  note = {Upstream satellite product identified in the published arrival reconstruction.},
+  doi = {10.5067/VIIRS/VNP14IMG.002},
+  annotation = {Upstream VIIRS satellite product},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream VIIRS satellite product
+@misc{giglio2024vj114img,
+  author = {Giglio, L.},
+  title = {{{VIIRS/JPSS1} Active Fires 6-Min {L2} Swath 375 m {V002} ({VJ114IMG})}},
+  year = {2024},
+  howpublished = {NASA EOSDIS Land Processes Distributed Active Archive Center},
+  url = {https://lpdaac.usgs.gov/products/vj114imgv002/},
+  note = {Upstream satellite product identified in the published arrival reconstruction.},
+  annotation = {Upstream VIIRS satellite product},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream VIIRS satellite product
+@misc{giglio2026vj214img,
+  author = {Giglio, L.},
+  title = {{{VIIRS/JPSS2} Thermal Anomalies/Fire 6-Min {L2} Swath 375 m {V002} ({VJ214IMG})}},
+  year = {2026},
+  howpublished = {NASA EOSDIS Land Processes Distributed Active Archive Center},
+  url = {https://search.earthdata.nasa.gov/search/granules?p=C2831626262-LPCLOUD},
+  note = {Upstream satellite product identified in the published arrival reconstruction.},
+  annotation = {Upstream VIIRS satellite product},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream GOES fire detection algorithm
+@techreport{schmidt2020goesfire,
+  author = {Schmidt, C. C. and Hoffman, J. and Prins, E. and Lindstrom, S.},
+  title = {{{GOES-R} Advanced Baseline Imager ({ABI}) Algorithm Theoretical Basis Document for Fire/Hot Spot Characterization}},
+  institution = {NOAA, NESDIS, STAR},
+  year = {2020},
+  version = {2.7},
+  url = {https://www.star.nesdis.noaa.gov/goesr/documents/ATBDs/Enterprise/ATBD_Enterprise_Fire_Hot_Spot_v2.7_2020-10-31.pdf},
+  note = {Version 2.7, 31 October 2020.},
+  annotation = {Upstream GOES fire detection algorithm},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream GOES product description
+@misc{noaaGOESFireProduct,
+  author = {{NOAA NESDIS STAR}},
+  title = {{{GOES-R} Fire and Hot Spot Characterization}},
+  howpublished = {Official satellite product documentation},
+  url = {https://www.star.nesdis.noaa.gov/goesr/product_land_fire.php},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Upstream GOES ABI fire product used in the published arrival reconstruction.},
+  annotation = {Upstream GOES product description},
+}
+
+% Role: Upstream Himawari wildfire product
+@misc{jaxa2020himawariwildfire,
+  author = {{Japan Aerospace Exploration Agency Earth Observation Research Center}},
+  title = {{Himawari-8 Wild Fire Product ({L2WLF}), Version 1.00: Product Description}},
+  year = {2020},
+  howpublished = {JAXA EORC, P-Tree},
+  version = {1.00},
+  url = {https://www.eorc.jaxa.jp/ptree/documents/README_H08_L2WLF.txt},
+  note = {Upstream Himawari wildfire product documentation. Published arrival archive identifies Himawari-8/9 L2WLF via JAXA P-Tree.},
+  annotation = {Upstream Himawari wildfire product},
+  urldate = {2026-10-08},
+}
+
+% Role: Upstream Korean perimeter and ignition-time provenance
+@misc{kfsNationalForestFireInformation,
+  author = {{Korea Forest Service}},
+  title = {{National Forest Fire Information System}},
+  howpublished = {Official wildfire situation-map service},
+  url = {https://fd.forest.go.kr/},
+  note = {Upstream Korean fire perimeters and ignition times identified in the published arrival dataset provenance.},
+  annotation = {Upstream Korean perimeter and ignition-time provenance},
+  urldate = {2026-10-08},
+}
+
+% Role: Related literature retained locally, not current variance-weighted arrival method
+@article{lee2025gk2aviirs,
+  author = {Lee, Doi and Kim, Sang-il and Ahn, Do-Seob and Kim, Seung-Chul and Seo, Dongju and Choi, Minha and Lee, Yangwon and Kim, Jinsoo},
+  title = {{Machine Learning-Based Near-Real-Time Monitoring of Wildfire Spread Extent Using {GK2A} and {VIIRS}}},
+  journal = {Korean Journal of Remote Sensing},
+  year = {2025},
+  volume = {41},
+  number = {5},
+  pages = {869--881},
+  doi = {10.7780/kjrs.2025.41.5.13},
+  url = {https://www.kjrs.org/journal/view.html?doi=10.7780/kjrs.2025.41.5.13},
+  annotation = {Related literature retained locally, not current variance-weighted arrival method},
+  urldate = {2026-10-08},
+}
+
+
+% ============================================================================
+% Mathematical, optimization, scoring, and archived-validation foundations
+% ============================================================================
+% Role: Adam optimizer actually used by both probability model training implementations
+@inproceedings{kingma2015adam,
+  author = {Kingma, Diederik P. and Ba, Jimmy},
+  title = {{{Adam}: A Method for Stochastic Optimization}},
+  booktitle = {Proceedings of the 3rd International Conference on Learning Representations},
+  year = {2015},
+  eprint = {1412.6980},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  doi = {10.48550/arXiv.1412.6980},
+  url = {https://arxiv.org/abs/1412.6980},
+  annotation = {Adam optimizer actually used by both probability model training implementations},
+  urldate = {2026-10-08},
+}
+
+% Role: Quadratic probability-score foundation for locally implemented weighted binary Brier score
+@article{brier1950verification,
+  author = {Brier, Glenn W.},
+  title = {{Verification of Forecasts Expressed in Terms of Probability}},
+  journal = {Monthly Weather Review},
+  year = {1950},
+  volume = {78},
+  number = {1},
+  pages = {1--3},
+  doi = {10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2},
+  url = {https://journals.ametsoc.org/doi/abs/10.1175/1520-0493%281950%29078%3C0001%3AVOFEIT%3E2.0.CO%3B2},
+  annotation = {Quadratic probability-score foundation for locally implemented weighted binary Brier score},
+  urldate = {2026-10-08},
+}
+
+% Role: Inverse inclusion-probability weighting for stratified sampled negatives; Horvitz-Thompson total foundation
+@article{horvitz1952sampling,
+  author = {Horvitz, D. G. and Thompson, D. J.},
+  title = {{A Generalization of Sampling Without Replacement from a Finite Universe}},
+  journal = {Journal of the American Statistical Association},
+  year = {1952},
+  volume = {47},
+  number = {260},
+  pages = {663--685},
+  doi = {10.1080/01621459.1952.10483446},
+  url = {https://www.tandfonline.com/doi/abs/10.1080/01621459.1952.10483446},
+  annotation = {Inverse inclusion-probability weighting for stratified sampled negatives; Horvitz-Thompson total foundation},
+  urldate = {2026-10-08},
+}
+
+% Role: Proper scoring-rule foundation for Brier and exact logarithmic score interpretation
+@article{gneiting2007proper,
+  author = {Gneiting, Tilmann and Raftery, Adrian E.},
+  title = {{Strictly Proper Scoring Rules, Prediction, and Estimation}},
+  journal = {Journal of the American Statistical Association},
+  year = {2007},
+  volume = {102},
+  number = {477},
+  pages = {359--378},
+  doi = {10.1198/016214506000001437},
+  url = {https://doi.org/10.1198/016214506000001437},
+  annotation = {Proper scoring-rule foundation for Brier and exact logarithmic score interpretation},
+  urldate = {2026-10-08},
+}
+
+% Role: ROC curve and area foundation for locally implemented weighted threshold-group evaluation
+@article{fawcett2006roc,
+  author = {Fawcett, Tom},
+  title = {{An Introduction to {ROC} Analysis}},
+  journal = {Pattern Recognition Letters},
+  year = {2006},
+  volume = {27},
+  number = {8},
+  pages = {861--874},
+  doi = {10.1016/j.patrec.2005.10.010},
+  url = {https://www.sciencedirect.com/science/article/pii/S016786550500303X},
+  annotation = {ROC curve and area foundation for locally implemented weighted threshold-group evaluation},
+  urldate = {2026-10-08},
+}
+
+% Role: Precision-recall and ROC interpretation, especially for low-prevalence targets
+@inproceedings{davis2006precisionrecall,
+  author = {Davis, Jesse and Goadrich, Mark},
+  title = {{The Relationship between Precision-Recall and {ROC} Curves}},
+  booktitle = {Proceedings of the 23rd International Conference on Machine Learning},
+  year = {2006},
+  pages = {233--240},
+  publisher = {ACM},
+  doi = {10.1145/1143844.1143874},
+  url = {https://dl.acm.org/doi/10.1145/1143844.1143874},
+  annotation = {Precision-recall and ROC interpretation, especially for low-prevalence targets},
+  urldate = {2026-10-08},
+}
+
+% Role: Average-precision definition foundation
+@book{manning2008informationretrieval,
+  author = {Manning, Christopher D. and Raghavan, Prabhakar and Sch{\"u}tze, Hinrich},
+  title = {{Introduction to Information Retrieval}},
+  publisher = {Cambridge University Press},
+  year = {2008},
+  isbn = {9780521865715},
+  doi = {10.1017/CBO9780511809071},
+  url = {https://nlp.stanford.edu/IR-book/},
+  note = {Chapter 8 provides the average-precision foundation; population weights and tied-score grouping follow the current local implementation},
+  annotation = {Average-precision definition foundation},
+  urldate = {2026-10-08},
+}
+
+% Role: Ordinary kriging and variogram foundation explicitly cited by retained arrival reconstruction publication
+@book{cressie1993spatial,
+  author = {Cressie, Noel A. C.},
+  title = {{Statistics for Spatial Data}},
+  edition = {Revised},
+  publisher = {John Wiley \& Sons},
+  address = {New York},
+  year = {1993},
+  isbn = {9780471002550},
+  doi = {10.1002/9781119115151},
+  url = {https://onlinelibrary.wiley.com/doi/book/10.1002/9781119115151},
+  annotation = {Ordinary kriging and variogram foundation explicitly cited by retained arrival reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Kriging, covariance and uncertainty foundation explicitly cited by retained arrival reconstruction publication
+@book{chiles2012geostatistics,
+  author = {Chil{\`e}s, Jean-Paul and Delfiner, Pierre},
+  title = {{Geostatistics: Modeling Spatial Uncertainty}},
+  edition = {2},
+  publisher = {John Wiley \& Sons},
+  address = {Hoboken, NJ},
+  year = {2012},
+  isbn = {9780470183151},
+  doi = {10.1002/9781118136188},
+  url = {https://onlinelibrary.wiley.com/doi/book/10.1002/9781118136188},
+  annotation = {Kriging, covariance and uncertainty foundation explicitly cited by retained arrival reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Variogram and kriging guide explicitly cited by retained arrival reconstruction publication
+@article{oliver2014geostatistics,
+  author = {Oliver, M. A. and Webster, R.},
+  title = {{A Tutorial Guide to Geostatistics: Computing and Modelling Variograms and Kriging}},
+  journal = {CATENA},
+  year = {2014},
+  volume = {113},
+  pages = {56--69},
+  doi = {10.1016/j.catena.2013.09.006},
+  url = {https://www.sciencedirect.com/science/article/abs/pii/S0341816213002385},
+  annotation = {Variogram and kriging guide explicitly cited by retained arrival reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Measurement-error kriging reference explicitly cited by retained arrival reconstruction publication
+@article{silva2025measurementerror,
+  author = {Silva, Victor Miguel and Coimbra Costa Leite, Jo{\~a}o Felipe and Deutsch, Clayton V.},
+  title = {{Kriging Data with Measurement Error: A Review and a Generalized Approach}},
+  journal = {Applied Earth Science},
+  year = {2025},
+  volume = {134},
+  number = {1},
+  pages = {5--17},
+  doi = {10.1177/25726838241311754},
+  url = {https://journals.sagepub.com/doi/abs/10.1177/25726838241311754},
+  annotation = {Measurement-error kriging reference explicitly cited by retained arrival reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Historical FFT foundation for radiation convolution implementation
+@article{cooley1965fft,
+  author = {Cooley, James W. and Tukey, John W.},
+  title = {{An Algorithm for the Machine Calculation of Complex Fourier Series}},
+  journal = {Mathematics of Computation},
+  year = {1965},
+  volume = {19},
+  number = {90},
+  pages = {297--301},
+  doi = {10.1090/S0025-5718-1965-0178586-1},
+  url = {https://www.ams.org/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf},
+  note = {Historical FFT foundation; the current project uses NumPy FFT routines},
+  annotation = {Historical FFT foundation for radiation convolution implementation},
+  urldate = {2026-10-08},
+}
+
+% Role: Archived reconstruction evaluation method reference
+@article{demsar2006comparisons,
+  author = {Dem{\v s}ar, Janez},
+  title = {{Statistical Comparisons of Classifiers over Multiple Data Sets}},
+  journal = {Journal of Machine Learning Research},
+  year = {2006},
+  volume = {7},
+  number = {1},
+  pages = {1--30},
+  url = {https://jmlr.org/papers/v7/demsar06a.html},
+  note = {Reference cited by the retained arrival-reconstruction publication for comparisons across events},
+  annotation = {Archived reconstruction evaluation method reference},
+  urldate = {2026-10-08},
+}
+
+% Role: Archived reconstruction paired-testing multiple-comparison adjustment
+@article{holm1979multiple,
+  author = {Holm, Sture},
+  title = {{A Simple Sequentially Rejective Multiple Test Procedure}},
+  journal = {Scandinavian Journal of Statistics},
+  year = {1979},
+  volume = {6},
+  pages = {65--70},
+  url = {https://www.jstor.org/stable/4615733},
+  note = {Reference cited by the retained arrival-reconstruction publication; its archived evaluation code applies Holm correction},
+  annotation = {Archived reconstruction paired-testing multiple-comparison adjustment},
+  urldate = {2026-10-08},
+}
+
+% Role: Structured cross-validation basis explicitly cited in archived arrival-reconstruction publication
+@article{roberts2017crossvalidation,
+  author = {Roberts, David R. and Bahn, Volker and Ciuti, Simone and Boyce, Mark S. and Elith, Jane and Guillera-Arroita, Gurutzeta and Hauenstein, Severin and Lahoz-Monfort, Jos{\'e} J. and Schr{\"o}der, Boris and Thuiller, Wilfried and Warton, David I. and Wintle, Brendan A. and Hartig, Florian and Dormann, Carsten F.},
+  title = {{Cross-Validation Strategies for Data with Temporal, Spatial, Hierarchical, or Phylogenetic Structure}},
+  journal = {Ecography},
+  year = {2017},
+  volume = {40},
+  number = {8},
+  pages = {913--929},
+  doi = {10.1111/ecog.02881},
+  url = {https://nsojournals.onlinelibrary.wiley.com/doi/10.1111/ecog.02881},
+  annotation = {Structured cross-validation basis explicitly cited in archived arrival-reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Spatial cross-validation basis explicitly cited in archived arrival-reconstruction publication
+@article{pohjankukka2017spatialcv,
+  author = {Pohjankukka, Jonne and Pahikkala, Tapio and Nevalainen, Paavo and Heikkonen, Jukka},
+  title = {{Estimating the Prediction Performance of Spatial Models via Spatial {$k$}-Fold Cross Validation}},
+  journal = {International Journal of Geographical Information Science},
+  year = {2017},
+  volume = {31},
+  number = {10},
+  pages = {2001--2019},
+  doi = {10.1080/13658816.2017.1346255},
+  url = {https://doi.org/10.1080/13658816.2017.1346255},
+  annotation = {Spatial cross-validation basis explicitly cited in archived arrival-reconstruction publication},
+  urldate = {2026-10-08},
+}
+
+% Role: Theory background for the local renewal-process note and conditional-intensity semantics
+@book{daley2003pointprocesses,
+  author = {Daley, D. J. and Vere-Jones, D.},
+  title = {{An Introduction to the Theory of Point Processes: Volume {I}: Elementary Theory and Methods}},
+  edition = {2},
+  publisher = {Springer},
+  address = {New York},
+  series = {Probability and Its Applications},
+  year = {2003},
+  isbn = {9780387955414},
+  doi = {10.1007/b97277},
+  url = {https://link.springer.com/book/10.1007/b97277},
+  note = {Background for renewal processes and conditional intensities only; the current wildfire predictor is not documented as a fitted renewal-process model},
+  annotation = {Theory background for the local renewal-process note and conditional-intensity semantics},
+  urldate = {2026-10-08},
+}
+
+% Role: Background for archived event-resampling percentile bootstrap
+@article{efron1979bootstrap,
+  author = {Efron, B.},
+  title = {{Bootstrap Methods: Another Look at the Jackknife}},
+  journal = {The Annals of Statistics},
+  year = {1979},
+  volume = {7},
+  number = {1},
+  pages = {1--26},
+  doi = {10.1214/aos/1176344552},
+  url = {https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full},
+  note = {Bootstrap foundation for the retained publication's event-resampling evaluation; no bootstrap uncertainty was newly fitted for the current probability models},
+  annotation = {Background for archived event-resampling percentile bootstrap},
+  urldate = {2026-10-08},
+}
+
+
+% ============================================================================
+% Fuel, flame residence, heat release, and radiation
+% ============================================================================
+% Role: Direct foundation: isotropic radiation with receiver orientation
+@techreport{overholt2014,
+  author = {Overholt, Kristopher J.},
+  title = {{Verification and Validation of Commonly Used Empirical Correlations for Fire Scenarios}},
+  institution = {National Institute of Standards and Technology},
+  type = {{NIST} Special Publication},
+  number = {1169},
+  address = {Gaithersburg, MD},
+  year = {2014},
+  month = {March},
+  doi = {10.6028/NIST.SP.1169},
+  url = {https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,radiation,method},
+  note = {Point-source radiation: Section 6.1, Equation (6.1), printed page 39. The finite-footprint integration is an extension in this project.},
+  annotation = {Direct foundation: isotropic radiation with receiver orientation},
+}
+
+% Role: Heat-release relation physical context
+@techreport{bryant2003nist1007,
+  author = {Bryant, Rodney A. and Ohlemiller, Thomas J. and Johnsson, Erik L. and Hamins, Anthony and Grove, Brian S. and Guthrie, William F. and Maranghides, Alexander and Mulholland, George W.},
+  title = {{The {NIST} 3 Megawatt Quantitative Heat Release Rate Facility}},
+  institution = {National Institute of Standards and Technology},
+  type = {{NIST} Special Publication},
+  number = {1007},
+  address = {Gaithersburg, MD},
+  year = {2003},
+  month = {December},
+  doi = {10.6028/NIST.SP.1007},
+  url = {https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication1007.pdf},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,heat-release,method},
+  note = {Author list and December 2003 date verified from the report title page; the current NIST HTML entry duplicates the first author.},
+  annotation = {Heat-release relation physical context},
+}
+
+% Role: Radiation/transmission and near-source limitation context
+@techreport{mcgrattan2000nist6546,
+  author = {McGrattan, Kevin B. and Baum, Howard R. and Hamins, Anthony},
+  title = {{Thermal Radiation from Large Pool Fires}},
+  institution = {National Institute of Standards and Technology},
+  type = {{NIST} Interagency Report},
+  number = {6546},
+  address = {Gaithersburg, MD},
+  year = {2000},
+  month = {November},
+  doi = {10.6028/NIST.IR.6546},
+  url = {https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir6546.pdf},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,radiation,context},
+  note = {Large-pool-fire radiation and transmission context; this report does not validate the project's wildfire footprint model.},
+  annotation = {Radiation/transmission and near-source limitation context},
+}
+
+% Role: Wildfire radiation-versus-convection observational context
+@article{frankman2013wildlandheating,
+  author = {Frankman, David and Webb, Brent W. and Butler, Bret W. and Jimenez, Daniel and Forthofer, Jason M. and Sopko, Paul and Shannon, Kyle S. and Hiers, J. Kevin and Ottmar, Roger D.},
+  title = {{Measurements of convective and radiative heating in wildland fires}},
+  journal = {International Journal of Wildland Fire},
+  volume = {22},
+  number = {2},
+  pages = {157--167},
+  year = {2013},
+  month = {March},
+  doi = {10.1071/WF11097},
+  url = {https://connectsci.au/wf/article-abstract/22/2/157/23395/Measurements-of-convective-and-radiative-heating},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,radiation,context},
+  note = {First published online 11 September 2012; the publisher's final volume-and-issue citation is 2013. Context for distinguishing radiation from convection; not a calibration dataset for this project.},
+  annotation = {Wildfire radiation-versus-convection observational context},
+}
+
+% Role: Inspected solid-angle formula reference
+@techreport{angelidis2004,
+  author = {Angelidis, Alexis},
+  title = {{Spherical Springs}},
+  institution = {Department of Computer Science, University of Otago},
+  type = {Technical Report},
+  number = {OUCS-2004-01},
+  year = {2004},
+  url = {https://cs.otago.ac.nz/research/publications/oucs-2004-01.pdf},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,geometry,method},
+  note = {Section 3.2 records the triangular solid-angle expression and cites van Oosterom and Strackee (1983). This accessible report was the inspected formula source.},
+  annotation = {Inspected solid-angle formula reference},
+}
+
+% Role: Original solid-angle formula attribution
+@article{vanoosterom1983,
+  author = {van Oosterom, A. and Strackee, J.},
+  title = {{The Solid Angle of a Plane Triangle}},
+  journal = {IEEE Transactions on Biomedical Engineering},
+  volume = {BME-30},
+  number = {2},
+  pages = {125--126},
+  year = {1983},
+  month = {February},
+  doi = {10.1109/TBME.1983.325207},
+  url = {https://doi.org/10.1109/TBME.1983.325207},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,geometry,original-attribution},
+  note = {Original solid-angle attribution; bibliographic metadata confirmed by PubMed PMID 6832789. Original full text was not inspected; the formula was checked in Angelidis (2004).},
+  annotation = {Original solid-angle formula attribution},
+}
+
+% Role: Fuel raster product documentation
+@misc{landfirefccs,
+  author = {{LANDFIRE}},
+  title = {{Fuel Characteristic Classification System Fuelbeds}},
+  howpublished = {Official product documentation},
+  url = {https://www.landfire.gov/fuel/fccs},
+  urldate = {2026-10-08},
+  keywords = {fuel,environmental-data,data-documentation},
+  note = {Undated general product description. Raster release versions are separately identified by the project data provenance.},
+  annotation = {Fuel raster product documentation},
+}
+
+% Role: Referenced FCCS dry-loading lookup table
+@misc{landfireconsumeloadings,
+  author = {{LANDFIRE}},
+  title = {{{FCCS} Consume Input Tables}},
+  howpublished = {CSV reference fuel-loading table},
+  url = {https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv},
+  urldate = {2026-10-08},
+  keywords = {fuel,environmental-data,data-documentation},
+  note = {Loading units are tons per acre; product description at https://www.landfire.gov/fuel/fccs. Exact archived table release and checksum belong to the project provenance record.},
+  annotation = {Referenced FCCS dry-loading lookup table},
+}
+
+% Role: FCCS physical fuelbed definitions
+@techreport{prichard2013,
+  author = {Prichard, Susan J. and Sandberg, David V. and Ottmar, Roger D. and Eberhardt, Ellen and Andreu, Anne and Eagle, Paige and Swedin, Kjell},
+  title = {{Fuel Characteristic Classification System version 3.0: technical documentation}},
+  institution = {U.S. Department of Agriculture, Forest Service, Pacific Northwest Research Station},
+  type = {General Technical Report},
+  number = {PNW-GTR-887},
+  address = {Portland, OR},
+  year = {2013},
+  doi = {10.2737/PNW-GTR-887},
+  url = {https://research.fs.usda.gov/treesearch/45283},
+  urldate = {2026-10-08},
+  keywords = {fuel,method,data-documentation},
+  note = {Reference fuel characteristics and six fuel strata. Reference fuelbeds are not event-date measurements of consumed fuel.},
+  annotation = {FCCS physical fuelbed definitions},
+}
+
+% Role: Vegetation radiative-fraction context
+@techreport{sung2025nist2314,
+  author = {Sung, Kunhyuk and Mueller, Eric and Bundy, Matthew and Fernandez, Marco and Hamins, Anthony},
+  title = {{Global Burning Properties of Little Bluestem, Excelsior and Douglas Fir}},
+  institution = {National Institute of Standards and Technology},
+  type = {{NIST} Technical Note},
+  number = {2314},
+  address = {Gaithersburg, MD},
+  year = {2025},
+  month = {April},
+  doi = {10.6028/NIST.TN.2314},
+  url = {https://www.nist.gov/publications/global-burning-properties-little-bluestem-excelsior-and-douglas-fir},
+  urldate = {2026-10-08},
+  keywords = {heat-flux,radiative-fraction,context},
+  note = {Primary publication record dated 15 April 2025. Vegetation combustion measurements provide physical context; the project's illustrative parameters are not fitted to these data.},
+  annotation = {Vegetation radiative-fraction context},
+}
+
+% Role: Direct residence relation foundation
+@techreport{anderson1969,
+  author = {Anderson, Hal E.},
+  title = {{Heat transfer and fire spread}},
+  institution = {U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station},
+  type = {Research Paper},
+  number = {INT-RP-69},
+  address = {Ogden, UT},
+  year = {1969},
+  url = {https://research.fs.usda.gov/treesearch/40489},
+  urldate = {2026-10-08},
+  keywords = {residence,method},
+  note = {Printed report identifier INT-69; agency catalog identifier INT-RP-69. Residence approximation on printed pages 15--16. This is distinct from Anderson's 1982 fuel catalog.},
+  annotation = {Direct residence relation foundation},
+}
+
+% Role: Direct characteristic SAV and residence relation source
+@techreport{andrews2018,
+  author = {Andrews, Patricia L.},
+  title = {{The {Rothermel} surface fire spread model and associated developments: A comprehensive explanation}},
+  institution = {U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station},
+  type = {General Technical Report},
+  number = {RMRS-GTR-371},
+  address = {Fort Collins, CO},
+  year = {2018},
+  doi = {10.2737/RMRS-GTR-371},
+  url = {https://research.fs.usda.gov/treesearch/55928},
+  urldate = {2026-10-08},
+  keywords = {residence,fuel,method},
+  note = {Characteristic SAV weighting: Sections 3.2.3--3.2.5; passing-front residence: Section 4.2. This project uses those relations and does not implement the complete Rothermel spread model.},
+  annotation = {Direct characteristic SAV and residence relation source},
+}
+
+% Role: Direct implemented FBFM40 parameter catalog
+@techreport{scottburgan2005,
+  author = {Scott, Joe H. and Burgan, Robert E.},
+  title = {{Standard fire behavior fuel models: a comprehensive set for use with {Rothermel}'s surface fire spread model}},
+  institution = {U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station},
+  type = {General Technical Report},
+  number = {RMRS-GTR-153},
+  address = {Fort Collins, CO},
+  year = {2005},
+  doi = {10.2737/RMRS-GTR-153},
+  url = {https://research.fs.usda.gov/treesearch/9521},
+  urldate = {2026-10-08},
+  keywords = {residence,fuel,method},
+  note = {The 40 standard burnable reference models; component parameters in Table 7. These are distinct from Anderson's original 13 models.},
+  annotation = {Direct implemented FBFM40 parameter catalog},
+}
+
+% Role: Direct implemented jarrah particle-duration equation
+@phdthesis{burrows1994,
+  author = {Burrows, Neil D.},
+  title = {{Experimental development of a fire management model for jarrah ({Eucalyptus marginata} Donn ex Sm.) forest}},
+  school = {Australian National University},
+  address = {Canberra, Australia},
+  year = {1994},
+  doi = {10.25911/5d78d89a1d6c0},
+  url = {https://openresearch-repository.anu.edu.au/items/353db42d-2a6a-48fd-902c-027a93ac0bd6},
+  urldate = {2026-10-08},
+  keywords = {residence,method},
+  note = {Implemented particle-size power law: printed page 69, Equation 6-1, in the government-hosted thesis copy at https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf. The ANU repository records year 1994 even though its attached PDF filename contains 1992.},
+  annotation = {Direct implemented jarrah particle-duration equation},
+}
+
+% Role: Peer-reviewed particle-duration literature context
+@article{burrows2001particles,
+  author = {Burrows, N. D.},
+  title = {{Flame residence times and rates of weight loss of eucalypt forest fuel particles}},
+  journal = {International Journal of Wildland Fire},
+  volume = {10},
+  number = {2},
+  pages = {137--143},
+  year = {2001},
+  month = {July},
+  doi = {10.1071/WF01005},
+  url = {https://doi.org/10.1071/WF01005},
+  urldate = {2026-10-08},
+  keywords = {residence,context},
+  note = {Publisher record dated 13 July 2001. Publisher abstract and bibliographic metadata inspected; the exact implemented power law was verified from the 1994 thesis rather than this article's full text.},
+  annotation = {Peer-reviewed particle-duration literature context},
+}
+
+% Role: Main-front versus residual-flaming observational context
+@article{wotton2012flamefront,
+  author = {Wotton, B. Mike and Gould, James S. and McCaw, W. Lachlan and Cheney, N. Phillip and Taylor, Stephen W.},
+  title = {{Flame temperature and residence time of fires in dry eucalypt forest}},
+  journal = {International Journal of Wildland Fire},
+  volume = {21},
+  number = {3},
+  pages = {270--281},
+  year = {2012},
+  doi = {10.1071/WF10127},
+  url = {https://doi.org/10.1071/WF10127},
+  urldate = {2026-10-08},
+  keywords = {residence,context},
+  note = {First published online 15 December 2011; final journal issue year is 2012. Main-front and later residual flaming have different endpoints.},
+  annotation = {Main-front versus residual-flaming observational context},
+}
+
+% Role: Precedent for age-gated flame map
+@article{moody2022qesfire,
+  author = {Moody, Matthew J. and Gibbs, Jeremy A. and Krueger, Steven and Mallia, Derek and Pardyjak, Eric R. and Kochanski, Adam K. and Bailey, Brian N. and Stoll, Rob},
+  title = {{{QES-Fire}: a dynamically coupled fast-response wildfire model}},
+  journal = {International Journal of Wildland Fire},
+  volume = {31},
+  number = {3},
+  pages = {306--325},
+  year = {2022},
+  month = {March},
+  doi = {10.1071/WF21057},
+  url = {https://connectsci.au/wf/article/31/3/306/187714/QES-Fire-a-dynamically-coupled-fast-response},
+  urldate = {2026-10-08},
+  keywords = {residence,context},
+  note = {Published 18 March 2022. Precedent for time-on-fire gating; cited model performance does not transfer to this project.},
+  annotation = {Precedent for age-gated flame map},
+}
+
+% Role: Historical background only; original 13 fuel models
+@techreport{anderson1982fuelmodels,
+  author = {Anderson, Hal E.},
+  title = {{Aids to determining fuel models for estimating fire behavior}},
+  institution = {U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station},
+  type = {General Technical Report},
+  number = {INT-GTR-122},
+  address = {Ogden, UT},
+  year = {1982},
+  doi = {10.2737/INT-GTR-122},
+  url = {https://research.fs.usda.gov/treesearch/6447},
+  urldate = {2026-10-08},
+  keywords = {fuel,background},
+  note = {The original 13 fire-behavior fuel models; background source, distinct from the implemented 40-model Scott and Burgan catalog.},
+  annotation = {Historical background only; original 13 fuel models},
+}
+
+% Role: Historical background only; not complete implementation
+@techreport{rothermel1972spread,
+  author = {Rothermel, Richard C.},
+  title = {{A mathematical model for predicting fire spread in wildland fuels}},
+  institution = {U.S. Department of Agriculture, Forest Service, Intermountain Forest and Range Experiment Station},
+  type = {Research Paper},
+  number = {INT-RP-115},
+  address = {Ogden, UT},
+  year = {1972},
+  doi = {10.2737/INT-RP-115},
+  url = {https://research.fs.usda.gov/treesearch/32533},
+  urldate = {2026-10-08},
+  keywords = {fuel,background},
+  note = {Historical model background; the current project's learned hourly predictor is not the complete Rothermel fire-spread model.},
+  annotation = {Historical background only; not complete implementation},
+}
+
+
+% ============================================================================
+% Scientific software, geospatial software, and local implementation records
+% ============================================================================
+% Role: Software foundation: tensor computation, differentiation, model training
+@inproceedings{paszke2019pytorch,
+  author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+  title = {{{PyTorch}: An Imperative Style, High-Performance Deep Learning Library}},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {32},
+  year = {2019},
+  publisher = {Curran Associates, Inc.},
+  url = {https://papers.neurips.cc/paper_files/paper/2019/hash/bdbca288fee7f92f2bfa9f7012727740-Abstract.html},
+  note = {General software paper. Current project declares torch version 2.5.1.},
+  keywords = {software},
+  annotation = {Software foundation: tensor computation, differentiation, model training},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: arrays and numerical computation
+@article{harris2020numpy,
+  author = {Harris, Charles R. and Millman, K. Jarrod and van der Walt, St{\'e}fan J. and Gommers, Ralf and Virtanen, Pauli and Cournapeau, David and Wieser, Eric and Taylor, Julian and Berg, Sebastian and Smith, Nathaniel J. and Kern, Robert and Picus, Matti and Hoyer, Stephan and van Kerkwijk, Marten H. and Brett, Matthew and Haldane, Allan and Fern{\'a}ndez del R{\'i}o, Jaime and Wiebe, Mark and Peterson, Pearu and G{\'e}rard-Marchant, Pierre and Sheppard, Kevin and Reddy, Tyler and Weckesser, Warren and Abbasi, Hameer and Gohlke, Christoph and Oliphant, Travis E.},
+  title = {{Array Programming with {NumPy}}},
+  journal = {Nature},
+  year = {2020},
+  volume = {585},
+  number = {7825},
+  pages = {357--362},
+  doi = {10.1038/s41586-020-2649-2},
+  url = {https://doi.org/10.1038/s41586-020-2649-2},
+  note = {Current project declares NumPy 1.26.4; the retained publisher code declares NumPy 2.3.5.},
+  keywords = {software},
+  annotation = {Software foundation: arrays and numerical computation},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: optimization, interpolation and numerical routines
+@article{virtanen2020scipy,
+  author = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and Haberland, Matt and Reddy, Tyler and Cournapeau, David and Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and Bright, Jonathan and {van der Walt}, St{\'e}fan J. and Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and Kern, Robert and Larson, Eric and Carey, C. J. and Polat, {\.I}lhan and Feng, Yu and Moore, Eric W. and {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and Harris, Charles R. and Archibald, Anne M. and Ribeiro, Ant{\^o}nio H. and Pedregosa, Fabian and {van Mulbregt}, Paul and {SciPy 1.0 Contributors}},
+  title = {{{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in {Python}}},
+  journal = {Nature Methods},
+  year = {2020},
+  volume = {17},
+  number = {3},
+  pages = {261--272},
+  doi = {10.1038/s41592-019-0686-2},
+  url = {https://doi.org/10.1038/s41592-019-0686-2},
+  note = {Current project declares SciPy 1.13.1; the retained publisher code declares SciPy 1.17.1.},
+  keywords = {software},
+  annotation = {Software foundation: optimization, interpolation and numerical routines},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: tabular and time-indexed data
+@inproceedings{mckinney2010pandas,
+  author = {McKinney, Wes},
+  title = {{Data Structures for Statistical Computing in {Python}}},
+  booktitle = {Proceedings of the 9th Python in Science Conference},
+  editor = {van der Walt, St{\'e}fan and Millman, Jarrod},
+  year = {2010},
+  pages = {56--61},
+  doi = {10.25080/Majora-92bf1922-00a},
+  url = {https://doi.org/10.25080/Majora-92bf1922-00a},
+  keywords = {software},
+  annotation = {Software foundation: tabular and time-indexed data},
+  urldate = {2026-10-08},
+}
+
+% Role: Software release: current tabular-data dependency
+@misc{pandas223,
+  author = {{The pandas development team}},
+  title = {{{pandas}: Version 2.2.3}},
+  year = {2024},
+  month = {September},
+  version = {2.2.3},
+  howpublished = {Software release},
+  url = {https://github.com/pandas-dev/pandas/releases/tag/v2.2.3},
+  note = {Released 20 September 2024. Current project declares this version; the retained publisher code declares pandas 2.3.3.},
+  keywords = {software},
+  annotation = {Software release: current tabular-data dependency},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: scientific plots and reports
+@article{hunter2007matplotlib,
+  author = {Hunter, John D.},
+  title = {{{Matplotlib}: A 2D Graphics Environment}},
+  journal = {Computing in Science \& Engineering},
+  year = {2007},
+  volume = {9},
+  number = {3},
+  pages = {90--95},
+  doi = {10.1109/MCSE.2007.55},
+  url = {https://doi.org/10.1109/MCSE.2007.55},
+  note = {Current project declares Matplotlib 3.9.2.},
+  keywords = {software},
+  annotation = {Software foundation: scientific plots and reports},
+  urldate = {2026-10-08},
+}
+
+% Role: Software documentation: raster I/O, coordinate systems and affine cell geometry
+@manual{rasterioGeoreferencing,
+  author = {{Rasterio contributors}},
+  title = {{{Rasterio} Documentation: Georeferencing}},
+  url = {https://rasterio.readthedocs.io/en/stable/topics/georeferencing.html},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Direct documentation of raster coordinate reference systems and affine transforms. Current project declares Rasterio 1.4.3; the retained publisher code declares 1.4.4.},
+  keywords = {software},
+  annotation = {Software documentation: raster I/O, coordinate systems and affine cell geometry},
+}
+
+% Role: Software documentation: affine raster index-to-coordinate transformations
+@manual{affineSoftware,
+  author = {{affine contributors}},
+  title = {{{affine}: Affine Transformation Matrices}},
+  url = {https://affine.readthedocs.io/en/latest/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares affine 3.0.1; the retained publisher code declares 2.4.0.},
+  keywords = {software},
+  annotation = {Software documentation: affine raster index-to-coordinate transformations},
+}
+
+% Role: Software foundation: raster and vector data backend
+@manual{gdalSoftware,
+  author = {{GDAL/OGR contributors}},
+  title = {{{GDAL/OGR} Geospatial Data Abstraction Software Library}},
+  organization = {Open Source Geospatial Foundation},
+  year = {2026},
+  doi = {10.5281/zenodo.5884351},
+  url = {https://gdal.org/},
+  note = {General all-version software citation recommended by GDAL. Used through the raster-processing stack; this citation does not identify the installed GDAL backend release.},
+  keywords = {software},
+  annotation = {Software foundation: raster and vector data backend},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: coordinate-reference-system transformations
+@manual{projSoftware,
+  author = {{PROJ contributors}},
+  title = {{{PROJ} Coordinate Transformation Software Library}},
+  organization = {Open Source Geospatial Foundation},
+  year = {2026},
+  doi = {10.5281/zenodo.5884394},
+  url = {https://proj.org/},
+  note = {General all-version software citation recommended by PROJ. Coordinate transformations are accessed through pyproj; this citation does not identify the installed PROJ backend release.},
+  keywords = {software},
+  annotation = {Software foundation: coordinate-reference-system transformations},
+  urldate = {2026-10-08},
+}
+
+% Role: Software documentation: Python coordinate transformations
+@manual{pyprojSoftware,
+  author = {{pyproj contributors}},
+  title = {{{pyproj}: Python Interface to {PROJ}}},
+  url = {https://pyproj4.github.io/pyproj/stable/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares pyproj 3.7.0; the retained publisher code declares 3.7.2.},
+  keywords = {software},
+  annotation = {Software documentation: Python coordinate transformations},
+}
+
+% Role: Software release: planar geometry operations
+@misc{shapely206,
+  author = {Gillies, Sean and van der Wel, Casper and Van den Bossche, Joris and Taves, Mike W. and Arnott, Joshua and Ward, Brendan C. and others},
+  title = {{{Shapely}}},
+  year = {2024},
+  month = {August},
+  version = {2.0.6},
+  howpublished = {Zenodo software release},
+  doi = {10.5281/zenodo.13345370},
+  url = {https://zenodo.org/records/13345370},
+  note = {Version 2.0.6, released 19 August 2024, is declared by the current project. The retained publisher code declares Shapely 2.1.2.},
+  keywords = {software},
+  annotation = {Software release: planar geometry operations},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: retained publisher reconstruction code only
+@article{fleischmann2026geopandas,
+  author = {Fleischmann, M. and Van den Bossche, J. and Jordahl, K. and Richards, M. J. and McBride, J. and Wasserman, J. and Ward, B. and Wolf, L. J.},
+  title = {{{GeoPandas}: Fundamental Data Structures for Vector Spatial Data in {Python}}},
+  journal = {Computers, Environment and Urban Systems},
+  year = {2026},
+  volume = {130},
+  pages = {102495},
+  doi = {10.1016/j.compenvurbsys.2026.102495},
+  url = {https://doi.org/10.1016/j.compenvurbsys.2026.102495},
+  keywords = {software, archived reconstruction},
+  note = {Canonical software citation recommended by the official project. GeoPandas 1.1.3 is declared in the retained publisher-code environment; GeoPandas is not a declared dependency of the current root package.},
+  annotation = {Software foundation: retained publisher reconstruction code only},
+  urldate = {2026-10-08},
+}
+
+% Role: Software foundation: retained publisher reconstruction code only
+@article{pedregosa2011sklearn,
+  author = {Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and Cournapeau, David and Brucher, Matthieu and Perrot, Matthieu and Duchesnay, {\'E}douard},
+  title = {{{Scikit-learn}: Machine Learning in {Python}}},
+  journal = {Journal of Machine Learning Research},
+  year = {2011},
+  volume = {12},
+  number = {85},
+  pages = {2825--2830},
+  url = {https://jmlr.org/papers/v12/pedregosa11a.html},
+  keywords = {software, archived reconstruction},
+  note = {Scikit-learn 1.8.0 is declared in the retained publisher-code environment; it is not a declared dependency of the current root package.},
+  annotation = {Software foundation: retained publisher reconstruction code only},
+  urldate = {2026-10-08},
+}
+
+% Role: Software documentation: image processing and bitmap exports
+@manual{pillowSoftware,
+  author = {{Pillow contributors}},
+  title = {{{Pillow}: Python Imaging Library}},
+  url = {https://pillow.readthedocs.io/en/stable/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares version 12.3.0.},
+  keywords = {software},
+  annotation = {Software documentation: image processing and bitmap exports},
+}
+
+% Role: Software documentation: HTTP acquisition
+@manual{requestsSoftware,
+  author = {{Requests contributors}},
+  title = {{{Requests}: HTTP for Humans}},
+  url = {https://requests.readthedocs.io/en/latest/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares version 2.34.2.},
+  keywords = {software},
+  annotation = {Software documentation: HTTP acquisition},
+}
+
+% Role: Software documentation: vector shapefile reading
+@manual{pyshpSoftware,
+  author = {{PyShp contributors}},
+  title = {{{PyShp}: Python Shapefile Library}},
+  url = {https://github.com/GeospatialPython/pyshp},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares version 2.3.1.},
+  keywords = {software},
+  annotation = {Software documentation: vector shapefile reading},
+}
+
+% Role: Software documentation: optional test dependency
+@manual{pytestSoftware,
+  author = {{pytest contributors}},
+  title = {{{pytest}: Testing Framework}},
+  url = {https://docs.pytest.org/en/stable/},
+  urldate = {2026-10-08},
+  note = {Accessed 8 October 2026. Current project declares version 8.3.4.},
+  keywords = {software},
+  annotation = {Software documentation: optional test dependency},
+}
+
+% Role: Local project software citation
+@misc{wildfireguardian2026,
+  author = {{WildfireGuardian project}},
+  title = {{{WildfireGuardian}: Hourly Burned-Area Prediction and Expected Incident Radiant Heat}},
+  year = {2026},
+  howpublished = {Unpublished local software and documentation},
+  keywords = {local implementation},
+  note = {Current local project, version 0.1.0, inspected 8 October 2026. Unpublished software; no public repository URL, release DOI, or individual authorship is asserted.},
+  annotation = {Local project software citation},
+}
+
+% Role: Local implementation: probability-model definitions and experiment records
+@misc{codeprob,
+  author = {{WildfireGuardian project}},
+  title = {{{WildfireGuardian}: Environment-Conditioned Burn-Probability Models and Saved Experiments}},
+  year = {2026},
+  howpublished = {Unpublished local software and documentation},
+  keywords = {local implementation},
+  note = {Local implementation and saved records under \path{wildfire_burned_area_hourly/probability_model/}, inspected 8 October 2026. Covers the exponential model, signed direct convolution, training, metrics, and checkpoint contracts.},
+  annotation = {Local implementation: probability-model definitions and experiment records},
+}
+
+% Role: Local implementation: heat-flux and timing extensions
+@misc{codeheat,
+  author = {{WildfireGuardian project}},
+  title = {{{WildfireGuardian}: Expected Radiant Heat and Temporal Occupancy Implementation}},
+  year = {2026},
+  howpublished = {Unpublished local software and documentation},
+  keywords = {local implementation},
+  note = {Local implementation under \path{expected_heat_flux/}, inspected 8 October 2026. Prescribed combustion, arrival timing, finite-source radiation, and integrated forecasting are package modeling assumptions.},
+  annotation = {Local implementation: heat-flux and timing extensions},
+}
+
+% Role: Local implementation: ecology, residence and flame-state contracts
+@misc{coderesidence,
+  author = {{WildfireGuardian project}},
+  title = {{{WildfireGuardian}: Fuel Loading, Flame Residence, and Active-Flame Implementation}},
+  year = {2026},
+  howpublished = {Unpublished local software and documentation},
+  keywords = {local implementation},
+  note = {Local sources \path{expected_heat_flux/ecology.py}, \path{residence.py}, and \path{flames.py}, with \path{documents/flame_residence_literature.md}, inspected 8 October 2026.},
+  annotation = {Local implementation: ecology, residence and flame-state contracts},
+}
+
+% Role: Local archive: publisher reconstruction code
+@misc{codetoa,
+  author = {Choi, Chulhyun and Seo, Hyunjin and Cha, Jaegyu},
+  title = {{Archived Method Code for the Wildfire Time-of-Arrival Dataset}},
+  year = {2026},
+  howpublished = {Code supplied with Zenodo record 21788344},
+  url = {https://zenodo.org/records/21788344},
+  keywords = {archived reconstruction, software},
+  note = {Retained locally under \path{wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/}. Cite the associated article and dataset deposit for the scientific method and source release.},
+  annotation = {Local archive: publisher reconstruction code},
+  urldate = {2026-10-08},
+}
+

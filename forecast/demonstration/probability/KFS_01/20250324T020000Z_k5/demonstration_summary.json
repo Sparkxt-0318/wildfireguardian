@@ -1,0 +1,169 @@
+{
+  "event_id": "KFS_01",
+  "event_name": "Uiseong",
+  "partition": "test",
+  "cutoff_utc": "2025-03-24T02:00:00+00:00",
+  "updated_utc": "2025-03-24T03:00:00+00:00",
+  "main_kernel_size": 5,
+  "device": "mps",
+  "torch_version": "2.5.1",
+  "shape": [
+    79,
+    237
+  ],
+  "epsg": 5179,
+  "affine_transform": [
+    375.0,
+    0.0,
+    1085250.0,
+    0.0,
+    -375.0,
+    1845375.0
+  ],
+  "channel_names": [
+    "weather.temperature_2m",
+    "weather.wind_eastward_10m",
+    "weather.wind_northward_10m",
+    "terrain.slope_degrees",
+    "vegetation.tree_cover_percent",
+    "biome.biome_class=1",
+    "biome.biome_class=2",
+    "biome.biome_class=3",
+    "biome.biome_class=4",
+    "biome.biome_class=5",
+    "biome.biome_class=6",
+    "biome.biome_class=7",
+    "biome.biome_class=8",
+    "biome.biome_class=9",
+    "biome.biome_class=10",
+    "biome.biome_class=11",
+    "biome.biome_class=12",
+    "biome.biome_class=13",
+    "biome.biome_class=14"
+  ],
+  "coverage": {
+    "known_label_cells": 10955,
+    "current_burned_cells": 917,
+    "updated_burned_cells": 935,
+    "actual_new_cells_all_known": 18,
+    "eligible_unburned_cells": 293,
+    "actual_new_cells_eligible": 17,
+    "actual_new_cells_excluded": 1,
+    "cell_area_ha": 14.0625
+  },
+  "native_eligibility_scores": [
+    {
+      "kernel": "3\u00d73",
+      "eligible_cells": 158,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.10759493670886076,
+      "expected_new_cells": 39.129150450229645,
+      "mean_probability": 0.24765285095082054,
+      "brier": 0.10696786102600182,
+      "exact_log_loss": 0.3530709895653346,
+      "positive_brier": 0.3752745426390386,
+      "negative_brier": 0.07461882849109668
+    },
+    {
+      "kernel": "5\u00d75",
+      "eligible_cells": 293,
+      "actual_new_cells": 17,
+      "outcome_rate": 0.05802047781569966,
+      "expected_new_cells": 58.90704548358917,
+      "mean_probability": 0.2010479368040586,
+      "brier": 0.088159629252693,
+      "exact_log_loss": 0.26264697125473957,
+      "positive_brier": 0.18163411045723438,
+      "negative_brier": 0.08240214309154371
+    },
+    {
+      "kernel": "7\u00d77",
+      "eligible_cells": 402,
+      "actual_new_cells": 16,
+      "outcome_rate": 0.03980099502487562,
+      "expected_new_cells": 26.951041221618652,
+      "mean_probability": 0.06704239109855387,
+      "brier": 0.03549134426807993,
+      "exact_log_loss": 0.1329158088523813,
+      "positive_brier": 0.6543052407311134,
+      "negative_brier": 0.009841027316244342
+    },
+    {
+      "kernel": "9\u00d79",
+      "eligible_cells": 491,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.03054989816700611,
+      "expected_new_cells": 43.29605436325073,
+      "mean_probability": 0.08817933678869803,
+      "brier": 0.030426642068847404,
+      "exact_log_loss": 0.11661550545166348,
+      "positive_brier": 0.35236933827371314,
+      "negative_brier": 0.020281389037181467
+    }
+  ],
+  "shared_eligibility_scores": [
+    {
+      "kernel": "3\u00d73",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 32.6834699511528,
+      "mean_probability": 0.25939261865994284,
+      "brier": 0.11736767049409891,
+      "exact_log_loss": 0.3780349076225905,
+      "positive_brier": 0.3840964242537827,
+      "negative_brier": 0.08132324431035785
+    },
+    {
+      "kernel": "5\u00d75",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 50.55877423286438,
+      "mean_probability": 0.40126011295924113,
+      "brier": 0.18475832172255965,
+      "exact_log_loss": 0.5288630560130004,
+      "positive_brier": 0.17038895601030007,
+      "negative_brier": 0.18670012789989202
+    },
+    {
+      "kernel": "7\u00d77",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 18.589946746826172,
+      "mean_probability": 0.1475392598954458,
+      "brier": 0.10300319122343649,
+      "exact_log_loss": 0.3476731405061421,
+      "positive_brier": 0.6681078295765597,
+      "negative_brier": 0.026637699554095513
+    },
+    {
+      "kernel": "9\u00d79",
+      "eligible_cells": 126,
+      "actual_new_cells": 15,
+      "outcome_rate": 0.11904761904761904,
+      "expected_new_cells": 34.83281588554382,
+      "mean_probability": 0.2764509197265383,
+      "brier": 0.11452403936701899,
+      "exact_log_loss": 0.3851226873352256,
+      "positive_brier": 0.35236933827371314,
+      "negative_brier": 0.08238278275800627
+    }
+  ],
+  "checkpoint_sha256": {
+    "3": "cec31d0a789fb830a10cf0e8c315d24a63518e623fc23ca150fb641f874e7bea",
+    "5": "b985b5bf0bd6f218e2623a8ffdcf27d742944dfbb60a8f1dd7de7337d8e68ae7",
+    "7": "eb9d38c4509bee997e784ca715d337af64a3d8de5740f3e8e1cd1cd03029c86e",
+    "9": "6b01d4004c1e76286e92f15cca1bb570ffcd93f2f043b8c579c505beebd98a18"
+  },
+  "checks": {
+    "exact_one_hour_pair": true,
+    "arrival_labels_reproduced": true,
+    "complete_context_and_contact_masks_reproduced": true,
+    "prediction_uses_only_current_snapshot": true,
+    "probability_bounds_and_missing_masks": true
+  },
+  "metric_scope": "Full-grid single-hour eligible-cell census; unit weights; no fitting",
+  "actual_label_interpretation": "Retrospective reconstructed arrivals; not independent hourly observations"
+}

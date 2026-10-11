@@ -1,0 +1,63 @@
+{
+  "case": "deterministic synthetic illustration",
+  "probability_semantics": "P(cell is actively burning at the modeled instant)",
+  "validation_status": "Analytic geometry verification only; no measured wildfire validation",
+  "output_scope": "Expected incident thermal radiation at upward-facing horizontal receiver points",
+  "constant_exposure_assumption": "Probability and conditional source strengths remain constant throughout the receiver exposure",
+  "shape_rows_columns": [
+    100,
+    100
+  ],
+  "grid": {
+    "affine_transform": [
+      10.0,
+      0.0,
+      -500.0,
+      0.0,
+      10.0,
+      -500.0
+    ],
+    "transform_convention": "x=a*column+b*row+c; y=d*column+e*row+f; pixel corners",
+    "coordinate_units": "m",
+    "cell_area_m2": 100.0,
+    "receiver_location": "grid cell centers; point values, not receiver-area means"
+  },
+  "parameters": {
+    "fuel_load_kg_m2": 1.0,
+    "heat_of_combustion_j_kg": 18000000.0,
+    "burning_duration_s": 60.0,
+    "consumed_fraction": 1.0,
+    "heat_release_rate_density_w_m2": 300000.0,
+    "radiative_fraction": 0.3,
+    "emission_height_m": 5.0,
+    "receiver_height_m": 0.0,
+    "atmospheric_transmissivity": 1.0,
+    "receiver_exposure_duration_s": 60.0
+  },
+  "statistics": {
+    "active_burning_probability_min": 3.38320677806859e-20,
+    "active_burning_probability_max": 0.8460398090170331,
+    "expected_active_source_area_m2": 43503.10645614189,
+    "expected_total_radiant_power_w": 3915279581.052771,
+    "incident_heat_flux_min_w_m2": 4.274930448017931,
+    "incident_heat_flux_max_w_m2": 34990.389278838025,
+    "incident_heat_flux_mean_w_m2": 1938.4881563688677,
+    "constant_exposure_incident_energy_max_j_m2": 2099423.3567302814
+  },
+  "single_square_analytic_check": {
+    "cell_side_m": 10.0,
+    "source_receiver_separation_m": 5.0,
+    "active_burning_probability": 1.0,
+    "solid_angle_sr": 2.0943951023931953,
+    "transfer_factor": 0.16666666666666666,
+    "analytic_incident_heat_flux_w_m2": 15000.0,
+    "computed_incident_heat_flux_w_m2": 15000.0,
+    "absolute_error_w_m2": 0.0,
+    "passed": true
+  },
+  "files": {
+    "arrays": "heat_flux_arrays.npz",
+    "figure": "heat_flux_demo.png",
+    "summary": "summary.json"
+  }
+}

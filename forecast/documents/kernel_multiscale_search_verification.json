@@ -1,0 +1,120 @@
+{
+  "verified_at_utc": "2026-10-08T19:29:54.183991+00:00",
+  "status": "passed",
+  "tests": {
+    "passed": 1072,
+    "warnings": 228,
+    "elapsed_seconds": 19.43,
+    "scope": "probability models, public hourly API, heat integration, workspace checks",
+    "log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_multiscale_kernel_smoke/tests.log",
+    "new_neural_model_cases": 59,
+    "new_multiscale_harness_cases": 14,
+    "new_neural_integration_cases": 8
+  },
+  "real_cache_mps_smoke": {
+    "completed": true,
+    "neural_candidates": 368,
+    "forest_candidates": 6,
+    "evaluated_models": 28,
+    "test_used_for_selection": false,
+    "cache_sha256_verified": {
+      "metadata.json": true,
+      "train.npz": true,
+      "validation.npz": true,
+      "test.npz": true
+    }
+  },
+  "initial_epochs": 2,
+  "finalist_epochs": 4,
+  "long_finalists": 6,
+  "source_files_verified": 21,
+  "source_hashes_match": true,
+  "cache_hashes_match": true,
+  "previous_run_source_hashes_match": {
+    "20261009_unsigned_kernel_search": true,
+    "20261009_scheduled_learning_rate_smoke": true,
+    "20261009_mixed_kernel_smoke": true
+  },
+  "same_output_mps_resume": {
+    "status": "passed",
+    "exit_code": 0,
+    "log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_multiscale_kernel_smoke/resume_verification.log"
+  },
+  "default_full_search": {
+    "initial_candidates": 368,
+    "linear_mixed_candidates": 24,
+    "neural_mixed_candidates": 24,
+    "forest_candidates": 6,
+    "selected_models": 28,
+    "candidate_epochs": 512,
+    "finalist_epochs": 4096,
+    "neural_finalists": 6,
+    "peak_learning_rates": [
+      0.001,
+      0.003,
+      0.01,
+      0.03
+    ],
+    "schedules": [
+      "constant",
+      "warmup_cosine"
+    ],
+    "warmup_epochs": 32,
+    "minimum_lr_factor": 0.01,
+    "early_stopping": false
+  },
+  "full_training_experiment_executed": false,
+  "combination": {
+    "linear": "sum_K softplus(alpha_logit_K) * raw_branch_rate_K",
+    "neural": "sum(raw_branch_rates) * softplus(MLP(raw_branch_rates)); scalar combined rate",
+    "probability": "1-exp(-combined_rate) for the one-hour horizon",
+    "zero_input": "Both combined rates equal zero when all branch rates are zero"
+  },
+  "multiscale_predictions": {
+    "mixed_k9": {
+      "selected_id": "mixed_3_5_7_9_00_lr0.03_constant",
+      "coverage": {
+        "predicted_count": 256,
+        "no_contact_count": 97,
+        "no_contact_probability_max": -0.0
+      },
+      "verification": {
+        "device_float32_max_error": 1.0132789611816406e-06,
+        "cpu_float64_max_error": 1.6940658945086007e-21,
+        "selected_checkpoint": {
+          "device_float32_max_error": 1.7881393432617188e-07,
+          "cpu_float64_max_error": 1.1102230246251565e-16
+        }
+      },
+      "train_rows": 362,
+      "validation_native_rows": 159,
+      "validation_matched_rows": 114
+    },
+    "neural_mixed_k9": {
+      "selected_id": "neural_mixed_3_5_7_9_00_lr0.03_constant",
+      "coverage": {
+        "predicted_count": 256,
+        "no_contact_count": 97,
+        "no_contact_probability_max": -0.0
+      },
+      "verification": {
+        "device_float32_max_error": 2.980232238769531e-07,
+        "cpu_float64_max_error": 1.3552527156068805e-20,
+        "selected_checkpoint": {
+          "device_float32_max_error": 3.5762786865234375e-07,
+          "cpu_float64_max_error": 0.0
+        }
+      },
+      "train_rows": 362,
+      "validation_native_rows": 159,
+      "validation_matched_rows": 114
+    }
+  },
+  "limitations": [
+    "Reduced smoke results verify execution, not scientific model rankings.",
+    "Only one finalist per neural family receives the long budget.",
+    "Mixing coefficients and branch amplitudes are not separately interpretable scale importance.",
+    "Nonnegative neural rate does not imply monotonicity in branch rates."
+  ],
+  "output": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_multiscale_kernel_smoke"
+}

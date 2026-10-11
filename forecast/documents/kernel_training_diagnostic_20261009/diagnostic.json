@@ -1,0 +1,120 @@
+{
+  "client_date": "2026-10-09",
+  "run": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_unsigned_kernel_search",
+  "snapshot_only": true,
+  "test_data_used": false,
+  "conclusion": "Saved trajectories show late training improvement with worse validation. Training improvement alone does not prove the learning rate is too small.",
+  "optimizer_steps_per_epoch": 1,
+  "original_sources_match_frozen_protocol": {
+    "kernel_search.py": true,
+    "kernel_models.py": true,
+    "kernel_cohort.py": true,
+    "model.py": true,
+    "inference.py": true,
+    "_inference.py": true,
+    "cache.py": true,
+    "train.py": true,
+    "metrics.py": true,
+    "input_schema.py": true,
+    "runtime.py": true,
+    "baselines/model.py": true,
+    "baselines/classification.py": true,
+    "baselines/metric_set.py": true,
+    "baselines/kl.py": true,
+    "baselines/distances.py": true
+  },
+  "models": [
+    {
+      "candidate": {
+        "id": "k9_legacy_02",
+        "kernel_size": 9,
+        "family": "legacy",
+        "hidden_channels": 16,
+        "depth": 1,
+        "dropout": 0.0,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001
+      },
+      "saved_epochs": 4096,
+      "best_validation_epoch": 51,
+      "best_validation_brier": 0.018709189013457868,
+      "last_validation_brier": 0.145956321956986,
+      "matched_train_at_best_validation_epoch": 0.02667492562501985,
+      "last_matched_training_brier": 0.017556654147948905,
+      "native_train_window_start_epoch": 3584,
+      "native_train_window_start_brier": 0.007156531844119637,
+      "last_native_train_brier": 0.007088209223807625,
+      "native_training_reduction_over_window_percent": 0.9546889722589721,
+      "last_window_max_preclipping_gradient_norm": 1.6159300804138184
+    },
+    {
+      "candidate": {
+        "id": "k3_cnn_03",
+        "kernel_size": 3,
+        "family": "cnn",
+        "hidden_channels": 32,
+        "depth": 1,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001
+      },
+      "saved_epochs": 4096,
+      "best_validation_epoch": 171,
+      "best_validation_brier": 0.018727053919287393,
+      "last_validation_brier": 0.026588168407321786,
+      "matched_train_at_best_validation_epoch": 0.026129498582395428,
+      "last_matched_training_brier": 0.024360264883834335,
+      "native_train_window_start_epoch": 3584,
+      "native_train_window_start_brier": 0.024509337095821846,
+      "last_native_train_brier": 0.024360264883834335,
+      "native_training_reduction_over_window_percent": 0.6082262094837465,
+      "last_window_max_preclipping_gradient_norm": 0.38245031237602234
+    },
+    {
+      "candidate": {
+        "id": "k9_mlp_07",
+        "kernel_size": 9,
+        "family": "mlp",
+        "hidden_channels": 32,
+        "depth": 4,
+        "dropout": 0.0,
+        "learning_rate": 0.001,
+        "weight_decay": 0.1
+      },
+      "saved_epochs": 2144,
+      "best_validation_epoch": 90,
+      "best_validation_brier": 0.018560651674933343,
+      "last_validation_brier": 0.04748507881232422,
+      "matched_train_at_best_validation_epoch": 0.02673964984945496,
+      "last_matched_training_brier": 0.022644618065552333,
+      "native_train_window_start_epoch": 1632,
+      "native_train_window_start_brier": 0.009367712592332402,
+      "last_native_train_brier": 0.008910888160197368,
+      "native_training_reduction_over_window_percent": 4.876584626528263,
+      "last_window_max_preclipping_gradient_norm": 0.30953285098075867
+    },
+    {
+      "candidate": {
+        "id": "k9_residual_mlp_08",
+        "kernel_size": 9,
+        "family": "residual_mlp",
+        "hidden_channels": 32,
+        "depth": 3,
+        "dropout": 0.15,
+        "learning_rate": 0.003,
+        "weight_decay": 0.001
+      },
+      "saved_epochs": 512,
+      "best_validation_epoch": 48,
+      "best_validation_brier": 0.018548345800235438,
+      "last_validation_brier": 0.019025957018446712,
+      "matched_train_at_best_validation_epoch": 0.026609864168364326,
+      "last_matched_training_brier": 0.02548132978457358,
+      "native_train_window_start_epoch": 1,
+      "native_train_window_start_brier": 0.010706317574668122,
+      "last_native_train_brier": 0.009964464170223734,
+      "native_training_reduction_over_window_percent": 6.929118245097307,
+      "last_window_max_preclipping_gradient_norm": 0.35265886783599854
+    }
+  ]
+}

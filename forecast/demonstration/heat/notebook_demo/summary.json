@@ -1,0 +1,292 @@
+{
+  "created_at_utc": "2026-10-07T11:58:09.535554+00:00",
+  "event": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-23T00:00:00Z",
+  "interval_s": 3600.0,
+  "shape": [
+    103,
+    73
+  ],
+  "epsg": 5070,
+  "affine_transform": [
+    375.0,
+    0.0,
+    -1141125.0,
+    0.0,
+    -375.0,
+    2393250.0
+  ],
+  "runtime": {
+    "python": "3.12.13",
+    "interpreter": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/.venv/bin/python",
+    "torch": "2.5.1",
+    "device": "cpu"
+  },
+  "checkpoint": {
+    "checkpoint_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+    "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+    "architecture": "DirectEnvironmentConditionedConvolution",
+    "best_epoch": 1,
+    "device": "cpu",
+    "channel_names": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class=1",
+      "biome.biome_class=2",
+      "biome.biome_class=3",
+      "biome.biome_class=4",
+      "biome.biome_class=5",
+      "biome.biome_class=6",
+      "biome.biome_class=7",
+      "biome.biome_class=8",
+      "biome.biome_class=9",
+      "biome.biome_class=10",
+      "biome.biome_class=11",
+      "biome.biome_class=12",
+      "biome.biome_class=13",
+      "biome.biome_class=14"
+    ],
+    "source_channels": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class"
+    ],
+    "categorical_classes": {
+      "biome.biome_class": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "normalization": "checkpoint's saved training-only statistics",
+    "probability_semantics": "new cumulative burning during the next exact hour"
+  },
+  "inference_input_keys": [
+    "burned_area",
+    "features",
+    "channel_names",
+    "burned_area_valid",
+    "feature_valid",
+    "affine_transform"
+  ],
+  "environmental_intervals_end_by_cutoff": true,
+  "current_state_arrival_surface": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/arrival_time_hours.tif",
+  "current_state_arrival_surface_sha256": "f69a283c0fa40f3f89c9e7ac032614bf93ed3c7eda322b50a44d48ddf6661996",
+  "current_state_limitation": "Current burned state and validity are reconstructed from retrospective arrival/final-extent data; not operational forecast validation.",
+  "ecological_reference": {
+    "source": "LANDFIRE FCCS reference fuelbed loading",
+    "source_url": "https://www.landfire.gov/fuel/fccs",
+    "reference_table_url": "https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv",
+    "physical_definition": "reference dry fuelbed loading, not measured event-date available fuel",
+    "loading_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/total_available_fuel_loading_tons_per_acre_375m.tif",
+    "coverage_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/environmental_data/regions/WY-BTF-002416_FishCreek/fuel/fuel_loading_lookup_coverage_fraction_375m.tif",
+    "loading_sha256": "0cc22a002cc1c333c038501294c095d3c665f9d1d745f4ed5ddc8c762321aa2e",
+    "coverage_sha256": "dd36a9352c7ef6ed17499d338711b844f8c53a307244af8a49a82f2036ea261e",
+    "original_loading_units": "U.S. short tons per acre",
+    "loading_units": "kg/m2",
+    "conversion_factor": 0.2241702312388912,
+    "crs": "EPSG:5070",
+    "transform": [
+      375.0,
+      0.0,
+      -1141125.0,
+      0.0,
+      -375.0,
+      2393250.0
+    ],
+    "shape": [
+      103,
+      73
+    ],
+    "full_coverage_tolerance": 1e-06,
+    "partial_coverage_policy": "retain mapped-part mean; reject as whole-cell combustion input unless explicit fallback is supplied",
+    "fallback_policy": "caller loading describes unmapped fraction: coverage*mapped_mean + (1-coverage)*fallback; unreadable mapped mean or coverage uses fallback for entire cell",
+    "zero_bound_policy": "zero for unknown data is a nonnegative mathematical lower bound, not an observed or assumed zero fuel load",
+    "ecological_limitations": "no automatic biome-to-mass, canopy-to-mass, or moisture damping; consumption fraction, heat yield and duration remain caller assumptions"
+  },
+  "fully_covered_fuel_cells": 6016,
+  "illustrative_physical_parameters": {
+    "Forecast interval (s)": 3600.0,
+    "Effective combustion heat (J/kg)": 18000000.0,
+    "Active-emission duration (s)": 300.0,
+    "Consumed dry-mass fraction": 0.1,
+    "Unmapped fuel fallback (kg/m\u00b2)": 10.0,
+    "Radiative fraction": 0.3,
+    "Source emitter elevation (m)": 5.0,
+    "Horizontal receiver elevation (m)": 0.0,
+    "Atmospheric transmissivity": 1.0
+  },
+  "conditional_ignition_time": "Uniform over the next 3600 s given new burning; constant emission for supplied duration",
+  "scope": "Radiation from new ignitions only, within supplied grid; current active burning not supplied",
+  "known_probability_cells": 225,
+  "unknown_probability_cells": 7294,
+  "real_full_expected_heat_available": false,
+  "real_matrix_statistics": {
+    "Full expected mean flux (W/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 0,
+      "unknown cells": 7519,
+      "minimum": null,
+      "maximum": null
+    },
+    "Known-source mean flux / lower bound (W/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 7519,
+      "unknown cells": 0,
+      "minimum": 4.134947863960711e-06,
+      "maximum": 147.87655962194273
+    },
+    "Upper bound on mean flux (W/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 7519,
+      "unknown cells": 0,
+      "minimum": 1.7164795596889126,
+      "maximum": 1878.980434455931
+    },
+    "Full expected interval energy (J/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 0,
+      "unknown cells": 7519,
+      "minimum": null,
+      "maximum": null
+    },
+    "Lower bound on interval energy (J/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 7519,
+      "unknown cells": 0,
+      "minimum": 0.01488581231025856,
+      "maximum": 532355.6146389939
+    },
+    "Upper bound on interval energy (J/m\u00b2)": {
+      "rows": 103,
+      "columns": 73,
+      "finite cells": 7519,
+      "unknown cells": 0,
+      "minimum": 6179.326414880085,
+      "maximum": 6764329.564041351
+    }
+  },
+  "known_source_peak_flux_w_m2": 147.87655962194273,
+  "uniform_known_source_peak_flux_w_m2": 63.7887366404956,
+  "maximum_absolute_ecological_difference_w_m2": 84.08782298144713,
+  "comparison_interpretation": "Fuel-loading sensitivity, not demonstrated measured accuracy improvement",
+  "synthetic_full_expected_heat_available": true,
+  "synthetic_shape": [
+    32,
+    32
+  ],
+  "synthetic_physical_parameters": {
+    "fuel_load_kg_m2": 1.0,
+    "heat_of_combustion_j_kg": 18000000.0,
+    "burning_duration_s": 300.0,
+    "consumed_fraction": 0.1,
+    "radiative_fraction": 0.3,
+    "emission_height_m": 5.0,
+    "receiver_height_m": 0.0,
+    "atmospheric_transmissivity": 1.0,
+    "cell_size_m": 10.0
+  },
+  "synthetic_peak_mean_flux_w_m2": 42.39286043132844,
+  "units": {
+    "heat_flux": "W/m\u00b2",
+    "incident_energy_per_area": "J/m\u00b2",
+    "fuel_loading": "kg/m\u00b2",
+    "affine": "m"
+  },
+  "bound_scope": "Unknown source probabilities in [0,1], with fixed physical and conditional timing assumptions; no bound on model error or external fires",
+  "pipeline_metadata": {
+    "forecast_interval_s": 3600.0,
+    "heat_flux_semantics": "interval-mean incident radiant flux in W/m2",
+    "dose_semantics": "integral of interval-mean radiant flux over forecast interval in J/m2",
+    "scope": "radiation from newly igniting cells only; present-fire contribution is excluded",
+    "arrival_time_assumption": "conditional on a first-new-burning event, arrival is uniform within the hour",
+    "burning_profile_assumption": "constant conditional HRR for the supplied residence duration after arrival",
+    "present_burning_assumption": "only caller-supplied active probabilities and remaining durations are included",
+    "unknown_probability_policy": "full expectation is NaN; nonnegative-source probability endpoints 0 and 1 yield bounds",
+    "source_cells": 7519,
+    "original_probability_valid_cells": 225,
+    "externally_supplied_probability_cells": 0,
+    "unresolved_probability_cells": 7294,
+    "unresolved_emitting_source_cells": 7294,
+    "complete_full_domain_expectation": false,
+    "bounds_scope": "fixed supplied combustion, duration, geometry, and finite source domain; excludes omitted transport and parameter uncertainty",
+    "predictor": {
+      "checkpoint_path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261007_1h_direct_convolution_signed/5x5/fitted/checkpoint.pt",
+      "checkpoint_sha256": "5ef66e06842eeecd9272ba47d12ba577e71bd5d004b179dc11c37e7c49a723e8",
+      "architecture": "DirectEnvironmentConditionedConvolution",
+      "best_epoch": 1,
+      "device": "cpu",
+      "channel_names": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class=1",
+        "biome.biome_class=2",
+        "biome.biome_class=3",
+        "biome.biome_class=4",
+        "biome.biome_class=5",
+        "biome.biome_class=6",
+        "biome.biome_class=7",
+        "biome.biome_class=8",
+        "biome.biome_class=9",
+        "biome.biome_class=10",
+        "biome.biome_class=11",
+        "biome.biome_class=12",
+        "biome.biome_class=13",
+        "biome.biome_class=14"
+      ],
+      "source_channels": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class"
+      ],
+      "categorical_classes": {
+        "biome.biome_class": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      "normalization": "checkpoint's saved training-only statistics",
+      "probability_semantics": "new cumulative burning during the next exact hour"
+    }
+  }
+}

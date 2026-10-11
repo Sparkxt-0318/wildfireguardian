@@ -1,0 +1,133 @@
+{
+  "verified_at_utc": "2026-10-08T19:05:05.498857+00:00",
+  "status": "passed",
+  "tests": {
+    "passed": 910,
+    "warnings": 14,
+    "elapsed_seconds": 11.5,
+    "scope": "probability model, hourly API, heat integration, and workspace checks",
+    "log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_scheduled_learning_rate_smoke/tests.log",
+    "new_schedule_cases": 46,
+    "resume_checks": "continuous versus interrupted CPU training with dropout and AdamW, all three schedules"
+  },
+  "real_cache_mps_smoke": {
+    "output": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_scheduled_learning_rate_smoke",
+    "complete": {
+      "completed": true,
+      "neural_candidates": 320,
+      "forest_candidates": 6,
+      "evaluated_models": 26,
+      "test_used_for_selection": false,
+      "cache_sha256_verified": {
+        "metadata.json": true,
+        "train.npz": true,
+        "validation.npz": true,
+        "test.npz": true
+      }
+    },
+    "source_files_verified": 17,
+    "source_hashes_match": true,
+    "cache_hashes_match": true,
+    "history_count": 320,
+    "initial_epochs": 2,
+    "finalist_epochs": 4,
+    "comparison_rows": 320,
+    "extended_histories": 4
+  },
+  "same_output_mps_resume": {
+    "status": "passed",
+    "exit_code": 0,
+    "log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_scheduled_learning_rate_smoke/resume_verification.log"
+  },
+  "optional_restart_mps_smoke": {
+    "output": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/wildfire_burned_area_hourly/probability_model/training_runs/20261009_scheduled_learning_rate_restart_smoke",
+    "complete": {
+      "completed": true,
+      "neural_candidates": 40,
+      "forest_candidates": 6,
+      "evaluated_models": 26,
+      "test_used_for_selection": false,
+      "cache_sha256_verified": {
+        "metadata.json": true,
+        "train.npz": true,
+        "validation.npz": true,
+        "test.npz": true
+      }
+    },
+    "source_files_verified": 17,
+    "source_hashes_match": true,
+    "cache_hashes_match": true,
+    "history_count": 40,
+    "initial_epochs": 2,
+    "finalist_epochs": 4,
+    "comparison_rows": 40,
+    "extended_histories": 4
+  },
+  "checked_restart_finalist_rates": [
+    {
+      "candidate": "k3_residual_mlp_08_lr0.01_warmup_cosine_restarts",
+      "actual_learning_rates": [
+        0.01,
+        0.01,
+        0.0001,
+        0.01
+      ]
+    },
+    {
+      "candidate": "k3_mlp_07_lr0.01_warmup_cosine_restarts",
+      "actual_learning_rates": [
+        0.01,
+        0.01,
+        0.0001,
+        0.01
+      ]
+    },
+    {
+      "candidate": "k3_legacy_02_lr0.01_warmup_cosine_restarts",
+      "actual_learning_rates": [
+        0.01,
+        0.01,
+        0.0001,
+        0.01
+      ]
+    },
+    {
+      "candidate": "k3_cnn_03_lr0.01_warmup_cosine_restarts",
+      "actual_learning_rates": [
+        0.01,
+        0.01,
+        0.0001,
+        0.01
+      ]
+    }
+  ],
+  "original_run_source_hashes_match": true,
+  "original_run_source_files_verified": 16,
+  "full_scheduled_training_run_executed": false,
+  "full_default": {
+    "peak_learning_rates": [
+      0.001,
+      0.003,
+      0.01,
+      0.03
+    ],
+    "schedules": [
+      "constant",
+      "warmup_cosine"
+    ],
+    "initial_candidates": 320,
+    "forest_candidates": 6,
+    "candidate_epochs": 512,
+    "finalist_epochs": 4096,
+    "neural_finalists": 4,
+    "early_stopping": false,
+    "warmup_epochs": 32,
+    "minimum_lr_factor": 0.01
+  },
+  "limitations": [
+    "Short smoke scores verify execution; they do not establish generalization or a best learning rate.",
+    "The default extends one selected candidate per neural family; it is not a balanced 4096-epoch schedule comparison.",
+    "Fixed nominal AdamW weight decay does not equal identical integrated shrinkage across learning rates."
+  ],
+  "diagnostic": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/WildfireGuardian/documents/kernel_training_diagnostic_20261009/report.md"
+}

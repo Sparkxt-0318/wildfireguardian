@@ -1,0 +1,638 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "completed_at_utc": "2026-10-10T05:03:55.114882+00:00",
+  "workspace": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire",
+  "artifact_root": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010",
+  "purpose": "Test the complete maintained local CPU workflow after consolidation, including bounded training and data-generation paths.",
+  "unresolved_failures": [],
+  "runtime": {
+    "python": "3.12.13",
+    "torch": "2.5.1",
+    "device": "cpu",
+    "cuda_tested": false,
+    "mps_tested": false
+  },
+  "unit_suite": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "1448",
+    "time": "58.923",
+    "timestamp": "2026-10-10T13:53:08.636889+09:00",
+    "hostname": "idonghaui-MacBookAir.local",
+    "warnings": 272,
+    "log": "runs/workflow_test_20261010/pytest_final.log",
+    "shared_memory_support": true
+  },
+  "command_coverage": {
+    "total_commands": 38,
+    "all_have_successful_actual_dispatch": true,
+    "commands": {
+      "load": [
+        {
+          "record": "package_final/verification.json",
+          "mode": "installed wheel CLI outside checkout; real data"
+        }
+      ],
+      "model-example": [
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ],
+      "example": [
+        {
+          "record": "package_final/verification.json",
+          "mode": "installed wheel CLI outside checkout; real data"
+        },
+        {
+          "record": "new_model_heat/verification.json",
+          "mode": "actual CLI from newly trained real-data checkpoint"
+        },
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        },
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        }
+      ],
+      "heat": [
+        {
+          "record": "new_model_heat/verification.json",
+          "mode": "actual CLI from newly trained real-data checkpoint"
+        },
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        }
+      ],
+      "flames": [
+        {
+          "record": "new_model_heat/verification.json",
+          "mode": "actual CLI from newly trained real-data checkpoint"
+        },
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        },
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        }
+      ],
+      "radiation": [
+        {
+          "record": "heat_data/run-n3qjjsem/commands.json",
+          "mode": "actual subprocess CLI; reopened heat/CSV/NPZ exports"
+        }
+      ],
+      "prepare": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "resplit": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "filter-contact": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        },
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ],
+      "subset-country": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "train": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        },
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ],
+      "verify": [
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ],
+      "evaluate": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "compare": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "add-kl": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "add-distances": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "add-classification": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "report": [
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ],
+      "report-kernels": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "report-metrics": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search-scheduled": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search-mixed": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search-multiscale": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search-portable": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "search-precision": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "recover-cache": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "relocate-cache": [
+        {
+          "record": "search/verification_final.json",
+          "mode": "actual CLI; bounded real or explicitly synthetic cohort"
+        }
+      ],
+      "environment": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "biome": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "audit-data": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "enrich-data": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "preview-data": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "inventory-data": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "bitmaps": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "build-bundle": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "check-data": [
+        {
+          "record": "heat_data/run-n3qjjsem/cli_data_dispatch.json",
+          "mode": "actual CLI dispatcher with redirected module roots, cached sources and network blocked"
+        }
+      ],
+      "check-model": [
+        {
+          "record": "training_cli/verification.json",
+          "mode": "actual subprocess CLI"
+        }
+      ]
+    },
+    "final_search_hashes_match_current": true
+  },
+  "actual_real_data_training": {
+    "prepared_cache": "runs/20261009_weighted_stratified_split/prepared_all",
+    "sample_counts": {
+      "train": 199185,
+      "validation": 49900,
+      "test": 61965
+    },
+    "epochs": 3,
+    "selected_epoch": 3,
+    "test_used_for_selection": false,
+    "source_files_verified": 486,
+    "normalization_reproduced_exactly": true,
+    "categorical_balance_reproduced_exactly": true,
+    "maximum_cpu_reproduction_absolute_error": 3.5762786865234375e-07,
+    "cpu_reproduction_tolerance": 1e-06,
+    "real_sample_save_reload_exact": true,
+    "fitted_directory": "runs/workflow_test_20261010/notebooks/api_tutorial/outputs/run-bo0li8in/training-cugmk9np/fitted",
+    "heat_flame_bridge_passed": true
+  },
+  "controlled_model_family_training": {
+    "fixture": {
+      "kind": "explicitly_synthetic_fixture",
+      "seed": 20261010,
+      "sample_counts": {
+        "train": 128,
+        "validation": 64,
+        "test": 64
+      },
+      "target": "Bernoulli(-expm1(-.085*source_count*exp(.04*(temperature_center-12))))",
+      "horizons": "exact one-hour synthetic transition",
+      "partitions": "three distinct synthetic events and disjoint cell-hour identities",
+      "scientific_validation": false
+    },
+    "fits": 47,
+    "family_fit_counts": {
+      "legacy_environmental_convolution": 4,
+      "constant_linear_cnn_mlp_residual_mlp_at_four_kernel_sizes": 20,
+      "mixed_architectures_and_constraints": 10,
+      "neural_architectures_and_transforms": 10,
+      "random_forests": 2,
+      "native_api_trainer": 1
+    },
+    "fresh_interpreter_checkpoints_loaded": 47,
+    "meaningful_checks": [
+      "finite gradients and changed parameters",
+      "training-only normalization and categorical weights",
+      "validation-only checkpoint selection",
+      "original population weights retained",
+      "optimized-center and full-grid inference",
+      "unavailable masks and structural zeros",
+      "ordered channels and unsupported horizons",
+      "save/reload and overwrite rejection"
+    ]
+  },
+  "search": {
+    "status": "passed",
+    "passed": 47,
+    "failed": 0,
+    "commands_covered": [
+      "add-classification",
+      "add-distances",
+      "add-kl",
+      "compare",
+      "evaluate",
+      "filter-contact",
+      "prepare",
+      "recover-cache",
+      "relocate-cache",
+      "report-kernels",
+      "report-metrics",
+      "resplit",
+      "search",
+      "search-mixed",
+      "search-multiscale",
+      "search-portable",
+      "search-precision",
+      "search-scheduled",
+      "subset-country",
+      "train"
+    ],
+    "fixtures": {
+      "real_cache": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/real_cache",
+      "real_provenance": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/real_cache_provenance.json",
+      "real_limits": "64 purposively sampled rows per original partition; original labels, indices, input schema, weights and 486 source hashes retained. Secondary sampling probabilities are not included in weights; scores are execution checks only.",
+      "synthetic_environment": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/synthetic_environment",
+      "synthetic_limits": "Six explicitly synthetic 13x13 rasters, five snapshots each; invented inputs exercise preparation and cache adapters.",
+      "native_synthetic_sweep": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/native_synthetic_sweep",
+      "balanced_receipt": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/balanced_fixture_receipt.json"
+    },
+    "scientific_limits": [
+      "Execution and artifact-contract checks only; no prospective physical validation, accuracy claim, or model-family ranking.",
+      "Search fixture64 rows per split comes from immutable real cache. Original labels, features, schemas and weights retained; purposive secondary sampling probabilities not included, so scores do not estimate the original population.",
+      "Preparation fixture consists of six invented raster events. Native fitting/evaluation and supplement fixtures have32 invented rows per split with balanced labels, constant environmental features, unit weights, and distinct whole-fire partition identities.",
+      "Portable smoke uses512 training and256 validation/test rows,2 initial epochs and4 finalist epochs from the original verified cache.",
+      "CPU tested. CUDA equivalence numerical branch and MPS execution are unavailable on this host. search-precision actual CPU dispatch, fit, checkpoint reload and resume were exercised."
+    ],
+    "final_source_stable": true,
+    "original_cache_unchanged": true,
+    "resolved_harness_error_count": 6,
+    "expected_contract_refusal_count": 6,
+    "final_search_outputs": {
+      "single": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_single",
+      "scheduled": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_scheduled",
+      "mixed": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_mixed",
+      "multiscale": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_multiscale",
+      "precision": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_precision",
+      "portable": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/search/final_portable"
+    }
+  },
+  "heat_data": {
+    "status": "passed",
+    "summary": {
+      "actual_subprocess_cli_runs": 6,
+      "top_level_data_cli_dispatch_commands": 9,
+      "environment_stages_dispatched": 9,
+      "additional_enrichment_prerequisite_dispatches": 1,
+      "independent_heat_export_checks": 5,
+      "all_real_data_events": 44,
+      "all_encoded_channels": 741,
+      "raw_source_channels": 72,
+      "independently_checked_biome_pixel_centres": 490452,
+      "reconstructed_regions": 5,
+      "reconstructed_hourly_snapshots": 1277,
+      "bitmap_exports_verified": 1292,
+      "prior_scientific_files_verified_byte_identical": 5434,
+      "original_source_and_metadata_files_verified_after_execution": 87,
+      "initial_direct_run_attempts": 21,
+      "initial_direct_passed_attempts": 19,
+      "initially_failed_attempts_retained": 2,
+      "unresolved_failures": 0
+    },
+    "actual_data_loader_audit": {
+      "passed": true,
+      "events": 44,
+      "encoded_channels": 741,
+      "raw_source_channels": 72,
+      "scope": "first two hours of every full event grid, all encoded channels; every categorical plane compared to native class codes; continuous/raw parity; targeted invalid-soil hours",
+      "limitation": "All encoded channels on the first two hours of every full event grid; not an exhaustive reread of every hour of every environmental raster.",
+      "direct_audit_report": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/heat_data/run-n3qjjsem/all_data/documents/data_validation.json",
+      "dispatched_audit_report": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/heat_data/run-n3qjjsem/cli_all_data/documents/data_validation.json",
+      "loader_sha256": "80e7fdc825a8f374f900cff04fafcd162b3a82e4dc9c1c1d1318407236efa4ac",
+      "source_quality_cases": [
+        {
+          "event_id": "KFS_05",
+          "time_utc": "2023-04-02T12:00:00+00:00",
+          "masked_pixel_values": 0,
+          "mapped_quality_mask_equal": true
+        },
+        {
+          "event_id": "CA-BTU-009205_Dixie",
+          "time_utc": "2021-08-23T12:00:00+00:00",
+          "masked_pixel_values": 563,
+          "mapped_quality_mask_equal": true
+        }
+      ]
+    },
+    "source_preservation": {
+      "passed": true,
+      "original_files_verified": 87,
+      "original_scientific_metadata_and_sources_unchanged": true,
+      "scientific_files_verified_by_inventory": 5434,
+      "prior_historical_band_checks_retained": 976577,
+      "prior_weather_bands_newly_reread_by_inventory": false,
+      "canonical_archive_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/records/environment_code",
+      "exact_canonical_historical_acquisition_source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/records/environment_code/acquire_biome_3fe0f225aabdc76a3ad92a8643015c2136e30867f5c0c0f5d82a8c17d526cc23.py",
+      "exact_historical_source_sha256": "3fe0f225aabdc76a3ad92a8643015c2136e30867f5c0c0f5d82a8c17d526cc23",
+      "preexisting_archived_source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/records/environment_code/acquire_biome.py",
+      "preexisting_archived_source_sha256": "8d0abf8b933b93304b455bb4e2a0ac5b9166da818471da068080215cdf45623d",
+      "preexisting_archived_source_preserved": true,
+      "original_saved_acquisition_record_preserved": true,
+      "historical_fixture_substitute_preserved_as": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/heat_data/run-n3qjjsem/records/environment_code_fixture_before_production_fix",
+      "production_inventory_source_record_link": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/workflow_test_20261010/heat_data/run-n3qjjsem/records/environment_code",
+      "production_inventory_uses_canonical_source_archive": true,
+      "no_substituted_original_archive_filename_in_production_retest": true
+    },
+    "fixture_limitations": [
+      "No external downloads: all acquisition computations use retained source caches. Live endpoint behavior, availability, credentials, request retries, and download latency were not exercised.",
+      "Bundle region specifications were recovered from retained regional metadata. Required unavailable historic environmental/MODIS legacy payload directories are empty and three historic manifests are explicitly marked fixtures.",
+      "The build-bundle fixture exercises all copy/build/catalog/validation/manifest orchestration and reproduces all five regions from actual downloaded arrival/std rasters; it does not recover absent historical legacy environmental or MODIS payloads.",
+      "Inventory metadata is copied and science directories are symlinked to original data. The resulting fixture manifest excludes symlink descendants and is not a newly sealed manifest for the original dataset.",
+      "The inventory retains 976,577 historical environmental band checks after verifying 5,434 prior scientific files by SHA-256. It does not newly reread all these weather bands. The separate all-event loader audit has its explicit first-two-hours scope."
+    ],
+    "scientific_interpretation": {
+      "prediction": "Probability of first newly burning within the next interval; unknown source support stays masked/NaN.",
+      "flame_scenarios": "Duration/residence assumptions on reconstructed point arrival times; half-open activity and endpoint versus interval-mean occupancy verified. These are not observed active flames.",
+      "radiation": "Incident radiant flux in W/m2 and interval incident radiant energy in J/m2; analytical calculation, bounds and unit consistency verified.",
+      "limitations": "Technical and mathematical consistency checks do not establish physical calibration, observation of hourly fire activity, or operational heat-safety validity."
+    }
+  },
+  "notebooks": {
+    "computation_cells": 36,
+    "status": "passed",
+    "training_enabled": true,
+    "execution": "Plain Python; only IPython display imports, fresh output-directory paths and RUN_TRAINING setting substituted. Original notebooks not changed. No Jupyter kernel/rendering validation."
+  },
+  "packaging": {
+    "status": "passed",
+    "command_import_checks": 41,
+    "wheel_sha256": "2cc657ef05464eb009cc1492821837047133468f0470c58fc65fb3174e71c127",
+    "all_maintained_module_bytes_match_wheel": true
+  },
+  "visual_checks": [
+    {
+      "file": "runs/workflow_test_20261010/training_cli/run/training_results.png",
+      "sha256": "252f796e3c7ee5fd912dd6db9282e7178330651fded5ce306feb2857b69ad173",
+      "checked": "Readable titles, legends, axes, units, masks and scientific scope labels"
+    },
+    {
+      "file": "runs/workflow_test_20261010/new_model_heat/integrated/integrated_heat_demo.png",
+      "sha256": "f59cc6849c0bece2e75c3f2d26abf77b3008d826bac0ef470e18a2d0b3d04cc4",
+      "checked": "Readable titles, legends, axes, units, masks and scientific scope labels"
+    }
+  ],
+  "fixes": [
+    {
+      "file": "wildfire/__main__.py",
+      "problem": "check-model --output rejected before handler",
+      "fix": "Let the existing handler parse its supported options",
+      "regression_tests": 2
+    },
+    {
+      "file": "wildfire/environment.py",
+      "problem": "Recorded historic biome source digest could not be resolved",
+      "fix": "Recover and preserve byte-exact source in a hash-named archive; accept only source whose SHA256 equals saved record",
+      "regression_tests": 9
+    }
+  ],
+  "final_source_sha256": {
+    "wildfire/__init__.py": "675f80e7038a296c1e27a7260b13a5eacea3fabed5ae46535c92d54476700482",
+    "wildfire/__main__.py": "dae77162c3bda89527e8e72082d6edf18fe14aa2de4efecb60069267dd967e2d",
+    "wildfire/api.py": "08929df919cb653fdd36d157ab87e34b943d2b255e6aac1eefeb81c762e50758",
+    "wildfire/bundle.py": "2fe131cd7f54bbee9d85acaa537ff77c80faf7975c374c3574ca0e9f5117a391",
+    "wildfire/cache.py": "62f82f0c22be47ae6da18b4c81e6da7860843b7b8fe17952762b14adb8c50030",
+    "wildfire/checks.py": "8af868dc6298cb7fcbffdb87d28222b66bfc28f519fe41ab25b429ea187bf21e",
+    "wildfire/cohort.py": "68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a",
+    "wildfire/coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+    "wildfire/data.py": "80e7fdc825a8f374f900cff04fafcd162b3a82e4dc9c1c1d1318407236efa4ac",
+    "wildfire/environment.py": "c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af",
+    "wildfire/evaluate.py": "785d8688601d53e6993db337627cbabaa685e5097bde6c1f7497d1f1fc055c21",
+    "wildfire/examples.py": "839d7e655c369953931a3568c5014ab0d3add89d20dd5254b0310f96538daf25",
+    "wildfire/heat.py": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "wildfire/heat_sources.json": "afdda28df1d4c43d767081ceff7b92c5d3e95c24858fdd6ea6c049d14c72e3d6",
+    "wildfire/inference.py": "233109998a461608b7c483bea546476c4e8d37f677a8164ae34ce31c88a8cf59",
+    "wildfire/metrics.py": "df4a7b268c2d9bcfa1cc92e1a121ec9a29b33b0f6ac7001ffdd701c7ae756833",
+    "wildfire/models.py": "40f343d727f6bf36c1042e0777c0045598d58542a132fb7e45d8efa12dc6c3b7",
+    "wildfire/paths.py": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd",
+    "wildfire/prepare.py": "d8f3b9511e911d5c79763cd013c5fc79e1d83b3660ab8b9272469001ddc08931",
+    "wildfire/report.py": "436546b52c6a8fa761341995cebe74e20f078b40e1fad3ffdbbc65a2416cfceb",
+    "wildfire/schema.py": "d59ba48f5f37c32ed2dab1038abf42814ee38e410d2c834927da47cecb95ad55",
+    "wildfire/search.py": "136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4",
+    "wildfire/train.py": "388355895eae6fb32d6cda58833a3e2914b4507fa914d2ebe39bee4959242e57",
+    "wildfire/utils.py": "4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92"
+  },
+  "scope_limits": [
+    "CPU execution only; unavailable CUDA/MPS paths were not exercised.",
+    "No live downloads or external endpoint behavior; acquisition used retained source caches with network blocked.",
+    "All 44 events and all 741 encoded channels audited on the first two hours of each grid, plus targeted invalid-soil times; not all weather bands reread.",
+    "Small real-data/synthetic search cohorts and short epochs prove functional integration; this is not a full model-performance benchmark.",
+    "The full real three-epoch fit does not establish scientific accuracy or physical/operational validation.",
+    "Historical missing MODIS/environment payloads remain absent; bundle orchestration used explicit manifests/directories recovered from retained metadata or marked as fixtures.",
+    "Legacy metric-extension commands require compatible pre-extension snapshots; fresh comparisons already include these metrics.",
+    "Single-run training report requires a contact-only cache; the documented filter-contact chain was tested."
+  ],
+  "diagnostics_preserved": {
+    "full_real_cache_exact_nll": "Exact negative log likelihood can remain infinity for positive no-contact labels assigned exact zero; saved metrics retain the diagnostic.",
+    "unknown_fire_and_heat": "Unknown source support remains NaN/masked; full-domain heat completeness is not fabricated."
+  },
+  "initial_failures": "Resolved product defects, expected integrity/contract refusals and test-harness setup errors are retained in referenced raw records; authoritative final summaries separate them from unresolved failures.",
+  "evidence": {
+    "root": {
+      "path": "runs/workflow_test_20261010/root_verification.json",
+      "bytes": 25897,
+      "sha256": "cbf7e9b6b18671300fb578668bbcb5ab076dee800e4ce5ee449e81107872ffdb"
+    },
+    "unit_test_log": {
+      "path": "runs/workflow_test_20261010/pytest_final.log",
+      "bytes": 9913,
+      "sha256": "46fb73da1243c45b85debe034fc92e1b7a74ce53b7475c131a160f46103d2285"
+    },
+    "unit_test_xml": {
+      "path": "runs/workflow_test_20261010/pytest_final.xml",
+      "bytes": 217483,
+      "sha256": "70eec4a598c8ad92821176e402ee5256c39526683143bfa7cd1d4164cf457d58"
+    },
+    "command_coverage": {
+      "path": "runs/workflow_test_20261010/command_coverage.json",
+      "bytes": 7923,
+      "sha256": "6127126db7145fb1a0158923a32537c854c358e933ef1c4b57565a0b3e93d28b"
+    },
+    "models": {
+      "path": "runs/workflow_test_20261010/models/run_01/verification.json",
+      "bytes": 652548,
+      "sha256": "fa51f32562001b944ea4a748b58daa354148a5f1e338d3436c5a7bfc42432dc9"
+    },
+    "fresh_interpreter_reload": {
+      "path": "runs/workflow_test_20261010/models/run_01/reload_verification.json",
+      "bytes": 10604,
+      "sha256": "5aa0613b38d508d9a8746c8056322ea078e8fed4af986c5d69d19853936ee0a7"
+    },
+    "notebooks": {
+      "path": "runs/workflow_test_20261010/notebooks/verification.json",
+      "bytes": 830481,
+      "sha256": "7560e338d53541414ad4e3b69daeded25ec5cb5f475669878521d1bb22339a47"
+    },
+    "native_cli_training_reporting": {
+      "path": "runs/workflow_test_20261010/training_cli/verification.json",
+      "bytes": 9888,
+      "sha256": "2109c683a224c733c0777e0d3962fa5ed92ff1806db3019f3443aa318f79c054"
+    },
+    "new_real_model_heat_bridge": {
+      "path": "runs/workflow_test_20261010/new_model_heat/verification.json",
+      "bytes": 2050,
+      "sha256": "825e2dc565b05d453391435d6901bcfec8f6365fa284601baac772ed1395b7f7"
+    },
+    "search": {
+      "path": "runs/workflow_test_20261010/search/verification_final.json",
+      "bytes": 97941,
+      "sha256": "f9d895250b96615b6515a37cc97095341772c63e0f2e6eb1bc5c8227b2c5685a"
+    },
+    "heat_data": {
+      "path": "runs/workflow_test_20261010/heat_data/run-n3qjjsem/verification.json",
+      "bytes": 97898,
+      "sha256": "232cf19b24072489848f27430f81b6f1ff948e5a7cb65f0cdb4949c21e596e44"
+    },
+    "installed_wheel": {
+      "path": "runs/workflow_test_20261010/package_final/verification.json",
+      "bytes": 10073,
+      "sha256": "2d630959542d794258f5c134e3ce4b7a1e31f29935bfe4e69182ac03013fa15a"
+    },
+    "historical_source_recovery": {
+      "path": "runs/workflow_test_20261010/historical_source_recovery.json",
+      "bytes": 683,
+      "sha256": "d86ff85583a7e8ba3f3061b012d7742e95fc6fdad55ac82c1d70798a3a5209d7"
+    },
+    "actual_historical_source_resolution": {
+      "path": "runs/workflow_test_20261010/historical_source_actual_resolution.json",
+      "bytes": 615,
+      "sha256": "eb00e2ecef505a9aa9787bed66182df283cb5e5f7d75a2ac220018d5f8d31dae"
+    }
+  },
+  "dependency_check": "No broken requirements found",
+  "whitespace_check": "git diff --check passed"
+}
