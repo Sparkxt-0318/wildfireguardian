@@ -1,0 +1,822 @@
+{
+  "source_archive": "wildfire 2.zip",
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "bytes": 1053,
+      "sha256": "d15cb75db2717c1d485c31110c9431d69a250043f2821264fb3e3ff9969078cf"
+    },
+    {
+      "path": "README.md",
+      "bytes": 133484,
+      "sha256": "6bc2d6cf3c36bbb32a45fc36866c33176e27f200406bb334ec4b1c0d6ddc23f6"
+    },
+    {
+      "path": "api_tutorial.ipynb",
+      "bytes": 139658,
+      "sha256": "0677ef9a844ebcf5d8e7d5f4e61520df8626b3d052b29f4419f754de170f5ea0"
+    },
+    {
+      "path": "tests/test_plotting.py",
+      "bytes": 27784,
+      "sha256": "1f521ccf60bf3f2f3905fd76bd86e475b2787e88cd14075dfe89b3bb1ca6b668"
+    },
+    {
+      "path": "tests/test_cumulative_api_integration.py",
+      "bytes": 17289,
+      "sha256": "de046da04f9af5bca045ce0499b38df8782087789fb1587a69ce19ee5798e517"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "bytes": 9325,
+      "sha256": "237105e02b214c62b9ab5fe62c38fb703ff06979ddd7e80f3035bec8831b3cd0"
+    },
+    {
+      "path": "tests/test_cumulative.py",
+      "bytes": 28537,
+      "sha256": "5b19681a03dda9916c38da2a5c91037d056ac5c852cc5afa33917b3e357f5d07"
+    },
+    {
+      "path": "tests/test_prediction.py",
+      "bytes": 52235,
+      "sha256": "85ae63ba27c5c0819bd1bf08c202a20637e1e6dfcbe4ef16415ba8b117018be0"
+    },
+    {
+      "path": "tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/test_environment_rectangle.py",
+      "bytes": 9336,
+      "sha256": "fe71edd4dc6a7921b1abf85b2c3c686e22be3f9b2280521785b9eeef79e42739"
+    },
+    {
+      "path": "tests/test_workspace.py",
+      "bytes": 5460,
+      "sha256": "caf5c722da9feb869c96c643c40e8828b6f3d1fb51a71f618cbacc608dd37484"
+    },
+    {
+      "path": "tests/test_rollout.py",
+      "bytes": 36809,
+      "sha256": "2cf960207a46fc163946ddf74adeb049f4119214fa5505486b673dcc6ad001e7"
+    },
+    {
+      "path": "tests/test_cumulative_outputs.py",
+      "bytes": 6697,
+      "sha256": "56aca239586066fe6f03a1c6ead2e83de265d962311d5ada24fc7ddc10c55fb0"
+    },
+    {
+      "path": "tests/test_data_api.py",
+      "bytes": 16521,
+      "sha256": "6fdb5266cf63151b09cedddff2c03ad67eb5ef88bfe78f14f3e03b1167bc9084"
+    },
+    {
+      "path": "tests/test_cumulative_evaluation.py",
+      "bytes": 29444,
+      "sha256": "b8e83b4ad9897cec65e3a6ffac667c05f5115f679180bbbc3597e29d19975235"
+    },
+    {
+      "path": "tests/test_coordinates.py",
+      "bytes": 6988,
+      "sha256": "6562f981342ba35dbd835b14399205e438948aaff118b8b85c12865323b23997"
+    },
+    {
+      "path": "tests/test_paths.py",
+      "bytes": 3533,
+      "sha256": "64c3730fd296a7031b0e9c7e5d976815967513f86274bda40b713031ebc227b2"
+    },
+    {
+      "path": "tests/test_forest_cumulative.py",
+      "bytes": 17372,
+      "sha256": "9bd286f078bfbfcfc0952207ae4aacc65561b2de509c6257224d51c330aa0632"
+    },
+    {
+      "path": "tests/test_api.py",
+      "bytes": 22526,
+      "sha256": "d506fae5a73ae1e5aafa29f8887521e826f37d3d2c2410f0c5c854ef98d5a827"
+    },
+    {
+      "path": "tests/test_cumulative_report.py",
+      "bytes": 29959,
+      "sha256": "a04444a80b7d58775e5ec484d9b7792f2d91c00f0eecf71456adbda720565d38"
+    },
+    {
+      "path": "tests/test_cumulative_report_plots.py",
+      "bytes": 9991,
+      "sha256": "8ebb80f46c485b8a815fb8925d45cf0431a1ab5899ea3f37cfa8084d3224ee84"
+    },
+    {
+      "path": "tests/test_environment.py",
+      "bytes": 2378,
+      "sha256": "3b53fdf348c9f3b5fd8b589e304eb7d37cd6375db92b39a99fce985f61fc5f1d"
+    },
+    {
+      "path": "wildfire/catalog.py",
+      "bytes": 6564,
+      "sha256": "04f774efdd5925c0a6e9b7af4f16f189a3df7fd78103dbf880b203101fc06ad7"
+    },
+    {
+      "path": "wildfire/bundle.py",
+      "bytes": 29230,
+      "sha256": "2fe131cd7f54bbee9d85acaa537ff77c80faf7975c374c3574ca0e9f5117a391"
+    },
+    {
+      "path": "wildfire/metrics.py",
+      "bytes": 49850,
+      "sha256": "7e3277e50f31c18ae042aa649793791d77840efaf9c0d3b02b8207bd2d1f9a93"
+    },
+    {
+      "path": "wildfire/forest_inference.py",
+      "bytes": 12287,
+      "sha256": "c09ba84a709be6bc37aca7a2a2025461e900c053b0ee6bc8f547633794a92e51"
+    },
+    {
+      "path": "wildfire/models.py",
+      "bytes": 92082,
+      "sha256": "52e1f29859f71dccf61b36a89df6b7863060fd25cc64fbc149500813f13e6722"
+    },
+    {
+      "path": "wildfire/paths.py",
+      "bytes": 3344,
+      "sha256": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd"
+    },
+    {
+      "path": "wildfire/cohort.py",
+      "bytes": 11149,
+      "sha256": "68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a"
+    },
+    {
+      "path": "wildfire/heat.py",
+      "bytes": 120946,
+      "sha256": "f449517dcc686bfc1f2a2e121c1f7f969c38b74ddb824429efac51f04180d0cb"
+    },
+    {
+      "path": "wildfire/cumulative_report.py",
+      "bytes": 45168,
+      "sha256": "a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81"
+    },
+    {
+      "path": "wildfire/checks.py",
+      "bytes": 13375,
+      "sha256": "8af868dc6298cb7fcbffdb87d28222b66bfc28f519fe41ab25b429ea187bf21e"
+    },
+    {
+      "path": "wildfire/plotting.py",
+      "bytes": 19914,
+      "sha256": "d5eefdfa75393df77c8130f5a182a4c8274bbeb755e1f77bd75895168503ac55"
+    },
+    {
+      "path": "wildfire/cache.py",
+      "bytes": 32399,
+      "sha256": "62f82f0c22be47ae6da18b4c81e6da7860843b7b8fe17952762b14adb8c50030"
+    },
+    {
+      "path": "wildfire/__init__.py",
+      "bytes": 2613,
+      "sha256": "709074418751a8bbcc778848ab569ff7f40821868b89790d4e2376a7797c201d"
+    },
+    {
+      "path": "wildfire/cumulative_evaluation.py",
+      "bytes": 13789,
+      "sha256": "071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01"
+    },
+    {
+      "path": "wildfire/prediction.py",
+      "bytes": 21850,
+      "sha256": "c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578"
+    },
+    {
+      "path": "wildfire/api.py",
+      "bytes": 48860,
+      "sha256": "381d0421899c36ef43ee9e3ff24e976361b1369cf05a149dc96f216da406f24a"
+    },
+    {
+      "path": "wildfire/cumulative.py",
+      "bytes": 15410,
+      "sha256": "0334ecacbfed8d31397378172c325a0ac2385798023c6a3efadc34ab1db119a7"
+    },
+    {
+      "path": "wildfire/utils.py",
+      "bytes": 905,
+      "sha256": "4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92"
+    },
+    {
+      "path": "wildfire/rollout.py",
+      "bytes": 10266,
+      "sha256": "53a33621ab3f45b340f7fd41dca9dee9d92fde9ed11abaa9c40d759ecde23a20"
+    },
+    {
+      "path": "wildfire/examples.py",
+      "bytes": 54757,
+      "sha256": "2da0787fb7507a64036b7ca5de85b959f87e9e2c02c060d8a403081822d35c76"
+    },
+    {
+      "path": "wildfire/cumulative_report_plots.py",
+      "bytes": 30463,
+      "sha256": "1196b781fdf6079e7c6c86999e4a1717550e0faa7e69384ab3cefc95fda757b9"
+    },
+    {
+      "path": "wildfire/train.py",
+      "bytes": 54637,
+      "sha256": "078ea06e7c212a8c6f7d6dcdbace3e6e2649e2a79cce0dd97361cfc68c6705ee"
+    },
+    {
+      "path": "wildfire/environment.py",
+      "bytes": 77160,
+      "sha256": "c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af"
+    },
+    {
+      "path": "wildfire/search.py",
+      "bytes": 316341,
+      "sha256": "136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4"
+    },
+    {
+      "path": "wildfire/inference.py",
+      "bytes": 14408,
+      "sha256": "c1278e491a23633e693854417e21bd1376060b638f3c3bf9f81ecc147c17dce6"
+    },
+    {
+      "path": "wildfire/evaluate.py",
+      "bytes": 59853,
+      "sha256": "785d8688601d53e6993db337627cbabaa685e5097bde6c1f7497d1f1fc055c21"
+    },
+    {
+      "path": "wildfire/heat_sources.json",
+      "bytes": 18797,
+      "sha256": "afdda28df1d4c43d767081ceff7b92c5d3e95c24858fdd6ea6c049d14c72e3d6"
+    },
+    {
+      "path": "wildfire/__main__.py",
+      "bytes": 6244,
+      "sha256": "4ceedd4c90ddab2010147150294a225e5b92cfdd44bf427c3207688b129c3673"
+    },
+    {
+      "path": "wildfire/report.py",
+      "bytes": 134913,
+      "sha256": "436546b52c6a8fa761341995cebe74e20f078b40e1fad3ffdbbc65a2416cfceb"
+    },
+    {
+      "path": "wildfire/prepare.py",
+      "bytes": 79978,
+      "sha256": "e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0"
+    },
+    {
+      "path": "wildfire/data.py",
+      "bytes": 39188,
+      "sha256": "aa63a97264a4c2a1e6a7c30a0a750b80d79d9a7a40eb5f192b527e156a32b607"
+    },
+    {
+      "path": "wildfire/coordinates.py",
+      "bytes": 9709,
+      "sha256": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3"
+    },
+    {
+      "path": "wildfire/schema.py",
+      "bytes": 4294,
+      "sha256": "91d498f2c40e5f64138b0fe7a7845b2e4f522d086cdb9c4950ca9ed2c2043605"
+    },
+    {
+      "path": "documents/recursive_probability_validation_20261011.json",
+      "bytes": 4348,
+      "sha256": "d0d701f63be4c461871e9992702d05556acd2b5de0b946f26dfbdfd48ee60c22"
+    },
+    {
+      "path": "documents/time_index_notebook_20261011.json",
+      "bytes": 1425,
+      "sha256": "204fd4b49b094391481183b5b8c409fba0711e60507d6e59fff752b98c8c8fb0"
+    },
+    {
+      "path": "documents/cumulative_forest_plots_validation_20261011.md",
+      "bytes": 6808,
+      "sha256": "c1da04bed31faabe30fbb3e6a30b58b85046eaa3b75c78b2797bd42b5532c7bd"
+    },
+    {
+      "path": "documents/api.md",
+      "bytes": 76759,
+      "sha256": "c411eed333fda3e96bfe43d0070d86a00936bad940f8dda347561e6300c4ff63"
+    },
+    {
+      "path": "documents/cumulative_evaluation_validation_20261011.json",
+      "bytes": 10727,
+      "sha256": "35fb86a1085d30b84e48151facf8bc6fbb4ccffb804d008ee7f5d2d1ff952311"
+    },
+    {
+      "path": "documents/cumulative_forest_plots_validation_20261011.json",
+      "bytes": 3972,
+      "sha256": "975d9d102ee1b2724aac5a7b807d62bc9f6ad6e1601c942915f3b2fcd838917d"
+    },
+    {
+      "path": "documents/time_index_validation_20261011.json",
+      "bytes": 6607,
+      "sha256": "7a677955338e94b006e95d214e44189c03431b6d1bc5f827031ba5549ce0d97f"
+    },
+    {
+      "path": "documents/cumulative_evaluation_validation_20261011.md",
+      "bytes": 4413,
+      "sha256": "fc6e2a059a3d8b58436c22d1d52a2e9ca8bcee183acfc37f6443829590b9ad72"
+    },
+    {
+      "path": "documents/time_index_real_data_20261011.json",
+      "bytes": 2855,
+      "sha256": "81adb6e45838cebc8ed5f355b3cecc6d4df6e1c9570c7c0434933826926d677b"
+    },
+    {
+      "path": "documents/cumulative_models_validation_20261011.json",
+      "bytes": 4969,
+      "sha256": "6f1d91f97e4f05eba0a33d907ebbd4e0393031060019af65316fca6698d3b7e2"
+    },
+    {
+      "path": "documents/recursive_probability_validation_20261011.md",
+      "bytes": 2806,
+      "sha256": "bc64132a97728d3551a7bc7158ec3085eca4d284461c59f53e6d3ced31c719c8"
+    },
+    {
+      "path": "documents/cumulative_models_validation_20261011.md",
+      "bytes": 4557,
+      "sha256": "148c12399e5927b9e6b883c08bafccc4fe0a3d5851ecec94d37810b8846cb5fa"
+    },
+    {
+      "path": "tests/heat/test_model.py",
+      "bytes": 19379,
+      "sha256": "478c999d2bde6c2006a1f39d502212b9ccd26e52ab87bbcfea60750888b4f995"
+    },
+    {
+      "path": "tests/heat/test_arrival_heat.py",
+      "bytes": 18752,
+      "sha256": "c98f8cdfb570834d1517bb7eaa1bd1391795897fdd5588fb2d857e622389fde4"
+    },
+    {
+      "path": "tests/heat/test_flames.py",
+      "bytes": 13303,
+      "sha256": "67a731d0100fbe32119d98cbf09ffbc3a789ce603d9b5ba1a7b3bf800f814dbf"
+    },
+    {
+      "path": "tests/heat/test_temporal.py",
+      "bytes": 8652,
+      "sha256": "86e838d411ca5239545db6391f9e18368a2b90659b60dd9a06c1476d8f0a752e"
+    },
+    {
+      "path": "tests/heat/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/heat/test_ecology.py",
+      "bytes": 8013,
+      "sha256": "d4f03a4322d2c89eafb103355785cdc077e8b1902f5a773a3610b58df7f4dce6"
+    },
+    {
+      "path": "tests/heat/test_flame_integration.py",
+      "bytes": 9877,
+      "sha256": "b2106ab7deca01ac8d0060213a998349b3b382129657f179fd455027c7219fb2"
+    },
+    {
+      "path": "tests/heat/test_pipeline.py",
+      "bytes": 22405,
+      "sha256": "58f6784b0be7801d53cc6dd55773f2caed3d3c1c9741e2dab468b8967cb1ae04"
+    },
+    {
+      "path": "tests/heat/test_residence.py",
+      "bytes": 14019,
+      "sha256": "ecb35394cbafe0df2c2b5b6556540f1d7ac59e6483a62433b8040a2cabc19db5"
+    },
+    {
+      "path": "tests/probability/test_kernel_search_mixed.py",
+      "bytes": 14161,
+      "sha256": "4c8714100530ca81b1d1a0fd123d6730fc5527282de1d99beb7befed44c5b7d2"
+    },
+    {
+      "path": "tests/probability/test_neural_mixed_integration.py",
+      "bytes": 10310,
+      "sha256": "798b3a2aee648cc2076f04f9d4ff61ba50bc01bb51250277298465931dd5a54a"
+    },
+    {
+      "path": "tests/probability/test_model.py",
+      "bytes": 21539,
+      "sha256": "0401dc527df0f3954559777fea6c8a44d810e39eb11a7af2f09a5f3fe2cabe63"
+    },
+    {
+      "path": "tests/probability/test_bayesian_integration.py",
+      "bytes": 19060,
+      "sha256": "9e4897071e842987ef0ac7f46dcc99fc50bf182bacf80648e39833bd0b38a3c9"
+    },
+    {
+      "path": "tests/probability/test_mixed_integration.py",
+      "bytes": 9460,
+      "sha256": "cd29b1041ff6bb842cd23ba08098369066a5a4166c285f138ef66485c2c59e79"
+    },
+    {
+      "path": "tests/probability/test_row_split_contract.py",
+      "bytes": 7862,
+      "sha256": "31c8af100caba486b0846345e2a80653e3379c5953a532e734e3eb4ac26ee001"
+    },
+    {
+      "path": "tests/probability/test_mixed_kernels.py",
+      "bytes": 14181,
+      "sha256": "1018015260d9d4db2ec95c0db62cc65f24216d5aeba4c210b37900b5f108f285"
+    },
+    {
+      "path": "tests/probability/test_kernel_models.py",
+      "bytes": 7560,
+      "sha256": "4f247fdd2759df93f904daf20e1c18940601257b43dafcc17e2767b850394f0f"
+    },
+    {
+      "path": "tests/probability/test_kernel_cohort.py",
+      "bytes": 6276,
+      "sha256": "f7285215e0dab8ecd2dbf68a58e33c46143346501420a3de29a0cda2a7400eb3"
+    },
+    {
+      "path": "tests/probability/test_categorical_training.py",
+      "bytes": 8040,
+      "sha256": "5d6bb0c2b527a25d971f22af71347dbb51a7b854b94884d0f1f83deb22018624"
+    },
+    {
+      "path": "tests/probability/test_weighted_resplit.py",
+      "bytes": 15798,
+      "sha256": "a63e042ae34982fa55d2a3357b55373c654cd6730acf405cd2cc84f6ce32623c"
+    },
+    {
+      "path": "tests/probability/test_evaluation_report.py",
+      "bytes": 6801,
+      "sha256": "cb6da4730237c91fafd6ede563faff903b92fc25ce0e9fe6c8f3bbd67b357884"
+    },
+    {
+      "path": "tests/probability/test_kernel_search_portable.py",
+      "bytes": 21596,
+      "sha256": "056346764bbcb42b8feaf9e0fe4e379baaced33a38b84423277b87b9f5d13a15"
+    },
+    {
+      "path": "tests/probability/test_weighted_split.py",
+      "bytes": 11748,
+      "sha256": "d80f74645c7776e20fcc15875ba4b8c7c44d725cef01ded3a6a478f5ede69aff"
+    },
+    {
+      "path": "tests/probability/test_preparation_split_policy.py",
+      "bytes": 6867,
+      "sha256": "9070b43a7421601705ce658ac8fb97d9c72d47625580ce324c7e4561977d00dd"
+    },
+    {
+      "path": "tests/probability/test_kernel_search_forest.py",
+      "bytes": 12438,
+      "sha256": "7bf95711634c7776cd8fcc3a540877c3fc911735b1a35ea4259497b183d1396f"
+    },
+    {
+      "path": "tests/probability/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/probability/test_kernel_search_multiscale.py",
+      "bytes": 32495,
+      "sha256": "28853be0466a04b000eb357b5808830b3ebd7fd829550aeb0f26d8e1ac12b3f8"
+    },
+    {
+      "path": "tests/probability/test_updated_inputs.py",
+      "bytes": 15642,
+      "sha256": "df5fcf1f6255ed8f26fb4459e97fa7becf9b5add9b507c84a5fb294b5fc2ae93"
+    },
+    {
+      "path": "tests/probability/test_kernel_search_scheduled.py",
+      "bytes": 15092,
+      "sha256": "08c6950d75d55c2e5e8047d5eed3a7a170feae9a7deaa698f931c37293e596ef"
+    },
+    {
+      "path": "tests/probability/test_training.py",
+      "bytes": 23577,
+      "sha256": "d81586e776e750ec3fb9dd94400e769e539ad4f37dd7d7283bbb21c4d3ea065b"
+    },
+    {
+      "path": "tests/probability/test_search_cache_relocation.py",
+      "bytes": 14663,
+      "sha256": "69f13e72555a8a1c8f67de2388bfe171a2d492d95c8633ffa66d1df378f37f39"
+    },
+    {
+      "path": "tests/probability/test_kernel_search.py",
+      "bytes": 11121,
+      "sha256": "f0ddad92851ca4967b70f96df57892aaa9d36e204cdd168ed3c1210784424e02"
+    },
+    {
+      "path": "tests/probability/test_search_cache_recovery.py",
+      "bytes": 18802,
+      "sha256": "c35285427a8e1d98b2a5169e124360b68ace892e356629c22ed1360ce8ae1473"
+    },
+    {
+      "path": "tests/probability/test_categorical_balance.py",
+      "bytes": 10514,
+      "sha256": "72954d65c21eab42c076ffb1bd2bb2e79dd7f828823212267a8b3578e33c505d"
+    },
+    {
+      "path": "tests/probability/test_broader_kernels.py",
+      "bytes": 24547,
+      "sha256": "b189fc442bd052fb4a1ce0abadb9202054d5feb5ccb11abecd797a2d928701d6"
+    },
+    {
+      "path": "tests/probability/test_bayesian_models.py",
+      "bytes": 16900,
+      "sha256": "747c4ecd2f55da8977d633b33ea43e46a2b3c5bf3d0111a83d960c12e2b8882c"
+    },
+    {
+      "path": "tests/probability/test_search_row_split.py",
+      "bytes": 20841,
+      "sha256": "44cf435a6d60d6fd7cfa1f99c279c51db61ec7311b722902ccba327471ece96d"
+    },
+    {
+      "path": "tests/probability/test_neural_mixed_kernels.py",
+      "bytes": 14676,
+      "sha256": "2d6733bcb82d6f049629c7e7e16c939247fd2dd4d3ae5d82097ae678dce9efc4"
+    },
+    {
+      "path": "tests/probability/test_inference_structural_zero.py",
+      "bytes": 5760,
+      "sha256": "69a353fba9fc2256a8102cc91e63a827b583f4804cda4c6d8fdfe431e9dbcf91"
+    },
+    {
+      "path": "tests/loader/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/loader/test_dataset.py",
+      "bytes": 19988,
+      "sha256": "c66eed713c925f01ecaeaa41647314cad43ed46680edcb7ac11dc05b40dede2f"
+    },
+    {
+      "path": "runs/20261011_forests_plots/summary.csv",
+      "bytes": 1876937,
+      "sha256": "dc3b4ed58443e13a53fc6270bf609b561cc694953bfdc0c5caddeaeda3636b7c"
+    },
+    {
+      "path": "runs/20261011_forests_plots/calibration.csv",
+      "bytes": 5699478,
+      "sha256": "6673246a3324d52d13e28815011107c884d73e845df300865eae1ab2a3646136"
+    },
+    {
+      "path": "runs/20261011_forests_plots/report.md",
+      "bytes": 590643,
+      "sha256": "e5ebe8cc94e0b7c44900538b263126c60f9425f3c6ea716abc289a5b7548748d"
+    },
+    {
+      "path": "runs/20261011_forests_plots/per_cutoff.csv",
+      "bytes": 1920352,
+      "sha256": "cfcc6f7788b4db8cf3a4d038cc3a1dff120a0e8c274a692f954af712d2da54f9"
+    },
+    {
+      "path": "runs/20261011_forests_plots/protocol.json",
+      "bytes": 658123,
+      "sha256": "455f53ee3b6f9523fee79976768dc90cf1a4ca6cc8e22b4a846f33a9a333e78a"
+    },
+    {
+      "path": "runs/20261011_forests_plots/progress.json",
+      "bytes": 70,
+      "sha256": "93a1ddbcc3792b888dae77582904a9db955e25cc12064be79a5b4eaaf5e22cf3"
+    },
+    {
+      "path": "runs/20261011_forests_plots/per_event.csv",
+      "bytes": 1883813,
+      "sha256": "e9dc959ee7f4b31f113b7f2a2551c90b88520a7798d0cad0071760eac6b5c4e1"
+    },
+    {
+      "path": "tests/probability/baselines/test_model.py",
+      "bytes": 7863,
+      "sha256": "03c4b40928026ddc1ea907fdcef218d00b5e44a12d2070c4049c4b6fac2627f0"
+    },
+    {
+      "path": "tests/probability/baselines/test_comparison.py",
+      "bytes": 7480,
+      "sha256": "200c33f3c53476a4175a14b4ece0267bfc2ff1e53c9f9a639b78f8a80d215832"
+    },
+    {
+      "path": "tests/probability/baselines/test_distances.py",
+      "bytes": 7685,
+      "sha256": "4416a9f178adaa22e4a4e72767f4f9fe5ea8ff0bab21c4e1d655005ee73a8553"
+    },
+    {
+      "path": "tests/probability/baselines/test_kl.py",
+      "bytes": 5532,
+      "sha256": "d6ea82e65b7a403590b90fedb704205bd85a543d98f2651b5ed70289414d0ca8"
+    },
+    {
+      "path": "tests/probability/baselines/test_classification.py",
+      "bytes": 7503,
+      "sha256": "87ab1b49dfb30d8ca9e37330dedfc2ad2ddba49deb21b00d0578c0bfe7dfdd2a"
+    },
+    {
+      "path": "runs/20261011_forests_plots/predictions/000000.npz",
+      "bytes": 145463,
+      "sha256": "d204b2bea89e7bb9d9604b2c19b5487e352b927924901eee12594227919ee421"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_metrics.png",
+      "bytes": 416195,
+      "sha256": "a3e8f14b06580f950f23fc1d6dbf9baae9be6b9c8573d7f6c29b5ed5657faabf"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_architectures.svg",
+      "bytes": 207196,
+      "sha256": "e0d8e1f560cc8ae3c2764a3c3e125f22ddd94378c7871144cb74cc1d565db364"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_distances.png",
+      "bytes": 212294,
+      "sha256": "64c8bdbb5bcc51f9068cc08f593f94fd6f22103a7222f6c9d6d4fc41029022a9"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_spaced.svg",
+      "bytes": 25339,
+      "sha256": "0bc3b43012ae71d78db9634885051c537e081773f720810ee3fb39877a784923"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_curves.svg",
+      "bytes": 34405,
+      "sha256": "7acc5560677376511c524a7c6d6278e1357697031a121b1f9b0de4d1e7f55c5f"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_architectures.svg",
+      "bytes": 206399,
+      "sha256": "5cfb1c9e1dc11d9cd171a075b1859e408cdf55b16faa958c9c9252125362f3f1"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_curves.svg",
+      "bytes": 34881,
+      "sha256": "5bddd0868fba7670c8aaa03c18c24050d1d312f74160e92dab9636a7b0032722"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_spaced_large_text.png",
+      "bytes": 230326,
+      "sha256": "30590bbe5ae56aa79b161e4609eb1b1a59955ee9f21a9b4b169a9f24a5903485"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_coverage.png",
+      "bytes": 140596,
+      "sha256": "00ec30084617255b6a3e6fba8c2668f69af7188fdfd99ec4b0c35e90648c12a3"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_coverage.svg",
+      "bytes": 291750,
+      "sha256": "9a7cd23403d91a51360e67794bcafa96f10812edac848c6e03e4a7f8e3bbcd0e"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_spaced_large_text.svg",
+      "bytes": 25245,
+      "sha256": "8041717352a2f831a571c1dafd4bbfff94b4dc87b9d2189a0bf8f4a6868ac865"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_curves.png",
+      "bytes": 182482,
+      "sha256": "4da5380498913530df9958c5c23fdbaa6d500ee6b1a2e99a2cd18833e73c0f9e"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_architectures.png",
+      "bytes": 217192,
+      "sha256": "7bc4a7dd3109b2315f609d4090992c50f1c567aefaa3e9fecd7cbbc30d88350b"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_curves.png",
+      "bytes": 263974,
+      "sha256": "e9dbeecbfbe523c692300ba846487e26c9eb3801557d5ad992ba952b0e9de0bc"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_spaced.png",
+      "bytes": 180654,
+      "sha256": "446e445fd008e443186bf21a6d5e0221227e777b15a9795cfea086c0c5936a61"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_distances.svg",
+      "bytes": 179447,
+      "sha256": "774937e1223863bbf3ceaae0b71f2bcad7b88456fd5828a000ed8cf24fabf3a5"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_metrics.svg",
+      "bytes": 585635,
+      "sha256": "a5ae947f0f473cb95de6ce090d1bbe0e79ececf743e39de0e8a55c1ad5ce69ce"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_architectures.png",
+      "bytes": 212444,
+      "sha256": "4a5123d4aecda2ab069701712a74e80c59ede957622d3715e0f710ed39a1bbdd"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability.png",
+      "bytes": 287159,
+      "sha256": "f0e5a3d1d5b6867075e10e6efeb047f44dc95a053654aca67bda31ed63bc90dd"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_no_title_caption.svg",
+      "bytes": 25339,
+      "sha256": "db67948b2b918efcd507ed2d8b3c785f76732cb66806a8fc7c55204a3422f0ff"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281.svg",
+      "bytes": 26062,
+      "sha256": "014b853df0e1ca553f7d26800652a13b5a71b737cd62d093f5769865aa14e9d5"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_reliability.png",
+      "bytes": 261098,
+      "sha256": "05c840732676dc2411b8f4a0d9abfa628973d039690d4e7743b5d85f449fff35"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_coverage.svg",
+      "bytes": 292360,
+      "sha256": "109d613edc6506576dbc9897bb34d33f0a7c139ce6c525e3511934d8c34f4a52"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_metrics.png",
+      "bytes": 401925,
+      "sha256": "cc234ccb1a40c9cc328a7c5f5f2f44da743e060b8e01089ec59968612f8f1bc7"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_event_brier.svg",
+      "bytes": 30893,
+      "sha256": "4f39cedb64cba4e358ae285a3ae44e5745d9887bb92c047ce9bdcb0ca8a6d203"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_distances.svg",
+      "bytes": 175904,
+      "sha256": "39c8e49b3738f787253455d38ba932e58c6be66eb1c8d55472e92c5449d7b353"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/manifest.json",
+      "bytes": 680820,
+      "sha256": "7c3917255ed0f496bb04a8804f9db3f5638e6ac31862096f136019eb2c1955d0"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_event_brier.svg",
+      "bytes": 30895,
+      "sha256": "85be1c44241f74678d1f45c1d5cf672158b330aacb9909ebfc2aaae7d67c990e"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_event_brier.png",
+      "bytes": 123472,
+      "sha256": "0bd34653c0820fc5dc1a28aaefc75de105d9291b9a62b663f417cc8ccedf3ba9"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_distances.png",
+      "bytes": 208008,
+      "sha256": "992087ea3bc3dce7b835aada54fead45a0857c9b3f20b23e278a7aa474217aa8"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_event_brier.png",
+      "bytes": 120316,
+      "sha256": "82003cebb0e7377d59be3300fdb1a4b02f8f39c46c5d474b77b660a852b89428"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_metrics.svg",
+      "bytes": 585692,
+      "sha256": "12bc1fe69aacd6c0b2a8fb156b5294287932db532f3904279e6333785b159668"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_coverage.png",
+      "bytes": 146206,
+      "sha256": "1c0e49b19b190f238f487570fc7b392f5f10169099de62c1e7beca8a9c5acd0e"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/new_burn_reliability.svg",
+      "bytes": 97280,
+      "sha256": "c17fced26023e9dceb101c0d4141de2cf637e381b694a9e352cffe67934b6078"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/model_index.csv",
+      "bytes": 176292,
+      "sha256": "fa0a100552d8b15bf769653be4b5911a6a3797a80fb9d76452b8e59c8f21f734"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281.png",
+      "bytes": 263231,
+      "sha256": "5c3be1c02b6202c003862212577cbe18d0256d23113b07e1575761a4ed28e993"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability_M548_M281_no_title_caption.png",
+      "bytes": 180523,
+      "sha256": "c6a540cbc4e2d1b6c2d8f2e7420c91991560fe0266652f6cd78db4841ed67337"
+    },
+    {
+      "path": "runs/20261011_forests_plots/plots/burned_reliability.svg",
+      "bytes": 98669,
+      "sha256": "88f8fbcd896c52af2bb1d17d0cb7ec4b3700c628ae0ee6cb371c745353dc8663"
+    },
+    {
+      "path": "runs/20261011_forests_plots/tutorial_forest/forest_cumulative_evaluation.csv",
+      "bytes": 4162,
+      "sha256": "73c82b76554055cd4532a9e1e045d1fdbf8fda92937fb305e62f1c00bb12241c"
+    },
+    {
+      "path": "runs/20261011_forests_plots/tutorial_forest/forest_cumulative_probability.npz",
+      "bytes": 6051,
+      "sha256": "21f48778ffdad339d0069c7798e662e4f5878f598b3371ccf5bdca875977c563"
+    },
+    {
+      "path": "runs/20261011_forests_plots/tutorial_forest/forest_cumulative_probability.png",
+      "bytes": 35607,
+      "sha256": "2a6b007d546064f732add0a0f76e17dd161137e076fa11499cb7bfaf0d29461d"
+    },
+    {
+      "path": "runs/20261011_forests_plots/tutorial_forest/forest_cumulative_evaluation.json",
+      "bytes": 18716,
+      "sha256": "fe4de17ddcf32fe45492661c5bbb269e27c024da68a9762f559b7b6b5b4530af"
+    }
+  ],
+  "weights_in_supplement": false,
+  "large_data_and_full_report_json_excluded": true
+}

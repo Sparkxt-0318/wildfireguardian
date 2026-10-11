@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "generated_report": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/cumulative_models/20261011_forests_plots/report.md",
+  "model_count": 573,
+  "tensor_count": 561,
+  "forest_count": 12,
+  "architectures": {
+    "LearnedNonnegativeKernel": 440,
+    "EnvironmentConditionedConvolution": 48,
+    "MixedNonnegativeKernel": 36,
+    "NeuralMixedNonnegativeKernel": 36,
+    "PatchRandomForest": 12,
+    "BayesianModelAverage": 1
+  },
+  "six_hour_diagnostic": {
+    "case": {
+      "event": "KFS_06",
+      "cutoff": "2025-03-24T03:00:00Z",
+      "endpoint": "2025-03-24T09:00:00Z",
+      "seed": 9487061265547836
+    },
+    "n_samples": 8,
+    "trajectory_batch_size": 8,
+    "elapsed_seconds": 65.28965224997955,
+    "rectangle_shape": [
+      14,
+      14
+    ],
+    "valid_cells_per_model": 196,
+    "new_burn_entries": 51,
+    "new_burn_positives": 4,
+    "occupancy_entries": 78,
+    "occupancy_positives": 31,
+    "known_initial_burns": 27,
+    "checkpoint_and_source_hashes_verified": true,
+    "own_forest_normalization_preserved": true,
+    "scope": "One cutoff only; functional integration and visual diagnostic, not exhaustive forecast-skill comparison"
+  },
+  "figures": {
+    "count": 14,
+    "png_count": 14,
+    "svg_count": 14,
+    "asset_hashes_verified": true,
+    "all_model_overviews": 573,
+    "probability_distance_fields": [
+      "bernoulli_kl_divergence_mean",
+      "floored_bernoulli_kl_divergence_mean",
+      "bernoulli_total_variation_distance_mean",
+      "bernoulli_hellinger_distance_mean",
+      "bernoulli_jensen_shannon_divergence_mean",
+      "bernoulli_jensen_shannon_distance_mean",
+      "bernoulli_bhattacharyya_distance_mean",
+      "bernoulli_wasserstein_1_distance_mean",
+      "bernoulli_wasserstein_2_distance_mean"
+    ]
+  },
+  "saved_best_plan": {
+    "models": 57,
+    "forests": 4,
+    "cases": 1860
+  },
+  "tests": {
+    "count": 2104,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 95.808,
+    "log": "documents/cumulative_forest_plots_final_tests_20261011.log",
+    "junit": "documents/cumulative_forest_plots_final_tests_20261011.xml"
+  },
+  "implementation_sha256": {
+    "cumulative_report.py": "a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81",
+    "rollout.py": "53a33621ab3f45b340f7fd41dca9dee9d92fde9ed11abaa9c40d759ecde23a20",
+    "cumulative_evaluation.py": "071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01",
+    "forest_inference.py": "c09ba84a709be6bc37aca7a2a2025461e900c053b0ee6bc8f547633794a92e51",
+    "cumulative_report_plots.py": "1196b781fdf6079e7c6c86999e4a1717550e0faa7e69384ab3cefc95fda757b9"
+  },
+  "tutorial": {
+    "source_sha256": "0677ef9a844ebcf5d8e7d5f4e61520df8626b3d052b29f4419f754de170f5ea0",
+    "cells": 58,
+    "code_cells": 29,
+    "all_code_compiles": true,
+    "editable_source_has_no_outputs": true,
+    "execution_scope": "New forest cell only; earlier cells not rerun",
+    "event": "KFS_06",
+    "cutoff": "2025-03-22T05:00:00Z",
+    "hours": 6,
+    "n_samples": 8,
+    "known_initial_burns": 2,
+    "valid_cells": 196,
+    "output_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/cumulative_models/20261011_forests_plots/tutorial_forest",
+    "exports": {
+      "forest_cumulative_evaluation.csv": "73c82b76554055cd4532a9e1e045d1fdbf8fda92937fb305e62f1c00bb12241c",
+      "forest_cumulative_probability.npz": "21f48778ffdad339d0069c7798e662e4f5878f598b3371ccf5bdca875977c563",
+      "forest_cumulative_probability.png": "2a6b007d546064f732add0a0f76e17dd161137e076fa11499cb7bfaf0d29461d",
+      "forest_cumulative_evaluation.json": "fe4de17ddcf32fe45492661c5bbb269e27c024da68a9762f559b7b6b5b4530af"
+    }
+  },
+  "visual_qa": {
+    "figures_inspected": 14,
+    "reviewers": 3,
+    "status": "passed",
+    "full_model_inventory": 573,
+    "no_artifact_edits_after_render": true
+  }
+}

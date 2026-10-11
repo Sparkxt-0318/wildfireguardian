@@ -1,0 +1,128 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-10T19:57:34.808208+00:00",
+  "source_sha256": {
+    "wildfire/cumulative_report.py": "52271a70fb9bfd2169416d8dedec250df611036e0397092b0e08a31c5e22ffe2",
+    "wildfire/__main__.py": "4ceedd4c90ddab2010147150294a225e5b92cfdd44bf427c3207688b129c3673",
+    "tests/test_cumulative_report.py": "b0e90591deb7b8e482e84fe90591330742a2b5c2eb2ed5d284370d1fbc8b2f0d",
+    "README.md": "ad78d4ced7cb10db1755113379927f0b84c3ad945baa2a92a88e2c11074f9dcf",
+    "documents/api.md": "1ab44e34d16080adf9e7a0df5e7f218bd4a46673bcb7ff7531003a6c98e6a17c"
+  },
+  "tests": {
+    "tests": 2048,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "elapsed_seconds": 70.69,
+    "warnings": 272,
+    "new_runner_tests": 21,
+    "log": "documents/cumulative_models_final_tests_20261011.log",
+    "junit": "documents/cumulative_models_final_tests_20261011.xml"
+  },
+  "plan": {
+    "directory": "demonstration/cumulative_models/20261011_plan_final",
+    "status": "planned",
+    "model_count": 561,
+    "event_count": 10,
+    "case_count": 1860,
+    "model_case_count": 1043460,
+    "hours": 6,
+    "stride_hours": 6,
+    "n_samples": 1024,
+    "unsupported_random_forest_artifacts": 12,
+    "elapsed_seconds": 14.050670333002927
+  },
+  "real_data_diagnostic": {
+    "directory": "demonstration/cumulative_models/20261011_all_models_6h_final",
+    "status": "complete",
+    "model_count": 561,
+    "architecture_counts": {
+      "LearnedNonnegativeKernel": 440,
+      "EnvironmentConditionedConvolution": 48,
+      "MixedNonnegativeKernel": 36,
+      "NeuralMixedNonnegativeKernel": 36,
+      "BayesianModelAverage": 1
+    },
+    "case": {
+      "event": "KFS_06",
+      "cutoff": "2025-03-24T03:00:00Z",
+      "endpoint": "2025-03-24T09:00:00Z",
+      "seed": 9487061265547836
+    },
+    "hours": 6,
+    "n_samples": 8,
+    "trajectory_batch_size": 8,
+    "probability_shape": [
+      561,
+      1,
+      1,
+      14,
+      14
+    ],
+    "all_196_rectangle_cells_valid_for_all_models": true,
+    "new_burn_reference_cells": 51,
+    "new_burn_positive_cells": 4,
+    "burned_reference_cells": 78,
+    "burned_positive_cells": 31,
+    "initial_burned_cells": 27,
+    "initial_new_probability_zero_total_one": true,
+    "initial_uncertainty_zero": true,
+    "csv_rows": {
+      "summary.csv": 2244,
+      "per_event.csv": 2244,
+      "per_cutoff.csv": 2244,
+      "calibration.csv": 31416
+    },
+    "checkpoint_hashes_verified": 561,
+    "implementation_hashes_verified": true,
+    "prediction_arrays_equal_to_prior_seeded_run": true,
+    "elapsed_seconds": 57.42362170899287
+  },
+  "interpretation": "Functional verification of every supplied real-data tensor checkpoint on one held-out case with 8 diagnostic trajectories; exhaustive 1024-trajectory evaluation has not been run. Scores use original reference masks and shared model cohorts; pooled metrics are recomputed from entries.",
+  "artifacts": {
+    "demonstration/cumulative_models/20261011_all_models_6h_final/summary.csv": {
+      "bytes": 1840819,
+      "sha256": "6a9f958e292f514228dab27c72eccb0743cffa6828ceef48a323ea54f89b47eb"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/report.json": {
+      "bytes": 55498019,
+      "sha256": "03dc6e7f46cba487623e877ce76422dab583d92f8cf87a105399b6ec3c8d030f"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/calibration.csv": {
+      "bytes": 5606094,
+      "sha256": "25810f3273d624035dbf106663b150e2b2b896460c506e546d989bcdf06c95fc"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/report.md": {
+      "bytes": 100624,
+      "sha256": "054ea93d4f177f13bed179112a89ff3195f5cbcda541518197b7dea22e5295e4"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/per_cutoff.csv": {
+      "bytes": 1883304,
+      "sha256": "6906f2f51245665144415e0dd590eeec142282bf15411bf98fcd001be4cb45c8"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/protocol.json": {
+      "bytes": 626464,
+      "sha256": "73de794b86d276131b4bced8ef9111d2a778fad8db28594ae946c5f1f505753d"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/progress.json": {
+      "bytes": 70,
+      "sha256": "93a1ddbcc3792b888dae77582904a9db955e25cc12064be79a5b4eaaf5e22cf3"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/per_event.csv": {
+      "bytes": 1847551,
+      "sha256": "4770ffd7f4882cae6c0e9cb19b6e8c2abde2ea92cc430fc3d24bf728d1346908"
+    },
+    "demonstration/cumulative_models/20261011_all_models_6h_final/predictions/000000.npz": {
+      "bytes": 140782,
+      "sha256": "1116fdddfdab2c62a87c5c7ef561f9cc440fe7c13a4fff029c204b7fd45437ea"
+    }
+  },
+  "console_entry_check": {
+    "command": ".venv/bin/wildfire evaluate-cumulative",
+    "exit_code": 0,
+    "model_count": 1,
+    "case_count": 1,
+    "plan_only": true,
+    "directory": "demonstration/cumulative_models/20261011_console_entry_check"
+  }
+}

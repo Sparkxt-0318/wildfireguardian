@@ -188,3 +188,8 @@ The six `_engine` files are byte-identical copies of the current hourly release 
 ## Final forecast
 
 The final 11 October 2026 forecast code, tests and supported checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for installation and the large data files required for inference.
+
+
+## Monte Carlo forecast extension
+
+[Separate extension, setup and results](monte-carlo-extension/EXTENSION_GUIDE.md): recursive hourly spread simulation and cumulative forecast evaluation. The final forecast snapshot and routing remain unchanged.

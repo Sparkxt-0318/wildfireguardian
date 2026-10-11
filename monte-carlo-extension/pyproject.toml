@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wildfire"
+version = "0.1.0"
+description = "Hourly burned-area prediction and expected incident radiant heat"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy==1.26.4",
+    "torch==2.5.1",
+    "pandas==2.2.3",
+    "scipy==1.13.1",
+    "rasterio==1.4.3",
+    "affine==3.0.1",
+    "matplotlib==3.9.2",
+    "Pillow==12.3.0",
+    "requests==2.34.2",
+    "pyproj==3.7.0",
+    "pyshp==2.3.1",
+    "shapely==2.0.6",
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.4"]
+notebook = ["jupyter>=1", "ipykernel>=6"]
+baseline = ["scikit-learn==1.5.2"]
+
+[project.scripts]
+wildfire = "wildfire.__main__:main"
+wildfire-heat = "wildfire.__main__:heat_main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wildfire"]
+namespaces = false
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.package-data]
+wildfire = ["heat_sources.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
