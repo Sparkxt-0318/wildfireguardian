@@ -89,6 +89,8 @@ class Detector:
         self.min_seed = float(d["threshold"]["min_seed_dn"])
         c = d["components"]
         self.min_area, self.max_area = int(c["min_area_px"]), int(c["max_area_px"])
+        self.max_streak_area = int(c.get("max_streak_area_px", self.max_area))
+        self.max_streak_width = float(c.get("max_streak_width_px", 10))
         self.large_dilate = int(c["large_mask_dilate_px"])
         md = int(c["moment_dilate_px"])
         self.moment_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2 * md + 1,) * 2)
@@ -151,7 +153,11 @@ class Detector:
         thr = cv2.resize(self._grow_thr, (sw, sh), interpolation=cv2.INTER_NEAREST)
         bright = cv2.compare(small, thr, cv2.CMP_GE)
         n, lab, stats, _ = cv2.connectedComponentsWithStats(bright, connectivity=8)
-        big = np.nonzero(stats[1:, cv2.CC_STAT_AREA] * 16 > self.max_area)[0] + 1
+        area = stats[1:, cv2.CC_STAT_AREA].astype(np.float64)
+        extent = np.hypot(stats[1:, cv2.CC_STAT_WIDTH], stats[1:, cv2.CC_STAT_HEIGHT])
+        thickness = 4.0 * area / np.maximum(extent, 1.0)        # full-resolution px
+        # Large means big AND thick: long thin streaks of fast embers are not flames.
+        big = np.nonzero((area * 16 > self.max_area) & (thickness > self.max_streak_width))[0] + 1
         if big.size == 0:
             return np.zeros((h, w), np.uint8)
         mask = np.isin(lab, big).astype(np.uint8)
@@ -200,7 +206,7 @@ class Detector:
         th_vals = tophat[gy, gx]
         has_seed = np.zeros(n, dtype=bool)
         has_seed[gl[th_vals >= self._seed_thr[gy, gx]]] = True
-        keep = has_seed & (areas >= self.min_area) & (areas <= self.max_area)
+        keep = has_seed & (areas >= self.min_area) & (areas <= self.max_streak_area)
         keep[0] = False
         idx = np.nonzero(keep)[0]
         if idx.size == 0:
@@ -291,5 +297,7 @@ class Detector:
         det = Detections(x=mx, y=my, area=area, peak=peak[1:], flux=wsum, lam1=lam1, lam2=lam2,
                          theta=theta, length=length, width=width, sat_frac=sat_frac,
                          color=color, flags=flags)
-        good = np.isfinite(mx) & np.isfinite(my) & ~near_large
+        # Components above the round-blob limit survive only if they are thin streaks.
+        thin = (area <= self.max_area) | (width <= self.max_streak_width)
+        good = np.isfinite(mx) & np.isfinite(my) & ~near_large & thin
         return det.subset(good)

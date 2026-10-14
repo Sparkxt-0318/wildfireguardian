@@ -33,7 +33,7 @@ TAG_RE = re.compile(r"<!--\s*n:([A-Za-z0-9_.\-]+)\s*-->")
 # A number not glued to letters, other digits, dots, hyphens, slashes or colons.
 NUM_RE = re.compile(r"(?<![\w.\-/:])(\d+(?:\.\d+)?)(?![\w\-/:]|\.\d)")
 TAGGED_NUM_RE = re.compile(r"(-?\d+(?:\.\d+)?)\s*(?:%|[^\s<]*)?\s*<!--\s*n:([A-Za-z0-9_.\-]+)\s*-->")
-EXEMPT_PREV_WORDS = {"section", "sections", "version", "step", "milestone", "check", "python", "figure", "table"}
+EXEMPT_PREV_WORDS = {"section", "sections", "version", "step", "steps", "milestone", "check", "python", "figure", "table", "sitting", "sittings"}
 
 
 def strip_code(line: str) -> str:

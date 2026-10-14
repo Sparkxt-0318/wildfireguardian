@@ -35,3 +35,6 @@ results/runs/
 logs/
 *.log
 .DS_Store
+
+# Machine-specific switches written by the sittings
+configs/*_local.yaml

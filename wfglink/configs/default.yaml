@@ -19,7 +19,9 @@ detect:
     min_seed_dn: 12              # absolute floor for the seed level
   components:
     min_area_px: 2
-    max_area_px: 300             # larger regions are flames, headlights or glare
+    max_area_px: 300             # round blobs larger than this are flames, headlights or glare
+    max_streak_area_px: 4000     # thin streaks may be larger (fast embers, long exposure)
+    max_streak_width_px: 10      # a large component must be thinner than this to count as a streak
     large_mask_dilate_px: 7      # exclusion band around large bright regions
     moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
   saturation:

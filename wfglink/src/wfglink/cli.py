@@ -55,6 +55,35 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     return 0 if ok else 1
 
 
+def cmd_devices(args: argparse.Namespace) -> int:
+    from wfglink.io.devices import list_cameras
+
+    print(json.dumps(list_cameras(), indent=2, ensure_ascii=False, default=str))
+    return 0
+
+
+def cmd_camera_test(args: argparse.Namespace) -> int:
+    from wfglink.config import load_config
+    from wfglink.sitting.check_a import camera_test_cli
+
+    return camera_test_cli(args.uid, args.out, args.seconds, load_config(local=True))
+
+
+def cmd_panel_video(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from wfglink.sitting.panel import write_panel_video
+
+    print(write_panel_video(Path(args.out), seconds=args.seconds))
+    return 0
+
+
+# Commands that own their argument parsing (everything after the command name is theirs).
+PASSTHROUGH = {
+    "sitting1": ("wfglink.sitting.sitting1", "guided sitting 1: install check, check A, recordings, report"),
+}
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="wfglink", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -62,10 +91,33 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("doctor", help="check the environment (versions, codecs, Qt, fonts)")
     p.add_argument("--gui", action="store_true", help="use the native Qt platform instead of offscreen")
     p.set_defaults(func=cmd_doctor)
+
+    p = sub.add_parser("devices", help="list cameras with names, uniqueIDs and backend indices")
+    p.set_defaults(func=cmd_devices)
+
+    p = sub.add_parser("camera-test", help="camera permission and capture tests written as JSON (used inside the .app)")
+    p.add_argument("--out", required=True)
+    p.add_argument("--uid", default=None)
+    p.add_argument("--seconds", type=float, default=6.0)
+    p.set_defaults(func=cmd_camera_test)
+
+    p = sub.add_parser("panel-video", help="write the iPad panel test video")
+    p.add_argument("--out", default="PANEL_TEST.mp4")
+    p.add_argument("--seconds", type=float, default=12.0)
+    p.set_defaults(func=cmd_panel_video)
+
+    for name, (_, help_text) in PASSTHROUGH.items():
+        sub.add_parser(name, help=help_text, add_help=False)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] in PASSTHROUGH:
+        import importlib
+
+        module = importlib.import_module(PASSTHROUGH[argv[0]][0])
+        return int(module.main(argv[1:]) or 0)
     parser = build_parser()
     args = parser.parse_args(argv)
     return int(args.func(args) or 0)
