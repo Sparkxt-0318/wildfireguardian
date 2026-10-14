@@ -36,8 +36,8 @@
   "detection_latency_median_min": 2.1022229779298485,
   "detection_latency_p90_min": 2.991090285665308,
   "provenance": {
-    "commit": "4ef08f013aad89afce894cbb659b569ec24f0c8c",
-    "last_gasp_dirty": true,
+    "commit": "2d903ed3bceb00bdc7a854407dcca249f7f231dc",
+    "code_dirty": false,
     "script": "scripts/06_demo_sim.py",
     "config": "configs/default.json"
   },

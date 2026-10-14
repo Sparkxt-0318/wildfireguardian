@@ -1,0 +1,152 @@
+# Log
+
+Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. Entries before 23:06 were written up after the fact from command history, so their times are approximate (within about 10 min). Every number quoted in summaries here is in `results/NUMBERS.json`, except the exploratory numbers marked "exploratory", which came from code states that were later changed and are kept only as a record of decisions.
+
+## 2026-10-14 22:37 Setup
+
+- Goal: confirm the repository and set up `last-gasp/`.
+- Commands: `git rev-parse --show-toplevel` (gave /home/user/wildfireguardian); read `README.md` (routing API package); searched the repository for FIRMS data.
+- Results:
+  - Repository root confirmed, on branch `claude/affectionate-dijkstra-c6zrp7`.
+  - No FIRMS detections for a Korean fire exist in the repository; there is only a mention in `forecast/documents/korean_observation_availability_20261012.md`. FIRMS data were therefore not used.
+- Decision: create `last-gasp/` with its own `.venv`, `requirements.txt` and `.gitignore`.
+- Next step: get building footprints.
+
+## 2026-10-14 22:40 OSM download (partial failure)
+
+- Goal: real building footprints for a fire-hit area.
+- Commands:
+  - `curl` Overpass count queries against overpass-api.de, overpass.kumi.systems, overpass.private.coffee and maps.mail.ru. All failed with connection reset, timeout or 504.
+  - `curl https://api.openstreetmap.org/api/0.6/map?bbox=...` for seven roughly 3 km boxes in Uiseong, Andong and Yeongdeok.
+  - Downloaded the Microsoft Global ML Building Footprints index.
+- Building counts per box (OSM building tags):
+
+  | Box | Buildings |
+  |---|---|
+  | Yeongdeok-eup | 59 |
+  | Uiseong-eup | 40 |
+  | Andong city east | 373 |
+  | Yeongdeok Chuksan | 3 |
+  | Yeongdeok Ganggu | 5 |
+  | Uiseong Anpyeong | 1 |
+  | Andong Imha | 0 |
+
+  The Microsoft index has no Korean tiles.
+- Decision:
+  - Use the Yeongdeok-eup box: 129.350 to 129.385 E, 36.400 to 36.430 N, 10.4 km².
+  - It has a good road network (716 highway tags), 59 mapped buildings, and the mapped Yeongdeok Substation (154 kV).
+  - Use real roads and substation and add 1,441 synthetic buildings along roads. This is a hybrid, not a full synthetic fallback, and is stated in every document.
+- Next step: research agent for step 6 in parallel; build the fire model.
+
+## 2026-10-14 22:45 Desk research launched
+
+- Goal: step 6 (AMI in Korea, last-gasp logging, data holders).
+- Action: background research agent with web search and fetch only; no files written.
+- Next step: build the simulation meanwhile.
+
+## 2026-10-14 22:50 Fire model test (exploratory)
+
+- Command: inline test of `lastgasp.fire.simulate_fire` on world seed 0.
+- Parameters: wind 8 m/s from the west, head spread rate 48 m/min, LB 3.68, 10 m cells (314 by 332), full west-edge line ignition.
+- Results:
+  - 5.0 s per world; 96% of cells burned by 150 min.
+  - 17 spot ignitions, 8 with lead of 10 min or more.
+- Decision: restrict the ignition line to the middle 60% of the west edge so flanks exist.
+
+## 2026-10-14 22:55 First end-to-end run (exploratory, failure mode found)
+
+- Command: `run_one(cfg, 0, 0)`.
+- Parameters: one feeder breaker, fuses at laterals, span fault probability 0.30 per 50 m span.
+- Results:
+  - 99% of meters in buildings the fire reached lost power to an upstream fault first (`frac_fire_censored_by_grid` 0.988).
+  - Fire-caused deaths were 0.8% of delivered messages.
+  - Huygens median error 11.2 min.
+- Decision:
+  - The network was unrealistically fragile. Add 6 feeders, reclosers every 1 km on main lines, local transformer faults (probability 0.3), and lower the span fault probability to 0.05 (swept later).
+  - Keep the censoring effect as a finding.
+
+## 2026-10-14 23:00 Reconstruction method iteration (exploratory)
+
+- Results after the network change (world 0):
+  - 81% of fire signals censored; topology classifier balanced accuracy 0.90.
+  - IDW 5.65 / 26.3 min median / 90th percentile. Plain Huygens min-plus 10.3 / 30.3. The fitted spread was nearly isotropic in the wrong direction.
+- Variants tested on worlds 0, 2 and 3:
+  - Huygens with the true parameters was worse (14.6 / 63.9 in world 0).
+  - 3rd-order statistic: 6.9 / 18.9, 4.0 / 22.7, 7.4 / 29.6.
+  - Local robust plane fit: no better than IDW.
+  - 3rd-order statistic plus residual correction (L = 200 m): 5.8 / 22.9, 5.2 / 22.4, 3.9 / 16.1.
+- Decision: adopt the 3rd-order statistic plus residual correction as the "better" method.
+- Also tried: choosing between IDW and Huygens by leave-one-out error. It always picked IDW because leave-one-out error cannot see extrapolation error, so it was removed.
+- Spot detection fixes:
+  - Support must come from later deaths that are themselves early.
+  - Reject candidates with a simultaneous partner under the same small protective device.
+  - Precision now counts a match to any true spot; recall counts significant spots only.
+- Next step: sweeps.
+
+## 2026-10-14 23:06 Checkpoint commit 4ef08f0
+
+- Pipeline modules committed.
+
+## 2026-10-14 23:08 First full sweep (superseded by the 23:15 rerun)
+
+- Command: `.venv/bin/python scripts/03_sweeps.py --fire-seeds 5 --obs-seeds 2 --workers 4`
+- Runs: 410, 0 errors, 239 s. Code was uncommitted at the time (based on 4ef08f0).
+- Results were identical to the 23:15 rerun below; the pipeline is deterministic given seeds.
+- Figure fixes after inspection:
+  - fig1: legend overlapped the axis labels, and the colorbar was detached.
+  - fig2: titles overlapped; masked cells far from buildings.
+  - fig3: title too wide.
+  - fig4 and fig5: cluttered log tick labels.
+  - fig6: x-labels overlapped.
+  - fig7: category labels touched.
+- Demo simulation: the first figure run had 5 of 25 tags surviving the fire. This was not a bug: the survival chance is 5% per tag and the draw was unlucky. The figure now shows the first run with at most one survivor (run 1).
+
+## 2026-10-14 23:12 Desk research received; spot checks
+
+- The agent's report is summarised in `docs/DESK_RESEARCH.md`, with all sources in `data/SOURCES.md`.
+- Re-checked by fetching:
+  - Newsis 2025-04-28: 18 transmission lines, 2 substations, about 93,000 households for about 9 hours. Confirmed.
+  - Electimes 2022-09-19: 48% national and 39% Gyeongbuk AMI penetration. Confirmed, but the article gives no explicit reference year. Wording corrected.
+- Four paper DOIs verified through Crossref and doi.org.
+
+## 2026-10-14 23:15 Clean reproduction at commit 2d903ed
+
+- Goal: tie every number to a clean commit.
+- Command: `bash scripts/run_all.sh` (log in `results/run_all.log`).
+- Steps run: world build, two example runs, 410-run sweep (220 s, 0 errors), figures, demo simulation (10 runs), numbers.
+- Key results:
+
+  | Setting | Result |
+  |---|---|
+  | Meters 50% (73 per km²), Huygens | 5.2 / 21.5 min |
+  | Meters 50%, IDW after filtering | 5.4 / 26.7 min |
+  | Meters 50%, naive IDW | 6.5 / 24.7 min |
+  | Fire signals censored by an earlier grid outage | 75% |
+  | Topology classifier balanced accuracy | 0.89 (time-only 0.51) |
+  | Meter density 6.8 to 144 per km², Huygens median | 5.1 to 6.2 min |
+  | No fire-caused grid faults, IDW after filtering | 2.4 / 8.5 min |
+  | Substation trip at 20 min, Huygens | 27.4 / 49.9 min |
+  | Tags 50%, IDW | 0.6 / 2.0 min |
+  | Tags 13.5 per km², IDW | 1.2 / 6.9 min |
+  | Meters plus tags 10%, IDW after filtering | 1.8 / 8.5 min |
+
+  - Spot fires, pooled over 10 runs: precision 0.18 and recall 0.03 for meters; 0.33 and 0.17 for tags.
+  - Demo analogue (25 tags in 1 km²): IoU 0.74 while the front is inside; detection latency 2.1 min median.
+- Decision: write `RESULTS.md` with no-go for meter-only and conditional go for grid-independent nodes.
+- Commit cfd0ed9: added spot counts and errors per scenario to the summary. Regenerated `sweep_summary.json` and `NUMBERS.json` from the 2d903ed sweep table.
+
+## 2026-10-14 23:25 Records written
+
+- Wrote `README.md`, `RESULTS.md`, `docs/PARAMETERS.md`, `docs/DESK_RESEARCH.md` and `data/SOURCES.md`.
+- Next steps, in priority order:
+  1. Improve spot detection: cluster-level evidence, a front-relative likelihood, a time-aware survivor check.
+  2. Use grid bursts as coarse constraints instead of discarding them.
+  3. Make the physics fit identify spread direction (fit on accepted fire deaths only, with priors from wind).
+  4. Add terrain (DEM) and a second wind scenario.
+  5. Build the tabletop demo software around the alive-or-dead estimator.
+
+## 2026-10-14 23:30 Numbers file completed
+
+- Added the exploratory numbers quoted above to `results/exploratory_numbers.json`. They appear in `results/NUMBERS.json` under `exploratory.*`, flagged as from uncommitted intermediate code.
+- Added sweep wall time, run count, error count and per-world fire statistics: 14 to 20 spot ignitions per world, 2 to 5 significant, 97% to 99% of buildings burned.
+- Command: `.venv/bin/python scripts/07_numbers.py` (1089 numbers).

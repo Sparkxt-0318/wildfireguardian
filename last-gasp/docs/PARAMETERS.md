@@ -25,7 +25,7 @@ Every parameter lives in `configs/default.json` and can be overridden from scrip
 | `lb_model` | Alexander (1985) | Length-to-breadth ratio of 3.7 at 8 m/s, eccentricity 0.96. |
 | fuel multiplier | lognormal, sigma 0.35, correlation 150 m | Heterogeneous fuels. Assumption. |
 | ignition | line along the west edge, middle 60%, start-time jitter up to 8 min | Models an incoming front entering the town, not a point ignition. |
-| spotting launch rate | 12 per km² burned, in 3 rounds | Gives roughly 15 to 20 spot ignitions per world, of which 2 to 5 lead the front by 10 min or more. Assumption. |
+| spotting launch rate | 12 per km² burned, in 3 rounds | Gives 14 to 20 spot ignitions per world, of which 2 to 5 lead the front by 10 min or more (5 worlds). Assumption. |
 | spotting distance | lognormal, median 250 m, sigma 0.7, cap 2 km | Lognormal firebrand landing distributions are standard (Sardoy et al. 2008). No quantified spotting distance was found for the 2025 fires. |
 | spot direction scatter | 12 deg | Assumption. |
 | `p_ignite` | 0.35 | Assumption. |

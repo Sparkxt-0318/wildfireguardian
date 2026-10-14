@@ -1,13 +1,13 @@
 {
-  "commit": "4ef08f013aad89afce894cbb659b569ec24f0c8c",
-  "last_gasp_dirty": true,
+  "commit": "2d903ed3bceb00bdc7a854407dcca249f7f231dc",
+  "code_dirty": false,
   "script": "scripts/03_sweeps.py",
   "config": "configs/default.json",
   "fire_seeds": 5,
   "obs_seeds": 2,
   "n_runs": 410,
   "n_errors": 0,
-  "wall_s": 239.2,
+  "wall_s": 219.9,
   "sweeps": {
     "meter_density": {
       "key": "observe.meter_fraction",
