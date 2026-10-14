@@ -1,0 +1,9 @@
+# Linear shear, a tuning flow: u = u0 + dudy (y - y_ref). With y down and dudy < 0 the wind
+# is stronger higher in the frame: 240 px/s at the top, 150 px/s mid-height, 60 px/s at the
+# bottom of a 720 px frame.
+flow:
+  type: shear
+  u0: 150.0
+  dudy: -0.25
+  y_ref_frac: 0.5
+  v: 0.0

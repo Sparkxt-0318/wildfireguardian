@@ -16,7 +16,7 @@ During a wildfire nobody measures how many embers fly, where, or how fast, and n
 
 ## How to run
 
-The project is being built. Commands will be listed here as they land. Planned entry points (see PLAN.md section 3):
+Setup (Python 3.12; on the Mac, `scripts/sitting1.sh` does all of this):
 
 ```
 python3.12 -m venv wfglink/.venv
@@ -26,11 +26,18 @@ python -m pip install -e wfglink --no-deps
 python -m wfglink doctor
 ```
 
-Mac setup and the hardware checks are described in docs/MAC_CHECKS.md once available.
+Main commands (run from `wfglink/`):
+
+- `bash booth/booth.sh`: the booth for a whole day (fullscreen on the external monitor, camera chain iPhone, webcam, labelled replay, synthetic; restarts itself after a crash or hang; Esc twice quits). Keys: L language, I limits card, T tracks, F field, G gate.
+- `python -m wfglink booth --source synthetic|file:PATH|camera`: one booth session without the supervisor.
+- `python -m wfglink booth-prep CLIP`: prepare a clip for the booth (corner frame codes, held frames, timing sidecar).
+- `python -m wfglink demo-gate`: the headless check behind the daily `wfglink-demo-YYYYMMDD` tags (`scripts/tag_demo.sh`).
+- `bash scripts/sitting1.sh`: the first hands-on sitting on the Mac (docs/SITTING1.md).
+- `.venv/bin/python scripts/run_suite.py core|mismatch`: generate and evaluate a synthetic validation suite.
 
 ## Current status
 
-2026-10-14: plan approved (PLAN.md, version 3). Scaffolding in progress. No measured results yet.
+2026-10-15: capture chain with fallbacks, detector, tracker, velocity, exposure estimate, gate counts, the booth app with its supervisor, booth-prep, the sitting 1 kit and the synthetic generator are built and tested. Validation numbers are being produced on the synthetic core suite; none are quoted yet.
 
 ## Records
 

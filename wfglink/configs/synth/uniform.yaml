@@ -1,0 +1,5 @@
+# Uniform flow, the core tuning flow (PLAN.md 4.1): 150 px/s to the right.
+flow:
+  type: uniform
+  u: 150.0
+  v: 0.0

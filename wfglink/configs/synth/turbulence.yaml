@@ -1,0 +1,15 @@
+# Random-mode turbulence on a mean wind, HELD OUT (never used for tuning). A divergence-free
+# field from 16 stream-function modes (wavelengths 150 to 800 px, phase periods 1 to 4 s),
+# RMS speed 60 px/s, carried along by the 150 px/s mean wind. The modes are drawn from the
+# clip seed unless the random_modes entry sets its own seed.
+flow:
+  type: sum
+  flows:
+    - {type: uniform, u: 150.0, v: 0.0}
+    - type: random_modes
+      n_modes: 16
+      wavelength_px: [150.0, 800.0]
+      rms_speed: 60.0
+      period_s: [1.0, 4.0]
+      spectrum_slope: 0.3333
+      advection: [150.0, 0.0]

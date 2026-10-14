@@ -1,0 +1,9 @@
+# Lamb-Oseen vortex in a cross wind, HELD OUT (never used for tuning). Smooth viscous core:
+# tangential speed circulation / (2 pi r) (1 - exp(-r^2 / rc^2)); core_speed is the
+# tangential speed at r = core_radius. Positive circulation turns clockwise on screen.
+flow:
+  type: lamb_oseen
+  center_frac: [0.45, 0.45]
+  core_radius: 140.0
+  core_speed: 140.0
+  background: [110.0, 0.0]

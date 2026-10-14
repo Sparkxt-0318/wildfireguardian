@@ -110,3 +110,21 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Wikimedia returns HTTP 429 to this container's shared address; sitting 1 now downloads the approved clips on the Mac in the background and links them into the upload folder.
   - Mismatch suite defined (configs/suites/mismatch.yaml, 60 clips, seeds 100 to 104, never tuned). The generator cannot render 3D perspective with depth-dependent defocus; the defocus case uses one defocus for every ember.
 - Next step: evaluate the whole core suite with the prefilter off and on, choose detector defaults on the core suite only, record core numbers, then run the mismatch suite once.
+
+## 2026-10-15T02:20+08:00 First demo build; synthetic generator reviewed and integrated
+
+- Goal: the first daily demo build (M2) and the reviewed synthetic generator (M1).
+- Commands:
+  - `bash scripts/tag_demo.sh 60`: demo gate on an export of HEAD d1bcff0 (booth UI headless, 60 s on the synthetic source and 60 s on C5).
+  - Workflow `wfglink-m1-build`, synth branch: one agent built `src/wfglink/synth/`, a second reviewed it adversarially and fixed what it found. `python -m pytest -q tests/test_synth_*.py`.
+- Parameters: configs/default.yaml and configs/synth/base.yaml at the commits named.
+- Results:
+  - Demo gate passed on both sources with no errors. Build wfglink-demo-20261015 is commit d1bcff0, recorded in DEMO_BUILDS.md.
+  - The tag was created locally, but this session's git proxy refuses tag pushes (an HTTP forbidden error). DEMO_BUILDS.md on the branch now carries every demo build with the one command that turns it into a real tag.
+  - The review found and fixed seven generator defects. Two change the clips: rendered spot shape no longer depends on sub-pixel position (the old renderer made a static spot read as a short streak and biased short streak lengths), and the visibility floor now accounts for motion blur. The core suite generated before these fixes is discarded and regenerated.
+  - Synthetic tests pass (one slow timing test skipped by default).
+- Decisions:
+  - Both behaviour changes accepted. The streak-length bias I measured on the old base clip is re-examined on the regenerated suite before anything is changed in the detector.
+  - The demo clip stays C5 until C9 downloads; in the gate run C5 produced no gate crossings, so it shows tracks but weak numbers.
+  - Encoder output is not bit-identical between runs (a property of libx264 at preset medium); truth tables and pre-compression frame hashes are exact. Accepted; results are reported over seeds.
+- Next step: regenerate the core suite, tune the detector prefilter on it, record core numbers, then run the mismatch suite once.
