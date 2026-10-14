@@ -1,6 +1,6 @@
 # wfglink plan: measuring embers and ember-derived wind from ordinary camera video
 
-Version 3, 2026-10-14 (Asia/Shanghai). Approved with changes on 2026-10-14. Version 2 added the fixes from an independent review covering measurement science, booth engineering and requirements coverage. Version 3 adds your six approval changes:
+Version 4, 2026-10-15 (Asia/Shanghai). Version 4 replaces the five Mac check-ins with two hands-on sittings (section 9), moves every decision that waited on check B into config switches, and keeps the camera and app fallbacks ready before sitting 1. Version 3 was approved with changes on 2026-10-14. Version 2 added the fixes from an independent review covering measurement science, booth engineering and requirements coverage. Version 3 adds your six approval changes:
 - dashcam (블랙박스) file-mode check;
 - an always demo-ready tagged build;
 - a schedule around your 18 October submission;
@@ -120,7 +120,7 @@ Threads:
 2. A processing thread emits an immutable Result, which owns its array and keeps it referenced next to its QImage, through a queued signal.
 3. The GUI repaints only when a new Result arrives.
 
-The worker pre-scales frames to widget size × device pixel ratio, so drawing is 1:1. If check B shows jank, capture and processing move to a child process using shared memory.
+The worker pre-scales frames to widget size × device pixel ratio, so drawing is 1:1. Capture and processing can also run in a child process that hands frames over in shared memory. Both modes are built before sitting 2, behind `live.worker_mode: thread | process`, so a jank result in check B is a config flip, not new code.
 
 Design priority (your rule): the first five seconds must read as a finished product from 2 m away.
 - Startup:
@@ -152,7 +152,7 @@ Design priority (your rule): the first five seconds must read as a finished prod
 ### Frame rate and resolution targets
 
 All values are measured and recorded in NUMBERS.json.
-- Live capture: Continuity Camera at 1920×1080, 30 fps. 60 fps if check A shows the iPhone 13 offers it.
+- Live capture: Continuity Camera at 1920×1080, 30 fps (`camera.fps`, set to 60 if check A shows the iPhone 13 offers it). The capture backend is chosen at start-up by `camera.backend: auto | pyav | opencv`. In auto mode each backend is tried in order and the first one delivering the requested size and rate wins, so check A results only change defaults.
 - Live analysis: the rectified screen region at the camera's real pixel coverage (at most 1280×720). Whole-loop processing at most 15 ms median and 25 ms p95 on the M4 Pro, with the UI running, so 30 fps holds. ArUco markers are detected every 15 frames and locally in between. The erf streak refinement is off in live mode.
 - File mode: native resolution by default (`--scale 0.5` is an opt-in preview). 1080p30 at real time or faster; 4K at native resolution at 8 fps or more.
 - Linux container: timings are recorded only as reference, not as targets.
@@ -202,7 +202,7 @@ Goals are fixed before measuring. Missed goals are reported with their reasons, 
 
 `booth-prep` writes `data/booth/<clip>.mp4` plus a sidecar CSV mapping frame index to source timestamp. It changes the clip in three ways:
 - Corner codes: each corner gets a 4x4 ArUco marker (about 96 source px) plus a Gray-coded 16-bit frame index with 2 parity bits. These overlay the corners of the original frame rather than adding a border, and the corners are masked from detection.
-- Held frames: the prepared video is written at 30 fps with every source frame repeated twice. Each source frame therefore stays on the 60 Hz panel for 4 refreshes (67 ms), which is 0.5× playback, labeled "0.5× 재생" on screen. This guarantees clean camera frames. Playback drops to 1/3× if check B shows a clean-frame yield below 80%.
+- Held frames: the prepared video is written at 30 fps with every source frame repeated `booth.hold_factor` times. The default is 2: each source frame stays on the 60 Hz panel for 4 refreshes (67 ms), which is 0.5× playback. booth-prep always writes both the 2× and the 3× file, so falling back to 1/3× after sitting 2 means flipping `booth.hold_factor` and playing the other file. The app measures the actual playback rate from the frame codes and labels it on screen ("0.5× 재생"). It also reports the clean-frame yield; 1/3× is the fallback if the yield is below 80%.
 - Optional crop or zoom onto the ember region, which offsets the resolution lost to re-filming.
 
 In booth mode only clean frames are analyzed: all 4 codes must agree and none may be gray. Velocity comes from track displacement over source-timestamp Δt. Streak speed and exposure estimation are off, because the iPhone's own exposure adds smear. When playback loops back to the start, the tracker resets and counts are reported per loop. An unprepared clip still runs, with an "unprepared clip" badge and 4 clicked corners, but it is never compared with file mode.
@@ -211,7 +211,7 @@ In booth mode only clean frames are analyzed: all 4 codes must agree and none ma
 |---|---|
 | Moiré | Screen fills about 60 to 70% of the frame at a slight angle with mild defocus. The temporal background and top-hat remove static patterns. Tested in the loop suite. |
 | Refresh and frame blending (60 Hz panel, free-running iPhone) | Held frames plus Gray codes: a blended frame shows gray bits and is skipped. |
-| Rolling-shutter tearing (scan direction unknown) | The 4 corner codes disagree on a torn frame, which is dropped. Check B includes a 240 fps slow-motion clip of the iPad to confirm the scan direction. |
+| Rolling-shutter tearing (scan direction unknown) | The 4 corner codes disagree on a torn frame, which is dropped. Sitting 1 includes a 240 fps slow-motion clip of the iPad to confirm the scan direction. |
 | PWM flicker | Not expected on the LCD iPad Air. Marker white and black cells normalize gain. |
 | Glare | Black hood, matte protector, angle. Static glare is part of the loop suite. |
 | Auto exposure and white balance drift | Gain normalized by the marker cells. Thresholds are relative to local noise. |
@@ -289,7 +289,7 @@ Live recording of the same tables is off by default. When on, ParquetWriter flus
   - crashes restart with backoff of 2 to 60 s;
   - logs rotate at 10 MB × 5 files, plus a heartbeat JSON with fps, source state and memory.
 - No launchd: it would change the camera-permission owner.
-- If check A shows zero frames from Terminal (newer macOS wants `NSCameraUseContinuityCameraDeviceType`), the first fallback is a py2app alias-mode `.app` built in seconds. It sets NSCameraUsageDescription, NSCameraUseContinuityCameraDeviceType=true and NSCameraReactionEffectGesturesEnabledDefault=false. PyInstaller is the last resort. The camera permission must be re-granted after each rebuild.
+- The app-build fallback is ready before sitting 1. If check A sees zero frames from Terminal (newer macOS wants `NSCameraUseContinuityCameraDeviceType`), the sitting 1 script builds a py2app alias-mode `.app` in seconds and reruns the camera test inside it automatically. `booth.launcher: terminal | app` selects which one the booth command starts. It sets NSCameraUsageDescription, NSCameraUseContinuityCameraDeviceType=true and NSCameraReactionEffectGesturesEnabledDefault=false. PyInstaller is the last resort. The camera permission must be re-granted after each rebuild.
 - "This is the sensor" exhibit: the booth dashcam sits on display. Its LED and night-drive results (4.4) open on a key press or on the second display.
 - Source health: a source is healthy only when the markers are locked and the decoded index advances. A paused iPad shows "iPad 정지 · iPad paused".
 - Source chain:
@@ -324,34 +324,62 @@ S2, GNSS from the route logger (read-only use of its exports):
 
 ## 9. Milestones
 
-Real hardware is checked from day 1. Times are Asia/Shanghai.
+Times are Asia/Shanghai. Your hands-on work happens in two sittings (your schedule change of 2026-10-15). I keep building without blocking on you. Every decision that depends on your hardware is a config switch with a safe default, so a late sitting causes no rework.
 
-Your Korea Code Fair submission deadline is Sun 18 October and you are finishing other hardware before then, so nothing before the 18th needs more than check A (Thursday) and check B (Saturday) from you. The demo tags from M2 onward are ready if you want to show wfglink in that submission.
+Your Korea Code Fair submission deadline is Sun 18 October. The demo tags from M2 onward are ready if you want to show wfglink in that submission.
 
 | When | Deliverables | Done when |
 |---|---|---|
-| M0 Wed 14 night, about 3 h | Scaffold and records; venv; Qt offscreen and Pretendard smoke test (libEGL installed if missing); `setup_mac.sh`; `mac_check_camera.py`: lists cameras and formats, probes exposure lock, shows a fullscreen PySide6 feed on the external screen with a simple detector, count and L toggle, then writes a JSON report; push, draft PR | Smoke tests pass here; check A ready for you |
-| M1 Thu 15 | Synthetic generator v1 with ground truth; detection; tracker; track velocity; gate counts; first numbers. Approved clips C2 to C13 downloaded (C1 when you share it). | First F1 and CPC error in NUMBERS.json |
-| M2 Fri 16 | Finished-looking live UI on the real pipeline (ko/en, 2 m design rules); threading; watchdog and source chain; booth.sh; booth-prep with codes and held frames; demo gate and first demo tag | First `wfglink-demo-*` tag pushed and logged |
-| M3 Sat 17 | Streaks and exposure estimator; ember field; flux CIs; Parquet, JSON and overlay export; core and mismatch suites with figures. Mac check B (moved to Saturday). | Headline numbers from the mismatch suite; check B shows 30 fps or more and recovery from an unplug |
-| M4 Sun 18 | Loop simulator and loop suite; calibration; LED validation tool with the side-by-side dashcam and iPhone report (4.4), run as soon as your clips arrive; first real-clip runs | One real clip fully processed; dashcam report runs on a synthetic stand-in |
-| M5 Mon 19 | Coverage suite; plausibility; LED results for iPhone and dashcam once recorded; METHODS, LIMITS, runbook, README; profiling. Mac check C overnight. | `reproduce` regenerates everything |
-| M6 Tue 20 | Fixes from Mac reports; S1; S2 only with a logger export | Soak report clean |
-| M7 Wed 21 | Freeze, final checks, rehearsal checklist, buffer | Clean tree, checks green, final demo tag pushed |
+| M0 Wed 14 night | Scaffold, records, environment, detector; capture backends (PyAV and OpenCV) with automatic fallback and a fake camera for tests; reconnecting source; app-build script | Smoke and detector tests pass here |
+| M1 Thu 15 | Synthetic generator v1 with ground truth; tracker; velocity; exposure estimator; gate counts; metrics; first numbers; approved clips downloaded (C1 when you share it); sitting 1 kit complete (script, checklist, iPad panel test video, LED and dashcam analysis) | Sitting 1 kit passes a dry run here on synthetic and file stand-ins |
+| M2 Fri 16 | Finished-looking live UI on the real pipeline (ko/en, 2 m design rules); thread and process worker modes; watchdog and source chain; booth.sh; booth-prep with codes and both hold factors; demo gate and first demo tag | First `wfglink-demo-*` tag pushed and logged |
+| M3 Sat 17 | Streaks and exposure in the pipeline; ember field; flux CIs; Parquet, JSON and overlay export; core and mismatch suites with figures | Headline numbers from the mismatch suite |
+| M4 Sun 18 | Loop simulator and loop suite; calibration; side-by-side dashcam and iPhone LED report (4.4), run as soon as sitting 1 files arrive; first real-clip runs | One real clip fully processed; LED report runs on a synthetic stand-in |
+| M5 Mon 19 | Coverage suite; plausibility; METHODS, LIMITS, runbook, README; profiling; sitting 2 kit complete | `reproduce` regenerates everything; sitting 2 kit passes a dry run here |
+| M6 Tue 20 | Results from sitting 1 folded in; S1; S2 only with a logger export. Sitting 2 in the evening (if it is on Tue 20). | Sitting 2 report received and the soak started |
+| M7 Wed 21 | Rehearsal in the morning; fixes and config flips from sitting 2; freeze, final checks | Clean tree, checks green, final demo tag pushed |
 
 Deferred unless ahead of schedule: erf streak refinement, four-frame tracking, IDF1, H.265 beyond the spot check, ChArUco intrinsics, property-based tests, PyInstaller. If time slips, I protect this order: core measurement with synthetic validation and file mode; live UI with reconnect; loop robustness; real clips; calibration polish; stretch goals.
 
-### Mac checks
+### Your two sittings
 
-Your time is about 100 minutes hands-on in total, including the LED and dashcam recording, plus one overnight run. Each check prints a short JSON report for you to paste back. Run them from a separate worktree so your other sessions' checkout is never switched: `git fetch origin claude/practical-rubin-5vu12u && git worktree add ~/wfglink-run origin/claude/practical-rubin-5vu12u`. For later checks, refresh with `git -C ~/wfglink-run checkout --detach origin/claude/practical-rubin-5vu12u` after a fetch.
+Each sitting has one script, one checklist and one combined JSON report. Run the scripts from a separate worktree so your other sessions' checkout is never switched: `git fetch origin claude/practical-rubin-5vu12u && git worktree add ~/wfglink-run origin/claude/practical-rubin-5vu12u`. Refresh it before a sitting with `git -C ~/wfglink-run checkout --detach origin/claude/practical-rubin-5vu12u` after a fetch.
 
-| Check | When | Your time | What it does |
-|---|---|---|---|
-| A | Thu (if possible) | 15 min | Install; camera list, formats and exposure-lock probe; fullscreen feed on the external monitor; whole-loop timing |
-| B | Sat | 20 min | Booth loop with the iPad from the latest demo tag; clean-frame yield; 240 fps clip of the iPad; unplug and replug test |
-| LED and dashcam recording | After 18 Oct | about 30 min | The 4.4 clips with the iPhone and the dashcam, plus the dashcam night drive |
-| C | Mon night | 10 min + overnight | 8 h soak: fps, memory slope (fails above 20 MB/h), reconnects, iPhone heat |
-| Rehearsal | Wed | 30 min | Full booth run-through |
+Sitting 1, as soon as your parts arrive (you tell me the date). About 60 to 75 minutes. Script `scripts/sitting1.sh`, checklist `docs/SITTING1.md`. Steps, in order:
+1. Preflight and install.
+2. Check A:
+   - camera list, formats and exposure-lock probe;
+   - capture through each backend (automatic `.app` retry if Terminal gets zero frames, plus the USB webcam if plugged in);
+   - fullscreen feed on the external monitor;
+   - whole-loop timing.
+3. Guided recordings. The script says exactly what to record, how, and for how long, then renames and checks each file:
+   - iPhone LED turntable clips at both speeds, plus the ruler clip, with your stopwatch timings typed in;
+   - the same LED set filmed with the 블랙박스;
+   - a short dashcam night drive (optional; it can be added later with one command);
+   - a 240 fps slow-motion clip of the iPad playing a panel test video I provide.
+4. Local analysis of the recordings: LED speed error per device, iPad scan direction, false tracks on the night drive.
+5. Packaging. One upload folder with the renamed files, SHA-256 hashes and `report_sitting1.json`, plus upload instructions (Drive, Dropbox or iCloud link) and a short summary to paste to me.
+
+Sitting 2, the final evening, with the rehearsal the next morning. Script `scripts/sitting2.sh`, checklist `docs/SITTING2.md`. Steps, in order:
+1. Check B, the booth loop with the iPad from the latest demo tag:
+   - clean-frame yield at hold factor 2, retried at 3 if below 80%;
+   - thread and process worker timing;
+   - unplug and replug test;
+   - fullscreen placement on the monitor.
+2. The script writes the recommended config flips into `configs/booth_local.yaml` and starts the overnight soak (check C) with them.
+3. In the morning: press Esc or run `scripts/sitting2.sh --finish`. The soak stops and the combined `report_sitting2.json` is written (soak fps, memory slope, reconnects, iPhone heat if the iPhone reports it).
+4. The rehearsal follows `booth/BOOTH_RUNBOOK.md`.
+
+Decisions that wait on your hardware, each a config switch with a safe default:
+
+| Switch | Default | Set by |
+|---|---|---|
+| `camera.backend` | auto | Sitting 1 (check A) |
+| `camera.fps` | 30 | Sitting 1 (check A) |
+| `booth.launcher` | terminal | Sitting 1 (check A) |
+| `booth.hold_factor` | 2 | Sitting 2 (check B) |
+| `live.worker_mode` | thread | Sitting 2 (check B) |
+| `ui.screen` | external | Sitting 2 (check B) |
 
 ## 10. Test plan
 
@@ -382,7 +410,8 @@ Your time is about 100 minutes hands-on in total, including the LED and dashcam 
 
 | Risk | Mitigation |
 |---|---|
-| Continuity Camera gives zero frames from Terminal | Check A on day 1; PyAV path; py2app alias app; webcam |
+| Continuity Camera gives zero frames from Terminal | PyAV and OpenCV backends with automatic fallback; py2app alias app built and retried automatically in sitting 1; USB webcam; all ready before sitting 1 |
+| Sittings happen late (parts delivery, final evening) | Nothing blocks on them: hardware-dependent choices are config switches with safe defaults; fake-camera and synthetic tests stand in until then |
 | iPhone auto exposure hunts on a dark clip | Marker-cell gain normalization; relative thresholds; track-only velocity in booth mode |
 | Re-filming loses small embers | Crop or zoom in booth-prep; loss measured by the loopback check |
 | Synthetic validation is self-confirming | Held-out mismatch suite supplies the headline numbers; LED test is never tuned |
@@ -411,21 +440,22 @@ Buy:
 
 Install: Python 3.12 from python.org on the Mac.
 
-Record:
+Record (all in sitting 1, guided step by step by `scripts/sitting1.sh`):
 - LED turntable clips, top-down, dark room, with LEDs at about 3, 8 and 14 cm radius:
   - two clips of 20 s each at two speeds;
   - one 10 s clip with a ruler lying in the LED plane;
   - time 30 revolutions with a stopwatch for each speed.
 
   Record this set twice: once with the iPhone 13 at 30 fps and once with the booth dashcam. Share the dashcam's original SD-card files untouched.
-- A short night drive (2 to 5 min, no fire) recorded with the booth dashcam, as a hard negative. It also gives lane geometry.
+- A short night drive (2 to 5 min, no fire) recorded with the booth dashcam, as a hard negative. It also gives lane geometry. Optional in sitting 1; it can be added later with `scripts/sitting1.sh --add night_drive`.
+- A 240 fps slow-motion clip (about 5 s) of the iPad playing the panel test video, to measure the panel's scan direction.
 
 Provide:
 - C1 (the proposed booth clip): download it with a free DVIDS account and share a link when you have time. Until then, booth demos use C5, C9 or synthetic clips.
 - The KFS decision on C15, when it arrives.
 - Your macOS version and the monitor resolution.
-- The Mac check reports.
-- Share links (Drive, Dropbox or iCloud) for the LED clips.
+- The two sitting reports (paste the short summary; the full JSON is in the upload folder).
+- One share link (Drive, Dropbox or iCloud) to the sitting 1 upload folder.
 - For S2: a sample CSV and GPX export plus the schema document from `field_route_logger_planning_20261003_v1/prearrival_20261003_v2/` on your Mac.
 - If you want Korean footage: a permission request to KFS for the Pohang 2013 video, or your own clips.
 
@@ -503,5 +533,5 @@ Limits, in LIMITS.md and on a ko/en booth card:
 - Mismatch-suite results meet or honestly miss the 4.2 goals, with reasons.
 - The LED error is reported.
 - Screenshots in both languages are inspected.
-- Mac checks A to C show 30 fps or more live, with automatic recovery.
+- Sitting reports (checks A to C) show 30 fps or more live, with automatic recovery.
 - The runbook has been rehearsed once.

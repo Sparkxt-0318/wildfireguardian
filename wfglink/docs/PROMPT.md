@@ -101,3 +101,12 @@ Answer: "Approved with these changes:
 Everything else as written. Proceed with section 15."
 
 Note on the LED clips: the approved plan (section 4.4, written after an independent review) keeps LED clips out of tuning so that they remain an honest validation; the user approved the plan with "Everything else as written".
+
+### 2026-10-15, schedule change: two sittings
+Answer: "Schedule change: I want my hands-on work in two sittings instead of five.
+
+Sitting 1 (as soon as my parts arrive; I will tell you the date): install, check A, and every recording at once: LED turntable clips (both speeds, plus the ruler clip, with stopwatch timings), the same LED test filmed with the 블랙박스, a short night drive with the dashcam if possible, and the 240 fps slow-motion clip of the iPad screen. Prepare one script and one checklist for this sitting that runs the checks in order, tells me exactly what to record and how to name and upload each file, and writes a single combined JSON report. Target about 60 to 75 minutes.
+
+Sitting 2 (final evening): check B, then start the overnight soak (check C), with the rehearsal the next morning. Same deal: one script, one checklist, one combined report.
+
+Until sitting 1 happens, keep building without blocking on me. Assume Continuity Camera might fail and keep the USB webcam and app-build fallbacks ready, so a late check A does not cause rework. Move any decision that depended on check B (such as 0.5x versus 1/3x playback) to a config switch that is easy to flip after sitting 2. Update PLAN.md and LOG.md with the new schedule."
