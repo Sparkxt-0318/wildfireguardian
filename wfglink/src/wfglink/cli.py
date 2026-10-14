@@ -78,6 +78,16 @@ def cmd_panel_video(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_booth_prep(args: argparse.Namespace) -> int:
+    from wfglink.screen.booth_prep import prepare
+
+    crop = tuple(int(v) for v in args.crop.split(",")) if args.crop else None
+    meta = prepare(args.clip, args.out, holds=tuple(args.holds), max_height=args.max_height, crop=crop,
+                   source_step=args.source_step, max_seconds=args.max_seconds)
+    print(json.dumps({k: meta[k] for k in ("outputs", "sidecar", "source_step", "frames_source_used")}, indent=2))
+    return 0
+
+
 # Commands that own their argument parsing (everything after the command name is theirs).
 PASSTHROUGH = {
     "sitting1": ("wfglink.sitting.sitting1", "guided sitting 1: install check, check A, recordings, report"),
@@ -105,6 +115,16 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--out", default="PANEL_TEST.mp4")
     p.add_argument("--seconds", type=float, default=12.0)
     p.set_defaults(func=cmd_panel_video)
+
+    p = sub.add_parser("booth-prep", help="prepare a clip for the booth (corner codes, held frames, sidecar)")
+    p.add_argument("clip")
+    p.add_argument("--out", default="data/booth")
+    p.add_argument("--holds", type=int, nargs="+", default=[2, 3])
+    p.add_argument("--max-height", type=int, default=1080)
+    p.add_argument("--crop", default=None, help="x,y,w,h source rectangle to enlarge")
+    p.add_argument("--source-step", type=int, default=None)
+    p.add_argument("--max-seconds", type=float, default=None)
+    p.set_defaults(func=cmd_booth_prep)
 
     for name, (_, help_text) in PASSTHROUGH.items():
         sub.add_parser(name, help=help_text, add_help=False)
