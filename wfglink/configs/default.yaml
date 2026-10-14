@@ -68,3 +68,35 @@ outputs:
   table_format: parquet          # parquet or csv
   overlay_video: true
   overlay_crf: 20
+
+camera:
+  backend: auto                  # auto (PyAV, then OpenCV), pyav or opencv; set from sitting 1
+  width: 1920
+  height: 1080
+  fps: 30                        # 60 only if sitting 1 shows the iPhone 13 offers it
+  iphone_uid: null               # saved by sitting 1; otherwise the Continuity Camera is found by property
+  webcam_match: null             # optional name regex for the USB webcam
+  chain: [iphone, webcam, replay]
+
+capture:
+  stale_s: 1.5                   # no frame for this long: reconnect
+  freeze_s: 3.0                  # identical frames or failed booth check for this long: reconnect
+  freeze_dn: 0.4                 # thumbnail difference below this counts as identical
+  backoff_min_s: 0.5
+  backoff_max_s: 5.0
+  switch_back_s: 5.0             # a better source must stay healthy this long before it takes over
+  probe_every_s: 10.0
+  open_timeout_s: 8.0
+
+booth:
+  launcher: terminal             # terminal or app (py2app alias app); set from sitting 1
+  hold_factor: 2                 # 2 = 0.5x playback, 3 = 1/3x; set from sitting 2 (clean-frame yield)
+  replay_clip: null              # prepared booth clip used for labelled replay when no camera works
+
+live:
+  worker_mode: thread            # thread or process; set from sitting 2
+  analysis_max_width: 1280       # the rectified screen region is analysed at most this wide
+
+ui:
+  screen: external               # external, primary, or a screen name; set from sitting 2
+  language: ko                   # ko or en at start-up; key L toggles
