@@ -15,4 +15,5 @@ $PY src/run_physics.py
 $PY src/run_crossings.py
 $PY -I src/run_detection.py
 $PY -I src/run_confounders.py
+$PY -I src/run_extras.py
 echo "Done. Numbers pinned to commit $CELL_LINKS_COMMIT"
