@@ -100,11 +100,13 @@ def main():
     axes[0].set_ylabel("RSL - TSL change (dB)")
     axes[0].legend(fontsize=7.5, loc="lower left")
     axes[0].set_title(f"One simulated {best.band} crossing ({best.L_m/1e3:.1f} km) in real dry OpenMRG noise", fontsize=10.5)
-    for w, col in [(2.0, OI["purple"]), (5.0, OI["orange"])]:
-        axes[1].plot(tm, quantize(noise - apply_atpc(fade, w), 0.3), color=col, lw=0.8, label=f"RSL only, ATPC window {w:g} dB")
-    axes[1].plot(tm, quantize(y, 0.3), color=OI["blue"], lw=0.6, alpha=0.6, label="RSL - TSL (ATPC visible through TSL)")
-    axes[1].set_ylabel("Logged level (dB)")
-    axes[1].legend(fontsize=7.5, loc="lower left")
+    axes[1].plot(tm, quantize(y, 0.3), color=OI["blue"], lw=0.8, label="RSL - TSL (ATPC compensation visible through TSL)")
+    for k, (w, col) in enumerate([(5.0, OI["orange"]), (2.0, OI["purple"])]):
+        axes[1].plot(tm, quantize(noise - apply_atpc(fade, w), 0.3) - 6 * (k + 1), color=col, lw=0.8,
+                     label=f"RSL only, ATPC window {w:g} dB (offset {-6 * (k + 1)} dB)")
+    axes[1].set_ylabel("Logged level, offset (dB)")
+    axes[1].set_ylim(-21, 2)
+    axes[1].legend(fontsize=7.5, loc="lower center", ncol=2)
     axes[2].plot(tm, -np.r_[np.zeros(lead), A, np.zeros(len(y) - lead - len(A))][: len(tm)], color=OI["vermillion"],
                  label="Mean fire loss (model)")
     axes[2].fill_between(tm, -2 * np.r_[np.zeros(lead), S, np.zeros(len(y) - lead - len(S))][: len(tm)],

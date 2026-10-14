@@ -1,1 +1,3 @@
-
+scenario,n_alarms,median_err_km,p90_err_km,median_L_km,speed_alarm_kmh,az_alarm_deg,speed_true_kmh,az_true_deg,median_alarm_lag_min
+moderate,0,,,,,,,,
+extreme,23,2.7576953936411495,4.684505557006038,6.616955493276345,2.8144031515344845,69.0381338668002,2.813402063826464,121.49145178080198,12.8333592584159

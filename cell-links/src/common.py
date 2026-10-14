@@ -57,6 +57,12 @@ def load_config(name: str) -> dict:
 
 
 def git_commit() -> str:
+    """Commit of the code that produced a number. run_all.sh pins it in CELL_LINKS_COMMIT after
+    checking that src/ and configs/ are committed, so result files written during the run do not
+    mark it dirty."""
+    import os
+    if os.environ.get("CELL_LINKS_COMMIT"):
+        return os.environ["CELL_LINKS_COMMIT"]
     try:
         return subprocess.check_output(
             ["git", "-C", str(ROOT), "describe", "--always", "--dirty", "--abbrev=12"],

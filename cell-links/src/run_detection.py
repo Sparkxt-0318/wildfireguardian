@@ -418,7 +418,9 @@ def figures(roc, far, ev, ops, delays, cfg):
                 for ne, ls in [("lab_peak", "-"), ("field_bound", "--")]:
                     g = roc[(roc.pool == pool) & (roc.scenario == scen) & (roc["ne"] == ne) & (roc.scheme == scheme) &
                             (roc.detector == d)].sort_values("far_per_link_day")
-                    ax.plot(np.maximum(g.far_per_link_day, 1e-4), g["pd"], color=COLS[scheme], ls=ls, marker="o", ms=2.5,
+                    wide = scheme == "s10"  # drawn wide underneath: ATPC 5 dB curves coincide with it
+                    ax.plot(np.maximum(g.far_per_link_day, 1e-4), g["pd"], color=COLS[scheme], ls=ls, marker="o",
+                            ms=2.5, lw=3.2 if wide else 1.4, zorder=1 if wide else 2,
                             label=NAMES[scheme] if ne == "lab_peak" else None)
             for tgt in cfg["far_targets_per_link_day"]:
                 ax.axvline(tgt, color=OI["grey"], lw=0.8, ls=":")
@@ -472,11 +474,17 @@ def figures(roc, far, ev, ops, delays, cfg):
         ax.set_xlabel("Threshold (dB)" if d == "drop" else "Threshold (std ratio; dB for 15 min range)")
         ax.set_title("Drop detector" if d == "drop" else "Variance detector", fontsize=10)
     axes[0].set_ylabel("False alarms per link-day")
-    axes[0].legend(fontsize=7, loc="upper right")
-    fig.suptitle("OpenMRG false alarm rates: rain and erratic links dominate", fontsize=10.5)
-    fig.tight_layout()
+    fig.suptitle("OpenMRG false alarm rates: rain and erratic links dominate (1e-4 means none observed)", fontsize=10.5)
+    fig.tight_layout(rect=(0, 0.16, 1, 1))
+    fig.legend(*axes[0].get_legend_handles_labels(), loc="lower center", ncol=3, fontsize=7.5)
     savefig(fig, "det_far")
 
 
+def figures_only():
+    cfg = load_config(CFG_NAME)
+    figures(pd.read_csv(OUT / "roc.csv"), pd.read_csv(OUT / "far.csv"), pd.read_csv(OUT / "events.csv.gz"),
+            pd.read_csv(OUT / "operating_points.csv"), pd.read_csv(OUT / "delays.csv"), cfg)
+
+
 if __name__ == "__main__":
-    main()
+    figures_only() if "--figures-only" in sys.argv else main()

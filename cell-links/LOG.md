@@ -95,3 +95,23 @@ Results (simulated, hypothetical links):
 Decisions: keep both spread scenarios; signatures are saved without noise in `results/crossings/signatures_<scenario>.npz` for injection into real noise.
 
 Next step: detection with OpenMRG dry-weather noise (download in progress).
+
+## 2026-10-15 01:45 CST: OpenMRG download
+
+Goal: real dry-weather link noise for step 6.
+
+Commands: `curl -L -o OpenMRG.zip https://zenodo.org/records/7107689/files/OpenMRG.zip?download=1` ran at 3 to 7 MB/min and was later stopped by the background time limit. A range request for the last 94 kB gave the zip central directory: `cml/cml.nc` alone is 307 MB compressed (4.6 GB uncompressed), so no partial shortcut exists. Eight parallel `curl -r` range requests fetched bytes 160,000,000 to the end, and these were joined to the first 160 MB of the slow download. The assembled file has MD5 4e4cdf6ced4d45a084c348f245b8d690, matching Zenodo. Extracted `cml/`, `gauges/` and `readme.txt` into `data/raw/openmrg/extracted/` (git-ignored).
+
+Results: cml.nc has dims (time 794,887 at 10 s, sublink 728), with rsl and tsl in dBm, 1 Jun to 1 Sep 2015. A test on 10 sub-links gave dry-period standard deviations of RSL - TSL of 0.14 to 0.34 dB. 50 percent of the time falls within 3 h of a city-gauge rain tip.
+
+## 2026-10-15 02:05 CST: step 6 first detection run (no link screening)
+
+Goal: inject the step 5 signatures into dry OpenMRG noise and evaluate the drop and variance detectors under five logging schemes.
+
+Command: `.venv/bin/python -I src/run_detection.py` (config `configs/detection.json`, 120 random sub-links, seed 20261014), runtime 6 min. A first test with the synthetic AR(1) fallback (OpenMRG not yet downloaded) found two bugs, both fixed: a 1 min resampling length error, and `DataFrame.ne` shadowing the "ne" column, which silently emptied the localization table.
+
+Results: 4,360 dry link-days and 3,676 wet link-days. False alarm rates on all dry noise were high: 0.083 per link-day for a 3 dB drop at 10 s, and 0.008 per link-day even at 9 dB. In rainy periods they were 2.2 per link-day at 3 dB. At 0.01 false alarms per link-day almost nothing was detected (0.8 percent of extreme-scenario crossings).
+
+Diagnosis: alarms are concentrated in a few erratic sub-links. 64 percent of sub-links had no 3 dB drop alarm in about 30 dry days, while the worst 10 percent produced 83 percent of all alarms.
+
+Decision: add link screening, as operational CML rain processing does (Graf et al. 2020 drop erratic links). Sub-links are ranked on June dry data, the best 80 percent are kept, and false alarms and detection are evaluated only on July and August. The FAR targets are now 0.1, 0.01 and 0.001 per link-day, with 0.01 as the main one. Threshold grids were extended upward.
