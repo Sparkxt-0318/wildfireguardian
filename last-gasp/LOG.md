@@ -163,3 +163,29 @@ Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. En
   - Korean utility trip logging and the 2025 power events;
   - novelty check.
 - Next step: phase 2 item 1 (receive side).
+
+## 2026-10-14 23:47 Phase 2 first-pass code (exploratory checks)
+
+- New modules:
+  - `lastgasp/deploy.py`: tag layouts along roads and along a forest-edge proxy (contour 100 m from the nearest building).
+  - `lastgasp/receive.py`: radio links, greedy gateway placement, star / mesh / mesh-with-store-and-forward reception.
+  - `lastgasp/phase2.py`: pipeline.
+  - `lastgasp/trips.py`: protection-device trip logs, with energisation and precautionary shutoffs.
+  - `lastgasp/economics.py`: LoRa time on air, battery life, cost per km.
+  - `demo/`: booth display.
+- Line lengths in the test area: 84.5 km of road; 31.9 km of forest-edge proxy.
+- "Spacing" is a minimum 2D separation (greedy thinning of 5 m samples). Dense and parallel roads give fewer tags per km of road than 1000/spacing: at 200 m, 126 tags (1.5 per km of road, 12 per km²).
+- Exploratory smoke tests, before the radio parameters were final (world 0, 100 m road spacing, 354 tags, 4 fire-exposed gateways). Recorded in `results/exploratory_numbers.json` when written:
+  - star: 22% of fire deaths heard;
+  - mesh: 84% heard;
+  - BLE at 100 m: no tag-to-tag links.
+- Finding: tag-side store-and-forward never helps in this model. Fire only removes nodes and links, so a fragment cut off from every gateway cannot reconnect. Store-and-forward was therefore moved to the gateway, buffering during a cellular backhaul outage.
+  - Backhaul down from 40 to 100 min (exploratory, world 0): buffered gateways deliver 84% of deaths eventually but only 42% within 5 min; without a buffer, 42% are delivered and the 90th percentile error is 27.6 min (5.2 with no outage).
+- Trips (exploratory, worlds 0 and 1):
+  - 7 to 11 logged breaker and recloser trips per fire;
+  - trips alone: 5.5 to 7.3 min median error;
+  - a precautionary shutoff ahead of the fire leaves no fire-caused trips at all.
+- Spot diagnosis (exploratory): with perfect reception at 100 m road spacing, the tag nearest a significant spot fire died 1 to 15 min (median about 12 min, 11 spots in 3 worlds) after the spot ignited. Recall is limited by geometry as well as by the detector.
+- Demo: `python -m lastgasp_demo --sim --headless` burns 23 of 25 nodes and flags one spot fire at node 16 (605 m jump). `test_demo.py` passes.
+- Novelty agent report received (`docs/NOVELTY.md`). The main session re-fetched IBM US9721458B2 and Smith US9619996B1 and confirmed the quoted text: arrival time from the last heartbeat is prior art (2014).
+- Next step: set radio and cost parameters from the cited sources, commit, run the phase 2 sweeps from a clean commit.

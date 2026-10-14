@@ -1,21 +1,185 @@
 {
  "_note": "Numbers quoted in LOG.md from inline exploratory commands at intermediate, uncommitted code states (before commit 4ef08f0 unless noted). Kept as a record of decisions; not reproducible from current code. SYNTHETIC.",
- "osm_buildings_per_box": {"value": {"yeongdeok_eup": 59, "uiseong_eup": 40, "andong_city_east": 373, "yeongdeok_chuksan": 3, "yeongdeok_ganggu": 5, "uiseong_anpyeong": 1, "andong_imha": 0}, "how": "grep count of k=\"building\" in OSM API /map extracts, 2026-10-14"},
- "yeongdeok_box_highway_tags": {"value": 716, "how": "grep count of k=\"highway\" in the Yeongdeok-eup extract"},
- "fire_test_runtime_s": {"value": 5.0, "how": "first fire model test, full west-edge ignition"},
- "fire_test_burned_cell_frac": {"value": 0.96, "how": "same test"},
- "fire_test_n_spots": {"value": 17, "how": "same test"},
- "fire_test_n_spots_lead_10min": {"value": 8, "how": "same test"},
- "first_run_frac_fire_censored": {"value": 0.988, "how": "one breaker, span fault probability 0.30"},
- "first_run_frac_deaths_fire": {"value": 0.008, "how": "same run"},
- "first_run_huygens_bldg_med": {"value": 11.2, "how": "same run, plain min-plus"},
- "net_change_world0_frac_censored": {"value": 0.81, "how": "6 feeders, reclosers, span fault 0.05"},
- "net_change_world0_cls_balanced_acc": {"value": 0.90, "how": "same"},
- "net_change_world0_idw_med_p90": {"value": [5.65, 26.3], "how": "same"},
- "net_change_world0_plain_huygens_med_p90": {"value": [10.3, 30.3], "how": "same"},
- "true_params_huygens_world0_med_p90": {"value": [14.6, 63.9], "how": "Huygens with R=48, dir=0, LB=3.68"},
- "kth3_med_p90_worlds_0_2_3": {"value": [[6.9, 18.9], [4.0, 22.7], [7.4, 29.6]], "how": "3rd-order statistic, no residual correction (world 3 obs seed 0)"},
- "kth3_residual_L200_med_p90_worlds_0_2_3": {"value": [[5.8, 22.9], [5.2, 22.4], [3.9, 16.1]], "how": "3rd-order statistic plus residual correction"},
- "first_sweep_wall_s": {"value": 239, "how": "first 410-run sweep at uncommitted code based on 4ef08f0"},
- "demo_unlucky_draw_survivors": {"value": "5 of 25", "how": "demo run 0, tag survival probability 0.05"}
+ "osm_buildings_per_box": {
+  "value": {
+   "yeongdeok_eup": 59,
+   "uiseong_eup": 40,
+   "andong_city_east": 373,
+   "yeongdeok_chuksan": 3,
+   "yeongdeok_ganggu": 5,
+   "uiseong_anpyeong": 1,
+   "andong_imha": 0
+  },
+  "how": "grep count of k=\"building\" in OSM API /map extracts, 2026-10-14"
+ },
+ "yeongdeok_box_highway_tags": {
+  "value": 716,
+  "how": "grep count of k=\"highway\" in the Yeongdeok-eup extract"
+ },
+ "fire_test_runtime_s": {
+  "value": 5.0,
+  "how": "first fire model test, full west-edge ignition"
+ },
+ "fire_test_burned_cell_frac": {
+  "value": 0.96,
+  "how": "same test"
+ },
+ "fire_test_n_spots": {
+  "value": 17,
+  "how": "same test"
+ },
+ "fire_test_n_spots_lead_10min": {
+  "value": 8,
+  "how": "same test"
+ },
+ "first_run_frac_fire_censored": {
+  "value": 0.988,
+  "how": "one breaker, span fault probability 0.30"
+ },
+ "first_run_frac_deaths_fire": {
+  "value": 0.008,
+  "how": "same run"
+ },
+ "first_run_huygens_bldg_med": {
+  "value": 11.2,
+  "how": "same run, plain min-plus"
+ },
+ "net_change_world0_frac_censored": {
+  "value": 0.81,
+  "how": "6 feeders, reclosers, span fault 0.05"
+ },
+ "net_change_world0_cls_balanced_acc": {
+  "value": 0.9,
+  "how": "same"
+ },
+ "net_change_world0_idw_med_p90": {
+  "value": [
+   5.65,
+   26.3
+  ],
+  "how": "same"
+ },
+ "net_change_world0_plain_huygens_med_p90": {
+  "value": [
+   10.3,
+   30.3
+  ],
+  "how": "same"
+ },
+ "true_params_huygens_world0_med_p90": {
+  "value": [
+   14.6,
+   63.9
+  ],
+  "how": "Huygens with R=48, dir=0, LB=3.68"
+ },
+ "kth3_med_p90_worlds_0_2_3": {
+  "value": [
+   [
+    6.9,
+    18.9
+   ],
+   [
+    4.0,
+    22.7
+   ],
+   [
+    7.4,
+    29.6
+   ]
+  ],
+  "how": "3rd-order statistic, no residual correction (world 3 obs seed 0)"
+ },
+ "kth3_residual_L200_med_p90_worlds_0_2_3": {
+  "value": [
+   [
+    5.8,
+    22.9
+   ],
+   [
+    5.2,
+    22.4
+   ],
+   [
+    3.9,
+    16.1
+   ]
+  ],
+  "how": "3rd-order statistic plus residual correction"
+ },
+ "first_sweep_wall_s": {
+  "value": 239,
+  "how": "first 410-run sweep at uncommitted code based on 4ef08f0"
+ },
+ "demo_unlucky_draw_survivors": {
+  "value": "5 of 25",
+  "how": "demo run 0, tag survival probability 0.05"
+ },
+ "p2_road_km": {
+  "value": 84.5,
+  "how": "lastgasp.deploy.road_length_m on the processed world"
+ },
+ "p2_edge_km": {
+  "value": 31.9,
+  "how": "lastgasp.deploy.edge_length_m, 100 m contour"
+ },
+ "p2_tags_roads_200m": {
+  "value": 126,
+  "how": "deploy.layout roads 200 m"
+ },
+ "p2_smoke_star_heard": {
+  "value": 0.218,
+  "how": "run_tags world 0, roads 100 m, 4 exposed gateways, placeholder radio parameters"
+ },
+ "p2_smoke_mesh_heard": {
+  "value": 0.84,
+  "how": "same, mesh"
+ },
+ "p2_smoke_backhaul_buffer_eventual_realtime": {
+  "value": [
+   0.84,
+   0.42
+  ],
+  "how": "backhaul down 40 to 100 min, buffered"
+ },
+ "p2_smoke_backhaul_nobuffer_heard_p90": {
+  "value": [
+   0.42,
+   27.55
+  ],
+  "how": "same, no buffer; P90 error min"
+ },
+ "p2_smoke_no_outage_p90": {
+  "value": 5.18,
+  "how": "same run, no backhaul outage"
+ },
+ "p2_smoke_trips_per_fire": {
+  "value": [
+   7,
+   11
+  ],
+  "how": "run_trips worlds 0 and 1"
+ },
+ "p2_smoke_trips_only_median": {
+  "value": [
+   5.5,
+   7.3
+  ],
+  "how": "run_trips worlds 0 and 1"
+ },
+ "p2_spot_diag_delay_min": {
+  "value": {
+   "range": [
+    1,
+    15
+   ],
+   "median": 11.9,
+   "n_spots": 11
+  },
+  "how": "nearest tag death minus spot ignition, perfect reception, roads 100 m, worlds 0 to 2"
+ },
+ "p2_demo_burned_spots": {
+  "value": "23 of 25 burned, 1 spot at node 16, 605 m",
+  "how": "demo simulator headless, seed 1"
+ }
 }

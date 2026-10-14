@@ -65,7 +65,9 @@
       5
     ],
     "power": "battery",
-    "backhaul_fail_min": null
+    "backhaul_fail_min": null,
+    "backhaul_restore_min": null,
+    "buffer": true
   },
   "realtime_window_min": 5.0,
   "trips": {

@@ -128,12 +128,24 @@ def run_tags(cfg, fire_seed=0, obs_seed=0, keep=False):
         from scipy.spatial import cKDTree
         nb = cKDTree(bxy).query(gw_xy)[1]
         gw_death = np.minimum(gw_death, net_out["t_building"][nb])
-    if gw.get("backhaul_fail_min") is not None:
-        gw_death = np.minimum(gw_death, gw["backhaul_fail_min"])
     out["n_gateways"] = len(gw_xy)
     out["frac_tags_direct_link"] = float(tg.any(1).mean()) if len(gw_xy) else 0.0
     out["mean_tag_degree"] = float(tt.sum() / max(nt, 1))
     rec = simulate_reception(t_death, gw_death, tt, tg, rcfg, t_end, rng)
+    # Backhaul outage (cellular uplink down from fail to restore). With gateway buffering
+    # (store-and-forward at the gateway) records wait and are sent at restore; without it they are lost.
+    bf, br = gw.get("backhaul_fail_min"), gw.get("backhaul_restore_min")
+    if bf is not None:
+        br = np.inf if br is None else br
+        during = (rec["delivered_at"] >= bf) & (rec["delivered_at"] < br)
+        if gw.get("buffer", True) and np.isfinite(br):
+            rec["delivered_at"] = np.where(during, br, rec["delivered_at"])
+        else:
+            rec["obs_time"] = np.where(during, np.nan, rec["obs_time"])
+            rec["delivered_at"] = np.where(during, np.nan, rec["delivered_at"])
+        rec["last_alive_known"] = np.where((rec["last_alive_known"] >= bf) & (rec["last_alive_known"] < br) &
+                                           ~(gw.get("buffer", True) and np.isfinite(br)),
+                                           bf, rec["last_alive_known"])
     true_dead = np.isfinite(t_death)
     fire_dead = true_dead & (T_tag <= t_end) & (t_death >= T_tag)
     obs = np.isfinite(rec["obs_time"])
