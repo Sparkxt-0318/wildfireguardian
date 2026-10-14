@@ -125,7 +125,8 @@ def cmd_process(args: argparse.Namespace) -> int:
     clip = Path(args.clip)
     out = Path(args.out) if args.out else PROJECT_ROOT / "results" / "runs" / "process" / clip.stem
     s = process_clip(clip, out, cfg, gate=_gate_arg(args.gate), t_exp=args.exposure, overlay=not args.no_overlay,
-                     lang=args.lang, max_seconds=args.max_seconds, m_per_px=args.m_per_px, distance_m=args.distance_m)
+                     lang=args.lang, max_seconds=args.max_seconds, m_per_px=args.m_per_px, distance_m=args.distance_m,
+                     start_s=args.start_seconds)
     t = s["totals"]
     print(f"{clip.name}: {t.get('frames')} frames, {t.get('tracks_moving')} moving tracks, "
           f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
@@ -143,6 +144,7 @@ def cmd_demo_gate(args: argparse.Namespace) -> int:
 # Commands that own their argument parsing (everything after the command name is theirs).
 PASSTHROUGH = {
     "sitting1": ("wfglink.sitting.sitting1", "guided sitting 1: install check, check A, recordings, report"),
+    "sitting2": ("wfglink.sitting.sitting2", "guided sitting 2: check B, unplug test, local config, overnight soak"),
 }
 
 
@@ -198,7 +200,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--exposure", type=float, default=None, help="exposure time in s if known (else estimated)")
     p.add_argument("--no-overlay", action="store_true")
     p.add_argument("--lang", default="ko", choices=["ko", "en"])
-    p.add_argument("--max-seconds", type=float, default=None)
+    p.add_argument("--start-seconds", type=float, default=0.0, help="start of the segment to process")
+    p.add_argument("--max-seconds", type=float, default=None, help="end of the segment (clip time)")
     p.add_argument("--m-per-px", type=float, default=None, help="scale at the stated distance (default: pixels)")
     p.add_argument("--distance-m", type=float, default=None)
     p.add_argument("--config", nargs="*")

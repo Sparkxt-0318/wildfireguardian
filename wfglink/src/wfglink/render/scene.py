@@ -130,9 +130,10 @@ def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, 
         p.setFont(_font(theme.px(34, L.H)))
         p.drawText(L.video, Qt.AlignmentFlag.AlignCenter, t(lang, "warming"))
         return
-    ih, iw = s.image.shape[:2]
+    img = s.image if s.image.flags["C_CONTIGUOUS"] else np.ascontiguousarray(s.image)   # decoders pad odd widths
+    ih, iw = img.shape[:2]
     rect, sc = _image_rect(L, iw, ih)
-    qimg = QImage(s.image.data, iw, ih, s.image.strides[0], QImage.Format.Format_BGR888)
+    qimg = QImage(img.data, iw, ih, img.strides[0], QImage.Format.Format_BGR888)
     p.drawImage(rect, qimg)
     ox, oy = rect.x(), rect.y()
     p.save()

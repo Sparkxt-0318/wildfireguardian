@@ -117,7 +117,8 @@ def _track_table(points, counter, cfg: dict, t_exp: float | None, t_exp_sd: floa
 def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None, gate: dict | None = None,
                  t_exp: float | None = None, overlay: bool | None = None, lang: str = "ko",
                  overlay_size: tuple[int, int] = (1920, 1080), max_seconds: float | None = None,
-                 m_per_px: float | None = None, distance_m: float | None = None) -> dict[str, Any]:
+                 m_per_px: float | None = None, distance_m: float | None = None,
+                 start_s: float = 0.0) -> dict[str, Any]:
     from wfglink.sitting.recordings import probe_video
 
     cfg = cfg or load_config()
@@ -135,11 +136,11 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
     def run(t_hint, writer=None, rows=None):
         pipe = Pipeline(cfg, gate=gate, fps=fps, record=True, t_exp_hint=t_hint, m_per_px=m_per_px,
                         distance_m=distance_m)
-        src = FileSource(clip)
+        src = FileSource(clip, start_s=start_s)
         src.open()
         try:
             while (f := src.read()) is not None:
-                if max_seconds is not None and f.t > max_seconds:
+                if max_seconds is not None and f.t > max_seconds - start_s:   # max_seconds is clip time; f.t counts from start_s
                     break
                 dup0 = pipe.stats.frames_duplicate
                 ta = time.perf_counter()
@@ -256,7 +257,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
     summary = {
         "schema_version": 1,
         "created": now_shanghai(),
-        "input": {"path": str(clip), "sha256": sha256_file(clip), **meta},
+        "input": {"path": str(clip), "sha256": sha256_file(clip), "segment_s": [start_s, max_seconds], **meta},
         "config_sha256": sha256_json(cfg),
         **git_state(),
         "versions": {"python": platform.python_version(), "numpy": np.__version__, "scipy": scipy.__version__,
