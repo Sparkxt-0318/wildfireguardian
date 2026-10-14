@@ -10,7 +10,7 @@ from wfglink.io.fake import FakeCamera, FaultScript
 from wfglink.io.sources import FileSource
 from wfglink.io.synthetic_live import SyntheticLiveSource
 
-FAST = ChainConfig(stale_s=0.3, freeze_s=0.6, freeze_dn=0.4, backoff_min_s=0.1, backoff_max_s=0.4,
+FAST = ChainConfig(stale_s=0.3, freeze_s=0.6, freeze_dn=2, backoff_min_s=0.1, backoff_max_s=0.4,
                    switch_back_s=0.8, probe_every_s=0.3, open_timeout_s=2.0)
 
 
@@ -118,3 +118,24 @@ def test_file_source_true_timestamps_and_loop(tmp_path):
     d = np.diff(times)
     assert np.allclose(d, 1 / 25, atol=1e-6)  # strictly increasing across the loop seam
     assert times[0] == pytest.approx(0.0, abs=1e-6)
+
+
+def test_dark_static_scene_with_small_embers_is_not_frozen():
+    """Averaging into a thumbnail hid a few small moving embers; only exact repeats are frozen."""
+    import cv2
+
+    from wfglink.io.capture import CaptureWorker, SourceOption
+    from wfglink.io.frames import Frame
+
+    w = CaptureWorker(SourceOption("x", lambda: None, True, "x"))
+    rng = np.random.default_rng(0)
+    for i in range(10):
+        img = np.full((540, 960, 3), 20, np.uint8)
+        cv2.circle(img, (100 + 6 * i, 200), 1, (60, 160, 255), -1)
+        w._observe(Frame(img, i / 30, i, 0.0), float(i))
+        assert w.t_last_change == float(i)
+    w._observe(Frame(img.copy(), 1.0, 10, 0.0), 10.0)       # an exact repeat
+    assert w.t_last_change == 9.0
+    noisy = np.clip(img + rng.normal(0, 1.0, img.shape), 0, 255).astype(np.uint8)
+    w._observe(Frame(noisy, 1.1, 11, 0.0), 11.0)             # sensor noise alone is a new frame
+    assert w.t_last_change == 11.0

@@ -1,0 +1,5 @@
+# Mismatch variant: variable frame timing and repeated frames (HELD OUT), as in phone clips
+# and constant-frame-rate re-encodes.
+timing:
+  jitter_frac: 0.25
+  duplicate_prob: 0.1

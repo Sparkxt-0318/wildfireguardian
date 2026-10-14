@@ -88,3 +88,25 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Booth mode analyses only clean frames in source time; a backward frame index means the clip looped, which restarts tracker and counts.
   - The demo gate clip is C5 until C9 (night sparks) downloads; C5 has bright lab lights that produce some false detections.
 - Next step: LED turntable and night-drive analysis for sitting 1; then the synthetic core suite for the first numbers.
+
+## 2026-10-15T01:50+08:00 LED and night-drive analysis, booth supervisor, first look at the synthetic base clip
+
+- Goal: finish the sitting 1 analysis (LED speed, dashcam night drive), the booth-day supervisor, and a file-mode evaluation runner for the synthetic suites.
+- Commands:
+  - `python -m pytest -q -m "slow or not slow"` (all tests, including the sitting 1 dry run, which now runs the LED analysis on stand-ins).
+  - `bash booth/booth.sh --source synthetic --duration 12` offscreen, and `tests/test_booth_supervisor.py` with a scripted crash, hang and clean exit.
+  - Scratch evaluations of one base-case synthetic clip (core suite, seed 0) with `wfglink.validate.suite.evaluate_clip`, with and without a Gaussian prefilter, and a seed-threshold sweep.
+- Parameters: configs/default.yaml at commit 019bac3; prefilter and thresholds varied only in scratch runs.
+- Results:
+  - LED analysis recovers the stand-in truth (speed, exposure, detection) for a straight and a slightly tilted camera; the numbers will be recorded by `scripts/led_standin_check.py` once the source tree is clean.
+  - Fixed on the stand-ins: saturation is now flagged on the brightest color channel. Orange LEDs and embers clip red while luma stays below the level, and the flattened profile made short streaks too long without any flag.
+  - Fixed: without an exposure estimate the tracker never started fast embers whose streaks cover half the frame interval; `track.birth_duty_min` now assumes at least half.
+  - Fixed: repeated-frame detection compared 64x36 thumbnails, which dropped real frames of a static night scene with a few small embers. It now counts changed pixels at full resolution.
+  - Fixed: streaks for streak speed were chosen by measured length, which kept short streaks with positive length noise; they are now chosen by predicted length.
+  - Base clip findings, to be confirmed on the whole core suite before any number is quoted: compressed noise is heavy-tailed, so most raw detections at the default thresholds were noise; a light Gaussian prefilter (matched filter) removed most of them at the same recall. Most embers in the base case are fainter than the detector's limit after compression, so recall over all visible embers stays low; completeness against ember SNR is now reported.
+- Decisions:
+  - Detection is reported three ways: F1 over all visible embers (the plan's goal), completeness against SNR with the SNR at 50 percent completeness, and false detections per megapixel per frame.
+  - Gate counts are checked against two truths: all visible embers (an upper bound for what a camera can count) and bright embers only (a lower bound).
+  - Wikimedia returns HTTP 429 to this container's shared address; sitting 1 now downloads the approved clips on the Mac in the background and links them into the upload folder.
+  - Mismatch suite defined (configs/suites/mismatch.yaml, 60 clips, seeds 100 to 104, never tuned). The generator cannot render 3D perspective with depth-dependent defocus; the defocus case uses one defocus for every ember.
+- Next step: evaluate the whole core suite with the prefilter off and on, choose detector defaults on the core suite only, record core numbers, then run the mismatch suite once.

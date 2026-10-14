@@ -7,8 +7,9 @@ SourceChain holds an ordered list of options (for the booth: iPhone, then USB we
 then labelled file replay). It always shows the best healthy option:
 
 - A source is unhealthy when it raises, delivers no frame for `stale_s`, delivers
-  nearly identical frames for `freeze_s`, or when an optional health hook (the booth's
-  marker lock and advancing frame code) reports failure for `freeze_s`.
+  repeated frames (at most freeze_max_px pixels changed) for `freeze_s`, or when an
+  optional health hook (the booth's marker lock and advancing frame code) reports failure
+  for `freeze_s`.
 - An unhealthy source is closed and retried with exponential backoff (0.5 s to 5 s),
   and the next option takes over at once.
 - While a lower option is active, higher options are probed in the background. A probe
@@ -42,7 +43,8 @@ class SourceOption:
 class ChainConfig:
     stale_s: float = 1.5
     freeze_s: float = 3.0
-    freeze_dn: float = 0.4           # mean absolute difference of 64x36 thumbnails
+    freeze_dn: int = 2               # a pixel (half resolution) changed by at least this many DN
+    freeze_max_px: int = 0           # at most this many changed pixels: the frame repeats
     backoff_min_s: float = 0.5
     backoff_max_s: float = 5.0
     switch_back_s: float = 5.0
@@ -114,9 +116,13 @@ class CaptureWorker(threading.Thread):
                     pass
 
     def _observe(self, f: Frame, now: float) -> None:
-        small = cv2.resize(cv2.cvtColor(f.image, cv2.COLOR_BGR2GRAY) if f.image.ndim == 3 else f.image,
-                           (64, 36), interpolation=cv2.INTER_AREA).astype(np.float32)
-        if self._thumb is None or float(np.mean(np.abs(small - self._thumb))) > self._freeze_dn:
+        # A frozen camera repeats its last frame exactly; any real new frame changes many
+        # pixels through sensor noise or motion. Averaging into a thumbnail hid both on a
+        # dark, nearly static scene (a few small embers), which would have looked frozen.
+        gray = cv2.cvtColor(f.image, cv2.COLOR_BGR2GRAY) if f.image.ndim == 3 else f.image
+        small = cv2.resize(gray, (max(1, gray.shape[1] // 2), max(1, gray.shape[0] // 2)), interpolation=cv2.INTER_AREA)
+        if (self._thumb is None or self._thumb.shape != small.shape
+                or cv2.countNonZero(cv2.compare(cv2.absdiff(small, self._thumb), self._freeze_dn, cv2.CMP_GE)) > self._freeze_px):
             self.t_last_change = now
         self._thumb = small
         if self.health_hook is not None:
@@ -129,7 +135,8 @@ class CaptureWorker(threading.Thread):
         if len(self._times) > 60:
             self._times = self._times[-60:]
 
-    _freeze_dn = 0.4
+    _freeze_dn = 2
+    _freeze_px = 0
 
     def latest(self) -> Frame | None:
         with self._lock:
@@ -184,7 +191,8 @@ class SourceChain:
             raise ValueError("SourceChain needs at least one option")
         self.options = options
         self.cfg = cfg or ChainConfig()
-        CaptureWorker._freeze_dn = self.cfg.freeze_dn
+        CaptureWorker._freeze_dn = int(self.cfg.freeze_dn)
+        CaptureWorker._freeze_px = int(self.cfg.freeze_max_px)
         self.health_hook = health_hook
         self._lock = threading.Lock()
         self._stop = threading.Event()

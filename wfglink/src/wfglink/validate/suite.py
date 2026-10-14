@@ -81,6 +81,9 @@ def evaluate_clip(clip_dir: str | Path, cfg: dict | None = None) -> dict[str, An
                            "seconds": round(seconds, 2), "proc_ms_median": pipe.stats.as_dict()["proc_ms_median"]}
     parts = truth["particles"]
     out["detection"] = detection_metrics(parts, tabs["detections"], cfg, frames=scored)
+    w, h = meta.get("frame_size", [0, 0])
+    if scored and w and h:
+        out["fp_per_mpx_frame"] = out["detection"]["fp"] / (len(scored) * w * h / 1e6)
     out["completeness"] = completeness_by_snr(parts, tabs["detections"], meta, scored, cfg)
     out["snr50"] = snr50(out["completeness"]) if out["completeness"] else None
     tracks = tabs["tracks"]
@@ -88,6 +91,7 @@ def evaluate_clip(clip_dir: str | Path, cfg: dict | None = None) -> dict[str, An
         tracks = tracks[~tracks["static"].astype(bool)]   # static lights are not reported as embers
         trk = tracks[tracks["frame"].isin(scored)]
         out["tracking"] = tracking_metrics(parts, trk, cfg, frames=scored)
+        out["track_fp_per_frame"] = out["tracking"]["fp"] / max(len(scored), 1)
         pv = add_point_velocities(trk, cfg, t_exp=t_exp)
         out["velocity_track"] = velocity_metrics(parts, pv, cfg, vx_col="vx_poly", vy_col="vy_poly",
                                                  x_col="x_meas", y_col="y_meas")
@@ -103,7 +107,37 @@ def evaluate_clip(clip_dir: str | Path, cfg: dict | None = None) -> dict[str, An
         t_ready = float(ready["t"].iloc[0])
         out["gate"] = gate_metrics(pipe.counter, truth["gate"], parts, t0=t_ready, cfg=cfg,
                                    frame_range=(scored[0], scored[-1]))
+
+    # Bright embers only (SNR >= validate.bright_snr): fainter embers become "don't care", so
+    # these metrics describe the method where the detector can see, apart from its limit.
+    # The gate estimate counts some fainter embers too, so the bright-ember truth is a lower
+    # bound for it, as the all-visible truth is an upper bound.
+    bright_snr = float(cfg.get("validate", {}).get("bright_snr", 20.0))
+    psnr = particle_snr(parts, meta)
+    if psnr is not None:
+        bright_ids = psnr.index[psnr >= bright_snr]
+        pb = parts.copy()
+        pb["visible"] = pb["visible"] & pb["particle_id"].isin(bright_ids)
+        out["detection_bright"] = detection_metrics(pb, tabs["detections"], cfg, frames=scored)
+        if len(tracks):
+            out["tracking_bright"] = tracking_metrics(pb, trk, cfg, frames=scored)
+        if "gate" in out:
+            gb = truth["gate"][truth["gate"]["particle_id"].isin(bright_ids)]
+            out["gate_bright"] = gate_metrics(pipe.counter, gb, pb, t0=t_ready, cfg=cfg,
+                                              frame_range=(scored[0], scored[-1]))
+            est = out["gate"]["estimate"]["gross"]
+            lo, hi = out["gate_bright"]["truth"]["gross"], out["gate"]["truth"]["gross"]
+            out["gate_between_bounds"] = bool(lo <= est <= hi)
     return out
+
+
+def particle_snr(parts, meta: dict):
+    """Median SNR of each particle over its rows (the generator's definition), or None."""
+    noise = float(meta.get("snr_model", {}).get("noise_luma_dn_ref", float("nan")))
+    if not np.isfinite(noise) or len(parts) == 0:
+        return None
+    snr = parts["flux"] / (noise * 2 * np.sqrt(np.pi) * parts["sigma_px"])
+    return snr.groupby(parts["particle_id"]).median()
 
 
 SNR_BINS = (0, 5, 10, 15, 20, 30, 50, float("inf"))
@@ -208,6 +242,9 @@ SUMMARY_KEYS = {
     "cpc_gross_rel_err": "gate.cpc_gross.rel_err",
     "cpc_gross_in_ci": "gate.cpc_gross.in_ci",
     "pnf_rel_err": "gate.pnf.rel_err",
+    "fp_per_mpx_frame": "fp_per_mpx_frame", "recall_bright": "detection_bright.recall",
+    "track_fp_per_frame": "track_fp_per_frame",
+    "gate_between_bounds": "gate_between_bounds",
 }
 
 
@@ -222,7 +259,8 @@ def summarize(results: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         for name, path in SUMMARY_KEYS.items():
             vals = [_get(r, path) for r in rs]
             vals = [float(v) for v in vals if v is not None and np.isfinite(float(v))]
-            row[name] = float(np.median(vals)) if vals else None
+            agg = np.mean if name in ("cpc_gross_in_ci", "gate_between_bounds") else np.median   # fractions of clips
+            row[name] = float(agg(vals)) if vals else None
         pooled: dict[str, list[int]] = {}
         for r in rs:
             for k, (h, n) in (r.get("completeness") or {}).items():

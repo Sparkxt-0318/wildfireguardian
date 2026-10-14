@@ -85,6 +85,7 @@ validate:
   match_radius_px: 3.0
   streak_radius_frac: 0.5        # match radius = max(match_radius_px, frac * L)
   min_true_speed_px_s: 1.0       # truth slower than this is left out of relative errors
+  bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
 
 field:
   grid: [16, 9]
@@ -112,7 +113,8 @@ camera:
 capture:
   stale_s: 1.5                   # no frame for this long: reconnect
   freeze_s: 3.0                  # identical frames or failed booth check for this long: reconnect
-  freeze_dn: 0.4                 # thumbnail difference below this counts as identical
+  freeze_dn: 2                   # half-resolution pixels changed by at least this many DN count as changed
+  freeze_max_px: 0               # a frame with no changed pixel repeats the last one (frozen cameras repeat exactly)
   backoff_min_s: 0.5
   backoff_max_s: 5.0
   switch_back_s: 5.0             # a better source must stay healthy this long before it takes over
