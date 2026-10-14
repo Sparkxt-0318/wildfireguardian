@@ -4,9 +4,11 @@ Run through scripts/sitting2.sh (which installs first). Steps, in order:
 
   preflight           versions, git commit, free disk, sitting 1 settings, screens, cameras
   booth_clip          prepares the booth clip (C1, else C9, else C5) at hold 2 and 3 into
-                      data/booth/; you AirDrop the hold-2 file to the iPad and loop it
-  check_b_yield       booth runs through the iPhone with frame codes: clean-frame yield at
-                      hold 2, retried at hold 3 when below sitting2.yield_min; chooses the
+                      data/booth/; you copy both files into VLC on the iPad and loop hold 2
+  check_b_yield       per hold factor: a booth run through the iPhone (clean-frame yield,
+                      fps, the screen), then the source coverage over several camera
+                      sessions; hold 3 is measured when hold 2 fails the hold rule
+                      (sitting2.hold_rule: coverage, the default, or yield); chooses the
                       hold factor and the screen
   unplug_test         60 s run; you unplug and replug the iPhone when told; time to fall
                       back and time to recover
@@ -18,6 +20,19 @@ Run through scripts/sitting2.sh (which installs first). Steps, in order:
                       the night (check C)
   finish              (--finish, in the morning) stops both, analyses the soak, asks about
                       iPhone heat, prints the summary to paste to Claude
+
+The hold rule. The plan kept hold 2 when its clean-frame yield (clean camera frames over all
+camera frames) reached 0.8. A panel that writes new content row by row, filmed by a camera,
+makes every camera frame taken while the scan runs from one code strip to the other unclean
+(most of a 16.7 ms refresh, plus part of the exposure), so at hold 2 (a new source frame
+every 67 ms, two camera frames each) the yield averaged over camera phases stays below 0.8
+with a global shutter, and at any one phase it is close to 0.5 or close to 1.0. Tracking
+only needs every source frame read clean once: the source coverage. It stays complete at
+every phase while the unclean time per content change is shorter than one camera frame.
+The default rule (hold_rule: coverage) keeps hold 2 when the coverage reaches coverage_min
+in every window and at least one window shows spare clean views; otherwise hold 3 (three
+camera frames per source frame) is measured and chosen when it is safer. The yield is still
+measured and reported.
 
 Everything is saved after each step; `--from STEP` resumes and `--only STEP` repeats one.
 `--dry-run` runs the whole flow here on a synthetic stand-in clip filmed by the
@@ -58,7 +73,7 @@ VIDEO_FPS = 30.0      # booth-prep writes 30 fps files; a source frame lasts `ho
 STEP_ORDER = ["preflight", "booth_clip", "check_b_yield", "unplug_test", "webcam_test", "worker_mode",
               "write_local_config", "soak_start"]
 ALL_STEPS = STEP_ORDER + ["finish"]
-MINUTES = {"preflight": 3, "booth_clip": 5, "check_b_yield": 7, "unplug_test": 3, "webcam_test": 3,
+MINUTES = {"preflight": 3, "booth_clip": 5, "check_b_yield": 8, "unplug_test": 3, "webcam_test": 3,
            "worker_mode": 3, "write_local_config": 1, "soak_start": 3, "finish": 5}
 PARTS = ["iPhone 13 with its Lightning to USB-C cable, and the tripod with the phone clamp",
          "iPad Air on its rigid stand, with its charger plugged in",
@@ -69,9 +84,9 @@ PARTS = ["iPhone 13 with its Lightning to USB-C cable, and the tripod with the p
 
 # Pure helpers (unit tested) -----------------------------------------------------------------
 
-def choose_hold(y2: float | None, y3: float | None, yield_min: float) -> dict[str, Any]:
-    """Hold factor from the clean-frame yields: keep 2 when it reaches yield_min, else 3 when it
-    is better, else 2."""
+def choose_hold_yield(y2: float | None, y3: float | None, yield_min: float) -> dict[str, Any]:
+    """The plan's original rule: keep hold 2 when its clean-frame yield reaches yield_min, else
+    3 when it is better, else 2."""
     if y2 is not None and y2 >= yield_min:
         return {"hold_factor": 2, "reason": f"hold 2 yield {y2:.2f} reaches {yield_min:.2f}", "meets_min": True}
     if y3 is not None and (y2 is None or y3 > y2):
@@ -79,6 +94,174 @@ def choose_hold(y2: float | None, y3: float | None, yield_min: float) -> dict[st
                                              f"{yield_min:.2f}; hold 3 gives {y3:.2f}"), "meets_min": y3 >= yield_min}
     return {"hold_factor": 2, "reason": "hold 3 was not better (or not measured); keeping the default",
             "meets_min": bool(y2 is not None and y2 >= yield_min)}
+
+
+def window_coverage(records: list[dict[str, Any]], fps: float | None = None) -> dict[str, Any]:
+    """Clean-frame yield and source coverage of one camera session (one camera phase).
+
+    records: one per camera frame in time order, with the frame-code reader's 'index'
+    (None when no code was read), 'clean', 'blended' and 'torn', and optionally the frame
+    time 't'. A pass of the clip ends where the clean index goes back. Within a pass, the
+    source frames shown are those from the first to the last clean index; coverage is the
+    share of them read clean at least once, which is what booth tracking needs (the
+    pipeline analyses each source frame once and skips repeats). 'spare' is the share of
+    the covered source frames read clean at least twice: at that camera phase one more
+    unclean camera frame per content change would still leave each one covered. A window
+    whose codes were read but never clean (at least 10 frames) has coverage 0, and one whose
+    few clean frames span less than half of the source frames decoded is counted over those.
+    """
+    n = len(records)
+    passes: list[dict[int, int]] = []
+    cur: dict[int, int] = {}
+    last = None
+    n_clean = n_code = n_blend = n_torn = 0
+    for r in records:
+        if r.get("index") is not None:
+            n_code += 1
+        n_blend += bool(r.get("blended"))
+        n_torn += bool(r.get("torn"))
+        if not r.get("clean") or r.get("index") is None:
+            continue
+        n_clean += 1
+        i = int(r["index"])
+        if last is not None and i < last:
+            passes.append(cur)
+            cur = {}
+        cur[i] = cur.get(i, 0) + 1
+        last = i
+    if cur:
+        passes.append(cur)
+    shown = sum(max(p) - min(p) + 1 for p in passes)
+    seen = sum(len(p) for p in passes)
+    views = [v for p in passes for v in p.values()]
+    gap = 0
+    for p in passes:
+        idx = sorted(p)
+        gap = max([gap] + [b - a - 1 for a, b in zip(idx, idx[1:])])
+    if not passes and n_code >= 10:
+        # Codes were read but never clean: the worst phase, not a missing screen. The source
+        # frames shown come from the decoded indices of the unclean frames (each within one
+        # frame of the truth), and none of them was covered.
+        lo = hi = prev = None
+        for r in records:
+            i = r.get("index")
+            if i is None:
+                continue
+            i = int(i)
+            if prev is not None and i < prev - 1:   # the clip looped
+                shown += hi - lo + 1
+                lo = hi = None
+            lo = i if lo is None else min(lo, i)
+            hi = i if hi is None else max(hi, i)
+            prev = i
+        shown += hi - lo + 1
+        gap = shown
+    decoded = {int(r["index"]) for r in records if r.get("index") is not None}
+    if passes and n_code >= 10 and len(decoded) > 2 * shown + 2:
+        # A few clean frames close together, while the codes show that many more source
+        # frames went by (each decoded index is within one frame of the truth): most of the
+        # window was never read clean. Count those source frames, so the window fails
+        # instead of being left out as too short.
+        shown = len(decoded)
+        gap = max(gap, shown - seen)
+    out: dict[str, Any] = {
+        "frames": n, "clean": n_clean, "with_code": n_code, "blended": n_blend, "torn": n_torn,
+        "yield": round(n_clean / n, 4) if n else None, "passes": len(passes), "shown": shown, "seen": seen,
+        "coverage": round(seen / shown, 4) if shown else None,
+        "spare": round(sum(v >= 2 for v in views) / len(views), 4) if views else None,
+        "max_gap": gap, "frames_per_shown": round(n / shown, 3) if shown else None,
+        "unclean_per_shown": round((n - n_clean) / shown, 3) if shown else None,
+    }
+    ts = [float(r["t"]) for r in records if r.get("t") is not None]
+    if fps and len(ts) > 1:
+        dts = [b - a for a, b in zip(ts, ts[1:])]
+        out["dropped"] = int(sum(max(0, round(d * fps) - 1) for d in dts if d > 0))
+    return out
+
+
+def coverage_summary(windows: list[dict[str, Any]], spare_min: float = 0.5, min_shown: int = 10,
+                     used_min: float = 0.5) -> dict[str, Any]:
+    """Pool the windows of one hold factor: each window is one camera session, so one phase
+    of the camera against the iPad's content period.
+
+    A run at one phase can be lucky: the clocks of the iPhone and the iPad drift apart so
+    slowly that a minute sees one phase only. So the worst window counts, not just the pooled
+    value, and 'spare_windows' counts the windows in which most covered source frames were
+    read clean at least twice (spare >= spare_min), which shows that no other phase loses a
+    source frame. 'unclean_per_shown' (phase-averaged unclean camera frames per content
+    change) and 'margin' (frames_per_shown - 1 - unclean_per_shown, positive when every
+    phase should keep each source frame) are diagnostics from the same counts. A window that
+    could not open, or read too few codes, gives no measurement; 'enough_windows' says whether
+    at least used_min of the windows did, since a rule passed on one or two phases is luck.
+    """
+    used = [w for w in windows if not w.get("error") and (w.get("shown") or 0) >= min_shown]
+    out: dict[str, Any] = {"windows": len(windows), "windows_used": len(used), "spare_min": spare_min,
+                           "enough_windows": bool(used) and len(used) >= used_min * len(windows)}
+    if not used:
+        out.update(coverage=None, coverage_worst=None, spare_windows=0, yield_mean=None)
+        return out
+    shown = sum(w["shown"] for w in used)
+    seen = sum(w["seen"] for w in used)
+    frames = sum(w["frames"] for w in used)
+    clean = sum(w["clean"] for w in used)
+    covs = [w["coverage"] for w in used]
+    ylds = [w["yield"] for w in used]
+    fps_shown = frames / shown
+    unclean = (frames - clean) / shown
+    out.update({
+        "coverage": round(seen / shown, 4), "coverage_worst": min(covs), "coverage_best": max(covs),
+        "yield": round(clean / frames, 4), "yield_mean": round(sum(ylds) / len(ylds), 4),
+        "yield_min": min(ylds), "yield_max": max(ylds),
+        "spare_windows": sum(1 for w in used if (w.get("spare") or 0) >= spare_min),
+        "frames_per_shown": round(fps_shown, 3), "unclean_per_shown": round(unclean, 3),
+        "margin": round(fps_shown - 1 - unclean, 3), "max_gap": max(w["max_gap"] for w in used),
+        "dropped": sum(w.get("dropped") or 0 for w in used), "frames": frames, "shown": shown,
+    })
+    return out
+
+
+def coverage_ok(c: dict[str, Any] | None, coverage_min: float) -> bool:
+    """Every window covers at least coverage_min of the source frames shown, and at least one
+    window shows spare clean views (so the coverage is not one lucky camera phase), with
+    enough windows measured."""
+    return bool(c and c.get("windows_used") and c.get("enough_windows") and c.get("coverage_worst") is not None
+                and c["coverage_worst"] >= coverage_min and c["coverage"] >= coverage_min
+                and (c.get("spare_windows") or 0) >= 1)
+
+
+def choose_hold_coverage(c2: dict[str, Any] | None, c3: dict[str, Any] | None,
+                         coverage_min: float) -> dict[str, Any]:
+    """Hold factor from source coverage: keep 2 when coverage_ok, else 3 when it passes or is at
+    least as good (it shows every source frame to more camera frames), else 2."""
+    def desc(h: int, c: dict[str, Any] | None) -> str:
+        if not c or c.get("coverage_worst") is None:
+            return f"hold {h} not measured"
+        missing = c.get("windows", 0) - c.get("windows_used", 0)
+        return (f"hold {h} coverage {c['coverage']:.3f} (worst window {c['coverage_worst']:.3f}), "
+                f"spare views in {c['spare_windows']} of {c['windows_used']} windows"
+                + (f", {missing} window(s) without a measurement" if missing > 0 else ""))
+
+    if coverage_ok(c2, coverage_min):
+        return {"hold_factor": 2, "reason": f"{desc(2, c2)}: meets {coverage_min:.2f}", "meets_min": True}
+    if c3 and c3.get("coverage_worst") is not None:
+        ok3 = coverage_ok(c3, coverage_min)
+        key = (lambda c: (c.get("coverage_worst") or 0.0, c.get("coverage") or 0.0))
+        if ok3 or not c2 or c2.get("coverage_worst") is None or key(c3) >= key(c2):
+            return {"hold_factor": 3, "reason": f"{desc(2, c2)}; {desc(3, c3)}", "meets_min": ok3}
+    return {"hold_factor": 2, "reason": f"{desc(2, c2)}; hold 3 was not better (or not measured); keeping the default",
+            "meets_min": False}
+
+
+def choose_hold(rule: str, y2: float | None, y3: float | None, c2: dict[str, Any] | None,
+                c3: dict[str, Any] | None, yield_min: float, coverage_min: float) -> dict[str, Any]:
+    """The hold factor by sitting2.hold_rule: 'coverage' (default) or 'yield' (the plan's 0.8 rule)."""
+    if rule == "yield":
+        out = choose_hold_yield(y2, y3, yield_min)
+    elif rule == "coverage":
+        out = choose_hold_coverage(c2, c3, coverage_min)
+    else:
+        raise ValueError(f"sitting2.hold_rule must be coverage or yield, not {rule!r}")
+    return {**out, "rule": rule}
 
 
 def unplug_timing(events: list[dict[str, Any]], primary: str, t_unplug: float, t_replug: float,
@@ -95,18 +278,23 @@ def unplug_timing(events: list[dict[str, Any]], primary: str, t_unplug: float, t
     fallback = next((e for e in ev if e.get("event") == "activated" and e.get("key") != primary and e["t"] >= t_from), None)
     t_from2 = fallback["t"] if fallback else t_from
     recover = next((e for e in ev if e.get("event") == "activated" and e.get("key") == primary and e["t"] > t_from2), None)
+    # After it came back, the primary must stay up for the rest of the run.
+    relapse = next((e for e in ev if recover and e.get("event") == "failed" and e.get("key") == primary
+                    and e["t"] > recover["t"]), None)
     out: dict[str, Any] = {
         "primary": primary, "fallback_key": fallback.get("key") if fallback else None,
         "detect_s": round(fail["t"] - t_unplug, 2) if fail else None,
         "fall_back_s": round(fallback["t"] - t_unplug, 2) if fallback else None,
         "recover_s": round(recover["t"] - t_replug, 2) if recover else None,
-        "recover_max_s": recover_max_s,
+        "recover_max_s": recover_max_s, "stable_after_recover": relapse is None,
     }
-    out["pass"] = bool(fallback and recover and out["recover_s"] <= recover_max_s)
+    out["pass"] = bool(fallback and recover and out["recover_s"] <= recover_max_s and relapse is None)
     if not fail and not fallback:
         out["note"] = "the primary source never failed: was the cable unplugged?"
     elif not recover:
         out["note"] = "the primary source did not come back within the run"
+    elif relapse is not None:
+        out["note"] = f"the primary source failed again {relapse['t'] - recover['t']:.1f} s after it came back"
     return out
 
 
@@ -146,8 +334,9 @@ def run_stats(res: dict[str, Any], key: str, hold: int | None = None) -> dict[st
         out["blended_fraction"] = round((st.get("frames_blended") or 0) / n, 4)
         out["torn_fraction"] = round((st.get("frames_torn") or 0) / n, 4)
         out["no_code_fraction"] = round((st.get("frames_no_code") or 0) / n, 4)
-    # Source coverage (approximate): source frames analysed at least once per loop over the
-    # source frames the iPad showed while the pipeline was fed (frames_in / processing fps).
+    # Booth coverage (rough): source frames analysed over the source frames the iPad showed
+    # while the pipeline was fed (frames_in / processing fps). It includes frames the booth
+    # dropped because processing was slow; the hold rule uses measure_windows instead.
     if hold and n and proc_fps and st.get("frames_analysed") is not None:
         shown = n / proc_fps * VIDEO_FPS / hold
         out["source_coverage_est"] = round(min(1.0, st["frames_analysed"] / shown), 3) if shown > 0 else None
@@ -156,27 +345,120 @@ def run_stats(res: dict[str, Any], key: str, hold: int | None = None) -> dict[st
     return out
 
 
-# Process helpers -----------------------------------------------------------------------------
+def measure_windows(factory, rectifier, windows: int, seconds: float, fps: float = 30.0, pause_s: float = 0.5,
+                    clock=time.monotonic) -> list[dict[str, Any]]:
+    """Film the looping booth clip in `windows` separate camera sessions of `seconds` each and
+    read the frame code of every camera frame (no analysis, no screen, so nothing is dropped
+    for lack of time). The camera is closed and opened again between windows: a camera that
+    starts streaming starts a new frame clock, so the windows sample different phases of the
+    camera against the iPad's content period. Returns window_coverage() per window.
+    """
+    out = []
+    for i in range(int(windows)):
+        recs: list[dict[str, Any]] = []
+        err = None
+        src = None
+        t0 = clock()
+        try:
+            src = factory()
+            src.open()
+            t_end = clock() + seconds
+            n_max = max(1, int(round(seconds * fps)))
+            while len(recs) < n_max and clock() < t_end:
+                f = src.read()
+                if f is None:
+                    time.sleep(0.005)
+                    continue
+                code = rectifier.process(f.image).code
+                recs.append({"t": f.t, "index": code.index if code is not None else None,
+                             "clean": bool(code is not None and code.clean),
+                             "blended": bool(code is not None and code.blended),
+                             "torn": bool(code is not None and code.torn)})
+        except Exception as exc:  # a window that cannot open is recorded, the others still count
+            err = f"{type(exc).__name__}: {exc}"
+        finally:
+            if src is not None:
+                try:
+                    src.close()
+                except Exception:
+                    pass
+        w = window_coverage(recs, fps)
+        w.update(window=i, seconds=round(clock() - t0, 2))
+        if err:
+            w["error"] = err
+        out.append(w)
+        if pause_s and i + 1 < windows:
+            time.sleep(pause_s)
+    return out
 
-def _alive(pid: int | None) -> bool:
-    if not pid:
-        return False
+
+# Process helpers -----------------------------------------------------------------------------
+#
+# --finish stops processes by pid, and pids are reused. A process is only signalled when its
+# command line carries the soak's own arguments and it started after the soak did (from the
+# elapsed time ps reports), so a booth started by hand for the rehearsal, or any process that
+# inherited an old pid, is never touched.
+
+def _parse_etime(text: str) -> float | None:
+    """Seconds from ps's elapsed time, [[dd-]hh:]mm:ss."""
     try:
-        os.waitpid(pid, os.WNOHANG)       # reap it if it is our own child
+        days, _, rest = text.strip().rpartition("-")
+        parts = [int(p) for p in rest.split(":")]
+        while len(parts) < 3:
+            parts.insert(0, 0)
+        h, m, s = parts[-3:]
+        return (int(days) if days else 0) * 86400 + h * 3600 + m * 60 + s
+    except ValueError:
+        return None
+
+
+def _ps(pid: int | None = None) -> list[dict[str, Any]]:
+    """Live processes (one pid, or all): pid, ppid, pgid, start epoch (1 s resolution) and command."""
+    args = ["ps", "-ww", "-o", "pid=,ppid=,pgid=,etime=,stat=,command="]
+    args += ["-p", str(int(pid))] if pid else ["-A"]
+    try:
+        res = subprocess.run(args, capture_output=True, text=True, timeout=10, env={**os.environ, "LC_ALL": "C"})
+    except (OSError, subprocess.SubprocessError):
+        return []
+    now = time.time()
+    out = []
+    for line in res.stdout.splitlines():
+        parts = line.split(None, 5)
+        if len(parts) < 6 or parts[4].startswith("Z"):
+            continue
+        el = _parse_etime(parts[3])
+        try:
+            out.append({"pid": int(parts[0]), "ppid": int(parts[1]), "pgid": int(parts[2]),
+                        "start_epoch": None if el is None else now - el, "command": parts[5]})
+        except ValueError:
+            continue
+    return out
+
+
+def _proc(pid: int | None) -> dict[str, Any] | None:
+    if not pid:
+        return None
+    try:
+        os.waitpid(int(pid), os.WNOHANG)       # reap it if it is our own exited child
     except (ChildProcessError, OSError):
         pass
-    try:
-        os.kill(pid, 0)
-    except ProcessLookupError:
+    rows = [p for p in _ps(int(pid)) if p["pid"] == int(pid)]
+    return rows[0] if rows else None
+
+
+def _alive(pid: int | None) -> bool:
+    return _proc(pid) is not None
+
+
+def _is_ours(p: dict[str, Any] | None, tokens: list[str], after: float, before: float | None = None,
+             slack_s: float = 5.0) -> bool:
+    """The process carries every token in its command and started within [after, before]."""
+    if not p or not all(t in p["command"] for t in tokens):
         return False
-    except PermissionError:
-        return True
-    st = subprocess.run(["ps", "-o", "stat=", "-p", str(pid)], capture_output=True, text=True).stdout.strip()
-    return bool(st) and not st.startswith("Z")
-
-
-def _command(pid: int) -> str:
-    return subprocess.run(["ps", "-o", "command=", "-p", str(pid)], capture_output=True, text=True).stdout.strip()
+    st = p.get("start_epoch")
+    if st is None or st < after - slack_s:
+        return False
+    return before is None or st <= before + slack_s
 
 
 def _wait_gone(pid: int, timeout_s: float) -> bool:
@@ -186,6 +468,17 @@ def _wait_gone(pid: int, timeout_s: float) -> bool:
             return True
         time.sleep(0.1)
     return not _alive(pid)
+
+
+def _soak_tokens(ss: dict[str, Any]) -> dict[str, list[str]]:
+    """Command-line tokens of the soak's supervisor, app and sampler."""
+    clip = ss.get("replay_clip_abs") or ""
+    if not clip:   # reports written before replay_clip_abs: the clip follows --replay-clip in args
+        a = list(ss.get("args") or [])
+        clip = a[a.index("--replay-clip") + 1] if "--replay-clip" in a[:-1] else ""
+    clip_tok = [f"--replay-clip {clip}"] if clip else ["--replay-clip"]
+    return {"supervisor": [str(BOOTH_SH)] + clip_tok, "app": ["--heartbeat"] + clip_tok,
+            "sampler": ["wfglink.sitting.soak", "sample", str(ss.get("csv_abs") or ss.get("csv") or "")]}
 
 
 # The sitting ---------------------------------------------------------------------------------
@@ -364,15 +657,17 @@ class Sitting2:
         else:
             self.c.say("Put the clip on the iPad and loop it:")
             self.c.bullet([
-                f"In Finder, open {self.booth_dir} and AirDrop {Path(files['2']).name} and "
-                f"{Path(files['3']).name} to the iPad (the script says if the hold-3 file is needed).",
+                f"Copy {Path(files['2']).name} and {Path(files['3']).name} from {self.booth_dir} into VLC on the "
+                "iPad (the script says if the hold-3 file is needed). Either connect the iPad with a USB-C cable, "
+                "select it in the Finder sidebar, open the Files tab and drag both files onto VLC; or AirDrop them "
+                "(they land in Photos, which cannot repeat a video), then in Photos select both, Share > Save to "
+                "Files > On My iPad > VLC.",
                 "Play the hold-2 file full screen in a player that repeats one video (for example VLC: Repeat One), "
                 "with the player controls hidden. All four corner patterns must be visible.",
                 "iPad: brightness about 80 percent; Auto-Brightness, True Tone and Night Shift off; "
                 "Auto-Lock Never; charger plugged in.",
                 "iPhone on the tripod in landscape, about 30 to 50 cm away, so the iPad screen fills about two "
                 "thirds of the picture, slightly off square. Black cloth hood over both.",
-                "Mac menu bar > Video: Reactions, Center Stage, Portrait and Studio Light off.",
             ])
             self.c.wait_enter("ipad_ready", "Press Enter when the iPad is looping the hold-2 file")
         return {"clip": rel(clip), "clip_id": clip.stem, "standin": standin, "reused": reused,
@@ -431,13 +726,53 @@ class Sitting2:
             self.c.warn(f"The camera dropped out {st['source_failures']} time(s) during the run.")
         return st
 
+    def _coverage_run(self, hold: int) -> dict[str, Any]:
+        """Source coverage at this hold factor over several camera sessions (see measure_windows)."""
+        from wfglink.ui.booth_app import build_options, load_booth_meta, make_booth_context
+
+        path = self._hold_file(hold)
+        cfg = self._booth_cfg(hold, path)
+        live = [o for o in build_options(cfg, "camera") if o.live]
+        if not live:
+            return {"hold": hold, "error": "no camera to run"}
+        rect = make_booth_context(load_booth_meta(cfg), cfg).rectifier
+        n = int(self.s2["dry_coverage_windows"] if self.dry else self.s2["coverage_windows"])
+        secs = float(self.s2["dry_coverage_seconds"] if self.dry else self.s2["coverage_seconds"])
+        fps = float((self.s2.get("loopsim") or {}).get("camera_fps", 30.0)) if self.dry else float(cfg["camera"]["fps"])
+        self.c.say(f"Measuring source coverage at hold {hold}: {n} windows of {secs / n:g} s, the camera restarted "
+                   f"between them (about {secs + 1.5 * n:.0f} s, without the booth picture; leave everything as it is)...")
+        wins = measure_windows(live[0].factory, rect, n, secs / n, fps=fps)
+        c = coverage_summary(wins, spare_min=float(self.s2["spare_views_min"]),
+                             used_min=float(self.s2["coverage_windows_used_min"]))
+        c.update(hold=hold, per_window=[{k: w.get(k) for k in ("window", "frames", "yield", "coverage", "spare", "shown",
+                                                               "max_gap", "dropped", "error")} for w in wins])
+        if c.get("coverage") is None:
+            errs = [w["error"] for w in wins if w.get("error")]
+            self.c.fail(f"Hold {hold}: no source coverage measured" + (f" ({errs[-1]})" if errs else
+                        ": no frame codes were read. Is the iPad in view and playing the prepared file?"))
+            return c
+        ok = coverage_ok(c, float(self.s2["coverage_min"]))
+        (self.c.ok if ok else self.c.warn)(
+            f"Hold {hold}: source coverage {c['coverage']:.3f} (worst window {c['coverage_worst']:.3f}); spare clean "
+            f"views in {c['spare_windows']} of {c['windows_used']} windows; clean-frame yield by window "
+            f"{c['yield_min']:.2f} to {c['yield_max']:.2f}")
+        if c["frames"] and c.get("dropped", 0) > 0.02 * c["frames"]:
+            self.c.warn(f"{c['dropped']} camera frames were dropped during the measurement, so the coverage is a lower bound.")
+        return c
+
     def check_b_yield(self) -> dict[str, Any]:
-        self.c.header("3", "Check B: clean-frame yield on the booth loop", MINUTES["check_b_yield"])
+        self.c.header("3", "Check B: clean frames and source coverage on the booth loop", MINUTES["check_b_yield"])
         if not self.dry:
             self.c.bullet(["The iPad loops the hold-2 file under the hood; the iPhone films it on the cable, locked.",
-                           "Nothing to do during the runs except not bumping the tripod."])
+                           "While the first run shows the booth on the monitor, click the green camera icon in the "
+                           "Mac menu bar (Video) and check that Reactions, Center Stage, Portrait and Studio Light "
+                           "are off. That menu only exists while an app uses the camera; macOS remembers the "
+                           "settings from sitting 1.",
+                           "Otherwise nothing to do during the runs except not bumping the tripod."])
             self.c.wait_enter("ready_b", "Press Enter to start the first run")
         ymin = float(self.s2["yield_min"])
+        cmin = float(self.s2["coverage_min"])
+        rule = str(self.s2.get("hold_rule") or "coverage")
         runs: dict[str, Any] = {"2": self._yield_run(2)}
         names, used = self._screen_names()
         screen_ok = self.c.ask_yes("saw_external", "Did the booth picture fill the EXTERNAL monitor?", True)
@@ -450,17 +785,25 @@ class Sitting2:
         y2 = runs["2"].get("clean_frame_yield")
         if runs["2"].get("error"):     # no camera at all: recorded as an error, so a rerun repeats this step
             raise RuntimeError(f"hold 2: {runs['2']['error']}; connect the iPhone and rerun with --from check_b_yield")
-        if y2 is None or y2 < ymin or self.dry:
+        cov: dict[str, Any] = {"2": self._coverage_run(2)}
+        if cov["2"].get("coverage") is None:   # no camera or no codes: hold 3 would not tell more
+            raise RuntimeError("hold 2: no source coverage measured (see above); fix it and rerun with "
+                               "--from check_b_yield")
+        need3 = (not coverage_ok(cov["2"], cmin)) if rule == "coverage" else (y2 is None or y2 < ymin)
+        if need3 or self.dry:
             if not self.dry:
-                self.c.say(f"The hold-2 yield is below {ymin:.2f}. Now play the hold-3 file instead:")
-                self.c.bullet([f"{self._hold_file(3).name} (AirDropped with the hold-2 file, else from {self.booth_dir}), "
+                why = (f"the source coverage at hold 2 is not safe ({cmin:.2f} in every window, with spare views)"
+                       if rule == "coverage" else f"the hold-2 yield is below {ymin:.2f}")
+                self.c.say(f"Hold 3 is measured too, because {why}. Now play the hold-3 file instead:")
+                self.c.bullet([f"{self._hold_file(3).name} (copied with the hold-2 file, else from {self.booth_dir}), "
                                "same player, repeat one, controls hidden."])
                 self.c.wait_enter("ipad_hold3", "Press Enter when the iPad is looping the hold-3 file")
             else:
                 self.c.say("Dry run: measuring hold 3 as well.")
             runs["3"] = self._yield_run(3)
+            cov["3"] = self._coverage_run(3)
         y3 = runs.get("3", {}).get("clean_frame_yield")
-        choice = choose_hold(y2, y3, ymin)
+        choice = choose_hold(rule, y2, y3, cov.get("2"), cov.get("3"), ymin, cmin)
         hold = choice["hold_factor"]
         if not self.dry and hold == 3:
             self.c.say("Keep the hold-3 file looping on the iPad from now on.")
@@ -469,12 +812,17 @@ class Sitting2:
             self.c.wait_enter("ipad_back_hold2", "Press Enter when the iPad is looping the hold-2 file again")
         (self.c.ok if choice["meets_min"] else self.c.warn)(f"Hold factor {hold}: {choice['reason']}")
         s1 = self._sitting1() or {}
-        return {"runs": runs, "yield_min": ymin, "yield_hold2": y2, "yield_hold3": y3, **choice,
+        c2, c3 = cov.get("2") or {}, cov.get("3") or {}
+        return {"runs": runs, "coverage": cov, "yield_min": ymin, "coverage_min": cmin,
+                "yield_hold2": y2, "yield_hold3": y3, "coverage_hold2": c2.get("coverage"),
+                "coverage_worst_hold2": c2.get("coverage_worst"), "coverage_hold3": c3.get("coverage"),
+                "coverage_worst_hold3": c3.get("coverage_worst"), **choice,
                 "replay_clip": str(self._hold_file(hold)),
                 "screen": screen, "screen_used": used, "screens": names, "user_saw_external_monitor": screen_ok,
                 "sitting1_panel_axis": s1.get("panel_axis"),
-                "note": ("Clean-frame yield counts every camera frame; source coverage counts source frames "
-                         "analysed at least once, which is what tracking needs.")}
+                "note": ("Clean-frame yield counts every camera frame; source coverage counts source frames read "
+                         "clean at least once, which is what tracking needs. Each coverage window is one camera "
+                         "phase; the camera is restarted between windows to sample several.")}
 
     def unplug_test(self) -> dict[str, Any]:
         self.c.header("4", "Unplug and replug the iPhone", MINUTES["unplug_test"])
@@ -563,9 +911,14 @@ class Sitting2:
         def score(m: str) -> float:
             r = out[m]
             return -1.0 if r.get("error") or r.get("errors") or not r.get("paint_fps") else float(r["paint_fps"])
-        chosen = "process" if score("process") > score("thread") else "thread"
+        # Thread mode is the tested default; process mode wins only when clearly faster (or when
+        # thread mode failed), not on the run-to-run noise of a few tenths of a frame per second.
+        gain = float(self.s2["process_gain_min"])
+        st, sp = score("thread"), score("process")
+        chosen = "process" if sp > 0 and (st <= 0 or sp >= gain * st) else "thread"
         self.c.ok(f"Worker mode: {chosen}")
-        return {"runs": out, "worker_mode": chosen, "paint_fps": {m: out[m].get("paint_fps") for m in out}}
+        return {"runs": out, "worker_mode": chosen, "process_gain_min": gain,
+                "paint_fps": {m: out[m].get("paint_fps") for m in out}}
 
     def write_local_config(self) -> dict[str, Any]:
         self.c.header("7", "Save the booth settings", MINUTES["write_local_config"])
@@ -585,32 +938,58 @@ class Sitting2:
                   f"screen {updates['ui']['screen']}")
         return {"path": str(self.local_path), "updates": updates, "merged": merged}
 
+    def _soak_running(self, ss: dict[str, Any]) -> bool:
+        """The soak recorded in ss still has its supervisor (checked by command and start time)."""
+        if ss.get("status") != "done" or not ss.get("supervisor_pid"):
+            return False
+        start = float(ss.get("start_epoch") or 0.0)
+        return _is_ours(_proc(ss["supervisor_pid"]), _soak_tokens(ss)["supervisor"], start, start + 60.0)
+
+    @staticmethod
+    def _other_booths() -> list[dict[str, Any]]:
+        """Booth supervisors or apps of this checkout running now (a booth started by hand, an
+        earlier soak): a second app would fight the first for the camera and the heartbeat.
+        A soak sampler names the heartbeat too, but it is not a booth."""
+        return [p for p in _ps() if p["pid"] != os.getpid() and "wfglink.sitting.soak" not in p["command"]
+                and (str(BOOTH_SH) in p["command"] or f"--heartbeat {HEARTBEAT}" in p["command"])]
+
     def soak_start(self) -> dict[str, Any]:
         self.c.header("8", "Start the overnight soak (check C)", MINUTES["soak_start"])
         prev = self.report.get("soak_start")
-        if prev.get("status") == "done" and _alive(prev.get("supervisor_pid")) and "booth.sh" in _command(prev["supervisor_pid"]):
+        if self._soak_running(prev):
             self.c.warn(f"A soak is already running (supervisor pid {prev['supervisor_pid']}); run with --finish first.")
             return {k: v for k, v in prev.items() if k not in ("status", "at")}
+        if prev.get("status") == "done":
+            # An earlier soak whose booth ended without --finish (Esc pressed twice) leaves its
+            # sampler running; stop it (only if it is that soak's own) before a new one starts.
+            self._stop_sampler(prev)
+        others = self._other_booths()
+        if others:
+            pids = ", ".join(str(p["pid"]) for p in others[:5])
+            raise RuntimeError(f"a booth is already running (pid {pids}); quit it (Esc twice, or Control-C in its "
+                               "Terminal window) and rerun with --from soak_start")
         hold, path = self._chosen()
         every = float(self.s2["dry_soak_every_s"] if self.dry else self.s2["soak_every_s"])
         if not self.dry:
             self.c.bullet(["Leave everything as it is for the night: iPad looping the clip on its charger, iPhone on "
                            "the cable, MacBook on its charger with the lid open.",
                            "The booth app starts fullscreen on the monitor and restarts itself if it fails.",
-                           "You may close this Terminal window afterwards; the soak keeps running."])
+                           "Leave Terminal running (you may minimise this window, but do not quit Terminal): the "
+                           "booth is started from it, and macOS ties the camera permission to it."])
             self.c.wait_enter("ready_soak", "Press Enter to start the soak")
-        args = ["nohup", "bash", str(BOOTH_SH), "--replay-clip", str(Path(path).resolve())]
+        clip_abs = str(Path(path).resolve())
+        args = ["nohup", "bash", str(BOOTH_SH), "--replay-clip", clip_abs]
         env = dict(os.environ)
         if self.dry:
             chain = self.out / "dry_soak_chain.yaml"
-            chain.write_text(yaml.safe_dump({"camera": {"chain": [f"loopsim:{Path(path).resolve()}", "replay"]}}))
+            chain.write_text(yaml.safe_dump({"camera": {"chain": [f"loopsim:{clip_abs}", "replay"]}}))
             args += ["--screen", "primary", "--config", str(self.local_path), str(chain)]
             if sys.platform != "darwin":
                 env.setdefault("QT_QPA_PLATFORM", "offscreen")
         LOG_DIR.mkdir(parents=True, exist_ok=True)
         log_size = BOOTH_LOG.stat().st_size if BOOTH_LOG.exists() else 0
         start_epoch = time.time()
-        # Both run in their own session (setsid, plus nohup for the supervisor), so closing the
+        # Both run in their own session (setsid, plus nohup for the supervisor), so a closed
         # Terminal window does not stop them.
         with open(self.out / "soak_supervisor.out", "ab") as fh:
             sup = subprocess.Popen(args, stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
@@ -630,8 +1009,9 @@ class Sitting2:
             "The booth app is running and writing its heartbeat" if hb_ok else
             "No heartbeat yet; check the monitor and wfglink/logs/booth.log")
         payload = {"start_epoch": round(start_epoch, 3), "start_time": now_shanghai(), "supervisor_pid": sup.pid,
-                   "sampler_pid": sampler.pid, "csv": csv_path.name, "every_s": every, "booth_log_offset": log_size,
-                   "args": args[1:], "heartbeat_seen": hb_ok, "hold_factor": hold, "replay_clip": rel(path)}
+                   "sampler_pid": sampler.pid, "csv": csv_path.name, "csv_abs": str(csv_path), "every_s": every,
+                   "booth_log_offset": log_size, "args": args[1:], "heartbeat_seen": hb_ok, "hold_factor": hold,
+                   "replay_clip": rel(path), "replay_clip_abs": clip_abs}
         if self.dry:
             self.c.say(f"Dry run: soaking for {self.soak_seconds:g} s, then finishing automatically.")
             time.sleep(self.soak_seconds)
@@ -660,21 +1040,35 @@ class Sitting2:
         ss = self.report.get("soak_start")
         if ss.get("status") != "done":
             raise RuntimeError("no soak was started (run the soak_start step first)")
-        csv_path = self.out / ss.get("csv", "soak.csv")
-        out: dict[str, Any] = {}
+        prev = self.report.get("finish")
+        if prev.get("status") == "done" and prev.get("soak_start_epoch") == ss.get("start_epoch"):
+            # A second --finish must not stretch the soak to now or sample another booth.
+            self.c.say(f"This soak was already finished ({prev.get('finished_at') or prev.get('at')}); "
+                       "showing the result recorded then.")
+            return {k: v for k, v in prev.items() if k not in ("status", "at")}
+        csv_path = Path(ss.get("csv_abs") or self.out / ss.get("csv", "soak.csv"))
+        start = float(ss["start_epoch"])
+        out: dict[str, Any] = {"soak_start_epoch": ss.get("start_epoch")}
         finish_epoch = time.time()
         out["finish_epoch"] = round(finish_epoch, 3)
+        out["finished_at"] = now_shanghai()
         # The app rewrites its heartbeat every 2 s but has no SIGTERM handler, so the last word
-        # it can give is the next heartbeat: wait for one written after this moment, sample it,
-        # then stop the sampler and the supervisor.
+        # it can give is the next heartbeat: wait for one written after this moment and sample
+        # it, but only when the soak's own app wrote it (not a booth started for the rehearsal).
         out["fresh_heartbeat"] = self._wait_heartbeat(finish_epoch, 10.0, any_status=True)
-        out["final_sample"] = sample_once(HEARTBEAT, csv_path, float(self.s2["hb_stale_s"]))
-        out["sampler_stopped"] = self._stop_sampler(ss)
-        out["supervisor_stopped"], out["app_stopped"] = self._stop_booth(ss)
         hb = read_heartbeat(HEARTBEAT) or {}
-        out["final_heartbeat"] = hb
+        sup_pid = int(ss.get("supervisor_pid") or 0)
+        if self._is_soak_app(_proc(hb.get("pid")), ss, sup_pid):
+            out["final_sample"] = sample_once(HEARTBEAT, csv_path, float(self.s2["hb_stale_s"]))
+        else:
+            out["final_sample"] = None
+            out["final_sample_note"] = ("no heartbeat" if not hb else
+                                        "the heartbeat is not from the soak's app (it has stopped, or another booth wrote it)")
+        out["sampler_stopped"], out["sampler_note"] = self._stop_sampler(ss)
+        out["supervisor_stopped"], out["app_stopped"], out["left_alone"] = self._stop_booth(ss)
+        out["final_heartbeat"] = read_heartbeat(HEARTBEAT) or {}
         s2 = self.s2
-        analysis = analyse_soak(csv_path, BOOTH_LOG, float(ss["start_epoch"]), finish_epoch,
+        analysis = analyse_soak(csv_path, BOOTH_LOG, start, finish_epoch,
                                 last_h=float(s2["mem_fit_last_h"]),
                                 warmup_s=0.0 if self.dry else float(s2["mem_warmup_s"]),
                                 mem_max_mb_h=float(s2["mem_slope_max_mb_h"]),
@@ -684,57 +1078,81 @@ class Sitting2:
         out["analysis"] = analysis
         if analysis.get("ok"):
             mem = analysis["memory"]
-            self.c.ok(f"Soak {analysis['hours']} h: paint fps median {analysis['paint_fps_median']}, "
-                      f"5th percentile {analysis['paint_fps_p5']}; restarts {analysis['restarts']}; "
-                      f"source switches {analysis['source_switches']}; errors {analysis['errors']}")
+            self.c.ok(f"Soak {analysis['hours']} h ({analysis['hours_running']} h with the booth running, "
+                      f"{analysis['live_fraction']:.0%} of samples live): paint fps median "
+                      f"{analysis['paint_fps_median']}, 5th percentile {analysis['paint_fps_p5']}; restarts "
+                      f"{analysis['restarts']}; source switches {analysis['source_switches']}; errors {analysis['errors']}")
             (self.c.ok if mem["verdict"] != "fail" else self.c.fail)(
                 f"Memory slope {mem['slope_mb_h']} MB/h over {mem['span_h']} h ({mem['verdict']}, limit {mem['max_mb_h']:g})")
+            if analysis.get("sampling_gaps"):
+                self.c.warn(f"{analysis['sampling_gaps']} gap(s) in the samples ({analysis['sampling_gap_h']} h): "
+                            "the Mac slept, restarted, or the sampler stopped.")
         else:
             self.c.fail(f"Soak analysis: {analysis.get('error')}")
+        for p in out["left_alone"]:
+            self.c.warn(f"Left alone: pid {p['pid']} ({p['why']}).")
         out["iphone_hot"] = self.c.ask_yes("iphone_hot", "Was the iPhone uncomfortably hot to touch this morning?", False)
         return out
 
-    def _stop_sampler(self, ss: dict[str, Any]) -> bool:
+    @staticmethod
+    def _is_soak_app(p: dict[str, Any] | None, ss: dict[str, Any], sup_pid: int) -> bool:
+        """The soak's booth app: its arguments, started after the soak, and either in the
+        supervisor's process group (Terminal launcher) or the WFGLink app (app launcher)."""
+        start = float(ss.get("start_epoch") or 0.0)
+        return bool(p and _is_ours(p, _soak_tokens(ss)["app"], start)
+                    and (p["pgid"] == sup_pid or ".app/Contents/MacOS/" in p["command"]))
+
+    def _stop_sampler(self, ss: dict[str, Any]) -> tuple[bool, str | None]:
         pid_file = self.out / "soak_sampler.pid"
-        pid = int(pid_file.read_text().strip()) if pid_file.exists() else ss.get("sampler_pid")
-        if not pid or not _alive(pid):
-            return True
-        if "wfglink.sitting.soak" not in _command(pid):
-            return False
+        try:
+            pid = int(pid_file.read_text().strip())
+        except (OSError, ValueError):
+            pid = int(ss.get("sampler_pid") or 0)
+        p = _proc(pid)
+        if p is None:
+            return True, None
+        start = float(ss.get("start_epoch") or 0.0)
+        if not _is_ours(p, _soak_tokens(ss)["sampler"], start, start + 60.0):
+            return True, f"pid {pid} is no longer the sampler; left alone"
         os.kill(pid, signal.SIGTERM)
-        return _wait_gone(pid, 10.0)
+        return _wait_gone(pid, 10.0), None
 
-    def _stop_booth(self, ss: dict[str, Any]) -> tuple[bool, bool]:
+    def _stop_booth(self, ss: dict[str, Any]) -> tuple[bool, bool, list[dict[str, Any]]]:
         """SIGTERM to the supervisor's process group (booth.sh, the app, caffeinate), SIGKILL only if
-        that is ignored; then the app itself if it lives outside the group (booth.launcher app)."""
-        from wfglink.sitting.soak import read_heartbeat
-
-        hb = read_heartbeat(HEARTBEAT) or {}
+        that is ignored; then any app of the soak still running outside the group (booth.launcher
+        app, or a supervisor that died). Every process is checked first (_is_ours)."""
+        start = float(ss.get("start_epoch") or 0.0)
         sup = int(ss.get("supervisor_pid") or 0)
+        left: list[dict[str, Any]] = []
         sup_ok = True
-        if sup and _alive(sup):
-            if "booth.sh" not in _command(sup):
-                sup_ok = False
-            else:
-                try:
-                    os.killpg(sup, signal.SIGTERM)
-                except ProcessLookupError:
-                    pass
-                sup_ok = _wait_gone(sup, 20.0)
-                if not sup_ok:
+        p = _proc(sup)
+        if p is not None:
+            if p["pgid"] == sup and _is_ours(p, _soak_tokens(ss)["supervisor"], start, start + 60.0):
+                for sig, wait_s in ((signal.SIGTERM, 20.0), (signal.SIGKILL, 5.0)):
                     try:
-                        os.killpg(sup, signal.SIGKILL)
+                        os.killpg(sup, sig)
                     except ProcessLookupError:
                         pass
-                    sup_ok = _wait_gone(sup, 5.0)
-        app = int(hb.get("pid") or 0)
+                    sup_ok = _wait_gone(sup, wait_s)
+                    if sup_ok:
+                        break
+            else:
+                left.append({"pid": sup, "why": "not the soak's supervisor (pid reused)", "command": p["command"][:160]})
         app_ok = True
-        if app and _alive(app):
-            cmd = _command(app)
-            if "wfglink" in cmd or "WFGLink" in cmd:
-                os.kill(app, signal.SIGTERM)
-                app_ok = _wait_gone(app, 15.0)
-        return sup_ok, app_ok
+        for q in _ps():
+            if q["pid"] == os.getpid() or not self._is_soak_app(q, ss, sup):
+                continue
+            gone = False
+            for sig, wait_s in ((signal.SIGTERM, 15.0), (signal.SIGKILL, 5.0)):
+                try:
+                    os.kill(q["pid"], sig)
+                except ProcessLookupError:
+                    pass
+                gone = _wait_gone(q["pid"], wait_s)
+                if gone:
+                    break
+            app_ok = app_ok and gone
+        return sup_ok, app_ok, left
 
     # Driver ----------------------------------------------------------------------------------
     def summary(self) -> dict[str, Any]:
@@ -745,20 +1163,33 @@ class Sitting2:
         r2 = (b.get("runs") or {}).get("2", {})
         r3 = (b.get("runs") or {}).get("3", {})
         web = s.get("webcam_test", {})
-        out = {"dry_run": self.dry, "hold_factor": b.get("hold_factor"), "yield_hold2": b.get("yield_hold2"),
+        cov = b.get("coverage") or {}
+
+        def cov_short(c: dict[str, Any] | None) -> list | None:
+            # [pooled coverage, worst window, windows with spare views, windows used, yield min, yield max]
+            if not c or c.get("coverage") is None:
+                return None
+            return [c.get("coverage"), c.get("coverage_worst"), c.get("spare_windows"), c.get("windows_used"),
+                    c.get("yield_min"), c.get("yield_max")]
+        out = {"dry_run": self.dry, "hold_factor": b.get("hold_factor"), "hold_rule": b.get("rule"),
+               "meets_min": b.get("meets_min"), "yield_hold2": b.get("yield_hold2"),
                "yield_hold3": b.get("yield_hold3"), "blended_torn_hold2": [r2.get("frames_blended"), r2.get("frames_torn")],
                "blended_torn_hold3": [r3.get("frames_blended"), r3.get("frames_torn")] if r3 else None,
-               "coverage_hold2": r2.get("source_coverage_est"), "panel_axis": b.get("sitting1_panel_axis"),
-               "screen": b.get("screen"), "unplug": {k: u.get(k) for k in ("fall_back_s", "recover_s", "pass")} if u else None,
+               "coverage_hold2": cov_short(cov.get("2")), "coverage_hold3": cov_short(cov.get("3")),
+               "panel_axis": b.get("sitting1_panel_axis"),
+               "screen": b.get("screen"),
+               "unplug": {k: u.get(k) for k in ("fall_back_s", "recover_s", "pass")} if u else None,
                "webcam": web.get("works") if "works" in web else web.get("status_note"),
                "worker_mode": w.get("worker_mode"), "paint_fps": w.get("paint_fps"),
                "minutes": round((time.monotonic() - self._t0) / 60, 1)}
         if an:
             mem = an.get("memory") or {}
-            out["soak"] = {"hours": an.get("hours"), "paint_fps_median": an.get("paint_fps_median"),
+            out["soak"] = {"hours": an.get("hours"), "hours_running": an.get("hours_running"),
+                           "live_fraction": an.get("live_fraction"), "paint_fps_median": an.get("paint_fps_median"),
                            "paint_fps_p5": an.get("paint_fps_p5"), "mem_slope_mb_h": mem.get("slope_mb_h"),
                            "mem": mem.get("verdict"), "restarts": an.get("restarts"),
-                           "switches": an.get("source_switches"), "errors": an.get("errors")}
+                           "instances": an.get("instances"), "switches": an.get("source_switches"),
+                           "errors": an.get("errors")}
             out["iphone_hot"] = fin.get("iphone_hot")
         errors = {k: v.get("error") for k, v in s.items() if v.get("status") == "error"}
         if errors:

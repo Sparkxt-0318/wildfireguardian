@@ -9,13 +9,19 @@ small sampler process copies that heartbeat into a CSV once a minute:
 It writes its pid to a pid file (default: next to the CSV) and stops cleanly on SIGTERM
 or SIGINT. In the morning `analyse_soak` turns the CSV and logs/booth.log into:
 
-- hours of soak, paint fps (from the change in the painted-frame counter between
-  samples of the same app instance) with median and 5th percentile;
+- hours of soak (to the finish, or to a clean exit: Esc pressed twice ends the soak, since
+  booth.sh stops with it), hours with the booth running, the share of samples with a live
+  heartbeat, and gaps in the sampling (the Mac slept or restarted);
+- paint fps (from the change in the painted-frame counter between samples of the same
+  app instance) with median, 5th percentile and minimum: each value is the average over
+  one sampling interval;
 - memory slope in MB per hour: a linear fit of resident memory (app plus process
   worker) against time over the last `last_h` hours (all data when shorter), leaving out
   each app instance's warm-up. Restarts reset memory, so the fit is pooled within app
-  instances (each instance keeps its own offset, all share one slope);
-- restarts: "app ended" lines that booth.sh wrote during the soak (rotated logs too);
+  instances (each instance keeps its own offset, all share one slope); a sample whose
+  worker memory could not be read is left out rather than summed short;
+- restarts: "app ended" lines that booth.sh wrote during the soak (rotated logs too),
+  with the app instances seen in the samples as a check;
 - source switches and processing errors seen in the heartbeat.
 
     python -m wfglink.sitting.soak analyse --csv SOAK.csv --start EPOCH [--end EPOCH]
@@ -38,7 +44,7 @@ from typing import Any, Iterable
 import numpy as np
 
 COLUMNS = ["sample_epoch", "sample_time", "hb_epoch", "hb_age_s", "status", "pid", "uptime_s", "frames", "paints",
-           "fps", "source", "state", "errors", "last_error", "rss_mb", "rss_detail"]
+           "fps", "source", "state", "errors", "last_error", "rss_mb", "rss_detail", "hb_status"]
 LOG_LINE = re.compile(r"^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) \[booth\.sh\] (.*)$")
 
 
@@ -63,7 +69,9 @@ def sample_row(hb: dict[str, Any] | None, now: float | None = None, stale_s: flo
     hb_epoch = float(hb.get("epoch") or 0.0)
     age = now - hb_epoch if hb_epoch else float("inf")
     rss = hb.get("rss_mb") or {}
-    vals = [float(v) for v in rss.values() if v is not None]
+    # The sum covers the app and its process worker; when one of them could not be read the
+    # sum would drop by that process's memory and look like a release, so it is left empty.
+    vals = [float(v) for v in rss.values()] if all(v is not None for v in rss.values()) else []
     row.update({
         "hb_epoch": round(hb_epoch, 3), "hb_age_s": round(age, 1) if math.isfinite(age) else "",
         "status": hb.get("status", "") if age <= stale_s else "stale",
@@ -72,6 +80,7 @@ def sample_row(hb: dict[str, Any] | None, now: float | None = None, stale_s: flo
         "state": hb.get("state", ""), "errors": hb.get("errors", ""),
         "last_error": (hb.get("last_error") or "")[:200],
         "rss_mb": round(sum(vals), 1) if vals else "", "rss_detail": json.dumps(rss, separators=(",", ":")),
+        "hb_status": hb.get("status", ""),     # the app's own status, kept when the row is stale
     })
     return row
 
@@ -80,11 +89,15 @@ def append_row(csv_path: str | Path, row: dict[str, Any]) -> None:
     p = Path(csv_path)
     new = not p.exists() or p.stat().st_size == 0
     p.parent.mkdir(parents=True, exist_ok=True)
+    fields = COLUMNS
+    if not new:   # keep the columns of a file started by an older sampler
+        with open(p, newline="", encoding="utf-8") as fh:
+            fields = next(csv.reader(fh), None) or COLUMNS
     with open(p, "a", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLUMNS)
+        w = csv.DictWriter(fh, fieldnames=fields, extrasaction="ignore")
         if new:
             w.writeheader()
-        w.writerow({k: row.get(k, "") for k in COLUMNS})
+        w.writerow({k: row.get(k, "") for k in fields})
 
 
 def sample_once(heartbeat: str | Path, csv_path: str | Path, stale_s: float = 30.0) -> dict[str, Any]:
@@ -142,14 +155,28 @@ def load_samples(csv_path: str | Path) -> list[dict[str, Any]]:
             for k in ("sample_epoch", "hb_epoch", "hb_age_s", "uptime_s", "frames", "paints", "fps", "errors", "rss_mb"):
                 r[k] = _num(r.get(k))
             r["pid"] = str(r.get("pid") or "")
+            try:   # the processes whose memory was summed: the app, plus its worker in process mode
+                r["rss_key"] = ",".join(sorted(json.loads(r.get("rss_detail") or "{}")))
+            except ValueError:
+                r["rss_key"] = ""
             rows.append(r)
     rows.sort(key=lambda r: r["sample_epoch"] or 0.0)
     return rows
 
 
 def _live(rows: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Rows from a running app with a fresh heartbeat."""
-    return [r for r in rows if r.get("status") not in ("missing", "stale") and r["pid"] and r["hb_epoch"]]
+    """Rows from a running app with a fresh heartbeat, each heartbeat once (a sampler faster
+    than the heartbeat reads the same one twice)."""
+    out, seen = [], set()
+    for r in rows:
+        if r.get("status") in ("missing", "stale") or not r["pid"] or not r["hb_epoch"]:
+            continue
+        key = (r["pid"], r["hb_epoch"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(r)
+    return out
 
 
 def paint_fps_series(rows: list[dict[str, Any]]) -> list[float]:
@@ -167,15 +194,19 @@ def paint_fps_series(rows: list[dict[str, Any]]) -> list[float]:
 
 
 def mem_slope(rows: list[dict[str, Any]], last_h: float = 6.0, warmup_s: float = 600.0) -> dict[str, Any]:
-    """Memory slope (MB per hour), pooled within app instances, over the last `last_h` hours."""
+    """Memory slope (MB per hour), pooled within app instances, over the last `last_h` hours.
+
+    An instance is one app pid with one set of measured processes: a process worker that is
+    replaced inside the same app starts with fresh memory, so it starts a new group too.
+    """
     live = [r for r in _live(rows) if r["rss_mb"] is not None]
     if not live:
         return {"slope_mb_h": None, "points": 0, "span_h": 0.0, "instances": 0}
     t_end = live[-1]["hb_epoch"]
     use = [r for r in live if r["hb_epoch"] >= t_end - last_h * 3600.0 and (r["uptime_s"] or 0.0) >= warmup_s]
-    groups: dict[str, list[tuple[float, float]]] = {}
+    groups: dict[tuple[str, str], list[tuple[float, float]]] = {}
     for r in use:
-        groups.setdefault(r["pid"], []).append((r["hb_epoch"] / 3600.0, r["rss_mb"]))
+        groups.setdefault((r["pid"], r.get("rss_key", "")), []).append((r["hb_epoch"] / 3600.0, r["rss_mb"]))
     sxy = sxx = 0.0
     n = 0
     for pts in groups.values():
@@ -263,12 +294,38 @@ def _pct(values: list[float], q: float) -> float | None:
     return round(float(np.percentile(values, q)), 2) if values else None
 
 
+def sampling_gaps(rows: list[dict[str, Any]], factor: float = 3.0) -> tuple[int, float]:
+    """Gaps between samples longer than `factor` times the median interval (the Mac slept or
+    restarted, or the sampler stopped): their number and total hours."""
+    t = [r["sample_epoch"] for r in rows if r["sample_epoch"] is not None]
+    d = [b - a for a, b in zip(t, t[1:])]
+    if len(d) < 2:
+        return 0, 0.0
+    med = float(np.median(d))
+    big = [x for x in d if med > 0 and x > factor * med]
+    return len(big), round(sum(big) / 3600.0, 3)
+
+
 def analyse_soak(csv_path: str | Path, log: str | Path, start_epoch: float, end_epoch: float | None = None,
                  last_h: float = 6.0, warmup_s: float = 600.0, mem_max_mb_h: float = 20.0,
                  min_hours: float = 1.0) -> dict[str, Any]:
+    """The morning analysis. A clean exit (Esc pressed twice) ends the soak, because booth.sh
+    stops with it: later samples come from whatever runs afterwards (for example the booth
+    started for the rehearsal) and are left out, as is the time after it."""
     rows = load_samples(csv_path) if Path(csv_path).exists() else []
+    # Rows sampled before this soak started belong to an earlier one in the same file.
+    rows = [r for r in rows if (r["sample_epoch"] or 0.0) >= start_epoch]
     if not rows:
         return {"ok": False, "error": "no soak samples", "samples": 0}
+    ended_by = "finish"
+    # Only a clean exit written during the soak counts: the first sample can still read the
+    # heartbeat an earlier booth left behind (for example after Esc), before booth.sh removes it.
+    exit_row = next((r for r in rows if "clean_exit" in (r.get("status"), r.get("hb_status"))
+                     and r["hb_epoch"] and r["hb_epoch"] >= start_epoch), None)
+    if exit_row is not None and (end_epoch is None or exit_row["hb_epoch"] < end_epoch):
+        end_epoch = exit_row["hb_epoch"]
+        rows = [r for r in rows if (r["sample_epoch"] or 0.0) <= exit_row["sample_epoch"]]
+        ended_by = "clean exit (Esc pressed twice)"
     first, last = rows[0]["sample_epoch"], rows[-1]["sample_epoch"]
     hours = ((end_epoch or last) - start_epoch) / 3600.0
     pfps = paint_fps_series(rows)
@@ -281,14 +338,24 @@ def analyse_soak(csv_path: str | Path, log: str | Path, start_epoch: float, end_
         mem_verdict = "pass" if mem["slope_mb_h"] <= mem_max_mb_h else "fail"
     logs = count_log_events(log, start_epoch, end_epoch)
     src = source_changes(rows)
+    pids = [r["pid"] for r in live]
+    pid_changes = sum(1 for a, b in zip(pids, pids[1:]) if a != b)
+    n_gaps, gap_h = sampling_gaps(rows)
+    n_fresh = sum(1 for r in rows if r.get("status") not in ("missing", "stale") and r["pid"] and r["hb_epoch"])
     return {
-        "ok": True, "hours": round(hours, 3), "samples": len(rows), "samples_live": len(live),
-        "sampled_span_h": round((last - first) / 3600.0, 3),
-        "paint_fps_median": _pct(pfps, 50), "paint_fps_p5": _pct(pfps, 5), "paint_fps_intervals": len(pfps),
+        "ok": True, "hours": round(hours, 3), "ended_by": ended_by,
+        "hours_running": round(min(hours, ((live[-1]["hb_epoch"] if live else start_epoch) - start_epoch) / 3600.0), 3),
+        "samples": len(rows), "samples_live": len(live), "live_fraction": round(n_fresh / len(rows), 3),
+        "sampled_span_h": round((last - first) / 3600.0, 3), "sampling_gaps": n_gaps, "sampling_gap_h": gap_h,
+        "paint_fps_median": _pct(pfps, 50), "paint_fps_p5": _pct(pfps, 5), "paint_fps_min": _pct(pfps, 0),
+        "paint_fps_intervals": len(pfps),
         "processing_fps_median": _pct(proc, 50), "processing_fps_p5": _pct(proc, 5),
         "memory": {**mem, "max_mb_h": mem_max_mb_h, "fit_last_h": last_h, "warmup_s": warmup_s,
                    "min_hours": min_hours, "verdict": mem_verdict},
+        # Restarts come from booth.sh's log; the app instances seen in the samples are a check
+        # on them (rotated-away log lines, or a supervisor that died, show up as a difference).
         "restarts": logs["restarts"], "hangs": logs["hangs"], "app_ended_lines": logs["ended_lines"],
+        "instances": len(set(pids)), "pid_changes": pid_changes,
         "source_switches": src["switches"], "source_transitions": src["transitions"],
         "errors": src["errors"], "last_error": src["last_error"], "samples_by_state": src["samples_by_state"],
     }

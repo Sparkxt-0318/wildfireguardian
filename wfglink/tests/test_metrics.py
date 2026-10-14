@@ -154,6 +154,31 @@ def test_clear_mot_correspondence_persistence(cfg):
     assert m2["id_switches"] == 1 and m2["fn"] == 1
 
 
+def test_clear_mot_persistence_survives_a_dropout(cfg):
+    """py-motmetrics rule: an object keeps the hypothesis it was last matched to, also
+    after frames where it was not detectable (flicker), as long as that hypothesis is
+    within its radius and was not matched to another object meanwhile."""
+    rows, hyp = [], []
+    for f in range(5):
+        rows.append(truth_row(f, 1, 50.0 + 3 * f, 50.0, visible=f != 2))   # dropout in frame 2
+        hyp.append((f, 1, 52.0 + 3 * f, 50.0))         # the track coasts through, 2 px off
+    hyp.append((3, 2, 59.1, 50.0))                     # a newcomer 0.1 px from the object
+    hyp.append((4, 2, 62.1, 50.0))
+    m = tracking_metrics(truth_df(rows), pd.DataFrame(hyp, columns=["frame", "track_id", "x", "y"]), cfg)
+    # Previous-frame persistence alone would hand the object to the closer newcomer in
+    # frame 3 and count a switch.
+    assert m["id_switches"] == 0 and m["matches"] == 4 and m["fp"] == 2 and m["ignored"] == 1
+    # A hypothesis that moved on to another object (7: object 1, then object 2) is not
+    # reclaimed by object 1's older correspondence: object 2 keeps it (0.1 px) and
+    # object 1 takes 8, one switch. Reclaiming it would pair 1-7 (0.9 px) and 2-8 (1 px).
+    rows2 = [truth_row(0, 1, 10.0, 10.0), truth_row(1, 2, 10.0, 10.0), truth_row(2, 1, 10.0, 10.0),
+             truth_row(2, 2, 11.0, 10.0)]
+    hyp2 = [(0, 7, 10.0, 10.0), (1, 7, 10.0, 10.0), (2, 7, 10.9, 10.0), (2, 8, 10.0, 10.0)]
+    m2 = tracking_metrics(truth_df(rows2), pd.DataFrame(hyp2, columns=["frame", "track_id", "x", "y"]), cfg)
+    assert m2["id_switches"] == 1 and m2["fn"] == 0 and m2["fp"] == 0
+    assert m2["motp_px"] == pytest.approx(0.1 / 4)
+
+
 def test_clear_mot_dont_care_and_coasted_nan(cfg):
     rows = [truth_row(0, 1, 10.0, 10.0), truth_row(0, 2, 60.0, 60.0, visible=False)]
     hyp = pd.DataFrame([(0, 1, 10.0, 10.0), (0, 2, 60.5, 60.0), (0, 3, np.nan, np.nan)],
@@ -279,6 +304,10 @@ def test_tracking_metrics_restricted_frames(cfg):
     m = tracking_metrics(truth, tp, cfg, frames=[0, 1, 2, 4, 5])
     assert m["fn"] == 0 and m["gt"] == 5 and m["mota"] == pytest.approx(1.0)
     assert m["id_switches"] == 0
+    # Hypotheses are counted over the scored frames only.
+    tp2 = pd.concat([tp, pd.DataFrame([(3, 99, 500.0, 500.0)], columns=tp.columns)])
+    assert tracking_metrics(truth, tp2, cfg, frames=[0, 1, 2, 4, 5])["n_hypotheses"] == 1
+    assert tracking_metrics(truth, tp2, cfg)["n_hypotheses"] == 2
 
 
 def _gate_truth_rows(rows: pd.DataFrame, gate_y: float = 200.0):
@@ -327,6 +356,30 @@ def test_bridged_truth_rule_for_flicker_dropouts():
     flame.loc[(flame.particle_id == 1) & (flame.frame == 4), "in_large_region"] = True
     flame.loc[(flame.particle_id == 1) & (flame.frame == 3), "in_large_region"] = True
     assert dict(zip(tg["particle_id"], bridged_crossings(tg, flame, 1)))[1] is np.False_
+    # Visible in both bracketing frames (5 and 6) but inside a flame in frame 5: don't care,
+    # not a true crossing (the detector masks the flame), unless a tracker coasting over
+    # the masked frame bridges it (detectable in 4 and 6: a gap of one frame).
+    flame3 = truth.copy()
+    flame3.loc[(flame3.particle_id == 3) & (flame3.frame == 5), "in_large_region"] = True
+    assert not dict(zip(tg["particle_id"], bridged_crossings(tg, flame3, 0)))[3]
+    assert dict(zip(tg["particle_id"], bridged_crossings(tg, flame3, 1)))[3]
+    assert true_gate_counts(tg, flame3, "g1")["gross"] == 0
+    assert true_gate_counts(tg, None, "g1")["gross"] == 1          # no particle table: visible_both
+
+
+def test_bridged_truth_rule_skips_repeated_frames():
+    """A repeated frame is never analysed and the tracker counts it as a missed frame (its
+    frame index still advances), so its copy of the previous frame must not shorten a gap."""
+    rows = [truth_row(f, 1, 50.0, 165.0 + 7.0 * (1 if f == 2 else f), visible=f not in (3, 4, 5))
+            for f in range(10)]                                    # frame 2 repeats frame 1
+    truth = truth_df(rows)
+    tg = _gate_truth_rows(truth)                                   # crosses between frames 5 and 6
+    frames = pd.DataFrame({"frame": np.arange(10), "duplicate": np.arange(10) == 2})
+    assert tg[["frame_before", "frame_after"]].values.tolist() == [[5, 6]]
+    assert bridged_crossings(tg, truth, 3).tolist() == [True]          # gap counted from the repeat
+    assert bridged_crossings(tg, truth, 3, frames).tolist() == [False]  # last real detection: frame 1
+    assert bridged_crossings(tg, truth, 4, frames).tolist() == [True]
+    assert true_gate_counts(tg, truth, "g1", max_gap_frames=3, truth_frames=frames)["gross"] == 0
 
 
 def test_frame_range_selection_is_clock_free():

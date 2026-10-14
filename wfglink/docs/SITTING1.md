@@ -42,8 +42,8 @@ It also downloads the approved public clips (about 1 GB, one file at a time) in 
 | 1 | Confirm the parts | 5 |
 | 2 | AirDrop PANEL_TEST.mp4 (it appears in ~/wfglink-sitting1) to the iPad | 2 |
 | 3 | Environment check (automatic) | 1 |
-| 4 | Check A. iPhone on the cable, locked, landscape on the tripod, pointing at the spinning LEDs. Mac menu bar Video menu: Reactions, Center Stage, Portrait and Studio Light off. Plug in the USB webcam if you have it. Allow camera access if macOS asks. | 10 |
-| 5 | Live view: 20 s fullscreen on the external monitor. Press L once. Answer two yes or no questions. | 3 |
+| 4 | Check A. iPhone on the cable, locked, landscape on the tripod, pointing at the spinning LEDs. Plug in the USB webcam if you have it. Allow camera access if macOS asks. | 10 |
+| 5 | Live view: 20 s fullscreen on the external monitor. Press L once. While the picture shows, open the green camera icon (Video) in the Mac menu bar and turn off Reactions, Center Stage, Portrait and Studio Light (the menu exists only while an app uses the camera). Answer two yes or no questions. | 3 |
 | 6 | Speed benchmark (automatic) | 1 |
 | 7 to 9 | iPhone LED clips: speed 1, speed 2, ruler. Camera app, 1080p 30 fps, HDR Video off, AE/AF lock. AirDrop each clip to the Mac. Type the stopwatch time for 30 revolutions at each speed. | 10 |
 | 10 to 12 | Dashcam LED clips: same three, with the dashcam pointing straight down. Then the SD card into the reader; pick the segments the script suggests. Stopwatch times again. | 12 |

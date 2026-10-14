@@ -10,7 +10,10 @@ Layout at 1920x1080 (all sizes scale with height):
 - four cards, right: count rate, Cumulative Particle Count (gate), Particle Number Flux
   (projected), ember speed with a direction rose; big green numbers, small qualifying tags;
 - a 60 s sparkline under the video and a small status line;
-- bands for replay, synthetic or reconnecting sources; the limits card on key I.
+- a band for replay or synthetic sources; a dimmed picture with a message while the
+  camera reconnects, while the iPad is paused, or while its screen is not found; a small
+  note when the picture comes from a fallback because a better camera's screen check
+  failed; the limits card on key I.
 """
 from __future__ import annotations
 
@@ -46,7 +49,8 @@ class LiveState:
     calibrated: bool = False
     distance_m: float | None = None
     source_label: str = ""
-    source_state: str = "live"                    # live, file, replay, synthetic, reconnecting, paused
+    source_state: str = "live"                    # live, file, replay, synthetic, reconnecting, paused, no_screen
+    source_note: str = ""                         # paused or no_screen: why a better camera is out of use
     fps: float = 0.0
     playback_speed: float | None = None
     warm: float = 1.0                             # 0 to 1: numbers fade in after warm-up
@@ -154,34 +158,39 @@ def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, 
     # Field legend (bottom-left) on a dark pill, so it stays readable over flames.
     if fieldon and s.field_uvn is not None:
         _pill(p, QPointF(rect.x() + 14, rect.bottom() - 14), "→  " + t(lang, "field_legend"), theme.GREEN, L.H, "left")
-    # Bands: replay, synthetic, reconnecting, paused.
+    # Bands: replay, synthetic. Dimmed picture with a message: reconnecting, paused, no screen.
     band_key = {"replay": "replay", "synthetic": "synthetic"}.get(s.source_state)
+    bh = theme.px(56, L.H) if band_key else 0
     if band_key:
-        bh = theme.px(56, L.H)
         band = QRectF(rect.x(), rect.y(), rect.width(), bh)
         p.fillRect(band, _c(theme.BAND, 0.92))
         p.setPen(_c(theme.INK))
         p.setFont(_font(theme.px(theme.SIZES["band"], L.H), "semibold"))
         p.drawText(band, Qt.AlignmentFlag.AlignCenter, t(lang, band_key))
-    if s.source_state in ("reconnecting", "paused"):
+    if s.source_state in ("reconnecting", "paused", "no_screen"):
         p.fillRect(rect, _c("#000000", 0.55))
         p.setPen(_c(theme.INK))
         p.setFont(_font(theme.px(40, L.H), "semibold"))
         p.drawText(rect, Qt.AlignmentFlag.AlignCenter, t(lang, s.source_state))
+    elif s.source_note in ("paused", "no_screen"):
+        # A fallback picture: say why the better camera is out of use (press play, aim the camera).
+        _pill(p, QPointF(rect.center().x(), rect.y() + bh + theme.px(14, L.H)), t(lang, s.source_note),
+              theme.INK, L.H, "center", top=True)
     if s.playback_speed and abs(s.playback_speed - 1.0) > 0.05:
         _pill(p, QPointF(rect.right() - 14, rect.bottom() - 14), t(lang, "playback", x=f"{s.playback_speed:.2g}"),
               theme.INK, L.H, "right")
 
 
-def _pill(p: QPainter, anchor: QPointF, text: str, color: str, H: int, align: str) -> None:
-    """Text on a dark rounded pill; anchor is the bottom-left (align left) or bottom-right corner."""
+def _pill(p: QPainter, anchor: QPointF, text: str, color: str, H: int, align: str, top: bool = False) -> None:
+    """Text on a dark rounded pill; anchor is the bottom-left (align left), bottom-right (right) or
+    bottom-center (center) point, or the top one with top=True."""
     f = _font(theme.px(theme.SIZES["tag"], H))
     p.setFont(f)
     fm = p.fontMetrics()
     padx, pady = theme.px(12, H), theme.px(6, H)
     w, h = fm.horizontalAdvance(text) + 2 * padx, fm.height() + 2 * pady
-    x = anchor.x() if align == "left" else anchor.x() - w
-    box = QRectF(x, anchor.y() - h, w, h)
+    x = {"left": anchor.x(), "center": anchor.x() - w / 2}.get(align, anchor.x() - w)
+    box = QRectF(x, anchor.y() if top else anchor.y() - h, w, h)
     p.setPen(Qt.PenStyle.NoPen)
     p.setBrush(_c("#000000", 0.62))
     p.drawRoundedRect(box, h / 2, h / 2)
@@ -364,9 +373,11 @@ def _paint_status(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     p.setFont(_font(theme.px(theme.SIZES["status"], H)))
     p.setPen(_c(theme.INK2))
     state = {"live": t(lang, "source_live"), "file": t(lang, "source_file"), "replay": t(lang, "replay"),
-             "synthetic": t(lang, "synthetic"),
-             "reconnecting": t(lang, "reconnecting"), "paused": t(lang, "paused")}.get(s.source_state, s.source_state)
+             "synthetic": t(lang, "synthetic"), "reconnecting": t(lang, "reconnecting"), "paused": t(lang, "paused"),
+             "no_screen": t(lang, "no_screen")}.get(s.source_state, s.source_state)
     parts = [s.source_label or "", state, f"{s.fps:.0f} {t(lang, 'fps')}" if s.fps else ""]
+    if s.source_note in ("paused", "no_screen") and s.source_state not in ("paused", "no_screen"):
+        parts.append(t(lang, s.source_note))
     if s.unprepared:
         parts.append(t(lang, "unprepared"))
     p.drawText(L.status, Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, "   ·   ".join(x for x in parts if x))

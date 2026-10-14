@@ -45,11 +45,12 @@ def test_predict_matches_generic_formula_and_composes():
     # Continuous white-noise acceleration composes: two half steps equal one full step.
     x2, p2 = kf.predict(*kf.predict(x, p, 0.4 * DT, q), 0.6 * DT, q)
     assert np.allclose(x2, xp) and np.allclose(p2, pp)
-    # Per-track time steps.
+    # Per-track time steps and per-track process noise.
     dts = rng.uniform(0.01, 0.1, n)
-    xv, pv = kf.predict(x, p, dts, q)
+    qs = q * rng.uniform(1.0, 9.0, n)
+    xv, pv = kf.predict(x, p, dts, qs)
     for i in range(n):
-        xi, pi = kf.predict(x[i:i + 1], p[i:i + 1], dts[i], q)
+        xi, pi = kf.predict(x[i:i + 1], p[i:i + 1], dts[i], qs[i])
         assert np.allclose(xv[i], xi[0]) and np.allclose(pv[i], pi[0])
 
 
@@ -342,7 +343,7 @@ def test_all_tracks_and_history_off(cfg):
     assert len(tr.all_tracks()) == 2 and len(tr.all_tracks(include_active=False)) == 0
     assert all(t.status == CONFIRMED for t in tr.active_tracks())
     tr2 = Tracker(cfg, fps=FPS, keep_history=False)
-    run_scene(cfg, pos + [np.zeros((0, 2))] * 5, tracker=tr2)
+    run_scene(cfg, pos + [np.zeros((0, 2))] * (cfg["track"]["max_coast"] + 2), tracker=tr2)
     assert len(tr2.pop_finished()) == 2 and tr2.all_tracks() == []
     assert len(Track(1, 0, 0.0).arrays()["t"]) == 0
 
@@ -425,3 +426,113 @@ def test_track_ids_stay_unique_across_reset(cfg):
         tr.reset()
     assert len(ids) == 2 and ids[0] != ids[1]
     assert counter.counts() == {"gross": 2, "net": 2, "positive": 2, "negative": 0}
+
+
+def test_coasted_gap_is_interpolated_after_reacquisition(cfg):
+    """Coasted records between two hits hold the interpolation, not the stale prediction."""
+    n = 20
+    t = np.arange(n) * DT
+    x = 100 + 150 * t + 0.5 * 900 * t ** 2          # 1 px per frame squared along x
+    y = 200 + 60 * t
+    gap = [10, 11, 12]
+    pos = [np.zeros((0, 2)) if i in gap else np.array([[x[i], y[i]]]) for i in range(n)]
+    tr, snaps = run_scene(cfg, pos)
+    tracks = tr.finish_all()
+    assert len(tracks) == 1
+    a = tracks[0].arrays()
+    co = a["coasted"]
+    assert np.array_equal(a["frame"][co], gap) and np.isnan(a["x_meas"][co]).all()
+    err = np.hypot(a["x"][co] - x[gap], a["y"][co] - y[gap])
+    pred = np.array([np.hypot(snaps[i][0].x - x[i], snaps[i][0].y - y[i]) for i in gap])
+    assert err.max() < 1.0 and np.all(err < 0.5 * pred)
+    assert np.isfinite(a["vx"][co]).all() and np.isfinite(a["vy"][co]).all()
+
+
+def _coast_past_a_neighbour(cfg, cluster):
+    """A track (6 px per frame) misses frames 12 and 13; at 14 only a neighbour 5 px off its
+    path is there, optionally with 8 more detections 8 px beyond it; at 15 its own ember
+    is back. Returns the track's (frame, coasted, detection index) from frame 14 on."""
+    path = straight(100, 200, 180, 0, 16)
+    frames = []
+    for i in range(16):
+        if i in (12, 13):
+            frames.append(np.zeros((0, 2)))
+        elif i == 14:
+            nb = path[i] + [0.0, 5.0]
+            pts = [nb]
+            if cluster:
+                ang = np.linspace(0.2, np.pi - 0.2, 8)
+                pts += list(nb + 8.0 * np.column_stack((np.cos(ang), np.sin(ang))))
+            frames.append(np.array(pts))
+        else:
+            frames.append(path[i:i + 1])
+    tr, _ = run_scene(cfg, frames)
+    main = next(t for t in tr.all_tracks() if t.records[0][0] == 0)
+    return [(r[0], bool(r[14]), r[15]) for r in main.records if r[0] >= 14]
+
+
+def test_density_gate_keeps_a_coasting_track_off_a_crowded_neighbour(cfg):
+    # Alone, the neighbour is the best explanation and is taken (as without the density gate).
+    assert _coast_past_a_neighbour(cfg, cluster=False)[0] == (14, False, 0)
+    # In a crowd the gate would hold several other detections: the track coasts on and
+    # finds its own ember again.
+    assert _coast_past_a_neighbour(cfg, cluster=True) == [(14, True, -1), (15, False, 0)]
+    off = {**cfg, "track": {**cfg["track"], "gate_clutter_max": 0.0}}
+    got = _coast_past_a_neighbour(off, cluster=True)
+    assert got[0] == (14, False, 0) and got[-1][1]            # neighbour taken, own ember lost
+
+
+def _second_point(cfg, n_extra, length):
+    """A single detection, then a candidate 8 px to the right with n_extra detections
+    14 px beyond it. Returns the x of every second point taken."""
+    tr = Tracker(cfg, fps=FPS)
+    tr.update(make_det([[200.0, 200.0]], [length], [0.0]), 0.0, 0)
+    ang = np.linspace(-1.2, 1.2, n_extra)
+    cand = [[208.0, 200.0]] + [[208 + 14 * np.cos(a), 200 + 14 * np.sin(a)] for a in ang]
+    k = len(cand)
+    tr.update(make_det(cand, [length] * k, [0.0] * k), DT, 1)
+    return [t.records[-1][2] for t in tr.active_tracks(include_tentative=True) if t.hits == 2]
+
+
+def test_birth_reach_is_limited_by_the_local_density(cfg):
+    assert _second_point(cfg, 0, 0.0) == [208.0]
+    # Eight detections around the candidate: an 8 px step to a round spot is ambiguous.
+    assert _second_point(cfg, 8, 0.0) == []
+    # Aligned horizontal streaks: only competitors along the axis count, so it starts.
+    assert _second_point(cfg, 8, 7.0) == [208.0]
+
+
+def test_process_noise_adapts_to_a_turning_track(cfg):
+    """An LED-like target on a circle (6.25 px per frame squared centripetal) stays one
+    track; with the process noise fixed at accel_sigma_px it breaks up. A straight track
+    ends at the base level."""
+    n, v, acc = 60, 25.0, 6.25
+    r = v * v / acc
+    th = (v / r) * np.arange(n)
+    pts = np.column_stack((400 + r * np.cos(th), 300 + r * np.sin(th)))
+    kw = dict(lengths=[np.array([0.5 * v])] * n, thetas=[np.array([a + np.pi / 2]) for a in th])
+    tr, _ = run_scene(cfg, [pts[i:i + 1] for i in range(n)], **kw)
+    assert [len(t) for t in tr.all_tracks()] == [n]
+    fixed = {**cfg, "track": {**cfg["track"], "accel_sigma_max_px": cfg["track"]["accel_sigma_px"]}}
+    tr, _ = run_scene(fixed, [pts[i:i + 1] for i in range(n)], **kw)
+    assert max(len(t) for t in tr.all_tracks()) < n // 2
+    tr, _ = run_scene(cfg, [straight(50, 50, 200, 90, 30)[i:i + 1] for i in range(30)])
+    assert np.allclose(np.exp(tr._lqs), 1.0)
+
+
+def test_process_noise_holds_on_a_noisy_turning_track(cfg):
+    """With centroid noise, one small innovation must not drop a turning track's process
+    noise to the floor. An LED at 150 px radius and 45 rpm (3.7 px per frame squared) with
+    0.7 px noise per axis stays essentially one track over 5 s; with an uncapped downward
+    step towards ln 2 it broke into pieces of at most 115 points."""
+    n, r = 150, 150.0
+    om = 1.5 * np.pi / FPS                          # 45 rpm, rad per frame
+    th = om * np.arange(n)
+    kw = dict(lengths=[np.array([0.5 * r * om])] * n, thetas=[np.array([a + np.pi / 2]) for a in th])
+    for seed in range(5):
+        rng = np.random.default_rng(seed)
+        pts = np.column_stack((400 + r * np.cos(th), 300 + r * np.sin(th))) + rng.normal(0, 0.7, (n, 2))
+        tr, _ = run_scene(cfg, [pts[i:i + 1] for i in range(n)], **kw)
+        tr.finish_all()
+        hits = [sum(1 for rec in t.records if not rec[14]) for t in tr.all_tracks()]
+        assert max(hits) >= 0.85 * n, (seed, hits)

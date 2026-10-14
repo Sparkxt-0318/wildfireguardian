@@ -535,3 +535,17 @@ Limits, in LIMITS.md and on a ko/en booth card:
 - Screenshots in both languages are inspected.
 - Sitting reports (checks A to C) show 30 fps or more live, with automatic recovery.
 - The runbook has been rehearsed once.
+
+## 17. Changes after approval
+
+The approved text above stays as it was; these are the departures, each with its reason and the LOG entry that records it.
+
+- **Detection.** A Gaussian prefilter (matched filter) before thresholding is now the default (`detect.prefilter_sigma_px`). Compressed video noise is heavy tailed, and without it most detections were compression artefacts. Chosen on the core suite only (LOG, 2026-10-15T03:05).
+- **Saturation** is flagged on the brightest color channel, not luma (orange embers clip red first).
+- **Exposure time.** The estimator no longer iterates its own point selection (that gave two self-consistent answers with short streaks). It fits once on fixed speed cuts and declines, with a stated reason, unless the answer is stable and the streak lengths are shown to be proportional to speed. On the synthetic core suite it declines every clip, because measured streak lengths are not yet proportional to true length (a floor for short streaks, lost ends for long faint ones). Fixing the length measurement (the erf or segment model fit deferred in section 9) is now a task.
+- **Tracking.** Process noise adapts per track (wide for turning targets such as the LED turntable, narrow for smooth embers), the search gate is limited by the local detection density, coasting is up to 5 frames instead of 3, and coasted gaps are filled by a cubic curve in file mode. Dense showers had many identity switches from wrong associations during flicker dropouts.
+- **Repeated frames** are detected by changed pixels at full resolution and, for lossy re-encodes, by the embers not having moved; thumbnail differences dropped real frames of night scenes.
+- **Booth hold rule (sections 4.3 and 9).** The 80 percent clean-frame yield rule is replaced by a coverage rule (`sitting2.hold_rule: coverage`). With a scanning 60 Hz panel and a global-shutter camera, the clean-frame yield at hold 2 is close to 1.0 or to 0.5 depending on the camera's phase and averages below 0.8 over phases, while every source frame is still read clean at least once whenever the unclean time per content change is shorter than one camera frame. Check B now measures source coverage over several camera restarts (new phases) and keeps hold 2 only when every window covers the clip and spare clean views show margin; otherwise hold 3. The yield is still reported, and `hold_rule: yield` restores the old rule.
+- **Source health in booth mode (section 7)** is implemented as written: a live camera must keep reading advancing frame codes; a paused iPad shows "iPad 정지 · iPad paused" and the chain falls back.
+- **Demo tags.** This cloud session's git proxy refuses tag pushes, so each passing build is recorded in DEMO_BUILDS.md on the branch with the command that makes the tag.
+- **Validation metrics.** An oracle audit (truth fed in as perfect estimates) found and fixed scoring bugs before any number was recorded: the field truth window, signed medians in summaries, gate truth inside flame regions, CLEAR MOT persistence across dropouts, and repeated frames in the bridged gate truth. Detection is also reported as completeness against ember SNR, and counts are checked between the bright-ember and all-visible truths.

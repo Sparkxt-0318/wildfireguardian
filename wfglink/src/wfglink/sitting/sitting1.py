@@ -183,7 +183,6 @@ class Sitting1:
             "Wi-Fi and Bluetooth ON on both (no network needs to be joined). Personal Hotspot OFF.",
             "Lock the iPhone, mount it in landscape on the tripod, rear camera facing the turntable.",
             "Turn on the three LEDs and start the turntable, so the camera sees moving lights.",
-            "Mac menu bar > Video (green camera icon) > turn OFF Reactions, Center Stage, Portrait and Studio Light.",
             "If a USB webcam is available, plug it in too (it is tested as the fallback).",
         ])
         self.c.wait_enter("ready_a", "Press Enter when the iPhone is mounted and locked")
@@ -224,6 +223,8 @@ class Sitting1:
         self.c.header("5", "Live view on the external monitor", 3)
         self.c.say("A fullscreen picture appears for 20 s on the external monitor. Watch for orange circles on the LEDs.")
         self.c.say("Press L once during the test to switch the language. Esc ends early.")
+        self.c.say("While the picture shows, click the green camera icon (Video) in the Mac menu bar and turn OFF "
+                   "Reactions, Center Stage, Portrait and Studio Light. That menu exists only while an app uses the camera.")
         self.c.wait_enter("ready_live", "Press Enter to start the live view")
         from wfglink.io.capture import ChainConfig, SourceChain, SourceOption
         from wfglink.io.devices import AutoCameraSource, camera_backends, list_cameras, pick_camera

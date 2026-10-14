@@ -192,7 +192,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_booth_prep)
 
     p = sub.add_parser("booth", help="fullscreen booth screen (live camera chain, replay, synthetic)")
-    p.add_argument("--source", default="auto", help="auto, camera, synthetic, or file:PATH")
+    p.add_argument("--source", default="auto",
+                   help="auto, camera, synthetic, file:PATH, or (simulated camera filming a prepared clip) "
+                        "loopsim:PATH, loopsim-unplug:PATH, loopsim-pause:PATH")
     p.add_argument("--screen", default=None, help="external, primary, or a screen name")
     p.add_argument("--lang", default=None, choices=["ko", "en"])
     p.add_argument("--limits-screen", default=None, help="show the limits card on this second screen")

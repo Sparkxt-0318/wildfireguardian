@@ -63,9 +63,11 @@ def process_noise(dt: float | np.ndarray, q: float) -> np.ndarray:
     return out
 
 
-def predict(x: np.ndarray, p: np.ndarray, dt: float | np.ndarray, q: float
+def predict(x: np.ndarray, p: np.ndarray, dt: float | np.ndarray, q: float | np.ndarray
             ) -> tuple[np.ndarray, np.ndarray]:
     """Predict states (n, 4) and covariances (n, 4, 4) forward by dt (scalar or (n,)).
+
+    q is the process-noise power spectral density, one value or one per track (n,).
 
     Written out by blocks, P' = F P F^T + Q with F = [[I, dt I], [0, I]]:
     P'pp = Ppp + dt (Ppv + Pvp) + dt^2 Pvv, P'pv = Ppv + dt Pvv, P'vv = Pvv.

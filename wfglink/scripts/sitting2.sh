@@ -31,10 +31,22 @@ if [[ -z "$PY" ]]; then
 fi
 echo "Python: $PY ($("$PY" -V 2>&1))"
 
-# Install or update the environment only when requirements changed.
+FINISH=0
+for arg in "$@"; do
+  [[ "$arg" == "--finish" ]] && FINISH=1
+done
+
+# Install or update the environment only when requirements changed. Never in the morning:
+# the overnight booth runs from this environment, and reinstalling under it could crash it.
 REQ_SHA="$(shasum -a 256 requirements.txt pyproject.toml 2>/dev/null | shasum -a 256 | cut -c1-16 || sha256sum requirements.txt pyproject.toml | sha256sum | cut -c1-16)"
 STAMP=".venv/.wfglink_install"
-if [[ ! -x .venv/bin/python || ! -f "$STAMP" || "$(cat "$STAMP" 2>/dev/null)" != "$REQ_SHA" ]]; then
+if [[ $FINISH -eq 1 ]]; then
+  if [[ ! -x .venv/bin/python ]]; then
+    echo "No environment in $WFG/.venv: run --finish from the same folder that started the soak." >&2
+    exit 1
+  fi
+  echo "Morning finish: the environment is used as it is."
+elif [[ ! -x .venv/bin/python || ! -f "$STAMP" || "$(cat "$STAMP" 2>/dev/null)" != "$REQ_SHA" ]]; then
   echo "Installing (about 5 to 10 minutes on first run; needs internet)..."
   T0=$(date +%s)
   [[ -x .venv/bin/python ]] || "$PY" -m venv .venv || { echo "Could not create .venv" >&2; exit 1; }

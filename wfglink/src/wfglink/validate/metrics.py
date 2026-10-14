@@ -12,10 +12,13 @@ Detection: per frame, Hungarian matching within each truth's radius
 (`wfglink.validate.match`), accumulated over frames into TP, FP, FN, precision, recall,
 F1 and the localisation RMSE of matched pairs.
 
-Tracking: CLEAR MOT. Per frame, a truth object that was matched to hypothesis h in the
-previous frame keeps h if h is still within its radius (correspondence persistence);
-the remaining objects are matched by the Hungarian method. A match to a hypothesis other
-than the object's last matched one is an ID switch.
+Tracking: CLEAR MOT. Per frame, a truth object keeps the hypothesis h it was last matched
+to (in the previous frame or earlier, so across flicker dropouts) if h is still within
+its radius (correspondence persistence, as in py-motmetrics 1.4) and has not been matched
+to another object since (py-motmetrics lets whichever object it lists first take h back;
+here h stays with the object it was matched to last); the remaining objects are matched
+by the Hungarian method. A match to a hypothesis other than the object's last matched one
+is an ID switch.
 MOTA = 1 - (FN + FP + IDSW) / GT; MOTP is the mean matched distance in px. Mostly
 tracked: matched in at least 80% of the frames an object is detectable; mostly lost:
 below 20%; partially tracked: the rest (Li, Huang and Nevatia 2009, as in py-motmetrics).
@@ -26,9 +29,16 @@ median and 90th percentile of the absolute relative speed error, the median sign
 relative error (bias), the median angular error in degrees and the RMSE of u and v.
 
 Counts: relative error of a count or flux, whether the truth lies in a confidence
-interval, true gate crossings from truth_gate (embers visible in both bracketing frames,
-or bridged over flicker dropouts that a coasting tracker spans) and the Clopper-Pearson
-interval for a coverage fraction.
+interval, true gate crossings from truth_gate (embers visible in both bracketing frames
+and, when truth_particles is given, outside flame and headlight regions there, or bridged
+over flicker dropouts that a coasting tracker spans) and the Clopper-Pearson interval for
+a coverage fraction.
+
+Field: `truth_field` recomputes the per-cell true ember and air velocities of
+truth_field.parquet (same definition, `wfglink.synth.truth.field_truth`) over a chosen
+set of frames, so the truth covers the frames the method was scored on. The per-cell
+median of a few embers with discrete settling speeds jumps when a handful of embers is
+added or removed, so a truth over other frames than the estimate's is not a fair target.
 """
 from __future__ import annotations
 
@@ -206,8 +216,9 @@ def tracking_metrics(truth, track_points, cfg: dict | None = None, x_col: str = 
         frames = sorted(set(gt_f) | set(hyp_f))
     else:
         frames = sorted({int(f) for f in frames})
-    prev: dict[int, int] = {}
-    last: dict[int, int] = {}
+    last: dict[int, int] = {}        # object -> hypothesis it was last matched to
+    last_obj: dict[int, int] = {}    # hypothesis -> object it was last matched to
+    hyp_seen: set[int] = set()
     present: dict[int, int] = {}
     matched: dict[int, int] = {}
     fp = fn = idsw = n_match = n_gt = ignored = 0
@@ -223,18 +234,19 @@ def tracking_metrics(truth, track_points, cfg: dict | None = None, x_col: str = 
         h_xy = _xy(h[1], h[2]) if h else e2
         ok = np.isfinite(h_xy).all(axis=1)
         h_ids, h_xy = h_ids[ok], h_xy[ok]
+        hyp_seen.update(h_ids.tolist())
         n_gt += g_ids.size
         for gid in g_ids.tolist():
             present[gid] = present.get(gid, 0) + 1
         g_used = np.zeros(g_ids.size, dtype=bool)
         h_used = np.zeros(h_ids.size, dtype=bool)
         pairs: list[tuple[int, int, float]] = []
-        if prev and g_ids.size and h_ids.size:
+        if last and g_ids.size and h_ids.size:
             h_index = {hid: k for k, hid in enumerate(h_ids.tolist())}
             for gi, gid in enumerate(g_ids.tolist()):
-                hid = prev.get(gid)
+                hid = last.get(gid)
                 hj = h_index.get(hid) if hid is not None else None
-                if hj is None or h_used[hj]:
+                if hj is None or h_used[hj] or last_obj.get(hid) != gid:
                     continue
                 dist = float(np.hypot(*(g_xy[gi] - h_xy[hj])))
                 if dist <= g_rad[gi]:
@@ -248,14 +260,12 @@ def tracking_metrics(truth, track_points, cfg: dict | None = None, x_col: str = 
                 idsw += 1
             pairs.append((a, b, dd))
             g_used[a] = h_used[b] = True
-        cur = {}
         for a, b, dd in pairs:
-            gid = int(g_ids[a])
-            cur[gid] = int(h_ids[b])
+            gid, hid = int(g_ids[a]), int(h_ids[b])
+            last[gid] = hid
+            last_obj[hid] = gid
             matched[gid] = matched.get(gid, 0) + 1
             dist_sum += dd
-        prev = cur
-        last.update(cur)
         n_match += len(pairs)
         fn += int((~g_used).sum())
         free = ~h_used
@@ -275,7 +285,7 @@ def tracking_metrics(truth, track_points, cfg: dict | None = None, x_col: str = 
         "mostly_tracked": int(np.sum(ratios >= 0.8)), "mostly_lost": int(np.sum(ratios < 0.2)),
         "partially_tracked": int(np.sum((ratios >= 0.2) & (ratios < 0.8))),
         "n_truth_objects": len(present),
-        "n_hypotheses": int(track_points[id_col].nunique()) if len(track_points) else 0,
+        "n_hypotheses": len(hyp_seen),           # hypotheses with a point in a scored frame
     }
 
 
@@ -343,19 +353,51 @@ def velocity_metrics(truth, est_points, cfg: dict | None = None, vx_col: str | N
 
 
 # Counts ----------------------------------------------------------------------------------
-def bridged_crossings(truth_gate, truth_particles, max_gap_frames: int) -> np.ndarray:
+def visible_both_outside_large(truth_gate, truth_particles=None) -> np.ndarray:
+    """visible_both, minus crossings where the particle is in a flame or headlight region
+    (in_large_region) in either bracketing frame.
+
+    Such embers are don't care for detection and tracking (the detector masks those
+    regions), so they are not true crossings either. Without truth_particles, or for a
+    frame with no particle row, visible_both is used as it is.
+    """
+    vb = truth_gate["visible_both"].to_numpy(dtype=bool)
+    if truth_particles is None or len(truth_gate) == 0 or "in_large_region" not in truth_particles:
+        return vb
+    large = truth_particles[truth_particles["in_large_region"].to_numpy(dtype=bool)]
+    if len(large) == 0:
+        return vb
+    keys = set(zip(large["particle_id"].to_numpy(dtype=np.int64).tolist(),
+                   large["frame"].to_numpy(dtype=np.int64).tolist()))
+    pid = truth_gate["particle_id"].to_numpy(dtype=np.int64).tolist()
+    fb = truth_gate["frame_before"].to_numpy(dtype=np.int64).tolist()
+    fa = truth_gate["frame_after"].to_numpy(dtype=np.int64).tolist()
+    inside = np.array([(p, b) in keys or (p, a) in keys for p, b, a in zip(pid, fb, fa)], dtype=bool)
+    return vb & ~inside
+
+
+def bridged_crossings(truth_gate, truth_particles, max_gap_frames: int, truth_frames=None) -> np.ndarray:
     """Crossings a tracker that coasts over up to max_gap_frames missed frames can see.
 
     A crossing between frames frame_before and frame_after is bridged when the particle
     is detectable truth (visible, outside flame or headlight regions) in some frame
     a <= frame_before and some frame b >= frame_after with b - a - 1 <= max_gap_frames,
-    or when it is visible in both bracketing frames (visible_both). With
-    max_gap_frames = 0 this is visible_both alone.
+    or when it is visible in both bracketing frames (visible_both) and in a flame or
+    headlight region in neither (`visible_both_outside_large`). With max_gap_frames = 0
+    this is the second rule alone.
+
+    With truth_frames, a repeated frame (duplicate) is never a frame a or b: the pipeline
+    skips it, and the tracker counts it as a missed frame (its frame index still
+    advances), so a gap measured from the repeat's copy of the previous frame would be one
+    frame too short.
     """
-    vb = truth_gate["visible_both"].to_numpy(dtype=bool)
+    vb = visible_both_outside_large(truth_gate, truth_particles)
     if max_gap_frames <= 0 or len(truth_gate) == 0:
         return vb
     det = truth_particles[detectable_mask(truth_particles)]
+    if truth_frames is not None and "duplicate" in truth_frames:
+        dup = truth_frames.loc[truth_frames["duplicate"].to_numpy(dtype=bool), "frame"]
+        det = det[~det["frame"].isin(set(dup.tolist()))]
     pid = truth_gate["particle_id"].to_numpy(dtype=np.int64)
     fb = truth_gate["frame_before"].to_numpy(dtype=np.int64)
     fa = truth_gate["frame_after"].to_numpy(dtype=np.int64)
@@ -382,13 +424,15 @@ def bridged_crossings(truth_gate, truth_particles, max_gap_frames: int) -> np.nd
 def true_gate_counts(truth_gate, truth_particles=None, gate: str | None = None,
                      t0: float | None = None, t1: float | None = None,
                      require_visible_both: bool = True, max_gap_frames: int = 0,
-                     frame_range: tuple[int, int] | None = None) -> dict[str, int]:
+                     frame_range: tuple[int, int] | None = None, truth_frames=None) -> dict[str, int]:
     """True crossings of one gate: gross, net and per direction.
 
     Only embers count when truth_particles is given (kind looked up by particle_id).
     With require_visible_both, a crossing counts when it is visible in both bracketing
-    frames or, with max_gap_frames > 0 and truth_particles given, when a tracker coasting
-    over that many missed frames could bridge it (`bridged_crossings`). Flicker dropouts
+    frames (and, with truth_particles, in a flame or headlight region in neither) or, with
+    max_gap_frames > 0 and truth_particles given, when a tracker coasting over that many
+    missed frames could bridge it (`bridged_crossings`, which leaves out repeated frames
+    when truth_frames is given). Flicker dropouts
     make visible_both alone far too strict: with 15% of frames dropped, a working counter
     reads about 35% above it.
 
@@ -403,9 +447,9 @@ def true_gate_counts(truth_gate, truth_particles=None, gate: str | None = None,
         keep &= g["gate"].to_numpy() == gate
     if require_visible_both:
         if max_gap_frames > 0 and truth_particles is not None:
-            keep &= bridged_crossings(g, truth_particles, int(max_gap_frames))
+            keep &= bridged_crossings(g, truth_particles, int(max_gap_frames), truth_frames)
         else:
-            keep &= g["visible_both"].to_numpy(dtype=bool)
+            keep &= visible_both_outside_large(g, truth_particles)
     t = g["t"].to_numpy(dtype=np.float64)
     if t0 is not None:
         keep &= t >= t0
@@ -438,7 +482,7 @@ def count_metrics(estimate: float, truth: float, ci_low: float | None = None,
 def gate_metrics(counter, truth_gate, truth_particles=None, t0: float | None = None,
                  t1: float | None = None, cfg: dict | None = None, seed: int = 0,
                  ci: float = 0.95, frame_range: tuple[int, int] | None = None,
-                 max_gap_frames: int | None = None) -> dict:
+                 max_gap_frames: int | None = None, truth_frames=None) -> dict:
     """Compare a `wfglink.measure.gate.GateCounter` with the true crossings of its gate.
 
     Over [t0, t1) (default: the counter's observed span) it reports, for the gross and
@@ -455,7 +499,8 @@ def gate_metrics(counter, truth_gate, truth_particles=None, t0: float | None = N
 
     Truth visibility: crossings visible in both bracketing frames, or bridged by a
     tracker coasting over max_gap_frames missed frames (default track.max_coast from cfg,
-    else 3), which needs truth_particles. The rule used is reported as "truth_rule".
+    else 3), which needs truth_particles; pass truth_frames on clips with repeated frames
+    (`bridged_crossings`). The rule used is reported as "truth_rule".
     """
     if (t0 is None and counter.t_first is None) or (t1 is None and counter.t_last is None):
         raise ValueError("gate_metrics needs t0 and t1 or a counter that observed frames")
@@ -467,10 +512,10 @@ def gate_metrics(counter, truth_gate, truth_particles=None, t0: float | None = N
     est = counter.counts(t0, t1)
     if frame_range is None:
         true = true_gate_counts(truth_gate, truth_particles, counter.gate.name, t0, t1,
-                                max_gap_frames=gap)
+                                max_gap_frames=gap, truth_frames=truth_frames)
     else:
         true = true_gate_counts(truth_gate, truth_particles, counter.gate.name,
-                                max_gap_frames=gap, frame_range=frame_range)
+                                max_gap_frames=gap, frame_range=frame_range, truth_frames=truth_frames)
     dur = t1 - t0
     rg = counter.rate_interval(t0, t1, net=False, cfg=cfg, seed=seed, ci=ci)
     rn = counter.rate_interval(t0, t1, net=True, cfg=cfg, seed=seed, ci=ci)
@@ -484,8 +529,54 @@ def gate_metrics(counter, truth_gate, truth_particles=None, t0: float | None = N
         "cpc_net": count_metrics(est["net"], true["net"], rn["lo"] * dur, rn["hi"] * dur),
         "pnf": count_metrics(pe.value, pt.value, rg["lo"] * scale, rg["hi"] * scale),
         "pnf_unit": pe.unit,
-        "truth_rule": f"bridged (max gap {gap} frames)" if gap > 0 else "visible_both",
+        "truth_rule": (f"bridged (max gap {gap} frames)" if gap > 0
+                       else "visible_both outside large regions" if truth_particles is not None
+                       else "visible_both"),
     }
+
+
+# Field -----------------------------------------------------------------------------------
+class _NoFlow:
+    """Stand-in flow for `field_truth`: the Eulerian columns (ua_center, va_center) need
+    the generator's flow, which the truth tables do not carry; they come out NaN."""
+
+    @staticmethod
+    def velocity(x, y, t):
+        shape = np.broadcast(np.asarray(x), np.asarray(y), np.asarray(t)).shape
+        return np.full(shape, np.nan), np.full(shape, np.nan)
+
+
+def truth_field(particles, truth_frames, frame_size, grid, frames=None, eulerian=None,
+                exclude_large: bool = True):
+    """Per-cell true ember and air field (truth_field columns) over the given frames.
+
+    Same definition as truth_field.parquet (`wfglink.synth.truth.field_truth`): visible
+    ember rows of non-duplicate frames, one mean per particle and cell, then the mean and
+    median over particles. `frames` (default: all) restricts it to the frames the method
+    was scored on. With exclude_large, rows inside flame or headlight regions are left
+    out as everywhere else in validation (the detector masks them). ua_center and
+    va_center are copied from `eulerian` (the clip's truth_field table) when it has the
+    same cells, otherwise NaN.
+    """
+    import pandas as pd
+
+    from wfglink.synth.truth import field_truth
+
+    tf = truth_frames
+    if frames is not None:
+        keep = set(int(f) for f in frames)
+        tf = tf[tf["frame"].isin(keep)]
+    rows = particles[particles["frame"].isin(set(tf["frame"].tolist()))]
+    if exclude_large:
+        rows = rows[~rows["in_large_region"].to_numpy(dtype=bool)]
+    out = pd.DataFrame(field_truth(rows, tf, _NoFlow(), frame_size, grid))
+    if eulerian is not None and len(eulerian) == len(out):
+        e = eulerian.set_index(["row", "col"])
+        idx = pd.MultiIndex.from_arrays([out["row"], out["col"]])
+        if e.index.isin(idx).all():
+            out["ua_center"] = e.loc[idx, "ua_center"].to_numpy()
+            out["va_center"] = e.loc[idx, "va_center"].to_numpy()
+    return out
 
 
 def clopper_pearson(k: int, n: int, ci: float = 0.95) -> tuple[float, float]:

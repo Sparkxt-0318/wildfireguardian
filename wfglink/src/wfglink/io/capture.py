@@ -8,14 +8,23 @@ then labelled file replay). It always shows the best healthy option:
 
 - A source is unhealthy when it raises, delivers no frame for `stale_s`, delivers
   repeated frames (at most freeze_max_px pixels changed) for `freeze_s`, or when an
-  optional health hook (the booth's marker lock and advancing frame code) reports failure
-  for `freeze_s`.
+  optional health hook (the booth's marker lock and advancing frame code) has not
+  passed for `freeze_s`.
 - An unhealthy source is closed and retried with exponential backoff (0.5 s to 5 s),
   and the next option takes over at once.
 - While a lower option is active, higher options are probed in the background. A probe
   must stay healthy for `switch_back_s` (5 s) before it takes over, so an intermittent
-  connection does not flap.
+  connection does not flap. With a health hook, that time starts only once the hook has
+  passed, so a camera filming a paused screen never takes over during its grace period.
 - Replay and synthetic options are always available and are labelled as not live.
+
+Health hooks run in the capture thread with every frame and return True (the check
+passed), None (nothing checked on this frame) or why it failed (False or a short reason,
+which becomes the failure reason in the events). A newly opened source has `freeze_s`
+from its first frame to pass its first check. SourceChain takes either one hook for every
+attempt (`health_hook`) or a factory (`hook_factory`) called with the option on every
+attempt, which returns a fresh hook with its own state, or None to leave that option
+unchecked.
 """
 from __future__ import annotations
 
@@ -30,6 +39,8 @@ import numpy as np
 from wfglink.io.frames import Frame
 from wfglink.io.sources import Source, SourceError
 
+HealthHook = Callable[[Frame], "bool | str | None"]
+
 
 @dataclass
 class SourceOption:
@@ -43,6 +54,7 @@ class SourceOption:
 class ChainConfig:
     stale_s: float = 1.5
     freeze_s: float = 3.0
+    hook_grace_s: float = 8.0          # a new attempt's health hook may take this long to pass the first time
     freeze_dn: int = 2               # a pixel (half resolution) changed by at least this many DN
     freeze_max_px: int = 0           # at most this many changed pixels: the frame repeats
     backoff_min_s: float = 0.5
@@ -60,7 +72,7 @@ class ChainConfig:
 class CaptureWorker(threading.Thread):
     """Open one source and keep its newest frame. Never raises; reports state instead."""
 
-    def __init__(self, option: SourceOption, health_hook: Callable[[Frame], bool | None] | None = None):
+    def __init__(self, option: SourceOption, health_hook: HealthHook | None = None):
         super().__init__(daemon=True, name=f"capture-{option.key}")
         self.option = option
         self.health_hook = health_hook
@@ -74,6 +86,8 @@ class CaptureWorker(threading.Thread):
         self.t_last_frame: float | None = None
         self.t_last_change: float | None = None
         self.t_last_hook_ok: float | None = None
+        self.hook_passed = False        # the health hook has passed at least once
+        self.hook_reason = ""           # why the health hook last failed
         self.frames = 0
         self._thumb: np.ndarray | None = None
         self._times: list[float] = []
@@ -126,9 +140,19 @@ class CaptureWorker(threading.Thread):
             self.t_last_change = now
         self._thumb = small
         if self.health_hook is not None:
-            ok = self.health_hook(f)
-            if ok is None or ok:
+            if self.frames == 0:            # the grace period for the first check starts with the first frame
                 self.t_last_hook_ok = now
+            try:
+                ok = self.health_hook(f)
+            except Exception as exc:  # a failing check makes the source unhealthy, never kills the thread
+                ok = f"booth check error: {type(exc).__name__}: {exc}"
+            if ok is None:
+                pass                        # nothing checked on this frame
+            elif isinstance(ok, str) or not ok:
+                self.hook_reason = ok if isinstance(ok, str) and ok else "booth check failed"
+            else:
+                self.t_last_hook_ok = now
+                self.hook_passed = True
         else:
             self.t_last_hook_ok = now
         self._times.append(now)
@@ -160,9 +184,19 @@ class CaptureWorker(threading.Thread):
             return False, "no frames"
         if self.option.live and self.t_last_change is not None and now - self.t_last_change > cfg.freeze_s:
             return False, "frozen image"
-        if self.t_last_hook_ok is not None and now - self.t_last_hook_ok > cfg.freeze_s:
-            return False, "booth check failed"
+        if self.t_last_hook_ok is not None:
+            # Until the hook has passed once, a reopened camera gets hook_grace_s: exposure and
+            # focus can take a few seconds to settle before the screen codes are readable.
+            settling = not self.hook_passed and not (self.hook_reason or "").startswith("booth check error")
+            limit = max(cfg.freeze_s, cfg.hook_grace_s) if settling else cfg.freeze_s
+            if now - self.t_last_hook_ok > limit:
+                return False, self.hook_reason or "booth check failed"
         return True, "ok"
+
+    @property
+    def confirmed(self) -> bool:
+        """Frames arrived and, when there is a health hook, it has passed at least once."""
+        return self.frames > 0 and (self.health_hook is None or self.hook_passed)
 
     _started_at: float | None = None
 
@@ -186,7 +220,8 @@ class ChainStatus:
 
 class SourceChain:
     def __init__(self, options: list[SourceOption], cfg: ChainConfig | None = None,
-                 health_hook: Callable[[Frame], bool | None] | None = None):
+                 health_hook: HealthHook | None = None,
+                 hook_factory: Callable[[SourceOption], HealthHook | None] | None = None):
         if not options:
             raise ValueError("SourceChain needs at least one option")
         self.options = options
@@ -194,6 +229,7 @@ class SourceChain:
         CaptureWorker._freeze_dn = int(self.cfg.freeze_dn)
         CaptureWorker._freeze_px = int(self.cfg.freeze_max_px)
         self.health_hook = health_hook
+        self.hook_factory = hook_factory
         self._lock = threading.Lock()
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
@@ -246,7 +282,14 @@ class SourceChain:
         self._log("failed", key=key, reason=reason)
 
     def _launch(self, option: SourceOption) -> CaptureWorker:
-        w = CaptureWorker(option, self.health_hook)
+        hook = self.health_hook
+        if self.hook_factory is not None:
+            try:
+                hook = self.hook_factory(option)
+            except Exception as exc:  # never let a broken check stop the chain; run unchecked
+                self._log("hook_error", key=option.key, reason=f"{type(exc).__name__}: {exc}")
+                hook = None
+        w = CaptureWorker(option, hook)
         w.start()
         return w
 
@@ -320,7 +363,7 @@ class SourceChain:
                 self._retired.append(self.probe)
                 self._fail(self.probe.option.key, reason, now)
                 self.probe = None
-            elif self.probe.frames > 0:
+            elif self.probe.confirmed:
                 if self._probe_ok_since is None:
                     self._probe_ok_since = now
                 elif now - self._probe_ok_since >= cfg.switch_back_s:
