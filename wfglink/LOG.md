@@ -128,3 +128,24 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The demo clip stays C5 until C9 downloads; in the gate run C5 produced no gate crossings, so it shows tracks but weak numbers.
   - Encoder output is not bit-identical between runs (a property of libx264 at preset medium); truth tables and pre-compression frame hashes are exact. Accepted; results are reported over seeds.
 - Next step: regenerate the core suite, tune the detector prefilter on it, record core numbers, then run the mismatch suite once.
+
+## 2026-10-15T03:05+08:00 Detector defaults chosen on the core suite; sitting 2 kit; investigation workflow started
+
+- Goal: choose detector defaults on the core suite (tuning set only), integrate the sitting 2 kit, and check the method and the validation code before recording any number.
+- Commands:
+  - `scripts/run_suite.py core --workers 3 --tag <tag> --set ...` for five variants: no prefilter (pf0); prefilter 0.8 px with seed floor 4 DN (pf08); prefilter 1.2 px (pf12); pf12 with streak refinement (pf12ref); prefilter 0.8 px with a 6 sigma seed (pf08k6). Outputs in results/runs/suite_core_<tag>/ (not tracked).
+  - `scripts/figures_suite.py core --runs pf0 pf08` (results/figures/core_completeness_pf0_pf08.png and .svg, inspected).
+  - `python -m pytest -q -m "slow or not slow"`: full suite with the new defaults and the sitting 2 kit.
+  - Workflow `wfglink-investigate` (run wf_15f89577-638): five investigations in separate worktrees, each followed by an adversarial verifier.
+- Parameters: configs/default.yaml at commit 328293f.
+- Results:
+  - These tuning runs ran while other source files were uncommitted, so their numbers are not recorded; recorded numbers will come from `scripts/run_from_head.sh` on a committed tree after the investigations.
+  - Without a prefilter, compressed noise dominated the detections in every case except the lowest compression. Each prefilter variant removed most of them; the widest prefilter gave the lowest false-detection rate with the same F1 and bright-ember recall as the narrower variants, so it is the default (values under Decisions).
+  - Streak refinement lengthened the short streaks that dominate the core suite and raised the exposure error, so it stays off by default.
+  - The exposure estimate jumped between two values for the same clip across variants. Per-seed results showed two self-consistent solutions when predicted streaks are short; the estimator now declines there (minimum predicted length under Decisions). The underlying instability is one of the investigations.
+  - Sitting 2 kit (agent-built): the simulator finds that the half-speed hold cannot reach the plan's clean-frame yield threshold with a scanning panel and a global-shutter camera, while every source frame is still analysed at least once. The dry run passes end to end. Full test suite passed.
+- Decisions:
+  - Detector defaults: detect.prefilter_sigma_px 1.2, detect.threshold.min_seed_dn 4; velocity.exposure.min_length_px 4; detect.streaks.refine off.
+  - Before any number is recorded, a workflow audits the validation code with oracle inputs (truth fed in as perfect estimates must score perfectly), stabilises the exposure estimator, investigates dense-shower tracking, closes booth gaps (iPad paused state, process-mode stats, longer event history), and reviews the sitting 2 kit, including a coverage-based hold rule in place of the 0.8 yield rule.
+  - The mismatch suite is generated but not evaluated until the method is final; it is evaluated once.
+- Next step: apply the accepted fixes from the workflow, rerun the tests, record the core numbers from a committed tree, then evaluate the mismatch and coverage suites once.
