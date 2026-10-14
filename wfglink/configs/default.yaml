@@ -92,8 +92,12 @@ field:
   min_tracks_show: 5
   min_tracks_ci: 10
   normalized_median_threshold: 2.0
-  normalized_median_eps_px: 0.1
+  normalized_median_eps_px_s: 3.0   # residual floor (0.1 px per frame at 30 fps), px/s
+  mad_k: 3.0                     # per-cell outlier rejection, in robust standard deviations
+  mad_floor_px_s: 10.0           # never reject a sample closer than this to the cell median
+  ci: 0.95
   live_window_s: 3.0
+  window_s: 10.0                 # file mode: field.parquet has the whole clip and windows of this length
   bootstrap: 200
 
 outputs:

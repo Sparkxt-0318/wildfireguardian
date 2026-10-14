@@ -31,7 +31,9 @@ UNITS = {"f1": "fraction", "precision": "fraction", "recall": "fraction", "mota"
          "direction_med_err_deg": "deg", "streak_speed_med_rel_err": "fraction", "exposure_rel_err": "fraction",
          "cpc_gross_rel_err": "fraction", "cpc_gross_in_ci": "fraction", "pnf_rel_err": "fraction", "snr50": "SNR",
          "fp_per_mpx_frame": "per megapixel per frame", "recall_bright": "fraction",
-         "track_fp_per_frame": "per frame", "gate_between_bounds": "fraction"}
+         "track_fp_per_frame": "per frame", "gate_between_bounds": "fraction",
+         "field_rmse_ember_u": "px/s", "field_rmse_air_u": "px/s", "field_rmse_ember_v": "px/s",
+         "field_ci_coverage": "fraction"}
 DESCRIPTIONS = {
     "f1": "Detection F1 (Hungarian match within max(3 px, L/2)), median over seeds",
     "precision": "Detection precision, median over seeds",
@@ -50,6 +52,10 @@ DESCRIPTIONS = {
     "fp_per_mpx_frame": "False detections (on no ember at all) per megapixel per frame, median over seeds",
     "recall_bright": "Detection recall of embers at or above validate.bright_snr, median over seeds",
     "track_fp_per_frame": "Track points on no ember (CLEAR MOT false positives) per frame, median over seeds",
+    "field_rmse_ember_u": "RMSE of the horizontal field component against the true ember field (shown cells), median over seeds",
+    "field_rmse_air_u": "RMSE of the horizontal field component against the true air field (shown cells), median over seeds",
+    "field_rmse_ember_v": "RMSE of the vertical field component against the true ember field (shown cells), median over seeds",
+    "field_ci_coverage": "Fraction of interval cells whose interval contains the true ember velocity, median over seeds",
     "gate_between_bounds": "Fraction of clips whose gross count lies between the bright-ember and all-visible truths",
 }
 

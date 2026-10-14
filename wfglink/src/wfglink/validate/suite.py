@@ -95,6 +95,15 @@ def evaluate_clip(clip_dir: str | Path, cfg: dict | None = None) -> dict[str, An
         pv = add_point_velocities(trk, cfg, t_exp=t_exp)
         out["velocity_track"] = velocity_metrics(parts, pv, cfg, vx_col="vx_poly", vy_col="vy_poly",
                                                  x_col="x_meas", y_col="y_meas")
+        tf = clip_dir / "truth_field.parquet"
+        if tf.exists():
+            import pandas as pd
+
+            from wfglink.measure.field import estimate_field, field_errors
+
+            fs = tuple(meta.get("frame_size", [0, 0]))
+            est_field = estimate_field(pv.assign(static=False), fs, cfg)
+            out["field"] = field_errors(est_field, pd.read_parquet(tf))
         if t_exp is not None and "speed_streak" in pv:
             out["velocity_streak"] = velocity_metrics(parts, pv, cfg, vx_col="vx_streak", vy_col="vy_streak",
                                                       speed_col="speed_streak", x_col="x_meas", y_col="y_meas")
@@ -245,6 +254,8 @@ SUMMARY_KEYS = {
     "fp_per_mpx_frame": "fp_per_mpx_frame", "recall_bright": "detection_bright.recall",
     "track_fp_per_frame": "track_fp_per_frame",
     "gate_between_bounds": "gate_between_bounds",
+    "field_rmse_ember_u": "field.rmse_ember_u", "field_rmse_air_u": "field.rmse_air_u",
+    "field_rmse_ember_v": "field.rmse_ember_v", "field_ci_coverage": "field.ci_coverage_ember",
 }
 
 

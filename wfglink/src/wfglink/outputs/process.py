@@ -13,6 +13,8 @@ Outputs in the output folder (plan section 6):
 - track_points.parquet: one row per track point, with per-point track and streak velocities.
 - tracks.parquet: one row per track (times, points, track, streak and fused speeds,
   direction, straight-line residual, static flag, gate crossings).
+- field.parquet: the ember velocity field per cell, for the whole clip and for windows of
+  field.window_s (u, v in px/s, tracks, display status, bootstrap interval).
 - summary.json: input hash and metadata, config hash, git commit, versions, units and
   calibration state, totals with intervals, exposure estimate, warnings.
 - overlay.mp4: H.264 drawn by the same renderer as the booth screen (optional).
@@ -196,6 +198,19 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
              "track_points": _write_table(points, out / "track_points.parquet", fmt)}
     tracks = _track_table(points, pipe.counter, cfg, t_exp, t_exp_sd) if len(points) else pd.DataFrame()
     files["tracks"] = _write_table(tracks, out / "tracks.parquet", fmt)
+    if len(points) and meta.get("width"):
+        from wfglink.measure.field import estimate_field
+
+        size = (int(meta["width"]), int(meta["height"]))
+        win = float(cfg.get("field", {}).get("window_s", 10.0))
+        t_lo, t_hi = float(points["t"].min()), float(points["t"].max())
+        parts = [estimate_field(points, size, cfg).assign(window="all", t0=t_lo, t1=t_hi)]
+        k = 0
+        while t_hi - t_lo > win and t_lo + k * win < t_hi:
+            a = t_lo + k * win
+            parts.append(estimate_field(points, size, cfg, window=(a, a + win)).assign(window=f"w{k}", t0=a, t1=a + win))
+            k += 1
+        files["field"] = _write_table(pd.concat(parts, ignore_index=True), out / "field.parquet", fmt)
 
     # Totals over the analysed span (from the first frame with a ready background model).
     fr = pd.DataFrame(rows)
