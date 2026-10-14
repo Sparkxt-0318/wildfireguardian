@@ -56,6 +56,12 @@ def completeness_figure(curves: dict[str, dict[str, list[int]]], path_stem: str 
         ax.errorbar(x, p, yerr=[p - lo, hi - p], marker="o", ms=3.5, lw=1.2, capsize=2, color=color, label=label)
     ax.axhline(0.5, color=style.COLORS["neutral"], lw=0.8, ls="--")
     ax.set_xscale("log")
+    from matplotlib.ticker import FixedLocator, NullFormatter, NullLocator, ScalarFormatter
+
+    ax.xaxis.set_major_locator(FixedLocator([3, 5, 10, 20, 30, 50, 100]))
+    ax.xaxis.set_major_formatter(ScalarFormatter())
+    ax.xaxis.set_minor_locator(NullLocator())
+    ax.xaxis.set_minor_formatter(NullFormatter())
     ax.set_xlabel("Ember SNR (matched aperture, before compression)")
     ax.set_ylabel("Detection completeness (fraction)")
     ax.set_ylim(-0.02, 1.02)
