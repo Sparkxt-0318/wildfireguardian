@@ -1,0 +1,1382 @@
+{
+ "geom.13GHz.frac_crown_flame_F1": {
+  "value": 0.00117899,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_crown_flame_F1_mid": {
+  "value": 0.00117899,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_crown_flame_high_F1": {
+  "value": 0.0172317,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.00379467,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_crown_flame_ray": {
+  "value": 0.000663164,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_plume_crown_100K": {
+  "value": 0.0303963,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00556247,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_plume_crown_10K": {
+  "value": 0.985761,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_plume_crown_30K": {
+  "value": 0.32834,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_plume_surface_30K": {
+  "value": 0.00104629,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_surface_flame_F1": {
+  "value": 0.000110561,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.frac_surface_flame_high_F1": {
+  "value": 0.000228445,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.links_any_crown_flame_F1": {
+  "value": 0.0696203,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.links_any_surface_flame_F1": {
+  "value": 0.0189873,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.median_L_km": {
+  "value": 5.87851,
+  "unit": "km",
+  "description": "median_L_km for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.median_clearance_m": {
+  "value": 196.949,
+  "unit": "m",
+  "description": "median_clearance_m for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.13GHz.n_links": {
+  "value": 316.0,
+  "unit": "count",
+  "description": "n_links for band 13 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_crown_flame_F1": {
+  "value": 0.000347059,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_crown_flame_F1_mid": {
+  "value": 0.000347059,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_crown_flame_high_F1": {
+  "value": 0.0215859,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.00187927,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_crown_flame_ray": {
+  "value": 0.000212769,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_plume_crown_100K": {
+  "value": 0.0406231,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00358958,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_plume_crown_10K": {
+  "value": 0.991509,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_plume_crown_30K": {
+  "value": 0.39636,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_plume_surface_30K": {
+  "value": 0.000380594,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.frac_surface_flame_high_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.links_any_crown_flame_F1": {
+  "value": 0.0160772,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.links_any_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.median_L_km": {
+  "value": 3.9684,
+  "unit": "km",
+  "description": "median_L_km for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.median_clearance_m": {
+  "value": 182.335,
+  "unit": "m",
+  "description": "median_clearance_m for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.18GHz.n_links": {
+  "value": 311.0,
+  "unit": "count",
+  "description": "n_links for band 18 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_crown_flame_F1": {
+  "value": 5.15358e-05,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_crown_flame_F1_mid": {
+  "value": 5.15358e-05,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_crown_flame_high_F1": {
+  "value": 0.0238039,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.00144161,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_crown_flame_ray": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_plume_crown_100K": {
+  "value": 0.0464496,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00343699,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_plume_crown_10K": {
+  "value": 0.993425,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_plume_crown_30K": {
+  "value": 0.422837,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_plume_surface_30K": {
+  "value": 7.72911e-05,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.frac_surface_flame_high_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.links_any_crown_flame_F1": {
+  "value": 0.00324675,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.links_any_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.median_L_km": {
+  "value": 3.53173,
+  "unit": "km",
+  "description": "median_L_km for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.median_clearance_m": {
+  "value": 177.785,
+  "unit": "m",
+  "description": "median_clearance_m for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.23GHz.n_links": {
+  "value": 308.0,
+  "unit": "count",
+  "description": "n_links for band 23 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_crown_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_crown_flame_F1_mid": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_crown_flame_high_F1": {
+  "value": 0.0271992,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.00124864,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_crown_flame_ray": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_plume_crown_100K": {
+  "value": 0.0542859,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00340641,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_plume_crown_10K": {
+  "value": 0.997229,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_plume_crown_30K": {
+  "value": 0.466986,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_plume_surface_30K": {
+  "value": 4.54993e-05,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.frac_surface_flame_high_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.links_any_crown_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.links_any_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.median_L_km": {
+  "value": 3.1732,
+  "unit": "km",
+  "description": "median_L_km for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.median_clearance_m": {
+  "value": 173.153,
+  "unit": "m",
+  "description": "median_clearance_m for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.38GHz.n_links": {
+  "value": 205.0,
+  "unit": "count",
+  "description": "n_links for band 38 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_crown_flame_F1": {
+  "value": 0.00232572,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_crown_flame_F1_mid": {
+  "value": 0.00232572,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_crown_flame_high_F1": {
+  "value": 0.0133464,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.0056869,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_crown_flame_ray": {
+  "value": 0.00088102,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_plume_crown_100K": {
+  "value": 0.0197996,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00607506,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_plume_crown_10K": {
+  "value": 0.967934,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_plume_crown_30K": {
+  "value": 0.260656,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_plume_surface_30K": {
+  "value": 0.00153237,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_surface_flame_F1": {
+  "value": 0.000171235,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.frac_surface_flame_high_F1": {
+  "value": 0.000288144,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.links_any_crown_flame_F1": {
+  "value": 0.125,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.links_any_surface_flame_F1": {
+  "value": 0.0384615,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.median_L_km": {
+  "value": 10.6741,
+  "unit": "km",
+  "description": "median_L_km for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.median_clearance_m": {
+  "value": 218.197,
+  "unit": "m",
+  "description": "median_clearance_m for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.7GHz.n_links": {
+  "value": 312.0,
+  "unit": "count",
+  "description": "n_links for band 7 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_crown_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_crown_flame_F1_mid": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_crown_flame_high_F1": {
+  "value": 0.0327697,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_crown_flame_high_F1_mid": {
+  "value": 0.00273593,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_crown_flame_ray": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_plume_crown_100K": {
+  "value": 0.0691695,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_plume_crown_100K_mid": {
+  "value": 0.00821347,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_plume_crown_10K": {
+  "value": 0.996701,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_plume_crown_30K": {
+  "value": 0.522779,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_plume_surface_30K": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.frac_surface_flame_high_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.links_any_crown_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.links_any_surface_flame_F1": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.median_L_km": {
+  "value": 2.6955,
+  "unit": "km",
+  "description": "median_L_km for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.median_clearance_m": {
+  "value": 157.195,
+  "unit": "m",
+  "description": "median_clearance_m for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.80GHz.n_links": {
+  "value": 68.0,
+  "unit": "count",
+  "description": "n_links for band 80 GHz (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_crown_flame_F1": {
+  "value": 0.00125792,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_crown_flame_F1_mid": {
+  "value": 0.00125792,
+  "unit": "fraction",
+  "description": "frac_crown_flame_F1_mid for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_crown_flame_high_F1": {
+  "value": 0.0182252,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_crown_flame_high_F1_mid": {
+  "value": 0.00375453,
+  "unit": "fraction",
+  "description": "frac_crown_flame_high_F1_mid for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_crown_flame_ray": {
+  "value": 0.00053522,
+  "unit": "fraction",
+  "description": "frac_crown_flame_ray for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_plume_crown_100K": {
+  "value": 0.0323021,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_plume_crown_100K_mid": {
+  "value": 0.00509539,
+  "unit": "fraction",
+  "description": "frac_plume_crown_100K_mid for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_plume_crown_10K": {
+  "value": 0.981531,
+  "unit": "fraction",
+  "description": "frac_plume_crown_10K for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_plume_crown_30K": {
+  "value": 0.337755,
+  "unit": "fraction",
+  "description": "frac_plume_crown_30K for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_plume_surface_30K": {
+  "value": 0.000921519,
+  "unit": "fraction",
+  "description": "frac_plume_surface_30K for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_surface_flame_F1": {
+  "value": 9.36988e-05,
+  "unit": "fraction",
+  "description": "frac_surface_flame_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.frac_surface_flame_high_F1": {
+  "value": 0.000167284,
+  "unit": "fraction",
+  "description": "frac_surface_flame_high_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.links_any_crown_flame_F1": {
+  "value": 0.0440789,
+  "unit": "fraction",
+  "description": "links_any_crown_flame_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.links_any_plume_crown_30K": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "links_any_plume_crown_30K for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.links_any_surface_flame_F1": {
+  "value": 0.0118421,
+  "unit": "fraction",
+  "description": "links_any_surface_flame_F1 for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.median_L_km": {
+  "value": 4.65967,
+  "unit": "km",
+  "description": "median_L_km for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.median_clearance_m": {
+  "value": 186.778,
+  "unit": "m",
+  "description": "median_clearance_m for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.All.n_links": {
+  "value": 1520.0,
+  "unit": "count",
+  "description": "n_links for band All (length-weighted where a fraction)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.crown_flame": {
+  "value": 20.0,
+  "unit": "m",
+  "description": "Height above DSM used for crown_flame",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.crown_flame_high": {
+  "value": 35.0,
+  "unit": "m",
+  "description": "Height above DSM used for crown_flame_high",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_crown_100K": {
+  "value": 45.7342,
+  "unit": "m",
+  "description": "Height above DSM used for plume_crown_100K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_crown_10K": {
+  "value": 457.342,
+  "unit": "m",
+  "description": "Height above DSM used for plume_crown_10K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_crown_30K": {
+  "value": 152.447,
+  "unit": "m",
+  "description": "Height above DSM used for plume_crown_30K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_surface_100K": {
+  "value": 7.51935,
+  "unit": "m",
+  "description": "Height above DSM used for plume_surface_100K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_surface_10K": {
+  "value": 75.1935,
+  "unit": "m",
+  "description": "Height above DSM used for plume_surface_10K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.plume_surface_30K": {
+  "value": 25.0645,
+  "unit": "m",
+  "description": "Height above DSM used for plume_surface_30K",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.surface_flame": {
+  "value": 2.0,
+  "unit": "m",
+  "description": "Height above DSM used for surface_flame",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.height.surface_flame_high": {
+  "value": 4.0,
+  "unit": "m",
+  "description": "Height above DSM used for surface_flame_high",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.n_links": {
+  "value": 1520,
+  "unit": "count",
+  "description": "Hypothetical links meeting 0.6 F1 clearance (k=4/3)",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ },
+ "geom.n_sites": {
+  "value": 215,
+  "unit": "count",
+  "description": "Hypothetical ridge-top sites selected on the DSM",
+  "kind": "modeled",
+  "script": "src/run_geometry.py",
+  "config": "configs/geometry.json",
+  "commit": "89bc4c230fec-dirty",
+  "time": "2026-10-14 22:54 CST"
+ }
+}

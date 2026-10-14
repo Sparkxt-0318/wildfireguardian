@@ -1,0 +1,82 @@
+{
+  "_doc": "Step 4 geometry on the Copernicus GLO-30 DSM around the March 2025 Uiseong fire. Values marked assumption are documented in docs/PARAMETERS.md.",
+  "dem_tiles": [
+    "Copernicus_DSM_COG_10_N36_00_E128_00_DEM.tif",
+    "Copernicus_DSM_COG_10_N36_00_E129_00_DEM.tif"
+  ],
+  "bbox_lonlat": [
+    128.45,
+    36.25,
+    129.45,
+    36.65
+  ],
+  "utm_epsg": 32652,
+  "grid_m": 30,
+  "site_search": {
+    "window_m": 2000,
+    "min_tpi_m": 40,
+    "tpi_radius_m": 2000,
+    "min_separation_m": 2500,
+    "max_sites": 220
+  },
+  "antenna_height_m": 30,
+  "k_factor": 1.3333,
+  "earth_radius_m": 6371000,
+  "clearance_rule_f1_fraction": 0.6,
+  "end_exclusion_m": 0,
+  "profile_step_m": 15,
+  "max_links_per_site": 3,
+  "bands": [
+    {
+      "name": "7 GHz",
+      "f_ghz": 7.0,
+      "min_km": 10.0,
+      "max_km": 30.0
+    },
+    {
+      "name": "13 GHz",
+      "f_ghz": 13.0,
+      "min_km": 5.0,
+      "max_km": 18.0
+    },
+    {
+      "name": "18 GHz",
+      "f_ghz": 18.0,
+      "min_km": 3.0,
+      "max_km": 12.0
+    },
+    {
+      "name": "23 GHz",
+      "f_ghz": 23.0,
+      "min_km": 2.0,
+      "max_km": 8.0
+    },
+    {
+      "name": "38 GHz",
+      "f_ghz": 38.0,
+      "min_km": 1.0,
+      "max_km": 4.0
+    },
+    {
+      "name": "80 GHz",
+      "f_ghz": 80.0,
+      "min_km": 0.5,
+      "max_km": 3.0
+    }
+  ],
+  "fire_heights": {
+    "_doc": "Flame or plume top above the DSM surface (m). The DSM is close to canopy top in forest, so adding surface-fire flame height to it is optimistic for detection.",
+    "surface_flame_m": 2.0,
+    "surface_flame_high_m": 4.0,
+    "crown_flame_above_dsm_m": 20.0,
+    "crown_flame_above_dsm_high_m": 35.0,
+    "plume_threshold_K": [
+      100,
+      30,
+      10
+    ],
+    "surface_intensity_kw_m": 2000,
+    "crown_intensity_kw_m": 30000
+  },
+  "tower_zone_m": 300
+}
