@@ -109,7 +109,7 @@ The topology classifier looks for bursts of last gasps below one protective devi
 |---|---|---|
 | Meters 50%, default | 0.89 | 0.51 |
 | Meter density from 6.8 to 144 per km² | 0.80 to 0.89 | 0.69 falling to 0.51 |
-| Ignition delay median of 20 min | 0.60 | not reported |
+| Ignition delay median of 20 min | 0.60 | 0.52 |
 | Routers 50% | 0.69 | not reported |
 
 Values are balanced accuracy on delivered messages.
