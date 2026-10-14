@@ -93,3 +93,66 @@ Full list, with confidence markers, as returned by the research agent. [F] fetch
 ## Software
 
 Python 3.13 with numpy 2.5.4, scipy 1.18.1, matplotlib 3.11.2 and requests 2.34.2 (all BSD-style or PSF-compatible licenses). No code from the rest of the WildfireGuardian repository is imported or copied.
+
+# Phase 2 sources (accessed 2026-10-15)
+
+Markers:
+- [R]: read by a research agent.
+- [verified]: re-fetched by the main session and the cited text confirmed.
+- [S]: snippet only.
+
+## Phase 2: radio, regulation, hardware and batteries
+
+| Source | Use |
+|---|---|
+| Azevedo J.A., Mendonca F. (2024). A critical review of the propagation models employed in LoRa systems. Sensors 24(12):3877. https://pmc.ncbi.nlm.nih.gov/articles/PMC11207269/ [R] | Re-fitted forest path-loss parameters (Tables 11 and 12), including Callebaut and Van der Perre 2020 and Gay-Fernandez 2010 |
+| Callebaut G., Van der Perre L. (2020). Characterization of LoRa point-to-point path loss. IEEE IoT Journal 7(3). https://lirias.kuleuven.be/retrieve/552000 [S] | Tag-to-tag LoRa fit |
+| Boonlom K. et al. (2026). Experimental comparison and empirical path loss modeling of LoRa at 923 MHz. Sensors 26(10):3192. https://pmc.ncbi.nlm.nih.gov/articles/PMC13210814/ [verified] | Tag-to-gateway fit, RSSI = -16.62 - 32.24 log10(d), forest excess loss about 25 dB |
+| Bianco G.M., Marrocco G. (2023). Body-UAV near-ground LoRa links through a Mediterranean forest. arXiv:2303.12754. https://arxiv.org/pdf/2303.12754 [R] | Forest shadowing sigma 8.05 dB |
+| Lima W.G. et al. (2024). LoRa propagation models for IoT network planning in the Amazon. Sensors 24(5):1621. https://pmc.ncbi.nlm.nih.gov/articles/PMC10935028/ [R] | Forest RMSE 6.2 to 6.7 dB |
+| Myagmardulam B. et al. (2021). Performance evaluation of LoRa 920 MHz in a hilly forested area. Electronics 10(4):502. https://www.mdpi.com/2079-9292/10/4/502 [S] | Link loss behind ridges (basis for the pessimistic profile) |
+| Gay-Fernandez J.A. et al. (2010). Propagation analysis and deployment of a WSN in a forest. PIER 106:121-145. https://www.jpier.org/0journal/work_pdf/10040806.pdf [R] | BLE (2.45 GHz) forest fit |
+| ITU-R P.833-10 (2021). Attenuation in vegetation. https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.833-10-202109-I!!PDF-E.pdf [R] | Cross-check: maximum vegetation attenuation about 22 to 31 dB at 920 MHz, consistent with Boonlom |
+| Hong S.G. et al. (2021). Experimental study of microwave attenuation in a compartment fire. JEES 21(3):249-251. https://ksp.etri.re.kr/ksp/article/file/64687.pdf [R] | Fire attenuation 0 to 6 dB, up to 16 dB |
+| Antoine-Santoni T. et al. (2009). Performance of a protected WSN in a fire. Sensors 9(8):5878. https://pmc.ncbi.nlm.nih.gov/articles/PMC3312421/ [R] | Unprotected nodes die within seconds |
+| LoRa Alliance RP002-1.0.3 (2021), section 2.11 KR920-923. https://lora-alliance.org/wp-content/uploads/2021/05/RP002-1.0.3-FINAL-1.pdf [verified] | 14 dBm end-device EIRP on 922.1 to 923.3 MHz; gateway 23 dBm; listen-before-talk |
+| MSIT Notice 2019-105, technical standards for radio equipment not requiring a licence (917 to 923.5 MHz, listen-before-talk rules). TI E2E mirror of the law.go.kr print [R] | Korean listen-before-talk and 4 s per-transmission limits; the later consolidated text was not checked |
+| Semtech SX1261/2 datasheet Rev 1.2 (2019). https://cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf [R] | Sensitivity, TX 45 mA at +14 dBm, sleep current, time-on-air formula |
+| Espressif ESP32-C3 datasheet v2.4. https://documentation.espressif.com/esp32-c3_datasheet_en.pdf [R] | BLE sensitivity, deep sleep 5 µA |
+| Nordic nRF52840 product brief v2.3 [R] | BLE sensitivity -95 dBm, TX +8 dBm, sleep currents |
+| RAKwireless store: RAK3172 (https://store.rakwireless.com/products/wisduo-lpwan-module-rak3172), RAK7289CV2 and WisGate Edge Pro Solar bundle (https://store.rakwireless.com/products/wisgate-edge-pro-battery-plus-solar-panel-kit) [R] | Module $6.49; gateway $422 to $525; solar bundle $1,199 |
+| Digi-Key, Saft LS14500 (3414-LS14500-ND). https://www.digikey.com/en/products/detail/saft/LS14500/13930734 [R]; Saft LS14500 datasheet (mirror) [R] | Battery price $5.60; 2.6 Ah; self-discharge below 1% per year at 20 °C |
+| LCSC ESP32-C3-MINI-1-N4 (C2838502) [R]; element14 Hammond 1554B2GY [S]; JLCPCB assembly pricing (updated 2026-09-09) [R] | Part and assembly prices |
+
+## Phase 2: utility logs
+
+| Source | Use |
+|---|---|
+| 천지일보 (2025-03-23). 의성 산불 확산 영향… 한전, 송전철탑 20기 '전력공급 중단'. https://www.newscj.com/news/articleView.html?idxno=3249015 [verified] | 20 of 55 towers cut at about 13:40 on 03-22; 17 already fire-affected |
+| 전기신문 Electimes (2025-04-09). [르포] 화마가 할퀸 경북…. https://www.electimes.com/news/articleView.html?idxno=353135 [verified] | Flames caused transmission trips; 95% of Yeongdeok out; automation equipment all stopped |
+| 한국경제 (2025-03-26). https://www.hankyung.com/article/202503260115i [R] | Emergency de-energisation zone from 21:00 |
+| 아시아경제 (2025-03-26). https://www.asiae.co.kr/article/2025032617380564982 [R] | 16 transmission lines stopped, 4 restarted |
+| Newsis (2025-03-26). https://www.newsis.com/view/NISX20250326_0003113851 [R] | Outage across Yeongdeok at 21:06 |
+| 경북매일 (2025-03-26). https://kbmaeil.com/article/202503260913619 and https://kbmaeil.com/article/202503260913603 [R] | No-voltage transfer at Yeongdeok and Jinbo substations; wildfire-caused transmission faults by year |
+| Kim and Oh (2022). JKIIECT 15(2). https://koreascience.or.kr/article/JAKO202213341913572.pdf [R] | DAS architecture, history database, DNP3.0 to FRTUs |
+| Chun and Jung (2011). KIEE summer conference. https://koreascience.kr/article/CFKO201133254117206.pdf [R] | FRTU role and automation coverage by 2010 |
+| 정보통신신문 (2020-09-23). https://www.koit.co.kr/news/articleView.html?idxno=79748 [R] | 66.8% of switches automated (end-2018); 357 not connected |
+| Kim et al. (2007). KIEE. https://koreascience.or.kr/article/CFKO200703977435682.pdf [R] | PDAS remote relay data acquisition, 269 relays at 39 substations |
+| Bae S.H. (2012). T&D World. https://tdworld.com/substations/article/20959156/advanced-distribution-keeps-korea-plugged-in [R] | Seoul DAS fault isolation about 3 min |
+| News1/FN (2021-03-31). https://www.fnnews.com/news/202103310922077801 [R]; SISA News (2025-05-29). https://www.sisa-news.com/mobile/article.html?no=255034 [R]; Energy Daily (2026-06-10). https://www.energydaily.co.kr/news/articleView.html?idxno=200260 [R] | Wildfire grid measures; no published shutoff criteria |
+| Washington Post via Press Herald (2023-08-16) [R]; Renewable Energy World (2025-01-30). https://www.renewableenergyworld.com/power-grid/outage-management/new-sensor-data-provides-more-insight-into-what-may-have-caused-californias-eaton-fire [R] | International fault-timing precedents |
+
+## Phase 2: novelty
+
+| Source | Use |
+|---|---|
+| IBM (Clarke M.P.). US9721458B2 / US9530304B2, Distributed sensor network, priority 2014-10-30. https://patents.google.com/patent/US9721458B2/en [verified] | Prior art: fire arrival time from a destroyed node's last heartbeat |
+| Smith K.B. US9619996B1, Distributed wild fire alert system, priority 2014-08-14. https://patents.google.com/patent/US9619996B1/en [verified] | Prior art: charting fire from loss of signals of destroyed sensors |
+| Smart Packaging Solutions. EP1952368A1, priority 2005. https://patents.google.com/patent/EP1952368A1/en [R] | Prior art: sacrificial tags, loss of periodic ID signal |
+| Live in the Future. LITF-PA-2026-122 (2026-07-27). https://liveinthefuture.org/priorart/smart-meter-wildfire-perimeter-tracking.html [R] | Prior art: fitting a front to smart-meter outage timestamps |
+| Blank R.W., Simard A.J. (USDA). US4521120A. https://patents.google.com/patent/US4521120A/en [R] | Prior art: arrival times from cheap point devices |
+| Hartung C. et al. (2006). FireWxNet. MobiSys. https://usenix.org/legacy/event/mobisys06/full_papers/p28-hartung.pdf [R] | Field wildfire WSN |
+| Imran S., Ko Y.-B. (2017). Sensors 17:361. https://pmc.ncbi.nlm.nih.gov/articles/PMC5335958/ [R] | Node failure treated as noise |
+| Maranghides A. et al. (2021). NIST TN 2135, Camp Fire progression timeline. https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.2135.pdf [R] | Timeline sources; recommends utility and alarm-company data |
+| Dryad Networks, Silvanet. https://www.dryad.net/silvanet [R]; DHS OIG N5 Sensors audit (2026). https://www.oversight.gov/reports/audit/dhs-wildfire-sensors-did-not-consistently-detect-fires-and-provide-early-warning [R] | Commercial systems |
+| Further academic and commercial sources are listed in `docs/NOVELTY.md`. Several are snippet-only, as marked there. | |

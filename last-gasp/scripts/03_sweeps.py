@@ -57,6 +57,7 @@ def main():
     ap.add_argument("--only", default=None)
     ap.add_argument("--out", default="results/sweeps.csv")
     a = ap.parse_args()
+    prov = git_info()  # recorded at the start of the run
     base = load_config()
     for fs in range(a.fire_seeds):  # build fire truth caches serially first
         get_fire(base, fs)
@@ -89,7 +90,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         w.writerows(rows)
-    meta = {**git_info(), "script": "scripts/03_sweeps.py", "config": "configs/default.json",
+    meta = {**prov, "script": "scripts/03_sweeps.py", "config": "configs/default.json",
             "fire_seeds": a.fire_seeds, "obs_seeds": a.obs_seeds, "n_runs": len(rows),
             "n_errors": sum(1 for r in rows if r.get("error")), "wall_s": round(time.time() - t0, 1),
             "sweeps": {k: {"key": v[0], "values": v[1], "extra": v[2]} for k, v in SWEEPS.items()},

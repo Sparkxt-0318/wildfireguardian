@@ -128,7 +128,8 @@
     "tag_check_margin_min": 10.0,
     "assumed_fault_delay_min": 5.0,
     "tag_spacing_m": 400,
-    "logging_stops_min": null
+    "logging_stops_min": null,
+    "tag_check_radius_m": 500
   },
   "economics": {
     "radio": "lora",

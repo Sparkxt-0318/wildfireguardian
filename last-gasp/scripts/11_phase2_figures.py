@@ -189,7 +189,7 @@ def fig_gateways(S):
 
 
 def fig_trips(S):
-    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.1), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.3), constrained_layout=True, gridspec_kw={"width_ratios": [1, 1.35]})
     sp = [200, 400, 800, 1600]
     for kinds, mk, lab in (("breaker+recloser", "o", "SCADA devices"), ("breaker+recloser+fuse", "s", "plus fuses")):
         T = S["trips_spacing"]
@@ -213,11 +213,12 @@ def fig_trips(S):
     P = S["trips_precaution"]
     names = [("no_precaution", "No shutoff,\ntypes logged"), ("untyped_no_precaution", "No shutoff,\ntypes missing"),
              ("blanket60_typed", "Blanket shutoff\nat 60 min, typed"), ("blanket60_untyped", "Blanket,\nuntyped"),
-             ("proximity_typed", "Shutoff ahead\nof fire, typed"), ("proximity_untyped", "Ahead of fire,\nuntyped")]
+             ("proximity_typed", "Shutoff ahead\nof fire, typed"), ("proximity_untyped", "Ahead of fire,\nuntyped"),
+             ("reactive_untyped", "Reactive cut,\nuntyped"), ("logging_stops_40", "Logging stops\nat 40 min")]
     x = np.arange(len(names))
-    axes[1].bar(x - 0.2, [P[n]["trips_bldg_p90"] for n, _ in names], 0.4, color=C["vermillion"],
+    axes[1].bar(x - 0.2, [P[n].get("trips_bldg_p90", np.nan) for n, _ in names], 0.4, color=C["vermillion"],
                 label="Trips only, 90th percentile error")
-    axes[1].bar(x + 0.2, [P[n]["n_log_fire_true"] for n, _ in names], 0.4, color=C["grey"],
+    axes[1].bar(x + 0.2, [P[n].get("n_log_fire_true", 0.0) for n, _ in names], 0.4, color=C["grey"],
                 label="Fire-caused log entries (count)")
     axes[1].set_xticks(x)
     axes[1].set_xticklabels([l for _, l in names], fontsize=6.3)

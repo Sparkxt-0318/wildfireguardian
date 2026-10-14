@@ -93,6 +93,41 @@ for k, v in expl.items():
                                    "script": "inline exploratory command (see LOG.md)", "config": "intermediate",
                                    "commit": "uncommitted intermediate state", "code_dirty": True}
 
+# Phase 2.
+p2p = ROOT / "results/phase2_summary.json"
+if p2p.exists():
+    p2 = json.loads(p2p.read_text())
+    prov2 = p2["_provenance"]
+    for sweep, vals in p2["summary"].items():
+        for value, d in vals.items():
+            for k, v in d.items():
+                if isinstance(v, (int, float)) and not k.endswith(("_q25", "_q75")):
+                    add(f"p2.{sweep}.{value}.{k}", float(v),
+                        f"Phase 2 sweep '{sweep}' at '{value}': {k} (median over runs; spot rates pooled)",
+                        "results/phase2_summary.json", "scripts/10_phase2_sweeps.py + scripts/11_phase2_figures.py",
+                        prov2, "configs/default.json + configs/phase2.json")
+    econ = p2["economics"]
+
+    def walk(prefix, obj):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                walk(f"{prefix}.{k}", v)
+        elif isinstance(obj, (int, float)):
+            add(prefix, float(obj), f"Phase 2 economics: {prefix}", "results/phase2_summary.json",
+                "scripts/11_phase2_figures.py (lastgasp/economics.py)", cur, "configs/phase2.json")
+
+    walk("p2.econ", econ)
+    for k, v in p2["line_length_km"].items():
+        add(f"p2.line_length_km.{k}", v, f"Line length in the test area ({k}), km", "results/phase2_summary.json",
+            "scripts/11_phase2_figures.py", cur, "configs/phase2.json")
+dm2 = ROOT / "results/demo_booth_metrics.json"
+if dm2.exists():
+    d = json.loads(dm2.read_text())
+    for k, v in d.items():
+        if isinstance(v, (int, float)):
+            add(f"booth.{k}", v, f"Booth demo simulator: {k}", "results/demo_booth_metrics.json",
+                "demo/lastgasp_demo (headless)", d.get("provenance", cur))
+
 out = {"_note": "All values are from SYNTHETIC simulations, not real-world performance.",
        "_generated_by": "scripts/07_numbers.py", "_generated_at_commit": cur, "numbers": numbers}
 (ROOT / "results/NUMBERS.json").write_text(json.dumps(out, indent=1))

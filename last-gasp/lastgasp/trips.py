@@ -107,8 +107,12 @@ def simulate_log(net, fire, cfg, rng, t_end):
     return log, {"t_eff": t_eff, "cause": cause}
 
 
-def classify_log(log, cfg, tag_estimate=None, zones=None, wind_to=0.0):
-    """Label each entry 'fire', 'precaution' or 'other'."""
+def classify_log(log, cfg, tag_estimate=None, zones=None, wind_to=0.0, tag_xy=None):
+    """Label each entry 'fire', 'precaution' or 'other'.
+
+    The tag consistency check is applied only where an observed tag death lies within
+    tag_check_radius_m of the device's zone; far from tags the tag estimate is unreliable.
+    """
     tc = cfg["phase2"]["trips"]
     times = np.array([e["t"] for e in log])
     labels = []
@@ -123,7 +127,12 @@ def classify_log(log, cfg, tag_estimate=None, zones=None, wind_to=0.0):
         if e["type"] == "unknown" and e["kind"] == "breaker" and sim >= tc["coordination_min_others"]:
             labels.append("precaution")
             continue
-        if tag_estimate is not None and zones is not None and e["device"] in zones:
+        near_tags = True
+        if tag_xy is not None and zones is not None and e["device"] in zones and len(tag_xy):
+            Z = zones[e["device"]]
+            dmin = np.min(np.hypot(Z[:, None, 0] - tag_xy[None, :, 0], Z[:, None, 1] - tag_xy[None, :, 1]))
+            near_tags = dmin <= tc["tag_check_radius_m"]
+        if tag_estimate is not None and zones is not None and e["device"] in zones and near_tags:
             # Tag-based arrival estimate over the zone: fire must have reached it by the trip.
             T_est = float(np.min(tag_estimate(zones[e["device"]])))
             if T_est > e["t"] + tc["tag_check_margin_min"]:
@@ -198,7 +207,7 @@ def run_trips(cfg, fire_seed=0, obs_seed=0, keep=False):
     score("tags", tag_xy[dies], t_tag)
     if dies.sum() >= 3:
         tag_est = lambda q: idw(tag_xy[dies], t_tag, q, rc["idw_power"], rc["idw_k"])  # noqa: E731
-        labels2 = classify_log(log, cfg, tag_est, zones, wind_to)
+        labels2 = classify_log(log, cfg, tag_est, zones, wind_to, tag_xy[dies])
     else:
         labels2 = labels
     cls_score("cls_with_tags", labels2)

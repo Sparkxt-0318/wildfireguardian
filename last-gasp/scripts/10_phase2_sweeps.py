@@ -20,30 +20,34 @@ from lastgasp.provenance import git_info  # noqa: E402
 from lastgasp.trips import run_trips  # noqa: E402
 
 
+RECEIVE_SPACING = {"phase2.layout.spacing_m": 200}  # item 1 uses tags every 200 m of road (about 12 per km2)
+
+
 def receive_jobs():
     jobs = []
     for mode in ("star", "mesh", "mesh_sf"):
         for hardened in (False, True):
             for g in (1, 2, 3, 4, 6, 8, 12):
                 jobs.append(("receive", f"{mode}|{'hardened' if hardened else 'exposed'}|{g}",
-                             {"phase2.reception.mode": mode, "phase2.gateways.hardened": hardened,
+                             {**RECEIVE_SPACING, "phase2.reception.mode": mode, "phase2.gateways.hardened": hardened,
                               "phase2.gateways.count": g}))
     for radio in ("ble", "lora_sf9", "lora_pessimistic"):
         for g in (1, 2, 4, 8, 12):
             jobs.append((f"receive_{radio}", f"mesh|exposed|{g}",
-                         {"phase2.radio": radio, "phase2.reception.mode": "mesh", "phase2.gateways.count": g}))
+                         {**RECEIVE_SPACING, "phase2.radio": radio, "phase2.reception.mode": "mesh",
+                          "phase2.gateways.count": g}))
     for power in ("grid",):
         jobs.append(("receive_gridpower", f"mesh_sf|exposed|4|{power}",
-                     {"phase2.gateways.power": power, "phase2.gateways.count": 4}))
+                     {**RECEIVE_SPACING, "phase2.gateways.power": power, "phase2.gateways.count": 4}))
     for name, ov in {"none": {}, "fail40_restore100_buffer": {"phase2.gateways.backhaul_fail_min": 40,
                                                               "phase2.gateways.backhaul_restore_min": 100},
                      "fail40_restore100_nobuffer": {"phase2.gateways.backhaul_fail_min": 40,
                                                     "phase2.gateways.backhaul_restore_min": 100,
                                                     "phase2.gateways.buffer": False},
                      "fail40_never": {"phase2.gateways.backhaul_fail_min": 40}}.items():
-        jobs.append(("backhaul", name, {**ov, "phase2.gateways.count": 4}))
+        jobs.append(("backhaul", name, {**RECEIVE_SPACING, **ov, "phase2.gateways.count": 4}))
     for hb in (10, 30, 60, 120):
-        jobs.append(("heartbeat", str(hb), {"phase2.reception.heartbeat_s": hb}))
+        jobs.append(("heartbeat", str(hb), {**RECEIVE_SPACING, "phase2.reception.heartbeat_s": hb}))
     return jobs
 
 
@@ -99,6 +103,7 @@ def main():
     ap.add_argument("--only", default=None, help="receive, spacing or trips")
     ap.add_argument("--out", default="results/phase2_sweeps.csv")
     a = ap.parse_args()
+    prov = git_info()  # recorded at the start of the run
     base = load_config2()
     for fs in range(a.fire_seeds):
         get_fire(base, fs)
@@ -123,7 +128,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         w.writerows(rows)
-    meta = {**git_info(), "script": "scripts/10_phase2_sweeps.py", "config": "configs/default.json + configs/phase2.json",
+    meta = {**prov, "script": "scripts/10_phase2_sweeps.py", "config": "configs/default.json + configs/phase2.json",
             "fire_seeds": a.fire_seeds, "obs_seeds": a.obs_seeds, "n_runs": len(rows),
             "n_errors": sum(1 for r in rows if r.get("error")), "wall_s": round(time.time() - t0, 1)}
     (ROOT / a.out.replace(".csv", "_meta.json")).write_text(json.dumps(meta, indent=2))
