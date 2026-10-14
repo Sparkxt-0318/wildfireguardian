@@ -35,7 +35,15 @@ def _git(*args: str) -> str:
 
 
 def git_state() -> dict[str, Any]:
-    """Commit hash and whether the wfglink source tree has uncommitted changes."""
+    """Commit hash and whether the wfglink source tree has uncommitted changes.
+
+    scripts/run_from_head.sh runs code exported from a commit (git archive), which is not a
+    git checkout; it sets WFGLINK_EXPORT_COMMIT, and that commit is reported as clean
+    because the export contains exactly the committed files.
+    """
+    exported = os.environ.get("WFGLINK_EXPORT_COMMIT")
+    if exported:
+        return {"git_commit": exported, "git_dirty": False}
     try:
         commit = _git("rev-parse", "HEAD")
         status = _git("status", "--porcelain", "--", *SOURCE_PATHS)

@@ -64,6 +64,22 @@ class PipelineStats:
         return d
 
 
+def _smooth_tail(pts: np.ndarray, max_turn_deg: float = 100.0) -> np.ndarray:
+    """The part of a trail after its last sharp reversal (display only).
+
+    A wrong association in a dense shower makes the filtered path zig-zag; drawing only the
+    recent smooth part keeps the screen honest about the motion without changing any count.
+    """
+    if len(pts) < 3:
+        return pts
+    d = np.diff(pts, axis=0)
+    n = np.hypot(d[:, 0], d[:, 1])
+    ok = n > 1e-6
+    cosang = np.einsum("ij,ij->i", d[:-1], d[1:]) / np.maximum(n[:-1] * n[1:], 1e-12)
+    sharp = np.flatnonzero((cosang < math.cos(math.radians(max_turn_deg))) & ok[:-1] & ok[1:])
+    return pts[sharp[-1] + 1:] if sharp.size else pts
+
+
 class Pipeline:
     def __init__(self, cfg: dict, gate: dict | None = None, booth: BoothContext | None = None,
                  fps: float | None = None, m_per_px: float | None = None, distance_m: float | None = None,
@@ -313,7 +329,7 @@ class Pipeline:
             if tr.static or tr.n_points < 2:
                 continue
             recs = tr.records[-12:]
-            pts = np.array([(rr[4], rr[5]) for rr in recs if t - rr[1] <= 0.6])
+            pts = _smooth_tail(np.array([(rr[4], rr[5]) for rr in recs if t - rr[1] <= 0.6]))
             if len(pts) >= 2:
                 trails.append(pts)
                 ages.append(max(0.0, t - recs[-1][1]))

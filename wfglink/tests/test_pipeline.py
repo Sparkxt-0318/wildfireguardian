@@ -104,3 +104,12 @@ def test_small_embers_on_a_static_night_scene_are_not_duplicates():
             cv2.circle(img, (x, y), 1, (60, 160, 255), -1)
         pipe.process(Frame(img, i / 30, i, 0.0))
     assert pipe.stats.frames_duplicate == 0
+
+
+def test_trails_are_drawn_from_the_last_sharp_reversal():
+    from wfglink.pipeline import _smooth_tail
+
+    zigzag = np.array([[0, 0], [10, 0], [0, 1], [10, 2], [20, 2], [30, 3]], float)
+    assert np.allclose(_smooth_tail(zigzag), zigzag[2:])
+    smooth = np.array([[0, 0], [1, 0], [2, 0.1], [3, 0.3]])
+    assert len(_smooth_tail(smooth)) == 4
