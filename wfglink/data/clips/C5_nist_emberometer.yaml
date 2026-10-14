@@ -1,0 +1,16 @@
+# Clip settings for file mode (python -m wfglink process data/clips/C5_nist_emberometer.yaml).
+clip_id: C5_nist_emberometer
+file: data/raw/C5_nist_emberometer.mp4
+split: tune                 # used for development; never part of a headline number
+metrics_scope: all
+# Split screen: the lab camera is the left half; the right half is NIST's own 3D track plot.
+roi: [0.0, 0.0, 0.5, 1.0]
+# Before 0.5 s the plot is empty; from about 20 s graphic overlays cover the camera view,
+# and from 32 s the video shows other footage and the NIST logo. Checked on a 2 s contact sheet.
+segments_s: [[0.5, 19.5]]
+gate: null                  # default gate (vertical line at 62 percent of the width)
+distance_m: null            # not stated by NIST; pixels only
+notes: >
+  Controlled firebrand generator in the NIST National Fire Research Laboratory, filmed at
+  4K 30 fps. Bright lab lights, water pans and people in view are hard negatives. NIST's
+  plot on the right half is a qualitative check of track shapes only (different viewpoint).

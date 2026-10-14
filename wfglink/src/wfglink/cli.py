@@ -123,10 +123,21 @@ def cmd_process(args: argparse.Namespace) -> int:
 
     cfg = load_config(*(args.config or []))
     clip = Path(args.clip)
-    out = Path(args.out) if args.out else PROJECT_ROOT / "results" / "runs" / "process" / clip.stem
-    s = process_clip(clip, out, cfg, gate=_gate_arg(args.gate), t_exp=args.exposure, overlay=not args.no_overlay,
-                     lang=args.lang, max_seconds=args.max_seconds, m_per_px=args.m_per_px, distance_m=args.distance_m,
-                     start_s=args.start_seconds)
+    cc: dict = {}
+    if clip.suffix in (".yaml", ".yml"):   # a clip settings file (data/clips/<id>.yaml)
+        import yaml
+
+        cc = yaml.safe_load(clip.read_text()) or {}
+        clip = PROJECT_ROOT / cc["file"]
+    seg = (cc.get("segments_s") or [[None, None]])[0]
+    start = args.start_seconds if args.start_seconds else (seg[0] or 0.0)
+    end = args.max_seconds if args.max_seconds is not None else seg[1]
+    gate = _gate_arg(args.gate) or (cc.get("gate") and {"p1": cc["gate"][:2], "p2": cc["gate"][2:], "name": "gate"})
+    roi = [float(v) for v in args.roi.split(",")] if args.roi else cc.get("roi")
+    out = Path(args.out) if args.out else PROJECT_ROOT / "results" / "runs" / "process" / (cc.get("clip_id") or clip.stem)
+    s = process_clip(clip, out, cfg, gate=gate, t_exp=args.exposure or cc.get("exposure_s"), overlay=not args.no_overlay,
+                     lang=args.lang, max_seconds=end, m_per_px=args.m_per_px, distance_m=args.distance_m,
+                     start_s=start, roi=roi)
     t = s["totals"]
     print(f"{clip.name}: {t.get('frames')} frames, {t.get('tracks_moving')} moving tracks, "
           f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
@@ -194,13 +205,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_booth)
 
     p = sub.add_parser("process", help="file mode: tables, summary JSON and overlay video for one clip")
-    p.add_argument("clip")
+    p.add_argument("clip", help="a video file, or a clip settings file data/clips/<id>.yaml")
     p.add_argument("--out", default=None, help="output folder (default results/runs/process/<clip name>)")
     p.add_argument("--gate", default=None, help="x1,y1,x2,y2 in px, or fractions of the frame")
     p.add_argument("--exposure", type=float, default=None, help="exposure time in s if known (else estimated)")
     p.add_argument("--no-overlay", action="store_true")
     p.add_argument("--lang", default="ko", choices=["ko", "en"])
     p.add_argument("--start-seconds", type=float, default=0.0, help="start of the segment to process")
+    p.add_argument("--roi", default=None, help="x0,y0,x1,y1 region to analyse (fractions or px)")
     p.add_argument("--max-seconds", type=float, default=None, help="end of the segment (clip time)")
     p.add_argument("--m-per-px", type=float, default=None, help="scale at the stated distance (default: pixels)")
     p.add_argument("--distance-m", type=float, default=None)

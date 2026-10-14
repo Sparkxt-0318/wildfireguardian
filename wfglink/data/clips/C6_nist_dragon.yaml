@@ -1,0 +1,14 @@
+# Clip settings for file mode (python -m wfglink process data/clips/C6_nist_dragon.yaml).
+clip_id: C6_nist_dragon
+file: data/raw/C6_nist_dragon.mp4
+split: tune
+metrics_scope: all
+roi: null
+# Lab footage only: the Shutterstock dragon graphic (about 5 to 14 s) and an uncredited still
+# (about 24 to 37 s) are not NIST footage and are never used (data/SOURCES.md).
+segments_s: [[14.0, 24.0]]
+gate: null
+distance_m: null
+notes: >
+  NIST Dragon firebrand generator, 540x360 at 29.97 fps with repeated frames from an old
+  re-encode and a burnt-in caption. A dense, low-resolution shower: hard for association.
