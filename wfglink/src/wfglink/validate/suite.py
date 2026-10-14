@@ -278,6 +278,11 @@ def summarize(results: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                 acc = pooled.setdefault(k, [0, 0])
                 acc[0] += h
                 acc[1] += n
+        inci = [bool(_get(r, "gate.cpc_gross.in_ci")) for r in rs if _get(r, "gate.cpc_gross.in_ci") is not None]
+        if inci:
+            from wfglink.validate.metrics import coverage
+
+            row["cpc_coverage"] = coverage(inci)        # k, n, fraction and its Clopper-Pearson interval
         row["completeness"] = {k: round(h / n, 3) if n else None for k, (h, n) in pooled.items()}
         row["snr50"] = snr50(pooled) if pooled else None
         out[case] = row
