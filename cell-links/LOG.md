@@ -115,3 +115,43 @@ Results: 4,360 dry link-days and 3,676 wet link-days. False alarm rates on all d
 Diagnosis: alarms are concentrated in a few erratic sub-links. 64 percent of sub-links had no 3 dB drop alarm in about 30 dry days, while the worst 10 percent produced 83 percent of all alarms.
 
 Decision: add link screening, as operational CML rain processing does (Graf et al. 2020 drop erratic links). Sub-links are ranked on June dry data, the best 80 percent are kept, and false alarms and detection are evaluated only on July and August. The FAR targets are now 0.1, 0.01 and 0.001 per link-day, with 0.01 as the main one. Threshold grids were extended upward.
+
+## 2026-10-15 03:00 CST: step 6 rerun with link screening, and step 7 confounders
+
+Goal: detection on screened links; quantify rain, ATPC and coarse logging.
+
+Commands: `.venv/bin/python -I src/run_detection.py` (runtime 10.8 min), then `.venv/bin/python -I src/run_detection.py --figures-only` after the figure fixes, then `.venv/bin/python -I src/run_confounders.py` (about 1 min, run three times while fixing overlapping legends and curves).
+
+Parameters: screening split 2015-07-01; rank by June dry alarms (drop at least 2 dB or variance ratio at least 4); keep the best 80 percent; FAR targets 0.1, 0.01 and 0.001 per link-day.
+
+Results (observed noise plus modeled signal):
+- Screening kept 98 of 119 ranked sub-links, leaving 2,112 test link-days. Screened dry false-alarm rates at 10 s were 0.033 (3 dB drop), 0.008 (6 dB) and 0.001 (9 dB) per link-day. In rainy periods the rate was 2.2 per link-day at 3 dB, 67 times the screened dry rate.
+- Extreme scenario, lab-peak ne, at 0.01 false alarms per link-day: the 10 s variance detector found 3.5 percent of crossed links (16 percent of those with a physical signature), with a median delay of 12 min. The drop detector found 1.6 percent; 1 min data 2.3 percent; 15 min min/max 1.4 percent. The 2 dB ATPC window gave 0 percent.
+- At 0.1 false alarms per link-day: 7.9 to 9.8 percent (35 to 43 percent of affected links), with delays of 8 to 15 min. Field-bound ne: at most 1 percent at 0.01 and 6 percent at 0.1. Moderate scenario: at most 2 percent.
+- Localization (extreme, 23 alarmed links): median midpoint error 2.8 km (90th percentile 4.7 km) for a median link length of 6.6 km. The plane-fit speed was 2.8 km/h, matching the fit to the true crossings, but the direction was 69 deg against 121 deg.
+- Rain over the median hop at 1 mm/h: 0.02 dB (7 GHz), 0.31 (18 GHz), 1.2 (38 GHz) and 3.1 (80 GHz), the same size as the fire signatures.
+
+Decisions: report the screened pool as the main result, and the unscreened pool and rainy-period rates as confounders.
+
+## 2026-10-15 03:40 CST: reproducible full rerun and final records
+
+Goal: every number traceable to one committed code version.
+
+Commands: committed the code as 5c08490, then ran `./run_all.sh` (20.5 min). The script deletes NUMBERS.json, checks that src/ and configs/ are committed, and pins `CELL_LINKS_COMMIT`. A comparison with the previous NUMBERS.json found 1,701 keys with 0 differences, all now stamped 5c08490eebfc.
+
+Next, `src/run_extras.py` was added and committed. It records the measured literature values and these derived statistics:
+- refractivity change in the flame band: -198 N-units;
+- the wet-to-dry false-alarm ratio: 66.5;
+- the alarm concentration: the worst 10 percent of sub-links give 83 percent of dry 3 dB alarms, and 64 percent of sub-links have none.
+
+It was then run pinned to that commit.
+
+Corrections to earlier entries (this log is append-only):
+- The calibrated effective ionization temperature for the lab-peak anchor at 1000 hPa is 1653 K, not 1620 K. The 1620 K value came from an ad hoc check with ne = 1e16.
+- The field-bound attenuation is 29 to 38 times lower than lab peak, not "40 times".
+
+Wrote RESULTS.md and README.md.
+
+Decision: no-go for existing commercial backhaul as a primary tripwire.
+
+Next step: request the 20 to 30 March 2025 RSL/TSL logs for links crossing the burn area from KT, KBS and the Korea Forest Service. The fallback is a two-radio 10 GHz test over a prescribed burn.

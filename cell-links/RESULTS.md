@@ -51,7 +51,7 @@ No simulated result here has been observed in a real fire.
 | 80 GHz | 0.08 |
 
   - Above about 10 GHz the loss falls roughly as 1/f^2, so the lower-frequency, longer links are the most sensitive per metre of flame.
-  - The field-bound electron density (3.5e14 m^-3, derived from Euroka's under-5-dB bound) gives values about 40 times lower.
+  - The field-bound electron density (3.5e14 m^-3, derived from Euroka's under-5-dB bound) gives values 29 to 38 times lower, for example 0.18 dB/m at 7 GHz and 0.05 dB/m at 18 GHz.
 - Free electrons do not survive above the flame. Saha equilibrium needs an effective ionization temperature of about 1650 K to reach the measured density, and that collapses as the plume cools. Even a "frozen ions" upper bound gives under 3e10 m^-3 at 50 m above the ground over a 30 MW/m crown fire (20 m above its flame top), which absorbs nothing.
 
 ![Vertical structure](figures/phys_profiles.png)

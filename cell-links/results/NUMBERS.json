@@ -3679,6 +3679,16 @@
   "commit": "5c08490eebfc",
   "time": "2026-10-15 00:17 CST"
  },
+ "conf.far.wet_over_screened_s10_drop3": {
+  "value": 66.5198,
+  "unit": "ratio",
+  "description": "Rainy-period over screened-dry false alarm rate, 10 s drop >= 3 dB",
+  "kind": "modeled",
+  "script": "src/run_extras.py",
+  "config": "configs/detection.json",
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:19 CST"
+ },
  "conf.rain.13GHz.0.5mmh.path_db": {
   "value": 0.0901842,
   "unit": "dB",
@@ -8989,6 +8999,16 @@
   "commit": "5c08490eebfc",
   "time": "2026-10-15 00:17 CST"
  },
+ "det.noise.median_dry_days_per_sublink": {
+  "value": 29.9583,
+  "unit": "days",
+  "description": "Median dry days analysed per sub-link",
+  "kind": "modeled",
+  "script": "src/run_extras.py",
+  "config": "configs/detection.json",
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:19 CST"
+ },
  "det.noise.n_dry_chunks": {
   "value": 3225,
   "unit": "count",
@@ -9008,6 +9028,26 @@
   "config": "configs/detection.json",
   "commit": "5c08490eebfc",
   "time": "2026-10-15 00:17 CST"
+ },
+ "det.noise.share_alarms_worst10pct": {
+  "value": 0.829932,
+  "unit": "fraction",
+  "description": "Share of dry 3 dB drop alarms from the worst 10 percent of sub-links",
+  "kind": "modeled",
+  "script": "src/run_extras.py",
+  "config": "configs/detection.json",
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:19 CST"
+ },
+ "det.noise.share_sublinks_no_alarm": {
+  "value": 0.638655,
+  "unit": "fraction",
+  "description": "Share of sub-links with no dry 3 dB drop alarm",
+  "kind": "modeled",
+  "script": "src/run_extras.py",
+  "config": "configs/detection.json",
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:19 CST"
  },
  "det.noise.std_median_db": {
   "value": 0.20348,
@@ -15128,6 +15168,266 @@
   "config": "configs/geometry.json",
   "commit": "5c08490eebfc",
   "time": "2026-10-14 23:57 CST"
+ },
+ "lit.bystrov_max_db_per_m": {
+  "value": 0.13,
+  "unit": "dB/m",
+  "description": "Bystrov et al. 2021 max smoke or flame loss at 79 and 300 GHz (S13)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.canefire_151MHz_total_db": {
+  "value": 0.43,
+  "unit": "dB",
+  "description": "Sugarcane fire 151 MHz total over 590 m (S5)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.ericsson_ne_asia_microwave_share": {
+  "value": 0.06,
+  "unit": "fraction",
+  "description": "Microwave share of backhaul in North East Asia to 2030 (S40)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.euroka_bound_db": {
+  "value": 5.0,
+  "unit": "dB",
+  "description": "Operation Euroka UHF and X band bound over about 40 m (S8, second hand)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.euroka_path_m": {
+  "value": 40.0,
+  "unit": "m",
+  "description": "Operation Euroka path through fire (S8, second hand)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.grassfire_vhf_total_db_max": {
+  "value": 0.05,
+  "unit": "dB",
+  "description": "Grassfire VHF total loss over 44 m, upper (S4)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.grassfire_vhf_total_db_min": {
+  "value": 0.03,
+  "unit": "dB",
+  "description": "Grassfire VHF total loss over 44 m, lower (S4)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.kfs_cameras": {
+  "value": 1971,
+  "unit": "count",
+  "description": "Korea Forest Service fire surveillance cameras (S45)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.kt_link_freq_max_ghz": {
+  "value": 10,
+  "unit": "GHz",
+  "description": "KT microwave relays at 10 GHz or less (S37)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.burner_diameter_m": {
+  "value": 0.5,
+  "unit": "m",
+  "description": "Burner internal diameter (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.loss_max_db": {
+  "value": 5.68,
+  "unit": "dB",
+  "description": "Mphale and Heron 2007, max relative attenuation, 8 GHz at 72 s (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.loss_min_db": {
+  "value": 1.64,
+  "unit": "dB",
+  "description": "Mphale and Heron 2007 J Phys D, min relative attenuation 8-10.5 GHz (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.ne_max": {
+  "value": 1.35e+16,
+  "unit": "m^-3",
+  "description": "Mphale and Heron 2007, max inverted electron density (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.ne_min": {
+  "value": 5100000000000000.0,
+  "unit": "m^-3",
+  "description": "Mphale and Heron 2007, min inverted electron density (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.nu_max": {
+  "value": 59700000000.0,
+  "unit": "s^-1",
+  "description": "Mphale and Heron 2007, max collision frequency (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.mphale2007.nu_min": {
+  "value": 34300000000.0,
+  "unit": "s^-1",
+  "description": "Mphale and Heron 2007, min collision frequency (S1)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.openmrg.size_bytes": {
+  "value": 317994487,
+  "unit": "bytes",
+  "description": "OpenMRG.zip size (D2)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.burned_ha": {
+  "value": 99289,
+  "unit": "ha",
+  "description": "Official forest damage, five counties (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.dead": {
+  "value": 26,
+  "unit": "count",
+  "description": "Deaths in the five Gyeongbuk counties (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.gust_m_s": {
+  "value": 27,
+  "unit": "m/s",
+  "description": "Reported maximum gust (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.peak_spread_kmh": {
+  "value": 8.2,
+  "unit": "km/h",
+  "description": "Reported peak spread (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.rain_mm_max": {
+  "value": 3,
+  "unit": "mm",
+  "description": "Rain 27-28 March 2025, highest county total (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.rain_mm_min": {
+  "value": 1,
+  "unit": "mm",
+  "description": "Rain 27-28 March 2025, lowest county total (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.rh_min_pct": {
+  "value": 16,
+  "unit": "%",
+  "description": "Relative humidity 18:00 23 March 2025 (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "lit.uiseong.track_km": {
+  "value": 50,
+  "unit": "km",
+  "description": "Uiseong to Yeongdeok coast, 14:00 25 March to 02:00 26 March (S23)",
+  "kind": "measured",
+  "script": "src/run_extras.py",
+  "config": null,
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:18 CST"
+ },
+ "phys.dN_flame_vs_ambient": {
+  "value": -197.702,
+  "unit": "N-units",
+  "description": "Thermal refractivity change inside the 1100 K flame band",
+  "kind": "modeled",
+  "script": "src/run_extras.py",
+  "config": "configs/detection.json",
+  "commit": "b7ee7203698a",
+  "time": "2026-10-15 00:19 CST"
  },
  "phys.excess.crown.field_bound.13GHz.clear_0.6F1": {
   "value": 1.20735,
