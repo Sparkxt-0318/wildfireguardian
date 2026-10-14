@@ -71,6 +71,8 @@ class Pipeline:
                  record: bool = False, t_exp_hint: float | None = None):
         self.cfg = cfg
         self.record = record          # keep detections, frames and full tracks for tables()
+        # Streak refinement costs a few ms per frame: file mode (record) only, when configured.
+        self.refine = record and bool(cfg.get("detect", {}).get("streaks", {}).get("refine", False))
         self.t_exp_hint = t_exp_hint  # exposure time (s) for the tracker's search reach
         self.booth = booth
         self.fps = fps
@@ -157,6 +159,10 @@ class Pipeline:
         h, w = image.shape[:2]
         self._ensure_gate(w, h)
         det = self.detector.detect(image, mask)
+        if self.refine and len(det):
+            from wfglink.detect.streaks import refine_streaks
+
+            det = refine_streaks(det, self.detector.state, self.cfg)
         snaps = self.tracker.update(det, t, frame.index)
         if self.record:
             self._record(frame.index, t, det)

@@ -25,6 +25,13 @@ detect:
     max_streak_width_px: 10      # a large component must be thinner than this to count as a streak
     large_mask_dilate_px: 7      # exclusion band around large bright regions
     moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
+  streaks:
+    refine: false                # file mode: remeasure moments in an oriented window (detect/streaks.py)
+    refine_min_length_px: 2.0
+    iterations: 2
+    margin_sigma: 2.5            # window reaches this many PSF widths past the ends and to each side
+    max_change: 0.6              # a refinement changing the length more than this fraction is discarded
+    min_psf_sigma_px: 0.7
   saturation:
     level_dn: 250
     flag_min_px: 2               # at least this many saturated pixels sets the saturated flag

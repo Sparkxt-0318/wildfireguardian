@@ -76,6 +76,10 @@ class DetectorState:
     sigma: np.ndarray | None = None
     large_mask: np.ndarray | None = None
     offset: float = 0.0
+    luma: np.ndarray | None = None          # unfiltered luma (uint8)
+    background: np.ndarray | None = None    # background model (uint8)
+    offset_map: np.ndarray | None = None    # tile offsets (float32), plus offset_delta globally
+    offset_delta: float = 0.0
 
 
 class Detector:
@@ -202,7 +206,8 @@ class Detector:
         if mask is not None:
             grow[mask > 0] = 0
         self.state = DetectorState(positive=pos, tophat=tophat, sigma=self._sigma,
-                                   large_mask=large, offset=glob)
+                                   large_mask=large, offset=glob, luma=y_raw, background=bg,
+                                   offset_map=self._tile_offset, offset_delta=glob - self._offset_ref)
 
         n, labels, stats, _ = cv2.connectedComponentsWithStats(grow, connectivity=8, ltype=cv2.CV_32S)
         if n <= 1:
