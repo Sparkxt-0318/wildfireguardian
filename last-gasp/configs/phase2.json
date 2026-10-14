@@ -107,7 +107,9 @@
     "power": "battery",
     "backhaul_fail_min": null,
     "backhaul_restore_min": null,
-    "buffer": true
+    "buffer": true,
+    "placement": "spread",
+    "perimeter_band_m": 400
   },
   "realtime_window_min": 5.0,
   "trips": {

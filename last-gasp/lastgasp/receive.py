@@ -112,6 +112,32 @@ def greedy_gateways(tag_xy, site_xy, cfg, k, weight=None, tt=None):
     return np.array(chosen, int)
 
 
+def spread_gateways(tag_xy, site_xy, cfg, k, perimeter=None):
+    """Spatially spread layout: start at the best-covering site, then farthest-point sampling.
+
+    perimeter=(width, height, band_m) restricts candidates to sites within band_m of the area edge.
+    Spreading gateways apart means one fire run does not destroy them all at once.
+    """
+    cand = np.arange(len(site_xy))
+    if perimeter is not None:
+        W, H, band = perimeter
+        x, y = site_xy[:, 0], site_xy[:, 1]
+        edge = np.minimum.reduce([x, W - x, y, H - y]) <= band
+        if edge.sum() >= k:
+            cand = cand[edge]
+    P = p_link_gw(tag_xy, site_xy[cand], cfg)
+    chosen = [int(np.argmax(P.sum(0)))]
+    d = np.hypot(*(site_xy[cand] - site_xy[cand[chosen[0]]]).T)
+    useful = P.sum(0) >= 0.25 * P.sum(0).max()  # skip sites that reach almost no tags
+    for _ in range(min(k, len(cand)) - 1):
+        score = np.where(useful, d, -1)
+        score[chosen] = -1
+        j = int(np.argmax(score))
+        chosen.append(j)
+        d = np.minimum(d, np.hypot(*(site_xy[cand] - site_xy[cand[j]]).T))
+    return cand[np.array(chosen, int)]
+
+
 def simulate_reception(tag_t_death, gw_t_death, tt, tg, cfg, t_end, rng):
     """Observed death time (or nan) and delivery time for each tag, plus last-known-alive times.
 

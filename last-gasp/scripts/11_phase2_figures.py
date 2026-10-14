@@ -154,6 +154,8 @@ def fig_gateways(S):
         axes[0].plot(Gb, yb, ls=":", marker="s", ms=3, color=col, label=lab)
     p_perf = S["receive"]["mesh|exposed|4"].get("perfect_bldg_p90", np.nan)
     axes[1].axhline(p_perf, color="k", lw=0.8, ls=":", label="Perfect reception")
+    for a_ in axes[:2]:
+        a_.set_xticks([1, 2, 4, 6, 8, 12])
     axes[0].set_xlabel("Gateways in 10.4 km²")
     axes[0].set_ylabel("Fraction of fire deaths heard")
     axes[0].set_ylim(0, 1.02)
@@ -164,21 +166,21 @@ def fig_gateways(S):
     axes[1].set_title("(b) Arrival-time error", fontsize=8.5, loc="left")
     axes[1].legend(fontsize=7, frameon=False, loc="upper right")
     # Panel c: failure modes at 4 gateways, mesh.
-    cats = [("Mesh, 4 exposed\nbattery gateways", S["receive"]["mesh_sf|exposed|4"]),
-            ("Gateways on\ngrid power", S.get("receive_gridpower", {}).get("mesh_sf|exposed|4|grid", {})),
-            ("Backhaul down\n40 to 100 min,\nbuffered", S.get("backhaul", {}).get("fail40_restore100_buffer", {})),
-            ("Backhaul down\n40 to 100 min,\nno buffer", S.get("backhaul", {}).get("fail40_restore100_nobuffer", {}))]
+    cats = [("Battery\ngateways", S["receive"]["mesh_sf|exposed|4"]),
+            ("Grid-\npowered", S.get("receive_gridpower", {}).get("mesh_sf|exposed|4|grid", {})),
+            ("Backhaul\noutage,\nbuffered", S.get("backhaul", {}).get("fail40_restore100_buffer", {})),
+            ("Backhaul\noutage,\nno buffer", S.get("backhaul", {}).get("fail40_restore100_nobuffer", {}))]
     x = np.arange(len(cats))
     eventual = [c[1].get("frac_deaths_observed", np.nan) for c in cats]
     realtime = [c[1].get("frac_deaths_realtime", np.nan) for c in cats]
     axes[2].bar(x - 0.18, eventual, 0.36, color=C["blue"], label="Heard by end of event")
     axes[2].bar(x + 0.18, realtime, 0.36, color=C["skyblue"], label="Heard within 5 min")
     axes[2].set_xticks(x)
-    axes[2].set_xticklabels([c[0] for c in cats], fontsize=6.5)
+    axes[2].set_xticklabels([c[0] for c in cats], fontsize=7)
     axes[2].set_ylim(0, 1.02)
     axes[2].set_ylabel("Fraction of fire deaths heard")
-    axes[2].set_title("(c) Power and backhaul", fontsize=8.5, loc="left")
-    axes[2].legend(fontsize=6.5, frameon=False, loc="upper right")
+    axes[2].set_title("(c) Mesh, 4 exposed gateways:\npower and backhaul (out 40 to 100 min)", fontsize=8, loc="left")
+    axes[2].legend(fontsize=6.5, frameon=True, framealpha=0.95, edgecolor="none", loc="upper right")
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=3, frameon=False, fontsize=7, bbox_to_anchor=(0.5, -0.13))
     fig.suptitle("Gateways and relaying: LoRa tags every 200 m of road (about 12 per km²), medians over 10 runs. "

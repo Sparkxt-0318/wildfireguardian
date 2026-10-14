@@ -60,7 +60,8 @@ Sources for the radio values:
 
 | Key | Default | Reason |
 |---|---|---|
-| `count` | 4 (swept 1 to 12) | Greedy placement on utility pole positions, maximising expected tags reached (directly, or within `max_hops` for mesh). |
+| `count` | 4 (swept 1 to 12) | Gateways sit on utility pole positions (every 10th pole is a candidate). |
+| `placement` | `spread` | `coverage`: greedy on expected direct links (clusters gateways in the town centre). `spread`: start at the best-covering site, then farthest-point spacing among sites that reach at least 25% of the best site's tags. `perimeter`: the same, restricted to sites within `perimeter_band_m` (400 m) of the area edge. |
 | `hardened` | false | Exposed gateways burn. Hardened ones (for example on a concrete roof or outside the fire area) survive. |
 | `p_destroyed_given_fire` | 0.9 | Assumption. |
 | `death_delay_min` | 0 to 5 min | Assumption. |

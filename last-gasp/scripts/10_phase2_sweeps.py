@@ -31,6 +31,11 @@ def receive_jobs():
                 jobs.append(("receive", f"{mode}|{'hardened' if hardened else 'exposed'}|{g}",
                              {**RECEIVE_SPACING, "phase2.reception.mode": mode, "phase2.gateways.hardened": hardened,
                               "phase2.gateways.count": g}))
+    for placement in ("coverage", "spread", "perimeter"):
+        for g in (1, 2, 3, 4, 6, 8, 12):
+            jobs.append(("placement", f"{placement}|{g}", {**RECEIVE_SPACING, "phase2.reception.mode": "mesh",
+                                                            "phase2.gateways.placement": placement,
+                                                            "phase2.gateways.count": g}))
     for radio in ("ble", "lora_sf9", "lora_pessimistic"):
         for g in (1, 2, 4, 8, 12):
             jobs.append((f"receive_{radio}", f"mesh|exposed|{g}",

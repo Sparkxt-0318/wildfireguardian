@@ -1,0 +1,26 @@
+50/940 done, 7 s
+100/940 done, 13 s
+150/940 done, 20 s
+200/940 done, 30 s
+250/940 done, 39 s
+300/940 done, 50 s
+350/940 done, 59 s
+400/940 done, 70 s
+450/940 done, 78 s
+500/940 done, 87 s
+550/940 done, 96 s
+600/940 done, 106 s
+650/940 done, 114 s
+700/940 done, 190 s
+750/940 done, 207 s
+800/940 done, 207 s
+850/940 done, 207 s
+900/940 done, 208 s
+{"commit": "52e5284fb12b6dbc03210daa7a169b1b7fb62f8b", "code_dirty": false, "script": "scripts/10_phase2_sweeps.py", "config": "configs/default.json + configs/phase2.json", "fire_seeds": 5, "obs_seeds": 2, "n_runs": 940, "n_errors": 0, "wall_s": 208.5}
+/home/user/wildfireguardian/last-gasp/figures/fig9_receive_example.png
+/home/user/wildfireguardian/last-gasp/figures/fig10_gateways.png
+/home/user/wildfireguardian/last-gasp/figures/fig11_trips.png
+/home/user/wildfireguardian/last-gasp/figures/fig12_spacing_cost.png
+{"n_runs": 20, "detection_latency_median_s": 2.5744559189278036, "detection_latency_p90_s": 2.996800540494502, "runs_with_correct_spot_flag": 20, "runs_with_any_extra_spot_flag": 0, "heartbeat_s": 1.0, "timeout_beats": 3, "packet_loss": 0.05}
+3415 numbers written
+exit 0

@@ -181,5 +181,73 @@
  "p2_demo_burned_spots": {
   "value": "23 of 25 burned, 1 spot at node 16, 605 m",
   "how": "demo simulator headless, seed 1"
+ },
+ "p2_first_sweep_runs_wall": {
+  "value": [
+   940,
+   613
+  ],
+  "how": "superseded sweep at ef0fa82, runs and wall seconds"
+ },
+ "p2_first_sweep_mesh_heard_range": {
+  "value": [
+   0.93,
+   1.0
+  ],
+  "how": "superseded sweep, 100 m spacing, mesh, 1 to 12 gateways"
+ },
+ "p2_first_sweep_star_exposed_heard_range": {
+  "value": [
+   0.37,
+   0.91
+  ],
+  "how": "superseded sweep, star, exposed gateways"
+ },
+ "p2_first_sweep_gridpower_heard": {
+  "value": 0.6,
+  "how": "superseded sweep, grid-powered gateways"
+ },
+ "p2_first_sweep_backhaul_nobuffer_heard": {
+  "value": 0.36,
+  "how": "superseded sweep, backhaul 40 to 100 min, no buffer"
+ },
+ "p2_trip_check_bug_cls_acc": {
+  "value": 0.11,
+  "how": "superseded sweep, trips with tags at 1600 m, classification accuracy"
+ },
+ "p2_trip_check_fix_world1": {
+  "value": {
+   "tags_trips_med": 6.53,
+   "tags_only_med": 26.83
+  },
+  "how": "run_trips world 1, 1600 m, after fix"
+ },
+ "p2_derived_ranges_m": {
+  "value": {
+   "lora": [
+    282,
+    1744
+   ],
+   "lora_sf9": [
+    388,
+    2494
+   ],
+   "lora_pessimistic": [
+    245,
+    282
+   ],
+   "ble": [
+    42,
+    42
+   ]
+  },
+  "how": "median link range tag-tag / tag-gw from link budget"
+ },
+ "p2_booth_prelim": {
+  "value": {
+   "latency_med_s": 2.57,
+   "spot_correct": "20 of 20"
+  },
+  "how": "scripts/12_demo_metrics.py before commit 52e5284"
  }
 }

@@ -189,3 +189,30 @@ Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. En
 - Demo: `python -m lastgasp_demo --sim --headless` burns 23 of 25 nodes and flags one spot fire at node 16 (605 m jump). `test_demo.py` passes.
 - Novelty agent report received (`docs/NOVELTY.md`). The main session re-fetched IBM US9721458B2 and Smith US9619996B1 and confirmed the quoted text: arrival time from the last heartbeat is prior art (2014).
 - Next step: set radio and cost parameters from the cited sources, commit, run the phase 2 sweeps from a clean commit.
+
+## 2026-10-15 00:12 Phase 2 parameters pinned; first phase 2 sweep (superseded)
+
+- Radio and cost agent report received. The main session verified two sources:
+  - Boonlom et al. 2026 (RSSI = -16.62 - 32.24 log10 d at 923 MHz, gateway at 8 m);
+  - LoRa Alliance RP002-1.0.3 section 2.11 (KR920: 14 dBm end-device EIRP on 922.1 to 923.3 MHz, listen-before-talk).
+- Radio profiles set from cited fits (`docs/PARAMETERS_PHASE2.md`). Derived median ranges, tag-to-tag / tag-to-gateway:
+  - LoRa SF7: 282 m / 1.74 km;
+  - pessimistic LoRa: 245 m / 282 m;
+  - BLE: 42 m / 42 m.
+- Tag death delay set to 10 to 120 s after flame arrival.
+- Battery life (`lastgasp/economics.py`, derived), LoRa SF7 every 30 s: 3.3 years with 2% per year self-discharge. At SF9 every 30 s: 1.0 years.
+- Booth simulator metrics (`scripts/12_demo_metrics.py`, 20 runs): detection latency 2.6 s median; the simulated spot fire was flagged in 20 of 20 runs.
+- First phase 2 sweep, run at commit ef0fa82: 940 runs, 0 errors, 613 s.
+  - Superseded, for three reasons:
+    - git state was captured at the end of the run, after other scripts had changed, so it read code_dirty true;
+    - the receive-side jobs used the config default of 100 m spacing instead of the intended 200 m;
+    - the trips figure crashed on scenarios with no fire trips.
+  - Exploratory observations from it:
+    - mesh relaying heard 93% to 100% of tag deaths, even with fire-exposed gateways;
+    - star with exposed gateways heard 37% to 91%;
+    - grid-powered gateways heard 60%;
+    - a backhaul outage without a gateway buffer left 36%.
+- Bug found and fixed: with very sparse tags, the tag-based trip check used an unreliable estimate and discarded real fire trips (classification accuracy 0.11 at 1,600 m spacing). The check now applies only within 500 m of an observed tag death.
+  - Check, world 1: tags plus trips 6.5 min median, against 26.8 for tags alone.
+- Added scenarios from the utility research: a reactive shutoff (lines cut after the fire reached them) and a logging blackout at 40 min.
+- Fixes committed (52e5284). Rerun: `scripts/10_phase2_sweeps.py`, then 11, 12 and 07 (`results/phase2_run.log`).

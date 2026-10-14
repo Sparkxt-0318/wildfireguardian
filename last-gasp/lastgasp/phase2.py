@@ -16,7 +16,7 @@ import numpy as np
 
 from . import deploy
 from .pipeline import get_fire, get_world, sample_T, set_path
-from .receive import build_links, greedy_gateways, simulate_reception
+from .receive import build_links, greedy_gateways, simulate_reception, spread_gateways
 from .reconstruct import detect_and_reconstruct, idw
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -114,7 +114,18 @@ def run_tags(cfg, fire_seed=0, obs_seed=0, keep=False):
     gw = p2["gateways"]
     sites = net.pole_xy[:: max(1, gw["candidate_stride"])]
     tt, _ = build_links(tag_xy, np.zeros((0, 2)), rcfg, rng)
-    g_idx = greedy_gateways(tag_xy, sites, rcfg, gw["count"], tt=tt if rcfg["mesh_capable"] else None)
+    # Gateway layout. "coverage": greedy on expected direct links (scoring mesh reach instead makes every
+    # site equal in a connected mesh). "spread": farthest-point layout. "perimeter": spread along the edge.
+    placement = gw.get("placement", "spread")
+    if placement == "coverage":
+        g_idx = greedy_gateways(tag_xy, sites, rcfg, gw["count"])
+    elif placement == "spread":
+        g_idx = spread_gateways(tag_xy, sites, rcfg, gw["count"])
+    elif placement == "perimeter":
+        g_idx = spread_gateways(tag_xy, sites, rcfg, gw["count"],
+                                (world["width_m"], world["height_m"], gw["perimeter_band_m"]))
+    else:
+        raise ValueError(placement)
     gw_xy = sites[g_idx]
     _, tg = build_links(tag_xy, gw_xy, {**rcfg, "mesh_capable": False}, rng)
     T_gw = sample_T(fire, gw_xy) if len(gw_xy) else np.zeros(0)
