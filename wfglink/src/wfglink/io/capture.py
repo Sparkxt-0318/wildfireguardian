@@ -63,7 +63,7 @@ class CaptureWorker(threading.Thread):
         self.option = option
         self.health_hook = health_hook
         self._lock = threading.Lock()
-        self._stop = threading.Event()
+        self._halt = threading.Event()
         self.frame: Frame | None = None
         self.opened = threading.Event()
         self.error: str | None = None
@@ -77,7 +77,7 @@ class CaptureWorker(threading.Thread):
         self._times: list[float] = []
 
     def stop(self) -> None:
-        self._stop.set()
+        self._halt.set()
 
     def run(self) -> None:
         try:
@@ -87,7 +87,7 @@ class CaptureWorker(threading.Thread):
             self.t_last_change = self.t_open
             self.t_last_hook_ok = self.t_open
             self.opened.set()
-            while not self._stop.is_set():
+            while not self._halt.is_set():
                 f = self.source.read()
                 now = time.monotonic()
                 if f is None:
@@ -197,19 +197,23 @@ class SourceChain:
         self._last_probe: dict[str, float] = {o.key: 0.0 for o in options}
         self.status = ChainStatus()
         self.events: list[dict] = []
+        self._retired: list[CaptureWorker] = []
 
     # Public API ------------------------------------------------------------------------
     def start(self) -> None:
         self._thread = threading.Thread(target=self._run, daemon=True, name="source-chain")
         self._thread.start()
 
-    def stop(self) -> None:
+    def stop(self, timeout_s: float = 3.0) -> None:
+        """Stop the manager and every capture thread, waiting for them to finish."""
         self._stop.set()
         if self._thread is not None:
-            self._thread.join(timeout=3)
-        for w in (self.active, self.probe):
-            if w is not None:
-                w.stop()
+            self._thread.join(timeout=timeout_s)
+        workers = [w for w in (self.active, self.probe) if w is not None] + self._retired
+        for w in workers:
+            w.stop()
+        for w in workers:
+            w.join(timeout=timeout_s)
 
     def latest(self) -> tuple[Frame | None, ChainStatus]:
         with self._lock:
@@ -251,6 +255,7 @@ class SourceChain:
             self.status.switches += 1
         if old is not None and old is not w:
             old.stop()
+            self._retired.append(old)
         self._log("activated", key=w.option.key, reason=reason)
 
     def _run(self) -> None:
@@ -261,12 +266,14 @@ class SourceChain:
 
     def _step(self, now: float) -> None:
         cfg = self.cfg
+        self._retired = [w for w in self._retired if w.is_alive()]
         # 1. Check the active source.
         if self.active is not None:
             ok, reason = self.active.health(cfg, now)
             if not ok:
                 key = self.active.option.key
                 self.active.stop()
+                self._retired.append(self.active)
                 self._fail(key, reason, now)
                 with self._lock:
                     self.active = None
@@ -302,6 +309,7 @@ class SourceChain:
             ok, reason = self.probe.health(cfg, now)
             if not ok:
                 self.probe.stop()
+                self._retired.append(self.probe)
                 self._fail(self.probe.option.key, reason, now)
                 self.probe = None
             elif self.probe.frames > 0:
