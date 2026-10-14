@@ -118,7 +118,9 @@ def summarise(rows, cfg_base):
             mtrue = sum(num(r["spot_n_matched_true"]) for r in rs)
             d.update({"spot_detected": det, "spot_precision_pooled": mdet / det if det else np.nan,
                       "spot_true": ntrue, "spot_observable": nobs, "spot_recall_pooled": mtrue / ntrue if ntrue else np.nan,
-                      "spot_dist_err_med_m": stats(rs, "spot_dist_err_med_m")[0]})
+                      "spot_dist_err_med_m": stats(rs, "spot_dist_err_med_m")[0],
+                      "spot_jump_err_med_m": stats(rs, "spot_jump_err_med_m")[0],
+                      "n_fire_deaths_used": stats(rs, "n_fire_deaths_used")[0]})
             summ[sweep].append(d)
     scen = {}
     for r in rows:
@@ -137,6 +139,12 @@ def summarise(rows, cfg_base):
         ntrue = sum(num(r["spot_n_true"]) for r in rs)
         d["spot_precision_pooled"] = sum(num(r["spot_n_matched_det"]) for r in rs) / det if det else np.nan
         d["spot_recall_pooled"] = sum(num(r["spot_n_matched_true"]) for r in rs) / ntrue if ntrue else np.nan
+        d["spot_true"] = ntrue
+        d["spot_observable"] = sum(num(r["spot_n_observable"]) for r in rs)
+        d["spot_detected"] = det
+        d["spot_dist_err_med_m"] = stats(rs, "spot_dist_err_med_m")[0]
+        d["spot_jump_err_med_m"] = stats(rs, "spot_jump_err_med_m")[0]
+        d["n_fire_deaths_used"] = stats(rs, "n_fire_deaths_used")[0]
         summ["scenarios"].append(d)
     return summ
 

@@ -53,7 +53,7 @@ Every parameter lives in `configs/default.json` and can be overridden from scrip
 
 | Key | Default | Reason or source |
 |---|---|---|
-| `meter_fraction` | 0.5 | Fraction of buildings with a reporting smart meter. KEPCO reports its own AMI rollout complete (about 20 million customers), but Gyeongbuk penetration was the lowest region at 39% in 2021, and a working last-gasp path is not documented (see `docs/DESK_RESEARCH.md`). Swept from 0.05 to 1.0. |
+| `meter_fraction` | 0.5 | Fraction of buildings with a reporting smart meter. KEPCO reports its own AMI rollout complete (about 20 million customers), but Gyeongbuk was the lowest region at 39% in figures reported in 2022 (Electimes 2022-09-19), and a working last-gasp path is not documented (see `docs/DESK_RESEARCH.md`). Swept from 0.05 to 1.0. |
 | `p_building_burns` | 0.75 | Fraction of reached buildings that are damaged enough to kill the device. Assumption. |
 | ignition delay | lognormal, median 5 min, sigma 0.8 | Time from front arrival to loss of the building's supply. Assumption, swept. |
 | `timing_noise_multiplier` | 1.0 | Scales the ignition delay median, clock jitter and tag delay. |
