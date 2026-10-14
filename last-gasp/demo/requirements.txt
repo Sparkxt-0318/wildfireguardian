@@ -1,0 +1,6 @@
+# Booth demo. Core: numpy and matplotlib only.
+numpy>=1.26
+matplotlib>=3.8
+# Optional hardware inputs:
+# pyserial>=3.5    # --serial (receiver ESP32 sending JSON lines)
+# bleak>=0.22      # --ble (scan BLE advertisements from the laptop)

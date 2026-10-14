@@ -1,0 +1,90 @@
+{
+  "_note": "Phase 2 parameters (SYNTHETIC simulation). Reasons and sources: docs/PARAMETERS_PHASE2.md",
+  "layout": {
+    "kind": "roads",
+    "spacing_m": 100,
+    "edge_buffer_m": 100
+  },
+  "tag": {
+    "p_die_given_fire": 0.95,
+    "death_delay_min": [
+      0,
+      2
+    ],
+    "random_failure_rate_per_h": 0.0005
+  },
+  "radio": "lora",
+  "radios": {
+    "lora": {
+      "freq_mhz": 922,
+      "tx_dbm": 14,
+      "tag_gain_dbi": 0,
+      "gw_gain_dbi": 3,
+      "sensitivity_dbm": -129,
+      "fade_margin_db": 5,
+      "n_tag_tag": 3.5,
+      "sigma_tag_tag_db": 8,
+      "n_tag_gw": 3.0,
+      "sigma_tag_gw_db": 7,
+      "veg_a_db": 1.33,
+      "veg_dmax_m": 400,
+      "veg_fraction": 0.3,
+      "mesh_capable": true
+    },
+    "ble": {
+      "freq_mhz": 2440,
+      "tx_dbm": 4,
+      "tag_gain_dbi": 0,
+      "gw_gain_dbi": 3,
+      "sensitivity_dbm": -97,
+      "fade_margin_db": 5,
+      "n_tag_tag": 3.5,
+      "sigma_tag_tag_db": 8,
+      "n_tag_gw": 3.0,
+      "sigma_tag_gw_db": 7,
+      "veg_a_db": 1.33,
+      "veg_dmax_m": 400,
+      "veg_fraction": 0.3,
+      "mesh_capable": true
+    }
+  },
+  "reception": {
+    "mode": "mesh_sf",
+    "max_hops": 8,
+    "heartbeat_s": 30,
+    "timeout_beats": 3,
+    "step_min": 1.0
+  },
+  "gateways": {
+    "count": 4,
+    "candidate_stride": 10,
+    "hardened": false,
+    "p_destroyed_given_fire": 0.9,
+    "death_delay_min": [
+      0,
+      5
+    ],
+    "power": "battery",
+    "backhaul_fail_min": null
+  },
+  "realtime_window_min": 5.0,
+  "trips": {
+    "logged_kinds": [
+      "breaker",
+      "recloser"
+    ],
+    "p_type_logged": 1.0,
+    "clock_sd_s": 1.0,
+    "precaution": {
+      "mode": "none",
+      "time_min": 60,
+      "distance_m": 500,
+      "decision_delay_min": 10
+    },
+    "coordination_window_min": 2.0,
+    "coordination_min_others": 1,
+    "tag_check_margin_min": 10.0,
+    "assumed_fault_delay_min": 5.0,
+    "tag_spacing_m": 400
+  }
+}
