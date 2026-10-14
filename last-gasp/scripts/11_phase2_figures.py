@@ -148,8 +148,10 @@ def fig_gateways(S):
             y2 = [S["receive"].get(f"{mode}|{hard}|{g}", {}).get("received_bldg_p90", np.nan) for g in G]
             axes[1].plot(G, y2, ls=ls, marker="o", ms=3, color=colors[mode])
     Gb = [1, 2, 4, 8, 12]
-    yb = [S.get("receive_ble", {}).get(f"mesh_sf|exposed|{g}", {}).get("frac_deaths_observed", np.nan) for g in Gb]
-    axes[0].plot(Gb, yb, ls=":", marker="s", ms=3, color=C["purple"], label="BLE mesh, fire-exposed gateways")
+    for radio, col, lab in (("lora_pessimistic", C["orange"], "Mesh, pessimistic LoRa fit, exposed"),
+                            ("ble", C["purple"], "BLE mesh, exposed")):
+        yb = [S.get(f"receive_{radio}", {}).get(f"mesh|exposed|{g}", {}).get("frac_deaths_observed", np.nan) for g in Gb]
+        axes[0].plot(Gb, yb, ls=":", marker="s", ms=3, color=col, label=lab)
     p_perf = S["receive"]["mesh|exposed|4"].get("perfect_bldg_p90", np.nan)
     axes[1].axhline(p_perf, color="k", lw=0.8, ls=":", label="Perfect reception")
     axes[0].set_xlabel("Gateways in 10.4 km²")

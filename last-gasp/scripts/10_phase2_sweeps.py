@@ -28,9 +28,10 @@ def receive_jobs():
                 jobs.append(("receive", f"{mode}|{'hardened' if hardened else 'exposed'}|{g}",
                              {"phase2.reception.mode": mode, "phase2.gateways.hardened": hardened,
                               "phase2.gateways.count": g}))
-    for g in (1, 2, 4, 8, 12):
-        jobs.append(("receive_ble", f"mesh_sf|exposed|{g}",
-                     {"phase2.radio": "ble", "phase2.gateways.count": g}))
+    for radio in ("ble", "lora_sf9", "lora_pessimistic"):
+        for g in (1, 2, 4, 8, 12):
+            jobs.append((f"receive_{radio}", f"mesh|exposed|{g}",
+                         {"phase2.radio": radio, "phase2.reception.mode": "mesh", "phase2.gateways.count": g}))
     for power in ("grid",):
         jobs.append(("receive_gridpower", f"mesh_sf|exposed|4|{power}",
                      {"phase2.gateways.power": power, "phase2.gateways.count": 4}))

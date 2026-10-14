@@ -1,12 +1,12 @@
 """Phase 2 receive side: radio links, gateways, multi-hop relaying, store-and-forward.
 
 Radio model (per link, fixed for a deployment):
-    PL(d) = PL0 + 10 n log10(d / 1 m) + L_veg(d) + X,   X ~ N(0, sigma) per link
+    PL(d) = alpha + 10 n log10(d / 1 m) + X,   X ~ N(0, sigma) per link
+    (alpha, n, sigma from published forest LoRa/BLE fits; see docs/PARAMETERS_PHASE2.md)
     link up if TX + G_tx + G_rx - PL >= sensitivity + fade_margin
-Separate (n, sigma) for tag-to-tag (both near the ground) and tag-to-gateway
-(gateway antenna elevated). L_veg is a Weissberger-type excess loss
-    L_veg = a * f_GHz^0.284 * min(d_veg, d_max)^0.588,  d_veg = veg_fraction * d
-Parameters and sources: docs/PARAMETERS_PHASE2.md.
+Separate (alpha, n, sigma) for tag-to-tag (both near the ground) and
+tag-to-gateway (gateway antenna elevated). A free-space-plus-Weissberger
+vegetation form is kept as an alternative when alpha is not given.
 
 Reception (1 min time steps):
 - star: a tag's heartbeat is received only over a direct link to a live gateway.
@@ -28,8 +28,13 @@ from scipy.sparse.csgraph import connected_components, dijkstra
 from scipy.spatial import cKDTree
 
 
-def path_loss_db(d, n, cfg, veg_fraction):
+def path_loss_db(d, n, cfg, veg_fraction, alpha=None):
+    """Log-distance path loss. With alpha given, PL = alpha + 10 n log10(d) (an empirical fit in which
+    vegetation and antenna effects are already included); otherwise free space at 1 m plus 10 n log10(d)
+    plus an optional Weissberger-type vegetation term."""
     d = np.maximum(d, 1.0)
+    if alpha is not None:
+        return alpha + 10 * n * np.log10(d)
     pl0 = 20 * math.log10(4 * math.pi / (299_792_458.0 / (cfg["freq_mhz"] * 1e6)))  # free space at 1 m
     pl = pl0 + 10 * n * np.log10(d)
     if cfg.get("veg_a_db", 0) > 0 and veg_fraction > 0:
@@ -42,11 +47,11 @@ def link_budget_db(cfg, rx_gain):
     return cfg["tx_dbm"] + cfg["tag_gain_dbi"] + rx_gain - cfg["sensitivity_dbm"] - cfg["fade_margin_db"]
 
 
-def max_range_m(cfg, n, rx_gain, veg_fraction, sigma):
+def max_range_m(cfg, n, rx_gain, veg_fraction, sigma, alpha=None):
     """Largest distance at which a +3 sigma lucky link could still close (search radius)."""
     budget = link_budget_db(cfg, rx_gain) + 3 * sigma
     d = np.logspace(0, 4.5, 400)
-    ok = path_loss_db(d, n, cfg, veg_fraction) <= budget
+    ok = path_loss_db(d, n, cfg, veg_fraction, alpha) <= budget
     return float(d[ok].max()) if ok.any() else 1.0
 
 
@@ -55,18 +60,21 @@ def build_links(tag_xy, gw_xy, cfg, rng):
     nt = len(tag_xy)
     tt = sparse.csr_matrix((nt, nt), dtype=bool)
     if cfg["mesh_capable"] and nt > 1:
-        r = max_range_m(cfg, cfg["n_tag_tag"], cfg["tag_gain_dbi"], cfg["veg_fraction"], cfg["sigma_tag_tag_db"])
+        r = max_range_m(cfg, cfg["n_tag_tag"], cfg["tag_gain_dbi"], cfg["veg_fraction"], cfg["sigma_tag_tag_db"],
+                        cfg.get("alpha_tag_tag_db"))
         pairs = cKDTree(tag_xy).query_pairs(r, output_type="ndarray")
         if len(pairs):
             d = np.hypot(*(tag_xy[pairs[:, 0]] - tag_xy[pairs[:, 1]]).T)
-            pl = path_loss_db(d, cfg["n_tag_tag"], cfg, cfg["veg_fraction"]) + rng.normal(0, cfg["sigma_tag_tag_db"], len(d))
+            pl = (path_loss_db(d, cfg["n_tag_tag"], cfg, cfg["veg_fraction"], cfg.get("alpha_tag_tag_db"))
+                  + rng.normal(0, cfg["sigma_tag_tag_db"], len(d)))
             up = pl <= link_budget_db(cfg, cfg["tag_gain_dbi"])
             a, b = pairs[up, 0], pairs[up, 1]
             tt = sparse.coo_matrix((np.ones(2 * len(a), bool), (np.r_[a, b], np.r_[b, a])), shape=(nt, nt)).tocsr()
     tg = np.zeros((nt, len(gw_xy)), bool)
     if len(gw_xy):
         d = np.hypot(tag_xy[:, None, 0] - gw_xy[None, :, 0], tag_xy[:, None, 1] - gw_xy[None, :, 1])
-        pl = path_loss_db(d, cfg["n_tag_gw"], cfg, cfg["veg_fraction"]) + rng.normal(0, cfg["sigma_tag_gw_db"], d.shape)
+        pl = (path_loss_db(d, cfg["n_tag_gw"], cfg, cfg["veg_fraction"], cfg.get("alpha_tag_gw_db"))
+              + rng.normal(0, cfg["sigma_tag_gw_db"], d.shape))
         tg = pl <= link_budget_db(cfg, cfg["gw_gain_dbi"])
     return tt, tg
 
@@ -75,7 +83,7 @@ def p_link_gw(tag_xy, site_xy, cfg):
     """Expected probability that each tag has a direct link to each candidate site (no draw)."""
     from scipy.stats import norm
     d = np.hypot(tag_xy[:, None, 0] - site_xy[None, :, 0], tag_xy[:, None, 1] - site_xy[None, :, 1])
-    pl = path_loss_db(d, cfg["n_tag_gw"], cfg, cfg["veg_fraction"])
+    pl = path_loss_db(d, cfg["n_tag_gw"], cfg, cfg["veg_fraction"], cfg.get("alpha_tag_gw_db"))
     return norm.cdf((link_budget_db(cfg, cfg["gw_gain_dbi"]) - pl) / cfg["sigma_tag_gw_db"])
 
 
