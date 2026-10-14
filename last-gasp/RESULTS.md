@@ -1,5 +1,26 @@
 # Last Gasp: results of the first feasibility pass
 
+## Bottom line
+
+- **Smart-meter last gasp is weak as a fire tracker in Korea.**
+  - Grid censoring means most meter death times record an upstream power failure, not fire arrival.
+  - In the default synthetic setting (meters on 50% of buildings), only 24% of delivered last-gasp messages were fire caused; 76% recorded grid failures.
+  - 75% of the meters in buildings the fire reached had already lost power to an upstream fault before the fire arrived.
+  - The public evidence on KEPCO's AMI does not show timestamped last-gasp events. Its meters are mostly PLC through pole data concentrators, and its documented monitoring flags a lost concentrator only after 30 to 180 min (`docs/DESK_RESEARCH.md`).
+- **Independently powered tags reconstruct arrival times well.** Arrival-time error at burned buildings (median / 90th percentile, IDW):
+
+  | Tags per km² | Error (min) |
+  |---|---|
+  | 73 (50% of buildings) | 0.6 / 2.0 |
+  | 13.5 | 1.2 / 6.9 |
+  | 6.8 | 1.9 / 10.7 |
+
+  This assumes every dying tag is heard; phase 2 tests that.
+- **Everything is synthetic.**
+  - Simulated fire, simulated power network, simulated devices.
+  - Only the road network and substation location are real (OpenStreetMap).
+  - None of these numbers is real-world performance.
+
 All results in this document come from a synthetic simulation. They are not measurements of any real fire, grid or network, and must not be quoted as real-world performance. Every number below is in `results/NUMBERS.json` with the script, config and git commit that produced it. Sweep results come from commit 2d903ed with clean code: 5 synthetic fire worlds times 2 observation seeds, so 10 runs per setting.
 
 ## Short answer

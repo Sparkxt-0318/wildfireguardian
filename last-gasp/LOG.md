@@ -150,3 +150,16 @@ Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. En
 - Added the exploratory numbers quoted above to `results/exploratory_numbers.json`. They appear in `results/NUMBERS.json` under `exploratory.*`, flagged as from uncommitted intermediate code.
 - Added sweep wall time, run count, error count and per-world fire statistics: 14 to 20 spot ignitions per world, 2 to 5 significant, 97% to 99% of buildings burned.
 - Command: `.venv/bin/python scripts/07_numbers.py` (1089 numbers).
+
+## 2026-10-14 23:33 Phase 2 start; step 0: RESULTS.md bottom line
+
+- Goal: state the phase 1 conclusions plainly at the top of `RESULTS.md`.
+- Added a "Bottom line" section, using only numbers already in `results/NUMBERS.json` (sweep at commit 2d903ed):
+  - only 24% of delivered meter last gasps are fire caused (`sweep.meter_density.0.5.frac_deaths_fire` 0.243);
+  - 75% of fire signals are censored (`sweep.meter_density.0.5.frac_fire_censored_by_grid` 0.753);
+  - tag errors of 0.6 / 2.0, 1.2 / 6.9 and 1.9 / 10.7 min at 73, 13.5 and 6.8 tags per km².
+- Launched three background desk-research agents for phase 2:
+  - radio ranges and hardware costs;
+  - Korean utility trip logging and the 2025 power events;
+  - novelty check.
+- Next step: phase 2 item 1 (receive side).
