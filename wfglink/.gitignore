@@ -1,0 +1,37 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+*.app
+
+# Large or licensed data: never committed
+data/raw/
+data/synthetic/
+data/booth/
+results/runs/
+
+# Video files anywhere in wfglink (raw video is never committed)
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.m4v
+*.mkv
+*.avi
+*.AVI
+*.webm
+*.ogv
+*.ts
+*.h264
+*.h265
+
+# Local logs and OS files
+logs/
+*.log
+.DS_Store

@@ -1,0 +1,15 @@
+# wfglink runtime and test dependencies, exact pins (Python 3.12, macOS arm64 and Linux x86_64).
+# OpenCV: the headless contrib build avoids bundled Qt libraries that clash with PySide6,
+# and 4.14 avoids the OpenCV 5.0 module restructure.
+numpy==2.5.4
+scipy==1.18.1
+opencv-contrib-python-headless==4.14.0.94
+PySide6==6.12.0
+av==19.0.1
+pyarrow==26.0.0
+pandas==3.0.6
+PyYAML==6.0.3
+matplotlib==3.11.2
+pytest==9.1.1
+# macOS only: camera discovery, permission and Continuity Camera properties.
+pyobjc-framework-AVFoundation==12.2.2; sys_platform == "darwin"

@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "_README": "Every number quoted in wfglink README, PLAN or LOG summaries. Written only by src/wfglink/provenance.py (record_number). Each entry: value, unit, description, script, config, config_sha256, git_commit, git_dirty, inputs (path to sha256), produced_at (Asia/Shanghai ISO 8601), host. Entries with git_dirty true fail scripts/check_docs.py and must be regenerated from a clean commit before they are quoted.",
+  "numbers": {}
+}

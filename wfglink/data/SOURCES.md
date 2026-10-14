@@ -1,0 +1,40 @@
+# Sources
+
+Provenance for every external dataset, clip, parameter and paper used by wfglink. Dates are when the source was accessed (Asia/Shanghai). "Read" means the primary text was read; "secondary" means only a secondary report or abstract was seen. Clip files themselves are listed in `clips.csv` once downloaded; raw video is never committed.
+
+## Papers, reports and facts quoted in the plan
+
+| Key | Source | URL | Accessed | Status | Used for |
+|---|---|---|---|---|---|
+| nist_tn2093 | Bouvet, Link, Fink. Development of a new approach to characterize firebrand showers (NIST Technical Note 2093), 2020 | https://doi.org/10.6028/NIST.TN.2093 | 2026-10-14 | Read | Emberometer design (4 cameras, 1080p, 120 fps), metric names CPC (particles m^-2) and PNF (particles m^-2 s^-1), punk-stick validation 44.3 cm/s |
+| bouvet2021 | Bouvet, Link, Fink. Experiments in Fluids 62:181, 2021 | https://doi.org/10.1007/s00348-021-03277-6 | 2026-10-14 | Secondary | Peer-reviewed version of nist_tn2093 |
+| nist_emberometer_page | NIST Emberometer tool page | https://www.nist.gov/laboratories/tools-instruments/nist-emberometer | 2026-10-14 | Read | Deployment context |
+| filkov2017 | Filkov et al. Proc. Combust. Inst. 36, 2017 | https://www.pure.ed.ac.uk/ws/files/28158380/Manuscript_Filkov.pdf | 2026-10-14 | Read | Field firebrand speeds 0.1 to 10.5 m/s (low-intensity prescribed fires), sizes and masses |
+| ellis2010 | Ellis. The effect of the aerodynamic behaviour of flakes of jarrah and karri bark on their potential as firebrands. J. Royal Society of Western Australia 93:21-27, 2010 | https://www.rswa.org.au (VOL-93.1-P-ELLIS-21-27.pdf) | 2026-10-14 | Secondary | Terminal velocity about 2.5 to 8 m/s (unburnt bark) |
+| hall2015 | Hall et al. Int. J. Wildland Fire 24, 2015 | https://doi.org/10.1071/WF15031 | 2026-10-14 | Read | Bark terminal velocity 5.2 to 5.8 m/s, burnout times |
+| maranghides2009 | Maranghides and Mell. NIST TN 1635, 2009 | https://nvlpubs.nist.gov/nistpubs/Legacy/TN/nbstechnicalnote1635.pdf | 2026-10-14 | Read | Embers ignited about two of three destroyed homes (Witch and Guejito fires) |
+| caton2017 | Caton et al. Fire Technology 53:429-473, 2017; editorial | https://pmc.ncbi.nlm.nih.gov/articles/PMC5590657/ | 2026-10-14 | Secondary | Firebrands as a major WUI ignition pathway |
+| newsis_20250327a | Newsis, 2025-03-27, KFS and NIFOS analysis of the Uiseong fire | https://www.newsis.com/view/NISX20250327_0003115850 | 2026-10-14 | Read | Spotting (비화) moved up to 51 km within 12 hours to Ganggu port (50 km straight line). The KFS press release itself was not found. |
+| newsis_20250327b | Newsis, 2025-03-27 | https://www.newsis.com/view/NISX20250327_0003116059 | 2026-10-14 | Read | Front timing 14:00 on 25 March to 02:00 on 26 March, gusts about 27 m/s |
+| westerweel2005 | Westerweel and Scarano. Universal outlier detection for PIV data. Exp. Fluids 39, 2005 | https://doi.org/10.1007/s00348-005-0016-6 | 2026-10-14 | Secondary | Normalized median test for the velocity field |
+| ouellette2006 | Ouellette, Xu, Bodenschatz. Exp. Fluids 40, 2006 | https://doi.org/10.1007/s00348-005-0068-7 | 2026-10-14 | Secondary | Particle tracking algorithm comparison (deferred four-frame method) |
+| garg2005 | Garg and Nayar. When does a camera see rain? ICCV 2005 | https://cave.cs.columbia.edu/Statics/publications/pdfs/Garg_ICCV05.pdf | 2026-10-14 | Secondary | Streak length proportional to exposure time |
+| koschmieder | Koschmieder haze model, as used in image dehazing literature | https://arxiv.org/pdf/2408.05683 | 2026-10-14 | Secondary | Haze rendering in the synthetic generator |
+| okabe_ito | Okabe and Ito colorblind-safe palette, 2008 | https://jfly.uni-koeln.de/color/ | 2026-10-14 | Secondary | Figure palette |
+| apple_continuity | Apple support: Continuity Camera requirements | https://support.apple.com/en-us/102546 | 2026-10-14 | Read | iOS 16 / macOS 13 / iPhone XR or later, Wi-Fi and Bluetooth on |
+| wwdc22_10018 | Apple WWDC22 session 10018, Bring Continuity Camera to your macOS app | https://developer.apple.com/videos/play/wwdc2022/10018/ | 2026-10-14 | Read | Wired or wireless connection, formats up to 1080p and 1920x1440 at 30 or 60 fps |
+| opencv_avf | OpenCV AVFoundation capture source (cap_avfoundation_mac.mm, 4.x) | https://github.com/opencv/opencv/blob/4.x/modules/videoio/src/cap_avfoundation_mac.mm | 2026-10-14 | Read | Device sorting by uniqueID, 1 s grab timeout, main-thread authorization |
+| korean_lane_marks | Broken-line marking lengths on Korean expressways (SeoulTech) and KNPA marking manual | https://pure.seoultech.ac.kr/en/publications/broken-line-markings-preferred-under-high-speed-conditions-for-vi/ ; https://www.koreascience.or.kr/article/JAKO201507158234739.pdf | 2026-10-14 | Secondary, to verify before use | Lane-dash lengths for camera geometry only |
+
+## Software and fonts
+
+| Item | License | URL | Accessed | Notes |
+|---|---|---|---|---|
+| Pretendard font 1.3.9 (Regular, Medium, SemiBold, Bold OTF) | SIL Open Font License 1.1 | https://github.com/orioncactus/pretendard ; files taken from the npm package https://registry.npmjs.org/pretendard/-/pretendard-1.3.9.tgz (tarball SHA-256 0ffc240cee83be02520fb4ac1b2a0a51052b9d13506ade0ba90c591dbbb3bd53) | 2026-10-14 | Vendored in assets/fonts with Pretendard-LICENSE.txt; UI and figure font for Hangul and Latin |
+
+## Clips
+
+The approved shortlist (C1 to C13, with C14 conditional and C15 pending permission) is in PLAN.md section 13. Each clip gets a row here and in `clips.csv` when it is downloaded, with its SHA-256.
+
+| Clip | Title | License | Credit line | Page URL | Accessed | SHA-256 |
+|---|---|---|---|---|---|---|
