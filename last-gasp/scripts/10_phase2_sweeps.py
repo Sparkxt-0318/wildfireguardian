@@ -68,6 +68,9 @@ def trips_jobs():
         "proximity_typed": {"phase2.trips.precaution.mode": "proximity"},
         "proximity_untyped": {"phase2.trips.precaution.mode": "proximity", "phase2.trips.p_type_logged": 0.0},
         "untyped_no_precaution": {"phase2.trips.p_type_logged": 0.0},
+        "reactive_untyped": {"phase2.trips.precaution.mode": "proximity", "phase2.trips.precaution.distance_m": 0,
+                             "phase2.trips.p_type_logged": 0.0},
+        "logging_stops_40": {"phase2.trips.logging_stops_min": 40},
     }
     for name, ov in scen.items():
         jobs.append(("trips_precaution", name, ov))

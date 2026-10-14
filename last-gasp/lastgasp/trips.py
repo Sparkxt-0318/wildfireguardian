@@ -4,9 +4,12 @@ Builds on the phase 1 power network (lastgasp.grid):
 1. Energisation: a device can only trip while energised. A device whose
    upstream device already opened logs nothing (phase 1 ignored this for
    logging because only building power-loss times mattered).
-2. Precautionary shutoffs: the utility opens feeder breakers ahead of the fire
-   ("blanket" at a fixed time, or "proximity" when the fire comes within a
-   distance of any pole of that feeder, after a decision delay).
+2. Precautionary shutoffs: the utility opens feeder breakers ("blanket" at a
+   fixed time, or "proximity" when the fire comes within distance_m of any
+   pole of that feeder, after a decision delay). distance_m = 0 gives a
+   reactive shutoff of lines the fire has already reached, as reported for
+   the Angye to Uiseong line on 2025-03-22. An optional logging blackout
+   (logging_stops_min) drops all entries after that time.
 3. Logging: only SCADA-monitored devices (feeder breakers and reclosers by
    default) appear in the log, with a timestamp and, with probability
    p_type_logged, the event type (protection trip vs remote/manual open).
@@ -88,7 +91,10 @@ def simulate_log(net, fire, cfg, rng, t_end):
             t_eff[d] = t_op[d]
     log = []
     logged = set(tc["logged_kinds"])
-    for d in np.where(np.isfinite(t_eff) & (t_eff <= t_end))[0]:
+    # Logging blackout: distribution automation stops recording (reported for Yeongdeok, 2025-03-25).
+    t_log_end = tc.get("logging_stops_min")
+    t_log_end = t_end if t_log_end is None else min(t_end, t_log_end)
+    for d in np.where(np.isfinite(t_eff) & (t_eff <= t_log_end))[0]:
         dev = net.devices[d]
         if dev["kind"] not in logged:
             continue
