@@ -105,7 +105,50 @@ class Sitting1:
         if disk.free < 5e9:
             self.c.warn("Less than 5 GB free on this disk; the recordings need about 2 GB.")
         self.c.ok(f"macOS {info['mac_ver'] or 'n/a'}, Python {info['python']}, {info['free_gb']} GB free")
+        info["clip_fetch"] = self._start_clip_fetch()
         return info
+
+    def _start_clip_fetch(self) -> dict[str, Any]:
+        """Download the approved public clips in the background while the sitting runs.
+
+        Wikimedia rate-limits Claude's network, so the clips come from this Mac instead (the
+        booth runs here anyway). The download is polite (one file at a time) and keeps going
+        after the sitting ends; rerunning it resumes.
+        """
+        if self.dry:
+            return {"status": "skipped (dry run)"}
+        import subprocess
+
+        log = self.out / "fetch_clips.log"
+        try:
+            proc = subprocess.Popen([sys.executable, str(PROJECT_ROOT / "scripts" / "fetch_clips.py"), "--max-wait-min", "60"],
+                                    stdout=open(log, "a"), stderr=subprocess.STDOUT, start_new_session=True,
+                                    cwd=str(PROJECT_ROOT))
+        except Exception as exc:
+            return {"status": f"not started: {type(exc).__name__}: {exc}"}
+        self.c.say("Downloading the approved public clips in the background (about 1 GB); nothing to do.")
+        return {"status": "started", "pid": proc.pid, "log": log.name}
+
+    def _collect_clips(self) -> dict[str, Any]:
+        """Hard links (no extra disk) to the downloaded clips, so they upload with the folder."""
+        raw = PROJECT_ROOT / "data" / "raw"
+        dest = self.out / "clips"
+        got = []
+        if raw.exists():
+            for f in sorted(raw.iterdir()):
+                if f.is_file() and f.suffix.lower() in VIDEO_SUFFIXES | {".webm"} and not f.name.endswith(".part"):
+                    dest.mkdir(exist_ok=True)
+                    target = dest / f.name
+                    if not target.exists():
+                        try:
+                            os.link(f, target)
+                        except OSError:
+                            shutil.copy2(f, target)
+                    got.append(f.name)
+        csv_path = PROJECT_ROOT / "data" / "clips.csv"
+        if csv_path.exists() and got:
+            shutil.copy2(csv_path, dest / "clips.csv")
+        return {"clips": got, "folder": "clips" if got else None}
 
     def panel_video(self) -> dict[str, Any]:
         self.c.header("2", "Panel test video for the iPad", 2)
@@ -337,11 +380,15 @@ class Sitting1:
             "Upload this whole folder to Google Drive, Dropbox or iCloud Drive and share it as 'anyone with the link can view'.\n"
             "Then paste the link and the short summary printed in Terminal into the chat with Claude.\n"
             "Do not rename or re-encode the video files; their SHA-256 hashes are in report_sitting1.json.\n")
-        self.c.say(f"Upload folder: {self.out}  ({len(files)} videos, {total / 1e9:.2f} GB)")
+        clips = self._collect_clips()
+        if clips["clips"]:
+            total += sum((self.out / "clips" / n).stat().st_size for n in clips["clips"])
+            self.c.say(f"Public clips downloaded so far: {len(clips['clips'])} (in the clips folder; they upload too).")
+        self.c.say(f"Upload folder: {self.out}  ({len(files)} recordings, {total / 1e9:.2f} GB in all)")
         self.c.bullet(["Upload the whole folder to Google Drive, Dropbox or iCloud Drive.",
                        "Share it as 'anyone with the link can view'.",
                        "Paste the link and the summary below into the chat."])
-        return {"folder": str(self.out), "videos": [p.name for p in files], "total_bytes": total}
+        return {"folder": str(self.out), "videos": [p.name for p in files], "total_bytes": total, "public_clips": clips}
 
     # Driver -----------------------------------------------------------------------------
     def summary(self) -> dict[str, Any]:

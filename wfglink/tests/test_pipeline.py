@@ -92,3 +92,15 @@ def test_booth_mode_through_a_filmed_screen(tmp_path):
     assert s.frames_analysed <= 2 * 60
     assert s.frames_analysed > 2 * 40
     assert st.image is not None
+
+
+def test_small_embers_on_a_static_night_scene_are_not_duplicates():
+    cfg = load_config()
+    pipe = Pipeline(cfg, fps=30)
+    for i in range(30):
+        img = np.full((360, 640, 3), 18, np.uint8)
+        for k in range(3):                       # three small embers moving 4 px per frame
+            x, y = 100 + 150 * k + 4 * i, 100 + 60 * k
+            cv2.circle(img, (x, y), 1, (60, 160, 255), -1)
+        pipe.process(Frame(img, i / 30, i, 0.0))
+    assert pipe.stats.frames_duplicate == 0

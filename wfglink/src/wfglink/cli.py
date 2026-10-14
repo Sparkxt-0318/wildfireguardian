@@ -96,7 +96,8 @@ def cmd_booth(args: argparse.Namespace) -> int:
     if args.replay_clip:
         cfg["booth"]["replay_clip"] = args.replay_clip
     res = run_booth(cfg, source=args.source, screen=args.screen, lang=args.lang,
-                    limits_screen=args.limits_screen, duration_s=args.duration, screenshot=args.screenshot)
+                    limits_screen=args.limits_screen, duration_s=args.duration, screenshot=args.screenshot,
+                    heartbeat=args.heartbeat)
     if args.report:
         with open(args.report, "w") as f:
             json.dump(res, f, indent=2, default=str)
@@ -157,6 +158,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--duration", type=float, default=None, help="stop after this many seconds (tests)")
     p.add_argument("--screenshot", default=None)
     p.add_argument("--report", default=None)
+    p.add_argument("--heartbeat", default=None, help="JSON file rewritten every 2 s for the booth supervisor")
     p.set_defaults(func=cmd_booth)
 
     p = sub.add_parser("demo-gate", help="run the booth UI headless on synthetic and an approved clip; exit 0 if healthy")

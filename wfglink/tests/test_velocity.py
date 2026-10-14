@@ -154,7 +154,7 @@ def test_fusion_only_for_short_tracks(cfg):
 
 def test_point_velocities_dataframe(cfg):
     rows = []
-    for tid, (vx, vy) in enumerate([(100.0, 0.0), (0.0, -50.0)], start=1):
+    for tid, (vx, vy) in enumerate([(100.0, 0.0), (0.0, -300.0)], start=1):
         for i in range(7):
             t = i * DT
             coast = tid == 2 and i == 3
@@ -170,7 +170,7 @@ def test_point_velocities_dataframe(cfg):
     b = out[out.track_id == 2]
     assert b["vx_poly"].isna().sum() == 1
     ok = b["vy_poly"].notna()
-    assert np.allclose(b.loc[ok, "vy_poly"], -50)
+    assert np.allclose(b.loc[ok, "vy_poly"], -300)
     assert np.allclose(b.loc[ok, "speed_streak"], 300.0)
     assert np.allclose(b.loc[ok, "vy_streak"], -300.0)        # signed by the track direction
     arrs = {"t": np.arange(5) * DT, "x_meas": np.arange(5.0), "y_meas": np.zeros(5),
@@ -181,28 +181,47 @@ def test_point_velocities_dataframe(cfg):
 
 
 def test_point_streak_speed_only_for_usable_streaks(cfg):
-    """Per-point streak speed follows the spec (L > 5 px, not saturated), like the summary.
+    """Per-point streak speed only where the streak is usable, like the summary.
 
-    A point-like blob has L near 0, which says nothing about its speed; reporting
-    L / T_exp = 0 there made per-point streak speed errors look like -100%.
+    Usable: predicted length T_exp |v| above 5 px, measured length at least half of it,
+    not saturated. A point-like blob has L near 0, which says nothing about its speed;
+    reporting L / T_exp = 0 there made per-point streak speed errors look like -100%.
     """
-    min_len = cfg["velocity"].get("streak_min_length_px", 5.0)
     n = 9
     t = np.arange(n) * DT
-    length = np.array([0.0, 2.0, min_len, min_len + 0.5, 8.0, 8.0, np.nan, 12.0, 12.0])
+    length = np.array([0.0, 2.0, 5.0, 5.5, 8.0, 8.0, np.nan, 12.0, 12.0])
     flags = np.zeros(n, np.uint8)
     flags[5] = FLAG_SATURATED
-    df = pd.DataFrame({"track_id": 1, "t": t, "frame": np.arange(n), "x_meas": 10 + 200 * t,
+    df = pd.DataFrame({"track_id": 1, "t": t, "frame": np.arange(n), "x_meas": 10 + 400 * t,
                        "y_meas": np.full(n, 40.0), "length": length, "theta": 0.0,
                        "flags": flags})
-    out = add_point_velocities(df, cfg, t_exp=0.02)
-    usable = np.array([False, False, False, True, True, False, False, True, True])
+    out = add_point_velocities(df, cfg, t_exp=0.02)          # predicted length 8 px
+    usable = np.array([False, False, True, True, True, False, False, True, True])
     assert np.array_equal(out["speed_streak"].notna().to_numpy(), usable)
     assert np.allclose(out["speed_streak"][usable], length[usable] / 0.02)
     assert out["vx_streak"].notna().to_numpy().tolist() == usable.tolist()
-    # Without a flags column only the length rule applies.
+    # Without a flags column only the length rules apply.
     out2 = add_point_velocities(df.drop(columns="flags"), cfg, t_exp=0.02)
     assert out2["speed_streak"].notna().sum() == usable.sum() + 1
+    # A track too slow for a usable streak (predicted 4 px) gives no streak speed at all.
+    slow = df.assign(x_meas=10 + 200 * t)
+    assert add_point_velocities(slow, cfg, t_exp=0.02)["speed_streak"].notna().sum() == 0
+
+
+def test_streak_selection_is_unbiased_near_the_length_cut(cfg):
+    """Choosing streaks by measured length near the cut biased their speed upward."""
+    rng = np.random.default_rng(0)
+    n = 4000
+    t = np.arange(n) * DT
+    true_speed = 330.0                                       # true streak length 6.6 px at 20 ms
+    length = true_speed * 0.02 + rng.normal(0, 1.5, n)
+    df = pd.DataFrame({"track_id": np.repeat(np.arange(n // 20), 20), "t": np.tile(t[:20], n // 20),
+                       "frame": np.tile(np.arange(20), n // 20), "x_meas": np.tile(10 + true_speed * t[:20], n // 20),
+                       "y_meas": 40.0, "length": length, "theta": 0.0})
+    out = add_point_velocities(df, cfg, t_exp=0.02)
+    sel = out["speed_streak"].dropna()
+    assert len(sel) > 0.9 * n
+    assert abs(sel.mean() / true_speed - 1) < 0.01
 
 
 def test_interior_needs_the_full_window():

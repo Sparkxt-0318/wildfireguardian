@@ -33,6 +33,8 @@ bash ~/wfglink-run/wfglink/scripts/sitting1.sh
 
 The worktree keeps your other sessions' checkout untouched. The script installs everything the first time (5 to 10 minutes, needs internet), keeps the Mac awake, then guides you.
 
+It also downloads the approved public clips (about 1 GB, one file at a time) in the background, because Wikimedia rate-limits Claude's network. They land in `wfglink/data/raw/` for the booth, and the upload folder links them in a `clips` folder so they upload with your recordings. The download keeps going after the sitting; running the script again resumes it.
+
 ## What the script will ask you to do
 
 | Step | What | Minutes |

@@ -8,6 +8,7 @@ detect:
     warmup_frames: 5             # exact median of the first frames seeds the background
     exact_window: 11             # exact_median: frames in the running window
   tophat_kernel_px: 9            # removes structures wider than this (flames, glow halos)
+  prefilter_sigma_px: 0.0        # Gaussian matched filter on luma before thresholding (0 = off)
   noise:
     tiles: [16, 9]               # noise map grid (columns, rows)
     update_every: 10             # frames between noise map updates
@@ -31,6 +32,10 @@ detect:
     ring_px: 2                   # ring outside the moment window gives the local reference chroma
     luma_range: [40, 250]        # only unsaturated, visible pixels carry color
     crcb_warm_min: 15            # chroma excess (Cr - Cb versus surroundings) above this is warm
+
+frames:
+  duplicate_dn: 6                # repeated-frame test: pixels changed by at least this much (luma DN)
+  duplicate_max_px: 2            # a frame with at most this many changed pixels repeats the previous one
 
 track:
   gate_chi2: 9.21                # 99% chi-square gate for 2 degrees of freedom
@@ -61,7 +66,8 @@ velocity:
   savgol_window: 5
   savgol_order: 2
   fuse_max_points: 5             # fuse track and streak speed only below this many points
-  streak_min_length_px: 5.0      # streaks this short or shorter give no streak speed
+  streak_min_length_px: 5.0      # streaks predicted (T_exp x track speed) this short give no streak speed
+  streak_min_fraction: 0.5       # and a measured streak shorter than this fraction of the prediction is a dash
   exposure:
     window_s: 10.0
     min_disp_px: 5.0

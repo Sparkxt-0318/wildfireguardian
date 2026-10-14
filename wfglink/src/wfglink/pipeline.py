@@ -67,8 +67,11 @@ class PipelineStats:
 class Pipeline:
     def __init__(self, cfg: dict, gate: dict | None = None, booth: BoothContext | None = None,
                  fps: float | None = None, m_per_px: float | None = None, distance_m: float | None = None,
-                 dedupe: bool = True, analysis_max_width: int | None = None, downscale: bool = False):
+                 dedupe: bool = True, analysis_max_width: int | None = None, downscale: bool = False,
+                 record: bool = False, t_exp_hint: float | None = None):
         self.cfg = cfg
+        self.record = record          # keep detections, frames and full tracks for tables()
+        self.t_exp_hint = t_exp_hint  # exposure time (s) for the tracker's search reach
         self.booth = booth
         self.fps = fps
         self.m_per_px = m_per_px
@@ -82,13 +85,20 @@ class Pipeline:
         self.field_grid = tuple(int(v) for v in f.get("grid", [16, 9]))
         self.field_window = float(f.get("live_window_s", 3.0))
         self.field_min_n = int(f.get("min_tracks_show", 5))
+        fr = cfg.get("frames", {})
+        self._dup_dn = int(fr.get("duplicate_dn", 6))          # a pixel changed by this much is a change
+        self._dup_max_px = int(fr.get("duplicate_max_px", 2))  # at most this many changed pixels: repeat
         self._mask: np.ndarray | None = None
         self.reset()
 
     # State ----------------------------------------------------------------------------------
     def reset(self, keep_loops: bool = False) -> None:
         self.detector = Detector(self.cfg)
-        self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=False)
+        self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=self.record)
+        if self.t_exp_hint:
+            self.tracker.set_exposure_hint(self.t_exp_hint)
+        self._rec_det: list[dict[str, np.ndarray]] = []
+        self._rec_frames: list[tuple[int, float, bool, bool]] = []
         self.counter: GateCounter | None = None
         self._gate_obj: Gate | None = None
         self._size: tuple[int, int] | None = None
@@ -125,11 +135,17 @@ class Pipeline:
             return self._state_without_analysis(frame, meta)
         analyse = True
         if self.dedupe and self.booth is None:
-            small = cv2.resize(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), (64, 36), interpolation=cv2.INTER_AREA).astype(np.int16)
-            if self._prev_small is not None and np.abs(small - self._prev_small).mean() < 0.25:
-                self.stats.frames_duplicate += 1
-                analyse = False
-            self._prev_small = small
+            # A repeated frame (constant-frame-rate re-encode) changes almost no pixel; a real
+            # new frame changes many, through sensor noise or anything that moved. A thumbnail
+            # difference is not enough: a few small embers on a static night scene barely
+            # change a thumbnail, and real frames were dropped that way.
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if image.ndim == 3 else image
+            if self._prev_small is not None and self._prev_small.shape == gray.shape:
+                changed = cv2.countNonZero(cv2.compare(cv2.absdiff(gray, self._prev_small), self._dup_dn, cv2.CMP_GE))
+                if changed <= self._dup_max_px:
+                    self.stats.frames_duplicate += 1
+                    analyse = False
+            self._prev_small = gray
         if t is not None and self._last_t is not None and t <= self._last_t:
             self.stats.frames_duplicate += 1
             analyse = False
@@ -142,6 +158,8 @@ class Pipeline:
         self._ensure_gate(w, h)
         det = self.detector.detect(image, mask)
         snaps = self.tracker.update(det, t, frame.index)
+        if self.record:
+            self._record(frame.index, t, det)
         self.counter.observe(t)
         new_events = 0
         for s in snaps:
@@ -169,6 +187,30 @@ class Pipeline:
             self.counter.forget(tr.track_id)          # bounded memory over a booth day
             self._finished_count += 1
             self.stats.tracks_finished += 1
+
+    def _record(self, index: int, t: float, det: Detections) -> None:
+        self._rec_frames.append((int(index), float(t), bool(self.detector.ready), len(det) > 0))
+        if len(det):
+            cols = {k: getattr(det, k) for k in ("x", "y", "area", "peak", "flux", "length", "width", "theta",
+                                                "sat_frac", "color", "flags")}
+            cols["frame"] = np.full(len(det), int(index), np.int64)
+            cols["t"] = np.full(len(det), float(t))
+            self._rec_det.append(cols)
+
+    def tables(self) -> dict[str, Any]:
+        """Recorded tables (record=True): detections, analysed frames and track points."""
+        import pandas as pd
+
+        from wfglink.track.tracker import tracks_to_frame
+
+        det_cols = ("frame", "t", "x", "y", "area", "peak", "flux", "length", "width", "theta", "sat_frac", "color", "flags")
+        if self._rec_det:
+            det = pd.DataFrame({k: np.concatenate([d[k] for d in self._rec_det]) for k in det_cols})
+        else:
+            det = pd.DataFrame({k: np.zeros(0) for k in det_cols})
+        frames = pd.DataFrame(self._rec_frames, columns=["frame", "t", "ready", "has_detections"])
+        tracks = tracks_to_frame(self.tracker.all_tracks(include_active=True))
+        return {"detections": det, "frames": frames, "tracks": tracks}
 
     def finish(self) -> None:
         """End of a file: finish the confirmed tracks still open so the stats include them."""

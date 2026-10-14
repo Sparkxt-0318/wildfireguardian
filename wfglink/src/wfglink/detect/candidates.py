@@ -87,6 +87,11 @@ class Detector:
         self.k_seed = float(d["threshold"]["k_seed"])
         self.k_grow = float(d["threshold"]["k_grow"])
         self.min_seed = float(d["threshold"]["min_seed_dn"])
+        # Matched filter: a small Gaussian on the luma before background subtraction raises
+        # the per-pixel SNR of blob-like embers and suppresses compression ringing, which
+        # is mostly at higher spatial frequencies. Moments stay unbiased: an isotropic blur
+        # adds the same variance to both axes, so L = sqrt(12 (l1 - l2)) is unchanged.
+        self.prefilter = float(d.get("prefilter_sigma_px", 0.0))
         c = d["components"]
         self.min_area, self.max_area = int(c["min_area_px"]), int(c["max_area_px"])
         self.max_streak_area = int(c.get("max_streak_area_px", self.max_area))
@@ -169,6 +174,9 @@ class Detector:
     def detect(self, image: np.ndarray, mask: np.ndarray | None = None) -> Detections:
         """Detect candidates in one BGR frame. `mask` (uint8, nonzero = ignore) is optional."""
         y = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if image.ndim == 3 else image
+        y_raw = y
+        if self.prefilter > 0:
+            y = cv2.GaussianBlur(y, (0, 0), self.prefilter)
         bg = self.background.apply(y)
         self._frames += 1
         if bg is None:
@@ -223,7 +231,7 @@ class Detector:
         np.maximum.at(peak, cl, cth)
         # Saturation on the brightest channel: an orange ember clips red long before luma
         # reaches the level, and a clipped channel already flattens the streak profile.
-        top = image[cy, cx].max(axis=1) if image.ndim == 3 else y[cy, cx]
+        top = image[cy, cx].max(axis=1) if image.ndim == 3 else y_raw[cy, cx]
         sat = np.bincount(cl, (top >= self.sat_level).astype(np.float64), minlength=m + 1)
 
         # Kept-label image inside the union of padded bounding boxes only.

@@ -214,6 +214,29 @@ def streak_velocity(length: np.ndarray, theta: np.ndarray, t_exp: float,
     return speed * cx * sign, speed * cy * sign, speed
 
 
+def usable_streaks(length: np.ndarray, track_speed: np.ndarray, t_exp: float, cfg: dict) -> np.ndarray:
+    """Which streaks give a streak speed: chosen by their predicted length, not the measured one.
+
+    Selecting on the measured length (L > velocity.streak_min_length_px) keeps short streaks
+    whose length noise happened to be positive, which biased streak speeds upward by tens
+    of percent when most streaks are near the cut. The predicted length T_exp |v_track|
+    has no such correlation with the length noise. Two more rules: the measured length
+    must be at least velocity.streak_min_fraction (0.5) of the predicted one (an ember that
+    glowed for only part of the exposure leaves a short dash, which is not a speed), and
+    where the track speed is unknown the measured-length rule applies.
+    """
+    vcfg = cfg.get("velocity", {})
+    min_len = float(vcfg.get("streak_min_length_px", 5.0))
+    frac = float(vcfg.get("streak_min_fraction", 0.5))
+    length = np.asarray(length, dtype=np.float64)
+    pred = float(t_exp) * np.asarray(track_speed, dtype=np.float64)
+    known = np.isfinite(pred)
+    with np.errstate(invalid="ignore"):
+        by_pred = known & (pred > min_len) & (length >= frac * pred)
+        by_meas = ~known & (length > min_len)
+    return np.isfinite(length) & (by_pred | by_meas)
+
+
 @dataclass
 class SpeedSummary:
     """Track-only, streak-only and fused speed of one track (px/s), kept separate."""
@@ -257,8 +280,8 @@ def summarize_track_speed(t: np.ndarray, x: np.ndarray, y: np.ndarray, length: n
     if t_exp is not None and t_exp > 0:
         length = np.asarray(length, dtype=np.float64)
         flags = np.asarray(flags)
-        use = (np.isfinite(length) & (length > min_len) & np.isfinite(np.asarray(x, float))
-               & ((flags.astype(np.int64) & FLAG_SATURATED) == 0))
+        use = (usable_streaks(length, np.full(length.shape, mv.speed), t_exp, cfg)
+               & np.isfinite(np.asarray(x, float)) & ((flags.astype(np.int64) & FLAG_SATURATED) == 0))
         n_st = int(np.count_nonzero(use))
         if n_st:
             s_speed = float(np.mean(length[use]) / t_exp)
@@ -294,10 +317,10 @@ def track_point_velocities(arrs: dict[str, np.ndarray], cfg: dict,
     Returns vx_poly, vy_poly, speed_poly, interior and, when t_exp is given, the streak
     velocity at each point (vx_streak, vy_streak, speed_streak) signed by vx_poly, vy_poly.
     Positions are the measured ones (x_meas, y_meas); coasted points get NaN.
-    Streak values are NaN where the streak is not usable, with the same rules as
-    `summarize_track_speed`: length at most velocity.streak_min_length_px (default 5 px;
-    a point-like blob has L near 0, which is not a speed of 0) and, when `arrs` has
-    flags, saturated points (clipped streaks look shorter).
+    Streak values are NaN where the streak is not usable (`usable_streaks`: predicted
+    length T_exp |v| above velocity.streak_min_length_px and measured length at least half
+    of it; a point-like blob has L near 0, which is not a speed of 0) and, when `arrs` has
+    flags, at saturated points (clipped streaks look shorter).
     """
     vcfg = cfg.get("velocity", {})
     window = int(vcfg.get("savgol_window", 5))
@@ -307,7 +330,7 @@ def track_point_velocities(arrs: dict[str, np.ndarray], cfg: dict,
     out = {"vx_poly": vx, "vy_poly": vy, "speed_poly": np.hypot(vx, vy), "interior": interior}
     if t_exp is not None and t_exp > 0:
         length = np.asarray(arrs["length"], dtype=np.float64)
-        usable = np.isfinite(length) & (length > min_len)
+        usable = usable_streaks(length, out["speed_poly"], t_exp, cfg)
         if "flags" in arrs:
             usable &= (np.asarray(arrs["flags"]).astype(np.int64) & FLAG_SATURATED) == 0
         sx, sy, ss = streak_velocity(np.where(usable, length, np.nan), arrs["theta"], t_exp,

@@ -222,9 +222,57 @@ class LimitsWindow(QWidget):
         p.end()
 
 
+def rss_mb(pid: int) -> float | None:
+    """Resident memory of a process in MB (Linux /proc, otherwise ps), or None."""
+    import os
+    import subprocess
+
+    statm = Path(f"/proc/{pid}/statm")
+    try:
+        if statm.exists():
+            return int(statm.read_text().split()[1]) * os.sysconf("SC_PAGE_SIZE") / 1e6
+        out = subprocess.run(["ps", "-o", "rss=", "-p", str(pid)], capture_output=True, text=True, timeout=2)
+        return int(out.stdout.strip()) / 1024 if out.stdout.strip() else None
+    except Exception:
+        return None
+
+
+class Heartbeat:
+    """A small JSON file rewritten every few seconds; the booth supervisor watches it."""
+
+    def __init__(self, path: str | Path, every_s: float = 2.0):
+        import os
+
+        self.path = Path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.every_s = every_s
+        self.t0 = time.monotonic()
+        self.pid = os.getpid()
+        self._rss: dict[int, float | None] = {}
+        self._rss_at = -1e9
+
+    def write(self, win: "BoothWindow", worker, status: str = "running") -> None:
+        from wfglink.provenance import now_shanghai
+
+        now = time.monotonic()
+        if now - self._rss_at > 10.0:     # ps is not free; memory moves slowly
+            pids = [self.pid] + ([worker.proc.pid] if getattr(worker, "proc", None) is not None and worker.proc.pid else [])
+            self._rss = {pid: rss_mb(pid) for pid in pids}
+            self._rss_at = now
+        st = win.state
+        data = {"status": status, "time": now_shanghai(), "epoch": time.time(), "pid": self.pid,
+                "uptime_s": round(now - self.t0, 1), "frames": worker.frames, "paints": win.paints,
+                "fps": round(st.fps or 0.0, 2), "source": st.source_label, "state": st.source_state,
+                "errors": len(worker.errors), "last_error": worker.errors[-1] if worker.errors else None,
+                "rss_mb": {str(k): (round(v, 1) if v is not None else None) for k, v in self._rss.items()}}
+        tmp = self.path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(data, ensure_ascii=False))
+        tmp.replace(self.path)
+
+
 def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None = None, lang: str | None = None,
               limits_screen: str | None = None, duration_s: float | None = None,
-              screenshot: str | None = None) -> dict[str, Any]:
+              screenshot: str | None = None, heartbeat: str | None = None) -> dict[str, Any]:
     cfg = cfg or load_config(local=True)
     app = QApplication.instance() or QApplication(sys.argv[:1])
     from wfglink.ui.fonts import load_fonts
@@ -259,17 +307,24 @@ def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None 
     worker.start()
     if duration_s:
         def finish():
+            win.duration_done = True
             if screenshot:
                 Path(screenshot).parent.mkdir(parents=True, exist_ok=True)
                 win.grab().save(screenshot)
             win.close()
         QTimer.singleShot(int(duration_s * 1000), finish)
+    hb = Heartbeat(heartbeat) if heartbeat else None
     t0 = time.monotonic()
+    t_hb = 0.0
     try:
         while win.isVisible():
             app.processEvents()
             time.sleep(0.002)
-            if duration_s and time.monotonic() - t0 > duration_s + 5:
+            now = time.monotonic()
+            if hb is not None and now - t_hb >= hb.every_s:
+                t_hb = now
+                hb.write(win, worker)
+            if duration_s and now - t0 > duration_s + 5:
                 break
     finally:
         worker.stop()
@@ -278,6 +333,9 @@ def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None 
             chain.stop()
         if limits:
             limits.close()
+        if hb is not None:
+            done = win.quit_confirmed or getattr(win, "duration_done", False)
+            hb.write(win, worker, "clean_exit" if done else "closed")
     st = win.state
     result = {
         "seconds": round(time.monotonic() - t0, 1), "frames": worker.frames, "paints": win.paints,
