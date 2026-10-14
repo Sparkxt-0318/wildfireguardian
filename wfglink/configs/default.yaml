@@ -1,0 +1,70 @@
+# wfglink default configuration. Every threshold lives here, never in code.
+# Units: px are pixels of the analysed frame, DN are 8-bit luma levels, s are seconds.
+
+detect:
+  background:
+    method: approx_median        # approx_median (live and file) or exact_median (file only)
+    step_dn: 1                   # approx_median: change per frame toward the current frame
+    warmup_frames: 5             # exact median of the first frames seeds the background
+    exact_window: 11             # exact_median: frames in the running window
+  tophat_kernel_px: 9            # removes structures wider than this (flames, glow halos)
+  noise:
+    tiles: [16, 9]               # noise map grid (columns, rows)
+    update_every: 10             # frames between noise map updates
+    subsample: 4                 # pixel stride when estimating noise
+    floor_dn: 1.0                # smallest noise sigma allowed
+  threshold:
+    k_seed: 5.0                  # a component must reach this many sigma somewhere
+    k_grow: 3.0                  # pixels above this many sigma join the component
+    min_seed_dn: 12              # absolute floor for the seed level
+  components:
+    min_area_px: 2
+    max_area_px: 300             # larger regions are flames, headlights or glare
+    large_mask_dilate_px: 7      # exclusion band around large bright regions
+    moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
+  saturation:
+    level_dn: 250
+    flag_min_px: 2               # at least this many saturated pixels sets the saturated flag
+  color:
+    ring_px: 2                   # ring outside the moment window gives the local reference chroma
+    luma_range: [40, 250]        # only unsaturated, visible pixels carry color
+    crcb_warm_min: 15            # chroma excess (Cr - Cb versus surroundings) above this is warm
+
+track:
+  gate_chi2: 9.21                # 99% chi-square gate for 2 degrees of freedom
+  meas_sigma_px: 1.0
+  accel_sigma_px: 3.0            # process noise, px per frame squared
+  angle_penalty_deg: 30.0        # streak orientation versus predicted motion
+  angle_penalty_cost: 4.0
+  confirm_hits: 3
+  confirm_window: 4
+  max_coast: 3
+  birth_radius_px: 15.0
+  static_seconds: 1.0            # tracks that barely move for this long are static lights
+  static_speed_px_s: 3.0
+
+gate:
+  hysteresis_px: 2.0
+  rate_window_s: 10.0
+
+velocity:
+  savgol_window: 5
+  savgol_order: 2
+  exposure:
+    window_s: 10.0
+    min_disp_px: 5.0
+    min_tracks: 20
+
+field:
+  grid: [16, 9]
+  min_tracks_show: 5
+  min_tracks_ci: 10
+  normalized_median_threshold: 2.0
+  normalized_median_eps_px: 0.1
+  live_window_s: 3.0
+  bootstrap: 200
+
+outputs:
+  table_format: parquet          # parquet or csv
+  overlay_video: true
+  overlay_crf: 20
