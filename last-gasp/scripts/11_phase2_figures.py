@@ -107,8 +107,8 @@ def fig_example():
     for ax in axes:
         ax.add_collection(LineCollection([np.asarray(r["xy"]) / 1000 for r in world["roads"]], colors="#e3e3e3",
                                          linewidths=0.5))
-        ax.set_xlim(0, W)
-        ax.set_ylim(0, H)
+        ax.set_xlim(-0.1, W + 0.1)
+        ax.set_ylim(-0.1, H + 0.1)
         ax.set_aspect("equal")
         ax.set_xlabel("Easting (km)")
     axes[0].set_ylabel("Northing (km)")
@@ -116,7 +116,7 @@ def fig_example():
     ax.add_collection(LineCollection(segs, colors=C["skyblue"], linewidths=0.4, alpha=0.6))
     ax.scatter(tag[:, 0], tag[:, 1], s=4, c=C["blue"], lw=0)
     gw = a["gw_xy"] / 1000
-    ax.scatter(gw[:, 0], gw[:, 1], marker="^", s=55, c=C["yellow"], edgecolors="k", lw=0.7, zorder=5)
+    ax.scatter(gw[:, 0], gw[:, 1], marker="^", s=55, c=C["yellow"], edgecolors="k", lw=0.7, zorder=5, clip_on=False)
     ax.set_title(f"(a) {len(tag)} tags (200 m), 4 gateways,\ntag-to-tag LoRa links", fontsize=8.5)
     for ax, mode, lab in ((axes[1], "star", "(b) Star: direct to gateway"), (axes[2], "mesh", "(c) Mesh relaying")):
         o = outs[mode]
@@ -127,10 +127,10 @@ def fig_example():
         ax.scatter(tag[died & ~obs, 0], tag[died & ~obs, 1], s=9, marker="x", c=C["grey"], lw=0.6,
                    label="Death not heard")
         g = aa["gw_xy"] / 1000
-        ax.scatter(g[:, 0], g[:, 1], marker="^", s=55, c=C["yellow"], edgecolors="k", lw=0.7, zorder=5)
+        ax.scatter(g[:, 0], g[:, 1], marker="^", s=55, c=C["yellow"], edgecolors="k", lw=0.7, zorder=5, clip_on=False)
         ax.set_title(f"{lab}\n{100 * o['frac_deaths_observed']:.0f}% of fire deaths heard", fontsize=8.5)
     axes[2].legend(loc="lower right", fontsize=7, frameon=True, framealpha=0.9, markerscale=1.8)
-    fig.suptitle("Receive side, world 0, gateways exposed to the fire (triangles). "
+    fig.suptitle("Receive side, world 0, 4 gateways in a spread layout, exposed to the fire (triangles). "
                  f"{style.SYNTH_NOTE}.", fontsize=8.5)
     return style.save(fig, FIG, "fig9_receive_example")
 
