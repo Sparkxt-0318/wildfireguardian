@@ -249,5 +249,33 @@
    "spot_correct": "20 of 20"
   },
   "how": "scripts/12_demo_metrics.py before commit 52e5284"
+ },
+ "p2_superseded_52e5284": {
+  "value": {
+   "runs": 940,
+   "wall_s": 208.5,
+   "corner_mesh_heard": 0.95
+  },
+  "how": "superseded run with the mesh placement bug (fig 9 world 0 showed 95% heard)"
+ },
+ "p2_placement_exploratory": {
+  "value": {
+   "coverage": [
+    0.574,
+    0.974,
+    0.564
+   ],
+   "spread": [
+    0.878,
+    0.974,
+    0.964
+   ],
+   "perimeter": [
+    0.974,
+    0.983,
+    0.973
+   ]
+  },
+  "how": "run_tags worlds 0 to 2, 4 gateways, mesh, 200 m, before commit 54f6e9a"
  }
 }

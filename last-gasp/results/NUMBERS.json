@@ -2,7 +2,7 @@
  "_note": "All values are from SYNTHETIC simulations, not real-world performance.",
  "_generated_by": "scripts/07_numbers.py",
  "_generated_at_commit": {
-  "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+  "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
   "code_dirty": false
  },
  "numbers": {
@@ -12,7 +12,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.n_buildings": {
@@ -21,7 +21,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.n_osm_buildings": {
@@ -30,7 +30,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.n_synthetic_buildings": {
@@ -39,7 +39,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.n_poles": {
@@ -48,7 +48,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.n_roads": {
@@ -57,7 +57,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.devices.breaker": {
@@ -66,7 +66,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.devices.fuse": {
@@ -75,7 +75,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.devices.recloser": {
@@ -84,7 +84,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "world.devices.transformer": {
@@ -93,7 +93,7 @@
    "source": "results/world_summary.json",
    "script": "scripts/01_build_world.py",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "example.default.fire_seed": {
@@ -10084,6 +10084,44 @@
     "spot_correct": "20 of 20"
    },
    "description": "scripts/12_demo_metrics.py before commit 52e5284",
+   "source": "results/exploratory_numbers.json",
+   "script": "inline exploratory command (see LOG.md)",
+   "config": "intermediate",
+   "commit": "uncommitted intermediate state",
+   "code_dirty": true
+  },
+  "exploratory.p2_superseded_52e5284": {
+   "value": {
+    "runs": 940,
+    "wall_s": 208.5,
+    "corner_mesh_heard": 0.95
+   },
+   "description": "superseded run with the mesh placement bug (fig 9 world 0 showed 95% heard)",
+   "source": "results/exploratory_numbers.json",
+   "script": "inline exploratory command (see LOG.md)",
+   "config": "intermediate",
+   "commit": "uncommitted intermediate state",
+   "code_dirty": true
+  },
+  "exploratory.p2_placement_exploratory": {
+   "value": {
+    "coverage": [
+     0.574,
+     0.974,
+     0.564
+    ],
+    "spread": [
+     0.878,
+     0.974,
+     0.964
+    ],
+    "perimeter": [
+     0.974,
+     0.983,
+     0.973
+    ]
+   },
+   "description": "run_tags worlds 0 to 2, 4 gateways, mesh, 200 m, before commit 54f6e9a",
    "source": "results/exploratory_numbers.json",
    "script": "inline exploratory command (see LOG.md)",
    "config": "intermediate",
@@ -34315,7 +34353,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery.avg_current_ua": {
@@ -34324,7 +34362,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery.life_years": {
@@ -34333,7 +34371,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery.life_years_no_self_discharge": {
@@ -34342,7 +34380,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.tag_unit_usd": {
@@ -34351,7 +34389,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.tags_per_km": {
@@ -34360,7 +34398,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.gateways_per_km": {
@@ -34369,7 +34407,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.upfront_usd_per_km": {
@@ -34378,7 +34416,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.annual_usd_per_km": {
@@ -34387,7 +34425,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.tag_unit_usd": {
@@ -34396,7 +34434,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.50.gateway_unit_usd": {
@@ -34405,7 +34443,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.tags_per_km": {
@@ -34414,7 +34452,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.gateways_per_km": {
@@ -34423,7 +34461,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.upfront_usd_per_km": {
@@ -34432,7 +34470,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.annual_usd_per_km": {
@@ -34441,7 +34479,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.tag_unit_usd": {
@@ -34450,7 +34488,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.100.gateway_unit_usd": {
@@ -34459,7 +34497,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.tags_per_km": {
@@ -34468,7 +34506,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.gateways_per_km": {
@@ -34477,7 +34515,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.upfront_usd_per_km": {
@@ -34486,7 +34524,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.annual_usd_per_km": {
@@ -34495,7 +34533,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.tag_unit_usd": {
@@ -34504,7 +34542,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.200.gateway_unit_usd": {
@@ -34513,7 +34551,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.tags_per_km": {
@@ -34522,7 +34560,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.gateways_per_km": {
@@ -34531,7 +34569,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.upfront_usd_per_km": {
@@ -34540,7 +34578,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.annual_usd_per_km": {
@@ -34549,7 +34587,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.tag_unit_usd": {
@@ -34558,7 +34596,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.400.gateway_unit_usd": {
@@ -34567,7 +34605,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.tags_per_km": {
@@ -34576,7 +34614,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.gateways_per_km": {
@@ -34585,7 +34623,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.upfront_usd_per_km": {
@@ -34594,7 +34632,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.annual_usd_per_km": {
@@ -34603,7 +34641,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.tag_unit_usd": {
@@ -34612,7 +34650,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.800.gateway_unit_usd": {
@@ -34621,7 +34659,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.tags_per_km": {
@@ -34630,7 +34668,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.gateways_per_km": {
@@ -34639,7 +34677,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.upfront_usd_per_km": {
@@ -34648,7 +34686,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.annual_usd_per_km": {
@@ -34657,7 +34695,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.tag_unit_usd": {
@@ -34666,7 +34704,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.roads.1600.gateway_unit_usd": {
@@ -34675,7 +34713,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.tags_per_km": {
@@ -34684,7 +34722,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.gateways_per_km": {
@@ -34693,7 +34731,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.upfront_usd_per_km": {
@@ -34702,7 +34740,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.annual_usd_per_km": {
@@ -34711,7 +34749,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.tag_unit_usd": {
@@ -34720,7 +34758,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.50.gateway_unit_usd": {
@@ -34729,7 +34767,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.tags_per_km": {
@@ -34738,7 +34776,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.gateways_per_km": {
@@ -34747,7 +34785,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.upfront_usd_per_km": {
@@ -34756,7 +34794,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.annual_usd_per_km": {
@@ -34765,7 +34803,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.tag_unit_usd": {
@@ -34774,7 +34812,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.100.gateway_unit_usd": {
@@ -34783,7 +34821,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.tags_per_km": {
@@ -34792,7 +34830,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.gateways_per_km": {
@@ -34801,7 +34839,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.upfront_usd_per_km": {
@@ -34810,7 +34848,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.annual_usd_per_km": {
@@ -34819,7 +34857,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.tag_unit_usd": {
@@ -34828,7 +34866,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.200.gateway_unit_usd": {
@@ -34837,7 +34875,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.tags_per_km": {
@@ -34846,7 +34884,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.gateways_per_km": {
@@ -34855,7 +34893,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.upfront_usd_per_km": {
@@ -34864,7 +34902,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.annual_usd_per_km": {
@@ -34873,7 +34911,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.tag_unit_usd": {
@@ -34882,7 +34920,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.400.gateway_unit_usd": {
@@ -34891,7 +34929,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.tags_per_km": {
@@ -34900,7 +34938,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.gateways_per_km": {
@@ -34909,7 +34947,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.upfront_usd_per_km": {
@@ -34918,7 +34956,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.annual_usd_per_km": {
@@ -34927,7 +34965,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.tag_unit_usd": {
@@ -34936,7 +34974,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.800.gateway_unit_usd": {
@@ -34945,7 +34983,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.tags_per_km": {
@@ -34954,7 +34992,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.gateways_per_km": {
@@ -34963,7 +35001,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.upfront_usd_per_km": {
@@ -34972,7 +35010,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.annual_usd_per_km": {
@@ -34981,7 +35019,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.tag_unit_usd": {
@@ -34990,7 +35028,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km_by_spacing.edge.1600.gateway_unit_usd": {
@@ -34999,7 +35037,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.50.tags_per_km2": {
@@ -35008,7 +35046,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.50.upfront_usd_per_km2": {
@@ -35017,7 +35055,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.50.annual_usd_per_km2": {
@@ -35026,7 +35064,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.100.tags_per_km2": {
@@ -35035,7 +35073,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.100.upfront_usd_per_km2": {
@@ -35044,7 +35082,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.100.annual_usd_per_km2": {
@@ -35053,7 +35091,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.200.tags_per_km2": {
@@ -35062,7 +35100,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.200.upfront_usd_per_km2": {
@@ -35071,7 +35109,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.200.annual_usd_per_km2": {
@@ -35080,7 +35118,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.400.tags_per_km2": {
@@ -35089,7 +35127,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.400.upfront_usd_per_km2": {
@@ -35098,7 +35136,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.400.annual_usd_per_km2": {
@@ -35107,7 +35145,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.800.tags_per_km2": {
@@ -35116,7 +35154,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.800.upfront_usd_per_km2": {
@@ -35125,7 +35163,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.800.annual_usd_per_km2": {
@@ -35134,7 +35172,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.1600.tags_per_km2": {
@@ -35143,7 +35181,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.1600.upfront_usd_per_km2": {
@@ -35152,7 +35190,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.cost_per_km2_roads.1600.annual_usd_per_km2": {
@@ -35161,7 +35199,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_interval.10": {
@@ -35170,7 +35208,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_interval.30": {
@@ -35179,7 +35217,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_interval.60": {
@@ -35188,7 +35226,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_interval.120": {
@@ -35197,7 +35235,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_sf.7": {
@@ -35206,7 +35244,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_sf.9": {
@@ -35215,7 +35253,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_by_sf.12": {
@@ -35224,7 +35262,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.econ.battery_life_years_ble": {
@@ -35233,7 +35271,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py (lastgasp/economics.py)",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.line_length_km.roads": {
@@ -35242,7 +35280,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "p2.line_length_km.edge": {
@@ -35251,7 +35289,7 @@
    "source": "results/phase2_summary.json",
    "script": "scripts/11_phase2_figures.py",
    "config": "configs/phase2.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.n_runs": {
@@ -35260,7 +35298,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.detection_latency_median_s": {
@@ -35269,7 +35307,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.detection_latency_p90_s": {
@@ -35278,7 +35316,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.runs_with_correct_spot_flag": {
@@ -35287,7 +35325,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.runs_with_any_extra_spot_flag": {
@@ -35296,7 +35334,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.heartbeat_s": {
@@ -35305,7 +35343,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.timeout_beats": {
@@ -35314,7 +35352,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   },
   "booth.packet_loss": {
@@ -35323,7 +35361,7 @@
    "source": "results/demo_booth_metrics.json",
    "script": "demo/lastgasp_demo (headless)",
    "config": "configs/default.json",
-   "commit": "9a0894675748272a5f14907d5f0359796aea3891",
+   "commit": "46f7903c23be6415273d544f22ba8e99d4e89212",
    "code_dirty": false
   }
  }

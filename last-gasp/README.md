@@ -20,28 +20,43 @@ The catch is that devices also die for non-fire reasons. A failed power line bla
 
 It also tests which node densities, delivery rates, noise levels and grid fault rates make it work or break. The original brief is in `docs/PROMPT.md`.
 
-## Current status (2026-10-14)
+## Current status (2026-10-15)
 
-The first complete pass of all seven steps is done. The headline is in `RESULTS.md`:
+### Phase 1 (complete): `RESULTS.md`
 
-- **Grid-powered smart meters: no-go as the main sensor.** In the simulation, about 75% of the fire signal is lost because upstream line faults black out meters before the fire reaches them.
-- **Grid-independent battery tags work well.** They give errors of about 1 min median at 10 or more tags per km².
-- **Topology-based fire versus grid classification works.** Balanced accuracy is 0.89, against 0.51 without topology.
-- **Spot fire detection is weak and is the next thing to improve.**
+- Grid-powered smart-meter last gasp is weak as a fire tracker. About 75% of the fire signal is censored by upstream outages, and KEPCO AMI evidence does not show timestamped last gasps.
+- Independent tags reconstruct arrival times well.
+
+### Phase 2 (first pass of all five items complete): `RESULTS_PHASE2.md`
+
+- **Receive side.** A LoRa tag mesh with 3 spread-out, fire-exposed gateways hears 96% of tag deaths. Arrival-time error is 1.6 / 5.6 min at 12 tags per km².
+  - Gateway placement and independent power matter more than gateway count.
+  - Store-and-forward helps only at the gateway, during backhaul outages.
+- **Utility trip logs** add value only where tags are very sparse, and precautionary shutoffs remove or corrupt the signal.
+- **Cost** is about $1,050 per km² up front for tags every 200 m of road (estimate).
+- **Spot fire detection** remains weak (6% recall at 200 m spacing).
+- **The core idea is prior art** (IBM patent, 2014). The reconstruction and spotting layer is the possible contribution.
+- **Booth demo:** `demo/` runs in simulator mode.
+- **Overall real-world feasibility: low to moderate.** The biggest open questions are tag death timing in a real fire and radio range in Korean terrain.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| `RESULTS.md` | Findings, go or no-go, data to request, demo mapping |
+| `RESULTS.md` | Phase 1 findings (meters versus tags), go or no-go, data to request |
+| `RESULTS_PHASE2.md` | Phase 2: receive side, trip logs, economics, novelty, demo, updated go or no-go |
+| `demo/` | Booth display (simulator, serial or BLE input), heartbeat format, example ESP32 sketch; see `demo/README.md` |
 | `LOG.md` | Append-only run log (Asia/Shanghai time) |
 | `docs/PROMPT.md` | Original brief, verbatim |
-| `docs/PARAMETERS.md` | Every parameter, its default and the reason or source |
+| `docs/PARAMETERS.md` | Every phase 1 parameter, its default and the reason or source |
+| `docs/PARAMETERS_PHASE2.md` | Phase 2 radio, gateway, trip-log and cost parameters with sources |
+| `docs/UTILITY_LOGS.md` | Desk research: KEPCO trip logging and 2025 power events |
+| `docs/NOVELTY.md` | Desk research: prior art and existing sensor networks |
 | `docs/DESK_RESEARCH.md` | Real-world check: AMI in Korea, outage logging, data holders, legal limits |
 | `data/SOURCES.md` | Provenance and licenses of all external data, papers and sources |
 | `data/processed/world_yeongdeok.json` | OSM roads, 59 OSM buildings, substation and 1,441 synthetic buildings (ODbL) |
-| `configs/default.json` | All model parameters |
-| `lastgasp/` | Python package: `world`, `fire`, `grid`, `observe`, `classify`, `reconstruct`, `pipeline`, `style`, `provenance` |
+| `configs/default.json`, `configs/phase2.json` | All model parameters (phase 1, phase 2) |
+| `lastgasp/` | Python package. Phase 1: `world`, `fire`, `grid`, `observe`, `classify`, `reconstruct`, `pipeline`. Phase 2: `deploy`, `receive`, `phase2`, `trips`, `economics`. Shared: `style`, `provenance`. |
 | `scripts/` | Numbered run scripts and `run_all.sh` |
 | `results/` | Metrics, sweep table and summary, `NUMBERS.json` (every quoted number with its provenance) |
 | `figures/` | Figures 1 to 8, PNG at 300 dpi and SVG |
@@ -54,7 +69,7 @@ Tested with Python 3.13 on Linux. All pinned dependencies publish Apple Silicon 
 cd last-gasp
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-bash scripts/run_all.sh        # about 7 to 10 minutes on 4 cores
+bash scripts/run_all.sh        # phase 1, about 7 to 10 minutes on 4 cores
 ```
 
 Individual steps:
@@ -67,8 +82,16 @@ Individual steps:
 .venv/bin/python scripts/04_figures_example.py        # figures 1 to 3
 .venv/bin/python scripts/05_figures_sweeps.py         # figures 4 to 7 and results/sweep_summary.json
 .venv/bin/python scripts/06_demo_sim.py               # figure 8, tabletop demo analogue
-.venv/bin/python scripts/07_numbers.py                # results/NUMBERS.json
+.venv/bin/python scripts/07_numbers.py                # results/NUMBERS.json (phase 1 and 2)
+
+# Phase 2
+.venv/bin/python scripts/10_phase2_sweeps.py --workers 4   # 1,150 runs, about 4 min; results/phase2_sweeps.csv
+.venv/bin/python scripts/11_phase2_figures.py              # figures 9 to 12, results/phase2_summary.json
+.venv/bin/python scripts/12_demo_metrics.py                # booth simulator metrics
+.venv/bin/python scripts/07_numbers.py
 ```
+
+Booth demo without hardware: `cd demo && ../.venv/bin/python -m lastgasp_demo --sim`.
 
 Any parameter can be overridden for one run, for example `--set grid.substation_trip_min=40`.
 

@@ -216,3 +216,47 @@ Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. En
   - Check, world 1: tags plus trips 6.5 min median, against 26.8 for tags alone.
 - Added scenarios from the utility research: a reactive shutoff (lines cut after the fire reached them) and a logging blackout at 40 min.
 - Fixes committed (52e5284). Rerun: `scripts/10_phase2_sweeps.py`, then 11, 12 and 07 (`results/phase2_run.log`).
+
+## 2026-10-15 00:26 Phase 2 clean runs and write-up
+
+- Run at 52e5284 (clean, 940 runs, 209 s), superseded the same hour. It showed a placement bug: in mesh mode, greedy coverage scored every site equal and put all gateways in one corner. That corner happened to burn late, so 95% of deaths were heard by luck.
+- Placement fix and finding (exploratory, worlds 0 to 2, 4 gateways, mesh): coverage-greedy, which clusters gateways in the town, heard 56% to 57% in worlds 0 and 2, against 88% to 97% for the spread and perimeter layouts. Added `spread` (the default) and `perimeter` layouts and a placement sweep. Committed as 54f6e9a.
+- Final sweep: `scripts/10_phase2_sweeps.py --fire-seeds 5 --obs-seeds 2 --workers 4` at 54f6e9a. Clean code; 1,150 runs; 0 errors; 211 s.
+- Figures and economics: `scripts/11_phase2_figures.py`, `scripts/12_demo_metrics.py` and `scripts/07_numbers.py` at 46f7903 (clean), after these figure fixes:
+  - fig 10 made 2x2 with a placement panel, legend moved below;
+  - fig 11 bar labels overlapped, so changed to horizontal bars with legends below;
+  - fig 12 log ticks were cluttered;
+  - fig 9 had a clipped gateway marker.
+- Key results (mesh, tags every 200 m of road, 12 per km², 10 runs; `results/NUMBERS.json` keys `p2.*`):
+
+  | Setting | Deaths heard | Error (min) |
+  |---|---|---|
+  | Perfect reception | 100% | 1.5 / 4.9 |
+  | 3 spread exposed gateways | 96% | 1.6 / 5.6 |
+  | 4 coverage-greedy gateways | 77% | 1.8 / 11.4 |
+  | Star, 6 gateways | 96% | |
+  | 1 hardened gateway, mesh | 95.5% | |
+  | Grid-powered gateways | 59% | |
+  | Backhaul down 40 to 100 min, buffered | 96% eventually, 40% within 5 min | |
+  | Backhaul down 40 to 100 min, no buffer | 39% | |
+  | Pessimistic radio, 4 gateways | 69% | |
+  | BLE at 200 m | 1% | |
+
+  - Trip logs, about 9 per fire: trips alone 7.1 / 27.1 min. With tags at 1,600 m: 30.9 / 53.3 min becomes 6.6 / 17.5. With tags at 200 m: no gain. A shutoff ahead of the fire leaves 0 fire-caused entries.
+  - Cost (estimate): ,049 per km² up front and 2 per year at 200 m road spacing. Tag bill of materials 6.09. Battery 3.3 years at SF7 with 30 s beacons.
+  - Spot recall: 6% at 200 m; 33% at 50 m (36% with perfect reception).
+  - Booth simulator: latency 2.6 s median; spot flagged in 20 of 20 runs.
+- Wrote `RESULTS_PHASE2.md`, `docs/PARAMETERS_PHASE2.md`, `docs/UTILITY_LOGS.md`, `docs/NOVELTY.md` and `demo/README.md`, and updated `README.md` and `data/SOURCES.md`.
+- Decisions:
+  - meter last gasp: no-go;
+  - independent tag mesh: conditional go for a field pilot;
+  - spot detection: no-go for now;
+  - trip logs: request as a coarse layer only;
+  - booth demo: go;
+  - real-world feasibility rated low to moderate (2 of 5).
+- Next steps:
+  1. 922 MHz walk test in a Gyeongbuk forest.
+  2. Tag burn test.
+  3. Better spot-detection method.
+  4. Use grid bursts and trips as interval constraints.
+  5. Flash and test the ESP32 sketch.
