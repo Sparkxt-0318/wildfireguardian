@@ -45,3 +45,36 @@ Results (modeled, hypothetical links): 215 sites, 1520 links. Median ray clearan
 Decisions: separated tower zones (within 300 m of an antenna) because a 30 m antenna height makes any 35 m flame at the tower base reach the beam, which says more about site survival than about detection. Reworked the map into small multiples and moved the profile legend below the panels after inspection (first versions were cluttered or overlapping).
 
 Next step: the physics figures and the Mphale and Heron check, once the literature agent reports the original geometry.
+
+## 2026-10-15 00:10 CST: literature verification results (research subagents)
+
+Goal: verify the prompt's numbers against original papers and collect parameters.
+
+Results (details and URLs in docs/PARAMETERS.md and data/SOURCES.md):
+- Mphale and Heron (2007, J. Phys. D 40:2818) full text: attenuation 1.64 to 5.68 dB at 8 to 10.5 GHz (the abstract rounds to "1.6 to 5.8"); ne 0.51 to 1.35e16 m^-3 and nu 3.43 to 5.97e10 s^-1 confirmed. The burner was 0.5 m wide, but the authors' own inversion treats the reported dB values as dB/m, so the per-metre value is ambiguous by a factor of 2.
+- "Largest losses through the hottest zone" is from Mphale's 2008 thesis and is a lab-time and modeling statement, not a measured height profile.
+- Field crossings at VHF were tiny (0.03 to 0.05 dB over 44 m; 0.43 dB over 590 m of cane fire). Operation Euroka (1970, cited second hand) reported under 5 dB at UHF and X band over about 40 m at 1.7 m above the fuel.
+- "Flames matter far more than smoke" holds for Hong et al. (2021) but is contradicted by Li et al. (2017) at 350 to 400 MHz and by Bystrov et al. (2021) at 79 and 300 GHz (smoke slightly worse than flame, both at most 0.13 dB/m).
+- OpenMRG is open (Zenodo 7107689, CC BY-SA 4.0, 318 MB, 10 s sampling, RSL 0.3 dB, TSL 1 dB, ATPC disabled). OpenRainER (CC BY 4.0, 1 min, 25 GHz, mountainous) is a later option.
+- Korea: microwave share of mobile backhaul in North East Asia is about 6 percent (Ericsson Microwave Outlook 2025); the only Korean CML study used KT 6 to 8 GHz relay links of 5.7 to 37.4 km.
+- Uiseong fire: ignition 22 March 2025 about 11:25 KST, about 99,000 ha, 26 dead in five counties, peak spread 8.2 km/h reported, 1 to 3 mm of rain on 27 to 28 March.
+
+Decisions: correct the quoted range to 1.6 to 5.7 dB; add a "field bound" flame scenario (path-averaged ne = 3.5e14 m^-3, from Euroka's under-5-dB-over-40-m bound) next to the lab values; treat the flame-versus-smoke statement as contested.
+
+## 2026-10-15 00:30 CST: step 3 physics model
+
+Goal: Drude attenuation 1 to 80 GHz, plume structure, mean loss and scintillation versus ray height.
+
+Command: `.venv/bin/python src/run_physics.py` (config `configs/physics.json`), runtime about 70 s.
+
+Parameters: lab peak ne 1.35e16 m^-3, nu 3.43e10 s^-1; field bound ne 3.5e14 m^-3, nu 5e10 s^-1; flame mean temperature 1100 K; K mole fraction 1e-5 (assumption); calm-air line plume with entrainment 0.16 and convective fraction 0.75; temperature fluctuation 0.4 of the mean excess; surface fire 2 MW/m (Byram flame 2.6 m, flaming depth 20 m); crown fire 30 MW/m (flame top 30 m, depth 60 m); 5 km link, fire at mid-span; flame height jittered 0.6 to 1.4 times the mean and power averaged over +-1 F1 of ray height to remove model ripple.
+
+Results (modeled):
+- Drude reproduces the reported lab values within 19 percent when they are read as dB/m (consistency check only, because ne and nu were inverted from the same data). Lab-peak specific attenuation falls from 6.9 dB/m at 7 GHz to 1.5 at 18, 0.37 at 38 and 0.08 at 80 GHz. Field-bound values are 40 times lower.
+- Saha equilibrium cannot produce 1e16 m^-3 at 1100 K; the calibrated effective ionization temperature is 1620 K. Above the flame top, Saha electrons vanish within a metre; even the frozen-ion bound gives under 1e12 m^-3 above twice the flame height. Plume absorption is negligible at every band.
+- Mean excess loss needs the flame inside the first Fresnel zone: at 18 GHz with the ray at the flame top, 1.6 dB (surface) and 2.9 dB (crown, lab peak); at 50 m and 150 m ray height it is within the +-0.3 dB model ripple.
+- Plume scintillation (calm-air upper bound) at 18 GHz: crown fire 0.55 dB std at 50 m ray height and 0.17 dB at 150 m; surface fire 0.07 dB at 50 m.
+
+Decisions: the first loss-versus-height figure showed unphysical Fresnel ripple from the sharp model flame top; added flame-height jitter and ray-height averaging, and a grey band marking the remaining +-0.3 dB ripple. Scintillation is capped at the saturated 5.6 dB.
+
+Next step: fire spread model and synthetic RSL crossings on the hypothetical links.

@@ -1378,5 +1378,1885 @@
   "config": "configs/geometry.json",
   "commit": "89bc4c230fec-dirty",
   "time": "2026-10-14 22:54 CST"
+ },
+ "phys.excess.crown.field_bound.13GHz.clear_0.6F1": {
+  "value": 1.20735,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.13GHz.clear_150m": {
+  "value": -0.167889,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.13GHz.clear_50m": {
+  "value": -0.0434876,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.13GHz.ray_at_flame_top": {
+  "value": 1.92436,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.18GHz.clear_0.6F1": {
+  "value": 1.05433,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.18GHz.clear_150m": {
+  "value": -0.209392,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.18GHz.clear_50m": {
+  "value": -0.0861797,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.18GHz.ray_at_flame_top": {
+  "value": 1.18162,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.23GHz.clear_0.6F1": {
+  "value": 0.810736,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.23GHz.clear_150m": {
+  "value": -0.307512,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.23GHz.clear_50m": {
+  "value": -0.0744817,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.23GHz.ray_at_flame_top": {
+  "value": 1.07263,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.38GHz.clear_0.6F1": {
+  "value": 0.166597,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.38GHz.clear_150m": {
+  "value": -0.304188,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.38GHz.clear_50m": {
+  "value": 0.00961241,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.38GHz.ray_at_flame_top": {
+  "value": 0.230271,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.7GHz.clear_0.6F1": {
+  "value": 1.83211,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.7GHz.clear_150m": {
+  "value": -0.0780273,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.7GHz.clear_50m": {
+  "value": 0.00272092,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.7GHz.ray_at_flame_top": {
+  "value": 2.85647,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.80GHz.clear_0.6F1": {
+  "value": 0.317442,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.80GHz.clear_150m": {
+  "value": 0.261494,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.80GHz.clear_50m": {
+  "value": -0.0297509,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.field_bound.80GHz.ray_at_flame_top": {
+  "value": 0.299473,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, field_bound, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.13GHz.clear_0.6F1": {
+  "value": 1.84262,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.13GHz.clear_150m": {
+  "value": -0.161947,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.13GHz.clear_50m": {
+  "value": -0.0195982,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.13GHz.ray_at_flame_top": {
+  "value": 3.0217,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.18GHz.clear_0.6F1": {
+  "value": 2.34107,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.18GHz.clear_150m": {
+  "value": -0.208451,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.18GHz.clear_50m": {
+  "value": -0.0622636,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.18GHz.ray_at_flame_top": {
+  "value": 2.94973,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.23GHz.clear_0.6F1": {
+  "value": 2.39988,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.23GHz.clear_150m": {
+  "value": -0.312132,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.23GHz.clear_50m": {
+  "value": -0.0111467,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.23GHz.ray_at_flame_top": {
+  "value": 3.07668,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.38GHz.clear_0.6F1": {
+  "value": 2.24321,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.38GHz.clear_150m": {
+  "value": -0.319546,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.38GHz.clear_50m": {
+  "value": -0.078932,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.38GHz.ray_at_flame_top": {
+  "value": 2.75245,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.7GHz.clear_0.6F1": {
+  "value": 1.98859,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.7GHz.clear_150m": {
+  "value": -0.0804929,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.7GHz.clear_50m": {
+  "value": -0.00189221,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.7GHz.ray_at_flame_top": {
+  "value": 3.18484,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.80GHz.clear_0.6F1": {
+  "value": 1.55305,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.80GHz.clear_150m": {
+  "value": 0.26785,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.80GHz.clear_50m": {
+  "value": -0.00416982,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.crown.lab_peak.80GHz.ray_at_flame_top": {
+  "value": 1.78231,
+  "unit": "dB",
+  "description": "Mean excess loss, crown fire, lab_peak, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.13GHz.clear_0.6F1": {
+  "value": 0.434558,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.13GHz.clear_150m": {
+  "value": -0.0176791,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.13GHz.clear_50m": {
+  "value": -0.0268089,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.13GHz.ray_at_flame_top": {
+  "value": 0.80842,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.18GHz.clear_0.6F1": {
+  "value": 0.550848,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.18GHz.clear_150m": {
+  "value": -0.0403102,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.18GHz.clear_50m": {
+  "value": -0.129563,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.18GHz.ray_at_flame_top": {
+  "value": 0.241094,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.23GHz.clear_0.6F1": {
+  "value": -0.118952,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.23GHz.clear_150m": {
+  "value": -0.0469193,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.23GHz.clear_50m": {
+  "value": -0.0828041,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.23GHz.ray_at_flame_top": {
+  "value": 0.067357,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.38GHz.clear_0.6F1": {
+  "value": -0.29497,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.38GHz.clear_150m": {
+  "value": -0.0540097,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.38GHz.clear_50m": {
+  "value": -0.183815,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.38GHz.ray_at_flame_top": {
+  "value": -0.117051,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.7GHz.clear_0.6F1": {
+  "value": 0.504536,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.7GHz.clear_150m": {
+  "value": -0.00220527,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.7GHz.clear_50m": {
+  "value": 0.0102392,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.7GHz.ray_at_flame_top": {
+  "value": 0.909442,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.80GHz.clear_0.6F1": {
+  "value": 0.310468,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.80GHz.clear_150m": {
+  "value": -0.124086,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.80GHz.clear_50m": {
+  "value": -0.161547,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.field_bound.80GHz.ray_at_flame_top": {
+  "value": 0.203103,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, field_bound, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.13GHz.clear_0.6F1": {
+  "value": 0.865465,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.13GHz.clear_150m": {
+  "value": -0.0233049,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.13GHz.clear_50m": {
+  "value": -0.0614672,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.13GHz.ray_at_flame_top": {
+  "value": 1.96411,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.18GHz.clear_0.6F1": {
+  "value": 1.00205,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.18GHz.clear_150m": {
+  "value": -0.0354045,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.18GHz.clear_50m": {
+  "value": -0.0862681,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.18GHz.ray_at_flame_top": {
+  "value": 1.55712,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.23GHz.clear_0.6F1": {
+  "value": 1.27055,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.23GHz.clear_150m": {
+  "value": -0.0351813,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.23GHz.clear_50m": {
+  "value": -0.0955215,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.23GHz.ray_at_flame_top": {
+  "value": 1.82171,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.38GHz.clear_0.6F1": {
+  "value": 0.744844,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.38GHz.clear_150m": {
+  "value": -0.0527143,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.38GHz.clear_50m": {
+  "value": -0.148346,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.38GHz.ray_at_flame_top": {
+  "value": 1.87061,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.7GHz.clear_0.6F1": {
+  "value": 0.979345,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.7GHz.clear_150m": {
+  "value": -0.00397411,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.7GHz.clear_50m": {
+  "value": 0.067506,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.7GHz.ray_at_flame_top": {
+  "value": 1.52589,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.80GHz.clear_0.6F1": {
+  "value": 0.916935,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.80GHz.clear_150m": {
+  "value": -0.134947,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.80GHz.clear_50m": {
+  "value": -0.207284,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.excess.surface.lab_peak.80GHz.ray_at_flame_top": {
+  "value": 1.15616,
+  "unit": "dB",
+  "description": "Mean excess loss, surface fire, lab_peak, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.field_bound.ne": {
+  "value": 349629000000000.0,
+  "unit": "m^-3",
+  "description": "Path-averaged ne giving 5 dB over 40 m at 10 GHz (Euroka upper bound)",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.mphale_check.max_abs_err_pct": {
+  "value": 19.1793,
+  "unit": "%",
+  "description": "Largest Drude-vs-reported mismatch when reported values are read as dB/m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.mphale_check.max_pred": {
+  "value": 5.79881,
+  "unit": "dB/m",
+  "description": "Largest Drude prediction at the reported points",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.mphale_check.min_pred": {
+  "value": 1.87475,
+  "unit": "dB/m",
+  "description": "Smallest Drude prediction at the reported points",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.T_ion_K": {
+  "value": 1653.34,
+  "unit": "K",
+  "description": "Effective ionization temperature calibrated for crown column",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.dT_at_100m": {
+  "value": 45.7342,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 100 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.dT_at_50m": {
+  "value": 91.4684,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 50 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.dT_at_60m": {
+  "value": 76.2237,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 60 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.flame_height_m": {
+  "value": 30.0,
+  "unit": "m",
+  "description": "Flame height used for the crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.ne_frozen_at_100m": {
+  "value": 1620740000.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 100 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.ne_frozen_at_50m": {
+  "value": 29211000000.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 50 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.crown.ne_frozen_at_60m": {
+  "value": 12382600000.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 60 m, crown fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.T_ion_K": {
+  "value": 1653.34,
+  "unit": "K",
+  "description": "Effective ionization temperature calibrated for surface column",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.dT_at_100m": {
+  "value": 7.51935,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 100 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.dT_at_50m": {
+  "value": 15.0387,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 50 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.dT_at_5m": {
+  "value": 147.019,
+  "unit": "K",
+  "description": "Calm-air plume excess temperature at 5 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.flame_height_m": {
+  "value": 2.55726,
+  "unit": "m",
+  "description": "Flame height used for the surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.ne_frozen_at_100m": {
+  "value": 26227900.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 100 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.ne_frozen_at_50m": {
+  "value": 86427400.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 50 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.profile.surface.ne_frozen_at_5m": {
+  "value": 379968000000.0,
+  "unit": "m^-3",
+  "description": "Frozen-ion upper bound ne at 5 m, surface fire",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.13GHz.clear_0.6F1": {
+  "value": 0.678023,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.13GHz.clear_150m": {
+  "value": 0.14199,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.13GHz.clear_50m": {
+  "value": 0.455326,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.13GHz.ray_at_flame_top": {
+  "value": 1.8529,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.18GHz.clear_0.6F1": {
+  "value": 0.871361,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.18GHz.clear_150m": {
+  "value": 0.171672,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.18GHz.clear_50m": {
+  "value": 0.550509,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.18GHz.ray_at_flame_top": {
+  "value": 2.24024,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.23GHz.clear_0.6F1": {
+  "value": 1.0053,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.23GHz.clear_150m": {
+  "value": 0.19806,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.23GHz.clear_50m": {
+  "value": 0.635131,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.23GHz.ray_at_flame_top": {
+  "value": 2.5846,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.38GHz.clear_0.6F1": {
+  "value": 1.3474,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.38GHz.clear_150m": {
+  "value": 0.265459,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.38GHz.clear_50m": {
+  "value": 0.85126,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.38GHz.ray_at_flame_top": {
+  "value": 3.46411,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.7GHz.clear_0.6F1": {
+  "value": 0.472518,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.7GHz.clear_150m": {
+  "value": 0.0989533,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.7GHz.clear_50m": {
+  "value": 0.317319,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.7GHz.ray_at_flame_top": {
+  "value": 1.2913,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.80GHz.clear_0.6F1": {
+  "value": 2.08014,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.80GHz.clear_150m": {
+  "value": 0.409819,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.80GHz.clear_50m": {
+  "value": 1.31419,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.crown.80GHz.ray_at_flame_top": {
+  "value": 5.34795,
+  "unit": "dB",
+  "description": "Plume scintillation std, crown fire, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.13GHz.clear_0.6F1": {
+  "value": 0.636966,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 13 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.13GHz.clear_150m": {
+  "value": 0.0195611,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 13 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.13GHz.clear_50m": {
+  "value": 0.0602665,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 13 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.13GHz.ray_at_flame_top": {
+  "value": 2.1445,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 13 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.18GHz.clear_0.6F1": {
+  "value": 0.77012,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 18 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.18GHz.clear_150m": {
+  "value": 0.0236502,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 18 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.18GHz.clear_50m": {
+  "value": 0.0728648,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 18 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.18GHz.ray_at_flame_top": {
+  "value": 2.59279,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 18 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.23GHz.clear_0.6F1": {
+  "value": 1.34565,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 23 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.23GHz.clear_150m": {
+  "value": 0.0272856,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 23 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.23GHz.clear_50m": {
+  "value": 0.0840653,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 23 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.23GHz.ray_at_flame_top": {
+  "value": 2.99135,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 23 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.38GHz.clear_0.6F1": {
+  "value": 1.80357,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 38 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.38GHz.clear_150m": {
+  "value": 0.0365706,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 38 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.38GHz.clear_50m": {
+  "value": 0.112672,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 38 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.38GHz.ray_at_flame_top": {
+  "value": 4.00928,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 38 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.7GHz.clear_0.6F1": {
+  "value": 0.443905,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 7 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.7GHz.clear_150m": {
+  "value": 0.0136322,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 7 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.7GHz.clear_50m": {
+  "value": 0.042,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 7 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.7GHz.ray_at_flame_top": {
+  "value": 1.49451,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 7 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.80GHz.clear_0.6F1": {
+  "value": 2.78437,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 80 GHz, 5 km link mid-span, clearance clear_0.6F1",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.80GHz.clear_150m": {
+  "value": 0.0564583,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 80 GHz, 5 km link mid-span, clearance clear_150m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.80GHz.clear_50m": {
+  "value": 0.173945,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 80 GHz, 5 km link mid-span, clearance clear_50m",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.scint.surface.80GHz.ray_at_flame_top": {
+  "value": 5.57,
+  "unit": "dB",
+  "description": "Plume scintillation std, surface fire, 80 GHz, 5 km link mid-span, clearance ray_at_flame_top",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.13GHz": {
+  "value": 0.0878807,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 13 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.18GHz": {
+  "value": 0.0527113,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 18 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.23GHz": {
+  "value": 0.0344679,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 23 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.38GHz": {
+  "value": 0.0135445,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 38 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.7GHz": {
+  "value": 0.181777,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 7 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.field_bound.80GHz": {
+  "value": 0.00315871,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario field_bound, 80 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.13GHz": {
+  "value": 2.43596,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 13 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.18GHz": {
+  "value": 1.27712,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 18 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.23GHz": {
+  "value": 0.783905,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 23 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.38GHz": {
+  "value": 0.287805,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 38 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.7GHz": {
+  "value": 8.18939,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 7 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_grass.80GHz": {
+  "value": 0.0649996,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_grass, 80 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.13GHz": {
+  "value": 1.38057,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 13 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.18GHz": {
+  "value": 0.863778,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 18 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.23GHz": {
+  "value": 0.577746,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 23 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.38GHz": {
+  "value": 0.233149,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 38 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.7GHz": {
+  "value": 2.5718,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 7 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_late.80GHz": {
+  "value": 0.0551098,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_late, 80 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.13GHz": {
+  "value": 2.72765,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 13 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.18GHz": {
+  "value": 1.53082,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 18 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.23GHz": {
+  "value": 0.968682,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 23 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.38GHz": {
+  "value": 0.367059,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 38 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.7GHz": {
+  "value": 6.91031,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 7 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
+ },
+ "phys.spec_att.lab_peak.80GHz": {
+  "value": 0.0841112,
+  "unit": "dB/m",
+  "description": "Drude specific attenuation, scenario lab_peak, 80 GHz",
+  "kind": "modeled",
+  "script": "src/run_physics.py",
+  "config": "configs/physics.json",
+  "commit": "ba05261d4782-dirty",
+  "time": "2026-10-14 23:01 CST"
  }
 }
