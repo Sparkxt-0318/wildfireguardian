@@ -1,0 +1,23 @@
+# 한계 · Limits
+
+The booth's limits card (key I, or a second display) shows a short version of these six points; this page is the full version. Measured sizes of each effect are in results/NUMBERS.json once recorded.
+
+## 한국어
+
+1. **카메라 하나로는 깊이를 알 수 없습니다.** 속도와 플럭스는 화면에 투영된 값입니다. m/초는 표시된 거리 범위에서만 맞고, 두 배 멀리 있는 불티는 화면에 보이는 것보다 두 배 빠릅니다.
+2. **불티는 공기가 아닙니다.** 불티는 돌풍에 약 0.25~0.8초 늦게 반응하고(종단 속도 나누기 중력 가속도), 약 초속 2.5~8 m로 떨어집니다(Ellis 2010, 타지 않은 유칼립투스 껍질; 타는 불티는 더 가볍습니다). 그래서 화살표는 평활되고 지연된 바람 추정치이며, 세로 성분은 아래쪽으로 치우치고, 불티가 없는 곳에는 추정이 없습니다.
+3. **보정에는 불확실성이 있습니다.** 도로 표시는 도로 면의 크기만 알려 줍니다. 높이 1.3 m 카메라에서 도로 위 1 m 높이의 불티를 도로 기준으로 계산하면 약 4.3배 멀리 있는 것으로 잘못 놓입니다. 그래서 공중의 불티는 가정한 거리 범위로 계산하고 그 범위를 함께 표시합니다. 한국 차선 점선 길이는 도로 종류에 따라 3~10 m로 달라서(경찰청 매뉴얼) 길이를 가정하지 않습니다.
+4. **빛나고 보이는 불티만 셉니다.** 개수는 최솟값입니다. 압축된 영상에서 어두운 불티는 사라지며, 검출 한계는 합성 검증에서 SNR로 측정합니다. 플럭스는 NIST처럼 제곱미터당 값이 아니라 화면 속 선의 길이당 값입니다.
+5. **검증의 범위.** 합성 영상(조정에 쓰지 않은 불일치 세트 포함), 속도를 아는 LED 회전판, 실제 영상의 타당성 점검으로 검증했습니다. 실제 화재에서 Emberometer와 나란히 비교하지는 않았습니다.
+6. **부스 화면은 다시 찍은 영상입니다.** iPad 화면을 iPhone으로 다시 찍고 0.5배 속도로 재생합니다. 깨끗한 프레임만 분석하고 원본 시간으로 속도를 계산하며, 같은 영상을 파일로 처리한 결과와 비교해 차이를 측정합니다.
+
+## English
+
+1. **One camera cannot see depth.** Speeds and flux are projections onto the picture. Meters per second hold only at the stated distance range; an ember twice as far away is twice as fast as shown.
+2. **Embers are not air.** They respond to gusts with a delay of roughly 0.25 to 0.8 s (terminal velocity divided by g) and fall at about 2.5 to 8 m/s (Ellis 2010, unburnt eucalypt bark; burning embers get lighter). So the arrows are a smoothed, lagged wind estimate; the vertical component is biased downward, and there is no estimate where there are no embers.
+3. **Calibration is uncertain.** Road markings only scale the road surface. An ember 1 m above the road, seen by a camera 1.3 m high, would be placed about 4.3 times too far away. That is why airborne embers are scaled by an assumed distance range, shown with the result. Korean dashed lane lines vary from 3 to 10 m by road class (KNPA manual), so no dash length is assumed.
+4. **Only what glows and is seen is counted,** so counts are lower bounds. Compression erases faint embers; the detection limit is measured as an SNR on synthetic video. Our flux is per length of a line in the picture, not NIST's per square meter.
+5. **Scope of validation.** Synthetic video (including a held-out mismatch suite never used for tuning), an LED turntable of known speed, and plausibility checks on real clips. It has not been compared with an Emberometer in a real fire.
+6. **The booth shows a re-filmed screen.** The iPhone films the iPad at 0.5x playback. Only clean frames are analysed and velocities use the source clip's timing; the difference from processing the same clip as a file is measured.
+
+Sources for the cited values: data/SOURCES.md (ellis2010, knpa_marking_manual, nist_tn2093).
