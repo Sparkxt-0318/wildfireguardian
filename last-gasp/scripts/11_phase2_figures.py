@@ -136,99 +136,126 @@ def fig_example():
 
 
 def fig_gateways(S):
-    fig, axes = plt.subplots(1, 3, figsize=(7.4, 3.0), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(7.4, 5.6), constrained_layout=True)
     G = [1, 2, 3, 4, 6, 8, 12]
-    colors = {"star": C["grey"], "mesh": C["vermillion"], "mesh_sf": C["blue"]}
-    labels = {"star": "Star (LoRaWAN-style)", "mesh": "Mesh relaying", "mesh_sf": "Mesh + store-and-forward"}
+    colors = {"star": C["grey"], "mesh": C["vermillion"]}
+    labels = {"star": "Star (direct to gateway)", "mesh": "Mesh relaying"}
+    ax = axes[0, 0]
     for mode in ("star", "mesh"):
         for hard, ls in (("exposed", "-"), ("hardened", "--")):
             y = [S["receive"].get(f"{mode}|{hard}|{g}", {}).get("frac_deaths_observed", np.nan) for g in G]
-            axes[0].plot(G, y, ls=ls, marker="o", ms=3, color=colors[mode],
-                         label=f"{labels[mode]}, {'hardened' if hard == 'hardened' else 'fire-exposed'} gateways")
-            y2 = [S["receive"].get(f"{mode}|{hard}|{g}", {}).get("received_bldg_p90", np.nan) for g in G]
-            axes[1].plot(G, y2, ls=ls, marker="o", ms=3, color=colors[mode])
+            ax.plot(G, y, ls=ls, marker="o", ms=3, color=colors[mode],
+                    label=f"{labels[mode]}, {'hardened' if hard == 'hardened' else 'fire-exposed'} gateways")
     Gb = [1, 2, 4, 8, 12]
     for radio, col, lab in (("lora_pessimistic", C["orange"], "Mesh, pessimistic LoRa fit, exposed"),
                             ("ble", C["purple"], "BLE mesh, exposed")):
         yb = [S.get(f"receive_{radio}", {}).get(f"mesh|exposed|{g}", {}).get("frac_deaths_observed", np.nan) for g in Gb]
-        axes[0].plot(Gb, yb, ls=":", marker="s", ms=3, color=col, label=lab)
+        ax.plot(Gb, yb, ls=":", marker="s", ms=3, color=col, label=lab)
+    ax.set_ylabel("Fraction of fire deaths heard")
+    ax.set_title("(a) Relaying and gateway exposure (spread layout)", fontsize=8.5, loc="left")
+    ax = axes[0, 1]
+    for pl, col, lab in (("coverage", C["grey"], "Coverage-greedy (clustered)"), ("spread", C["vermillion"], "Spread"),
+                         ("perimeter", C["blue"], "Spread along the area edge")):
+        y = [S["placement"].get(f"{pl}|{g}", {}).get("frac_deaths_observed", np.nan) for g in G]
+        ax.plot(G, y, marker="o", ms=3, color=col, label=lab)
+    ax.set_ylabel("Fraction of fire deaths heard")
+    ax.set_title("(b) Gateway layout, mesh, fire-exposed gateways", fontsize=8.5, loc="left")
+    ax.legend(fontsize=6.5, frameon=True, framealpha=0.95, edgecolor="none", loc="lower right")
+    ax = axes[1, 0]
+    for mode in ("star", "mesh"):
+        for hard, ls in (("exposed", "-"), ("hardened", "--")):
+            y2 = [S["receive"].get(f"{mode}|{hard}|{g}", {}).get("received_bldg_p90", np.nan) for g in G]
+            ax.plot(G, y2, ls=ls, marker="o", ms=3, color=colors[mode])
     p_perf = S["receive"]["mesh|exposed|4"].get("perfect_bldg_p90", np.nan)
-    axes[1].axhline(p_perf, color="k", lw=0.8, ls=":", label="Perfect reception")
-    for a_ in axes[:2]:
+    ax.axhline(p_perf, color="k", lw=0.8, ls=":", label="Perfect reception")
+    ax.set_ylabel("90th percentile error (min)")
+    ax.set_ylim(bottom=0)
+    ax.set_title("(c) Arrival-time error (lines as in a)", fontsize=8.5, loc="left")
+    ax.legend(fontsize=6.5, frameon=False, loc="upper right")
+    for a_ in (axes[0, 0], axes[0, 1], axes[1, 0]):
         a_.set_xticks([1, 2, 4, 6, 8, 12])
-    axes[0].set_xlabel("Gateways in 10.4 km²")
-    axes[0].set_ylabel("Fraction of fire deaths heard")
-    axes[0].set_ylim(0, 1.02)
-    axes[0].set_title("(a) Deaths heard", fontsize=8.5, loc="left")
-    axes[1].set_xlabel("Gateways in 10.4 km²")
-    axes[1].set_ylabel("90th percentile error (min)")
-    axes[1].set_ylim(bottom=0)
-    axes[1].set_title("(b) Arrival-time error", fontsize=8.5, loc="left")
-    axes[1].legend(fontsize=7, frameon=False, loc="upper right")
-    # Panel c: failure modes at 4 gateways, mesh.
+        a_.set_xlabel("Gateways in 10.4 km²")
+    axes[0, 0].set_ylim(0, 1.02)
+    axes[0, 1].set_ylim(0, 1.02)
+    ax = axes[1, 1]
     cats = [("Battery\ngateways", S["receive"]["mesh_sf|exposed|4"]),
             ("Grid-\npowered", S.get("receive_gridpower", {}).get("mesh_sf|exposed|4|grid", {})),
             ("Backhaul\noutage,\nbuffered", S.get("backhaul", {}).get("fail40_restore100_buffer", {})),
             ("Backhaul\noutage,\nno buffer", S.get("backhaul", {}).get("fail40_restore100_nobuffer", {}))]
     x = np.arange(len(cats))
-    eventual = [c[1].get("frac_deaths_observed", np.nan) for c in cats]
-    realtime = [c[1].get("frac_deaths_realtime", np.nan) for c in cats]
-    axes[2].bar(x - 0.18, eventual, 0.36, color=C["blue"], label="Heard by end of event")
-    axes[2].bar(x + 0.18, realtime, 0.36, color=C["skyblue"], label="Heard within 5 min")
-    axes[2].set_xticks(x)
-    axes[2].set_xticklabels([c[0] for c in cats], fontsize=7)
-    axes[2].set_ylim(0, 1.02)
-    axes[2].set_ylabel("Fraction of fire deaths heard")
-    axes[2].set_title("(c) Mesh, 4 exposed gateways:\npower and backhaul (out 40 to 100 min)", fontsize=8, loc="left")
-    axes[2].legend(fontsize=6.5, frameon=True, framealpha=0.95, edgecolor="none", loc="upper right")
-    h, l = axes[0].get_legend_handles_labels()
-    fig.legend(h, l, loc="lower center", ncol=3, frameon=False, fontsize=7, bbox_to_anchor=(0.5, -0.13))
-    fig.suptitle("Gateways and relaying: LoRa tags every 200 m of road (about 12 per km²), medians over 10 runs. "
-                 f"{style.SYNTH_NOTE}.", fontsize=8.2)
-    for ax in axes:
-        ax.grid(axis="y", color="#e5e5e5", lw=0.6)
+    ax.bar(x - 0.18, [c[1].get("frac_deaths_observed", np.nan) for c in cats], 0.36, color=C["blue"],
+           label="Heard by end of event")
+    ax.bar(x + 0.18, [c[1].get("frac_deaths_realtime", np.nan) for c in cats], 0.36, color=C["skyblue"],
+           label="Heard within 5 min")
+    ax.set_xticks(x)
+    ax.set_xticklabels([c[0] for c in cats], fontsize=7)
+    ax.set_ylim(0, 1.15)
+    ax.set_ylabel("Fraction of fire deaths heard")
+    ax.set_title("(d) Mesh, 4 exposed gateways: power and backhaul\n(backhaul out from 40 to 100 min)", fontsize=8,
+                 loc="left")
+    ax.legend(fontsize=6.5, frameon=False, loc="upper right", ncol=2)
+    for a_ in axes.ravel():
+        a_.grid(axis="y", color="#e5e5e5", lw=0.6)
+    h, l = axes[0, 0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower center", ncol=3, frameon=False, fontsize=6.8, bbox_to_anchor=(0.5, -0.075),
+               handlelength=3.2)
+    fig.suptitle("Receive side: LoRa tags every 200 m of road (about 12 per km²), medians over 10 runs.\n"
+                 f"{style.SYNTH_NOTE}.", fontsize=8.5)
     return style.save(fig, FIG, "fig10_gateways")
 
 
 def fig_trips(S):
-    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.3), constrained_layout=True, gridspec_kw={"width_ratios": [1, 1.35]})
+    fig = plt.figure(figsize=(7.4, 3.9), constrained_layout=True)
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.15, 1, 0.8])
+    axes = [fig.add_subplot(gs[0, i]) for i in range(3)]
     sp = [200, 400, 800, 1600]
-    for kinds, mk, lab in (("breaker+recloser", "o", "SCADA devices"), ("breaker+recloser+fuse", "s", "plus fuses")):
-        T = S["trips_spacing"]
+    T = S["trips_spacing"]
+    for kinds, mk, col, lab in (("breaker+recloser", "o", C["vermillion"], "SCADA devices"),
+                                ("breaker+recloser+fuse", "s", C["orange"], "plus fuses")):
         tags_n = [T[f"{kinds}|{s}"]["n_tags"] / 10.4 for s in sp]
         axes[0].plot(tags_n, [T[f"{kinds}|{s}"]["tags_trips_bldg_p90"] for s in sp], marker=mk, ms=3.5,
-                     color=C["vermillion"] if mk == "o" else C["orange"], label=f"Tags + trips ({lab})")
-        axes[0].axhline(T[f"{kinds}|200"]["trips_bldg_p90"], ls="--", lw=1,
-                        color=C["vermillion"] if mk == "o" else C["orange"], label=f"Trips only ({lab})")
-    T = S["trips_spacing"]
+                     color=col, label=f"Tags + trips ({lab})")
+        axes[0].axhline(T[f"{kinds}|200"]["trips_bldg_p90"], ls="--", lw=1, color=col, label=f"Trips only ({lab})")
     tags_n = [T[f"breaker+recloser|{s}"]["n_tags"] / 10.4 for s in sp]
     axes[0].plot(tags_n, [T[f"breaker+recloser|{s}"]["tags_bldg_p90"] for s in sp], marker="^", ms=3.5,
                  color=C["blue"], label="Tags only")
+    from matplotlib.ticker import FixedLocator, NullLocator
     axes[0].set_xscale("log")
-    axes[0].set_xticks([0.5, 1, 2, 5, 10])
+    axes[0].xaxis.set_major_locator(FixedLocator([0.5, 1, 2, 5, 10]))
     axes[0].set_xticklabels(["0.5", "1", "2", "5", "10"])
+    axes[0].xaxis.set_minor_locator(NullLocator())
     axes[0].set_xlabel("Tags per km² (along roads)")
     axes[0].set_ylabel("90th percentile error (min)")
     axes[0].set_ylim(bottom=0)
-    axes[0].set_title("(a) What trip logs add to sparse tags", fontsize=8.5, loc="left")
-    axes[0].legend(fontsize=6.5, frameon=False, loc="upper right")
+    axes[0].set_title("(a) Trip logs added to sparse tags", fontsize=8.5, loc="left")
+    axes[0].legend(fontsize=6.2, frameon=False, loc="upper right")
     P = S["trips_precaution"]
-    names = [("no_precaution", "No shutoff,\ntypes logged"), ("untyped_no_precaution", "No shutoff,\ntypes missing"),
-             ("blanket60_typed", "Blanket shutoff\nat 60 min, typed"), ("blanket60_untyped", "Blanket,\nuntyped"),
-             ("proximity_typed", "Shutoff ahead\nof fire, typed"), ("proximity_untyped", "Ahead of fire,\nuntyped"),
-             ("reactive_untyped", "Reactive cut,\nuntyped"), ("logging_stops_40", "Logging stops\nat 40 min")]
-    x = np.arange(len(names))
-    axes[1].bar(x - 0.2, [P[n].get("trips_bldg_p90", np.nan) for n, _ in names], 0.4, color=C["vermillion"],
-                label="Trips only, 90th percentile error")
-    axes[1].bar(x + 0.2, [P[n].get("n_log_fire_true", 0.0) for n, _ in names], 0.4, color=C["grey"],
-                label="Fire-caused log entries (count)")
-    axes[1].set_xticks(x)
-    axes[1].set_xticklabels([l for _, l in names], fontsize=6.3)
-    axes[1].set_ylabel("Minutes or count")
-    axes[1].set_title("(b) Precautionary shutoffs erase the signal", fontsize=8.5, loc="left")
-    axes[1].legend(fontsize=6.5, frameon=False, loc="upper right")
+    names = [("no_precaution", "No shutoff"), ("untyped_no_precaution", "No shutoff, type missing"),
+             ("blanket60_typed", "Blanket shutoff 60 min"), ("blanket60_untyped", "Blanket, type missing"),
+             ("proximity_typed", "Shutoff ahead of fire"), ("proximity_untyped", "Ahead of fire, type missing"),
+             ("reactive_untyped", "Reactive cut, type missing"), ("logging_stops_40", "Logging stops at 40 min")]
+    y = np.arange(len(names))[::-1]
+    fire_n = np.array([P[n].get("n_log_fire_true", 0.0) for n, _ in names])
+    pre_n = np.array([P[n].get("n_log_precaution_true", 0.0) for n, _ in names])
+    axes[1].barh(y, fire_n, color=C["vermillion"], label="Fire-caused trips")
+    axes[1].barh(y, pre_n, left=fire_n, color=C["skyblue"], label="Precautionary opens")
+    axes[1].set_yticks(y)
+    axes[1].set_yticklabels([l for _, l in names], fontsize=6.8)
+    axes[1].set_xlabel("Entries per fire")
+    axes[1].set_title("(b) What the log contains", fontsize=8.5, loc="left")
+    axes[1].legend(fontsize=6.3, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=1)
+    a1 = np.array([P[n].get("cls_log_only_acc", np.nan) for n, _ in names])
+    a2 = np.array([P[n].get("cls_with_tags_acc", np.nan) for n, _ in names])
+    axes[2].barh(y + 0.2, a1, 0.4, color=C["grey"], label="Log only")
+    axes[2].barh(y - 0.2, a2, 0.4, color=C["blue"], label="Log + tags (400 m)")
+    axes[2].set_yticks(y)
+    axes[2].set_yticklabels([])
+    axes[2].set_xlim(0, 1.05)
+    axes[2].set_xlabel("Accuracy")
+    axes[2].set_title("(c) Fire or shutoff?", fontsize=8.5, loc="left")
+    axes[2].legend(fontsize=6.3, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=1)
     for ax in axes:
-        ax.grid(axis="y", color="#e5e5e5", lw=0.6)
+        ax.grid(axis="x" if ax is not axes[0] else "y", color="#e5e5e5", lw=0.6)
     fig.suptitle("Utility protection-device trip logs as a coarse layer (medians over 10 runs). "
                  f"{style.SYNTH_NOTE}.", fontsize=8.5)
     return style.save(fig, FIG, "fig11_trips")
@@ -252,8 +279,12 @@ def fig_spacing(S, econ, lengths):
         for c_, y_, s in zip(cost, y, sp):
             if s in (100, 400, 1600):
                 axes[2].annotate(f"{s} m", (c_, y_), textcoords="offset points", xytext=(4, 3), fontsize=6.5)
-    for ax in axes:
+    from matplotlib.ticker import FixedLocator, NullLocator
+    for ax, ticks in zip(axes, ([0.1, 0.3, 1, 3, 10], [0.1, 0.3, 1, 3, 10], [100, 200, 400, 800])):
         ax.set_xscale("log")
+        ax.xaxis.set_major_locator(FixedLocator(ticks))
+        ax.set_xticklabels([f"{t:g}" for t in ticks])
+        ax.xaxis.set_minor_locator(NullLocator())
         ax.grid(axis="y", color="#e5e5e5", lw=0.6)
     axes[0].set_xlabel("Tags per km of line")
     axes[0].set_ylabel("90th percentile error (min)")
@@ -287,6 +318,13 @@ def economics_table(S, lengths):
             gpk = 4 / lengths[kind]
             out["cost_per_km_by_spacing"][kind][str(s)] = {"tags_per_km": tpk, "gateways_per_km": gpk,
                                                            **economics.cost_per_km(tpk, gpk, e, life["life_years"])}
+    area = 10.4027
+    out["cost_per_km2_roads"] = {}
+    for s in (50, 100, 200, 400, 800, 1600):
+        n = S["spacing"][f"roads|{s}"]["n_tags"]
+        c = economics.cost_per_km(n, 4, e, life["life_years"])
+        out["cost_per_km2_roads"][str(s)] = {"tags_per_km2": n / area, "upfront_usd_per_km2": c["upfront_usd_per_km"] / area,
+                                             "annual_usd_per_km2": c["annual_usd_per_km"] / area}
     alt = {}
     for interval in (10, 30, 60, 120):
         alt[str(interval)] = economics.battery_life_years({**e, "beacon_interval_s": interval})["life_years"]

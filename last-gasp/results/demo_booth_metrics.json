@@ -8,7 +8,7 @@
   "timeout_beats": 3,
   "packet_loss": 0.05,
   "provenance": {
-    "commit": "52e5284fb12b6dbc03210daa7a169b1b7fb62f8b",
+    "commit": "54f6e9a6a5dd46e0638f6f4eb5e858c3b16d72ee",
     "code_dirty": false,
     "script": "scripts/12_demo_metrics.py",
     "config": "demo/village.json"
