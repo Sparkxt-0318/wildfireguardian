@@ -1,0 +1,13 @@
+scenario,ne,scheme,detector,far_target,thr,pd,far,n_det,delay_med_min,delay_p10_min,delay_p90_min
+extreme,field_bound,s10,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+extreme,field_bound,s10_atpc2,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+extreme,field_bound,s10_atpc5,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+extreme,lab_peak,s10,drop,0.01,9.0,0.008051529790660225,0.008161505829095533,5,114.66667349328637,6.900021968809034,207.19999895835934
+extreme,lab_peak,s10_atpc2,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+extreme,lab_peak,s10_atpc5,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,field_bound,s10,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,field_bound,s10_atpc2,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,field_bound,s10_atpc5,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,lab_peak,s10,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,lab_peak,s10_atpc2,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
+moderate,lab_peak,s10_atpc5,drop,0.01,9.0,0.0,0.008161505829095533,0,,,
