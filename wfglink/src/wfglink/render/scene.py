@@ -335,11 +335,12 @@ def _paint_sparkline(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     p.setPen(QPen(_c(theme.INK3), 1))
     p.drawLine(QPointF(area.x(), area.bottom()), QPointF(area.right(), area.bottom()))
     v = np.asarray(s.sparkline, dtype=float)
-    if v.size < 2 or not np.isfinite(v).any():
+    if v.size < 2 or np.isfinite(v).sum() < 2:
         return
     vmax = max(float(np.nanmax(v)), 1e-6) * 1.15
-    xs = np.linspace(area.x(), area.right(), v.size)
-    ys = area.bottom() - np.nan_to_num(v) / vmax * area.height()
+    xs_all = np.linspace(area.x(), area.right(), v.size)
+    ok = np.isfinite(v)
+    xs, ys = xs_all[ok], area.bottom() - v[ok] / vmax * area.height()
     path = QPainterPath(QPointF(xs[0], ys[0]))
     for x, y in zip(xs[1:], ys[1:]):
         path.lineTo(QPointF(x, y))

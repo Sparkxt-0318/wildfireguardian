@@ -88,6 +88,27 @@ def cmd_booth_prep(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_booth(args: argparse.Namespace) -> int:
+    from wfglink.config import load_config
+    from wfglink.ui.booth_app import run_booth
+
+    cfg = load_config(*(args.config or []), local=True)
+    if args.replay_clip:
+        cfg["booth"]["replay_clip"] = args.replay_clip
+    res = run_booth(cfg, source=args.source, screen=args.screen, lang=args.lang,
+                    limits_screen=args.limits_screen, duration_s=args.duration, screenshot=args.screenshot)
+    if args.report:
+        with open(args.report, "w") as f:
+            json.dump(res, f, indent=2, default=str)
+    return 0 if (res["quit_confirmed"] or args.duration) else 1
+
+
+def cmd_demo_gate(args: argparse.Namespace) -> int:
+    from wfglink.ui.demo_gate import demo_gate
+
+    return demo_gate(seconds=args.seconds, clip=args.clip, out=args.out)
+
+
 # Commands that own their argument parsing (everything after the command name is theirs).
 PASSTHROUGH = {
     "sitting1": ("wfglink.sitting.sitting1", "guided sitting 1: install check, check A, recordings, report"),
@@ -125,6 +146,24 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--source-step", type=int, default=None)
     p.add_argument("--max-seconds", type=float, default=None)
     p.set_defaults(func=cmd_booth_prep)
+
+    p = sub.add_parser("booth", help="fullscreen booth screen (live camera chain, replay, synthetic)")
+    p.add_argument("--source", default="auto", help="auto, camera, synthetic, or file:PATH")
+    p.add_argument("--screen", default=None, help="external, primary, or a screen name")
+    p.add_argument("--lang", default=None, choices=["ko", "en"])
+    p.add_argument("--limits-screen", default=None, help="show the limits card on this second screen")
+    p.add_argument("--replay-clip", default=None, help="prepared booth clip (booth-prep output) for replay and codes")
+    p.add_argument("--config", nargs="*", help="extra YAML config files")
+    p.add_argument("--duration", type=float, default=None, help="stop after this many seconds (tests)")
+    p.add_argument("--screenshot", default=None)
+    p.add_argument("--report", default=None)
+    p.set_defaults(func=cmd_booth)
+
+    p = sub.add_parser("demo-gate", help="run the booth UI headless on synthetic and an approved clip; exit 0 if healthy")
+    p.add_argument("--seconds", type=float, default=60.0)
+    p.add_argument("--clip", default="data/raw/C5_nist_emberometer.mp4")
+    p.add_argument("--out", default="results/runs/demo_gate")
+    p.set_defaults(func=cmd_demo_gate)
 
     for name, (_, help_text) in PASSTHROUGH.items():
         sub.add_parser(name, help=help_text, add_help=False)
