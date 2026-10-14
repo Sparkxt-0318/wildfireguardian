@@ -13,8 +13,8 @@ Per frame:
    area and excluded with a margin.
 6. Per component, on pixel lists only (no full-frame passes): intensity-weighted centroid
    and second moments of the signed residual in a slightly dilated window, streak length
-   L = sqrt(12 (l1 - l2)), orientation, peak, saturation fraction and a warm-color score
-   from the surrounding ring.
+   L = sqrt(12 (l1 - l2)), orientation, peak, saturation fraction (brightest channel at
+   or above the level) and a warm-color score from the surrounding ring.
 
 Color is only a confidence score: 4:2:0 compression averages the chroma of 2 to 3 px blobs
 with the background, so it is never a hard filter.
@@ -221,7 +221,10 @@ class Detector:
         cl, cy, cx, cth = cl[sel], gy[sel], gx[sel], th_vals[sel]
         peak = np.zeros(m + 1)
         np.maximum.at(peak, cl, cth)
-        sat = np.bincount(cl, (y[cy, cx] >= self.sat_level).astype(np.float64), minlength=m + 1)
+        # Saturation on the brightest channel: an orange ember clips red long before luma
+        # reaches the level, and a clipped channel already flattens the streak profile.
+        top = image[cy, cx].max(axis=1) if image.ndim == 3 else y[cy, cx]
+        sat = np.bincount(cl, (top >= self.sat_level).astype(np.float64), minlength=m + 1)
 
         # Kept-label image inside the union of padded bounding boxes only.
         x0 = max(int(stats[idx, cv2.CC_STAT_LEFT].min()) - 8, 0)

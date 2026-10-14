@@ -320,6 +320,9 @@ class Sitting1:
         drive = steps.get("dc_night_drive", {})
         if drive.get("files") and false_tracks_per_minute is not None:
             out["night_drive"] = false_tracks_per_minute([self.out / f["file"] for f in drive["files"]], self.cfg)
+            for row in (out["led"].get("table") or []) if isinstance(out.get("led"), dict) else []:
+                if row["device"] == "dashcam":
+                    row["false_tracks_per_min_night_drive"] = out["night_drive"].get("false_tracks_per_min")
         elif drive.get("files"):
             out["night_drive"] = {"status": "pending: analysed on Claude's side for this build"}
         return out

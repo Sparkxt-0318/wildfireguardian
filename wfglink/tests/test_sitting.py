@@ -85,3 +85,8 @@ def test_sitting1_dry_run_end_to_end(tmp_path):
     assert rows["dc_night_drive"] == "deferred"
     assert rep["summary"]["panel_axis"].startswith("vertical")
     assert steps["live_view"]["paint_fps"] > 5
+    led = steps["analysis"]["led"]
+    for dev in ("iphone", "dashcam"):
+        assert led[dev]["standin"] is True
+        assert abs(led[dev]["median_speed_error_pct"]) < 1.5, led[dev]
+    assert [r["device"] for r in led["table"]] == ["iphone", "dashcam"]

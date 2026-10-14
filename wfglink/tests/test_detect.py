@@ -101,6 +101,19 @@ def test_saturated_blob_is_flagged():
     assert d.flags[0] & FLAG_SATURATED
 
 
+def test_clipped_red_channel_is_saturated_even_when_luma_is_not():
+    det = Detector(load_config())
+    rng = np.random.default_rng(2)
+    d = None
+    for i in range(10):
+        img = np.clip(np.full((360, 640, 3), 20.0) + rng.normal(0, 2, (360, 640, 3)), 0, 255)
+        if i == 9:
+            img[200:204, 300:304] = (40, 160, 255)    # orange: red clipped, luma about 140
+        d = det.detect(img.astype(np.uint8))
+    assert len(d) == 1
+    assert d.flags[0] & FLAG_SATURATED
+
+
 def test_warm_color_score():
     shape = (360, 640)
     rng = np.random.default_rng(1)

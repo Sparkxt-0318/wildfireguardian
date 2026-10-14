@@ -16,6 +16,9 @@ Per frame (`Tracker.update`):
 4. Single-hit tentative tracks have no velocity yet. Their first association takes the
    nearest remaining detection within max(track.birth_radius_px, 1.5 L) (L is the longer
    streak of the pair; 1.5 is track.birth_length_factor), scaled by the frames elapsed.
+   Without an exposure estimate the length term is divided by track.birth_duty_min, the
+   smallest exposure fraction of the frame interval assumed (a streak from a half-frame
+   exposure is half the per-frame displacement).
    When an exposure estimate is known (`set_exposure_hint`) the length term becomes
    1.5 L dt / T_exp, the expected per-frame displacement of a streak. Streak orientation
    is a hint: a displacement that disagrees with either streak axis by more than
@@ -254,6 +257,9 @@ class Tracker:
         self.max_coast = max(0, int(t["max_coast"]))
         self.birth_radius = float(t["birth_radius_px"])
         self.birth_length_factor = float(t.get("birth_length_factor", 1.5))
+        # Without an exposure estimate the streak may cover only part of the frame interval;
+        # the reach assumes it covers at least this fraction (1.0 keeps the plain 1.5 L).
+        self.birth_duty_min = min(1.0, max(0.05, float(t.get("birth_duty_min", 1.0))))
         self.static_seconds = float(t["static_seconds"])
         self.static_speed = float(t["static_speed_px_s"])
         self.keep_history = keep_history
@@ -499,7 +505,8 @@ class Tracker:
                 reach = self.birth_length_factor * lmax * np.maximum(el_t / self.t_exp_hint, 1.0)
                 radius = np.maximum(self.birth_radius * el_f, reach)
             else:
-                radius = np.maximum(self.birth_radius, self.birth_length_factor * lmax) * el_f
+                radius = np.maximum(self.birth_radius,
+                                    self.birth_length_factor * lmax / self.birth_duty_min) * el_f
             pr, pc = np.nonzero(dist2 <= radius ** 2)
             cost = self.gate_chi2 * dist2[pr, pc] / radius[pr, pc] ** 2
             if self.angle_penalty_cost != 0 and pr.size:

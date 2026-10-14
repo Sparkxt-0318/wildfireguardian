@@ -50,6 +50,8 @@ class PipelineStats:
     frames_torn: int = 0
     frames_no_code: int = 0
     loops: int = 0
+    tracks_finished: int = 0             # confirmed tracks that ended, static ones included
+    tracks_static: int = 0
     proc_ms: deque = field(default_factory=lambda: deque(maxlen=300))
 
     def as_dict(self) -> dict[str, Any]:
@@ -148,11 +150,7 @@ class Pipeline:
             ev = self.counter.update_point(s.track_id, s.t, s.x, s.y)
             if ev is not None:
                 new_events += 1
-        for tr in self.tracker.pop_finished():
-            if tr.static:
-                self.counter.exclude(tr.track_id, since=getattr(tr, "static_since", None))
-            self.counter.forget(tr.track_id)          # bounded memory over a booth day
-            self._finished_count += 1
+        self._retire(self.tracker.pop_finished())
         if t - self._last_prune > 10.0:
             self.counter.prune_events(t - 120.0)
             self._last_prune = t
@@ -162,6 +160,20 @@ class Pipeline:
         state = self._build_state(image, t, det, snaps, meta)
         self.last_state = state
         return state
+
+    def _retire(self, tracks) -> None:
+        for tr in tracks:
+            if tr.static:
+                self.counter.exclude(tr.track_id, since=getattr(tr, "static_since", None))
+                self.stats.tracks_static += 1
+            self.counter.forget(tr.track_id)          # bounded memory over a booth day
+            self._finished_count += 1
+            self.stats.tracks_finished += 1
+
+    def finish(self) -> None:
+        """End of a file: finish the confirmed tracks still open so the stats include them."""
+        if self.counter is not None:
+            self._retire(self.tracker.finish_all())
 
     def _prepare(self, frame: Frame) -> tuple[np.ndarray | None, float | None, np.ndarray | None, dict]:
         meta: dict[str, Any] = {}

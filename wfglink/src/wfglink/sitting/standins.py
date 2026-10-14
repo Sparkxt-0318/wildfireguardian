@@ -40,7 +40,7 @@ def _encode(path: Path, frames, fps: float, crf: int = 18, pts_times=None) -> Pa
 def led_turntable_clip(path: Path, rpm: float = 33.333, seconds: float = 6.0, fps: float = 30.0,
                        size: tuple[int, int] = (1280, 720), radii_px: tuple[float, ...] = (60, 160, 280),
                        duty: float = 0.9, tilt_ratio: float = 1.0, noise: float = 2.0, seed: int = 0,
-                       amp: float = 30000.0, sigma: float = 1.6) -> dict:
+                       amp: float = 6000.0, sigma: float = 1.6) -> dict:
     """Render the clip and return its truth (omega in rad/s, centre and radii in px)."""
     w, h = size
     rng = np.random.default_rng(seed)

@@ -46,7 +46,8 @@ track:
   static_speed_px_s: 3.0
   meas_sigma_streak_frac: 0.1    # extra centroid sigma along a streak, fraction of its length
   angle_min_length_px: 5.0       # streak length above which the angle penalty applies
-  birth_length_factor: 1.5       # second-hit search reach = max(birth_radius_px, factor * L)
+  birth_length_factor: 1.5       # second-hit search reach = max(birth_radius_px, factor * L / birth_duty_min)
+  birth_duty_min: 0.5            # smallest exposure fraction assumed before T_exp is estimated
   # accel_sigma_px is px per frame squared, converted with the nominal frame interval
 
 gate:
