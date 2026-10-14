@@ -8,7 +8,7 @@ detect:
     warmup_frames: 5             # exact median of the first frames seeds the background
     exact_window: 11             # exact_median: frames in the running window
   tophat_kernel_px: 9            # removes structures wider than this (flames, glow halos)
-  prefilter_sigma_px: 0.0        # Gaussian matched filter on luma before thresholding (0 = off)
+  prefilter_sigma_px: 1.2        # Gaussian matched filter on luma before thresholding (0 = off); chosen on the core suite
   noise:
     tiles: [16, 9]               # noise map grid (columns, rows)
     update_every: 10             # frames between noise map updates
@@ -17,7 +17,7 @@ detect:
   threshold:
     k_seed: 5.0                  # a component must reach this many sigma somewhere
     k_grow: 3.0                  # pixels above this many sigma join the component
-    min_seed_dn: 12              # absolute floor for the seed level
+    min_seed_dn: 4               # absolute floor for the seed level (after the prefilter)
   components:
     min_area_px: 2
     max_area_px: 300             # round blobs larger than this are flames, headlights or glare
@@ -79,7 +79,7 @@ velocity:
     window_s: 10.0
     min_disp_px: 5.0
     min_tracks: 20
-    min_length_px: 3.0
+    min_length_px: 4.0           # predicted streak length; shorter streaks cannot pin T_exp (two self-consistent fits)
     length_sigma_px: 1.0         # streak length noise, sets the Deming variance ratio
     outlier_k: 3.5               # MAD multiples for outlier rejection
     max_iter: 20
@@ -144,3 +144,33 @@ live:
 ui:
   screen: external               # external, primary, or a screen name; set from sitting 2
   language: ko                   # ko or en at start-up; key L toggles
+
+sitting2:
+  yield_min: 0.8                 # check B: hold factor 2 is kept when its clean-frame yield reaches this (plan 4.3)
+  recover_max_s: 15.0            # unplug test: the camera must be back within this long after the replug prompt
+  mem_slope_max_mb_h: 20.0       # soak: memory growth above this many MB per hour fails (plan rule)
+  mem_fit_last_h: 6.0            # soak: the memory fit uses the last hours only (all data when shorter)
+  mem_warmup_s: 600              # soak: samples from an app's first seconds of uptime are left out of the fit
+  mem_min_hours: 1.0             # soak: shorter soaks report a slope but no pass or fail
+  hb_stale_s: 30                 # soak sampler: a heartbeat older than this is recorded as stale
+  run_seconds: 60                # check B: seconds per yield run (hold 2, hold 3)
+  unplug_seconds: 60             # unplug test: run length
+  unplug_at_s: 15                # unplug test: when the console says to unplug the iPhone
+  replug_at_s: 35                # unplug test: when it says to plug it back in
+  webcam_seconds: 30             # webcam test: run length (only when a webcam is listed)
+  worker_seconds: 30             # worker mode test: seconds per mode
+  soak_every_s: 60               # soak sampler interval
+  free_disk_min_gb: 5            # preflight: warn below this
+  booth_clip_max_s: null         # booth clip: seconds of the source clip to prepare (null = all)
+  dry_seconds: 15                # dry run: seconds per yield, webcam and worker run
+  dry_clip_seconds: 6            # dry run: length of the synthetic stand-in clip
+  dry_clip_size: [640, 360]      # dry run: stand-in clip size
+  dry_unplug_s: [15, 35]         # dry run (loopsim-unplug source): simulated disconnect window, seconds after start
+  dry_soak_seconds: 20           # dry run: soak length before the automatic finish
+  dry_soak_every_s: 2            # dry run: soak sampler interval
+  loopsim:                       # camera-in-the-loop simulator settings for loopsim sources (dry runs)
+    camera_fps: 29.97            # free-running camera with a small clock mismatch against the 60 Hz panel
+    exp_s: 0.008                 # exposure (1/125 s)
+    readout_s: 0.0               # rolling-shutter readout, top to bottom (0 = global shutter)
+    scan: down                   # panel scan direction in the picture
+    seed: 0

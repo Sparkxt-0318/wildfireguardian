@@ -61,12 +61,43 @@ def make_booth_context(meta: dict, cfg: dict) -> BoothContext:
 
 
 def build_options(cfg: dict, source: str = "auto") -> list[SourceOption]:
-    """Source options in priority order. source: auto (config chain), synthetic, file:PATH, camera."""
+    """Source options in priority order. source: auto (config chain), synthetic, file:PATH, camera,
+    loopsim:PATH or loopsim-unplug:PATH.
+
+    loopsim:PATH films a prepared booth clip through the camera-in-the-loop simulator
+    (wfglink.screen.loopsim, settings in sitting2.loopsim); loopsim-unplug:PATH adds a
+    disconnect during sitting2.dry_unplug_s seconds, followed by labelled replay of the same
+    clip, so dry runs exercise the real fallback chain. Both may also be entries of
+    camera.chain, because the booth codes are loaded only for the auto and camera sources.
+    """
     if source == "synthetic":
         return [SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic")]
     if source.startswith("file:"):
         path = source[5:]
         return [SourceOption("file", lambda: FileSource(path, loop=True, realtime=True), False, Path(path).name)]
+
+    def loopsim_options(spec: str, with_replay: bool) -> list[SourceOption]:
+        from wfglink.io.fake import FaultScript
+        from wfglink.screen.loopsim import LoopSimSource
+
+        kind, path = spec.split(":", 1)
+        s2 = cfg.get("sitting2", {}) or {}
+        params = dict(s2.get("loopsim", {}) or {})
+        faults = None
+        if kind == "loopsim-unplug":
+            t0, t1 = (float(v) for v in s2.get("dry_unplug_s", [15, 35]))
+            faults = FaultScript([("disconnect", t0, t1)])
+        epoch = time.monotonic()   # one clock for every attempt: the iPad keeps playing while unplugged
+        opts = [SourceOption("loopsim", lambda: LoopSimSource(path, faults=faults, epoch=epoch, realtime=True,
+                                                              label="loopsim", **params),
+                             True, f"Loop simulator ({Path(path).name})")]
+        if with_replay and kind == "loopsim-unplug":
+            opts.append(SourceOption("replay", lambda: FileSource(path, loop=True, realtime=True), False, Path(path).name))
+        return opts
+
+    if source.startswith(("loopsim:", "loopsim-unplug:")):
+        return loopsim_options(source, True) + [
+            SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic")]
     options: list[SourceOption] = []
     devs = list_cameras().get("devices", [])
     spec = CameraSpec("", int(cfg["camera"]["width"]), int(cfg["camera"]["height"]), float(cfg["camera"]["fps"]))
@@ -82,6 +113,8 @@ def build_options(cfg: dict, source: str = "auto") -> list[SourceOption]:
                 clip = meta["_clip"]
                 options.append(SourceOption("replay", lambda clip=clip: FileSource(clip, loop=True, realtime=True), False,
                                             Path(clip).name))
+        elif key.startswith(("loopsim:", "loopsim-unplug:")):
+            options.extend(loopsim_options(key, False))
     if source != "camera":
         options.append(SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic"))
     return options
