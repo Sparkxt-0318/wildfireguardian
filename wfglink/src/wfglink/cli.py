@@ -104,6 +104,36 @@ def cmd_booth(args: argparse.Namespace) -> int:
     return 0 if (res["quit_confirmed"] or args.duration) else 1
 
 
+def _gate_arg(text: str | None) -> dict | None:
+    """x1,y1,x2,y2 in pixels, or in fractions of the frame when every value is at most 1."""
+    if not text:
+        return None
+    v = [float(t) for t in text.split(",")]
+    if len(v) != 4:
+        raise SystemExit("--gate needs four numbers: x1,y1,x2,y2")
+    return {"p1": v[:2], "p2": v[2:], "name": "gate"}
+
+
+def cmd_process(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from wfglink import PROJECT_ROOT
+    from wfglink.config import load_config
+    from wfglink.outputs.process import process_clip
+
+    cfg = load_config(*(args.config or []))
+    clip = Path(args.clip)
+    out = Path(args.out) if args.out else PROJECT_ROOT / "results" / "runs" / "process" / clip.stem
+    s = process_clip(clip, out, cfg, gate=_gate_arg(args.gate), t_exp=args.exposure, overlay=not args.no_overlay,
+                     lang=args.lang, max_seconds=args.max_seconds, m_per_px=args.m_per_px, distance_m=args.distance_m)
+    t = s["totals"]
+    print(f"{clip.name}: {t.get('frames')} frames, {t.get('tracks_moving')} moving tracks, "
+          f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
+    for w in s["warnings"]:
+        print("warning:", w)
+    return 0
+
+
 def cmd_demo_gate(args: argparse.Namespace) -> int:
     from wfglink.ui.demo_gate import demo_gate
 
@@ -160,6 +190,19 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--report", default=None)
     p.add_argument("--heartbeat", default=None, help="JSON file rewritten every 2 s for the booth supervisor")
     p.set_defaults(func=cmd_booth)
+
+    p = sub.add_parser("process", help="file mode: tables, summary JSON and overlay video for one clip")
+    p.add_argument("clip")
+    p.add_argument("--out", default=None, help="output folder (default results/runs/process/<clip name>)")
+    p.add_argument("--gate", default=None, help="x1,y1,x2,y2 in px, or fractions of the frame")
+    p.add_argument("--exposure", type=float, default=None, help="exposure time in s if known (else estimated)")
+    p.add_argument("--no-overlay", action="store_true")
+    p.add_argument("--lang", default="ko", choices=["ko", "en"])
+    p.add_argument("--max-seconds", type=float, default=None)
+    p.add_argument("--m-per-px", type=float, default=None, help="scale at the stated distance (default: pixels)")
+    p.add_argument("--distance-m", type=float, default=None)
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_process)
 
     p = sub.add_parser("demo-gate", help="run the booth UI headless on synthetic and an approved clip; exit 0 if healthy")
     p.add_argument("--seconds", type=float, default=60.0)

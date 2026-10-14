@@ -169,7 +169,7 @@ class Pipeline:
             if ev is not None:
                 new_events += 1
         self._retire(self.tracker.pop_finished())
-        if t - self._last_prune > 10.0:
+        if not self.record and t - self._last_prune > 10.0:   # file mode keeps every event
             self.counter.prune_events(t - 120.0)
             self._last_prune = t
         self._update_running(t, snaps, new_events, w, h)

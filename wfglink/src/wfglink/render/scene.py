@@ -46,7 +46,7 @@ class LiveState:
     calibrated: bool = False
     distance_m: float | None = None
     source_label: str = ""
-    source_state: str = "live"                    # live, replay, synthetic, reconnecting, paused
+    source_state: str = "live"                    # live, file, replay, synthetic, reconnecting, paused
     fps: float = 0.0
     playback_speed: float | None = None
     warm: float = 1.0                             # 0 to 1: numbers fade in after warm-up
@@ -362,7 +362,8 @@ def _paint_status(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     H = L.H
     p.setFont(_font(theme.px(theme.SIZES["status"], H)))
     p.setPen(_c(theme.INK2))
-    state = {"live": t(lang, "source_live"), "replay": t(lang, "replay"), "synthetic": t(lang, "synthetic"),
+    state = {"live": t(lang, "source_live"), "file": t(lang, "source_file"), "replay": t(lang, "replay"),
+             "synthetic": t(lang, "synthetic"),
              "reconnecting": t(lang, "reconnecting"), "paused": t(lang, "paused")}.get(s.source_state, s.source_state)
     parts = [s.source_label or "", state, f"{s.fps:.0f} {t(lang, 'fps')}" if s.fps else ""]
     if s.unprepared:
