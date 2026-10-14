@@ -197,6 +197,11 @@ def run_one(cfg, fire_seed=0, obs_seed=0, keep=False):
     s = seen
     out["n_devices"] = int(len(obs["kind"]))
     out["n_delivered"] = int(s.sum())
+    out["n_fire_deaths_used"] = int(len(acc_rows))
+    out["fire_r_head_m_min"] = float(fire["r_head_m_min"])
+    out["fire_lb"] = float(fire["lb"])
+    out["fire_n_spots"] = len(fire["spots"])
+    out["fire_burned_frac_buildings"] = float(np.mean(T_b <= t_end))
     out["nodes_per_km2"] = float(len(obs["kind"]) / (w["width_m"] * w["height_m"] / 1e6))
     out["frac_deaths_fire"] = float(truth_fire[s].mean()) if s.any() else float("nan")
     out["cls_acc"] = float(np.mean(pred_fire[s] == truth_fire[s]))
