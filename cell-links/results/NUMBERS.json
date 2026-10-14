@@ -1,4 +1,544 @@
 {
+ "cross.extreme.13GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.123077,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 13 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.13GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.161538,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 13 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.13GHz.n_crossed": {
+  "value": 130,
+  "unit": "count",
+  "description": "Crossed links, 13 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.18GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.101695,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 18 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.18GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.194915,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 18 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.18GHz.n_crossed": {
+  "value": 118,
+  "unit": "count",
+  "description": "Crossed links, 18 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.23GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.121739,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 23 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.23GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.2,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 23 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.23GHz.n_crossed": {
+  "value": 115,
+  "unit": "count",
+  "description": "Crossed links, 23 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.38GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.075,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 38 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.38GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.2,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 38 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.38GHz.n_crossed": {
+  "value": 80,
+  "unit": "count",
+  "description": "Crossed links, 38 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.7GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.10596,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 7 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.7GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.172185,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 7 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.7GHz.n_crossed": {
+  "value": 151,
+  "unit": "count",
+  "description": "Crossed links, 7 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.80GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0740741,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 80 GHz, extreme, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.80GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.333333,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 80 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.80GHz.n_crossed": {
+  "value": 27,
+  "unit": "count",
+  "description": "Crossed links, 80 GHz, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.LB": {
+  "value": 6.42723,
+  "unit": "ratio",
+  "description": "Fire ellipse length-to-breadth ratio, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.burned_ha_24h": {
+  "value": 100438.0,
+  "unit": "ha",
+  "description": "Simulated area burned in 24 h, extreme scenario",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxA_ge_1dB_field_bound": {
+  "value": 0.0547504,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 1 dB, extreme, field_bound",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.10628,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 1 dB, extreme, lab_peak",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxA_ge_3dB_field_bound": {
+  "value": 0.00644122,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 3 dB, extreme, field_bound",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxA_ge_3dB_lab_peak": {
+  "value": 0.0611916,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 3 dB, extreme, lab_peak",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxS_ge_0.3dB": {
+  "value": 0.190016,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak scintillation std >= 0.3 dB, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.frac_maxS_ge_1dB": {
+  "value": 0.0289855,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak scintillation std >= 1 dB, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.extreme.n_links_crossed": {
+  "value": 621,
+  "unit": "count",
+  "description": "Hypothetical links reached by the simulated fire in 24 h, extreme",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.13GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 13 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.13GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.047619,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 13 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.13GHz.n_crossed": {
+  "value": 21,
+  "unit": "count",
+  "description": "Crossed links, 13 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.18GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 18 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.18GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 18 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.18GHz.n_crossed": {
+  "value": 18,
+  "unit": "count",
+  "description": "Crossed links, 18 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.23GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 23 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.23GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.0625,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 23 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.23GHz.n_crossed": {
+  "value": 16,
+  "unit": "count",
+  "description": "Crossed links, 23 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.38GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 38 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.38GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.181818,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 38 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.38GHz.n_crossed": {
+  "value": 11,
+  "unit": "count",
+  "description": "Crossed links, 38 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.7GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 7 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.7GHz.frac_maxS_ge_0.3dB": {
+  "value": 0.0322581,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 7 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.7GHz.n_crossed": {
+  "value": 31,
+  "unit": "count",
+  "description": "Crossed links, 7 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.80GHz.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share with peak mean loss >= 1 dB, 80 GHz, moderate, lab peak ne",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.80GHz.frac_maxS_ge_0.3dB": {
+  "value": 1.0,
+  "unit": "fraction",
+  "description": "Share with peak scintillation std >= 0.3 dB, 80 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.80GHz.n_crossed": {
+  "value": 2,
+  "unit": "count",
+  "description": "Crossed links, 80 GHz, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.LB": {
+  "value": 4.56989,
+  "unit": "ratio",
+  "description": "Fire ellipse length-to-breadth ratio, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.burned_ha_24h": {
+  "value": 12889.5,
+  "unit": "ha",
+  "description": "Simulated area burned in 24 h, moderate scenario",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxA_ge_1dB_field_bound": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 1 dB, moderate, field_bound",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxA_ge_1dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 1 dB, moderate, lab_peak",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxA_ge_3dB_field_bound": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 3 dB, moderate, field_bound",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxA_ge_3dB_lab_peak": {
+  "value": 0.0,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak mean excess loss >= 3 dB, moderate, lab_peak",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxS_ge_0.3dB": {
+  "value": 0.0707071,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak scintillation std >= 0.3 dB, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.frac_maxS_ge_1dB": {
+  "value": 0.010101,
+  "unit": "fraction",
+  "description": "Share of crossed links with peak scintillation std >= 1 dB, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
+ "cross.moderate.n_links_crossed": {
+  "value": 99,
+  "unit": "count",
+  "description": "Hypothetical links reached by the simulated fire in 24 h, moderate",
+  "kind": "modeled",
+  "script": "src/run_crossings.py",
+  "config": "configs/crossings.json",
+  "commit": "3237d9bcd83b-dirty",
+  "time": "2026-10-14 23:15 CST"
+ },
  "geom.13GHz.frac_crown_flame_F1": {
   "value": 0.00117899,
   "unit": "fraction",

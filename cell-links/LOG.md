@@ -78,3 +78,20 @@ Results (modeled):
 Decisions: the first loss-versus-height figure showed unphysical Fresnel ripple from the sharp model flame top; added flame-height jitter and ray-height averaging, and a grey band marking the remaining +-0.3 dB ripple. Scintillation is capped at the saturated 5.6 dB.
 
 Next step: fire spread model and synthetic RSL crossings on the hypothetical links.
+
+## 2026-10-15 01:20 CST: step 5 synthetic fire crossings
+
+Goal: move a fire across the real terrain and compute each crossed link's fire-induced mean loss A(t) and scintillation std S(t).
+
+Command: `.venv/bin/python src/run_crossings.py` (config `configs/crossings.json`, plus geometry and physics configs). First run (wind toward 112.5 deg, ESE) took 2 min; the fire left the DEM through the southern edge and the signatures flickered on and off because a slow front crossed 15 m profile samples faster than 10 s steps could see. Fixes: wind toward 90 deg (east, the observed Uiseong to Yeongdeok track along 36.4 N) and a minimum burning time per sample of step/ROS with the flame path rescaled. Second run: 8.5 min.
+
+Parameters: 90 m minimum-travel-time spread (16 neighbours) with Alexander (1985) ellipse and McArthur slope rule; ignition 128.585 E, 36.383 N (Anpyeong-myeon centroid, approximate); "moderate" head ROS 0.4 m/s with 36 km/h wind, "extreme" 1.5 m/s with 54 km/h; Byram intensity with 18,000 kJ/kg and 1.5 kg/m^2 (surface) or 3.0 kg/m^2 (crown); crown fire when intensity exceeds 2000 kW/m; flame residence 40 s (surface) and 60 s (crown); 10 s time step over 24 h.
+
+Results (simulated, hypothetical links):
+- Moderate: 12,890 ha in 24 h, 99 links crossed. No link reached 1 dB peak mean loss; 0 to 18 percent per band (100 percent of the two 80 GHz links) reached 0.3 dB peak scintillation std.
+- Extreme: 100,438 ha in 24 h (comparable to the real fire's final 99,289 ha over about a week), 621 links crossed, 74 to 83 percent of the burned length in crown fire. Share of crossed links with peak mean loss of at least 1 dB (lab-peak ne): 7 to 12 percent per band; with the field-bound ne: 0 to 9 percent. Share with peak scintillation std of at least 0.3 dB: 16 to 33 percent.
+- Signatures are short: mean-loss dips last one to a few minutes, while flames sit in the Fresnel zone near a low-clearance point; scintillation lasts as long as flames burn anywhere under the link.
+
+Decisions: keep both spread scenarios; signatures are saved without noise in `results/crossings/signatures_<scenario>.npz` for injection into real noise.
+
+Next step: detection with OpenMRG dry-weather noise (download in progress).
