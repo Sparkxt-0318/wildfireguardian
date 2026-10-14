@@ -718,3 +718,199 @@ def verify_training_main():
     print(json.dumps(verify_run(args.run_dir, args.cpu_atol), indent=2), flush=True)
 
 
+def fit_bayesian_model(checkpoints, calibration, metadata, output_directory, *,
+                       prior_weights=None, population_weighted=False,
+                       likelihood_power=1.0, device="cpu", batch_size=512):
+    """Calibrate Bayes weights over frozen independently fitted kernel checkpoints.
+
+    ``calibration`` is one largest-context CachedSplit, declared as validation
+    in ``metadata``. All models use identical rows, labels and (optionally)
+    population weights. No component is trained or renormalized here. Default
+    evidence is an ordinary product of Bernoulli probabilities conditional on
+    fitted parameters. Population weighting normalizes inverse inclusion
+    weights to mean one and produces a generalized, powered likelihood.
+
+    The caller must keep these rows out of component parameter fitting. Reusing
+    validation previously used for epoch/model selection is calibration reuse,
+    not independent evidence. This operation never reads a test partition.
+    """
+    from copy import deepcopy
+    from .api import WildfireModel, _device
+    from .cache import CachedSplit, cell_hour_identities, validate_partition_disjointness, cache_kernel_size
+    from .cohort import common_indices, cohort_payload, centered_slice, kernel_neighbor_count
+    from .inference import single_model_from_checkpoint, bayesian_checkpoint_payload
+    from .models import BayesianBurnModel, bayesian_model_weights, center_probability
+    from .schema import SCHEMA_KEYS, validate_one_hot_array, probability_target_id
+
+    if not isinstance(calibration, CachedSplit):
+        raise TypeError("calibration must be a CachedSplit")
+    if type(batch_size) is not int or batch_size < 1:
+        raise ValueError("batch_size must be a positive integer")
+    if type(population_weighted) is not bool:
+        raise TypeError("population_weighted must be boolean")
+    output = Path(output_directory).expanduser().resolve()
+    if output.exists() and (not output.is_dir() or any(output.iterdir())):
+        raise FileExistsError("Bayesian output directory must be new or empty")
+    paths = [resolve_recorded_path(path).resolve() for path in checkpoints]
+    if len(paths) < 2 or len(set(paths)) != len(paths):
+        raise ValueError("Supply at least two distinct independently trained checkpoints")
+    payloads = [torch.load(path, map_location="cpu", weights_only=True) for path in paths]
+    selected_device = _device(device)
+    components = [single_model_from_checkpoint(saved, device=selected_device) for saved in payloads]
+    contract = deepcopy(components[0].contract)
+    sizes = [component.model.kernel_size for component in components]
+    contract.update(architecture="BayesianModelAverage", kernel_size=max(sizes), kernel_sizes=sizes,
+                    normalization="Each independent component retains its own frozen training normalization",
+                    output_link="posterior_weighted_component_probabilities",
+                    rate_semantics="Equivalent interval rate; at zero horizon the posterior mean initial rate")
+    contract.pop("kernel_model", None)
+    contract.pop("categorical_balance", None)
+    contract.pop("cache_metadata_sha256", None)
+    contract.update(input_context="Current burned state and each independent kernel's environmental neighborhood",
+                    population_condition="Complete shared context with smallest-support current burned contact for calibration")
+    # Validate components before reading outcome labels or writing artifacts.
+    BayesianBurnModel(components, np.full(len(components), -math.log(len(components))), contract)
+    if metadata.get("channels") != list(components[0].channel_names):
+        raise ValueError("Calibration channel schema differs from component checkpoints")
+    for key in SCHEMA_KEYS:
+        if metadata.get(key) != components[0].contract.get(key):
+            raise ValueError(f"Calibration schema differs from component {key}")
+    if metadata.get("dt_hours", 1.0) != 1.0:
+        raise ValueError("Bayesian calibration requires the same one-hour endpoint")
+    if (metadata.get("target") is not None
+            and probability_target_id(metadata) != probability_target_id(contract)):
+        raise ValueError("Calibration target endpoint differs from component checkpoints")
+    outer = cache_kernel_size(metadata)
+    if calibration.burned.shape != (len(calibration), 1, outer, outer):
+        raise ValueError("Calibration burned patches differ from their declared kernel_size")
+    partition_audit = validate_partition_disjointness({"validation": calibration}, metadata)
+    if (calibration.environment.ndim != 4
+            or calibration.environment.shape[:2] != (len(calibration), len(contract["channels"]))
+            or calibration.environment.shape[-2:] != calibration.burned.shape[-2:]):
+        raise ValueError("Calibration environmental and burned patches must align")
+    validate_one_hot_array(calibration.environment, metadata)
+    indices = common_indices(calibration, sorted(set(sizes)))
+    if not len(indices):
+        raise ValueError("The shared calibration cohort is empty")
+    selected = cohort_payload(calibration, indices)
+    target, weight = selected["y"], selected["w"]
+    # Training on these outcomes, or using any member's designated test fires,
+    # would invalidate the intended calibration/test separation.
+    for component in components:
+        saved_contract = component.contract
+        member_splits = saved_contract.get("splits", {})
+        for index in np.unique(calibration.event_index[indices]):
+            event = metadata["event_ids"][int(index)]
+            memberships = member_splits.get(event, [])
+            memberships = [memberships] if isinstance(memberships, str) else memberships
+            if "test" in memberships:
+                raise ValueError("Calibration cannot use a component's designated test fires")
+            if "train" in memberships and "validation" not in memberships:
+                raise ValueError("Calibration cannot use a component's training-only fires")
+    if (weight.shape != target.shape or not np.isfinite(weight).all() or (weight <= 0).any()):
+        raise ValueError("Calibration population weights must be finite and positive")
+    probability = np.empty((len(indices), len(components)), dtype=np.float64)
+    with torch.inference_mode():
+        for column, component in enumerate(components):
+            size = sizes[column]
+            crop = centered_slice(calibration.burned.shape[-1], size)
+            reference = next(component.parameters())
+            for start in range(0, len(indices), batch_size):
+                stop = min(start + batch_size, len(indices))
+                rows = indices[start:stop]
+                environment = torch.as_tensor(calibration.environment[rows, :, crop, crop].copy(),
+                                              device=reference.device, dtype=reference.dtype)
+                burned = torch.as_tensor(calibration.burned[rows, :, crop, crop].copy(),
+                                         device=reference.device, dtype=reference.dtype)
+                component._validate_one_hot(environment, None)
+                values = center_probability(component.model, (environment-component.mean)/component.std, burned)
+                probability[start:stop, column] = values.cpu().numpy()
+    evidence = bayesian_model_weights(probability, target, prior_weights=prior_weights,
+                                      sample_weight=weight if population_weighted else None,
+                                      likelihood_power=likelihood_power)
+    log_weights = [-math.inf if value is None else value for value in evidence["log_posterior_weights"]]
+    predictor = BayesianBurnModel(components, log_weights, contract)
+    posterior = np.asarray(evidence["posterior_weights"])
+    mixture_probability = probability @ posterior
+    source_records = [dict(path=str(path), sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+                           kernel_size=size, best_epoch=component.best_epoch,
+                           cache_metadata_sha256=component.contract.get("cache_metadata_sha256"))
+                      for path, size, component in zip(paths, sizes, components, strict=True)]
+    evidence.update(
+        components=source_records, calibration_split="validation", test_used_for_weights=False,
+        cohort="Complete largest-context rows with burned contact in the smallest support",
+        row_identities_sha256=hashlib.sha256(cell_hour_identities(calibration)[indices].tobytes()).hexdigest(),
+        population_weights_used_for_evidence=population_weighted,
+        component_parameters_integrated_out=False,
+        likelihood_assumption="Conditionally independent Bernoulli cell-hours given each frozen fitted predictor",
+        calibration_independence="Caller supplied; prior validation selection reuse is not independent evidence",
+        calibration_metadata_sha256=hashlib.sha256(json.dumps(metadata, sort_keys=True).encode()).hexdigest(),
+        interpretation="Conditional plug-in model averaging; posterior weights are not physical validation",
+    )
+    contract["bayesian"] = evidence
+    predictor.contract = deepcopy(contract)
+    report = dict(contract=contract, evidence=evidence,
+                  verification=dict(component_parameters_frozen=True,
+                                    component_normalizations_preserved=True,
+                                    common_cohort_identity_checked=True,
+                                    **partition_audit),
+                  calibration_metrics=probability_metrics(
+                      target, mixture_probability, weight,
+                      kernel_neighbor_count(calibration.burned, min(sizes))[indices]))
+    output.mkdir(parents=True, exist_ok=True)
+    checkpoint = bayesian_checkpoint_payload(predictor, dict(components=payloads, calibration=evidence))
+    destination = output / "checkpoint.pt"
+    torch.save(checkpoint, destination)
+    np.savez_compressed(output / "calibration_predictions.npz", **selected,
+                        component_probability=probability, mixture_probability=mixture_probability,
+                        kernel_sizes=np.asarray(sizes), posterior_weights=posterior)
+    write_json(output / "metrics.json", report)
+    fitted = WildfireModel.from_checkpoint(destination, device=selected_device)
+    fitted.training_metrics = report
+    return fitted
+
+
+def bayesian_main():
+    """Calibrate a frozen kernel average using a prepared validation partition."""
+    parser = argparse.ArgumentParser(description="Bayesian averaging of independent fitted kernel checkpoints")
+    parser.add_argument("--checkpoints", type=Path, nargs="+", required=True)
+    parser.add_argument("--cache", type=Path, required=True,
+                        help="Largest-context prepared cache; only validation outcomes are used")
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--prior-weights", type=float, nargs="+")
+    parser.add_argument("--population-weighted", action="store_true",
+                        help="Use mean-one inverse inclusion weights (generalized Bayes)")
+    parser.add_argument("--likelihood-power", type=float, default=1.0)
+    parser.add_argument("--device", choices=("cpu", "mps", "cuda", "auto"), default="cpu")
+    parser.add_argument("--batch-size", type=int, default=512)
+    args = parser.parse_args()
+    directory = resolve_recorded_path(args.cache).resolve()
+    metadata_path = directory / "metadata.json"
+    metadata = json.loads(metadata_path.read_text())
+    calibration = load_split(directory, "validation", metadata)
+    # Check identity separation without loading training features or outcomes.
+    from .cache import CachedSplit, cell_hour_identities, validate_partition_disjointness, IDENTITY_FIELDS
+    with np.load(directory / "train.npz", allow_pickle=False) as archive:
+        identities = {key: archive[key] for key in IDENTITY_FIELDS}
+    identity_data = CachedSplit(environment=None, burned=None, target=np.empty(len(identities["row"])),
+                               weight=None, **identities)
+    validate_partition_disjointness({"train": cell_hour_identities(identity_data),
+                                    "validation": calibration}, metadata)
+    digest = hashlib.sha256(metadata_path.read_bytes()).hexdigest()
+    fitted = fit_bayesian_model(args.checkpoints, calibration, metadata, args.output,
+                               prior_weights=args.prior_weights, population_weighted=args.population_weighted,
+                               likelihood_power=args.likelihood_power, device=args.device,
+                               batch_size=args.batch_size)
+    fitted.training_metrics["verification"].update(
+        calibration_cache_train_validation_identities_disjoint=True,
+        calibration_cache_metadata_file_sha256=digest,
+        metadata_file_matches_component_cache=[
+            item["cache_metadata_sha256"] == digest if item["cache_metadata_sha256"] is not None else None
+            for item in fitted.contract["bayesian"]["components"]],
+    )
+    write_json(Path(args.output) / "metrics.json", fitted.training_metrics)
+    print(json.dumps(dict(checkpoint=str(fitted.checkpoint_path),
+                          kernel_sizes=fitted.contract["kernel_sizes"],
+                          posterior_weights=fitted.contract["bayesian"]["posterior_weights"]), indent=2))
+
+

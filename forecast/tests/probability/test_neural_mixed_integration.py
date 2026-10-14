@@ -79,7 +79,8 @@ def test_neural_mixed_package_and_public_loader_preserve_normalization_and_predi
                           channel_names=("fixture.a", "fixture.b"),
                           feature_valid=torch.from_numpy(valid))
     result = public.predict_details(burned, environment, channel_names=public.channel_names,
-                                    feature_valid=valid)
+                                    feature_valid=valid, boundary="unknown",
+                                    missing_burned_area="unknown")
     _assert_prediction_equal(expected, result)
     assert public.family == "exponential"
     assert public.contract["kernel_model"]["kernel_sizes"] == [3, 5]
@@ -113,8 +114,13 @@ def test_neural_mixed_public_prediction_accepts_no_contact_and_preserves_unknown
     assert torch.isnan(missing_feature.probability[0, 5, 5])
     source_valid = np.ones_like(no_contact, dtype=bool)
     source_valid[:, 5, 5] = False
+    filled_source = public.predict_details(no_contact, environment, channel_names=public.channel_names,
+                                            burned_area_valid=source_valid)
+    assert filled_source.valid.all() and filled_source.rate_valid.all()
+    assert filled_source.probability.eq(0).all() and filled_source.rate.eq(0).all()
     missing_source = public.predict_details(no_contact, environment, channel_names=public.channel_names,
-                                            burned_area_valid=source_valid, boundary="zero")
+                                            burned_area_valid=source_valid, boundary="zero",
+                                            missing_burned_area="unknown")
     assert not missing_source.valid[0, 5, 6]
     assert torch.isnan(missing_source.probability[0, 5, 6])
 
@@ -160,7 +166,8 @@ def test_neural_mixed_heat_checkpoint_and_resident_api_keep_predictor_provenance
         assert heat.predictor_provenance["channel_names"] == ["fixture.a", "fixture.b"]
     burned, environment, valid = neural_mixed_inputs
     expected = public.predict_details(burned, environment, channel_names=public.channel_names,
-                                      feature_valid=valid)
+                                      feature_valid=valid, boundary="unknown",
+                                      missing_burned_area="unknown")
     result = loaded_heat.predict_details(burned, environment, channel_names=public.channel_names,
                                          feature_valid=valid)
     np.testing.assert_allclose(result.new_burn_probability,

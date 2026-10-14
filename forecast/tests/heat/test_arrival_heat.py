@@ -289,14 +289,14 @@ def test_explicit_sample_present_fire_overrides_automatic_arrival_without_readin
     assert_array_equal(result.initial_remaining_burning_duration_s, [[100.0, 0.0]])
 
 
-def test_sample_without_arrival_fields_retains_new_ignition_only_behavior():
+def test_sample_without_arrival_fields_retains_unknown_previous_burning():
     predictor = DeterministicPredictor([[0.0, 0.2]])
     model = make_model(predictor, duration=7200.0)
     result = model.predict_sample_details(_sample(model, predictor, [[1.0, 0.0]]))
-    assert_array_equal(result.initial_active_burning_probability, [[0.0, 0.0]])
-    assert_array_equal(result.initial_burning_valid, [[True, True]])
-    assert_allclose(result.mean_active_burning_probability, [[0.0, 0.1]])
-    assert result.complete
+    assert_allclose(result.initial_active_burning_probability, [[np.nan, 0.0]], equal_nan=True)
+    assert_array_equal(result.initial_burning_valid, [[False, True]])
+    assert_allclose(result.mean_active_burning_probability, [[np.nan, 0.1]], equal_nan=True)
+    assert not result.complete
 
 
 @pytest.mark.parametrize("timing", [

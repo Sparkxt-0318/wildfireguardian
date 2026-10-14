@@ -14,6 +14,7 @@ from wildfire import TrainingConfig
 from wildfire import WildfireModel
 from wildfire import load_data
 from wildfire import load_model
+from wildfire import train_model
 from wildfire.models import EnvironmentConditionedConvolution
 
 
@@ -59,7 +60,8 @@ def test_prediction_matches_original_wrapper_preserves_masks_and_reads_no_labels
     burned, environment, valid = inputs
     with torch.no_grad():
         original = model.predictor(torch.from_numpy(burned), torch.from_numpy(environment),
-                                   channel_names=model.channel_names, feature_valid=torch.from_numpy(valid))
+                                   channel_names=model.channel_names, feature_valid=torch.from_numpy(valid),
+                                   boundary="zero")
     result = model.predict_details(burned, environment, channel_names=model.channel_names, feature_valid=valid)
     assert_prediction_equal(result, original)
     assert result.probability.shape == (2, 1, 7, 9)
@@ -125,7 +127,7 @@ def test_public_prediction_tuple_aligns_earth_coordinates_and_preserves_probabil
     y = transform[3] * (col + 0.5) + transform[4] * (row + 0.5) + transform[5]
     lon, lat = Transformer.from_crs(5179, 4326, always_xy=True).transform(x, y)
     np.testing.assert_allclose(coordinates[row, col].numpy(), [lat, lon], rtol=0, atol=1e-10)
-    raw = model.predict(burned, environment, channel_names=model.channel_names,
+    raw = model.predict_coordinates(burned, environment, channel_names=model.channel_names,
                         feature_valid=valid, affine_transform=transform, epsg=5179,
                         pixel_valid=pixel_valid, time_valid=sample["time_valid"])
     for actual, expected in zip(raw, result):
@@ -137,7 +139,7 @@ def test_coordinate_grid_is_independent_of_sequence_length_and_temporal_padding(
     burned, environment, valid = inputs
     options = dict(channel_names=model.channel_names,
                    affine_transform=[0.02, 0, 127, 0, -0.02, 38], epsg=4326)
-    snapshot_probability, snapshot_coordinates = model.predict(
+    snapshot_probability, snapshot_coordinates = model.predict_coordinates(
         burned[0], environment[0], feature_valid=valid[0], **options,
     )
     assert snapshot_probability.shape == (1, 7, 9)
@@ -147,19 +149,20 @@ def test_coordinate_grid_is_independent_of_sequence_length_and_temporal_padding(
     ), rtol=0, atol=0, equal_nan=True)
 
     for time_valid in (np.array([True, True]), np.array([True, False]), np.array([False, False])):
-        probability, coordinates = model.predict(
+        probability, coordinates = model.predict_coordinates(
             burned, environment, feature_valid=valid, time_valid=time_valid, **options,
         )
         assert probability.shape == (2, 1, 7, 9)
         torch.testing.assert_close(coordinates, snapshot_coordinates, rtol=0, atol=0, equal_nan=True)
-        torch.testing.assert_close(probability, model.predict_proba(
-            burned, environment, channel_names=model.channel_names, feature_valid=valid,
-        ), rtol=0, atol=0, equal_nan=True)
+        torch.testing.assert_close(probability, model.predict(
+            burned, environment, feature_valid=valid, time_valid=time_valid, **options,
+        ).probability, rtol=0, atol=0, equal_nan=True)
+        assert torch.isnan(probability[~torch.from_numpy(time_valid)]).all()
 
     extended_burned = np.concatenate([burned, burned[:1]], axis=0)
     extended_environment = np.concatenate([environment, environment[:1]], axis=0)
     extended_valid = np.concatenate([valid, valid[:1]], axis=0)
-    probability, coordinates = model.predict(
+    probability, coordinates = model.predict_coordinates(
         extended_burned, extended_environment, feature_valid=extended_valid,
         time_valid=np.array([True, True, False]), **options,
     )
@@ -178,16 +181,16 @@ def test_dataset_batch_tuple_respects_each_crs_and_spatial_time_padding(checkpoi
     path = tmp_path / "georeferenced.pt"
     torch.save(saved, path)
     model = load_model(path)
-    with model.load_data(root, sequence_length=4) as dataset:
+    with load_data(root, channels=model.channel_names, sequence_length=4) as dataset:
         samples = [dataset[index] for index in range(len(dataset))]
     batch = collate_fire_sequences(samples)
-    probability, coordinates = model.predict_sample(batch)
+    probability, coordinates = model.predict_sample(batch, boundary="unknown")
     assert probability.shape == (2, 4, 1, 3, 3)
     assert coordinates.shape == (2, 3, 3, 2)
-    details = model.predict_sample_details(batch)
+    details = model.predict_sample_details(batch, boundary="unknown")
     torch.testing.assert_close(probability, details.probability, rtol=0, atol=0, equal_nan=True)
     for index, sample in enumerate(samples):
-        single_probability, single_coordinates = model.predict_sample(sample)
+        single_probability, single_coordinates = model.predict_sample(sample, boundary="unknown")
         h, w = single_probability.shape[-2:]
         torch.testing.assert_close(probability[index, :, :, :h, :w], single_probability,
                                    rtol=0, atol=0, equal_nan=True)
@@ -200,7 +203,7 @@ def test_dataset_batch_tuple_respects_each_crs_and_spatial_time_padding(checkpoi
     # The raw batch interface can carry a distinct CRS and transform per item.
     transforms = batch["affine_transform"].numpy().copy()
     transforms[1] = [375, 0, -1_000_000, 0, -375, 2_000_000]
-    _, mixed_coordinates = model.predict(
+    _, mixed_coordinates = model.predict_coordinates(
         batch["burned_area"], batch["features"], channel_names=batch["channel_names"],
         burned_area_valid=batch["burned_area_valid"], feature_valid=batch["feature_valid"],
         affine_transform=transforms, epsg=np.array([5179, 5070]),
@@ -230,9 +233,9 @@ def test_coordinate_tuple_requires_georeferencing_and_reads_no_future_labels(che
     _, coordinates = model.predict_sample(sample)
     torch.testing.assert_close(coordinates[0, 0], torch.tensor([37.99, 127.01], dtype=torch.float64))
     with pytest.raises((TypeError, ValueError), match="affine_transform"):
-        model.predict(burned, environment, channel_names=model.channel_names)
+        model.predict_coordinates(burned, environment, channel_names=model.channel_names)
     with pytest.raises(ValueError, match="epsg|EPSG"):
-        model.predict(burned, environment, channel_names=model.channel_names,
+        model.predict_coordinates(burned, environment, channel_names=model.channel_names,
                       affine_transform=sample["affine_transform"], epsg=None)
 
 
@@ -275,7 +278,7 @@ def test_failed_save_keeps_existing_bytes_and_removes_temporary_file(checkpoint,
     assert not list(tmp_path.glob(".checkpoint-*"))
 
 
-def test_model_bound_loading_and_heat_composition_use_the_same_saved_schema(checkpoint, tmp_path):
+def test_independent_loading_and_heat_composition_use_explicit_saved_schema(checkpoint, tmp_path):
     from tests.loader.test_dataset import bundle
     from wildfire.heat import AffineGrid
     from wildfire.heat import CombustionParameters
@@ -287,15 +290,11 @@ def test_model_bound_loading_and_heat_composition_use_the_same_saved_schema(chec
     path = tmp_path / "bound.pt"
     torch.save(payload, path)
     model = load_model(path)
-    with model.load_data(root, events=["KR_TEST"], sequence_length=1) as dataset:
+    with load_data(root, events=["KR_TEST"], channels=model.channel_names, sequence_length=1) as dataset:
         assert dataset.channel_names == model.channel_names
         sample = dataset[0]
         assert model.predict_sample_details(sample).probability.shape == (1, 1, 2, 3)
     assert not dataset._readers
-    for name, value in (("channels", model.channel_names), ("categorical_encoding", "raw"),
-                        ("categorical_classes", {})):
-        with pytest.raises(ValueError, match="fixes"):
-            model.load_data(root, **{name: value})
     physical = dict(grid=AffineGrid(tuple(sample["affine_transform"].tolist())),
                     combustion=CombustionParameters(fuel_load_kg_m2=1.0,
                                                      heat_of_combustion_j_kg=18_000_000,
@@ -370,9 +369,9 @@ def test_api_trains_selects_validated_checkpoint_and_restores_threads(tmp_path):
     for name, split in partitions.items():
         np.savez_compressed(cache / f"{name}.npz", **vars(split))
     threads = torch.get_num_threads()
-    trained = WildfireModel.train(cache, tmp_path / "fitted",
-                                  config=TrainingConfig(epochs=2, patience=2, batch_size=4,
-                                                        hidden_channels=3, threads=1))
+    trained = train_model(cache, tmp_path / "fitted",
+                          config=TrainingConfig(epochs=2, patience=2, batch_size=4,
+                                                hidden_channels=3, threads=1))
     assert trained.family == "exponential"
     assert torch.get_num_threads() == threads
     assert trained.training_metrics["selection"]["test_used_for_selection"] is False

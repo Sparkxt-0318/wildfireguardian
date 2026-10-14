@@ -72,7 +72,9 @@ def test_predict_tuple_matches_saved_probability_heat_and_coordinates():
     model = make_model(predictor, epsg=32652)
     burned = [[1.0, 0.0], [0.0, 0.0]]
     flux, coordinates = model.predict(burned, np.zeros((2, 2, 2)), channel_names=predictor.channel_names)
-    reference_flux, reference_coordinates = model.predict_from_new_burn_probability(predictor.probability)
+    reference_flux, reference_coordinates = model.predict_from_new_burn_probability(
+        predictor.probability, already_burned_mask=np.asarray(burned, dtype=bool),
+    )
     assert_allclose(flux, reference_flux)
     assert_allclose(coordinates, reference_coordinates)
     assert len(predictor.calls) == 1
@@ -224,16 +226,17 @@ def test_external_unknown_probability_is_marked_and_applied_only_to_missing_sour
     assert_array_equal(result.probability_valid, np.ones(q.shape, dtype=bool))
 
 
-def test_already_burned_state_is_not_assumed_current_active_fire():
+def test_already_burned_state_without_timing_retains_unknown_current_fire():
     predictor = DeterministicPredictor([[0.9, 0.4], [0.2, 0.1]])
     model = make_model(predictor)
     burned = np.array([[1, 0], [0, 0]])
     result = model.predict_details(burned, np.zeros((2, 2, 2)), channel_names=predictor.channel_names)
     reference = model.predict_from_new_burn_probability_details([[0, 0.4], [0.2, 0.1]])
-    assert_allclose(result.expected_heat_flux_w_m2, reference.expected_heat_flux_w_m2)
-    assert result.mean_active_burning_probability[0, 0] == 0
+    assert np.isnan(result.expected_heat_flux_w_m2).all()
+    assert_allclose(result.known_source_heat_flux_w_m2, reference.expected_heat_flux_w_m2)
+    assert np.isnan(result.mean_active_burning_probability[0, 0])
     assert result.new_burn_probability[0, 0] == 0
-    assert "present-fire contribution is excluded" in result.metadata["scope"]
+    assert "unresolved burn-start timing" in result.metadata["scope"]
 
 
 def test_supplied_present_fire_adds_only_explicit_remaining_burning_time():
@@ -330,7 +333,7 @@ def test_predict_sample_uses_aligned_current_state_and_ignores_future_labels():
         channel_names=predictor.channel_names,
         future_burned_area=object(), arrival_time=object(),
     )
-    result = model.predict_sample_details(sample)
+    result = model.predict_sample_details(sample, include_previous_burning=False)
     assert result.complete
     assert len(predictor.calls) == 1
     assert_allclose(result.new_burn_probability, predictor.probability)

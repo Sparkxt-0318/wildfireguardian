@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-12",
+  "event": "WY-BTF-002416_FishCreek",
+  "checkpoint": "runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+  "rectangle": [
+    103,
+    73
+  ],
+  "rectangle_cells": 7519,
+  "ordinary_prediction_metadata": {
+    "missing_burned_area": "unburned",
+    "assumed_unburned_cells": 4877,
+    "boundary": "zero"
+  },
+  "cumulative_controls": {
+    "n_samples": 1024,
+    "seed": 0,
+    "trajectory_batch_size": 32,
+    "missing_burned_area": "unburned",
+    "boundary": "zero"
+  },
+  "cumulative_horizons_hours": [
+    1.0,
+    3.0,
+    6.0,
+    12.0
+  ],
+  "coverage": {
+    "probability.npz": {
+      "shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "valid_cells_per_matrix": [
+        7519
+      ],
+      "unavailable_cells": 0
+    },
+    "fixed_cumulative_probability.npz": {
+      "shape": [
+        3,
+        1,
+        1,
+        103,
+        73
+      ],
+      "valid_cells_per_matrix": [
+        7519,
+        7519,
+        7519
+      ],
+      "unavailable_cells": 0
+    },
+    "cumulative_probability.npz": {
+      "shape": [
+        4,
+        1,
+        1,
+        103,
+        73
+      ],
+      "valid_cells_per_matrix": [
+        7519,
+        7519,
+        7519,
+        7519
+      ],
+      "unavailable_cells": 0
+    }
+  },
+  "notebook": {
+    "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+    "executed_notebook": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/zero_padded_prediction/20261012/api_tutorial.executed.ipynb",
+    "code_cells": 30,
+    "errors": [],
+    "elapsed_seconds": 590.869034584,
+    "artifacts_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-gi0pm58i",
+    "main_kernel_code_cells": 29,
+    "supplemental_read_only_cell": "farsite-report-preview",
+    "source_sha256": "ec1278475c2613db7b2575feecd8134bd312b1521e152deda96bdab25e66dcbc"
+  },
+  "tests": {
+    "tests": 2251,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_seconds": 372.47,
+  "artifact_hashes_verified": 20,
+  "visual_inspection": [
+    "selected_time_probability.png",
+    "selected_time_events_vs_probability.png",
+    "cumulative_probability_horizons.png"
+  ],
+  "reference_policy": "Original burned-state and arrival/reference masks retained; unavailable initial states filled only in inference copies.",
+  "remaining_missingness": "Interior environmental gaps and physical/time padding remain unavailable. Composed heat/flame inference retains explicit conservative policies.",
+  "source_hash": "ec1278475c2613db7b2575feecd8134bd312b1521e152deda96bdab25e66dcbc"
+}

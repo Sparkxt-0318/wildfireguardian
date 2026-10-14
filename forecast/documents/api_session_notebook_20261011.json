@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-10T19:24:00.141347+00:00",
+  "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+  "source_sha256": "331a48ae48f45f34db6d28249154f3d78d874b01118688956ccbd1a9834bec7a",
+  "source_unchanged": true,
+  "source_code_outputs_empty": true,
+  "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/api_tutorial.executed.ipynb",
+  "executed_code_cells": 28,
+  "elapsed_seconds": 48.97404683398781,
+  "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-ld_7qbp4",
+  "cumulative_hours": [
+    1.0,
+    3.0,
+    6.0,
+    12.0
+  ],
+  "cumulative_metadata": {
+    "assumed_unburned_cells": 4877,
+    "conditional_cell_independence": true,
+    "confidence_level": 0.95,
+    "coverage_policy": "conservative",
+    "environment_policy": "repeated_current",
+    "method": "recursive",
+    "missing_burned_area": "unburned",
+    "n_samples": 1024,
+    "seed": 0,
+    "trajectory_batch_size": 32,
+    "uncertainty_kind": "monte_carlo",
+    "update_interval_hours": 1
+  },
+  "cumulative_probability_shape": [
+    4,
+    1,
+    1,
+    103,
+    73
+  ],
+  "evaluation_report_count": 4,
+  "evaluation_files": [
+    "cumulative_evaluation.json"
+  ],
+  "evaluation_summary": [
+    {
+      "quantity": "new_burn",
+      "coverage": "per_horizon",
+      "hours": 1.0,
+      "evaluated_cells": 2390,
+      "positive_sample_count": 1,
+      "brier": 0.0004132793538241207,
+      "exact_nll": 0.0020103175234856283
+    },
+    {
+      "quantity": "new_burn",
+      "coverage": "per_horizon",
+      "hours": 3.0,
+      "evaluated_cells": 2390,
+      "positive_sample_count": 3,
+      "brier": 0.0011991851998173538,
+      "exact_nll": 0.004682561521349528
+    },
+    {
+      "quantity": "new_burn",
+      "coverage": "per_horizon",
+      "hours": 6.0,
+      "evaluated_cells": 2105,
+      "positive_sample_count": 7,
+      "brier": 0.00297068824677456,
+      "exact_nll": 0.00972377630088899
+    },
+    {
+      "quantity": "new_burn",
+      "coverage": "shared",
+      "hours": 1.0,
+      "evaluated_cells": 2105,
+      "positive_sample_count": 1,
+      "brier": 0.00046923404068391854,
+      "exact_nll": 0.0022824982808221624
+    },
+    {
+      "quantity": "new_burn",
+      "coverage": "shared",
+      "hours": 3.0,
+      "evaluated_cells": 2105,
+      "positive_sample_count": 3,
+      "brier": 0.0013615451912415565,
+      "exact_nll": 0.0053165425349289185
+    },
+    {
+      "quantity": "new_burn",
+      "coverage": "shared",
+      "hours": 6.0,
+      "evaluated_cells": 2105,
+      "positive_sample_count": 7,
+      "brier": 0.00297068824677456,
+      "exact_nll": 0.00972377630088899
+    },
+    {
+      "quantity": "burned",
+      "coverage": "per_horizon",
+      "hours": 1.0,
+      "evaluated_cells": 2642,
+      "positive_sample_count": 253,
+      "brier": 0.0003738598242390797,
+      "exact_nll": 0.0018185688422144787
+    },
+    {
+      "quantity": "burned",
+      "coverage": "per_horizon",
+      "hours": 3.0,
+      "evaluated_cells": 2642,
+      "positive_sample_count": 255,
+      "brier": 0.0010848041739452978,
+      "exact_nll": 0.004235928098419898
+    },
+    {
+      "quantity": "burned",
+      "coverage": "per_horizon",
+      "hours": 6.0,
+      "evaluated_cells": 2357,
+      "positive_sample_count": 259,
+      "brier": 0.0026530754176752012,
+      "exact_nll": 0.008684153208897464
+    },
+    {
+      "quantity": "burned",
+      "coverage": "shared",
+      "hours": 1.0,
+      "evaluated_cells": 2357,
+      "positive_sample_count": 253,
+      "brier": 0.0004190656154601818,
+      "exact_nll": 0.00203846367464177
+    },
+    {
+      "quantity": "burned",
+      "coverage": "shared",
+      "hours": 3.0,
+      "evaluated_cells": 2357,
+      "positive_sample_count": 255,
+      "brier": 0.0012159748101669397,
+      "exact_nll": 0.004748121355971731
+    },
+    {
+      "quantity": "burned",
+      "coverage": "shared",
+      "hours": 6.0,
+      "evaluated_cells": 2357,
+      "positive_sample_count": 259,
+      "brier": 0.0026530754176752012,
+      "exact_nll": 0.008684153208897464
+    }
+  ],
+  "preview_files": [
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_16_output_01.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_16_output_02.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_18_output_02.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_18_output_03.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_18_output_04.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_26_output_00.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_26_output_01.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_31_output_01.png",
+    "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_session/20261011/cell_41_output_00.png"
+  ],
+  "manifest": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-ld_7qbp4/manifest.json",
+  "preparation_run": false,
+  "training_run": false
+}

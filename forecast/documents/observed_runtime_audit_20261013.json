@@ -1,0 +1,1223 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-12T23:33:16.439005+00:00",
+  "source_run": "/Users/movinggk/Documents/영재멘토/wildfire/runs/20261012_observed_test_combined_progress",
+  "source_report_sha256": "d9fa5691c94c0b26601f053f198bf4a14f8136d4ad9b1d7665ae6dd970dd093b",
+  "source_protocol_sha256": "f3bae15f7a54f68818f2cecb6c08120932e990c888ec8caa744fad5d1d274c22",
+  "run_status": "interrupted",
+  "fatal_error": "KeyboardInterrupt: ",
+  "planned_case_count": 324,
+  "stored_case_counts": {
+    "complete": 25,
+    "failed": 2,
+    "running": 1
+  },
+  "stored_events": [
+    "ID-BOF-000683_Wapiti_Wapiti"
+  ],
+  "timing": {
+    "m548_inference": {
+      "n": 25,
+      "minimum_seconds": 495.9763969159976,
+      "median_seconds": 934.3537859999997,
+      "mean_seconds": 1000.4859642500797,
+      "maximum_seconds": 3051.978202207998,
+      "sum_seconds": 25012.149106251993
+    },
+    "farsite_native": {
+      "n": 25,
+      "minimum_seconds": 1.908,
+      "median_seconds": 16.679,
+      "mean_seconds": 298.32852,
+      "maximum_seconds": 1352.252,
+      "sum_seconds": 7458.213
+    },
+    "complete_total": {
+      "n": 25,
+      "minimum_seconds": 593.5071842499965,
+      "median_seconds": 1011.5048727920002,
+      "mean_seconds": 1300.9304777399598,
+      "maximum_seconds": 3067.791666500001,
+      "sum_seconds": 32523.261943498994
+    },
+    "timeout_seconds": 1800,
+    "notes": [
+      "M548 includes inference plus saving its probability export. Native FARSITE seconds are from its benchmark file. Complete total also includes preparation and scoring.",
+      "Failed and interrupted cases lack total elapsed seconds, so complete elapsed sums exclude them. At least 3600 additional native seconds were consumed by two timeouts.",
+      "All timed cases are Wapiti; the simple area-times-step extrapolation does not establish runtime on other landscapes. FARSITE can vary strongly with geometry despite similar interval duration."
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "0ad4de7c0ac41f151261",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-25T05:26:00+00:00",
+      "endpoint": "2024-08-26T05:58:00+00:00",
+      "duration_minutes": 1472,
+      "hourly_step_count": 25,
+      "status": "complete",
+      "m548_inference_seconds": 929.7087534579987,
+      "farsite_native_seconds": 991.398,
+      "complete_elapsed_seconds": 1924.0372051250015,
+      "failures": [],
+      "manifest_sha256": "45590d546879468c4cd678b11aeccc058baf63d9a2dcd29776945cd4a824fb92",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "1d538daf284c5bf70416df6774582949b65bf4777bb0dacd276cb11939f36da1",
+        "reference.npz": "3c3395bc241509e518c1d76ecc549e4798d2777f926b53d3fdf50baba57ad4bb",
+        "m548_prediction.npz": "b4f7355e9d5f4625646e7801b995b89da1acb4e5b2dd9fbaa1b11303f8e69940",
+        "farsite_prediction.npz": "67a77a511bdf90cca0e125e59f7268b66e94a3a149ae00d6d1223a97684f67b9"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 18099715532804066381,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "34c54e92418e3f7f2ff9",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-06T09:02:00+00:00",
+      "endpoint": "2024-08-07T05:06:00+00:00",
+      "duration_minutes": 1204,
+      "hourly_step_count": 21,
+      "status": "complete",
+      "m548_inference_seconds": 755.6340235839998,
+      "farsite_native_seconds": 1.925,
+      "complete_elapsed_seconds": 759.1125532500009,
+      "failures": [],
+      "manifest_sha256": "071c2b3039e5658606b6851ab766b84c97a4e0641f986cfd76a4150b52f717ed",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "1399c18c4455a87678b1dc8bc9d0a5edb3c4a5eb33299b2e49a4f21929f67683",
+        "reference.npz": "420308ba946c7a6d52b010027660b260d6f18ab716521484492d92d45ea68cd1",
+        "m548_prediction.npz": "baae678b84af6e60d453b5090661b3531f1a0ef96b3bbd19f06af1550d8d5dfc",
+        "farsite_prediction.npz": "8e7c25f493e16a648f58a95f56164db11e9db7041d38941833bb48c67cab2ad5"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 16978002128500946559,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "3aa03856925370a8bede",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-12T07:54:00+00:00",
+      "endpoint": "2024-08-13T04:07:00+00:00",
+      "duration_minutes": 1213,
+      "hourly_step_count": 21,
+      "status": "complete",
+      "m548_inference_seconds": 784.2498198339999,
+      "farsite_native_seconds": 11.053,
+      "complete_elapsed_seconds": 796.9340118750006,
+      "failures": [],
+      "manifest_sha256": "df0ca62d562b13d3ceee980241e6c59e9eb8992302318928d648d0fe8b83d2ed",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "5b6c73aa79b1b5d19db8026d2a9992c9abeca69f5f0959d31e6bfcc13600658c",
+        "reference.npz": "45cf3ce561af4826556d495023436949f30de77ff37dfe41d0d776e13c0b2439",
+        "m548_prediction.npz": "5eb872789133e8e6c525de1751f7313b2bdc15decea93ba6effc9dab4dcbdb03",
+        "farsite_prediction.npz": "2b368767019bdc341d8b78d30013f7632d12cddb4f84d2862d2db2a03b8a4823"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 11344164498482708048,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "3b29c5c6f9a1ed8540ff",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-15T05:08:00+00:00",
+      "endpoint": "2024-08-16T06:01:00+00:00",
+      "duration_minutes": 1493,
+      "hourly_step_count": 25,
+      "status": "complete",
+      "m548_inference_seconds": 961.0486070410007,
+      "farsite_native_seconds": 11.473,
+      "complete_elapsed_seconds": 974.2218679590005,
+      "failures": [],
+      "manifest_sha256": "70f4fcb37c2ba123ffb6d13b06f4b643e57c16acedcaee5771790763bc8054c9",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "8e9057d7a8b664205f2b42b55cc7664bdc08466341cea5d84930cb8057b44027",
+        "reference.npz": "6c53ff2015f3f1d923deeef2f79e27a326ac21329527943912a13a3a01973316",
+        "m548_prediction.npz": "03a6700b6de4fd48cfc3606ab8306ffd7dc7b2c9dd53b8ee6f30c9f713b1178f",
+        "farsite_prediction.npz": "0b4ab769bafc5d4b4f6f54721c8545334d4d334db69180f2d76ebc975122d897"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 12756587171524435329,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "449a48f2633a318864d3",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-14T03:45:00+00:00",
+      "endpoint": "2024-08-15T05:08:00+00:00",
+      "duration_minutes": 1523,
+      "hourly_step_count": 26,
+      "status": "complete",
+      "m548_inference_seconds": 999.111079667,
+      "farsite_native_seconds": 10.731,
+      "complete_elapsed_seconds": 1011.5048727920002,
+      "failures": [],
+      "manifest_sha256": "80d57d34f5298f7856b20c9348ee9049dc49b46c597e6d98fc7d9cec23bbc28f",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "32803e65605d7ad3dac1d4ee0b57d22f3a57afb116e3a4d7c0bbe8221de6ce9e",
+        "reference.npz": "695c220587137d876bd5af9ec2b9bae0323fa76e8bb50207e46942f21709308e",
+        "m548_prediction.npz": "df6315964d9bba13dd0fd23ccf95e9997d6996e065f422042a295106b1ed08fe",
+        "farsite_prediction.npz": "0c59b4259096848c9f8ce5f09709df2b715db159f2ad5aed452ac845bb8b4874"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 1200280402110259713,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "44af4666eb3332ad7a52",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-27T06:24:00+00:00",
+      "endpoint": "2024-08-28T03:49:00+00:00",
+      "duration_minutes": 1285,
+      "hourly_step_count": 22,
+      "status": "complete",
+      "m548_inference_seconds": 813.9161902910055,
+      "farsite_native_seconds": 1352.252,
+      "complete_elapsed_seconds": 2169.253627584003,
+      "failures": [],
+      "manifest_sha256": "dc22f2f3ad8b5046e0c854fd22d2c384a689b709acaff25850fcd54ac59e97fd",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "ef31f3e06ce7b8519a94a8260035091052b73eb62c4926c7093633b813dc9b17",
+        "reference.npz": "81adaa83e3fef67c57b4a6ebb5b40dd53cc9b42e064e91d3103f969ab7fd1080",
+        "m548_prediction.npz": "2bc59e6ddf483face5df394fceee29e293182a62d6bbe1a4eeb0cf0f71dee85c",
+        "farsite_prediction.npz": "c08d148702993dda1649327e24a7733c2b8eec9eaf5d9304af0bd84bde838ee0"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 3138444948575362553,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "4605f7ba7cc70dddaf30",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-31T07:33:00+00:00",
+      "endpoint": "2024-09-01T02:46:00+00:00",
+      "duration_minutes": 1153,
+      "hourly_step_count": 20,
+      "status": "running",
+      "m548_inference_seconds": 716.8820615000004,
+      "farsite_native_seconds": null,
+      "complete_elapsed_seconds": null,
+      "failures": []
+    },
+    {
+      "case_id": "57d8b018cd0d597de6cd",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-18T02:38:00+00:00",
+      "endpoint": "2024-08-19T06:23:00+00:00",
+      "duration_minutes": 1665,
+      "hourly_step_count": 28,
+      "status": "complete",
+      "m548_inference_seconds": 1105.3844712500031,
+      "farsite_native_seconds": 50.368,
+      "complete_elapsed_seconds": 1157.5539420829991,
+      "failures": [],
+      "manifest_sha256": "4baccb8393e9a9b3779c08d868ebb9b814457b56b6dfc9d1bcf2727d5e25b0b0",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "2b2d07d616350578a6b528b99a57fdece26b919162cd7b6e0dce77df530e8fc5",
+        "reference.npz": "432074af65cc83ccc7874849ccc1256a1d21eb41859fd2f0530588620c3412c9",
+        "m548_prediction.npz": "6dd0e5f3976c2b95dfaebc08070207bc64ab10a0c85756101829c8f331953c9b",
+        "farsite_prediction.npz": "a63636748e41d1ae5ca7ea369b21e54dbeb144b78a24e2049419052a94fcb655"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 20673575928446218,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "78856e52d655e59465be",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-22T19:00:00+00:00",
+      "endpoint": "2024-08-23T07:46:00+00:00",
+      "duration_minutes": 766,
+      "hourly_step_count": 13,
+      "status": "complete",
+      "m548_inference_seconds": 495.9763969159976,
+      "farsite_native_seconds": 95.251,
+      "complete_elapsed_seconds": 593.5071842499965,
+      "failures": [],
+      "manifest_sha256": "0c71bb26fe7eeac718f34b873ba6a2d5ea9161d11fd62aaedd7bb68fe4155254",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "4bdd5362f5f729eeaa7e51ae0af58412891c695ac38e4f7e81fdf3b2add7bc6e",
+        "reference.npz": "3765ef4a735b15948bc263e97e9cea6ae09b459c442bb34c79f71c49d6e11cad",
+        "m548_prediction.npz": "e7ba2db40c2c8ff52a41f5f553fe275c173a6ef501c040afe29c3be346bd6aa6",
+        "farsite_prediction.npz": "412137b0f13bcc667383afae836d21e03010f98dad30d26f8c15bc726a2b3724"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 17547151416596253007,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "78b41a5720b54b13ce78",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-23T07:46:00+00:00",
+      "endpoint": "2024-08-24T03:00:00+00:00",
+      "duration_minutes": 1154,
+      "hourly_step_count": 20,
+      "status": "complete",
+      "m548_inference_seconds": 778.523434458999,
+      "farsite_native_seconds": 410.593,
+      "complete_elapsed_seconds": 1191.719028874999,
+      "failures": [],
+      "manifest_sha256": "5662d1fa23ff1f52d52b54a1277d8b1ad7a2494b43b6db37b0fee422c837f6ed",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "5c872787dc52443bc0097cbe462e73e5227f4adddc28d81e0fc64a26ea5532be",
+        "reference.npz": "8ebafd766f7ff8e0b96ef2e4068e4ca1319fb004eb792b7a961c15bcfd02d32b",
+        "m548_prediction.npz": "1a9456f1d5666bf90ab8a4fb428a94b18721407a2dce2ce6690daaa1d3f1d10d",
+        "farsite_prediction.npz": "57bd1aa470bf17ac74c24970fc99d11522e1c3040bd630ad589bf2afa216c1cb"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 10687727173497171118,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "7e3f2e84309e8b8d3b52",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-09T03:20:00+00:00",
+      "endpoint": "2024-08-10T08:38:00+00:00",
+      "duration_minutes": 1758,
+      "hourly_step_count": 30,
+      "status": "complete",
+      "m548_inference_seconds": 1088.577853709001,
+      "farsite_native_seconds": 16.679,
+      "complete_elapsed_seconds": 1106.8529655830025,
+      "failures": [],
+      "manifest_sha256": "fb4ac7673c22385e2b9919950a20768388927f805876938a144f83c0fc9a764e",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "7dbe03f8193f950bd5f847b0a494d0b548cdf41790e892b8e68b78b81cea2241",
+        "reference.npz": "9e9867b0b4ff33cc248965b97297a891087bbf96393f324bcee12144e537786f",
+        "m548_prediction.npz": "90e0bc7a7c7306b5d78e3e09c43b7c93500cd0e43c0fac9a704cc3c48a12d260",
+        "farsite_prediction.npz": "a359a15923f82c40d741170fef4d29e327e8af0606ebbaf29512e0f9e9a232fc"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 10722120609919843757,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "824bf24991abc7444208",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-26T05:58:00+00:00",
+      "endpoint": "2024-08-27T06:24:00+00:00",
+      "duration_minutes": 1466,
+      "hourly_step_count": 25,
+      "status": "complete",
+      "m548_inference_seconds": 934.3537859999997,
+      "farsite_native_seconds": 1304.006,
+      "complete_elapsed_seconds": 2241.3118468749963,
+      "failures": [],
+      "manifest_sha256": "5c5e91583aaaee6735a096e7d1beac999fff607eb121ca7e0d89285fbdba216a",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "6e01d0bfed1b387d7ba5a74c8385615bf18fe050b0c627c6791d0f40d54c1be8",
+        "reference.npz": "de10bdb8cee07fc2820ff1de6faf284bc4dde7aefc275fa16c834df32efaf09a",
+        "m548_prediction.npz": "33364a6fb76b9b7eb8b5a21c64df48ba59f24e7e54f3ee1db03ad8ba929e19f7",
+        "farsite_prediction.npz": "8e6ccfdd2077ccce55cdb4e6bfb2a467548b0355a6aee48e5ad4e50b3ca2d113"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 6772569062908039285,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "859cddc0f28778a02134",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-21T07:18:00+00:00",
+      "endpoint": "2024-08-22T19:00:00+00:00",
+      "duration_minutes": 2142,
+      "hourly_step_count": 36,
+      "status": "complete",
+      "m548_inference_seconds": 1411.2307850419966,
+      "farsite_native_seconds": 310.562,
+      "complete_elapsed_seconds": 1724.1261855409975,
+      "failures": [],
+      "manifest_sha256": "ea622eb3667c680c3177cfe34292d8fa98b168600fe1493592f0a5573e5b6c9f",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "585e2cdb86f2325d5cf3689efb2c90d445a6cbe1a22938d1ddac8cb342e2f16b",
+        "reference.npz": "511c53d10a91cda4d360ed5361843ee1d5ed2cd6d92bfa426951559c08b31bdf",
+        "m548_prediction.npz": "e522e2e281956feda8f822b25c37a3e0e123843ba81adb1595f8b462ff28d5ed",
+        "farsite_prediction.npz": "d471a49a14f6c93033ebc22ee3dcf984695c43f8270d509ad620f5470e75f946"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 2550711461644651879,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "87271c5c9700c4febae0",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-20T06:53:00+00:00",
+      "endpoint": "2024-08-21T07:18:00+00:00",
+      "duration_minutes": 1465,
+      "hourly_step_count": 25,
+      "status": "complete",
+      "m548_inference_seconds": 978.622874583998,
+      "farsite_native_seconds": 118.974,
+      "complete_elapsed_seconds": 1099.7859218750018,
+      "failures": [],
+      "manifest_sha256": "1dc36e872900d110b8ce0595c97aa045f48dd415251db364170e91c131c5b36c",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "e43c13a5090dfc3d0514fce84c3cd80a5e9b350b2a00ab18bd5ddfa77b0f2797",
+        "reference.npz": "08088bfcb79d7250aaed97ebd537d10f108a2d7af847a40dc3add24d21d7a364",
+        "m548_prediction.npz": "5c5e68b711c254ffaaa22a514f49178759bba7c38caacec476851a8aebedc4da",
+        "farsite_prediction.npz": "8a904a4398c5c92304642b84083c808b494d2b00a7e7023c0ceaf68eb37a0bc6"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 923984474951225055,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "8e1de41c711b0e7063c5",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-07T05:06:00+00:00",
+      "endpoint": "2024-08-08T08:02:00+00:00",
+      "duration_minutes": 1616,
+      "hourly_step_count": 27,
+      "status": "complete",
+      "m548_inference_seconds": 969.6777923329973,
+      "farsite_native_seconds": 5.203,
+      "complete_elapsed_seconds": 976.4627985000006,
+      "failures": [],
+      "manifest_sha256": "c1dfb0a03dbc1e4222f6c30c1ff443b860cfd99fc61377407a6fb5ef8e80be65",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "ccb757bfe76aaeca19262e0fdd822e54a2a9e6c5bfc6f448e802044c8c385515",
+        "reference.npz": "95e90ae9b07ae16e1a1d7d6f5ed28e4a390126ad856d1695d44005824bf3c6e3",
+        "m548_prediction.npz": "5f395a2de6f0c22eee8b9bc65a4d81bda4020cb5501a86d00e754f8f2b660c91",
+        "farsite_prediction.npz": "b1afb507c0a472d0324d442f2a64b57cf29218c9607917ac267b0483b53c24b5"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 3564376854187958874,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "930b17cd88460258bd11",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-02T03:48:00+00:00",
+      "endpoint": "2024-08-05T06:37:00+00:00",
+      "duration_minutes": 4489,
+      "hourly_step_count": 75,
+      "status": "complete",
+      "m548_inference_seconds": 3051.978202207998,
+      "farsite_native_seconds": 13.746,
+      "complete_elapsed_seconds": 3067.791666500001,
+      "failures": [],
+      "manifest_sha256": "066317b0fdac59f9c584f335093e927766b414f6c152aceb7551819782e1c61f",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "77a7503642728682a6c4c9ebecd930fd65dbf05a37126bc23e6c74202100df42",
+        "reference.npz": "b10f224c8b644140deae00dc250b041faff579c0a28054f14550565979485e03",
+        "m548_prediction.npz": "f34975189d28d951309d20c64319b9ec6614fe1b81e501c1d971ad2dd3ae74ca",
+        "farsite_prediction.npz": "6f3e3119dd8acc5ead5b15ccfb438d48b311617a2cb6ee51fd8b4a8cc0c78ffb"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 2645890877298381296,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "947806c9f73fd844032f",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-13T04:07:00+00:00",
+      "endpoint": "2024-08-14T03:45:00+00:00",
+      "duration_minutes": 1418,
+      "hourly_step_count": 24,
+      "status": "complete",
+      "m548_inference_seconds": 913.4991617919986,
+      "farsite_native_seconds": 10.775,
+      "complete_elapsed_seconds": 925.9965257920012,
+      "failures": [],
+      "manifest_sha256": "626464e9c9e91601cca34eedb292e2a5ef78df2df01f7b3361f2d6437c552b5e",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "f799b46c5cc814da221e5417ac331e87b6a3f08fa7624b824d95626e29c0798a",
+        "reference.npz": "784ccc106557ead44421e061d26699e5672170711a32e20f8579a0e0669739a9",
+        "m548_prediction.npz": "899bb5fb64c0d43b81b7752b0f4325be58a6e8c13e8b15cf571e1c75e5a78d88",
+        "farsite_prediction.npz": "ca39a559c6e0bc7f68ec2d8197abe95c85a2adf1845b2e68cdee58f6a38f9002"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 7330281439294003450,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "a1027ae206cdf1926d42",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-30T03:34:00+00:00",
+      "endpoint": "2024-08-31T07:33:00+00:00",
+      "duration_minutes": 1679,
+      "hourly_step_count": 28,
+      "status": "complete",
+      "m548_inference_seconds": 999.4589437920004,
+      "farsite_native_seconds": 1326.081,
+      "complete_elapsed_seconds": 2329.3397970829974,
+      "failures": [],
+      "manifest_sha256": "3474d10905da31e74de42aced5b61f296ad8f0451dde8ebcf84ff9bc3b29e247",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "b15a76aff0e61cf4849de00b406ea9e05d645ac0fdbfdc643ee96a4f7c4113a6",
+        "reference.npz": "8063310824f911d3db6b840230c396bf62a1a479c65bf815c7e9df2e02f3db6c",
+        "m548_prediction.npz": "0aed2a06cf868749db26bd6aae3d1be69a7fa4156c196d8bef15876390d00ea1",
+        "farsite_prediction.npz": "01a21757a6e4c6669f8b5621aefd1533d5cd887f8f5a0e3cc6e5424850a24f43"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 8240958888201230454,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "a803a2e46c69a0147afc",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-24T03:00:00+00:00",
+      "endpoint": "2024-08-25T05:26:00+00:00",
+      "duration_minutes": 1586,
+      "hourly_step_count": 27,
+      "status": "failed",
+      "m548_inference_seconds": 1027.4019746249978,
+      "farsite_native_seconds": null,
+      "complete_elapsed_seconds": null,
+      "failures": [
+        {
+          "error": "TimeoutExpired: Command '['/Users/movinggk/Documents/영재멘토/wildfire/tmp/farsite_observed_source/src/TestFARSITE', 'command.txt']' timed out after 1799.9999294579975 seconds"
+        }
+      ]
+    },
+    {
+      "case_id": "b0196655a9648847dcb4",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-19T06:23:00+00:00",
+      "endpoint": "2024-08-20T06:53:00+00:00",
+      "duration_minutes": 1470,
+      "hourly_step_count": 25,
+      "status": "complete",
+      "m548_inference_seconds": 980.841655958,
+      "farsite_native_seconds": 53.861,
+      "complete_elapsed_seconds": 1036.72380625,
+      "failures": [],
+      "manifest_sha256": "8e295659868549c0ea1b71111659476147a7185c86c75ad177cad3d686f61eef",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "89e59341fcb126a5635039cc8f117ebe37357714e44bf5934f45c65524c6efde",
+        "reference.npz": "6c08e61380def18807fee377b2e044e93f36f8a93264a651a572c98d7e6ae921",
+        "m548_prediction.npz": "2bd74e70190594c0eeeb403646f745f4ba4775f3cbd3b92cb277125f47d2f59c",
+        "farsite_prediction.npz": "9f51aca462017dbe4ba7d0750a4a4a72ec1355c53a8eb9d248ec0f5fd7846471"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 5963364678654912958,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "b6deea55d9b9d44878bb",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-05T06:37:00+00:00",
+      "endpoint": "2024-08-06T09:02:00+00:00",
+      "duration_minutes": 1585,
+      "hourly_step_count": 27,
+      "status": "complete",
+      "m548_inference_seconds": 973.0431210000024,
+      "farsite_native_seconds": 1.908,
+      "complete_elapsed_seconds": 976.5327472909994,
+      "failures": [],
+      "manifest_sha256": "956c2683fd0b11a439320fe281633fe51c952ac9aeebe87055c09af3f1f068c7",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "9aa6f21a9214592a17ee9ad7cc969e4a39c5ec3d70f26b2ab627ceedd6d9e801",
+        "reference.npz": "232894dd72127f563f69221bf6c66fbebfdf1e63a36666295ccce0a2144c7276",
+        "m548_prediction.npz": "364d4a632529e91cceda750535798895a35e82f71cf67a901bc2898dfd5547a4",
+        "farsite_prediction.npz": "b522b3b11f43b360f63f81772a2058350ea79b41aebda0d5d3ebd39300c7863c"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 18042924382654862924,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "b821e4b72741fc09feab",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-10T08:38:00+00:00",
+      "endpoint": "2024-08-11T08:16:00+00:00",
+      "duration_minutes": 1418,
+      "hourly_step_count": 24,
+      "status": "complete",
+      "m548_inference_seconds": 858.3700401249989,
+      "farsite_native_seconds": 12.962,
+      "complete_elapsed_seconds": 872.9162844999992,
+      "failures": [],
+      "manifest_sha256": "53df3096b931086335f5acaa58ea6c2c963c6c0608c8b28ce3a38cd16e9a59bd",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "c3d5d151769245e9069925aa641c36220ff7eff7d3f194490e96942c06b40e7f",
+        "reference.npz": "4d3d9b7e564a215b31a97df51f759fbaac52c7b08147f272fa1d10f2b3ec75b6",
+        "m548_prediction.npz": "e256a60d1452835a515db0aa2f5de9eaa6c8637752f766df2375bc9544f61c56",
+        "farsite_prediction.npz": "a1349c059fe40bf028bb515b1805e554a69ec80ce6c02c5d62e7ee41a5915acb"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 4770352840889540903,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "c40eec16c5642818b1a0",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-11T08:16:00+00:00",
+      "endpoint": "2024-08-12T07:54:00+00:00",
+      "duration_minutes": 1418,
+      "hourly_step_count": 24,
+      "status": "complete",
+      "m548_inference_seconds": 864.9709664170005,
+      "farsite_native_seconds": 11.928,
+      "complete_elapsed_seconds": 878.5197258749977,
+      "failures": [],
+      "manifest_sha256": "28cade49284e569da133fb4e6ab0fbdf473fe6e5476919b3830bb614783e4f50",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "24c5756399bf81362d2c89a405740de31e290e6811aa5de67179958ae715e192",
+        "reference.npz": "347b8309d771e80d56abefc6d821c7a87deb70de5a8af85f50c3b1184e6870c4",
+        "m548_prediction.npz": "98e7fd47d5f71cc3e3b8509e6c8195e251560c0bd9b739ddc19ada4be620d91a",
+        "farsite_prediction.npz": "47e340bbb5264fe0102014f724901ed59c9a755b6375b3d3bf36a9cf772fa100"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 6261575296494277555,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "c64c863ed5fed407a9e6",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-28T03:49:00+00:00",
+      "endpoint": "2024-08-29T03:49:00+00:00",
+      "duration_minutes": 1440,
+      "hourly_step_count": 24,
+      "status": "failed",
+      "m548_inference_seconds": 893.1912047500009,
+      "farsite_native_seconds": null,
+      "complete_elapsed_seconds": null,
+      "failures": [
+        {
+          "error": "TimeoutExpired: Command '['/Users/movinggk/Documents/영재멘토/wildfire/tmp/farsite_observed_source/src/TestFARSITE', 'command.txt']' timed out after 1799.999950624995 seconds"
+        }
+      ]
+    },
+    {
+      "case_id": "c6865a7bf5dd371255ba",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-29T03:49:00+00:00",
+      "endpoint": "2024-08-30T03:34:00+00:00",
+      "duration_minutes": 1425,
+      "hourly_step_count": 24,
+      "status": "complete",
+      "m548_inference_seconds": 869.7453528339975,
+      "farsite_native_seconds": 1301.478,
+      "complete_elapsed_seconds": 2174.7337854159996,
+      "failures": [],
+      "manifest_sha256": "6f7e668064a19a0c640f040e9f3cc60a29a01630ec2f45a822f8b29be2ce58c8",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "8b899211a8a81f71b2fb6b242c5329ff15fb2b6a0d4fa2cdd3744d1096580c81",
+        "reference.npz": "904aeab6f15269136c80c6c080e6ab4bd60fd5e4e9ca3121f93ad44dbe7d4c0d",
+        "m548_prediction.npz": "de0e8372c1f1c20bf0ff3b4f4b82f6d846d029f431ba1e8a863bb0a31ff41c56",
+        "farsite_prediction.npz": "1fec9169e32ad5f18ba6d99904d12690a561b9067b174930f53eb072d07977b3"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 7865276464103975041,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "d9f60a4e7b4d586f86e5",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-08T08:02:00+00:00",
+      "endpoint": "2024-08-09T03:20:00+00:00",
+      "duration_minutes": 1158,
+      "hourly_step_count": 20,
+      "status": "complete",
+      "m548_inference_seconds": 727.7655327499997,
+      "farsite_native_seconds": 7.708,
+      "complete_elapsed_seconds": 737.1067368339973,
+      "failures": [],
+      "manifest_sha256": "bdd6d558cc41ae836c86bcb2e47a1afa51693069ede7f2f1b38fcc876a5495c2",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "bac4585eeff32eb7b257886af07248cb1b428850c479eeff7f462b3eb87ecd85",
+        "reference.npz": "42b2e1afac3d15fe29d84cbc280593ad4c1a889b8334d8744e2adf95deb0a613",
+        "m548_prediction.npz": "a2cbb9d87f4fe1c57c9758fb80dad6749712cb0c43bb9ef8c422356aafa16aa3",
+        "farsite_prediction.npz": "d8c4cfbbc30a0d23220460940acbdd64ce21a4c15a7a9843ae2ab5f58490740f"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 9697174138491457355,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "db1dfba8fbad354ea501",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-16T06:01:00+00:00",
+      "endpoint": "2024-08-17T02:53:00+00:00",
+      "duration_minutes": 1252,
+      "hourly_step_count": 21,
+      "status": "complete",
+      "m548_inference_seconds": 814.8994406670026,
+      "farsite_native_seconds": 8.55,
+      "complete_elapsed_seconds": 825.132820750001,
+      "failures": [],
+      "manifest_sha256": "621971cae2b4736b2c1bc16fe8db08f04279fc10f5f2873a13b67c86b681a8d0",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "85f78625d46b055e4660c6cc6aa940f90346dfed6c8261e96972d3c0a9173fe4",
+        "reference.npz": "755908653b6657ba60a87753ab3e330b6bba931d46395ea85cbca034362b0438",
+        "m548_prediction.npz": "b81d70f7dbea6f82dda82b873718c03f3a9fbd01fa2c19060ae6b01b36ca10b9",
+        "farsite_prediction.npz": "527cc5633b10f5d4602aa6fe38a0eab8c590a6ec640c80b3fe37d9f3635b3778"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 9967598973525585429,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    },
+    {
+      "case_id": "dceb6cd0a1e65b1431b4",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "cutoff": "2024-08-17T02:53:00+00:00",
+      "endpoint": "2024-08-18T02:38:00+00:00",
+      "duration_minutes": 1425,
+      "hourly_step_count": 24,
+      "status": "complete",
+      "m548_inference_seconds": 951.560820540999,
+      "farsite_native_seconds": 18.748,
+      "complete_elapsed_seconds": 972.0840350409999,
+      "failures": [],
+      "manifest_sha256": "8edd91e1606fe2a0a53d8004d6999615b5d94e6714286f387fe6221ef7320568",
+      "artifact_checksums_pass": true,
+      "artifact_sha256": {
+        "report.json": "1fffc8eec9538d094c0b098ae2eb2dec4150dc9d867abec50b6df2ca9de92679",
+        "reference.npz": "8ef87b17a05ac03782f82e7468de065456919408af9e0478ea99d5187740f6b8",
+        "m548_prediction.npz": "e564ed8046b627873a72a42105793995b3675057ee68bdd7d4f8a2dda3a71ac3",
+        "farsite_prediction.npz": "fb3ad49756b5960250e6699821684ea81448323f0c82a27a240495dae1545338"
+      },
+      "m548_mc_check": {
+        "valid_cells": 11655,
+        "method": "recursive",
+        "n_samples": 1024,
+        "trajectory_batch_size": 32,
+        "seed": 7711884483773678109,
+        "max_count_lattice_error": 0.0,
+        "max_standard_error_difference": 0.0,
+        "finite_confidence_bounds": true
+      },
+      "model_sha256": {
+        "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+        "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+      }
+    }
+  ],
+  "shortest_test_event_candidates": [
+    {
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "rectangle_height": 111,
+      "rectangle_width": 105,
+      "rectangle_cells": 11655,
+      "available_intervals": 62,
+      "total_duration_hours": 2016.8833333333334,
+      "all_grid_cell_hours": 23506775.25,
+      "all_grid_cell_steps": 23834475,
+      "shortest_case_id": "78856e52d655e59465be",
+      "shortest_cutoff": "2024-08-22T19:00:00+00:00",
+      "shortest_endpoint": "2024-08-23T07:46:00+00:00",
+      "shortest_duration_minutes": 766,
+      "shortest_duration_hours": 12.766666666666667,
+      "shortest_hourly_step_count": 13,
+      "shortest_grid_cell_hours": 148795.5,
+      "shortest_grid_cell_steps": 151515,
+      "rough_m548_seconds_at_1024_samples": 485.8639687199998,
+      "shortest_already_complete": true
+    },
+    {
+      "event": "ID-BOF-000904_Goat",
+      "rectangle_height": 68,
+      "rectangle_width": 73,
+      "rectangle_cells": 4964,
+      "available_intervals": 51,
+      "total_duration_hours": 1727.9666666666667,
+      "all_grid_cell_hours": 8577626.533333333,
+      "all_grid_cell_steps": 8701892,
+      "shortest_case_id": "4d5f55145b1116ba80be",
+      "shortest_cutoff": "2024-10-06T08:39:00+00:00",
+      "shortest_endpoint": "2024-10-07T02:57:00+00:00",
+      "shortest_duration_minutes": 1098,
+      "shortest_duration_hours": 18.3,
+      "shortest_hourly_step_count": 19,
+      "shortest_grid_cell_hours": 90841.2,
+      "shortest_grid_cell_steps": 94316,
+      "rough_m548_seconds_at_1024_samples": 302.44362653067685,
+      "shortest_already_complete": false
+    },
+    {
+      "event": "ID-BOF-001080_Lava",
+      "rectangle_height": 85,
+      "rectangle_width": 77,
+      "rectangle_cells": 6545,
+      "available_intervals": 57,
+      "total_duration_hours": 1967.45,
+      "all_grid_cell_hours": 12876960.25,
+      "all_grid_cell_steps": 13063820,
+      "shortest_case_id": "8c64d4965ad3f564dc5d",
+      "shortest_cutoff": "2024-09-28T06:43:00+00:00",
+      "shortest_endpoint": "2024-09-29T02:33:00+00:00",
+      "shortest_duration_minutes": 1190,
+      "shortest_duration_hours": 19.833333333333332,
+      "shortest_hourly_step_count": 20,
+      "shortest_grid_cell_hours": 129809.16666666666,
+      "shortest_grid_cell_steps": 130900,
+      "rough_m548_seconds_at_1024_samples": 419.75773689369356,
+      "shortest_already_complete": false
+    },
+    {
+      "event": "ID-SCF-240202_RedRock",
+      "rectangle_height": 62,
+      "rectangle_width": 126,
+      "rectangle_cells": 7812,
+      "available_intervals": 46,
+      "total_duration_hours": 1342.35,
+      "all_grid_cell_hours": 10486438.2,
+      "all_grid_cell_steps": 10632132,
+      "shortest_case_id": "dd1ab9798a2e819a497a",
+      "shortest_cutoff": "2024-10-10T08:38:00+00:00",
+      "shortest_endpoint": "2024-10-11T01:38:00+00:00",
+      "shortest_duration_minutes": 1020,
+      "shortest_duration_hours": 17.0,
+      "shortest_hourly_step_count": 17,
+      "shortest_grid_cell_hours": 132804.0,
+      "shortest_grid_cell_steps": 132804,
+      "rough_m548_seconds_at_1024_samples": 425.8633039757836,
+      "shortest_already_complete": false
+    },
+    {
+      "event": "WA-SES-000173_Pioneer",
+      "rectangle_height": 96,
+      "rectangle_width": 55,
+      "rectangle_cells": 5280,
+      "available_intervals": 62,
+      "total_duration_hours": 1751.75,
+      "all_grid_cell_hours": 9249240.0,
+      "all_grid_cell_steps": 9372000,
+      "shortest_case_id": "91fef2c9bf99975e55e8",
+      "shortest_cutoff": "2024-08-05T18:57:00+00:00",
+      "shortest_endpoint": "2024-08-06T10:00:00+00:00",
+      "shortest_duration_minutes": 903,
+      "shortest_duration_hours": 15.05,
+      "shortest_hourly_step_count": 16,
+      "shortest_grid_cell_hours": 79464.0,
+      "shortest_grid_cell_steps": 84480,
+      "rough_m548_seconds_at_1024_samples": 270.90247221374506,
+      "shortest_already_complete": false
+    },
+    {
+      "event": "WY-BTF-002416_FishCreek",
+      "rectangle_height": 103,
+      "rectangle_width": 73,
+      "rectangle_cells": 7519,
+      "available_intervals": 46,
+      "total_duration_hours": 1581.9166666666667,
+      "all_grid_cell_hours": 11894431.416666668,
+      "all_grid_cell_steps": 12060476,
+      "shortest_case_id": "eaf9a95aff2af52433ee",
+      "shortest_cutoff": "2024-09-09T02:15:00+00:00",
+      "shortest_endpoint": "2024-09-09T06:38:00+00:00",
+      "shortest_duration_minutes": 263,
+      "shortest_duration_hours": 4.383333333333334,
+      "shortest_hourly_step_count": 5,
+      "shortest_grid_cell_hours": 32958.28333333333,
+      "shortest_grid_cell_steps": 37595,
+      "rough_m548_seconds_at_1024_samples": 120.55608952267691,
+      "shortest_already_complete": false
+    }
+  ],
+  "work_comparison": {
+    "n_samples": 1024,
+    "all_cases": 324,
+    "one_shortest_per_event_cases": 6,
+    "all_grid_cell_hours": 76591471.65,
+    "shortest_per_event_grid_cell_hours": 614672.15,
+    "all_grid_cell_steps": 77664795,
+    "shortest_per_event_grid_cell_steps": 631610,
+    "shortest_to_all_step_fraction": 0.008132513579672747,
+    "shortest_to_all_hour_fraction": 0.00802533411041985,
+    "stored_m548_median_seconds_per_grid_cell_step": 0.003206705400257399,
+    "rough_m548_all_seconds_at_1024_samples": 249048.11753638386,
+    "rough_m548_shortest_per_event_seconds_at_1024_samples": 2025.3871978565758,
+    "estimate_limitations": "Grid area and published durations only; excludes padding overhead, model/environment-dependent costs, FARSITE, preparation, plots, and hardware variance. No new simulations were run."
+  },
+  "selection_recommendation": {
+    "policy": "one shortest actual survey interval per eligible test event",
+    "sort_keys": [
+      "duration_minutes",
+      "cutoff_utc",
+      "endpoint_utc"
+    ],
+    "global_runtime_proxy": "rectangle_cells * ceil(duration_minutes/60)",
+    "outcome_or_success_used": false,
+    "meaning": "Runtime diagnostic subset. Different durations and survey sampling change the evaluation estimand; not a replacement for all-interval validation."
+  },
+  "stored_implementation_sha256": {
+    "observed_combined.py": "2c61e251c9a5741803fb4c84b16ad099c973a27fffe65bede43ddce44786c7a6",
+    "observed_inventory.py": "5f352dfcc02ac7389377af6d90c15fae2262398bfcaccd87565397a64ee7e16b",
+    "observed_catalog_data.py": "ab8613df1d68f04f26794212c45ce55737dfaa0df60189f44b0662cc83988da3",
+    "observed_evaluation.py": "18832d7da19516e608a13b54680b9c15565258117ffafacd4a963c7b06404e11",
+    "observed_data.py": "1476966182e6bf0016bbe4e48f44ad9381a3d3cb2ab618e888b5e1c2df6209ff",
+    "rollout.py": "c09a23dabee9fe22dcbc9be23974defba2594ecd5ec59325e16b65268ef8405d",
+    "api.py": "26efa71be6280f11cf3b68458bbcbb0f4509dd2c481a03b7e2517bda1baa9903",
+    "inference.py": "c1278e491a23633e693854417e21bd1376060b638f3c3bf9f81ecc147c17dce6",
+    "models.py": "52e1f29859f71dccf61b36a89df6b7863060fd25cc64fbc149500813f13e6722",
+    "prediction.py": "c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578",
+    "cumulative.py": "0334ecacbfed8d31397378172c325a0ac2385798023c6a3efadc34ab1db119a7",
+    "schema.py": "91d498f2c40e5f64138b0fe7a7845b2e4f522d086cdb9c4950ca9ed2c2043605",
+    "coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+    "cumulative_report.py": "a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81",
+    "cohort.py": "68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a",
+    "utils.py": "4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92",
+    "paths.py": "b26f7cc4621366582f253ff6962eeb371016931324d5787bcb1c99b486a5b4a5",
+    "progress.py": "df758b3bc6ce3477aa039dc39c6ce034f733f5a93f1924f15cc1e6c98254549b",
+    "data.py": "8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230",
+    "farsite_inputs.py": "259faf189bf0a94d11682d7845060f89dcc86c45e0c4bac21e698a4d00c564e6",
+    "farsite_evaluation.py": "85d80c050b44f7548ae7511cdccf258e5dd85856aea38fd9953c1e6090aaf048",
+    "farsite_report.py": "52c8879021278eeb4942ba6eb60bd87b6c824e09bd87c66ae619e86839ed0e06",
+    "farsite_build.py": "d1c9830de57a21688e0c8c64bc38bd4334eff53d9a533fe818b28264f617d783",
+    "farsite_observed_build.py": "187f210d990361864d52c4ae1d1a1a15452b63688969b4e2b50eb081da5328c4",
+    "metrics.py": "7e3277e50f31c18ae042aa649793791d77840efaf9c0d3b02b8207bd2d1f9a93",
+    "cumulative_evaluation.py": "071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01",
+    "observed_report_plots.py": "a306e3558db50d39bf79b180c711a6b9a7cd5f12cd64d7bc6d96e2fd65d2cc15",
+    "cumulative_report_plots.py": "effb7221f730195b77ebbf149bd37d5ca28c500cad9d957630e9cac5ee735b53"
+  },
+  "current_code_difference_at_audit": [],
+  "reuse_evidence": {
+    "all_25_complete_artifact_checksums_pass": true,
+    "all_25_recursive_1024_count_checks_pass": true,
+    "original_models_sha256": {
+      "M548": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+      "FARSITE": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+    },
+    "original_n_samples": 1024,
+    "original_seed": 0,
+    "original_trajectory_batch_size": 32,
+    "notes": [
+      "At the initial read-only inspection on 2026-10-13, all 28 implementation hashes exactly matched current files before runtime edits.",
+      "Reusing complete NPZ/report files is safe only after checksums, exact case/configuration, model and source hashes, original split/test membership, and an explicitly audited code compatibility gate all pass. Do not silently ignore changed implementation hashes.",
+      "No complete combined-case manifest exists for the failed or interrupted native cases. Their saved M548 results require separate validated stage provenance for reuse. Existing run files were not modified."
+    ],
+    "live_source_binding_checks": {
+      "covariate_file_count": 444,
+      "covariate_total_bytes": 286624059,
+      "missing_covariate_files": [],
+      "mismatched_covariate_files": [],
+      "current_checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+      "checkpoint_matches_original": true,
+      "prepared_array_hashes_pass": {
+        "train.npz": true,
+        "validation.npz": true,
+        "test.npz": true
+      },
+      "metadata_hash_pass": true,
+      "all6_observation_exports": {
+        "ID-BOF-000683_Wapiti_Wapiti": {
+          "geojson_sha256": "eb6cad5e325e6d51fd4988af5231ab285b1b01237d6cd291e8ff767084b6b18b",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        },
+        "ID-BOF-000904_Goat": {
+          "geojson_sha256": "06a6c39550ba12f8b59354e072c0b269c0a05ac05f38006e09dc7c704e2df0b7",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        },
+        "ID-BOF-001080_Lava": {
+          "geojson_sha256": "1079b54adbd27610e4c40e187da8f1c5659d7f77b2f393f884b176a48c57e0cb",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        },
+        "ID-SCF-240202_RedRock": {
+          "geojson_sha256": "0ced0117bed0ebc72636d1308c46bff580d589abc6018a149db3f48eb64ee987",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        },
+        "WA-SES-000173_Pioneer": {
+          "geojson_sha256": "0aa12efdbcb8acf66aa38b92f242633922abe304c724daee64fa1bc5a347859a",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        },
+        "WY-BTF-002416_FishCreek": {
+          "geojson_sha256": "4c2d1078f2fa4fa68f0756befd12e6212856f33e1ac981500743ee2c76681fa2",
+          "provenance_matches_geojson": true,
+          "archive_matches_pinned": true,
+          "incident_component_matches_event": true
+        }
+      },
+      "current_engine_sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3",
+      "engine_matches_original": true
+    }
+  }
+}

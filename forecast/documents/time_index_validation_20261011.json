@@ -1,0 +1,214 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-10T17:29:25.027767+00:00",
+  "reproduced_failure": {
+    "call": "sequence_result.compare(sequence, index=10, mode=\"both\")",
+    "prediction_shape": [
+      2,
+      1,
+      103,
+      73
+    ],
+    "cause": "Index10 requested in a prediction with only2 time steps; loaded source timeline indices and local prediction indices were confused."
+  },
+  "fixes": [
+    "select_time(sample,index=i) selects a loaded timeline position with T retained as1",
+    "timestamp selection remains supported",
+    "plot/compare invalid index diagnostic explains local prediction shape and source-time selection",
+    "notebook preserves requested loaded comparison index10",
+    "notebook explains dictionary field count versus feature time dimension",
+    "notebook demonstrates loaded plot index70 and standard local/batch indexing"
+  ],
+  "tests": {
+    "tests": 1734,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 64.092,
+    "log": "documents/time_index_tests_20261011.log",
+    "xml": "documents/time_index_tests_20261011.xml"
+  },
+  "notebook": {
+    "passed": true,
+    "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+    "source_sha256": "abb492d9e83cfb9c8d5b40daec87e3a2ebe5a130310498d1ba9f6a35e82f0115",
+    "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_decoupling/20261011/api_tutorial_time_index.executed.ipynb",
+    "executed_code_cells": 24,
+    "elapsed_seconds": 7.750536875013495,
+    "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-lhaf_bdb",
+    "data_loading": {
+      "sequence_length": null,
+      "source_channels": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class"
+      ],
+      "full_timeline_feature_shape": [
+        1639,
+        19,
+        103,
+        73
+      ],
+      "full_timeline_start_utc": "2024-08-21T00:00:00+00:00",
+      "full_timeline_end_utc": "2024-10-28T06:00:00+00:00",
+      "valid_hours": 1639
+    },
+    "selected_plot_time_index": 70,
+    "selected_plot_cutoff_utc": "2024-08-23T22:00:00+00:00",
+    "selected_comparison_time_index": 10,
+    "selected_comparison_cutoff_utc": "2024-08-21T10:00:00+00:00",
+    "preparation_run": false,
+    "training_run": false
+  },
+  "real_data": {
+    "passed": true,
+    "full_loaded_shape": [
+      1639,
+      19,
+      103,
+      73
+    ],
+    "multi_time_prediction_shape": [
+      72,
+      1,
+      103,
+      73
+    ],
+    "batch_shape": [
+      2,
+      1,
+      1,
+      103,
+      73
+    ],
+    "checks": [
+      "loaded index/timestamp correspondence",
+      "selected input/label/mask equality",
+      "single-time/multi-time prediction equivalence",
+      "plotted pixels and masks equal selected result",
+      "exact next-hour endpoint label alignment",
+      "missing final endpoint remains unknown",
+      "full prediction local index",
+      "batch index tuple"
+    ],
+    "indices": [
+      {
+        "loaded_index": 0,
+        "cutoff_utc": "2024-08-21T00:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1142,
+        "nonzero_probabilities": 0,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 5,
+        "cutoff_utc": "2024-08-21T05:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1144,
+        "nonzero_probabilities": 19,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 10,
+        "cutoff_utc": "2024-08-21T10:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1150,
+        "nonzero_probabilities": 52,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 48,
+        "cutoff_utc": "2024-08-23T00:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1246,
+        "nonzero_probabilities": 34,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 49,
+        "cutoff_utc": "2024-08-23T01:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1247,
+        "nonzero_probabilities": 33,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 70,
+        "cutoff_utc": "2024-08-23T22:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1288,
+        "nonzero_probabilities": 21,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": 71,
+        "cutoff_utc": "2024-08-23T23:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 1289,
+        "nonzero_probabilities": 21,
+        "endpoint_reference_available": true
+      },
+      {
+        "loaded_index": -1,
+        "cutoff_utc": "2024-10-28T06:00:00+00:00",
+        "prediction_shape": [
+          1,
+          1,
+          103,
+          73
+        ],
+        "known_predictions": 2642,
+        "nonzero_probabilities": 0,
+        "endpoint_reference_available": false
+      }
+    ]
+  },
+  "source_sha256": {
+    "wildfire/data.py": "aa63a97264a4c2a1e6a7c30a0a750b80d79d9a7a40eb5f192b527e156a32b607",
+    "wildfire/prediction.py": "739e3f9e3ea56c6d9b3a1592bdfd41aaad845e2c8dc935006102cbf42404031d",
+    "api_tutorial.ipynb": "abb492d9e83cfb9c8d5b40daec87e3a2ebe5a130310498d1ba9f6a35e82f0115",
+    "tests/test_data_api.py": "6fdb5266cf63151b09cedddff2c03ad67eb5ef88bfe78f14f3e03b1167bc9084",
+    "tests/test_prediction.py": "55251d55d0ad046606ec4d4a1dc402acb14f18cb6abd450dfa8e1ef222dfb610",
+    "README.md": "e7e358a51864764a6c2755d03d89f2864fea4926b9aa5aec8532046321f646c4",
+    "documents/api.md": "bb8b9c6b4b53dcd9e20cdc69aa7f1f9d5d84775fe6fc321e79979c7119eed3bf"
+  },
+  "verification_scope": "API indexing, loaded fields, masks, exact next-hour outcomes, plotting, real CPU inference and notebook execution; no new forecast skill claim."
+}

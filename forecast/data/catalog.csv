@@ -1,0 +1,6 @@
+region_id,event_id,window_start_utc,window_end_exclusive_utc,grid_resolution_m,hour_intervals,snapshot_count,valid_reconstruction_cells,source_block_cv_MAE_hours
+yeongdeok_2025,KFS_01,2025-03-20T00:00:00Z,2025-04-01T00:00:00Z,375,288,289,2127,10.872876
+uiseong_andong_2025,KFS_01,2025-03-20T00:00:00Z,2025-04-01T00:00:00Z,375,288,289,3717,10.872876
+uljin_samcheok_2022,KFS_02,2022-03-01T00:00:00Z,2022-03-16T00:00:00Z,375,360,361,1670,10.435836
+miryang_2022,KFS_11,2022-05-29T00:00:00Z,2022-06-06T00:00:00Z,375,192,193,80,12.179084
+hongseong_2023,KFS_05,2023-04-01T00:00:00Z,2023-04-07T00:00:00Z,375,144,145,153,7.654731

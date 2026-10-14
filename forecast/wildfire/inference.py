@@ -9,6 +9,7 @@ from .models import (
     EnvironmentConditionedConvolution, NormalizedBurnModel, TrainedBurnModel,
     build_kernel_model,
     build_mixed_kernel_model, build_neural_mixed_kernel_model,
+    BayesianBurnModel,
 )
 from .schema import one_hot_groups
 
@@ -16,6 +17,7 @@ __all__ = [
     "NormalizedBurnModel", "TrainedBurnModel", "checkpoint_normalization",
     "load_single_trained_model", "load_mixed_trained_model",
     "load_neural_mixed_trained_model", "load_trained_model",
+    "load_bayesian_trained_model",
 ]
 
 
@@ -50,6 +52,13 @@ def load_single_trained_model(path: str | Path, device="cpu") -> TrainedBurnMode
     environmental context remains unavailable (NaN/false mask).
     """
     saved = torch.load(resolve_recorded_path(path), map_location="cpu", weights_only=True)
+    return single_model_from_checkpoint(saved, device=device)
+
+
+def single_model_from_checkpoint(saved, device="cpu") -> TrainedBurnModel:
+    """Reconstruct a single fitted kernel from an embedded checkpoint payload."""
+    if not isinstance(saved, dict) or not isinstance(saved.get("contract"), dict):
+        raise ValueError("A component checkpoint must contain its saved contract")
     contract = saved["contract"]
     if (contract["format_version"] != 1
             or contract["architecture"] not in ("EnvironmentConditionedConvolution", "LearnedNonnegativeKernel")
@@ -75,8 +84,49 @@ def load_single_trained_model(path: str | Path, device="cpu") -> TrainedBurnMode
         if set(configuration) != required:
             raise ValueError("Invalid learned kernel checkpoint configuration fields")
         model = build_kernel_model(contract["in_channels"], contract["kernel_size"], **configuration)
+    model = model.to(dtype=mean.dtype)
     model.load_state_dict(saved["model_state_dict"], strict=True)
     result = TrainedBurnModel(model, mean, std, contract, saved["best_epoch"])
+    return result.to(device=device, dtype=mean.dtype).eval()
+
+
+def bayesian_checkpoint_payload(predictor, original=None):
+    """Export resident component parameters and preprocessing, without source files."""
+    from copy import deepcopy
+
+    saved = deepcopy(original) if original is not None else {}
+    components = []
+    originals = saved.get("components", [{} for _ in predictor.components])
+    for component, payload in zip(predictor.components, originals, strict=True):
+        payload.update(
+            contract=deepcopy(component.contract), best_epoch=component.best_epoch,
+            model_state_dict={name: value.detach().cpu().clone()
+                              for name, value in component.model.state_dict().items()},
+            normalization_mean=component.mean[:, 0, 0].detach().cpu().clone(),
+            normalization_std=component.std[:, 0, 0].detach().cpu().clone(),
+        )
+        components.append(payload)
+    saved.update(contract=deepcopy(predictor.contract), components=components,
+                 log_posterior_weights=predictor.log_posterior_weights.detach().cpu().clone(),
+                 best_epoch=0)
+    return saved
+
+
+def load_bayesian_trained_model(path: str | Path, device="cpu") -> BayesianBurnModel:
+    """Load a self-contained average of independently fitted single kernels."""
+    saved = torch.load(resolve_recorded_path(path), map_location="cpu", weights_only=True)
+    contract = saved.get("contract") if isinstance(saved, dict) else None
+    if (not isinstance(contract, dict) or contract.get("format_version") != 1
+            or contract.get("architecture") != "BayesianModelAverage"
+            or contract.get("dt_hours") != 1.0 or contract.get("center_rate") != 0.0):
+        raise ValueError("Unsupported Bayesian model-average checkpoint contract")
+    payloads = saved.get("components")
+    if not isinstance(payloads, list) or len(payloads) < 2:
+        raise ValueError("A Bayesian checkpoint must embed at least two component checkpoints")
+    if not isinstance(saved.get("log_posterior_weights"), torch.Tensor):
+        raise ValueError("A Bayesian checkpoint must contain log posterior weights")
+    components = [single_model_from_checkpoint(payload) for payload in payloads]
+    result = BayesianBurnModel(components, saved["log_posterior_weights"], contract)
     return result.to(device).eval()
 
 
@@ -203,4 +253,6 @@ def load_trained_model(path: str | Path, device="cpu") -> TrainedBurnModel:
         return load_mixed_trained_model(path, device=device)
     if architecture == "NeuralMixedNonnegativeKernel":
         return load_neural_mixed_trained_model(path, device=device)
+    if architecture == "BayesianModelAverage":
+        return load_bayesian_trained_model(path, device=device)
     return load_single_trained_model(path, device=device)

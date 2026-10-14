@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-11",
+  "timezone": "Asia/Seoul",
+  "passed": true,
+  "public_api": {
+    "entry_points": [
+      "load_model",
+      "model.sample",
+      "model.load_data",
+      "model.predict",
+      "Prediction.plot",
+      "Prediction.compare",
+      "plot_matrix",
+      "plot_comparison"
+    ],
+    "predict_return": "Prediction",
+    "legacy_raw_tuple": "predict_coordinates",
+    "legacy_adapters_retained": [
+      "predict_sample",
+      "predict_details",
+      "predict_sample_details",
+      "predict_proba"
+    ],
+    "data_training_save_flame_heat_options_retained": true
+  },
+  "test_suite": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "1614",
+    "time": "66.378",
+    "timestamp": "2026-10-11T01:15:26.577669+09:00",
+    "hostname": "idonghaui-MacBookAir.local",
+    "log": "documents/api_redesign_tests_20261011.log",
+    "xml": "documents/api_redesign_tests_20261011.xml",
+    "warnings": 272,
+    "device": "cpu"
+  },
+  "notebook": {
+    "passed": true,
+    "record": "documents/api_redesign_notebook_20261011.json",
+    "optional_training_enabled": false
+  },
+  "real_data": {
+    "record": "demonstration/api_redesign/20261011_final/validation.json",
+    "passed": true,
+    "checkpoint_sha256": "9c2b913b5941305144a93ff952826f4d4267a35abf7ae154a0eee8627f1b4761",
+    "probability_equal_to_existing_details": true,
+    "save_reload_equal": true,
+    "npz_reopened_and_equal": true,
+    "exact_hour_endpoint_alignment": true,
+    "final_frame_missing_outcomes_invalid": true,
+    "heat_interface_preserved": true,
+    "final_artifacts_equal_to_visually_inspected_artifacts": true
+  },
+  "scientific_scope": "Functional execution on CPU. Dataset reference events are retrospective reconstructions. No operational forecast-skill, calibration, heat-accuracy, CUDA or MPS validation is claimed.",
+  "audit_repairs": [
+    "Pixel/time padding excludes input sources and output targets.",
+    "Masked affine/EPSG metadata is rejected before numeric copying.",
+    "Hourly outcome labels match exact forecast endpoint timestamps; unavailable labels remain NaN/invalid."
+  ],
+  "verification_notes": [
+    "An initial concurrent suite run loaded unfinished test instrumentation and crashed during reader-close teardown. The instrumentation was repaired to avoid retaining dataset objects. The finalized full suite passed.",
+    "New test expectations were corrected to use known prediction support and the final source-padding contract. No unresolved failures remain."
+  ],
+  "source_sha256": {
+    "wildfire/api.py": "159ad6f16cda527e4d013d1193310ab47d7be5162b4c8c7181b9cfb62bcec896",
+    "wildfire/prediction.py": "5058e55f104a75be4cf3bd50053cf5493b9f48212fe61a53256dc9e01f9d0aff",
+    "wildfire/plotting.py": "ea9b9f31b50ad01fb6fde7e908862869c8fefe36a0ca26b0d46a90af3e47e419",
+    "wildfire/__init__.py": "521e1d1f8854e6776eb511bccc7e135295de52440ae2949f1738862ea7f6952e",
+    "wildfire/examples.py": "c5808d28882bc98567b55b3ae024b384c2215d4bc2d097e414c9a7dd063769ec",
+    "tests/test_api.py": "f03974a5e55635141a488b702a8c13ca0b15487d93483347aecd5ef0a860838d",
+    "tests/test_prediction.py": "ef2312b41473112647661a0931159b0718ecc8a29dfb8958222af0c90c88a2d3",
+    "tests/test_plotting.py": "cbe54b4733ee984ab27bff519ac1dab851e5ee3e7239f702328267cab6d2b46e",
+    "README.md": "8f32b79ad34f19c2be325267b3a542590eeed42906124ad4ad53b77b243c826d",
+    "api_tutorial.ipynb": "256525baaddc1769817498ecd326eee186f183752516f468b9de4961d35f44ab",
+    "documents/api.md": "1c8f9d3876a8f0485165883d34de21751ee969a0af39dbd8b98b4007fb8826f9",
+    "demonstration/api_redesign/verify.py": "8f6db7799209ee0e0d473ea9ffab899ced77cc6f2de2a9bafee586b817ea9620"
+  }
+}

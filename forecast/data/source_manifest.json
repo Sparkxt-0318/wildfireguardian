@@ -1,0 +1,51 @@
+{
+  "searched_on_client_date_kst": "2026-10-07",
+  "recorded_at_utc": "2026-10-06T15:54:38.460164+00:00",
+  "zenodo_record_url": "https://zenodo.org/records/21788344",
+  "doi": "10.5281/zenodo.21788344",
+  "title": "Wildfire time-of-arrival dataset and method code: variance-weighted kriging of satellite active-fire detections, evaluated in the United States and applied to South Korea",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "all_archive_contents_retained": true,
+  "data_interpretation": "Retrospective 375 m arrival-time and uncertainty reconstruction; hourly masks derived locally, not hourly observations.",
+  "downloads": [
+    {
+      "path": "sources/zenodo_21788344/wildfire_toa_dataset_and_code.zip",
+      "url": "https://zenodo.org/api/records/21788344/files/wildfire_toa_dataset_and_code.zip/content",
+      "publisher_checksum": "md5:2d11e334ec0ad9c508d52861abc309a7",
+      "sha256": "612edf5f879d8fe874ae20e9d49d0be5de477e6f8c3101b434f1642d5b19ebad",
+      "bytes": 1522020
+    },
+    {
+      "path": "sources/zenodo_21788344/extracted/README.md",
+      "url": "https://zenodo.org/api/records/21788344/files/README.md/content",
+      "publisher_checksum": "md5:93b916e090b11108d3ff4c8de3c4b40a",
+      "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "bytes": 6938,
+      "original_download_path": "sources/zenodo_21788344/README.md",
+      "storage_note": "The separately downloaded README was byte-identical to the archive README; the duplicate was removed on 2026-10-08, preserving this original URL, checksum and canonical archive member."
+    },
+    {
+      "path": "sources/publications/rs18193321.pdf",
+      "url": "https://mdpi-res.com/d_attachment/remotesensing/remotesensing-18-03321/article_deploy/remotesensing-18-03321.pdf",
+      "sha256": "765ee9bb56c6c74bdf127717cc5de03e90abfb0b073fa1fb56224317ea8da82d",
+      "bytes": 7116889,
+      "note": "Publisher original"
+    },
+    {
+      "path": "sources/publications/rs18193321_supplement.pdf",
+      "url": "https://mdpi-res.com/d_attachment/remotesensing/remotesensing-18-03321/article_deploy/remotesensing-18-03321-s001.zip",
+      "sha256": "b086c69a7571b347fead01ce3b8def2ab40095d92682eb2aa727ad733793c2fe",
+      "bytes": 4705248,
+      "note": "Supplement PDF extracted from publisher supplementary ZIP"
+    },
+    {
+      "path": "sources/publications/kjrs_2025_41_5_13.html",
+      "url": "https://www.kjrs.org/journal/view.html?doi=10.7780/kjrs.2025.41.5.13",
+      "sha256": "abf12d0fbfe51fcb7f8ab7c1306931a1a182063bcb4227ba449ebc025bac657c",
+      "bytes": 258611,
+      "note": "Publisher original"
+    }
+  ]
+}

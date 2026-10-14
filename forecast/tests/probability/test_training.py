@@ -192,6 +192,54 @@ def test_preparation_matches_exact_loader_next_hour_across_chunks_and_fractional
     assert reference["burned_area"][:3, 0, 2, 2].tolist() == [0, 0, 1]
 
 
+@pytest.mark.parametrize("chunk_hours", [1, 2, 3, 5, 24])
+@pytest.mark.parametrize("sampled_negatives", [False, True])
+def test_training_whole_timeline_and_chunk_options_produce_identical_rows_audits_and_sources(
+    hourly_training_bundle, chunk_hours, sampled_negatives,
+):
+    """Chunk boundaries cannot alter endpoints, sampled identities or weights."""
+    root, event = hourly_training_bundle
+    limit = 2 if sampled_negatives else 1000
+    whole, whole_audit, whole_files = prepare_event(
+        root, event, 4, np.random.default_rng(23), limit, limit, chunk_hours=None,
+    )
+    chunked, chunked_audit, chunked_files = prepare_event(
+        root, event, 4, np.random.default_rng(23), limit, limit, chunk_hours=chunk_hours,
+    )
+    assert whole.keys() == chunked.keys()
+    for name in whole:
+        np.testing.assert_array_equal(whole[name], chunked[name], err_msg=name)
+    assert whole_audit == chunked_audit
+    assert whole_files == chunked_files
+    assert len(whole["target"]) > 0
+    assert whole["event_index"].tolist() == [4] * len(whole["target"])
+    # The final snapshot supplies the last outcome; it is never a current
+    # snapshot with an unavailable next-hour target.
+    assert whole["time_utc"].max() <= int(pd.Timestamp(event["end_utc"]).timestamp()) - 3600
+
+
+def test_training_preparation_defaults_to_one_full_timeline(hourly_training_bundle, monkeypatch):
+    import wildfire.prepare as preparation
+
+    root, event = hourly_training_bundle
+    calls = []
+    original = preparation.load_data
+
+    def record_load(*args, **kwargs):
+        calls.append(kwargs.copy())
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(preparation, "load_data", record_load)
+    arrays, audit, _ = preparation.prepare_event(
+        root, event, 0, np.random.default_rng(7), 1000, 1000,
+    )
+    assert len(calls) == 1
+    assert calls[0]["events"] == [event["id"]]
+    assert calls[0]["sequence_length"] is None
+    assert calls[0].get("temporal_stride") is None
+    assert audit["accepted_samples"] == len(arrays["target"]) > 0
+
+
 def test_center_training_forward_and_gradients_match_public_model():
     torch.manual_seed(23)
     model = EnvironmentConditionedConvolution(5, hidden_channels=4).double()

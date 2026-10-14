@@ -59,8 +59,9 @@ def test_checkpoint_path_recorded_before_relocation_loads_without_changing_recor
     relative = paths.DEFAULT_CHECKPOINT.relative_to(paths.RUNS)
     recorded = paths.WORKSPACE / "wildfire_burned_area_hourly/probability_model/training_runs" / relative
     model = load_trained_model(recorded)
-    assert model.contract["in_channels"] == 19
-    assert model.model.kernel_size == 5
+    current = load_trained_model(paths.DEFAULT_CHECKPOINT)
+    assert model.contract == current.contract
+    assert model.model.kernel_size == current.model.kernel_size
     assert not recorded.exists()
     for loader in (MixedSearch.load_trained_model, MultiscaleSearch.load_trained_model):
         assert loader(recorded).contract == model.contract

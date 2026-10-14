@@ -1,0 +1,35 @@
+{
+  "progress_enabled_by_default": true,
+  "output_stream": "stderr",
+  "new_dependencies": [],
+  "test_only_selection_preserved": true,
+  "actual_model_evaluations_run": 0,
+  "controls": [
+    "--no-progress"
+  ],
+  "displays": {
+    "intervals": "processed intervals, success/failure counts, elapsed, ETA",
+    "m548": "coverage and full trajectory-block transitions, elapsed, ETA",
+    "farsite": "indeterminate spinner and elapsed; no percent or ETA",
+    "other_stages": [
+      "availability",
+      "extraction",
+      "pooled metrics",
+      "plots"
+    ]
+  },
+  "reproducibility": "callback/no-callback outputs and metadata exactly equal; global Torch RNG unchanged",
+  "display_preference_excluded_from_scientific_protocol": true,
+  "verification": [
+    {
+      "tests": 140,
+      "status": "passed",
+      "evidence": "documents/observed_progress_tests_20261012.xml"
+    },
+    {
+      "tests": 18,
+      "status": "passed",
+      "evidence": "documents/observed_progress_display_check_20261012.xml"
+    }
+  ]
+}

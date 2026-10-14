@@ -1,0 +1,369 @@
+{
+  "dataset_doi": "10.17632/95rj5d379g.1",
+  "dataset_version": 1,
+  "publisher_url": "https://data.mendeley.com/datasets/95rj5d379g/1",
+  "files_metadata_url": "https://data.mendeley.com/public-api/datasets/95rj5d379g/files?folder_id=root&version=1&$start=0&$limit=1000",
+  "snapshot_metadata_url": "https://data.mendeley.com/public-api/datasets/95rj5d379g/snapshot/1",
+  "license": {
+    "short_name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "citation": "Magstadt et al. (2026), NIROPS Western United States 2020-2024 fire perimeter progression dataset, Mendeley Data v1, DOI 10.17632/95rj5d379g.1.",
+  "acquired_utc": "2026-10-12T11:20:01.657889+00:00",
+  "archive": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/sources/nirops_95rj5d379g_v1/NIROPS_2020_2024_R1_R6.zip",
+  "archive_bytes": 1387524228,
+  "archive_sha256": "b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
+  "geojson": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/sources/nirops_95rj5d379g_v1/catalog/ID-BOF-000904_Goat/ID-BOF-000904_Goat.geojson",
+  "geojson_sha256": "06a6c39550ba12f8b59354e072c0b269c0a05ac05f38006e09dc7c704e2df0b7",
+  "event_id": "ID-BOF-000904_Goat",
+  "incident_number": "ID-BOF-000904",
+  "incident_component": "ID-BOF-000904_Goat",
+  "source_record_ids": [
+    3044,
+    3045,
+    3046,
+    3047,
+    3048,
+    3049,
+    3050,
+    3051,
+    3052,
+    3053,
+    3054,
+    3055,
+    3056,
+    3057,
+    3058,
+    3059,
+    3060,
+    3061,
+    3062,
+    3063,
+    3064,
+    3065,
+    3066,
+    3067,
+    3068,
+    3069,
+    3070,
+    3071,
+    3072,
+    3073,
+    3074,
+    3075,
+    3076,
+    3077,
+    3078,
+    3079,
+    3080,
+    3081,
+    3082,
+    3083,
+    3084,
+    3085,
+    3086,
+    3087,
+    3088,
+    3089,
+    3090,
+    3091,
+    3092,
+    3093,
+    3094,
+    3095
+  ],
+  "feature_count": 52,
+  "source_shapefile_record_count": 12706,
+  "source_fields": [
+    "Incident_C",
+    "UTC",
+    "DateUTC",
+    "Acres",
+    "IRWINID",
+    "Inc Name",
+    "Inc Number"
+  ],
+  "source_member_sha256": {
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.cpg": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.dbf": "568c0412d6507adc2ce9013bd3d5aefbfa8ed24ca0a70c7b08ca17453f6d0eb7",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.prj": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.shp": "a14f391ae0e2f75a1d218aed91ad03eb35bfc311a4909021f9fe1f6310fdf09b",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.shx": "02f94a1415c9ad80072a24fe6198035e0b4f9b29bd0107a2bde66293b2b01b77"
+  },
+  "cached_publisher_metadata_sha256": {
+    "files.json": "2282c9efaead4729b608a0ae38b452d6fa871d53ffbeb9be77fda8b4c190e121",
+    "publisher_snapshot.json": "d7a91e45cec30df40f990f33524e1ea099e7646eee2415f47472666b0d2dc56c"
+  },
+  "invalid_geometry_source_records": [],
+  "crs": "EPSG:4326",
+  "distinct_survey_times": 52,
+  "survey_intervals": [
+    {
+      "initial_utc": "2024-08-11T06:51:00+00:00",
+      "endpoint_utc": "2024-08-12T07:16:00+00:00",
+      "duration_hours": 24.416666666666668
+    },
+    {
+      "initial_utc": "2024-08-12T07:16:00+00:00",
+      "endpoint_utc": "2024-08-13T03:39:00+00:00",
+      "duration_hours": 20.383333333333333
+    },
+    {
+      "initial_utc": "2024-08-13T03:39:00+00:00",
+      "endpoint_utc": "2024-08-14T04:43:00+00:00",
+      "duration_hours": 25.066666666666666
+    },
+    {
+      "initial_utc": "2024-08-14T04:43:00+00:00",
+      "endpoint_utc": "2024-08-15T04:41:00+00:00",
+      "duration_hours": 23.966666666666665
+    },
+    {
+      "initial_utc": "2024-08-15T04:41:00+00:00",
+      "endpoint_utc": "2024-08-16T05:15:00+00:00",
+      "duration_hours": 24.566666666666666
+    },
+    {
+      "initial_utc": "2024-08-16T05:15:00+00:00",
+      "endpoint_utc": "2024-08-17T04:00:00+00:00",
+      "duration_hours": 22.75
+    },
+    {
+      "initial_utc": "2024-08-17T04:00:00+00:00",
+      "endpoint_utc": "2024-08-18T03:12:00+00:00",
+      "duration_hours": 23.2
+    },
+    {
+      "initial_utc": "2024-08-18T03:12:00+00:00",
+      "endpoint_utc": "2024-08-19T05:38:00+00:00",
+      "duration_hours": 26.433333333333334
+    },
+    {
+      "initial_utc": "2024-08-19T05:38:00+00:00",
+      "endpoint_utc": "2024-08-20T05:01:00+00:00",
+      "duration_hours": 23.383333333333333
+    },
+    {
+      "initial_utc": "2024-08-20T05:01:00+00:00",
+      "endpoint_utc": "2024-08-21T06:34:00+00:00",
+      "duration_hours": 25.55
+    },
+    {
+      "initial_utc": "2024-08-21T06:34:00+00:00",
+      "endpoint_utc": "2024-08-22T07:19:00+00:00",
+      "duration_hours": 24.75
+    },
+    {
+      "initial_utc": "2024-08-22T07:19:00+00:00",
+      "endpoint_utc": "2024-08-26T04:02:00+00:00",
+      "duration_hours": 92.71666666666667
+    },
+    {
+      "initial_utc": "2024-08-26T04:02:00+00:00",
+      "endpoint_utc": "2024-08-27T03:32:00+00:00",
+      "duration_hours": 23.5
+    },
+    {
+      "initial_utc": "2024-08-27T03:32:00+00:00",
+      "endpoint_utc": "2024-08-28T03:07:00+00:00",
+      "duration_hours": 23.583333333333332
+    },
+    {
+      "initial_utc": "2024-08-28T03:07:00+00:00",
+      "endpoint_utc": "2024-08-29T07:37:00+00:00",
+      "duration_hours": 28.5
+    },
+    {
+      "initial_utc": "2024-08-29T07:37:00+00:00",
+      "endpoint_utc": "2024-08-30T03:48:00+00:00",
+      "duration_hours": 20.183333333333334
+    },
+    {
+      "initial_utc": "2024-08-30T03:48:00+00:00",
+      "endpoint_utc": "2024-08-31T07:23:00+00:00",
+      "duration_hours": 27.583333333333332
+    },
+    {
+      "initial_utc": "2024-08-31T07:23:00+00:00",
+      "endpoint_utc": "2024-09-01T03:43:00+00:00",
+      "duration_hours": 20.333333333333332
+    },
+    {
+      "initial_utc": "2024-09-01T03:43:00+00:00",
+      "endpoint_utc": "2024-09-02T06:50:00+00:00",
+      "duration_hours": 27.116666666666667
+    },
+    {
+      "initial_utc": "2024-09-02T06:50:00+00:00",
+      "endpoint_utc": "2024-09-04T05:34:00+00:00",
+      "duration_hours": 46.733333333333334
+    },
+    {
+      "initial_utc": "2024-09-04T05:34:00+00:00",
+      "endpoint_utc": "2024-09-05T04:14:00+00:00",
+      "duration_hours": 22.666666666666668
+    },
+    {
+      "initial_utc": "2024-09-05T04:14:00+00:00",
+      "endpoint_utc": "2024-09-06T03:33:00+00:00",
+      "duration_hours": 23.316666666666666
+    },
+    {
+      "initial_utc": "2024-09-06T03:33:00+00:00",
+      "endpoint_utc": "2024-09-07T04:45:00+00:00",
+      "duration_hours": 25.2
+    },
+    {
+      "initial_utc": "2024-09-07T04:45:00+00:00",
+      "endpoint_utc": "2024-09-08T03:35:00+00:00",
+      "duration_hours": 22.833333333333332
+    },
+    {
+      "initial_utc": "2024-09-08T03:35:00+00:00",
+      "endpoint_utc": "2024-09-10T03:58:00+00:00",
+      "duration_hours": 48.38333333333333
+    },
+    {
+      "initial_utc": "2024-09-10T03:58:00+00:00",
+      "endpoint_utc": "2024-09-11T07:24:00+00:00",
+      "duration_hours": 27.433333333333334
+    },
+    {
+      "initial_utc": "2024-09-11T07:24:00+00:00",
+      "endpoint_utc": "2024-09-14T03:19:00+00:00",
+      "duration_hours": 67.91666666666667
+    },
+    {
+      "initial_utc": "2024-09-14T03:19:00+00:00",
+      "endpoint_utc": "2024-09-15T02:09:00+00:00",
+      "duration_hours": 22.833333333333332
+    },
+    {
+      "initial_utc": "2024-09-15T02:09:00+00:00",
+      "endpoint_utc": "2024-09-19T05:34:00+00:00",
+      "duration_hours": 99.41666666666667
+    },
+    {
+      "initial_utc": "2024-09-19T05:34:00+00:00",
+      "endpoint_utc": "2024-09-20T06:49:00+00:00",
+      "duration_hours": 25.25
+    },
+    {
+      "initial_utc": "2024-09-20T06:49:00+00:00",
+      "endpoint_utc": "2024-09-21T04:02:00+00:00",
+      "duration_hours": 21.216666666666665
+    },
+    {
+      "initial_utc": "2024-09-21T04:02:00+00:00",
+      "endpoint_utc": "2024-09-22T06:19:00+00:00",
+      "duration_hours": 26.283333333333335
+    },
+    {
+      "initial_utc": "2024-09-22T06:19:00+00:00",
+      "endpoint_utc": "2024-09-23T06:14:00+00:00",
+      "duration_hours": 23.916666666666668
+    },
+    {
+      "initial_utc": "2024-09-23T06:14:00+00:00",
+      "endpoint_utc": "2024-09-24T04:01:00+00:00",
+      "duration_hours": 21.783333333333335
+    },
+    {
+      "initial_utc": "2024-09-24T04:01:00+00:00",
+      "endpoint_utc": "2024-09-26T03:48:00+00:00",
+      "duration_hours": 47.78333333333333
+    },
+    {
+      "initial_utc": "2024-09-26T03:48:00+00:00",
+      "endpoint_utc": "2024-09-28T06:00:00+00:00",
+      "duration_hours": 50.2
+    },
+    {
+      "initial_utc": "2024-09-28T06:00:00+00:00",
+      "endpoint_utc": "2024-09-30T04:13:00+00:00",
+      "duration_hours": 46.21666666666667
+    },
+    {
+      "initial_utc": "2024-09-30T04:13:00+00:00",
+      "endpoint_utc": "2024-10-01T04:06:00+00:00",
+      "duration_hours": 23.883333333333333
+    },
+    {
+      "initial_utc": "2024-10-01T04:06:00+00:00",
+      "endpoint_utc": "2024-10-02T06:03:00+00:00",
+      "duration_hours": 25.95
+    },
+    {
+      "initial_utc": "2024-10-02T06:03:00+00:00",
+      "endpoint_utc": "2024-10-03T03:00:00+00:00",
+      "duration_hours": 20.95
+    },
+    {
+      "initial_utc": "2024-10-03T03:00:00+00:00",
+      "endpoint_utc": "2024-10-06T08:39:00+00:00",
+      "duration_hours": 77.65
+    },
+    {
+      "initial_utc": "2024-10-06T08:39:00+00:00",
+      "endpoint_utc": "2024-10-07T02:57:00+00:00",
+      "duration_hours": 18.3
+    },
+    {
+      "initial_utc": "2024-10-07T02:57:00+00:00",
+      "endpoint_utc": "2024-10-08T07:01:00+00:00",
+      "duration_hours": 28.066666666666666
+    },
+    {
+      "initial_utc": "2024-10-08T07:01:00+00:00",
+      "endpoint_utc": "2024-10-09T02:00:00+00:00",
+      "duration_hours": 18.983333333333334
+    },
+    {
+      "initial_utc": "2024-10-09T02:00:00+00:00",
+      "endpoint_utc": "2024-10-10T04:44:00+00:00",
+      "duration_hours": 26.733333333333334
+    },
+    {
+      "initial_utc": "2024-10-10T04:44:00+00:00",
+      "endpoint_utc": "2024-10-11T03:56:00+00:00",
+      "duration_hours": 23.2
+    },
+    {
+      "initial_utc": "2024-10-11T03:56:00+00:00",
+      "endpoint_utc": "2024-10-14T06:04:00+00:00",
+      "duration_hours": 74.13333333333334
+    },
+    {
+      "initial_utc": "2024-10-14T06:04:00+00:00",
+      "endpoint_utc": "2024-10-15T03:26:00+00:00",
+      "duration_hours": 21.366666666666667
+    },
+    {
+      "initial_utc": "2024-10-15T03:26:00+00:00",
+      "endpoint_utc": "2024-10-16T05:56:00+00:00",
+      "duration_hours": 26.5
+    },
+    {
+      "initial_utc": "2024-10-16T05:56:00+00:00",
+      "endpoint_utc": "2024-10-19T02:03:00+00:00",
+      "duration_hours": 68.11666666666666
+    },
+    {
+      "initial_utc": "2024-10-19T02:03:00+00:00",
+      "endpoint_utc": "2024-10-22T06:49:00+00:00",
+      "duration_hours": 76.76666666666667
+    }
+  ],
+  "exact_six_hour_consecutive_pairs": 0,
+  "observation_kind": "Manually interpreted aerial-infrared fire survey perimeters; no arrival-time interpolation.",
+  "timestamp_field": "UTC",
+  "normalized_timestamp_field": "time_utc",
+  "timestamp_caveat": "UTC is the publisher-normalized acquisition timestamp. When acquisition times were missing or inconsistent, the publisher estimated timestamps using filenames, metadata, and supplementary maps. The released shapefile does not identify those records separately. Exact intervals refer to the published timestamps and do not establish exact physical arrival times.",
+  "record_id_meaning": "Zero-based record index in the published shapefile; original geometry and attributes preserved.",
+  "transformations": [
+    "Select exact source record IDs",
+    "Verify exact Inc Number and Incident_C component",
+    "Normalize publisher UTC timestamps to +00:00",
+    "Preserve original polygons and attributes"
+  ]
+}

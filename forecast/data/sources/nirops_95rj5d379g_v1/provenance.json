@@ -1,0 +1,289 @@
+{
+  "dataset_doi": "10.17632/95rj5d379g.1",
+  "dataset_version": 1,
+  "publisher_url": "https://data.mendeley.com/datasets/95rj5d379g/1",
+  "files_metadata_url": "https://data.mendeley.com/public-api/datasets/95rj5d379g/files?folder_id=root&version=1&$start=0&$limit=1000",
+  "snapshot_metadata_url": "https://data.mendeley.com/public-api/datasets/95rj5d379g/snapshot/1",
+  "license": {
+    "id": "01d9c749-3c4d-4431-9df3-620b2dcfe144",
+    "short_name": "CC BY 4.0",
+    "full_name": "Creative Commons Attribution 4.0 International",
+    "description": "You can share, copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY license, and indicate if changes were made, but you may not do so in a way that suggests the rights holder has endorsed you or your use of the dataset. Note that further permission may be required for any content within the dataset that is identified as belonging to a third party.",
+    "url": "http://creativecommons.org/licenses/by/4.0",
+    "category": "Creative",
+    "customer_id": null
+  },
+  "citation": "Magstadt et al. (2026), A high spatial resolution daily fire perimeter progression dataset for wildfires in the Western United States: 2020-2024, Mendeley Data, v1, DOI 10.17632/95rj5d379g.1.",
+  "acquired_utc": "2026-10-12T10:04:44.828432+00:00",
+  "archive": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/sources/nirops_95rj5d379g_v1/NIROPS_2020_2024_R1_R6.zip",
+  "archive_download_url": "https://data.mendeley.com/public-files/datasets/95rj5d379g/files/e9caf5e3-dcd1-4633-98a9-7f857d110b29/file_downloaded",
+  "archive_bytes": 1387524228,
+  "archive_sha256": "b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
+  "geojson": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/sources/nirops_95rj5d379g_v1/FishCreek.geojson",
+  "geojson_sha256": "63b99992b0a55439377f7eda71bce6cd015e4d4cffec301eb2a4cfef75157f7a",
+  "incident_number": "WY-BTF-002416",
+  "observation_kind": "Manually interpreted aerial-infrared fire survey perimeters; no arrival-time interpolation.",
+  "timestamp_field": "UTC",
+  "normalized_timestamp_field": "time_utc",
+  "timestamp_caveat": "UTC is the publisher-normalized acquisition timestamp. When acquisition times were missing or inconsistent, the publisher estimated timestamps using filenames, metadata, and supplementary maps. The released shapefile does not identify those records separately. Exact intervals refer to the published timestamps and do not establish exact physical arrival times.",
+  "transformations": [
+    "Select incident by exact Inc Number",
+    "Normalize published UTC to an explicit +00:00 offset",
+    "Export the original polygons and attributes as RFC 7946 GeoJSON"
+  ],
+  "feature_count": 47,
+  "distinct_survey_times": 47,
+  "source_shapefile_record_count": 12706,
+  "crs": "EPSG:4326",
+  "source_fields": [
+    "Incident_C",
+    "UTC",
+    "DateUTC",
+    "Acres",
+    "IRWINID",
+    "Inc Name",
+    "Inc Number"
+  ],
+  "source_member_sha256": {
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.cpg": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.dbf": "568c0412d6507adc2ce9013bd3d5aefbfa8ed24ca0a70c7b08ca17453f6d0eb7",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.prj": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.shp": "a14f391ae0e2f75a1d218aed91ad03eb35bfc311a4909021f9fe1f6310fdf09b",
+    "NIROPS_2020_2024_R1_R6/NIROPS_2020_2024_R1_R6.shx": "02f94a1415c9ad80072a24fe6198035e0b4f9b29bd0107a2bde66293b2b01b77"
+  },
+  "invalid_geometry_source_records": [],
+  "survey_intervals": [
+    {
+      "initial_utc": "2024-08-22T08:02:00+00:00",
+      "endpoint_utc": "2024-08-23T02:14:00+00:00",
+      "duration_hours": 18.2
+    },
+    {
+      "initial_utc": "2024-08-23T02:14:00+00:00",
+      "endpoint_utc": "2024-08-24T05:10:00+00:00",
+      "duration_hours": 26.933333333333334
+    },
+    {
+      "initial_utc": "2024-08-24T05:10:00+00:00",
+      "endpoint_utc": "2024-08-25T08:16:00+00:00",
+      "duration_hours": 27.1
+    },
+    {
+      "initial_utc": "2024-08-25T08:16:00+00:00",
+      "endpoint_utc": "2024-08-27T04:09:00+00:00",
+      "duration_hours": 43.88333333333333
+    },
+    {
+      "initial_utc": "2024-08-27T04:09:00+00:00",
+      "endpoint_utc": "2024-08-28T05:26:00+00:00",
+      "duration_hours": 25.283333333333335
+    },
+    {
+      "initial_utc": "2024-08-28T05:26:00+00:00",
+      "endpoint_utc": "2024-08-29T03:13:00+00:00",
+      "duration_hours": 21.783333333333335
+    },
+    {
+      "initial_utc": "2024-08-29T03:13:00+00:00",
+      "endpoint_utc": "2024-08-30T05:03:00+00:00",
+      "duration_hours": 25.833333333333332
+    },
+    {
+      "initial_utc": "2024-08-30T05:03:00+00:00",
+      "endpoint_utc": "2024-09-01T07:21:00+00:00",
+      "duration_hours": 50.3
+    },
+    {
+      "initial_utc": "2024-09-01T07:21:00+00:00",
+      "endpoint_utc": "2024-09-02T02:49:00+00:00",
+      "duration_hours": 19.466666666666665
+    },
+    {
+      "initial_utc": "2024-09-02T02:49:00+00:00",
+      "endpoint_utc": "2024-09-04T03:58:00+00:00",
+      "duration_hours": 49.15
+    },
+    {
+      "initial_utc": "2024-09-04T03:58:00+00:00",
+      "endpoint_utc": "2024-09-05T05:10:00+00:00",
+      "duration_hours": 25.2
+    },
+    {
+      "initial_utc": "2024-09-05T05:10:00+00:00",
+      "endpoint_utc": "2024-09-06T03:32:00+00:00",
+      "duration_hours": 22.366666666666667
+    },
+    {
+      "initial_utc": "2024-09-06T03:32:00+00:00",
+      "endpoint_utc": "2024-09-07T05:08:00+00:00",
+      "duration_hours": 25.6
+    },
+    {
+      "initial_utc": "2024-09-07T05:08:00+00:00",
+      "endpoint_utc": "2024-09-09T02:15:00+00:00",
+      "duration_hours": 45.11666666666667
+    },
+    {
+      "initial_utc": "2024-09-09T02:15:00+00:00",
+      "endpoint_utc": "2024-09-09T06:38:00+00:00",
+      "duration_hours": 4.383333333333334
+    },
+    {
+      "initial_utc": "2024-09-09T06:38:00+00:00",
+      "endpoint_utc": "2024-09-10T05:00:00+00:00",
+      "duration_hours": 22.366666666666667
+    },
+    {
+      "initial_utc": "2024-09-10T05:00:00+00:00",
+      "endpoint_utc": "2024-09-15T07:55:00+00:00",
+      "duration_hours": 122.91666666666667
+    },
+    {
+      "initial_utc": "2024-09-15T07:55:00+00:00",
+      "endpoint_utc": "2024-09-17T02:37:00+00:00",
+      "duration_hours": 42.7
+    },
+    {
+      "initial_utc": "2024-09-17T02:37:00+00:00",
+      "endpoint_utc": "2024-09-20T03:54:00+00:00",
+      "duration_hours": 73.28333333333333
+    },
+    {
+      "initial_utc": "2024-09-20T03:54:00+00:00",
+      "endpoint_utc": "2024-09-22T02:39:00+00:00",
+      "duration_hours": 46.75
+    },
+    {
+      "initial_utc": "2024-09-22T02:39:00+00:00",
+      "endpoint_utc": "2024-09-24T21:38:00+00:00",
+      "duration_hours": 66.98333333333333
+    },
+    {
+      "initial_utc": "2024-09-24T21:38:00+00:00",
+      "endpoint_utc": "2024-09-28T02:25:00+00:00",
+      "duration_hours": 76.78333333333333
+    },
+    {
+      "initial_utc": "2024-09-28T02:25:00+00:00",
+      "endpoint_utc": "2024-10-01T07:53:00+00:00",
+      "duration_hours": 77.46666666666667
+    },
+    {
+      "initial_utc": "2024-10-01T07:53:00+00:00",
+      "endpoint_utc": "2024-10-02T02:43:00+00:00",
+      "duration_hours": 18.833333333333332
+    },
+    {
+      "initial_utc": "2024-10-02T02:43:00+00:00",
+      "endpoint_utc": "2024-10-03T06:53:00+00:00",
+      "duration_hours": 28.166666666666668
+    },
+    {
+      "initial_utc": "2024-10-03T06:53:00+00:00",
+      "endpoint_utc": "2024-10-04T02:57:00+00:00",
+      "duration_hours": 20.066666666666666
+    },
+    {
+      "initial_utc": "2024-10-04T02:57:00+00:00",
+      "endpoint_utc": "2024-10-05T08:20:00+00:00",
+      "duration_hours": 29.383333333333333
+    },
+    {
+      "initial_utc": "2024-10-05T08:20:00+00:00",
+      "endpoint_utc": "2024-10-06T02:25:00+00:00",
+      "duration_hours": 18.083333333333332
+    },
+    {
+      "initial_utc": "2024-10-06T02:25:00+00:00",
+      "endpoint_utc": "2024-10-07T09:15:00+00:00",
+      "duration_hours": 30.833333333333332
+    },
+    {
+      "initial_utc": "2024-10-07T09:15:00+00:00",
+      "endpoint_utc": "2024-10-08T01:40:00+00:00",
+      "duration_hours": 16.416666666666668
+    },
+    {
+      "initial_utc": "2024-10-08T01:40:00+00:00",
+      "endpoint_utc": "2024-10-09T10:30:00+00:00",
+      "duration_hours": 32.833333333333336
+    },
+    {
+      "initial_utc": "2024-10-09T10:30:00+00:00",
+      "endpoint_utc": "2024-10-10T11:15:00+00:00",
+      "duration_hours": 24.75
+    },
+    {
+      "initial_utc": "2024-10-10T11:15:00+00:00",
+      "endpoint_utc": "2024-10-11T17:30:00+00:00",
+      "duration_hours": 30.25
+    },
+    {
+      "initial_utc": "2024-10-11T17:30:00+00:00",
+      "endpoint_utc": "2024-10-13T05:50:00+00:00",
+      "duration_hours": 36.333333333333336
+    },
+    {
+      "initial_utc": "2024-10-13T05:50:00+00:00",
+      "endpoint_utc": "2024-10-14T10:30:00+00:00",
+      "duration_hours": 28.666666666666668
+    },
+    {
+      "initial_utc": "2024-10-14T10:30:00+00:00",
+      "endpoint_utc": "2024-10-15T06:25:00+00:00",
+      "duration_hours": 19.916666666666668
+    },
+    {
+      "initial_utc": "2024-10-15T06:25:00+00:00",
+      "endpoint_utc": "2024-10-16T03:38:00+00:00",
+      "duration_hours": 21.216666666666665
+    },
+    {
+      "initial_utc": "2024-10-16T03:38:00+00:00",
+      "endpoint_utc": "2024-10-17T02:31:00+00:00",
+      "duration_hours": 22.883333333333333
+    },
+    {
+      "initial_utc": "2024-10-17T02:31:00+00:00",
+      "endpoint_utc": "2024-10-19T06:11:00+00:00",
+      "duration_hours": 51.666666666666664
+    },
+    {
+      "initial_utc": "2024-10-19T06:11:00+00:00",
+      "endpoint_utc": "2024-10-20T05:03:00+00:00",
+      "duration_hours": 22.866666666666667
+    },
+    {
+      "initial_utc": "2024-10-20T05:03:00+00:00",
+      "endpoint_utc": "2024-10-21T03:04:00+00:00",
+      "duration_hours": 22.016666666666666
+    },
+    {
+      "initial_utc": "2024-10-21T03:04:00+00:00",
+      "endpoint_utc": "2024-10-22T02:25:00+00:00",
+      "duration_hours": 23.35
+    },
+    {
+      "initial_utc": "2024-10-22T02:25:00+00:00",
+      "endpoint_utc": "2024-10-23T04:59:00+00:00",
+      "duration_hours": 26.566666666666666
+    },
+    {
+      "initial_utc": "2024-10-23T04:59:00+00:00",
+      "endpoint_utc": "2024-10-24T01:22:00+00:00",
+      "duration_hours": 20.383333333333333
+    },
+    {
+      "initial_utc": "2024-10-24T01:22:00+00:00",
+      "endpoint_utc": "2024-10-25T01:17:00+00:00",
+      "duration_hours": 23.916666666666668
+    },
+    {
+      "initial_utc": "2024-10-25T01:17:00+00:00",
+      "endpoint_utc": "2024-10-27T05:57:00+00:00",
+      "duration_hours": 52.666666666666664
+    }
+  ],
+  "exact_six_hour_consecutive_pairs": 0,
+  "record_id_meaning": "Zero-based record index in the published shapefile; geometry and original attributes preserved."
+}

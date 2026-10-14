@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "event_count": 44,
+  "selected_event": "KFS_01",
+  "selected_cutoff": "2025-03-22T02:00:00Z",
+  "selected_event_cutoff_count": 114,
+  "last_selected_event_cutoff": "2025-03-26T19:00:00Z",
+  "sample_time_utc": [
+    1742608800,
+    1742612400
+  ],
+  "prediction_shape": [
+    2,
+    1,
+    79,
+    237
+  ],
+  "known_probability_values": 19352,
+  "events_at_example_cutoff": [
+    "ID-BOF-000683_Wapiti_Wapiti",
+    "ID-BOF-000904_Goat",
+    "ID-BOF-001080_Lava",
+    "WA-SES-000173_Pioneer",
+    "WY-BTF-002416_FishCreek"
+  ],
+  "catalog_sha256": "607f831ea64235449d7eb19e5cd931099486aaae44de1221c1ec27b34965ac8b",
+  "scope": "Catalog time availability and CPU sample/prediction execution; no input coverage or active-fire guarantee."
+}

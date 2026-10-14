@@ -1,5 +1,5 @@
 {
-  "reviewed_on": "2026-10-08",
+  "reviewed_on": "2026-10-12",
   "review_timezone": "Asia/Seoul",
   "model_name": "Expected incident radiant heat from active-burning probabilities or integrated one-hour wildfire forecasts",
   "probability_semantics": "Radiation-only: P(cell actively burns at an instant). Integration input: P(first new burning during next exact hour), explicitly converted to time-mean/endpoint active occupancy.",
@@ -218,7 +218,7 @@
       "url": "https://research.fs.usda.gov/treesearch/9521",
       "pdf_url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
       "location": "Table 7, printed page 18; constants page 17; curing page 6",
-      "supported_role": "40 reference fuel models: class loadings, SAV, common density and numeric codes. Characteristic SAV is computed from source parameters.",
+      "supported_role": "40 reference fuel models: class loadings, SAV, common density and numeric codes. Characteristic SAV is computed from source parameters. Nominal heat content 8000 Btu/lb except GR6 at 9000 Btu/lb.",
       "limitation": "Reference front-behavior models do not measure event-date fuel or residual combustion. GS4 summary SAV 1674 conflicts with table-derived 1631, supported by Andrews.",
       "access_status": "Primary PDF parameter tables inspected and all 40 rounded characteristic SAV values independently checked"
     },
@@ -286,28 +286,133 @@
       "supported_role": "Model precedent for time-on-fire gating against residence time and coefficient approximately 75591 s/m divided by SAV_m_inverse.",
       "limitation": "Implementation precedent does not validate this package or transfer its model performance.",
       "access_status": "Open primary publisher article inspected"
+    },
+    {
+      "id": "nist_sp811_heat_content_units",
+      "title": "Guide for the Use of the International System of Units (SI)",
+      "authors": [
+        "Ambler Thompson",
+        "Barry N. Taylor"
+      ],
+      "year": 2008,
+      "document": "NIST Special Publication 811",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication811e2008.pdf",
+      "location": "Appendix B conversion table, printed page 46",
+      "supported_role": "Btu_IT per pound converts to 2326 J/kg; the package explicitly interprets FBFM40 Btu/lb as International Table Btu.",
+      "limitation": "A unit conversion does not turn nominal fuel-model heat content into measured effective heat yield.",
+      "access_status": "Primary PDF conversion table inspected"
+    },
+    {
+      "id": "nwcg_fbfm40_heat_content",
+      "title": "Surface Fuel Model Descriptions",
+      "publisher": "National Wildfire Coordinating Group",
+      "document": "PMS 437",
+      "url": "https://www-nwcg.fs2c.usda.gov/publications/pms437/fuels/surface-fuel-model-descriptions",
+      "location": "Dead Heat and Live Heat columns in surface fuel model tables; GR6 row",
+      "supported_role": "Nominal FBFM40 heat content is 8000 Btu/lb except GR6 at 9000 Btu/lb.",
+      "limitation": "These are reference surface-spread inputs, not event-specific effective heat measurements.",
+      "access_status": "Primary agency tables inspected"
+    },
+    {
+      "id": "scott_2012_phase_heat",
+      "title": "Introduction to Wildfire Behavior Modeling",
+      "authors": [
+        "Joe H. Scott"
+      ],
+      "year": 2012,
+      "publisher": "National Interagency Fuels, Fire, and Vegetation Technology Transfer",
+      "url": "https://pyrologix.com/wp-content/uploads/2014/04/Scott_20121.pdf",
+      "location": "Printed pages 17-18, heat per unit area and fireline intensity",
+      "supported_role": "Phase heat per ground area is heat yield times dry mass consumed in the modeled flaming front. The adapter divides this supplied phase energy by its supplied duration.",
+      "limitation": "Front heat excludes later consumption; the package does not infer consumed mass. Uniform release over the supplied duration is an additional scenario.",
+      "access_status": "Primary author-hosted document inspected"
+    },
+    {
+      "id": "consume3_phase_consumption",
+      "title": "CONSUME 3.0 User's Guide",
+      "authors": [
+        "Susan J. Prichard",
+        "Roger D. Ottmar",
+        "Gary K. Anderson"
+      ],
+      "year": null,
+      "url": "https://depts.washington.edu/fft/webtool/help/docs/consume30_users_guide.pdf",
+      "location": "Printed pages 111 and 114, phase reports; Appendix C, pages 139-195",
+      "supported_role": "External fuel-consumption estimates can distinguish flaming, smouldering and residual phases. Phase-consumption adapters accept compatible externally supplied dry mass.",
+      "limitation": "Accessed primary copy is undated. This package does not implement CONSUME algorithms or infer phase consumption from total FCCS loading. Fuel strata and applicable environmental inputs are required by the external model.",
+      "access_status": "Primary guide phase reports and algorithms inspected"
+    },
+    {
+      "id": "dietenberger_boardman_pine_litter_radiative_fraction",
+      "title": "EcoSmart Fire as Structure Ignition Model in Wildland Urban Interface: Predictions and Validations",
+      "authors": [
+        "Mark A. Dietenberger",
+        "Charles R. Boardman"
+      ],
+      "year": 2017,
+      "online_publication_year": 2016,
+      "journal": "Fire Technology",
+      "volume_pages": "53(2):577-607",
+      "doi": "10.1007/s10694-016-0632-0",
+      "url": "https://research.fs.usda.gov/treesearch/53606",
+      "pdf_url": "https://research.fs.usda.gov/download/treesearch/53606.pdf",
+      "location": "Section 4, printed page 592; publication abstract",
+      "supported_role": "Optional pine wood/dead litter radiative fraction reference scenario chi=0.30; a 0.6 m litter fire under an HRR hood up to 250 kW supports this value.",
+      "limitation": "This experiment does not establish a universal vegetation or crown-fire fraction. An emitted-energy ratio is not incident energy at one receiver and must use a matched total-release denominator and period.",
+      "access_status": "Primary USDA record and article inspected"
+    },
+    {
+      "id": "yilmaz_2009_beer_lambert",
+      "title": "Radiation Transport Measurement in Methanol Pool Fires with Fourier Transform Infrared Spectroscopy",
+      "authors": [
+        "Aykut Yilmaz"
+      ],
+      "year": 2009,
+      "document": "NIST GCR 09-922",
+      "doi": "10.6028/NIST.GCR.09-922",
+      "url": "https://nvlpubs.nist.gov/nistpubs/gcr/2009/gcr09-922.pdf",
+      "location": "Equation (1.18), printed page 17",
+      "supported_role": "Spectral Beer-Lambert absorption law; package uses the explicitly declared homogeneous grey approximation tau(R)=exp(-kappa R).",
+      "package_extension": "Integrate path transmission inside the finite footprint. Tile minimum/maximum distances multiply exact solid angles to enclose each integral.",
+      "limitation": "Methanol-fire transport evidence is not vegetation calibration. Grey kappa must be supplied or calibrated; scattering, medium emission, terrain blocking and spectral variation are omitted.",
+      "access_status": "Primary NIST report equation inspected"
+    },
+    {
+      "id": "nist_exponential_first_event",
+      "title": "Exponential Distribution",
+      "publisher": "NIST/SEMATECH e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm",
+      "location": "Density, survival and constant hazard functions",
+      "supported_role": "Mathematical first-event density lambda exp(-lambda t) for a fixed hazard. Package derives mean/endpoint activity by integrating the finite active interval.",
+      "limitation": "Constant hazard over a forecast hour is a timing assumption. A one-hour probability alone does not validate it; averaging component probabilities does not generally yield a constant-hazard mixture.",
+      "access_status": "Primary NIST mathematical definitions inspected"
     }
   ],
   "additional_modeling_assumptions": [
     "A cell indicator activates a uniform footprint over its entire area using whole-cell averaged conditional HRR density; partial burning coverage must be reflected in that density.",
     "Infinitesimal emitters are isotropic at one elevation above upward-facing horizontal receivers.",
     "Conditional source strengths are prescribed; probabilities mean active burning, not cumulative burned area or new ignition.",
-    "Atmospheric transmission is one scalar shared by all paths; path-dependent absorption and geometric blocking are omitted.",
+    "Atmospheric transmission is either a supplied path-independent scalar or a supplied/calibrated homogeneous grey Beer-Lambert coefficient. The latter is integrated within each finite source footprint; scattering, medium emission and geometric blocking remain omitted.",
     "Linearity of expectation does not require cell independence.",
     "Only supplied cells emit; exterior source contributions are omitted.",
     "Synthetic demo parameters are illustrative and are not fitted to wildfire measurements.",
-    "The integrated forecast converts first-new-burning probability for an exact one-hour endpoint through a Uniform(0,3600s) conditional ignition time and a supplied deterministic constant-emission duration.",
+    "The integrated forecast selects uniform conditional initiation (default) or exponential first-event initiation under a constant hazard. Emission is constant for a supplied deterministic phase duration. Saved probabilities require an explicit timing assumption; finite native rates avoid inversion of saturated probabilities.",
     "Time-mean source occupancy and endpoint source occupancy are distinct; mean heat flux multiplied by 3600s gives expected incident radiant energy per area during the forecast interval.",
-    "Cumulative burned state is not active combustion. Existing fire contributes only when initial active probability and remaining combustion duration are explicitly supplied.",
-    "Unknown model probabilities remain unknown. Bounds permit those probabilities to range over [0,1] only while prescribed combustion, geometry and timing assumptions remain fixed.",
-    "Ecological loading is a reference estimate. Partial lookup coverage requires an explicit unmapped-loading fallback, blended by mapped coverage; consumed fraction, duration, effective heat and radiative fraction remain caller assumptions.",
+    "Cumulative burned state is not active combustion. Existing fire requires compatible past arrival/age and duration, or supplied initial activity and remaining duration. Missing ages on known already-burned support produce bounds.",
+    "Unknown model probabilities remain unknown. Bounds optimize unresolved activity under the selected timing law while prescribed combustion, geometry and atmospheric parameters stay fixed. For constant hazard and T<D, endpoint occupancy is maximized at an interior hazard. Flux bounds additionally include numerical attenuation integration enclosures, up to roundoff.",
+    "Ecological loading is a reference estimate. Partial lookup coverage requires an explicit unmapped-loading fallback, blended by mapped coverage. Phase-consumed mass/fraction stays supplied. FBFM40 heat content and residence duration are optional reference scenarios; measured effective heat remains a separate input.",
     "The integrated example uses retrospective arrival/final-extent-derived current burned state and is not operational live forecast validation.",
     "Flame residence at a fixed fuel point is assigned to representative raster locations; subcell propagation and exact flame geometry are unresolved.",
     "Known or point-estimate arrival scenario uses activity on the half-open interval [arrival,arrival+residence). Unknown arrival remains unknown.",
     "The FBFM40 catalog describes reference surface-front fuels; nonburnable, custom and missing codes require explicit scenario overrides, recorded separately.",
     "Residence duration in the heat bridge must equal combustion duration; consumed fuel fraction must refer to the modeled flaming phase.",
-    "The active-flame example retains zero nominal flames and unthresholded probability coordinates; no active-flame observational calibration is claimed."
+    "The active-flame example retains zero nominal flames and unthresholded probability coordinates; no active-flame observational calibration is claimed.",
+    "The 0.30 radiative-fraction preset is opt-in and limited to a pine wood/dead litter reference scenario; other fuels require explicit fraction or compatible emitted/total energy budgets.",
+    "FBFM40 heat content uses nominal dry-fuel heat, not a moisture-adjusted effective yield. All consumed mass, heat yield and duration must describe the same modeled phase and whole-cell ground-area basis.",
+    "The atmospheric coefficient and common emission height remain measured or explicitly supplied scenario parameters; neither is inferred from the existing probability features.",
+    "Numerical integration enclosures are not confidence intervals and do not quantify uncertainty in physical parameters. Their width is controlled by absolute and relative transfer tolerances."
   ],
   "validation_status": "Analytic/numerical verification of this mathematical model is separate from experimental wildfire validation; no experimental validation is claimed.",
-  "flame_residence_semantics": "Estimated surface-front flaming at representative grid locations under explicit reference-fuel and conditional-arrival assumptions; particle flame-out available as a separate laboratory scenario."
+  "flame_residence_semantics": "Estimated surface-front flaming at representative grid locations under explicit reference-fuel and conditional-arrival assumptions; particle flame-out available as a separate laboratory scenario.",
+  "implementation_guide": "documents/heat_parameter_models.md"
 }

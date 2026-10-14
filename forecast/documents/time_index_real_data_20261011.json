@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "full_loaded_shape": [
+    1639,
+    19,
+    103,
+    73
+  ],
+  "multi_time_prediction_shape": [
+    72,
+    1,
+    103,
+    73
+  ],
+  "batch_shape": [
+    2,
+    1,
+    1,
+    103,
+    73
+  ],
+  "checks": [
+    "loaded index/timestamp correspondence",
+    "selected input/label/mask equality",
+    "single-time/multi-time prediction equivalence",
+    "plotted pixels and masks equal selected result",
+    "exact next-hour endpoint label alignment",
+    "missing final endpoint remains unknown",
+    "full prediction local index",
+    "batch index tuple"
+  ],
+  "indices": [
+    {
+      "loaded_index": 0,
+      "cutoff_utc": "2024-08-21T00:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1142,
+      "nonzero_probabilities": 0,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 5,
+      "cutoff_utc": "2024-08-21T05:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1144,
+      "nonzero_probabilities": 19,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 10,
+      "cutoff_utc": "2024-08-21T10:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1150,
+      "nonzero_probabilities": 52,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 48,
+      "cutoff_utc": "2024-08-23T00:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1246,
+      "nonzero_probabilities": 34,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 49,
+      "cutoff_utc": "2024-08-23T01:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1247,
+      "nonzero_probabilities": 33,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 70,
+      "cutoff_utc": "2024-08-23T22:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1288,
+      "nonzero_probabilities": 21,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": 71,
+      "cutoff_utc": "2024-08-23T23:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 1289,
+      "nonzero_probabilities": 21,
+      "endpoint_reference_available": true
+    },
+    {
+      "loaded_index": -1,
+      "cutoff_utc": "2024-10-28T06:00:00+00:00",
+      "prediction_shape": [
+        1,
+        1,
+        103,
+        73
+      ],
+      "known_predictions": 2642,
+      "nonzero_probabilities": 0,
+      "endpoint_reference_available": false
+    }
+  ]
+}

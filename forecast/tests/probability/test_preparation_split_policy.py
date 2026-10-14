@@ -5,6 +5,8 @@ import json
 import shutil
 import sys
 
+import pytest
+
 from tests.probability.test_weighted_resplit import prepared
 import wildfire.prepare as prepare_training
 from wildfire.cache import load_split
@@ -20,7 +22,7 @@ def test_fresh_preparation_defaults_to_weighted_rows_and_keeps_valid_lineage(pre
     seen = []
 
     def extracted(args):
-        seen.append((args.seed, args.split_seed, args.output_dir))
+        seen.append((args.seed, args.split_seed, args.output_dir, args.chunk_hours))
         for name in ("metadata.json", "train.npz", "validation.npz", "test.npz"):
             shutil.copyfile(source / name, args.output_dir / name)
 
@@ -31,6 +33,7 @@ def test_fresh_preparation_defaults_to_weighted_rows_and_keeps_valid_lineage(pre
     actual = json.loads((output / "metadata.json").read_text())
     record = json.loads((output / "resplit.json").read_text())
     assert seen[0][:2] == (19, 11)
+    assert seen[0][3] is None
     assert actual["split_unit"] == "cell_hour"
     assert actual["categorical_coverage"]["training_present"] == ["biome=4", "biome=8"]
     assert (output / "test.npz").read_bytes() == (source / "test.npz").read_bytes()
@@ -45,13 +48,66 @@ def test_fresh_preparation_defaults_to_weighted_rows_and_keeps_valid_lineage(pre
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == expected
 
 
-def test_explicit_season_policy_still_uses_original_preparation(prepared, tmp_path, monkeypatch):
+@pytest.mark.parametrize("chunk_hours", [None, 2])
+def test_explicit_season_policy_still_uses_original_preparation(prepared, tmp_path, monkeypatch, chunk_hours):
     seen = []
     monkeypatch.setattr(prepare_training, "prepare_season_cache", lambda args: seen.append(args))
-    monkeypatch.setattr(sys, "argv", ["prepare", "--output-dir", str(tmp_path / "legacy"),
-                                     "--split-policy", "season"])
+    arguments = ["prepare", "--output-dir", str(tmp_path / "legacy"), "--split-policy", "season"]
+    if chunk_hours is not None:
+        arguments.extend(["--chunk-hours", str(chunk_hours)])
+    monkeypatch.setattr(sys, "argv", arguments)
     prepare_training.prepare_main()
     assert len(seen) == 1 and seen[0].split_policy == "season"
+    assert seen[0].chunk_hours == chunk_hours
+
+
+@pytest.mark.parametrize("chunk_hours", [None, 2])
+def test_public_preparation_factory_forwards_all_options_without_a_model(tmp_path, monkeypatch, chunk_hours):
+    from wildfire import prepare_training_data
+
+    seen = []
+    monkeypatch.setattr(prepare_training, "prepare_season_cache", lambda args: seen.append(args))
+    output = tmp_path / "public"
+    root = tmp_path / "rasters"
+    returned = prepare_training_data(
+        output, data_root=root, channels=("weather.temperature_2m",), kernel_size=5,
+        contact_negatives_per_event=17, no_contact_negatives_per_event=9,
+        seed=19, split_policy="season", validation_fraction=.3, split_seed=11,
+        chunk_hours=chunk_hours,
+    )
+    assert returned == output.resolve()
+    assert len(seen) == 1
+    actual = seen[0]
+    assert actual.output_dir == output.resolve() and actual.data_root == root
+    assert tuple(actual.channels) == ("weather.temperature_2m",)
+    assert actual.kernel_size == 5
+    assert actual.contact_negatives_per_event == 17 and actual.no_contact_negatives_per_event == 9
+    assert actual.seed == 19 and actual.split_seed == 11
+    assert actual.split_policy == "season" and actual.validation_fraction == .3
+    assert actual.chunk_hours == chunk_hours
+
+
+def test_public_weighted_preparation_runs_the_same_lineage_workflow(prepared, tmp_path, monkeypatch):
+    from wildfire import prepare_training_data
+
+    source, _, metadata = prepared
+    output = tmp_path / "public_weighted"
+    seen = []
+
+    def extracted(args):
+        seen.append(args)
+        for name in ("metadata.json", "train.npz", "validation.npz", "test.npz"):
+            shutil.copyfile(source / name, args.output_dir / name)
+
+    monkeypatch.setattr(prepare_training, "prepare_season_cache", extracted)
+    returned = prepare_training_data(output, data_root=metadata["data_root"], seed=19, split_seed=11)
+    assert returned == output.resolve()
+    assert seen[0].chunk_hours is None
+    actual = json.loads((returned / "metadata.json").read_text())
+    assert actual["split_unit"] == "cell_hour"
+    assert actual["fresh_preparation"]["negative_sampling_seed"] == 19
+    assert actual["fresh_preparation"]["split_seed"] == 11
+    assert (returned / "test.npz").read_bytes() == (source / "test.npz").read_bytes()
 
 
 def test_contact_and_country_adapters_keep_row_memberships_and_test_separation(prepared, tmp_path):

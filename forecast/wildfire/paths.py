@@ -13,8 +13,7 @@ DATA_ROOT = DATA / "environment"
 RUNS = WORKSPACE / "runs"
 DEMOS = WORKSPACE / "demonstration"
 DEFAULT_CHECKPOINT = (
-    RUNS / "20261010_categorical_balanced_benchmark" / "candidates"
-    / "k5_legacy_02_lr0.1_warmup_cosine" / "checkpoint.pt"
+    RUNS / "20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt"
 )
 
 

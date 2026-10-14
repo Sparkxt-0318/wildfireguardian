@@ -1,0 +1,124 @@
+{
+  "created_at_utc": "2026-10-10T17:02:49.218357+00:00",
+  "passed": true,
+  "loader": {
+    "independent_of_model": true,
+    "default_sequence_length": 24,
+    "full_timeline_option": {
+      "sequence_length": null
+    },
+    "fixed_windows_supported": true,
+    "variable_time_batch_padding_supported": true,
+    "selection_reads_no_files": true
+  },
+  "training": {
+    "preparation_default_chunk_hours": null,
+    "preparation_uses_independent_full_timeline_loader": true,
+    "bounded_windows_opt_in": "chunk_hours=positive_integer",
+    "full_and_chunked_rows_targets_weights_equal_for_hours": [
+      1,
+      2,
+      3,
+      5,
+      24
+    ],
+    "factory_fit_smoke_epochs": 2
+  },
+  "public_functions": [
+    "available_events",
+    "available_cutoffs",
+    "load_data",
+    "select_time",
+    "prepare_training_data",
+    "train_model",
+    "load_model"
+  ],
+  "removed_model_methods": [
+    "sample",
+    "load_data",
+    "available_events",
+    "available_cutoffs"
+  ],
+  "prediction": {
+    "named_sample_superset_and_reordering_supported": true,
+    "raw_channel_order_exact": true,
+    "categorical_unseen_classes_unknown": true,
+    "tuple_and_structured_padding_consistent": true
+  },
+  "tests": {
+    "tests": 1704,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 63.734,
+    "log": "documents/data_api_tests_20261011.log",
+    "xml": "documents/data_api_tests_20261011.xml"
+  },
+  "notebook": {
+    "passed": true,
+    "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+    "source_sha256": "3a43b0b20ad5dfaf06e3838d99cf85c04304c147fd184ad2c3f5e8f11520e03a",
+    "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_decoupling/20261011/api_tutorial.executed.ipynb",
+    "executed_code_cells": 22,
+    "elapsed_seconds": 6.985966125008417,
+    "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-_7ej1_gh",
+    "data_loading": {
+      "sequence_length": null,
+      "source_channels": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class"
+      ],
+      "full_timeline_feature_shape": [
+        1639,
+        19,
+        103,
+        73
+      ],
+      "full_timeline_start_utc": "2024-08-21T00:00:00+00:00",
+      "full_timeline_end_utc": "2024-10-28T06:00:00+00:00",
+      "valid_hours": 1639
+    },
+    "optional_preparation_run": false,
+    "optional_training_run": false
+  },
+  "cli_example": {
+    "passed": true,
+    "event_id": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00Z",
+    "probability_shape": [
+      1,
+      1,
+      103,
+      73
+    ],
+    "coordinate_shape": [
+      103,
+      73,
+      2
+    ],
+    "record": "documents/data_api_example_20261011.json"
+  },
+  "source_sha256": {
+    "wildfire/data.py": "09608cb7a093694bb8833201beff7325be94862b4457978fac2d4c2da7d902e4",
+    "wildfire/api.py": "5e090a4d793a00a0a124dcc8f548309bbedf3e09609b240ab8ee6459581d1120",
+    "wildfire/prepare.py": "e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0",
+    "wildfire/__init__.py": "7d96b4882aeaf3cac00cc460a55662682fe32bce5918f4fd211110417ea13276",
+    "wildfire/catalog.py": "04f774efdd5925c0a6e9b7af4f16f189a3df7fd78103dbf880b203101fc06ad7",
+    "wildfire/examples.py": "2da0787fb7507a64036b7ca5de85b959f87e9e2c02c060d8a403081822d35c76",
+    "api_tutorial.ipynb": "3a43b0b20ad5dfaf06e3838d99cf85c04304c147fd184ad2c3f5e8f11520e03a",
+    "demonstration/probability.ipynb": "0d8301f984e948dc1064bf8e96caecaad11d8e7ca22e524ce47abc9459de154d",
+    "README.md": "58b5fbec2c9ef20e77d398292c02a6067df5312c522219ec419eea03389ab3c6",
+    "documents/api.md": "9303cdcc7f2bf2d6500864bcf38fbabe815c5c6173bf7b445772e1bab8e271f8",
+    "tests/test_data_api.py": "93516f8cbb1f221c637755a10eec13a6ad9da950d26c88a3879d88ae5e371779",
+    "tests/test_prediction.py": "0a6d2efd982ef92e51f62958fd33c79b8d7d99d1a66adc5117bf1c6673175f23",
+    "tests/test_api.py": "d506fae5a73ae1e5aafa29f8887521e826f37d3d2c2410f0c5c854ef98d5a827",
+    "tests/test_catalog.py": "237105e02b214c62b9ab5fe62c38fb703ff06979ddd7e80f3035bec8831b3cd0",
+    "tests/probability/test_training.py": "d81586e776e750ec3fb9dd94400e769e539ad4f37dd7d7283bbb21c4d3ea065b",
+    "tests/probability/test_preparation_split_policy.py": "9070b43a7421601705ce658ac8fb97d9c72d47625580ce324c7e4561977d00dd"
+  },
+  "validation_scope": "API execution, exact loader/target consistency, masks, named schemas, plotting, notebook, cache preparation and bounded fixture training; no new full-catalog benchmark or forecast skill claim."
+}

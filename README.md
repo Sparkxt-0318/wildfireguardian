@@ -187,9 +187,9 @@ The six `_engine` files are byte-identical copies of the current hourly release 
 
 ## Final forecast
 
-The final 11 October 2026 forecast code, tests and supported checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for installation and the large data files required for inference.
+The updated 14 October 2026 forecast source, tests, heat-parameter methods and current saved checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for API migration, installation and separately supplied data. Existing frozen routing studies retain their recorded inputs and versions.
 
 
 ## Monte Carlo forecast extension
 
-[Separate extension, setup and results](monte-carlo-extension/EXTENSION_GUIDE.md): recursive hourly spread simulation and cumulative forecast evaluation. The final forecast snapshot and routing remain unchanged.
+[Separate extension, setup and results](monte-carlo-extension/EXTENSION_GUIDE.md): recursive hourly spread simulation and cumulative forecast evaluation. This preserves the separately published extension snapshot. The current forecast folder also includes recursive prediction APIs; routing studies retain their frozen versions.

@@ -18,14 +18,16 @@ LOG_LOSS_EPSILON = 1e-7
 
 def brier(target: np.ndarray, prediction: np.ndarray, weight: np.ndarray) -> float:
     residual = prediction.astype(np.float64) - target.astype(np.float64)
-    return float(np.dot(weight, residual * residual) / weight.sum(dtype=np.float64))
+    return float(np.dot(weight / weight.sum(dtype=np.float64), residual * residual))
 
 
 def weighted_rank_metrics(target: np.ndarray, prediction: np.ndarray,
                           weight: np.ndarray) -> tuple[float | None, float | None]:
     """Average precision and ROC AUC with tied scores treated as one threshold."""
     positive = float(np.dot(weight, target))
-    negative = float(weight.sum(dtype=np.float64) - positive)
+    # Sum the negative class directly. Subtraction loses a rare class when
+    # the positive and total masses round to the same floating-point value.
+    negative = float(np.dot(weight, 1 - target))
     if positive == 0:
         return None, None
     order = np.argsort(-prediction, kind="stable")
@@ -56,6 +58,7 @@ def probability_metrics(target: np.ndarray, prediction: np.ndarray,
     y = target.astype(np.float64)
     p = prediction.astype(np.float64)
     total = float(weight.sum(dtype=np.float64))
+    normalized_weight = weight / total
     positives = y == 1
     zero_contact = neighbor_count == 0
     unsupported = positives & (p == 0)
@@ -68,7 +71,7 @@ def probability_metrics(target: np.ndarray, prediction: np.ndarray,
         exact_terms = np.empty(n, dtype=np.float64)
         exact_terms[positives] = -np.log(p[positives])
         exact_terms[~positives] = -np.log1p(-p[~positives])
-        exact_nll = float(np.dot(weight, exact_terms) / total)
+        exact_nll = float(np.dot(normalized_weight, exact_terms))
     ap, auc = weighted_rank_metrics(y, p, weight)
     positive_weight = float(weight[positives].sum(dtype=np.float64))
     return {
@@ -78,13 +81,13 @@ def probability_metrics(target: np.ndarray, prediction: np.ndarray,
         "sample_positive_fraction": float(positives.mean()),
         "positive_population_weight": positive_weight,
         "weighted_prevalence": positive_weight / total,
-        "mean_probability": float(np.dot(weight, p) / total),
+        "mean_probability": float(np.dot(normalized_weight, p)),
         "brier": brier(y, p, weight),
         "positive_class_brier": brier(y[positives], p[positives], weight[positives]) if positives.any() else None,
         "negative_class_brier": brier(y[~positives], p[~positives], weight[~positives]) if (~positives).any() else None,
         "average_precision": ap,
         "roc_auc": auc,
-        "clipped_log_loss": float(np.dot(weight, clipped_terms) / total),
+        "clipped_log_loss": float(np.dot(normalized_weight, clipped_terms)),
         "log_loss_probability_floor": LOG_LOSS_EPSILON,
         "exact_negative_log_likelihood_mean": exact_nll,
         "unsupported_positive_sample_count": int(unsupported.sum()),
@@ -111,8 +114,8 @@ def weighted_calibration(target, prediction, weight):
     for index in range(len(edges) - 1):
         selected = membership == index
         population = float(weight[selected].sum(dtype=np.float64))
-        mean_p = float(np.dot(weight[selected], prediction[selected]) / population) if population else None
-        outcome = float(np.dot(weight[selected], target[selected]) / population) if population else None
+        mean_p = float(np.dot(weight[selected] / population, prediction[selected])) if population else None
+        outcome = float(np.dot(weight[selected] / population, target[selected])) if population else None
         if population:
             absolute_error += population / total * abs(mean_p - outcome)
         bins.append(dict(lower=float(edges[index]), upper=float(edges[index + 1]),
@@ -464,6 +467,11 @@ def _divide(numerator, denominator):
                      where=denominator != 0)
 
 
+def _sqrt_ratio(numerator, denominator):
+    """Take roots before division so a representable root is not lost."""
+    return _divide(np.sqrt(numerator), np.sqrt(denominator))
+
+
 def _scores(tp, fp, tn, fn, total):
     """Vectorized safe scores; zero-denominator scores use the value zero."""
     tp, fp, tn, fn = (np.asarray(value, dtype=np.float64) for value in (tp, fp, tn, fn))
@@ -477,12 +485,12 @@ def _scores(tp, fp, tn, fn, total):
     # underflow-prone four-factor denominator. Raw ratios also preserve a
     # rare class if total-weight normalization rounded its mass to zero.
     positive_product = (
-        np.sqrt(_divide(tp, tp + fp)) * np.sqrt(_divide(tp, tp + fn))
-        * np.sqrt(_divide(tn, tn + fp)) * np.sqrt(_divide(tn, tn + fn))
+        _sqrt_ratio(tp, tp + fp) * _sqrt_ratio(tp, tp + fn)
+        * _sqrt_ratio(tn, tn + fp) * _sqrt_ratio(tn, tn + fn)
     )
     negative_product = (
-        np.sqrt(_divide(fp, tp + fp)) * np.sqrt(_divide(fp, tn + fp))
-        * np.sqrt(_divide(fn, tp + fn)) * np.sqrt(_divide(fn, tn + fn))
+        _sqrt_ratio(fp, tp + fp) * _sqrt_ratio(fp, tn + fp)
+        * _sqrt_ratio(fn, tp + fn) * _sqrt_ratio(fn, tn + fn)
     )
     mcc = positive_product - negative_product
     defined = ((tp + fp) > 0) & ((tp + fn) > 0) & ((tn + fp) > 0) & ((tn + fn) > 0)

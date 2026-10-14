@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-13",
+  "scope": "Software and fixed-scenario verification; not heat-flux calibration or operational wildfire validation",
+  "global_previous_burning_rule": "0 <= current_time_s - arrival_time_s < burning_duration_s",
+  "missing_previous_burn_timing": "unresolved activity and conditional bounds by default; explicit opt-out available",
+  "default_front_spread_rate_m_s": 0.09472222222222222,
+  "reported_reference_value_m_h": 341.0,
+  "reported_reference": "Benali et al. 2023, PT-FireSprd section 3.1 median reconstructed forward ROS",
+  "reported_reference_url": "https://essd.copernicus.org/articles/15/3791/2023/",
+  "reference_scope": "Spread observations from 80 large mainland Portuguese wildfires in 2015-2021; not a universal speed or Fish Creek measurement",
+  "cell_duration_equation": "T_cell = (abs(n dot u) + abs(n dot v)) / spread_rate_m_s + T_point",
+  "emission_profile": "uniform whole-cell rectangular pulse using supplied arrival as cell burn start",
+  "energy_policy": "fuel_load * consumed_fraction * heat_of_combustion is preserved; conditional source power is divided by cell duration",
+  "regression_command": ".venv/bin/python -m pytest tests/heat tests/test_api.py tests/test_data_api.py tests/test_cumulative_api_integration.py -q --tb=short",
+  "regression_result": {"passed": 910, "failed": 0, "warnings": 14},
+  "regression_environment": "Final run allowed OpenMP shared-memory initialization after two sandbox subprocess checks encountered OMP Error 179",
+  "export_checks": [
+    "Global previous-burning helper agrees with integrated heat state",
+    "Previous and new source fluxes sum to total mean and endpoint flux",
+    "Retiming preserves selected phase energy",
+    "Incident energy equals mean flux times 3600 seconds",
+    "Full-grid calculation precedes display crop",
+    "WGS84 latitude-longitude coordinates agree with projected-cell centers",
+    "Cropped CSV matrices match full-grid array slices",
+    "All PNG figures are readable and the A/B figure was visually inspected"
+  ],
+  "figure": "demonstration/heat_spatial_maps/20261013_fishcreek/fuel_and_mean_heat_cropped.png",
+  "scenario_details": "demonstration/heat_spatial_maps/20261013_fishcreek/summary.json",
+  "speed_sensitivity": "demonstration/heat_spatial_maps/20261013_fishcreek/duration_sensitivity.json"
+}

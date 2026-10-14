@@ -1,0 +1,33 @@
+{
+  "notebook": "api_tutorial.ipynb",
+  "code_cells": 21,
+  "completed": 21,
+  "cell_indices": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    25,
+    27,
+    28,
+    30,
+    32,
+    34,
+    36,
+    38,
+    40
+  ],
+  "training_ran": false,
+  "output_dir": "/private/tmp/wildfire-api-notebook-51aop6ps/outputs/run-wfs3wa7u",
+  "log": "documents/api_redesign_notebook_20261011.log",
+  "source_sha256": "256525baaddc1769817498ecd326eee186f183752516f468b9de4961d35f44ab",
+  "execution_method": "Code cells executed in order from in-memory source with display support; no saved notebook outputs, optional training disabled."
+}

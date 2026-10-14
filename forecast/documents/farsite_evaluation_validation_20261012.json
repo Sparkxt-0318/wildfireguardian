@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "case": "WY-BTF-002416_FishCreek",
+  "hours": 6,
+  "interval": [
+    "2024-08-21T06:00:00+00:00",
+    "2024-08-21T12:00:00+00:00"
+  ],
+  "engine_revision": "4537d60ab013fa91d0b49d8efb385ffb1b3ddd13",
+  "engine_sha256": "1c4e23957f17f2eb0eabc6848c8778519a2f7299cc55a8b60e66cc40d7afd11e",
+  "arrival_sha256": "3b6e5be812cdb18abdfeb51b8ac293bd171f16a35dfb586a492db8ec4fb3b25b",
+  "original_shape": [
+    103,
+    73
+  ],
+  "native_shape": [
+    105,
+    75
+  ],
+  "native_duration_minutes": 360,
+  "native_repeated_runs_byte_identical": 3,
+  "counts": {
+    "initial_burned_cells": 5,
+    "predicted_new_burned_cells": 13,
+    "predicted_total_burned_cells": 18,
+    "environment_covered_cells": 7519
+  },
+  "evaluated_new_burn_entries": 2637,
+  "evaluated_occupancy_entries": 2642,
+  "prediction_fields_no_mc": true,
+  "distance_oracle": "22/2637 and22/2642, per-cell deterministic Bernoulli identities",
+  "figure_count": 15,
+  "png_svg_exports": 30,
+  "implementation_input_and_plot_hashes_verified": true,
+  "notebook": {
+    "cells": 60,
+    "code_cells": 30,
+    "schema_and_code_syntax": "passed",
+    "new_report_preview_cell_execution": "passed against completed real FARSITE report"
+  },
+  "report_dir": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261012_farsite_6h",
+  "regression": {
+    "tests": 2251,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 281.308,
+    "junit_xml": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/documents/farsite_regression_20261012.xml",
+    "junit_sha256": "acfe7f0bec7804058bada13a02e385a1d36a6e4387ad981065b5782d42b3599f"
+  },
+  "grid_cutoff_source_engine_and_patch_hashes_verified": true
+}

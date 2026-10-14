@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-10T17:43:26.545640+00:00",
+  "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+  "source_sha256": "7ba0b455efd21231921804c7d42174c9814aae3a05a7d40d6ab25b3c02514a07",
+  "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_overlay/20261011/api_tutorial.executed.ipynb",
+  "executed_code_cells": 24,
+  "elapsed_seconds": 7.615347250015475,
+  "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-wdzvqlud",
+  "comparison_layout": "overlay",
+  "comparison_layers": [
+    "next-hour new-burn probability",
+    "burned area at cutoff",
+    "reconstructed new burns in the following hour"
+  ],
+  "data_loading": {
+    "sequence_length": null,
+    "source_channels": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class"
+    ],
+    "full_timeline_feature_shape": [
+      1639,
+      19,
+      103,
+      73
+    ],
+    "full_timeline_start_utc": "2024-08-21T00:00:00+00:00",
+    "full_timeline_end_utc": "2024-10-28T06:00:00+00:00",
+    "valid_hours": 1639
+  },
+  "selected_plot_time_index": 70,
+  "selected_plot_cutoff_utc": "2024-08-23T22:00:00+00:00",
+  "selected_comparison_time_index": 10,
+  "selected_comparison_cutoff_utc": "2024-08-21T10:00:00+00:00",
+  "preparation_run": false,
+  "training_run": false
+}

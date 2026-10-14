@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-12",
+  "scope": "Source-backed parameter scenarios and optional timing/transport models; functional and mathematical checks, not observed wildfire heat validation.",
+  "regression": {
+    "command": "OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q --junitxml=documents/heat_reference_models_tests_20261012.xml",
+    "tests_passed": 2449,
+    "heat_tests_passed": 677,
+    "new_heat_tests_passed": 198,
+    "failed": 0,
+    "errors": 0,
+    "warnings": 272,
+    "elapsed_seconds": 82.15,
+    "environment": "Shared-memory access enabled for OpenMP subprocess initialization; sandbox-only subprocess import checks otherwise abort.",
+    "stage": "Full suite before the final two rate/probability precision guards."
+  },
+  "synthetic_example": "demonstration/heat_reference_models/validation.json",
+  "bibliography": {
+    "path": "documents/heat_parameter_models.bib",
+    "entries": 14,
+    "verification": "BibTeX plain style parsed with exit 0 and no warnings"
+  },
+  "independent_verification": [
+    "Exponential arrival integrals against numerical quadrature and high-precision arithmetic",
+    "Attenuated affine source footprints against SciPy double integration and Gauss quadrature",
+    "Exact transparent recovery and nonnegative bound propagation",
+    "Phase-energy budget and interval energy consistency"
+  ],
+  "remaining_supplied_inputs": [
+    "Phase-consumed dry fuel mass/fraction and aligned initial fuel",
+    "Atmospheric absorption coefficient or compatible reference transmission",
+    "Emission and receiver elevations and source geometry",
+    "Effective heat yield when nominal FBFM40 heat is inappropriate",
+    "Additional uncertainty ranges or distributions for physical parameters"
+  ],
+  "scientific_limitations": [
+    "Pine/dead-litter radiative fraction is an optional scoped reference, not universal",
+    "Grey homogeneous Beer-Lambert medium omits scattering and medium emission",
+    "FBFM40 residence is point-front duration, not coarse-cell traversal or full fuel burnout",
+    "Uniform and constant-hazard initiation are explicit timing scenarios",
+    "No calibration against observed incident heat flux",
+    "Incident radiation only; convection, absorption and receiver temperature are outside this model"
+  ],
+  "final_targeted_regression": {
+    "tests_passed": 715,
+    "failed": 0,
+    "errors": 0,
+    "heat_tests_passed": 679,
+    "new_heat_tests_passed": 200,
+    "command": "OMP_NUM_THREADS=1 .venv/bin/python -m pytest tests/heat tests/test_api.py tests/test_workspace.py -q",
+    "xml": "documents/heat_reference_models_targeted_tests_20261012.xml",
+    "stage": "Final code including strict saturation and relative-only interior consistency."
+  }
+}

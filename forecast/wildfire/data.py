@@ -47,7 +47,12 @@ class Layer:
 
 
 def _utc(value: str) -> pd.Timestamp:
-    t = pd.Timestamp(value)
+    try:
+        t = pd.Timestamp(value)
+    except (TypeError, ValueError) as error:
+        raise ValueError(f'Time must be a finite timestamp with a UTC offset: {value!r}') from error
+    if pd.isna(t):
+        raise ValueError(f'Time must be finite: {value!r}')
     if t.tzinfo is None:
         raise ValueError(f'Time must include a UTC offset: {value!r}')
     return t.tz_convert('UTC')
@@ -63,7 +68,9 @@ class WildfireSequenceDataset(Dataset):
     By default each full bitmap retains its original rectangle (height,width),
     without stretching or cropping. Optional rectangular patches are supported.
     Ordering is event -> spatial tile -> chronological time window. Each sample
-    stays inside one event/tile. Short events and final windows are padded.
+    stays inside one event/tile. The default sequence_length=24 uses chronological
+    windows, padding short events and final windows. sequence_length=None reads
+    the entire selected event timeline as one sample per spatial tile.
 
     daily_policy='completed_day' selects the most recent daily interval that
     ended by the hourly timestamp (MST day boundaries are 07:00 UTC). This
@@ -72,8 +79,10 @@ class WildfireSequenceDataset(Dataset):
     retrospective alignment and can expose future information within that day.
 
     Raster readers are opened lazily and cached separately per worker process.
-    No whole event time-series is expanded in RAM; only requested bands/windows
-    are read. Samples remain on CPU for use with multiprocessing DataLoader.
+    Construction reads metadata; pixels are read only when a sample is
+    requested. Accessing a whole-event sample materializes its complete selected
+    timeline in RAM. Explicit windows bound the size of each read. Samples
+    remain on CPU for use with multiprocessing DataLoader.
 
     Categorical rasters expand to one channel per class, named 'source=code'.
     Valid known pixels have exactly one active indicator in each complete
@@ -87,24 +96,44 @@ class WildfireSequenceDataset(Dataset):
 
     def __init__(self, data_root: str | Path = DEFAULT_ROOT, *,
                  events: Sequence[str] | None = None,
-                 sequence_length: int = 24, temporal_stride: int | None = None,
+                 sequence_length: int | None = 24, temporal_stride: int | None = None,
                  patch_size: int | tuple[int,int] | None = None,
                  channels: Sequence[str] | None = None,
                  time_range: tuple[str, str] | None = None,
                  daily_policy: str = 'completed_day', fill_value: float = 0.0,
                  max_open_files: int = 64,
                  categorical_encoding: str = 'one_hot',
-                 categorical_classes: Mapping[str, Sequence[int]] | None = None):
+                 categorical_classes: Mapping[str, Sequence[int]] | None = None,
+                 include_fire_labels: bool = True):
         self.root = resolve_recorded_path(data_root).resolve()
+        if not isinstance(include_fire_labels, bool):
+            raise TypeError('include_fire_labels must be a boolean')
+        self.include_fire_labels = include_fire_labels
         if categorical_encoding not in ('one_hot', 'raw'):
             raise ValueError('categorical_encoding must be one_hot or raw')
         if categorical_encoding == 'raw' and categorical_classes is not None:
             raise ValueError('categorical_classes is used only with one_hot encoding')
         self.categorical_encoding = categorical_encoding
-        self.sequence_length = operator.index(sequence_length)
-        self.temporal_stride = operator.index(temporal_stride if temporal_stride is not None else sequence_length)
-        if self.sequence_length <= 0 or not 1 <= self.temporal_stride <= self.sequence_length:
-            raise ValueError('sequence_length must be positive; stride must be between 1 and sequence_length')
+        if sequence_length is None:
+            if temporal_stride is not None:
+                raise ValueError('temporal_stride requires an explicit sequence_length')
+            self.sequence_length = self.temporal_stride = None
+        else:
+            if isinstance(sequence_length, (bool, np.bool_)):
+                raise ValueError('sequence_length must be a positive integer or None')
+            try:
+                self.sequence_length = operator.index(sequence_length)
+            except TypeError as error:
+                raise ValueError('sequence_length must be a positive integer or None') from error
+            stride = sequence_length if temporal_stride is None else temporal_stride
+            if isinstance(stride, (bool, np.bool_)):
+                raise ValueError('temporal_stride must be an integer between 1 and sequence_length')
+            try:
+                self.temporal_stride = operator.index(stride)
+            except TypeError as error:
+                raise ValueError('temporal_stride must be an integer between 1 and sequence_length') from error
+            if self.sequence_length <= 0 or not 1 <= self.temporal_stride <= self.sequence_length:
+                raise ValueError('sequence_length must be positive; stride must be between 1 and sequence_length')
         if patch_size is None:
             self.patch_size = None
         else:
@@ -178,10 +207,13 @@ class WildfireSequenceDataset(Dataset):
                         raise ValueError(f'Invalid daily band numbering: {layer.path}')
                     daily_times[name] = dt
             patch = self.patch_size or (e['height'],e['width'])
-            nt = math.ceil(len(times)/self.temporal_stride)
+            length = len(times) if self.sequence_length is None else self.sequence_length
+            stride = length if self.temporal_stride is None else self.temporal_stride
+            nt = math.ceil(len(times)/stride)
             nr, nc = math.ceil(e['height']/patch[0]), math.ceil(e['width']/patch[1])
             self._events.append(dict(info=e, layers=layers, times=times, hourly_times=band_times,
-                                     daily_times=daily_times, patch=patch, nt=nt, nr=nr, nc=nc))
+                                     daily_times=daily_times, patch=patch, nt=nt, nr=nr, nc=nc,
+                                     sequence_length=length, temporal_stride=stride))
         if not self._events:
             raise ValueError('No events intersect the requested time range')
         source_names = tuple(sorted(all_layers, key=lambda n: (CATEGORIES.index(n.split('.')[0]), n)))
@@ -315,7 +347,7 @@ class WildfireSequenceDataset(Dataset):
     def sample_location(self, index: int) -> dict:
         """Inspect a sample's event/tile/time range without reading raster pixels."""
         state, row, col, start = self._locate(index)
-        times = state['times'][start:start+self.sequence_length]
+        times = state['times'][start:start+state['sequence_length']]
         return dict(event_id=state['info']['id'], row=row, col=col,
                     start_utc=times[0].isoformat(), end_utc=times[-1].isoformat(),
                     valid_hours=len(times), patch_size=state['patch'])
@@ -329,7 +361,7 @@ class WildfireSequenceDataset(Dataset):
         local = index-(self._ends[ei-1] if ei else 0)
         tile, ti = divmod(local, state['nt'])
         ri, ci = divmod(tile, state['nc'])
-        return state, ri*state['patch'][0], ci*state['patch'][1], ti*self.temporal_stride
+        return state, ri*state['patch'][0], ci*state['patch'][1], ti*state['temporal_stride']
 
     def _reader(self, path: Path, e: dict):
         if self._pid != os.getpid():
@@ -357,9 +389,9 @@ class WildfireSequenceDataset(Dataset):
     def __getitem__(self, index: int) -> dict[str, Any]:
         state, row, col, start = self._locate(index)
         e, layers = state['info'], state['layers']
-        times = state['times'][start:start+self.sequence_length]
+        times = state['times'][start:start+state['sequence_length']]
         seconds = _seconds(times); n = len(times)
-        t, c = self.sequence_length, len(self.channel_names)
+        t, c = state['sequence_length'], len(self.channel_names)
         h, w = state['patch']; rh, rw = min(h, e['height']-row), min(w, e['width']-col)
         window = Window(col, row, rw, rh)
         features = np.full((t,c,h,w), self.fill_value, 'float32')
@@ -441,8 +473,16 @@ class WildfireSequenceDataset(Dataset):
                 features[:n,j,:rh,:rw] = np.where(ok,a,self.fill_value)
                 valid[:n,j,:rh,:rw] = ok
         region = self.root/'regions'/e['id']
-        arrival, av = self._read(region/'arrival_time_hours.tif',e,[1],window)
-        uncertainty, uv = self._read(region/'kriging_std_hours.tif',e,[1],window)
+        if self.include_fire_labels:
+            arrival, av = self._read(region/'arrival_time_hours.tif',e,[1],window)
+            uncertainty, uv = self._read(region/'kriging_std_hours.tif',e,[1],window)
+        else:
+            # Independent observed-perimeter evaluations need environmental
+            # covariates without opening any reconstructed fire-label rasters.
+            arrival = np.full((1,rh,rw), self.fill_value, dtype='float32')
+            uncertainty = arrival.copy()
+            av = np.zeros(arrival.shape, dtype=bool)
+            uv = av.copy()
         arrival = np.where(av,arrival,self.fill_value); uncertainty = np.where(uv,uncertainty,self.fill_value)
         elapsed = (times.asi8-_utc(e['t0_utc']).value)/(3600*10**9)
         labels = np.zeros((t,1,h,w),'float32'); newly = labels.copy(); label_valid = np.zeros(labels.shape,bool)
@@ -499,11 +539,137 @@ class WildfireSequenceDataset(Dataset):
         if hasattr(self, '_readers'): self.close()
 
 
-def collate_fire_sequences(samples: list[dict]) -> dict:
-    """Stack samples; pad varying full-event grids while retaining their masks.
+_TEMPORAL_FIELDS = frozenset({
+    'features', 'feature_valid', 'feature_quality', 'burned_area',
+    'newly_burned_area', 'burned_area_valid', 'newly_burned_area_valid', 'time_utc', 'time_valid',
+    'elapsed_hours', 'source_interval_start_utc', 'source_interval_end_utc',
+})
 
-    Channel order and sequence length must agree. Environmental tensors become
-    [batch,time,channel,height,width]. Metadata strings stay as lists.
+
+def load_data(
+    data_root: str | Path = DEFAULT_ROOT, *, events: Sequence[str] | None = None,
+    sequence_length: int | None = 24, temporal_stride: int | None = None,
+    patch_size: int | tuple[int, int] | None = None,
+    channels: Sequence[str] | None = None, time_range: tuple[str, str] | None = None,
+    daily_policy: str = 'completed_day', fill_value: float = 0.0,
+    max_open_files: int = 64, categorical_encoding: str = 'one_hot',
+    categorical_classes: Mapping[str, Sequence[int]] | None = None,
+    include_fire_labels: bool = True,
+) -> WildfireSequenceDataset:
+    """Load event timelines independently of any model or checkpoint.
+
+    Return a metadata-backed dataset with 24-hour windows by default. Set
+    sequence_length=None to read an event's entire available timeline as one
+    sample per spatial tile. No pixels are read until indexing. events and
+    time_range optionally restrict that selection. A positive sequence_length
+    enables bounded windows and optional temporal_stride; patch_size enables
+    spatial tiles. Channel selection and categorical vocabularies are data
+    options and do not depend on a model.
+    """
+    return WildfireSequenceDataset(
+        data_root, events=events, sequence_length=sequence_length,
+        temporal_stride=temporal_stride, patch_size=patch_size, channels=channels,
+        time_range=time_range, daily_policy=daily_policy, fill_value=fill_value,
+        max_open_files=max_open_files, categorical_encoding=categorical_encoding,
+        categorical_classes=categorical_classes, include_fire_labels=include_fire_labels,
+    )
+
+
+def select_time(
+    sample: Mapping[str, Any], start: Any = None, end: Any = None, *, index: int | None = None,
+) -> dict[str, Any]:
+    """Select loaded times by exact UTC boundaries or one positional index.
+
+    sample must be one event/tile with features shaped [T,C,H,W], rather than a
+    batch. Use index=i for a zero-based position in this loaded sample; negative
+    indices count from its end. A selected padding position is rejected. Index
+    selection cannot be combined with start/end timestamps.
+    Both boundaries must identify valid timestamps already in sample;
+    end=None selects one timestamp. The time dimension is retained, so a single
+    timestamp still has T=1. Known temporal fields are sliced, while static
+    geometry, channel metadata, and other fields retain their original values.
+    No raster files are opened. The returned mapping shares tensor/array storage
+    with sample and leaves sample unchanged.
+    """
+    if not isinstance(sample, Mapping):
+        raise TypeError('sample must be a mapping containing one loaded event/tile')
+    if index is not None and (start is not None or end is not None):
+        raise ValueError('Choose either index or start/end timestamps, not both')
+    if index is None and start is None:
+        raise ValueError('Supply a start timestamp or index to select loaded times')
+    features = sample.get('features')
+    if not hasattr(features, 'shape') or len(features.shape) != 4:
+        raise ValueError('select_time requires an unbatched sample with features [T,C,H,W]')
+    length = features.shape[0]
+    if length < 1 or 'time_utc' not in sample:
+        raise ValueError('sample must contain at least one time_utc timestamp')
+
+    def as_array(value):
+        if isinstance(value, torch.Tensor):
+            return value.detach().cpu().numpy()
+        return np.asarray(value)
+
+    times = as_array(sample['time_utc'])
+    if times.shape != (length,) or not np.issubdtype(times.dtype, np.integer):
+        raise ValueError('time_utc must be a one-dimensional integer array matching T')
+    valid = as_array(sample.get('time_valid', np.ones(length, dtype=bool)))
+    if valid.shape != (length,) or valid.dtype != np.dtype(bool):
+        raise ValueError('time_valid must be a one-dimensional boolean array matching T')
+    indices = np.flatnonzero(valid)
+    if not len(indices):
+        raise ValueError('sample has no valid timestamps to select')
+    known = times[indices]
+    if np.any(known[1:] <= known[:-1]):
+        raise ValueError('Valid sample timestamps must be strictly increasing and distinct')
+    def boundary_index(value):
+        # Loaded timestamps use integer Unix seconds. Fractional-second queries
+        # must not silently round onto an existing timestamp.
+        try:
+            ns = value.value
+        except OverflowError as error:
+            raise ValueError(f'Timestamp is unavailable in the loaded sample: {value.isoformat()}') from error
+        if ns % 10**9:
+            raise ValueError(f'Timestamp is unavailable in the loaded sample: {value.isoformat()}')
+        matches = indices[known == ns // 10**9]
+        if not len(matches):
+            raise ValueError(f'Timestamp is unavailable in the loaded sample: {value.isoformat()}')
+        return int(matches[0])
+
+    if index is not None:
+        if (isinstance(index, (bool, np.bool_))
+                or isinstance(index, torch.Tensor) and index.dtype == torch.bool):
+            raise TypeError('index must be an integer, excluding booleans')
+        try:
+            first = operator.index(index)
+        except TypeError as error:
+            raise TypeError('index must be an integer') from error
+        if not -length <= first < length:
+            raise IndexError(f'Loaded time index {first} is outside a timeline of length {length}')
+        first %= length
+        if not valid[first]:
+            raise ValueError(f'Loaded time index {first} identifies temporal padding')
+        last = first
+    else:
+        left, right = _utc(start), _utc(start if end is None else end)
+        if right < left:
+            raise ValueError('end must not precede start')
+        first, last = boundary_index(left), boundary_index(right)
+    result = dict(sample)
+    for key in _TEMPORAL_FIELDS & sample.keys():
+        value = sample[key]
+        if not hasattr(value, 'shape') or not len(value.shape) or value.shape[0] != length:
+            raise ValueError(f'{key} must have a leading time dimension matching T')
+        result[key] = value[first:last+1]
+    return result
+
+
+def collate_fire_sequences(samples: list[dict]) -> dict:
+    """Stack samples, padding differing time lengths and spatial grids.
+
+    Channel order and categorical encoding must agree. Environmental tensors
+    become [batch,time,channel,height,width]. Temporal and spatial padding have
+    false validity masks; padded timestamps are -1 and elapsed times are NaN.
+    Metadata strings stay as lists. Original sample tensors are unchanged.
     """
     if not samples: raise ValueError('Cannot collate an empty batch')
     first = samples[0]
@@ -511,11 +677,13 @@ def collate_fire_sequences(samples: list[dict]) -> dict:
         raise ValueError('All samples must use the same channel schema')
     if any(s.get('categorical_encoding','raw') != first.get('categorical_encoding','raw') for s in samples):
         raise ValueError('All samples must use the same categorical encoding')
-    if any(s['features'].shape[:2] != first['features'].shape[:2] for s in samples):
-        raise ValueError('All samples must use the same sequence length and channel count')
+    if any(s['features'].ndim != 4 or s['features'].shape[0] < 1
+           or s['features'].shape[1] != len(first['channel_names']) for s in samples):
+        raise ValueError('All samples must have features [T,C,H,W] with the same channel count')
+    t = max(s['features'].shape[0] for s in samples)
     h = max(s['features'].shape[-2] for s in samples); w = max(s['features'].shape[-1] for s in samples)
     spatial = {'features','feature_valid','feature_quality','burned_area','newly_burned_area',
-               'burned_area_valid','arrival_hours','arrival_valid','arrival_std_hours',
+               'burned_area_valid','newly_burned_area_valid','arrival_hours','arrival_valid','arrival_std_hours',
                'arrival_std_valid','coordinates','pixel_valid'}
     result = {}
     for key,value in first.items():
@@ -524,20 +692,27 @@ def collate_fire_sequences(samples: list[dict]) -> dict:
             items = []
             for s in samples:
                 a = s[key]
-                if key in spatial and a.shape[-2:] != (h,w):
-                    ah, aw = a.shape[-2:]
-                    fill = (float('nan') if key == 'coordinates' else
-                            QUALITY['spatial_padding'] if key == 'feature_quality' else
+                shape = list(a.shape)
+                if key in _TEMPORAL_FIELDS:
+                    if not shape or shape[0] != s['features'].shape[0]:
+                        raise ValueError(f'{key} must have a leading time dimension matching its sample')
+                    shape[0] = t
+                if key in spatial:
+                    shape[-2:] = (h,w)
+                if tuple(shape) != tuple(a.shape):
+                    fill = (float('nan') if key in ('coordinates','elapsed_hours') else
+                            -1 if key in ('time_utc','source_interval_start_utc','source_interval_end_utc') else
+                            QUALITY['temporal_padding'] if key == 'feature_quality' else
                             False if a.dtype == torch.bool else
                             s['fill_value'] if key in ('features','arrival_hours','arrival_std_hours') else 0)
-                    padded = torch.full((*a.shape[:-2],h,w),fill,dtype=a.dtype)
-                    padded[...,:ah,:aw] = a
-                    if key=='features':
-                        # One-hot groups remain all zero even with a nonzero
-                        # configured fill value for continuous/raw channels.
-                        cats = s['categorical_channel'] if s.get('categorical_encoding','raw')=='one_hot' else torch.zeros_like(s['categorical_channel'])
-                        padded[:,cats,ah:,:] = 0
-                        padded[:,cats,:,aw:] = 0
+                    padded = torch.full(shape,fill,dtype=a.dtype,device=a.device)
+                    if key == 'feature_quality':
+                        padded[:a.shape[0]] = QUALITY['spatial_padding']
+                    elif key == 'features' and s.get('categorical_encoding','raw') == 'one_hot':
+                        # One-hot groups remain zero for both temporal and
+                        # spatial padding, even with a nonzero fill value.
+                        padded[:,s['categorical_channel']] = 0
+                    padded[tuple(slice(0,size) for size in a.shape)] = a
                     a = padded
                 items.append(a)
             result[key] = torch.stack(items)

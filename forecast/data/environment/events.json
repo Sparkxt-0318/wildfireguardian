@@ -1,0 +1,1586 @@
+[
+  {
+    "id": "KFS_01",
+    "name": "Uiseong",
+    "country": "KR",
+    "year": 2025,
+    "t0_utc": "2025-03-22T02:24:00+00:00",
+    "start_utc": "2025-03-22T02:00:00+00:00",
+    "end_utc": "2025-03-26T20:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2025-02-20T02:00:00+00:00",
+    "arrival_path": "regions/KFS_01/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_01_pswt_ok_toa.tif",
+    "width": 237,
+    "height": 79,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1085250.0,
+      0.0,
+      -375.0,
+      1845375.0
+    ],
+    "bounds_wgs84": [
+      128.4499060353905,
+      36.32339483311059,
+      129.44648394980953,
+      36.60240358273109
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 10955
+  },
+  {
+    "id": "KFS_02",
+    "name": "Uljin",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-03-04T02:17:00+00:00",
+    "start_utc": "2022-03-04T02:00:00+00:00",
+    "end_utc": "2022-03-12T04:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-02-02T02:00:00+00:00",
+    "arrival_path": "regions/KFS_02/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_02_pswt_ok_toa.tif",
+    "width": 58,
+    "height": 62,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1149000.0,
+      0.0,
+      -375.0,
+      1912125.0
+    ],
+    "bounds_wgs84": [
+      129.17424629547938,
+      36.98285027651241,
+      129.42381335687014,
+      37.196040126389576
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1937
+  },
+  {
+    "id": "KFS_03",
+    "name": "Gangneung",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-03-04T16:08:00+00:00",
+    "start_utc": "2022-03-04T16:00:00+00:00",
+    "end_utc": "2022-03-07T18:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-02-02T16:00:00+00:00",
+    "arrival_path": "regions/KFS_03/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_03_pswt_ok_toa.tif",
+    "width": 33,
+    "height": 20,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1130625.0,
+      0.0,
+      -375.0,
+      1956000.0
+    ],
+    "bounds_wgs84": [
+      128.9783054450307,
+      37.52472809508403,
+      129.11976899741396,
+      37.594143129608945
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 372
+  },
+  {
+    "id": "KFS_04",
+    "name": "Sancheong",
+    "country": "KR",
+    "year": 2025,
+    "t0_utc": "2025-03-21T06:26:00+00:00",
+    "start_utc": "2025-03-21T06:00:00+00:00",
+    "end_utc": "2025-03-28T18:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2025-02-19T06:00:00+00:00",
+    "arrival_path": "regions/KFS_04/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_04_pswt_ok_toa.tif",
+    "width": 27,
+    "height": 29,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1025625.0,
+      0.0,
+      -375.0,
+      1701000.0
+    ],
+    "bounds_wgs84": [
+      127.78152430208566,
+      35.20583144850979,
+      127.89323204053514,
+      35.30420051706261
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 355
+  },
+  {
+    "id": "KFS_05",
+    "name": "Hongseong",
+    "country": "KR",
+    "year": 2023,
+    "t0_utc": "2023-04-02T02:00:00+00:00",
+    "start_utc": "2023-04-02T02:00:00+00:00",
+    "end_utc": "2023-04-03T18:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2023-03-03T02:00:00+00:00",
+    "arrival_path": "regions/KFS_05/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_05_pswt_ok_toa.tif",
+    "width": 18,
+    "height": 18,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      907500.0,
+      0.0,
+      -375.0,
+      1844625.0
+    ],
+    "bounds_wgs84": [
+      126.46587033294021,
+      36.53412563056749,
+      126.54207551429371,
+      36.5955984120693
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 153
+  },
+  {
+    "id": "KFS_06",
+    "name": "Ulju",
+    "country": "KR",
+    "year": 2025,
+    "t0_utc": "2025-03-22T03:12:00+00:00",
+    "start_utc": "2025-03-22T03:00:00+00:00",
+    "end_utc": "2025-03-26T12:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2025-02-20T03:00:00+00:00",
+    "arrival_path": "regions/KFS_06/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_06_pswt_ok_toa.tif",
+    "width": 14,
+    "height": 14,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1155375.0,
+      0.0,
+      -375.0,
+      1717500.0
+    ],
+    "bounds_wgs84": [
+      129.21086302342496,
+      35.39301974842678,
+      129.26968219781784,
+      35.44116927081546
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 78
+  },
+  {
+    "id": "KFS_07",
+    "name": "Geumsan",
+    "country": "KR",
+    "year": 2023,
+    "t0_utc": "2023-04-02T03:19:00+00:00",
+    "start_utc": "2023-04-02T03:00:00+00:00",
+    "end_utc": "2023-04-03T06:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2023-03-03T03:00:00+00:00",
+    "arrival_path": "regions/KFS_07/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_07_pswt_ok_toa.tif",
+    "width": 14,
+    "height": 12,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      983625.0,
+      0.0,
+      -375.0,
+      1806000.0
+    ],
+    "bounds_wgs84": [
+      127.31773373067912,
+      36.21052930254784,
+      127.37623404140602,
+      36.2511740417131
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 70
+  },
+  {
+    "id": "KFS_09",
+    "name": "Yanggu",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-04-10T06:40:00+00:00",
+    "start_utc": "2022-04-10T06:00:00+00:00",
+    "end_utc": "2022-04-10T18:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-03-11T06:00:00+00:00",
+    "arrival_path": "regions/KFS_09/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_09_pswt_ok_toa.tif",
+    "width": 11,
+    "height": 15,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1043625.0,
+      0.0,
+      -375.0,
+      2015625.0
+    ],
+    "bounds_wgs84": [
+      127.99748383942705,
+      38.08886675945351,
+      128.04489851513102,
+      38.1397699598421
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 57
+  },
+  {
+    "id": "KFS_11",
+    "name": "Miryang",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-05-31T00:25:00+00:00",
+    "start_utc": "2022-05-31T00:00:00+00:00",
+    "end_utc": "2022-06-02T02:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-05-01T00:00:00+00:00",
+    "arrival_path": "regions/KFS_11/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_11_pswt_ok_toa.tif",
+    "width": 11,
+    "height": 17,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1111125.0,
+      0.0,
+      -375.0,
+      1729875.0
+    ],
+    "bounds_wgs84": [
+      128.72527349273767,
+      35.500715139428614,
+      128.77165281050435,
+      35.558653526036316
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 80
+  },
+  {
+    "id": "KFS_12",
+    "name": "Yeongdeok",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-02-14T19:01:00+00:00",
+    "start_utc": "2022-02-14T19:00:00+00:00",
+    "end_utc": "2022-02-16T16:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-01-15T19:00:00+00:00",
+    "arrival_path": "regions/KFS_12/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_12_pswt_ok_toa.tif",
+    "width": 12,
+    "height": 8,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1165125.0,
+      0.0,
+      -375.0,
+      1830375.0
+    ],
+    "bounds_wgs84": [
+      129.34207596835583,
+      36.4289442952448,
+      129.39290865165157,
+      36.456761043576826
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 51
+  },
+  {
+    "id": "KFS_13",
+    "name": "Buk-gu",
+    "country": "KR",
+    "year": 2025,
+    "t0_utc": "2025-04-28T05:01:00+00:00",
+    "start_utc": "2025-04-28T05:00:00+00:00",
+    "end_utc": "2025-04-30T09:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2025-03-29T05:00:00+00:00",
+    "arrival_path": "regions/KFS_13/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_13_pswt_ok_toa.tif",
+    "width": 9,
+    "height": 7,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1095375.0,
+      0.0,
+      -375.0,
+      1771125.0
+    ],
+    "bounds_wgs84": [
+      128.5569829872837,
+      35.90815763478554,
+      128.59470609523555,
+      35.932155796624265
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 27
+  },
+  {
+    "id": "KFS_14",
+    "name": "Uljin",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-05-28T03:06:00+00:00",
+    "start_utc": "2022-05-28T03:00:00+00:00",
+    "end_utc": "2022-05-28T18:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-04-28T03:00:00+00:00",
+    "arrival_path": "regions/KFS_14/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_14_pswt_ok_toa.tif",
+    "width": 8,
+    "height": 5,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1166250.0,
+      0.0,
+      -375.0,
+      1888875.0
+    ],
+    "bounds_wgs84": [
+      129.3675749843075,
+      36.9662286103609,
+      129.4016792751001,
+      36.983656499060295
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 19
+  },
+  {
+    "id": "KFS_15",
+    "name": "Gunwi",
+    "country": "KR",
+    "year": 2022,
+    "t0_utc": "2022-04-10T04:10:00+00:00",
+    "start_utc": "2022-04-10T04:00:00+00:00",
+    "end_utc": "2022-04-11T01:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2022-03-11T04:00:00+00:00",
+    "arrival_path": "regions/KFS_15/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_15_pswt_ok_toa.tif",
+    "width": 7,
+    "height": 9,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1113000.0,
+      0.0,
+      -375.0,
+      1796625.0
+    ],
+    "bounds_wgs84": [
+      128.7558064141794,
+      36.12939566455986,
+      128.785468688059,
+      36.16012577595926
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 25
+  },
+  {
+    "id": "KFS_16",
+    "name": "Suncheon",
+    "country": "KR",
+    "year": 2023,
+    "t0_utc": "2023-04-03T04:40:00+00:00",
+    "start_utc": "2023-04-03T04:00:00+00:00",
+    "end_utc": "2023-04-03T05:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2023-03-04T04:00:00+00:00",
+    "arrival_path": "regions/KFS_16/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_16_pswt_ok_toa.tif",
+    "width": 6,
+    "height": 5,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      975750.0,
+      0.0,
+      -375.0,
+      1667625.0
+    ],
+    "bounds_wgs84": [
+      127.23424108893933,
+      34.98638107592448,
+      127.25894850770476,
+      35.003340089691584
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 9
+  },
+  {
+    "id": "KFS_17",
+    "name": "Hapcheon",
+    "country": "KR",
+    "year": 2023,
+    "t0_utc": "2023-03-08T04:59:00+00:00",
+    "start_utc": "2023-03-08T04:00:00+00:00",
+    "end_utc": "2023-03-09T12:00:00+00:00",
+    "acquisition_window_basis": "t0 and finite reconstructed arrival range; not an official containment time",
+    "rain_history_start_utc": "2023-02-06T04:00:00+00:00",
+    "arrival_path": "regions/KFS_17/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_kr/KFS_17_pswt_ok_toa.tif",
+    "width": 4,
+    "height": 8,
+    "epsg": 5179,
+    "transform": [
+      375.0,
+      0.0,
+      1055250.0,
+      0.0,
+      -375.0,
+      1735500.0
+    ],
+    "bounds_wgs84": [
+      128.10985205047024,
+      35.58692960264956,
+      128.12661906434204,
+      35.61406260881601
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 14
+  },
+  {
+    "id": "CA-BTU-009205_Dixie",
+    "name": "Dixie",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-14T00:00:00+00:00",
+    "start_utc": "2021-07-14T00:00:00+00:00",
+    "end_utc": "2021-10-14T02:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-14T00:00:00+00:00",
+    "arrival_path": "regions/CA-BTU-009205_Dixie/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-BTU-009205_Dixie_pswt_ok_toa.tif",
+    "width": 309,
+    "height": 318,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2135625.0,
+      0.0,
+      -375.0,
+      2257875.0
+    ],
+    "bounds_wgs84": [
+      -121.80384879290735,
+      39.680701854048785,
+      -120.10791243004037,
+      40.97717733093498
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 28103
+  },
+  {
+    "id": "CA-KNF-006385_RiverComplex_RiverComplex",
+    "name": "RiverComplex_RiverComplex",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-02T00:00:00+00:00",
+    "start_utc": "2021-08-02T00:00:00+00:00",
+    "end_utc": "2021-10-20T02:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-03T00:00:00+00:00",
+    "arrival_path": "regions/CA-KNF-006385_RiverComplex_RiverComplex/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-KNF-006385_RiverComplex_RiverComplex_pswt_ok_toa.tif",
+    "width": 138,
+    "height": 90,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2244000.0,
+      0.0,
+      -375.0,
+      2345250.0
+    ],
+    "bounds_wgs84": [
+      -123.34005579417855,
+      40.90049713776538,
+      -122.63030146631222,
+      41.31935031393541
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 5606
+  },
+  {
+    "id": "CA-KNF-006454_Antelope",
+    "name": "Antelope",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-03T00:00:00+00:00",
+    "start_utc": "2021-08-03T00:00:00+00:00",
+    "end_utc": "2021-09-19T07:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-04T00:00:00+00:00",
+    "arrival_path": "regions/CA-KNF-006454_Antelope/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-KNF-006454_Antelope_pswt_ok_toa.tif",
+    "width": 134,
+    "height": 129,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2131125.0,
+      0.0,
+      -375.0,
+      2382000.0
+    ],
+    "bounds_wgs84": [
+      -122.15474066460814,
+      41.36905259739959,
+      -121.41252673723083,
+      41.90585373281728
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 4190
+  },
+  {
+    "id": "CA-MNF-000753_AugustComplex",
+    "name": "AugustComplex",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-08-18T00:00:00+00:00",
+    "start_utc": "2020-08-18T00:00:00+00:00",
+    "end_utc": "2020-11-06T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-07-19T00:00:00+00:00",
+    "arrival_path": "regions/CA-MNF-000753_AugustComplex/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-MNF-000753_AugustComplex_pswt_ok_toa.tif",
+    "width": 210,
+    "height": 355,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2294625.0,
+      0.0,
+      -375.0,
+      2267625.0
+    ],
+    "bounds_wgs84": [
+      -123.65517905278081,
+      39.25737740881231,
+      -122.32245916627645,
+      40.59480282300482
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 29916
+  },
+  {
+    "id": "CA-PNF-001308_PNFNorthComplex",
+    "name": "PNFNorthComplex",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-08-18T00:00:00+00:00",
+    "start_utc": "2020-08-17T04:00:00+00:00",
+    "end_utc": "2020-11-03T04:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-07-18T04:00:00+00:00",
+    "arrival_path": "regions/CA-PNF-001308_PNFNorthComplex/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-PNF-001308_PNFNorthComplex_pswt_ok_toa.tif",
+    "width": 195,
+    "height": 128,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2145375.0,
+      0.0,
+      -375.0,
+      2163375.0
+    ],
+    "bounds_wgs84": [
+      -121.61567871589918,
+      39.45760982434237,
+      -120.63676419341114,
+      40.04159525250504
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 9467
+  },
+  {
+    "id": "CA-SHF-001187_Monument",
+    "name": "Monument",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-31T00:00:00+00:00",
+    "start_utc": "2021-07-31T00:00:00+00:00",
+    "end_utc": "2021-10-16T01:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-01T00:00:00+00:00",
+    "arrival_path": "regions/CA-SHF-001187_Monument/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-SHF-001187_Monument_pswt_ok_toa.tif",
+    "width": 108,
+    "height": 134,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2272125.0,
+      0.0,
+      -375.0,
+      2319000.0
+    ],
+    "bounds_wgs84": [
+      -123.57364563763178,
+      40.463275798372976,
+      -122.94017596227653,
+      40.995919616793735
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 6516
+  },
+  {
+    "id": "CA-SNF-001391_Creek",
+    "name": "Creek",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-09-05T00:00:00+00:00",
+    "start_utc": "2020-09-05T00:00:00+00:00",
+    "end_utc": "2020-11-14T07:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-08-06T00:00:00+00:00",
+    "arrival_path": "regions/CA-SNF-001391_Creek/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-SNF-001391_Creek_pswt_ok_toa.tif",
+    "width": 151,
+    "height": 200,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2046375.0,
+      0.0,
+      -375.0,
+      1872375.0
+    ],
+    "bounds_wgs84": [
+      -119.63863170048592,
+      36.93822170018861,
+      -118.80599379945205,
+      37.709849724645224
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 11234
+  },
+  {
+    "id": "CA-SQF-002622_SQFComplex",
+    "name": "SQFComplex",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-08-22T00:00:00+00:00",
+    "start_utc": "2020-08-22T00:00:00+00:00",
+    "end_utc": "2020-11-11T06:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-07-23T00:00:00+00:00",
+    "arrival_path": "regions/CA-SQF-002622_SQFComplex/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-SQF-002622_SQFComplex_pswt_ok_toa.tif",
+    "width": 132,
+    "height": 139,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2014875.0,
+      0.0,
+      -375.0,
+      1733250.0
+    ],
+    "bounds_wgs84": [
+      -118.90917802172926,
+      35.99861297184317,
+      -118.23091987842899,
+      36.55490835583549
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 5204
+  },
+  {
+    "id": "CA-SRF-000651_McCash",
+    "name": "McCash",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-02T00:00:00+00:00",
+    "start_utc": "2021-08-01T12:00:00+00:00",
+    "end_utc": "2021-10-20T04:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-02T12:00:00+00:00",
+    "arrival_path": "regions/CA-SRF-000651_McCash/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-SRF-000651_McCash_pswt_ok_toa.tif",
+    "width": 85,
+    "height": 93,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2249625.0,
+      0.0,
+      -375.0,
+      2401125.0
+    ],
+    "bounds_wgs84": [
+      -123.59706168565646,
+      41.35513092517922,
+      -123.10838357879497,
+      41.734770849596146
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2744
+  },
+  {
+    "id": "CA-SRF-000656_RedSalmonComplex",
+    "name": "RedSalmonComplex",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-07-28T00:00:00+00:00",
+    "start_utc": "2020-07-28T00:00:00+00:00",
+    "end_utc": "2020-11-22T02:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-06-28T00:00:00+00:00",
+    "arrival_path": "regions/CA-SRF-000656_RedSalmonComplex/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CA-SRF-000656_RedSalmonComplex_pswt_ok_toa.tif",
+    "width": 118,
+    "height": 95,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2275875.0,
+      0.0,
+      -375.0,
+      2355750.0
+    ],
+    "bounds_wgs84": [
+      -123.74318182833554,
+      40.893331706215115,
+      -123.11239609437422,
+      41.31083950738298
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 4187
+  },
+  {
+    "id": "CO-ARF-000636_CameronPeak",
+    "name": "CameronPeak",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-08-14T00:00:00+00:00",
+    "start_utc": "2020-08-14T00:00:00+00:00",
+    "end_utc": "2020-11-22T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-07-15T00:00:00+00:00",
+    "arrival_path": "regions/CO-ARF-000636_CameronPeak/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/CO-ARF-000636_CameronPeak_pswt_ok_toa.tif",
+    "width": 168,
+    "height": 114,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -832500.0,
+      0.0,
+      -375.0,
+      2017125.0
+    ],
+    "bounds_wgs84": [
+      -105.9629619983881,
+      40.39231147784902,
+      -105.1647042463378,
+      40.82855659477407
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 6019
+  },
+  {
+    "id": "ID-BOF-000683_Wapiti_Wapiti",
+    "name": "Wapiti_Wapiti",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-08-01T00:00:00+00:00",
+    "start_utc": "2024-08-01T00:00:00+00:00",
+    "end_utc": "2024-10-26T05:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-07-02T00:00:00+00:00",
+    "arrival_path": "regions/ID-BOF-000683_Wapiti_Wapiti/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/ID-BOF-000683_Wapiti_Wapiti_pswt_ok_toa.tif",
+    "width": 105,
+    "height": 111,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1536375.0,
+      0.0,
+      -375.0,
+      2533500.0
+    ],
+    "bounds_wgs84": [
+      -115.46591183637472,
+      44.00464868407732,
+      -114.87690389432592,
+      44.4412810968396
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 3787
+  },
+  {
+    "id": "ID-BOF-000904_Goat",
+    "name": "Goat",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-08-10T00:00:00+00:00",
+    "start_utc": "2024-08-10T00:00:00+00:00",
+    "end_utc": "2024-10-23T07:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-07-11T00:00:00+00:00",
+    "arrival_path": "regions/ID-BOF-000904_Goat/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/ID-BOF-000904_Goat_pswt_ok_toa.tif",
+    "width": 73,
+    "height": 68,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1570875.0,
+      0.0,
+      -375.0,
+      2560875.0
+    ],
+    "bounds_wgs84": [
+      -115.96225555056921,
+      44.323097093044595,
+      -115.55848493060707,
+      44.597769200214636
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1062
+  },
+  {
+    "id": "ID-BOF-001080_Lava",
+    "name": "Lava",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-08-01T00:00:00+00:00",
+    "start_utc": "2024-08-01T00:00:00+00:00",
+    "end_utc": "2024-10-24T04:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-07-02T00:00:00+00:00",
+    "arrival_path": "regions/ID-BOF-001080_Lava/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/ID-BOF-001080_Lava_pswt_ok_toa.tif",
+    "width": 77,
+    "height": 85,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1608375.0,
+      0.0,
+      -375.0,
+      2571000.0
+    ],
+    "bounds_wgs84": [
+      -116.45166371295967,
+      44.28524886904093,
+      -116.01130474963125,
+      44.61964225964145
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2826
+  },
+  {
+    "id": "ID-SCF-022105_Moose",
+    "name": "Moose",
+    "country": "US",
+    "year": 2022,
+    "t0_utc": "2022-07-18T00:00:00+00:00",
+    "start_utc": "2022-07-18T00:00:00+00:00",
+    "end_utc": "2022-10-27T01:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2022-06-18T00:00:00+00:00",
+    "arrival_path": "regions/ID-SCF-022105_Moose/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/ID-SCF-022105_Moose_pswt_ok_toa.tif",
+    "width": 113,
+    "height": 81,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1435500.0,
+      0.0,
+      -375.0,
+      2629500.0
+    ],
+    "bounds_wgs84": [
+      -114.45364259160048,
+      45.12726663681059,
+      -113.84938381062278,
+      45.46780255843122
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 3759
+  },
+  {
+    "id": "ID-SCF-240202_RedRock",
+    "name": "RedRock",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-08-29T00:00:00+00:00",
+    "start_utc": "2024-08-29T00:00:00+00:00",
+    "end_utc": "2024-10-26T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-07-30T00:00:00+00:00",
+    "arrival_path": "regions/ID-SCF-240202_RedRock/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/ID-SCF-240202_RedRock_pswt_ok_toa.tif",
+    "width": 126,
+    "height": 62,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1458750.0,
+      0.0,
+      -375.0,
+      2602125.0
+    ],
+    "bounds_wgs84": [
+      -114.676649321272,
+      44.90830250912939,
+      -114.03058771541623,
+      45.19488297386322
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2285
+  },
+  {
+    "id": "MT-BDF-006269_AlderCreek",
+    "name": "AlderCreek",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-10T00:00:00+00:00",
+    "start_utc": "2021-07-10T00:00:00+00:00",
+    "end_utc": "2021-10-07T02:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-10T00:00:00+00:00",
+    "arrival_path": "regions/MT-BDF-006269_AlderCreek/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/MT-BDF-006269_AlderCreek_pswt_ok_toa.tif",
+    "width": 73,
+    "height": 52,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1341375.0,
+      0.0,
+      -375.0,
+      2663250.0
+    ],
+    "bounds_wgs84": [
+      -113.34946713482432,
+      45.67966624414667,
+      -112.95842977118313,
+      45.896649912414674
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1072
+  },
+  {
+    "id": "MT-BDF-006272_TrailCreek",
+    "name": "TrailCreek",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-10T00:00:00+00:00",
+    "start_utc": "2021-07-10T00:00:00+00:00",
+    "end_utc": "2021-10-08T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-10T00:00:00+00:00",
+    "arrival_path": "regions/MT-BDF-006272_TrailCreek/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/MT-BDF-006272_TrailCreek_pswt_ok_toa.tif",
+    "width": 77,
+    "height": 63,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1392375.0,
+      0.0,
+      -375.0,
+      2656500.0
+    ],
+    "bounds_wgs84": [
+      -113.9774239072917,
+      45.49889459345566,
+      -113.55743311336168,
+      45.75613199193517
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1786
+  },
+  {
+    "id": "MT-LNF-000893_WestLolo",
+    "name": "WestLolo",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-10T00:00:00+00:00",
+    "start_utc": "2021-07-10T00:00:00+00:00",
+    "end_utc": "2021-08-25T08:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-10T00:00:00+00:00",
+    "arrival_path": "regions/MT-LNF-000893_WestLolo/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/MT-LNF-000893_WestLolo_pswt_ok_toa.tif",
+    "width": 63,
+    "height": 67,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1458000.0,
+      0.0,
+      -375.0,
+      2902125.0
+    ],
+    "bounds_wgs84": [
+      -115.44264522179297,
+      47.54418270887999,
+      -115.06975561538218,
+      47.81016162044585
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1104
+  },
+  {
+    "id": "NM-SNF-000027_HermitsPeak",
+    "name": "HermitsPeak",
+    "country": "US",
+    "year": 2022,
+    "t0_utc": "2022-04-08T00:00:00+00:00",
+    "start_utc": "2022-04-07T10:00:00+00:00",
+    "end_utc": "2022-07-14T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2022-03-08T10:00:00+00:00",
+    "arrival_path": "regions/NM-SNF-000027_HermitsPeak/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/NM-SNF-000027_HermitsPeak_pswt_ok_toa.tif",
+    "width": 107,
+    "height": 200,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -860250.0,
+      0.0,
+      -375.0,
+      1501500.0
+    ],
+    "bounds_wgs84": [
+      -105.66724824835173,
+      35.502993602597314,
+      -105.13840662063367,
+      36.20493429221808
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 9958
+  },
+  {
+    "id": "OR-UMF-000659_GreenRidge",
+    "name": "GreenRidge",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-09T00:00:00+00:00",
+    "start_utc": "2021-07-09T00:00:00+00:00",
+    "end_utc": "2021-10-05T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-09T00:00:00+00:00",
+    "arrival_path": "regions/OR-UMF-000659_GreenRidge/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/OR-UMF-000659_GreenRidge_pswt_ok_toa.tif",
+    "width": 72,
+    "height": 50,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1674750.0,
+      0.0,
+      -375.0,
+      2773875.0
+    ],
+    "bounds_wgs84": [
+      -117.85058112011299,
+      46.04838581494247,
+      -117.45598409253691,
+      46.267994583232635
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1265
+  },
+  {
+    "id": "OR-UMP-000373_RoughPatchCpx",
+    "name": "RoughPatchCpx",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-02T00:00:00+00:00",
+    "start_utc": "2021-08-02T00:00:00+00:00",
+    "end_utc": "2021-10-13T04:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-03T00:00:00+00:00",
+    "arrival_path": "regions/OR-UMP-000373_RoughPatchCpx/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/OR-UMP-000373_RoughPatchCpx_pswt_ok_toa.tif",
+    "width": 54,
+    "height": 72,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2127375.0,
+      0.0,
+      -375.0,
+      2589750.0
+    ],
+    "bounds_wgs84": [
+      -122.81201004349394,
+      43.3492429001991,
+      -122.47752518958154,
+      43.6318888404004
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1102
+  },
+  {
+    "id": "OR-UPF-000265_Jack",
+    "name": "Jack",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-07-06T00:00:00+00:00",
+    "start_utc": "2021-07-06T00:00:00+00:00",
+    "end_utc": "2021-10-01T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-06-06T00:00:00+00:00",
+    "arrival_path": "regions/OR-UPF-000265_Jack/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/OR-UPF-000265_Jack_pswt_ok_toa.tif",
+    "width": 54,
+    "height": 89,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2133375.0,
+      0.0,
+      -375.0,
+      2564250.0
+    ],
+    "bounds_wgs84": [
+      -122.79544441899598,
+      43.060108650198195,
+      -122.44049816542869,
+      43.39746307755927
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1085
+  },
+  {
+    "id": "OR-UPF-000450_DevilsKnob",
+    "name": "DevilsKnob",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-04T00:00:00+00:00",
+    "start_utc": "2021-08-04T00:00:00+00:00",
+    "end_utc": "2021-10-08T05:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-05T00:00:00+00:00",
+    "arrival_path": "regions/OR-UPF-000450_DevilsKnob/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/OR-UPF-000450_DevilsKnob_pswt_ok_toa.tif",
+    "width": 77,
+    "height": 111,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2154375.0,
+      0.0,
+      -375.0,
+      2549625.0
+    ],
+    "bounds_wgs84": [
+      -122.9944958956392,
+      42.81118244217918,
+      -122.50964377241812,
+      43.24095361549123
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2015
+  },
+  {
+    "id": "OR-WIF-220180_CedarCreek",
+    "name": "CedarCreek",
+    "country": "US",
+    "year": 2022,
+    "t0_utc": "2022-08-04T00:00:00+00:00",
+    "start_utc": "2022-08-04T00:00:00+00:00",
+    "end_utc": "2022-10-28T22:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2022-07-05T00:00:00+00:00",
+    "arrival_path": "regions/OR-WIF-220180_CedarCreek/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/OR-WIF-220180_CedarCreek_pswt_ok_toa.tif",
+    "width": 112,
+    "height": 95,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -2089125.0,
+      0.0,
+      -375.0,
+      2614875.0
+    ],
+    "bounds_wgs84": [
+      -122.4404153699281,
+      43.58572529718518,
+      -121.81549881011291,
+      43.99527102165784
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 3677
+  },
+  {
+    "id": "UT-ASF-100340_EastFork",
+    "name": "EastFork",
+    "country": "US",
+    "year": 2020,
+    "t0_utc": "2020-08-22T00:00:00+00:00",
+    "start_utc": "2020-08-22T00:00:00+00:00",
+    "end_utc": "2020-11-07T02:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2020-07-23T00:00:00+00:00",
+    "arrival_path": "regions/UT-ASF-100340_EastFork/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/UT-ASF-100340_EastFork_pswt_ok_toa.tif",
+    "width": 95,
+    "height": 103,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1238250.0,
+      0.0,
+      -375.0,
+      2067750.0
+    ],
+    "bounds_wgs84": [
+      -110.84710819826198,
+      40.40783862994105,
+      -110.35711128784264,
+      40.79729699231319
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2669
+  },
+  {
+    "id": "WA-OWF-000453_SchneiderSprings",
+    "name": "SchneiderSprings",
+    "country": "US",
+    "year": 2021,
+    "t0_utc": "2021-08-04T00:00:00+00:00",
+    "start_utc": "2021-08-04T00:00:00+00:00",
+    "end_utc": "2021-10-06T03:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2021-07-05T00:00:00+00:00",
+    "arrival_path": "regions/WA-OWF-000453_SchneiderSprings/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/WA-OWF-000453_SchneiderSprings_pswt_ok_toa.tif",
+    "width": 89,
+    "height": 91,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1919250.0,
+      0.0,
+      -375.0,
+      2920500.0
+    ],
+    "bounds_wgs84": [
+      -121.40193352266968,
+      46.65542927962531,
+      -120.86485461518079,
+      47.031734362431024
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 3094
+  },
+  {
+    "id": "WA-SES-000173_Pioneer",
+    "name": "Pioneer",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-06-13T00:00:00+00:00",
+    "start_utc": "2024-06-12T03:00:00+00:00",
+    "end_utc": "2024-08-27T08:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-05-13T03:00:00+00:00",
+    "arrival_path": "regions/WA-SES-000173_Pioneer/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/WA-SES-000173_Pioneer_pswt_ok_toa.tif",
+    "width": 55,
+    "height": 96,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1830000.0,
+      0.0,
+      -375.0,
+      3057750.0
+    ],
+    "bounds_wgs84": [
+      -120.73596457646458,
+      48.04786223446363,
+      -120.34738978403215,
+      48.4115762885742
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 1148
+  },
+  {
+    "id": "WY-BTF-002416_FishCreek",
+    "name": "FishCreek",
+    "country": "US",
+    "year": 2024,
+    "t0_utc": "2024-08-21T00:00:00+00:00",
+    "start_utc": "2024-08-21T00:00:00+00:00",
+    "end_utc": "2024-10-28T06:00:00+00:00",
+    "acquisition_window_basis": "union of NIROPS survey window, t0 and finite reconstructed arrival range",
+    "rain_history_start_utc": "2024-07-22T00:00:00+00:00",
+    "arrival_path": "regions/WY-BTF-002416_FishCreek/arrival_time_hours.tif",
+    "source_arrival_path": "sources/zenodo_21788344/extracted/rasters_us/WY-BTF-002416_FishCreek_pswt_ok_toa.tif",
+    "width": 73,
+    "height": 103,
+    "epsg": 5070,
+    "transform": [
+      375.0,
+      0.0,
+      -1141125.0,
+      0.0,
+      -375.0,
+      2393250.0
+    ],
+    "bounds_wgs84": [
+      -110.28231695663368,
+      43.41590450397274,
+      -109.87454558049038,
+      43.7944268058014
+    ],
+    "resolution_m": [
+      375,
+      375
+    ],
+    "burned_label": "retrospective reconstructed arrival",
+    "valid_arrival_pixels": 2642
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "validation_date": "2026-10-13",
+  "benchmark_kind": "bounded synthetic repeated-environment M548 transition",
+  "checkpoint": "/Users/movinggk/Documents/영재멘토/wildfire/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+  "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "architecture": "MixedNonnegativeKernel",
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "batch_size": 32,
+  "height": 111,
+  "width": 105,
+  "boundary": "zero",
+  "duration_hours_per_transition": 1,
+  "repetitions": 3,
+  "preparation_seconds": 1.1160863330005668,
+  "ordinary_transition_seconds": [
+    1.4255921660005697,
+    1.3775474580033915,
+    0.9643088750017341
+  ],
+  "cached_transition_seconds": [
+    0.25013083399971947,
+    0.0776923329976853,
+    0.07639683300658362
+  ],
+  "median_transition_speedup": 17.730803090241004,
+  "final_paired_transition_speedup": 12.622367146012888,
+  "bitwise_equal_fields": [
+    "probability",
+    "valid",
+    "rate",
+    "rate_valid"
+  ],
+  "bitwise_equality": true,
+  "equality_tolerance": {
+    "rtol": 0,
+    "atol": 0,
+    "equal_nan": true
+  },
+  "synthetic_inputs": {
+    "environmental_continuous_channels": "checkpoint means",
+    "environmental_categorical_channels": "first saved category indicator one and remaining indicators zero per one-hot group",
+    "burned_state": "all trajectories identical; [50:60,45:55] burned on the 111 by 105 grid, all other cells unburned",
+    "environmental_and_burned_state_masks": "all true",
+    "evolving_real_trajectory": false
+  },
+  "interpretation": [
+    "Only three synthetic forward transitions were measured; this is not a full real-data model evaluation.",
+    "Preparation computes kernels at the original batch size 32 and is amortized across subsequent transitions at the same cutoff and fixed environmental conditions.",
+    "Transition ratios exclude one-time preparation and do not predict complete evaluation runtime or FARSITE runtime.",
+    "No saved real-evaluation predictions or source-run files were modified."
+  ],
+  "implementation": "wildfire/rollout_cache.py",
+  "focused_test_command": ".venv/bin/python -m pytest tests/test_rollout_cache.py -q --tb=short --disable-warnings",
+  "focused_tests": {
+    "passed": 49,
+    "reported_seconds": 1.1
+  },
+  "real_evaluation_run": false
+}

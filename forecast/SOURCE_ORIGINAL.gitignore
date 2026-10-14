@@ -13,6 +13,7 @@ build/
 dist/
 *.egg-info/
 *.egg
+*.whl
 pip-wheel-metadata/
 
 # Test, coverage, type-checker, and linter caches
@@ -55,7 +56,7 @@ Desktop.ini
 /runs/
 /demonstration/probability/
 /demonstration/heat/
-/demonstration/*/runs/
+/demonstration/**/runs/
 
 # Downloaded weather/raster payloads. Acquisition code, catalogs, source
 # manifests, biome classes, and other metadata remain eligible for tracking.
@@ -79,15 +80,31 @@ Desktop.ini
 /data/bitmaps/**/*.tiff
 /data/bitmaps/**/*.npz
 /data/bitmaps/**/*.npy
+# Bitmap images and geospatial sidecars are also generated exports.
+# Keep their JSON metadata, catalogs, manifests, and validation records.
+/data/bitmaps/**/*.bmp
+/data/bitmaps/**/*.bpw
+/data/bitmaps/**/*.prj
+/data/bitmaps/**/*.bmp.aux.xml
 /data/sources/zenodo_21788344/*.zip
 /data/sources/zenodo_21788344/extracted/rasters_kr/
 /data/sources/zenodo_21788344/extracted/rasters_us/
 
-# LaTeX intermediates; keep manuscript sources, bibliography, and final PDFs
-/documents/*.aux
-/documents/*.bbl
-/documents/*.blg
-/documents/*.fdb_latexmk
-/documents/*.fls
-/documents/*.synctex.gz
-/documents/*.toc
+# Authentic NIROPS acquisition payloads; preserve selected GeoJSON and provenance.
+/data/sources/nirops_95rj5d379g_v1/*.zip
+/data/sources/nirops_95rj5d379g_v1/*.zip.part
+
+# LaTeX intermediates at any document depth; keep sources and final PDFs.
+# Test and workflow .log/.xml records remain eligible for tracking.
+/documents/**/*.aux
+/documents/**/*.bbl
+/documents/**/*.blg
+/documents/**/*.bcf
+/documents/**/*.run.xml
+/documents/**/*.fdb_latexmk
+/documents/**/*.fls
+/documents/**/*.synctex.gz
+/documents/**/*.toc
+/documents/**/*.out
+/documents/**/*.lof
+/documents/**/*.lot

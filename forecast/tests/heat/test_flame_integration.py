@@ -33,6 +33,7 @@ def test_model_bound_flames_reuse_probability_masks_and_saved_preprocessing(chec
     duration = FlameResidenceTime(90.0, {"source": "test residence scenario"})
     original = model.predict_details(
         burned, environment, channel_names=model.channel_names, feature_valid=feature_valid,
+        boundary="unknown", missing_burned_area="unknown",
     )
     # The probability adapter intentionally promotes the checkpoint's float32
     # values to float64 before evaluating seconds-based occupancy factors.
@@ -64,7 +65,8 @@ def test_flame_forecast_uses_probability_instead_of_hourly_rate(checkpoint, snap
         model.predictor.model.kernel_network[-1].weight.zero_()
         model.predictor.model.kernel_network[-1].bias.fill_(100.0)
     burned, environment, _ = snapshot
-    original = model.predict_details(burned, environment, channel_names=model.channel_names)
+    original = model.predict_details(burned, environment, channel_names=model.channel_names,
+                                      boundary="unknown", missing_burned_area="unknown")
     assert original.rate[0, 0, 3, 5].item() == 100.0
     assert original.probability[0, 0, 3, 5].item() == 1.0
     result = model.predict_active_flames(
@@ -141,6 +143,7 @@ def test_literature_residence_duration_is_shared_by_heat_activity_and_source_str
     model = WildfireHeatModel(
         None, grid=AffineGrid.from_cell_size(10.0), combustion=combustion,
         radiative_fraction=0.3, emission_height_m=5.0, residence_time=duration,
+        use_cell_burning_duration=False,
     )
     result = model.predict_from_new_burn_probability_details([[0.5, 0.6]])
     active = result.endpoint_flame_map()

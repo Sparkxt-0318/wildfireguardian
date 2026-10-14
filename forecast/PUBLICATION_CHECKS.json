@@ -1,0 +1,20 @@
+{
+  "snapshot_date": "2026-10-14",
+  "syntax": {
+    "syntax_files": 142,
+    "syntax": "PASS",
+    "credential_pattern_hits": [],
+    "scope": "selected new source/text files only; no credential contents printed"
+  },
+  "heat_smoke": {
+    "status": "PASS",
+    "checks": 19,
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "host": "macOS-27.0.1-arm64-arm-64bit",
+    "scope": "geometry, invalid-speed admission and nominal heat lookup only; dependency pins and full suite not checked"
+  },
+  "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "incoming_selected_files": 257,
+  "scope": "Publication integrity and bounded pure-numerical smoke only. Full dependency-pinned installation, full forecast suite, forecast inference and routing benchmarks not rerun. The supplied validation reports remain source-reported records."
+}

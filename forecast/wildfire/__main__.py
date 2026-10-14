@@ -16,8 +16,16 @@ COMMANDS = {
     "filter-contact": ("prepare", "contact_main", "Restrict a cache to burned-neighbor contact"),
     "subset-country": ("prepare", "country_main", "Select a country's cached partitions"),
     "train": ("train", "train_main", "Fit the exponential probability model"),
+    "mix-bayesian": ("train", "bayesian_main", "Average independently fitted kernels by Bayes' rule"),
     "verify": ("train", "verify_training_main", "Verify a saved exponential run"),
     "evaluate": ("evaluate", "kernels_main", "Compare kernels on a common cohort"),
+    "evaluate-cumulative": ("cumulative_report", "main", "Evaluate every selected model at an explicit cumulative horizon"),
+    "build-farsite": ("farsite_build", "main", "Build the pinned public FARSITE Unix port"),
+    "evaluate-farsite": ("farsite_report", "main", "Run and evaluate a timed deterministic FARSITE scenario"),
+    "evaluate-observed": ("observed_evaluation", "main", "Compare M548 and FARSITE against exact NIROPS survey perimeters"),
+    "evaluate-observed-combined": ("observed_combined", "main", "Audit all events and pool M548/FARSITE observations on exclusively held-out test events"),
+    "audit-observed": ("observed_inventory", "main", "Audit observed perimeter availability for every local event"),
+    "acquire-observed-data": ("observed_data", "main", "Acquire authentic NIROPS dated perimeter observations"),
     "compare": ("evaluate", "baseline_main", "Compare models and random forests"),
     "add-kl": ("evaluate", "add_kl", "Add KL metrics to a saved comparison"),
     "add-distances": ("evaluate", "add_distances", "Add statistical distances to a saved comparison"),
@@ -82,7 +90,13 @@ def main(argv=None):
     original_argv = sys.argv
     try:
         sys.argv = [f"{parser.prog} {selected}", *arguments[1:]]
-        return function()
+        result = function()
+        # Console-script entry points pass this return value to sys.exit.
+        # The evaluator's result dictionary is for Python callers, not an exit
+        # status or an additional dump of the complete comparison report.
+        return None if selected in {"evaluate-cumulative", "evaluate-farsite", "build-farsite",
+                                    "evaluate-observed", "evaluate-observed-combined",
+                                    "audit-observed", "acquire-observed-data"} else result
     finally:
         sys.argv = original_argv
 

@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-12",
+  "event_id": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-21T06:00:00Z",
+  "hours": 6,
+  "input_manifest": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_inputs_check/input_manifest.json",
+  "engine_build": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_source/build_manifest.json",
+  "input_and_engine_valid": true,
+  "timings_duration_minutes": 360,
+  "output_shape": [
+    105,
+    75
+  ],
+  "original_shape": [
+    103,
+    73
+  ],
+  "boundary_padding_cells": 1,
+  "arrival_range_minutes": [
+    0,
+    322.703
+  ],
+  "initial_burned_cells": 5,
+  "engine_burned_cells_by_6h": 18,
+  "new_burn_cells_by_6h": 13,
+  "initial_burn_arrivals_exact_zero": true,
+  "spot_probability": 0,
+  "repeated_runs": 3,
+  "arrival_arrays_identical": true,
+  "arrival_file_sha256": [
+    "3b6e5be812cdb18abdfeb51b8ac293bd171f16a35dfb586a492db8ec4fb3b25b",
+    "3b6e5be812cdb18abdfeb51b8ac293bd171f16a35dfb586a492db8ec4fb3b25b",
+    "3b6e5be812cdb18abdfeb51b8ac293bd171f16a35dfb586a492db8ec4fb3b25b"
+  ],
+  "benign_warning": "SpotGrid.asc output absent when spotting disabled",
+  "output_folder": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_engine_fishcreek_check"
+}

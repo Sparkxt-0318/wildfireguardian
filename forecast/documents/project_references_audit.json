@@ -1,0 +1,1757 @@
+{
+  "created_on": "2026-10-11",
+  "timezone": "Asia/Seoul",
+  "scope": "Whole-project bibliography: maintained wildfire code and data sources, retained publisher provenance, optional notebooks/baselines, scientific software, and explicitly qualified foundations/background.",
+  "artifact": {
+    "path": "references.bib",
+    "sha256": "f01f3fccaa366a26dcc0ff73c30ad7bb1d2282f2937c7d2c975b2e5bbee0c630",
+    "bytes": 73366,
+    "entry_count": 103
+  },
+  "consolidation": {
+    "base_entries": 88,
+    "article_entries": 61,
+    "distinct_existing_entries": 100,
+    "new_software_documentation_entries": 3,
+    "existing_keys_preserved": true,
+    "previous_bibliographies_modified": false
+  },
+  "group_counts": {
+    "Published reconstruction, upstream fire observations, and environmental data": 28,
+    "Mathematical, learning, optimization, scoring, and validation foundations": 30,
+    "Fuel, flame residence, heat release, and radiation": 19,
+    "Scientific software, geospatial software, and local implementation records": 26
+  },
+  "entry_type_counts": {
+    "article": 38,
+    "misc": 29,
+    "techreport": 12,
+    "inproceedings": 6,
+    "book": 5,
+    "phdthesis": 1,
+    "manual": 12
+  },
+  "local_source_records": [
+    {
+      "path": "documents/wildfire_references.bib",
+      "sha256": "5ebb8d25ece7980a8f0506f5dae995811761cfddbd62146fd588a2063cbb8f46"
+    },
+    {
+      "path": "documents/wildfire_theory_and_methods.bib",
+      "sha256": "f9391d73008d42a7f7f1c78100c9810f51710a71aa20214e0fb0b224525015af"
+    },
+    {
+      "path": "documents/wildfire_references_audit.json",
+      "sha256": "a3b5e160dcf7907af762fc9bc2287b41a1f40c72237a50cb92d6df9adda49dad"
+    },
+    {
+      "path": "documents/wildfire_theory_and_methods_audit.json",
+      "sha256": "dc2cc95e9b3ab7412a1f01d1b03c38b93f0441511ae96cf693a06e700a3c9e4a"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "d15cb75db2717c1d485c31110c9431d69a250043f2821264fb3e3ff9969078cf"
+    },
+    {
+      "path": "README.md",
+      "sha256": "6bc2d6cf3c36bbb32a45fc36866c33176e27f200406bb334ec4b1c0d6ddc23f6"
+    },
+    {
+      "path": "wildfire/models.py",
+      "sha256": "52e1f29859f71dccf61b36a89df6b7863060fd25cc64fbc149500813f13e6722"
+    },
+    {
+      "path": "wildfire/heat.py",
+      "sha256": "f449517dcc686bfc1f2a2e121c1f7f969c38b74ddb824429efac51f04180d0cb"
+    },
+    {
+      "path": "wildfire/heat_sources.json",
+      "sha256": "afdda28df1d4c43d767081ceff7b92c5d3e95c24858fdd6ea6c049d14c72e3d6"
+    },
+    {
+      "path": "wildfire/environment.py",
+      "sha256": "c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af"
+    },
+    {
+      "path": "wildfire/rollout.py",
+      "sha256": "53a33621ab3f45b340f7fd41dca9dee9d92fde9ed11abaa9c40d759ecde23a20"
+    },
+    {
+      "path": "wildfire/cumulative_evaluation.py",
+      "sha256": "071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01"
+    },
+    {
+      "path": "data/sources/zenodo_21788344/record.json",
+      "sha256": "68b777ce242f6845fb1834ddcd107ea40d0ae0313868a0c30637768cf33ed3d1"
+    }
+  ],
+  "inherited_audit_hashes_match_bibliographies": true,
+  "field_changes": {
+    "wildfireguardian2026": {
+      "author": {
+        "previous": "{WildfireGuardian project}",
+        "current": "{wildfire project}"
+      },
+      "title": {
+        "previous": "{{WildfireGuardian}: Hourly Burned-Area Prediction and Expected Incident Radiant Heat}",
+        "current": "{wildfire: Hourly Burned-Area Prediction and Expected Incident Radiant Heat}"
+      },
+      "version": {
+        "previous": null,
+        "current": "0.1.0"
+      },
+      "note": {
+        "previous": "Current local project, version 0.1.0, inspected 8 October 2026. Unpublished software; no public repository URL, release DOI, or individual authorship is asserted.",
+        "current": "Local consolidated wildfire package, version 0.1.0, inspected 11 October 2026. The historical citation key is retained for compatibility. The project collective label does not assert individual authorship, a public repository URL, or a release DOI."
+      }
+    },
+    "codeprob": {
+      "author": {
+        "previous": "{WildfireGuardian project}",
+        "current": "{wildfire project}"
+      },
+      "title": {
+        "previous": "{{WildfireGuardian}: Environment-Conditioned Burn-Probability Models and Saved Experiments}",
+        "current": "{wildfire: Environment-Conditioned Burn-Probability Models, Cumulative Spread, and Evaluation}"
+      },
+      "note": {
+        "previous": "Local implementation and saved records under \\path{wildfire_burned_area_hourly/probability_model/}, inspected 8 October 2026. Covers the exponential model, signed direct convolution, training, metrics, and checkpoint contracts.",
+        "current": "Maintained local implementation in wildfire/models.py, wildfire/train.py, wildfire/inference.py, wildfire/rollout.py, wildfire/cumulative.py, wildfire/cumulative\\_evaluation.py, and wildfire/metrics.py, inspected 11 October 2026. Covers learned kernels, patch random forests, fixed-component model averaging, recursive spread, and probability scoring. The retired signed model is preserved separately under documents/archive/signed\\_model\\_retired\\_20261009/."
+      },
+      "annotation": {
+        "previous": "Local implementation: probability-model definitions and experiment records",
+        "current": "Local implementation: probability models, recursive cumulative spread, training and evaluation"
+      }
+    },
+    "codeheat": {
+      "author": {
+        "previous": "{WildfireGuardian project}",
+        "current": "{wildfire project}"
+      },
+      "title": {
+        "previous": "{{WildfireGuardian}: Expected Radiant Heat and Temporal Occupancy Implementation}",
+        "current": "{wildfire: Expected Radiant Heat and Temporal Occupancy Implementation}"
+      },
+      "note": {
+        "previous": "Local implementation under \\path{expected_heat_flux/}, inspected 8 October 2026. Prescribed combustion, arrival timing, finite-source radiation, and integrated forecasting are package modeling assumptions.",
+        "current": "Maintained local implementation in wildfire/heat.py and wildfire/heat\\_sources.json, with fuel-input preparation in wildfire/environment.py, inspected 11 October 2026. Prescribed combustion, arrival timing, finite-source radiation, and occupancy conversion are explicit package modeling assumptions."
+      }
+    },
+    "coderesidence": {
+      "author": {
+        "previous": "{WildfireGuardian project}",
+        "current": "{wildfire project}"
+      },
+      "title": {
+        "previous": "{{WildfireGuardian}: Fuel Loading, Flame Residence, and Active-Flame Implementation}",
+        "current": "{wildfire: Fuel Loading, Flame Residence, and Active-Flame Implementation}"
+      },
+      "note": {
+        "previous": "Local sources \\path{expected_heat_flux/ecology.py}, \\path{residence.py}, and \\path{flames.py}, with \\path{documents/flame_residence_literature.md}, inspected 8 October 2026.",
+        "current": "Maintained local sources wildfire/heat.py, wildfire/heat\\_sources.json, and wildfire/environment.py, with documents/flame\\_residence\\_literature.md, inspected 11 October 2026. Reference fuel loading and residence scenarios are distinct from observed event-specific flame geometry."
+      }
+    },
+    "codetoa": {
+      "note": {
+        "previous": "Retained locally under \\path{wildfire_burned_area_hourly/sources/zenodo_21788344/extracted/code/}. Cite the associated article and dataset deposit for the scientific method and source release.",
+        "current": "Publisher method code retained locally under data/sources/zenodo\\_21788344/extracted/code/. Cite choi2026wildfiretoa for the article and toadeposit for the dataset and code release. The local archive location was checked 11 October 2026."
+      }
+    },
+    "pedregosa2011sklearn": {
+      "note": {
+        "previous": "Scikit-learn 1.8.0 is declared in the retained publisher-code environment; it is not a declared dependency of the current root package.",
+        "current": "The current project declares scikit-learn 1.5.2 in its optional baseline dependency group and uses it for patch random forests. The separate retained publisher-code environment declares scikit-learn 1.8.0. The paper year identifies the publication, not either installed release."
+      },
+      "annotation": {
+        "previous": "Software foundation: retained publisher reconstruction code only",
+        "current": "Software foundation: maintained random-forest models and retained publisher reconstruction code"
+      },
+      "keywords": {
+        "previous": "software, archived reconstruction",
+        "current": "software, random forest, archived reconstruction"
+      }
+    },
+    "huot2022nextday": {
+      "note": {
+        "previous": null,
+        "current": "The maintained patch random forest is an adaptation of the published neighborhood baseline. It predicts next-hour first new burning of a previously unburned center; the source paper uses next-day active-fire masks. The project does not reproduce the paper dataset or reported performance."
+      },
+      "title": {
+        "previous": "Next Day Wildfire Spread: A Machine Learning Data Set to Predict Wildfire Spreading from Remote-Sensing Data",
+        "current": "{Next Day Wildfire Spread: A Machine Learning Data Set to Predict Wildfire Spreading from Remote-Sensing Data}"
+      }
+    },
+    "openmeteoHistoricalWeatherDocs": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      },
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    },
+    "ecmwfIFSDocumentation": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "copernicusDEM": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "copernicusDEMAWS": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "glad2019ForestCanopyHeight": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "gridmetDataset": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "landfire2016Remap": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "nasaFIRMSActiveFire": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "noaaGOESFireProduct": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "kfsNationalForestFireInformation": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "landfirefccs": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      },
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    },
+    "landfireconsumeloadings": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "rasterioGeoreferencing": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "affineSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "pyprojSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "pillowSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "requestsSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "pyshpSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "pytestSoftware": {
+      "year": {
+        "previous": null,
+        "current": "n.d."
+      }
+    },
+    "breiman2001forests": {
+      "title": {
+        "previous": "Random Forests",
+        "current": "{Random Forests}"
+      }
+    },
+    "elfwing2018silu": {
+      "title": {
+        "previous": "Sigmoid-Weighted Linear Units for Neural Network Function Approximation in Reinforcement Learning",
+        "current": "{Sigmoid-Weighted Linear Units for Neural Network Function Approximation in Reinforcement Learning}"
+      }
+    },
+    "he2016residual": {
+      "title": {
+        "previous": "Deep Residual Learning for Image Recognition",
+        "current": "{Deep Residual Learning for Image Recognition}"
+      }
+    },
+    "hoeting1999bma": {
+      "title": {
+        "previous": "Bayesian Model Averaging: A Tutorial",
+        "current": "{Bayesian Model Averaging: A Tutorial}"
+      }
+    },
+    "kullback1951information": {
+      "title": {
+        "previous": "On Information and Sufficiency",
+        "current": "{On Information and Sufficiency}"
+      }
+    },
+    "lecun1998gradient": {
+      "title": {
+        "previous": "Gradient-Based Learning Applied to Document Recognition",
+        "current": "{Gradient-Based Learning Applied to Document Recognition}"
+      }
+    },
+    "lin1991divergence": {
+      "title": {
+        "previous": "Divergence Measures Based on the Shannon Entropy",
+        "current": "{Divergence Measures Based on the Shannon Entropy}"
+      }
+    },
+    "loshchilov2019adamw": {
+      "title": {
+        "previous": "Decoupled Weight Decay Regularization",
+        "current": "{Decoupled Weight Decay Regularization}"
+      }
+    },
+    "rumelhart1986learning": {
+      "title": {
+        "previous": "Learning Representations by Back-Propagating Errors",
+        "current": "{Learning Representations by Back-Propagating Errors}"
+      }
+    },
+    "srivastava2014dropout": {
+      "title": {
+        "previous": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "current": "{Dropout: A Simple Way to Prevent Neural Networks from Overfitting}"
+      }
+    },
+    "villani2009transport": {
+      "title": {
+        "previous": "Optimal Transport: Old and New",
+        "current": "{Optimal Transport: Old and New}"
+      }
+    },
+    "choi2026wildfiretoa": {
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    },
+    "andrews2018": {
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    },
+    "scottburgan2005": {
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    },
+    "overholt2014": {
+      "urldate": {
+        "previous": "2026-10-08",
+        "current": "2026-10-11"
+      }
+    }
+  },
+  "current_primary_source_checks": {
+    "choi2026wildfiretoa": {
+      "url": "https://www.mdpi.com/2072-4292/18/19/3321",
+      "result": "Direct open unavailable; official publisher indexed record confirms article title, issue, article number, DOI and publication date.",
+      "checked_on": "2026-10-11"
+    },
+    "toadeposit": {
+      "url": "https://zenodo.org/records/21788344",
+      "result": "Live endpoint unavailable. Retained publisher API record confirms title, authors, version 3.0.0, DOI and 26 September 2026 date; official article also links this deposit.",
+      "local_primary_record": "data/sources/zenodo_21788344/record.json",
+      "checked_on": "2026-10-11"
+    },
+    "breiman2001forests": {
+      "url": "https://link.springer.com/article/10.1023/A:1010933404324",
+      "result": "Official publisher record confirms author, title, 2001 issue year, volume 45, pages 5--32 and DOI.",
+      "checked_on": "2026-10-11"
+    },
+    "huot2022nextday": {
+      "url": "https://arxiv.org/abs/2112.02447",
+      "result": "Author preprint record confirms title, all six authors, source task and linked journal DOI.",
+      "checked_on": "2026-10-11"
+    },
+    "andrews2018": {
+      "url": "https://research.fs.usda.gov/treesearch/55928",
+      "result": "Official agency record confirms author, title, year, report number and DOI.",
+      "checked_on": "2026-10-11"
+    },
+    "scottburgan2005": {
+      "url": "https://research.fs.usda.gov/treesearch/9521",
+      "result": "Official agency bibliographic record inspected.",
+      "checked_on": "2026-10-11"
+    },
+    "overholt2014": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1169.pdf",
+      "result": "Official report title pages confirm author, title, report number, DOI and March 2014 date.",
+      "checked_on": "2026-10-11"
+    },
+    "openmeteoHistoricalWeatherDocs": {
+      "url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "result": "Official historical-weather documentation inspected; citation concerns the service used by the saved acquisition workflow.",
+      "checked_on": "2026-10-11"
+    },
+    "landfirefccs": {
+      "url": "https://www.landfire.gov/fuel/fccs",
+      "result": "Official product page inspected; reference fuelbed role retained.",
+      "checked_on": "2026-10-11"
+    }
+  },
+  "entries": [
+    {
+      "key": "choi2026wildfiretoa",
+      "type": "article",
+      "role": "Published arrival reconstruction method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "choi2026wildfiretoa"
+      },
+      "prior_source_limitations": "Live publisher page was unavailable; bibliographic metadata verified against the retained publisher PDF, pages 1 and 23."
+    },
+    {
+      "key": "toadeposit",
+      "type": "misc",
+      "role": "Primary published dataset and archived method code",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "toadeposit"
+      },
+      "prior_source_limitations": "Live Zenodo record unavailable; exact saved publisher metadata inspected."
+    },
+    {
+      "key": "magstadt2026niropsdataset",
+      "type": "misc",
+      "role": "Upstream NIROPS external reference",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "magstadt2026niropsdataset"
+      },
+      "prior_source_limitations": "Live Mendeley title fetched once, subsequent fetches timed out. Year and complete initials verified from retained publisher article reference 26; full first names not invented."
+    },
+    {
+      "key": "zippenfenig2023openmeteo",
+      "type": "misc",
+      "role": "Weather API software",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "zippenfenig2023openmeteo"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "openmeteoHistoricalWeatherDocs",
+      "type": "misc",
+      "role": "Weather acquisition, spatial support, and temporal conventions",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "openmeteoHistoricalWeatherDocs"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "ecmwfIFSDocumentation",
+      "type": "misc",
+      "role": "Underlying IFS model documentation",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "ecmwfIFSDocumentation"
+      },
+      "prior_source_limitations": "Saved acquisitions do not bind historical observations to specific IFS cycles; no fixed cycle is asserted."
+    },
+    {
+      "key": "hersbach2020era5",
+      "type": "article",
+      "role": "ERA5 underlying reanalysis method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "hersbach2020era5"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "hersbach2023era5singlelevels",
+      "type": "misc",
+      "role": "ERA5 upstream dataset, accessed through Open-Meteo",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "hersbach2023era5singlelevels"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "copernicusDEM",
+      "type": "misc",
+      "role": "Terrain DSM data",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "copernicusDEM"
+      },
+      "prior_source_limitations": "Specific Copernicus DEM release is absent from acquisition sidecars; no release year assigned."
+    },
+    {
+      "key": "copernicusDEMAWS",
+      "type": "misc",
+      "role": "DSM acquisition distribution",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "copernicusDEMAWS"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "buchhorn2020copernicuslandcover2019",
+      "type": "misc",
+      "role": "Land-cover data",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "buchhorn2020copernicuslandcover2019"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "potapov2021forestcanopyheight",
+      "type": "article",
+      "role": "GLAD 2019 canopy-height underlying method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "potapov2021forestcanopyheight"
+      },
+      "prior_source_limitations": "GLAD provider page gives 2020 online citation; final journal issue year is 2021. First successful publisher snippet provided title and abstract but not full author metadata. Author initials follow provider recommended citation; root should verify issue-year through publisher metadata if available."
+    },
+    {
+      "key": "glad2019ForestCanopyHeight",
+      "type": "misc",
+      "role": "GLAD canopy dataset access",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "glad2019ForestCanopyHeight"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "abatzoglou2013gridmet",
+      "type": "article",
+      "role": "gridMET underlying method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "abatzoglou2013gridmet"
+      },
+      "prior_source_limitations": "Bibliographic metadata and DOI verified against the official provider and primary publisher page. Full article text was not reviewed for this bibliography."
+    },
+    {
+      "key": "gridmetDataset",
+      "type": "misc",
+      "role": "Dead-fuel-moisture environmental data",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "gridmetDataset"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "dinerstein2017ecoregions",
+      "type": "article",
+      "role": "RESOLVE 2017 underlying method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "dinerstein2017ecoregions"
+      },
+      "prior_source_limitations": "Full author list unavailable from accessible primary publisher/PMC pages; BibTeX and others explicitly abbreviates it."
+    },
+    {
+      "key": "resolveEcoregions2017",
+      "type": "misc",
+      "role": "Biome polygons",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "resolveEcoregions2017"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "landfire2016Remap",
+      "type": "misc",
+      "role": "Archived fuel and canopy raster release",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "landfire2016Remap"
+      },
+      "prior_source_limitations": "2016 identifies archived raster source epoch, not a verified publication date; year omitted."
+    },
+    {
+      "key": "nasaFIRMSActiveFire",
+      "type": "misc",
+      "role": "Upstream VIIRS acquisition provider",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "nasaFIRMSActiveFire"
+      },
+      "prior_source_limitations": "The provider also distributes MODIS. This citation does not imply MODIS detections were used in the arrival reconstruction."
+    },
+    {
+      "key": "schroeder2014viirs",
+      "type": "article",
+      "role": "VIIRS underlying detection method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "schroeder2014viirs"
+      },
+      "prior_source_limitations": "Bibliographic metadata, DOI, and full author names verified against NASA references and NASA-hosted original-paper front matter. This bibliography audit does not constitute a full algorithm review."
+    },
+    {
+      "key": "giglio2024vnp14img",
+      "type": "misc",
+      "role": "Upstream VIIRS satellite product",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "giglio2024vnp14img"
+      },
+      "prior_source_limitations": "V002 DOI verified against the official NASA product-release citation. Product metadata also checked against the retained publisher article; no product version is inferred solely from its name."
+    },
+    {
+      "key": "giglio2024vj114img",
+      "type": "misc",
+      "role": "Upstream VIIRS satellite product",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "giglio2024vj114img"
+      },
+      "prior_source_limitations": "Author/year/product version checked in retained publisher article references31\u201333. Product DOI omitted; no DOI inferred from product name. 2024 guide documents VNP14IMG and VJ114IMG, while VJ214IMG availability verified in official 2026 NASA user-support response."
+    },
+    {
+      "key": "giglio2026vj214img",
+      "type": "misc",
+      "role": "Upstream VIIRS satellite product",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "giglio2026vj214img"
+      },
+      "prior_source_limitations": "Author/year/product version checked in retained publisher article references31\u201333. Product DOI omitted; no DOI inferred from product name. 2024 guide documents VNP14IMG and VJ114IMG, while VJ214IMG availability verified in official 2026 NASA user-support response."
+    },
+    {
+      "key": "schmidt2020goesfire",
+      "type": "techreport",
+      "role": "Upstream GOES fire detection algorithm",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "schmidt2020goesfire"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "noaaGOESFireProduct",
+      "type": "misc",
+      "role": "Upstream GOES product description",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "noaaGOESFireProduct"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "jaxa2020himawariwildfire",
+      "type": "misc",
+      "role": "Upstream Himawari wildfire product",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "jaxa2020himawariwildfire"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "kfsNationalForestFireInformation",
+      "type": "misc",
+      "role": "Upstream Korean perimeter and ignition-time provenance",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "kfsNationalForestFireInformation"
+      },
+      "prior_source_limitations": "Live service contents were not inspected in this bibliography task; metadata and provenance come from retained publisher originals."
+    },
+    {
+      "key": "lee2025gk2aviirs",
+      "type": "article",
+      "role": "Related literature retained locally, not current variance-weighted arrival method",
+      "group": "data",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "lee2025gk2aviirs"
+      },
+      "prior_source_limitations": "Live publisher page inaccessible; exact bibliographic metadata verified from retained publisher HTML meta tags."
+    },
+    {
+      "key": "kingma2015adam",
+      "type": "inproceedings",
+      "role": "Adam optimizer actually used by both probability model training implementations",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "kingma2015adam"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "brier1950verification",
+      "type": "article",
+      "role": "Quadratic probability-score foundation for locally implemented weighted binary Brier score",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "brier1950verification"
+      },
+      "prior_source_limitations": "Original publisher full text not inspected this turn. Binary score scaling and population weights follow local implementation."
+    },
+    {
+      "key": "horvitz1952sampling",
+      "type": "article",
+      "role": "Inverse inclusion-probability weighting for stratified sampled negatives; Horvitz-Thompson total foundation",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "horvitz1952sampling"
+      },
+      "prior_source_limitations": "The unbiased Horvitz-Thompson total is distinct from local normalized weighted metrics and minibatch ratios. Do not label those ratios exactly unbiased in general; do not claim asymptotic consistency without sampling assumptions. Full original text not inspected this turn."
+    },
+    {
+      "key": "gneiting2007proper",
+      "type": "article",
+      "role": "Proper scoring-rule foundation for Brier and exact logarithmic score interpretation",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "gneiting2007proper"
+      },
+      "prior_source_limitations": "Local prevalence scaling, raw signed-score training, clipping and likelihood floors are local choices; this source does not validate those choices or field performance."
+    },
+    {
+      "key": "fawcett2006roc",
+      "type": "article",
+      "role": "ROC curve and area foundation for locally implemented weighted threshold-group evaluation",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "fawcett2006roc"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "davis2006precisionrecall",
+      "type": "inproceedings",
+      "role": "Precision-recall and ROC interpretation, especially for low-prevalence targets",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "davis2006precisionrecall"
+      },
+      "prior_source_limitations": "Population weighting and tied-score implementation belong to the current local code; do not equate arbitrary PR trapezoidal area with local uninterpolated AP."
+    },
+    {
+      "key": "manning2008informationretrieval",
+      "type": "book",
+      "role": "Average-precision definition foundation",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "manning2008informationretrieval"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "cressie1993spatial",
+      "type": "book",
+      "role": "Ordinary kriging and variogram foundation explicitly cited by retained arrival reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "cressie1993spatial"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "chiles2012geostatistics",
+      "type": "book",
+      "role": "Kriging, covariance and uncertainty foundation explicitly cited by retained arrival reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "chiles2012geostatistics"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "oliver2014geostatistics",
+      "type": "article",
+      "role": "Variogram and kriging guide explicitly cited by retained arrival reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "oliver2014geostatistics"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "silva2025measurementerror",
+      "type": "article",
+      "role": "Measurement-error kriging reference explicitly cited by retained arrival reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "silva2025measurementerror"
+      },
+      "prior_source_limitations": "Bibliographic metadata and source use verified; complete publisher full text not inspected this turn."
+    },
+    {
+      "key": "cooley1965fft",
+      "type": "article",
+      "role": "Historical FFT foundation for radiation convolution implementation",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "cooley1965fft"
+      },
+      "prior_source_limitations": "Do not imply NumPy exclusively implements the original radix algorithm. Exact algorithm backend should be cited through NumPy documentation if a stronger implementation claim is needed."
+    },
+    {
+      "key": "demsar2006comparisons",
+      "type": "article",
+      "role": "Archived reconstruction evaluation method reference",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "demsar2006comparisons"
+      },
+      "prior_source_limitations": "Do not claim the current probability model reports implemented statistical tests across events merely because archived reconstruction evaluation does."
+    },
+    {
+      "key": "holm1979multiple",
+      "type": "article",
+      "role": "Archived reconstruction paired-testing multiple-comparison adjustment",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "holm1979multiple"
+      },
+      "prior_source_limitations": "Exact title, author, volume, year and pages corroborated from retained publisher original. DOI and issue number deliberately omitted rather than assert metadata not confirmed from primary current access."
+    },
+    {
+      "key": "roberts2017crossvalidation",
+      "type": "article",
+      "role": "Structured cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "roberts2017crossvalidation"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "pohjankukka2017spatialcv",
+      "type": "article",
+      "role": "Spatial cross-validation basis explicitly cited in archived arrival-reconstruction publication",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pohjankukka2017spatialcv"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "daley2003pointprocesses",
+      "type": "book",
+      "role": "Theory background for the local renewal-process note and conditional-intensity semantics",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "daley2003pointprocesses"
+      },
+      "prior_source_limitations": "Current exponential predictor supplies an interval transition probability; no full renewal-process model was fitted. The local theoretical note incorrectly says ordinary renewal interarrival times are not IID; do not claim this reference validates that statement."
+    },
+    {
+      "key": "efron1979bootstrap",
+      "type": "article",
+      "role": "Background for archived event-resampling percentile bootstrap",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "efron1979bootstrap"
+      },
+      "prior_source_limitations": "Metadata only; original complete text not inspected this turn."
+    },
+    {
+      "key": "breiman2001forests",
+      "type": "article",
+      "role": "Random-forest method foundation for the maintained patch classifier",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "breiman2001forests",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary publisher metadata inspected; forest method tied separately to the saved local implementation."
+    },
+    {
+      "key": "elfwing2018silu",
+      "type": "article",
+      "role": "SiLU activation foundation for the maintained neural kernel models",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "elfwing2018silu",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary author record inspected; journal year, volume and pages checked against authoritative indexed metadata. The publisher full-text endpoint was unavailable."
+    },
+    {
+      "key": "he2016residual",
+      "type": "inproceedings",
+      "role": "Residual-learning precedent; the local residual MLP does not reproduce ResNet",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "he2016residual",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary author record and official CVPR publication metadata inspected; the local residual MLP does not reproduce ResNet."
+    },
+    {
+      "key": "hoeting1999bma",
+      "type": "article",
+      "role": "Model-averaging foundation; local component parameters remain fixed fitted values",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "hoeting1999bma",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Corrected author-hosted original paper inspected for metadata and model averaging equations; the local fixed-parameter extension is qualified separately."
+    },
+    {
+      "key": "huot2022nextday",
+      "type": "article",
+      "role": "Published neighborhood random-forest baseline adapted to hourly new-burn labels",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "huot2022nextday",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary author paper record inspected, including 2022 revision and journal DOI; the local forest is an adaptation, not a paper reproduction."
+    },
+    {
+      "key": "kullback1951information",
+      "type": "article",
+      "role": "Kullback-Leibler divergence foundation for exact Bernoulli KL reporting",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "kullback1951information",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary publisher metadata obtained through the DOI/Scholix redirect. The original article full text was not read."
+    },
+    {
+      "key": "lecun1998gradient",
+      "type": "article",
+      "role": "Convolutional learning background for the maintained environmental kernels",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "lecun1998gradient",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Author bibliography inspected for title, authors, IEEE volume 86 issue 11 and pages 2278-2324."
+    },
+    {
+      "key": "lin1991divergence",
+      "type": "article",
+      "role": "Jensen-Shannon divergence foundation for Bernoulli probability distances",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "lin1991divergence",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Accessible original seven-page IEEE paper inspected. The original base-2 construction is explicitly converted to natural-log units in this article."
+    },
+    {
+      "key": "loshchilov2019adamw",
+      "type": "inproceedings",
+      "role": "Decoupled weight-decay optimizer used by the neural training workflow",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "loshchilov2019adamw",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary author paper record inspected; ICLR 2019 publication distinguished from preprint posting."
+    },
+    {
+      "key": "rumelhart1986learning",
+      "type": "article",
+      "role": "Backpropagation foundation for learned kernel parameters",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "rumelhart1986learning",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary publisher record inspected for authors, journal, year, volume, pages and DOI."
+    },
+    {
+      "key": "srivastava2014dropout",
+      "type": "article",
+      "role": "Dropout foundation for the maintained neural kernel models",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "srivastava2014dropout",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Official JMLR record inspected; volume 15, number 56, pages 1929-1958."
+    },
+    {
+      "key": "villani2009transport",
+      "type": "book",
+      "role": "Optimal-transport background for Wasserstein probability-distance reporting",
+      "group": "methods",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_theory_and_methods.bib",
+        "audit": "documents/wildfire_theory_and_methods_audit.json",
+        "entry_key": "villani2009transport",
+        "verified_on_in_prior_audit": "2026-10-11"
+      },
+      "prior_source_limitations": "Primary publisher book record inspected for title, author, year, series and DOI; no claim to have read the complete book."
+    },
+    {
+      "key": "overholt2014",
+      "type": "techreport",
+      "role": "Direct foundation: isotropic radiation with receiver orientation",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "overholt2014"
+      },
+      "prior_source_limitations": "Point-source radiation: Section 6.1, Equation (6.1), printed page 39. The finite-footprint integration is an extension in this project."
+    },
+    {
+      "key": "bryant2003nist1007",
+      "type": "techreport",
+      "role": "Heat-release relation physical context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "bryant2003nist1007"
+      },
+      "prior_source_limitations": "Author list and December 2003 date verified from the report title page; the current NIST HTML entry duplicates the first author."
+    },
+    {
+      "key": "mcgrattan2000nist6546",
+      "type": "techreport",
+      "role": "Radiation/transmission and near-source limitation context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "mcgrattan2000nist6546"
+      },
+      "prior_source_limitations": "Large-pool-fire radiation and transmission context; this report does not validate the project's wildfire footprint model."
+    },
+    {
+      "key": "frankman2013wildlandheating",
+      "type": "article",
+      "role": "Wildfire radiation-versus-convection observational context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "frankman2013wildlandheating"
+      },
+      "prior_source_limitations": "First published online 11 September 2012; the publisher's final volume-and-issue citation is 2013. Context for distinguishing radiation from convection; not a calibration dataset for this project."
+    },
+    {
+      "key": "angelidis2004",
+      "type": "techreport",
+      "role": "Inspected solid-angle formula reference",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "angelidis2004"
+      },
+      "prior_source_limitations": "Section 3.2 records the triangular solid-angle expression and cites van Oosterom and Strackee (1983). This accessible report was the inspected formula source."
+    },
+    {
+      "key": "vanoosterom1983",
+      "type": "article",
+      "role": "Original solid-angle formula attribution",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "vanoosterom1983"
+      },
+      "prior_source_limitations": "Original solid-angle attribution; bibliographic metadata confirmed by PubMed PMID 6832789. Original full text was not inspected; the formula was checked in Angelidis (2004)."
+    },
+    {
+      "key": "landfirefccs",
+      "type": "misc",
+      "role": "Fuel raster product documentation",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "landfirefccs"
+      },
+      "prior_source_limitations": "Undated general product description. Raster release versions are separately identified by the project data provenance."
+    },
+    {
+      "key": "landfireconsumeloadings",
+      "type": "misc",
+      "role": "Referenced FCCS dry-loading lookup table",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "landfireconsumeloadings"
+      },
+      "prior_source_limitations": "Loading units are tons per acre; product description at https://www.landfire.gov/fuel/fccs. Exact archived table release and checksum belong to the project provenance record."
+    },
+    {
+      "key": "prichard2013",
+      "type": "techreport",
+      "role": "FCCS physical fuelbed definitions",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "prichard2013"
+      },
+      "prior_source_limitations": "Reference fuel characteristics and six fuel strata. Reference fuelbeds are not event-date measurements of consumed fuel."
+    },
+    {
+      "key": "sung2025nist2314",
+      "type": "techreport",
+      "role": "Vegetation radiative-fraction context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "sung2025nist2314"
+      },
+      "prior_source_limitations": "Primary publication record dated 15 April 2025. Vegetation combustion measurements provide physical context; the project's illustrative parameters are not fitted to these data."
+    },
+    {
+      "key": "anderson1969",
+      "type": "techreport",
+      "role": "Direct residence relation foundation",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "anderson1969"
+      },
+      "prior_source_limitations": "Printed report identifier INT-69; agency catalog identifier INT-RP-69. Residence approximation on printed pages 15--16. This is distinct from Anderson's 1982 fuel catalog."
+    },
+    {
+      "key": "andrews2018",
+      "type": "techreport",
+      "role": "Direct characteristic SAV and residence relation source",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "andrews2018"
+      },
+      "prior_source_limitations": "Characteristic SAV weighting: Sections 3.2.3--3.2.5; passing-front residence: Section 4.2. This project uses those relations and does not implement the complete Rothermel spread model."
+    },
+    {
+      "key": "scottburgan2005",
+      "type": "techreport",
+      "role": "Direct implemented FBFM40 parameter catalog",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "scottburgan2005"
+      },
+      "prior_source_limitations": "The 40 standard burnable reference models; component parameters in Table 7. These are distinct from Anderson's original 13 models."
+    },
+    {
+      "key": "burrows1994",
+      "type": "phdthesis",
+      "role": "Direct implemented jarrah particle-duration equation",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "burrows1994"
+      },
+      "prior_source_limitations": "Implemented particle-size power law: printed page 69, Equation 6-1, in the government-hosted thesis copy at https://library.dbca.wa.gov.au/FullTextFiles/016094.pdf. The ANU repository records year 1994 even though its attached PDF filename contains 1992."
+    },
+    {
+      "key": "burrows2001particles",
+      "type": "article",
+      "role": "Peer-reviewed particle-duration literature context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "burrows2001particles"
+      },
+      "prior_source_limitations": "Publisher record dated 13 July 2001. Publisher abstract and bibliographic metadata inspected; the exact implemented power law was verified from the 1994 thesis rather than this article's full text."
+    },
+    {
+      "key": "wotton2012flamefront",
+      "type": "article",
+      "role": "Main-front versus residual-flaming observational context",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "wotton2012flamefront"
+      },
+      "prior_source_limitations": "First published online 15 December 2011; final journal issue year is 2012. Main-front and later residual flaming have different endpoints."
+    },
+    {
+      "key": "moody2022qesfire",
+      "type": "article",
+      "role": "Precedent for age-gated flame map",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "moody2022qesfire"
+      },
+      "prior_source_limitations": "Published 18 March 2022. Precedent for time-on-fire gating; cited model performance does not transfer to this project."
+    },
+    {
+      "key": "anderson1982fuelmodels",
+      "type": "techreport",
+      "role": "Historical background only; original 13 fuel models",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "anderson1982fuelmodels"
+      },
+      "prior_source_limitations": "The original 13 fire-behavior fuel models; background source, distinct from the implemented 40-model Scott and Burgan catalog."
+    },
+    {
+      "key": "rothermel1972spread",
+      "type": "techreport",
+      "role": "Historical background only; not complete implementation",
+      "group": "heat",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "rothermel1972spread"
+      },
+      "prior_source_limitations": "Historical model background; the current project's learned hourly predictor is not the complete Rothermel fire-spread model."
+    },
+    {
+      "key": "paszke2019pytorch",
+      "type": "inproceedings",
+      "role": "Software foundation: tensor computation, differentiation, model training",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "paszke2019pytorch"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "harris2020numpy",
+      "type": "article",
+      "role": "Software foundation: arrays and numerical computation",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "harris2020numpy"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "virtanen2020scipy",
+      "type": "article",
+      "role": "Software foundation: optimization, interpolation and numerical routines",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "virtanen2020scipy"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "mckinney2010pandas",
+      "type": "inproceedings",
+      "role": "Software foundation: tabular and time-indexed data",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "mckinney2010pandas"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "pandas223",
+      "type": "misc",
+      "role": "Software release: current tabular-data dependency",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pandas223"
+      },
+      "prior_source_limitations": "No version-specific Zenodo DOI was verified for pandas 2.2.3; no DOI is assigned."
+    },
+    {
+      "key": "hunter2007matplotlib",
+      "type": "article",
+      "role": "Software foundation: scientific plots and reports",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "hunter2007matplotlib"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "rasterioGeoreferencing",
+      "type": "manual",
+      "role": "Software documentation: raster I/O, coordinate systems and affine cell geometry",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "rasterioGeoreferencing"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "affineSoftware",
+      "type": "manual",
+      "role": "Software documentation: affine raster index-to-coordinate transformations",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "affineSoftware"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "gdalSoftware",
+      "type": "manual",
+      "role": "Software foundation: raster and vector data backend",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "gdalSoftware"
+      },
+      "prior_source_limitations": "General software DOI, not a version-specific backend binding."
+    },
+    {
+      "key": "projSoftware",
+      "type": "manual",
+      "role": "Software foundation: coordinate-reference-system transformations",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "projSoftware"
+      },
+      "prior_source_limitations": "General software DOI, not a version-specific backend binding."
+    },
+    {
+      "key": "pyprojSoftware",
+      "type": "manual",
+      "role": "Software documentation: Python coordinate transformations",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pyprojSoftware"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "shapely206",
+      "type": "misc",
+      "role": "Software release: planar geometry operations",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "shapely206"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "fleischmann2026geopandas",
+      "type": "article",
+      "role": "Software foundation: retained publisher reconstruction code only",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "fleischmann2026geopandas"
+      },
+      "prior_source_limitations": "Direct DOI page could not be retrieved; metadata follows the current official GeoPandas canonical citation page."
+    },
+    {
+      "key": "pedregosa2011sklearn",
+      "type": "article",
+      "role": "Software foundation: maintained random-forest models and retained publisher reconstruction code",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pedregosa2011sklearn"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "pillowSoftware",
+      "type": "manual",
+      "role": "Software documentation: image processing and bitmap exports",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pillowSoftware"
+      },
+      "prior_source_limitations": "Documentation citation; no unverified release date or DOI assigned."
+    },
+    {
+      "key": "requestsSoftware",
+      "type": "manual",
+      "role": "Software documentation: HTTP acquisition",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "requestsSoftware"
+      },
+      "prior_source_limitations": "Documentation citation; no unverified release date or DOI assigned."
+    },
+    {
+      "key": "pyshpSoftware",
+      "type": "manual",
+      "role": "Software documentation: vector shapefile reading",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pyshpSoftware"
+      },
+      "prior_source_limitations": "Documentation citation; no unverified release date or DOI assigned."
+    },
+    {
+      "key": "pytestSoftware",
+      "type": "manual",
+      "role": "Software documentation: optional test dependency",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "pytestSoftware"
+      },
+      "prior_source_limitations": "Documentation citation; no unverified release date or DOI assigned."
+    },
+    {
+      "key": "wildfireguardian2026",
+      "type": "misc",
+      "role": "Local project software citation",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "wildfireguardian2026"
+      },
+      "prior_source_limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release."
+    },
+    {
+      "key": "codeprob",
+      "type": "misc",
+      "role": "Local implementation: probability models, recursive cumulative spread, training and evaluation",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "codeprob"
+      },
+      "prior_source_limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release."
+    },
+    {
+      "key": "codeheat",
+      "type": "misc",
+      "role": "Local implementation: heat-flux and timing extensions",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "codeheat"
+      },
+      "prior_source_limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release."
+    },
+    {
+      "key": "coderesidence",
+      "type": "misc",
+      "role": "Local implementation: ecology, residence and flame-state contracts",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "coderesidence"
+      },
+      "prior_source_limitations": "A local citation describes the inspected source snapshot; it is not an independently peer-reviewed publication or public archived release."
+    },
+    {
+      "key": "codetoa",
+      "type": "misc",
+      "role": "Local archive: publisher reconstruction code",
+      "group": "software",
+      "metadata_basis": {
+        "bibliography": "documents/wildfire_references.bib",
+        "audit": "documents/wildfire_references_audit.json",
+        "entry_key": "codetoa"
+      },
+      "prior_source_limitations": "Inherits the entry-specific verification sources and project-wide limits in the earlier audit."
+    },
+    {
+      "key": "jupyterSoftware",
+      "type": "manual",
+      "role": "Software documentation: Notebook authoring and reproducible walkthroughs",
+      "group": "software",
+      "metadata_basis": {
+        "primary_url": "https://docs.jupyter.org/en/latest/",
+        "metadata_and_role_checked_on": "2026-10-11",
+        "local_evidence": [
+          "pyproject.toml",
+          "api_tutorial.ipynb"
+        ]
+      },
+      "prior_source_limitations": "Undated official documentation; metadata check does not assert an installed package release."
+    },
+    {
+      "key": "ipykernelSoftware",
+      "type": "manual",
+      "role": "Software documentation: Python execution kernel for the optional notebook workflow",
+      "group": "software",
+      "metadata_basis": {
+        "primary_url": "https://ipykernel.readthedocs.io/en/stable/",
+        "metadata_and_role_checked_on": "2026-10-11",
+        "local_evidence": [
+          "pyproject.toml",
+          "api_tutorial.ipynb"
+        ]
+      },
+      "prior_source_limitations": "Undated official documentation; metadata check does not assert an installed package release."
+    },
+    {
+      "key": "joblibSoftware",
+      "type": "manual",
+      "role": "Software documentation: Serialization and loading of maintained patch random-forest estimators",
+      "group": "software",
+      "metadata_basis": {
+        "primary_url": "https://joblib.readthedocs.io/en/stable/",
+        "metadata_and_role_checked_on": "2026-10-11",
+        "local_evidence": [
+          "pyproject.toml",
+          "wildfire/models.py"
+        ]
+      },
+      "prior_source_limitations": "Undated official documentation; metadata check does not assert an installed package release."
+    }
+  ],
+  "verification": {
+    "unique_citation_keys": true,
+    "unique_nonempty_dois": true,
+    "nonempty_doi_count": 62,
+    "ascii_TeX_compatible": true,
+    "brace_delimited_parse_roundtrip": true,
+    "all_preexisting_bib_keys_preserved": true,
+    "top_level_document_citations_missing_from_inventory": [
+      "heatrefs"
+    ],
+    "legacy_inline_key_mapping": {
+      "heatrefs": [
+        "overholt2014",
+        "angelidis2004",
+        "vanoosterom1983"
+      ]
+    },
+    "BibTeX_and_LaTeX_compilation": "passed: all 103 entries compiled with plainnat and pdfLaTeX",
+    "compilation_details": {
+      "directory": "/private/tmp/wildfire-bib-check-20261011-lgn55tx9",
+      "steps": [
+        {
+          "program": "pdflatex",
+          "exit_code": 0
+        },
+        {
+          "program": "bibtex",
+          "exit_code": 0
+        },
+        {
+          "program": "pdflatex",
+          "exit_code": 0
+        },
+        {
+          "program": "pdflatex",
+          "exit_code": 0
+        }
+      ],
+      "compiled_entry_count": 103,
+      "bibtex_warnings": [],
+      "final_unresolved_citation_warnings": [],
+      "final_latex_errors": [],
+      "pdf_created": true
+    }
+  },
+  "limitations": [
+    "This inventory is comprehensive relative to the inspected maintained project and its existing source audits; it does not include every reference cited inside upstream papers or every transitive software dependency.",
+    "Inherited metadata verification is explicitly distinguished from current source checks. Full texts of all 103 works have not been read.",
+    "The live Zenodo endpoint was unavailable. Dataset metadata was checked against the retained publisher API record and official article rather than represented as a fresh live Zenodo response.",
+    "Original software keys identify local implementation records; the collective project label does not assert individual authorship or a public software DOI.",
+    "Background and source-paper results do not establish local forecast skill, calibrated active flames, measured heat-flux accuracy, or operational validation.",
+    "The historical renewal-process note is not a fitted maintained predictor; its background citation does not certify the mathematics of that note."
+  ]
+}

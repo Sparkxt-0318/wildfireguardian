@@ -38,8 +38,9 @@ FloatArray = NDArray[np.float64]
 #
 # The NIST point-source irradiance equation is integrated over horizontal source
 # cells with uniform isotropic radiant power per ground area. Receivers face
-# upward and lie below a common source elevation. Cell integrals are exact solid
-# angles, evaluated as two triangles. This is a source-sheet idealization, not a
+# upward and lie below a common source elevation. Transparent cell integrals are
+# exact solid angles, evaluated as two triangles; optional grey path absorption
+# uses adaptive numerical enclosures. This is a source-sheet idealization, not a
 # solid-flame model or a calibrated prediction of total wildfire heat transfer.
 
 def _finite_array(value: ArrayLike, name: str) -> FloatArray:
@@ -166,18 +167,23 @@ class CombustionParameters:
     is the effective released heat (J/kg), not an automatically moisture-corrected
     gross calorific value. ``consumed_fraction`` describes the part of that load
     consumed in the specified burning phase. Burning duration is in seconds.
-    Fields may be scalars or broadcast-compatible arrays.
+    Fields may be scalars or broadcast-compatible arrays. Optional provenance
+    is copied to an immutable JSON-compatible mapping. The reference constructor
+    explicitly records when nominal fuel-model heat content replaces a measured
+    effective heat yield; it does not infer phase consumption from total loading.
     """
 
     fuel_load_kg_m2: ArrayLike
     heat_of_combustion_j_kg: ArrayLike
     burning_duration_s: ArrayLike
     consumed_fraction: ArrayLike = 1.0
+    provenance: Mapping[str, Any] | None = None
 
     @classmethod
     def from_flame_residence(
         cls, residence_time, *, fuel_load_kg_m2: ArrayLike,
         heat_of_combustion_j_kg: ArrayLike, consumed_fraction: ArrayLike,
+        provenance: Mapping[str, Any] | None = None,
     ) -> CombustionParameters:
         """Use the same flaming duration for activity and conditional heat.
 
@@ -187,8 +193,124 @@ class CombustionParameters:
 
         if not isinstance(residence_time, FlameResidenceTime):
             raise TypeError("residence_time must be FlameResidenceTime")
+        metadata = {
+            "method": "supplied_combustion_with_flame_residence",
+            "residence_time": residence_time.provenance_dict(),
+            "energy_basis": "supplied effective heat per kg of dry fuel consumed in the modeled flaming phase",
+            "consumption_origin": "explicit supplied consumed_fraction; not inferred from reference total loading",
+        }
+        if provenance is not None:
+            if not isinstance(provenance, Mapping):
+                raise ValueError("provenance must be a mapping")
+            metadata["input_provenance"] = provenance
         return cls(fuel_load_kg_m2, heat_of_combustion_j_kg,
-                   residence_time.duration_s, consumed_fraction)
+                   residence_time.duration_s, consumed_fraction, metadata)
+
+    @classmethod
+    def from_consumed_fuel(
+        cls, consumed_fuel_load_kg_m2: ArrayLike, *,
+        heat_of_combustion_j_kg: ArrayLike, burning_duration_s: ArrayLike,
+        provenance: Mapping[str, Any] | None = None,
+    ) -> CombustionParameters:
+        """Use explicitly supplied dry mass consumed in the modeled flaming phase.
+
+        ``consumed_fuel_load_kg_m2`` is consumed dry mass per entire ground-cell
+        area, rather than total initial fuel mass. It may come from a measurement
+        or an external phase-specific consumption model such as CONSUME. The
+        selected mass and duration must describe the same modeled flaming phase.
+        This adapter does not run CONSUME or estimate consumption from FCCS mass,
+        relative humidity, fuel moisture, or the fuel-model code.
+
+        Inputs are genuine numeric scalars or nonempty spatial matrices [H,W]
+        and must broadcast together. Consumed mass may be zero; heat yield and
+        duration must be positive. The stored load is already consumed mass, so
+        ``consumed_fraction=1`` applies to that mass only, not to initial loading.
+        """
+        from .heat_parameters import phase_consumption_provenance
+
+        consumed = _real_array(consumed_fuel_load_kg_m2, "consumed_fuel_load_kg_m2")
+        heat = _real_array(heat_of_combustion_j_kg, "heat_of_combustion_j_kg")
+        duration = _real_array(burning_duration_s, "burning_duration_s")
+        metadata = phase_consumption_provenance("explicit_phase_consumed_dry_mass", provenance)
+        metadata["stored_fuel_load_meaning"] = "dry mass already consumed in the modeled flaming phase"
+        return cls(consumed, heat, duration, 1.0, metadata)
+
+    @classmethod
+    def from_phase_consumption(
+        cls, initial_fuel_load_kg_m2: ArrayLike,
+        consumed_fuel_load_kg_m2: ArrayLike, *,
+        heat_of_combustion_j_kg: ArrayLike, burning_duration_s: ArrayLike,
+        provenance: Mapping[str, Any] | None = None,
+    ) -> CombustionParameters:
+        """Derive the consumed fraction from an explicitly supplied phase mass.
+
+        Both dry masses use kg/m² of the same entire ground-cell area. Require
+        ``0 <= consumed <= initial``. For zero initial and consumed mass, define
+        the fraction as zero; otherwise it is consumed/initial. No clipping or
+        moisture-based consumption inference occurs. Heat and duration must
+        describe the same modeled flaming phase as the consumed mass. All inputs
+        must be numeric scalars or nonempty [H,W] matrices that broadcast together.
+        """
+        from .heat_parameters import phase_consumption_provenance
+
+        initial = _real_array(initial_fuel_load_kg_m2, "initial_fuel_load_kg_m2")
+        consumed = _real_array(consumed_fuel_load_kg_m2, "consumed_fuel_load_kg_m2")
+        heat = _real_array(heat_of_combustion_j_kg, "heat_of_combustion_j_kg")
+        duration = _real_array(burning_duration_s, "burning_duration_s")
+        try:
+            initial, consumed = np.broadcast_arrays(initial, consumed)
+        except ValueError as error:
+            raise ValueError("initial and consumed fuel maps must be broadcast-compatible") from error
+        if np.any(initial < 0) or np.any(consumed < 0):
+            raise ValueError("initial and consumed dry fuel loading must be nonnegative")
+        if np.any(consumed > initial):
+            raise ValueError("consumed_fuel_load_kg_m2 cannot exceed initial_fuel_load_kg_m2")
+        fraction = np.zeros(initial.shape, dtype=np.float64)
+        np.divide(consumed, initial, out=fraction, where=initial > 0)
+        metadata = phase_consumption_provenance("explicit_phase_consumption_fraction", provenance)
+        metadata["fraction_equation"] = "consumed_fraction = consumed_fuel_load_kg_m2 / initial_fuel_load_kg_m2; 0/0 = 0"
+        metadata["stored_fuel_load_meaning"] = "initial dry mass per entire ground-cell area"
+        return cls(initial, heat, duration, fraction, metadata)
+
+    @classmethod
+    def from_fbfm40(
+        cls, codes: ArrayLike, *, fuel_load_kg_m2: ArrayLike,
+        consumed_fraction: ArrayLike, residence_time: FlameResidenceTime | None = None,
+        provenance: Mapping[str, Any] | None = None,
+    ) -> CombustionParameters:
+        """Select nominal Scott--Burgan heat content and a front-duration scenario.
+
+        Supported numeric FBFM40 codes receive 8000 Btu_IT/lb except GR6 (106),
+        which receives 9000 Btu_IT/lb. The declared NIST conversion is exactly
+        2326 J/kg per Btu_IT/lb, giving 18.608 or 20.934 MJ/kg. This is nominal
+        reference-model heat content, without a moisture or incomplete-combustion
+        correction; it does not establish the effective heat yield of this fire.
+
+        ``fuel_load_kg_m2`` and ``consumed_fraction`` are explicitly supplied.
+        Total ecological fuel mass is not implicitly consumed in the short
+        flaming front. By default the code derives Anderson/Andrews reference
+        front residence from the same codes. Supply ``residence_time`` to use a
+        distinct explicit flaming-duration scenario instead. Missing, masked,
+        nonburnable, unsupported, or fractional codes fail; no generic fallback
+        heat content is assigned. Inputs must be scalars or nonempty [H,W] maps.
+        """
+        from .heat_parameters import fbfm40_heat_content_provenance, heat_content_from_fbfm40
+
+        heat = heat_content_from_fbfm40(codes)
+        loading = _real_array(fuel_load_kg_m2, "fuel_load_kg_m2")
+        fraction = _real_array(consumed_fraction, "consumed_fraction")
+        if residence_time is None:
+            residence_time = FlameResidenceTime.from_fbfm40(codes)
+            duration_origin = "Anderson/Andrews point-scale front duration from FBFM40 reference SAV"
+        elif not isinstance(residence_time, FlameResidenceTime):
+            raise TypeError("residence_time must be FlameResidenceTime or None")
+        else:
+            duration_origin = "explicit supplied flaming-duration scenario"
+        metadata = fbfm40_heat_content_provenance(codes, provenance)
+        metadata["residence_time"] = residence_time.provenance_dict()
+        metadata["duration_origin"] = duration_origin
+        metadata["consumption_origin"] = "explicit supplied consumed_fraction; not inferred from catalog or ecological total loading"
+        return cls(loading, heat, residence_time.duration_s, fraction, metadata)
 
     def __post_init__(self) -> None:
         for name, positive, upper in (
@@ -200,8 +322,16 @@ class CombustionParameters:
             object.__setattr__(
                 self, name, _physical_array(getattr(self, name), name, positive=positive, upper=upper)
             )
+        metadata = {} if self.provenance is None else self.provenance
+        if not isinstance(metadata, Mapping):
+            raise ValueError("provenance must be a mapping")
+        object.__setattr__(self, "provenance", _freeze_metadata(metadata))
         # Validate both broadcasting and finite derived intensity on construction.
         self.heat_release_rate_density_w_m2
+
+    def provenance_dict(self) -> dict[str, Any]:
+        """Return an independent mutable JSON-ready copy of source metadata."""
+        return _thaw_metadata(self.provenance)
 
     @property
     def heat_release_rate_density_w_m2(self) -> FloatArray:
@@ -226,10 +356,16 @@ class HeatFluxResult:
     The map contains receiver cell-center values, not receiver-area averages.
     Radiant source power excludes atmospheric loss. Incident heat is distinct
     from absorbed heat; no absorptivity, temperature, or convective term is used.
+    The lower/upper arrays enclose numerical integration of the selected fixed
+    transport model, up to floating-point roundoff. They equal the reported flux
+    for exact solid-angle transport and do not express parameter uncertainty.
     """
 
     incident_heat_flux_w_m2: FloatArray
     expected_total_radiant_power_w: float
+    incident_heat_flux_lower_bound_w_m2: FloatArray | None = None
+    incident_heat_flux_upper_bound_w_m2: FloatArray | None = None
+    metadata: Mapping[str, Any] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(
@@ -241,6 +377,22 @@ class HeatFluxResult:
         if power < 0:
             raise ValueError("expected_total_radiant_power_w must be nonnegative")
         object.__setattr__(self, "expected_total_radiant_power_w", power)
+        flux = self.incident_heat_flux_w_m2
+        for name in ("incident_heat_flux_lower_bound_w_m2", "incident_heat_flux_upper_bound_w_m2"):
+            supplied = getattr(self, name)
+            value = _physical_array(flux if supplied is None else supplied, name)
+            if value.shape != flux.shape:
+                raise ValueError(f"{name} must match the incident flux shape")
+            object.__setattr__(self, name, value)
+        if np.any(self.incident_heat_flux_lower_bound_w_m2 > flux) or np.any(
+            self.incident_heat_flux_upper_bound_w_m2 < flux
+        ):
+            raise ValueError("numerical flux bounds must contain the reported flux")
+        object.__setattr__(self, "metadata", _freeze_metadata({} if self.metadata is None else self.metadata))
+
+    def provenance_dict(self) -> dict:
+        """Return mutable, JSON-compatible radiation and integration metadata."""
+        return _thaw_metadata(self.metadata)
 
     @property
     def incident_heat_flux_kw_m2(self) -> FloatArray:
@@ -304,8 +456,11 @@ class ExpectedHeatFluxModel:
     Required physical inputs specify the conditional heat release rate per ground
     area, radiative fraction, and emission height. Scalars or exact [H,W] source
     parameter maps are accepted. ``atmospheric_transmissivity`` is a uniform
-    path-independent scalar in [0,1]; it is a scenario parameter, not a calculated
-    smoke/humidity correction. All sources are at ``emission_height_m`` and all
+    path-independent scalar in [0,1]. Alternatively, ``atmosphere`` supplies a
+    homogeneous grey absorption coefficient: attenuation is integrated along
+    each source-to-receiver path inside the finite footprint. A nonunit scalar
+    transmissivity cannot be combined with this path model. Neither option
+    infers absorption from weather. All sources are at ``emission_height_m`` and all
     upward-facing receivers at ``receiver_height_m`` in the same height datum.
 
     ``predict`` consumes a complete, finite [H,W] array with probabilities in
@@ -329,12 +484,27 @@ class ExpectedHeatFluxModel:
         emission_height_m: float,
         receiver_height_m: float = 0.0,
         atmospheric_transmissivity: float = 1.0,
+        atmosphere=None,
+        transfer_atol: float = 1e-7,
+        transfer_rtol: float = 1e-2,
         epsg: int | None = None,
     ) -> None:
         if not isinstance(grid, AffineGrid):
             raise TypeError("grid must be an AffineGrid")
         self.grid = grid
         self.epsg = None if epsg is None else validate_metric_crs(epsg)
+        from .heat_transfer import HomogeneousAtmosphere, RadiativeFractionEstimate
+
+        if atmosphere is not None and not isinstance(atmosphere, HomogeneousAtmosphere):
+            raise TypeError("atmosphere must be a HomogeneousAtmosphere")
+        self.atmosphere = atmosphere
+        self.radiative_fraction_provenance = (
+            radiative_fraction.provenance_dict()
+            if isinstance(radiative_fraction, RadiativeFractionEstimate) else
+            {"method": "caller_supplied", "uncertainty": "held fixed"}
+        )
+        if isinstance(radiative_fraction, RadiativeFractionEstimate):
+            radiative_fraction = radiative_fraction.fraction
         self.heat_release_rate_density_w_m2 = _physical_array(
             heat_release_rate_density_w_m2, "heat_release_rate_density_w_m2"
         )
@@ -350,6 +520,13 @@ class ExpectedHeatFluxModel:
         self.atmospheric_transmissivity = _physical_scalar(atmospheric_transmissivity, "atmospheric_transmissivity")
         if not 0 <= self.atmospheric_transmissivity <= 1:
             raise ValueError("atmospheric_transmissivity must lie in [0,1]")
+        if atmosphere is not None and self.atmospheric_transmissivity != 1.0:
+            raise ValueError("choose either scalar atmospheric_transmissivity or path-dependent atmosphere")
+        self.transfer_atol = _physical_scalar(transfer_atol, "transfer_atol")
+        self.transfer_rtol = _physical_scalar(transfer_rtol, "transfer_rtol")
+        if self.transfer_atol < 0 or self.transfer_rtol < 0 or self.transfer_atol + self.transfer_rtol <= 0:
+            raise ValueError("transfer tolerances must be nonnegative with at least one positive")
+        self._transfer_kernel_cache = {}
 
     def _weighted_sources(self, probability: ArrayLike) -> FloatArray:
         p = _physical_array(probability, "active_burning_probability", upper=1.0)
@@ -398,20 +575,65 @@ class ExpectedHeatFluxModel:
         raster contributes; there is no distance cutoff and the kernel is not
         normalized. Atmospheric transmissivity is applied separately.
         """
+        return self.transfer_kernel_bounds(shape)[0].copy()
+
+    def _transfer_bounds(self, dx: FloatArray, dy: FloatArray):
+        if self.atmosphere is None or self.atmosphere.absorption_coefficient_m_inv == 0.0:
+            exact = self._cell_transfer(dx, dy)
+            return exact, exact, exact
+        from .heat_transfer import attenuated_cell_transfer
+
+        result = attenuated_cell_transfer(
+            dx, dy, column_vector_m=self.grid.column_vector_m,
+            row_vector_m=self.grid.row_vector_m,
+            height_separation_m=self.height_separation_m,
+            atmosphere=self.atmosphere, atol=self.transfer_atol, rtol=self.transfer_rtol,
+        )
+        return result.midpoint, result.lower_bound, result.upper_bound
+
+    def transfer_kernel_bounds(self, shape: tuple[int, int]):
+        """Return midpoint/lower/upper finite-cell transfer kernels.
+
+        Without path absorption all three equal the exact solid-angle kernel.
+        With absorption the enclosure covers numerical integration error under
+        the supplied homogeneous grey-medium assumption, up to roundoff.
+        """
         height, width = _shape(shape)
+        key = (height, width, self.grid.transform, self.height_separation_m,
+               None if self.atmosphere is None else self.atmosphere.absorption_coefficient_m_inv,
+               self.transfer_atol, self.transfer_rtol)
+        if key in self._transfer_kernel_cache:
+            return tuple(value.copy() for value in self._transfer_kernel_cache[key])
         row_offsets = np.arange(1 - height, height, dtype=np.float64)[:, None]
         col_offsets = np.arange(1 - width, width, dtype=np.float64)[None, :]
         cx, cy = self.grid.column_vector_m
         rx, ry = self.grid.row_vector_m
-        return self._cell_transfer(col_offsets * cx + row_offsets * rx, col_offsets * cy + row_offsets * ry)
+        result = self._transfer_bounds(
+            col_offsets * cx + row_offsets * rx, col_offsets * cy + row_offsets * ry,
+        )
+        if len(self._transfer_kernel_cache) >= 4:
+            self._transfer_kernel_cache.clear()
+        self._transfer_kernel_cache[key] = tuple(np.array(value, copy=True) for value in result)
+        return tuple(value.copy() for value in result)
 
-    def _result(self, flux: FloatArray, sources: FloatArray) -> HeatFluxResult:
+    def _result(self, flux: FloatArray, sources: FloatArray, lower=None, upper=None) -> HeatFluxResult:
         power = float(np.sum(sources) * self.grid.cell_area_m2)
         if not np.isfinite(power):
             raise ValueError("expected radiant source power exceeds supported numeric range")
         # Roundoff from the FFT can introduce tiny negative values into a
         # mathematically nonnegative convolution. No input probabilities are clipped.
-        return HeatFluxResult(np.maximum(flux, 0.0), power)
+        flux = np.maximum(flux, 0.0)
+        lower = flux if lower is None else np.minimum(np.maximum(lower, 0.0), flux)
+        upper = flux if upper is None else np.maximum(np.maximum(upper, 0.0), flux)
+        return HeatFluxResult(flux, power, lower, upper, {
+            "geometry": "uniform finite footprints of isotropic emitters with upward receivers below the source plane",
+            "radiative_fraction": self.radiative_fraction_provenance,
+            "atmosphere": {"method": "fixed_scalar_transmissivity", "value": self.atmospheric_transmissivity}
+                if self.atmosphere is None else self.atmosphere.provenance_dict(),
+            "integration": "exact_solid_angle" if self.atmosphere is None or
+                self.atmosphere.absorption_coefficient_m_inv == 0.0 else "adaptive_attenuation_enclosure",
+            "maximum_numerical_interval_width_w_m2": float(np.max(upper - lower, initial=0.0)),
+        })
 
     def predict(self, active_burning_probability: ArrayLike) -> tuple[FloatArray, FloatArray]:
         """Return flux [H,W] and corresponding (latitude, longitude) [H,W,2].
@@ -440,13 +662,17 @@ class ExpectedHeatFluxModel:
         height, width = sources.shape
         if not np.any(sources) or self.atmospheric_transmissivity == 0:
             return self._result(np.zeros_like(sources), sources)
-        kernel = self.transfer_kernel(sources.shape)
+        kernel, lower_kernel, upper_kernel = self.transfer_kernel_bounds(sources.shape)
         full_shape = (height + kernel.shape[0] - 1, width + kernel.shape[1] - 1)
         source_fft = np.fft.rfft2(sources, s=full_shape)
-        kernel_fft = np.fft.rfft2(kernel, s=full_shape)
-        full_flux = np.fft.irfft2(source_fft * kernel_fft, s=full_shape)
-        flux = full_flux[height - 1 : 2 * height - 1, width - 1 : 2 * width - 1]
-        return self._result(flux * self.atmospheric_transmissivity, sources)
+        def convolve(transfer):
+            kernel_fft = np.fft.rfft2(transfer, s=full_shape)
+            full_flux = np.fft.irfft2(source_fft * kernel_fft, s=full_shape)
+            return full_flux[height - 1 : 2 * height - 1, width - 1 : 2 * width - 1] * self.atmospheric_transmissivity
+        flux = convolve(kernel)
+        if self.atmosphere is None or self.atmosphere.absorption_coefficient_m_inv == 0.0:
+            return self._result(flux, sources)
+        return self._result(flux, sources, convolve(lower_kernel), convolve(upper_kernel))
 
     def predict_at_points(
         self,
@@ -480,8 +706,9 @@ class ExpectedHeatFluxModel:
     ) -> HeatFluxResult:
         """Evaluate arbitrary [N,2] horizontal receiver coordinates in metres.
 
-        Source and target chunks bound temporary array sizes. This is an exact
-        finite-cell sum with the same physical assumptions as ``predict``.
+        Source and target chunks bound temporary array sizes. The sum uses exact
+        solid angles for scalar transmission, or bounded numerical integration
+        for homogeneous grey path absorption, with the assumptions of ``predict``.
         Receiver heights remain the model's common horizontal receiving plane.
         """
         sources = self._weighted_sources(active_burning_probability)
@@ -496,18 +723,32 @@ class ExpectedHeatFluxModel:
         centers = self.grid.centers(sources.shape).reshape(-1, 2)[active]
         density = density[active]
         flux = np.zeros(points.shape[0], dtype=np.float64)
+        lower_flux = np.zeros_like(flux)
+        upper_flux = np.zeros_like(flux)
         if self.atmospheric_transmissivity == 0:
             return self._result(flux, sources)
         for target_start in range(0, len(points), target_chunk_size):
             target = points[target_start : target_start + target_chunk_size]
             subtotal = np.zeros(len(target), dtype=np.float64)
+            lower_subtotal = np.zeros_like(subtotal)
+            upper_subtotal = np.zeros_like(subtotal)
             for source_start in range(0, len(centers), source_chunk_size):
                 center = centers[source_start : source_start + source_chunk_size]
                 displacement = center[None, :, :] - target[:, None, :]
-                transfer = self._cell_transfer(displacement[..., 0], displacement[..., 1])
+                transfer, lower_transfer, upper_transfer = self._transfer_bounds(
+                    displacement[..., 0], displacement[..., 1],
+                )
                 subtotal += transfer @ density[source_start : source_start + source_chunk_size]
+                lower_subtotal += lower_transfer @ density[source_start : source_start + source_chunk_size]
+                upper_subtotal += upper_transfer @ density[source_start : source_start + source_chunk_size]
             flux[target_start : target_start + len(target)] = subtotal
-        return self._result(flux * self.atmospheric_transmissivity, sources)
+            lower_flux[target_start : target_start + len(target)] = lower_subtotal
+            upper_flux[target_start : target_start + len(target)] = upper_subtotal
+        return self._result(
+            flux * self.atmospheric_transmissivity, sources,
+            lower_flux * self.atmospheric_transmissivity,
+            upper_flux * self.atmospheric_transmissivity,
+        )
 
 
 # Ecology
@@ -1584,6 +1825,86 @@ class ActiveFlameForecast:
         object.__setattr__(self, "metadata", deepcopy(self.metadata))
 
 
+@dataclass(frozen=True)
+class BurningState:
+    """Resolved or unresolved current emission state, as [H,W] matrices.
+
+    Valid cells have binary activity and nonnegative remaining seconds.
+    Invalid cells retain NaN in both physical fields. The emission interval
+    is half-open: a cell is inactive at its exact modeled extinction time.
+    """
+
+    active_burning_probability: ArrayLike
+    remaining_burning_duration_s: ArrayLike
+    valid: ArrayLike
+
+    def __post_init__(self):
+        active = _matrix(self.active_burning_probability, "active_burning_probability")
+        valid = _valid(self.valid, active, "valid")
+        remaining = _matrix(self.remaining_burning_duration_s, "remaining_burning_duration_s")
+        if remaining.shape != active.shape:
+            raise ValueError("remaining duration must match the burning-state shape")
+        if np.any(valid & (active != 0) & (active != 1)):
+            raise ValueError("resolved arrival-based burning states must be binary")
+        if np.any(valid & (~np.isfinite(remaining) | (remaining < 0))):
+            raise ValueError("resolved remaining duration must be finite and nonnegative")
+        if np.any(valid & (active == 0) & (remaining != 0)):
+            raise ValueError("inactive cells must have zero remaining burning duration")
+        if np.any(valid & (active == 1) & (remaining <= 0)):
+            raise ValueError("active cells must have positive remaining burning duration")
+        active[~valid] = np.nan
+        remaining[~valid] = np.nan
+        for values in (active, remaining, valid):
+            values.setflags(write=False)
+        object.__setattr__(self, "active_burning_probability", active)
+        object.__setattr__(self, "remaining_burning_duration_s", remaining)
+        object.__setattr__(self, "valid", valid)
+
+
+def burning_state_from_arrival(
+    arrival_time_s: ArrayLike,
+    burning_duration_s: ArrayLike,
+    current_time_s: float,
+    *,
+    arrival_valid: ArrayLike | None = None,
+    already_burned_mask: ArrayLike | None = None,
+) -> BurningState:
+    """Shared burn-start/age rule for flame maps and all integrated heat APIs.
+
+    Times are numeric seconds from one origin. Activity is exactly
+    ``0 <= current_time_s - arrival_time_s < burning_duration_s``; remaining
+    duration is ``duration - age`` while active and zero otherwise. Missing
+    arrival times stay unresolved. With known already-burned support, other
+    cells are resolved inactive and only past arrivals on that support are
+    used; a future arrival on declared burned support is inconsistent.
+    Duration is supplied explicitly, as a positive scalar or matching matrix.
+    """
+    arrival = _matrix(arrival_time_s, "arrival_time_s")
+    arrival_known = _valid(arrival_valid, arrival, "arrival_valid")
+    duration = _occupancy_duration(
+        burning_duration_s, "burning_duration_s", arrival.shape, allow_zero=False,
+    )
+    duration = np.broadcast_to(duration, arrival.shape)
+    time = _flame_scalar(current_time_s, "current_time_s")
+    valid = arrival_known.copy()
+    relevant = arrival_known
+    if already_burned_mask is not None:
+        old = _valid(already_burned_mask, np.zeros(arrival.shape), "already_burned_mask")
+        relevant = old & arrival_known
+        if np.any(relevant & (arrival > time)):
+            raise ValueError("known already-burned cells cannot have arrival after current_time_s")
+        valid = ~old | arrival_known
+    # Subtraction avoids overflowing arrival + duration at large finite times.
+    with np.errstate(over="ignore", invalid="ignore"):
+        age = time - arrival
+    active = relevant & (age >= 0) & (age < duration)
+    probability = np.where(valid, active.astype(float), np.nan)
+    remaining = np.zeros(arrival.shape)
+    remaining[active] = duration[active] - age[active]
+    remaining[~valid] = np.nan
+    return BurningState(probability, remaining, valid)
+
+
 def active_flames_from_arrival(
     arrival_time_s: ArrayLike,
     residence_time: FlameResidenceTime,
@@ -1601,17 +1922,11 @@ def active_flames_from_arrival(
     propagation through the interior of a large cell is not resolved.
     """
     arrival = _matrix(arrival_time_s, "arrival_time_s")
-    valid = _valid(arrival_valid, arrival, "arrival_valid")
     duration = _flame_duration(residence_time, arrival.shape)
     time = _flame_scalar(time_s, "time_s")
-    # Compare elapsed age to duration without overflowing arrival + duration.
-    with np.errstate(over="ignore", invalid="ignore"):
-        age = time - arrival
-    active = valid & (age >= 0) & (age < duration)
-    probability = np.where(valid, active.astype(float), np.nan)
-    remaining = np.zeros(arrival.shape)
-    remaining[active] = duration[active] - age[active]
-    remaining[~valid] = np.nan
+    state = burning_state_from_arrival(
+        arrival, duration, time, arrival_valid=arrival_valid,
+    )
     metadata = {
         "semantics": "surface flaming at representative grid locations under supplied arrival and residence scenario",
         "activity_interval": "[arrival_time_s, arrival_time_s + duration_s)",
@@ -1621,7 +1936,10 @@ def active_flames_from_arrival(
         "position_semantics": "projected grid-cell centers, not measured subcell flame geometry",
         "excluded_processes": "smoldering, trailing intermittent flames, reignition, crown combustion and within-cell propagation",
     }
-    return ActiveFlameMap(probability, valid, grid, time, metadata, remaining)
+    return ActiveFlameMap(
+        state.active_burning_probability, state.valid, grid, time, metadata,
+        state.remaining_burning_duration_s,
+    )
 
 
 def forecast_active_flames(
@@ -1666,7 +1984,7 @@ def forecast_active_flames(
 # A trained one-hour new-burn predictor connected to incident radiant heat.
 #
 # New burning during an interval is converted to active occupancy under an
-# explicit uniform conditional arrival-time model. Unknown ignition probabilities
+# explicit uniform conditional or constant-hazard arrival-time model. Unknown ignition probabilities
 # produce bounds, not invented zero observations. Present burning requires an
 # arrival/age and duration, or explicitly supplied activity and remaining time.
 # Cumulative burned area alone does not identify ongoing combustion.
@@ -1712,10 +2030,13 @@ class IntegratedHeatPrediction:
     flux. It is NaN if any unresolved positive emitting source can contribute.
     ``known_source_heat_flux_w_m2`` is the finite expected contribution of known
     new-burn sources and any supplied present-active sources. Under the stated
-    fixed combustion/arrival assumptions it equals the lower bound. Upper bounds
-    let each unknown new-event probability vary up to one and, when arrival
+    fixed combustion/arrival assumptions it equals the lower bound for exact
+    transport. With grey absorption it is the midpoint of the numerical
+    transport enclosure; the lower bound can be smaller. Upper activity bounds
+    optimize each unknown new-event probability or allowed constant hazard and, when arrival
     timing is selected, each unknown existing-fire age vary over nonnegative
-    ages. Existing fire is restricted to known already-burned support. They do
+    ages. The resulting flux bounds also include numerical transport enclosures,
+    up to roundoff. Existing fire is restricted to known already-burned support. They do
     not bound unmodeled convection, emission parameters, outside-domain fires,
     or an existing fire hidden by unknown cumulative-state coverage.
     """
@@ -1772,11 +2093,24 @@ class WildfireHeatModel:
     """Compose a trained one-hour wildfire predictor and finite-cell radiation.
 
     ``combustion.burning_duration_s`` is also the duration of active emission
-    after a future ignition. First-event arrival is uniform in the next hour,
-    conditional on that event. Sample predictions use available arrival/elapsed
+    after a future ignition. ``ignition_time_model='uniform'`` uses uniform
+    arrival conditional on a new event. ``'constant_hazard'`` uses exponential
+    first-event arrival with a fixed rate over the hour. Native single-model
+    rates are retained where available; saved probabilities require an explicit
+    exponential timing assumption and must be below one unless a finite
+    consistent original rate is supplied. Bayesian mixtures require component
+    timing instead of their equivalent rate. Sample predictions use available arrival/elapsed
     data to include ongoing burning by default. Raw predictions accept arrival
-    times or explicit activity and remaining duration. Without either, only new
-    burning is modeled. One invocation processes one spatial snapshot.
+    times or explicit activity and remaining duration. Known previous burns
+    without timing remain unresolved by default. Explicitly set
+    ``include_previous_burning=False`` to select new-burning-only heat.
+    When point ``residence_time`` is supplied, the default cell model adds
+    front traversal using the reported median reference speed. Supply
+    ``spread_rate_m_s`` / ``spread_direction_deg`` to change it, or set
+    ``use_cell_burning_duration=False`` for explicitly point-scale emission.
+    Without point residence or a cell-duration object, the explicitly supplied
+    combustion duration remains authoritative.
+    One invocation processes one spatial snapshot.
 
     Public prediction methods return ``(expected_heat_flux_w_m2, coordinates)``
     with shapes [H,W] and [H,W,2]. Coordinate entries are receiver cell-center
@@ -1794,9 +2128,17 @@ class WildfireHeatModel:
         emission_height_m: float,
         receiver_height_m: float = 0.0,
         atmospheric_transmissivity: float = 1.0,
+        atmosphere=None,
+        transfer_atol: float = 1e-7,
+        transfer_rtol: float = 1e-2,
+        ignition_time_model: str = "uniform",
         interval_s: float = 3600.0,
         predictor_provenance: dict | None = None,
         residence_time: FlameResidenceTime | None = None,
+        cell_burning_duration=None,
+        spread_rate_m_s=None,
+        spread_direction_deg=0.0,
+        use_cell_burning_duration=True,
         epsg: int | None = None,
     ):
         if not isinstance(combustion, CombustionParameters):
@@ -1809,6 +2151,9 @@ class WildfireHeatModel:
             raise ValueError("the maintained wildfire checkpoint endpoint is exactly 3600 seconds")
         self.predictor = predictor
         self.combustion = combustion
+        if ignition_time_model not in {"uniform", "constant_hazard"}:
+            raise ValueError("ignition_time_model must be 'uniform' or 'constant_hazard'")
+        self.ignition_time_model = ignition_time_model
         if residence_time is not None:
             if not isinstance(residence_time, FlameResidenceTime):
                 raise TypeError("residence_time must be FlameResidenceTime")
@@ -1819,6 +2164,51 @@ class WildfireHeatModel:
             if not np.all(same):
                 raise ValueError("combustion and flame residence durations must match")
         self.residence_time = residence_time
+        if not isinstance(use_cell_burning_duration, (bool, np.bool_)):
+            raise ValueError("use_cell_burning_duration must be boolean")
+        direction_requested = np.any(np.asarray(spread_direction_deg) != 0.0)
+        if not use_cell_burning_duration and (
+            cell_burning_duration is not None or spread_rate_m_s is not None or direction_requested
+        ):
+            raise ValueError("disabled cell burning duration cannot be combined with a cell duration or spread speed")
+        if cell_burning_duration is not None and (spread_rate_m_s is not None or direction_requested):
+            raise ValueError("supply either cell_burning_duration or spread speed/direction inputs, not both")
+        if cell_burning_duration is None and residence_time is not None and use_cell_burning_duration:
+            from .heat_duration import CellBurningDuration, DEFAULT_FRONT_SPREAD_RATE_M_S
+
+            cell_burning_duration = CellBurningDuration.from_front_crossing(
+                residence_time, grid=grid,
+                spread_rate_m_s=DEFAULT_FRONT_SPREAD_RATE_M_S if spread_rate_m_s is None else spread_rate_m_s,
+                spread_direction_deg=spread_direction_deg,
+            )
+        elif cell_burning_duration is None and residence_time is None and (
+            spread_rate_m_s is not None or direction_requested
+        ):
+            raise ValueError("a spread-speed/direction cell model requires residence_time")
+        self.cell_burning_duration = cell_burning_duration
+        if cell_burning_duration is not None:
+            from .heat_duration import CellBurningDuration
+
+            if not isinstance(cell_burning_duration, CellBurningDuration):
+                raise TypeError("cell_burning_duration must be CellBurningDuration or None")
+            cell_metadata = cell_burning_duration.provenance_dict()
+            if "affine_transform" in cell_metadata and tuple(cell_metadata["affine_transform"]) != grid.transform:
+                raise ValueError("cell burning duration affine grid differs from the radiation grid")
+            if "point_residence_duration_s" in cell_metadata:
+                try:
+                    same = np.equal(combustion.burning_duration_s, cell_metadata["point_residence_duration_s"])
+                except ValueError as error:
+                    raise ValueError("cell burning duration point residence must match the original combustion duration") from error
+                if not np.all(same):
+                    raise ValueError("cell burning duration point residence must match the original combustion duration")
+            metadata = combustion.provenance_dict()
+            metadata["cell_burning_duration"] = cell_metadata
+            metadata["energy_preservation"] = "same fuel_load * consumed_fraction * heat_of_combustion; source power divided by cell duration"
+            combustion = CombustionParameters(
+                combustion.fuel_load_kg_m2, combustion.heat_of_combustion_j_kg,
+                cell_burning_duration.duration_s, combustion.consumed_fraction, metadata,
+            )
+            self.combustion = combustion
         self.predictor_provenance = dict(predictor_provenance or {})
         self.heat_model = ExpectedHeatFluxModel(
             grid=grid,
@@ -1827,6 +2217,7 @@ class WildfireHeatModel:
             emission_height_m=emission_height_m,
             receiver_height_m=receiver_height_m,
             atmospheric_transmissivity=atmospheric_transmissivity,
+            atmosphere=atmosphere, transfer_atol=transfer_atol, transfer_rtol=transfer_rtol,
             epsg=epsg,
         )
 
@@ -1870,32 +2261,13 @@ class WildfireHeatModel:
         arrival = _single_matrix(arrival_time_s, "arrival_time_s")
         if arrival.dtype.kind not in "iuf" or arrival.shape != old_burned.shape:
             raise ValueError("arrival_time_s must be a real numeric matrix matching the burned-area grid")
-        arrival = np.array(arrival, dtype=float, copy=True)
-        if np.any(np.isinf(arrival)):
-            raise ValueError("arrival_time_s cannot contain infinity")
-        time = _numpy(current_time_s)
-        if time.dtype.kind not in "iuf" or time.ndim != 0 or not np.isfinite(time):
-            raise ValueError("current_time_s must be a finite numeric scalar in seconds")
-        known_arrival = np.isfinite(arrival)
-        if arrival_valid is not None:
-            mask = _mask(arrival_valid, arrival.shape, "arrival_valid")
-            if np.any(mask & ~known_arrival):
-                raise ValueError("arrival_valid cannot mark a missing arrival valid")
-            known_arrival &= mask
-        known_old = old_burned & known_arrival
-        if np.any(known_old & (arrival > float(time))):
-            raise ValueError("known already-burned cells cannot have arrival after current_time_s")
         duration = _heat_map(self.combustion.burning_duration_s, arrival.shape, "burning_duration_s")
-        with np.errstate(over="ignore", invalid="ignore"):
-            age = float(time) - arrival
-        active = known_old & (age < duration)
-        remaining = np.zeros(arrival.shape)
-        remaining[active] = duration[active] - age[active]
-        initial_valid = ~old_burned | known_arrival
-        probability = active.astype(float)
-        probability[~initial_valid] = np.nan
-        remaining[~initial_valid] = np.nan
-        return probability, remaining, initial_valid
+        state = burning_state_from_arrival(
+            arrival, duration, _numpy(current_time_s),
+            arrival_valid=None if arrival_valid is None else _mask(arrival_valid, arrival.shape, "arrival_valid"),
+            already_burned_mask=old_burned,
+        )
+        return state.active_burning_probability, state.remaining_burning_duration_s, state.valid
 
     @classmethod
     def from_checkpoint(cls, path: str | Path, *, device="cpu", **physical_parameters):
@@ -1918,7 +2290,8 @@ class WildfireHeatModel:
                 "Use a supported nonnegative-kernel checkpoint."
             )
         elif architecture in {"EnvironmentConditionedConvolution", "LearnedNonnegativeKernel",
-                              "MixedNonnegativeKernel", "NeuralMixedNonnegativeKernel"}:
+                              "MixedNonnegativeKernel", "NeuralMixedNonnegativeKernel",
+                              "BayesianModelAverage"}:
             from .inference import load_trained_model
         else:
             raise ValueError(f"Unsupported wildfire checkpoint architecture: {architecture!r}")
@@ -1984,7 +2357,12 @@ class WildfireHeatModel:
             "arrival_time_s", "current_time_s", "arrival_valid",
         ))
         sample_timing = False
-        if initial_burning_from_arrival and not explicit:
+        if not initial_burning_from_arrival and not explicit:
+            current_burning.setdefault("include_previous_burning", False)
+        include_previous = current_burning.get("include_previous_burning", True)
+        if not isinstance(include_previous, (bool, np.bool_)):
+            raise ValueError("include_previous_burning must be boolean")
+        if initial_burning_from_arrival and include_previous and not explicit:
             arrival = sample.get("arrival_hours")
             elapsed = sample.get("elapsed_hours")
             arrival_mask = sample.get("arrival_valid")
@@ -2024,7 +2402,11 @@ class WildfireHeatModel:
                 "units_conversion": "hours multiplied by 3600 to seconds",
                 "time_origin": sample.get("event_t0_utc", "sample event origin"),
                 "event_id": sample.get("event_id"),
-                "interpretation": "supplied point-arrival scenario; dataset arrivals are retrospective reconstructions",
+                "interpretation": (
+                    "supplied cell burn-start/first-entry scenario; reconstructed representative arrivals are retained without an automatic center-time shift"
+                    if self.cell_burning_duration is not None else
+                    "supplied point-arrival scenario; dataset arrivals are retrospective reconstructions"
+                ),
                 "arrival_uncertainty": "not integrated; nominal arrival estimates are used",
                 "future_arrival_policy": "only known already-burned cells use arrival values; new-burn predictions use current inputs",
             }
@@ -2045,6 +2427,7 @@ class WildfireHeatModel:
         channel_names,
         burned_area_valid=None,
         feature_valid=None,
+        include_previous_burning=True,
         initial_active_burning_probability=None,
         initial_remaining_burning_duration_s=None,
         arrival_time_s=None,
@@ -2062,6 +2445,7 @@ class WildfireHeatModel:
         result = self.predict_details(
             burned_area, environmental_data, channel_names=channel_names,
             burned_area_valid=burned_area_valid, feature_valid=feature_valid,
+            include_previous_burning=include_previous_burning,
             initial_active_burning_probability=initial_active_burning_probability,
             initial_remaining_burning_duration_s=initial_remaining_burning_duration_s,
             arrival_time_s=arrival_time_s, current_time_s=current_time_s, arrival_valid=arrival_valid,
@@ -2077,6 +2461,7 @@ class WildfireHeatModel:
         channel_names,
         burned_area_valid=None,
         feature_valid=None,
+        include_previous_burning=True,
         initial_active_burning_probability=None,
         initial_remaining_burning_duration_s=None,
         arrival_time_s=None,
@@ -2129,14 +2514,34 @@ class WildfireHeatModel:
                 feature_valid=None if feature_valid is None else tensor(feature_valid, boolean=True),
                 dt_hours=1.0, boundary="unknown",
             )
+        timing_rate = None
+        if self.ignition_time_model == "constant_hazard":
+            architecture = self.predictor_provenance.get("architecture") or getattr(
+                self.predictor, "contract", {}
+            ).get("architecture")
+            if architecture == "BayesianModelAverage":
+                raise ValueError(
+                    "Bayesian probability mixtures require componentwise ignition timing; "
+                    "an equivalent mixture rate is not a constant hazard. Use uniform timing "
+                    "or calculate each component with constant_hazard_occupancy."
+                )
+            if architecture not in {"PatchRandomForest", "RandomForest"} and all(
+                hasattr(prediction, field) for field in ("rate", "rate_valid")
+            ):
+                rates = _single_matrix(prediction.rate, "prediction rate") / 3600.0
+                rate_valid = _single_matrix(prediction.rate_valid, "prediction rate validity")
+                prediction_valid = _single_matrix(prediction.valid, "prediction validity")
+                timing_rate = np.where(rate_valid & prediction_valid, rates, np.nan)
         return self.predict_from_new_burn_probability_details(
             _single_matrix(prediction.probability, "prediction probability"),
             probability_valid=_single_matrix(prediction.valid, "prediction validity"),
             already_burned_mask=already_burned,
+            include_previous_burning=include_previous_burning,
             initial_active_burning_probability=initial_active_burning_probability,
             initial_remaining_burning_duration_s=initial_remaining_burning_duration_s,
             arrival_time_s=arrival_time_s, current_time_s=current_time_s, arrival_valid=arrival_valid,
             unknown_new_burn_probability=unknown_new_burn_probability,
+            ignition_rate_s_inv=timing_rate,
         )
 
     def predict_from_new_burn_probability(
@@ -2145,12 +2550,14 @@ class WildfireHeatModel:
         *,
         probability_valid=None,
         already_burned_mask=None,
+        include_previous_burning=True,
         initial_active_burning_probability=None,
         initial_remaining_burning_duration_s=None,
         arrival_time_s=None,
         current_time_s=None,
         arrival_valid=None,
         unknown_new_burn_probability=None,
+        ignition_rate_s_inv=None,
     ) -> tuple[FloatArray, FloatArray]:
         """Return heat [H,W] and geographic coordinates [H,W,2] from probabilities.
 
@@ -2163,10 +2570,12 @@ class WildfireHeatModel:
             new_burn_probability,
             probability_valid=probability_valid,
             already_burned_mask=already_burned_mask,
+            include_previous_burning=include_previous_burning,
             initial_active_burning_probability=initial_active_burning_probability,
             initial_remaining_burning_duration_s=initial_remaining_burning_duration_s,
             arrival_time_s=arrival_time_s, current_time_s=current_time_s, arrival_valid=arrival_valid,
             unknown_new_burn_probability=unknown_new_burn_probability,
+            ignition_rate_s_inv=ignition_rate_s_inv,
         )
         return self._coordinate_output(result)
 
@@ -2176,12 +2585,14 @@ class WildfireHeatModel:
         *,
         probability_valid=None,
         already_burned_mask=None,
+        include_previous_burning=True,
         initial_active_burning_probability=None,
         initial_remaining_burning_duration_s=None,
         arrival_time_s=None,
         current_time_s=None,
         arrival_valid=None,
         unknown_new_burn_probability=None,
+        ignition_rate_s_inv=None,
     ) -> IntegratedHeatPrediction:
         """Apply the timing/radiation bridge to a saved one-hour probability map.
 
@@ -2192,6 +2603,13 @@ class WildfireHeatModel:
         support produce bounds; arrival data on other cells do not determine new
         burning. Explicit initial activity/time is an alternative to arrival timing.
         """
+        if not isinstance(include_previous_burning, (bool, np.bool_)):
+            raise ValueError("include_previous_burning must be boolean")
+        if not include_previous_burning and any(value is not None for value in (
+            arrival_time_s, current_time_s, arrival_valid,
+            initial_active_burning_probability, initial_remaining_burning_duration_s,
+        )):
+            raise ValueError("include_previous_burning=False cannot be combined with previous-burning inputs")
         if np.ma.isMaskedArray(new_burn_probability) or np.iscomplexobj(new_burn_probability):
             raise ValueError("use an explicit validity mask with a real new-burn probability map")
         raw_q = _single_matrix(new_burn_probability, "new_burn_probability")
@@ -2220,8 +2638,60 @@ class WildfireHeatModel:
         # Zero and one below are uncertainty endpoints, not missing-data fills.
         lower_q = np.where(valid, q, 0.0)
         upper_q = np.where(valid, q, 1.0)
-        lower = ignition_to_active_probability(lower_q, duration, self.interval_s)
-        upper = ignition_to_active_probability(upper_q, duration, self.interval_s)
+        if self.ignition_time_model == "uniform":
+            if ignition_rate_s_inv is not None:
+                raise ValueError("ignition_rate_s_inv requires ignition_time_model='constant_hazard'")
+            lower = ignition_to_active_probability(lower_q, duration, self.interval_s)
+            upper = ignition_to_active_probability(upper_q, duration, self.interval_s)
+            timing_source = "uniform conditional initiation supplied as an additional scenario"
+        else:
+            from .heat_timing import (
+                constant_hazard_occupancy, infer_ignition_rate,
+                constant_hazard_unknown_occupancy_upper,
+            )
+            rates = np.full(shape, np.nan)
+            if ignition_rate_s_inv is not None:
+                raw_rates = _single_matrix(ignition_rate_s_inv, "ignition_rate_s_inv")
+                if raw_rates.shape != shape or raw_rates.dtype.kind not in "iuf":
+                    raise ValueError("ignition_rate_s_inv must be a real matrix matching probability shape")
+                rates = np.array(raw_rates, dtype=float, copy=True)
+                if np.any(np.isinf(rates)) or np.any(np.isfinite(rates) & (rates < 0)):
+                    raise ValueError("supplied ignition rates must be finite and nonnegative where resolved")
+                if already_burned_mask is not None:
+                    rates[old_burned] = 0.0
+                known_rate = valid & np.isfinite(rates)
+                if np.any(known_rate & (q == 0.0) & (rates != 0.0)):
+                    raise ValueError("a resolved zero new-burning probability requires a zero ignition rate")
+                with np.errstate(over="ignore"):
+                    rate_q = -np.expm1(-rates[known_rate] * self.interval_s)
+                # A saturated endpoint is justified only when this finite
+                # rate's probability actually rounds to one at the supplied
+                # precision; a loose interior tolerance cannot create it.
+                probability_dtype = raw_q.dtype if raw_q.dtype.kind == "f" else np.dtype(float)
+                rounded_rate_q = rate_q.astype(probability_dtype, copy=False)
+                if np.any((q[known_rate] == 1.0) & (rounded_rate_q != 1.0)):
+                    raise ValueError("ignition rates are inconsistent with the supplied saturated probabilities")
+                probability_epsilon = (
+                    np.finfo(raw_q.dtype).eps if raw_q.dtype.kind == "f" else np.finfo(float).eps
+                )
+                if not np.allclose(rate_q, q[known_rate], rtol=8 * probability_epsilon,
+                                   atol=0.0):
+                    raise ValueError("ignition rates are inconsistent with the supplied one-hour probabilities")
+                timing_source = "supplied finite rates; unavailable rates inferred from probabilities as an explicit scenario"
+            else:
+                timing_source = "probability-inverted constant hazard supplied as an additional scenario"
+            infer = valid & ~np.isfinite(rates)
+            if np.any(infer):
+                rates[infer] = infer_ignition_rate(q[infer], self.interval_s)
+            known_occupancy = constant_hazard_occupancy(
+                np.where(valid, rates, 0.0), duration, self.interval_s,
+            )
+            maximum = constant_hazard_unknown_occupancy_upper(duration, self.interval_s)
+            lower = known_occupancy
+            upper = BurningOccupancy(
+                np.where(valid, lower.mean_active_probability, maximum.mean_active_probability),
+                np.where(valid, lower.endpoint_active_probability, maximum.endpoint_active_probability),
+            )
         has_arrival = any(value is not None for value in (arrival_time_s, current_time_s, arrival_valid))
         initial_valid = np.ones(shape, dtype=bool)
         active = np.zeros(shape)
@@ -2241,8 +2711,19 @@ class WildfireHeatModel:
         elif initial_active_burning_probability is None:
             if initial_remaining_burning_duration_s is not None:
                 raise ValueError("remaining burning duration requires an initial active probability")
-            present_assumption = "present-fire contribution excluded because age or explicit activity was not supplied"
-            scope = "radiation from newly igniting cells only; present-fire contribution is excluded"
+            if include_previous_burning and already_burned_mask is not None:
+                initial_valid = ~old_burned
+                active[old_burned] = np.nan
+                remaining[old_burned] = np.nan
+                present_assumption = "known previous burns retain unknown activity because burn-start timing was not supplied"
+                scope = "newly igniting cells plus previous burning with unresolved burn-start timing"
+            else:
+                present_assumption = (
+                    "previous burning explicitly excluded by include_previous_burning=False"
+                    if not include_previous_burning else
+                    "previous-burn support was not supplied; only new ignition sources are modeled"
+                )
+                scope = "radiation from newly igniting cells only; present-fire contribution is excluded"
         else:
             if initial_remaining_burning_duration_s is None:
                 raise ValueError("initial active fire requires remaining_burning_duration_s")
@@ -2271,17 +2752,21 @@ class WildfireHeatModel:
         upper_end = upper.endpoint_active_probability + current_upper.endpoint_active_probability
         active_valid = valid & initial_valid
         endpoint_valid = valid & (initial_valid | (duration <= self.interval_s))
-        mean_lower_flux = self.heat_model.predict_details(lower_mean).incident_heat_flux_w_m2
-        mean_upper_flux = self.heat_model.predict_details(upper_mean).incident_heat_flux_w_m2
-        end_lower_flux = self.heat_model.predict_details(lower_end).incident_heat_flux_w_m2
-        end_upper_flux = self.heat_model.predict_details(upper_end).incident_heat_flux_w_m2
+        mean_lower_result = self.heat_model.predict_details(lower_mean)
+        mean_upper_result = self.heat_model.predict_details(upper_mean)
+        end_lower_result = self.heat_model.predict_details(lower_end)
+        end_upper_result = self.heat_model.predict_details(upper_end)
+        mean_lower_flux = mean_lower_result.incident_heat_flux_lower_bound_w_m2
+        mean_upper_flux = mean_upper_result.incident_heat_flux_upper_bound_w_m2
+        end_lower_flux = end_lower_result.incident_heat_flux_lower_bound_w_m2
+        end_upper_flux = end_upper_result.incident_heat_flux_upper_bound_w_m2
         emitting = self.heat_model._weighted_sources(np.ones(shape)) > 0
         unresolved_emission = (~active_valid) & emitting & (self.heat_model.atmospheric_transmissivity > 0)
         unresolved_endpoint = (~endpoint_valid) & emitting & (self.heat_model.atmospheric_transmissivity > 0)
         complete = not bool(np.any(unresolved_emission))
         endpoint_complete = not bool(np.any(unresolved_endpoint))
-        exact_flux = mean_lower_flux.copy() if complete else np.full(shape, np.nan)
-        exact_endpoint = end_lower_flux.copy() if endpoint_complete else np.full(shape, np.nan)
+        exact_flux = mean_lower_result.incident_heat_flux_w_m2.copy() if complete else np.full(shape, np.nan)
+        exact_endpoint = end_lower_result.incident_heat_flux_w_m2.copy() if endpoint_complete else np.full(shape, np.nan)
         mean_active = lower_mean.copy()
         endpoint_active = lower_end.copy()
         mean_active[~active_valid] = np.nan
@@ -2293,9 +2778,22 @@ class WildfireHeatModel:
             "heat_flux_semantics": "interval-mean incident radiant flux in W/m2",
             "dose_semantics": "integral of interval-mean radiant flux over forecast interval in J/m2",
             "scope": scope,
-            "arrival_time_assumption": "conditional on a first-new-burning event, arrival is uniform within the hour",
+            "ignition_time_model": self.ignition_time_model,
+            "arrival_time_assumption": (
+                "conditional on a first-new-burning event, arrival is uniform within the hour"
+                if self.ignition_time_model == "uniform" else
+                "first ignition has exponential survival with a finite constant hazard over the hour"
+            ),
+            "ignition_rate_source": timing_source,
+            "unknown_new_activity_upper": (
+                "mean r-r^2/2; endpoint r, r=min(T/D,1)"
+                if self.ignition_time_model == "uniform" else
+                "mean supremum r; endpoint maximum r*(1-r)^((1-r)/r) for T<D, otherwise supremum 1"
+            ),
             "burning_profile_assumption": "constant conditional HRR for the supplied residence duration after arrival",
             "present_burning_assumption": present_assumption,
+            "include_previous_burning": bool(include_previous_burning),
+            "previous_burning_rule": "burning_state_from_arrival: 0 <= current_time_s - arrival_time_s < burning_duration_s",
             "activity_interval": "[arrival_time_s, arrival_time_s + burning_duration_s); inactive at exact extinction",
             "unknown_probability_policy": "full expectation is NaN when emitting-source activity is unresolved; nonnegative-source endpoints yield bounds",
             "unknown_current_age_policy": "remaining duration in [0,T]; mean occupancy upper min(T/D,1); endpoint upper 1 if T>D, otherwise 0",
@@ -2309,10 +2807,27 @@ class WildfireHeatModel:
             "complete_full_domain_expectation": complete,
             "complete_endpoint_expectation": endpoint_complete,
             "bounds_scope": "fixed supplied combustion, duration, geometry, and finite source domain; existing fire restricted to known already-burned support; excludes existing fire hidden by unknown cumulative state, omitted transport and parameter uncertainty",
+            "combustion": self.combustion.provenance_dict(),
+            "radiation": mean_lower_result.provenance_dict(),
+            "numerical_integration": {
+                "mean_lower_source_scenario_max_width_w_m2": float(np.max(
+                    mean_lower_result.incident_heat_flux_upper_bound_w_m2 -
+                    mean_lower_result.incident_heat_flux_lower_bound_w_m2, initial=0.0,
+                )),
+                "mean_upper_source_scenario_max_width_w_m2": float(np.max(
+                    mean_upper_result.incident_heat_flux_upper_bound_w_m2 -
+                    mean_upper_result.incident_heat_flux_lower_bound_w_m2, initial=0.0,
+                )),
+                "policy": "returned physical activity bounds include finite-cell attenuation integration enclosures, up to floating-point roundoff",
+            },
             "predictor": self.predictor_provenance,
             "residence_time": (
                 self.residence_time.provenance_dict() if self.residence_time is not None
                 else {"source": "caller-supplied combustion burning_duration_s"}
+            ),
+            "cell_burning_duration": (
+                self.cell_burning_duration.provenance_dict()
+                if self.cell_burning_duration is not None else None
             ),
         }
         if has_arrival:
@@ -2329,7 +2844,8 @@ class WildfireHeatModel:
             initial_active_burning_probability=active, initial_remaining_burning_duration_s=remaining,
             initial_burning_valid=initial_valid, active_burning_valid=active_valid,
             endpoint_active_burning_valid=endpoint_valid,
-            expected_heat_flux_w_m2=exact_flux, known_source_heat_flux_w_m2=mean_lower_flux,
+            expected_heat_flux_w_m2=exact_flux,
+            known_source_heat_flux_w_m2=mean_lower_result.incident_heat_flux_w_m2,
             heat_flux_lower_bound_w_m2=mean_lower_flux, heat_flux_upper_bound_w_m2=mean_upper_flux,
             expected_incident_energy_j_m2=exact_flux * self.interval_s,
             incident_energy_lower_bound_j_m2=mean_lower_flux * self.interval_s,

@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-10T18:01:07.670210+00:00",
+  "changes": [
+    "single combined comparison plot by default",
+    "previous burned area aligned at cutoff",
+    "independent event and probability masks",
+    "q plotted explicitly rather than lambda",
+    "hollow cyan event markers",
+    "full physical grid outlined without cropping",
+    "cumulative fixed-input probabilities for specified horizon hours",
+    "exact whole-interval cumulative reference targets",
+    "Bayesian probabilities evaluated separately at each horizon",
+    "snapshot, sequence and batch support",
+    "notebook and API reference updated"
+  ],
+  "tests": {
+    "tests": 1845,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 68.336,
+    "log": "documents/api_overlay_tests_20261011.log",
+    "xml": "documents/api_overlay_tests_20261011.xml"
+  },
+  "notebook": {
+    "passed": true,
+    "created_at_utc": "2026-10-10T17:59:24.293007+00:00",
+    "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+    "source_sha256": "1e2b48cfda9bffefbadb49ebeb94b931b5cba82447bc8965815a4f50267b168d",
+    "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_overlay/20261011/api_tutorial.executed.ipynb",
+    "executed_code_cells": 25,
+    "elapsed_seconds": 9.098363041994162,
+    "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-h3legllg",
+    "comparison_layout": "overlay",
+    "comparison_layers": [
+      "next-hour new-burn probability",
+      "burned area at cutoff",
+      "reconstructed new burns in the following hour"
+    ],
+    "data_loading": {
+      "sequence_length": null,
+      "source_channels": [
+        "weather.temperature_2m",
+        "weather.wind_eastward_10m",
+        "weather.wind_northward_10m",
+        "terrain.slope_degrees",
+        "vegetation.tree_cover_percent",
+        "biome.biome_class"
+      ],
+      "full_timeline_feature_shape": [
+        1639,
+        19,
+        103,
+        73
+      ],
+      "full_timeline_start_utc": "2024-08-21T00:00:00+00:00",
+      "full_timeline_end_utc": "2024-10-28T06:00:00+00:00",
+      "valid_hours": 1639
+    },
+    "selected_plot_time_index": 70,
+    "selected_plot_cutoff_utc": "2024-08-23T22:00:00+00:00",
+    "selected_comparison_time_index": 10,
+    "selected_comparison_cutoff_utc": "2024-08-21T10:00:00+00:00",
+    "preparation_run": false,
+    "training_run": false,
+    "cumulative_horizons_hours": [
+      1.0,
+      3.0,
+      6.0,
+      12.0
+    ],
+    "cumulative_comparison_hours": 6,
+    "cumulative_assumption": "fixed current burned state, environmental inputs and rates",
+    "cumulative_probability_shape": [
+      4,
+      1,
+      1,
+      103,
+      73
+    ]
+  },
+  "one_hour_real_data": {
+    "passed": true,
+    "event_id": "WY-BTF-002416_FishCreek",
+    "full_timeline_feature_shape": [
+      1639,
+      19,
+      103,
+      73
+    ],
+    "checkpoint": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261010_categorical_balanced_benchmark/candidates/k5_legacy_02_lr0.1_warmup_cosine/checkpoint.pt",
+    "checkpoint_sha256": "9c2b913b5941305144a93ff952826f4d4267a35abf7ae154a0eee8627f1b4761",
+    "elapsed_seconds": 4.446179457998369,
+    "checks": [
+      "full-time loader source index selected before prediction",
+      "previous burned area aligned to exact prediction cutoff t",
+      "next-hour new burns aligned to exact endpoint t+3600",
+      "time layers independently derived from the arrival raster",
+      "default one-axes probability/prior-burn/next-hour-marker layers",
+      "probability colors fixed to [0,1]",
+      "known unburned exponential q equals -expm1(-lambda*dt)",
+      "known previously burned cells have new-burn q=0",
+      "rendered background pixels equal q, with real nonzero q different from lambda",
+      "probability colorbar explicitly labels q",
+      "previous burn overlay masks only known positives",
+      "next-hour markers retain independently known events when probability is unavailable",
+      "next-hour marker interiors are hollow, revealing the probability or unknown background",
+      "cyan marker borders retain the actual-event distinction",
+      "full loaded 103x73 grid remains visible without cropping to current burns or probability support",
+      "transparent PathPatch outlines the full loaded region without covering raster pixels",
+      "missing final endpoint remains unknown, with no invented event markers",
+      "side_by_side and both modes remain available"
+    ],
+    "scope": "Local CPU execution and display/alignment correctness; retrospective reconstructed arrivals, no forecast-skill or active-flame-ground-truth claim.",
+    "indices": [
+      {
+        "requested_loaded_index": 10,
+        "normalized_loaded_index": 10,
+        "cutoff_utc": "2024-08-21T10:00:00+00:00",
+        "endpoint_utc": "2024-08-21T11:00:00+00:00",
+        "endpoint_reference_available": true,
+        "known_probability_cells": 1150,
+        "previous_burned_cells": 15,
+        "next_hour_new_burned_cells": 4,
+        "new_burn_markers_without_known_probability": 2,
+        "probability_link": {
+          "known_already_burned_q_zero_cells": 15,
+          "known_unburned_probability_link_cells": 1135,
+          "nonzero_unburned_cells": 52,
+          "maximum_numeric_q_lambda_difference_at_one_hour": 0.0012325607240200043
+        }
+      },
+      {
+        "requested_loaded_index": 48,
+        "normalized_loaded_index": 48,
+        "cutoff_utc": "2024-08-23T00:00:00+00:00",
+        "endpoint_utc": "2024-08-23T01:00:00+00:00",
+        "endpoint_reference_available": true,
+        "known_probability_cells": 1246,
+        "previous_burned_cells": 191,
+        "next_hour_new_burned_cells": 2,
+        "new_burn_markers_without_known_probability": 1,
+        "probability_link": {
+          "known_already_burned_q_zero_cells": 191,
+          "known_unburned_probability_link_cells": 1055,
+          "nonzero_unburned_cells": 34,
+          "maximum_numeric_q_lambda_difference_at_one_hour": 0.0026301220059394836
+        }
+      },
+      {
+        "requested_loaded_index": 70,
+        "normalized_loaded_index": 70,
+        "cutoff_utc": "2024-08-23T22:00:00+00:00",
+        "endpoint_utc": "2024-08-23T23:00:00+00:00",
+        "endpoint_reference_available": true,
+        "known_probability_cells": 1288,
+        "previous_burned_cells": 252,
+        "next_hour_new_burned_cells": 1,
+        "new_burn_markers_without_known_probability": 1,
+        "probability_link": {
+          "known_already_burned_q_zero_cells": 252,
+          "known_unburned_probability_link_cells": 1036,
+          "nonzero_unburned_cells": 21,
+          "maximum_numeric_q_lambda_difference_at_one_hour": 0.0014223866164684296
+        }
+      },
+      {
+        "requested_loaded_index": -1,
+        "normalized_loaded_index": 1638,
+        "cutoff_utc": "2024-10-28T06:00:00+00:00",
+        "endpoint_utc": "2024-10-28T07:00:00+00:00",
+        "endpoint_reference_available": false,
+        "known_probability_cells": 2642,
+        "previous_burned_cells": 2642,
+        "next_hour_new_burned_cells": 0,
+        "new_burn_markers_without_known_probability": 0,
+        "probability_link": {
+          "known_already_burned_q_zero_cells": 2642,
+          "known_unburned_probability_link_cells": 0,
+          "nonzero_unburned_cells": 0,
+          "maximum_numeric_q_lambda_difference_at_one_hour": 0.0
+        }
+      }
+    ],
+    "artifacts_sha256": {
+      "overlay_index_10.png": "19fb3969ee3bc94cac8a19c2a6f137493e5cd4f22ee7ab2a5e9dc0a2c454489e",
+      "overlay_index_1638.png": "3daf6de35a259ad2efd9a7a93a66f8fb243840a6fcdfcf87ed5fc449c49e9855",
+      "overlay_index_48.png": "ed8e73ab79c414df61ef80784d0a6b7bf788b771bfea8ceebf72a73131b97c3f",
+      "overlay_index_70.png": "297ee65b0d0cc31c702b7d6d985e012f6177302517f22e20dd06576fa5268f57"
+    }
+  },
+  "cumulative_real_data": {
+    "passed": true,
+    "loaded_source_index": 70,
+    "cutoff_utc": "2024-08-23T22:00:00+00:00",
+    "hours": [
+      1,
+      3,
+      6,
+      12
+    ],
+    "probability_shape": [
+      4,
+      1,
+      1,
+      103,
+      73
+    ],
+    "assumption": "Current burned state, environmental inputs and hourly rates held fixed.",
+    "checks": [
+      "exponential horizon q formula",
+      "monotone horizon probabilities",
+      "exact t and t+h cumulative reference targets independently from arrival raster",
+      "plotted background equals q",
+      "hollow actual-event markers",
+      "full spatial footprint and grid limits",
+      "NumPy cumulative export"
+    ],
+    "indices": [
+      {
+        "hours": 1,
+        "known_probability_cells": 1288,
+        "previous_burned_cells": 252,
+        "reference_new_burned_cells": 1,
+        "new_burn_markers_without_probability": 1,
+        "maximum_q": 0.0523923821747303
+      },
+      {
+        "hours": 3,
+        "known_probability_cells": 1288,
+        "previous_burned_cells": 252,
+        "reference_new_burned_cells": 3,
+        "new_burn_markers_without_probability": 2,
+        "maximum_q": 0.14908607304096222
+      },
+      {
+        "hours": 6,
+        "known_probability_cells": 1288,
+        "previous_burned_cells": 252,
+        "reference_new_burned_cells": 7,
+        "new_burn_markers_without_probability": 5,
+        "maximum_q": 0.2759455144405365
+      },
+      {
+        "hours": 12,
+        "known_probability_cells": 1288,
+        "previous_burned_cells": 252,
+        "reference_new_burned_cells": 17,
+        "new_burn_markers_without_probability": 10,
+        "maximum_q": 0.4757450819015503
+      }
+    ],
+    "artifacts_sha256": {
+      "cumulative_comparison_12h.png": "c79da7e2503e7c8bd5505ca0cd2d79ceaf7c8a5f3cc8f3d08c7c38061e12c88e",
+      "cumulative_comparison_1h.png": "7868752e9cff2d213447f1643cf9e038531a97be54b23f7aeccabd4e3eb66ced",
+      "cumulative_comparison_3h.png": "9a2d7451f488deeff37ba512ccfba6618ded0c8bb3d8695c4353f0c99f203c71",
+      "cumulative_comparison_6h.png": "7e7891769496611d9d0c10d60bf106a8e3e1dedb7cb75479ba5c4a69c03c6bbf",
+      "cumulative_probability.npz": "72e30ebf0a564c99b4f03a099eedde3e04d5806c3a23bef99f317f997697a1f5"
+    }
+  },
+  "source_sha256": {
+    "wildfire/api.py": "a322ac61c4c5af9c0cdd20f13db098e49efe6e723ef656418a57e0461b4a99d7",
+    "wildfire/cumulative.py": "647eebe285116c0b678791dc5547b3798099a25261ae150e0e360354c1c042eb",
+    "wildfire/prediction.py": "8d6a5b47385819aec8e5f951f4fbada115bdba54f18edbcc2696285795e57435",
+    "wildfire/plotting.py": "d5eefdfa75393df77c8130f5a182a4c8274bbeb755e1f77bd75895168503ac55",
+    "wildfire/__init__.py": "03fe580048a84360ce13fd6ee6a03e5cc03a4cae77cb4001b790f01d3dcfa06a",
+    "tests/test_cumulative.py": "bef0d608df3a2f1a385ef9de398d50f019b568d2c020f8b66952d4f36d3321b5",
+    "tests/test_plotting.py": "1f521ccf60bf3f2f3905fd76bd86e475b2787e88cd14075dfe89b3bb1ca6b668",
+    "tests/test_prediction.py": "85ae63ba27c5c0819bd1bf08c202a20637e1e6dfcbe4ef16415ba8b117018be0",
+    "api_tutorial.ipynb": "1e2b48cfda9bffefbadb49ebeb94b931b5cba82447bc8965815a4f50267b168d",
+    "README.md": "b151a2c1e25fae1da75fab937b52daf1388f15d7448bea760670d3a63b3ecf54",
+    "documents/api.md": "db98baa60988dc042c425be6c3ce03deaaba73523fd27fce85f7cd1d3f085ddb"
+  },
+  "scope": "API execution, q values, exact reference time alignment, masks, physical region, plotting and notebook; fixed-input cumulative scenario, not recursive spread or forecast-skill validation."
+}

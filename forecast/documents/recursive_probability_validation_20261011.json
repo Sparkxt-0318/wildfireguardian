@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-11",
+  "timezone": "Asia/Seoul",
+  "status": "passed",
+  "default_configuration": {
+    "method": "recursive",
+    "n_samples": 1024,
+    "seed": 0,
+    "trajectory_batch_size": 32,
+    "missing_burned_area": "unburned"
+  },
+  "semantics": {
+    "transition": "conditionally independent binary ignitions, synchronous hourly updates, absorbing burned state",
+    "bayesian": "one posterior-sampled component per trajectory, held through all hours",
+    "missing_burned_area": "unavailable initial burned state set to zero inside true pixel/time support",
+    "missing_environment": "remains unavailable",
+    "uncertainty": "pointwise nominal 95% Wilson bounds and empirical Monte Carlo standard error",
+    "fixed_compatibility": "original frozen-state calculation, fractional horizons and rate diagnostics"
+  },
+  "tests": {
+    "passed": 1929,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 69.897,
+    "recursive_cases": 70,
+    "output_container_cases": 14,
+    "log": "documents/recursive_probability_tests_20261011.log",
+    "junit": "documents/recursive_probability_tests_20261011.xml"
+  },
+  "analytic_checks": {
+    "n_samples": 8192,
+    "seed": 41,
+    "trajectory_batch_size": 256,
+    "directed_chain": [
+      {
+        "hours": 1,
+        "exact_third_cell": 0.0,
+        "estimated_third_cell": 0.0
+      },
+      {
+        "hours": 2,
+        "exact_third_cell": 0.25,
+        "estimated_third_cell": 0.2518310546875
+      },
+      {
+        "hours": 3,
+        "exact_third_cell": 0.5,
+        "estimated_third_cell": 0.5015869140625
+      }
+    ],
+    "persistent_bayesian_two_hour": {
+      "exact": 0.66,
+      "estimated": 0.662841796875
+    }
+  },
+  "demonstration": {
+    "event": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00Z",
+    "executed_code_cells": 6,
+    "elapsed_seconds": 21.151615667011356,
+    "assumed_unburned_cells": 4877,
+    "coverage_summary": [
+      {
+        "hours": 1,
+        "valid_cells": 6831,
+        "valid_initialized_unburned_cells": 6640,
+        "valid_originally_known_unburned_cells": 2451,
+        "valid_assumed_unburned_cells": 4189,
+        "maximum_reported_mc_standard_error": 0.00876
+      },
+      {
+        "hours": 3,
+        "valid_cells": 5551,
+        "valid_initialized_unburned_cells": 5360,
+        "valid_originally_known_unburned_cells": 2451,
+        "valid_assumed_unburned_cells": 2909,
+        "maximum_reported_mc_standard_error": 0.01304
+      },
+      {
+        "hours": 6,
+        "valid_cells": 3871,
+        "valid_initialized_unburned_cells": 3680,
+        "valid_originally_known_unburned_cells": 2166,
+        "valid_assumed_unburned_cells": 1514,
+        "maximum_reported_mc_standard_error": 0.01538
+      }
+    ],
+    "report": "demonstration/recursive/20261011/validation.json",
+    "executed_notebook": "demonstration/recursive/20261011/probability.executed.ipynb"
+  },
+  "source_sha256": {
+    "wildfire/api.py": "5004dd4119180d39cef6eecbd07abaf3239caa500fdbfd7ef295265a151ad4a7",
+    "wildfire/rollout.py": "b05ecc46d5d6e82bc5048537f0f62f6b8863ba5a5efc378b7ff3859cc5db982c",
+    "wildfire/prediction.py": "c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578",
+    "wildfire/cumulative.py": "2c579ed38589ce61ffed9b33bde7ba0440f8390349b65095a3553ace24682c50",
+    "tests/test_rollout.py": "2efe2261fff20ce9c6a6c0ea3f759a8fd41185d861fc88715d1e3aa5eed89b59",
+    "tests/test_cumulative_outputs.py": "56aca239586066fe6f03a1c6ead2e83de265d962311d5ada24fc7ddc10c55fb0",
+    "tests/test_cumulative.py": "5b19681a03dda9916c38da2a5c91037d056ac5c852cc5afa33917b3e357f5d07",
+    "README.md": "ec747879126d7d2656dcd4933e8f78c223dbaf24e46e08b88a736bd1407a35de",
+    "documents/api.md": "0bdc20d3bd3b3d688e55d82e513d88429b46de9e865540307b1032321b5b6160",
+    "demonstration/probability.ipynb": "0b38cb93977201aa425fd4125168da7c72fa431128b26ef3d5f2ef364a3c7f0d",
+    "api_tutorial.ipynb": "618438c9fba1e7df72cd51bc78e9a68b89b0767ec689172e854ade132e7454ad"
+  },
+  "validation_limits": [
+    "CPU functional and mathematical validation; no longer-horizon forecast-skill or calibration claim",
+    "Monte Carlo intervals quantify simulation error under the specified transition model",
+    "Exterior/environmental coverage remains subject to supplied masks and boundary option"
+  ]
+}

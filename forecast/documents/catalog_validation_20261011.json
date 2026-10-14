@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-11",
+  "timezone": "Asia/Seoul",
+  "passed": true,
+  "functions": [
+    "available_events",
+    "available_cutoffs"
+  ],
+  "model_methods": [
+    "WildfireModel.available_events",
+    "WildfireModel.available_cutoffs"
+  ],
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "1644",
+    "time": "61.933",
+    "timestamp": "2026-10-11T01:34:37.485348+09:00",
+    "hostname": "idonghaui-MacBookAir.local",
+    "focused_catalog_tests": 30,
+    "log": "documents/catalog_tests_20261011.log",
+    "xml": "documents/catalog_tests_20261011.xml"
+  },
+  "real_data": {
+    "record": "documents/catalog_real_data_20261011.json",
+    "event_count": 44,
+    "discovered_event_cutoff_sample_and_prediction_passed": true
+  },
+  "tutorial": {
+    "added_discovery_cell_executed": true,
+    "existing_code_cells_outputs_execution_counts_and_metadata_preserved": true
+  },
+  "contract": {
+    "only_reads_events_json": true,
+    "exact_hourly_grid_anchored_at_catalog_start": true,
+    "utc_normalization": "UTC ISO strings ending Z; naive query inputs interpreted UTC; catalog requires offsets",
+    "sequence_length": "Complete consecutive hourly windows; no temporal padding",
+    "time_range": "Inclusive bounds on cutoff/start only; following snapshots must fit the catalog interval",
+    "availability_limits": "Metadata time support; no guarantee of pixel/channel validity or active flames"
+  },
+  "source_sha256": {
+    "wildfire/catalog.py": "735314dec4644095adeeceb1a757c788a2ee9c15e997ba01af4006587829679b",
+    "wildfire/api.py": "44dd2a886e4534113e05128300c725dfabfcf0e43ca54465e9231c342172daaa",
+    "wildfire/__init__.py": "012fb9d6557729c13d52aee60605406ff59eb61d74babedae57d7be715ddf195",
+    "tests/test_catalog.py": "ccf01768e7d015f8b86bcb4f4f692d3888a6ace356f5c616bcfc34f7111ea416",
+    "README.md": "0681178039205d8a091a9f8b680796df877c9d87544475893498ab94414de003",
+    "documents/api.md": "50d77650b0a97229baee3ecfda18884330f3609f20d1c86830831a9d7cafd2d6",
+    "api_tutorial.ipynb": "9cf74c17478979dc37427f915a09e3c135c9c63904b2087dd0fc7ba902703743"
+  }
+}

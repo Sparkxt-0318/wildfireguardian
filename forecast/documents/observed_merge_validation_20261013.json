@@ -1,0 +1,1079 @@
+{
+  "created_utc": "2026-10-13T03:06:45.623541+00:00",
+  "validation_kind": "independent read-only source union and direct original-array scoring",
+  "merged_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged",
+  "merged_report_sha256": "cd482fa590b6ff53adc13991acc4ed55af8f17d2cf55012bd24614adfb0bc0eb",
+  "merged_protocol_sha256": "2d0d8f0c4fa5fc0241db1c7c92842de32c832884821bfaf7a7cabbb4cecc90f7",
+  "source_roots": [
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "controls": {
+        "n_samples": 1024,
+        "seed": 0,
+        "trajectory_batch_size": 32,
+        "threads": 4,
+        "threshold": 0.5,
+        "timestep_minutes": 1,
+        "timeout_seconds": 1800
+      },
+      "protocol_sha256": "61c64efdba98d8478d858ca045ac60fdfcced5afe9523058321a50667c685817",
+      "report_sha256": "ed697788cdd2d9d4393a1a3144d64ae8b7b5ef8d94ddda913df95c6e2e8af605",
+      "completed_case_count": 25
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "controls": {
+        "n_samples": 1024,
+        "seed": 0,
+        "trajectory_batch_size": 32,
+        "threads": 4,
+        "threshold": 0.5,
+        "timestep_minutes": 1,
+        "timeout_seconds": 1800
+      },
+      "protocol_sha256": "26329ed0f1ffbe409881480931481ae50b00958c66d555f9f4571e3366e3c130",
+      "report_sha256": "ede4105042f92a2ec7bf7e5c78bdb07b4fc192e4380b20498e247b51b00480e5",
+      "completed_case_count": 6
+    }
+  ],
+  "status": "partial",
+  "planned_case_count": 324,
+  "completed_case_count": 30,
+  "source_completed_case_instances": 31,
+  "deduplicated_case_count": 1,
+  "duplicate_case_ids": [
+    "78856e52d655e59465be"
+  ],
+  "reused_case_count": 30,
+  "newly_simulated_case_count": 0,
+  "report_only": true,
+  "unavailable_case_count": 294,
+  "event_case_counts": {
+    "ID-BOF-000683_Wapiti_Wapiti": 25,
+    "WY-BTF-002416_FishCreek": 1,
+    "ID-BOF-001080_Lava": 1,
+    "ID-SCF-240202_RedRock": 1,
+    "ID-BOF-000904_Goat": 1,
+    "WA-SES-000173_Pioneer": 1
+  },
+  "original_inference_origins": {
+    "historical": 25,
+    "current": 5
+  },
+  "source_immutability": {
+    "root_protocol_and_report_unchanged_against_pre_merge_authenticated_bindings": true,
+    "all_source_completed_exports_match_original_four_file_manifests": true,
+    "all_merged_exports_match_source_bytes": true,
+    "full_tree_unchanged_during_post_merge_validation": true,
+    "full_tree_pre_merge_baseline_available": false,
+    "scope": "Root report/protocol hashes were authenticated before the merge; all completed case exports retain their recorded manifests. Full-tree comparison covers only the post-merge validation interval.",
+    "post_merge_file_tree_sha256": {
+      "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation": "a2f69779c79c44f7eb2f3c4cd3eec7a763154491fc3ab4cf40252971be441fda",
+      "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest": "0b6049e178934ea6a99948936b00e3d782fa93c8355f2bb1f5e186beaf77f393"
+    },
+    "post_merge_file_counts": {
+      "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation": 225,
+      "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest": 251
+    }
+  },
+  "independent_scoring": {
+    "source": "original source reference.npz and prediction arrays, case-ID union counted once",
+    "repository_scoring_helpers_used": false,
+    "probability_distance_space": "per-cell Bernoulli {0,1} with unit outcome distance",
+    "log_loss_floor": 1e-07,
+    "classification_threshold": 0.5,
+    "tolerance": {
+      "relative": 1e-11,
+      "absolute": 2e-12
+    },
+    "rows": [
+      {
+        "model": "M548",
+        "quantity": "new_burn",
+        "cohort": "shared_models",
+        "mean_absolute_error": 0.014686508928066576,
+        "metrics": {
+          "sample_count": 300653,
+          "positive_sample_count": 2641,
+          "mean_probability": 0.007731588876961148,
+          "brier": 0.00836460715331812,
+          "clipped_log_loss": 0.05964237175759067,
+          "average_precision": 0.1171170231643836,
+          "roc_auc": 0.8431130546710132,
+          "precision_recall_auc": 0.12287088368220432,
+          "exact_negative_log_likelihood_mean": "infinity",
+          "bernoulli_kl_divergence_mean": "infinity",
+          "floored_bernoulli_kl_divergence_mean": 0.05964237175759067,
+          "bernoulli_total_variation_distance_mean": 0.014686508928066576,
+          "bernoulli_wasserstein_1_distance_mean": 0.014686508928066576,
+          "bernoulli_wasserstein_2_distance_mean": 0.03005155498865806,
+          "bernoulli_hellinger_distance_mean": 0.0232017068342888,
+          "bernoulli_jensen_shannon_divergence_mean": 0.007400292517375864,
+          "bernoulli_jensen_shannon_distance_mean": 0.01960361209561061,
+          "bernoulli_bhattacharyya_distance_mean": "infinity"
+        },
+        "classification": {
+          "tp": 37,
+          "fp": 31,
+          "tn": 297981,
+          "fn": 2604,
+          "precision": 0.5441176470588235,
+          "recall": 0.014009844755774327,
+          "f1": 0.027316352897748246,
+          "mcc": 0.08628983472551692,
+          "accuracy": 0.9912357435315796,
+          "specificity": 0.9998959773431942,
+          "balanced_accuracy": 0.5069529110494843,
+          "intersection_over_union": 0.013847305389221557
+        },
+        "expected_calibration_error": 0.005823093296092172,
+        "fields_checked": 31,
+        "max_absolute_difference": 4.1799896877137144e-14,
+        "all_checks_passed": true
+      },
+      {
+        "model": "M548",
+        "quantity": "burned",
+        "cohort": "shared_models",
+        "mean_absolute_error": 0.01364949371319495,
+        "metrics": {
+          "sample_count": 323495,
+          "positive_sample_count": 25483,
+          "mean_probability": 0.07779571675180451,
+          "brier": 0.007773981775503648,
+          "clipped_log_loss": 0.05543102762093703,
+          "average_precision": 0.9575828835850659,
+          "roc_auc": 0.9837405948038358,
+          "precision_recall_auc": 0.96194779644672,
+          "exact_negative_log_likelihood_mean": "infinity",
+          "bernoulli_kl_divergence_mean": "infinity",
+          "floored_bernoulli_kl_divergence_mean": 0.05543102762093703,
+          "bernoulli_total_variation_distance_mean": 0.01364949371319495,
+          "bernoulli_wasserstein_1_distance_mean": 0.01364949371319495,
+          "bernoulli_wasserstein_2_distance_mean": 0.027929613014127004,
+          "bernoulli_hellinger_distance_mean": 0.021563433020137655,
+          "bernoulli_jensen_shannon_divergence_mean": 0.006877757449810985,
+          "bernoulli_jensen_shannon_distance_mean": 0.01821939995171986,
+          "bernoulli_bhattacharyya_distance_mean": "infinity"
+        },
+        "classification": {
+          "tp": 22879,
+          "fp": 31,
+          "tn": 297981,
+          "fn": 2604,
+          "precision": 0.9986468790920995,
+          "recall": 0.8978142290939057,
+          "f1": 0.9455499762362325,
+          "mcc": 0.9427186942384911,
+          "accuracy": 0.9918545881698326,
+          "specificity": 0.9998959773431942,
+          "balanced_accuracy": 0.9488551032185499,
+          "intersection_over_union": 0.8967233675629066
+        },
+        "expected_calibration_error": 0.005411924353544883,
+        "fields_checked": 31,
+        "max_absolute_difference": 1.9866053246886395e-14,
+        "all_checks_passed": true
+      },
+      {
+        "model": "FARSITE",
+        "quantity": "new_burn",
+        "cohort": "shared_models",
+        "mean_absolute_error": 0.02836825177197633,
+        "metrics": {
+          "sample_count": 300653,
+          "positive_sample_count": 2641,
+          "mean_probability": 0.026196312692705545,
+          "brier": 0.02836825177197633,
+          "clipped_log_loss": 0.4572422926864105,
+          "average_precision": 0.052978628444597435,
+          "roc_auc": 0.6766397781653664,
+          "precision_recall_auc": 0.25402842911733303,
+          "exact_negative_log_likelihood_mean": "infinity",
+          "bernoulli_kl_divergence_mean": "infinity",
+          "floored_bernoulli_kl_divergence_mean": 0.4572422926864105,
+          "bernoulli_total_variation_distance_mean": 0.02836825177197633,
+          "bernoulli_wasserstein_1_distance_mean": 0.02836825177197633,
+          "bernoulli_wasserstein_2_distance_mean": 0.02836825177197633,
+          "bernoulli_hellinger_distance_mean": 0.02836825177197633,
+          "bernoulli_jensen_shannon_divergence_mean": 0.019663373733160072,
+          "bernoulli_jensen_shannon_distance_mean": 0.02361811882324142,
+          "bernoulli_bhattacharyya_distance_mean": "infinity"
+        },
+        "classification": {
+          "tp": 994,
+          "fp": 6882,
+          "tn": 291130,
+          "fn": 1647,
+          "precision": 0.12620619603859828,
+          "recall": 0.376372586141613,
+          "f1": 0.18902728915089856,
+          "mcc": 0.20639456225375158,
+          "accuracy": 0.9716317482280237,
+          "specificity": 0.9769069701891199,
+          "balanced_accuracy": 0.6766397781653665,
+          "intersection_over_union": 0.10437887220413736
+        },
+        "expected_calibration_error": 0.02836825177197633,
+        "fields_checked": 31,
+        "max_absolute_difference": 4.1050496335515163e-13,
+        "all_checks_passed": true
+      },
+      {
+        "model": "FARSITE",
+        "quantity": "burned",
+        "cohort": "shared_models",
+        "mean_absolute_error": 0.02636516793149817,
+        "metrics": {
+          "sample_count": 323495,
+          "positive_sample_count": 25483,
+          "mean_probability": 0.09495664538864589,
+          "brier": 0.02636516793149817,
+          "clipped_log_loss": 0.42495639594815215,
+          "average_precision": 0.730901796460609,
+          "roc_auc": 0.9561378236732201,
+          "precision_recall_auc": 0.8582109613235509,
+          "exact_negative_log_likelihood_mean": "infinity",
+          "bernoulli_kl_divergence_mean": "infinity",
+          "floored_bernoulli_kl_divergence_mean": 0.42495639594815215,
+          "bernoulli_total_variation_distance_mean": 0.02636516793149817,
+          "bernoulli_wasserstein_1_distance_mean": 0.02636516793149817,
+          "bernoulli_wasserstein_2_distance_mean": 0.02636516793149817,
+          "bernoulli_hellinger_distance_mean": 0.02636516793149817,
+          "bernoulli_jensen_shannon_divergence_mean": 0.01827494181670744,
+          "bernoulli_jensen_shannon_distance_mean": 0.021950442135315856,
+          "bernoulli_bhattacharyya_distance_mean": "infinity"
+        },
+        "classification": {
+          "tp": 23836,
+          "fp": 6882,
+          "tn": 291130,
+          "fn": 1647,
+          "precision": 0.7759619766911908,
+          "recall": 0.9353686771573205,
+          "f1": 0.8482411344993861,
+          "mcc": 0.8383073785677198,
+          "accuracy": 0.9736348320685019,
+          "specificity": 0.9769069701891199,
+          "balanced_accuracy": 0.9561378236732202,
+          "intersection_over_union": 0.7364745867449405
+        },
+        "expected_calibration_error": 0.02636516793149817,
+        "fields_checked": 31,
+        "max_absolute_difference": 3.5704772471945034e-13,
+        "all_checks_passed": true
+      }
+    ]
+  },
+  "monte_carlo_checks": [
+    {
+      "case_id": "b0196655a9648847dcb4",
+      "n_samples": 1024,
+      "seed": 5963364678654912958,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "859cddc0f28778a02134",
+      "n_samples": 1024,
+      "seed": 2550711461644651879,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "824bf24991abc7444208",
+      "n_samples": 1024,
+      "seed": 6772569062908039285,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "c40eec16c5642818b1a0",
+      "n_samples": 1024,
+      "seed": 6261575296494277555,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "34c54e92418e3f7f2ff9",
+      "n_samples": 1024,
+      "seed": 16978002128500946559,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "44af4666eb3332ad7a52",
+      "n_samples": 1024,
+      "seed": 3138444948575362553,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "449a48f2633a318864d3",
+      "n_samples": 1024,
+      "seed": 1200280402110259713,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "db1dfba8fbad354ea501",
+      "n_samples": 1024,
+      "seed": 9967598973525585429,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "0ad4de7c0ac41f151261",
+      "n_samples": 1024,
+      "seed": 18099715532804066381,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "dceb6cd0a1e65b1431b4",
+      "n_samples": 1024,
+      "seed": 7711884483773678109,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "c6865a7bf5dd371255ba",
+      "n_samples": 1024,
+      "seed": 7865276464103975041,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "b821e4b72741fc09feab",
+      "n_samples": 1024,
+      "seed": 4770352840889540903,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "78b41a5720b54b13ce78",
+      "n_samples": 1024,
+      "seed": 10687727173497171118,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "3b29c5c6f9a1ed8540ff",
+      "n_samples": 1024,
+      "seed": 12756587171524435329,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "3aa03856925370a8bede",
+      "n_samples": 1024,
+      "seed": 11344164498482708048,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "930b17cd88460258bd11",
+      "n_samples": 1024,
+      "seed": 2645890877298381296,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "8e1de41c711b0e7063c5",
+      "n_samples": 1024,
+      "seed": 3564376854187958874,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "7e3f2e84309e8b8d3b52",
+      "n_samples": 1024,
+      "seed": 10722120609919843757,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "a1027ae206cdf1926d42",
+      "n_samples": 1024,
+      "seed": 8240958888201230454,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "b6deea55d9b9d44878bb",
+      "n_samples": 1024,
+      "seed": 18042924382654862924,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "d9f60a4e7b4d586f86e5",
+      "n_samples": 1024,
+      "seed": 9697174138491457355,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "87271c5c9700c4febae0",
+      "n_samples": 1024,
+      "seed": 923984474951225055,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "78856e52d655e59465be",
+      "n_samples": 1024,
+      "seed": 17547151416596253007,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "57d8b018cd0d597de6cd",
+      "n_samples": 1024,
+      "seed": 20673575928446218,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "947806c9f73fd844032f",
+      "n_samples": 1024,
+      "seed": 7330281439294003450,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "eaf9a95aff2af52433ee",
+      "n_samples": 1024,
+      "seed": 10235178421834307365,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "8c64d4965ad3f564dc5d",
+      "n_samples": 1024,
+      "seed": 4683813634736741837,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "dd1ab9798a2e819a497a",
+      "n_samples": 1024,
+      "seed": 12146940173956235126,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "4d5f55145b1116ba80be",
+      "n_samples": 1024,
+      "seed": 9755313259581385255,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    },
+    {
+      "case_id": "91fef2c9bf99975e55e8",
+      "n_samples": 1024,
+      "seed": 3196513800729679045,
+      "integer_count_lattice_exact": true,
+      "mc_standard_error_exact": true
+    }
+  ],
+  "source_case_exports": [
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "b0196655a9648847dcb4",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "89e59341fcb126a5635039cc8f117ebe37357714e44bf5934f45c65524c6efde",
+        "reference.npz": "6c08e61380def18807fee377b2e044e93f36f8a93264a651a572c98d7e6ae921",
+        "m548_prediction.npz": "2bd74e70190594c0eeeb403646f745f4ba4775f3cbd3b92cb277125f47d2f59c",
+        "farsite_prediction.npz": "9f51aca462017dbe4ba7d0750a4a4a72ec1355c53a8eb9d248ec0f5fd7846471"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "859cddc0f28778a02134",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "585e2cdb86f2325d5cf3689efb2c90d445a6cbe1a22938d1ddac8cb342e2f16b",
+        "reference.npz": "511c53d10a91cda4d360ed5361843ee1d5ed2cd6d92bfa426951559c08b31bdf",
+        "m548_prediction.npz": "e522e2e281956feda8f822b25c37a3e0e123843ba81adb1595f8b462ff28d5ed",
+        "farsite_prediction.npz": "d471a49a14f6c93033ebc22ee3dcf984695c43f8270d509ad620f5470e75f946"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "824bf24991abc7444208",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "6e01d0bfed1b387d7ba5a74c8385615bf18fe050b0c627c6791d0f40d54c1be8",
+        "reference.npz": "de10bdb8cee07fc2820ff1de6faf284bc4dde7aefc275fa16c834df32efaf09a",
+        "m548_prediction.npz": "33364a6fb76b9b7eb8b5a21c64df48ba59f24e7e54f3ee1db03ad8ba929e19f7",
+        "farsite_prediction.npz": "8e6ccfdd2077ccce55cdb4e6bfb2a467548b0355a6aee48e5ad4e50b3ca2d113"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "c40eec16c5642818b1a0",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "24c5756399bf81362d2c89a405740de31e290e6811aa5de67179958ae715e192",
+        "reference.npz": "347b8309d771e80d56abefc6d821c7a87deb70de5a8af85f50c3b1184e6870c4",
+        "m548_prediction.npz": "98e7fd47d5f71cc3e3b8509e6c8195e251560c0bd9b739ddc19ada4be620d91a",
+        "farsite_prediction.npz": "47e340bbb5264fe0102014f724901ed59c9a755b6375b3d3bf36a9cf772fa100"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "34c54e92418e3f7f2ff9",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "1399c18c4455a87678b1dc8bc9d0a5edb3c4a5eb33299b2e49a4f21929f67683",
+        "reference.npz": "420308ba946c7a6d52b010027660b260d6f18ab716521484492d92d45ea68cd1",
+        "m548_prediction.npz": "baae678b84af6e60d453b5090661b3531f1a0ef96b3bbd19f06af1550d8d5dfc",
+        "farsite_prediction.npz": "8e7c25f493e16a648f58a95f56164db11e9db7041d38941833bb48c67cab2ad5"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "44af4666eb3332ad7a52",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "ef31f3e06ce7b8519a94a8260035091052b73eb62c4926c7093633b813dc9b17",
+        "reference.npz": "81adaa83e3fef67c57b4a6ebb5b40dd53cc9b42e064e91d3103f969ab7fd1080",
+        "m548_prediction.npz": "2bc59e6ddf483face5df394fceee29e293182a62d6bbe1a4eeb0cf0f71dee85c",
+        "farsite_prediction.npz": "c08d148702993dda1649327e24a7733c2b8eec9eaf5d9304af0bd84bde838ee0"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "449a48f2633a318864d3",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "32803e65605d7ad3dac1d4ee0b57d22f3a57afb116e3a4d7c0bbe8221de6ce9e",
+        "reference.npz": "695c220587137d876bd5af9ec2b9bae0323fa76e8bb50207e46942f21709308e",
+        "m548_prediction.npz": "df6315964d9bba13dd0fd23ccf95e9997d6996e065f422042a295106b1ed08fe",
+        "farsite_prediction.npz": "0c59b4259096848c9f8ce5f09709df2b715db159f2ad5aed452ac845bb8b4874"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "db1dfba8fbad354ea501",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "85f78625d46b055e4660c6cc6aa940f90346dfed6c8261e96972d3c0a9173fe4",
+        "reference.npz": "755908653b6657ba60a87753ab3e330b6bba931d46395ea85cbca034362b0438",
+        "m548_prediction.npz": "b81d70f7dbea6f82dda82b873718c03f3a9fbd01fa2c19060ae6b01b36ca10b9",
+        "farsite_prediction.npz": "527cc5633b10f5d4602aa6fe38a0eab8c590a6ec640c80b3fe37d9f3635b3778"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "0ad4de7c0ac41f151261",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "1d538daf284c5bf70416df6774582949b65bf4777bb0dacd276cb11939f36da1",
+        "reference.npz": "3c3395bc241509e518c1d76ecc549e4798d2777f926b53d3fdf50baba57ad4bb",
+        "m548_prediction.npz": "b4f7355e9d5f4625646e7801b995b89da1acb4e5b2dd9fbaa1b11303f8e69940",
+        "farsite_prediction.npz": "67a77a511bdf90cca0e125e59f7268b66e94a3a149ae00d6d1223a97684f67b9"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "dceb6cd0a1e65b1431b4",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "1fffc8eec9538d094c0b098ae2eb2dec4150dc9d867abec50b6df2ca9de92679",
+        "reference.npz": "8ef87b17a05ac03782f82e7468de065456919408af9e0478ea99d5187740f6b8",
+        "m548_prediction.npz": "e564ed8046b627873a72a42105793995b3675057ee68bdd7d4f8a2dda3a71ac3",
+        "farsite_prediction.npz": "fb3ad49756b5960250e6699821684ea81448323f0c82a27a240495dae1545338"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "c6865a7bf5dd371255ba",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "8b899211a8a81f71b2fb6b242c5329ff15fb2b6a0d4fa2cdd3744d1096580c81",
+        "reference.npz": "904aeab6f15269136c80c6c080e6ab4bd60fd5e4e9ca3121f93ad44dbe7d4c0d",
+        "m548_prediction.npz": "de0e8372c1f1c20bf0ff3b4f4b82f6d846d029f431ba1e8a863bb0a31ff41c56",
+        "farsite_prediction.npz": "1fec9169e32ad5f18ba6d99904d12690a561b9067b174930f53eb072d07977b3"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "b821e4b72741fc09feab",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "c3d5d151769245e9069925aa641c36220ff7eff7d3f194490e96942c06b40e7f",
+        "reference.npz": "4d3d9b7e564a215b31a97df51f759fbaac52c7b08147f272fa1d10f2b3ec75b6",
+        "m548_prediction.npz": "e256a60d1452835a515db0aa2f5de9eaa6c8637752f766df2375bc9544f61c56",
+        "farsite_prediction.npz": "a1349c059fe40bf028bb515b1805e554a69ec80ce6c02c5d62e7ee41a5915acb"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "78b41a5720b54b13ce78",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "5c872787dc52443bc0097cbe462e73e5227f4adddc28d81e0fc64a26ea5532be",
+        "reference.npz": "8ebafd766f7ff8e0b96ef2e4068e4ca1319fb004eb792b7a961c15bcfd02d32b",
+        "m548_prediction.npz": "1a9456f1d5666bf90ab8a4fb428a94b18721407a2dce2ce6690daaa1d3f1d10d",
+        "farsite_prediction.npz": "57bd1aa470bf17ac74c24970fc99d11522e1c3040bd630ad589bf2afa216c1cb"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "3b29c5c6f9a1ed8540ff",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "8e9057d7a8b664205f2b42b55cc7664bdc08466341cea5d84930cb8057b44027",
+        "reference.npz": "6c53ff2015f3f1d923deeef2f79e27a326ac21329527943912a13a3a01973316",
+        "m548_prediction.npz": "03a6700b6de4fd48cfc3606ab8306ffd7dc7b2c9dd53b8ee6f30c9f713b1178f",
+        "farsite_prediction.npz": "0b4ab769bafc5d4b4f6f54721c8545334d4d334db69180f2d76ebc975122d897"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "3aa03856925370a8bede",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "5b6c73aa79b1b5d19db8026d2a9992c9abeca69f5f0959d31e6bfcc13600658c",
+        "reference.npz": "45cf3ce561af4826556d495023436949f30de77ff37dfe41d0d776e13c0b2439",
+        "m548_prediction.npz": "5eb872789133e8e6c525de1751f7313b2bdc15decea93ba6effc9dab4dcbdb03",
+        "farsite_prediction.npz": "2b368767019bdc341d8b78d30013f7632d12cddb4f84d2862d2db2a03b8a4823"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "930b17cd88460258bd11",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "77a7503642728682a6c4c9ebecd930fd65dbf05a37126bc23e6c74202100df42",
+        "reference.npz": "b10f224c8b644140deae00dc250b041faff579c0a28054f14550565979485e03",
+        "m548_prediction.npz": "f34975189d28d951309d20c64319b9ec6614fe1b81e501c1d971ad2dd3ae74ca",
+        "farsite_prediction.npz": "6f3e3119dd8acc5ead5b15ccfb438d48b311617a2cb6ee51fd8b4a8cc0c78ffb"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "8e1de41c711b0e7063c5",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "ccb757bfe76aaeca19262e0fdd822e54a2a9e6c5bfc6f448e802044c8c385515",
+        "reference.npz": "95e90ae9b07ae16e1a1d7d6f5ed28e4a390126ad856d1695d44005824bf3c6e3",
+        "m548_prediction.npz": "5f395a2de6f0c22eee8b9bc65a4d81bda4020cb5501a86d00e754f8f2b660c91",
+        "farsite_prediction.npz": "b1afb507c0a472d0324d442f2a64b57cf29218c9607917ac267b0483b53c24b5"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "7e3f2e84309e8b8d3b52",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "7dbe03f8193f950bd5f847b0a494d0b548cdf41790e892b8e68b78b81cea2241",
+        "reference.npz": "9e9867b0b4ff33cc248965b97297a891087bbf96393f324bcee12144e537786f",
+        "m548_prediction.npz": "90e0bc7a7c7306b5d78e3e09c43b7c93500cd0e43c0fac9a704cc3c48a12d260",
+        "farsite_prediction.npz": "a359a15923f82c40d741170fef4d29e327e8af0606ebbaf29512e0f9e9a232fc"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "a1027ae206cdf1926d42",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "b15a76aff0e61cf4849de00b406ea9e05d645ac0fdbfdc643ee96a4f7c4113a6",
+        "reference.npz": "8063310824f911d3db6b840230c396bf62a1a479c65bf815c7e9df2e02f3db6c",
+        "m548_prediction.npz": "0aed2a06cf868749db26bd6aae3d1be69a7fa4156c196d8bef15876390d00ea1",
+        "farsite_prediction.npz": "01a21757a6e4c6669f8b5621aefd1533d5cd887f8f5a0e3cc6e5424850a24f43"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "b6deea55d9b9d44878bb",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "9aa6f21a9214592a17ee9ad7cc969e4a39c5ec3d70f26b2ab627ceedd6d9e801",
+        "reference.npz": "232894dd72127f563f69221bf6c66fbebfdf1e63a36666295ccce0a2144c7276",
+        "m548_prediction.npz": "364d4a632529e91cceda750535798895a35e82f71cf67a901bc2898dfd5547a4",
+        "farsite_prediction.npz": "b522b3b11f43b360f63f81772a2058350ea79b41aebda0d5d3ebd39300c7863c"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "d9f60a4e7b4d586f86e5",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "bac4585eeff32eb7b257886af07248cb1b428850c479eeff7f462b3eb87ecd85",
+        "reference.npz": "42b2e1afac3d15fe29d84cbc280593ad4c1a889b8334d8744e2adf95deb0a613",
+        "m548_prediction.npz": "a2cbb9d87f4fe1c57c9758fb80dad6749712cb0c43bb9ef8c422356aafa16aa3",
+        "farsite_prediction.npz": "d8c4cfbbc30a0d23220460940acbdd64ce21a4c15a7a9843ae2ab5f58490740f"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "87271c5c9700c4febae0",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "e43c13a5090dfc3d0514fce84c3cd80a5e9b350b2a00ab18bd5ddfa77b0f2797",
+        "reference.npz": "08088bfcb79d7250aaed97ebd537d10f108a2d7af847a40dc3add24d21d7a364",
+        "m548_prediction.npz": "5c5e68b711c254ffaaa22a514f49178759bba7c38caacec476851a8aebedc4da",
+        "farsite_prediction.npz": "8a904a4398c5c92304642b84083c808b494d2b00a7e7023c0ceaf68eb37a0bc6"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "78856e52d655e59465be",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "4bdd5362f5f729eeaa7e51ae0af58412891c695ac38e4f7e81fdf3b2add7bc6e",
+        "reference.npz": "3765ef4a735b15948bc263e97e9cea6ae09b459c442bb34c79f71c49d6e11cad",
+        "m548_prediction.npz": "e7ba2db40c2c8ff52a41f5f553fe275c173a6ef501c040afe29c3be346bd6aa6",
+        "farsite_prediction.npz": "412137b0f13bcc667383afae836d21e03010f98dad30d26f8c15bc726a2b3724"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "57d8b018cd0d597de6cd",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "2b2d07d616350578a6b528b99a57fdece26b919162cd7b6e0dce77df530e8fc5",
+        "reference.npz": "432074af65cc83ccc7874849ccc1256a1d21eb41859fd2f0530588620c3412c9",
+        "m548_prediction.npz": "6dd0e5f3976c2b95dfaebc08070207bc64ab10a0c85756101829c8f331953c9b",
+        "farsite_prediction.npz": "a63636748e41d1ae5ca7ea369b21e54dbeb144b78a24e2049419052a94fcb655"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_stored_validation",
+      "case_id": "947806c9f73fd844032f",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "f799b46c5cc814da221e5417ac331e87b6a3f08fa7624b824d95626e29c0798a",
+        "reference.npz": "784ccc106557ead44421e061d26699e5672170711a32e20f8579a0e0669739a9",
+        "m548_prediction.npz": "899bb5fb64c0d43b81b7752b0f4325be58a6e8c13e8b15cf571e1c75e5a78d88",
+        "farsite_prediction.npz": "ca39a559c6e0bc7f68ec2d8197abe95c85a2adf1845b2e68cdee58f6a38f9002"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "eaf9a95aff2af52433ee",
+      "event": "WY-BTF-002416_FishCreek",
+      "export_sha256": {
+        "report.json": "0548d3a61b322ce276932241dd4e6fcc9a1f25f97d670069315a8cf4d981b54f",
+        "reference.npz": "0c7db7831e2f3f937e468ea8696b763d5641597cb5e522a3b3001357679c5948",
+        "m548_prediction.npz": "6a94ca528dc46e74f706097a4fcd91463688055804cb41b22042abc53d22f891",
+        "farsite_prediction.npz": "d0bbc5576d11cd2c001b5ea719d745ea5be7a4aa7630a0418ee15ab516a43742"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "8c64d4965ad3f564dc5d",
+      "event": "ID-BOF-001080_Lava",
+      "export_sha256": {
+        "report.json": "16cfe1faff13fdba2f36139978ac1cbb5b5ade85a3cec592928b1fdcb47894cb",
+        "reference.npz": "c62d6831a75876ecf92c7eb001ff3338e52f5a96db78d101fc741f784c374e4c",
+        "m548_prediction.npz": "0d97c4acb189b18da3a9f03f7250974660b7f1095e0d854fca5af5d42433db7a",
+        "farsite_prediction.npz": "d485d79e61a387c113d6cc2b3b37f75b1eda64dd6bb1ecdd70f51df9dc6efa02"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "dd1ab9798a2e819a497a",
+      "event": "ID-SCF-240202_RedRock",
+      "export_sha256": {
+        "report.json": "e4fb9a6fd5354d55fb0bb1bd69b46227eef30325cc819098d194a40edc2cd20d",
+        "reference.npz": "079a3de854d97b3de64388069be15ad8960f2d2f90e33ab7dd2821163ca78bef",
+        "m548_prediction.npz": "75cb937e05635811668c9f68879e16654cc352e2e9e622ac662dda502c0ac2a4",
+        "farsite_prediction.npz": "f567c03f9ed612b8502d78a41ebb3f2da589d5b0accbe069ae3fcd9be146f20a"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "4d5f55145b1116ba80be",
+      "event": "ID-BOF-000904_Goat",
+      "export_sha256": {
+        "report.json": "1302bd4eba89ef1ca743394f796616e1c6c2f0e51a22f339e5996cefb34d7f85",
+        "reference.npz": "e5dcebbd13f203df2fb15f1bc6c70f298986aabf97c68c06d89f2dff5eee38eb",
+        "m548_prediction.npz": "2b17a3e8ff533110f79babe239e12b96bdf44cbc8733e2c72fc242bd797fe0a5",
+        "farsite_prediction.npz": "7aadba9c249b815c930608bd97d81ae2921923c08959a7c141c7ef128e7c3c58"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "91fef2c9bf99975e55e8",
+      "event": "WA-SES-000173_Pioneer",
+      "export_sha256": {
+        "report.json": "6399a971b6d2b1c5802f6cadf86f9943b4dadeef5cf6c3e386f3ffe106078171",
+        "reference.npz": "6161c6503b892d069f70983ea93afe0af6840b62319b14b5733b8f1819b9f0c6",
+        "m548_prediction.npz": "87484b32339636324d4f0e62f27415a151c99f9d0271214a990d6d92e26f5233",
+        "farsite_prediction.npz": "4f081b0bf334bdaf992a34801ad2eca994f9a114154eaf3ae9a2263ac819125b"
+      }
+    },
+    {
+      "source_directory": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_test_shortest",
+      "case_id": "78856e52d655e59465be",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "export_sha256": {
+        "report.json": "4bdd5362f5f729eeaa7e51ae0af58412891c695ac38e4f7e81fdf3b2add7bc6e",
+        "reference.npz": "3765ef4a735b15948bc263e97e9cea6ae09b459c442bb34c79f71c49d6e11cad",
+        "m548_prediction.npz": "e7ba2db40c2c8ff52a41f5f553fe275c173a6ef501c040afe29c3be346bd6aa6",
+        "farsite_prediction.npz": "412137b0f13bcc667383afae836d21e03010f98dad30d26f8c15bc726a2b3724"
+      }
+    }
+  ],
+  "figure_pair_count": 18,
+  "plot_files": [
+    {
+      "figure": "new_burn_metrics",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_metrics.png",
+      "size_bytes": 156990,
+      "sha256": "4936c2e4d6a77813e841055308e963a30df0bac892f3a35bfe096e480caf3169"
+    },
+    {
+      "figure": "new_burn_metrics",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_metrics.svg",
+      "size_bytes": 49292,
+      "sha256": "b9b97941e31cbd9a06ede4a8e6e9e4bb6df732f7308baaa18f6806a1b4a3b19c"
+    },
+    {
+      "figure": "new_burn_architectures",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_architectures.png",
+      "size_bytes": 92975,
+      "sha256": "84e0eedbf0d88dafdca523ed1526e298645aa414edf4df52af9d9728f13c8585"
+    },
+    {
+      "figure": "new_burn_architectures",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_architectures.svg",
+      "size_bytes": 24991,
+      "sha256": "fba382f115606a1cbf09bf31375965f1242830930b33c5dad23829a7c5912d4f"
+    },
+    {
+      "figure": "new_burn_distances",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_distances.png",
+      "size_bytes": 147101,
+      "sha256": "ad344b889c1e7a73303a3c5a1d1e64817a8cfd243228bb9ae28e57daefd13d1e"
+    },
+    {
+      "figure": "new_burn_distances",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_distances.svg",
+      "size_bytes": 59742,
+      "sha256": "0b2d5771350fe07ffb1f0c205e2633dfd1412fcbdd9b9a5815ff32f02d52d2c7"
+    },
+    {
+      "figure": "new_burn_reliability",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_reliability.png",
+      "size_bytes": 108413,
+      "sha256": "ea53da5c16e4ea7622efff4ff1a6718271e7b0e8c0f02a9cd75d444ffa182a78"
+    },
+    {
+      "figure": "new_burn_reliability",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_reliability.svg",
+      "size_bytes": 26662,
+      "sha256": "f3a0d434b951373031e86c72032f1ea4c3adb5524ca9f035fb291e8da40d4dcb"
+    },
+    {
+      "figure": "new_burn_event_brier",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_event_brier.png",
+      "size_bytes": 124885,
+      "sha256": "3ed40d81145b3c4039171fc32ffdbdefbbe3d838d83e37e59e16bac1ce3d4b24"
+    },
+    {
+      "figure": "new_burn_event_brier",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_event_brier.svg",
+      "size_bytes": 16780,
+      "sha256": "58aba3e7d0db679c09072aa869c5270eca703d41bd741a96b65a1bdfe2064baf"
+    },
+    {
+      "figure": "new_burn_coverage",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_coverage.png",
+      "size_bytes": 121675,
+      "sha256": "b444e74975f80872970108db904cbee9708387bdddec7a75f9465923df8cd665"
+    },
+    {
+      "figure": "new_burn_coverage",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_coverage.svg",
+      "size_bytes": 23447,
+      "sha256": "a8ef33c3521c0c7d33a34b3567c8308ba9c4f754638687e58b690f63609595d8"
+    },
+    {
+      "figure": "new_burn_curves",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_curves.png",
+      "size_bytes": 158872,
+      "sha256": "cfed31e6d535db1a0cbf7256b673a6a9a36b9e87d030eea700f4586091672d76"
+    },
+    {
+      "figure": "new_burn_curves",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_curves.svg",
+      "size_bytes": 46270,
+      "sha256": "d8725ab647d47ec01aa082673a95e003dbd7a934fe5a172cc43014bee34184c5"
+    },
+    {
+      "figure": "burned_metrics",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_metrics.png",
+      "size_bytes": 161736,
+      "sha256": "09dc0d79b0cd404b67a2ea9707174bce748fdca362671f0c75d1dbc6a87043f1"
+    },
+    {
+      "figure": "burned_metrics",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_metrics.svg",
+      "size_bytes": 50528,
+      "sha256": "3cb287c2efbd706ca553ea0c298651bfc65f650860a9b52e0e611187b41d1062"
+    },
+    {
+      "figure": "burned_architectures",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_architectures.png",
+      "size_bytes": 94449,
+      "sha256": "a2beb43b5b217e3a72a779bddf026a6712a20ec2e1634d7675e19d2db652857b"
+    },
+    {
+      "figure": "burned_architectures",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_architectures.svg",
+      "size_bytes": 23759,
+      "sha256": "55ac033cb7c3a5192c2121f80f1e7d1aee4be5fca16ae0aa207864cda018ac6b"
+    },
+    {
+      "figure": "burned_distances",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_distances.png",
+      "size_bytes": 149410,
+      "sha256": "d0121b72d2bfd5a294a49773a75be9ba3628ac0352a84148917314d201b41027"
+    },
+    {
+      "figure": "burned_distances",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_distances.svg",
+      "size_bytes": 60800,
+      "sha256": "2d4d84a5c029a17ec36e6eaec9690dd03820683f6b2245a5a0e0c174490e24d5"
+    },
+    {
+      "figure": "burned_reliability",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_reliability.png",
+      "size_bytes": 123501,
+      "sha256": "5ada491a9421ddc640d44e54d3e5730820ddd7629db4d9a7fe8de01856447430"
+    },
+    {
+      "figure": "burned_reliability",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_reliability.svg",
+      "size_bytes": 26680,
+      "sha256": "37390d2d03c42609d81e38c2c57c13d8962123517b98c5c12ce00d6b5449d092"
+    },
+    {
+      "figure": "burned_event_brier",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_event_brier.png",
+      "size_bytes": 126914,
+      "sha256": "e3f414445cd5bcaab09150fdbadb3826626f3559cf87be44740c1ff28c6696bb"
+    },
+    {
+      "figure": "burned_event_brier",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_event_brier.svg",
+      "size_bytes": 16778,
+      "sha256": "0720de6de1e81d372478daf7d976376fdb19bf0b009617dd19f4485e3678a9d0"
+    },
+    {
+      "figure": "burned_coverage",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_coverage.png",
+      "size_bytes": 122019,
+      "sha256": "9a9bd6fa3d5cf4d006f8bfc087d4e55a4f5ca6ce1b4e653481748b98d85f1461"
+    },
+    {
+      "figure": "burned_coverage",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_coverage.svg",
+      "size_bytes": 22851,
+      "sha256": "e1f24b124df77f10f1d2c369d0c08c9093fec5a5d405196ba5f30b36aad35925"
+    },
+    {
+      "figure": "burned_curves",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_curves.png",
+      "size_bytes": 146517,
+      "sha256": "05282c57e0ee910b5d975d4c7d9e4f0e851e23d413b97db328c8a58052464a0a"
+    },
+    {
+      "figure": "burned_curves",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_curves.svg",
+      "size_bytes": 35834,
+      "sha256": "96a30aed971a592e67818594d20ff6a59d68c2300ef07cefbcd27222291c1138"
+    },
+    {
+      "figure": "new_burn_classification",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_classification.png",
+      "size_bytes": 131522,
+      "sha256": "7254f209758127ed98e053894bd8629e0075d942d5fa053a166f0bee50a20aa8"
+    },
+    {
+      "figure": "new_burn_classification",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_classification.svg",
+      "size_bytes": 57009,
+      "sha256": "d60312a1e51c97e0aff4f4f9c0a77f21dd9eac3379135ee2ef25490f6a1b90a3"
+    },
+    {
+      "figure": "new_burn_confusion",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_confusion.png",
+      "size_bytes": 92144,
+      "sha256": "2b3234b762d85ac5d4d617d55a7dc9eaefeed026feeb200a3026cd2181e5f7db"
+    },
+    {
+      "figure": "new_burn_confusion",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/new_burn_confusion.svg",
+      "size_bytes": 24408,
+      "sha256": "1db3589f178c854a13b1cb0db82cf2d23ecc08fd604bb8d12c4b7141475183cd"
+    },
+    {
+      "figure": "burned_classification",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_classification.png",
+      "size_bytes": 133011,
+      "sha256": "8cf553251a7f06e9b2cc43321f46980dc0c1073c7bd439b01c3c1a784e0f7691"
+    },
+    {
+      "figure": "burned_classification",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_classification.svg",
+      "size_bytes": 57008,
+      "sha256": "dd0a47f75b687a1e71fb424128a279722b72a2916354c93eb97142fde6af4f9b"
+    },
+    {
+      "figure": "burned_confusion",
+      "format": "png",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_confusion.png",
+      "size_bytes": 97188,
+      "sha256": "573498d85dc834507b54836d835a60b055a5cafa29bca6479d67edaa6812fe50"
+    },
+    {
+      "figure": "burned_confusion",
+      "format": "svg",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/runs/20261013_observed_merged/plots/burned_confusion.svg",
+      "size_bytes": 24423,
+      "sha256": "5f1b67565e4fe5d56ce7bd84d146d03047dd7450bd9432c7e6f6b4cc86d7d2a6"
+    }
+  ],
+  "interpretation": "Available completed union, with 25 Wapiti intervals and one shortest interval for each other test event; 294 planned intervals remain unavailable. Equal cell-interval pooling does not imply independence or equal event weighting."
+}

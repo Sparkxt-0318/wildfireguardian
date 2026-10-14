@@ -1,0 +1,529 @@
+{
+  "passed": true,
+  "catalog_events_checked": 44,
+  "aligned_rasters_checked": 2743,
+  "mismatched_grids": [],
+  "event_grids": [
+    {
+      "event_id": "KFS_01",
+      "original_rectangle": [
+        79,
+        237
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_02",
+      "original_rectangle": [
+        62,
+        58
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_03",
+      "original_rectangle": [
+        20,
+        33
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_04",
+      "original_rectangle": [
+        29,
+        27
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_05",
+      "original_rectangle": [
+        18,
+        18
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 57
+    },
+    {
+      "event_id": "KFS_06",
+      "original_rectangle": [
+        14,
+        14
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_07",
+      "original_rectangle": [
+        12,
+        14
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_09",
+      "original_rectangle": [
+        15,
+        11
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_11",
+      "original_rectangle": [
+        17,
+        11
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_12",
+      "original_rectangle": [
+        8,
+        12
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_13",
+      "original_rectangle": [
+        7,
+        9
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_14",
+      "original_rectangle": [
+        5,
+        8
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_15",
+      "original_rectangle": [
+        9,
+        7
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_16",
+      "original_rectangle": [
+        5,
+        6
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "KFS_17",
+      "original_rectangle": [
+        8,
+        4
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 55
+    },
+    {
+      "event_id": "CA-BTU-009205_Dixie",
+      "original_rectangle": [
+        318,
+        309
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 68
+    },
+    {
+      "event_id": "CA-KNF-006385_RiverComplex_RiverComplex",
+      "original_rectangle": [
+        90,
+        138
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-KNF-006454_Antelope",
+      "original_rectangle": [
+        129,
+        134
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-MNF-000753_AugustComplex",
+      "original_rectangle": [
+        355,
+        210
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-PNF-001308_PNFNorthComplex",
+      "original_rectangle": [
+        128,
+        195
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-SHF-001187_Monument",
+      "original_rectangle": [
+        134,
+        108
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-SNF-001391_Creek",
+      "original_rectangle": [
+        200,
+        151
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-SQF-002622_SQFComplex",
+      "original_rectangle": [
+        139,
+        132
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-SRF-000651_McCash",
+      "original_rectangle": [
+        93,
+        85
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CA-SRF-000656_RedSalmonComplex",
+      "original_rectangle": [
+        95,
+        118
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "CO-ARF-000636_CameronPeak",
+      "original_rectangle": [
+        114,
+        168
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "ID-BOF-000683_Wapiti_Wapiti",
+      "original_rectangle": [
+        111,
+        105
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "ID-BOF-000904_Goat",
+      "original_rectangle": [
+        68,
+        73
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "ID-BOF-001080_Lava",
+      "original_rectangle": [
+        85,
+        77
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "ID-SCF-022105_Moose",
+      "original_rectangle": [
+        81,
+        113
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "ID-SCF-240202_RedRock",
+      "original_rectangle": [
+        62,
+        126
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "MT-BDF-006269_AlderCreek",
+      "original_rectangle": [
+        52,
+        73
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "MT-BDF-006272_TrailCreek",
+      "original_rectangle": [
+        63,
+        77
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "MT-LNF-000893_WestLolo",
+      "original_rectangle": [
+        67,
+        63
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "NM-SNF-000027_HermitsPeak",
+      "original_rectangle": [
+        200,
+        107
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "OR-UMF-000659_GreenRidge",
+      "original_rectangle": [
+        50,
+        72
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "OR-UMP-000373_RoughPatchCpx",
+      "original_rectangle": [
+        72,
+        54
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "OR-UPF-000265_Jack",
+      "original_rectangle": [
+        89,
+        54
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "OR-UPF-000450_DevilsKnob",
+      "original_rectangle": [
+        111,
+        77
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "OR-WIF-220180_CedarCreek",
+      "original_rectangle": [
+        95,
+        112
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "UT-ASF-100340_EastFork",
+      "original_rectangle": [
+        103,
+        95
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "WA-OWF-000453_SchneiderSprings",
+      "original_rectangle": [
+        91,
+        89
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "WA-SES-000173_Pioneer",
+      "original_rectangle": [
+        96,
+        55
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    },
+    {
+      "event_id": "WY-BTF-002416_FishCreek",
+      "original_rectangle": [
+        103,
+        73
+      ],
+      "original_grid_matches": true,
+      "aligned_rasters_checked": 66
+    }
+  ],
+  "specimen": {
+    "event_id": "WY-BTF-002416_FishCreek",
+    "cutoff_utc": "2024-08-23T00:00:00Z",
+    "patch_size": null,
+    "grid_shape": [
+      103,
+      73
+    ],
+    "features_shape": [
+      1,
+      19,
+      103,
+      73
+    ],
+    "rectangle_cells": 7519,
+    "complete_required_environment_cells": 7519,
+    "originally_known_arrival_cells": 2642,
+    "complete_environment_outside_arrival": 4877,
+    "required_channels": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class=1",
+      "biome.biome_class=2",
+      "biome.biome_class=3",
+      "biome.biome_class=4",
+      "biome.biome_class=5",
+      "biome.biome_class=6",
+      "biome.biome_class=7",
+      "biome.biome_class=8",
+      "biome.biome_class=9",
+      "biome.biome_class=10",
+      "biome.biome_class=11",
+      "biome.biome_class=12",
+      "biome.biome_class=13",
+      "biome.biome_class=14"
+    ],
+    "boundary_coverage": [
+      {
+        "boundary": "unknown",
+        "hours": 1,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 6831,
+        "exactly_matches_boundary_coverage": true
+      },
+      {
+        "boundary": "unknown",
+        "hours": 3,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 5551,
+        "exactly_matches_boundary_coverage": true
+      },
+      {
+        "boundary": "unknown",
+        "hours": 6,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 3871,
+        "exactly_matches_boundary_coverage": true
+      },
+      {
+        "boundary": "zero",
+        "hours": 1,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 7519,
+        "exactly_matches_boundary_coverage": true
+      },
+      {
+        "boundary": "zero",
+        "hours": 3,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 7519,
+        "exactly_matches_boundary_coverage": true
+      },
+      {
+        "boundary": "zero",
+        "hours": 6,
+        "environmental_cells_valid": 7519,
+        "prediction_cells_valid": 7519,
+        "exactly_matches_boundary_coverage": true
+      }
+    ],
+    "coverage_probe_samples": 1,
+    "coverage_probe_note": "Only deterministic coverage is checked; this is not a probability-accuracy experiment."
+  },
+  "finding": "Environmental acquisition and default loading retain each full original arrival-grid rectangle. No final-perimeter environmental clipping found.",
+  "source_policy": "Genuine source NoData, invalid source values and unknown categories remain unavailable.",
+  "sources_sha256": {
+    "wildfire/environment.py": "c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af",
+    "wildfire/data.py": "aa63a97264a4c2a1e6a7c30a0a750b80d79d9a7a40eb5f192b527e156a32b607",
+    "wildfire/models.py": "52e1f29859f71dccf61b36a89df6b7863060fd25cc64fbc149500813f13e6722",
+    "wildfire/rollout.py": "b05ecc46d5d6e82bc5048537f0f62f6b8863ba5a5efc378b7ff3859cc5db982c"
+  },
+  "date": "2026-10-11",
+  "timezone": "Asia/Seoul",
+  "acquisition_or_prediction_runtime_changed": false,
+  "changes": [
+    "Explicit patch_size=None in full-rectangle loader examples",
+    "Original-grid and per-channel coverage diagnostics in probability demonstration",
+    "Four regression tests for full rectangle, genuine environmental gaps, exterior coverage, explicit patches and padding"
+  ],
+  "demonstration": {
+    "report": "demonstration/environment_rectangle/20261011/validation.json",
+    "executed_notebook": "demonstration/environment_rectangle/20261011/probability.executed.ipynb",
+    "executed_code_cells": 6,
+    "elapsed_seconds": 24.35259095800575,
+    "source_sha256": "38be5e52a6cf9a51edb6f42f5d87631f151630e9f423b0f47dd2fc5f8aedd17c"
+  },
+  "current_change_sources_sha256": {
+    "README.md": "8a960a1df30c573f78cb526bb62042fcb1696802872e10962308d3f8c7b7e52a",
+    "documents/api.md": "fee80f72c84c995d30b1c178bcaae6e121fe6cf65dda8ffc7b691af6762614a4",
+    "demonstration/probability.ipynb": "38be5e52a6cf9a51edb6f42f5d87631f151630e9f423b0f47dd2fc5f8aedd17c",
+    "tests/test_environment_rectangle.py": "fe71edd4dc6a7921b1abf85b2c3c686e22be3f9b2280521785b9eeef79e42739"
+  },
+  "tests": {
+    "passed": 1933,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 85.477,
+    "new_rectangle_regression_cases": 4,
+    "log": "documents/environment_rectangle_tests_20261011.log",
+    "junit": "documents/environment_rectangle_tests_20261011.xml"
+  }
+}

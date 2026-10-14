@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-12",
+  "engine": {
+    "repository": "https://github.com/mbedward/farsite.git",
+    "revision": "4537d60ab013fa91d0b49d8efb385ffb1b3ddd13",
+    "model_version": "legacy public FARSITE Unix port (Farsite5 source)",
+    "official_current_distribution": "FARSITE in FlamMap6, Windows 64 bit",
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "compiler": "/usr/bin/clang++",
+    "compiler_version": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "cflags": "-c -std=c++11 -O2 -Wall -DUNIX -Wno-deprecated -Wno-c++11-narrowing",
+    "macos_backup_copy_shim": true,
+    "pointer_syntax_fixes": [
+      "nonnull perimeter allocation check",
+      "pointer null return"
+    ],
+    "physical_model_changes": false,
+    "portability_patch_sha256": "d749d591719b3b7563b1d8bb63f6611a6d80288ab22e733172a19f95615dde0d",
+    "executable": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_source/src/TestFARSITE",
+    "executable_sha256": "1c4e23957f17f2eb0eabc6848c8778519a2f7299cc55a8b60e66cc40d7afd11e",
+    "build_log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_source/build.log",
+    "license": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_source/LICENSE"
+  },
+  "source_example": "examples/flatland/Inputs/c_inputSpecFiles/flatland_3mph0deg7hr_RAWS.input",
+  "requested_hours": 6,
+  "timings_duration_minutes": 360,
+  "raster_shape": [
+    100,
+    100
+  ],
+  "raster_cell_size_m": 30,
+  "output_nodata": -9999,
+  "valid_nonnegative_arrivals": 3150,
+  "arrival_minutes_min": 0.0,
+  "arrival_minutes_max": 419.856,
+  "arrivals_at_or_before_360_minutes": 2493,
+  "arrival_later_than_360_minutes": 657,
+  "engine_exit_code": 0,
+  "engine_log": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_upstream_smoke/engine.log",
+  "arrival_file": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_upstream_smoke/flatland_ArrivalTime.asc",
+  "timings_file": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_upstream_smoke/flatland_Timings.txt",
+  "output_time_policy": "Minutes since start; classify burned at h only for finite 0 <= arrival <= 60*h. NODATA means not burned during engine run, subject to separate input validity.",
+  "build_helper_tests": "11 passed"
+}

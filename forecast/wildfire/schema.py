@@ -24,6 +24,21 @@ SCHEMA_KEYS = ("source_channels", "channel_info", "categorical_encoding",
                "categorical_classes", "channel_groups")
 
 
+def probability_target_id(schema):
+    """Canonicalize the maintained one-hour endpoint's historical prose labels.
+
+    Unknown explicit labels are preserved so distinct endpoints cannot become
+    compatible through substring matching. Missing labels retain legacy status.
+    """
+    target = schema.get("target")
+    known = (
+        "currently unburned cell is burned at the exact next-hour snapshot",
+        "unburned at t becomes burned at exactly t+3600s",
+        "Currently unburned at t becomes burned at t+3600 seconds, using current t environmental context",
+    )
+    return "first_new_cumulative_burn_at_exact_next_hour" if target in known else target
+
+
 def one_hot_groups(schema):
     """Return complete categorical groups, accepting legacy continuous schemas."""
     if not any(key in schema for key in SCHEMA_KEYS):

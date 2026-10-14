@@ -19,7 +19,7 @@ from pathlib import Path
 
 import numpy as np
 
-from wildfire import load_model
+from wildfire import load_data, load_model
 from wildfire.data import DEFAULT_ROOT
 
 
@@ -39,15 +39,14 @@ def api_main():
     parser.add_argument("--output", type=Path, help="Save arrays to a new NPZ file")
     args = parser.parse_args()
     model = load_model(args.checkpoint, device=args.device)
-    with model.load_data(args.data_root, events=[args.event], sequence_length=1,
-                         time_range=(args.cutoff_utc, args.cutoff_utc)) as dataset:
-        if len(dataset) != 1:
-            raise ValueError("The example requires exactly one full-grid cutoff snapshot")
+    with load_data(args.data_root, events=[args.event], channels=model.channel_names,
+                   categorical_classes=model.predictor.categorical_classes or None,
+                   sequence_length=1, time_range=(args.cutoff_utc, args.cutoff_utc)) as dataset:
         sample = dataset[0]
-    probability, coordinates = model.predict_sample(sample)
-    prediction = model.predict_sample_details(sample)
+    prediction = model.predict(sample)
+    probability, coordinates = prediction.probability, prediction.coordinates
     arrays = {name: getattr(prediction, name).cpu().numpy()
-              for name in prediction.__dataclass_fields__}
+              for name in ("probability", "valid", "rate", "rate_valid")}
     arrays.update(probability=probability.cpu().numpy(), coordinates=coordinates.numpy(),
                   coordinate_epsg=np.asarray(4326, dtype=np.int64),
                   coordinate_order=np.asarray(["latitude", "longitude"]),
@@ -992,8 +991,9 @@ def flames_run(
     output.mkdir(parents=True, exist_ok=True)
     data_root = resolve_recorded_path(data_root).resolve()
     model = load_model(checkpoint, device=device)
-    with model.load_data(
-        data_root, events=[event], sequence_length=1,
+    with load_data(
+        data_root, events=[event], channels=model.channel_names,
+        categorical_classes=model.predictor.categorical_classes or None, sequence_length=1,
         time_range=(cutoff_utc, cutoff_utc), daily_policy="completed_day",
     ) as dataset:
         if len(dataset) != 1:

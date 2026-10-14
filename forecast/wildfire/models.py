@@ -23,7 +23,7 @@ from torch import Tensor, nn
 from torch.nn import functional as F
 
 from .paths import resolve_recorded_path
-from .schema import one_hot_groups
+from .schema import SCHEMA_KEYS, one_hot_groups, probability_target_id
 
 __all__ = [
     "BurnProbability", "EnvironmentConditionedConvolution", "new_burn_probability",
@@ -34,7 +34,8 @@ __all__ = [
     "initialize_mixed_kernel_rate", "NeuralMixedNonnegativeKernel",
     "build_neural_mixed_kernel_model", "neural_mixed_model_configuration",
     "initialize_neural_mixed_kernel_rate", "PatchRandomForest",
-    "NormalizedBurnModel", "TrainedBurnModel",
+    "NormalizedBurnModel", "TrainedBurnModel", "BayesianBurnModel",
+    "bayesian_model_weights",
 ]
 
 
@@ -1422,4 +1423,284 @@ class TrainedBurnModel(NormalizedBurnModel):
         return BurnProbability(
             prediction.probability.masked_fill(~valid, torch.nan), valid,
             prediction.rate.masked_fill(~rate_valid, torch.nan), rate_valid,
+        )
+
+
+def bayesian_model_weights(
+    probabilities,
+    target,
+    prior_weights=None,
+    sample_weight=None,
+    likelihood_power: Real = 1.0,
+) -> dict[str, Any]:
+    """Update model probabilities with an exact held-out Bernoulli likelihood.
+
+    ``probabilities[n, j]`` is the frozen prediction of component ``j`` for
+    calibration observation ``n``; ``target[n]`` is its binary outcome. With
+    default arguments, posterior model mass is proportional to
+    ``prior[j] * product_n p[n,j]**y[n] * (1-p[n,j])**(1-y[n])``. This is
+    conditional, plug-in Bayesian model averaging: component parameters are
+    already fitted, rather than integrated over a parameter posterior. The
+    product additionally assumes conditional independence of observations.
+
+    Optional strictly positive sampling weights are normalized to mean one.
+    They raise each observation's likelihood to its normalized weight; a
+    positive ``likelihood_power`` raises the entire likelihood to that power.
+    Either option defines a generalized Bayesian update, rather than the
+    ordinary unweighted likelihood. No probability clipping is performed:
+    an impossible observed outcome gives that component zero evidence.
+
+    The result contains only JSON primitives. ``None`` in a log-valued list
+    represents negative infinity (exactly zero evidence or mass). Posterior
+    logs retain finite support even when exponentiation underflows to zero.
+    ``effective_sample_count`` is the Kish count of normalized sampling
+    weights, while ``likelihood_exponent_total`` is their sum times the power.
+    """
+    def array(value, name):
+        if isinstance(value, Tensor):
+            value = value.detach().cpu().numpy()
+        result = np.asarray(value)
+        if result.dtype.kind not in "biuf":
+            raise TypeError(f"{name} must contain real numeric values")
+        return result.astype(np.float64, copy=False)
+
+    values = array(probabilities, "probabilities")
+    labels = array(target, "target")
+    if values.ndim != 2 or any(size == 0 for size in values.shape):
+        raise ValueError("probabilities must have nonempty shape [N, J]")
+    n, j = values.shape
+    if labels.shape != (n,) or not np.isin(labels, (0, 1)).all():
+        raise ValueError("target must have shape [N] with exactly binary outcomes")
+    if not np.isfinite(values).all() or ((values < 0) | (values > 1)).any():
+        raise ValueError("probabilities must be finite and lie in [0, 1]")
+    if (not isinstance(likelihood_power, Real) or isinstance(likelihood_power, bool)
+            or not math.isfinite(likelihood_power) or likelihood_power <= 0):
+        raise ValueError("likelihood_power must be finite and strictly positive")
+    power = float(likelihood_power)
+    if not math.isfinite(power * n):
+        raise ValueError("likelihood_power times the calibration sample count must be representable as a finite number")
+    priors = np.ones(j, dtype=np.float64) if prior_weights is None else array(
+        prior_weights, "prior_weights",
+    )
+    if (priors.shape != (j,) or not np.isfinite(priors).all()
+            or (priors < 0).any() or not (priors > 0).any()):
+        raise ValueError("prior_weights must have shape [J], be finite and nonnegative, and have positive mass")
+
+    def logsumexp(value):
+        maximum = float(np.max(value))
+        return maximum + math.log(float(np.exp(value - maximum).sum()))
+
+    log_prior = np.full(j, -np.inf, dtype=np.float64)
+    positive_prior = priors > 0
+    log_prior[positive_prior] = np.log(priors[positive_prior])
+    log_prior -= logsumexp(log_prior)
+    weights = np.ones(n, dtype=np.float64)
+    if sample_weight is not None:
+        supplied = array(sample_weight, "sample_weight")
+        if (supplied.shape != (n,) or not np.isfinite(supplied).all()
+                or not (supplied > 0).all()):
+            raise ValueError("sample_weight must have shape [N] and be finite and strictly positive")
+        # Scaling before summing prevents overflow for large positive weights.
+        weights = supplied / supplied.max()
+        weights /= weights.mean()
+    with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
+        terms = np.where(labels[:, None] == 1, np.log(values), np.log1p(-values))
+        impossible = np.isneginf(terms).any(axis=0)
+        # A strictly positive mathematical sampling weight cannot rescue an
+        # impossible outcome, even if its normalized float underflows to zero.
+        safe_terms = np.where(np.isfinite(terms), terms, 0)
+        # Contiguous last-axis reduction uses NumPy's pairwise summation,
+        # avoiding linear accumulation error on long calibration cohorts.
+        log_likelihood = np.ascontiguousarray((weights[:, None] * safe_terms).T).sum(axis=1)
+        log_likelihood[impossible] = -np.inf
+    possible = positive_prior & np.isfinite(log_likelihood)
+    if not possible.any():
+        raise ValueError("All components with positive prior mass assign zero likelihood to the calibration outcomes")
+    # Subtract a shared likelihood constant before tempering. This preserves
+    # the posterior while avoiding overflow of large finite likelihood powers.
+    reference = float(log_likelihood[possible].max())
+    scores = np.full(j, -np.inf, dtype=np.float64)
+    with np.errstate(over="ignore"):
+        scores[possible] = log_prior[possible] + power * (log_likelihood[possible] - reference)
+    if not np.isfinite(scores[possible]).all():
+        raise ValueError("The powered log likelihood exceeds the finite precision available for posterior model mass")
+    log_posterior = scores - logsumexp(scores)
+
+    def log_list(value):
+        return [None if np.isneginf(item) else float(item) for item in value]
+
+    normalized_prior = priors / priors.max()
+    normalized_prior /= normalized_prior.sum()
+    return {
+        "prior_weights": normalized_prior.tolist(),
+        "log_prior_weights": log_list(log_prior),
+        "log_likelihood": log_list(log_likelihood),
+        "log_posterior_weights": log_list(log_posterior),
+        "posterior_weights": np.exp(log_posterior).tolist(),
+        "sample_count": int(n),
+        "effective_sample_count": float(weights.sum() ** 2 / np.square(weights).sum()),
+        "likelihood_exponent_total": float(power * weights.sum()),
+        "sample_weight_normalization": "none" if sample_weight is None else "mean_one",
+        "likelihood_power": power,
+        "evidence_mode": (
+            "ordinary_conditional_plug_in_bayes" if sample_weight is None and power == 1.0
+            else "generalized_conditional_plug_in_bayes"
+        ),
+    }
+
+
+class BayesianBurnModel(nn.Module):
+    """Average independently fitted probabilities with frozen posterior mass.
+
+    Each single-kernel component retains its own fitted normalization. For
+    horizon ``t``, the output probability is ``sum_j pi[j] * p[j](t)``. The
+    returned rate is the effective *interval* rate
+    ``-log(sum_j pi[j] * exp(-lambda[j] * t)) / t``; its limit at ``t=0`` is
+    ``sum_j pi[j] * lambda[j]``. This rate generally changes with the horizon,
+    so it must not be reused as a constant rate for another interval.
+
+    Availability is the intersection over every component with finite log
+    posterior mass, including components whose mass underflows on conversion
+    to floating-point probabilities. A component with log mass ``-inf`` is
+    excluded. Missing data never cause local posterior renormalization.
+    Known burned targets and known zero-duration events have probability zero.
+    """
+
+    _ENDPOINT_KEYS = ("eligibility", "dt_hours", "center_rate")
+    _SHARED_KEYS = ("channels", "in_channels", *SCHEMA_KEYS, *_ENDPOINT_KEYS)
+
+    def __init__(self, components, log_posterior_weights, contract):
+        super().__init__()
+        members = list(components)
+        if len(members) < 2 or any(not isinstance(member, TrainedBurnModel) for member in members):
+            raise ValueError("BayesianBurnModel requires at least two independently trained single-kernel components")
+        if not isinstance(contract, Mapping):
+            raise TypeError("The Bayesian model contract must be a mapping")
+        baseline = members[0].contract
+        sizes = []
+        reference = members[0].mean
+        for member in members:
+            saved = member.contract
+            if (saved.get("architecture") not in ("EnvironmentConditionedConvolution", "LearnedNonnegativeKernel")
+                    or saved.get("dt_hours") != 1.0 or saved.get("center_rate") != 0.0):
+                raise ValueError("Bayesian components must be supported single-kernel hourly probability models")
+            size = saved.get("kernel_size")
+            if (not isinstance(size, int) or isinstance(size, bool) or size < 3 or size % 2 != 1
+                    or size != member.model.kernel_size):
+                raise ValueError("A Bayesian component kernel_size must match its odd single kernel")
+            sizes.append(size)
+            if (any(saved.get(key) != baseline.get(key) for key in (*self._SHARED_KEYS, "output_link"))
+                    or probability_target_id(saved) != probability_target_id(baseline)):
+                raise ValueError("Bayesian components must share their ordered channel schema and probability endpoint")
+            groups = one_hot_groups(saved)
+            if (tuple(saved["channels"]) != member.channel_names or groups != member.one_hot_groups
+                    or len(member.channel_names) != saved.get("in_channels")
+                    or not member.channel_names or len(set(member.channel_names)) != len(member.channel_names)
+                    or any(not isinstance(name, str) or not name for name in member.channel_names)):
+                raise ValueError("Invalid Bayesian component channel schema")
+            if (not reference.is_floating_point() or member.mean.shape != (len(member.channel_names), 1, 1)
+                    or member.std.shape != member.mean.shape or not torch.isfinite(member.mean).all()
+                    or not torch.isfinite(member.std).all() or not (member.std > 0).all()):
+                raise ValueError("Bayesian components require finite saved normalization with positive scales")
+            for tensor in (*member.parameters(), *member.buffers()):
+                if (tensor.device != reference.device
+                        or (tensor.is_floating_point() and tensor.dtype != reference.dtype)):
+                    raise ValueError("All Bayesian component parameters and preprocessing must share one device and dtype")
+        if len(set(sizes)) < 2:
+            raise ValueError("Bayesian components must include at least two distinct kernel sizes")
+        if (contract.get("architecture") != "BayesianModelAverage"
+                or ("format_version" in contract and contract["format_version"] != 1)
+                or contract.get("kernel_size") != max(sizes)
+                or probability_target_id(contract) != probability_target_id(baseline)
+                or any(contract.get(key) != baseline.get(key) for key in self._SHARED_KEYS)):
+            raise ValueError("The Bayesian contract must match its components and largest kernel size")
+        if "kernel_sizes" in contract:
+            declared_sizes = contract["kernel_sizes"]
+            if not isinstance(declared_sizes, (list, tuple)) or list(declared_sizes) != sizes:
+                raise ValueError("The Bayesian contract kernel_sizes must preserve component order")
+        original_logs = torch.as_tensor(log_posterior_weights, device="cpu", dtype=torch.float64)
+        if (original_logs.shape != (len(members),) or bool(torch.isnan(original_logs).any())
+                or bool(torch.isposinf(original_logs).any()) or not bool(torch.isfinite(original_logs).any())):
+            raise ValueError("log_posterior_weights must have shape [J] with finite or negative-infinite normalized log mass")
+        logs = original_logs.to(device=reference.device, dtype=reference.dtype)
+        if not torch.equal(torch.isfinite(original_logs), torch.isfinite(logs).cpu()):
+            raise ValueError("Finite posterior log mass must be representable in the component dtype")
+        log_total = torch.logsumexp(logs, dim=0)
+        tolerance = max(1e-12, 100 * torch.finfo(reference.dtype).eps)
+        if not bool(torch.abs(log_total) <= tolerance):
+            raise ValueError("log_posterior_weights must be normalized to total posterior mass one")
+        self.register_buffer("log_posterior_weights", (logs - log_total).detach().clone())
+        self.components = nn.ModuleList(members)
+        self.contract = deepcopy(dict(contract))
+        self.channel_names = tuple(baseline["channels"])
+        self.source_channels = tuple(baseline.get("source_channels", self.channel_names))
+        self.categorical_classes = deepcopy(baseline.get("categorical_classes", {}))
+        self.one_hot_groups = one_hot_groups(self.contract)
+        self.kernel_size = max(sizes)
+        self.best_epoch = 0
+        for parameter in self.parameters():
+            parameter.requires_grad_(False)
+        self.train(False)
+
+    @property
+    def posterior_weights(self):
+        """Posterior mass; use finite log mass to determine supported models."""
+        return self.log_posterior_weights.exp()
+
+    def train(self, mode: bool = True):
+        """Keep every fitted component in evaluation mode, including dropout."""
+        if not isinstance(mode, bool):
+            raise ValueError("training mode is expected to be boolean")
+        return super().train(False)
+
+    def forward(self, burned_area, environmental_data, *, channel_names,
+                burned_area_valid=None, feature_valid=None, dt_hours=1.0, boundary="unknown"):
+        if tuple(channel_names) != self.channel_names:
+            raise ValueError("Prediction channel names/order differ from the Bayesian checkpoint")
+        active = torch.isfinite(self.log_posterior_weights)
+        predictions = [
+            component(
+                burned_area, environmental_data, channel_names=channel_names,
+                burned_area_valid=burned_area_valid, feature_valid=feature_valid,
+                dt_hours=dt_hours, boundary=boundary,
+            )
+            for component, supported in zip(self.components, active)
+            if bool(supported)
+        ]
+        probabilities = torch.stack([result.probability for result in predictions])
+        rates = torch.stack([result.rate for result in predictions])
+        probability_valid = torch.stack([result.valid for result in predictions]).all(dim=0)
+        rate_valid = torch.stack([result.rate_valid for result in predictions]).all(dim=0)
+        logs = self.log_posterior_weights[active].reshape((-1,) + (1,) * (probabilities.ndim - 1))
+        weights = logs.exp()
+        safe_probability = torch.where(torch.isfinite(probabilities), probabilities, 0)
+        probability = (weights * safe_probability).sum(dim=0).clamp(0, 1)
+        safe_rate = torch.where(torch.isfinite(rates), rates, 0)
+        duration = _duration(dt_hours, tuple(burned_area.shape[:-3]), environmental_data)
+        attenuation = safe_rate * duration
+        minimum_rate = safe_rate.min(dim=0).values
+        shifted_attenuation = (safe_rate - minimum_rate) * duration
+        log_shifted_survival = torch.logsumexp(logs - shifted_attenuation, dim=0).clamp_max(0)
+        # log1p gives the same expression without cancellation near t=0;
+        # factoring out the smallest rate retains survival information when
+        # p rounds to one, including when every unshifted lambda*t overflows.
+        rate_probability = (weights * -torch.expm1(-attenuation)).sum(dim=0)
+        positive_duration = duration > 0
+        denominator = torch.where(positive_duration, duration, 1)
+        interval_rate = torch.where(
+            rate_probability < 0.5,
+            -torch.log1p(-rate_probability) / denominator,
+            minimum_rate - log_shifted_survival / denominator,
+        )
+        rate = torch.where(
+            positive_duration, interval_rate, (weights * safe_rate).sum(dim=0),
+        ).clamp_min(0)
+        rate_valid = rate_valid & torch.isfinite(rate)
+        known = _valid_mask(burned_area_valid, burned_area, "burned_area_valid") & torch.isfinite(burned_area)
+        exact_zero = known & ((burned_area == 1) | (duration == 0))
+        probability = torch.where(exact_zero, 0, probability)
+        probability_valid = probability_valid | exact_zero
+        return BurnProbability(
+            probability.masked_fill(~probability_valid, torch.nan), probability_valid,
+            rate.masked_fill(~rate_valid, torch.nan), rate_valid,
         )

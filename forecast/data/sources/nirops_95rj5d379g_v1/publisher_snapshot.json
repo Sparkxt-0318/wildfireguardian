@@ -1,0 +1,178 @@
+{
+  "id": "95rj5d379g",
+  "version": 1,
+  "name": "A high spatial resolution daily fire perimeter progression dataset for wildfires in the Western United States: 2020-2024",
+  "description": "This dataset provides high-resolution wildfire perimeter data interpreted from aerial infrared imagery collected by the U.S. Forest Service\u2019s National Infrared Operations (NIROPS) between June 2020 and November 2024. The dataset includes 12,705 observations across 737 unique fire incidents located within U.S. Forest Service Regions 1 through 6. Infrared perimeters were manually digitized by trained infrared interpreters and reflect active wildfire extents derived from thermal imaging during daily or sub-daily flight operations.\n\nOriginal perimeter files were retrieved from the public FTP server hosted by the U.S. National Interagency Fire Center (NIFC). These data were acquired in various formats (e.g., shapefiles, geodatabases, KMLs), and this dataset standardizes them into a consistent spatial format using EPSG:4326 (WGS 84). Temporal metadata were harmonized to UTC format, and geometries were validated to correct topological issues. Perimeters were selected based on a minimum inclusion criterion of three NIROPS collection days per fire, with at least one consecutive daily pair to capture progression.\n\nThis resource is especially useful for researchers conducting fire behavior modeling, evaluating fuel treatment effectiveness, or validating satellite-derived fire products. All fire polygons are attributed with the incident name, date/time of collection, and national unit identifiers to enable cross-referencing with other wildfire databases. A Python script is provided to automate retrieval, validation, and visualization, facilitating reproducibility and future dataset updates.\n\nThe dataset is organized as a single Esri shapefile containing individual fire perimeters with attributes describing the incident, acquisition time, and region. Spatial and temporal quality assurance was implemented via a programmatic validation pipeline and manual inspection. Summary plots and regional fire trends are also used to support exploratory analysis and identify anomalies.\n\nDue to NIROPS\u2019s operational deployment criteria, most included fires are of moderate to large size, and data collection often begins after the initial ignition. This dataset is best used to analyze fire progression and response activity rather than as a complete record of total burned area. Original infrared imagery is not publicly available; however, cross-validation with final incident perimeters and metadata helped ensure internal consistency.\n\nThis curated, high-resolution perimeter dataset offers an important resource for the wildfire science community, land managers, and policymakers seeking to understand fire growth patterns and improve preparedness and response planning.",
+  "method": "This dataset was derived entirely from publicly available fire perimeter data hosted by the U.S. National Interagency Fire Center (NIFC) at https://ftp.wildfire.gov/public/incident_specific_data/. Data collection focused on U.S. Forest Service Regions 1 through 6 and targeted folders labeled \u201cIR,\u201d which contain interpreted wildfire perimeters generated from thermal imagery by the National Infrared Operations (NIROPS) program.\n\nTo ensure reproducibility, a Python script is included in the accompanying repository. The script automates data acquisition by crawling the NIFC FTP directory, locating relevant infrared folders, downloading shapefiles and associated metadata, and extracting content while preserving the original folder structure. The code is compatible with Python 3.10+ and relies only on standard libraries. Complete setup and usage instructions are provided in the repository\u2019s README file.\n\nAfter download, the data were filtered to retain only fire events with at least three perimeter records, including at least one consecutive daily pair, to capture temporal fire progression. Metadata were standardized across files, with timestamps normalized to Coordinated Universal Time (UTC). When acquisition times were missing or inconsistently recorded, timestamps were estimated using filenames, metadata fields, and supplementary maps.\n\nAll perimeter geometries were reprojected to a common spatial reference (EPSG:4326) and checked for topological validity. Invalid features, such as self-intersections or gaps, were corrected using a zero-distance buffer, a standard method for repairing minor geometry issues. Files with unresolved geometry errors were excluded. A manual review step identified mislabeled or overlapping incidents, which were either corrected or removed based on supporting evidence from the FTP archive.\n\nThe final dataset is provided as a single shapefile containing all selected fire perimeters from June 2020 to December 2024. Each record includes incident name, acquisition timestamp, Forest Service region, and a national unit identifier to support administrative tracking and cross-referencing. The workflow is designed for scalability, users can easily adapt the configuration file to reproduce the dataset for additional regions, different years, or future updates, ensuring ongoing utility and transparency.",
+  "doi": "10.17632/95rj5d379g.1",
+  "publish_date": "2026-06-02T17:28:15.595Z",
+  "last_modification_date": "2026-06-01T21:18:42.042Z",
+  "is_confidential": false,
+  "customer": {
+    "id": "7377952c-6404-4428-bbfc-77242cfc301e",
+    "name": "Mendeley Guests",
+    "chief_id": 810289,
+    "config": {
+      "repository_id": "MENDELEY_DATA",
+      "dataset_size_limit": 10737418240,
+      "doi_prefix": "10.17632"
+    },
+    "is_user_mendeley_admin": false,
+    "customer_roles": [],
+    "is_guest": true,
+    "is_user_customer_moderator": false
+  },
+  "owner": {
+    "id": "c983c8e3-19d8-4f20-aced-b10deb029e20",
+    "first_name": "Shayne",
+    "last_name": "Magstadt",
+    "display_name": "Shayne Magstadt",
+    "$ref": "/profiles/c983c8e3-19d8-4f20-aced-b10deb029e20",
+    "profile": {
+      "id": "c983c8e3-19d8-4f20-aced-b10deb029e20",
+      "$ref": "/profiles/c983c8e3-19d8-4f20-aced-b10deb029e20"
+    }
+  },
+  "categories": [
+    {
+      "id": "data.elsevier.com/vocabulary/OmniScience/Concept-253057781",
+      "label": "Forest Fire"
+    },
+    {
+      "id": "data.elsevier.com/vocabulary/OmniScience/Concept-481422639",
+      "label": "Fire"
+    }
+  ],
+  "licence": {
+    "id": "01d9c749-3c4d-4431-9df3-620b2dcfe144",
+    "short_name": "CC BY 4.0",
+    "full_name": "Creative Commons Attribution 4.0 International",
+    "description": "You can share, copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY license, and indicate if changes were made, but you may not do so in a way that suggests the rights holder has endorsed you or your use of the dataset. Note that further permission may be required for any content within the dataset that is identified as belonging to a third party.",
+    "url": "http://creativecommons.org/licenses/by/4.0",
+    "category": "Creative",
+    "customer_id": null
+  },
+  "institutions": [
+    {
+      "id": "28bb0aeb-227c-5b80-b07e-7367f63141ac",
+      "name": "Colorado State University",
+      "url": "www.colostate.edu",
+      "location": {
+        "name": "Fort Collins",
+        "country": "US",
+        "country_code": "US",
+        "country_subdivision": "CO"
+      },
+      "edm:identifier": [
+        {
+          "type": "idtype:ROR",
+          "value": "https://ror.org/03k1gpj17"
+        }
+      ]
+    },
+    {
+      "id": "d5099311-43ff-5360-9f23-a894e21eb4bb",
+      "name": "USDA Forest Service Rocky Mountain Research Station",
+      "url": "forest.moscowfsl.wsu.edu",
+      "location": {
+        "name": "Fort Collins",
+        "country": "US",
+        "country_code": "US",
+        "country_subdivision": "CO"
+      }
+    },
+    {
+      "id": "20d85726-5b11-5ebd-9abf-83145e90a9e7",
+      "name": "Oak Ridge Institute for Science and Education",
+      "url": "orise.orau.gov",
+      "location": {
+        "name": "Oak Ridge",
+        "country": "US",
+        "country_code": "US",
+        "country_subdivision": "TN"
+      },
+      "edm:identifier": [
+        {
+          "type": "idtype:ROR",
+          "value": "https://ror.org/040vxhp34"
+        }
+      ]
+    }
+  ],
+  "funders": [
+    {
+      "grant_id": "23-IA-11221636-166",
+      "identity": "https://ror.org/03zmjc935",
+      "name": "US Forest Service",
+      "parent_name": "United States Department of Agriculture",
+      "location": "United States",
+      "subdivision_location": "District of Columbia"
+    },
+    {
+      "grant_id": "4-JV-11221636-175",
+      "identity": "https://ror.org/03zmjc935",
+      "name": "US Forest Service",
+      "parent_name": "United States Department of Agriculture",
+      "location": "United States",
+      "subdivision_location": "District of Columbia"
+    }
+  ],
+  "organisational_unit_names": [],
+  "contributors": [
+    {
+      "id": "c983c8e3-19d8-4f20-aced-b10deb029e20",
+      "first_name": "Shayne",
+      "last_name": "Magstadt",
+      "$ref": "/profiles/c983c8e3-19d8-4f20-aced-b10deb029e20",
+      "profile": {
+        "id": "c983c8e3-19d8-4f20-aced-b10deb029e20",
+        "$ref": "/profiles/c983c8e3-19d8-4f20-aced-b10deb029e20"
+      }
+    },
+    {
+      "id": "5338e7d9-c2c9-441d-9a45-348424efd19a",
+      "first_name": "rahul",
+      "last_name": "wadhwani",
+      "$ref": "/profiles/5338e7d9-c2c9-441d-9a45-348424efd19a",
+      "profile": {
+        "id": "5338e7d9-c2c9-441d-9a45-348424efd19a",
+        "$ref": "/profiles/5338e7d9-c2c9-441d-9a45-348424efd19a"
+      }
+    },
+    {
+      "first_name": "Matthew ",
+      "last_name": "Whitley"
+    },
+    {
+      "first_name": "Timothy ",
+      "last_name": "Martin"
+    },
+    {
+      "first_name": "Eleanor",
+      "last_name": "Sitter"
+    },
+    {
+      "id": "d01a0a5d-30bc-42db-8237-2f197e22aea5",
+      "first_name": "Yu",
+      "last_name": "Wei",
+      "$ref": "/profiles/d01a0a5d-30bc-42db-8237-2f197e22aea5",
+      "profile": {
+        "id": "d01a0a5d-30bc-42db-8237-2f197e22aea5",
+        "$ref": "/profiles/d01a0a5d-30bc-42db-8237-2f197e22aea5"
+      }
+    },
+    {
+      "id": "8099d41e-c2de-4f46-9949-cc64c4847ac8",
+      "first_name": "Christopher",
+      "last_name": "OConnor",
+      "$ref": "/profiles/8099d41e-c2de-4f46-9949-cc64c4847ac8",
+      "profile": {
+        "id": "8099d41e-c2de-4f46-9949-cc64c4847ac8",
+        "$ref": "/profiles/8099d41e-c2de-4f46-9949-cc64c4847ac8"
+      }
+    }
+  ],
+  "related_links": [],
+  "custom_metadata": {},
+  "is_metadata_only": false
+}

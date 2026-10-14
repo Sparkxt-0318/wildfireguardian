@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "source": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/api_tutorial.ipynb",
+  "source_sha256": "3a43b0b20ad5dfaf06e3838d99cf85c04304c147fd184ad2c3f5e8f11520e03a",
+  "executed_copy": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_decoupling/20261011/api_tutorial.executed.ipynb",
+  "executed_code_cells": 22,
+  "elapsed_seconds": 6.985966125008417,
+  "artifacts": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/demonstration/api_tutorial/runs/run-_7ej1_gh",
+  "data_loading": {
+    "sequence_length": null,
+    "source_channels": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class"
+    ],
+    "full_timeline_feature_shape": [
+      1639,
+      19,
+      103,
+      73
+    ],
+    "full_timeline_start_utc": "2024-08-21T00:00:00+00:00",
+    "full_timeline_end_utc": "2024-10-28T06:00:00+00:00",
+    "valid_hours": 1639
+  },
+  "optional_preparation_run": false,
+  "optional_training_run": false
+}

@@ -762,6 +762,7 @@ def resplit_main(argv=None):
 # The raw source rasters are never modified.
 
 from collections import defaultdict
+import operator
 
 import pandas as pd
 import rasterio
@@ -769,6 +770,7 @@ from scipy.ndimage import minimum_filter
 
 from wildfire.data import WildfireSequenceDataset
 from wildfire.data import DEFAULT_ROOT
+from wildfire.data import load_data
 from wildfire.schema import CHANNELS
 from wildfire.schema import TRAINING_SOURCE_CHANNELS
 
@@ -832,8 +834,28 @@ def _patches(array, rows, cols, radius=1):
     return windows[:, rows - radius, cols - radius].transpose(1, 0, 2, 3).copy()
 
 
-def prepare_event(root, event, event_index, rng, contact_limit, no_contact_limit, chunk_hours=24,
+def _chunk_hours(value):
+    if value is None:
+        return None
+    if isinstance(value, (bool, np.bool_)):
+        raise ValueError("chunk_hours must be a positive integer or None")
+    try:
+        result = operator.index(value)
+    except TypeError as error:
+        raise ValueError("chunk_hours must be a positive integer or None") from error
+    if result < 1:
+        raise ValueError("chunk_hours must be a positive integer or None")
+    return result
+
+
+def prepare_event(root, event, event_index, rng, contact_limit, no_contact_limit, chunk_hours=None,
                   *, source_channels=None, categorical_classes=None, channel_names=None, kernel_size=3):
+    """Extract weighted next-hour rows from an event's complete selected timeline.
+
+    chunk_hours=None loads that entire timeline once. A positive integer reads
+    bounded windows while retaining identical sampled rows, targets, and weights.
+    """
+    chunk_hours = _chunk_hours(chunk_hours)
     if type(kernel_size) is not int or kernel_size < 3 or kernel_size % 2 != 1:
         raise ValueError("kernel_size must be an odd integer at least three")
     radius = kernel_size // 2
@@ -892,7 +914,7 @@ def prepare_event(root, event, event_index, rng, contact_limit, no_contact_limit
     storage = defaultdict(list)
     unknown_environment = 0
     files = [root / event["arrival_path"]]
-    dataset = WildfireSequenceDataset(
+    dataset = load_data(
         root, events=[event["id"]], sequence_length=chunk_hours, temporal_stride=chunk_hours,
         patch_size=None, channels=CHANNELS if source_channels is None else source_channels,
         categorical_encoding="one_hot", categorical_classes=categorical_classes,
@@ -905,17 +927,18 @@ def prepare_event(root, event, event_index, rng, contact_limit, no_contact_limit
         for model in state["hourly_times"]:
             files.append(root / "regions" / event["id"] / "weather" / f"{model}_bands.csv")
             files.append(root / "regions" / event["id"] / "weather" / f"{model}_complete.json")
-        blocks = np.unique(indices // chunk_hours)
+        block_hours = hours + 1 if chunk_hours is None else chunk_hours
+        blocks = np.unique(indices // block_hours)
         for block in blocks:
             sample = dataset[int(block)]
             features = sample["features"].numpy()
             feature_valid = sample["feature_valid"].numpy()
             burned = sample["burned_area"].numpy()
             label_valid = sample["burned_area_valid"].numpy()
-            selected = np.flatnonzero(indices // chunk_hours == block)
+            selected = np.flatnonzero(indices // block_hours == block)
             for hour in np.unique(indices[selected]):
                 positions = selected[indices[selected] == hour]
-                local = int(hour % chunk_hours)
+                local = int(hour % block_hours)
                 rr, cc = rows[positions], cols[positions]
                 assert bool(sample["time_valid"][local])
                 current_utc = int(sample["time_utc"][local])
@@ -971,6 +994,7 @@ def prepare_season_cache(args):
     The weighted split is applied afterwards, so a different split seed never
     changes the selected negative examples, labels, or inclusion weights.
     """
+    chunk_hours = _chunk_hours(getattr(args, "chunk_hours", None))
     if args.kernel_size < 3 or args.kernel_size % 2 != 1:
         raise ValueError("kernel_size must be an odd integer at least three")
     if args.contact_negatives_per_event <= 0 or args.no_contact_negatives_per_event <= 0:
@@ -991,7 +1015,7 @@ def prepare_season_cache(args):
             root, event, index, rng, args.contact_negatives_per_event, args.no_contact_negatives_per_event,
             source_channels=schema["source_channels"], categorical_classes=schema["categorical_classes"],
             channel_names=schema["channels"],
-            kernel_size=args.kernel_size,
+            kernel_size=args.kernel_size, chunk_hours=chunk_hours,
         )
         per_event.append(audit)
         source_files.update(files)
@@ -1013,6 +1037,8 @@ def prepare_season_cache(args):
     metadata = dict(
         created_at_utc=datetime.now(timezone.utc).isoformat(), data_root=str(root),
         **schema, kernel_size=args.kernel_size, dt_hours=1.0, seed=args.seed,
+        data_loading=dict(mode="full_event_timeline" if chunk_hours is None else "time_windows",
+                          chunk_hours=chunk_hours),
         evaluation_grouping="pooled_countries",
         event_ids=[event["id"] for event in catalog],
         splits={event["id"]: season_split(event) for event in catalog},
@@ -1035,30 +1061,37 @@ def prepare_season_cache(args):
     print(json.dumps(split_summary, indent=2), flush=True)
 
 
-def prepare_main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--data-root", type=Path, default=DEFAULT_ROOT)
-    parser.add_argument("--contact-negatives-per-event", type=int, default=5000)
-    parser.add_argument("--no-contact-negatives-per-event", type=int, default=2000)
-    parser.add_argument("--seed", type=int, default=7, help="Negative-sampling seed")
-    parser.add_argument("--kernel-size", type=int, default=3)
-    parser.add_argument("--channels", nargs="+", default=TRAINING_SOURCE_CHANNELS,
-                        help="Ordered source fields; categorical fields expand into complete one-hot groups")
-    parser.add_argument("--split-policy", choices=("weighted-cell-hour", "season"),
-                        default="weighted-cell-hour",
-                        help="Weighted stratified train/validation rows (default), or historical whole-season split")
-    parser.add_argument("--validation-fraction", type=float, default=0.2,
-                        help="Target validation share of weighted positive and negative population (default: 0.2)")
-    parser.add_argument("--split-seed", type=int, default=7,
-                        help="Split seed, independent of negative sampling (default: 7)")
-    args = parser.parse_args()
-    if not np.isfinite(args.validation_fraction) or not 0 < args.validation_fraction < 1:
-        parser.error("--validation-fraction must be strictly between zero and one")
-    if args.split_seed < 0:
-        parser.error("--split-seed must be nonnegative")
+def _preparation_integer(value, name, minimum):
+    if isinstance(value, (bool, np.bool_)):
+        raise ValueError(f"{name} must be an integer at least {minimum}")
+    try:
+        result = operator.index(value)
+    except TypeError as error:
+        raise ValueError(f"{name} must be an integer at least {minimum}") from error
+    if result < minimum:
+        raise ValueError(f"{name} must be an integer at least {minimum}")
+    return result
+
+
+def _prepare_training_data(args):
+    """Shared preparation implementation for Python and the command line."""
+    if args.split_policy not in ("weighted-cell-hour", "season"):
+        raise ValueError("split_policy must be weighted-cell-hour or season")
+    try:
+        valid_fraction = np.isfinite(args.validation_fraction) and 0 < args.validation_fraction < 1
+    except (TypeError, ValueError) as error:
+        raise ValueError("validation_fraction must be finite and strictly between zero and one") from error
+    if not valid_fraction:
+        raise ValueError("validation_fraction must be finite and strictly between zero and one")
+    for name, minimum in (("seed", 0), ("split_seed", 0), ("kernel_size", 3),
+                          ("contact_negatives_per_event", 1), ("no_contact_negatives_per_event", 1)):
+        setattr(args, name, _preparation_integer(getattr(args, name), name, minimum))
+    if args.kernel_size % 2 != 1:
+        raise ValueError("kernel_size must be an odd integer at least three")
+    args.chunk_hours = _chunk_hours(getattr(args, "chunk_hours", None))
     if args.split_policy == "season":
-        return prepare_season_cache(args)
+        prepare_season_cache(args)
+        return args.output_dir.resolve()
     destination = args.output_dir.resolve()
     if destination.exists() and any(destination.iterdir()):
         raise FileExistsError("Prepared output directory is not empty; choose a new directory")
@@ -1094,6 +1127,75 @@ def prepare_main():
         record["output_cache_sha256"]["metadata.json"] = _prepare_hash(metadata_path)
         (destination / "resplit.json").write_text(json.dumps(record, indent=2, allow_nan=False) + "\n")
         print(json.dumps(record, indent=2), flush=True)
+    return destination
+
+
+def prepare_training_data(
+    output_dir: str | Path, *, data_root: str | Path = DEFAULT_ROOT,
+    channels=TRAINING_SOURCE_CHANNELS, kernel_size: int = 3,
+    contact_negatives_per_event: int = 5000, no_contact_negatives_per_event: int = 2000,
+    seed: int = 7, split_policy: str = "weighted-cell-hour",
+    validation_fraction: float = .2, split_seed: int = 7,
+    chunk_hours: int | None = None,
+) -> Path:
+    """Prepare a training cache from independent event data without a model.
+
+    Return the resolved output directory containing train.npz, validation.npz,
+    test.npz, and metadata.json. By default event data is loaded as complete
+    timelines; chunk_hours selects bounded reads without changing sampled
+    targets or inclusion weights. The weighted-cell-hour policy repartitions
+    the original training/validation pool while preserving test archive bytes.
+    The season policy retains the historical whole-season partitions. Negative
+    sampling uses seed; the independent training/validation split uses
+    split_seed. An existing nonempty output directory is rejected.
+    """
+    if isinstance(channels, (str, bytes)):
+        raise ValueError("channels must be an ordered sequence of source field names")
+    try:
+        source_channels = tuple(channels)
+    except TypeError as error:
+        raise ValueError("channels must be an ordered sequence of source field names") from error
+    if (not source_channels or any(not isinstance(name, str) or not name for name in source_channels)
+            or len(set(source_channels)) != len(source_channels)):
+        raise ValueError("channels must contain distinct nonempty source field names")
+    args = argparse.Namespace(
+        output_dir=Path(output_dir).expanduser(), data_root=Path(data_root).expanduser(),
+        channels=source_channels, kernel_size=kernel_size,
+        contact_negatives_per_event=contact_negatives_per_event,
+        no_contact_negatives_per_event=no_contact_negatives_per_event,
+        seed=seed, split_policy=split_policy, validation_fraction=validation_fraction,
+        split_seed=split_seed, chunk_hours=chunk_hours,
+    )
+    return _prepare_training_data(args)
+
+
+def prepare_main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--data-root", type=Path, default=DEFAULT_ROOT)
+    parser.add_argument("--contact-negatives-per-event", type=int, default=5000)
+    parser.add_argument("--no-contact-negatives-per-event", type=int, default=2000)
+    parser.add_argument("--seed", type=int, default=7, help="Negative-sampling seed")
+    parser.add_argument("--kernel-size", type=int, default=3)
+    parser.add_argument("--channels", nargs="+", default=TRAINING_SOURCE_CHANNELS,
+                        help="Ordered source fields; categorical fields expand into complete one-hot groups")
+    parser.add_argument("--chunk-hours", type=int, default=None,
+                        help="Positive time-window length for bounded reads; omitted loads each complete event timeline")
+    parser.add_argument("--split-policy", choices=("weighted-cell-hour", "season"),
+                        default="weighted-cell-hour",
+                        help="Weighted stratified train/validation rows (default), or historical whole-season split")
+    parser.add_argument("--validation-fraction", type=float, default=0.2,
+                        help="Target validation share of weighted positive and negative population (default: 0.2)")
+    parser.add_argument("--split-seed", type=int, default=7,
+                        help="Split seed, independent of negative sampling (default: 7)")
+    args = parser.parse_args()
+    if not np.isfinite(args.validation_fraction) or not 0 < args.validation_fraction < 1:
+        parser.error("--validation-fraction must be strictly between zero and one")
+    if args.split_seed < 0:
+        parser.error("--split-seed must be nonnegative")
+    if args.chunk_hours is not None and args.chunk_hours < 1:
+        parser.error("--chunk-hours must be a positive integer")
+    return _prepare_training_data(args)
 
 
 

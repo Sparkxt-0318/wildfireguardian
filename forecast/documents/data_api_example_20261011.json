@@ -1,0 +1,149 @@
+{
+  "event_id": "WY-BTF-002416_FishCreek",
+  "cutoff_utc": "2024-08-23T00:00:00Z",
+  "family": "exponential",
+  "device": "cpu",
+  "channels": [
+    "weather.temperature_2m",
+    "weather.wind_eastward_10m",
+    "weather.wind_northward_10m",
+    "terrain.slope_degrees",
+    "vegetation.tree_cover_percent",
+    "biome.biome_class=1",
+    "biome.biome_class=2",
+    "biome.biome_class=3",
+    "biome.biome_class=4",
+    "biome.biome_class=5",
+    "biome.biome_class=6",
+    "biome.biome_class=7",
+    "biome.biome_class=8",
+    "biome.biome_class=9",
+    "biome.biome_class=10",
+    "biome.biome_class=11",
+    "biome.biome_class=12",
+    "biome.biome_class=13",
+    "biome.biome_class=14"
+  ],
+  "probability_shape": [
+    1,
+    1,
+    103,
+    73
+  ],
+  "coordinate_shape": [
+    103,
+    73,
+    2
+  ],
+  "coordinate_order": [
+    "latitude",
+    "longitude"
+  ],
+  "coordinate_epsg": 4326,
+  "known_predictions": 1246,
+  "unknown_predictions": 6273,
+  "minimum_known_probability": 0.0,
+  "maximum_known_probability": 0.07078481465578079,
+  "complete_expected_heat_available": false,
+  "heat_coordinate_shape": [
+    103,
+    73,
+    2
+  ],
+  "heat_flux_units": "W/m2",
+  "incident_energy_units": "J/m2",
+  "heat_parameters": "duration-aware arrival scenario with illustrative uniform fuel and combustion",
+  "heat_residence_provenance": {
+    "method": "scott_burgan_2005_fbfm40_anderson_residence",
+    "equation": "sigma_ft_inv = sum(load * particle_sav_ft_inv**2) / sum(load * particle_sav_ft_inv); duration_s = 384 * 60 / sigma_ft_inv",
+    "output_unit": "seconds",
+    "sources": [
+      {
+        "author_year": "Anderson 1969",
+        "url": "https://research.fs.usda.gov/download/treesearch/40489.pdf",
+        "location": "printed pp.15-16"
+      },
+      {
+        "author_year": "Andrews 2018",
+        "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+        "location": "section 4.2, printed p.27"
+      }
+    ],
+    "meaning": "point-scale passing surface-fire flaming-front residence time",
+    "limitations": [
+      "excludes indefinite trailing burning and smouldering",
+      "assumes no fuel-bed packing effect",
+      "does not determine coarse-cell traversal time or subcell flame positions",
+      "does not establish arrival time or an active-flame observation"
+    ],
+    "input_provenance": {
+      "source": "FBFM40 reference-fuel raster",
+      "path": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/data/environment/regions/WY-BTF-002416_FishCreek/fuel/landfire_2016_fbfm40_375m.tif",
+      "crs": "EPSG:5070",
+      "epsg": 5070,
+      "transform": [
+        375.0,
+        0.0,
+        -1141125.0,
+        0.0,
+        -375.0,
+        2393250.0
+      ],
+      "shape": [
+        103,
+        73
+      ],
+      "source_tags": {
+        "native_resolution_m": "30",
+        "product": "FBFM40",
+        "resampling": "mode",
+        "source": "LANDFIRE 2016 Remap, LF2.0.0",
+        "temporal_note": "static 2016 Remap baseline, including capable fuels conventions; not event-date field measurements",
+        "units": "official encoded product value; consult product legend",
+        "AREA_OR_POINT": "Area"
+      },
+      "physical_definition": "reference fuel classes, not measured event-specific flaming durations",
+      "alignment_checks": {
+        "affine_transform": true,
+        "shape": true,
+        "epsg": true
+      },
+      "sha256": "27bbcdcc85dadddf69ed82abf91213dccd8795686960e0e54b15564861c5c666"
+    },
+    "fuel_catalog": {
+      "author_year": "Scott and Burgan 2005",
+      "url": "https://research.fs.usda.gov/download/treesearch/9521.pdf",
+      "location": "table 7, p.18; constants p.17; code assignment table 1, p.5"
+    },
+    "sav_weighting_source": {
+      "author_year": "Andrews 2018",
+      "url": "https://research.fs.usda.gov/download/treesearch/55928.pdf",
+      "location": "sections 3.2.3-3.2.5, pp.21-24"
+    },
+    "dynamic_curing": "characteristic SAV invariant because transferred herbaceous load preserves SAV (Scott and Burgan p.6)",
+    "gs4_source_note": "table 7 parameters imply approximately 1631 ft^-1, consistent with Andrews table 8c; Scott and Burgan GS4 summary reports 1674 ft^-1",
+    "catalog_codes_used": {
+      "101": "GR1",
+      "102": "GR2",
+      "121": "GS1",
+      "122": "GS2",
+      "142": "SH2",
+      "161": "TU1",
+      "165": "TU5",
+      "181": "TL1",
+      "183": "TL3",
+      "188": "TL8"
+    },
+    "catalog_cell_count": 7346,
+    "fallback_cell_count": 173,
+    "missing_code_cell_count": 0,
+    "unsupported_finite_codes": [
+      98,
+      99
+    ],
+    "fallback_scenario_supplied": true,
+    "fallback_sav_m_inv": 6561.679790026246
+  },
+  "initial_active_burning_cells": 0,
+  "heat_endpoint_complete": false
+}
