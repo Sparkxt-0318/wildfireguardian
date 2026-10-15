@@ -313,3 +313,12 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The demo gate now runs fire mode on synthetic video and on the playlist, and ember mode on a generated phone scene; all three runs passed with no errors, so `wfglink-demo-20261015-3` is recorded in DEMO_BUILDS.md (the tag push is refused by the session's git proxy, as before).
 - Decisions: none.
 - Next step: the ember-booth verification and the file-mode scale workflow.
+
+## 2026-10-15T17:30+08:00 C10 tracking stress run (tracking only)
+
+- Goal: run the sparkler clip (4x slow motion; user decision: tracking only) through file mode.
+- Commands: `bash wfglink/scripts/run_from_head.sh python -m wfglink process data/clips/C10_sparkler.yaml --no-overlay --out results/runs/process/C10_head` at 6bcab7d (outputs not tracked).
+- Parameters: configs/default.yaml at 6bcab7d; segment 40 to 60 s.
+- Results: the run completed; the summary keeps tracks and drops speeds, counts and flux with the stated reason, as the clip settings ask. Nothing is quoted from it: it has no ground truth and is a stress test only.
+- Decisions: an overlay check of a short C10 segment follows once the file-mode scale change lands, since that changes how 4K clips are analysed.
+- Next step: integrate the booth verification fixes and the scale workflow.
