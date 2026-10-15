@@ -1,9 +1,0 @@
-numpy>=2.0
-scipy>=1.13
-pandas>=2.2
-matplotlib>=3.9
-rasterio>=1.4
-pyproj>=3.6
-xarray>=2024.6
-netCDF4>=1.7
-pycomlink>=0.6.0
