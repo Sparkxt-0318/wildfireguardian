@@ -191,3 +191,17 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - These are tuning numbers. Headline numbers will come from the mismatch suite, evaluated once after the streak-length fix.
   - No retuning on these numbers: the detection limit is set by compression, and the README states it.
 - Next step: review and apply the streak-length workflow result, rerun the tests, re-record the core numbers, then evaluate the mismatch and coverage suites once.
+
+## 2026-10-15T08:50+08:00 Demo build on 1c57833; pipeline counters in the booth heartbeat for the soak
+
+- Goal: keep a demo build on the latest commit, and make the overnight soak show whether the booth kept measuring, not only whether it kept painting.
+- Commands:
+  - `bash wfglink/scripts/tag_demo.sh 60` (log results/runs/tag_demo_20261015b.log, not tracked).
+  - `python -m pytest -q tests/test_sitting2.py -k "pipeline or sample_row or soak"`; `python -m pytest -q -m "slow or not slow" tests/test_pipeline.py tests/test_booth_app.py -k "booth_mode_through or runs_end_to_end"`; `python -m pytest -q -m "slow or not slow" tests/test_sitting2.py`.
+- Parameters: new key `sitting2.analysis_stall_s` (180 s).
+- Results:
+  - Demo gate passed on 1c57833 with no errors on the synthetic source and on C5, so `wfglink-demo-20261015-2` is recorded in DEMO_BUILDS.md (the tag push is refused by the session's git proxy, as before). The clip run painted fewer frames than the morning build because the container was heavily loaded by the coverage generation and the streak workflow.
+  - The heartbeat now carries the active pipeline's counters (frames received, analysed, repeated, unclean, without codes, loops, source frames shown). The soak analysis compares them between samples of one app instance on one source and reports the share of frames read clean, the source coverage, and stalls: stretches of at least `sitting2.analysis_stall_s` in which frames arrived but none was analysed, or none arrived. Any stall fails the soak, since a paused or hidden iPad should make the booth switch source within seconds. Older CSVs without the counters still analyse ("not enough data" for this part).
+  - New and extended tests pass. The sitting 2 dry run failed its check B coverage assertion during this run; the change does not touch the coverage computation, and the dry run's simulated camera runs in real time, so CPU starvation is the likely cause. A control run of the same test on the committed HEAD under the same load is running.
+- Decisions: a soak stall is a failure, not a warning.
+- Next step: read the control result; if the dry run also fails at HEAD under load, rerun both when the load drops and record the outcome here.

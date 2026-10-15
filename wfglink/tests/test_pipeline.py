@@ -91,6 +91,8 @@ def test_booth_mode_through_a_filmed_screen(tmp_path):
     # Statistics run across loops: every source frame is analysed at most once per loop.
     assert s.frames_analysed <= 2 * 60
     assert s.frames_analysed > 2 * 40
+    # Source frames shown, counted across the loop, bound the frames analysed (coverage <= 1).
+    assert s.frames_analysed <= s.source_advance <= 2 * 60
     assert st.image is not None
 
 

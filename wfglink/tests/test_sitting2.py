@@ -15,6 +15,7 @@ from wfglink.sitting.sitting2 import (Sitting2, choose_hold, choose_hold_coverag
                                       coverage_summary, merge_local_config, run_stats, unplug_timing,
                                       window_coverage)
 from wfglink.sitting.soak import (analyse_soak, append_row, count_log_events, load_samples, mem_slope,
+                                  pipeline_progress,
                                   paint_fps_series, run_sampler, sample_row)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -388,6 +389,71 @@ def test_sampler_writes_rows_and_cleans_up(tmp_path):
     hb.unlink()
     run_sampler(hb, out, every_s=0.01, pid_file=tmp_path / "s.pid", max_samples=1)
     assert load_samples(out)[-1]["status"] == "missing"
+
+
+def _pipe_rows(path: Path) -> Path:
+    """Booth soak sampled every minute: 10 min of normal analysis on the iPhone (30 camera
+    frames/s, 2 of 3 read clean, half of those repeats of a held frame), then 5 min with the
+    codes unreadable but the screen check not falling back, then a switch to the webcam
+    (counters restart) for 5 min of normal analysis, then an app restart."""
+    rows, t = [], T0
+    c = {"pipe_in": 0, "pipe_analysed": 0, "pipe_duplicate": 0, "pipe_unclean": 0, "pipe_no_code": 0,
+         "pipe_loops": 0, "pipe_advance": 0}
+
+    def add(pid, key, minutes, stalled):
+        nonlocal t
+        for _ in range(minutes):
+            rows.append({**_row(t, pid, t - T0, 300.0, 30 * (t - T0)), **c, "pipe_key": key})
+            t += 60.0
+            c["pipe_in"] += 1800
+            if stalled:
+                c["pipe_unclean"] += 1800
+            else:
+                c["pipe_analysed"] += 600
+                c["pipe_duplicate"] += 600
+                c["pipe_unclean"] += 600
+                c["pipe_advance"] += 610      # a few source frames are never read clean
+        rows.append({**_row(t, pid, t - T0, 300.0, 30 * (t - T0)), **c, "pipe_key": key})
+        t += 60.0
+
+    add(111, "iphone", 10, False)
+    add(111, "iphone", 5, True)
+    for k in c:
+        c[k] = 0
+    add(111, "webcam", 5, False)
+    for k in c:
+        c[k] = 0
+    add(222, "iphone", 3, False)
+    for r in rows:
+        append_row(path, r)
+    return path
+
+
+def test_pipeline_progress_finds_analysis_stalls(tmp_path):
+    rows = load_samples(_pipe_rows(tmp_path / "soak.csv"))
+    p = pipeline_progress(rows, stall_s=180.0)
+    assert p["verdict"] == "fail" and p["stalls"] == 1
+    st = p["stall_list"][0]
+    assert st["cause"] == "unclean" and st["minutes"] == pytest.approx(6.0)   # 5 stalled minutes plus the boundary sample
+    assert p["frames_analysed"] == 600 * (10 + 5 + 3)
+    assert p["coverage"] == pytest.approx(600 / 610, abs=1e-4)
+    # A threshold above the stall passes; an old CSV without pipeline columns has no verdict.
+    assert pipeline_progress(rows, stall_s=600.0)["verdict"] == "pass"
+    plain = tmp_path / "plain.csv"
+    for r in rows:
+        append_row(plain, {k: v for k, v in r.items() if not k.startswith("pipe_")})
+    assert pipeline_progress(load_samples(plain))["verdict"] == "not enough data"
+    rep = analyse_soak(tmp_path / "soak.csv", tmp_path / "none.log", T0, None, warmup_s=0)
+    assert rep["pipeline"]["verdict"] == "fail"
+
+
+def test_sample_row_copies_pipeline_counters():
+    hb = {"status": "running", "epoch": T0, "pid": 7, "rss_mb": {"7": 500.0},
+          "pipeline": {"key": "iphone", "frames_in": 90, "frames_analysed": 30, "frames_duplicate": 30,
+                       "frames_unclean": 30, "frames_no_code": 0, "loops": 1, "source_advance": 31}}
+    row = sample_row(hb, now=T0 + 1)
+    assert row["pipe_key"] == "iphone" and row["pipe_in"] == 90 and row["pipe_advance"] == 31
+    assert sample_row({"status": "running", "epoch": T0, "pid": 7}, now=T0 + 1)["pipe_in"] == ""
 
 
 def test_soak_edge_cases(tmp_path):

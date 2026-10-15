@@ -25,6 +25,7 @@ from typing import Any
 import numpy as np
 from PySide6.QtCore import QObject, QTimer, Signal
 
+from wfglink.pipeline import heartbeat_counters
 from wfglink.render.scene import LiveState
 
 MAX_W, MAX_H = 1920, 1080
@@ -207,3 +208,9 @@ class ProcessBoothWorker(QObject):
 
     def stats(self) -> dict[str, Any]:
         return {"frames": self.frames, "errors": self.errors[-10:], "mode": "process"}
+
+    def pipeline_counters(self) -> dict[str, Any] | None:
+        """The active pipeline's frame counters from the child's last report (at most
+        STATS_EVERY_S old; they restart on a source switch)."""
+        key = self.source_key
+        return heartbeat_counters(key, self.pipelines.get(key) if key is not None else None)

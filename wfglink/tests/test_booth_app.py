@@ -119,12 +119,12 @@ def test_screen_note_and_source_fields():
     assert source_fields(plain, synth, frame, None)["source_state"] == "synthetic"
 
 
-def _run_booth(tmp_path: Path, cfg_text: str, source: str, seconds: float) -> dict:
+def _run_booth(tmp_path: Path, cfg_text: str, source: str, seconds: float, extra: tuple[str, ...] = ()) -> dict:
     cfgfile = tmp_path / "run.yaml"
     cfgfile.write_text(cfg_text)
     report = tmp_path / "r.json"
     res = subprocess.run([sys.executable, "-m", "wfglink", "booth", "--source", source, "--screen", "primary",
-                          "--duration", str(seconds), "--config", str(cfgfile), "--report", str(report)],
+                          "--duration", str(seconds), "--config", str(cfgfile), "--report", str(report), *extra],
                          capture_output=True, text=True, timeout=180,
                          env={**os.environ, "QT_QPA_PLATFORM": "offscreen"})
     assert res.returncode == 0, res.stderr[-2000:]
@@ -135,7 +135,8 @@ def _run_booth(tmp_path: Path, cfg_text: str, source: str, seconds: float) -> di
 @pytest.mark.qt
 @pytest.mark.parametrize("mode", ["thread", "process"])
 def test_booth_runs_end_to_end(tmp_path, mode):
-    r = _run_booth(tmp_path, f"live:\n  worker_mode: {mode}\n", "synthetic", 6)
+    hb = tmp_path / "heartbeat.json"
+    r = _run_booth(tmp_path, f"live:\n  worker_mode: {mode}\n", "synthetic", 6, ("--heartbeat", str(hb)))
     assert r["worker_mode"] == mode
     assert r["errors"] == []
     assert r["frames"] > 20 and r["paints"] > 20
@@ -144,6 +145,10 @@ def test_booth_runs_end_to_end(tmp_path, mode):
     assert [e["event"] for e in r["source_events"]][:1] == ["activated"]
     assert r["pipelines"]["synthetic"]["frames_in"] > 20
     assert r["source_states"].get("synthetic", 0) > 20
+    # The heartbeat carries the active pipeline's counters for the soak analysis.
+    pipe = json.loads(hb.read_text())["pipeline"]
+    assert pipe["key"] == "synthetic"
+    assert 20 < pipe["frames_analysed"] <= pipe["frames_in"] <= r["pipelines"]["synthetic"]["frames_in"]
 
 
 # The paused iPad, end to end (camera-in-the-loop simulator) ---------------------------------------

@@ -76,7 +76,7 @@ Why several windows: the iPhone and the iPad run on separate clocks that differ 
 bash ~/wfglink-run/wfglink/scripts/sitting2.sh --finish
 ```
 
-It stops the booth and the sampler, analyses the night (hours, frames per second, memory growth, restarts, camera switches, errors), asks whether the iPhone was uncomfortably hot, and prints one line. Paste that line to Claude. The full report is `~/wfglink-sitting2/report_sitting2.json`; Claude may ask for it.
+It stops the booth and the sampler, analyses the night (hours, frames per second, memory growth, restarts, camera switches, errors, and whether the booth kept measuring), asks whether the iPhone was uncomfortably hot, and prints one line. "Kept measuring" uses the frame counters in the booth's heartbeat: the soak fails if, on one camera, frames kept arriving but none was analysed (or none arrived) for 3 minutes (`sitting2.analysis_stall_s`), because a paused or hidden iPad should make the booth switch source within seconds. The report also gives the share of camera frames read clean and the source coverage through the night. Paste that line to Claude. The full report is `~/wfglink-sitting2/report_sitting2.json`; Claude may ask for it.
 
 If you already pressed Esc twice on the booth, the soak ended then; `--finish` still works and counts the night up to that moment. It only stops processes the soak itself started, so a booth you started by hand is left alone, and it never reinstalls the environment the booth runs from. Running `--finish` a second time shows the same result again.
 

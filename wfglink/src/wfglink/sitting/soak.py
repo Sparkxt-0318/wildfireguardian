@@ -22,7 +22,10 @@ or SIGINT. In the morning `analyse_soak` turns the CSV and logs/booth.log into:
   worker memory could not be read is left out rather than summed short;
 - restarts: "app ended" lines that booth.sh wrote during the soak (rotated logs too),
   with the app instances seen in the samples as a check;
-- source switches and processing errors seen in the heartbeat.
+- source switches and processing errors seen in the heartbeat;
+- whether the app kept analysing (`pipeline_progress`): the share of frames read clean,
+  the source coverage in booth mode, and stalls in which frames arrived but none was
+  analysed (a failure the screen check missed).
 
     python -m wfglink.sitting.soak analyse --csv SOAK.csv --start EPOCH [--end EPOCH]
 """
@@ -43,8 +46,13 @@ from typing import Any, Iterable
 
 import numpy as np
 
+# Pipeline counters from the heartbeat (wfglink.pipeline.HEARTBEAT_COUNTERS): CSV column -> counter.
+PIPE_COLUMNS = {"pipe_in": "frames_in", "pipe_analysed": "frames_analysed", "pipe_duplicate": "frames_duplicate",
+                "pipe_unclean": "frames_unclean", "pipe_no_code": "frames_no_code", "pipe_loops": "loops",
+                "pipe_advance": "source_advance"}
 COLUMNS = ["sample_epoch", "sample_time", "hb_epoch", "hb_age_s", "status", "pid", "uptime_s", "frames", "paints",
-           "fps", "source", "state", "errors", "last_error", "rss_mb", "rss_detail", "hb_status"]
+           "fps", "source", "state", "errors", "last_error", "rss_mb", "rss_detail", "hb_status",
+           "pipe_key", *PIPE_COLUMNS]
 LOG_LINE = re.compile(r"^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) \[booth\.sh\] (.*)$")
 
 
@@ -82,6 +90,10 @@ def sample_row(hb: dict[str, Any] | None, now: float | None = None, stale_s: flo
         "rss_mb": round(sum(vals), 1) if vals else "", "rss_detail": json.dumps(rss, separators=(",", ":")),
         "hb_status": hb.get("status", ""),     # the app's own status, kept when the row is stale
     })
+    pipe = hb.get("pipeline") or {}
+    if pipe:
+        row["pipe_key"] = pipe.get("key") or ""
+        row.update({col: pipe.get(name, "") for col, name in PIPE_COLUMNS.items()})
     return row
 
 
@@ -152,8 +164,9 @@ def load_samples(csv_path: str | Path) -> list[dict[str, Any]]:
     rows = []
     with open(csv_path, newline="", encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
-            for k in ("sample_epoch", "hb_epoch", "hb_age_s", "uptime_s", "frames", "paints", "fps", "errors", "rss_mb"):
-                r[k] = _num(r.get(k))
+            for k in ("sample_epoch", "hb_epoch", "hb_age_s", "uptime_s", "frames", "paints", "fps", "errors", "rss_mb",
+                      *PIPE_COLUMNS):
+                r[k] = _num(r.get(k))     # pipeline columns are None in a CSV from an older sampler
             r["pid"] = str(r.get("pid") or "")
             try:   # the processes whose memory was summed: the app, plus its worker in process mode
                 r["rss_key"] = ",".join(sorted(json.loads(r.get("rss_detail") or "{}")))
@@ -290,6 +303,68 @@ def source_changes(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "last_error": last_error or None, "samples_by_state": states}
 
 
+def pipeline_progress(rows: list[dict[str, Any]], stall_s: float = 180.0) -> dict[str, Any]:
+    """Whether the app kept analysing, from the heartbeat's pipeline counters.
+
+    Counters are compared between consecutive samples of the same app instance and the
+    same source (they restart on a restart or a source switch). Reported:
+    - clean_fraction: frames analysed or recognised as a repeat of the last one, over the
+      frames received (in booth mode, camera frames whose screen codes read clean);
+    - coverage (booth mode): new source frames analysed over source frames shown, the
+      quantity check B's hold rule is built on;
+    - stalls: stretches of at least stall_s in which frames kept arriving but none was
+      analysed, or no frame arrived, while the app was alive on one source. A paused or
+      lost screen should make the source chain fall back within seconds, so a long stall is
+      a failure the screen check missed. The cause is the counter that grew most.
+    """
+    live = [r for r in _live(rows) if r.get("pipe_in") is not None]
+    tot = {"in": 0.0, "analysed": 0.0, "duplicate": 0.0, "advance": 0.0}
+    stalls: list[dict[str, Any]] = []
+    cur: dict[str, Any] | None = None
+    intervals = 0
+
+    def close() -> None:
+        nonlocal cur
+        if cur is not None and cur["s"] >= stall_s:
+            cause = max(cur["grew"], key=cur["grew"].get) if any(cur["grew"].values()) else "no_input"
+            stalls.append({"at": cur["at"], "minutes": round(cur["s"] / 60.0, 1), "cause": cause})
+        cur = None
+
+    for a, b in zip(live, live[1:]):
+        if a["pid"] != b["pid"] or a.get("pipe_key") != b.get("pipe_key"):
+            close()
+            continue
+        d = {col: (b[col] or 0.0) - (a[col] or 0.0) for col in PIPE_COLUMNS}
+        if any(v < 0 for v in d.values()):     # counters restarted (a new pipeline under the same key)
+            close()
+            continue
+        intervals += 1
+        tot["in"] += d["pipe_in"]
+        tot["analysed"] += d["pipe_analysed"]
+        tot["duplicate"] += d["pipe_duplicate"]
+        tot["advance"] += d["pipe_advance"]
+        if d["pipe_analysed"] > 0:
+            close()
+            continue
+        if cur is None:
+            cur = {"at": a["sample_time"], "s": 0.0, "grew": {"repeated": 0.0, "unclean": 0.0, "no_code": 0.0}}
+        cur["s"] += b["hb_epoch"] - a["hb_epoch"]
+        cur["grew"]["repeated"] += d["pipe_duplicate"]
+        cur["grew"]["unclean"] += d["pipe_unclean"]
+        cur["grew"]["no_code"] += d["pipe_no_code"]
+    close()
+    if intervals == 0:
+        return {"intervals": 0, "verdict": "not enough data"}
+    return {
+        "intervals": intervals, "frames_in": int(tot["in"]), "frames_analysed": int(tot["analysed"]),
+        "clean_fraction": round((tot["analysed"] + tot["duplicate"]) / tot["in"], 4) if tot["in"] else None,
+        "coverage": round(tot["analysed"] / tot["advance"], 4) if tot["advance"] else None,
+        "stall_s": stall_s, "stalls": len(stalls), "stall_minutes": round(sum(s["minutes"] for s in stalls), 1),
+        "longest_stall_min": max((s["minutes"] for s in stalls), default=0.0), "stall_list": stalls[:20],
+        "verdict": "fail" if stalls else "pass",
+    }
+
+
 def _pct(values: list[float], q: float) -> float | None:
     return round(float(np.percentile(values, q)), 2) if values else None
 
@@ -308,7 +383,7 @@ def sampling_gaps(rows: list[dict[str, Any]], factor: float = 3.0) -> tuple[int,
 
 def analyse_soak(csv_path: str | Path, log: str | Path, start_epoch: float, end_epoch: float | None = None,
                  last_h: float = 6.0, warmup_s: float = 600.0, mem_max_mb_h: float = 20.0,
-                 min_hours: float = 1.0) -> dict[str, Any]:
+                 min_hours: float = 1.0, stall_s: float = 180.0) -> dict[str, Any]:
     """The morning analysis. A clean exit (Esc pressed twice) ends the soak, because booth.sh
     stops with it: later samples come from whatever runs afterwards (for example the booth
     started for the rehearsal) and are left out, as is the time after it."""
@@ -358,6 +433,7 @@ def analyse_soak(csv_path: str | Path, log: str | Path, start_epoch: float, end_
         "instances": len(set(pids)), "pid_changes": pid_changes,
         "source_switches": src["switches"], "source_transitions": src["transitions"],
         "errors": src["errors"], "last_error": src["last_error"], "samples_by_state": src["samples_by_state"],
+        "pipeline": pipeline_progress(rows, stall_s=stall_s),
     }
 
 

@@ -1072,7 +1072,8 @@ class Sitting2:
                                 last_h=float(s2["mem_fit_last_h"]),
                                 warmup_s=0.0 if self.dry else float(s2["mem_warmup_s"]),
                                 mem_max_mb_h=float(s2["mem_slope_max_mb_h"]),
-                                min_hours=float(s2["mem_min_hours"]))
+                                min_hours=float(s2["mem_min_hours"]),
+                                stall_s=float(s2.get("analysis_stall_s", 180.0)))
         if self.dry:
             analysis["note"] = "dry run: a soak of seconds, so the memory slope is warm-up, not a leak"
         out["analysis"] = analysis
@@ -1084,6 +1085,15 @@ class Sitting2:
                       f"{analysis['restarts']}; source switches {analysis['source_switches']}; errors {analysis['errors']}")
             (self.c.ok if mem["verdict"] != "fail" else self.c.fail)(
                 f"Memory slope {mem['slope_mb_h']} MB/h over {mem['span_h']} h ({mem['verdict']}, limit {mem['max_mb_h']:g})")
+            pipe = analysis.get("pipeline") or {}
+            if pipe.get("verdict") == "fail":
+                self.c.fail(f"Analysis stalled {pipe['stalls']} time(s) for {pipe['stall_minutes']} min in all "
+                            f"(longest {pipe['longest_stall_min']} min, cause {pipe['stall_list'][0]['cause']}) while the "
+                            "booth kept running on one source: the screen check did not catch it.")
+            elif pipe.get("verdict") == "pass":
+                cov = f", source coverage {pipe['coverage']:.3f}" if pipe.get("coverage") is not None else ""
+                frac = f"{pipe['clean_fraction']:.3f}" if pipe.get("clean_fraction") is not None else "n/a"
+                self.c.ok(f"Analysis never stalled: {pipe['frames_analysed']} frames analysed, clean fraction {frac}{cov}")
             if analysis.get("sampling_gaps"):
                 self.c.warn(f"{analysis['sampling_gaps']} gap(s) in the samples ({analysis['sampling_gap_h']} h): "
                             "the Mac slept, restarted, or the sampler stopped.")
@@ -1189,7 +1199,9 @@ class Sitting2:
                            "paint_fps_p5": an.get("paint_fps_p5"), "mem_slope_mb_h": mem.get("slope_mb_h"),
                            "mem": mem.get("verdict"), "restarts": an.get("restarts"),
                            "instances": an.get("instances"), "switches": an.get("source_switches"),
-                           "errors": an.get("errors")}
+                           "errors": an.get("errors"),
+                           "analysis": {k: (an.get("pipeline") or {}).get(k) for k in
+                                        ("verdict", "clean_fraction", "coverage", "stalls", "longest_stall_min")}}
             out["iphone_hot"] = fin.get("iphone_hot")
         errors = {k: v.get("error") for k, v in s.items() if v.get("status") == "error"}
         if errors:

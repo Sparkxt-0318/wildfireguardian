@@ -179,6 +179,7 @@ sitting2:
   mem_fit_last_h: 6.0            # soak: the memory fit uses the last hours only (all data when shorter)
   mem_warmup_s: 600              # soak: samples from an app's first seconds of uptime are left out of the fit
   mem_min_hours: 1.0             # soak: shorter soaks report a slope but no pass or fail
+  analysis_stall_s: 180          # soak: frames arriving but none analysed (or none arriving) this long on one source fails
   hb_stale_s: 30                 # soak sampler: a heartbeat older than this is recorded as stale
   run_seconds: 30                # check B: seconds per booth run (hold 2, hold 3): clean-frame yield, fps, the screen
   unplug_seconds: 60             # unplug test: run length

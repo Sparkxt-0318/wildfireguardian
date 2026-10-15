@@ -38,7 +38,7 @@ from wfglink.io.devices import AutoCameraSource, camera_backends, list_cameras, 
 from wfglink.io.frames import Frame
 from wfglink.io.sources import CameraSpec, FileSource
 from wfglink.io.synthetic_live import SyntheticLiveSource
-from wfglink.pipeline import BoothContext, Pipeline, frame_wall_time, screen_index
+from wfglink.pipeline import BoothContext, Pipeline, frame_wall_time, heartbeat_counters, screen_index
 from wfglink.render.scene import LiveState, paint_scene
 from wfglink.ui.live_check import choose_screen
 
@@ -306,6 +306,12 @@ class BoothWorker(QThread):
         return {"source": self.chain.status.key, "source_events": last_events(self.chain.events, n_events),
                 "pipelines": {k: p.stats.as_dict() for k, p in self._pipes.items()}}
 
+    def pipeline_counters(self) -> dict[str, Any] | None:
+        """The active pipeline's frame counters (they restart on a source switch)."""
+        key = self._active_key
+        pipe = self._pipes.get(key) if key is not None else None
+        return heartbeat_counters(key, pipe.stats if pipe is not None else None)
+
 
 class BoothWindow(QWidget):
     def __init__(self, lang: str = "ko"):
@@ -416,6 +422,11 @@ class Heartbeat:
                 "fps": round(st.fps or 0.0, 2), "source": st.source_label, "state": st.source_state,
                 "errors": len(worker.errors), "last_error": worker.errors[-1] if worker.errors else None,
                 "rss_mb": {str(k): (round(v, 1) if v is not None else None) for k, v in self._rss.items()}}
+        counters = getattr(worker, "pipeline_counters", None)
+        if counters is not None:
+            # Frames received and analysed by the active pipeline, so the soak can tell an
+            # app that keeps painting from one that keeps analysing.
+            data["pipeline"] = counters()
         tmp = self.path.with_suffix(".tmp")
         tmp.write_text(json.dumps(data, ensure_ascii=False))
         tmp.replace(self.path)

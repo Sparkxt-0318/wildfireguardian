@@ -119,6 +119,7 @@ class PipelineStats:
     frames_torn: int = 0
     frames_no_code: int = 0
     loops: int = 0
+    source_advance: int = 0              # booth: source frames shown between clean frames, loops included
     tracks_finished: int = 0             # confirmed tracks that ended, static ones included
     tracks_static: int = 0
     proc_ms: deque = field(default_factory=lambda: deque(maxlen=300))
@@ -131,6 +132,19 @@ class PipelineStats:
         seen = self.frames_analysed + self.frames_unclean
         d["clean_frame_yield"] = (self.frames_analysed + self.frames_duplicate) / max(self.frames_in, 1) if seen else None
         return d
+
+
+HEARTBEAT_COUNTERS = ("frames_in", "frames_analysed", "frames_duplicate", "frames_unclean", "frames_no_code",
+                      "loops", "source_advance")
+
+
+def heartbeat_counters(key: str | None, stats: "PipelineStats | dict | None") -> dict[str, Any] | None:
+    """The active pipeline's frame counters for the booth heartbeat: plain integers, so they
+    can be read from another thread (or from the process worker's last stats report)."""
+    if stats is None:
+        return None
+    get = stats.get if isinstance(stats, dict) else (lambda k, d=0: getattr(stats, k, d))
+    return {"key": key, **{k: int(get(k, 0) or 0) for k in HEARTBEAT_COUNTERS}}
 
 
 def _smooth_tail(pts: np.ndarray, max_turn_deg: float = 100.0) -> np.ndarray:
@@ -375,14 +389,18 @@ class Pipeline:
             meta["rect_image"] = r.image
             return None, None, None, meta
         idx = int(code.index)
-        if self._last_index is not None and idx < self._last_index:
+        prev = self._last_index
+        if prev is not None and idx < prev:
             loops = self.stats.loops + 1
             self.reset(keep_loops=True)
             self.stats.loops = loops
-        if self._last_index is not None and idx == self._last_index:
+        if prev is not None and idx == prev:
             self.stats.frames_duplicate += 1
             self.last_state.image = r.image
             return None, None, None, {**meta, "duplicate": True, "rect_image": r.image}
+        # Source frames shown since the last clean one (1 after a loop or a start), so that
+        # frames_analysed / source_advance is the source coverage over any stretch of time.
+        self.stats.source_advance += idx - prev if prev is not None and idx > prev else 1
         self._last_index = idx
         times = self.booth.source_times
         t = float(times[idx]) if 0 <= idx < len(times) and np.isfinite(times[idx]) else idx / 30.0
