@@ -128,6 +128,14 @@ if dm2.exists():
             add(f"booth.{k}", v, f"Booth demo simulator: {k}", "results/demo_booth_metrics.json",
                 "demo/lastgasp_demo (headless)", d.get("provenance", cur))
 
+bf = ROOT / "results/booth_figure_metrics.json"
+if bf.exists():
+    d = json.loads(bf.read_text())
+    for k, v in d.items():
+        if isinstance(v, (int, float)):
+            add(f"booth_figure.{k}", v, f"Booth figure (world 0, single run): {k}", "results/booth_figure_metrics.json",
+                "scripts/13_booth_figure.py", d["provenance"], d["provenance"]["config"])
+
 out = {"_note": "All values are from SYNTHETIC simulations, not real-world performance.",
        "_generated_by": "scripts/07_numbers.py", "_generated_at_commit": cur, "numbers": numbers}
 (ROOT / "results/NUMBERS.json").write_text(json.dumps(out, indent=1))
