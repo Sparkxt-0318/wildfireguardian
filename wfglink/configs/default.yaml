@@ -26,12 +26,26 @@ detect:
     large_mask_dilate_px: 7      # exclusion band around large bright regions
     moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
   streaks:
-    refine: false                # file mode: remeasure moments in an oriented window (detect/streaks.py)
+    method: erf                  # file mode streak length (detect/streaks.py): erf (edge profile fit, below) or moments (the detector's moments; refine adds the oriented window)
+    refine: false                # method moments only: remeasure moments in an oriented window (detect/streaks.py)
     refine_min_length_px: 2.0
     iterations: 2
     margin_sigma: 2.5            # window reaches this many PSF widths past the ends and to each side
     max_change: 0.6              # a refinement changing the length more than this fraction is discarded
-    min_psf_sigma_px: 0.7
+    min_psf_sigma_px: 0.7        # smallest PSF sigma assumed for a window (refine and erf)
+    erf:                         # method erf: a box with two error-function edges fitted to the profile along the streak
+      gamma: 2.2                 # luma is decoded with this power law before the fit, because the model is linear in light; it must match the camera's tone curve (2.2: sRGB or Rec.709 video; 1: linear video; a log or HDR profile needs its own value)
+      reach: 1.5                 # the first window covers a streak this many times the detector's length (its faint ends are cut off) ...
+      margin_sigma: 3.0          # ... plus this many PSF widths past each end
+      half_width_sigma: 3.0      # the window reaches this many PSF widths to each side of the axis
+      step_px: 1.0               # profile sample spacing along and across the axis (bilinear samples)
+      iterations: 1              # 2 repeats the fit once in a window centred on the first fit, axis turned to the halves' centroids
+      max_turn_deg: 20.0         # iterations 2: largest axis turn
+      ramp_sigma: 0.0            # > 0: brightness may change linearly along the streak (flicker within the exposure), prior sd of the end-to-end change
+      max_iter: 8                # Levenberg-Marquardt steps of the joint fit
+      across_iter: 4             # Levenberg-Marquardt steps of the first across-profile fit (0 = start from the detector's width)
+      max_half_length_px: 60.0   # longest window half-length
+      sigma_range_px: [0.3, 6.0] # a fit with its PSF sigma at either bound keeps the detector's length
   saturation:
     level_dn: 250
     flag_min_px: 2               # at least this many saturated pixels sets the saturated flag
