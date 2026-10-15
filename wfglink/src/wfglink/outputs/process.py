@@ -139,7 +139,8 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                  t_exp: float | None = None, overlay: bool | None = None, lang: str = "ko",
                  overlay_size: tuple[int, int] = (1920, 1080), max_seconds: float | None = None,
                  m_per_px: float | None = None, distance_m: float | None = None,
-                 start_s: float = 0.0, roi: tuple[float, float, float, float] | None = None) -> dict[str, Any]:
+                 start_s: float = 0.0, roi: tuple[float, float, float, float] | None = None,
+                 metrics_scope: str = "all") -> dict[str, Any]:
     from wfglink.io.probe import probe_video
 
     cfg = cfg or load_config()
@@ -279,6 +280,16 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         if dt.size and np.nanmax(dt) > 1.5 * np.nanmedian(dt):
             warnings.append("frame intervals vary (variable frame rate or dropped frames); true timestamps are used")
 
+    if metrics_scope == "tracking_only":
+        # The clip's timebase is not real time (slow motion): speeds, rates, counts per second and
+        # flux would be wrong by the slow-down factor, so only tracking quantities are reported.
+        dropped = [k for k in ("speed_px_s", "count_rate_per_s", "count_rate_ci", "pnf", "cpc_gross", "cpc_gross_ci",
+                               "cpc_net", "cpc_net_ci", "duration_s") if k in totals]
+        for k in dropped:
+            totals.pop(k)
+        totals["not_reported"] = {"quantities": dropped, "reason": "metrics_scope tracking_only: the timebase is not real time"}
+        warnings.append("tracking only: speeds, counts and flux are not reported for this clip (its timebase is not real time)")
+
     import av
     import cv2
     import scipy
@@ -294,6 +305,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         "units": {"position": "px", "speed": "px/s" if m_per_px is None else "px/s (m/s = px/s x m_per_px)",
                   "calibrated": m_per_px is not None, "m_per_px": m_per_px, "distance_m": distance_m},
         "exposure": exp_info,
+        "metrics_scope": metrics_scope,
         "totals": totals,
         "warnings": warnings,
         "outputs": {k: v.name for k, v in files.items()} | ({"overlay": "overlay.mp4"} if overlay else {}),

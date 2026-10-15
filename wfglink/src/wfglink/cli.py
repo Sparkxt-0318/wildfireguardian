@@ -59,7 +59,7 @@ def cmd_process(args: argparse.Namespace) -> int:
     out = Path(args.out) if args.out else PROJECT_ROOT / "results" / "runs" / "process" / (cc.get("clip_id") or clip.stem)
     s = process_clip(clip, out, cfg, gate=gate, t_exp=args.exposure or cc.get("exposure_s"), overlay=not args.no_overlay,
                      lang=args.lang, max_seconds=end, m_per_px=args.m_per_px, distance_m=args.distance_m,
-                     start_s=start, roi=roi)
+                     start_s=start, roi=roi, metrics_scope=str(cc.get("metrics_scope") or "all"))
     t = s["totals"]
     print(f"{clip.name}: {t.get('frames')} frames, {t.get('tracks_moving')} moving tracks, "
           f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
