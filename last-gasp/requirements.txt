@@ -1,5 +1,0 @@
-# Tested with Python 3.13 on Linux; all packages ship Apple Silicon (macOS arm64) wheels.
-numpy==2.5.4
-scipy==1.18.1
-matplotlib==3.11.2
-requests==2.34.2
