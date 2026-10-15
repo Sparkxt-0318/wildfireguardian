@@ -214,3 +214,19 @@ def test_a_slow_consumer_skips_frames_and_the_picture_does_not_lag(tmp_path):
     assert max(np.diff(idx)) >= 3                                    # frames were skipped, not queued
     (f0, w0), (f1, w1) = got[1], got[-1]
     assert abs((f1.t - f0.t) - (w1 - w0)) < 0.35                     # the newest frame keeps pace with the clock
+
+
+def test_clips_csv_rows_have_every_column():
+    """Every row of data/clips.csv parses into exactly the header's columns, with a credit line.
+
+    A field holding a comma must be quoted; an unquoted one shifts every later column and the
+    booth would show part of a licence note as the credit."""
+    import csv
+
+    with open(PROJECT_ROOT / "data" / "clips.csv", newline="", encoding="utf-8") as fh:
+        rows = list(csv.reader(fh))
+    header = rows[0]
+    for r in rows[1:]:
+        assert len(r) == len(header), (r[0], len(r), len(header))
+        d = dict(zip(header, r))
+        assert d["credit_line"].strip() and d["license"].strip(), d["clip_id"]

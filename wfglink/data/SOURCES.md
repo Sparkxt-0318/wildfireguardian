@@ -40,5 +40,6 @@ The approved shortlist (C1 to C13, with C14 conditional and C15 pending permissi
 
 | Clip | Title | License | Credit line | Page URL | Accessed | SHA-256 |
 |---|---|---|---|---|---|---|
+| C10_sparkler | Sparkler in Ultra-HD 4k (5k-crop) | CC BY-SA 3.0 | #Reaper (Reaper35), CC BY-SA 3.0, via Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Sparkler_in_Ultra-HD_4k_(5k-crop).webm | 2026-10-15 | e7a4544a0ede68bd |
 | C5_nist_emberometer | NIST's Emberometer Measures Wildfire-Spreading Embers (2021) | Public domain (US federal work; EurekAlert lists no restrictions) | Credit: NIST | https://www.nist.gov/video/nists-emberometer-measures-wildfire-spreading-embers | 2026-10-15 | 4aa46db5950172d6 |
 | C6_nist_dragon | With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014) | Public domain (NIST lab footage only, 17.05 to 22.55 s; the Shutterstock dragon graphic up to 16.72 s and the uncredited still from 22.62 s are cut before any use) | Credit: NIST | https://www.nist.gov/video/its-dragon-nist-aims-reduce-toll-wildfires-0 | 2026-10-15 | b3e509647f1a6ae7 |
