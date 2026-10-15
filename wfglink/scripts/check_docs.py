@@ -32,7 +32,7 @@ DASH_GLOBS = ["*.md", "docs/*.md", "data/*.md", "booth/*.md", "configs/**/*.yaml
 TAG_RE = re.compile(r"<!--\s*n:([A-Za-z0-9_.\-]+)\s*-->")
 # A number not glued to letters, other digits, dots, hyphens, slashes or colons.
 NUM_RE = re.compile(r"(?<![\w.\-/:])(\d+(?:\.\d+)?)(?![\w\-/:]|\.\d)")
-TAGGED_NUM_RE = re.compile(r"(-?\d+(?:\.\d+)?)\s*(?:%|[^\s<]*)?\s*<!--\s*n:([A-Za-z0-9_.\-]+)\s*-->")
+TAGGED_NUM_RE = re.compile(r"(?<![\w.])(-?\d+(?:\.\d+)?)\s*(?:%|[^\s<]*)?\s*<!--\s*n:([A-Za-z0-9_.\-]+)\s*-->")
 EXEMPT_PREV_WORDS = {"section", "sections", "version", "step", "steps", "milestone", "check", "python", "figure", "table", "sitting", "sittings"}
 
 
@@ -77,8 +77,14 @@ def tag_problems(numbers: dict) -> list[str]:
                 entry = numbers.get(key)
                 if entry is None or not isinstance(entry.get("value"), (int, float)):
                     continue
-                want = round(float(entry["value"]), decimals(shown))
-                if abs(float(shown) - want) > 1e-9:
+                # The append-only LOG may quote any recorded value of a key (its history);
+                # every other document quotes the current one.
+                values = [entry["value"]]
+                if path == ROOT / "LOG.md":
+                    values += [h.get("value") for h in entry.get("history") or []]
+                ok = any(isinstance(v, (int, float)) and abs(float(shown) - round(float(v), decimals(shown))) <= 1e-9
+                         for v in values)
+                if not ok:
                     problems.append(f"{path.relative_to(ROOT)}:{i}: shows {shown} but n:{key} is {entry['value']}")
     return problems
 

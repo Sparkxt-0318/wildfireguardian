@@ -63,14 +63,14 @@ The two hands-on sittings on the Mac: docs/SITTING1.md (setup, camera and permis
 
 ## Current status
 
-2026-10-15: detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth screen with its supervisor and the synthetic generator are built and tested. The setup change of 2026-10-15 dropped the live camera of the first plan: the booth plays approved clips in real time and analyses them as they play, with the Mac setup, doctor and soak scripts and the placards. The booth change of 2026-10-15 drops the LED turntable test and adds the raw or analysed toggle (key A) and the "Become an ember" live mode (key M): a camera chosen by name, the phone page, the A4 calibration, and validation on synthetic phones and your recordings (PLAN.md section 4.4 and section 7).
+2026-10-15: detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth screen with its supervisor and the synthetic generator are built and tested. The setup change of 2026-10-15 dropped the live camera of the first plan: the booth plays approved clips in real time and analyses them as they play, with the Mac setup, doctor and soak scripts and the placards. The booth change of 2026-10-15 drops the LED turntable test and adds the raw or analysed toggle (key A) and the "Become an ember" live mode (key M): a camera chosen by name, the phone page, the A4 calibration, and validation on synthetic phones and your recordings (PLAN.md section 4.4 and section 7). Real compressed video of bright scenes no longer floods the detector (the mirror test, docs/METHODS.md section 2), and file mode measures streak length with an edge-profile fit.
 
 Core suite (synthetic, used for tuning; held-out headline numbers come later from the mismatch suite):
 
-- Track speed is accurate wherever embers are tracked: median relative error 0.020 <!-- n:core.base.track_speed_med_rel_err --> and direction error 1.01 <!-- n:core.base.direction_med_err_deg --> degrees in the base case.
-- Detection is limited by compression: half the embers are found at an SNR of 15.2 <!-- n:core.base.snr50 -->, so base-case F1 is 0.386 <!-- n:core.base.f1 --> while bright embers are found with recall 0.855 <!-- n:core.base.recall_bright -->. The plan's F1 goal is met only for bright embers (F1 0.907 <!-- n:core.snr-30.f1 --> in the high-SNR case).
+- Track speed is accurate wherever embers are tracked: median relative error 0.020 <!-- n:core.base.track_speed_med_rel_err --> and direction error 1.03 <!-- n:core.base.direction_med_err_deg --> degrees in the base case.
+- Detection is limited by compression: half the embers are found at an SNR of 15.2 <!-- n:core.base.snr50 -->, so base-case F1 is 0.385 <!-- n:core.base.f1 --> while bright embers are found with recall 0.855 <!-- n:core.base.recall_bright -->. The plan's F1 goal is met only for bright embers (F1 0.907 <!-- n:core.snr-30.f1 --> in the high-SNR case).
 - Counts are lower bounds: in every base clip the gate count lies between the bright-ember and all-visible truths (fraction 1.0 <!-- n:core.base.gate_between_bounds -->).
-- The exposure estimate declines on every core case (base value 0.0 <!-- n:core.base.exposure_ok -->) until streak lengths are measured in proportion to true length; that fix is in progress. Streak speeds are not reported until then.
+- The exposure estimate still declines on every core case (base value 0.0 <!-- n:core.base.exposure_ok -->): the new length fit recovers the faint ends of long streaks but does not make lengths proportional to true length. Streak speeds are not reported.
 
 Figures: results/figures/core_completeness.png and core_case_errors.png.
 

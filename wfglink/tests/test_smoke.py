@@ -48,6 +48,21 @@ def test_record_number_writes_provenance(tmp_path: Path):
     assert entry["produced_at"].endswith("+08:00")
 
 
+def test_record_number_keeps_history(tmp_path: Path):
+    """A re-recorded value keeps the old one in history (the LOG may still quote it); an
+    unchanged value from the same commit adds no history."""
+    path = tmp_path / "NUMBERS.json"
+    kw = dict(script="tests/test_smoke.py", config={"a": 1}, config_path="inline", path=path)
+    provenance.record_number("k", 1.0, "px", "first", **kw)
+    provenance.record_number("k", 1.0, "px", "same", **kw)
+    assert "history" not in json.loads(path.read_text())["numbers"]["k"]
+    provenance.record_number("k", 2.0, "px", "second", **kw)
+    provenance.record_number("k", 3.0, "px", "third", **kw)
+    e = json.loads(path.read_text())["numbers"]["k"]
+    assert e["value"] == 3.0 and [h["value"] for h in e["history"]] == [2.0, 1.0]
+    assert {"git_commit", "produced_at"} <= set(e["history"][0])
+
+
 def test_check_docs_passes():
     result = subprocess.run([sys.executable, str(PROJECT_ROOT / "scripts" / "check_docs.py")],
                             capture_output=True, text=True)

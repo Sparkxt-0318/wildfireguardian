@@ -97,12 +97,22 @@ def load_numbers(path: Path = NUMBERS_PATH) -> dict[str, Any]:
     return {"schema_version": 1, "numbers": {}}
 
 
+# What a replaced entry keeps in "history": enough to show where an old quoted value came from.
+HISTORY_FIELDS = ("value", "unit", "git_commit", "git_dirty", "config_sha256", "produced_at", "script")
+HISTORY_MAX = 20
+
+
 def record_number(key: str, value: float | int, unit: str, description: str, *,
                   script: str, config: Mapping[str, Any] | None = None,
                   config_path: str | None = None,
                   inputs: Mapping[str, str | os.PathLike] | None = None,
                   path: Path = NUMBERS_PATH) -> dict[str, Any]:
-    """Insert or replace one entry in NUMBERS.json and return it."""
+    """Insert or replace one entry in NUMBERS.json and return it.
+
+    A replaced entry whose value or commit differs moves into the new entry's "history"
+    (newest first, at most HISTORY_MAX), so the append-only LOG can keep quoting the value
+    it was written with, while README and the plan quote the current one (check_docs.py).
+    """
     data = load_numbers(path)
     entry = {
         "value": value,
@@ -110,7 +120,14 @@ def record_number(key: str, value: float | int, unit: str, description: str, *,
         "description": description,
         **run_record(script, config, config_path, inputs),
     }
-    data.setdefault("numbers", {})[key] = entry
+    old = data.setdefault("numbers", {}).get(key)
+    if old:
+        history = list(old.get("history") or [])
+        if old.get("value") != value or old.get("git_commit") != entry.get("git_commit"):
+            history.insert(0, {k: old.get(k) for k in HISTORY_FIELDS if k in old})
+        if history:
+            entry["history"] = history[:HISTORY_MAX]
+    data["numbers"][key] = entry
     data["numbers"] = dict(sorted(data["numbers"].items()))
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".json.tmp")

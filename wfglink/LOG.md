@@ -285,3 +285,20 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Costs: in a dense real shower (C6) a share of faint detections is lost where the shower's moving edge leaves dark lobes; the added time per 1280x720 frame is somewhat above the two-millisecond target; a boolean mask crash found by the verifier was fixed.
 - Decisions: the mirror test is on by default. The remaining faint points on C5 are a display question for the booth (draw only confirmed tracks), decided at the ember-mode integration. Core numbers are recorded again from this commit, then the held-out suites are evaluated once.
 - Next step: record the core numbers again, evaluate the mismatch and coverage suites once, score C5 against the blind labels before and after this change.
+
+## 2026-10-15T15:20+08:00 Ember mode integrated; core numbers recorded again; C5 shows a scale problem in file mode
+
+- Goal: integrate the booth change (LED test removed, key A, "Become an ember" with key M), record the core numbers again after the mirror test and the streak-length fit, and check C5 against the blind labels.
+- Commands:
+  - `git apply --3way` of the four ember-mode patches (workflow wf_42471a85-bef): the docs patch first (it removes the LED code), core's patch without its duplicate deletions, then booth and page; cli.py merged by hand; the demo gate's ember run switched to core's generated scene; placards regenerated (`scripts/make_placards.py`) and inspected; commit 7832de2.
+  - `live --ember` with no camera, and `record ember_demo --fake-camera booth` then `live --ember --fake-camera` at 1920x1080, screenshots inspected.
+  - `bash wfglink/scripts/run_from_head.sh python scripts/run_suite.py core --no-generate --workers 2 --record` at dba7734; `scripts/figures_suite.py core` (inspected).
+  - `label-score` of the C5 run made before the mirror test against the agent labels; a diagnostic running the current detector on five labelled C5 frames at native and at half resolution (scratch script).
+- Parameters: configs/default.yaml at dba7734 (core numbers) and 7832de2 (booth).
+- Results:
+  - Ember mode works end to end on generated phones: each tracked phone gets an ID, a speed in m/s labelled as measured at the standing distance, and a trail; the panel shows the live count and per-ember speeds, and the wind arrows come from the phones; ceiling lights, the TV and the lamp make no tracks. Without a camera it shows a calm message with what to do and the way back to fire mode. None of the macOS camera code has run on a Mac yet.
+  - Core numbers at dba7734 barely move: base-case F1 0.385 <!-- n:core.base.f1 -->, detection limit at an SNR of 15.2 <!-- n:core.base.snr50 -->, track speed error 0.020 <!-- n:core.base.track_speed_med_rel_err -->; the exposure estimate still declines on every case.
+  - NUMBERS.json now keeps the earlier values of a key in its history when a key is recorded again, so earlier LOG entries still match the values they quoted; README and the plan quote the current value (scripts/check_docs.py).
+  - C5 against the blind labels, before the mirror test: precision was tiny (the flood) and recall low. The labelled embers on C5 are large, bright, defocused streaks close to the camera, and at native 4K resolution the detector misses most of them while it finds most at half resolution. So file mode at native resolution is wrong for near-camera embers in high-resolution video; the booth, which analyses at reduced size, is not affected.
+- Decisions: the next workflow fixes the analysis scale of file mode (a resolution cap or multi-scale detection, with coordinates reported in source pixels), judged on the C5 labels, the synthetic suites and cost; the held-out suites wait for it, since it changes the method.
+- Next step: the scale workflow and the verification of the ember booth (the user's commands, both modes, the page, the documents).
