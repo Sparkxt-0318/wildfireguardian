@@ -1,0 +1,12 @@
+{
+ "surface_flame": 2.0,
+ "surface_flame_high": 4.0,
+ "crown_flame": 20.0,
+ "crown_flame_high": 35.0,
+ "plume_surface_100K": 7.519349254252647,
+ "plume_crown_100K": 45.73420103962881,
+ "plume_surface_30K": 25.064497514175493,
+ "plume_crown_30K": 152.44733679876268,
+ "plume_surface_10K": 75.19349254252647,
+ "plume_crown_10K": 457.34201039628806
+}

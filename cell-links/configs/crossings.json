@@ -1,0 +1,38 @@
+{
+  "_doc": "Step 5 synthetic fire crossings. Ignition location is approximate (Anpyeong-myeon centroid); times in seconds after ignition (22 March 2025 11:25 KST).",
+  "geometry_config": "geometry.json",
+  "physics_config": "physics.json",
+  "spread_grid_m": 90,
+  "ignition_lonlat": [
+    128.585,
+    36.383
+  ],
+  "ignition_local_time": "2025-03-22T11:25:00+09:00",
+  "wind_to_deg": 90.0,
+  "t_end_h": 24,
+  "scenarios": {
+    "moderate": {
+      "r_head_m_s": 0.4,
+      "u10_kmh": 36
+    },
+    "extreme": {
+      "r_head_m_s": 1.5,
+      "u10_kmh": 54
+    }
+  },
+  "heat_content_kj_kg": 18000,
+  "fuel_consumed_surface_kg_m2": 1.5,
+  "fuel_consumed_crown_kg_m2": 3.0,
+  "crown_threshold_kw_m": 2000,
+  "residence_time_surface_s": 40,
+  "residence_time_crown_s": 60,
+  "crown_flame_max_above_dsm_m": 35,
+  "dt_s": 10,
+  "pad_before_s": 3600,
+  "pad_after_s": 1800,
+  "flame_ne_scenarios": [
+    "lab_peak",
+    "field_bound"
+  ],
+  "_doc_wind": "Wind blows toward the east (from the west), matching the observed Uiseong to Yeongdeok track along about 36.4 N."
+}
