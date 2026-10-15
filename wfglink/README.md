@@ -34,6 +34,7 @@ Main commands (run from `wfglink/`):
 - `python -m wfglink demo-gate`: the headless check behind the daily `wfglink-demo-YYYYMMDD` tags (`scripts/tag_demo.sh`).
 - `bash scripts/sitting1.sh`: the first hands-on sitting on the Mac (docs/SITTING1.md).
 - `.venv/bin/python scripts/run_suite.py core|mismatch`: generate and evaluate a synthetic validation suite.
+- `python -m wfglink plausibility RUN_DIR --clip data/clips/<id>.yaml`: real-clip plausibility checks on a `process` run (plausibility.json, statuses also in summary.json); `label-tiles` and `label-score` make blind label tiles and score a run against them (docs/METHODS.md section 11).
 
 ## Current status
 

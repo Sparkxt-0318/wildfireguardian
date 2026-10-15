@@ -125,10 +125,9 @@ def cmd_process(args: argparse.Namespace) -> int:
     clip = Path(args.clip)
     cc: dict = {}
     if clip.suffix in (".yaml", ".yml"):   # a clip settings file (data/clips/<id>.yaml)
-        import yaml
+        from wfglink.validate.clips import load_clip_settings
 
-        cc = yaml.safe_load(clip.read_text()) or {}
-        clip = PROJECT_ROOT / cc["file"]
+        cc, clip, _ = load_clip_settings(clip)
     seg = (cc.get("segments_s") or [[None, None]])[0]
     start = args.start_seconds if args.start_seconds else (seg[0] or 0.0)
     end = args.max_seconds if args.max_seconds is not None else seg[1]
@@ -143,6 +142,63 @@ def cmd_process(args: argparse.Namespace) -> int:
           f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
     for w in s["warnings"]:
         print("warning:", w)
+    return 0
+
+
+def cmd_plausibility(args: argparse.Namespace) -> int:
+    from wfglink.config import load_config
+    from wfglink.validate.plausibility import run_plausibility
+
+    try:
+        out = run_plausibility(args.run_dir, args.clip, load_config(*(args.config or [])),
+                               determinism_seconds=args.determinism_seconds)
+    except (ValueError, FileNotFoundError) as exc:
+        raise SystemExit(f"plausibility: {exc}") from None
+    for name, c in out["checks"].items():
+        print(f"{name}: {c['status']}: {c['reason']}")
+    print(f"-> {args.run_dir}/plausibility.json")
+    return 0
+
+
+def cmd_label_tiles(args: argparse.Namespace) -> int:
+    from wfglink.config import load_config
+    from wfglink.validate.labels import make_tiles
+
+    try:
+        rec = make_tiles(args.clip, args.out, frames=args.frames, seed=args.seed, reserve=args.reserve,
+                         tile_px=args.tile_px, tiles_per_frame=args.tiles_per_frame, force=args.force,
+                         cfg=load_config(*(args.config or [])))
+    except (ValueError, FileNotFoundError) as exc:
+        raise SystemExit(f"label-tiles: {exc}") from None
+    print(f"{rec['tiles']} tiles from {rec['frames_drawn']} frames of {rec['clip_id']} "
+          f"({rec['frames_requested']} to score, the rest in reserve), tile set {rec['tile_set_id']} -> {args.out}")
+    return 0
+
+
+def cmd_label_score(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from wfglink.config import load_config
+    from wfglink.validate.labels import MANIFEST, inter_labeler_f1, score_labels
+
+    cfg = load_config(*(args.config or []))
+    if args.out and Path(args.tile_dir).resolve() in Path(args.out).resolve().parents:
+        raise SystemExit("label-score: --out must not be inside the tile folder "
+                         "(it holds nothing derived from detections)")
+    try:
+        res = score_labels(args.tile_dir, args.labels, args.run, cfg, tag=args.tag)
+        if args.compare:
+            res["inter_labeler"] = inter_labeler_f1(args.labels, args.compare, cfg=cfg,
+                                                    manifest=Path(args.tile_dir) / MANIFEST,
+                                                    tags=(args.tag, args.compare_tag))
+    except (ValueError, FileNotFoundError) as exc:
+        raise SystemExit(f"label-score: {exc}") from None
+    text = json.dumps(res, indent=2, default=str)
+    if args.out:
+        Path(args.out).write_text(text, encoding="utf-8")
+    print(text)
+    for w in res.get("warnings", []):
+        print("warning:", w, file=sys.stderr)
     return 0
 
 
@@ -220,6 +276,39 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--distance-m", type=float, default=None)
     p.add_argument("--config", nargs="*")
     p.set_defaults(func=cmd_process)
+
+    p = sub.add_parser("plausibility", help="real-clip plausibility checks on a process run (writes plausibility.json)")
+    p.add_argument("run_dir", help="output folder of `process`")
+    p.add_argument("--clip", required=True, help="clip settings file data/clips/<id>.yaml")
+    p.add_argument("--determinism-seconds", type=float, default=None,
+                   help="length of the two determinism reruns (default plausibility.determinism.seconds; 0 skips "
+                        "and keeps an earlier result; minutes per second of video on 4K clips)")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_plausibility)
+
+    p = sub.add_parser("label-tiles", help="blind label tiles of randomly sampled frames (no detections involved)")
+    p.add_argument("clip", help="clip settings file data/clips/<id>.yaml")
+    p.add_argument("--out", required=True, help="tile folder (new or empty; an earlier tile set only with --force)")
+    p.add_argument("--frames", type=int, default=None, help="frames to score (default labels.frames)")
+    p.add_argument("--reserve", type=int, default=None, help="frames drawn in reserve (default labels.reserve_frames)")
+    p.add_argument("--seed", type=int, default=None, help="sampling seed (default labels.seed)")
+    p.add_argument("--tile-px", type=int, default=None, help="tile side in source pixels (default labels.tile_px)")
+    p.add_argument("--tiles-per-frame", type=int, default=None, help="tiles per frame (default labels.tiles_per_frame)")
+    p.add_argument("--force", action="store_true",
+                   help="replace an earlier tile set in --out (its labels no longer apply)")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_label_tiles)
+
+    p = sub.add_parser("label-score", help="precision, recall and F1 of a run's detections against blind labels")
+    p.add_argument("tile_dir", help="tile folder written by label-tiles")
+    p.add_argument("--labels", required=True, help="labels CSV (tile_id, x, y, confidence, note)")
+    p.add_argument("--run", required=True, help="output folder of `process` for the same clip")
+    p.add_argument("--tag", default="agent-labeled", help="who labelled (agent-labeled, or for example user-labeled)")
+    p.add_argument("--compare", default=None, help="a second labeler's CSV: adds the inter-labeler F1")
+    p.add_argument("--compare-tag", default="user-labeled", help="who made the --compare labels")
+    p.add_argument("--out", default=None, help="write the scores here as JSON (outside the tile folder)")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_label_score)
 
     p = sub.add_parser("demo-gate", help="run the booth UI headless on synthetic and an approved clip; exit 0 if healthy")
     p.add_argument("--seconds", type=float, default=60.0)

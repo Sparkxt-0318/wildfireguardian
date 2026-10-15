@@ -10,6 +10,24 @@ roi: [0.0, 0.0, 0.5, 1.0]
 segments_s: [[0.5, 19.5]]
 gate: null                  # default gate (vertical line at 62 percent of the width)
 distance_m: null            # not stated by NIST; pixels only
+# Plausibility checks (python -m wfglink plausibility RUN_DIR --clip <this file>, METHODS section 11).
+# All optional; null means not known, and a check that needs a missing key reports "not applicable".
+# Never filled in by guesswork: only from a cited record or a hand annotation.
+#   peak_gust_ms: peak gust (m/s) during the recording, from a weather station record.
+#   gust_source: that record, for example the nearest KMA AWS or NWS station, with its date and time.
+#   z_interval_m: [z_min, z_max], assumed camera-to-ember distance range in meters.
+#   focal_px: focal length in pixels of the full frame; or hfov_deg, its horizontal field of view.
+#   drift_deg: hand-annotated drift direction in image axes, as direction_deg (0 = right, +90 = down).
+#   drift_basis: what was annotated, for example smoke drift or the generator outflow.
+#   drift_tolerance_deg: allowed difference (default plausibility.direction.tolerance_deg).
+peak_gust_ms: null
+gust_source: null
+z_interval_m: null
+focal_px: null
+hfov_deg: null
+drift_deg: null
+drift_basis: null
+drift_tolerance_deg: null
 notes: >
   Controlled firebrand generator in the NIST National Fire Research Laboratory, filmed at
   4K 30 fps. Bright lab lights, water pans and people in view are hard negatives. NIST's

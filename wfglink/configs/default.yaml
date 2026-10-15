@@ -110,6 +110,54 @@ validate:
   min_true_speed_px_s: 1.0       # truth slower than this is left out of relative errors
   bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
 
+plausibility:                    # real-clip checks on a finished file-mode run (plan 4.5, validate/plausibility.py)
+  timing:
+    gap_factor: 1.5              # a frame interval longer than this many median intervals is a gap
+    max_gaps: 0                  # more gaps than this flags the clip
+    vfr_spread_max: 0.1          # (95th minus 5th percentile interval) / median above this: variable frame rate
+    repeat_max_fraction: 0.0     # a larger share of repeated frames flags the clip (the pipeline skips them; flagged for attention)
+    pts_match_s: 0.001           # a frame time and a container packet time closer than this are the same frame
+    start_eps_s: 1.0e-6          # a packet this close before the segment start belongs to it (FileSource's start rule; keep equal)
+  exposure:
+    frame_tol: 0.05              # an estimate longer than (1 + this) frame intervals is physically impossible (as process warns)
+    window_s: 3.0                # stability: T_exp is estimated again in consecutive windows of about this length
+  speed:
+    gust_factor: 1.5             # a track is implausible when faster than gust_factor x peak gust + margin_ms at Z_min (plan 4.5)
+    margin_ms: 8.0               # ... plus this many m/s
+    max_flagged_fraction: 0.0    # the check flags when more than this share of the moving tracks is implausible
+    percentile: 99               # speed percentile reported as an interval in m/s (Z_min to Z_max)
+  direction:
+    tolerance_deg: 45.0          # allowed difference from the annotated drift when the clip settings give no drift_tolerance_deg
+    min_resultant: 0.3           # speed-weighted mean resultant length below this: no dominant direction, flagged (an addition to the plan)
+  determinism:
+    seconds: 2.0                 # rerun length from the run's first ready frame, twice, without the overlay (0 = skip; slow on 4K)
+    ignore_columns:              # timing columns that may differ between reruns, per table
+      frames: [ms]
+
+labels:                          # blind sample labels (plan 4.5, validate/labels.py)
+  frames: 20                     # frames to score per clip, drawn at random after the detector's warm-up
+  reserve_frames: 10             # more frames drawn after them, scored in draw order when the run skips some as repeats
+  check_frames: 5                # the first frames of the draw, labelled again by a second labeler (inter-labeler F1)
+  tiles_per_frame: 2             # non-overlapping tiles per sampled frame, at random positions inside the ROI
+  tile_px: 256                   # tile side in source pixels (smaller when the ROI is smaller)
+  scale: 4                       # nearest-neighbour enlargement of the tile PNGs
+  seed: 0                        # frame and tile position sampling
+  settle_s: 0.5                  # frames are sampled from this many seconds after the detector's warm-up ends
+  context_frames: 1              # nearest changed frames shown before and after each tile (0 = none)
+  grid_step_px: 8                # coordinate grid lines every this many tile pixels
+  tick_step_px: 4                # margin ticks every this many tile pixels
+  label_step_px: 32              # tick labels every this many tile pixels
+  grid_alpha: 0.5                # weight of the grid ink blended over the picture
+  grid_dark_dn: 110              # grid ink is light over pixels darker than this (luma DN), dark over brighter ones
+  match_px: 3.0                  # a label and a detection closer than this (source px) are the same ember
+  streak_radius_frac: 0.0        # match radius max(match_px, this x detection length); 0.5 is the synthetic matcher's rule
+  min_confidence: 0.75           # labels below this confidence (0.5 = unsure) are don't care: neither hits, misses nor false
+  time_tol_s: 1.0e-6             # a tile's frame time and the run's agree within this (both come from the same decoder)
+  bootstrap: 2000                # bootstrap replicates over frames for precision, recall and F1
+  bootstrap_seed: 0              # seed of those replicates (separate from the sampling seed)
+  min_frames_ci: 5               # no bootstrap interval from fewer frames (one or two frames would look certain)
+  ci: 0.95                       # level of those percentile intervals
+
 field:
   grid: [16, 9]
   min_tracks_show: 5

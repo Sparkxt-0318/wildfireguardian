@@ -9,6 +9,24 @@ roi: null
 segments_s: [[14.0, 24.0]]
 gate: null
 distance_m: null
+# Plausibility checks (python -m wfglink plausibility RUN_DIR --clip <this file>, METHODS section 11).
+# All optional; null means not known, and a check that needs a missing key reports "not applicable".
+# Never filled in by guesswork: only from a cited record or a hand annotation.
+#   peak_gust_ms: peak gust (m/s) during the recording, from a weather station record.
+#   gust_source: that record, for example the nearest KMA AWS or NWS station, with its date and time.
+#   z_interval_m: [z_min, z_max], assumed camera-to-ember distance range in meters.
+#   focal_px: focal length in pixels of the full frame; or hfov_deg, its horizontal field of view.
+#   drift_deg: hand-annotated drift direction in image axes, as direction_deg (0 = right, +90 = down).
+#   drift_basis: what was annotated, for example smoke drift or the generator outflow.
+#   drift_tolerance_deg: allowed difference (default plausibility.direction.tolerance_deg).
+peak_gust_ms: null
+gust_source: null
+z_interval_m: null
+focal_px: null
+hfov_deg: null
+drift_deg: null
+drift_basis: null
+drift_tolerance_deg: null
 notes: >
   NIST Dragon firebrand generator, 540x360 at 29.97 fps with repeated frames from an old
   re-encode and a burnt-in caption. A dense, low-resolution shower: hard for association.

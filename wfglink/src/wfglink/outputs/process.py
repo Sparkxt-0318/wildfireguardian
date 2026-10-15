@@ -15,8 +15,10 @@ Outputs in the output folder (plan section 6):
   direction, straight-line residual, static flag, gate crossings).
 - field.parquet: the ember velocity field per cell, for the whole clip and for windows of
   field.window_s (u, v in px/s, tracks, display status, bootstrap interval).
-- summary.json: input hash and metadata, config hash, git commit, versions, units and
-  calibration state, totals with intervals, exposure estimate, warnings.
+- summary.json: input hash and metadata (with a ROI, input.width and height are the
+  crop's, input.roi_px the crop and input.source_size the full frame), config hash, git
+  commit, versions, units and calibration state, totals with intervals, exposure
+  estimate, warnings. `python -m wfglink plausibility` adds its statuses later.
 - overlay.mp4: H.264 drawn by the same renderer as the booth screen (optional).
 CSV instead of Parquet with outputs.table_format: csv.
 """
@@ -94,6 +96,18 @@ class OverlayWriter:
         self.c.close()
 
 
+def roi_crop(roi, width: int, height: int) -> tuple[int, int, int, int] | None:
+    """ROI x0, y0, x1, y1 in pixels of a width x height frame, from fractions of the frame (or
+    pixels when any value exceeds 1); None without a ROI. Shared with the label tiles so that
+    tile coordinates are those of detections.parquet."""
+    if roi is None:
+        return None
+    r = [float(v) for v in roi]
+    if max(r) <= 1.0:
+        r = [r[0] * width, r[1] * height, r[2] * width, r[3] * height]
+    return int(round(r[0])), int(round(r[1])), int(round(r[2])), int(round(r[3]))
+
+
 def _track_table(points, counter, cfg: dict, t_exp: float | None, t_exp_sd: float):
     import pandas as pd
 
@@ -140,11 +154,9 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
     crop = None
     if roi is not None:   # x0, y0, x1, y1 in fractions of the frame (or pixels when any value exceeds 1)
         W, H = int(meta["width"]), int(meta["height"])
-        r = [float(v) for v in roi]
-        if max(r) <= 1.0:
-            r = [r[0] * W, r[1] * H, r[2] * W, r[3] * H]
-        crop = (int(round(r[0])), int(round(r[1])), int(round(r[2])), int(round(r[3])))
-        meta = {**meta, "width": crop[2] - crop[0], "height": crop[3] - crop[1], "roi_px": list(crop)}
+        crop = roi_crop(roi, W, H)
+        meta = {**meta, "width": crop[2] - crop[0], "height": crop[3] - crop[1], "roi_px": list(crop),
+                "source_size": [W, H]}
     warnings: list[str] = []
     t0 = time.perf_counter()
 
