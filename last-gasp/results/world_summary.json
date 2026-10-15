@@ -1,0 +1,19 @@
+{
+  "source": "osm",
+  "note": "",
+  "width_m": 3136.0,
+  "height_m": 3317.2,
+  "area_km2": 10.403,
+  "n_roads": 541,
+  "n_buildings": 1500,
+  "n_osm_buildings": 59,
+  "n_synthetic_buildings": 1441,
+  "substation": "Yeongdeok Substation",
+  "n_poles": 3710,
+  "devices": {
+    "breaker": 6,
+    "fuse": 286,
+    "recloser": 6,
+    "transformer": 1126
+  }
+}

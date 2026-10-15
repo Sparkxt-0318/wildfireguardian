@@ -1,0 +1,20 @@
+{
+  "fire_seed": 0,
+  "meters_n_devices": 765,
+  "meters_n_fire_deaths_used": 120,
+  "meters_frac_fire_censored_by_grid": 0.8143382352941176,
+  "meters_bldg_med": 5.648938760647322,
+  "meters_bldg_p90": 26.32194105176943,
+  "tags_n_tags": 126,
+  "tags_per_km2": 12.11201631912459,
+  "tags_n_gateways": 3,
+  "tags_frac_deaths_heard": 0.9652173913043478,
+  "tags_bldg_med": 1.5235006669042566,
+  "tags_bldg_p90": 5.724735831635693,
+  "provenance": {
+    "commit": "f321f0857431770908b011370f9674ff385392ff",
+    "code_dirty": false,
+    "script": "scripts/13_booth_figure.py",
+    "config": "configs/default.json; configs/phase2.json with spacing 200 m, mesh, 3 gateways"
+  }
+}

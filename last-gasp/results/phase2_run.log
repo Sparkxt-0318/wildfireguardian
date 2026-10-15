@@ -1,0 +1,31 @@
+50/1150 done, 7 s
+100/1150 done, 14 s
+150/1150 done, 21 s
+200/1150 done, 29 s
+250/1150 done, 36 s
+300/1150 done, 43 s
+350/1150 done, 51 s
+400/1150 done, 59 s
+450/1150 done, 65 s
+500/1150 done, 71 s
+550/1150 done, 78 s
+600/1150 done, 85 s
+650/1150 done, 91 s
+700/1150 done, 96 s
+750/1150 done, 103 s
+800/1150 done, 111 s
+850/1150 done, 117 s
+900/1150 done, 196 s
+950/1150 done, 210 s
+1000/1150 done, 210 s
+1050/1150 done, 210 s
+1100/1150 done, 210 s
+1150/1150 done, 211 s
+{"commit": "54f6e9a6a5dd46e0638f6f4eb5e858c3b16d72ee", "code_dirty": false, "script": "scripts/10_phase2_sweeps.py", "config": "configs/default.json + configs/phase2.json", "fire_seeds": 5, "obs_seeds": 2, "n_runs": 1150, "n_errors": 0, "wall_s": 211.3}
+/home/user/wildfireguardian/last-gasp/figures/fig9_receive_example.png
+/home/user/wildfireguardian/last-gasp/figures/fig10_gateways.png
+/home/user/wildfireguardian/last-gasp/figures/fig11_trips.png
+/home/user/wildfireguardian/last-gasp/figures/fig12_spacing_cost.png
+{"n_runs": 20, "detection_latency_median_s": 2.5744559189278036, "detection_latency_p90_s": 2.996800540494502, "runs_with_correct_spot_flag": 20, "runs_with_any_extra_spot_flag": 0, "heartbeat_s": 1.0, "timeout_beats": 3, "packet_loss": 0.05}
+3896 numbers written
+exit 0

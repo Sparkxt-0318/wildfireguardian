@@ -1,0 +1,11 @@
+{
+  "commit": "54f6e9a6a5dd46e0638f6f4eb5e858c3b16d72ee",
+  "code_dirty": false,
+  "script": "scripts/10_phase2_sweeps.py",
+  "config": "configs/default.json + configs/phase2.json",
+  "fire_seeds": 5,
+  "obs_seeds": 2,
+  "n_runs": 1150,
+  "n_errors": 0,
+  "wall_s": 211.3
+}
