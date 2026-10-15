@@ -52,12 +52,18 @@ class OverlayWriter:
     """Encode rendered LiveStates to H.264 with PyAV (QImage only, no QPixmap)."""
 
     def __init__(self, path: Path, size: tuple[int, int], fps: float, crf: int, lang: str):
+        import os
+
         import av
         from PySide6.QtGui import QGuiApplication
 
         from wfglink.ui.fonts import load_fonts
 
-        QGuiApplication.instance() or QGuiApplication([])
+        if QGuiApplication.instance() is None:
+            # The overlay is drawn on a QImage and never shown, so file mode needs no display
+            # (without this a headless machine aborts after the first pass).
+            os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+            QGuiApplication([])
         load_fonts()
         self.w, self.h = size
         self.lang = lang

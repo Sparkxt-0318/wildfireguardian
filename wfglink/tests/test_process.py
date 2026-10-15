@@ -39,3 +39,16 @@ def test_process_writes_tables_summary_and_overlay(tmp_path, monkeypatch):
     assert t["tracks_moving"] > 0 and t["cpc_gross"] >= 0 and "pnf" in t
     with av.open(str(out / "overlay.mp4")) as c:
         assert c.streams.video[0].frames in (0, 90) or sum(1 for _ in c.decode(video=0)) == 90
+
+
+def test_overlay_writer_needs_no_display(tmp_path):
+    """File mode renders offscreen by itself: no QT_QPA_PLATFORM and no display must work."""
+    import os
+    import subprocess
+    import sys
+
+    env = {k: v for k, v in os.environ.items() if k not in ("QT_QPA_PLATFORM", "DISPLAY", "WAYLAND_DISPLAY")}
+    code = ("from pathlib import Path; from wfglink.outputs.process import OverlayWriter; "
+            f"w = OverlayWriter(Path(r'{tmp_path / 'o.mp4'}'), (320, 180), 30.0, 23, 'en'); w.close(); print('ok')")
+    res = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=120, env=env)
+    assert res.returncode == 0 and "ok" in res.stdout, res.stderr[-2000:]
