@@ -1,0 +1,34 @@
+{
+ "generator": "app/simgen.py",
+ "seed": 10,
+ "simulated": true,
+ "device_id": "00000000",
+ "area": "sim_city",
+ "mode": "WALK",
+ "note": "SIMULATED: not a real recording. Ground truth below is what the generator did.",
+ "truth": {
+  "stops": [
+   {
+    "n": 1,
+    "t0": 89.0,
+    "t1": 108.0,
+    "dur": 20,
+    "lat": 35.1459845,
+    "lon": 126.8344192,
+    "press": true
+   }
+  ],
+  "presses": [
+   {
+    "event_no": 1,
+    "t_press": 91.3,
+    "stray": false
+   }
+  ],
+  "gaps": [],
+  "lead_in_s": 60,
+  "lead_out_s": 20,
+  "duration_s": 187.0,
+  "path_m": 86.9
+ }
+}

@@ -1,0 +1,2911 @@
+{
+  "schema": "wfg.latest-completion.independent-score/3",
+  "utc": "2026-10-15T04:19:32.871863+00:00",
+  "writer": "Codex independent scoring",
+  "supersedes": null,
+  "scorer_sha256": "11fdca091f54f0c0e415f04613dd0bbd131978288469b3f4cb5be12ccae73486",
+  "source_pins_sha256": "8dab00d08a7c8431cd2a6dc524ed552355a8547ab5542018425f6a5aa645bec6",
+  "protocol": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/PROTOCOL_ADAPTER_v1.json",
+    "sha256": "30ff7d5cdfd138bec5ffa59aef35b67464d5fde8cec44d714b752b83c8f514a8"
+  },
+  "compatibility_review": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/CHECKER_COMPATIBILITY_v3.json",
+    "sha256": "5735b62f216ed5614b2ac6d8d53d3cd96c038a69c44fdb62cf12c4234a09cca5"
+  },
+  "lifecycle_review": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/LIFECYCLE_ASSESSMENTS_v1.json",
+    "sha256": "c51d94ec55f75581bee75b340b155177c67fa194b6aae3dfb46a764550cf3a20"
+  },
+  "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "queue_bindings": [
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/queues/LATEST_PRIMARY.json",
+      "sha256": "7acf70737e8d351429ddb2a3bd5867e994b18ea824ce557e75aad5e2b149c593",
+      "jobs": 80
+    }
+  ],
+  "planned_slots": 80,
+  "protocol_blockers": [],
+  "results": {
+    "by_region_arm": {
+      "hongseong_2023|RDA_BASE": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 4,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 4,
+        "not_run": 0,
+        "states": {
+          "TIMEOUT": 2,
+          "CHECKED_CENTRE_OPTIMUM": 4,
+          "CENTRE_MODEL_REFUSAL_ONLY": 2
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 2,
+        "missions_both_repetitions_checked_route": 2,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 0.5,
+        "observed_attempt_resolution_fraction": 0.5,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 7.315029665987822,
+          "median": 11.367476437495498,
+          "p90": 14.05358552509133,
+          "max": 14.324766166988411
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 7.239999999999999,
+          "median": 11.235,
+          "p90": 13.821,
+          "max": 14.08
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 72.4375,
+          "median": 632.2109375,
+          "p90": 1478.7125,
+          "max": 1502.359375
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 72.65625,
+          "median": 632.875,
+          "p90": 1476.66875,
+          "max": 1492.921875
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 7.31,
+          "median": 11.35,
+          "p90": 14.037,
+          "max": 14.31
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 7.239999999999999,
+          "median": 11.235,
+          "p90": 13.821,
+          "max": 14.08
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 72.4375,
+          "median": 632.2109375,
+          "p90": 1478.7125,
+          "max": 1502.359375
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "hongseong_2023|RDA_CAND": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 4,
+        "scoped_refusal_attempts": 4,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CERTIFIED_CENTRE_REFUSAL": 4,
+          "CHECKED_CENTRE_OPTIMUM": 4
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 2,
+        "missions_both_repetitions_scoped_refusal": 2,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 0.2705336249928223,
+          "median": 3.8751567710060044,
+          "p90": 12.44517323320324,
+          "max": 12.609637417001068
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 0.24,
+          "median": 3.795,
+          "p90": 12.384,
+          "max": 12.51
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 55.765625,
+          "median": 67.546875,
+          "p90": 104.403125,
+          "max": 104.46875
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 53.921875,
+          "median": 68.6484375,
+          "p90": 103.9078125,
+          "max": 104.640625
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 0.25,
+          "median": 3.86,
+          "p90": 12.439,
+          "max": 12.6
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 0.24,
+          "median": 3.795,
+          "p90": 12.384,
+          "max": 12.51
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 55.765625,
+          "median": 67.546875,
+          "p90": 104.403125,
+          "max": 104.46875
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "miryang_2022|RDA_BASE": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 4,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 4,
+        "not_run": 0,
+        "states": {
+          "TIMEOUT": 2,
+          "CHECKED_CENTRE_OPTIMUM": 4,
+          "CENTRE_MODEL_REFUSAL_ONLY": 2
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 2,
+        "missions_both_repetitions_checked_route": 2,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 0.5,
+        "observed_attempt_resolution_fraction": 0.5,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 1.473308625005302,
+          "median": 9.551674104506674,
+          "p90": 17.1054627962003,
+          "max": 17.169837333000032
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 1.43,
+          "median": 9.370000000000001,
+          "p90": 16.874000000000002,
+          "max": 16.93
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 74.046875,
+          "median": 135.7890625,
+          "p90": 1504.8765625,
+          "max": 1513.8125
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 68.28125,
+          "median": 134.9453125,
+          "p90": 1505.25,
+          "max": 1514.65625
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 1.46,
+          "median": 9.54,
+          "p90": 17.087,
+          "max": 17.15
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 1.43,
+          "median": 9.370000000000001,
+          "p90": 16.874000000000002,
+          "max": 16.93
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 74.046875,
+          "median": 135.7890625,
+          "p90": 1504.8765625,
+          "max": 1513.8125
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "miryang_2022|RDA_CAND": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 4,
+        "scoped_refusal_attempts": 4,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CERTIFIED_CENTRE_REFUSAL": 4,
+          "CHECKED_CENTRE_OPTIMUM": 4
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 2,
+        "missions_both_repetitions_scoped_refusal": 2,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 0.3441597499913769,
+          "median": 3.4163095414987765,
+          "p90": 12.239198125092662,
+          "max": 12.277584666997427
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 0.32,
+          "median": 3.3699999999999997,
+          "p90": 12.098,
+          "max": 12.14
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 63.796875,
+          "median": 73.8203125,
+          "p90": 100.29375,
+          "max": 100.359375
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 61.875,
+          "median": 73.8125,
+          "p90": 100.740625,
+          "max": 100.9375
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 0.33,
+          "median": 3.4,
+          "p90": 12.228,
+          "max": 12.27
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 0.32,
+          "median": 3.3699999999999997,
+          "p90": 12.098,
+          "max": 12.14
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 63.796875,
+          "median": 73.8203125,
+          "p90": 100.29375,
+          "max": 100.359375
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "uiseong_andong_2025|RDA_BASE": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 6,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 2,
+        "not_run": 0,
+        "states": {
+          "CHECKED_CENTRE_OPTIMUM": 6,
+          "TIMEOUT": 2
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 3,
+        "missions_both_repetitions_checked_route": 3,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 0.75,
+        "observed_attempt_resolution_fraction": 0.75,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 4.087818625004729,
+          "median": 4.983427437495266,
+          "p90": 27.139809971406066,
+          "max": 27.59547354199458
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 4.0,
+          "median": 4.890000000000001,
+          "p90": 26.741,
+          "max": 27.07
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 361.109375,
+          "median": 434.5703125,
+          "p90": 1757.5953125,
+          "max": 1776.59375
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 352.265625,
+          "median": 426.6796875,
+          "p90": 1757.390625,
+          "max": 1776.421875
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 4.06,
+          "median": 4.965,
+          "p90": 27.125,
+          "max": 27.58
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 4.0,
+          "median": 4.890000000000001,
+          "p90": 26.741,
+          "max": 27.07
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 361.109375,
+          "median": 434.5703125,
+          "p90": 1757.5953125,
+          "max": 1776.59375
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "uiseong_andong_2025|RDA_CAND": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 8,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CHECKED_CENTRE_OPTIMUM": 8
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 4,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 5.957145332999062,
+          "median": 6.826919854502194,
+          "p90": 8.866616091302422,
+          "max": 8.899816042001476
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 5.8500000000000005,
+          "median": 6.66,
+          "p90": 8.735,
+          "max": 8.77
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 506.484375,
+          "median": 547.1796875,
+          "p90": 999.209375,
+          "max": 999.296875
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 501.3125,
+          "median": 547.1875,
+          "p90": 1000.35,
+          "max": 1000.4375
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 5.95,
+          "median": 6.8,
+          "p90": 8.845,
+          "max": 8.88
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 5.8500000000000005,
+          "median": 6.66,
+          "p90": 8.735,
+          "max": 8.77
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 506.484375,
+          "median": 547.1796875,
+          "p90": 999.209375,
+          "max": 999.296875
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "uljin_2022|RDA_BASE": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 8,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CHECKED_CENTRE_OPTIMUM": 8
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 4,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 2.7881344579946017,
+          "median": 5.748351521004224,
+          "p90": 13.872913975000847,
+          "max": 13.964600499995868
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 2.7399999999999998,
+          "median": 5.66,
+          "p90": 13.7,
+          "max": 13.77
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 222.265625,
+          "median": 267.2421875,
+          "p90": 309.1875,
+          "max": 309.1875
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 212.859375,
+          "median": 260.109375,
+          "p90": 307.453125,
+          "max": 310.296875
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 2.77,
+          "median": 5.73,
+          "p90": 13.859,
+          "max": 13.95
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 2.7399999999999998,
+          "median": 5.66,
+          "p90": 13.7,
+          "max": 13.77
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 222.265625,
+          "median": 267.2421875,
+          "p90": 309.1875,
+          "max": 309.1875
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "uljin_2022|RDA_CAND": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 8,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CHECKED_CENTRE_OPTIMUM": 8
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 4,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 3.124405167007353,
+          "median": 5.598587271000724,
+          "p90": 14.547969033000118,
+          "max": 14.585103332996368
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 3.07,
+          "median": 5.529999999999999,
+          "p90": 14.375,
+          "max": 14.409999999999998
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 225.765625,
+          "median": 317.859375,
+          "p90": 399.6625,
+          "max": 400.078125
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 218.8125,
+          "median": 314.4453125,
+          "p90": 394.75,
+          "max": 395.078125
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 3.11,
+          "median": 5.585,
+          "p90": 14.538,
+          "max": 14.58
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 3.07,
+          "median": 5.529999999999999,
+          "p90": 14.375,
+          "max": 14.409999999999998
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 225.765625,
+          "median": 317.859375,
+          "p90": 399.6625,
+          "max": 400.078125
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "yeongdeok_2025|RDA_BASE": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 4,
+        "scoped_refusal_attempts": 0,
+        "unresolved_recorded_attempts": 4,
+        "not_run": 0,
+        "states": {
+          "TIMEOUT": 2,
+          "CHECKED_CENTRE_OPTIMUM": 4,
+          "CENTRE_MODEL_REFUSAL_ONLY": 2
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 2,
+        "missions_both_repetitions_checked_route": 2,
+        "missions_both_repetitions_scoped_refusal": 0,
+        "mission_resolution_fraction_of_planned": 0.5,
+        "observed_attempt_resolution_fraction": 0.5,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 7.52438550000079,
+          "median": 13.350213916499342,
+          "p90": 28.139424496500578,
+          "max": 29.65602795900486
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 7.430000000000001,
+          "median": 13.209999999999999,
+          "p90": 27.525999999999996,
+          "max": 28.939999999999998
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 686.71875,
+          "median": 1145.1328125,
+          "p90": 2013.05,
+          "max": 2054.546875
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 683.859375,
+          "median": 1131.8125,
+          "p90": 2008.2359375,
+          "max": 2054.140625
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 7.51,
+          "median": 13.334999999999999,
+          "p90": 28.121,
+          "max": 29.64
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 7.430000000000001,
+          "median": 13.209999999999999,
+          "p90": 27.525999999999996,
+          "max": 28.939999999999998
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 686.71875,
+          "median": 1145.1328125,
+          "p90": 2013.05,
+          "max": 2054.546875
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      },
+      "yeongdeok_2025|RDA_CAND": {
+        "planned_attempts": 8,
+        "attempted": 8,
+        "complete_process_receipts": 8,
+        "checked_route_attempts": 6,
+        "scoped_refusal_attempts": 2,
+        "unresolved_recorded_attempts": 0,
+        "not_run": 0,
+        "states": {
+          "CHECKED_CENTRE_OPTIMUM": 6,
+          "CERTIFIED_CENTRE_REFUSAL": 2
+        },
+        "planned_missions": 4,
+        "missions_both_repetitions_resolved": 4,
+        "missions_both_repetitions_checked_route": 3,
+        "missions_both_repetitions_scoped_refusal": 1,
+        "mission_resolution_fraction_of_planned": 1.0,
+        "observed_attempt_resolution_fraction": 1.0,
+        "all_recorded_wall_s": {
+          "n": 8,
+          "min": 8.252081874990836,
+          "median": 11.049779208500695,
+          "p90": 22.451390304596863,
+          "max": 22.480224208993604
+        },
+        "all_recorded_outer_CPU_s": {
+          "n": 8,
+          "min": 8.15,
+          "median": 10.879999999999999,
+          "p90": 21.912000000000003,
+          "max": 21.94
+        },
+        "largest_process_RSS_mib": {
+          "n": 8,
+          "min": 745.609375,
+          "median": 1171.2578125,
+          "p90": 1487.184375,
+          "max": 1492.171875
+        },
+        "sampled_process_family_RSS_mib": {
+          "n": 8,
+          "min": 727.421875,
+          "median": 1171.9375,
+          "p90": 1484.2125,
+          "max": 1491.5625
+        },
+        "all_recorded_timed_command_elapsed_s": {
+          "n": 8,
+          "min": 8.24,
+          "median": 11.035,
+          "p90": 22.435000000000002,
+          "max": 22.47
+        },
+        "all_recorded_timed_command_CPU_s": {
+          "n": 8,
+          "min": 8.15,
+          "median": 10.879999999999999,
+          "p90": 21.912000000000003,
+          "max": 21.94
+        },
+        "all_recorded_partial_time_tool_RSS_mib": {
+          "n": 8,
+          "min": 745.609375,
+          "median": 1171.2578125,
+          "p90": 1487.184375,
+          "max": 1492.171875
+        },
+        "cost_scope": "All recorded costs retained irrespective of outcome, lateness, ownership/cleanup uncertainty or interruption; complete-request, timed-command and worker measurements remain separate.",
+        "bound_support_receipt_count": 0,
+        "support_unavailable_attempts": 8,
+        "support_bases": [],
+        "support_scope": "Per-row bound counts only. Different bases and repeated executions are not pooled into independent incident fractions."
+      }
+    },
+    "missions": [
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_BASE",
+        "case_id": "20230402T070000Z_FN1",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CENTRE_MODEL_REFUSAL_ONLY",
+          "CENTRE_MODEL_REFUSAL_ONLY"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_BASE",
+        "case_id": "20230402T070000Z_FX1",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "TIMEOUT",
+          "TIMEOUT"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_BASE",
+        "case_id": "20230402T140000Z_FW2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_BASE",
+        "case_id": "20230402T230000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_CAND",
+        "case_id": "20230402T070000Z_FN1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": true,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CERTIFIED_CENTRE_REFUSAL",
+          "CERTIFIED_CENTRE_REFUSAL"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_CAND",
+        "case_id": "20230402T070000Z_FX1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": true,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CERTIFIED_CENTRE_REFUSAL",
+          "CERTIFIED_CENTRE_REFUSAL"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_CAND",
+        "case_id": "20230402T140000Z_FW2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "hongseong_2023",
+        "arm": "RDA_CAND",
+        "case_id": "20230402T230000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220531T100000Z_FN1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220601T020000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220601T080000Z_FD1",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CENTRE_MODEL_REFUSAL_ONLY",
+          "CENTRE_MODEL_REFUSAL_ONLY"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220601T080000Z_FX1",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "TIMEOUT",
+          "TIMEOUT"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220531T100000Z_FN1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220601T020000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220601T080000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": true,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CERTIFIED_CENTRE_REFUSAL",
+          "CERTIFIED_CENTRE_REFUSAL"
+        ]
+      },
+      {
+        "region": "miryang_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220601T080000Z_FX1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": true,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CERTIFIED_CENTRE_REFUSAL",
+          "CERTIFIED_CENTRE_REFUSAL"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250323T010000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250323T010000Z_FX2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250324T090000Z_FL2",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "TIMEOUT",
+          "TIMEOUT"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250325T170000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250323T010000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250323T010000Z_FX2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250324T090000Z_FL2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250325T170000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220304T030000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220304T030000Z_FX1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220304T060000Z_FL1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_BASE",
+        "case_id": "20220304T120000Z_FW2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220304T030000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220304T030000Z_FX1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220304T060000Z_FL1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "uljin_2022",
+        "arm": "RDA_CAND",
+        "case_id": "20220304T120000Z_FW2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250325T190000Z_FD1",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CENTRE_MODEL_REFUSAL_ONLY",
+          "CENTRE_MODEL_REFUSAL_ONLY"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250325T190000Z_FX2",
+        "both_repetitions_resolved": false,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "TIMEOUT",
+          "TIMEOUT"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250325T230000Z_FL2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_BASE",
+        "case_id": "20250326T080000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250325T190000Z_FD1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": false,
+        "both_repetitions_scoped_refusal": true,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CERTIFIED_CENTRE_REFUSAL",
+          "CERTIFIED_CENTRE_REFUSAL"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250325T190000Z_FX2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250325T230000Z_FL2",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      },
+      {
+        "region": "yeongdeok_2025",
+        "arm": "RDA_CAND",
+        "case_id": "20250326T080000Z_FW1",
+        "both_repetitions_resolved": true,
+        "both_repetitions_checked_route": true,
+        "both_repetitions_scoped_refusal": false,
+        "mixed_route_refusal_disagreement": false,
+        "states": [
+          "CHECKED_CENTRE_OPTIMUM",
+          "CHECKED_CENTRE_OPTIMUM"
+        ]
+      }
+    ],
+    "all_paired_request_costs": {
+      "summary": {
+        "hongseong_2023": {
+          "planned_pairs": 8,
+          "eligible_all_recorded_pairs": 8,
+          "excluded_pairs": 0,
+          "excluded_reason_counts": {},
+          "both_resolved_pairs_within_all_recorded": 4,
+          "includes_one_or_both_unresolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 7.315029665987822,
+            "median": 11.367476437495498,
+            "p90": 14.05358552509133,
+            "max": 14.324766166988411
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 0.2705336249928223,
+            "median": 3.8751567710060044,
+            "p90": 12.44517323320324,
+            "max": 12.609637417001068
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -13.984110874982434,
+            "median": -4.980130812502466,
+            "p90": 0.06777299579407553,
+            "max": 0.09462858401820995
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.021444533212688115,
+            "median": 0.5094252600562417,
+            "p90": 1.0092225582835912,
+            "max": 1.0129361859539951
+          },
+          "ratio_of_wall_medians": 0.3408985971788639,
+          "state_pairs": [
+            {
+              "reference": "CENTRE_MODEL_REFUSAL_ONLY",
+              "candidate": "CERTIFIED_CENTRE_REFUSAL",
+              "n": 2
+            },
+            {
+              "reference": "CHECKED_CENTRE_OPTIMUM",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 4
+            },
+            {
+              "reference": "TIMEOUT",
+              "candidate": "CERTIFIED_CENTRE_REFUSAL",
+              "n": 2
+            }
+          ]
+        },
+        "miryang_2022": {
+          "planned_pairs": 8,
+          "eligible_all_recorded_pairs": 8,
+          "excluded_pairs": 0,
+          "excluded_reason_counts": {},
+          "both_resolved_pairs_within_all_recorded": 4,
+          "includes_one_or_both_unresolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 1.473308625005302,
+            "median": 9.551674104506674,
+            "p90": 17.1054627962003,
+            "max": 17.169837333000032
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 0.3441597499913769,
+            "median": 3.4163095414987765,
+            "p90": 12.239198125092662,
+            "max": 12.277584666997427
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -16.750608125003055,
+            "median": -0.8064187295094598,
+            "p90": 0.012564733887847963,
+            "max": 0.07131491698964965
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.022093233878988643,
+            "median": 0.5833809574346456,
+            "p90": 1.0010310871238057,
+            "max": 1.005842482465997
+          },
+          "ratio_of_wall_medians": 0.357666049335466,
+          "state_pairs": [
+            {
+              "reference": "CENTRE_MODEL_REFUSAL_ONLY",
+              "candidate": "CERTIFIED_CENTRE_REFUSAL",
+              "n": 2
+            },
+            {
+              "reference": "CHECKED_CENTRE_OPTIMUM",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 4
+            },
+            {
+              "reference": "TIMEOUT",
+              "candidate": "CERTIFIED_CENTRE_REFUSAL",
+              "n": 2
+            }
+          ]
+        },
+        "uiseong_andong_2025": {
+          "planned_pairs": 8,
+          "eligible_all_recorded_pairs": 8,
+          "excluded_pairs": 0,
+          "excluded_reason_counts": {},
+          "both_resolved_pairs_within_all_recorded": 6,
+          "includes_one_or_both_unresolved_pairs": 2,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 4.087818625004729,
+            "median": 4.983427437495266,
+            "p90": 27.139809971406066,
+            "max": 27.59547354199458
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 5.957145332999062,
+            "median": 6.826919854502194,
+            "p90": 8.866616091302422,
+            "max": 8.899816042001476
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -20.442763291997835,
+            "median": 1.2163113540009363,
+            "p90": 4.778424394993635,
+            "max": 4.811997416996746
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.2544269343557087,
+            "median": 1.2556313583501701,
+            "p90": 2.1688360233842046,
+            "max": 2.177155313976578
+          },
+          "ratio_of_wall_medians": 1.369924603122844,
+          "state_pairs": [
+            {
+              "reference": "CHECKED_CENTRE_OPTIMUM",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 6
+            },
+            {
+              "reference": "TIMEOUT",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 2
+            }
+          ]
+        },
+        "uljin_2022": {
+          "planned_pairs": 8,
+          "eligible_all_recorded_pairs": 8,
+          "excluded_pairs": 0,
+          "excluded_reason_counts": {},
+          "both_resolved_pairs_within_all_recorded": 8,
+          "includes_one_or_both_unresolved_pairs": 0,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 2.7881344579946017,
+            "median": 5.748351521004224,
+            "p90": 13.872913975000847,
+            "max": 13.964600499995868
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 3.124405167007353,
+            "median": 5.598587271000724,
+            "p90": 14.547969033000118,
+            "max": 14.585103332996368
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -0.6788489169994136,
+            "median": 0.373729603998072,
+            "p90": 0.772063983193948,
+            "max": 0.8200849169952562
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.8347393738842583,
+            "median": 1.0521974813118082,
+            "p90": 1.1246034331678696,
+            "max": 1.1339266224764637
+          },
+          "ratio_of_wall_medians": 0.973946574168913,
+          "state_pairs": [
+            {
+              "reference": "CHECKED_CENTRE_OPTIMUM",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 8
+            }
+          ]
+        },
+        "yeongdeok_2025": {
+          "planned_pairs": 8,
+          "eligible_all_recorded_pairs": 8,
+          "excluded_pairs": 0,
+          "excluded_reason_counts": {},
+          "both_resolved_pairs_within_all_recorded": 4,
+          "includes_one_or_both_unresolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 7.52438550000079,
+            "median": 13.350213916499342,
+            "p90": 28.139424496500578,
+            "max": 29.65602795900486
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 8.252081874990836,
+            "median": 11.049779208500695,
+            "p90": 22.451390304596863,
+            "max": 22.480224208993604
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -9.310925292011234,
+            "median": -2.16136114600522,
+            "p90": 2.87396513310523,
+            "max": 3.0793793750053737
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.4999943692121537,
+            "median": 0.9564948375130002,
+            "p90": 1.2933587865704963,
+            "max": 1.3191451310157698
+          },
+          "ratio_of_wall_medians": 0.8276855545246677,
+          "state_pairs": [
+            {
+              "reference": "CENTRE_MODEL_REFUSAL_ONLY",
+              "candidate": "CERTIFIED_CENTRE_REFUSAL",
+              "n": 2
+            },
+            {
+              "reference": "CHECKED_CENTRE_OPTIMUM",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 4
+            },
+            {
+              "reference": "TIMEOUT",
+              "candidate": "CHECKED_CENTRE_OPTIMUM",
+              "n": 2
+            }
+          ]
+        }
+      },
+      "pairs": [
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T070000Z_FN1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 10.215412916993955,
+          "candidate_wall_s": 0.3107584169920301,
+          "both_resolved": false,
+          "reference_process_sha256": "915dddb3e0a7828d9ba341232e1c72f0febb049746485174faaf5a2f54343472",
+          "candidate_process_sha256": "49445f2ff1959c4f0e99456b4526491241a08a8a41d309bedb82f540df4480c0",
+          "candidate_minus_reference_s": -9.904654500001925,
+          "candidate_over_reference": 0.03042054388962239
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T070000Z_FN1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 10.085943875004887,
+          "candidate_wall_s": 0.2705336249928223,
+          "both_resolved": false,
+          "reference_process_sha256": "1f162d733fb1ce1f645085ae5b721441b3fbd8428a99b0f65a594e09cf657909",
+          "candidate_process_sha256": "671fe5d51ddceed47b283d490e0d40327ac6aa6d63958bf52ee0f793f7761e3b",
+          "candidate_minus_reference_s": -9.815410250012064,
+          "candidate_over_reference": 0.026822836647273255
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T070000Z_FX1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 14.324766166988411,
+          "candidate_wall_s": 0.34065529200597666,
+          "both_resolved": false,
+          "reference_process_sha256": "81c812fb82625f78685bf74eb9d4091ddea1ffe3b3b9c8c93615fd2b13116e61",
+          "candidate_process_sha256": "3853c0739109e407bd501b03979ac734b5ee63c825c0e4c02fa37af27ea6abe7",
+          "candidate_minus_reference_s": -13.984110874982434,
+          "candidate_over_reference": 0.02378086232157986
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T070000Z_FX1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 13.937365249992581,
+          "candidate_wall_s": 0.2988802920008311,
+          "both_resolved": false,
+          "reference_process_sha256": "d333d97aa50d2ea5b8f20fbecc0ba647de41bb235c809ff46312d2d76649e254",
+          "candidate_process_sha256": "d6160c05e04288796271c8d42d475f1aec9a4f1e1a1dd2afb2688bb572ea0701",
+          "candidate_minus_reference_s": -13.63848495799175,
+          "candidate_over_reference": 0.021444533212688115
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T140000Z_FW2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.592887165999855,
+          "candidate_wall_s": 12.609637417001068,
+          "both_resolved": true,
+          "reference_process_sha256": "068ce04bf739e7f83a0b970fc7424a08ead5a9f19d465235c7fc23045fbb4dd6",
+          "candidate_process_sha256": "2f819861c66f8e4a1ca422fdff6f1ae7573895a95b7f3b63b9c7c2ee4c119b5f",
+          "candidate_minus_reference_s": 0.016750251001212746,
+          "candidate_over_reference": 1.001330135875944
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T140000Z_FW2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.51953995799704,
+          "candidate_wall_s": 12.374688583004172,
+          "both_resolved": true,
+          "reference_process_sha256": "18370818e2c63e27e0f1ed4ac65fbf108e2f06ef2f12e4dfa22da2b6d253e3be",
+          "candidate_process_sha256": "6cac7af58a2fbf7f08e54bacdc12b20beb9f80179f753f89d12e02844885c9b5",
+          "candidate_minus_reference_s": -0.14485137499286793,
+          "candidate_over_reference": 0.988429976222861
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T230000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.315029665987822,
+          "candidate_wall_s": 7.409658250006032,
+          "both_resolved": true,
+          "reference_process_sha256": "613550b1943b2e0fe87cbcf51720eaaf8be92025ee0e94e95f7390120d2bcbcd",
+          "candidate_process_sha256": "ddf504c88e654362fe0e97d2c32268739c6b75ac415f496eb044938deee163fe",
+          "candidate_minus_reference_s": 0.09462858401820995,
+          "candidate_over_reference": 1.0129361859539951
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T230000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.373009000002639,
+          "candidate_wall_s": 7.429272457986372,
+          "both_resolved": true,
+          "reference_process_sha256": "259f72f5b96f661356783cd14b85f4adb7aa96c5c38135d9587e0d5eb921deab",
+          "candidate_process_sha256": "3d8740a2829638d241c38ef567fb2719cf4ff22bb25ad1b28b0f81862d0a266e",
+          "candidate_minus_reference_s": 0.056263457983732224,
+          "candidate_over_reference": 1.0076310035677039
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220531T100000Z_FN1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.206269750007777,
+          "candidate_wall_s": 12.277584666997427,
+          "both_resolved": true,
+          "reference_process_sha256": "fbcf17a0ca518352b7891f40a6afb8f27ea00a1629e3058003cf9881feaa4b11",
+          "candidate_process_sha256": "ef06ffb9eaa4010b9b1632293f9694a39fb8a2f1508afc057e357c4c74761400",
+          "candidate_minus_reference_s": 0.07131491698964965,
+          "candidate_over_reference": 1.005842482465997
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220531T100000Z_FN1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.235360666003544,
+          "candidate_wall_s": 12.22274674999062,
+          "both_resolved": true,
+          "reference_process_sha256": "e3552dba3bd8012e508aa9c8b20b5590005a4a6f7412faf9f589d47850c69f58",
+          "candidate_process_sha256": "1bf3371d9b757a6edd7413be77ca6607bc86c1cd858de1560f08c9a579b86526",
+          "candidate_minus_reference_s": -0.012613916012924165,
+          "candidate_over_reference": 0.9989690605485809
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T020000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 6.797491124991211,
+          "candidate_wall_s": 6.748424290999537,
+          "both_resolved": true,
+          "reference_process_sha256": "ce60f1868d916c86975371188573d7ba1b97be06489ba7ad68eef22d9d66e96d",
+          "candidate_process_sha256": "202df535b4cdbeee76b8b09d211fb00cc4f1e18a34b6a50cd1599150be55a6e9",
+          "candidate_minus_reference_s": -0.049066833991673775,
+          "candidate_over_reference": 0.9927816258838091
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T020000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 6.89707845900557,
+          "candidate_wall_s": 6.413389875000576,
+          "both_resolved": true,
+          "reference_process_sha256": "9ea598df82df5d30b4b70555c346429a1445577f8220bdbce4ad1d99b4aa59bd",
+          "candidate_process_sha256": "dfc6ea1782cbc63fe83e04ab8ec2145986374dc007f0e7223072562431ffd3b4",
+          "candidate_minus_reference_s": -0.4836885840049945,
+          "candidate_over_reference": 0.9298705115680628
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T080000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 1.48415966599714,
+          "candidate_wall_s": 0.3515846660011448,
+          "both_resolved": false,
+          "reference_process_sha256": "a1364c22c37b558118fcb584517111d488b7b1a27866fb166428ac0a4764ad3a",
+          "candidate_process_sha256": "e53966798e619bfbb2aa3ef4a7ae7b4af2bbc19903561fdc82173130c35d2327",
+          "candidate_minus_reference_s": -1.1325749999959953,
+          "candidate_over_reference": 0.2368914033012283
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T080000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 1.473308625005302,
+          "candidate_wall_s": 0.3441597499913769,
+          "both_resolved": false,
+          "reference_process_sha256": "14c3df79aaa53c5398f097c228aea2f9b091868287f6016cff71472e3687a290",
+          "candidate_process_sha256": "68295f36a41b75f037e65f2baa32f4e354a18b3b48b1d92cd4048b1d282cc37e",
+          "candidate_minus_reference_s": -1.1291488750139251,
+          "candidate_over_reference": 0.23359650798904294
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T080000Z_FX1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 17.169837333000032,
+          "candidate_wall_s": 0.4192292079969775,
+          "both_resolved": false,
+          "reference_process_sha256": "f67c28ffb7b52e3929352cca085a699ca93837c8b66db970725fee68e9c3d902",
+          "candidate_process_sha256": "f96aad797b3ea1f6a1d6785cee9597c9ed205651fa95369cbb41bcd8dfa153a4",
+          "candidate_minus_reference_s": -16.750608125003055,
+          "candidate_over_reference": 0.024416609188907607
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T080000Z_FX1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 17.077873709000414,
+          "candidate_wall_s": 0.37730545800877735,
+          "both_resolved": false,
+          "reference_process_sha256": "4459d80bc3bbc908209da2d13f9f4b2f506240ec0b12d4a0e8b419a2e5c2ce7d",
+          "candidate_process_sha256": "0368f4063cc1fc9c320b07ae8b8115d4f78dd717c2a702324ad94c2353ace862",
+          "candidate_minus_reference_s": -16.700568250991637,
+          "candidate_over_reference": 0.022093233878988643
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.73604499999783,
+          "candidate_wall_s": 5.957145332999062,
+          "both_resolved": true,
+          "reference_process_sha256": "b16f50bf913c27beb6ce2bd0fcee1f99fb7fc54a8890c33b6276225c4ec2da6c",
+          "candidate_process_sha256": "63f62f872a7f46fcd59095c7c0683aeb4f954c709259e3a8e08f89d37ebbc477",
+          "candidate_minus_reference_s": 1.2211003330012318,
+          "candidate_over_reference": 1.2578312353454815
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.780473082995741,
+          "candidate_wall_s": 5.9919954579963814,
+          "both_resolved": true,
+          "reference_process_sha256": "3bc2a6f4fc63d7aae072842e8bf3c8b43b852d61f687424df4fbce5dc1438eb6",
+          "candidate_process_sha256": "51c5c1fc96e0eb6e3abfbdf97536464500a6d006b5b0c32498143c8bd75bce0f",
+          "candidate_minus_reference_s": 1.2115223750006407,
+          "candidate_over_reference": 1.253431481354859
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FX2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 5.55142687499756,
+          "candidate_wall_s": 6.594019209005637,
+          "both_resolved": true,
+          "reference_process_sha256": "08c5efb6418f19cde7f0e9a90c37b13bd31283379554d6f52553e6336144d7ed",
+          "candidate_process_sha256": "bcc0ccd533b099a79baa67127af74cdb4ad7b132df02bee23a2af4f96178605d",
+          "candidate_minus_reference_s": 1.0425923340080772,
+          "candidate_over_reference": 1.1878061906396877
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FX2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 5.1863817919947905,
+          "candidate_wall_s": 6.7984266669955105,
+          "both_resolved": true,
+          "reference_process_sha256": "2f718f6c4371999fdcfd062fd7b353e2ca0fcd83c394c5ee8213a4e381fc95db",
+          "candidate_process_sha256": "3144e337a40080f3d4a00843b65b8b7a3b9a3ee8872f9665b052bf509b0b8e22",
+          "candidate_minus_reference_s": 1.61204487500072,
+          "candidate_over_reference": 1.3108226389134947
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250324T090000Z_FL2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 27.59547354199458,
+          "candidate_wall_s": 7.152710249996744,
+          "both_resolved": false,
+          "reference_process_sha256": "60e48e0482617e44f19279b1346cc09a8b3ad5c093ef6eb7f5f1aa9d9028df73",
+          "candidate_process_sha256": "3c2a4b9e4967058eae46a4f6e12ae49568107b315dd4075b50f76916c3e537f9",
+          "candidate_minus_reference_s": -20.442763291997835,
+          "candidate_over_reference": 0.25919867760601406
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250324T090000Z_FL2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 26.94452558401099,
+          "candidate_wall_s": 6.855413042008877,
+          "both_resolved": false,
+          "reference_process_sha256": "9038dfceca5ea1f0aea95214e89026e5191b77ecb888da564cd33fc32e27997e",
+          "candidate_process_sha256": "fd2b38e9102bd63d165e9ac90a1bc8fc64fd5c156b6922296f368f0c7074b59a",
+          "candidate_minus_reference_s": -20.089112542002113,
+          "candidate_over_reference": 0.2544269343557087
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250325T170000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.087818625004729,
+          "candidate_wall_s": 8.899816042001476,
+          "both_resolved": true,
+          "reference_process_sha256": "f10be4eff831897cdbf87ad2021998c17a4da52b8d3e8cdfaf55049fea0142a3",
+          "candidate_process_sha256": "d1cc9c709fe427ae2aa3afc563bd5c687e1a5641d088e9afe0086ca82b858fb3",
+          "candidate_minus_reference_s": 4.811997416996746,
+          "candidate_over_reference": 2.177155313976578
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250325T170000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.088351584010525,
+          "candidate_wall_s": 8.852387541002827,
+          "both_resolved": true,
+          "reference_process_sha256": "92973334dbdbf8f5372154935cd934a007f33bd443b9416d48d6bb0e79719b72",
+          "candidate_process_sha256": "ac8c9029a095cf92c6010bfe3761ea4f89be43fea2de15c43b6ccdfb8b9c9908",
+          "candidate_minus_reference_s": 4.764035956992302,
+          "candidate_over_reference": 2.1652706131303305
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.388955583010102,
+          "candidate_wall_s": 7.758935167003074,
+          "both_resolved": true,
+          "reference_process_sha256": "d148ac5987ade0b471f91ba055fa4feff2894df5f3f22d2ecfe5a0bec91e13af",
+          "candidate_process_sha256": "39240d7a9128bb0b1b4f223ebc3d408dbeada11d515df582daf4792853aa46d3",
+          "candidate_minus_reference_s": 0.36997958399297204,
+          "candidate_over_reference": 1.050071972938055
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.626405832997989,
+          "candidate_wall_s": 8.446490749993245,
+          "both_resolved": true,
+          "reference_process_sha256": "25b174e2766296221097c913820133620b5aea08b9756b1b5683a6d763cbd8a7",
+          "candidate_process_sha256": "afe209bf46a38025d0ee5ff2a22cbcd191f6e84118764783f098608d939388a7",
+          "candidate_minus_reference_s": 0.8200849169952562,
+          "candidate_over_reference": 1.1075322943668833
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FX1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 13.964600499995868,
+          "candidate_wall_s": 14.532054333001724,
+          "both_resolved": true,
+          "reference_process_sha256": "3a9970871a6197a9c3ba0e06be56a0d24606a64972edd1abdc4698e1098f4ce9",
+          "candidate_process_sha256": "b3ed882c2e5a6e053fc5e85af2872c27ad364562f45f43c23328b89638d9d45c",
+          "candidate_minus_reference_s": 0.5674538330058567,
+          "candidate_over_reference": 1.0406351641069878
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FX1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 13.833619750002981,
+          "candidate_wall_s": 14.585103332996368,
+          "both_resolved": true,
+          "reference_process_sha256": "8536dd664e26f1d3a2f7f92813852f253df2930db811daea27a2fb4d05559b7a",
+          "candidate_process_sha256": "72c5ac3b3da1cdaafb1a95035a40c592c96987d73cad6a9fd25954a865f4115b",
+          "candidate_minus_reference_s": 0.7514835829933872,
+          "candidate_over_reference": 1.0543229896855613
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T060000Z_FL1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.107747458998347,
+          "candidate_wall_s": 3.428898541998933,
+          "both_resolved": true,
+          "reference_process_sha256": "4edbdf20e8144bc0d8feea69a368c68b34a62a1ad6098b545771a71a96127e4e",
+          "candidate_process_sha256": "47a452ccffa55dd68beb3908a2d87d7aae7991a243d1f5055c1a1c830a333cf7",
+          "candidate_minus_reference_s": -0.6788489169994136,
+          "candidate_over_reference": 0.8347393738842583
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T060000Z_FL1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.046455666990369,
+          "candidate_wall_s": 3.438239374998375,
+          "both_resolved": true,
+          "reference_process_sha256": "de7d2080549ec6bb747730230a33668f220e594a5d5e75b7f43b921c8ad7a147",
+          "candidate_process_sha256": "eeabeaf3ae4ad20a4bb9dd25f2709b19a7687d243883be7defdf2173bd87a078",
+          "candidate_minus_reference_s": -0.6082162919919938,
+          "candidate_over_reference": 0.8496915962891627
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T120000Z_FW2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 2.8185555420059245,
+          "candidate_wall_s": 3.1960351660090964,
+          "both_resolved": true,
+          "reference_process_sha256": "c7b5eecc88cc1c692e5a41a85166c53c282ec53e2598082b44a39b767988f90d",
+          "candidate_process_sha256": "1cba7d098cbd3aa96de9a18d81eb622929d588da3866f0e43019a4d0944ce2b7",
+          "candidate_minus_reference_s": 0.3774796240031719,
+          "candidate_over_reference": 1.1339266224764637
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T120000Z_FW2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 2.7881344579946017,
+          "candidate_wall_s": 3.124405167007353,
+          "both_resolved": true,
+          "reference_process_sha256": "5c82fc6254469d413ab68095d36775a5a9239082e16ca56b4c0ffc538a0adbd7",
+          "candidate_process_sha256": "2f43013ab4641384531422e578067dd670d15db0c4faec1237a422eb26754a0a",
+          "candidate_minus_reference_s": 0.33627070901275147,
+          "candidate_over_reference": 1.1206077806070436
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T190000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 18.621640875004232,
+          "candidate_wall_s": 9.310715582992998,
+          "both_resolved": false,
+          "reference_process_sha256": "a654109418e5ff2596b0fbd8495792de21ae3ba90c6b791dc14a0f646cd330a1",
+          "candidate_process_sha256": "d0b13ee49bf8b7ae2292eb3d1d9c6b2fb80b1b7310bde5cae504aaee730abeeb",
+          "candidate_minus_reference_s": -9.310925292011234,
+          "candidate_over_reference": 0.4999943692121537
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T190000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CENTRE_MODEL_REFUSAL_ONLY",
+          "candidate_state": "CERTIFIED_CENTRE_REFUSAL",
+          "reference_wall_s": 16.832002458002535,
+          "candidate_wall_s": 9.445202584000072,
+          "both_resolved": false,
+          "reference_process_sha256": "197ce3dbb8d395a0f27fa331d562a36c5eb93f9f84ca164dbb32e79d91c8cab4",
+          "candidate_process_sha256": "43ec685198e4a70efd1e55cbeffe0ba1c7306a5aa6d0347948f8a11e4422519d",
+          "candidate_minus_reference_s": -7.386799874002463,
+          "candidate_over_reference": 0.5611455088345406
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T190000Z_FX2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 29.65602795900486,
+          "candidate_wall_s": 22.480224208993604,
+          "both_resolved": false,
+          "reference_process_sha256": "65bfefe92ea17036126b45cdf55f65c58f65222c7816f668b3380a0d4b455c0b",
+          "candidate_process_sha256": "19f5dd44496a354648fd6e0c77fcb5dbc87ad4fe9e68a93b478b31cbf39cb199",
+          "candidate_minus_reference_s": -7.175803750011255,
+          "candidate_over_reference": 0.7580322031011449
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T190000Z_FX2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "TIMEOUT",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 27.489451583998743,
+          "candidate_wall_s": 22.439032916998258,
+          "both_resolved": false,
+          "reference_process_sha256": "2c47833aa0f5c534b4df333e60276d2391cf36abaec7faff36dbb6351222ef84",
+          "candidate_process_sha256": "c279b99b52ce2c5c25fa2472e917db1a2a63be607188a8ed2999c9dfd018d0e0",
+          "candidate_minus_reference_s": -5.050418667000486,
+          "candidate_over_reference": 0.816277940228525
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T230000Z_FL2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 9.648837083004764,
+          "candidate_wall_s": 12.728216458010138,
+          "both_resolved": true,
+          "reference_process_sha256": "f4c6bde7641982fc994f84fd71cc7ae1d7056c75670a37ea2d585fc00c3aa3c4",
+          "candidate_process_sha256": "9d3c17efb023f2032bff3dbc3cf3ba334050b1c43fef28bdcbaadda92cfc9121",
+          "candidate_minus_reference_s": 3.0793793750053737,
+          "candidate_over_reference": 1.3191451310157698
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T230000Z_FL2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 9.86842537499615,
+          "candidate_wall_s": 12.654355833001318,
+          "both_resolved": true,
+          "reference_process_sha256": "f0cd6b99f067f74de6c2a651a2d46b4ce1a67a57f0dcecc1b54fdd608533b3bc",
+          "candidate_process_sha256": "0594e010c83da962a84b59012de5069bab79220989f6ceb88d87c84b6b84f937",
+          "candidate_minus_reference_s": 2.7859304580051685,
+          "candidate_over_reference": 1.2823074960939507
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250326T080000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.52438550000079,
+          "candidate_wall_s": 8.252081874990836,
+          "both_resolved": true,
+          "reference_process_sha256": "0b216fc5335b0b928aa2cb526c630bc1394958dcf521766a963d148f9e6f3dc7",
+          "candidate_process_sha256": "17263fb330f1f6ea066d61e6813ad839bf12c4a126c9cf2edbde20f0ba6467ca",
+          "candidate_minus_reference_s": 0.727696374990046,
+          "candidate_over_reference": 1.0967117347974755
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250326T080000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.529984249995323,
+          "candidate_wall_s": 8.354235124992556,
+          "both_resolved": true,
+          "reference_process_sha256": "7b80ec702df33eb613e63e39e066b212110d9834a7d6d74d040ec35ee18da1d5",
+          "candidate_process_sha256": "8b16571318c5499622bf90e9723b26b89058d2cdbbbabdac40c00ee15b48cec6",
+          "candidate_minus_reference_s": 0.824250874997233,
+          "candidate_over_reference": 1.109462496551403
+        }
+      ]
+    },
+    "jointly_resolved_latency": {
+      "summary": {
+        "hongseong_2023": {
+          "planned_pairs": 8,
+          "jointly_resolved_eligible_pairs": 4,
+          "excluded_or_not_jointly_resolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 4,
+            "min": 7.315029665987822,
+            "median": 9.94627447899984,
+            "p90": 12.570883003599011,
+            "max": 12.592887165999855
+          },
+          "candidate_wall_s": {
+            "n": 4,
+            "min": 7.409658250006032,
+            "median": 9.901980520495272,
+            "p90": 12.539152766802,
+            "max": 12.609637417001068
+          },
+          "candidate_minus_reference_s": {
+            "n": 4,
+            "min": -0.14485137499286793,
+            "median": 0.036506854492472485,
+            "p90": 0.08311904620786664,
+            "max": 0.09462858401820995
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 4,
+            "min": 0.988429976222861,
+            "median": 1.004480569721824,
+            "p90": 1.0113446312381078,
+            "max": 1.0129361859539951
+          },
+          "ratio_of_wall_medians": 0.9955466784474842
+        },
+        "miryang_2022": {
+          "planned_pairs": 8,
+          "jointly_resolved_eligible_pairs": 4,
+          "excluded_or_not_jointly_resolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 4,
+            "min": 6.797491124991211,
+            "median": 9.551674104506674,
+            "p90": 12.226633391204814,
+            "max": 12.235360666003544
+          },
+          "candidate_wall_s": {
+            "n": 4,
+            "min": 6.413389875000576,
+            "median": 9.485585520495079,
+            "p90": 12.261133291895385,
+            "max": 12.277584666997427
+          },
+          "candidate_minus_reference_s": {
+            "n": 4,
+            "min": -0.4836885840049945,
+            "median": -0.03084037500229897,
+            "p90": 0.04613626708887752,
+            "max": 0.07131491698964965
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 4,
+            "min": 0.9298705115680628,
+            "median": 0.9958753432161951,
+            "p90": 1.0037804558907721,
+            "max": 1.005842482465997
+          },
+          "ratio_of_wall_medians": 0.9930809423260774
+        },
+        "uiseong_andong_2025": {
+          "planned_pairs": 8,
+          "jointly_resolved_eligible_pairs": 6,
+          "excluded_or_not_jointly_resolved_pairs": 2,
+          "reference_wall_s": {
+            "n": 6,
+            "min": 4.087818625004729,
+            "median": 4.758259041496785,
+            "p90": 5.368904333496175,
+            "max": 5.55142687499756
+          },
+          "candidate_wall_s": {
+            "n": 6,
+            "min": 5.957145332999062,
+            "median": 6.696222938000574,
+            "p90": 8.876101791502151,
+            "max": 8.899816042001476
+          },
+          "candidate_minus_reference_s": {
+            "n": 6,
+            "min": 1.0425923340080772,
+            "median": 1.4165726040009758,
+            "p90": 4.788016686994524,
+            "max": 4.811997416996746
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 6,
+            "min": 1.1878061906396877,
+            "median": 1.284326937129488,
+            "p90": 2.1712129635534545,
+            "max": 2.177155313976578
+          },
+          "ratio_of_wall_medians": 1.4072842356002062
+        },
+        "uljin_2022": {
+          "planned_pairs": 8,
+          "jointly_resolved_eligible_pairs": 8,
+          "excluded_or_not_jointly_resolved_pairs": 0,
+          "reference_wall_s": {
+            "n": 8,
+            "min": 2.7881344579946017,
+            "median": 5.748351521004224,
+            "p90": 13.872913975000847,
+            "max": 13.964600499995868
+          },
+          "candidate_wall_s": {
+            "n": 8,
+            "min": 3.124405167007353,
+            "median": 5.598587271000724,
+            "p90": 14.547969033000118,
+            "max": 14.585103332996368
+          },
+          "candidate_minus_reference_s": {
+            "n": 8,
+            "min": -0.6788489169994136,
+            "median": 0.373729603998072,
+            "p90": 0.772063983193948,
+            "max": 0.8200849169952562
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 8,
+            "min": 0.8347393738842583,
+            "median": 1.0521974813118082,
+            "p90": 1.1246034331678696,
+            "max": 1.1339266224764637
+          },
+          "ratio_of_wall_medians": 0.973946574168913
+        },
+        "yeongdeok_2025": {
+          "planned_pairs": 8,
+          "jointly_resolved_eligible_pairs": 4,
+          "excluded_or_not_jointly_resolved_pairs": 4,
+          "reference_wall_s": {
+            "n": 4,
+            "min": 7.52438550000079,
+            "median": 8.589410666500044,
+            "p90": 9.802548887398734,
+            "max": 9.86842537499615
+          },
+          "candidate_wall_s": {
+            "n": 4,
+            "min": 8.252081874990836,
+            "median": 10.504295478996937,
+            "p90": 12.706058270507492,
+            "max": 12.728216458010138
+          },
+          "candidate_minus_reference_s": {
+            "n": 4,
+            "min": 0.727696374990046,
+            "median": 1.8050906665012008,
+            "p90": 2.991344699905312,
+            "max": 3.0793793750053737
+          },
+          "median_of_candidate_over_reference_ratios": {
+            "n": 4,
+            "min": 1.0967117347974755,
+            "median": 1.1958849963226768,
+            "p90": 1.3080938405392242,
+            "max": 1.3191451310157698
+          },
+          "ratio_of_wall_medians": 1.2229355292051902
+        }
+      },
+      "pairs": [
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T140000Z_FW2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.592887165999855,
+          "candidate_wall_s": 12.609637417001068,
+          "both_resolved": true,
+          "reference_process_sha256": "068ce04bf739e7f83a0b970fc7424a08ead5a9f19d465235c7fc23045fbb4dd6",
+          "candidate_process_sha256": "2f819861c66f8e4a1ca422fdff6f1ae7573895a95b7f3b63b9c7c2ee4c119b5f",
+          "candidate_minus_reference_s": 0.016750251001212746,
+          "candidate_over_reference": 1.001330135875944
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T140000Z_FW2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.51953995799704,
+          "candidate_wall_s": 12.374688583004172,
+          "both_resolved": true,
+          "reference_process_sha256": "18370818e2c63e27e0f1ed4ac65fbf108e2f06ef2f12e4dfa22da2b6d253e3be",
+          "candidate_process_sha256": "6cac7af58a2fbf7f08e54bacdc12b20beb9f80179f753f89d12e02844885c9b5",
+          "candidate_minus_reference_s": -0.14485137499286793,
+          "candidate_over_reference": 0.988429976222861
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T230000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.315029665987822,
+          "candidate_wall_s": 7.409658250006032,
+          "both_resolved": true,
+          "reference_process_sha256": "613550b1943b2e0fe87cbcf51720eaaf8be92025ee0e94e95f7390120d2bcbcd",
+          "candidate_process_sha256": "ddf504c88e654362fe0e97d2c32268739c6b75ac415f496eb044938deee163fe",
+          "candidate_minus_reference_s": 0.09462858401820995,
+          "candidate_over_reference": 1.0129361859539951
+        },
+        {
+          "region": "hongseong_2023",
+          "case_id": "20230402T230000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.373009000002639,
+          "candidate_wall_s": 7.429272457986372,
+          "both_resolved": true,
+          "reference_process_sha256": "259f72f5b96f661356783cd14b85f4adb7aa96c5c38135d9587e0d5eb921deab",
+          "candidate_process_sha256": "3d8740a2829638d241c38ef567fb2719cf4ff22bb25ad1b28b0f81862d0a266e",
+          "candidate_minus_reference_s": 0.056263457983732224,
+          "candidate_over_reference": 1.0076310035677039
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220531T100000Z_FN1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.206269750007777,
+          "candidate_wall_s": 12.277584666997427,
+          "both_resolved": true,
+          "reference_process_sha256": "fbcf17a0ca518352b7891f40a6afb8f27ea00a1629e3058003cf9881feaa4b11",
+          "candidate_process_sha256": "ef06ffb9eaa4010b9b1632293f9694a39fb8a2f1508afc057e357c4c74761400",
+          "candidate_minus_reference_s": 0.07131491698964965,
+          "candidate_over_reference": 1.005842482465997
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220531T100000Z_FN1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 12.235360666003544,
+          "candidate_wall_s": 12.22274674999062,
+          "both_resolved": true,
+          "reference_process_sha256": "e3552dba3bd8012e508aa9c8b20b5590005a4a6f7412faf9f589d47850c69f58",
+          "candidate_process_sha256": "1bf3371d9b757a6edd7413be77ca6607bc86c1cd858de1560f08c9a579b86526",
+          "candidate_minus_reference_s": -0.012613916012924165,
+          "candidate_over_reference": 0.9989690605485809
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T020000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 6.797491124991211,
+          "candidate_wall_s": 6.748424290999537,
+          "both_resolved": true,
+          "reference_process_sha256": "ce60f1868d916c86975371188573d7ba1b97be06489ba7ad68eef22d9d66e96d",
+          "candidate_process_sha256": "202df535b4cdbeee76b8b09d211fb00cc4f1e18a34b6a50cd1599150be55a6e9",
+          "candidate_minus_reference_s": -0.049066833991673775,
+          "candidate_over_reference": 0.9927816258838091
+        },
+        {
+          "region": "miryang_2022",
+          "case_id": "20220601T020000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 6.89707845900557,
+          "candidate_wall_s": 6.413389875000576,
+          "both_resolved": true,
+          "reference_process_sha256": "9ea598df82df5d30b4b70555c346429a1445577f8220bdbce4ad1d99b4aa59bd",
+          "candidate_process_sha256": "dfc6ea1782cbc63fe83e04ab8ec2145986374dc007f0e7223072562431ffd3b4",
+          "candidate_minus_reference_s": -0.4836885840049945,
+          "candidate_over_reference": 0.9298705115680628
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.73604499999783,
+          "candidate_wall_s": 5.957145332999062,
+          "both_resolved": true,
+          "reference_process_sha256": "b16f50bf913c27beb6ce2bd0fcee1f99fb7fc54a8890c33b6276225c4ec2da6c",
+          "candidate_process_sha256": "63f62f872a7f46fcd59095c7c0683aeb4f954c709259e3a8e08f89d37ebbc477",
+          "candidate_minus_reference_s": 1.2211003330012318,
+          "candidate_over_reference": 1.2578312353454815
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.780473082995741,
+          "candidate_wall_s": 5.9919954579963814,
+          "both_resolved": true,
+          "reference_process_sha256": "3bc2a6f4fc63d7aae072842e8bf3c8b43b852d61f687424df4fbce5dc1438eb6",
+          "candidate_process_sha256": "51c5c1fc96e0eb6e3abfbdf97536464500a6d006b5b0c32498143c8bd75bce0f",
+          "candidate_minus_reference_s": 1.2115223750006407,
+          "candidate_over_reference": 1.253431481354859
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FX2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 5.55142687499756,
+          "candidate_wall_s": 6.594019209005637,
+          "both_resolved": true,
+          "reference_process_sha256": "08c5efb6418f19cde7f0e9a90c37b13bd31283379554d6f52553e6336144d7ed",
+          "candidate_process_sha256": "bcc0ccd533b099a79baa67127af74cdb4ad7b132df02bee23a2af4f96178605d",
+          "candidate_minus_reference_s": 1.0425923340080772,
+          "candidate_over_reference": 1.1878061906396877
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250323T010000Z_FX2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 5.1863817919947905,
+          "candidate_wall_s": 6.7984266669955105,
+          "both_resolved": true,
+          "reference_process_sha256": "2f718f6c4371999fdcfd062fd7b353e2ca0fcd83c394c5ee8213a4e381fc95db",
+          "candidate_process_sha256": "3144e337a40080f3d4a00843b65b8b7a3b9a3ee8872f9665b052bf509b0b8e22",
+          "candidate_minus_reference_s": 1.61204487500072,
+          "candidate_over_reference": 1.3108226389134947
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250325T170000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.087818625004729,
+          "candidate_wall_s": 8.899816042001476,
+          "both_resolved": true,
+          "reference_process_sha256": "f10be4eff831897cdbf87ad2021998c17a4da52b8d3e8cdfaf55049fea0142a3",
+          "candidate_process_sha256": "d1cc9c709fe427ae2aa3afc563bd5c687e1a5641d088e9afe0086ca82b858fb3",
+          "candidate_minus_reference_s": 4.811997416996746,
+          "candidate_over_reference": 2.177155313976578
+        },
+        {
+          "region": "uiseong_andong_2025",
+          "case_id": "20250325T170000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.088351584010525,
+          "candidate_wall_s": 8.852387541002827,
+          "both_resolved": true,
+          "reference_process_sha256": "92973334dbdbf8f5372154935cd934a007f33bd443b9416d48d6bb0e79719b72",
+          "candidate_process_sha256": "ac8c9029a095cf92c6010bfe3761ea4f89be43fea2de15c43b6ccdfb8b9c9908",
+          "candidate_minus_reference_s": 4.764035956992302,
+          "candidate_over_reference": 2.1652706131303305
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FD1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.388955583010102,
+          "candidate_wall_s": 7.758935167003074,
+          "both_resolved": true,
+          "reference_process_sha256": "d148ac5987ade0b471f91ba055fa4feff2894df5f3f22d2ecfe5a0bec91e13af",
+          "candidate_process_sha256": "39240d7a9128bb0b1b4f223ebc3d408dbeada11d515df582daf4792853aa46d3",
+          "candidate_minus_reference_s": 0.36997958399297204,
+          "candidate_over_reference": 1.050071972938055
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FD1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.626405832997989,
+          "candidate_wall_s": 8.446490749993245,
+          "both_resolved": true,
+          "reference_process_sha256": "25b174e2766296221097c913820133620b5aea08b9756b1b5683a6d763cbd8a7",
+          "candidate_process_sha256": "afe209bf46a38025d0ee5ff2a22cbcd191f6e84118764783f098608d939388a7",
+          "candidate_minus_reference_s": 0.8200849169952562,
+          "candidate_over_reference": 1.1075322943668833
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FX1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 13.964600499995868,
+          "candidate_wall_s": 14.532054333001724,
+          "both_resolved": true,
+          "reference_process_sha256": "3a9970871a6197a9c3ba0e06be56a0d24606a64972edd1abdc4698e1098f4ce9",
+          "candidate_process_sha256": "b3ed882c2e5a6e053fc5e85af2872c27ad364562f45f43c23328b89638d9d45c",
+          "candidate_minus_reference_s": 0.5674538330058567,
+          "candidate_over_reference": 1.0406351641069878
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T030000Z_FX1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 13.833619750002981,
+          "candidate_wall_s": 14.585103332996368,
+          "both_resolved": true,
+          "reference_process_sha256": "8536dd664e26f1d3a2f7f92813852f253df2930db811daea27a2fb4d05559b7a",
+          "candidate_process_sha256": "72c5ac3b3da1cdaafb1a95035a40c592c96987d73cad6a9fd25954a865f4115b",
+          "candidate_minus_reference_s": 0.7514835829933872,
+          "candidate_over_reference": 1.0543229896855613
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T060000Z_FL1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.107747458998347,
+          "candidate_wall_s": 3.428898541998933,
+          "both_resolved": true,
+          "reference_process_sha256": "4edbdf20e8144bc0d8feea69a368c68b34a62a1ad6098b545771a71a96127e4e",
+          "candidate_process_sha256": "47a452ccffa55dd68beb3908a2d87d7aae7991a243d1f5055c1a1c830a333cf7",
+          "candidate_minus_reference_s": -0.6788489169994136,
+          "candidate_over_reference": 0.8347393738842583
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T060000Z_FL1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 4.046455666990369,
+          "candidate_wall_s": 3.438239374998375,
+          "both_resolved": true,
+          "reference_process_sha256": "de7d2080549ec6bb747730230a33668f220e594a5d5e75b7f43b921c8ad7a147",
+          "candidate_process_sha256": "eeabeaf3ae4ad20a4bb9dd25f2709b19a7687d243883be7defdf2173bd87a078",
+          "candidate_minus_reference_s": -0.6082162919919938,
+          "candidate_over_reference": 0.8496915962891627
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T120000Z_FW2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 2.8185555420059245,
+          "candidate_wall_s": 3.1960351660090964,
+          "both_resolved": true,
+          "reference_process_sha256": "c7b5eecc88cc1c692e5a41a85166c53c282ec53e2598082b44a39b767988f90d",
+          "candidate_process_sha256": "1cba7d098cbd3aa96de9a18d81eb622929d588da3866f0e43019a4d0944ce2b7",
+          "candidate_minus_reference_s": 0.3774796240031719,
+          "candidate_over_reference": 1.1339266224764637
+        },
+        {
+          "region": "uljin_2022",
+          "case_id": "20220304T120000Z_FW2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 2.7881344579946017,
+          "candidate_wall_s": 3.124405167007353,
+          "both_resolved": true,
+          "reference_process_sha256": "5c82fc6254469d413ab68095d36775a5a9239082e16ca56b4c0ffc538a0adbd7",
+          "candidate_process_sha256": "2f43013ab4641384531422e578067dd670d15db0c4faec1237a422eb26754a0a",
+          "candidate_minus_reference_s": 0.33627070901275147,
+          "candidate_over_reference": 1.1206077806070436
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T230000Z_FL2",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 9.648837083004764,
+          "candidate_wall_s": 12.728216458010138,
+          "both_resolved": true,
+          "reference_process_sha256": "f4c6bde7641982fc994f84fd71cc7ae1d7056c75670a37ea2d585fc00c3aa3c4",
+          "candidate_process_sha256": "9d3c17efb023f2032bff3dbc3cf3ba334050b1c43fef28bdcbaadda92cfc9121",
+          "candidate_minus_reference_s": 3.0793793750053737,
+          "candidate_over_reference": 1.3191451310157698
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250325T230000Z_FL2",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 9.86842537499615,
+          "candidate_wall_s": 12.654355833001318,
+          "both_resolved": true,
+          "reference_process_sha256": "f0cd6b99f067f74de6c2a651a2d46b4ce1a67a57f0dcecc1b54fdd608533b3bc",
+          "candidate_process_sha256": "0594e010c83da962a84b59012de5069bab79220989f6ceb88d87c84b6b84f937",
+          "candidate_minus_reference_s": 2.7859304580051685,
+          "candidate_over_reference": 1.2823074960939507
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250326T080000Z_FW1",
+          "rep": 1,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.52438550000079,
+          "candidate_wall_s": 8.252081874990836,
+          "both_resolved": true,
+          "reference_process_sha256": "0b216fc5335b0b928aa2cb526c630bc1394958dcf521766a963d148f9e6f3dc7",
+          "candidate_process_sha256": "17263fb330f1f6ea066d61e6813ad839bf12c4a126c9cf2edbde20f0ba6467ca",
+          "candidate_minus_reference_s": 0.727696374990046,
+          "candidate_over_reference": 1.0967117347974755
+        },
+        {
+          "region": "yeongdeok_2025",
+          "case_id": "20250326T080000Z_FW1",
+          "rep": 2,
+          "eligible_all_paired_cost": true,
+          "exclusions": [],
+          "reference_state": "CHECKED_CENTRE_OPTIMUM",
+          "candidate_state": "CHECKED_CENTRE_OPTIMUM",
+          "reference_wall_s": 7.529984249995323,
+          "candidate_wall_s": 8.354235124992556,
+          "both_resolved": true,
+          "reference_process_sha256": "7b80ec702df33eb613e63e39e066b212110d9834a7d6d74d040ec35ee18da1d5",
+          "candidate_process_sha256": "8b16571318c5499622bf90e9723b26b89058d2cdbbbabdac40c00ee15b48cec6",
+          "candidate_minus_reference_s": 0.824250874997233,
+          "candidate_over_reference": 1.109462496551403
+        }
+      ]
+    },
+    "all_recorded_paired_memory": {
+      "hongseong_2023": {
+        "planned_pairs": 8,
+        "eligible_recorded_peak_pairs": 8,
+        "reference_RSS_mib": {
+          "n": 8,
+          "min": 72.4375,
+          "median": 632.2109375,
+          "p90": 1478.7125,
+          "max": 1502.359375
+        },
+        "candidate_RSS_mib": {
+          "n": 8,
+          "min": 55.765625,
+          "median": 67.546875,
+          "p90": 104.403125,
+          "max": 104.46875
+        },
+        "candidate_minus_reference_RSS_mib": {
+          "n": 8,
+          "min": -1446.359375,
+          "median": -556.71875,
+          "p90": 16.075,
+          "max": 16.46875
+        }
+      },
+      "miryang_2022": {
+        "planned_pairs": 8,
+        "eligible_recorded_peak_pairs": 8,
+        "reference_RSS_mib": {
+          "n": 8,
+          "min": 74.046875,
+          "median": 135.7890625,
+          "p90": 1504.8765625,
+          "max": 1513.8125
+        },
+        "candidate_RSS_mib": {
+          "n": 8,
+          "min": 63.796875,
+          "median": 73.8203125,
+          "p90": 100.29375,
+          "max": 100.359375
+        },
+        "candidate_minus_reference_RSS_mib": {
+          "n": 8,
+          "min": -1450.015625,
+          "median": -53.625,
+          "p90": 9.38125,
+          "max": 11.0
+        }
+      },
+      "uiseong_andong_2025": {
+        "planned_pairs": 8,
+        "eligible_recorded_peak_pairs": 8,
+        "reference_RSS_mib": {
+          "n": 8,
+          "min": 361.109375,
+          "median": 434.5703125,
+          "p90": 1757.5953125,
+          "max": 1776.59375
+        },
+        "candidate_RSS_mib": {
+          "n": 8,
+          "min": 506.484375,
+          "median": 547.1796875,
+          "p90": 999.209375,
+          "max": 999.296875
+        },
+        "candidate_minus_reference_RSS_mib": {
+          "n": 8,
+          "min": -1209.953125,
+          "median": 109.8359375,
+          "p90": 637.728125,
+          "max": 638.1875
+        }
+      },
+      "uljin_2022": {
+        "planned_pairs": 8,
+        "eligible_recorded_peak_pairs": 8,
+        "reference_RSS_mib": {
+          "n": 8,
+          "min": 222.265625,
+          "median": 267.2421875,
+          "p90": 309.1875,
+          "max": 309.1875
+        },
+        "candidate_RSS_mib": {
+          "n": 8,
+          "min": 225.765625,
+          "median": 317.859375,
+          "p90": 399.6625,
+          "max": 400.078125
+        },
+        "candidate_minus_reference_RSS_mib": {
+          "n": 8,
+          "min": -4.5,
+          "median": 54.140625,
+          "p90": 90.475,
+          "max": 90.890625
+        }
+      },
+      "yeongdeok_2025": {
+        "planned_pairs": 8,
+        "eligible_recorded_peak_pairs": 8,
+        "reference_RSS_mib": {
+          "n": 8,
+          "min": 686.71875,
+          "median": 1145.1328125,
+          "p90": 2013.05,
+          "max": 2054.546875
+        },
+        "candidate_RSS_mib": {
+          "n": 8,
+          "min": 745.609375,
+          "median": 1171.2578125,
+          "p90": 1487.184375,
+          "max": 1492.171875
+        },
+        "candidate_minus_reference_RSS_mib": {
+          "n": 8,
+          "min": -569.5,
+          "median": 15.109375,
+          "p90": 133.8546875,
+          "max": 137.015625
+        }
+      }
+    }
+  },
+  "limits": [
+    "New latest checkpoint and two repetitions only; no historical pooling.",
+    "Recorded runtime road radiation bounds are not an independent continuous-road enclosure or global optimum proof.",
+    "This scorer executes no numerical checker; recorded independent trajectory/contact/centre capability must be compatible with pinned packets."
+  ]
+}

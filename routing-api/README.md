@@ -1,3 +1,5 @@
+> Historical version retained for compatibility. The finalized 15 October 2026 forecast-to-routing package and current setup are in [integration/](../integration/README.md). Results below concern this earlier version.
+
 # WildfireGuardian routing — importable Python API
 
 `import wildfireguardian_routing` provides the maintained exact routing engine, explicit graph preparation and an independent route checker. `ReleaseRuntime` connects Python applications to the full forecast-integration and optional hybrid-checker deliveries.

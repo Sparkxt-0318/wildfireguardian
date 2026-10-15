@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "scope": "Packaged visual assets only; no scientific artifact is included.",
+  "assets": [
+    {
+      "path": "public/assets/device/WFG_logger_housing_bottom_v1.stl",
+      "bytes": 143084,
+      "sha256": "ffe93241d51f71424dfb29c0cf0096942d4300e5eebaab13f46d74466110422f",
+      "source": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/field_route_logger_planning_20261003_v1/prearrival_20261003_v2/baseline/CAD/exports/WFG_logger_housing_bottom_v1.stl",
+      "source_sha256": "ffe93241d51f71424dfb29c0cf0096942d4300e5eebaab13f46d74466110422f",
+      "license": "Owner-provided CAD; no separate redistribution license found in bounded CAD directory"
+    },
+    {
+      "path": "public/assets/device/WFG_logger_housing_top_v1.stl",
+      "bytes": 244384,
+      "sha256": "6c43a4ae177f626200ba0645b04dfe80a0f342fff455f2a7c70a1be285d8df95",
+      "source": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/field_route_logger_planning_20261003_v1/prearrival_20261003_v2/baseline/CAD/exports/WFG_logger_housing_top_v1.stl",
+      "source_sha256": "6c43a4ae177f626200ba0645b04dfe80a0f342fff455f2a7c70a1be285d8df95",
+      "license": "Owner-provided CAD; no separate redistribution license found in bounded CAD directory"
+    },
+    {
+      "path": "public/assets/device/WFG_logger_plunger_user_v1.stl",
+      "bytes": 25484,
+      "sha256": "38e47754d903b02e11fb37221f19d413555b8549dcb29956294c97aa2e4f4aa3",
+      "source": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/field_route_logger_planning_20261003_v1/prearrival_20261003_v2/baseline/CAD/exports/WFG_logger_plunger_user_v1.stl",
+      "source_sha256": "38e47754d903b02e11fb37221f19d413555b8549dcb29956294c97aa2e4f4aa3",
+      "license": "Owner-provided CAD; no separate redistribution license found in bounded CAD directory"
+    },
+    {
+      "path": "public/assets/fonts/IBMPlexMono-Regular.woff2",
+      "bytes": 14708,
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "source": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/web/assets/fonts/IBMPlexMono-Regular.woff2",
+      "source_sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "license": "SIL Open Font License 1.1 (bundled)"
+    },
+    {
+      "path": "public/assets/fonts/IBMPlexMono-SemiBold.woff2",
+      "bytes": 15620,
+      "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83",
+      "source": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/web/assets/fonts/IBMPlexMono-SemiBold.woff2",
+      "source_sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83",
+      "license": "SIL Open Font License 1.1 (bundled)"
+    },
+    {
+      "path": "public/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "bytes": 219492,
+      "sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600",
+      "source": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/web/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "source_sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600",
+      "license": "SIL Open Font License 1.1 (bundled)"
+    },
+    {
+      "path": "public/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "bytes": 256572,
+      "sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00",
+      "source": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/web/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "source_sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00",
+      "license": "SIL Open Font License 1.1 (bundled)"
+    },
+    {
+      "path": "public/assets/fonts/LICENSE-IBMPlex.txt",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "source": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/web/assets/fonts/LICENSE-IBMPlex.txt",
+      "source_sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "license": "SIL Open Font License 1.1 (bundled)"
+    },
+    {
+      "path": "public/assets/illustrative-scene.json",
+      "bytes": 39779,
+      "sha256": "a549003a3d6f297f10b88478ad1aec6eb59ba86686bb41ace8b7f9e7dfd20378",
+      "source": "Authored deterministic exhibition fixture in src/data.mjs",
+      "source_sha256": null,
+      "license": "Authored for this user-requested exhibition"
+    }
+  ]
+}

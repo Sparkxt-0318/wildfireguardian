@@ -1,0 +1,74 @@
+# Firmware compile evidence (Linux x86_64 workspace, 2026-10-03 09:20 CST), firmware 0.2.0 / record format 2. COMPILE ONLY: not flashed, not run on hardware.
+# PlatformIO Core 6.2.0, platform espressif32 6.9.0
+
+Processing tracker_v11 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.1% (used 49588 bytes from 327680 bytes)
+Flash: [======    ]  61.3% (used 963977 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 59.95 seconds =========================
+Processing tracker_v2 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.1% (used 49588 bytes from 327680 bytes)
+Flash: [======    ]  61.3% (used 963993 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 6.71 seconds =========================
+Processing tracker_v10 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.1% (used 49588 bytes from 327680 bytes)
+Flash: [======    ]  61.3% (used 964005 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 60.40 seconds =========================
+Processing generic_esp32s3 (board: esp32-s3-devkitc-1; platform: platformio/espressif32@6.9.0; framework: arduino)
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32-S3-DevKitC-1-N8 (8 MB QD, No PSRAM)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.0% (used 49172 bytes from 327680 bytes)
+Flash: [======    ]  60.3% (used 948177 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 60.87 seconds =========================
+Processing fallback_fb2e (board: dfrobot_firebeetle2_esp32e; platform: platformio/espressif32@6.9.0; framework: arduino)
+PLATFORM: Espressif 32 (6.9.0) > DFRobot Firebeetle 2 ESP32-E
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.1% (used 49504 bytes from 327680 bytes)
+Flash: [======    ]  63.1% (used 992081 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 70.34 seconds =========================
+tracker_v11      SUCCESS   00:00:59.954
+tracker_v2       SUCCESS   00:00:06.707
+tracker_v10      SUCCESS   00:01:00.397
+generic_esp32s3  SUCCESS   00:01:00.868
+fallback_fb2e    SUCCESS   00:01:10.344
+
+# warnings in build log: 0
+
+# firmware.bin SHA-256 (builds are not bit-reproducible across machines; for traceability only)
+dd093edcc873682c375f2827e45b2f9faae9d22ad0b6d9e69202c170c6a36ec1  fallback_fb2e/firmware.bin
+1da3252ca0e3c07fca03d170f47dc7757b983191502dbb5510f22b861130ff12  generic_esp32s3/firmware.bin
+58a42ef63f9dd6f30b66333637ea66103f75754c50f34d86f1645359e34df531  tracker_v10/firmware.bin
+893527fbfe85f7251e20f67e15482b04e898286f2f7a8959a14a466e14b88034  tracker_v11/firmware.bin
+e48014583f3ebca7a465031e76b3007978e62879a13f16a43c99e6e9e4891564  tracker_v2/firmware.bin
+
+# Partition table decoded from built partitions.bin (tracker_v2)
+Parsing binary partition input...
+Verifying table...
+# ESP-IDF Partition Table
+# Name, Type, SubType, Offset, Size, Flags
+nvs,data,nvs,0x9000,20K,
+factory,app,factory,0x10000,1536K,
+spiffs,data,spiffs,0x190000,6592K,
+# Partition table decoded from built partitions.bin (fallback_fb2e)
+Parsing binary partition input...
+Verifying table...
+# ESP-IDF Partition Table
+# Name, Type, SubType, Offset, Size, Flags
+nvs,data,nvs,0x9000,20K,
+factory,app,factory,0x10000,1536K,
+spiffs,data,spiffs,0x190000,2496K,

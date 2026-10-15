@@ -1,0 +1,44 @@
+{
+  "scope": "Unscored publication checks only; no benchmark results replaced.",
+  "checks": [
+    {
+      "name": "source_identity",
+      "returncode": 0,
+      "elapsed_s": 0.3470840420050081
+    },
+    {
+      "name": "relocated_uljin_replay",
+      "returncode": 0,
+      "elapsed_s": 14.246254040990607
+    },
+    {
+      "name": "showcase_controls",
+      "returncode": 0,
+      "elapsed_s": 0.0750020840059733
+    },
+    {
+      "name": "forecast_contracts",
+      "returncode": 0,
+      "elapsed_s": 1.7415692909999052
+    },
+    {
+      "name": "logger_interface_controls",
+      "status": "NOT_RUN",
+      "reason": "No compatible installed FastAPI/httpx/pyserial runtime in reused forecast environment; original host/control evidence preserved. No device contacted."
+    }
+  ],
+  "native_relocated_replay": {
+    "case": "Uljin 20220304T030000Z_FX1",
+    "arrival_s": 3119,
+    "publication": "CHECKED_ROUTE",
+    "runtime_check": "CERTIFIED_ADMISSIBLE",
+    "independent_scope": "Centre optimum and contact/trajectory; not independently proven whole-road radiation enclosure",
+    "cleanup": "CLEAN",
+    "fresh_install": "Source package built and installed into a fresh target; reused existing NumPy runtime, not a clean-machine dependency installation"
+  },
+  "not_performed": [
+    "No new scored benchmark campaign",
+    "No device flashing or real USB/GNSS operation",
+    "No blanket full-project test pass claimed"
+  ]
+}

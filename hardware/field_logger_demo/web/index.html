@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현장 경로 기록기</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="vendor/maplibre-gl/maplibre-gl.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+<script src="vendor/maplibre-gl/maplibre-gl.js"></script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body class="dark ko">
+<div id="app">
+  <header class="nav" id="nav">
+    <div class="brand"><b>WildfireGuardian</b><span id="nav-title"></span></div>
+    <div class="seg" id="seg"><button data-seg="device" id="seg-device"></button><button data-seg="replay" id="seg-replay"></button></div>
+    <div class="right" id="navchips"></div>
+  </header>
+  <div id="screens">
+    <section class="screen start" id="scr-start"></section>
+    <section class="screen booth" id="scr-booth"></section>
+    <section class="screen devscr" id="scr-device"></section>
+    <section class="screen" id="scr-summary"></section>
+  </div>
+</div>
+<div class="toast off" id="toast"></div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Local environments, generated results and dependency caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+node_modules/
+.pio/
+.DS_Store
+.env
+.env.*
+!.env.example
+# Personal device information and real movement are never publication artifacts
+**/.chrome-profile/
+**/devices/
+**/sessions/real/
+**/sessions/zone_secret
+**/sessions/privacy.json
+**/logs/
+# Downloaded scientific inputs and newly generated outputs
+/data/routing/
+/data/environment/
+/artifacts/
+/downloads/
+/build/
+/dist/

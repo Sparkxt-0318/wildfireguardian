@@ -64,3 +64,7 @@ Existing demonstration outputs and old validation reports retained from earlier 
 - The supplied 88-entry [project bibliography](documents/wildfire_references.bib) and 14-entry [heat bibliography](documents/heat_parameter_models.bib) are included; counts are separate and may overlap.
 
 No forecast inference, training, full routing benchmark, or default routing promotion was performed for this Git publication.
+
+## Finalized integrated research version
+
+The completed 15 October integration uses this c651 checkpoint with the reviewed scalar-duration/source policy. Use [the finalized integration](../integration/README.md), [accepted routing results](../research/routing/INDEPENDENT_REPORT.v1.md), and [the final release](https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/research-final-20261015). The earlier snapshot checks above retain their historical scope. No retraining or scientific-source change was made for final publication.

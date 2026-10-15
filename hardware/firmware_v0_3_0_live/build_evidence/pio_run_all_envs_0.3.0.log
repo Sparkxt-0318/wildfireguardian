@@ -1,0 +1,1132 @@
+Processing tracker_v11 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/heltec_wireless_tracker_wfg.html
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+HARDWARE: ESP32S3 240MHz, 320KB RAM, 8MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-builtin, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-riscv32-esp @ 8.4.0+2021r2-patch5 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- LovyanGFX @ 1.2.7
+|-- LittleFS @ 2.0.0
+|-- FS @ 2.0.0
+|-- Preferences @ 2.0.0
+|-- SPI @ 2.0.0
+|-- wfg_core
+|-- WiFi @ 2.0.0
+|-- WebServer @ 2.0.0
+Building in release mode
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/Fonts/IPA/lgfx_font_japan.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_cn.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_ja.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_kr.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_tw.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/utility/lgfx_miniz.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/utility/lgfx_pngle.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/utility/lgfx_qoi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/utility/lgfx_qrcode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/utility/lgfx_tjpgd.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/LGFXBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/LGFX_Button.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/LGFX_Sprite.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/lgfx_fonts.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/misc/DividedFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/misc/SpriteBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/misc/common_function.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/misc/pixelcopy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_Device.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_EPDiy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_FlexibleFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_FrameBufferBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_GDEW0154M09.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_HasBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_ILI9225.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_IT8951.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_LCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_M5HDMI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_M5UnitGLASS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_M5UnitLCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_NT35510.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_RM68120.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_SSD1306.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_SSD1327.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_SSD1331.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_SSD1351.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/panel/Panel_SSD1963.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/arduino_default/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Bus_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/Panel_CVBS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32c3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp32s3/Panel_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/esp8266/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/framebuffer/Panel_fb.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/framebuffer/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/opencv/Panel_OpenCV.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/opencv/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/rp2040/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/rp2040/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd21/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd21/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd21/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd51/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd51/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/samd51/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/sdl/Panel_sdl.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/sdl/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/spresense/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/spresense/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/stm32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/platforms/stm32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_CST816S.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_FT5x06.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_GSLx680.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_GT911.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_NS2009.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_STMPE610.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_TT21xxx.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib1be/LovyanGFX/lgfx/v1/touch/Touch_XPT2046.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/src/display.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/src/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/src/web_export.cpp.o
+Building /tmp/wfg_pio_030/build/tracker_v11/bootloader.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 1 ELF section
+Successfully created esp32s3 image.
+Generating partitions /tmp/wfg_pio_030/build/tracker_v11/partitions.bin
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib790/FS/FS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib790/FS/vfs_api.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib241/LittleFS/LittleFS.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/lib790/libFS.a
+Archiving /tmp/wfg_pio_030/build/tracker_v11/lib241/libLittleFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/lib790/libFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/lib241/libLittleFS.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/libf2c/Preferences/Preferences.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/liba96/SPI/SPI.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/liba96/libSPI.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/liba96/libSPI.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_export.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/libf2c/libPreferences.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/libf2c/libPreferences.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_live.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_logger.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_nmea.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_proto.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_record.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_sha256.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib80f/wfg_core/wfg_storage.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFi.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/lib80f/libwfg_core.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/lib80f/libwfg_core.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiAP.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiClient.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiGeneric.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiMulti.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiSTA.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiScan.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib789/WiFi/WiFiUdp.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib5f9/WebServer/Parsing.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/lib789/libWiFi.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/lib789/libWiFi.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib5f9/WebServer/WebServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/lib5f9/WebServer/detail/mimetable.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/Esp.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/lib5f9/libWebServer.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/lib5f9/libWebServer.a
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/FirmwareMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/FunctionalInterrupt.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/HWCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/HardwareSerial.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/IPAddress.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/IPv6Address.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/MD5Builder.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/Print.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/StreamString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/Tone.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/USB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/USBCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/USBMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/WMath.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/WString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/base64.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/cbuf.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-adc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-bt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-cpu.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-dac.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-gpio.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-i2c-slave.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-i2c.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-ledc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-matrix.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-misc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-psram.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-rgb-led.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-rmt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-sigmadelta.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-spi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-time.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-timer.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-tinyusb.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-touch.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/esp32-hal-uart.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/firmware_msc_fat.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/libb64/cdecode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/libb64/cencode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/stdlib_noniso.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/wiring_pulse.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v11/FrameworkArduino/wiring_shift.c.o
+Archiving /tmp/wfg_pio_030/build/tracker_v11/libFrameworkArduino.a
+Indexing /tmp/wfg_pio_030/build/tracker_v11/libFrameworkArduino.a
+Linking /tmp/wfg_pio_030/build/tracker_v11/firmware.elf
+Retrieving maximum program size /tmp/wfg_pio_030/build/tracker_v11/firmware.elf
+Checking size /tmp/wfg_pio_030/build/tracker_v11/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968793 bytes from 1572864 bytes)
+Building /tmp/wfg_pio_030/build/tracker_v11/firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32s3 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 8MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building /tmp/wfg_pio_030/build/tracker_v11/firmware.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+========================= [SUCCESS] Took 96.24 seconds =========================
+
+Processing tracker_v2 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/heltec_wireless_tracker_wfg.html
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+HARDWARE: ESP32S3 240MHz, 320KB RAM, 8MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-builtin, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-riscv32-esp @ 8.4.0+2021r2-patch5 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- LovyanGFX @ 1.2.7
+|-- LittleFS @ 2.0.0
+|-- FS @ 2.0.0
+|-- Preferences @ 2.0.0
+|-- SPI @ 2.0.0
+|-- wfg_core
+|-- WiFi @ 2.0.0
+|-- WebServer @ 2.0.0
+Building in release mode
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/Fonts/IPA/lgfx_font_japan.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_cn.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_ja.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_kr.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_tw.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/utility/lgfx_miniz.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/utility/lgfx_pngle.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/utility/lgfx_qoi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/utility/lgfx_qrcode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/utility/lgfx_tjpgd.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/LGFXBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/LGFX_Button.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/LGFX_Sprite.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/lgfx_fonts.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/misc/DividedFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/misc/SpriteBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/misc/common_function.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/misc/pixelcopy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_Device.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_EPDiy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_FlexibleFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_FrameBufferBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_GDEW0154M09.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_HasBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_ILI9225.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_IT8951.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_LCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_M5HDMI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_M5UnitGLASS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_M5UnitLCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_NT35510.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_RM68120.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_SSD1306.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_SSD1327.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_SSD1331.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_SSD1351.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/panel/Panel_SSD1963.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/arduino_default/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Bus_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/Panel_CVBS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32c3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp32s3/Panel_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/esp8266/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/framebuffer/Panel_fb.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/framebuffer/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/opencv/Panel_OpenCV.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/opencv/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/rp2040/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/rp2040/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd21/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd21/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd21/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd51/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd51/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/samd51/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/sdl/Panel_sdl.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/sdl/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/spresense/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/spresense/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/stm32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/platforms/stm32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_CST816S.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_FT5x06.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_GSLx680.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_GT911.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_NS2009.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_STMPE610.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_TT21xxx.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libba5/LovyanGFX/lgfx/v1/touch/Touch_XPT2046.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/src/display.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/src/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/src/web_export.cpp.o
+Building /tmp/wfg_pio_030/build/tracker_v2/bootloader.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 1 ELF section
+Successfully created esp32s3 image.
+Generating partitions /tmp/wfg_pio_030/build/tracker_v2/partitions.bin
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib790/FS/FS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib790/FS/vfs_api.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib241/LittleFS/LittleFS.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/lib790/libFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/lib790/libFS.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/libf2c/Preferences/Preferences.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/lib241/libLittleFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/lib241/libLittleFS.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/liba96/SPI/SPI.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/liba96/libSPI.a
+Archiving /tmp/wfg_pio_030/build/tracker_v2/libf2c/libPreferences.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/liba96/libSPI.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/libf2c/libPreferences.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_export.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_live.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_logger.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_nmea.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_proto.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_record.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_sha256.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib80f/wfg_core/wfg_storage.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFi.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/lib80f/libwfg_core.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/lib80f/libwfg_core.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiAP.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiClient.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiGeneric.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiMulti.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiSTA.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiScan.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib789/WiFi/WiFiUdp.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib5f9/WebServer/Parsing.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/lib789/libWiFi.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/lib789/libWiFi.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib5f9/WebServer/WebServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/lib5f9/WebServer/detail/mimetable.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/Esp.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/lib5f9/libWebServer.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/lib5f9/libWebServer.a
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/FirmwareMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/FunctionalInterrupt.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/HWCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/HardwareSerial.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/IPAddress.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/IPv6Address.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/MD5Builder.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/Print.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/StreamString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/Tone.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/USB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/USBCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/USBMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/WMath.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/WString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/base64.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/cbuf.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-adc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-bt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-cpu.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-dac.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-gpio.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-i2c-slave.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-i2c.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-ledc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-matrix.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-misc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-psram.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-rgb-led.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-rmt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-sigmadelta.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-spi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-time.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-timer.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-tinyusb.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-touch.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/esp32-hal-uart.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/firmware_msc_fat.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/libb64/cdecode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/libb64/cencode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/stdlib_noniso.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/wiring_pulse.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v2/FrameworkArduino/wiring_shift.c.o
+Archiving /tmp/wfg_pio_030/build/tracker_v2/libFrameworkArduino.a
+Indexing /tmp/wfg_pio_030/build/tracker_v2/libFrameworkArduino.a
+Linking /tmp/wfg_pio_030/build/tracker_v2/firmware.elf
+Retrieving maximum program size /tmp/wfg_pio_030/build/tracker_v2/firmware.elf
+Checking size /tmp/wfg_pio_030/build/tracker_v2/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968789 bytes from 1572864 bytes)
+Building /tmp/wfg_pio_030/build/tracker_v2/firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32s3 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 8MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building /tmp/wfg_pio_030/build/tracker_v2/firmware.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+========================= [SUCCESS] Took 79.52 seconds =========================
+
+Processing tracker_v10 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/heltec_wireless_tracker_wfg.html
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+HARDWARE: ESP32S3 240MHz, 320KB RAM, 8MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-builtin, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-riscv32-esp @ 8.4.0+2021r2-patch5 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- LovyanGFX @ 1.2.7
+|-- LittleFS @ 2.0.0
+|-- FS @ 2.0.0
+|-- Preferences @ 2.0.0
+|-- SPI @ 2.0.0
+|-- wfg_core
+|-- WiFi @ 2.0.0
+|-- WebServer @ 2.0.0
+Building in release mode
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/Fonts/IPA/lgfx_font_japan.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_cn.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_ja.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_kr.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_tw.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/utility/lgfx_miniz.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/utility/lgfx_pngle.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/utility/lgfx_qoi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/utility/lgfx_qrcode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/utility/lgfx_tjpgd.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/LGFXBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/LGFX_Button.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/LGFX_Sprite.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/lgfx_fonts.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/misc/DividedFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/misc/SpriteBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/misc/common_function.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/misc/pixelcopy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_Device.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_EPDiy.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_FlexibleFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_FrameBufferBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_GDEW0154M09.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_HasBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_ILI9225.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_IT8951.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_LCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_M5HDMI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_M5UnitGLASS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_M5UnitLCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_NT35510.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_RM68120.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_SSD1306.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_SSD1327.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_SSD1331.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_SSD1351.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/panel/Panel_SSD1963.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/arduino_default/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Bus_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/Panel_CVBS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32c3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp32s3/Panel_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/esp8266/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/framebuffer/Panel_fb.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/framebuffer/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/opencv/Panel_OpenCV.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/opencv/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/rp2040/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/rp2040/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd21/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd21/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd21/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd51/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd51/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/samd51/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/sdl/Panel_sdl.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/sdl/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/spresense/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/spresense/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/stm32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/platforms/stm32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_CST816S.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_FT5x06.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_GSLx680.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_GT911.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_NS2009.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_STMPE610.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_TT21xxx.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf05/LovyanGFX/lgfx/v1/touch/Touch_XPT2046.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/src/display.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/src/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/src/web_export.cpp.o
+Building /tmp/wfg_pio_030/build/tracker_v10/bootloader.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 1 ELF section
+Successfully created esp32s3 image.
+Generating partitions /tmp/wfg_pio_030/build/tracker_v10/partitions.bin
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib790/FS/FS.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib790/FS/vfs_api.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib241/LittleFS/LittleFS.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/lib241/libLittleFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/lib241/libLittleFS.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/libf2c/Preferences/Preferences.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/lib790/libFS.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/lib790/libFS.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/liba96/SPI/SPI.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/liba96/libSPI.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/liba96/libSPI.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_export.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/libf2c/libPreferences.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/libf2c/libPreferences.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_live.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_logger.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_nmea.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_proto.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_record.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_sha256.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib80f/wfg_core/wfg_storage.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFi.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/lib80f/libwfg_core.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/lib80f/libwfg_core.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiAP.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiClient.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiGeneric.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiMulti.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiSTA.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiScan.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib789/WiFi/WiFiUdp.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib5f9/WebServer/Parsing.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/lib789/libWiFi.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/lib789/libWiFi.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib5f9/WebServer/WebServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/lib5f9/WebServer/detail/mimetable.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/Esp.cpp.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/lib5f9/libWebServer.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/lib5f9/libWebServer.a
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/FirmwareMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/FunctionalInterrupt.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/HWCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/HardwareSerial.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/IPAddress.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/IPv6Address.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/MD5Builder.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/Print.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/StreamString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/Tone.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/USB.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/USBCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/USBMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/WMath.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/WString.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/base64.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/cbuf.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-adc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-bt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-cpu.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-dac.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-gpio.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-i2c-slave.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-i2c.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-ledc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-matrix.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-misc.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-psram.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-rgb-led.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-rmt.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-sigmadelta.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-spi.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-time.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-timer.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-tinyusb.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-touch.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/esp32-hal-uart.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/firmware_msc_fat.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/libb64/cdecode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/libb64/cencode.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/stdlib_noniso.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/wiring_pulse.c.o
+Compiling /tmp/wfg_pio_030/build/tracker_v10/FrameworkArduino/wiring_shift.c.o
+Archiving /tmp/wfg_pio_030/build/tracker_v10/libFrameworkArduino.a
+Indexing /tmp/wfg_pio_030/build/tracker_v10/libFrameworkArduino.a
+Linking /tmp/wfg_pio_030/build/tracker_v10/firmware.elf
+Retrieving maximum program size /tmp/wfg_pio_030/build/tracker_v10/firmware.elf
+Checking size /tmp/wfg_pio_030/build/tracker_v10/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968801 bytes from 1572864 bytes)
+Building /tmp/wfg_pio_030/build/tracker_v10/firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32s3 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 8MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building /tmp/wfg_pio_030/build/tracker_v10/firmware.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+========================= [SUCCESS] Took 81.40 seconds =========================
+
+Processing generic_esp32s3 (board: esp32-s3-devkitc-1; platform: platformio/espressif32@6.9.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32-s3-devkitc-1.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32-S3-DevKitC-1-N8 (8 MB QD, No PSRAM)
+HARDWARE: ESP32S3 240MHz, 320KB RAM, 8MB Flash
+DEBUG: Current (esp-builtin) On-board (esp-builtin) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-riscv32-esp @ 8.4.0+2021r2-patch5 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- LovyanGFX @ 1.2.7
+|-- LittleFS @ 2.0.0
+|-- FS @ 2.0.0
+|-- Preferences @ 2.0.0
+|-- SPI @ 2.0.0
+|-- wfg_core
+|-- WiFi @ 2.0.0
+|-- WebServer @ 2.0.0
+Building in release mode
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/Fonts/IPA/lgfx_font_japan.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_cn.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_ja.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_kr.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_tw.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/utility/lgfx_miniz.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/utility/lgfx_pngle.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/utility/lgfx_qoi.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/utility/lgfx_qrcode.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/utility/lgfx_tjpgd.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/LGFXBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/LGFX_Button.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/LGFX_Sprite.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/lgfx_fonts.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/misc/DividedFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/misc/SpriteBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/misc/common_function.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/misc/pixelcopy.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_Device.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_EPDiy.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_FlexibleFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_FrameBufferBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_GDEW0154M09.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_HasBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_ILI9225.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_IT8951.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_LCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_M5HDMI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_M5UnitGLASS.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_M5UnitLCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_NT35510.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_RM68120.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_SSD1306.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_SSD1327.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_SSD1331.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_SSD1351.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/panel/Panel_SSD1963.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/arduino_default/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Bus_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/Panel_CVBS.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32c3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp32s3/Panel_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/esp8266/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/framebuffer/Panel_fb.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/framebuffer/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/opencv/Panel_OpenCV.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/opencv/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/rp2040/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/rp2040/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd21/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd21/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd21/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd51/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd51/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/samd51/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/sdl/Panel_sdl.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/sdl/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/spresense/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/spresense/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/stm32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/platforms/stm32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_CST816S.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_FT5x06.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_GSLx680.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_GT911.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_NS2009.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_STMPE610.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_TT21xxx.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libbb6/LovyanGFX/lgfx/v1/touch/Touch_XPT2046.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/src/display.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/src/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/src/web_export.cpp.o
+Building /tmp/wfg_pio_030/build/generic_esp32s3/bootloader.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 1 ELF section
+Successfully created esp32s3 image.
+Generating partitions /tmp/wfg_pio_030/build/generic_esp32s3/partitions.bin
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib790/FS/FS.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib790/FS/vfs_api.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib241/LittleFS/LittleFS.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/lib790/libFS.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/lib790/libFS.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/libf2c/Preferences/Preferences.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/lib241/libLittleFS.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/lib241/libLittleFS.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/liba96/SPI/SPI.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/libf2c/libPreferences.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/libf2c/libPreferences.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_export.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/liba96/libSPI.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/liba96/libSPI.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_live.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_logger.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_nmea.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_proto.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_record.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_sha256.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/wfg_core/wfg_storage.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFi.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/libwfg_core.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/lib80f/libwfg_core.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiAP.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiClient.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiGeneric.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiMulti.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiSTA.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiScan.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib789/WiFi/WiFiUdp.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib5f9/WebServer/Parsing.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/lib789/libWiFi.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/lib789/libWiFi.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib5f9/WebServer/WebServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/lib5f9/WebServer/detail/mimetable.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/Esp.cpp.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/lib5f9/libWebServer.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/lib5f9/libWebServer.a
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/FirmwareMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/FunctionalInterrupt.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/HWCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/HardwareSerial.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/IPAddress.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/IPv6Address.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/MD5Builder.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/Print.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/StreamString.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/Tone.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/USB.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/USBCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/USBMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/WMath.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/WString.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/base64.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/cbuf.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-adc.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-bt.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-cpu.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-dac.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-gpio.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-i2c-slave.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-i2c.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-ledc.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-matrix.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-misc.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-psram.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-rgb-led.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-rmt.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-sigmadelta.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-spi.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-time.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-timer.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-tinyusb.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-touch.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/esp32-hal-uart.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/firmware_msc_fat.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/libb64/cdecode.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/libb64/cencode.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/stdlib_noniso.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/wiring_pulse.c.o
+Compiling /tmp/wfg_pio_030/build/generic_esp32s3/FrameworkArduino/wiring_shift.c.o
+Archiving /tmp/wfg_pio_030/build/generic_esp32s3/libFrameworkArduino.a
+Indexing /tmp/wfg_pio_030/build/generic_esp32s3/libFrameworkArduino.a
+Linking /tmp/wfg_pio_030/build/generic_esp32s3/firmware.elf
+Retrieving maximum program size /tmp/wfg_pio_030/build/generic_esp32s3/firmware.elf
+Checking size /tmp/wfg_pio_030/build/generic_esp32s3/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  15.2% (used 49716 bytes from 327680 bytes)
+Flash: [======    ]  60.6% (used 952929 bytes from 1572864 bytes)
+Building /tmp/wfg_pio_030/build/generic_esp32s3/firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32s3 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 8MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building /tmp/wfg_pio_030/build/generic_esp32s3/firmware.bin
+esptool.py v4.5.1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+========================= [SUCCESS] Took 80.79 seconds =========================
+
+Processing fallback_fb2e (board: dfrobot_firebeetle2_esp32e; platform: platformio/espressif32@6.9.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/dfrobot_firebeetle2_esp32e.html
+PLATFORM: Espressif 32 (6.9.0) > DFRobot Firebeetle 2 ESP32-E
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- LovyanGFX @ 1.2.7
+|-- LittleFS @ 2.0.0
+|-- FS @ 2.0.0
+|-- Preferences @ 2.0.0
+|-- SPI @ 2.0.0
+|-- wfg_core
+|-- WiFi @ 2.0.0
+|-- WebServer @ 2.0.0
+Building in release mode
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/Fonts/IPA/lgfx_font_japan.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_cn.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_ja.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_kr.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/Fonts/efont/lgfx_efont_tw.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/utility/lgfx_miniz.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/utility/lgfx_pngle.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/utility/lgfx_qoi.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/utility/lgfx_qrcode.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/utility/lgfx_tjpgd.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/LGFXBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/LGFX_Button.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/LGFX_Sprite.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/lgfx_fonts.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/misc/DividedFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/misc/SpriteBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/misc/common_function.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/misc/pixelcopy.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_Device.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_EPDiy.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_FlexibleFrameBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_FrameBufferBase.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_GDEW0154M09.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_HasBuffer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_ILI9225.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_IT8951.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_LCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_M5HDMI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_M5UnitGLASS.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_M5UnitLCD.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_NT35510.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_RM68120.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_SSD1306.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_SSD1327.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_SSD1331.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_SSD1351.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/panel/Panel_SSD1963.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/arduino_default/Bus_Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/arduino_default/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Bus_HUB75.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/Panel_CVBS.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32c3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s2/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel16.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_Parallel8.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s3/Bus_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp32s3/Panel_RGB.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp8266/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/esp8266/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/framebuffer/Panel_fb.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/framebuffer/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/opencv/Panel_OpenCV.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/opencv/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/rp2040/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/rp2040/Light_PWM.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/rp2040/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd21/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd21/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd21/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd51/Bus_I2C.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd51/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/samd51/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/sdl/Panel_sdl.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/sdl/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/spresense/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/spresense/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/stm32/Bus_SPI.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/platforms/stm32/common.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_CST816S.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_FT5x06.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_GSLx680.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_GT911.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_NS2009.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_RA8875.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_STMPE610.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_TT21xxx.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib165/LovyanGFX/lgfx/v1/touch/Touch_XPT2046.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/src/display.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/src/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/src/web_export.cpp.o
+Building /tmp/wfg_pio_030/build/fallback_fb2e/bootloader.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Generating partitions /tmp/wfg_pio_030/build/fallback_fb2e/partitions.bin
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib790/FS/FS.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib790/FS/vfs_api.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib241/LittleFS/LittleFS.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/lib790/libFS.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/lib790/libFS.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/libf2c/Preferences/Preferences.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/lib241/libLittleFS.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/lib241/libLittleFS.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/liba96/SPI/SPI.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/liba96/libSPI.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/liba96/libSPI.a
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/libf2c/libPreferences.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/libf2c/libPreferences.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_export.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_live.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_logger.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_nmea.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_proto.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_record.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_sha256.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/wfg_core/wfg_storage.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFi.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/libwfg_core.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/lib80f/libwfg_core.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiAP.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiClient.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiGeneric.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiMulti.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiSTA.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiScan.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib789/WiFi/WiFiUdp.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib5f9/WebServer/Parsing.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/lib789/libWiFi.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/lib789/libWiFi.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib5f9/WebServer/WebServer.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/lib5f9/WebServer/detail/mimetable.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/Esp.cpp.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/lib5f9/libWebServer.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/lib5f9/libWebServer.a
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/FirmwareMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/FunctionalInterrupt.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/HWCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/HardwareSerial.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/IPAddress.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/IPv6Address.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/MD5Builder.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/Print.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/Stream.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/StreamString.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/Tone.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/USB.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/USBCDC.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/USBMSC.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/WMath.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/WString.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/base64.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/cbuf.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-adc.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-bt.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-cpu.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-dac.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-gpio.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-i2c-slave.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-i2c.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-ledc.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-matrix.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-misc.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-psram.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-rgb-led.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-rmt.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-sigmadelta.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-spi.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-time.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-timer.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-tinyusb.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-touch.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/esp32-hal-uart.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/firmware_msc_fat.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/libb64/cdecode.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/libb64/cencode.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/main.cpp.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/stdlib_noniso.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/wiring_pulse.c.o
+Compiling /tmp/wfg_pio_030/build/fallback_fb2e/FrameworkArduino/wiring_shift.c.o
+Archiving /tmp/wfg_pio_030/build/fallback_fb2e/libFrameworkArduino.a
+Indexing /tmp/wfg_pio_030/build/fallback_fb2e/libFrameworkArduino.a
+Linking /tmp/wfg_pio_030/build/fallback_fb2e/firmware.elf
+Retrieving maximum program size /tmp/wfg_pio_030/build/fallback_fb2e/firmware.elf
+Checking size /tmp/wfg_pio_030/build/fallback_fb2e/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  15.3% (used 50096 bytes from 327680 bytes)
+Flash: [======    ]  63.4% (used 997889 bytes from 1572864 bytes)
+Building /tmp/wfg_pio_030/build/fallback_fb2e/firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building /tmp/wfg_pio_030/build/fallback_fb2e/firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+========================= [SUCCESS] Took 79.14 seconds =========================
+
+Environment      Status    Duration
+---------------  --------  ------------
+tracker_v11      SUCCESS   00:01:36.239
+tracker_v2       SUCCESS   00:01:19.520
+tracker_v10      SUCCESS   00:01:21.399
+generic_esp32s3  SUCCESS   00:01:20.790
+fallback_fb2e    SUCCESS   00:01:19.145
+========================= 5 succeeded in 00:06:57.093 =========================

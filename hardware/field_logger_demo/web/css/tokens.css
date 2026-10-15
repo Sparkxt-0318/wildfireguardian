@@ -1,0 +1,159 @@
+/* Design tokens (spec section 3A). This is the ONLY file that may contain colour literals (test 8).
+   Dark set: booth, start and device screens. Light set: the summary and the exported figures.
+   Text greys were raised from the spec's starting values so that every text token passes WCAG AA against the
+   backgrounds it is used on (test 8): dark text-3 #6e6e73 -> #86868b, text-4 #48484a -> #75757a (used on black
+   only), raw bytes #3a3a3c -> text-4; light text-2 #6e6e73 -> #57575c, text-3 #86868b -> #737378. */
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../vendor/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+  font-display: swap;
+}
+@font-face {
+  font-family: "WFG Mono Hangul";
+  src: url("../vendor/fonts/WFGMonoHangul-subset.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root, body.dark {
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  --font-mono: "SF Mono", Menlo, "WFG Mono Hangul", monospace;
+
+  --bg: #000000;
+  --surface: #1c1c1e;
+  --surface-2: #2c2c2e;
+  --surface-3: #3a3a3c;
+  --glass: rgba(28, 28, 30, 0.72);
+  --glassbar: rgba(22, 22, 23, 0.82);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-soft: rgba(255, 255, 255, 0.06);
+  --hairline-strong: rgba(255, 255, 255, 0.12);
+  --scrim: rgba(0, 0, 0, 0.55);
+  --none: rgba(0, 0, 0, 0);
+
+  --text-1: #f5f5f7;
+  --text-2: #a1a1a6;
+  --text-3: #86868b;
+  --text-4: #75757a;
+  --text-dim: #8e8e93;          /* STATUS and no-fix rows */
+  --text-hex: #75757a;          /* raw bytes */
+
+  --green: #30d158;
+  --green-text: #30d158;
+  --green-text-lg: #30d158;
+  --green-glow: rgba(48, 209, 88, 0.28);
+  --green-halo: rgba(48, 209, 88, 0.20);
+  --green-halo-line: rgba(48, 209, 88, 0.55);
+  --green-ring: rgba(48, 209, 88, 0.22);
+  --green-shadow: rgba(48, 209, 88, 0.12);
+  --error: #ff453a;
+  --error-soft: rgba(255, 69, 58, 0.14);
+
+  --on-green: #000000;
+  --on-light: #000000;
+  --white: #ffffff;
+  --key-inv-border: rgba(0, 0, 0, 0.25);
+  --key-inv-bg: rgba(0, 0, 0, 0.08);
+  --sel-ring: rgba(245, 245, 247, 0.55);
+  --watermark: rgba(255, 255, 255, 0.055);
+  --watermark-text: rgba(255, 255, 255, 0.045);
+
+  /* map: monochrome basemap so the green route is the only colour */
+  --map-land: #050505;
+  --map-block: #0b0b0c;
+  --map-bldg: #141416;
+  --map-bldg-line: #1b1b1d;
+  --map-minor: #1c1c1e;
+  --map-major: #2a2a2d;
+  --map-art: #2f2f33;
+  --map-casing: rgba(0, 0, 0, 0);
+  --map-water: #0c0f13;
+  --map-park: #0b170f;
+  --map-grid: #161618;
+  --map-grid-major: #232326;
+  --map-route: #30d158;
+  --map-route-glow: rgba(48, 209, 88, 0.28);
+  --map-gap: #8e8e93;
+  --map-zone-fill: rgba(255, 255, 255, 0.025);
+  --map-zone-line: rgba(255, 255, 255, 0.28);
+  --map-lens-box: rgba(255, 255, 255, 0.55);
+  --map-jitter: rgba(245, 245, 247, 0.45);
+  --map-label: #a1a1a6;
+  --map-pill: rgba(28, 28, 30, 0.86);
+  --map-pill-line: rgba(255, 255, 255, 0.10);
+  --map-stop: #f5f5f7;
+  --map-stop-num: #000000;
+
+  /* timeline */
+  --tl-move: #30d158;
+  --tl-stop: #f5f5f7;
+  --tl-lead: #2c2c2e;
+  --tl-lead-line: #48484a;
+  --tl-future: #1c1c1e;
+  --tl-gap: #8e8e93;
+  --tl-head: #f5f5f7;
+  --tl-head-text: #000000;
+}
+
+body.light {
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --surface-2: #ececf0;
+  --surface-3: #d2d2d7;
+  --glass: rgba(255, 255, 255, 0.86);
+  --glassbar: rgba(255, 255, 255, 0.86);
+  --hairline: #d2d2d7;
+  --hairline-soft: #ececf0;
+  --hairline-strong: #c7c7cc;
+  --scrim: rgba(0, 0, 0, 0.35);
+
+  --text-1: #1d1d1f;
+  --text-2: #57575c;
+  --text-3: #737378;
+  --text-4: #737378;
+  --text-dim: #737378;
+  --text-hex: #737378;
+  --text-body: #424245;
+
+  --green: #34c759;
+  --green-text: #1e7b34;
+  --green-text-lg: #248a3d;
+  --green-glow: rgba(52, 199, 89, 0);
+  --error: #ff3b30;
+  --on-light: #ffffff;
+  --white: #ffffff;
+  --watermark: rgba(0, 0, 0, 0.045);
+  --watermark-text: rgba(0, 0, 0, 0.05);
+
+  --map-land: #f5f5f7;
+  --map-block: #eeeef1;
+  --map-bldg: #e3e3e8;
+  --map-bldg-line: #d6d6dc;
+  --map-minor: #ffffff;
+  --map-major: #ffffff;
+  --map-art: #ffffff;
+  --map-casing: #d9d9de;
+  --map-water: #e2e8ef;
+  --map-park: #e4f3e8;
+  --map-grid: #e8e8ed;
+  --map-grid-major: #d9d9de;
+  --map-route: #34c759;
+  --map-route-glow: rgba(52, 199, 89, 0);
+  --map-gap: #86868b;
+  --map-zone-fill: rgba(0, 0, 0, 0.02);
+  --map-zone-line: #86868b;
+  --map-label: #57575c;
+  --map-pill: #ffffff;
+  --map-pill-line: #d2d2d7;
+  --map-stop: #1d1d1f;
+  --map-stop-num: #ffffff;
+
+  --tl-move: #34c759;
+  --tl-stop: #1d1d1f;
+  --tl-lead: #d2d2d7;
+  --tl-lead-line: #c7c7cc;
+  --tl-future: #ececf0;
+  --tl-gap: #86868b;
+}

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Route Track Viewer</title>
+<style>
+:root{--bg:#ffffff;--fg:#1a1a1a;--muted:#5f6368;--line:#d0d4d9;--track:#1565c0;--gap:#c62828;--event:#e08600;--panel:#f6f7f9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171a;--fg:#e8eaed;--muted:#a0a6ad;--line:#3a3f45;--track:#64a8ff;--gap:#ff6b6b;--event:#ffb74d;--panel:#1e2126}}
+:root[data-theme="dark"]{--bg:#15171a;--fg:#e8eaed;--muted:#a0a6ad;--line:#3a3f45;--track:#64a8ff;--gap:#ff6b6b;--event:#ffb74d;--panel:#1e2126}
+*{box-sizing:border-box}
+body{margin:0;padding:12px 16px;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px}
+h1{font-size:18px;margin:0 0 4px}
+p.note{color:var(--muted);font-size:13px;margin:4px 0 10px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+input[type=file]{max-width:100%}
+#wrap{position:relative;width:100%;border:1px solid var(--line);background:var(--panel)}
+canvas{display:block;width:100%;touch-action:none}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin:8px 0}
+.sw{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:5px;border-top:3px solid var(--track)}
+.sw.gap{border-top:2px dashed var(--gap)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--event);vertical-align:middle;margin-right:5px}
+table{border-collapse:collapse;width:100%;max-width:640px;font-size:14px;margin-top:8px}
+td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}
+td:first-child{color:var(--muted);width:46%}
+#msg{color:var(--gap);font-size:14px}
+#events li{margin:2px 0}
+button{font:inherit;padding:5px 10px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:4px}
+</style>
+</head>
+<body>
+<h1>Route track viewer (offline)</h1>
+<p class="note">Open a .csv or .gpx exported by the route logger. Nothing is uploaded; this page has no network access
+and no map tiles. Coordinates are drawn exactly as recorded (not map-matched), on a local metric projection.</p>
+<div class="bar">
+  <input type="file" id="file" accept=".csv,.gpx,text/csv,application/gpx+xml,application/octet-stream">
+  <button id="fit" type="button">Reset view</button>
+</div>
+<div id="msg"></div>
+<div id="wrap"><canvas id="cv" height="420"></canvas></div>
+<div class="legend">
+  <span><span class="sw"></span>track (fix rows)</span>
+  <span><span class="sw gap"></span>fix gap (straight line between last and next fix; route unknown)</span>
+  <span><span class="dot"></span>located event marker</span>
+</div>
+<table id="stats"></table>
+<ul id="events"></ul>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let S=null; // parsed session
+const view={s:1,tx:0,ty:0};
+
+function parseCSV(text){
+  const lines=text.split(/\r?\n/).filter(l=>l.length);
+  const hdr=lines[0].split(",");const ix=n=>hdr.indexOf(n);
+  const need=["record_type","mono_ms","lat","lon","fix_valid","event_located","utc_est","gnss_utc","session_id","movement_mode"];
+  for(const n of need) if(ix(n)<0) throw new Error("Not a route logger CSV (missing column "+n+")");
+  const rows=[];let sid="",mode="",startReason="",resumedFrom="";
+  const opt=n=>ix(n);  // optional columns (format v2): absent in CSVs from firmware 0.1.0
+  for(let i=1;i<lines.length;i++){
+    const c=lines[i].split(",");const t=c[ix("record_type")];sid=c[ix("session_id")]||sid;mode=c[ix("movement_mode")]||mode;
+    if(opt("session_start_reason")>=0){startReason=c[opt("session_start_reason")]||startReason;resumedFrom=c[opt("resumed_from_session_id")]||resumedFrom;}
+    const mono=c[ix("mono_ms")]===""?null:+c[ix("mono_ms")];
+    const time=c[ix("gnss_utc")]||c[ix("utc_est")]||"";
+    if(t==="FIX"||t==="NOFIX") rows.push({k:"obs",fix:t==="FIX",mono,lat:+c[ix("lat")],lon:+c[ix("lon")],time,reason:c[ix("nofix_reason")]||""});
+    else if(t==="EVENT") rows.push({k:"event",located:c[ix("event_located")]==="1",mono,lat:+c[ix("lat")],lon:+c[ix("lon")],no:c[ix("event_no")],time:c[ix("utc_est")]});
+    else if(t==="SESSION_END") rows.push({k:"end",reason:c[ix("end_reason")]});
+    else if(t==="STATUS"&&opt("status_vbat_mv")>=0) rows.push({k:"status",mono,vbat:c[opt("status_vbat_mv")]===""?null:+c[opt("status_vbat_mv")],free:+c[opt("status_fs_free_bytes")]});
+    else if(t==="CORRUPT") rows.push({k:"corrupt"});
+  }
+  return {sid,mode,rows,source:"csv",startReason,resumedFrom};
+}
+
+function parseGPX(text){
+  const doc=new DOMParser().parseFromString(text,"application/xml");
+  if(doc.getElementsByTagName("parsererror").length) throw new Error("GPX could not be parsed");
+  const rows=[];const tx=(el,n)=>{const e=el.getElementsByTagName(n)[0];return e?e.textContent:""};
+  const segs=doc.getElementsByTagName("trkseg");
+  for(let s=0;s<segs.length;s++){
+    if(s>0) rows.push({k:"obs",fix:false,mono:null,reason:"GPX segment break (CSV has the reasons)"});
+    const pts=segs[s].getElementsByTagName("trkpt");
+    for(const p of pts){const mono=tx(p,"wfg:mono_ms");const t=tx(p,"time");
+      rows.push({k:"obs",fix:true,lat:+p.getAttribute("lat"),lon:+p.getAttribute("lon"),mono:mono?+mono:(t?Date.parse(t):null),time:t});}
+  }
+  for(const w of doc.getElementsByTagName("wpt")) rows.push({k:"event",located:true,lat:+w.getAttribute("lat"),lon:+w.getAttribute("lon"),no:tx(w,"name").replace("EVENT ",""),time:tx(w,"time"),mono:null});
+  let un=0;for(const e of doc.getElementsByTagName("wfg:unlocated_event")){rows.push({k:"event",located:false,no:e.getAttribute("no"),time:e.getAttribute("utc_est"),mono:+e.getAttribute("press_mono_ms")});un++;}
+  const md=doc.getElementsByTagName("metadata")[0];const name=md?tx(md,"name"):"";
+  const desc=md?tx(md,"desc"):"";const m=/movement_mode=(\w+)/.exec(desc);
+  return {sid:name,mode:m?m[1]:"",rows,source:"gpx"};
+}
+
+function stats(sess){
+  const obs=sess.rows.filter(r=>r.k==="obs");
+  const fixes=obs.filter(r=>r.fix);
+  const st={points:fixes.length,obs:obs.length,nofix:obs.length-fixes.length,events:0,evLoc:0,corrupt:sess.rows.filter(r=>r.k==="corrupt").length};
+  for(const r of sess.rows) if(r.k==="event"){st.events++;if(r.located)st.evLoc++;}
+  const monos=obs.map(r=>r.mono).filter(m=>m!==null&&!isNaN(m));
+  st.duration=monos.length>1?(monos[monos.length-1]-monos[0])/1000:0;
+  // % no-fix time: share of observation intervals whose starting row has no fix (CSV: rows are ~1 s apart).
+  if(sess.source==="csv"&&obs.length>1){let nf=0,tot=0;for(let i=0;i<obs.length-1;i++){if(obs[i].mono==null||obs[i+1].mono==null)continue;const d=obs[i+1].mono-obs[i].mono;tot+=d;if(!obs[i].fix)nf+=d;}st.pctNoFix=tot?100*nf/tot:0;}
+  else st.pctNoFix=null;
+  // Max recording gap: largest interval between consecutive observation rows (any kind). Rows exist even without a
+  // fix, so this measures logger dropouts; max fix gap measures position dropouts.
+  let mg=0,mf=0,lastFix=null;
+  for(let i=1;i<obs.length;i++){if(obs[i].mono!=null&&obs[i-1].mono!=null){const d=obs[i].mono-obs[i-1].mono;if(d>mg)mg=d;}}
+  for(const r of obs){if(r.fix&&r.mono!=null){if(lastFix!==null&&r.mono-lastFix>mf)mf=r.mono-lastFix;lastFix=r.mono;}}
+  st.maxGap=mg/1000;st.maxFixGap=mf/1000;
+  // Path length over fix runs only (gaps are not counted as travelled distance)
+  let L=0,prev=null;for(const r of obs){if(!r.fix){prev=null;continue;}if(prev)L+=hav(prev,r);prev=r;}st.len=L;
+  st.reasons={};for(const r of obs)if(!r.fix&&r.reason)st.reasons[r.reason]=(st.reasons[r.reason]||0)+1;
+  return st;
+}
+function hav(a,b){const R=6371008.8,t=Math.PI/180;const dl=(b.lat-a.lat)*t,dn=(b.lon-a.lon)*t;
+  const h=Math.sin(dl/2)**2+Math.cos(a.lat*t)*Math.cos(b.lat*t)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
+
+function project(sess){
+  const pts=sess.rows.filter(r=>(r.k==="obs"&&r.fix)||(r.k==="event"&&r.located));
+  if(!pts.length) return null;
+  let la=0,lo=0;for(const p of pts){la+=p.lat;lo+=p.lon;}la/=pts.length;lo/=pts.length;
+  const kx=111320*Math.cos(la*Math.PI/180),ky=110574;
+  for(const r of sess.rows) if((r.k==="obs"&&r.fix)||(r.k==="event"&&r.located)){r.x=(r.lon-lo)*kx;r.y=(r.lat-la)*ky;}
+  let x0=1e18,x1=-1e18,y0=1e18,y1=-1e18;for(const p of pts){x0=Math.min(x0,p.x);x1=Math.max(x1,p.x);y0=Math.min(y0,p.y);y1=Math.max(y1,p.y);}
+  return {x0,x1,y0,y1};
+}
+
+function fit(){
+  if(!S||!S.box)return;const cv=$("cv");const W=cv.clientWidth,H=cv.clientHeight,pad=28;
+  const w=Math.max(S.box.x1-S.box.x0,20),h=Math.max(S.box.y1-S.box.y0,20);
+  view.s=Math.min((W-2*pad)/w,(H-2*pad)/h);view.tx=W/2-view.s*(S.box.x0+S.box.x1)/2;view.ty=H/2+view.s*(S.box.y0+S.box.y1)/2;draw();
+}
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function draw(){
+  const cv=$("cv"),dpr=window.devicePixelRatio||1;const W=cv.clientWidth,H=cv.clientHeight;
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);const g=cv.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);if(!S||!S.box){g.fillStyle=css("--muted");g.font="14px sans-serif";g.fillText(S?"No located points in this file.":"Choose a file to draw the track.",14,24);return;}
+  const P=r=>[view.tx+view.s*r.x,view.ty-view.s*r.y];
+  // gaps first (dashed), then track runs
+  const obs=S.rows.filter(r=>r.k==="obs");let last=null,inGap=false;
+  g.lineWidth=2;g.setLineDash([6,5]);g.strokeStyle=css("--gap");
+  for(const r of obs){if(!r.fix){if(last)inGap=true;continue;}if(inGap&&last){const a=P(last),b=P(r);g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();}inGap=false;last=r;}
+  g.setLineDash([]);g.lineWidth=3;g.lineJoin="round";g.lineCap="round";g.strokeStyle=css("--track");
+  let open=false;g.beginPath();
+  for(const r of obs){if(!r.fix){open=false;continue;}const p=P(r);if(!open){g.moveTo(p[0],p[1]);open=true;}else g.lineTo(p[0],p[1]);}
+  g.stroke();
+  // isolated single fixes as small dots
+  g.fillStyle=css("--track");
+  for(let i=0;i<obs.length;i++){const r=obs[i];if(!r.fix)continue;const pv=obs[i-1],nx=obs[i+1];if((pv&&pv.fix)||(nx&&nx.fix))continue;const p=P(r);g.beginPath();g.arc(p[0],p[1],3,0,7);g.fill();}
+  // start / end
+  const fx=obs.filter(r=>r.fix);if(fx.length){const a=P(fx[0]),b=P(fx[fx.length-1]);g.font="bold 12px sans-serif";g.fillStyle=css("--fg");
+    g.beginPath();g.arc(a[0],a[1],5,0,7);g.fill();g.fillText("start",a[0]+8,a[1]-6);g.strokeStyle=css("--fg");g.lineWidth=2;g.strokeRect(b[0]-5,b[1]-5,10,10);g.fillText("end",b[0]+8,b[1]-6);}
+  // events
+  g.font="bold 11px sans-serif";
+  for(const r of S.rows)if(r.k==="event"&&r.located){const p=P(r);g.fillStyle=css("--event");g.beginPath();g.arc(p[0],p[1],6,0,7);g.fill();g.fillStyle=css("--fg");g.fillText("E"+r.no,p[0]+8,p[1]+4);}
+  // scale bar
+  const target=W/4/view.s;const steps=[1,2,5,10,20,50,100,200,500,1000,2000,5000,10000,20000,50000];let m=steps[0];for(const s of steps)if(s<=target)m=s;
+  const px=m*view.s;g.strokeStyle=css("--fg");g.fillStyle=css("--fg");g.lineWidth=2;g.beginPath();g.moveTo(14,H-16);g.lineTo(14+px,H-16);g.moveTo(14,H-21);g.lineTo(14,H-11);g.moveTo(14+px,H-21);g.lineTo(14+px,H-11);g.stroke();
+  g.font="12px sans-serif";g.fillText(m>=1000?(m/1000)+" km":m+" m",18+px,H-12);
+  g.fillText("N",W-20,20);g.beginPath();g.moveTo(W-16,26);g.lineTo(W-16,44);g.stroke();
+}
+
+function fmtDur(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+" h ":"")+(h||m?m+" min ":"")+x+" s";}
+function showStats(){
+  const st=stats(S);const rows=[["Session",S.sid+(S.mode?" ("+S.mode+", owner-selected)":"")],
+   ["Source file",S.source.toUpperCase()],["Duration (first to last observation row)",fmtDur(st.duration)],
+   ["Fix points",st.points],["Observation rows (fix + no-fix)",S.source==="csv"?st.obs:"n/a in GPX (only fixes stored)"],
+   ["No-fix time",st.pctNoFix===null?"n/a (load the CSV for this)":st.pctNoFix.toFixed(1)+" %"],
+   ["Max recording gap (between any rows)",S.source==="csv"?st.maxGap.toFixed(1)+" s":"n/a (load the CSV)"],
+   ["Max gap between fixes",st.maxFixGap.toFixed(1)+" s"],
+   ["Path length over fix runs (gaps excluded)",(st.len/1000).toFixed(3)+" km"],
+   ["Event markers",st.events+" ("+st.evLoc+" located, "+(st.events-st.evLoc)+" without position)"]];
+  const rs=Object.entries(st.reasons).map(([k,v])=>k+": "+v).join(", ");if(rs)rows.push(["No-fix rows by reason",rs]);
+  if(st.corrupt)rows.push(["Corrupt records (CRC failed)",st.corrupt]);
+  const end=S.rows.find(r=>r.k==="end");if(end)rows.push(["Session end",end.reason]);
+  if(S.startReason)rows.push(["Session start",S.startReason==="AUTO_RESUMED_AFTER_RESET"?"auto-resumed after a reset (continues "+S.resumedFrom+", kept as a separate session)":"owner button"]);
+  const stt=S.rows.filter(r=>r.k==="status");const bv=stt.filter(r=>r.vbat!==null);
+  if(stt.length)rows.push(["Battery (STATUS rows, every 60 s)",bv.length?bv[0].vbat+" mV at start, "+bv[bv.length-1].vbat+" mV at last status ("+bv.length+" readings; factor UNVERIFIED until calibrated)":"no valid reading ("+stt.length+" status rows)"]);
+  if(stt.length)rows.push(["Storage free at last status",(stt[stt.length-1].free/1048576).toFixed(2)+" MiB"]);
+  $("stats").innerHTML=rows.map(r=>"<tr><td>"+r[0]+"</td><td>"+esc(String(r[1]))+"</td></tr>").join("");
+  $("events").innerHTML=S.rows.filter(r=>r.k==="event").sort((a,b)=>(+a.no)-(+b.no)).map(r=>"<li>Event "+esc(r.no)+": "+(r.located?"located":"<b>no position</b> (no fix recent enough; not interpolated)")+(r.time?" at "+esc(r.time):"")+"</li>").join("");
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+$("file").addEventListener("change",async e=>{
+  const f=e.target.files[0];if(!f)return;$("msg").textContent="";
+  try{const text=await f.text();const isGpx=/\.gpx$/i.test(f.name)||text.trimStart().startsWith("<?xml");
+    if(/\.wfg$/i.test(f.name))throw new Error("This is the raw .wfg file. Open the .csv or .gpx instead (or convert with usb_export.py convert).");
+    S=isGpx?parseGPX(text):parseCSV(text);S.box=project(S);showStats();fit();}
+  catch(err){S=null;$("msg").textContent=err.message;draw();$("stats").innerHTML="";$("events").innerHTML="";}
+});
+$("fit").onclick=fit;
+// pan / pinch zoom (pointer events) and wheel zoom
+const cv=$("cv");const ptrs=new Map();let pinch0=null;
+cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,[e.offsetX,e.offsetY]);});
+cv.addEventListener("pointermove",e=>{if(!ptrs.has(e.pointerId))return;const p=ptrs.get(e.pointerId);
+  if(ptrs.size===1){view.tx+=e.offsetX-p[0];view.ty+=e.offsetY-p[1];}
+  else if(ptrs.size===2){const o=[...ptrs.entries()].find(([k])=>k!==e.pointerId)[1];const d0=Math.hypot(p[0]-o[0],p[1]-o[1]),d1=Math.hypot(e.offsetX-o[0],e.offsetY-o[1]);
+    if(d0>0){const k=d1/d0,cx=(e.offsetX+o[0])/2,cy=(e.offsetY+o[1])/2;view.tx=cx-(cx-view.tx)*k;view.ty=cy-(cy-view.ty)*k;view.s*=k;}}
+  ptrs.set(e.pointerId,[e.offsetX,e.offsetY]);draw();});
+const up=e=>ptrs.delete(e.pointerId);cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
+cv.addEventListener("wheel",e=>{e.preventDefault();const k=Math.exp(-e.deltaY/400);view.tx=e.offsetX-(e.offsetX-view.tx)*k;view.ty=e.offsetY-(e.offsetY-view.ty)*k;view.s*=k;draw();},{passive:false});
+window.addEventListener("resize",()=>{if(S)fit();else draw();});
+draw();
+// test hook (used by the host smoke test): window.__wfgLoad(text, name)
+window.__wfgLoad=(text,name)=>{S=/\.gpx$/i.test(name)?parseGPX(text):parseCSV(text);S.box=project(S);showStats();fit();
+  const st=stats(S);st.statusRows=S.rows.filter(r=>r.k==="status").length;st.startReason=S.startReason||"";return st;};
+</script>
+</body>
+</html>

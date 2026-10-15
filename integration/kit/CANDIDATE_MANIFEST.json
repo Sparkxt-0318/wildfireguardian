@@ -1,0 +1,110 @@
+{
+ "schema": "wfg.latest-kit.manifest/1",
+ "candidate_id": "WFG-latest-completion-kit-20261015-v3",
+ "files": {
+  "INPUT_BINDING.json": "48bc31b89d75ea2978cc7e6006cb67dd3deb539e4a564c019499379947df12a4",
+  "README_KIT.md": "9d3136e372b126d2728c4aaf4593d4a99960d4cac5e835688dc1e77ba90025a7",
+  "checking/CHECKING.md": "8ca96d8a23581e1e4a23e81c90688cb8c2c06938c8d091ad4bfe532d08e9ce3d",
+  "checking/OPEN_VERIFICATION.md": "02227c35380a230f75d9f8eef8d143d13cd9c10b699d29fa9bf2438ad48d71da",
+  "checking/SCORING_DEFINITIONS.md": "729ad5ee185c4f601aa070f481d85c15d7bfceb26b2fd5e884f1920f1469c477",
+  "checking/compare_tallies.py": "14b339ddaf4b1c699284492be865f1a5e6139fef3ed1c27e018a41c16db898dc",
+  "decision/journey_decision.py": "5d2a975ccdc4c5db95bfbdeff96ad3ed767a50437081dac5a1088fc6d4f92bf0",
+  "decision/journey_decision_v2.py": "4f79b96511e367db52c38886a407f605b76349627f9c5c613f0daa53f8d5e162",
+  "decision/journey_decision_v2_1.py": "80adfc0b1c9f4f9496ed7edfb73d47802646f527718ad3bd6e049cfdf0560097",
+  "phaseB/baseline_worker.py": "c0d0b2dcd99e84d6c6dda9ed71eeed1f33c41f2af7953d3bdabd4fecc47ff5c6",
+  "phaseB/preparation_mode.py": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6",
+  "phaseB/publication_v1_1.py": "702f3ff5937c8b20f9e90247abc63b3889fc6d6f6c5872720a89772545422442",
+  "phaseB/rda_worker_v1_1.py": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58",
+  "phaseB/road_bounds.py": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2",
+  "phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+  "phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "queues/LATEST_PREFLIGHT_CONTROLS.json": "fffeca34069b32699b3b228b4490a0205ecea41fe97cb7f61c23af338de25356",
+  "queues/LATEST_PREFLIGHT_REAL.json": "afcff2ca9cf9ae78637e6b867d8163c6cf0eb69ce11a6c7aefe806981f008ee8",
+  "queues/LATEST_PRIMARY.json": "7acf70737e8d351429ddb2a3bd5867e994b18ea824ce557e75aad5e2b149c593",
+  "routing_candidate/baseline/adaptive_checker.py": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+  "routing_candidate/baseline/contact_first.py": "d2d2c4c8b2d8e75d94f361224ec5ea5fb3f30c0c1da3933f0c3fd0dc0d8e0b6d",
+  "routing_candidate/baseline/event_reference.py": "b847fbd2c061f4f1b9602c23cf9047bfe3ce585819780deba2989da9cccf0972",
+  "routing_candidate/baseline/forecast_bridge.py": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152",
+  "routing_candidate/baseline/hybrid_checker.py": "dabd603857bc60b056e6a581d2aa1c1f05f355b46640a83c687ca46848c54c76",
+  "routing_candidate/baseline/hybrid_radiation.py": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246",
+  "routing_candidate/baseline/ivkernel.py": "2a4fbe799ec2fb8f88f2a3c36272812d50ba4012ea41ae823dd5c4e832918a34",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/__init__.py": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/ecology.py": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/example.py": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/integrated_example.py": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/model.py": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/pipeline.py": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942",
+  "routing_candidate/baseline/mentor_runtime/expected_heat_flux/temporal.py": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b",
+  "routing_candidate/baseline/mission_contract.py": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767",
+  "routing_candidate/baseline/radiation_bounds.py": "75bb1f5055eb16d21ec5f9282392d89f29fbaf2fbf7d8a84a1f4483cdd0957a8",
+  "routing_candidate/baseline/road_exposure.py": "7ba5ea9777030ef4119dbadcca538d818d66879c5f78f971eb11c9523368855a",
+  "routing_candidate/baseline/routing-package/routing/__init__.py": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+  "routing_candidate/baseline/routing-package/routing/admission_geometry.py": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+  "routing_candidate/baseline/routing-package/routing/core.py": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+  "routing_candidate/baseline/routing-package/routing/fixture.py": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620",
+  "routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+  "routing_candidate/baseline/routing-package/routing/prepared.py": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+  "routing_candidate/baseline/routing-package/routing/prepared_reuse.py": "e1838ae03c42a6a9c4b077f7bb6215105ff682802dc0751dc09c80f3236b6e3c",
+  "routing_candidate/baseline/routing-package/routing/validation.py": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3",
+  "routing_candidate/baseline/temporal_contract.py": "d1b3c3719dc3ca5384637ba6239b25b4069011c16ae3b14c701cd37be1f0c36d",
+  "routing_candidate/runner/cand_worker_final.py": "f337e58cc1ca51d383cb2de2bd68c1a7da99662b6671d6491d23949f715a97a7",
+  "routing_candidate/search/clock_scope.py": "75c1712dea2fb848932681986b38bca032f6a5d42c9a767a37c5c3749bb310fa",
+  "routing_candidate/search/exact_transport.py": "9d08a75e7f847b9a4b82ce48720c7dad56297a2c6520c4f2d5c8224e567836d9",
+  "runner/ffi_independent_checker.py": "8ce23dbaaac3ade8284aa9d9bf927fe2d8bbb336a45e29e68582bd8183231789",
+  "runner/lease.py": "86315b6fb55be91cfc985961e0f5ff448b664d0ac6f912ba54e5846239a0e91a",
+  "runner/native_report.py": "127a437418acb2ac382f558be55624cdd85647bdae4a211fc4dec8bb1f19530a",
+  "runner/native_tally.py": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b",
+  "runner/preflight_control_worker.py": "002c657ffed7a80fd7e715ef55d6dc767668f04c12c737ebd6c8e72a25577b6d",
+  "runner/wfg_controller.py": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c",
+  "runner/wfg_native.py": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370",
+  "runner/witness_wholeroad.py": "035d86ff31f3fff43ce5451172c35a1db1bf24ca0e537ba973a9e22a81fe8fd2"
+ },
+ "code_identity_sha256": "3e75ccbd2c03e54e5300e9583aad7c49507db11d8abc9ffe6bca516825182013",
+ "preparation_source_sha256": "8a99d8d49892c2bc7d9b67244b76219e2096edc5159655b4fe30fa345f899d2f",
+ "preparation_mode_sha256": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6",
+ "worker_sha256": {
+  "phaseB/rda_worker_v1_1.py": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58",
+  "phaseB/baseline_worker.py": "c0d0b2dcd99e84d6c6dda9ed71eeed1f33c41f2af7953d3bdabd4fecc47ff5c6"
+ },
+ "queues_sha256": {
+  "LATEST_PRIMARY": "7acf70737e8d351429ddb2a3bd5867e994b18ea824ce557e75aad5e2b149c593",
+  "LATEST_PREFLIGHT_REAL": "afcff2ca9cf9ae78637e6b867d8163c6cf0eb69ce11a6c7aefe806981f008ee8",
+  "LATEST_PREFLIGHT_CONTROLS": "fffeca34069b32699b3b228b4490a0205ecea41fe97cb7f61c23af338de25356"
+ },
+ "input_binding_sha256": "48bc31b89d75ea2978cc7e6006cb67dd3deb539e4a564c019499379947df12a4",
+ "input_freeze": {
+  "path": "outputs/latest_forecast_routing_completion_20261015_v1/execution/latest_inputs/try02/LATEST_INPUT_FREEZE.json",
+  "sha256": "d22b5a1a9733c3b616d946974d4f170c93ed4800b20d153362317ee091b18537"
+ },
+ "derived_from": {
+  "candidate_id": "WFG-memory-repair-candidate-20261014",
+  "zip_sha256": "59fa306ad59164fee4934044b1994f55542a20ff7bfd35bd2d749245cd655620",
+  "unchanged_trees": [
+   "routing_candidate/",
+   "phaseB/",
+   "decision/",
+   "checking/"
+  ],
+  "runner_unchanged": [
+   "lease.py",
+   "ffi_independent_checker.py",
+   "witness_wholeroad.py",
+   "preflight_control_worker.py"
+  ],
+  "runner_replaced": [
+   "wfg_controller.py",
+   "wfg_native.py",
+   "native_tally.py",
+   "native_report.py"
+  ],
+  "runner_removed": [
+   "prepare_warm_artifact.py"
+  ],
+  "historical_queues_removed": true
+ },
+ "excluded": [
+  "inputs (copied and hash-verified at launch from INPUT_BINDING.json)",
+  "results",
+  "environments"
+ ]
+}

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Cite this software snapshot separately from any subsequent research paper. See research/ for evaluation scope."
+type: software
+title: "WildfireGuardian forecast to checked route research software"
+authors:
+  - family-names: "Sparkxt-0318"
+version: "1.0.0"
+date-released: "2026-10-15"
+repository-code: "https://github.com/Sparkxt-0318/wildfireguardian"
+url: "https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/research-final-20261015"

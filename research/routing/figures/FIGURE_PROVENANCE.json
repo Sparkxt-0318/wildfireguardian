@@ -1,0 +1,212 @@
+{
+  "schema": "wfg.publication.final-figures/1",
+  "utc": "2026-10-15T04:37:29.590249+00:00",
+  "writer": "Codex independent publication review",
+  "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "script_sha256": "88ab57fc87e9e338b85e767c3cb5efdbb9cc227b5d82beaf7a1797141d7936a0",
+  "sources": {
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/INDEPENDENT_CONSOLIDATION_v1.json": {
+      "sha256": "9b40327d9c2a290c95d9a2b617ac442c6675d4d30159cc8a2e7fc10632968b0d",
+      "bytes": 33670
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/scored_v1/RESULTS.json": {
+      "sha256": "4538cc4efa456b2ba304bfb12ee850db4ee1244d2ddb8847e0c38684c6e125ff",
+      "bytes": 111688
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/scored_v1/ROWS.json": {
+      "sha256": "88434e9cd1a36547ee93ee4fdc6e2f40a9e57577e21e5074a45752465c5c00b0",
+      "bytes": 817009
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/reproduction/final_route_verification_v1/ULJIN03_FIGURE_SOURCE_METADATA.v1.json": {
+      "sha256": "30c7a4586098cff9dab969c527fe539b6cee7626ceff6e61dbc2dbeae2273f05",
+      "bytes": 17880
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/NATIVE_Q_CATEGORIES_FROM_BOUND_REVIEW.csv": {
+      "sha256": "7567184bd6bf0ff6440eaf39383b0ce515585865f8e70fb468cc2ddaec4e7f05",
+      "bytes": 3032
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json": {
+      "sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+      "bytes": 6267011
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/raw/LATEST_PRIMARY/uljin_2022__20220304T030000Z_FX1__r1__RDA_CAND/RESULT.json": {
+      "sha256": "6ca08c6309870d3652cc24691eb5ce33f8eb8b24148ab4814d4a0d1bdd54ce0b",
+      "bytes": 783036
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/raw/LATEST_PRIMARY_INDEPENDENT/uljin_2022__20220304T030000Z_FX1__r1__RDA_CAND.json": {
+      "sha256": "f62b5c231290f3cfa4988775cc9fba75d0c44bef46e9be0cc56d085ee71bd030",
+      "bytes": 97149
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/raw/LATEST_PRIMARY/uljin_2022__20220304T030000Z_FX1__r1__RDA_BASE/RESULT.json": {
+      "sha256": "1c267574e094d903b730209add3a54996489eca5fdbfe3c81feae9b9adc69b6b",
+      "bytes": 784101
+    },
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/raw/LATEST_PRIMARY_INDEPENDENT/uljin_2022__20220304T030000Z_FX1__r1__RDA_BASE.json": {
+      "sha256": "49146346b1dba8167493092c2170baeab670f1afb263910384ac947456a834e6",
+      "bytes": 97126
+    }
+  },
+  "exports": [
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig01_resolution.pdf",
+      "sha256": "31641ab7007626b2c27da48085bc7f8b9b6b0ae51f7eee8935798682d4cdfe69",
+      "bytes": 29181
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig01_resolution.png",
+      "sha256": "2e063359c78bd526baa1d0c5c311d3961d82a0f9b8ea5df433c5b385b82fff1a",
+      "bytes": 258007
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig01_resolution.svg",
+      "sha256": "ecf622c211920d6ce940b85deb8221069ca12a528b062828a8a8575ff5450d7d",
+      "bytes": 20935
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig02_wall_time.pdf",
+      "sha256": "36c6c486a1df90b506944bd4bed3ebaca9341068c58ea0c554a7f6936c1ad2eb",
+      "bytes": 34634
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig02_wall_time.png",
+      "sha256": "6bf343b4e10d95b15b8bf5669d57410cd8392ede3fe137cf826ed21f63ed98ac",
+      "bytes": 285635
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig02_wall_time.svg",
+      "sha256": "0a6cd1105f112c72b3ad2504e0e378a112758bdcfd489bcff0c102ce8a69c250",
+      "bytes": 23445
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig03_memory_scopes.pdf",
+      "sha256": "38074320f929060e101d8dc49fc8f7476f2ef3ef4aae2b1dad78a7ac7a558f98",
+      "bytes": 31629
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig03_memory_scopes.png",
+      "sha256": "be0c645269f8efa0dff73c1e3a1f6aaf5b9ca6c13e06664c5d43c559eb5e1389",
+      "bytes": 280675
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig03_memory_scopes.svg",
+      "sha256": "221905061938d954aee95ba6ca1e57c9968240ea1eb0f8c59e4eaccfaf527ce9",
+      "bytes": 25855
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig05_current_law_flow.pdf",
+      "sha256": "54e6b8b573479796a4ff09fa030c3eaea4142ec7a51c3bfbd0eb0f9853abb8ff",
+      "bytes": 33688
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig05_current_law_flow.png",
+      "sha256": "3bac43958a7ef24dd187335645be8056e134fd858d038a9e766c0df04ff7fd12",
+      "bytes": 397178
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig05_current_law_flow.svg",
+      "sha256": "af4e7ac9039784704330f4dcb4f0ee030dd00944be830f33c717a35331ed7ca5",
+      "bytes": 11233
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig04_probability_categories.svg",
+      "sha256": "98f798d7153df9d4d336b778ebd10da7f5faba89b7a3a3118d9882d8f8e166d0",
+      "bytes": 30618
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig04_probability_categories.png",
+      "sha256": "543e627aa872f1102e082b9cae067533035b3a9d76360c85aa99f965d11e7cf9",
+      "bytes": 403633
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig04_probability_categories.pdf",
+      "sha256": "c3c39fb823e5d27d94b0d47c1dc784540a69bfeb990f98d52b1bd214b89c1838",
+      "bytes": 35351
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig06_recorded_uljin_route.svg",
+      "sha256": "47a97d8209f0760d057015194ffd3b9c5b43f6f7a7d603e84b3a97eb386674ba",
+      "bytes": 5064045
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig06_recorded_uljin_route.png",
+      "sha256": "477cca75ef70ee961a8185e963377561afc7fe6e47bd1a78dacd6747b581f556",
+      "bytes": 570913
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/final_figures/fig06_recorded_uljin_route.pdf",
+      "sha256": "7ec805b50306dfcb488d602ca379ffde24312a0f73dec0d47d6a8425f31e2bce",
+      "bytes": 213527
+    }
+  ],
+  "route": {
+    "same_recorded_timed_trajectory": true,
+    "route_payload_sha256": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+    "arrival_s": 3119,
+    "trajectory_elements": 514,
+    "edge_legs": 512,
+    "case": "uljin_2022/20220304T030000Z_FX1",
+    "source_footprint": [
+      {
+        "north_up_row": 43,
+        "column": 30,
+        "routing_row": 18,
+        "routing_flat_index": 1074,
+        "footprint_EPSG5179_xy": [
+          [
+            1160250.0,
+            1895625.0
+          ],
+          [
+            1160625.0,
+            1895625.0
+          ],
+          [
+            1160625.0,
+            1896000.0
+          ],
+          [
+            1160250.0,
+            1896000.0
+          ]
+        ],
+        "center_EPSG5179_xy": [
+          1160437.5,
+          1895812.5
+        ],
+        "size_m": [
+          375.0,
+          375.0
+        ],
+        "native_remaining_s": 3207.19289728573,
+        "source_phase": "half-open [0,R) relative cutoff; source sheet at5m, receiver0m; routing expiry rounds upward to contain exact interval",
+        "actual_hazard_member_breakpoints_s": [
+          [
+            0.0,
+            3207.19289728573,
+            3600.0
+          ],
+          [
+            0.0,
+            3207.19289728573,
+            3600.0
+          ],
+          [
+            0.0,
+            3207.19289728573,
+            3600.0
+          ],
+          [
+            0.0,
+            3207.19289728573,
+            3600.0
+          ]
+        ]
+      }
+    ],
+    "no_new_model_solver_checker": true
+  },
+  "rendering_only": true,
+  "visual_QA": "REQUIRED_SEPARATE_RECEIPT",
+  "supersedes_for_final_use": "original producer figures in analysis/results (preserved in producer_snapshot_v1); data are unchanged, metric labels and scope corrected",
+  "source_law_scope": "all packets use scalar R_max; 14/15 non-exact per-cell; T is distinct from R_max; unknown-age count zero is not age zero"
+}

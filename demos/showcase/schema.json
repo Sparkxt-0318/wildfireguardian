@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wildfireguardian.example/schema/exhibition-v1.json",
+  "title": "WildfireGuardian local exhibition data v1",
+  "description": "Format only; no scientific verification. Runtime cross-field validation is additionally required.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/scene"
+    },
+    {
+      "$ref": "#/$defs/recordedTrack"
+    }
+  ],
+  "$defs": {
+    "point": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": -64,
+          "maximum": 64
+        },
+        {
+          "type": "number",
+          "minimum": -46,
+          "maximum": 46
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "path": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/point"
+      },
+      "minItems": 2,
+      "maxItems": 4000
+    },
+    "scene": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "mode": {
+          "enum": [
+            "fixture",
+            "artifact",
+            "recorded"
+          ]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "ko": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            }
+          },
+          "required": [
+            "ko",
+            "en"
+          ],
+          "additionalProperties": false
+        },
+        "duration": {
+          "const": 108
+        },
+        "roads": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "points": {
+                "$ref": "#/$defs/path"
+              }
+            },
+            "required": [
+              "id",
+              "points"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "routes": {
+          "type": "object",
+          "properties": {
+            "selected": {
+              "$ref": "#/$defs/path"
+            },
+            "comparator": {
+              "$ref": "#/$defs/path"
+            }
+          },
+          "required": [
+            "selected",
+            "comparator"
+          ],
+          "additionalProperties": false
+        },
+        "fire": {
+          "type": "object",
+          "properties": {
+            "center": {
+              "$ref": "#/$defs/point"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 30
+            }
+          },
+          "required": [
+            "center",
+            "radius"
+          ],
+          "additionalProperties": false
+        },
+        "start": {
+          "$ref": "#/$defs/point"
+        },
+        "destination": {
+          "$ref": "#/$defs/point"
+        },
+        "deviceTrace": {
+          "$ref": "#/$defs/path"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "terrain": {
+              "const": "illustrative"
+            },
+            "roads": {
+              "enum": [
+                "illustrative",
+                "imported-artifact"
+              ]
+            },
+            "fire": {
+              "const": "illustrative"
+            },
+            "routes": {
+              "enum": [
+                "scripted",
+                "imported-artifact"
+              ]
+            },
+            "track": {
+              "enum": [
+                "scripted",
+                "recorded-user-supplied"
+              ]
+            },
+            "device": {
+              "const": "owner-cad-study"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            }
+          },
+          "required": [
+            "terrain",
+            "roads",
+            "fire",
+            "routes",
+            "track",
+            "device",
+            "source"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "mode",
+        "title",
+        "duration",
+        "roads",
+        "routes",
+        "fire",
+        "start",
+        "destination",
+        "deviceTrace",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "recordedTrack": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "kind": {
+          "const": "recorded-track"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "coordinates": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4000,
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              {
+                "type": "number",
+                "exclusiveMinimum": -85,
+                "exclusiveMaximum": 85
+              }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time",
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "version",
+        "kind",
+        "title",
+        "coordinates",
+        "source",
+        "recordedAt"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Partition table for 4 MB flash (fallback FireBeetle 2 ESP32-E). Same layout rules as partitions.csv.
+# Name,    Type, SubType,  Offset,   Size
+nvs,       data, nvs,      0x9000,   0x5000
+factory,   app,  factory,  0x10000,  0x180000
+spiffs,    data, spiffs,   0x190000, 0x270000

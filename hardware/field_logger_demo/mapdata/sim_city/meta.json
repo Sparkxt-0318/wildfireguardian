@@ -1,0 +1,19 @@
+{
+ "name": "sim_city",
+ "synthetic": true,
+ "center": [
+  126.839,
+  35.147
+ ],
+ "bounds": [
+  126.75329482490368,
+  35.076920784177744,
+  126.92470517509632,
+  35.21707921582225
+ ],
+ "attribution": {
+  "ko": "모의 지도 · 가상 도로",
+  "en": "Simulated map · synthetic streets"
+ },
+ "source": "app/mapgen.py (seed 11); invented streets, not OpenStreetMap"
+}

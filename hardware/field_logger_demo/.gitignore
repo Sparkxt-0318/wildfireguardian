@@ -1,0 +1,14 @@
+# Real recordings show where the owner lives and studies: they stay on the Mac, never in git.
+sessions/real/
+sessions/privacy.json
+# The key of the privacy circles' offsets (app/privacy.py): with it the hidden points could be recovered
+sessions/zone_secret
+# Exports, device logs (DUMP and LIVE lines contain positions), board profiles, the app's own Chrome profile
+out/
+logs/
+devices/
+.chrome-profile/
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/

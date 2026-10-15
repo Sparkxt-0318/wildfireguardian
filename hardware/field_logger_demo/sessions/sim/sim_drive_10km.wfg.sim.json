@@ -1,0 +1,68 @@
+{
+ "generator": "app/simgen.py",
+ "seed": 11,
+ "simulated": true,
+ "device_id": "00000000",
+ "area": "sim_city",
+ "mode": "VEHICLE",
+ "note": "SIMULATED: not a real recording. Ground truth below is what the generator did.",
+ "truth": {
+  "stops": [
+   {
+    "n": 1,
+    "t0": 371.0,
+    "t1": 411.0,
+    "dur": 41,
+    "lat": 35.1365612,
+    "lon": 126.8834228,
+    "press": true
+   },
+   {
+    "n": 2,
+    "t0": 723.0,
+    "t1": 755.0,
+    "dur": 33,
+    "lat": 35.166441,
+    "lon": 126.8818873,
+    "press": true
+   },
+   {
+    "n": 3,
+    "t0": 839.0,
+    "t1": 874.0,
+    "dur": 36,
+    "lat": 35.1690467,
+    "lon": 126.8707873,
+    "press": true
+   }
+  ],
+  "presses": [
+   {
+    "event_no": 1,
+    "t_press": 373.3,
+    "stray": false
+   },
+   {
+    "event_no": 2,
+    "t_press": 725.3,
+    "stray": false
+   },
+   {
+    "event_no": 3,
+    "t_press": 841.3,
+    "stray": false
+   }
+  ],
+  "gaps": [
+   {
+    "t0": 578.0,
+    "t1": 598.0,
+    "s": 20
+   }
+  ],
+  "lead_in_s": 60,
+  "lead_out_s": 25,
+  "duration_s": 979.0,
+  "path_m": 10509.9
+ }
+}

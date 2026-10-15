@@ -1,0 +1,243 @@
+{
+  "schema": "wfg.latest-integration-final-review/1",
+  "utc": "2026-10-15T04:48:51.038471+00:00",
+  "writer": "Codex independent reviewer",
+  "status": "ACCEPTED_BOUNDED_RESEARCH_WITH_STATED_LIMITS",
+  "campaign_results_accepted": true,
+  "representative_verification_complete": true,
+  "representative_reproduction_accepted": true,
+  "publication_checks_complete": true,
+  "canonical_append_receipt_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/CANONICAL_APPEND_FINAL_RECEIPT.v1.json",
+  "report": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/INDEPENDENT_REPORT.md",
+    "sha256": "5da6a8ec318427b7ffa3d94daad44b3dbd737231018db03c6d98ab8ddea8d2d1"
+  },
+  "identities": {
+    "expected_checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+    "historical_router_zip_sha256": "59fa306ad59164fee4934044b1994f55542a20ff7bfd35bd2d749245cd655620",
+    "candidate_zip_sha256": "1d7da17a0f883bade6bb48a79f253637294868db50640ed0d48227fc832e09b6",
+    "source_manifest_sha256": "6f627f87053ea5d80e74052201574e3d3224c59d5d411eac1defd4ffe97907b5",
+    "input_manifest_sha256": "d22b5a1a9733c3b616d946974d4f170c93ed4800b20d153362317ee091b18537",
+    "launcher_sha256": "017797b573a92c939ce9c540a9e42a8f8b89ad027c4b34688f1af3562253cf01",
+    "queue_sha256": "7acf70737e8d351429ddb2a3bd5867e994b18ea824ce557e75aad5e2b149c593",
+    "wheel_sha256": "1475854b27e8e6d2f71f1bc5de6e1690474b30c500533ecce8221816905ce47d",
+    "native_launcher_sha256": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370",
+    "controller_sha256": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c",
+    "tally_sha256": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b",
+    "input_binding_sha256": "48bc31b89d75ea2978cc7e6006cb67dd3deb539e4a564c019499379947df12a4"
+  },
+  "execution_owner": "Claude_NATIVE original 80-slot campaign; unchanged",
+  "independent_verification": "One Codex review-owned selected chain after release; unscored; no primary queue or takeover",
+  "by_arm": {
+    "RDA_BASE": {
+      "planned_attempts": 40,
+      "attempted": 40,
+      "resolved_attempts": 26,
+      "checked_route_attempts": 26,
+      "scoped_refusal_attempts": 0,
+      "unresolved_attempts": 14,
+      "states": {
+        "CHECKED_CENTRE_OPTIMUM": 26,
+        "TIMEOUT": 8,
+        "CENTRE_MODEL_REFUSAL_ONLY": 6
+      },
+      "planned_missions": 20,
+      "both_repetitions_resolved_missions": 13,
+      "both_repetitions_checked_route_missions": 13,
+      "both_repetitions_scoped_refusal_missions": 0,
+      "mixed_kind_missions": 0,
+      "all_recorded_wall_s": {
+        "n": 40,
+        "min": 1.473308625005302,
+        "median": 8.637621458001377,
+        "max": 29.65602795900486
+      },
+      "all_recorded_CPU_s": {
+        "n": 40,
+        "min": 1.43,
+        "median": 8.515,
+        "max": 28.939999999999998
+      },
+      "all_recorded_largest_process_RSS_mib": {
+        "n": 40,
+        "min": 72.4375,
+        "median": 385.0546875,
+        "max": 2054.546875
+      },
+      "all_recorded_sampled_family_RSS_mib": {
+        "n": 40,
+        "min": 68.28125,
+        "median": 382.0625,
+        "max": 2054.140625
+      }
+    },
+    "RDA_CAND": {
+      "planned_attempts": 40,
+      "attempted": 40,
+      "resolved_attempts": 40,
+      "checked_route_attempts": 30,
+      "scoped_refusal_attempts": 10,
+      "unresolved_attempts": 0,
+      "states": {
+        "CHECKED_CENTRE_OPTIMUM": 30,
+        "CERTIFIED_CENTRE_REFUSAL": 10
+      },
+      "planned_missions": 20,
+      "both_repetitions_resolved_missions": 20,
+      "both_repetitions_checked_route_missions": 15,
+      "both_repetitions_scoped_refusal_missions": 5,
+      "mixed_kind_missions": 0,
+      "all_recorded_wall_s": {
+        "n": 40,
+        "min": 0.2705336249928223,
+        "median": 7.281184250001388,
+        "max": 22.480224208993604
+      },
+      "all_recorded_CPU_s": {
+        "n": 40,
+        "min": 0.24,
+        "median": 7.095000000000001,
+        "max": 21.94
+      },
+      "all_recorded_largest_process_RSS_mib": {
+        "n": 40,
+        "min": 55.765625,
+        "median": 317.859375,
+        "max": 1492.171875
+      },
+      "all_recorded_sampled_family_RSS_mib": {
+        "n": 40,
+        "min": 53.921875,
+        "median": 314.4453125,
+        "max": 1491.5625
+      }
+    }
+  },
+  "jointly_resolved_pairs": {
+    "pairs": 26,
+    "reference_wall_s": {
+      "n": 26,
+      "min": 2.7881344579946017,
+      "median": 7.344019332995231,
+      "max": 13.964600499995868
+    },
+    "candidate_wall_s": {
+      "n": 26,
+      "min": 3.124405167007353,
+      "median": 8.005508520996955,
+      "max": 14.585103332996368
+    },
+    "candidate_minus_reference_s": {
+      "n": 26,
+      "min": -0.6788489169994136,
+      "median": 0.4724667285045143,
+      "max": 4.811997416996746
+    },
+    "median_of_candidate_over_reference_ratios": 1.0755173622415184,
+    "ratio_of_wall_medians": 1.0900718200767505,
+    "equal_arrival_checked_route_pairs": 26
+  },
+  "unresolved_typed": {
+    "worker_MAX_LABELS_timeout_attempts": 8,
+    "outer_deadline_stops": 0,
+    "worker_centre_only_refusal_attempts_unresolved": 6,
+    "not_run": 0,
+    "worker_nonzero_exit": 0,
+    "memory_guard_stops": 0,
+    "late_complete_publications": 0
+  },
+  "representative": {
+    "selection": "hongseong_2023/20230402T140000Z_FW2/RDA_CAND/source_rep1",
+    "arrival_s": 1459,
+    "edge_legs": 200,
+    "wait_legs": 17,
+    "dwell_s": 120,
+    "worker_checks_passed": 26,
+    "independent_raw_checks_passed": 38,
+    "fresh_adapter_and_kit": true,
+    "dependencies_data_source_reused_read_only": true,
+    "audit": {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/reproduction/final_route_verification_v1/FINAL_ROUTE_VERIFICATION.v1.json",
+      "sha256": "0964f3b6d1c7afbe7bb85b4452b6021fc2b3e4ce00a0a775cda26b927fff1216"
+    }
+  },
+  "publication": {
+    "figures": 6,
+    "formats": [
+      "SVG",
+      "300 dpi PNG",
+      "vector PDF"
+    ],
+    "table_checks": 913,
+    "numeric_disagreements": 0,
+    "claim_rows": 21,
+    "methodology_rows": 18,
+    "handoff": {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/publication_review_v1/PUBLICATION_HANDOFF_v2.json",
+      "sha256": "05eaa97684ce586230f3ba0f6af50be1cdae23a6da0c12a3475c1ad8626ad018"
+    },
+    "root_check": {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/ROOT_PUBLICATION_CHECK.v1.json",
+      "sha256": "c7e7abf3294df6af2b1e300d239014719bc6a8d7322d6d4b8a3f2c059807ad11"
+    }
+  },
+  "evidence": [
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/INDEPENDENT_RESULTS.json",
+      "sha256": "4538cc4efa456b2ba304bfb12ee850db4ee1244d2ddb8847e0c38684c6e125ff"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/INDEPENDENT_ROWS.csv",
+      "sha256": "1a192a96b04a1e4bc007f9d65881f5e87d8dd025b6ec131b1153e9d2d5bee122"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/ROOT_COMPLETED_RECORD_AUDIT.v1.json",
+      "sha256": "aa84bf87a9ae6f11122f5a8d988dda4fe7e5232adaccca762ba53aa9770c4255"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/ROOT_SELECTED_REPLAY_SOURCE_REVIEW.v1.json",
+      "sha256": "4b70901662b0d7d65aeb08471d6b8fa2249c867981093823071a39d858d08ee5"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/ROOT_SELECTED_REPLAY_OBSERVATION.v1.json",
+      "sha256": "380ebc59161f23f66052be782865a8e7525039bf754bdf98aaa021ce6069736e"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/scoring/completed_campaign_v1/SCORE_HANDOFF_v2.json",
+      "sha256": "6d44c67e6edb9e320c225719a0cf1860cf3a48323b8d67a007ca631bad351e30"
+    },
+    {
+      "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/review/REVIEW_FINDINGS_LEDGER.v3_final.json",
+      "sha256": "c13d0b6a591ad67758298644efd0d1a78026c0603a2f06eb2e2007f323a9a8d7"
+    }
+  ],
+  "accepted": [
+    "Exact bounded candidate contract/source/input scope",
+    "Completed original native 80 attempts and retained unresolved outcomes",
+    "Independent reconstruction, selected fresh chain and corrected publication artifacts"
+  ],
+  "rejected_claims": [
+    "20 successful-route missions",
+    "Universal speedup or memory savings",
+    "All-window positive native probability support",
+    "Forecast accuracy or isolated causal ML benefit",
+    "Independent continuous-road radiation/global-optimum proof",
+    "Uninterrupted AC from a single start observation",
+    "Physical safety or operational release"
+  ],
+  "unresolved": [
+    "Independent continuous-road radiation enclosure and global-bound proofs remain open.",
+    "Route-occupancy input fractions unavailable.",
+    "Full environmental input tree externally required and not completely sealed by four recorded data assets.",
+    "Physical forecast/safety/generalization and causal initial-history/ML benefit not established."
+  ],
+  "historical_preservation": {
+    "historical_zip_sha256": "ca896b0f7634e6df3197c4c38b9e66e9f80782333846bf09429f8cf3b9370cf1",
+    "held_zip_sha256": "2f2979f37130d23e9bad57d06ad5aa87e38120bd70fee8ac7a670a422f620c39",
+    "failed_versions_preserved": true,
+    "historical_three_repetition_pooling": false
+  },
+  "additional_execution_authorized": false,
+  "merge_push_deployment_default_promotion_schedule_performed": false,
+  "graph_limit": "Fast/truncated generation 2026-10-02 has no coverage for new review sources; exact full-source fallback and hash-bound prior controls were used. No graph completeness claim."
+}

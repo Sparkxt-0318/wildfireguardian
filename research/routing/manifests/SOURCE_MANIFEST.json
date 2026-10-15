@@ -1,0 +1,233 @@
+{
+ "schema": "wfg.latest-source-manifest/1",
+ "entries": [
+  {
+   "path": "assembly/src/wfg_latest/__init__.py",
+   "sha256": "dc4bdd42cc130a66124a7d2b287c277e08adf49857581c8766b6aefedb0d7b93",
+   "bytes": 1005,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/api.py",
+   "sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+   "bytes": 8385,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/bridge.py",
+   "sha256": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+   "bytes": 18475,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/build_packet.py",
+   "sha256": "5cc8cc2eaa169ccaabd588521719d158fbf9c2b1965ff0abc83a2cdfd2765268",
+   "bytes": 4579,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/contract.py",
+   "sha256": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+   "bytes": 14342,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/example.py",
+   "sha256": "0971a6c92c7cb5371658f03583ff9bd0de857099afdcc1aec5cf1e5558d493c0",
+   "bytes": 2860,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/export.py",
+   "sha256": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+   "bytes": 9251,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/packets.py",
+   "sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+   "bytes": 16318,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/radiation/coordinates.py",
+   "sha256": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+   "bytes": 9709,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/radiation/heat.py",
+   "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+   "bytes": 120892,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/radiation/paths.py",
+   "sha256": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd",
+   "bytes": 3344,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/requests.py",
+   "sha256": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c",
+   "bytes": 2744,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/router_validation/admission_geometry.py",
+   "sha256": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+   "bytes": 8429,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/src/wfg_latest/router_validation/validation.py",
+   "sha256": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3",
+   "bytes": 17144,
+   "role": "adapter source"
+  },
+  {
+   "path": "assembly/package/wfg_latest-1.0.0-py3-none-any.whl",
+   "sha256": "1475854b27e8e6d2f71f1bc5de6e1690474b30c500533ecce8221816905ce47d",
+   "bytes": 74889,
+   "role": "installable wheel"
+  },
+  {
+   "path": "assembly/package/pyproject.toml",
+   "sha256": "77b902cbf24eb2e63ab8a81ecf25ce8febc55d9a5098bc0e25f88c51631621df",
+   "bytes": 580,
+   "role": "package metadata"
+  },
+  {
+   "path": "assembly/kit_build/v3/WFG-latest-completion-kit-20261015-v3.zip",
+   "sha256": "1d7da17a0f883bade6bb48a79f253637294868db50640ed0d48227fc832e09b6",
+   "bytes": 276332,
+   "role": "executed kit v3"
+  },
+  {
+   "path": "assembly/kit_src/runner/wfg_controller.py",
+   "sha256": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c",
+   "bytes": 25446,
+   "role": "kit runner (executed)"
+  },
+  {
+   "path": "assembly/kit_src/runner/wfg_native.py",
+   "sha256": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370",
+   "bytes": 35564,
+   "role": "kit runner (executed)"
+  },
+  {
+   "path": "assembly/kit_src/runner/native_tally.py",
+   "sha256": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b",
+   "bytes": 21143,
+   "role": "kit runner (executed)"
+  },
+  {
+   "path": "assembly/kit_src/runner/native_report.py",
+   "sha256": "127a437418acb2ac382f558be55624cdd85647bdae4a211fc4dec8bb1f19530a",
+   "bytes": 7320,
+   "role": "kit runner (executed)"
+  },
+  {
+   "path": "assembly/prep/prep_latest_inputs.py",
+   "sha256": "ae555662c02642a19a361177985645746d73f154e8376b9bc2e8bef58d2d33ba",
+   "bytes": 18705,
+   "role": "driver"
+  },
+  {
+   "path": "assembly/prep/smoke_latest.py",
+   "sha256": "54fbdf5fc2847e46f601dd912b4b92445a5c3d45f31f1c7b8cc7c752a305d3ba",
+   "bytes": 8848,
+   "role": "driver"
+  },
+  {
+   "path": "assembly/prep/repro_latest.py",
+   "sha256": "8be76450fc44ba820eecae689a39d791208bd9cea26b2f080f8e2b2673a22689",
+   "bytes": 8892,
+   "role": "driver"
+  },
+  {
+   "path": "assembly/prep/repro_worker.py",
+   "sha256": "af0223696ed867769b5bd8672423f884c33cdaaf5acd7075f071189745d870fc",
+   "bytes": 6354,
+   "role": "driver"
+  },
+  {
+   "path": "assembly/prep/lease.py",
+   "sha256": "86315b6fb55be91cfc985961e0f5ff448b664d0ac6f912ba54e5846239a0e91a",
+   "bytes": 2442,
+   "role": "driver"
+  },
+  {
+   "path": "assembly/native/prep_latest_inputs.command",
+   "sha256": "ca736ef159e55fb6727619d04f477c6a74bde2bc24099470c134afb7ab935f77",
+   "bytes": 1255,
+   "role": "native launcher"
+  },
+  {
+   "path": "assembly/native/smoke_latest.command",
+   "sha256": "83ca7148bb1216a6fb682bbffe292ef3257f400f28b719a3a8cea75b121dca24",
+   "bytes": 1514,
+   "role": "native launcher"
+  },
+  {
+   "path": "assembly/native/campaign_latest_v3.command",
+   "sha256": "017797b573a92c939ce9c540a9e42a8f8b89ad027c4b34688f1af3562253cf01",
+   "bytes": 1568,
+   "role": "native launcher"
+  },
+  {
+   "path": "assembly/native/repro_latest.command",
+   "sha256": "5fc34ee319916bbf1b35fdb0afa6fd3f1b64db0e6d7ac6ada3a8f74564fe6be5",
+   "bytes": 1528,
+   "role": "native launcher"
+  },
+  {
+   "path": "assembly/native/canonical_append.command",
+   "sha256": "288f8dc9bc4f583ee8100f94cb48186ce91a766be7036fa0fd427c7855e4c3d9",
+   "bytes": 766,
+   "role": "native launcher"
+  },
+  {
+   "path": "analysis/tools/analyze_latest.py",
+   "sha256": "c81afad248addf8244338bd4df74da713029d1f0e571fb53290be9706e206049",
+   "bytes": 17831,
+   "role": "analysis"
+  },
+  {
+   "path": "analysis/tools/docrender.py",
+   "sha256": "2988bd841063256819264513c927a90680412ab09fe26824870b738730ba5810",
+   "bytes": 4499,
+   "role": "analysis"
+  },
+  {
+   "path": "analysis/tools/build_report.py",
+   "sha256": "492431373cfec9478638a62c18a372027d015ef657bbe4cd843558b9b7e54ca2",
+   "bytes": 56159,
+   "role": "analysis"
+  },
+  {
+   "path": "assembly/tools/build_final_package.py",
+   "sha256": "ab8d0a99d0254197039687536567df9c917860b05b370b0dd917f2264f50508e",
+   "bytes": 5634,
+   "role": "packaging"
+  },
+  {
+   "path": "assembly/tools/verify_final_package.py",
+   "sha256": "a6f789696f60e1ed99f938bdf7d95788e698540beb4ffdae2a3b2bde03467d91",
+   "bytes": 2391,
+   "role": "packaging"
+  },
+  {
+   "path": "assembly/tools/append_canonical_latest.py",
+   "sha256": "5270045b46da07b1b3ed19498295fb52253185470f917684cbe1955287b3aefb",
+   "bytes": 2856,
+   "role": "packaging"
+  },
+  {
+   "path": "assembly/tools/build_latest_kit.py",
+   "sha256": "f1f5e38a6790f2c11690493a9ba9e02ff5cf977daa307733ac502a4659884758",
+   "bytes": 12720,
+   "role": "packaging"
+  }
+ ]
+}

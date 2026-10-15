@@ -1,0 +1,66 @@
+{
+ "schema": "wfg.latest-kit.queue/1",
+ "name": "LATEST_PREFLIGHT_REAL",
+ "jobs_count": 1,
+ "campaign": "LATEST_PREFLIGHT",
+ "scope": "one real unscored preflight attempt, never counted; the same mission and arm are also scored slots (disclosed)",
+ "jobs": [
+  {
+   "label": "PREFLIGHT__uljin_2022__20220304T030000Z_FX1__r1__RDA_CAND",
+   "case_id": "20220304T030000Z_FX1",
+   "cohort": "uljin_2022",
+   "arm": "RDA_CAND",
+   "arm_key": "RDA_CAND",
+   "rep": 1,
+   "source_root": "routing_candidate",
+   "source_directory": "inputs/latest/uljin_2022/packets/20220304T030000Z",
+   "graph_path": "inputs/latest/uljin_2022/graph.json",
+   "hazard_path": "inputs/latest/uljin_2022/packets/20220304T030000Z/HAZARD.json",
+   "request_path": "inputs/latest/uljin_2022/requests/20220304T030000Z_FX1.json",
+   "complete_budget_s": 30.0,
+   "original_limits": {
+    "wall_s": 30,
+    "max_labels": 1000000,
+    "max_expansions": 1000000,
+    "frontier_width": 16384
+   },
+   "worker": "phaseB/rda_worker_v1_1.py",
+   "env": {},
+   "input_sha256": {
+    "graph_path": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "hazard_path": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+    "request_path": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39"
+   },
+   "source_sha256": {
+    "REPORT.json": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d",
+    "NATIVE_METADATA.json": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+    "constructed_arrays.npz": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e"
+   },
+   "core_sha256": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+   "checker_module": "adaptive_checker",
+   "checker_sha256": {
+    "adaptive_checker.py": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+    "ivkernel.py": "2a4fbe799ec2fb8f88f2a3c36272812d50ba4012ea41ae823dd5c4e832918a34"
+   },
+   "root": null,
+   "decision_dir": null,
+   "output_path": "raw/LATEST_PREFLIGHT_REAL/PREFLIGHT__uljin_2022__20220304T030000Z_FX1__r1__RDA_CAND",
+   "campaign": "LATEST_PREFLIGHT",
+   "queue": "LATEST_PREFLIGHT_REAL",
+   "stratum": "X",
+   "parent_incident": "KFS_02",
+   "cutoff": "20220304T030000Z",
+   "preparation_mode": "COLD_FAST",
+   "preparation_mode_sha256": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6",
+   "preparation_source_sha256": "8a99d8d49892c2bc7d9b67244b76219e2096edc5159655b4fe30fa345f899d2f",
+   "memory_guard_mib": 3072,
+   "phaseB_sha256": {
+    "road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+    "road_bounds.py": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2",
+    "zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "publication_v1_1.py": "702f3ff5937c8b20f9e90247abc63b3889fc6d6f6c5872720a89772545422442",
+    "rda_worker_v1_1.py": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58"
+   }
+  }
+ ]
+}

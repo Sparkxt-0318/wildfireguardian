@@ -1,0 +1,54 @@
+[
+ {
+  "key": 1,
+  "file": "sim/sim_walk_4_crossings.wfg",
+  "title_ko": "도보 · 교차로 4곳",
+  "title_en": "Walk · 4 crossings",
+  "area": "sim_city",
+  "tz": "Asia/Seoul",
+  "marks_are_stops": true,
+  "privacy": {
+   "auto_zones": true,
+   "radius_m": 150
+  }
+ },
+ {
+  "key": 2,
+  "file": "sim/sim_vehicle_6_lights.wfg",
+  "title_ko": "차량 · 신호등 6곳",
+  "title_en": "Vehicle · 6 traffic lights",
+  "area": "sim_city",
+  "tz": "Asia/Seoul",
+  "marks_are_stops": true,
+  "privacy": {
+   "auto_zones": true,
+   "radius_m": 150
+  }
+ },
+ {
+  "key": 3,
+  "file": "sim/sim_walk_30m_loop.wfg",
+  "title_ko": "도보 · 30 m 작은 순환",
+  "title_en": "Walk · small 30 m loop",
+  "area": "sim_city",
+  "tz": "Asia/Seoul",
+  "marks_are_stops": true,
+  "privacy": {
+   "auto_zones": false,
+   "radius_m": 150
+  }
+ },
+ {
+  "key": 4,
+  "file": "sim/sim_drive_10km.wfg",
+  "title_ko": "차량 · 10 km 주행",
+  "title_en": "Vehicle · 10 km drive",
+  "area": "sim_city",
+  "tz": "Asia/Seoul",
+  "marks_are_stops": true,
+  "privacy": {
+   "auto_zones": true,
+   "radius_m": 150
+  }
+ }
+]

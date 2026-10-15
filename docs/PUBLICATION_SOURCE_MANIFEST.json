@@ -1,0 +1,1841 @@
+{
+  "utc": "2026-10-15T06:12:46.553986+00:00",
+  "scope": "Byte-identical code and reviewed artifact copies; publication wrappers and guides are separate. Forecast modules verified against evaluated c651 source.",
+  "files": [
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/pyproject.toml",
+      "sha256": "77b902cbf24eb2e63ab8a81ecf25ce8febc55d9a5098bc0e25f88c51631621df"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/__init__.py",
+      "sha256": "dc4bdd42cc130a66124a7d2b287c277e08adf49857581c8766b6aefedb0d7b93"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/api.py",
+      "sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/bridge.py",
+      "sha256": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/build_packet.py",
+      "sha256": "5cc8cc2eaa169ccaabd588521719d158fbf9c2b1965ff0abc83a2cdfd2765268"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/contract.py",
+      "sha256": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/example.py",
+      "sha256": "0971a6c92c7cb5371658f03583ff9bd0de857099afdcc1aec5cf1e5558d493c0"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/export.py",
+      "sha256": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/packets.py",
+      "sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/radiation/coordinates.py",
+      "sha256": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/radiation/heat.py",
+      "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/radiation/paths.py",
+      "sha256": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/requests.py",
+      "sha256": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/router_validation/admission_geometry.py",
+      "sha256": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96"
+    },
+    {
+      "component": "evaluated-integration",
+      "published_path": "integration/src/wfg_latest/router_validation/validation.py",
+      "sha256": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/CANDIDATE_MANIFEST.json",
+      "sha256": "6f627f87053ea5d80e74052201574e3d3224c59d5d411eac1defd4ffe97907b5"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/INPUT_BINDING.json",
+      "sha256": "48bc31b89d75ea2978cc7e6006cb67dd3deb539e4a564c019499379947df12a4"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/README_KIT.md",
+      "sha256": "9d3136e372b126d2728c4aaf4593d4a99960d4cac5e835688dc1e77ba90025a7"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/checking/CHECKING.md",
+      "sha256": "8ca96d8a23581e1e4a23e81c90688cb8c2c06938c8d091ad4bfe532d08e9ce3d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/checking/OPEN_VERIFICATION.md",
+      "sha256": "02227c35380a230f75d9f8eef8d143d13cd9c10b699d29fa9bf2438ad48d71da"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/checking/SCORING_DEFINITIONS.md",
+      "sha256": "729ad5ee185c4f601aa070f481d85c15d7bfceb26b2fd5e884f1920f1469c477"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/checking/compare_tallies.py",
+      "sha256": "14b339ddaf4b1c699284492be865f1a5e6139fef3ed1c27e018a41c16db898dc"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/decision/journey_decision.py",
+      "sha256": "5d2a975ccdc4c5db95bfbdeff96ad3ed767a50437081dac5a1088fc6d4f92bf0"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/decision/journey_decision_v2.py",
+      "sha256": "4f79b96511e367db52c38886a407f605b76349627f9c5c613f0daa53f8d5e162"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/decision/journey_decision_v2_1.py",
+      "sha256": "80adfc0b1c9f4f9496ed7edfb73d47802646f527718ad3bd6e049cfdf0560097"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/baseline_worker.py",
+      "sha256": "c0d0b2dcd99e84d6c6dda9ed71eeed1f33c41f2af7953d3bdabd4fecc47ff5c6"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/preparation_mode.py",
+      "sha256": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/publication_v1_1.py",
+      "sha256": "702f3ff5937c8b20f9e90247abc63b3889fc6d6f6c5872720a89772545422442"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/rda_worker_v1_1.py",
+      "sha256": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/road_bounds.py",
+      "sha256": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/road_core.py",
+      "sha256": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/phaseB/zsweep.py",
+      "sha256": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/queues/LATEST_PREFLIGHT_CONTROLS.json",
+      "sha256": "fffeca34069b32699b3b228b4490a0205ecea41fe97cb7f61c23af338de25356"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/queues/LATEST_PREFLIGHT_REAL.json",
+      "sha256": "afcff2ca9cf9ae78637e6b867d8163c6cf0eb69ce11a6c7aefe806981f008ee8"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/queues/LATEST_PRIMARY.json",
+      "sha256": "7acf70737e8d351429ddb2a3bd5867e994b18ea824ce557e75aad5e2b149c593"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/adaptive_checker.py",
+      "sha256": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/contact_first.py",
+      "sha256": "d2d2c4c8b2d8e75d94f361224ec5ea5fb3f30c0c1da3933f0c3fd0dc0d8e0b6d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/event_reference.py",
+      "sha256": "b847fbd2c061f4f1b9602c23cf9047bfe3ce585819780deba2989da9cccf0972"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/forecast_bridge.py",
+      "sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/hybrid_checker.py",
+      "sha256": "dabd603857bc60b056e6a581d2aa1c1f05f355b46640a83c687ca46848c54c76"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/hybrid_radiation.py",
+      "sha256": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/ivkernel.py",
+      "sha256": "2a4fbe799ec2fb8f88f2a3c36272812d50ba4012ea41ae823dd5c4e832918a34"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/__init__.py",
+      "sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/ecology.py",
+      "sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/example.py",
+      "sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/integrated_example.py",
+      "sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/model.py",
+      "sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/pipeline.py",
+      "sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mentor_runtime/expected_heat_flux/temporal.py",
+      "sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/mission_contract.py",
+      "sha256": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/radiation_bounds.py",
+      "sha256": "75bb1f5055eb16d21ec5f9282392d89f29fbaf2fbf7d8a84a1f4483cdd0957a8"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/road_exposure.py",
+      "sha256": "7ba5ea9777030ef4119dbadcca538d818d66879c5f78f971eb11c9523368855a"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/__init__.py",
+      "sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/admission_geometry.py",
+      "sha256": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/core.py",
+      "sha256": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/fixture.py",
+      "sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py",
+      "sha256": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/prepared.py",
+      "sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/prepared_reuse.py",
+      "sha256": "e1838ae03c42a6a9c4b077f7bb6215105ff682802dc0751dc09c80f3236b6e3c"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/routing-package/routing/validation.py",
+      "sha256": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/baseline/temporal_contract.py",
+      "sha256": "d1b3c3719dc3ca5384637ba6239b25b4069011c16ae3b14c701cd37be1f0c36d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/runner/cand_worker_final.py",
+      "sha256": "f337e58cc1ca51d383cb2de2bd68c1a7da99662b6671d6491d23949f715a97a7"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/search/clock_scope.py",
+      "sha256": "75c1712dea2fb848932681986b38bca032f6a5d42c9a767a37c5c3749bb310fa"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/routing_candidate/search/exact_transport.py",
+      "sha256": "9d08a75e7f847b9a4b82ce48720c7dad56297a2c6520c4f2d5c8224e567836d9"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/ffi_independent_checker.py",
+      "sha256": "8ce23dbaaac3ade8284aa9d9bf927fe2d8bbb336a45e29e68582bd8183231789"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/lease.py",
+      "sha256": "86315b6fb55be91cfc985961e0f5ff448b664d0ac6f912ba54e5846239a0e91a"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/native_report.py",
+      "sha256": "127a437418acb2ac382f558be55624cdd85647bdae4a211fc4dec8bb1f19530a"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/native_tally.py",
+      "sha256": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/preflight_control_worker.py",
+      "sha256": "002c657ffed7a80fd7e715ef55d6dc767668f04c12c737ebd6c8e72a25577b6d"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/wfg_controller.py",
+      "sha256": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/wfg_native.py",
+      "sha256": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370"
+    },
+    {
+      "component": "evaluated-kit",
+      "published_path": "integration/kit/runner/witness_wholeroad.py",
+      "sha256": "035d86ff31f3fff43ce5451172c35a1db1bf24ca0e537ba973a9e22a81fe8fd2"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/DATA_SCHEMA_draft.md",
+      "sha256": "efe0308f3ea005b90be64802e6364e36357147075654e46e6a5ba28bc8308114"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/README.md",
+      "sha256": "18ecca564648610781fc2691f783f0245f9b358cbfbc0d1f9d4b5b5f75dcbcbe"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/boards/heltec_wireless_tracker_wfg.json",
+      "sha256": "d4cb448591a74f423de18e0c14ab76f95691edadda39bcafc67c2db7bea14cb3"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/build_evidence/pio_build_summary.txt",
+      "sha256": "5ebc1f1bf203f38004d76613771ad919cf8b882532a7fbfe53f22cac20b752ad"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board.h",
+      "sha256": "3048dd41440e910a57a4132f2f9c94b11453aa83d47c7fd36e6fda9c8084f816"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board_firebeetle2_esp32e_tel0157.h",
+      "sha256": "f121e0e20567446e9341eb50ff46ec0c4e6109ea59c88cc4909a2d56c4326afa"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board_generic_esp32s3_uart_gnss.h",
+      "sha256": "2e653828950da2cce85027c633c48ae58aac09e4d12bc960128babf2b193d70c"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board_heltec_tracker_v10.h",
+      "sha256": "d0c31bf45b512d0940fc97453302629fc9594f4cb48a935509824f77992245c3"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board_heltec_tracker_v11.h",
+      "sha256": "0371e9518db0572a8eecdf0351b44c6e37b7aed0083ca8e1c49e47b67727244e"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/include/board_heltec_tracker_v2.h",
+      "sha256": "540d18472e080a5b39638733057ac03e15077212e0dd3882f6aaf0b72c77cf12"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_button.h",
+      "sha256": "199aa6f2855cd96fd37830fb80a3cee01cfd58e94245fcbfa1a103e661cce2df"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_export.cpp",
+      "sha256": "6bb11e82a7514bd0991699c6d805738fedcc2cde729cb33783418bfb5efb6247"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_export.h",
+      "sha256": "a4ce6e79a314cefcda2e327abae9e721c26956e0bf22ef60b9045b29bf8e0d13"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_logger.cpp",
+      "sha256": "8ac41df318ad1e2e674f9c03a8f7ab63f9f105ccc98de8e013f19c3266966619"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_logger.h",
+      "sha256": "405f13356d89c49ebd701ca437aa9feed1ff14d2bbfe1aa791fed8b302b4855c"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_nmea.cpp",
+      "sha256": "71956f6ec842b6068108b4e4758bb839587822f8ac6c21c34c6f1e75f2496eed"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_nmea.h",
+      "sha256": "5a6c6fb1d47865d309d9abd0d935eef78529f82af5090cae49e44f3d31e1be79"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_proto.cpp",
+      "sha256": "51f6fc4ce8585cb6cbd5bdbcef4c72506d6b39dc5c28ce094ce73fcc91af18d7"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_proto.h",
+      "sha256": "c770fe2fde9e1ca88d6869cf7e7d08fe2371c71ee1db29a0ccc64adebb162fc2"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_record.cpp",
+      "sha256": "5120b64ee17ae54449655ce43c55f87145907494e304c34990f7eb14cbfde803"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_record.h",
+      "sha256": "22468defdaf6631642e0c518b3cec401ee47c9733ecd588d0e4e7a84575aaa3c"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_resume.h",
+      "sha256": "4b453aeae04140327cb9f5fe7148389702e142aec48c4641c4664939c1dba010"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_sha256.cpp",
+      "sha256": "d084b064d00ff46503d71d354e17fce2968aa6b25ea7f511ac32fd61d3beb3f0"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_sha256.h",
+      "sha256": "1bacc0493357a1cebdef84218069f21e9c4e981977be66513a53f3b52c716f19"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_storage.cpp",
+      "sha256": "b3b6be00bcc61ed368787c2133d72b67713730caa2872d3b6d710566fe56cf92"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/lib/wfg_core/src/wfg_storage.h",
+      "sha256": "e169119406ea07d6f40a80da9f3508e55f0035f64638f191c567a249b99095f4"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/partitions.csv",
+      "sha256": "458edc4f794f146b8ee9a14e32a347c3b7e8bf76a385435c796985044cd44f0f"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/partitions_4MB.csv",
+      "sha256": "67a8faed78e3a30ded3c38fdfca5b057054a07cf448f915ab3257d4cf5912796"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/platformio.ini",
+      "sha256": "f8c473bcfc42ec354315ee51892fda74d310ad74f050f5ca882269badf88129c"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/display.cpp",
+      "sha256": "1b86434bc1bd50510b3838e4336a31623970256ca115a850daeeb8e271f56617"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/display.h",
+      "sha256": "de8e6a56080a854610fa9587090e49aae8892c3b4d2d7b5b8ef40e5b658b8a6a"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/main.cpp",
+      "sha256": "cc5490180d7f490c6a23cdbe2a7db7abce33309195d42b17c10f1e106b24edad"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/web_export.cpp",
+      "sha256": "aae1ef2e124b074b0fc077ed6ad9cdc7dad18425969c7063a9384d404d817d21"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/web_export.h",
+      "sha256": "ccddf599d34c44c04dc7db1d03f1a408fbf2bc6c73edab0ab02999677fba03b1"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/src/web_page.h",
+      "sha256": "b2250fdeefbc9198dfc3c0c77c6aae11649f5c5f39cfcc79862998e023f1d7e7"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/test/host/fake_device.cpp",
+      "sha256": "d9c53a8f46ed9ed901fc81fcf12e47b2e321cd32d8ddb67f117eaf84733c8961"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/test/host/run_host_tests.sh",
+      "sha256": "aaad793b4f0e9e45562e5d6bf45d479015957c3241a4270dd0ee853097ae2b60"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/test/host/test_core.cpp",
+      "sha256": "43479ee725b92a53c6249e486a6e1fec3abc3d1d0dc68fc46dba469cd59b9cdb"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/tools/embed_page.py",
+      "sha256": "93b63f1d1272cb64dbb796b39482e6b2eb5db0c9021bf67f09b2cd30df7af6e2"
+    },
+    {
+      "component": "logger-firmware",
+      "published_path": "hardware/firmware/web/device_page.html",
+      "sha256": "9b97f9ee84a26de0119e956ef5015ce749f8b00d3a68516dee028362eaed3841"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/CHANGES_0.3.0.md",
+      "sha256": "c2ca41373f9a46a39c97121f384f45abb9ef2048107058ca3531f9097a30e1eb"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/DATA_SCHEMA_draft.md",
+      "sha256": "efe0308f3ea005b90be64802e6364e36357147075654e46e6a5ba28bc8308114"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/README.md",
+      "sha256": "2207876fa2f57964d4684b6d64f1a7cfb5b60e9b3ce9dad898afe86470dfdeb4"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/boards/heltec_wireless_tracker_wfg.json",
+      "sha256": "d4cb448591a74f423de18e0c14ab76f95691edadda39bcafc67c2db7bea14cb3"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/build_evidence/pio_build_summary_0.3.0.txt",
+      "sha256": "ba904fe22a543f7852edee236ad66b7fec42e7b8d295005666bd0ccdd6c64503"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/firmware_0.2.0_to_0.3.0.diff",
+      "sha256": "025e8a32e130804aa3272d9cc6baf2e5ea7e45d62b5aca9392f003a45bb036a1"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board.h",
+      "sha256": "c5721b2c786ee65d9ad1cc0bab07f13c9a5a742873d6b90db814ece37fa220a9"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board_firebeetle2_esp32e_tel0157.h",
+      "sha256": "d86ac6b468a3d7b568b31da7d4056ddceaed4bb3e93a0117a52b8a146fd1451e"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board_generic_esp32s3_uart_gnss.h",
+      "sha256": "2e653828950da2cce85027c633c48ae58aac09e4d12bc960128babf2b193d70c"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board_heltec_tracker_v10.h",
+      "sha256": "d0c31bf45b512d0940fc97453302629fc9594f4cb48a935509824f77992245c3"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board_heltec_tracker_v11.h",
+      "sha256": "0371e9518db0572a8eecdf0351b44c6e37b7aed0083ca8e1c49e47b67727244e"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/include/board_heltec_tracker_v2.h",
+      "sha256": "540d18472e080a5b39638733057ac03e15077212e0dd3882f6aaf0b72c77cf12"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_button.h",
+      "sha256": "199aa6f2855cd96fd37830fb80a3cee01cfd58e94245fcbfa1a103e661cce2df"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_export.cpp",
+      "sha256": "6bb11e82a7514bd0991699c6d805738fedcc2cde729cb33783418bfb5efb6247"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_export.h",
+      "sha256": "a4ce6e79a314cefcda2e327abae9e721c26956e0bf22ef60b9045b29bf8e0d13"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.cpp",
+      "sha256": "ca3c93129ec35b82a7175284d4763345a174a5554b146244f036f6f25fbcaaf2"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.h",
+      "sha256": "88cb3a6eb51f3108850cc71ec40a8844ff39167b682f6da759e56482df95295c"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.cpp",
+      "sha256": "607b46eb6d3c7a776364885200a08a133292246c3578a52e3fc80132451e8ae0"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.h",
+      "sha256": "3899148375145678d31c06d696dd43ac22233488d98f942fd31d47c7db76af00"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_nmea.cpp",
+      "sha256": "71956f6ec842b6068108b4e4758bb839587822f8ac6c21c34c6f1e75f2496eed"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_nmea.h",
+      "sha256": "5a6c6fb1d47865d309d9abd0d935eef78529f82af5090cae49e44f3d31e1be79"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_proto.cpp",
+      "sha256": "51f6fc4ce8585cb6cbd5bdbcef4c72506d6b39dc5c28ce094ce73fcc91af18d7"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_proto.h",
+      "sha256": "c770fe2fde9e1ca88d6869cf7e7d08fe2371c71ee1db29a0ccc64adebb162fc2"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_record.cpp",
+      "sha256": "5120b64ee17ae54449655ce43c55f87145907494e304c34990f7eb14cbfde803"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_record.h",
+      "sha256": "22468defdaf6631642e0c518b3cec401ee47c9733ecd588d0e4e7a84575aaa3c"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_resume.h",
+      "sha256": "4b453aeae04140327cb9f5fe7148389702e142aec48c4641c4664939c1dba010"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_sha256.cpp",
+      "sha256": "d084b064d00ff46503d71d354e17fce2968aa6b25ea7f511ac32fd61d3beb3f0"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_sha256.h",
+      "sha256": "1bacc0493357a1cebdef84218069f21e9c4e981977be66513a53f3b52c716f19"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_storage.cpp",
+      "sha256": "b3b6be00bcc61ed368787c2133d72b67713730caa2872d3b6d710566fe56cf92"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_storage.h",
+      "sha256": "e169119406ea07d6f40a80da9f3508e55f0035f64638f191c567a249b99095f4"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/lib/wfg_core/src/wfg_tel0157.h",
+      "sha256": "37569473a306bf2a64e413451e45f5e098365aed2771c8564fdf5effb6174ea7"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/partitions.csv",
+      "sha256": "458edc4f794f146b8ee9a14e32a347c3b7e8bf76a385435c796985044cd44f0f"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/partitions_4MB.csv",
+      "sha256": "67a8faed78e3a30ded3c38fdfca5b057054a07cf448f915ab3257d4cf5912796"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/platformio.ini",
+      "sha256": "f8c473bcfc42ec354315ee51892fda74d310ad74f050f5ca882269badf88129c"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/display.cpp",
+      "sha256": "1b86434bc1bd50510b3838e4336a31623970256ca115a850daeeb8e271f56617"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/display.h",
+      "sha256": "de8e6a56080a854610fa9587090e49aae8892c3b4d2d7b5b8ef40e5b658b8a6a"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/main.cpp",
+      "sha256": "e2fdecf4257914782ea01ee629f33304bdeb0384e291950b80d18507017bf3bc"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/web_export.cpp",
+      "sha256": "aae1ef2e124b074b0fc077ed6ad9cdc7dad18425969c7063a9384d404d817d21"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/web_export.h",
+      "sha256": "ccddf599d34c44c04dc7db1d03f1a408fbf2bc6c73edab0ab02999677fba03b1"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/src/web_page.h",
+      "sha256": "b2250fdeefbc9198dfc3c0c77c6aae11649f5c5f39cfcc79862998e023f1d7e7"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/test/host/fake_device.cpp",
+      "sha256": "bf9239faefb7680b87182426bfa06814848fb91a0580041ce5e43e1d6c830b6b"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/test/host/run_host_tests.sh",
+      "sha256": "1f62b85f7499594e8f46dc095ad62c41bb03916b55b83c121e5a0e902e5621c9"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/test/host/test_core.cpp",
+      "sha256": "4d5aa850362038d670fb4111c8895b099bbaad4e1e9c06f89e9965e892097398"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/test/host/test_fake_device_live.py",
+      "sha256": "d5418b391fff3f0d3a90fce662e7835aba24479e1c0cdab9b3df12c875c162ad"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/tools/embed_page.py",
+      "sha256": "93b63f1d1272cb64dbb796b39482e6b2eb5db0c9021bf67f09b2cd30df7af6e2"
+    },
+    {
+      "component": "logger-firmware_v0_3_0_live",
+      "published_path": "hardware/firmware_v0_3_0_live/web/device_page.html",
+      "sha256": "9b97f9ee84a26de0119e956ef5015ce749f8b00d3a68516dee028362eaed3841"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/README.md",
+      "sha256": "2d51944859366caed4e1a44887d53bd4ede1d1a14b35c7c848914f1d7ad07d47"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK.csv",
+      "sha256": "bc22fd6a7e14d0fe3b62d85b0cd2d554e26fb6d7972ef605c7c5d08850ea30e2"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK.geojson",
+      "sha256": "0dad44a42f304bec85cbc81e7ecf71fac6c1c28b1abadb43b23b90a99a0991fb"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK.gpx",
+      "sha256": "1fd672dc0a6d6e0a743078c16c900bc46ca74035949ac2f15f8355f52a8a36f6"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK.wfg",
+      "sha256": "017eaefbd15dd507341f9e8eb2073660b7441f995f6e084208f7605ef0f67270"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK.wfg.sha256",
+      "sha256": "046aded1d5fa1a7230b93eb261e34ae181f97bb14ae25153d8de95c90afa37ef"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000001_WALK_recovered.csv",
+      "sha256": "48547cfa0793336cec33bc1a24d7a968ae1ef9c618fe42bf47caa049ba3930d9"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000002_WALK_autoresumed.csv",
+      "sha256": "6f5e701833b9b13fa06cffc1b49add30e3385fd59ef19e155ca31f9e2120d0c7"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000002_WALK_autoresumed.geojson",
+      "sha256": "b00686466387dfe42d196ec37039abd8ed04f2414db33187a09cbe6a4704b22a"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000002_WALK_autoresumed.gpx",
+      "sha256": "6ff30bc230d7eadadb7be175696b197e83260ec41394e65927ae1ae3450ee2dc"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/S000002_WALK_autoresumed.wfg",
+      "sha256": "48c0da7005f9c9dd40b9d8ca5b127e3b5daf4ccb08c5a3d931f08f1f59fbc335"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/format_v1/S000001_WALK_v1.wfg",
+      "sha256": "ae5b0233de1001b4f4e2904044aefd313da12dca6f099258f9645314a54a1f02"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/format_v1/S000001_WALK_v1_as_exported_by_fw0.1.0.csv",
+      "sha256": "ffdad4ee4757b386cff197eb109901057805be112b3e5eb1fa4d76321fcc2cb0"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/samples/usb_dump_transcript.txt",
+      "sha256": "a3c6438994c57642fbeb9a46f992b99cd2f95544e109a5935207c95b072b0e1d"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/tests/test_pages_browser.py",
+      "sha256": "ad6fa525cc8687de432e7507c4d60825c1de5b08aa1630a4db43ae547a673603"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/tests/test_usb_export.py",
+      "sha256": "41b26b9d06af582779fc8a3c3210176478cbedb270179f60d0822eb91e878798"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/usb_export.py",
+      "sha256": "a55af8ebacbae2d72d1d49fd5a18e6c2618fd42e70fe412752f363dcf681dde8"
+    },
+    {
+      "component": "logger-phone_export",
+      "published_path": "hardware/phone_export/viewer.html",
+      "sha256": "652b15d8d0e6c6e0d34e28d868962315b7a1616f72fc4f86fee26b1cef9d1fbc"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/.gitignore",
+      "sha256": "d0f5737b2c66de48bfd37eceb7d6cd7597052e647798de7ac19355546c48eeba"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/README.md",
+      "sha256": "9cb03f74022927ec803f1cdd0a486017f0716c399932a60dd878c6603d69d3f0"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/__init__.py",
+      "sha256": "c29779333504fb3e432b4dbb848ee25e73224607e098c6df1a4efdf3ef6ea505"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/config.py",
+      "sha256": "d279f7a06090f85460607b3bbe13431f20ff470156172dba735645d4408e20ed"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/__init__.py",
+      "sha256": "3865e2db946d4ea64c546b369b96c387f4fa6cae35b83ddb59844577e438b1ab"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/checks.py",
+      "sha256": "adfb3c127ab09525227512b3f09dadbf417f9bf80c9c9de369747b2b032de7ee"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/conncheck.py",
+      "sha256": "6b66513309d7ecad766a618386598a5f865058393891cc1fbf134aa28102bb9f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/double.py",
+      "sha256": "de41f2692c605c3d8ba50d34a781912940f075502854865115ff977c4b6b7106"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/link.py",
+      "sha256": "ab677d95c3a65bbbd0ca42d45adbe7657e98178bd1d6343f733439306f2c57da"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/live.py",
+      "sha256": "5c0cef98e42dc34ff0425d906089b372e65ceb3acd1e88c9107bf0a477987f3d"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/manager.py",
+      "sha256": "4f1b42255ec9a479a81e313a45df69c0ec0b726d649d434dfbcb8b7cd3cc282c"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/notes.py",
+      "sha256": "80dfe6d7b7120ee9b68160b9ac2373efdcdd00865b030369786f970bd3c4ff01"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/ports.py",
+      "sha256": "4702d2f0822ac3df63eaff2353b0518d9a21c3332b5c891e5906f6f0fd3a1c75"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/profiles.py",
+      "sha256": "0de146e2d6f61571290f660a6a56a1f05bf8f2b051694e3ff0e0ab498c371067"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/save.py",
+      "sha256": "4da83a4174a51bb882338e0c8f63eba9c3c79f3a3e552d074fb22ec509fc2c92"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/test_flow.py",
+      "sha256": "a8b43333dddcf497524ff260da9ce04f7abc321571f481e25c69e61e561d52aa"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/device/wifi.py",
+      "sha256": "0f813331204a9b06f14dfb45d436e030410af8738a5613a4cac324a28b293de6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/exports.py",
+      "sha256": "165cf7db3d1624e7b149168d4543d45c476d9883b3d13507786485573498b430"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/geo.py",
+      "sha256": "a28f32a1726dd9f702e92dda7c78e53275ba22fec37795e2878e3abb7dcad373"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/library.py",
+      "sha256": "a9305453b151f1ecb039b3dee5ccce2055bf2866748fcd28826c93b3e7b3a5c6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/main.py",
+      "sha256": "13dbf4109ed9bc3d8a2b842af426c5e0807c57da91c0e66e1b6e20603200cbe5"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/mapgen.py",
+      "sha256": "03a8d63cf905eac65cb6df7c17fe41e4ed693b5dab99ba89acc740df708fb09f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/privacy.py",
+      "sha256": "77e8ff561a8abdb0d808d04fd537885c4d29d6b5d446c8d4497288595c5deb43"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/replay.py",
+      "sha256": "36beadf2adbffb89983b5d2ca9bdee8a1cd18b34e6a447b944960c4edd71c936"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/session.py",
+      "sha256": "3c90f1a2e076f656a4eaed04d793650ff36f7619235b581de94dcb46c4e6f214"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/simgen.py",
+      "sha256": "d1916dd3a99e7b065d2fe5ec40647a3d0329d8b960733a662cf6da97a46e30c0"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/stops.py",
+      "sha256": "d6a30cf8cdf8430619d1b4eaa45998402fd79fe61e100ab123e9e59da72e6da7"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/vendor/README.md",
+      "sha256": "83bbf658225e076c8cc784ee6d8b0c083f40a63bf2fcf185ad43d5e6f5541d0b"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/vendor/__init__.py",
+      "sha256": "5d81707b8f06147986c7739a803501c29fe987460659429fcd676856b4c159a5"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/app/vendor/usb_export.py",
+      "sha256": "a55af8ebacbae2d72d1d49fd5a18e6c2618fd42e70fe412752f363dcf681dde8"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/SOURCE.txt",
+      "sha256": "8375b0e4be75d0bd2879388be1232778eec87ff2f5bc2464fe1e5e9cf956847c"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/buildings.geojson",
+      "sha256": "e67bf7e3ff10ed1a4cd9a84bab5ea83e6b9ed40bead118ca9c54454cc742a67b"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/meta.json",
+      "sha256": "c4bdcedae568a2818e59022217c28b3669d60d067d89d76adf3ec94d63199249"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/parks.geojson",
+      "sha256": "22ec09a32c06f63e60251731abd6ac82bb904c9a63e56afac781d51e1369d41c"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/roads.geojson",
+      "sha256": "f09fb23097d237abaeedd0d21b366919e76ea7fb73972eb4417469fd641ea5db"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/gwangju_kdj/water.geojson",
+      "sha256": "7736f0d5b71eeec14d616b6435c499f5ed1df533335fcd63e032555ab6b0c080"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/SOURCE.txt",
+      "sha256": "fbd3f20f426f8335b41471f1c1fd0b2e2c23f7cfab6f5e5e7635215952796cc9"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/blocks.geojson",
+      "sha256": "b5635e3d1095402cedf158e92d2942d9226a0f00f76110c82f8ba8acaa06e4c0"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/buildings.geojson",
+      "sha256": "477abcefda8d0dcc919406949139bc98e7bf1ab4fe99dfef08e7b9b5c25da25a"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/meta.json",
+      "sha256": "98ce25e457ff039e6f7ba740374356c1a1f1501b2671cd0ddbe48f4a5465b01f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/parks.geojson",
+      "sha256": "8ff7d3ccf3ec61d11c0d4a1d4acfe574892f308d43191ed129ae8fa213f2296c"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/roads.geojson",
+      "sha256": "c55a08629f28d0af28ebc31e22ab2ca12f74fdf6caca6dc424c91e53e703ac99"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/mapdata/sim_city/water.geojson",
+      "sha256": "eede2ddd502386cff76a47d4e96943348848b8e9790ef8191d26e6864b83ade9"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/pytest.ini",
+      "sha256": "7ed20683867c4bcb5f00095d0b06042202022fa0df2fe989eba1fd4bd41a1e6a"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/requirements-tools.txt",
+      "sha256": "b1c3912bb6cfe0d5e32172aa056d33094600ae2512111d42105bd3f9e07e1acc"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/requirements.txt",
+      "sha256": "99b26ac3a2dc4a8320510e11e36c1c3a9f09438a0b96497c8ebd4fb0cad1feca"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/run_demo.sh",
+      "sha256": "5f78fc99e78123645ebf941c2b53b8a0f246f6f4f07e00a855fedaf96f1a214d"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/run_tests.sh",
+      "sha256": "d49c89881ef0b28d399d2ba8e0a2db07d9f21d17efd6afcba4197c544f403521"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sessions.json",
+      "sha256": "d87c0716969738e2495edcaf334d8d9436f12387bcae5bb24e95b63c45466508"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_drive_10km.wfg",
+      "sha256": "777f0883192316f8c122360ab00bc2e157cb6079f51b0a129ecffaa518a41b2b"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_drive_10km.wfg.sim.json",
+      "sha256": "f59aaafc3dab50f8774cf731f011a3831f30c39d5dc5c6102d012d39a9cdbe72"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_vehicle_6_lights.wfg",
+      "sha256": "ea4f840be745fb2b91e8fac5919f9297972902f72c63c3b8488e9edb159a5f61"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_vehicle_6_lights.wfg.sim.json",
+      "sha256": "38011c31e322ea98ecaccd7481de7c8f26636cc6a754787b7d2701c738b12bd6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_walk_30m_loop.wfg",
+      "sha256": "d50ac111a777783eda31c95d480f467c6166a28bb006ae70a47aa369d19fd4ae"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_walk_30m_loop.wfg.sim.json",
+      "sha256": "2c21735f2c95201eea5c59381e9083711ff813239979907900ec2d5fdfa766d6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_walk_4_crossings.wfg",
+      "sha256": "48ab225d6cb842b10c61f935aa4b58c1b2452b475aa2faab7d30fbc266a78ff7"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/sessions/sim/sim_walk_4_crossings.wfg.sim.json",
+      "sha256": "b24c156a5b449f91cc537b2b37834612cfc6e9cfbd09737a92a7b44c0890c939"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/conftest.py",
+      "sha256": "8f49be137f5a3a8660b8e913d8f7680653dd38f44a4a2a4f2b912b713ec8ef7f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/fakes/__init__.py",
+      "sha256": "45949d22adb3c5419fbed670a6b3d2eaba05a3cef41d1bb35b605214a10a43db"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/fakes/logger_double.py",
+      "sha256": "4575096353d4903e6d44786a0aeaa2466ae36f733046f36246259e68fa3d3753"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/fakes/nmea.py",
+      "sha256": "54c529737b7ce609f0a5079db831a0a3a9db7d1df91cffd932205ce36b7a39e1"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/fakes/ptybridge.py",
+      "sha256": "c7feb694403ffb95e46918c651ffac4e9e7822f9873d8bfdc212847341af68e6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/fakes/tracks.py",
+      "sha256": "d072740bc494364d6a3003a8bb648f458cb1c716af2bcef5b7f72a06f422d012"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_conncheck.py",
+      "sha256": "476e4eafc293e191b7d619be1cdfcc84e2365f32dd5fee74cd8e4714892bd0bd"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_device_flow.py",
+      "sha256": "fa5beba6fff24d7c02c6d37ab1851a9e7accf13c7801db5c65a4bd014f11cadc"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_live.py",
+      "sha256": "acb9ca35b6c7d40a6e24c937c700ddd801709214307d7618c204133196679e1e"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_mapdata.py",
+      "sha256": "e75e0f3108b4f634cbc48fcd4ec177173a4c64c4c927a4bcf8a4f5ab909bee95"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_notes_link.py",
+      "sha256": "33a73efd162e5492ac3584830387744e10e72a95850946801a82b1d145dda5c6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_ports.py",
+      "sha256": "71c19abe7f466beda80efd1c9a6726553ce4771c7ec2db67f331ebbb623a13ec"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_privacy_sim.py",
+      "sha256": "4e98761c364b3c5a60eced369731f8549f159d1a9d981e01c4a21136f0733a59"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_protocol_fake.py",
+      "sha256": "a05d3390667e5b31103c2103cfa862d5f83ebb65d94b2740f3c54ea03fa253dd"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_session.py",
+      "sha256": "d40f417894dd718e0c509d4854f6b55276a80a9b4df168ac2389bdeed7db01d3"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_static.py",
+      "sha256": "3498eaf3410d63ebfead9f0b2ea3406a3e93226e4354827048fec516c673f8c6"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_stops.py",
+      "sha256": "de03eee281b3f65ad16e3d10a475541e45694a4ce46850984506c0708ec79eea"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_web.py",
+      "sha256": "b0f241fad500e4345f1fa1310fa5df609e44d62d4b685bb20076eeeff905fe67"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tests/test_wifi_cal.py",
+      "sha256": "3f88a3f46d3c0f4e8470696e40985696a5163e920449025daf288ed2dc2dbdb7"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tools/fetch_mapdata.py",
+      "sha256": "a77ec00f309bcce4a98039214b83d5b851f533d2886aaf152fc4ac3cbb476d83"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tools/make_sim_session.py",
+      "sha256": "fa49abb459f575deb435db78a562f2e3db1b4be88f5b67677eb85d46eb89adee"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/tools/screenshots.py",
+      "sha256": "c1022208cb01e2b29cce6632e86ffe3e0a8f6cd1503122ecd0c33fd73b2ab0e1"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/css/app.css",
+      "sha256": "1fd1120f5d0a437b4e30e20e9458f1774e466d79b2eca924b931888371d2099a"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/css/tokens.css",
+      "sha256": "c06717c11e547f24aa14b725bf530d03329f62dc0c76893e0d458bac852a788f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/i18n/en.json",
+      "sha256": "1e6e35a51c221df70f6e068b46923066f6e0fc1bfb70b0bc067ba2588888f589"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/i18n/ko.json",
+      "sha256": "7562d90bcab2cc2c2fd2635a0285153c1685df866982c3258d786e3a6d009329"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/img/device.png",
+      "sha256": "3397ccc54de1541e5b0d2dfcc4aef89baf37479f949a503ae87a5d4c2e915dff"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/index.html",
+      "sha256": "392675faae7b2f702c96e463766ab0603f889665994a4e96eb7e68742a772fcc"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/api.js",
+      "sha256": "8104ae48a0571835826f50a679f4d83e7378595d1d78eacc34c00ace8e29ed3a"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/camera.js",
+      "sha256": "2c03f439d3203c728498d33e145900e7f2391354eb27ebb3c1a8aaea50a86cb4"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/console.js",
+      "sha256": "3e8a84bc42732c77b9fbe05f84fad4376ae0a189a6636f832cddf86fb74464e7"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/device.js",
+      "sha256": "36575a0481c96dfacd9e3e63857768489325605bc3885d1221ba5f77aa97f52b"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/devpanel.js",
+      "sha256": "c130071e713a58d28aa4b0715c93a05e72d3ad111c9e573f823c99c8afcb7af0"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/devstream.js",
+      "sha256": "a271c3a91a3eb7b05a01a887c8de5192bba23bbed80cba2ba2c85a6f2986a119"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/i18n.js",
+      "sha256": "06176b5d66091b55d500a41d39bdab49ef10b8307ae01fa719cf56214928f20a"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/lensmath.js",
+      "sha256": "785650f88aacfe98b3202984b78fe3e61be352c2c8f970721564ab7811334f65"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/live.js",
+      "sha256": "e2a4c25524b49e26c58032760c11d7d48d5f41e227a464b81c3e801b08e69ba3"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/main.js",
+      "sha256": "455e799ce60485571c0675f48deb866db66c5f06c8f051fe3153b44797e84dba"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/mapview.js",
+      "sha256": "c11316f08006973ac07b0284e7485071b650c4589c2f2cf067bb9136bed91245"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/replay.js",
+      "sha256": "882baf48bf40f1e71945c49179ae5d68b352124734e1de35d2d82e1e7fcf3708"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/start.js",
+      "sha256": "70b6285918dde9e227cd90bf33147084cd49c50382da793789a34fda35694a1b"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/summary.js",
+      "sha256": "a4e457bd272440de7c027e6c4ef49896cb4c4f388971308ebf7b67144406deca"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/timeline.js",
+      "sha256": "d8ff7a45ced088b7805e9d8a0dcd5393a4fd244bfb4ccc7bbaac03cb118c1a67"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/trackview.js",
+      "sha256": "6a6f38643b102cf3f3c309137672bfb379f8bc0653a4e984d15b767d4be49283"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/js/util.js",
+      "sha256": "d58af2d6c042cdcfd53e564d29a638e2420816df3229ac86bce1ae63a179b43d"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/README.md",
+      "sha256": "97be9fd14e8fbf37402af77121daac74cf94fcdf5a961e2531f2e6006fce1a5f"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/fonts/Pretendard-LICENSE.txt",
+      "sha256": "b04538c9abec39a3db75108cf0af0fd9c77032fe8aa2cf38345b4d250e98e38e"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/fonts/PretendardVariable.woff2",
+      "sha256": "9599f12fd42fc0bce1cd50b47a0c022e108d7aa64dd0d1bb0ed44f3282d900b4"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/fonts/WFGMonoHangul-LICENSE.txt",
+      "sha256": "542dcfb4cb42e9e3584824edf23bfe0deb008a3f861fcbe4d6a86e8236cfe830"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/fonts/WFGMonoHangul-subset.woff2",
+      "sha256": "7c18ffeb61dd00e84e784b51a6e4a27696bfc4874af45bf4acc705d83511ffd0"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/maplibre-gl/LICENSE.txt",
+      "sha256": "ee5fc05a0677eaf69601d2c7db0d9ecd6cc27c3abc1d0733bc9ed34707cf8ef2"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/maplibre-gl/maplibre-gl.css",
+      "sha256": "576b085fdd9487a65a19215328c1e086c07ce5bf6da09b666b3806d3d008dae9"
+    },
+    {
+      "component": "logger-live-map",
+      "published_path": "hardware/field_logger_demo/web/vendor/maplibre-gl/maplibre-gl.js",
+      "sha256": "741d5bd002b1687f6504d19fe29e6992e2871a9ac4e6e8b8b6ba430e6d516564"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/DEMO_SCRIPT.md",
+      "sha256": "0eb9d8ef937535066b37d1b30b1f0731165036bb77aa6f7ceb6daa58b616ea0e"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/DESIGN_BRIEF.md",
+      "sha256": "d29e2255fa9200b4ad34aa8714f4ec5184db50ea6ccd428ac5f70aeb71cee71f"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/Launch.command",
+      "sha256": "79e3a919b180b6dd71e81d0a092ed7a8ffeeebc7890b904f2c02eb0f6eab51a6"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/MANIFEST.sha256",
+      "sha256": "e3a95c25b491e3785f2e35f936122331f2d306b3e1e5c3dfe5174fac0a084c9c"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/OWNER_HANDOFF.md",
+      "sha256": "f8072548a3a4770cb78ae438af57f5173ba2a1f8ab49d61232d79e6f08e01358"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/README.md",
+      "sha256": "fbecd391c99e3831ef441529f1705026f635d02ec835bbc852b12554923fec70"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/docs/ARTIFACT_SCHEMA.md",
+      "sha256": "6708f8f6e45cd7bd57baf241581bc58b23bdde7414e03c67b6896ed2af3e2095"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/docs/ASSET_PROVENANCE.md",
+      "sha256": "57cd4ad5e60802ff991c3af65b33d8c8ab99d67e3c9e725db167616bf53bcde0"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/index.html",
+      "sha256": "c3dd131e579976427eed1fab0cd4fc339278b86c605aca43737e53ef6001c12d"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/launch.py",
+      "sha256": "20cb42f0b8e9c75775c0759b9b99bc54b05e13029f5f68bcf5349f4b9fe64221"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/package-lock.json",
+      "sha256": "472c1d5a2fbe5d433e8474db5254d043b3cb27ea9ea4d5e5ae08d66595709706"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/package.json",
+      "sha256": "36aa34071ca32e654e38307c3f398e07bff678aa5bfa69bb5e1455449de7818b"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/ASSET_MANIFEST.json",
+      "sha256": "58dc5029af803792fc67ebfc23b0070d55beb2afe1075fe6f45217e2ed8e4ccc"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/device/WFG_logger_housing_bottom_v1.stl",
+      "sha256": "ffe93241d51f71424dfb29c0cf0096942d4300e5eebaab13f46d74466110422f"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/device/WFG_logger_housing_top_v1.stl",
+      "sha256": "6c43a4ae177f626200ba0645b04dfe80a0f342fff455f2a7c70a1be285d8df95"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/device/WFG_logger_plunger_user_v1.stl",
+      "sha256": "38e47754d903b02e11fb37221f19d413555b8549dcb29956294c97aa2e4f4aa3"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/fonts/IBMPlexMono-Regular.woff2",
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/fonts/IBMPlexMono-SemiBold.woff2",
+      "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/fonts/LICENSE-IBMPlex.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/public/assets/illustrative-scene.json",
+      "sha256": "a549003a3d6f297f10b88478ad1aec6eb59ba86686bb41ace8b7f9e7dfd20378"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/schema.json",
+      "sha256": "aab2a680c1b40c7ee01b3d769262e9ce25f76090b71ff6b5cc8c27eef771fec5"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/server.mjs",
+      "sha256": "1dec52afe805f8e0ffa4169dc7c3ebfd998a174b503d4574c4fcfe2640aeb950"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/data.mjs",
+      "sha256": "04e31bbf54a5acb1388b6b6a00d22bdd41f4e2950790804bf54a2560f096b377"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/device.mjs",
+      "sha256": "710eda389ed4c563176bb7c1328d5eca717abde75b4302f680d086c2e5bab99e"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/fallback.mjs",
+      "sha256": "1ce6539df5dff549d39a0449e5420385c7c43be5a8d313167fdc6e316897fe12"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/main.mjs",
+      "sha256": "3ddb53245f4ba3892fa4aed652da7d9960f91de75bb0001d9b06fb1b0fc855ea"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/scene.mjs",
+      "sha256": "b7591eb40de2acbf40bc5905ee5c86b4ec0b8aeb73df5622ab4f7bb87e07839f"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/state.mjs",
+      "sha256": "b343443b49ad6458c85a6ee78cd37cff7c546869d8386bcbd632fd743320151d"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/style.css",
+      "sha256": "7f2ca455350e7bf62ccbf55f3d3c23d7cdd945d75175f15a33d5b053407d3ed0"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/src/ui.mjs",
+      "sha256": "3a38f147855781d76b93b96f085b81dc626850abb87c029bc6b87923ed25796b"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/tests/artifacts.test.mjs",
+      "sha256": "de0e29ded9e0c4de256a6a022cb1a4e47985a724a090dcbb8a1b757e137a544e"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/tests/state.test.mjs",
+      "sha256": "8c9052faaf5a172a6816ae8b6eae9895e01249ebd5713f9185e8ce63ddd9b5b5"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/vendor/addons/controls/OrbitControls.js",
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/vendor/addons/loaders/STLLoader.js",
+      "sha256": "023ed97f848b633d8bcd53d4db3b996d29d0c644088700691297c552257d480b"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/vendor/three.core.js",
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "component": "3d-showcase",
+      "published_path": "demos/showcase/vendor/three.module.js",
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/FINAL_REVIEW.json",
+      "sha256": "9f8a9d98391a5899c375d619c6648c3943fd6fcb162c4b03cb3e0aa8be9bb510"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/INDEPENDENT_REPORT.v1.md",
+      "sha256": "5da6a8ec318427b7ffa3d94daad44b3dbd737231018db03c6d98ab8ddea8d2d1"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/INDEPENDENT_ROWS.csv",
+      "sha256": "1a192a96b04a1e4bc007f9d65881f5e87d8dd025b6ec131b1153e9d2d5bee122"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/INDEPENDENT_RESULTS.json",
+      "sha256": "4538cc4efa456b2ba304bfb12ee850db4ee1244d2ddb8847e0c38684c6e125ff"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/DATA_native_q_categories.csv",
+      "sha256": "7567184bd6bf0ff6440eaf39383b0ce515585865f8e70fb468cc2ddaec4e7f05"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/DATA_regional_outcomes_costs.csv",
+      "sha256": "d80edf3a8e4299215bf42901866de1e26ba461adc4402384c4442e99b0d3c6ca"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/DATA_route_segments.csv",
+      "sha256": "e642e6d099965fa37943762cf54d956a4c24a420e6bff4b38fc3de6eef6ea5d1"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/FIGURE_PROVENANCE.json",
+      "sha256": "d9908eb4787478c8d3202559fe09b66e467a8e62fa092a8ef4dab8635d4a09c0"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig01_resolution.pdf",
+      "sha256": "31641ab7007626b2c27da48085bc7f8b9b6b0ae51f7eee8935798682d4cdfe69"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig01_resolution.png",
+      "sha256": "2e063359c78bd526baa1d0c5c311d3961d82a0f9b8ea5df433c5b385b82fff1a"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig01_resolution.svg",
+      "sha256": "ecf622c211920d6ce940b85deb8221069ca12a528b062828a8a8575ff5450d7d"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig02_wall_time.pdf",
+      "sha256": "36c6c486a1df90b506944bd4bed3ebaca9341068c58ea0c554a7f6936c1ad2eb"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig02_wall_time.png",
+      "sha256": "6bf343b4e10d95b15b8bf5669d57410cd8392ede3fe137cf826ed21f63ed98ac"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig02_wall_time.svg",
+      "sha256": "0a6cd1105f112c72b3ad2504e0e378a112758bdcfd489bcff0c102ce8a69c250"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig03_memory_scopes.pdf",
+      "sha256": "38074320f929060e101d8dc49fc8f7476f2ef3ef4aae2b1dad78a7ac7a558f98"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig03_memory_scopes.png",
+      "sha256": "be0c645269f8efa0dff73c1e3a1f6aaf5b9ca6c13e06664c5d43c559eb5e1389"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig03_memory_scopes.svg",
+      "sha256": "221905061938d954aee95ba6ca1e57c9968240ea1eb0f8c59e4eaccfaf527ce9"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig04_probability_categories.pdf",
+      "sha256": "c3c39fb823e5d27d94b0d47c1dc784540a69bfeb990f98d52b1bd214b89c1838"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig04_probability_categories.png",
+      "sha256": "543e627aa872f1102e082b9cae067533035b3a9d76360c85aa99f965d11e7cf9"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig04_probability_categories.svg",
+      "sha256": "98f798d7153df9d4d336b778ebd10da7f5faba89b7a3a3118d9882d8f8e166d0"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig05_current_law_flow.pdf",
+      "sha256": "54e6b8b573479796a4ff09fa030c3eaea4142ec7a51c3bfbd0eb0f9853abb8ff"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig05_current_law_flow.png",
+      "sha256": "3bac43958a7ef24dd187335645be8056e134fd858d038a9e766c0df04ff7fd12"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig05_current_law_flow.svg",
+      "sha256": "af4e7ac9039784704330f4dcb4f0ee030dd00944be830f33c717a35331ed7ca5"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig06_recorded_uljin_route.pdf",
+      "sha256": "7ec805b50306dfcb488d602ca379ffde24312a0f73dec0d47d6a8425f31e2bce"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig06_recorded_uljin_route.png",
+      "sha256": "477cca75ef70ee961a8185e963377561afc7fe6e47bd1a78dacd6747b581f556"
+    },
+    {
+      "component": "routing-figure",
+      "published_path": "research/routing/figures/fig06_recorded_uljin_route.svg",
+      "sha256": "47a97d8209f0760d057015194ffd3b9c5b43f6f7a7d603e84b3a97eb386674ba"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/FIGURE_CAPTIONS.md",
+      "sha256": "4e0b58dcf3dfd583e24794b214913011b4494f76c4e9972ef381a124813a7bff"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/manifests/SOURCE_MANIFEST.json",
+      "sha256": "1146d279b6985b1671c2fdc5ef87be56395a9685b3ea0b535be654f9d9c4b716"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/manifests/INPUT_MANIFEST.json",
+      "sha256": "ed6ecc7e02e9229fb963034b91cf18059882e60af3b2b84e91dd5d232db6ed9f"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/manifests/LATEST_INPUT_FREEZE.json",
+      "sha256": "d22b5a1a9733c3b616d946974d4f170c93ed4800b20d153362317ee091b18537"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/manifests/INPUT_BINDING.json",
+      "sha256": "48bc31b89d75ea2978cc7e6006cb67dd3deb539e4a564c019499379947df12a4"
+    },
+    {
+      "component": "routing-evidence",
+      "published_path": "research/routing/manifests/KIT_V3_MANIFEST.json",
+      "sha256": "6f627f87053ea5d80e74052201574e3d3224c59d5d411eac1defd4ffe97907b5"
+    },
+    {
+      "component": "forecast-ablation",
+      "published_path": "research/forecast/FORECAST_EVIDENCE_HANDOFF.md",
+      "sha256": "a39bd4f892b62e2e3ea3f8ca2270bb1ab6ac0045fa777cc80affa7011d478617"
+    },
+    {
+      "component": "forecast-ablation",
+      "published_path": "research/forecast/ABLATION_RESULTS.md",
+      "sha256": "ec4f8403debb7487cad2257ba2fc6aafe1b5a31e777dbf91ac1d24cb7f7266a3"
+    },
+    {
+      "component": "forecast-ablation",
+      "published_path": "research/forecast/FORECAST_ABLATION_METHODS.md",
+      "sha256": "ed8def619ec57bbafe930bb2c59da0c463c660e152db556fe9841a67a2aa5298"
+    },
+    {
+      "component": "forecast-ablation",
+      "published_path": "research/forecast/FORECAST_ABLATION_RESULTS_PAPER.md",
+      "sha256": "1b997ab052257cb8dcfd37278bd9ff7cb400fc441fe4f59b74a95f1b89ae9ac8"
+    },
+    {
+      "component": "forecast-ablation",
+      "published_path": "research/forecast/REPRODUCE.md",
+      "sha256": "0ed36980b6ed241ad149f6ad37bd85dd830f31da41798240ceb90033a8a16c21"
+    },
+    {
+      "component": "research-scope",
+      "published_path": "docs/FUTURE_EXTENSIONS.md",
+      "sha256": "a1a3c8525dd9999a71a31516ffc2deee3dc0e579468beb119a16936fb2e21fdd"
+    },
+    {
+      "component": "preserved-firmware-host-evidence",
+      "published_path": "hardware/firmware/build_evidence/host_tests.log",
+      "sha256": "b083c7e5243f0496b3176d3bfe1df5c5eb4b094eaafeac813ee6ce31f707b18b"
+    },
+    {
+      "component": "preserved-firmware-host-evidence",
+      "published_path": "hardware/firmware/build_evidence/pio_run_all_envs.log",
+      "sha256": "a34b8498e87b90eda722cc8649bc24df8c63ea2d31c8fb09a280d569c8573b19"
+    },
+    {
+      "component": "preserved-firmware-host-evidence",
+      "published_path": "hardware/firmware_v0_3_0_live/build_evidence/pio_run_all_envs_0.3.0.log",
+      "sha256": "11f1b8d1d24a50e6a2234804997bdf60c24c411f7ef99b42ca4385ae15227bc5"
+    },
+    {
+      "component": "preserved-firmware-host-evidence",
+      "published_path": "hardware/firmware_v0_3_0_live/build_evidence/host_tests_0.3.0.log",
+      "sha256": "4280289dcce7c6e9a41e56bcecb3cf4a8aee25b91c9674d91f271f1addd1fe8e"
+    }
+  ]
+}

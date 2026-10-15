@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="WildfireGuardian route logger" xmlns="http://www.topografix.com/GPX/1/1" xmlns:wfg="urn:wildfireguardian:route-logger:1">
+<metadata><name>WFG-1A2B3C4D-000002</name><desc>movement_mode=WALK (owner_selected_on_device). start_reason=AUTO_RESUMED_AFTER_RESET resumed_from=WFG-1A2B3C4D-000001. Coordinates as received from GNSS, not map-matched. HDOP is a unitless dilution factor, not metres. Track segments break at every NOFIX row. STATUS rows (battery, storage) are in the CSV only.</desc></metadata>
+<trk><name>WFG-1A2B3C4D-000002</name><type>WALK</type>
+</trk>
+</gpx>

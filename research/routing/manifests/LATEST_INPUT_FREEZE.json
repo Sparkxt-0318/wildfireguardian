@@ -1,0 +1,2345 @@
+{
+ "schema": "wfg.latest-input-freeze/1",
+ "utc": "2026-10-15T02:07:13.401566+00:00",
+ "try": 2,
+ "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+ "selection_sha256": "118723e37dd630579aecced2b956c731f4f20eac2f89d8181fcb710098d46c04",
+ "source_sha256": {
+  "__init__.py": "dc4bdd42cc130a66124a7d2b287c277e08adf49857581c8766b6aefedb0d7b93",
+  "api.py": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+  "bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+  "build_packet.py": "5cc8cc2eaa169ccaabd588521719d158fbf9c2b1965ff0abc83a2cdfd2765268",
+  "contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+  "example.py": "0971a6c92c7cb5371658f03583ff9bd0de857099afdcc1aec5cf1e5558d493c0",
+  "export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+  "packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+  "requests.py": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c"
+ },
+ "prep_driver_sha256": "ae555662c02642a19a361177985645746d73f154e8376b9bc2e8bef58d2d33ba",
+ "forecast_source_root": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/forecast_github_update_20261014_v1/source",
+ "data_root": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/final_forecast_ablation_20261014_v1/source/wildfire/data/environment",
+ "checkpoint_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/forecast_github_update_20261014_v1/source/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+ "forecast_env": "3.12.14 arm64 1.26.4 2.5.1",
+ "missions_constructed": 20,
+ "missions_planned": 20,
+ "failures": [],
+ "unconstructible": {},
+ "exports": {
+  "KFS_01:20250323T010000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250323T010000Z.npz",
+   "npz_sha256": "ac1cb7d5eae8ddbfa3fb1bb2a92da15c13e16c5534c843c5d39e2438702e29ee",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250323T010000Z.json",
+   "record_sha256": "6d7fcf13955622b3293858654116bf5ba0784795e07ad9fdc064987b451d8494",
+   "timing_s": {
+    "model_load": 0.020227042012265883,
+    "data_load": 0.5177733329910552,
+    "probability": 0.17338483298954088,
+    "heat": 0.08693712500098627
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 8534,
+    "probability_policy_zero": 10189,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 425,
+    "present_fire_exact": 30,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 98.8698906557861,
+     "max": 3791.7249626772705,
+     "median": 1542.4493736880127
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.9271920830069575,
+   "child_max_rss_bytes": 1096499200
+  },
+  "KFS_01:20250324T090000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250324T090000Z.npz",
+   "npz_sha256": "db24fd1e72c4c3a3fc14b2ed5f2806e8f45615bea57d0a1bb0237a2765c36a4d",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250324T090000Z.json",
+   "record_sha256": "d1180235f57f66860e2a904e1a00809cccc9780858b731e0a3e61840ff1ff8b6",
+   "timing_s": {
+    "model_load": 0.009595415991498157,
+    "data_load": 0.40789633299573325,
+    "probability": 0.10591387499880511,
+    "heat": 0.09607291698921472
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 8739,
+    "probability_policy_zero": 9984,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 1050,
+    "present_fire_exact": 18,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 113.59843679836422,
+     "max": 3932.212633575708,
+     "median": 1724.729723419458
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.6265081250021467,
+   "child_max_rss_bytes": 1168982016
+  },
+  "KFS_01:20250325T170000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T170000Z.npz",
+   "npz_sha256": "5e95e82e79459896fc495a790a64b2fda4509eeb122834ef2aff9bcebc746e9f",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T170000Z.json",
+   "record_sha256": "c625a246f2c4e7d49a81f4a51bfdd6c27cd5ff550fb397681dc2f8a3181eedac",
+   "timing_s": {
+    "model_load": 0.008906291011953726,
+    "data_load": 0.3947355830023298,
+    "probability": 0.1028066669969121,
+    "heat": 0.1149199579958804
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 9179,
+    "probability_policy_zero": 9544,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 4673,
+    "present_fire_exact": 1505,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 11.672777618676719,
+     "max": 3970.293993438989,
+     "median": 3443.939012970239
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.6215398750064196,
+   "child_max_rss_bytes": 1180368896
+  },
+  "KFS_01:20250325T190000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T190000Z.npz",
+   "npz_sha256": "f23418aea92fb04076cce97f411e60dfc6042f10e43b871ec2192d0a1933ddc1",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T190000Z.json",
+   "record_sha256": "d4992006670cb67b4313d546948f0d50a6b8b870712f48622258694386e58488",
+   "timing_s": {
+    "model_load": 0.008769207997829653,
+    "data_load": 0.4008350419899216,
+    "probability": 0.097883250011364,
+    "heat": 0.09055691699904855
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 9805,
+    "probability_policy_zero": 8918,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 8900,
+    "present_fire_exact": 1443,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 0.0822014468017187,
+     "max": 3964.7733635561767,
+     "median": 1762.9484123843017
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.6355609580059536,
+   "child_max_rss_bytes": 1166065664
+  },
+  "KFS_01:20250325T230000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T230000Z.npz",
+   "npz_sha256": "9ac3a8123fda9e09d98d99e676e20d4770027bc64ff91ec81ef0caf5c414c9bd",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T230000Z.json",
+   "record_sha256": "0dd6471f68f89deb495b4e7f10f08453ce6cd95b2f4aec2fb57212661bed0d58",
+   "timing_s": {
+    "model_load": 0.008643249995657243,
+    "data_load": 0.3897057089925511,
+    "probability": 0.10698958300054073,
+    "heat": 0.08711383400077466
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 10265,
+    "probability_policy_zero": 8458,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 10147,
+    "present_fire_exact": 160,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 3.2682366030517187,
+     "max": 3948.101610626489,
+     "median": 1816.8638176577392
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.6312807089998387,
+   "child_max_rss_bytes": 1167032320
+  },
+  "KFS_01:20250326T080000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250326T080000Z.npz",
+   "npz_sha256": "0b10827259d4abd6032dd7741dc55522362ceb33d5d99a0d187685e7d159e61e",
+   "record": "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250326T080000Z.json",
+   "record_sha256": "c0f043b50ad2df2dec89678d67f64af34d449eeacbffe80b4eb4f894013b3a48",
+   "timing_s": {
+    "model_load": 0.014503582991892472,
+    "data_load": 0.4015578749967972,
+    "probability": 0.10008220799500123,
+    "heat": 0.08989187500264961
+   },
+   "raw_summary": {
+    "shape": [
+     79,
+     237
+    ],
+    "cells": 18723,
+    "probability_native_valid": 10824,
+    "probability_policy_zero": 7899,
+    "burned_state_known": 10955,
+    "burned_state_unknown": 7768,
+    "known_burned": 10824,
+    "present_fire_exact": 40,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 390.8658928530517,
+     "max": 3956.6434807436767,
+     "median": 2150.8619255678955
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.6283268330007559,
+   "child_max_rss_bytes": 1164804096
+  },
+  "KFS_02:20220304T030000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T030000Z.npz",
+   "npz_sha256": "c97d3ff2aa5c6258cfca854d9ae0337e4a1a390ad9c977de338297bfb4ebbf69",
+   "record": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T030000Z.json",
+   "record_sha256": "eae7c61f20d908b296579b5f9c5a55e5cb2fb6102316a2c2364f854c7ba1fcaa",
+   "timing_s": {
+    "model_load": 0.009110458006034605,
+    "data_load": 0.373237917010556,
+    "probability": 0.04116283300390933,
+    "heat": 0.01618420801241882
+   },
+   "raw_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1067,
+    "probability_policy_zero": 2529,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 1,
+    "present_fire_exact": 1,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 3207.19289728573,
+     "max": 3207.19289728573,
+     "median": 3207.19289728573
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.3545255409990204,
+   "child_max_rss_bytes": 657833984
+  },
+  "KFS_02:20220304T060000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T060000Z.npz",
+   "npz_sha256": "14342adce16afa7a09a8e997cd51b7187a78803836d8253eb98e50dedf74591b",
+   "record": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T060000Z.json",
+   "record_sha256": "f60d6c351ff5d1a52acf5a26e353db830129b93e94f988b7aae3d203640fab33",
+   "timing_s": {
+    "model_load": 0.008618250009021722,
+    "data_load": 0.3434459589916514,
+    "probability": 0.04070395798771642,
+    "heat": 0.01798166699882131
+   },
+   "raw_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1067,
+    "probability_policy_zero": 2529,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 104,
+    "present_fire_exact": 26,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 23.51357885769039,
+     "max": 3882.580637420923,
+     "median": 935.1166004793945
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.3611021249962505,
+   "child_max_rss_bytes": 659652608
+  },
+  "KFS_02:20220304T120000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T120000Z.npz",
+   "npz_sha256": "2e3349fe0454b66512df3d86a314dd498f0a201deb494b4dd137df204bdf30ab",
+   "record": "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T120000Z.json",
+   "record_sha256": "475fdb9830b4e193b640f284b08cd3cc4aaba79e4736e1aaad34acb46f9da0a9",
+   "timing_s": {
+    "model_load": 0.009814292003284208,
+    "data_load": 0.3869884580053622,
+    "probability": 0.041045167003176175,
+    "heat": 0.015562833010335453
+   },
+   "raw_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1069,
+    "probability_policy_zero": 2527,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 198,
+    "present_fire_exact": 18,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 19.49756094387203,
+     "max": 3595.386003937036,
+     "median": 1991.1022896426025
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.3501551669905894,
+   "child_max_rss_bytes": 660029440
+  },
+  "KFS_05:20230402T070000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T070000Z.npz",
+   "npz_sha256": "a0da8cb8c5ce26ebc6b4d9df39bfc1c6b324327897e75ca3334ebed2eb23b532",
+   "record": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T070000Z.json",
+   "record_sha256": "5f8d87f990e2c3ec1028a28ec5ac49a310869f117cf0affae54ba3ee2f008a7c",
+   "timing_s": {
+    "model_load": 0.008654874996864237,
+    "data_load": 0.20124295800633263,
+    "probability": 0.028147791002993472,
+    "heat": 0.00546966701222118
+   },
+   "raw_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 55,
+    "probability_policy_zero": 269,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 55,
+    "present_fire_exact": 6,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 1175.9749931948486,
+     "max": 3455.8183235781494,
+     "median": 2796.12365194729
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.0800954169972101,
+   "child_max_rss_bytes": 419774464
+  },
+  "KFS_05:20230402T140000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T140000Z.npz",
+   "npz_sha256": "c8428c1202d48bfb7061ec8ae759f21cb81b826b5f4aaca7da4ee7ae0b413ae7",
+   "record": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T140000Z.json",
+   "record_sha256": "64a8c608d97574d8361e6f83247c46539703f6ab17aefce4a658fbf2ef2c3956",
+   "timing_s": {
+    "model_load": 0.008919333005906083,
+    "data_load": 0.18926770800317172,
+    "probability": 0.029135832999600098,
+    "heat": 0.006100415994296782
+   },
+   "raw_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 77,
+    "probability_policy_zero": 247,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 77,
+    "present_fire_exact": 6,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 280.30085989406734,
+     "max": 3791.1605400698486,
+     "median": 1233.8849587099853
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.084075374994427,
+   "child_max_rss_bytes": 419495936
+  },
+  "KFS_05:20230402T230000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T230000Z.npz",
+   "npz_sha256": "98128ce93cb2d5bf3c6c8daf33ff92bb6cb65407a2bfcfde6d406dbc031193cb",
+   "record": "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T230000Z.json",
+   "record_sha256": "b3df15b33cf898aa4738731f6442c662a88d0eaf9c25e20a28fdb5027bb1c6d0",
+   "timing_s": {
+    "model_load": 0.009000916994409636,
+    "data_load": 0.2002199999988079,
+    "probability": 0.03305150000960566,
+    "heat": 0.006547500001033768
+   },
+   "raw_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 110,
+    "probability_policy_zero": 214,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 110,
+    "present_fire_exact": 4,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 859.4932121889892,
+     "max": 3896.540026153833,
+     "median": 3509.3989891665283
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.0833841249987017,
+   "child_max_rss_bytes": 418037760
+  },
+  "KFS_11:20220531T100000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220531T100000Z.npz",
+   "npz_sha256": "e7529aeb0adf021da85be094c1d44592910e0a0650c3d93dc2db8bb597c5de85",
+   "record": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220531T100000Z.json",
+   "record_sha256": "4de1ee620e4e6ec98b83ff85d55f8646e31a281848a7afc006b6f6842c7655ac",
+   "timing_s": {
+    "model_load": 0.010982916995999403,
+    "data_load": 0.23240429199358914,
+    "probability": 0.029519959003664553,
+    "heat": 0.00552495798910968
+   },
+   "raw_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 12,
+    "probability_policy_zero": 175,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 12,
+    "present_fire_exact": 3,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 1132.1109337466064,
+     "max": 3789.253954376489,
+     "median": 1811.2445397036377
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.085858874997939,
+   "child_max_rss_bytes": 446152704
+  },
+  "KFS_11:20220601T020000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220601T020000Z.npz",
+   "npz_sha256": "66299315b7533ee9cd9e417ab966c48d7126e2b0b7a1406a2c43024c09fdeac5",
+   "record": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220601T020000Z.json",
+   "record_sha256": "1c016853e1c8c422f20673d3c06466acc306a9c8b9a91de2336dd75907703e35",
+   "timing_s": {
+    "model_load": 0.008342209010152146,
+    "data_load": 0.20438154200382996,
+    "probability": 0.02804824999475386,
+    "heat": 0.00524683301046025
+   },
+   "raw_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 34,
+    "probability_policy_zero": 153,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 34,
+    "present_fire_exact": 2,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 383.01158377102047,
+     "max": 3777.429918731958,
+     "median": 2080.220751251489
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.083299458012334,
+   "child_max_rss_bytes": 449085440
+  },
+  "KFS_11:20220601T080000Z": {
+   "npz": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220601T080000Z.npz",
+   "npz_sha256": "750112a5f11fbb316614f90412ddeb2493cd9682e3e46c853dbd08823bc95ec4",
+   "record": "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220601T080000Z.json",
+   "record_sha256": "46ac47ac980469c67120833b0219db459a335a78213e4dcec4fc56d2131a402f",
+   "timing_s": {
+    "model_load": 0.009074082990991883,
+    "data_load": 0.20384662500873674,
+    "probability": 0.028258040998480283,
+    "heat": 0.005076708999695256
+   },
+   "raw_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 45,
+    "probability_policy_zero": 142,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 45,
+    "present_fire_exact": 5,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 89.69722219875484,
+     "max": 3927.448229278833,
+     "median": 3151.099352325708
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "cell_burning_duration_s": 3970.4642815249267,
+   "child_wall_s": 1.081610332999844,
+   "child_max_rss_bytes": 447971328
+  }
+ },
+ "packets": {
+  "hongseong_2023:20230402T070000Z": {
+   "dir": "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/hongseong_2023/graph.json",
+   "graph_sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+   "files_sha256": {
+    "HAZARD.json": "025823f1c5cf637033bcab6c05d9f8cc93622b883c2bae50eb395a98ab8c6fc8",
+    "REPORT.json": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d",
+    "NATIVE_METADATA.json": "4140641d5e76cc443ebf1565ecede7712731a3b7f3f06fdb29a022d32aa1addd",
+    "constructed_arrays.npz": "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+    "BUILD_SUMMARY.json": "b4cf6994a5f4b0044dc6d00e1fa133318ef6796e59a57b93c79e4b0f6cecdc58"
+   },
+   "hazard_construction_wall_s": 0.09681637500762008,
+   "child_wall_s": 0.26991229099803604,
+   "child_max_rss_bytes": 64126976,
+   "shape": [
+    18,
+    18
+   ],
+   "present_fire_cells": 6,
+   "initial_remaining_s": 3455.8183235781494,
+   "enclosure": {
+    "present_fire_cells": 6,
+    "present_fire_exact_cells": 6,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3455.8183235781494,
+    "distinct_remaining_times": 6,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 15018.192984376612,
+    "present_fire_cell_seconds_enclosure": 20734.909941468897,
+    "enclosure_over_exact_ratio": 1.380652783130392
+   },
+   "max_flux_kW_m2": 0.6874532181576039,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 55,
+    "probability_policy_zero": 269,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 55,
+    "present_fire_exact": 6,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 1175.9749931948486,
+     "max": 3455.8183235781494,
+     "median": 2796.12365194729
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20230402T070000Z:09414bcd4c0943dd:0",
+    "ffb1:20230402T070000Z:09414bcd4c0943dd:1",
+    "ffb1:20230402T070000Z:09414bcd4c0943dd:2",
+    "ffb1:20230402T070000Z:09414bcd4c0943dd:3"
+   ]
+  },
+  "hongseong_2023:20230402T140000Z": {
+   "dir": "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/hongseong_2023/graph.json",
+   "graph_sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+   "files_sha256": {
+    "HAZARD.json": "7e12d1b0fbc84d5b260acaa9b0e9e630857f712fff05166ff2a265d36e227f09",
+    "REPORT.json": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a",
+    "NATIVE_METADATA.json": "46fcabbe4e95aaaf561ae70d9ca3613322442ddef385181800d435f23b6c7481",
+    "constructed_arrays.npz": "6173521b86c79b526159c414a2ed66ad8cf49a65ab4e456ba4935a90caa0cff0",
+    "BUILD_SUMMARY.json": "dc12eda6a4a45133213b777c87dab95b4641c192a6c96001fb1c7dc62eba8f3b"
+   },
+   "hazard_construction_wall_s": 0.09037216700380668,
+   "child_wall_s": 0.27054870799474884,
+   "child_max_rss_bytes": 63832064,
+   "shape": [
+    18,
+    18
+   ],
+   "present_fire_cells": 6,
+   "initial_remaining_s": 3791.1605400698486,
+   "enclosure": {
+    "present_fire_cells": 6,
+    "present_fire_exact_cells": 6,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3791.1605400698486,
+    "distinct_remaining_times": 6,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 9833.246776887328,
+    "present_fire_cell_seconds_enclosure": 21600.0,
+    "enclosure_over_exact_ratio": 2.1966295049942177
+   },
+   "max_flux_kW_m2": 0.6882954323598949,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 77,
+    "probability_policy_zero": 247,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 77,
+    "present_fire_exact": 6,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 280.30085989406734,
+     "max": 3791.1605400698486,
+     "median": 1233.8849587099853
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20230402T140000Z:c039b5e7d013322e:0",
+    "ffb1:20230402T140000Z:c039b5e7d013322e:1",
+    "ffb1:20230402T140000Z:c039b5e7d013322e:2",
+    "ffb1:20230402T140000Z:c039b5e7d013322e:3"
+   ]
+  },
+  "hongseong_2023:20230402T230000Z": {
+   "dir": "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/hongseong_2023/graph.json",
+   "graph_sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+   "files_sha256": {
+    "HAZARD.json": "7f8c03d1116c299b5e6922584769bedc75b523c76b459b743c3b4ec6d539e5f1",
+    "REPORT.json": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e",
+    "NATIVE_METADATA.json": "6513b60205a420a8e5d916fb62b4f23b0a7e3c4f8faf51c432c9f98e2606973f",
+    "constructed_arrays.npz": "911ba7ad026d480c504c8091f8f37cabd9ff1ccb2ca965e7c76ec63d117a167b",
+    "BUILD_SUMMARY.json": "05b7dce259aa7445cc433955b4611d04e254117570774ec84a45803822a6fb4b"
+   },
+   "hazard_construction_wall_s": 0.08981837501050904,
+   "child_wall_s": 0.2713738330057822,
+   "child_max_rss_bytes": 63815680,
+   "shape": [
+    18,
+    18
+   ],
+   "present_fire_cells": 4,
+   "initial_remaining_s": 3896.540026153833,
+   "enclosure": {
+    "present_fire_cells": 4,
+    "present_fire_exact_cells": 4,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3896.540026153833,
+    "distinct_remaining_times": 4,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 11437.341221741259,
+    "present_fire_cell_seconds_enclosure": 14400.0,
+    "enclosure_over_exact_ratio": 1.25903387166827
+   },
+   "max_flux_kW_m2": 0.6861436594604855,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     18,
+     18
+    ],
+    "cells": 324,
+    "probability_native_valid": 110,
+    "probability_policy_zero": 214,
+    "burned_state_known": 153,
+    "burned_state_unknown": 171,
+    "known_burned": 110,
+    "present_fire_exact": 4,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 859.4932121889892,
+     "max": 3896.540026153833,
+     "median": 3509.3989891665283
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20230402T230000Z:247138a35dcddc50:0",
+    "ffb1:20230402T230000Z:247138a35dcddc50:1",
+    "ffb1:20230402T230000Z:247138a35dcddc50:2",
+    "ffb1:20230402T230000Z:247138a35dcddc50:3"
+   ]
+  },
+  "miryang_2022:20220531T100000Z": {
+   "dir": "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/miryang_2022/graph.json",
+   "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+   "files_sha256": {
+    "HAZARD.json": "f30c6c92adcb546daf29748ba47d1797dd7cc395e0ef7274fcadaa7d7e7cb08d",
+    "REPORT.json": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39",
+    "NATIVE_METADATA.json": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+    "constructed_arrays.npz": "246335bad833f6c70bdd11514af8835ad1dc1f484b87054ba0c165bcc298f1bf",
+    "BUILD_SUMMARY.json": "25c4c32b75702eb33ed900dfda58d7d70364415079bac82cb52779e765e7e1ab"
+   },
+   "hazard_construction_wall_s": 0.12267583300126716,
+   "child_wall_s": 0.2698882500117179,
+   "child_max_rss_bytes": 68419584,
+   "shape": [
+    17,
+    11
+   ],
+   "present_fire_cells": 3,
+   "initial_remaining_s": 3789.253954376489,
+   "enclosure": {
+    "present_fire_cells": 3,
+    "present_fire_exact_cells": 3,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3789.253954376489,
+    "distinct_remaining_times": 3,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 6543.355473450244,
+    "present_fire_cell_seconds_enclosure": 10800.0,
+    "enclosure_over_exact_ratio": 1.6505293108132595
+   },
+   "max_flux_kW_m2": 0.6862794825738049,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 12,
+    "probability_policy_zero": 175,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 12,
+    "present_fire_exact": 3,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 1132.1109337466064,
+     "max": 3789.253954376489,
+     "median": 1811.2445397036377
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220531T100000Z:40b532dc599ca183:0",
+    "ffb1:20220531T100000Z:40b532dc599ca183:1",
+    "ffb1:20220531T100000Z:40b532dc599ca183:2",
+    "ffb1:20220531T100000Z:40b532dc599ca183:3"
+   ]
+  },
+  "miryang_2022:20220601T020000Z": {
+   "dir": "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/miryang_2022/graph.json",
+   "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+   "files_sha256": {
+    "HAZARD.json": "83941546ca9ed01086206669729f2320a5bf1adc4000b67aefe4f79eeb73c18e",
+    "REPORT.json": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0",
+    "NATIVE_METADATA.json": "4e836009eafe57d1d70d6d5595f94b398452eea3ac0c38cc8e752d3293a9fb13",
+    "constructed_arrays.npz": "7a170bb4acb449bd28b44bec481cdafd2d0d424561a36a5fa7ec460cd992a718",
+    "BUILD_SUMMARY.json": "ef671bc65f582d3dc6a0acecf6586df8ccaae2fc530e520b6399bb15304c0277"
+   },
+   "hazard_construction_wall_s": 0.1166892920009559,
+   "child_wall_s": 0.2722762499906821,
+   "child_max_rss_bytes": 68337664,
+   "shape": [
+    17,
+    11
+   ],
+   "present_fire_cells": 2,
+   "initial_remaining_s": 3777.429918731958,
+   "enclosure": {
+    "present_fire_cells": 2,
+    "present_fire_exact_cells": 2,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3777.429918731958,
+    "distinct_remaining_times": 2,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 3983.0115837710205,
+    "present_fire_cell_seconds_enclosure": 7200.0,
+    "enclosure_over_exact_ratio": 1.8076773939942228
+   },
+   "max_flux_kW_m2": 0.6882659673525866,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 34,
+    "probability_policy_zero": 153,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 34,
+    "present_fire_exact": 2,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 383.01158377102047,
+     "max": 3777.429918731958,
+     "median": 2080.220751251489
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220601T020000Z:8d74e513a7acb765:0",
+    "ffb1:20220601T020000Z:8d74e513a7acb765:1",
+    "ffb1:20220601T020000Z:8d74e513a7acb765:2",
+    "ffb1:20220601T020000Z:8d74e513a7acb765:3"
+   ]
+  },
+  "miryang_2022:20220601T080000Z": {
+   "dir": "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/A_miryang_hongseong/miryang_2022/graph.json",
+   "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+   "files_sha256": {
+    "HAZARD.json": "ab6386b7157ecdca5a1c5063f7a5981d3fb8a4923485dde7fc11819424c93ac0",
+    "REPORT.json": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab",
+    "NATIVE_METADATA.json": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+    "constructed_arrays.npz": "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+    "BUILD_SUMMARY.json": "2defa99175d49f848e1cab4d7bd312d7aa4b36d36ef7865d28e362926af3bf3e"
+   },
+   "hazard_construction_wall_s": 0.11720833300205413,
+   "child_wall_s": 0.2672147919947747,
+   "child_max_rss_bytes": 68386816,
+   "shape": [
+    17,
+    11
+   ],
+   "present_fire_cells": 5,
+   "initial_remaining_s": 3927.448229278833,
+   "enclosure": {
+    "present_fire_cells": 5,
+    "present_fire_exact_cells": 5,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3927.448229278833,
+    "distinct_remaining_times": 5,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 12753.763406617285,
+    "present_fire_cell_seconds_enclosure": 18000.0,
+    "enclosure_over_exact_ratio": 1.411348119462582
+   },
+   "max_flux_kW_m2": 0.6884925303922886,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     17,
+     11
+    ],
+    "cells": 187,
+    "probability_native_valid": 45,
+    "probability_policy_zero": 142,
+    "burned_state_known": 80,
+    "burned_state_unknown": 107,
+    "known_burned": 45,
+    "present_fire_exact": 5,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 89.69722219875484,
+     "max": 3927.448229278833,
+     "median": 3151.099352325708
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220601T080000Z:aa27c21fa688aa74:0",
+    "ffb1:20220601T080000Z:aa27c21fa688aa74:1",
+    "ffb1:20220601T080000Z:aa27c21fa688aa74:2",
+    "ffb1:20220601T080000Z:aa27c21fa688aa74:3"
+   ]
+  },
+  "uiseong_andong_2025:20250323T010000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/uiseong_andong_2025/G2_window_grid/graph.json",
+   "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+   "files_sha256": {
+    "HAZARD.json": "21a8a087f419382bad79f8741f7694f43471569cc303c4e0051316a3713c1d9f",
+    "REPORT.json": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199",
+    "NATIVE_METADATA.json": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c",
+    "constructed_arrays.npz": "e471830a42223cb59ef2ed56da8a948d4387233efe7e51adca2a20f5a6aaea13",
+    "BUILD_SUMMARY.json": "fd8d481eb147b2a2c8992bd4e979d8f72bf50c1bdc4507afbdfa4ff92e940687"
+   },
+   "hazard_construction_wall_s": 1.9877610410039779,
+   "child_wall_s": 2.170091666004737,
+   "child_max_rss_bytes": 255918080,
+   "shape": [
+    65,
+    73
+   ],
+   "present_fire_cells": 28,
+   "initial_remaining_s": 3791.7249626772705,
+   "enclosure": {
+    "present_fire_cells": 28,
+    "present_fire_exact_cells": 28,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3791.7249626772705,
+    "distinct_remaining_times": 28,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 48387.95170835075,
+    "present_fire_cell_seconds_enclosure": 100800.0,
+    "enclosure_over_exact_ratio": 2.0831631933410404
+   },
+   "max_flux_kW_m2": 0.6906565341766607,
+   "ignitions_per_member": [
+    4,
+    4,
+    5,
+    4
+   ],
+   "raw_input_summary": {
+    "shape": [
+     65,
+     73
+    ],
+    "cells": 4745,
+    "probability_native_valid": 3163,
+    "probability_policy_zero": 1582,
+    "burned_state_known": 3792,
+    "burned_state_unknown": 953,
+    "known_burned": 406,
+    "present_fire_exact": 28,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 98.8698906557861,
+     "max": 3791.7249626772705,
+     "median": 1542.4493736880127
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+    "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1",
+    "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2",
+    "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3"
+   ]
+  },
+  "uiseong_andong_2025:20250324T090000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/uiseong_andong_2025/G2_window_grid/graph.json",
+   "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+   "files_sha256": {
+    "HAZARD.json": "cde0707dcd5bd8edf419c8387bb1e0bf52f5ec42f787f9718c1da006f348cf11",
+    "REPORT.json": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75",
+    "NATIVE_METADATA.json": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d",
+    "constructed_arrays.npz": "21325e301191d93f2fceab58d391ef828d6ed5e05c7bc77ecc0c64588462363e",
+    "BUILD_SUMMARY.json": "4222ed53309989de4b3d37fc1a675a53fd0ce02172b29b993b891cae6448860a"
+   },
+   "hazard_construction_wall_s": 2.1324257090018364,
+   "child_wall_s": 2.43856674998824,
+   "child_max_rss_bytes": 261718016,
+   "shape": [
+    65,
+    73
+   ],
+   "present_fire_cells": 10,
+   "initial_remaining_s": 3495.2588982241455,
+   "enclosure": {
+    "present_fire_cells": 10,
+    "present_fire_exact_cells": 10,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3495.2588982241455,
+    "distinct_remaining_times": 10,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 15395.18084015161,
+    "present_fire_cell_seconds_enclosure": 34952.588982241454,
+    "enclosure_over_exact_ratio": 2.270359104264815
+   },
+   "max_flux_kW_m2": 0.6868510866660218,
+   "ignitions_per_member": [
+    4,
+    5,
+    9,
+    3
+   ],
+   "raw_input_summary": {
+    "shape": [
+     65,
+     73
+    ],
+    "cells": 4745,
+    "probability_native_valid": 3254,
+    "probability_policy_zero": 1491,
+    "burned_state_known": 3792,
+    "burned_state_unknown": 953,
+    "known_burned": 798,
+    "present_fire_exact": 10,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 113.59843679836422,
+     "max": 3495.2588982241455,
+     "median": 1692.2994560854736
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250324T090000Z:08721049cc48e045:0",
+    "ffb1:20250324T090000Z:08721049cc48e045:1",
+    "ffb1:20250324T090000Z:08721049cc48e045:2",
+    "ffb1:20250324T090000Z:08721049cc48e045:3"
+   ]
+  },
+  "uiseong_andong_2025:20250325T170000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/uiseong_andong_2025/G2_window_grid/graph.json",
+   "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+   "files_sha256": {
+    "HAZARD.json": "87c2ee0c367fad73732525ded6609edcae3d5163d72048c8914f449106e2c7e3",
+    "REPORT.json": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e",
+    "NATIVE_METADATA.json": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+    "constructed_arrays.npz": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+    "BUILD_SUMMARY.json": "2a6f86f287e3916d09d0bd1ef6d096fa728832c4cf4aee1d1e9a34c5d3dd1508"
+   },
+   "hazard_construction_wall_s": 2.9202969999896595,
+   "child_wall_s": 3.245615291991271,
+   "child_max_rss_bytes": 285687808,
+   "shape": [
+    65,
+    73
+   ],
+   "present_fire_cells": 466,
+   "initial_remaining_s": 3967.107958282739,
+   "enclosure": {
+    "present_fire_cells": 466,
+    "present_fire_exact_cells": 466,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3967.107958282739,
+    "distinct_remaining_times": 463,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 1030301.4520086545,
+    "present_fire_cell_seconds_enclosure": 1677600.0,
+    "enclosure_over_exact_ratio": 1.6282613178205132
+   },
+   "max_flux_kW_m2": 0.7019155208325659,
+   "ignitions_per_member": [
+    3,
+    5,
+    5,
+    5
+   ],
+   "raw_input_summary": {
+    "shape": [
+     65,
+     73
+    ],
+    "cells": 4745,
+    "probability_native_valid": 3478,
+    "probability_policy_zero": 1267,
+    "burned_state_known": 3792,
+    "burned_state_unknown": 953,
+    "known_burned": 2566,
+    "present_fire_exact": 466,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 17.93498464992672,
+     "max": 3967.107958282739,
+     "median": 2275.968737091333
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250325T170000Z:53e6da7897bf9b5b:0",
+    "ffb1:20250325T170000Z:53e6da7897bf9b5b:1",
+    "ffb1:20250325T170000Z:53e6da7897bf9b5b:2",
+    "ffb1:20250325T170000Z:53e6da7897bf9b5b:3"
+   ]
+  },
+  "uljin_2022:20220304T030000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/graph/uljin_graph.json",
+   "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+   "files_sha256": {
+    "HAZARD.json": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+    "REPORT.json": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d",
+    "NATIVE_METADATA.json": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+    "constructed_arrays.npz": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e",
+    "BUILD_SUMMARY.json": "37b29af76e972cecee7ad0dbf64569a60914a0d40cdfb95a0ca6c90cf2277609"
+   },
+   "hazard_construction_wall_s": 0.5941530829877593,
+   "child_wall_s": 0.812415084001259,
+   "child_max_rss_bytes": 137822208,
+   "shape": [
+    62,
+    58
+   ],
+   "present_fire_cells": 1,
+   "initial_remaining_s": 3207.19289728573,
+   "enclosure": {
+    "present_fire_cells": 1,
+    "present_fire_exact_cells": 1,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3207.19289728573,
+    "distinct_remaining_times": 1,
+    "initial_remaining_exact": true,
+    "present_fire_cell_seconds_exact_per_cell": 3207.19289728573,
+    "present_fire_cell_seconds_enclosure": 3207.19289728573,
+    "enclosure_over_exact_ratio": 1.0
+   },
+   "max_flux_kW_m2": 0.6861181303861615,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1067,
+    "probability_policy_zero": 2529,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 1,
+    "present_fire_exact": 1,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 3207.19289728573,
+     "max": 3207.19289728573,
+     "median": 3207.19289728573
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220304T030000Z:163ba1c65bd35c6e:0",
+    "ffb1:20220304T030000Z:163ba1c65bd35c6e:1",
+    "ffb1:20220304T030000Z:163ba1c65bd35c6e:2",
+    "ffb1:20220304T030000Z:163ba1c65bd35c6e:3"
+   ]
+  },
+  "uljin_2022:20220304T060000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/graph/uljin_graph.json",
+   "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+   "files_sha256": {
+    "HAZARD.json": "301d69431f0f4778405cd3ae817663378e50ff7b8f339e48f13de6244e9a7fcd",
+    "REPORT.json": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4",
+    "NATIVE_METADATA.json": "06a4bd0a8f7d8d332c7ac5c26c481bcebd6a905f2ee106bf7ccfd7efde837709",
+    "constructed_arrays.npz": "c6aa5e6185a60269122f395bf88dfa7e9e23d2c3c6636f8410e6f1e4b357d992",
+    "BUILD_SUMMARY.json": "c6184d86596d756be479fa512b23929fbea9520893954abacdb32b5e447f4ad6"
+   },
+   "hazard_construction_wall_s": 0.6017459580034483,
+   "child_wall_s": 0.8174124590004794,
+   "child_max_rss_bytes": 138100736,
+   "shape": [
+    62,
+    58
+   ],
+   "present_fire_cells": 26,
+   "initial_remaining_s": 3882.580637420923,
+   "enclosure": {
+    "present_fire_cells": 26,
+    "present_fire_exact_cells": 26,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3882.580637420923,
+    "distinct_remaining_times": 26,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 32222.051202399292,
+    "present_fire_cell_seconds_enclosure": 93600.0,
+    "enclosure_over_exact_ratio": 2.9048430036952593
+   },
+   "max_flux_kW_m2": 0.6953284311368232,
+   "ignitions_per_member": [
+    1,
+    3,
+    1,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1067,
+    "probability_policy_zero": 2529,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 104,
+    "present_fire_exact": 26,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 23.51357885769039,
+     "max": 3882.580637420923,
+     "median": 935.1166004793945
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220304T060000Z:75ebc90f278df40c:0",
+    "ffb1:20220304T060000Z:75ebc90f278df40c:1",
+    "ffb1:20220304T060000Z:75ebc90f278df40c:2",
+    "ffb1:20220304T060000Z:75ebc90f278df40c:3"
+   ]
+  },
+  "uljin_2022:20220304T120000Z": {
+   "dir": "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/graph/uljin_graph.json",
+   "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+   "files_sha256": {
+    "HAZARD.json": "51f82ab19c8055aec921d8a4f25a2497179baeac62433d94375737a97ac55845",
+    "REPORT.json": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9",
+    "NATIVE_METADATA.json": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+    "constructed_arrays.npz": "3edfe49bb169437c80e641a8031756ff7ad6d9885d857863d2c08fd53f5d8707",
+    "BUILD_SUMMARY.json": "6858ff734efcf2852dfcc447857c1f516575be274809e08c71a3499982b38991"
+   },
+   "hazard_construction_wall_s": 0.6146796670072945,
+   "child_wall_s": 0.8163796250009909,
+   "child_max_rss_bytes": 139100160,
+   "shape": [
+    62,
+    58
+   ],
+   "present_fire_cells": 18,
+   "initial_remaining_s": 3595.386003937036,
+   "enclosure": {
+    "present_fire_cells": 18,
+    "present_fire_exact_cells": 18,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3595.386003937036,
+    "distinct_remaining_times": 18,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 36444.212856633254,
+    "present_fire_cell_seconds_enclosure": 64716.94807086665,
+    "enclosure_over_exact_ratio": 1.7757812008577225
+   },
+   "max_flux_kW_m2": 0.6907148916596456,
+   "ignitions_per_member": [
+    0,
+    3,
+    1,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     62,
+     58
+    ],
+    "cells": 3596,
+    "probability_native_valid": 1069,
+    "probability_policy_zero": 2527,
+    "burned_state_known": 1937,
+    "burned_state_unknown": 1659,
+    "known_burned": 198,
+    "present_fire_exact": 18,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 19.49756094387203,
+     "max": 3595.386003937036,
+     "median": 1991.1022896426025
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20220304T120000Z:5b266501e78de3aa:0",
+    "ffb1:20220304T120000Z:5b266501e78de3aa:1",
+    "ffb1:20220304T120000Z:5b266501e78de3aa:2",
+    "ffb1:20220304T120000Z:5b266501e78de3aa:3"
+   ]
+  },
+  "yeongdeok_2025:20250325T190000Z": {
+   "dir": "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/yeongdeok_2025/G2_window_grid/graph.json",
+   "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+   "files_sha256": {
+    "HAZARD.json": "fe33db2193742879840f365b4ed6385a1d9e4ae2f00325ffdd190e1b268ed3f6",
+    "REPORT.json": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b",
+    "NATIVE_METADATA.json": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+    "constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+    "BUILD_SUMMARY.json": "903059855b0e749c73a60833f9377a2871467a93b2027c8508a08f2d0c4f1af7"
+   },
+   "hazard_construction_wall_s": 4.3550332079903455,
+   "child_wall_s": 4.8640614580072,
+   "child_max_rss_bytes": 527138816,
+   "shape": [
+    67,
+    71
+   ],
+   "present_fire_cells": 240,
+   "initial_remaining_s": 3964.7733635561767,
+   "enclosure": {
+    "present_fire_cells": 240,
+    "present_fire_exact_cells": 240,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3964.7733635561767,
+    "distinct_remaining_times": 239,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 376895.47266857873,
+    "present_fire_cell_seconds_enclosure": 864000.0,
+    "enclosure_over_exact_ratio": 2.2924127845912183
+   },
+   "max_flux_kW_m2": 0.7004423048689092,
+   "ignitions_per_member": [
+    2,
+    0,
+    2,
+    4
+   ],
+   "raw_input_summary": {
+    "shape": [
+     67,
+     71
+    ],
+    "cells": 4757,
+    "probability_native_valid": 1872,
+    "probability_policy_zero": 2885,
+    "burned_state_known": 2187,
+    "burned_state_unknown": 2570,
+    "known_burned": 1723,
+    "present_fire_exact": 240,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 2.1421379702392187,
+     "max": 3964.7733635561767,
+     "median": 1374.815172638208
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250325T190000Z:20cb6955b51ab0c6:0",
+    "ffb1:20250325T190000Z:20cb6955b51ab0c6:1",
+    "ffb1:20250325T190000Z:20cb6955b51ab0c6:2",
+    "ffb1:20250325T190000Z:20cb6955b51ab0c6:3"
+   ]
+  },
+  "yeongdeok_2025:20250325T230000Z": {
+   "dir": "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/yeongdeok_2025/G2_window_grid/graph.json",
+   "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+   "files_sha256": {
+    "HAZARD.json": "fa347cf3077fdbeda4ed4a7cef4a6f37b710a8d046a4046a83c21f3c2bc9e38f",
+    "REPORT.json": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d",
+    "NATIVE_METADATA.json": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b",
+    "constructed_arrays.npz": "7dd677f41f1ef8927283c20bddbc1d4f404dc64e81dc5b5d7dc04e630e674af5",
+    "BUILD_SUMMARY.json": "a7919845334dfeedffcb4adf9406dac70948273891e3935d0b94991f3428f4c1"
+   },
+   "hazard_construction_wall_s": 3.965444417000981,
+   "child_wall_s": 4.334375124992221,
+   "child_max_rss_bytes": 517783552,
+   "shape": [
+    67,
+    71
+   ],
+   "present_fire_cells": 48,
+   "initial_remaining_s": 3829.614061798364,
+   "enclosure": {
+    "present_fire_cells": 48,
+    "present_fire_exact_cells": 48,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3829.614061798364,
+    "distinct_remaining_times": 48,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 98197.68671018718,
+    "present_fire_cell_seconds_enclosure": 172800.0,
+    "enclosure_over_exact_ratio": 1.759715587903696
+   },
+   "max_flux_kW_m2": 0.6942682781824105,
+   "ignitions_per_member": [
+    1,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     67,
+     71
+    ],
+    "cells": 4757,
+    "probability_native_valid": 2022,
+    "probability_policy_zero": 2735,
+    "burned_state_known": 2187,
+    "burned_state_unknown": 2570,
+    "known_burned": 1996,
+    "present_fire_exact": 48,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 28.37199636867672,
+     "max": 3829.614061798364,
+     "median": 2043.278307403833
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250325T230000Z:c1b46f3c00c2036c:0",
+    "ffb1:20250325T230000Z:c1b46f3c00c2036c:1",
+    "ffb1:20250325T230000Z:c1b46f3c00c2036c:2",
+    "ffb1:20250325T230000Z:c1b46f3c00c2036c:3"
+   ]
+  },
+  "yeongdeok_2025:20250326T080000Z": {
+   "dir": "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z",
+   "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/korean_multi_incident_routing_20261012_v1/phaseA/roads/B_gyeongbuk2025/yeongdeok_2025/G2_window_grid/graph.json",
+   "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+   "files_sha256": {
+    "HAZARD.json": "0f468b69a569b2c2f3d572c8649a8b3c5670502f25deda04e0d93761320a9d85",
+    "REPORT.json": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e",
+    "NATIVE_METADATA.json": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc",
+    "constructed_arrays.npz": "645c363012c1c7237d30da2393dec877ec92bd0d444ee9b7df28a2cab7aa5356",
+    "BUILD_SUMMARY.json": "0e6e5601da2d3658ff12004ddfd4846009d35bf571c12779eeddbe9e0f82a572"
+   },
+   "hazard_construction_wall_s": 3.6279692920070374,
+   "child_wall_s": 4.058070166996913,
+   "child_max_rss_bytes": 515014656,
+   "shape": [
+    67,
+    71
+   ],
+   "present_fire_cells": 12,
+   "initial_remaining_s": 3912.945360626489,
+   "enclosure": {
+    "present_fire_cells": 12,
+    "present_fire_exact_cells": 12,
+    "unknown_age_cells_enclosed": 0,
+    "R_max_s": 3912.945360626489,
+    "distinct_remaining_times": 12,
+    "initial_remaining_exact": false,
+    "present_fire_cell_seconds_exact_per_cell": 26799.41495810232,
+    "present_fire_cell_seconds_enclosure": 43200.0,
+    "enclosure_over_exact_ratio": 1.6119754878059105
+   },
+   "max_flux_kW_m2": 0.690826273985893,
+   "ignitions_per_member": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "raw_input_summary": {
+    "shape": [
+     67,
+     71
+    ],
+    "cells": 4757,
+    "probability_native_valid": 2158,
+    "probability_policy_zero": 2599,
+    "burned_state_known": 2187,
+    "burned_state_unknown": 2570,
+    "known_burned": 2158,
+    "present_fire_exact": 12,
+    "known_burned_unknown_age": 0,
+    "initial_state_invalid": 0,
+    "remaining_s": {
+     "min": 390.8658928530517,
+     "max": 3912.945360626489,
+     "median": 2573.643297638208
+    },
+    "cell_duration_s": 3970.4642815249267
+   },
+   "scenario_ids": [
+    "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0",
+    "ffb1:20250326T080000Z:d8d21b8e3ced8a48:1",
+    "ffb1:20250326T080000Z:d8d21b8e3ced8a48:2",
+    "ffb1:20250326T080000Z:d8d21b8e3ced8a48:3"
+   ]
+  }
+ },
+ "requests": {
+  "uljin_2022/20220304T030000Z_FX1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uljin_2022/20220304T030000Z_FX1.json",
+   "sha256": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+   "frozen_source": "outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/packets/requests/20220304T030000Z_FX1.json",
+   "frozen_sha256": "831a799426d6134214dc8193fe8f863324813b30cceb7d2d24ffa522803239b5",
+   "member_map": {
+    "ffb1:20220304T030000Z:563c611d99c5de78:0": "ffb1:20220304T030000Z:163ba1c65bd35c6e:0",
+    "ffb1:20220304T030000Z:563c611d99c5de78:1": "ffb1:20220304T030000Z:163ba1c65bd35c6e:1",
+    "ffb1:20220304T030000Z:563c611d99c5de78:2": "ffb1:20220304T030000Z:163ba1c65bd35c6e:2",
+    "ffb1:20220304T030000Z:563c611d99c5de78:3": "ffb1:20220304T030000Z:163ba1c65bd35c6e:3"
+   },
+   "stratum": "X"
+  },
+  "uljin_2022/20220304T060000Z_FL1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uljin_2022/20220304T060000Z_FL1.json",
+   "sha256": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+   "frozen_source": "outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/packets/requests/20220304T060000Z_FL1.json",
+   "frozen_sha256": "82d0cd42a199f23f0beaf2bc130c475236dd239f6ed40fca9b1e15c0509ea26b",
+   "member_map": {
+    "ffb1:20220304T060000Z:15cf717e0b501726:0": "ffb1:20220304T060000Z:75ebc90f278df40c:0",
+    "ffb1:20220304T060000Z:15cf717e0b501726:1": "ffb1:20220304T060000Z:75ebc90f278df40c:1",
+    "ffb1:20220304T060000Z:15cf717e0b501726:2": "ffb1:20220304T060000Z:75ebc90f278df40c:2",
+    "ffb1:20220304T060000Z:15cf717e0b501726:3": "ffb1:20220304T060000Z:75ebc90f278df40c:3"
+   },
+   "stratum": "L"
+  },
+  "uljin_2022/20220304T120000Z_FW2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uljin_2022/20220304T120000Z_FW2.json",
+   "sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+   "frozen_source": "outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/packets/requests/20220304T120000Z_FW2.json",
+   "frozen_sha256": "5f2d4f2da540d0d9ee4d4a41d4ee98063e30ff875a7057cfda86886e026f8feb",
+   "member_map": {
+    "ffb1:20220304T120000Z:ac4d51b9775fe613:0": "ffb1:20220304T120000Z:5b266501e78de3aa:0",
+    "ffb1:20220304T120000Z:ac4d51b9775fe613:1": "ffb1:20220304T120000Z:5b266501e78de3aa:1",
+    "ffb1:20220304T120000Z:ac4d51b9775fe613:2": "ffb1:20220304T120000Z:5b266501e78de3aa:2",
+    "ffb1:20220304T120000Z:ac4d51b9775fe613:3": "ffb1:20220304T120000Z:5b266501e78de3aa:3"
+   },
+   "stratum": "W"
+  },
+  "uljin_2022/20220304T030000Z_FD1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uljin_2022/20220304T030000Z_FD1.json",
+   "sha256": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+   "frozen_source": "outputs/wfg_integrated_release_review_20261012_v4/panel inputs/bundle_v1_1/packets/requests/20220304T030000Z_FD1.json",
+   "frozen_sha256": "d45c2643a1ce300c60e6b81564784c414e31ad3ec1e1956664700ccba3c48358",
+   "member_map": {
+    "ffb1:20220304T030000Z:563c611d99c5de78:0": "ffb1:20220304T030000Z:163ba1c65bd35c6e:0",
+    "ffb1:20220304T030000Z:563c611d99c5de78:1": "ffb1:20220304T030000Z:163ba1c65bd35c6e:1",
+    "ffb1:20220304T030000Z:563c611d99c5de78:2": "ffb1:20220304T030000Z:163ba1c65bd35c6e:2",
+    "ffb1:20220304T030000Z:563c611d99c5de78:3": "ffb1:20220304T030000Z:163ba1c65bd35c6e:3"
+   },
+   "stratum": "D"
+  },
+  "miryang_2022/20220601T080000Z_FX1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/miryang_2022/20220601T080000Z_FX1.json",
+   "sha256": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/miryang_2022/requests/20220601T080000Z_FX1.json",
+   "frozen_sha256": "a6d37b6a78eabff4accad35001f5b30d6ecb2501e353f8ff54555bfa9f9a7f47",
+   "member_map": {
+    "ffb1:20220601T080000Z:f259925d3319c667:0": "ffb1:20220601T080000Z:aa27c21fa688aa74:0",
+    "ffb1:20220601T080000Z:f259925d3319c667:1": "ffb1:20220601T080000Z:aa27c21fa688aa74:1",
+    "ffb1:20220601T080000Z:f259925d3319c667:2": "ffb1:20220601T080000Z:aa27c21fa688aa74:2",
+    "ffb1:20220601T080000Z:f259925d3319c667:3": "ffb1:20220601T080000Z:aa27c21fa688aa74:3"
+   },
+   "stratum": "X"
+  },
+  "miryang_2022/20220601T020000Z_FW1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/miryang_2022/20220601T020000Z_FW1.json",
+   "sha256": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/miryang_2022/requests/20220601T020000Z_FW1.json",
+   "frozen_sha256": "ccfba8cc55e57b00f542dfd5ba3d80c5a39addb505464b0f2279bdfeaf65e2e5",
+   "member_map": {
+    "ffb1:20220601T020000Z:c7600aac1efe682b:0": "ffb1:20220601T020000Z:8d74e513a7acb765:0",
+    "ffb1:20220601T020000Z:c7600aac1efe682b:1": "ffb1:20220601T020000Z:8d74e513a7acb765:1",
+    "ffb1:20220601T020000Z:c7600aac1efe682b:2": "ffb1:20220601T020000Z:8d74e513a7acb765:2",
+    "ffb1:20220601T020000Z:c7600aac1efe682b:3": "ffb1:20220601T020000Z:8d74e513a7acb765:3"
+   },
+   "stratum": "W"
+  },
+  "miryang_2022/20220601T080000Z_FD1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/miryang_2022/20220601T080000Z_FD1.json",
+   "sha256": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/miryang_2022/requests/20220601T080000Z_FD1.json",
+   "frozen_sha256": "b59d32c47930d3f8ca0fb0f4f95359723c1c2bacd074f32a5bf42d1f7bc293e5",
+   "member_map": {
+    "ffb1:20220601T080000Z:f259925d3319c667:0": "ffb1:20220601T080000Z:aa27c21fa688aa74:0",
+    "ffb1:20220601T080000Z:f259925d3319c667:1": "ffb1:20220601T080000Z:aa27c21fa688aa74:1",
+    "ffb1:20220601T080000Z:f259925d3319c667:2": "ffb1:20220601T080000Z:aa27c21fa688aa74:2",
+    "ffb1:20220601T080000Z:f259925d3319c667:3": "ffb1:20220601T080000Z:aa27c21fa688aa74:3"
+   },
+   "stratum": "D"
+  },
+  "miryang_2022/20220531T100000Z_FN1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/miryang_2022/20220531T100000Z_FN1.json",
+   "sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/miryang_2022/requests/20220531T100000Z_FN1.json",
+   "frozen_sha256": "f0286e3c3c9b1c949551a665f9fda7d44c3a13819b54855a82b43e53b6da4bfb",
+   "member_map": {
+    "ffb1:20220531T100000Z:2a75ec7ca66b83cf:0": "ffb1:20220531T100000Z:40b532dc599ca183:0",
+    "ffb1:20220531T100000Z:2a75ec7ca66b83cf:1": "ffb1:20220531T100000Z:40b532dc599ca183:1",
+    "ffb1:20220531T100000Z:2a75ec7ca66b83cf:2": "ffb1:20220531T100000Z:40b532dc599ca183:2",
+    "ffb1:20220531T100000Z:2a75ec7ca66b83cf:3": "ffb1:20220531T100000Z:40b532dc599ca183:3"
+   },
+   "stratum": "N"
+  },
+  "hongseong_2023/20230402T070000Z_FX1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/hongseong_2023/20230402T070000Z_FX1.json",
+   "sha256": "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/hongseong_2023/requests/20230402T070000Z_FX1.json",
+   "frozen_sha256": "2831971e3a2bd037dd74a6976d56df3ed7e6fceaf96f02c7a815bee25172102d",
+   "member_map": {
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:0": "ffb1:20230402T070000Z:09414bcd4c0943dd:0",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:1": "ffb1:20230402T070000Z:09414bcd4c0943dd:1",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:2": "ffb1:20230402T070000Z:09414bcd4c0943dd:2",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:3": "ffb1:20230402T070000Z:09414bcd4c0943dd:3"
+   },
+   "stratum": "X"
+  },
+  "hongseong_2023/20230402T140000Z_FW2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/hongseong_2023/20230402T140000Z_FW2.json",
+   "sha256": "36da8b90cd927c2d8605de1cea6afe17683d090acd4e03707723178061796079",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/hongseong_2023/requests/20230402T140000Z_FW2.json",
+   "frozen_sha256": "d8ea03e2dc51326c1d1ed5c87cbb685e76998a415b028db72a19a14e35476e86",
+   "member_map": {
+    "ffb1:20230402T140000Z:92629fc2d42d7b51:0": "ffb1:20230402T140000Z:c039b5e7d013322e:0",
+    "ffb1:20230402T140000Z:92629fc2d42d7b51:1": "ffb1:20230402T140000Z:c039b5e7d013322e:1",
+    "ffb1:20230402T140000Z:92629fc2d42d7b51:2": "ffb1:20230402T140000Z:c039b5e7d013322e:2",
+    "ffb1:20230402T140000Z:92629fc2d42d7b51:3": "ffb1:20230402T140000Z:c039b5e7d013322e:3"
+   },
+   "stratum": "W"
+  },
+  "hongseong_2023/20230402T230000Z_FD1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/hongseong_2023/20230402T230000Z_FD1.json",
+   "sha256": "8ed4ad99d4b7952dfb6795c801fb58584f850b7343c33a5c86740638da422e1b",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/hongseong_2023/requests/20230402T230000Z_FD1.json",
+   "frozen_sha256": "980b96b809b65c4729c781da95e8babba8f504ff08ee108154e0a6812e90be8c",
+   "member_map": {
+    "ffb1:20230402T230000Z:72b5f885357fb19f:0": "ffb1:20230402T230000Z:247138a35dcddc50:0",
+    "ffb1:20230402T230000Z:72b5f885357fb19f:1": "ffb1:20230402T230000Z:247138a35dcddc50:1",
+    "ffb1:20230402T230000Z:72b5f885357fb19f:2": "ffb1:20230402T230000Z:247138a35dcddc50:2",
+    "ffb1:20230402T230000Z:72b5f885357fb19f:3": "ffb1:20230402T230000Z:247138a35dcddc50:3"
+   },
+   "stratum": "D"
+  },
+  "hongseong_2023/20230402T070000Z_FN1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/hongseong_2023/20230402T070000Z_FN1.json",
+   "sha256": "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/hongseong_2023/requests/20230402T070000Z_FN1.json",
+   "frozen_sha256": "86be9044ab82b489a64ee2b25a09f4a447f26ce86d88c7aa8250b5fee01e4de8",
+   "member_map": {
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:0": "ffb1:20230402T070000Z:09414bcd4c0943dd:0",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:1": "ffb1:20230402T070000Z:09414bcd4c0943dd:1",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:2": "ffb1:20230402T070000Z:09414bcd4c0943dd:2",
+    "ffb1:20230402T070000Z:7f0d154d892bc6f1:3": "ffb1:20230402T070000Z:09414bcd4c0943dd:3"
+   },
+   "stratum": "N"
+  },
+  "uiseong_andong_2025/20250323T010000Z_FX2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250323T010000Z_FX2.json",
+   "sha256": "3f2b7889369d7b91bf0f8bd96290281f7162256ff1d1f5b1825c928d5776d501",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/uiseong_andong_2025/requests/20250323T010000Z_FX2.json",
+   "frozen_sha256": "7e7b9e56da8330c9e4490f4975ed6c38779cfde912c25e6183a22f7d3a3c8eb1",
+   "member_map": {
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:0": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:1": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:2": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:3": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3"
+   },
+   "stratum": "X"
+  },
+  "uiseong_andong_2025/20250324T090000Z_FL2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250324T090000Z_FL2.json",
+   "sha256": "c7bb784df79f58f2a5daf2b6af57177b66213b886a2d447f49027a1b8e4898ef",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/uiseong_andong_2025/requests/20250324T090000Z_FL2.json",
+   "frozen_sha256": "af68e94d9f9191648ec1084aa6382da985c945e012be963c88b3e55cf667cff6",
+   "member_map": {
+    "ffb1:20250324T090000Z:4f2350440661f2b1:0": "ffb1:20250324T090000Z:08721049cc48e045:0",
+    "ffb1:20250324T090000Z:4f2350440661f2b1:1": "ffb1:20250324T090000Z:08721049cc48e045:1",
+    "ffb1:20250324T090000Z:4f2350440661f2b1:2": "ffb1:20250324T090000Z:08721049cc48e045:2",
+    "ffb1:20250324T090000Z:4f2350440661f2b1:3": "ffb1:20250324T090000Z:08721049cc48e045:3"
+   },
+   "stratum": "L"
+  },
+  "uiseong_andong_2025/20250325T170000Z_FW1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250325T170000Z_FW1.json",
+   "sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/uiseong_andong_2025/requests/20250325T170000Z_FW1.json",
+   "frozen_sha256": "9ab0a905f24b6dc3379bb58da88eceb51fb3d33c8df197e581dc862801f49278",
+   "member_map": {
+    "ffb1:20250325T170000Z:e4548a3e048e5a62:0": "ffb1:20250325T170000Z:53e6da7897bf9b5b:0",
+    "ffb1:20250325T170000Z:e4548a3e048e5a62:1": "ffb1:20250325T170000Z:53e6da7897bf9b5b:1",
+    "ffb1:20250325T170000Z:e4548a3e048e5a62:2": "ffb1:20250325T170000Z:53e6da7897bf9b5b:2",
+    "ffb1:20250325T170000Z:e4548a3e048e5a62:3": "ffb1:20250325T170000Z:53e6da7897bf9b5b:3"
+   },
+   "stratum": "W"
+  },
+  "uiseong_andong_2025/20250323T010000Z_FD1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250323T010000Z_FD1.json",
+   "sha256": "e6ea78c9ac1cfd26440633dff55f6f5f0698ad891c1052c925510b8a108b3c7a",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/uiseong_andong_2025/requests/20250323T010000Z_FD1.json",
+   "frozen_sha256": "91cd663d9ed027ce29ca5bcd23c20ee01227f7c0b81e77136736f62c7a2e8360",
+   "member_map": {
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:0": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:1": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:2": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2",
+    "ffb1:20250323T010000Z:1db4eaf723b8b828:3": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3"
+   },
+   "stratum": "D"
+  },
+  "yeongdeok_2025/20250325T190000Z_FX2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T190000Z_FX2.json",
+   "sha256": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/yeongdeok_2025/requests/20250325T190000Z_FX2.json",
+   "frozen_sha256": "ed0e29140654d124be396b534c5807025a6b9ac9c8c7c7782aea2754eeac498b",
+   "member_map": {
+    "ffb1:20250325T190000Z:3285dda433bea84d:0": "ffb1:20250325T190000Z:20cb6955b51ab0c6:0",
+    "ffb1:20250325T190000Z:3285dda433bea84d:1": "ffb1:20250325T190000Z:20cb6955b51ab0c6:1",
+    "ffb1:20250325T190000Z:3285dda433bea84d:2": "ffb1:20250325T190000Z:20cb6955b51ab0c6:2",
+    "ffb1:20250325T190000Z:3285dda433bea84d:3": "ffb1:20250325T190000Z:20cb6955b51ab0c6:3"
+   },
+   "stratum": "X"
+  },
+  "yeongdeok_2025/20250325T230000Z_FL2": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T230000Z_FL2.json",
+   "sha256": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/yeongdeok_2025/requests/20250325T230000Z_FL2.json",
+   "frozen_sha256": "6f4cfc8ab62db79379370b34fbc9c35761689753aabcf41473001da72c3b8e4b",
+   "member_map": {
+    "ffb1:20250325T230000Z:f1e12dd469ea7afd:0": "ffb1:20250325T230000Z:c1b46f3c00c2036c:0",
+    "ffb1:20250325T230000Z:f1e12dd469ea7afd:1": "ffb1:20250325T230000Z:c1b46f3c00c2036c:1",
+    "ffb1:20250325T230000Z:f1e12dd469ea7afd:2": "ffb1:20250325T230000Z:c1b46f3c00c2036c:2",
+    "ffb1:20250325T230000Z:f1e12dd469ea7afd:3": "ffb1:20250325T230000Z:c1b46f3c00c2036c:3"
+   },
+   "stratum": "L"
+  },
+  "yeongdeok_2025/20250326T080000Z_FW1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/yeongdeok_2025/20250326T080000Z_FW1.json",
+   "sha256": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/yeongdeok_2025/requests/20250326T080000Z_FW1.json",
+   "frozen_sha256": "7a75b5188c5cbf8c93dc600fe5541c80c69c4058a3e777bc6232200f87aa7b16",
+   "member_map": {
+    "ffb1:20250326T080000Z:3ab0302a00e978e5:0": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0",
+    "ffb1:20250326T080000Z:3ab0302a00e978e5:1": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:1",
+    "ffb1:20250326T080000Z:3ab0302a00e978e5:2": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:2",
+    "ffb1:20250326T080000Z:3ab0302a00e978e5:3": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:3"
+   },
+   "stratum": "W"
+  },
+  "yeongdeok_2025/20250325T190000Z_FD1": {
+   "status": "BUILT",
+   "path": "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T190000Z_FD1.json",
+   "sha256": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+   "frozen_source": "outputs/korean_multi_incident_routing_20261012_v1/phaseA/missions/yeongdeok_2025/requests/20250325T190000Z_FD1.json",
+   "frozen_sha256": "7e5ab08d43ab926c828da19bda8ff7873f4e8ed7b10461821539aadd9b5c6234",
+   "member_map": {
+    "ffb1:20250325T190000Z:3285dda433bea84d:0": "ffb1:20250325T190000Z:20cb6955b51ab0c6:0",
+    "ffb1:20250325T190000Z:3285dda433bea84d:1": "ffb1:20250325T190000Z:20cb6955b51ab0c6:1",
+    "ffb1:20250325T190000Z:3285dda433bea84d:2": "ffb1:20250325T190000Z:20cb6955b51ab0c6:2",
+    "ffb1:20250325T190000Z:3285dda433bea84d:3": "ffb1:20250325T190000Z:20cb6955b51ab0c6:3"
+   },
+   "stratum": "D"
+  }
+ },
+ "files": {
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250323T010000Z.npz": {
+   "sha256": "ac1cb7d5eae8ddbfa3fb1bb2a92da15c13e16c5534c843c5d39e2438702e29ee",
+   "bytes": 14506
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250324T090000Z.npz": {
+   "sha256": "db24fd1e72c4c3a3fc14b2ed5f2806e8f45615bea57d0a1bb0237a2765c36a4d",
+   "bytes": 17127
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T170000Z.npz": {
+   "sha256": "5e95e82e79459896fc495a790a64b2fda4509eeb122834ef2aff9bcebc746e9f",
+   "bytes": 56161
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T190000Z.npz": {
+   "sha256": "f23418aea92fb04076cce97f411e60dfc6042f10e43b871ec2192d0a1933ddc1",
+   "bytes": 57378
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250325T230000Z.npz": {
+   "sha256": "9ac3a8123fda9e09d98d99e676e20d4770027bc64ff91ec81ef0caf5c414c9bd",
+   "bytes": 44566
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_20250326T080000Z.npz": {
+   "sha256": "0b10827259d4abd6032dd7741dc55522362ceb33d5d99a0d187685e7d159e61e",
+   "bytes": 42134
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250323T010000Z.json": {
+   "sha256": "6d7fcf13955622b3293858654116bf5ba0784795e07ad9fdc064987b451d8494",
+   "bytes": 7219
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250324T090000Z.json": {
+   "sha256": "d1180235f57f66860e2a904e1a00809cccc9780858b731e0a3e61840ff1ff8b6",
+   "bytes": 7220
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T170000Z.json": {
+   "sha256": "c625a246f2c4e7d49a81f4a51bfdd6c27cd5ff550fb397681dc2f8a3181eedac",
+   "bytes": 7219
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T190000Z.json": {
+   "sha256": "d4992006670cb67b4313d546948f0d50a6b8b870712f48622258694386e58488",
+   "bytes": 7221
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250325T230000Z.json": {
+   "sha256": "0dd6471f68f89deb495b4e7f10f08453ce6cd95b2f4aec2fb57212661bed0d58",
+   "bytes": 7223
+  },
+  "execution/latest_inputs/try02/exports/KFS_01/FORECAST_RECORD_20250326T080000Z.json": {
+   "sha256": "c0f043b50ad2df2dec89678d67f64af34d449eeacbffe80b4eb4f894013b3a48",
+   "bytes": 7222
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T030000Z.npz": {
+   "sha256": "c97d3ff2aa5c6258cfca854d9ae0337e4a1a390ad9c977de338297bfb4ebbf69",
+   "bytes": 6899
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T060000Z.npz": {
+   "sha256": "14342adce16afa7a09a8e997cd51b7187a78803836d8253eb98e50dedf74591b",
+   "bytes": 9780
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_20220304T120000Z.npz": {
+   "sha256": "2e3349fe0454b66512df3d86a314dd498f0a201deb494b4dd137df204bdf30ab",
+   "bytes": 10582
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T030000Z.json": {
+   "sha256": "eae7c61f20d908b296579b5f9c5a55e5cb2fb6102316a2c2364f854c7ba1fcaa",
+   "bytes": 7207
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T060000Z.json": {
+   "sha256": "f60d6c351ff5d1a52acf5a26e353db830129b93e94f988b7aae3d203640fab33",
+   "bytes": 7214
+  },
+  "execution/latest_inputs/try02/exports/KFS_02/FORECAST_RECORD_20220304T120000Z.json": {
+   "sha256": "475fdb9830b4e193b640f284b08cd3cc4aaba79e4736e1aaad34acb46f9da0a9",
+   "bytes": 7217
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T070000Z.npz": {
+   "sha256": "a0da8cb8c5ce26ebc6b4d9df39bfc1c6b324327897e75ca3334ebed2eb23b532",
+   "bytes": 5050
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T140000Z.npz": {
+   "sha256": "c8428c1202d48bfb7061ec8ae759f21cb81b826b5f4aaca7da4ee7ae0b413ae7",
+   "bytes": 5060
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_20230402T230000Z.npz": {
+   "sha256": "98128ce93cb2d5bf3c6c8daf33ff92bb6cb65407a2bfcfde6d406dbc031193cb",
+   "bytes": 5089
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T070000Z.json": {
+   "sha256": "5f8d87f990e2c3ec1028a28ec5ac49a310869f117cf0affae54ba3ee2f008a7c",
+   "bytes": 7208
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T140000Z.json": {
+   "sha256": "64a8c608d97574d8361e6f83247c46539703f6ab17aefce4a658fbf2ef2c3956",
+   "bytes": 7211
+  },
+  "execution/latest_inputs/try02/exports/KFS_05/FORECAST_RECORD_20230402T230000Z.json": {
+   "sha256": "b3df15b33cf898aa4738731f6442c662a88d0eaf9c25e20a28fdb5027bb1c6d0",
+   "bytes": 7209
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220531T100000Z.npz": {
+   "sha256": "e7529aeb0adf021da85be094c1d44592910e0a0650c3d93dc2db8bb597c5de85",
+   "bytes": 4940
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220601T020000Z.npz": {
+   "sha256": "66299315b7533ee9cd9e417ab966c48d7126e2b0b7a1406a2c43024c09fdeac5",
+   "bytes": 4939
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_20220601T080000Z.npz": {
+   "sha256": "750112a5f11fbb316614f90412ddeb2493cd9682e3e46c853dbd08823bc95ec4",
+   "bytes": 5006
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220531T100000Z.json": {
+   "sha256": "4de1ee620e4e6ec98b83ff85d55f8646e31a281848a7afc006b6f6842c7655ac",
+   "bytes": 7209
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220601T020000Z.json": {
+   "sha256": "1c016853e1c8c422f20673d3c06466acc306a9c8b9a91de2336dd75907703e35",
+   "bytes": 7207
+  },
+  "execution/latest_inputs/try02/exports/KFS_11/FORECAST_RECORD_20220601T080000Z.json": {
+   "sha256": "46ac47ac980469c67120833b0219db459a335a78213e4dcec4fc56d2131a402f",
+   "bytes": 7208
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z/BUILD_SUMMARY.json": {
+   "sha256": "b4cf6994a5f4b0044dc6d00e1fa133318ef6796e59a57b93c79e4b0f6cecdc58",
+   "bytes": 4097
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z/HAZARD.json": {
+   "sha256": "025823f1c5cf637033bcab6c05d9f8cc93622b883c2bae50eb395a98ab8c6fc8",
+   "bytes": 66640
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z/NATIVE_METADATA.json": {
+   "sha256": "4140641d5e76cc443ebf1565ecede7712731a3b7f3f06fdb29a022d32aa1addd",
+   "bytes": 9741
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z/REPORT.json": {
+   "sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d",
+   "bytes": 11131
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T070000Z/constructed_arrays.npz": {
+   "sha256": "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+   "bytes": 5267
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z/BUILD_SUMMARY.json": {
+   "sha256": "dc12eda6a4a45133213b777c87dab95b4641c192a6c96001fb1c7dc62eba8f3b",
+   "bytes": 4088
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z/HAZARD.json": {
+   "sha256": "7e12d1b0fbc84d5b260acaa9b0e9e630857f712fff05166ff2a265d36e227f09",
+   "bytes": 47216
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z/NATIVE_METADATA.json": {
+   "sha256": "46fcabbe4e95aaaf561ae70d9ca3613322442ddef385181800d435f23b6c7481",
+   "bytes": 9727
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z/REPORT.json": {
+   "sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a",
+   "bytes": 11117
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T140000Z/constructed_arrays.npz": {
+   "sha256": "6173521b86c79b526159c414a2ed66ad8cf49a65ab4e456ba4935a90caa0cff0",
+   "bytes": 5239
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z/BUILD_SUMMARY.json": {
+   "sha256": "05b7dce259aa7445cc433955b4611d04e254117570774ec84a45803822a6fb4b",
+   "bytes": 4085
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z/HAZARD.json": {
+   "sha256": "7f8c03d1116c299b5e6922584769bedc75b523c76b459b743c3b4ec6d539e5f1",
+   "bytes": 47328
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z/NATIVE_METADATA.json": {
+   "sha256": "6513b60205a420a8e5d916fb62b4f23b0a7e3c4f8faf51c432c9f98e2606973f",
+   "bytes": 9664
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z/REPORT.json": {
+   "sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e",
+   "bytes": 11052
+  },
+  "execution/latest_inputs/try02/packets/hongseong_2023/20230402T230000Z/constructed_arrays.npz": {
+   "sha256": "911ba7ad026d480c504c8091f8f37cabd9ff1ccb2ca965e7c76ec63d117a167b",
+   "bytes": 5258
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z/BUILD_SUMMARY.json": {
+   "sha256": "25c4c32b75702eb33ed900dfda58d7d70364415079bac82cb52779e765e7e1ab",
+   "bytes": 4078
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z/HAZARD.json": {
+   "sha256": "f30c6c92adcb546daf29748ba47d1797dd7cc395e0ef7274fcadaa7d7e7cb08d",
+   "bytes": 29058
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z/NATIVE_METADATA.json": {
+   "sha256": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+   "bytes": 9630
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z/REPORT.json": {
+   "sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39",
+   "bytes": 11017
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220531T100000Z/constructed_arrays.npz": {
+   "sha256": "246335bad833f6c70bdd11514af8835ad1dc1f484b87054ba0c165bcc298f1bf",
+   "bytes": 5095
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z/BUILD_SUMMARY.json": {
+   "sha256": "ef671bc65f582d3dc6a0acecf6586df8ccaae2fc530e520b6399bb15304c0277",
+   "bytes": 4076
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z/HAZARD.json": {
+   "sha256": "83941546ca9ed01086206669729f2320a5bf1adc4000b67aefe4f79eeb73c18e",
+   "bytes": 29086
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z/NATIVE_METADATA.json": {
+   "sha256": "4e836009eafe57d1d70d6d5595f94b398452eea3ac0c38cc8e752d3293a9fb13",
+   "bytes": 9599
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z/REPORT.json": {
+   "sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0",
+   "bytes": 10985
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T020000Z/constructed_arrays.npz": {
+   "sha256": "7a170bb4acb449bd28b44bec481cdafd2d0d424561a36a5fa7ec460cd992a718",
+   "bytes": 5091
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z/BUILD_SUMMARY.json": {
+   "sha256": "2defa99175d49f848e1cab4d7bd312d7aa4b36d36ef7865d28e362926af3bf3e",
+   "bytes": 4076
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z/HAZARD.json": {
+   "sha256": "ab6386b7157ecdca5a1c5063f7a5981d3fb8a4923485dde7fc11819424c93ac0",
+   "bytes": 28978
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z/NATIVE_METADATA.json": {
+   "sha256": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+   "bytes": 9687
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z/REPORT.json": {
+   "sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab",
+   "bytes": 11076
+  },
+  "execution/latest_inputs/try02/packets/miryang_2022/20220601T080000Z/constructed_arrays.npz": {
+   "sha256": "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+   "bytes": 5156
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z/BUILD_SUMMARY.json": {
+   "sha256": "fd8d481eb147b2a2c8992bd4e979d8f72bf50c1bdc4507afbdfa4ff92e940687",
+   "bytes": 6318
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z/HAZARD.json": {
+   "sha256": "21a8a087f419382bad79f8741f7694f43471569cc303c4e0051316a3713c1d9f",
+   "bytes": 3322188
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z/NATIVE_METADATA.json": {
+   "sha256": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c",
+   "bytes": 13646
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z/REPORT.json": {
+   "sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199",
+   "bytes": 15141
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250323T010000Z/constructed_arrays.npz": {
+   "sha256": "e471830a42223cb59ef2ed56da8a948d4387233efe7e51adca2a20f5a6aaea13",
+   "bytes": 9287
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z/BUILD_SUMMARY.json": {
+   "sha256": "4222ed53309989de4b3d37fc1a675a53fd0ce02172b29b993b891cae6448860a",
+   "bytes": 6310
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z/HAZARD.json": {
+   "sha256": "cde0707dcd5bd8edf419c8387bb1e0bf52f5ec42f787f9718c1da006f348cf11",
+   "bytes": 4596227
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z/NATIVE_METADATA.json": {
+   "sha256": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d",
+   "bytes": 13095
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z/REPORT.json": {
+   "sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75",
+   "bytes": 14572
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250324T090000Z/constructed_arrays.npz": {
+   "sha256": "21325e301191d93f2fceab58d391ef828d6ed5e05c7bc77ecc0c64588462363e",
+   "bytes": 9888
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z/BUILD_SUMMARY.json": {
+   "sha256": "2a6f86f287e3916d09d0bd1ef6d096fa728832c4cf4aee1d1e9a34c5d3dd1508",
+   "bytes": 6304
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z/HAZARD.json": {
+   "sha256": "87c2ee0c367fad73732525ded6609edcae3d5163d72048c8914f449106e2c7e3",
+   "bytes": 3433160
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z/NATIVE_METADATA.json": {
+   "sha256": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+   "bytes": 26981
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z/REPORT.json": {
+   "sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e",
+   "bytes": 28914
+  },
+  "execution/latest_inputs/try02/packets/uiseong_andong_2025/20250325T170000Z/constructed_arrays.npz": {
+   "sha256": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+   "bytes": 13126
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z/BUILD_SUMMARY.json": {
+   "sha256": "37b29af76e972cecee7ad0dbf64569a60914a0d40cdfb95a0ca6c90cf2277609",
+   "bytes": 4055
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z/HAZARD.json": {
+   "sha256": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+   "bytes": 699642
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z/NATIVE_METADATA.json": {
+   "sha256": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+   "bytes": 9556
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z/REPORT.json": {
+   "sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d",
+   "bytes": 10941
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T030000Z/constructed_arrays.npz": {
+   "sha256": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e",
+   "bytes": 6739
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z/BUILD_SUMMARY.json": {
+   "sha256": "c6184d86596d756be479fa512b23929fbea9520893954abacdb32b5e447f4ad6",
+   "bytes": 4078
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z/HAZARD.json": {
+   "sha256": "301d69431f0f4778405cd3ae817663378e50ff7b8f339e48f13de6244e9a7fcd",
+   "bytes": 1082696
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z/NATIVE_METADATA.json": {
+   "sha256": "06a4bd0a8f7d8d332c7ac5c26c481bcebd6a905f2ee106bf7ccfd7efde837709",
+   "bytes": 10341
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z/REPORT.json": {
+   "sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4",
+   "bytes": 11751
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T060000Z/constructed_arrays.npz": {
+   "sha256": "c6aa5e6185a60269122f395bf88dfa7e9e23d2c3c6636f8410e6f1e4b357d992",
+   "bytes": 8430
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z/BUILD_SUMMARY.json": {
+   "sha256": "6858ff734efcf2852dfcc447857c1f516575be274809e08c71a3499982b38991",
+   "bytes": 4089
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z/HAZARD.json": {
+   "sha256": "51f82ab19c8055aec921d8a4f25a2497179baeac62433d94375737a97ac55845",
+   "bytes": 1309943
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z/NATIVE_METADATA.json": {
+   "sha256": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+   "bytes": 10106
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z/REPORT.json": {
+   "sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9",
+   "bytes": 11508
+  },
+  "execution/latest_inputs/try02/packets/uljin_2022/20220304T120000Z/constructed_arrays.npz": {
+   "sha256": "3edfe49bb169437c80e641a8031756ff7ad6d9885d857863d2c08fd53f5d8707",
+   "bytes": 8617
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z/BUILD_SUMMARY.json": {
+   "sha256": "903059855b0e749c73a60833f9377a2871467a93b2027c8508a08f2d0c4f1af7",
+   "bytes": 6291
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z/HAZARD.json": {
+   "sha256": "fe33db2193742879840f365b4ed6385a1d9e4ae2f00325ffdd190e1b268ed3f6",
+   "bytes": 1888420
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z/NATIVE_METADATA.json": {
+   "sha256": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+   "bytes": 19955
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z/REPORT.json": {
+   "sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b",
+   "bytes": 21664
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T190000Z/constructed_arrays.npz": {
+   "sha256": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+   "bytes": 9651
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z/BUILD_SUMMARY.json": {
+   "sha256": "a7919845334dfeedffcb4adf9406dac70948273891e3935d0b94991f3428f4c1",
+   "bytes": 6270
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z/HAZARD.json": {
+   "sha256": "fa347cf3077fdbeda4ed4a7cef4a6f37b710a8d046a4046a83c21f3c2bc9e38f",
+   "bytes": 796332
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z/NATIVE_METADATA.json": {
+   "sha256": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b",
+   "bytes": 14208
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z/REPORT.json": {
+   "sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d",
+   "bytes": 15725
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250325T230000Z/constructed_arrays.npz": {
+   "sha256": "7dd677f41f1ef8927283c20bddbc1d4f404dc64e81dc5b5d7dc04e630e674af5",
+   "bytes": 7277
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z/BUILD_SUMMARY.json": {
+   "sha256": "0e6e5601da2d3658ff12004ddfd4846009d35bf571c12779eeddbe9e0f82a572",
+   "bytes": 6312
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z/HAZARD.json": {
+   "sha256": "0f468b69a569b2c2f3d572c8649a8b3c5670502f25deda04e0d93761320a9d85",
+   "bytes": 638400
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z/NATIVE_METADATA.json": {
+   "sha256": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc",
+   "bytes": 13159
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z/REPORT.json": {
+   "sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e",
+   "bytes": 14640
+  },
+  "execution/latest_inputs/try02/packets/yeongdeok_2025/20250326T080000Z/constructed_arrays.npz": {
+   "sha256": "645c363012c1c7237d30da2393dec877ec92bd0d444ee9b7df28a2cab7aa5356",
+   "bytes": 6552
+  },
+  "execution/latest_inputs/try02/requests/hongseong_2023/20230402T070000Z_FN1.json": {
+   "sha256": "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56",
+   "bytes": 1051
+  },
+  "execution/latest_inputs/try02/requests/hongseong_2023/20230402T070000Z_FX1.json": {
+   "sha256": "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd",
+   "bytes": 1111
+  },
+  "execution/latest_inputs/try02/requests/hongseong_2023/20230402T140000Z_FW2.json": {
+   "sha256": "36da8b90cd927c2d8605de1cea6afe17683d090acd4e03707723178061796079",
+   "bytes": 986
+  },
+  "execution/latest_inputs/try02/requests/hongseong_2023/20230402T230000Z_FD1.json": {
+   "sha256": "8ed4ad99d4b7952dfb6795c801fb58584f850b7343c33a5c86740638da422e1b",
+   "bytes": 980
+  },
+  "execution/latest_inputs/try02/requests/miryang_2022/20220531T100000Z_FN1.json": {
+   "sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+   "bytes": 1043
+  },
+  "execution/latest_inputs/try02/requests/miryang_2022/20220601T020000Z_FW1.json": {
+   "sha256": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+   "bytes": 988
+  },
+  "execution/latest_inputs/try02/requests/miryang_2022/20220601T080000Z_FD1.json": {
+   "sha256": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+   "bytes": 985
+  },
+  "execution/latest_inputs/try02/requests/miryang_2022/20220601T080000Z_FX1.json": {
+   "sha256": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+   "bytes": 1107
+  },
+  "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250323T010000Z_FD1.json": {
+   "sha256": "e6ea78c9ac1cfd26440633dff55f6f5f0698ad891c1052c925510b8a108b3c7a",
+   "bytes": 983
+  },
+  "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250323T010000Z_FX2.json": {
+   "sha256": "3f2b7889369d7b91bf0f8bd96290281f7162256ff1d1f5b1825c928d5776d501",
+   "bytes": 1111
+  },
+  "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250324T090000Z_FL2.json": {
+   "sha256": "c7bb784df79f58f2a5daf2b6af57177b66213b886a2d447f49027a1b8e4898ef",
+   "bytes": 982
+  },
+  "execution/latest_inputs/try02/requests/uiseong_andong_2025/20250325T170000Z_FW1.json": {
+   "sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+   "bytes": 987
+  },
+  "execution/latest_inputs/try02/requests/uljin_2022/20220304T030000Z_FD1.json": {
+   "sha256": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+   "bytes": 983
+  },
+  "execution/latest_inputs/try02/requests/uljin_2022/20220304T030000Z_FX1.json": {
+   "sha256": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+   "bytes": 1111
+  },
+  "execution/latest_inputs/try02/requests/uljin_2022/20220304T060000Z_FL1.json": {
+   "sha256": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+   "bytes": 983
+  },
+  "execution/latest_inputs/try02/requests/uljin_2022/20220304T120000Z_FW2.json": {
+   "sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+   "bytes": 986
+  },
+  "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T190000Z_FD1.json": {
+   "sha256": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+   "bytes": 984
+  },
+  "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T190000Z_FX2.json": {
+   "sha256": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+   "bytes": 1113
+  },
+  "execution/latest_inputs/try02/requests/yeongdeok_2025/20250325T230000Z_FL2.json": {
+   "sha256": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+   "bytes": 985
+  },
+  "execution/latest_inputs/try02/requests/yeongdeok_2025/20250326T080000Z_FW1.json": {
+   "sha256": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+   "bytes": 989
+  }
+ }
+}

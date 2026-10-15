@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Route Logger Export</title>
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:12px;background:#fff;color:#111;font-size:16px}
+h1{font-size:20px;margin:0 0 6px}p{margin:6px 0}.s{border:1px solid #bbb;border-radius:6px;padding:10px;margin:10px 0}
+button{font-size:15px;padding:9px 10px;margin:3px 3px 3px 0;border:1px solid #888;border-radius:6px;background:#f2f2f2}
+button:disabled{opacity:.45}.ok{color:#060;font-weight:600}.bad{color:#a00;font-weight:600}.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all}
+small{color:#555}
+</style></head><body>
+<h1>Route logger export</h1>
+<p><small>Keep this page open and in the foreground until every file shows "verified". iPhone: after "Save", choose
+Download, then find the file in Files &gt; Downloads. This page works offline; no data leaves the phone and the device.</small></p>
+<p id="st">Loading...</p>
+<div id="list"></div>
+<script>
+// SHA-256 in plain JS (crypto.subtle is unavailable on plain-HTTP pages, which is the only option offline).
+function sha256(buf){const K=new Uint32Array([0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2]);
+const b=new Uint8Array(buf),n=b.length,L=((n+9+63)>>6)<<6,m=new Uint8Array(L);m.set(b);m[n]=0x80;const dv=new DataView(m.buffer);
+dv.setUint32(L-8,Math.floor(n/0x20000000));dv.setUint32(L-4,(n<<3)>>>0);
+let h=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Uint32Array(64);
+const r=(x,k)=>(x>>>k)|(x<<(32-k));
+for(let o=0;o<L;o+=64){for(let i=0;i<16;i++)w[i]=dv.getUint32(o+4*i);
+for(let i=16;i<64;i++){const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3),s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0;}
+let[a,bb,c,d,e,f,g,hh]=h;for(let i=0;i<64;i++){const S1=r(e,6)^r(e,11)^r(e,25),ch=(e&f)^(~e&g),t1=(hh+S1+ch+K[i]+w[i])>>>0,S0=r(a,2)^r(a,13)^r(a,22),mj=(a&bb)^(a&c)^(bb&c),t2=(S0+mj)>>>0;hh=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=bb;bb=a;a=(t1+t2)>>>0;}
+h=[h[0]+a,h[1]+bb,h[2]+c,h[3]+d,h[4]+e,h[5]+f,h[6]+g,h[7]+hh].map(x=>x>>>0);}
+return h.map(x=>x.toString(16).padStart(8,'0')).join('');}
+const CT=(()=>{const t=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[i]=c>>>0;}return t;})();
+function crc32(u,s,e){let c=0xFFFFFFFF;for(let i=s;i<e;i++)c=CT[(c^u[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0;}
+function checkRecords(buf){const u=new Uint8Array(buf),dv=new DataView(buf);let bad=0,n=Math.floor(u.length/48);
+for(let k=0;k<n;k++){const o=k*48;if(u[o]!=0x57||u[o+1]!=0x46||crc32(u,o,o+44)!==dv.getUint32(o+44,true))bad++;}
+return{n,bad,trailing:u.length%48};}
+const $=id=>document.getElementById(id);
+const verified={};
+function save(blob,fname){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;document.body.appendChild(a);a.click();
+setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},60000);}
+async function getFile(s,fmt,el){
+el.textContent='downloading '+fmt+'...';el.className='';
+try{const h=await (await fetch('/api/sha?name='+s.name+'&fmt='+fmt,{cache:'no-store'})).json();
+const resp=await fetch('/dl?name='+s.name+'&fmt='+fmt,{cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);
+const buf=await resp.arrayBuffer();const got=sha256(buf);let extra='';
+if(fmt==='wfg'){const c=checkRecords(buf);extra=' records '+c.n+', CRC errors '+c.bad+(c.trailing?', trailing bytes '+c.trailing:'');
+if(c.bad||c.trailing){el.textContent='record check FAILED:'+extra;el.className='bad';return;}}
+if(got!==h.sha256||buf.byteLength!==h.size){el.textContent=fmt+' MISMATCH (got '+got.slice(0,12)+'..., device '+h.sha256.slice(0,12)+'...). Retry.';el.className='bad';return;}
+const ext={wfg:'.wfg',csv:'.csv',gpx:'.gpx',geojson:'.geojson'}[fmt];
+const type={wfg:'application/octet-stream',csv:'text/csv',gpx:'application/gpx+xml',geojson:'application/geo+json'}[fmt];
+save(new Blob([buf],{type}),s.session_id+'_'+s.mode+ext);
+if(fmt==='wfg')verified[s.name]=got;
+el.innerHTML='<span class="ok">'+fmt+' verified</span> '+buf.byteLength+' B'+extra+'<br><span class="mono">SHA-256 '+got+'</span>';
+const cb=$('c_'+s.name);if(cb&&fmt==='wfg')cb.disabled=false;
+}catch(err){el.textContent='error: '+err+' (stay on this page, check Wi-Fi, retry)';el.className='bad';}}
+async function confirmExport(s,el){const sha=verified[s.name];if(!sha)return;
+if(!confirm('Confirm that '+s.session_id+'.wfg is saved on this phone (SHA-256 '+sha.slice(0,12)+'...)?'))return;
+const r=await (await fetch('/api/confirm?name='+s.name+'&sha='+sha,{method:'POST'})).json();
+el.innerHTML=r.ok?'<span class="ok">Export confirmed on device.</span>':'<span class="bad">Device refused: '+r.why+'</span>';load();}
+async function requestDelete(s,el){const sha=verified[s.name]||s.ok_sha;if(!sha){el.textContent='Save and verify the .wfg first.';return;}
+if(!confirm('Delete '+s.session_id+' from the DEVICE? Your phone copy is kept.'))return;
+const r=await (await fetch('/api/delete?name='+s.name+'&sha='+sha,{method:'POST'})).json();
+if(!r.ok){el.innerHTML='<span class="bad">Refused: '+r.why+'</span>';return;}
+el.innerHTML='<b>Now hold the device button 2.5 s</b> (within 30 s) to delete.';
+for(let i=0;i<40;i++){await new Promise(z=>setTimeout(z,1000));const st=await (await fetch('/api/status',{cache:'no-store'})).json();
+if(st.last_delete.indexOf(s.name)>=0&&st.last_delete.indexOf('PENDING')<0){el.textContent=st.last_delete;load();return;}}
+el.textContent='No confirmation from the device button.';}
+async function load(){try{const st=await (await fetch('/api/status',{cache:'no-store'})).json();
+$('st').innerHTML='Device '+st.device+' | '+st.board+' | storage '+Math.round(st.used/1024)+' / '+Math.round(st.total/1024)+' KB';
+const L=await (await fetch('/api/list',{cache:'no-store'})).json();const box=$('list');box.innerHTML='';
+if(!L.length)box.textContent='No sessions on the device.';
+for(const s of L){const d=document.createElement('div');d.className='s';
+const state=s.closed?(s.end_reason==='RECOVERED_ON_BOOT'?'closed after power loss (RECOVERED)':'closed: '+s.end_reason):'OPEN (still recording or not yet recovered)';
+d.innerHTML='<b>'+s.session_id+'</b> '+s.mode+'<br><small>'+s.records+' records, '+s.size+' B, '+state+(s.start_reason==='AUTO_RESUMED_AFTER_RESET'?' | auto-resumed after a reset':'')+(s.exported?' | <span class="ok">export confirmed</span>':'')+'</small><br>';
+const msg=document.createElement('div');msg.className='mono';
+for(const f of['wfg','csv','gpx','geojson']){const b=document.createElement('button');b.textContent='Save '+(f==='wfg'?'raw .wfg':f.toUpperCase());
+b.disabled=!s.closed;b.onclick=()=>getFile(s,f,msg);d.appendChild(b);}
+d.appendChild(document.createElement('br'));
+const c=document.createElement('button');c.id='c_'+s.name;c.textContent='Confirm export';c.disabled=true;c.onclick=()=>confirmExport(s,msg);d.appendChild(c);
+const x=document.createElement('button');x.textContent='Delete from device...';x.disabled=!s.exported;x.onclick=()=>requestDelete(s,msg);d.appendChild(x);
+d.appendChild(msg);box.appendChild(d);}
+}catch(e){$('st').textContent='Cannot reach the device: '+e+'. Is the phone still on the logger Wi-Fi?';}}
+load();
+</script></body></html>

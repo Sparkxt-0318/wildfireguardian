@@ -1,0 +1,82 @@
+{
+ "generator": "app/simgen.py",
+ "seed": 8,
+ "simulated": true,
+ "device_id": "00000000",
+ "area": "sim_city",
+ "mode": "WALK",
+ "note": "SIMULATED: not a real recording. Ground truth below is what the generator did.",
+ "truth": {
+  "stops": [
+   {
+    "n": 1,
+    "t0": 348.0,
+    "t1": 389.0,
+    "dur": 42,
+    "lat": 35.1499348,
+    "lon": 126.8382563,
+    "press": true
+   },
+   {
+    "n": 2,
+    "t0": 727.0,
+    "t1": 744.0,
+    "dur": 18,
+    "lat": 35.1478944,
+    "lon": 126.8409733,
+    "press": true
+   },
+   {
+    "n": 3,
+    "t0": 1082.0,
+    "t1": 1133.0,
+    "dur": 52,
+    "lat": 35.1449291,
+    "lon": 126.8416496,
+    "press": true
+   },
+   {
+    "n": 4,
+    "t0": 1246.0,
+    "t1": 1270.0,
+    "dur": 25,
+    "lat": 35.1436324,
+    "lon": 126.8411949,
+    "press": false
+   }
+  ],
+  "presses": [
+   {
+    "event_no": 1,
+    "t_press": 350.3,
+    "stray": false
+   },
+   {
+    "event_no": 2,
+    "t_press": 554.4,
+    "stray": true
+   },
+   {
+    "event_no": 3,
+    "t_press": 729.3,
+    "stray": false
+   },
+   {
+    "event_no": 4,
+    "t_press": 1084.3,
+    "stray": false
+   }
+  ],
+  "gaps": [
+   {
+    "t0": 859.0,
+    "t1": 879.0,
+    "s": 20
+   }
+  ],
+  "lead_in_s": 60,
+  "lead_out_s": 30,
+  "duration_s": 1463.0,
+  "path_m": 1650.0
+ }
+}

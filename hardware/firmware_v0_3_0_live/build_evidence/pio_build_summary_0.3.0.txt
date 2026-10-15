@@ -1,0 +1,94 @@
+# Firmware compile evidence, firmware 0.3.0 (LIVE lines) / record format 2. Linux x86_64 workspace, build started 2026-10-08 18:48:32 CST.
+# COMPILE ONLY: not flashed, not run on hardware.
+# PlatformIO Core 6.2.0, platform espressif32 6.9.0. Command (from any directory):
+#   PLATFORMIO_WORKSPACE_DIR=/tmp/wfg_pio_030 PLATFORMIO_SETTING_ENABLE_TELEMETRY=no \
+#   pio run -d firmware_v0_3_0_live -e tracker_v11 -e tracker_v2 -e tracker_v10 -e generic_esp32s3 -e fallback_fb2e
+# The workspace (.pio: build output and libdeps) was outside the package; no .pio folder was created in it.
+# Clean build: the build directory was deleted first, so every source file was compiled.
+# LovyanGFX 1.2.7: taken from the local PlatformIO library cache of the 0.2.0 build (its .piopm records
+#   lovyan03/LovyanGFX 1.2.7); pio found lib_deps satisfied and downloaded nothing (no Downloading/Installing lines).
+# Full log: pio_run_all_envs_0.3.0.log
+
+Processing tracker_v11 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968793 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 96.24 seconds =========================
+Processing tracker_v2 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968789 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 79.52 seconds =========================
+Processing tracker_v10 (platform: platformio/espressif32@6.9.0; framework: arduino; board: heltec_wireless_tracker_wfg)
+PLATFORM: Espressif 32 (6.9.0) > Heltec Wireless Tracker (WFG local board def; based on meshtastic/firmware boards/heltec_wireless_tracker.json)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.3% (used 50132 bytes from 327680 bytes)
+Flash: [======    ]  61.6% (used 968801 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 81.40 seconds =========================
+Processing generic_esp32s3 (board: esp32-s3-devkitc-1; platform: platformio/espressif32@6.9.0; framework: arduino)
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32-S3-DevKitC-1-N8 (8 MB QD, No PSRAM)
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32s3 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.2% (used 49716 bytes from 327680 bytes)
+Flash: [======    ]  60.6% (used 952929 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 80.79 seconds =========================
+Processing fallback_fb2e (board: dfrobot_firebeetle2_esp32e; platform: platformio/espressif32@6.9.0; framework: arduino)
+PLATFORM: Espressif 32 (6.9.0) > DFRobot Firebeetle 2 ESP32-E
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+|-- LovyanGFX @ 1.2.7
+RAM:   [==        ]  15.3% (used 50096 bytes from 327680 bytes)
+Flash: [======    ]  63.4% (used 997889 bytes from 1572864 bytes)
+========================= [SUCCESS] Took 79.14 seconds =========================
+
+Environment      Status    Duration
+---------------  --------  ------------
+tracker_v11      SUCCESS   00:01:36.239
+tracker_v2       SUCCESS   00:01:19.520
+tracker_v10      SUCCESS   00:01:21.399
+generic_esp32s3  SUCCESS   00:01:20.790
+fallback_fb2e    SUCCESS   00:01:19.145
+========================= 5 succeeded in 00:06:57.093 =========================
+
+# warnings in build log: 0
+
+# RAM / flash compared with 0.2.0 (../../firmware/build_evidence/pio_build_summary.txt), static RAM in bytes:
+#   fallback_fb2e 49504 -> 50096, tracker_v2/v11/v10 49588 -> 50132, generic_esp32s3 49172 -> 49716.
+#   The 4096-byte serial TX buffer is allocated from the heap at Serial.begin(), so it is not in these figures.
+
+# Per-class serial TX buffer code linked (xtensa nm on firmware.elf):
+#   fallback_fb2e: HardwareSerial::setTxBufferSize, wfg::TxQueueModel (UART estimate)
+#   tracker_v2, tracker_v11, tracker_v10, generic_esp32s3: HWCDC::setTxBufferSize, HWCDC::availableForWrite
+
+# firmware.bin SHA-256 (builds are not bit-reproducible across machines; for traceability only)
+d64f5460ce82f068602173407b76c2bdc07d99dfbbfde076b7b7fcd107aec030  fallback_fb2e/firmware.bin
+1c6f80f07982c468c03afe07900e923efda2fc523e50286f7edc3da9cbd30675  generic_esp32s3/firmware.bin
+73a304f6b5d0d88de40ab0824cd59b04340c23b7ff310e3afb5900be783643e3  tracker_v10/firmware.bin
+6313143dfa28ef0952b12e80f118e08ae560f7a458806c7b1b30f423d6ec1f67  tracker_v11/firmware.bin
+f33a217f94b13e8973839ff69e284b2e5363500f28568bdc9f442f5cbdbfe97c  tracker_v2/firmware.bin
+
+# Partition table decoded from built partitions.bin (tracker_v2)
+Parsing binary partition input...
+Verifying table...
+# ESP-IDF Partition Table
+# Name, Type, SubType, Offset, Size, Flags
+nvs,data,nvs,0x9000,20K,
+factory,app,factory,0x10000,1536K,
+spiffs,data,spiffs,0x190000,6592K,
+# Partition table decoded from built partitions.bin (fallback_fb2e)
+Parsing binary partition input...
+Verifying table...
+# ESP-IDF Partition Table
+# Name, Type, SubType, Offset, Size, Flags
+nvs,data,nvs,0x9000,20K,
+factory,app,factory,0x10000,1536K,
+spiffs,data,spiffs,0x190000,2496K,

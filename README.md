@@ -1,195 +1,134 @@
-# WildfireGuardian routing — importable Python API
+# WildfireGuardian
 
-`import wildfireguardian_routing` provides the maintained exact routing engine, explicit graph preparation and an independent route checker. `ReleaseRuntime` connects Python applications to the full forecast-integration and optional hybrid-checker deliveries.
+WildfireGuardian combines machine-learning wildfire forecasting, time-dependent vehicle routing, a field route logger and an offline 3D exhibition. This repository contains the **finalized research code for the October 2026 submission**, with exact evaluated versions preserved.
 
-**Version 0.1.0.** Research software. Routing outcomes concern the supplied discrete model and assumptions. Packaging does not resolve the 27 difficult search timeouts, validate constructed thermal hazards, or establish physical safety. The experimental search-followup is not promoted.
+The scientific pipeline is **forecast → scenario hazards → route search → complete-journey checking → checked route or scoped refusal**. The logger and showcase have separate launchers and evidence; the 3D showcase uses an explicitly illustrative scene.
 
-## 1. Install the lightweight API
+## Final research results
 
-Use Python 3.12 on macOS (tested). Linux is intended but not tested in this packaging run; Windows is unsupported because the preserved engine imports POSIX `resource`.
+The latest native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**.
+
+| Measure | Reference | Candidate |
+|---|---:|---:|
+| Missions resolved in both repetitions | 13/20 (65%) | **20/20 (100%)** |
+| Missions providing checked routes | 13/20 (65%) | **15/20 (75%)** |
+| Qualifying scoped-refusal missions | 0 | 5 |
+| Unresolved executions | 14/40 | 0/40 |
+| Median request time in 26 jointly resolved route pairs | 7.344 s | 8.006 s |
+| Maximum recorded largest-process RSS | 2,055 MiB | 1,492 MiB |
+
+**The headline is 100% verified on-time resolution on this benchmark, not 100% routing accuracy.** Resolution includes five scoped refusals. Candidate and reference arrival times match in all 26 jointly resolved route pairs. The candidate provides more qualifying decisions but shows no matched successful-route speed advantage or consistent paired memory saving. Independent centre/contact checks found no recorded contradiction among the 56 returned-route executions, including repetitions.
+
+All 80 outcome records were published within the 30 s request allowance. Reference unresolved outcomes include eight search-label-limit stops and six centre-only refusal publications without qualifying frozen authority. Neither category is an outer deadline termination. Continuous-road radiation-enclosure and global-bound proof obligations remain open. See the [independent report](research/routing/INDEPENDENT_REPORT.v1.md) and [reviewed figures](research/routing/figures/).
+
+![Reviewed mission outcomes](research/routing/figures/fig01_resolution.png)
+
+## Choose what to run
+
+| Component | Directory | Start here |
+|---|---|---|
+| Forecast and selected checkpoint | [`forecast/`](forecast/GITHUB_SNAPSHOT.md) | Prediction and thermal API documentation |
+| Final forecast-to-routing integration | [`integration/`](integration/README.md) | Installable `wfg_latest` 1.0.0 and reviewed kit v3 |
+| Logger and live map | [`hardware/`](hardware/README.md) | Firmware 0.3.0, USB export and local map |
+| Offline 3D exhibition | [`demos/showcase/`](demos/showcase/README.md) | One local launcher; no map token |
+| Results and ablations | [`research/`](research/README.md) | Independent rows, figures and separate forecast study |
+| Monte Carlo extension | [`monte-carlo-extension/`](monte-carlo-extension/EXTENSION_GUIDE.md) | Separately versioned optional study |
+
+## 1 Install the final routing API
+
+Use **Python 3.12**. Native macOS is the evaluated runtime; Windows is not supported by the preserved POSIX worker/controller. Linux measurements require their own host-specific interpretation.
 
 ```sh
+git clone --branch Main https://github.com/Sparkxt-0318/wildfireguardian.git
+cd wildfireguardian
 python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install https://github.com/Sparkxt-0318/wildfireguardian/releases/download/routing-mentor-review-20261008/wildfireguardian_routing-0.1.0-py3-none-any.whl
+python -m pip install -c constraints-routing.txt './integration[packets]'
+python tools/verify_release.py
 ```
 
-Alternatively, after downloading/cloning the repository, run `python -m pip install ./routing-api` from its root. This package is not published on PyPI. The basic router has **no third-party runtime dependencies**.
+The routing API uses NumPy and the standard library; packet construction uses pyproj. Fresh forecast inference additionally needs the pinned forecasting dependencies. No GPU is required for the timed route search.
 
-## 2. Calculate and independently check a complete route
+## 2 Replay a recorded Korean routing case
 
-Save this as `demo.py`, then run `python demo.py`:
-
-```python
-from wildfireguardian_routing import example, solve, check_route
-
-case = example()  # Generated tiny road/hazard fixture, not observed fire data.
-result = solve(case["graph"], case["hazard"], case["request"])
-print(result["status"], result.get("arrival"))
-
-if result.get("legs") is not None and result.get("destination") is not None:
-    check = check_route(case["graph"], case["hazard"], case["request"],
-                        result["legs"], result["destination"])
-    print("Route admissible under supplied model:", check["ok"])
-```
-
-The supplied fixture returns `CONDITIONAL_OPTIMUM`, arrival `4.0`, and checker `True`. It illustrates API use, not a fire-escape validation experiment. `solve` calculates the complete route; it does not require people to wait for individual road segments to be planned.
-
-## 3. Reuse graph preparation for repeated requests
-
-```python
-from wildfireguardian_routing import example, prepare_graph, solve
-
-case = example()
-prepared = prepare_graph(case["graph"])
-first = solve(prepared, case["hazard"], case["request"])
-second = solve(prepared, case["hazard"], case["request"])
-```
-
-Prepare again explicitly after graph changes. For a mutable authoritative graph, use `solve(raw_graph, hazard, request, prepared=prepared)` to require content equality. Forecast/request admission and route checks still execute. Prepared geometry saves repeated graph work; it does not fix hard-search timeouts. Concurrent use is not validated.
-
-## 4. Supply your own routing inputs
-
-```python
-import json
-from wildfireguardian_routing import solve
-
-with open("graph.json") as f:
-    graph = json.load(f)
-with open("hazard.json") as f:
-    hazard = json.load(f)
-with open("request.json") as f:
-    request = json.load(f)
-result = solve(graph, hazard, request)
-```
-
-A wrapper document may contain `{"graph": ...}` or `{"request": ...}`; unwrap it before calling `solve`.
-
-- **Graph:** revision, coordinate system, grid origin/resolution/dimensions, nodes, directed edges/travel ticks and legal turns/reversals.
-- **Hazard:** matching graph/grid, time origin and issue/availability, version, time step and member IDs. Each member supplies interval breakpoints and flattened cell arrays of flame contact (Boolean), support (Boolean) and flux in **kW/m²**.
-- **Request:** position, incoming edge, departure/horizon, destination opening intervals and any dwell, incurred exposure per member, hazard version/as-of time, peak/dose budgets and search caps. Dose is **kJ/m²**; time is seconds in the declared clock.
-
-Use `example()` as an inspectable schema example. Do not replace unknown support with zero hazard, omit incurred exposure, change units, or silently weaken a budget. The native forecast adapter accepts **W/m²** and converts it; the routing hazard schema here expects **kW/m²**.
-
-## 5. Download the full forecast-integration package
-
-The small API wheel does not include the large checkpoint, Korean inputs, fixture graph or research raw results. Download `forecast_routing_hourly_integration_20261008_v1.zip` and `SHA256SUMS.txt` from:
-
-https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/routing-mentor-review-20261008
-
-Example using GitHub CLI:
+Download and verify the exact evaluated roads, hazard packets and requests, then run one unscored replay:
 
 ```sh
-mkdir -p deliveries
-cd deliveries
-gh release download routing-mentor-review-20261008 --repo Sparkxt-0318/wildfireguardian --pattern forecast_routing_hourly_integration_20261008_v1.zip --pattern SHA256SUMS.txt
-# Verify this one archive against its line in the checksum file.
-grep '  forecast_routing_hourly_integration_20261008_v1.zip$' SHA256SUMS.txt | shasum -a 256 -c -
-unzip forecast_routing_hourly_integration_20261008_v1.zip
-cd ..
-python -m pip install -r deliveries/forecast_routing_hourly_integration_20261008_v1/requirements.txt -c deliveries/forecast_routing_hourly_integration_20261008_v1/constraints.txt
+python tools/fetch_routing_inputs.py
+python integration/examples/run_frozen_case.py --out artifacts/uljin-replay
 ```
 
-Use the **full extraction**, not the GitHub `routing-review/` source subset. The requirements include NumPy, PyTorch, SciPy, rasterio, pandas, pyproj, affine and pytest. Installing the wheel alone does not install forecasting dependencies. You can also request them with `python -m pip install './routing-api[integration]'` in a local checkout, but the matching release's requirements/constraints are authoritative.
+This uses already constructed hazards from the latest forecast. It does not rerun forecasting and needs no external environmental rasters. The accepted recorded Uljin journey arrives at **3,119 s**, uses **512 road legs**, and remains at its destination for **120 s**. New execution costs depend on the host and load; preserve unresolved or rejected outcomes rather than treating a raw path as success.
 
-## 6. Run forecast → hazard construction → routing from Python
+The **30 s allowance covers the complete routing request**, including cold preparation, search, runtime checking and publication. The script's offline independent checker has a separate cap, so total script time can exceed 30 s. Outputs include raw status, authoritative publication, cleanup and independent-check scope.
 
-```python
-from wildfireguardian_routing import ReleaseRuntime
-
-runtime = ReleaseRuntime("deliveries/forecast_routing_hourly_integration_20261008_v1")
-report = runtime.run_hourly("my_strict_run", mode="strict", save_hazard=True)
-for row in report["rows"]:
-    print(row["result"]["status"], row["proof_level"])
-```
-
-Strict mode preserves missing hazard support; a valid `UNSUPPORTED` result is expected for these original incomplete inputs. A successful Python call is not evidence that a route exists.
-
-To explicitly use the existing research assumptions:
-
-```python
-report = runtime.run_hourly("my_research_run", mode="research",
-                            repeats=2, save_hazard=True)
-print(report["rows"][0]["result"]["status"])
-print(report["api_process_wall_s"])
-```
-
-This uses saved native forecast outputs. To rerun the original forecasting model before routing:
-
-```python
-report = runtime.run_hourly("my_native_run", mode="research", native=True,
-                            save_hazard=True)
-```
-
-Every output directory must be new. The original `REPORT.json`, constructed arrays and optional `HAZARD.json` are saved there. Read the full release's `ASSUMPTIONS.md` and `REPRODUCE.md`. Changing `mode` does not turn assumed flames or received heat into independently validated observations.
-
-Optional arguments: `graph`, `snapshot`, `metadata`, `request`, `config` are file paths; `input_snapshot`/`checkpoint` apply to `native=True`. `origin` sets an explicit time origin. The interpreter defaults to the current Python; use `ReleaseRuntime(path, python_executable="/absolute/path/to/compatible/python")` if needed.
-
-## 7. Optionally check a supplied route with continuous-road bounds
-
-Download and verify the separate `routing_hybrid_road_checker_20261008_v1.zip` from the same release, extract it and install its requirements in a compatible environment. This checker is optional and does not replace search.
-
-```python
-import json
-from pathlib import Path
-from wildfireguardian_routing import ReleaseRuntime
-
-# A constructed output folder from step 6, or a supplied constructed fixture.
-case = Path("my_research_run")
-with open(case / "HAZARD.json") as f:
-    hazard = json.load(f)
-with open(case / "REPORT.json") as f:
-    report = json.load(f)
-with open("deliveries/forecast_routing_hourly_integration_20261008_v1/sample/uljin_graph.json") as f:
-    graph = json.load(f)
-row = report["rows"][0]
-route = row["result"]
-if route.get("legs") is not None and route.get("destination") is not None:
-    checker = ReleaseRuntime("deliveries/routing_hybrid_road_checker_20261008_v1")
-    checked = checker.check_fixed_route(case, graph, row["request"],
-                                       route["legs"], route["destination"], wall_s=30)
-    print(checked["status"], checked.get("reason"))
-```
-
-Do not expect every supplied route to receive a certificate. `CERTIFIED_ADMISSIBLE` means a fixed mission passed contact and radiation bounds under the declared source construction; it does not establish global optimality or physical safety. `DEFINITE_REJECT` concerns that supplied route, not all possible routes. `UNRESOLVED` remains unknown. Partial-edge start/trailing destination-wait limitations of the original checker remain.
-
-Exact rational values in checker output are serialized as strings such as `"3/8"`; use `fractions.Fraction(value)` to read them without rounding.
-
-This wrapper uses a separate process to isolate the backend's legacy imports. Each checker call starts a new cold cache epoch. It does not claim the warm-cache performance of a persistent checker. Constructor work shares the requested checker deadline; process startup is recorded separately in `api_process_wall_s`.
-
-## 8. Interpret results and errors
-
-- `CONDITIONAL_OPTIMUM`: optimum within the represented discrete model and supplied assumptions.
-- `CHECKED_ROUTE`: admissible witness, without the same global optimality claim.
-- `PROVEN_INFEASIBLE` / `DISCONNECTED`: model-qualified refusal according to the backend's documented contract.
-- `AT_ISSUE_FAILURE`: departure/admission conditions fail.
-- `TIMEOUT` / `UNSUPPORTED`: unresolved, never proof of infeasibility.
-
-The API preserves original status strings. Invalid input may raise validation or backend errors rather than return a routing result. `BackendError` exposes `returncode`, `stdout`, `stderr`. Optional `process_timeout_s` limits the whole backend subprocess and raises `BackendTimeout`, which is unresolved; it does not alter the original search budgets. No outer timeout is imposed by default. Keep output folders from failed attempts for diagnosis.
-
-## 9. Reproduce API tests and inspect source
-
-In a local checkout after installation:
+To use an already downloaded input archive:
 
 ```sh
-python -m unittest discover -s routing-api/tests -v
-python routing-api/examples/quickstart.py
+python tools/fetch_routing_inputs.py --archive /path/to/WFG-evaluated-routing-inputs-20261015.zip
 ```
 
-The six `_engine` files are byte-identical copies of the current hourly release core, checker, validation, preparation and fixture modules; only their enclosing Python namespace differs. `ENGINE_PROVENANCE.json` records hashes. The independent 17-case finite reference panel is included. Packaging changes are separate from frozen source releases and do not promote rejected experimental solvers.
+## 3 Run a fresh forecast-to-route chain
 
+```sh
+python -m pip install -r requirements.txt
+python integration/examples/run_full_pipeline.py \
+  --data-root /absolute/path/to/environment \
+  --out artifacts/uljin-full-chain
+```
 
-## Current integration evidence and technical review
+`--data-root` must contain `events.json` and the aligned event inputs. The repository includes the selected checkpoint but not the full external environmental/training/survey datasets. Follow [forecast setup](forecast/GITHUB_SNAPSHOT.md) and [data provenance](docs/DATA_AND_RIGHTS.md); a metadata catalog cannot replace the rasters. The complete environment was reused in accepted reproductions, so publication does not establish a clean-machine data installation.
 
-[Current review guide and source snapshots](routing-review/README.md) · [Full reproducible research packages](https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/routing-mentor-review-20261008). The original `routing-package/` remains preserved.
+## 4 Import it in Python
 
+```python
+from wfg_latest import api
 
-## Final forecast
+result = api.route_and_check(
+    kit_root="integration/kit",
+    packet_dir="data/routing/latest_inputs_try02/packets/uljin_2022/20220304T030000Z",
+    graph="data/routing/graphs/uljin_2022/graph.json",
+    request="data/routing/latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json",
+    out_dir="artifacts/python-route",  # fresh path
+    arm="RDA_CAND",
+)
+print(result["authoritative_status"], result["arrival_s"])
+print(result["independent"])
+```
 
-The updated 14 October 2026 forecast source, tests, heat-parameter methods and current saved checkpoint are in [forecast/](forecast/GITHUB_SNAPSHOT.md). See the snapshot guide for API migration, installation and separately supplied data. Existing frozen routing studies retain their recorded inputs and versions.
+The other entry points are `export_forecast`, `build_packet` and `rekey_request`. See the [full-chain example](integration/examples/run_full_pipeline.py). A checked journey includes legal roads/turns/waits, scenario exposure history, destination opening and required stay. A timeout is unresolved, and a scoped refusal is not proof that every real-world escape is impossible.
 
+## 5 Open the 3D showcase or live-map interface
 
-## Monte Carlo forecast extension
+Offline 3D exhibition, from the repository root:
 
-[Separate extension, setup and results](monte-carlo-extension/EXTENSION_GUIDE.md): recursive hourly spread simulation and cumulative forecast evaluation. This preserves the separately published extension snapshot. The current forecast folder also includes recursive prediction APIs; routing studies retain their frozen versions.
+```sh
+cd demos/showcase
+./Launch.command
+```
+
+It uses Node.js 20+ or Python 3, bundles assets locally, and is explicitly illustrative. It is not a live forecast or a routing-performance visualization.
+
+For device recording and the local LIVE/replay map, follow [`hardware/README.md`](hardware/README.md). Real movement files, browser profiles and device secrets stay out of Git. Indoors, GNSS may have no fix.
+
+## 6 Verify source and run component checks
+
+```sh
+python tools/verify_release.py
+python -m pip install './forecast[test]'
+python -m pytest forecast/tests
+node --test demos/showcase/tests/*.test.mjs
+```
+
+Forecast tests that require external datasets or native FARSITE retain those prerequisites. Firmware builds and device-interface tests have their own instructions. Publication checks and an unscored replay do not rerun the 80-attempt benchmark.
+
+## Exact versions and downloads
+
+- Forecast checkpoint: **c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843**.
+- Integrated API: **wfg_latest 1.0.0**; executed routing kit: **v3**.
+- [Release identities](docs/RELEASE_IDENTITY.json), [source manifest](docs/PUBLICATION_SOURCE_MANIFEST.json), [project structure](docs/PROJECT_STRUCTURE.md).
+- [Final research release and complete evidence archives](https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/research-final-20261015), with SHA-256 checksums. Large evidence bundles are release assets rather than duplicated Git blobs.
+
+The previous `routing-api/`, `routing-package/` and `routing-review/` paths remain for historical compatibility. **Use `integration/` for the finalized forecast-to-routing work.** Earlier results remain attached to their original inputs. No forecast-ablation checkpoint replaces the selected final checkpoint.
+
+The completed forecast ablation did not demonstrate general four-scale superiority; its positive and negative findings remain [documented separately](research/forecast/FORECAST_EVIDENCE_HANDOFF.md). Further proof, source-coverage, generalization and operational work are in [future extensions](docs/FUTURE_EXTENSIONS.md). No universal speedup, forecast accuracy or physical-safety claim is made by this release.

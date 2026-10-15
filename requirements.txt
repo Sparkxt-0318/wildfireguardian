@@ -1,0 +1,3 @@
+# Full forecast-to-routing environment. Use Python 3.12.
+-e ./forecast
+-e ./integration[packets]

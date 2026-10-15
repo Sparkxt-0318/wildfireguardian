@@ -1,0 +1,2614 @@
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/CHANGES_0.3.0.md firmware_v0_3_0_live/CHANGES_0.3.0.md
+--- firmware/CHANGES_0.3.0.md	1970-01-01 08:00:00.000000000 +0800
++++ firmware_v0_3_0_live/CHANGES_0.3.0.md	2026-10-08 19:05:54.238429880 +0800
+@@ -0,0 +1,163 @@
++# Firmware 0.3.0: LIVE lines over USB
++
++Written 2026-10-08 (Asia/Shanghai). `firmware_v0_3_0_live/` is a full copy of `firmware/` (0.2.0) with the changes
++below; `firmware/` itself is unchanged. The record format stays version 2 (no layout change): a session written by
++0.3.0 differs from a 0.2.0 one only in the firmware version field of SESSION_START (3 instead of 2). Source diff:
++`firmware_0.2.0_to_0.3.0.diff` (unified, `build_evidence/` excluded).
++
++## What changed and why
++
++1. **LIVE lines** (DEMO_SPEC section 5, milestone M2), so a laptop can follow the device while it records; until now
++   DUMP, LIST and CHECK only work after recording stops. New hardware-independent module
++   `lib/wfg_core/src/wfg_live.h/.cpp`: the commands `LIVE ON`, `LIVE OFF`, `LIVE NMEA ON`, `LIVE NMEA OFF` and their
++   replies, the formatters of the eight line types (`ep`, `rec`, `st`, `ev`, `ss`, `se`, `drop`, `#N`), the drop rule,
++   a collector that turns the bytes read from the GNSS UART into whole sentences for `#N`, and an estimate of the UART
++   transmit queue (item 4). `src/main.cpp` and the host fake device use the same code. LIVE is off after every boot,
++   so `usb_export.py` and the phone page behave exactly as with 0.2.0 unless a host sends `LIVE ON`. Formats, fields,
++   order and the drop rule: README, "LIVE lines (0.3.0)".
++2. **Record observer in the logger** (`Logger::setRecordObserver`): called after every record written to the current
++   session file, with the 48 bytes, the seq and the file size after the write. It is also called for the SESSION_END
++   that `append()` writes by itself after a short write (storage full). It is not called for the END records boot
++   recovery adds to older files (at boot LIVE is off, and after `FORMAT` there is nothing to recover). Nothing else in
++   the logger changed: the 0.2.0 host tests, unchanged, all pass, and the sample sessions they write are
++   byte-identical to the 0.2.0 samples.
++3. **`src/main.cpp`**
++   - `Serial.setTxBufferSize(4096)` before `Serial.begin(115200)`, per serial class (checked in the Arduino-ESP32
++     2.0.17 headers and sources in the PlatformIO cache): HardwareSerial on the classic ESP32 (FireBeetle) gets a
++     4096-byte transmit ring buffer instead of only the 128-byte UART FIFO; HWCDC (USB-Serial-JTAG, all ESP32-S3
++     envs) has the same call with the same meaning (its ring buffer, 256 bytes by default); TinyUSB CDC (USBCDC, used
++     by no env here) has no `setTxBufferSize()` in 2.0.17 and is left alone. Guarded with `ARDUINO_USB_CDC_ON_BOOT`
++     and `ARDUINO_USB_MODE`, the same macros the core uses to pick the class of `Serial`.
++   - `handleSerial()`: LIVE commands are handled after the `ERR FS not-mounted` check and after the DUMP/LIST/CHECK
++     refusal, before `Proto::handleLine()`. So `LIVE ON` works while recording, and with a broken filesystem it
++     answers `ERR FS not-mounted` like every other command except VBAT, CALVBAT and FORMAT.
++   - `ep` at both places in `loop()` where epochs are taken, written just before `Logger::onEpoch()`; `#N` from the
++     collector, which sees every byte read from Serial1; `rec`, and `st` for STATUS records, through the observer;
++     `st` every 10 s while not recording (battery reading of that moment and free space, the latter only computed
++     while LIVE is on); `ev` after a successful mark; `ss` in `startSession()` (owner start and auto-resume); `se`
++     checked after the owner stop, after the low-battery stop, after a mark and once per loop pass after the GNSS and
++     `tick()` calls, so a session the logger ends by itself (storage full) also gets its `se`.
++   - `#` banner lines, protocol replies and button behaviour are unchanged.
++4. **Transmit queue estimate on the classic ESP32.** The spec relies on `availableForWrite()`. In Arduino-ESP32 2.0.17
++   on the classic ESP32 it returns ESP-IDF's `uart_get_tx_buffer_free_size()`. Disassembling that function in the
++   cached framework (`tools/sdk/esp32/lib/libdriver.a`, `uart.c.obj`) shows it returns `tx_buf_size - tx_len_tot`,
++   and the UART interrupt handler sets `tx_len_tot` to the size of the one write it is sending and counts it down.
++   Writes queued behind that one are not counted, so the value can be far too high, and a write that does not fit
++   waits until the UART has sent enough. The UART has no flow control and keeps sending at 115200 baud whether or not
++   a host listens, so `main.cpp` also keeps an estimate of the LIVE bytes it queued (`wfg::TxQueueModel`) and LIVE
++   uses the smaller of the two values: at most 3072 of the 4096 bytes (the rest stays for protocol replies, `#`
++   messages and the ring buffer's per-write headers), 32 bytes counted per write on top of the line, drained at
++   5760 bytes/s (half the line rate, to allow for flash operations that hold off the UART interrupt). These constants
++   were chosen on paper. At the expected load (about 1.5 kB/s with LIVE and NMEA on) the estimate stays far below the
++   cap, so no lines should be dropped; a burst far above the line rate is dropped and counted instead of blocking (host
++   test `tx_queue_model`). On the ESP32-S3 builds HWCDC reports its free space exactly; there LIVE leaves 512 bytes
++   free for replies and `#` messages.
++5. **FireBeetle board header**: `WFG_PIN_TFT_BL` 12 -> 13, because the display's BLK is wired to D7 = IO13
++   (`../CAD_v2_firebeetle/instructions/PRINT_AND_ASSEMBLY_EN_ZH.md`, `../handoff_updates/PLAN_CHANGES_FOR_AGENT.md`
++   section 9). IO12 is a strapping pin: the module pulls BLK up through 10 k, and IO12 high at boot selects 1.8 V flash,
++   so the ESP32 does not start. No other pin changed.
++6. **Version**: `WFG_FW_VERSION` 2 -> 3, `WFG_FW_VERSION_STR` "0.2.0" -> "0.3.0" (HELLO, the boot line, the phone
++   page's status, SESSION_START). `WFG_FORMAT_VERSION` stays 2.
++7. **Host fake device** (`test/host/fake_device.cpp`): accepts the LIVE commands through the shared parser and adds
++   `!NMEA <sentence>` (fed byte by byte to the real NmeaParser; epochs go to `Logger::onEpoch` and to `ep`),
++   `!START [WALK|VEHICLE|UNKNOWN]`, `!STOP` and `!MARK`, printing the `# REC ...`, `# STOPPED - saved` and
++   `# EVENT n marked|(NO POSITION)` lines main.cpp prints. Like main.cpp it refuses DUMP, LIST and CHECK while
++   recording, and it runs the epoch commit timeout, the gap filler, STATUS records and the delete-request expiry on the
++   host clock. Unchanged: `# fake device ready` first, `!BUTTON_LONG`, `!QUIT`, and HELLO with its own board and
++   firmware strings (`HOST-FAKE-DEVICE`, `0.1.0-host`).
++8. **Tests**: new C++ host tests in `test/host/test_core.cpp` (see below) and a new end-to-end test of the fake
++   device, `test/host/test_fake_device_live.py` (Python standard library only).
++9. **`test/host/run_host_tests.sh`**: optional `WFG_SAMPLES_DIR` (default unchanged: `../phone_export/samples`),
++   `python3 -B` so no `__pycache__` is written next to the sources, and it runs the new LIVE test.
++10. **README**: protocol section with the LIVE commands, defaults, line formats and drop rule; version; BL pin 13.
++
++## Verified on the host (simulated, no hardware)
++
++Evidence: `build_evidence/host_tests_0.3.0.log`, `build_evidence/pio_build_summary_0.3.0.txt`,
++`build_evidence/pio_run_all_envs_0.3.0.log`.
++
++- C++ host tests (`run_host_tests.sh` flags: g++ 13.3, `-Wall -Wextra`, AddressSanitizer + UBSan): **868 checks
++  passed, 0 failed, 0 compiler warnings**. New for 0.3.0:
++  - every line format as exact strings: the spec's `ep` example byte for byte, an all-null `ep`, south/west
++    coordinates, negative altitude, rounding to one decimal, 7-decimal coordinates from the e7 integers, course 359.95
++    -> 0.0, `rec` (CRC hex with a leading zero kept), `st`, `ev`, `ss`, `se` (also with `"er":null`), `drop`, `#N`;
++  - `ep` built from real NMEA sentences through the parser (fix, no fix, time without date);
++  - the 320-byte limit: the longest possible line of each type (ep 250 bytes, rec 183, #N 104), a too-small buffer
++    never gives a cut line, a line that cannot be sent is counted as dropped;
++  - default off (nothing written, the sink is not even asked for space), NMEA only while LIVE is on, LIVE OFF keeps
++    the NMEA setting;
++  - the drop counter with a sink of limited space: lines dropped, a line that fits without its drop line dropped too,
++    then one `drop` line with the right count followed by the line, then normal lines; a buffer that fills; a failing
++    write; LIVE OFF clearing the count;
++  - command replies, whitespace, case, and lines that are not LIVE commands;
++  - the record observer on the logging core: the observed records equal the session file byte for byte, seq 0..n-1,
++    file size after each write, also when storage runs out (END observed, `se` with STORAGE_FULL) and on a hard short
++    write (END observed, or `"er":null` if the file had to stay open); the file is byte-identical with and without the
++    observer; `ss`/`se` pairing including a missed end check;
++  - the raw NMEA collector (CR/LF, noise before `$`, 100 characters pass and 101 do not, control and non-ASCII bytes,
++    a sentence cut short by the next `$`) and the transmit queue estimate.
++- The sample sessions written by the tests are byte-identical to the 0.2.0 samples in `../phone_export/samples` (the
++  tests wrote into a copy; the package folder was not written to).
++- `../phone_export/tests/test_usb_export.py` against the 0.3.0 fake device: **31 passed, 0 failed**.
++- `test/host/test_fake_device_live.py`: **50 passed, 0 failed** (and 3 more runs, all passed): default off, LIVE
++  commands while idle and while recording, `ep` keys in order and values, `#N` equal to the sentences sent, start
++  (`rec` for START, CLOCK and STATUS, then `st`, `ss`, `# REC ...`), fixes while recording (`ep` before its row),
++  mark, DUMP/LIST/CHECK refused while recording, gap-filler rows, stop (`rec` END, `se` with the record count,
++  `# STOPPED - saved`), the `rec` lines rebuilding the session file byte for byte with correct `b`, `seq`, `crc` and
++  `ty`, idle `st` every 10 s, silence after LIVE OFF, every line ASCII and at most 320 bytes.
++- clang++ 18 without sanitizers (its ASan runtime is not installed in this workspace): 868 passed. One clang warning,
++  in 0.2.0 code that was not touched: `wfg_logger.h` private field `start_written_utc_` is not used.
++- PlatformIO (Core 6.2.0, espressif32 6.9.0, Arduino-ESP32 2.0.17), clean build of all five environments
++  (tracker_v11, tracker_v2, tracker_v10, generic_esp32s3, fallback_fb2e): **all SUCCESS, 0 warnings**. LovyanGFX 1.2.7
++  came from the local PlatformIO cache of the 0.2.0 build; nothing was downloaded. The `.pio` workspace was outside the
++  package. Symbols in the ELF files confirm the per-class code: `HardwareSerial::setTxBufferSize` and the estimate in
++  fallback_fb2e, `HWCDC::setTxBufferSize` in the ESP32-S3 builds. Static RAM grew by 544 to 592 bytes per env; the
++  4096-byte transmit buffer comes from the heap at `Serial.begin()`.
++
++## NOT verified on hardware
++
++Nothing in 0.3.0 has been flashed or run on a board. Still open:
++
++- **The 10-minute check of DEMO_SPEC section 5**: 10 minutes of recording with `LIVE ON` and `LIVE NMEA ON` must give
++  no missing `seq`, no `drop` lines, and a FIX or NOFIX row at least every 1.6 s of `mono_ms` (every second once the
++  receiver gives time; the gap filler writes one every 1.5 s before that). Not done.
++- **The serial-open measurement of DEMO_SPEC section 5**: whether opening, closing, unplugging or reconnecting the
++  port resets the FireBeetle, pyserial's default open compared with `dtr` and `rts` set to False before `open()`,
++  while it records (a reset shows as a new session with AUTO_RESUMED_AFTER_RESET). Not done; 0.3.0 does not change
++  anything here.
++- The transmit buffer on the real UART: that the 4096-byte ring buffer is allocated, that the estimate's constants
++  give no drops at the real load, and how long `Serial.flush()` (unchanged, after every protocol reply) waits when
++  LIVE lines are queued: at most until the buffer is empty, about 0.36 s for a full 4096 bytes at 115200 baud and
++  usually much less. Meanwhile GNSS bytes wait in Serial1's 4096-byte receive buffer, so none are lost, but sentences
++  read after the wait get a later receive time. The 10-minute check covers this if it runs with the desktop app polling
++  STATUS as it will in use.
++- The backlight on IO13: that the screen turns off after 30 s and on with a press.
++- The ESP32-S3 builds (HWCDC): compiled only.
++
++Suggested way to run the 10-minute check (the desktop app's device log can replace the terminal):
++
++1. In this folder: `pio run -e fallback_fb2e -t upload --upload-port /dev/cu.usbserial-XXXX`. `HELLO` must answer
++   `fw=0.3.0`.
++2. With a terminal that saves every line to a file, send `LIVE ON` and `LIVE NMEA ON`, start a recording with a
++   2.5 s hold, wait 10 minutes (outdoors for FIX rows), stop with a 2.5 s hold, send `LIVE OFF`.
++3. In the saved lines: the session's `rec` lines have `seq` 0, 1, 2, ... without a gap, the last one has `ty` 6 and the
++   `se` line's `n` equals their count; there is no `drop` line; between consecutive rows of `ty` 2 or 3 the `mono_ms`
++   (bytes 8..11 of `hx`, little-endian) never grows by more than 1600.
++4. Pull the session as usual (`DUMP`, or `usb_export.py dump`) and compare it with the `hx` of the `rec` lines put
++   together: they must be the same bytes.
++
++## Notes
++
++- LIVE is off after every reset, so an auto-resumed session has no `ss` line; the `ep` lines show its session number
++  after `LIVE ON`, and its `se` comes when it ends.
++- LIVE stays on until `LIVE OFF` or a reset. Closing the port or pulling the cable does not turn it off, so after a
++  reconnect `#J` lines can arrive before the app sends `LIVE ON` again (which is harmless: `OK LIVE ON` again).
++- Kept from 0.2.0 so replies stay byte-identical: while recording, `DUMP <name>` is refused with
++  `ERR DUMP  recording-active (stop recording first)` with two spaces after DUMP (main.cpp prints the first five
++  characters of the line). Hosts should match `ERR DUMP` as a prefix.
++- `#N` forwards each sentence exactly as received, also with a bad checksum; the parser still checks checksums for
++  the logging. Sentences longer than 100 characters or with bytes outside printable ASCII are not forwarded.
++- `utc` in `ep` uses the same formatter as the CSV column `gnss_utc`, and `la`/`lo` the same as the CSV `lat`/`lon`.
++- For the desktop app's tests (DEMO_SPEC section 3C and test 14): the 0.3.0 fake device answers `LIVE ON` with
++  `OK LIVE ON` and can record (`!START`), so it serves the LIVE-mode tests. The basic-mode tests, which expect
++  `ERR LIVE unknown-command` and a device that never records, need the fake device built from `../firmware/` (0.2.0).
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/README.md firmware_v0_3_0_live/README.md
+--- firmware/README.md	2026-10-03 09:21:08.072604000 +0800
++++ firmware_v0_3_0_live/README.md	2026-10-08 19:01:34.025667000 +0800
+@@ -1,5 +1,10 @@
+ # WildfireGuardian field route logger: firmware
+ 
++**Firmware 0.3.0** (folder `firmware_v0_3_0_live/`, 2026-10-08): firmware 0.2.0 plus an optional stream of LIVE lines
++over USB (section "LIVE lines (0.3.0)" below), and the FireBeetle display backlight on IO13. Record format unchanged
++(version 2). What changed, what is verified and what is not: `CHANGES_0.3.0.md`; full source diff:
++`firmware_0.2.0_to_0.3.0.diff`. Firmware 0.2.0 stays unchanged in `../firmware/`.
++
+ Firmware lane output, written 2026-10-03 (Asia/Shanghai), revised the same night for review rows R3, R4, R7, R8,
+ R10, R19, R23, R24 (firmware 0.2.0, record format version 2; format 1 files are still read). Records travelled routes (GNSS positions, not audio or
+ video) to the board's internal flash, with no phone needed while recording. Export is over USB serial (mandatory
+@@ -9,11 +14,14 @@
+ 
+ | What | Status | Evidence |
+ |---|---|---|
+-| Firmware compile, 5 environments (tracker_v2, tracker_v11, tracker_v10, generic_esp32s3, fallback_fb2e) | PASS, 0 compiler warnings | `build_evidence/pio_build_summary.txt`, `build_evidence/pio_run_all_envs.log` |
+-| Host unit tests, C++ core (record codec, CRC, SHA-256, NMEA parser, session logger, torn-tail recovery, storage-full, export confirmation, button decoder, USB protocol, 150 sessions with recovery past #64, auto-resume decision + attribution, STATUS records, reading format v1 files) | 592 checks passed, 0 failed (built with AddressSanitizer + UBSan) | `build_evidence/host_tests.log` |
+-| Python host tests (usb_export.py byte-identical to firmware converters incl. an auto-resumed session, format v1 file still decodes, integrity checker, end-to-end USB protocol through a pseudo-terminal with the real C++ protocol code) | 31 passed, 0 failed | same log |
+-| Headless Chromium tests (viewer.html stats incl. battery STATUS and old v1 CSVs; device page JS SHA-256 + CRC check and confirm flow against a mock HTTP device) | 23 passed, 0 failed | `../phone_export/tests/test_pages_browser.py`, screenshots in `../phone_export/samples/screenshots/` |
+-| Flashing, GNSS reception, TFT, button, battery, Wi-Fi on a real phone | NOT DONE. No hardware here. | See "Physical tests still required" |
++| Firmware 0.3.0 compile, 5 environments (tracker_v2, tracker_v11, tracker_v10, generic_esp32s3, fallback_fb2e) | PASS, 0 compiler warnings (clean build) | `build_evidence/pio_build_summary_0.3.0.txt`, `build_evidence/pio_run_all_envs_0.3.0.log` |
++| Host unit tests, C++ core (record codec, CRC, SHA-256, NMEA parser, session logger, torn-tail recovery, storage-full, export confirmation, button decoder, USB protocol, 150 sessions with recovery past #64, auto-resume decision + attribution, STATUS records, reading format v1 files; 0.3.0: every LIVE line format, the 320-byte limit, default off, NMEA only with LIVE on, the drop counter, LIVE commands, the record observer, ss/se pairing, the raw NMEA collector, the TX queue estimate) | 868 checks passed, 0 failed (built with AddressSanitizer + UBSan, 0 warnings) | `build_evidence/host_tests_0.3.0.log` |
++| Python host tests (usb_export.py byte-identical to firmware converters incl. an auto-resumed session, format v1 file still decodes, integrity checker, end-to-end USB protocol through a pseudo-terminal with the real C++ protocol code, run against the 0.3.0 fake device) | 31 passed, 0 failed | same log |
++| LIVE lines end to end through the host fake device on a pseudo-terminal (`test/host/test_fake_device_live.py`: default off, LIVE commands, `ep`, `#N`, start, mark, stop, `rec` lines rebuilding the session file byte for byte, `ss`/`se`/`st`/`ev`) | 50 passed, 0 failed | same log |
++| Headless Chromium tests (viewer.html stats incl. battery STATUS and old v1 CSVs; device page JS SHA-256 + CRC check and confirm flow against a mock HTTP device) | Not re-run for 0.3.0 (the pages are unchanged); 0.2.0 result: 23 passed, 0 failed | `../phone_export/tests/test_pages_browser.py`, screenshots in `../phone_export/samples/screenshots/` |
++| Flashing, GNSS reception, TFT, button, battery, Wi-Fi on a real phone; LIVE lines on the board (10-minute check) and the serial-open measurement | NOT DONE. No hardware here. | See "Physical tests still required" and `CHANGES_0.3.0.md` |
++
++The 0.2.0 evidence files stay in `../firmware/build_evidence/`.
+ 
+ "Host/simulated" means the hardware-independent code ran on Linux against a simulated filesystem and synthetic NMEA.
+ It does not prove the ESP32 LittleFS driver, the UC6580 output, the panel or the phone behave as assumed.
+@@ -34,6 +42,12 @@
+ build flag. The logging core in `lib/wfg_core/` contains no pin numbers and no Arduino calls; a new board needs only a
+ new header plus a `[env:...]` block.
+ 
++FireBeetle (`fallback_fb2e`, the board being assembled): wiring as in
++`../CAD_v2_firebeetle/instructions/PRINT_AND_ASSEMBLY_EN_ZH.md`. Since 0.3.0 the firmware drives the display backlight
++on IO13 (`WFG_PIN_TFT_BL 13`, display BLK on D7). Never wire BLK to D13 (IO12): the module pulls BLK up through 10 k,
++and IO12 high at boot selects 1.8 V flash, so the ESP32 does not start. With 0.2.0 (BL on 12) a BLK wired to D7 simply
++stays on through the module's pull-up.
++
+ ## Pin map (Heltec Wireless Tracker)
+ 
+ | Function | V2 (primary) | V1.1 | V1.0 | Sources |
+@@ -151,12 +165,12 @@
+ 
+ ## Partitions (8 MB)
+ 
+-`partitions.csv` (decoded from the built `partitions.bin` in `build_evidence/`):
++`partitions.csv` (decoded from the built `partitions.bin`, see `build_evidence/pio_build_summary_0.3.0.txt`):
+ 
+ | Name | Type | Offset | Size |
+ |---|---|---|---|
+ | nvs | data/nvs | 0x9000 | 20 KB (stores movement mode only) |
+-| factory | app | 0x10000 | 1536 KB (firmware uses 958 KB, 61 %) |
++| factory | app | 0x10000 | 1536 KB (0.3.0 firmware for tracker_v2 uses 968,789 bytes, 61.6 %) |
+ | spiffs (LittleFS) | data/spiffs | 0x190000 | 6592 KB |
+ 
+ No OTA slot and no otadata: flashing is over USB only, so the space goes to LittleFS. The partition label stays
+@@ -245,8 +259,8 @@
+ #    espressif32@6.9.0 platform in platformio.ini still fixes the toolchain) and `pip install pyserial` in the venv.
+ 
+ # 2. Build (first build downloads about 1 GB; in mainland China this can be slow, retry if it times out)
+-cd firmware
+-pio run -e tracker_v2            # or tracker_v11 if a V1.1 board arrived
++cd firmware_v0_3_0_live
++pio run -e tracker_v2            # or tracker_v11 if a V1.1 board arrived; FireBeetle: fallback_fb2e
+ 
+ # 3. Connect the board with a USB-C DATA cable, find the port
+ ls /dev/cu.usbmodem*             # native USB of the ESP32-S3, e.g. /dev/cu.usbmodem1101
+@@ -261,11 +275,14 @@
+ pio device monitor -p /dev/cu.usbmodem1101 -b 115200     # type HELLO and press Enter
+ ```
+ 
+-The FireBeetle fallback uses a USB-UART bridge; its port is `/dev/cu.usbserial-*` or `/dev/cu.wchusbserial*`.
++The FireBeetle fallback uses a USB-UART bridge; its port is `/dev/cu.usbserial-*` or `/dev/cu.wchusbserial*`. Flash it
++with `pio run -e fallback_fb2e -t upload --upload-port /dev/cu.usbserial-XXXX` from this folder.
+ 
+-Host tests on the Mac (Xcode command line tools provide clang++; ASan works there):
++Host tests on the Mac (Xcode command line tools provide clang++; ASan works there). The script regenerates the sample
++sessions in `../phone_export/samples` as in 0.2.0 (same bytes); to leave that folder alone, set `WFG_SAMPLES_DIR` to a
++copy of it. It also runs `test/host/test_fake_device_live.py` (Python standard library only).
+ ```bash
+-CXX=clang++ bash firmware/test/host/run_host_tests.sh
++CXX=clang++ bash firmware_v0_3_0_live/test/host/run_host_tests.sh
+ pip install playwright && python3 -m playwright install chromium   # optional, inside the venv
+ python3 phone_export/tests/test_pages_browser.py
+ ```
+@@ -292,9 +309,82 @@
+ ## USB protocol (115200, line based)
+ 
+ `HELLO`, `STATUS`, `LIST`, `CHECK <name>`, `DUMP <name>`, `CONFIRM <name> <sha256>`, `DELETE <name> <sha256>`,
+-plus `VBAT`, `CALVBAT <mV>|RESET` (battery calibration) and `FORMAT ERASE-ALL-SESSIONS`.
+-Full description in `lib/wfg_core/src/wfg_proto.h`. Lines starting with `#` are log lines. DUMP, LIST and CHECK are
+-refused while recording, so a transfer can never starve the GNSS UART. Host tool: `../phone_export/usb_export.py`.
++plus `VBAT`, `CALVBAT <mV>|RESET` (battery calibration), `FORMAT ERASE-ALL-SESSIONS` and, since 0.3.0, the four LIVE
++commands below. Full description in `lib/wfg_core/src/wfg_proto.h` and `lib/wfg_core/src/wfg_live.h`. Lines starting
++with `#` are log lines, and tools ignore lines that start with `#` (`usb_export.py` skips them). DUMP, LIST and CHECK
++are refused while recording, so a transfer can never starve the GNSS UART. Host tool: `../phone_export/usb_export.py`.
++
++### LIVE lines (0.3.0)
++
++An optional stream of `#` lines that lets a laptop follow the device while it records (DEMO_SPEC section 5). It is
++off after every boot, so `usb_export.py`, the phone page and every tool that never sends `LIVE ON` see exactly the
++0.2.0 behaviour.
++
++| Command | Reply | Effect |
++|---|---|---|
++| `LIVE ON` | `OK LIVE ON` | start the LIVE lines |
++| `LIVE OFF` | `OK LIVE OFF` | stop all LIVE lines (the NMEA setting is kept for the next `LIVE ON`) |
++| `LIVE NMEA ON` | `OK LIVE NMEA ON` | also send raw NMEA (`#N`) whenever LIVE is on |
++| `LIVE NMEA OFF` | `OK LIVE NMEA OFF` | no `#N` lines |
++| `LIVE` with anything else | `ERR LIVE bad-argument` | nothing changes |
++
++Defaults after boot: LIVE OFF, NMEA OFF. The commands work while recording (they are not refused like DUMP). With a
++filesystem that cannot be mounted they answer `ERR FS not-mounted`, like every command except `VBAT`, `CALVBAT` and
++`FORMAT ERASE-ALL-SESSIONS`. Words are separated by spaces as in the other commands and are case-sensitive.
++
++Line formats: one line each, ASCII, at most 320 bytes including the `\n`, keys always in this order (values here are
++examples):
++
++```
++#J {"v":1,"t":"ep","ms":741230,"utc":"2026-10-14T08:16:47.000Z","fix":1,"q":1,"ft":"3D","su":11,"hd":0.9,"la":31.2092653,"lo":121.4389532,"al":12.4,"sp":0.08,"co":343.0,"nr":null,"rs":"RECORDING","ss":14,"md":"WALK"}
++#J {"v":1,"t":"rec","seq":701,"ty":2,"b":33696,"crc":"1d9ebe10","hx":"<the 48 record bytes as 96 lowercase hex digits>"}
++#J {"v":1,"t":"st","vb":3912,"ff":2310144}
++#J {"v":1,"t":"ev","n":3,"loc":1}
++#J {"v":1,"t":"ss","ss":14,"md":"WALK","sr":"OWNER_BUTTON"}
++#J {"v":1,"t":"se","ss":14,"er":"USER_STOP","n":993}
++#J {"v":1,"t":"drop","n":3}
++#N $GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,*4F
++```
++
++| Line | When | Fields |
++|---|---|---|
++| `ep` | every GNSS epoch, idle or recording, just before the logger turns it into a row | `ms` receive time (mono_ms) of the epoch's first sentence; `utc` ISO 8601 with milliseconds and `Z` when the receiver gave both time and date, else null (same text as the CSV `gnss_utc`); `fix` 1 if the epoch has a position, else 0; `q` GGA quality or null; `ft` GSA fix type `NONE`, `2D` or `3D`, or null; `su` satellites used or null; `hd` HDOP with 1 decimal or null; `la`, `lo` degrees with 7 decimals written straight from the stored e7 integers (no floating point), or null; `al` altitude above mean sea level in m with 1 decimal, or null; `sp` speed in m/s with 2 decimals or null; `co` course in degrees with 1 decimal (360.0 is written 0.0) or null; `nr` null with a fix, else `RECEIVER_NO_FIX`, the reason of the NOFIX row the logger writes for such an epoch; `rs` the protocol state `IDLE`, `RECORDING`, `FULL` or `ERROR`; `ss` session number while recording, else null; `md` current movement mode |
++| `rec` | after every record written to the session file, any type (also the SESSION_END written when storage runs out) | `seq` the record's seq; `ty` record type (byte 2); `b` file size in bytes after the write; `crc` the record's CRC-32 (the u32 at bytes 44..47) as 8 lowercase hex digits; `hx` the 48 bytes as written |
++| `st` | with every STATUS record while recording (values from that record), and every 10 s while not recording | `vb` battery mV, null when the reading is not valid (`ST_BATT_VALID`: 2500 to 4500 mV); `ff` free bytes of the session filesystem, null if it is not mounted |
++| `ev` | after a button mark was written | `n` event number; `loc` 1 if the mark has a position, else 0 |
++| `ss` | after a session started (owner hold, or auto-resume after a reset) | `ss` session number; `md` movement mode; `sr` `OWNER_BUTTON` or `AUTO_RESUMED_AFTER_RESET` |
++| `se` | once, when that session ended (owner stop, low battery, storage full, also when the logger stops by itself) | `ss`; `er` the end reason in the SESSION_END record, or null if that record could not be written (the next boot then closes the file as RECOVERED_ON_BOOT); `n` records in the file including the SESSION_END record |
++| `drop` | before the first line written after lines were dropped | `n` lines not sent |
++| `#N` | each raw sentence while LIVE and LIVE NMEA are both on | the sentence from `$` up to CR/LF exactly as received, also with a bad checksum; a sentence longer than 100 characters or with bytes outside printable ASCII is not forwarded |
++
++Numbers with one decimal are rounded half away from zero from the stored hundredths. The firmware does not parse GSV:
++satellites with signal have to be counted from the `$..GSV` sentences in the `#N` lines.
++
++Order: for one epoch, the `#N` lines of its sentences, then `ep`, then the `rec` lines of the rows it produced. A start
++gives the `rec` lines of SESSION_START, CLOCK (when UTC is already known) and STATUS, then `st`, then `ss`, then the
++usual `# REC ...` line. A mark gives `rec` (EVENT), `ev`, `# EVENT ...`. A stop gives `rec` (SESSION_END), `se`,
++`# STOPPED - saved`. LIVE is off after a reset, so an auto-resumed session has no `ss` line; its `ep` lines carry the
++session number once `LIVE ON` is sent, and its `se` comes when it ends.
++
++Drop rule: LIVE lines never wait for the USB link. A line is written only when the free space in the serial transmit
++buffer covers the whole line; otherwise it is dropped and counted. After a drop, the next line is written only if a
++`drop` line and that line both fit; the `drop` line then goes first and the count starts again at 0, so every gap is
++reported where it happened. If they do not both fit, that line is dropped and counted too. `LIVE OFF` clears the count.
++
++Transmit buffer: `Serial.setTxBufferSize(4096)` before `Serial.begin()`. On the classic ESP32 the UART otherwise has
++only its 128-byte FIFO, and `availableForWrite()` reports just that FIFO, so nearly every line would be dropped. In
++Arduino-ESP32 2.0.17 `availableForWrite()` of the UART also does not count writes that are still queued (it subtracts
++only the unsent part of the write in progress), so on the FireBeetle the firmware keeps its own estimate of the LIVE
++bytes in the queue (at most 3072 bytes, 32 bytes counted per write, drained at 5760 bytes/s, half the 115200-baud line
++rate) and uses the smaller of the two values. On the ESP32-S3 builds (USB-Serial-JTAG) `availableForWrite()` is exact
++and LIVE leaves 512 bytes of the 4096-byte buffer free for replies and `#` messages.
++
++Bandwidth: with LIVE and NMEA on at 1 Hz the stream is about 1.5 kB/s (NMEA at 9600 baud is at most 960 bytes/s;
++an `ep` line is about 250 bytes, a `rec` line 183), well below the 11.5 kB/s of the 115200-baud link.
++
++Testing without the board: the host fake device (`test/host/fake_device.cpp`) runs the same LIVE code. Besides the
++protocol commands it accepts `!NMEA <sentence>`, `!START [WALK|VEHICLE|UNKNOWN]`, `!STOP`, `!MARK`, `!BUTTON_LONG`
++and `!QUIT`, and prints the `#` lines main.cpp prints for start, stop and marks.
+ 
+ ## Files
+ 
+@@ -302,14 +392,18 @@
+ platformio.ini, partitions.csv, partitions_4MB.csv, boards/heltec_wireless_tracker_wfg.json
+ include/board.h + one board_*.h per board/revision
+ lib/wfg_core/src/   wfg_record (48-byte records, CRC-32), wfg_nmea (parser), wfg_logger (sessions, recovery,
+-                    storage-full, export confirmation, delete guard), wfg_export (CSV/GPX/GeoJSON), wfg_sha256,
+-                    wfg_button (gesture decoder), wfg_proto (USB protocol), wfg_storage (POSIX/LittleFS VFS),
+-                    wfg_resume (auto-resume decision)
+-src/main.cpp        hardware glue: power rails, UART, button, battery, screen timeout, USB, Wi-Fi mode
++                    storage-full, export confirmation, delete guard, record observer), wfg_export (CSV/GPX/GeoJSON),
++                    wfg_sha256, wfg_button (gesture decoder), wfg_proto (USB protocol), wfg_storage (POSIX/LittleFS
++                    VFS), wfg_resume (auto-resume decision), wfg_live (0.3.0: LIVE commands, line formats, drop rule,
++                    raw NMEA collector, TX queue estimate)
++src/main.cpp        hardware glue: power rails, UART, button, battery, screen timeout, USB, Wi-Fi mode, LIVE lines
+ src/display.*       status screen (LovyanGFX)
+ src/web_export.*    SoftAP + HTTP API + streaming downloads; src/web_page.h generated from web/device_page.html
+-test/host/          test_core.cpp (C++ unit tests), fake_device.cpp (USB protocol over stdio), run_host_tests.sh
+-build_evidence/     compile logs, firmware sizes and hashes, decoded partition table, host test log
++test/host/          test_core.cpp (C++ unit tests), fake_device.cpp (USB protocol and LIVE lines over stdio, with
++                    !NMEA/!START/!STOP/!MARK), test_fake_device_live.py (LIVE end to end), run_host_tests.sh
++build_evidence/     0.3.0 compile logs, firmware sizes and hashes, decoded partition tables, host test log
++CHANGES_0.3.0.md    what changed in 0.3.0, what is verified, what still needs the board
++firmware_0.2.0_to_0.3.0.diff   unified diff of the source tree against ../firmware/ (build_evidence excluded)
+ DATA_SCHEMA_draft.md
+ ```
+ 
+@@ -340,6 +434,12 @@
+ 12. Wi-Fi: `esp_random()` is a true RNG only with the radio on; the credentials are generated after
+     `WiFi.mode(WIFI_AP)` for that reason (per ESP-IDF docs, not measured).
+ 13. FireBeetle fallback: every GDI and UART pin, GNSS baud (9600 assumed), ST7789 controller, battery ADC pin.
++    Backlight on IO13 (0.3.0): that the screen turns off and on with it.
++14. LIVE lines (0.3.0) on the board: the 10-minute check of DEMO_SPEC section 5 (no missing `seq`, no `drop` lines,
++    a FIX or NOFIX row at least every 1.6 s of `mono_ms`), the transmit buffer estimate and the time `Serial.flush()`
++    waits after replies while LIVE lines are queued. Details in `CHANGES_0.3.0.md`.
++15. Whether opening, closing, unplugging or reconnecting the serial port resets the FireBeetle (DEMO_SPEC section 5,
++    serial-open measurement). 0.3.0 does not change this behaviour.
+ 
+ ## Physical tests still required (none could be done here)
+ 
+@@ -347,3 +447,5 @@
+ time; walking session 15 min with event marks; vehicle session; pull the battery mid-recording then check
+ RECOVERED; fill test (temporarily set a large `reserve_bytes` to reach FULL quickly); USB export on the Mac; Wi-Fi
+ export on the owner's phone; battery runtime from full to stop with a USB power meter or periodic voltage log.
++For 0.3.0 also: 10 minutes of recording with `LIVE ON` and `LIVE NMEA ON` (no missing `seq`, no `drop` lines), and the
++serial-open measurement of DEMO_SPEC section 5 (see `CHANGES_0.3.0.md`).
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/include/board.h firmware_v0_3_0_live/include/board.h
+--- firmware/include/board.h	2026-10-03 09:12:14.622176000 +0800
++++ firmware_v0_3_0_live/include/board.h	2026-10-08 18:28:18.951396000 +0800
+@@ -39,5 +39,5 @@
+ #define WFG_LOW_BATT_MV 3400
+ #endif
+ 
+-#define WFG_FW_VERSION 2           // bump when record semantics change (also bump WFG_FORMAT_VERSION if layout changes)
+-#define WFG_FW_VERSION_STR "0.2.0"
++#define WFG_FW_VERSION 3           // bump when record semantics change (also bump WFG_FORMAT_VERSION if layout changes)
++#define WFG_FW_VERSION_STR "0.3.0" // 0.3.0: LIVE lines over USB; record format unchanged (WFG_FORMAT_VERSION 2)
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/include/board_firebeetle2_esp32e_tel0157.h firmware_v0_3_0_live/include/board_firebeetle2_esp32e_tel0157.h
+--- firmware/include/board_firebeetle2_esp32e_tel0157.h	2026-10-03 04:21:50.454699000 +0800
++++ firmware_v0_3_0_live/include/board_firebeetle2_esp32e_tel0157.h	2026-10-08 18:28:21.230806000 +0800
+@@ -33,7 +33,9 @@
+ #define WFG_PIN_TFT_DC 25           // UNVERIFIED (GDI DC, D2?)
+ #define WFG_PIN_TFT_CS 14           // UNVERIFIED (GDI CS, D6?)
+ #define WFG_PIN_TFT_RST 26          // UNVERIFIED (GDI RES, D3?)
+-#define WFG_PIN_TFT_BL 12           // UNVERIFIED (GDI BLK, D13?)
++#define WFG_PIN_TFT_BL 13           // display BLK on D7 = IO13, as in CAD_v2_firebeetle's assembly guide. Never IO12
++                                    // (D13): the module pulls BLK up through 10 k, and IO12 high at boot selects
++                                    // 1.8 V flash, so the ESP32 does not start. UNVERIFIED on the delivered board.
+ #define WFG_TFT_BL_ON_LEVEL 1
+ #define WFG_TFT_WIDTH 240
+ #define WFG_TFT_HEIGHT 240
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/lib/wfg_core/src/wfg_live.cpp firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.cpp
+--- firmware/lib/wfg_core/src/wfg_live.cpp	1970-01-01 08:00:00.000000000 +0800
++++ firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.cpp	2026-10-08 18:27:14.471508000 +0800
+@@ -0,0 +1,360 @@
++#include "wfg_live.h"
++#include "wfg_proto.h"  // state_name()
++#include <stdio.h>
++#include <string.h>
++
++namespace wfg {
++
++// ---------------------------------------------------------------- helpers
++static bool is_space(char c) { return c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\v' || c == '\f'; }
++
++struct Tok {
++  const char* p;
++  size_t n;
++};
++// Splits on whitespace like the protocol's sscanf("%s"). Fills at most max tokens, returns the total count.
++static int split_tokens(const char* s, Tok* t, int max) {
++  int k = 0;
++  while (*s) {
++    while (*s && is_space(*s)) s++;
++    if (!*s) break;
++    const char* b = s;
++    while (*s && !is_space(*s)) s++;
++    if (k < max) { t[k].p = b; t[k].n = (size_t)(s - b); }
++    k++;
++  }
++  return k;
++}
++static bool tok_is(const Tok& t, const char* w) {
++  size_t n = strlen(w);
++  return t.n == n && memcmp(t.p, w, n) == 0;
++}
++
++// snprintf result -> line length, or 0 (and an empty buffer) if it failed, was cut or is longer than kLiveMaxLine.
++static size_t finish(char* buf, int n, size_t cap) {
++  if (n <= 0 || (size_t)n >= cap || (size_t)n > kLiveMaxLine) {
++    if (cap) buf[0] = 0;
++    return 0;
++  }
++  return (size_t)n;
++}
++
++// Hundredths -> one decimal, rounded half away from zero ("-0.0" is written as "0.0").
++static void fmt_tenths_from_centi(char* o, size_t n, int64_t centi) {
++  bool neg = centi < 0;
++  uint64_t a = neg ? (uint64_t)(-(centi + 1)) + 1u : (uint64_t)centi;
++  uint64_t t = (a + 5u) / 10u;
++  if (t == 0) neg = false;
++  snprintf(o, n, "%s%llu.%llu", neg ? "-" : "", (unsigned long long)(t / 10u), (unsigned long long)(t % 10u));
++}
++
++// Course in 0.01 degree -> degrees with one decimal, rounded; 360.0 is written as 0.0.
++static void fmt_course(char* o, size_t n, uint16_t cdeg) {
++  uint32_t t = ((uint32_t)cdeg + 5u) / 10u;
++  if (t == 3600u) t = 0;
++  snprintf(o, n, "%u.%u", (unsigned)(t / 10u), (unsigned)(t % 10u));
++}
++
++static const char* fix_type_name(uint8_t ft) {
++  switch (ft) {
++    case 1: return "NONE";
++    case 2: return "2D";
++    case 3: return "3D";
++    default: return nullptr;
++  }
++}
++
++// ---------------------------------------------------------------- formatters
++size_t Live::fmtEpoch(char* buf, size_t cap, const GnssEpoch& e, uint8_t logger_state, int32_t session_no,
++                      uint8_t mode) {
++  char utc[48] = "null", q[8] = "null", ft[8] = "null", su[8] = "null", hd[32] = "null";
++  char la[24] = "null", lo[24] = "null", al[32] = "null", sp[32] = "null", co[16] = "null";
++  char nr[24] = "null", ss[16] = "null";
++  if (e.has_time && e.has_date) {
++    char t[40];
++    fmt_iso(e.utc_date, e.utc_ms_of_day, t);
++    snprintf(utc, sizeof(utc), "\"%s\"", t);
++  }
++  if (e.has_gga && e.gga_quality != 0xFF) snprintf(q, sizeof(q), "%u", (unsigned)e.gga_quality);
++  const char* ftn = e.has_gsa ? fix_type_name(e.fix_type) : nullptr;
++  if (ftn) snprintf(ft, sizeof(ft), "\"%s\"", ftn);
++  if (e.sats_valid) snprintf(su, sizeof(su), "%u", (unsigned)e.sats);
++  if (e.hdop_valid) fmt_tenths_from_centi(hd, sizeof(hd), e.hdop_x100);
++  if (e.pos_valid) {
++    fmt_e7(e.lat_e7, la);
++    fmt_e7(e.lon_e7, lo);
++    if (e.alt_valid) fmt_tenths_from_centi(al, sizeof(al), e.alt_cm);  // the logger stores altitude only with a fix
++  }
++  if (e.speed_valid) fmt_centi(e.speed_cmps, sp);
++  if (e.course_valid) fmt_course(co, sizeof(co), e.course_cdeg);
++  if (!e.pos_valid) snprintf(nr, sizeof(nr), "\"%s\"", nofix_reason_name(NOFIX_RECEIVER));  // as Logger::onEpoch
++  if (session_no >= 0) snprintf(ss, sizeof(ss), "%ld", (long)session_no);
++  int n = snprintf(buf, cap,
++                   "#J {\"v\":1,\"t\":\"ep\",\"ms\":%lu,\"utc\":%s,\"fix\":%d,\"q\":%s,\"ft\":%s,\"su\":%s,\"hd\":%s,"
++                   "\"la\":%s,\"lo\":%s,\"al\":%s,\"sp\":%s,\"co\":%s,\"nr\":%s,\"rs\":\"%s\",\"ss\":%s,\"md\":\"%s\"}\n",
++                   (unsigned long)e.first_mono_ms, utc, e.pos_valid ? 1 : 0, q, ft, su, hd, la, lo, al, sp, co, nr,
++                   state_name(logger_state), ss, mode_name(mode));
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtRecord(char* buf, size_t cap, const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size) {
++  static const char digits[] = "0123456789abcdef";
++  char hx[2 * WFG_RECORD_SIZE + 1];
++  for (size_t i = 0; i < WFG_RECORD_SIZE; i++) {
++    hx[2 * i] = digits[rec[i] >> 4];
++    hx[2 * i + 1] = digits[rec[i] & 15];
++  }
++  hx[2 * WFG_RECORD_SIZE] = 0;
++  // The record's CRC-32 is the u32 (little-endian) at bytes 44..47.
++  uint32_t crc = (uint32_t)rec[44] | ((uint32_t)rec[45] << 8) | ((uint32_t)rec[46] << 16) | ((uint32_t)rec[47] << 24);
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"rec\",\"seq\":%lu,\"ty\":%u,\"b\":%lu,\"crc\":\"%08lx\",\"hx\":\"%s\"}\n",
++                   (unsigned long)seq, (unsigned)rec[2], (unsigned long)file_size, (unsigned long)crc, hx);
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtStatus(char* buf, size_t cap, int32_t vbat_mv, int64_t free_bytes) {
++  char vb[16] = "null", ff[16] = "null";
++  if (vbat_mv >= 0) snprintf(vb, sizeof(vb), "%ld", (long)vbat_mv);
++  // capped at 4294967295 like the STATUS record's fs_free_bytes field
++  if (free_bytes >= 0)
++    snprintf(ff, sizeof(ff), "%lu", (unsigned long)(free_bytes > 0xFFFFFFFFLL ? 0xFFFFFFFFu : (uint32_t)free_bytes));
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"st\",\"vb\":%s,\"ff\":%s}\n", vb, ff);
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtEvent(char* buf, size_t cap, uint32_t event_no, bool located) {
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"ev\",\"n\":%lu,\"loc\":%d}\n", (unsigned long)event_no, located ? 1 : 0);
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtSessionStart(char* buf, size_t cap, uint32_t session_no, uint8_t mode, uint8_t start_reason) {
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"ss\",\"ss\":%lu,\"md\":\"%s\",\"sr\":\"%s\"}\n",
++                   (unsigned long)session_no, mode_name(mode), start_reason_name(start_reason));
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtSessionEnd(char* buf, size_t cap, uint32_t session_no, int end_reason, uint32_t n_records) {
++  char er[40] = "null";
++  if (end_reason >= 0) snprintf(er, sizeof(er), "\"%s\"", end_reason_name((uint8_t)end_reason));
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"se\",\"ss\":%lu,\"er\":%s,\"n\":%lu}\n", (unsigned long)session_no, er,
++                   (unsigned long)n_records);
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtDrop(char* buf, size_t cap, uint32_t count) {
++  int n = snprintf(buf, cap, "#J {\"v\":1,\"t\":\"drop\",\"n\":%lu}\n", (unsigned long)count);
++  return finish(buf, n, cap);
++}
++
++size_t Live::fmtNmea(char* buf, size_t cap, const char* sentence) {
++  if (!sentence) return finish(buf, 0, cap);
++  size_t len = 0;
++  for (const char* p = sentence; *p; p++, len++) {
++    uint8_t u = (uint8_t)*p;
++    if (u < 0x20 || u > 0x7E || len >= kLiveNmeaMax) return finish(buf, 0, cap);
++  }
++  if (len == 0) return finish(buf, 0, cap);
++  int n = snprintf(buf, cap, "#N %s\n", sentence);
++  return finish(buf, n, cap);
++}
++
++// ---------------------------------------------------------------- commands
++bool Live::handleCommand(const char* line, Sink& reply) {
++  if (!line) return false;
++  Tok t[4];
++  int k = split_tokens(line, t, 4);
++  if (k < 1 || !tok_is(t[0], "LIVE")) return false;
++  if (k == 2 && tok_is(t[1], "ON")) {
++    if (!on_) drops_ = 0;  // a new stream starts without an old count
++    on_ = true;
++    reply.puts("OK LIVE ON\n");
++  } else if (k == 2 && tok_is(t[1], "OFF")) {
++    on_ = false;
++    drops_ = 0;
++    reply.puts("OK LIVE OFF\n");
++  } else if (k == 3 && tok_is(t[1], "NMEA") && tok_is(t[2], "ON")) {
++    nmea_ = true;
++    reply.puts("OK LIVE NMEA ON\n");
++  } else if (k == 3 && tok_is(t[1], "NMEA") && tok_is(t[2], "OFF")) {
++    nmea_ = false;
++    reply.puts("OK LIVE NMEA OFF\n");
++  } else {
++    reply.puts("ERR LIVE bad-argument\n");
++  }
++  return true;
++}
++
++// ---------------------------------------------------------------- output with the drop rule
++void Live::countDrop() {
++  if (drops_ != 0xFFFFFFFFu) drops_++;
++  if (dropped_total_ != 0xFFFFFFFFu) dropped_total_++;
++}
++
++bool Live::emit(const char* line, size_t n) {
++  if (n == 0 || n > kLiveMaxLine) {  // cannot be formatted within the limit: never sent, so counted
++    countDrop();
++    return false;
++  }
++  size_t avail = out_.availableForWrite();
++  if (drops_) {
++    char d[48];
++    size_t dn = fmtDrop(d, sizeof(d), drops_);
++    if (dn == 0 || avail < dn || avail - dn < n) {
++      countDrop();
++      return false;
++    }
++    if (!out_.write(d, dn)) {
++      countDrop();
++      return false;
++    }
++    drops_ = 0;
++  } else if (avail < n) {
++    countDrop();
++    return false;
++  }
++  if (!out_.write(line, n)) {
++    countDrop();
++    return false;
++  }
++  if (sent_ != 0xFFFFFFFFu) sent_++;
++  return true;
++}
++
++bool Live::epoch(const GnssEpoch& e, uint8_t logger_state, int32_t session_no, uint8_t mode) {
++  if (!on_) return false;
++  size_t n = fmtEpoch(line_, sizeof(line_), e, logger_state, session_no, mode);
++  return emit(line_, n);
++}
++
++bool Live::status(int32_t vbat_mv, int64_t free_bytes) {
++  if (!on_) return false;
++  size_t n = fmtStatus(line_, sizeof(line_), vbat_mv, free_bytes);
++  return emit(line_, n);
++}
++
++bool Live::event(uint32_t event_no, bool located) {
++  if (!on_) return false;
++  size_t n = fmtEvent(line_, sizeof(line_), event_no, located);
++  return emit(line_, n);
++}
++
++bool Live::nmea(const char* sentence) {
++  if (!on_ || !nmea_) return false;
++  size_t n = fmtNmea(line_, sizeof(line_), sentence);
++  return emit(line_, n);
++}
++
++// ---------------------------------------------------------------- records and sessions
++void Live::finishSession() {
++  announced_ = false;
++  bool same = cur_valid_ && cur_no_ == announced_no_;
++  int er = same ? cur_end_reason_ : -1;
++  uint32_t n_records = same ? cur_last_seq_ + 1u : 0u;
++  if (!on_) return;
++  size_t n = fmtSessionEnd(line_, sizeof(line_), announced_no_, er, n_records);
++  emit(line_, n);
++}
++
++void Live::onRecord(const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size) {
++  Record r;
++  bool ok = decode(rec, r);
++  if (ok && r.h.type == REC_SESSION_START) {
++    if (announced_) finishSession();  // a new session file means the previous session is over
++    cur_valid_ = true;
++    cur_no_ = r.start.session_no;
++    cur_end_reason_ = -1;
++  }
++  if (cur_valid_) {
++    cur_last_seq_ = seq;
++    if (ok && r.h.type == REC_SESSION_END) cur_end_reason_ = r.end.reason;
++  }
++  if (!on_) return;
++  size_t n = fmtRecord(line_, sizeof(line_), rec, seq, file_size);
++  emit(line_, n);
++  if (ok && r.h.type == REC_STATUS) {
++    int32_t vb = ((r.st.flags & ST_BATT_VALID) && r.st.vbat_mv != 0xFFFF) ? (int32_t)r.st.vbat_mv : -1;
++    n = fmtStatus(line_, sizeof(line_), vb, (int64_t)r.st.fs_free_bytes);
++    emit(line_, n);
++  }
++}
++
++void Live::sessionStarted(uint32_t session_no, uint8_t mode, uint8_t start_reason) {
++  if (announced_) finishSession();
++  announced_ = true;
++  announced_no_ = session_no;
++  if (!on_) return;
++  size_t n = fmtSessionStart(line_, sizeof(line_), session_no, mode, start_reason);
++  emit(line_, n);
++}
++
++void Live::sessionCheck(bool recording) {
++  if (announced_ && !recording) finishSession();
++}
++
++void live_record_observer(const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size, void* ctx) {
++  if (ctx) static_cast<Live*>(ctx)->onRecord(rec, seq, file_size);
++}
++
++// ---------------------------------------------------------------- raw NMEA sentences
++bool NmeaLineCollector::feed(char c) {
++  uint8_t u = (uint8_t)c;
++  if (u == '\r' || u == '\n') {
++    bool ready = active_ && !bad_;
++    if (active_ && bad_) discarded_++;
++    buf_[len_] = 0;
++    active_ = false;
++    bad_ = false;
++    len_ = 0;
++    return ready;
++  }
++  if (u == '$') {
++    if (active_) discarded_++;  // cut short by the next sentence (no CR/LF)
++    active_ = true;
++    bad_ = false;
++    buf_[0] = '$';
++    len_ = 1;
++    return false;
++  }
++  if (!active_ || bad_) return false;
++  if (u < 0x20 || u > 0x7E || len_ >= kLiveNmeaMax) {
++    bad_ = true;
++    return false;
++  }
++  buf_[len_++] = (char)u;
++  return false;
++}
++
++// ---------------------------------------------------------------- transmit queue estimate
++void TxQueueModel::drain(uint64_t now_us) {
++  if (!have_time_) {
++    have_time_ = true;
++    last_us_ = now_us;
++    return;
++  }
++  if (now_us <= last_us_) return;
++  uint64_t dt = now_us - last_us_;
++  last_us_ = now_us;
++  if (dt >= 60000000ull) {  // a minute without writes: everything has been sent
++    queued_ub_ = 0;
++    return;
++  }
++  uint64_t d = dt * (uint64_t)rate_;  // bytes x 1e6
++  queued_ub_ = queued_ub_ > d ? queued_ub_ - d : 0;
++}
++
++uint32_t TxQueueModel::queuedBytes(uint64_t now_us) {
++  drain(now_us);
++  return (uint32_t)((queued_ub_ + 999999ull) / 1000000ull);
++}
++
++uint32_t TxQueueModel::freeBytes(uint64_t now_us) {
++  uint32_t q = queuedBytes(now_us);
++  return q >= cap_ ? 0u : cap_ - q;
++}
++
++void TxQueueModel::add(size_t n, uint64_t now_us) {
++  drain(now_us);
++  queued_ub_ += ((uint64_t)n + overhead_) * 1000000ull;
++}
++
++}  // namespace wfg
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/lib/wfg_core/src/wfg_live.h firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.h
+--- firmware/lib/wfg_core/src/wfg_live.h	1970-01-01 08:00:00.000000000 +0800
++++ firmware_v0_3_0_live/lib/wfg_core/src/wfg_live.h	2026-10-08 18:27:11.845976000 +0800
+@@ -0,0 +1,157 @@
++// LIVE lines (firmware 0.3.0): an optional output stream over the USB serial link, so a laptop can follow the
++// device while it records. Hardware independent (no Arduino headers): src/main.cpp and the host fake device
++// (test/host/fake_device.cpp) share the command parser, the line formats and the drop rule.
++//
++// Commands (host -> device), each answered with one line:
++//   LIVE ON          OK LIVE ON          start LIVE lines
++//   LIVE OFF         OK LIVE OFF         stop all LIVE lines (the NMEA setting is kept)
++//   LIVE NMEA ON     OK LIVE NMEA ON     also send raw NMEA (#N) whenever LIVE is on
++//   LIVE NMEA OFF    OK LIVE NMEA OFF
++//   LIVE <other>     ERR LIVE bad-argument
++// Default after boot: LIVE OFF and NMEA OFF, nothing is sent, so tools that do not know LIVE see no change.
++//
++// Lines (device -> host): one line each, ASCII, at most 320 bytes including the '\n'. Every line starts with '#',
++// so tools that do not know them ignore them like any other log line.
++//   #J {"v":1,"t":"ep",...}      one per GNSS epoch, idle or recording
++//   #J {"v":1,"t":"rec",...}     every record written to the session file
++//   #J {"v":1,"t":"st",...}      with every STATUS record while recording, every 10 s while idle
++//   #J {"v":1,"t":"ev",...}      button mark
++//   #J {"v":1,"t":"ss",...}      session start
++//   #J {"v":1,"t":"se",...}      session end
++//   #J {"v":1,"t":"drop","n":N}  N lines before this one were not sent
++//   #N <sentence>                raw NMEA sentence as received (only while LIVE and LIVE NMEA are both on)
++// Field by field: ../../../README.md, "LIVE lines".
++//
++// Never blocks: a line is written only when LiveSink::availableForWrite() covers the whole line. Otherwise it is
++// dropped and counted. While the count is not 0, the next line is written only if the drop line and that line both
++// fit; then the drop line goes first and the count restarts at 0. If they do not both fit, that line is dropped
++// and counted too, so every gap is reported by a drop line at the place where it happened.
++#pragma once
++#include <stdint.h>
++#include <stddef.h>
++#include "wfg_export.h"  // Sink (protocol replies)
++#include "wfg_nmea.h"    // GnssEpoch
++#include "wfg_record.h"
++
++namespace wfg {
++
++static const size_t kLiveMaxLine = 320;   // bytes per line including the '\n'
++static const size_t kLiveNmeaMax = 100;   // longest raw sentence forwarded as #N (characters, without CR/LF)
++
++// Where LIVE lines go. write() is called only with n <= availableForWrite(), so it never has to wait.
++class LiveSink {
++ public:
++  virtual ~LiveSink() {}
++  virtual size_t availableForWrite() = 0;
++  virtual bool write(const char* s, size_t n) = 0;
++};
++
++class Live {
++ public:
++  explicit Live(LiveSink& out) : out_(out) {}
++
++  // USB line. Returns true if its first word is "LIVE" (the reply has then been written to `reply`), false if the
++  // line is not a LIVE command (nothing written).
++  bool handleCommand(const char* line, Sink& reply);
++  bool on() const { return on_; }
++  bool nmeaOn() const { return nmea_; }
++
++  // Emitters. They do nothing while LIVE is off and return true if the line was written.
++  // epoch: session_no < 0 means not recording (null); mode is the current movement mode.
++  bool epoch(const GnssEpoch& e, uint8_t logger_state, int32_t session_no, uint8_t mode);
++  // status: vbat_mv < 0 or free_bytes < 0 means not known (null). Used every 10 s while idle.
++  bool status(int32_t vbat_mv, int64_t free_bytes);
++  bool event(uint32_t event_no, bool located);
++  bool nmea(const char* sentence);
++
++  // Record observer: pass live_record_observer and this object to Logger::setRecordObserver(). Emits rec for every
++  // record and st for every STATUS record. It also follows the session for se, also while LIVE is off.
++  void onRecord(const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size);
++  // Call after Logger::start() succeeded (owner start or auto-resume): emits ss. If the previous session that had an
++  // ss has not had its se yet, that se is emitted first.
++  void sessionStarted(uint32_t session_no, uint8_t mode, uint8_t start_reason);
++  // Call after anything that can end a session (stop, or a logger call that may stop by itself when storage runs
++  // out). Emits se once when the session that had an ss is no longer recording.
++  void sessionCheck(bool recording);
++
++  // Counters
++  uint32_t pendingDrops() const { return drops_; }      // lines dropped since the last drop line
++  uint32_t linesSent() const { return sent_; }          // LIVE lines written (drop lines not counted)
++  uint32_t linesDropped() const { return dropped_total_; }
++
++  // Line formatters, also used by the host tests. Each writes one complete line ("#J ...\n" or "#N ...\n") and a
++  // terminating NUL into buf and returns its length in bytes, or 0 if the line would be longer than kLiveMaxLine
++  // or does not fit into cap.
++  static size_t fmtEpoch(char* buf, size_t cap, const GnssEpoch& e, uint8_t logger_state, int32_t session_no,
++                         uint8_t mode);
++  static size_t fmtRecord(char* buf, size_t cap, const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size);
++  static size_t fmtStatus(char* buf, size_t cap, int32_t vbat_mv, int64_t free_bytes);
++  static size_t fmtEvent(char* buf, size_t cap, uint32_t event_no, bool located);
++  static size_t fmtSessionStart(char* buf, size_t cap, uint32_t session_no, uint8_t mode, uint8_t start_reason);
++  // end_reason < 0: no SESSION_END record was written (null)
++  static size_t fmtSessionEnd(char* buf, size_t cap, uint32_t session_no, int end_reason, uint32_t n_records);
++  static size_t fmtDrop(char* buf, size_t cap, uint32_t n);
++  // Only printable ASCII, at most kLiveNmeaMax characters; anything else gives 0.
++  static size_t fmtNmea(char* buf, size_t cap, const char* sentence);
++
++ private:
++  bool emit(const char* line, size_t n);
++  void countDrop();
++  void finishSession();  // se for the session that had an ss
++  LiveSink& out_;
++  bool on_ = false;
++  bool nmea_ = false;
++  uint32_t drops_ = 0;
++  uint32_t sent_ = 0;
++  uint32_t dropped_total_ = 0;
++  char line_[kLiveMaxLine + 64];
++  // session following for se
++  bool announced_ = false;     // ss given, se not yet
++  uint32_t announced_no_ = 0;
++  bool cur_valid_ = false;     // a SESSION_START record has been seen
++  uint32_t cur_no_ = 0;        // its session number
++  uint32_t cur_last_seq_ = 0;  // seq of the last record seen since then
++  int cur_end_reason_ = -1;    // reason of the SESSION_END record seen since then, -1 if none
++};
++
++// Logger record observer that forwards to Live::onRecord(); ctx is the Live object.
++void live_record_observer(const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size, void* ctx);
++
++// Collects the bytes read from the GNSS UART into sentences for #N lines. A sentence starts at '$' (a '$' always
++// starts a new one, as in NmeaParser) and ends before CR or LF. Sentences longer than kLiveNmeaMax characters or
++// with bytes outside printable ASCII are discarded, so #N lines are always clean ASCII.
++class NmeaLineCollector {
++ public:
++  // Returns true when a complete sentence is ready in line(); it stays valid until the next feed().
++  bool feed(char c);
++  const char* line() const { return buf_; }
++  uint32_t discarded() const { return discarded_; }
++
++ private:
++  char buf_[kLiveNmeaMax + 1] = {0};
++  size_t len_ = 0;
++  bool active_ = false;
++  bool bad_ = false;
++  uint32_t discarded_ = 0;
++};
++
++// Estimate of the bytes still waiting in a UART transmit queue that sends at a steady rate (no flow control).
++// Writes add their size plus a fixed per-write overhead; the queue drains at drain_bytes_per_s. src/main.cpp uses
++// it on the classic ESP32, where HardwareSerial::availableForWrite() does not count writes that are already queued.
++class TxQueueModel {
++ public:
++  TxQueueModel(uint32_t capacity, uint32_t drain_bytes_per_s, uint32_t per_write_overhead)
++      : cap_(capacity), rate_(drain_bytes_per_s), overhead_(per_write_overhead) {}
++  uint32_t freeBytes(uint64_t now_us);   // capacity minus the estimated queue, never below 0
++  uint32_t queuedBytes(uint64_t now_us); // estimated queue, rounded up
++  void add(size_t n, uint64_t now_us);   // a write of n bytes was queued now
++
++ private:
++  void drain(uint64_t now_us);
++  uint32_t cap_, rate_, overhead_;
++  uint64_t queued_ub_ = 0;  // queued bytes x 1e6
++  uint64_t last_us_ = 0;
++  bool have_time_ = false;
++};
++
++}  // namespace wfg
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/lib/wfg_core/src/wfg_logger.cpp firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.cpp
+--- firmware/lib/wfg_core/src/wfg_logger.cpp	2026-10-03 09:08:58.502069000 +0800
++++ firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.cpp	2026-10-08 18:27:35.209125000 +0800
+@@ -252,6 +252,7 @@
+           st_.truncate(cur_name_, (long)seq_ * WFG_RECORD_SIZE);  // stays OPEN; recovered on next boot
+         } else {
+           st_.sync(f_); st_.close(f_); f_ = nullptr;
++          if (rec_obs_) rec_obs_(buf, seq_, (uint32_t)((seq_ + 1) * WFG_RECORD_SIZE), rec_obs_ctx_);
+         }
+       }
+     }
+@@ -272,6 +273,7 @@
+     st_.sync(f_);
+     last_sync_mono_ = mono_ms;
+   }
++  if (rec_obs_) rec_obs_(buf, seq_ - 1, (uint32_t)(seq_ * WFG_RECORD_SIZE), rec_obs_ctx_);
+   return true;
+ }
+ 
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/lib/wfg_core/src/wfg_logger.h firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.h
+--- firmware/lib/wfg_core/src/wfg_logger.h	2026-10-03 09:08:58.502603000 +0800
++++ firmware_v0_3_0_live/lib/wfg_core/src/wfg_logger.h	2026-10-08 18:27:22.976947000 +0800
+@@ -42,6 +42,10 @@
+ // Battery/screen sample supplied by the hardware layer for STATUS records. Return false if unavailable.
+ typedef bool (*StatusFn)(Status& st, void* ctx);
+ 
++// Record observer (fw 0.3.0, used for the LIVE "rec" lines): rec = the 48 bytes as written, seq = the record's seq,
++// file_size = size of the session file after the write.
++typedef void (*RecordObserverFn)(const uint8_t rec[WFG_RECORD_SIZE], uint32_t seq, uint32_t file_size, void* ctx);
++
+ struct IntegrityReport {
+   bool readable = false;
+   uint32_t n_records = 0;
+@@ -77,6 +81,10 @@
+   bool start(uint8_t mode, uint32_t mono_ms, uint8_t start_reason = START_OWNER_BUTTON,
+              uint32_t resumed_from_session_no = 0, uint8_t reset_reason = 0);
+   void setStatusSource(StatusFn fn, void* ctx) { status_fn_ = fn; status_ctx_ = ctx; }
++  // Called after every record successfully written to the current session file, any type, including the
++  // SESSION_END written when storage runs out. Not called for the END records boot recovery (begin()) adds to
++  // older files. Optional; nullptr turns it off. It must not call back into the logger.
++  void setRecordObserver(RecordObserverFn fn, void* ctx) { rec_obs_ = fn; rec_obs_ctx_ = ctx; }
+   void onEpoch(const GnssEpoch& e, uint32_t mono_ms);
+   // Call every loop iteration. Pass the parser so the gap filler can tell "receiver talking but no
+   // timed solution" from "UART silent" and does not interleave with an epoch that is still arriving.
+@@ -162,6 +170,8 @@
+ 
+   StatusFn status_fn_ = nullptr;
+   void* status_ctx_ = nullptr;
++  RecordObserverFn rec_obs_ = nullptr;
++  void* rec_obs_ctx_ = nullptr;
+   uint32_t last_status_mono_ = 0;
+   uint32_t n_status_ = 0;
+   const NmeaParser* nmea_ = nullptr;
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/src/main.cpp firmware_v0_3_0_live/src/main.cpp
+--- firmware/src/main.cpp	2026-10-03 09:12:38.801011000 +0800
++++ firmware_v0_3_0_live/src/main.cpp	2026-10-08 18:29:38.535246000 +0800
+@@ -1,6 +1,6 @@
+ // WildfireGuardian field route logger - main firmware (Arduino-ESP32 2.0.17 via PlatformIO espressif32 6.9.0).
+ // Board-specific values live ONLY in include/board_*.h. Logging/storage/export logic lives in lib/wfg_core
+-// (hardware independent, host-tested).
++// (hardware independent, host-tested). LIVE lines over USB (0.3.0, off until "LIVE ON"): lib/wfg_core/src/wfg_live.h.
+ //
+ // Button (single PRG/USER button on GPIO0; see README "Button and boot-strap behaviour"):
+ //   IDLE       short          : wake screen; if already awake: cycle movement mode WALK -> VEHICLE -> UNKNOWN
+@@ -22,11 +22,13 @@
+ #include "web_export.h"
+ #include "wfg_button.h"
+ #include "wfg_export.h"
++#include "wfg_live.h"
+ #include "wfg_logger.h"
+ #include "wfg_nmea.h"
+ #include "wfg_proto.h"
+ #include "wfg_resume.h"
+ #include <esp_system.h>
++#include <esp_timer.h>
+ 
+ using namespace wfg;
+ 
+@@ -73,6 +75,44 @@
+ };
+ static SerialSink g_serial_sink;
+ 
++// LIVE lines (wfg_live.h). wfg::Live writes a line only when availableForWrite() covers all of it, so LIVE output
++// never waits for the USB link; a line that does not fit is dropped and counted.
++struct LiveSerialSink : LiveSink {
++#if !ARDUINO_USB_CDC_ON_BOOT
++  // UART0 through the board's USB-UART bridge (classic ESP32: FireBeetle). In Arduino-ESP32 2.0.17,
++  // HardwareSerial::availableForWrite() is the TX ring buffer size minus the unsent part of the ONE write the UART
++  // driver is sending at that moment (ESP-IDF 4.4 uart_get_tx_buffer_free_size()). Writes queued behind it are not
++  // counted, so the value can be much too high, and a write that does not fit would wait. The UART has no flow
++  // control and sends whether or not a host listens, so LIVE also keeps its own estimate of the bytes it queued and
++  // uses the smaller value: at most 3072 of the 4096 bytes (the rest stays free for replies, '#' messages and the
++  // ring buffer's per-write headers), 32 bytes counted per write on top of the line, drained at half the line rate
++  // (5760 bytes/s at 115200 baud) to allow for flash writes that hold off the UART interrupt.
++  TxQueueModel queue{3072, 115200 / 10 / 2, 32};
++  size_t availableForWrite() override {
++    int a = Serial.availableForWrite();
++    size_t avail = a > 0 ? (size_t)a : 0;
++    size_t est = queue.freeBytes((uint64_t)esp_timer_get_time());
++    return est < avail ? est : avail;
++  }
++  bool write(const char* s, size_t n) override {
++    queue.add(n, (uint64_t)esp_timer_get_time());
++    return Serial.write((const uint8_t*)s, n) == n;
++  }
++#else
++  // Native USB (HWCDC on the ESP32-S3 envs): availableForWrite() is the exact free space of its TX ring buffer.
++  // 512 bytes stay free for protocol replies and '#' messages, so LIVE alone never fills the buffer when the host
++  // stops reading.
++  size_t availableForWrite() override {
++    int a = Serial.availableForWrite();
++    return a > 512 ? (size_t)a - 512 : 0;
++  }
++  bool write(const char* s, size_t n) override { return Serial.write((const uint8_t*)s, n) == n; }
++#endif
++};
++static LiveSerialSink g_live_sink;
++static Live g_live(g_live_sink);
++static NmeaLineCollector g_nmea_line;  // raw GNSS sentences for "#N" lines
++
+ static void banner(const char* msg, uint32_t ms = 4000) {
+   strncpy(g_banner, msg, sizeof(g_banner) - 1);
+   g_banner_until = millis() + ms;
+@@ -199,6 +239,7 @@
+ static bool startSession(uint8_t mode, uint32_t now, uint8_t reason, uint32_t resumed_from) {
+   if (!g_lg->start(mode, now, reason, resumed_from, g_reset_reason)) return false;
+   nvsSetRecording(mode, (uint32_t)atoi(g_lg->currentName() + 1));
++  g_live.sessionStarted((uint32_t)atoi(g_lg->currentName() + 1), mode, reason);  // LIVE "ss" (owner start or resume)
+   g_resumed_session = reason == START_AUTO_RESUMED_AFTER_RESET;
+   if (!g_resumed_session) g_prefs.putUChar("rs_qf", 0);  // owner start resets the reboot-loop guard
+   g_cur_is_resumed = g_resumed_session;
+@@ -208,6 +249,12 @@
+ 
+ // ---------------------------------------------------------------- setup
+ void setup() {
++  // LIVE lines need a TX buffer that holds several lines; it must be set before begin().
++#if !ARDUINO_USB_CDC_ON_BOOT
++  Serial.setTxBufferSize(4096);  // HardwareSerial (classic ESP32): without it only the 128-byte UART FIFO is used
++#elif ARDUINO_USB_MODE
++  Serial.setTxBufferSize(4096);  // HWCDC (ESP32-S3 USB-Serial-JTAG): same meaning, TX ring buffer (default 256 bytes)
++#endif                           // TinyUSB CDC (USBCDC, no env here) has no setTxBufferSize() in Arduino-ESP32 2.0.17
+   Serial.begin(115200);
+ #if ARDUINO_USB_CDC_ON_BOOT
+   Serial.setTxTimeoutMs(0);  // never block logging when no USB host is reading (native USB CDC only)
+@@ -252,6 +299,7 @@
+   g_cfg.fw_version = WFG_FW_VERSION;
+   g_st = new PosixStorage(FS_MOUNT, 0, fsTotal, fsUsed);
+   g_lg = new Logger(*g_st, g_cfg);
++  g_lg->setRecordObserver(live_record_observer, &g_live);  // LIVE "rec"/"st" lines; follows sessions for "se"
+   g_proto = new Proto(*g_lg, *g_st, g_serial_sink, WFG_BOARD_NAME, g_device_id, WFG_FW_VERSION_STR);
+   if (g_fs_ok) {
+     RecoveryItem items[8];
+@@ -404,12 +452,15 @@
+     if (g == G_SHORT) {
+       uint32_t down = g_btn.lastDownAt();
+       if (g_lg->markEvent(down, (uint16_t)min<uint32_t>(g_btn.lastPressDuration(), 65535), now)) {
++        g_live.event((uint32_t)g_lg->lastEventNo(), g_lg->lastEventLocated());  // LIVE "ev"
+         char b[40];
+         snprintf(b, sizeof(b), "EVENT %d %s", (int)g_lg->lastEventNo(), g_lg->lastEventLocated() ? "marked" : "(NO POSITION)");
+         banner(b, 3000);
+       }
++      g_live.sessionCheck(g_lg->recording());  // LIVE "se" if the mark found the storage full
+     } else if (g == G_LONG || g == G_VERY_LONG) {  // emitted on RELEASE after a >= 2.5 s hold
+       g_lg->stop(END_USER_STOP, now);
++      g_live.sessionCheck(g_lg->recording());  // LIVE "se"
+       nvsClearRecording();
+       banner("STOPPED - saved", 4000);
+       countUnexported();
+@@ -507,7 +558,8 @@
+ #if ARDUINO_USB_CDC_ON_BOOT
+       Serial.setTxTimeoutMs(2000);
+ #endif
+-      g_proto->handleLine(line, now, g_mode);
++      // LIVE ON/OFF, LIVE NMEA ON/OFF (allowed while recording); every other command goes to the protocol.
++      if (!g_live.handleCommand(line, g_serial_sink)) g_proto->handleLine(line, now, g_mode);
+       Serial.flush();
+ #if ARDUINO_USB_CDC_ON_BOOT
+       Serial.setTxTimeoutMs(0);
+@@ -519,25 +571,36 @@
+   }
+ }
+ 
++// LIVE "ep": one line per GNSS epoch, written just before the logger turns the epoch into a row.
++static void liveEpoch(const GnssEpoch& e) {
++  if (!g_live.on()) return;
++  g_live.epoch(e, g_lg->state(), g_lg->recording() ? (int32_t)atoi(g_lg->currentName() + 1) : -1, g_mode);
++}
++
+ // ---------------------------------------------------------------- loop
+ void loop() {
+   uint32_t now = millis();
+-  // 1. GNSS bytes -> parser -> logger
++  // 1. GNSS bytes -> parser -> logger (and the LIVE "ep" and "#N" lines)
+   int budget = 512;
+   while (Serial1.available() && budget--) {
+-    if (g_nmea.feed((char)Serial1.read(), millis()) && g_nmea.hasEpoch()) {
++    char c = (char)Serial1.read();
++    if (g_nmea.feed(c, millis()) && g_nmea.hasEpoch()) {
+       GnssEpoch e = g_nmea.takeEpoch();
+       g_last_epoch = e; g_have_epoch = true; g_last_epoch_ms = millis();
++      liveEpoch(e);
+       if (g_fs_ok) g_lg->onEpoch(e, millis());
+     }
++    if (g_nmea_line.feed(c)) g_live.nmea(g_nmea_line.line());  // sent only while LIVE and LIVE NMEA are on
+   }
+   now = millis();
+   if (g_nmea.poll(now) && g_nmea.hasEpoch()) {
+     GnssEpoch e = g_nmea.takeEpoch();
+     g_last_epoch = e; g_have_epoch = true; g_last_epoch_ms = now;
++    liveEpoch(e);
+     if (g_fs_ok) g_lg->onEpoch(e, now);
+   }
+   if (g_fs_ok) g_lg->tick(now, &g_nmea);
++  g_live.sessionCheck(g_lg->recording());  // LIVE "se" when the logger ended the session itself (storage full)
+   if (g_nvs_rec && !g_lg->recording()) nvsClearRecording();  // logger ended the session itself (FULL, FS error)
+   if (g_resumed_session && g_lg->recording() && now - g_rec_started_ms > 60000) {
+     g_prefs.putUChar("rs_qf", 0);  // resumed session ran 60 s: not a reboot loop
+@@ -561,12 +624,16 @@
+     if (g_lg->recording() && g_batt_pct >= 0 && g_batt_mv < WFG_LOW_BATT_MV) {
+       if (++g_low_batt_count >= 3) {
+         g_lg->stop(END_LOW_BATTERY, now);
++        g_live.sessionCheck(g_lg->recording());  // LIVE "se"
+         nvsClearRecording();
+         banner("LOW BATTERY - stopped", 10000);
+       }
+     } else {
+       g_low_batt_count = 0;
+     }
++    // LIVE "st" every 10 s while not recording (while recording it comes with every STATUS record)
++    if (!g_lg->recording() && g_live.on())
++      g_live.status(g_batt_pct >= 0 ? g_batt_mv : -1, g_fs_ok ? (int64_t)g_st->freeBytes() : -1);
+   }
+ 
+   // 4. Export mode
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/test/host/fake_device.cpp firmware_v0_3_0_live/test/host/fake_device.cpp
+--- firmware/test/host/fake_device.cpp	2026-10-03 04:11:46.462565000 +0800
++++ firmware_v0_3_0_live/test/host/fake_device.cpp	2026-10-08 18:30:54.716408000 +0800
+@@ -1,10 +1,31 @@
+-// HOST SIMULATION ONLY: runs the real wfg_core USB protocol (Proto + Logger + PosixStorage) over stdin/stdout
+-// against a directory of session files, so phone_export/usb_export.py can be tested end-to-end through a
+-// pseudo-terminal. A line "!BUTTON_LONG" simulates the owner holding the device button (delete confirmation).
++// HOST SIMULATION ONLY: runs the real wfg_core USB protocol (Proto + Logger + PosixStorage + Live) over stdin/stdout
++// against a directory of session files, so phone_export/usb_export.py and a desktop app can be tested end to end
++// through a pseudo-terminal. Lines starting with '!' stand in for the hardware:
++//   !BUTTON_LONG                    owner holds the device button (confirms a pending delete)
++//   !NMEA <sentence>                one sentence from the GNSS UART, fed byte by byte (plus CR LF) to the real
++//                                   NmeaParser; epochs go to Logger::onEpoch and to the LIVE "ep" line
++//   !START [WALK|VEHICLE|UNKNOWN]   owner starts a recording (default: the current mode, WALK at start)
++//   !STOP                           owner stops the recording
++//   !MARK                           short press while recording: event marker
++//   !QUIT                           exit
++// !START while recording, and !STOP or !MARK while not recording, do nothing (a note goes to stderr).
++// Every other line is a USB command, handled in the same order as src/main.cpp: DUMP, LIST and CHECK are refused
++// while recording, LIVE commands go to wfg::Live, the rest to wfg::Proto. HELLO keeps this program's own board and
++// firmware strings. VBAT, CALVBAT and FORMAT exist only in main.cpp, so here they get "ERR <CMD> unknown-command".
++// The '#' lines for start, stop and marks are the ones main.cpp prints. Time is the host's monotonic clock in ms.
++// As on the device, an epoch is committed after 250 ms without a sentence; while recording the gap filler writes
++// NOFIX rows and a STATUS record follows every 60 s; a delete request expires after 30 s without !BUTTON_LONG.
++// There is no battery: "vb" is always null.
++#include <errno.h>
++#include <poll.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
++#include <unistd.h>
++#include "wfg_live.h"
+ #include "wfg_logger.h"
++#include "wfg_nmea.h"
+ #include "wfg_proto.h"
+ 
+ using namespace wfg;
+@@ -13,31 +34,159 @@
+   bool write(const char* s, size_t n) override { bool ok = fwrite(s, 1, n, stdout) == n; fflush(stdout); return ok; }
+ };
+ 
++// stdout has no transmit buffer that could fill up here, so every LIVE line fits.
++struct StdoutLiveSink : LiveSink {
++  size_t availableForWrite() override { return 4096; }
++  bool write(const char* s, size_t n) override { bool ok = fwrite(s, 1, n, stdout) == n; fflush(stdout); return ok; }
++};
++
+ static uint32_t now_ms() {
+   struct timespec ts;
+   clock_gettime(CLOCK_MONOTONIC, &ts);
+   return (uint32_t)(ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+ }
+ 
++struct FakeDevice {
++  PosixStorage st;
++  LoggerConfig cfg;
++  Logger lg;
++  StdoutSink out;
++  StdoutLiveSink live_out;
++  Live live;
++  Proto pr;
++  NmeaParser nmea;
++  NmeaLineCollector nmea_line;
++  uint8_t mode = MODE_WALK;
++  uint32_t last_idle_status_ms = 0;
++
++  FakeDevice(const char* dir, const LoggerConfig& c)
++      : st(dir), cfg(c), lg(st, cfg), live(live_out), pr(lg, st, out, "HOST-FAKE-DEVICE", cfg.device_id, "0.1.0-host") {}
++
++  void banner(const char* msg) {  // as banner() in main.cpp
++    printf("# %s\n", msg);
++    fflush(stdout);
++  }
++  int32_t sessionNo() { return lg.recording() ? (int32_t)atoi(lg.currentName() + 1) : -1; }
++  void onEpoch(uint32_t now) {
++    GnssEpoch e = nmea.takeEpoch();
++    live.epoch(e, lg.state(), sessionNo(), mode);
++    lg.onEpoch(e, now);
++    live.sessionCheck(lg.recording());
++  }
++  void feedNmea(const char* sentence, uint32_t now) {
++    size_t n = strlen(sentence);
++    for (size_t i = 0; i < n + 2; i++) {
++      char c = i < n ? sentence[i] : (i == n ? '\r' : '\n');
++      if (nmea.feed(c, now) && nmea.hasEpoch()) onEpoch(now);
++      if (nmea_line.feed(c)) live.nmea(nmea_line.line());
++    }
++  }
++  void start(const char* arg, uint32_t now) {
++    if (lg.recording()) { fprintf(stderr, "fake_device: !START ignored, already recording\n"); return; }
++    if (arg) {
++      if (!strcmp(arg, "WALK")) mode = MODE_WALK;
++      else if (!strcmp(arg, "VEHICLE")) mode = MODE_VEHICLE;
++      else if (!strcmp(arg, "UNKNOWN")) mode = MODE_UNKNOWN;
++      else { fprintf(stderr, "fake_device: !START needs WALK, VEHICLE or UNKNOWN\n"); return; }
++    }
++    if (lg.state() == LS_FULL) { banner("FULL: export+delete first"); return; }
++    if (lg.start(mode, now, START_OWNER_BUTTON, 0, 0)) {
++      live.sessionStarted((uint32_t)atoi(lg.currentName() + 1), mode, START_OWNER_BUTTON);
++      char b[40];
++      snprintf(b, sizeof(b), "REC %s %s", lg.currentName(), mode_name(mode));
++      banner(b);
++    } else {
++      banner(lg.state() == LS_FULL ? "FULL: cannot start" : "START FAILED");
++    }
++  }
++  void stop(uint32_t now) {
++    if (!lg.recording()) { fprintf(stderr, "fake_device: !STOP ignored, not recording\n"); return; }
++    lg.stop(END_USER_STOP, now);
++    live.sessionCheck(lg.recording());
++    banner("STOPPED - saved");
++  }
++  void mark(uint32_t now) {
++    if (!lg.recording()) { fprintf(stderr, "fake_device: !MARK ignored, not recording\n"); return; }
++    const uint16_t press_ms = 150;  // a short press, released now
++    if (lg.markEvent(now - press_ms, press_ms, now)) {
++      live.event((uint32_t)lg.lastEventNo(), lg.lastEventLocated());
++      char b[40];
++      snprintf(b, sizeof(b), "EVENT %d %s", (int)lg.lastEventNo(), lg.lastEventLocated() ? "marked" : "(NO POSITION)");
++      banner(b);
++    }
++    live.sessionCheck(lg.recording());
++  }
++  // Returns false on !QUIT.
++  bool handleLine(const char* line, uint32_t now) {
++    if (!strcmp(line, "!QUIT")) return false;
++    if (!strcmp(line, "!BUTTON_LONG")) { pr.confirmPendingDelete(now); return true; }
++    if (!strncmp(line, "!NMEA ", 6)) { feedNmea(line + 6, now); return true; }
++    if (!strcmp(line, "!START")) { start(nullptr, now); return true; }
++    if (!strncmp(line, "!START ", 7)) { start(line + 7, now); return true; }
++    if (!strcmp(line, "!STOP")) { stop(now); return true; }
++    if (!strcmp(line, "!MARK")) { mark(now); return true; }
++    bool heavy = !strncmp(line, "DUMP", 4) || !strncmp(line, "LIST", 4) || !strncmp(line, "CHECK", 5);
++    if (heavy && lg.recording()) {  // as main.cpp
++      printf("ERR %.5s recording-active (stop recording first)\n", line);
++      fflush(stdout);
++      return true;
++    }
++    if (!live.handleCommand(line, out)) pr.handleLine(line, now, mode);
++    return true;
++  }
++  // What the firmware loop does between input lines.
++  void tick(uint32_t now) {
++    if (nmea.poll(now) && nmea.hasEpoch()) onEpoch(now);
++    lg.tick(now, &nmea);
++    live.sessionCheck(lg.recording());
++    pr.hasPendingDelete(now);
++    if (!lg.recording() && (uint32_t)(now - last_idle_status_ms) >= 10000) {
++      last_idle_status_ms = now;
++      live.status(-1, (int64_t)st.freeBytes());
++    }
++  }
++};
++
+ int main(int argc, char** argv) {
+   if (argc < 2) { fprintf(stderr, "usage: fake_device DIR\n"); return 2; }
+-  PosixStorage st(argv[1]);
+   LoggerConfig c;
+   c.device_id = 0x1A2B3C4D;
+-  Logger lg(st, c);
+-  lg.begin();
+-  StdoutSink out;
+-  Proto pr(lg, st, out, "HOST-FAKE-DEVICE", c.device_id, "0.1.0-host");
++  FakeDevice d(argv[1], c);
++  d.lg.begin();
++  d.lg.setRecordObserver(live_record_observer, &d.live);
++  d.last_idle_status_ms = now_ms();
+   printf("# fake device ready\n");
+   fflush(stdout);
+-  char line[256];
+-  while (fgets(line, sizeof(line), stdin)) {
+-    size_t n = strlen(line);
+-    while (n && (line[n - 1] == '\n' || line[n - 1] == '\r')) line[--n] = 0;
+-    if (!n) continue;
+-    if (!strcmp(line, "!BUTTON_LONG")) { pr.confirmPendingDelete(now_ms()); continue; }
+-    if (!strcmp(line, "!QUIT")) break;
+-    pr.handleLine(line, now_ms(), MODE_WALK);
++  char line[512];
++  size_t len = 0;
++  bool run = true;
++  while (run) {
++    struct pollfd p;
++    p.fd = 0;
++    p.events = POLLIN;
++    p.revents = 0;
++    int r = poll(&p, 1, 20);
++    if (r < 0 && errno != EINTR) break;
++    if (r > 0) {
++      char buf[256];
++      ssize_t n = read(0, buf, sizeof(buf));
++      if (n == 0) break;  // end of input
++      if (n < 0) {
++        if (errno == EINTR || errno == EAGAIN) continue;
++        break;
++      }
++      for (ssize_t i = 0; i < n && run; i++) {
++        char ch = buf[i];
++        if (ch == '\r' || ch == '\n') {
++          line[len] = 0;
++          len = 0;
++          if (line[0]) run = d.handleLine(line, now_ms());
++        } else if (len < sizeof(line) - 1) {
++          line[len++] = ch;
++        }
++      }
++    }
++    if (run) d.tick(now_ms());
+   }
+   return 0;
+ }
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/test/host/run_host_tests.sh firmware_v0_3_0_live/test/host/run_host_tests.sh
+--- firmware/test/host/run_host_tests.sh	2026-10-03 04:12:16.676804000 +0800
++++ firmware_v0_3_0_live/test/host/run_host_tests.sh	2026-10-08 18:43:46.757857000 +0800
+@@ -1,10 +1,13 @@
+ #!/usr/bin/env bash
+ # Builds and runs the HOST/SIMULATED tests (no ESP32 hardware involved).
+-# Usage: firmware/test/host/run_host_tests.sh            (from anywhere)
++# Usage: firmware_v0_3_0_live/test/host/run_host_tests.sh            (from anywhere)
++#   WFG_BUILD_DIR    build directory (default ${TMPDIR:-/tmp}/wfg_host_build)
++#   WFG_SAMPLES_DIR  where test_core writes the sample sessions and reads format_v1/ (default ../phone_export/samples,
++#                    as in 0.2.0; point it at a copy to leave that folder untouched)
+ set -euo pipefail
+ HERE="$(cd "$(dirname "$0")" && pwd)"
+ FW="$(cd "$HERE/../.." && pwd)"
+-SAMPLES="$(cd "$FW/.." && pwd)/phone_export/samples"
++SAMPLES="${WFG_SAMPLES_DIR:-$(cd "$FW/.." && pwd)/phone_export/samples}"
+ # Build outside the source tree (some mounts are noexec). Override with WFG_BUILD_DIR.
+ BUILD="${WFG_BUILD_DIR:-${TMPDIR:-/tmp}/wfg_host_build}"
+ mkdir -p "$BUILD" "$SAMPLES"
+@@ -12,7 +15,9 @@
+ "$CXX" -std=c++17 -O1 -g -Wall -Wextra -Wno-format-truncation -fsanitize=address,undefined \
+   -I"$FW/lib/wfg_core/src" "$HERE/test_core.cpp" "$FW"/lib/wfg_core/src/*.cpp -o "$BUILD/test_core"
+ "$BUILD/test_core" "$BUILD/tmp" "$SAMPLES"
+-# USB protocol fake device + Python exporter tests (pyserial required)
++# USB protocol fake device + Python exporter tests (pyserial required); -B: no __pycache__ in the source folders
+ "$CXX" -std=c++17 -O1 -Wall -Wextra -Wno-format-truncation -I"$FW/lib/wfg_core/src" \
+   "$HERE/fake_device.cpp" "$FW"/lib/wfg_core/src/*.cpp -o "$BUILD/fake_device"
+-python3 "$FW/../phone_export/tests/test_usb_export.py" "$BUILD/fake_device"
++python3 -B "$FW/../phone_export/tests/test_usb_export.py" "$BUILD/fake_device"
++# LIVE lines through the fake device (Python standard library only)
++python3 -B "$HERE/test_fake_device_live.py" "$BUILD/fake_device"
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/test/host/test_core.cpp firmware_v0_3_0_live/test/host/test_core.cpp
+--- firmware/test/host/test_core.cpp	2026-10-03 09:11:08.788706000 +0800
++++ firmware_v0_3_0_live/test/host/test_core.cpp	2026-10-08 18:39:35.898027000 +0800
+@@ -19,6 +19,7 @@
+ #include "wfg_button.h"
+ #include "wfg_proto.h"
+ #include "wfg_resume.h"
++#include "wfg_live.h"
+ 
+ using namespace wfg;
+ 
+@@ -921,6 +922,864 @@
+   CHECK(csv.s.find(",OWNER_BUTTON,,\n") != std::string::npos);
+ }
+ 
++// ================================================================ LIVE lines (firmware 0.3.0)
++struct CapLiveSink : LiveSink {
++  std::string s;
++  size_t avail = 1u << 20;
++  bool consume = false;  // write() uses up avail, like a transmit buffer that fills
++  bool fail = false;     // write() reports a failure
++  int avail_calls = 0, writes = 0;
++  size_t availableForWrite() override { avail_calls++; return avail; }
++  bool write(const char* p, size_t n) override {
++    writes++;
++    if (fail) return false;
++    s.append(p, n);
++    if (consume) avail = avail >= n ? avail - n : 0;
++    return true;
++  }
++};
++
++static std::vector<std::string> splitLines(const std::string& s) {  // keeps each '\n'
++  std::vector<std::string> v;
++  size_t pos = 0;
++  while (pos < s.size()) {
++    size_t e = s.find('\n', pos);
++    if (e == std::string::npos) { v.push_back(s.substr(pos)); break; }
++    v.push_back(s.substr(pos, e - pos + 1));
++    pos = e + 1;
++  }
++  return v;
++}
++static std::string hexOf(const uint8_t* b, size_t n) {
++  static const char* d = "0123456789abcdef";
++  std::string h;
++  for (size_t i = 0; i < n; i++) { h += d[b[i] >> 4]; h += d[b[i] & 15]; }
++  return h;
++}
++static std::string fileBytes(Storage& st, const char* name) {
++  std::string raw;
++  FILE* f = st.open(name, "rb");
++  if (!f) return raw;
++  char tmp[4096];
++  size_t n;
++  while ((n = fread(tmp, 1, sizeof(tmp), f)) > 0) raw.append(tmp, n);
++  st.close(f);
++  return raw;
++}
++// Raw value of "key" in a #J line (up to the next ',' or '}'), "" if the key is missing.
++static std::string jfield(const std::string& line, const char* key) {
++  std::string k = std::string("\"") + key + "\":";
++  size_t p = line.find(k);
++  if (p == std::string::npos) return "";
++  p += k.size();
++  size_t e = line.find_first_of(",}", p);
++  return line.substr(p, e == std::string::npos ? std::string::npos : e - p);
++}
++static bool cleanLine(const std::string& l) {  // ASCII, one '\n' at the end, at most 320 bytes, starts with '#'
++  if (l.empty() || l.size() > kLiveMaxLine || l[0] != '#' || l.back() != '\n') return false;
++  for (size_t i = 0; i + 1 < l.size(); i++)
++    if ((uint8_t)l[i] < 0x20 || (uint8_t)l[i] > 0x7E) return false;
++  return true;
++}
++static std::string epLine(const GnssEpoch& e, uint8_t st, int32_t ss, uint8_t md) {
++  char b[400];
++  size_t n = Live::fmtEpoch(b, sizeof(b), e, st, ss, md);
++  return std::string(b, n);
++}
++static GnssEpoch specEpoch() {  // the values of the "ep" example in DEMO_SPEC section 5
++  GnssEpoch e;
++  e.has_time = true; e.utc_ms_of_day = (8 * 3600 + 16 * 60 + 47) * 1000u;
++  e.has_date = true; e.utc_date = 20261014;
++  e.has_gga = true; e.gga_quality = 1;
++  e.has_rmc = true; e.rmc_active = true;
++  e.has_gsa = true; e.fix_type = 3;
++  e.pos_valid = true; e.lat_e7 = 312092653; e.lon_e7 = 1214389532;
++  e.alt_valid = true; e.alt_cm = 1240;
++  e.sats_valid = true; e.sats = 11;
++  e.hdop_valid = true; e.hdop_x100 = 90;
++  e.speed_valid = true; e.speed_cmps = 8;
++  e.course_valid = true; e.course_cdeg = 34300;
++  e.first_mono_ms = 741230; e.last_mono_ms = 741400;
++  return e;
++}
++static void encRec(uint8_t* b, uint8_t type, uint32_t seq, uint32_t session_no = 0, uint8_t reason = 0) {
++  Record r;
++  memset(&r, 0, sizeof(r));
++  r.h.type = type; r.h.seq = seq; r.h.mono_ms = 1000 + seq;
++  if (type == REC_SESSION_START) {
++    r.start.session_no = session_no; r.start.format_version = WFG_FORMAT_VERSION; r.start.record_size = WFG_RECORD_SIZE;
++  }
++  if (type == REC_SESSION_END) { r.end.reason = reason; r.end.n_records_before = seq; }
++  if (type == REC_FIX || type == REC_NOFIX) r.obs.utc_ms_of_day = 0xFFFFFFFF;
++  encode(r, b);
++}
++
++static void test_live_formats() {
++  g_test = "live_formats";
++  // ep: the example line of DEMO_SPEC section 5, byte for byte
++  CHECK_STR(epLine(specEpoch(), LS_RECORDING, 14, MODE_WALK),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":741230,\"utc\":\"2026-10-14T08:16:47.000Z\",\"fix\":1,\"q\":1,\"ft\":\"3D\","
++            "\"su\":11,\"hd\":0.9,\"la\":31.2092653,\"lo\":121.4389532,\"al\":12.4,\"sp\":0.08,\"co\":343.0,\"nr\":null,"
++            "\"rs\":\"RECORDING\",\"ss\":14,\"md\":\"WALK\"}\n");
++  // ep: nothing known
++  GnssEpoch z;
++  CHECK_STR(epLine(z, LS_IDLE, -1, MODE_UNKNOWN),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":0,\"utc\":null,\"fix\":0,\"q\":null,\"ft\":null,\"su\":null,\"hd\":null,"
++            "\"la\":null,\"lo\":null,\"al\":null,\"sp\":null,\"co\":null,\"nr\":\"RECEIVER_NO_FIX\",\"rs\":\"IDLE\","
++            "\"ss\":null,\"md\":\"UNKNOWN\"}\n");
++  // ep: south and west, negative altitude, rounding to one decimal, 359.95 degrees -> 0.0, time without a date
++  GnssEpoch w = specEpoch();
++  w.has_date = false;
++  w.lat_e7 = -338687233; w.lon_e7 = -5; w.alt_cm = -1245;
++  w.hdop_x100 = 95; w.course_cdeg = 35995; w.speed_cmps = 65535;
++  w.gga_quality = 2; w.fix_type = 2; w.sats = 0; w.first_mono_ms = 4294967295u;
++  CHECK_STR(epLine(w, LS_FULL, -1, MODE_VEHICLE),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":4294967295,\"utc\":null,\"fix\":1,\"q\":2,\"ft\":\"2D\",\"su\":0,\"hd\":1.0,"
++            "\"la\":-33.8687233,\"lo\":-0.0000005,\"al\":-12.5,\"sp\":655.35,\"co\":0.0,\"nr\":null,\"rs\":\"FULL\","
++            "\"ss\":null,\"md\":\"VEHICLE\"}\n");
++  // ep: receiver answers without a position (Logger::onEpoch writes NOFIX with RECEIVER_NO_FIX)
++  GnssEpoch nf = specEpoch();
++  nf.pos_valid = false; nf.alt_valid = false; nf.speed_valid = false; nf.course_valid = false; nf.hdop_valid = false;
++  nf.gga_quality = 0; nf.fix_type = 1; nf.sats = 3; nf.rmc_active = false;
++  CHECK_STR(epLine(nf, LS_ERROR, 7, MODE_WALK),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":741230,\"utc\":\"2026-10-14T08:16:47.000Z\",\"fix\":0,\"q\":0,\"ft\":\"NONE\","
++            "\"su\":3,\"hd\":null,\"la\":null,\"lo\":null,\"al\":null,\"sp\":null,\"co\":null,"
++            "\"nr\":\"RECEIVER_NO_FIX\",\"rs\":\"ERROR\",\"ss\":7,\"md\":\"WALK\"}\n");
++  // ep: single fields null on their own
++  GnssEpoch a = specEpoch();
++  a.alt_valid = false; a.gga_quality = 0xFF; a.has_gsa = false; a.sats_valid = false;
++  std::string al = epLine(a, LS_IDLE, -1, MODE_WALK);
++  CHECK_STR(jfield(al, "al"), "null"); CHECK_STR(jfield(al, "q"), "null"); CHECK_STR(jfield(al, "ft"), "null");
++  CHECK_STR(jfield(al, "su"), "null"); CHECK_STR(jfield(al, "la"), "31.2092653"); CHECK_STR(jfield(al, "fix"), "1");
++  // ep: 7 decimals straight from the e7 integers
++  struct { int32_t la, lo; const char* sla; const char* slo; } pos[] = {
++      {0, 0, "0.0000000", "0.0000000"},
++      {1, -1, "0.0000001", "-0.0000001"},
++      {900000000, 1800000000, "90.0000000", "180.0000000"},
++      {-900000000, -1800000000, "-90.0000000", "-180.0000000"},
++      {312092653, 1799999999, "31.2092653", "179.9999999"},
++      {-10000000, 10000001, "-1.0000000", "1.0000001"}};
++  for (auto& p : pos) {
++    GnssEpoch e = specEpoch();
++    e.lat_e7 = p.la; e.lon_e7 = p.lo;
++    std::string l = epLine(e, LS_IDLE, -1, MODE_WALK);
++    CHECK_STR(jfield(l, "la"), p.sla);
++    CHECK_STR(jfield(l, "lo"), p.slo);
++  }
++  // ep: one decimal for altitude and HDOP (half away from zero), two for speed, course 0.0 to 359.9
++  struct { int32_t v; const char* s; } alts[] = {{1240, "12.4"}, {1244, "12.4"}, {1245, "12.5"}, {-1244, "-12.4"},
++                                               {-4, "0.0"}, {5, "0.1"}, {-5, "-0.1"}, {0, "0.0"}, {123456789, "1234567.9"}};
++  for (auto& x : alts) { GnssEpoch e = specEpoch(); e.alt_cm = x.v; CHECK_STR(jfield(epLine(e, 0, -1, 1), "al"), x.s); }
++  struct { int32_t v; const char* s; } hds[] = {{90, "0.9"}, {94, "0.9"}, {95, "1.0"}, {100, "1.0"}, {0, "0.0"}, {9999, "100.0"}};
++  for (auto& x : hds) { GnssEpoch e = specEpoch(); e.hdop_x100 = (uint16_t)x.v; CHECK_STR(jfield(epLine(e, 0, -1, 1), "hd"), x.s); }
++  struct { int32_t v; const char* s; } sps[] = {{0, "0.00"}, {8, "0.08"}, {103, "1.03"}, {65535, "655.35"}};
++  for (auto& x : sps) { GnssEpoch e = specEpoch(); e.speed_cmps = (uint16_t)x.v; CHECK_STR(jfield(epLine(e, 0, -1, 1), "sp"), x.s); }
++  struct { int32_t v; const char* s; } cdegs[] = {{0, "0.0"}, {4, "0.0"}, {5, "0.1"}, {34300, "343.0"}, {35994, "359.9"},
++                                                {35995, "0.0"}, {35999, "0.0"}};
++  for (auto& x : cdegs) { GnssEpoch e = specEpoch(); e.course_cdeg = (uint16_t)x.v; CHECK_STR(jfield(epLine(e, 0, -1, 1), "co"), x.s); }
++
++  char lb[400];
++  size_t ln;
++  // rec: seq, record type, file size, CRC-32 as 8 lowercase hex digits (u32 at bytes 44..47), the 48 bytes in hex
++  Record r;
++  memset(&r, 0, sizeof(r));
++  r.h.type = REC_FIX; r.h.flags0 = 3; r.h.seq = 701; r.h.mono_ms = 741230;
++  r.obs.utc_date = 20261014; r.obs.utc_ms_of_day = 29807000; r.obs.lat_e7 = 312092653; r.obs.lon_e7 = 1214389532;
++  r.obs.alt_cm = 1240; r.obs.speed_cmps = 8; r.obs.course_cdeg = 34300; r.obs.hdop_x100 = 90; r.obs.sats = 11;
++  r.obs.gga_quality = 1; r.obs.fix_type = 3; r.obs.valid = V_TIME | V_DATE | V_POS | V_ALT;
++  uint8_t b[WFG_RECORD_SIZE];
++  encode(r, b);
++  char crc8[16];
++  snprintf(crc8, sizeof(crc8), "%08x", (unsigned)crc32(b, 44));
++  ln = Live::fmtRecord(lb, sizeof(lb), b, 701, 33696);
++  std::string want = std::string("#J {\"v\":1,\"t\":\"rec\",\"seq\":701,\"ty\":2,\"b\":33696,\"crc\":\"") + crc8 +
++                     "\",\"hx\":\"" + hexOf(b, WFG_RECORD_SIZE) + "\"}\n";
++  CHECK_STR(std::string(lb, ln), want);
++  CHECK(want.find("\"hx\":\"57460203") != std::string::npos);  // "WF", type 2, flags0 3 as in the spec example
++  CHECK_EQ(jfield(want, "hx").size(), 2 + 2 * WFG_RECORD_SIZE);
++  for (uint32_t m = 0; m < 4000 && crc32(b, 44) >= 0x10000000u; m++) { r.h.mono_ms = m; encode(r, b); }
++  CHECK(crc32(b, 44) < 0x10000000u);
++  ln = Live::fmtRecord(lb, sizeof(lb), b, 0, 48);
++  std::string c8 = jfield(std::string(lb, ln), "crc");
++  CHECK_EQ(c8.size(), 10);  // a leading zero is kept: 8 digits plus quotes
++  CHECK(c8.size() == 10 && c8[1] == '0');
++  // st, ev, ss, se, drop, #N: the example lines of the spec and the null cases
++  auto S = [&](size_t n) { return std::string(lb, n); };
++  CHECK_STR(S(Live::fmtStatus(lb, sizeof(lb), 3912, 2310144)), "#J {\"v\":1,\"t\":\"st\",\"vb\":3912,\"ff\":2310144}\n");
++  CHECK_STR(S(Live::fmtStatus(lb, sizeof(lb), -1, 2310144)), "#J {\"v\":1,\"t\":\"st\",\"vb\":null,\"ff\":2310144}\n");
++  CHECK_STR(S(Live::fmtStatus(lb, sizeof(lb), -1, -1)), "#J {\"v\":1,\"t\":\"st\",\"vb\":null,\"ff\":null}\n");
++  CHECK_STR(S(Live::fmtStatus(lb, sizeof(lb), 4100, 5000000000LL)), "#J {\"v\":1,\"t\":\"st\",\"vb\":4100,\"ff\":4294967295}\n");
++  CHECK_STR(S(Live::fmtEvent(lb, sizeof(lb), 3, true)), "#J {\"v\":1,\"t\":\"ev\",\"n\":3,\"loc\":1}\n");
++  CHECK_STR(S(Live::fmtEvent(lb, sizeof(lb), 1, false)), "#J {\"v\":1,\"t\":\"ev\",\"n\":1,\"loc\":0}\n");
++  CHECK_STR(S(Live::fmtSessionStart(lb, sizeof(lb), 14, MODE_WALK, START_OWNER_BUTTON)),
++            "#J {\"v\":1,\"t\":\"ss\",\"ss\":14,\"md\":\"WALK\",\"sr\":\"OWNER_BUTTON\"}\n");
++  CHECK_STR(S(Live::fmtSessionStart(lb, sizeof(lb), 15, MODE_VEHICLE, START_AUTO_RESUMED_AFTER_RESET)),
++            "#J {\"v\":1,\"t\":\"ss\",\"ss\":15,\"md\":\"VEHICLE\",\"sr\":\"AUTO_RESUMED_AFTER_RESET\"}\n");
++  CHECK_STR(S(Live::fmtSessionEnd(lb, sizeof(lb), 14, END_USER_STOP, 993)),
++            "#J {\"v\":1,\"t\":\"se\",\"ss\":14,\"er\":\"USER_STOP\",\"n\":993}\n");
++  CHECK_STR(S(Live::fmtSessionEnd(lb, sizeof(lb), 14, -1, 992)), "#J {\"v\":1,\"t\":\"se\",\"ss\":14,\"er\":null,\"n\":992}\n");
++  CHECK_STR(S(Live::fmtDrop(lb, sizeof(lb), 3)), "#J {\"v\":1,\"t\":\"drop\",\"n\":3}\n");
++  const char* gga = "$GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,*4B";  // as received, unchecked
++  CHECK_STR(S(Live::fmtNmea(lb, sizeof(lb), gga)), std::string("#N ") + gga + "\n");
++  std::string s100 = "$" + std::string(99, 'A'), s101 = "$" + std::string(100, 'A');
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), s100.c_str()), 3 + 100 + 1);
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), s101.c_str()), 0);
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), ""), 0);
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), nullptr), 0);
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), "$GN\tGGA"), 0);
++  CHECK_EQ(Live::fmtNmea(lb, sizeof(lb), "$GN\xb5GGA"), 0);
++}
++
++static void test_live_limits() {
++  g_test = "live_320_byte_limit";
++  // The longest lines the formats can produce stay within 320 bytes.
++  GnssEpoch e = specEpoch();
++  e.first_mono_ms = 4294967295u; e.utc_date = 20791231; e.utc_ms_of_day = 86400999;
++  e.gga_quality = 254; e.fix_type = 1; e.sats = 255; e.hdop_x100 = 65535;
++  e.lat_e7 = -900000000; e.lon_e7 = -1800000000; e.alt_cm = INT32_MIN; e.speed_cmps = 65535; e.course_cdeg = 35994;
++  std::string l1 = epLine(e, LS_RECORDING, 2147483647, MODE_VEHICLE);
++  e.pos_valid = false;  // without a fix "nr" is set instead of la/lo/al
++  std::string l2 = epLine(e, LS_RECORDING, 2147483647, MODE_VEHICLE);
++  CHECK(cleanLine(l1));
++  CHECK(cleanLine(l2));
++  char buf[400];
++  uint8_t b[WFG_RECORD_SIZE];
++  memset(b, 0xFF, sizeof(b));
++  std::string lr(buf, Live::fmtRecord(buf, sizeof(buf), b, 4294967295u, 4294967295u));
++  CHECK(cleanLine(lr));
++  std::string ls(buf, Live::fmtStatus(buf, sizeof(buf), 2147483647, 4294967295LL));
++  std::string lv(buf, Live::fmtEvent(buf, sizeof(buf), 4294967295u, true));
++  std::string lss(buf, Live::fmtSessionStart(buf, sizeof(buf), 4294967295u, MODE_UNKNOWN, START_AUTO_RESUMED_AFTER_RESET));
++  std::string lse(buf, Live::fmtSessionEnd(buf, sizeof(buf), 4294967295u, END_RECOVERED_ON_BOOT, 4294967295u));
++  std::string ld(buf, Live::fmtDrop(buf, sizeof(buf), 4294967295u));
++  std::string ln(buf, Live::fmtNmea(buf, sizeof(buf), ("$" + std::string(99, '9')).c_str()));
++  for (const std::string* l : {&ls, &lv, &lss, &lse, &ld, &ln}) CHECK(cleanLine(*l));
++  printf("LIVE line lengths, longest possible (bytes, limit %u): ep %u / %u, rec %u, st %u, ev %u, ss %u, se %u, "
++         "drop %u, #N %u\n", (unsigned)kLiveMaxLine, (unsigned)l1.size(), (unsigned)l2.size(), (unsigned)lr.size(),
++         (unsigned)ls.size(), (unsigned)lv.size(), (unsigned)lss.size(), (unsigned)lse.size(), (unsigned)ld.size(),
++         (unsigned)ln.size());
++  // A buffer that is too small gives 0 and an empty string, never a cut line.
++  CHECK_EQ(Live::fmtEpoch(buf, 50, specEpoch(), LS_IDLE, -1, MODE_WALK), 0);
++  CHECK_EQ(buf[0], 0);
++  CHECK_EQ(Live::fmtRecord(buf, 100, b, 1, 96), 0);
++  CHECK_EQ(buf[0], 0);
++  // A line that cannot be sent within the limits is not written and counts as dropped.
++  CapLiveSink k;
++  Live live(k);
++  StrSink r;
++  live.handleCommand("LIVE ON", r);
++  live.handleCommand("LIVE NMEA ON", r);
++  CHECK(!live.nmea(("$" + std::string(400, 'A')).c_str()));
++  CHECK_EQ(k.writes, 0);
++  CHECK_EQ(live.pendingDrops(), 1);
++}
++
++static void test_live_epoch_from_parser() {
++  g_test = "live_ep_from_nmea";
++  // The spec's sentences (with real checksums) through the real parser, as the firmware loop feeds it.
++  std::string gga = withCk("GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,");
++  std::string rmc = withCk("GNRMC,081647.000,A,3112.5559,N,12126.3372,E,0.155,343.0,141026,,,A,V");
++  std::string gsa = withCk("GNGSA,A,3,01,02,03,04,05,06,,,,,,,1.8,0.9,1.4,1");
++  NmeaParser p;
++  uint32_t t = 741230;
++  for (const std::string* s : {&gga, &rmc, &gsa}) { for (char c : *s + "\r\n") p.feed(c, t); t += 10; }
++  CHECK(p.poll(t + 300));
++  CHECK_STR(epLine(p.takeEpoch(), LS_RECORDING, 14, MODE_WALK),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":741230,\"utc\":\"2026-10-14T08:16:47.000Z\",\"fix\":1,\"q\":1,\"ft\":\"3D\","
++            "\"su\":11,\"hd\":0.9,\"la\":31.2092650,\"lo\":121.4389533,\"al\":12.4,\"sp\":0.08,\"co\":343.0,\"nr\":null,"
++            "\"rs\":\"RECORDING\",\"ss\":14,\"md\":\"WALK\"}\n");
++  // No fix (indoors): time and date known, no position
++  NmeaParser q;
++  t = 900000;
++  for (const char* body : {"GNGGA,081650.000,,,,,0,03,,,M,,M,,", "GNRMC,081650.000,V,,,,,,,141026,,,N,V",
++                           "GNGSA,A,1,,,,,,,,,,,,,99.99,99.99,99.99,1"}) {
++    for (char c : withCk(body) + "\r\n") q.feed(c, t);
++    t += 10;
++  }
++  CHECK(q.poll(t + 300));
++  CHECK_STR(epLine(q.takeEpoch(), LS_IDLE, -1, MODE_WALK),
++            "#J {\"v\":1,\"t\":\"ep\",\"ms\":900000,\"utc\":\"2026-10-14T08:16:50.000Z\",\"fix\":0,\"q\":0,\"ft\":\"NONE\","
++            "\"su\":3,\"hd\":null,\"la\":null,\"lo\":null,\"al\":null,\"sp\":null,\"co\":null,"
++            "\"nr\":\"RECEIVER_NO_FIX\",\"rs\":\"IDLE\",\"ss\":null,\"md\":\"WALK\"}\n");
++  // GGA only: time without a date gives "utc":null
++  NmeaParser g;
++  for (char c : gga + "\r\n") g.feed(c, 5000);
++  CHECK(g.poll(5400));
++  std::string l = epLine(g.takeEpoch(), LS_IDLE, -1, MODE_WALK);
++  CHECK_STR(jfield(l, "utc"), "null");
++  CHECK_STR(jfield(l, "ft"), "null");
++  CHECK_STR(jfield(l, "sp"), "null");
++  CHECK_STR(jfield(l, "la"), "31.2092650");
++}
++
++static void test_live_commands() {
++  g_test = "live_commands";
++  CapLiveSink k;
++  Live live(k);
++  StrSink r;
++  auto cmd = [&](const char* l) -> std::string {
++    r.s.clear();
++    bool is = live.handleCommand(l, r);
++    return (is ? "1|" : "0|") + r.s;
++  };
++  CHECK_STR(cmd("LIVE ON"), "1|OK LIVE ON\n");
++  CHECK(live.on()); CHECK(!live.nmeaOn());
++  CHECK_STR(cmd("LIVE NMEA ON"), "1|OK LIVE NMEA ON\n");
++  CHECK(live.nmeaOn());
++  CHECK_STR(cmd("LIVE NMEA OFF"), "1|OK LIVE NMEA OFF\n");
++  CHECK(!live.nmeaOn());
++  CHECK_STR(cmd("LIVE OFF"), "1|OK LIVE OFF\n");
++  CHECK(!live.on());
++  CHECK_STR(cmd("LIVE ON"), "1|OK LIVE ON\n");
++  CHECK_STR(cmd("LIVE ON"), "1|OK LIVE ON\n");  // repeating is harmless
++  CHECK_STR(cmd("  LIVE   OFF  "), "1|OK LIVE OFF\n");  // spaces as the protocol's sscanf("%s") accepts them
++  CHECK_STR(cmd("LIVE\tNMEA\tON"), "1|OK LIVE NMEA ON\n");
++  for (const char* bad : {"LIVE", "LIVE on", "LIVE MAYBE", "LIVE NMEA", "LIVE NMEA MAYBE", "LIVE ON NOW",
++                          "LIVE NMEA ON NOW", "LIVE OFF ON", "LIVE NMEA on", "LIVE 1"})
++    CHECK_STR(cmd(bad), "1|ERR LIVE bad-argument\n");
++  CHECK(!live.on());  // bad arguments change nothing
++  CHECK(live.nmeaOn());
++  for (const char* other : {"HELLO", "STATUS", "LIVEON", "LIVES ON", "XLIVE ON", "live on", "", "   "})
++    CHECK_STR(cmd(other), "0|");
++  CHECK_EQ(k.writes, 0);  // replies go to the protocol sink, never to the LIVE sink
++}
++
++static void test_live_default_off() {
++  g_test = "live_default_off";
++  CapLiveSink k;
++  Live live(k);
++  CHECK(!live.on());
++  CHECK(!live.nmeaOn());
++  CHECK(!live.epoch(specEpoch(), LS_IDLE, -1, MODE_WALK));
++  CHECK(!live.status(3900, 100000));
++  CHECK(!live.event(1, true));
++  CHECK(!live.nmea("$GNGGA,1*00"));
++  uint8_t b[WFG_RECORD_SIZE];
++  encRec(b, REC_SESSION_START, 0, 1);
++  live.onRecord(b, 0, 48);
++  live.sessionStarted(1, MODE_WALK, START_OWNER_BUTTON);
++  encRec(b, REC_STATUS, 1);
++  live.onRecord(b, 1, 96);
++  encRec(b, REC_SESSION_END, 2, 0, END_USER_STOP);
++  live.onRecord(b, 2, 144);
++  live.sessionCheck(false);
++  CHECK_EQ(k.avail_calls, 0);  // not even asked for space
++  CHECK_EQ(k.writes, 0);
++  CHECK(k.s.empty());
++  CHECK_EQ(live.pendingDrops(), 0);
++  CHECK_EQ(live.linesDropped(), 0);
++  CHECK_EQ(live.linesSent(), 0);
++}
++
++static void test_live_nmea_needs_live() {
++  g_test = "live_nmea_needs_live_on";
++  CapLiveSink k;
++  Live live(k);
++  StrSink r;
++  const char* s = "$GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,*4F";
++  live.handleCommand("LIVE NMEA ON", r);
++  CHECK(!live.nmea(s));  // NMEA on, LIVE off: nothing
++  CHECK(k.s.empty());
++  live.handleCommand("LIVE ON", r);
++  CHECK(live.nmea(s));
++  CHECK_STR(k.s, std::string("#N ") + s + "\n");
++  k.s.clear();
++  live.handleCommand("LIVE NMEA OFF", r);
++  CHECK(!live.nmea(s));  // LIVE on, NMEA off: no #N
++  CHECK(k.s.empty());
++  CHECK(live.event(1, true));  // the other LIVE lines continue
++  live.handleCommand("LIVE NMEA ON", r);
++  live.handleCommand("LIVE OFF", r);
++  k.s.clear();
++  CHECK(!live.nmea(s));
++  CHECK(k.s.empty());
++  live.handleCommand("LIVE ON", r);  // LIVE OFF kept the NMEA setting
++  CHECK(live.nmea(s));
++}
++
++static void test_live_drop_counter() {
++  g_test = "live_drop_counter";
++  CapLiveSink k;
++  Live live(k);
++  StrSink r;
++  live.handleCommand("LIVE ON", r);
++  char lb[100];
++  size_t evn = Live::fmtEvent(lb, sizeof(lb), 4, true);
++  // No room: lines are dropped and counted, nothing is written
++  k.avail = 0;
++  CHECK(!live.event(1, true));
++  CHECK(!live.event(2, true));
++  CHECK(!live.event(3, false));
++  CHECK_EQ(live.pendingDrops(), 3);
++  CHECK_EQ(k.writes, 0);
++  // Room for the line but not for the drop line before it: dropped and counted too
++  k.avail = evn + 5;
++  CHECK(!live.event(4, true));
++  CHECK_EQ(live.pendingDrops(), 4);
++  CHECK_EQ(k.writes, 0);
++  // Room for both: the drop line first, then the line; the count restarts at 0
++  size_t dn = Live::fmtDrop(lb, sizeof(lb), 4);
++  k.avail = dn + evn;
++  CHECK(live.event(5, true));
++  CHECK_EQ(live.pendingDrops(), 0);
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"drop\",\"n\":4}\n#J {\"v\":1,\"t\":\"ev\",\"n\":5,\"loc\":1}\n");
++  // Then normal lines, without a drop line
++  k.s.clear();
++  k.avail = 1000;
++  CHECK(live.event(6, false));
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"ev\",\"n\":6,\"loc\":0}\n");
++  CHECK_EQ(live.linesSent(), 2);
++  CHECK_EQ(live.linesDropped(), 4);
++  // A buffer that fills up: 3 lines fit, the 4th and 5th do not; after it drains, "n":2 and the next line
++  k.s.clear();
++  k.consume = true;
++  k.avail = 3 * evn + 10;
++  for (uint32_t i = 10; i < 15; i++) live.event(i, true);
++  CHECK_EQ(splitLines(k.s).size(), 3);
++  CHECK_EQ(live.pendingDrops(), 2);
++  k.s.clear();
++  k.avail = 1000;
++  CHECK(live.event(15, true));
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"drop\",\"n\":2}\n#J {\"v\":1,\"t\":\"ev\",\"n\":15,\"loc\":1}\n");
++  k.consume = false;
++  // A failing sink write is counted like a drop
++  k.s.clear();
++  k.fail = true;
++  CHECK(!live.event(16, true));
++  CHECK_EQ(live.pendingDrops(), 1);
++  k.fail = false;
++  CHECK(live.event(17, true));
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"drop\",\"n\":1}\n#J {\"v\":1,\"t\":\"ev\",\"n\":17,\"loc\":1}\n");
++  // The drop rule covers every line type, here an ep line after a dropped rec line
++  k.s.clear();
++  k.avail = 0;
++  uint8_t b[WFG_RECORD_SIZE];
++  encRec(b, REC_FIX, 9);
++  live.onRecord(b, 9, 480);
++  CHECK_EQ(live.pendingDrops(), 1);
++  k.avail = 1000;
++  CHECK(live.epoch(specEpoch(), LS_RECORDING, 14, MODE_WALK));
++  std::vector<std::string> L = splitLines(k.s);
++  CHECK_EQ(L.size(), 2);
++  if (L.size() == 2) {
++    CHECK_STR(L[0], "#J {\"v\":1,\"t\":\"drop\",\"n\":1}\n");
++    CHECK_STR(jfield(L[1], "t"), "\"ep\"");
++  }
++  // LIVE OFF clears a pending count, so LIVE ON starts without an old drop line
++  k.avail = 0;
++  live.event(18, true);
++  CHECK_EQ(live.pendingDrops(), 1);
++  live.handleCommand("LIVE OFF", r);
++  CHECK_EQ(live.pendingDrops(), 0);
++  live.handleCommand("LIVE ON", r);
++  k.avail = 1000;
++  k.s.clear();
++  CHECK(live.event(19, true));
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"ev\",\"n\":19,\"loc\":1}\n");
++}
++
++static void test_live_sessions() {
++  g_test = "live_ss_se";
++  CapLiveSink k;
++  Live live(k);
++  StrSink r;
++  live.handleCommand("LIVE ON", r);
++  uint8_t b[WFG_RECORD_SIZE];
++  // Normal session: ss after the start, se once after the stop with the END reason and the record count
++  encRec(b, REC_SESSION_START, 0, 5);
++  live.onRecord(b, 0, 48);
++  k.s.clear();
++  live.sessionStarted(5, MODE_WALK, START_OWNER_BUTTON);
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"ss\",\"ss\":5,\"md\":\"WALK\",\"sr\":\"OWNER_BUTTON\"}\n");
++  encRec(b, REC_FIX, 1);
++  live.onRecord(b, 1, 96);
++  live.sessionCheck(true);  // still recording: nothing
++  encRec(b, REC_SESSION_END, 2, 0, END_USER_STOP);
++  live.onRecord(b, 2, 144);
++  k.s.clear();
++  live.sessionCheck(false);
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"se\",\"ss\":5,\"er\":\"USER_STOP\",\"n\":3}\n");
++  k.s.clear();
++  live.sessionCheck(false);  // only once
++  CHECK(k.s.empty());
++  // The END record could not be written: "er":null, n = records in the file
++  encRec(b, REC_SESSION_START, 0, 6);
++  live.onRecord(b, 0, 48);
++  live.sessionStarted(6, MODE_VEHICLE, START_AUTO_RESUMED_AFTER_RESET);
++  encRec(b, REC_NOFIX, 1);
++  live.onRecord(b, 1, 96);
++  k.s.clear();
++  live.sessionCheck(false);
++  CHECK_STR(k.s, "#J {\"v\":1,\"t\":\"se\",\"ss\":6,\"er\":null,\"n\":2}\n");
++  // No sessionCheck before the next session: its START record ends the previous session first
++  encRec(b, REC_SESSION_START, 0, 7);
++  live.onRecord(b, 0, 48);
++  live.sessionStarted(7, MODE_WALK, START_OWNER_BUTTON);
++  encRec(b, REC_SESSION_END, 1, 0, END_LOW_BATTERY);
++  live.onRecord(b, 1, 96);
++  k.s.clear();
++  encRec(b, REC_SESSION_START, 0, 8);
++  live.onRecord(b, 0, 48);
++  live.sessionStarted(8, MODE_WALK, START_OWNER_BUTTON);
++  std::vector<std::string> L = splitLines(k.s);
++  CHECK_EQ(L.size(), 3);
++  if (L.size() == 3) {
++    CHECK_STR(L[0], "#J {\"v\":1,\"t\":\"se\",\"ss\":7,\"er\":\"LOW_BATTERY\",\"n\":2}\n");
++    CHECK(L[1].find("\"t\":\"rec\",\"seq\":0,\"ty\":1,") != std::string::npos);
++    CHECK_STR(L[2], "#J {\"v\":1,\"t\":\"ss\",\"ss\":8,\"md\":\"WALK\",\"sr\":\"OWNER_BUTTON\"}\n");
++  }
++  // LIVE off when the session ends: no se, also not later
++  live.handleCommand("LIVE OFF", r);
++  encRec(b, REC_SESSION_END, 1, 0, END_USER_STOP);
++  live.onRecord(b, 1, 96);
++  live.sessionCheck(false);
++  live.handleCommand("LIVE ON", r);
++  k.s.clear();
++  live.sessionCheck(false);
++  CHECK(k.s.empty());
++  // LIVE turned on in the middle of a session: the session was followed anyway, so se has the right count
++  live.handleCommand("LIVE OFF", r);
++  encRec(b, REC_SESSION_START, 0, 9);
++  live.onRecord(b, 0, 48);
++  live.sessionStarted(9, MODE_WALK, START_OWNER_BUTTON);
++  for (uint32_t i = 1; i < 10; i++) { encRec(b, REC_FIX, i); live.onRecord(b, i, (i + 1) * 48); }
++  live.handleCommand("LIVE ON", r);
++  k.s.clear();
++  encRec(b, REC_SESSION_END, 10, 0, END_STORAGE_FULL);
++  live.onRecord(b, 10, 11 * 48);
++  live.sessionCheck(false);
++  L = splitLines(k.s);
++  CHECK_EQ(L.size(), 2);
++  if (L.size() == 2) CHECK_STR(L[1], "#J {\"v\":1,\"t\":\"se\",\"ss\":9,\"er\":\"STORAGE_FULL\",\"n\":11}\n");
++  // STATUS record: rec, then st with the battery only when ST_BATT_VALID is set
++  Record st;
++  memset(&st, 0, sizeof(st));
++  st.h.type = REC_STATUS; st.h.seq = 3;
++  st.st.vbat_mv = 3988; st.st.flags = ST_BATT_VALID; st.st.fs_free_bytes = 2310144;
++  encode(st, b);
++  k.s.clear();
++  live.onRecord(b, 3, 192);
++  L = splitLines(k.s);
++  CHECK_EQ(L.size(), 2);
++  if (L.size() == 2) CHECK_STR(L[1], "#J {\"v\":1,\"t\":\"st\",\"vb\":3988,\"ff\":2310144}\n");
++  st.st.flags = 0;
++  encode(st, b);
++  k.s.clear();
++  live.onRecord(b, 3, 192);
++  L = splitLines(k.s);
++  if (L.size() == 2) CHECK_STR(L[1], "#J {\"v\":1,\"t\":\"st\",\"vb\":null,\"ff\":2310144}\n");
++}
++
++struct ObsTap {
++  std::string bytes;  // every observed record, in order
++  std::vector<uint32_t> seqs, sizes;
++  Live* live = nullptr;
++};
++static void tap_cb(const uint8_t* rec, uint32_t seq, uint32_t size, void* ctx) {
++  ObsTap* t = (ObsTap*)ctx;
++  t->bytes.append((const char*)rec, WFG_RECORD_SIZE);
++  t->seqs.push_back(seq);
++  t->sizes.push_back(size);
++  if (t->live) live_record_observer(rec, seq, size, t->live);
++}
++static bool tapContiguous(const ObsTap& t) {
++  for (size_t i = 0; i < t.seqs.size(); i++)
++    if (t.seqs[i] != i || t.sizes[i] != (i + 1) * WFG_RECORD_SIZE) return false;
++  return true;
++}
++
++static void test_live_record_observer() {
++  g_test = "live_record_observer";
++  // A. The observer sees every record of the sample session in order (seq, size after the write, bytes), and the
++  //    file is byte-identical to the same session recorded without an observer.
++  {
++    std::string d1 = freshDir("fs_live_obs"), d2 = freshDir("fs_live_noobs");
++    Sim s1(d1, 6750208, testCfg()), s2(d2, 6750208, testCfg());
++    ObsTap tap;
++    s1.lg.setRecordObserver(tap_cb, &tap);
++    std::string n1 = recordSampleSession(s1, true), n2 = recordSampleSession(s2, true);
++    std::string f1 = fileBytes(s1.st, n1.c_str()), f2 = fileBytes(s2.st, n2.c_str());
++    CHECK(!f1.empty() && f1 == f2);
++    CHECK(tap.bytes == f1);
++    CHECK_EQ(tap.seqs.size(), f1.size() / WFG_RECORD_SIZE);
++    CHECK(tapContiguous(tap));
++  }
++  // B. LIVE end to end on the logging core, with the calls main.cpp makes: rec lines rebuild the file, crc and b are
++  //    right, ep/st/ev/ss/se come in the expected places.
++  {
++    std::string d = freshDir("fs_live_e2e");
++    Sim s(d, 6750208, testCfg());
++    CapLiveSink k;
++    Live live(k);
++    StrSink rep;
++    live.handleCommand("LIVE ON", rep);
++    ObsTap tap;
++    tap.live = &live;
++    s.lg.setRecordObserver(tap_cb, &tap);
++    s.lg.begin();
++    s.lg.setStatusSource(testStatus, nullptr);
++    s.lg.tick(s.now, &s.p);
++    CHECK(s.lg.start(MODE_VEHICLE, s.now));
++    std::string name = s.lg.currentName();
++    live.sessionStarted((uint32_t)atoi(name.c_str() + 1), MODE_VEHICLE, START_OWNER_BUTTON);
++    auto take = [&]() {
++      GnssEpoch e = s.p.takeEpoch();
++      live.epoch(e, s.lg.state(), s.lg.recording() ? (int32_t)atoi(s.lg.currentName() + 1) : -1, MODE_VEHICLE);
++      s.lg.onEpoch(e, s.now);
++    };
++    for (int i = 0; i < 5; i++) {
++      for (auto& l : epochLines(3600000 + i * 1000, "141026", SimFix{true, 31.2 + i * 1e-5, 121.4, 5, 1, 0, 8, 1.0})) {
++        s.now += 5;
++        if (s.p.feedLine(l.c_str(), s.now) && s.p.hasEpoch()) take();
++      }
++      for (int j = 0; j < 20; j++) {
++        s.now += 49;
++        if (s.p.poll(s.now) && s.p.hasEpoch()) take();
++        s.lg.tick(s.now, &s.p);
++        live.sessionCheck(s.lg.recording());
++      }
++      if (i == 2 && s.lg.markEvent(s.now - 100, 100, s.now)) live.event((uint32_t)s.lg.lastEventNo(), s.lg.lastEventLocated());
++    }
++    CHECK(s.lg.stop(END_USER_STOP, s.now));
++    live.sessionCheck(s.lg.recording());
++    std::string file = fileBytes(s.st, name.c_str());
++    size_t nrec = file.size() / WFG_RECORD_SIZE;
++    std::vector<std::string> L = splitLines(k.s);
++    std::string hx;
++    int n_rec = 0, n_ep = 0, n_st = 0, n_ev = 0, n_ss = 0, n_se = 0, n_other = 0;
++    bool clean = true, crc_ok = true, b_ok = true, seq_ok = true, ep_ok = true;
++    size_t i_ss = 0, i_se = 0;
++    for (size_t i = 0; i < L.size(); i++) {
++      const std::string& l = L[i];
++      if (!cleanLine(l) || l.compare(0, 4, "#J {") != 0) clean = false;
++      std::string t = jfield(l, "t");
++      if (t == "\"rec\"") {
++        std::string h = jfield(l, "hx");
++        h = h.size() >= 2 ? h.substr(1, h.size() - 2) : "";
++        if (h.size() == 2 * WFG_RECORD_SIZE) {
++          uint8_t rb[WFG_RECORD_SIZE];
++          for (size_t j = 0; j < WFG_RECORD_SIZE; j++) rb[j] = (uint8_t)strtoul(h.substr(2 * j, 2).c_str(), nullptr, 16);
++          char c8[16];
++          snprintf(c8, sizeof(c8), "\"%08x\"", (unsigned)crc32(rb, 44));
++          if (jfield(l, "crc") != c8) crc_ok = false;
++          if (jfield(l, "ty") != std::to_string(rb[2])) crc_ok = false;
++        }
++        if (jfield(l, "seq") != std::to_string(n_rec)) seq_ok = false;
++        if (jfield(l, "b") != std::to_string((n_rec + 1) * WFG_RECORD_SIZE)) b_ok = false;
++        hx += h;
++        n_rec++;
++      } else if (t == "\"ep\"") {
++        n_ep++;
++        if (jfield(l, "rs") != "\"RECORDING\"" || jfield(l, "ss") != "1" || jfield(l, "md") != "\"VEHICLE\"" ||
++            jfield(l, "fix") != "1")
++          ep_ok = false;
++      } else if (t == "\"st\"") n_st++;
++      else if (t == "\"ev\"") n_ev++;
++      else if (t == "\"ss\"") { n_ss++; i_ss = i; }
++      else if (t == "\"se\"") { n_se++; i_se = i; }
++      else n_other++;
++    }
++    CHECK(clean); CHECK(crc_ok); CHECK(b_ok); CHECK(seq_ok); CHECK(ep_ok);
++    CHECK(hx == hexOf((const uint8_t*)file.data(), file.size()));
++    CHECK_EQ(n_rec, nrec);
++    CHECK_EQ(n_ep, 5);
++    CHECK_EQ(n_st, 1);  // the STATUS record written at the start
++    CHECK_EQ(n_ev, 1);
++    CHECK_EQ(n_ss, 1);
++    CHECK_EQ(n_se, 1);
++    CHECK_EQ(n_other, 0);
++    CHECK_EQ(i_se, L.size() - 1);  // se is the last line, right after the END record's rec line
++    CHECK(i_se > 0 && jfield(L[i_se - 1], "ty") == "6");
++    CHECK(i_ss > 0 && i_ss < i_se);
++    if (!L.empty()) {
++      CHECK_STR(L[i_ss], "#J {\"v\":1,\"t\":\"ss\",\"ss\":1,\"md\":\"VEHICLE\",\"sr\":\"OWNER_BUTTON\"}\n");
++      char want[120];
++      snprintf(want, sizeof(want), "#J {\"v\":1,\"t\":\"se\",\"ss\":1,\"er\":\"USER_STOP\",\"n\":%u}\n", (unsigned)nrec);
++      CHECK_STR(L[i_se], want);
++    }
++    // st carries the STATUS record's battery and free-space values
++    Record sr;
++    bool found = false;
++    for (size_t j = 0; j + WFG_RECORD_SIZE <= file.size(); j += WFG_RECORD_SIZE)
++      if (decode((const uint8_t*)file.data() + j, sr) && sr.h.type == REC_STATUS) { found = true; break; }
++    CHECK(found);
++    if (found) {
++      char want[120];
++      snprintf(want, sizeof(want), "#J {\"v\":1,\"t\":\"st\",\"vb\":3988,\"ff\":%u}\n", (unsigned)sr.st.fs_free_bytes);
++      CHECK(k.s.find(want) != std::string::npos);
++    }
++    CHECK(k.s.find("#J {\"v\":1,\"t\":\"ev\",\"n\":1,\"loc\":1}\n") != std::string::npos);
++  }
++  // C. Storage runs out (free-space check): the END(STORAGE_FULL) record is observed and se reports it
++  {
++    std::string d = freshDir("fs_live_full");
++    LoggerConfig c = testCfg();
++    c.reserve_bytes = 16384;
++    PosixStorage st(d.c_str(), 128 * 1024);
++    Logger lg(st, c);
++    CapLiveSink k;
++    Live live(k);
++    StrSink rep;
++    live.handleCommand("LIVE ON", rep);
++    ObsTap tap;
++    tap.live = &live;
++    lg.setRecordObserver(tap_cb, &tap);
++    lg.begin();
++    CHECK(lg.start(MODE_WALK, 0));
++    std::string name = lg.currentName();
++    live.sessionStarted(1, MODE_WALK, START_OWNER_BUTTON);
++    NmeaParser p;
++    uint32_t now = 0;
++    int i = 0;
++    while (lg.state() == LS_RECORDING && i < 100000) {
++      for (auto& s : epochLines(3600000 + (i % 80000) * 1000, "031026", SimFix{true, 31.3, 121.5, 5, 1, 0, 8, 1.0}))
++        p.feedLine(s.c_str(), now += 5);
++      now += 985;
++      if (p.poll(now)) lg.onEpoch(p.takeEpoch(), now);
++      lg.tick(now, &p);
++      live.sessionCheck(lg.recording());
++      i++;
++    }
++    CHECK_EQ(lg.state(), LS_FULL);
++    std::string file = fileBytes(st, name.c_str());
++    CHECK(tap.bytes == file);
++    CHECK(tapContiguous(tap));
++    std::vector<std::string> L = splitLines(k.s);
++    CHECK(L.size() >= 2);
++    if (L.size() >= 2) {
++      char want[120];
++      snprintf(want, sizeof(want), "#J {\"v\":1,\"t\":\"se\",\"ss\":1,\"er\":\"STORAGE_FULL\",\"n\":%u}\n",
++               (unsigned)(file.size() / WFG_RECORD_SIZE));
++      CHECK_STR(L.back(), want);
++      CHECK_STR(jfield(L[L.size() - 2], "ty"), "6");
++      CHECK_STR(jfield(L[L.size() - 2], "b"), std::to_string(file.size()));
++    }
++  }
++  // D. Hard short write (ENOSPC mid-record): the END record the logger writes after cutting the partial record is
++  //    observed too; if not even that fits, the file stays OPEN and se has "er":null. Either way n = records in file.
++  {
++    std::string d = freshDir("fs_live_enospc");
++    PosixStorage st(d.c_str(), 32 * 1024);
++    LoggerConfig c = testCfg();
++    c.reserve_bytes = 0;
++    c.free_check_every_records = 1000000;
++    Logger lg(st, c);
++    CapLiveSink k;
++    Live live(k);
++    StrSink rep;
++    live.handleCommand("LIVE ON", rep);
++    ObsTap tap;
++    tap.live = &live;
++    lg.setRecordObserver(tap_cb, &tap);
++    lg.begin();
++    CHECK(lg.start(MODE_WALK, 0));
++    std::string name = lg.currentName();
++    live.sessionStarted(1, MODE_WALK, START_OWNER_BUTTON);
++    NmeaParser p;
++    uint32_t now = 0;
++    int i = 0;
++    while (lg.state() == LS_RECORDING && i < 10000) {
++      for (auto& s : epochLines(3600000 + i * 1000, "031026", SimFix{true, 31.3, 121.5, 5, 1, 0, 8, 1.0}))
++        p.feedLine(s.c_str(), now += 5);
++      now += 985;
++      if (p.poll(now)) lg.onEpoch(p.takeEpoch(), now);
++      live.sessionCheck(lg.recording());
++      i++;
++    }
++    CHECK_EQ(lg.state(), LS_FULL);
++    IntegrityReport ir = Logger::checkSession(st, name.c_str());
++    std::string file = fileBytes(st, name.c_str());
++    CHECK(tap.bytes == file);
++    CHECK(tapContiguous(tap));
++    std::vector<std::string> L = splitLines(k.s);
++    if (!L.empty()) {
++      char want[120];
++      snprintf(want, sizeof(want), "#J {\"v\":1,\"t\":\"se\",\"ss\":1,\"er\":%s,\"n\":%u}\n",
++               ir.has_end ? "\"STORAGE_FULL\"" : "null", (unsigned)(file.size() / WFG_RECORD_SIZE));
++      CHECK_STR(L.back(), want);
++    }
++  }
++}
++
++static void test_nmea_line_collector() {
++  g_test = "nmea_line_collector";
++  NmeaLineCollector c;
++  auto feed = [&](const std::string& bytes) {
++    std::vector<std::string> out;
++    for (char ch : bytes)
++      if (c.feed(ch)) out.push_back(c.line());
++    return out;
++  };
++  std::string gga = withCk("GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,");
++  std::vector<std::string> v = feed(gga + "\r\n" + "$GNRMC,X*00\n" + "\r\n");
++  CHECK_EQ(v.size(), 2);
++  if (v.size() == 2) { CHECK_STR(v[0], gga); CHECK_STR(v[1], "$GNRMC,X*00"); }
++  // Bytes before '$' (noise, a partial line after boot) are not part of the sentence; lines without '$' are ignored
++  v = feed("\x07zz garbage$GNGSA,A,3*00\r\nno sentence here\r\n");
++  CHECK_EQ(v.size(), 1);
++  if (v.size() == 1) CHECK_STR(v[0], "$GNGSA,A,3*00");
++  CHECK_EQ(c.discarded(), 0);
++  // 100 characters pass, 101 are discarded
++  std::string s100 = "$" + std::string(99, 'A'), s101 = "$" + std::string(100, 'A');
++  v = feed(s100 + "\r\n" + s101 + "\r\n");
++  CHECK_EQ(v.size(), 1);
++  if (v.size() == 1) CHECK_EQ(v[0].size(), 100);
++  CHECK_EQ(c.discarded(), 1);
++  // Control or non-ASCII bytes inside a sentence: discarded
++  v = feed(std::string("$GN\tGGA*00\r\n") + "$GN\xb5GGA*00\r\n");
++  CHECK_EQ(v.size(), 0);
++  CHECK_EQ(c.discarded(), 3);
++  // A sentence cut short by the next '$' is discarded and the next one kept (NmeaParser also restarts at '$')
++  v = feed("$GNGGA,081647$GNRMC,081647.000,V*00\r\n");
++  CHECK_EQ(v.size(), 1);
++  if (v.size() == 1) CHECK_STR(v[0], "$GNRMC,081647.000,V*00");
++  CHECK_EQ(c.discarded(), 4);
++}
++
++static void test_tx_queue_model() {
++  g_test = "tx_queue_model";
++  TxQueueModel q(3072, 5760, 32);  // the values main.cpp uses for the classic ESP32
++  CHECK_EQ(q.freeBytes(1000), 3072);
++  q.add(100, 1000);
++  CHECK_EQ(q.queuedBytes(1000), 132);  // line + per-write overhead
++  CHECK_EQ(q.freeBytes(1000), 3072 - 132);
++  CHECK_EQ(q.queuedBytes(11000), 75);  // 10 ms at 5760 bytes/s = 57.6 bytes sent; 74.4 rounded up
++  CHECK_EQ(q.queuedBytes(1000), 75);   // time going backwards changes nothing
++  CHECK_EQ(q.queuedBytes(1000000), 0);
++  for (int i = 0; i < 20; i++) q.add(288, 2000000);  // 20 x 320 = 6400 > 3072
++  CHECK_EQ(q.freeBytes(2000000), 0);
++  CHECK_EQ(q.freeBytes(2500000), 0);           // 0.5 s later 2880 bytes are out, 3520 still queued
++  CHECK_EQ(q.freeBytes(3000000), 3072 - 640);  // 1 s later 5760 are out, 640 queued
++  CHECK_EQ(q.queuedBytes(3000000 + 60000000), 0);  // a minute later: empty
++  // Wired into Live, the estimate limits the output: one second of epoch lines at 1 Hz never comes near the cap
++  struct ModelSink : LiveSink {
++    TxQueueModel m{3072, 5760, 32};
++    uint64_t now = 0;
++    std::string s;
++    size_t availableForWrite() override { return m.freeBytes(now); }
++    bool write(const char* p, size_t n) override { m.add(n, now); s.append(p, n); return true; }
++  } ms;
++  Live live(ms);
++  StrSink r;
++  live.handleCommand("LIVE ON", r);
++  live.handleCommand("LIVE NMEA ON", r);
++  std::string gga = withCk("GNGGA,081647.000,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,,");
++  uint8_t b[WFG_RECORD_SIZE];
++  encRec(b, REC_FIX, 1);
++  for (int sec = 0; sec < 600; sec++) {  // 10 minutes: per second 1 ep, 2 rec, 15 #N lines
++    ms.now = (uint64_t)sec * 1000000u;
++    live.epoch(specEpoch(), LS_RECORDING, 1, MODE_WALK);
++    live.onRecord(b, 1, 96);
++    live.onRecord(b, 1, 96);
++    for (int j = 0; j < 15; j++) { ms.now += 50000; live.nmea(gga.c_str()); }
++  }
++  CHECK_EQ(live.linesDropped(), 0);
++  CHECK_EQ(live.linesSent(), 600 * 18);
++  // ...while a burst far above the line rate is cut off by drops instead of waiting
++  for (int j = 0; j < 100; j++) live.nmea(gga.c_str());
++  CHECK(live.linesDropped() > 0);
++}
++
+ int main(int argc, char** argv) {
+   g_root = argc > 1 ? argv[1] : "./host_test_tmp";
+   const char* sample_out = argc > 2 ? argv[2] : nullptr;
+@@ -938,6 +1797,18 @@
+   test_many_sessions();
+   test_resume(sample_out);
+   test_read_v1(sample_out);
++  // LIVE lines (firmware 0.3.0)
++  test_live_formats();
++  test_live_limits();
++  test_live_epoch_from_parser();
++  test_live_commands();
++  test_live_default_off();
++  test_live_nmea_needs_live();
++  test_live_drop_counter();
++  test_live_sessions();
++  test_live_record_observer();
++  test_nmea_line_collector();
++  test_tx_queue_model();
+   printf("HOST TESTS (simulated, no hardware): %d checks passed, %d failed\n", g_pass, g_fail);
+   return g_fail ? 1 : 0;
+ }
+diff -ruN -x build_evidence -x firmware_0.2.0_to_0.3.0.diff firmware/test/host/test_fake_device_live.py firmware_v0_3_0_live/test/host/test_fake_device_live.py
+--- firmware/test/host/test_fake_device_live.py	1970-01-01 08:00:00.000000000 +0800
++++ firmware_v0_3_0_live/test/host/test_fake_device_live.py	2026-10-08 18:42:52.494547000 +0800
+@@ -0,0 +1,301 @@
++#!/usr/bin/env python3
++"""HOST/SIMULATED test of the LIVE lines through the host fake device (no hardware).
++
++Runs test/host/fake_device (the real wfg_core logging, protocol and LIVE code) on a Linux pseudo-terminal and drives
++it the way a desktop app would: nothing is sent by default, LIVE ON, GNSS epochs with !NMEA, LIVE NMEA ON, a
++recording started, marked and stopped with !START, !MARK and !STOP. Every LIVE line is checked for its format, and
++the "rec" lines are checked against the session file the logging code wrote.
++Python standard library only. Run: python3 -B test_fake_device_live.py path/to/fake_device
++"""
++import json
++import os
++import pty
++import select
++import shutil
++import subprocess
++import sys
++import tempfile
++import time
++import tty
++import zlib
++
++passed = failed = 0
++EP_KEYS = ["v", "t", "ms", "utc", "fix", "q", "ft", "su", "hd", "la", "lo", "al", "sp", "co", "nr", "rs", "ss", "md"]
++REC_KEYS = ["v", "t", "seq", "ty", "b", "crc", "hx"]
++
++
++def check(cond, msg):
++    global passed, failed
++    if cond:
++        passed += 1
++    else:
++        failed += 1
++        print("FAIL:", msg)
++
++
++def ck(body):
++    c = 0
++    for ch in body:
++        c ^= ord(ch)
++    return "$%s*%02X" % (body, c)
++
++
++def epoch(hms, fix=True):
++    if fix:
++        return [ck("GNGGA,%s,3112.5559,N,12126.3372,E,1,11,0.9,12.4,M,8.9,M,," % hms),
++                ck("GNRMC,%s,A,3112.5559,N,12126.3372,E,0.155,343.0,141026,,,A,V" % hms),
++                ck("GNGSA,A,3,01,02,03,04,05,06,,,,,,,1.8,0.9,1.4,1")]
++    return [ck("GNGGA,%s,,,,,0,03,,,M,,M,," % hms), ck("GNRMC,%s,V,,,,,,,141026,,,N,V" % hms),
++            ck("GNGSA,A,1,,,,,,,,,,,,,99.99,99.99,99.99,1")]
++
++
++class Dev:
++    def __init__(self, binary, devdir):
++        self.m, s = pty.openpty()
++        tty.setraw(s)
++        self.p = subprocess.Popen([binary, devdir], stdin=s, stdout=s, stderr=subprocess.PIPE)
++        os.close(s)
++        self.buf = b""
++        self.lines = []      # every line received, in order (str)
++        self.raw = []        # the same lines as bytes
++
++    def pump(self, t):
++        end = time.time() + t
++        while True:
++            left = end - time.time()
++            r, _, _ = select.select([self.m], [], [], max(0.0, min(0.02, left)))
++            if r:
++                try:
++                    d = os.read(self.m, 65536)
++                except OSError:
++                    return
++                if not d:
++                    return
++                self.buf += d
++                while b"\n" in self.buf:
++                    ln, self.buf = self.buf.split(b"\n", 1)
++                    self.raw.append(ln)
++                    self.lines.append(ln.decode("ascii", "replace"))
++            if time.time() >= end:
++                return
++
++    def send(self, line):
++        os.write(self.m, (line + "\n").encode())
++
++    def cmd(self, line, wait=0.25):
++        n0 = len(self.lines)
++        self.send(line)
++        self.pump(wait)
++        return self.lines[n0:]
++
++    def wait_for(self, pred, timeout):
++        end = time.time() + timeout
++        while time.time() < end:
++            if pred():
++                return True
++            self.pump(0.05)
++        return pred()
++
++    def nmea(self, sentences):
++        for s in sentences:
++            self.send("!NMEA " + s)
++
++
++def jl(lines, t=None):
++    out = []
++    for ln in lines:
++        if ln.startswith("#J "):
++            o = json.loads(ln[3:])
++            if t is None or o.get("t") == t:
++                out.append(o)
++    return out
++
++
++def keys(line):
++    return [k for k, _ in json.loads(line[3:], object_pairs_hook=list)]
++
++
++def raw_field(line, key):
++    k = '"%s":' % key
++    p = line.find(k)
++    if p < 0:
++        return None
++    p += len(k)
++    e = min(x for x in (line.find(",", p), line.find("}", p), len(line)) if x >= 0)
++    return line[p:e]
++
++
++def main(binary):
++    work = tempfile.mkdtemp(prefix="wfg_live_")
++    devdir = os.path.join(work, "device_fs")
++    os.makedirs(devdir)
++    d = Dev(binary, devdir)
++    try:
++        d.wait_for(lambda: d.lines, 3)
++        check(d.lines[:1] == ["# fake device ready"], "ready line first")
++        out = d.cmd("HELLO")
++        check('OK HELLO fw=0.1.0-host board="HOST-FAKE-DEVICE" device=1A2B3C4D fmt=2 recsize=48 state=IDLE' in out,
++              "HELLO keeps the fake device's strings: %r" % out)
++
++        # 1. Default off: epochs and sentences give no LIVE lines at all
++        n0 = len(d.lines)
++        d.nmea(epoch("081640.000"))
++        d.pump(0.6)
++        out = d.cmd("STATUS")
++        check(not any(x.startswith("#J") or x.startswith("#N") for x in d.lines[n0:]), "default off: no LIVE lines")
++        check(any(x.startswith("OK STATUS state=IDLE mode=WALK session=- seq=0 ") for x in out), "STATUS %r" % out)
++
++        # 2. LIVE ON: one ep per epoch, fields as specified, no #N yet
++        check(d.cmd("LIVE ON") == ["OK LIVE ON"], "LIVE ON reply")
++        n0 = len(d.lines)
++        d.nmea(epoch("081641.000"))
++        d.wait_for(lambda: jl(d.lines[n0:], "ep"), 2)
++        d.pump(0.2)
++        new = d.lines[n0:]
++        eps = [x for x in new if x.startswith("#J ") and '"t":"ep"' in x]
++        check(len(eps) == 1, "one ep per epoch: %r" % new)
++        check(not any(x.startswith("#N") for x in new), "no #N while LIVE NMEA is off")
++        if eps:
++            e = json.loads(eps[0][3:])
++            check(keys(eps[0]) == EP_KEYS, "ep keys in order: %r" % keys(eps[0]))
++            check(e["v"] == 1 and e["utc"] == "2026-10-14T08:16:41.000Z" and e["fix"] == 1 and e["q"] == 1 and
++                  e["ft"] == "3D" and e["su"] == 11 and e["nr"] is None and e["rs"] == "IDLE" and e["ss"] is None and
++                  e["md"] == "WALK", "ep values %r" % e)
++            check(raw_field(eps[0], "la") == "31.2092650" and raw_field(eps[0], "lo") == "121.4389533" and
++                  raw_field(eps[0], "hd") == "0.9" and raw_field(eps[0], "al") == "12.4" and
++                  raw_field(eps[0], "sp") == "0.08" and raw_field(eps[0], "co") == "343.0", "ep numbers %s" % eps[0])
++
++        # 3. LIVE NMEA ON: the sentences come back exactly as sent, before the epoch's ep line
++        check(d.cmd("LIVE NMEA ON") == ["OK LIVE NMEA ON"], "LIVE NMEA ON reply")
++        n0 = len(d.lines)
++        sent = epoch("081642.000", fix=False)
++        d.nmea(sent)
++        d.wait_for(lambda: jl(d.lines[n0:], "ep"), 2)
++        new = d.lines[n0:]
++        check([x[3:] for x in new if x.startswith("#N ")] == sent, "#N lines are the raw sentences: %r" % new)
++        e = jl(new, "ep")
++        check(len(e) == 1 and e[0]["fix"] == 0 and e[0]["nr"] == "RECEIVER_NO_FIX" and e[0]["la"] is None and
++              e[0]["ft"] == "NONE" and e[0]["q"] == 0, "no-fix ep %r" % e)
++        live_new = [x for x in new if x.startswith("#N ") or '"t":"ep"' in x]
++        check(live_new and live_new[-1].startswith('#J {"v":1,"t":"ep"'), "ep after the epoch's #N lines")
++
++        # 4. !START: rec lines for START, CLOCK and STATUS, st, ss, then the banner main.cpp prints
++        n0 = len(d.lines)
++        d.send("!START VEHICLE")
++        d.wait_for(lambda: "# REC S000001.wfg VEHICLE" in d.lines[n0:], 2)
++        new = d.lines[n0:]
++        check(new[-1:] == ["# REC S000001.wfg VEHICLE"], "REC banner last: %r" % new)
++        recs = jl(new, "rec")
++        check([r["ty"] for r in recs] == [1, 5, 7], "START, CLOCK (UTC known), STATUS: %r" % [r["ty"] for r in recs])
++        i7 = [i for i, x in enumerate(new) if '"t":"rec"' in x and '"ty":7,' in x]
++        st = json.loads(new[i7[0] + 1][3:]) if i7 and i7[0] + 1 < len(new) else {}
++        check(st.get("t") == "st" and st.get("vb", 0) is None and isinstance(st.get("ff"), int),
++              "st right after the STATUS record %r" % st)
++        ss = [x for x in new if '"t":"ss"' in x]
++        check(ss == ['#J {"v":1,"t":"ss","ss":1,"md":"VEHICLE","sr":"OWNER_BUTTON"}'], "ss line %r" % ss)
++
++        # 5. Two epochs while recording, about 1 s apart (the logger keeps at most one row per second)
++        for k, hms in enumerate(("081643.000", "081644.000")):
++            n0 = len(d.lines)
++            d.nmea(epoch(hms))
++            d.wait_for(lambda: jl(d.lines[n0:], "ep") and jl(d.lines[n0:], "rec"), 2)
++            new = d.lines[n0:]
++            e = jl(new, "ep")
++            check(len(e) == 1 and e[0]["rs"] == "RECORDING" and e[0]["ss"] == 1 and e[0]["md"] == "VEHICLE",
++                  "ep while recording %r" % e)
++            check([r["ty"] for r in jl(new, "rec") if r["ty"] != 3] == [2], "FIX row %r" % new)
++            ep_i = [i for i, x in enumerate(new) if '"t":"ep"' in x]
++            rec_i = [i for i, x in enumerate(new) if '"t":"rec"' in x and '"ty":2,' in x]
++            check(ep_i and rec_i and ep_i[0] < rec_i[0], "ep before the row it produces")
++            if k == 0:
++                d.pump(0.8)
++
++        # 6. !MARK: EVENT record, ev, banner (a gap-filler row may come in between and is ignored here)
++        out = d.cmd("!MARK")
++        check([r["ty"] for r in jl(out, "rec") if r["ty"] != 3] == [4], "EVENT record %r" % out)
++        check('#J {"v":1,"t":"ev","n":1,"loc":1}' in out and "# EVENT 1 marked" in out, "ev and banner %r" % out)
++
++        # 7. Protocol while recording: as main.cpp, byte for byte ("%.5s" of "DUMP S..." keeps the space after DUMP)
++        out = d.cmd("LIST") + d.cmd("DUMP S000001.wfg") + d.cmd("CHECK S000001.wfg")
++        check([x for x in out if x.startswith("ERR")] ==
++              ["ERR LIST recording-active (stop recording first)", "ERR DUMP  recording-active (stop recording first)",
++               "ERR CHECK recording-active (stop recording first)"], "heavy commands refused %r" % out)
++        out = d.cmd("STATUS")
++        check(any(x.startswith("OK STATUS state=RECORDING mode=VEHICLE session=S000001.wfg seq=") for x in out),
++              "STATUS while recording %r" % out)
++        check(d.cmd("LIVE MAYBE") == ["ERR LIVE bad-argument"], "bad LIVE argument while recording")
++        check(d.cmd("LIVE NMEA OFF") == ["OK LIVE NMEA OFF"], "LIVE NMEA OFF while recording")
++
++        # 8. No GNSS data: the gap filler writes NOFIX rows (NO_NMEA_DATA), seen as rec lines
++        n0 = len(d.lines)
++        d.wait_for(lambda: any(r["ty"] == 3 for r in jl(d.lines[n0:], "rec")), 4)
++        fill = [r for r in jl(d.lines[n0:], "rec") if r["ty"] == 3]
++        check(fill and bytes.fromhex(fill[0]["hx"])[41] == 2, "gap filler row NO_NMEA_DATA")
++
++        # 9. !STOP: END record, se with the record count, banner
++        n0 = len(d.lines)
++        d.send("!STOP")
++        d.wait_for(lambda: "# STOPPED - saved" in d.lines[n0:], 2)
++        new = [x for x in d.lines[n0:] if '"t":"st"' not in x]  # an idle st may follow the stop at any moment
++        check([r["ty"] for r in jl(new, "rec")][-1:] == [6], "END record %r" % new)
++        check(new[-2:] == ['#J {"v":1,"t":"se","ss":1,"er":"USER_STOP","n":%d}'
++                           % (os.path.getsize(os.path.join(devdir, "S000001.wfg")) // 48), "# STOPPED - saved"],
++              "se, then the STOPPED banner %r" % new)
++
++        # The rec lines rebuild the session file exactly; b, seq and crc agree with the bytes
++        data = open(os.path.join(devdir, "S000001.wfg"), "rb").read()
++        rec_lines = [x for x in d.lines if x.startswith('#J {"v":1,"t":"rec"')]
++        recs = [json.loads(x[3:]) for x in rec_lines]
++        check(b"".join(bytes.fromhex(r["hx"]) for r in recs) == data, "rec lines == session file bytes")
++        check([r["seq"] for r in recs] == list(range(len(recs))), "seq 0..n-1 without gaps")
++        check(all(r["b"] == (r["seq"] + 1) * 48 for r in recs), "b = file size after each record")
++        check(all(r["crc"] == "%08x" % zlib.crc32(bytes.fromhex(r["hx"])[:44]) and
++                  r["crc"] == "%08x" % int.from_bytes(bytes.fromhex(r["hx"])[44:48], "little") for r in recs),
++              "crc = CRC-32 of bytes 0..43 = u32 at 44..47")
++        check(all(r["ty"] == bytes.fromhex(r["hx"])[2] for r in recs), "ty = byte 2")
++        check(all(keys(x) == REC_KEYS for x in rec_lines), "rec keys in order")
++        se = [x for x in new if '"t":"se"' in x]
++        check(se == ['#J {"v":1,"t":"se","ss":1,"er":"USER_STOP","n":%d}' % (len(data) // 48)], "se line %r" % se)
++        out = d.cmd("CHECK S000001.wfg")
++        check(any(x.startswith("OK CHECK S000001.wfg OK ") for x in out), "session file intact %r" % out)
++
++        # 10. Idle: st every 10 s (no battery on the host: vb null)
++        n0 = len(d.lines)
++        check(d.wait_for(lambda: jl(d.lines[n0:], "st"), 11.5), "st every 10 s while idle")
++        st = jl(d.lines[n0:], "st")
++        check(st and st[0]["vb"] is None and isinstance(st[0]["ff"], int), "idle st %r" % st)
++
++        # 11. LIVE OFF: silence again
++        check(d.cmd("LIVE OFF") == ["OK LIVE OFF"], "LIVE OFF reply")
++        n0 = len(d.lines)
++        d.nmea(epoch("081700.000"))
++        d.pump(0.6)
++        check(not any(x.startswith("#J") or x.startswith("#N") for x in d.lines[n0:]), "LIVE OFF: no LIVE lines")
++
++        # Every line seen: ASCII, no CR, LIVE lines at most 320 bytes with the '\n', #J lines are JSON with v=1
++        check(all(all(b < 0x80 for b in r) and b"\r" not in r for r in d.raw), "ASCII, LF line endings")
++        live = [r for r in d.raw if r.startswith(b"#J ") or r.startswith(b"#N ")]
++        check(all(len(r) + 1 <= 320 for r in live), "LIVE lines <= 320 bytes")
++        check(all(json.loads(x[3:]).get("v") == 1 for x in d.lines if x.startswith("#J ")), "#J lines parse, v=1")
++        d.send("!QUIT")
++        try:
++            rc = d.p.wait(timeout=3)
++        except subprocess.TimeoutExpired:
++            rc = None
++        check(rc == 0, "exits on !QUIT")
++        err = d.p.stderr.read().decode("utf-8", "replace") if rc is not None else ""
++        check(err == "", "nothing on stderr: %r" % err)
++    finally:
++        if d.p.poll() is None:
++            d.p.kill()
++        os.close(d.m)
++        shutil.rmtree(work, ignore_errors=True)
++
++
++if __name__ == "__main__":
++    if len(sys.argv) < 2 or not os.path.exists(sys.argv[1]):
++        print("usage: test_fake_device_live.py path/to/fake_device")
++        sys.exit(2)
++    main(sys.argv[1])
++    print("LIVE FAKE DEVICE TESTS (simulated, no hardware): %d passed, %d failed" % (passed, failed))
++    sys.exit(1 if failed else 0)

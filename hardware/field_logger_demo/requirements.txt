@@ -1,0 +1,10 @@
+# Runtime (pinned). Python 3.11 or newer.
+#   python3 -m pip install -r requirements.txt
+#   python3 -m playwright install chromium        (once, while online: needed for the E key exports)
+fastapi==0.142.4
+starlette==1.6.0
+uvicorn==0.52.4
+websockets==17.2
+pyserial==3.5
+playwright==1.56.0
+Pillow==12.3.0

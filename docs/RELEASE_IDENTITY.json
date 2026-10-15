@@ -1,0 +1,12 @@
+{
+  "software": "wfg_latest 1.0.0",
+  "kit": "v3",
+  "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "wheel_sha256": "1475854b27e8e6d2f71f1bc5de6e1690474b30c500533ecce8221816905ce47d",
+  "kit_sha256": "1d7da17a0f883bade6bb48a79f253637294868db50640ed0d48227fc832e09b6",
+  "completion_archive_sha256": "2477ff2e210281faff969213043ed93d8d2c8f3d2892385a3b5025464a67ef0c",
+  "evaluation_inputs_archive_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+  "review_sha256": "9f8a9d98391a5899c375d619c6648c3943fd6fcb162c4b03cb3e0aa8be9bb510",
+  "preferred_research_arm": "RDA_CAND",
+  "semantics": "Unchanged reviewed package and kit. Layout, documentation and example launchers adapted for repository use."
+}

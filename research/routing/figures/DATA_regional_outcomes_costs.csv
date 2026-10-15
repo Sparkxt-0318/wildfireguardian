@@ -1,0 +1,11 @@
+region,arm,planned_missions,both_reps_resolved,both_reps_checked_route,both_reps_scoped_refusal,attempts,resolved_attempts,unresolved_attempts,all_wall_median_s,all_largest_RSS_max_mib
+hongseong_2023,RDA_BASE,4,2,2,0,8,4,4,11.367476437495498,1502.359375
+hongseong_2023,RDA_CAND,4,4,2,2,8,8,0,3.8751567710060044,104.46875
+miryang_2022,RDA_BASE,4,2,2,0,8,4,4,9.551674104506674,1513.8125
+miryang_2022,RDA_CAND,4,4,2,2,8,8,0,3.4163095414987765,100.359375
+uiseong_andong_2025,RDA_BASE,4,3,3,0,8,6,2,4.983427437495266,1776.59375
+uiseong_andong_2025,RDA_CAND,4,4,4,0,8,8,0,6.826919854502194,999.296875
+uljin_2022,RDA_BASE,4,4,4,0,8,8,0,5.748351521004224,309.1875
+uljin_2022,RDA_CAND,4,4,4,0,8,8,0,5.598587271000724,400.078125
+yeongdeok_2025,RDA_BASE,4,2,2,0,8,4,4,13.350213916499342,2054.546875
+yeongdeok_2025,RDA_CAND,4,4,3,1,8,8,0,11.049779208500695,1492.171875

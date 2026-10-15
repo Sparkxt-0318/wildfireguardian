@@ -1,3 +1,5 @@
+> Historical version retained for compatibility. The finalized 15 October 2026 forecast-to-routing package and current setup are in [integration/](../integration/README.md). Results below concern this earlier version.
+
 # Current routing work — mentor review (8 October 2026)
 
 This is the current review snapshot, not a promotion of experimental code into the existing `routing-package` default.

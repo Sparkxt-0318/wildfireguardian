@@ -1,3 +1,5 @@
+> Historical version retained for compatibility. The finalized 15 October 2026 forecast-to-routing package and current setup are in [integration/](../integration/README.md). Results below concern this earlier version.
+
 # WildfireGuardian routing — organized development package
 
 This is the refactored **routing integration library** from the 5 October

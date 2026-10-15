@@ -1,0 +1,6 @@
+Map data for the area "gwangju_kdj": OpenStreetMap, downloaded 2026-10-08T13:11:44+00:00 by tools/fetch_mapdata.py.
+Source: OpenStreetMap API 0.6 map call, 0.009 degree tiles
+Area (S,W,N,E): 35.1382000,126.8324000,35.1516000,126.8488000
+Query: highway, building, natural=water, waterway, leisure=park|garden, landuse=grass (filtered locally)
+© OpenStreetMap contributors. The data is available under the Open Database License (ODbL) 1.0:
+https://www.openstreetmap.org/copyright

@@ -1,0 +1,32 @@
+{
+ "name": "gwangju_kdj",
+ "synthetic": false,
+ "center": [
+  126.8406,
+  35.1449
+ ],
+ "bounds": [
+  126.8324,
+  35.1382,
+  126.8488,
+  35.1516
+ ],
+ "attribution": {
+  "ko": "© OpenStreetMap 기여자 · ODbL",
+  "en": "© OpenStreetMap contributors · ODbL"
+ },
+ "source": "OpenStreetMap API 0.6 map call, 0.009 degree tiles",
+ "fetched": "2026-10-08T13:11:44+00:00",
+ "counts": {
+  "roads": 305,
+  "buildings": 664,
+  "water": 2,
+  "parks": 7
+ },
+ "layers": [
+  "buildings",
+  "parks",
+  "roads",
+  "water"
+ ]
+}

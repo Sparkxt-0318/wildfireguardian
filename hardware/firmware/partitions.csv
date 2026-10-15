@@ -1,0 +1,8 @@
+# WildfireGuardian route logger partition table for 8 MB flash (ESP32-S3FN8, Heltec Wireless Tracker V1.1/V2).
+# No OTA (USB flashing only) -> one factory app slot; everything else goes to LittleFS.
+# The data partition keeps the name "spiffs" because the Arduino LittleFS.begin() default label is "spiffs".
+# otadata omitted (single factory app, bootloader boots factory directly). App slot 1.5 MiB: measured firmware size is listed in README (must stay below this). No coredump partition.
+# Name,    Type, SubType,  Offset,   Size
+nvs,       data, nvs,      0x9000,   0x5000
+factory,   app,  factory,  0x10000,  0x180000
+spiffs,    data, spiffs,   0x190000, 0x670000
