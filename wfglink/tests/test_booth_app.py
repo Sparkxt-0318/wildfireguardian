@@ -437,10 +437,18 @@ def mark(tag):
 def key(k, tag):
     QTest.keyClick(win(), k)
     mark(tag)
+# The Esc presses are timed from the previous press as it actually happened, so a timer that
+# fires late on a loaded machine cannot squeeze the "too late" press into the confirm window.
+def esc2():
+    key(Qt.Key.Key_Escape, "esc2")
+def esc_late():
+    key(Qt.Key.Key_Escape, "esc_late")
+    QTimer.singleShot(300, esc2)
+def esc1():
+    key(Qt.Key.Key_Escape, "esc1")
+    QTimer.singleShot(1500, esc_late)
 for ms, fn in ((5000, lambda: key(Qt.Key.Key_Space, "pause")), (5700, lambda: mark("paused_a")),
-               (8000, lambda: mark("paused_b")), (8100, lambda: key(Qt.Key.Key_Space, "resume")),
-               (11000, lambda: key(Qt.Key.Key_Escape, "esc1")), (12500, lambda: key(Qt.Key.Key_Escape, "esc_late")),
-               (12800, lambda: key(Qt.Key.Key_Escape, "esc2"))):
+               (8000, lambda: mark("paused_b")), (8100, lambda: key(Qt.Key.Key_Space, "resume")), (11000, esc1)):
     QTimer.singleShot(ms, fn)
 res = run_live(cfg, source={"kind": "synthetic"}, screen="primary", heartbeat=sys.argv[1], duration_s=40)
 res["marks"] = marks
