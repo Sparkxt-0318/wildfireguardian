@@ -18,6 +18,13 @@ detect:
     k_seed: 5.0                  # a component must reach this many sigma somewhere
     k_grow: 3.0                  # pixels above this many sigma join the component
     min_seed_dn: 4               # absolute floor for the seed level (after the prefilter)
+  mirror:                        # mirror test against compression error (detect/mirror.py): embers make no dark lobes
+    enabled: true
+    block_px: 32                 # dark lobes are counted in the 3 x 3 blocks of this size around each block (96 px, a few 16 px macroblocks)
+    count: 3                     # this many dark lobes at the seed level there: the encoder's error dominates (chosen on the core suite)
+    ratio: 2.0                   # then a seed must reach this many times the strongest of them (bright and dark lobes come in equal sizes)
+    cap_dn: 16                   # darker lobes are scene changes (an overlay or object gone), not counted; about one quantiser step at QP 28
+                                 # so this test never asks more than ratio x cap_dn (32 DN) of a seed: brighter embers always pass; raising either raises that ceiling
   components:
     min_area_px: 2
     max_area_px: 300             # round blobs larger than this are flames, headlights or glare

@@ -9,6 +9,9 @@ Per frame:
    thin streaks survive.
 4. Noise-relative hysteresis: components grow above k_grow sigma and must reach k_seed
    sigma (and an absolute floor) somewhere. Threshold maps are precomputed as uint8.
+   Mirror test (detect/mirror.py, optional): where this frame's negative residual holds
+   enough dark lobes at the seed level, compression error dominates and a seed must also
+   reach a multiple of the strongest of them; embers make no dark lobes.
 5. Large bright regions (flames, headlights, glare) are found at quarter resolution by
    area and excluded with a margin.
 6. Per component, on pixel lists only (no full-frame passes): intensity-weighted centroid
@@ -27,6 +30,7 @@ import cv2
 import numpy as np
 
 from wfglink.detect.background import make_background
+from wfglink.detect.mirror import MirrorTest
 
 FLAG_SATURATED = 1
 FLAG_NEAR_LARGE = 2
@@ -80,6 +84,8 @@ class DetectorState:
     background: np.ndarray | None = None    # background model (uint8)
     offset_map: np.ndarray | None = None    # tile offsets (float32), plus offset_delta globally
     offset_delta: float = 0.0
+    dark_lobes: np.ndarray | None = None    # mirror test: counted dark lobes at half resolution (uint8 DN)
+    mirror_seed: np.ndarray | None = None   # mirror test: seed level per block (uint8 DN, 0 where it does not apply)
 
 
 class Detector:
@@ -115,6 +121,7 @@ class Detector:
         self.ring_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2 * (md + rp) + 1,) * 2)
         self.luma_lo, self.luma_hi = col["luma_range"]
         self.warm_min = float(col["crcb_warm_min"])
+        self.mirror = MirrorTest(cfg)
         self.reset()
 
     @property
@@ -153,6 +160,8 @@ class Detector:
         self._grow_thr = np.clip(np.floor(self.k_grow * self._sigma) + 1, 1, 255).astype(np.uint8)
         seed = np.maximum(np.ceil(self.k_seed * self._sigma), self.min_seed)
         self._seed_thr = np.clip(seed, 1, 255).astype(np.uint8)
+        if self.mirror.enabled:
+            self.mirror.set_seed(self._seed_thr)
 
     def _large_mask(self, pos: np.ndarray) -> np.ndarray:
         """Bright regions too large to be embers, found by area at quarter resolution."""
@@ -217,8 +226,20 @@ class Detector:
         gx, gy = nz[:, 0, 0], nz[:, 0, 1]
         gl = labels[gy, gx]
         th_vals = tophat[gy, gx]
+        seed_ok = th_vals >= self._seed_thr[gy, gx]
+        if self.mirror.enabled:
+            # Mirror test (detect/mirror.py): where enough dark lobes of this frame reach the
+            # seed level, compression error dominates and a seed must be ratio times brighter
+            # than the strongest of them. Embers cannot make dark lobes.
+            neg = cv2.subtract(b, a)
+            if mask is not None:   # ignored regions (date stamps, overlays) contribute no dark lobes
+                m8 = mask if mask.dtype == np.uint8 else (mask != 0).astype(np.uint8)
+                neg = cv2.bitwise_and(neg, neg, mask=cv2.compare(m8, 0, cv2.CMP_EQ))
+            mseed, lobes = self.mirror.seed_levels(neg)
+            self.state.mirror_seed, self.state.dark_lobes = mseed, lobes
+            seed_ok &= self.mirror.seed_ok(th_vals, gy, gx, mseed)
         has_seed = np.zeros(n, dtype=bool)
-        has_seed[gl[th_vals >= self._seed_thr[gy, gx]]] = True
+        has_seed[gl[seed_ok]] = True
         keep = has_seed & (areas >= self.min_area) & (areas <= self.max_streak_area)
         keep[0] = False
         idx = np.nonzero(keep)[0]
