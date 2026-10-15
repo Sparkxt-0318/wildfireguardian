@@ -205,3 +205,22 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - New and extended tests pass. The sitting 2 dry run failed its check B coverage assertion during this run; the change does not touch the coverage computation, and the dry run's simulated camera runs in real time, so CPU starvation is the likely cause. A control run of the same test on the committed HEAD under the same load is running.
 - Decisions: a soak stall is a failure, not a warning.
 - Next step: read the control result; if the dry run also fails at HEAD under load, rerun both when the load drops and record the outcome here.
+
+## 2026-10-15T09:40+08:00 First full real-clip run (C5) fails: compression flicker floods the detector
+
+- Goal: process C5 (NIST Emberometer lab clip, left half, development split) in file mode from a committed tree and inspect the overlay.
+- Commands:
+  - `bash wfglink/scripts/run_from_head.sh python -m wfglink process data/clips/C5_nist_emberometer.yaml --out results/runs/process/C5_head` at 1c57833 (aborted) and at 72017fa (completed; outputs in results/runs/process/C5_head, not tracked).
+  - Diagnostics in scratch scripts: global frame-to-frame shift by phase correlation, detection counts per frame against the source keyframes, booth-style downscaled analysis on a few seconds of C5.
+  - Control for the sitting 2 dry run: the same test on an export of the committed HEAD under the same load.
+- Parameters: configs/default.yaml at 72017fa.
+- Results:
+  - The first attempt aborted in the overlay writer after the first pass: Qt found no display. File mode now selects the offscreen platform itself when no Qt application exists; a test runs the writer with no display variables set (it fails on the old code).
+  - The completed run is wrong in a way the synthetic suites never showed. Thousands of detections per frame lie along the edges of static structures (frames, people, floor pans), tens of thousands of short moving tracks result, and the gate's net count is exactly zero, the signature of jitter rather than embers. The real embers, a few dozen bright orange streaks per frame, are drowned.
+  - Causes established: the camera is static and the brightness steady, so neither motion nor flicker of the lights; the clip is almost free of sensor noise, so the per-tile noise maps give nearly zero in flat areas and the seed threshold sits on its floor; compression error at edges passes it, and the detection count jumps with the encoder's quality cycle and decays between jumps. Booth-style downscaled analysis floods the same way, so the booth demo on C5 is not presentable until this is fixed.
+  - The sitting 2 dry run fails the same coverage assertion on the committed HEAD under the same load, so that failure is load-dependent and not caused by the heartbeat change.
+- Decisions:
+  - Workflow `wfglink-real-scene-fp` (run wf_74e1a089-3d3): three independent detector fixes (a per-pixel temporal noise estimate, an edge-aware noise model, a free choice), each reported on one protocol (C5 and C6 counts and rendered frames, retention of bright orange embers, the synthetic core suite with limits on F1 and the detection limit, cost), then judged and adversarially verified. C5 and C6 are development clips for checking; parameters come from the synthetic core suite and physical reasoning.
+  - Workflow `wfglink-plausibility` (run wf_3dda84e9-2f4) builds the plan 4.5 checks and the blind label tool in parallel.
+  - The core numbers will be recorded again after the detector change; the held-out suites stay untouched.
+- Next step: review the judged detector fix, reprocess C5 and C6 and inspect the overlays, rerun the demo gate, then rerun the sitting 2 dry run when the machine is quiet.
