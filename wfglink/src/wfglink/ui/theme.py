@@ -34,6 +34,11 @@ SIZES = {
     "limits_title": 40,
     "limits_body": 28,
     "margin": 40,
+    "ember_header": 46,    # ember mode: "You are an ember"
+    "ember_row": 60,       # ember mode: each ember's speed (secondary values, at least 48)
+    "ember_badge": 26,     # ember mode: the number in each ember's orange disc
+    "message_title": 46,   # ember mode camera messages: the title in the screen's language
+    "message_body": 28,    # ... and what to do (at least 28); the other language is smaller (tag size and up)
 }
 
 

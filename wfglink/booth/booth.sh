@@ -14,7 +14,8 @@
 # - Any other exit, a crash, or a hang restarts the app after 2 s, doubling up to 60 s
 #   while it keeps failing quickly; a run that lasted 5 minutes resets the delay.
 # - A hang is a heartbeat file older than 30 s, or no new analysed frame for 90 s while
-#   playback is not paused (Space pauses on purpose).
+#   playback is not paused (Space pauses on purpose) and ember mode is not showing its
+#   camera message (no camera, or camera permission off).
 # - SIGTERM, SIGINT (Ctrl-C) or SIGHUP (the Terminal window closed) stops the app and exits 130.
 # - Logs: wfglink/logs/booth.log, rotated at 10 MB, five old files kept;
 #   wfglink/logs/heartbeat.json is rewritten every 2 s by the app.
@@ -31,7 +32,7 @@ HB="$LOGDIR/heartbeat.json"
 MAX_BYTES=$((10 * 1024 * 1024))   # rotate the log at this size
 KEEP=5                            # old logs kept
 HB_STALE_S=${WFG_HB_STALE_S:-30}  # hang: heartbeat older than this
-NO_FRAMES_S=${WFG_NO_FRAMES_S:-90}  # hang: no new analysed frame for this long (unless paused)
+NO_FRAMES_S=${WFG_NO_FRAMES_S:-90}  # hang: no new analysed frame for this long (unless paused or waiting for the camera)
 WARMUP_S=${WFG_WARMUP_S:-45}      # no hang checks in the first seconds of a run
 CHECK_S=${WFG_CHECK_S:-5}         # seconds between hang checks
 
@@ -58,7 +59,9 @@ rotate() {
   cp "$LOG" "$LOG.1" && : >"$LOG"     # copy then truncate: the app keeps appending
 }
 
-hb_read() {  # hb_read: "epoch frames status paused" from heartbeat.json ("- - - -" when unreadable)
+hb_read() {  # hb_read: "epoch frames status waiting" from heartbeat.json ("- - - -" when unreadable)
+  # waiting is "yes" while new frames stop on purpose: paused (Space), or ember mode showing its
+  # camera message (no camera, permission off or undecided, or ember mode could not start).
   "$PY" - "$HB" <<'EOF' 2>/dev/null || echo "- - - -"
 import json, sys
 try:
@@ -69,7 +72,8 @@ except Exception:
 def f(k):
     v = d.get(k)
     return "-" if v is None or v == "" else str(v).split()[0]
-print(f("epoch").split(".")[0], f("frames"), f("status"), "yes" if d.get("paused") else "no")
+waiting = d.get("paused") or (d.get("mode") == "ember" and d.get("camera_state") in ("missing", "denied", "asking", "error"))
+print(f("epoch").split(".")[0], f("frames"), f("status"), "yes" if waiting else "no")
 EOF
 }
 
@@ -119,11 +123,11 @@ while true; do
     if [[ ! -f "$HB" ]]; then
       hung="no heartbeat file"
     else
-      read -r epoch frames status paused <<<"$(hb_read)"
+      read -r epoch frames status waiting <<<"$(hb_read)"
       if [[ "$epoch" != "-" ]] && (( now - epoch > HB_STALE_S )); then
         hung="heartbeat is $((now - epoch)) s old"
-      elif [[ "$paused" == "yes" || "$frames" != "$last_frames" ]]; then
-        last_frames=$frames                 # analysing, or paused on purpose
+      elif [[ "$waiting" == "yes" || "$frames" != "$last_frames" ]]; then
+        last_frames=$frames                 # analysing, paused, or waiting for the camera on purpose
         last_progress=$now
       elif (( now - last_progress > NO_FRAMES_S )); then
         hung="no new frame for $((now - last_progress)) s"

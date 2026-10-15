@@ -12,7 +12,9 @@ During a wildfire nobody measures how many embers fly, where, or how fast, and n
 - Count rate, Cumulative Particle Count (gate) and Particle Number Flux (projected, 2D) through a virtual gate. The names mirror NIST, but NIST's quantities are per square meter through a 3D surface, so the two are analogous, not comparable.
 - An ember-derived air velocity field, always labeled as an estimate because embers lag the air and fall.
 - Pixels by default; meters only at a stated distance range.
-- Parquet tables, a summary JSON per clip, an overlay video, and a live fullscreen dashboard for the booth, which plays approved clips in real time and analyses them as they play.
+- Parquet tables, a summary JSON per clip, an overlay video, and a live fullscreen booth screen with two modes:
+  - Fire mode plays approved wildfire clips in real time and analyses them as they play. Key A fades between the raw clip and the full overlay (ember trails, wind arrows, counters).
+  - "Become an ember" (key M) is live: visitors hold up their phones showing a glowing ember page (`booth/ember/index.html`) at a standing spot 2.0 m from the MacBook's camera or a USB webcam. wfglink tracks up to six phones, each with a trail, an ID and a speed in m/s measured at 2.0 m, and draws the wind arrows from all of them.
 
 ## How to run
 
@@ -32,32 +34,36 @@ Elsewhere (Linux, development): `python3.12 -m venv .venv`, then `.venv/bin/pyth
 Main commands (run from `wfglink/` with the environment on):
 
 - `python -m wfglink live --synthetic`: the full booth screen on generated video.
-- `python -m wfglink live`: the booth screen on the approved clips of `booth/playlist.yaml`, played in real time and analysed as they play, in a loop. `--clip PATH` plays one video file or one clip settings file `data/clips/<id>.yaml`. `--screen auto|external|primary|NAME` (auto, the default: the external monitor when connected, else the MacBook), `--lang ko|en`, `--limits-screen NAME`.
-- `./booth/booth.sh` (or double-click `booth/booth.command`): the booth for a whole day. It runs `live` with the playlist under a supervisor, keeps the Mac awake, restarts the app after a crash or hang, and logs to `logs/booth.log`. Keys: L language, T tracks, F field, G gate, Space pause, I limits card, Esc then Esc again to quit (booth/BOOTH_RUNBOOK.md).
-- `python -m wfglink validate --suite led`: the dashcam LED turntable test on `data/raw/led_33rpm.*`, `led_45rpm.*`, `led_ruler.*`, `room_test.*` and `night_drive.*` with `data/raw/led_notes.yaml` (from `data/led_notes_template.yaml`); writes `results/validation/led_report.json`. `--suite core|mismatch|coverage` runs the synthetic suites (mismatch and coverage are held out and run once, with `--final`).
+- `python -m wfglink live`: the booth screen. It starts in fire mode on the approved clips of `booth/playlist.yaml`, played in real time and analysed as they play, in a loop; M switches to ember mode (the camera) and back. `--ember` starts in ember mode; `--fake-camera FILE` plays a recording as if it came from the camera (without a camera, ember mode shows generated phones). `--clip PATH` plays one video file or one clip settings file `data/clips/<id>.yaml`. `--screen auto|external|primary|NAME` (auto, the default: the external monitor when connected, else the MacBook), `--lang ko|en`, `--limits-screen NAME`.
+- `./booth/booth.sh` (or double-click `booth/booth.command`): the booth for a whole day. It runs `live` under a supervisor, starting in fire mode with the playlist, keeps the Mac awake, restarts the app after a crash or hang, and logs to `logs/booth.log`. Keys: L language, T tracks, F field, G gate, Space pause, I limits card, A raw or analysed fire footage, M fire or ember mode, Esc then Esc again to quit (booth/BOOTH_RUNBOOK.md).
+- `python -m wfglink cameras`: lists the cameras and the one the config picks (`camera.name`: auto picks a USB UVC webcam when one is connected, else the MacBook's camera; Continuity Camera and Desk View are never used). `--request` asks for camera permission (the macOS dialog) and prints the answer.
+- `python -m wfglink calibrate`: the one-command calibration for ember mode. Hold the printed A4 target (`booth/ember/calibration_target_A4.pdf`, printed at 100 percent) flat at the standing spot, facing the camera. It writes the focal length and a calibration record to `configs/booth_local.yaml` and prints the equivalent field of view. `--distance-m D` is the target's distance from the camera (default `ember.distance_m`, 2.0 m, the standing spot); `--video FILE` runs it on a recording. Without a calibration, speeds use the camera's nominal field of view.
+- `python -m wfglink record NAME [--seconds S]`: records the configured camera to `data/raw/NAME.mp4` (H.264) with a countdown on screen; sitting 1 records `ember_free` and `ember_ruler`. Nothing else in the booth records the camera.
+- `python -m wfglink validate --suite ember`: the ember mode validation, on synthetic phone scenes with ground truth (`--phones N`), then on `data/raw/ember_free.*` and `data/raw/ember_ruler.*` when present (`--raw DIR`; `--path-m 1.0`, the length of the ruler path); writes `results/validation/ember_report.json`. `--suite core|mismatch|coverage` runs the synthetic suites of the fire footage (mismatch and coverage are held out and run once, with `--final`).
 - `python scripts/mac_soak.py --hours 8`: the overnight soak of the booth screen with the playlist; logs fps and memory and prints a PASS or FAIL report at the end.
 - `python -m wfglink process CLIP`: file mode, with tables, a summary JSON and an overlay video for one clip (a video file or `data/clips/<id>.yaml`).
 - `python -m wfglink plausibility RUN_DIR --clip data/clips/<id>.yaml`: real-clip plausibility checks on a `process` run (plausibility.json, statuses also in summary.json); `label-tiles` and `label-score` make blind label tiles and score a run against them (docs/METHODS.md section 11).
 - `python scripts/fetch_clips.py`: download the approved clips into `data/raw/` (resumes; skips what is there).
-- `python -m wfglink demo-gate`: the headless check behind the demo builds (`scripts/tag_demo.sh`, DEMO_BUILDS.md).
-- `booth/placards/`: print-ready A5 placards in Korean and English, "This is the sensor" for the dashcam stand and the limits card.
+- `python -m wfglink demo-gate`: the headless check behind the demo builds (`scripts/tag_demo.sh`, DEMO_BUILDS.md): fire mode on synthetic video and on the playlist, and ember mode on generated phones.
+- `booth/ember/index.html`: the phone page for ember mode, one self-contained file with no external requests. Publish it on GitHub Pages (or any static host) and show visitors its address at the standing spot.
+- `booth/placards/`: print-ready A5 placards in Korean and English, "This is the sensor" for the dashcam stand and the limits card (`python scripts/make_placards.py` writes them).
 
-The two hands-on sittings on the Mac: docs/SITTING1.md (setup, dashcam, LED rig, recordings, validate, send files) and docs/SITTING2.md (update, booth, overnight soak, rehearsal).
+The two hands-on sittings on the Mac: docs/SITTING1.md (setup, camera and permission, the A4 calibration at the standing spot, the recordings, validate, send files) and docs/SITTING2.md (update, booth, overnight soak, rehearsal).
 
 ## Folder layout
 
-- `src/wfglink/`: the package (input and playback, detection, tracking, measurement, pipeline, rendering, UI, synthetic generator, validation, doctor, soak).
-- `configs/`: `default.yaml` (every threshold, commented) and the suite configs. `configs/booth_local.yaml` (not tracked) holds machine-specific switches.
-- `booth/`: `booth.sh`, `booth.command`, `playlist.yaml`, `placards/` and BOOTH_RUNBOOK.md.
-- `scripts/`: `setup_mac.sh`, `mac_soak.py`, `fetch_clips.py`, `run_suite.py`, `check_docs.py`, `check_staged.py`, `tag_demo.sh`.
-- `data/`: SOURCES.md, clips.csv, clips_manifest.yaml, `clips/<id>.yaml`, `led_notes_template.yaml`; `raw/` (videos and the LED notes, never committed).
+- `src/wfglink/`: the package (input, playback and camera, detection, tracking, measurement, pipeline, ember mode in `ember/`, rendering, UI, synthetic generator, validation, doctor, soak).
+- `configs/`: `default.yaml` (every threshold, commented) and the suite configs. `configs/booth_local.yaml` (not tracked) holds machine-specific switches and the A4 calibration.
+- `booth/`: `booth.sh`, `booth.command`, `playlist.yaml`, `ember/` (the phone page `index.html` and the A4 calibration target), `placards/` and BOOTH_RUNBOOK.md.
+- `scripts/`: `setup_mac.sh`, `mac_soak.py`, `fetch_clips.py`, `run_suite.py`, `make_placards.py`, `make_calibration_target.py`, `check_docs.py`, `check_staged.py`, `tag_demo.sh`.
+- `data/`: SOURCES.md, clips.csv, clips_manifest.yaml, `clips/<id>.yaml`; `raw/` (the clips and your ember recordings, never committed).
 - `results/`: NUMBERS.json, `validation/`, `figures/`; `runs/` (not tracked).
 - `docs/`: PROMPT.md, METHODS.md, LIMITS.md, SITTING1.md, SITTING2.md.
 - `logs/`: the booth log and heartbeat (not tracked).
 
 ## Current status
 
-2026-10-15: detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth screen with its supervisor and the synthetic generator are built and tested. The setup change of 2026-10-15 drops the live camera: the booth now plays approved clips in real time and analyses them as they play, and the LED test is filmed with the dashcam. The playback booth, the dashcam LED suite, the Mac setup, doctor and soak scripts and the placards replace the camera chain, booth-prep, the camera-in-the-loop simulator and the old sitting kits.
+2026-10-15: detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth screen with its supervisor and the synthetic generator are built and tested. The setup change of 2026-10-15 dropped the live camera of the first plan: the booth plays approved clips in real time and analyses them as they play, with the Mac setup, doctor and soak scripts and the placards. The booth change of 2026-10-15 drops the LED turntable test and adds the raw or analysed toggle (key A) and the "Become an ember" live mode (key M): a camera chosen by name, the phone page, the A4 calibration, and validation on synthetic phones and your recordings (PLAN.md section 4.4 and section 7).
 
 Core suite (synthetic, used for tuning; held-out headline numbers come later from the mismatch suite):
 

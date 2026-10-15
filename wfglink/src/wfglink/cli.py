@@ -14,13 +14,19 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
 
 def cmd_live(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
     from wfglink.config import load_config
-    from wfglink.ui.booth_app import run_live, source_spec
+    from wfglink.ui.booth_app import ember_spec, run_live, source_spec
 
     cfg = load_config(*(args.config or []), local=True)
     spec = source_spec(synthetic=args.synthetic, playlist=args.playlist, clip=args.clip, cfg=cfg)
+    if args.fake_camera and not Path(args.fake_camera).is_file():
+        raise SystemExit(f"live: --fake-camera {args.fake_camera}: file not found")
     res = run_live(cfg, source=spec, screen=args.screen, lang=args.lang, limits_screen=args.limits_screen,
-                   duration_s=args.duration, screenshot=args.screenshot, heartbeat=args.heartbeat)
+                   duration_s=args.duration, screenshot=args.screenshot, heartbeat=args.heartbeat,
+                   ember=ember_spec(synthetic=args.synthetic, fake_camera=args.fake_camera),
+                   start_mode="ember" if args.ember else "fire")
     if args.report:
         with open(args.report, "w") as f:
             json.dump(res, f, indent=2, default=str)
@@ -131,10 +137,141 @@ def cmd_validate(args: argparse.Namespace) -> int:
     return run_validate(args)
 
 
+def cmd_cameras(args: argparse.Namespace) -> int:
+    """List the cameras and the one config picks; --request asks for camera permission (macOS)."""
+    from wfglink.config import load_config
+    from wfglink.io.camera import explain_pick, list_cameras, permission_status, pick_camera, request_permission
+    from wfglink.io.camera import video_effects
+
+    cfg = load_config(*(args.config or []), local=True)
+    status = (request_permission(float((cfg.get("camera") or {}).get("permission_timeout_s", 30)))
+              if args.request else permission_status())
+    devs = list_cameras()
+    picked = pick_camera(cfg, devs)
+    effects = video_effects()
+    if args.json:
+        print(json.dumps({"permission": status, "cameras": devs, "picked": picked, "why": explain_pick(cfg, devs),
+                          "video_effects": effects}, indent=2, ensure_ascii=False, default=str))
+    else:
+        for d in devs:
+            mark = "*" if picked is not None and d["unique_id"] == picked["unique_id"] else " "
+            use = "usable" if d["usable"] else f"not used: {d['why']}"
+            print(f"{mark} {d['name']}  ({d['kind']}, OpenCV index {d['index']}, {use})")
+        if not devs:
+            print("no camera found")
+        print(explain_pick(cfg, devs))
+        print(f"camera permission: {status}")
+        if status in ("denied", "restricted"):
+            from wfglink.io.camera import PERMISSION_FIX
+
+            print(f"fix: {PERMISSION_FIX}")
+        on = [k for k, v in effects.items() if v]
+        if on:
+            print("video effects on (turn them off in Control Center, Video Effects, while the booth runs): "
+                  + ", ".join(on))
+    ok = picked is not None and status in ("authorized", "unsupported")
+    if args.open and ok:
+        ok = _try_camera(cfg, float(args.open))
+    return 0 if ok else 1
+
+
+def _try_camera(cfg: dict, seconds: float) -> bool:
+    """Open the picked camera for a few seconds: backend, size and frame rate actually delivered."""
+    import time
+
+    from wfglink.io.camera import CameraSource
+    from wfglink.io.sources import SourceError
+
+    src = CameraSource(cfg)
+    try:
+        src.open()
+    except SourceError as exc:
+        print(f"camera did not open: {exc}")
+        return False
+    ts = []
+    t_end = time.monotonic() + seconds
+    size = None
+    while time.monotonic() < t_end:
+        f = src.read()
+        if f is not None:
+            ts.append(f.t)
+            size = f.image.shape[1::-1]
+    src.close()
+    fps = (len(ts) - 1) / (ts[-1] - ts[0]) if len(ts) > 1 and ts[-1] > ts[0] else 0.0
+    info = src.info
+    print(f"opened {info.get('name')} with {info.get('backend')} ({info.get('options')}): native "
+          f"{info.get('native_size')}, delivered {list(size) if size else None}, {len(ts)} frames in {seconds:g} s, "
+          f"{fps:.1f} fps")
+    return len(ts) > 0
+
+
+def cmd_calibrate(args: argparse.Namespace) -> int:
+    from wfglink.config import LOCAL_CONFIG, load_config
+    from wfglink.ember.calibrate import calibrate_live, calibrate_video, write_local
+    from wfglink.io.sources import SourceError
+
+    cfg = load_config(*(args.config or []), local=True)
+    dist = float(args.distance_m or (cfg.get("ember") or {}).get("distance_m", 2.0))
+    try:
+        if args.video:
+            res = calibrate_video(args.video, cfg, dist)
+        else:
+            source = None
+            if args.fake_camera:
+                from wfglink.io.camera import FakeCameraSource
+
+                source = FakeCameraSource(args.fake_camera, realtime=True, cfg=cfg)
+            res = calibrate_live(cfg, dist, screen=args.screen, source=source)
+    except (SourceError, ValueError, FileNotFoundError) as exc:
+        print(f"calibrate: {exc}", file=sys.stderr)
+        return 2
+    if res is None:
+        print("calibrate: cancelled or no stable result (hold the target flat, all four markers in the picture)",
+              file=sys.stderr)
+        return 1
+    import datetime as _dt
+
+    record = {"date": _dt.datetime.now().astimezone().isoformat(timespec="seconds"), "camera": res.get("camera"),
+              "unique_id": res.get("unique_id"), "backend": res.get("backend"), "size": res["size"],
+              "focal_px": res["focal_px"], "hfov_deg": res["hfov_deg"], "distance_m": res["distance_m"],
+              "m_per_px": res["m_per_px"], "target": res["target"], "frames": res["frames"], "spread": res["spread"],
+              "rms_px": res["rms_px"], "stable": res["stable"]}
+    if args.video:
+        record["video"] = str(args.video)
+    path = write_local(record, args.out or LOCAL_CONFIG)
+    print(f"focal length {res['focal_px']:.1f} px at {res['size'][0]}x{res['size'][1]} (horizontal field of view "
+          f"{res['hfov_deg']:.1f} degrees); at {dist:g} m, 1 px = {res['m_per_px'] * 1000:.2f} mm "
+          f"({res['frames']} frames, spread {res['spread']:.4f}, reprojection {res['rms_px']:.2f} px)"
+          + ("" if res["stable"] else "; not stable: hold the target still and run it again"))
+    print(f"-> {path} (camera.focal_px, ember.distance_m, ember.calibration)")
+    return 0 if res["stable"] else 1
+
+
+def cmd_record(args: argparse.Namespace) -> int:
+    from wfglink.config import load_config
+    from wfglink.ember.record import record
+    from wfglink.io.sources import SourceError
+
+    cfg = load_config(*(args.config or []), local=True)
+    try:
+        res = record(cfg, args.name, args.seconds, out_dir=args.out_dir, fake=args.fake_camera,
+                     preview=not args.no_preview, force=args.force, screen=args.screen)
+    except (SourceError, ValueError, FileExistsError) as exc:
+        print(f"record: {exc}", file=sys.stderr)
+        return 2
+    print(f"{res['file']}: {res['frames']} frames, {res['seconds']} s, {res['size']}, mean {res['fps_mean']} fps, "
+          f"longest gap {res['interval_max_ms']} ms ({res.get('camera')})"
+          + (", cancelled" if res.get("cancelled") else ""))
+    if res.get("error"):
+        print(f"record: {res['error']}", file=sys.stderr)
+        return 1
+    return 0 if res["frames"] and not res.get("cancelled") else 1
+
+
 def cmd_demo_gate(args: argparse.Namespace) -> int:
     from wfglink.ui.demo_gate import demo_gate
 
-    return demo_gate(seconds=args.seconds, playlist=args.playlist, out=args.out)
+    return demo_gate(seconds=args.seconds, playlist=args.playlist, out=args.out, config=args.config)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -145,11 +282,16 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true", help="print every detail as JSON")
     p.set_defaults(func=cmd_doctor)
 
-    p = sub.add_parser("live", help="the booth screen: approved clips analysed live as they play (or synthetic video)")
+    p = sub.add_parser("live", help="the booth screen: approved clips analysed live as they play (or synthetic video); "
+                                    "M switches to ember mode (the camera), A to the raw picture")
     src = p.add_mutually_exclusive_group()
-    src.add_argument("--synthetic", action="store_true", help="play generated video instead of clips")
+    src.add_argument("--synthetic", action="store_true",
+                     help="play generated video instead of clips (and a generated phone scene in ember mode)")
     src.add_argument("--playlist", default=None, help="playlist file (default booth/playlist.yaml, config booth.playlist)")
     src.add_argument("--clip", default=None, help="play one video file, or one clip settings file data/clips/<id>.yaml")
+    p.add_argument("--ember", action="store_true", help="start in ember mode (\"Become an ember\") instead of fire mode")
+    p.add_argument("--fake-camera", default=None, metavar="FILE",
+                   help="ember mode plays this video file as if it were the camera (no camera is opened)")
     p.add_argument("--screen", default=None,
                    help="auto (default: the external monitor if connected, else the built-in screen), external, "
                         "primary, or a screen name")
@@ -212,16 +354,48 @@ def build_parser() -> argparse.ArgumentParser:
 
     from wfglink.validate.command import add_arguments as validate_arguments
 
-    p = sub.add_parser("validate", help="validation: led (dashcam LED turntable, room test, night drive) "
+    p = sub.add_parser("validate", help="validation: ember (phones: synthetic scenes, ember_free, ember_ruler) "
                                         "or the synthetic core, mismatch and coverage suites")
     validate_arguments(p)
     p.set_defaults(func=cmd_validate)
 
-    p = sub.add_parser("demo-gate", help="run the live screen headless on synthetic video and on the playlist; "
-                                         "exit 0 if healthy")
-    p.add_argument("--seconds", type=float, default=60.0)
+    p = sub.add_parser("cameras", help="list the cameras and the one config picks (camera.name); --request asks "
+                                       "for camera permission")
+    p.add_argument("--request", action="store_true", help="ask for camera permission (the macOS dialog) first")
+    p.add_argument("--open", type=float, nargs="?", const=3.0, default=None, metavar="SECONDS",
+                   help="also open the picked camera for a few seconds (default 3): backend, size, frame rate")
+    p.add_argument("--json", action="store_true", help="print every detail as JSON")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_cameras)
+
+    p = sub.add_parser("calibrate", help="focal length from the printed A4 target held at the standing spot "
+                                         "(writes configs/booth_local.yaml)")
+    p.add_argument("--distance-m", type=float, default=None,
+                   help="camera lens to the target's centre, m (default ember.distance_m, 2.0)")
+    p.add_argument("--video", default=None, help="run on a recording instead of the camera (no window)")
+    p.add_argument("--out", default=None, help="config file to write (default configs/booth_local.yaml)")
+    p.add_argument("--screen", default=None, help="screen for the preview (default ui.screen: auto)")
+    p.add_argument("--fake-camera", default=None, help="show a video file as the camera, with the preview (tests)")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_calibrate)
+
+    p = sub.add_parser("record", help="record the camera to data/raw/NAME.mp4 (H.264) with a countdown on screen")
+    p.add_argument("name", help="file name without extension: ember_free or ember_ruler")
+    p.add_argument("--seconds", type=float, default=None, help="length after the countdown (default ember.record.seconds)")
+    p.add_argument("--out-dir", default=None, help="folder (default data/raw)")
+    p.add_argument("--force", action="store_true", help="replace an existing file")
+    p.add_argument("--no-preview", action="store_true", help="no window (the countdown still runs)")
+    p.add_argument("--fake-camera", default=None, help="record a video file or a generated scene instead (tests)")
+    p.add_argument("--screen", default=None, help="screen for the preview (default ui.screen: auto)")
+    p.add_argument("--config", nargs="*")
+    p.set_defaults(func=cmd_record)
+
+    p = sub.add_parser("demo-gate", help="run the live screen headless: fire mode on synthetic video and on the playlist, "
+                                         "ember mode on a generated phone scene; exit 0 if healthy")
+    p.add_argument("--seconds", type=float, default=60.0, help="seconds of each run")
     p.add_argument("--playlist", default=None, help="playlist file (default booth/playlist.yaml, config booth.playlist)")
     p.add_argument("--out", default="results/runs/demo_gate")
+    p.add_argument("--config", nargs="*", help="extra YAML config files")
     p.set_defaults(func=cmd_demo_gate)
     return parser
 

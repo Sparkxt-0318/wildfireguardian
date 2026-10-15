@@ -9,7 +9,11 @@ One line per check, each ending in OK or FAIL; a FAIL line is followed by its fi
             screen the booth takes with --screen auto; no external monitor is OK (the booth
             then uses the built-in screen)
   video     a short H.264 clip encoded and decoded in memory (PyAV)
-  data      data/raw present (setup_mac.sh creates it); led_notes.yaml and the LED clips noted
+  camera    the camera camera.name picks for the "Become an ember" mode (a USB webcam or the
+            built-in camera; never an iPhone) and, on macOS, the camera permission (it is
+            only read here: python -m wfglink cameras --request asks for it); elsewhere no
+            camera is OK (ember mode then plays a generated scene)
+  data      data/raw present (setup_mac.sh creates it); the ember recordings noted
   clips     the playlist's clips (booth.playlist) present in data/raw: n of m
 
 On macOS Qt runs on its native platform so the real screens are listed; elsewhere on the
@@ -40,7 +44,7 @@ BUILTIN_SCREEN = r"built-?in|내장|color lcd|^edp|^lvds|^dsi"
 IMPORT_NAMES = {"opencv-contrib-python-headless": "cv2", "opencv-contrib-python": "cv2",
                 "opencv-python-headless": "cv2", "opencv-python": "cv2", "pyyaml": "yaml", "pyobjc-core": "objc"}
 PYTHON_DOWNLOAD = "https://www.python.org/downloads/macos/"
-LED_ROLES = ("led_33rpm", "led_45rpm", "led_ruler")
+EMBER_RECORDINGS = ("ember_free", "ember_ruler")
 VIDEO_SUFFIXES = (".mp4", ".mov", ".ts", ".avi", ".webm", ".mkv", ".m4v")
 
 
@@ -330,16 +334,46 @@ def check_video() -> Check:
     return Check("video", True, f"H.264 encoded and decoded (PyAV {av.__version__})", "", data)
 
 
+def check_camera(cfg: dict[str, Any], devices: list[dict[str, Any]] | None = None,
+                 status: str | None = None, mac: bool | None = None) -> Check:
+    """The picked camera and, on macOS, the camera permission (read, never asked here)."""
+    from wfglink.io.camera import PERMISSION_FIX, explain_pick, list_cameras, permission_status, pick_camera
+
+    mac = platform.system() == "Darwin" if mac is None else mac
+    devs = list_cameras() if devices is None else devices
+    picked = pick_camera(cfg, devs)
+    status = permission_status() if status is None else status
+    data = {"cameras": devs, "picked": picked, "permission": status,
+            "camera_name": (cfg.get("camera") or {}).get("name", "auto")}
+    if picked is None:
+        if not mac:
+            return Check("camera", True, "none usable (not macOS: ember mode plays a generated scene)", "", data)
+        return Check("camera", False, explain_pick(cfg, devs),
+                     "connect the USB webcam (or open the MacBook lid), or set camera.name in configs/booth_local.yaml "
+                     "to part of a name python -m wfglink cameras lists", data)
+    what = f"{picked['name']} ({picked['kind']})"
+    if not mac:
+        return Check("camera", True, f"{what}; permission is a macOS check", "", data)
+    if status == "authorized":
+        return Check("camera", True, f"{what}; camera permission granted", "", data)
+    if status == "not_determined":
+        return Check("camera", False, f"{what}; camera permission not asked yet",
+                     "run python -m wfglink cameras --request in Terminal and click Allow", data)
+    if status == "unsupported":
+        return Check("camera", False, f"{what}; the permission cannot be read (pyobjc missing?)",
+                     ".venv/bin/python -m pip install -r requirements.txt (from the wfglink folder)", data)
+    return Check("camera", False, f"{what}; camera permission {status}", PERMISSION_FIX, data)
+
+
 def check_data() -> Check:
     raw = PROJECT_ROOT / "data" / "raw"
     if not raw.is_dir():
         return Check("data", False, "data/raw is missing", "run ./scripts/setup_mac.sh (it creates data/raw)",
                      {"raw": str(raw)})
-    notes = (raw / "led_notes.yaml").exists()
-    led = [r for r in LED_ROLES if any(p.suffix.lower() in VIDEO_SUFFIXES for p in raw.glob(f"{r}*"))]
-    data = {"raw": str(raw), "led_notes": notes, "led_clips": led}
-    return Check("data", True, f"data/raw present; led_notes.yaml {'present' if notes else 'not yet there'}; "
-                 f"LED clips {len(led)} of {len(LED_ROLES)}", "", data)
+    have = [r for r in EMBER_RECORDINGS if any(p.suffix.lower() in VIDEO_SUFFIXES for p in raw.glob(f"{r}.*"))]
+    data = {"raw": str(raw), "ember_recordings": have}
+    return Check("data", True, f"data/raw present; ember recordings {len(have)} of {len(EMBER_RECORDINGS)}"
+                 + (f" ({', '.join(have)})" if have else ""), "", data)
 
 
 def playlist_clips(cfg: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -430,7 +464,8 @@ def run_checks(cfg: dict[str, Any] | None = None) -> list[Check]:
             checks.append(fn())
         except Exception as exc:
             checks.append(Check(name, False, f"{type(exc).__name__}: {str(exc)[:100]}", pkg_fix))
-    for name, fn in (("video", check_video), ("data", check_data), ("clips", lambda: check_clips(cfg))):
+    for name, fn in (("video", check_video), ("camera", lambda: check_camera(cfg)), ("data", check_data),
+                     ("clips", lambda: check_clips(cfg))):
         try:
             checks.append(fn())
         except Exception as exc:

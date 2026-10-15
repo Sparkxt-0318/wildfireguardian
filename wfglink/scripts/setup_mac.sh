@@ -10,11 +10,12 @@
 # - Installs requirements.txt and wfglink itself (pip install -e . --no-deps) only when
 #   requirements.txt or pyproject.toml changed since the last successful install
 #   (stamp: .venv/.wfglink_install). The first install takes 5 to 10 minutes and needs internet.
-# - Creates data/raw, logs and results/validation, and copies data/led_notes_template.yaml to
-#   data/raw/led_notes.yaml when that file does not exist yet (it is never overwritten).
+# - Creates data/raw, logs and results/validation.
 # - Downloads the playlist clips (booth/playlist.yaml) missing from data/raw through
 #   scripts/fetch_clips.py, unless --no-clips is given or there is no network (a warning).
 #   data/clips.csv and data/SOURCES.md, which fetch_clips.py rewrites, are kept as they are in git.
+# - On macOS, runs python -m wfglink cameras --request: the first time, macOS asks whether
+#   Terminal may use the camera (click Allow); it lists the cameras and the one the booth picks.
 # - Runs python -m wfglink doctor and prints the next commands.
 # Exit code: 0 when every doctor check is OK, 1 when setup or a check failed.
 set -uo pipefail
@@ -103,12 +104,8 @@ else
   fi
 fi
 
-# Folders and the LED notes -------------------------------------------------------------------
+# Folders -------------------------------------------------------------------------------------
 mkdir -p data/raw logs results/validation
-if [[ -f data/led_notes_template.yaml && ! -e data/raw/led_notes.yaml ]]; then
-  cp data/led_notes_template.yaml data/raw/led_notes.yaml
-  say "created data/raw/led_notes.yaml from the template (fill it in during sitting 1)"
-fi
 
 # Booth clips ---------------------------------------------------------------------------------
 if (( NO_CLIPS )); then
@@ -141,6 +138,16 @@ EOF
     cp "$KEEP"/SOURCES.md data/SOURCES.md 2>/dev/null
     rm -rf "$KEEP"
   fi
+fi
+
+# Camera permission (macOS) ---------------------------------------------------------------------
+# The first time, macOS shows "Terminal would like to access the camera": click Allow. Later
+# runs only list the cameras. A missing camera or permission is reported by the doctor below.
+if [[ "$(uname)" == "Darwin" ]]; then
+  echo
+  say "camera permission and the booth camera (click Allow if macOS asks):"
+  .venv/bin/python -m wfglink cameras --request ||
+    warn "no usable camera or no permission yet: the camera line of the doctor below says how to fix it"
 fi
 
 # Doctor and the next commands ------------------------------------------------------------------

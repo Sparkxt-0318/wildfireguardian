@@ -130,29 +130,40 @@ validate:
   streak_radius_frac: 0.5        # match radius = max(match_radius_px, frac * L)
   min_true_speed_px_s: 1.0       # truth slower than this is left out of relative errors
   bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
-  led:                           # LED turntable test with the dashcam (plan 4.4): fixed before the clips arrive, never tuned on them
-    n_leds: 3
-    max_seconds: 60              # analyse at most this many seconds of each LED recording, all its parts together
-    min_track_points: 8          # shorter tracks are not used for rings or speeds
-    ring_tol_px: 3.0             # a detection this close to a ring is on it; a room-test ring must fit this tightly (robust sigma)
-    ring_gap_frac: 0.08          # track radii further apart than this fraction (at least 6 px) are different rings
-    omega_disagree_pct: 3.0      # stopwatch and video turntable speed differing by more: warning
-    goal_median_error_pct: 5.0   # plan 4.4 goal: median absolute speed error over the tracks of both speeds
-    scale_spread_warn_pct: 5.0   # px per mm of the rings differing by more: warning (radii or tilt)
-    axis_ratio_min: 0.99         # plan 4.4: a ring flatter than this means the dashcam does not look straight down
-    ring_min_arc_deg: 180        # a ring counts only when its points cover at least this arc (stray lights cover less)
-    still_every_s: 0.25          # stills: one frame sampled this often (brightest value for LED clips, sharpest for the ruler)
-  led_files:                     # inputs and outputs of `validate --suite led` (validate/dashcam.py)
-    raw_dir: data/raw            # recordings and led_notes.yaml, relative to wfglink/
-    report: results/validation/led_report.json
-    stills_dir: led_stills       # next to the report: mask stills and the ruler stills
-    stamp_band_frac: 0.10        # date stamp at the top or bottom: a band of this fraction of the frame height is masked
-    stamp_corner_frac: 0.5       # date stamp in a corner: the masked box is this fraction of the frame width (and the band height)
-    fps_tol_frac: 0.02           # file frame rate differing from the notes by more than this fraction: warning
-    rpm_tol_frac: 0.15           # notes timings giving an rpm this far from 33 1/3 or 45: warning (turns or times mixed up)
-    interval_tol_frac: 0.25      # frame intervals further than this fraction from the median count as irregular
-    scene_max_seconds: null      # room test and night drive: at most this many seconds (null = all)
-    still_max_width: 1920        # mask stills wider than this are scaled down (the ruler stills stay full size)
+  ember:                         # "Become an ember" check: python -m wfglink validate --suite ember (src/wfglink/ember/validate.py); goals fixed before measuring
+    report: results/validation/ember_report.json
+    raw_dir: data/raw            # ember_free.* and ember_ruler.* made with `python -m wfglink record`, relative to wfglink/
+    work_dir: data/synthetic/ember   # the generated phone scenes (git-ignored); made again when missing or changed
+    seconds: 20                  # length of each synthetic scene
+    fps: 30
+    size: [1280, 720]            # synthetic camera picture, px
+    crf: 23                      # H.264 quality of the synthetic scenes (webcam-like compression)
+    hfov_deg: 70.0               # synthetic camera field of view; the suite gives the pipeline this exact focal length
+    seed: 2026                   # base seed of the fixed scene set (src/wfglink/ember/synth.py SCENES)
+    match_frac: 0.6              # a shown ember matches a phone within this fraction of the disc's apparent diameter
+    match_min_px: 12.0           # ... and never less than this many px
+    facing_max_yaw_deg: 45       # a phone faces the camera when turned less than this from it
+    min_vis_frac: 0.7            # ... and at least this fraction of its disc is in the picture and not hidden
+    dont_care_yaw_deg: 75        # a phone turned between facing_max_yaw_deg and this is neither required nor a false ember
+    acquire_s: 1.0               # recall after acquisition leaves out each phone's first this many seconds in view
+    stand_tol_m: 0.1             # the speed error at the standing distance uses phones within this depth of ember.distance_m
+    min_speed_m_s: 0.2           # truth slower than this is left out of relative speed errors
+    static_tol_px: 30            # a false track whose points stay within this distance of a static light is a static-light track
+    goals:                       # stated in the plan before measuring; reported as met or missed
+      recall_facing: 0.95        # recall of phones facing the camera, after acquisition
+      static_light_tracks_per_min: 0.0
+      id_switches_per_phone_per_min: 1.0
+      speed_median_rel_err: 0.10 # median relative speed error at the standing distance
+    free:                        # ember_free: the phone moved freely at the standing spot (no truth)
+      skip_s: 1.0                # the first seconds (background warm-up) are left out of coverage
+      fragment_gap_s: 1.5        # a shown track that starts this soon after another one ended ...
+      fragment_reach_m: 0.6      # ... and this close to where it ended (at the standing distance) is a probable ID switch
+    ruler:                       # ember_ruler: rest at the 0 mark, move to the 100 cm mark in about 1 s, rest
+      rest_min_s: 0.3            # each rest lasts at least this long
+      rest_speed_m_s: 0.08       # slower than this (screen speed scale) is resting
+      move_tol_frac: 0.01        # the move starts and ends where the phone is this fraction of the path from its rest positions
+      min_move_s: 0.2            # a move shorter than this is not the ruler move
+      max_move_s: 5.0            # ... nor one longer than this
 
 plausibility:                    # real-clip checks on a finished file-mode run (plan 4.5, validate/plausibility.py)
   timing:
@@ -215,6 +226,84 @@ field:
   window_s: 10.0                 # file mode: field.parquet has the whole clip and windows of this length
   bootstrap: 200
 
+camera:                          # live camera of the "Become an ember" mode (src/wfglink/io/camera.py; python -m wfglink cameras)
+  name: auto                     # auto (a USB UVC webcam when one is connected, else the built-in camera) or part of a device name, any case
+  width: 1280                    # capture size and rate asked of the camera (frames wider than width are scaled down to it)
+  height: 720
+  fps: 30
+  backend: auto                  # auto (PyAV's avfoundation input by name, then OpenCV by index), pyav or opencv
+  hfov_deg: 70.0                 # nominal horizontal field of view; sets the scale until an A4 calibration exists (calibrated: false)
+  focal_px: null                 # focal length in px at ember.calibration.size, written by python -m wfglink calibrate
+  open_timeout_s: 8.0            # a camera that gives no frame this long after opening has failed to open
+  stall_s: 2.0                   # no frame for this long while running: the camera is closed and opened again
+  backoff_min_s: 0.5             # first wait before opening again after a failure; doubles up to backoff_max_s
+  backoff_max_s: 5.0
+  permission_timeout_s: 30       # how long `cameras --request` waits for an answer to the macOS camera dialog
+  center_stage: false            # macOS: Center Stage reframes the picture and changes the scale, so wfglink turns it off for itself
+
+ember:                           # "Become an ember" live mode: phones showing booth/ember/index.html, tracked live (src/wfglink/ember/)
+  distance_m: 2.0                # standing distance, camera lens to the phone held over the floor mark; speeds are "measured at" this distance
+  mirror: true                   # mirror the picture first, so a visitor moving right moves right on screen
+  max_tracks: 6                  # at most this many embers at once (display IDs 1 to max_tracks)
+  distance_range_m: [1.0, 3.0]   # phones are looked for between these distances (sets the blob size limits)
+  blob_m: [0.008, 0.11]          # bright blob diameter at the phone: a small dim phone's core up to a tablet's disc
+  detect_scale: 0.5              # detection runs on the picture scaled by this (cost); positions are intensity-weighted centroids
+  detect:
+    blob_dn: 170                 # a pixel brighter than this (max of R, G, B) belongs to a blob
+    core_dn: 235                 # a phone screen's centre is this bright (an emitting screen saturates; lit objects rarely do)
+    warm_dn: 80                  # pixels in and around the blob brighter than this carry the colour test
+    ring_px: 3                   # the colour test also looks this far around the blob (detection px), where a saturated core turns orange
+    chroma_min: 60               # pixels less saturated than this (HSV S) are white or grey, not coloured
+    warm_sat: 60                 # a warm pixel is at least this saturated (HSV S; motion blur over a grey wall lowers it) ...
+    warm_hue: [0, 35]            # ... with a hue in this range (OpenCV units, 0 to 179: red 0, orange 10 to 20, yellow 30) ...
+    warm_hue_wrap: 172           # ... or at least this (reds just below 360 degrees)
+    warm_frac_min: 0.6           # at least this fraction of the coloured pixels must be warm
+    warm_px_min: 3               # and at least this many (detection px)
+    warm_offset_max: 1.0         # the warm pixels ring the core: their centre lies within this many blob radii of the blob's centre
+    halo_min: 0.5                # and they form a halo: at least this many times the blob's area (lamps and windows clip to large white blobs)
+    max_elongation: 12.0         # motion blur stretches a blob (a fast swing at 1/30 s: about 7); longer than this is not a phone
+    area_blur_factor: 4.0        # the largest blob area allowed grows by this factor for motion blur
+    max_candidates: 40           # only the largest blobs are examined (bounds the cost in a cluttered scene)
+  background:                    # static bright things (lamps, ceiling lights, a window) are learned and never start an ember
+    step_dn: 1                   # approximate running median of brightness: change per frame (absorbs a static light in about 8 s)
+    warmup_frames: 5             # median of the first frames seeds it
+    bright_dn: 200               # a blob whose core lies on background this bright is a static light ...
+    on_frac: 0.5                 # ... when at least this fraction of its core does
+  track:
+    confirm_hits: 3              # a track is confirmed after this many detections ...
+    confirm_window_s: 0.25       # ... within this long of its first one
+    gate_m: 0.15                 # association reach at the standing distance (grows with speed and with time unseen)
+    gate_speed_frac: 0.5         # plus this fraction of the predicted motion since the last detection
+    gate_grow_m_s: 1.0           # plus this much per second unseen (a phone turned away keeps moving)
+    gate_max_m: 1.0              # never more than this
+    coast_hold_s: 0.15           # an unseen track keeps its velocity this long ...
+    coast_tau_s: 0.3             # ... then its predicted motion slows with this time constant
+    max_coast_s: 3.0             # an ember unseen this long ends (a phone turned away or hidden for less keeps its ID)
+    lost_s: 0.4                  # a track not yet shown ends after this long unseen
+    static_forget_s: 3.0         # a static light's track ends after this long unseen
+    min_travel_m: 0.08           # an ember shows only after moving this far from where it was first seen (at the standing distance) ...
+    min_show_speed_m_s: 0.15     # ... and at least this fast (slow drifts, such as a picture on a TV, never show)
+    static_s: 2.0                # a confirmed track that has not shown within this long is a static light (the static-time rule);
+                                 # an ember resting this long on bright static background is one too (it caught a lamp)
+    speed_window_s: 0.2          # speed: least-squares line through the positions of this many trailing seconds
+    speed_min_points: 3          # ... of at least this many points
+    count_hold_s: 0.4            # an ember unseen for less than this still counts and keeps its speed on screen
+    trail_s: 0.8                 # trail length drawn on screen
+  calibrate:                     # python -m wfglink calibrate: the printed A4 target held flat at the standing spot
+    min_markers: 3               # at least this many of the target's four markers in a frame
+    max_rms_px: 1.5              # frames whose marker corners the solved pose misses by more than this (RMS, px) are skipped
+    window: 30                   # it finishes when the last this many good frames ...
+    stable_frac: 0.01            # ... agree within this fraction (90th minus 10th percentile, over the median)
+    timeout_s: 90                # live: gives up after this long without a stable result
+  record:                        # python -m wfglink record NAME: the camera to data/raw/NAME.mp4
+    seconds: 20                  # recording length (--seconds overrides)
+    countdown_s: 3               # countdown on screen before recording starts
+    crf: 18                      # H.264 quality (lower is better)
+  field_grid: [16, 9]            # wind arrow cells (columns, rows), as in fire mode
+  field_window_s: 3.0            # each ember adds its velocity to the cell it is in; samples older than this are dropped
+  field_min_tracks: 1            # a cell shows an arrow with at least this many embers
+  calibration: null              # written by python -m wfglink calibrate: date, camera, size, focal_px, distance_m, m_per_px, hfov_deg, target
+
 soak:                            # overnight booth soak: python scripts/mac_soak.py --hours 8 (src/wfglink/soak.py)
   every_s: 60                    # seconds between heartbeat samples (--every overrides)
   progress_every_s: 600          # a progress line this often
@@ -247,6 +336,7 @@ outputs:
   overlay_crf: 20
 
 booth:
+  ember_page_url: ""             # the ember page's public address (booth/ember/index.html on GitHub Pages), once published; for the address card and QR code
   playlist: booth/playlist.yaml  # clips the booth plays in a loop (python -m wfglink live, booth/booth.sh)
   reset_per_clip: true           # true: every clip start resets the counts (counts per clip); false: each clip's counts run on across loops
   late_frames: 1.0               # playback: a decoded frame later than this many frame intervals is dropped (while dropping catches up)
@@ -257,13 +347,19 @@ booth:
   report_events: 100             # playback events kept in a run's report (the player keeps the last 500)
 
 live:
-  worker_mode: thread            # thread or process (playback and analysis in a child process)
+  worker_mode: thread            # thread or process (playback, the camera and analysis in a child process)
   analysis_max_width: 1280       # frames are analysed and shown at most this wide (a 4K roi is scaled down while decoding)
   analysis_max_pixels: 921600    # ... and with at most this many pixels (1280x720), so a tall roi costs no more than a wide one
+  ember_pipeline: wfglink.ember.pipeline:EmberPipeline   # ember mode (key M): module:Class that tracks the phones (tests use a stand-in)
+  camera_permission_timeout_s: 20  # macOS: longest wait for an answer to the camera permission dialog (below booth.sh's 30 s heartbeat limit)
+  camera_start_s: 10             # ember mode: a camera that has given no frame this long after it was asked for is shown as missing
+  camera_lost_s: 2.0             # ember mode: no new camera frame for this long shows the "no camera" message (the picture returns by itself)
+  camera_retry_s: [0.5, 8.0]     # ember mode: a camera that fails is tried again after the first delay, doubling up to the second
 
 ui:
   screen: auto                   # auto (external monitor when connected, else the built-in screen), external, primary, or a screen name
   builtin_screen: "built-?in|내장|color lcd|^edp|^lvds|^dsi"   # regex for the names of a laptop's own screen (macOS: "Built-in Retina Display")
   language: ko                   # ko or en at start-up; key L toggles
   quit_confirm_s: 3.0            # Esc, then Esc again within this many seconds, quits (a prompt shows meanwhile)
+  raw_fade_s: 0.5                # key A: seconds of the fade between the analysed screen and the raw picture (the booth starts analysed)
 

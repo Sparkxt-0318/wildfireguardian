@@ -1,5 +1,4 @@
-"""A5 booth placards: line breaking, the LED line, page size, embedded font and crop-safe margins."""
-import json
+"""A5 booth placards: line breaking, the sensor card's text, page size, embedded font and crop-safe margins."""
 import re
 
 import cv2
@@ -29,16 +28,14 @@ def test_wrap_breaks_at_spaces_and_keeps_short_words_with_the_next():
     assert pl.wrap("x " + "y" * 12, _adv, 5) == ["x", "yyyyy", "yyyyy", "yy"]
 
 
-def test_led_result_reads_the_led_report(tmp_path):
-    assert pl.led_result(tmp_path / "none.json") is None
-    rep = tmp_path / "led_report.json"
-    rep.write_text(json.dumps({"summary": {"median_abs_speed_error_pct": 3.27, "goal_median_abs_error_pct": 5.0,
-                                           "tracks": 6}}))
-    assert pl.led_result(rep) == {"error_pct": 3.27, "goal_pct": 5.0, "tracks": 6}
-    rep.write_text(json.dumps({"summary": {"median_speed_error_pct": -2.0}}))
-    assert pl.led_result(rep)["error_pct"] == 2.0
-    rep.write_text(json.dumps({"summary": {"status": "MISS", "reason": "no LED speed was measured"}}))
-    assert pl.led_result(rep) is None
+def test_sensor_card_has_no_led_test():
+    """The LED turntable test was dropped (booth change of 2026-10-15): the sensor card says
+    what the dashcam is and what wfglink measures, with no LED result line."""
+    assert not hasattr(pl, "led_result") and not hasattr(pl, "LED_REPORT")
+    for lang in ("ko", "en"):
+        text = " ".join(pl.TEXT[lang].values())
+        assert "LED" not in text and "턴테이블" not in text and "turntable" not in text.lower()
+        assert {"sensor_title", "sensor_lead", "measures", "tracks", "pointer"} <= set(pl.TEXT[lang])
 
 
 def test_limits_come_from_i18n():
@@ -52,13 +49,11 @@ def test_limits_come_from_i18n():
 
 @pytest.mark.qt
 def test_placards_are_print_ready(tmp_path):
-    rep = tmp_path / "led_report.json"
-    rep.write_text(json.dumps({"summary": {"median_abs_speed_error_pct": 3.27, "goal_median_abs_error_pct": 5.0}}))
-    res = pl.make_placards(tmp_path / "out", rep)
+    res = pl.make_placards(tmp_path / "out")
     assert [(r["card"], r["lang"]) for r in res] == [("sensor", "ko"), ("sensor", "en"), ("limits", "ko"), ("limits", "en")]
     for r in res:
         assert r["body_mm"] >= pl.MIN_TEXT_MM
-        assert r["led_line"] == (r["card"] == "sensor")
+        assert "led_line" not in r
         pdf = open(r["pdf"], "rb").read()
         assert pdf.startswith(b"%PDF") and b"/BaseFont /Pretendard" in pdf and len(pdf) < 200_000
         box = [float(v) for v in re.search(rb"/MediaBox \[([\d.\s]+)\]", pdf).group(1).split()]

@@ -6,8 +6,8 @@ import sys
 import pytest
 
 from wfglink import PROJECT_ROOT
-from wfglink.doctor import (Check, check_clips, classify_screens, format_line, import_name, pinned_requirements,
-                            playlist_clips)
+from wfglink.doctor import (Check, check_camera, check_clips, classify_screens, format_line, import_name,
+                            pinned_requirements, playlist_clips)
 
 PATTERN = r"built-?in|내장|color lcd|^edp|^lvds|^dsi"
 
@@ -20,7 +20,8 @@ def test_doctor_prints_one_line_per_check_in_order():
     res = subprocess.run([sys.executable, "-m", "wfglink", "doctor"], capture_output=True, text=True, timeout=300)
     lines = res.stdout.splitlines()
     checks = [ln for ln in lines if not ln.startswith(" ")]
-    assert [ln.split()[0] for ln in checks] == ["python", "packages", "fonts", "screens", "video", "data", "clips"]
+    assert [ln.split()[0] for ln in checks] == ["python", "packages", "fonts", "screens", "video", "camera", "data",
+                                                    "clips"]
     assert all(ln.endswith(" OK") or ln.endswith(" FAIL") for ln in checks)
     # Every FAIL is followed by its fix; the exit code says whether all were OK.
     for i, ln in enumerate(lines):
@@ -121,3 +122,18 @@ def test_playlist_clips_and_the_clips_check(tmp_path):
     assert check_clips({"booth": {"playlist": str(playlist)}}).ok
     missing = check_clips({"booth": {"playlist": str(tmp_path / "none.yaml")}})
     assert not missing.ok and "cannot read" in missing.detail
+
+
+def test_camera_check_names_the_camera_and_the_permission():
+    webcam = {"name": "USB Camera", "unique_id": "0x1400000", "transport": "usb ", "device_type": "External"}
+    iphone = {"name": "My iPhone Camera", "unique_id": "AA", "is_continuity": True}
+    cfg = {"camera": {"name": "auto"}}
+    ok = check_camera(cfg, [webcam, iphone], "authorized", mac=True)
+    assert ok.ok and "USB Camera" in ok.detail and "granted" in ok.detail
+    denied = check_camera(cfg, [webcam], "denied", mac=True)
+    assert not denied.ok and "Privacy and Security" in denied.fix and "Terminal" in denied.fix
+    ask = check_camera(cfg, [webcam], "not_determined", mac=True)
+    assert not ask.ok and "cameras --request" in ask.fix
+    only_phone = check_camera(cfg, [iphone], "authorized", mac=True)
+    assert not only_phone.ok and "camera.name" in only_phone.fix
+    assert check_camera(cfg, [], "unsupported", mac=False).ok          # Linux without a camera: ember mode is generated

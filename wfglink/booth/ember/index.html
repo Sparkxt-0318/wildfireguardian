@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; media-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="불티">
+<meta name="format-detection" content="telephone=no">
+<title>불티 · Ember</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJnIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYxRDYiLz48c3RvcCBvZmZzZXQ9Ii4xOCIgc3RvcC1jb2xvcj0iI0ZGQzI2NiIvPjxzdG9wIG9mZnNldD0iLjQ1IiBzdG9wLWNvbG9yPSIjRkY4QTFGIi8+PHN0b3Agb2Zmc2V0PSIuNyIgc3RvcC1jb2xvcj0iI0ZGNUEwMCIgc3RvcC1vcGFjaXR5PSIuMzUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRjVBMDAiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzEiIGZpbGw9InVybCgjZykiLz48L3N2Zz4=">
+<style>
+/* "Become an ember": one phone screen, one glowing ember. Everything is in this file, so the page
+   works from any static host or from file:// and makes no network request. */
+:root {
+  color-scheme: dark;
+  background: #000;
+  /* The ember's diameter: 2 x 0.36 x the shorter side of the screen (the booth's synthetic phones match it). */
+  --ember: 72vmin;
+}
+@supports (width: 1dvmin) {
+  :root { --ember: 72dvmin; }   /* the visible screen, with or without the browser's toolbars */
+}
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  overscroll-behavior: none;     /* no pull-to-refresh, no rubber band */
+}
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  touch-action: none;            /* no scrolling, no pinch or double-tap zoom */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  cursor: none;
+  color: #fff;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+    "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The ember: a soft radial glow, no hard edge. */
+.stage {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: ignite 0.9s ease-out both;
+}
+.glow, .ember {
+  width: var(--ember);
+  height: var(--ember);
+  will-change: opacity, transform;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.glow { animation-name: drift; animation-duration: 5.3s; }
+.ember {
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side,
+    #FFF1D6 0%, #FFC266 18%, #FF8A1F 45%, rgba(255, 90, 0, 0.35) 70%, rgba(255, 90, 0, 0) 100%);
+  animation-name: flicker;
+  animation-duration: 3.3s;
+}
+/* Flicker: brightness (opacity over black) and size move together, smoothly, at about 3 Hz.
+   flicker spans 0.89 to 1.0 in brightness and 0.98 to 1.0 in scale; the slow drift spans 0.975 to 1.0
+   and 0.99 to 1.0. Together they stay inside brightness 0.85 to 1.0 and scale 0.97 to 1.0. */
+@keyframes flicker {
+  0%    { opacity: 1;     transform: scale(1); }
+  5.3%  { opacity: 0.945; transform: scale(0.991); }
+  11.2% { opacity: 0.977; transform: scale(0.996); }
+  15.3% { opacity: 0.89;  transform: scale(0.98); }
+  18.3% { opacity: 0.995; transform: scale(0.999); }
+  24.3% { opacity: 0.923; transform: scale(0.987); }
+  28.4% { opacity: 0.978; transform: scale(0.996); }
+  32.3% { opacity: 0.922; transform: scale(0.987); }
+  37.2% { opacity: 0.987; transform: scale(0.998); }
+  43.9% { opacity: 0.94;  transform: scale(0.99); }
+  49.2% { opacity: 1;     transform: scale(1); }
+  53%   { opacity: 0.908; transform: scale(0.985); }
+  58.2% { opacity: 0.971; transform: scale(0.995); }
+  61.4% { opacity: 0.926; transform: scale(0.988); }
+  66.1% { opacity: 0.998; transform: scale(1); }
+  71.4% { opacity: 0.89;  transform: scale(0.98); }
+  76.3% { opacity: 0.977; transform: scale(0.996); }
+  79.3% { opacity: 0.89;  transform: scale(0.98); }
+  84.9% { opacity: 0.976; transform: scale(0.996); }
+  89.3% { opacity: 0.9;   transform: scale(0.983); }
+  95.3% { opacity: 0.975; transform: scale(0.996); }
+  100%  { opacity: 1;     transform: scale(1); }
+}
+@keyframes drift {
+  0%    { opacity: 1;     transform: scale(1); }
+  12.4% { opacity: 0.982; transform: scale(0.994); }
+  20.6% { opacity: 0.998; transform: scale(0.999); }
+  32%   { opacity: 0.975; transform: scale(0.99); }
+  42.3% { opacity: 0.998; transform: scale(0.999); }
+  50.3% { opacity: 0.975; transform: scale(0.99); }
+  60.2% { opacity: 0.996; transform: scale(0.999); }
+  74%   { opacity: 0.979; transform: scale(0.993); }
+  88.9% { opacity: 0.998; transform: scale(0.999); }
+  100%  { opacity: 1;     transform: scale(1); }
+}
+@keyframes ignite {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+/* Reduced motion: a gentler shimmer, no change in size. */
+@media (prefers-reduced-motion: reduce) {
+  .glow { animation: none; }
+  .ember { animation-name: shimmer; animation-duration: 4.1s; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  23%      { opacity: 0.96; }
+  41%      { opacity: 0.99; }
+  67%      { opacity: 0.95; }
+  84%      { opacity: 0.985; }
+}
+
+/* Instructions: shown over a dimmed ember for 3 s, then the ember comes up to full brightness.
+   A tap hides them at once. */
+.hint {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
+}
+.hint.off { opacity: 0; }
+.hint-body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+           max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  background: rgba(0, 0, 0, 0.68);
+  text-align: center;
+  animation: hint-out 0.7s ease-in 3s forwards;
+}
+.hint-text { animation: hint-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hint p { margin: 0 auto; text-wrap: balance; }
+.ko {
+  max-width: 14em;
+  font-size: clamp(19px, 5.6vmin, 30px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+.en {
+  max-width: 19em;
+  margin-top: 0.55em !important;
+  font-size: clamp(15px, 4.1vmin, 22px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
+.bright {
+  margin-top: 1.9em !important;
+  font-size: clamp(12px, 3.4vmin, 17px);
+  letter-spacing: 0.03em;
+  color: #FFC266;
+  word-break: keep-all;
+}
+.bright::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 1px;
+  margin: 0 auto 1.3em;
+  background: rgba(255, 194, 102, 0.5);
+}
+@keyframes hint-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hint-out {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+/* The keep-awake fallback video: 1 px, black on black. */
+.awake {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+<div class="stage" aria-hidden="true">
+  <div class="glow" id="glow"><div class="ember" id="ember"></div></div>
+</div>
+<div class="hint" id="hint">
+  <div class="hint-body">
+    <div class="hint-text">
+      <p class="ko">휴대폰 화면을 카메라 쪽으로 들고 움직여 보세요</p>
+      <p class="en" lang="en">Hold your screen toward the camera and move it</p>
+      <p class="bright">화면 밝기를 최대로 · Turn brightness up</p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var doc = document, nav = navigator, root = doc.documentElement;
+  var hint = doc.getElementById("hint");
+
+  /* Each phone starts its flicker at a random point, so a group of phones never flickers in step. */
+  ["glow", "ember"].forEach(function (id) {
+    var el = doc.getElementById(id);
+    var period = parseFloat(window.getComputedStyle(el).animationDuration) || 0;
+    if (period > 0) el.style.animationDelay = (-Math.random() * period).toFixed(2) + "s";
+  });
+
+  /* Instructions: CSS fades them out after 3 s; they leave the page once gone, or 0.35 s after a tap. */
+  function dropHint() {
+    if (hint && hint.parentNode) hint.parentNode.removeChild(hint);
+    hint = null;
+  }
+  function hideHint() {
+    if (!hint) return;
+    hint.className += " off";
+    setTimeout(dropHint, 400);
+  }
+  hint.addEventListener("animationend", function (e) {
+    if (e.animationName === "hint-out") dropHint();
+  });
+  setTimeout(dropHint, 4500);   /* in case CSS animations do not run */
+
+  /* Keep the screen awake: the Screen Wake Lock API where it exists (HTTPS, file:// or localhost).
+     The browser drops the lock when the page is hidden, so it is asked for again on every return.
+     Where the API is missing or refuses, a tiny muted looping video plays instead (the NoSleep technique). */
+  var lock = null, asking = false, video = null;
+  var MP4 = "data:video/mp4;base64,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";
+  var WEBM = "data:video/webm;base64,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";
+
+  function playVideo() {
+    if (!video) {
+      video = doc.createElement("video");
+      video.className = "awake";
+      video.muted = true;
+      video.loop = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("loop", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("disablepictureinpicture", "");
+      video.setAttribute("disableremoteplayback", "");
+      video.setAttribute("aria-hidden", "true");
+      video.setAttribute("tabindex", "-1");
+      [["video/mp4; codecs=\"avc1.42C01E, mp4a.40.2\"", MP4], ["video/webm; codecs=\"vp8, opus\"", WEBM]]
+        .forEach(function (s) {
+          var source = doc.createElement("source");
+          source.type = s[0];
+          source.src = s[1];
+          video.appendChild(source);
+        });
+      doc.body.appendChild(video);
+    }
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { /* blocked until a tap: tried again on the next one */ });
+  }
+
+  function keepAwake() {
+    if (doc.visibilityState && doc.visibilityState !== "visible") return;
+    if (nav.wakeLock && typeof nav.wakeLock.request === "function") {
+      if (asking || (lock && !lock.released)) return;
+      asking = true;
+      nav.wakeLock.request("screen").then(function (sentinel) {
+        asking = false;
+        lock = sentinel;
+        sentinel.addEventListener("release", function () { if (lock === sentinel) lock = null; });
+        if (video) video.pause();
+      }, function () {
+        asking = false;
+        playVideo();
+      });
+    } else {
+      playVideo();
+    }
+  }
+  doc.addEventListener("visibilitychange", keepAwake);
+  window.addEventListener("pageshow", function (e) { if (e.persisted) keepAwake(); });   /* back from the page cache */
+  keepAwake();
+
+  /* A tap anywhere: full screen where the browser allows it (not on iPhone Safari), and no text from then on. */
+  var lastTap = 0;
+  function onTap() {
+    var now = Date.now();
+    if (now - lastTap < 400) return;
+    lastTap = now;
+    hideHint();
+    keepAwake();
+    if (doc.fullscreenElement || doc.webkitFullscreenElement) return;
+    var req = root.requestFullscreen || root.webkitRequestFullscreen;
+    if (!req) return;
+    try {
+      var p = req.call(root, { navigationUI: "hide" });
+      if (p && p.catch) p.catch(function () {});
+    } catch (err) { /* not allowed here */ }
+  }
+  doc.addEventListener(window.PointerEvent ? "pointerup" : "touchend", onTap);
+  doc.addEventListener("click", onTap);
+  doc.addEventListener("fullscreenchange", keepAwake);
+  doc.addEventListener("webkitfullscreenchange", keepAwake);
+
+  /* No scrolling, zoom, pull-to-refresh, text selection or long-press menu. */
+  function stop(e) { if (e.cancelable) e.preventDefault(); }
+  doc.addEventListener("touchmove", stop, { passive: false });
+  doc.addEventListener("touchstart", function (e) { if (e.touches.length > 1) stop(e); }, { passive: false });
+  ["gesturestart", "gesturechange", "dblclick", "contextmenu", "selectstart"].forEach(function (type) {
+    doc.addEventListener(type, stop);
+  });
+})();
+</script>
+</body>
+</html>

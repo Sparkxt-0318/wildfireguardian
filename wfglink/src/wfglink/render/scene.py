@@ -13,6 +13,23 @@ Layout at 1920x1080 (all sizes scale with height):
   the picture is, analysis fps);
 - small tags on the video: "synthetic video" when the picture is generated, "paused" while
   playback is paused; a visible prompt after the first Esc; the limits card on key I.
+
+Ember mode (state.mode "ember", "Become an ember", key M): the same design on the live
+camera. The panel has the header "당신이 불티입니다 / You are an ember", the live count of
+embers (phones showing the ember page) and each ember's speed with its number, in m/s with
+the distance that holds ("measured at 2.0 m") and a small "nominal field of view" tag until
+an A4 calibration exists. Each ember on the picture carries the same number and speed; the
+wind arrows come from all tracked phones and are labelled as an estimate, as in fire mode.
+While the camera is missing, not allowed or failing (state.camera_state), the picture area
+shows a calm message in both languages with what to do, and that M returns to the fire
+footage.
+
+Raw or analysed (key A): analysed=1 draws the full screen above; analysed=0 draws the raw
+picture alone, fullscreen, with only a small "raw footage" tag (plus the synthetic and
+paused tags, and the clip's credit line bottom-right). Values in between are the fade: the
+picture grows from its place to the whole screen while the marks on it fade out; the panel,
+sparkline, status line and legend fade in the analysed half of the fade and the raw tags in
+the raw half, so the two never show at once.
 """
 from __future__ import annotations
 
@@ -26,6 +43,12 @@ from PySide6.QtGui import QBrush, QColor, QFont, QImage, QLinearGradient, QPaint
 from wfglink.ui import theme
 from wfglink.ui.fonts import ui_font
 from wfglink.ui.i18n import limit_keys, t
+
+# Ember mode camera states that replace the picture with a message (the title key; "<key>_do"
+# says what to do). "starting" shows a small line instead; "ok" shows the picture.
+CAMERA_MESSAGES = {"missing": "cam_missing", "denied": "cam_denied", "asking": "cam_asking", "error": "cam_error"}
+MAX_EMBER_ROWS = 6
+FADE_EPS = 0.004         # an overlay this faint (or this close to full) is not drawn (or drawn in full)
 
 
 @dataclass
@@ -41,17 +64,24 @@ class LiveState:
     pnf: float | None = None
     speed: float | None = None
     direction_deg: float | None = None            # image axes: 0 right, 90 down
-    field_uvn: np.ndarray | None = None           # (rows, cols, 3): u, v (px/s), n tracks
+    field_uvn: np.ndarray | None = None           # (rows, cols, 3): u, v (px/s, or m/s in ember mode), n tracks
     field_min_n: int = 5
     gate: tuple[tuple[float, float], tuple[float, float]] | None = None
     sparkline: np.ndarray = field(default_factory=lambda: np.zeros(0))
-    calibrated: bool = False
+    calibrated: bool = False                      # fire: m/px given; ember: an A4 calibration exists (else the nominal field of view)
     distance_m: float | None = None
-    source_label: str = ""                        # the clip's name (booth) or file name (file mode)
+    source_label: str = ""                        # the clip's name (booth), file name (file mode) or camera name (ember mode)
     source_credit: str = ""                       # the clip's credit line (data/clips.csv)
-    source_state: str = "playing"                 # playing (a clip analysed live), synthetic, file (file mode)
+    source_state: str = "playing"                 # playing (a clip analysed live), synthetic, file (file mode), camera (ember mode)
     fps: float = 0.0
     warm: float = 1.0                             # 0 to 1: numbers fade in after warm-up
+    # Ember mode ("Become an ember"); fire mode keeps these defaults.
+    mode: str = "fire"                            # fire (clips or synthetic fire video) or ember (the camera)
+    embers: list[dict] = field(default_factory=list)   # {"id", "speed_m_s" (or None), "x", "y" (image px), "age_s"}; the booth adds "n", the number shown
+    ember_count: int | None = None                # phones tracked now (ember mode)
+    speed_unit: str = "px/s"                      # unit of speed and of the per-ember speeds: px/s or m/s
+    measured_at_m: float | None = None            # ember mode: speeds in m/s hold at this distance (ember.distance_m)
+    camera_state: str = "off"                     # off (fire mode), starting, ok, missing, denied, asking, error
 
 
 def _c(hexcode: str, alpha: float = 1.0) -> QColor:
@@ -86,6 +116,17 @@ def _fmt(v: float | None, kind: str) -> str:
     return f"{v}"
 
 
+def _ease(a: float) -> float:
+    """Smoothstep of a fade position (0 to 1), so the fade starts and ends gently."""
+    a = min(1.0, max(0.0, float(a)))
+    return a * a * (3.0 - 2.0 * a)
+
+
+def _lerp_rect(r0: QRectF, r1: QRectF, f: float) -> QRectF:
+    return QRectF(r0.x() + (r1.x() - r0.x()) * f, r0.y() + (r1.y() - r0.y()) * f,
+                  r0.width() + (r1.width() - r0.width()) * f, r0.height() + (r1.height() - r0.height()) * f)
+
+
 class Layout:
     def __init__(self, W: int, H: int):
         m = theme.px(theme.SIZES["margin"], H)
@@ -97,54 +138,82 @@ class Layout:
             vid_h = int(H * 0.72)
             vid_w = int(vid_h * 16 / 9)
         self.video = QRectF(m, m, vid_w, vid_h)
+        self.full = QRectF(0, 0, W, H)               # the picture alone (raw)
         self.panel = QRectF(W - panel_w - m, m, panel_w, H - 2 * m)
         spark_top = self.video.bottom() + m * 0.9
         self.spark = QRectF(m, spark_top, vid_w, H - spark_top - m * 2.2)
         self.status = QRectF(m, H - m * 1.5, W - 2 * m, m)
 
 
-def _image_rect(L: Layout, img_w: int, img_h: int) -> tuple[QRectF, float]:
-    s = min(L.video.width() / img_w, L.video.height() / img_h)
+def _fit_rect(box: QRectF, img_w: int, img_h: int) -> tuple[QRectF, float]:
+    """The largest rectangle of the image's aspect ratio centred in box, and its scale."""
+    s = min(box.width() / img_w, box.height() / img_h)
     w, h = img_w * s, img_h * s
-    return QRectF(L.video.x() + (L.video.width() - w) / 2, L.video.y() + (L.video.height() - h) / 2, w, h), s
+    return QRectF(box.x() + (box.width() - w) / 2, box.y() + (box.height() - h) / 2, w, h), s
 
 
 def paint_scene(p: QPainter, W: int, H: int, s: LiveState, lang: str = "ko", *, show_limits: bool = False,
                 show_tracks: bool = True, show_field: bool = True, show_gate: bool = True,
-                paused: bool = False, quit_prompt: bool = False) -> None:
-    """Draw the whole screen. paused adds the pause tag; quit_prompt shows the Esc confirm prompt."""
+                paused: bool = False, quit_prompt: bool = False, analysed: float = 1.0) -> None:
+    """Draw the whole screen. paused adds the pause tag; quit_prompt shows the Esc confirm prompt;
+    analysed is 1 for the analysed screen, 0 for the raw picture and in between during the fade."""
     p.setRenderHint(QPainter.RenderHint.Antialiasing, True)
     p.setRenderHint(QPainter.RenderHint.TextAntialiasing, True)
     p.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
     p.fillRect(QRectF(0, 0, W, H), _c(theme.BG))
     L = Layout(W, H)
-    rect = _paint_video(p, L, s, lang, show_tracks, show_field, show_gate)
-    _paint_tags(p, L, rect, s, lang, paused)
-    _paint_cards(p, L, s, lang)
-    _paint_sparkline(p, L, s, lang)
-    _paint_status(p, L, s, lang)
+    level = min(1.0, max(0.0, float(analysed)))
+    a = _ease(level)                              # the picture's size and the marks on it
+    panel = _ease(2.0 * level - 1.0)              # panel, sparkline, status line, legend: the analysed half
+    raw = _ease(1.0 - 2.0 * level)                # the raw tags: the raw half
+    if panel > FADE_EPS:
+        p.setOpacity(panel)
+        if s.mode == "ember":
+            _paint_ember_panel(p, L, s, lang)
+        else:
+            _paint_cards(p, L, s, lang)
+        _paint_sparkline(p, L, s, lang)
+        _paint_status(p, L, s, lang)
+        p.setOpacity(1.0)
+    rect = _paint_video(p, L, s, lang, show_tracks, show_field, show_gate, a, panel)
+    _paint_tags(p, L, rect, s, lang, paused, raw)
     if quit_prompt:
         _paint_prompt(p, rect, t(lang, "quit_confirm"), L.H)
     if show_limits:
         _paint_limits(p, L, lang)
 
 
-def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, fieldon: bool, gate: bool) -> QRectF:
-    """The picture with its marks; returns the rectangle it fills."""
-    p.fillRect(L.video, _c("#050506"))
+def _ember_live(s: LiveState) -> bool:
+    """Ember mode shows a camera picture (not a message, not the start)."""
+    return s.camera_state not in CAMERA_MESSAGES and s.image is not None
+
+
+def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, fieldon: bool, gate: bool,
+                 a: float = 1.0, legend: float = 1.0) -> QRectF:
+    """The picture with its marks (faded by a, the eased analysed level; the field legend by
+    legend); returns the rectangle it fills."""
+    box = _lerp_rect(L.video, L.full, 1.0 - a) if a < 1.0 - FADE_EPS else QRectF(L.video)
+    p.fillRect(box, _c("#050506", a))
+    ember = s.mode == "ember"
+    if ember and s.camera_state in CAMERA_MESSAGES:
+        _paint_camera_message(p, box, s.camera_state, lang, L.H)
+        return QRectF(box)
     if s.image is None:
         p.setPen(_c(theme.INK2))
         p.setFont(_font(theme.px(34, L.H)))
-        p.drawText(L.video, Qt.AlignmentFlag.AlignCenter, t(lang, "warming"))
-        return QRectF(L.video)
+        p.drawText(box, Qt.AlignmentFlag.AlignCenter, t(lang, "cam_starting" if ember else "warming"))
+        return QRectF(box)
     img = s.image if s.image.flags["C_CONTIGUOUS"] else np.ascontiguousarray(s.image)   # decoders pad odd widths
     ih, iw = img.shape[:2]
-    rect, sc = _image_rect(L, iw, ih)
+    rect, sc = _fit_rect(box, iw, ih)
     qimg = QImage(img.data, iw, ih, img.strides[0], QImage.Format.Format_BGR888)
     p.drawImage(rect, qimg)
+    if a <= FADE_EPS:
+        return rect
     ox, oy = rect.x(), rect.y()
     p.save()
     p.setClipRect(rect)
+    p.setOpacity(a)
     if fieldon and s.field_uvn is not None:
         _paint_field(p, rect, sc, s)
     if gate and s.gate is not None:
@@ -157,19 +226,36 @@ def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, 
         p.drawText(QPointF(ox + x2 * sc + 8, oy + y2 * sc + 6), t(lang, "gate"))
     if tracks:
         _paint_trails(p, ox, oy, sc, s, L.H)
+        if ember:
+            _paint_ember_labels(p, rect, sc, s, lang, L.H)
     p.restore()
     # Field legend (bottom-left) on a dark pill, so it stays readable over flames.
-    if fieldon and s.field_uvn is not None:
+    if fieldon and s.field_uvn is not None and legend > FADE_EPS:
+        p.setOpacity(legend)
         _pill(p, QPointF(rect.x() + 14, rect.bottom() - 14), "→  " + t(lang, "field_legend"), theme.GREEN, L.H, "left")
+        p.setOpacity(1.0)
     return rect
 
 
-def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, paused: bool) -> None:
-    """Small tags in the picture's top-left corner: synthetic video, paused."""
-    tags = ([t(lang, "synthetic")] if s.source_state == "synthetic" else []) + ([t(lang, "paused")] if paused else [])
+def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, paused: bool, raw: float = 0.0) -> None:
+    """Small tags in the picture's top-left corner: synthetic video, paused, and (fading in with the
+    raw picture, by raw) raw footage; in the raw picture the clip's name and credit line sit bottom-right."""
+    picture = s.mode != "ember" or s.camera_state not in CAMERA_MESSAGES
+    tags = ([t(lang, "synthetic")] if s.source_state == "synthetic" and picture else []) + ([t(lang, "paused")] if paused else [])
     x, y = rect.x() + theme.px(14, L.H), rect.y() + theme.px(14, L.H)
     for text in tags:
         x += _pill(p, QPointF(x, y), text, theme.INK, L.H, "left", top=True) + theme.px(10, L.H)
+    if raw <= FADE_EPS or not picture:
+        return
+    p.setOpacity(raw)
+    _pill(p, QPointF(x, y), t(lang, "raw"), theme.INK, L.H, "left", top=True)
+    credit = "   ·   ".join(v for v in (s.source_label, s.source_credit) if v) if s.mode != "ember" else ""
+    if credit:
+        p.setFont(_font(theme.px(theme.SIZES["tag"], L.H)))
+        room = int(rect.width() * 0.6)
+        credit = p.fontMetrics().elidedText(credit, Qt.TextElideMode.ElideRight, max(room, 0))
+        _pill(p, QPointF(rect.right() - theme.px(14, L.H), rect.bottom() - theme.px(14, L.H)), credit, theme.INK2, L.H, "right")
+    p.setOpacity(1.0)
 
 
 def _paint_prompt(p: QPainter, rect: QRectF, text: str, H: int) -> None:
@@ -232,6 +318,105 @@ def _paint_trails(p: QPainter, ox: float, oy: float, sc: float, s: LiveState, H:
         p.drawEllipse(c, r1, r1)
         p.setBrush(_c(theme.ORANGE_CORE, 0.95))
         p.drawEllipse(c, r2, r2)
+
+
+def ember_rows(s: LiveState) -> list[dict]:
+    """The embers shown, at most MAX_EMBER_ROWS, ordered by the number shown ("n", else the id)."""
+    rows = [e for e in (s.embers or []) if isinstance(e, dict)]
+    return sorted(rows, key=lambda e: (int(e.get("n", e.get("id", 0)) or 0), int(e.get("id", 0) or 0)))[:MAX_EMBER_ROWS]
+
+
+def _ember_number(e: dict) -> str:
+    return str(int(e.get("n", e.get("id", 0)) or 0))
+
+
+def _speed_text(e: dict, s: LiveState) -> str:
+    return _fmt(e.get("speed_m_s"), "speed_m" if s.speed_unit == "m/s" else "speed_px")
+
+
+def _speed_unit(s: LiveState, lang: str) -> str:
+    return t(lang, "speed_unit_m" if s.speed_unit == "m/s" else "speed_unit_px")
+
+
+def _badge(p: QPainter, c: QPointF, r: float, text: str, H: int) -> None:
+    """An ember's number: dark type on an orange disc (orange marks embers only)."""
+    p.setPen(Qt.PenStyle.NoPen)
+    p.setBrush(_c(theme.ORANGE))
+    p.drawEllipse(c, r, r)
+    p.setPen(_c("#000000"))
+    p.setFont(_font(max(theme.px(theme.SIZES["tag"], H), int(r * 1.15)), "bold", tabular=True))
+    p.drawText(QRectF(c.x() - r, c.y() - r, 2 * r, 2 * r), Qt.AlignmentFlag.AlignCenter, text)
+
+
+def _paint_ember_labels(p: QPainter, rect: QRectF, sc: float, s: LiveState, lang: str, H: int) -> None:
+    """Each tracked phone's number and speed next to it, on a dark pill."""
+    if s.image is None:
+        return
+    ih, iw = s.image.shape[:2]
+    rows = ember_rows(s)
+    if not rows:
+        return
+    # Positions are image pixels; positions all inside the unit square on a larger image are fractions.
+    frac = all(0.0 <= float(e.get("x", 0)) <= 1.0 and 0.0 <= float(e.get("y", 0)) <= 1.0 for e in rows) and min(iw, ih) > 4
+    f = _font(theme.px(theme.SIZES["tag"], H), "semibold", tabular=True)
+    pady, padx = theme.px(6, H), theme.px(10, H)
+    for e in rows:
+        try:
+            x, y = float(e["x"]), float(e["y"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if frac:
+            x, y = x * iw, y * ih
+        cx, cy = rect.x() + x * sc, rect.y() + y * sc
+        p.setFont(f)
+        fm = p.fontMetrics()
+        speed = _speed_text(e, s)
+        text = f"{speed} {_speed_unit(s, lang)}" if speed else ""
+        h = fm.height() + 2 * pady
+        r = h / 2 - theme.px(3, H)
+        w = 2 * r + theme.px(6, H) + (fm.horizontalAdvance(text) + padx if text else theme.px(2, H)) + theme.px(6, H)
+        off = theme.px(22, H)
+        bx = cx + off if cx + off + w <= rect.right() - 4 else cx - off - w
+        by = max(rect.y() + 4, min(cy - off - h, rect.bottom() - h - 4))
+        box = QRectF(bx, by, w, h)
+        p.setPen(Qt.PenStyle.NoPen)
+        p.setBrush(_c("#000000", 0.62))
+        p.drawRoundedRect(box, h / 2, h / 2)
+        _badge(p, QPointF(bx + theme.px(3, H) + r, by + h / 2), r, _ember_number(e), H)
+        if text:
+            p.setFont(f)
+            p.setPen(_c(theme.GREEN))
+            p.drawText(QRectF(bx + 2 * r + theme.px(12, H), by, w, h), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, text)
+
+
+def _paint_camera_message(p: QPainter, box: QRectF, state: str, lang: str, H: int) -> None:
+    """Ember mode without a usable camera: what happened and what to do, in the screen's language
+    and below it, smaller, in the other one; then the way back (M)."""
+    key = CAMERA_MESSAGES[state]
+    other = "en" if lang == "ko" else "ko"
+    width = min(box.width() * 0.86, theme.px(1100, H))
+    wrap = int(Qt.AlignmentFlag.AlignHCenter) | int(Qt.TextFlag.TextWordWrap)
+    blocks = [(t(lang, key), _font(theme.px(theme.SIZES["message_title"], H), "semibold"), theme.INK, 1.0, theme.px(18, H)),
+              (t(lang, key + "_do"), _font(theme.px(theme.SIZES["message_body"], H)), theme.INK, 0.86, theme.px(44, H)),
+              (t(other, key), _font(theme.px(26, H), "semibold"), theme.INK2, 1.0, theme.px(10, H)),
+              (t(other, key + "_do"), _font(theme.px(22, H)), theme.INK2, 1.0, theme.px(46, H))]
+    sized = []
+    for text, f, color, alpha, gap in blocks:
+        p.setFont(f)
+        r = p.boundingRect(QRectF(0, 0, width, 10000), wrap, text)
+        sized.append((text, f, color, alpha, gap, r.height()))
+    hint = t(lang, "back_to_fire")
+    p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
+    hint_h = p.fontMetrics().height() + 2 * theme.px(6, H)
+    total = sum(h + gap for *_, gap, h in sized) + hint_h
+    y = box.center().y() - total / 2
+    x = box.center().x() - width / 2
+    for text, f, color, alpha, gap, h in sized:
+        p.setFont(f)
+        p.setPen(_c(color, alpha))
+        p.drawText(QRectF(x, y, width, h), wrap, text)
+        y += h + gap
+    _pill(p, QPointF(box.center().x(), y), hint, theme.INK, H, "center", top=True)
 
 
 def _paint_field(p: QPainter, rect: QRectF, sc: float, s: LiveState) -> None:
@@ -322,6 +507,89 @@ def _paint_cards(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
         p.drawText(QRectF(x, top + 4 * card_h - theme.px(40, H), w, theme.px(36, H)), Qt.AlignmentFlag.AlignLeft, t(lang, "warming"))
 
 
+def ember_tags(s: LiveState, lang: str) -> list[str]:
+    """What qualifies the per-ember speeds: the distance they hold at, and the nominal field of
+    view until an A4 calibration exists (pixel speeds say uncalibrated instead)."""
+    if s.speed_unit != "m/s":
+        return [t(lang, "uncalibrated")]
+    tags = [t(lang, "measured_at", z=f"{s.measured_at_m:.1f}")] if s.measured_at_m else []
+    return tags + ([] if s.calibrated else [t(lang, "nominal_fov")])
+
+
+def ember_panel_layout(L: Layout) -> dict[str, object]:
+    """Where ember mode's panel puts things: header, subtitle, count card, speeds label, tags and
+    the MAX_EMBER_ROWS rows (QRectF each; rows is a list)."""
+    H = L.H
+    x, y, w = L.panel.x(), L.panel.y(), L.panel.width()
+    count_top = y + theme.px(112, H)
+    speeds_top = count_top + theme.px(186, H)
+    rows_top = speeds_top + theme.px(76, H)
+    row_h = theme.px(78, H)
+    return {"header": QRectF(x, y - theme.px(10, H), w, theme.px(62, H)),
+            "subtitle": QRectF(x, y + theme.px(54, H), w, theme.px(28, H)),
+            "count": QRectF(x, count_top, w, theme.px(170, H)),
+            "speeds": QRectF(x, speeds_top, w, theme.px(40, H)),
+            "tags": QRectF(x, speeds_top + theme.px(40, H), w, theme.px(28, H)),
+            "rows": [QRectF(x, rows_top + i * row_h, w, row_h) for i in range(MAX_EMBER_ROWS)]}
+
+
+def _paint_ember_panel(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
+    """Ember mode's panel: the header, the live count, and each ember's number and speed."""
+    H = L.H
+    G = ember_panel_layout(L)
+    left = Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+    p.setPen(_c(theme.INK))
+    header, size = t(lang, "ember_header"), theme.px(theme.SIZES["ember_header"], H)
+    p.setFont(_font(size, "semibold"))
+    while size > theme.px(theme.SIZES["label"], H) and p.fontMetrics().horizontalAdvance(header) > G["header"].width():
+        size -= 1                          # a narrow screen (4:3): smaller, never cut
+        p.setFont(_font(size, "semibold"))
+    p.drawText(G["header"], left, header)
+    p.setPen(_c(theme.INK2))
+    p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
+    p.drawText(G["subtitle"], left, t(lang, "ember_subtitle"))
+    live = _ember_live(s)
+    count = _fmt(s.ember_count, "int") if live else ""
+    _card(p, G["count"], t(lang, "ember_count"), count, t(lang, "ember_count_unit"), [], H, 1.0)
+    sp = G["speeds"]
+    x, w = sp.x(), sp.width()
+    p.setPen(QPen(_c(theme.INK3), 1))
+    p.drawLine(QPointF(x, sp.y() - theme.px(6, H)), QPointF(x + w, sp.y() - theme.px(6, H)))
+    p.setPen(_c(theme.INK2))
+    p.setFont(_font(theme.px(theme.SIZES["label"], H)))
+    p.drawText(sp, left, t(lang, "ember_speeds"))
+    tags = ember_tags(s, lang) if live else []
+    if tags:      # what qualifies the speeds, right under their label
+        p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
+        p.drawText(G["tags"], left, "  ·  ".join(tags))
+    rows = ember_rows(s) if live else []
+    r = theme.px(theme.SIZES["ember_badge"], H) * 0.95
+    unit = _speed_unit(s, lang)
+    for e, box in zip(rows, G["rows"]):
+        _badge(p, QPointF(x + r, box.center().y()), r, _ember_number(e), H)
+        speed = _speed_text(e, s)
+        tx = x + 2 * r + theme.px(22, H)
+        tbox = QRectF(tx, box.y(), w - (tx - x), box.height())
+        if speed:
+            p.setFont(_font(theme.px(theme.SIZES["ember_row"], H), "semibold", tabular=True))
+            p.setPen(_c(theme.GREEN))
+            p.drawText(tbox, left, speed)
+            vw = p.fontMetrics().horizontalAdvance(speed)
+            p.setFont(_font(theme.px(theme.SIZES["unit"], H)))
+            p.setPen(_c(theme.INK2))
+            p.drawText(QRectF(tx + vw + theme.px(12, H), box.y() + theme.px(8, H), w, box.height()), left, unit)
+        else:
+            p.setFont(_font(theme.px(theme.SIZES["label"], H)))
+            p.setPen(_c(theme.INK2))
+            p.drawText(tbox, left, t(lang, "measuring"))
+    if live and not rows:
+        first = G["rows"][0]
+        p.setFont(_font(theme.px(theme.SIZES["label"], H)))
+        p.setPen(_c(theme.INK2))
+        p.drawText(QRectF(x, first.y() + theme.px(8, H), w * 0.92, first.height() * 3), int(Qt.TextFlag.TextWordWrap),
+                   t(lang, "ember_none"))
+
+
 def _paint_rose(p: QPainter, c: QPointF, r: float, deg: float, warm: float) -> None:
     p.setPen(QPen(_c(theme.INK3), 1.5))
     p.setBrush(Qt.BrushStyle.NoBrush)
@@ -346,12 +614,13 @@ def _paint_sparkline(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     H = L.H
     p.setPen(_c(theme.INK2))
     p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
-    p.drawText(QRectF(box.x(), box.y(), box.width(), theme.px(26, H)), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, t(lang, "sparkline"))
+    p.drawText(QRectF(box.x(), box.y(), box.width(), theme.px(26, H)), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
+               t(lang, "ember_sparkline" if s.mode == "ember" else "sparkline"))
     area = QRectF(box.x(), box.y() + theme.px(32, H), box.width(), box.height() - theme.px(32, H))
     p.setPen(QPen(_c(theme.INK3), 1))
     p.drawLine(QPointF(area.x(), area.bottom()), QPointF(area.right(), area.bottom()))
     v = np.asarray(s.sparkline, dtype=float)
-    if v.size < 2 or np.isfinite(v).sum() < 2:
+    if v.size < 2 or np.isfinite(v).sum() < 2 or (s.mode == "ember" and not _ember_live(s)):
         return
     vmax = max(float(np.nanmax(v)), 1e-6) * 1.15
     xs_all = np.linspace(area.x(), area.right(), v.size)
@@ -371,6 +640,7 @@ def _paint_sparkline(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     pen = QPen(_c(theme.GREEN, s.warm), max(2.0, theme.px(3, H)))
     pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
     p.setPen(pen)
+    p.setBrush(Qt.BrushStyle.NoBrush)       # the line only (a brush left by the panel would fill it)
     p.drawPath(path)
 
 
@@ -379,8 +649,11 @@ def _paint_status(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     p.setFont(_font(theme.px(theme.SIZES["status"], H)))
     p.setPen(_c(theme.INK2))
     state = {"playing": t(lang, "playing"), "file": t(lang, "source_file"),
-             "synthetic": t(lang, "synthetic")}.get(s.source_state, s.source_state)
-    parts = [s.source_label or "", s.source_credit or "", state, f"{s.fps:.0f} {t(lang, 'fps')}" if s.fps else ""]
+             "synthetic": t(lang, "synthetic"), "camera": t(lang, "camera")}.get(s.source_state, s.source_state)
+    if s.mode == "ember" and not _ember_live(s):
+        parts = []
+    else:
+        parts = [s.source_label or "", s.source_credit or "", state, f"{s.fps:.0f} {t(lang, 'fps')}" if s.fps else ""]
     keys = "L  한국어 / English     I  " + ("한계" if lang == "ko" else "Limits")
     fm = p.fontMetrics()
     room = int(L.status.width() - fm.horizontalAdvance(keys) - theme.px(40, H))

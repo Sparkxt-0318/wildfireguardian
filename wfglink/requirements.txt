@@ -11,3 +11,12 @@ pandas==3.0.6
 PyYAML==6.0.3
 matplotlib==3.11.2
 pytest==9.1.1
+# macOS only: camera discovery, Continuity Camera and Desk View detection, and the camera
+# permission request (src/wfglink/io/camera.py). AVFoundation needs Cocoa, CoreAudio,
+# CoreMedia and Quartz; they are pinned here so every version matches.
+pyobjc-core==12.2.2; sys_platform == "darwin"
+pyobjc-framework-Cocoa==12.2.2; sys_platform == "darwin"
+pyobjc-framework-CoreAudio==12.2.2; sys_platform == "darwin"
+pyobjc-framework-CoreMedia==12.2.2; sys_platform == "darwin"
+pyobjc-framework-Quartz==12.2.2; sys_platform == "darwin"
+pyobjc-framework-AVFoundation==12.2.2; sys_platform == "darwin"

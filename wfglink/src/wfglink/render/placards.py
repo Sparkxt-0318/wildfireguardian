@@ -3,10 +3,8 @@
     python scripts/make_placards.py         # writes the PDFs and their PNG previews
 
 - sensor_ko.pdf, sensor_en.pdf: "This is the sensor", for the dashcam stand. The dashcam is
-  the kind of camera wfglink reads; what wfglink measures in ordinary video; how it was
-  checked (a known-speed LED turntable filmed with this dashcam), with the median speed
-  error from results/validation/led_report.json when that file exists (the line is left
-  out otherwise); a pointer to the limits card.
+  the kind of camera wfglink reads; what wfglink measures in ordinary video; a pointer to
+  the limits card.
 - limits_ko.pdf, limits_en.pdf: the five limits (limit_1 to limit_5 of wfglink.ui.i18n,
   read at render time), large enough to read from 1 m.
 
@@ -19,7 +17,6 @@ holding one word takes the word before it along.
 """
 from __future__ import annotations
 
-import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -32,7 +29,6 @@ MARGIN_MM = 14.0               # crop-safe margin on every side (at least 8 mm)
 MIN_TEXT_MM = 5.0              # smallest body type (em) on a card: about 14 pt, read from 1 m
 U = 10.0                       # layout units per mm: fonts take integer pixel sizes, so 0.1 mm steps
 LIMIT_KEYS = [f"limit_{k}" for k in range(1, 6)]   # the five booth limits (PLAN.md section 14)
-LED_REPORT = PROJECT_ROOT / "results" / "validation" / "led_report.json"
 OUT_DIR = PROJECT_ROOT / "booth" / "placards"
 
 # Placard text; the measured quantities and the limits come from wfglink.ui.i18n, so the
@@ -43,10 +39,6 @@ TEXT: dict[str, dict[str, str]] = {
         "sensor_lead": "거치대 위의 이 블랙박스가 wfglink가 읽는 바로 그 카메라입니다. 특별한 장비 없이, 평범한 영상에서 불티를 잽니다.",
         "measures": "평범한 영상에서 재는 것",
         "tracks": "불티 궤적",
-        "checked": "어떻게 확인했나",
-        "checked_text": "속도를 아는 LED 턴테이블을 이 블랙박스로 위에서 찍고, wfglink가 잰 속도를 실제 속도와 비교했습니다.",
-        "led_error": "속도 오차 중앙값 {err} % (목표 {goal} % 이하)",
-        "led_error_nogoal": "속도 오차 중앙값 {err} %",
         "pointer": "할 수 없는 것은 ‘{limits}’ 카드에 있습니다.",
     },
     "en": {
@@ -54,28 +46,9 @@ TEXT: dict[str, dict[str, str]] = {
         "sensor_lead": "The dashcam on this stand is the kind of camera wfglink reads: ordinary video, no special equipment.",
         "measures": "What it measures in ordinary video",
         "tracks": "Ember tracks",
-        "checked": "How it was checked",
-        "checked_text": "A turntable carrying LEDs at a known speed was filmed from above with this dashcam, and wfglink's speeds were compared with the true ones.",
-        "led_error": "Median speed error {err} % (goal: at most {goal} %)",
-        "led_error_nogoal": "Median speed error {err} %",
         "pointer": "What it cannot do: see the limits card.",
     },
 }
-
-
-def led_result(path: str | Path | None = None) -> dict[str, Any] | None:
-    """The LED suite's median speed error (percent) and goal, or None without a usable report."""
-    try:
-        rep = json.loads(Path(path or LED_REPORT).read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return None
-    s = rep.get("summary") or {} if isinstance(rep, dict) else {}
-    err = s.get("median_abs_speed_error_pct")
-    if err is None and s.get("median_speed_error_pct") is not None:
-        err = abs(float(s["median_speed_error_pct"]))
-    if err is None:
-        return None
-    return {"error_pct": float(err), "goal_pct": s.get("goal_median_abs_error_pct"), "tracks": s.get("tracks")}
 
 
 # Layout --------------------------------------------------------------------------------------
@@ -218,21 +191,14 @@ def _limits_body(flow: Flow, lang: str) -> None:
         flow.text(s[key], 6.2, "regular", gap_mm=6.0 if k < len(LIMIT_KEYS) else 0.0, indent_mm=9.0, label=str(k))
 
 
-def _sensor_body(flow: Flow, lang: str, led: dict[str, Any] | None, title_mm: float) -> None:
+def _sensor_body(flow: Flow, lang: str, title_mm: float) -> None:
     s = _strings(lang)
     flow.text(s["sensor_title"], title_mm / flow.scale, "bold", gap_mm=4.0, leading=1.18)
     flow.rule(1.2, 6.0)
     flow.text(s["sensor_lead"], 5.9, "medium", gap_mm=6.0)
     flow.text(s["measures"], 5.4, "bold", gap_mm=2.5)
     for k, key in enumerate(("tracks", "speed", "count_rate", "cpc", "pnf", "field_legend")):
-        flow.text(s[key], 5.6, gap_mm=1.2 if k < 5 else 6.0, indent_mm=5.0, bullet=True)
-    flow.text(s["checked"], 5.4, "bold", gap_mm=2.5)
-    flow.text(s["checked_text"], 5.6, gap_mm=2.5 if led else 0.0)
-    if led:
-        err = f"{led['error_pct']:.1f}"
-        line = (s["led_error"].format(err=err, goal=f"{float(led['goal_pct']):g}") if led.get("goal_pct") is not None
-                else s["led_error_nogoal"].format(err=err))
-        flow.text(line, 5.6, "bold")
+        flow.text(s[key], 5.6, gap_mm=1.2 if k < 5 else 0.0, indent_mm=5.0, bullet=True)
 
 
 def _sensor_pointer(flow: Flow, lang: str) -> None:
@@ -240,7 +206,7 @@ def _sensor_pointer(flow: Flow, lang: str) -> None:
     flow.text(s["pointer"].format(limits=s["limits_title"]), 5.2, "medium")
 
 
-def draw_card(card: str, lang: str, painter: Any = None, led: dict[str, Any] | None = None) -> dict[str, Any]:
+def draw_card(card: str, lang: str, painter: Any = None) -> dict[str, Any]:
     """Lay out one card and draw it (with a painter scaled to layout units). The body takes
     the largest scale, at most 1.25, at which it fits above the bottom block; the bottom
     block (the pointer on the sensor card, then the footer) sits on the bottom margin."""
@@ -264,7 +230,7 @@ def draw_card(card: str, lang: str, painter: Any = None, led: dict[str, Any] | N
 
     def body(flow: Flow) -> None:
         if card == "sensor":
-            _sensor_body(flow, lang, led, min(title_mm, 15.0 * flow.scale))
+            _sensor_body(flow, lang, min(title_mm, 15.0 * flow.scale))
         else:
             _limits_body(flow, lang)
 
@@ -285,7 +251,7 @@ def draw_card(card: str, lang: str, painter: Any = None, led: dict[str, Any] | N
         painter.setPen(Qt.GlobalColor.black)
         body(Flow(painter, m, width, m, scale))
         bottom(Flow(painter, m, width, h_u - m - bottom_h, 1.0))
-    return {"card": card, "lang": lang, "scale": scale, "body_mm": round(body_mm, 2), "led_line": bool(led and card == "sensor")}
+    return {"card": card, "lang": lang, "scale": scale, "body_mm": round(body_mm, 2)}
 
 
 def _app():
@@ -300,14 +266,13 @@ def _app():
     return app
 
 
-def write_card(card: str, lang: str, out_dir: str | Path, led: dict[str, Any] | None = None,
-               png_dpi: float = 120.0) -> dict[str, Any]:
+def write_card(card: str, lang: str, out_dir: str | Path, png_dpi: float = 120.0) -> dict[str, Any]:
     """<card>_<lang>.pdf (A5, vector text, Pretendard embedded) and its <card>_<lang>.png preview."""
     from PySide6.QtCore import QMarginsF
     from PySide6.QtGui import QImage, QPageLayout, QPageSize, QPainter, QPdfWriter
 
     _app()
-    info = draw_card(card, lang, None, led)      # lays out only: a card that does not fit raises here
+    info = draw_card(card, lang, None)      # lays out only: a card that does not fit raises here
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     pdf, png = out / f"{card}_{lang}.pdf", out / f"{card}_{lang}.png"
@@ -327,14 +292,13 @@ def write_card(card: str, lang: str, out_dir: str | Path, led: dict[str, Any] | 
             p.setRenderHint(QPainter.RenderHint.Antialiasing)
             p.setRenderHint(QPainter.RenderHint.TextAntialiasing)
             p.scale(dpi / 25.4 / U, dpi / 25.4 / U)
-            draw_card(card, lang, p, led)
+            draw_card(card, lang, p)
         finally:
             p.end()
     img.convertToFormat(QImage.Format.Format_Grayscale8).save(str(png))
     return {**info, "pdf": str(pdf), "png": str(png)}
 
 
-def make_placards(out_dir: str | Path = OUT_DIR, led_report: str | Path | None = None,
-                  langs: tuple[str, ...] = ("ko", "en"), cards: tuple[str, ...] = ("sensor", "limits")) -> list[dict]:
-    led = led_result(led_report)
-    return [write_card(card, lang, out_dir, led) for card in cards for lang in langs]
+def make_placards(out_dir: str | Path = OUT_DIR, langs: tuple[str, ...] = ("ko", "en"),
+                  cards: tuple[str, ...] = ("sensor", "limits")) -> list[dict]:
+    return [write_card(card, lang, out_dir) for card in cards for lang in langs]

@@ -1,5 +1,6 @@
-"""booth/booth.sh: restart after a crash or a hang, no hang while paused, stop on a clean exit,
-stop the app and exit 130 on SIGTERM, and a clear message when the environment is missing.
+"""booth/booth.sh: restart after a crash or a hang, no hang while paused or while ember mode
+waits for its camera, stop on a clean exit, stop the app and exit 130 on SIGTERM, and a clear
+message when the environment is missing.
 
 A fake "python" stands in for the venv Python: "-m wfglink live" plays a scripted run (one
 script per run, chosen by a counter), anything else (the heartbeat reader) is real Python.
@@ -22,12 +23,15 @@ if [[ "$1" == "-m" && "$2" == "wfglink" && "$3" == "live" ]]; then
   for a in "$@"; do [[ "$prev" == "--heartbeat" ]] && hb="$a"; prev="$a"; done
   echo "$*" > "$ARGS"
   n=$(cat "$STATE" 2>/dev/null || echo 0); n=$((n + 1)); echo "$n" > "$STATE"
-  beat() { echo "{\"status\": \"$1\", \"epoch\": $(date +%s), \"frames\": $2, \"paused\": $3, \"pid\": $$}" > "$hb"; }
+  beat() { echo "{\"status\": \"$1\", \"epoch\": $(date +%s), \"frames\": $2, \"paused\": $3, \"pid\": $$ $4}" > "$hb"; }
   script=$(sed -n "${n}p" "$PLAN"); [[ -z "$script" ]] && script=clean
   case "$script" in
     crash) beat running 5 false; echo "run $n crashes"; exit 1 ;;
     hang) beat running 7 false; echo "run $n hangs"; sleep 600 ;;
     paused) for i in 1 2 3 4 5 6; do beat running 3 true; sleep 1; done; beat clean_exit 3 true; exit 0 ;;
+    nocamera) for i in 1 2 3 4 5 6; do beat running 3 false ', "mode": "ember", "camera_state": "missing"'; sleep 1; done
+              beat clean_exit 3 false; exit 0 ;;
+    stuck) for i in $(seq 1 600); do beat running 3 false ', "mode": "ember", "camera_state": "ok"'; sleep 1; done ;;
     forever) trap 'beat closed 1 false; exit 0' TERM; while true; do beat running 1 false; sleep 1; done ;;
     *) beat running 9 false; sleep 1; beat clean_exit 9 false; echo "run $n exits cleanly"; exit 0 ;;
   esac
@@ -69,6 +73,24 @@ def test_a_paused_booth_is_not_a_hang(tmp_path):
     assert res.returncode == 0, res.stdout + res.stderr
     assert "hang detected" not in log.read_text()
     assert (tmp_path / "state").read_text().strip() == "1"
+
+
+@pytest.mark.slow
+def test_ember_mode_waiting_for_its_camera_is_not_a_hang(tmp_path):
+    cmd, env, log = _setup(tmp_path, ["nocamera"], WFG_NO_FRAMES_S="2")
+    res = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=60)
+    assert res.returncode == 0, res.stdout + res.stderr
+    assert "hang detected" not in log.read_text()
+    assert (tmp_path / "state").read_text().strip() == "1"
+
+
+@pytest.mark.slow
+def test_ember_mode_with_a_camera_but_no_new_frame_is_a_hang(tmp_path):
+    cmd, env, log = _setup(tmp_path, ["stuck", "clean"], WFG_NO_FRAMES_S="2")
+    res = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=90)
+    assert res.returncode == 0, res.stdout + res.stderr
+    assert "hang detected (no new frame" in log.read_text()
+    assert (tmp_path / "state").read_text().strip() == "2"
 
 
 @pytest.mark.slow

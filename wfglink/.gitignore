@@ -14,8 +14,6 @@ dist/
 data/raw/
 data/synthetic/
 results/runs/
-# LED validation stills: a night drive can show number plates and places; share them on purpose only
-results/validation/led_stills/
 
 # Video files anywhere in wfglink (raw video is never committed)
 *.mp4
