@@ -19,13 +19,14 @@ This folder tests that idea for the March 2025 Uiseong fire area. It covers:
 
 First pass complete for all eight steps. Result: no-go for existing commercial backhaul as a primary tripwire. Planned links clear the terrain by a median of 187 m, so flames rarely enter the Fresnel zone. At realistic false-alarm rates, a few percent of simulated crossings are detected. The recommended next step is to request real link logs for the 2025 fire period.
 
-Read [RESULTS.md](RESULTS.md) first. All simulated results are modeled estimates, not observations.
+The folder is frozen as of 2026-10-15: no new experiments and no ESP32 work. Read [RESULTS.md](RESULTS.md) first; [BOOTH.md](BOOTH.md) is a half-page bilingual (English and Korean) summary. All simulated results are modeled estimates, not observations.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
 | `RESULTS.md` | Findings, go/no-go, next step, booth demo |
+| `BOOTH.md` | Half-page verdict for the booth, English and Korean |
 | `LOG.md` | Append-only run log (Asia/Shanghai time) |
 | `docs/PROMPT.md` | The original request, verbatim |
 | `docs/PARAMETERS.md` | Cited parameter table, with corrections to the prompt's numbers |

@@ -155,3 +155,20 @@ Wrote RESULTS.md and README.md.
 Decision: no-go for existing commercial backhaul as a primary tripwire.
 
 Next step: request the 20 to 30 March 2025 RSL/TSL logs for links crossing the burn area from KT, KBS and the Korea Forest Service. The fallback is a two-radio 10 GHz test over a prescribed burn.
+
+## 2026-10-15 CST: push, draft PR, BOOTH.md and freeze
+
+Goal: publish the study and write a booth summary. The user lifted the no-push rule for cell-links only.
+
+Commands:
+- `git push -u origin claude/epic-gauss-sbsk2w` created the remote branch with the 7 commits; nothing was rejected, and there was no rebase or force push.
+- Opened draft PR Sparkxt-0318/wildfireguardian#55, "[cell-links] feasibility study: no-go", against `Main`.
+
+Results: wrote BOOTH.md, a half page in English with a Korean version. It gives the no-go verdict and three reasons, using numbers taken from NUMBERS.json:
+- Clearance: geom.All.median_clearance_m 187 m; geom.All.frac_surface_flame_F1 0.009 percent; geom.All.frac_crown_flame_F1 0.13 percent.
+- Detection: det.screened.extreme.lab_peak.s10.var.far0.01.pd 3.5 percent and far0.1.pd 9.8 percent, on 621 crossed links and 98 screened OpenMRG links.
+- Rain: conf.far.wet_over_screened_s10_drop3 67-fold, and lit.uiseong.rain_mm 1 to 3 mm.
+
+BOOTH.md also names the one data request that could overturn the verdict: operator RSL/TSL logs for 20 to 30 March 2025. It is labelled as simulation on hypothetical links with real Swedish noise. No new runs were made.
+
+Decision: cell-links is frozen. There will be no new experiments and no ESP32 work. Only replies to PR review are allowed.
