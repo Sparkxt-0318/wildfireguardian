@@ -169,3 +169,25 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The next workflow fixes the streak length measurement (three independent approaches, judged and verified on the core suite only).
   - Core numbers are recorded only after that, from a committed tree with `scripts/run_from_head.sh`; the mismatch and coverage suites are generated and wait untouched.
 - Next step: commit after the full test run, launch the streak-length workflow, then record core numbers and evaluate the held-out suites once.
+
+## 2026-10-15T08:22+08:00 Core suite numbers recorded from a committed tree
+
+- Goal: record the core (tuning) suite numbers from committed code, with clean provenance, before the streak-length fix and the held-out suites.
+- Commands:
+  - `bash wfglink/scripts/run_from_head.sh python scripts/run_suite.py core --no-generate --workers 2 --record` at commit c046cbd (log results/runs/record_core.log, not tracked). run_from_head exports HEAD with `git archive`, so every entry has git_dirty false.
+  - `bash wfglink/scripts/run_from_head.sh python scripts/figures_suite.py core` at commit bf6b5c7: results/figures/core_completeness.png and core_case_errors.png (plus SVG), both inspected.
+  - A diagnostic of the vertical field error on `base` seeds 0 and 1 (scratch script, nothing recorded from it).
+- Parameters: configs/default.yaml at c046cbd (config SHA-256 in each NUMBERS.json entry); three seeds per case.
+- Results:
+  - Detection: in the `base` case F1 is 0.386 <!-- n:core.base.f1 --> with precision 0.88 <!-- n:core.base.precision --> and recall 0.246 <!-- n:core.base.recall -->; recall on bright embers is 0.855 <!-- n:core.base.recall_bright -->. Half the embers are found at an SNR of 15.2 <!-- n:core.base.snr50 -->, so most embers of the base case lie below the detection limit. Only `snr-30` meets the plan's F1 goal, at 0.907 <!-- n:core.snr-30.f1 -->; the goal at low SNR is missed and is reported as missed.
+  - False detections: 3.05 <!-- n:core.base.fp_per_mpx_frame --> per megapixel per frame in `base` and 0.12 <!-- n:core.crf-18.fp_per_mpx_frame --> in `crf-18`, so most of them come from compression.
+  - Track velocity: the median relative speed error is 0.020 <!-- n:core.base.track_speed_med_rel_err --> in `base` with a median direction error of 1.01 <!-- n:core.base.direction_med_err_deg --> degrees, inside the goal in every case with tracks except `crf-28` at 0.205 <!-- n:core.crf-28.track_speed_med_rel_err --> and `snr-3` at 0.427 <!-- n:core.snr-3.track_speed_med_rel_err -->.
+  - Tracking: MOTA is 0.243 <!-- n:core.base.mota --> in `base` (limited by missed faint embers) and 0.952 <!-- n:core.snr-30.mota --> in `snr-30`. Dense showers still switch identities: 204 <!-- n:core.density-high.id_switches --> per clip in `density-high` against 45 <!-- n:core.base.id_switches --> in `base`.
+  - Counts: the gross gate count is low by a relative 0.735 <!-- n:core.base.cpc_gross_rel_err --> in `base`, because faint embers are not detected; its interval holds the truth in a fraction 0.0 <!-- n:core.base.cpc_gross_in_ci --> of `base` clips. Every `base` clip's count lies between the bright-ember truth and the all-visible truth (fraction 1.0 <!-- n:core.base.gate_between_bounds -->), which supports stating counts as lower bounds. In `snr-30` the error is 0.086 <!-- n:core.snr-30.cpc_gross_rel_err --> and the interval holds the truth in a fraction 1.0 <!-- n:core.snr-30.cpc_gross_in_ci --> of clips.
+  - Exposure: the estimator declined in every case (`base` value 0.0 <!-- n:core.base.exposure_ok -->), as expected until streak lengths are proportional to true length; streak speeds are therefore not reported.
+  - Field: in `base` the horizontal field error is 2.08 <!-- n:core.base.field_rmse_ember_u --> px/s and the vertical one 39.96 <!-- n:core.base.field_rmse_ember_v --> px/s. The diagnostic showed the vertical error is not a scoring bug: each cell mixes embers of four terminal velocities, so a cell's median depends on which embers are detected, while the overall medians agree. This is the vertical bias already stated in METHODS and LIMITS. In uniform flow the ember and air errors for the horizontal component are equal by construction (no lag in steady uniform flow); they differ in `flow-shear`, at 5.14 <!-- n:core.flow-shear.field_rmse_ember_u --> px/s against the ember field and 10.30 <!-- n:core.flow-shear.field_rmse_air_u --> px/s against the air field, which is the lag the field is meant to show.
+  - Figures: the case errors figure said "n/a" where the exposure estimator declined; it now says "declined" (and "no tracks" where no track qualified), with a test.
+- Decisions:
+  - These are tuning numbers. Headline numbers will come from the mismatch suite, evaluated once after the streak-length fix.
+  - No retuning on these numbers: the detection limit is set by compression, and the README states it.
+- Next step: review and apply the streak-length workflow result, rerun the tests, re-record the core numbers, then evaluate the mismatch and coverage suites once.

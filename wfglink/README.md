@@ -37,7 +37,16 @@ Main commands (run from `wfglink/`):
 
 ## Current status
 
-2026-10-15: capture chain with fallbacks, detector, tracker, velocity, exposure estimate, gate counts, the booth app with its supervisor, booth-prep, the sitting 1 kit and the synthetic generator are built and tested. Validation numbers are being produced on the synthetic core suite; none are quoted yet.
+2026-10-15: capture chain with fallbacks, detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth app with its supervisor, booth-prep, the sitting 1 and sitting 2 kits, the camera-in-the-loop simulator and the synthetic generator are built and tested.
+
+Core suite (synthetic, used for tuning; held-out headline numbers come later from the mismatch suite):
+
+- Track speed is accurate wherever embers are tracked: median relative error 0.020 <!-- n:core.base.track_speed_med_rel_err --> and direction error 1.01 <!-- n:core.base.direction_med_err_deg --> degrees in the base case.
+- Detection is limited by compression: half the embers are found at an SNR of 15.2 <!-- n:core.base.snr50 -->, so base-case F1 is 0.386 <!-- n:core.base.f1 --> while bright embers are found with recall 0.855 <!-- n:core.base.recall_bright -->. The plan's F1 goal is met only for bright embers (F1 0.907 <!-- n:core.snr-30.f1 --> in the high-SNR case).
+- Counts are lower bounds: in every base clip the gate count lies between the bright-ember and all-visible truths (fraction 1.0 <!-- n:core.base.gate_between_bounds -->).
+- The exposure estimate declines on every core case (base value 0.0 <!-- n:core.base.exposure_ok -->) until streak lengths are measured in proportion to true length; that fix is in progress. Streak speeds are not reported until then.
+
+Figures: results/figures/core_completeness.png and core_case_errors.png.
 
 ## Records
 
