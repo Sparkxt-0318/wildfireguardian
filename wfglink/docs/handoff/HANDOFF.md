@@ -40,7 +40,7 @@ You are taking over an in-progress project in the GitHub repo `Sparkxt-0318/wild
 - Tests: `.venv/bin/python -m pytest -q`. The full suite takes about 8 minutes; at the last full run there were 450 passed and 1 skipped.
 - Clips are fetched into `data/raw/` with `python scripts/fetch_clips.py --only C5_nist_emberometer C6_nist_dragon`, from Wikimedia and NIST, one file at a time. Wait 10 minutes after any HTTP 429.
 
-## State at handoff (HEAD 55678b8 plus this handoff commit)
+## State at handoff (the handoff commit, after 55678b8)
 - **Built:**
   - fire-mode detector, tracker, velocity, gate counts and the ember field;
   - the booth UI, with keys A (raw or analysed), M (mode), L, I, Space, and Esc twice to quit;
@@ -60,17 +60,23 @@ You are taking over an in-progress project in the GitHub repo `Sparkxt-0318/wild
    - Reproduce by replaying the booth scene with `phone_scene_source(cfg, realtime=False)` through `EmberPipeline`, analysing every 2nd and 3rd frame, with `cfg["ember"]["max_tracks"] = 6`.
    - Then run `validate --suite ember`; its numbers must not get worse (these synthetic scenes are a tuning set and are labelled as such). Run the demo gate, and when it passes, run `scripts/tag_demo.sh` and commit the DEMO_BUILDS row.
 2. **Full test suite** on HEAD (not run since 2d87bf3). Fix anything red. One timing test, `tests/test_booth_app.py::test_space_pauses_and_esc_twice_quits`, has been flaky under heavy machine load.
-3. **File-mode scale fix for 4K clips.**
+3. **File-mode scale fix for 4K clips (verified, ready to merge).**
    - At native 4K, file mode misses the large, near, defocused embers on C5.
-   - Three approaches were built and judged (a resolution cap, multi-scale detection, and a "wide-ember pass"); multi-scale won. Its verification was still running at handoff.
-   - The verifier's tree is saved as `docs/handoff/multiscale_unverified.patch` and applies cleanly to HEAD. It adds `src/wfglink/detect/multiscale.py`, `tests/test_multiscale.py` and `configs/suites/hires.yaml`, plus `configs/synth/hires/*`, and edits the pipeline, process, candidates, config, METHODS and PLAN.
-   - Scratch results on the 20 blind-labelled C5 frames (`results/labels/C5/`), before and after: true positives 11 to 28, misses 33 to 16, false positives 143 to 163.
+   - Three approaches were built and judged (a resolution cap, multi-scale detection, and a "wide-ember pass"). Multi-scale won, and an independent verifier gave it "accept with fixes" and applied those fixes.
+   - The verified change is saved as `docs/handoff/multiscale.patch` and applies cleanly to HEAD. It adds `src/wfglink/detect/multiscale.py`, `tests/test_multiscale.py`, `configs/suites/hires.yaml` and `configs/synth/hires/*`, and edits the pipeline, process, candidates, config, METHODS, PLAN and test_process. It also adds a `scale` column to detections and an `analysis` block to summary.json.
+   - What it does: frames of at least twice 1280x720 pixels are also analysed block-averaged by 2 and by 4, and the results are merged per ember size. 720p clips, C6 and the booth path are bit-identical to before.
+   - Verifier's results on C5 against the 20 blind-labelled frames (`results/labels/C5/`), HEAD then patch:
+     - at the default radius: TP/FP/FN 11/143/33 then 24/156/20, F1 0.111 then 0.214;
+     - with `labels.streak_radius_frac 0.5`: 13/142/31 then 36/148/8, F1 0.131 then 0.316.
+   - Verifier's results on synthetic 2560x1440 clips: far embers unchanged (F1 0.348 then 0.349); near F1 0.093 then 0.753; mixed F1 0.405 then 0.606; false detections per Mpx-frame unchanged.
+   - Cost: 1.2x to 1.5x per frame. C10 detections per frame rise 45 to 62, which is plausible but unvalidated (it is a tracking-only clip).
+   - The verifier saw two QR tests failing. That came from a QR drawing change of mine, now fixed in the handoff commit.
    - To finish it:
-     1. Apply the patch.
-     2. Review it, and run its tests and the full suite.
-     3. Check that the booth path (720p, C6, live) is unchanged.
-     4. Re-record the core-suite numbers if they changed, with `scripts/run_suite.py`; see the LOG entries about re-recording.
-     5. Score C5 with `python -m wfglink label-score`, record the numbers, and add a LOG entry.
+     1. Apply the patch with `git apply docs/handoff/multiscale.patch`, from the repo root.
+     2. Run the full suite.
+     3. Run `label-score` on C5, record the numbers with `record_number`, and add a LOG entry with the tags.
+     4. Re-record the core-suite numbers only if they changed; the verifier found them identical.
+     5. Update README and METHODS if needed.
      6. Delete the patch file once it is merged.
 4. **Inspect C10's overlay** (sparkler, tracking only), then the real-clip plausibility checks (task 14 in the plan).
 5. **Mismatch and coverage suites, run once each** for the headline numbers. They are never tuned on. Update the README "Current status" with tagged numbers.
