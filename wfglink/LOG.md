@@ -240,3 +240,22 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The plan's scale-free LED check (image speed against the angular rate times each ring's fitted radius) stays the primary error, and the user's formula (2 pi times the LED radius times the timed turns over the time) is reported beside it in mm/s.
   - Target: everything ready for Monday 19 October; Tuesday 20 and Wednesday 21 become buffer.
 - Next step: integrate the four patches, run the full tests, verify with a separate workflow, then give the user the exact list of any differences from the manual.
+
+## 2026-10-15T12:40+08:00 Setup change integrated; then the booth change (LED test dropped, raw/analysed toggle, "Become an ember" live mode)
+
+- Goal: integrate the setup change of 2026-10-15 (playback booth without cameras), then carry out the user's next decision of the same day (verbatim in docs/PROMPT.md): drop the LED turntable test, add a raw/analysed toggle (key A) and a "Become an ember" live mode (camera, phones showing an ember page, tracking, calibration at a 2.0 m standing distance, validation), keeping the Monday 19 October target and the always-demo-ready rule.
+- Commands:
+  - Integration of the four setup-change patches (workflow wf_c2488d87-860) and the plausibility patch (workflow wf_3dda84e9-2f4) with `git apply --3way`; conflicts in cli.py, METHODS.md and README.md merged by hand; `python -m pytest -q -m "slow or not slow"` on the integrated tree; commits c943806, 5f82d10, 44fcbf9.
+  - A frame-by-frame check of the approved clip segments (frame differences, brightness of NIST's overlay region, contact sheets).
+  - Workflow `wfglink-setup-verify` (run wf_d129c456-f60) started on 5f82d10 and stopped before any verifier returned, because the booth change replaces the parts it checks; its four lenses move to the verification after the next build.
+  - Workflow `wfglink-blind-labels` (run wf_af73a938-500): seven labellers, each first calibrated on twelve synthetic tiles with hidden truth, then C5 and C6 tiles (C6 to be relabelled, see below).
+  - Workflow `wfglink-ember-mode` (run wf_42471a85-bef): four builders (camera input and ember pipeline with calibration, synthetic phone scenes and validation; booth screen with keys A and M; the phone page; LED removal and documents) under one interface contract.
+- Parameters: configs/default.yaml at 44fcbf9.
+- Results:
+  - The full suite passed on the integrated tree except one booth test whose key presses were timed from start-up; on a loaded machine a late timer let the "too late" Esc land inside the confirm window. The presses are now timed from the previous press.
+  - A live screenshot on C6 showed the Shutterstock dragon graphic, which is not NIST footage. The frame-by-frame check found both approved segments wrong: C6's took in the end of the graphic and the start of an uncredited still, and C5's took in the first frames of NIST's overlay. The first check had used a contact sheet with frames seconds apart. Some C6 label tiles came from the uncredited still, so the C6 tiles will be drawn again on the corrected segment and labelled again; no C5 tile is affected.
+- Decisions:
+  - Clip segments, from the frame-by-frame check (the clip settings files carry the details): C6 now 17.05 to 22.55 s (the graphic ends at 16.72 s, the still begins at 22.62 s; it was 14 to 24 s); C5 now ends at 19.35 s (the overlay starts at 19.40 s; it was 19.5 s).
+  - The LED turntable test, the led suite and the notes template go; limit 5 no longer mentions the LED. The known-speed check moves to ember mode: a phone moved along a measured 1 m path at the standing spot, with the move time taken from the video.
+  - Ember mode is the only place a camera returns; it never uses an iPhone or Continuity Camera, and nothing is recorded in the booth unless the operator runs the record command.
+- Next step: integrate the four ember-mode patches, regenerate the placards with the new limit 5, run the full tests, verify with a separate workflow (the user's commands, both booth modes, ember tracking, the page in Chromium, the documents), run the demo gate, and reply to the user with the exact commands.
