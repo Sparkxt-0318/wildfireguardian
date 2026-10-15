@@ -224,3 +224,19 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Workflow `wfglink-plausibility` (run wf_3dda84e9-2f4) builds the plan 4.5 checks and the blind label tool in parallel.
   - The core numbers will be recorded again after the detector change; the held-out suites stay untouched.
 - Next step: review the judged detector fix, reprocess C5 and C6 and inspect the overlays, rerun the demo gate, then rerun the sitting 2 dry run when the machine is quiet.
+
+## 2026-10-15T10:30+08:00 Setup change (user decision): no live camera; the booth is real-time file playback
+
+- Goal: carry out the user's decision of 2026-10-15 (verbatim in docs/PROMPT.md): drop the iPhone, iPad, USB webcam and Continuity Camera, the booth-prep frame codes and held frames, the loop suite, the loopback check and the camera checks, and limit 6; the booth plays approved clips in real time and analyses them as they play, fullscreen on the external monitor when connected, else on the MacBook; the LED turntable is filmed top-down with the dashcam. The user's build manual names exact commands and files, which must exist as written.
+- Commands: workflow `wfglink-setup-change` (run wf_c2488d87-860), four builders in separate worktrees with disjoint files and one shared interface contract:
+  - booth: `python -m wfglink live` (playlist by default, `--synthetic`, `--clip`), a real-time playlist source (booth/playlist.yaml) that skips frames rather than lag, Space pause, screen choice with hot-plug, booth.sh and booth.command without the app launcher, and removal of the camera path (camera sources and permission, booth-prep, frame codes, screen check, loop simulator, check A, the old sitting kits);
+  - led: `python -m wfglink validate --suite led` reading data/raw/led_33rpm, led_45rpm, led_ruler, room_test and night_drive (split parts _a, _b) and data/raw/led_notes.yaml, with date-stamp masking, the plan's scale-free check and the user's mm/s formula side by side, and results/validation/led_report.json;
+  - mac: scripts/setup_mac.sh (idempotent), `python -m wfglink doctor` (one line per check), scripts/mac_soak.py (PASS or FAIL), and A5 placards in booth/placards/ (Korean and English);
+  - docs: PLAN.md version 5, the two new sitting checklists, the runbook, README, LIMITS and METHODS.
+- Parameters: none yet.
+- Results: none yet; the three workflows already running (streak length, real-scene false detections, plausibility checks) continue, since file-mode measurement and the booth's live analysis still depend on them.
+- Decisions:
+  - The old camera-era plan text is replaced in PLAN.md (version 5) rather than kept beside the new one, with a section 17 entry; the earlier text stays in git history.
+  - The plan's scale-free LED check (image speed against the angular rate times each ring's fitted radius) stays the primary error, and the user's formula (2 pi times the LED radius times the timed turns over the time) is reported beside it in mm/s.
+  - Target: everything ready for Monday 19 October; Tuesday 20 and Wednesday 21 become buffer.
+- Next step: integrate the four patches, run the full tests, verify with a separate workflow, then give the user the exact list of any differences from the manual.
