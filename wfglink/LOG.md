@@ -302,3 +302,14 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - C5 against the blind labels, before the mirror test: precision was tiny (the flood) and recall low. The labelled embers on C5 are large, bright, defocused streaks close to the camera, and at native 4K resolution the detector misses most of them while it finds most at half resolution. So file mode at native resolution is wrong for near-camera embers in high-resolution video; the booth, which analyses at reduced size, is not affected.
 - Decisions: the next workflow fixes the analysis scale of file mode (a resolution cap or multi-scale detection, with coordinates reported in source pixels), judged on the C5 labels, the synthetic suites and cost; the held-out suites wait for it, since it changes the method.
 - Next step: the scale workflow and the verification of the ember booth (the user's commands, both modes, the page, the documents).
+
+## 2026-10-15T15:50+08:00 Demo build with both booth modes; full suite on the ember integration
+
+- Goal: keep a demo build on the latest commit (always demo-ready) and confirm the integrated tree.
+- Commands: `python -m pytest -q -m "slow or not slow"` on the ember-mode integration; `bash wfglink/scripts/tag_demo.sh 60` at 161612e (log results/runs/tag_demo_20261015c.log, not tracked).
+- Parameters: configs/default.yaml at 161612e.
+- Results:
+  - The full suite passed on the integration (the opt-in 720p timing check skipped as usual).
+  - The demo gate now runs fire mode on synthetic video and on the playlist, and ember mode on a generated phone scene; all three runs passed with no errors, so `wfglink-demo-20261015-3` is recorded in DEMO_BUILDS.md (the tag push is refused by the session's git proxy, as before).
+- Decisions: none.
+- Next step: the ember-booth verification and the file-mode scale workflow.

@@ -10,3 +10,4 @@ To make a real tag (this project's cloud session cannot push tags): `git tag <ta
 |---|---|---|---|---|
 | 20261015 | wfglink-demo-20261015 | d1bcff08f4fd | 60 s each: synthetic 563 frames, 557 paints, 0 errors; clip 459 frames, 459 paints, 0 errors | no |
 | 20261015 | wfglink-demo-20261015-2 | 1c5783393797 | 60 s each: synthetic 660 frames, 635 paints, 0 errors; clip 261 frames, 262 paints, 0 errors | no |
+| 20261015 | wfglink-demo-20261015-3 | 161612e99f41 | 60 s each: synthetic 652 frames, 647 paints, 0 errors; playlist 678 frames, 650 paints, 0 errors; ember 821 frames, 823 paints, 0 errors | no |
