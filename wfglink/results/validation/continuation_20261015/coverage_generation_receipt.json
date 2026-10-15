@@ -1,0 +1,77 @@
+{
+  "started_at_utc": "2026-10-15T11:31:49.511973+00:00",
+  "baseline_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+  "export_root": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/c5_baseline_source/wfglink",
+  "output_root": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/synthetic/coverage",
+  "python": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+  "source_checks": [
+    {
+      "path": "src/wfglink/synth/generate.py",
+      "export_sha256": "0c428d92411733590d976a0a8677282e36766053e2fd55837b0e7b09aade9054",
+      "git_blob_sha256": "0c428d92411733590d976a0a8677282e36766053e2fd55837b0e7b09aade9054",
+      "matches": true
+    },
+    {
+      "path": "configs/suites/coverage.yaml",
+      "export_sha256": "340062abd8a642d9ecb37f6b9a8ed86a522eebf655a86afee89817e10c00795d",
+      "git_blob_sha256": "340062abd8a642d9ecb37f6b9a8ed86a522eebf655a86afee89817e10c00795d",
+      "matches": true
+    }
+  ],
+  "initial_output_state": {
+    "exists": false,
+    "files": 0,
+    "manifest_exists": false
+  },
+  "environment": {
+    "PYTHONPATH": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/c5_baseline_source/wfglink/src",
+    "WFGLINK_EXPORT_COMMIT": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+    "QT_QPA_PLATFORM": "offscreen"
+  },
+  "command": [
+    "-m",
+    "wfglink.synth.generate",
+    "--suite",
+    "configs/suites/coverage.yaml",
+    "--out",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/synthetic/coverage",
+    "--workers",
+    "2"
+  ],
+  "status": "GENERATION_COMPLETE",
+  "completed_at_utc": "2026-10-15T11:36:24.139821+00:00",
+  "exit_code": 0,
+  "manifest_files": [
+    {
+      "path": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/synthetic/coverage/manifest.json",
+      "sha256": "0b1c042d9c6dfd21d83dacf2467301d26473e67a04a984f7b750ac044a2f39c7",
+      "bytes": 46125,
+      "top_level_type": "dict",
+      "top_level_keys": [
+        "suite",
+        "suite_path",
+        "seeds",
+        "clips",
+        "aliases"
+      ],
+      "list_counts": {
+        "seeds": 200,
+        "clips": 200
+      }
+    }
+  ],
+  "run_directory_count": 1,
+  "log_path": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/preparation/coverage_generation.log",
+  "log_sha256": "7d0ec43f172188ca7e4b8a872f575b3af00c7889bacdf15b2005d9875d2378d9",
+  "warning_lines": [
+    "objc[15157]: Class AVFFrameReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x101d883a8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1594343a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.",
+    "objc[15157]: Class AVFAudioReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x101d883f8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1594343f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.",
+    "objc[15174]: Class AVFFrameReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1013c43a8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x12d1303a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.",
+    "objc[15173]: Class AVFFrameReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1038f03a8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1383103a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.",
+    "objc[15174]: Class AVFAudioReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1013c43f8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x12d1303f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.",
+    "objc[15173]: Class AVFAudioReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1038f03f8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1383103f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed."
+  ],
+  "error_lines": [],
+  "evaluation_run": false,
+  "quality_inspection_run": false
+}

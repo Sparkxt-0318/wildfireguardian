@@ -1,0 +1,10 @@
+{
+  "tested_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "command": "TMPDIR=results/runs/tmp MPLCONFIGDIR=.venv/mpl bash scripts/tag_demo.sh 60",
+  "exit_code": 1,
+  "tag_created": false,
+  "original_report_sha256": "ba187849d49486934169eb63ff91212507f7602cd8297062836f3477b0142d9b",
+  "original_report_git_metadata": "Exported tree has no .git; gate report says unknown/dirty. Actual export source is bound by the calling tag helper command and archived commit.",
+  "preserved_directory": "results/runs/demo_gate_d640408_failed",
+  "created": "2026-10-15T20:10:39+08:00"
+}

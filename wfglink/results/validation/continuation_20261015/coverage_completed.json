@@ -1,0 +1,39 @@
+{
+  "started": "2026-10-15T19:46:44+08:00",
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+    "-m",
+    "wfglink",
+    "validate",
+    "--suite",
+    "coverage",
+    "--final",
+    "--no-generate",
+    "--workers",
+    "2",
+    "--tag",
+    "final_f9e72c2",
+    "--record"
+  ],
+  "source": {
+    "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+    "git_dirty": false
+  },
+  "expected_clips": 200,
+  "manifest_sha256": "0b1c042d9c6dfd21d83dacf2467301d26473e67a04a984f7b750ac044a2f39c7",
+  "output": "/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.n9nS0WA34f/wfglink/results/runs/suite_coverage_final_f9e72c2",
+  "completed": "2026-10-15T19:56:06+08:00",
+  "exit_code": 0,
+  "eval_sha256": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc",
+  "clips": 200,
+  "errors": [],
+  "coverage_flags_present": 200,
+  "cpc_coverage": {
+    "k": 200,
+    "n": 200,
+    "fraction": 1.0,
+    "lo": 0.9817246596448638,
+    "hi": 1.0
+  },
+  "complete": true
+}

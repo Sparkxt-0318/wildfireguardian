@@ -1,0 +1,48 @@
+{
+ "base": {
+  "clips": 200,
+  "errors": 0,
+  "f1": 0.9454277381139815,
+  "precision": 0.9825119897015275,
+  "recall": 0.910558814448904,
+  "mota": 0.9584581311094312,
+  "id_switches": 17.0,
+  "track_speed_med_rel_err": 0.012685814925839933,
+  "track_speed_bias": -0.0005836016312825784,
+  "direction_med_err_deg": 0.6777431531682896,
+  "streak_speed_med_rel_err": null,
+  "exposure_rel_err": null,
+  "exposure_bias": null,
+  "exposure_ok": 0.0,
+  "cpc_gross_rel_err": 0.03827838827838828,
+  "cpc_gross_bias": -0.03827838827838828,
+  "cpc_gross_in_ci": 1.0,
+  "pnf_rel_err": 0.03827838827838831,
+  "fp_per_mpx_frame": 2.8027895480225986,
+  "recall_bright": 0.9162732437245122,
+  "track_fp_per_frame": 0.23898305084745763,
+  "gate_between_bounds": 0.12,
+  "field_rmse_ember_u": 0.8346269954515271,
+  "field_rmse_air_u": 0.8346269954517758,
+  "field_rmse_ember_v": 8.723509498877522,
+  "field_ci_coverage": 0.87,
+  "cpc_coverage": {
+   "k": 200,
+   "n": 200,
+   "fraction": 1.0,
+   "lo": 0.9817246596448638,
+   "hi": 1.0
+  },
+  "completeness": {
+   "0-5": 0.015,
+   "5-10": 0.1,
+   "10-15": 0.383,
+   "15-20": 0.74,
+   "20-30": 0.946,
+   "30-50": 0.985,
+   "50-inf": 0.988
+  },
+  "snr50": 14.140470863602964,
+  "snr50_upper_bound": false
+ }
+}

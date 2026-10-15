@@ -1,0 +1,15 @@
+{
+  "passed": 486,
+  "failed": 6,
+  "skipped": 3,
+  "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+  "log": "initial_full_pytest.txt",
+  "log_sha256": "0c12e067c3d65cd7df4a597e039fead26ecb3aabeff9606738d3d050259e8e71",
+  "source_log": "results/runs/full_pytest_f9e72c2.log",
+  "status": "INITIAL_FAILURES_PRESERVED",
+  "log_normalization": "Trailing spaces and tabs removed per line; line endings preserved.",
+  "original_log_archive": "initial_full_pytest_original.json",
+  "original_log_sha256": "3ba6f765b95a3f979dd7eab195d3c47d70706c75ada355376705ae3124cac8a3",
+  "original_log_reconstruction_sha256": "3ba6f765b95a3f979dd7eab195d3c47d70706c75ada355376705ae3124cac8a3",
+  "original_log_reconstruction_verified_byte_exact": true
+}

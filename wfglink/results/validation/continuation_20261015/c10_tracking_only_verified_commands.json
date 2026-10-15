@@ -1,0 +1,37 @@
+{
+  "checkpoint_commit": "8e39d448c8b45b3b6a300ba00e780ee301ed2652",
+  "export_root": "/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.J3CLqcM9CO/wfglink",
+  "python": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+  "started_at_utc": "2026-10-15T11:53:44.501864+00:00",
+  "steps": [
+    {
+      "argv": [
+        "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+        "-m",
+        "wfglink",
+        "process",
+        "data/clips/C10_sparkler.yaml",
+        "--start-seconds",
+        "40",
+        "--max-seconds",
+        "43",
+        "--out",
+        "results/runs/process/C10_tracking_only_verified"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+        "-m",
+        "wfglink",
+        "plausibility",
+        "results/runs/process/C10_tracking_only_verified",
+        "--clip",
+        "data/clips/C10_sparkler.yaml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "completed_at_utc": "2026-10-15T11:54:05.303082+00:00"
+}

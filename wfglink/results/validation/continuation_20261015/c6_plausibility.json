@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-15T19:44:02+08:00",
+  "run_dir": "results/runs/process/C6_multiscale",
+  "clip_settings": "data/clips/C6_nist_dragon.yaml",
+  "clip_settings_sha256": "83d329c7ebc35daed677714f46bd60b250a8e19bf33f73364fc4424e1e8894f2",
+  "clip_id": "C6_nist_dragon",
+  "input_sha256": "b3e509647f1a6ae77e55a8995be7401f862278c902400a709ede7ab961204dbf",
+  "clip_file_is_run_input": true,
+  "clip_settings_match_run": true,
+  "clip_settings_match_basis": "SHA-256 of the clip file",
+  "segment_s": [
+    17.05,
+    22.55
+  ],
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "run_config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+  "git_dirty": false,
+  "checks": {
+    "timing": {
+      "status": "flag",
+      "reason": "32 repeated frames (19 percent; skipped by the pipeline)",
+      "values": {
+        "frames": 165,
+        "interval_median_s": 0.03300000000000125,
+        "interval_p5_s": 0.0329999999999977,
+        "interval_p95_s": 0.03400000000000247,
+        "interval_min_s": 0.0329999999999977,
+        "interval_max_s": 0.03400000000000247,
+        "interval_mad_s": 5.267253300189622e-15,
+        "interval_spread": 0.030303030303173845,
+        "fps_from_median": 30.303030303029153,
+        "fps_from_span": 29.97076023391812,
+        "fps_nominal": 29.969,
+        "gap_factor": 1.5,
+        "gaps": 0,
+        "largest_gap_s": 0.03400000000000247,
+        "variable_frame_rate": false,
+        "timestamps_not_increasing": 0,
+        "repeated_frames": 32,
+        "repeated_fraction": 0.19393939393939394,
+        "container_frames_in_segment": 165,
+        "container_frames_missing": 0,
+        "frames_without_container_time": 0
+      }
+    },
+    "exposure": {
+      "status": "not applicable",
+      "reason": "estimator declined: streak length not proportional to speed (a free intercept changes the slope by +123 percent)",
+      "values": {
+        "source": "estimated",
+        "estimator_reason": "not estimated: streak length not proportional to speed (a free intercept changes the slope by +123 percent)"
+      }
+    },
+    "static_lights": {
+      "status": "pass",
+      "reason": "100 static tracks, none counted at the gate",
+      "values": {
+        "tracks": 513,
+        "static_tracks": 100,
+        "static_tracks_with_crossings": 0,
+        "static_crossings": 0,
+        "track_ids": []
+      }
+    },
+    "speed": {
+      "status": "not applicable",
+      "reason": "clip settings lack peak_gust_ms, gust_source, z_interval_m, focal_px or hfov_deg",
+      "values": {
+        "missing": [
+          "peak_gust_ms",
+          "gust_source",
+          "z_interval_m",
+          "focal_px or hfov_deg"
+        ]
+      }
+    },
+    "direction": {
+      "status": "not applicable",
+      "reason": "clip settings lack drift_deg, drift_basis",
+      "values": {
+        "missing": [
+          "drift_deg",
+          "drift_basis"
+        ]
+      }
+    },
+    "determinism": {
+      "status": "pass",
+      "reason": "identical tables on two reruns of 17.218 to 19.218 s",
+      "values": {
+        "segment_s": [
+          17.218,
+          19.218
+        ],
+        "tables": [
+          "detections",
+          "frames",
+          "track_points",
+          "tracks",
+          "field"
+        ],
+        "ignored_columns": {
+          "frames": [
+            "ms"
+          ]
+        },
+        "overlay": false,
+        "t_exp_s": null,
+        "t_exp_from": "estimated again by each rerun (the run's estimate declined)",
+        "config_is_run_config": true,
+        "rows": {
+          "detections": 1760,
+          "frames": 60,
+          "track_points": 1692,
+          "tracks": 145,
+          "field": 144
+        },
+        "first_difference": null
+      }
+    }
+  },
+  "flagged": [
+    "timing"
+  ],
+  "not_applicable": [
+    "exposure",
+    "speed",
+    "direction"
+  ]
+}

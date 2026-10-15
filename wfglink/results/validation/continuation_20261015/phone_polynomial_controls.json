@@ -1,0 +1,245 @@
+[
+  {
+    "sampling": "complete",
+    "degree": 1,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 1.1368683772161603e-13,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 1.5
+  },
+  {
+    "sampling": "complete",
+    "degree": 1,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 5.684341886080802e-14,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 1.5
+  },
+  {
+    "sampling": "complete",
+    "degree": 1,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 19.44444444444457,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 1.5
+  },
+  {
+    "sampling": "complete",
+    "degree": 2,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 1.1368683772161603e-13,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 3.181898887333252
+  },
+  {
+    "sampling": "complete",
+    "degree": 2,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 5.684341886080802e-14,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 3.181898887333252
+  },
+  {
+    "sampling": "complete",
+    "degree": 2,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 19.44444444444457,
+    "noise_std_px_s_for_sigma_0p3": 1.7008401285415229,
+    "condition": 3.181898887333252
+  },
+  {
+    "sampling": "complete",
+    "degree": 3,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 3.979039320256561e-13,
+    "noise_std_px_s_for_sigma_0p3": 4.611708700997619,
+    "condition": 6.893086534521507
+  },
+  {
+    "sampling": "complete",
+    "degree": 3,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 4.547473508864641e-13,
+    "noise_std_px_s_for_sigma_0p3": 4.611708700997619,
+    "condition": 6.893086534521507
+  },
+  {
+    "sampling": "complete",
+    "degree": 3,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 2.8421709430404007e-13,
+    "noise_std_px_s_for_sigma_0p3": 4.611708700997619,
+    "condition": 6.893086534521507
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 1,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 2.8421709430404007e-13,
+    "noise_std_px_s_for_sigma_0p3": 1.954675092433813,
+    "condition": 1.5609428383153485
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 1,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 5.283018867924795,
+    "noise_std_px_s_for_sigma_0p3": 1.954675092433813,
+    "condition": 1.5609428383153485
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 1,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 28.02935010482213,
+    "noise_std_px_s_for_sigma_0p3": 1.954675092433813,
+    "condition": 1.5609428383153485
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 2,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 2.8421709430404007e-13,
+    "noise_std_px_s_for_sigma_0p3": 1.9693491183039447,
+    "condition": 3.192449458215804
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 2,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 2.8421709430404007e-13,
+    "noise_std_px_s_for_sigma_0p3": 1.9693491183039447,
+    "condition": 3.192449458215804
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 2,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 23.015873015873353,
+    "noise_std_px_s_for_sigma_0p3": 1.9693491183039447,
+    "condition": 3.192449458215804
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 3,
+    "motion": "linear",
+    "target_t": 0.1,
+    "bias_px_s": 5.684341886080802e-14,
+    "noise_std_px_s_for_sigma_0p3": 9.00627724575007,
+    "condition": 11.667039789584049
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 3,
+    "motion": "acceleration",
+    "target_t": 0.1,
+    "bias_px_s": 0.0,
+    "noise_std_px_s_for_sigma_0p3": 9.00627724575007,
+    "condition": 11.667039789584049
+  },
+  {
+    "sampling": "middle_gap",
+    "degree": 3,
+    "motion": "jerk",
+    "target_t": 0.1,
+    "bias_px_s": 5.684341886080802e-14,
+    "noise_std_px_s_for_sigma_0p3": 9.00627724575007,
+    "condition": 11.667039789584049
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 1,
+    "motion": "linear",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 5.684341886080802e-14,
+    "noise_std_px_s_for_sigma_0p3": 2.8460498941515406,
+    "condition": 2.4142135623730954
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 1,
+    "motion": "acceleration",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 46.66666666666663,
+    "noise_std_px_s_for_sigma_0p3": 2.8460498941515406,
+    "condition": 2.4142135623730954
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 1,
+    "motion": "jerk",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 64.44444444444457,
+    "noise_std_px_s_for_sigma_0p3": 2.8460498941515406,
+    "condition": 2.4142135623730954
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 2,
+    "motion": "linear",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 3.410605131648481e-13,
+    "noise_std_px_s_for_sigma_0p3": 5.589531030673073,
+    "condition": 7.511089252234506
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 2,
+    "motion": "acceleration",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 2.8421709430404007e-13,
+    "noise_std_px_s_for_sigma_0p3": 5.589531030673073,
+    "condition": 7.511089252234506
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 2,
+    "motion": "jerk",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 1.111111111111427,
+    "noise_std_px_s_for_sigma_0p3": 5.589531030673073,
+    "condition": 7.511089252234506
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 3,
+    "motion": "linear",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 3.410605131648481e-13,
+    "noise_std_px_s_for_sigma_0p3": 5.669467095138407,
+    "condition": 27.35095072747571
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 3,
+    "motion": "acceleration",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 2.2737367544323206e-13,
+    "noise_std_px_s_for_sigma_0p3": 5.669467095138407,
+    "condition": 27.35095072747571
+  },
+  {
+    "sampling": "startup_five",
+    "degree": 3,
+    "motion": "jerk",
+    "target_t": 0.033333333333333326,
+    "bias_px_s": 3.410605131648481e-13,
+    "noise_std_px_s_for_sigma_0p3": 5.669467095138407,
+    "condition": 27.35095072747571
+  }
+]

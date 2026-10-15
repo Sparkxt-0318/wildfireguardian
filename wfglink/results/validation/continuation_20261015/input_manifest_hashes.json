@@ -1,0 +1,16 @@
+{
+  "mismatch": {
+    "manifest_file": "mismatch_input_manifest.json",
+    "sha256": "f3470ca78408bc8393bd9c34964d81036b37fa7f0caff4bab5a0c1b411a92d55",
+    "clips": 60,
+    "generator_receipt_file": "mismatch_generation_receipt.json",
+    "generator_baseline_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff"
+  },
+  "coverage": {
+    "manifest_file": "coverage_input_manifest.json",
+    "sha256": "0b1c042d9c6dfd21d83dacf2467301d26473e67a04a984f7b750ac044a2f39c7",
+    "clips": 200,
+    "generator_receipt_file": "coverage_generation_receipt.json",
+    "generator_baseline_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff"
+  }
+}

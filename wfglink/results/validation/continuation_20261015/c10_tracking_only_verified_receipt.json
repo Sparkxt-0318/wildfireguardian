@@ -1,0 +1,289 @@
+{
+  "sealed_at_utc": "2026-10-15T11:55:17.739003+00:00",
+  "status": "TRACKING_ONLY_EXPORT_VERIFIED",
+  "checkpoint_commit": "8e39d448c8b45b3b6a300ba00e780ee301ed2652",
+  "git_dirty": false,
+  "input_sha256": "e7a4544a0ede68bdfe5c8d619d95dd8f9ecd60ce198713445c11ecd2c404775c",
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "segment_s": [
+    40.0,
+    43.0
+  ],
+  "commands_receipt": "results/runs/real_review/C10_tracking_only_verified_commands.json",
+  "execution_log": "results/runs/real_review/C10_tracking_only_verified_execution.log",
+  "tables": {
+    "detections": {
+      "rows": 3725,
+      "columns": [
+        "frame",
+        "t",
+        "x",
+        "y",
+        "area",
+        "peak",
+        "length",
+        "width",
+        "theta",
+        "sat_frac",
+        "color",
+        "flags",
+        "scale"
+      ]
+    },
+    "frames": {
+      "rows": 73,
+      "columns": [
+        "frame",
+        "t",
+        "duplicate",
+        "ready",
+        "detections",
+        "active_tracks",
+        "ms"
+      ]
+    },
+    "track_points": {
+      "rows": 1646,
+      "columns": [
+        "track_id",
+        "frame",
+        "t",
+        "x_meas",
+        "y_meas",
+        "x",
+        "y",
+        "length",
+        "theta",
+        "peak",
+        "color",
+        "flags",
+        "coasted",
+        "det_index",
+        "status",
+        "static"
+      ]
+    },
+    "tracks": {
+      "rows": 149,
+      "columns": [
+        "track_id",
+        "t_start",
+        "t_end",
+        "frame_start",
+        "frame_end",
+        "points",
+        "static",
+        "streak_points",
+        "rms_resid_px",
+        "mean_color"
+      ]
+    }
+  },
+  "summary_units": {
+    "position": "px",
+    "time": "clip seconds (not real time)"
+  },
+  "summary_exposure": {
+    "status": "not reported: tracking_only; the timebase is not real time"
+  },
+  "summary_totals": {
+    "frames": 73,
+    "frames_duplicate": 0,
+    "tracks": 149,
+    "tracks_moving": 149,
+    "not_reported": {
+      "quantities": [
+        "speed_px_s",
+        "count_rate_per_s",
+        "count_rate_ci",
+        "pnf",
+        "cpc_gross",
+        "cpc_gross_ci",
+        "cpc_net",
+        "cpc_net_ci",
+        "duration_s",
+        "direction_deg_circular_mean",
+        "gate"
+      ],
+      "reason": "metrics_scope tracking_only: the timebase is not real time"
+    }
+  },
+  "summary_labels": {
+    "scope": "Slow-motion tracking only: positions and track identities; no speed, count or flux measurements"
+  },
+  "plausibility": {
+    "timing": {
+      "status": "pass",
+      "reason": "steady frame interval 42.00 ms, 0 gaps, 0 repeated frames"
+    },
+    "exposure": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported"
+    },
+    "static_lights": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported"
+    },
+    "speed": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported"
+    },
+    "direction": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported"
+    },
+    "determinism": {
+      "status": "pass",
+      "reason": "identical tables on two reruns of 40.208 to 42.208 s"
+    }
+  },
+  "determinism": {
+    "segment_s": [
+      40.208,
+      42.208
+    ],
+    "tables": [
+      "detections",
+      "frames",
+      "track_points",
+      "tracks",
+      "field"
+    ],
+    "ignored_columns": {
+      "frames": [
+        "ms"
+      ]
+    },
+    "overlay": false,
+    "config_is_run_config": true,
+    "metrics_scope": "tracking_only",
+    "rows": {
+      "detections": 2579,
+      "frames": 49,
+      "track_points": 959,
+      "tracks": 96,
+      "field": null
+    },
+    "first_difference": null
+  },
+  "artifacts": {
+    "summary.json": {
+      "sha256": "7317ca4e5c6262ad91fa2d8f5ff8095d963f04f9f5cc5e0cbd22d5d62fb5392e",
+      "bytes": 2871
+    },
+    "track_points.parquet": {
+      "sha256": "89c0d000edb36d586b74e13a6f6b131806b295961503fcadd0a6f5d2fdba4b75",
+      "bytes": 84203
+    },
+    "overlay.mp4": {
+      "sha256": "d3dd97e23a6942d4399c2498facba42fcf6b0a7fe7d35c7c4a2ea53b4bd23f40",
+      "bytes": 551389
+    },
+    "detections.parquet": {
+      "sha256": "c53cf5fd946f9468d2e3cf5521f92434facb240fecd9a4decec356de5d7b0c3d",
+      "bytes": 227663
+    },
+    "plausibility.json": {
+      "sha256": "f5edb148cf95f16a2932960bceb4f9e037125dc1fe6cd5ad0e6fd5cf48122183",
+      "bytes": 3404
+    },
+    "frames.parquet": {
+      "sha256": "aafc6af215df2b638026f49ce45431e4a7e8ccbb47d008dcfdbf412626703e82",
+      "bytes": 6061
+    },
+    "tracks.parquet": {
+      "sha256": "b40558659e6e9bf2758aa9ddca2d5a4022851cd8d86abda9a579df5f755a6b4d",
+      "bytes": 11292
+    }
+  },
+  "snapshot_manifest": "results/runs/real_review/C10_tracking_only_verified_snapshots.json",
+  "perceptual_findings": [
+    "Viewed actual encoded KO overlay at1.5s and2.5s: orange positions/trails remain visible; explicit slow-motion tracking-only note replaces readouts.",
+    "No speed, CPC, rate, flux, gate, field arrows, direction rose or sparkline visible in inspected frames.",
+    "KO/EN notice rendering previously viewed in tracking_only_panel_ko.png and tracking_only_panel_en.png; actual encoded run uses KO.",
+    "Static panel ROI between1.5s and2.5s differs by at most3DN in18channels, consistent with compression; text remains present."
+  ],
+  "f9e_failure_artifact_custody": {
+    "summary.json": true,
+    "track_points.parquet": true,
+    "overlay.mp4": true,
+    "detections.parquet": true,
+    "plausibility.json": true,
+    "frames.parquet": true,
+    "field.parquet": true,
+    "tracks.parquet": true
+  },
+  "retained_column_comparison_vs_f9e_c10": {
+    "detections": {
+      "columns": [
+        "frame",
+        "t",
+        "x",
+        "y",
+        "area",
+        "peak",
+        "length",
+        "width",
+        "theta",
+        "sat_frac",
+        "color",
+        "flags",
+        "scale"
+      ],
+      "equal_on_retained_columns_excluding_frames_ms": true
+    },
+    "frames": {
+      "columns": [
+        "frame",
+        "t",
+        "duplicate",
+        "ready",
+        "detections",
+        "active_tracks"
+      ],
+      "equal_on_retained_columns_excluding_frames_ms": true
+    },
+    "track_points": {
+      "columns": [
+        "track_id",
+        "frame",
+        "t",
+        "x_meas",
+        "y_meas",
+        "x",
+        "y",
+        "length",
+        "theta",
+        "peak",
+        "color",
+        "flags",
+        "coasted",
+        "det_index",
+        "status",
+        "static"
+      ],
+      "equal_on_retained_columns_excluding_frames_ms": true
+    },
+    "tracks": {
+      "columns": [
+        "track_id",
+        "t_start",
+        "t_end",
+        "frame_start",
+        "frame_end",
+        "points",
+        "static",
+        "streak_points",
+        "rms_resid_px",
+        "mean_color"
+      ],
+      "equal_on_retained_columns_excluding_frames_ms": true
+    }
+  },
+  "limits": [
+    "Tracking-only compliance and deterministic software output, not physical validation.",
+    "Exact retained-column equality applies only to this3s C10 clip, whose old exposure estimate declined.",
+    "Diagnostic detection/track totals are not physical ember counts.",
+    "No heldout generation, scoring, tuning or NUMBERS writes."
+  ]
+}
