@@ -1,0 +1,6 @@
+{
+  "mutation": "remove only current pending confirmation-window age check",
+  "control": "test_an_expired_pending_background_cannot_claim_a_coasters_detection",
+  "mutation_caught": true,
+  "source_sha256": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e"
+}

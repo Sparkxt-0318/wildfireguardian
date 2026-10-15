@@ -1,7 +1,7 @@
 {
   "baseline_track_sha256": "13bbadcd6e35426c75fd28b7e4f9eaf88b828f9919fe508e40beaa47328990db",
   "source_sha256": {
-    "src/wfglink/ember/track.py": "cfe469843f9ea8eb369687ebd715cbd54bf9a0a8b70809fbf3f068bde85f4c74",
+    "src/wfglink/ember/track.py": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
     "src/wfglink/ember/pipeline.py": "b2620e944aa9090153406e8c981a3b6a0b3ac7cbade50a30736d77fd23ebbd0a",
     "src/wfglink/io/camera.py": "84e87e40bdbed1e9de0ffde1f7ad7ab023e2b17a2bc7519c697fc601a469d3b8",
     "src/wfglink/io/sources.py": "81a63c6988f73297b2269184bef194f1760ad57f5a25cc535909fc397f35e2ea"

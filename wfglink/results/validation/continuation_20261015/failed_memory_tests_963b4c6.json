@@ -1,0 +1,20 @@
+{
+  "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+  "git_dirty": false,
+  "command": "TMPDIR=results/runs/tmp MPLCONFIGDIR=.venv/mpl QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m pytest -q",
+  "host": "Darwin arm64 Python 3.12.1",
+  "created": "2026-10-15T20:33:48+08:00",
+  "passed": 549,
+  "failed": 1,
+  "skipped": 3,
+  "seconds": 336.93,
+  "failing_test": "tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory",
+  "rss_start_mib": 628.46875,
+  "rss_end_mib": 697.203125,
+  "rss_growth_mib": 68.734375,
+  "rss_growth_limit_mib": 40,
+  "normalized_display_log": "failed_full_pytest_963b4c6.txt",
+  "normalized_display_sha256": "1381397eb2e88360bd2b2ec00146d501e9c78757cdc962409046c7edd8aa3c9d",
+  "original_log_archive": "failed_full_pytest_963b4c6_original.json",
+  "original_log_sha256": "d7f7d20e31fff71841ed216fea6e245bfe654c737e9ec29ba22b7f0a35317fdf"
+}

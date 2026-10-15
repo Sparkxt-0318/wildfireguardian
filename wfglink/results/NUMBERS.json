@@ -723,6 +723,126 @@
       "produced_at": "2026-10-15T20:24:27+08:00",
       "host": "Darwin arm64 Python 3.12.1"
     },
+    "continuation.failed_memory_tests.failed": {
+      "value": 1,
+      "unit": "count",
+      "description": "Preserved complete committed-source regression failure: failed",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.passed": {
+      "value": 549,
+      "unit": "count",
+      "description": "Preserved complete committed-source regression failure: passed",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.rss_end_mib": {
+      "value": 697.203125,
+      "unit": "MiB",
+      "description": "Preserved complete committed-source regression failure: rss_end_mib",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.rss_growth_limit_mib": {
+      "value": 40,
+      "unit": "MiB",
+      "description": "Preserved complete committed-source regression failure: rss_growth_limit_mib",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.rss_growth_mib": {
+      "value": 68.734375,
+      "unit": "MiB",
+      "description": "Preserved complete committed-source regression failure: rss_growth_mib",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.rss_start_mib": {
+      "value": 628.46875,
+      "unit": "MiB",
+      "description": "Preserved complete committed-source regression failure: rss_start_mib",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.seconds": {
+      "value": 336.93,
+      "unit": "s",
+      "description": "Preserved complete committed-source regression failure: seconds",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.failed_memory_tests.skipped": {
+      "value": 3,
+      "unit": "count",
+      "description": "Preserved complete committed-source regression failure: skipped",
+      "script": "python stdin: record saved failed memory regression",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+      "git_dirty": false,
+      "inputs": {
+        "failed_test_receipt": "7eb6ef213a4c2e216a451e22c2cd40b20b29ca2bc632a17aa696a8c2a927140a"
+      },
+      "produced_at": "2026-10-15T20:34:01+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
     "continuation.final_tests.failed": {
       "value": 0,
       "unit": "count",

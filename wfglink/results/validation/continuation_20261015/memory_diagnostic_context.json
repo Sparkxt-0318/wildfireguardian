@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-10-15T12:47:55.238901+00:00",
+  "status": "DIAGNOSTIC_ONLY_CAUSALITY_UNRESOLVED",
+  "execution_classification": "Diagnostic/non-clean execution; original JSON fields and log text preserved. No clean execution provenance is inferred.",
+  "application_memory_pass": "NOT_ESTABLISHED",
+  "exact_fire_only_observation": {
+    "artifact": "memory_diagnostic_exact_fire.json",
+    "mode_switches": 0,
+    "first_observed_frame": 6,
+    "last_observed_frame": 56,
+    "reported_rss_field": "rss_mb",
+    "reported_rss_growth_mib": 56.25,
+    "owned_array_bytes_change": 11504,
+    "source_frames_sha256": "c434c535b44eed44abe73a15d109061e1d4dd136e8afc47df34eb22b31b11949"
+  },
+  "limits": [
+    "RSS grew without any mode switches, so these observations do not isolate mode switching as the cause.",
+    "Approximately 11,504 additional owned-array bytes do not account for 56.25 MiB reported RSS growth; native allocations/allocator retention and causality remain unresolved.",
+    "No application-memory PASS follows from these diagnostic reports.",
+    "Only the five specified completed JSON artifacts and three specified completed logs were copied.",
+    "Actively edited scripts and future barrier/corpus outputs are excluded.",
+    "No new tests, generation, scoring, evaluations or NUMBERS writes were performed."
+  ]
+}

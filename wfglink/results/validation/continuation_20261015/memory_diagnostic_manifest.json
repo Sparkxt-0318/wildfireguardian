@@ -1,0 +1,99 @@
+{
+  "created_at_utc": "2026-10-15T12:47:55.238901+00:00",
+  "scope": "Only completed memory_diagnostic payload and log custody; excludes this manifest, root generic artifacts, other manifests and future experiments.",
+  "classification": "Diagnostic/non-clean; causality unresolved; no application-memory PASS established.",
+  "payload_file_count": 10,
+  "direct_verbatim_json_copies": 5,
+  "losslessly_archived_original_logs": 3,
+  "normalized_readable_txt_copies": 3,
+  "missing_source_inputs": [],
+  "files": [
+    {
+      "path": "memory_diagnostic_scene.json",
+      "bytes": 4141,
+      "sha256": "19f56a3ae1dbf661708051762cfd89542c41d5dce95af9341988bce53dcbf0ff",
+      "mode": "byte_identical_completed_json_copy",
+      "source": "results/runs/mode_switch_memory_scene.json",
+      "source_sha256": "19f56a3ae1dbf661708051762cfd89542c41d5dce95af9341988bce53dcbf0ff",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "memory_diagnostic_no_scene.json",
+      "bytes": 4138,
+      "sha256": "4e191320b3e38f21e4b82e6ac9039a2c7c36fb56fe49c44329b4a3d31a72f2e8",
+      "mode": "byte_identical_completed_json_copy",
+      "source": "results/runs/mode_switch_memory_no_scene.json",
+      "source_sha256": "4e191320b3e38f21e4b82e6ac9039a2c7c36fb56fe49c44329b4a3d31a72f2e8",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "memory_diagnostic_pre_ready.json",
+      "bytes": 4730,
+      "sha256": "f9f2d412c43993a1950ad5cb8af7f7033973a6a1acb5e98e7d45002e17659291",
+      "mode": "byte_identical_completed_json_copy",
+      "source": "results/runs/mode_switch_memory_pre_ready.json",
+      "source_sha256": "f9f2d412c43993a1950ad5cb8af7f7033973a6a1acb5e98e7d45002e17659291",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "memory_diagnostic_ready.json",
+      "bytes": 4728,
+      "sha256": "417b6116a1c84f29a6853b134a6442ec065e97c920dbe9188e7a45e5199ebd07",
+      "mode": "byte_identical_completed_json_copy",
+      "source": "results/runs/mode_switch_memory_ready.json",
+      "source_sha256": "417b6116a1c84f29a6853b134a6442ec065e97c920dbe9188e7a45e5199ebd07",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "memory_diagnostic_exact_fire.json",
+      "bytes": 1114,
+      "sha256": "be670b6a97ee6033a12d860d093ee2bf631ac7aca8eb0283a5d848e1d88fc806",
+      "mode": "byte_identical_completed_json_copy",
+      "source": "results/runs/mode_switch_exact_fire.json",
+      "source_sha256": "be670b6a97ee6033a12d860d093ee2bf631ac7aca8eb0283a5d848e1d88fc806",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "memory_diagnostic_before.txt",
+      "bytes": 2233,
+      "sha256": "37f340b061b6895f448a9602f019b7cc681b97f8c9b9d669d9a44e057cb30a8a",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_memory_before.log",
+      "original_source_sha256": "4437edd05549f61c1669c34a88a8d8cd885939d8b6b95687baca4e2eae07d06d",
+      "normalization": "Trailing spaces and tabs removed per line; line endings preserved.",
+      "original_archive": "memory_diagnostic_original_logs.json"
+    },
+    {
+      "path": "memory_diagnostic_after_ready.txt",
+      "bytes": 2619,
+      "sha256": "d1344ef28cbcc4e363c785c3b7321752859b9b90d25f6c3d7d522522611fa09f",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_memory_after_ready.log",
+      "original_source_sha256": "b169adaba4c3d7eaa2aea542949b83fc36fb294ff7873a1d5ca8e4a350be38cc",
+      "normalization": "Trailing spaces and tabs removed per line; line endings preserved.",
+      "original_archive": "memory_diagnostic_original_logs.json"
+    },
+    {
+      "path": "memory_diagnostic_after_refresh.txt",
+      "bytes": 2983,
+      "sha256": "ff910ab783513c24765a8f8a2bed83bb7a025a465bec499aa0f0a019b201fc9e",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_memory_after_refresh.log",
+      "original_source_sha256": "84de0dfaa859d0f079d7fc5080f4a37869c92ddc8c7947f86e3d639b88e27159",
+      "normalization": "Trailing spaces and tabs removed per line; line endings preserved.",
+      "original_archive": "memory_diagnostic_original_logs.json"
+    },
+    {
+      "path": "memory_diagnostic_original_logs.json",
+      "bytes": 9848,
+      "sha256": "2c1866d7715fad60e4fa8c308b61b7abc4bcfb1dcbd48620fadcde8fc63d16e6",
+      "mode": "lossless_json_archive_of_three_original_logs"
+    },
+    {
+      "path": "memory_diagnostic_context.json",
+      "bytes": 1349,
+      "sha256": "2548b72bedccd178ae8fc330dced2bdde5789c73fb7bfe503716f6f236297e45",
+      "mode": "derived_diagnostic_context_not_a_memory_gate"
+    }
+  ]
+}

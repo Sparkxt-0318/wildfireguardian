@@ -1,0 +1,96 @@
+{
+  "no_scene": true,
+  "rows": [
+    {
+      "k": 0,
+      "rss_mb": 385.703125,
+      "traced_bytes": 38825806,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": 10,
+      "rss_mb": 496.203125,
+      "traced_bytes": 47597796,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": 20,
+      "rss_mb": 518.671875,
+      "traced_bytes": 47620559,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": 30,
+      "rss_mb": 528.625,
+      "traced_bytes": 47634866,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": 40,
+      "rss_mb": 529.0,
+      "traced_bytes": 47656367,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": 50,
+      "rss_mb": 532.828125,
+      "traced_bytes": 47691341,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    },
+    {
+      "k": "after_gc",
+      "rss_mb": 536.046875,
+      "traced_bytes": 62785564,
+      "live_scenes": 0,
+      "live_arrays": 0,
+      "live_feeds": 1,
+      "retired_feeds": 1,
+      "camera_inner_payloads": 0,
+      "threads": 2
+    }
+  ],
+  "allocation_differences": [
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:159: size=3600 KiB (+3600 KiB), count=3 (+3), average=1200 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:158: size=3600 KiB (+3600 KiB), count=2 (+2), average=1800 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:162: size=900 KiB (+900 KiB), count=5 (+5), average=180 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:223: size=900 KiB (+900 KiB), count=3 (+3), average=300 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:167: size=900 KiB (+900 KiB), count=3 (+3), average=300 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/background.py:46: size=900 KiB (+900 KiB), count=3 (+3), average=300 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:222: size=900 KiB (+900 KiB), count=2 (+2), average=450 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:200: size=900 KiB (+900 KiB), count=2 (+2), average=450 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:189: size=900 KiB (+900 KiB), count=2 (+2), average=450 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:165: size=900 KiB (+900 KiB), count=2 (+2), average=450 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/candidates.py:163: size=900 KiB (+900 KiB), count=2 (+2), average=450 KiB",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/src/wfglink/detect/mirror.py:85: size=225 KiB (+225 KiB), count=2 (+2), average=113 KiB"
+  ]
+}

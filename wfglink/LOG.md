@@ -498,3 +498,26 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Focused controls pass for current confirmation windows, exact blob consumption, paused phones and prediction-consistent bright-background returns. Independent review found no remaining code blocker. A phone that stops or reverses while hidden over bright background can still be rejected or fragmented; this bounded association prior is not universal occlusion recovery.
 - Decisions: retain strict non-regression and the original gate, preserve the failed attempt and every residual, and keep the release held until committed-source checks pass.
 - Next: run the complete committed-source regression, official phone suite, long uncapped replay and unchanged daily demo gate; create a demo tag only on success.
+
+## 2026-10-15T20:34:24+08:00 Full regression found mode-switch memory growth
+
+- Goal: verify the revised phone source before any daily demo tag.
+- Commands: `TMPDIR=results/runs/tmp MPLCONFIGDIR=.venv/mpl QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m pytest -q` on 963b4c6; saved-report number recording without rerunning tests. The original log, readable normalized copy and exact reconstruction archive are preserved in the durable continuation bundle.
+- Parameters: pinned Mac runtime, unchanged full test selection, original mode-switch memory limit and frozen phone source. No live-gate tolerance was relaxed.
+- Results:
+  - The complete run has 549 <!-- n:continuation.failed_memory_tests.passed --> passed, 1 <!-- n:continuation.failed_memory_tests.failed --> failed and 3 <!-- n:continuation.failed_memory_tests.skipped --> skipped tests. The only failure is the repeated mode-switch memory check; every tracker control passes.
+  - Process RSS growth is 68.734375 MiB <!-- n:continuation.failed_memory_tests.rss_growth_mib --> against the original 40 MiB <!-- n:continuation.failed_memory_tests.rss_growth_limit_mib --> limit. This run does not pass the release regression gate.
+- Decisions: preserve the failed run, keep the memory assertion unchanged and hold release while locating retained memory. A passing phone comparison cannot override a failed application check.
+- Next: distinguish engine retention from test-fixture retention, repair the demonstrated cause and rerun committed-source checks before the daily demo gate.
+
+## 2026-10-15T20:51:38+08:00 Separate mode lifetime retention from evolving fire allocations
+
+- Goal: repair the demonstrated memory-test confound without changing the accepted measurement algorithms or hiding the failed actual-fire result.
+- Commands: isolated original memory test; matched saved-fire-frame replay without modes or cameras; retained-array/weak-reference accounting; full-resolution corpus lifecycle checks and a retained-camera-payload mutation. Small diagnostic reports, raw-log reconstruction archives and their source manifests are in the continuation bundle.
+- Parameters: real Player, LiveAnalyser and fire Pipeline; original resolution; original warm-up entries, measured switches, total entries and RSS limit. The bounded corpus covers one configured noise-update period, every input is observed by the ready analyser before the baseline, and RSS is sampled at completed source-read boundaries. No RSS-adaptive warm-up or production config change is used.
+- Results:
+  - The original assertion also fails on the exact saved fire frames without any mode switches. Reachable image storage barely changes, and scalar track history cannot explain that RSS change. Initial readiness, first map refresh and matching read-boundary probes were each insufficient on the evolving input; those failures are preserved. A native-allocation cause is not claimed.
+  - The purpose-specific lifecycle fixture passes in repeated fresh processes while retaining the original RSS assertion. Explicit weak references verify released camera sources, assets, images, analysers and feeds. Deliberately retaining a closed camera payload makes the check fail, so the new release assertions are not vacuous.
+  - Product code, phone histories and the speed estimator remain unchanged. The actual evolving-fire working-set bound and overnight soak remain unresolved; a lifecycle unit pass does not turn them into application memory validation.
+- Decisions: accept only the bounded lifecycle-test repair, preserve all actual-fire failures and scope limits, and repeat the complete committed-source checks before tagging.
+- Next: full regression, official phone suite, long uncapped replay and the unchanged daily UI gate.

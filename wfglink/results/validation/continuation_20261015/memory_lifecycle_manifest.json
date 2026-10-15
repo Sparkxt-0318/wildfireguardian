@@ -1,0 +1,98 @@
+{
+  "created_at_utc": "2026-10-15T12:52:38.426770+00:00",
+  "scope": "Unique memory_lifecycle payload only; excludes this manifest, old manifests, root generic reports, source, and future runs.",
+  "action": "Custody copy only; no evaluations, tests, generation, scoring, Git, NUMBERS or docs mutations.",
+  "source_identity_policy": "Original JSON flags and hashes are unchanged and remain authoritative. Failed boundary and retained-mutation controls are preserved.",
+  "payload_file_count": 9,
+  "verbatim_json_copies": 5,
+  "exact_raw_log_reconstructions": 3,
+  "missing_source_inputs": [],
+  "files": [
+    {
+      "path": "memory_lifecycle_repair_receipt.json",
+      "bytes": 2609,
+      "sha256": "6fb11781d71ce5efef1a536fd353b7ca576f5d3cb3474e056ebb0df4495f4caf",
+      "mode": "verbatim_completed_json_copy",
+      "source": "results/runs/mode_switch_memory_repair_receipt.json",
+      "source_sha256": "6fb11781d71ce5efef1a536fd353b7ca576f5d3cb3474e056ebb0df4495f4caf",
+      "byte_identical_to_source": true,
+      "original_fields_and_flags_preserved": true
+    },
+    {
+      "path": "memory_lifecycle_corpus_pass_1.json",
+      "bytes": 9548,
+      "sha256": "a01e417561b0fae3d4a43f6ab9753b8a7ebcd821bde4d1d385d109ce67922381",
+      "mode": "verbatim_completed_json_copy",
+      "source": "results/runs/mode_switch_corpus_pass_1.json",
+      "source_sha256": "a01e417561b0fae3d4a43f6ab9753b8a7ebcd821bde4d1d385d109ce67922381",
+      "byte_identical_to_source": true,
+      "original_fields_and_flags_preserved": true
+    },
+    {
+      "path": "memory_lifecycle_corpus_pass_2.json",
+      "bytes": 9551,
+      "sha256": "d353d9e8af7aa03020cc224b556692bae612d7982a9f636ddce8d1711c0bfe0c",
+      "mode": "verbatim_completed_json_copy",
+      "source": "results/runs/mode_switch_corpus_pass_2.json",
+      "source_sha256": "d353d9e8af7aa03020cc224b556692bae612d7982a9f636ddce8d1711c0bfe0c",
+      "byte_identical_to_source": true,
+      "original_fields_and_flags_preserved": true
+    },
+    {
+      "path": "memory_lifecycle_corpus_pass_3.json",
+      "bytes": 9552,
+      "sha256": "9fc7dc664cb13dec2a08fe1b262b22e450a94e32bfa6eb211d00ce0d7a49a188",
+      "mode": "verbatim_completed_json_copy",
+      "source": "results/runs/mode_switch_corpus_pass_3.json",
+      "source_sha256": "9fc7dc664cb13dec2a08fe1b262b22e450a94e32bfa6eb211d00ce0d7a49a188",
+      "byte_identical_to_source": true,
+      "original_fields_and_flags_preserved": true
+    },
+    {
+      "path": "memory_lifecycle_corpus_retained_mutation.json",
+      "bytes": 9532,
+      "sha256": "9de531bfd70dbf8ea74b7ecdf400a0933fb446d4937fbf447c36763bd0c8a142",
+      "mode": "verbatim_completed_json_copy",
+      "source": "results/runs/mode_switch_corpus_retained_mutation.json",
+      "source_sha256": "9de531bfd70dbf8ea74b7ecdf400a0933fb446d4937fbf447c36763bd0c8a142",
+      "byte_identical_to_source": true,
+      "original_fields_and_flags_preserved": true
+    },
+    {
+      "path": "memory_lifecycle_failed_after_boundary.txt",
+      "bytes": 3868,
+      "sha256": "8596616e919f3deb28cd7239cd455eb4e0a423d01df90c4fdf6744ef18ce16bd",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_memory_after_boundary.log",
+      "source_sha256": "2af5e2755ea50ede8df153ac3bc9f98475b0714a3494e2e39525b2851e0d71f5",
+      "normalization": "Trailing spaces/tabs stripped per line only; line endings preserved.",
+      "exact_original_archive": "memory_lifecycle_original_logs.json"
+    },
+    {
+      "path": "memory_lifecycle_passing_corpus_final_first.txt",
+      "bytes": 98,
+      "sha256": "1a3c6159c7cce21536f7c4b4f36eec02e693c74317a45c23b270e3ae8bc86909",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_memory_corpus_final_first.log",
+      "source_sha256": "1a3c6159c7cce21536f7c4b4f36eec02e693c74317a45c23b270e3ae8bc86909",
+      "normalization": "Trailing spaces/tabs stripped per line only; line endings preserved.",
+      "exact_original_archive": "memory_lifecycle_original_logs.json"
+    },
+    {
+      "path": "memory_lifecycle_retained_mutation.txt",
+      "bytes": 5949,
+      "sha256": "ec495c9ca36476bfba4c30470f5daf6e7e5b907eafabb4c40274b20990b11ee5",
+      "mode": "normalized_readable_log",
+      "source": "results/runs/mode_switch_corpus_retained_mutation.log",
+      "source_sha256": "c674e0cfb07f142e8de314def42f5af07c5b8d732e18c9fb77ba2acc074b41f1",
+      "normalization": "Trailing spaces/tabs stripped per line only; line endings preserved.",
+      "exact_original_archive": "memory_lifecycle_original_logs.json"
+    },
+    {
+      "path": "memory_lifecycle_original_logs.json",
+      "bytes": 12065,
+      "sha256": "0a5bb126a0abd70900e4e54867ca28977ef6a4c1e9fb747f71d751f9375eebd6",
+      "mode": "lossless_json_archive_of_three_logs"
+    }
+  ]
+}

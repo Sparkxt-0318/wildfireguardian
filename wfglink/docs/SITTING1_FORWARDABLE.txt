@@ -146,9 +146,14 @@ Permanent GitHub Pages publishing, separate from tonight:
 5. In ~/wfglink-run/wfglink, run touch configs/booth_local.yaml and then
    open -e configs/booth_local.yaml. Preserve all existing settings. Under the
    existing booth: mapping add ember_page_url: followed by the actual URL,
-   indented two spaces. If booth: is absent, add these two lines with your URL:
-   booth:
-     ember_page_url: https://YOUR-NAME.github.io/ember/
+   indented two spaces. If booth: is absent, copy the exact two file lines below,
+   replacing the URL. booth: starts in column zero; its child has two spaces.
+
+```yaml
+booth:
+  ember_page_url: https://YOUR-NAME.github.io/ember/
+```
+
 6. From the same folder run
    .venv/bin/python scripts/make_placards.py --card ember_page
    Print booth/placards/ember_page_ko.pdf and ember_page_en.pdf on A5 at 100%.

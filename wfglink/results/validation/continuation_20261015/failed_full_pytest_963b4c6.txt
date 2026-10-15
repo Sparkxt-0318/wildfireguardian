@@ -1,0 +1,53 @@
+run_from_head: 963b4c6 in /var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.ABTNAvwbeQ/wfglink
+....................................F..................................s [ 13%]
+..............................................s......................... [ 26%]
+........................................................................ [ 39%]
+........................................................................ [ 52%]
+........................................................................ [ 65%]
+........................................................................ [ 78%]
+..........................s............................................. [ 91%]
+.................................................                        [100%]
+=================================== FAILURES ===================================
+______________ test_fifty_mode_switches_leak_no_threads_or_memory ______________
+
+scripted_camera = ([<ember_standin.ScriptedCamera object at 0x701b8ae000>, <ember_standin.ScriptedCamera object at 0x701b8acb90>, <ember...<ember_standin.ScriptedCamera object at 0x701b8ade80>, <ember_standin.ScriptedCamera object at 0x701b8ae060>, ...], {})
+
+    @pytest.mark.slow
+    def test_fifty_mode_switches_leak_no_threads_or_memory(scripted_camera):
+        sys.path.insert(0, str(TESTS))
+        from ember_standin import FakeEmberPipeline
+
+        from wfglink.ui.booth_app import BoothEngine, rss_mb
+
+        made, _ = scripted_camera
+        eng = BoothEngine(_phone_cfg(), {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+        eng.start("fire")
+        try:
+            def switch(k):
+                eng.set_mode("ember")
+                assert _steps(eng, "ember"), k
+                eng.set_mode("fire")
+                assert _steps(eng, "fire"), k
+
+            for k in range(5):                     # warm up: imports, caches, first allocations
+                switch(k)
+            threads, mem = threading.active_count(), rss_mb(os.getpid())
+            for k in range(50):
+                switch(k)
+            assert threading.active_count() == threads
+            assert not any(t.name == "camera" and t.is_alive() for t in threading.enumerate())
+            assert all(c.opened == c.closed == 1 for c in made) and eng.entries == 55
+>           assert rss_mb(os.getpid()) - mem < 40, (mem, rss_mb(os.getpid()))
+E           AssertionError: (628.46875, 697.203125)
+E           assert (697.203125 - 628.46875) < 40
+E            +  where 697.203125 = <function rss_mb at 0x701b807880>(37651)
+E            +    where 37651 = <built-in function getpid>()
+E            +      where <built-in function getpid> = os.getpid
+
+tests/test_booth_app.py:841: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_camera.py:66: macOS asks for real
+SKIPPED [1] tests/test_doctor.py:158: no system CA bundle here to stand in for certifi's
+SKIPPED [1] tests/test_synth_generate.py:322: set WFGLINK_SLOW=1 to run the 720p timing check
+FAILED tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory
+1 failed, 549 passed, 3 skipped in 336.93s (0:05:36)
