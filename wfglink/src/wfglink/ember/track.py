@@ -21,6 +21,13 @@ many faint embers):
   the tracks seen in the previous frame, so an ember whose prediction lies as near a lamp as
   its own phone (a phone sweeping past the lamp) takes the phone, and the lamp goes back to
   its own track; a pinned track never takes a detection outside that small reach.
+  After an analysis gap longer than 1.5 nominal source-frame intervals, a moving shown ember
+  cannot take a light-map blob assigned to a learned static light. Each light owns at most one
+  blob and stays at its pre-merge home and diameter. An unowned blob within the coasting
+  phone's prediction gate is left for the phone. This protection lasts until that phone is
+  seen again, ends, or no light competes for it. Unknown source cadence cannot start this
+  protection. Fully sampled input keeps the original association; this does not fix every
+  full-rate lamp overlap.
 - Life: a track is confirmed after ember.track.confirm_hits detections within
   ember.track.confirm_window_s. It is shown (an ember on screen, with a display ID from 1 to
   ember.max_tracks) once it has moved ember.track.min_travel_m from where it was first seen,
@@ -76,6 +83,9 @@ class EmberTrack:
     shown_t: float | None = None
     slot: int | None = None
     static: bool = False
+    static_light: bool = False          # learned static light; pinned even while seen, until it shows
+    light_diam: float = 0.0             # pin diameter before a phone and lamp merge into one blob
+    light_home: tuple[float, float] | None = None
     travel: float = 0.0
     peak_speed: float = 0.0
     on_bg: bool = False
@@ -120,6 +130,8 @@ class EmberTracker:
         self._next_id = 1
         self.t: float | None = None
         self.t_prev: float | None = None
+        self._source_fps: float | None = None
+        self._cadence_guarded: frozenset[int] = frozenset()
 
     # association ------------------------------------------------------------------------------
     def _predict(self, tr: EmberTrack, t: float) -> tuple[float, float, float]:
@@ -145,7 +157,9 @@ class EmberTracker:
         return float(np.median(pts[:, 0])), float(np.median(pts[:, 1]))
 
     def _assign(self, tracks: list[EmberTrack], det_xy: np.ndarray, free: np.ndarray, t: float,
-                pinned: frozenset[int] = frozenset()) -> list[tuple[int, int]]:
+                pinned: frozenset[int] = frozenset(), *, light_owner: np.ndarray | None = None,
+                reserved: np.ndarray | None = None, guarded: frozenset[int] = frozenset(),
+                lights: frozenset[int] = frozenset()) -> list[tuple[int, int]]:
         cols = np.flatnonzero(free)
         if not tracks or cols.size == 0:
             return []
@@ -153,11 +167,22 @@ class EmberTracker:
         for i, tr in enumerate(tracks):
             charge = self.gate_grow * max(0.0, t - tr.last_t)
             if tr.tid in pinned:
-                (px, py), reach = self._home(tr), max(tr.diam, self.pin_reach)
+                if tr.tid in lights:
+                    (px, py), reach = tr.light_home, max(tr.light_diam, self.pin_reach)
+                else:
+                    (px, py), reach = self._home(tr), max(tr.diam, self.pin_reach)
             else:
                 px, py, reach = self._predict(tr, t)
             d = np.hypot(det_xy[cols, 0] - px, det_xy[cols, 1] - py)
             ok = d <= reach
+            if tr.tid in guarded and math.hypot(tr.vx, tr.vy) > self.min_show_speed:
+                # A moving phone cannot hand its ember to a known lamp. A paused phone still
+                # associates normally, and the lamp's pinned track can take its blob again.
+                ok &= light_owner[cols] == 0
+            if tr.tid in lights:
+                ok &= (light_owner[cols] == 0) | (light_owner[cols] == tr.tid)
+                if reserved is not None:
+                    ok &= ~reserved[cols] | (light_owner[cols] == tr.tid)
             # Distance in px, plus the reach a track gained while unseen: between two candidates
             # the one seen more recently wins (a stale track's wide reach must not win by itself).
             cost[i, ok] = d[ok] + charge
@@ -165,9 +190,52 @@ class EmberTracker:
         return [(int(r), int(cols[c])) for r, c in zip(rows, cc) if cost[r, c] < BIG]
 
     # update -----------------------------------------------------------------------------------
-    def update(self, blobs: Blobs, t: float) -> None:
+    def update(self, blobs: Blobs, t: float, *, source_fps: float | None = None) -> None:
+        """Use source-reported cadence, never the requested camera rate, to detect a sparse step."""
+        try:
+            rate = float(source_fps) if source_fps is not None else None
+        except (TypeError, ValueError):
+            rate = None
+        if rate is not None and (not math.isfinite(rate) or rate <= 0):
+            rate = None
+        same_rate = rate is not None and rate == self._source_fps
+        gap = same_rate and self.t_prev is not None and t - self.t_prev > 1.5 / rate
+        self._source_fps = rate
+        guarded = frozenset(tr.tid for tr in self.tracks if tr.shown) if gap else self._cadence_guarded
+        lights = self._competing_lights(guarded, t)
+        if lights:
+            self._update_sparse(blobs, t, guarded, lights)
+        else:
+            self._update_regular(blobs, t)
+        unseen = frozenset(tr.tid for tr in self.tracks if tr.tid in guarded and tr.shown and not tr.seen)
+        self._cadence_guarded = frozenset(tid for tid in unseen if self._competing_lights(frozenset([tid]), t))
+
+    def _competing_lights(self, guarded: frozenset[int], t: float) -> list[EmberTrack]:
+        phones = [self._predict(tr, t) for tr in self.tracks if tr.tid in guarded and tr.shown]
+        return [tr for tr in self.tracks if self.pinned(tr) and tr.static_light and tr.light_home is not None
+                and any(math.hypot(tr.light_home[0] - x, tr.light_home[1] - y)
+                        <= reach + max(tr.light_diam, self.pin_reach) for x, y, reach in phones)]
+
+    def _update_regular(self, blobs: Blobs, t: float) -> None:
+        self._update_tracks(blobs, t)
+
+    def _update_sparse(self, blobs: Blobs, t: float, guarded: frozenset[int], light_tracks: list[EmberTrack]) -> None:
+        self._update_tracks(blobs, t, guarded, light_tracks)
+
+    def _update_tracks(self, blobs: Blobs, t: float, guarded: frozenset[int] = frozenset(),
+                       light_tracks: list[EmberTrack] | None = None) -> None:
         self.t = t
         det_xy = np.column_stack([blobs.x, blobs.y]) if len(blobs) else np.zeros((0, 2))
+        light_owner = None
+        lights = frozenset()
+        if light_tracks:
+            on_light = np.zeros(len(det_xy), bool)
+            n_light = min(len(blobs.light), len(det_xy))
+            on_light[:n_light] = blobs.light[:n_light] >= self.light_frac
+            light_owner = np.zeros(len(det_xy), int)
+            lights = frozenset(tr.tid for tr in light_tracks)
+            for r, j in self._assign(light_tracks, det_xy, on_light, t, lights, light_owner=light_owner, lights=lights):
+                light_owner[j] = light_tracks[r].tid
         free = np.ones(len(det_xy), bool)
         prev = self.t_prev
         self.t_prev = t
@@ -179,9 +247,19 @@ class EmberTracker:
         held = [tr for tr in unseen if self.pinned(tr)]
         others = sorted([tr for tr in unseen if not self.pinned(tr)], key=lambda tr: (not tr.shown, tr.static))
         rest = [tr for tr in self.tracks if not (tr.shown or tr.confirmed)]
-        pins = frozenset(tr.tid for tr in held)
+        pins = (frozenset(tr.tid for tr in held)
+                | frozenset(tr.tid for tr in live if tr.tid in lights))
+        reserved = None
+        if light_owner is not None:
+            reserved = np.zeros(len(det_xy), bool)
+            for tr in unseen:
+                if tr.tid in guarded:
+                    x, y, reach = self._predict(tr, t)
+                    reserved |= ((light_owner == 0)
+                                 & (np.hypot(det_xy[:, 0] - x, det_xy[:, 1] - y) <= reach))
         for group in (live + held, others, rest):
-            for r, j in self._assign(group, det_xy, free, t, pins):
+            for r, j in self._assign(group, det_xy, free, t, pins, light_owner=light_owner,
+                                     reserved=reserved, guarded=guarded, lights=lights):
                 free[j] = False
                 self._hit(group[r], blobs, j, t)
         for j in np.flatnonzero(free):
@@ -259,11 +337,15 @@ class EmberTracker:
                 if (tr.seen and tr.travel >= self.min_travel and tr.peak_speed >= self.min_show_speed
                         and not tr.on_bg and shown < self.max_tracks):
                     tr.shown, tr.shown_t, tr.static = True, t, False
+                    tr.static_light, tr.light_home = False, None
                     taken = {o.slot for o in self.tracks if o.shown and o is not tr}
                     tr.slot = next(k for k in range(1, self.max_tracks + 1) if k not in taken)
                     shown += 1
                 elif t - tr.t0 >= self.static_s:
                     tr.static = True
+                if tr.static and not tr.static_light and tr.light >= self.light_frac:
+                    tr.light_home = self._home(tr)
+                    tr.static_light, tr.light_diam = True, tr.diam
             rested = t - tr.rest_t
             if tr.shown and tr.seen and ((tr.on_bg and rested >= self.static_s)
                                          or (tr.light >= self.light_frac and rested >= self.light_rest_s)):

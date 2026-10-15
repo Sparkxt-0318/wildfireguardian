@@ -434,3 +434,16 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The focused regressions pass, including normal file mode, actual restricted-path reruns and rejection of a prior unrestricted determinism result. Independent review found a stale-report leak, which was repaired and tested. The bilingual restriction notice is readable.
 - Decisions: keep the original C10 failure as evidence and rerender from the committed repair before calling the inspection complete. The C5 and C6 visual false positives remain unresolved; deterministic output is not physical validation.
 - Next: inspect the repaired real C10 overlay and complete the strict phone repair and final release checks.
+
+## 2026-10-15T19:57:54+08:00 Strict phone non-regression repair
+
+- Goal: remove the undersampled lamp handoff while preserving every deterministic full-rate phone-suite result, as the user required.
+- Commands: fixed cached phone-suite replays against the original source; exact observation and legacy-track hashes; uncapped stride replay; analytical polynomial/noise controls; focused tracker/camera tests. Evidence is in `results/runs/ember_guard/`, especially `cadence_candidate_status.json`, `fullrate_comparison.json`, `prototype_comparison.json` and `cadence_final_stride.json`.
+- Parameters: unchanged detector, acquisition thresholds and trailing-window velocity estimator. The new association episode uses source-reported cadence, not requested camera FPS.
+- Results:
+  - Earlier broad ownership guards improved some detection and identity metrics but regressed the standing-speed median. Polynomial display trials also changed other speed diagnostics. They were rejected under the user's strict requirement; their outputs remain preserved.
+  - The accepted implementation hardens association only after a reported-cadence gap creates ambiguity with a learned light. It pins each competing light's old home and diameter, assigns light blobs one to one, and reserves candidate reappearance blobs from those lights. An episode ends on recovery, expiry or loss of competition.
+  - The final comparison exactly preserves all tested full-rate observation histories, legacy track fields, quality, speed and ruler metrics. Wall-clock and processing-time measurements are retained in the reports but excluded from deterministic equality. The uncapped replay removes the reproduced sparse-cadence excess counts and lamp tracks. Focused tests pass.
+  - Missing or invalid source cadence cannot start protection. Backend-reported cadence is not proof of physical frame drops. Existing full-rate overlap contamination and the identity-switch goal miss remain.
+- Decisions: accept this bounded undersampling repair, retain the existing velocity estimator, and preserve every rejected candidate. The checked source hashes are in the comparison report.
+- Next: run the complete suite and official phone checks on this committed source, then the full demo gate and daily tag.

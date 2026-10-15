@@ -285,6 +285,53 @@ def test_pyav_backend_waits_through_eagain():
     assert cam.read(wait_s=0.02) is None                   # nothing yet: the caller decides when it has stalled
 
 
+@pytest.mark.parametrize("reported, expected", [(15, 15), (None, None), (0, None), (-1, None),
+                                                (float("nan"), None), ("bad", None)])
+def test_pyav_cadence_uses_only_a_valid_stream_report(monkeypatch, reported, expected):
+    import av
+
+    stream = types.SimpleNamespace(average_rate=reported)
+    container = types.SimpleNamespace(streams=types.SimpleNamespace(video=[stream]), close=lambda: None)
+    monkeypatch.setattr(av, "open", lambda *a, **kw: container)
+    monkeypatch.setattr(av, "formats_available", {"v4l2", "avfoundation"})
+    monkeypatch.setattr(C._PyAVCamera, "hung", set())
+    cam = C._PyAVCamera(WEBCAM, 1280, 720, 30, [WEBCAM])
+    cam.open(0.1)
+    assert cam.fps_nominal == expected
+    assert cam.options["framerate"] == "30"             # the request is never the missing report's fallback
+    cam.close()
+
+
+@pytest.mark.parametrize("reported, expected", [(15, 15), (0, None), (float("nan"), None), ("bad", None)])
+def test_opencv_cadence_uses_the_backend_report_after_request(monkeypatch, reported, expected):
+    import cv2
+
+    requested = {}
+    cap = types.SimpleNamespace(isOpened=lambda: True, release=lambda: None,
+                                set=lambda k, v: requested.update({k: v}), get=lambda k: reported)
+    monkeypatch.setattr(cv2, "VideoCapture", lambda *a: cap)
+    cam = C._OpenCVCamera(WEBCAM, 1280, 720, 30, [WEBCAM])
+    cam.open(0.1)
+    assert requested[cv2.CAP_PROP_FPS] == 30 and cam.fps_nominal == expected
+    cam.close()
+
+
+def test_file_cadence_survives_fake_camera_wrapping(tmp_path):
+    from wfglink.io.sources import FileSource
+    from wfglink.synth.degrade import VideoWriter
+
+    path = tmp_path / "fifteen_fps.mp4"
+    with VideoWriter(path, (64, 48), 15, crf=23, threaded=False) as writer:
+        for k in range(4):
+            writer.write(np.full((48, 64, 3), k * 20, np.uint8), k / 15)
+    with FileSource(path) as source:
+        assert source.read().meta["source_fps"] == 15
+    with C.FakeCameraSource(path, realtime=False, cfg={"camera": {"fps": 30}}) as source:
+        first, second = source.read(), source.read()
+        assert first.meta["source_fps"] == second.meta["source_fps"] == 15
+        assert second.t - first.t == pytest.approx(1 / 15)
+
+
 def test_pyav_backend_reads_a_stream_packet_by_packet(tmp_path):
     import av
 

@@ -315,6 +315,92 @@ def _blobs(pts, diam=20.0, light=0.0, on_bg=False):
                  np.full(n, float(light)))
 
 
+def _sparse_tracker(cfg, px_per_m):
+    """These association fixtures sample a known 60 fps source at 30 fps or below."""
+    from wfglink.ember.track import EmberTracker
+
+    tracker = EmberTracker(cfg, px_per_m)
+    update = tracker.update
+    tracker.update = lambda blobs, t: update(blobs, t, source_fps=60.0)
+    return tracker
+
+
+def _cadence_overlap():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = EmberTracker(load_config(), 457.0)
+    lamp, dt = (500.0, 300.0), 1 / 30
+    for k in range(90):
+        tracker.update(_blobs([lamp], light=1.0), k * dt, source_fps=30.0)
+    (light,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), (90 + k) * dt, source_fps=30.0)
+    (phone,) = tracker.shown()
+    return tracker, light, phone, lamp, 101 * dt, dt
+
+
+@pytest.mark.parametrize("return_rate", [30.0, None])
+def test_sparse_overlap_protection_lasts_until_the_phone_returns(return_rate):
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=30.0)  # one missed source interval
+    assert light.seen and not phone.seen and tracker._cadence_guarded == {phone.tid}
+    tracker.update(_blobs([(520.0, 300.0)]), t + dt, source_fps=return_rate)
+    assert phone.seen and phone.x == 520.0 and not light.shown
+    assert not tracker._cadence_guarded
+    tracker.update(_blobs([(540.0, 300.0)]), t + 2 * dt, source_fps=30.0)
+    assert tracker.shown() == [phone] and phone.seen
+
+
+def test_sparse_overlap_protection_ends_when_the_phone_expires():
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=30.0)
+    assert tracker._cadence_guarded == {phone.tid}
+    for k in range(1, int(tracker.max_coast_s / dt) + 3):
+        tracker.update(_blobs([lamp], light=1.0), t + k * dt, source_fps=30.0)
+    assert phone not in tracker.tracks and light in tracker.tracks
+    assert not tracker._cadence_guarded and not tracker.shown()
+
+
+def test_a_changed_reported_rate_does_not_compare_against_the_old_rate(monkeypatch):
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    def unexpected_sparse(*args):
+        pytest.fail("the first timestamp at a changed source rate has no comparable predecessor")
+    monkeypatch.setattr(tracker, "_update_sparse", unexpected_sparse)
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=60.0)
+    assert tracker._source_fps == 60.0 and not tracker._cadence_guarded
+
+
+@pytest.mark.parametrize("reported_rate", [15.0, None, 0.0, float("nan"), "unknown"])
+def test_requested_camera_rate_does_not_imply_an_analysis_gap(reported_rate, monkeypatch):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config(overrides={"camera": {"fps": 30}})
+    tracker = EmberTracker(cfg, 457.0)
+    def unexpected_sparse(*args):
+        pytest.fail("requested 30 fps must not classify regularly sampled 15 fps input as sparse")
+    monkeypatch.setattr(tracker, "_update_sparse", unexpected_sparse)
+    for k in range(90):
+        tracker.update(_blobs([(500.0, 300.0)], light=1.0), k / 15, source_fps=reported_rate)
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), (90 + k) / 15, source_fps=reported_rate)
+    tracker.update(_blobs([(500.0, 300.0)], light=1.0), 100 / 15, source_fps=reported_rate)
+    assert not tracker._cadence_guarded
+
+
+def test_fake_camera_reports_its_source_rate_instead_of_the_request():
+    from wfglink.io.camera import FakeCameraSource
+
+    source = FakeCameraSource(scene="one_at_2m", realtime=False, size=SMALL, fps=15,
+                              cfg=load_config(overrides={"camera": {"fps": 30}}))
+    source.open()
+    try:
+        first, second = source.read(), source.read()
+        assert first.meta["source_fps"] == second.meta["source_fps"] == 15
+        assert second.t - first.t == pytest.approx(1 / 15)
+    finally:
+        source.close()
+
+
 def test_tracker_keeps_a_lamp_on_its_own_track_as_a_phone_sweeps_past():
     """A phone ember whose prediction lies as near a lamp as its phone takes the phone; the lamp
     (hidden for a moment by a passer-by) goes back to its own track and never becomes an ember."""
@@ -342,6 +428,132 @@ def test_tracker_keeps_a_lamp_on_its_own_track_as_a_phone_sweeps_past():
     assert not light_track.shown and abs(light_track.x - lamp[0]) < 1.0
 
 
+@pytest.mark.parametrize("stride", [1, 2, 3])
+def test_moving_ember_does_not_take_a_returning_lamp_when_the_phone_is_hidden(stride):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6                     # the booth cap must not hide a false ember
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt = (500.0, 300.0), stride / 30
+    t = 0.0
+    for _ in range(int(3.0 / dt)):
+        tracker.update(_blobs([lamp], light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    assert light_track.static and not light_track.shown
+    # The lamp is hidden while a phone moves towards it. The phone's next prediction lands
+    # on the lamp just as the phone turns away and the lamp comes back.
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    assert tracker._predict(phone, t)[:2] == pytest.approx(lamp)
+    tracker.update(_blobs([lamp], light=1.0), t)
+    assert light_track.seen and (light_track.x, light_track.y) == lamp
+    assert not phone.seen and phone.x == 480.0
+    assert tracker.shown() == [phone]                   # the phone coasts with the same ID
+    returning = _blobs([(480.0, 300.0), lamp])
+    returning.light[:] = [0.0, 1.0]
+    tracker.update(returning, t + dt)
+    assert phone.seen and phone.x == 480.0 and not light_track.shown
+
+
+@pytest.mark.parametrize("stride", [1, 2, 3])
+def test_a_merged_blob_does_not_widen_the_lamps_pin_gate(stride):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt = (500.0, 300.0), stride / 30
+    t = 0.0
+    for _ in range(int(3.0 / dt)):
+        tracker.update(_blobs([lamp], light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([lamp], diam=100.0, light=1.0), t)   # phone and lamp briefly merge
+    tracker.update(_blobs([(450.0, 300.0)]), t + dt)          # the phone emerges, lamp hidden
+    assert not light_track.shown and tracker.shown() == [phone]
+    assert phone.seen and phone.x == 450.0
+
+
+@pytest.mark.parametrize("diam", [20.0, 60.0])
+def test_a_lamp_does_not_take_an_off_light_phone_from_its_coasting_ember(diam):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt, t = (500.0, 300.0), 1 / 30, 0.0
+    for _ in range(90):
+        tracker.update(_blobs([lamp], diam=diam, light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([lamp], diam=diam, light=1.0), t)
+    for x in range(520, 661, 20):
+        t += dt
+        tracker.update(_blobs([(float(x), 300.0)]), t)
+        assert tracker.shown() == [phone] and phone.seen and phone.x == x
+        assert not light_track.shown
+
+
+def test_one_lamp_owns_only_one_blob_and_a_nearby_phone_keeps_its_ember():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    lamp, dt, t = (500.0, 300.0), 1 / 30, 0.0
+    for _ in range(90):
+        tracker.update(_blobs([lamp], diam=60.0, light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(9):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([(480.0, 300.0), lamp], light=1.0), t)
+    assert phone.seen and phone.x == 480.0 and tracker.shown() == [phone]
+    assert light_track.seen and light_track.x == lamp[0] and not light_track.shown
+
+
+def test_a_moving_phone_on_an_unowned_light_map_blob_keeps_its_assignment():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for k in range(20):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([(400.0, 300.0)], light=1.0), t)
+    assert phone.seen and phone.x == 400.0 and tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("light", [0.0, 1.0])
+def test_a_phone_held_still_before_it_moves_can_acquire_an_ember(light):
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for _ in range(90):
+        tracker.update(_blobs([(200.0, 300.0)], light=light, on_bg=True), t)
+        t += 1 / 30
+    assert tracker.shown() == [] and tracker.tracks[0].static
+    for k in range(1, 31):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    assert phone.seen and phone.x == 500.0
+
+
 def test_tracker_ends_an_ember_that_rests_on_a_light():
     """An ember that comes to rest where the light map is bright (a lamp it caught) ends after
     ember.track.light_rest_s; one resting on a dark wall stays (a visitor holding still)."""
@@ -360,6 +572,28 @@ def test_tracker_ends_an_ember_that_rests_on_a_light():
             tr.update(_blobs([(x, 300.0)], light=light), t)
             t += 1 / 30
         assert (len(tr.shown()) == 1) == stays, light
+
+
+def test_a_paused_phone_with_small_centroid_drift_keeps_its_assignment():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for k in range(20):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    for _ in range(10):
+        tracker.update(_blobs([(390.0, 300.0)]), t)
+        t += 1 / 30
+    # A paused phone's centroid drifts a little. Even on the light map, a speed near zero is
+    # no moving-phone hand-off, so association continues until the normal light-rest rule.
+    for k in range(10):
+        x = 390.0 + 0.1 * (k + 1)
+        tracker.update(_blobs([(x, 300.0)], light=1.0), t)
+        t += 1 / 30
+        assert tracker.shown() == [phone] and phone.seen and phone.x == x
+    assert 0 < math.hypot(phone.vx, phone.vy) < tracker.min_show_speed
 
 
 def test_tracker_does_not_show_a_track_on_a_jump():

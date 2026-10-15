@@ -151,3 +151,7 @@ Answer: "Good work. Three requests:
 3. Camera input: also support a dashcam in USB "PC camera" (UVC) mode as the live source, selected by name like any webcam. I may buy one so the booth camera is a real dashcam.
 
 When the verification fixes are done, send me the exact command list and every difference from my manual, as one block I can forward."
+
+### 2026-10-15, strict phone-suite non-regression
+Question: "The handoff requires ember-suite numbers not to worsen. The phone fix removes lamp over-counts and improves recall and identity switches, but median speed error rises slightly from 3.23% to 3.25% (still below the 10% goal). Should I keep working toward strict non-regression, or accept this documented tradeoff?"
+Answer: "Keep strict non-regression"

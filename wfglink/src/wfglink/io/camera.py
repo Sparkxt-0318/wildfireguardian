@@ -430,6 +430,7 @@ class _PyAVCamera:
         self._stream = None
         self._ready: list = []
         self.options: dict[str, str] = {}
+        self.fps_nominal: float | None = None
 
     def open(self, timeout_s: float) -> None:
         import av
@@ -468,6 +469,11 @@ class _PyAVCamera:
                     errors.append(f"{w}x{h}@{fps:g}: {str(exc)[:80]}")
                     continue
                 self._stream = self._container.streams.video[0]
+                try:
+                    rate = float(getattr(self._stream, "average_rate", None))
+                except (TypeError, ValueError, OverflowError):
+                    rate = float("nan")
+                self.fps_nominal = rate if np.isfinite(rate) and rate > 0 else None
                 self.options = opts
                 return
         raise SourceError("PyAV could not open the camera: " + " | ".join(errors[-2:]))
@@ -522,6 +528,7 @@ class _OpenCVCamera:
         self.device, self.width, self.height, self.fps = device, int(width), int(height), float(fps)
         self._cap = None
         self.options: dict[str, str] = {}
+        self.fps_nominal: float | None = None
 
     def open(self, timeout_s: float) -> None:
         import cv2
@@ -538,6 +545,11 @@ class _OpenCVCamera:
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         cap.set(cv2.CAP_PROP_FPS, self.fps)
+        try:
+            rate = float(cap.get(cv2.CAP_PROP_FPS))
+        except (TypeError, ValueError, OverflowError):
+            rate = float("nan")
+        self.fps_nominal = rate if np.isfinite(rate) and rate > 0 else None
         self._cap = cap
         self.options = {"index": str(idx)}
 
@@ -653,7 +665,8 @@ class CameraSource(Source):
             h, w = first[0].shape[:2]
             self.info = {"name": self.name, "unique_id": uid, "kind": self.device.get("kind"), "backend": name,
                          "options": dict(getattr(inner, "options", {}) or {}), "native_size": [w, h],
-                         "size": list(self._out_size(w, h)), "fps_requested": self.fps}
+                         "size": list(self._out_size(w, h)), "fps_requested": self.fps,
+                         "fps_nominal": getattr(inner, "fps_nominal", None)}
             self._last_frame_wall = self.clock()
             return
         raise SourceError(f"{self.name} did not open: " + "; ".join(errors))
@@ -763,6 +776,7 @@ class CameraSource(Source):
         self.state = "ok"
         return Frame(np.ascontiguousarray(img), float(t), self._next_index(), now,
                      {"camera": self.name, "backend": self.backend, "source": "camera",
+                      "source_fps": self.info.get("fps_nominal"),
                       "unique_id": self.device.get("unique_id") if self.device else None})
 
 
@@ -822,7 +836,8 @@ class FakeCameraSource(Source):
             if f is None:
                 return None
             return Frame(f.image, f.t, self._next_index(), time.monotonic(),
-                         {"camera": self.name, "fake": True, "synthetic": False, "source": "fake_camera"})
+                         {"camera": self.name, "fake": True, "synthetic": False, "source": "fake_camera",
+                          "source_fps": f.meta.get("source_fps")})
         if self._scene is None:
             raise SourceError("source not opened")
         if self.realtime:
@@ -841,7 +856,8 @@ class FakeCameraSource(Source):
         self._last_t = t
         img = self._scene.render(t)
         return Frame(img, float(t), self._next_index(), time.monotonic(),
-                     {"camera": self.name, "fake": True, "synthetic": True, "source": "fake_camera"})
+                     {"camera": self.name, "fake": True, "synthetic": True, "source": "fake_camera",
+                      "source_fps": self.fps})
 
     def close(self) -> None:
         if self._file is not None:

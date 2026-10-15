@@ -155,7 +155,7 @@ class EmberPipeline:
             return st
         self._last_t = t
         blobs = self.detector.detect(img)
-        self.tracker.update(blobs, t)
+        self.tracker.update(blobs, t, source_fps=frame.meta.get("source_fps"))
         ended = self.tracker.pop_finished()
         if self.history is not None:
             self.finished.extend(ended)

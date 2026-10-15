@@ -152,7 +152,8 @@ class FileSource(Source):
                 self._t0_wall, self._t0_media = now, t
         self._last_t = t
         return Frame(img, t, self._next_index(), time.monotonic(),
-                     {"loop": self._loop_count, "pts_s": t_media, "source": self.name})
+                     {"loop": self._loop_count, "pts_s": t_media, "source": self.name,
+                      "source_fps": self.info.get("fps_nominal")})
 
     def close(self) -> None:
         if self._container is not None:
