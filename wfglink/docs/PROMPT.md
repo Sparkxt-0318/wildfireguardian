@@ -110,3 +110,18 @@ Sitting 1 (as soon as my parts arrive; I will tell you the date): install, check
 Sitting 2 (final evening): check B, then start the overnight soak (check C), with the rehearsal the next morning. Same deal: one script, one checklist, one combined report.
 
 Until sitting 1 happens, keep building without blocking on me. Assume Continuity Camera might fail and keep the USB webcam and app-build fallbacks ready, so a late check A does not cause rework. Move any decision that depended on check B (such as 0.5x versus 1/3x playback) to a config switch that is easy to flip after sitting 2. Update PLAN.md and LOG.md with the new schedule."
+
+### 2026-10-15, setup change: no live camera; booth is real-time file playback
+Answer: "Setup change, decided by me: drop the live camera entirely. No iPhone, iPad, USB webcam or Continuity Camera; no booth-prep frame codes, held frames, loop suite, loopback check or camera checks; remove limit 6 (re-filmed screen). Booth mode is now real-time file playback: approved clips are analyzed live as they play, fullscreen on the external monitor if one is connected, otherwise on the MacBook. The LED turntable test is filmed top-down with the dashcam, not the iPhone.
+
+I am following a build manual that names these exact commands and files. Make them exist exactly like this (or tell me precisely what differs so I can fix the manual):
+
+- Setup: git worktree at ~/wfglink-run from origin/claude/practical-rubin-5vu12u (your plan's commands). ./scripts/setup_mac.sh creates .venv with python.org Python 3.12, installs everything and creates data/raw. Running it again must be safe.
+- python -m wfglink doctor: one line per check (python, packages, fonts, screens), each ending in OK or FAIL with a fix hint.
+- python -m wfglink live --synthetic: the full booth screen on generated video.
+- python -m wfglink validate --suite led: reads data/raw/led_33rpm.*, led_45rpm.*, led_ruler.* (any of .mp4 .mov .ts .avi; recordings split across loop files are named _a, _b) and data/raw/led_notes.yaml with keys dashcam_model, file_type, resolution, fps, date_stamp ("off" or where it sits, which you then mask), wdr_hdr, camera_height_cm, led_radius_mm (list of 3), turns_timed, time_33rpm_s, time_45rpm_s. True speed = 2π × radius × turns_timed / time. Prints LEDs tracked per clip and the median speed error, and writes results/validation/led_report.json. Goal median error ≤ 5%. Also accept room_test.* and night_drive.* in data/raw (night_drive is a hard negative: report false counts per minute).
+- ./booth/booth.sh and booth/booth.command: plays the approved clip playlist in a loop through wfglink, keeps the Mac awake, restarts on crash. Keys: L, T, F, G, Space, Esc with confirm.
+- python scripts/mac_soak.py --hours 8: runs the booth screen with the playlist, logs fps and memory, and prints a PASS or FAIL report at the end.
+- Also make print-ready A5 placards in booth/placards/ (Korean and English): "This is the sensor" for the dashcam stand and the limits card.
+
+My hands-on work is now two sittings: sitting 1 (setup, dashcam, LED rig, recordings, validate, send files) as soon as parts arrive, and sitting 2 on the final evening (update, booth, overnight soak, rehearsal). Keep the Monday Oct 19 target and update PLAN.md and LOG.md with this change."
