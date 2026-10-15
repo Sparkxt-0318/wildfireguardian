@@ -39,7 +39,7 @@ def qr_modules(text: str) -> np.ndarray:
 def draw_qr(p: Any, x: float, y: float, size: float, text: str) -> None:
     """The QR code of text on a white square of side `size` at (x, y) (QPainter units)."""
     from PySide6.QtCore import QRectF, Qt
-    from PySide6.QtGui import QPainterPath
+    from PySide6.QtGui import QPainter, QPainterPath
 
     m = qr_modules(text)
     n = m.shape[0]
@@ -64,5 +64,6 @@ def draw_qr(p: Any, x: float, y: float, size: float, text: str) -> None:
             path.addRect(QRectF(x + c0 * cell, y + r * cell, (c - c0) * cell, cell))
     # Keep the winding path: simplifying touching rectangles can drop entire module edges
     # at fractional coordinates on Qt's raster backend.
+    p.setRenderHint(QPainter.RenderHint.Antialiasing, False)   # crisp module edges, no seams
     p.fillPath(path, Qt.GlobalColor.black)
     p.restore()

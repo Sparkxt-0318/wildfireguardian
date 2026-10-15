@@ -280,11 +280,11 @@ The recordings never tune anything; a recording used for debugging is named in L
 
 | File | Contents |
 |---|---|
-| detections.parquet | frame, t, x, y, area, peak, sum, L, θ, color score, flags, track_id |
+| detections.parquet | frame, t, x, y, area, peak, sum, L, θ, color score, flags, scale (the analysis level that measured it), track_id |
 | frames.parquet | frame, t, source index, detections, active tracks, count rate, CPC gross/net, PNF, duplicate flag, T_exp, processing ms |
 | tracks.parquet | track_id, start/end, points, u, v, speeds (track, streak, fused), direction, residual, crossings, flags |
 | field.parquet | window, cell, u, v, n_tracks, CI |
-| summary.json | input SHA-256, metadata, config hash, git commit, versions, units and calibration state, totals with CIs, T_exp, plausibility flags, warnings |
+| summary.json | input SHA-256, metadata, config hash, git commit, versions, units and calibration state, totals with CIs, T_exp, analysis scales (levels used, detections per level), plausibility flags, warnings |
 | overlay.mp4 | H.264, drawn by the live renderer |
 
 Live recording of the same tables is off by default. When on, ParquetWriter flushes every 10 s.

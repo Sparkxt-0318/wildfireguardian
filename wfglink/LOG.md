@@ -410,3 +410,15 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The gamma implementation now preserves exact black even when the SIMD power operation returns a tiny positive value. Fixed input controls retain every positive-pixel result and every quantized pixel; the focused render regressions pass.
 - Decisions: keep the failed complete run and repeat the complete suite on the final committed source. These repairs do not establish actual camera measurement accuracy or an overnight soak.
 - Next: finish the independent file checks and strict phone non-regression repair, then rerun the release gate.
+
+## 2026-10-15T19:49:40+08:00 Preserve the concurrent handoff update
+
+- Goal: integrate the remote branch update without discarding either continuation.
+- Commands: normal branch push (rejected because the remote had advanced); fetch; merge without auto-commit; inspect the renamed patch and resolve the QR change; original QR scan regressions.
+- Parameters: remote fc4db83 and local platform checkpoint; no branch switch, reset, rebase or force-push.
+- Results:
+  - The remote update preserved a revised historical handoff and renamed the already integrated patch. Its patch difference adds output documentation, which is now reflected in the plan. The redundant patch remains removed.
+  - Both QR fixes are retained: direct winding-path fill and crisp module edges. The original screen and placard scan checks pass.
+  - The handoff now identifies itself as historical, so its host-specific scratch results cannot be mistaken for this continuation's measurements.
+- Decisions: preserve remote history and all working repairs. The frozen held-out evaluation continues from its original exported source and inputs.
+- Next: commit this merge, finish the remaining bounded repairs, and publish the completed branch normally.
