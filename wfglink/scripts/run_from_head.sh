@@ -14,7 +14,7 @@ REPO="$(git -C "$ROOT" rev-parse --show-toplevel)"
 COMMIT="$(git -C "$REPO" rev-parse HEAD)"
 EXPORT="$(mktemp -d)"
 trap 'rm -rf "$EXPORT"' EXIT
-git -C "$REPO" archive "$COMMIT" wfglink | tar -x -C "$EXPORT"
+git -C "$REPO" archive --prefix=wfglink/ "$COMMIT:wfglink" | tar -x -C "$EXPORT"
 W="$EXPORT/wfglink"
 mkdir -p "$W/data"
 for d in raw synthetic; do

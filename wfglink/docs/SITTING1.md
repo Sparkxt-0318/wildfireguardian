@@ -1,5 +1,11 @@
 # Sitting 1 checklist
 
+For tonight with the MacBook's built-in camera and an iPhone, use
+[`SITTING1_TONIGHT.md`](SITTING1_TONIGHT.md). Its one script produces a combined JSON
+and a pasteable report, uses the phone page over local Wi-Fi, and keeps tonight's
+camera settings and calibration separate from existing booth settings. The longer
+recording session below remains available for later validation.
+
 As soon as your parts arrive. About 90 minutes. Seven parts, in order: setup, camera and permission, the page, the standing spot and the A4 calibration, recordings, validate, send files. You can stop between parts; nothing is lost.
 
 Every command runs in Terminal. In each new Terminal window, first go to the folder and turn on the environment:
@@ -35,7 +41,7 @@ In Terminal:
 ```
 cd ~/wildfireguardian            # your main checkout of the repository (only used to fetch)
 git fetch origin claude/practical-rubin-5vu12u
-git worktree add ~/wfglink-run origin/claude/practical-rubin-5vu12u
+git worktree add --detach ~/wfglink-run origin/claude/practical-rubin-5vu12u
 cd ~/wfglink-run/wfglink
 ./scripts/setup_mac.sh
 source .venv/bin/activate
@@ -172,7 +178,7 @@ Upload these to one new folder in Google Drive, Dropbox or iCloud Drive:
 
 | Problem | What to do |
 |---|---|
-| `git worktree add` says `~/wfglink-run` already exists | It is there from before. Update it instead with `git -C ~/wfglink-run fetch origin` and `git -C ~/wfglink-run checkout --detach origin/claude/practical-rubin-5vu12u`, then carry on from `cd ~/wfglink-run/wfglink`. |
+| `git worktree add` says `~/wfglink-run` already exists | Keep it. Run `git -C ~/wfglink-run fetch origin claude/practical-rubin-5vu12u`, then `git -C ~/wfglink-run merge --ff-only origin/claude/practical-rubin-5vu12u`. Proceed only if both succeed. This preserves local files and refuses a conflicting or divergent update. If it stops, send `git -C ~/wfglink-run status --short` and the error; do not force a checkout or reset. |
 | `setup_mac.sh` says Python 3.12 from python.org is missing | Install it (Before the day), then run `./scripts/setup_mac.sh` again. |
 | A `doctor` line ends in FAIL | Do what its "fix:" says and run `python -m wfglink doctor` again. The clips line FAILs until the two clips are downloaded (setup does it when online). If unsure, paste the line to Claude. |
 | Setup or `fetch_clips.py` says CERTIFICATE_VERIFY_FAILED, or "no HTTPS certificates" | Run `./scripts/setup_mac.sh` again (it installs the certificates the download uses). If it stays, double-click "Install Certificates.command" in the "Python 3.12" folder of Applications, then run setup again. |

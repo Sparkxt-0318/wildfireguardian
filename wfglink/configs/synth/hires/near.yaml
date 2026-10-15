@@ -1,0 +1,13 @@
+# Near embers in a 2560x1440 frame (configs/suites/hires.yaml): close to the camera, so large
+# (PSF sigma 3 to 6 px, defocused), bright and fast (streaks of about 25 px at duty 0.5).
+frame_size: [2560, 1440]
+px_per_m: 80.0
+flow:
+  type: uniform
+  u: 1500.0                      # 50 px per frame
+  v: 0.0
+embers:
+  density:
+    on_screen: 40
+  snr: {median: 80.0, log_sigma: 0.7}   # point-source SNR; spread over a wide PSF and a streak, the per-pixel signal is much lower
+  sigma_px: [3.0, 6.0]

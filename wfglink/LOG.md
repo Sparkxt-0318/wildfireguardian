@@ -364,3 +364,36 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Replayed at the full frame rate the scene never shows more embers than phones. With every second or third frame analysed, as on a loaded machine, a phone sweeping past the desk lamp hands its ember to the lamp now and then, and the stuck ember (not moving, on the lamp) stays until the light-rest rule ends it after ember.track.light_rest_s.
   - A shorter light rest reduces the over-count but does not remove it, so the cause is the hand-off at lower rates, not the rest time.
 - Decisions: no setting changed; the booth's cap of three phones means the screen never shows more than three, but at a low analysis rate a lamp can hold one slot for about a second. Next tracker step: refuse a hand-off from a moving ember to a blob on the light map. The gate's result on the Mac (the rate of the real machine) decides whether that is urgent; the demo build of 161612e stays the last tagged working demo until a gate passes.
+
+## 2026-10-15T19:21:29+08:00 Continuation bootstrap on the Mac host
+
+- Goal: resume the handoff in an isolated checkout of the required branch, preserving the other checkouts and all files outside wfglink.
+- Commands:
+  - `python3.12 -m venv .venv`; `.venv/bin/python -m pip install -r requirements.txt` (interrupted during slow downloads); `uv pip install --python .venv/bin/python --cache-dir .venv/cache -r requirements.txt` (interrupted after transfers restarted).
+  - `uv pip compile --python .venv/bin/python --cache-dir .venv/cache requirements.txt -o .venv/resolved.txt`; `.venv/bin/python results/runs/download_wheels.py`, `results/runs/priority_wheels.py` and `results/runs/priority_qt.py` (ignored bootstrap helpers and logs).
+  - `uv pip install --python .venv/bin/python --cache-dir .venv/cache --no-index --find-links .venv/wheels -r requirements.txt`; `.venv/bin/python -m pip install -e . --no-deps`; `uv pip check --python .venv/bin/python`; `.venv/bin/python -m pip freeze > results/runs/environment_20261015.txt`.
+  - The standard-library download functions from `scripts/fetch_clips.py` fetched the approved booth clips before package installation finished; `.venv/bin/python scripts/fetch_clips.py --only C5_nist_emberometer C6_nist_dragon` then checked them against the recorded hashes. `.venv/bin/python scripts/fetch_clips.py --only C10_sparkler` fetched the approved tracking-only clip.
+- Parameters: requirements.txt unchanged; resolved official PyPI wheels for this host; bounded HTTP byte ranges with SHA-256 checked against PyPI metadata; system CA bundle for the bootstrap requests. Bootstrap helpers and logs stay in ignored local folders.
+- Results:
+  - The exact pinned environment installed and its dependency consistency check passed. The earlier long-transfer attempts restarted instead of completing; bounded transfers completed with verified digests. A direct standard-library certificate probe failed with python.org defaults and succeeded with the system CA bundle; TLS verification stayed enabled.
+  - The booth clips match their existing recorded hashes. The sparkler download also matches its existing metadata. Raw videos remain ignored. The CSV writer now keeps line feeds when metadata is rewritten on this host.
+  - The native PyAV and OpenCV wheels warn about duplicate AVFoundation class names when loaded together. Synthetic processing continues, but this does not validate actual camera capture.
+- Decisions: preserve the required pins and keep the changes inside wfglink. Camera permission, calibration accuracy and the overnight hardware soak still need the user's sitting reports.
+- Next: complete the count fix and scale verification, run the full tests and committed-tree demo gate, then the real-clip and held-out checks.
+
+## 2026-10-15T19:33:41+08:00 File-mode and tonight-script checkpoint; phone candidate held
+
+- Goal: preserve the independently checked scale and sitting-script repairs while the phone change remains unaccepted under the user's strict non-regression decision.
+- Commands:
+  - `git apply --exclude=wfglink/PLAN.md --exclude=wfglink/docs/METHODS.md wfglink/docs/handoff/multiscale_unverified.patch`; the document hunks applied separately; material source defects repaired after review.
+  - `.venv/bin/python -m pytest -q tests/test_multiscale.py tests/test_pipeline.py tests/test_streaks.py tests/test_process.py`; `.venv/bin/python -m pytest -q tests/test_sitting1_tonight.py`.
+  - `.venv/bin/python results/runs/multiscale_review_20261015/verify_720p_compatibility.py` and its `--clip data/raw/C6_nist_dragon.mp4 --start-s 17.05 --end-s 22.55 --frames 10000` invocation; evidence and paired tables in that folder.
+  - `bash -n scripts/run_from_head.sh scripts/tag_demo.sh scripts/sitting1_tonight.sh`; `python scripts/check_docs.py`; `git diff --check`.
+- Parameters: scale thresholds unchanged from the supplied patch; exact handoff Pipeline and Detector source loaded for compatibility comparisons. The comparison runner seeds both NumPy and OpenCV. Tonight uses its own built-in-camera override and fresh report folder.
+- Results:
+  - Focused scale and sitting-script tests passed. Within each tested mode, old and new detections, active/final tracks, state, repeat decisions and counters agree exactly on the shared generated input and on the approved C6 lab segment. The first harness attempt failed a cross-mode input-hash check because OpenCV's global noise generator was not seeded; that failed attempt is retained, and the seeded rerun passes.
+  - The scale review found and repaired lost source saturation, changed repeat decisions, quarter-scale rounding, stale shape state, and replacement logic using an intermediate level that had found nothing. These are bounded source and synthetic checks, not physical accuracy or throughput validation.
+  - Tonight's script preserves booth settings, selects the built-in camera, shows its local URL before waiting, and records fresh combined reports including skipped, failed and interrupted steps. Mocked tests cover unhealthy app reports even when the app exits successfully. No camera or publication was invoked.
+  - An initial whole-repository archive triggered unrelated lazy blob downloads in this partial clone and was interrupted. The export helpers now archive the wfglink subtree directly; the baseline export then completed. Demo tag names also honor the existing build ledger after a fresh checkout.
+- Decisions: the supplied scale patch is integrated and removed. The phone candidate and its tests/diagnostic stay outside this checkpoint until the strict regression requirement is met. The existing demo ledger remains the reference until a committed-tree gate passes.
+- Next: full tests and real-clip checks on this checkpoint, and continued phone repair. Held-out input generation uses the unchanged generator from a clean handoff export; no held-out scores are used for development.

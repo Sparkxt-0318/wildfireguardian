@@ -32,6 +32,18 @@ detect:
     max_streak_width_px: 10      # a large component must be thinner than this to count as a streak
     large_mask_dilate_px: 7      # exclusion band around large bright regions
     moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
+  multiscale:                    # file mode on large frames (detect/multiscale.py): the detector also runs on downscaled copies, merged by ember size
+    enabled: true
+    min_frame_pixels: 1843200    # frames with fewer pixels (twice 1280x720, the size the detector's scales were chosen at) are analysed at one scale: 720p is unchanged
+    max_octaves: 2               # coarse levels at half, then quarter size ...
+    min_level_pixels: 129600     # ... each only while it keeps at least this many pixels (480x270)
+    native_max_sigma_px: 2.0     # empirical merge cutoff for native PSF sigma (source px), a level of factor f uses f times it;
+                                 # a coarse detection above the best actual matched finer level's cutoff replaces those it covers; a smaller one defers to them
+    replace_max_flux_share: 0.5  # ... unless the finer ones hold at least this share of its flux (signed residual): then they measured it whole and stand
+    footprint_sigma: 2.5         # a coarse detection covers the finer detections within this many of its PSF sigmas of its axis segment ...
+    footprint_min_px: 3.0        # ... and at least this many source px
+    coarse_only_min_sigma_px: 1.0  # a coarse detection that covers no finer one is kept when its PSF sigma (source px) is at least this times the next finer level's factor;
+                                 # a smaller one is point-like at that level, within its range, and that level found nothing there
   streaks:
     method: erf                  # file mode streak length (detect/streaks.py): erf (edge profile fit, below) or moments (the detector's moments; refine adds the oriented window)
     refine: false                # method moments only: remeasure moments in an oriented window (detect/streaks.py)

@@ -37,6 +37,9 @@ def test_process_writes_tables_summary_and_overlay(tmp_path, monkeypatch):
     assert {"track_id", "track_speed_px_s", "best_speed_px_s", "direction_deg", "crossings_pos"} <= set(tracks.columns)
     t = summary["totals"]
     assert t["tracks_moving"] > 0 and t["cpc_gross"] >= 0 and "pnf" in t
+    a = summary["analysis"]   # a 640x360 clip is analysed at one scale
+    det = pd.read_parquet(out / "detections.parquet")
+    assert a["factors"] == [1] and a["sizes_px"] == [[640, 360]] and a["detections_by_scale"] == {"1": len(det)}
     with av.open(str(out / "overlay.mp4")) as c:
         assert c.streams.video[0].frames in (0, 90) or sum(1 for _ in c.decode(video=0)) == 90
 

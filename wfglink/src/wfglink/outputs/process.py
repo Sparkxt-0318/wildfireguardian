@@ -7,7 +7,10 @@ Two passes, as in the validation runner:
 
 Outputs in the output folder (plan section 6):
 - detections.parquet: one row per detection (frame, t, x, y, area, peak, flux, length,
-  width, theta, saturated fraction, color score, flags).
+  width, theta, saturated fraction, color score, flags, scale). Positions and sizes are in
+  pixels of the analysed region at its native resolution; on large frames some detections
+  come from a downscaled copy (detect/multiscale.py), and scale is that copy's factor
+  (1 = native).
 - frames.parquet: one row per decoded frame (frame, t, duplicate, ready, detections, active
   tracks, count rate, Cumulative Particle Count gross and net, Particle Number Flux, ms).
 - track_points.parquet: one row per track point, with per-point track and streak velocities.
@@ -18,7 +21,8 @@ Outputs in the output folder (plan section 6):
 - summary.json: input hash and metadata (with a ROI, input.width and height are the
   crop's, input.roi_px the crop and input.source_size the full frame), config hash, git
   commit, versions, units and calibration state, totals with intervals, exposure
-  estimate, warnings. `python -m wfglink plausibility` adds its statuses later.
+  estimate, the analysis scales (analysis: the levels' factors and sizes and the detections
+  each measured), warnings. `python -m wfglink plausibility` adds its statuses later.
 - overlay.mp4: H.264 drawn by the same renderer as the booth screen (optional).
 CSV instead of Parquet with outputs.table_format: csv.
 """
@@ -280,6 +284,18 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         if dt.size and np.nanmax(dt) > 1.5 * np.nanmedian(dt):
             warnings.append("frame intervals vary (variable frame rate or dropped frames); true timestamps are used")
 
+    # Analysis scales (detect/multiscale.py): the levels the detector used and how many of the
+    # recorded detections each one measured.
+    det_tab = tabs["detections"]
+    shape = (int(meta.get("height") or 0), int(meta.get("width") or 0))   # the analysed region
+    factors = [1, *(f for f, _ in pipe.detector.levels)]
+    ms_cfg = cfg.get("detect", {}).get("multiscale", {}) or {}
+    analysis = {"factors": factors, "sizes_px": [[int(shape[1]) // f, int(shape[0]) // f] for f in factors],
+                "multiscale_enabled": bool(ms_cfg.get("enabled", False)),
+                "min_frame_pixels": ms_cfg.get("min_frame_pixels"),
+                "detections_by_scale": ({str(int(k)): int(v) for k, v in det_tab["scale"].value_counts().sort_index().items()}
+                                        if len(det_tab) and "scale" in det_tab else {})}
+
     if metrics_scope == "tracking_only":
         # The clip's timebase is not real time (slow motion): speeds, rates, counts per second and
         # flux would be wrong by the slow-down factor, so only tracking quantities are reported.
@@ -305,6 +321,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         "units": {"position": "px", "speed": "px/s" if m_per_px is None else "px/s (m/s = px/s x m_per_px)",
                   "calibrated": m_per_px is not None, "m_per_px": m_per_px, "distance_m": distance_m},
         "exposure": exp_info,
+        "analysis": analysis,
         "metrics_scope": metrics_scope,
         "totals": totals,
         "warnings": warnings,

@@ -51,6 +51,8 @@ Main commands (run from `wfglink/` with the environment on):
 - `booth/ember/index.html`: the phone page for ember mode, one self-contained file with no external requests. Publish it on GitHub Pages (or any static host) and put its address into `booth.ember_page_url` in `configs/booth_local.yaml`: the ember screen then shows a QR code of it, and `make_placards.py` makes its QR card.
 - `booth/placards/`: print-ready A5 placards in Korean and English, "This is the sensor" for the dashcam stand, the limits card and, once the page's address is set, the ember page's QR card for the standing spot (`python scripts/make_placards.py` writes them).
 
+For tonight with no new parts: run `./scripts/sitting1_tonight.sh` (docs/SITTING1_TONIGHT.md). It checks the approved fire clip and the built-in camera, serves the phone page over local Wi-Fi, runs A4 calibration into an isolated config, and writes a fresh pasteable report plus combined JSON. It preserves your normal booth settings. This smoke check does not validate measurement accuracy.
+
 The two hands-on sittings on the Mac: docs/SITTING1.md (setup, camera and permission, the A4 calibration at the standing spot, the recordings, validate, send files) and docs/SITTING2.md (update, booth, overnight soak, rehearsal).
 
 ## Folder layout
@@ -67,6 +69,8 @@ The two hands-on sittings on the Mac: docs/SITTING1.md (setup, camera and permis
 ## Current status
 
 2026-10-15: detector, tracker, velocity, exposure estimate, gate counts, the ember field, the booth screen with its supervisor and the synthetic generator are built and tested. The setup change of 2026-10-15 dropped the live camera of the first plan: the booth plays approved clips in real time and analyses them as they play, with the Mac setup, doctor and soak scripts and the placards. The booth change of 2026-10-15 drops the LED turntable test and adds the raw or analysed toggle (key A) and the "Become an ember" live mode (key M): a camera chosen by name, the phone page, the A4 calibration, and validation on synthetic phones and your recordings (PLAN.md section 4.4 and section 7). Real compressed video of bright scenes no longer floods the detector (the mirror test, docs/METHODS.md section 2), and file mode measures streak length with an edge-profile fit.
+
+File mode now also detects at coarser scales on large frames. Independent regressions and exact comparisons against the handoff code cover the existing small-frame and live paths. Labelled real-clip results and held-out headline checks are still being completed; the merge is heuristic and does not establish physical measurement accuracy.
 
 Core suite (synthetic, used for tuning; held-out headline numbers come later from the mismatch suite):
 

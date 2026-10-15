@@ -1,6 +1,7 @@
 """The one processing pipeline shared by file mode and the live booth screen.
 
-Per frame: detect candidates; track them; feed confirmed, non-static tracks to the gate
+Per frame: detect candidates (file mode: on large frames at several scales, in source pixels,
+detect/multiscale.py); track them; feed confirmed, non-static tracks to the gate
 counter; update the running speed, direction, ember velocity field, glowing trails and the
 60 s sparkline; and return a LiveState for the renderer.
 
@@ -21,7 +22,8 @@ from typing import Any
 import cv2
 import numpy as np
 
-from wfglink.detect.candidates import Detections, Detector
+from wfglink.detect.candidates import Detections
+from wfglink.detect.multiscale import MultiScaleDetector
 from wfglink.io.frames import Frame
 from wfglink.measure.gate import Gate, GateCounter
 from wfglink.render.scene import LiveState
@@ -109,7 +111,7 @@ class Pipeline:
 
     # State ----------------------------------------------------------------------------------
     def reset(self) -> None:
-        self.detector = Detector(self.cfg)
+        self.detector = self._make_detector()
         self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=self.record)
         if self.t_exp_hint:
             self.tracker.set_exposure_hint(self.t_exp_hint)
@@ -130,13 +132,18 @@ class Pipeline:
         self.last_state = LiveState()
         self.stats = PipelineStats()
 
+    def _make_detector(self) -> MultiScaleDetector:
+        # File mode (record) analyses large frames at several scales (detect/multiscale.py);
+        # the booth analyses at reduced size already, at one scale.
+        return MultiScaleDetector(self.cfg, refine=self.refine, coarse=self.record and not self.downscale)
+
     def cut(self) -> None:
         """A cut in the picture (booth playlist: the next segment, or the same clip again) with
         the counts kept: the background model and the tracks restart, while the gate counts,
         the sparkline and the field run on."""
         if self.counter is not None:
             self._retire(self.tracker.finish_all())
-        self.detector = Detector(self.cfg)
+        self.detector = self._make_detector()
         self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=self.record)
         if self.t_exp_hint:
             self.tracker.set_exposure_hint(self.t_exp_hint)
@@ -181,7 +188,7 @@ class Pipeline:
             return st
         h, w = image.shape[:2]
         self._ensure_gate(w, h)
-        det = self.detector.detect(image, mask)
+        det = self.detector.detect(image, mask, measure=False)
         if self.dedupe and self._content_repeat(det):
             # A lossy re-encode stores a repeated frame with small differences, so the pixel
             # test above misses it; the embers themselves have not moved.
@@ -190,10 +197,9 @@ class Pipeline:
             st.image = image
             return st
         self._last_t = t
-        if self.refine and len(det):
-            from wfglink.detect.streaks import measure_streaks
-
-            det = measure_streaks(det, self.detector.state, self.cfg)
+        # Keep repeat detection on the detector's original moments, as at one scale;
+        # oriented-window refinement can move centroids and alter that decision.
+        det = self.detector.measure(det)
         snaps = self.tracker.update(det, t, frame.index)
         self._remember_moving(frame.index)
         if self.record:
@@ -257,7 +263,7 @@ class Pipeline:
         self._rec_frames.append((int(index), float(t), bool(self.detector.ready), len(det) > 0))
         if len(det):
             cols = {k: getattr(det, k) for k in ("x", "y", "area", "peak", "flux", "length", "width", "theta",
-                                                "sat_frac", "color", "flags")}
+                                                "sat_frac", "color", "flags", "scale")}
             cols["frame"] = np.full(len(det), int(index), np.int64)
             cols["t"] = np.full(len(det), float(t))
             self._rec_det.append(cols)
@@ -268,7 +274,8 @@ class Pipeline:
 
         from wfglink.track.tracker import tracks_to_frame
 
-        det_cols = ("frame", "t", "x", "y", "area", "peak", "flux", "length", "width", "theta", "sat_frac", "color", "flags")
+        det_cols = ("frame", "t", "x", "y", "area", "peak", "flux", "length", "width", "theta", "sat_frac", "color", "flags",
+                    "scale")
         if self._rec_det:
             det = pd.DataFrame({k: np.concatenate([d[k] for d in self._rec_det]) for k in det_cols})
         else:

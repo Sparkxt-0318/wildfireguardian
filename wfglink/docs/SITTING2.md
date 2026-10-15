@@ -12,6 +12,7 @@ source .venv/bin/activate
 ## Before the evening
 
 - Sitting 1 is done, so `~/wfglink-run` exists with its `.venv`, Terminal may use the camera, the A4 calibration is in `configs/booth_local.yaml`, and the ember page is on GitHub Pages.
+- If you did only the shorter `SITTING1_TONIGHT.md`, its calibration is in that run's `tonight.yaml` and the page may still be local. Before the standard booth commands below, select the intended booth camera as in `SITTING1.md` Part 2 and run the normal `python -m wfglink calibrate` to save its calibration into `configs/booth_local.yaml`. Publish the phone page and set its permanent URL as in the tonight checklist. The short sitting deliberately did not replace existing booth settings.
 - Mac settings, once: System Settings > Lock Screen: "Start Screen Saver when inactive" Never and "Turn display off on power adapter when inactive" Never. Focus on. Automatic updates off (System Settings > General > Software Update > Automatic updates).
 - Displays: if you use the external monitor, set it to extend the desktop, not mirror it (System Settings > Displays). The booth picks the external monitor by itself.
 
@@ -28,15 +29,18 @@ source .venv/bin/activate
 ## Part 1: Update (about 10 minutes)
 
 ```
-cd ~/wfglink-run/wfglink
-git -C ~/wfglink-run fetch origin
-git -C ~/wfglink-run checkout --detach origin/claude/practical-rubin-5vu12u
-./scripts/setup_mac.sh
-source .venv/bin/activate
-python -m wfglink doctor
+wfglink_update() {
+  cd ~/wfglink-run/wfglink || return
+  git -C .. fetch origin claude/practical-rubin-5vu12u || return
+  git -C .. merge --ff-only origin/claude/practical-rubin-5vu12u || return
+  ./scripts/setup_mac.sh || return
+  source .venv/bin/activate
+  python -m wfglink doctor
+}
+wfglink_update
 ```
 
-1. The two `git` lines bring the worktree to the latest build.
+1. The two `git` lines bring the worktree forward to the latest build without switching branches or discarding local files. If they report a conflict or divergent history, the function stops. Send the error and `git -C ~/wfglink-run status --short`; do not force a checkout or reset.
 2. `./scripts/setup_mac.sh` again installs anything new and downloads a booth clip that is still missing. It is safe to repeat.
 3. `python -m wfglink doctor`: every line (eight of them) must end in OK. With the monitor connected, the screens line lists it; the clips line says the booth's two clips are there.
 
@@ -103,7 +107,7 @@ Send the logs to Claude when you report a problem.
 
 | Problem | What to do |
 |---|---|
-| `git checkout` says your local changes, or untracked files, would be overwritten | Files that wfglink wrote in the worktree (the clip list after a direct `fetch_clips.py` run, an earlier report, regenerated placards) are in the way. Run `git -C ~/wfglink-run checkout --detach --force origin/claude/practical-rubin-5vu12u`. It resets only wfglink's tracked files; `data/raw`, `.venv`, `logs` and `configs/booth_local.yaml` (and the QR card you made) stay as they are. |
+| The fast-forward update refuses local changes, untracked files, or divergent history | Stop and keep the worktree intact. Send the exact error, `git -C ~/wfglink-run status --short`, and `git -C ~/wfglink-run log -3 --oneline`. Do not use a forced checkout or reset: it can discard tracked files anywhere in the repository, including other sessions' work. A separate fresh worktree can be prepared after those files are accounted for. |
 | `booth.sh` says the Python in `.venv` is not found | Run `./scripts/setup_mac.sh`, then start the booth again. |
 | The booth shows "합성 영상 · 실측 아님" ("Synthetic video · not measured") instead of clips | The playlist's clips are not in `data/raw`. Run `./scripts/setup_mac.sh` while online (it downloads them), then start the booth again. A missing clip is skipped, and synthetic video plays only when no clip can play. |
 | The booth opens on the MacBook although the monitor is connected | Esc twice, check the cable, start again. If it keeps happening, start it with `./booth/booth.sh --screen external`, or with the screen's name from the `doctor` screens line. |

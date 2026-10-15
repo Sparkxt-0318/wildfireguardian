@@ -60,15 +60,20 @@ class Detections:
     sat_frac: np.ndarray = field(default_factory=_empty)
     color: np.ndarray = field(default_factory=_empty)    # chroma excess Cr - Cb versus surroundings; > 0 is warm, NaN if unknown
     flags: np.ndarray = field(default_factory=lambda: np.zeros(0, dtype=np.uint8))
+    scale: np.ndarray = field(default_factory=_empty)    # downscale factor of the level that measured it (1 = native; detect/multiscale.py)
+
+    def __post_init__(self) -> None:
+        if self.scale.shape[0] == 0 and self.x.shape[0] > 0:   # constructed without it: native
+            self.scale = np.ones(self.x.shape[0])
 
     def __len__(self) -> int:
         return int(self.x.shape[0])
 
     def subset(self, keep: np.ndarray) -> "Detections":
-        return Detections(**{k: getattr(self, k)[keep] for k in (*_FIELDS, "flags")})
+        return Detections(**{k: getattr(self, k)[keep] for k in (*_FIELDS, "flags", "scale")})
 
     def as_dict(self) -> dict[str, np.ndarray]:
-        return {k: getattr(self, k) for k in (*_FIELDS, "flags")}
+        return {k: getattr(self, k) for k in (*_FIELDS, "flags", "scale")}
 
 
 @dataclass
@@ -184,8 +189,14 @@ class Detector:
         return cv2.resize(mask, (w, h), interpolation=cv2.INTER_NEAREST)
 
     # Main entry --------------------------------------------------------------------------
-    def detect(self, image: np.ndarray, mask: np.ndarray | None = None) -> Detections:
-        """Detect candidates in one BGR frame. `mask` (uint8, nonzero = ignore) is optional."""
+    def detect(self, image: np.ndarray, mask: np.ndarray | None = None, *,
+               saturation_counts: np.ndarray | None = None, pixels_per_sample: int = 1) -> Detections:
+        """Detect candidates in one BGR frame. `mask` (uint8, nonzero = ignore) is optional.
+
+        A coarse level may supply the number of saturated source pixels in each sample:
+        averaging the colour frame alone can hide clipping. The flag threshold remains in
+        source pixels and the fraction uses the corresponding source area.
+        """
         y = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if image.ndim == 3 else image
         y_raw = y
         if self.prefilter > 0:
@@ -257,8 +268,12 @@ class Detector:
         np.maximum.at(peak, cl, cth)
         # Saturation on the brightest channel: an orange ember clips red long before luma
         # reaches the level, and a clipped channel already flattens the streak profile.
-        top = image[cy, cx].max(axis=1) if image.ndim == 3 else y_raw[cy, cx]
-        sat = np.bincount(cl, (top >= self.sat_level).astype(np.float64), minlength=m + 1)
+        if saturation_counts is None:
+            top = image[cy, cx].max(axis=1) if image.ndim == 3 else y_raw[cy, cx]
+            sat_weights = (top >= self.sat_level).astype(np.float64)
+        else:
+            sat_weights = saturation_counts[cy, cx]
+        sat = np.bincount(cl, sat_weights, minlength=m + 1)
 
         # Kept-label image inside the union of padded bounding boxes only.
         x0 = max(int(stats[idx, cv2.CC_STAT_LEFT].min()) - 8, 0)
@@ -322,7 +337,7 @@ class Detector:
             color = np.where(c_w > 0, c_sum / np.where(c_w > 0, c_w, 1) - ring_ref, np.nan)
 
         area = areas[idx].astype(np.float64)
-        sat_frac = sat[1:] / np.maximum(area, 1)
+        sat_frac = sat[1:] / (np.maximum(area, 1) * pixels_per_sample)
         flags = np.zeros(m, dtype=np.uint8)
         flags[sat[1:] >= self.sat_min_px] |= FLAG_SATURATED
         h, w = y.shape

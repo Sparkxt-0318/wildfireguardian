@@ -154,7 +154,7 @@ def read_rows() -> dict[str, dict]:
 
 def write_rows(rows: dict[str, dict]) -> None:
     with open(CSV, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS)
+        w = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
         w.writeheader()
         for key in sorted(rows):
             w.writerow({k: rows[key].get(k, "") for k in FIELDS})

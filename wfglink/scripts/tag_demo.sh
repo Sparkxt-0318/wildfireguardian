@@ -21,7 +21,7 @@ COMMIT="$(git -C "$REPO" rev-parse HEAD)"
 DAY="$(TZ=Asia/Shanghai date +%Y%m%d)"
 EXPORT="$(mktemp -d)"
 trap 'rm -rf "$EXPORT"' EXIT
-git -C "$REPO" archive "$COMMIT" wfglink | tar -x -C "$EXPORT"
+git -C "$REPO" archive --prefix=wfglink/ "$COMMIT:wfglink" | tar -x -C "$EXPORT"
 # The playlist's clip settings name data/raw/...; the clips themselves are never committed.
 [[ -e "$ROOT/data/raw" ]] && ln -s "$ROOT/data/raw" "$EXPORT/wfglink/data/raw"
 OUT="$ROOT/results/runs/demo_gate_$DAY"
@@ -37,8 +37,13 @@ r["tested_commit"] = sys.argv[2]
 json.dump(r, open(p, "w"), indent=2)
 EOF
 TAG="wfglink-demo-$DAY"
+BUILDS="$ROOT/DEMO_BUILDS.md"
 n=2
-while git -C "$REPO" rev-parse -q --verify "refs/tags/$TAG" >/dev/null; do TAG="wfglink-demo-$DAY-$n"; n=$((n + 1)); done
+while git -C "$REPO" rev-parse -q --verify "refs/tags/$TAG" >/dev/null ||
+      { [[ -f "$BUILDS" ]] && grep -Fq "| $TAG |" "$BUILDS"; }; do
+  TAG="wfglink-demo-$DAY-$n"
+  n=$((n + 1))
+done
 git -C "$REPO" tag -a "$TAG" -m "[wfglink] demo build: demo gate passed (${GATE_SECONDS} s each: synthetic, the booth playlist, ember mode on generated phones, the keys)" "$COMMIT"
 pushed=no
 for i in 1 2 3; do
@@ -52,7 +57,6 @@ r = json.load(open(sys.argv[1]))
 print("; ".join(f"{k} {v['frames']} frames, {v['paints']} paints, {len(v['errors'])} errors" for k, v in r["runs"].items()))
 EOF2
 )
-BUILDS="$ROOT/DEMO_BUILDS.md"
 if [[ ! -f "$BUILDS" ]]; then
   cat >"$BUILDS" <<'EOF2'
 # Demo builds
