@@ -353,3 +353,14 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Fire mode at the booth already analyses C5 at about half resolution: the booth scales every frame to at most live.analysis_max_pixels, which for C5's crop (1920 by 2160) is a factor of 0.47, and C6 (540 by 360) plays at its own size. So the fallback you set for Saturday, half-resolution booth copies, is in effect without copies; copies would only lower decoding cost, and the soak's paint rate will show whether that matters.
   - The demo gate judges the ember count with the cap lifted (its scene has exactly three phones, so the cap would hide a lamp taken for an ember) and now also judges the ember part of the keys run.
 - Next: the full test suite and the demo gate on the committed tree; the forwardable command list for you; then the scale workflow's result for file mode.
+
+## 2026-10-15T19:20+08:00 Demo gate: the lamp over-count depends on the analysis rate
+
+- Goal: find why the demo gate's ember runs fail on the count check (more embers than the scene's phones), which the verification's runs had passed.
+- Commands: `python -m wfglink demo-gate --seconds 30` and `--seconds 60` on 2d87bf3 (this container, with the scale workflow running at the same time); the gate's generated booth scene replayed frame by frame through EmberPipeline with the cap lifted, analysing every frame, every second and every third (scratch script); the same with ember.track.light_rest_s set lower (scratch, not adopted).
+- Parameters: defaults; scratch variants of ember.track.light_rest_s only.
+- Results:
+  - Both gate runs failed only on the ember count: the synthetic, playlist and paint checks passed, with no errors. The keys run failed the same check.
+  - Replayed at the full frame rate the scene never shows more embers than phones. With every second or third frame analysed, as on a loaded machine, a phone sweeping past the desk lamp hands its ember to the lamp now and then, and the stuck ember (speed 0, on the lamp) stays until the light-rest rule ends it after ember.track.light_rest_s.
+  - A shorter light rest reduces the over-count but does not remove it, so the cause is the hand-off at lower rates, not the rest time.
+- Decisions: no setting changed; the booth's cap of three phones means the screen never shows more than three, but at a low analysis rate a lamp can hold one slot for about a second. Next tracker step: refuse a hand-off from a moving ember to a blob on the light map. The gate's result on the Mac (the rate of the real machine) decides whether that is urgent; the demo build of 161612e stays the last tagged working demo until a gate passes.
