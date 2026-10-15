@@ -1,6 +1,0 @@
-/home/user/wildfireguardian/last-gasp/figures/fig9_receive_example.png
-/home/user/wildfireguardian/last-gasp/figures/fig10_gateways.png
-/home/user/wildfireguardian/last-gasp/figures/fig11_trips.png
-/home/user/wildfireguardian/last-gasp/figures/fig12_spacing_cost.png
-{"n_runs": 20, "detection_latency_median_s": 2.5744559189278036, "detection_latency_p90_s": 2.996800540494502, "runs_with_correct_spot_flag": 20, "runs_with_any_extra_spot_flag": 0, "heartbeat_s": 1.0, "timeout_beats": 3, "packet_loss": 0.05}
-3914 numbers written
