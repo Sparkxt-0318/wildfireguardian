@@ -140,3 +140,14 @@ Answer: "Booth change, decided by me: drop the LED turntable test completely (an
 - Validation: test with synthetic phone-like blobs and with a clip I record of me moving my phone at the standing spot; report detection and tracking quality, and measure speed against a known motion if possible (for example, a phone moved along a ruler-marked 1 m path in a timed 1 s).
 
 Update PLAN.md, LOG.md, the README and the booth runbook. Keep the Monday Oct 19 target, and the always-demo-ready rule."
+
+### 2026-10-15, sitting 1 tonight; booth limits; dashcam as a UVC camera
+Answer: "Good work. Three requests:
+
+1. Give me a sitting 1 I can run TONIGHT with no new parts: the MacBook's built-in camera plus my iPhone. Exact commands in order: setup, doctor, fire mode on an approved clip, ember mode with the built-in camera, the A4 calibration (I'll print the target), and opening the phone page locally on my iPhone over the same Wi-Fi if GitHub Pages isn't set up yet. One checklist, one combined report I can paste back. Also tell me exactly how to publish booth/ember/index.html on GitHub Pages in this repo (or a separate repo if that's cleaner) and set its address for the QR code.
+
+2. Booth limits: cap ember mode at 3 tracked phones (extra phones are ignored, with a small "max 3" note). In fire mode, if the scale fix isn't validated by Saturday, use pre-scaled half-resolution booth copies of the clips, since that detects more embers.
+
+3. Camera input: also support a dashcam in USB "PC camera" (UVC) mode as the live source, selected by name like any webcam. I may buy one so the booth camera is a real dashcam.
+
+When the verification fixes are done, send me the exact command list and every difference from my manual, as one block I can forward."
