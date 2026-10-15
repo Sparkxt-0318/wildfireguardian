@@ -1,0 +1,15 @@
+{
+  "from_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+  "to_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "scopes": [
+    "wfglink/src",
+    "wfglink/configs",
+    "wfglink/scripts",
+    "wfglink/requirements.txt"
+  ],
+  "git_diff_name_only": [],
+  "runtime_source_unchanged": true,
+  "scope_note": "Memory repair changes test fixtures and documentation/evidence only. This is source identity, not a new performance or physical validation.",
+  "verification_cwd": "repository root",
+  "verified_command": "git diff --name-only 963b4c6 4d0092c -- wfglink/src wfglink/configs wfglink/scripts wfglink/requirements.txt"
+}

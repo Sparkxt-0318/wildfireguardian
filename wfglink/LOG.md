@@ -521,3 +521,29 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - Product code, phone histories and the speed estimator remain unchanged. The actual evolving-fire working-set bound and overnight soak remain unresolved; a lifecycle unit pass does not turn them into application memory validation.
 - Decisions: accept only the bounded lifecycle-test repair, preserve all actual-fire failures and scope limits, and repeat the complete committed-source checks before tagging.
 - Next: full regression, official phone suite, long uncapped replay and the unchanged daily UI gate.
+
+## 2026-10-15T21:01:46+08:00 Clean release regression and official strict phone validation
+
+- Goal: verify the committed release source after the lifecycle-test repair and preserve strict phone non-regression.
+- Commands: `bash scripts/run_from_head.sh python -m pytest -q`; `validate --suite ember --out results/runs/ember_guard/release_4d0092c_ember_report.json`; `scripts/check_ember_stride.py --seconds 60`; saved-report recording with `scripts/record_continuation.py`. Each ran from the 4d0092c export. Complete passing and failed logs remain in the durable evidence bundle.
+- Parameters: pinned Mac runtime, offscreen Qt, default measurement settings, full original gate duration, diagnostic count cap lifted and unchanged phone/source hashes. The numeric recorder only reads saved fire reports; no held-out evaluation is repeated.
+- Results:
+  - The complete committed-source run passes with 550 <!-- n:continuation.final_tests.passed --> passed, 0 <!-- n:continuation.final_tests.failed --> failed and 3 <!-- n:continuation.final_tests.skipped --> skipped tests. The documented lifecycle fixture is bounded unit evidence; actual evolving-fire working-set memory remains unresolved.
+  - Official phone quality and speed values exactly match the prior strict report. The exact standing trailing-window median remains 3.228608% <!-- n:continuation.ember.speed_median_percent -->, and every saved full-rate history and deterministic quality/speed/ruler result remains equal to the original tracker. Timing differences are retained without treating them as a controlled performance comparison.
+  - The clean long replay has 0 <!-- n:continuation.stride.2.over_three_frames --> excess-count frames over 900 <!-- n:continuation.stride.2.frames --> analysed frames at stride two. At stride three it retains 1 <!-- n:continuation.stride.3.over_three_frames --> of 600 <!-- n:continuation.stride.3.frames --> excess-count frames and 3 <!-- n:continuation.stride.3.lamp_frames --> geometric lamp-region flags. These flags are a proximity heuristic, not a direct ownership oracle. The sustained late TV/background over-count is removed.
+  - The identity-switch rate remains 5.206 <!-- n:continuation.ember.id_switches_per_phone_per_min --> per phone minute and misses its goal. Actual phone and ruler recordings are missing. Those limits and hidden abrupt-stop/reversal fragmentation remain explicit.
+- Decisions: retain the strict source and all residual/failure evidence. The fire method and once-only held-out results are unchanged.
+- Next: finish the unchanged daily UI gate and publish a demo build only if it passes.
+
+## 2026-10-15T21:07:18+08:00 Daily demo gate passes and remote tag is verified
+
+- Goal: publish the tested daily demo and complete the continuation handoff.
+- Commands: `TMPDIR=results/runs/tmp MPLCONFIGDIR=.venv/mpl bash scripts/tag_demo.sh 60` at 4d0092c; `git ls-remote origin 'refs/tags/wfglink-demo-20261015-4*'`; direct inspection of every gate capture and the wide-layout fixtures. Reports, original log, screenshots, remote refs and tag-object receipt are in the sealed continuation bundle.
+- Parameters: original scene, count tolerance, keyboard sequence and diagnostic cap lift; committed export with explicit clean Git provenance. No gate or held-out protocol was changed.
+- Results:
+  - Every daily mode passes the 60 s <!-- n:continuation.demo.seconds --> gate: synthetic fire has 1802 <!-- n:continuation.demo.synthetic.frames --> analysed frames, the approved playlist 1786 <!-- n:continuation.demo.playlist.frames -->, generated phones 1792 <!-- n:continuation.demo.ember.frames --> and the keyboard sequence 1696 <!-- n:continuation.demo.keys.frames -->. Application error counts are 0 <!-- n:continuation.demo.synthetic.error_count --> <!-- n:continuation.demo.playlist.error_count --> <!-- n:continuation.demo.ember.error_count --> <!-- n:continuation.demo.keys.error_count --> in every mode.
+  - Both generated-phone runs have 0 <!-- n:continuation.demo.ember.over_three_frames --> <!-- n:continuation.demo.keys.over_three_frames --> excess-count frames. The main phone run's maximum count is 3 <!-- n:continuation.demo.ember.max_ember_count -->, with the diagnostic cap still lifted. Sparse deterministic replay residuals remain separately reported.
+  - Tag `wfglink-demo-20261015-4` was pushed successfully. Its remote annotated tag peels to the exact tested 4d0092c commit. The daily ledger records the actual publication outcome.
+  - Generated-data and uncalibrated labels are visible. Narrow gate captures truncate long sidebar units; the wide layout fixtures remain legible. The real C5 overlay retains false fixture/reflection tracks and suspect associations, consistent with its poor labelled precision. These captures are not physical validation.
+- Decisions: publish the passing daily build with failed attempts, strict non-regression evidence and every remaining limit preserved. Keep the PR a draft on the same branch, without merging Main.
+- Next: run the forwardable sitting instructions and return the combined report; later physical recordings and the overnight soak remain required. No further held-out scoring is authorized by this handoff.

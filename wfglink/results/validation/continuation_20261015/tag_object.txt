@@ -1,0 +1,6 @@
+object 4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53
+type commit
+tag wfglink-demo-20261015-4
+tagger Sparkxt-0318 <siyeong0318@gmail.com> 1792069491 +0800
+
+[wfglink] demo build: demo gate passed (60 s each: synthetic, the booth playlist, ember mode on generated phones, the keys)

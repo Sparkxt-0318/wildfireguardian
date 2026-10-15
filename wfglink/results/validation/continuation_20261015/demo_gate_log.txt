@@ -1,0 +1,10 @@
+objc[49051]: Class AVFFrameReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x107b5c3a8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1286cc3a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[49051]: Class AVFAudioReceiver is implemented in both /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x107b5c3f8) and /Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.63.1.102.dylib (0x1286cc3f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+demo gate synthetic: PASS frames=1802 paints=1803 []
+demo gate playlist: PASS frames=1786 paints=1786 []
+demo gate ember: PASS frames=1792 paints=1795 []
+demo gate keys: PASS frames=1696 paints=1747 []
+demo gate: PASS (/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/demo_gate_20261015/report.json)
+To https://github.com/Sparkxt-0318/wildfireguardian.git
+ * [new tag]         wfglink-demo-20261015-4 -> wfglink-demo-20261015-4
+TAGGED wfglink-demo-20261015-4 4d0092c (pushed: yes; recorded in DEMO_BUILDS.md)

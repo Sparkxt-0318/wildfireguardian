@@ -1,0 +1,15 @@
+{
+  "created": "2026-10-15T21:07:18+08:00",
+  "tag": "wfglink-demo-20261015-4",
+  "tag_pushed": true,
+  "remote_tag_object": "f00e58f517b2be29efef92c35c05c317a4eb10cd",
+  "peeled_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "tested_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "tag_source_verified": true,
+  "branch": "claude/practical-rubin-5vu12u",
+  "base_branch": "Main",
+  "pull_request": "https://github.com/Sparkxt-0318/wildfireguardian/pull/53",
+  "pull_request_draft": true,
+  "remote_refs_sha256": "2b3d1fc1bdc505965a1b032e39582fd1ffe9c083a834a874e7b9995ad6c80f87",
+  "scope": "Daily gate readiness on this host; not physical camera, measurement accuracy, application-wide memory or overnight soak validation."
+}

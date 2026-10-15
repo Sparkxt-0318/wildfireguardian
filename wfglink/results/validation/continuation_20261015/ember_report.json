@@ -1,7 +1,7 @@
 {
   "suite": "ember",
-  "created": "2026-10-15T19:58:09+08:00",
-  "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "created": "2026-10-15T20:58:58+08:00",
+  "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
   "git_dirty": false,
   "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
   "goals": {
@@ -39,8 +39,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.22,
-        "proc_ms_p95": 1.52
+        "proc_ms_median": 1.08,
+        "proc_ms_p95": 1.31
       },
       "two_at_2m": {
         "frames": 600,
@@ -65,8 +65,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.47,
-        "proc_ms_p95": 1.86
+        "proc_ms_median": 1.24,
+        "proc_ms_p95": 1.49
       },
       "three_mixed": {
         "frames": 600,
@@ -91,8 +91,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.69,
-        "proc_ms_p95": 2.06
+        "proc_ms_median": 1.45,
+        "proc_ms_p95": 1.73
       },
       "six_crowd": {
         "frames": 600,
@@ -117,8 +117,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.89,
-        "proc_ms_p95": 2.32
+        "proc_ms_median": 1.59,
+        "proc_ms_p95": 1.89
       },
       "near_far": {
         "frames": 600,
@@ -143,8 +143,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.53,
-        "proc_ms_p95": 1.95
+        "proc_ms_median": 1.37,
+        "proc_ms_p95": 1.62
       },
       "fast": {
         "frames": 600,
@@ -169,8 +169,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.49,
-        "proc_ms_p95": 1.85
+        "proc_ms_median": 1.44,
+        "proc_ms_p95": 1.72
       },
       "empty_room": {
         "frames": 600,
@@ -195,8 +195,8 @@
         "false_tracks_per_min": 0.0,
         "static_light_tracks": 0,
         "static_light_tracks_per_min": 0.0,
-        "proc_ms_median": 1.15,
-        "proc_ms_p95": 1.53
+        "proc_ms_median": 1.03,
+        "proc_ms_p95": 1.3
       }
     },
     "pooled": {
@@ -289,11 +289,11 @@
   },
   "ember_free": {
     "status": "missing",
-    "reason": "no /private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.Fq9V60DOxl/wfglink/data/raw/ember_free.* (python -m wfglink record ember_free)"
+    "reason": "no /private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.FMoX5Zx6F0/wfglink/data/raw/ember_free.* (python -m wfglink record ember_free)"
   },
   "ember_ruler": {
     "status": "missing",
-    "reason": "no /private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.Fq9V60DOxl/wfglink/data/raw/ember_ruler.* (python -m wfglink record ember_ruler)"
+    "reason": "no /private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.FMoX5Zx6F0/wfglink/data/raw/ember_ruler.* (python -m wfglink record ember_ruler)"
   },
   "goal_check": {
     "recall_facing": {

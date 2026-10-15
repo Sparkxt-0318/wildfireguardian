@@ -9,13 +9,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 95.0,
+          "unit": "percent",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.f1.hi": {
       "value": 0.332082,
@@ -24,13 +35,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.332082,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.f1.lo": {
       "value": 0.055771,
@@ -39,13 +61,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.055771,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.f1.value": {
       "value": 0.20339,
@@ -54,13 +87,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.20339,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.fn": {
       "value": 20,
@@ -69,13 +113,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 20,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.fp": {
       "value": 168,
@@ -84,13 +139,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 168,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.frames": {
       "value": 20,
@@ -99,13 +165,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 20,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.precision.hi": {
       "value": 0.228577,
@@ -114,13 +191,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.228577,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.precision.lo": {
       "value": 0.030483,
@@ -129,13 +217,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.030483,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.precision.value": {
       "value": 0.125,
@@ -144,13 +243,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.125,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.recall.hi": {
       "value": 0.682959,
@@ -159,13 +269,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.682959,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.recall.lo": {
       "value": 0.333333,
@@ -174,13 +295,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.333333,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.recall.value": {
       "value": 0.545455,
@@ -189,13 +321,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.545455,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.tiles_scored": {
       "value": 40,
@@ -204,13 +347,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 40,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.after.tp": {
       "value": 24,
@@ -219,13 +373,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 24,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.ci_percent": {
       "value": 95.0,
@@ -234,13 +399,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 95.0,
+          "unit": "percent",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.f1.hi": {
       "value": 0.19179,
@@ -249,13 +425,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.19179,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.f1.lo": {
       "value": 0.019128,
@@ -264,13 +451,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.019128,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.f1.value": {
       "value": 0.09901,
@@ -279,13 +477,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.09901,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.fn": {
       "value": 34,
@@ -294,13 +503,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 34,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.fp": {
       "value": 148,
@@ -309,13 +529,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 148,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.frames": {
       "value": 20,
@@ -324,13 +555,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 20,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.precision.hi": {
       "value": 0.14014,
@@ -339,13 +581,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.14014,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.precision.lo": {
       "value": 0.010471,
@@ -354,13 +607,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.010471,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.precision.value": {
       "value": 0.063291,
@@ -369,13 +633,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.063291,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.recall.hi": {
       "value": 0.387783,
@@ -384,13 +659,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.387783,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.recall.lo": {
       "value": 0.071367,
@@ -399,13 +685,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.071367,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.recall.value": {
       "value": 0.227273,
@@ -414,13 +711,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.227273,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.tiles_scored": {
       "value": 40,
@@ -429,13 +737,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 40,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.C5.before.tp": {
       "value": 10,
@@ -444,29 +763,50 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:49+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 10,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.ci_percent": {
       "value": 95.0,
       "unit": "percent",
-      "description": "Confidence level used by the saved exact binomial coverage interval",
-      "script": "python -c: inspect.signature(coverage).parameters['ci'].default",
+      "description": "Confidence level of the saved exact binomial coverage interval",
+      "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "coverage_implementation": "5af32a66bd3b03fad4add78d763a70cf2c68ada9ea938bf01c60de4e4a28833f",
-        "saved_coverage": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
+        "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:05:47+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 95.0,
+          "unit": "percent",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:05:47+08:00",
+          "script": "python -c: inspect.signature(coverage).parameters['ci'].default"
+        }
+      ]
     },
     "continuation.coverage.clips": {
       "value": 200,
@@ -475,13 +815,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 200,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.errors": {
       "value": 0,
@@ -490,13 +841,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.fraction": {
       "value": 1.0,
@@ -505,13 +867,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 1.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.goal": {
       "value": 0.9,
@@ -520,13 +893,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.9,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.hi": {
       "value": 1.0,
@@ -535,13 +919,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 1.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.k": {
       "value": 200,
@@ -550,13 +945,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 200,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.lo": {
       "value": 0.981725,
@@ -565,13 +971,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.981725,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.coverage.n": {
       "value": 200,
@@ -580,12 +997,338 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "369512c2e8dbce283d862daa5ef9bb85e1719226c60566a103a4acf04ef571cc"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 200,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
+    },
+    "continuation.demo.ember.ember_states": {
+      "value": 1792,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.ember_states",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.error_count": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.error_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.frames": {
+      "value": 1792,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.max_ember_count": {
+      "value": 3,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.max_ember_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.over_three_fraction": {
+      "value": 0.0,
+      "unit": "fraction",
+      "description": "Committed headless daily demo gate: ember.over_three_fraction",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.over_three_frames": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.over_three_frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.ember.paints": {
+      "value": 1795,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: ember.paints",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.ember_states": {
+      "value": 716,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.ember_states",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.error_count": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.error_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.frames": {
+      "value": 1696,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.max_ember_count": {
+      "value": 3,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.max_ember_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.over_three_fraction": {
+      "value": 0.0,
+      "unit": "fraction",
+      "description": "Committed headless daily demo gate: keys.over_three_fraction",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.over_three_frames": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.over_three_frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.keys.paints": {
+      "value": 1747,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: keys.paints",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.playlist.error_count": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: playlist.error_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.playlist.frames": {
+      "value": 1786,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: playlist.frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.playlist.paints": {
+      "value": 1786,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: playlist.paints",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.seconds": {
+      "value": 60.0,
+      "unit": "s",
+      "description": "Committed headless daily demo gate: seconds",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.synthetic.error_count": {
+      "value": 0,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: synthetic.error_count",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.synthetic.frames": {
+      "value": 1802,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: synthetic.frames",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.demo.synthetic.paints": {
+      "value": 1803,
+      "unit": "count",
+      "description": "Committed headless daily demo gate: synthetic.paints",
+      "script": "python stdin: record saved daily demo gate",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "demo_gate_report": "e04bc3c006e8a8a8fc8726a46ae3395319e32b7f88a8c2eb7d9652d4aa14b8c8"
+      },
+      "produced_at": "2026-10-15T21:06:41+08:00",
       "host": "Darwin arm64 Python 3.12.1"
     },
     "continuation.ember.id_switches_per_phone_per_min": {
@@ -595,13 +1338,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 5.206,
+          "unit": "per phone minute",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.id_switches_persistent_per_phone_per_min": {
       "value": 3.9045,
@@ -610,13 +1364,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 3.9045,
+          "unit": "per phone minute",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.mota": {
       "value": 0.9562,
@@ -625,13 +1390,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.9562,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.precision": {
       "value": 0.9882,
@@ -640,13 +1416,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.9882,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.recall": {
       "value": 0.9706,
@@ -655,13 +1442,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.9706,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.recall_after_acquisition": {
       "value": 0.9799,
@@ -670,13 +1468,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.9799,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.speed_median_percent": {
       "value": 3.228608,
@@ -685,13 +1494,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "0767d7f97b7b3b1c9ebf9cf88993907b4fd0f42e8e71a373d55f334d41f85591"
+        "saved_report": "ebf52c910f973f38b3d5b644ed6d10d34dbc147b0466f12e3fc5d8c05b6864e8"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 3.228608,
+          "unit": "percent",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.speed_median_rel_err": {
       "value": 0.0323,
@@ -700,13 +1520,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0323,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.ember.static_light_tracks_per_min": {
       "value": 0.0,
@@ -715,13 +1546,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29"
+        "saved_report": "ecf85bb2e49272f9fd53214309a1b51121af143b32adc21ae7489ee34bff0206"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "per minute",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.failed_memory_tests.failed": {
       "value": 1,
@@ -850,28 +1692,50 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "6c1aeccc271c89afd1720c8f7debc991c611d6feb6d5b0abafddcfa0ccb7a615"
+        "saved_report": "6bb1c9ae81eaed97947ddf22ee2da27303cf8818261a60d88f3b76b94d7a1cfe"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.final_tests.passed": {
-      "value": 529,
+      "value": 550,
       "unit": "count",
       "description": "Committed complete test run passed",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "6c1aeccc271c89afd1720c8f7debc991c611d6feb6d5b0abafddcfa0ccb7a615"
+        "saved_report": "6bb1c9ae81eaed97947ddf22ee2da27303cf8818261a60d88f3b76b94d7a1cfe"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 529,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.final_tests.skipped": {
       "value": 3,
@@ -880,13 +1744,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "6c1aeccc271c89afd1720c8f7debc991c611d6feb6d5b0abafddcfa0ccb7a615"
+        "saved_report": "6bb1c9ae81eaed97947ddf22ee2da27303cf8818261a60d88f3b76b94d7a1cfe"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 3,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.base.exposure_ok": {
       "value": 0.0,
@@ -895,13 +1770,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.base.f1": {
       "value": 0.370666,
@@ -910,13 +1796,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.370666,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.base.precision": {
       "value": 0.79332,
@@ -925,13 +1822,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.79332,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.base.recall": {
       "value": 0.241861,
@@ -940,13 +1848,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.241861,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-mixed.exposure_ok": {
       "value": 0.0,
@@ -955,13 +1874,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-mixed.f1": {
       "value": 0.622834,
@@ -970,13 +1900,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.622834,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-mixed.precision": {
       "value": 0.862648,
@@ -985,13 +1926,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.862648,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-mixed.recall": {
       "value": 0.487359,
@@ -1000,13 +1952,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.487359,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-near.exposure_ok": {
       "value": 0.0,
@@ -1015,13 +1978,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-near.f1": {
       "value": 0.743956,
@@ -1030,13 +2004,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.743956,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-near.precision": {
       "value": 0.746164,
@@ -1045,13 +2030,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.746164,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.hires.kind-near.recall": {
       "value": 0.74341,
@@ -1060,13 +2056,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "9bddf50834a603ac8468b47cdf3ff6181165f48cb3fd58f8002ca018207de4a0"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.74341,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.initial_tests.failed": {
       "value": 6,
@@ -1075,13 +2082,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1bb56bd7b28e5944ca93a1a41548282833a16e52a1013c1c43b72fe3ffe45434"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 6,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.initial_tests.passed": {
       "value": 486,
@@ -1090,13 +2108,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1bb56bd7b28e5944ca93a1a41548282833a16e52a1013c1c43b72fe3ffe45434"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 486,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.initial_tests.skipped": {
       "value": 3,
@@ -1105,13 +2134,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "1bb56bd7b28e5944ca93a1a41548282833a16e52a1013c1c43b72fe3ffe45434"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 3,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.mismatch.clips": {
       "value": 60,
@@ -1120,13 +2160,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "ed1c5b3f60f128beb4e990aa66d0053be02db6030ffdbb9f37ed801fb3928450"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 60,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.mismatch.errors": {
       "value": 0,
@@ -1135,28 +2186,50 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
         "saved_report": "ed1c5b3f60f128beb4e990aa66d0053be02db6030ffdbb9f37ed801fb3928450"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.1.frames": {
-      "value": 1200,
+      "value": 1800,
       "unit": "count",
       "description": "Uncapped phone replay stride 1, frames",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 1200,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.1.lamp_frames": {
       "value": 0,
@@ -1165,13 +2238,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.1.over_three_fraction": {
       "value": 0.0,
@@ -1180,13 +2264,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.1.over_three_frames": {
       "value": 0,
@@ -1195,28 +2290,50 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.2.frames": {
-      "value": 600,
+      "value": 900,
       "unit": "count",
       "description": "Uncapped phone replay stride 2, frames",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 600,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.2.lamp_frames": {
       "value": 0,
@@ -1225,13 +2342,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.2.over_three_fraction": {
       "value": 0.0,
@@ -1240,13 +2368,24 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.2.over_three_frames": {
       "value": 0,
@@ -1255,72 +2394,157 @@
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.3.frames": {
-      "value": 400,
+      "value": 600,
       "unit": "count",
       "description": "Uncapped phone replay stride 3, frames",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 400,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.3.lamp_frames": {
-      "value": 0,
+      "value": 3,
       "unit": "count",
       "description": "Uncapped phone replay stride 3, lamp_frames",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.3.over_three_fraction": {
-      "value": 0.0,
+      "value": 0.001667,
       "unit": "fraction",
       "description": "Uncapped phone replay stride 3, over_three_fraction",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
-      "host": "Darwin arm64 Python 3.12.1"
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0.0,
+          "unit": "fraction",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
     },
     "continuation.stride.3.over_three_frames": {
-      "value": 0,
+      "value": 1,
       "unit": "count",
       "description": "Uncapped phone replay stride 3, over_three_frames",
       "script": "scripts/record_continuation.py",
       "config": "configs/default.yaml",
       "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
-      "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
       "git_dirty": false,
       "inputs": {
-        "saved_report": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb"
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
       },
-      "produced_at": "2026-10-15T20:24:27+08:00",
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1",
+      "history": [
+        {
+          "value": 0,
+          "unit": "count",
+          "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-15T20:24:27+08:00",
+          "script": "scripts/record_continuation.py"
+        }
+      ]
+    },
+    "continuation.stride.max_tracks": {
+      "value": 6,
+      "unit": "count",
+      "description": "Uncapped replay max_tracks",
+      "script": "scripts/record_continuation.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
+      },
+      "produced_at": "2026-10-15T21:00:50+08:00",
+      "host": "Darwin arm64 Python 3.12.1"
+    },
+    "continuation.stride.seconds": {
+      "value": 60.0,
+      "unit": "s",
+      "description": "Uncapped replay seconds",
+      "script": "scripts/record_continuation.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+      "git_dirty": false,
+      "inputs": {
+        "saved_report": "e48817c13830f118902c0655601e665748ac1c3625a699bcb79f704dcee4d355"
+      },
+      "produced_at": "2026-10-15T21:00:50+08:00",
       "host": "Darwin arm64 Python 3.12.1"
     },
     "core.base.cpc_gross_bias": {

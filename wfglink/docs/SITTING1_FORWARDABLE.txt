@@ -145,8 +145,9 @@ Permanent GitHub Pages publishing, separate from tonight:
    the iPhone and check the page. Use the actual address, not that placeholder.
 5. In ~/wfglink-run/wfglink, run touch configs/booth_local.yaml and then
    open -e configs/booth_local.yaml. Preserve all existing settings. Under the
-   existing booth: mapping add ember_page_url: followed by the actual URL,
-   indented two spaces. If booth: is absent, copy the exact two file lines below,
+   existing booth: mapping set ember_page_url: to the actual URL, replacing an
+   existing value or adding the key if absent, indented two spaces. If booth: is
+   absent, copy the exact two file lines below,
    replacing the URL. booth: starts in column zero; its child has two spaces.
 
 ```yaml

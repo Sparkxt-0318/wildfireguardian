@@ -1,5 +1,9 @@
 Continuation evidence bundle, 2026-10-15
 
+Published daily build: wfglink-demo-20261015-4, exact tested source 4d0092c.
+The complete committed regression, official strict phone comparison and all daily
+gate modes pass. demo_release_identity.json binds the verified remote tag.
+
 Source identities are per artifact, not inferred from this folder's Git history:
 - Frozen fire verification and one-pass mismatch/coverage scoring: f9e72c2.
 - Corrected C10 tracking-only output and same-scope determinism: 8e39d44.
@@ -52,5 +56,6 @@ performance or universal equivalence.
 
 bundle_manifest.json is the historical worker payload manifest, with its own
 explicit exclusions. phone_uncertainty_manifest.json covers the revised candidate
-copies. A final release manifest binds all durable payload files when assembly is
-complete. Raw video and large run caches remain ignored and are not in this folder.
+copies. release_manifest.json binds all completed durable payload files. Earlier worker
+"pending" statuses describe their historical assembly stage; the final manifest
+resolves the current reports without rewriting those historical records. Raw video and large run caches remain ignored and are not in this folder.

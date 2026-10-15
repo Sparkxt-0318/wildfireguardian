@@ -1,17 +1,19 @@
 {
-  "passed": 529,
+  "passed": 550,
   "failed": 0,
   "skipped": 3,
-  "seconds": 336.02,
-  "created": "2026-10-15T20:05:01+08:00",
-  "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "seconds": 322.3,
+  "created": "2026-10-15T20:58:59+08:00",
+  "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "git_dirty": false,
   "host": "Darwin arm64 Python 3.12.1",
   "command": "TMPDIR=results/runs/tmp MPLCONFIGDIR=.venv/mpl QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m pytest -q",
   "log": "final_full_pytest.txt",
-  "log_sha256": "7dafe675acb04fb7e58ae794aec3050954f40292c1b5856d9a2ffb3ad991f806",
+  "log_sha256": "a9e3770468d93eeb215dde4836afb311dc3bcc7d97d14799ce71b73887cf7ceb",
   "skips": [
     "Real macOS camera permission cannot be mocked by this test",
     "System CA bundle fixture unavailable on this host",
     "Optional 720p timing test requires WFGLINK_SLOW=1"
-  ]
+  ],
+  "memory_scope": "Mode-switch lifecycle fixture uses controlled full-resolution fire input with real Player/Pipeline and release checks. Actual evolving-fire working-set bound remains unresolved."
 }
