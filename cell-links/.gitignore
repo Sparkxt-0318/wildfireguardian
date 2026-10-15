@@ -1,7 +1,0 @@
-.venv/
-__pycache__/
-*.pyc
-.pytest_cache/
-.ipynb_checkpoints/
-# Large raw downloads (DEM tiles, external RSL datasets). Provenance is in data/SOURCES.md.
-data/raw/
