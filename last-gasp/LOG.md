@@ -260,3 +260,28 @@ Append-only. Times are Asia/Shanghai (CST, UTC+8). All results are synthetic. En
   3. Better spot-detection method.
   4. Use grid bursts and trips as interval constraints.
   5. Flash and test the ESP32 sketch.
+
+## 2026-10-15 10:41 Push, draft PR, booth page, freeze
+
+- The user overrode the no-push rule for last-gasp only.
+  - `git push -u origin claude/affectionate-dijkstra-c6zrp7`: 15 commits, accepted as a new remote branch. No rebase or force.
+  - Draft PR opened: https://github.com/Sparkxt-0318/wildfireguardian/pull/54, titled "[last-gasp] phase 1 and 2: synthetic feasibility study", base `Main`.
+- Freeze: no new experiments from here on.
+- Booth figure: `scripts/13_booth_figure.py` at commit f321f08 (clean). It re-renders existing configurations for world 0:
+  - left panel: phase 1 default meters (IDW after grid filtering), 81% of fire signals censored, error 5.6 / 26.3 min;
+  - right panel: phase 2 tags every 200 m, mesh, 3 spread gateways, 97% heard, error 1.5 / 5.7 min.
+  - Metrics: `results/booth_figure_metrics.json`; keys `booth_figure.*` in NUMBERS.json.
+  - Inspection fixes: titles overlapped subtitles; panel extents differed; legend box; the suptitle now states that this is a single run.
+- `BOOTH.md` written in English and Korean.
+  - Every number was checked against NUMBERS.json, using 10-run medians:
+    - meters: 75% censored, 24% fire-caused, 5.4 / 26.7 min;
+    - 3 spread gateways: 96%, 1.6 / 5.6;
+    - 3 coverage gateways: 60%, 1.9 / 18.9;
+    - 4 coverage gateways: 77%, 1.8 / 11.4;
+    - grid-powered gateways: 59%;
+    - cost: ,049 per km² and 2 per year;
+    - tag parts: 6.09;
+    - battery: 3.3 years;
+    - pessimistic radio: 69%.
+  - States the IBM US9721458B2 prior art.
+- Command: `.venv/bin/python scripts/07_numbers.py` (3,928 numbers).

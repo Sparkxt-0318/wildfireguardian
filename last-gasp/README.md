@@ -20,7 +20,9 @@ The catch is that devices also die for non-fire reasons. A failed power line bla
 
 It also tests which node densities, delivery rates, noise levels and grid fault rates make it work or break. The original brief is in `docs/PROMPT.md`.
 
-## Current status (2026-10-15)
+## Current status (2026-10-15): frozen
+
+No new experiments. The booth summary is `BOOTH.md` (English and Korean) with `figures/fig13_booth.png`. Draft pull request: https://github.com/Sparkxt-0318/wildfireguardian/pull/54.
 
 ### Phase 1 (complete): `RESULTS.md`
 
@@ -44,6 +46,7 @@ It also tests which node densities, delivery rates, noise levels and grid fault 
 | Path | Contents |
 |---|---|
 | `RESULTS.md` | Phase 1 findings (meters versus tags), go or no-go, data to request |
+| `BOOTH.md` | One-page booth story in English and Korean, with the booth figure |
 | `RESULTS_PHASE2.md` | Phase 2: receive side, trip logs, economics, novelty, demo, updated go or no-go |
 | `demo/` | Booth display (simulator, serial or BLE input), heartbeat format, example ESP32 sketch; see `demo/README.md` |
 | `LOG.md` | Append-only run log (Asia/Shanghai time) |
