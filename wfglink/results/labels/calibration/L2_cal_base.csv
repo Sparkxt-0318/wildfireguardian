@@ -1,0 +1,12 @@
+tile_id,x,y,confidence,note
+t000,,,1,none
+t001,103,58,1,faint whitish blob moving right
+t001,158,59,0.5,very faint maybe
+t002,196,20,1,faint reddish blob only in this frame
+t003,190,148,0.5,static faint reddish patch (all three frames)
+t003,173,172,0.5,static faint reddish patch
+t003,189,174,0.5,static faint reddish patch
+t003,212,212,0.5,static faint reddish patch
+t004,56,28,1,faint moving down-right
+t004,106,29,1,faint moving down-right
+t005,,,1,none

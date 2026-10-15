@@ -1,0 +1,6 @@
+clip_id: cal_snr-30
+file: data/synthetic/core/snr-30/seed_2/video.mp4
+split: tune
+roi: null
+segments_s: [[0.0, 5.0]]
+gate: null

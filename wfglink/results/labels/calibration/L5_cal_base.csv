@@ -1,0 +1,8 @@
+tile_id,x,y,confidence,note
+t000,,,1,none
+t001,103,57,1,faint
+t002,196,18,1,faint reddish
+t003,,,1,none
+t004,55,28,1,faint
+t004,107,28,1,faint
+t005,,,1,none
