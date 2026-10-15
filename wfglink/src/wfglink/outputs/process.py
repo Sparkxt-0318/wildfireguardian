@@ -31,6 +31,7 @@ from __future__ import annotations
 import json
 import platform
 import time
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -148,12 +149,19 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
     from wfglink.io.probe import probe_video
 
     cfg = cfg or load_config()
+    tracking_only = metrics_scope == "tracking_only"
     clip = Path(clip)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     ocfg = cfg.get("outputs", {})
     fmt = ocfg.get("table_format", "parquet")
     overlay = bool(ocfg.get("overlay_video", True)) if overlay is None else overlay
+    if tracking_only:
+        # A rerun into an earlier all-metrics folder must not leave those exports behind.
+        for name in ("detections", "frames", "track_points", "tracks"):
+            (out / f"{name}.{'parquet' if fmt == 'csv' else 'csv'}").unlink(missing_ok=True)
+        for name in ("field.parquet", "field.csv", "overlay.mp4", "plausibility.json"):
+            (out / name).unlink(missing_ok=True)
     meta = probe_video(clip)
     fps = meta.get("fps") or None
     crop = None
@@ -187,6 +195,13 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                                  "ms": round((time.perf_counter() - ta) * 1000, 2)})
                 if writer is not None:
                     st.source_state, st.source_label = "file", clip.name
+                    if tracking_only:
+                        # Keep association geometry, but never present clip-time motion or
+                        # crossings as measurements of a slow-motion recording.
+                        st = replace(st, metrics_scope=metrics_scope, count_rate=None, cpc_gross=None,
+                                     cpc_net=None, pnf=None, speed=None, direction_deg=None,
+                                     field_uvn=None, gate=None, sparkline=np.zeros(0),
+                                     calibrated=False, distance_m=None)
                     writer.write(st)
         finally:
             src.close()
@@ -195,7 +210,10 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
 
     exp_info: dict[str, Any] = {"source": "given" if t_exp else "estimated"}
     t_exp_sd = 0.0
-    if not t_exp:
+    if tracking_only:
+        t_exp = None
+        exp_info = {"status": "not reported: tracking_only; the timebase is not real time"}
+    elif not t_exp:
         p1 = run(None)
         tr = p1.tables()["tracks"]
         tr = tr[~tr["static"].astype(bool)] if len(tr) else tr
@@ -226,14 +244,23 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
 
     tabs = pipe.tables()
     points = tabs["tracks"]
-    if len(points):
+    if len(points) and not tracking_only:
         points = add_point_velocities(points, cfg, t_exp=t_exp)
-    files = {"detections": _write_table(tabs["detections"], out / "detections.parquet", fmt),
-             "frames": _write_table(pd.DataFrame(rows), out / "frames.parquet", fmt),
-             "track_points": _write_table(points, out / "track_points.parquet", fmt)}
     tracks = _track_table(points, pipe.counter, cfg, t_exp, t_exp_sd) if len(points) else pd.DataFrame()
-    files["tracks"] = _write_table(tracks, out / "tracks.parquet", fmt)
-    if len(points) and meta.get("width"):
+    det_export, frame_export, point_export, track_export = tabs["detections"], pd.DataFrame(rows), points, tracks
+    if tracking_only:
+        det_export = det_export.drop(columns=["flux"], errors="ignore")
+        frame_export = frame_export.drop(columns=["count_rate", "cpc_gross", "cpc_net", "pnf"], errors="ignore")
+        point_export = point_export.drop(columns=["vx", "vy", "flux"], errors="ignore")
+        track_export = track_export.drop(columns=["u_px_s", "v_px_s", "track_speed_px_s", "track_speed_sd",
+                                                   "streak_speed_px_s", "fused_speed_px_s", "best_speed_px_s",
+                                                   "best_source", "direction_deg", "crossings_pos", "crossings_neg"],
+                                         errors="ignore")
+    files = {"detections": _write_table(det_export, out / "detections.parquet", fmt),
+             "frames": _write_table(frame_export, out / "frames.parquet", fmt),
+             "track_points": _write_table(point_export, out / "track_points.parquet", fmt),
+             "tracks": _write_table(track_export, out / "tracks.parquet", fmt)}
+    if len(points) and meta.get("width") and not tracking_only:
         from wfglink.measure.field import estimate_field
 
         size = (int(meta["width"]), int(meta["height"]))
@@ -296,11 +323,11 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                 "detections_by_scale": ({str(int(k)): int(v) for k, v in det_tab["scale"].value_counts().sort_index().items()}
                                         if len(det_tab) and "scale" in det_tab else {})}
 
-    if metrics_scope == "tracking_only":
+    if tracking_only:
         # The clip's timebase is not real time (slow motion): speeds, rates, counts per second and
         # flux would be wrong by the slow-down factor, so only tracking quantities are reported.
         dropped = [k for k in ("speed_px_s", "count_rate_per_s", "count_rate_ci", "pnf", "cpc_gross", "cpc_gross_ci",
-                               "cpc_net", "cpc_net_ci", "duration_s") if k in totals]
+                               "cpc_net", "cpc_net_ci", "duration_s", "direction_deg_circular_mean", "gate") if k in totals]
         for k in dropped:
             totals.pop(k)
         totals["not_reported"] = {"quantities": dropped, "reason": "metrics_scope tracking_only: the timebase is not real time"}
@@ -318,7 +345,8 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         **git_state(),
         "versions": {"python": platform.python_version(), "numpy": np.__version__, "scipy": scipy.__version__,
                      "opencv": cv2.__version__, "av": av.__version__, "pandas": pd.__version__},
-        "units": {"position": "px", "speed": "px/s" if m_per_px is None else "px/s (m/s = px/s x m_per_px)",
+        "units": {"position": "px", "time": "clip seconds (not real time)"} if tracking_only else
+                 {"position": "px", "speed": "px/s" if m_per_px is None else "px/s (m/s = px/s x m_per_px)",
                   "calibrated": m_per_px is not None, "m_per_px": m_per_px, "distance_m": distance_m},
         "exposure": exp_info,
         "analysis": analysis,
@@ -327,7 +355,9 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         "warnings": warnings,
         "outputs": {k: v.name for k, v in files.items()} | ({"overlay": "overlay.mp4"} if overlay else {}),
         "seconds": round(time.perf_counter() - t0, 1),
-        "labels": {"pnf": "Particle Number Flux (projected, 2D): crossings per unit gate length in the picture; "
+        "labels": {"scope": "Slow-motion tracking only: positions and track identities; no speed, count or flux measurements"}
+                  if tracking_only else
+                  {"pnf": "Particle Number Flux (projected, 2D): crossings per unit gate length in the picture; "
                           "analogous to, not comparable with, NIST PNF (per square meter)",
                    "cpc": "Cumulative Particle Count (gate): tracks crossing the gate line; a lower bound, "
                           "only glowing, visible embers count"},

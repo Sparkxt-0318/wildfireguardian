@@ -173,7 +173,7 @@ All values are measured and recorded in NUMBERS.json.
 - Booth playback: each clip plays in real time at its own frame rate (the approved clips are 25 to 30 fps). Frames are analysed and shown at most 1280 px wide and 1280×720 pixels (`live.analysis_max_width`, `live.analysis_max_pixels`); larger frames, such as 4K clips, are scaled down while they are decoded.
 - Target on the M4 Pro: every played frame analysed and painted, so the analysed rate equals the clip's frame rate (30 fps for a 30 fps clip), with whole-loop processing at most 15 ms median and 25 ms p95 with the UI running. When the analysis cannot keep up, frames are skipped rather than queued; when decoding alone is slower than real time, the clock restarts at the current frame and the clip plays on slower. The overnight soak logs the rate all night (section 7).
 - Ember mode: the camera's frames (1280×720 at 30 fps by default) are analysed and painted as they arrive, newest first; a frame the analysis cannot take is skipped, never queued, so the trails follow the phones without lag.
-- File mode: native resolution by default (`--scale 0.5` is an opt-in preview); frames larger than twice 1280×720 are also analysed at half and quarter size, so that embers close to the camera, larger than the detector's scales, are found too (`detect.multiscale`, METHODS section 2). 1080p30 at real time or faster; 4K at native resolution at 8 fps or more.
+- File mode: native-resolution coordinates; sufficiently large frames are also analysed at half and quarter size to help find embers close to the camera (`detect.multiscale`, METHODS section 2). There is no `process --scale` option. Performance targets remain 1080p30 at real time or faster, and 4K at native resolution at 8 fps or more; this continuation does not establish those targets on the booth Mac.
 - Linux container: timings are recorded only as reference, not as targets.
 
 ## 4. Validation
@@ -286,6 +286,8 @@ The recordings never tune anything; a recording used for debugging is named in L
 | field.parquet | window, cell, u, v, n_tracks, CI |
 | summary.json | input SHA-256, metadata, config hash, git commit, versions, units and calibration state, totals with CIs, T_exp, analysis scales (levels used, detections per level), plausibility flags, warnings |
 | overlay.mp4 | H.264, drawn by the live renderer |
+
+For `metrics_scope: tracking_only`, these exports omit derived speed, direction, crossing, flux and field measurements. The overlay shows tracks and a slow-motion notice. Timing and same-scope determinism remain available; physical measurement checks are not applicable.
 
 Live recording of the same tables is off by default. When on, ParquetWriter flushes every 10 s.
 

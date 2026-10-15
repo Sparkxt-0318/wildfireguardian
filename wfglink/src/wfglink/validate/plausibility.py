@@ -568,10 +568,14 @@ def run_settings(summary: dict, cc: dict) -> dict[str, Any]:
     t_exp = _num(exp.get("t_exp_s"))
     units = summary.get("units") or {}
     seg = inp.get("segment_s") or [0.0, None]
+    scope = str(summary.get("metrics_scope") or cc.get("metrics_scope") or "all")
+    if scope == "tracking_only":
+        t_exp = None
     return {"roi": roi, "gate": gate, "t_exp": t_exp,
             "t_exp_from": None if t_exp is None else f"the run ({exp.get('source') or 'estimated'})",
             "m_per_px": units.get("m_per_px"), "distance_m": units.get("distance_m"),
-            "start_s": float(seg[0] or 0.0), "end_s": None if seg[1] is None else float(seg[1])}
+            "start_s": float(seg[0] or 0.0), "end_s": None if seg[1] is None else float(seg[1]),
+            "metrics_scope": scope}
 
 
 def check_determinism(video: Path, summary: dict, cc: dict, cfg: dict, seconds: float | None = None,
@@ -605,6 +609,10 @@ def check_determinism(video: Path, summary: dict, cc: dict, cfg: dict, seconds: 
                          "t_exp_from": rs["t_exp_from"]
                          or "estimated again by each rerun (the run's estimate declined)",
                          "config_is_run_config": sha256_json(cfg) == summary.get("config_sha256")}
+    v["metrics_scope"] = rs["metrics_scope"]
+    if rs["metrics_scope"] == "tracking_only":
+        v.pop("t_exp_s")
+        v.pop("t_exp_from")
     base = Path(tempfile.mkdtemp(prefix="wfglink_determinism_", dir=work_dir))
     try:
         runs = []
@@ -612,7 +620,7 @@ def check_determinism(video: Path, summary: dict, cc: dict, cfg: dict, seconds: 
             out = base / f"run{k}"
             proc.process_clip(video, out, cfg, gate=rs["gate"], t_exp=rs["t_exp"], overlay=False,
                               max_seconds=end, m_per_px=rs["m_per_px"], distance_m=rs["distance_m"],
-                              start_s=start, roi=rs["roi"])
+                              start_s=start, roi=rs["roi"], metrics_scope=rs["metrics_scope"])
             s = json.loads((out / "summary.json").read_text(encoding="utf-8"))
             runs.append({name: read_table(out, name, s) for name in TABLES})
         v["rows"] = {name: (None if runs[0][name] is None else int(len(runs[0][name]))) for name in TABLES}
@@ -649,7 +657,8 @@ def _earlier_determinism(prev: dict | None, summary: dict, cfg_sha: str) -> Chec
         return None
     old = (prev.get("checks") or {}).get("determinism") or {}
     same = (prev.get("input_sha256") == (summary.get("input") or {}).get("sha256")
-            and prev.get("run_config_sha256") == summary.get("config_sha256") and prev.get("config_sha256") == cfg_sha)
+            and prev.get("run_config_sha256") == summary.get("config_sha256") and prev.get("config_sha256") == cfg_sha
+            and ((old.get("values") or {}).get("metrics_scope") or "all") == (summary.get("metrics_scope") or "all"))
     if not same or old.get("status") not in (PASS, FLAG):
         return None
     kept = {"created": prev.get("created"), "git_commit": prev.get("git_commit"), "git_dirty": prev.get("git_dirty")}
@@ -703,11 +712,17 @@ def run_plausibility(run_dir: str | Path, clip_settings: str | Path | dict, cfg:
     other = "the clip settings name another video than the run's input"
     checks = {
         "timing": check_timing(frames, cfg, packet_times(video) if same_input else None, segment, fps),
-        "exposure": check_exposure(summary, points, frames, cfg, fps),
-        "static_lights": check_static(tracks),
-        "speed": check_speed(tracks, cc, cfg, _full_width(summary, video)) if settings_match else Check(NA, other),
-        "direction": check_direction(tracks, cc, cfg) if settings_match else Check(NA, other),
     }
+    if str(summary.get("metrics_scope") or cc.get("metrics_scope") or "all") == "tracking_only":
+        checks.update({name: Check(NA, "metrics_scope tracking_only: the timebase is not real time; measurements are not reported")
+                       for name in ("exposure", "static_lights", "speed", "direction")})
+    else:
+        checks.update({
+            "exposure": check_exposure(summary, points, frames, cfg, fps),
+            "static_lights": check_static(tracks),
+            "speed": check_speed(tracks, cc, cfg, _full_width(summary, video)) if settings_match else Check(NA, other),
+            "direction": check_direction(tracks, cc, cfg) if settings_match else Check(NA, other),
+        })
     prev = None
     if (run_dir / "plausibility.json").exists():
         try:

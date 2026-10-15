@@ -422,3 +422,15 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The handoff now identifies itself as historical, so its host-specific scratch results cannot be mistaken for this continuation's measurements.
 - Decisions: preserve remote history and all working repairs. The frozen held-out evaluation continues from its original exported source and inputs.
 - Next: commit this merge, finish the remaining bounded repairs, and publish the completed branch normally.
+
+## 2026-10-15T19:53:11+08:00 Enforce the slow-motion tracking-only restriction
+
+- Goal: inspect the C10 overlay and enforce its approved measurement restriction throughout file outputs.
+- Commands: committed C10 process/overlay and plausibility checks at f9e72c2; focused process and plausibility regressions; independent source review; rendered Korean and English restriction notices. Evidence is under `results/runs/real_review/`.
+- Parameters: the approved C10 segment with a short overlay inspection; unchanged default detector and tracker settings.
+- Results:
+  - The original summary omitted measurements, but the overlay still displayed speed, rate, crossing counts and flux. Export tables and deterministic reruns also retained those quantities. This failed restriction is preserved in the original outputs.
+  - The repair applies the restriction to the overlay, table columns, summary units and labels, exposure handling, plausibility verdicts and deterministic reruns. Positions, track identities and detection geometry remain available. Old measurement exports and old plausibility reports are cleared when a restricted output directory is reused.
+  - The focused regressions pass, including normal file mode, actual restricted-path reruns and rejection of a prior unrestricted determinism result. Independent review found a stale-report leak, which was repaired and tested. The bilingual restriction notice is readable.
+- Decisions: keep the original C10 failure as evidence and rerender from the committed repair before calling the inspection complete. The C5 and C6 visual false positives remain unresolved; deterministic output is not physical validation.
+- Next: inspect the repaired real C10 overlay and complete the strict phone repair and final release checks.

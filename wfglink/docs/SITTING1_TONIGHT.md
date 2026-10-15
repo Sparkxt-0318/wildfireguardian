@@ -1,5 +1,8 @@
 # Sitting 1 tonight: MacBook camera and iPhone
 
+For one block to forward, with the exact commands and all manual differences, use
+[`SITTING1_FORWARDABLE.txt`](SITTING1_FORWARDABLE.txt).
+
 No new camera or LED rig is needed. The MacBook's built-in camera tracks the
 iPhone's screen; the iPhone is never the camera. A4 printing is needed for the
 calibration. This is a smoke check, not a measurement-accuracy validation.

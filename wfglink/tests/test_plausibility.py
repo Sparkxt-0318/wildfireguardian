@@ -351,6 +351,49 @@ def test_determinism_reruns_get_the_runs_exposure(dots_run, tmp_path, monkeypatc
     assert seen == [None, None] and c.values["t_exp_from"].startswith("estimated again")
 
 
+def test_tracking_only_plausibility_keeps_scope_and_reports_no_physical_checks(dots_run, tmp_path, monkeypatch):
+    """A slow-motion run's determinism check reruns its restricted export path, even when
+    optional physical metadata exists; an old all-scope check cannot be reused for it."""
+    import wfglink.outputs.process as proc
+
+    d, _ = dots_run
+    clip = d / "dots.mp4"
+    out = tmp_path / "tracking"
+    proc.process_clip(clip, out, CFG, overlay=False, metrics_scope="tracking_only")
+    cc = {"file": str(clip.resolve()), "metrics_scope": "tracking_only", "peak_gust_ms": 10.0,
+          "gust_source": "test station", "z_interval_m": [10.0, 20.0], "focal_px": 1000.0,
+          "drift_deg": 37.0, "drift_basis": "test motion"}
+    real = proc.process_clip
+    seen = []
+
+    def rerun(clip, output, *args, **kwargs):
+        summary = real(clip, output, *args, **kwargs)
+        seen.append((kwargs["metrics_scope"], summary["metrics_scope"], summary["outputs"], summary["units"]))
+        return summary
+
+    monkeypatch.setattr(proc, "process_clip", rerun)
+    result = P.run_plausibility(out, cc, CFG, determinism_seconds=0.5, work_dir=tmp_path)
+    assert len(seen) == 2
+    assert all(scope == actual == "tracking_only" and "field" not in files and "speed" not in units
+               for scope, actual, files, units in seen)
+    checks = result["checks"]
+    for name in ("exposure", "static_lights", "speed", "direction"):
+        assert checks[name]["status"] == "not applicable" and "tracking_only" in checks[name]["reason"]
+        assert not checks[name]["values"]
+    det = checks["determinism"]
+    assert det["status"] == "pass" and det["values"]["metrics_scope"] == "tracking_only"
+    assert det["values"]["rows"]["detections"] > 0 and det["values"]["rows"]["field"] is None
+    assert not {"t_exp_s", "t_exp_from"} & set(det["values"])
+    kept = P.run_plausibility(out, cc, CFG, determinism_seconds=0, write=False)
+    assert kept["checks"]["determinism"]["reason"].startswith("kept from")
+    saved = json.loads((out / "plausibility.json").read_text())
+    saved["checks"]["determinism"]["values"].pop("metrics_scope")
+    (out / "plausibility.json").write_text(json.dumps(saved))
+    rejected = P.run_plausibility(out, cc, CFG, determinism_seconds=0, write=False)
+    assert rejected["checks"]["determinism"]["status"] == "not applicable"
+    assert "switched off" in rejected["checks"]["determinism"]["reason"]
+
+
 def test_determinism_without_detections_is_not_applicable(tmp_path):
     clip = tmp_path / "dark.mp4"
     dots_clip(clip, frames=30, amp=0.0)

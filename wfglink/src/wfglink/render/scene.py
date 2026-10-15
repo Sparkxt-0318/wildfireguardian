@@ -86,6 +86,7 @@ class LiveState:
     speed_unit: str = "px/s"                      # unit of speed and of the per-ember speeds: px/s or m/s
     measured_at_m: float | None = None            # ember mode: speeds in m/s hold at this distance (ember.distance_m)
     camera_state: str = "off"                     # off (fire mode), starting, ok, missing, denied, asking, error
+    metrics_scope: str = "all"                    # tracking_only: slow-motion geometry, never physical readouts
 
 
 def _c(hexcode: str, alpha: float = 1.0) -> QColor:
@@ -171,20 +172,25 @@ def paint_scene(p: QPainter, W: int, H: int, s: LiveState, lang: str = "ko", *, 
     a = _ease(level)                              # the picture's size and the marks on it
     panel = _ease(2.0 * level - 1.0)              # panel, sparkline, status line, legend: the analysed half
     raw = _ease(1.0 - 2.0 * level)                # the raw tags: the raw half
+    tracking_only = s.metrics_scope == "tracking_only"
     if panel > FADE_EPS:
         p.setOpacity(panel)
         spark = L.spark
-        if s.mode == "ember":
+        if tracking_only:
+            _paint_tracking_only_panel(p, L, lang)
+        elif s.mode == "ember":
             _paint_ember_panel(p, L, s, lang)
             url = str(page_url or "").strip()
             if url:
                 spark = _paint_page_qr(p, L, url, lang)
         else:
             _paint_cards(p, L, s, lang)
-        _paint_sparkline(p, L, s, lang, spark)
+        if not tracking_only:
+            _paint_sparkline(p, L, s, lang, spark)
         _paint_status(p, L, s, lang)
         p.setOpacity(1.0)
-    rect = _paint_video(p, L, s, lang, show_tracks, show_field, show_gate, a, panel)
+    rect = _paint_video(p, L, s, lang, show_tracks, show_field and not tracking_only,
+                        show_gate and not tracking_only, a, panel)
     _paint_tags(p, L, rect, s, lang, paused, raw)
     if quit_prompt:
         _paint_prompt(p, rect, t(lang, "quit_confirm"), L.H)
@@ -563,6 +569,22 @@ def _paint_cards(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
         p.setPen(_c(theme.INK2))
         p.setFont(_font(theme.px(theme.SIZES["label"], H)))
         p.drawText(QRectF(x, top + 4 * card_h - theme.px(40, H), w, theme.px(36, H)), Qt.AlignmentFlag.AlignLeft, t(lang, "warming"))
+
+
+def _paint_tracking_only_panel(p: QPainter, L: Layout, lang: str) -> None:
+    """A slow-motion clip has tracks, with no quantitative motion/count display."""
+    H = L.H
+    x, y, w = L.panel.x(), L.panel.y(), L.panel.width()
+    p.setPen(_c(theme.INK))
+    p.setFont(_font(theme.px(theme.SIZES["title"], H), "semibold"))
+    p.drawText(QRectF(x, y - theme.px(6, H), w, theme.px(40, H)),
+               Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, t(lang, "app"))
+    p.setFont(_font(theme.px(38, H), "semibold"))
+    wrap = int(Qt.AlignmentFlag.AlignLeft) | int(Qt.TextFlag.TextWordWrap)
+    p.drawText(QRectF(x, y + theme.px(100, H), w, theme.px(130, H)), wrap, t(lang, "tracking_only"))
+    p.setPen(_c(theme.INK2))
+    p.setFont(_font(theme.px(28, H)))
+    p.drawText(QRectF(x, y + theme.px(250, H), w, theme.px(370, H)), wrap, t(lang, "tracking_only_note"))
 
 
 def ember_tags(s: LiveState, lang: str) -> list[str]:
