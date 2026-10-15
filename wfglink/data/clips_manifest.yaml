@@ -46,11 +46,11 @@ clips:
     title: With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)
     page_url: https://www.nist.gov/video/its-dragon-nist-aims-reduce-toll-wildfires-0
     media_url: https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/0_g8ypccjy/format/download/protocol/https/flavorParamIds/0
-    license: Public domain (NIST lab footage only; the Shutterstock dragon graphic at about 5 to 14 s and the uncredited still at about 24 to 37 s are cut before any use)
+    license: Public domain (NIST lab footage only, 17.05 to 22.55 s; the Shutterstock dragon graphic up to 16.72 s and the uncredited still from 22.62 s are cut before any use)
     credit: "Credit: NIST"
     event: NIST firebrand generator, laboratory
     metrics_scope: all
-    use_segments: [[14.0, 24.0]]
+    use_segments: [[17.05, 22.55]]
     split: tune
   - id: C9_peterfeuer
     title: Peterfeuer der FF Leonstein 2026 mit Funkenflug, Video 1

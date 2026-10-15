@@ -637,7 +637,7 @@ def _full_width(summary: dict, video: Path | None) -> int | None:
     if not inp.get("roi_px"):
         return int(inp["width"]) if inp.get("width") else None
     if video is not None and Path(video).exists():
-        from wfglink.sitting.recordings import probe_video
+        from wfglink.io.probe import probe_video
 
         return probe_video(Path(video)).get("width")
     return None

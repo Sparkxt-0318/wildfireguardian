@@ -5,9 +5,11 @@ split: tune                 # used for development; never part of a headline num
 metrics_scope: all
 # Split screen: the lab camera is the left half; the right half is NIST's own 3D track plot.
 roi: [0.0, 0.0, 0.5, 1.0]
-# Before 0.5 s the plot is empty; from about 20 s graphic overlays cover the camera view,
-# and from 32 s the video shows other footage and the NIST logo. Checked on a 2 s contact sheet.
-segments_s: [[0.5, 19.5]]
+# Before 0.5 s the plot is empty. NIST's graphic overlay (a cyan box and labels) starts to
+# fade in over the camera view at 19.40 s (checked frame by frame on 2026-10-15; the first
+# check used a 2 s contact sheet and set the end at 19.5 s, three overlay frames too late);
+# from 32 s the video shows other footage and the NIST logo.
+segments_s: [[0.5, 19.35]]
 gate: null                  # default gate (vertical line at 62 percent of the width)
 distance_m: null            # not stated by NIST; pixels only
 # Plausibility checks (python -m wfglink plausibility RUN_DIR --clip <this file>, METHODS section 11).

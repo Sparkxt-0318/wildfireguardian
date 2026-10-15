@@ -1,320 +1,305 @@
-"""The booth application: fullscreen live measurement on the external monitor.
+"""The booth screen: approved clips analysed live as they play (python -m wfglink live).
 
-Sources come from a SourceChain built from config (camera.chain): the iPhone, then the USB
-webcam, then labelled replay of the prepared booth clip, then a labelled synthetic demo.
-When a prepared clip (booth-prep metadata) is configured, camera and replay frames go
-through screen rectification and frame-code timing; otherwise frames are analysed
-directly and the screen says the clip is unprepared.
+    python -m wfglink live                      # the playlist (booth/playlist.yaml), in a loop
+    python -m wfglink live --synthetic          # generated video
+    python -m wfglink live --clip data/clips/C6_nist_dragon.yaml
+    bash booth/booth.sh                         # the playlist under the supervisor, for a whole day
 
-Screen health (PLAN.md section 7: a source is healthy only when the markers are locked and
-the decoded index advances). With booth metadata, every live camera attempt gets its own
-ScreenCheck in its capture thread, so a camera filming a paused or absent screen becomes
-unhealthy after capture.freeze_s and the chain falls back (webcam, then labelled replay),
-switching back once the iPad plays again. While a camera is shown, its pipeline's booth
-status turns the picture into "iPad paused" or "iPad screen not found"; on the fallback
-source a small note says why the better camera is out of use. Sources without booth
-metadata (synthetic, file, an unprepared camera) are never checked.
+Playback (wfglink.io.playlist.Player) decodes the clips in real time and keeps only the
+newest frame; the analysis takes the newest frame whenever it is free, so frames are
+skipped rather than queued and the picture never lags. live.worker_mode chooses where
+playback and analysis run: in this process (thread) or in a child process (process,
+ui/process_worker.py). Both use LiveAnalyser, so the screen is the same.
 
-Keys: L language, I limits card, T tracks, F field, G gate, Esc quit (press twice).
+Counts: with booth.reset_per_clip true (the default) every clip start resets the pipeline,
+so the counts are per clip; with false each clip keeps one pipeline whose counts run on
+across loops. A cut inside a clip (its next segment) restarts only the background model
+and the tracks.
+
+Screen (--screen, ui.screen): auto puts the window fullscreen on the external monitor when
+one is connected, else on the built-in screen, and moves it when a monitor is plugged in or
+out (screenAdded, screenRemoved); external means the same; primary is the main screen; any
+other value is a screen name (auto while that screen is absent). Built-in screens are
+recognised by name (ui.builtin_screen). --limits-screen puts the limits card on a second
+screen while that screen is not the booth's.
+
+Keys: L language, T tracks, F field, G gate, Space pause (playback and analysis hold; a
+small tag shows), I limits card, Esc then Esc again within ui.quit_confirm_s seconds quits
+(a prompt shows after the first). SIGTERM or SIGINT closes the window too (not a clean exit).
+
+Heartbeat (--heartbeat FILE, booth.sh passes logs/heartbeat.json), rewritten every 2 s:
+status (running, clean_exit, closed), time, epoch, pid, uptime_s, frames (states analysed),
+paints, fps (analysis), source (playlist, clip or synthetic), state (starting, playing,
+synthetic), errors (count), last_error, rss_mb {pid: MB}, clip (the playlist item playing,
+or "synthetic"), paused, pipeline {key, frames_in, frames_analysed, frames_duplicate}.
 """
 from __future__ import annotations
 
 import json
-import math
+import re
+import signal
 import sys
 import time
+from collections import deque
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 from PySide6.QtCore import QThread, QTimer, Qt, Signal
 from PySide6.QtGui import QPainter
 from PySide6.QtWidgets import QApplication, QWidget
 
-from wfglink import PROJECT_ROOT
 from wfglink.config import load_config
-from wfglink.io.capture import ChainConfig, ChainStatus, SourceChain, SourceOption
-from wfglink.io.devices import AutoCameraSource, camera_backends, list_cameras, pick_camera
 from wfglink.io.frames import Frame
-from wfglink.io.sources import CameraSpec, FileSource
-from wfglink.io.synthetic_live import SyntheticLiveSource
-from wfglink.pipeline import BoothContext, Pipeline, frame_wall_time, heartbeat_counters, screen_index
+from wfglink.io.playlist import PlaybackConfig, Player, PlaylistError, clip_item, load_playlist
+from wfglink.pipeline import Pipeline, heartbeat_counters
 from wfglink.render.scene import LiveState, paint_scene
-from wfglink.ui.live_check import choose_screen
 
-# Failure reasons of ScreenCheck (they appear in the chain events) and the screen message for each.
-SCREEN_REASONS = {"screen paused": "paused", "no screen markers": "no_screen", "screen code unreadable": "no_screen"}
-
-
-def load_booth_meta(cfg: dict) -> dict | None:
-    """booth-prep metadata for the configured replay clip, if any."""
-    clip = cfg.get("booth", {}).get("replay_clip")
-    if not clip:
-        return None
-    clip = Path(clip)
-    if not clip.is_absolute():
-        clip = PROJECT_ROOT / clip
-    for meta_path in (clip.with_name(clip.name.split("_hold")[0] + "_booth.json"), clip.parent / f"{clip.stem}_booth.json"):
-        if meta_path.exists():
-            meta = json.loads(meta_path.read_text())
-            meta["_dir"] = str(meta_path.parent)
-            meta["_clip"] = str(clip)
-            return meta
-    return None
+# Names of a laptop's own panel: macOS says "Built-in Retina Display" (Korean "내장 Retina
+# 디스플레이", older Macs "Color LCD"); Linux says eDP-1, LVDS-1 or DSI-1. ui.builtin_screen overrides.
+BUILTIN_SCREEN = r"built-?in|내장|color lcd|^edp|^lvds|^dsi"
 
 
-def _layout(meta: dict):
-    from wfglink.screen.codes import Layout
+# Sources -------------------------------------------------------------------------------------
 
-    return Layout(**{k: meta["layout"][k] for k in ("width", "height", "marker", "cell", "margin")})
+def source_spec(synthetic: bool = False, playlist: str | None = None, clip: str | None = None,
+                cfg: dict | None = None) -> dict[str, str]:
+    """What to play: {"kind": "synthetic"}, {"kind": "clip", "path": ...} or {"kind": "playlist", "path": ...}
+    (booth.playlist by default)."""
+    if synthetic:
+        return {"kind": "synthetic"}
+    if clip:
+        return {"kind": "clip", "path": str(clip)}
+    return {"kind": "playlist", "path": str(playlist or ((cfg or {}).get("booth") or {}).get("playlist")
+                                            or "booth/playlist.yaml")}
 
 
-def make_booth_context(meta: dict, cfg: dict) -> BoothContext:
-    from wfglink.screen.booth_prep import load_sidecar
-    from wfglink.screen.rectify import ScreenRectifier
-
-    rect = ScreenRectifier(_layout(meta), int(cfg["live"]["analysis_max_width"]))
-    times = load_sidecar(Path(meta["_dir"]) / meta["sidecar"])
-    return BoothContext(rect, times)
+def _log(msg: str) -> None:
+    print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} [live] {msg}", file=sys.stderr, flush=True)
 
 
-class ScreenCheck:
-    """Health hook for one attempt of a live camera in booth mode: is the iPad screen in view,
-    and does its frame code advance?
+def make_player(cfg: dict, spec: dict[str, str]) -> Player:
+    """The Player for a source spec. A playlist that cannot be read plays synthetic video
+    (with a log line), so the booth never shows a black screen."""
+    from wfglink.io.synthetic_live import SyntheticLiveSource
 
-    Runs in the capture thread and reads only the corner codes (its own rectifier, with a tiny
-    analysis warp), at most every capture.booth_check_s seconds; other frames return None.
-    A check passes (True) when the screen index changed since the previous check, and
-    otherwise returns why not: "screen paused" (the same index again), "no screen markers"
-    or "screen code unreadable". The capture worker makes the camera unhealthy when no check
-    has passed for capture.freeze_s.
+    items = []
+    kind = spec.get("kind", "playlist")
+    note = ""
+    if kind == "clip":
+        items = [clip_item(spec["path"])]
+    elif kind == "playlist":
+        try:
+            items = load_playlist(spec["path"])
+        except PlaylistError as exc:
+            note = str(exc)
+            _log(f"{exc}; playing synthetic video")
+    seed = int((cfg.get("booth") or {}).get("synthetic_seed", 1))
+    player = Player(items, PlaybackConfig.from_config(cfg), synthetic=lambda: SyntheticLiveSource(seed=seed, realtime=False))
+    if note:
+        player._event("playlist_error", reason=note)
+    return player
+
+
+class LiveAnalyser:
+    """Turns playback frames into LiveStates; the same code in both worker modes.
+
+    One pipeline per clip, created with the clip's gate (if its settings file gives one);
+    booth.reset_per_clip decides whether a clip start replaces it (see the module docstring).
     """
 
-    def __init__(self, meta: dict, cfg: dict):
-        from wfglink.screen.rectify import ScreenRectifier
+    def __init__(self, cfg: dict):
+        self.cfg = cfg
+        self.reset_per_clip = bool((cfg.get("booth") or {}).get("reset_per_clip", True))
+        self.pipes: dict[str, Pipeline] = {}
+        self.active: str | None = None
+        self._item: Any = None
+        self._segment: Any = None
+        self._times: deque = deque(maxlen=60)
 
-        self.rect = ScreenRectifier(_layout(meta), analysis_max_width=64)
-        self.every_s = float((cfg.get("capture") or {}).get("booth_check_s", 0.2))
-        self._t = -math.inf
-        self._index: int | None = None
+    def process(self, frame: Frame) -> LiveState:
+        m = frame.meta
+        key = str(m.get("clip") or "clip")
+        if m.get("item") != self._item or key not in self.pipes:
+            self._item, self._segment = m.get("item"), m.get("segment")
+            if self.reset_per_clip or key not in self.pipes:
+                g = m.get("gate")
+                gate = {"p1": list(g[:2]), "p2": list(g[2:]), "name": "gate"} if g else None
+                self.pipes[key] = Pipeline(self.cfg, gate=gate, downscale=True)
+            else:
+                self.pipes[key].cut()
+            self.active = key
+        elif m.get("segment") != self._segment:
+            self._segment = m.get("segment")
+            self.pipes[key].cut()
+        st = self.pipes[key].process(frame)
+        now = time.monotonic()
+        self._times.append(now)
+        span = self._times[-1] - self._times[0]
+        s = LiveState(**st.__dict__)       # shallow copy, owned by the screen from now on
+        if s.image is not None:
+            s.image = np.ascontiguousarray(s.image)
+        s.source_label = str(m.get("label") or "")
+        s.source_credit = str(m.get("credit") or "")
+        s.source_state = "synthetic" if m.get("synthetic") else "playing"
+        s.fps = (len(self._times) - 1) / span if len(self._times) > 2 and span > 0 else 0.0
+        return s
 
-    def __call__(self, frame: Frame) -> bool | str | None:
-        now = frame_wall_time(frame)
-        if now - self._t < self.every_s:
-            return None
-        self._t = now
-        r = self.rect.process(frame.image)
-        idx = screen_index(r.code)
-        if idx is None:
-            return "no screen markers" if r.markers_found == 0 else "screen code unreadable"
-        prev, self._index = self._index, idx
-        if prev is None:
-            return None                      # the first reading says nothing about playback
-        return True if idx != prev else "screen paused"
+    def stats(self) -> dict[str, dict]:
+        """Each clip's pipeline stats (the latest pipeline of each clip)."""
+        return {k: p.stats.as_dict() for k, p in self.pipes.items()}
 
-
-def screen_check_factory(meta: dict | None, cfg: dict):
-    """SourceChain hook_factory for booth mode: a fresh ScreenCheck for every attempt of a live
-    option; replay, synthetic and file options stay unchecked. None without booth metadata."""
-    if meta is None:
-        return None
-
-    def make(option: SourceOption) -> ScreenCheck | None:
-        return ScreenCheck(meta, cfg) if option.live else None
-
-    return make
-
-
-def screen_note(chain: SourceChain | None, active_key: str | None) -> str:
-    """'paused' or 'no_screen' when the last failure of a live option ranked above the active
-    source was its screen check, so the fallback picture can say why the camera is out of use;
-    '' otherwise (also when the best camera is active)."""
-    if chain is None:
-        return ""
-    keys = [o.key for o in chain.options]
-    if active_key not in keys:
-        return ""
-    better = {o.key for o in chain.options[:keys.index(active_key)] if o.live}
-    if not better:
-        return ""
-    for e in reversed(chain.events[-100:]):
-        if e.get("event") == "failed" and e.get("key") in better:
-            return SCREEN_REASONS.get(e.get("reason", ""), "")
-    return ""
+    def counters(self) -> dict[str, Any] | None:
+        """The active pipeline's frame counters for the heartbeat."""
+        pipe = self.pipes.get(self.active) if self.active is not None else None
+        return heartbeat_counters(self.active, pipe.stats if pipe is not None else None)
 
 
-def source_fields(pipe: Pipeline, status: ChainStatus, frame: Frame, chain: SourceChain | None) -> dict[str, Any]:
-    """The source fields of a LiveState (label, state, unprepared, note), the same in both worker modes.
+class LiveWorker(QThread):
+    """Thread mode: playback in its own thread, analysis in this QThread (the newest frame only)."""
 
-    A live camera with booth codes shows its pipeline's booth status: "paused" while its
-    frames still arrive but the code has not advanced for capture.freeze_s, "no_screen"
-    while no code could be read for that long.
-    """
-    state = "synthetic" if status.key == "synthetic" else status.state
-    if status.live:
-        scr = pipe.screen_status(frame_wall_time(frame))
-        if scr in ("paused", "no_screen"):
-            state = scr
-    return {"source_label": status.label or status.key or "", "source_state": state,
-            "unprepared": pipe.booth is None and status.key not in ("synthetic", "file"),
-            "source_note": screen_note(chain, status.key)}
-
-
-def last_events(events: list[dict], n: int) -> list[dict]:
-    """The last n events (none for n <= 0)."""
-    return list(events[-n:]) if n > 0 else []
-
-
-def build_options(cfg: dict, source: str = "auto") -> list[SourceOption]:
-    """Source options in priority order. source: auto (config chain), synthetic, file:PATH, camera,
-    loopsim:PATH, loopsim-unplug:PATH or loopsim-pause:PATH.
-
-    loopsim:PATH films a prepared booth clip through the camera-in-the-loop simulator
-    (wfglink.screen.loopsim, settings in sitting2.loopsim); loopsim-unplug:PATH adds a
-    disconnect during sitting2.dry_unplug_s seconds, and loopsim-pause:PATH pauses the
-    simulated iPad during booth.sim_pause_s seconds; as a source, both are followed by
-    labelled replay of the same clip, so dry runs exercise the real fallback chain. All
-    three may also be entries of camera.chain, because the booth codes (and the screen
-    check) are loaded only for the auto and camera sources.
-    """
-    if source == "synthetic":
-        return [SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic")]
-    if source.startswith("file:"):
-        path = source[5:]
-        return [SourceOption("file", lambda: FileSource(path, loop=True, realtime=True), False, Path(path).name)]
-
-    def loopsim_options(spec: str, with_replay: bool) -> list[SourceOption]:
-        from wfglink.io.fake import FaultScript
-        from wfglink.screen.loopsim import LoopSimSource
-
-        kind, path = spec.split(":", 1)
-        s2 = cfg.get("sitting2", {}) or {}
-        params = dict(s2.get("loopsim", {}) or {})
-        faults = None
-        if kind == "loopsim-unplug":
-            t0, t1 = (float(v) for v in s2.get("dry_unplug_s", [15, 35]))
-            faults = FaultScript([("disconnect", t0, t1)])
-        elif kind == "loopsim-pause":
-            t0, t1 = (float(v) for v in (cfg.get("booth", {}) or {}).get("sim_pause_s", [15, 35]))
-            faults = FaultScript([("pause", t0, t1)])
-        epoch = time.monotonic()   # one clock for every attempt: the iPad keeps playing while unplugged
-        opts = [SourceOption("loopsim", lambda: LoopSimSource(path, faults=faults, epoch=epoch, realtime=True,
-                                                              label="loopsim", **params),
-                             True, f"Loop simulator ({Path(path).name})")]
-        if with_replay and kind in ("loopsim-unplug", "loopsim-pause"):
-            opts.append(SourceOption("replay", lambda: FileSource(path, loop=True, realtime=True), False, Path(path).name))
-        return opts
-
-    loopsim_kinds = ("loopsim:", "loopsim-unplug:", "loopsim-pause:")
-    if source.startswith(loopsim_kinds):
-        return loopsim_options(source, True) + [
-            SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic")]
-    options: list[SourceOption] = []
-    devs = list_cameras().get("devices", [])
-    spec = CameraSpec("", int(cfg["camera"]["width"]), int(cfg["camera"]["height"]), float(cfg["camera"]["fps"]))
-    for key in cfg["camera"].get("chain", ["iphone", "webcam", "replay"]):
-        if key in ("iphone", "webcam"):
-            d = pick_camera(devs, key, cfg["camera"].get("iphone_uid") if key == "iphone" else None,
-                            cfg["camera"].get("webcam_match") if key == "webcam" else None)
-            if d:
-                options.append(SourceOption(key, lambda d=d: AutoCameraSource(d, spec, camera_backends(cfg)), True, d["name"]))
-        elif key == "replay":
-            meta = load_booth_meta(cfg)
-            if meta:
-                clip = meta["_clip"]
-                options.append(SourceOption("replay", lambda clip=clip: FileSource(clip, loop=True, realtime=True), False,
-                                            Path(clip).name))
-        elif key.startswith(loopsim_kinds):
-            options.extend(loopsim_options(key, False))
-    if source != "camera":
-        options.append(SourceOption("synthetic", lambda: SyntheticLiveSource(seed=1), False, "Synthetic"))
-    return options
-
-
-class BoothWorker(QThread):
     state_ready = Signal(object)
 
-    def __init__(self, chain: SourceChain, cfg: dict, booth_meta: dict | None):
+    def __init__(self, cfg: dict, spec: dict[str, str]):
         super().__init__()
-        self.chain = chain
         self.cfg = cfg
-        self.booth_meta = booth_meta
+        self.player = make_player(cfg, spec)
+        self.analyser = LiveAnalyser(cfg)
         self._running = True
-        self._pipes: dict[str, Pipeline] = {}
-        self._active_key: str | None = None
-        self._last = None
-        self.errors: list[str] = []
         self.frames = 0
-        self._times: list[float] = []
+        self.errors: list[str] = []
+        self.error_count = 0
+
+    def start(self) -> None:  # type: ignore[override]
+        self.player.start()
+        super().start()
 
     def stop(self) -> None:
         self._running = False
 
-    def _pipeline_for(self, key: str) -> Pipeline:
-        if key not in self._pipes:
-            booth = None
-            if self.booth_meta is not None and key != "synthetic":
-                booth = make_booth_context(self.booth_meta, self.cfg)
-            self._pipes[key] = Pipeline(self.cfg, booth=booth, downscale=True)
-        return self._pipes[key]
+    def shutdown(self, ms: int = 5000) -> bool:
+        """Stop analysis and playback and wait for both."""
+        self.stop()
+        done = self.wait(ms)
+        self.player.stop()
+        return bool(done)
+
+    def set_paused(self, paused: bool) -> None:
+        self.player.pause() if paused else self.player.resume()
+
+    @property
+    def paused(self) -> bool:
+        return self.player.paused
+
+    @property
+    def clip(self) -> str | None:
+        return self.analyser.active
+
+    def child_pids(self) -> list[int]:
+        return []
 
     def run(self) -> None:
         import gc
 
         gc.freeze()  # long-lived objects out of the collector: avoids 50 ms pauses
+        last = None
         while self._running:
-            frame, status = self.chain.latest()
-            key = (status.key, frame.index) if frame is not None else None
-            if frame is None or key == self._last:
+            f = self.player.latest()
+            if f is None or f.index == last:
                 self.msleep(3)
                 continue
-            self._last = key
+            last = f.index
             try:
-                if status.key != self._active_key:
-                    if self._active_key is not None:
-                        self._pipes.pop(status.key, None)   # counts restart on a source switch
-                    self._active_key = status.key
-                pipe = self._pipeline_for(status.key)
-                state = pipe.process(frame)
+                s = self.analyser.process(f)
             except Exception as exc:  # keep the booth alive; record and continue
-                self.errors.append(f"{type(exc).__name__}: {exc}")
+                self.error_count += 1
+                self.errors = (self.errors + [f"{type(exc).__name__}: {exc}"])[-100:]
                 self.msleep(10)
                 continue
-            now = time.monotonic()
-            self._times.append(now)
-            self._times = self._times[-60:]
-            fps = (len(self._times) - 1) / (self._times[-1] - self._times[0]) if len(self._times) > 2 else 0.0
-            s = LiveState(**state.__dict__)  # shallow copy, owned by the GUI from now on
-            if s.image is not None:
-                s.image = np.ascontiguousarray(s.image)
-            for k, v in source_fields(pipe, status, frame, self.chain).items():
-                setattr(s, k, v)
-            s.fps = fps
-            if pipe.booth is not None and pipe.stats.frames_analysed > 30 and len(self._times) > 2:
-                s.playback_speed = self._playback_speed(pipe)
             self.frames += 1
             self.state_ready.emit(s)
 
-    def _playback_speed(self, pipe: Pipeline) -> float | None:
-        meta = self.booth_meta or {}
-        outs = meta.get("outputs", {})
-        hold = str(self.cfg["booth"].get("hold_factor", 2))
-        return outs.get(hold, {}).get("playback_speed")
-
     def report(self, n_events: int) -> dict[str, Any]:
-        """Source at the end, the last n_events chain events and each pipeline's stats (call after wait)."""
-        return {"source": self.chain.status.key, "source_events": last_events(self.chain.events, n_events),
-                "pipelines": {k: p.stats.as_dict() for k, p in self._pipes.items()}}
+        """Playback events (the last n_events), counters and each clip's pipeline stats."""
+        return {"clip": self.analyser.active, "events": list(self.player.events[-n_events:]) if n_events > 0 else [],
+                "playback": dict(self.player.stats), "pipelines": self.analyser.stats()}
 
     def pipeline_counters(self) -> dict[str, Any] | None:
-        """The active pipeline's frame counters (they restart on a source switch)."""
-        key = self._active_key
-        pipe = self._pipes.get(key) if key is not None else None
-        return heartbeat_counters(key, pipe.stats if pipe is not None else None)
+        return self.analyser.counters()
 
+
+# Screens -------------------------------------------------------------------------------------
+
+def choose_screen(screens: list, primary: Any, preference: str | None = "auto", builtin: str | None = BUILTIN_SCREEN):
+    """The screen for a window (see the module docstring). Screens need only .name()."""
+    screens = list(screens)
+    if not screens:
+        return primary
+    has_primary = any(s is primary for s in screens)
+    pref = (preference or "auto").strip()
+    if pref not in ("auto", "external", "primary"):
+        for s in screens:
+            if s.name() == pref:
+                return s
+        pref = "auto"
+    if pref == "primary":
+        return primary if has_primary else screens[0]
+    pat = re.compile(builtin, re.I) if builtin else None
+    inside = [s for s in screens if pat is not None and pat.search(s.name() or "")]
+    outside = [s for s in screens if not any(s is i for i in inside)]
+    if outside and inside:
+        return outside[0]
+    if inside:
+        return inside[0]
+    others = [s for s in screens if s is not primary]    # the names say nothing: a second screen is external
+    return others[0] if others else (primary if has_primary else screens[0])
+
+
+def _fullscreen_on(w, scr) -> None:
+    if w.isFullScreen():
+        w.showNormal()
+    w.setScreen(scr)
+    w.setGeometry(scr.geometry())
+    w.showFullScreen()
+
+
+class ScreenPlacer:
+    """Keeps the booth window fullscreen on its chosen screen, and the limits window on its
+    own, also when a monitor is plugged in or out while the booth runs."""
+
+    def __init__(self, app, win, preference: str | None, builtin: str | None = BUILTIN_SCREEN, limits=None,
+                 limits_preference: str | None = None, defer: Callable[[int, Callable], None] | None = None):
+        self.app, self.win, self.preference, self.builtin = app, win, preference, builtin
+        self.limits, self.limits_preference = limits, limits_preference
+        self.defer = defer or (lambda ms, fn: QTimer.singleShot(ms, fn))
+        self.screen = None
+        self.moves: list[dict[str, Any]] = []
+        app.screenAdded.connect(self._changed)
+        app.screenRemoved.connect(self._changed)
+        self.place()
+
+    def _changed(self, *_) -> None:
+        self.defer(400, self.place)       # after the system has finished rearranging the screens
+
+    def place(self) -> None:
+        screens, primary = list(self.app.screens()), self.app.primaryScreen()
+        scr = choose_screen(screens, primary, self.preference, self.builtin)
+        if scr is not None and (scr is not self.screen or self.win.screen() is not scr):
+            _fullscreen_on(self.win, scr)
+            self.moves.append({"t": round(time.monotonic(), 3), "screen": scr.name()})
+            self.screen = scr
+        if self.limits is not None:
+            lscr = choose_screen(screens, primary, self.limits_preference, self.builtin)
+            if lscr is None or lscr is scr:
+                self.limits.hide()
+            elif not self.limits.isVisible() or self.limits.screen() is not lscr:
+                _fullscreen_on(self.limits, lscr)
+
+
+# Windows -------------------------------------------------------------------------------------
 
 class BoothWindow(QWidget):
-    def __init__(self, lang: str = "ko"):
+    def __init__(self, lang: str = "ko", quit_confirm_s: float = 3.0, on_pause: Callable[[bool], None] | None = None):
         super().__init__()
         self.setWindowTitle("wfglink")
         self.setStyleSheet("background-color: #000000;")
@@ -325,19 +310,37 @@ class BoothWindow(QWidget):
         self.show_tracks = True
         self.show_field = True
         self.show_gate = True
-        self._esc_at = 0.0
+        self.paused = False
+        self.on_pause = on_pause
+        self.quit_confirm_s = float(quit_confirm_s)
+        self._esc_at = -1e9
         self.paints = 0
+        self.pauses = 0
         self.quit_confirmed = False
-        self.states_seen: dict[str, int] = {}   # states received, by source state (and note): for the report
+        self.states_seen: dict[str, int] = {}   # states received, by source state: for the report
+        self.clips_seen: dict[str, int] = {}    # ... and by clip name
 
     def on_state(self, s: LiveState) -> None:
         self.state = s
-        key = f"{s.source_state}+{s.source_note}" if s.source_note else s.source_state
-        self.states_seen[key] = self.states_seen.get(key, 0) + 1
+        self.states_seen[s.source_state] = self.states_seen.get(s.source_state, 0) + 1
+        if s.source_label:
+            self.clips_seen[s.source_label] = self.clips_seen.get(s.source_label, 0) + 1
         self.update()
+
+    def quit_prompt(self) -> bool:
+        """The Esc confirm prompt is showing."""
+        return time.monotonic() - self._esc_at < self.quit_confirm_s
+
+    def toggle_pause(self) -> None:
+        self.paused = not self.paused
+        self.pauses += 1
+        if self.on_pause is not None:
+            self.on_pause(self.paused)
 
     def keyPressEvent(self, ev) -> None:  # noqa: N802
         k = ev.key()
+        if ev.isAutoRepeat() and k in (Qt.Key.Key_Escape, Qt.Key.Key_Space):
+            return                            # a held key must not quit or flicker the pause
         if k == Qt.Key.Key_L:
             self.lang = "en" if self.lang == "ko" else "ko"
         elif k == Qt.Key.Key_I:
@@ -348,18 +351,22 @@ class BoothWindow(QWidget):
             self.show_field = not self.show_field
         elif k == Qt.Key.Key_G:
             self.show_gate = not self.show_gate
+        elif k == Qt.Key.Key_Space:
+            self.toggle_pause()
         elif k == Qt.Key.Key_Escape:
-            now = time.monotonic()
-            if now - self._esc_at < 2.0:
+            if self.quit_prompt():
                 self.quit_confirmed = True
                 self.close()
-            self._esc_at = now
+                return
+            self._esc_at = time.monotonic()
+            QTimer.singleShot(int(self.quit_confirm_s * 1000) + 50, self.update)   # the prompt goes away
         self.update()
 
     def paintEvent(self, ev) -> None:  # noqa: N802
         p = QPainter(self)
         paint_scene(p, self.width(), self.height(), self.state, self.lang, show_limits=self.show_limits,
-                    show_tracks=self.show_tracks, show_field=self.show_field, show_gate=self.show_gate)
+                    show_tracks=self.show_tracks, show_field=self.show_field, show_gate=self.show_gate,
+                    paused=self.paused, quit_prompt=self.quit_prompt())
         p.end()
         self.paints += 1
 
@@ -371,6 +378,7 @@ class LimitsWindow(QWidget):
         super().__init__()
         self.main = main
         self.setStyleSheet("background-color: #000000;")
+        self.setCursor(Qt.CursorShape.BlankCursor)
 
     def paintEvent(self, ev) -> None:  # noqa: N802
         p = QPainter(self)
@@ -378,6 +386,8 @@ class LimitsWindow(QWidget):
                     show_tracks=False, show_field=False, show_gate=False)
         p.end()
 
+
+# Heartbeat -----------------------------------------------------------------------------------
 
 def rss_mb(pid: int) -> float | None:
     """Resident memory of a process in MB (Linux /proc, otherwise ps), or None."""
@@ -395,77 +405,68 @@ def rss_mb(pid: int) -> float | None:
 
 
 class Heartbeat:
-    """A small JSON file rewritten every few seconds; the booth supervisor watches it."""
+    """A small JSON file rewritten every few seconds; the booth supervisor and the soak read it
+    (keys in the module docstring)."""
 
-    def __init__(self, path: str | Path, every_s: float = 2.0):
+    def __init__(self, path: str | Path, source: str = "", every_s: float = 2.0):
         import os
 
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.source = source
         self.every_s = every_s
         self.t0 = time.monotonic()
         self.pid = os.getpid()
         self._rss: dict[int, float | None] = {}
         self._rss_at = -1e9
 
-    def write(self, win: "BoothWindow", worker, status: str = "running") -> None:
+    def write(self, win: BoothWindow, worker, status: str = "running") -> None:
         from wfglink.provenance import now_shanghai
 
         now = time.monotonic()
         if now - self._rss_at > 10.0:     # ps is not free; memory moves slowly
-            pids = [self.pid] + ([worker.proc.pid] if getattr(worker, "proc", None) is not None and worker.proc.pid else [])
-            self._rss = {pid: rss_mb(pid) for pid in pids}
+            self._rss = {pid: rss_mb(pid) for pid in [self.pid] + list(worker.child_pids())}
             self._rss_at = now
         st = win.state
         data = {"status": status, "time": now_shanghai(), "epoch": time.time(), "pid": self.pid,
                 "uptime_s": round(now - self.t0, 1), "frames": worker.frames, "paints": win.paints,
-                "fps": round(st.fps or 0.0, 2), "source": st.source_label, "state": st.source_state,
-                "errors": len(worker.errors), "last_error": worker.errors[-1] if worker.errors else None,
-                "rss_mb": {str(k): (round(v, 1) if v is not None else None) for k, v in self._rss.items()}}
-        counters = getattr(worker, "pipeline_counters", None)
-        if counters is not None:
-            # Frames received and analysed by the active pipeline, so the soak can tell an
-            # app that keeps painting from one that keeps analysing.
-            data["pipeline"] = counters()
+                "fps": round(st.fps or 0.0, 2), "source": self.source,
+                "state": st.source_state if worker.frames else "starting",
+                "errors": worker.error_count, "last_error": worker.errors[-1] if worker.errors else None,
+                "rss_mb": {str(k): (round(v, 1) if v is not None else None) for k, v in self._rss.items()},
+                "clip": worker.clip, "paused": bool(win.paused),
+                # Frames received and analysed by the active pipeline, so the soak can tell an
+                # app that keeps painting from one that keeps analysing.
+                "pipeline": worker.pipeline_counters()}
         tmp = self.path.with_suffix(".tmp")
         tmp.write_text(json.dumps(data, ensure_ascii=False))
         tmp.replace(self.path)
 
 
-def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None = None, lang: str | None = None,
-              limits_screen: str | None = None, duration_s: float | None = None,
-              screenshot: str | None = None, heartbeat: str | None = None) -> dict[str, Any]:
+# The app -------------------------------------------------------------------------------------
+
+def run_live(cfg: dict | None = None, source: dict[str, str] | None = None, screen: str | None = None,
+             lang: str | None = None, limits_screen: str | None = None, duration_s: float | None = None,
+             screenshot: str | None = None, heartbeat: str | None = None) -> dict[str, Any]:
+    """Run the booth screen until Esc is confirmed, the duration ends or a signal arrives; returns a report."""
     cfg = cfg or load_config(local=True)
+    spec = source or source_spec(cfg=cfg)
     app = QApplication.instance() or QApplication(sys.argv[:1])
     from wfglink.ui.fonts import load_fonts
 
     load_fonts()
-    options = build_options(cfg, source)
-    meta = load_booth_meta(cfg) if source in ("auto", "camera") else None
-    chain = SourceChain(options, ChainConfig.from_config(cfg), hook_factory=screen_check_factory(meta, cfg))
-    n_events = int((cfg.get("booth") or {}).get("report_events", 100))
-    win = BoothWindow(lang or cfg["ui"]["language"])
-    scr = choose_screen(app, screen or cfg["ui"]["screen"])
-    win.setScreen(scr)
-    win.setGeometry(scr.geometry())
-    win.showFullScreen()
-    limits = None
-    if limits_screen:
-        lscr = choose_screen(app, limits_screen)
-        if lscr is not scr:
-            limits = LimitsWindow(win)
-            limits.setScreen(lscr)
-            limits.setGeometry(lscr.geometry())
-            limits.showFullScreen()
-    mode = cfg.get("live", {}).get("worker_mode", "thread")
+    ui = cfg.get("ui") or {}
+    mode = (cfg.get("live") or {}).get("worker_mode", "thread")
     if mode == "process":
-        from wfglink.ui.process_worker import ProcessBoothWorker
+        from wfglink.ui.process_worker import ProcessLiveWorker
 
-        worker = ProcessBoothWorker(cfg, source, meta)
-        chain = None  # capture runs in the child process
+        worker = ProcessLiveWorker(cfg, spec)
     else:
-        worker = BoothWorker(chain, cfg, meta)
-        chain.start()
+        worker = LiveWorker(cfg, spec)
+    win = BoothWindow(lang or ui.get("language", "ko"), float(ui.get("quit_confirm_s", 3.0)), worker.set_paused)
+    limits = LimitsWindow(win) if limits_screen else None
+    placer = ScreenPlacer(app, win, screen or ui.get("screen", "auto"), ui.get("builtin_screen", BUILTIN_SCREEN),
+                          limits, limits_screen)
     worker.state_ready.connect(win.on_state, Qt.ConnectionType.QueuedConnection)
     worker.start()
     if duration_s:
@@ -476,13 +477,25 @@ def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None 
                 win.grab().save(screenshot)
             win.close()
         QTimer.singleShot(int(duration_s * 1000), finish)
-    hb = Heartbeat(heartbeat) if heartbeat else None
+    # SIGTERM (the supervisor) or SIGINT (Ctrl-C) closes the window; the loop below notices.
+    stop_signal: list[int] = []
+    old_handlers = {}
+    for sig in (signal.SIGTERM, signal.SIGINT):
+        try:
+            old_handlers[sig] = signal.signal(sig, lambda signum, _f: stop_signal.append(signum))
+        except ValueError:      # not the main thread (tests): leave the handlers alone
+            pass
+    hb = Heartbeat(heartbeat, spec.get("kind", "")) if heartbeat else None
+    n_events = int((cfg.get("booth") or {}).get("report_events", 100))
     t0 = time.monotonic()
     t_hb = 0.0
     try:
         while win.isVisible():
             app.processEvents()
             time.sleep(0.002)
+            if stop_signal:
+                win.close()
+                break
             now = time.monotonic()
             if hb is not None and now - t_hb >= hb.every_s:
                 t_hb = now
@@ -490,27 +503,26 @@ def run_booth(cfg: dict | None = None, source: str = "auto", screen: str | None 
             if duration_s and now - t0 > duration_s + 5:
                 break
     finally:
-        worker.stop()
-        worker.wait(5000)
-        if chain is not None:
-            chain.stop()
-        if limits:
+        worker.shutdown(5000)
+        for sig, h in old_handlers.items():
+            signal.signal(sig, h)
+        if limits is not None:
             limits.close()
         if hb is not None:
             done = win.quit_confirmed or getattr(win, "duration_done", False)
-            hb.write(win, worker, "clean_exit" if done else "closed")
+            hb.write(win, worker, "clean_exit" if done and not stop_signal else "closed")
     st = win.state
     rep = worker.report(n_events)    # in process mode, the child's last periodic report
     result = {
         "seconds": round(time.monotonic() - t0, 1), "frames": worker.frames, "paints": win.paints,
-        "errors": worker.errors[-10:], "worker_mode": mode,
-        "source": rep.get("source") or st.source_label,
-        "source_events": rep.get("source_events", []),
-        "quit_confirmed": win.quit_confirmed,
+        "errors": worker.errors[-10:], "error_count": worker.error_count, "worker_mode": mode,
+        "source": spec.get("kind"), "clip": rep.get("clip"),
+        "quit_confirmed": win.quit_confirmed, "signal": stop_signal[0] if stop_signal else None,
         "last": {"count_rate": st.count_rate, "cpc": st.cpc_gross, "pnf": st.pnf, "speed": st.speed,
-                 "fps": st.fps, "state": st.source_state},
-        "pipelines": rep.get("pipelines", {}),
-        "source_states": dict(win.states_seen),
+                 "fps": st.fps, "state": st.source_state, "label": st.source_label},
+        "pipelines": rep.get("pipelines", {}), "playback": rep.get("playback", {}), "events": rep.get("events", []),
+        "states": dict(win.states_seen), "clips": dict(win.clips_seen), "pauses": win.pauses,
+        "screen": {"name": placer.screen.name() if placer.screen is not None else None, "moves": placer.moves},
     }
     win.deleteLater()
     app.processEvents()

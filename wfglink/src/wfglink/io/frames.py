@@ -14,8 +14,8 @@ class Frame:
     image: BGR uint8 array (H, W, 3), owned by this record.
     t: presentation time in seconds on the source clock (true PTS for files).
     index: running index of frames delivered by the source (0, 1, 2, ...).
-    t_wall: monotonic wall-clock time when the frame was received (live sources).
-    meta: source-specific extras (duplicate flag, decoded booth code, camera name, ...).
+    t_wall: monotonic wall-clock time when the frame was delivered (real-time sources).
+    meta: source-specific extras (loop count, booth playlist item and clip, ...).
     """
 
     image: np.ndarray

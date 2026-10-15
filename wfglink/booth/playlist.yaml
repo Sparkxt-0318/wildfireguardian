@@ -1,0 +1,13 @@
+# Booth playlist: the approved clips that `python -m wfglink live` (and booth/booth.sh) plays
+# in a loop, each analysed live as it plays.
+#
+# Each entry names a clip settings file data/clips/<id>.yaml. The clip plays only over its
+# approved segments_s and cropped to its roi; the status line shows its title and credit
+# line from data/clips.csv. Optional per entry:
+#   segments_s: [[start, end], ...]   seconds of the file to play instead (null end: to the end)
+#   label: "..."                      name in the status line instead of the title
+# A clip whose file is missing (not yet in data/raw) is skipped and tried again on the next
+# loop; when no clip can play, synthetic video plays, tagged as such.
+clips:
+  - clip: C5_nist_emberometer
+  - clip: C6_nist_dragon

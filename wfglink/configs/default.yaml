@@ -109,6 +109,29 @@ validate:
   streak_radius_frac: 0.5        # match radius = max(match_radius_px, frac * L)
   min_true_speed_px_s: 1.0       # truth slower than this is left out of relative errors
   bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
+  led:                           # LED turntable test with the dashcam (plan 4.4): fixed before the clips arrive, never tuned on them
+    n_leds: 3
+    max_seconds: 60              # analyse at most this many seconds of each LED recording, all its parts together
+    min_track_points: 8          # shorter tracks are not used for rings or speeds
+    ring_tol_px: 3.0             # a detection this close to a ring is on it; a room-test ring must fit this tightly (robust sigma)
+    ring_gap_frac: 0.08          # track radii further apart than this fraction (at least 6 px) are different rings
+    omega_disagree_pct: 3.0      # stopwatch and video turntable speed differing by more: warning
+    goal_median_error_pct: 5.0   # plan 4.4 goal: median absolute speed error over the tracks of both speeds
+    scale_spread_warn_pct: 5.0   # px per mm of the rings differing by more: warning (radii or tilt)
+    axis_ratio_min: 0.99         # plan 4.4: a ring flatter than this means the dashcam does not look straight down
+    ring_min_arc_deg: 180        # a ring counts only when its points cover at least this arc (stray lights cover less)
+    still_every_s: 0.25          # stills: one frame sampled this often (brightest value for LED clips, sharpest for the ruler)
+  led_files:                     # inputs and outputs of `validate --suite led` (validate/dashcam.py)
+    raw_dir: data/raw            # recordings and led_notes.yaml, relative to wfglink/
+    report: results/validation/led_report.json
+    stills_dir: led_stills       # next to the report: mask stills and the ruler stills
+    stamp_band_frac: 0.10        # date stamp at the top or bottom: a band of this fraction of the frame height is masked
+    stamp_corner_frac: 0.5       # date stamp in a corner: the masked box is this fraction of the frame width (and the band height)
+    fps_tol_frac: 0.02           # file frame rate differing from the notes by more than this fraction: warning
+    rpm_tol_frac: 0.15           # notes timings giving an rpm this far from 33 1/3 or 45: warning (turns or times mixed up)
+    interval_tol_frac: 0.25      # frame intervals further than this fraction from the median count as irregular
+    scene_max_seconds: null      # room test and night drive: at most this many seconds (null = all)
+    still_max_width: 1920        # mask stills wider than this are scaled down (the ruler stills stay full size)
 
 plausibility:                    # real-clip checks on a finished file-mode run (plan 4.5, validate/plausibility.py)
   timing:
@@ -171,86 +194,55 @@ field:
   window_s: 10.0                 # file mode: field.parquet has the whole clip and windows of this length
   bootstrap: 200
 
+soak:                            # overnight booth soak: python scripts/mac_soak.py --hours 8 (src/wfglink/soak.py)
+  every_s: 60                    # seconds between heartbeat samples (--every overrides)
+  progress_every_s: 600          # a progress line this often
+  stale_s: 30                    # a heartbeat older than this is recorded as stale
+  start_grace_s: 120             # samples before the app's first heartbeat in this window are start-up, not downtime
+  stop_timeout_s: 30             # after SIGTERM, booth.sh gets this long to stop the app before its process group is ended
+  out_dir: logs/soak             # each soak writes soak.csv, soak_meta.json and soak_report.json to a dated folder here (--out overrides)
+  fps_median_min: 20             # paint fps: the median over the sampling intervals must reach this (clips play at 25 to 30 fps)
+  fps_p5_min: 10                 # paint fps: the 5th percentile must reach this
+  mem_slope_max_mb_h: 20.0       # memory growth above this many MB per hour fails (plan rule)
+  mem_fit_last_h: 6.0            # the memory fit uses the last hours only (all data when shorter)
+  mem_warmup_s: 600              # samples from an app's first seconds of uptime are left out of the fit
+  mem_min_hours: 2.0             # a soak shorter than this reports the slope as "too short to judge"
+  restarts_max: 0                # app restarts (crash or hang, from logs/booth.log) allowed during the soak
+  errors_max: 0                  # processing errors (heartbeat error count) allowed during the soak
+  analysis_stall_s: 180          # no frame analysed (not paused) this long in one app instance fails
+  counter_reset_frac: 0.8        # pipeline counters that grew by less than this share of the frames the app processed were restarted (the clip began again)
+  counter_reset_slack: 60        # frames allowed on top: the process worker reports its counters once a second, so they lag the app's count
+  live_fraction_min: 0.9         # share of samples that must find a fresh heartbeat from a running app
+  fallback_max: 0.0              # share of playlist samples allowed on the synthetic fallback (no clip could play)
+
+doctor:                          # python -m wfglink doctor (src/wfglink/doctor.py)
+  python: "3.12"                 # the Python version every pin is made for
+  pythonorg_prefix: /Library/Frameworks/Python.framework/Versions/3.12   # macOS: where python.org's installer puts it
+  font: Pretendard               # the family Qt must resolve for the booth screen and the placards
+
 outputs:
   table_format: parquet          # parquet or csv
   overlay_video: true
   overlay_crf: 20
 
-camera:
-  backend: auto                  # auto (PyAV, then OpenCV), pyav or opencv; set from sitting 1
-  width: 1920
-  height: 1080
-  fps: 30                        # 60 only if sitting 1 shows the iPhone 13 offers it
-  iphone_uid: null               # saved by sitting 1; otherwise the Continuity Camera is found by property
-  webcam_match: null             # optional name regex for the USB webcam
-  chain: [iphone, webcam, replay]
-
-capture:
-  stale_s: 1.5                   # no frame for this long: reconnect
-  freeze_s: 3.0                  # identical frames or failed booth check for this long: reconnect
-  hook_grace_s: 8.0              # after a (re)open the booth check may take this long to pass once (exposure and focus settle)
-  freeze_dn: 2                   # half-resolution pixels changed by at least this many DN count as changed
-  freeze_max_px: 0               # a frame with no changed pixel repeats the last one (frozen cameras repeat exactly)
-  backoff_min_s: 0.5
-  backoff_max_s: 5.0
-  switch_back_s: 5.0             # a better source must stay healthy this long before it takes over
-  probe_every_s: 10.0
-  open_timeout_s: 8.0
-  booth_check_s: 0.2             # booth mode: a live camera's frame code is read in its capture thread at most this often (paused or absent screen)
-
 booth:
-  launcher: terminal             # terminal or app (py2app alias app); set from sitting 1
-  hold_factor: 2                 # 2 = 0.5x playback, 3 = 1/3x; set from sitting 2 (clean-frame yield)
-  replay_clip: null              # prepared booth clip used for labelled replay when no camera works
-  report_events: 100             # source chain events kept in a booth run's report (the chain itself keeps the last 500)
-  sim_pause_s: [15, 35]          # loopsim-pause sources (dry runs, tests): the simulated iPad pauses in this window, seconds after start
+  playlist: booth/playlist.yaml  # clips the booth plays in a loop (python -m wfglink live, booth/booth.sh)
+  reset_per_clip: true           # true: every clip start resets the counts (counts per clip); false: each clip's counts run on across loops
+  late_frames: 1.0               # playback: a decoded frame later than this many frame intervals is dropped (while dropping catches up)
+  resync_s: 0.5                  # playback: this far behind, the clock restarts at the current frame (the clip plays on slower)
+  cut_gap_s: 1.0                 # playback: time gap at every cut (next segment, clip or loop), so no track joins two shots
+  retry_s: 30                    # no playable clip: synthetic video for this long, then the playlist is tried again
+  synthetic_seed: 1              # synthetic video (--synthetic, or no playable clip)
+  report_events: 100             # playback events kept in a run's report (the player keeps the last 500)
 
 live:
-  worker_mode: thread            # thread or process; set from sitting 2
-  analysis_max_width: 1280       # the rectified screen region is analysed at most this wide
+  worker_mode: thread            # thread or process (playback and analysis in a child process)
+  analysis_max_width: 1280       # frames are analysed and shown at most this wide (a 4K roi is scaled down while decoding)
+  analysis_max_pixels: 921600    # ... and with at most this many pixels (1280x720), so a tall roi costs no more than a wide one
 
 ui:
-  screen: external               # external, primary, or a screen name; set from sitting 2
+  screen: auto                   # auto (external monitor when connected, else the built-in screen), external, primary, or a screen name
+  builtin_screen: "built-?in|내장|color lcd|^edp|^lvds|^dsi"   # regex for the names of a laptop's own screen (macOS: "Built-in Retina Display")
   language: ko                   # ko or en at start-up; key L toggles
+  quit_confirm_s: 3.0            # Esc, then Esc again within this many seconds, quits (a prompt shows meanwhile)
 
-sitting2:
-  hold_rule: coverage            # check B: coverage (default) or yield; see docs/SITTING2.md, "How the hold factor is chosen"
-  coverage_min: 0.98             # check B, coverage rule: share of source frames read clean at least once, in every window
-  spare_views_min: 0.5           # check B, coverage rule: a window shows spare views when this share of its source frames was read clean twice or more; one such window is required
-  coverage_windows: 8            # check B: camera sessions per hold factor; the camera restarts between them, so each samples a new phase
-  coverage_seconds: 60           # check B: total seconds of those sessions per hold factor
-  coverage_windows_used_min: 0.5 # check B, coverage rule: at least this share of the sessions must give a measurement (one that cannot open or reads too few codes gives none)
-  yield_min: 0.8                 # check B, yield rule (plan 4.3): hold factor 2 is kept when its clean-frame yield reaches this; always reported
-  recover_max_s: 20.0            # unplug test: limit after the replug prompt (a probe at most every capture.probe_every_s, then capture.switch_back_s of health, plus a few seconds for macOS to list the iPhone again)
-  process_gain_min: 1.1          # worker mode test: process mode is chosen only when it paints at least this many times the thread mode's fps (or thread mode failed)
-  mem_slope_max_mb_h: 20.0       # soak: memory growth above this many MB per hour fails (plan rule)
-  mem_fit_last_h: 6.0            # soak: the memory fit uses the last hours only (all data when shorter)
-  mem_warmup_s: 600              # soak: samples from an app's first seconds of uptime are left out of the fit
-  mem_min_hours: 1.0             # soak: shorter soaks report a slope but no pass or fail
-  analysis_stall_s: 180          # soak: frames arriving but none analysed (or none arriving) this long on one source fails
-  hb_stale_s: 30                 # soak sampler: a heartbeat older than this is recorded as stale
-  run_seconds: 30                # check B: seconds per booth run (hold 2, hold 3): clean-frame yield, fps, the screen
-  unplug_seconds: 60             # unplug test: run length
-  unplug_at_s: 15                # unplug test: when the console says to unplug the iPhone
-  replug_at_s: 35                # unplug test: when it says to plug it back in
-  webcam_seconds: 30             # webcam test: run length (only when a webcam is listed)
-  worker_seconds: 30             # worker mode test: seconds per mode
-  soak_every_s: 60               # soak sampler interval
-  free_disk_min_gb: 5            # preflight: warn below this
-  booth_clip_max_s: null         # booth clip: seconds of the source clip to prepare (null = all)
-  dry_seconds: 15                # dry run: seconds per yield, webcam and worker run
-  dry_coverage_windows: 4        # dry run: camera sessions per hold factor for the coverage
-  dry_coverage_seconds: 12       # dry run: total seconds of those sessions per hold factor
-  dry_clip_seconds: 6            # dry run: length of the synthetic stand-in clip
-  dry_clip_size: [640, 360]      # dry run: stand-in clip size
-  dry_unplug_s: [15, 35]         # dry run (loopsim-unplug source): simulated disconnect window, seconds after start
-  dry_soak_seconds: 20           # dry run: soak length before the automatic finish
-  dry_soak_every_s: 2            # dry run: soak sampler interval
-  loopsim:                       # camera-in-the-loop simulator settings for loopsim sources (dry runs)
-    camera_fps: 30.0009          # free-running camera 30 ppm fast against the 60 Hz panel, like two quartz clocks: a minute sees about one phase
-    exp_s: 0.008                 # exposure (1/125 s)
-    readout_s: 0.0               # rolling-shutter readout, top to bottom (0 = global shutter)
-    scan: right                  # panel scan direction in the picture: the iPad's panel is portrait-native, so in landscape it most likely scans across (sitting 1 measures it)
-    response_s: 0.005            # LCD pixel response, first-order time constant (the iPad's value is not known; tablet LCDs settle in about 5 to 15 ms)
-    size: [1280, 720]            # camera picture size (smaller than the iPhone's 1920x1080 so the simulator keeps up in real time here)
-    seed: 0

@@ -11,12 +11,3 @@ pandas==3.0.6
 PyYAML==6.0.3
 matplotlib==3.11.2
 pytest==9.1.1
-# macOS only: camera discovery, permission and Continuity Camera properties
-# (AVFoundation pulls in Cocoa, CoreMedia and Quartz; pinned here so versions match),
-# and py2app for the alias-mode .app fallback that carries the camera Info.plist keys.
-pyobjc-core==12.2.2; sys_platform == "darwin"
-pyobjc-framework-Cocoa==12.2.2; sys_platform == "darwin"
-pyobjc-framework-CoreMedia==12.2.2; sys_platform == "darwin"
-pyobjc-framework-Quartz==12.2.2; sys_platform == "darwin"
-pyobjc-framework-AVFoundation==12.2.2; sys_platform == "darwin"
-py2app==0.28.10; sys_platform == "darwin"

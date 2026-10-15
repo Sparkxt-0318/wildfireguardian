@@ -4,9 +4,12 @@ file: data/raw/C6_nist_dragon.mp4
 split: tune
 metrics_scope: all
 roi: null
-# Lab footage only: the Shutterstock dragon graphic (about 5 to 14 s) and an uncredited still
-# (about 24 to 37 s) are not NIST footage and are never used (data/SOURCES.md).
-segments_s: [[14.0, 24.0]]
+# Lab footage only, 17.05 to 22.55 s (checked frame by frame on 2026-10-15). The Shutterstock
+# dragon graphic runs to 16.72 s and fades to black; the lab footage fades in by 16.98 s. From
+# 22.62 s it cross-fades into an uncredited still (a slow zoom on a window under firebrands).
+# Neither is NIST footage and neither is ever used (data/SOURCES.md). The first check, on a 2 s
+# contact sheet, had set 14 to 24 s, which took in both.
+segments_s: [[17.05, 22.55]]
 gate: null
 distance_m: null
 # Plausibility checks (python -m wfglink plausibility RUN_DIR --clip <this file>, METHODS section 11).

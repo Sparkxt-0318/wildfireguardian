@@ -2,7 +2,7 @@
 
 Each row is a commit that passed the demo gate (`scripts/tag_demo.sh`: the booth UI runs headless on the synthetic source and on an approved clip with no errors). Any of them is a working demo even if later work breaks something.
 
-To run one: `git fetch origin && git worktree add ~/wfglink-demo <commit>`, then `bash ~/wfglink-demo/wfglink/booth/booth.sh` (after `scripts/sitting1.sh` has installed the environment there).
+To run one: `git fetch origin && git worktree add ~/wfglink-demo <commit>`, then `cd ~/wfglink-demo/wfglink && ./scripts/setup_mac.sh && ./booth/booth.sh`. Builds before the setup change of 2026-10-15 (commits before the playback booth) install with `scripts/sitting1.sh` instead and expect a camera.
 
 To make a real tag (this project's cloud session cannot push tags): `git tag <tag> <commit> && git push origin <tag>`.
 

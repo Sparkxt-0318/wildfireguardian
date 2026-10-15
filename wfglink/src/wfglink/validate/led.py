@@ -1,24 +1,33 @@
-"""LED turntable validation (plan section 4.4): measured speed against omega times radius.
+"""LED turntable validation (plan section 4.4, filmed with the dashcam): measured speed against omega times radius.
 
-Three diffused LEDs ride a turntable filmed from straight above. The truth is the image
-speed of each LED, |omega| * r_eff, where omega comes from the stopwatch (30 revolutions)
-and r_eff from an ellipse fitted to that LED's ring in the image. No metric scale is
-needed: everything is in px/s. The method under test is the normal detector and tracker,
-then the per-point local polynomial velocity with the known circular-motion gain divided
-out, using the angular rate measured from the track itself (never the truth).
+Three diffused LEDs ride a turntable filmed from straight above by the booth dashcam. The
+truth is the image speed of each LED, |omega| * r_eff, where omega comes from the stopwatch
+(omega = 2 pi turns_timed / time) and r_eff from an ellipse fitted to that LED's ring in the
+image. No metric scale is needed: everything is in px/s. The method under test is the normal
+detector and tracker, then the per-point local polynomial velocity with the known
+circular-motion gain divided out, using the angular rate measured from the track itself
+(never the truth).
 
-Per device the report gives:
-- median and p90 relative track-speed error over tracks (and per speed);
+Per clip the result gives:
+- median and p90 relative track-speed error over tracks, signed and absolute;
+- per ring: radius, axis ratio (camera tilt), fit spread, arc covered, measured and expected speed;
 - LED detection precision and recall per frame (a detection within max(3 px, L/2) of a
   ring counts once for that ring);
 - the exposure estimate (Deming fit of streak length on track speed) and the duty cycle;
-- the ring axis ratio (camera tilt) and a stopwatch versus video check of omega.
+- a stopwatch versus video check of omega, and the frame timing of the file.
 
+metric_check adds the user's formula: true speed = 2 pi x radius x turns / time in mm/s
+against the measured speed converted with a px per mm scale (from the rings and the measured
+LED radii, or from the ruler).
+
+A recording split across loop files is analysed part by part (each part tracked on its own,
+results pooled). The dashcam's date stamp is masked from detection (validate/dashcam.py).
 LED clips are never used for tuning: every threshold here is fixed before the clips arrive.
 """
 from __future__ import annotations
 
 import copy
+import itertools
 import math
 import time
 from pathlib import Path
@@ -28,17 +37,11 @@ import cv2
 import numpy as np
 
 from wfglink.config import load_config
-from wfglink.detect.candidates import Detector
 from wfglink.io.sources import FileSource
 from wfglink.measure.exposure import estimate_exposure
 from wfglink.measure.velocity import correct_circular_speed, estimate_angular_rate, track_point_velocities
 from wfglink.track.tracker import CONFIRMED, Tracker
-
-# Recording steps of sitting 1, per device: (step id, stopwatch input key, speed label).
-DEVICE_STEPS = {
-    "iphone": [("iph_led_s1", "t30_s1", "speed1"), ("iph_led_s2", "t30_s2", "speed2")],
-    "dashcam": [("dc_led_s1", "dc_t30_s1", "speed1"), ("dc_led_s2", "dc_t30_s2", "speed2")],
-}
+from wfglink.validate.dashcam import MaskedDetector, files_cfg, read_frames, sharpness, timing_summary
 
 
 def _led_cfg(cfg: dict) -> dict:
@@ -50,33 +53,60 @@ def _led_cfg(cfg: dict) -> dict:
         "ring_tol_px": float(v.get("ring_tol_px", 3.0)),
         "ring_gap_frac": float(v.get("ring_gap_frac", 0.08)),
         "omega_disagree_pct": float(v.get("omega_disagree_pct", 3.0)),
+        "goal_pct": float(v.get("goal_median_error_pct", 5.0)),
+        "scale_spread_pct": float(v.get("scale_spread_warn_pct", 5.0)),
+        "axis_ratio_min": float(v.get("axis_ratio_min", 0.99)),
+        "ring_min_arc_deg": float(v.get("ring_min_arc_deg", 180.0)),
+        "still_every_s": float(v.get("still_every_s", 0.25)),
     }
 
 
 # Tracking a clip --------------------------------------------------------------------------
 def track_clip(paths: list[Path], cfg: dict, max_seconds: float | None = None,
-               t_exp_hint: float | None = None) -> dict[str, Any]:
-    """Detect and track every file (each with its own tracker); keep tracks and detections.
+               t_exp_hint: float | None = None, boxes=(), still: str | None = None) -> dict[str, Any]:
+    """Detect and track every part (each with its own tracker); keep tracks and detections.
 
+    max_seconds: analyse at most this many seconds of the recording, all parts together,
+    from the start of the first part.
     t_exp_hint is the exposure time passed to the tracker, which then searches as far as a
     streak of that exposure implies when starting tracks (see Tracker.set_exposure_hint).
+    boxes: regions (fractions of the frame) never detected in, such as the date stamp.
+    still: keep one picture of the recording, sampled every validate.led.still_every_s:
+    "max" the brightest value of each pixel (the LEDs draw their rings), "sharp" the
+    sharpest frame (the ruler clip), None no picture.
+    A frame that repeats the previous one (at most frames.duplicate_max_px pixels changed by
+    frames.duplicate_dn) is skipped, as in file mode.
     """
+    fr = cfg.get("frames", {})
+    dup_dn, dup_max = int(fr.get("duplicate_dn", 6)), int(fr.get("duplicate_max_px", 2))
+    still_every = float(cfg.get("validate", {}).get("led", {}).get("still_every_s", 0.25))
     tracks: list[dict[str, np.ndarray]] = []
     frames: list[tuple[float, np.ndarray, np.ndarray, np.ndarray]] = []   # t, x, y, length
+    times: list[np.ndarray] = []
     dts: list[float] = []
-    n_frames = 0
+    errors: list[str] = []
+    n_frames = repeated = 0
+    used_s = 0.0
     t_start = time.perf_counter()
     size = None
+    picture, best = None, -1.0
     for fi, path in enumerate(paths):
-        det = Detector(cfg)
+        if max_seconds is not None and used_s >= max_seconds:
+            break
+        det = MaskedDetector(cfg, boxes)
         src = FileSource(path)
         src.open()
         trk = None
-        last_t = None
+        last_t = first_t = None
+        part_t: list[float] = []
+        prev_gray = None
+        next_still = 0.0
         try:
-            while (f := src.read()) is not None:
-                if max_seconds is not None and f.t > max_seconds:
+            for f in read_frames(src, errors):
+                first_t = f.t if first_t is None else first_t
+                if max_seconds is not None and used_s + (f.t - first_t) > max_seconds:
                     break
+                part_t.append(f.t)
                 if trk is None:
                     fps = src.fps if getattr(src, "fps", None) else None
                     trk = Tracker(cfg, fps=fps, keep_history=True)
@@ -85,9 +115,23 @@ def track_clip(paths: list[Path], cfg: dict, max_seconds: float | None = None,
                 if last_t is not None:
                     if f.t <= last_t:
                         continue
+                gray = cv2.cvtColor(f.image, cv2.COLOR_BGR2GRAY)
+                if prev_gray is not None and prev_gray.shape == gray.shape:
+                    changed = cv2.countNonZero(cv2.compare(cv2.absdiff(gray, prev_gray), dup_dn, cv2.CMP_GE))
+                    if changed <= dup_max:
+                        repeated += 1
+                        continue
+                prev_gray = gray
+                if last_t is not None:
                     dts.append(f.t - last_t)
                 last_t = f.t
                 size = f.image.shape[1], f.image.shape[0]
+                if still and f.t - first_t >= next_still:
+                    next_still = f.t - first_t + still_every
+                    if still == "max":
+                        picture = f.image.copy() if picture is None else np.maximum(picture, f.image)
+                    elif (s := sharpness(f.image)) > best:
+                        picture, best = f.image.copy(), s
                 d = det.detect(f.image)
                 n_frames += 1
                 if not det.ready:
@@ -96,6 +140,9 @@ def track_clip(paths: list[Path], cfg: dict, max_seconds: float | None = None,
                 frames.append((f.t + 1e4 * fi, d.x.copy(), d.y.copy(), d.length.copy()))
         finally:
             src.close()
+        times.append(np.array(part_t))
+        if part_t:
+            used_s += part_t[-1] - part_t[0] + (float(np.median(np.diff(part_t))) if len(part_t) > 1 else 0.0)
         if trk is None:
             continue
         trk.finish_all()
@@ -107,6 +154,7 @@ def track_clip(paths: list[Path], cfg: dict, max_seconds: float | None = None,
                 tracks.append(a)
     dt = float(np.median(dts)) if dts else float("nan")
     return {"tracks": tracks, "frames": frames, "dt": dt, "n_frames": n_frames, "size": size,
+            "times": times, "repeated": repeated, "parts_used": len(times), "still": picture, "decode_errors": errors,
             "seconds_processing": round(time.perf_counter() - t_start, 2)}
 
 
@@ -163,45 +211,12 @@ def expected_speed(phi: np.ndarray, a: float, b: float, omega: float) -> np.ndar
     return abs(omega) * np.sqrt((a * np.sin(phi)) ** 2 + (b * np.cos(phi)) ** 2)
 
 
-# One clip ----------------------------------------------------------------------------------
-def analyse_led_clip(paths: list[Path], omega_rad_s: float, cfg: dict | None = None) -> dict[str, Any]:
-    """Speed error, detection precision and recall, exposure and tilt for one LED speed.
+def fit_rings(good: list[dict[str, np.ndarray]], lc: dict) -> tuple[np.ndarray, list[dict[str, Any]]]:
+    """Shared centre, per-track radii, ring groups, then one ellipse per ring, smallest first.
 
-    Two passes, as in file mode: the first tracks without an exposure time, so a fast LED
-    with a short streak (short exposure) may not be picked up; its exposure estimate from
-    the LEDs it did track then goes to the tracker for the second pass, whose results are
-    reported. When the first pass cannot estimate the exposure, its results stand.
+    Each ring also gets its fit spread (robust sigma of the points' distance from the
+    ellipse, px) and the arc its points cover (degrees, in 10 degree bins).
     """
-    cfg = cfg or load_config()
-    lc = _led_cfg(cfg)
-    first = _measure(track_clip(paths, cfg, lc["max_seconds"]), paths, omega_rad_s, cfg, lc)
-    t_exp = first.get("exposure", {}).get("t_exp_ms")
-    if not t_exp:
-        first["passes"] = 1
-        return first
-    second = _measure(track_clip(paths, cfg, lc["max_seconds"], t_exp_hint=t_exp / 1000.0), paths, omega_rad_s, cfg, lc)
-    second["passes"] = 2
-    second["first_pass"] = {k: first.get(k) for k in ("tracks_used", "rings", "median_speed_error_pct", "exposure")}
-    second["seconds_processing"] = round(first["seconds_processing"] + second["seconds_processing"], 2)
-    return second
-
-
-def _measure(run: dict[str, Any], paths: list[Path], omega_rad_s: float, cfg: dict, lc: dict) -> dict[str, Any]:
-    out: dict[str, Any] = {"files": [Path(p).name for p in paths], "omega_stopwatch_rad_s": round(omega_rad_s, 5),
-                           "frames": run["n_frames"], "seconds_processing": run["seconds_processing"],
-                           "frame_interval_s": round(run["dt"], 6) if np.isfinite(run["dt"]) else None}
-    good = [a for a in run["tracks"] if not a["static"][0]
-            and np.count_nonzero(np.isfinite(a["x_meas"])) >= lc["min_points"]]
-    out["tracks_used"] = len(good)
-    out["tracks_static"] = sum(1 for a in run["tracks"] if a["static"][0])
-    if not good:
-        out["problem"] = "no usable tracks; LEDs not tracked"
-        return out
-    vcfg = cfg.get("velocity", {})
-    window, order = int(vcfg.get("savgol_window", 5)), int(vcfg.get("savgol_order", 2))
-    dt = run["dt"]
-
-    # Rings: shared centre, per-track radii, groups, then one ellipse per ring.
     center, radii = shared_center_fit(good)
     weights = np.array([np.count_nonzero(np.isfinite(a["x_meas"])) for a in good], float)
     groups = group_rings(radii, weights, lc["ring_gap_frac"])
@@ -220,18 +235,105 @@ def _measure(run: dict[str, Any], paths: list[Path], omega_rad_s: float, cfg: di
         keep = dev * max(a, b) < max(lc["ring_tol_px"], 4 * 1.4826 * float(np.median(dev * max(a, b))))
         if keep.sum() >= 5 and not keep.all():
             ell = cv2.fitEllipse(pts[keep])
-        _, _, a, b = ellipse_coords(pts[:1, 0].astype(float), pts[:1, 1].astype(float), ell)
-        rings.append({"tracks": g, "ellipse": ell, "a": a, "b": b, "points": int(weights[g].sum())})
+        phi, rn, a, b = ellipse_coords(pts[:, 0].astype(float), pts[:, 1].astype(float), ell)
+        spread = 1.4826 * float(np.median(np.abs(rn - 1))) * math.sqrt(a * b)
+        arc = 10.0 * len(np.unique(np.floor((np.degrees(phi) % 360) / 10)))
+        rings.append({"tracks": g, "ellipse": ell, "a": a, "b": b, "points": int(weights[g].sum()),
+                      "spread_px": spread, "arc_deg": arc})
     rings.sort(key=lambda r: max(r["a"], r["b"]))
+    return center, rings
+
+
+def ring_summary(r: dict[str, Any]) -> dict[str, Any]:
+    (ex, ey), (ea, eb), ang = r["ellipse"]
+    return {"radius_px": round(float(math.sqrt(r["a"] * r["b"])), 1),
+            "axis_ratio": round(float(min(r["a"], r["b"]) / max(r["a"], r["b"])), 4),
+            "fit_spread_px": round(r["spread_px"], 2), "arc_deg": round(r["arc_deg"]),
+            "track_points": r["points"], "tracks": int(len(r["tracks"])),
+            "ellipse_px": [round(float(ex), 1), round(float(ey), 1), round(float(ea), 1), round(float(eb), 1),
+                           round(float(ang), 1)]}
+
+
+# One clip ----------------------------------------------------------------------------------
+def analyse_led_clip(paths: list[Path], omega_rad_s: float | None, cfg: dict | None = None, boxes=(),
+                     still: str | None = None, max_seconds: float | None = None,
+                     images: dict | None = None) -> dict[str, Any]:
+    """Speed error, detection precision and recall, exposure and tilt for one LED recording.
+
+    omega_rad_s is the stopwatch truth; None (a ruler clip without a known speed) reports the
+    rings, the video's own omega and the detection scores but no speed error.
+    Two passes, as in file mode: the first tracks without an exposure time, so a fast LED
+    with a short streak (short exposure) may not be picked up; its exposure estimate from
+    the LEDs it did track then goes to the tracker for the second pass, whose results are
+    reported. When the first pass cannot estimate the exposure, its results stand.
+    images: when a dict is given, images["still"] receives the picture asked for by `still`.
+    """
+    cfg = cfg or load_config()
+    lc = _led_cfg(cfg)
+    secs = lc["max_seconds"] if max_seconds is None else max_seconds
+    run = track_clip(paths, cfg, secs, boxes=boxes, still=still)
+    if images is not None:
+        images["still"] = run["still"]
+    first = _measure(run, paths, omega_rad_s, cfg, lc)
+    t_exp = first.get("exposure", {}).get("t_exp_ms")
+    if not t_exp:
+        first["passes"] = 1
+        return first
+    run2 = track_clip(paths, cfg, secs, t_exp_hint=t_exp / 1000.0, boxes=boxes)
+    second = _measure(run2, paths, omega_rad_s, cfg, lc)
+    second["passes"] = 2
+    second["first_pass"] = {k: first.get(k) for k in ("tracks_used", "rings", "median_speed_error_pct", "exposure")}
+    second["seconds_processing"] = round(first["seconds_processing"] + second["seconds_processing"], 2)
+    return second
+
+
+def _measure(run: dict[str, Any], paths: list[Path], omega_rad_s: float | None, cfg: dict, lc: dict) -> dict[str, Any]:
+    out: dict[str, Any] = {"files": [Path(p).name for p in paths], "parts_used": run["parts_used"],
+                           "omega_stopwatch_rad_s": round(omega_rad_s, 5) if omega_rad_s else None,
+                           "frames": run["n_frames"], "seconds_processing": run["seconds_processing"],
+                           "frame_interval_s": round(run["dt"], 6) if np.isfinite(run["dt"]) else None,
+                           "timing": timing_summary(run["times"], files_cfg(cfg)["interval_tol_frac"], run["repeated"])}
+    if run["size"]:
+        out["size_px"] = list(run["size"])
+    if run["decode_errors"]:
+        out["warnings"] = list(run["decode_errors"])
+    good = [a for a in run["tracks"] if not a["static"][0]
+            and np.count_nonzero(np.isfinite(a["x_meas"])) >= lc["min_points"]]
+    out["tracks_used"] = len(good)
+    out["tracks_static"] = sum(1 for a in run["tracks"] if a["static"][0])
+    out["n_rings"] = 0
+    if not good:
+        out["problem"] = ("no usable tracks; LEDs not tracked (in the still they should be small bright dots on a "
+                          "dark turntable: a large glow is masked like a flame)")
+        return out
+    vcfg = cfg.get("velocity", {})
+    window, order = int(vcfg.get("savgol_window", 5)), int(vcfg.get("savgol_order", 2))
+    dt = run["dt"]
+
+    center, rings = fit_rings(good, lc)
+    # An LED goes round: a "ring" whose points cover a short arc is a stray light (a reflection,
+    # an unmasked part of the date stamp) or an LED lost most of the time, and is not used.
+    short = [r for r in rings if r["arc_deg"] < lc["ring_min_arc_deg"]]
+    rings = [r for r in rings if r["arc_deg"] >= lc["ring_min_arc_deg"]]
+    if short:
+        out["rings_rejected"] = [ring_summary(r) for r in short]
+        out.setdefault("warnings", []).append(
+            f"{len(short)} ring(s) of radius {', '.join(f'{math.sqrt(r['a'] * r['b']):.1f}' for r in short)} px cover less "
+            f"than {lc['ring_min_arc_deg']:g} degrees and are not used (a reflection, the date stamp, or an LED that "
+            "was mostly lost)")
     out["center_px"] = [round(float(center[0]), 1), round(float(center[1]), 1)]
-    out["rings"] = [{"radius_px": round(float(math.sqrt(r["a"] * r["b"])), 1),
-                     "axis_ratio": round(float(min(r["a"], r["b"]) / max(r["a"], r["b"])), 4),
-                     "track_points": r["points"], "tracks": int(len(r["tracks"]))} for r in rings]
+    out["rings"] = [ring_summary(r) for r in rings]
+    out["n_rings"] = len(rings)
     if len(rings) != lc["n_leds"]:
         out.setdefault("warnings", []).append(f"{len(rings)} rings found, expected {lc['n_leds']}")
+    if rings and min(r["axis_ratio"] for r in out["rings"]) < lc["axis_ratio_min"]:
+        out.setdefault("warnings", []).append(
+            f"ring axis ratio {min(r['axis_ratio'] for r in out['rings']):.3f} is below {lc['axis_ratio_min']:g}: "
+            "the dashcam does not look straight down")
 
     # Speeds: per point, interior only, circular gain removed with the track's own angular rate.
     per_track, all_t, all_v, all_l, all_f, all_id, all_int = [], [], [], [], [], [], []
+    ring_speeds: list[list[np.ndarray]] = [[] for _ in rings]
     omegas, w_omega = [], []
     for ri, r in enumerate(rings):
         for i in r["tracks"]:
@@ -244,13 +346,14 @@ def _measure(run: dict[str, Any], paths: list[Path], omega_rad_s: float, cfg: di
             om = estimate_angular_rate(a["t"][use], vx[use], vy[use])
             sp_raw = np.hypot(vx, vy)
             sp = np.asarray(correct_circular_speed(sp_raw, om, dt, window, order)) if np.isfinite(om) else sp_raw
-            phi, _, ea, eb = ellipse_coords(a["x_meas"], a["y_meas"], r["ellipse"])
-            truth = expected_speed(phi, ea, eb, omega_rad_s)
-            ratio = sp[use] / truth[use]
-            ratio_raw = sp_raw[use] / truth[use]
-            per_track.append({"ring": ri, "points": int(np.count_nonzero(use)),
-                              "error": float(np.median(ratio) - 1), "error_uncorrected": float(np.median(ratio_raw) - 1),
-                              "omega_video": om})
+            entry = {"ring": ri, "points": int(np.count_nonzero(use)), "omega_video": om}
+            if omega_rad_s:
+                phi, _, ea, eb = ellipse_coords(a["x_meas"], a["y_meas"], r["ellipse"])
+                truth = expected_speed(phi, ea, eb, omega_rad_s)
+                entry["error"] = float(np.median(sp[use] / truth[use]) - 1)
+                entry["error_uncorrected"] = float(np.median(sp_raw[use] / truth[use]) - 1)
+            per_track.append(entry)
+            ring_speeds[ri].append(sp[use])
             omegas.append(abs(om))
             w_omega.append(np.count_nonzero(use))
             all_t.append(a["t"][use]); all_v.append(sp[use]); all_l.append(a["length"][use])
@@ -259,21 +362,34 @@ def _measure(run: dict[str, Any], paths: list[Path], omega_rad_s: float, cfg: di
     if not per_track:
         out["problem"] = "no track had enough interior points"
         return out
-    err = np.array([p["error"] for p in per_track])
-    err_raw = np.array([p["error_uncorrected"] for p in per_track])
-    w = np.array([p["points"] for p in per_track], float)
+    for ri, ring in enumerate(out["rings"]):
+        if ring_speeds[ri]:
+            ring["speed_px_s"] = round(float(np.median(np.concatenate(ring_speeds[ri]))), 2)
+        if omega_rad_s:
+            ring["expected_px_s"] = round(abs(omega_rad_s) * ring["radius_px"], 2)
     out["tracks_measured"] = len(per_track)
-    out["median_speed_error_pct"] = round(100 * float(np.median(err)), 2)
-    out["p90_abs_speed_error_pct"] = round(100 * float(np.percentile(np.abs(err), 90)), 2)
-    out["median_speed_error_uncorrected_pct"] = round(100 * float(np.median(err_raw)), 2)
-    out["per_ring_median_error_pct"] = [round(100 * float(np.median(err[[p["ring"] == k for p in per_track]])), 2)
-                                        if any(p["ring"] == k for p in per_track) else None for k in range(len(rings))]
-    om_video = float(np.average(omegas, weights=w_omega))
-    out["omega_video_rad_s"] = round(om_video, 5)
-    out["omega_disagreement_pct"] = round(100 * (om_video / omega_rad_s - 1), 2)
-    if abs(out["omega_disagreement_pct"]) > lc["omega_disagree_pct"]:
-        out.setdefault("warnings", []).append("stopwatch and video disagree on the turntable speed; check the stopwatch value")
-    out["weighted_speed_error_pct"] = round(100 * float(np.average(err, weights=w)), 2)
+    om_video = float(np.average(np.array(omegas)[np.isfinite(omegas)],
+                                weights=np.array(w_omega)[np.isfinite(omegas)])) if np.isfinite(omegas).any() else float("nan")
+    out["omega_video_rad_s"] = round(om_video, 5) if np.isfinite(om_video) else None
+    if omega_rad_s:
+        err = np.array([p["error"] for p in per_track])
+        err_raw = np.array([p["error_uncorrected"] for p in per_track])
+        w = np.array([p["points"] for p in per_track], float)
+        out["median_speed_error_pct"] = round(100 * float(np.median(err)), 2)
+        out["median_abs_speed_error_pct"] = round(100 * float(np.median(np.abs(err))), 2)
+        out["p90_abs_speed_error_pct"] = round(100 * float(np.percentile(np.abs(err), 90)), 2)
+        out["median_speed_error_uncorrected_pct"] = round(100 * float(np.median(err_raw)), 2)
+        out["per_ring_median_error_pct"] = [round(100 * float(np.median(err[[p["ring"] == k for p in per_track]])), 2)
+                                            if any(p["ring"] == k for p in per_track) else None for k in range(len(rings))]
+        for ring, e in zip(out["rings"], out["per_ring_median_error_pct"]):
+            ring["median_error_pct"] = e
+        out["track_errors_pct"] = [round(100 * float(e), 3) for e in err]
+        out["weighted_speed_error_pct"] = round(100 * float(np.average(err, weights=w)), 2)
+        if out["omega_video_rad_s"] is not None:
+            out["omega_disagreement_pct"] = round(100 * (om_video / omega_rad_s - 1), 2)
+            if abs(out["omega_disagreement_pct"]) > lc["omega_disagree_pct"]:
+                out.setdefault("warnings", []).append(
+                    "stopwatch and video disagree on the turntable speed; check the stopwatch value")
 
     # Exposure: Deming fit of streak length on speed over all LED tracks of this clip.
     ecfg = copy.deepcopy(cfg)
@@ -313,70 +429,70 @@ def _detection_pr(frames, rings, tol_px: float) -> dict[str, Any]:
             "frames_scored": len(recalls)}
 
 
-# Sitting 1 entry point ---------------------------------------------------------------------
-def analyze_led_recordings(steps: dict[str, Any], upload_dir: Path, cfg: dict | None = None) -> dict[str, Any]:
-    """All LED clips of sitting 1, per device, plus the side-by-side table (plan 4.4)."""
-    cfg = cfg or load_config()
-    upload_dir = Path(upload_dir)
-    out: dict[str, Any] = {}
-    for device, specs in DEVICE_STEPS.items():
-        speeds: dict[str, Any] = {}
-        for rid, t30_key, label in specs:
-            st = steps.get(rid, {})
-            files = [upload_dir / f["file"] for f in st.get("files", [])]
-            t30 = (st.get("inputs") or {}).get(t30_key)
-            if not files:
-                continue
-            if not t30:
-                speeds[label] = {"status": "no stopwatch time"}
-                continue
-            omega = 2 * math.pi * 30.0 / float(t30)
-            res = analyse_led_clip(files, omega, cfg)
-            res["standin"] = any("_standins" in str(f.get("original", "")) for f in st.get("files", []))
-            speeds[label] = res
-        if not speeds:
-            continue
-        out[device] = _device_summary(speeds)
-    if out:
-        out["table"] = comparison_table(out)
+def rings_in_tracks(tracks: list[dict[str, np.ndarray]], cfg: dict) -> list[dict[str, Any]]:
+    """LED rings among the tracks of any clip (the room test): tight rings over a wide arc only.
+
+    A ring counts when its points lie within validate.led.ring_tol_px of the ellipse (robust
+    sigma) and cover at least validate.led.ring_min_arc_deg, so a few unrelated moving
+    lights do not make a ring.
+    """
+    lc = _led_cfg(cfg)
+    good = [a for a in tracks if not a["static"][0] and np.count_nonzero(np.isfinite(a["x_meas"])) >= lc["min_points"]]
+    if not good:
+        return []
+    _, rings = fit_rings(good, lc)
+    return [ring_summary(r) for r in rings if r["spread_px"] <= lc["ring_tol_px"] and r["arc_deg"] >= lc["ring_min_arc_deg"]]
+
+
+# Metric check (the user's formula) ---------------------------------------------------------
+def metric_check(rings: list[dict[str, Any]], radius_mm: list[float], omega_rad_s: float, cfg: dict,
+                 ruler_px_per_mm: float | None = None) -> dict[str, Any]:
+    """True speed 2 pi r turns / time (= omega r) in mm/s against the measured speed in mm/s.
+
+    The measured image speed of each ring is converted with a px per mm scale: the median
+    over rings of r_px / r_mm, or the ruler's when the notes give ruler_px_per_mm. Rings and
+    the measured LED radii are paired by sorting both; with fewer rings than radii, the
+    radii that keep the order and whose px per mm agree best (or agree with the ruler) are
+    used. The spread of px per mm over the rings checks the tape-measured radii and that the
+    dashcam looks straight down. With the rings' own scale this mostly checks the radii;
+    with a ruler scale it checks the metric scale too.
+    """
+    lc = _led_cfg(cfg)
+    mm = sorted(float(r) for r in radius_mm)
+    rs = [r for r in rings if r.get("speed_px_s")]
+    out: dict[str, Any] = {"scale_source": "ruler" if ruler_px_per_mm else "rings"}
+    if not rs:
+        return {**out, "status": "no ring with a measured speed"}
+    if len(rs) > len(mm):
+        return {**out, "status": f"{len(rs)} rings for {len(mm)} LED radii; they cannot be paired"}
+    if len(rs) == 1 and len(mm) > 1 and not ruler_px_per_mm:
+        return {**out, "status": "one ring only; which LED it is needs the ruler scale (ruler_px_per_mm)"}
+    r_px = np.array([r["radius_px"] for r in rs], float)
+    best = None
+    for combo in itertools.combinations(range(len(mm)), len(rs)):
+        k = r_px / np.array([mm[i] for i in combo])
+        bad = (float(np.max(np.abs(k / ruler_px_per_mm - 1))) if ruler_px_per_mm
+               else float((k.max() - k.min()) / np.median(k)))
+        if best is None or bad < best[0]:
+            best = (bad, combo, k)
+    _, combo, k = best
+    rings_scale = float(np.median(k))
+    scale = float(ruler_px_per_mm) if ruler_px_per_mm else rings_scale
+    pairs, errs = [], []
+    for r, i, ki in zip(rs, combo, k):
+        true = abs(omega_rad_s) * mm[i]
+        meas = r["speed_px_s"] / scale
+        errs.append(meas / true - 1)
+        pairs.append({"radius_mm": mm[i], "radius_px": r["radius_px"], "px_per_mm": round(float(ki), 4),
+                      "true_mm_s": round(true, 2), "measured_mm_s": round(meas, 2),
+                      "error_pct": round(100 * errs[-1], 2)})
+    out.update({"scale_px_per_mm": round(scale, 4), "rings_px_per_mm": round(rings_scale, 4),
+                "scale_spread_pct": round(100 * float((k.max() - k.min()) / rings_scale), 2) if len(k) > 1 else None,
+                "pairs": pairs, "median_error_pct": round(100 * float(np.median(errs)), 2),
+                "median_abs_error_pct": round(100 * float(np.median(np.abs(errs))), 2)})
+    if ruler_px_per_mm:
+        out["rings_vs_ruler_pct"] = round(100 * (rings_scale / ruler_px_per_mm - 1), 2)
+    if out["scale_spread_pct"] is not None and out["scale_spread_pct"] > lc["scale_spread_pct"]:
+        out["warning"] = (f"px per mm differs by {out['scale_spread_pct']:.1f} % between the rings; check "
+                          "led_radius_mm and that the dashcam looks straight down")
     return out
-
-
-def _device_summary(speeds: dict[str, Any]) -> dict[str, Any]:
-    res: dict[str, Any] = {"speeds": speeds}
-    measured = [s for s in speeds.values() if "median_speed_error_pct" in s]
-    if not measured:
-        return res
-    errs = [s["median_speed_error_pct"] for s in measured]
-    res["median_speed_error_pct"] = round(float(np.median(errs)), 2)
-    res["p90_abs_speed_error_pct"] = round(float(max(s["p90_abs_speed_error_pct"] for s in measured)), 2)
-    pr = [s for s in measured if s.get("detection_precision") is not None]
-    if pr:
-        res["detection_precision"] = round(float(np.mean([s["detection_precision"] for s in pr])), 4)
-        res["detection_recall"] = round(float(np.mean([s["detection_recall"] for s in pr])), 4)
-    exps = [s["exposure"]["t_exp_ms"] for s in measured if "t_exp_ms" in s.get("exposure", {})]
-    if exps:
-        res["exposure_ms"] = exps
-    ratios = [r["axis_ratio"] for s in measured for r in s.get("rings", [])[-1:]]
-    if ratios:
-        res["outer_axis_ratio"] = round(float(min(ratios)), 4)
-    res["standin"] = any(s.get("standin") for s in measured)
-    return res
-
-
-def comparison_table(results: dict[str, Any]) -> list[dict[str, Any]]:
-    """One row per device: the columns of the dashcam versus iPhone table in plan 4.4."""
-    rows = []
-    for device in ("iphone", "dashcam"):
-        r = results.get(device)
-        if not isinstance(r, dict):
-            continue
-        rows.append({"device": device,
-                     "detection_precision": r.get("detection_precision"),
-                     "detection_recall": r.get("detection_recall"),
-                     "median_speed_error_pct": r.get("median_speed_error_pct"),
-                     "p90_abs_speed_error_pct": r.get("p90_abs_speed_error_pct"),
-                     "exposure_ms": r.get("exposure_ms"),
-                     "false_tracks_per_min_night_drive": None,
-                     "standin": r.get("standin")})
-    return rows

@@ -13,8 +13,9 @@ dist/
 # Large or licensed data: never committed
 data/raw/
 data/synthetic/
-data/booth/
 results/runs/
+# LED validation stills: a night drive can show number plates and places; share them on purpose only
+results/validation/led_stills/
 
 # Video files anywhere in wfglink (raw video is never committed)
 *.mp4
@@ -36,5 +37,5 @@ logs/
 *.log
 .DS_Store
 
-# Machine-specific switches written by the sittings
+# Machine-specific switches (for example ui.screen on the booth Mac)
 configs/*_local.yaml

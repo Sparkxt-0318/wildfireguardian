@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from wfglink.provenance import sha256_file  # noqa: E402
-from wfglink.sitting.recordings import probe_video  # noqa: E402
+from wfglink.io.probe import probe_video  # noqa: E402
 
 MANIFEST = ROOT / "data" / "clips_manifest.yaml"
 RAW = ROOT / "data" / "raw"

@@ -140,7 +140,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                  overlay_size: tuple[int, int] = (1920, 1080), max_seconds: float | None = None,
                  m_per_px: float | None = None, distance_m: float | None = None,
                  start_s: float = 0.0, roi: tuple[float, float, float, float] | None = None) -> dict[str, Any]:
-    from wfglink.sitting.recordings import probe_video
+    from wfglink.io.probe import probe_video
 
     cfg = cfg or load_config()
     clip = Path(clip)

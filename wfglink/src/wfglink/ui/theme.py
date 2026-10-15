@@ -12,7 +12,6 @@ INK = "#FFFFFF"
 INK2 = "#8E8E93"          # secondary text
 INK3 = "#48484A"          # hairlines, inactive
 PANEL = "#0B0B0D"
-BAND = "#3A3A3C"          # status bands (replay, reconnecting)
 GREEN = "#30D158"         # measured values
 ORANGE = "#FF9F0A"        # embers and tracks
 ORANGE_CORE = "#FFD60A"   # hottest core of an ember mark
@@ -31,7 +30,6 @@ SIZES = {
     "label": 30,           # card labels (at least 28)
     "tag": 20,             # small tags such as Estimate, Uncalibrated (at least 18)
     "status": 20,
-    "band": 34,
     "title": 26,
     "limits_title": 40,
     "limits_body": 28,

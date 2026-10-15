@@ -1,23 +1,14 @@
-"""The one processing pipeline shared by file mode, live mode and the booth.
+"""The one processing pipeline shared by file mode and the live booth screen.
 
-Per frame: (booth only) rectify the filmed screen and decode its frame code; detect
-candidates; track them; feed confirmed, non-static tracks to the gate counter; update the
-running speed, direction, ember velocity field, glowing trails and the 60 s sparkline; and
-return a LiveState for the renderer.
+Per frame: detect candidates; track them; feed confirmed, non-static tracks to the gate
+counter; update the running speed, direction, ember velocity field, glowing trails and the
+60 s sparkline; and return a LiveState for the renderer.
 
-Timing rules:
-- File mode uses each frame's true presentation time. Repeated frames (difference below
-  the noise level) are skipped so they never create zero displacements.
-- Booth mode uses the decoded source frame index and the booth-prep sidecar, so velocities
-  are in source time whatever the playback speed. Only clean frames (all four codes agree,
-  no gray cell) are analysed; a repeated index is skipped; a backward jump means the clip
-  looped, so tracker and counts restart and the loop number increases.
-- Live mode without codes uses the camera clock.
-
-Booth status (screen_status): on the wall clock of the frames, the screen is "paused" when
-its frame code was read in the last capture.freeze_s but has not changed for that long,
-"no_screen" when no code could be read for that long (no markers in view, or unreadable),
-and "ok" otherwise. Pipelines without booth codes have no booth status (None).
+Timing: every frame carries its true presentation time (file mode), or its playback time
+(the booth plays approved clips in real time and may skip frames it cannot analyse in
+time; the times stay true). Repeated frames (difference below the noise level) are skipped
+so they never create zero displacements. At a cut in the booth playlist (next segment, or
+the same clip again) cut() restarts the background model and the tracks and keeps the counts.
 """
 from __future__ import annotations
 
@@ -38,88 +29,10 @@ from wfglink.track.tracker import Tracker
 
 
 @dataclass
-class BoothContext:
-    """What booth mode needs: the rectifier and the sidecar of source timestamps."""
-
-    rectifier: Any                      # wfglink.screen.rectify.ScreenRectifier
-    source_times: np.ndarray            # seconds, indexed by source frame index
-
-
-def screen_index(code: Any) -> int | None:
-    """Source frame index shown on the screen, for the booth status: the index that at least two
-    corners read with good parity and no gray cell agree on, else None.
-
-    Looser than a clean code (which needs all four corners), so a hand over one corner or a
-    blend does not look like a stopped clip; two agreeing corners keep misreads out.
-    """
-    if code is None:
-        return None
-    good = [c.index for c in code.corners if c.index is not None and c.parity_ok and c.gray_cells == 0]
-    if len(good) < 2:
-        return None
-    best = max(set(good), key=good.count)
-    return int(best) if good.count(best) >= 2 else None
-
-
-class ScreenWatch:
-    """Booth status of one camera: is the screen in view, and does its frame code advance?
-
-    Fed once per camera frame with the frame's wall-clock time and the screen index
-    (screen_index; None when no markers were found or the code could not be read). Any
-    change of the index (a backward jump at a loop too) counts as advancing.
-    """
-
-    def __init__(self, freeze_s: float):
-        self.freeze_s = float(freeze_s)
-        self.t_first: float | None = None      # first frame seen
-        self.t_index: float | None = None      # last frame with a screen index
-        self.t_advance: float | None = None    # last frame whose index differed from the one before
-        self.index: int | None = None
-
-    def observe(self, now: float, index: int | None) -> None:
-        if self.t_first is None:
-            self.t_first = now
-        if index is not None:
-            if self.index is not None and index != self.index:
-                self.t_advance = now
-            self.index = index
-            self.t_index = now
-
-    def status(self, now: float) -> str:
-        """'ok', 'paused' or 'no_screen'; 'ok' until freeze_s after the first frame.
-
-        Paused needs a reading of the same index made after it had been stuck for freeze_s;
-        otherwise a camera turned away from a playing screen would read as paused for a
-        moment (its last reading comes just after the last advance) before no_screen.
-        """
-        if self.t_first is None:
-            return "ok"
-        t_adv = self.t_advance if self.t_advance is not None else self.t_first
-        if now - t_adv <= self.freeze_s:
-            return "ok"
-        if self.t_index is None or now - self.t_index > self.freeze_s:
-            return "no_screen"
-        if self.t_index >= t_adv + self.freeze_s:
-            return "paused"
-        return "ok"          # the code has just stopped; the next reading tells paused from gone
-
-
-def frame_wall_time(frame: Frame) -> float:
-    """The frame's wall-clock time, or now when the source did not set one."""
-    return float(frame.t_wall) if frame.t_wall else time.monotonic()
-
-
-@dataclass
 class PipelineStats:
     frames_in: int = 0
     frames_analysed: int = 0
     frames_duplicate: int = 0
-    frames_unclean: int = 0
-    frames_blended: int = 0
-    frames_torn: int = 0
-    frames_no_code: int = 0
-    loops: int = 0
-    source_advance: int = 0              # booth: source frames shown between clean frames, loops included
     tracks_finished: int = 0             # confirmed tracks that ended, static ones included
     tracks_static: int = 0
     proc_ms: deque = field(default_factory=lambda: deque(maxlen=300))
@@ -129,13 +42,10 @@ class PipelineStats:
         ms = np.array(self.proc_ms) if self.proc_ms else np.array([np.nan])
         d["proc_ms_median"] = float(np.nanmedian(ms))
         d["proc_ms_p95"] = float(np.nanpercentile(ms, 95))
-        seen = self.frames_analysed + self.frames_unclean
-        d["clean_frame_yield"] = (self.frames_analysed + self.frames_duplicate) / max(self.frames_in, 1) if seen else None
         return d
 
 
-HEARTBEAT_COUNTERS = ("frames_in", "frames_analysed", "frames_duplicate", "frames_unclean", "frames_no_code",
-                      "loops", "source_advance")
+HEARTBEAT_COUNTERS = ("frames_in", "frames_analysed", "frames_duplicate")
 
 
 def heartbeat_counters(key: str | None, stats: "PipelineStats | dict | None") -> dict[str, Any] | None:
@@ -164,7 +74,7 @@ def _smooth_tail(pts: np.ndarray, max_turn_deg: float = 100.0) -> np.ndarray:
 
 
 class Pipeline:
-    def __init__(self, cfg: dict, gate: dict | None = None, booth: BoothContext | None = None,
+    def __init__(self, cfg: dict, gate: dict | None = None,
                  fps: float | None = None, m_per_px: float | None = None, distance_m: float | None = None,
                  dedupe: bool = True, analysis_max_width: int | None = None, downscale: bool = False,
                  record: bool = False, t_exp_hint: float | None = None):
@@ -173,7 +83,6 @@ class Pipeline:
         # Streak refinement costs a few ms per frame: file mode (record) only, when configured.
         self.refine = record and bool(cfg.get("detect", {}).get("streaks", {}).get("refine", False))
         self.t_exp_hint = t_exp_hint  # exposure time (s) for the tracker's search reach
-        self.booth = booth
         self.fps = fps
         self.m_per_px = m_per_px
         self.distance_m = distance_m
@@ -194,12 +103,10 @@ class Pipeline:
         self._rep_min = int(fr.get("repeat_min_moving", 2))
         self._rep_move = float(fr.get("repeat_move_px", 1.5))
         self._mask: np.ndarray | None = None
-        # Booth status survives reset(): a loop restarts the counts, not the screen check.
-        self.screen = ScreenWatch(float(cfg.get("capture", {}).get("freeze_s", 3.0))) if booth is not None else None
         self.reset()
 
     # State ----------------------------------------------------------------------------------
-    def reset(self, keep_loops: bool = False) -> None:
+    def reset(self) -> None:
         self.detector = Detector(self.cfg)
         self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=self.record)
         if self.t_exp_hint:
@@ -210,7 +117,6 @@ class Pipeline:
         self._gate_obj: Gate | None = None
         self._size: tuple[int, int] | None = None
         self._last_t: float | None = None
-        self._last_index: int | None = None
         self._prev_small: np.ndarray | None = None
         self._moving_last: np.ndarray | None = None
         self._spark: deque = deque()             # (t, crossings in that second)
@@ -220,8 +126,20 @@ class Pipeline:
         self._finished_count = 0
         self._last_prune = -np.inf
         self.last_state = LiveState()
-        if not keep_loops:
-            self.stats = PipelineStats()
+        self.stats = PipelineStats()
+
+    def cut(self) -> None:
+        """A cut in the picture (booth playlist: the next segment, or the same clip again) with
+        the counts kept: the background model and the tracks restart, while the gate counts,
+        the sparkline and the field run on."""
+        if self.counter is not None:
+            self._retire(self.tracker.finish_all())
+        self.detector = Detector(self.cfg)
+        self.tracker = Tracker(self.cfg, fps=self.fps, keep_history=self.record)
+        if self.t_exp_hint:
+            self.tracker.set_exposure_hint(self.t_exp_hint)
+        self._prev_small = None
+        self._moving_last = None
 
     def _ensure_gate(self, w: int, h: int) -> None:
         if self._gate_obj is not None and self._size == (w, h):
@@ -239,10 +157,8 @@ class Pipeline:
         t0 = time.perf_counter()
         self.stats.frames_in += 1
         image, t, mask, meta = self._prepare(frame)
-        if image is None:
-            return self._state_without_analysis(frame, meta)
         analyse = True
-        if self.dedupe and self.booth is None:
+        if self.dedupe:
             # A repeated frame (constant-frame-rate re-encode) changes almost no pixel; a real
             # new frame changes many, through sensor noise or anything that moved. A thumbnail
             # difference is not enough: a few small embers on a static night scene barely
@@ -264,7 +180,7 @@ class Pipeline:
         h, w = image.shape[:2]
         self._ensure_gate(w, h)
         det = self.detector.detect(image, mask)
-        if self.dedupe and self.booth is None and self._content_repeat(det):
+        if self.dedupe and self._content_repeat(det):
             # A lossy re-encode stores a repeated frame with small differences, so the pixel
             # test above misses it; the embers themselves have not moved.
             self.stats.frames_duplicate += 1
@@ -364,61 +280,12 @@ class Pipeline:
         if self.counter is not None:
             self._retire(self.tracker.finish_all())
 
-    def _prepare(self, frame: Frame) -> tuple[np.ndarray | None, float | None, np.ndarray | None, dict]:
-        meta: dict[str, Any] = {}
-        if self.booth is None:
-            img = frame.image
-            if self.downscale and img.shape[1] > self.analysis_max_width:
-                s = self.analysis_max_width / img.shape[1]
-                img = cv2.resize(img, None, fx=s, fy=s, interpolation=cv2.INTER_AREA)
-            return img, frame.t, None, meta
-        r = self.booth.rectifier.process(frame.image)
-        meta["markers"] = r.markers_found
-        if self.screen is not None:
-            self.screen.observe(frame_wall_time(frame), screen_index(r.code))
-        if r.image is None or r.code is None:
-            self.stats.frames_no_code += 1
-            return None, None, None, meta
-        code = r.code
-        if code.blended:
-            self.stats.frames_blended += 1
-        if code.torn:
-            self.stats.frames_torn += 1
-        if not code.clean or code.index is None:
-            self.stats.frames_unclean += 1
-            meta["rect_image"] = r.image
-            return None, None, None, meta
-        idx = int(code.index)
-        prev = self._last_index
-        if prev is not None and idx < prev:
-            loops = self.stats.loops + 1
-            self.reset(keep_loops=True)
-            self.stats.loops = loops
-        if prev is not None and idx == prev:
-            self.stats.frames_duplicate += 1
-            self.last_state.image = r.image
-            return None, None, None, {**meta, "duplicate": True, "rect_image": r.image}
-        # Source frames shown since the last clean one (1 after a loop or a start), so that
-        # frames_analysed / source_advance is the source coverage over any stretch of time.
-        self.stats.source_advance += idx - prev if prev is not None and idx > prev else 1
-        self._last_index = idx
-        times = self.booth.source_times
-        t = float(times[idx]) if 0 <= idx < len(times) and np.isfinite(times[idx]) else idx / 30.0
-        return r.image, t, r.mask, {**meta, "source_index": idx}
-
-    def screen_status(self, now: float | None = None) -> str | None:
-        """Booth status ('ok', 'paused', 'no_screen') at wall-clock time now, None without booth codes."""
-        if self.screen is None:
-            return None
-        return self.screen.status(time.monotonic() if now is None else now)
-
-    def _state_without_analysis(self, frame: Frame, meta: dict) -> LiveState:
-        st = self.last_state
-        if meta.get("rect_image") is not None:
-            st.image = meta["rect_image"]
-        elif st.image is None:
-            st.image = frame.image
-        return st
+    def _prepare(self, frame: Frame) -> tuple[np.ndarray, float, np.ndarray | None, dict]:
+        img = frame.image
+        if self.downscale and img.shape[1] > self.analysis_max_width:
+            s = self.analysis_max_width / img.shape[1]
+            img = cv2.resize(img, None, fx=s, fy=s, interpolation=cv2.INTER_AREA)
+        return img, frame.t, None, {}
 
     # Running statistics ---------------------------------------------------------------------
     def _update_running(self, t: float, snaps, new_events: int, w: int, h: int) -> None:

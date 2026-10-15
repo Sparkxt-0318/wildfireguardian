@@ -1,4 +1,8 @@
-"""Korean and English strings for the booth screen. L toggles; every key exists in both."""
+"""Korean and English strings for the booth screen. L toggles; every key exists in both.
+
+The limits card shows limit_1, limit_2, ... in order (limit_keys); the printed placards read
+the same keys, so the screen and the paper always agree.
+"""
 from __future__ import annotations
 
 STRINGS: dict[str, dict[str, str]] = {
@@ -22,15 +26,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "field_legend": "불티 기반 바람 추정",
         "gate": "게이트",
         "sparkline": "최근 60초 통과 수",
-        "replay": "녹화 재생 · 실시간 아님",
         "synthetic": "합성 영상 · 실측 아님",
-        "reconnecting": "카메라 재연결 중",
-        "paused": "iPad 정지",
-        "no_screen": "iPad 화면을 찾을 수 없음",
+        "playing": "녹화 영상을 실시간 분석 중",
+        "paused": "일시정지",
+        "quit_confirm": "Esc를 한 번 더 누르면 종료합니다",
         "warming": "측정 준비 중",
-        "playback": "{x}× 재생",
-        "unprepared": "준비되지 않은 영상",
-        "source_live": "실시간",
         "source_file": "녹화 파일 분석",
         "fps": "fps",
         "limits_title": "이 측정의 한계",
@@ -40,7 +40,6 @@ STRINGS: dict[str, dict[str, str]] = {
         "limit_3": "보정에는 불확실성이 있습니다. 도로 표시는 도로 면에서만 크기를 알려 주므로, 공중의 불티는 가정한 거리 범위로 계산합니다.",
         "limit_4": "빛나고 보이는 불티만 셉니다. 개수는 최솟값이며, 플럭스는 NIST의 제곱미터당 값이 아니라 화면 속 선의 길이당 값입니다.",
         "limit_5": "검증은 합성 영상, 속도를 아는 LED, 타당성 점검으로 했습니다. 실제 화재에서 NIST 장비와 나란히 비교하지는 않았습니다.",
-        "limit_6": "부스 화면은 iPad를 다시 찍은 영상을 느리게 재생합니다. 그로 인한 차이를 측정해 둡니다.",
     },
     "en": {
         "app": "wfglink",
@@ -62,15 +61,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "field_legend": "Ember-derived wind (estimate)",
         "gate": "Gate",
         "sparkline": "Crossings, last 60 s",
-        "replay": "REPLAY · not live",
-        "synthetic": "SYNTHETIC · not measured",
-        "reconnecting": "Reconnecting camera",
-        "paused": "iPad paused",
-        "no_screen": "iPad screen not found",
+        "synthetic": "Synthetic video · not measured",
+        "playing": "Recorded clip, analysed live",
+        "paused": "Paused",
+        "quit_confirm": "Press Esc again to quit",
         "warming": "Starting measurement",
-        "playback": "{x}× playback",
-        "unprepared": "Unprepared clip",
-        "source_live": "Live",
         "source_file": "Recorded file",
         "fps": "fps",
         "limits_title": "What this measurement cannot do",
@@ -80,9 +75,17 @@ STRINGS: dict[str, dict[str, str]] = {
         "limit_3": "Calibration is uncertain. Road markings only scale the road surface, so airborne embers use an assumed distance range.",
         "limit_4": "Only glowing, visible embers are counted, so counts are lower bounds. Flux is per length of a line in the picture, not NIST's per square metre.",
         "limit_5": "Validated on synthetic video, a known-speed LED and plausibility checks; not side by side with a NIST Emberometer in a real fire.",
-        "limit_6": "The booth re-films an iPad at reduced speed. We measure how much that changes the results.",
     },
 }
+
+
+def limit_keys(lang: str = "en") -> list[str]:
+    """limit_1, limit_2, ... in order, as many as exist."""
+    keys, k = [], 1
+    while f"limit_{k}" in STRINGS.get(lang, STRINGS["en"]):
+        keys.append(f"limit_{k}")
+        k += 1
+    return keys
 
 
 def t(lang: str, key: str, **fmt) -> str:

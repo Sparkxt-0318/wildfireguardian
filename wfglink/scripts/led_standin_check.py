@@ -1,11 +1,13 @@
 """Self-check of the LED turntable analysis on rendered stand-ins with known truth.
 
-This checks the analysis code, not the cameras: the real LED clips come from sitting 1.
-Two fixed cases (seeds fixed): a straight camera at 33 1/3 rpm with a long exposure, and a
-slightly tilted camera at 45 rpm with a half-frame exposure. Results go to NUMBERS.json
-under led_standin.*.
+This checks the analysis code, not the dashcam: the real LED clips come from sitting 1
+(`python -m wfglink validate --suite led`). Three fixed cases (seeds fixed): a straight
+camera at 33 1/3 rpm with a long exposure, a slightly tilted camera at 45 rpm with a
+half-frame exposure, and a dashcam-like recording split into two loop files with a date
+stamp burnt in (masked as the suite masks it). Results go to NUMBERS.json under
+led_standin.*.
 
-Usage: .venv/bin/python scripts/led_standin_check.py [--out results/runs/led_standin]
+Usage: .venv/bin/python scripts/led_standin_check.py [--out results/runs/led_standin] [--no-record]
 """
 from __future__ import annotations
 
@@ -16,12 +18,14 @@ from pathlib import Path
 from wfglink import PROJECT_ROOT
 from wfglink.config import load_config
 from wfglink.provenance import record_number
-from wfglink.sitting.standins import led_turntable_clip
+from wfglink.validate.dashcam import stamp_boxes
 from wfglink.validate.led import analyse_led_clip
+from wfglink.validate.standins import led_turntable_clip
 
 CASES = {
     "straight_33rpm_duty0.9": dict(rpm=33.333, duty=0.9, tilt_ratio=1.0),
     "tilt0.97_45rpm_duty0.5": dict(rpm=45.0, duty=0.5, tilt_ratio=0.97),
+    "dashcam_2parts_stamp_33rpm_duty0.5": dict(rpm=33.333, duty=0.5, tilt_ratio=1.0, parts=2, stamp="bottom-left"),
 }
 SCRIPT = "scripts/led_standin_check.py"
 
@@ -39,7 +43,8 @@ def main() -> int:
     for name, case in CASES.items():
         clip = out / f"{name}.mp4"
         truth = led_turntable_clip(clip, seconds=10, size=(1280, 720), fps=30, radii_px=(60, 160, 280), seed=0, **case)
-        r = analyse_led_clip([clip], truth["omega_rad_s"], cfg)
+        boxes = stamp_boxes(case.get("stamp") or "off", cfg)
+        r = analyse_led_clip([Path(p) for p in truth["files"]], truth["omega_rad_s"], cfg, boxes)
         exp_err = (100 * (r["exposure"]["t_exp_ms"] / (1000 * truth["exposure_s"]) - 1)
                    if "t_exp_ms" in r.get("exposure", {}) else None)
         report[name] = {"truth": truth, "result": r, "exposure_error_pct": exp_err}

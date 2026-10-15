@@ -2,132 +2,162 @@
 
 한국어가 먼저, 영어가 뒤에 있습니다. English follows the Korean.
 
-명령과 경로는 모두 두 번째 점검(sitting 2) 때 쓴 폴더 `~/wfglink-run/wfglink` 기준입니다. All commands and paths refer to the folder used in sitting 2, `~/wfglink-run/wfglink`.
+부스는 승인된 영상 파일을 실시간으로 재생하면서 그 자리에서 분석합니다. 카메라는 쓰지 않습니다. The booth plays approved clip files in real time and analyses them as they play. No camera is used.
+
+명령과 경로는 모두 `~/wfglink-run/wfglink` 폴더 기준입니다. All commands and paths refer to the folder `~/wfglink-run/wfglink`.
 
 ## 한국어
 
 ### 하루 시작: 10분 설치 점검표
 
-1. 전원: MacBook 충전기와 iPad 충전기를 멀티탭에 꽂습니다. iPhone은 USB-C-Lightning 케이블로 Mac에 연결합니다(충전도 됩니다).
-2. 외부 모니터를 MacBook에 연결하고 켭니다. MacBook 뚜껑은 열어 둡니다.
-3. iPad를 거치대에 세우고 설정합니다. 자동 밝기, True Tone, Night Shift는 끄고, 밝기는 80% 정도로, 자동 잠금은 '안 함'으로 둡니다.
-4. iPad의 VLC에서 부스 영상을 전체 화면으로 틀고, 반복 버튼을 눌러 이 영상 하나만 계속 반복되게 합니다. 두 번째 점검에서 고른 파일입니다. `configs/booth_local.yaml`의 `booth.hold_factor`가 2이면 `_hold2.mp4`, 3이면 `_hold3.mp4`입니다. 재생 버튼 같은 조작 화면은 숨기고, 네 모서리의 흑백 무늬가 모두 보여야 합니다. 그다음 사용법 유도(Guided Access)를 켭니다.
-5. iPhone: 케이스를 벗기고 삼각대에 가로로 고정합니다. iPhone 카메라 화면에서 iPad 화면이 3분의 2쯤을 차지하고, 정면에서 살짝 비껴 보이게 둡니다. 햇빛이 닿지 않게 하고, iPhone은 잠근 상태로 둡니다.
-6. 검은 천을 iPad와 iPhone 위에 덮어 반사를 막습니다.
-7. iPhone과 Mac에서 집중 모드를 켭니다.
-8. 터미널에서 명령 하나로 부스를 시작합니다.
+1. 전원: MacBook 충전기를 멀티탭에 꽂고 MacBook에 연결합니다. 뚜껑은 열어 둡니다.
+2. 외부 모니터가 있으면 MacBook에 연결하고 켭니다. 없으면 부스 화면은 MacBook 화면에 나옵니다.
+3. 블랙박스를 거치대에 올려 화면 옆에 두고, 'This is the sensor' A5 안내판을 그 앞에 세웁니다. 측정의 한계 A5 안내판은 화면 옆에 둡니다. 안내판 파일은 `booth/placards/`에 있습니다.
+4. Mac에서 집중 모드를 켭니다.
+5. 터미널에서 명령 하나로 부스를 시작합니다.
 
 ```
-bash ~/wfglink-run/wfglink/booth/booth.sh
+cd ~/wfglink-run/wfglink
+./booth/booth.sh
 ```
 
    또는 Finder에서 홈 폴더의 `wfglink-run/wfglink/booth` 폴더를 열고 `booth.command`를 더블 클릭합니다.
-9. 부스가 켜지면 Mac 메뉴 막대의 초록색 카메라 아이콘(비디오 효과)을 눌러 반응, 센터 스테이지, 인물 사진, 스튜디오 조명이 모두 꺼져 있는지 확인합니다. 이 메뉴는 앱이 카메라를 쓰는 동안에만 나타납니다.
-10. 확인: 외부 모니터에 영상과 주황색 불티 궤적이 보이고, 아래 상태 줄에 '실시간'이 나오며, 화면을 가로지르는 띠가 없어야 합니다. L을 한 번 눌러 언어가 바뀌는지 봅니다.
+6. 확인: 몇 초 안에 외부 모니터(없으면 MacBook 화면)에 전체 화면이 뜨고, 영상 위에 주황색 불티 궤적이 보이며, 아래 상태 줄에 영상 이름과 출처가 나옵니다. 숫자는 영상마다 몇 초 뒤에 나타납니다. L을 한 번 눌러 언어가 바뀌는지 보고, 한 번 더 눌러 되돌립니다.
 
 ### 미리 한 번 해 두는 설정
 
-- 연속성 카메라는 케이블로 연결해서 씁니다. iPhone과 Mac 모두 Wi-Fi와 Bluetooth는 켜 두되, 어떤 네트워크에도 접속하지 않습니다.
-- iPhone과 Mac은 같은 Apple 계정으로 로그인합니다. iPhone에 '이 컴퓨터를 신뢰하겠습니까?'가 뜨면 '신뢰'를 누릅니다.
-- iPhone의 개인용 핫스팟은 끕니다.
-- iPhone과 Mac 모두 집중 모드를 켭니다.
-- iPhone, iPad, Mac의 자동 업데이트를 끕니다.
-- Mac: 시스템 설정의 잠금 화면에서 화면 보호기 시작과 디스플레이 끄기를 모두 '안 함'으로 둡니다.
-- iPad: 자동 밝기, True Tone, Night Shift는 끄고, 자동 잠금은 '안 함'으로 둡니다. 사용법 유도로 VLC 반복 재생 화면을 고정합니다.
-- Mac의 비디오 효과(메뉴 막대의 초록색 카메라 아이콘)는 모두 끕니다.
-- iPhone 케이스는 벗기고, 햇빛을 피합니다.
-- 검은 천을 덮습니다.
+- 시스템 설정 > 잠금 화면: '비활성 상태일 때 화면 보호기 시작'과 '전원 어댑터 사용 시 비활성 상태일 때 디스플레이 끄기'를 모두 '안 함'으로 둡니다. (부스가 켜져 있는 동안에는 `booth.sh`가 Mac을 깨어 있게 합니다.)
+- 시스템 설정 > 디스플레이: 외부 모니터는 '미러링'이 아니라 '확장'으로 둡니다. 부스가 외부 모니터를 스스로 고릅니다.
+- 집중 모드를 켜고, 자동 업데이트를 끕니다.
+- 승인된 영상이 `data/raw`에 있는지 확인합니다(`ls data/raw`). 없는 영상은 건너뜁니다.
+- 안내판 두 장을 A5로 인쇄합니다(실제 크기, 100%).
 
 ### 키
 
 | 키 | 하는 일 |
 |---|---|
 | L | 한국어와 영어 바꾸기 |
-| I | 측정의 한계 카드 켜기/끄기 |
 | T | 불티 궤적 켜기/끄기 |
 | F | 바람 추정(불티 기반) 화살표 켜기/끄기 |
 | G | 게이트 선 켜기/끄기 |
-| Esc 두 번 | 종료(2초 안에 두 번) |
+| Space | 일시정지(재생과 분석이 함께 멈춤), 다시 누르면 계속 |
+| I | 측정의 한계 카드 켜기/끄기 |
+| Esc, 다시 Esc | 종료. 첫 Esc 뒤에 확인 문구가 나오고, 몇 초 안에 한 번 더 누르면 끝납니다 |
 
-### 화면에 나오는 띠와 표시
+### 모니터 연결
+
+- 부스는 외부 모니터가 연결되어 있으면 그 화면에, 없으면 MacBook 화면에 전체 화면으로 뜹니다.
+- 부스가 켜져 있을 때 모니터 케이블을 빼면 부스가 MacBook 화면으로 옮겨 가고, 다시 꽂으면 외부 모니터로 돌아갑니다. 다시 시작할 필요가 없습니다.
+- 특정 화면에 고정하려면: Esc 두 번으로 끈 뒤 `./booth/booth.sh --screen external`, 또는 `python -m wfglink doctor`의 screens 줄에 나온 화면 이름으로 `--screen 이름`을 붙여 시작합니다.
+
+### 화면에 나오는 표시
 
 | 표시 | 뜻 | 할 일 |
 |---|---|---|
-| 녹화 재생 · 실시간 아님 (REPLAY · not live) | 카메라가 없어서 준비된 영상을 직접 틀고 있습니다. 숫자는 따로 셉니다. | 카메라가 다시 5초 동안 정상이면 저절로 실시간으로 돌아갑니다. 아래 '카메라가 끊겼을 때'를 봅니다. |
-| 합성 영상 · 실측 아님 (SYNTHETIC · not measured) | 카메라도 녹화 영상도 없어서 합성 데모를 보여 줍니다. 측정값이 아닙니다. | 카메라 케이블과 iPad를 확인합니다. |
-| 카메라 재연결 중 (Reconnecting camera) | 카메라가 잠깐 끊겨 다시 연결하는 중입니다. | 몇 초 기다립니다. |
-| iPad 정지 (iPad paused) | iPad 재생이 멈췄습니다. | iPad에서 다시 재생합니다. 띠가 없어도 그림이 멈추고 숫자가 바뀌지 않으면 똑같이 합니다. |
-| 0.5× 재생, 0.33× 재생 | 부스 영상은 느리게 재생됩니다. 정상입니다. | 할 일 없음. 속도는 원래 영상의 시간으로 계산합니다. |
+| 녹화 영상을 실시간 분석 중 · Recorded clip, analysed live | 정상입니다. 승인된 영상을 재생하며 분석하고 있습니다. | 없음 |
+| 측정 준비 중 · Starting measurement | 영상이 막 시작되었습니다. 배경을 익히는 몇 초 동안 숫자가 나오지 않습니다. | 없음 |
+| 합성 영상 · 실측 아님 · Synthetic video · not measured | 재생할 수 있는 영상이 없어 합성 영상을 보여 줍니다. 측정값이 아닙니다. | 아래 '합성 영상만 나올 때'를 봅니다. |
+| 일시정지 · Paused | Space가 눌려 멈췄습니다. | Space를 누릅니다. |
+| Esc를 한 번 더 누르면 종료합니다 · Press Esc again to quit | Esc가 한 번 눌렸습니다. | 끄려면 Esc를 한 번 더, 아니면 그냥 둡니다. |
+| 추정치 · Estimate, 보정 안 됨 (px) · Uncalibrated (px) | 항상 붙는 작은 표시입니다. 값의 성격을 알려 줍니다. | 없음 |
 
 ### 문제가 생겼을 때
 
-- 카메라가 끊겼을 때(케이블이 빠졌거나 iPhone이 꺼졌을 때): 앱이 알아서 USB 웹캠으로, 웹캠이 없으면 녹화 재생으로 넘어갑니다. 케이블을 다시 꽂으면 카메라가 5초 동안 정상인지 확인한 뒤 iPhone으로 저절로 돌아옵니다(보통 20초 안에). 30초가 지나도 돌아오지 않으면 케이블 양쪽을 확인하고, iPhone이 잠긴 채 가로로 고정되어 있는지 봅니다. 그래도 안 되면 부스를 다시 시작합니다.
-- 앱이 꺼지거나 멈췄을 때: 감시 스크립트(booth.sh)가 앱을 저절로 다시 시작합니다. 짧은 시간에 계속 꺼지면 다시 시작하기 전에 기다리는 시간을 2초에서 60초까지 늘립니다. 앱의 상태 기록(heartbeat)이 30초 넘게 멈추거나, 앱이 90초 넘게 새 프레임을 처리하지 못하면 멈춘 것으로 보고 다시 시작합니다.
-- 직접 다시 시작하려면: Esc를 두 번 눌러 끈 뒤, 터미널에서 `bash ~/wfglink-run/wfglink/booth/booth.sh`를 다시 실행합니다. 터미널 창을 닫았다면 Finder에서 `booth.command`를 더블 클릭합니다.
-- 그림이 노트북 화면에 뜰 때: Esc를 두 번 누르고, 모니터 케이블을 확인한 뒤 다시 시작합니다. 계속 그러면 `bash ~/wfglink-run/wfglink/booth/booth.sh --screen external`로 시작합니다.
-- 기록 파일: `~/wfglink-run/wfglink/logs/booth.log`(감시 스크립트와 앱의 기록), `~/wfglink-run/wfglink/logs/heartbeat.json`(2초마다 새로 씀: 초당 프레임 수, 소스, 메모리). 문제를 알릴 때 이 두 파일을 보내 주세요.
-- 하루 끝: Esc를 두 번 누릅니다. 정상적으로 끝나면 감시 스크립트도 함께 끝납니다.
+- 화면이 멈췄을 때(그림이 서 있고 숫자가 바뀌지 않을 때): '일시정지'가 보이면 Space를 누릅니다. 그렇지 않으면 기다립니다. 감시 스크립트(`booth.sh`)는 앱의 상태 기록(heartbeat)이 30초 넘게 멈추거나, 90초 넘게 새 프레임을 분석하지 못하면 멈춘 것으로 보고 앱을 다시 시작합니다(대개 2분 안). 그래도 그대로면 Esc 두 번으로 끄고 다시 시작합니다.
+- 앱이 다시 시작되었을 때(화면이 잠깐 사라졌다가 다시 전체 화면으로 뜰 때): 정상적인 복구입니다. 숫자는 처음부터 다시 셉니다. 짧은 시간에 계속 꺼지면 다시 시작하기 전에 기다리는 시간을 2초에서 60초까지 늘립니다. 자주 반복되면 `logs/booth.log`를 Claude에게 보냅니다.
+- 합성 영상만 나올 때: 영상 파일이 `data/raw`에 없습니다. Esc 두 번으로 끄고 다음을 실행한 뒤 다시 시작합니다.
+
+```
+cd ~/wfglink-run/wfglink
+source .venv/bin/activate
+python scripts/fetch_clips.py
+```
+
+- 그림이 노트북 화면에 뜰 때: 모니터 케이블을 확인합니다. 꽂으면 부스가 저절로 옮겨 갑니다. 그래도 안 되면 위의 '모니터 연결'처럼 `--screen external`로 시작합니다.
+- 터미널 창을 닫았을 때: 부스도 함께 꺼집니다. Finder에서 `booth.command`를 더블 클릭해 다시 시작합니다.
+- 기록 파일: `logs/booth.log`(감시 스크립트와 앱의 기록, 다시 시작한 기록 포함)와 `logs/heartbeat.json`(2초마다 새로 씀: 상태, 초당 프레임 수, 재생 중인 영상, 메모리). 문제를 알릴 때 이 두 파일을 보내 주세요.
+- 하루 끝: Esc를 누르고 한 번 더 Esc를 누릅니다. 정상적으로 끝나면 감시 스크립트도 함께 끝납니다.
+
+### 안내판
+
+- 'This is the sensor': 거치대 위 블랙박스 앞에 둡니다. 이 블랙박스의 원본 SD 카드 영상으로 속도를 아는 LED 회전판을 측정해 검증했다는 내용입니다.
+- 측정의 한계: 화면 옆에 둡니다. 화면의 I 키 카드와 같은 다섯 가지 한계입니다.
+- 두 장 모두 한국어와 영어가 있고, `booth/placards/`에서 A5로 인쇄합니다.
 
 ## English
 
 ### Start of the day: 10 minute setup checklist
 
-1. Power: MacBook charger and iPad charger into the power strip. The iPhone connects to the Mac with the Lightning to USB-C cable (which also charges it).
-2. Connect the external monitor to the MacBook and turn it on. Keep the MacBook lid open.
-3. iPad on its stand: Auto-Brightness, True Tone and Night Shift off; brightness about 80 percent; Auto-Lock Never.
-4. In VLC on the iPad, play the booth clip full screen and set the repeat button so this one video repeats. It is the file chosen in sitting 2 (`_hold2.mp4` when `booth.hold_factor` in `configs/booth_local.yaml` is 2, `_hold3.mp4` when it is 3). Hide the player controls; all four black and white corner patterns must be visible. Then turn on Guided Access.
-5. iPhone: case off, on the tripod in landscape, the iPad filling about two thirds of the iPhone's picture at a slight angle. Out of the sun, and locked.
-6. Put the black cloth hood over the iPad and the iPhone against reflections.
-7. Turn on Focus on the iPhone and the Mac.
-8. Start the booth with the one command in Terminal:
+1. Power: the MacBook charger into the power strip and into the MacBook. Keep the lid open.
+2. If you use the external monitor, connect it to the MacBook and turn it on. Without it, the booth runs on the MacBook's screen.
+3. Put the dashcam on its stand next to the screen, with the A5 "This is the sensor" placard in front of it. Put the A5 limits card next to the screen. The placard files are in `booth/placards/`.
+4. Turn on Focus on the Mac.
+5. Start the booth with the one command in Terminal:
 
 ```
-bash ~/wfglink-run/wfglink/booth/booth.sh
+cd ~/wfglink-run/wfglink
+./booth/booth.sh
 ```
 
    or open the `wfglink-run/wfglink/booth` folder in your home folder in Finder and double-click `booth.command`.
-9. Once the booth is running, click the green camera icon in the Mac menu bar (Video) and check that Reactions, Center Stage, Portrait and Studio Light are all off. That menu only appears while an app uses the camera.
-10. Check: the external monitor shows the video with orange ember tracks, the status line says "Live", and there is no band across the picture. Press L once and see the language change.
+6. Check: within a few seconds the booth is fullscreen on the external monitor (or on the MacBook without one), the video shows orange ember tracks, and the status line names the clip and its credit line. The numbers appear a few seconds into each clip. Press L once and see the language change; press it again to change back.
 
 ### Settings to make once, before the day
 
-- Continuity Camera over the cable. Wi-Fi and Bluetooth on for the iPhone and the Mac, but joined to no network.
-- The iPhone and the Mac signed in to the same Apple Account; when the iPhone asks "Trust This Computer?", tap Trust.
-- Personal Hotspot off on the iPhone.
-- Focus on for the iPhone and the Mac.
-- Automatic updates off on the iPhone, the iPad and the Mac.
-- Mac: System Settings, Lock Screen: start Screen Saver and turn display off both set to Never.
-- iPad: Auto-Brightness, True Tone and Night Shift off; Auto-Lock Never; Guided Access holding the looping VLC player.
-- Every effect in the Mac's Video menu (the green camera icon in the menu bar) off.
-- iPhone case off, out of the sun.
-- The black cloth hood.
+- System Settings > Lock Screen: "Start Screen Saver when inactive" and "Turn display off on power adapter when inactive" both Never. (While the booth runs, `booth.sh` keeps the Mac awake.)
+- System Settings > Displays: the external monitor extends the desktop; it does not mirror it. The booth picks the external monitor by itself.
+- Focus on, automatic updates off.
+- Check that the approved clips are in `data/raw` (`ls data/raw`). A missing clip is skipped.
+- Print both placards on A5, at actual size (100 percent).
 
 ### Keys
 
 | Key | What it does |
 |---|---|
 | L | Korean or English |
-| I | Limits card on or off |
 | T | Ember tracks on or off |
 | F | Ember-derived wind arrows on or off |
 | G | Gate line on or off |
-| Esc twice | Quit (twice within 2 s) |
+| Space | Pause (playback and analysis hold); Space again resumes |
+| I | Limits card on or off |
+| Esc, then Esc again | Quit. After the first Esc a prompt shows; a second Esc within a few seconds quits |
 
-### Bands and labels on the screen
+### Plugging the monitor
+
+- The booth goes fullscreen on the external monitor when one is connected, else on the MacBook's screen.
+- Unplug the monitor's cable while the booth runs and the booth moves to the MacBook's screen; plug it back in and the booth moves back. No restart is needed.
+- To keep the booth on one screen: quit with Esc twice, then start `./booth/booth.sh --screen external`, or `--screen NAME` with a screen name from the screens line of `python -m wfglink doctor`.
+
+### Labels on the screen
 
 | On screen | Meaning | What to do |
 |---|---|---|
-| REPLAY · not live (녹화 재생 · 실시간 아님) | No camera works, so the prepared clip plays directly. Its counts are kept separately. | When a camera is back and stays healthy for 5 s, the booth returns to live by itself. See "Camera lost" below. |
-| SYNTHETIC · not measured (합성 영상 · 실측 아님) | No camera and no clip: a synthetic demo, not a measurement. | Check the camera cable and the iPad. |
-| Reconnecting camera (카메라 재연결 중) | The camera dropped out for a moment and is being reopened. | Wait a few seconds. |
-| iPad paused (iPad 정지) | The iPad stopped playing. | Press play on the iPad. Do the same if the picture stands still and the numbers stop changing without this band. |
-| 0.5× playback or 0.33× playback | The booth clip plays slowed down. This is normal. | Nothing. Speeds are computed in the original clip's time. |
+| Recorded clip, analysed live (녹화 영상을 실시간 분석 중) | Normal: an approved clip plays and is analysed as it plays. | Nothing |
+| Starting measurement (측정 준비 중) | A clip has just started. For a few seconds, while the background is learned, no numbers show. | Nothing |
+| Synthetic video · not measured (합성 영상 · 실측 아님) | No clip can play, so synthetic video shows. It is not a measurement. | See "Only synthetic video" below. |
+| Paused (일시정지) | Space was pressed. | Press Space. |
+| Press Esc again to quit (Esc를 한 번 더 누르면 종료합니다) | Esc was pressed once. | Esc again to quit; otherwise leave it. |
+| Estimate (추정치), Uncalibrated (px) (보정 안 됨 (px)) | Small tags that are always there; they say what kind of value it is. | Nothing |
 
 ### When something goes wrong
 
-- Camera lost (cable out, iPhone off): the app falls back by itself to the USB webcam, or to the replay with its band when there is no webcam. When the cable is back, the camera must stay healthy for 5 s and then the booth switches back to the iPhone by itself (usually within 20 s). If it is not back after 30 s: check the cable at both ends, check that the iPhone is locked and in landscape on the tripod, then restart.
-- The app closes or freezes: the supervisor (booth.sh) restarts it by itself, waiting 2 s, then longer up to 60 s if it keeps failing quickly. A heartbeat older than 30 s, or no new frame processed for 90 s, counts as a hang and the app is restarted.
-- How to restart by hand: press Esc twice, then run `bash ~/wfglink-run/wfglink/booth/booth.sh` again in Terminal. If the Terminal window was closed, double-click `booth.command` in Finder.
-- The picture opens on the laptop screen: Esc twice, check the monitor cable, start again. If it keeps happening, start with `bash ~/wfglink-run/wfglink/booth/booth.sh --screen external`.
-- Logs: `~/wfglink-run/wfglink/logs/booth.log` (supervisor and app output) and `~/wfglink-run/wfglink/logs/heartbeat.json` (rewritten every 2 s: frames per second, source, memory). Send both when you report a problem.
-- End of the day: press Esc twice. A clean exit stops the supervisor too.
+- The screen freezes (the picture stands still and the numbers stop): if "Paused" shows, press Space. Otherwise wait. The supervisor (`booth.sh`) treats a heartbeat older than 30 s, or no newly analysed frame for 90 s, as a hang and restarts the app (usually within 2 minutes). If it is still frozen, quit with Esc twice and start again.
+- The app restarted (the screen disappeared for a moment and came back fullscreen): this is the automatic recovery. The counts start again from zero. If it keeps failing quickly, the supervisor waits longer before each restart, from 2 s up to 60 s. If it happens often, send `logs/booth.log` to Claude.
+- Only synthetic video: the clip files are not in `data/raw`. Quit with Esc twice, run the commands below, then start again.
+
+```
+cd ~/wfglink-run/wfglink
+source .venv/bin/activate
+python scripts/fetch_clips.py
+```
+
+- The picture opens on the laptop screen: check the monitor cable; once it is plugged in, the booth moves by itself. If not, start with `--screen external` as in "Plugging the monitor".
+- The Terminal window was closed: the booth closes with it. Double-click `booth.command` in Finder to start again.
+- Logs: `logs/booth.log` (supervisor and app output, restarts included) and `logs/heartbeat.json` (rewritten every 2 s: status, frames per second, the clip playing, memory). Send both when you report a problem.
+- End of the day: press Esc, then Esc again. A clean exit stops the supervisor too.
+
+### Placards
+
+- "This is the sensor": in front of the dashcam on its stand. It says that this dashcam's own SD-card files were checked against an LED turntable of known speed.
+- The limits card: next to the screen. It shows the same five limits as the screen's card on key I.
+- Both have Korean and English, and print on A5 from `booth/placards/`.

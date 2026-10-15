@@ -254,7 +254,7 @@ def make_tiles(clip_settings: str | Path, out_dir: str | Path, frames: int | Non
     from wfglink.io.sources import FileSource
     from wfglink.outputs.process import roi_crop
     from wfglink.provenance import git_state, now_shanghai, sha256_file, sha256_json
-    from wfglink.sitting.recordings import probe_video
+    from wfglink.io.probe import probe_video
     from wfglink.validate.clips import clip_id, load_clip_settings, segments
 
     cfg = cfg or load_config()
