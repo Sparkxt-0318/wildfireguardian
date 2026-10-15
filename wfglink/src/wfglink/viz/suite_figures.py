@@ -70,6 +70,15 @@ def completeness_figure(curves: dict[str, dict[str, list[int]]], path_stem: str 
     return style.save(fig, path_stem)
 
 
+def _missing_reason(row: dict, metric: str) -> str:
+    """Why a case has no value: the exposure estimator declined, or no track or streak qualified."""
+    if metric == "exposure_rel_err" and row.get("exposure_ok") == 0:
+        return "declined"
+    if metric in ("track_speed_med_rel_err", "streak_speed_med_rel_err"):
+        return "no tracks"
+    return "n/a"
+
+
 def case_errors_figure(summary: dict[str, dict], path_stem: str | Path, title: str,
                        metrics: tuple[str, ...] = ("track_speed_med_rel_err", "cpc_gross_rel_err", "exposure_rel_err")):
     """Dot plot: rows are cases, one panel per metric (absolute relative error), goal shaded."""
@@ -88,9 +97,10 @@ def case_errors_figure(summary: dict[str, dict], path_stem: str | Path, title: s
         if goal is not None:
             ax.axvspan(0, goal, color=style.COLORS["goal"], alpha=0.12, lw=0)
         ax.plot(v, y, "o", ms=4, color=style.COLORS["track"])
-        for yi, vi in zip(y, v):
+        for yi, vi, c in zip(y, v, cases):
             if not np.isfinite(vi):
-                ax.text(0.02, yi, "n/a", va="center", fontsize=7, color=style.COLORS["neutral"], transform=ax.get_yaxis_transform())
+                ax.text(0.02, yi, _missing_reason(summary[c], m), va="center", fontsize=7,
+                        color=style.COLORS["neutral"], transform=ax.get_yaxis_transform())
         ax.set_xlabel(f"{labels.get(m, m)} (abs, fraction)")
         ax.set_xlim(left=0)
     axes[0].set_yticks(y)
