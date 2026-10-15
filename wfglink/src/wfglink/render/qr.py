@@ -62,5 +62,7 @@ def draw_qr(p: Any, x: float, y: float, size: float, text: str) -> None:
             while c < n and row[c]:
                 c += 1
             path.addRect(QRectF(x + c0 * cell, y + r * cell, (c - c0) * cell, cell))
-    p.fillPath(path.simplified(), Qt.GlobalColor.black)
+    # Keep the winding path: simplifying touching rectangles can drop entire module edges
+    # at fractional coordinates on Qt's raster backend.
+    p.fillPath(path, Qt.GlobalColor.black)
     p.restore()

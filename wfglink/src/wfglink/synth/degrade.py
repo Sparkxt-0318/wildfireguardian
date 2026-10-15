@@ -194,7 +194,9 @@ def gamma_encode(img: np.ndarray, gamma: float = 2.2, blocks: int = 4) -> np.nda
     def work(ab: tuple[int, int]) -> None:
         a, b = ab
         x = np.maximum(img[a:b], 0.0) * np.float32(1.0 / 255.0)
+        black = x == 0.0
         cv2.pow(x, inv, dst=x)
+        x[black] = 0.0           # some SIMD pow implementations return a tiny positive value at zero
         np.multiply(x, np.float32(255.0), out=out[a:b])
 
     list(_pool().map(work, _row_blocks(img.shape[0], blocks)))

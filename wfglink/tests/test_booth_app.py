@@ -1399,7 +1399,7 @@ app = QApplication([])
 from wfglink.config import load_config
 from wfglink.ui.booth_app import BoothWindow, run_live
 hb_path, mode, answer = sys.argv[1], sys.argv[2], sys.argv[3]
-cfg = load_config(overrides={"live": {"worker_mode": mode, "ember_pipeline": "ember_standin:FakeEmberPipeline",
+cfg = load_config(overrides={"live": {"worker_mode": mode, "ember_pipeline": "nocam_standin:FakeEmberPipeline",
                                       "camera_start_s": 2.0, "camera_retry_s": [0.2, 1.0]}, "ui": {"quit_confirm_s": 3.0}})
 marks = {}
 def win():
@@ -1449,10 +1449,37 @@ print("RESULT " + json.dumps(res, default=str))
 @pytest.mark.parametrize("mode,answer,shown", [("thread", "unsupported", "missing"), ("process", "unsupported", "missing"),
                                                ("process", "denied", "denied"), ("thread", "not_determined", "asking")])
 def test_ember_mode_without_a_camera_or_permission(tmp_path, mode, answer, shown):
-    """No camera here (Linux, no camera module or no device): a calm message, and M still returns."""
+    """A missing fake camera or refused permission: a calm message, and M still returns."""
     hb = tmp_path / "heartbeat.json"
+    calls = tmp_path / "camera_opens.txt"
+    # The configured pipeline module is imported before CameraFeed starts, including in
+    # spawned workers. Install the fake source there so no host camera can be opened.
+    (tmp_path / "nocam_standin.py").write_text('''
+import os
+from pathlib import Path
+from ember_standin import FakeEmberPipeline, ScriptedCamera
+from wfglink.ui import booth_app
+
+class MissingCamera(ScriptedCamera):
+    def __init__(self):
+        super().__init__(fail_open=True, name="missing camera fixture")
+
+    def open(self):
+        with Path(os.environ["WFGLINK_TEST_CAMERA_CALLS"]).open("a") as f:
+            f.write("open\\n")
+        super().open()
+
+def make_camera(cfg, spec):
+    assert spec["kind"] == "camera"
+    return MissingCamera()
+
+booth_app.make_ember_source = make_camera
+''')
+    env = _child_env()
+    env["PYTHONPATH"] = os.pathsep.join((str(tmp_path), env["PYTHONPATH"]))
+    env["WFGLINK_TEST_CAMERA_CALLS"] = str(calls)
     res = subprocess.run([sys.executable, "-c", NOCAM, str(hb), mode, answer], capture_output=True, text=True,
-                         timeout=300, env=_child_env())
+                         timeout=300, env=env)
     assert res.returncode == 0, res.stderr[-3000:]
     r = json.loads(res.stdout.split("RESULT ", 1)[1])
     m = r["marks"]
@@ -1464,3 +1491,6 @@ def test_ember_mode_without_a_camera_or_permission(tmp_path, mode, answer, shown
     assert r["errors"] == [] and r["permission"] == answer
     assert r["quit_confirmed"], (m.get("esc1"), m.get("esc2"), r["seconds"])
     assert r["permission_asks"] == (1 if answer == "unsupported" else 2)       # at start-up, and again at M while not allowed
+    assert calls.exists() is (answer == "unsupported")
+    if calls.exists():
+        assert calls.read_text().splitlines() and set(calls.read_text().splitlines()) == {"open"}

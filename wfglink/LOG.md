@@ -397,3 +397,16 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - An initial whole-repository archive triggered unrelated lazy blob downloads in this partial clone and was interrupted. The export helpers now archive the wfglink subtree directly; the baseline export then completed. Demo tag names also honor the existing build ledger after a fresh checkout.
 - Decisions: the supplied scale patch is integrated and removed. The phone candidate and its tests/diagnostic stay outside this checkpoint until the strict regression requirement is met. The existing demo ledger remains the reference until a committed-tree gate passes.
 - Next: full tests and real-clip checks on this checkpoint, and continued phone repair. Held-out input generation uses the unchanged generator from a clean handoff export; no held-out scores are used for development.
+
+## 2026-10-15T19:46:22+08:00 Mac regression failures and repairs
+
+- Goal: run the complete committed checkpoint and repair every failure before release.
+- Commands: `bash scripts/run_from_head.sh python -m pytest -q` at f9e72c2; focused camera and missing-camera checks; QR scan checks; placard and synthetic-render regressions; gamma endpoint equivalence controls. Logs are under `results/runs/`, including `full_pytest_f9e72c2.log`, `camera_fixture_review_20261015.log`, `platform_fixes_focused.log` and `qr_gamma_regression.log`.
+- Parameters: the pinned Mac runtime, offscreen Qt, and the committed checkpoint export for the complete run. Focused repairs ran in the working tree.
+- Results:
+  - The complete run failed on QR scan rendering, camera fixtures that assumed a host without cameras, and the gamma black endpoint. Its failure log is preserved. The missing-camera fixture reached the real Mac camera during that failed run; it is now explicitly isolated in both worker modes.
+  - QR path simplification dropped module edges at fractional coordinates on this raster backend. Filling the original winding path preserves the code, and the original scan assertions pass for screen and placard outputs.
+  - The timeout fixture supplied inconsistent camera identities and hit the ambiguity refusal before the intended timeout. It now supplies one consistent device and always releases its fake blocked open. The original fallback assertions pass.
+  - The gamma implementation now preserves exact black even when the SIMD power operation returns a tiny positive value. Fixed input controls retain every positive-pixel result and every quantized pixel; the focused render regressions pass.
+- Decisions: keep the failed complete run and repeat the complete suite on the final committed source. These repairs do not establish actual camera measurement accuracy or an overnight soak.
+- Next: finish the independent file checks and strict phone non-regression repair, then rerun the release gate.

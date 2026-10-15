@@ -331,14 +331,17 @@ def test_pyav_open_that_never_returns_falls_back_to_opencv(monkeypatch):
     monkeypatch.setattr(av, "open", stuck)
     monkeypatch.setattr(av, "formats_available", set(av.formats_available) | {"v4l2", "avfoundation"})
     monkeypatch.setattr(C._PyAVCamera, "hung", set())
-    cam = C._PyAVCamera(dict(WEBCAM, unique_id="cam-1"), 1280, 720, 30, [WEBCAM])
+    device = dict(WEBCAM, unique_id="cam-1")
+    cam = C._PyAVCamera(device, 1280, 720, 30, [device])
     t0 = C.time.monotonic()
-    with pytest.raises(SourceError, match="did not return"):
-        cam.open(0.2)
-    assert C.time.monotonic() - t0 < 5 and "cam-1" in C._PyAVCamera.hung
-    with pytest.raises(SourceError, match="hung"):                 # at once the next time
-        C._PyAVCamera(dict(WEBCAM, unique_id="cam-1"), 1280, 720, 30, [WEBCAM]).open(0.2)
-    release.set()
+    try:
+        with pytest.raises(SourceError, match="did not return"):
+            cam.open(0.2)
+        assert C.time.monotonic() - t0 < 5 and "cam-1" in C._PyAVCamera.hung
+        with pytest.raises(SourceError, match="hung"):             # at once the next time
+            C._PyAVCamera(device, 1280, 720, 30, [device]).open(0.2)
+    finally:
+        release.set()
     # CameraSource skips a backend that hung on this camera before.
     FakeBackend.script = {"open_fail": set(), "broken": False, "size": (640, 360), "opened": []}
     C.CameraSource._winners.clear()
