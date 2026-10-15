@@ -486,3 +486,15 @@ Append-only. Times are Asia/Shanghai (UTC+08:00). Each entry: goal, exact comman
   - The full committed regression and strict cached phone-suite comparison still pass, but they do not establish demo readiness. The candidate is therefore held for release. The failed report's Git fields reflect its temporary export without repository metadata; the separate receipt binds the actual tested source.
 - Decisions: preserve this failed gate and keep the original tolerance, scene and strict non-regression requirement. Do not publish a successful daily build from this attempt.
 - Next: capture the live sample timing and ownership trace, repair the bounded association error, then rerun the strict checks and full gate.
+
+## 2026-10-15T20:27:06+08:00 Late background handoff repair and longer regression
+
+- Goal: remove the late demo-gate counterexample while keeping strict phone-suite non-regression.
+- Commands: the source-bound cached full-rate comparison and deterministic long replay in `results/runs/ember_guard/uncertainty_candidate/`; targeted tracker controls in `tests/test_ember.py`; independent source review. The replay script now defaults to the full daily-gate duration.
+- Parameters: existing confirmation, motion, background and count thresholds; unchanged speed estimator and demo-gate tolerance. Source candidate track SHA-256 is 54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e. The demo export now carries its tested commit into provenance, and the saved-report recorder verifies every supplied phone-source hash.
+- Results:
+  - The trace found an unseen phone taking a newly appearing TV/background blob before that blob had a confirmed static owner. A pending background object now completes an eligible stationary confirmation atomically before unseen phones; already seen phones keep first choice. A separate background reacquisition check excludes reach gained solely from growing uncertainty.
+  - Every tested cached full-rate history, legacy track field and deterministic quality/speed/ruler result remains exactly equal to the original tracker. The longer replay removes the sustained late over-count while preserving a brief residual fragment and geometric lamp-region flags rather than hiding them with the display cap.
+  - Focused controls pass for current confirmation windows, exact blob consumption, paused phones and prediction-consistent bright-background returns. Independent review found no remaining code blocker. A phone that stops or reverses while hidden over bright background can still be rejected or fragmented; this bounded association prior is not universal occlusion recovery.
+- Decisions: retain strict non-regression and the original gate, preserve the failed attempt and every residual, and keep the release held until committed-source checks pass.
+- Next: run the complete committed-source regression, official phone suite, long uncapped replay and unchanged daily demo gate; create a demo tag only on success.

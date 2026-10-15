@@ -26,8 +26,12 @@ many faint embers):
   blob and stays at its pre-merge home and diameter. An unowned blob within the coasting
   phone's prediction gate is left for the phone. This protection lasts until that phone is
   seen again, ends, or no light competes for it. Unknown source cadence cannot start this
-  protection. Fully sampled input keeps the original association; this does not fix every
-  full-rate lamp overlap.
+  protection. At any cadence, a background track with consecutive low-motion observations
+  owns the one background blob that would complete its confirmation before an already unseen
+  ember can take it. Reacquiring a background blob must also agree with the prediction's
+  base and speed reach: growing uncertainty alone cannot move an unseen ember onto a light.
+  Recently seen embers still associate normally. These rules do not fix every full-rate
+  lamp overlap.
 - Life: a track is confirmed after ember.track.confirm_hits detections within
   ember.track.confirm_window_s. It is shown (an ember on screen, with a display ID from 1 to
   ember.max_tracks) once it has moved ember.track.min_travel_m from where it was first seen,
@@ -89,6 +93,7 @@ class EmberTrack:
     travel: float = 0.0
     peak_speed: float = 0.0
     on_bg: bool = False
+    background_hits: int = 0            # consecutive low-motion detections on the bright background
     rest_at: tuple[float, float] | None = None     # where the track last started resting, and when
     rest_t: float = 0.0
     light: float = 0.0                  # the light map under its latest blob (kept from before it came, while it shows)
@@ -159,7 +164,9 @@ class EmberTracker:
     def _assign(self, tracks: list[EmberTrack], det_xy: np.ndarray, free: np.ndarray, t: float,
                 pinned: frozenset[int] = frozenset(), *, light_owner: np.ndarray | None = None,
                 reserved: np.ndarray | None = None, guarded: frozenset[int] = frozenset(),
-                lights: frozenset[int] = frozenset()) -> list[tuple[int, int]]:
+                lights: frozenset[int] = frozenset(), confirming_background: bool = False,
+                background_prior: np.ndarray | None = None,
+                coasters: frozenset[int] = frozenset()) -> list[tuple[int, int]]:
         cols = np.flatnonzero(free)
         if not tracks or cols.size == 0:
             return []
@@ -175,6 +182,13 @@ class EmberTracker:
                 px, py, reach = self._predict(tr, t)
             d = np.hypot(det_xy[cols, 0] - px, det_xy[cols, 1] - py)
             ok = d <= reach
+            if tr.tid in coasters and background_prior is not None:
+                motion_reach = min(self.gate_px + self.gate_speed_frac * math.hypot(tr.vx, tr.vy)
+                                   * max(0.0, t - tr.last_t), self.gate_max)
+                ok &= ~background_prior[cols] | (d <= motion_reach)
+            if confirming_background:
+                step = np.hypot(det_xy[cols, 0] - tr.x, det_xy[cols, 1] - tr.y)
+                ok &= step <= self.min_show_speed * max(t - tr.last_t, 1e-6)
             if tr.tid in guarded and math.hypot(tr.vx, tr.vy) > self.min_show_speed:
                 # A moving phone cannot hand its ember to a known lamp. A paused phone still
                 # associates normally, and the lamp's pinned track can take its blob again.
@@ -226,6 +240,20 @@ class EmberTracker:
                        light_tracks: list[EmberTrack] | None = None) -> None:
         self.t = t
         det_xy = np.column_stack([blobs.x, blobs.y]) if len(blobs) else np.zeros((0, 2))
+        prev = self.t_prev
+        coasters = frozenset(tr.tid for tr in self.tracks if tr.shown and prev is not None and tr.last_t < prev)
+        background_prior = np.zeros(len(det_xy), bool)
+        n_bg, n_light = min(len(blobs.on_bg), len(det_xy)), min(len(blobs.light), len(det_xy))
+        background_prior[:n_bg] = blobs.on_bg[:n_bg]
+        background_prior[:n_light] |= blobs.light[:n_light] >= self.light_frac
+        owners = []
+        background_candidates = np.zeros(len(det_xy), bool)
+        if coasters:
+            owners = [tr for tr in self.tracks if not tr.confirmed and prev is not None and tr.last_t >= prev
+                      and tr.background_hits >= max(1, self.confirm_hits - 1)
+                      and tr.travel < self.min_travel and t - tr.t0 <= self.confirm_window_s + 1e-9]
+            n_bg = min(len(blobs.on_bg), len(det_xy))
+            background_candidates[:n_bg] = blobs.on_bg[:n_bg]
         light_owner = None
         lights = frozenset()
         if light_tracks:
@@ -237,7 +265,6 @@ class EmberTracker:
             for r, j in self._assign(light_tracks, det_xy, on_light, t, lights, light_owner=light_owner, lights=lights):
                 light_owner[j] = light_tracks[r].tid
         free = np.ones(len(det_xy), bool)
-        prev = self.t_prev
         self.t_prev = t
         for tr in self.tracks:
             tr.seen = False
@@ -257,21 +284,38 @@ class EmberTracker:
                     x, y, reach = self._predict(tr, t)
                     reserved |= ((light_owner == 0)
                                  & (np.hypot(det_xy[:, 0] - x, det_xy[:, 1] - y) <= reach))
-        for group in (live + held, others, rest):
+        def assign(group):
             for r, j in self._assign(group, det_xy, free, t, pins, light_owner=light_owner,
-                                     reserved=reserved, guarded=guarded, lights=lights):
+                                     reserved=reserved, guarded=guarded, lights=lights,
+                                     background_prior=background_prior, coasters=coasters):
                 free[j] = False
                 self._hit(group[r], blobs, j, t)
+        assign(live + held)
+        # A supported background object completes confirmation before an unseen ember's
+        # growing gate can take it. Consume the exact matched blob, once; recently seen
+        # phones already had their usual first choice above.
+        claimed = set()
+        for r, j in self._assign(owners, det_xy, free & background_candidates, t,
+                                 frozenset(tr.tid for tr in owners), confirming_background=True):
+            free[j] = False
+            self._hit(owners[r], blobs, j, t)
+            claimed.add(owners[r].tid)
+        assign(others)
+        assign([tr for tr in rest if tr.tid not in claimed])
         for j in np.flatnonzero(free):
             tr = EmberTrack(self._next_id, t, float(det_xy[j, 0]), float(det_xy[j, 1]), t,
                             (float(det_xy[j, 0]), float(det_xy[j, 1])), [(t, float(det_xy[j, 0]), float(det_xy[j, 1]))],
-                            on_bg=bool(blobs.on_bg[j]), box=blobs.boxes[j], diam=float(blobs.diam[j]))
+                            on_bg=bool(blobs.on_bg[j]), background_hits=int(bool(blobs.on_bg[j])),
+                            box=blobs.boxes[j], diam=float(blobs.diam[j]))
             self._next_id += 1
             self.tracks.append(tr)
         self._lifecycle(t)
 
     def _hit(self, tr: EmberTrack, blobs: Blobs, j: int, t: float) -> None:
         x, y = float(blobs.x[j]), float(blobs.y[j])
+        dt = t - tr.last_t
+        steady_background = (tr.on_bg and dt <= self.confirm_window_s
+                             and math.hypot(x - tr.x, y - tr.y) <= self.min_show_speed * max(dt, 1e-6))
         if not tr.shown and tr.pts:
             # A jump (a TV picture's cut, a blob passing from one light to another) is no motion
             # of a phone: a track that has not shown starts its travel again from here.
@@ -285,6 +329,7 @@ class EmberTracker:
         tr.hits += 1
         tr.seen = True
         tr.on_bg = bool(blobs.on_bg[j])
+        tr.background_hits = (tr.background_hits + 1 if steady_background else 1) if tr.on_bg else 0
         tr.box = blobs.boxes[j]
         tr.diam = float(blobs.diam[j])
         tr.light = float(blobs.light[j]) if len(blobs.light) > j else 0.0

@@ -401,6 +401,149 @@ def test_fake_camera_reports_its_source_rate_instead_of_the_request():
         source.close()
 
 
+def _phone_coasting_towards_a_pending_background(paused=False, evidence="stationary", within_motion_reach=False):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    t = 9 * dt
+    if paused:
+        for _ in range(10):
+            t += dt
+            tracker.update(_blobs([(480.0, 300.0)]), t)
+        assert math.hypot(phone.vx, phone.vy) < 1e-6
+    background = (618.0, 300.0) if within_motion_reach else ((480.0, 120.0) if paused else (520.0, 60.0))
+    # The expanding prediction gate reaches this separate stationary object on the third
+    # background detection. It has independent evidence before that ambiguous reacquisition.
+    wait = 0 if within_motion_reach else 6
+    for k in range(1, wait + 1):
+        tracker.update(_blobs([]), t + k * dt)
+    for k in (wait + 1, wait + 2):
+        px, py, reach = tracker._predict(phone, t + k * dt)
+        assert math.hypot(background[0] - px, background[1] - py) > reach
+        drift = 10 if evidence == "moving" else 1 if evidence == "slow_drift" else 0
+        point = (background[0] + drift, background[1]) if k == wait + 2 else background
+        blobs = _blobs([]) if evidence == "one_hit" and k == wait + 1 else _blobs([point], on_bg=evidence != "off_background")
+        tracker.update(blobs, t + k * dt)
+    (pending,) = [tr for tr in tracker.tracks if not tr.shown]
+    return tracker, phone, pending, background, t + (wait + 3) * dt, dt
+
+
+@pytest.mark.parametrize("reported_rate", [None, 30.0, 15.0])
+@pytest.mark.parametrize("paused", [False, True])
+def test_pending_background_confirmation_keeps_the_coasting_phone_identity(reported_rate, paused):
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(paused, within_motion_reach=not paused)
+    px, py, reach = tracker._predict(phone, t)
+    assert math.hypot(background[0] - px, background[1] - py) <= reach
+    assert pending.hits == pending.background_hits == tracker.confirm_hits - 1
+    tracker.update(_blobs([background], on_bg=True), t, source_fps=reported_rate)
+    assert pending.hits == tracker.confirm_hits and pending.confirmed and pending.seen
+    assert not pending.shown and not phone.seen and tracker.shown() == [phone]
+    returning = (480.0 if paused else 560.0, 300.0)
+    blobs = _blobs([background, returning], on_bg=True)
+    tracker.update(blobs, t + dt, source_fps=reported_rate)
+    assert phone.seen and (phone.x, phone.y) == returning
+    assert pending.seen and (pending.x, pending.y) == background and not pending.shown
+    assert tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("unsupported", ["one_hit", "moving", "off_background", "current_motion"])
+def test_a_pending_object_without_stationary_background_evidence_does_not_own_a_blob(unsupported):
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(evidence=unsupported, within_motion_reach=True)
+    if unsupported == "current_motion":
+        background = (background[0] + 10, background[1])
+    tracker.update(_blobs([background], on_bg=True), t)
+    assert phone.seen and (phone.x, phone.y) == background
+
+
+def test_a_pending_background_owner_can_expire_normally():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(within_motion_reach=True)
+    for k in range(10):
+        tracker.update(_blobs([]), t + k * dt)
+    assert pending not in tracker.tracks and phone in tracker.tracks
+
+
+def test_an_expired_pending_background_cannot_claim_a_coasters_detection():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(within_motion_reach=True)
+    later = t + tracker.confirm_window_s
+    tracker.update(_blobs([background], on_bg=True), later)
+    assert phone.seen and (phone.x, phone.y) == background
+    assert pending not in tracker.tracks
+
+
+def test_pending_confirmation_consumes_its_one_assigned_blob_exactly_once():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(evidence="slow_drift", within_motion_reach=True)
+    # Its normal prediction differs from its median home. The confirming pass must hit the
+    # very blob it selected, rather than reserve one blob and later take a neighboring one.
+    first, second = (background[0] + 0.5, background[1]), (background[0] + 2, background[1])
+    tracker.update(_blobs([first, second], on_bg=True), t)
+    assert pending.seen and (pending.x, pending.y) == first and pending.hits == tracker.confirm_hits
+    assert phone.seen and (phone.x, phone.y) == second
+
+
+@pytest.mark.parametrize("on_bg, light", [(True, 0.0), (False, 1.0), (True, 1.0)])
+def test_a_fast_phone_can_reappear_far_away_on_background_when_its_motion_agrees(on_bg, light):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t, last_x = phone.last_t, phone.x
+    for k in range(1, 18):
+        tracker.update(_blobs([]), last_t + k * dt)
+    t = last_t + 18 * dt
+    returning = tracker._predict(phone, t)[:2]
+    assert returning[0] - last_x > 3 * tracker.min_travel
+    tracker.update(_blobs([returning], on_bg=on_bg, light=light), t)
+    assert phone.seen and tracker.shown() == [phone] and (phone.x, phone.y) == returning
+    continuing = tracker._predict(phone, t + dt)[:2]
+    tracker.update(_blobs([continuing], on_bg=on_bg, light=light), t + dt)
+    assert phone.seen and tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("on_bg, light, accepted", [(False, 0.0, True), (True, 0.0, False), (False, 1.0, False)])
+def test_growing_uncertainty_alone_does_not_reacquire_a_background_light(on_bg, light, accepted):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t = phone.last_t
+    for k in range(1, 9):
+        tracker.update(_blobs([]), last_t + k * dt)
+    t, light_pos = last_t + 9 * dt, (520.0, 60.0)
+    px, py, reach = tracker._predict(phone, t)
+    motion_reach = tracker.gate_px + tracker.gate_speed_frac * math.hypot(phone.vx, phone.vy) * (t - phone.last_t)
+    assert motion_reach < math.hypot(light_pos[0] - px, light_pos[1] - py) <= reach
+    tracker.update(_blobs([light_pos], on_bg=on_bg, light=light), t)
+    assert phone.seen == accepted
+    if not accepted:
+        returning = tracker._predict(phone, t + dt)[:2]
+        tracker.update(_blobs([returning], on_bg=True, light=1.0), t + dt)
+        assert phone.seen and tracker.shown() == [phone] and (phone.x, phone.y) == returning
+
+
+@pytest.mark.parametrize("on_light, accepted", [(False, True), (True, False)])
+def test_an_unobserved_abrupt_stop_on_bright_background_can_remain_ambiguous(on_light, accepted):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t = phone.last_t
+    for k in range(1, 9):
+        tracker.update(_blobs([]), last_t + k * dt)
+    # A stop while hidden contradicts the moving predictor. An unlit phone retains the full
+    # uncertainty reach; a bright-background return may be missed until independent support.
+    tracker.update(_blobs([(480.0, 300.0)], light=float(on_light)), last_t + 9 * dt)
+    assert phone.seen == accepted
+
+
 def test_tracker_keeps_a_lamp_on_its_own_track_as_a_phone_sweeps_past():
     """A phone ember whose prediction lies as near a lamp as its phone takes the phone; the lamp
     (hidden for a moment by a passer-by) goes back to its own track and never becomes an ember."""

@@ -78,7 +78,7 @@ def replay(seconds: float, strides: list[int]) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--seconds", type=float, default=40.0)
+    parser.add_argument("--seconds", type=float, default=60.0)
     parser.add_argument("--strides", type=int, nargs="+", default=[1, 2, 3])
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()

@@ -27,7 +27,7 @@ git -C "$REPO" archive --prefix=wfglink/ "$COMMIT:wfglink" | tar -x -C "$EXPORT"
 OUT="$ROOT/results/runs/demo_gate_$DAY"
 # PYTHONPATH puts the exported package ahead of the checkout's editable install; running from
 # the export makes its booth/playlist.yaml and data/clips the ones tested.
-(cd "$EXPORT/wfglink" && PYTHONPATH="$EXPORT/wfglink/src" QT_QPA_PLATFORM=offscreen "$ROOT/.venv/bin/python" \
+(cd "$EXPORT/wfglink" && WFGLINK_EXPORT_COMMIT="$COMMIT" PYTHONPATH="$EXPORT/wfglink/src" QT_QPA_PLATFORM=offscreen "$ROOT/.venv/bin/python" \
   -m wfglink demo-gate --seconds "$GATE_SECONDS" --playlist booth/playlist.yaml --out "$OUT")
 "$ROOT/.venv/bin/python" - "$OUT/report.json" "$COMMIT" <<'EOF'
 import json, sys
