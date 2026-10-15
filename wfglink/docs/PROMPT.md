@@ -125,3 +125,18 @@ I am following a build manual that names these exact commands and files. Make th
 - Also make print-ready A5 placards in booth/placards/ (Korean and English): "This is the sensor" for the dashcam stand and the limits card.
 
 My hands-on work is now two sittings: sitting 1 (setup, dashcam, LED rig, recordings, validate, send files) as soon as parts arrive, and sitting 2 on the final evening (update, booth, overnight soak, rehearsal). Keep the Monday Oct 19 target and update PLAN.md and LOG.md with this change."
+
+### 2026-10-15, booth change: LED test dropped; raw/analysed toggle; "Become an ember" live mode
+Answer: "Booth change, decided by me: drop the LED turntable test completely (and remove the led suite, led_notes.yaml and the turntable steps). Add two booth features instead.
+
+1. Raw / analyzed toggle: one key (A) fades the fire footage between the raw clip and the full overlay (ember trails, wind arrows, counters) over about 0.5 s. The booth starts in analyzed mode.
+
+2. "Become an ember" live mode:
+- Live camera input: the MacBook built-in camera or a USB UVC webcam, chosen by name in config. Request camera permission properly on first run. No iPhone and no Continuity Camera.
+- Write a single self-contained HTML page (booth/ember/index.html, no external requests) that fills a phone screen with a glowing orange ember that flickers slightly, keeps the screen awake where the browser allows, and shows a short ko/en instruction overlay that fades out after 3 s. It must look polished: black background, soft glow, no clutter. I will host it on GitHub Pages; make the page work from any static host.
+- Tracking tuned for phone screens 1 to 3 m away indoors, up to 6 at once, rejecting room lights and other static bright objects. Each tracked phone gets a trail, an ID and a speed.
+- Calibration: speeds in m/s at a fixed standing distance set in config (default 2.0 m), from the camera's field of view, labeled "measured at 2.0 m". Provide a one-command calibration using a printed A4 target held at the standing spot.
+- Screen: the same design as the fire mode, with a header "당신이 불티입니다 / You are an ember", live count of embers, per-ember speeds and the wind arrows computed from all tracked phones. Key M switches between fire footage mode and live ember mode; the booth starts in fire mode.
+- Validation: test with synthetic phone-like blobs and with a clip I record of me moving my phone at the standing spot; report detection and tracking quality, and measure speed against a known motion if possible (for example, a phone moved along a ruler-marked 1 m path in a timed 1 s).
+
+Update PLAN.md, LOG.md, the README and the booth runbook. Keep the Monday Oct 19 target, and the always-demo-ready rule."
