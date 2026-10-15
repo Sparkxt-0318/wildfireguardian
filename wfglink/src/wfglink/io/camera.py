@@ -17,16 +17,25 @@ connected, else the built-in camera; any other value is a case-insensitive part 
 device name. `explain_pick` says why nothing was picked.
 
 Permission (`request_permission`): macOS asks the user once, through a system dialog for
-the app that started Python (Terminal). The request runs on the main thread before any
-capture thread starts, because AVFoundation answers on the main run loop; wfglink then
-sets OPENCV_AVFOUNDATION_SKIP_AUTH=1 so OpenCV never asks from a capture thread. On other
-systems it returns "unsupported" and capture is tried directly.
+the app that started Python (Terminal). The request is made on the main thread before any
+capture thread starts. AVFoundation calls its answer back on a queue of its own, so the
+caller waits on a threading event (up to the timeout), without spinning a run loop;
+`ask_permission` only sends the request, for the booth, which then polls
+`permission_status` from a timer and never blocks its screen. wfglink then sets
+OPENCV_AVFOUNDATION_SKIP_AUTH=1 so OpenCV never asks from a capture thread. On other systems
+it returns "unsupported" and capture is tried directly.
 
 Capture (`CameraSource`): the picked camera at camera.width x camera.height and
 camera.fps, through PyAV's avfoundation input opened by device name (FFmpeg sets the
 device's own format, so the picture is the real 1280x720 and not a scaled preset), else
 OpenCV's AVFoundation backend by index (camera.backend chooses; auto tries PyAV first and
-remembers what worked). Frames wider than camera.width are scaled down to it. frame.t is
+remembers what worked). FFmpeg's avfoundation input waits for the device's first frame with
+no timeout of its own, so PyAV is opened in a helper thread and given camera.open_timeout_s:
+a camera whose PyAV open never returns is never tried with PyAV again in this process (it
+goes to OpenCV). FFmpeg also picks a device by the beginning of its name and reads a name
+that starts with a digit as a device index, so PyAV is not used for such names (a digit or a
+colon first, or a name that is the beginning of another device's name): OpenCV opens them
+by index. Frames wider than camera.width are scaled down to it. frame.t is
 seconds on a monotonic clock since the source first opened (the device's own timestamps
 when PyAV gives them, anchored to that clock). A failure while running (an unplugged
 webcam, no frame for camera.stall_s) closes the camera and opens it again with backoff
@@ -35,7 +44,9 @@ from camera.backoff_min_s to camera.backoff_max_s; read() returns None meanwhile
 scale, so wfglink turns it off for its own process (camera.center_stage).
 
 `FakeCameraSource` plays a video file or a generated phone scene (wfglink.ember.synth) like
-a camera: tests, the demo gate, Linux, and the booth when no camera is there.
+a camera: tests, the demo gate, Linux, and live --synthetic or --fake-camera. Without a usable
+camera the booth does not fall back to it: ember mode shows a message saying what is wrong
+(no camera found, camera access off, waiting for permission, or could not start).
 """
 from __future__ import annotations
 
@@ -270,27 +281,36 @@ def permission_status() -> str:
         return "unsupported"
 
 
-def request_permission(timeout_s: float = 30.0) -> str:
-    """Ask for camera permission once (the macOS dialog) and return the status. Call it on the
-    main thread before any capture thread starts: AVFoundation answers on the main run loop,
-    which this spins for up to timeout_s. From another thread it only reports the status."""
+def ask_permission(on_answer: Callable[[bool], None] | None = None) -> str:
+    """Send the camera permission request (the macOS dialog shows while it is undecided) and
+    return at once with the status now. AVFoundation calls on_answer on a queue of its own
+    when the user answers. Main thread only (from another thread it only reports the status)."""
     status = permission_status()
     if status != "not_determined" or threading.current_thread() is not threading.main_thread():
         return status
     try:
         AVF = _avf()
-        from Foundation import NSDate, NSRunLoop  # noqa: PLC0415  (pyobjc-framework-Cocoa)
     except Exception:
         return "unsupported"
-    answered: dict[str, bool] = {}
 
     def handler(granted: bool) -> None:
-        answered["granted"] = bool(granted)
+        if on_answer is not None:
+            on_answer(bool(granted))
 
     AVF.AVCaptureDevice.requestAccessForMediaType_completionHandler_(AVF.AVMediaTypeVideo, handler)
-    t_end = time.monotonic() + float(timeout_s)
-    while "granted" not in answered and time.monotonic() < t_end:
-        NSRunLoop.currentRunLoop().runUntilDate_(NSDate.dateWithTimeIntervalSinceNow_(0.1))
+    return permission_status()
+
+
+def request_permission(timeout_s: float = 30.0) -> str:
+    """Ask for camera permission once (the macOS dialog) and return the status, waiting up to
+    timeout_s for the answer. Call it on the main thread before any capture thread starts. The
+    answer comes back on AVFoundation's own queue, so this waits on an event (no run loop is
+    spun and no CPU is burnt). From another thread it only reports the status."""
+    answered = threading.Event()
+    status = ask_permission(lambda granted: answered.set())
+    if status != "not_determined":
+        return status
+    answered.wait(float(timeout_s))
     return permission_status()
 
 
@@ -338,10 +358,70 @@ def _mac_prepare(cfg: dict | None) -> None:
 
 # Capture backends ------------------------------------------------------------------------------
 
+class _Hung(Exception):
+    """PyAV's open did not return in time (FFmpeg's avfoundation input waits for a first frame forever)."""
+
+
+def _open_with_timeout(opener: Callable[[], Any], timeout_s: float) -> Any:
+    """opener() in a helper thread, waited for at most timeout_s. When it does not return in time
+    it raises _Hung; whatever the thread opens later is closed there."""
+    lock = threading.Lock()
+    box: dict[str, Any] = {}
+    done = threading.Event()
+
+    def run() -> None:
+        try:
+            got = opener()
+        except BaseException as exc:      # handed to the caller
+            with lock:
+                box["error"] = exc
+        else:
+            with lock:
+                late = box.get("abandoned", False)
+                if not late:
+                    box["value"] = got
+            if late:
+                try:
+                    got.close()
+                except Exception:
+                    pass
+        finally:
+            done.set()
+
+    threading.Thread(target=run, daemon=True, name="pyav-open").start()
+    finished = done.wait(timeout_s)
+    with lock:
+        if not finished and "value" not in box and "error" not in box:
+            box["abandoned"] = True
+            raise _Hung(f"no answer within {timeout_s:g} s")
+    if "error" in box:
+        raise box["error"]
+    return box["value"]
+
+
+def pyav_name_problem(name: str, others: list[dict[str, Any]]) -> str | None:
+    """Why FFmpeg's avfoundation input could open another device than the one named, or None.
+    FFmpeg reads a name that starts with a digit as a device index ("2K USB Camera" is device
+    2), treats a colon as the video:audio separator, and takes the first device whose name
+    begins with the given text."""
+    if re.match(r"\s*\d", name):
+        return "its name starts with a digit, which FFmpeg reads as a device index"
+    if ":" in name:
+        return "its name holds a colon, which FFmpeg reads as the video:audio separator"
+    for o in others:
+        other = str(o.get("name") or "")
+        if other == name:
+            return "two cameras share this name, so FFmpeg cannot tell them apart"
+        if other and (other.startswith(name) or name.startswith(other)):
+            return f"FFmpeg matches names by their beginning and could take {other!r}"
+    return None
+
+
 class _PyAVCamera:
     """FFmpeg's avfoundation input (macOS, by device name) or v4l2 (Linux) through PyAV."""
 
     name = "pyav"
+    hung: set[str] = set()       # uniqueIDs whose PyAV open never returned: not tried with PyAV again (per process)
 
     def __init__(self, device: dict[str, Any], width: int, height: int, fps: float, devices: list[dict]):
         self.device, self.width, self.height, self.fps = device, int(width), int(height), float(fps)
@@ -354,10 +434,14 @@ class _PyAVCamera:
     def open(self, timeout_s: float) -> None:
         import av
 
+        uid = str(self.device.get("unique_id"))
+        if uid in self.hung:
+            raise SourceError("PyAV hung on this camera before; OpenCV opens it")
         if sys.platform == "darwin":
             fmt, pix_key = "avfoundation", "pixel_format"
-            if any(d.get("name") == self.device.get("name") for d in self.others):
-                raise SourceError("two cameras share this name, so FFmpeg cannot tell them apart")
+            why = pyav_name_problem(str(self.device.get("name") or ""), self.others)
+            if why:
+                raise SourceError(f"PyAV is not used for this camera: {why}")
             url = f"{self.device['name']}:none"
         elif sys.platform.startswith("linux"):
             fmt, pix_key = "v4l2", "input_format"
@@ -375,7 +459,11 @@ class _PyAVCamera:
                 if fmt == "v4l2":
                     opts[pix_key] = "mjpeg"
                 try:
-                    self._container = av.open(url, format=fmt, options=opts, timeout=(timeout_s, 2.0))
+                    self._container = _open_with_timeout(
+                        lambda: av.open(url, format=fmt, options=opts, timeout=(timeout_s, 2.0)), timeout_s + 2.0)
+                except _Hung as exc:
+                    self.hung.add(uid)
+                    raise SourceError(f"PyAV's open did not return ({exc}); this camera opens with OpenCV from now on") from exc
                 except Exception as exc:   # FFmpeg reports an unsupported size or rate as an error
                     errors.append(f"{w}x{h}@{fps:g}: {str(exc)[:80]}")
                     continue
@@ -512,6 +600,7 @@ class CameraSource(Source):
         self._next_open = 0.0
         self._backoff = self.backoff_min_s
         self._opened = False
+        self.effects_on: list[str] = []
 
     # open and close ------------------------------------------------------------------------
     def open(self) -> None:
@@ -532,6 +621,9 @@ class CameraSource(Source):
         self._open_backend(devs)
         self._opened = True
         self.state = "ok"
+        # Effects an app cannot turn off (Reactions draw bright moving sparks, which look like
+        # embers): named so the booth can say so; Center Stage is turned off by _mac_prepare.
+        self.effects_on = [k for k, v in video_effects().items() if v and k != "center_stage"]
 
     def _open_backend(self, devs: list[dict]) -> None:
         uid = str(self.device.get("unique_id"))
@@ -541,6 +633,9 @@ class CameraSource(Source):
             order.insert(0, self._winners[uid])
         errors = []
         for name in order:
+            if uid in getattr(self._backends[name], "hung", ()):
+                errors.append(f"{name}: hung before, skipped")
+                continue
             inner = self._backends[name](self.device, self.width, self.height, self.fps, devs)
             try:
                 inner.open(self.open_timeout_s)

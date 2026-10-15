@@ -32,7 +32,7 @@ G(omega) = sum_k c_k sin(k omega dt) / omega and no phase error. For the 5-point
 order 2 filter (the same weights as order 1) G = (sin(a) + 2 sin(2a)) / (5 a) with
 a = omega dt, about 1 - 17 a^2 / 30: 0.8% low for a 33 rpm turntable at 30 fps and 4.2%
 low at 78 rpm. `derivative_gain` computes G for any window and order, and
-`correct_circular_speed` divides it out for the LED turntable test. The correction holds
+`correct_circular_speed` divides it out (the dropped LED turntable test used it). The correction holds
 for interior points only (the one-sided end fits have other gains and a phase error).
 """
 from __future__ import annotations

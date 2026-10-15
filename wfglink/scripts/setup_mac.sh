@@ -10,14 +10,16 @@
 # - Installs requirements.txt and wfglink itself (pip install -e . --no-deps) only when
 #   requirements.txt or pyproject.toml changed since the last successful install
 #   (stamp: .venv/.wfglink_install). The first install takes 5 to 10 minutes and needs internet.
-# - Creates data/raw, logs and results/validation.
+# - Creates data/raw, logs and results/validation (first, so they exist even when the install fails).
 # - Downloads the playlist clips (booth/playlist.yaml) missing from data/raw through
-#   scripts/fetch_clips.py, unless --no-clips is given or there is no network (a warning).
+#   scripts/fetch_clips.py (about 50 MB), unless --no-clips is given or this Python cannot reach
+#   their hosts over HTTPS (a warning; fetch_clips.py --probe checks it with the same
+#   certificates the download uses, certifi's on python.org's Python).
 #   data/clips.csv and data/SOURCES.md, which fetch_clips.py rewrites, are kept as they are in git.
 # - On macOS, runs python -m wfglink cameras --request: the first time, macOS asks whether
 #   Terminal may use the camera (click Allow); it lists the cameras and the one the booth picks.
 # - Runs python -m wfglink doctor and prints the next commands.
-# Exit code: 0 when every doctor check is OK, 1 when setup or a check failed.
+# Exit code: 0 when every doctor check is OK, 1 when setup or a check failed, 2 for an unknown option.
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
 WFG="$(pwd)"
@@ -48,8 +50,8 @@ if [[ -z "$PY" ]] && command -v python3.12 >/dev/null 2>&1; then
   PY="$(command -v python3.12)"
 fi
 if [[ -z "$PY" ]] || ! "$PY" -c 'import sys; sys.exit(0 if sys.version_info[:2] == (3, 12) else 1)' 2>/dev/null; then
-  echo "Python 3.12 is not installed. Download the macOS installer for the latest Python 3.12.x from" >&2
-  echo "  https://www.python.org/downloads/macos/" >&2
+  echo "Python 3.12 is not installed. Download the macOS 64-bit universal2 installer of Python 3.12.10" >&2
+  echo "(the last 3.12 release with a macOS installer) from https://www.python.org/downloads/macos/" >&2
   echo "run it, then run ./scripts/setup_mac.sh again." >&2
   exit 1
 fi
@@ -59,6 +61,9 @@ if [[ "$(uname)" == "Darwin" && "$BASE" != "$PYORG"* ]]; then
   warn "this Python 3.12 ($BASE) is not python.org's. The manual expects python.org's installer:"
   warn "https://www.python.org/downloads/macos/ ; after installing it, run this again and .venv is made with it."
 fi
+
+# Folders (before the install, so they exist even when it fails) -------------------------------
+mkdir -p data/raw logs results/validation
 
 # .venv ---------------------------------------------------------------------------------------
 if [[ -e .venv ]]; then
@@ -104,9 +109,6 @@ else
   fi
 fi
 
-# Folders -------------------------------------------------------------------------------------
-mkdir -p data/raw logs results/validation
-
 # Booth clips ---------------------------------------------------------------------------------
 if (( NO_CLIPS )); then
   say "booth clips not checked (--no-clips)"
@@ -126,8 +128,9 @@ EOF
   done <<<"$MISSING"
   if (( ${#FETCH[@]} == 0 )); then
     say "booth clips: nothing to download"
-  elif ! curl -sS -o /dev/null --max-time 10 -I https://upload.wikimedia.org/ 2>/dev/null; then
-    warn "no network: ${#FETCH[@]} booth clips not downloaded (${FETCH[*]}). Run ./scripts/setup_mac.sh again when online."
+  elif ! .venv/bin/python scripts/fetch_clips.py --probe --only "${FETCH[@]}"; then
+    warn "the clips' hosts cannot be reached (see the line above): ${#FETCH[@]} booth clips not downloaded (${FETCH[*]})."
+    warn "Run ./scripts/setup_mac.sh again when online."
   else
     say "downloading ${#FETCH[@]} booth clips: ${FETCH[*]}"
     KEEP="$(mktemp -d)"

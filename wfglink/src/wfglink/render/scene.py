@@ -15,14 +15,17 @@ Layout at 1920x1080 (all sizes scale with height):
   playback is paused; a visible prompt after the first Esc; the limits card on key I.
 
 Ember mode (state.mode "ember", "Become an ember", key M): the same design on the live
-camera. The panel has the header "당신이 불티입니다 / You are an ember", the live count of
+camera. The panel has the header "당신이 불티입니다 / You are an ember" in both languages (the
+screen's language large, the other under it), the live count of
 embers (phones showing the ember page) and each ember's speed with its number, in m/s with
 the distance that holds ("measured at 2.0 m") and a small "nominal field of view" tag until
 an A4 calibration exists. Each ember on the picture carries the same number and speed; the
 wind arrows come from all tracked phones and are labelled as an estimate, as in fire mode.
 While the camera is missing, not allowed or failing (state.camera_state), the picture area
 shows a calm message in both languages with what to do, and that M returns to the fire
-footage.
+footage. With page_url (booth.ember_page_url), the bottom-right of the sparkline row holds a
+QR code of the ember page's address with the address, small, and "휴대폰으로 열어 보세요 · Open
+on your phone"; the sparkline gives it the room. Nothing shows when the address is empty.
 
 Raw or analysed (key A): analysed=1 draws the full screen above; analysed=0 draws the raw
 picture alone, fullscreen, with only a small "raw footage" tag (plus the synthetic and
@@ -38,7 +41,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 from PySide6.QtCore import QPointF, QRectF, Qt
-from PySide6.QtGui import QBrush, QColor, QFont, QImage, QLinearGradient, QPainter, QPainterPath, QPen
+from PySide6.QtGui import QBrush, QColor, QFont, QFontMetricsF, QImage, QLinearGradient, QPainter, QPainterPath, QPen
 
 from wfglink.ui import theme
 from wfglink.ui.fonts import ui_font
@@ -79,6 +82,7 @@ class LiveState:
     mode: str = "fire"                            # fire (clips or synthetic fire video) or ember (the camera)
     embers: list[dict] = field(default_factory=list)   # {"id", "speed_m_s" (or None), "x", "y" (image px), "age_s"}; the booth adds "n", the number shown
     ember_count: int | None = None                # phones tracked now (ember mode)
+    ember_max: int | None = None                  # ember mode: at most this many phones are tracked (ember.max_tracks)
     speed_unit: str = "px/s"                      # unit of speed and of the per-ember speeds: px/s or m/s
     measured_at_m: float | None = None            # ember mode: speeds in m/s hold at this distance (ember.distance_m)
     camera_state: str = "off"                     # off (fire mode), starting, ok, missing, denied, asking, error
@@ -154,9 +158,10 @@ def _fit_rect(box: QRectF, img_w: int, img_h: int) -> tuple[QRectF, float]:
 
 def paint_scene(p: QPainter, W: int, H: int, s: LiveState, lang: str = "ko", *, show_limits: bool = False,
                 show_tracks: bool = True, show_field: bool = True, show_gate: bool = True,
-                paused: bool = False, quit_prompt: bool = False, analysed: float = 1.0) -> None:
+                paused: bool = False, quit_prompt: bool = False, analysed: float = 1.0, page_url: str = "") -> None:
     """Draw the whole screen. paused adds the pause tag; quit_prompt shows the Esc confirm prompt;
-    analysed is 1 for the analysed screen, 0 for the raw picture and in between during the fade."""
+    analysed is 1 for the analysed screen, 0 for the raw picture and in between during the fade;
+    page_url, in ember mode, adds the ember page's QR code and address (see the module docstring)."""
     p.setRenderHint(QPainter.RenderHint.Antialiasing, True)
     p.setRenderHint(QPainter.RenderHint.TextAntialiasing, True)
     p.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
@@ -168,11 +173,15 @@ def paint_scene(p: QPainter, W: int, H: int, s: LiveState, lang: str = "ko", *, 
     raw = _ease(1.0 - 2.0 * level)                # the raw tags: the raw half
     if panel > FADE_EPS:
         p.setOpacity(panel)
+        spark = L.spark
         if s.mode == "ember":
             _paint_ember_panel(p, L, s, lang)
+            url = str(page_url or "").strip()
+            if url:
+                spark = _paint_page_qr(p, L, url, lang)
         else:
             _paint_cards(p, L, s, lang)
-        _paint_sparkline(p, L, s, lang)
+        _paint_sparkline(p, L, s, lang, spark)
         _paint_status(p, L, s, lang)
         p.setOpacity(1.0)
     rect = _paint_video(p, L, s, lang, show_tracks, show_field, show_gate, a, panel)
@@ -237,11 +246,58 @@ def _paint_video(p: QPainter, L: Layout, s: LiveState, lang: str, tracks: bool, 
     return rect
 
 
+def page_qr_rect(L: Layout) -> QRectF:
+    """Where ember mode puts the page's QR code: the bottom-right of the sparkline row."""
+    side = min(L.spark.height() - theme.px(6, L.H), theme.px(220, L.H))
+    return QRectF(L.spark.right() - side, L.spark.bottom() - side, side, side)
+
+
+def _paint_page_qr(p: QPainter, L: Layout, url: str, lang: str) -> QRectF:
+    """The ember page's QR code with its address and a short ko/en line to its left; returns the
+    room left for the sparkline."""
+    from wfglink.render.qr import draw_qr
+
+    q = page_qr_rect(L)
+    try:
+        draw_qr(p, q.x(), q.y(), q.width(), url)
+    except ValueError:              # an address too long for a QR code: the address alone
+        q = QRectF(L.spark.right(), q.y(), 0, q.height())
+    gap = theme.px(22, L.H)
+    right = q.x() - gap
+    room = max(0.0, min(L.spark.width() * 0.45, right - L.spark.x()))
+    right_al = Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
+    line_f = _font(theme.px(theme.SIZES["tag"], L.H), "semibold")
+    url_f = _font(theme.px(18, L.H))
+    p.setFont(url_f)
+    shown = url
+    while len(shown) > 8 and p.fontMetrics().horizontalAdvance(shown) > room:   # long: smaller, then cut in the middle
+        if url_f.pixelSize() > theme.px(14, L.H):
+            url_f = _font(url_f.pixelSize() - 1)
+            p.setFont(url_f)
+            continue
+        shown = p.fontMetrics().elidedText(url, Qt.TextElideMode.ElideMiddle, int(room))
+        break
+    h1, h2 = theme.px(30, L.H), theme.px(26, L.H)
+    y = q.center().y() - (h1 + h2) / 2
+    p.setFont(line_f)
+    p.setPen(_c(theme.INK))
+    p.drawText(QRectF(right - room, y, room, h1), right_al, t(lang, "ember_page_line"))
+    p.setFont(url_f)
+    p.setPen(_c(theme.INK2))
+    p.drawText(QRectF(right - room, y + h1, room, h2), right_al, shown)
+    p.setFont(line_f)
+    used = max(p.fontMetrics().horizontalAdvance(t(lang, "ember_page_line")),
+               QFontMetricsF(url_f).horizontalAdvance(shown))
+    left = right - min(room, used) - gap
+    return QRectF(L.spark.x(), L.spark.y(), max(0.0, left - L.spark.x()), L.spark.height())
+
+
 def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, paused: bool, raw: float = 0.0) -> None:
     """Small tags in the picture's top-left corner: synthetic video, paused, and (fading in with the
-    raw picture, by raw) raw footage; in the raw picture the clip's name and credit line sit bottom-right."""
+    raw picture, by raw) raw footage; in the raw picture the clip's name and its credit line sit
+    bottom-right, each on its own pill (the credit line at the bottom, never cut first)."""
     picture = s.mode != "ember" or s.camera_state not in CAMERA_MESSAGES
-    tags = ([t(lang, "synthetic")] if s.source_state == "synthetic" and picture else []) + ([t(lang, "paused")] if paused else [])
+    tags = ([t(lang, "ember_synthetic" if s.mode == "ember" else "synthetic")] if s.source_state == "synthetic" and picture else []) + ([t(lang, "paused")] if paused else [])
     x, y = rect.x() + theme.px(14, L.H), rect.y() + theme.px(14, L.H)
     for text in tags:
         x += _pill(p, QPointF(x, y), text, theme.INK, L.H, "left", top=True) + theme.px(10, L.H)
@@ -249,12 +305,14 @@ def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, p
         return
     p.setOpacity(raw)
     _pill(p, QPointF(x, y), t(lang, "raw"), theme.INK, L.H, "left", top=True)
-    credit = "   ·   ".join(v for v in (s.source_label, s.source_credit) if v) if s.mode != "ember" else ""
-    if credit:
+    lines = [v for v in (s.source_label, s.source_credit) if v] if s.mode != "ember" else []
+    yb = rect.bottom() - theme.px(14, L.H)
+    for text in reversed(lines):          # the credit line at the bottom, the clip's name above it
         p.setFont(_font(theme.px(theme.SIZES["tag"], L.H)))
-        room = int(rect.width() * 0.6)
-        credit = p.fontMetrics().elidedText(credit, Qt.TextElideMode.ElideRight, max(room, 0))
-        _pill(p, QPointF(rect.right() - theme.px(14, L.H), rect.bottom() - theme.px(14, L.H)), credit, theme.INK2, L.H, "right")
+        room = int(rect.width() * 0.9) - 2 * theme.px(12, L.H)
+        text = p.fontMetrics().elidedText(text, Qt.TextElideMode.ElideRight, max(room, 0))
+        _pill(p, QPointF(rect.right() - theme.px(14, L.H), yb), text, theme.INK2, L.H, "right")
+        yb -= p.fontMetrics().height() + 2 * theme.px(6, L.H) + theme.px(8, L.H)
     p.setOpacity(1.0)
 
 
@@ -487,7 +545,7 @@ def _paint_cards(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     dist = [t(lang, "at_distance", z=f"{s.distance_m:g}")] if s.calibrated and s.distance_m else []
     cards = [
         (t(lang, "count_rate"), _fmt(s.count_rate, "rate"), t(lang, "per_s"), []),
-        (t(lang, "cpc"), _fmt(s.cpc_gross, "int"), t(lang, "count"), []),
+        (t(lang, "cpc"), _fmt(s.cpc_gross, "int"), t(lang, "count_one" if s.cpc_gross == 1 else "count"), []),
         (t(lang, "pnf"), _fmt(s.pnf, "flux"), t(lang, "pnf_unit_m" if s.calibrated else "pnf_unit_px"),
          [t(lang, "projected")] + dist + unc),
         (t(lang, "speed"), _fmt(s.speed, "speed_m" if s.calibrated else "speed_px"),
@@ -521,12 +579,13 @@ def ember_panel_layout(L: Layout) -> dict[str, object]:
     the MAX_EMBER_ROWS rows (QRectF each; rows is a list)."""
     H = L.H
     x, y, w = L.panel.x(), L.panel.y(), L.panel.width()
-    count_top = y + theme.px(112, H)
-    speeds_top = count_top + theme.px(186, H)
+    count_top = y + theme.px(140, H)
+    speeds_top = count_top + theme.px(204, H)   # room for the small "max 3" note under the count
     rows_top = speeds_top + theme.px(76, H)
     row_h = theme.px(78, H)
     return {"header": QRectF(x, y - theme.px(10, H), w, theme.px(62, H)),
-            "subtitle": QRectF(x, y + theme.px(54, H), w, theme.px(28, H)),
+            "header_other": QRectF(x, y + theme.px(50, H), w, theme.px(38, H)),
+            "subtitle": QRectF(x, y + theme.px(88, H), w, theme.px(28, H)),
             "count": QRectF(x, count_top, w, theme.px(170, H)),
             "speeds": QRectF(x, speeds_top, w, theme.px(40, H)),
             "tags": QRectF(x, speeds_top + theme.px(40, H), w, theme.px(28, H)),
@@ -538,19 +597,25 @@ def _paint_ember_panel(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     H = L.H
     G = ember_panel_layout(L)
     left = Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
-    p.setPen(_c(theme.INK))
-    header, size = t(lang, "ember_header"), theme.px(theme.SIZES["ember_header"], H)
-    p.setFont(_font(size, "semibold"))
-    while size > theme.px(theme.SIZES["label"], H) and p.fontMetrics().horizontalAdvance(header) > G["header"].width():
-        size -= 1                          # a narrow screen (4:3): smaller, never cut
+    # The header in both languages: "당신이 불티입니다 / You are an ember", the screen's language
+    # first and large, the other under it (L swaps them).
+    other = "en" if lang == "ko" else "ko"
+    for key, lg, color, base, floor in (("header", lang, theme.INK, theme.SIZES["ember_header"], theme.SIZES["label"]),
+                                        ("header_other", other, theme.INK2, 32, theme.SIZES["tag"])):
+        header, size = t(lg, "ember_header"), theme.px(base, H)
+        p.setPen(_c(color))
         p.setFont(_font(size, "semibold"))
-    p.drawText(G["header"], left, header)
+        while size > theme.px(floor, H) and p.fontMetrics().horizontalAdvance(header) > G[key].width():
+            size -= 1                          # a narrow screen (4:3): smaller, never cut
+            p.setFont(_font(size, "semibold"))
+        p.drawText(G[key], left, header)
     p.setPen(_c(theme.INK2))
     p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
     p.drawText(G["subtitle"], left, t(lang, "ember_subtitle"))
     live = _ember_live(s)
     count = _fmt(s.ember_count, "int") if live else ""
-    _card(p, G["count"], t(lang, "ember_count"), count, t(lang, "ember_count_unit"), [], H, 1.0)
+    cap = [t(lang, "ember_max").format(n=s.ember_max)] if s.ember_max else []
+    _card(p, G["count"], t(lang, "ember_count"), count, t(lang, "ember_count_unit"), cap, H, 1.0)
     sp = G["speeds"]
     x, w = sp.x(), sp.width()
     p.setPen(QPen(_c(theme.INK3), 1))
@@ -609,8 +674,10 @@ def _paint_rose(p: QPainter, c: QPointF, r: float, deg: float, warm: float) -> N
         p.drawLine(tip, QPointF(tip.x() + 0.32 * r * math.cos(a + da), tip.y() + 0.32 * r * math.sin(a + da)))
 
 
-def _paint_sparkline(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
-    box = L.spark
+def _paint_sparkline(p: QPainter, L: Layout, s: LiveState, lang: str, box: QRectF | None = None) -> None:
+    box = L.spark if box is None else box
+    if box.width() < theme.px(120, L.H):
+        return
     H = L.H
     p.setPen(_c(theme.INK2))
     p.setFont(_font(theme.px(theme.SIZES["tag"], H)))
@@ -649,7 +716,8 @@ def _paint_status(p: QPainter, L: Layout, s: LiveState, lang: str) -> None:
     p.setFont(_font(theme.px(theme.SIZES["status"], H)))
     p.setPen(_c(theme.INK2))
     state = {"playing": t(lang, "playing"), "file": t(lang, "source_file"),
-             "synthetic": t(lang, "synthetic"), "camera": t(lang, "camera")}.get(s.source_state, s.source_state)
+             "synthetic": t(lang, "ember_synthetic" if s.mode == "ember" else "synthetic"),
+             "camera": t(lang, "camera")}.get(s.source_state, s.source_state)
     if s.mode == "ember" and not _ember_live(s):
         parts = []
     else:

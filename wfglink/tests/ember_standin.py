@@ -109,12 +109,14 @@ class ScriptedCamera(Source):
     is_live = True
 
     def __init__(self, inner: Source | None = None, fail_open: bool = False, stop_after: int | None = None,
-                 name: str = "FaceTime HD Camera"):
+                 name: str = "FaceTime HD Camera", open_s: float = 0.0):
         super().__init__(name)
-        self.inner, self.fail_open, self.stop_after = inner, fail_open, stop_after
+        self.inner, self.fail_open, self.stop_after, self.open_s = inner, fail_open, stop_after, open_s
         self.opened = self.closed = 0
 
     def open(self) -> None:
+        if self.open_s:                  # a camera that takes its time to open (a slow USB webcam)
+            time.sleep(self.open_s)
         if self.fail_open:
             raise SourceError("no camera found")
         self.opened += 1

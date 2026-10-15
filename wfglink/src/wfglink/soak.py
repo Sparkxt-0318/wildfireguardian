@@ -22,7 +22,12 @@ supervisor with SIGTERM and analyses the samples and logs/booth.log:
   its pipeline counters, which also say whether frames kept arriving);
 - processing errors counted in the heartbeat, the share of samples with a fresh heartbeat,
   the clips played, and the share of playlist samples on the synthetic fallback (no clip
-  could play).
+  could play); and the samples by mode (fire or ember) and by ember mode's camera state.
+  soak.csv records each sample's mode, raw and camera_state.
+
+The overnight soak runs fire mode. An ember soak runs the same rules on ember mode with the
+real camera: python scripts/mac_soak.py --hours 2 -- --ember (options after -- go to
+booth.sh and live; a camera that stops delivering frames shows as an analysis stall).
 
 judge_soak turns the analysis into PASS or FAIL with one line per check; the floors are
 the soak: keys in configs/default.yaml. A soak cut off before its report (the Mac
@@ -56,7 +61,7 @@ from wfglink import PROJECT_ROOT
 PIPE_COLUMNS = {"pipe_in": "frames_in", "pipe_analysed": "frames_analysed", "pipe_duplicate": "frames_duplicate"}
 COLUMNS = ["sample_epoch", "sample_time", "hb_epoch", "hb_age_s", "status", "pid", "uptime_s", "frames", "paints",
            "fps", "source", "state", "clip", "paused", "errors", "last_error", "rss_mb", "rss_detail", "hb_status",
-           "pipe_key", *PIPE_COLUMNS]
+           "pipe_key", *PIPE_COLUMNS, "mode", "raw", "camera_state"]
 LOG_LINE = re.compile(r"^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) \[booth\.sh\] (.*)$")
 
 
@@ -109,6 +114,8 @@ def sample_row(hb: dict[str, Any] | None, now: float | None = None, stale_s: flo
         "errors": hb.get("errors", ""), "last_error": (hb.get("last_error") or "")[:200],
         "rss_mb": round(sum(vals), 1) if vals else "", "rss_detail": json.dumps(rss, separators=(",", ":")),
         "hb_status": hb.get("status", ""),     # the app's own status, kept when the row is stale
+        "mode": hb.get("mode") or "", "raw": "" if hb.get("raw") is None else int(bool(hb.get("raw"))),
+        "camera_state": hb.get("camera_state") or "",
     })
     pipe = hb.get("pipeline") or {}
     if pipe:
@@ -292,11 +299,19 @@ def playback_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     for r in rows:
         key = r["status"] if r.get("status") in ("missing", "stale") else (r.get("state") or r.get("status") or "?")
         states[key] = states.get(key, 0) + 1
+    modes: dict[str, int] = {}
+    cams: dict[str, int] = {}
+    for r in live:
+        if r.get("mode"):
+            modes[r["mode"]] = modes.get(r["mode"], 0) + 1
+        if r.get("mode") == "ember" and r.get("camera_state"):
+            cams[r["camera_state"]] = cams.get(r["camera_state"], 0) + 1
     return {"sources": sorted({r["source"] for r in live if r.get("source")}), "clips": clips, "clip_changes": changes,
             "playlist_samples": len(playlist), "fallback_samples": fallback,
             "fallback_fraction": round(fallback / len(playlist), 4) if playlist else None,
             "paused_samples": sum(1 for r in live if r["paused"]),
-            "errors": int(sum(errors.values())), "last_error": last_error or None, "samples_by_state": states}
+            "errors": int(sum(errors.values())), "last_error": last_error or None, "samples_by_state": states,
+            "samples_by_mode": modes, "ember_camera_states": cams}
 
 
 def pipeline_progress(rows: list[dict[str, Any]], stall_s: float = 180.0, reset_frac: float = 0.8,
@@ -520,6 +535,11 @@ def judge_soak(a: dict[str, Any], sc: dict[str, Any], hours_requested: float | N
             f"{100 * pb['fallback_fraction']:.1f} % of samples (allowed {100 * fmax:g} %)")
     else:
         add("playlist", "not judged", f"source {', '.join(pb['sources']) or 'unknown'}, not the playlist")
+    modes = pb.get("samples_by_mode") or {}
+    if modes.get("ember"):       # an ember soak (or a key pressed during the soak): say how ember mode went
+        cams = pb.get("ember_camera_states") or {}
+        add("ember mode", "info", f"{modes.get('ember', 0)} of {sum(modes.values())} samples in ember mode; camera "
+            + ", ".join(f"{k} {v}" for k, v in sorted(cams.items())))
     failed = [c["name"] for c in checks if c["status"] == "FAIL"]
     return {"verdict": "FAIL" if failed else "PASS", "failed": failed,
             "not_judged": [c["name"] for c in checks if c["status"] == "not judged"], "checks": checks}

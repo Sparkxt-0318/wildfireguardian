@@ -231,6 +231,16 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
         return 1
     import datetime as _dt
 
+    if not res["stable"]:
+        # An unsteady result would be used as calibrated; the earlier calibration is kept instead.
+        print(f"calibrate: not stable after {res['frames']} frames (spread {res['spread']:.4f}): nothing written. "
+              "Hold the target flat and still, all four markers in the picture, and run it again.", file=sys.stderr)
+        return 1
+    nominal = float((cfg.get("camera") or {}).get("hfov_deg", 70.0))
+    if abs(res["hfov_deg"] - nominal) > 15.0:
+        print(f"calibrate: WARNING: the field of view came out {res['hfov_deg']:.1f} degrees, far from the camera's "
+              f"nominal {nominal:g}: check that the target is {dist:g} m from the lens and was printed at 100 percent "
+              "(its 100 mm line measures 100 mm)", file=sys.stderr)
     record = {"date": _dt.datetime.now().astimezone().isoformat(timespec="seconds"), "camera": res.get("camera"),
               "unique_id": res.get("unique_id"), "backend": res.get("backend"), "size": res["size"],
               "focal_px": res["focal_px"], "hfov_deg": res["hfov_deg"], "distance_m": res["distance_m"],
@@ -241,10 +251,9 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     path = write_local(record, args.out or LOCAL_CONFIG)
     print(f"focal length {res['focal_px']:.1f} px at {res['size'][0]}x{res['size'][1]} (horizontal field of view "
           f"{res['hfov_deg']:.1f} degrees); at {dist:g} m, 1 px = {res['m_per_px'] * 1000:.2f} mm "
-          f"({res['frames']} frames, spread {res['spread']:.4f}, reprojection {res['rms_px']:.2f} px)"
-          + ("" if res["stable"] else "; not stable: hold the target still and run it again"))
+          f"({res['frames']} frames, spread {res['spread']:.4f}, reprojection {res['rms_px']:.2f} px)")
     print(f"-> {path} (camera.focal_px, ember.distance_m, ember.calibration)")
-    return 0 if res["stable"] else 1
+    return 0
 
 
 def cmd_record(args: argparse.Namespace) -> int:
@@ -278,7 +287,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="wfglink", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("doctor", help="check the setup: python, packages, fonts, screens, video, data, clips (OK or FAIL)")
+    p = sub.add_parser("doctor", help="check the setup: python, packages, fonts, screens, video, data, clips, camera (one OK or FAIL line each)")
     p.add_argument("--json", action="store_true", help="print every detail as JSON")
     p.set_defaults(func=cmd_doctor)
 

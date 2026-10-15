@@ -1,6 +1,8 @@
 """Setup check: `python -m wfglink doctor [--json]` (scripts/setup_mac.sh runs it last).
 
-One line per check, each ending in OK or FAIL; a FAIL line is followed by its fix. In order:
+One line per check, each ending in OK or FAIL; a FAIL line carries its fix hint
+("fix: ...") on the same line, before the FAIL. Eight checks: the four the build manual names
+(python, packages, fonts, screens), then video, camera, data and clips. In order:
 
   python    Python 3.12 (doctor.python) and, on macOS, python.org's build (doctor.pythonorg_prefix)
   packages  every pin in requirements.txt that applies here imports, at its pinned version
@@ -12,7 +14,8 @@ One line per check, each ending in OK or FAIL; a FAIL line is followed by its fi
   camera    the camera camera.name picks for the "Become an ember" mode (a USB webcam or the
             built-in camera; never an iPhone) and, on macOS, the camera permission (it is
             only read here: python -m wfglink cameras --request asks for it); elsewhere no
-            camera is OK (ember mode then plays a generated scene)
+            camera is OK (ember mode then shows its "No camera found" message; only
+            live --synthetic plays generated phones)
   data      data/raw present (setup_mac.sh creates it); the ember recordings noted
   clips     the playlist's clips (booth.playlist) present in data/raw: n of m
 
@@ -335,9 +338,10 @@ def check_video() -> Check:
 
 
 def check_camera(cfg: dict[str, Any], devices: list[dict[str, Any]] | None = None,
-                 status: str | None = None, mac: bool | None = None) -> Check:
-    """The picked camera and, on macOS, the camera permission (read, never asked here)."""
-    from wfglink.io.camera import PERMISSION_FIX, explain_pick, list_cameras, permission_status, pick_camera
+                 status: str | None = None, mac: bool | None = None, effects: dict[str, Any] | None = None) -> Check:
+    """The picked camera and, on macOS, the camera permission (read, never asked here) and the
+    video effects an app cannot turn off (named in the detail when on)."""
+    from wfglink.io.camera import PERMISSION_FIX, explain_pick, list_cameras, permission_status, pick_camera, video_effects
 
     mac = platform.system() == "Darwin" if mac is None else mac
     devs = list_cameras() if devices is None else devices
@@ -347,7 +351,8 @@ def check_camera(cfg: dict[str, Any], devices: list[dict[str, Any]] | None = Non
             "camera_name": (cfg.get("camera") or {}).get("name", "auto")}
     if picked is None:
         if not mac:
-            return Check("camera", True, "none usable (not macOS: ember mode plays a generated scene)", "", data)
+            return Check("camera", True, "none usable (not macOS: ember mode shows \"No camera found\"; "
+                         "live --synthetic plays generated phones)", "", data)
         return Check("camera", False, explain_pick(cfg, devs),
                      "connect the USB webcam (or open the MacBook lid), or set camera.name in configs/booth_local.yaml "
                      "to part of a name python -m wfglink cameras lists", data)
@@ -355,7 +360,11 @@ def check_camera(cfg: dict[str, Any], devices: list[dict[str, Any]] | None = Non
     if not mac:
         return Check("camera", True, f"{what}; permission is a macOS check", "", data)
     if status == "authorized":
-        return Check("camera", True, f"{what}; camera permission granted", "", data)
+        effects = video_effects() if effects is None else effects
+        on = [k.replace("_", " ") for k, v in effects.items() if v and k != "center_stage"]
+        data["effects_on"] = on
+        tail = f"; video effects on: {', '.join(on)} (turn them off in the Video menu)" if on else ""
+        return Check("camera", True, f"{what}; camera permission granted{tail}", "", data)
     if status == "not_determined":
         return Check("camera", False, f"{what}; camera permission not asked yet",
                      "run python -m wfglink cameras --request in Terminal and click Allow", data)
@@ -479,12 +488,13 @@ def _width(text: str) -> int:
 
 
 def format_line(c: Check, width: int = 78) -> str:
+    """One line: the check's name, what was found, for a FAIL its fix hint, then OK or FAIL at the
+    end (in column width when the text is shorter; Hangul counts two columns)."""
     text = f"{c.name:<9} {c.detail}"
-    status = "OK" if c.ok else "FAIL"
-    line = text + " " * max(1, width - _width(text) - len(status)) + status
     if not c.ok and c.fix:
-        line += f"\n{'':<10}fix: {c.fix}"
-    return line
+        text += f"; fix: {c.fix}"
+    status = "OK" if c.ok else "FAIL"
+    return text + " " * max(1, width - _width(text) - len(status)) + status
 
 
 def main(json_out: bool = False) -> int:

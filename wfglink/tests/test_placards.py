@@ -76,3 +76,46 @@ def test_committed_placards_exist():
         for lang in ("ko", "en"):
             assert (out / f"{card}_{lang}.pdf").stat().st_size > 1000
             assert cv2.imread(str(out / f"{card}_{lang}.png")) is not None
+
+
+@pytest.mark.qt
+def test_ember_page_card_carries_the_address_as_a_qr_code(tmp_path):
+    url = "https://example-user.github.io/ember/"
+    res = pl.make_placards(tmp_path, cards=("ember_page",), url=url)
+    assert [(r["card"], r["lang"]) for r in res] == [("ember_page", "ko"), ("ember_page", "en")]
+    for r in res:
+        assert r["body_mm"] >= pl.MIN_TEXT_MM
+        pdf = open(r["pdf"], "rb").read()
+        assert pdf.startswith(b"%PDF") and b"/BaseFont /Pretendard" in pdf
+        img = cv2.imread(r["png"])
+        assert cv2.QRCodeDetector().detectAndDecode(img)[0] == url      # a phone camera reads the address
+        h, w = img.shape[:2]
+        ink = np.argwhere(img.min(axis=2) < 250)
+        px_per_mm = w / 148
+        top, left = ink.min(axis=0) / px_per_mm
+        bottom, right = (np.array([h, w]) - 1 - ink.max(axis=0)) / px_per_mm
+        assert min(top, left, bottom, right) >= 8.0 - 0.5                 # crop-safe like the other cards
+    with pytest.raises(ValueError):                                         # no address, no card
+        pl.make_placards(tmp_path, cards=("ember_page",), url="")
+
+
+def test_make_placards_script_needs_the_address_for_the_qr_card(tmp_path):
+    import os
+    import subprocess
+    import sys
+
+    env = {**os.environ, "QT_QPA_PLATFORM": "offscreen"}
+    script = str(PROJECT_ROOT / "scripts" / "make_placards.py")
+    res = subprocess.run([sys.executable, script, "--card", "ember_page", "--url", "", "--out", str(tmp_path)],
+                         capture_output=True, text=True, timeout=120, env=env)
+    assert res.returncode == 2 and "booth.ember_page_url" in res.stderr
+    res = subprocess.run([sys.executable, script, "--card", "ember_page", "--lang", "en", "--url",
+                          "https://example-user.github.io/ember/", "--out", str(tmp_path)],
+                         capture_output=True, text=True, timeout=120, env=env)
+    assert res.returncode == 0 and (tmp_path / "ember_page_en.pdf").exists() and (tmp_path / "ember_page_en.png").exists()
+
+
+def test_sensor_card_does_not_claim_the_dashcam_is_read():
+    """The booth never reads this dashcam: both cards say it is the kind of camera wfglink reads."""
+    assert "같은 평범한 카메라" in pl.TEXT["ko"]["sensor_lead"] and "바로 그" not in pl.TEXT["ko"]["sensor_lead"]
+    assert "the kind of camera" in pl.TEXT["en"]["sensor_lead"]

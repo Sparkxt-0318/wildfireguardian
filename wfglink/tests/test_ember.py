@@ -1,6 +1,7 @@
 """The "Become an ember" mode: detector, static rejection, at most six embers, speeds, the A4
 calibration, the synthetic suite on a small case and the ruler-path analysis."""
 import json
+import math
 
 import numpy as np
 import pytest
@@ -15,6 +16,9 @@ from wfglink.ember.pipeline import EmberPipeline, focal_for
 from wfglink.io.frames import Frame
 
 SMALL = (640, 360)
+
+
+from wfglink.ui.i18n import t as t_  # noqa: E402
 
 
 def _cfg(scene=None, **ember):
@@ -85,10 +89,29 @@ def test_at_most_six_embers_with_ids_one_to_six():
     phones = [{"z": z, "trajectory": _line(z, -0.9 + 0.22 * k, -0.25 + 0.06 * (k % 3), 0.5 * (-1) ** k, 4.0),
                "landscape": False} for k, z in enumerate((1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0))]
     sc = synth.make_scene("eight", size=(960, 540), seconds=4.0, seed=2, spec={"phones": phones})
-    pipe, states = _run(sc, _cfg(sc), 3.0)
+    pipe, states = _run(sc, _cfg(sc, max_tracks=6), 3.0)
     assert max(s.ember_count for s in states) == 6
     ids = {e["id"] for s in states for e in s.embers}
     assert ids <= set(range(1, 7)) and len(ids) == 6
+
+
+def test_the_booth_tracks_at_most_three_phones_and_says_so():
+    from PySide6.QtGui import QGuiApplication
+
+    from wfglink.render.scene import render_image
+
+    app = QGuiApplication.instance() or QGuiApplication([])  # noqa: F841
+    phones = [{"z": z, "trajectory": _line(z, -0.9 + 0.22 * k, -0.25 + 0.06 * (k % 3), 0.5 * (-1) ** k, 4.0),
+               "landscape": False} for k, z in enumerate((1.6, 1.8, 2.0, 2.2, 2.4, 2.6))]
+    sc = synth.make_scene("six", size=(960, 540), seconds=4.0, seed=2, spec={"phones": phones})
+    cfg = _cfg(sc)
+    assert cfg["ember"]["max_tracks"] == 3                       # the booth's cap (your decision of 2026-10-15)
+    pipe, states = _run(sc, cfg, 3.0)
+    assert max(s.ember_count for s in states) == 3                # six phones in view, three tracked
+    assert {e["id"] for s in states for e in s.embers} <= {1, 2, 3}
+    assert states[-1].ember_max == 3
+    assert t_("en", "ember_max").format(n=3).startswith("max 3") and "최대 3" in t_("ko", "ember_max").format(n=3)
+    assert not render_image(960, 540, states[-1], "en").isNull()
 
 
 def test_speed_in_m_s_at_the_standing_distance():
@@ -111,6 +134,11 @@ def test_scale_from_calibration_or_nominal_field_of_view():
     assert focal_for(cfg, 640, 360, "C920")[:2] == (500.0, True)
     assert not focal_for(cfg, 1280, 720, "MacBook Pro Camera")[1]         # another camera: nominal
     assert not focal_for(cfg, 640, 480)[1]                                 # another aspect: nominal
+    # A calibration through one capture backend is not used for the other (their crops may differ).
+    cfg["ember"]["calibration"]["backend"] = "pyav"
+    assert focal_for(cfg, 1280, 720, "C920", "pyav")[1] and focal_for(cfg, 1280, 720, "C920")[1]
+    f, cal, why = focal_for(cfg, 1280, 720, "C920", "opencv")
+    assert not cal and "backend" in why
 
 
 def test_calibration_on_a_rendered_target(tmp_path):
@@ -191,8 +219,21 @@ def test_small_synthetic_suite_writes_its_report(tmp_path):
     assert s["ruler"]["status"] == "ok"
     assert saved["ember_free"]["status"] == "missing" and saved["ember_ruler"]["status"] == "missing"
     assert set(saved["goal_check"]) == {"recall_facing", "static_light_tracks_per_min", "id_switches_per_phone_per_min",
-                                        "speed_median_rel_err"}
-    assert any(line.startswith("synthetic") for line in V.summary_lines(rep))
+                                        "speed_median_rel_err", "ember_ruler_displacement_rel_err",
+                                        "ember_ruler_screen_speed_rel_err",
+                                        "ember_free_probable_id_switches_per_phone_per_min"}
+    # The recordings' goals are n/a without the recordings; the scenes are said to be the tuning set.
+    assert all(saved["goal_check"][k]["status"] == "n/a" for k in saved["goal_check"] if k.startswith("ember_"))
+    assert s["tuned_on"] is True and "id_switches_persistent_per_phone_per_min" in s["pooled"]
+    assert any(line.startswith("synthetic") and "not held out" in line for line in V.summary_lines(rep))
+    # With the recordings, their numbers are judged against the same goals as the synthetic phones.
+    fake = dict(saved, ember_ruler={"status": "ok", "displacement_rel_err": -0.15, "screen_speed_rel_err": 0.04},
+                ember_free={"status": "ok", "probable_id_switches_per_phone_per_min": 0.5})
+    g = V.goal_check(fake, saved["goals"])
+    assert g["ember_ruler_displacement_rel_err"]["status"] == "missed"
+    assert g["ember_ruler_screen_speed_rel_err"]["status"] == "met"
+    assert g["ember_free_probable_id_switches_per_phone_per_min"]["status"] == "met"
+    assert V.persistent_switches([[[1, 0.0, 2.0], [2, 2.03, 2.07], [1, 2.1, 5.0]], [[3, 0.0, 1.0], [4, 1.1, 3.0]]], 0.2) == 1
     # A second run finds the generated scenes and does not make them again.
     before = sorted(p.name for p in (tmp_path / "work").iterdir())
     V.run_suite(cfg, raw=tmp_path / "raw", out=tmp_path / "again.json", work_dir=tmp_path / "work",
@@ -216,6 +257,154 @@ def test_free_clip_and_record_command_on_a_fake_camera(tmp_path):
     r = V.free_clip(tmp_path / "ember_free.mp4", load_config(str(cfg_path)), phones=1)
     assert r["status"] == "ok" and r["tracks_shown"] >= 1 and r["most_at_once"] <= 1
     assert r["coverage"] > 0.5 and not r["calibrated"]
+
+
+def test_record_force_replaces_and_a_cancelled_recording_is_not_kept(tmp_path, monkeypatch):
+    from wfglink.ember import preview as P
+    from wfglink.ember.record import record
+
+    cfg = load_config(overrides={"camera": {"width": 640, "height": 360}, "ember": {"record": {"countdown_s": 0.0}}})
+    first = record(cfg, "ember_free", 1.0, out_dir=tmp_path, fake="one_at_2m", preview=False)
+    assert (tmp_path / "ember_free.mp4").exists() and first["frames"] > 10
+    again = record(cfg, "ember_free", 1.0, out_dir=tmp_path, fake="one_at_2m", preview=False, force=True)
+    assert again["frames"] > 10                                   # the same command with --force records it again
+
+    def cancelled_preview(cfg, on_frame, *, source, on_capture, **kw):   # Esc after a few frames
+        for _ in range(8):
+            f = source.read()
+            if f is not None:
+                on_capture(f)
+        source.close()
+        return {"cancelled": True}
+
+    monkeypatch.setattr(P, "run_preview", cancelled_preview)
+    res = record(cfg, "ember_ruler", 5.0, out_dir=tmp_path, fake="one_at_2m", preview=True)
+    assert res["cancelled"] and res["removed"] and not (tmp_path / "ember_ruler.mp4").exists()
+    # A cancelled retake with --force keeps the earlier good recording.
+    before = (tmp_path / "ember_free.mp4").read_bytes()
+    res = record(cfg, "ember_free", 5.0, out_dir=tmp_path, fake="one_at_2m", preview=True, force=True)
+    assert res["cancelled"] and res["kept_earlier"] and (tmp_path / "ember_free.mp4").read_bytes() == before
+    assert not list(tmp_path.glob(".*.part.mp4"))
+
+
+def test_calibrate_writes_only_a_stable_result_and_warns_on_an_odd_field_of_view(tmp_path, monkeypatch, capsys):
+    from wfglink.ember import calibrate as K
+
+    base = {"focal_px": 914.0, "hfov_deg": 70.0, "distance_m": 2.0, "m_per_px": 0.00219, "size": [1280, 720],
+            "target": "A4", "frames": 30, "spread": 0.004, "rms_px": 0.4, "stable": True, "camera": "c920"}
+    local = tmp_path / "booth_local.yaml"
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base, stable=False, spread=0.05))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 1
+    assert not local.exists() and "nothing written" in capsys.readouterr().err
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base, hfov_deg=93.0, focal_px=607.0))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 0
+    assert "WARNING" in capsys.readouterr().err and local.exists()
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 0
+    assert "WARNING" not in capsys.readouterr().err
+
+
+def _blobs(pts, diam=20.0, light=0.0, on_bg=False):
+    from wfglink.ember.detect import Blobs
+
+    n = len(pts)
+    if not n:
+        return Blobs()
+    return Blobs(np.array([p[0] for p in pts], float), np.array([p[1] for p in pts], float), np.full(n, diam),
+                 np.full(n, 255.0), np.ones(n), np.ones(n), np.full(n, on_bg), [(0, 0, 4, 4)] * n,
+                 np.full(n, float(light)))
+
+
+def test_tracker_keeps_a_lamp_on_its_own_track_as_a_phone_sweeps_past():
+    """A phone ember whose prediction lies as near a lamp as its phone takes the phone; the lamp
+    (hidden for a moment by a passer-by) goes back to its own track and never becomes an ember."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    tr = EmberTracker(cfg, 457.0)
+    lamp = (500.0, 300.0)
+    t = 0.0
+    for _ in range(90):                                    # the lamp alone for 3 s: a static light
+        tr.update(_blobs([lamp], light=1.0), t)
+        t += 1 / 30
+    (light_track,) = tr.tracks
+    assert light_track.static and not light_track.shown
+    # A phone comes from the left fast while a passer-by hides the lamp, and stops just short of
+    # it: the ember's prediction runs on to the lamp, 3 px from it and 20 px from the phone.
+    x = 277.0
+    for k in range(13):
+        x = 297.0 + 20.0 * k if k <= 9 else 477.0
+        pts = [(x, 300.0)] + ([] if k in (7, 8, 9) else [lamp])
+        tr.update(_blobs(pts), t)
+        t += 1 / 30
+    shown = tr.shown()
+    assert len(shown) == 1 and abs(shown[0].x - 477.0) < 1.0      # the ember stays on the phone, not the lamp
+    assert not light_track.shown and abs(light_track.x - lamp[0]) < 1.0
+
+
+def test_tracker_ends_an_ember_that_rests_on_a_light():
+    """An ember that comes to rest where the light map is bright (a lamp it caught) ends after
+    ember.track.light_rest_s; one resting on a dark wall stays (a visitor holding still)."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    for light, stays in ((0.9, False), (0.0, True)):
+        tr = EmberTracker(cfg, 457.0)
+        t, x = 0.0, 200.0
+        for _ in range(20):                                # a phone moves and shows
+            x += 10.0
+            tr.update(_blobs([(x, 300.0)]), t)
+            t += 1 / 30
+        assert len(tr.shown()) == 1
+        for _ in range(int(2.0 * 30)):                      # then rests for 2 s
+            tr.update(_blobs([(x, 300.0)], light=light), t)
+            t += 1 / 30
+        assert (len(tr.shown()) == 1) == stays, light
+
+
+def test_tracker_does_not_show_a_track_on_a_jump():
+    """A blob that jumps (a TV picture's cut) has not moved like a phone: the jump does not count."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    tr = EmberTracker(cfg, 457.0)
+    t = 0.0
+    for k in range(40):
+        p = (400.0, 300.0) if k < 20 else (460.0, 300.0)    # 0.13 m in one frame, then still
+        tr.update(_blobs([p]), t)
+        t += 1 / 30
+    assert tr.shown() == []
+
+
+@pytest.mark.slow
+def test_the_booth_scene_shows_no_lamp_as_an_ember():
+    """The demo scene (live --synthetic, the demo gate): LiveScene('booth', seed 1) for 40 s. No
+    ember sits on a static light for longer than the rest rule allows, and the count of embers
+    stays at or below the phones seen in the last 0.5 s in at least 97 percent of frames."""
+    seconds, fps = 40.0, 30
+    scene = synth.LiveScene("booth", size=(1280, 720), fps=fps, seed=1)
+    W = 1280
+    lights = [l["box"] for l in scene.scene.room.lights]
+    cfg = load_config()
+    pipe = EmberPipeline(cfg)
+    vis, over, run, longest = [], 0, 0, 0
+    n = int(seconds * fps)
+    for i in range(n):
+        t = i / fps
+        st = pipe.process(Frame(scene.render(t), t, i, t, {"camera": "fake: booth", "synthetic": True}))
+        truth = scene.scene.truth(t)
+        vis.append((t, sum(1 for p in truth if p.get("vis"))))
+        if (st.ember_count or 0) > max(k for tt, k in vis if tt >= t - 0.5):
+            over += 1
+        on_light = False
+        for e in st.embers:
+            near_phone = min((math.hypot(e["x"] - (W - 1 - p["x"]), e["y"] - p["y"]) for p in truth), default=1e9) <= 60
+            in_box = any(W - 1 - b[2] - 5 <= e["x"] <= W - 1 - b[0] + 5 and b[1] - 5 <= e["y"] <= b[3] + 5 for b in lights)
+            on_light |= in_box and not near_phone
+        run = run + 1 if on_light else 0
+        longest = max(longest, run)
+    assert longest / fps <= cfg["ember"]["track"]["light_rest_s"] + 1.0, longest / fps
+    assert 1 - over / n >= 0.97, over / n
 
 
 def test_record_with_its_preview_window(tmp_path):

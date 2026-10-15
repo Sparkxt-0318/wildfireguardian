@@ -21,7 +21,8 @@ Scale. Speeds are image speeds turned into metres per second at the standing dis
 (ember.calibration, made at its size; scaled when the picture's width differs with the same
 aspect), else (W / 2) / tan(camera.hfov_deg / 2), the nominal field of view (calibrated is
 then false). A calibration made with another camera than the one delivering the frames
-(frame.meta["camera"]) is not used. A phone nearer or farther than Z moves faster or slower
+(frame.meta["camera"]), or through another capture backend (frame.meta["backend"]: PyAV and
+OpenCV may deliver different crops of the sensor), is not used. A phone nearer or farther than Z moves faster or slower
 on screen than the same motion at Z, so the label says "measured at" Z.
 """
 from __future__ import annotations
@@ -45,7 +46,8 @@ def nominal_focal_px(width: int, hfov_deg: float) -> float:
     return (width / 2.0) / math.tan(math.radians(float(hfov_deg)) / 2.0)
 
 
-def focal_for(cfg: dict, width: int, height: int, camera: str | None = None) -> tuple[float, bool, str]:
+def focal_for(cfg: dict, width: int, height: int, camera: str | None = None,
+              backend: str | None = None) -> tuple[float, bool, str]:
     """(focal length in px for a picture of this size, calibrated, where it came from)."""
     cam = cfg.get("camera") or {}
     cal = (cfg.get("ember") or {}).get("calibration") or None
@@ -55,12 +57,26 @@ def focal_for(cfg: dict, width: int, height: int, camera: str | None = None) -> 
         cw, ch = float(size[0]), float(size[1])
         same_aspect = abs(width / height - cw / ch) < 0.01
         same_camera = not camera or not cal.get("camera") or str(cal.get("camera")) == str(camera)
-        if same_aspect and same_camera:
+        same_backend = not backend or not cal.get("backend") or str(cal.get("backend")) == str(backend)
+        if same_aspect and same_camera and same_backend:
             return float(f_cal) * width / cw, True, "calibration"
-        why = "another camera" if not same_camera else "another aspect"
+        why = ("another camera" if not same_camera else "another aspect" if not same_aspect
+               else "another capture backend")
         return nominal_focal_px(width, cam.get("hfov_deg", 70.0)), False, f"nominal (calibration is for {why})"
     return nominal_focal_px(width, cam.get("hfov_deg", 70.0)), False, "nominal"
 
+
+
+def blank_rects(img: np.ndarray, rects: list[tuple[float, ...]]) -> np.ndarray:
+    """A copy of img with each [x0, y0, x1, y1] rectangle (fractions of the camera picture, before
+    mirroring) set to black."""
+    out = img.copy()
+    h, w = out.shape[:2]
+    for x0, y0, x1, y1 in rects:
+        a, b = int(np.clip(round(x0 * w), 0, w)), int(np.clip(round(x1 * w), 0, w))
+        c, d = int(np.clip(round(y0 * h), 0, h)), int(np.clip(round(y1 * h), 0, h))
+        out[c:d, a:b] = 0
+    return out
 
 class EmberPipeline:
     def __init__(self, cfg: dict, focal_px: float | None = None):
@@ -69,6 +85,8 @@ class EmberPipeline:
         self.mirror = bool(e.get("mirror", True))
         self.distance_m = float(e.get("distance_m", 2.0))
         self.max_width = int((cfg.get("camera") or {}).get("width", 1280))
+        # Parts of the camera picture blanked before anything else (a dashcam's burned-in time or logo).
+        self.mask = [tuple(float(v) for v in r) for r in ((cfg.get("camera") or {}).get("mask") or [])]
         self.field_grid = tuple(int(v) for v in e.get("field_grid", [16, 9]))
         self.field_window_s = float(e.get("field_window_s", 3.0))
         self.field_min_tracks = int(e.get("field_min_tracks", 1))
@@ -105,11 +123,11 @@ class EmberPipeline:
         live = [tr for tr in (self.tracker.tracks if self.tracker else []) if tr.confirmed]
         return self.finished + live
 
-    def _setup(self, w: int, h: int, camera: str | None) -> None:
+    def _setup(self, w: int, h: int, camera: str | None, backend: str | None = None) -> None:
         if self.focal_override:
             self.f_px, self.calibrated, self.scale_source = float(self.focal_override), True, "given"
         else:
-            self.f_px, self.calibrated, self.scale_source = focal_for(self.cfg, w, h, camera)
+            self.f_px, self.calibrated, self.scale_source = focal_for(self.cfg, w, h, camera, backend)
         self.m_per_px = self.distance_m / self.f_px
         self.detector = EmberDetector(self.cfg, self.f_px)
         self.tracker = EmberTracker(self.cfg, self.f_px / self.distance_m)
@@ -122,11 +140,13 @@ class EmberPipeline:
         if img.shape[1] > self.max_width:
             s = self.max_width / img.shape[1]
             img = cv2.resize(img, None, fx=s, fy=s, interpolation=cv2.INTER_AREA)
+        if self.mask:
+            img = blank_rects(img, self.mask)
         if self.mirror:
             img = cv2.flip(img, 1)
         h, w = img.shape[:2]
         if self.size != (w, h):
-            self._setup(w, h, frame.meta.get("camera"))
+            self._setup(w, h, frame.meta.get("camera"), frame.meta.get("backend"))
         t = float(frame.t)
         if self._last_t is not None and t <= self._last_t:
             self.stats.frames_duplicate += 1
@@ -139,7 +159,8 @@ class EmberPipeline:
         ended = self.tracker.pop_finished()
         if self.history is not None:
             self.finished.extend(ended)
-        self.detector.protect([tr.box for tr in self.tracker.shown() if tr.seen and tr.box is not None])
+        self.detector.protect([tr.box for tr in self.tracker.protected()],
+                              [tr.box for tr in self.tracker.shown() if tr.seen and tr.box is not None])
         if self.detector.ready and self._t_ready is None:
             self._t_ready = t
         state = self._state(img, t, frame)
@@ -217,7 +238,8 @@ class EmberPipeline:
                        calibrated=self.calibrated, distance_m=self.distance_m, warm=warm,
                        source_label=str(meta.get("camera") or ""),
                        source_state="synthetic" if meta.get("synthetic") else "camera")
-        for k, v in (("mode", "ember"), ("embers", embers), ("ember_count", len(embers)), ("speed_unit", "m/s"),
+        for k, v in (("mode", "ember"), ("embers", embers), ("ember_count", len(embers)),
+                     ("ember_max", self.tracker.max_tracks), ("speed_unit", "m/s"),
                      ("measured_at_m", self.distance_m), ("camera_state", "ok")):
             setattr(st, k, v)
         if self.history is not None:

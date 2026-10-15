@@ -13,7 +13,10 @@
    - precision and recall, and recall after acquisition (each phone's first
      validate.ember.acquire_s in the clip left out: an ember shows only once it has moved);
    - MOTA = 1 - (misses + false embers + ID switches) / required phones;
-   - ID switches per phone per minute (a phone's matched track changes);
+   - ID switches per phone per minute (a phone's matched track changes), and the persistent
+     ones: the same count after a phone's matched-track runs shorter than
+     validate.ember.persistent_run_s are left out (a flip for a frame or two while two phones
+     touch, which no visitor sees);
    - false tracks per minute, and those on static lights (a false track whose points stay
      within validate.ember.static_tol_px of a light's box);
    - speed error at the standing distance (phones within validate.ember.stand_tol_m of
@@ -34,7 +37,12 @@
    speed (its speeds integrated from the move's start to its end plus one speed window, over
    the move time) and with the measured displacement between the two rests.
 
-Goals (validate.ember.goals, fixed before measuring) are reported as met or missed.
+The synthetic scenes are the set the detector and tracker were built on (their settings were
+chosen while looking at them), so they are not held out: the report says so ("tuned_on": true)
+and so does the summary. Goals (validate.ember.goals, fixed before measuring) are reported as
+met or missed: on the synthetic scenes (recall, static-light tracks, ID switches, speed), on
+ember_ruler (its displacement and mean speed errors against the speed goal) and on ember_free
+(its probable ID switches against the ID-switch goal); n/a when a recording is missing.
 Writes validate.ember.report (results/validation/ember_report.json) and prints a summary.
 """
 from __future__ import annotations
@@ -120,6 +128,8 @@ def _scene_cfg(cfg: dict, meta: dict) -> dict:
     c.setdefault("camera", {})["focal_px"] = float(meta["focal_px"])
     c.setdefault("ember", {})["calibration"] = {"size": list(meta["size"]), "camera": None, "target": "synthetic"}
     c["ember"]["distance_m"] = synth.STANDING_M
+    # The scenes test the tracker with up to six phones; the booth's own cap (ember.max_tracks) is lower.
+    c["ember"]["max_tracks"] = max(int(c["ember"].get("max_tracks", 6)), int(_v(cfg).get("max_tracks", 6)))
     return c
 
 
@@ -167,6 +177,7 @@ def score_scene(pipe: EmberPipeline, truth: dict[str, np.ndarray], meta: dict, c
     tp = fn = fp = idsw = gt = 0
     tp_a = fn_a = 0
     last_id = [None] * P
+    runs: list[list[list[Any]]] = [[] for _ in range(P)]      # per phone: [track_id, first t, last t]
     track_frames: dict[int, list[int]] = {}         # track_id -> [frames seen, frames matched to a phone]
     track_pts: dict[int, list[tuple[float, float]]] = {}
     speed_rows = []
@@ -209,6 +220,11 @@ def score_scene(pipe: EmberPipeline, truth: dict[str, np.ndarray], meta: dict, c
                 if last_id[j] is not None and last_id[j] != e["track_id"]:
                     idsw += 1
                 last_id[j] = e["track_id"]
+                ti = float(truth["t"][i])
+                if runs[j] and runs[j][-1][0] == e["track_id"]:
+                    runs[j][-1][2] = ti
+                else:
+                    runs[j].append([e["track_id"], ti, ti])
                 if required[i, j] and e.get("speed_m_s") is not None:
                     ic = max(0, i - k_half)          # the middle of the speed window
                     vc = math.hypot(float(vx_t[ic, j]), float(vy_t[ic, j]))
@@ -217,6 +233,7 @@ def score_scene(pipe: EmberPipeline, truth: dict[str, np.ndarray], meta: dict, c
         fp += len(dets) - len(matched_det)
     minutes = n / fps / 60.0
     phone_minutes = float(required.sum()) / fps / 60.0 if P else 0.0
+    idsw_long = persistent_switches(runs, float(v.get("persistent_run_s", 0.2)) - 0.5 / fps)
     boxes = _boxes_mirrored(meta, W)
     tol = float(v.get("static_tol_px", 30))
     false_tracks, static_tracks = [], []
@@ -235,6 +252,8 @@ def score_scene(pipe: EmberPipeline, truth: dict[str, np.ndarray], meta: dict, c
         "mota": _num(1 - (fn + fp + idsw) / gt) if gt else None,
         "id_switches": idsw,
         "id_switches_per_phone_per_min": _num(idsw / phone_minutes) if phone_minutes else None,
+        "id_switches_persistent": idsw_long,
+        "id_switches_persistent_per_phone_per_min": _num(idsw_long / phone_minutes) if phone_minutes else None,
         "false_tracks": len(false_tracks), "false_tracks_per_min": _num(len(false_tracks) / minutes) if minutes else None,
         "static_light_tracks": len(static_tracks),
         "static_light_tracks_per_min": _num(len(static_tracks) / minutes) if minutes else None,
@@ -243,6 +262,22 @@ def score_scene(pipe: EmberPipeline, truth: dict[str, np.ndarray], meta: dict, c
         "speed_rows": speed_rows,
     }
     return out
+
+
+def persistent_switches(runs: list[list[list[Any]]], min_run_s: float) -> int:
+    """ID switches that last: per phone, its runs of one matched track ([track_id, first t,
+    last t] in order), with runs shorter than min_run_s left out and neighbours of the same
+    track joined; then the number of changes."""
+    n = 0
+    for phone in runs:
+        kept: list[Any] = []
+        for tid, t0, t1 in phone:
+            if t1 - t0 < min_run_s:
+                continue
+            if not kept or kept[-1] != tid:
+                kept.append(tid)
+        n += max(0, len(kept) - 1)
+    return n
 
 
 def speed_summary(rows: list[tuple[float, float, float, float]], z_center: float, z_tol: float,
@@ -263,8 +298,8 @@ def speed_summary(rows: list[tuple[float, float, float, float]], z_center: float
 
 
 def pool(scenes: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    keys = ("tp", "fn", "fp", "id_switches", "required", "false_tracks", "static_light_tracks", "frames",
-            "tp_after_acquisition", "fn_after_acquisition")
+    keys = ("tp", "fn", "fp", "id_switches", "id_switches_persistent", "required", "false_tracks",
+            "static_light_tracks", "frames", "tp_after_acquisition", "fn_after_acquisition")
     s = {k: sum(int(sc.get(k) or 0) for sc in scenes.values()) for k in keys}
     minutes = sum(float(sc.get("minutes") or 0) for sc in scenes.values())
     phone_min = sum(float(sc.get("phone_minutes") or 0) for sc in scenes.values())
@@ -275,6 +310,8 @@ def pool(scenes: dict[str, dict[str, Any]]) -> dict[str, Any]:
             "recall_after_acquisition": _num(ta / (ta + fa)) if ta + fa else None,
             "mota": _num(1 - (s["fn"] + s["fp"] + s["id_switches"]) / s["required"]) if s["required"] else None,
             "id_switches_per_phone_per_min": _num(s["id_switches"] / phone_min) if phone_min else None,
+            "id_switches_persistent_per_phone_per_min": (_num(s["id_switches_persistent"] / phone_min)
+                                                         if phone_min else None),
             "false_tracks_per_min": _num(s["false_tracks"] / minutes) if minutes else None,
             "static_light_tracks_per_min": _num(s["static_light_tracks"] / minutes) if minutes else None}
 
@@ -456,7 +493,9 @@ def run_suite(cfg: dict, *, raw: str | Path | None = None, out: str | Path | Non
     from wfglink.provenance import git_state, now_shanghai
 
     report: dict[str, Any] = {"suite": "ember", "created": now_shanghai(), **git_state(),
-                              "config_sha256": config_hash(cfg), "goals": goals, "synthetic": None,
+                              "config_sha256": config_hash(cfg), "goals": goals,
+                              "settings": {"persistent_run_s": float(v.get("persistent_run_s", 0.2))},
+                              "synthetic": None,
                               "ember_free": None, "ember_ruler": None}
     z_stand = synth.STANDING_M
     if synthetic:
@@ -483,7 +522,7 @@ def run_suite(cfg: dict, *, raw: str | Path | None = None, out: str | Path | Non
         truth_meta = json.loads(ruler_video.with_suffix(".json").read_text(encoding="utf-8"))
         ruler = ruler_clip(ruler_video, _scene_cfg(cfg, truth_meta), float(truth_meta["ruler"]["path_m"]))
         ruler["true_move_s_minimum_jerk"] = truth_meta["ruler"]["move_s"]
-        report["synthetic"] = {"scenes": per, "pooled": pooled, "speed": speed, "ruler": ruler,
+        report["synthetic"] = {"tuned_on": True, "scenes": per, "pooled": pooled, "speed": speed, "ruler": ruler,
                                "settings": {k: v.get(k) for k in ("seconds", "fps", "size", "crf", "hfov_deg", "seed")}}
     free = find_recording(raw_dir, "ember_free")
     if free is not None:
@@ -527,7 +566,22 @@ def goal_check(report: dict[str, Any], goals: dict[str, Any]) -> dict[str, Any]:
     g = goals.get("speed_median_rel_err")
     val = sp.get("median_abs_rel_err")
     add("speed_median_rel_err", val, g, None if val is None or g is None else val <= g)
+    # Your recordings: the ruler's displacement and mean speed against the speed goal, and the
+    # free motion's probable ID switches against the ID-switch goal (n/a without the recording).
+    r = report.get("ember_ruler") or {}
+    ok_r = r.get("status") == "ok"
+    for key in ("displacement_rel_err", "screen_speed_rel_err"):
+        val = r.get(key) if ok_r else None
+        add(f"ember_ruler_{key}", val, g, None if val is None or g is None else abs(val) <= g)
+    f = report.get("ember_free") or {}
+    g = goals.get("id_switches_per_phone_per_min")
+    val = f.get("probable_id_switches_per_phone_per_min") if f.get("status") == "ok" else None
+    add("ember_free_probable_id_switches_per_phone_per_min", val, g, None if val is None or g is None else val <= g)
     return checks
+
+
+def _run_s(report: dict[str, Any]) -> Any:
+    return (report.get("settings") or {}).get("persistent_run_s", 0.2)
 
 
 def summary_lines(report: dict[str, Any]) -> list[str]:
@@ -535,20 +589,24 @@ def summary_lines(report: dict[str, Any]) -> list[str]:
     s = report.get("synthetic")
     if s:
         p = s["pooled"]
-        lines.append(f"synthetic ({len(s['scenes'])} scenes, {p['minutes']} min): precision {p['precision']}, "
+        lines.append(f"synthetic ({len(s['scenes'])} scenes, {p['minutes']} min; the scenes the detector and tracker "
+                     f"were tuned on, not held out): precision {p['precision']}, "
                      f"recall {p['recall']} (after acquisition {p.get('recall_after_acquisition')}), MOTA {p['mota']}, "
-                     f"ID switches {p['id_switches_per_phone_per_min']} per phone per min, false tracks "
-                     f"{p['false_tracks_per_min']} per min (static lights {p['static_light_tracks_per_min']})")
+                     f"ID switches {p['id_switches_per_phone_per_min']} per phone per min "
+                     f"({p.get('id_switches_persistent_per_phone_per_min')} lasting {_run_s(report)} s or more), "
+                     f"false tracks {p['false_tracks_per_min']} per min (static lights {p['static_light_tracks_per_min']})")
         st = s["speed"]["standing"]
         lines.append(f"speed at the standing distance: median error {st.get('median_abs_rel_err')} "
-                     f"(p90 {st.get('p90_abs_rel_err')}, n {st.get('n')}); against the true speed at that moment "
-                     f"{st.get('vs_instant_median_abs_rel_err')}")
+                     f"(p90 {st.get('p90_abs_rel_err')}, n {st.get('n')}) against the true speed at the middle of the "
+                     f"speed window; against the true speed at that moment {st.get('vs_instant_median_abs_rel_err')} "
+                     "(the screen lags by half the window)")
         for key in ("at_1m", "at_3m"):
             a = s["speed"][key]
             lines.append(f"phones {key[3:]} away read {a.get('median_ratio_measured_over_true')} x their true speed "
                          f"(expected {a.get('expected_ratio')}, measured at the standing distance)")
         r = s["ruler"]
-        lines.append(f"synthetic ruler: {r.get('status')}, move {r.get('move_s')} s, screen speed error "
+        lines.append(f"synthetic ruler: {r.get('status')}, move {r.get('move_s')} s (between the 1 percent "
+                     f"thresholds), screen speed error "
                      f"{r.get('screen_speed_rel_err')}, displacement error {r.get('displacement_rel_err')}")
     for key in ("ember_free", "ember_ruler"):
         r = report.get(key) or {}
@@ -560,7 +618,8 @@ def summary_lines(report: dict[str, Any]) -> list[str]:
                          f"{r['probable_id_switches_per_phone_per_min']} per min, on static lights "
                          f"{r['tracks_on_static_lights']} ({'calibrated' if r['calibrated'] else 'nominal field of view'})")
         else:
-            lines.append(f"ember_ruler: move {r['move_s']} s, true mean {r['true_mean_speed_m_s']} m/s, screen mean "
+            lines.append(f"ember_ruler: move {r['move_s']} s (between the 1 percent thresholds), mean speed over it "
+                         f"{r['true_mean_speed_m_s']} m/s, screen mean "
                          f"{r['screen_mean_speed_m_s']} m/s (error {r['screen_speed_rel_err']}), displacement "
                          f"{r['displacement_m']} m (error {r['displacement_rel_err']}) "
                          f"({'calibrated' if r['calibrated'] else 'nominal field of view'})")

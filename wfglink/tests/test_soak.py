@@ -120,6 +120,10 @@ def test_sample_row_copies_the_heartbeat_and_tolerates_missing_keys():
     assert bare["pipe_in"] == "" and bare["clip"] == "" and bare["paused"] == "" and bare["status"] == "running"
     assert sample_row(hb, now=T0 + 31)["status"] == "stale"
     assert sample_row(None, now=T0)["status"] == "missing"
+    # The mode, raw and the camera state are kept, so an ember soak shows what ember mode did.
+    ember = sample_row(dict(hb, mode="ember", raw=False, camera_state="ok", clip=None), now=T0 + 1)
+    assert (ember["mode"], ember["raw"], ember["camera_state"], ember["clip"]) == ("ember", 0, "ok", "")
+    assert bare["mode"] == "" and bare["camera_state"] == ""
     # A child process whose memory could not be read: no sum (it would look like a release).
     assert sample_row({"status": "running", "epoch": T0, "pid": 1, "rss_mb": {"1": 400.0, "2": None}},
                       now=T0 + 1)["rss_mb"] == ""

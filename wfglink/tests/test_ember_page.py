@@ -70,7 +70,9 @@ def test_page_is_one_small_file_with_no_network_requests(html, parsed):
         if tag == "script":
             assert "src" not in attrs
         if tag == "link":
-            assert attrs.get("rel") == "icon"
+            assert attrs.get("rel") in ("icon", "apple-touch-icon")
+    # Both icons are inline, so a phone that bookmarks the page asks the host for no icon file.
+    assert {a.get("rel") for t, a in parsed.tags if t == "link"} == {"icon", "apple-touch-icon"}
     # Outside the data URIs, no URL at all, in markup, CSS or script.
     rest = DATA_URI_RE.sub("DATA", html)
     assert not re.search(r"https?:", rest)

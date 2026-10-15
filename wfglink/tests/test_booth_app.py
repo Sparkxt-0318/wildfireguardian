@@ -244,6 +244,137 @@ def test_ember_screen_shows_count_numbers_speeds_and_labels():
 
 
 @pytest.mark.qt
+def test_ember_header_is_in_both_languages():
+    """The header reads "당신이 불티입니다 / You are an ember": the screen's language large, the other under it."""
+    from PySide6.QtGui import QGuiApplication
+
+    from wfglink.render.scene import Layout, ember_panel_layout, render_image
+
+    QGuiApplication.instance() or QGuiApplication([])
+    G = ember_panel_layout(Layout(1920, 1080))
+    for lang in ("ko", "en"):
+        img = render_image(1920, 1080, _ember_state(2), lang)
+        big, other = _rgb(img, G["header"]), _rgb(img, G["header_other"])
+        assert big.max() > 200 and other.max() > 100                   # both lines are drawn
+        assert big.max() > other.max() or (big > 200).sum() > (other > 200).sum()   # the screen's language leads
+    ko, en = render_image(1920, 1080, _ember_state(2), "ko"), render_image(1920, 1080, _ember_state(2), "en")
+    assert np.abs(_rgb(ko, G["header"]) - _rgb(en, G["header"])).max() > 100      # L swaps the two
+
+
+@pytest.mark.qt
+def test_ember_screen_shows_the_page_address_and_its_qr_code():
+    """booth.ember_page_url set: a QR code of it and the address, bottom-right, away from the picture's centre;
+    nothing when the address is empty."""
+    import cv2
+    from PySide6.QtGui import QGuiApplication
+
+    from wfglink.render.scene import Layout, page_qr_rect, render_image
+
+    QGuiApplication.instance() or QGuiApplication([])
+    url = "https://example-user.github.io/ember/"
+    L = Layout(1920, 1080)
+    q = page_qr_rect(L)
+    assert q.right() <= L.spark.right() + 1 and q.top() >= L.video.bottom()       # below the picture, at the right
+    for lang in ("ko", "en"):
+        with_url = render_image(1920, 1080, _ember_state(3), lang, page_url=url)
+        without = render_image(1920, 1080, _ember_state(3), lang, page_url="")
+        arr = _rgb(with_url, (0, 0, 1920, 1080)).astype(np.uint8)[..., ::-1].copy()
+        assert cv2.QRCodeDetector().detectAndDecode(arr)[0] == url                 # a phone camera reads it
+        box = (int(q.x()), int(q.y()), int(q.right()), int(q.bottom()))
+        assert (_rgb(with_url, box) > 240).all(axis=2).mean() > 0.4                # a white square ...
+        assert (_rgb(without, box) > 240).all(axis=2).mean() < 0.01                # ... only with an address
+        assert np.abs(_rgb(with_url, L.video) - _rgb(without, L.video)).max() == 0  # the picture is untouched
+        left = (int(L.spark.x()), int(q.y()), int(q.x()) - 4, int(q.bottom()))
+        assert np.abs(_rgb(with_url, left) - _rgb(without, left)).max() > 100      # the address and the line
+    fire = render_image(1920, 1080, _state(), "ko", page_url=url)                   # fire mode: no QR code
+    assert _rgb(fire, (int(q.x()), int(q.y()), int(q.right()), int(q.bottom()))).max() < 250
+
+
+def test_fire_mode_draws_only_confirmed_tracks():
+    """Fire mode's glowing points are the measured positions of confirmed, moving tracks: a faint
+    detection that never became a track is not drawn (ui.show_unconfirmed true draws them all).
+    The counts are the same either way."""
+    from wfglink.config import load_config
+    from wfglink.io.frames import Frame
+    from wfglink.io.synthetic_live import SyntheticLiveSource
+    from wfglink.ui.booth_app import LiveAnalyser, confirmed_points
+
+    src = SyntheticLiveSource(seed=3, realtime=False)
+    src.open()
+    an_all = LiveAnalyser(load_config(overrides={"ui": {"show_unconfirmed": True}}))
+    an_trk = LiveAnalyser(load_config())
+    n_all = n_trk = 0
+    for i in range(120):
+        f = src.read()
+        meta = dict(f.meta or {}, clip="synth", item=0, segment=0)
+        a = an_all.process(Frame(f.image, f.t, i, f.t_wall, meta))
+        b = an_trk.process(Frame(f.image, f.t, i, f.t_wall, dict(meta)))
+        assert (a.cpc_gross, a.count_rate, a.speed, len(a.trails)) == (b.cpc_gross, b.count_rate, b.speed, len(b.trails))
+        n_all += len(a.detections)
+        n_trk += len(b.detections)
+        if len(b.detections):                         # every drawn point sits on a confirmed track's measurement
+            pts = confirmed_points(an_trk.pipes["synth"], b.t)
+            assert np.array_equal(pts, b.detections)
+    assert 0 < n_trk < n_all
+
+
+@pytest.mark.qt
+def test_permission_is_asked_without_freezing_the_screen():
+    _in_child_qapp("_window_async_permission")
+
+
+def _window_async_permission():
+    from PySide6.QtCore import Qt
+    from PySide6.QtTest import QTest
+
+    from wfglink.ui.booth_app import CameraPermission
+
+    answers = {"status": "not_determined", "sent": 0}
+
+    def send():
+        answers["sent"] += 1
+        return "not_determined"                       # the dialog is open: the call returns at once
+
+    perm = CameraPermission(True, 5.0, send=send, read=lambda: answers["status"])
+    perm.status = "not_determined"
+    allowed = []
+    win = _window(permission=perm, on_permission=allowed.append)
+    _key(win, Qt.Key.Key_M)
+    QTest.qWait(300)
+    assert answers["sent"] == 1 and win._perm_timer.isActive() and win.camera_state_shown() == "asking"
+    assert allowed == []                              # no answer yet, and nothing waited for it
+    answers["status"] = "authorized"                  # the visitor clicks Allow
+    QTest.qWait(800)
+    assert not win._perm_timer.isActive() and allowed == [True] and perm.allowed
+    assert win.camera_state_shown() == "starting"
+    win.close()
+
+
+def test_demo_gate_judges_the_key_run_and_the_ember_count():
+    from wfglink.ui.demo_gate import KEY_SCRIPT, _healthy, _keys_healthy, ember_over_share, scene_phones
+
+    assert scene_phones({}) == 3
+    res = {"errors": [], "frames": 100, "paints": 100, "last": {}, "camera_state": "ok",
+           "ember": {"states": 100, "max_count": 4, "speeds": 50, "counts": {"2": 40, "3": 59, "4": 1}}}
+    assert ember_over_share(res, 3) == pytest.approx(0.01)
+    assert _healthy(res, 10, False, ember=True, phones=3, over_max=0.01)[0]
+    res["ember"]["counts"] = {"3": 80, "4": 20}       # a lamp shown as an ember most of the time
+    ok, why = _healthy(res, 10, False, ember=True, phones=3, over_max=0.01)
+    assert not ok and "more embers than the scene's 3 phones" in why[0]
+    pressed = [{"key": "A", "mode": "fire", "raw": True, "paused": False},
+               {"key": "A", "mode": "fire", "raw": False, "paused": False},
+               {"key": "M", "mode": "ember", "raw": False, "paused": False},
+               {"key": "Space", "mode": "ember", "raw": False, "paused": True},
+               {"key": "Space", "mode": "ember", "raw": False, "paused": False},
+               {"key": "M", "mode": "fire", "raw": False, "paused": False}]
+    good = {"keys_pressed": pressed, "modes": {"fire": 50, "ember": 40}, "raw_toggles": 2, "mode_switches": 2,
+            "pauses": 2, "mode": "fire", "camera_state": "off", "raw": False, "threads_start": 9, "threads_end": 9}
+    assert [k for _, k in KEY_SCRIPT] == [k["key"] for k in pressed] and _keys_healthy(good) == []
+    assert _keys_healthy(dict(good, modes={"fire": 50})) and _keys_healthy(dict(good, threads_end=14))
+    assert _keys_healthy(dict(good, keys_pressed=pressed[:3]))
+
+
+@pytest.mark.qt
 def test_ember_screen_at_most_six_rows_in_number_order():
     from wfglink.render.scene import ember_rows
 
@@ -373,7 +504,8 @@ def test_ember_analyser_numbers_counts_labels_and_sparkline():
     states = [an.process(src.read()) for _ in range(90)]
     s = states[-1]
     assert s.mode == "ember" and s.camera_state == "ok" and s.source_state == "synthetic"
-    assert s.source_label == "synthetic phones" and s.speed_unit == "m/s" and s.measured_at_m == 2.0 and not s.calibrated
+    # A generated scene is named by the status line ("generated phone scene"), not by its source's name.
+    assert s.source_label == "" and s.speed_unit == "m/s" and s.measured_at_m == 2.0 and not s.calibrated
     assert 1 <= s.ember_count == len(s.embers) <= 6
     assert sorted(e["n"] for e in s.embers) == list(range(1, len(s.embers) + 1))
     assert all(e["speed_m_s"] is None or 0 <= e["speed_m_s"] < 20 for e in s.embers)
@@ -458,6 +590,16 @@ def _window_key_a():
     instant = _window(raw_fade_s=0.0, clock=clock)
     _key(instant, Qt.Key.Key_A)
     assert instant.analysed_level() == 0.0
+    # A acts on the fire footage only: ember mode is always analysed, and the fire footage's
+    # choice is kept for when M returns to it.
+    assert instant.raw and instant.shown_level() == 0.0
+    instant.set_mode("ember")
+    assert instant.shown_level() == 1.0 and instant.raw
+    toggles = instant.raw_toggles
+    _key(instant, Qt.Key.Key_A)
+    assert instant.raw and instant.raw_toggles == toggles and instant.shown_level() == 1.0
+    instant.set_mode("fire")
+    assert instant.shown_level() == 0.0
     for w in (win, instant):
         w.close()
 
@@ -601,6 +743,34 @@ def test_engine_opens_the_camera_only_in_ember_mode_and_holds_playback(scripted_
         assert _steps(eng, "fire") and eng.counters()["key"] == eng.clip
     finally:
         eng.stop()
+
+
+@pytest.mark.slow
+def test_m_back_to_fire_never_waits_for_a_camera_still_opening(scripted_camera):
+    """M while the camera is still opening: the fire picture comes back at once; the camera
+    thread ends by itself once its open returns, and stop() waits for it."""
+    sys.path.insert(0, str(TESTS))
+    from ember_standin import FakeEmberPipeline
+
+    from wfglink.ui.booth_app import BoothEngine
+
+    made, kw = scripted_camera
+    kw["open_s"] = 2.0
+    eng = BoothEngine(_phone_cfg(), {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+    eng.start("fire")
+    try:
+        assert _steps(eng, "fire")
+        eng.set_mode("ember")
+        eng.step()                                   # the camera thread starts and is opening
+        assert _until(lambda: made)
+        t0 = time.monotonic()
+        eng.set_mode("fire")
+        assert time.monotonic() - t0 < 1.0 and _steps(eng, "fire", 2.0)       # no freeze of the fire picture
+        assert len(eng.retired) == 1 and eng.retired[0].is_alive()
+        assert _until(lambda: not eng.retired[0].is_alive(), 5.0) and made[0].closed == 1
+    finally:
+        eng.stop()
+    assert eng.retired == []
 
 
 @pytest.mark.slow
@@ -1133,12 +1303,13 @@ def win():
 def mark(tag):
     w = win()
     marks[tag] = {"mode": w.mode, "raw": w.raw, "level": w.analysed_level(), "fading": w.fading(),
+                  "shown_level": w.shown_level(),
                   "since_a": time.monotonic() - pressed.get("A", 0.0), "fire": w.modes_seen.get("fire", 0),
                   "ember": w.modes_seen.get("ember", 0), "camera": w.camera_state_shown(), "visible": w.isVisible(),
                   "count": w.state.ember_count, "shown": w.state.mode, "prompt": w.quit_prompt(), "t": time.monotonic()}
     try:
         hb = json.load(open(hb_path))
-        marks[tag]["hb"] = {k: hb.get(k) for k in ("mode", "raw", "camera_state", "pipeline")}
+        marks[tag]["hb"] = {k: hb.get(k) for k in ("mode", "raw", "camera_state", "pipeline", "state", "clip")}
     except Exception:
         pass
 def key(k, tag):
@@ -1153,10 +1324,11 @@ def esc1():
     QTimer.singleShot(300, esc2)
 plan = ((0, lambda: mark("start")), (100, lambda: key(Qt.Key.Key_A, "a_down")), (300, lambda: mark("a_mid")),
         (3000, lambda: mark("a_done")), (3100, lambda: key(Qt.Key.Key_A, "a_back")), (4000, lambda: mark("analysed")),
-        (4100, lambda: key(Qt.Key.Key_M, "m_ember")), (10000, lambda: mark("ember")),
-        (10100, lambda: key(Qt.Key.Key_A, "ember_a")), (13000, lambda: mark("ember_raw")),
-        (13100, lambda: key(Qt.Key.Key_A, "ember_a_back")), (13200, lambda: key(Qt.Key.Key_M, "m_fire")),
-        (17000, lambda: mark("fire_again")), (17100, esc1))
+        (4100, lambda: key(Qt.Key.Key_A, "a_raw_again")), (4900, lambda: mark("raw_before_m")),
+        (5000, lambda: key(Qt.Key.Key_M, "m_ember")), (11000, lambda: mark("ember")),
+        (11100, lambda: key(Qt.Key.Key_A, "ember_a")), (14000, lambda: mark("ember_after_a")),
+        (14200, lambda: key(Qt.Key.Key_M, "m_fire")), (16000, lambda: mark("fire_raw")),
+        (16100, lambda: key(Qt.Key.Key_A, "fire_a")), (19000, lambda: mark("fire_again")), (19100, esc1))
 timers = []
 def when_ready():     # the plan starts once the booth shows analysed frames (precise timers keep its order)
     w = next((w for w in app.topLevelWidgets() if isinstance(w, BoothWindow)), None)
@@ -1199,14 +1371,19 @@ def test_keys_a_and_m_in_the_running_booth(tmp_path, mode):
     assert d["raw"] and d["level"] == 0.0 and not d["fading"] and d["hb"]["raw"] is True
     assert d["fire"] > m["a_down"]["fire"]            # analysis keeps running under the raw picture
     assert m["analysed"]["level"] == 1.0 and not m["analysed"]["raw"]
+    assert m["raw_before_m"]["raw"] and m["raw_before_m"]["shown_level"] == 0.0       # the raw fire footage ...
     assert m["m_ember"]["mode"] == "ember" and m["m_ember"]["shown"] == "ember"
-    e = m["ember"]
-    assert e["ember"] > 10 and e["camera"] == "ok" and e["count"] >= 1
+    e = m["ember"]                                    # ... and M shows the ember screen analysed all the same
+    assert e["ember"] > 10 and e["camera"] == "ok" and e["count"] >= 1 and e["shown_level"] == 1.0
     assert e["hb"]["mode"] == "ember" and e["hb"]["camera_state"] == "ok" and e["hb"]["pipeline"]["key"] == "ember"
-    er = m["ember_raw"]                               # A works in ember mode too
-    assert er["mode"] == "ember" and er["raw"] and er["level"] == 0.0 and er["ember"] > e["ember"]
+    assert e["hb"]["clip"] is None and e["hb"]["state"] == "synthetic"   # ember mode names no fire clip
+    ea = m["ember_after_a"]                           # A does nothing in ember mode
+    assert ea["mode"] == "ember" and ea["raw"] and ea["shown_level"] == 1.0 and ea["ember"] > e["ember"]
     assert m["m_fire"]["mode"] == "fire" and m["m_fire"]["camera"] == "off"
+    fr = m["fire_raw"]                                # the fire footage comes back as it was left: raw
+    assert fr["raw"] and fr["shown_level"] == 0.0
     fa = m["fire_again"]
+    assert not fa["raw"] and fa["shown_level"] == 1.0 and fa["hb"]["clip"] is not None    # the fire clip is named again
     assert fa["fire"] > m["m_fire"]["fire"] and fa["ember"] - m["m_fire"]["ember"] <= 3   # back on the playlist
     assert r["errors"] == [] and (r["mode_switches"], r["raw_toggles"]) == (2, 4)
     assert r["quit_confirmed"], (m.get("esc1"), m.get("esc2"), r["seconds"])

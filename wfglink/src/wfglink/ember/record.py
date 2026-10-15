@@ -125,7 +125,10 @@ def record(cfg: dict, name: str, seconds: float | None = None, *, out_dir: str |
     if path.exists() and not force:
         raise FileExistsError(f"{path} exists: give another name, or --force to replace it")
     fps = float((cfg.get("camera") or {}).get("fps", 30))
-    rec = Recorder(path, seconds, countdown, fps, int(rc.get("crf", 18)))
+    # Frames go to a side file that replaces `path` only when the recording completes, so a retake
+    # cancelled with Esc (or one that fails) leaves the earlier recording in place.
+    part = out / f".{name}.part.mp4"
+    rec = Recorder(part, seconds, countdown, fps, int(rc.get("crf", 18)))
     if fake:
         from wfglink.io.camera import FakeCameraSource
 
@@ -157,7 +160,10 @@ def record(cfg: dict, name: str, seconds: float | None = None, *, out_dir: str |
         if info.get("cancelled") and not rec.done.is_set():
             rec.finish()
             res = rec.summary()
-            res.update({"cancelled": True, "camera": camera})
+            # A cancelled recording is not kept (an earlier one stays): the same command makes it again.
+            part.unlink(missing_ok=True)
+            res.update({"cancelled": True, "camera": camera, "removed": True, "file": str(path),
+                        "kept_earlier": path.exists()})
             return res
     else:
         t_end = time.monotonic() + countdown + seconds + 30
@@ -173,5 +179,9 @@ def record(cfg: dict, name: str, seconds: float | None = None, *, out_dir: str |
             src.close()
     rec.finish()
     res = rec.summary()
-    res["camera"] = camera
+    if rec.frames and rec.error is None:
+        part.replace(path)
+    else:
+        part.unlink(missing_ok=True)
+    res.update({"camera": camera, "file": str(path)})
     return res

@@ -20,12 +20,17 @@ ember.calibrate.stable_frac (90th minus 10th percentile, over the median) and re
 median, the equivalent horizontal field of view 2 atan(W / 2f) and the scale
 m/px = distance / f. It writes camera.focal_px and ember.calibration (date, camera, size,
 focal_px, hfov_deg, distance_m, m_per_px, target, frames, spread, rms_px) and ember.distance_m
-to configs/booth_local.yaml, keeping the file's other keys.
+to configs/booth_local.yaml, keeping the file's other keys, but only when the result is
+stable (the command exits 1 and writes nothing otherwise), and warns when the field of view
+is far from camera.hfov_deg.
 
 Live, the camera picture shows fullscreen (mirrored, like a mirror, with the markers
 outlined and the progress); Esc cancels. With --video FILE it runs on a recording, without a
-window. Error sources: the distance is measured by hand (a 2 cm error at 2 m is 1 percent);
-the print scale (the 100 mm line); lens distortion away from the picture's centre.
+window. The sheet is held over the floor mark, in the plane where visitors hold their phones:
+the calibration fixes the metres per pixel in the plane of the sheet whatever distance is
+stated (a wrong stated distance changes f and the printed field of view, not the scale at
+the sheet), so the sheet, the phones and the ruler path must share that plane. Other error
+sources: the print scale (the 100 mm line); lens distortion away from the picture's centre.
 """
 from __future__ import annotations
 

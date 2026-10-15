@@ -23,10 +23,16 @@ orange or yellow. Per frame, at ember.detect_scale of the analysed size:
    white blob with a thin warm edge).
 5. Shape: no longer than ember.detect.max_elongation times its width (second moments).
 6. Background: an approximate running median of V (ember.background, the fire detector's
-   ApproxMedianBackground), updated everywhere except under the embers being shown, so a
-   visitor who pauses is never absorbed. A blob whose core lies mostly on background brighter
+   ApproxMedianBackground), updated everywhere except under the embers being shown (protect;
+   the pipeline leaves out an ember resting longer than ember.track.rest_protect_s), so a
+   visitor who pauses is not absorbed. A blob whose core lies mostly on background brighter
    than ember.background.bright_dn is on a static light; the tracker never starts showing a
    track while its blob is on background.
+7. Light map: the share of frames in which each pixel was as bright as a core (the mean so
+   far, then over about ember.background.light_frames frames), not updated under the embers on
+   screen (so a resting phone never becomes a light, and a lamp an ember sits on stays one).
+   Each blob carries its mean under its core (light): an ember that rests where the light map
+   is high has landed on a lamp (the tracker's rest rule).
 
 Positions are intensity-weighted centroids (V above blob_dn), in pixels of the analysed
 frame (pixel centres at integers).
@@ -52,6 +58,7 @@ class Blobs:
     elong: np.ndarray = field(default_factory=lambda: np.zeros(0))
     on_bg: np.ndarray = field(default_factory=lambda: np.zeros(0, bool))
     boxes: list[tuple[int, int, int, int]] = field(default_factory=list)  # detection-scale boxes (x0, y0, x1, y1)
+    light: np.ndarray = field(default_factory=lambda: np.zeros(0))      # light map (0 to 1) under the blob's core
 
     def __len__(self) -> int:
         return int(self.x.size)
@@ -92,23 +99,51 @@ class EmberDetector:
         self.bg_bright = int(b.get("bright_dn", 200))
         self.bg_on_frac = float(b.get("on_frac", 0.5))
         self.background = ApproxMedianBackground(int(b.get("step_dn", 1)), int(b.get("warmup_frames", 5)))
+        self.light_frames = max(1, int(b.get("light_frames", 300)))
+        self.lightmap: np.ndarray | None = None
+        self._light_n = 0
         self.a_min, self.a_max = size_limits(cfg, f_px, self.scale)
         self._kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * self.ring_px + 1, 2 * self.ring_px + 1))
         self._protect: list[tuple[int, int, int, int]] = []
+        self._protect_light: list[tuple[int, int, int, int]] = []
 
     @property
     def ready(self) -> bool:
         return self.background.ready
 
-    def protect(self, boxes: list[tuple[int, int, int, int]]) -> None:
-        """Detection-scale boxes the next background update leaves alone (the embers on screen)."""
+    def protect(self, boxes: list[tuple[int, int, int, int]],
+                light_boxes: list[tuple[int, int, int, int]] | None = None) -> None:
+        """Detection-scale boxes the next background update leaves alone (the embers on screen),
+        and those the next light map update leaves alone (every ember on screen; boxes by default)."""
         self._protect = list(boxes)
+        self._protect_light = list(boxes if light_boxes is None else light_boxes)
 
     def detect(self, image: np.ndarray) -> Blobs:
         s = self.scale
         small = image if s == 1.0 else cv2.resize(image, None, fx=s, fy=s, interpolation=cv2.INTER_AREA)
         hsv = cv2.cvtColor(small, cv2.COLOR_BGR2HSV)
         hue, sat, val = cv2.split(hsv)
+        blobs = self._find(hue, sat, val)
+        self._learn_light(val)
+        return blobs
+
+    def _learn_light(self, val: np.ndarray) -> None:
+        """The light map: for each pixel, the share of frames in which it was as bright as a core
+        (the mean so far, then an average over about ember.background.light_frames frames). It is
+        not updated under the embers on screen, so it keeps what was there before an ember came: a
+        lamp stays bright in it even while an ember sits on it, and a phone held still never
+        becomes a light; a phone passing by leaves almost nothing."""
+        core = (val >= self.core_dn).astype(np.float32)
+        if self.lightmap is None or self.lightmap.shape != core.shape:
+            self.lightmap, self._light_n = np.zeros_like(core), 0
+        keep = [(b, self.lightmap[b[1]:b[3], b[0]:b[2]].copy()) for b in self._protect_light]
+        self._light_n += 1
+        cv2.accumulateWeighted(core, self.lightmap, max(1.0 / self._light_n, 1.0 / self.light_frames))
+        for (x0, y0, x1, y1), patch in keep:
+            self.lightmap[y0:y1, x0:x1] = patch
+
+    def _find(self, hue: np.ndarray, sat: np.ndarray, val: np.ndarray) -> Blobs:
+        s = self.scale
         bg = self.background.apply(val)
         if bg is not None and self._protect:
             for x0, y0, x1, y1 in self._protect:
@@ -122,7 +157,7 @@ class EmberDetector:
         if cand.size > self.max_candidates:
             cand = cand[np.argsort(-stats[cand, cv2.CC_STAT_AREA])[: self.max_candidates]]
         H, W = val.shape
-        out: dict[str, list] = {k: [] for k in ("x", "y", "diam", "peak", "warm", "elong", "on_bg")}
+        out: dict[str, list] = {k: [] for k in ("x", "y", "diam", "peak", "warm", "elong", "on_bg", "light")}
         boxes = []
         pad = self.ring_px
         for i in cand:
@@ -163,10 +198,13 @@ class EmberDetector:
             cx = float((wts * xs).sum() / sw) + X0
             cy = float((wts * ys).sum() / sw) + Y0
             on_bg = False
-            if bg is not None:
-                core = lab & (vv >= self.core_dn)
-                if core.any():
+            light = 0.0
+            core = lab & (vv >= self.core_dn)
+            if core.any():
+                if bg is not None:
                     on_bg = bool((bg[Y0:Y1, X0:X1][core] >= self.bg_bright).mean() >= self.bg_on_frac)
+                if self.lightmap is not None and self.lightmap.shape == val.shape:
+                    light = float(self.lightmap[Y0:Y1, X0:X1][core].mean())
             out["x"].append((cx + 0.5) / s - 0.5)
             out["y"].append((cy + 0.5) / s - 0.5)
             out["diam"].append(2.0 * math.sqrt(area / math.pi) / s)
@@ -174,8 +212,10 @@ class EmberDetector:
             out["warm"].append(frac)
             out["elong"].append(elong)
             out["on_bg"].append(on_bg)
+            out["light"].append(light)
             boxes.append((X0, Y0, X1, Y1))
         if not boxes:
             return Blobs()
         return Blobs(np.array(out["x"]), np.array(out["y"]), np.array(out["diam"]), np.array(out["peak"], float),
-                     np.array(out["warm"]), np.array(out["elong"]), np.array(out["on_bg"], bool), boxes)
+                     np.array(out["warm"]), np.array(out["elong"]), np.array(out["on_bg"], bool), boxes,
+                     np.array(out["light"]))

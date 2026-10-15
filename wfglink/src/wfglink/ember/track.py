@@ -10,10 +10,17 @@ many faint embers):
   distance), plus ember.track.gate_speed_frac of the predicted motion and
   ember.track.gate_grow_m_s per second unseen, at most ember.track.gate_max_m. The cost is the
   distance to the prediction plus the reach gained while unseen, so of two candidates the one
-  seen more recently wins. In turn: the confirmed tracks seen in the previous frame, then the
-  unseen ones (embers first), then the new ones; so a track that lost its phone for a moment
-  never takes it back from the track that found it, and a phone that comes back after a turn
-  goes to its old ember before any new track starts.
+  seen more recently wins. In turn: the confirmed tracks seen in the previous frame together
+  with the unseen pinned tracks, then the other unseen ones (embers first), then the new ones;
+  so a track that lost its phone for a moment never takes it back from the track that found
+  it, and a phone that comes back after a turn goes to its old ember before any new track
+  starts. A pinned track is a confirmed track that has not shown: a static light, or a phone
+  not yet moved enough. While unseen (a person in front of it) it waits at its home, the
+  median of its last points, and reaches only
+  max(its blob's diameter, ember.track.pin_reach_m) from there. It is assigned together with
+  the tracks seen in the previous frame, so an ember whose prediction lies as near a lamp as
+  its own phone (a phone sweeping past the lamp) takes the phone, and the lamp goes back to
+  its own track; a pinned track never takes a detection outside that small reach.
 - Life: a track is confirmed after ember.track.confirm_hits detections within
   ember.track.confirm_window_s. It is shown (an ember on screen, with a display ID from 1 to
   ember.max_tracks) once it has moved ember.track.min_travel_m from where it was first seen,
@@ -21,9 +28,16 @@ many faint embers):
   model's bright static pixels, and fewer than ember.max_tracks embers are shown. A confirmed
   track that has not shown after ember.track.static_s is a static light (the static-time
   rule): it is kept, so its light never starts a new track, but it shows only if it later
-  moves as above. An ember that rests (moves less than ember.track.min_travel_m) for
+  moves as above. A step longer than ember.track.jump_m that is also faster than
+  ember.track.jump_m_s (a TV picture's cut, a blob jumping between two lights) does not count
+  towards the travel and peak speed of a track that has not shown: its travel starts again
+  from there. An ember that rests (moves less than ember.track.min_travel_m) for
   ember.track.static_s on the background model's bright static pixels has caught a lamp as
-  its phone went by: it stops showing and becomes a static light. An ember unseen for
+  its phone went by: it stops showing and becomes a static light. The background is not
+  learned under the embers being shown (EmberPipeline protects their boxes), except under an
+  ember that has rested for ember.track.rest_protect_s (protected()): a light that an ember
+  caught is then learned like any static light, and the ember ends as above; a visitor who
+  holds a phone that still for that long loses the ember until the phone moves again. An ember unseen for
   ember.track.max_coast_s ends (a phone turned away or hidden for less keeps its ID); a track
   not yet shown ends after ember.track.lost_s unseen, a static light after
   ember.track.static_forget_s.
@@ -67,6 +81,7 @@ class EmberTrack:
     on_bg: bool = False
     rest_at: tuple[float, float] | None = None     # where the track last started resting, and when
     rest_t: float = 0.0
+    light: float = 0.0                  # the light map under its latest blob (kept from before it came, while it shows)
     box: tuple[int, int, int, int] | None = None
     diam: float = 0.0
     seen: bool = True                   # detected in the latest frame
@@ -92,6 +107,12 @@ class EmberTracker:
         self.min_travel = float(c.get("min_travel_m", 0.08)) * self.px_per_m
         self.min_show_speed = float(c.get("min_show_speed_m_s", 0.15)) * self.px_per_m
         self.static_s = float(c.get("static_s", 2.0))
+        self.pin_reach = float(c.get("pin_reach_m", 0.03)) * self.px_per_m
+        self.jump_px = float(c.get("jump_m", 0.1)) * self.px_per_m
+        self.jump_speed = float(c.get("jump_m_s", 3.0)) * self.px_per_m
+        self.rest_protect_s = float(c.get("rest_protect_s", 6.0))
+        self.light_frac = float((e.get("background") or {}).get("light_frac", 0.3))
+        self.light_rest_s = float(c.get("light_rest_s", 1.0))
         self.speed_window_s = float(c.get("speed_window_s", 0.2))
         self.speed_min_points = int(c.get("speed_min_points", 3))
         self.tracks: list[EmberTrack] = []
@@ -110,18 +131,36 @@ class EmberTracker:
                  + self.gate_grow * max(0.0, dt - 0.05))
         return tr.x + tr.vx * k, tr.y + tr.vy * k, min(reach, self.gate_max)
 
-    def _assign(self, tracks: list[EmberTrack], det_xy: np.ndarray, free: np.ndarray, t: float) -> list[tuple[int, int]]:
+    @staticmethod
+    def pinned(tr: EmberTrack) -> bool:
+        """A confirmed track that has not shown: a static light, or a phone not yet moved enough.
+        (Its travel is no test: a light partly hidden by people seems to move.)"""
+        return tr.confirmed and not tr.shown
+
+    @staticmethod
+    def _home(tr: EmberTrack) -> tuple[float, float]:
+        """Where a pinned track waits while unseen: the median of its last points (a light partly
+        hidden by a person has its centroid pulled aside; most of its points are unhidden)."""
+        pts = np.array([(x, y) for _, x, y in tr.pts[-90:]])
+        return float(np.median(pts[:, 0])), float(np.median(pts[:, 1]))
+
+    def _assign(self, tracks: list[EmberTrack], det_xy: np.ndarray, free: np.ndarray, t: float,
+                pinned: frozenset[int] = frozenset()) -> list[tuple[int, int]]:
         cols = np.flatnonzero(free)
         if not tracks or cols.size == 0:
             return []
         cost = np.full((len(tracks), cols.size), BIG)
         for i, tr in enumerate(tracks):
-            px, py, reach = self._predict(tr, t)
+            charge = self.gate_grow * max(0.0, t - tr.last_t)
+            if tr.tid in pinned:
+                (px, py), reach = self._home(tr), max(tr.diam, self.pin_reach)
+            else:
+                px, py, reach = self._predict(tr, t)
             d = np.hypot(det_xy[cols, 0] - px, det_xy[cols, 1] - py)
             ok = d <= reach
             # Distance in px, plus the reach a track gained while unseen: between two candidates
             # the one seen more recently wins (a stale track's wide reach must not win by itself).
-            cost[i, ok] = d[ok] + self.gate_grow * max(0.0, t - tr.last_t)
+            cost[i, ok] = d[ok] + charge
         rows, cc = linear_sum_assignment(cost)
         return [(int(r), int(cols[c])) for r, c in zip(rows, cc) if cost[r, c] < BIG]
 
@@ -136,11 +175,13 @@ class EmberTracker:
             tr.seen = False
         known = [tr for tr in self.tracks if tr.shown or tr.confirmed]
         live = [tr for tr in known if prev is not None and tr.last_t >= prev]
-        unseen = sorted([tr for tr in known if not (prev is not None and tr.last_t >= prev)],
-                        key=lambda tr: (not tr.shown, tr.static))
+        unseen = [tr for tr in known if not (prev is not None and tr.last_t >= prev)]
+        held = [tr for tr in unseen if self.pinned(tr)]
+        others = sorted([tr for tr in unseen if not self.pinned(tr)], key=lambda tr: (not tr.shown, tr.static))
         rest = [tr for tr in self.tracks if not (tr.shown or tr.confirmed)]
-        for group in (live, unseen, rest):
-            for r, j in self._assign(group, det_xy, free, t):
+        pins = frozenset(tr.tid for tr in held)
+        for group in (live + held, others, rest):
+            for r, j in self._assign(group, det_xy, free, t, pins):
                 free[j] = False
                 self._hit(group[r], blobs, j, t)
         for j in np.flatnonzero(free):
@@ -153,6 +194,14 @@ class EmberTracker:
 
     def _hit(self, tr: EmberTrack, blobs: Blobs, j: int, t: float) -> None:
         x, y = float(blobs.x[j]), float(blobs.y[j])
+        if not tr.shown and tr.pts:
+            # A jump (a TV picture's cut, a blob passing from one light to another) is no motion
+            # of a phone: a track that has not shown starts its travel again from here.
+            t1, x1, y1 = tr.pts[-1]
+            step = math.hypot(x - x1, y - y1)
+            if step > self.jump_px and step > self.jump_speed * max(t - t1, 1e-6):
+                tr.anchor, tr.travel, tr.peak_speed = (x, y), 0.0, 0.0
+                tr.pts = []
         tr.pts.append((t, x, y))
         tr.x, tr.y, tr.last_t = x, y, t
         tr.hits += 1
@@ -160,6 +209,7 @@ class EmberTracker:
         tr.on_bg = bool(blobs.on_bg[j])
         tr.box = blobs.boxes[j]
         tr.diam = float(blobs.diam[j])
+        tr.light = float(blobs.light[j]) if len(blobs.light) > j else 0.0
         tr.travel = max(tr.travel, math.hypot(x - tr.anchor[0], y - tr.anchor[1]))
         if tr.rest_at is None or math.hypot(x - tr.rest_at[0], y - tr.rest_at[1]) >= self.min_travel:
             tr.rest_at, tr.rest_t = (x, y), t
@@ -214,8 +264,11 @@ class EmberTracker:
                     shown += 1
                 elif t - tr.t0 >= self.static_s:
                     tr.static = True
-            if tr.shown and tr.seen and tr.on_bg and t - tr.rest_t >= self.static_s:
-                # A shown track resting on a bright static light: it caught the light, not a phone.
+            rested = t - tr.rest_t
+            if tr.shown and tr.seen and ((tr.on_bg and rested >= self.static_s)
+                                         or (tr.light >= self.light_frac and rested >= self.light_rest_s)):
+                # A shown track resting on a bright static light (learned by the background, or
+                # where the light map was bright before it came): it caught the light, not a phone.
                 tr.shown, tr.static, tr.slot, tr.shown_t = False, True, None, None
                 tr.anchor, tr.travel, tr.peak_speed = (tr.x, tr.y), 0.0, 0.0
                 shown -= 1
@@ -245,6 +298,16 @@ class EmberTracker:
 
     def shown(self) -> list[EmberTrack]:
         return [tr for tr in self.tracks if tr.shown]
+
+    def rest_s(self, tr: EmberTrack) -> float:
+        """How long a track has rested (moved less than min_travel), up to its latest detection."""
+        return max(0.0, tr.last_t - tr.rest_t) if tr.rest_at is not None else 0.0
+
+    def protected(self) -> list[EmberTrack]:
+        """The embers whose boxes the background leaves alone: shown, seen now, and not resting
+        for longer than rest_protect_s."""
+        return [tr for tr in self.tracks if tr.shown and tr.seen and tr.box is not None
+                and self.rest_s(tr) < self.rest_protect_s]
 
     def static_tracks(self) -> list[EmberTrack]:
         return [tr for tr in self.tracks if tr.static and not tr.shown]

@@ -76,7 +76,7 @@ track:
   accel_sigma_max_px: 3.0        # process noise of a new track; a track whose innovations stay large keeps it
   accel_adapt_rate: 1.0          # step of the log process-noise scale per hit, times ln d2 minus its mean for a well-modelled track (0 = fixed)
   accel_adapt_up_max: 0.25       # largest rise of the log scale from one hit
-  accel_adapt_down_max: 0.5      # largest fall of the log scale from one hit (keeps noisy turning tracks, such as turntable LEDs)
+  accel_adapt_down_max: 0.5      # largest fall of the log scale from one hit (keeps noisy turning tracks, such as a target on a circle)
   angle_penalty_deg: 30.0        # streak orientation versus predicted motion
   angle_penalty_cost: 4.0
   confirm_hits: 3
@@ -121,7 +121,7 @@ velocity:
     min_speed_ratio: 1.3         # 90th over 10th percentile of the fitted speeds; narrower cannot test proportionality
     prop_tol: 0.10               # decline unless a free intercept (L = a + b |v|) moves T by less than this, interval included
     prop_ci: 0.9                 # level of that interval (two one-sided tests at 5 percent)
-    min_tracks_interval: 10      # fewer tracks (an LED turntable): the interval part of that check is skipped
+    min_tracks_interval: 10      # fewer tracks: the interval part of that check is skipped
     bootstrap: 200               # bootstrap replicates over tracks
     ci: 0.95
 
@@ -132,6 +132,7 @@ validate:
   bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
   ember:                         # "Become an ember" check: python -m wfglink validate --suite ember (src/wfglink/ember/validate.py); goals fixed before measuring
     report: results/validation/ember_report.json
+    max_tracks: 6                # the synthetic scenes test the tracker with up to 6 phones (plan section 4.4), whatever the booth's cap
     raw_dir: data/raw            # ember_free.* and ember_ruler.* made with `python -m wfglink record`, relative to wfglink/
     work_dir: data/synthetic/ember   # the generated phone scenes (git-ignored); made again when missing or changed
     seconds: 20                  # length of each synthetic scene
@@ -149,6 +150,7 @@ validate:
     stand_tol_m: 0.1             # the speed error at the standing distance uses phones within this depth of ember.distance_m
     min_speed_m_s: 0.2           # truth slower than this is left out of relative speed errors
     static_tol_px: 30            # a false track whose points stay within this distance of a static light is a static-light track
+    persistent_run_s: 0.2        # persistent ID switches leave out a phone's matched-track runs shorter than this (flips no visitor sees)
     goals:                       # stated in the plan before measuring; reported as met or missed
       recall_facing: 0.95        # recall of phones facing the camera, after acquisition
       static_light_tracks_per_min: 0.0
@@ -239,12 +241,13 @@ camera:                          # live camera of the "Become an ember" mode (sr
   backoff_min_s: 0.5             # first wait before opening again after a failure; doubles up to backoff_max_s
   backoff_max_s: 5.0
   permission_timeout_s: 30       # how long `cameras --request` waits for an answer to the macOS camera dialog
+  mask: []                       # [[x0, y0, x1, y1], ...]: parts of the camera picture blanked before detection, as fractions of its width and height (unmirrored), for a dashcam's burned-in time or logo; for example [[0.0, 0.92, 0.45, 1.0]]
   center_stage: false            # macOS: Center Stage reframes the picture and changes the scale, so wfglink turns it off for itself
 
 ember:                           # "Become an ember" live mode: phones showing booth/ember/index.html, tracked live (src/wfglink/ember/)
   distance_m: 2.0                # standing distance, camera lens to the phone held over the floor mark; speeds are "measured at" this distance
   mirror: true                   # mirror the picture first, so a visitor moving right moves right on screen
-  max_tracks: 6                  # at most this many embers at once (display IDs 1 to max_tracks)
+  max_tracks: 3                  # the booth tracks at most this many phones at once (IDs 1 to 3); extra phones are ignored and a small "max 3" note shows (your decision of 2026-10-15)
   distance_range_m: [1.0, 3.0]   # phones are looked for between these distances (sets the blob size limits)
   blob_m: [0.008, 0.11]          # bright blob diameter at the phone: a small dim phone's core up to a tablet's disc
   detect_scale: 0.5              # detection runs on the picture scaled by this (cost); positions are intensity-weighted centroids
@@ -269,6 +272,8 @@ ember:                           # "Become an ember" live mode: phones showing b
     warmup_frames: 5             # median of the first frames seeds it
     bright_dn: 200               # a blob whose core lies on background this bright is a static light ...
     on_frac: 0.5                 # ... when at least this fraction of its core does
+    light_frames: 300            # light map: share of frames each pixel was core-bright, averaged over about this many frames (never protected)
+    light_frac: 0.3              # an ember that comes to rest where the light map was at least this has landed on a lamp (it ends after track.static_s)
   track:
     confirm_hits: 3              # a track is confirmed after this many detections ...
     confirm_window_s: 0.25       # ... within this long of its first one
@@ -285,16 +290,21 @@ ember:                           # "Become an ember" live mode: phones showing b
     min_show_speed_m_s: 0.15     # ... and at least this fast (slow drifts, such as a picture on a TV, never show)
     static_s: 2.0                # a confirmed track that has not shown within this long is a static light (the static-time rule);
                                  # an ember resting this long on bright static background is one too (it caught a lamp)
+    pin_reach_m: 0.03            # a confirmed track that has not shown or moved (a light), while hidden, takes only a blob this near its home (or within its blob's diameter)
+    jump_m: 0.1                  # a step longer than this ...
+    jump_m_s: 3.0                # ... and faster than this (a TV cut, a blob passing between lights) does not count towards showing: the travel starts again
+    rest_protect_s: 6.0          # the background is learned under a shown ember once it has rested this long, so an ember stuck on a light ends
+    light_rest_s: 1.0            # an ember that came to rest where the light map was bright (background.light_frac) ends after this long
     speed_window_s: 0.2          # speed: least-squares line through the positions of this many trailing seconds
     speed_min_points: 3          # ... of at least this many points
     count_hold_s: 0.4            # an ember unseen for less than this still counts and keeps its speed on screen
     trail_s: 0.8                 # trail length drawn on screen
-  calibrate:                     # python -m wfglink calibrate: the printed A4 target held flat at the standing spot
+  calibrate:                     # python -m wfglink calibrate: the printed A4 target held flat over the floor mark, where the phones are held
     min_markers: 3               # at least this many of the target's four markers in a frame
     max_rms_px: 1.5              # frames whose marker corners the solved pose misses by more than this (RMS, px) are skipped
     window: 30                   # it finishes when the last this many good frames ...
     stable_frac: 0.01            # ... agree within this fraction (90th minus 10th percentile, over the median)
-    timeout_s: 90                # live: gives up after this long without a stable result
+    timeout_s: 90                # live: gives up after this long without a stable result (nothing is written then)
   record:                        # python -m wfglink record NAME: the camera to data/raw/NAME.mp4
     seconds: 20                  # recording length (--seconds overrides)
     countdown_s: 3               # countdown on screen before recording starts
@@ -336,7 +346,7 @@ outputs:
   overlay_crf: 20
 
 booth:
-  ember_page_url: ""             # the ember page's public address (booth/ember/index.html on GitHub Pages), once published; for the address card and QR code
+  ember_page_url: ""             # the ember page's public address (booth/ember/index.html on GitHub Pages), once published: ember mode shows it with a QR code, and scripts/make_placards.py makes its A5 QR card; empty: neither
   playlist: booth/playlist.yaml  # clips the booth plays in a loop (python -m wfglink live, booth/booth.sh)
   reset_per_clip: true           # true: every clip start resets the counts (counts per clip); false: each clip's counts run on across loops
   late_frames: 1.0               # playback: a decoded frame later than this many frame intervals is dropped (while dropping catches up)
@@ -361,5 +371,9 @@ ui:
   builtin_screen: "built-?in|내장|color lcd|^edp|^lvds|^dsi"   # regex for the names of a laptop's own screen (macOS: "Built-in Retina Display")
   language: ko                   # ko or en at start-up; key L toggles
   quit_confirm_s: 3.0            # Esc, then Esc again within this many seconds, quits (a prompt shows meanwhile)
-  raw_fade_s: 0.5                # key A: seconds of the fade between the analysed screen and the raw picture (the booth starts analysed)
+  raw_fade_s: 0.5                # key A: seconds of the fade between the analysed fire footage and the raw clip (the booth starts analysed; ember mode is always analysed)
+  show_unconfirmed: false        # fire mode draws the points of confirmed tracks only; true also draws every detection (counts are the same either way)
+
+demo_gate:                       # python -m wfglink demo-gate (src/wfglink/ui/demo_gate.py)
+  ember_over_max: 0.01           # the ember run fails when more embers than the scene's phones show in more than this share of its frames
 

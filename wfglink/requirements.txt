@@ -20,3 +20,6 @@ pyobjc-framework-CoreAudio==12.2.2; sys_platform == "darwin"
 pyobjc-framework-CoreMedia==12.2.2; sys_platform == "darwin"
 pyobjc-framework-Quartz==12.2.2; sys_platform == "darwin"
 pyobjc-framework-AVFoundation==12.2.2; sys_platform == "darwin"
+# macOS only: HTTPS certificates for scripts/fetch_clips.py. python.org's Python has none of its
+# own until "Install Certificates.command" has run, so the clip downloads use certifi's bundle.
+certifi==2026.7.22; sys_platform == "darwin"

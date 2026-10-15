@@ -49,7 +49,7 @@ booth:
   ember_page_url: https://YOUR-NAME.github.io/ember/
 ```
 
-The booth will read it to show a QR code that visitors scan (coming later). Send the address to Claude as well, so it can go into `configs/default.yaml` for every checkout.
+With it set, the booth's ember mode screen shows the address, small, with a QR code of it in the bottom-right corner (below the picture, so it never covers a visitor), and `python scripts/make_placards.py --card ember_page` makes the A5 QR card for the standing spot, `booth/placards/ember_page_ko.pdf` and `ember_page_en.pdf` (print at 100 percent). With the key empty, neither appears. Send the address to Claude as well, so it can go into `configs/default.yaml` for every checkout.
 
 ## How to test it
 

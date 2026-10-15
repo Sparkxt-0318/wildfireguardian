@@ -19,14 +19,15 @@ def _scr(name, x=0, y=0, w=1512, h=982):
 def test_doctor_prints_one_line_per_check_in_order():
     res = subprocess.run([sys.executable, "-m", "wfglink", "doctor"], capture_output=True, text=True, timeout=300)
     lines = res.stdout.splitlines()
-    checks = [ln for ln in lines if not ln.startswith(" ")]
+    checks = lines
+    # One line per check: the manual's four first, then video, camera, data and clips.
     assert [ln.split()[0] for ln in checks] == ["python", "packages", "fonts", "screens", "video", "camera", "data",
                                                     "clips"]
     assert all(ln.endswith(" OK") or ln.endswith(" FAIL") for ln in checks)
-    # Every FAIL is followed by its fix; the exit code says whether all were OK.
-    for i, ln in enumerate(lines):
+    # Every FAIL carries its fix hint on the same line; the exit code says whether all were OK.
+    for ln in lines:
         if ln.endswith(" FAIL"):
-            assert lines[i + 1].strip().startswith("fix: ")
+            assert "; fix: " in ln
     assert (res.returncode == 0) == all(ln.endswith(" OK") for ln in checks)
     data = json.loads(subprocess.run([sys.executable, "-m", "wfglink", "doctor", "--json"], capture_output=True,
                                      text=True, timeout=300).stdout)
@@ -42,8 +43,11 @@ def test_format_line_counts_wide_characters():
     wide = format_line(Check("screens", True, "가" * 10), width=70)
     assert len(plain) == 70 and len(wide) == 60
     bad = format_line(Check("data", False, "data/raw is missing", "run ./scripts/setup_mac.sh"))
-    first, second = bad.splitlines()
-    assert first.endswith(" FAIL") and second.strip() == "fix: run ./scripts/setup_mac.sh"
+    assert "\n" not in bad and bad.endswith(" FAIL")
+    assert bad.startswith("data      data/raw is missing; fix: run ./scripts/setup_mac.sh ")
+    # A long line keeps everything; the status still ends it.
+    long = format_line(Check("clips", False, "0 of 2 playlist clips missing: " + "C" * 80, "run it again"))
+    assert long.endswith("; fix: run it again FAIL") and "C" * 80 in long
 
 
 def test_pinned_requirements_follow_platform_markers(tmp_path):
@@ -128,12 +132,43 @@ def test_camera_check_names_the_camera_and_the_permission():
     webcam = {"name": "USB Camera", "unique_id": "0x1400000", "transport": "usb ", "device_type": "External"}
     iphone = {"name": "My iPhone Camera", "unique_id": "AA", "is_continuity": True}
     cfg = {"camera": {"name": "auto"}}
-    ok = check_camera(cfg, [webcam, iphone], "authorized", mac=True)
-    assert ok.ok and "USB Camera" in ok.detail and "granted" in ok.detail
+    ok = check_camera(cfg, [webcam, iphone], "authorized", mac=True, effects={})
+    assert ok.ok and "USB Camera" in ok.detail and "granted" in ok.detail and "effects" not in ok.detail
+    fx = check_camera(cfg, [webcam], "authorized", mac=True, effects={"reactions": True, "center_stage": True})
+    assert fx.ok and "video effects on: reactions" in fx.detail and "center stage" not in fx.detail
     denied = check_camera(cfg, [webcam], "denied", mac=True)
     assert not denied.ok and "Privacy and Security" in denied.fix and "Terminal" in denied.fix
     ask = check_camera(cfg, [webcam], "not_determined", mac=True)
     assert not ask.ok and "cameras --request" in ask.fix
     only_phone = check_camera(cfg, [iphone], "authorized", mac=True)
     assert not only_phone.ok and "camera.name" in only_phone.fix
-    assert check_camera(cfg, [], "unsupported", mac=False).ok          # Linux without a camera: ember mode is generated
+    off = check_camera(cfg, [], "unsupported", mac=False)               # Linux without a camera: OK ...
+    assert off.ok and "No camera found" in off.detail and "--synthetic" in off.detail   # ... and says what ember mode shows
+
+
+def test_clip_downloads_trust_certifi_when_python_has_no_certificates(tmp_path, monkeypatch):
+    """python.org's macOS Python has no certificates until 'Install Certificates' has run: the
+    downloads add certifi's bundle (pinned for macOS in requirements.txt) to Python's own."""
+    import importlib.util
+    import types
+    from pathlib import Path
+
+    bundle = Path("/etc/ssl/certs/ca-certificates.crt")
+    if not bundle.exists():
+        pytest.skip("no system CA bundle here to stand in for certifi's")
+    empty = tmp_path / "empty.pem"
+    empty.write_text("")
+    monkeypatch.setenv("SSL_CERT_FILE", str(empty))                     # Python's own: nothing
+    monkeypatch.setenv("SSL_CERT_DIR", str(tmp_path))
+    spec = importlib.util.spec_from_file_location("fetch_clips_t", PROJECT_ROOT / "scripts" / "fetch_clips.py")
+    fc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fc)
+    monkeypatch.setitem(sys.modules, "certifi", None)                    # certifi not installed
+    assert fc.ssl_context().cert_store_stats()["x509_ca"] == 0
+    monkeypatch.setitem(sys.modules, "certifi", types.SimpleNamespace(where=lambda: str(bundle)))
+    assert fc.ssl_context().cert_store_stats()["x509_ca"] > 50
+    lines = (PROJECT_ROOT / "requirements.txt").read_text().splitlines()
+    assert any(ln.startswith("certifi==") and 'sys_platform == "darwin"' in ln for ln in lines)
+    # A certificate failure says what to do instead of retrying for a minute.
+    err = fc.urllib.error.URLError(fc.ssl.SSLCertVerificationError("CERTIFICATE_VERIFY_FAILED"))
+    assert fc._cert_error(err) and "setup_mac.sh" in fc.CERT_FIX

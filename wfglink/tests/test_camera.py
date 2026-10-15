@@ -302,3 +302,118 @@ def test_pyav_backend_reads_a_stream_packet_by_packet(tmp_path):
     with pytest.raises(SourceError, match="ended"):
         cam.read()
     cam.close()
+
+
+def test_pyav_is_not_used_for_names_ffmpeg_could_mistake():
+    """FFmpeg's avfoundation input reads a leading digit as a device index, a colon as the
+    video:audio separator, and takes the first device whose name begins with the given text."""
+    others = [BUILTIN, IPHONE, DESKVIEW]
+    assert C.pyav_name_problem("C920 HD Pro Webcam", others) is None
+    for name in ("2K USB Camera", "4K Webcam", " 1080P HD Camera"):
+        assert "digit" in C.pyav_name_problem(name, others)
+    assert "colon" in C.pyav_name_problem("Cam: front", others)
+    assert "beginning" in C.pyav_name_problem("USB Camera", [{"name": "USB Camera 2"}])
+    assert "beginning" in C.pyav_name_problem("USB Camera 2", [{"name": "USB Camera"}])
+    assert "share" in C.pyav_name_problem("USB Camera", [{"name": "USB Camera"}])
+
+
+def test_pyav_open_that_never_returns_falls_back_to_opencv(monkeypatch):
+    """FFmpeg's avfoundation open can wait for a first frame for ever: PyAV gets open_timeout_s
+    in a helper thread, then never again for that camera in this process; OpenCV opens it."""
+    import av
+
+    release = threading.Event()
+
+    def stuck(*a, **k):
+        release.wait(10)
+        return types.SimpleNamespace(close=lambda: None, streams=None)
+
+    monkeypatch.setattr(av, "open", stuck)
+    monkeypatch.setattr(av, "formats_available", set(av.formats_available) | {"v4l2", "avfoundation"})
+    monkeypatch.setattr(C._PyAVCamera, "hung", set())
+    cam = C._PyAVCamera(dict(WEBCAM, unique_id="cam-1"), 1280, 720, 30, [WEBCAM])
+    t0 = C.time.monotonic()
+    with pytest.raises(SourceError, match="did not return"):
+        cam.open(0.2)
+    assert C.time.monotonic() - t0 < 5 and "cam-1" in C._PyAVCamera.hung
+    with pytest.raises(SourceError, match="hung"):                 # at once the next time
+        C._PyAVCamera(dict(WEBCAM, unique_id="cam-1"), 1280, 720, 30, [WEBCAM]).open(0.2)
+    release.set()
+    # CameraSource skips a backend that hung on this camera before.
+    FakeBackend.script = {"open_fail": set(), "broken": False, "size": (640, 360), "opened": []}
+    C.CameraSource._winners.clear()
+    monkeypatch.setattr(C, "permission_status", lambda: "authorized")
+
+    class HungPyAV(FakePyAV):
+        hung = {WEBCAM["unique_id"]}
+
+    src = C.CameraSource({"camera": {"name": "c920"}}, devices=lambda: C.list_cameras([WEBCAM]),
+                         backends={"pyav": HungPyAV, "opencv": FakeOpenCV})
+    src.open()
+    assert src.backend == "opencv" and FakeBackend.script["opened"] == ["opencv"]
+    src.close()
+
+
+def test_permission_answer_from_another_queue_needs_no_run_loop(monkeypatch):
+    """AVFoundation answers on a queue of its own: request_permission waits on an event and
+    returns as soon as the answer comes; ask_permission only sends the request."""
+    state = {"status": 0, "asked": 0}
+
+    class Device:
+        @staticmethod
+        def authorizationStatusForMediaType_(media):
+            return state["status"]
+
+        @staticmethod
+        def requestAccessForMediaType_completionHandler_(media, handler):
+            state["asked"] += 1
+
+            def later():
+                C.time.sleep(0.2)
+                state["status"] = 3
+                handler(True)
+
+            threading.Thread(target=later, daemon=True).start()
+
+    monkeypatch.setattr(C.sys, "platform", "darwin")
+    monkeypatch.setattr(C, "_avf", lambda: types.SimpleNamespace(AVCaptureDevice=Device, AVMediaTypeVideo="vide"))
+    monkeypatch.delitem(sys.modules, "Foundation", raising=False)      # no Cocoa run loop is needed
+    t0 = C.time.monotonic()
+    assert C.request_permission(5.0) == "authorized" and C.time.monotonic() - t0 < 2.0
+    state.update(status=0, asked=0)
+    assert C.ask_permission() == "not_determined" and state["asked"] == 1      # returns at once
+    C.time.sleep(0.4)
+    assert C.permission_status() == "authorized"
+    # No answer at all: the wait ends at the timeout.
+    Device.requestAccessForMediaType_completionHandler_ = staticmethod(lambda media, handler: None)
+    state.update(status=0)
+    t0 = C.time.monotonic()
+    assert C.request_permission(0.3) == "not_determined" and 0.25 < C.time.monotonic() - t0 < 2.0
+
+
+def test_a_dashcam_in_usb_pc_camera_mode_is_a_webcam():
+    """A dashcam switched to its USB "PC camera" (UVC) mode is an ordinary USB camera: picked by
+    name like any webcam, and by auto ahead of the built-in camera."""
+    dashcam = {"name": "USB2.0 PC CAMERA", "unique_id": "0x1420000018ec3399", "device_type": "AVCaptureDeviceTypeExternal",
+               "transport": "usb "}
+    no_transport = {"name": "Dashcam UVC", "unique_id": "0x1430000", "device_type": "AVCaptureDeviceTypeExternal"}
+    digit = {"name": "1080P Dash Cam", "unique_id": "0x1440000", "device_type": "AVCaptureDeviceTypeExternal",
+             "transport": "usb "}
+    for d in (dashcam, no_transport, digit):
+        got = C.classify(d)
+        assert got["kind"] == "usb" and got["usable"], d["name"]
+    assert C.pick_camera({}, [BUILTIN, dashcam])["name"] == "USB2.0 PC CAMERA"
+    assert C.pick_camera({"camera": {"name": "pc camera"}}, [BUILTIN, WEBCAM, dashcam])["name"] == "USB2.0 PC CAMERA"
+    assert C.pick_camera({"camera": {"name": "dash"}}, [BUILTIN, WEBCAM, no_transport, IPHONE])["name"] == "Dashcam UVC"
+    assert "picks USB2.0 PC CAMERA (usb)" in C.explain_pick({"camera": {"name": "PC CAMERA"}}, [BUILTIN, dashcam])
+    # FFmpeg would read "1080P ..." as device 1: that camera opens with OpenCV instead.
+    assert "digit" in C.pyav_name_problem(digit["name"], [BUILTIN])
+
+
+def test_camera_mask_blanks_a_burned_in_timestamp():
+    from wfglink.ember.pipeline import blank_rects
+
+    img = np.full((100, 200, 3), 200, np.uint8)
+    out = blank_rects(img, [(0.0, 0.9, 0.5, 1.0)])
+    assert out[95, 10].max() == 0 and out[95, 150].min() == 200 and out[50, 10].min() == 200
+    assert img[95, 10].min() == 200                       # the camera's own frame is not changed

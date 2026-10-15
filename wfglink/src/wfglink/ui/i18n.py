@@ -2,7 +2,8 @@
 
 The limits card shows limit_1, limit_2, ... in order (limit_keys); the printed placards read
 the same keys, so the screen and the paper always agree. Ember mode ("Become an ember", key
-M) uses the ember_* keys; its camera messages (cam_*) are shown in both languages at once.
+M) uses the ember_* keys; its camera messages (cam_*) and its header (ember_header) are shown
+in both languages at once.
 """
 from __future__ import annotations
 
@@ -16,6 +17,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "speed": "불티 속도",
         "per_s": "개/초",
         "count": "개",
+        "count_one": "개",
         "pnf_unit_px": "개/100 px/초",
         "pnf_unit_m": "개/m/초",
         "speed_unit_px": "px/초",
@@ -40,12 +42,15 @@ STRINGS: dict[str, dict[str, str]] = {
         "ember_subtitle": "휴대폰 속 불티를 들고 움직여 보세요",
         "ember_count": "화면 속 불티",
         "ember_count_unit": "개",
-        "ember_speeds": "불티마다 속도",
+        "ember_max": "최대 {n}개 · max {n}",
+        "ember_speeds": "불티별 속도",
         "ember_none": "휴대폰에 불티 페이지를 띄워 카메라 쪽으로 들어 주세요",
         "measuring": "재는 중",
         "measured_at": "{z} m 거리에서 측정",
         "nominal_fov": "보정 전",
         "ember_sparkline": "최근 60초 화면 속 불티 수",
+        "ember_synthetic": "합성 휴대폰 장면 · 실측 아님",
+        "ember_page_line": "휴대폰으로 열어 보세요 · Open on your phone",
         "cam_starting": "카메라를 켜는 중",
         "cam_missing": "카메라를 찾을 수 없습니다",
         "cam_missing_do": "USB 카메라를 꽂거나 MacBook 덮개를 열어 주세요. 카메라가 잡히면 화면이 바로 돌아옵니다.",
@@ -54,8 +59,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "cam_asking": "카메라 권한을 기다리는 중",
         "cam_asking_do": "화면에 뜬 창에서 허용을 눌러 주세요. 창이 보이지 않으면 M을 두 번 눌러 다시 물어봅니다.",
         "cam_error": "불티 모드를 시작하지 못했습니다",
-        "cam_error_do": "이유는 logs/booth.log에 있습니다. 불 영상은 그대로 볼 수 있습니다.",
-        "back_to_fire": "M  불 영상으로 돌아가기",
+        "cam_error_do": "이유는 logs/booth.log에 있습니다. 화재 영상은 그대로 볼 수 있습니다.",
+        "back_to_fire": "M  화재 영상으로 돌아가기",
         "limits_title": "이 측정의 한계",
         "limits_hint": "I 키로 닫기",
         "limit_1": "카메라 하나로는 깊이를 알 수 없습니다. 속도와 플럭스는 화면에 투영된 값이며, m/초는 표시된 거리에서만 맞습니다.",
@@ -73,6 +78,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "speed": "Ember speed",
         "per_s": "per s",
         "count": "embers",
+        "count_one": "ember",
         "pnf_unit_px": "per 100 px per s",
         "pnf_unit_m": "per m per s",
         "speed_unit_px": "px/s",
@@ -94,15 +100,18 @@ STRINGS: dict[str, dict[str, str]] = {
         "raw": "Raw footage",
         "camera": "Live camera",
         "ember_header": "You are an ember",
-        "ember_subtitle": "Hold up the ember on your phone and move",
+        "ember_subtitle": "Hold up the ember on your phone and move it",
         "ember_count": "Embers on screen",
         "ember_count_unit": "",
+        "ember_max": "max {n} · 최대 {n}개",
         "ember_speeds": "Speed of each ember",
         "ember_none": "Open the ember page on your phone and hold it up to the camera",
         "measuring": "measuring",
         "measured_at": "measured at {z} m",
         "nominal_fov": "nominal field of view",
         "ember_sparkline": "Embers on screen, last 60 s",
+        "ember_synthetic": "Generated phone scene · not measured",
+        "ember_page_line": "Open on your phone · 휴대폰으로 열어 보세요",
         "cam_starting": "Starting the camera",
         "cam_missing": "No camera found",
         "cam_missing_do": "Plug in the USB camera or open the MacBook lid. The picture comes back as soon as the camera is found.",

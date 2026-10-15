@@ -17,8 +17,10 @@ camera.name) is read in its own thread that keeps only the newest frame (CameraF
 wfglink.ember.pipeline.EmberPipeline (live.ember_pipeline) tracks the phones showing the
 ember page. Playback holds while ember mode runs, and the camera is opened only in ember
 mode and closed when M returns to fire mode. Camera permission (macOS) is asked on the main
-thread only: at start-up, before any window or worker exists, and again at an M press while
-it is still undecided (CameraPermission). Without a usable camera, ember mode shows a calm
+thread only: at start-up, before any window or worker exists (waiting up to
+live.camera_permission_timeout_s for the answer), and again at an M press while it is still
+undecided; that second request returns at once and a timer polls the answer, so the screen
+never stops while the dialog is open (CameraPermission). Without a usable camera, ember mode shows a calm
 message in both languages (missing, denied, asking, error) and M still returns to fire mode;
 a camera that comes back is picked up by itself. live --synthetic plays a generated phone
 scene in ember mode (ui/phone_scene.py) and --fake-camera FILE plays a recording.
@@ -39,21 +41,32 @@ other value is a screen name (auto while that screen is absent). Built-in screen
 recognised by name (ui.builtin_screen). --limits-screen puts the limits card on a second
 screen while that screen is not the booth's.
 
-Keys: L language, T tracks, F field, G gate, Space pause (playback and analysis hold; a
-small tag shows), I limits card, A raw or analysed (the picture alone, or the full overlay
-with trails, wind arrows, gate and counters; a fade of ui.raw_fade_s seconds; the booth
-starts analysed and the analysis keeps running underneath, so the numbers are current when
-they come back), M fire or ember mode (the booth starts in fire mode; a switch also ends a
-pause), Esc then Esc again within ui.quit_confirm_s seconds quits (a prompt shows after the
-first). SIGTERM or SIGINT closes the window too (not a clean exit).
+Keys: L language, T tracks (in ember mode also the numbers and speeds on the picture), F
+field, G gate, Space pause (playback and analysis hold; a small tag shows), I limits card, A
+raw or analysed fire footage (the clip alone, or the full overlay with trails, wind arrows,
+gate and counters; a fade of ui.raw_fade_s seconds; the booth starts analysed and the
+analysis keeps running underneath, so the numbers are current when they come back; A acts on
+the fire footage only: ember mode always shows its analysed screen, and the fire footage's
+choice is kept for when M returns to it), M fire or ember mode (the booth starts in fire
+mode; a switch also ends a pause), Esc then Esc again within ui.quit_confirm_s seconds quits
+(a prompt shows after the first). SIGTERM or SIGINT closes the window too (not a clean exit).
+
+Fire mode draws the points and trails of confirmed tracks only (ui.show_unconfirmed false, the
+default): a faint detection that never became a track (compression flicker on a steel frame,
+a lab light) is analysed but not drawn. The counts and the analysis are the same either way.
+
+Ember mode shows the ember page's address (booth.ember_page_url) small with a QR code of it in
+the bottom-right corner, when the key is set.
 
 Heartbeat (--heartbeat FILE, booth.sh passes logs/heartbeat.json), rewritten every 2 s:
 status (running, clean_exit, closed), time, epoch, pid, uptime_s, frames (states analysed,
 both modes), paints, fps (analysis), source (playlist, clip or synthetic), state (starting,
 playing, synthetic, camera), errors (count), last_error, rss_mb {pid: MB}, clip (the
 playlist item playing, or "synthetic"), paused, pipeline {key, frames_in, frames_analysed,
-frames_duplicate} (key "ember" in ember mode), mode (fire or ember), raw (the raw picture is
-chosen) and camera_state (off in fire mode; starting, ok, missing, denied, asking or error).
+frames_duplicate} (key "ember" in ember mode), mode (fire or ember), raw (the fire footage's
+raw picture is chosen) and camera_state (off in fire mode; starting, ok, missing, denied,
+asking or error). In ember mode state is starting until the first camera frame, then camera
+(synthetic for a generated scene, playing for a recording), and clip is null.
 booth.sh does not count a stop of new frames as a hang while ember mode waits for its camera.
 """
 from __future__ import annotations
@@ -191,6 +204,7 @@ class LiveAnalyser:
     def __init__(self, cfg: dict):
         self.cfg = cfg
         self.reset_per_clip = bool((cfg.get("booth") or {}).get("reset_per_clip", True))
+        self.show_unconfirmed = bool((cfg.get("ui") or {}).get("show_unconfirmed", False))
         self.pipes: dict[str, Pipeline] = {}
         self.active: str | None = None
         self._item: Any = None
@@ -217,11 +231,18 @@ class LiveAnalyser:
         self._times.append(now)
         span = self._times[-1] - self._times[0]
         s = _own_state(st)
+        if not self.show_unconfirmed:
+            s.detections = confirmed_points(self.pipes[key], s.t)
         s.source_label = str(m.get("label") or "")
         s.source_credit = str(m.get("credit") or "")
         s.source_state = "synthetic" if m.get("synthetic") else "playing"
         s.fps = (len(self._times) - 1) / span if len(self._times) > 2 and span > 0 else 0.0
         return s
+
+    def resume(self) -> None:
+        """Fire mode comes back after ember mode: the analysis rate starts afresh (the window
+        would otherwise span the time in ember mode)."""
+        self._times.clear()
 
     def stats(self) -> dict[str, dict]:
         """Each clip's pipeline stats (the latest pipeline of each clip)."""
@@ -231,6 +252,21 @@ class LiveAnalyser:
         """The active pipeline's frame counters for the heartbeat."""
         pipe = self.pipes.get(self.active) if self.active is not None else None
         return heartbeat_counters(self.active, pipe.stats if pipe is not None else None)
+
+
+def confirmed_points(pipe: Pipeline, t: float) -> np.ndarray:
+    """Where the confirmed, moving tracks were measured in the frame at time t (n, 2): what fire
+    mode draws as glowing points (ui.show_unconfirmed false). A detection that is no confirmed
+    track's (a faint flicker that never became a track, a static light) is not drawn."""
+    pts = []
+    for tr in pipe.tracker.active_tracks():
+        if tr.static or not tr.records:
+            continue
+        r = tr.records[-1]
+        if r[1] != t or r[14] or not math.isfinite(r[2]):
+            continue
+        pts.append((r[2], r[3]))
+    return np.array(pts, dtype=float) if pts else np.zeros((0, 2))
 
 
 # Ember mode ------------------------------------------------------------------------------------
@@ -284,7 +320,9 @@ class EmberAnalyser:
         s.embers = self.numbers.assign([e for e in (s.embers or []) if isinstance(e, dict) and "id" in e])
         if s.ember_count is None:
             s.ember_count = len(s.embers)
-        s.source_label = str(m.get("camera") or m.get("source") or "")
+        # A generated scene says so in the status line ("generated phone scene"), not by its
+        # developer name ("fake: booth"); a camera or a recording shows its name.
+        s.source_label = "" if m.get("synthetic") else str(m.get("camera") or m.get("source") or "")
         s.source_credit = ""
         s.source_state = "synthetic" if m.get("synthetic") else self.source_state
         s.camera_state = "ok"
@@ -305,11 +343,8 @@ class EmberAnalyser:
             self._spark.append((sec, count))
         while self._spark and self._spark[0][0] < sec - 59:
             self._spark.popleft()
+        # Seconds without a frame (a pause, a camera gap) stay empty rather than reading 0.
         spark = np.full(60, np.nan)
-        first = self._spark[0][0]
-        for k in range(60):
-            if sec - 59 + k >= first:
-                spark[k] = 0.0
         for s_, n in self._spark:
             spark[s_ - (sec - 59)] = n
         return spark
@@ -367,44 +402,92 @@ class CameraFeed(threading.Thread):
 
     def stop(self, timeout_s: float = 3.0) -> None:
         self._halt.set()
-        if self.is_alive():
+        if timeout_s > 0 and self.is_alive() and self is not threading.current_thread():
             self.join(timeout_s)
 
     def run(self) -> None:
         delay = self.retry_s[0]
         while not self._halt.is_set():
-            src = None
-            try:
-                src = self.make_source()
-                src.open()
-                self.opens += 1
-                while not self._halt.is_set():
-                    f = src.read()
-                    if f is None:
-                        if self.t_frame is not None and time.monotonic() - self.t_frame > self.lost_s:
-                            raise RuntimeError("no frame from the camera")
-                        self._halt.wait(0.01)
-                        continue
-                    with self._lock:
-                        self.frame, self.seq = f, self.seq + 1
-                    self.t_frame = time.monotonic()
-                    delay = self.retry_s[0]
-            except Exception as exc:     # no camera, unplugged, or failing: try again later
-                self.failures += 1
-                msg = f"{type(exc).__name__}: {exc}"
-                if msg != self.last_error:
-                    self.log(f"camera: {msg}; trying again")
-                self.last_error = msg
-            finally:
-                if src is not None:
-                    try:
-                        src.close()
-                    except Exception:
-                        pass
-            self._halt.wait(delay)
-            delay = min(2 * delay, self.retry_s[1])
+            with _autorelease_pool():
+                delay = self._attempt(delay)
         with self._lock:
             self.frame = None
+
+    def _attempt(self, delay: float) -> float:
+        """One open, read until it fails, close; returns the next wait (doubling up to retry_s[1])."""
+        src = None
+        try:
+            src = self.make_source()
+            src.open()
+            self.opens += 1
+            if getattr(src, "effects_on", None):
+                self.log(f"camera: video effects on: {', '.join(src.effects_on)}; turn them off in the Video menu "
+                         "(the green camera icon in the menu bar)")
+            while not self._halt.is_set():
+                f = src.read()
+                if f is None:
+                    if self.t_frame is not None and time.monotonic() - self.t_frame > self.lost_s:
+                        raise RuntimeError("no frame from the camera")
+                    self._halt.wait(0.01)
+                    continue
+                with self._lock:
+                    self.frame, self.seq = f, self.seq + 1
+                self.t_frame = time.monotonic()
+                delay = self.retry_s[0]
+        except Exception as exc:     # no camera, unplugged, or failing: try again later
+            self.failures += 1
+            msg = f"{type(exc).__name__}: {exc}"
+            if msg != self.last_error:
+                self.log(f"camera: {msg}; trying again")
+            self.last_error = msg
+        finally:
+            if src is not None:
+                try:
+                    src.close()
+                except Exception:
+                    pass
+        self._halt.wait(delay)
+        return min(2 * delay, self.retry_s[1])
+
+
+def _autorelease_pool():
+    """macOS: an Objective-C autorelease pool around each camera attempt, so the AVFoundation and
+    permission objects made in this thread are released (a thread without one leaks them);
+    elsewhere nothing."""
+    import contextlib
+
+    if sys.platform != "darwin":
+        return contextlib.nullcontext()
+    try:
+        import objc
+
+        return objc.autorelease_pool()
+    except Exception:
+        return contextlib.nullcontext()
+
+
+def _send_permission() -> str:
+    """wfglink.io.camera.ask_permission (the request without waiting), or "unsupported"."""
+    try:
+        from wfglink.io.camera import ask_permission
+    except ImportError:
+        return "unsupported"
+    try:
+        return str(ask_permission())
+    except Exception as exc:
+        _log(f"camera permission request failed: {type(exc).__name__}: {exc}")
+        return "unsupported"
+
+
+def _read_permission() -> str:
+    try:
+        from wfglink.io.camera import permission_status
+    except ImportError:
+        return "unsupported"
+    try:
+        return str(permission_status())
+    except Exception:
+        return "unsupported"
 
 
 def _request_permission(timeout_s: float) -> str:
@@ -426,10 +509,16 @@ class CameraPermission:
 
     ALLOWED = ("authorized", "unsupported")      # unsupported: no permission system here, capture is tried directly
 
-    def __init__(self, needed: bool = True, timeout_s: float = 20.0, request: Callable[[float], str] | None = None):
+    def __init__(self, needed: bool = True, timeout_s: float = 20.0, request: Callable[[float], str] | None = None,
+                 send: Callable[[], str] | None = None, read: Callable[[], str] | None = None):
+        """request(timeout) asks and waits for the answer; send() asks without waiting and read()
+        reads the status, for asking while the booth runs (both default to the real ones unless
+        a request is given, as tests do: then every ask waits)."""
         self.needed = bool(needed)
         self.timeout_s = float(timeout_s)
         self.request = request or _request_permission
+        self.send = send if send is not None else (None if request else _send_permission)
+        self.read = read if read is not None else (None if request else _read_permission)
         self.status = "not_determined" if self.needed else "authorized"
         self.asks = 0
 
@@ -442,6 +531,27 @@ class CameraPermission:
         self.asks += 1
         self.status = self.request(self.timeout_s)
         _log(f"camera permission: {self.status}")
+        return self.status
+
+    def ask_async(self) -> bool:
+        """Ask without waiting (the booth's M press); True when the answer must be polled with
+        refresh(). Without send and read it asks and waits like ask(). Main thread only."""
+        if not self.needed or self.allowed:
+            return False
+        if self.send is None or self.read is None:
+            self.ask()
+            return False
+        if threading.current_thread() is not threading.main_thread():
+            raise RuntimeError("camera permission must be asked on the main thread")
+        self.asks += 1
+        self.status = self.send()
+        _log(f"camera permission asked: {self.status}")
+        return self.status == "not_determined"
+
+    def refresh(self) -> str:
+        """The status now (polled while the dialog is open)."""
+        if self.read is not None and self.needed and not self.allowed:
+            self.status = self.read()
         return self.status
 
     @property
@@ -476,6 +586,7 @@ class BoothEngine:
         self._ember_last: dict[str, Any] | None = None
         self.mode = "fire"
         self.paused = False
+        self.retired: list[CameraFeed] = []      # camera threads told to stop, joined at the end
         self.entries = 0               # times ember mode started
         self._last_fire: int | None = None
         self._last_seq = 0
@@ -503,11 +614,17 @@ class BoothEngine:
         if mode == "ember":
             self.entries += 1
             self.ember_error = None
+        else:
+            self.analyser.resume()
         self._hold_playback()
 
     def _close_ember(self) -> None:
         if self.feed is not None:
-            self.feed.stop()
+            # A short wait only: a camera that is reading stops within it, while one still
+            # opening must not freeze the fire picture. That one ends by itself once its open
+            # returns; stop() joins them all at the end.
+            self.feed.stop(timeout_s=0.3)
+            self.retired = [f for f in self.retired if f.is_alive()] + [self.feed]
         if self.ember is not None:       # its numbers stay for the report and the last heartbeat
             self._ember_last = {"counters": self.ember.counters(), "stats": self.ember.stats()}
         self.feed = None
@@ -556,6 +673,9 @@ class BoothEngine:
     def stop(self) -> None:
         self._close_ember()
         self.player.stop()
+        for f in self.retired:
+            f.stop(timeout_s=3.0)
+        self.retired = [f for f in self.retired if f.is_alive()]
 
     @property
     def clip(self) -> str | None:
@@ -756,14 +876,15 @@ class BoothWindow(QWidget):
     def __init__(self, lang: str = "ko", quit_confirm_s: float = 3.0, on_pause: Callable[[bool], None] | None = None,
                  *, mode: str = "fire", on_mode: Callable[[str], None] | None = None,
                  permission: CameraPermission | None = None, on_permission: Callable[[bool], None] | None = None,
-                 raw_fade_s: float = 0.5, clock: Callable[[], float] = time.monotonic):
+                 raw_fade_s: float = 0.5, clock: Callable[[], float] = time.monotonic, page_url: str = ""):
         super().__init__()
         self.setWindowTitle("wfglink")
         self.setStyleSheet("background-color: #000000;")
         self.setCursor(Qt.CursorShape.BlankCursor)
         self.lang = lang
         self.mode = mode if mode in MODES else "fire"
-        self.states: dict[str, LiveState] = {"fire": LiveState(), "ember": LiveState(mode="ember", camera_state="starting")}
+        self.states: dict[str, LiveState] = {"fire": LiveState(), "ember": _ember_start()}
+        self.page_url = str(page_url or "").strip()
         self.show_limits = False
         self.show_tracks = True
         self.show_field = True
@@ -784,6 +905,11 @@ class BoothWindow(QWidget):
         self._fade_timer = QTimer(self)
         self._fade_timer.setInterval(15)
         self._fade_timer.timeout.connect(self._fade_tick)
+        # An M press while the permission is undecided asks without waiting; this polls the answer.
+        self._perm_timer = QTimer(self)
+        self._perm_timer.setInterval(500)
+        self._perm_timer.timeout.connect(self._poll_permission)
+        self._perm_until = 0.0
         self.paints = 0
         self.pauses = 0
         self.raw_toggles = 0
@@ -792,7 +918,7 @@ class BoothWindow(QWidget):
         self.states_seen: dict[str, int] = {}   # states received, by source state: for the report
         self.clips_seen: dict[str, int] = {}    # ... and by clip name
         self.modes_seen: dict[str, int] = {}    # ... and by mode
-        self.ember_seen = {"states": 0, "max_count": 0, "speeds": 0, "numbers": set()}
+        self.ember_seen = {"states": 0, "max_count": 0, "speeds": 0, "numbers": set(), "counts": {}}
 
     @property
     def state(self) -> LiveState:
@@ -810,6 +936,7 @@ class BoothWindow(QWidget):
             e = self.ember_seen
             e["states"] += 1
             e["max_count"] = max(e["max_count"], int(s.ember_count or 0))
+            e["counts"][int(s.ember_count or 0)] = e["counts"].get(int(s.ember_count or 0), 0) + 1
             for em in s.embers or []:
                 v = em.get("speed_m_s")
                 if v is not None and math.isfinite(float(v)):
@@ -850,7 +977,7 @@ class BoothWindow(QWidget):
         self.mode = mode
         self.mode_switches += 1
         if mode == "ember":
-            self.states["ember"] = LiveState(mode="ember", camera_state="starting")
+            self.states["ember"] = _ember_start()
             self.worker_camera_state = "off"
             if self.permission is not None and not self.permission.allowed:
                 QTimer.singleShot(80, self._ask_permission)    # after the "asking" message has been painted
@@ -861,8 +988,23 @@ class BoothWindow(QWidget):
     def _ask_permission(self) -> None:
         if self.mode != "ember" or self.permission is None or self.permission.allowed:
             return
-        self.permission.ask()                  # the GUI thread is the main thread
-        if self.on_permission is not None:
+        if self._perm_timer.isActive():
+            return                             # a request is open already: its answer is polled
+        if self.permission.ask_async():        # the GUI thread is the main thread; it returns at once
+            self._perm_until = time.monotonic() + self.permission.timeout_s
+            self._perm_timer.start()
+            self.update()
+            return
+        self._permission_answered()
+
+    def _poll_permission(self) -> None:
+        status = self.permission.refresh() if self.permission is not None else "authorized"
+        if status != "not_determined" or time.monotonic() > self._perm_until:
+            self._perm_timer.stop()
+            self._permission_answered()
+
+    def _permission_answered(self) -> None:
+        if self.on_permission is not None and self.permission is not None:
             self.on_permission(self.permission.allowed)
         self.update()
 
@@ -879,7 +1021,15 @@ class BoothWindow(QWidget):
     def fading(self) -> bool:
         return self.analysed_level() != self._fade[1]
 
+    def shown_level(self) -> float:
+        """The analysed level painted: the fire footage's (key A) in fire mode; ember mode is always analysed."""
+        return 1.0 if self.mode == "ember" else self.analysed_level()
+
     def toggle_raw(self) -> None:
+        """Key A: the fire footage between raw and analysed. In ember mode it does nothing (the
+        ember screen is always analysed, so a visitor never meets a bare camera picture)."""
+        if self.mode != "fire":
+            return
         now = self.clock()
         level = self.analysed_level(now)
         self.raw = not self.raw
@@ -946,15 +1096,22 @@ class BoothWindow(QWidget):
         p = QPainter(self)
         paint_scene(p, self.width(), self.height(), self.shown_state(), self.lang, show_limits=self.show_limits,
                     show_tracks=self.show_tracks, show_field=self.show_field, show_gate=self.show_gate,
-                    paused=self.paused, quit_prompt=self.quit_prompt(), analysed=self.analysed_level())
+                    paused=self.paused, quit_prompt=self.quit_prompt(), analysed=self.shown_level(),
+                    page_url=self.page_url)
         p.end()
         self.paints += 1
 
     def report(self) -> dict[str, Any]:
         e = dict(self.ember_seen)
         e["numbers"] = sorted(e["numbers"])
+        e["counts"] = {str(k): v for k, v in sorted(e["counts"].items())}
         return {"mode": self.mode, "raw": self.raw, "raw_toggles": self.raw_toggles, "mode_switches": self.mode_switches,
                 "modes": dict(self.modes_seen), "camera_state": self.camera_state_shown(), "ember": e}
+
+
+def _ember_start() -> LiveState:
+    """Ember mode before its first camera frame."""
+    return LiveState(mode="ember", camera_state="starting", source_state="starting")
 
 
 class LimitsWindow(QWidget):
@@ -1017,10 +1174,11 @@ class Heartbeat:
         data = {"status": status, "time": now_shanghai(), "epoch": time.time(), "pid": self.pid,
                 "uptime_s": round(now - self.t0, 1), "frames": worker.frames, "paints": win.paints,
                 "fps": round(st.fps or 0.0, 2), "source": self.source,
-                "state": st.source_state if worker.frames else "starting",
+                "state": (st.source_state if worker.frames else "starting") if win.mode == "fire"
+                else (st.source_state or "starting"),
                 "errors": worker.error_count, "last_error": worker.errors[-1] if worker.errors else None,
                 "rss_mb": {str(k): (round(v, 1) if v is not None else None) for k, v in self._rss.items()},
-                "clip": worker.clip, "paused": bool(win.paused),
+                "clip": worker.clip if win.mode == "fire" else None, "paused": bool(win.paused),
                 # Frames received and analysed by the active pipeline, so the soak can tell an
                 # app that keeps painting from one that keeps analysing.
                 "pipeline": worker.pipeline_counters(),
@@ -1032,15 +1190,29 @@ class Heartbeat:
 
 # The app -------------------------------------------------------------------------------------
 
+KEY_NAMES = {"A": Qt.Key.Key_A, "M": Qt.Key.Key_M, "L": Qt.Key.Key_L, "T": Qt.Key.Key_T, "F": Qt.Key.Key_F,
+             "G": Qt.Key.Key_G, "I": Qt.Key.Key_I, "Space": Qt.Key.Key_Space}
+
+
+def press_key(win: QWidget, name: str) -> None:
+    """A key press as the keyboard gives it (the demo gate's key script)."""
+    from PySide6.QtCore import QEvent
+    from PySide6.QtGui import QKeyEvent
+
+    win.keyPressEvent(QKeyEvent(QEvent.Type.KeyPress, KEY_NAMES[name], Qt.KeyboardModifier.NoModifier))
+
+
 def run_live(cfg: dict | None = None, source: dict[str, str] | None = None, screen: str | None = None,
              lang: str | None = None, limits_screen: str | None = None, duration_s: float | None = None,
              screenshot: str | None = None, heartbeat: str | None = None, ember: dict[str, str] | None = None,
-             start_mode: str = "fire", permission: Callable[[float], str] | None = None) -> dict[str, Any]:
+             start_mode: str = "fire", permission: Callable[[float], str] | None = None,
+             keys: list[tuple[float, str]] | None = None) -> dict[str, Any]:
     """Run the booth screen until Esc is confirmed, the duration ends or a signal arrives; returns a report.
 
     source is fire mode's (source_spec), ember ember mode's (ember_spec; by default the camera,
     or the generated phone scene with a synthetic source); start_mode fire or ember; permission
-    replaces wfglink.io.camera.request_permission (tests)."""
+    replaces wfglink.io.camera.request_permission (tests); keys presses keys (KEY_NAMES) at the
+    given seconds after the start (the demo gate)."""
     cfg = cfg or load_config(local=True)
     spec = source or source_spec(cfg=cfg)
     espec = ember or ember_spec(synthetic=spec.get("kind") == "synthetic")
@@ -1065,12 +1237,20 @@ def run_live(cfg: dict | None = None, source: dict[str, str] | None = None, scre
         worker = LiveWorker(cfg, spec, espec, start_mode, perm.allowed)
     win = BoothWindow(lang or ui.get("language", "ko"), float(ui.get("quit_confirm_s", 3.0)), worker.set_paused,
                       mode=start_mode, on_mode=worker.set_mode, permission=perm, on_permission=worker.set_camera_allowed,
-                      raw_fade_s=float(ui.get("raw_fade_s", 0.5)))
+                      raw_fade_s=float(ui.get("raw_fade_s", 0.5)),
+                      page_url=str((cfg.get("booth") or {}).get("ember_page_url") or ""))
     limits = LimitsWindow(win) if limits_screen else None
     placer = ScreenPlacer(app, win, screen or ui.get("screen", "auto"), ui.get("builtin_screen", BUILTIN_SCREEN),
                           limits, limits_screen)
     worker.state_ready.connect(win.on_state, Qt.ConnectionType.QueuedConnection)
+    threads_start = threading.active_count()
     worker.start()
+    pressed: list[dict[str, Any]] = []
+    for at_s, name in keys or []:
+        def _press(n=name, at=at_s):
+            press_key(win, n)
+            pressed.append({"key": n, "at_s": at, "mode": win.mode, "raw": win.raw, "paused": win.paused})
+        QTimer.singleShot(int(float(at_s) * 1000), _press)
     if duration_s:
         def finish():
             win.duration_done = True
@@ -1127,6 +1307,7 @@ def run_live(cfg: dict | None = None, source: dict[str, str] | None = None, scre
         "states": dict(win.states_seen), "clips": dict(win.clips_seen), "pauses": win.pauses,
         "screen": {"name": placer.screen.name() if placer.screen is not None else None, "moves": placer.moves},
         "ember_source": espec.get("kind"), "permission": perm.status, "permission_asks": perm.asks, **win.report(),
+        "keys_pressed": pressed, "threads_start": threads_start, "threads_end": threading.active_count(),
     }
     win.deleteLater()
     app.processEvents()

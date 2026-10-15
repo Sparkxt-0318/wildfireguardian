@@ -7,6 +7,9 @@
   the limits card.
 - limits_ko.pdf, limits_en.pdf: the five limits (limit_1 to limit_5 of wfglink.ui.i18n,
   read at render time), large enough to read from 1 m.
+- ember_page_ko.pdf, ember_page_en.pdf: for the standing spot of "Become an ember", the ember
+  page's address (booth.ember_page_url) as a large QR code and in large type, with what to do.
+  Made only when the address is set (it is known once the page is published).
 
 Drawn with Qt: QPdfWriter at A5 portrait (148 x 210 mm), text as vector with Pretendard
 embedded; each PNG preview is drawn by the same code into an image. Black on white only, so
@@ -36,10 +39,14 @@ OUT_DIR = PROJECT_ROOT / "booth" / "placards"
 TEXT: dict[str, dict[str, str]] = {
     "ko": {
         "sensor_title": "이것이 센서입니다",
-        "sensor_lead": "거치대 위의 이 블랙박스가 wfglink가 읽는 바로 그 카메라입니다. 특별한 장비 없이, 평범한 영상에서 불티를 잽니다.",
+        "sensor_lead": "거치대 위의 블랙박스는 wfglink가 읽는 것과 같은 평범한 카메라입니다. 특별한 장비 없이, 이런 평범한 영상에서 불티를 잽니다.",
         "measures": "평범한 영상에서 재는 것",
         "tracks": "불티 궤적",
         "pointer": "할 수 없는 것은 ‘{limits}’ 카드에 있습니다.",
+        "page_title": "당신이 불티입니다",
+        "page_lead": "휴대폰 카메라로 QR 코드를 찍어 불티 페이지를 여세요.",
+        "page_step_1": "화면 밝기를 최대로 올립니다.",
+        "page_step_2": "바닥 표시 위로 휴대폰을 들고, 화면을 카메라 쪽으로 향한 채 움직입니다.",
     },
     "en": {
         "sensor_title": "This is the sensor",
@@ -47,6 +54,10 @@ TEXT: dict[str, dict[str, str]] = {
         "measures": "What it measures in ordinary video",
         "tracks": "Ember tracks",
         "pointer": "What it cannot do: see the limits card.",
+        "page_title": "You are an ember",
+        "page_lead": "Scan the QR code with your phone's camera to open the ember page.",
+        "page_step_1": "Turn the screen brightness all the way up.",
+        "page_step_2": "Hold the phone over the floor mark, screen towards the camera, and move it.",
     },
 }
 
@@ -156,6 +167,15 @@ class Flow:
     def space(self, mm: float) -> None:
         self.y += mm * self.scale * U
 
+    def qr(self, text: str, side_mm: float, gap_mm: float = 0.0) -> None:
+        """The QR code of text, side_mm square (at scale 1), centred on the line."""
+        side = side_mm * self.scale * U
+        if self.painter is not None:
+            from wfglink.render.qr import draw_qr
+
+            draw_qr(self.painter, self.x0 + (self.width - side) / 2, self.y, side, text)
+        self.y += side + gap_mm * self.scale * U
+
 
 def _strings(lang: str) -> dict[str, str]:
     from wfglink.ui.i18n import STRINGS
@@ -201,15 +221,27 @@ def _sensor_body(flow: Flow, lang: str, title_mm: float) -> None:
         flow.text(s[key], 5.6, gap_mm=1.2 if k < 5 else 0.0, indent_mm=5.0, bullet=True)
 
 
+def _page_body(flow: Flow, lang: str, url: str, title_mm: float) -> None:
+    s = _strings(lang)
+    flow.text(s["page_title"], title_mm / flow.scale, "bold", gap_mm=4.0, leading=1.18)
+    flow.rule(1.2, 6.0)
+    flow.text(s["page_lead"], 5.9, "medium", gap_mm=6.0)
+    flow.qr(url, 78.0, gap_mm=5.0)
+    flow.text(url, 5.2, "semibold", gap_mm=7.0)
+    for k, key in enumerate(("page_step_1", "page_step_2"), 1):
+        flow.text(s[key], 5.6, gap_mm=2.0 if k == 1 else 0.0, indent_mm=7.0, label=str(k))
+
+
 def _sensor_pointer(flow: Flow, lang: str) -> None:
     s = _strings(lang)
     flow.text(s["pointer"].format(limits=s["limits_title"]), 5.2, "medium")
 
 
-def draw_card(card: str, lang: str, painter: Any = None) -> dict[str, Any]:
+def draw_card(card: str, lang: str, painter: Any = None, url: str = "") -> dict[str, Any]:
     """Lay out one card and draw it (with a painter scaled to layout units). The body takes
     the largest scale, at most 1.25, at which it fits above the bottom block; the bottom
-    block (the pointer on the sensor card, then the footer) sits on the bottom margin."""
+    block (the pointer on the sensor card, then the footer) sits on the bottom margin.
+    url: the ember page's address, for the ember_page card."""
     from PySide6.QtGui import QFontMetricsF  # noqa: F401  (Qt must be importable before measuring)
 
     w_u, h_u, m = PAGE_MM[0] * U, PAGE_MM[1] * U, MARGIN_MM * U
@@ -226,11 +258,16 @@ def draw_card(card: str, lang: str, painter: Any = None) -> dict[str, Any]:
     bottom(probe)
     bottom_h = probe.y
     room = h_u - 2 * m - bottom_h - 8.0 * U
-    title_mm = _title_size(_strings(lang)["sensor_title"], width, 15.0) if card == "sensor" else 0.0
+    if card == "ember_page" and not url:
+        raise ValueError("the ember_page card needs the page's address (booth.ember_page_url)")
+    title_key = {"sensor": "sensor_title", "ember_page": "page_title"}.get(card)
+    title_mm = _title_size(_strings(lang)[title_key], width, 15.0) if title_key else 0.0
 
     def body(flow: Flow) -> None:
         if card == "sensor":
             _sensor_body(flow, lang, min(title_mm, 15.0 * flow.scale))
+        elif card == "ember_page":
+            _page_body(flow, lang, url, min(title_mm, 15.0 * flow.scale))
         else:
             _limits_body(flow, lang)
 
@@ -266,17 +303,17 @@ def _app():
     return app
 
 
-def write_card(card: str, lang: str, out_dir: str | Path, png_dpi: float = 120.0) -> dict[str, Any]:
+def write_card(card: str, lang: str, out_dir: str | Path, png_dpi: float = 120.0, url: str = "") -> dict[str, Any]:
     """<card>_<lang>.pdf (A5, vector text, Pretendard embedded) and its <card>_<lang>.png preview."""
     from PySide6.QtCore import QMarginsF
     from PySide6.QtGui import QImage, QPageLayout, QPageSize, QPainter, QPdfWriter
 
     _app()
-    info = draw_card(card, lang, None)      # lays out only: a card that does not fit raises here
+    info = draw_card(card, lang, None, url)      # lays out only: a card that does not fit raises here
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     pdf, png = out / f"{card}_{lang}.pdf", out / f"{card}_{lang}.png"
-    title = f"wfglink: {_strings(lang)['sensor_title' if card == 'sensor' else 'limits_title']}"
+    title = f"wfglink: {_strings(lang)[{'sensor': 'sensor_title', 'ember_page': 'page_title'}.get(card, 'limits_title')]}"
     writer = QPdfWriter(str(pdf))
     writer.setPageSize(QPageSize(QPageSize.PageSizeId.A5))
     writer.setPageOrientation(QPageLayout.Orientation.Portrait)
@@ -292,7 +329,7 @@ def write_card(card: str, lang: str, out_dir: str | Path, png_dpi: float = 120.0
             p.setRenderHint(QPainter.RenderHint.Antialiasing)
             p.setRenderHint(QPainter.RenderHint.TextAntialiasing)
             p.scale(dpi / 25.4 / U, dpi / 25.4 / U)
-            draw_card(card, lang, p)
+            draw_card(card, lang, p, url)
         finally:
             p.end()
     img.convertToFormat(QImage.Format.Format_Grayscale8).save(str(png))
@@ -300,5 +337,6 @@ def write_card(card: str, lang: str, out_dir: str | Path, png_dpi: float = 120.0
 
 
 def make_placards(out_dir: str | Path = OUT_DIR, langs: tuple[str, ...] = ("ko", "en"),
-                  cards: tuple[str, ...] = ("sensor", "limits")) -> list[dict]:
-    return [write_card(card, lang, out_dir) for card in cards for lang in langs]
+                  cards: tuple[str, ...] = ("sensor", "limits"), url: str = "") -> list[dict]:
+    """The cards in each language; ember_page needs url (booth.ember_page_url)."""
+    return [write_card(card, lang, out_dir, url=url) for card in cards for lang in langs]

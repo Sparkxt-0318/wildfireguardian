@@ -4,6 +4,7 @@
     python scripts/mac_soak.py --hours 8                     # from wfglink/ (sitting 2)
     python scripts/mac_soak.py --hours 8 -- --lang en        # options after -- go to booth/booth.sh
     python scripts/mac_soak.py --hours 0.1 -- --synthetic    # a six minute trial on generated video
+    python scripts/mac_soak.py --hours 2 -- --ember          # an ember soak: ember mode with the real camera
 
 It runs the booth exactly as on the day (bash booth/booth.sh: the playlist in a loop,
 fullscreen, restarted after a crash or hang, the Mac kept awake) for the given hours,
@@ -11,6 +12,8 @@ copies logs/heartbeat.json into a CSV every --every seconds, prints a progress l
 10 minutes, and at the end (or on Ctrl-C) stops the booth and prints the report: paint fps
 against its floors, memory growth in MB per hour, restarts and hangs from logs/booth.log,
 analysis stalls and errors (rules: src/wfglink/soak.py; floors: soak: in configs/default.yaml).
+The overnight soak runs fire mode; `-- --ember` soaks ember mode with the camera under the
+same rules (soak.csv records each sample's mode, raw and camera state).
 
 Files: logs/soak/<date-time>/soak.csv, soak_report.json, soak_meta.json and supervisor.txt.
 The exit code is 0 for PASS, 1 for FAIL. If the soak was cut off before its report (the Mac
