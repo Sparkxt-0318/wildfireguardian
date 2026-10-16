@@ -23,6 +23,12 @@ All 80 outcome records were published within the 30 s request allowance. Referen
 
 ![Reviewed mission outcomes](research/routing/figures/fig01_resolution.png)
 
+## Final-input routing constraint ablation
+
+A separate **200-execution native study** tests five hazard policies on the same final 20 missions. Eight travel-only journeys encounter predicted flames. Flame avoidance finds three checked detours and correctly identifies five model-infeasible missions; adding peak/dose limits changes no additional outcomes on this panel. The frozen application and the 80-execution comparison above are unchanged.
+
+See the [ablation results, figures, data and reproduction instructions](research/routing/final-input-ablation/README.md). This is a constraint ablation, not a new forecast evaluation or a general speedup claim.
+
 ## Choose what to run
 
 | Component | Directory | Start here |

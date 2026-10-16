@@ -1,0 +1,12 @@
+{
+  "tag": "routing-ablation-final-inputs-20261016",
+  "release_url": "https://github.com/Sparkxt-0318/wildfireguardian/releases/tag/routing-ablation-final-inputs-20261016",
+  "assets": [
+    {
+      "name": "WFG-final-input-routing-ablation-20261016-v1.zip",
+      "sha256": "661090bd059a862a9874c4e19977c105d1978bf32ee6d6d3cd7f6d40d244c006",
+      "bytes": 50824046,
+      "url": "https://github.com/Sparkxt-0318/wildfireguardian/releases/download/routing-ablation-final-inputs-20261016/WFG-final-input-routing-ablation-20261016-v1.zip"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "data_scope": "20 missions,5 policies,2 repetitions;200 final-input executions",
+  "source_rows_sha256": "4ec6aecb9cddc0a43829f3a1def6a83e1d25a8deda4aecc37f51c923351f6a25",
+  "source_summary_sha256": "35ec9e97d22da012a0830fbc24fd0486c4684825ff8db77e580194121ed89076",
+  "counts_independently_recomputed_from_rows": [
+    {
+      "policy": "A0",
+      "label": "Travel time only",
+      "full": 12,
+      "other": 8,
+      "refusal": 0,
+      "unresolved": 0,
+      "denominator": 20
+    },
+    {
+      "policy": "A1",
+      "label": "Flame avoidance",
+      "full": 15,
+      "other": 0,
+      "refusal": 5,
+      "unresolved": 0,
+      "denominator": 20
+    },
+    {
+      "policy": "A2",
+      "label": "Flame + peak flux",
+      "full": 15,
+      "other": 0,
+      "refusal": 5,
+      "unresolved": 0,
+      "denominator": 20
+    },
+    {
+      "policy": "A3",
+      "label": "Flame + cumulative exposure",
+      "full": 15,
+      "other": 0,
+      "refusal": 5,
+      "unresolved": 0,
+      "denominator": 20
+    },
+    {
+      "policy": "A4",
+      "label": "Full policy",
+      "full": 15,
+      "other": 0,
+      "refusal": 5,
+      "unresolved": 0,
+      "denominator": 20
+    }
+  ],
+  "assets": {
+    "final_input_constraint_ablation.svg": {
+      "sha256": "d212006f2b0b5959c9474c1d098a816623ff7b0da5ef1fe1ded4ab40c764e3dd",
+      "bytes": 8523
+    },
+    "final_input_constraint_ablation.pdf": {
+      "sha256": "ad55526ffd2c6d9a7aabbeb8f3276a2b4a0143c5c09587602d2d7cbf7ce5865e",
+      "bytes": 2507
+    },
+    "final_input_constraint_ablation.png": {
+      "sha256": "78e5e3d2f7afb3968bfee1413b36ba6104c0f3cadad206d0bc3768242365026b",
+      "bytes": 163316
+    },
+    "FIGURE_DATA.csv": {
+      "sha256": "91be57bc20f67e24d844db6de0b7d722466c9ebc3f7cb58b3702e75fd20ff3e6",
+      "bytes": 227
+    },
+    "FIGURE_CAPTION.md": {
+      "sha256": "8435220f012cb873942a6dc8e2791607bfb5cbf4335cbace56b0c180110c091e",
+      "bytes": 874
+    }
+  }
+}

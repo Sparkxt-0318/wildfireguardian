@@ -1,0 +1,539 @@
+{
+ "status": "PASS",
+ "reviewed_at_utc": "2026-10-16T04:35:05.300414+00:00",
+ "queue_sha256": "e087170e08874668d23991eeeedc9a162ad5f7daef23ec8bd6c465a773c84323",
+ "source_checker_sha256": "8ce23dbaaac3ade8284aa9d9bf927fe2d8bbb336a45e29e68582bd8183231789",
+ "recorded_refusal_executions": 40,
+ "unique_mission_contexts": 5,
+ "independently_verified_refusal_executions": 40,
+ "contexts": [
+  {
+   "context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "minimal_policy": "A1",
+   "source_identity": [
+    "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab",
+    "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+    "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef"
+   ],
+   "proof_status": "NO_ADMISSIBLE_ARRIVAL",
+   "independently_infeasible": true,
+   "check_path": "review/refusal_contexts/9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301.json",
+   "covered_execution_labels": [
+    "miryang_2022__20220601T080000Z_FX1__r1__A1",
+    "miryang_2022__20220601T080000Z_FX1__r1__A2",
+    "miryang_2022__20220601T080000Z_FX1__r1__A3",
+    "miryang_2022__20220601T080000Z_FX1__r1__A4",
+    "miryang_2022__20220601T080000Z_FX1__r2__A4",
+    "miryang_2022__20220601T080000Z_FX1__r2__A3",
+    "miryang_2022__20220601T080000Z_FX1__r2__A2",
+    "miryang_2022__20220601T080000Z_FX1__r2__A1"
+   ]
+  },
+  {
+   "context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "minimal_policy": "A1",
+   "source_identity": [
+    "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d",
+    "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+    "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd"
+   ],
+   "proof_status": "NO_ADMISSIBLE_ARRIVAL",
+   "independently_infeasible": true,
+   "check_path": "review/refusal_contexts/58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c.json",
+   "covered_execution_labels": [
+    "hongseong_2023__20230402T070000Z_FX1__r1__A2",
+    "hongseong_2023__20230402T070000Z_FX1__r1__A3",
+    "hongseong_2023__20230402T070000Z_FX1__r1__A4",
+    "hongseong_2023__20230402T070000Z_FX1__r1__A1",
+    "hongseong_2023__20230402T070000Z_FX1__r2__A1",
+    "hongseong_2023__20230402T070000Z_FX1__r2__A4",
+    "hongseong_2023__20230402T070000Z_FX1__r2__A3",
+    "hongseong_2023__20230402T070000Z_FX1__r2__A2"
+   ]
+  },
+  {
+   "context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "minimal_policy": "A1",
+   "source_identity": [
+    "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab",
+    "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+    "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6"
+   ],
+   "proof_status": "NO_ADMISSIBLE_ARRIVAL",
+   "independently_infeasible": true,
+   "check_path": "review/refusal_contexts/1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca.json",
+   "covered_execution_labels": [
+    "miryang_2022__20220601T080000Z_FD1__r1__A1",
+    "miryang_2022__20220601T080000Z_FD1__r1__A2",
+    "miryang_2022__20220601T080000Z_FD1__r1__A3",
+    "miryang_2022__20220601T080000Z_FD1__r1__A4",
+    "miryang_2022__20220601T080000Z_FD1__r2__A4",
+    "miryang_2022__20220601T080000Z_FD1__r2__A3",
+    "miryang_2022__20220601T080000Z_FD1__r2__A2",
+    "miryang_2022__20220601T080000Z_FD1__r2__A1"
+   ]
+  },
+  {
+   "context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "minimal_policy": "A1",
+   "source_identity": [
+    "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d",
+    "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+    "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56"
+   ],
+   "proof_status": "NO_ADMISSIBLE_ARRIVAL",
+   "independently_infeasible": true,
+   "check_path": "review/refusal_contexts/71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8.json",
+   "covered_execution_labels": [
+    "hongseong_2023__20230402T070000Z_FN1__r1__A2",
+    "hongseong_2023__20230402T070000Z_FN1__r1__A3",
+    "hongseong_2023__20230402T070000Z_FN1__r1__A4",
+    "hongseong_2023__20230402T070000Z_FN1__r1__A1",
+    "hongseong_2023__20230402T070000Z_FN1__r2__A1",
+    "hongseong_2023__20230402T070000Z_FN1__r2__A4",
+    "hongseong_2023__20230402T070000Z_FN1__r2__A3",
+    "hongseong_2023__20230402T070000Z_FN1__r2__A2"
+   ]
+  },
+  {
+   "context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "minimal_policy": "A1",
+   "source_identity": [
+    "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b",
+    "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+    "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd"
+   ],
+   "proof_status": "NO_ADMISSIBLE_ARRIVAL",
+   "independently_infeasible": true,
+   "check_path": "review/refusal_contexts/14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce.json",
+   "covered_execution_labels": [
+    "yeongdeok_2025__20250325T190000Z_FD1__r1__A4",
+    "yeongdeok_2025__20250325T190000Z_FD1__r1__A1",
+    "yeongdeok_2025__20250325T190000Z_FD1__r1__A2",
+    "yeongdeok_2025__20250325T190000Z_FD1__r1__A3",
+    "yeongdeok_2025__20250325T190000Z_FD1__r2__A3",
+    "yeongdeok_2025__20250325T190000Z_FD1__r2__A2",
+    "yeongdeok_2025__20250325T190000Z_FD1__r2__A1",
+    "yeongdeok_2025__20250325T190000Z_FD1__r2__A4"
+   ]
+  }
+ ],
+ "records": [
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r1__A1",
+   "policy": "A1",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r1__A2",
+   "policy": "A2",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r1__A3",
+   "policy": "A3",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r1__A4",
+   "policy": "A4",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r2__A4",
+   "policy": "A4",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r2__A3",
+   "policy": "A3",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r2__A2",
+   "policy": "A2",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FX1__r2__A1",
+   "policy": "A1",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "9fafe0ef88e62cd1f6e05e061d2c517d574aa31d51c2ada82422da221883b301",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r1__A2",
+   "policy": "A2",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r1__A3",
+   "policy": "A3",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r1__A4",
+   "policy": "A4",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r1__A1",
+   "policy": "A1",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r2__A1",
+   "policy": "A1",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r2__A4",
+   "policy": "A4",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r2__A3",
+   "policy": "A3",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FX1__r2__A2",
+   "policy": "A2",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "58b802f8381d42e36f23515165dcb3aa6d93e7f9776e8a7b10a23fb06645776c",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r1__A1",
+   "policy": "A1",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r1__A2",
+   "policy": "A2",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r1__A3",
+   "policy": "A3",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r1__A4",
+   "policy": "A4",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r2__A4",
+   "policy": "A4",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r2__A3",
+   "policy": "A3",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r2__A2",
+   "policy": "A2",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "miryang_2022__20220601T080000Z_FD1__r2__A1",
+   "policy": "A1",
+   "cohort": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "1b5336d81eab04277e755d1b6f87aff7b20e2fad2dfb4603b95ee7cfdb8a96ca",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r1__A2",
+   "policy": "A2",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r1__A3",
+   "policy": "A3",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r1__A4",
+   "policy": "A4",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r1__A1",
+   "policy": "A1",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r2__A1",
+   "policy": "A1",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r2__A4",
+   "policy": "A4",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r2__A3",
+   "policy": "A3",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "hongseong_2023__20230402T070000Z_FN1__r2__A2",
+   "policy": "A2",
+   "cohort": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "71367f57ee841b9f5991d11e4528e2a3b84ba9dbe7c5750845673ceaa5a426c8",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r1__A4",
+   "policy": "A4",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r1__A1",
+   "policy": "A1",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r1__A2",
+   "policy": "A2",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r1__A3",
+   "policy": "A3",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r2__A3",
+   "policy": "A3",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r2__A2",
+   "policy": "A2",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r2__A1",
+   "policy": "A1",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  },
+  {
+   "label": "yeongdeok_2025__20250325T190000Z_FD1__r2__A4",
+   "policy": "A4",
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "independent_refusal_status": "INDEPENDENTLY_VERIFIED_INFEASIBLE",
+   "minimal_policy": "A1",
+   "proof_context": "14d202c20c2e5f2f972da7b230fd2f671a0e058437f157eb762257faf9685cce",
+   "explanation": "All nonhazard mission constraints and source identities identical; any route satisfying selected policy would also satisfy this weaker relaxation."
+  }
+ ],
+ "scope": "Independent exact lattice contact/peak relaxation. No-arrival proves infeasibility only on supplied graph, mission horizon, source realizations, legal turns/waits, destination opening/admission and required stay. It is not a physical-safety claim or validation of environmental predictions."
+}

@@ -1,0 +1,162 @@
+{
+ "PASS": true,
+ "status": "PASS_BOUNDED_FINAL_INPUT_ROUTING_CONSTRAINT_ABLATION",
+ "reviewed_at_utc": "2026-10-16T04:39:35.590209+00:00",
+ "scope": "Final-input five-constraint-policy ablation only; not a new solver/default promotion or physical validation.",
+ "planned_and_completed_executions": 200,
+ "missions": 20,
+ "regional_panels": 5,
+ "parent_incidents": 4,
+ "repetitions": 2,
+ "route_executions_checked": 160,
+ "unique_trajectories_checked": 23,
+ "unique_policy_route_grades": 80,
+ "independently_verified_refusal_executions": 40,
+ "independent_refusal_contexts": 5,
+ "summary": [
+  {
+   "policy": "A0",
+   "executions": 40,
+   "stable_own_routes": 20,
+   "stable_scoped_refusals": 0,
+   "stable_full_passing_routes": 12,
+   "own_route_executions": 40,
+   "full_passing_route_executions": 24,
+   "median_wall_s": 1.6323204165091738,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 40
+   }
+  },
+  {
+   "policy": "A1",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 1.991288874996826,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A2",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.541089063000982,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A3",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.598728854514775,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A4",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.5107181040075375,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  }
+ ],
+ "repeat_outcome_or_route_differences": [],
+ "incremental_peak_dose_route_or_outcome_differences": [],
+ "travel_only_full_failure_mission_components": {
+  "DOSE": 4,
+  "FLAME": 8,
+  "WHOLE_ROAD_CONTACT": 8
+ },
+ "checked_replacements": [
+  {
+   "cohort": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "travel_only_arrival_s": 2022,
+   "constrained_arrival_s": 2512,
+   "delay_s": 490,
+   "travel_only_violations": "DOSE|FLAME|WHOLE_ROAD_CONTACT"
+  },
+  {
+   "cohort": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "travel_only_arrival_s": 1536,
+   "constrained_arrival_s": 2067,
+   "delay_s": 531,
+   "travel_only_violations": "FLAME|WHOLE_ROAD_CONTACT"
+  },
+  {
+   "cohort": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "travel_only_arrival_s": 1616,
+   "constrained_arrival_s": 2143,
+   "delay_s": 527,
+   "travel_only_violations": "FLAME|WHOLE_ROAD_CONTACT"
+  }
+ ],
+ "source_global_peak_upper_bound_kw_m2": 0.7029908348471505,
+ "peak_limit_kw_m2": 10,
+ "remaining_limits": [
+  "Independent continuous-road radiation enclosure not newly established; project adaptive certificates remain conditional on the declared construction and checker.",
+  "Five regional panels cover four parent incidents; repeated missions are not independent fires.",
+  "No forecast fit/accuracy or real-fire physical safety claim.",
+  "No generic solver speedup or memory improvement established by a constraint ablation."
+ ],
+ "preserved_deviations": [
+  "One pre-freeze build-template error; no attempt from that build.",
+  "Pre-freeze policy helper metadata/cap/object-lifecycle fixes and separate pre-grading classifier revisions are recorded.",
+  "A documentation-only copied README custody correction did not change executed scientific code or inputs.",
+  "Legacy stage rss_mb_after is KiB on Darwin, not MiB; ignored in all quantitative memory reporting.",
+  "Initial reviewer wrapper process census was sandbox-denied after five completed refusal checks; no retrospective PID/start receipt was fabricated. Approved native census found no remaining review entrypoints. Remaining review work had verified CLEAN native cleanup, and the same owned lease was released. The original UNKNOWN observation is preserved.",
+  "Second-checker arrival comparison initially compared numbers to serialized exact strings; all160 values were equal after exact Fraction normalization. First comparison preserved; zero scientific checks or scored attempts retried."
+ ],
+ "bound_artifacts": {
+  "FREEZE.json": "eb5174bb97d98e19a23a552992d9d9ad5046b3e18ccb19f33d741a96ccd7a9bb",
+  "GRADING_FREEZE.json": "a8dff1ddfc0aa4512de6140edf3927170a8106d77d05ae7f3826bc2a5d0b8f86",
+  "PROTOCOL.md": "0fbca43db82375c7dbc868bf7372e4fc3a6366208391c0f4c852dfe5154a40bd",
+  "WORKER.patch": "bc9219ae1852037b97bf9d098c72290d2bcb7a0444e7065b19d4a9c9ee0abb72",
+  "POLICY_TRANSFORMS.json": "27c01c55f97167c451326ca7d7b4bf715fd8e93fbb4c4442a93a1d379ad3c40c",
+  "analysis/ROWS.json": "7fa30bb2c6055c4cfca3e4486fb170267f042f2670177b77c6efb57306dc5a6b",
+  "analysis/ROWS.csv": "267267ed8ff78586bdd06fd62420a5bde163b7970e4d9cfa99f3efcd709ef156",
+  "analysis/ROWS_REVIEWED.json": "4ec6aecb9cddc0a43829f3a1def6a83e1d25a8deda4aecc37f51c923351f6a25",
+  "analysis/ROWS_REVIEWED.csv": "813c9856c87fd64b0c2bea7fba0fa6cc6997325d5abdea145e94b407c69eff4b",
+  "analysis/SUMMARY.json": "35ec9e97d22da012a0830fbc24fd0486c4684825ff8db77e580194121ed89076",
+  "analysis/REVIEW_MERGE_RECEIPT.json": "45fd219d12335ff59fb7e5f4f04444909397e370c2daf8703c2a31930f3407b9",
+  "review/PRE_RUN_REVIEW.json": "b14a212309f9575eb7182c61b477dcf9ac054505c14a524c5b7252dddffde0b8",
+  "review/RAW_AUTHORITY_AUDIT.json": "fbcfcb1f0e023baa69fb7cbaa7123d88faba33b6aaa82d982e460b714eba7c81",
+  "review/SECOND_CENTRE_CHECK.json": "5568bf1f9a5f573e8c4921ff37d7f3a99d5fab1ed02aa05c3acc7556d895c80a",
+  "review/SCORING_RECONSTRUCTION.json": "96d677e9327cd33eee421f0d43d52cf77b4e8033c97e758fe4724e983f471c61",
+  "review/REFUSAL_VERIFICATION.json": "e1dc25ee6308a938f0b79feb51d705bc5164825a53538684e7183576db8efe54",
+  "review/REVIEWED_JOIN_AUDIT.json": "007a08fb7a177627e294a3dd69036a18d3683a17700b0c7a278d67466812c421",
+  "review/APPROVED_NATIVE_PROCESS_CENSUS.json": "46f989f8b72721816d7444ec15c13708a7a51708cc50e69cac6d05ad1486e1cc",
+  "review/RESOURCE_RECEIPT_centres_and_scoring.json": "989432ec16c15168b079cccd6f535f21b3c638580cadb02ee25910bdd458053e"
+ },
+ "resource_state": {
+  "status": "FREE",
+  "released_by": "Codex-independent-final-input-ablation-review-20261016",
+  "released_utc": "2026-10-16T04:36:41.981067+00:00"
+ }
+}

@@ -1,0 +1,1490 @@
+[
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   936
+  ],
+  "full_failure_components": [
+   "DOSE",
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   551
+  ],
+  "full_failure_components": [
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1459
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1459
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1459
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1459
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1459
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   531
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   531
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   531
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   531
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   531
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1142
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1142
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1142
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1142
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1142
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1270
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1270
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1270
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1270
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1270
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   1465
+  ],
+  "full_failure_components": [
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   869
+  ],
+  "full_failure_components": [
+   "DOSE",
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2460
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2460
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2460
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2460
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2460
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2540
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2540
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2540
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2540
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2540
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   1616
+  ],
+  "full_failure_components": [
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2143
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2143
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2143
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2143
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1064
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1064
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1064
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1064
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1064
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1589
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1589
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1589
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1589
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1589
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   3119
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   3119
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   3119
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   3119
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   3119
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   1536
+  ],
+  "full_failure_components": [
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2067
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2067
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2067
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2067
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1655
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1655
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1655
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1655
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1655
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   2739
+  ],
+  "full_failure_components": [
+   "DOSE",
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "SCOPED_REFUSAL"
+  ],
+  "stable_own_route": false,
+  "stable_full_policy_route": false,
+  "arrivals": [],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": false,
+  "arrivals": [
+   2022
+  ],
+  "full_failure_components": [
+   "DOSE",
+   "FLAME",
+   "WHOLE_ROAD_CONTACT"
+  ]
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2512
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2512
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2512
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   2512
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1922
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1922
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1922
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1922
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   1922
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A0",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   896
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A1",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   896
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A2",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   896
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A3",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   896
+  ],
+  "full_failure_components": []
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A4",
+  "repetitions": 2,
+  "own_outcomes": [
+   "CHECKED_ROUTE"
+  ],
+  "stable_own_route": true,
+  "stable_full_policy_route": true,
+  "arrivals": [
+   896
+  ],
+  "full_failure_components": []
+ }
+]

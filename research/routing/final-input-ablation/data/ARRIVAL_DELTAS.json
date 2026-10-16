@@ -1,0 +1,1082 @@
+[
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A3",
+  "rep": 1,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A4",
+  "rep": 1,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A1",
+  "rep": 1,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A2",
+  "rep": 1,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 3119,
+  "policy_arrival_s": 3119,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 2540,
+  "policy_arrival_s": 2540,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 2022,
+  "policy_arrival_s": 2512,
+  "arrival_delay_s": 490
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1536,
+  "policy_arrival_s": 2067,
+  "arrival_delay_s": 531
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1270,
+  "policy_arrival_s": 1270,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1459,
+  "policy_arrival_s": 1459,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1616,
+  "policy_arrival_s": 2143,
+  "arrival_delay_s": 527
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1922,
+  "policy_arrival_s": 1922,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1655,
+  "policy_arrival_s": 1655,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 531,
+  "policy_arrival_s": 531,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1064,
+  "policy_arrival_s": 1064,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 896,
+  "policy_arrival_s": 896,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1589,
+  "policy_arrival_s": 1589,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 1142,
+  "policy_arrival_s": 1142,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A2",
+  "rep": 2,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A1",
+  "rep": 2,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A4",
+  "rep": 2,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ },
+ {
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1",
+  "policy": "A3",
+  "rep": 2,
+  "travel_arrival_s": 2460,
+  "policy_arrival_s": 2460,
+  "arrival_delay_s": 0
+ }
+]

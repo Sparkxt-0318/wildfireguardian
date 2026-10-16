@@ -1,0 +1,13 @@
+{
+  "status": "PASS_FRESH_EXTRACTION_AND_SOURCE_SETUP_ONLY",
+  "archive_sha256": "661090bd059a862a9874c4e19977c105d1978bf32ee6d6d3cd7f6d40d244c006",
+  "archive_verifier": "PASS: 4680 evidence archive member identities.\nThis checks preserved bytes; use the independent report for scientific verification scope.",
+  "frozen_files_copied": 353,
+  "grading_files_copied": 3,
+  "existing_destination_refused": true,
+  "foreign_busy_lease_bytes_preserved": true,
+  "python_syntax_files": 9,
+  "entry_readme_links_broken": [],
+  "credential_pattern_hits": [],
+  "new_scored_or_numerical_executions": 0
+}

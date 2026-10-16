@@ -1,0 +1,4142 @@
+[
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 4
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 2.7847337751104284
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 14384
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "a605b8af4e4d94bd3350cd4c71ce00e2bf4363aeb3e5e0740bad86c17806049a",
+   "original_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+   "planning_request": "3035c6f35b4ec512ee61eccca7935ef4187dd99d85d45a04eff0967b2f586bfd"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.6024255822754,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 2.7847337751104284
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 14384
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "bdfd3f2d13e55fa6e5bb809796e1c2eb6893c5ef6e417eb6710054a863845f16",
+   "original_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+   "planning_request": "3035c6f35b4ec512ee61eccca7935ef4187dd99d85d45a04eff0967b2f586bfd"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.6024255822754,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 2.7847337751104284,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 2.7847337751104284
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+   "planning_request": "b6c532b1cd997a201276a04b0dd25868ac00be73a5d7481efcda6ec3a84686ac"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.6024255822754,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+   "planning_request": "a6a198c9fb50ea40339a4d6e23658b0d0c962972e8ac7d777e0d005d251017e3"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.6024255822754,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+   "planning_request": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.6024255822754,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 20
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 2.354413100449685
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "9064be82695935419beddc9bd68a50f33b2273c196be39e8b66a7e251f93d661",
+   "original_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+   "planning_request": "4b1cd326c70a003f99ba256f82ecad1b958a5636b472cfe27baf4ec6596b4890"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.473329379877,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 2.354413100449685
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a88ed9e01aa7bf5eac83687c2fc369dd236163da7418a3a939a6be0b010127d",
+   "original_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+   "planning_request": "4b1cd326c70a003f99ba256f82ecad1b958a5636b472cfe27baf4ec6596b4890"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.473329379877,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 2.354413100449685,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 2.354413100449685
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+   "planning_request": "7b96e9885d483a3dac20844b7c14f1854a8387eb35dde3ed2fca65497e5466ee"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.473329379877,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+   "planning_request": "887fed031002ae0781e02c2e0693cecef12dbf99e77e867c40e23800ae6b5d7e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.473329379877,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+   "planning_request": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2531.473329379877,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 24
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 1339.2184744370124
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "552e3730fb0e21f6cf21ec67ec89d5e1ba161dad82fef3e8b554b3349adf93ec",
+   "original_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+   "planning_request": "5fe3dd76310c9b4828320d1045317845fb0f26c26b8d3ce27361ee90a0a33756"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2932.532547780846,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 1339.2184744370124
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "8fab2c7854173840e55528a178208b527d854618c20b59718d06be2009bf145e",
+   "original_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+   "planning_request": "5fe3dd76310c9b4828320d1045317845fb0f26c26b8d3ce27361ee90a0a33756"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2932.532547780846,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 1339.2184744370124,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 1339.2184744370124
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+   "planning_request": "c22b9aa2bdb1339e5bc19d7858f24f611464e84bfa6344eec9d095722a311db3"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2932.532547780846,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+   "planning_request": "5a1e2b6320a31b890d2ad72bd7d6be49bca5a4e10beb8eb06738adbe6c4b3cda"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2932.532547780846,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+   "planning_request": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2932.532547780846,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FX1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 633
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 283.36498150396017
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 99645
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "c2318f685c3f5c7111b877fe7524cee46a1c666983b7cc67a23ea06e24b39a98",
+   "original_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+   "planning_request": "ec653b9e371ed2d978aef77de096b3e09751e6146344045e68b4d05d89f47067"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2193.9819989926395,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 283.36498150396017
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 99645
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "f36e13ccd9cdb5b5c3fecf0efaef5a720aac4f369ae5bcfd6b0e4ee6a539ac4a",
+   "original_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+   "planning_request": "ec653b9e371ed2d978aef77de096b3e09751e6146344045e68b4d05d89f47067"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2193.9819989926395,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 283.36498150396017,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 283.36498150396017
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+   "planning_request": "39500a527268de4999f34a833a5bad265ddc9bd455023aaa671498a046692049"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2193.9819989926395,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+   "planning_request": "6bce4d3a759ffad069dad29530933fafcfa439c616d17b86fad034fbf8544ece"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2193.9819989926395,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+   "planning_request": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2193.9819989926395,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 2896
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 105.41026068090713
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 57084
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "c73ebd9d3c7198cecbddb7e9d6285c08c52b7af41e8e5c7ccc331272c2dad491",
+   "original_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+   "planning_request": "918b12f38415082fda5039695ed946733278d9407d98fb423277aa7b6f64b87e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2562.3900836540142,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 105.41026068090713
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 57084
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "a6eae68ac45ddc2fbbe6af75f594c88e15ef8c08f36028c93f59bd7713a28923",
+   "original_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+   "planning_request": "918b12f38415082fda5039695ed946733278d9407d98fb423277aa7b6f64b87e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2562.3900836540142,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 105.41026068090713,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 105.41026068090713
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+   "planning_request": "f2276a0f96d94d94d6f6fa01c2894917c9d5cad860669f36445c5daa93f9543f"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2562.3900836540142,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+   "planning_request": "eb965eda999109c1d2897c97f480c82f36e9c0a178b9d77f41adedd83a01b80a"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2562.3900836540142,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+   "planning_request": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2562.3900836540142,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FX2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 242
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T060000Z:75ebc90f278df40c:0": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:1": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:2": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 32364
+   }
+  ],
+  "sha256": {
+   "original_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "planning_hazard": "248bc435d1e05f2661d097711604d0384e6dbfa932935fc69da71bd02df4811d",
+   "original_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+   "planning_request": "b662dac2a6603f9fb16c8ccf6e72e361f728d0de1d716f7918510756b97e2af6"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T060000Z:75ebc90f278df40c:0": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:1": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:2": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 32364
+   }
+  ],
+  "sha256": {
+   "original_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "planning_hazard": "5db8dbd82ee298c4d59006009988162e126ab64b983e1c4ca2d7e6eb6a8cfad3",
+   "original_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+   "planning_request": "b662dac2a6603f9fb16c8ccf6e72e361f728d0de1d716f7918510756b97e2af6"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T060000Z:75ebc90f278df40c:0": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:1": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:2": 100,
+     "ffb1:20220304T060000Z:75ebc90f278df40c:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "planning_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "original_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+   "planning_request": "8f90cd0bd9ab4f222f3dfdb34b5e5cd8844f7bf5684193e05210e4067dc334c4"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "planning_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "original_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+   "planning_request": "94df5396c4b30da92bbff2f0f82daba75bfcb978440cde0933b5f9325f4eacb1"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "planning_hazard": "bdfea1ab20231384d987858f1193d758e831206b6c1c4bd282a9106d632967c1",
+   "original_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+   "planning_request": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T060000Z_FL1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 8
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T020000Z:8d74e513a7acb765:0": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:1": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:2": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "planning_hazard": "611bd35a6a099bde8fd82472109d18a6b839df6fcf572dd69547bb948ec94b47",
+   "original_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+   "planning_request": "b45abf5297a6890d1e150e8b41f41b8e4a3fb9740dfb088b4d76b8330c8967c0"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T020000Z:8d74e513a7acb765:0": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:1": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:2": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "planning_hazard": "4bed126142ed34ec1ed8743b38b49584c86c80b328fcc6f9fcd30d29610168fe",
+   "original_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+   "planning_request": "b45abf5297a6890d1e150e8b41f41b8e4a3fb9740dfb088b4d76b8330c8967c0"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T020000Z:8d74e513a7acb765:0": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:1": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:2": 100,
+     "ffb1:20220601T020000Z:8d74e513a7acb765:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "planning_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "original_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+   "planning_request": "86963ca1b630f6bc0ff3589b2270b04e9469627983e4ffd9c68332b105f41556"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "planning_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "original_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+   "planning_request": "cc4cd77897b055b4e4e2c12ea314262ff49d6cb9a8fbf34d74b86f813502d8a7"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "planning_hazard": "ea06ecfd8b25d9ee0bb8fa3ef77a8852305eb8a5f23a6d026bc8b3942478adba",
+   "original_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+   "planning_request": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6db75e5ecdd76b306070c4c1f44fc0a9255a193c2186aeeae73f6195ce5598b0"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T020000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 24
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T140000Z:c039b5e7d013322e:0": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:1": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:2": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "planning_hazard": "5d014127bf11d8b359af2d6edd53ceab8e34b1762bdaf10fd08db1789ce5d141",
+   "original_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+   "planning_request": "eea541cfeed3be9813ef93037b2dda1518d71d20fb411269f22265abb9fb1369"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T140000Z:c039b5e7d013322e:0": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:1": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:2": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "planning_hazard": "38882607c00b2be21caf68f60c3d3bae9e09ad3b4cff88e32c220ab79099d2d0",
+   "original_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+   "planning_request": "eea541cfeed3be9813ef93037b2dda1518d71d20fb411269f22265abb9fb1369"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T140000Z:c039b5e7d013322e:0": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:1": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:2": 100,
+     "ffb1:20230402T140000Z:c039b5e7d013322e:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "planning_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "original_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+   "planning_request": "803658b6f3e53fee18e7c487ef57ab1fee98ec50af019c18daf5a0675d62cbc6"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "planning_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "original_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+   "planning_request": "57db1a9604131b8a284eca5aa5c66a1c47a826e78e682dd03b1166dfe418fefe"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "planning_hazard": "4726a91bc9ad038a46c3b82000d009bbee67ed54717bb1a93f405f99ee26100f",
+   "original_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+   "planning_request": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "ffa43a238994a7b89f13e3c7d39eb3280725c09c5d6266b660abaed74833768a"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T140000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 325
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250324T090000Z:08721049cc48e045:0": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:1": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:2": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 137605
+   }
+  ],
+  "sha256": {
+   "original_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "planning_hazard": "62b29161ceac467c1508eb9e15d36cccbfeb16bd76bac9ce1c34f856e7999960",
+   "original_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+   "planning_request": "5ee0fd7b1978ac397b8de05238af23c2b56e7453ac0482bcfd3f2752b9a7bb3c"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250324T090000Z:08721049cc48e045:0": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:1": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:2": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 137605
+   }
+  ],
+  "sha256": {
+   "original_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "planning_hazard": "d644ceeead70cac39c54a5906aad42fec92aa8a5cee6220a645c49c18061f9b4",
+   "original_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+   "planning_request": "5ee0fd7b1978ac397b8de05238af23c2b56e7453ac0482bcfd3f2752b9a7bb3c"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250324T090000Z:08721049cc48e045:0": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:1": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:2": 100,
+     "ffb1:20250324T090000Z:08721049cc48e045:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "planning_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "original_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+   "planning_request": "307de9b1a26ffcbb6c5cf3b3a285628a22d28eff7388156d8a75868120ee3b68"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "planning_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "original_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+   "planning_request": "371054e15d4258467b906b265eefdcf62bbec16bfbae0c7940cef6df032ff027"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "planning_hazard": "f3408e5b5bd2fabc65bd403831d375236a777e1e49179a9564bb19e591e31015",
+   "original_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+   "planning_request": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "73e04945b64026340ea6f923d1641b4afeeb2cf9f7bbd653f5f61489c27e4f75"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250324T090000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 241
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:0": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:1": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:2": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 23785
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "planning_hazard": "304f8f4252881695130b3692f11f3969623f705564caeb5fd355cd2057c78dc1",
+   "original_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+   "planning_request": "216764463e2d456b34e9b97a8cc33c656f97e7c95e60179529c0437eeeebc496"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:0": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:1": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:2": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 23785
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "planning_hazard": "07dd5042bf12fc3d1e8444147edf9b9f7118e4ab1ad8ad7e88dbe71486ef6ec7",
+   "original_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+   "planning_request": "216764463e2d456b34e9b97a8cc33c656f97e7c95e60179529c0437eeeebc496"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:0": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:1": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:2": 100,
+     "ffb1:20250325T230000Z:c1b46f3c00c2036c:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "planning_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "original_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+   "planning_request": "bc3da12e41786241640c1882bfca7f3cff9da0c043223f4104e0822cddbc3f3e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "planning_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "original_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+   "planning_request": "f2ce6f628de63e9efaf325f0dbbe73243b693767a38609c674cf8a30c92e9d30"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "planning_hazard": "d93f9152947bdedb5650256db4cd4d321e3f30564ed03470c4f7230b284b7ea2",
+   "original_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+   "planning_request": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T230000Z_FL2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 155
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T120000Z:5b266501e78de3aa:0": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:1": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:2": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 35960
+   }
+  ],
+  "sha256": {
+   "original_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "planning_hazard": "a55656fe1791908878ea45041aa27f3dc4151d4bcb5811004d31106f3fc5bb2a",
+   "original_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+   "planning_request": "aac723b9b470da9321f27d84ec29bca62aa9bf563118ad4d37f8a015f3fa69c2"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T120000Z:5b266501e78de3aa:0": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:1": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:2": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 35960
+   }
+  ],
+  "sha256": {
+   "original_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "planning_hazard": "ff9c4f8981e1fc8eb5707632359ae8e14f918e919d67ae893ba8c073c89efdcf",
+   "original_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+   "planning_request": "aac723b9b470da9321f27d84ec29bca62aa9bf563118ad4d37f8a015f3fa69c2"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T120000Z:5b266501e78de3aa:0": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:1": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:2": 100,
+     "ffb1:20220304T120000Z:5b266501e78de3aa:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "planning_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "original_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+   "planning_request": "67efc56010bebf1d972c8f476aa6ee14b7ce847c565eca29e96175a0aa9c3177"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "planning_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "original_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+   "planning_request": "88fbb98f9e831618f27346e73caf0786301043dd46bfbf9878cbd2f4fc2acd7e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "planning_hazard": "acfec98f0ff813acf026069d0943a8b0499dd7cd75211d5bd45773e54e49c562",
+   "original_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+   "planning_request": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T120000Z_FW2"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 20
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "9064be82695935419beddc9bd68a50f33b2273c196be39e8b66a7e251f93d661",
+   "original_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+   "planning_request": "3a0a87d33e9ecf4e8e7af91e762082bcd0e3169a4136593099105b8b38020518"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a88ed9e01aa7bf5eac83687c2fc369dd236163da7418a3a939a6be0b010127d",
+   "original_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+   "planning_request": "3a0a87d33e9ecf4e8e7af91e762082bcd0e3169a4136593099105b8b38020518"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:0": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:1": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:2": 100,
+     "ffb1:20220601T080000Z:aa27c21fa688aa74:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+   "planning_request": "b5d44b1ad046fb13e9b9e962df656a7dbddf69ce1475f2a09c9128d5d9fda2e1"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+   "planning_request": "0165f8764243a168aae69d3b7e1682440ad5c36aae8db97aeb68f08b3809ca92"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "planning_hazard": "6a5fbf633bd8aa8d818c74544d0e106d58e8c6fd6bc887b1946ddd9f9f44dddf",
+   "original_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+   "planning_request": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220601T080000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 16
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T230000Z:247138a35dcddc50:0": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:1": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:2": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "planning_hazard": "650748d27a76b40918b833a495bcc554200fce8854ff1e771e8af25b8876bd49",
+   "original_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+   "planning_request": "697a50baab18b7aa5a57bf8182d5a3e32f5fd46f194c1bb2ec4c564f07f7c39a"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T230000Z:247138a35dcddc50:0": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:1": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:2": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "planning_hazard": "9e3adf49d4001c4c69c7e5a0a04d884535f8e25827089891a79e525ff3d65111",
+   "original_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+   "planning_request": "697a50baab18b7aa5a57bf8182d5a3e32f5fd46f194c1bb2ec4c564f07f7c39a"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T230000Z:247138a35dcddc50:0": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:1": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:2": 100,
+     "ffb1:20230402T230000Z:247138a35dcddc50:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "planning_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "original_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+   "planning_request": "6b3526eed95177cb0a86d27376b5edf53eac115a7ffa63167b8df5fceabbaec1"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "planning_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "original_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+   "planning_request": "fc30c032f4bac63d36b813a2b762cd9bad28806f647af500db442f126ae287b3"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "planning_hazard": "4b4826951dc93f308e5a79c718fd8dbb59685979803c2578a2223cbcd23f55af",
+   "original_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+   "planning_request": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "1d78731166d0edbf48f7a3fc0af3368560bdb0ea26a3a8f5452cf78813ba226e"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T230000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 10303
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 104390
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "planning_hazard": "0de6fc76d60132f07132255d24b6c0cb807b20105edf2ba9f13259700d02055b",
+   "original_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+   "planning_request": "5d39351a8092c244fe197162ab66f56b82518ed05b74f4f96dafa76cc3ed4b5e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 104390
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "planning_hazard": "8b123b633387d799b13941fbe5b59a9700e34398344e74aa3055091c82847442",
+   "original_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+   "planning_request": "5d39351a8092c244fe197162ab66f56b82518ed05b74f4f96dafa76cc3ed4b5e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 100,
+     "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "planning_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "original_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+   "planning_request": "130faa3e43a812e56c112480ed2fa5683523cd8c7cbf098edaf2ad5190b8e03e"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "planning_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "original_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+   "planning_request": "8d4d79b183ff2ec3add7f123e24c447826a0ba9e922e09ee8370bc56c74956f1"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "planning_hazard": "d42fe7aa56eb16b062e4ea0c0e3720c52920d07f2f79660ef0edf76e2d2f278e",
+   "original_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+   "planning_request": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "6300a1f09d1baa448b69ee458e0e8062382cbdb8f89464e6bc5e79840c98525e"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250325T170000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 48
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:1": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:2": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 19028
+   }
+  ],
+  "sha256": {
+   "original_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "planning_hazard": "65fbc2f48525dac54ca041d6ccd911b6d9a3021ca4c3149cd0030a4b163212dc",
+   "original_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+   "planning_request": "bafdb1d3074b03c8538cf0050b7b3c053da045370fbcbbd25a3a910921f151f0"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:1": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:2": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 19028
+   }
+  ],
+  "sha256": {
+   "original_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "planning_hazard": "3ebaff23df8aa2e9e3af37ba2d987a9694d198d337360011d072668954853930",
+   "original_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+   "planning_request": "bafdb1d3074b03c8538cf0050b7b3c053da045370fbcbbd25a3a910921f151f0"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:1": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:2": 100,
+     "ffb1:20250326T080000Z:d8d21b8e3ced8a48:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "planning_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "original_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+   "planning_request": "cdf3f7c7cb5d3eef23ba2e0822a57ae4152196a4ddb1a6d4982a7901ff1261e8"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "planning_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "original_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+   "planning_request": "1159cbebf1608915fc885ddd1d11f522cfbbcccbc2112cbedd8842d92b57ba2d"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "planning_hazard": "3d2c86606fdd4172cf8bb9f627fb9e01fb6b5d9dbdfac37e65b6036cd24c87f5",
+   "original_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+   "planning_request": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2319.869754995597,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250326T080000Z_FW1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 4
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 14384
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "a605b8af4e4d94bd3350cd4c71ce00e2bf4363aeb3e5e0740bad86c17806049a",
+   "original_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+   "planning_request": "723d0948617a0fd2a3b8a5cafb866e4ffcba298089f1cf7c1005aa3a96ca15a9"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 14384
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "bdfd3f2d13e55fa6e5bb809796e1c2eb6893c5ef6e417eb6710054a863845f16",
+   "original_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+   "planning_request": "723d0948617a0fd2a3b8a5cafb866e4ffcba298089f1cf7c1005aa3a96ca15a9"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:0": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:1": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:2": 100,
+     "ffb1:20220304T030000Z:163ba1c65bd35c6e:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+   "planning_request": "b46357e57f4ce8d5ca602f66ebaf70006783f9735fb1969925eb307aa278f844"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+   "planning_request": "30475533b2ea3dab171e5037a9484087fb68f20d8d4e56e4795dc80a611526e0"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "planning_hazard": "845d7225230bcbbbe0795aaa85c7fb47aa03c82b257d9a87279874a772ad4c4b",
+   "original_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+   "planning_request": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d"
+  },
+  "cohort": "uljin_2022",
+  "case_id": "20220304T030000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 12
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220531T100000Z:40b532dc599ca183:0": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:1": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:2": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:3": 0.1574681791849915
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "planning_hazard": "4ad7b128e37e398ec0a55b24205859fd923f2c4d832973d7889c148c13aa139c",
+   "original_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+   "planning_request": "e340d255fb73e0cc0f9b8d574ba5ea0653f7e4ad01a2d86b22ffe5b2bf1aa65b"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220531T100000Z:40b532dc599ca183:0": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:1": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:2": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:3": 0.1574681791849915
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 748
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "planning_hazard": "b10a1c8da549b4bf79ee3669041655884fb9d564df7b917b4caae3f8f2576a81",
+   "original_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+   "planning_request": "e340d255fb73e0cc0f9b8d574ba5ea0653f7e4ad01a2d86b22ffe5b2bf1aa65b"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20220531T100000Z:40b532dc599ca183:0": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:1": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:2": 0.1574681791849915,
+     "ffb1:20220531T100000Z:40b532dc599ca183:3": 0.1574681791849915
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "planning_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "original_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+   "planning_request": "ad4e6ddb2c5a1293c2debbded744fe67d468702fedfe39bc60d913ca9ed58331"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "planning_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "original_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+   "planning_request": "45166fa9f453084c11bd46a1ca91af6e693ea99799ace9fce4413549a8768734"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "planning_hazard": "d4df9fdc8132a1068e0b1111cc5dc08abfd3e89c91bc10b3522d4644130bbfbd",
+   "original_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+   "planning_request": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "5d909cb3c0f6e413cb01b578cac9c97e12e3b8a72c8f3fff7a35105a5e83ad39"
+  },
+  "cohort": "miryang_2022",
+  "case_id": "20220531T100000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 24
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 0.059427700720859386
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "552e3730fb0e21f6cf21ec67ec89d5e1ba161dad82fef3e8b554b3349adf93ec",
+   "original_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+   "planning_request": "bebea5d7fc045e1f47654734813ee38545be0f2dfcf1ac4b39f6a3733efd801d"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 0.059427700720859386
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 1296
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "8fab2c7854173840e55528a178208b527d854618c20b59718d06be2009bf145e",
+   "original_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+   "planning_request": "bebea5d7fc045e1f47654734813ee38545be0f2dfcf1ac4b39f6a3733efd801d"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:0": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:1": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:2": 0.059427700720859386,
+     "ffb1:20230402T070000Z:09414bcd4c0943dd:3": 0.059427700720859386
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+   "planning_request": "206dae983dcee41a831ca1507b98385e0b97397d37ca859fe00a8dd8cf15e084"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+   "planning_request": "ff745211146bababc0769e6bec4ca9659ec99e80ad4a96d5766e9688a8596f25"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "planning_hazard": "605c444ec71299acb8116b88a7dc82dcce4d2728e41e71da7cce34eaf73e8aaa",
+   "original_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+   "planning_request": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d"
+  },
+  "cohort": "hongseong_2023",
+  "case_id": "20230402T070000Z_FN1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 633
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 99645
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "c2318f685c3f5c7111b877fe7524cee46a1c666983b7cc67a23ea06e24b39a98",
+   "original_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+   "planning_request": "9e3f376a23b4eefa3c1c0720efd9d0703625c3d1943effd0456e2a8b03d88391"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 99645
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "f36e13ccd9cdb5b5c3fecf0efaef5a720aac4f369ae5bcfd6b0e4ee6a539ac4a",
+   "original_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+   "planning_request": "9e3f376a23b4eefa3c1c0720efd9d0703625c3d1943effd0456e2a8b03d88391"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:1": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:2": 100,
+     "ffb1:20250323T010000Z:da4a13e53bc0b6a2:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+   "planning_request": "2f78587f0cdb3a777011c22512fbe7310dc7a36094e9f9a7b67748400bcdb350"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+   "planning_request": "b877151904a81e04a8d369a58419d02c1b4b93ef383a6cac856f58e946ec745b"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "planning_hazard": "1490536d35005f833fac012055c9fb13a21fc39d47feb0019845adbb46b5c02c",
+   "original_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+   "planning_request": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2108.9725045414516,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "129c58fa76918dfca626e21d9bcb409b156746945f6e91b390d68bbc486a2199"
+  },
+  "cohort": "uiseong_andong_2025",
+  "case_id": "20250323T010000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A0",
+  "enabled": [],
+  "disabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "hazard.members[*].flame[k][cell]",
+    "new": false,
+    "true_entries_cleared": 2896
+   },
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 57084
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "c73ebd9d3c7198cecbddb7e9d6285c08c52b7af41e8e5c7ccc331272c2dad491",
+   "original_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+   "planning_request": "056e2134917e96ad2ec1d7cde427fa28f65cac93bb8359262a07d18f62e8417c"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A1",
+  "enabled": [
+   "FLAME"
+  ],
+  "disabled": [
+   "DOSE",
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": true,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   },
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 100
+    },
+    "new": 1000000000000.0
+   },
+   {
+    "field": "hazard.members[*].flux[k][cell]",
+    "new": 0.0,
+    "nonzero_entries_cleared": 57084
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "a6eae68ac45ddc2fbbe6af75f594c88e15ef8c08f36028c93f59bd7713a28923",
+   "original_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+   "planning_request": "056e2134917e96ad2ec1d7cde427fa28f65cac93bb8359262a07d18f62e8417c"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A2",
+  "enabled": [
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [
+   "DOSE"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.dose[*]",
+    "old": {
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:0": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:1": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:2": 100,
+     "ffb1:20250325T190000Z:20cb6955b51ab0c6:3": 100
+    },
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+   "planning_request": "a351aa138f341389b2ee543729f8b3078fe8901f2c174bd6a3a04d8f931b8d86"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A3",
+  "enabled": [
+   "DOSE",
+   "FLAME"
+  ],
+  "disabled": [
+   "PEAK"
+  ],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [
+   {
+    "field": "request.budgets.peak",
+    "old": 10,
+    "new": 1000000000000.0
+   }
+  ],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+   "planning_request": "7266922445adf1b6a8142523edd35887d5fefdfd7717d33c14c1455ee1eb17c8"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1"
+ },
+ {
+  "schema": "wfg.ablation.arm-transform/1",
+  "arm": "A4",
+  "enabled": [
+   "DOSE",
+   "FLAME",
+   "PEAK"
+  ],
+  "disabled": [],
+  "sentinel": 1000000000000.0,
+  "flux_zeroed": false,
+  "changed_fields": [],
+  "sha256": {
+   "original_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "planning_hazard": "0940696c9d8b9724531f932478fe20c493bb28da2b3f26653f8d3ec52a897277",
+   "original_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+   "planning_request": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc"
+  },
+  "sentinel_whole_road_bound": {
+   "planar_solid_angle_cap_kw_m2": 0.7029908348471505,
+   "maximum_total_dose_kj_m2": 2530.767005449742,
+   "proof": "all coplanar nonoverlapping source rectangles subtend total solid angle <= 2*pi, so total incident flux <= density/2; units W->kW divide1000",
+   "S_gt_1000x_both": true,
+   "assumption_source_sha256": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b"
+  },
+  "cohort": "yeongdeok_2025",
+  "case_id": "20250325T190000Z_FD1"
+ }
+]

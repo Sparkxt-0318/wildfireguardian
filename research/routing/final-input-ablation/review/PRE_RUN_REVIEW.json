@@ -1,0 +1,38 @@
+{
+  "PASS": true,
+  "status": "PASS_BOUNDED_PRE_RUN_SOURCE_AND_POLICY_REVIEW",
+  "reviewer": "independent ablation reviewer",
+  "checked_at_utc": "2026-10-16T04:04:12.555451+00:00",
+  "freeze_sha256": "eb5174bb97d98e19a23a552992d9d9ad5046b3e18ccb19f33d741a96ccd7a9bb",
+  "freeze_file_count": 353,
+  "protocol_sha256": "0fbca43db82375c7dbc868bf7372e4fc3a6366208391c0f4c852dfe5154a40bd",
+  "worker_patch_sha256": "bc9219ae1852037b97bf9d098c72290d2bcb7a0444e7065b19d4a9c9ee0abb72",
+  "independent_identity_audit_sha256": "f3b85b715e5ed512c72a028380ed6f9819173b6cdfc20513ee119dc3fa38e063",
+  "scope": "Pre-run review of declared final-input constraint ablation; native lifecycle/real policy preflight enforced separately by unchanged controller and launcher. This is not scored performance acceptance.",
+  "verified": [
+    "20 exact final missions, five policies, two repetitions, 200 unique slots",
+    "all original graph, source packet, request non-budget fields and incurred values preserved",
+    "only declared flame/peak/dose policies differ; support, turns, wait/destination grammar, dwell, horizon remain",
+    "finite sentinel independently bounded using source radiative density/2 and mission duration plus incurred",
+    "A4 original planning input values and direct original checker path retained",
+    "source-derived contact intervals disabled only for A0, thermal prefilter bypassed only A0/A1",
+    "A0/A1 own mission/contact evidence preserves trajectory and graph/source binding",
+    "A2/A3 preserve raw adaptive evidence and reuse one checker object; helper final cap remains authoritative",
+    "core, bound, sweep, publication, preparation, controller and decision modules unchanged",
+    "all353 frozen files match before scored execution"
+  ],
+  "resolved_findings": [
+    "Historical helper stripped evidence now required by final decision interface: preserved trajectory and graph identities before freeze",
+    "Avoidable duplicate thermal checker construction: reused original one-object lifecycle before freeze",
+    "Potential helper cap masking during raw unwrapping: outer unresolved status preserved before freeze"
+  ],
+  "withdrawn_findings": [
+    "Initial launcher file-collision concern withdrawn after full write_new source showed numbered immutable siblings; no amendment needed."
+  ],
+  "limits": [
+    "Runtime whole-road radiation certificate remains conditional: independent continuous-road radiation enclosure not provided by this study",
+    "Weak-policy certificate vocabulary is policy-relative, never full-policy acceptance",
+    "Finite panel cannot establish population generalization or physical safety",
+    "No favorable retries; preserve interrupted, failed, capped or rejected attempt evidence"
+  ]
+}

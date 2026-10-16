@@ -1,0 +1,12 @@
+{
+ "utc": "2026-10-16T04:21:28.200195+00:00",
+ "revision": 7,
+ "reason": "pre-grading align checked-incumbent route extraction with collector; no grading output exists",
+ "offline_radiation_wall_cap_s": 90,
+ "outer_per_unique_grade_cap_s": 210,
+ "files": {
+  "grade_all.py": "994f4fd80624431a438a51ccb6c6fab5da331cb186f8854a29482c90de961d5f",
+  "study/runner/grade_route.py": "dd216c08b0a1658f4e20af522337634c2e49c56f01b4dc7982c2d6f37ed4283a",
+  "run_grading.py": "e836580a194540ee2615c8e378700e3519720efffce6f0480ea439981c3a8895"
+ }
+}

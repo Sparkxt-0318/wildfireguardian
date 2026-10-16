@@ -1,0 +1,30 @@
+{
+  "member": "ffb1:20250324T090000Z:08721049cc48e045:2",
+  "segment_index": 127,
+  "segment_kind": "EDGE",
+  "edge": "w29993932:s39:r",
+  "router_cell": 1038,
+  "time_exact": "139631267588144/175783105641",
+  "time": 794.3383812623694,
+  "occupancy_exact": [
+    "139631267588144/175783105641",
+    "795"
+  ],
+  "phase_exact": [
+    "2177995585549943/4398046511104",
+    "19640282166373697/4398046511104"
+  ],
+  "phase": "FUTURE",
+  "interpolation_fraction": 0.9651779611773343,
+  "x_epsg5179": 1100100.4990277423,
+  "y_epsg5179": 1821000.0,
+  "edge_occupied_by_leg": {
+    "kind": "EDGE",
+    "edge": "w29993932:s39:r",
+    "start": 776,
+    "end": 795,
+    "from_fraction": 0,
+    "to_fraction": 1
+  },
+  "mapping": "constant speed on recorded straight road edge between supplied nodes; exact independent contact time retained above"
+}

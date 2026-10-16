@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1040" height="470" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1040 470" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1040" height="470"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-470)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1040" height="470" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="20" y="435" width="17" height="17" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="47" y="438" style="font-family: Helvetica; font-size: 17px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,876) scale(1,-1)">Route passes full rules</text>
+			<rect x="530" y="435" width="17" height="17" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(76%,39%,26%); fill-rule: evenodd;"/>
+			<text x="557" y="438" style="font-family: Helvetica; font-size: 17px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,876) scale(1,-1)">Route violates full rules</text>
+			<rect x="20" y="406" width="17" height="17" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(75%,56%,21%); fill-rule: evenodd;"/>
+			<text x="47" y="409" style="font-family: Helvetica; font-size: 17px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,818) scale(1,-1)">No admissible route (model)</text>
+			<path d="M 324,64 L 324,360 Z" style="stroke: rgb(87%,90%,91%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319.552" y="39" style="font-family: Helvetica; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,78) scale(1,-1)">0</text>
+			<path d="M 464,64 L 464,360 Z" style="stroke: rgb(87%,90%,91%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="459.552" y="39" style="font-family: Helvetica; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,78) scale(1,-1)">5</text>
+			<path d="M 604,64 L 604,360 Z" style="stroke: rgb(87%,90%,91%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="595.104" y="39" style="font-family: Helvetica; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,78) scale(1,-1)">10</text>
+			<path d="M 744,64 L 744,360 Z" style="stroke: rgb(87%,90%,91%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="735.104" y="39" style="font-family: Helvetica; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,78) scale(1,-1)">15</text>
+			<path d="M 884,64 L 884,360 Z" style="stroke: rgb(87%,90%,91%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="875.104" y="39" style="font-family: Helvetica; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,78) scale(1,-1)">20</text>
+			<text x="15" y="337" style="font-family: Helvetica; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,674) scale(1,-1)">Travel time only</text>
+			<rect x="324" y="328" width="336.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="481.992" y="337" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,674) scale(1,-1)">12</text>
+			<rect x="660.0" y="328" width="224.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(76%,39%,26%); fill-rule: evenodd;"/>
+			<text x="766.996" y="337" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,674) scale(1,-1)">8</text>
+			<text x="920" y="337" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,674) scale(1,-1)">12/20</text>
+			<text x="15" y="282" style="font-family: Helvetica; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,564) scale(1,-1)">Flame avoidance</text>
+			<rect x="324" y="273" width="420.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="523.992" y="282" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,564) scale(1,-1)">15</text>
+			<rect x="744.0" y="273" width="140.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(75%,56%,21%); fill-rule: evenodd;"/>
+			<text x="808.996" y="282" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,564) scale(1,-1)">5</text>
+			<text x="920" y="282" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,564) scale(1,-1)">15/20</text>
+			<text x="15" y="227" style="font-family: Helvetica; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,454) scale(1,-1)">Flame + peak flux</text>
+			<rect x="324" y="218" width="420.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="523.992" y="227" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,454) scale(1,-1)">15</text>
+			<rect x="744.0" y="218" width="140.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(75%,56%,21%); fill-rule: evenodd;"/>
+			<text x="808.996" y="227" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,454) scale(1,-1)">5</text>
+			<text x="920" y="227" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,454) scale(1,-1)">15/20</text>
+			<text x="15" y="172" style="font-family: Helvetica; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,344) scale(1,-1)">Flame + cumulative exposure</text>
+			<rect x="324" y="163" width="420.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="523.992" y="172" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,344) scale(1,-1)">15</text>
+			<rect x="744.0" y="163" width="140.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(75%,56%,21%); fill-rule: evenodd;"/>
+			<text x="808.996" y="172" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,344) scale(1,-1)">5</text>
+			<text x="920" y="172" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,344) scale(1,-1)">15/20</text>
+			<text x="15" y="117" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,234) scale(1,-1)">Full policy</text>
+			<rect x="324" y="108" width="420.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,38%,51%); fill-rule: evenodd;"/>
+			<text x="523.992" y="117" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,234) scale(1,-1)">15</text>
+			<rect x="744.0" y="108" width="140.0" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(75%,56%,21%); fill-rule: evenodd;"/>
+			<text x="808.996" y="117" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,234) scale(1,-1)">5</text>
+			<text x="920" y="117" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,234) scale(1,-1)">15/20</text>
+			<text x="920" y="373" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,746) scale(1,-1)">Pass full rules</text>
+			<text x="411.73" y="10" style="font-family: Helvetica; font-size: 17px;fill: rgb(9%,18%,23%); stroke:none;" transform="translate(0,20) scale(1,-1)">Missions with the same outcome in both repetitions</text>
+		</g>
+	</g>
+</svg>

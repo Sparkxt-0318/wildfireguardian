@@ -1,0 +1,6 @@
+policy,label,full,other,refusal,unresolved,denominator
+A0,Travel time only,12,8,0,0,20
+A1,Flame avoidance,15,0,5,0,20
+A2,Flame + peak flux,15,0,5,0,20
+A3,Flame + cumulative exposure,15,0,5,0,20
+A4,Full policy,15,0,5,0,20

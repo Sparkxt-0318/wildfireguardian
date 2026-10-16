@@ -1,0 +1,20 @@
+{
+ "schema": "wfg.final-input-ablation.review-join/1",
+ "utc": "2026-10-16T04:36:34.547993+00:00",
+ "producer_rows_sha256": "7fa30bb2c6055c4cfca3e4486fb170267f042f2670177b77c6efb57306dc5a6b",
+ "producer_csv_sha256": "267267ed8ff78586bdd06fd62420a5bde163b7970e4d9cfa99f3efcd709ef156",
+ "independent_refusal_sha256": "e1dc25ee6308a938f0b79feb51d705bc5164825a53538684e7183576db8efe54",
+ "join_script_sha256": "84f39b8fd372a2a9ff461723c533f39b4e5fa4eebcabda905463c2e78590e2e8",
+ "reviewed_rows_sha256": "4ec6aecb9cddc0a43829f3a1def6a83e1d25a8deda4aecc37f51c923351f6a25",
+ "reviewed_csv_sha256": "813c9856c87fd64b0c2bea7fba0fa6cc6997325d5abdea145e94b407c69eff4b",
+ "join_key": "label; policy/cohort/case_id checked",
+ "rows": 200,
+ "refusal_rows_enriched": 40,
+ "only_modified_original_field": "independent_refusal_status",
+ "added_field": "independent_refusal_proof_context",
+ "scientific_outcomes_arrivals_routes_timings_unchanged": true,
+ "counts_unchanged": true,
+ "refusal_statuses": {
+  "INDEPENDENTLY_VERIFIED_INFEASIBLE": 40
+ }
+}

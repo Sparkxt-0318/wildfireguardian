@@ -1,0 +1,23 @@
+[
+ {
+  "comparison": "A1 vs A2",
+  "outcome_differences": 0,
+  "arrival_differences": 0,
+  "route_hash_differences": 0,
+  "executions": 40
+ },
+ {
+  "comparison": "A1 vs A3",
+  "outcome_differences": 0,
+  "arrival_differences": 0,
+  "route_hash_differences": 0,
+  "executions": 40
+ },
+ {
+  "comparison": "A3 vs A4",
+  "outcome_differences": 0,
+  "arrival_differences": 0,
+  "route_hash_differences": 0,
+  "executions": 40
+ }
+]

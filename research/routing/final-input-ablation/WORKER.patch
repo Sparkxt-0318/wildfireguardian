@@ -1,0 +1,81 @@
+--- sealed/rda_worker_v1_1.py
++++ study/ablation_worker.py
+@@ -140,6 +140,13 @@
+             raise ValueError('SOURCE_HASH_MISMATCH:' + n)
+         STATE['identities']['source:' + n] = {'path': str(packet / n), 'sha256': actual}
+     graph, hazard, original = (objects[k] for k in ('graph_path', 'hazard_path', 'request_path'))
++    from arm_transform import ENABLED
++    policy = job['policy']; enabled = ENABLED[policy]
++    full_request_path = resolve(job['full_request_path']); full_request = json.loads(full_request_path.read_text())
++    if sha(full_request_path) != job['full_request_sha256']: raise ValueError('FULL_REQUEST_IDENTITY')
++    STATE['policy'] = policy; STATE['enabled_constraints'] = sorted(enabled)
++    STATE['full_request_sha256'] = job['full_request_sha256']; STATE['policy_transform'] = job['policy_transform']
++    WRITE('FULL_ORIGINAL_REQUEST', full_request)
+     WRITE('ORIGINAL_REQUEST', original); STATE['stages']['load_hash_binding_s'] = time.perf_counter() - t
+     checkpoint('INPUTS_BOUND')
+     from routing import core, validation
+@@ -193,11 +200,26 @@
+         else:
+             STATE['whole_road_check'] = {'status': 'UNRESOLVED', 'reason': 'CHECK_STARTED_NOT_COMPLETED'}
+             t0 = time.perf_counter()
+-            if checker['obj'] is None:
++            if checker['obj'] is None and ('PEAK' in enabled or 'DOSE' in enabled):
+                 checker['obj'] = HybridChecker(packet)
+-            rec = checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,
+-                                       wall_s=max(0., deadline - time.perf_counter()),
+-                                       expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)
++            if policy == 'A4':
++                rec = checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,
++                                          wall_s=max(0., deadline-time.perf_counter()),
++                                          expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)
++            else:
++                from arm_check import check_for_arm
++                import mission_contract, contact_first, hybrid_checker
++                rec = check_for_arm(policy, dict(mission_contract=mission_contract, contact_first=contact_first, hybrid_checker=hybrid_checker),
++                                    packet, graph, full_request, original, res['legs'], res['destination'], deadline,
++                                    checker_class=lambda unused_packet: checker['obj'], sentinel=1.0e12)
++                if 'checker_result' in rec:
++                    helper_status, helper_reason = rec['status'], rec.get('reason')
++                    rec = dict(rec['checker_result'])
++                    if helper_status != 'CERTIFIED_FOR_ARM':
++                        rec = dict(status=helper_status, reason=helper_reason, checked_result=rec, checked_result_is_secondary=True)
++                elif rec['status'] == 'CERTIFIED_FOR_ARM':
++                    rec['status'] = 'CERTIFIED_ADMISSIBLE'
++            STATE['policy_check_scope'] = 'certificate applies only to enabled policy; independent full-policy grade is separate'
+             STATE['stages']['whole_road_check_' + label + '_s'] = time.perf_counter() - t0
+         checks[key] = rec
+         return rec, False
+@@ -275,7 +297,7 @@
+         rk = route_key(route)
+         pre = prefiltered.get(rk)
+         if pre is None and rk not in checks:
+-            pre = lo_prefilter(route) if (stage == 'Z' and M is not None and not M.unsupported) else None
++            pre = lo_prefilter(route) if (stage == 'Z' and M is not None and not M.unsupported and ('PEAK' in enabled or 'DOSE' in enabled)) else None
+         if pre is not None:
+             rec, reused, kind_ = pre, rk in prefiltered, publication_v1_1.KIND_PREFILTER
+             prefiltered[rk] = pre
+@@ -300,6 +322,7 @@
+     if not done:
+         t = time.perf_counter()
+         M = road_bounds.RoadBoundModel(graph, packet, graph_sha=STATE['identities']['graph_path']['canonical_sha256'])
++        if 'FLAME' not in enabled: M.cell_intervals = {}
+         STATE['stages']['bound_model_construction_s'] = time.perf_counter() - t
+         STATE['bound_model'] = M.key(); checkpoint('BOUND_MODEL')
+         # ------------------------------------------------------------ Z
+@@ -419,6 +442,7 @@
+     for n, expected in job['source_sha256'].items():
+         if sha(packet / n) != expected:
+             raise ValueError('FINAL_SOURCE_AUTHORITY_CHANGED:' + n)
++    if sha(full_request_path) != job['full_request_sha256']: raise ValueError('FINAL_FULL_REQUEST_IDENTITY')
+     STATE['stages']['final_input_source_binding_s'] = time.perf_counter() - t; STATE['authority_final'] = True
+     STATE.update(primary_status=result['status'], primary_reason=result.get('reason'),
+                  worker_elapsed_before_publication_s=time.perf_counter() - START,
+@@ -429,6 +453,8 @@
+     STATE['decision'] = journey_decision.decision_from_worker_record(
+         jsonable(STATE), {'on_time_complete_publication': _pub, 'complete_budget_s': job['complete_budget_s']}, job,
+         optimality_certificate=opt, refusal_certificate=refusal)
++    STATE['decision']['ablation_policy'] = policy
++    STATE['decision']['ablation_scope'] = 'authoritative vocabulary applies only to enabled policy; not a full-policy result unless A4'
+     STATE['decision_provenance'] = {'module': journey_decision.__file__, 'sha256': sha(journey_decision.__file__),
+                                     'provisional_publication_flag': _pub,
+                                     'scope': 'provisional: publication measured before the RESULT write; authoritative = '

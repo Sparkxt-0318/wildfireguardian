@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "visual_inspection": "Full exported PNG inspected after final regeneration; no overlaps/clipping; common segments preserve both route styles. SVG and PDF use same vector drawing.",
+  "image_pixels": [
+    3060,
+    2306
+  ],
+  "vector_pdf_pages": 1,
+  "data_checks": [
+    "recorded graph input hash matches both frozen jobs",
+    "arrivals match reviewed rows: 1616 and 2143s",
+    "delta exactly 527s",
+    "route segment counts match 269 and 472 EDGE legs",
+    "contact time lies in recorded phase and occupancy",
+    "contact position lies in recorded cell 1038 on the exact occupied edge",
+    "source-bound EPSG5179 geometry; no invented fire perimeter or external basemap"
+  ],
+  "contact_cell_bounds": [
+    1099875.0,
+    1821000.0,
+    1100250.0,
+    1821375.0
+  ],
+  "artifacts_sha256": {
+    "route_overlay.png": "42aa8038aa37808a5f2ad5871c47d5f08f51d4057db1e1e35a2a945fdb5ebbd2",
+    "background_road_geometry.csv": "6a084698fa865a6e403550e12fbdcac946aa1d98149f1f0e1fce87a2dd10157c",
+    "CAPTION.md": "7eb87672b18709c2b84cd2883aa14c16786ba2dc47aafcd7a74a0262401b2539",
+    "SOURCE_MANIFEST.json": "81c32373ceafd37a5ecac7fa495fd0fbd09c5f14bf9e03d1e9a38179a47fb386",
+    "route_overlay.pdf": "1fdacadf1d1405397d635471a2f8b63d5c1327449d0ffcc4959f18ffe30c6bf8",
+    "contact_witness.json": "ed7199390b9b37a3813c2ce6d874f6cb5740501ba941971318fdd7f4eaf57e21",
+    "A0_route_geometry.csv": "bde76c9a95b39d80e4a81e5f4d386022f5f32c75fd16f584ca1295036eb849a6",
+    "route_overlay.svg": "3da4441d419cca85d11f65821e6b13c5c5915893bfcfcb011717081bf85ec53c",
+    "README.md": "d5fa51d6f8f9d560d6c5ae7d07c4ea1e2c8e9b566ccec881c3838f8e11f655fb",
+    "build_route_figure.py": "0cebb48ab6397aa314eab2117cb6c27b6068d6be472be81afcf97dd8db3149d1",
+    "A4_route_geometry.csv": "e9d09518c645594f8607672180602399d205d0abed4e66325a902138004d2f71"
+  },
+  "limitations": [
+    "Full-route thermal grade reuses project checker; independent continuous-road radiation enclosure remains open.",
+    "Background road segments wholly inside frame are shown once per endpoint pair; directed graph semantics remain in source data.",
+    "Map shows model predicted contact, not observed flames."
+  ]
+}

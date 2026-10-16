@@ -1,0 +1,19 @@
+{
+ "utc": "2026-10-16T04:40:40.106570+00:00",
+ "status": "COMPLETE_INDEPENDENT_PASS_BOUNDED_RESEARCH",
+ "scored_executions": 200,
+ "native_on_time_clean": 200,
+ "independently_checked_route_executions": 160,
+ "distinct_trajectories": 23,
+ "independently_corroborated_refusal_executions": 40,
+ "refusal_contexts": 5,
+ "final_review_sha256": "dc1085a076da1e70f93e1cb2631e3f3c940a4c39f7c403b4b32d2e8bb2041a7e",
+ "shared_resources": {
+  "status": "FREE",
+  "released_by": "Codex-independent-final-input-ablation-review-20261016",
+  "released_utc": "2026-10-16T04:36:41.981067+00:00"
+ },
+ "no_owned_workers_remaining": true,
+ "no_schedules_created": true,
+ "no_new_numerical_campaign_required": true
+}

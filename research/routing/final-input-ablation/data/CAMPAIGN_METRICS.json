@@ -1,0 +1,13 @@
+{
+ "start_utc": "2026-10-16T04:04:56.276177+00:00",
+ "end_utc": "2026-10-16T04:23:18.482666+00:00",
+ "campaign_wall_s": 1102.206489,
+ "attempts": 200,
+ "on_time": 200,
+ "clean": 200,
+ "memory_guard_stops": 0,
+ "sum_request_wall_s": 1086.4375034192635,
+ "sum_request_cpu_s": 1077.52,
+ "largest_process_peak_mib": 1799.125,
+ "sampled_family_peak_mib": 1797.859375
+}

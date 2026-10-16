@@ -1,0 +1,82 @@
+{
+ "status": "PASS",
+ "reviewed_at_utc": "2026-10-16T04:36:41.293271+00:00",
+ "queue_sha256": "e087170e08874668d23991eeeedc9a162ad5f7daef23ec8bd6c465a773c84323",
+ "producer_rows_sha256": "7fa30bb2c6055c4cfca3e4486fb170267f042f2670177b77c6efb57306dc5a6b",
+ "producer_summary_sha256": "35ec9e97d22da012a0830fbc24fd0486c4684825ff8db77e580194121ed89076",
+ "reconstructed_rows": 200,
+ "summary": [
+  {
+   "policy": "A0",
+   "executions": 40,
+   "stable_own_routes": 20,
+   "stable_scoped_refusals": 0,
+   "stable_full_passing_routes": 12,
+   "own_route_executions": 40,
+   "full_passing_route_executions": 24,
+   "median_wall_s": 1.6323204165091738,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 40
+   }
+  },
+  {
+   "policy": "A1",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 1.991288874996826,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A2",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.541089063000982,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A3",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.598728854514775,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  },
+  {
+   "policy": "A4",
+   "executions": 40,
+   "stable_own_routes": 15,
+   "stable_scoped_refusals": 5,
+   "stable_full_passing_routes": 15,
+   "own_route_executions": 30,
+   "full_passing_route_executions": 30,
+   "median_wall_s": 6.5107181040075375,
+   "all_outcomes": {
+    "CHECKED_ROUTE": 30,
+    "SCOPED_REFUSAL": 10
+   }
+  }
+ ],
+ "differences": [],
+ "contradictions": [],
+ "scope": "Independent raw-record scoring reconstruction and authoritative identity/deadline gates. Source-derived centre/contact and refusal proof checks recorded separately. Whole-road radiation remains project certificate, not an independent enclosure."
+}
