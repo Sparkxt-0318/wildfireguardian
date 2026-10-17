@@ -1,9 +1,10 @@
 # WildfireGuardian 마을별 사전 대피계획 도구 — architecture and build contract
 
 This is the working contract for everyone building `planner/`. It fixes directory ownership,
-data formats, the draft wire format of the Route-Check API and the honesty rules. When the
-API session publishes `contracts/wfg_api_v1.yaml`, only `planner/src/api/adapter.ts` and the
-mock server change; the UI's internal model below stays stable.
+data formats, how the planner uses the official Route-Check API contract
+(`planner/contract/wfg_api_v1.yaml`) and the honesty rules. If the contract changes, only
+`planner/src/api/` (wire types, client, adapter) and the mock server change; the UI's internal
+model (§6) stays stable.
 
 ## 0. Non-negotiable rules
 
@@ -48,7 +49,7 @@ mock server change; the UI's internal model below stays stable.
 | `planner/tools/*.py`, `planner/scripts/fetch_planner_assets.sh` | data | asset fetch, fixture + place extraction |
 | `planner/mock_api/fixtures/**`, `planner/public/data/**`, `planner/data/osm/**` | data | generated, committed (small) |
 | `tests/planner/test_build_*.py` | data | pytest |
-| `planner/mock_api/*.py`, `planner/contract/**`, `planner/scripts/fetch_contract.sh` | mock | stdlib HTTP mock + draft contract |
+| `planner/mock_api/*.py`, `planner/contract/README.md`, `planner/scripts/fetch_contract.sh` | mock | stdlib HTTP mock of the official contract |
 | `tests/planner/test_mock_*.py` | mock | pytest |
 | `planner/tools/build_basemap.py`, `planner/public/basemap/**` | basemap | offline vector tiles + glyphs/sprites |
 | `planner/scripts/precompute.py`, `planner/cache/**` | precompute | batch via `/dispatch-plans` |
@@ -88,165 +89,145 @@ Inside them:
   (A0 = travel time only; A4 = full policy) and `analysis/ROWS.csv` (`full_policy_pass`,
   `full_failure_components`).
 
-Recorded outcome → verdict mapping (use `RDA_CAND` repetition 1; record repetition 2 too):
+Recorded outcome → verdict mapping (final panel: `RDA_CAND` repetition 1; record repetition 2 too; ablation
+rows map the same way via `own_outcome`/`authoritative_decision`):
 `CHECKED_CENTRE_OPTIMUM`/`CHECKED_ROUTE` → `checked_route`;
 `CERTIFIED_CENTRE_REFUSAL` (admitted scoped refusal, result `PROVEN_INFEASIBLE`) → `model_no_route`;
 anything else (TIMEOUT, centre-only refusal without authority) → `unresolved`.
 
 ## 4. Generated data formats (data owner writes, everyone reads)
 
-### 4.1 `planner/mock_api/fixtures/`
+### 4.1 `planner/mock_api/fixtures/` (consumed only by the mock server)
 
-- `MANIFEST.json` — `{generated_at, generator, sources:[{release_tag, asset, sha256}], files:[{path, sha256}]}`.
-- `regions.json` — exactly the `GET /v1/regions` payload (§5.2).
-- `forecast/<region_id>/<input_compact>.json` — exactly the `GET /v1/regions/{id}/forecast` payload (§5.3).
-  `input_compact` = `20250324T090000Z`.
-- `records/<region_id>/<case_id>.json` — one recorded mission:
+- `MANIFEST.json` — `{generated_at, generator, sources:[{release_tag, asset, sha256}], conventions:{...verified grid orientation...}, files:[{path, sha256, bytes}]}`.
+- `regions.json` — exactly the official `GET /regions` payload (`RegionList`: `regions[]` of `Region` with
+  `id, name_ko, name_en, event_id, bbox, graph_id, graph_sha256, node_count, edge_count, allowed_node_count,
+  crs, grid{x0,y0,resolution_m,width,height}, input_times[], scenario_sets[{scenario_set_id, input_time,
+  scenario_ids[4], horizon_s, hazard_sha256}]` and a `provenance` block). Extra field allowed: `fire_year`.
+- `forecast/<region_id>/<input_compact>.json` — exactly the official `ForecastCollection` for that input time with
+  ALL cells of the region grid (`properties: row, col, p_new_burn_1h, valid, burning_now`; extra optional
+  properties `cell`, `known_burned`); the mock filters for `only_nonzero=true`. `input_compact` = `20250324T090000Z`.
+- `nodes/<region_id>.json` — compact node table for mock snapping: `{"ids":[...],"lon":[...],"lat":[...],
+  "allowed":[0|1,...], "allowed_rule":"largest strongly connected component (mock assumption)"}`.
+- `records/<region_id>/<case_id>__<policy>.json` — one recorded execution. `policy` ∈
+  `full` (final panel `RDA_CAND` repetition 1 — the evaluated configuration), `travel_only` (ablation A0),
+  `flame_only` (A1), `flame_peak` (A2), `flame_dose` (A3); verify the A-index ↔ policy mapping from the
+  ablation's POLICY_TRANSFORMS.json/README before writing.
 
 ```json
 {
-  "case_id": "20250324T090000Z_FL2",
-  "region_id": "uiseong_andong_2025",
-  "scenario_set_id": "ffb1:20250324T090000Z:08721049cc48e045",
-  "input_time": "2025-03-24T09:00:00Z",
-  "request": {
-    "origin_node": "osm:7836400838",
-    "departure_offset_s": 0,
-    "horizon_s": 3600,
-    "destinations": [{"node": "osm:365846317", "dwell_s": 120, "open_intervals_s": [[0, 3600]]}],
-    "budgets": {"peak_kw_m2": 10, "dose_kj_m2": 100}
-  },
-  "result": { "...": "a complete RouteCheckResult (§5.4) with provenance.source = 'recorded'" },
-  "repetitions": [{"arm": "RDA_CAND", "rep": 1, "state": "CHECKED_CENTRE_OPTIMUM", "wall_s": 6.59, "arrival_s": 2143}],
-  "source_records": [{"asset": "WildfireGuardian_Latest_Independent_Final_20261015.zip", "path": ".../RESULT.json", "sha256": "..."}]
+  "case_id": "20250324T090000Z_FL2", "region_id": "uiseong_andong_2025", "policy": "full",
+  "source_arm": "RDA_CAND", "repetition": 1,
+  "scenario_set_id": "ffb1:20250324T090000Z:08721049cc48e045", "input_time": "2025-03-24T09:00:00Z",
+  "scenario_ids": ["…:0", "…:1", "…:2", "…:3"],
+  "request": {"origin_node": "osm:7836400838", "destination_node": "osm:365846317", "depart_offset_s": 0,
+              "dwell_s": 120, "destination_window": [0, 3600], "horizon_s": 3600,
+              "limits": {"peak_kw_m2": 10, "dose_kj_m2": 100},
+              "incurred_dose_kj_m2": 0, "incurred_per_member": {"…:0": 0}},
+  "outcome": {"verdict": "checked_route", "reason_code": null, "raw_status": "CHECKED_ROUTE",
+              "raw_reason": "WHOLE_ROAD_CERTIFIED_FULL_MODEL_OPTIMUM_BY_CERTIFICATE",
+              "frozen_state": "CHECKED_CENTRE_OPTIMUM", "departure_s": 0, "arrival_s": 2143,
+              "lower_bound_L_s": 2143, "dwell_end_s": 2263, "compute_s": 6.59, "within_budget": true},
+  "route": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[128.69, 36.35]]},
+            "properties": {"times_s": [0], "node_ids": ["osm:…"], "segment_count": 472, "edge_ids": ["w…"],
+                           "waits": [], "length_m": 23810.5}},
+  "exposure": [{"scenario_id": "…:0", "peak_kw_m2": 0.00037, "dose_kj_m2": 0.0567, "contact": false}],
+  "refusal_scope": null,
+  "full_policy_check": {"pass": true, "failure_components": null},
+  "repetitions": [{"arm": "RDA_CAND", "rep": 1, "frozen_state": "…", "verdict": "…", "wall_s": 6.59, "arrival_s": 2143}],
+  "input_hashes": {"graph": "…", "hazard": "…", "request": "…"},
+  "source_records": [{"asset": "WildfireGuardian_Latest_Independent_Final_20261015.zip", "path": "…/RESULT.json", "sha256": "…"}]
 }
 ```
+`compute_s` = complete-request `wall_s` of that execution (INDEPENDENT_ROWS.csv for `full`, ablation ROWS.csv
+otherwise). Missing values are `null`, never 0. `route` is null unless the verdict is `checked_route`.
+`exposure` is filled only for `checked_route`. Route vertices: each EDGE leg is the straight chord u→v of the
+graph edge, interpolated by `from_fraction`/`to_fraction`; a WAIT leg repeats the point with the later time;
+`times_s` are absolute seconds after `input_time`, one per vertex; first vertex = origin node, last = destination node.
 
-### 4.2 `planner/public/data/regions/<region_id>/places.geojson`
+### 4.2 `planner/public/data/regions/<region_id>/places.geojson` (consumed by the app)
 
 WGS84 FeatureCollection of candidate origins and destinations. Point properties:
 
 ```json
 {
   "id": "osm:node/415158323",
-  "role": "origin",                    // origin | destination
+  "role": "origin",                    // origin | destination | research_origin | research_destination
   "category": "village",               // village | hamlet | nursing_home | social_facility |
-                                       // shelter | assembly_point | school | community_hall |
-                                       // research_origin | research_destination
-  "name": "신석리", "name_en": "Sinseok-ri",
+                                       // shelter | assembly_point | school | community_hall | research
+  "name": "신석리", "name_en": "Sinseok-ri",   // null when OSM has no name — never invent one
   "source": "OpenStreetMap",           // OpenStreetMap | 연구 패널 기록 임무
-  "source_tag": "place=village",       // the exact OSM tag (or "request <case_id> origin")
-  "osm": {"type": "node", "id": 415158323, "tags": {"...": "..."}},
-  "snap": {"node": "osm:123", "distance_m": 84.2},
+  "source_tag": "place=village",       // exact OSM tag, or "request <case_id> origin node osm:…"
+  "osm": {"type": "node", "id": 415158323, "tags": {}, "merged_ids": []},
+  "snap": {"node": "osm:123", "distance_m": 84.2},   // nearest node of the largest SCC (display only)
+  "checkable": true,                   // false when snap.distance_m > 300 (the API refuses snaps > 300 m)
   "vulnerable": false,                 // true for nursing_home / social_facility
-  "scenario_set_id": null,             // research_* points only: their scenario set
-  "case_id": null,                     // research_* points only
-  "recorded_destination": null         // research_origin only: {"node","dwell_s","open_intervals_s"}
+  "scenario_set_id": null, "input_time": null, "case_id": null,   // research_* only
+  "recorded": null                     // research_origin only: {destination_id, destination_node, depart_offset_s,
+                                       //   dwell_s, destination_window, incurred_dose_kj_m2}
 }
 ```
 
-Filters: origins = `place=village|hamlet` nodes and `amenity=nursing_home|social_facility`
-(and `social_facility=*`) inside the graph bbox. Destinations = `amenity=shelter` (excluding
-`shelter_type` gazebo, public_transport, picnic_shelter, sun_shelter, weather_shelter,
-field_shelter, changing_rooms, lean_to, rock_shelter), `emergency=assembly_point`,
-`amenity=school` / `building=school`, `amenity=community_centre`, and `amenity=townhall` whose
-name contains `회관` (community hall). Snap to the nearest graph node; drop points snapping
-farther than 1 000 m and list them in the region's `places_report.json` with the reason.
-Research points (recorded missions' origin/destination nodes) are added with their case id.
+Filters: origins = `place=village|hamlet` nodes and `amenity=nursing_home|social_facility` (and
+`social_facility=*`) inside the graph bbox. Destinations = `amenity=shelter` (excluding `shelter_type`
+gazebo, public_transport, picnic_shelter, sun_shelter, weather_shelter, field_shelter, changing_rooms,
+lean_to, rock_shelter), `emergency=assembly_point`, `amenity=school` / `building=school`,
+`amenity=community_centre`, and `amenity=townhall` whose name contains `회관` (community hall). Points with
+snap distance > 2 000 m are dropped and listed in `places_report.json` with the reason (as is every other
+excluded element). Research points are the recorded missions' origin/destination nodes, one feature per
+(case, role), id `research:<region>:<case_id>:origin|destination`.
 
-- `planner/public/data/regions/index.json` — `[{region_id, name:{ko,en}, fire_year, event_id,
-  bbox:[w,s,e,n], center:[lon,lat], zoom, demo:boolean, counts:{origins, destinations}}]`.
+- `planner/public/data/regions/index.json` — `[{region_id, name:{ko,en}, fire_year, event_id, bbox:[w,s,e,n],
+  center:[lon,lat], zoom, demo:boolean, counts:{origins, destinations, research}}]`.
 - `planner/public/data/regions/<region_id>/footprints.geojson` — recorded burned footprint polygons
-  (`source_burned_area > 0` cells dissolved) per recorded input time of that event clipped to
-  the region window, property `input_time`. Used only as presets for user-drawn zones and
-  labelled as such.
-- `planner/data/osm/<region_id>.overpass.json` — raw Overpass extract (ODbL), with query text
-  and `timestamp_osm_base` recorded in `planner/data/osm/SOURCES.json`.
+  (`source_burned_area > 0` cells dissolved) per recorded input time of that event, clipped to the region
+  window, property `input_time`, `area_km2`. Used only as presets for user-drawn zones and labelled as such.
+- `planner/data/osm/<region_id>.overpass.json` — raw Overpass extract (ODbL), with query text, endpoint and
+  `timestamp_osm_base` in `planner/data/osm/SOURCES.json`.
 
-## 5. Draft Route-Check API v1 wire format
+## 5. Route-Check API v1 — official contract
 
-Base `http://127.0.0.1:8765/v1`. JSON, UTF-8, CORS `*`. Times: ISO-8601 UTC strings; offsets in
-seconds after the scenario input time. Coordinates: WGS84 `[lon, lat]`.
+**The official contract is `planner/contract/wfg_api_v1.yaml`** (fetched from `origin/feat/api`,
+`contracts/wfg_api_v1.yaml` v1.0.0; refresh with `planner/scripts/fetch_contract.sh`; changes are listed
+in `contracts/CHANGELOG.md`). It supersedes the earlier draft. Key points for the planner:
 
-### 5.1 `GET /health`
-`{"status":"ok","mode":"mock"|"live","api_version":"1.0.0-draft","engine":{"package":"wfg_latest","package_version":"1.0.0","kit":"v3","checkpoint":"c651f672…"}}`
+- `POST /route-checks` checks ONE start → ONE destination: `{region, input_time, start: {node_id}|{lon,lat},
+  destination: {node_id}|{lon,lat}, depart_offset_s, dwell_s (120), destination_window [open_s, close_s],
+  policy (full|travel_only|flame_only|flame_peak|flame_dose), limits {peak_kw_m2 10, dose_kj_m2 100},
+  incurred_dose_kj_m2, fire_input, run_independent_check, client_ref}` (`additionalProperties: false`).
+  Coordinates snap to the nearest allowed road node; > 300 m → 422 `SNAP_TOO_FAR`.
+- The travel-time-only comparison route is a second check with `policy: "travel_only"`.
+- `POST /dispatch-plans`: `{region, input_time, fire_input, origins ≤ 200 [{id, location}],
+  destinations ≤ 20 [{id, location, dwell_s, window}], depart_offsets_s ≤ 24, dwell_s, policy, limits}`;
+  every origin is checked against every destination at every offset (attempts). Result: `plans[]` sorted by
+  urgency with `best_verdict`, `latest_checked_depart_offset_s`, `best`, `attempts[{destination_id,
+  depart_offset_s, verdict, reason_code, arrival_s, lower_bound_L_s, compute_s, route_check_job_id}]`,
+  plus `summary`, `rejected_origins`, `assumptions`, `provenance`. The planner groups origins by their K
+  nearest shelters so each plan stays within the limits and the number of checks stays small.
+- `reason_code` enum (unresolved only, else null): TIMEOUT, STATE_CAP, MEMORY_CAP, CHECK_NOT_FINISHED,
+  CHECK_FAILED, WORKER_ERROR, CLEANUP_UNCONFIRMED, INTERNAL_ERROR, OTHER.
+- `GET /regions/{region}/forecast?input_time=&only_nonzero=` returns `ForecastCollection` (cells with
+  `p_new_burn_1h, valid, burning_now`). No per-member ignition times are served.
+- `spread_zones` fire input: `{type, zones (arrival_h_max), issued_at, margin_min (60),
+  burning_scenario_set_id}`; results carry an `assumptions` object (show it verbatim in the side panel) and
+  `provenance.approximation`.
+- `/health` has no mode field; the mock adds `"mode": "mock"` (extra properties are allowed) and every mock
+  provenance carries `"mock": true`. The real API is detected by the absence of these markers.
+- Export (`/route-checks/{id}/export?format=geojson|kml|csv`) exists only for `checked_route`
+  (409 `NO_CHECKED_ROUTE` otherwise); CSV header `seq,node_id,lon,lat,time_s,event`.
 
-### 5.2 `GET /regions`
-```json
-{"regions": [{
-  "region_id": "uiseong_andong_2025", "name": {"ko": "의성·안동", "en": "Uiseong–Andong"},
-  "event_id": "KFS_01", "fire_year": 2025, "crs": "EPSG:5179", "bbox": [128.546, 36.3346, 128.8548, 36.5512],
-  "grid": {"x0": 1093875.0, "y0": 1815750.0, "resolution": 375.0, "width": 73, "height": 65},
-  "graph": {"revision": "...", "canonical_sha256": "...", "nodes": 23158, "edges": 43826, "osm_snapshot": "2025-03-21T23:59:59Z"},
-  "scenario_sets": [{"scenario_set_id": "ffb1:20250324T090000Z:08721049cc48e045", "input_time": "2025-03-24T09:00:00Z",
-                     "members": ["...:0", "...:1", "...:2", "...:3"], "valid_from_s": 0, "valid_until_s": 3600,
-                     "source": "recorded", "checkpoint": "c651…"}]
-}]}
-```
-
-### 5.3 `GET /regions/{region_id}/forecast?input_time=<iso>`
-```json
-{"region_id": "...", "input_time": "...", "scenario_set_id": "...", "cell_size_m": 375, "horizon_s": 3600,
- "members": ["...:0", "...:1", "...:2", "...:3"],
- "cells": {"type": "FeatureCollection", "features": [{"type": "Feature",
-    "geometry": {"type": "Polygon", "coordinates": [[[lon, lat], "..."]]},
-    "properties": {"cell": 4512, "row": 61, "col": 59, "p_next_hour": 0.0479,
-                   "burning_at_input": false, "known_burned": true, "ignition_s": [162.6, null, null, 900.1]}}]},
- "provenance": {"source": "recorded", "checkpoint": "c651…", "packet": "packets/<region>/<t>", "packet_npz_sha256": "..."}}
-```
-Only cells with `p_next_hour > 0`, burning, known burned, or any finite ignition are listed.
-
-### 5.4 `POST /route-checks` → `202 {"job_id":"rc_…","status":"queued"}`; `GET /route-checks/{job_id}`
-Request:
-```json
-{"region_id": "uiseong_andong_2025",
- "origin": {"id": "osm:node/1", "node": "osm:7836400838", "lon": 128.69, "lat": 36.35},
- "destinations": [{"id": "osm:way/2", "node": "osm:365846317", "dwell_s": 120, "open_intervals_s": [[0, 3600]]}],
- "departure_offset_s": 0,
- "fire_input": {"type": "recorded", "scenario_set_id": "ffb1:…"},
- "options": {"include_travel_only": true}}
-```
-or `"fire_input": {"type": "spread_zones", "reference_time": "<iso>", "zones": <FeatureCollection of Polygons with properties.arrival_h_max (5 | 8)>}`.
-
-Job: `{"job_id","status":"queued|running|done|failed","submitted_at","finished_at","progress":{"stage":"queued|search|check|done","fraction":0..1},"result":RouteCheckResult|null,"error":null|{code,message}}`.
-
-RouteCheckResult:
-```json
-{"verdict": "checked_route", "reason_code": "WHOLE_ROAD_CERTIFIED_FULL_MODEL_OPTIMUM_BY_CERTIFICATE",
- "origin_id": "...", "destination_id": "...", "departure_offset_s": 0, "arrival_s": 2143, "dwell_s": 120,
- "route": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [["lon", "lat"]]},
-           "properties": {"times_s": [0, 4, 8], "n_legs": 472, "length_m": 23810.5}},
- "travel_only_route": {"type": "Feature", "geometry": {}, "properties": {"times_s": [], "arrival_s": 2010, "full_policy_pass": false, "failure_components": "flame"}},
- "exposure": [{"scenario_id": "...:0", "peak_kw_m2": 0.00037, "dose_kj_m2": 0.0567, "peak_limit_kw_m2": 10, "dose_limit_kj_m2": 100}],
- "compute_s": 6.59,
- "assumptions": [{"id": "...", "text": {"ko": "...", "en": "..."}}],
- "provenance": {"source": "recorded|computed|mock", "api_mode": "mock|live", "checkpoint": "c651…", "package": "wfg_latest 1.0.0",
-                "kit": "v3", "arm": "RDA_CAND", "graph_revision": "...", "scenario_set_id": "...", "host": "Apple M5 Pro (recorded)",
-                "case_id": "20250324T090000Z_FL2", "record": {"asset": "...", "path": "...", "sha256": "..."}}}
-```
-`route` is null unless `verdict = checked_route`. `times_s` are absolute seconds after the input time,
-one per vertex (a WAIT leg repeats the coordinate with a later time).
-
-### 5.5 `POST /dispatch-plans` → `202 {"plan_id":"dp_…","status":"queued"}`; `GET /dispatch-plans/{plan_id}`
-Request: `{"region_id","fire_input","origins":[{id,node,lon,lat,destinations?:[dest ids]}],"destinations":[...],"departure_offsets_s":[0,600,...]}`.
-Response: `{"plan_id","status","progress":{"done","total"},"results":[{"origin_id","latest_safe_departure_s":600|null,
-"best":RouteCheckResult|null,"sweep":[{"departure_offset_s","verdict","destination_id","arrival_s","compute_s","job_id","reason_code"}]}],"provenance":{...}}`.
-`latest_safe_departure_s` = the latest offset whose verdict is `checked_route` (null if none). Each sweep
-entry's `job_id` resolves via `GET /route-checks/{job_id}` to the full result.
-
-### 5.6 `GET /route-checks/{job_id}/export?format=geojson|kml|csv`
-
-### 5.7 Mock matching rule (honesty)
-The mock returns a recorded result only when region, `scenario_set_id`, origin node and
-`departure_offset_s` equal a recorded mission and the recorded destination (same dwell and open
-intervals) is among the request destinations. A recorded `checked_route` stays valid with extra
-destinations (the checked journey still reaches a candidate shelter; note `"other_destinations_not_evaluated": true`).
-A recorded `model_no_route` or `unresolved` is returned only if the destination set equals the
-recorded set. Everything else, and every `spread_zones` request, returns
-`verdict: "unresolved"`, `reason_code: "MOCK_NO_RECORDED_RESULT"` (or `"MOCK_SPREAD_ZONES_NOT_EVALUATED"`),
-`compute_s: null`, `provenance.source: "mock"`. Mock compute times are the recorded `wall_s`
-of the recorded execution, labelled as recorded; the mock never sleeps to imitate computation
-beyond a short state transition (queued → running → done over ≈0.6 s) so progress UI is exercised.
+### 5.1 Mock matching rule (honesty)
+The mock returns a recorded result only when `region`, `input_time`, `fire_input.scenario_set_id`, start node,
+destination node, `depart_offset_s`, `dwell_s`, `destination_window` (omitted = `[0, horizon_s]`), `policy`,
+`limits` and `incurred_dose_kj_m2` all equal a recorded execution (§4.1). Start/destination given as lon/lat
+are snapped with the mock node table (largest SCC, ≤ 300 m, else 422 `SNAP_TOO_FAR`). Everything else returns
+`verdict: "unresolved"`, `reason_code: "OTHER"`, `raw_status: "MOCK_NO_RECORDED_RESULT"`, and every
+`spread_zones` request returns `unresolved`, `reason_code: "OTHER"`, `raw_status: "MOCK_SPREAD_ZONES_NOT_EVALUATED"`
+with an `assumptions` object saying the mock did not evaluate the zones. Unmatched results have
+`compute_s: null`. Recorded results carry the recorded `compute_s` (complete-request wall time on the
+recorded Apple M5 Pro host) and `provenance.host = {"recorded": true, "machine": "Apple M5 Pro", "os": "macOS (native)"}`.
+The mock never sleeps to imitate computation beyond a short state transition (queued → running → done over
+≈ 0.6 s) so the progress UI is exercised.
 
 ## 6. Frontend internal model (`planner/src/domain/types.ts`)
 
@@ -254,24 +235,30 @@ beyond a short state transition (queued → running → done over ≈0.6 s) so p
 export type Verdict = 'checked_route' | 'model_no_route' | 'unresolved';
 export type FireInput =
   | { type: 'recorded'; scenarioSetId: string; inputTime: string }
-  | { type: 'spread_zones'; referenceTime: string; zones: GeoJSON.FeatureCollection };
-export interface SweepCell { offsetS: number; verdict: Verdict; destinationId?: string; arrivalS?: number;
-  computeS?: number | null; jobId?: string; reasonCode?: string; }
-export interface OriginPlan { originId: string; latestSafeDepartureS: number | null; best?: CheckResult;
-  sweep: SweepCell[]; windows: { verdict: Verdict; fromS: number; toS: number }[]; source: 'cache' | 'live' | 'mock'; }
+  | { type: 'spread_zones'; issuedAt: string; inputTime: string; zones: GeoJSON.FeatureCollection;
+      marginMin: number; burningScenarioSetId: string | null };
+export interface Attempt { offsetS: number; destinationId: string; verdict: Verdict; arrivalS: number | null;
+  computeS: number | null; jobId: string | null; reasonCode: string | null; }
+export interface SweepCell { offsetS: number; verdict: Verdict;           // best over destinations at this offset
+  attempts: Attempt[]; best?: Attempt; }
+export interface OriginPlan { originId: string; latestSafeDepartureS: number | null; bestVerdict: Verdict;
+  best?: Attempt; sweep: SweepCell[]; windows: { verdict: Verdict; fromS: number; toS: number }[];
+  source: 'cache' | 'live'; mock: boolean; }
 ```
-Urgency order: origins with no `checked_route` and any `model_no_route` first, then origins with
-only `unresolved`, then `checked_route` origins by `latestSafeDepartureS` ascending; ties put
-`vulnerable` facilities first, then name.
+Per offset the cell verdict is `checked_route` if any destination is checked, `model_no_route` only if every
+destination is `model_no_route`, else `unresolved` (same rule as the contract's `best_verdict`).
+Urgency order: origins whose best verdict is `model_no_route` first, then `unresolved`, then `checked_route`
+origins by `latestSafeDepartureS` ascending; ties put `vulnerable` facilities first, then name.
 
-Departure sweep: offsets every 10 min (configurable 5/10/15/30) over the window the scenario
-supports — recorded: `[valid_from_s, valid_until_s)`; drawn zones: `[0, max arrival_h_max × 3600)` —
-plus any recorded departure offsets of research origins. Shelter candidates per origin: the K = 5
-nearest destinations by straight-line distance (configurable); research origins use their recorded
-destination only.
+Departure sweep: offsets every 10 min (configurable 5/10/15/20/30) over the window the scenario supports —
+recorded: `[0, horizon_s)`; drawn zones: `[0, max arrival_h_max × 3600)` (≤ 24 offsets per dispatch plan; split
+plans if needed) — plus the recorded departure offset of research origins. Shelter candidates per origin: the
+K = 3 nearest destinations by straight-line distance (configurable 1–5); research origins use their recorded
+destination with its recorded dwell, window and incurred dose. Non-checkable places (snap > 300 m) are shown as
+unresolved "도로망 300 m 밖 — 점검 불가" without calling the API.
 
 Clock display: recorded scenarios show KST wall time = input time + offset ("출발 마감 18:10");
-drawn zones show reference time + offset and the relative "T+1:40".
+drawn zones show issued time + offset and the relative "T+1:40".
 
 Ready-Set-Go (산림청): origins inside the drawn 8 h zone → "준비(Set): 노약자·취약시설 우선 대피";
 inside the 5 h zone → "실행(Go): 전원 대피". Containment is planner-side point-in-polygon only.
