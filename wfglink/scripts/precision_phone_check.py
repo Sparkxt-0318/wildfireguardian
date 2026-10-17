@@ -71,7 +71,8 @@ def main() -> int:
 
     harness = out / "compare_fullrate.py"
     harness.write_bytes((REL / "phone_uncertainty_compare_fullrate_executed.txt").read_bytes())
-    base = subprocess.run(["git", "-C", str(ROOT), "show", "2d87bf3:wfglink/src/wfglink/ember/track.py"],
+    repo = (ROOT / "results").resolve().parent   # run_from_head links results to the checkout, a git work tree
+    base = subprocess.run(["git", "-C", str(repo), "show", "2d87bf3:wfglink/src/wfglink/ember/track.py"],
                           capture_output=True, check=True).stdout
     (out / "baseline_track.py").write_bytes(base)
     r = subprocess.run([py, str(harness), "--out-dir", str(out)], cwd=ROOT, capture_output=True, text=True)
