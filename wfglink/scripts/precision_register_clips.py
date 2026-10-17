@@ -43,7 +43,9 @@ ARCHIVES = {
         "event": "outdoor tree burn, test {test}",
     },
 }
-SPLIT = {"calibration": "calibration", "test": "test", "test_negative_footage": "test"}
+SPLIT = {"calibration": "calibration", "test": "test", "test_negative_footage": "test",
+         "calibration_negative_footage": "calibration"}
+AMENDMENT = ROOT / "results/validation/precision_20261017/data_selection_amendment1.json"
 
 
 def probe(path: Path) -> dict:
@@ -58,6 +60,11 @@ def probe(path: Path) -> dict:
 
 def main() -> int:
     recs = [json.loads(line) for line in RECEIPTS.read_text().splitlines() if line.strip()]
+    # Roles come from the latest selection (amendment 1 demoted the first test fires to calibration).
+    if AMENDMENT.exists():
+        roles = {s["member"]: s["role"] for s in json.loads(AMENDMENT.read_text())["selected"]}
+        for rec in recs:
+            rec["role"] = roles.get(rec["member"], rec["role"])
     with open(CSV, newline="") as f:
         reader = csv.DictReader(f)
         fields, rows = reader.fieldnames, list(reader)
