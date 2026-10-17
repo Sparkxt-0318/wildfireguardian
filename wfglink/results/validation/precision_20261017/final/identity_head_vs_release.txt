@@ -1,0 +1,34 @@
+{
+  "identical": false,
+  "summary_equal": false,
+  "tables": {
+    "detections.parquet": {
+      "a": "6baa428b9e9d4edb954ea60d3fd32a3e2598bbf04acaf52c452309ada5cb4ec1",
+      "b": "6baa428b9e9d4edb954ea60d3fd32a3e2598bbf04acaf52c452309ada5cb4ec1",
+      "equal": true
+    },
+    "field.parquet": {
+      "a": "e553c3800c9decb120770e323360a4e353c0d607414bc6505a617334c60c89d6",
+      "b": "e553c3800c9decb120770e323360a4e353c0d607414bc6505a617334c60c89d6",
+      "equal": true
+    },
+    "frames.parquet": {
+      "a": "b7ff673297fa47577ed1b5b1b49f2bca5175bae49af66ceec853d021f26a2b11",
+      "b": "b7ff673297fa47577ed1b5b1b49f2bca5175bae49af66ceec853d021f26a2b11",
+      "equal": true
+    },
+    "track_points.parquet": {
+      "a": "92a541a14dd63809db469ad7e105e50faf16084c90e3687e13ea32bae50c9827",
+      "b": "92a541a14dd63809db469ad7e105e50faf16084c90e3687e13ea32bae50c9827",
+      "equal": true
+    },
+    "tracks.parquet": {
+      "a": "105b5974df1714b4cdb569a2f8bf0d496b71aa662a8313ad29cc142976567f78",
+      "b": "105b5974df1714b4cdb569a2f8bf0d496b71aa662a8313ad29cc142976567f78",
+      "equal": true
+    }
+  },
+  "only_a": [],
+  "only_b": [],
+  "different": []
+}
