@@ -1,0 +1,3833 @@
+{
+  "summary": "Blind two-reviewer categorisation of proposed ember tracks on wildfire footage (accepted tracks mixed with decoys) with adjudication",
+  "agentCount": 23,
+  "logs": [
+    "151 tracks, 81 need adjudication"
+  ],
+  "result": {
+    "population": "test",
+    "final": [
+      {
+        "item_id": "p0000",
+        "A": {
+          "item_id": "p0000",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright pale glow on a strip at the left frame edge; the track sits still on the edge of the glow across frames, not a free-flying particle."
+        },
+        "B": {
+          "item_id": "p0000",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Edge of a dark gray block and a trunk, no physical object, blocky pixels."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0000",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static edge of bright glow beside a trunk at the frame border; no free-flying particle, no motion."
+        }
+      },
+      {
+        "item_id": "p0001",
+        "A": {
+          "item_id": "p0001",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small glowing orange blob with a motion-blurred streak that shifts position between frames, consistent with a particle in flight."
+        },
+        "B": {
+          "item_id": "p0001",
+          "category": "ember",
+          "confidence": "sure",
+          "note": "Bright white-orange streaking particles in flight with interlace double streak, moving across frames."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0001",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small glowing orange blob with a motion-blurred streak that shifts position between frames, consistent with a particle in flight."
+        }
+      },
+      {
+        "item_id": "p0002",
+        "A": {
+          "item_id": "p0002",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Horizontal streaky smear on a brown glowing ground; could be an interlace comb or a faint ember trail, no clear discrete point at the track."
+        },
+        "B": {
+          "item_id": "p0002",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small streaks moving left with comb pattern, though flame edges nearby."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0002",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Streaky comb texture on glowing ground with flame edges nearby; track moves slightly left but no discrete particle."
+        }
+      },
+      {
+        "item_id": "p0003",
+        "A": {
+          "item_id": "p0003",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin vertical stem with a glowing tip that stays in the same place across frames; attached to fuel, not flying."
+        },
+        "B": {
+          "item_id": "p0003",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin glowing stem or twig, mostly static, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0003",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin vertical stem with a glowing tip that stays in the same place across frames; attached to fuel, not flying."
+        }
+      },
+      {
+        "item_id": "p0004",
+        "A": {
+          "item_id": "p0004",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static curved orange glowing branch or fuel edge; the track sits on it and does not move independently."
+        },
+        "B": {
+          "item_id": "p0004",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Glowing curved fuel edges and burning stem, static, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0004",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static curved orange glowing branch or fuel edge; the track sits on it and does not move independently."
+        }
+      },
+      {
+        "item_id": "p0005",
+        "A": {
+          "item_id": "p0005",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in Georgia Bay Complex text label beside the flame."
+        },
+        "B": {
+          "item_id": "p0005",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in caption text beside bright flame."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0005",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in Georgia Bay Complex text label beside the flame."
+        }
+      },
+      {
+        "item_id": "p0006",
+        "A": {
+          "item_id": "p0006",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "A dark irregular shape shifts across the glowing ground between frames; looks like a dark object or smoke edge rather than a glowing ember."
+        },
+        "B": {
+          "item_id": "p0006",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small dark and bright bits within a burning fuel bed."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0006",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small dark and bright bits in a burning fuel bed; attached to fuel."
+        }
+      },
+      {
+        "item_id": "p0007",
+        "A": {
+          "item_id": "p0007",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track rides along a long bright burning fuel streak on the diagonal, attached to the fuel rather than flying free."
+        },
+        "B": {
+          "item_id": "p0007",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright elongated streak moving diagonally with interlace comb, but could be flame edge."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0007",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Long diagonal bright streak lying along burning fuel with other similar streaks beside it; looks attached to fuel."
+        }
+      },
+      {
+        "item_id": "p0008",
+        "A": {
+          "item_id": "p0008",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dense horizontal striping or comb texture over a dark fuel background, with no discrete glowing object at the track."
+        },
+        "B": {
+          "item_id": "p0008",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing bark and fuel texture on a burning trunk."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0008",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Glowing bark and fuel texture on a burning trunk; no discrete particle."
+        }
+      },
+      {
+        "item_id": "p0009",
+        "A": {
+          "item_id": "p0009",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on the base of a bright flame tongue; the cyan detections above suggest embers elsewhere, but this track stays on the flame."
+        },
+        "B": {
+          "item_id": "p0009",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright streaky glowing particles lofting above the fire, moving between frames."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0009",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright streaky glowing particles lofting above the fire with many nearby detections; track is in the rising ember column, though close to the flame."
+        }
+      },
+      {
+        "item_id": "p0010",
+        "A": {
+          "item_id": "p0010",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Textured grass ground with no discrete object at the track point; the detection is not visible in the frames."
+        },
+        "B": {
+          "item_id": "p0010",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Grass texture moving in wind, no glowing particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0010",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Grass texture only; no visible glowing object at the track."
+        }
+      },
+      {
+        "item_id": "p0011",
+        "A": {
+          "item_id": "p0011",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in date and location text (2007 Georgia B, 5/25/2007)."
+        },
+        "B": {
+          "item_id": "p0011",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in date and title text."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0011",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in date and location text (2007 Georgia B, 5/25/2007)."
+        }
+      },
+      {
+        "item_id": "p0012",
+        "A": {
+          "item_id": "p0012",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "A few tiny faint dots in the haze near the track position, barely moving; could be distant embers but too faint to be sure."
+        },
+        "B": {
+          "item_id": "p0012",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint dim dots in dark smoke, could be small embers but weak."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0012",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "A few tiny faint dots in the haze near the track position, barely moving; could be distant embers but too faint to be sure."
+        }
+      },
+      {
+        "item_id": "p0013",
+        "A": {
+          "item_id": "p0013",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static bright curved line on a stem or branch edge; it does not move between frames, so not a free particle."
+        },
+        "B": {
+          "item_id": "p0013",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin curved glowing filament, mostly static, looks like burning fuel edge on orange background."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0013",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static bright curved line on a stem or branch edge; it does not move between frames, so not a free particle."
+        }
+      },
+      {
+        "item_id": "p0014",
+        "A": {
+          "item_id": "p0014",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Little visible at the track point; faint ground texture with no clear glowing object and no consistent motion."
+        },
+        "B": {
+          "item_id": "p0014",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint smear near the bottom edge, near burning ground line, not convincing."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0014",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint smear near the burning ground line; not convincing."
+        }
+      },
+      {
+        "item_id": "p0015",
+        "A": {
+          "item_id": "p0015",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin stem with a bright glowing tip that stays fixed across frames; attached to fuel or a stalk, not flying."
+        },
+        "B": {
+          "item_id": "p0015",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright tip on top of a thin stalk or twig, static and attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0015",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin stem with a bright glowing tip that stays fixed across frames; attached to fuel or a stalk, not flying."
+        }
+      },
+      {
+        "item_id": "p0016",
+        "A": {
+          "item_id": "p0016",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Static blue-grey tree trunk edge with no glow; the track does not move and nothing ember-like is visible."
+        },
+        "B": {
+          "item_id": "p0016",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foggy blue forest, no visible bright object at the circle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0016",
+          "category": "unclear",
+          "confidence": "sure",
+          "note": "Foggy blue forest with static trunks; nothing bright at the circle."
+        }
+      },
+      {
+        "item_id": "p0017",
+        "A": {
+          "item_id": "p0017",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright textured glow on a canopy or trunk area at the track; the pattern is static, not a flying particle."
+        },
+        "B": {
+          "item_id": "p0017",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Glowing bark and branch texture next to a trunk, not free flying."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0017",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright textured glow on a canopy or trunk area at the track; the pattern is static, not a flying particle."
+        }
+      },
+      {
+        "item_id": "p0018",
+        "A": {
+          "item_id": "p0018",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on empty ground texture; no distinct object at the track point in any frame."
+        },
+        "B": {
+          "item_id": "p0018",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Tiny faint spot on striped bark, nothing clear in the crops."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0018",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on empty ground texture; no distinct object at the track point in any frame."
+        }
+      },
+      {
+        "item_id": "p0019",
+        "A": {
+          "item_id": "p0019",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Orange glow along a dark stem edge that stays in place over the frames; attached to the stem rather than moving as an ember."
+        },
+        "B": {
+          "item_id": "p0019",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing patch on a burning trunk edge, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0019",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Orange glow along a dark stem edge that stays in place over the frames; attached to the stem rather than moving as an ember."
+        }
+      },
+      {
+        "item_id": "p0020",
+        "A": {
+          "item_id": "p0020",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Static cluster of bright sunlit foliage spots in a tree area. The track sits still across frames -2..+2 and no free-flying particle is visible."
+        },
+        "B": {
+          "item_id": "p0020",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Bright leaves and branch in canopy swaying, not glowing"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0020",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Sunlit foliage and leaves in canopy; static bright spots, not glowing."
+        }
+      },
+      {
+        "item_id": "p0021",
+        "A": {
+          "item_id": "p0021",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Soft round yellow-white spot that does not move over five frames. Looks like a static light or glow on the wood surface, not a flying ember."
+        },
+        "B": {
+          "item_id": "p0021",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Static soft bright blob, likely glare or camera window spot"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0021",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Soft round yellow-white spot that does not move over five frames. Looks like a static light or glow on the wood surface, not a flying ember."
+        }
+      },
+      {
+        "item_id": "p0022",
+        "A": {
+          "item_id": "p0022",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Bright pale patch at a sky or tree edge with no distinct object. Track does not follow any clear moving particle."
+        },
+        "B": {
+          "item_id": "p0022",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foliage edge against bright sky, no particle"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0022",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Foliage edge against bright sky; no particle, leaves only."
+        }
+      },
+      {
+        "item_id": "p0023",
+        "A": {
+          "item_id": "p0023",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim yellow spot near brighter blobs on the wood. It fades and stays in place, so it could be a faint glow rather than an ember."
+        },
+        "B": {
+          "item_id": "p0023",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny faint bright speck, little movement, possibly ember"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0023",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim yellow spot near brighter blobs on the wood. It fades and stays in place, so it could be a faint glow rather than an ember."
+        }
+      },
+      {
+        "item_id": "p0024",
+        "A": {
+          "item_id": "p0024",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Small bright speckle in pine foliage that stays in place. Could be sunlit needles or a glint; no clear ember motion."
+        },
+        "B": {
+          "item_id": "p0024",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Tiny speck in dark conifer foliage, many nearby detections, no clear object"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0024",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Tiny bright speck in pine needles, likely sunlit needles or a glint; no ember motion."
+        }
+      },
+      {
+        "item_id": "p0025",
+        "A": {
+          "item_id": "p0025",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Short orange glowing streak on the ground that stays at roughly the same spot over three frames. Looks like a glowing fuel piece rather than a free-flying ember."
+        },
+        "B": {
+          "item_id": "p0025",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing patch on burning ground fuel that brightens in place"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0025",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Short orange glowing streak on the ground that stays at roughly the same spot over three frames. Looks like a glowing fuel piece rather than a free-flying ember."
+        }
+      },
+      {
+        "item_id": "p0026",
+        "A": {
+          "item_id": "p0026",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint grey-white spot on a dark brown background that fades within two frames. Possibly a dim ember, but too faint to be sure."
+        },
+        "B": {
+          "item_id": "p0026",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint small bright speck drifting in dark scene, fades"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0026",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint grey-white spot on a dark brown background that fades within two frames. Possibly a dim ember, but too faint to be sure."
+        }
+      },
+      {
+        "item_id": "p0027",
+        "A": {
+          "item_id": "p0027",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "The track sits on the edge of a large orange flame column. It is attached to burning fuel, not flying free."
+        },
+        "B": {
+          "item_id": "p0027",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Burning tree trunk with interlace comb, attached to fuel"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0027",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "The track sits on the edge of a large orange flame column. It is attached to burning fuel, not flying free."
+        }
+      },
+      {
+        "item_id": "p0028",
+        "A": {
+          "item_id": "p0028",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track is at the very edge of the image, next to the grey padding region. Tiny swirl with no clear object; may be an edge or compression artifact."
+        },
+        "B": {
+          "item_id": "p0028",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Track at padding border corner, no real object"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0028",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits at the corner of the grey padding; only a faint swirl of foliage, no glowing object."
+        }
+      },
+      {
+        "item_id": "p0029",
+        "A": {
+          "item_id": "p0029",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a bright white patch in dark foliage and does not move. Could be sun glint or a sunlit spot; no free ember visible."
+        },
+        "B": {
+          "item_id": "p0029",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright compression blocks in dark foliage, static"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0029",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Static pale blocks in dark foliage, nothing moves or glows orange; sun glint or compression, cannot tell."
+        }
+      },
+      {
+        "item_id": "p0030",
+        "A": {
+          "item_id": "p0030",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Small reddish glowing dot among grass stalks that stays in place over the frames. Could be a glowing ground spot; motion is not clear."
+        },
+        "B": {
+          "item_id": "p0030",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Dark charred stalk with faint glow, attached to fuel, not flying"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0030",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Dark charred stalk with a faint warm spot, attached to fuel and static, not flying."
+        }
+      },
+      {
+        "item_id": "p0031",
+        "A": {
+          "item_id": "p0031",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track is at the top boundary of the valid image area, where a grey padding block meets the picture. No distinct object; likely an edge effect."
+        },
+        "B": {
+          "item_id": "p0031",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright foliage blocks at frame edge near padding, no distinct object"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0031",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Track at the padding boundary over bright foliage blocks, no distinct object."
+        }
+      },
+      {
+        "item_id": "p0032",
+        "A": {
+          "item_id": "p0032",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright triangular glowing object on the ground that stays put across the frames. Looks like burning fuel or a glowing fragment on the surface, not a flying ember."
+        },
+        "B": {
+          "item_id": "p0032",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright orange-white particle against dark background, shifts slightly, away from flames"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0032",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright orange-white particle on dark ground, away from the flames, with a slight shift and nearby similar specks; could be a glowing fragment on the ground."
+        }
+      },
+      {
+        "item_id": "p0033",
+        "A": {
+          "item_id": "p0033",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Soft yellow blob on the wood that does not move over five frames and fades slightly. Looks like a static glow or light spot."
+        },
+        "B": {
+          "item_id": "p0033",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Soft static glowing blob, blurred, stays in place"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0033",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Soft yellow blob on the wood that does not move over five frames and fades slightly. Looks like a static glow or light spot."
+        }
+      },
+      {
+        "item_id": "p0034",
+        "A": {
+          "item_id": "p0034",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Horizontal bright streaks with comb-like double lines at the flame edge in the bottom-left. Looks like interlace or compression striping on a fuel edge."
+        },
+        "B": {
+          "item_id": "p0034",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Interlace comb streaks at image border near padded edge, glowing line at bottom edge"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0034",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Horizontal bright streaks with comb-like double lines at the flame edge in the bottom-left. Looks like interlace or compression striping on a fuel edge."
+        }
+      },
+      {
+        "item_id": "p0035",
+        "A": {
+          "item_id": "p0035",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a pale sky area behind branches with no distinct glowing object. Nothing clearly moving or glowing under the circle."
+        },
+        "B": {
+          "item_id": "p0035",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dark branches on bright background, nothing glowing at the circle"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0035",
+          "category": "unclear",
+          "confidence": "sure",
+          "note": "Dark branches against pale sky, nothing glowing at the circle."
+        }
+      },
+      {
+        "item_id": "p0036",
+        "A": {
+          "item_id": "p0036",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track is on a bright glowing patch in the burning fuel bed beside the flame, with striped interlace artifacts nearby. Attached to fuel rather than flying free."
+        },
+        "B": {
+          "item_id": "p0036",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Burning fuel bed with bright interlaced flame edges"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0036",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track is on a bright glowing patch in the burning fuel bed beside the flame, with striped interlace artifacts nearby. Attached to fuel rather than flying free."
+        }
+      },
+      {
+        "item_id": "p0037",
+        "A": {
+          "item_id": "p0037",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright orange-red particle that shifts position between frames near the track. Looks like a glowing particle in flight, but the frames are small and the motion is not fully clear."
+        },
+        "B": {
+          "item_id": "p0037",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Orange glowing particle moving down the frame, streak-like"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0037",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright orange-red particle that shifts position between frames near the track. Looks like a glowing particle in flight, but the frames are small and the motion is not fully clear."
+        }
+      },
+      {
+        "item_id": "p0038",
+        "A": {
+          "item_id": "p0038",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Pink ribbon or tape on a red post, flapping between frames. Clearly a moving object, not an ember."
+        },
+        "B": {
+          "item_id": "p0038",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Pink flagging tape swinging, not glowing"
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0038",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Pink ribbon or tape on a red post, flapping between frames. Clearly a moving object, not an ember."
+        }
+      },
+      {
+        "item_id": "p0039",
+        "A": {
+          "item_id": "p0039",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a bright white cloud or sky patch with glare near the letterbox edge. No distinct object or consistent motion seen."
+        },
+        "B": {
+          "item_id": "p0039",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright blocky sky patch at tree edge, static, no object"
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0039",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright blocky sky patch at the letterbox edge, static, no object."
+        }
+      },
+      {
+        "item_id": "p0040",
+        "A": {
+          "item_id": "p0040",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Foggy scene by a tree trunk. No bright or moving object is visible in the 4x crop across t-2..t+2; the track sits on the trunk edge area. Possibly faint, cannot tell."
+        },
+        "B": {
+          "item_id": "p0040",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dark tree trunk in smoky scene, no glowing particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0040",
+          "category": "unclear",
+          "confidence": "sure",
+          "note": "Dark trunk in smoky daylight, nothing bright or moving under the circle."
+        }
+      },
+      {
+        "item_id": "p0041",
+        "A": {
+          "item_id": "p0041",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Daylight foliage and leaf clusters against a pale sky. Nothing glows; the track sits on a leaf cluster edge."
+        },
+        "B": {
+          "item_id": "p0041",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright sky and foliage edge, no glowing object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0041",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Daylight leaves against pale sky, nothing glows; leaf edge motion at most."
+        }
+      },
+      {
+        "item_id": "p0042",
+        "A": {
+          "item_id": "p0042",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright speckled spot on a dark brown ground area next to a flame-lit bright region with interlace stripes. Looks attached to fuel or ground rather than flying free."
+        },
+        "B": {
+          "item_id": "p0042",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright elongated spot near burning area, fairly stable position, could be a glowing fragment."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0042",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright elongated spot on dark ground, shifts a little along the path, but is near the flame bed so it could be a glowing fragment."
+        }
+      },
+      {
+        "item_id": "p0043",
+        "A": {
+          "item_id": "p0043",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "White-yellow glow on the edge of a bright orange burning area that brightens over frames but stays in place. Attached to the fire edge rather than a free-flying particle."
+        },
+        "B": {
+          "item_id": "p0043",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright glow brightening at the tip of burning twig, attached to fuel bed."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0043",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "White-yellow glow on the edge of a bright orange burning area that brightens over frames but stays in place. Attached to the fire edge rather than a free-flying particle."
+        }
+      },
+      {
+        "item_id": "p0044",
+        "A": {
+          "item_id": "p0044",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Grey foggy foliage or trunk texture with no bright or consistently moving object at the track position."
+        },
+        "B": {
+          "item_id": "p0044",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Gray daytime texture at image edge, nothing bright."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0044",
+          "category": "unclear",
+          "confidence": "sure",
+          "note": "Grey foggy texture near the padding edge, nothing bright."
+        }
+      },
+      {
+        "item_id": "p0045",
+        "A": {
+          "item_id": "p0045",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint small speck on a dark brown background. It is nearly static across frames, so it could be a dim ember or a background speck."
+        },
+        "B": {
+          "item_id": "p0045",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint dim spot in dark scene, barely visible."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0045",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint small speck on a dark brown background. It is nearly static across frames, so it could be a dim ember or a background speck."
+        }
+      },
+      {
+        "item_id": "p0046",
+        "A": {
+          "item_id": "p0046",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "A small bright dot sits near the track but stays fixed, and the track itself is on dim textured ground. Cannot tell what the track follows."
+        },
+        "B": {
+          "item_id": "p0046",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright dot near the top edge in dark scene, nearly static, weak."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0046",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright dot beside the track in a dark scene, nearly static and weak; the track itself sits on dim ground."
+        }
+      },
+      {
+        "item_id": "p0047",
+        "A": {
+          "item_id": "p0047",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a bright burning fuel bed with orange glow and flame texture. Attached to fuel, not flying."
+        },
+        "B": {
+          "item_id": "p0047",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Glowing burning trunk and branches, glare on fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0047",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a bright burning fuel bed with orange glow and flame texture. Attached to fuel, not flying."
+        }
+      },
+      {
+        "item_id": "p0048",
+        "A": {
+          "item_id": "p0048",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Pale foggy scene with tree trunks. No bright or consistently moving object is visible at the track."
+        },
+        "B": {
+          "item_id": "p0048",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foggy scene with no visible glowing object at the circle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0048",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foggy forest with no glowing object at the circle; only faint texture, no physical particle."
+        }
+      },
+      {
+        "item_id": "p0049",
+        "A": {
+          "item_id": "p0049",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck near a glowing smoky area with interlace streaks in the upper right. The speck is small and only faintly consistent between frames."
+        },
+        "B": {
+          "item_id": "p0049",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint bright dot in dark scene near streaks, could be a small ember."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0049",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck near a glowing smoky area with interlace streaks in the upper right. The speck is small and only faintly consistent between frames."
+        }
+      },
+      {
+        "item_id": "p0050",
+        "A": {
+          "item_id": "p0050",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Green pine needles and branches with pale blossom-like spots. Nothing glows; the track sits on foliage."
+        },
+        "B": {
+          "item_id": "p0050",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Bright white spot in daytime foliage, likely sky gap or leaf glint moving with branches."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0050",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Green pine needles and branches with pale blossom-like spots. Nothing glows; the track sits on foliage."
+        }
+      },
+      {
+        "item_id": "p0051",
+        "A": {
+          "item_id": "p0051",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright orange burning stripe on fuel or trunk, with strong interlace comb streaks. Attached to the burning surface, not a free particle."
+        },
+        "B": {
+          "item_id": "p0051",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Burning bark or fuel with interlace combing, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0051",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright orange burning stripe on fuel or trunk, with strong interlace comb streaks. Attached to the burning surface, not a free particle."
+        }
+      },
+      {
+        "item_id": "p0052",
+        "A": {
+          "item_id": "p0052",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "A bright elongated streak moves steadily down and to the right across frames -2 to +2 and the track follows it in the context view. A fixed bright dash above is not followed."
+        },
+        "B": {
+          "item_id": "p0052",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright streak near other streaks in dark scene, moves between frames; track marker is weak."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0052",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "A bright elongated streak moves steadily down and to the right across frames -2 to +2 and the track follows it in the context view. A fixed bright dash above is not followed."
+        }
+      },
+      {
+        "item_id": "p0053",
+        "A": {
+          "item_id": "p0053",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "A bright vertical streak with comb striping moves downward in frames -2 to 0. After that the track sits on an empty dim area, so the match is weak."
+        },
+        "B": {
+          "item_id": "p0053",
+          "category": "duplicate_fragment",
+          "confidence": "unsure",
+          "note": "Track follows a comb-like streak fragment that moves along a vertical path; other detections nearby, ember is mostly gone by t."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0053",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Comb-striped bright streak moves downward in frames -2 and -1, a typical interlaced ember. Track sits on empty area by t, and another streak appears lower, so the match is weak."
+        }
+      },
+      {
+        "item_id": "p0054",
+        "A": {
+          "item_id": "p0054",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Foggy grey sky among bare branches. No bright or glowing object is visible at the track position."
+        },
+        "B": {
+          "item_id": "p0054",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Hazy forest with block noise, no real object; static."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0054",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Static hazy branches with block noise and no glowing object."
+        }
+      },
+      {
+        "item_id": "p0055",
+        "A": {
+          "item_id": "p0055",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in title text reading Black Mtn2 Fire and 14:21 Clip2."
+        },
+        "B": {
+          "item_id": "p0055",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in caption text."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0055",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in title text reading Black Mtn2 Fire and 14:21 Clip2."
+        }
+      },
+      {
+        "item_id": "p0056",
+        "A": {
+          "item_id": "p0056",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on the bright orange burning edge of a fuel or trunk with flame glow. Attached to fuel, not flying."
+        },
+        "B": {
+          "item_id": "p0056",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "On the edge of burning trunk with interlace combing, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0056",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on the bright orange burning edge of a fuel or trunk with flame glow. Attached to fuel, not flying."
+        }
+      },
+      {
+        "item_id": "p0057",
+        "A": {
+          "item_id": "p0057",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits still on a dark instrument head on a pole in fog. It is a physical object, not glowing and not moving, so none of the categories fit well."
+        },
+        "B": {
+          "item_id": "p0057",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Track sits on a static dark and white instrument on a pole, not glowing."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0057",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Track sits still on a dark instrument head on a pole. Static, not glowing, not an ember."
+        }
+      },
+      {
+        "item_id": "p0058",
+        "A": {
+          "item_id": "p0058",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Dim pale scene with a tree trunk edge. No glowing or consistently moving object at the track position."
+        },
+        "B": {
+          "item_id": "p0058",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foggy forest, nothing bright at the circle; static texture."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0058",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Foggy trunk scene, nothing bright or moving at the circle."
+        }
+      },
+      {
+        "item_id": "p0059",
+        "A": {
+          "item_id": "p0059",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Daylight foliage and a branch against a pale sky. Nothing glows; the track sits on leaves or branch edge."
+        },
+        "B": {
+          "item_id": "p0059",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Track sits on bright sky and branch edge, no glowing object visible."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0059",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Leaves and branch edge against bright sky, nothing glows."
+        }
+      },
+      {
+        "item_id": "p0060",
+        "A": {
+          "item_id": "p0060",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Curved orange glowing stem or blade edge that stays put across all five frames; attached to fuel rather than flying free."
+        },
+        "B": {
+          "item_id": "p0060",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin glowing orange curved stem or burning twig fixed in place, not a free particle."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0060",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Curved orange glowing stem or blade edge that stays put across all five frames; attached to fuel rather than flying free."
+        }
+      },
+      {
+        "item_id": "p0061",
+        "A": {
+          "item_id": "p0061",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in white text reading Georgia Bay Complex, 14:08 Clip1; the track sits on the lettering."
+        },
+        "B": {
+          "item_id": "p0061",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in caption text on the video."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0061",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in white text reading Georgia Bay Complex, 14:08 Clip1; the track sits on the lettering."
+        }
+      },
+      {
+        "item_id": "p0062",
+        "A": {
+          "item_id": "p0062",
+          "category": "reflection",
+          "confidence": "unsure",
+          "note": "Bright pale highlight on a tree trunk that does not move between frames; looks like a glint or sunlit bark patch."
+        },
+        "B": {
+          "item_id": "p0062",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Pale bark or light patch on a trunk, no glow, not flying."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0062",
+          "category": "reflection",
+          "confidence": "unsure",
+          "note": "Pale highlight on a light trunk that stays put across frames; sunlit bark or glint, not flying."
+        }
+      },
+      {
+        "item_id": "p0063",
+        "A": {
+          "item_id": "p0063",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing brush or fuel bed on the ground; the track follows a static bright patch rather than a free-flying particle."
+        },
+        "B": {
+          "item_id": "p0063",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Glowing burning twigs and fuel bed with interlace comb, fixed structure."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0063",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing brush or fuel bed on the ground; the track follows a static bright patch rather than a free-flying particle."
+        }
+      },
+      {
+        "item_id": "p0064",
+        "A": {
+          "item_id": "p0064",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright bark strips lit from the flame region behind; the track sits on static glowing bark, not a separate moving particle."
+        },
+        "B": {
+          "item_id": "p0064",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright speckles on dark branches in front of a large flame, attached to burning fuel and glare."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0064",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright bark strips lit from the flame region behind; the track sits on static glowing bark, not a separate moving particle."
+        }
+      },
+      {
+        "item_id": "p0065",
+        "A": {
+          "item_id": "p0065",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in overlay text (Georgia Bay Complex 14:08 Clip1) with the track on the lettering."
+        },
+        "B": {
+          "item_id": "p0065",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in caption text (Georgia Bay Complex date and time)."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0065",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Burned-in overlay text (Georgia Bay Complex 14:08 Clip1) with the track on the lettering."
+        }
+      },
+      {
+        "item_id": "p0066",
+        "A": {
+          "item_id": "p0066",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Textured vegetation on the ground with no clearly glowing object; the track does not show consistent motion."
+        },
+        "B": {
+          "item_id": "p0066",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Bright sunlit foliage and branches, nothing glowing, static texture."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0066",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Sunlit foliage and ground texture with many detections nearby; nothing glows and no consistent motion."
+        }
+      },
+      {
+        "item_id": "p0067",
+        "A": {
+          "item_id": "p0067",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Branches and trunk seen through fog with blocky compression; no glowing particle is visible at the track."
+        },
+        "B": {
+          "item_id": "p0067",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Dark tree trunk and branches in haze, no glow."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0067",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Dark branches and trunk in haze, no glow; many nearby detections on branch texture."
+        }
+      },
+      {
+        "item_id": "p0068",
+        "A": {
+          "item_id": "p0068",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright fuzzy glowing blob on a trunk or fuel area at night, close to a larger fire; reads as burning material rather than a clear free ember."
+        },
+        "B": {
+          "item_id": "p0068",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Bright flame tongues next to a large fire, attached to burning fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0068",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright fuzzy glowing blob on a trunk or fuel area at night, close to a larger fire; reads as burning material rather than a clear free ember."
+        }
+      },
+      {
+        "item_id": "p0069",
+        "A": {
+          "item_id": "p0069",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim speck on dark ground that is bright in one frame and fades; too faint and short-lived to be sure it is an ember."
+        },
+        "B": {
+          "item_id": "p0069",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright spot fading in frame t-2 and weak afterwards, dark scene; possibly a faint ember."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0069",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim speck on dark ground that is bright in one frame and fades; too faint and short-lived to be sure it is an ember."
+        }
+      },
+      {
+        "item_id": "p0070",
+        "A": {
+          "item_id": "p0070",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright orange glowing streaks along burning vegetation edge; the track sits on the attached glowing fuel line."
+        },
+        "B": {
+          "item_id": "p0070",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Bright comb-like flecks along a burning trunk edge, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0070",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright orange glowing streaks along burning vegetation edge; the track sits on the attached glowing fuel line."
+        }
+      },
+      {
+        "item_id": "p0071",
+        "A": {
+          "item_id": "p0071",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Tan ground with a small yellowish patch near the frame edge; no clear glow or consistent motion across frames."
+        },
+        "B": {
+          "item_id": "p0071",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint soft pale blob at the edge of a padded frame; similar blobs elsewhere, so likely glare or dim particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0071",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint pale soft blob on tan ground at the frame edge; similar blobs elsewhere, probably glare but could be a dim particle."
+        }
+      },
+      {
+        "item_id": "p0072",
+        "A": {
+          "item_id": "p0072",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Sunlit foliage highlight with no distinct particle; the track does not follow a clear moving object."
+        },
+        "B": {
+          "item_id": "p0072",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Sunlit branches and needles in smoky scene, no glowing particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0072",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Sunlit needles and branches in smoky scene with block noise; no glowing particle."
+        }
+      },
+      {
+        "item_id": "p0073",
+        "A": {
+          "item_id": "p0073",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Bright white spot that stays in roughly the same place over five frames; could be a glint, a dust point or a slow lit particle."
+        },
+        "B": {
+          "item_id": "p0073",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Isolated small bright white spot in dark area away from the flame edge; stays bright across frames, plausible ember."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0073",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Isolated small bright white spot on a dark surface, away from the flame edge, shifting slightly between frames; plausible ember or glint."
+        }
+      },
+      {
+        "item_id": "p0074",
+        "A": {
+          "item_id": "p0074",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Thin pale streak on the ground beside vegetation that does not move much; could be a twig or stem rather than an ember."
+        },
+        "B": {
+          "item_id": "p0074",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright flecks beside a burning fuel edge with interlace comb, attached to the flame region."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0074",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin pale flecks beside a burning fuel edge with interlace comb; they sit at the fuel boundary and barely move, so attached to fuel."
+        }
+      },
+      {
+        "item_id": "p0075",
+        "A": {
+          "item_id": "p0075",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Pale foliage highlight in a bright canopy area with no distinct object; the track does not show a consistent moving particle."
+        },
+        "B": {
+          "item_id": "p0075",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Sunlit leaves and branches in a tree, no glow; many detections around."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0075",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Sunlit pale foliage in a tree canopy, no glow, many other detections on leaves."
+        }
+      },
+      {
+        "item_id": "p0076",
+        "A": {
+          "item_id": "p0076",
+          "category": "reflection",
+          "confidence": "unsure",
+          "note": "Elongated cream-coloured streak that stays fixed in the frame across all five frames; looks like a glint or a lit blade rather than a flying ember."
+        },
+        "B": {
+          "item_id": "p0076",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright elongated white-yellow streak, very bright against orange scene, shifts slightly between frames; could also be a glint on a blade."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0076",
+          "category": "reflection",
+          "confidence": "unsure",
+          "note": "Cream-white elongated streak holds the same position and shape in all five frames, like a lit blade or glint, not in flight."
+        }
+      },
+      {
+        "item_id": "p0077",
+        "A": {
+          "item_id": "p0077",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Dark ground crack or stem with no visible glow; the track vanishes after two frames and shows no ember."
+        },
+        "B": {
+          "item_id": "p0077",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Dark thin grass stalk or twig at the circle, not glowing."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0077",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Dark thin stalk or crack at the circle, no glow, track ends after two frames."
+        }
+      },
+      {
+        "item_id": "p0078",
+        "A": {
+          "item_id": "p0078",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Dim slightly brighter spot on a dark background that stays in place; too faint to call an ember with confidence."
+        },
+        "B": {
+          "item_id": "p0078",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny faint warm blob that stays nearly in place on dark brown ground; could be a dim ember or noise."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0078",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Dim slightly brighter spot on a dark background that stays in place; too faint to call an ember with confidence."
+        }
+      },
+      {
+        "item_id": "p0079",
+        "A": {
+          "item_id": "p0079",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Foggy foliage with no visible bright object at the track; nothing consistent to judge as an ember."
+        },
+        "B": {
+          "item_id": "p0079",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Nothing bright at the circle, only faint foliage texture in haze; likely noise."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0079",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Only hazy foliage at the circle with no bright object; likely moving leaf or noise, nothing glowing."
+        }
+      },
+      {
+        "item_id": "p0080",
+        "A": {
+          "item_id": "p0080",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits in a cluster of bright flame and glowing fuel near the flame front; the spot barely moves across frames -2 to +2, so it looks attached to burning fuel rather than flying free."
+        },
+        "B": {
+          "item_id": "p0080",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright blobs on burning fuel next to flames, glare around bright region."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0080",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits in a cluster of bright flame and glowing fuel near the flame front; the spot barely moves across frames -2 to +2, so it looks attached to burning fuel rather than flying free."
+        }
+      },
+      {
+        "item_id": "p0081",
+        "A": {
+          "item_id": "p0081",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Elongated bright streak with a dark outline that shifts consistently between frames; reads as a glowing particle in flight, though the motion is small."
+        },
+        "B": {
+          "item_id": "p0081",
+          "category": "ember",
+          "confidence": "sure",
+          "note": "Bright elongated streak with motion blur moving consistently across frames."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0081",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Elongated bright streak with a dark outline that shifts consistently between frames; reads as a glowing particle in flight, though the motion is small."
+        }
+      },
+      {
+        "item_id": "p0082",
+        "A": {
+          "item_id": "p0082",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Pale pinkish blob on a brown background that changes shape and tumbles between frames; could be a glowing ember or a piece of debris, and the image is too soft to decide."
+        },
+        "B": {
+          "item_id": "p0082",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright yellow-white particle with reddish glow moving along a green path, interlaced streaks nearby."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0082",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright yellow-white particle with a pinkish glow that moves along the path and changes between frames, away from the fuel streaks; plausible ember in interlaced video."
+        }
+      },
+      {
+        "item_id": "p0083",
+        "A": {
+          "item_id": "p0083",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a dark area beside a cluster of bright ground pieces and drops out in frame +1; cannot tell whether it is a fragment of burning debris or a fuel-bed edge."
+        },
+        "B": {
+          "item_id": "p0083",
+          "category": "duplicate_fragment",
+          "confidence": "unsure",
+          "note": "Fragments of a group of bright streaks near other detections; side piece of a larger streak."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0083",
+          "category": "duplicate_fragment",
+          "confidence": "unsure",
+          "note": "Track sits at a dim piece next to a cluster of bright streak fragments that other detections cover; side fragment."
+        }
+      },
+      {
+        "item_id": "p0084",
+        "A": {
+          "item_id": "p0084",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small white-hot speck that moves diagonally between frames against a dark background; consistent with a glowing ember, though it is small and could be a reflection."
+        },
+        "B": {
+          "item_id": "p0084",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small bright white streak moving diagonally over dark foliage."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0084",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Small white-hot speck that moves diagonally between frames against a dark background; consistent with a glowing ember, though it is small and could be a reflection."
+        }
+      },
+      {
+        "item_id": "p0085",
+        "A": {
+          "item_id": "p0085",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Bright horizontal blob in a smoky region with interlace comb stripes in frames +1 and +2; could be a glowing piece, a flame edge or a codec artifact."
+        },
+        "B": {
+          "item_id": "p0085",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Comb-like interlace smear near burning bark edge, no clear object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0085",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Comb-like interlace smear near the burning bark edge that changes shape between frames, no clear distinct object."
+        }
+      },
+      {
+        "item_id": "p0086",
+        "A": {
+          "item_id": "p0086",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Two bright blobs on the ground stay in the same place across all five frames; the track sits still on a static bright spot rather than moving as an ember would."
+        },
+        "B": {
+          "item_id": "p0086",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Soft glowing orange-yellow blob, relatively steady, in front of dark branches; could be a glowing ember or fuel."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0086",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Soft orange-yellow blob that stays in place with a second static blob beside it; looks like glowing fuel on the ground rather than a flying particle."
+        }
+      },
+      {
+        "item_id": "p0087",
+        "A": {
+          "item_id": "p0087",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Curved glowing streak that persists and shifts slightly between frames; looks like a glowing particle, though the bent shape could also be a flame or fuel edge."
+        },
+        "B": {
+          "item_id": "p0087",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint curved streak moving on orange background, dim."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0087",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint curved bright streak that shifts between frames on a plain orange background; dim but plausibly a glowing particle."
+        }
+      },
+      {
+        "item_id": "p0088",
+        "A": {
+          "item_id": "p0088",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Thin faint streaks on a brown background that barely change between frames; the track follows a weak mark that may or may not be an ember."
+        },
+        "B": {
+          "item_id": "p0088",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint small streaks that shift between frames on orange background."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0088",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Thin faint streaks on a brown background that barely change between frames; the track follows a weak mark that may or may not be an ember."
+        }
+      },
+      {
+        "item_id": "p0089",
+        "A": {
+          "item_id": "p0089",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on grass and forest floor near a small pale spot that stays fixed; no clear moving glowing object is visible."
+        },
+        "B": {
+          "item_id": "p0089",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny pale speck in grass, daylight, barely visible."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0089",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny pale speck in grass in daylight, near static and barely visible; could be a fleck of ash or a speck, weak evidence of an ember."
+        }
+      },
+      {
+        "item_id": "p0090",
+        "A": {
+          "item_id": "p0090",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Large round bright white-yellow blob that moves only slightly between frames; could be a large glowing ember in flight, though it may also be flame glare around a bright region."
+        },
+        "B": {
+          "item_id": "p0090",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Round bright white-yellow glow in flight, drifts up between frames over dark trunk; could be burning fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0090",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Large round bright white-yellow blob that moves only slightly between frames; could be a large glowing ember in flight, though it may also be flame glare around a bright region."
+        }
+      },
+      {
+        "item_id": "p0091",
+        "A": {
+          "item_id": "p0091",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright glowing piece at the end of a burning branch-like bright chain; the glow appears attached to the fuel rather than flying free. Overlay text ot11cam2 is present but not the track."
+        },
+        "B": {
+          "item_id": "p0091",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright blobs at edge of burning vegetation, likely flame bits or large embers attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0091",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright glowing piece at the end of a burning branch-like bright chain; the glow appears attached to the fuel rather than flying free. Overlay text ot11cam2 is present but not the track."
+        }
+      },
+      {
+        "item_id": "p0092",
+        "A": {
+          "item_id": "p0092",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on tree foliage against a pale daylight sky with no bright moving object visible across frames."
+        },
+        "B": {
+          "item_id": "p0092",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Bright sky gaps between tree leaves and branches, no glowing particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0092",
+          "category": "moving_non_ember",
+          "confidence": "sure",
+          "note": "Bright sky gaps between leaves and branches, no glowing particle."
+        }
+      },
+      {
+        "item_id": "p0093",
+        "A": {
+          "item_id": "p0093",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright streaks move diagonally in a consistent direction along a fire line; the track follows one bright fragment, which looks like a falling glowing piece, though it could be part of the fire edge."
+        },
+        "B": {
+          "item_id": "p0093",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright streaks moving between frames in a spray of embers, interlaced comb look."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0093",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright streaks move diagonally in a consistent direction along a fire line; the track follows one bright fragment, which looks like a falling glowing piece, though it could be part of the fire edge."
+        }
+      },
+      {
+        "item_id": "p0094",
+        "A": {
+          "item_id": "p0094",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "The track sits on burned-in overlay text reading Ralston Fire, Plot 9/8/2006, 08:35, Clip1."
+        },
+        "B": {
+          "item_id": "p0094",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in 'Ralston Fire' time stamp text."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0094",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "The track sits on burned-in overlay text reading Ralston Fire, Plot 9/8/2006, 08:35, Clip1."
+        }
+      },
+      {
+        "item_id": "p0095",
+        "A": {
+          "item_id": "p0095",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on an elongated bright glowing piece lying on the ground amid other bright fragments; it moves very little, suggesting burning fuel rather than a flying ember."
+        },
+        "B": {
+          "item_id": "p0095",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing bits on burning branches in a flame region, comb artifacts, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0095",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on an elongated bright glowing piece lying on the ground amid other bright fragments; it moves very little, suggesting burning fuel rather than a flying ember."
+        }
+      },
+      {
+        "item_id": "p0096",
+        "A": {
+          "item_id": "p0096",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits in a grey-green canopy area with no bright moving object visible; cannot identify what is being followed."
+        },
+        "B": {
+          "item_id": "p0096",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Sunlit foliage and sky texture, no glowing particle; leaf or branch flicker."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0096",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on grey-green foliage with no glowing object; likely texture flicker but cannot say."
+        }
+      },
+      {
+        "item_id": "p0097",
+        "A": {
+          "item_id": "p0097",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a faint speck below a bright glowing blob at the top of the crop; the speck is dim and its motion is hard to confirm."
+        },
+        "B": {
+          "item_id": "p0097",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glow on burning trunk or fuel near streaks, little motion."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0097",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Circle sits on a very faint speck below a glowing blob on burning fuel; speck is dim, little visible motion."
+        }
+      },
+      {
+        "item_id": "p0098",
+        "A": {
+          "item_id": "p0098",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint diagonal blur on a dark brown background that is hard to separate from the texture; the track follows a dim mark that may be a weak ember."
+        },
+        "B": {
+          "item_id": "p0098",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Very faint smear on dark brown, no clear object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0098",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Only a faint smear on dark brown background, no clear object."
+        }
+      },
+      {
+        "item_id": "p0099",
+        "A": {
+          "item_id": "p0099",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a static ground feature with a reddish patch that stays in the same place across frames; it does not look like a free-flying ember, but the cause is not clear."
+        },
+        "B": {
+          "item_id": "p0099",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static bright rock or snow patch with reddish fringe; barely moves."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0099",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static bright rock or snow patch with a reddish fringe at the image edge; does not move."
+        }
+      },
+      {
+        "item_id": "p0100",
+        "A": {
+          "item_id": "p0100",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on the glowing fuel bed and a short orange streak on the ground, not a free-flying ember. Path is short and attached to the bed."
+        },
+        "B": {
+          "item_id": "p0100",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Faint streaky glow near glowing ground fuel; a bright streak appears nearby in later frames but the track itself is weak."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0100",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track is on glowing ground fuel bed near the lower edge; a nearby streak appears briefly but the track itself stays attached to the bed."
+        }
+      },
+      {
+        "item_id": "p0101",
+        "A": {
+          "item_id": "p0101",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Dim forest scene with bright sunlit foliage nearby. Track sits on a faint static streak with no clear glow or consistent motion."
+        },
+        "B": {
+          "item_id": "p0101",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Static bright speckle in foliage, no motion; compression noise on tree canopy."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0101",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Static speckle in dark canopy with blocky compression pattern, no motion."
+        }
+      },
+      {
+        "item_id": "p0102",
+        "A": {
+          "item_id": "p0102",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Low-contrast orange surface with a dark band below. No distinct glowing object at the track position."
+        },
+        "B": {
+          "item_id": "p0102",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Nothing visible at the circle, at the edge of the black image border; no physical object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0102",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Nothing visible at the circle, which sits at the black image border; no physical object."
+        }
+      },
+      {
+        "item_id": "p0103",
+        "A": {
+          "item_id": "p0103",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a dark stem in golden grass and does not glow. Looks stationary, so not clearly an ember."
+        },
+        "B": {
+          "item_id": "p0103",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "No visible bright object at the circle; faint foliage in bright daylight."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0103",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a dark stem in golden grass and does not glow. Looks stationary, so not clearly an ember."
+        }
+      },
+      {
+        "item_id": "p0104",
+        "A": {
+          "item_id": "p0104",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on the bright edge of a large flame front. Attached to the burning region, not flying free."
+        },
+        "B": {
+          "item_id": "p0104",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track is on the edge of a large bright flame mass."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0104",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on the bright edge of a large flame front. Attached to the burning region, not flying free."
+        }
+      },
+      {
+        "item_id": "p0105",
+        "A": {
+          "item_id": "p0105",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright burning clump on the ground that stays roughly in place across frames. Not a clearly moving ember."
+        },
+        "B": {
+          "item_id": "p0105",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright specks on glowing ground fuel texture; attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0105",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright burning clump on the ground that stays roughly in place across frames. Not a clearly moving ember."
+        }
+      },
+      {
+        "item_id": "p0106",
+        "A": {
+          "item_id": "p0106",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Thin bright streak on a tree trunk surface. Looks attached to bark rather than flying, so likely burning fuel or glare."
+        },
+        "B": {
+          "item_id": "p0106",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright streak on a dark trunk that shifts between frames; may be glowing bark or a small ember."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0106",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright streak on a charred trunk that fades and shifts slightly; looks like glowing bark rather than a free particle."
+        }
+      },
+      {
+        "item_id": "p0107",
+        "A": {
+          "item_id": "p0107",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright hook-shaped glowing object on the ground that stays in place. Likely a burning fuel piece, not a moving ember."
+        },
+        "B": {
+          "item_id": "p0107",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright curved streak moving across frames against dark background, looks like a glowing particle in flight."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0107",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Bright curved glowing shape near the circle that changes shape between frames; possibly a streaked ember, but the circle lags below it and it may be attached to fuel."
+        }
+      },
+      {
+        "item_id": "p0108",
+        "A": {
+          "item_id": "p0108",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a tiny faint speck near bright hot spots at the upper right. Too faint and small to call."
+        },
+        "B": {
+          "item_id": "p0108",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny dim speck in dark area with many similar specks; weak, cannot confirm."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0108",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Tiny dim speck in a dark area with many similar specks; weak, cannot confirm."
+        }
+      },
+      {
+        "item_id": "p0109",
+        "A": {
+          "item_id": "p0109",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright reddish-white glowing blob on the ground that barely shifts between frames. Looks like a burning fuel patch."
+        },
+        "B": {
+          "item_id": "p0109",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck in dark scene with slight movement; could be a small ember or glowing fuel bit."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0109",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright glowing spot on a burning trunk among similar bright spots; barely moves, looks like burning fuel."
+        }
+      },
+      {
+        "item_id": "p0110",
+        "A": {
+          "item_id": "p0110",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Daylight pine trunks with a bright gap between them. Track sits on a static bright patch with no glow or motion."
+        },
+        "B": {
+          "item_id": "p0110",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright sky gaps between trees with flicker; no discrete object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0110",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Daylight pine trunks and bright sky gaps; no discrete object, only flicker in the background."
+        }
+      },
+      {
+        "item_id": "p0111",
+        "A": {
+          "item_id": "p0111",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in clip label text (Clip3) in the frame."
+        },
+        "B": {
+          "item_id": "p0111",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on burned-in caption text (Black Mtn Fire, Plot, Clip3)."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0111",
+          "category": "overlay_text",
+          "confidence": "sure",
+          "note": "Track sits on the burned-in clip label text (Clip3) in the frame."
+        }
+      },
+      {
+        "item_id": "p0112",
+        "A": {
+          "item_id": "p0112",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a red flagging strip tied to a stake. Physical object that does not glow and stays in place."
+        },
+        "B": {
+          "item_id": "p0112",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Pink/red marker or flagging object on grass, not glowing; track on a stick or flag."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0112",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a red flagging strip tied to a stake. Physical object that does not glow and stays in place."
+        }
+      },
+      {
+        "item_id": "p0113",
+        "A": {
+          "item_id": "p0113",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Dim foliage with no clear glowing particle at the track. Track jitters within the background texture."
+        },
+        "B": {
+          "item_id": "p0113",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Tiny bright speck in textured foliage, no real motion; likely compression noise or leaf glint."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0113",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Tiny speck in dim textured foliage, no glow or consistent motion; likely noise or leaf glint."
+        }
+      },
+      {
+        "item_id": "p0114",
+        "A": {
+          "item_id": "p0114",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a glowing orange clump at the base of the grass, attached to the burning fuel bed."
+        },
+        "B": {
+          "item_id": "p0114",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glowing fuel pieces and bright bloom near ground; attached to burning fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0114",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a glowing orange clump at the base of the grass, attached to the burning fuel bed."
+        }
+      },
+      {
+        "item_id": "p0115",
+        "A": {
+          "item_id": "p0115",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck near the track on a dark ground, with some shift between frames. Could be a faint ember but hard to confirm."
+        },
+        "B": {
+          "item_id": "p0115",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright specks near streaky bright fragments in dark night scene; weak and ambiguous."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0115",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck near the track on a dark ground, with some shift between frames. Could be a faint ember but hard to confirm."
+        }
+      },
+      {
+        "item_id": "p0116",
+        "A": {
+          "item_id": "p0116",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Dim trunk surface with interlace striping and no distinct glowing particle at the track. Could be a compression artifact."
+        },
+        "B": {
+          "item_id": "p0116",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Bright interlaced texture on glowing trunk/branches in front of flames; attached to fuel."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0116",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Interlaced bright texture on a trunk silhouetted against flames; attached to fuel, no free particle."
+        }
+      },
+      {
+        "item_id": "p0117",
+        "A": {
+          "item_id": "p0117",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Pale bluish daylight region of foliage and sky. Track sits on a non-glowing static area."
+        },
+        "B": {
+          "item_id": "p0117",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Foggy foliage, no visible glowing object at the circle."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0117",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Pale bluish daylight region of foliage and sky. Track sits on a non-glowing static area."
+        }
+      },
+      {
+        "item_id": "p0118",
+        "A": {
+          "item_id": "p0118",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a large glowing burning fuel bed edge. Attached to the fire, not a free-flying ember."
+        },
+        "B": {
+          "item_id": "p0118",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Sits at the edge of glowing fuel bed; attached to burning fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0118",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a large glowing burning fuel bed edge. Attached to the fire, not a free-flying ember."
+        }
+      },
+      {
+        "item_id": "p0119",
+        "A": {
+          "item_id": "p0119",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a small faint spot in a golden field with no clear glow or consistent motion. Too faint to be sure."
+        },
+        "B": {
+          "item_id": "p0119",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Dim blob in daylight scene, barely brighter than background, little consistent motion."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0119",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a small faint spot in a golden field with no clear glow or consistent motion. Too faint to be sure."
+        }
+      },
+      {
+        "item_id": "p0120",
+        "A": {
+          "item_id": "p0120",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Ground grass texture under a still track. No bright particle is visible in any of the five frames, and the track does not move along a path."
+        },
+        "B": {
+          "item_id": "p0120",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dry grass texture with no bright particle, only noise."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0120",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dry grass texture, no bright particle in any frame; only noise."
+        }
+      },
+      {
+        "item_id": "p0121",
+        "A": {
+          "item_id": "p0121",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright white-orange blob sitting on a branch-like structure. It looks attached to burning fuel rather than flying free, though a small ember cannot be ruled out."
+        },
+        "B": {
+          "item_id": "p0121",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Bright white-yellow elongated particle moving along a branch, though it could be a burning twig edge."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0121",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright white-yellow blob stays fixed on a twig, same shape in all frames; looks like a burning or lit branch edge, not a flying particle."
+        }
+      },
+      {
+        "item_id": "p0122",
+        "A": {
+          "item_id": "p0122",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint grey-white speck on a dark background that is visible in one or two frames and then disappears. Too dim and short-lived to call it confidently."
+        },
+        "B": {
+          "item_id": "p0122",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small greyish-white fragment that fades quickly in a dark scene; weak candidate."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0122",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Very faint grey-white speck on a dark background that is visible in one or two frames and then disappears. Too dim and short-lived to call it confidently."
+        }
+      },
+      {
+        "item_id": "p0123",
+        "A": {
+          "item_id": "p0123",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a brown branch cluster among sunlit foliage and stays in place. Could be a static bright spot or foliage texture; no consistent moving particle."
+        },
+        "B": {
+          "item_id": "p0123",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Pale spot on a branch or pine needles in daylight, not glowing; foliage or sky gap."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0123",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Pale non-glowing spot on a branch and needles in daylight; foliage or sky gap."
+        }
+      },
+      {
+        "item_id": "p0124",
+        "A": {
+          "item_id": "p0124",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a bright vertical highlight on a tree trunk or pole in a static position. Looks like a glint or glare on structure, not a flying ember."
+        },
+        "B": {
+          "item_id": "p0124",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright speckle in foliage near the black bar, static blocky noise."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0124",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Static blocky bright speckle in foliage next to the black bar; no particle or motion."
+        }
+      },
+      {
+        "item_id": "p0125",
+        "A": {
+          "item_id": "p0125",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Several glowing orange and white fragments on a fuel bed in a hazy scene. The track follows a bright patch that appears tied to the burning ground rather than to one free-flying particle."
+        },
+        "B": {
+          "item_id": "p0125",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Interlaced comb-like bright streaks on burning fuel in a flame scene, attached to the fire."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0125",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Several glowing orange and white fragments on a fuel bed in a hazy scene. The track follows a bright patch that appears tied to the burning ground rather than to one free-flying particle."
+        }
+      },
+      {
+        "item_id": "p0126",
+        "A": {
+          "item_id": "p0126",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim bright spot in a dark area near a glowing fuel edge. It is visible in several frames but moves little, so an ember is possible but not certain."
+        },
+        "B": {
+          "item_id": "p0126",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright speck in a dark area that fades over frames and moves a little; possibly an ember."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0126",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small dim bright spot in a dark area near a glowing fuel edge. It is visible in several frames but moves little, so an ember is possible but not certain."
+        }
+      },
+      {
+        "item_id": "p0127",
+        "A": {
+          "item_id": "p0127",
+          "category": "fixture_light",
+          "confidence": "unsure",
+          "note": "Track sits in a static spot against a bright sunlit cluster of branches and trunk edges. It does not move consistently between frames, which suggests a static bright region."
+        },
+        "B": {
+          "item_id": "p0127",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright foliage patch near the black bar edge, blocky noise, no particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0127",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright foliage patch at the black bar edge, blocky and static; no distinct particle."
+        }
+      },
+      {
+        "item_id": "p0128",
+        "A": {
+          "item_id": "p0128",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits at the lower edge of a bright flame line near the burned-in overlay text. The bright spot appears attached to the fire area rather than travelling freely."
+        },
+        "B": {
+          "item_id": "p0128",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright blob at the bottom of the frame near burned-in text, part of flame glare."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0128",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits at the lower edge of a bright flame line near the burned-in overlay text. The bright spot appears attached to the fire area rather than travelling freely."
+        }
+      },
+      {
+        "item_id": "p0129",
+        "A": {
+          "item_id": "p0129",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small bright dot that stays at nearly the same position relative to the crop across frames, next to a bright glowing region at the right edge. Looks tied to the fuel or glow rather than a flying ember, but a static ember is possible."
+        },
+        "B": {
+          "item_id": "p0129",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright dot at the frame edge in a dark area that moves; may be an ember, cannot be sure."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0129",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small bright dot in a dark area that shifts a little between frames, with a second dot below; possibly an ember but faint."
+        }
+      },
+      {
+        "item_id": "p0130",
+        "A": {
+          "item_id": "p0130",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track lies on a bright glowing strip of burning fuel or bark on a hot ground surface. No separate particle is seen moving away from the fuel."
+        },
+        "B": {
+          "item_id": "p0130",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Streaky bright interlaced comb texture of burning fuel on the ground, not a free particle."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0130",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track lies on a bright glowing strip of burning fuel or bark on a hot ground surface. No separate particle is seen moving away from the fuel."
+        }
+      },
+      {
+        "item_id": "p0131",
+        "A": {
+          "item_id": "p0131",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Only a small white streak in the first frame is near the track, and it vanishes afterwards. Otherwise the track sits on a flame region beside a dark trunk, so it is attached to fire."
+        },
+        "B": {
+          "item_id": "p0131",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Small glint at the edge of a bright flame glow near a trunk, vanishes after one frame."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0131",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Only a small white streak in the first frame is near the track, and it vanishes afterwards. Otherwise the track sits on a flame region beside a dark trunk, so it is attached to fire."
+        }
+      },
+      {
+        "item_id": "p0132",
+        "A": {
+          "item_id": "p0132",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on the boundary between a bright white and grey fuel area and the grey overlay mask. Cannot tell whether it is a particle or a region edge."
+        },
+        "B": {
+          "item_id": "p0132",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Edge of a bright white region (sky or sunlit foliage) at the frame border."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0132",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on the edge of a bright white region next to the mask border; daylight scene, no particle."
+        }
+      },
+      {
+        "item_id": "p0133",
+        "A": {
+          "item_id": "p0133",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a glowing orange patch inside a flame column that also shows horizontal interlace combing. The glow is attached to the fire rather than moving as a single particle."
+        },
+        "B": {
+          "item_id": "p0133",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Bright spot on a burning trunk within flames, attached to fuel."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0133",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a glowing orange patch inside a flame column that also shows horizontal interlace combing. The glow is attached to the fire rather than moving as a single particle."
+        }
+      },
+      {
+        "item_id": "p0134",
+        "A": {
+          "item_id": "p0134",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on dull grey-green ground next to bright cloud-like white fuel patches. No distinct glowing particle is visible at the track."
+        },
+        "B": {
+          "item_id": "p0134",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Edge of a bright cloud or sky patch next to the frame border, no particle."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0134",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dull ground next to bright cloud-like patches at the border; nothing glowing at the track."
+        }
+      },
+      {
+        "item_id": "p0135",
+        "A": {
+          "item_id": "p0135",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a dull ground patch beside white and grey textured areas. No bright moving particle is visible at the track in any frame."
+        },
+        "B": {
+          "item_id": "p0135",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Tiny pale speck on a daylight scene, not glowing; likely a leaf or noise."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0135",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Tiny pale speck in a daylight scene, not glowing; likely a leaf or noise."
+        }
+      },
+      {
+        "item_id": "p0136",
+        "A": {
+          "item_id": "p0136",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits just under the top grey mask edge near a bright flame region with horizontal interlace striping. Nothing distinct is glowing at the track itself."
+        },
+        "B": {
+          "item_id": "p0136",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint bright speck in dark area that shifts slightly; could be a distant ember."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0136",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small faint bright speck in a dark area under the mask edge that shifts slightly; could be a distant ember."
+        }
+      },
+      {
+        "item_id": "p0137",
+        "A": {
+          "item_id": "p0137",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright white bark stripe on a trunk and stays in place. Looks like glare or bloom on the trunk rather than a free-flying ember."
+        },
+        "B": {
+          "item_id": "p0137",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright overexposed trunk gap, no particle, just compression noise."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0137",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a static overexposed white trunk gap with bloom, no particle moving between frames."
+        }
+      },
+      {
+        "item_id": "p0138",
+        "A": {
+          "item_id": "p0138",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a thin bright diagonal edge between dark and light branch or trunk surfaces. The edge does not move as a particle would, but no clear object is identified."
+        },
+        "B": {
+          "item_id": "p0138",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Faint reddish glow on a dark trunk, attached to fuel, static."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0138",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Static diagonal trunk edge with a faint reddish glow attached to fuel; nothing in flight."
+        }
+      },
+      {
+        "item_id": "p0139",
+        "A": {
+          "item_id": "p0139",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a dark grey blob on the grass with no bright glow in any of the five frames. Too low in detail to identify."
+        },
+        "B": {
+          "item_id": "p0139",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dim texture on grass, no visible bright particle in the crops."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0139",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dim dark blob on grass, no bright glow in any frame; static texture, no physical glowing object."
+        }
+      },
+      {
+        "item_id": "p0140",
+        "A": {
+          "item_id": "p0140",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Static bright patches in ground vegetation; the track sits on a fixed bright fuel spot and jitters in place. No clear flying ember seen across frames -2 to +2."
+        },
+        "B": {
+          "item_id": "p0140",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Daylight foliage with bright leaf highlights, static; no glowing object."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0140",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Static bright leaf highlights in daylight foliage; no glowing particle, nothing moves. Could be glare or noise."
+        }
+      },
+      {
+        "item_id": "p0141",
+        "A": {
+          "item_id": "p0141",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small reddish streak at the track in frame t that fades by t+2 against a flame-lit edge with many comb-like detections. Could be a faint ember, but the flame edge is a plausible alternative."
+        },
+        "B": {
+          "item_id": "p0141",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "A small pinkish-white spot appears at t only, in dark area, then fades; interlace combs nearby."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0141",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small reddish streak at the track in frame t that fades by t+2 against a flame-lit edge with many comb-like detections. Could be a faint ember, but the flame edge is a plausible alternative."
+        }
+      },
+      {
+        "item_id": "p0142",
+        "A": {
+          "item_id": "p0142",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a trunk edge beside a bright flame region and does not move independently between frames. Looks attached to the trunk or flame edge, not a free-flying particle."
+        },
+        "B": {
+          "item_id": "p0142",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track on sunlit burning foliage and flame glare next to trunk, no distinct particle."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0142",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a trunk edge beside a bright flame region and does not move independently between frames. Looks attached to the trunk or flame edge, not a free-flying particle."
+        }
+      },
+      {
+        "item_id": "p0143",
+        "A": {
+          "item_id": "p0143",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Hazy bright sky and foliage with no distinct glowing object at the track. Nothing consistent in motion across frames."
+        },
+        "B": {
+          "item_id": "p0143",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Daylight scene, nothing visible at the track; faint blocky noise only."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0143",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Hazy daylight sky and foliage, nothing bright at the track, only blocky noise."
+        }
+      },
+      {
+        "item_id": "p0144",
+        "A": {
+          "item_id": "p0144",
+          "category": "ember",
+          "confidence": "unsure",
+          "note": "Elongated orange streak near the track that shifts consistently between frames, with interlace-like striping. Could be a glowing ember streak, though the comb striping makes it uncertain."
+        },
+        "B": {
+          "item_id": "p0144",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Small orange streak fragments moving in dark scene with interlace; could be a flying ember but cluttered."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0144",
+          "category": "faint_possible_ember",
+          "confidence": "unsure",
+          "note": "Orange streak fragments that shift between frames with interlace striping in a dark cluttered scene; ember-like but could be flame edge."
+        }
+      },
+      {
+        "item_id": "p0145",
+        "A": {
+          "item_id": "p0145",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track sits on a blurry foliage and sky boundary with no bright compact object. Nothing ember-like visible."
+        },
+        "B": {
+          "item_id": "p0145",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Hazy daytime foliage with no bright particle; blocky compression texture."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0145",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Hazy foliage and sky boundary, no bright compact object; blocky compression texture."
+        }
+      },
+      {
+        "item_id": "p0146",
+        "A": {
+          "item_id": "p0146",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a glowing burning fuel edge that stays in place across frames. Later frames show interlace striping, but the bright region is attached to fuel."
+        },
+        "B": {
+          "item_id": "p0146",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Glow at edge of burning fuel with interlace banding; attached to fuel bed."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0146",
+          "category": "flame_glare_edge",
+          "confidence": "sure",
+          "note": "Track sits on a glowing burning fuel edge that stays in place across frames. Later frames show interlace striping, but the bright region is attached to fuel."
+        }
+      },
+      {
+        "item_id": "p0147",
+        "A": {
+          "item_id": "p0147",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track is on a bright speckled patch of ground vegetation that stays in place. No consistent flying object seen."
+        },
+        "B": {
+          "item_id": "p0147",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Daylight scene, track on bright leafy texture, nothing glowing; no clear object."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0147",
+          "category": "unclear",
+          "confidence": "unsure",
+          "note": "Track is on a bright speckled patch of ground vegetation that stays in place. No consistent flying object seen."
+        }
+      },
+      {
+        "item_id": "p0148",
+        "A": {
+          "item_id": "p0148",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Bright vertical comb-striped streak appears only in frames -1 and 0 at the track and vanishes by +1, which fits an interlace artifact. The green path starts from a separate static bright spot."
+        },
+        "B": {
+          "item_id": "p0148",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Small dim comb-like streak moving between frames, not bright or orange; could be a faint ember or debris."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0148",
+          "category": "codec_artifact",
+          "confidence": "unsure",
+          "note": "Dim comb-striped vertical streak appears in only a couple of frames, not bright or orange; likely interlace artifact."
+        }
+      },
+      {
+        "item_id": "p0149",
+        "A": {
+          "item_id": "p0149",
+          "category": "moving_non_ember",
+          "confidence": "unsure",
+          "note": "Track sits on a faint diagonal branch or grey stem edge in front of a flame region. Looks like a moving branch or flame edge rather than a free ember."
+        },
+        "B": {
+          "item_id": "p0149",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track in dark area near a glowing branch/fuel line; glow is attached to burning fuel at left."
+        },
+        "adjudicated": true,
+        "final": {
+          "item_id": "p0149",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track is in a dark area beside a glowing burning branch line attached to fuel; no free-flying glowing particle."
+        }
+      },
+      {
+        "item_id": "p0150",
+        "A": {
+          "item_id": "p0150",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright branch and flame texture with no compact glowing particle. Appears attached to the burning foliage."
+        },
+        "B": {
+          "item_id": "p0150",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Sits in a bright burning fuel texture with many nearby detections, no distinct free particle."
+        },
+        "adjudicated": false,
+        "final": {
+          "item_id": "p0150",
+          "category": "flame_glare_edge",
+          "confidence": "unsure",
+          "note": "Track sits on a bright branch and flame texture with no compact glowing particle. Appears attached to the burning foliage."
+        }
+      }
+    ],
+    "n": 151,
+    "n_disagree": 81
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Adjudicate"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "rev:test:0:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "ae1d1d0860ceadf81",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271287475,
+      "queuedAt": 1792271287408,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271323300,
+      "tokens": 100592,
+      "toolCalls": 22,
+      "durationMs": 35824,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0000\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Bright pale glow on a strip at the left frame edge; the track sits still on the edge of the glow across frames, not a free-flying particle.\"},{\"item_id\":\"p0001\",\"category\":\"ember\",\"confidence\":\"unsure\",\"note\":\"Small glowing orange blob with a motion-blurred streak that shifts position between frames, consisten…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "rev:test:0:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a315eb1e5310af821",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271287475,
+      "queuedAt": 1792271287409,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271313422,
+      "tokens": 93023,
+      "toolCalls": 22,
+      "durationMs": 25942,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0019\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Glowing patch on a burning trunk edge, attached to fuel.\"},{\"item_id\":\"p0018\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Tiny faint spot on striped bark, nothing clear in the crops.\"},{\"item_id\":\"p0017\",\"category\":\"flame_glare_edge\",\"confidence\":\"sure\",\"note\":\"Glowing bark and branch texture next to a …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "rev:test:1:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a787628c6e531e501",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271315164,
+      "queuedAt": 1792271287409,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271352178,
+      "tokens": 92975,
+      "toolCalls": 23,
+      "durationMs": 37012,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0020\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Static cluster of bright sunlit foliage spots in a tree area. The track sits still across frames -2..+2 and no free-flying particle is visible.\"},{\"item_id\":\"p0021\",\"category\":\"fixture_light\",\"confidence\":\"unsure\",\"note\":\"Soft round yellow-white spot that does not move over five frames. Looks like a static light or glo…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "rev:test:1:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a95a9691e47590fb1",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271325044,
+      "queuedAt": 1792271287409,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271349248,
+      "tokens": 92723,
+      "toolCalls": 22,
+      "durationMs": 24204,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0039\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Bright blocky sky patch at tree edge, static, no object\"},{\"item_id\":\"p0038\",\"category\":\"moving_non_ember\",\"confidence\":\"unsure\",\"note\":\"Pink flagging tape swinging, not glowing\"},{\"item_id\":\"p0037\",\"category\":\"ember\",\"confidence\":\"unsure\",\"note\":\"Orange glowing particle moving down the frame, streak-like\"},{\"it…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "rev:test:2:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a26395d3b1dc21ce6",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271351015,
+      "queuedAt": 1792271287410,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271389840,
+      "tokens": 98393,
+      "toolCalls": 22,
+      "durationMs": 38825,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0040\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Foggy scene by a tree trunk. No bright or moving object is visible in the 4x crop across t-2..t+2; the track sits on the trunk edge area. Possibly faint, cannot tell.\"},{\"item_id\":\"p0041\",\"category\":\"moving_non_ember\",\"confidence\":\"unsure\",\"note\":\"Daylight foliage and leaf clusters against a pale sky. Nothing glows; th…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "rev:test:2:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aa9c42ce51809d0d7",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271353982,
+      "queuedAt": 1792271287410,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271378939,
+      "tokens": 92719,
+      "toolCalls": 22,
+      "durationMs": 24957,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0059\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Track sits on bright sky and branch edge, no glowing object visible.\"},{\"item_id\":\"p0058\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Foggy forest, nothing bright at the circle; static texture.\"},{\"item_id\":\"p0057\",\"category\":\"fixture_light\",\"confidence\":\"unsure\",\"note\":\"Track sits on a static dark…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 7,
+      "label": "rev:test:3:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a46d969580943c08a",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271380634,
+      "queuedAt": 1792271287410,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271409787,
+      "tokens": 94540,
+      "toolCalls": 22,
+      "durationMs": 29152,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0060\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Curved orange glowing stem or blade edge that stays put across all five frames; attached to fuel rather than flying free.\"},{\"item_id\":\"p0061\",\"category\":\"overlay_text\",\"confidence\":\"sure\",\"note\":\"Burned-in white text reading Georgia Bay Complex, 14:08 Clip1; the track sits on the lettering.\"},{\"item_id\":\"p006…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 8,
+      "label": "rev:test:3:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a7503b7bb36b77d22",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271391635,
+      "queuedAt": 1792271287411,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271416766,
+      "tokens": 92759,
+      "toolCalls": 22,
+      "durationMs": 25130,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0079\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Nothing bright at the circle, only faint foliage texture in haze; likely noise.\"},{\"item_id\":\"p0078\",\"category\":\"faint_possible_ember\",\"confidence\":\"unsure\",\"note\":\"Tiny faint warm blob that stays nearly in place on dark brown ground; could be a dim ember or noise.\"},{\"item_id\":\"p0077\",\"category\":\"moving_non_emb…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 9,
+      "label": "rev:test:4:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a27a6d9a88f7fb42b",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271411832,
+      "queuedAt": 1792271287411,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271446619,
+      "tokens": 96515,
+      "toolCalls": 23,
+      "durationMs": 34786,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0080\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Track sits in a cluster of bright flame and glowing fuel near the flame front; the spot barely moves across frames -2 to +2, so it looks attached to burning fuel rather than flying free.\"},{\"item_id\":\"p0081\",\"category\":\"ember\",\"confidence\":\"unsure\",\"note\":\"Elongated bright streak with a dark outline that shift…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 10,
+      "label": "rev:test:4:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a859f9a9b083ca637",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271418528,
+      "queuedAt": 1792271287411,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271443509,
+      "tokens": 92723,
+      "toolCalls": 22,
+      "durationMs": 24980,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0099\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Static bright rock or snow patch with reddish fringe; barely moves.\"},{\"item_id\":\"p0098\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Very faint smear on dark brown, no clear object.\"},{\"item_id\":\"p0097\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Glow on burning trunk or fuel near streak…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 11,
+      "label": "rev:test:5:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a4402f0993aabf9ee",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271445392,
+      "queuedAt": 1792271287411,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271476822,
+      "tokens": 92954,
+      "toolCalls": 24,
+      "durationMs": 31429,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0100\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Track sits on the glowing fuel bed and a short orange streak on the ground, not a free-flying ember. Path is short and attached to the bed.\"},{\"item_id\":\"p0101\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Dim forest scene with bright sunlit foliage nearby. Track sits on a faint static streak with no cle…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 12,
+      "label": "rev:test:5:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a29b96c73e249e55f",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271448335,
+      "queuedAt": 1792271287412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271472357,
+      "tokens": 92714,
+      "toolCalls": 22,
+      "durationMs": 24021,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0119\",\"category\":\"faint_possible_ember\",\"confidence\":\"unsure\",\"note\":\"Dim blob in daylight scene, barely brighter than background, little consistent motion.\"},{\"item_id\":\"p0118\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Sits at the edge of glowing fuel bed; attached to burning fuel.\"},{\"item_id\":\"p0117\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Fog…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 13,
+      "label": "rev:test:6:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aa70294980e73f8e3",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271474138,
+      "queuedAt": 1792271287412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271509829,
+      "tokens": 96536,
+      "toolCalls": 23,
+      "durationMs": 35691,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0120\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Ground grass texture under a still track. No bright particle is visible in any of the five frames, and the track does not move along a path.\"},{\"item_id\":\"p0121\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Bright white-orange blob sitting on a branch-like structure. It looks attached to burning fuel rat…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 14,
+      "label": "rev:test:6:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "abe2e7a17c9df0a30",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271478774,
+      "queuedAt": 1792271287412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271503669,
+      "tokens": 92723,
+      "toolCalls": 22,
+      "durationMs": 24894,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0139\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Dim texture on grass, no visible bright particle in the crops.\"},{\"item_id\":\"p0138\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Faint reddish glow on a dark trunk, attached to fuel, static.\"},{\"item_id\":\"p0137\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Bright overexposed trunk gap…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 15,
+      "label": "rev:test:7:A",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a6f4e9ab28291f0a3",
+      "model": "claude-haiku-5-5",
+      "state": "done",
+      "startedAt": 1792271505651,
+      "queuedAt": 1792271287412,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271528380,
+      "tokens": 80347,
+      "toolCalls": 13,
+      "durationMs": 22729,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0140\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Static bright patches in ground vegetation; the track sits on a fixed bright fuel spot and jitters in place. No clear flying ember seen across frames -2 to +2.\"},{\"item_id\":\"p0141\",\"category\":\"faint_possible_ember\",\"confidence\":\"unsure\",\"note\":\"Small reddish streak at the track in frame t that fades by t+2 against a fl…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 16,
+      "label": "rev:test:7:B",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a58ae64c7059251dd",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271511608,
+      "queuedAt": 1792271287413,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271526685,
+      "tokens": 80274,
+      "toolCalls": 13,
+      "durationMs": 15076,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0150\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Sits in a bright burning fuel texture with many nearby detections, no distinct free particle.\"},{\"item_id\":\"p0149\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Track in dark area near a glowing branch/fuel line; glow is attached to burning fuel at left.\"},{\"item_id\":\"p0148\",\"category\":\"moving_no…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 17,
+      "label": "adj:test:0",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "a82f85070d0ce5230",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271530515,
+      "queuedAt": 1792271530492,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271547946,
+      "tokens": 83527,
+      "toolCalls": 14,
+      "durationMs": 17430,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0000\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Static edge of bright glow beside a trunk at the frame border; no free-flying particle, no motion.\"},{\"item_id\":\"p0002\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Streaky comb texture on glowing ground with flame edges nearby; track moves slightly left but no discrete particle.\"},{\"item_id\":\"p…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 18,
+      "label": "adj:test:1",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "afa87f1dc6b33a598",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271530515,
+      "queuedAt": 1792271530493,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271549266,
+      "tokens": 83216,
+      "toolCalls": 14,
+      "durationMs": 17415,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0028\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Track sits at the corner of the grey padding; only a faint swirl of foliage, no glowing object.\"},{\"item_id\":\"p0029\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Static pale blocks in dark foliage, nothing moves or glows orange; sun glint or compression, cannot tell.\"},{\"item_id\":\"p0030\",\"category\":\"flame_glare_e…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 19,
+      "label": "adj:test:2",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "a9fd20a63fbc0efd4",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271549712,
+      "queuedAt": 1792271530493,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271565793,
+      "tokens": 83142,
+      "toolCalls": 14,
+      "durationMs": 16081,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0048\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Foggy forest with no glowing object at the circle; only faint texture, no physical particle.\"},{\"item_id\":\"p0053\",\"category\":\"ember\",\"confidence\":\"unsure\",\"note\":\"Comb-striped bright streak moves downward in frames -2 and -1, a typical interlaced ember. Track sits on empty area by t, and another streak appears l…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 20,
+      "label": "adj:test:3",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "aaa6f6183fa00f557",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271551149,
+      "queuedAt": 1792271530493,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271568103,
+      "tokens": 83250,
+      "toolCalls": 14,
+      "durationMs": 16953,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0074\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Thin pale flecks beside a burning fuel edge with interlace comb; they sit at the fuel boundary and barely move, so attached to fuel.\"},{\"item_id\":\"p0075\",\"category\":\"moving_non_ember\",\"confidence\":\"sure\",\"note\":\"Sunlit pale foliage in a tree canopy, no glow, many other detections on leaves.\"},{\"item_id\":\"p0076…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 21,
+      "label": "adj:test:4",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "abe6a31a2e17143a3",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271567520,
+      "queuedAt": 1792271530494,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271584689,
+      "tokens": 83241,
+      "toolCalls": 14,
+      "durationMs": 17166,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0096\",\"category\":\"unclear\",\"confidence\":\"unsure\",\"note\":\"Track sits on grey-green foliage with no glowing object; likely texture flicker but cannot say.\"},{\"item_id\":\"p0097\",\"category\":\"faint_possible_ember\",\"confidence\":\"unsure\",\"note\":\"Circle sits on a very faint speck below a glowing blob on burning fuel; speck is dim, little visible motion.\"},{\"item_id\":\"p0098\",\"category…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 22,
+      "label": "adj:test:5",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "a52544cd55dd4db35",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271570088,
+      "queuedAt": 1792271530494,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271586924,
+      "tokens": 83317,
+      "toolCalls": 14,
+      "durationMs": 16835,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0113\",\"category\":\"codec_artifact\",\"confidence\":\"unsure\",\"note\":\"Tiny speck in dim textured foliage, no glow or consistent motion; likely noise or leaf glint.\"},{\"item_id\":\"p0116\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Interlaced bright texture on a trunk silhouetted against flames; attached to fuel, no free particle.\"},{\"item_id\":\"p0120\",\"category\":\"code…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 23,
+      "label": "adj:test:6",
+      "phaseIndex": 2,
+      "phaseTitle": "Adjudicate",
+      "agentId": "a89feeb0e3c0488e7",
+      "model": "claude-sonnet-5-5",
+      "state": "done",
+      "startedAt": 1792271586674,
+      "queuedAt": 1792271530500,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You review TRACKS proposed by wfglink, a detector of glowing wildfire embers (firebrands), on wildfire and tree-burn videos (US Forest Service research archives: in-fire cameras in fire-resistant boxes, and tripod cameras at outdoor tree burns; day and night). Some tracks are good and some are bad; you are not told which, and nothing about how they were chosen. Each item is one sheet in /home/user…",
+      "promptFramed": true,
+      "lastProgressAt": 1792271600408,
+      "tokens": 79162,
+      "toolCalls": 11,
+      "durationMs": 13733,
+      "resultPreview": "{\"items\":[{\"item_id\":\"p0137\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Track sits on a static overexposed white trunk gap with bloom, no particle moving between frames.\"},{\"item_id\":\"p0138\",\"category\":\"flame_glare_edge\",\"confidence\":\"unsure\",\"note\":\"Static diagonal trunk edge with a faint reddish glow attached to fuel; nothing in flight.\"},{\"item_id\":\"p0139\",\"category\":\"codec_art…"
+    }
+  ],
+  "totalTokens": 2061365,
+  "totalToolCalls": 434
+}

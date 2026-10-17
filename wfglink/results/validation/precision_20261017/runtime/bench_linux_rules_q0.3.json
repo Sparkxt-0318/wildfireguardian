@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-18T05:18:52+08:00",
+  "note": "Linux container reference only (headless Qt offscreen); not the booth Mac. Latencies use the monotonic clock from playback's publish (Frame.t_wall) to the analysed state.",
+  "platform": "linux",
+  "seconds_per_mode": 300.0,
+  "method": "rules",
+  "modes": {
+    "legacy": {
+      "mode": "legacy",
+      "method": null,
+      "seconds": 300.0,
+      "wall_s": 300.43,
+      "source": {
+        "kind": "playlist",
+        "path": "booth/playlist.yaml"
+      },
+      "frames": {
+        "analyser_calls": 4313,
+        "analysed": 4222,
+        "analysed_fps": 14.081112040052775,
+        "skipped_newest_frame_wins": 4541,
+        "playback": {
+          "decoded": 8855,
+          "shown": 8854,
+          "late": 0,
+          "resyncs": 0,
+          "loops": 12,
+          "skipped": 0,
+          "failed": 0
+        }
+      },
+      "processing_ms": {
+        "n": 4222,
+        "median": 59.289788998285076,
+        "p95": 89.40789499829405
+      },
+      "observer_ms": {
+        "n": 0,
+        "median": null,
+        "p95": null
+      },
+      "analyser_call_ms": {
+        "n": 4222,
+        "median": 67.85466350265779,
+        "p95": 99.28524709612248
+      },
+      "publish_to_state_ms": {
+        "n": 4222,
+        "median": 87.43640949978726,
+        "p95": 123.03490369667995,
+        "decision_frames": {
+          "status": "NOT_MEASURED",
+          "reason": "legacy mode makes no decisions"
+        }
+      },
+      "paint_fps": {
+        "median": 14.0,
+        "p5": 11.0,
+        "bins": 300
+      },
+      "paints": 4299,
+      "rss_mb": {
+        "peak": 501.235712,
+        "slope_mb_per_h": 463.27004151295955,
+        "samples": 300
+      },
+      "confirmation_delay_s": null,
+      "scorer": null,
+      "source_problem": null,
+      "synthetic_frames": 0,
+      "run_live": {
+        "seconds": 300.4,
+        "frames": 4313,
+        "paints": 4299,
+        "error_count": 0,
+        "errors": [],
+        "worker_mode": "thread",
+        "clip": "C5_nist_emberometer",
+        "source": "playlist",
+        "states": {
+          "playing": 4312
+        },
+        "clips": {
+          "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 3048,
+          "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 1264
+        }
+      },
+      "playback_events": []
+    },
+    "high_precision": {
+      "mode": "high_precision",
+      "method": "rules",
+      "seconds": 300.0,
+      "wall_s": 300.37,
+      "source": {
+        "kind": "playlist",
+        "path": "booth/playlist.yaml"
+      },
+      "frames": {
+        "analyser_calls": 4127,
+        "analysed": 4057,
+        "analysed_fps": 13.53312775649267,
+        "skipped_newest_frame_wins": 4733,
+        "playback": {
+          "decoded": 8865,
+          "shown": 8860,
+          "late": 4,
+          "resyncs": 0,
+          "loops": 12,
+          "skipped": 0,
+          "failed": 0
+        }
+      },
+      "processing_ms": {
+        "n": 4057,
+        "median": 44.88524399494054,
+        "p95": 66.87394159816904
+      },
+      "observer_ms": {
+        "n": 4057,
+        "median": 23.598934996698517,
+        "p95": 36.18632120342227
+      },
+      "analyser_call_ms": {
+        "n": 4057,
+        "median": 72.8811129956739,
+        "p95": 102.46727179765001
+      },
+      "publish_to_state_ms": {
+        "n": 4057,
+        "median": 89.95978700113483,
+        "p95": 123.37988920189673,
+        "decision_frames": {
+          "status": "NOT_MEASURED",
+          "reason": "the scorer is unavailable on profile live_downscaled (method_unavailable:profile_mismatch): no decision frames, model inference not measured"
+        }
+      },
+      "paint_fps": {
+        "median": 13.0,
+        "p5": 11.0,
+        "bins": 300
+      },
+      "paints": 4114,
+      "rss_mb": {
+        "peak": 700.203008,
+        "slope_mb_per_h": 2055.9334505877546,
+        "samples": 300
+      },
+      "confirmation_delay_s": {
+        "confirm_to_accept": {
+          "n": 0,
+          "median": null,
+          "p95": null
+        },
+        "first_to_accept": {
+          "n": 0,
+          "median": null,
+          "p95": null
+        },
+        "accepted": 0
+      },
+      "scorer": {
+        "available": false,
+        "reason": "method_unavailable:profile_mismatch",
+        "profile": "live_downscaled",
+        "method": "rules",
+        "unavailable": "method_unavailable:profile_mismatch"
+      },
+      "source_problem": null,
+      "synthetic_frames": 0,
+      "run_live": {
+        "seconds": 300.3,
+        "frames": 4127,
+        "paints": 4114,
+        "error_count": 0,
+        "errors": [],
+        "worker_mode": "thread",
+        "clip": "C5_nist_emberometer",
+        "source": "playlist",
+        "states": {
+          "playing": 4126
+        },
+        "clips": {
+          "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 2857,
+          "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 1269
+        }
+      },
+      "playback_events": []
+    }
+  },
+  "git_commit": "9038dbb436969259a75ea405329c26240d26ec8d",
+  "git_dirty": false
+}

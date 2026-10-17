@@ -1,0 +1,504 @@
+{
+ "schema_version": 1,
+ "run_id": "precision_20261017",
+ "created": "2026-10-18T05:23:51+08:00",
+ "git_commit": "19a5b5f69782c6eec805b0edd26efbcc7b5f0c5f",
+ "git_dirty": false,
+ "script_sha256": "7955d110900273d04eb9dd5a1bcd6e29ff657ea7d1da61e36274305a6a983a1e",
+ "dry_run": false,
+ "inputs": {
+  "protocol": {
+   "path": "results/validation/precision_20261017/protocol.yaml",
+   "sha256": "79419caf8cd366b0553e2927c7d0544660b40d94bc308ab9d69c09beff916e60"
+  },
+  "review": {
+   "path": "results/validation/precision_20261017/review_test/review_points.json",
+   "sha256": "319a973c7642678d9be921ae2cc0188a01c63d0f379644f5e5e0ef01168e8b79"
+  },
+  "phone_check": {
+   "path": "results/validation/precision_20261017/phone_check.json",
+   "sha256": "a324980229d789a000636a32a653c627d15a54153500b7554ae64da90d959261"
+  },
+  "bench": {
+   "path": "results/validation/precision_20261017/runtime/bench_linux_rules_q0.3.json",
+   "sha256": "fa30d4156b276729c362dde38fb25af80b4679d335bce758c82987a6d03773ba"
+  },
+  "tests_0": {
+   "path": "results/validation/precision_20261017/final/tests.json",
+   "sha256": "b64e4869290df8d0dd46fa8ff360ddf55373a0d6ffae48c950d1ff4bf2814b86"
+  },
+  "eval_low_observability_0": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_BEAV006_C2.json",
+   "sha256": "133b97e6e2873da9881d2df33aaaa5d14806ecdcb3620b3e2382cdff3034f4b7"
+  },
+  "eval_low_observability_1": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_BEAV006_prefix.json",
+   "sha256": "f7ba7925ad07e56309d45dddbe31c4bb60e01339827de642beff888596b7e201"
+  },
+  "eval_low_observability_2": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_BLAC002_C3.json",
+   "sha256": "9dd94291223c363c5544d1f8454ff35a6d714d1d8fc2804b7e364046ae3ade84"
+  },
+  "eval_low_observability_3": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_BUFF003_C1.json",
+   "sha256": "9fe8b2f7dbcad35a5d28cc006412adb6f7ac1efe804891da5466f286ad11cee0"
+  },
+  "eval_low_observability_4": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_GEOR012_C3.json",
+   "sha256": "3dc89a8bf804a169ae202e8637053de5d9d187ff3b0a4682dea5b92c8c464b04"
+  },
+  "eval_low_observability_5": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_RALS003_C1.json",
+   "sha256": "bb164fa7663304b50d2818ba685c6fead779853e51e059823dea490f7d8a2503"
+  },
+  "eval_ember_positive_0": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_BLAC001_C2.json",
+   "sha256": "1ffbacca167af435277ec43b24915b67132b278351a6aff618e5285031619f1a"
+  },
+  "eval_ember_positive_1": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_GEOR007_C1.json",
+   "sha256": "6918ffe806ccd03d4264788eee3c5b308c395606e7270ab24dc9031f094c3200"
+  },
+  "eval_ember_positive_2": {
+   "path": "results/validation/precision_20261017/sealed/eval_C8_GEOR011_C3.json",
+   "sha256": "f82e94ddd1d56b5519cef9685c1486b88bb8ba3bb9c4df30379f71185c29fa06"
+  }
+ },
+ "targets": {
+  "accepted_track_precision": 0.99,
+  "accepted_track_recall": 0.5,
+  "false_accepted_tracks_per_min": 0.1
+ },
+ "strata": {
+  "low_observability": [
+   "C8_BEAV006_C2",
+   "C8_BEAV006_prefix",
+   "C8_BLAC002_C3",
+   "C8_BUFF003_C1",
+   "C8_GEOR012_C3",
+   "C8_MAPL007_C1",
+   "C8_RALS003_C1"
+  ],
+  "ember_positive": [
+   "C8_BLAC001_C2",
+   "C8_GEOR007_C1",
+   "C8_GEOR011_C3"
+  ]
+ },
+ "strata_source": {
+  "low_observability": "protocol",
+  "ember_positive": "protocol"
+ },
+ "gates": {
+  "precision": {
+   "status": "INSUFFICIENT_EVIDENCE",
+   "reasons": [
+    "reviewed precision meets 0.99, its one-sided 95 percent lower bound 0.05 does not"
+   ],
+   "accepted_tracks": 1,
+   "true": 1,
+   "false": 0,
+   "precision": 1.0,
+   "precision_lower95_one_sided": 0.05,
+   "window": {
+    "tp": 0,
+    "judged": 0,
+    "precision": null,
+    "override_applies": false
+   },
+   "point_id": "rules_q0.3",
+   "ambiguous": 0,
+   "unresolved": 0,
+   "reviewed": 1,
+   "inclusion_probability": 1.0,
+   "review_lower95": 0.05,
+   "review_lower95_agrees": true,
+   "per_stratum": {
+    "low_observability": {
+     "status": "INSUFFICIENT_EVIDENCE",
+     "reasons": [
+      "reviewed precision meets 0.99, its one-sided 95 percent lower bound 0.05 does not"
+     ],
+     "accepted_tracks": 1,
+     "true": 1,
+     "false": 0,
+     "precision": 1.0,
+     "precision_lower95_one_sided": 0.05,
+     "window": {
+      "tp": 0,
+      "judged": 0,
+      "precision": null,
+      "override_applies": false
+     },
+     "recordings": [
+      "C8_BEAV006_C2",
+      "C8_BEAV006_prefix",
+      "C8_BLAC002_C3",
+      "C8_BUFF003_C1",
+      "C8_GEOR012_C3",
+      "C8_MAPL007_C1",
+      "C8_RALS003_C1"
+     ],
+     "provisional": true
+    },
+    "ember_positive": {
+     "status": "FAILED",
+     "reasons": [
+      "zero accepted tracks: precision undefined"
+     ],
+     "accepted_tracks": 0,
+     "true": 0,
+     "false": 0,
+     "precision": null,
+     "precision_lower95_one_sided": null,
+     "window": {
+      "tp": 0,
+      "judged": 0,
+      "precision": null,
+      "override_applies": false
+     },
+     "recordings": [
+      "C8_BLAC001_C2",
+      "C8_GEOR007_C1",
+      "C8_GEOR011_C3"
+     ],
+     "provisional": true
+    }
+   },
+   "control_accept_all": {
+    "accepted_tracks": 14997,
+    "reviewed": 100,
+    "true": 9,
+    "false": 67,
+    "ambiguous": 24,
+    "unresolved": 0,
+    "precision": 0.11842105263157894,
+    "precision_lower95": 0.06318853172976835
+   },
+   "provisional": true
+  },
+  "recall": {
+   "status": "INSUFFICIENT_EVIDENCE",
+   "reasons": [
+    "9 observable truth tracks, fewer than 20: recall cannot be measured (the estimate is reported)"
+   ],
+   "matched": 0,
+   "observable": 9,
+   "recall": 0.0,
+   "recall_lower95_two_sided": 0.0,
+   "source": "ember-positive stratum window truth only (verify eval track_level counts)",
+   "per_recording": {
+    "C8_BLAC001_C2": {
+     "matched": 0,
+     "observable": 2
+    },
+    "C8_GEOR007_C1": {
+     "matched": 0,
+     "observable": 1
+    },
+    "C8_GEOR011_C3": {
+     "matched": 0,
+     "observable": 6
+    }
+   },
+   "provisional": true
+  },
+  "false_alarm": {
+   "status": "INSUFFICIENT_EVIDENCE",
+   "reasons": [
+    "estimate meets 0.1, its one-sided 95 percent upper bound 0.2678 does not"
+   ],
+   "point_id": "rules_q0.3",
+   "review": {
+    "value": 0.0,
+    "upper95": 0.26776298476528326,
+    "inclusion_probability": 1.0,
+    "minutes": 11.188,
+    "false": 0
+   },
+   "review_recomputed": {
+    "value": 0.0,
+    "upper95": 0.26776298476528326,
+    "inclusion_probability": 1.0,
+    "minutes": 11.188,
+    "false": 0
+   },
+   "per_stratum": {
+    "low_observability": {
+     "status": "INSUFFICIENT_EVIDENCE",
+     "reasons": [
+      "estimate meets 0.1, its one-sided 95 percent upper bound 0.3349 does not"
+     ],
+     "review": {
+      "value": 0.0,
+      "upper95": 0.3348933082673263,
+      "inclusion_probability": 1.0,
+      "minutes": 8.945333333333334,
+      "false": 0
+     },
+     "recordings": [
+      "C8_BEAV006_C2",
+      "C8_BEAV006_prefix",
+      "C8_BLAC002_C3",
+      "C8_BUFF003_C1",
+      "C8_GEOR012_C3",
+      "C8_MAPL007_C1",
+      "C8_RALS003_C1"
+     ],
+     "window": {
+      "value": 0.0,
+      "count": 0,
+      "weighted_count": 0.0,
+      "minutes": 0.09712000000000012,
+      "upper95": 30.84567826970743,
+      "zero_event_upper95": 30.84567826970743
+     },
+     "provisional": true
+    },
+    "ember_positive": {
+     "status": "INSUFFICIENT_EVIDENCE",
+     "reasons": [
+      "estimate meets 0.1, its one-sided 95 percent upper bound 1.336 does not"
+     ],
+     "review": {
+      "value": 0.0,
+      "upper95": 1.3357902527737766,
+      "inclusion_probability": 1.0,
+      "minutes": 2.2426666666666666,
+      "false": 0
+     },
+     "recordings": [
+      "C8_BLAC001_C2",
+      "C8_GEOR007_C1",
+      "C8_GEOR011_C3"
+     ],
+     "window": {
+      "value": 0.0,
+      "count": 0,
+      "weighted_count": 0.0,
+      "minutes": 0.032799999999999954,
+      "upper95": 91.33330102298761,
+      "zero_event_upper95": 91.33330102298761
+     },
+     "provisional": true
+    }
+   },
+   "window": {
+    "value": 0.0,
+    "count": 0,
+    "weighted_count": 0.0,
+    "minutes": 0.1299200000000001,
+    "upper95": 23.058284125261604,
+    "zero_event_upper95": 23.058284125261604,
+    "note": "reported, not gated"
+   },
+   "provisional": true
+  },
+  "implementation": {
+   "status": "PASSED",
+   "reasons": [
+    "every given test run passed with no failure or error"
+   ],
+   "runs": [
+    {
+     "path": "results/validation/precision_20261017/final/tests.json",
+     "summary": "json",
+     "passed": 728,
+     "failed": 0,
+     "errors": 0,
+     "skipped": 2
+    }
+   ]
+  },
+  "phone_non_regression": {
+   "status": "PASSED",
+   "reasons": [
+    "phone_check.json pass"
+   ],
+   "path": "results/validation/precision_20261017/phone_check.json",
+   "git_commit": "cce5e2063e871ecc07576fd367c1ea60a8ec33d6",
+   "created": "2026-10-17T17:35:28+08:00",
+   "failed_checks": []
+  },
+  "runtime": {
+   "path": "results/validation/precision_20261017/runtime/bench_linux_rules_q0.3.json",
+   "note": "Linux container reference only (headless Qt offscreen); not the booth Mac. Latencies use the monotonic clock from playback's publish (Frame.t_wall) to the analysed state.",
+   "criteria": {
+    "paint_fps_median_min": 20.0,
+    "paint_fps_p5_min": 10.0,
+    "decision_publish_to_state_p95_ms_max": 250.0
+   },
+   "booth_mac": {
+    "status": "NOT_RUN",
+    "reasons": [
+     "the booth Mac is not measured in this task"
+    ]
+   },
+   "legacy": {
+    "paint_fps_median": 14.0,
+    "paint_fps_p5": 11.0,
+    "decision_publish_to_state_p95_ms": null,
+    "decision_status": "NOT_MEASURED",
+    "decision_reason": "legacy mode makes no decisions",
+    "publish_to_state_p95_ms": 123.03490369667995,
+    "rss_slope_mb_per_h": 463.27004151295955,
+    "seconds": 300.0
+   },
+   "high_precision": {
+    "paint_fps_median": 13.0,
+    "paint_fps_p5": 11.0,
+    "decision_publish_to_state_p95_ms": null,
+    "decision_status": "NOT_MEASURED",
+    "decision_reason": "the scorer is unavailable on profile live_downscaled (method_unavailable:profile_mismatch): no decision frames, model inference not measured",
+    "publish_to_state_p95_ms": 123.37988920189673,
+    "rss_slope_mb_per_h": 2055.9334505877546,
+    "seconds": 300.0
+   },
+   "checks": {
+    "paint_fps_median": "FAILED",
+    "paint_fps_p5": "PASSED",
+    "decision_publish_to_state_p95_ms": "NOT_RUN"
+   },
+   "status": "FAILED",
+   "reasons": [
+    "paint_fps_median: FAILED (13.0)",
+    "paint_fps_p5: PASSED (11.0)",
+    "decision_publish_to_state_p95_ms: NOT_RUN (not measured)",
+    "decision frames: the scorer is unavailable on profile live_downscaled (method_unavailable:profile_mismatch): no decision frames, model inference not measured"
+   ]
+  },
+  "reliability": {
+   "status": "FAILED",
+   "reasons": [
+    "carried forward: the owner's overnight soak of 2026-10-16 is OVERALL FAIL and no new passing soak report is given",
+    "no long soak was run"
+   ],
+   "soak": {
+    "status": "FAILED",
+    "reasons": [
+     "carried forward: the owner's overnight soak of 2026-10-16 is OVERALL FAIL and no new passing soak report is given"
+    ],
+    "evidence": "results/validation/precision_20261017/environment.json (external_evidence/overnight_soak_20261016)",
+    "evidence_text": "owner/orchestrator-supplied local evidence, not independently inspected: /Users/jp/... path is not accessible from this container. Reported: 8.06 h elapsed, 7.75 h running, median paint 29.2 fps, p5 26.8, memory slope about -2.9 MB/h, 0 processing errors, OVERALL FAIL from 4 stale-heartbeat restarts late in the run; cause unresolved."
+   },
+   "long_soak": {
+    "status": "NOT_RUN",
+    "reasons": [
+     "no long soak was run"
+    ]
+   }
+  },
+  "default_promotion": {
+   "status": "NOT_RUN",
+   "promoted": false,
+   "reasons": [
+    "the high-precision verifier stays opt-in; the default is never promoted by this run"
+   ]
+  }
+ },
+ "table": [
+  [
+   "precision (sealed test, both strata pooled)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "1",
+   "one-sided 95% lower 0.05",
+   "1 true, 0 false of 1 accepted; window-judged n/a over 0 tracks"
+  ],
+  [
+   "precision, low-observability stratum (reported)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "1",
+   "one-sided 95% lower 0.05",
+   "1 true, 0 false of 1 accepted; window-judged n/a over 0 tracks"
+  ],
+  [
+   "precision, ember-positive stratum (reported)",
+   "FAILED, PROVISIONAL",
+   "n/a",
+   "one-sided 95% lower n/a",
+   "0 true, 0 false of 0 accepted; window-judged n/a over 0 tracks"
+  ],
+  [
+   "recall (ember-positive stratum)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "0",
+   "two-sided 95% lower 0",
+   "0 of 9 observable truth tracks matched"
+  ],
+  [
+   "false alarm (sealed test, review)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "0 per supported min",
+   "one-sided 95% upper 0.2678",
+   "0 false reviewed, inclusion 1, 11.19 min; window 0 per min (upper 23.06, not gated)"
+  ],
+  [
+   "false alarm, low-observability stratum (reported)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "0 per supported min",
+   "one-sided 95% upper 0.3349",
+   "0 false reviewed, inclusion 1, 8.945 min; window 0 per min (upper 30.85, not gated)"
+  ],
+  [
+   "false alarm, ember-positive stratum (reported)",
+   "INSUFFICIENT_EVIDENCE, PROVISIONAL",
+   "0 per supported min",
+   "one-sided 95% upper 1.336",
+   "0 false reviewed, inclusion 1, 2.243 min; window 0 per min (upper 91.33, not gated)"
+  ],
+  [
+   "implementation",
+   "PASSED",
+   "728 passed, 0 failed",
+   "",
+   "every given test run passed with no failure or error"
+  ],
+  [
+   "phone non-regression",
+   "PASSED",
+   "",
+   "",
+   "phone_check.json pass"
+  ],
+  [
+   "runtime (Linux container reference)",
+   "FAILED",
+   "paint median 13 fps, p5 11 fps, decision p95 n/a ms",
+   ">= 20 fps, >= 10 fps, <= 250 ms",
+   "paint_fps_median: FAILED (13.0); paint_fps_p5: PASSED (11.0); decision_publish_to_state_p95_ms: NOT_RUN (not measured); decision frames: the scorer is unavailable on profile live_downscaled (method_unavailable:profile_mismatch): no decision frames, model inference not measured"
+  ],
+  [
+   "runtime (booth Mac)",
+   "NOT_RUN",
+   "",
+   "",
+   "the booth Mac is not measured in this task"
+  ],
+  [
+   "reliability (soak)",
+   "FAILED",
+   "",
+   "",
+   "carried forward: the owner's overnight soak of 2026-10-16 is OVERALL FAIL and no new passing soak report is given"
+  ],
+  [
+   "reliability (long soak)",
+   "NOT_RUN",
+   "",
+   "",
+   "no long soak was run"
+  ],
+  [
+   "default promotion",
+   "NOT_RUN",
+   "not promoted",
+   "",
+   "the high-precision verifier stays opt-in; the default is never promoted by this run"
+  ]
+ ],
+ "notes": [
+  "agent-only annotation and review: every accuracy status computed here is PROVISIONAL",
+  "the contingency rule (fewer than 3 sealed-test recordings decode) is not evaluated here",
+  "the review's supported minutes cover every scored recording of its sample.json (tracking-only recordings left out), from hp_frames motion_unsupported"
+ ]
+}
