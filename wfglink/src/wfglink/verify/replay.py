@@ -356,6 +356,41 @@ class ReplayObserver(HighPrecisionObserver):
         return _Light(self.ledger.pending(), self._status(ms, over))
 
 
+class _SharedScore:
+    """A model scorer whose model output is shared, within one replay_many frame, with the other
+    candidates of the same model: the score of a window depends on the model (and its
+    out-of-distribution settings) and the window only, while the threshold is applied by the
+    ledger, so the candidates of one model at several thresholds need one model call per window."""
+
+    def __init__(self, inner, key, cache: dict):
+        self._inner, self._key, self._cache = inner, key, cache
+
+    def __getattr__(self, name):
+        return getattr(self._inner, name)
+
+    def score(self, window_vec, patch_stats):
+        return self._inner.score(window_vec, patch_stats)
+
+    def score_window(self, window):
+        ck = ("score", self._key, id(window))
+        hit = self._cache.get(ck)
+        if hit is not None and hit[0] is window:
+            return hit[1]
+        sw = getattr(self._inner, "score_window", None)
+        res = sw(window) if sw is not None else self._inner.score(window.vec, window.patches)
+        self._cache[ck] = (window, res)        # the window is kept so its id is not reused this frame
+        return res
+
+
+def _share_key(sc):
+    """The key under which candidates share model outputs (None: not a model scorer)."""
+    model = getattr(sc, "model", None)
+    if model is None or not hasattr(sc, "threshold"):
+        return None
+    meta = getattr(model, "meta", {}) or {}
+    return (type(sc).__name__, meta.get("npz_sha256") or id(model), repr(getattr(sc, "ood_cfg", None)))
+
+
 def _gate_for(dump: DumpRun, cfg: dict):
     from wfglink.measure.gate import Gate
 
@@ -438,12 +473,15 @@ def replay_many(run, scorers: dict[str, Any], cfg: dict, profile: str = "file_na
     if dump.t_exp:
         tracker.set_exposure_hint(dump.t_exp)
     pipe = _Pipe(cfg, tracker, _gate_for(dump, cfg))
-    obs = {name: ReplayObserver(cfg, pipe, sc, profile) for name, sc in scorers.items()}
+    cache: dict = {}
+    keys = {name: _share_key(sc) for name, sc in scorers.items()}
+    shared = {k for k in keys.values() if k is not None and list(keys.values()).count(k) > 1}
+    obs = {name: ReplayObserver(cfg, pipe, _SharedScore(sc, keys[name], cache) if keys[name] in shared else sc, profile)
+           for name, sc in scorers.items()}
     for name, o in obs.items():
         o.set_metrics_scope(dump.metrics_scope)
         if getattr(scorers[name], "observer", False) is None:     # a probe that reads its observer's hit buffers
             scorers[name].observer = o
-    cache: dict = {}
     for o in obs.values():
         o.window_cache = cache
     P = next(iter(obs.values())).vcfg.patch.target_px if obs else 17
