@@ -65,7 +65,7 @@ def _collect(labs: list[dict], who_map: dict[str, str]) -> dict[tuple[str, str],
         for r in lab["rows"]:
             clip, wid = r["clip_id"], r["window_id"]
             seen.add(f"{clip}/{wid}")
-            note = (r.get("note") or "").replace("—", ",").replace("–", "-")
+            note = (r.get("note") or "").replace("\u2014", ",").replace("\u2013", "-")
             if r.get("x") is None or r.get("y") is None:
                 out[(clip, role)].append({"window_id": wid, "k": None, "x": None, "y": None, "confidence": None,
                                           "ember_id": None, "size_class": None, "note": note or "none"})

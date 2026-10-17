@@ -209,8 +209,12 @@ def cmd_select(args: argparse.Namespace) -> int:
                                        overlay=args.overlay, command_line=_cmdline())
     except (ProtocolError, ValueError, FileNotFoundError, KeyError) as exc:
         raise SystemExit(f"verify select: {exc}") from None
-    print(json.dumps({k: rec.get(k) for k in ("status", "branch", "target_missed", "recall_basis", "selected",
-                                                "overlay_sha256")}, indent=2, default=str))
+    if rec.get("status") != "SELECTED":
+        print(f"verify select: {rec.get('status')}: {rec.get('branch')}; nothing is pinned for best_available",
+              file=sys.stderr)
+    print(json.dumps({k: rec.get(k) for k in ("status", "branch", "target_missed", "recall_basis", "rule", "selected",
+                                                "best_available", "overlay_sha256")}, indent=2, default=str))
+    print(f"-> {args.calibration}")
     return 0
 
 
@@ -350,8 +354,11 @@ def add_parser(sub) -> argparse.ArgumentParser:
     q.add_argument("--run", required=True, help="output folder of `process` (with high_precision/ for HP runs)")
     q.add_argument("--recording", default=None, help="frozen protocols: the truth entry to use (default: the one of "
                                                      "the run's video and segment start)")
-    q.add_argument("--selection", default=None, help="the committed selection.json (verify calibrate): the run must "
-                                                     "be the selected method, overlay and model or thresholds")
+    q.add_argument("--selection", default=None, help="the committed selection.json (verify select; verify calibrate "
+                                                     "under a protocol without precision_review): the run must be the "
+                                                     "selected method, overlay and model or thresholds; under a "
+                                                     "protocol with precision_review its rule must be "
+                                                     "amendment_2_reviewed_precision")
     q.add_argument("--out", default=None, help="write the result JSON here")
     q.add_argument("--allow-dirty", action="store_true", help="development only: accept an uncommitted protocol "
                                                                "(refused for a sealed protocol)")
@@ -392,8 +399,10 @@ def add_parser(sub) -> argparse.ArgumentParser:
     q.add_argument("--no-cv", action="store_true", help="skip the cross-validation (final models only)")
     q.set_defaults(func=cmd_train)
 
-    q = vs.add_parser("calibrate", help="rules candidates, calibration replays against window truth, selection, "
-                                        "--write-config pins the overlay")
+    q = vs.add_parser("calibrate", help="rules candidates, calibration replays against window truth, the accepted-"
+                                        "track table, a selection preview; --write-config pins the overlay, except "
+                                        "under a protocol with precision_review (amendment 2), where verify select "
+                                        "selects")
     q.add_argument("--dataset", required=True, help="development dataset (its ember tracks give the rules ranges)")
     q.add_argument("--models", default="data/models/verify", help="models folder (verify train)")
     q.add_argument("--recording", nargs=2, action="append", required=True, metavar=("RUN", "TRUTH"),
@@ -411,19 +420,24 @@ def add_parser(sub) -> argparse.ArgumentParser:
                                                                        "the protocol does not hold (never one it "
                                                                        "holds); --write-config is then refused")
     q.add_argument("--write-config", action="store_true", help="pin the selection into the overlay and write "
-                                                               "selection.json (needs --protocol)")
+                                                               "selection.json (needs --protocol; refused when the "
+                                                               "protocol has precision_review: use verify select)")
     q.add_argument("--overlay", default=None, help="the overlay to pin (default configs/high_precision.yaml)")
     q.add_argument("--config", nargs="*")
     q.set_defaults(func=cmd_calibrate)
 
     q = vs.add_parser("select", help="protocol amendment 2: select on the blind accepted-track review of a "
-                                     "calibration; --write-config pins the overlay")
+                                     "calibration (selection_reviewed_preview.json); --write-config pins the overlay "
+                                     "and writes selection.json")
     q.add_argument("--calibration", required=True, help="the verify calibrate output folder")
-    q.add_argument("--review", required=True, help="review_points.json of scripts/precision_review.py score")
+    q.add_argument("--review", required=True, help="review_points.json of scripts/precision_review.py score: a review "
+                                                   "of the calibration population, sampled from this calibration's "
+                                                   "calibration_accepted.parquet (its SHA-256)")
     q.add_argument("--protocol", required=True, help="the frozen, committed protocol")
     q.add_argument("--sha256", required=True, help="the protocol's pinned SHA-256 (hex or protocol.sha256)")
     q.add_argument("--write-config", action="store_true", help="pin the selection into the overlay and write "
-                                                               "selection.json")
+                                                               "selection.json (an INSUFFICIENT_EVIDENCE selection "
+                                                               "pins nothing for its best_available point)")
     q.add_argument("--overlay", default=None, help="the overlay to pin (default configs/high_precision.yaml)")
     q.add_argument("--config", nargs="*")
     q.set_defaults(func=cmd_select)

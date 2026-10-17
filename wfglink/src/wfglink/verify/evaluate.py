@@ -308,9 +308,13 @@ def bind_identity(proto: dict[str, Any], identity: dict[str, Any], run_dir: str 
     return made
 
 
-def check_selection(path: str | Path, info: dict[str, Any], require_clean: bool = True) -> dict[str, Any]:
-    """The run is the one selection.json selected (see the module notes); returns its record."""
+def check_selection(path: str | Path, info: dict[str, Any], require_clean: bool = True,
+                    protocol: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The run is the one selection.json selected (see the module notes); returns its record.
+    Under a protocol with a precision_review section (amendment 2) the selection must be the
+    one verify select made on the blind review: its rule is calibrate.REVIEWED_RULE."""
     from wfglink.provenance import sha256_file
+    from wfglink.verify.calibrate import REVIEWED_RULE
 
     p = Path(path)
     if not p.is_file():
@@ -318,6 +322,10 @@ def check_selection(path: str | Path, info: dict[str, Any], require_clean: bool 
     if require_clean and git_clean(p) is not True:
         raise ProtocolError(f"{p} is not committed or changed: the selection is used only as committed")
     sel = json.loads(p.read_text(encoding="utf-8"))
+    if (protocol or {}).get("precision_review") and sel.get("rule") != REVIEWED_RULE:
+        raise ProtocolError(f"the protocol selects on the blind review (precision_review, amendment 2), but {p} has "
+                            f"rule {sel.get('rule')!r}, not {REVIEWED_RULE!r}: only a selection.json of verify select "
+                            "is used")
     fam = sel.get("family")
     if sel.get("status") != "SELECTED" or not fam:
         raise ProtocolError(f"the selection chose no method (status {sel.get('status')!r}): nothing to score")
@@ -923,7 +931,7 @@ def evaluate_run(protocol: str | Path, expect_sha256: str, run_dir: str | Path, 
             raise ProtocolError(f"the run's high-precision status is {info['status']!r} "
                                 f"({info.get('status_reason') or 'no reason given'}): a sealed test is not spent on it")
         warnings.append(f"the run's high-precision status is {info['status']!r}: it accepts nothing as intended")
-    sel = check_selection(selection, info, require_clean or bool(proto.get("sealed"))) if selection is not None \
+    sel = check_selection(selection, info, require_clean or bool(proto.get("sealed")), proto) if selection is not None \
         else None
     identity = scorer_identity(info, sel["sha256"] if sel else None)
     locks = claim_sealed(proto, run_dir, identity) if proto.get("sealed") else []

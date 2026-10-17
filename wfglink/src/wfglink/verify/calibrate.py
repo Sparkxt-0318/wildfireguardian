@@ -35,11 +35,13 @@ stricter setting (higher q or threshold), so the choice is deterministic.
 write_config (--write-config) pins the selected family's setting (and model SHA-256) into
 configs/high_precision.yaml for the profile and also the best point of every other family
 (the same rule within that family), so each method can run; the file is edited line by
-line, so its comments stay. selection.json records the selected family, seed, threshold or
-q, the overlay's SHA-256 after writing, the model SHA-256, what each pin is at run time
-(pinned_identity: the rules thresholds_sha256, the models' SHA-256 and threshold; verify
-eval --selection checks a sealed run against it), the SHA-256 of calibration_points.json and
-the time.
+line, so its comments stay. Under a protocol with a precision_review section (amendment 2)
+the selection is made by verify select on the blind review (write_reviewed_selection), so
+calibrate refuses write_overlay there and writes selection_preview.json only. selection.json
+records the selected family, seed, threshold or q, the overlay's SHA-256 after writing, the
+model SHA-256, what each pin is at run time (pinned_identity: the rules thresholds_sha256,
+the models' SHA-256 and threshold; verify eval --selection checks a sealed run against it),
+the SHA-256 of calibration_points.json and the time.
 
 Truth and the protocol. Calibration runs under the frozen protocol (evaluate.load_protocol:
 its SHA-256 pinned, the file committed). Every truth file given must be a truth entry of the
@@ -300,13 +302,32 @@ def _counts(tl: dict[str, Any]) -> dict[str, Any]:
             "false_weighted": float(r.get("weighted_count") or 0.0), "minutes": float(tl["rates"]["supported_minutes"])}
 
 
+ACCEPTED_COLUMNS = ["point_id", "family", "seed", "param", "recording", "run_dir", "track_id", "frame_accept",
+                    "t_accept", "t_confirm", "revoked", "supported"]
+
+
+def accepted_rows_of(decisions, unsupported_frames: set[int], base: dict[str, Any]) -> list[dict[str, Any]]:
+    """One row per track ever accepted in a replay's decisions (state method_accepted, or
+    revoked): base (point_id, family, seed, param, recording, run_dir) plus the track, its
+    acceptance and supported (its acceptance frame is not motion_unsupported in the dump's
+    hp_frames)."""
+    if not len(decisions):
+        return []
+    d = decisions
+    ever = d[(d["state"].astype(str) == "method_accepted") | d["revoked"].astype(bool)]
+    return [{**base, "track_id": int(row["track_id"]), "frame_accept": int(row["frame_accept"]),
+             "t_accept": float(row["t_accept"]), "t_confirm": float(row["t_confirm"]),
+             "revoked": bool(row["revoked"]), "supported": int(row["frame_accept"]) not in unsupported_frames}
+            for _, row in ever.iterrows()]
+
+
 def score_recordings(recordings: list[tuple[str | Path, str | Path]], candidates: dict[str, dict], cfg: dict,
                      profile: str, protocol: dict | None = None, progress=None,
                      recording_info: list | None = None, accepted_rows: list | None = None) -> list[dict[str, Any]]:
     """Replay every candidate on every recording, score each against its truth, pool (see the
     module notes). Returns the calibration points; recording_info receives per recording its
     replay notes and missing_patches; accepted_rows receives one row per track a candidate ever
-    accepted (the population the blind precision review samples)."""
+    accepted (the population the blind precision review samples; accepted_rows_of)."""
     from wfglink.verify.evaluate import track_level
     from wfglink.verify.replay import ReplayError, confirmation_delays, load_dump, predictions, replay_many
     from wfglink.verify.truth import load_truth
@@ -326,18 +347,14 @@ def score_recordings(recordings: list[tuple[str | Path, str | Path]], candidates
         if missing:
             raise ReplayError(f"{run_dir}: {missing} buffer hits have no dumped patch, so the replayed patch and "
                               "temporal scores would use all-zero patches (a damaged or foreign dump): refused")
+        hf = dump.hp_frames
+        unsup = set(hf.loc[hf["motion_unsupported"].astype(bool), "frame"].astype(int))
         for name, r in res.items():
-            if accepted_rows is not None and len(r.decisions):
-                d = r.decisions
-                ever = d[(d["state"].astype(str) == "method_accepted") | d["revoked"].astype(bool)]
+            if accepted_rows is not None:
                 c = candidates[name]
-                for _, row in ever.iterrows():
-                    accepted_rows.append({"point_id": name, "family": c["family"], "seed": c.get("seed"),
-                                          "param": c.get("param"), "recording": str(truth.get("clip_id") or
-                                                                                   Path(run_dir).name),
-                                          "run_dir": str(run_dir), "track_id": int(row["track_id"]),
-                                          "frame_accept": int(row["frame_accept"]), "t_accept": float(row["t_accept"]),
-                                          "t_confirm": float(row["t_confirm"]), "revoked": bool(row["revoked"])})
+                accepted_rows += accepted_rows_of(r.decisions, unsup, {
+                    "point_id": name, "family": c["family"], "seed": c.get("seed"), "param": c.get("param"),
+                    "recording": str(truth.get("clip_id") or Path(run_dir).name), "run_dir": str(run_dir)})
             pred = predictions(dump, r)
             tl = track_level(truth, pred["points"], pred["crossings"], pred["unsupported_frames"], protocol, None,
                              pred["revoked_ids"])
@@ -557,6 +574,11 @@ def calibrate(dataset_dir: str | Path, models_dir: str | Path, recordings: list[
         raise ProtocolError("the overlay is pinned only by a calibration under the committed frozen protocol whose "
                             f"{CALIBRATION_POPULATION} entries hold every truth given (no development options)")
     proto = load_protocol(protocol, protocol_sha256, require_clean)
+    if write_overlay and proto.get("precision_review"):
+        raise ProtocolError("this protocol has a precision_review section (amendment 2): the selection is made on the "
+                            "blind accepted-track review by verify select, which writes selection.json and pins the "
+                            "overlay; verify calibrate writes selection_preview.json only (run it without "
+                            "--write-config)")
     matched = protocol_truth(proto, recordings, allow_unfrozen_truth)
     proto_rec = {"path": proto["_path"], "sha256": proto["_sha256"], "name": proto.get("name"),
                  "committed": bool(require_clean)}
@@ -586,8 +608,7 @@ def calibrate(dataset_dir: str | Path, models_dir: str | Path, recordings: list[
     import pandas as pd
 
     acc_path = out / "calibration_accepted.parquet"
-    pd.DataFrame(acc_rows, columns=["point_id", "family", "seed", "param", "recording", "run_dir", "track_id",
-                                    "frame_accept", "t_accept", "t_confirm", "revoked"]).to_parquet(acc_path, index=False)
+    pd.DataFrame(acc_rows, columns=ACCEPTED_COLUMNS).to_parquet(acc_path, index=False)
     common = {"protocol": proto_rec, "truth_entries": matched, "development": development,
               "development_note": dev_note, "dataset": {"path": str(dataset_dir), "dataset_json_sha256": ds_sha},
               "train_report": rep_rec, "duplicate_models": dups, "feature_settings_sha256": feature_settings_sha256(cfg)}
@@ -674,16 +695,53 @@ REVIEW_TRUE = ("ember",)
 REVIEW_FALSE = ("fixture_light", "reflection", "flame_glare_edge", "moving_non_ember", "codec_artifact", "overlay_text",
                 "duplicate_fragment")
 REVIEW_AMBIGUOUS = ("faint_possible_ember", "unclear")
+REVIEW_ALIASES = {"true_ember": "ember"}
 MIN_REVIEWED_DEFINED = 10        # reviewed true + false accepted tracks for a point's precision to be defined
 MIN_OBSERVABLE_FOR_RECALL = 20   # observable calibration truth tracks for window recall to rank the points
 FAMILY_TIE = {"rules": 0, "temporal": 1, "patch": 2}
+REVIEWED_RULE = "amendment_2_reviewed_precision"   # selection.json rule of verify select (evaluate.check_selection)
+BOOTSTRAP_N, BOOTSTRAP_SEED = 2000, 0
 
 
 def review_counts(categories: list[str | None]) -> dict[str, int]:
-    """true, false, ambiguous and unresolved counts of a point's reviewed accepted tracks."""
-    return {"true": sum(c in REVIEW_TRUE for c in categories), "false": sum(c in REVIEW_FALSE for c in categories),
-            "ambiguous": sum(c in REVIEW_AMBIGUOUS for c in categories),
-            "unresolved": sum(c is None for c in categories)}
+    """true, false, ambiguous and unresolved counts of a point's reviewed accepted tracks. None
+    and the empty string are unresolved, true_ember is read as ember; any other category outside
+    the true, false and ambiguous sets is a ValueError."""
+    out = {"true": 0, "false": 0, "ambiguous": 0, "unresolved": 0}
+    for c in categories:
+        if c is None or (isinstance(c, str) and not c.strip()):
+            out["unresolved"] += 1
+            continue
+        c = REVIEW_ALIASES.get(c, c)
+        if c in REVIEW_TRUE:
+            out["true"] += 1
+        elif c in REVIEW_FALSE:
+            out["false"] += 1
+        elif c in REVIEW_AMBIGUOUS:
+            out["ambiguous"] += 1
+        else:
+            raise ValueError(f"review category {c!r} is not one of the protocol's categories (true {REVIEW_TRUE}, "
+                             f"false {REVIEW_FALSE}, ambiguous {REVIEW_AMBIGUOUS}, or none for unresolved)")
+    return out
+
+
+def cluster_bootstrap_precision(counts: list[tuple[int, int]], n: int = BOOTSTRAP_N,
+                                seed: int = BOOTSTRAP_SEED) -> dict[str, Any]:
+    """Recording-cluster bootstrap of reviewed precision: the recordings' (true, false) reviewed
+    counts resampled with replacement, n replicates (numpy default_rng(seed)); the percentile
+    95 percent interval and the one-sided 5th percentile over the replicates whose precision is
+    defined (true + false > 0); the undefined replicates are counted."""
+    c = np.asarray(counts, dtype=np.int64).reshape(-1, 2)
+    out: dict[str, Any] = {"cluster": "recording", "recordings": int(len(c)), "replicates": int(n), "seed": int(seed)}
+    if not len(c):
+        return {**out, "defined": 0, "undefined": int(n), "interval95": None, "lower05": None}
+    idx = np.random.default_rng(seed).integers(0, len(c), size=(int(n), len(c)))
+    t, f = c[idx, 0].sum(axis=1), c[idx, 1].sum(axis=1)
+    ok = t + f > 0
+    p = t[ok] / (t[ok] + f[ok])
+    return {**out, "defined": int(ok.sum()), "undefined": int((~ok).sum()),
+            "interval95": [float(np.percentile(p, 2.5)), float(np.percentile(p, 97.5))] if p.size else None,
+            "lower05": float(np.percentile(p, 5)) if p.size else None}
 
 
 def reviewed_metrics(counts: dict[str, int], accepted: int, supported_min: float) -> dict[str, Any]:
@@ -713,19 +771,24 @@ def reviewed_metrics(counts: dict[str, int], accepted: int, supported_min: float
 def select_reviewed(points: list[dict[str, Any]], reviewed: dict[str, dict[str, Any]],
                     observable: int) -> dict[str, Any]:
     """The protocol's selection rule (amendment 2): precision is the reviewed precision when
-    defined; recall for ranking is window-truth recall when the calibration truth has at least
+    defined; the ranking basis is window recall when the calibration truth has at least
     MIN_OBSERVABLE_FOR_RECALL observable tracks, otherwise proposal retention (true-ember yield
-    over accept_all's), a development aid that never stands for ember recall."""
+    over accept_all's), a development aid that never stands for ember recall. Proposal
+    retention is measurable only when accept_all's reviewed precision is defined (and its
+    yield is above zero); otherwise it is None for every point. With no defined precision the
+    status is INSUFFICIENT_EVIDENCE: no point, and best_available the point with the most
+    reviewed true tracks."""
     use_window = observable >= MIN_OBSERVABLE_FOR_RECALL
     base = next((reviewed.get(p["name"]) for p in points if p["family"] == "accept_all"), None)
-    y0 = base.get("true_yield_per_supported_min") if base else None
+    y0 = base.get("true_yield_per_supported_min") if base and base.get("precision_defined") else None
+    measurable = bool(y0)
     rows = []
     for p in points:
         r = reviewed.get(p["name"])
         if r is None:
             continue
-        retention = (r["true_yield_per_supported_min"] / y0 if y0 and r["true_yield_per_supported_min"] is not None
-                     else None)
+        retention = (r["true_yield_per_supported_min"] / y0 if measurable and r["true_yield_per_supported_min"]
+                     is not None else None)
         rows.append({**p, "reviewed": r, "proposal_retention": retention,
                      "rank_recall": p.get("recall") if use_window else retention})
     cand = [x for x in rows if x["family"] in FAMILY_TIE and x.get("available", True)]
@@ -742,26 +805,48 @@ def select_reviewed(points: list[dict[str, Any]], reviewed: dict[str, dict[str, 
     def by_precision(x):
         return (-x["reviewed"]["precision"], FAMILY_TIE[x["family"]], delay(x), x["name"])
 
+    basis = "window recall" if use_window else "proposal retention"
+    ranked = use_window or measurable
+    best_available = None
     top = [x for x in defined if x["reviewed"]["precision"] >= 0.99]
     if top:
-        best, branch = sorted(top, key=by_recall)[0], "reviewed precision >= 0.99, highest recall for selection"
+        best = sorted(top, key=by_recall)[0]
+        branch = (f"reviewed precision >= 0.99: highest {basis}" if ranked else
+                  "reviewed precision >= 0.99: proposal retention is not measurable, so the tie order decides (rules, "
+                  "temporal, patch, then lower confirmation delay)")
     else:
         half = [x for x in defined if x["rank_recall"] is not None and x["rank_recall"] >= 0.5]
         if half:
-            best, branch = sorted(half, key=by_precision)[0], "no point reaches 0.99: highest precision with recall >= 0.5"
+            best = sorted(half, key=by_precision)[0]
+            branch = f"no point reaches reviewed precision 0.99: highest reviewed precision with {basis} >= 0.5"
         elif defined:
-            best, branch = sorted(defined, key=by_precision)[0], ("no point reaches 0.99 or recall >= 0.5: highest "
-                                                                  "precision with defined precision; target missed")
+            best = sorted(defined, key=by_precision)[0]
+            branch = (f"no point reaches reviewed precision 0.99 nor {basis} >= 0.5: highest defined reviewed "
+                      "precision; target missed" if ranked else
+                      "no point reaches reviewed precision 0.99 and proposal retention is not measurable: highest "
+                      "defined reviewed precision; target missed")
         else:
-            best = max(cand, key=lambda x: (x["reviewed"]["true"], -FAMILY_TIE[x["family"]])) if cand else None
-            branch = "no point has defined precision"
-    status = "SELECTED" if best is not None and best["reviewed"]["precision_defined"] else "INSUFFICIENT_EVIDENCE"
-    return {"status": status, "branch": branch, "point": best, "rows": rows,
-            "recall_basis": ("window truth recall" if use_window else
-                             "proposal retention (development selection aid; not ember recall)"),
-            "observable_calibration_truth_tracks": int(observable),
-            "target_missed": not (best is not None and best["reviewed"]["precision_defined"]
-                                  and best["reviewed"]["precision"] >= 0.99)}
+            best = None
+            best_available = min(cand, key=lambda x: (-x["reviewed"]["true"], FAMILY_TIE[x["family"]], x["name"])) \
+                if cand else None
+            branch = ("no point has defined reviewed precision: INSUFFICIENT_EVIDENCE, nothing is selected; "
+                      f"best_available is the point with the most reviewed true tracks (ranking basis {basis})")
+    if use_window:
+        recall_basis = (f"window recall (window truth over {int(observable)} observable calibration truth tracks, at "
+                        f"least {MIN_OBSERVABLE_FOR_RECALL})")
+    elif measurable:
+        recall_basis = "proposal retention (development selection aid; not ember recall)"
+    else:
+        recall_basis = ("proposal retention not measurable: accept_all has no defined reviewed precision (or no "
+                        "true-ember yield), so it is None for every point; a development selection aid, not ember "
+                        "recall, and ember recall was not measurable on calibration either")
+    out = {"status": "SELECTED" if best is not None else "INSUFFICIENT_EVIDENCE", "branch": branch, "point": best,
+           "rows": rows, "recall_basis": recall_basis, "ranking_basis": basis, "proposal_retention_measurable":
+           measurable, "observable_calibration_truth_tracks": int(observable),
+           "target_missed": not (best is not None and best["reviewed"]["precision"] >= 0.99)}
+    if best is None:
+        out["best_available"] = best_available
+    return out
 
 
 def write_reviewed_selection(cal_dir: str | Path, reviewed_path: str | Path, cfg: dict, protocol: str | Path,
@@ -769,9 +854,14 @@ def write_reviewed_selection(cal_dir: str | Path, reviewed_path: str | Path, cfg
                              overlay: str | Path | None = None, require_clean: bool = True,
                              command_line: str | None = None) -> dict[str, Any]:
     """selection.json under protocol amendment 2: select_reviewed on a calibration's points and
-    the blind review's per-point figures (reviewed_path: {"points": {point name: reviewed_metrics}}),
-    the same rule within each family for the other pins, and (write_overlay) the overlay pins
-    as calibrate writes them."""
+    the blind review's per-point figures (reviewed_path: review_points.json of
+    scripts/precision_review.py score, {"population", "accepted_sha256", "points": {point name:
+    reviewed_metrics}}), the same rule within each family for the other pins, and
+    (write_overlay) the overlay pins as calibrate writes them. The review must be of the
+    calibration population and sampled from this calibration's accepted-track table (its
+    accepted_sha256 is calibration_points.json accepted_tracks_table.sha256); otherwise
+    ProtocolError. rule is REVIEWED_RULE; with no selected point, best_available is recorded and
+    nothing is pinned for it."""
     from wfglink.provenance import git_state, now_shanghai, sha256_file
     from wfglink.verify.config import OVERLAY
     from wfglink.verify.evaluate import ProtocolError, load_protocol
@@ -784,7 +874,16 @@ def write_reviewed_selection(cal_dir: str | Path, reviewed_path: str | Path, cfg
         raise ProtocolError("the calibration was not made under this protocol")
     if write_overlay and cp.get("development"):
         raise ProtocolError("a development calibration never pins the overlay")
-    reviewed = json.loads(Path(reviewed_path).read_text(encoding="utf-8"))["points"]
+    review = json.loads(Path(reviewed_path).read_text(encoding="utf-8"))
+    if review.get("population") != "calibration":
+        raise ProtocolError(f"{reviewed_path} is a review of the {review.get('population')!r} population: the "
+                            "selection uses the calibration review only")
+    want = (cp.get("accepted_tracks_table") or {}).get("sha256")
+    if not want or review.get("accepted_sha256") != want:
+        raise ProtocolError(f"{reviewed_path} was not sampled from this calibration's accepted-track table (its "
+                            f"accepted_sha256 {str(review.get('accepted_sha256'))[:16]} is not calibration_points.json "
+                            f"accepted_tracks_table.sha256 {str(want)[:16]}): refused")
+    reviewed = review["points"]
     points = cp["points"]
     observable = max((int(p.get("truth_observable") or 0) for p in points), default=0)
     sel = select_reviewed(points, reviewed, observable)
@@ -801,7 +900,9 @@ def write_reviewed_selection(cal_dir: str | Path, reviewed_path: str | Path, cfg
     rec = {"schema_version": 1, "created": now_shanghai(), "profile": cp.get("profile"), "status": sel["status"],
            "branch": sel["branch"], "target_missed": sel["target_missed"], "recall_basis": sel["recall_basis"],
            "observable_calibration_truth_tracks": sel["observable_calibration_truth_tracks"],
-           "rule": "protocol amendment 2 (selection.rule): reviewed precision; proposal retention only ranks",
+           "ranking_basis": sel["ranking_basis"], "proposal_retention_measurable": sel["proposal_retention_measurable"],
+           "rule": REVIEWED_RULE,
+           "rule_text": "protocol amendment 2 (selection.rule): reviewed precision; proposal retention only ranks",
            "selected": brief(sel["point"]), "family_bests": {f: brief(p) for f, p in bests.items()},
            "points": [{"name": x["name"], "family": x["family"], "reviewed": x["reviewed"],
                        "proposal_retention": x["proposal_retention"], "window_precision": x.get("precision"),
@@ -810,12 +911,15 @@ def write_reviewed_selection(cal_dir: str | Path, reviewed_path: str | Path, cfg
            "protocol": {"path": proto["_path"], "sha256": proto["_sha256"]},
            "calibration_points": str(cp_path), "calibration_points_sha256": sha256_file(cp_path),
            "review_points": str(reviewed_path), "review_points_sha256": sha256_file(reviewed_path),
+           "review_population": review.get("population"), "accepted_sha256": review.get("accepted_sha256"),
            "labels": "agent-only review and window annotation: PROVISIONAL", "command_line": command_line,
            **git_state()}
     p = sel["point"]
     if p is not None:
         rec.update(family=p["family"], seed=p.get("seed"), q=p.get("q"), threshold=p.get("threshold"),
                    model_sha256=p.get("model_sha256"))
+    else:
+        rec["best_available"] = brief(sel.get("best_available"))
     if write_overlay:
         rules = json.loads((cal / "rules_candidates.json").read_text(encoding="utf-8"))["candidates"]
         pins = dict(bests)
