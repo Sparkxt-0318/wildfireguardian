@@ -4,5 +4,5 @@ The API never re-implements forecasting, routing or checking: every route check 
 frozen kit (``wfg_latest.api.route_and_check`` or, for the ablation policies, the frozen ablation worker launched by
 the same controller), and every verdict is the kit's authoritative journey decision mapped onto three states.
 """
-API_VERSION = "1.5.0"   # implements contracts/wfg_api_v1.yaml info.version
+API_VERSION = "1.6.0"   # implements contracts/wfg_api_v1.yaml info.version
 __all__ = ["API_VERSION"]

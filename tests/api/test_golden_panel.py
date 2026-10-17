@@ -98,7 +98,7 @@ def test_golden_missions(client):
     fx1 = rows[-1]
     problems = {"%s/%s" % (r["region"], r["case_id"]): _mismatches(r) for r in rows if _mismatches(r)}
     if fx1["verdict"] == "checked_route":
-        assert (fx1["arrival_s"], fx1["legs_total"], fx1["dwell_s"]) == (3119, 512, 120)
+        assert (fx1["arrival_s"], fx1["legs_total"], fx1["road_segments"], fx1["dwell_s"]) == (3119, 512, 512, 120)
     assert not problems, "golden replay differs from the recorded campaign: %s" % json.dumps(problems, indent=1)
 
 

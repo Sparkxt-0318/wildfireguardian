@@ -9,6 +9,13 @@
 PY ?= .venv/bin/python
 PYTHON312 ?= python3.12
 
+# Optional runtime settings from api/.env (git-ignored; copy api/.env.example). Only plain WFG_API_NAME=value lines are
+# read, and a variable already set in the environment wins.
+ifneq (,$(wildcard api/.env))
+WFG_ENV_NAMES := $(shell sed -n 's/^[[:space:]]*\(WFG_API_[A-Z_]*\)=.*/\1/p' api/.env | sort -u)
+$(foreach v,$(WFG_ENV_NAMES),$(eval $(v) ?= $(shell sed -n 's/^[[:space:]]*$(v)=//p' api/.env | tail -n 1))$(eval export $(v)))
+endif
+
 .PHONY: api api-setup api-inputs api-tools api-test api-golden api-panel api-smoke
 
 api-setup:

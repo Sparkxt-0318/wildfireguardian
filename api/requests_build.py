@@ -1,6 +1,7 @@
-"""Build a routing request (the kit's request JSON) from an API body. Field layout and constants are exactly those of
+"""Build a routing request (the kit's request JSON) from an API body. Fields, values and constants are exactly those of
 the recorded final-panel requests (data/routing/latest_inputs_try02/requests/*), so a body that restates a recorded
-mission reproduces that mission's request object exactly (tests/api/test_golden.py checks this equality)."""
+mission reproduces that mission's request object exactly, compared as parsed JSON (tests/api/test_request_equivalence.py).
+Key order is one fixed layout; it matches the recorded Uljin files and differs from the other 16 recorded files."""
 from __future__ import annotations
 
 import math

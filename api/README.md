@@ -228,7 +228,7 @@ curl -s $BASE/route-checks/$JOB
 }
 ```
 
-`recorded_mission_match`는 API가 만든 요청 객체가 기록된 최종 패널 임무 `20230402T230000Z_FD1`의 요청과 정확히 같다는 뜻입니다. 도착 531 s는 기록된 결과와 같습니다. 이 호스트의 `compute_s`는 평가 호스트보다 큽니다([요구 사항](#요구-사항) 참고).
+`recorded_mission_match`는 API가 만든 요청 객체가 기록된 최종 패널 임무 `20230402T230000Z_FD1`의 요청과 JSON으로 비교해 정확히 같다는 뜻입니다(키 순서는 비교하지 않음). 도착 531 s는 기록된 결과와 같습니다. 이 호스트의 `compute_s`는 평가 호스트보다 큽니다([요구 사항](#요구-사항) 참고).
 
 #### 내보내기 (`checked_route`만)
 
@@ -366,7 +366,7 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 규칙은 모두 결과의 `assumptions`에 다시 기록됩니다.
 
 - **래스터화(보수적):** 375 m 셀의 내부가 구역 다각형과 겹치면 셀은 그 구역에 속합니다. 셀 중심이나 모서리가 다각형 안에 있거나, 다각형 변이 셀을 지나는 경우입니다. 경계선만 공유하는 경우는 포함하지 않습니다. 여러 구역이 한 셀에 닿으면 그중 가장 작은 `arrival_h_max` 대역을 씁니다(중첩 구역).
-- **대역:** 셀은 닿는 구역 중 가장 작은 `arrival_h_max` H를 씁니다. H_prev는 그 구역 안에 포함된(nested) 구역 중 가장 큰 `arrival_h_max`이고, 없으면 0(화재마다 가장 안쪽 대역)입니다. 다른 화재의 구역은 대역을 바꾸지 않습니다(계약 v1.5). 다각형 변은 투영 전에 경위도에서 약 200 m 간격으로 잘게 나눕니다.
+- **대역:** 셀은 닿는 구역 중 가장 작은 `arrival_h_max` H를 씁니다. 구역 j는 H_j < H_i이고 j의 모든 셀이 i의 셀이면 i 안에 포함(nested)됩니다. 구역 i의 H_prev는 i 안에 포함된 가장 바깥 구역들(i 안의 다른 포함 구역에 포함되지 않은 구역)의 H 중 가장 작은 값이고, 없으면 0(가장 안쪽 대역)입니다(계약 v1.6). 같은 화재의 동심 구역이면 바로 안쪽 경계가 되며, 대역 안에 놓인 다른 화재의 구역은 H_prev를 낮출 수는 있어도 높이지는 않습니다. 여러 구역이 셀의 H를 공유하면 그중 가장 작은 H_prev를 씁니다. 다각형 변은 투영 전에 경위도에서 0.002°(약 200 m) 간격으로 잘게 나눕니다. 이 규칙들은 모두 결과의 `assumptions`에 그대로 적힙니다.
 - **점화:** 대역 (H_prev, H]의 셀은 max(0, H_prev − margin)부터 점화될 수 있습니다(0 하한은 input_time 시계에서 적용: issued_at ≤ input_time이면 같은 값이고, 더 늦게 발표된 경우에도 보수적입니다). margin 기본값은 60분이고 `margin_min`으로 바꿉니다. 시나리오는 4개입니다. 시나리오 0은 그 가장 이른 시각에 점화합니다. 시나리오 1–3은 H_prev + (H − H_prev) × k/3(k = 1, 2, 3)에 점화하므로 마지막 시나리오는 H에서 점화합니다. 점화된 셀은 [점화, 점화 + T) 동안 연소합니다. T는 실험의 활성 지속 시간(점검기의 스칼라 법칙)이고, 기록된 패킷에서는 3970.46 s입니다. 따라서 가장 늦은 시나리오는 H + T까지 활성입니다.
 - **시계:** 구역 시간은 `issued_at`부터 세고, 패킷 시간은 `input_time`부터 셉니다. `input_time`보다 이른 시각은 0으로 당깁니다(보수적). 실험의 1시간 위험 지평 이후의 시각은 여정에 영향을 줄 수 없으므로 점화하지 않습니다. 패킷 작성기도 이 처리를 요구합니다.
 - **현재 화재:** `input_time`의 기록된 c651 출력에서 격자, 시계 기준, 현재 연소 셀을 가져옵니다. 현재 연소 셀은 기록 그대로 유지하고, 구역 점화를 그 위에 두지 않습니다. 그래서 `input_time`은 해당 지역의 기록된 입력 시각이어야 합니다(v1.1 범위). `burning_scenario_set_id`를 지정하려면 그 시각의 기록된 세트여야 합니다. 다르면 422 `SCENARIO_SET_TIME_MISMATCH`가 돌아옵니다.
@@ -388,7 +388,7 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 - **full 정책 경로가 아닙니다.** `notes`에 "It is not a full-policy checked route."가 붙습니다.
 - `full_policy_assessment`가 함께 보고됩니다. 이 값은 바뀌지 않은 전체 위험을 기준으로 독립 점검기 함수(문법, 셀 중심 모델 노출, 정확한 전 도로 접촉)를 써서 오프라인에서 계산한 평가이고, `compute_s`에 포함되지 않습니다. 프로젝트의 전 도로 복사열 점검은 다시 하지 않습니다. 경로가 full 정책을 통과하지 못하면 `notes`에 "This route FAILS the full policy: …"가 붙습니다. 같은 평가에서 경로가 **선택한 정책 자신의** 제약(예: `flame_only`에서 화염 접촉)에 모순되면, 절제 실험 채점기(`grade_route.py`)처럼 결과는 `unresolved`(`CHECK_FAILED`)가 됩니다. 내보내기 파일에는 정책과 "NOT a full-policy route" 표시가 붙고, 배차 계획은 `full` 정책만 받습니다.
 - `exposure[].basis`는 `full_model_centre_check`입니다. `travel_only`는 화염을 강제하지 않으므로 `contact`가 `true`일 수 있습니다.
-- 독립 점검기(`run_independent_check`)는 full 정책에서만 정의되어 있어서 실행되지 않습니다.
+- 독립 점검기(`run_independent_check`)는 full 정책에서만 정의되어 있어서 실행되지 않으며, 결과의 notes에 그렇게 적힙니다. 축소 정책의 판정에는 위의 절제 채점기 규칙이 항상 적용됩니다.
 - `evaluated_configuration`은 `false`입니다. `true`가 되려면 기록 입력, `full` 정책, 기본 한계를 모두 써야 합니다.
 
 연구 결과(`research/routing/final-input-ablation/RESULTS.md`)를 보면 왜 이 구분이 필요한지 알 수 있습니다. 이동 시간만 쓴 정책은 20개 임무 모두에서 자기 정책 경로를 찾았지만, 바뀌지 않은 full 정책을 통과한 경로는 12개였습니다.
@@ -403,9 +403,9 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 | `WFG_API_HOST` | `127.0.0.1` | 바인드 주소 |
 | `WFG_API_PORT` | `8765` | 포트 |
 | `WFG_API_PYTHON` | 서버의 `sys.executable` | 키트 작업자와 자식 프로세스를 실행할 인터프리터 |
-| `WFG_API_GIT_COMMIT` | `git rev-parse HEAD` | provenance의 git 커밋 대체값(선택) |
+| `WFG_API_GIT_COMMIT` | (없음) | git 메타데이터가 없는 사본에서만 쓰는 provenance git 커밋 대체값. git이 있으면 `git rev-parse HEAD`가 우선합니다 |
 
-환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다. 같은 목록이 `api/.env.example`에 있습니다. `api/.env`로 복사하고(git 제외) `set -a; . api/.env; set +a`로 셸에 불러온 뒤 `make api`를 실행하세요. API에는 API 키, 토큰, 그 밖의 비밀 값이 필요 없습니다.
+환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다. 같은 목록이 `api/.env.example`에 있습니다. `api/.env`로 복사하면(git 제외) `make` 대상이 자동으로 불러옵니다. 셸에 이미 설정된 변수가 우선합니다. `make` 없이 실행할 때는 `set -a; . api/.env; set +a`로 불러오세요. API에는 API 키, 토큰, 그 밖의 비밀 값이 필요 없습니다.
 
 ### 테스트와 스모크 스크립트
 
@@ -423,12 +423,13 @@ make api-smoke    # = bash scripts/api_smoke.sh (실행 중인 서버 필요)
 ### 알려진 한계
 
 - **spread_zones**는 기록된 입력 시각에서만 동작하고 1시간 위험 지평만 다룹니다. 근사이므로 전문가 검토가 필요합니다.
-- **작업은 메모리에 있습니다.** 서버를 다시 시작하면 작업 목록이 사라집니다. 작업 폴더(`job.json`, 입력, 키트 시도 기록)는 런타임 디렉터리 `jobs/<id>/`에 남지만 API가 다시 불러오지는 않습니다. 실행 중에는 최근 2,000개를 넘는 완료 작업을 `job.json`에서 읽어 응답합니다. 대기열이 20,000개를 넘으면 503 `BUSY`입니다.
+- **작업 기록.** 작업 기록은 메모리에 있고 런타임 디렉터리의 `jobs/<id>/job.json`에 함께 저장됩니다. 서버를 다시 시작해도 완료된 작업은 `job.json`에서 읽어 `GET`과 내보내기로 응답합니다. 이전 프로세스가 남긴 대기·실행 중 작업은 이어서 실행하지 않고, 시작할 때 `failed`(작업 오류 `SERVER_RESTARTED`, `result: null`)로 기록하며 `/health`의 `notices`에 알립니다. `/health`의 작업 수는 0부터 다시 셉니다. 실행 중에는 최근 2,000개를 넘는 완료 경로 점검 기록을 메모리에서 내리고 `job.json`에서 읽어 응답합니다(배차 계획 기록은 메모리에 남습니다). 대기열이 20,000개를 넘으면 503 `BUSY`입니다.
 - **정리 미확인 시 일시 정지.** 키트 시도의 프로세스 정리가 CLEAN으로 확인되지 않으면, 동결된 컨트롤러 규칙대로 새 실행을 멈추고 `/health`에 표시합니다(503 `LAUNCHES_PAUSED`). 남은 프로세스를 확인한 뒤 API를 다시 시작하십시오.
-- **강제 종료된 풀 작업자.** 풀 작업자 프로세스가 시도 도중 강제로 종료되면(예: OOM killer), 그 시도의 키트 작업자는 자기 세션에서 SIGTERM을 무시하며 실행되므로 스스로 끝날 때까지 남을 수 있습니다. 풀은 다시 만들어지고 `/health`의 `pool_restarts`가 늘어납니다. 해당 작업은 `failed`이고 판정은 `unresolved`(`INTERNAL_ERROR`)입니다.
+- **강제 종료된 풀 작업자.** 풀 작업자 프로세스가 경로 점검 도중 강제로 종료되면(예: OOM killer) Python 프로세스 풀이 깨집니다. 그때 진행 중이던 점검은 모두 `failed`(판정 `unresolved`, `INTERNAL_ERROR`)가 되고 다른 풀 작업자도 종료됩니다. 키트 시도(`/usr/bin/time`과 키트 작업자)는 자기 세션에서 실행되므로, 제어기가 사라지면 아무도 신호를 보내지 않아 스스로 끝날 때까지 남을 수 있습니다. 그래서 동결된 수명 주기 규칙대로 새 실행을 멈추고(503 `LAUNCHES_PAUSED`) `/health`에 표시합니다(계약 v1.6). 남은 프로세스를 확인한 뒤 API를 다시 시작하십시오. 서버 자체가 죽을 때도 풀 작업자가 정리 없이 끝나므로 실행 중이던 키트 시도가 같은 방식으로 남을 수 있습니다.
 - **창으로 잘린 지역의 spread_zones.** 의성·안동 2025와 영덕 2025는 패킷이 공유 이벤트 격자의 창(window)만 담습니다. 창 밖에 걸친 구역 셀은 패킷에 넣을 수 없으며 `zone_cells_outside_region_window`로 개수만 보고합니다. 지평 안에서 아무 셀도 점화하지 않는 구역 입력은 받아들이고 결과의 notes에 그렇게 적습니다.
 - **호스트 속도와 고정된 30 s 예산:** 평가 호스트(macOS M5 Pro)보다 느린 컴퓨터에서는 무거운 임무가 `unresolved`/`TIMEOUT`이 될 수 있습니다. 예산은 늘리지 않습니다. 기본 작업자 수(물리 코어 − 2)를 넘겨 동시에 실행하면 측정 시간이 늘어날 수 있습니다.
-- **독립 점검은 선택 사항이고 오프라인에서 실행됩니다**(`run_independent_check`, 최대 120 s, full 정책만). 기본으로는 실행되지 않으며 `compute_s`에도 포함되지 않습니다.
+- **독립 점검은 선택 사항이고 오프라인에서 실행됩니다**(`run_independent_check`, 최대 120 s, full 정책만). 기본으로는 실행되지 않으며 `compute_s`에도 포함되지 않습니다. 동결된 채점기는 독립 점검이 끝난 실행만 해결된 것으로 셉니다. 따라서 기본 설정의 `checked_route`와 `model_no_route`는 독립적으로 확인되지 않은 키트 판정입니다. 요청하면 채점기 규칙을 적용하되, 최적성 반증(dispute)은 항상 `unresolved`로 둡니다. 채점기는 오프라인 전 도로 증인(witness)으로 반증을 해소할 수 있지만 API는 그 증인을 실행하지 않기 때문입니다(더 엄격함).
+- **30 s 예산의 범위.** 예산은 실험과 같이 키트 시도 하나에 적용됩니다. spread_zones 패킷 생성(최대 600 s)과 선택한 독립 점검(최대 120 s)은 `provenance.timings_s`에 따로 보고되고, 대기 시간은 작업의 `created_at`/`started_at`으로 알 수 있습니다. 작업 전체 시간에는 상한이 없습니다.
 - **인증이 없고 로컬 전용입니다.** 외부에 노출하지 마십시오. `/openapi.json`은 정적 계약을 제공하므로 Swagger UI의 "Try it out" 서버 주소는 항상 `http://127.0.0.1:8765/v1`입니다.
 - 예측은 다시 계산하지 않습니다. 기록된 c651 출력이 있는 입력 시각만 쓸 수 있습니다.
 
@@ -670,7 +671,7 @@ This is the response observed on this host, with long arrays and hashes trimmed:
 }
 ```
 
-`recorded_mission_match` means that the request object the API built is identical to the request of recorded final-panel mission `20230402T230000Z_FD1`. The arrival of 531 s equals the recorded result. On this host, `compute_s` is higher than on the evaluated host (see [Requirements](#requirements)).
+`recorded_mission_match` means that the request object the API built is identical, compared as parsed JSON (key order aside), to the request of recorded final-panel mission `20230402T230000Z_FD1`. The arrival of 531 s equals the recorded result. On this host, `compute_s` is higher than on the evaluated host (see [Requirements](#requirements)).
 
 #### Export (checked routes only)
 
@@ -808,7 +809,7 @@ Receipt-level failures take priority over everything else, in this order: memory
 Every rule below is also echoed in the result's `assumptions`.
 
 - **Rasterization (conservative):** a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior, that is, when the cell's centre or a corner is inside the polygon or a polygon edge crosses the cell. Sharing only a boundary line does not count. When several zones touch a cell, the cell takes the band of the smallest `arrival_h_max` (nested zones).
-- **Bands:** a cell takes the smallest `arrival_h_max` H among the zones touching it. H_prev is the largest `arrival_h_max` of a zone nested inside that zone, or 0 when there is none (each fire's innermost band). Zones of other fires never shift a band (contract v1.5). Polygon edges are densified in lon/lat, at about 200 m, before projection.
+- **Bands:** a cell takes the smallest `arrival_h_max` H among the zones touching it. Zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i. H_prev of zone i is the smallest H over the outermost zones nested in i (those not nested in another zone nested in i), or 0 when there is none (the innermost band; contract v1.6). For concentric zones of one fire that is the next band edge in; a zone of another fire lying inside the band can lower H_prev but never raise it. When several zones share a cell's H, the cell takes the smallest of their H_prev. Polygon edges are densified in lon/lat every 0.002° (about 200 m) before projection. All of these rules are echoed in the result's `assumptions`.
 - **Ignition:** a cell in band (H_prev, H] may ignite from max(0, H_prev − margin). The 0 floor is applied on the input_time clock: that is the same value when issued_at ≤ input_time, and it stays conservative for products issued later. The margin defaults to 60 min and is set with `margin_min`. There are four scenarios. Scenario 0 ignites at that earliest time. Scenarios 1–3 ignite at H_prev + (H − H_prev) × k/3 for k = 1, 2, 3, so the last one ignites at H. Each ignited cell then burns on [ignition, ignition + T), where T is the experiment's active duration (the checker's scalar law). T is 3970.46 s in the recorded packets. The latest scenario therefore stays active until H + T.
 - **Clock:** zone hours count from `issued_at`, and packet times count from `input_time`. Times before `input_time` are clamped to 0, which is conservative. Times at or after the experiment's 1 h hazard horizon cannot affect the journey, so they stay unignited, as the packet writer requires.
 - **Present fire:** the recorded c651 export at `input_time` supplies the grid, the clock binding and the cells burning now. Those cells stay exactly as recorded, and zone ignitions are never placed on them. `input_time` must therefore be a recorded input time of the region (v1.1 scope). If you set `burning_scenario_set_id`, it must be the recorded set at that time; otherwise the API returns 422 `SCENARIO_SET_TIME_MISMATCH`.
@@ -830,7 +831,7 @@ For any policy other than `full`, the API builds a copy of the ablation study ki
 - **They are not full-policy routes.** `notes` includes "It is not a full-policy checked route."
 - `full_policy_assessment` is reported alongside the result. It is an offline assessment against the unchanged full hazard that uses the independent checker's functions (grammar, centre-model exposure and exact whole-road contact). It is not part of `compute_s`, and it does not repeat the project's whole-road radiation check. If the route fails the full policy, `notes` includes "This route FAILS the full policy: …". If the same assessment shows that the route contradicts **its own selected policy's** constraints (for example flame contact under `flame_only`), the result is `unresolved` (`CHECK_FAILED`), as the ablation grader `grade_route.py` would score it. Exported files state the policy and are labelled "NOT a full-policy route". Dispatch plans accept only `full`.
 - `exposure[].basis` is `full_model_centre_check`. Because `travel_only` does not enforce flame contact, its `contact` value can be `true`.
-- The independent checker (`run_independent_check`) is defined for the full policy only, so it is not run.
+- The independent checker (`run_independent_check`) is defined for the full policy only, so it is not run, and the result's notes say so. The ablation grader's rule above always applies to reduced policies.
 - `evaluated_configuration` is `false`. It is `true` only for recorded input with the `full` policy and default limits.
 
 The research results (`research/routing/final-input-ablation/RESULTS.md`) show why the distinction matters. The travel-only policy found an own-policy route for all 20 missions, but only 12 of those routes passed the unchanged full policy.
@@ -845,9 +846,9 @@ The research results (`research/routing/final-input-ablation/RESULTS.md`) show w
 | `WFG_API_HOST` | `127.0.0.1` | Bind address |
 | `WFG_API_PORT` | `8765` | Port |
 | `WFG_API_PYTHON` | the server's `sys.executable` | Interpreter used to launch kit workers and child processes |
-| `WFG_API_GIT_COMMIT` | `git rev-parse HEAD` | Optional override for the git commit in provenance |
+| `WFG_API_GIT_COMMIT` | (none) | Fallback git commit for provenance, used only in a copy without git metadata; `git rev-parse HEAD` wins when git is available |
 
-Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`. The same list is in `api/.env.example`. Copy it to `api/.env` (git-ignored), load it with `set -a; . api/.env; set +a`, then run `make api`. The API needs no API keys, tokens or other secrets.
+Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`. The same list is in `api/.env.example`. Copy it to `api/.env` (git-ignored) and the `make` targets load it automatically; a variable already set in your shell wins. Without `make`, load it with `set -a; . api/.env; set +a`. The API needs no API keys, tokens or other secrets.
 
 ### Testing
 
@@ -899,12 +900,13 @@ SMOKE OK: both jobs finished
 ### Known limitations
 
 - **spread_zones** works only at a recorded input time and covers only the 1 h hazard horizon. It is an approximation that requires expert review.
-- **Jobs live in memory.** A restart loses the job list. Job folders (`job.json`, inputs and the kit attempt records) stay under `jobs/<id>/` in the runtime directory, but the API does not reload them. While the server runs, finished jobs beyond the most recent 2,000 are served from their `job.json`. More than 20,000 queued checks returns 503 `BUSY`.
+- **Job records.** Job records live in memory and are mirrored to `jobs/<id>/job.json` in the runtime directory. After a restart, `GET` and export still serve finished jobs from their `job.json`. Jobs that the previous process left queued or running are not resumed: on start-up they are recorded as `failed` (job error `SERVER_RESTARTED`, `result: null`) and `/health` reports them under `notices`. The `/health` job counts start from zero. While the server runs, finished route-check records beyond the 2,000 most recent are dropped from memory and served from their `job.json` (dispatch-plan records stay in memory). More than 20,000 queued checks returns 503 `BUSY`.
 - **Paused launches after an unconfirmed cleanup.** If a kit attempt's process cleanup is not confirmed CLEAN, new launches pause as the frozen controller requires. `/health` reports this and new requests get 503 `LAUNCHES_PAUSED`. Check for leftover processes, then restart the API.
-- **Hard-killed pool workers.** If a pool worker process is killed mid-attempt (for example by the OOM killer), that attempt's kit worker runs in its own session and ignores SIGTERM, so it can linger until it exits on its own. The pool is rebuilt, `/health` increments `pool_restarts`, and the job is `failed` with verdict `unresolved` (`INTERNAL_ERROR`).
+- **Hard-killed pool workers.** If a pool worker process is killed during a route check (for example by the OOM killer), Python's process pool breaks. Every check in flight then fails (verdict `unresolved`, `INTERNAL_ERROR`) and the other pool workers are terminated too. Each kit attempt (`/usr/bin/time` plus the kit worker) runs in its own session, so once its controller is gone nothing signals it and it can keep running until it exits on its own. New launches therefore pause, as the frozen lifecycle rule requires (503 `LAUNCHES_PAUSED`, shown in `/health`; contract v1.6). Check for leftover processes, then restart the API. When the server itself dies, its pool workers exit without cleanup, so a running kit attempt can be left behind in the same way.
 - **spread_zones in windowed regions.** For Uiseong-Andong 2025 and Yeongdeok 2025 the packet holds only a window of the shared event grid. Zone cells outside that window cannot be placed in the packet and are only counted in `zone_cells_outside_region_window`. A zones input that ignites no cell within the horizon is accepted, and the result says so in its notes.
 - **Host speed and the fixed 30 s budget:** on hosts slower than the evaluated macOS M5 Pro, heavy missions can become `unresolved`/`TIMEOUT`. The budget is never raised. Running more concurrent checks than the default worker count (physical cores − 2) can also inflate the measured times.
-- **The independent check is optional and runs offline** (`run_independent_check`, up to 120 s, full policy only). It does not run by default and is not part of `compute_s`.
+- **The independent check is optional and runs offline** (`run_independent_check`, up to 120 s, full policy only). It does not run by default and is not part of `compute_s`. The frozen scorer counts a run as resolved only after that check, so a default `checked_route` or `model_no_route` is the kit's verdict without independent corroboration. When the check is requested the scorer's rules apply, except that a disputed optimum always stays `unresolved`: the scorer can clear a dispute with its offline whole-road witness, which the API does not run (stricter).
+- **What the 30 s budget covers.** As in the experiments, the budget applies to the kit attempt. Building a spread_zones packet (up to 600 s) and the optional independent check (up to 120 s) are reported separately under `provenance.timings_s`, and queue time follows from the job's `created_at`/`started_at`. The job's end-to-end time is not capped.
 - **There is no authentication, and the API is local only.** Do not expose it. Because `/openapi.json` serves the static contract, Swagger UI's "Try it out" always targets `http://127.0.0.1:8765/v1`.
 - The forecast is never re-run. Only input times with a recorded c651 export are available.
 

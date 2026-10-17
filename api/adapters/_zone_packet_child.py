@@ -83,7 +83,9 @@ def main():
     def zone_settings(T):
         s = orig_settings(T)
         s["zone_adapter"] = {"version": plan["assumptions"]["adapter"], "label": plan["assumptions"]["label"],
-                             "plan_sha256": plan["plan_sha256"], "ignition_source": "spread_zones plan (not random draws)"}
+                             "plan_sha256": plan["plan_sha256"],
+                             "ignition_times_sha256": plan["assumptions"]["ignition_times_sha256"],
+                             "ignition_source": "spread_zones plan (not random draws)"}
         return s
 
     B.draw_ignitions = zone_draws
@@ -101,7 +103,7 @@ def main():
         if not np.array_equal(z["current_active"], recorded_current):
             raise SystemExit("WRITTEN_PRESENT_FIRE_DIFFERS_FROM_RECORDED")
     meta = {"adapter": plan["assumptions"]["adapter"], "label": plan["assumptions"]["label"], "plan_sha256": plan["plan_sha256"],
-            "region": plan["region"], "input_tag": tag, "event_id": event, "window": window,
+            "ignition_times_sha256": plan["assumptions"]["ignition_times_sha256"], "region": plan["region"], "input_tag": tag, "event_id": event, "window": window,
             "scenario_ids": summ["scenario_ids"], "construction_id": summ["construction_id"],
             "ignitions_per_member": summ["ignitions_per_member"], "present_fire_cells": summ["present_fire_cells"],
             "files_sha256": summ["files_sha256"], "forecast_export_sha256": sha(npz), "forecast_record_sha256": sha(recp),

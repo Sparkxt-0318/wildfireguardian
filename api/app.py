@@ -250,6 +250,16 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         return rp
 
     # ---------------------------------------------------------------------------------------------- system
+    def _notices() -> list:
+        out = []
+        if st.jobs.interrupted:
+            out.append("%d job(s) left queued or running by the previous server process were marked failed "
+                       "(SERVER_RESTARTED); a kit attempt that was running then may still be finishing on its own."
+                       % st.jobs.interrupted)
+        if st.settings.host not in ("127.0.0.1", "localhost", "::1"):
+            out.append("bound to %s: the API has no authentication and is meant for local use only" % st.settings.host)
+        return out
+
     def _tool_issues() -> list:
         import os
         out = []
@@ -267,7 +277,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                 "checkpoint": st.identity.checkpoint, "git_commit": st.identity.git_commit, "regions": sorted(reg.regions),
                 "workers": st.settings.workers, "data_root": str(st.settings.data_root), "issues": issues,
                 "jobs": st.jobs.counts(), "queued_tasks": st.jobs.queued(), "budget_s": C.BUDGET_S,
-                "pool_restarts": st.jobs.pool_restarts,
+                "pool_restarts": st.jobs.pool_restarts, "notices": _notices(),
                 "kit_candidate_id": st.identity.kit_candidate_id, "git_dirty": st.identity.git_dirty,
                 "provenance": st.identity.base(input_hashes={"%s/graph" % r.id: r.graph.sha256 for r in reg.regions.values()})}
 

@@ -9,9 +9,12 @@ Rules (all echoed under ``assumptions``):
 * Rasterization (conservative): a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior
   (centre or corner inside, or a polygon edge crossing the cell); sharing only a boundary line does not count. A cell takes the band of the smallest ``arrival_h_max`` among
   the zones that touch it (nested zones).
-* Bands: a cell takes the smallest ``arrival_h_max`` H among the zones touching it; H_prev is the largest
-  ``arrival_h_max`` of a zone nested inside that zone (same fire), 0 for each fire's innermost band. Unrelated zones
-  (other fires) never shift a band.
+* Bands: a cell takes the smallest ``arrival_h_max`` H among the zones touching it. Zone j is nested in zone i when
+  H_j < H_i and every cell of j is a cell of i. H_prev of zone i is the smallest H_j over the outermost zones nested in
+  it (those not nested in another zone nested in i), 0 when none (the innermost band). For concentric zones of one fire
+  that is the next band edge in; a zone of another fire lying inside the band only adds another outermost zone, so it can
+  lower H_prev but never raise it. When several zones share a cell's H, the cell takes the smallest of their H_prev.
+* Geometry: polygon edges are straight in lon/lat (GeoJSON), so they are densified every 0.002 deg before projection.
 * Ignition: a cell in band (H_prev, H] may ignite from max(0, H_prev - margin) (margin default 60 min; the floor is
   applied on the input_time clock, which is the same when issued_at <= input_time and stays conservative otherwise). Four scenarios:
   scenario 0 = that earliest time; scenarios 1-3 = H_prev + (H - H_prev) * k/3 for k = 1, 2, 3 (inside the band, the
@@ -38,10 +41,11 @@ import numpy as np
 
 from ..errors import unprocessable
 
-ADAPTER_VERSION = "wfg.api.spread-zones-adapter/1"
+ADAPTER_VERSION = "wfg.api.spread-zones-adapter/2"   # /2: H_prev from the outermost nested zones (contract v1.6)
 APPROXIMATION = "approximation, requires expert review"
 DEFAULT_MARGIN_MIN = 60.0
 LATER_FRACTIONS = (1.0 / 3.0, 2.0 / 3.0, 1.0)
+MAX_ZONES = 200                # contract ZoneCollection.features maxItems
 
 
 # ------------------------------------------------------------------------------------------------- geometry
@@ -160,6 +164,8 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
     feats = zones.get("features")
     if zones.get("type") != "FeatureCollection" or not isinstance(feats, list):
         raise unprocessable("INVALID_ZONES", "zones must be a GeoJSON FeatureCollection")
+    if len(feats) > MAX_ZONES:
+        raise unprocessable("INVALID_ZONES", "at most %d zone features are accepted" % MAX_ZONES, {"zones": len(feats)})
     margin_min = float(fire_input.get("margin_min", DEFAULT_MARGIN_MIN))
     if not (math.isfinite(margin_min) and margin_min >= 0):
         raise unprocessable("INVALID_ZONES", "margin_min must be a non-negative number of minutes")
@@ -199,13 +205,20 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
     if outside:
         raise unprocessable("ZONES_OUTSIDE_REGION", "zone(s) %s do not touch the %s grid" % (outside, region.id),
                             {"zones_outside": outside, "region_bbox_wgs84": list(region.graph.bbox)})
-    # H_prev comes from the zones nested inside the zone that sets a cell's band (same fire), never from unrelated zones:
-    # prev(i) = max{H_j : H_j < H_i and cells(j) is a subset of cells(i)} or 0. A cell takes the smallest H among the zones
-    # touching it and, among those zones, the smallest prev (earliest ignition, conservative).
+    # j is nested in i when H_j < H_i and cells(j) is a subset of cells(i). prev(i) = min{H_j : j nested in i and not nested
+    # in another zone nested in i} (the outermost nested zones), or 0. Concentric zones of one fire give the next band edge
+    # in; a zone of another fire inside the band can only lower prev(i), never raise it. A cell takes the smallest H among
+    # the zones touching it and, among those zones, the smallest prev (earliest ignition, conservative).
+    hs = np.array([h for h, _ in zone_rows])
+    flat = np.array([m.ravel() for _, m in zone_rows], dtype=np.float64).reshape(len(zone_rows), H * W)
+    inter = flat @ flat.T                                   # shared cell counts (exact in float64 for any grid here)
+    size = flat.sum(axis=1)
+    nested = (inter == size[:, None]) & (size[:, None] > 0) & (hs[:, None] < hs[None, :])    # nested[j, i]
     prev = []
-    for i, (hi, mi) in enumerate(zone_rows):
-        nested = [hj for j, (hj, mj) in enumerate(zone_rows) if j != i and hj < hi and mj.any() and not (mj & ~mi).any()]
-        prev.append(max(nested) if nested else 0.0)
+    for i in range(len(zone_rows)):
+        inner = np.flatnonzero(nested[:, i])
+        outer = [j for j in inner if not nested[j, inner].any()]
+        prev.append(float(min(hs[j] for j in outer)) if outer else 0.0)
     band_h = np.full((H, W), np.inf)
     for h, m in zone_rows:
         band_h = np.where(m & (h < band_h), h, band_h)
@@ -237,13 +250,16 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
                       "ignition_offsets_h_from_issue": offs_h, "ignition_times_s_from_input_time": packet_s,
                       "effective_packet_times_s": eff, "active_until_s_from_input_time": [None if t is None else t + T for t in eff]})
     ignited = int(np.isfinite(times).any(axis=0).sum())
-    plan_digest = hashlib.sha256(json.dumps({"zones": zones, "issued_at": issued.isoformat(), "margin_min": margin_min,
-                                             "input_time": input_time.isoformat(), "region": region.id},
+    times_digest = hashlib.sha256(np.ascontiguousarray(times, dtype="<f8").tobytes()).hexdigest()
+    # the plan digest covers the adapter version and the resulting ignition times, so a rule change gives new scenario IDs
+    plan_digest = hashlib.sha256(json.dumps({"adapter": ADAPTER_VERSION, "zones": zones, "issued_at": issued.isoformat(),
+                                             "margin_min": margin_min, "input_time": input_time.isoformat(),
+                                             "region": region.id, "ignition_times_sha256": times_digest},
                                             sort_keys=True, default=str).encode()).hexdigest()
     assumptions = {
         "adapter": ADAPTER_VERSION, "label": APPROXIMATION,
-        "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell interior (centre or corner inside, or an edge crossing it; a shared boundary line alone does not count); nested zones take the smallest arrival_h_max",
-        "bands": "a cell's band (H_prev, H] uses the smallest arrival_h_max among the zones touching it; H_prev is the largest arrival_h_max of a zone nested inside that zone (0 when none, i.e. the innermost band of each fire)",
+        "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell interior (centre or corner inside, or an edge crossing it; a shared boundary line alone does not count); polygon edges (straight in lon/lat) are densified every %g deg before projection" % DENSIFY_DEG,
+        "bands": "a cell's band (H_prev, H] uses the smallest arrival_h_max H among the zones touching it; zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i; H_prev of zone i is the smallest H_j over the outermost zones nested in i (those not nested in another zone nested in i), 0 when none (innermost band), so a zone of another fire inside a band can lower H_prev but never raise it; when several zones share a cell's H the cell takes the smallest of their H_prev",
         "margin_min": margin_min,
         "scenario_rule": "scenario 0 ignites at max(0, H_prev - margin) (floor applied on the input_time clock); scenarios 1-3 at H_prev + (H - H_prev) * 1/3, 2/3, 1",
         "burning_law": "each ignited cell burns on [ignition, ignition + T) (experiment scalar law); the latest scenario stays active until H + T",
@@ -257,7 +273,7 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
         "cells_igniting_within_horizon": ignited,
         "zone_cells_outside_region_window": outside_window_cells if event_grid is not None else 0,
         "grid": {"height": H, "width": W, "resolution_m": grid["resolution"], "crs": "EPSG:5179"},
-        "plan_sha256": plan_digest,
+        "plan_sha256": plan_digest, "ignition_times_sha256": times_digest,
         "limitations": ["Zone products give arrival ranges, not ignition times; the four scenarios are a deterministic sample, not a probability model.",
                         "The source domain is the region's grid (window), as in the recorded packets; zone cells outside it are not represented.",
                         "Only the first hour after input_time is represented (the experiment's hazard horizon).",

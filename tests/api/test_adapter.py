@@ -200,3 +200,44 @@ def test_malformed_multipolygon_is_422():
     with pytest.raises(APIError) as e:
         run([bad])
     assert e.value.status == 422 and e.value.code == "INVALID_ZONES"
+
+
+def test_three_concentric_bands_take_the_next_edge_in():
+    """0.5 h inside 1 h inside 2 h (one fire): the 2 h band starts at 1 h, not at the innermost 0.5 h."""
+    p = run([rect(375, 375, 1125, 1125, 0.5), rect(0, 0, 1500, 1500, 1.0), rect(0, 0, 1875, 1875, 2.0)])
+    bands = {(b["arrival_h_max"], b["h_prev"]) for b in p["assumptions"]["bands_detail"]}
+    assert bands == {(0.5, 0.0), (1.0, 0.5), (2.0, 1.0)}
+
+
+def test_other_fires_zone_inside_a_band_never_raises_h_prev():
+    """Fire A (0.5 h inside 2 h) plus fire B (1 h) lying inside A's 2 h band but outside A's 0.5 h zone.
+
+    B adds a second outermost nested zone of the 2 h zone; H_prev of the 2 h band must stay 0.5 h (not B's 1 h), so the
+    band cells outside B ignite exactly as with fire A alone.
+    """
+    fire_a = [rect(375, 375, 1125, 1125, 0.5), rect(0, 0, 1875, 1875, 2.0)]
+    fire_b = [rect(1500, 1500, 1875, 1875, 1.0)]
+    alone = np.array(run(fire_a)["times"])
+    both = run(fire_a + fire_b)
+    t = np.array(both["times"])
+    r, c = cell_rc(200, 200)                    # in A's 2 h band, outside A's 0.5 h zone and outside B
+    assert np.array_equal(t[:, r, c], alone[:, r, c], equal_nan=True)
+    bands = {(b["arrival_h_max"], b["h_prev"]) for b in both["assumptions"]["bands_detail"]}
+    assert bands == {(0.5, 0.0), (1.0, 0.0), (2.0, 0.5)}
+
+
+def test_plan_digest_covers_adapter_version_and_ignition_times(monkeypatch):
+    zones = [rect(375, 375, 1125, 1125, 0.5), rect(0, 0, 1875, 1875, 2.0)]
+    p = run(zones)
+    t = np.array(p["times"], dtype="<f8")
+    import hashlib
+    assert p["assumptions"]["ignition_times_sha256"] == hashlib.sha256(t.tobytes()).hexdigest()
+    assert p["assumptions"]["plan_sha256"] == p["plan_sha256"]
+    monkeypatch.setattr(SZ, "ADAPTER_VERSION", SZ.ADAPTER_VERSION + "-test")
+    assert run(zones)["plan_sha256"] != p["plan_sha256"]
+
+
+def test_too_many_zones_is_422():
+    with pytest.raises(APIError) as e:
+        run([rect(0, 0, 375, 375, 1.0)] * (SZ.MAX_ZONES + 1))
+    assert e.value.status == 422 and e.value.code == "INVALID_ZONES"

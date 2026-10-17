@@ -72,7 +72,8 @@ class Identity:
         self.package_path = str(Path(wfg_latest.__file__).resolve().parent)
         manifest = json.loads((KIT_ROOT / "CANDIDATE_MANIFEST.json").read_text())
         self.kit_candidate_id = manifest.get("candidate_id")
-        self.git_commit = os.environ.get("WFG_API_GIT_COMMIT") or _git("rev-parse", "HEAD") or "unknown"
+        # the checkout's own commit wins; WFG_API_GIT_COMMIT is only a fallback for a copy without git metadata
+        self.git_commit = _git("rev-parse", "HEAD") or os.environ.get("WFG_API_GIT_COMMIT") or "unknown"
         status = _git("status", "--porcelain", "--untracked-files=no")
         self.git_dirty = None if status is None else bool(status)
 

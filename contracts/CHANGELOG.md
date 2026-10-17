@@ -69,3 +69,33 @@ Any change after the first push is recorded here with a new minor version (v1.1,
   `zone_cells_outside_region_window`.
 - Finished route-check records beyond the most recent 2,000 are served from their persisted `job.json`, so the
   response does not change.
+
+## v1.6 — conservative spread_zones bands, job lifecycle, health fields
+
+Behaviour changes:
+- spread_zones `H_prev`. Zone j is nested in zone i when `H_j < H_i` and every cell of j is a cell of i. `H_prev` of
+  zone i is now the smallest `H` over the **outermost** zones nested in i, i.e. those not nested in another zone nested
+  in i. v1.5 used the largest `H` over all nested zones. Both rules give the same bands for concentric zones of one
+  fire. v1.5 could raise a band's `H_prev`, which means a later and less conservative earliest ignition, when a zone of
+  another fire lay inside the band. The v1.5 entry's "another fire's zones never shift it" held only for zones that are
+  not nested. Under v1.6 such a zone can lower `H_prev` but never raise it.
+- The adapter version is now `wfg.api.spread-zones-adapter/2`. `plan_sha256` also covers the adapter version and the
+  resulting ignition times. The new `assumptions.ignition_times_sha256` and the packet's `zone_adapter` settings carry
+  them as well, so a rule change yields new construction and scenario IDs. The assumptions now also state the
+  densification step, the nesting test and the tie-break.
+- `zones.features` accepts at most 200 zones.
+- The kit's lifecycle rule now also covers a pool worker that dies while running a route check. That attempt never got
+  the controller's cleanup, so new launches pause (503 `LAUNCHES_PAUSED`) until the API is restarted.
+- Jobs that a previous server process left `queued` or `running` are recorded on start-up as `failed`, with `result:
+  null` and the job error `SERVER_RESTARTED`. They are not resumed. `/health` reports them under `notices`.
+
+Additive:
+- `Health` declares the fields it already returned (`jobs`, `queued_tasks`, `budget_s`, `pool_restarts`,
+  `kit_candidate_id`, `git_dirty`) and adds `notices`. Notices are informational and do not change `status`. A
+  non-loopback bind address is also reported there.
+- `recorded_mission_match` is documented precisely: it compares parsed JSON objects, not file bytes. Key order differs
+  from the recorded file for 16 of the 20 missions.
+
+Earlier versions, for clarity. No version removed or renamed a field. v1.4 tightened validation (dispatch `full` only,
+duplicate offsets, attempt cap, non-finite numbers) and made an unfinished requested independent check `unresolved`.
+v1.5 changed the band rule.

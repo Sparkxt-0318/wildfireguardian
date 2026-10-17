@@ -4,6 +4,11 @@ Route checks are CPU bound and the kit controller launches workers with preexec_
 runs in a pool worker process, never in a server thread. A feeder thread keeps at most ``workers`` tasks in flight, so
 a task is ``running`` exactly while it occupies a worker; single route checks (priority 0) are scheduled ahead of
 dispatch-plan attempts (priority 1). Job records live in memory and are mirrored to <runtime>/jobs/<id>/job.json.
+
+Frozen lifecycle rule: no new kit launch after an attempt whose process cleanup was not confirmed. Besides a ``tainted``
+result reported by the worker, a ``route_check`` task whose future fails at the pool level (the worker died, or its result
+never came back) left its attempt without the controller's cleanup, so launches pause then too. Jobs that a previous
+server process left queued or running never resume; on start-up they are recorded as failed (``SERVER_RESTARTED``).
 """
 from __future__ import annotations
 
@@ -50,6 +55,7 @@ def _build_zone_packet(spec):
 
 
 TASKS = {"route_check": _execute, "zone_packet": _build_zone_packet}
+LAUNCHING_TASKS = {"route_check"}      # task kinds that start a kit attempt (and so need the controller's cleanup)
 MAX_FINISHED_IN_MEMORY = 2000          # finished route-check records kept in memory; older ones are read from job.json
 MAX_QUEUED_TASKS = 20000               # beyond this POST returns 503 BUSY
 
@@ -63,6 +69,7 @@ class JobManager:
         self.pool_restarts = 0
         self.paused: str | None = None       # frozen lifecycle rule: no new launch after an unconfirmed cleanup
         self._finished: list = []            # finished job ids, oldest first (memory bound; records stay on disk)
+        self.interrupted = self._fail_interrupted()
         self.jobs: dict[str, dict] = {}
         self.lock = threading.RLock()
         self._q: queue.PriorityQueue = queue.PriorityQueue()
@@ -88,6 +95,23 @@ class JobManager:
                 pass
             self.pool = self._new_pool()
             self.pool_restarts += 1
+
+    def _fail_interrupted(self) -> int:
+        """Jobs a previous server process left queued or running never resume: record them as failed (never safe)."""
+        n = 0
+        for p in sorted((self.runtime_dir / "jobs").glob("*/job.json")):
+            try:
+                job = json.loads(p.read_text())
+            except ValueError:
+                continue
+            if isinstance(job, dict) and job.get("status") in ("queued", "running") and "job_id" in job:
+                job.update(status="failed", finished_at=utc_now(), result=None,
+                           error={"code": "SERVER_RESTARTED",
+                                  "message": "the API restarted before this job finished; it was not resumed. Treat it as "
+                                             "unresolved (never safe) and submit it again."})
+                self._persist(job)
+                n += 1
+        return n
 
     # ---- records -----------------------------------------------------------------------------------------------
     def new_id(self, prefix: str) -> str:
@@ -170,12 +194,16 @@ class JobManager:
                 on_done(None, exc)
                 continue
 
-            def _done(f, on_done=on_done):
+            def _done(f, on_done=on_done, kind=kind):
                 self._slots.release()
                 try:
                     res, err = f.result(), None
                 except BaseException as exc:     # worker died or the task raised (SystemExit included)
                     res, err = None, exc
+                    if kind in LAUNCHING_TASKS:  # the attempt never got the controller's cleanup (frozen lifecycle rule)
+                        self.pause("a pool worker failed while running a %s task (%s); its kit attempt's process cleanup "
+                                   "was not confirmed, so new launches are paused as the frozen controller requires. "
+                                   "Check for leftover processes, then restart the API." % (kind, type(exc).__name__))
                 try:
                     on_done(res, err)
                 except Exception:

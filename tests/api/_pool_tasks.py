@@ -7,3 +7,8 @@ def raise_system_exit(spec):
 
 def echo(spec):
     return {"status": "done", "echo": spec}
+
+
+def die(spec):
+    import os
+    os._exit(3)                 # a worker killed mid-task (e.g. by the OOM killer)

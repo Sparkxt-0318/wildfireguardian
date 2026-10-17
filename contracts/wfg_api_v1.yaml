@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.5.0
+  version: 1.6.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -289,6 +289,7 @@ components:
                 v1.4: `POLICY_NOT_ALLOWED`, `DUPLICATE_OFFSET`, `TOO_MANY_ATTEMPTS` (origins × destinations × offsets > 4800).
                 v1.5 (503): `BUSY` (too many queued checks), `LAUNCHES_PAUSED` (a kit attempt's process cleanup was not
                 confirmed; new launches pause as the frozen controller requires until the API is restarted).
+                v1.6 (작업 오류 / job error): `SERVER_RESTARTED` (the API restarted before the job finished; it is not resumed).
               examples: [SNAP_TOO_FAR]
             message:
               type: string
@@ -341,6 +342,32 @@ components:
           type: array
           items:
             type: string
+        notices:
+          type: array
+          description: |
+            상태에 영향을 주지 않는 안내 (v1.6). 예: 이전 서버 프로세스가 남긴 대기·실행 중 작업을 실패(SERVER_RESTARTED)로 기록함.
+            Informational notices that do not change `status` (v1.6), e.g. jobs left queued or running by the previous
+            server process were recorded as failed (`SERVER_RESTARTED`), or a non-loopback bind address.
+          items:
+            type: string
+        jobs:
+          type: object
+          description: 메모리에 있는 작업 수 (상태별) / in-memory job counts by status (v1.6 documents this existing field)
+          additionalProperties:
+            type: integer
+        queued_tasks:
+          type: integer
+          description: 대기 중인 풀 작업 수 / tasks waiting for a pool worker
+        budget_s:
+          type: number
+          description: 키트 시도당 예산 (30 s, 고정) / per-attempt budget (30 s, fixed)
+        pool_restarts:
+          type: integer
+          description: 작업자 비정상 종료 후 풀을 다시 만든 횟수 / pool rebuilds after a worker died
+        kit_candidate_id:
+          type: [string, 'null']
+        git_dirty:
+          type: [boolean, 'null']
         provenance:
           $ref: '#/components/schemas/Provenance'
     RegionList:
@@ -622,6 +649,8 @@ components:
           const: FeatureCollection
         features:
           type: array
+          maxItems: 200
+          description: 최대 200개 구역 (v1.6) / at most 200 zones (v1.6)
           items:
             $ref: '#/components/schemas/ZoneFeature'
     ZoneFeature:
@@ -648,10 +677,16 @@ components:
               type: number
               exclusiveMinimum: 0
               description: |
-                이 구역의 화선 도달 상한 (시간). 셀의 하한 H_prev는 같은 구역 안에 포함된(nested) 구역의 값에서만 정해지며
-                다른 화재의 구역은 영향을 주지 않습니다 (v1.5).
-                Upper bound of fire arrival in hours (e.g. 5, 8). A cell's lower bound H_prev comes only from zones nested
-                inside the zone that sets its band; zones of other fires never shift it (v1.5).
+                이 구역의 화선 도달 상한 (시간). 셀은 자신을 덮는 구역 중 가장 작은 값 H의 띠 (H_prev, H]에 속합니다.
+                구역 j는 H_j < H_i 이고 j의 모든 셀이 i의 셀이면 i 안에 포함(nested)됩니다. 구역 i의 H_prev는 i 안에 포함된
+                가장 바깥 구역들(i 안의 다른 포함 구역에 포함되지 않은 구역)의 H 중 가장 작은 값이며, 없으면 0입니다 (v1.6).
+                같은 화재의 동심 구역이면 바로 안쪽 경계가 되고, 띠 안에 놓인 다른 화재의 구역은 H_prev를 낮출 수는 있어도
+                높이지는 않습니다.
+                Upper bound of fire arrival in hours (e.g. 5, 8). A cell takes the band (H_prev, H] of the smallest H among
+                the zones touching it. Zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i. H_prev of
+                zone i is the smallest H over the outermost zones nested in i (those not nested in another zone nested in i),
+                0 when none (v1.6). For concentric zones of one fire that is the next band edge in; a zone of another fire
+                lying inside the band can lower H_prev but never raise it.
     RouteCheckRequest:
       type: object
       required: [region, input_time, start, destination, fire_input]
@@ -1254,7 +1289,10 @@ components:
             true = 기록 입력 + full 정책 + 기본 한계 (최종 실험과 같은 구성) / recorded input, full policy, default limits.
         recorded_mission_match:
           type: [string, 'null']
-          description: 생성된 요청이 기록된 최종 패널 임무 요청과 정확히 같으면 그 임무 ID (v1.1) / recorded mission whose request is identical
+          description: |
+            생성된 요청 객체가 기록된 최종 패널 임무 요청과 JSON으로 비교해 같으면 그 임무 ID (v1.1). 키 순서와 공백은 비교하지 않습니다.
+            Recorded mission whose request object equals the built request when both are parsed as JSON (v1.1); key order
+            and whitespace are not compared, so the written REQUEST.json can differ from the recorded file in key order.
         approximation:
           type: [string, 'null']
           description: spread_zones이면 "approximation, requires expert review"
