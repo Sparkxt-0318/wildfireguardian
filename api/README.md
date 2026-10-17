@@ -65,7 +65,7 @@ python3.12 -m venv .venv
 
 ### 사용 예 (curl)
 
-아래 ID와 응답은 커밋 `ed38cb8`에서 실행 중인 API로 실제로 얻은 값입니다(긴 응답은 일부만 남겼습니다). 이 4코어 Linux 호스트의 `compute_s`는 평가 호스트보다 큽니다.
+아래 ID와 응답은 커밋 `4c4ebec`에서 실행 중인 API로 실제로 얻은 값입니다(긴 응답은 일부만 남겼습니다). 이 4코어 Linux 호스트의 `compute_s`는 평가 호스트보다 큽니다.
 
 ```sh
 BASE=http://127.0.0.1:8765/v1
@@ -77,12 +77,12 @@ curl -s $BASE/regions
 
 ```json
 {"status": "ok",
- "api_version": "1.7.0",
+ "api_version": "1.8.0",
  "package": "wfg_latest",
  "package_version": "1.0.0",
  "kit": "v3",
  "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
- "git_commit": "ed38cb826a0c266ade385fb0f8ba68a87faa2464",
+ "git_commit": "4c4ebec2e9b2e342cdd08fc1dbe44db430639b0b",
  "regions": ["hongseong_2023", "miryang_2022", "uiseong_andong_2025", "uljin_2022", "yeongdeok_2025"],
  "workers": 2,
  "data_root": ".../data/routing",
@@ -146,9 +146,9 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
   "dwell_s": 120,
   "fire_input": {"type": "recorded", "scenario_set_id": "ffb1:20230402T230000Z:247138a35dcddc50"}
 }'
-# 202 {"job_id": "rc_ec1feedcd1764d75858b", "status": "queued", "kind": "route_check", "snap": {...},
-#      "links": {"self": "/v1/route-checks/rc_ec1feedcd1764d75858b",
-#                "export_geojson": "/v1/route-checks/rc_ec1feedcd1764d75858b/export?format=geojson"}}
+# 202 {"job_id": "rc_d2e0762ffb674d0998aa", "status": "queued", "kind": "route_check", "snap": {...},
+#      "links": {"self": "/v1/route-checks/rc_d2e0762ffb674d0998aa",
+#                "export_geojson": "/v1/route-checks/rc_d2e0762ffb674d0998aa/export?format=geojson"}}
 ```
 
 `start`와 `destination`에는 `{"node_id": …}`나 `{"lon": …, "lat": …}`를 넣을 수 있습니다. 좌표는 허용된 가장 가까운 도로 노드로 스냅됩니다. 허용된 노드란 들어오는 도로와 나가는 도로가 하나 이상씩 있는 노드이고, 거리는 EPSG:5179 평면에서 잽니다. 스냅 거리가 300 m를 넘으면 422 `SNAP_TOO_FAR`로 거부합니다. 생략한 필드에는 기본값이 들어갑니다: `depart_offset_s` 0, `dwell_s` 120, `policy` `full`, `limits` {10 kW/m², 100 kJ/m²}, `incurred_dose_kj_m2` 0, `destination_window` [0, horizon].
@@ -156,7 +156,7 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
 #### 결과 조회(폴링)
 
 ```sh
-JOB=rc_ec1feedcd1764d75858b
+JOB=rc_d2e0762ffb674d0998aa
 while :; do
   s=$(curl -s $BASE/route-checks/$JOB | python3 -c 'import json,sys; print(json.load(sys.stdin)["status"])')
   [ "$s" = done ] || [ "$s" = failed ] && break
@@ -169,9 +169,9 @@ curl -s $BASE/route-checks/$JOB
 
 ```jsonc
 {
-  "job_id": "rc_ec1feedcd1764d75858b", "kind": "route_check", "status": "done",
-  "created_at": "2026-10-17T10:49:19.473195+00:00", "started_at": "2026-10-17T10:49:19.474180+00:00",
-  "finished_at": "2026-10-17T10:49:36.914382+00:00",
+  "job_id": "rc_d2e0762ffb674d0998aa", "kind": "route_check", "status": "done",
+  "created_at": "2026-10-17T11:31:20.306880+00:00", "started_at": "2026-10-17T11:31:20.308042+00:00",
+  "finished_at": "2026-10-17T11:31:37.839374+00:00",
   "request": { /* 접수된 본문 + 기본값: depart_offset_s 0, policy "full", limits {10, 100}, incurred_dose_kj_m2 0 */ },
   "snap": {
     "start":       {"node_id": "osm:437291784", "distance_m": 0.0, "lon": 126.51378, "lat": 36.545731499999995, "input": "node_id"},
@@ -199,14 +199,14 @@ curl -s $BASE/route-checks/$JOB
        "peak_upper_kw_m2": 9.906653522583497e-05, "dose_upper_kj_m2": 0.02117593963551037}
       /* 이번 실행에서는 시나리오 :1, :2, :3도 같은 값 */
     ],
-    "compute_s": 17.319334613999672, "within_budget": true, "policy": "full",
+    "compute_s": 17.398213032000058, "within_budget": true, "policy": "full",
     "limits": {"peak_kw_m2": 10, "dose_kj_m2": 100, "incurred_dose_kj_m2": 0},
     "independent_check": null, "assumptions": null, "notes": [],
     "provenance": {
-      "api_version": "1.7.0", "package": "wfg_latest", "package_version": "1.0.0", "kit": "v3",
+      "api_version": "1.8.0", "package": "wfg_latest", "package_version": "1.0.0", "kit": "v3",
       "kit_candidate_id": "WFG-latest-completion-kit-20261015-v3",
       "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
-      "git_commit": "ed38cb826a0c266ade385fb0f8ba68a87faa2464", "git_dirty": false,
+      "git_commit": "4c4ebec2e9b2e342cdd08fc1dbe44db430639b0b", "git_dirty": false,
       "region": "hongseong_2023", "input_time": "2023-04-02T23:00:00Z",
       "graph_id": "hongseong-osm-20230401-provisional-grid375-dt1-53599a1a7b18-254dfdb05fb5",
       "input_hashes": {"graph": "861ca1514c8f…", "hazard": "7f8c03d1116c…", "request": "58f47c2d9722…",
@@ -218,11 +218,11 @@ curl -s $BASE/route-checks/$JOB
       "recorded_mission_match": "20230402T230000Z_FD1", "approximation": null,
       "clock": "external_launch_to_completion_wall_s of the kit controller (wfg_controller.run_attempt): …",
       "host": {"platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39", "machine": "x86_64", "python": "3.12.3", "cpu_count": 4},
-      "generated_at": "2026-10-17T10:49:36.914350+00:00", "budget_s": 30.0, "workers": 2,
-      "timings_s": {"worker_total_s": 17.434329387000616},
+      "generated_at": "2026-10-17T11:31:37.839347+00:00", "budget_s": 30.0, "workers": 2,
+      "timings_s": {"worker_total_s": 17.52595012099937},
       "receipt": {"on_time_complete_publication": true, "exit_code": 0, "cleanup_state": "CLEAN",
                   "deadline_termination_requested": false, "memory_guard_triggered": false,
-                  "external_launch_to_completion_wall_s": 17.319334613999672, "raw_primary_status": "CHECKED_ROUTE"}
+                  "external_launch_to_completion_wall_s": 17.398213032000058, "raw_primary_status": "CHECKED_ROUTE"}
     }
   },
   "error": null
@@ -275,14 +275,14 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
 }'
 ```
 
-이 요청을 실제로 실행한 결과는 `verdict` `model_no_route`(`raw_status` `FULL_MODEL_REFUSAL_PROVEN`), `compute_s` 1.147 s, `provenance.approximation` `"approximation, requires expert review"`였습니다. `result.assumptions`에는 적용된 규칙이 모두 다시 기록됩니다. 이번 실행의 값은 다음과 같습니다.
+이 요청을 실제로 실행한 결과는 `verdict` `model_no_route`(`raw_status` `FULL_MODEL_REFUSAL_PROVEN`), `compute_s` 0.773 s, `provenance.approximation` `"approximation, requires expert review"`였습니다. `result.assumptions`에는 적용된 규칙이 모두 다시 기록됩니다. 이번 실행의 값은 다음과 같습니다.
 
 - `issued_minus_input_s` = −3600
 - 5 h 대역(H_prev 0, 셀 41개): 시나리오 0–3의 점화 시각이 발표 기준 −1(H_prev − margin), 1.667, 3.333, 5 h입니다. 패킷 시각으로는 0(입력 시각 원점으로 당김), 2400 s, null, null입니다. 뒤의 두 시각은 지평 3600 s를 넘기 때문에 점화하지 않습니다.
 - 8 h 대역(H_prev 5 h, 셀 87개): 4, 6, 7, 8 h가 모두 지평 밖이라 점화하지 않습니다. 지평 안에서 점화하는 셀은 41개입니다(`cells_igniting_within_horizon`).
 - 현재 연소 셀 4개는 기록대로 유지됩니다.
 
-시나리오 세트 ID는 새로 만든 패킷의 ID(`ffb1:20230402T230000Z:7e99d2afa332a81d`)이고, `evaluated_configuration`은 `false`입니다.
+시나리오 세트 ID는 새로 만든 패킷의 ID(`ffb1:20230402T230000Z:98a818f4bdf39b31`)이고, `evaluated_configuration`은 `false`입니다.
 
 #### 정책과 독립 점검
 
@@ -312,19 +312,19 @@ curl -s -X POST $BASE/dispatch-plans -H 'Content-Type: application/json' -d '{
 curl -s $BASE/dispatch-plans/<job_id>
 ```
 
-계획은 (출발지, 목적지, 출발 오프셋) 조합마다 일반 경로 점검을 한 번씩 실행합니다. 이 예에서는 4번입니다. 커밋 `ed38cb8`에서 실제로 실행한 결과(작업 `dp_8cdb836251f4457c8d38`, 15.5 s, 일부 생략)는 다음과 같습니다. 출발지 B는 `osm:436671098`(222.6 m)에 스냅되었습니다.
+계획은 (출발지, 목적지, 출발 오프셋) 조합마다 일반 경로 점검을 한 번씩 실행합니다. 이 예에서는 4번입니다. 커밋 `4c4ebec`에서 실제로 실행한 결과(작업 `dp_102c4babb68d4f76bbc8`, 16.2 s, 일부 생략)는 다음과 같습니다. 출발지 B는 `osm:436671098`(222.6 m)에 스냅되었습니다.
 
 ```jsonc
 {"plans": [
   {"origin_id": "A", "urgency_rank": 1, "best_verdict": "checked_route",
    "latest_checked_depart_offset_s": 0, "latest_contiguous_checked_depart_offset_s": 0,
-   "best": {"destination_id": "shelter", "depart_offset_s": 0, "verdict": "checked_route", "arrival_s": 531, "route_check_job_id": "rc_03adaaa819aa4030842d" /* … */},
+   "best": {"destination_id": "shelter", "depart_offset_s": 0, "verdict": "checked_route", "arrival_s": 531, "route_check_job_id": "rc_d0c1127455f04a19976b" /* … */},
    "attempts": [/* 오프셋 0: checked_route 531 s; 오프셋 300: model_no_route */]},
   {"origin_id": "B", "urgency_rank": 2, "snap": {"node_id": "osm:436671098", "distance_m": 222.578 /* … */},
    "best_verdict": "model_no_route", "latest_checked_depart_offset_s": null, "latest_contiguous_checked_depart_offset_s": null,
    "best": null, "attempts": [/* 오프셋 0과 300: 둘 다 model_no_route */]}],
  "summary": {"origins": 2, "attempts": 4, "checked_route": 1, "model_no_route": 1, "unresolved": 0,
-             "attempt_verdicts": {"checked_route": 1, "model_no_route": 3, "unresolved": 0}, "wall_s": 15.526010255000074 /* … */},
+             "attempt_verdicts": {"checked_route": 1, "model_no_route": 3, "unresolved": 0}, "wall_s": 16.226319774999865 /* … */},
  "rejected_origins": [], "provenance": { /* … */ }}
 ```
 
@@ -526,7 +526,7 @@ A job's status moves from `queued` to `running` and ends as `done` or `failed`. 
 
 ### Examples (curl)
 
-The IDs and responses below come from the API running at commit `ed38cb8`. Long responses are trimmed. On this 4-core Linux host `compute_s` is higher than on the evaluated host.
+The IDs and responses below come from the API running at commit `4c4ebec`. Long responses are trimmed. On this 4-core Linux host `compute_s` is higher than on the evaluated host.
 
 ```sh
 BASE=http://127.0.0.1:8765/v1
@@ -538,12 +538,12 @@ curl -s $BASE/regions
 
 ```json
 {"status": "ok",
- "api_version": "1.7.0",
+ "api_version": "1.8.0",
  "package": "wfg_latest",
  "package_version": "1.0.0",
  "kit": "v3",
  "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
- "git_commit": "ed38cb826a0c266ade385fb0f8ba68a87faa2464",
+ "git_commit": "4c4ebec2e9b2e342cdd08fc1dbe44db430639b0b",
  "regions": ["hongseong_2023", "miryang_2022", "uiseong_andong_2025", "uljin_2022", "yeongdeok_2025"],
  "workers": 2,
  "data_root": ".../data/routing",
@@ -607,9 +607,9 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
   "dwell_s": 120,
   "fire_input": {"type": "recorded", "scenario_set_id": "ffb1:20230402T230000Z:247138a35dcddc50"}
 }'
-# 202 {"job_id": "rc_ec1feedcd1764d75858b", "status": "queued", "kind": "route_check", "snap": {...},
-#      "links": {"self": "/v1/route-checks/rc_ec1feedcd1764d75858b",
-#                "export_geojson": "/v1/route-checks/rc_ec1feedcd1764d75858b/export?format=geojson"}}
+# 202 {"job_id": "rc_d2e0762ffb674d0998aa", "status": "queued", "kind": "route_check", "snap": {...},
+#      "links": {"self": "/v1/route-checks/rc_d2e0762ffb674d0998aa",
+#                "export_geojson": "/v1/route-checks/rc_d2e0762ffb674d0998aa/export?format=geojson"}}
 ```
 
 `start` and `destination` take either `{"node_id": …}` or `{"lon": …, "lat": …}`. Coordinates snap to the nearest allowed road node, which is a node with at least one incoming and one outgoing road. Distance is planar in EPSG:5179. A snap of more than 300 m is rejected with 422 `SNAP_TOO_FAR`. Omitted fields get these defaults: `depart_offset_s` 0, `dwell_s` 120, `policy` `full`, `limits` {10 kW/m², 100 kJ/m²}, `incurred_dose_kj_m2` 0 and `destination_window` [0, horizon].
@@ -617,7 +617,7 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
 #### Polling
 
 ```sh
-JOB=rc_ec1feedcd1764d75858b
+JOB=rc_d2e0762ffb674d0998aa
 while :; do
   s=$(curl -s $BASE/route-checks/$JOB | python3 -c 'import json,sys; print(json.load(sys.stdin)["status"])')
   [ "$s" = done ] || [ "$s" = failed ] && break
@@ -630,9 +630,9 @@ This is the response observed on this host, with long arrays and hashes trimmed:
 
 ```jsonc
 {
-  "job_id": "rc_ec1feedcd1764d75858b", "kind": "route_check", "status": "done",
-  "created_at": "2026-10-17T10:49:19.473195+00:00", "started_at": "2026-10-17T10:49:19.474180+00:00",
-  "finished_at": "2026-10-17T10:49:36.914382+00:00",
+  "job_id": "rc_d2e0762ffb674d0998aa", "kind": "route_check", "status": "done",
+  "created_at": "2026-10-17T11:31:20.306880+00:00", "started_at": "2026-10-17T11:31:20.308042+00:00",
+  "finished_at": "2026-10-17T11:31:37.839374+00:00",
   "request": { /* accepted body plus defaults: depart_offset_s 0, policy "full", limits {10, 100}, incurred_dose_kj_m2 0 */ },
   "snap": {
     "start":       {"node_id": "osm:437291784", "distance_m": 0.0, "lon": 126.51378, "lat": 36.545731499999995, "input": "node_id"},
@@ -660,14 +660,14 @@ This is the response observed on this host, with long arrays and hashes trimmed:
        "peak_upper_kw_m2": 9.906653522583497e-05, "dose_upper_kj_m2": 0.02117593963551037}
       /* scenarios :1, :2 and :3 reported the same values in this run */
     ],
-    "compute_s": 17.319334613999672, "within_budget": true, "policy": "full",
+    "compute_s": 17.398213032000058, "within_budget": true, "policy": "full",
     "limits": {"peak_kw_m2": 10, "dose_kj_m2": 100, "incurred_dose_kj_m2": 0},
     "independent_check": null, "assumptions": null, "notes": [],
     "provenance": {
-      "api_version": "1.7.0", "package": "wfg_latest", "package_version": "1.0.0", "kit": "v3",
+      "api_version": "1.8.0", "package": "wfg_latest", "package_version": "1.0.0", "kit": "v3",
       "kit_candidate_id": "WFG-latest-completion-kit-20261015-v3",
       "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
-      "git_commit": "ed38cb826a0c266ade385fb0f8ba68a87faa2464", "git_dirty": false,
+      "git_commit": "4c4ebec2e9b2e342cdd08fc1dbe44db430639b0b", "git_dirty": false,
       "region": "hongseong_2023", "input_time": "2023-04-02T23:00:00Z",
       "graph_id": "hongseong-osm-20230401-provisional-grid375-dt1-53599a1a7b18-254dfdb05fb5",
       "input_hashes": {"graph": "861ca1514c8f…", "hazard": "7f8c03d1116c…", "request": "58f47c2d9722…",
@@ -679,11 +679,11 @@ This is the response observed on this host, with long arrays and hashes trimmed:
       "recorded_mission_match": "20230402T230000Z_FD1", "approximation": null,
       "clock": "external_launch_to_completion_wall_s of the kit controller (wfg_controller.run_attempt): …",
       "host": {"platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39", "machine": "x86_64", "python": "3.12.3", "cpu_count": 4},
-      "generated_at": "2026-10-17T10:49:36.914350+00:00", "budget_s": 30.0, "workers": 2,
-      "timings_s": {"worker_total_s": 17.434329387000616},
+      "generated_at": "2026-10-17T11:31:37.839347+00:00", "budget_s": 30.0, "workers": 2,
+      "timings_s": {"worker_total_s": 17.52595012099937},
       "receipt": {"on_time_complete_publication": true, "exit_code": 0, "cleanup_state": "CLEAN",
                   "deadline_termination_requested": false, "memory_guard_triggered": false,
-                  "external_launch_to_completion_wall_s": 17.319334613999672, "raw_primary_status": "CHECKED_ROUTE"}
+                  "external_launch_to_completion_wall_s": 17.398213032000058, "raw_primary_status": "CHECKED_ROUTE"}
     }
   },
   "error": null
@@ -736,14 +736,14 @@ curl -s -X POST $BASE/route-checks -H 'Content-Type: application/json' -d '{
 }'
 ```
 
-When this request ran, the result was `verdict` `model_no_route` (`raw_status` `FULL_MODEL_REFUSAL_PROVEN`), with `compute_s` 1.147 s and `provenance.approximation` `"approximation, requires expert review"`. `result.assumptions` records every rule that was applied. The values from this run were:
+When this request ran, the result was `verdict` `model_no_route` (`raw_status` `FULL_MODEL_REFUSAL_PROVEN`), with `compute_s` 0.773 s and `provenance.approximation` `"approximation, requires expert review"`. `result.assumptions` records every rule that was applied. The values from this run were:
 
 - `issued_minus_input_s` = −3600
 - 5 h band (H_prev 0, 41 cells): scenarios 0–3 ignite at −1 (H_prev − margin), 1.667, 3.333 and 5 h after issue. On the packet clock these are 0 (clamped to the input-time origin), 2400 s, null and null. The last two fall beyond the 3600 s horizon, so those cells stay unignited.
 - 8 h band (H_prev 5 h, 87 cells): 4, 6, 7 and 8 h all fall beyond the horizon, so nothing ignites. In total 41 cells ignite within the horizon (`cells_igniting_within_horizon`).
 - The 4 cells burning now are kept as recorded.
 
-The scenario-set ID is the ID of the newly built packet (`ffb1:20230402T230000Z:7e99d2afa332a81d`), and `evaluated_configuration` is `false`.
+The scenario-set ID is the ID of the newly built packet (`ffb1:20230402T230000Z:98a818f4bdf39b31`), and `evaluated_configuration` is `false`.
 
 #### Policy and independent check
 
@@ -773,19 +773,19 @@ curl -s -X POST $BASE/dispatch-plans -H 'Content-Type: application/json' -d '{
 curl -s $BASE/dispatch-plans/<job_id>
 ```
 
-A plan runs one ordinary route check for each (origin, destination, departure offset) combination, which is 4 checks here. This is the result observed at commit `ed38cb8` (job `dp_8cdb836251f4457c8d38`, 15.5 s, trimmed). Origin B snapped to `osm:436671098`, 222.6 m away:
+A plan runs one ordinary route check for each (origin, destination, departure offset) combination, which is 4 checks here. This is the result observed at commit `4c4ebec` (job `dp_102c4babb68d4f76bbc8`, 16.2 s, trimmed). Origin B snapped to `osm:436671098`, 222.6 m away:
 
 ```jsonc
 {"plans": [
   {"origin_id": "A", "urgency_rank": 1, "best_verdict": "checked_route",
    "latest_checked_depart_offset_s": 0, "latest_contiguous_checked_depart_offset_s": 0,
-   "best": {"destination_id": "shelter", "depart_offset_s": 0, "verdict": "checked_route", "arrival_s": 531, "route_check_job_id": "rc_03adaaa819aa4030842d" /* … */},
+   "best": {"destination_id": "shelter", "depart_offset_s": 0, "verdict": "checked_route", "arrival_s": 531, "route_check_job_id": "rc_d0c1127455f04a19976b" /* … */},
    "attempts": [/* offset 0: checked_route at 531 s; offset 300: model_no_route */]},
   {"origin_id": "B", "urgency_rank": 2, "snap": {"node_id": "osm:436671098", "distance_m": 222.578 /* … */},
    "best_verdict": "model_no_route", "latest_checked_depart_offset_s": null, "latest_contiguous_checked_depart_offset_s": null,
    "best": null, "attempts": [/* offsets 0 and 300: both model_no_route */]}],
  "summary": {"origins": 2, "attempts": 4, "checked_route": 1, "model_no_route": 1, "unresolved": 0,
-             "attempt_verdicts": {"checked_route": 1, "model_no_route": 3, "unresolved": 0}, "wall_s": 15.526010255000074 /* … */},
+             "attempt_verdicts": {"checked_route": 1, "model_no_route": 3, "unresolved": 0}, "wall_s": 16.226319774999865 /* … */},
  "rejected_origins": [], "provenance": { /* … */ }}
 ```
 
@@ -901,11 +901,11 @@ make api-smoke    # = bash scripts/api_smoke.sh (needs a running server)
 
 `scripts/api_smoke.sh` sends these requests to an already-running server, in order: `/health`, `/regions`, a recorded route check (Hongseong FD1), a spread_zones route check and a summary. If it cannot connect, it tells you to start the server with `make api` and exits 1. It exits 0 when both jobs finish with status `done`, whatever their verdicts. It prints verdicts without interpreting them and never treats `unresolved` as safe. You can change the target with `WFG_API_BASE` (default `http://127.0.0.1:8765/v1`) and the wait with `WFG_SMOKE_TIMEOUT` (default 300 s).
 
-This output was observed on the 4-core x86_64 Linux host used to write this README, at commit `ed38cb8`:
+This output was observed on the 4-core x86_64 Linux host used to write this README, at commit `4c4ebec`:
 
 ```text
 [1/5] GET http://127.0.0.1:8765/v1/health
-  status=ok package=wfg_latest 1.0.0 kit=v3 checkpoint=c651f6724fe6 git_commit=ed38cb826a0c266ade385fb0f8ba68a87faa2464 workers=2
+  status=ok package=wfg_latest 1.0.0 kit=v3 checkpoint=c651f6724fe6 git_commit=4c4ebec2e9b2e342cdd08fc1dbe44db430639b0b workers=2
   regions=hongseong_2023,miryang_2022,uiseong_andong_2025,uljin_2022,yeongdeok_2025
 [2/5] GET http://127.0.0.1:8765/v1/regions
   hongseong_2023       홍성     input_times=3 scenario_sets=3
@@ -915,21 +915,21 @@ This output was observed on the 4-core x86_64 Linux host used to write this READ
   yeongdeok_2025       영덕     input_times=3 scenario_sets=3
   using hongseong_2023 2023-04-02T23:00:00Z scenario_set_id=ffb1:20230402T230000Z:247138a35dcddc50
 [3/5] POST http://127.0.0.1:8765/v1/route-checks (recorded fire input; mission Hongseong FD1)
-  accepted job_id=rc_bdf3cdb8a042448a8332
-  job rc_bdf3cdb8a042448a8332: done after 19 s
+  accepted job_id=rc_076cd09f6faa4bbca20e
+  job rc_076cd09f6faa4bbca20e: done after 19 s
   verdict=checked_route
-  reason_code=null arrival_s=531 lower_bound_L_s=531 compute_s=16.408 within_budget=True
+  reason_code=null arrival_s=531 lower_bound_L_s=531 compute_s=16.818 within_budget=True
   recorded_mission_match=20230402T230000Z_FD1 evaluated_configuration=True
   recorded final-panel arrival for FD1: 531 s
 [4/5] POST http://127.0.0.1:8765/v1/route-checks (spread_zones fire input: nested 5 h / 8 h zones, issued 2023-04-02T22:00:00Z)
-  accepted job_id=rc_638e2eae565f4dab920f
-  job rc_638e2eae565f4dab920f: done after 2 s
+  accepted job_id=rc_355d995079a4444d8f4b
+  job rc_355d995079a4444d8f4b: done after 2 s
   verdict=model_no_route (scoped refusal: no route in this model, not proof that no escape exists)
-  reason_code=null arrival_s=null lower_bound_L_s=null compute_s=0.917 within_budget=True
+  reason_code=null arrival_s=null lower_bound_L_s=null compute_s=0.885 within_budget=True
   provenance.approximation="approximation, requires expert review"
 [5/5] summary
-  recorded     rc_bdf3cdb8a042448a8332  status=done verdict=checked_route
-  spread_zones rc_638e2eae565f4dab920f  status=done verdict=model_no_route
+  recorded     rc_076cd09f6faa4bbca20e  status=done verdict=checked_route
+  spread_zones rc_355d995079a4444d8f4b  status=done verdict=model_no_route
 SMOKE OK: both jobs finished
 ```
 
