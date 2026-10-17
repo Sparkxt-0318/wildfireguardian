@@ -387,6 +387,17 @@ def cal_inputs(dots, tmp_path, monkeypatch):
     return {"ds": tmp_path / "ds", "truth": truth, "overlay": ov, "labels": labels}
 
 
+def test_calibrate_refuses_a_model_family_without_any_usable_model(dots, cal_inputs, tmp_path):
+    from wfglink.verify.calibrate import calibrate
+
+    truth = cal_inputs["truth"]
+    proto, sha = _cal_protocol(tmp_path / "proto", [("calibration_selection", False, truth)])
+    with pytest.raises(ValueError, match="no temporal model"):
+        calibrate(cal_inputs["ds"], tmp_path / "no_models", [(str(dots["dump"]), str(truth))], tmp_path / "cal",
+                  _dump_cfg(), protocol=proto, protocol_sha256=sha, families=("accept_all", "temporal"))
+    assert not (tmp_path / "cal" / "calibration_points.json").exists()
+
+
 def test_calibrate_replays_candidates_scores_them_and_writes_the_selection(dots, cal_inputs, tmp_path):
     from wfglink.verify.calibrate import calibrate
 

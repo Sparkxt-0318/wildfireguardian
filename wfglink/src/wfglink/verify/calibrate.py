@@ -602,6 +602,13 @@ def calibrate(dataset_dir: str | Path, models_dir: str | Path, recordings: list[
         encoding="utf-8")
     dups: list[dict[str, Any]] = []
     cands = build_candidates(rules, models_dir, cfg, profile, thresholds, seeds, families, ds_sha, rep, dups)
+    for fam in ("patch", "temporal"):
+        mine = [c for c in cands.values() if c["family"] == fam]
+        if mine and not any(getattr(c["scorer"], "available", True) for c in mine):
+            why = sorted({str(getattr(c["scorer"], "reason", "")) for c in mine})
+            raise ValueError(f"no {fam} model of {models_dir} can be used ({', '.join(why)}; the models are read from "
+                             f"<models>/{profile}/{fam}_seed<n>.npz): leave the family out with --families, or fix "
+                             "the models folder")
     rinfo: list[dict[str, Any]] = []
     acc_rows: list[dict[str, Any]] = []
     points = score_recordings(recordings, cands, cfg, profile, proto, progress, rinfo, acc_rows)
