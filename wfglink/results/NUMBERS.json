@@ -14383,6 +14383,508 @@
       },
       "produced_at": "2026-10-15T19:46:42+08:00",
       "host": "Darwin arm64 Python 3.12.1"
+    },
+    "precision.bench_linux.high_precision.paint_fps_median": {
+      "value": 13.0,
+      "unit": "fps",
+      "description": "Median paint rate, high_precision, Linux container reference",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "bench": "fa30d4156b276729c362dde38fb25af80b4679d335bce758c82987a6d03773ba"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 13.0,
+          "unit": "fps",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.bench_linux.legacy.paint_fps_median": {
+      "value": 14.0,
+      "unit": "fps",
+      "description": "Median paint rate, legacy, Linux container reference",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "bench": "fa30d4156b276729c362dde38fb25af80b4679d335bce758c82987a6d03773ba"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 14.0,
+          "unit": "fps",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.calibration.observable_tracks": {
+      "value": 9,
+      "unit": "tracks",
+      "description": "Observable calibration truth tracks",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "selection": "7a5fcde0e4ec702d775bbc4a6223cd19dbc734efccda1d0a965bfb5df721acfd"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 9,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.calibration.selected_false": {
+      "value": 1,
+      "unit": "tracks",
+      "description": "Reviewed false tracks of the selected calibration point",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "cal_review": "d3a10f1c4dffe84bbee7528ab12fc5eb662c466407cceaa17aa36e23f9aca353"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3"
+    },
+    "precision.calibration.selected_lower95": {
+      "value": 0.703266,
+      "unit": "fraction",
+      "description": "One-sided 95 percent lower bound of the selected point's reviewed precision",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "cal_review": "d3a10f1c4dffe84bbee7528ab12fc5eb662c466407cceaa17aa36e23f9aca353"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3"
+    },
+    "precision.calibration.selected_precision": {
+      "value": 0.928571,
+      "unit": "fraction",
+      "description": "Reviewed precision of the selected calibration point",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "cal_review": "d3a10f1c4dffe84bbee7528ab12fc5eb662c466407cceaa17aa36e23f9aca353"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3"
+    },
+    "precision.calibration.selected_true": {
+      "value": 13,
+      "unit": "tracks",
+      "description": "Reviewed true tracks of the selected calibration point",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "cal_review": "d3a10f1c4dffe84bbee7528ab12fc5eb662c466407cceaa17aa36e23f9aca353"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3"
+    },
+    "precision.dev_c5.accept_all.precision": {
+      "value": 0.293333,
+      "unit": "fraction",
+      "description": "C5 development frame-level precision, accept_all",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "dev": "13754faeda7ee63aa2adcc73d21fb840ae50479657ed3d648a2ee576432cbd38"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.293333,
+          "unit": "fraction",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.dev_c5.best.precision": {
+      "value": 0.785714,
+      "unit": "fraction",
+      "description": "Best C5 development frame-level precision (temporal_seed0_t0.98)",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "dev": "13754faeda7ee63aa2adcc73d21fb840ae50479657ed3d648a2ee576432cbd38"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.785714,
+          "unit": "fraction",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.dev_c5.legacy.precision": {
+      "value": 0.133333,
+      "unit": "fraction",
+      "description": "C5 development frame-level precision, legacy_raw_detections",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "dev": "13754faeda7ee63aa2adcc73d21fb840ae50479657ed3d648a2ee576432cbd38"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.133333,
+          "unit": "fraction",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.accepted_tracks": {
+      "value": 1,
+      "unit": "tracks",
+      "description": "Tracks the selected method accepted on the sealed test",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 1,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.control_precision": {
+      "value": 0.118421,
+      "unit": "fraction",
+      "description": "Reviewed precision of the accept_all control on the sealed test",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.118421,
+          "unit": "fraction",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.false_per_min_upper95": {
+      "value": 0.267763,
+      "unit": "per supported minute",
+      "description": "One-sided 95 percent upper bound of reviewed false accepted tracks per supported minute",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.267763,
+          "unit": "per supported minute",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.precision_lower95": {
+      "value": 0.05,
+      "unit": "fraction",
+      "description": "One-sided 95 percent lower bound of sealed reviewed precision",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0.05,
+          "unit": "fraction",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.recall_matched": {
+      "value": 0,
+      "unit": "tracks",
+      "description": "Observable ember-positive truth tracks matched",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.recall_observable": {
+      "value": 9,
+      "unit": "tracks",
+      "description": "Observable ember-positive truth tracks",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 9,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.review_false": {
+      "value": 0,
+      "unit": "tracks",
+      "description": "Sealed accepted tracks the blind review judged false",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.review_true": {
+      "value": 1,
+      "unit": "tracks",
+      "description": "Sealed accepted tracks the blind review judged true",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 1,
+          "unit": "tracks",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.sealed.supported_minutes": {
+      "value": 11.188,
+      "unit": "minutes",
+      "description": "Supported minutes of the scorable sealed recordings",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 11.188,
+          "unit": "minutes",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.tests.failed": {
+      "value": 0,
+      "unit": "tests",
+      "description": "Tests failed (committed source)",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 0,
+          "unit": "tests",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:38+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
+    },
+    "precision.tests.passed": {
+      "value": 728,
+      "unit": "tests",
+      "description": "Tests passed (committed source)",
+      "script": "scripts/record_precision.py",
+      "config": "configs/default.yaml",
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "git_commit": "ea18913e018f4f6ec29b3255925725a79d32df6e",
+      "git_dirty": false,
+      "inputs": {
+        "gates": "4e536f07c03434bab8ebc109fd405e567b390c3786f0aabab51b4662e8951f56"
+      },
+      "produced_at": "2026-10-18T05:24:53+08:00",
+      "host": "Linux x86_64 Python 3.12.3",
+      "history": [
+        {
+          "value": 728,
+          "unit": "tests",
+          "git_commit": "37016c52886e34f85cbb9a3babfdb9873f91f2b4",
+          "git_dirty": false,
+          "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+          "produced_at": "2026-10-18T05:24:37+08:00",
+          "script": "scripts/record_precision.py"
+        }
+      ]
     }
   }
 }
