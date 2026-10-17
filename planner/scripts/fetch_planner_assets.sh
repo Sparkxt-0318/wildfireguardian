@@ -44,7 +44,7 @@ download_verified() {
   fi
   local tmp="$dest.part.$$"
   echo "fetch   $REPO_URL/$tag/$asset"
-  if ! curl -fL --retry 5 --retry-delay 3 --connect-timeout 30 -o "$tmp" "$REPO_URL/$tag/$asset"; then
+  if ! curl -fsSL --retry 5 --retry-delay 3 --connect-timeout 30 -o "$tmp" "$REPO_URL/$tag/$asset"; then
     rm -f "$tmp"; echo "ERROR   download failed: $asset" >&2; exit 1
   fi
   local got; got="$(sha256_of "$tmp")"

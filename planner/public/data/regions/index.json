@@ -1,0 +1,132 @@
+[
+ {
+  "region_id": "uljin_2022",
+  "name": {
+   "ko": "울진",
+   "en": "Uljin"
+  },
+  "fire_year": 2022,
+  "event_id": "KFS_02",
+  "bbox": [
+   129.174246,
+   36.98285,
+   129.423813,
+   37.19604
+  ],
+  "center": [
+   129.29903,
+   37.089445
+  ],
+  "zoom": 11.75,
+  "demo": false,
+  "counts": {
+   "origins": 36,
+   "destinations": 106,
+   "research": 8
+  }
+ },
+ {
+  "region_id": "miryang_2022",
+  "name": {
+   "ko": "밀양",
+   "en": "Miryang"
+  },
+  "fire_year": 2022,
+  "event_id": "KFS_11",
+  "bbox": [
+   128.725273,
+   35.500715,
+   128.771653,
+   35.558654
+  ],
+  "center": [
+   128.748463,
+   35.529685
+  ],
+  "zoom": 13.75,
+  "demo": false,
+  "counts": {
+   "origins": 7,
+   "destinations": 20,
+   "research": 8
+  }
+ },
+ {
+  "region_id": "hongseong_2023",
+  "name": {
+   "ko": "홍성",
+   "en": "Hongseong"
+  },
+  "fire_year": 2023,
+  "event_id": "KFS_05",
+  "bbox": [
+   126.46587,
+   36.534126,
+   126.542076,
+   36.595598
+  ],
+  "center": [
+   126.503973,
+   36.564862
+  ],
+  "zoom": 13.5,
+  "demo": false,
+  "counts": {
+   "origins": 10,
+   "destinations": 3,
+   "research": 8
+  }
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "name": {
+   "ko": "의성·안동",
+   "en": "Uiseong–Andong"
+  },
+  "fire_year": 2025,
+  "event_id": "KFS_01",
+  "bbox": [
+   128.545997,
+   36.331503,
+   128.854768,
+   36.554272
+  ],
+  "center": [
+   128.700382,
+   36.442887
+  ],
+  "zoom": 11.5,
+  "demo": true,
+  "counts": {
+   "origins": 84,
+   "destinations": 48,
+   "research": 8
+  }
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "name": {
+   "ko": "영덕",
+   "en": "Yeongdeok"
+  },
+  "fire_year": 2025,
+  "event_id": "KFS_01",
+  "bbox": [
+   129.143329,
+   36.323395,
+   129.445466,
+   36.554255
+  ],
+  "center": [
+   129.294398,
+   36.438825
+  ],
+  "zoom": 11.5,
+  "demo": true,
+  "counts": {
+   "origins": 90,
+   "destinations": 179,
+   "research": 8
+  }
+ }
+]

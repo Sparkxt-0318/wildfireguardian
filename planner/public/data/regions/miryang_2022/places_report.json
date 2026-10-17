@@ -1,0 +1,234 @@
+{
+ "region_id": "miryang_2022",
+ "generated_at": "2026-10-17T06:40:37Z",
+ "generator": "planner/tools/extract_places.py",
+ "osm_extract": {
+  "file": "planner/data/osm/miryang_2022.overpass.json",
+  "sha256": "8e6dd7353cfc63b16a2be2fd86b7186f3c884964a4ad75d17d9c339928b31235",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "timestamp_osm_base": "2026-10-17T06:26:03Z",
+  "element_count": 37
+ },
+ "graph": {
+  "revision": "miryang-osm-20220530-provisional-grid375-dt1-622114b98ad8-254dfdb05fb5",
+  "sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+  "snapshot": "2022-05-30T23:59:59Z",
+  "node_count": 1494,
+  "largest_scc_nodes": 1457
+ },
+ "filters": {
+  "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
+  "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
+  "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
+  "snap": "nearest node of the largest strongly connected component of the directed road graph",
+  "checkable": "snap distance <= 300 m",
+  "dropped": "snap distance > 2000 m",
+  "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
+ },
+ "counts": {
+  "osm_elements": 37,
+  "origins": 7,
+  "destinations": 20,
+  "research": 8,
+  "excluded": 10,
+  "dropped_far": 0,
+  "merged": 0,
+  "checkable": 25,
+  "not_checkable": 2
+ },
+ "snap_distance_m": {
+  "min": 23.2,
+  "median": 75.0,
+  "max": 1407.1
+ },
+ "excluded": [
+  {
+   "id": "osm:node/368844002",
+   "osm_type": "node",
+   "osm_id": 368844002,
+   "name": "새한솔병원",
+   "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "3528",
+    "addr:province": "경상남도",
+    "addr:street": "창밀로",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "새한솔병원",
+    "name:en": "New Hansol Hospital"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368844006",
+   "osm_type": "node",
+   "osm_id": 368844006,
+   "name": "한솔병원 장례식장",
+   "tags": {
+    "amenity": "hospital",
+    "name": "한솔병원 장례식장",
+    "name:en": "Hansolbyeongwon Jangnyesikjang",
+    "name:ko": "한솔병원 장례식장",
+    "name:ko-Latn": "Hansolbyeongwon Jangnyesikjang"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:way/991372669",
+   "osm_type": "way",
+   "osm_id": 991372669,
+   "name": "새한솔병원",
+   "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "3528",
+    "addr:province": "경상남도",
+    "addr:street": "창밀로",
+    "amenity": "hospital",
+    "building": "hospital",
+    "healthcare": "hospital",
+    "name": "새한솔병원",
+    "name:en": "New Hansol Hospital"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368891267",
+   "osm_type": "node",
+   "osm_id": 368891267,
+   "name": "상동초등학교병설유치원",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "상동초등학교병설유치원",
+    "name:en": "Sangdong Elementary School Kindergarten",
+    "name:ko": "상동초등학교병설유치원",
+    "name:ko-Latn": "Sangdongchodeunghakgyobyeongseolyuchiwon"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/11461282094",
+   "osm_type": "node",
+   "osm_id": 11461282094,
+   "name": "정자",
+   "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/368902745",
+   "osm_type": "node",
+   "osm_id": 368902745,
+   "name": "교동 행정복지센터",
+   "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "189",
+    "addr:postcode": "50420",
+    "addr:province": "경상남도",
+    "addr:street": "교동로",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "교동 행정복지센터",
+    "name:en": "Gyodong Community Service Center",
+    "name:ko": "교동 행정복지센터",
+    "name:ko-Latn": "Gyodongjuminsenteo",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/493692726",
+   "osm_type": "way",
+   "osm_id": 493692726,
+   "name": "상동면 행정복지센터",
+   "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "554",
+    "addr:postcode": "50409",
+    "addr:province": "경상남도",
+    "addr:street": "상동로",
+    "addr:town": "상동면",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "상동면 행정복지센터",
+    "name:ko": "상동면 행정복지센터",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/553781131",
+   "osm_type": "way",
+   "osm_id": 553781131,
+   "name": "밀양시청",
+   "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "밀양시청",
+    "name:en": "Miryang City Hall",
+    "name:ja": "密陽市庁",
+    "name:ko": "밀양시청",
+    "townhall:type": "city"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/570196337",
+   "osm_type": "way",
+   "osm_id": 570196337,
+   "name": "부북면 행정복지센터",
+   "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "28",
+    "addr:postcode": "50402",
+    "addr:province": "경상남도",
+    "addr:street": "부북로",
+    "addr:town": "부북면",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "부북면 행정복지센터",
+    "name:en": "Bubuk Community Service Center",
+    "name:ko": "부북면 행정복지센터",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/415150605",
+   "osm_type": "node",
+   "osm_id": 415150605,
+   "name": "교동",
+   "tags": {
+    "name": "교동",
+    "name:el": "Γκιο-ντονγκ",
+    "name:en": "Gyo-dong",
+    "name:ja": "校洞",
+    "name:ko": "교동",
+    "name:ko-Latn": "Gyo-dong",
+    "place": "quarter"
+   },
+   "reason": "place=quarter is not an origin category (village|hamlet only)"
+  }
+ ],
+ "dropped_far": [],
+ "merged": [],
+ "possible_duplicates_not_merged": [],
+ "research": {
+  "features": 8,
+  "missions": 4,
+  "shared_nodes": {
+   "osm:8204069660": [
+    "research:miryang_2022:20220601T080000Z_FD1:origin",
+    "research:miryang_2022:20220601T080000Z_FX1:origin"
+   ]
+  },
+  "notes": []
+ }
+}

@@ -1,0 +1,872 @@
+{
+ "region_id": "uiseong_andong_2025",
+ "generated_at": "2026-10-17T06:40:37Z",
+ "generator": "planner/tools/extract_places.py",
+ "osm_extract": {
+  "file": "planner/data/osm/uiseong_andong_2025.overpass.json",
+  "sha256": "ee4b4e0143e3530985bf30d4158a03664d2d09b82831068049f2de419790696c",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "timestamp_osm_base": "2026-10-17T05:57:50Z",
+  "element_count": 181
+ },
+ "graph": {
+  "revision": "uiseong-andong-osm-20250321-provisional-G2window-grid375-dt1-a30e1f054a5e-8b859334ebe8",
+  "sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+  "snapshot": "2025-03-21T23:59:59Z",
+  "node_count": 23158,
+  "largest_scc_nodes": 21187
+ },
+ "filters": {
+  "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
+  "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
+  "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
+  "snap": "nearest node of the largest strongly connected component of the directed road graph",
+  "checkable": "snap distance <= 300 m",
+  "dropped": "snap distance > 2000 m",
+  "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
+ },
+ "counts": {
+  "osm_elements": 181,
+  "origins": 84,
+  "destinations": 48,
+  "research": 8,
+  "excluded": 47,
+  "dropped_far": 2,
+  "merged": 0,
+  "checkable": 87,
+  "not_checkable": 45
+ },
+ "snap_distance_m": {
+  "min": 6.2,
+  "median": 121.80000000000001,
+  "max": 1917.1
+ },
+ "excluded": [
+  {
+   "id": "osm:node/368854104",
+   "osm_type": "node",
+   "osm_id": 368854104,
+   "name": "의성군보건소",
+   "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "의성군보건소",
+    "name:en": "Uiseonggun Public Health Center",
+    "name:ko": "의성군보건소",
+    "name:ko-Latn": "Uiseonggunbogeonso"
+   },
+   "reason": "amenity=clinic is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854048",
+   "osm_type": "node",
+   "osm_id": 368854048,
+   "name": "의성요양병원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "의성요양병원",
+    "name:en": "Uiseongyoyang Hospital",
+    "name:ko": "의성요양병원",
+    "name:ko-Latn": "Uiseongyoyangbyeongwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854067",
+   "osm_type": "node",
+   "osm_id": 368854067,
+   "name": "늘푸른요양병원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "늘푸른요양병원",
+    "name:en": "Neulpureunyoyang Hospital",
+    "name:ko": "늘푸른요양병원",
+    "name:ko-Latn": "Neulpureunyoyangbyeongwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854072",
+   "osm_type": "node",
+   "osm_id": 368854072,
+   "name": "의성공생병원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "의성공생병원",
+    "name:en": "Uiseonggongsaeng Hospital",
+    "name:ko": "의성공생병원",
+    "name:ko-Latn": "Uiseonggongsaengbyeongwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854100",
+   "osm_type": "node",
+   "osm_id": 368854100,
+   "name": "의성공생병원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "의성공생병원",
+    "name:en": "Uiseonggongsaeng Hospital",
+    "name:ko": "의성공생병원",
+    "name:ko-Latn": "Uiseonggongsaengbyeongwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854108",
+   "osm_type": "node",
+   "osm_id": 368854108,
+   "name": "의성곽제통의원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "의성곽제통의원",
+    "name:en": "Uiseonggwakjetong Clinic",
+    "name:ko": "의성곽제통의원",
+    "name:ko-Latn": "Uiseonggwakjetonguiwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854113",
+   "osm_type": "node",
+   "osm_id": 368854113,
+   "name": "경북의원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "경북의원",
+    "name:en": "Gyeongbuk Clinic",
+    "name:ko": "경북의원",
+    "name:ko-Latn": "Gyeongbukuiwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854145",
+   "osm_type": "node",
+   "osm_id": 368854145,
+   "name": "훼미리마트의성공생병원점",
+   "tags": {
+    "amenity": "hospital",
+    "name": "훼미리마트의성공생병원점",
+    "name:en": "Family Mart Uiseonggongsaengbyeongwonjeom",
+    "name:ko": "훼미리마트의성공생병원점",
+    "name:ko-Latn": "Hwemirimateuuiseonggongsaengbyeongwonjeom"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854146",
+   "osm_type": "node",
+   "osm_id": 368854146,
+   "name": "공생병원장례식장",
+   "tags": {
+    "amenity": "hospital",
+    "name": "공생병원장례식장",
+    "name:en": "Gongsaengbyeongwonjangnyesikjang",
+    "name:ko": "공생병원장례식장",
+    "name:ko-Latn": "Gongsaengbyeongwonjangnyesikjang"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368854155",
+   "osm_type": "node",
+   "osm_id": 368854155,
+   "name": "열쇠병원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "열쇠병원",
+    "name:en": "Yeolsoe Hospital",
+    "name:ko": "열쇠병원",
+    "name:ko-Latn": "Yeolsoebyeongwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:way/547375590",
+   "osm_type": "way",
+   "osm_id": 547375590,
+   "name": "안동병원",
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "안동병원",
+    "name:ko": "안동병원",
+    "wikidata": "Q18648346"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368893085",
+   "osm_type": "node",
+   "osm_id": 368893085,
+   "name": "단촌초등학교병설유치원",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "단촌초등학교병설유치원",
+    "name:en": "Danchon Elementary School Kindergarten",
+    "name:ko": "단촌초등학교병설유치원",
+    "name:ko-Latn": "Danchonchodeunghakgyobyeongseolyuchiwon"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/5342399008",
+   "osm_type": "node",
+   "osm_id": 5342399008,
+   "name": "노벨어린이집",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "노벨어린이집",
+    "name:ko": "노벨어린이집"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/5342399020",
+   "osm_type": "node",
+   "osm_id": 5342399020,
+   "name": "큰나무어린이집",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "큰나무어린이집",
+    "name:ko": "큰나무어린이집"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/5344400814",
+   "osm_type": "node",
+   "osm_id": 5344400814,
+   "name": "꼬망어린이집",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "꼬망어린이집",
+    "name:ko": "꼬망어린이집"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/10216259833",
+   "osm_type": "node",
+   "osm_id": 10216259833,
+   "name": "문소루",
+   "tags": {
+    "amenity": "shelter",
+    "name": "문소루",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/11633930294",
+   "osm_type": "node",
+   "osm_id": 11633930294,
+   "name": "정자",
+   "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/13075773417",
+   "osm_type": "node",
+   "osm_id": 13075773417,
+   "name": null,
+   "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/13075773714",
+   "osm_type": "node",
+   "osm_id": 13075773714,
+   "name": null,
+   "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:way/1251530669",
+   "osm_type": "way",
+   "osm_id": 1251530669,
+   "name": "정자",
+   "tags": {
+    "amenity": "shelter",
+    "building": "yes",
+    "name": "정자",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/358896945",
+   "osm_type": "node",
+   "osm_id": 358896945,
+   "name": "의성군청",
+   "tags": {
+    "amenity": "townhall",
+    "name": "의성군청",
+    "name:en": "Uiseong-gun Office",
+    "name:ko": "의성군청",
+    "townhall:type": "city"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7831787346",
+   "osm_type": "node",
+   "osm_id": 7831787346,
+   "name": "일직면 행정복지센터",
+   "tags": {
+    "addr:city": "안동시",
+    "addr:housenumber": "12",
+    "addr:postcode": "36756",
+    "addr:province": "경상북도",
+    "addr:street": "중앙통길",
+    "addr:town": "일직면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "일직면 행정복지센터",
+    "name:ko": "일직면 행정복지센터",
+    "office": "government",
+    "website": "https://www.andong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7831795458",
+   "osm_type": "node",
+   "osm_id": 7831795458,
+   "name": "임하면 행정복지센터",
+   "tags": {
+    "addr:city": "안동시",
+    "addr:housenumber": "3254",
+    "addr:postcode": "36738",
+    "addr:province": "경상북도",
+    "addr:street": "충효로",
+    "addr:town": "임하면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "임하면 행정복지센터",
+    "name:ko": "임하면 행정복지센터",
+    "office": "government",
+    "website": "https://www.andong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7831795459",
+   "osm_type": "node",
+   "osm_id": 7831795459,
+   "name": "남선면 행정복지센터",
+   "tags": {
+    "addr:city": "안동시",
+    "addr:housenumber": "3866",
+    "addr:postcode": "36741",
+    "addr:province": "경상북도",
+    "addr:street": "충효로",
+    "addr:town": "남선면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "남선면 행정복지센터",
+    "name:ko": "남선면 행정복지센터",
+    "office": "government",
+    "website": "https://www.andong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7831795460",
+   "osm_type": "node",
+   "osm_id": 7831795460,
+   "name": "남후면 행정복지센터",
+   "tags": {
+    "addr:city": "안동시",
+    "addr:housenumber": "1465-9",
+    "addr:postcode": "36755",
+    "addr:province": "경상북도",
+    "addr:street": "남일로",
+    "addr:town": "남후면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "남후면 행정복지센터",
+    "name:ko": "남후면 행정복지센터",
+    "office": "government",
+    "website": "https://www.andong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7834447484",
+   "osm_type": "node",
+   "osm_id": 7834447484,
+   "name": "안평면사무소",
+   "tags": {
+    "addr:city": "의성군",
+    "addr:housenumber": "36",
+    "addr:postcode": "37318",
+    "addr:province": "경상북도",
+    "addr:street": "안평의성로",
+    "addr:town": "안평면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "안평면사무소",
+    "name:ko": "안평면사무소",
+    "office": "government",
+    "website": "https://www.usc.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7834489399",
+   "osm_type": "node",
+   "osm_id": 7834489399,
+   "name": "점곡면사무소",
+   "tags": {
+    "addr:city": "의성군",
+    "addr:housenumber": "73",
+    "addr:postcode": "37321",
+    "addr:province": "경상북도",
+    "addr:street": "점곡길",
+    "addr:town": "점곡면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "점곡면사무소",
+    "name:ko": "점곡면사무소",
+    "office": "government",
+    "website": "https://www.usc.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/7834489400",
+   "osm_type": "node",
+   "osm_id": 7834489400,
+   "name": "단촌면사무소",
+   "tags": {
+    "addr:city": "의성군",
+    "addr:housenumber": "23",
+    "addr:postcode": "37327",
+    "addr:province": "경상북도",
+    "addr:street": "장터길",
+    "addr:town": "단촌면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "단촌면사무소",
+    "name:ko": "단촌면사무소",
+    "office": "government",
+    "website": "https://www.usc.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/1167479364",
+   "osm_type": "way",
+   "osm_id": 1167479364,
+   "name": "의성군청",
+   "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "의성군청",
+    "townhall:type": "city"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/469413080",
+   "osm_type": "way",
+   "osm_id": 469413080,
+   "name": "옥산면사무소",
+   "tags": {
+    "addr:city": "의성군",
+    "addr:housenumber": "1180",
+    "addr:postcode": "37324",
+    "addr:province": "경상북도",
+    "addr:street": "신감옥산로",
+    "addr:town": "옥산면",
+    "amenity": "townhall",
+    "building": "public",
+    "building:levels": "2",
+    "government": "administrative",
+    "name": "옥산면사무소",
+    "name:ko": "옥산면사무소",
+    "office": "government",
+    "website": "https://www.usc.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/549438785",
+   "osm_type": "way",
+   "osm_id": 549438785,
+   "name": "강남동 행정복지센터",
+   "tags": {
+    "addr:city": "안동시",
+    "addr:housenumber": "185",
+    "addr:postcode": "36747",
+    "addr:province": "경상북도",
+    "addr:street": "강남5길",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "강남동 행정복지센터",
+    "name:en": "Gangnam-dong Community Service Center",
+    "name:ko": "강남동 행정복지센터",
+    "name:ko-Latn": "Gangnam Dong Juminsenteo",
+    "office": "government",
+    "website": "https://www.andong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/784296709",
+   "osm_type": "way",
+   "osm_id": 784296709,
+   "name": "용성경로당",
+   "tags": {
+    "addr:city": "의성군",
+    "addr:housenumber": "133",
+    "addr:province": "경상북도",
+    "addr:town": "단촌면",
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "용성경로당"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/5342399040",
+   "osm_type": "node",
+   "osm_id": 5342399040,
+   "name": "지오하이빌",
+   "tags": {
+    "name": "지오하이빌",
+    "name:ko": "지오하이빌",
+    "place": "isolated_dwelling"
+   },
+   "reason": "place=isolated_dwelling is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/5344420466",
+   "osm_type": "node",
+   "osm_id": 5344420466,
+   "name": "행복타운주택",
+   "tags": {
+    "name": "행복타운주택",
+    "name:ko": "행복타운주택",
+    "place": "isolated_dwelling"
+   },
+   "reason": "place=isolated_dwelling is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158326",
+   "osm_type": "node",
+   "osm_id": 415158326,
+   "name": "정상동",
+   "tags": {
+    "name": "정상동",
+    "name:el": "Τζόνγκσανγκ-ντονγκ",
+    "name:en": "Jeongsang-dong",
+    "name:ko": "정상동",
+    "name:ko-Latn": "Jeongsang-dong",
+    "place": "quarter"
+   },
+   "reason": "place=quarter is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158551",
+   "osm_type": "node",
+   "osm_id": 415158551,
+   "name": "수상동",
+   "tags": {
+    "name": "수상동",
+    "name:el": "Σούσανγκ-ντονγκ",
+    "name:en": "Susang-dong",
+    "name:ko": "수상동",
+    "name:ko-Latn": "Susang-dong",
+    "place": "quarter"
+   },
+   "reason": "place=quarter is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158552",
+   "osm_type": "node",
+   "osm_id": 415158552,
+   "name": "수하동",
+   "tags": {
+    "name": "수하동",
+    "name:el": "Σούχα-ντονγκ",
+    "name:en": "Suha-dong",
+    "name:ko": "수하동",
+    "name:ko-Latn": "Suha-dong",
+    "place": "quarter"
+   },
+   "reason": "place=quarter is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158554",
+   "osm_type": "node",
+   "osm_id": 415158554,
+   "name": "정하동",
+   "tags": {
+    "name": "정하동",
+    "name:el": "Τζόγχα-ντονγκ",
+    "name:en": "Jeongha-dong",
+    "name:ko": "정하동",
+    "name:ko-Latn": "Jeongha-dong",
+    "place": "quarter"
+   },
+   "reason": "place=quarter is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158325",
+   "osm_type": "node",
+   "osm_id": 415158325,
+   "name": "남선면",
+   "tags": {
+    "name": "남선면",
+    "name:el": "Νάμσον-μιον",
+    "name:en": "Namseon-myeon",
+    "name:ja": "南先面",
+    "name:ko": "남선면",
+    "name:ko-Hani": "南先面",
+    "name:ko-Latn": "Namseon-myeon",
+    "name:zh": "南先面",
+    "name:zh-Hans": "南先面",
+    "name:zh-Hant": "南先面",
+    "place": "town",
+    "wikidata": "Q12589880"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158337",
+   "osm_type": "node",
+   "osm_id": 415158337,
+   "name": "임하면",
+   "tags": {
+    "name": "임하면",
+    "name:el": "Ίμχα-μιον",
+    "name:en": "Imha-myeon",
+    "name:ja": "臨河面",
+    "name:ko": "임하면",
+    "name:ko-Hani": "臨河面",
+    "name:ko-Latn": "Imha-myeon",
+    "name:zh": "臨河面",
+    "name:zh-Hans": "临河面",
+    "name:zh-Hant": "臨河面",
+    "place": "town",
+    "wikidata": "Q16166471"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415158423",
+   "osm_type": "node",
+   "osm_id": 415158423,
+   "name": "남후면",
+   "tags": {
+    "name": "남후면",
+    "name:el": "Νάμχου-μιον",
+    "name:en": "Namhu-myeon",
+    "name:ja": "南後面",
+    "name:ko": "남후면",
+    "name:ko-Hani": "南後面",
+    "name:ko-Latn": "Namhu-myeon",
+    "name:zh": "南後面",
+    "name:zh-Hans": "南后面",
+    "name:zh-Hant": "南後面",
+    "place": "town",
+    "wikidata": "Q12590116"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160352",
+   "osm_type": "node",
+   "osm_id": 415160352,
+   "name": "옥산면",
+   "tags": {
+    "name": "옥산면",
+    "name:el": "Όκσαν-μιον",
+    "name:en": "Oksan-myeon",
+    "name:ja": "玉山面",
+    "name:ko": "옥산면",
+    "name:ko-Hani": "玉山面",
+    "name:ko-Latn": "Oksan-myeon",
+    "name:zh": "玉山面",
+    "name:zh-Hans": "玉山面",
+    "name:zh-Hant": "玉山面",
+    "place": "town"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160354",
+   "osm_type": "node",
+   "osm_id": 415160354,
+   "name": "점곡면",
+   "tags": {
+    "name": "점곡면",
+    "name:el": "Τζόμγκοκ-μιον",
+    "name:en": "Jeomgok-myeon",
+    "name:ja": "点谷面",
+    "name:ko": "점곡면",
+    "name:ko-Hani": "點谷面",
+    "name:ko-Latn": "Jeomgok-myeon",
+    "name:zh": "點谷面",
+    "name:zh-Hans": "点谷面",
+    "name:zh-Hant": "點谷面",
+    "place": "town",
+    "wikidata": "Q16174762"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160423",
+   "osm_type": "node",
+   "osm_id": 415160423,
+   "name": "안평면",
+   "tags": {
+    "name": "안평면",
+    "name:el": "Άνπιονγκ-μιον",
+    "name:en": "Anpyeong-myeon",
+    "name:ja": "安平面",
+    "name:ko": "안평면",
+    "name:ko-Hani": "安平面",
+    "name:ko-Latn": "Anpyeong-myeon",
+    "name:zh": "安平面",
+    "name:zh-Hans": "安平面",
+    "name:zh-Hant": "安平面",
+    "place": "town",
+    "wikidata": "Q27330634"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160462",
+   "osm_type": "node",
+   "osm_id": 415160462,
+   "name": "일직면",
+   "tags": {
+    "name": "일직면",
+    "name:el": "Ίλτζικ-μιον",
+    "name:en": "Iljik-myeon",
+    "name:ja": "一直面",
+    "name:ko": "일직면",
+    "name:ko-Hani": "一直面",
+    "name:ko-Latn": "Iljik-myeon",
+    "name:zh": "一直面",
+    "name:zh-Hans": "一直面",
+    "name:zh-Hant": "一直面",
+    "place": "town",
+    "wikidata": "Q12613757"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160472",
+   "osm_type": "node",
+   "osm_id": 415160472,
+   "name": "단촌면",
+   "tags": {
+    "name": "단촌면",
+    "name:el": "Ντάντσον-μιον",
+    "name:en": "Danchon",
+    "name:ja": "丹村面",
+    "name:ko": "단촌면",
+    "name:ko-Hani": "丹村面",
+    "name:ko-Latn": "Danchon-myeon",
+    "name:zh": "丹村面",
+    "name:zh-Hans": "丹村面",
+    "name:zh-Hant": "丹村面",
+    "official_name:en": "Danchon-myeon",
+    "place": "town",
+    "wikidata": "Q12590995"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415160481",
+   "osm_type": "node",
+   "osm_id": 415160481,
+   "name": "의성읍",
+   "tags": {
+    "capital": "6",
+    "name": "의성읍",
+    "name:el": "Ούισονγκ-ουπ",
+    "name:en": "Uiseong-eup",
+    "name:ja": "義城邑",
+    "name:ko": "의성읍",
+    "name:ko-Hani": "義城邑",
+    "name:ko-Latn": "Uiseong-eup",
+    "name:zh": "義城邑",
+    "name:zh-Hans": "义城邑",
+    "name:zh-Hant": "義城邑",
+    "place": "town",
+    "wikidata": "Q12610751"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  }
+ ],
+ "dropped_far": [
+  {
+   "id": "osm:node/415160364",
+   "osm_type": "node",
+   "osm_id": 415160364,
+   "name": "고곡리",
+   "tags": {
+    "name": "고곡리",
+    "name:el": "Γκόγκοκ-ρι",
+    "name:en": "Gogok-ri",
+    "name:ko": "고곡리",
+    "name:ko-Latn": "Gogok-ri",
+    "place": "village"
+   },
+   "role": "origin",
+   "category": "village",
+   "snap": {
+    "node": "osm:403802839",
+    "distance_m": 2183.6
+   },
+   "reason": "snap distance 2183.6 m > 2000 m to the largest strongly connected road component"
+  },
+  {
+   "id": "osm:node/415160399",
+   "osm_type": "node",
+   "osm_id": 415160399,
+   "name": "화신리",
+   "tags": {
+    "name": "화신리",
+    "name:el": "Χουάσιν-ρι",
+    "name:en": "Hwasin-ri",
+    "name:ko": "화신리",
+    "name:ko-Latn": "Hwasin-ri",
+    "place": "village"
+   },
+   "role": "origin",
+   "category": "village",
+   "snap": {
+    "node": "osm:12374870528",
+    "distance_m": 2691.6
+   },
+   "reason": "snap distance 2691.6 m > 2000 m to the largest strongly connected road component"
+  }
+ ],
+ "merged": [],
+ "possible_duplicates_not_merged": [],
+ "research": {
+  "features": 8,
+  "missions": 4,
+  "shared_nodes": {},
+  "notes": []
+ }
+}

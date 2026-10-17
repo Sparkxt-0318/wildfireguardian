@@ -1,0 +1,524 @@
+{
+ "region_id": "uljin_2022",
+ "generated_at": "2026-10-17T06:40:37Z",
+ "generator": "planner/tools/extract_places.py",
+ "osm_extract": {
+  "file": "planner/data/osm/uljin_2022.overpass.json",
+  "sha256": "9530040591f476ba38ed5f1d5f1aa75b45150c02d9b46c9f43f1985638498c4f",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "timestamp_osm_base": "2026-10-17T06:00:51Z",
+  "element_count": 172
+ },
+ "graph": {
+  "revision": "uljin-osm-20220303-provisional-grid375-dt1-85d4f6354b9c-280226e79ed7",
+  "sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+  "snapshot": "2022-03-03T23:59:59Z",
+  "node_count": 9372,
+  "largest_scc_nodes": 8835
+ },
+ "filters": {
+  "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
+  "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
+  "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
+  "snap": "nearest node of the largest strongly connected component of the directed road graph",
+  "checkable": "snap distance <= 300 m",
+  "dropped": "snap distance > 2000 m",
+  "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
+ },
+ "counts": {
+  "osm_elements": 172,
+  "origins": 36,
+  "destinations": 106,
+  "research": 8,
+  "excluded": 27,
+  "dropped_far": 2,
+  "merged": 1,
+  "checkable": 124,
+  "not_checkable": 18
+ },
+ "snap_distance_m": {
+  "min": 5.1,
+  "median": 54.95,
+  "max": 1530.7
+ },
+ "excluded": [
+  {
+   "id": "osm:node/12466280147",
+   "osm_type": "node",
+   "osm_id": 12466280147,
+   "name": "원덕읍보건지소",
+   "tags": {
+    "addr:city": "삼척시",
+    "addr:housenumber": "445-53",
+    "addr:postcode": "25961",
+    "addr:province": "강원특별자치도",
+    "addr:street": "삼척로",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "healthcare:speciality": "general;community",
+    "name": "원덕읍보건지소",
+    "name:ko": "원덕읍보건지소",
+    "operator:type": "government",
+    "phone": "+82 33 573 4000"
+   },
+   "reason": "amenity=clinic is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/12466301120",
+   "osm_type": "node",
+   "osm_id": 12466301120,
+   "name": "가곡보건지소",
+   "tags": {
+    "addr:city": "삼척시",
+    "addr:housenumber": "1477",
+    "addr:postcode": "25954",
+    "addr:province": "강원특별자치도",
+    "addr:street": "가곡천로",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "healthcare:speciality": "general;community",
+    "name": "가곡보건지소",
+    "name:ko": "가곡보건지소",
+    "operator:type": "government",
+    "phone": "+82 33 572 7014"
+   },
+   "reason": "amenity=clinic is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:way/660653450",
+   "osm_type": "way",
+   "osm_id": 660653450,
+   "name": "울진군보건소",
+   "tags": {
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "울진군보건소",
+    "name:ko": "울진군보건소"
+   },
+   "reason": "amenity=clinic is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:way/529658734",
+   "osm_type": "way",
+   "osm_id": 529658734,
+   "name": "울진군의료원",
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "울진군의료원",
+    "wikidata": "Q16099142"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/11470113880",
+   "osm_type": "node",
+   "osm_id": 11470113880,
+   "name": null,
+   "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/13399605243",
+   "osm_type": "node",
+   "osm_id": 13399605243,
+   "name": "정자",
+   "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo"
+   },
+   "reason": "amenity=shelter with shelter_type=gazebo (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/6054679983",
+   "osm_type": "node",
+   "osm_id": 6054679983,
+   "name": "Pavilion",
+   "tags": {
+    "amenity": "shelter",
+    "name": "Pavilion",
+    "shelter_type": "lean_to"
+   },
+   "reason": "amenity=shelter with shelter_type=lean_to (excluded shelter type)"
+  },
+  {
+   "id": "osm:node/11290121387",
+   "osm_type": "node",
+   "osm_id": 11290121387,
+   "name": "호산3리경로당",
+   "tags": {
+    "amenity": "townhall",
+    "name": "호산3리경로당"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/11304742524",
+   "osm_type": "node",
+   "osm_id": 11304742524,
+   "name": "검성리경로당",
+   "tags": {
+    "amenity": "townhall",
+    "name": "검성리경로당"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/11328730854",
+   "osm_type": "node",
+   "osm_id": 11328730854,
+   "name": "오저경로당",
+   "tags": {
+    "amenity": "townhall",
+    "name": "오저경로당"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/5144855777",
+   "osm_type": "node",
+   "osm_id": 5144855777,
+   "name": "울진군청",
+   "tags": {
+    "amenity": "townhall",
+    "name": "울진군청",
+    "name:en": "Uljin District Authority",
+    "name:ja": "蔚珍郡庁",
+    "source": "survey",
+    "townhall:type": "city"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:way/528419904",
+   "osm_type": "way",
+   "osm_id": 528419904,
+   "name": "울진군청",
+   "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "울진군청",
+    "townhall:type": "city"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/11335082356",
+   "osm_type": "node",
+   "osm_id": 11335082356,
+   "name": "오저2리마을회관",
+   "tags": {
+    "amenity": "townhall",
+    "name": "오저2리마을회관"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/11380626373",
+   "osm_type": "node",
+   "osm_id": 11380626373,
+   "name": "죽변1리마을회관",
+   "tags": {
+    "amenity": "townhall",
+    "name": "죽변1리마을회관"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/11381940472",
+   "osm_type": "node",
+   "osm_id": 11381940472,
+   "name": "죽변2리마을회관",
+   "tags": {
+    "amenity": "townhall",
+    "name": "죽변2리마을회관"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/415155409",
+   "osm_type": "node",
+   "osm_id": 415155409,
+   "name": "죽변리",
+   "tags": {
+    "name": "죽변리",
+    "name:en": "Jukbyeon-ri",
+    "name:ko": "죽변리",
+    "name:ko-Latn": "Jukbyeon-ri",
+    "name:ru": "Чукпёлли",
+    "place": "village"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/415155458",
+   "osm_type": "node",
+   "osm_id": 415155458,
+   "name": "오목리",
+   "tags": {
+    "name": "오목리",
+    "name:el": "Όμοκ-ρι",
+    "name:en": "Omok-ri",
+    "name:ko": "오목리",
+    "name:ko-Latn": "Omok-ri",
+    "place": "village"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:way/472035586",
+   "osm_type": "way",
+   "osm_id": 472035586,
+   "name": "죽변중학교",
+   "tags": {
+    "addr:housenumber": "19",
+    "addr:postcode": "36315",
+    "addr:street": "죽변4길",
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "죽변중학교",
+    "name:en": "Jukbyeon Middle School",
+    "name:ko": "죽변중학교",
+    "wikidata": "Q18567375"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:way/472035587",
+   "osm_type": "way",
+   "osm_id": 472035587,
+   "name": null,
+   "tags": {
+    "building": "school"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:way/472035588",
+   "osm_type": "way",
+   "osm_id": 472035588,
+   "name": "죽변초등학교",
+   "tags": {
+    "addr:housenumber": "17",
+    "addr:postcode": "36315",
+    "addr:street": "죽변3길",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "죽변초등학교",
+    "name:ko": "죽변초등학교",
+    "wikidata": "Q19603688"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:way/472035589",
+   "osm_type": "way",
+   "osm_id": 472035589,
+   "name": null,
+   "tags": {
+    "building": "school"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:way/472035590",
+   "osm_type": "way",
+   "osm_id": 472035590,
+   "name": null,
+   "tags": {
+    "building": "school"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/415155400",
+   "osm_type": "node",
+   "osm_id": 415155400,
+   "name": "북면",
+   "tags": {
+    "name": "북면",
+    "name:el": "Μπουκ-μιον",
+    "name:en": "Buk",
+    "name:ja": "北面",
+    "name:ko": "북면",
+    "name:ko-Hani": "北面",
+    "name:ko-Latn": "Buk-myeon",
+    "name:zh": "北面",
+    "name:zh-Hans": "北面",
+    "name:zh-Hant": "北面",
+    "official_name:en": "Buk-myeon",
+    "place": "town"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415155412",
+   "osm_type": "node",
+   "osm_id": 415155412,
+   "name": "죽변면",
+   "tags": {
+    "name": "죽변면",
+    "name:el": "Τζούκπιον-μιον",
+    "name:en": "Jukbyeon-myeon",
+    "name:ja": "竹辺面",
+    "name:ko": "죽변면",
+    "name:ko-Hani": "竹邊面",
+    "name:ko-Latn": "Jukbyeon-myeon",
+    "name:zh": "竹邊面",
+    "name:zh-Hans": "竹边面",
+    "name:zh-Hant": "竹邊面",
+    "place": "town",
+    "wikidata": "Q12617503"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415155418",
+   "osm_type": "node",
+   "osm_id": 415155418,
+   "name": "울진읍",
+   "tags": {
+    "capital": "6",
+    "name": "울진읍",
+    "name:el": "Ούλτσιν-ουπ",
+    "name:en": "Uljin-eup",
+    "name:ja": "蔚珍邑",
+    "name:ko": "울진읍",
+    "name:ko-Hani": "蔚珍邑",
+    "name:ko-Latn": "Uljin-eup",
+    "name:ru": "Ульджин",
+    "name:zh": "蔚珍邑",
+    "name:zh-Hans": "蔚珍邑",
+    "name:zh-Hant": "蔚珍邑",
+    "place": "town",
+    "wikidata": "Q12609184"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415155431",
+   "osm_type": "node",
+   "osm_id": 415155431,
+   "name": "원덕읍",
+   "tags": {
+    "name": "원덕읍",
+    "name:el": "Ουόντοκ-ουπ",
+    "name:en": "Wondeok-eup",
+    "name:fa": "ووندوک",
+    "name:ja": "遠徳邑",
+    "name:ko": "원덕읍",
+    "name:ko-Hani": "遠德邑",
+    "name:ko-Latn": "Wondeok-eup",
+    "name:zh": "遠德邑",
+    "name:zh-Hans": "远德邑",
+    "name:zh-Hant": "遠德邑",
+    "place": "town",
+    "wikidata": "Q16165718"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  },
+  {
+   "id": "osm:node/415155460",
+   "osm_type": "node",
+   "osm_id": 415155460,
+   "name": "가곡면",
+   "tags": {
+    "name": "가곡면",
+    "name:el": "Γκάγκοκ-μιον",
+    "name:en": "Gagok",
+    "name:fa": "گاگوک",
+    "name:ja": "柯谷面",
+    "name:ko": "가곡면",
+    "name:ko-Hani": "柯谷面",
+    "name:ko-Latn": "Gagok-myeon",
+    "name:zh": "柯谷面",
+    "name:zh-Hans": "柯谷面",
+    "name:zh-Hant": "柯谷面",
+    "official_name:en": "Gagok-myeon",
+    "place": "town"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  }
+ ],
+ "dropped_far": [
+  {
+   "id": "osm:node/415156564",
+   "osm_type": "node",
+   "osm_id": 415156564,
+   "name": "소광리",
+   "tags": {
+    "name": "소광리",
+    "name:en": "Sogwang-ri",
+    "name:ko": "소광리",
+    "name:ko-Latn": "Sogwang-ri",
+    "place": "village"
+   },
+   "role": "origin",
+   "category": "village",
+   "snap": {
+    "node": "osm:5554288554",
+    "distance_m": 4825.1
+   },
+   "reason": "snap distance 4825.1 m > 2000 m to the largest strongly connected road component"
+  },
+  {
+   "id": "osm:node/11445808720",
+   "osm_type": "node",
+   "osm_id": 11445808720,
+   "name": "주인3리마을회관",
+   "tags": {
+    "amenity": "townhall",
+    "name": "주인3리마을회관"
+   },
+   "role": "destination",
+   "category": "community_hall",
+   "snap": {
+    "node": "osm:3679196003",
+    "distance_m": 2453.3
+   },
+   "reason": "snap distance 2453.3 m > 2000 m to the largest strongly connected road component"
+  }
+ ],
+ "merged": [
+  {
+   "kept": "osm:way/1193754716",
+   "merged": "osm:node/11328730708",
+   "name": "오저초등학교",
+   "distance_m": 3.6,
+   "reason": "school mapped as both node and way (same name within 150 m); kept the way centre"
+  }
+ ],
+ "possible_duplicates_not_merged": [
+  {
+   "ids": [
+    "osm:node/11294747877",
+    "osm:way/469927697"
+   ],
+   "name": "월천1리마을회관",
+   "distance_m": 6.5,
+   "note": "same name within 150 m, not node+way school pair; kept both"
+  },
+  {
+   "ids": [
+    "osm:node/11379034001",
+    "osm:node/11379034419"
+   ],
+   "name": "죽변5리마을회관",
+   "distance_m": 134.6,
+   "note": "same name within 150 m, not node+way school pair; kept both"
+  }
+ ],
+ "research": {
+  "features": 8,
+  "missions": 4,
+  "shared_nodes": {},
+  "notes": [
+   "20220304T030000Z_FX1 destination node osm:4744584066 is outside the largest SCC (recorded mission endpoint; the mock must accept it by node_id)"
+  ]
+ }
+}
