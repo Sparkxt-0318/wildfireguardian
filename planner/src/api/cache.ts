@@ -5,14 +5,16 @@
  *   submission — are skipped; their origins come from `rejected_requests`);
  * - re-checks (route_checks entries with `recheck_of`, precompute --recheck-timeouts) replace the
  *   attempt they re-ran, so the cell, deadline and evidence all show the same check;
- * - research_checks → sweeps built from the route_checks results; only offsets skipped as
- *   WINDOW_UNSATISFIABLE become distinct "시간창 밖" cells (no check, grey, never safe); any other
- *   refusal is an unresolved attempt with the API's code (it breaks the contiguous run);
+ * - research_checks → sweeps built from the route_checks results; only offsets precompute skipped
+ *   locally as WINDOW_UNSATISFIABLE (never sent) become distinct "시간창 밖" cells (no check, grey,
+ *   never safe); every request the API refused — WINDOW_UNSATISFIABLE included, recognised by its
+ *   entry in rejected_requests — is an unresolved attempt with the API's code (it breaks the
+ *   contiguous run);
  * - travel_only comparison checks;
  * - provenance: api.mode, created_at, generator.client_host and each result's provenance.host;
  *   results from a host other than the evaluated Apple-silicon macOS host are marked test data.
  */
-import type { WireCacheFile, WireCacheIndexEntry, WireDispatchPlanJob, WireDispatchPlanRequest, WireRouteCheckJob } from './wire';
+import type { WireCacheFile, WireCacheRejected, WireCacheIndexEntry, WireDispatchPlanJob, WireDispatchPlanRequest, WireRouteCheckJob } from './wire';
 import type { CacheData, CacheEntry, CacheMeta, HostInfo, OriginPlan, RouteDetail, SkipReason, Attempt } from '../domain/types';
 import { adaptDispatchJob, adaptHealth, adaptHost, adaptRouteJob, attemptFromRoute, isMockHealth } from './adapter';
 import { planFromAttempts, unresolvedPlan } from '../domain/plan';
@@ -203,6 +205,7 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
     firstRefused: string | null;
   }
   const byOrigin = new Map<string, ResearchSlot>();
+  const refusedResearch = refusedResearchKeys(doc.rejected_requests ?? []);
   for (const rc of doc.research_checks ?? []) {
     const slot = byOrigin.get(rc.origin_id) ?? { attempts: [], offsets: [], skipped: {}, snap: null, sent: 0, refused: 0, firstRefused: null };
     byOrigin.set(rc.origin_id, slot);
@@ -217,7 +220,9 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
       const a = attemptFromRoute(d, rc.destination_id, off);
       slot.attempts.push(re ? { ...a, recheckOf: rc.job_id ?? null } : a);
       if (!slot.snap && d.snap) slot.snap = d.snap;
-    } else if (rc.skipped === 'WINDOW_UNSATISFIABLE' || rc.skipped === 'window_unsatisfiable') {
+    } else if ((rc.skipped === 'WINDOW_UNSATISFIABLE' || rc.skipped === 'window_unsatisfiable') && !refusedResearch.has(researchKey(rc.origin_id, off))) {
+      // a precompute-local skip (never sent). The same code also comes back as an API 422 refusal;
+      // such a request is listed in rejected_requests and falls through to the refused branch.
       slot.skipped[off] = 'window_unsatisfiable';
     } else if (rc.skipped) {
       // the API refused this request (4xx code): an unresolved, unchecked offset — never "시간창 밖"
@@ -291,4 +296,26 @@ export async function loadCacheFile(entry: CacheEntry, signal?: AbortSignal): Pr
   const doc = (await r.json()) as WireCacheFile;
   if (!doc || typeof doc !== 'object' || doc.region_id !== entry.regionId) throw new Error(`cache ${entry.path}: unexpected content`);
   return cacheToModel(doc, entry);
+}
+
+function researchKey(originId: string, offsetS: number): string {
+  return `${originId}|${Number(offsetS)}`;
+}
+
+/**
+ * (origin, offset) of research route checks the API refused. precompute writes the refusal code
+ * into research_checks[].skipped, so a refused WINDOW_UNSATISFIABLE looks like a local skip there;
+ * rejected_requests tells them apart (request.client_ref 'planner-precompute:<origin id>').
+ */
+function refusedResearchKeys(rejected: WireCacheRejected[]): Set<string> {
+  const out = new Set<string>();
+  for (const r of rejected) {
+    if (r.kind !== 'route_check') continue;
+    const req = (r.request ?? {}) as { client_ref?: unknown; depart_offset_s?: unknown };
+    const ref = typeof req.client_ref === 'string' && req.client_ref.startsWith('planner-precompute:') ? req.client_ref.slice('planner-precompute:'.length) : null;
+    const originId = r.origin_id ?? ref;
+    const off = r.depart_offset_s ?? (typeof req.depart_offset_s === 'number' ? req.depart_offset_s : null);
+    if (originId && off !== null && off !== undefined) out.add(researchKey(originId, off));
+  }
+  return out;
 }

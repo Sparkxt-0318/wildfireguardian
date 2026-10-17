@@ -34,8 +34,8 @@ export const VERDICT_DEFINITION: Record<Verdict, L10n> = {
     en: 'The relaxed search was exhausted: within this model and its inputs no vehicle route meets the conditions. It does not mean escape is impossible in reality; it signals that an alternative plan is needed.',
   },
   unresolved: {
-    ko: '시간 초과·탐색 상한·점검 미완료·점검 실패 등으로 판단하지 못했습니다. 절대 안전으로 해석하지 마십시오. 출발 마감 계산에도 포함하지 않습니다.',
-    en: 'No decision: time-out, search cap, unfinished or failed check, and similar. Never read it as safe. It never counts toward a departure deadline.',
+    ko: '시간 초과·탐색 상한·점검 미완료·점검 실패, 또는 MOCK 서버에 기록된 실행 없음(계산하지 않음) 등으로 판단하지 못했습니다. 절대 안전으로 해석하지 마십시오. 출발 마감 계산에도 포함하지 않습니다.',
+    en: 'No decision: time-out, search cap, unfinished or failed check, no recorded execution on the MOCK server (nothing computed), and similar. Never read it as safe. It never counts toward a departure deadline.',
   },
 };
 
@@ -56,6 +56,7 @@ export const ALT_PLAN_TEXT: Record<'model_no_route' | 'unresolved', L10n> = {
 /** Unresolved reason codes (contract ReasonCode, v1.0 + v1.1). Unknown codes are shown verbatim. */
 export const REASON_LABEL: Record<string, L10n> = {
   TIMEOUT: { ko: '30초 계산 예산 초과', en: '30 s compute budget exceeded' },
+  JOB_FROZEN: { ko: 'API 재시작으로 점검이 끝나지 않음', en: 'check never finished: the API restarted' },
   STATE_CAP: { ko: '탐색 상태 상한 도달', en: 'search state cap reached' },
   MEMORY_CAP: { ko: '메모리 상한 도달', en: 'memory guard reached' },
   CHECK_NOT_FINISHED: { ko: '점검 미완료', en: 'check not finished' },

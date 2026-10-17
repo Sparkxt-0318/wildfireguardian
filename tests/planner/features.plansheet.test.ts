@@ -167,6 +167,21 @@ describe('alternativePlanItems', () => {
     expect(alternativePlanItems(sheet('B', [scenario(0, {})]), 'ko')).toEqual([]);
   });
 
+  it('a MOCK no-record scenario is not described as a time-out or search cap (ko and en)', () => {
+    const s = scenario(0, {
+      bestVerdict: 'unresolved',
+      latestSafeDepartureS: null,
+      contiguousSafeDepartureS: null,
+      sweep: [{ offsetS: 0, verdict: 'unresolved', rawStatus: 'MOCK_NO_RECORDED_RESULT', reasonCode: 'OTHER' }],
+    });
+    for (const lang of ['ko', 'en'] as const) {
+      const [item] = alternativePlanItems(sheet('M', [s]), lang);
+      const all = `${item!.text} ${item!.reason ?? ''}`;
+      expect(all).toContain('MOCK');
+      expect(all).not.toMatch(/시간 초과|탐색 상한|time-out|search cap/);
+    }
+  });
+
   it('never words unresolved as safe (ko and en)', () => {
     for (const lang of ['ko', 'en'] as const) {
       const text = ALT_PLAN_TEXT.unresolved[lang];
@@ -372,7 +387,7 @@ describe('PlanSheetDialog (jsdom render)', () => {
   });
 
   it('says so when every scenario has a checked route', async () => {
-    const dlg = await render([sheet('B', [scenario(0, {})])]);
+    const dlg = await render([sheet('B', [scenario(0, { contiguousSafeDepartureS: 1800 })])]);
     expect(dlg.querySelector('[data-alt-none]') === null).toBe(false);
     expect(dlg.querySelectorAll('[data-alt-scenario]').length).toBe(0);
   });
@@ -386,6 +401,27 @@ describe('PlanSheetDialog (jsdom render)', () => {
     expect(caveat.textContent).toContain('연속 확인 기준 없음');
     expect(caveat.querySelector('[data-verdict-icon]')!.getAttribute('data-verdict-icon')).toBe('unresolved');
     expect(dlg.textContent).not.toContain('출발 마감 전 출발 전제');
+  });
+
+  it('never answers the heading "none" while a partially checked scenario is listed', async () => {
+    const dlg = await render([sheet('P', [scenario(0, { latestSafeDepartureS: 600, contiguousSafeDepartureS: null })])]);
+    expect(dlg.querySelector('[data-alt-none]')).toBeNull();
+    expect(dlg.textContent).not.toContain('없음 — 모든 시나리오');
+  });
+
+  it('en: no "None" answer while a partially checked scenario is listed', async () => {
+    const en = await render([sheet('P', [scenario(0, { latestSafeDepartureS: 600, contiguousSafeDepartureS: null })])], 'en');
+    expect(en.textContent).not.toContain('None — every scenario');
+    expect(en.querySelector('[data-alt-caveat]')).toBeTruthy();
+  });
+
+  it('a mixed sheet lists the partially checked scenario caveat next to the alt items', async () => {
+    const dlg = await render([MIXED]);
+    expect(dlg.querySelectorAll('[data-alt-scenario]').length).toBe(2);
+    const caveats = dlg.querySelectorAll('[data-alt-caveat]');
+    expect(caveats.length).toBe(1);
+    expect(caveats[0]!.textContent).toContain('S1');
+    expect(dlg.querySelector('[data-alt-none]')).toBeNull();
   });
 
   it('keeps "출발 마감 전 출발 전제" when every departure up to the deadline is checked', async () => {

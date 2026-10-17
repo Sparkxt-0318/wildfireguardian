@@ -254,6 +254,33 @@ describe('cache robustness and honesty', () => {
     expect(all).toMatchObject({ bestVerdict: 'unresolved', note: 'rejected', rejectReason: { code: 'NODE_NOT_ALLOWED' } });
   });
 
+  it('an API-refused WINDOW_UNSATISFIABLE research check is unresolved with the code, not "시간창 밖"', () => {
+    const doc: WireCacheFile = {
+      ...DOC,
+      research_checks: [
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 0, job_id: 'rc_r600x' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 600, job_id: null, skipped: 'WINDOW_UNSATISFIABLE' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 1200, job_id: 'rc_r1200x' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 3000, job_id: null, skipped: 'WINDOW_UNSATISFIABLE' },
+      ],
+      route_checks: { ...DOC.route_checks, rc_r600x: rc('rc_r600x', 'checked_route', 0, 1500), rc_r1200x: rc('rc_r1200x', 'checked_route', 1200, 2500) },
+      travel_only: {},
+      rejected_requests: [
+        { kind: 'route_check', status: 422, code: 'WINDOW_UNSATISFIABLE', request: { depart_offset_s: 600, client_ref: `planner-precompute:${RID}` } },
+      ],
+    };
+    const p = cacheToModel(doc, ENTRY).plans[RID]!;
+    const c600 = p.sweep.find((c) => c.offsetS === 600)!;
+    expect(c600.verdict).toBe('unresolved');
+    expect(c600.skipped).toBeUndefined();
+    expect(c600.attempts[0]).toMatchObject({ verdict: 'unresolved', reasonCode: 'WINDOW_UNSATISFIABLE' });
+    // the local skip (not in rejected_requests) stays "시간창 밖"
+    expect(p.sweep.find((c) => c.offsetS === 3000)!.skipped).toBe('window_unsatisfiable');
+    // the refused offset breaks the contiguous run
+    expect(p.contiguousSafeDepartureS).toBe(0);
+    expect(p.note).toBeUndefined();
+  });
+
   it('marks results from a non-evaluation host as test data (never MOCK or recorded results)', () => {
     expect(cacheToModel(DOC, ENTRY).meta.testData).toBe(true); // Linux x86_64
     const mac = { platform: 'macOS-15.3-arm64-arm-64bit', machine: 'arm64', cpu_count: 14 };

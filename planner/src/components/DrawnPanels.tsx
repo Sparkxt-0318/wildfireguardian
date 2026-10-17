@@ -157,7 +157,7 @@ export function ApproxWarning({ text, note }: { text?: string | null; note?: str
       <UnresolvedIcon size={14} color="#0B0B0C" style={{ flex: '0 0 auto', marginTop: 1 }} />
       <span className="aw-text">
         <b>{t('assume.approx')}</b>
-        {text ? <span className="mono">provenance.approximation = “{text}”</span> : null}
+        {text ? <span className="muted" title="provenance.approximation">{t('assume.approxOrig')} <span lang="en">“{text}”</span></span> : null}
         {note ? <span className="muted">{note}</span> : null}
       </span>
     </div>

@@ -67,3 +67,18 @@ describe('i18n', () => {
     expect(translate('en', 'no.such.key')).toBe('no.such.key');
   });
 });
+
+describe('comparison status tokens and JOB_FROZEN have ko and en labels', async () => {
+  const { translate } = await import('../../planner/src/i18n');
+  it('labels every status token seen in the data, in both languages', () => {
+    for (const tok of ['CLEAR', 'DEFINITE_CONTACT', 'CERTIFIED_ADMISSIBLE', 'DEFINITE_REJECT', 'model_no_route', 'unresolved']) {
+      const ko = translate('ko', `travel.status.${tok}`);
+      const en = translate('en', `travel.status.${tok}`);
+      expect(ko).not.toBe(`travel.status.${tok}`);
+      expect(en).not.toBe(ko);
+      expect(/[가-힣]/.test(ko)).toBe(true);
+    }
+    expect(translate('en', 'error.JOB_FROZEN')).toContain('unresolved');
+    expect(translate('ko', 'error.JOB_FROZEN')).toContain('미확인');
+  });
+});

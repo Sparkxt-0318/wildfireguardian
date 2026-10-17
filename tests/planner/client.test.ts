@@ -4,7 +4,7 @@
  * fetch is stubbed; no network.
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { api, ApiError, runPool, waitRouteCheck } from '../../planner/src/api/client';
+import { api, ApiError, JOB_FROZEN, runPool, waitRouteCheck } from '../../planner/src/api/client';
 
 function respond(status: number, body: unknown, contentType = 'application/json') {
   return Promise.resolve(new Response(typeof body === 'string' ? body : JSON.stringify(body), { status, headers: { 'Content-Type': contentType } }));
@@ -50,6 +50,33 @@ describe('polling', () => {
     const job = await waitRouteCheck('rc', (j) => seen.push(j.status), { intervalMs: 1, maxIntervalMs: 2 });
     expect(job.status).toBe('done');
     expect(seen).toEqual(['queued', 'running', 'done']);
+  });
+  it('ends a job frozen by an API restart (health: no queued or running work) as JOB_FROZEN', async () => {
+    vi.stubGlobal('fetch', vi.fn((url: string) => (url.endsWith('/health') ? respond(200, { status: 'ok', queued_tasks: 0, jobs: { queued: 0, running: 0, done: 4 } }) : respond(200, { job_id: 'rc', status: 'running' }))));
+    const e = await waitRouteCheck('rc', undefined, { intervalMs: 1, maxIntervalMs: 2, frozenCheckMs: 1 }).catch((x) => x);
+    expect(e).toBeInstanceOf(ApiError);
+    expect(e).toMatchObject({ code: JOB_FROZEN, status: 410 });
+  });
+  it('keeps waiting while health reports live work, and returns a job that finished meanwhile', async () => {
+    let polls = 0;
+    vi.stubGlobal('fetch', vi.fn((url: string) => {
+      if (url.endsWith('/health')) return respond(200, { status: 'ok', queued_tasks: 0, jobs: { queued: 0, running: 1 } });
+      polls += 1;
+      return respond(200, { job_id: 'rc', status: polls >= 9 ? 'done' : 'running', result: null });
+    }));
+    const job = await waitRouteCheck('rc', undefined, { intervalMs: 1, maxIntervalMs: 2, frozenCheckMs: 1 });
+    expect(job.status).toBe('done');
+  });
+  it('a health that fails or carries no work counts never ends the wait as frozen', async () => {
+    let polls = 0;
+    vi.stubGlobal('fetch', vi.fn((url: string) => {
+      // no counts, MOCK-style counts by kind, or a failed health: cannot tell, keep waiting
+      if (url.endsWith('/health')) return [respond(200, { status: 'ok' }), respond(200, { status: 'ok', queued_tasks: 0, jobs: { route_check: 3, dispatch_plan: 1 } }), respond(502, 'Bad Gateway', 'text/plain')][polls % 3]!;
+      polls += 1;
+      return respond(200, { job_id: 'rc', status: polls >= 8 ? 'done' : 'queued', result: null });
+    }));
+    const job = await waitRouteCheck('rc', undefined, { intervalMs: 1, maxIntervalMs: 2, frozenCheckMs: 1 });
+    expect(job.status).toBe('done');
   });
   it('stops on abort', async () => {
     vi.stubGlobal('fetch', vi.fn(() => respond(200, { job_id: 'rc', status: 'running' })));

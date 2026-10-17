@@ -104,7 +104,7 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_NO_RECORDED_RESULT'))) sub = t('headline.mockNoRecordSub');
   // departure times whose recorded result IS "no route in the model" (the origin stays unresolved)
   const noRouteAt = plan ? plan.sweep.filter((c) => c.verdict === 'model_no_route').map((c) => kstClock(inputTime, c.offsetS)) : [];
-  if (noRouteAt.length && plan?.bestVerdict === 'unresolved') sub += ` ${t('headline.recordedNoRoute', { times: noRouteAt.join(', ') })}`;
+  const showNoRoute = noRouteAt.length > 0 && plan?.bestVerdict === 'unresolved' && !computing;
   if (computing && plan && plan.bestVerdict === 'unresolved') sub = t('headline.computingSub');
   const full = t('headline.unresolved');
   const cut = full.indexOf(' (');
@@ -117,6 +117,12 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
           {cut > 0 ? <span className="h-warn">{full.slice(cut + 1)}</span> : null}
         </span>
       </div>
+      {showNoRoute ? (
+        <div className="h-noroute" data-testid="headline-noroute">
+          <NoRouteIcon size={14} color="#FFFFFF" style={{ flex: '0 0 auto' }} />
+          <span>{t('headline.recordedNoRoute', { times: noRouteAt.join(', ') })}</span>
+        </div>
+      ) : null}
       <div className="h-sub">{sub}</div>
     </div>
   );
@@ -253,7 +259,7 @@ function TravelOnly({ originId, inputTime, places, hasBest, shownOffsetS }: { or
                 <span className={`flag${d.fullPolicy.pass === false ? ' on' : ''}`}>
                   {d.fullPolicy.pass === true ? t('travel.fullPass') : d.fullPolicy.pass === false ? t('travel.fullFail') : t('travel.fullUnknown')}
                 </span>
-                {d.fullPolicy.components.length ? <span className="mono">{d.fullPolicy.components.join(', ')}</span> : null}
+                {d.fullPolicy.components.length ? <span className="small-note" title={d.fullPolicy.components.join(', ')}>{d.fullPolicy.components.map((c) => { const l = t(`travel.comp.${c}`); return l === `travel.comp.${c}` ? c : l; }).join(', ')}</span> : null}
               </div>
               {Object.entries(d.fullPolicy.details)
                 .filter(([k]) => /status$/.test(k))
@@ -262,7 +268,7 @@ function TravelOnly({ originId, inputTime, places, hasBest, shownOffsetS }: { or
                   return (
                     <span key={k} className="small-note">
                       {label !== `travel.detail.${k}` ? `${label}: ` : `${k}: `}
-                      <span className="mono">{v}</span>
+                      <StatusToken v={v} />
                     </span>
                   );
                 })}
@@ -324,6 +330,42 @@ function splitJsonNote(n: string): { head: string; json: unknown } | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * The API's raw reason (English, verbatim) beside the raw status: marked lang="en" with the
+ * "(API 원문, 영어)" hint; JSON in it is collapsed under "원문 JSON 보기" (whole text kept there).
+ */
+function RawReason({ text }: { text: string }) {
+  const t = useT();
+  const lang = useLang();
+  const j = splitJsonNote(text);
+  const brace = text.indexOf('{');
+  const head = j ? j.head : brace >= 0 ? text.slice(0, brace).trim() : text;
+  return (
+    <span className="raw-reason" data-testid="raw-reason">
+      {' · '}
+      <span lang="en">{head}</span> <span lang={lang} className="small-note">{t('prov.notesHint')}</span>
+      {j || brace >= 0 ? (
+        <details className="note-json">
+          <summary lang={lang}>{t('prov.rawJson')}</summary>
+          <pre className="mono" lang="en">{j ? JSON.stringify(j.json, null, 2) : text}</pre>
+        </details>
+      ) : null}
+    </span>
+  );
+}
+
+/** Comparison status token (e.g. CLEAR, DEFINITE_CONTACT): a label in the UI language, the token kept small. */
+function StatusToken({ v }: { v: unknown }) {
+  const t = useT();
+  const raw = String(v);
+  const key = `travel.status.${raw}`;
+  const label = t(key);
+  if (label === key) return <span className="mono" lang="en">{raw}</span>;
+  return (
+    <span title={raw}>{label}</span>
+  );
 }
 
 function NoteItem({ n }: { n: string }) {
@@ -390,7 +432,7 @@ function Provenance({ route, plan, recheckOf = null }: { route: RouteDetail | nu
             <dt>{t('prov.raw')}</dt>
             <dd className="mono">
               {route.rawStatus ?? '—'}
-              {route.rawReason ? ` · ${route.rawReason}` : ''}
+              {route.rawReason ? <RawReason text={route.rawReason} /> : null}
             </dd>
             <dt>{t('prov.job')}</dt>
             <dd className="mono">{route.jobId}</dd>
@@ -641,7 +683,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
           </span>
           <span className="small-note">{skipText(cell, t)}</span>
           {[...new Set(cell.attempts.map((a) => unresolvedReasonText(a.reasonCode, a.rawStatus, t)).filter(Boolean))].map((r) => (
-            <span key={r} className="small-note mono">{r}</span>
+            <span key={r} className="small-note">{r}</span>
           ))}
           <span className="small-note tnum" data-testid="cell-compute">
             {computeLabel(cellComputed?.computeS ?? null, evidence?.provenance?.host ?? null, t)}

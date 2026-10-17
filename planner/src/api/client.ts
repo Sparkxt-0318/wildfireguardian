@@ -143,6 +143,33 @@ interface PollOpts {
   maxIntervalMs?: number;
   /** overall wait limit (the API itself enforces the 30 s compute budget per check) */
   timeoutMs?: number;
+  /**
+   * how often (ms) a job that is still queued/running is checked against GET /health: after an API
+   * restart, jobs that were queued or running at shutdown are served from job.json frozen at that
+   * status and never finish. When /health reports no queued or running work twice in a row while
+   * the job still is not finished, the wait ends with JOB_FROZEN (shown as unresolved, never safe).
+   */
+  frozenCheckMs?: number;
+}
+
+/** API error code (client side) of a job frozen by an API restart. */
+export const JOB_FROZEN = 'JOB_FROZEN';
+
+/** True when GET /health says the API process holds queued or running work (unknown → true). */
+export async function apiHasLiveWork(opts: RequestOpts = {}): Promise<boolean> {
+  let h: WireHealth;
+  try {
+    h = await api.health(opts);
+  } catch (e) {
+    if (isAbort(e)) throw e;
+    return true; // cannot tell: keep waiting
+  }
+  const rec = h as unknown as Record<string, unknown>;
+  const jobs = rec.jobs && typeof rec.jobs === 'object' ? (rec.jobs as Record<string, unknown>) : {};
+  // only job counts by state (real API: jobs.queued / jobs.running) can say "no live work"; the
+  // MOCK counts jobs by kind, and a health without state counts cannot tell
+  if (!('queued' in jobs) && !('running' in jobs)) return true;
+  return Boolean(rec.queued_tasks) || Boolean(jobs.queued) || Boolean(jobs.running);
 }
 
 async function poll<T extends { status: string }>(get: (o: RequestOpts) => Promise<T>, onUpdate: ((job: T) => void) | undefined, opts: PollOpts): Promise<T> {
@@ -151,6 +178,9 @@ async function poll<T extends { status: string }>(get: (o: RequestOpts) => Promi
   const maxInterval = opts.maxIntervalMs ?? 3000;
   const limit = opts.timeoutMs ?? 6 * 3600 * 1000;
   let transientFailures = 0;
+  const frozenEvery = opts.frozenCheckMs ?? 30000;
+  let lastFrozenCheck = start;
+  let idleHealth = 0;
   for (;;) {
     let job: T;
     try {
@@ -168,6 +198,18 @@ async function poll<T extends { status: string }>(get: (o: RequestOpts) => Promi
     onUpdate?.(job);
     if (job.status === 'done' || job.status === 'failed') return job;
     if (Date.now() - start > limit) throw new ApiError(0, 'CLIENT_TIMEOUT', `job not finished after ${Math.round(limit / 1000)} s`);
+    if (frozenEvery > 0 && Date.now() - lastFrozenCheck >= frozenEvery) {
+      lastFrozenCheck = Date.now();
+      // the job could finish between its poll and /health: the next poll re-reads it first
+      if (await apiHasLiveWork({ signal: opts.signal })) idleHealth = 0;
+      else idleHealth += 1;
+      if (idleHealth >= 2) {
+        const again = await get({ signal: opts.signal, timeoutMs: 15000 });
+        onUpdate?.(again);
+        if (again.status === 'done' || again.status === 'failed') return again;
+        throw new ApiError(410, JOB_FROZEN, `job still '${again.status}' while the API reports no queued or running work (API restarted?)`);
+      }
+    }
     await sleep(interval, opts.signal);
     interval = Math.min(maxInterval, Math.round(interval * 1.5));
   }

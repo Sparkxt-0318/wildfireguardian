@@ -84,6 +84,7 @@ export const SHEET = {
     en: 'Test results computed on a host other than the evaluated booth host (M5 Pro) — not the booth cache',
   },
   pCommit: { ko: '앱 커밋', en: 'App commit' },
+  approxGloss: { ko: '근사 계산 — 전문가 검토 필요', en: 'Approximate computation — expert review needed' },
   pApprox: { ko: '근사 (전문가 검토 필요)', en: 'Approximation (expert review needed)' },
   pMission: { ko: '기록 임무 일치', en: 'Recorded mission match' },
   modeMock: { ko: 'MOCK (기록 결과 재생)', en: 'MOCK (recorded results replayed)' },

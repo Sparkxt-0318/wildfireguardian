@@ -1324,6 +1324,7 @@ export async function recomputeOrigin(originId: string): Promise<void> {
   };
   publish();
   // a fatal error shows at once; checks in flight keep arriving until the bounded tail ends
+  const handled = new Set<(typeof specs)[number]>();
   const guard = new RunGuard(ctrl.signal, (e) => {
     if (alive()) setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, state: 'error', error: e } } : {}));
   });
@@ -1332,6 +1333,7 @@ export async function recomputeOrigin(originId: string): Promise<void> {
     2,
     async (spec) => {
       if (!alive() || guard.fatal) return;
+      handled.add(spec);
       setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, cells: { ...st.recompute.cells, [spec.offsetS]: 'running' } } } : {}));
       try {
         const d = await runOneCheck(spec, ctx, guard.signal);
@@ -1363,6 +1365,16 @@ export async function recomputeOrigin(originId: string): Promise<void> {
   guard.dispose();
   if (!alive()) return;
   const fatal = guard.fatal;
+  // checks never started because of a fatal error or the expired tail: unresolved with that code
+  // (never left out of the sweep), as the dispatch path marks the whole group
+  if (fatal || guard.tailExpired()) {
+    const info = guard.tailCode();
+    const skippedSpecs = specs.filter((sp) => !handled.has(sp));
+    for (const sp of skippedSpecs) {
+      attempts.push({ offsetS: sp.offsetS, destinationId: sp.destinationId, verdict: 'unresolved', arrivalS: null, computeS: null, jobId: null, reasonCode: info.code, rawStatus: info.message });
+    }
+    if (skippedSpecs.length) publish();
+  }
   setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, state: fatal ? 'error' : 'done', error: fatal, finishedAt: Date.now() } } : {}));
   // refresh the shown route + comparison for the new result
   const plan = getState().plans[originId];

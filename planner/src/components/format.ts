@@ -69,7 +69,7 @@ export function reasonText(code: string | null | undefined, t: TFunction): strin
 export function rawStatusText(raw: string | null | undefined, t: TFunction): string | null {
   if (!raw) return null;
   const s = t(`raw.${raw}`);
-  return s === `raw.${raw}` ? raw : `${raw} · ${s}`;
+  return s === `raw.${raw}` ? raw : s;
 }
 
 /** True when the raw status has its own explanation (e.g. MOCK_NO_RECORDED_RESULT). */

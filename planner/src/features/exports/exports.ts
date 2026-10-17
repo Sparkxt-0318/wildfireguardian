@@ -535,7 +535,7 @@ export function csvRow(fields: unknown[]): string {
  * comparators as the origin list and the plan sheets (drawn zones: inside-zone Go before Set before
  * outside, then urgency), so the CSV, list and sheets cannot drift apart.
  */
-export function orderOrigins(origins: ExportOrigin[]): ExportOrigin[] {
+export function orderOrigins(origins: ExportOrigin[], lang: Lang = 'ko'): ExportOrigin[] {
   if (origins.length > 0 && origins.every((o) => typeof o.urgencyRank === 'number')) {
     return [...origins].sort((a, b) => a.urgencyRank! - b.urgencyRank! || a.id.localeCompare(b.id));
   }
@@ -544,8 +544,9 @@ export function orderOrigins(origins: ExportOrigin[]): ExportOrigin[] {
     o,
     u: {
       id: o.id,
-      // the list sorts by the display name; an unnamed place sorts by its descriptor / id
-      name: o.name ?? o.displayName ?? '',
+      // the list sorts by the display name in the UI language (placeName): nameEn in English,
+      // the Korean name in Korean; an unnamed place sorts by its descriptor
+      name: (lang === 'en' ? o.nameEn ?? o.name : o.name ?? o.nameEn) ?? o.displayName ?? '',
       vulnerable: o.vulnerable,
       plan: o.plan
         ? { bestVerdict: o.plan.bestVerdict, latestSafeDepartureS: o.plan.latestSafeDepartureS, contiguousSafeDepartureS: o.plan.contiguousSafeDepartureS }
@@ -604,7 +605,7 @@ export function dispatchListCSV(input: ExportInput, opts: { lang?: Lang } = {}):
     ? `${kstStamp(input.scenario.issuedAtIso)}`
     : `${kstStamp(input.scenario.inputTimeIso)}`;
   const lines = [csvRow(CSV_COLUMNS[lang])];
-  orderOrigins(input.origins).forEach((o, i) => {
+  orderOrigins(input.origins, lang).forEach((o, i) => {
     const plan = o.plan;
     const v: Verdict = plan?.bestVerdict ?? 'unresolved';
     const checked = v === 'checked_route' && plan !== null;

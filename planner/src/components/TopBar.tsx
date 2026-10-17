@@ -14,11 +14,13 @@ export function FireInputBanner() {
   const region = useRegionEntry();
   const set = useCurrentScenarioSet();
   const drawn = scenarioId === DRAWN_SCENARIO;
+  const offlineEmpty = useStore((s) => s.apiStatus === 'offline' && s.dataSource !== 'cache');
   const text = fireInputBanner(drawn ? { type: 'spread_zones' } : set ? { type: 'recorded' } : null, region?.fireYear ?? null, lang);
   return (
-    <div className={`banner${drawn ? ' assumed' : ''}`} role="status" aria-live="polite" data-testid="fire-banner">
+    <div className={`banner${drawn ? ' assumed' : ''}${offlineEmpty ? ' offline' : ''}`} role="status" aria-live="polite" data-testid="fire-banner">
       <span className="dot" aria-hidden="true" />
       <span className="banner-text" title={text}>{text}</span>
+      {offlineEmpty ? <span className="banner-time" data-testid="banner-offline">· {t('banner.offlineNoResult')}</span> : null}
       {!drawn && set ? <span className="banner-time tnum">· {t('banner.inputTime', { time: kstDateTime(set.inputTime) })}</span> : null}
     </div>
   );
@@ -26,6 +28,13 @@ export function FireInputBanner() {
 
 export function MockBadge() {
   const t = useT();
+  const offlineEmpty = useStore((s) => s.apiStatus === 'offline' && s.dataSource !== 'cache');
+  if (offlineEmpty)
+    return (
+      <span className="mock-badge offline" title={t('mock.offlineTooltip')} aria-label={`MOCK — ${t('mock.offlineTooltip')}`} data-testid="mock-badge">
+        {t('mock.offlineBadge')}
+      </span>
+    );
   return (
     <span className="mock-badge" title={t('mock.tooltip')} aria-label={`MOCK — ${t('mock.tooltip')}`} data-testid="mock-badge">
       {t('mock.badge')}

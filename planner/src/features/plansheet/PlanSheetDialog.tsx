@@ -127,7 +127,11 @@ export function PlanSheetDialog(props: PlanSheetDialogProps): JSX.Element | null
   // jump to the initial page when opened
   useEffect(() => {
     if (!open) return undefined;
-    const id = requestAnimationFrame(() => scrollToPage(initialIndex, 'auto'));
+    setCurrent(initialIndex);
+    const id = requestAnimationFrame(() => {
+      scrollToPage(initialIndex, 'auto');
+      ref.current?.querySelectorAll<HTMLElement>('.wfgf-plansheet__item')[initialIndex]?.scrollIntoView?.({ block: 'center' });
+    });
     return () => cancelAnimationFrame(id);
   }, [open, initialIndex, scrollToPage]);
 
@@ -279,10 +283,12 @@ export function PlanSheetDialog(props: PlanSheetDialogProps): JSX.Element | null
                     </span>
                     {/* status = icon + text: the verdict words are the icons' accessible name and tooltip */}
                     <span className="wfgf-plansheet__itemicons" title={s.scenarios.map((sc) => t(VERDICT_LABEL[sc.bestVerdict])).join(' · ')}>
-                      {s.scenarios.map((sc, k) => (
-                        <VerdictIcon key={k} verdict={sc.bestVerdict} size={12} />
+                      {[...new Set(s.scenarios.map((sc) => sc.bestVerdict))].map((v) => (
+                        <span key={v} className={`wfgf-plansheet__itemv wfgf-plansheet__itemv--${v}`}>
+                          <VerdictIcon verdict={v} size={12} />
+                          {t(VERDICT_LABEL[v])}
+                        </span>
                       ))}
-                      <span className="wfgf-sr-only">{s.scenarios.map((sc) => t(VERDICT_LABEL[sc.bestVerdict])).join(' · ')}</span>
                     </span>
                   </button>
                 </li>

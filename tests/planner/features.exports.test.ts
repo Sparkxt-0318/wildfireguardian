@@ -434,6 +434,7 @@ describe('dispatchListCSV', () => {
       const notes = byId['o:mock']![11]!;
       expect(notes).toContain('MOCK_NO_RECORDED_RESULT');
       expect(notes).not.toMatch(/기타|\bother\b/i);
+      expect(notes).not.toMatch(/시간 초과|탐색 상한|time-out|search cap/i);
     }
   });
 
@@ -467,6 +468,19 @@ describe('dispatchListCSV', () => {
     expect(ids).toEqual(list.map((x) => x.id));
     const rows = parseCsv(dispatchListCSV(input({ origins, fireInputType: 'spread_zones' })).slice(1)).slice(1);
     expect(rows.map((r) => r[3]!.split(' · ')[1])).toEqual(ids);
+  });
+
+  it('breaks ties by the name in the UI language, as the English list does', () => {
+    const unr = { bestVerdict: 'unresolved' as const, latestSafeDepartureS: null, contiguousSafeDepartureS: null, best: null };
+    const origins = [origin('p1', '나마을', unr, { nameEn: 'Zeta Village' }), origin('p2', '다마을', unr, { nameEn: 'Alpha Village' })];
+    expect(orderOrigins(origins, 'ko').map((o) => o.id)).toEqual(['p1', 'p2']);
+    expect(orderOrigins(origins, 'en').map((o) => o.id)).toEqual(['p2', 'p1']);
+    const listEn = sortByUrgency(origins.map((o) => ({ id: o.id, name: o.nameEn ?? o.name ?? '', vulnerable: o.vulnerable, plan: o.plan })));
+    expect(orderOrigins(origins, 'en').map((o) => o.id)).toEqual(listEn.map((x) => x.id));
+    for (const lang of ['ko', 'en'] as const) {
+      const rows = parseCsv(dispatchListCSV(input({ origins }), { lang }).slice(1)).slice(1);
+      expect(rows.map((r) => r[3]!.split(' · ')[1])).toEqual(orderOrigins(origins, lang).map((o) => o.id));
+    }
   });
 
   it('uses the API urgency rank when every origin has one', () => {

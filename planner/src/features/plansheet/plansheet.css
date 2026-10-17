@@ -747,3 +747,8 @@
     display: none;
   }
 }
+
+.wfgf-plansheet__item .wfgf-plansheet__itemicons { flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+.wfgf-plansheet__itemv { display: inline-flex; align-items: center; gap: 3px; font-size: 10.5px; white-space: nowrap; color: #55555A; }
+.wfgf-plansheet__itemv--checked_route { color: #157F45; }
+.wfgf-plansheet__itemv--model_no_route { color: #0B0B0C; font-weight: 600; }

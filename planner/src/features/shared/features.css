@@ -247,3 +247,5 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+.wfgf-sheet__code { font-size: 0.8em; color: #6E6E73; font-family: ui-monospace, monospace; }

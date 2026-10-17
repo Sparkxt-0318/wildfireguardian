@@ -209,6 +209,7 @@ function DataStrip() {
 function Summary({ plans }: { plans: (OriginPlan | undefined)[] }) {
   const t = useT();
   const c = summarize(plans);
+  const partNoRoute = plans.filter((p) => p && p.bestVerdict === 'unresolved' && p.sweep.some((x) => x.verdict === 'model_no_route')).length;
   const items = [
     { v: 'checked_route' as const, n: c.checked_route, color: '#1A9E55' },
     { v: 'model_no_route' as const, n: c.model_no_route, color: '#0B0B0C' },
@@ -223,6 +224,7 @@ function Summary({ plans }: { plans: (OriginPlan | undefined)[] }) {
             <VerdictIcon verdict={i.v} size={12} color={i.color} />
             {t(`verdict.${i.v}`)}
           </span>
+          {i.v === 'unresolved' && partNoRoute > 0 ? <span className="l sub" data-testid="summary-part-noroute">{t('left.partNoRoute', { n: partNoRoute })}</span> : null}
         </div>
       ))}
     </div>
@@ -279,13 +281,19 @@ function OriginRow({ place, plan, selected, inputTime, rsg, index }: { place: Pl
       <span className="name">{placeName(place, t, lang)}</span>
       <span className="right">
         <StatusChip verdict={verdict} label={deadline} />
+        {verdict === 'unresolved' && plan?.sweep.some((c) => c.verdict === 'model_no_route') ? (
+          <span className="noroute-mark" data-testid="noroute-mark" title={t('list.partNoRoute')}>
+            <VerdictIcon verdict="model_no_route" size={11} color="#FFFFFF" />
+            {t('list.partNoRouteShort')}
+          </span>
+        ) : null}
         {caveat ? <span className="caveat-mark" title={t('headline.caveat', { time: plan!.contiguousSafeDepartureS === null ? t('headline.none') : fmtKstClock(it, plan!.contiguousSafeDepartureS) })}>{t('list.caveatShort')}</span> : null}
       </span>
       <span className="meta">
         <span>{categoryLabel(place, t)}</span>
         {place.vulnerable ? <span className="tag grey">{t('list.vulnerable')}</span> : null}
         <span className="mono" title={sourceTag(place)}>
-          {sourceTag(place)}
+          <bdi dir="ltr">{sourceTag(place)}</bdi>
         </span>
       </span>
       {rsg ? (

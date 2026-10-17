@@ -160,9 +160,12 @@ export function PlanSheet(props: PlanSheetProps) {
   const t = (s: { ko: string; en: string }) => pick(s, lang);
   const regionName = lang === 'en' ? sheet.region.nameEn : sheet.region.nameKo;
   const alt = alternativePlanItems(sheet, lang);
+  // checked scenarios with unresolved earlier departures always get a caveat line, whatever else
+  // the section lists (never answer the heading "none" while a scenario needs a plan)
+  const partial = partialCheckedScenarios(sheet);
   // dense pages (many scenarios, facilities and alternative plans) drop the table footnote and list
   // fewer facilities so the page still fits A4 with a readable map
-  const dense = sheet.scenarios.length + Math.min(sheet.facilities.length, MAX_FACILITIES) + alt.length >= 9;
+  const dense = sheet.scenarios.length + Math.min(sheet.facilities.length, MAX_FACILITIES) + alt.length + partial.length >= 9;
   const facilities = sheet.facilities.slice(0, dense ? 3 : MAX_FACILITIES);
   const moreFacilities = sheet.facilities.length - facilities.length;
   const anyRoute = sheet.scenarios.some((s) => s.bestVerdict === 'checked_route' && s.route);
@@ -175,7 +178,6 @@ export function PlanSheet(props: PlanSheetProps) {
       return `${scenarioTag(i)}${at} ${formatSeconds(s.computeS)}${s.host ? ` (${s.host})` : ''}`;
     })
     .filter(Boolean) as string[];
-  const partial = alt.length === 0 ? partialCheckedScenarios(sheet) : [];
   const entry = entryFact(sheet, lang);
 
   return (
@@ -339,20 +341,6 @@ export function PlanSheet(props: PlanSheetProps) {
           <p className="wfgf-sheet__muted" data-alt-none="true">
             {t(SHEET.altNone)}
           </p>
-        ) : alt.length === 0 ? (
-          <>
-            <p className="wfgf-sheet__muted" data-alt-none="true">
-              {t(SHEET.altNoneShort)}
-            </p>
-            <ul>
-              {partial.map((p) => (
-                <li key={`${p.scenarioSetId}-${p.index}`} className="wfgf-sheet__altcaveat" data-alt-caveat={p.scenarioSetId} data-alt-verdict="unresolved">
-                  <VerdictIcon verdict="unresolved" size={13} />
-                  <span className="wfgf-sheet__alttext">{partialCheckedText(p, lang)}</span>
-                </li>
-              ))}
-            </ul>
-          </>
         ) : (
           <ul>
             {alt.map((a) => (
@@ -363,8 +351,14 @@ export function PlanSheet(props: PlanSheetProps) {
                 <span className="wfgf-sheet__strong">{t(VERDICT_LABEL[a.verdict])}</span>
                 <span className="wfgf-sheet__alttext">
                   {a.text}
-                  {a.reason ? ` (${t(SHEET.reason)}: ${a.reason})` : ''}
+                  {a.reason ? <> ({t(SHEET.reason)}: <ReasonWithCode text={a.reason} />)</> : ''}
                 </span>
+              </li>
+            ))}
+            {partial.map((p) => (
+              <li key={`caveat-${p.scenarioSetId}-${p.index}`} className="wfgf-sheet__altcaveat" data-alt-caveat={p.scenarioSetId} data-alt-verdict="unresolved">
+                <VerdictIcon verdict="unresolved" size={13} />
+                <span className="wfgf-sheet__alttext">{partialCheckedText(p, lang)}</span>
               </li>
             ))}
           </ul>
@@ -413,7 +407,7 @@ export function PlanSheet(props: PlanSheetProps) {
             {sheet.provenance.approximation && (
               <div className="wfgf-sheet__prov-wide">
                 <dt>{t(SHEET.pApprox)}</dt>
-                <dd>{sheet.provenance.approximation}</dd>
+                <dd>{t(SHEET.approxGloss)} <span className="wfgf-muted" lang="en">(API: “{sheet.provenance.approximation}”)</span></dd>
               </div>
             )}
             {sheet.provenance.recordedMissionMatch && (
@@ -444,5 +438,15 @@ export function PlanSheet(props: PlanSheetProps) {
         <span className="wfgf-num">{fill(t(SHEET.page), { n: pageNumber, total: pageCount })}</span>
       </footer>
     </article>
+  );
+}
+
+/** Reason text with any API code "(MOCK_…)" moved into a small grey code, not running Korean prose. */
+function ReasonWithCode({ text }: { text: string }) {
+  const parts = text.split(/\s*\(([A-Z][A-Z0-9_]{3,})\)/g);
+  return (
+    <>
+      {parts.map((p, i) => (i % 2 === 1 ? <span key={i} className="wfgf-sheet__code" title={p}> [{p}]</span> : <span key={i}>{p}</span>))}
+    </>
   );
 }

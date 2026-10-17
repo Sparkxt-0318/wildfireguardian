@@ -4,6 +4,7 @@
  * (solid green with white casing), the travel-time-only comparison (ink dashed) and a vehicle
  * marker that follows the route's per-vertex times as the scenario clock moves.
  */
+import { hoverEdgeClass } from './hoverEdge';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import maplibregl, { type GeoJSONSource, type Map as MLMap, type MapLayerMouseEvent } from 'maplibre-gl';
 import type { Feature, FeatureCollection, LineString, Point } from 'geojson';
@@ -219,7 +220,8 @@ function Legend() {
   const t = useT();
   const drawn = useStore((s) => s.scenarioId === DRAWN_SCENARIO);
   const forecastOn = useStore((s) => s.showForecast && s.forecast.state === 'ready' && s.scenarioId !== DRAWN_SCENARIO);
-  const [open, setOpen] = useState(true);
+  // collapsed by default so it does not hide villages in the top-left corner; one click opens it
+  const [open, setOpen] = useState(false);
   if (!open) {
     return (
       <div className="map-overlay map-legend collapsed" data-testid="map-legend">
@@ -418,16 +420,17 @@ export function MapView() {
     const zones = getState().drawn.zones;
     const bs = ZONE_KEYS.map((k) => zoneBounds(zones[k])).filter((b): b is [number, number, number, number] => b !== null);
     if (!bs.length) return;
-    let [w, s, e, n] = [Math.min(...bs.map((b) => b[0])), Math.min(...bs.map((b) => b[1])), Math.max(...bs.map((b) => b[2])), Math.max(...bs.map((b) => b[3]))];
-    // the model only covers the region window: frame the part of the zones inside it
-    const rb = getState().regionIndex.find((r) => r.id === getState().regionId)?.bbox;
-    if (rb && w < rb[2] && e > rb[0] && s < rb[3] && n > rb[1]) [w, s, e, n] = [Math.max(w, rb[0]), Math.max(s, rb[1]), Math.min(e, rb[2]), Math.min(n, rb[3])];
+    const [w, s, e, n] = [Math.min(...bs.map((b) => b[0])), Math.min(...bs.map((b) => b[1])), Math.max(...bs.map((b) => b[2])), Math.max(...bs.map((b) => b[3]))];
+    // frame every zone whole (the region window is drawn separately); keep them clear of the
+    // legend (top-left) and the zone toolbar (top-right, 292 px)
+    const el = map.getContainer();
+    const wide = el.clientWidth > 900;
     map.fitBounds(
       [
         [w, s],
         [e, n],
       ],
-      { padding: { top: 56, bottom: 40, left: 48, right: 48 }, duration: 600, maxZoom: 13 },
+      { padding: wide ? { top: 48, bottom: 40, left: 240, right: 320 } : { top: 56, bottom: 40, left: 48, right: 48 }, duration: 600, maxZoom: 13 },
     );
   }, [presetAt]);
 
@@ -596,7 +599,7 @@ export function MapView() {
       ) : null}
       {hover && hoverPlace ? (
         <div
-          className={`map-overlay map-hover${hover.x > (container.current?.clientWidth ?? 0) - 170 ? ' edge-right' : hover.x < 170 ? ' edge-left' : ''}`}
+          className={`map-overlay map-hover${hoverEdgeClass(hover, container.current?.clientWidth ?? 0)}`}
           style={{ left: hover.x, top: hover.y }}
           data-testid="map-hover"
         >
@@ -609,3 +612,4 @@ export function MapView() {
     </div>
   );
 }
+
