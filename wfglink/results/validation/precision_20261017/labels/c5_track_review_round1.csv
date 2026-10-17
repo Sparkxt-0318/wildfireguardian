@@ -1,0 +1,659 @@
+item_id,track_key,track_id,category,confidence,reviewer,adjudicated,note
+r000,60205,60205,reflection,sure,A,False,Track sits almost still on a bright foil highlight in a water pan; pink ember streaks pass beside it at t+1 and t+2 but not through the track position.
+r000,60205,60205,reflection,sure,B,False,Circle stays on static white glints at the foil pan edge; red ember streaks pass nearby but not on the track.
+r001,42785,42785,codec_artifact,unsure,A,False,Track at the very top edge of the frame on a plain gray wall; nothing bright or moving is visible in any crop.
+r001,42785,42785,codec_artifact,unsure,B,False,Track at the very top frame border on a static wall; nothing bright or moving.
+r002,61557,61557,ember,unsure,A,False,"Green path follows a pink ember streak falling from upper right in t-2 and t-1; at t the circle is just behind the streak on empty background, so the track seems to be coasting on that ember."
+r002,61557,61557,duplicate_fragment,unsure,B,False,A pink ember streak moves down-left; the track trails behind its upper end and at t sits on a faint trace while another detection is on the streak body.
+r002,61557,61557,duplicate_fragment,unsure,adjudicator,True,The track rode the upper end of a pink streak at t-2 and t-1. At t it sits on a faint trailing trace while another detection is on the main streak body lower left.
+r003,41434,41434,codec_artifact,unsure,A,False,"Dim metal edge near the steel frame; no bright spot, track jitters in place with nothing moving."
+r003,41434,41434,codec_artifact,unsure,B,False,Static spot on dim ridged edge of a pan near a bright lamp; no bright point at the track.
+r004,65615,65615,codec_artifact,unsure,A,False,Plain gray wall beside a dark column; nothing bright or moving at the track position.
+r004,65615,65615,codec_artifact,unsure,B,False,Static spot on a gray wall next to a dark post; nothing bright or moving.
+r005,8456,8456,reflection,unsure,A,False,"Circle sits on bright white foil in a pan; an ember streak only reaches the area at t+1 and t+2, off to the side; long green line suggests a bad association."
+r005,8456,8456,reflection,unsure,B,False,"At t the circle is on static white foil glints; long path from upper right suggests a far link, and a pink streak only passes near at t+2."
+r006,33549,33549,ember,unsure,A,False,"At t and t+1 the circle is on a bright white and pink falling streak; the path is short and sideways, so the track may have picked up the ember as it passed."
+r006,33549,33549,ember,sure,B,False,"Bright white to pink streak falls from the top through the centre at t and continues down; the track is on it at t-1, t and t+1."
+r007,11592,11592,reflection,sure,A,False,Track sits on a white foil fold in the water pan; ember streaks pass to the left but the tracked spot does not move.
+r007,11592,11592,reflection,sure,B,False,Circle stays on static white glints of crumpled foil; a red ember streak passes to the left but the track does not follow it.
+r008,52908,52908,codec_artifact,unsure,A,False,"Bottom edge of the frame on a dim surface; no bright object, static."
+r008,52908,52908,codec_artifact,unsure,B,False,Static dim region near a dark bar at the bottom frame border; no bright point.
+r009,16888,16888,codec_artifact,unsure,A,False,"Near the top edge at the border of a white panel and a gray box; scene is static, yet the path moves diagonally with nothing visible."
+r009,16888,16888,codec_artifact,unsure,B,False,Static junction of a white column and a gray panel near the top border; nothing bright or moving.
+r010,24310,24310,codec_artifact,unsure,A,False,Boundary between a gray wall and a white band near the top; nothing bright or moving.
+r010,24310,24310,codec_artifact,unsure,B,False,Static boundary between an olive wall and a pale band; nothing bright or moving.
+r011,43337,43337,reflection,unsure,A,False,Static glint at the end of a thin bright diagonal rod at the bottom edge of the frame; track stays in place.
+r011,43337,43337,reflection,unsure,B,False,Static faint lit edge of a diagonal metal bar at the bottom frame border; no motion.
+r012,58643,58643,codec_artifact,unsure,A,False,"Edge of a dark silhouette against a gray wall; no bright spot, static."
+r012,58643,58643,codec_artifact,unsure,B,False,Static edge of a large black silhouette against the wall; nothing bright or moving.
+r013,36867,36867,moving_non_ember,sure,A,False,Track is on a person's wrist and forearm; no glowing particle.
+r013,36867,36867,moving_non_ember,sure,B,False,Track sits on a person's wrist and forearm; no glowing particle.
+r014,57339,57339,codec_artifact,unsure,A,False,"Corner of a white panel on a wall; static, nothing bright at the track."
+r014,57339,57339,codec_artifact,unsure,B,False,Static spot at the corner of a gray framed panel on the wall; nothing bright or moving.
+r015,10575,10575,ember,unsure,A,False,"At t a pink and white falling streak passes right through the circle, but the track mostly sits on foil before and after, so it may be a foil track that grabbed the ember."
+r015,10575,10575,ember,unsure,B,False,"A thin pink-white streak falls vertically through the centre at t and the track is on it; before t the path ran over foil glints and after t it stays behind, so linkage is imperfect."
+r016,36601,36601,reflection,sure,A,False,Static bright white foil highlight in the pan; no motion.
+r016,36601,36601,reflection,sure,B,False,Static bright white glints on crumpled foil; track does not move with any particle.
+r017,67561,67561,codec_artifact,unsure,A,False,"Left edge of the frame on the rim of a dark blue object; faint and static, no glowing particle."
+r017,67561,67561,codec_artifact,unsure,B,False,Static spot on a dark blue object edge; no bright point and no motion.
+r018,15098,15098,codec_artifact,unsure,A,False,"Gray wall with a dark vertical seam; nothing bright, static."
+r018,15098,15098,codec_artifact,unsure,B,False,Static spot on a gray wall beside a dark vertical seam; nothing bright or moving.
+r019,55304,55304,codec_artifact,unsure,A,False,"Rim of a wall clock near the top of the frame; static object, no glow."
+r019,55304,55304,codec_artifact,unsure,B,False,Static spot on the dark rim of a wall clock; nothing bright or moving.
+r020,18606,18606,reflection,unsure,A,False,End of a shiny horizontal rail at the wall and floor boundary; static highlight.
+r020,18606,18606,reflection,unsure,B,False,Static highlight at the end of a metal rail against the wall; nothing moves.
+r021,6141,6141,reflection,unsure,A,False,"Circle on a white foil highlight; ember streaks appear to the right but not at the track, and the long green line looks like a bad link."
+r021,6141,6141,reflection,unsure,B,False,"At t the circle is on static white glints on the pan metal; the long straight path suggests a link from a far detection, but the zoom shows only static glints."
+r022,66927,66927,ember,sure,A,False,"Track follows a bright white streak falling from upper right to lower left across all frames, consistent motion."
+r022,66927,66927,ember,sure,B,False,Long bright white streak descends from upper right through the centre to lower left; the track follows it consistently.
+r023,4975,4975,reflection,unsure,A,False,Foil folds in a pan; track jitters in place with no glowing particle.
+r023,4975,4975,reflection,sure,B,False,Static highlights on crumpled foil in a pan under a bright lamp; no moving particle.
+r024,6304,6304,codec_artifact,unsure,A,False,"Edge of a saturated white band at the very top of the frame; static, nothing moving."
+r024,6304,6304,flame_glare_edge,unsure,B,False,Static edge of a saturated white region at the top border of the frame; nothing moves.
+r024,6304,6304,fixture_light,unsure,adjudicator,True,Static edge of a saturated white region at the top frame border. Nothing moves and there is no particle or fire nearby.
+r025,11938,11938,fixture_light,sure,A,False,Small static light ring or fitting on a green wall; track sits still on it.
+r025,11938,11938,reflection,unsure,B,False,"Static small pale ring, likely a bolt or fitting glint on a green panel; no motion across frames."
+r025,11938,11938,fixture_light,sure,adjudicator,True,Small static pale ring or fitting on a green panel. The track sits still on it in all five frames.
+r026,17249,17249,reflection,unsure,A,False,Static white glint on a gray horizontal pipe near the top of the frame.
+r026,17249,17249,reflection,unsure,B,False,Static white highlight on a gray bar against a bright background; does not move.
+r027,20861,20861,codec_artifact,unsure,A,False,"Pipe bracket on a white wall; static, no glow."
+r027,20861,20861,codec_artifact,unsure,B,False,Static dark bracket on a white wall; nothing bright or moving.
+r028,19222,19222,codec_artifact,unsure,A,False,Dim surface at the bottom edge of the frame; nothing bright or moving.
+r028,19222,19222,reflection,unsure,B,False,"Static dim spot on crumpled foil near the bottom frame border; faint tint only, no moving particle."
+r028,19222,19222,codec_artifact,unsure,adjudicator,True,"Dim crumpled surface near the bottom frame border. Only a faint tint shift at t-1, with no bright spot or moving particle at the track."
+r029,35886,35886,moving_non_ember,sure,A,False,Track is on a person's neck and blue shirt collar.
+r029,35886,35886,moving_non_ember,unsure,B,False,"Track sits on a person's chin and collar area; no bright particle, only slight body motion."
+r030,2079,2079,codec_artifact,unsure,A,False,"Edge of a saturated white band at the top of the frame; static, same kind of spot as other top edge tracks."
+r030,2079,2079,flame_glare_edge,unsure,B,False,Static edge of a saturated white region at the top border of the frame; track jitters in place.
+r030,2079,2079,fixture_light,unsure,adjudicator,True,Same static edge of the saturated white region at the top frame border as other top edge tracks. The track jitters in place.
+r031,21306,21306,codec_artifact,unsure,A,False,"Back of a chair beside a person's helmet; static, nothing glowing at the track."
+r031,21306,21306,reflection,unsure,B,False,Static highlight on a chair or metal frame bar; nothing moves at the track.
+r031,21306,21306,codec_artifact,unsure,adjudicator,True,Static spot on a chair back next to a helmeted person. No glint or glow at the track and nothing moves.
+r032,41429,41429,codec_artifact,unsure,A,False,"Dark area with a dull greenish beam; no bright spot, static."
+r032,41429,41429,codec_artifact,unsure,B,False,Static spot on a dim yellow-green diagonal band; no bright point and no motion.
+r033,33712,33712,ember,unsure,A,False,Red and white glowing blob at the track position at t-2 that fades by t+1 without moving much; looks ember-like but could be a glint of a passing ember.
+r033,33712,33712,faint_possible_ember,unsure,B,False,"Red-rimmed white spot bright at t-2, fading by t and gone at t+1, nearly stationary; could be a landed or slow ember or a brief glint."
+r033,33712,33712,ember,unsure,adjudicator,True,"Red rimmed white glowing blob, bright at t-2, that fades by t+1 while staying nearly in place. Looks like an ember that landed or is moving toward the camera."
+r034,67808,67808,codec_artifact,unsure,A,False,Dark area beside a steel column with a faint static curl; path moves but nothing visible moves.
+r034,67808,67808,codec_artifact,unsure,B,False,Dim static gray hook-shaped structure on a dark background; nothing bright or moving at the track.
+r035,59574,59574,ember,sure,A,False,Compact bright white particle moving steadily up and left across all five frames near the top of the frame.
+r035,59574,59574,ember,sure,B,False,Small bright white elongated particle moves steadily across the crop from lower right to upper left over five frames.
+r036,67848,67848,codec_artifact,unsure,A,False,Edge of a dark sign and post against a light wall; static.
+r036,67848,67848,codec_artifact,unsure,B,False,Static spot on the light wall beside a display stand; nothing bright or moving in any zoom frame.
+r037,54502,54502,reflection,unsure,A,False,Track sits on foil folds in a pan; pink ember streaks pass nearby at t-1 and t+1 but the tracked spot itself does not glow or move.
+r037,54502,54502,reflection,unsure,B,False,"Circle sits on crumpled foil in a pan; no moving bright particle at the track, only small glints that come and go. Red blurry objects pass at left but not on the track."
+r038,20375,20375,codec_artifact,unsure,A,False,"Dark, featureless patch with nothing bright in any frame; the track barely moves. No physical object visible."
+r038,20375,20375,codec_artifact,unsure,B,False,Dark area with blocky compression changes only. No visible object.
+r039,7832,7832,codec_artifact,unsure,A,False,The track sits still on the grey cabinet ledge with nothing bright at the centre. A white streak passes far to the left but the track does not follow it.
+r039,7832,7832,codec_artifact,unsure,B,False,"Static ledge with nothing at the circle. An ember streak passes in the upper left at t-2, but the track is not on it."
+r040,19198,19198,reflection,unsure,A,False,"A faint pale spot in a dark area near the metal frame stays in place across all 5 frames. Looks like a glint on a bolt or the frame, not a moving particle."
+r040,19198,19198,fixture_light,unsure,B,False,Small static white point in dark machinery. Possibly a glint.
+r040,19198,19198,reflection,unsure,adjudicator,True,Faint pale point in dark machinery that stays fixed in all five frames. Most likely a glint on a bolt or the frame.
+r041,69226,69226,moving_non_ember,sure,A,False,The track sits on the edge of a person's blue jacket against the wall. Nothing glowing.
+r041,69226,69226,moving_non_ember,sure,B,False,Edge of a person's blue jacket against the wall.
+r042,15739,15739,moving_non_ember,sure,A,False,The track sits on a person's shoulder or sleeve edge against a dark background. The red streak nearby is a separate detection.
+r042,15739,15739,moving_non_ember,sure,B,False,Shoulder of a person in a blue jacket.
+r043,7717,7717,codec_artifact,unsure,A,False,Static dark corner where the structure meets a bar. Nothing bright or moving at the centre.
+r043,7717,7717,codec_artifact,unsure,B,False,"Static dark bracket on a wall. Nothing glows at the circle, and the long path looks like a jump."
+r044,22336,22336,codec_artifact,unsure,A,False,"Faint speckles flicker in place beside a bright metal rail at frames -1 and 0. No consistent motion, so likely compression flicker or a glint on the metal texture."
+r044,22336,22336,faint_possible_ember,unsure,B,False,A tiny faint speck moves down-left across a bright metal rail from t-2 to t. It could also be a sparkle on the metal.
+r044,22336,22336,codec_artifact,unsure,adjudicator,True,Scattered faint white speckles flicker beside a bright metal rail at t-1 and t. There is no single coherent blob and no pink glow.
+r045,9761,9761,reflection,unsure,A,False,Static on the lit end of a diagonal metal rod at the ROI border. No moving particle.
+r045,9761,9761,reflection,unsure,B,False,Static highlight on a metal edge at the bottom frame border.
+r046,46943,46943,codec_artifact,unsure,A,False,Static at the lower-left corner of a red extinguisher against a beige wall. Nothing glowing or moving.
+r046,46943,46943,codec_artifact,unsure,B,False,Static edge of a red extinguisher-like cylinder. Not glowing.
+r047,15613,15613,codec_artifact,unsure,A,False,"Blurry, uniform greenish surface with no visible object in any frame. The track is nearly static."
+r047,15613,15613,codec_artifact,unsure,B,False,Smooth pale band with no object and no change.
+r048,17961,17961,codec_artifact,unsure,A,False,"Dark, featureless area with nothing bright. The track drifts only slightly."
+r048,17961,17961,codec_artifact,unsure,B,False,Dark area. Nothing visible even with contrast stretched.
+r049,51219,51219,codec_artifact,unsure,A,False,Static at the edge of a dark vertical pole against a light background. No particle visible.
+r049,51219,51219,codec_artifact,unsure,B,False,Static edge of a dark pole against a pale background.
+r050,32692,32692,codec_artifact,unsure,A,False,"Light grey textured area above the edge of a dark object. Nothing bright at the centre, and the track is nearly static."
+r050,32692,32692,codec_artifact,unsure,B,False,Static haze above a black silhouette. Nothing bright moves.
+r051,20490,20490,codec_artifact,unsure,A,False,Dim greyish area at the ROI bottom border with no bright particle. The track is nearly static.
+r051,20490,20490,codec_artifact,unsure,B,False,"Dark area at the bottom frame edge with a faint, static pink tint. No motion."
+r052,36267,36267,codec_artifact,unsure,A,False,Static along the edge of a dark hose on a light background. Nothing glowing.
+r052,36267,36267,codec_artifact,unsure,B,False,Static edge of a dark cable on a pale background.
+r053,71218,71218,moving_non_ember,sure,A,False,The track sits on a person's blue jacket chest. The red streaks at the right are separate detections.
+r053,71218,71218,moving_non_ember,sure,B,False,On a person's blue jacket. No glowing particle.
+r054,15203,15203,codec_artifact,unsure,A,False,"Static on a pale, blurry surface near a pole base and a dark spot. No bright particle."
+r054,15203,15203,codec_artifact,unsure,B,False,Static pale surface next to a dark bolt hole. Nothing bright.
+r055,13303,13303,codec_artifact,unsure,A,False,Static at a boundary between grey and dark regions with a crack line. Nothing glowing.
+r055,13303,13303,codec_artifact,unsure,B,False,Static edge of a dark crack or pole. No glow.
+r056,22661,22661,codec_artifact,unsure,A,False,Dark brownish area with no visible object. The track is nearly static.
+r056,22661,22661,codec_artifact,unsure,B,False,Dark area. Nothing visible even with contrast stretched.
+r057,70477,70477,reflection,sure,A,False,Bright crumpled foil and water in a pan with shifting highlights. The track jitters among the glints.
+r057,70477,70477,reflection,sure,B,False,Shimmering bright foil or water surface in a pan.
+r058,17711,17711,reflection,sure,A,False,A bright glint on a curved metal frame piece stays in place across all frames.
+r058,17711,17711,reflection,sure,B,False,A glint on the metal or foil edge that flickers in place.
+r059,48858,48858,ember,unsure,A,False,"At t the track sits on a bright white streak moving up and left among many similar streaks. Its earlier points sit lower left and do not follow the streak, so the track may be mixed."
+r059,48858,48858,ember,unsure,B,False,"A white streak passes through the centre at t, moving up-left among many embers. The green path direction does not match the streak well, so it may be a fragment."
+r060,31238,31238,codec_artifact,unsure,A,False,Static at the edge of a metal frame bar on a light background. Nothing bright.
+r060,31238,31238,codec_artifact,unsure,B,False,Static pale wall and dark poles. Nothing glows.
+r061,1303,1303,ember,sure,A,False,A bright white particle comes in as a streak from the upper right and slows near the centre. The track follows it along a consistent path.
+r061,1303,1303,ember,sure,B,False,A white glowing streak moves down-left into the centre and slows. A clear particle in flight.
+r062,21493,21493,codec_artifact,unsure,A,False,Static at the corner of a dark panel on a grey cabinet. No particle.
+r062,21493,21493,codec_artifact,unsure,B,False,Static corner of a dark panel. Nothing bright.
+r063,71612,71612,codec_artifact,unsure,A,False,Static at a dark metal frame joint next to bright bars. Nothing glowing or moving.
+r063,71612,71612,codec_artifact,unsure,B,False,"Dark gap between bright metal bracket bars. Static, with no change between frames."
+r064,25706,25706,faint_possible_ember,unsure,A,False,"A pink streak appears just above at -2, then a bright white-pink spot sits on the bar and fades. Could be an ember landing on the frame, or a glint on a bolt."
+r064,25706,25706,ember,unsure,B,False,"A pink particle arrives from the upper left at t-2, stops on the rail at the centre and dims through t+2. Looks like an ember landing, but it could be a glint on a bolt."
+r064,25706,25706,ember,unsure,adjudicator,True,"A pink particle arrives from the upper left at t-2 and stops on the rail. It glows white pink and dims through t+2, which looks like an ember landing."
+r065,69356,69356,codec_artifact,unsure,A,False,Static on the edge of a black silhouette against a light background. Nothing bright.
+r065,69356,69356,codec_artifact,unsure,B,False,Static edge of a black object against a pale wall. Nothing glows.
+r066,7878,7878,codec_artifact,unsure,A,False,Static on the edge of a dark silhouette against a light grey background. No particle.
+r066,7878,7878,codec_artifact,unsure,B,False,Static edge of a black silhouette against a pale background. No glow.
+r067,13484,13484,codec_artifact,unsure,A,False,At the ROI top border on a blurry grey wall. Nothing visible at the centre.
+r067,13484,13484,codec_artifact,unsure,B,False,"On the top frame border against a dull grey wall. Static, with nothing bright."
+r068,42087,42087,fixture_light,unsure,A,False,Sits still at a static white label on a grey cabinet. No moving particle.
+r068,42087,42087,fixture_light,unsure,B,False,Static white label or plate on a grey panel. Nothing glows or moves.
+r069,53173,53173,reflection,unsure,A,False,Static on the bright highlight of a horizontal metal rail where it meets a dark post.
+r069,53173,53173,reflection,unsure,B,False,Static highlight on a metal rail where it meets a dark post. No motion.
+r070,3292,3292,codec_artifact,unsure,A,False,The track sits still in a dark gap with no visible object. Bright red ember streaks pass to the left but are not followed.
+r070,3292,3292,reflection,unsure,B,False,"Faint orange-brown vertical glow on a dark post that does not move. Likely reflected fire light, not a particle."
+r070,3292,3292,codec_artifact,unsure,adjudicator,True,Track sits still on a dark post with only a faint brownish tint that is the same in all frames. Ember streaks pass to the left but are not followed.
+r071,32060,32060,codec_artifact,unsure,A,False,Static along the edge of a dark hose on a light background. Nothing glowing.
+r071,32060,32060,codec_artifact,unsure,B,False,Static edge of a dark cable on a pale background. Nothing glows.
+r072,42400,42400,ember,sure,A,False,A bright red-pink streak moves down through the centre from the top. The track path follows it consistently.
+r072,42400,42400,ember,sure,B,False,"A red-pink streak moves down along the green path through the centre at t-1 and t, then is gone."
+r073,72771,72771,fixture_light,unsure,A,False,Static at the ROI top border on a saturated white surface. No moving object.
+r073,72771,72771,fixture_light,unsure,B,False,Sits still on the top frame border at the edge of a saturated white area. Nothing moves.
+r074,9694,9694,duplicate_fragment,unsure,A,False,The track holds the upper end of a long bright streak while another detection sits on the main part of it. By t the streak has moved down left and the track centre is empty background.
+r074,9694,9694,ember,unsure,B,False,"A large pink-white streak crosses the centre at t-2 and t-1, moving down-left. By t it has left the crop, so the track lags behind the ember."
+r074,9694,9694,duplicate_fragment,unsure,adjudicator,True,The track holds the upper end of a large pink white streak while another detection sits on its main body. By t the streak has moved down left and the track is on empty background.
+r075,9459,9459,codec_artifact,unsure,A,False,Static on a greenish-grey panel with nothing bright at the centre.
+r075,9459,9459,codec_artifact,unsure,B,False,"Static green panel edge with nothing bright; even with contrast stretched, nothing changes between frames."
+r076,71488,71488,codec_artifact,unsure,A,False,Track sits still on a dull grey smudge in a dark area near the steel frame. Nothing bright or moving across the five frames.
+r076,71488,71488,codec_artifact,unsure,B,False,Dim gray smudge in a dark area. Nothing glowing or moving consistently.
+r077,60475,60475,reflection,sure,A,False,Static bright edge of a white diagonal steel bar at the bottom edge of the ROI. A glint on metal that does not move.
+r077,60475,60475,reflection,unsure,B,False,"Track sits at the end of a bright white diagonal rail edge at the ROI bottom, a static glint on metal."
+r078,45859,45859,codec_artifact,unsure,A,False,"Plain boundary between a grey and a white wall band. No object and no glow, and the crop does not change."
+r078,45859,45859,codec_artifact,unsure,B,False,Boundary between a wall and a white band. No bright particle along the diagonal path.
+r079,11771,11771,codec_artifact,unsure,A,False,"Track stays fixed on a light grey vertical post. A pink ember slides down the post and crosses the spot at t+1, but the track is static and shows no glow at t."
+r079,11771,11771,reflection,unsure,B,False,"Track stays still on a pale metal strip. A pink ember streak slides down through the spot at t+1, but the track does not follow it."
+r079,11771,11771,reflection,unsure,adjudicator,True,"Track stays fixed on a pale metal strip of a post. A pink ember slides down through the spot at t+1, but the track does not follow it."
+r080,10022,10022,codec_artifact,unsure,A,False,Static edge of a dark silhouette against a grey background. Nothing glowing and no motion.
+r080,10022,10022,codec_artifact,unsure,B,False,Edge of a dark silhouette against a gray background. Nothing glowing.
+r081,49179,49179,codec_artifact,unsure,A,False,"Pale floor area under a grey pillar. Nothing bright, and the crops are identical across frames."
+r081,49179,49179,codec_artifact,sure,B,False,"Base of a pillar where it meets a pale floor, static. No bright object."
+r082,43336,43336,reflection,unsure,A,False,"End of a lit diagonal metal bar at the ROI edge. Static highlight on metal, no particle."
+r082,43336,43336,codec_artifact,unsure,B,False,"Dark area with a dim diagonal rail edge at the ROI boundary, static. Nothing glowing."
+r082,43336,43336,reflection,unsure,adjudicator,True,Static highlight at the end of a lit diagonal metal bar at the ROI edge. No particle.
+r083,41816,41816,codec_artifact,unsure,A,False,Junction of dark hoses on a light floor. No bright object and no motion.
+r083,41816,41816,codec_artifact,unsure,B,False,Dark hoses on a light floor. The track runs along the hose with no glowing object.
+r084,30011,30011,fixture_light,unsure,A,False,"Static bright white object, probably clothing or equipment, beside a dark post. It does not move and it is not a glowing particle."
+r084,30011,30011,reflection,unsure,B,False,"Track sits at the edge of a large static white object, possibly foil or cloth, beside a dark post. Not a particle."
+r084,30011,30011,fixture_light,unsure,adjudicator,True,Track sits at the edge of a large static bright white object beside a dark post. Not a particle and nothing moves.
+r085,37169,37169,codec_artifact,unsure,A,False,"Dark spot between knobs on a grey control panel. Static, with nothing bright at the track position."
+r085,37169,37169,codec_artifact,sure,B,False,Track sits still on a gray control panel. The only bright knob is off-centre and nothing moves.
+r086,53397,53397,codec_artifact,unsure,A,False,"Edge of a black object against a pale green wall. Static, no glow."
+r086,53397,53397,codec_artifact,sure,B,False,Corner of a dark static object against a light background. No glow.
+r087,61460,61460,moving_non_ember,unsure,A,False,"Edge of a dark silhouette, likely a person's head, against a window frame. Nothing glowing."
+r087,61460,61460,moving_non_ember,unsure,B,False,"Track follows the edge of a dark silhouette, likely a person. Nothing glowing."
+r088,67480,67480,codec_artifact,unsure,A,False,"Dim area of a grey steel structure. Static, with no bright particle."
+r088,67480,67480,codec_artifact,unsure,B,False,Gray steel frame and debris texture. No bright particle at the track.
+r089,102,102,codec_artifact,unsure,A,False,"Small grey ledge under a dark mass near a person in a hard hat. Static, nothing glowing."
+r089,102,102,codec_artifact,unsure,B,False,"Edge of a dark object over a gray area, static. Nothing glowing."
+r090,23205,23205,codec_artifact,unsure,A,False,"Static dark smudge on a grey surface beside a dark post. Pink ember streaks appear elsewhere in the context, but none at the track."
+r090,23205,23205,codec_artifact,unsure,B,False,"Gray background next to a dark hose with a dark blob. Pink ember streaks are elsewhere in the context, not along this track."
+r091,69748,69748,codec_artifact,unsure,A,False,Wall with a vertical pipe. No bright spot and no motion.
+r091,69748,69748,codec_artifact,sure,B,False,"Wall and door frame, static. No bright object."
+r092,7827,7827,codec_artifact,unsure,A,False,Plain white tiled wall below a clock. No visible object.
+r092,7827,7827,codec_artifact,sure,B,False,Pale wall below a clock with a faint horizontal line. Nothing glowing.
+r093,15951,15951,codec_artifact,unsure,A,False,"Very dark area with a small dark hole. Static, nothing bright."
+r093,15951,15951,codec_artifact,sure,B,False,Very dark scene with a small dark blob. No glow anywhere near the track.
+r094,65422,65422,codec_artifact,unsure,A,False,"Edge of a dark post against a pale background with equipment. Static, no glow."
+r094,65422,65422,codec_artifact,unsure,B,False,Edge of a steel post and a dark object. Nothing bright at the centre.
+r095,51550,51550,ember,sure,A,False,"A bright white streak crosses the grey wall from right to upper left over the frames, moving steadily with motion blur. A firebrand in flight."
+r095,51550,51550,ember,sure,B,False,Bright white streak that moves consistently across frames t-1 to t+2 and passes through the centre at t.
+r096,1556,1556,codec_artifact,unsure,A,False,Dark spot on the edge of a person's dark clothing. Static. Pink ember streaks pass elsewhere in the context but not at the track.
+r096,1556,1556,codec_artifact,unsure,B,False,"Edge of a person's dark clothing against a light background; the track barely moves. Ember streaks appear elsewhere, not at the track."
+r097,51223,51223,codec_artifact,unsure,A,False,"Beige object edge above a dark blue bin at the left edge of the ROI. Static, nothing glowing."
+r097,51223,51223,codec_artifact,unsure,B,False,"At the image border, the top edge of a dark blue bin against a light background. Static, with nothing glowing."
+r098,53354,53354,codec_artifact,unsure,A,False,"Corner of a grey panel or cabinet. Static, no bright spot."
+r098,53354,53354,codec_artifact,sure,B,False,"Gray control panel and a dark edge, static. No glowing object."
+r099,19060,19060,codec_artifact,unsure,A,False,"Faint grey curved object in a dark region. Static, no glow."
+r099,19060,19060,codec_artifact,sure,B,False,Very dark scene with a dim curved object. Nothing bright at the track position.
+r100,5271,5271,codec_artifact,unsure,A,False,Edge of a dark shape against a grey and white background near a person in a hard hat. The crops do not change.
+r100,5271,5271,codec_artifact,unsure,B,False,Boundary between a dark area and a gray wall near a person's hard hat. No visible particle along the long diagonal path.
+r101,66083,66083,codec_artifact,unsure,A,False,"Dark hose lying on a light floor. Static, nothing bright."
+r101,66083,66083,codec_artifact,sure,B,False,"Dark hose edge on a light floor, static. Nothing glowing."
+r102,1580,1580,codec_artifact,unsure,A,False,"Track sits on an empty spot near a dark silhouette from t-2 to t. A pink ember streak enters the crop only at t+1 and t+2, and the track position does not follow it."
+r102,1580,1580,codec_artifact,unsure,B,False,"Centre is empty at t. Pink ember streaks cross the crop only at t+1 and t+2, and the track does not follow them consistently."
+r103,25550,25550,codec_artifact,unsure,A,False,"Pale wall next to the corner of a blue panel. Static, no glow."
+r103,25550,25550,codec_artifact,unsure,B,False,Pale wall next to a dark blue panel. No bright object at the centre in any frame.
+r104,40956,40956,codec_artifact,unsure,A,False,"Grey wall with a dark vertical seam. Static, nothing bright."
+r104,40956,40956,codec_artifact,unsure,B,False,Gray wall with a dark vertical crack. Nothing glowing; the track runs along the crack.
+r105,12042,12042,reflection,unsure,A,False,"Static lit horizontal bar of a window frame against dark glass. A light band, not a particle."
+r105,12042,12042,fixture_light,unsure,B,False,"Track sits still on a lit horizontal window bar, a static bright line with no moving particle."
+r105,12042,12042,fixture_light,unsure,adjudicator,True,"Track sits still on a lit horizontal window bar against dark glass. Static bright line, no particle."
+r106,58854,58854,codec_artifact,unsure,A,False,"Dim cluttered structure. Static, with no bright spot at the track."
+r106,58854,58854,codec_artifact,unsure,B,False,Dark region of the steel frame. No bright spot at the track position.
+r107,65224,65224,moving_non_ember,unsure,A,False,Fold on a person's blue jacket. The long path suggests it drifted with the person. Nothing glowing.
+r107,65224,65224,moving_non_ember,unsure,B,False,Track runs over the folds of a person's blue jacket. No glow at the centre.
+r108,49283,49283,codec_artifact,unsure,A,False,Dark slot in a grey metal structure at the bottom of the ROI. Static.
+r108,49283,49283,codec_artifact,unsure,B,False,Gray textured surface at the ROI bottom edge. No bright particle in any frame.
+r109,60284,60284,codec_artifact,unsure,A,False,"Faint grey blob beside a dark post in a dark region. Static, no glow."
+r109,60284,60284,codec_artifact,unsure,B,False,Dark area beside a post with a dim gray smudge. Nothing glowing and nothing moving.
+r110,78,78,codec_artifact,unsure,A,False,"Track holds still on the edge of a grey rounded object. A large pink ember passes nearby at t-2 and t-1, but the track does not follow it and nothing glows at t."
+r110,78,78,moving_non_ember,unsure,B,False,"Track sits on the gray edge of a person's head. A pink ember streak passes to the right in early frames, but the track does not follow it."
+r110,78,78,codec_artifact,unsure,adjudicator,True,"Track holds still on the grey edge of a rounded object, likely a person's head or helmet. A pink ember passes to the right early on, but the track does not follow it and nothing glows at t."
+r111,53912,53912,codec_artifact,unsure,A,False,"Corner where a grey wall meets a dark area. Static, nothing bright."
+r111,53912,53912,codec_artifact,unsure,B,False,"Gray wall above a dark opening, faint haze at lower left. No bright object at the track position."
+r112,20744,20744,codec_artifact,unsure,A,False,"Corner of a dark steel frame against a pale background. Static, no glow."
+r112,20744,20744,codec_artifact,unsure,B,False,"Dark steel column edge against a light background. No glowing particle, and nothing moves along the diagonal path."
+r113,49452,49452,codec_artifact,unsure,A,False,Pale wall or glass with a faint horizontal line. No object and no motion.
+r113,49452,49452,codec_artifact,unsure,B,False,Centre is a plain horizontal rail on a pale background; nothing bright or moving in any frame.
+r114,1400,1400,codec_artifact,unsure,A,False,"A red ember streak passes beside the centre at t-1, but at t the centre holds only a faint pink smear on foil with no distinct particle. Looks like residual blur left by the passing ember."
+r114,1400,1400,faint_possible_ember,unsure,B,False,"A bright pink streak crossed this spot at t-1; at t only a faint pink smear remains and the track barely moves, so it may be the ember tail or codec residue."
+r114,1400,1400,codec_artifact,unsure,adjudicator,True,"A bright pink streak crosses this spot at t-1. At t only a faint pink smear remains on the foil and the track barely moves, so this looks like residue left by the passing ember."
+r115,65795,65795,codec_artifact,unsure,A,False,Static pale concrete column edge near the top of the frame. Nothing bright or moving at the centre.
+r115,65795,65795,codec_artifact,unsure,B,False,Static on a wall beside a gray box edge; nothing bright or moving.
+r116,21782,21782,reflection,sure,A,False,Small static white glint on the edge of a steel beam against a dark background. It does not move across the frames.
+r116,21782,21782,reflection,unsure,B,False,Small white spot on the edge of a dark metal rail that does not move across frames; glint or fixed bright spot.
+r117,53271,53271,reflection,unsure,A,False,Static light patch on crinkled foil in a pan. No moving bright particle.
+r117,53271,53271,reflection,sure,B,False,Track sits still on a pale highlight on the foil in a water pan.
+r118,23735,23735,codec_artifact,unsure,A,False,"Plain pale floor with nothing visible at the centre in any frame, even though the path runs toward a person's hand."
+r118,23735,23735,codec_artifact,unsure,B,False,"Static in a hazy gray area near a person's hand; crops show only smooth haze, no object."
+r119,37261,37261,reflection,unsure,A,False,Static light grey edge on a dark metal object. No glowing particle.
+r119,37261,37261,reflection,unsure,B,False,Static on a dim metal bar highlight in a dark area; no glow or motion.
+r120,61169,61169,codec_artifact,unsure,A,False,Static wall beside a dark box at the top edge of the frame. Nothing bright at the centre.
+r120,61169,61169,codec_artifact,unsure,B,False,Static near the corner of a dark box on a wall at the top of the frame.
+r121,60348,60348,codec_artifact,unsure,A,False,Static foil surface with a dark crease at the bottom edge of the frame. No bright object.
+r121,60348,60348,codec_artifact,unsure,B,False,Static on dark metal near the frame bottom edge; nothing glowing.
+r122,60611,60611,codec_artifact,unsure,A,False,Static wall below a dark window. Nothing visible at the centre despite the short path.
+r122,60611,60611,codec_artifact,unsure,B,False,Static on a wall just below a dark window; no bright object.
+r123,22845,22845,codec_artifact,unsure,A,False,Static dark rod or hose against a pale floor. Nothing bright.
+r123,22845,22845,codec_artifact,unsure,B,False,Static on a dark vertical hose or cord against a gray background.
+r124,16868,16868,fixture_light,unsure,A,False,Static bright gap in a grey bar against an overexposed white background in the frame corner. It does not move.
+r124,16868,16868,codec_artifact,unsure,B,False,Static on a gray bar in an overexposed white area at the left frame edge; nothing glowing.
+r124,16868,16868,fixture_light,unsure,adjudicator,True,Static bright gap in a grey bar against an overexposed white background at the left frame edge. Nothing glows or moves.
+r125,15304,15304,moving_non_ember,sure,A,False,Pale edge at the collar of a person in a blue jacket. The path follows the person's slight movement.
+r125,15304,15304,moving_non_ember,sure,B,False,Track follows a pale fold on a person's blue jacket shoulder.
+r126,69390,69390,moving_non_ember,sure,A,False,"Fold on a person's dark blue jacket. The path follows body movement, and nothing glows."
+r126,69390,69390,moving_non_ember,sure,B,False,"Track is on the blue jacket of a person; path follows the body, nothing glowing."
+r127,24287,24287,codec_artifact,unsure,A,False,Dark static region at the bottom edge of the frame near the steel frame. No bright object.
+r127,24287,24287,codec_artifact,unsure,B,False,Dark metal area near the frame bottom edge; no bright object at the centre and track stays put.
+r128,21480,21480,reflection,unsure,A,False,Static light edge of a metal latch or handle on the wall.
+r128,21480,21480,reflection,unsure,B,False,Static on the pale end of a metal pipe fitting on a wall; no glow or motion.
+r129,69659,69659,codec_artifact,unsure,A,False,Static edge between a dark silhouette and the pale background. Nothing bright or moving.
+r129,69659,69659,codec_artifact,unsure,B,False,Static on the edge of a dark silhouette against a gray background; nothing glowing.
+r130,64512,64512,codec_artifact,unsure,A,False,Static dark hose on a pale floor. No bright object.
+r130,64512,64512,codec_artifact,unsure,B,False,Static on a dark pipe against a light background; no bright object.
+r131,72020,72020,reflection,unsure,A,False,"Small white glint on crinkled foil at the centre. Red ember streaks pass nearby, but the track sits on the foil highlight."
+r131,72020,72020,reflection,unsure,B,False,Track stays on a white glint at the foil and frame edge; pink ember streaks pass to the right but the circle does not follow them.
+r132,27832,27832,codec_artifact,unsure,A,False,Static edge of a dark silhouette against a pale background. Nothing bright.
+r132,27832,27832,codec_artifact,unsure,B,False,Static on the edge of a dark silhouette against gray haze; nothing glowing.
+r133,59776,59776,ember,unsure,A,False,"A pink glowing firebrand streak crosses the centre at t among several flying embers. The track's path is short, so the association across frames is weak."
+r133,59776,59776,ember,sure,B,False,"Pink streak passes horizontally through the centre at t during a dense shower, then shows further left at t+1."
+r134,40889,40889,codec_artifact,unsure,A,False,Static pale wall boundary near the top of the frame. Nothing visible at the centre.
+r134,40889,40889,codec_artifact,unsure,B,False,Static on the boundary between a bright wall and a gray area; no object visible in the crops.
+r135,65095,65095,ember,unsure,A,False,"A pale streak appears at the bottom at t-1 and crosses the centre at t, consistent with the path. It is gone by t+1. Pale rather than orange."
+r135,65095,65095,ember,unsure,B,False,"Pale thin streak crosses the crop at t-1 and t, consistent with the diagonal path; colour is whitish rather than orange, so not certain."
+r136,39004,39004,codec_artifact,unsure,A,False,Static grey wall or box corner next to a control panel. Nothing bright at the centre.
+r136,39004,39004,codec_artifact,unsure,B,False,"Static at the dark corner of a control panel frame; indicator lights are off to the side, not at the track."
+r137,67604,67604,ember,sure,A,False,"A bright red-pink ember streak moves down through the centre at t, following the green path."
+r137,67604,67604,ember,sure,B,False,"Pink streak travels down along the green path, centred at t and lower at t+1."
+r138,22838,22838,codec_artifact,unsure,A,False,Static edge of a dark silhouette against a pale background. No bright object.
+r138,22838,22838,codec_artifact,unsure,B,False,"Static on the edge of a dark silhouette against gray haze; many detections line the edge, nothing glowing."
+r139,30980,30980,fixture_light,unsure,A,False,Static bright edge of a grey bar against an overexposed white background at the top of the frame.
+r139,30980,30980,codec_artifact,unsure,B,False,Static on a gray bar near a wall clock on a bright background; nothing glowing.
+r139,30980,30980,fixture_light,unsure,adjudicator,True,Static bright edge of a grey bar against an overexposed white background near a wall clock. Nothing glows or moves.
+r140,39132,39132,codec_artifact,unsure,A,False,Dark static region with no visible bright spot.
+r140,39132,39132,codec_artifact,unsure,B,False,Dark area with no visible object at the centre; track stays in place.
+r141,39199,39199,moving_non_ember,unsure,A,False,Edge of a person's dark clothing against a pale background. Nothing glows.
+r141,39199,39199,codec_artifact,unsure,B,False,Static spot on the edge of a dark clothing or object silhouette against a light background; no glow.
+r141,39199,39199,codec_artifact,unsure,adjudicator,True,Static spot on the edge of a person's dark clothing against a pale background. No glow and no motion at the track.
+r142,53375,53375,codec_artifact,unsure,A,False,Static wall corner above a dark box at the top of the frame. Nothing visible at the centre despite a long path.
+r142,53375,53375,codec_artifact,unsure,B,False,Track sits at the corner of a dark box near the frame top; crops show nothing bright or moving despite the long path.
+r143,54043,54043,codec_artifact,unsure,A,False,Static dark cable on a pale floor. No bright object.
+r143,54043,54043,codec_artifact,unsure,B,False,Static on the edge of a dark cable against a light background; no bright object.
+r144,45376,45376,codec_artifact,unsure,A,False,Dark static strip at the very top edge of the frame. Nothing bright.
+r144,45376,45376,codec_artifact,unsure,B,False,"At the top edge of the frame on a dark bar; nothing bright, nothing moves."
+r145,52061,52061,reflection,unsure,A,False,Static pale curved hose or tube on the metal frame. No moving particle.
+r145,52061,52061,reflection,unsure,B,False,Static spot on the pale highlight of a curved pipe; no glow or motion.
+r146,13831,13831,codec_artifact,unsure,A,False,Static metal bracket on a pale wall. Nothing glowing or moving.
+r146,13831,13831,codec_artifact,unsure,B,False,Static spot at the end of a dark metal fitting on a bright wall; nothing glows or moves.
+r147,37476,37476,codec_artifact,unsure,A,False,Dark static scene with no visible bright spot at the centre.
+r147,37476,37476,codec_artifact,unsure,B,False,Dark region with no visible bright object at the centre in any frame; track sits still.
+r148,9613,9613,ember,sure,A,False,"A red ember streak comes down along the green path, reaches the centre at t, then breaks into bright pink fragments on the foil."
+r148,9613,9613,ember,sure,B,False,"Large pink falling streak follows the long vertical green path and reaches the circle at t, then glowing pieces show near the pan edge."
+r149,29929,29929,ember,unsure,A,False,"A pink ember streak passes through the centre at t-1 and t, moving down. The earlier track points sit near a white beam edge."
+r149,29929,29929,ember,sure,B,False,"Bright pink streak crosses the crop at t-1 and t, moving down past the metal edge; the track sits on it."
+r150,14166,14166,reflection,unsure,A,False,Faint static whitish spots in a dark area that stay in place across all frames.
+r150,14166,14166,fixture_light,unsure,B,False,"Small faint whitish spot in a dark area that stays in the same place in all five frames; static spot, not a moving particle."
+r150,14166,14166,reflection,unsure,adjudicator,True,"Small faint whitish spot in a dark area that stays in the same place in all five frames. Likely a glint, not a moving particle."
+r151,69689,69689,reflection,sure,A,False,Static highlight on crinkled foil in a pan. It does not move.
+r151,69689,69689,reflection,sure,B,False,"Track sits still on the crumpled foil in a water pan; nothing glows, only a foil highlight."
+r152,57374,57374,moving_non_ember,unsure,A,False,Circle sits on the edge of a person's dark clothing against grey background; nothing glowing at the centre at t. Ember streaks pass to the right in later frames but the track is not on them.
+r152,57374,57374,moving_non_ember,unsure,B,False,Static edge of a person's clothing against the wall with many edge detections. Pink ember streaks to the right are separate tracks.
+r153,10186,10186,faint_possible_ember,unsure,A,False,"Soft pinkish blob shows for two frames over a pan surface, then gone. Blocky, could be a blurred ember or its reflection on the pan."
+r153,10186,10186,faint_possible_ember,unsure,B,False,"Translucent pink haze moves up and right across the pan corner in frames t-1 and t, matching the path. Possibly an out-of-focus ember close to the camera or its reflection."
+r154,42199,42199,codec_artifact,unsure,A,False,Grey smoky wall with no bright object. Track jitters on flat texture.
+r154,42199,42199,codec_artifact,unsure,B,False,Gray wall with static smudges next to a black silhouette; nothing glowing.
+r155,15487,15487,ember,sure,A,False,Bright white round particle moving steadily down and right across all five frames on a dark background.
+r155,15487,15487,ember,sure,B,False,Bright white round particle moves steadily downward across all five frames in front of a person's dark clothing.
+r156,6893,6893,faint_possible_ember,unsure,A,False,"Small pale spot moves steadily downward for three frames, then leaves the frame edge. Faint and whitish, not clearly glowing."
+r156,6893,6893,ember,sure,B,False,"Small bright white blob moves steadily down and left over three frames, then leaves the bottom of the frame."
+r156,6893,6893,ember,unsure,adjudicator,True,"Small pale elongated spot moves steadily down and to the left over three frames, then leaves past the bottom frame edge. Not pink, but it moves consistently like a particle in flight."
+r157,49262,49262,codec_artifact,unsure,A,False,Flat grey floor or smoke with no bright object; track sits in place.
+r157,49262,49262,codec_artifact,unsure,B,False,Faint gray floor area with nothing bright; static.
+r158,14655,14655,codec_artifact,unsure,A,False,Static metal plate surface with no visible glow or moving object at the centre.
+r158,14655,14655,reflection,unsure,B,False,Static spot on a gray metal pan surface; no glow or motion.
+r158,14655,14655,codec_artifact,unsure,adjudicator,True,"Static spot on a grey metal pan surface. No glint, glow or motion at the track."
+r159,15084,15084,reflection,unsure,A,False,Static light highlight on blue plastic or fabric; no movement or glow.
+r159,15084,15084,reflection,unsure,B,False,Pale blurry highlight on a blue bin near the left edge; static.
+r160,22029,22029,reflection,unsure,A,False,"At t the circle is on a pale static metal patch. A pink ember enters from the top only at t+1, not at the track position."
+r160,22029,22029,unclear,unsure,B,False,Long straight path from the top ends on gray metal where nothing is visible at t. A pink ember travels the same line only later and passes slightly right of the circle.
+r160,22029,22029,reflection,unsure,adjudicator,True,At t the circle sits on a pale static metal patch where nothing glows. A pink ember travels the same line only at t+1 and t+2 and passes slightly to the right.
+r161,59242,59242,codec_artifact,unsure,A,False,Dull grey-green floor with a dark smudge; nothing bright.
+r161,59242,59242,codec_artifact,unsure,B,False,Static dark smudge on a gray-green surface; no glow.
+r162,23867,23867,ember,unsure,A,False,Small white spot drifts slowly upward over three frames beside a dark object. At t+1 the track jumps onto a passing streak. Could also be a glint.
+r162,23867,23867,reflection,unsure,B,False,"Small white glint on a dark object that drifts slowly with that object, alongside similar glints. A real ember streak passes later but is a separate detection."
+r162,23867,23867,ember,unsure,adjudicator,True,"Compact white spot rises steadily over five frames while the dark object behind it stays still, so it is moving on its own. At t+1 a separate pink streak crosses nearby. A glint is still possible."
+r163,30848,30848,codec_artifact,unsure,A,False,Blurry brownish smoke or floor with no bright object.
+r163,30848,30848,codec_artifact,unsure,B,False,Dim brownish area with no visible object; short vertical jitter.
+r164,53798,53798,codec_artifact,unsure,A,False,"Dark diagonal shadow edge with no visible bright object, although the path drifts upward."
+r164,53798,53798,codec_artifact,unsure,B,False,Dark region with a faint gray edge; the curved path follows no visible object.
+r165,5092,5092,codec_artifact,unsure,A,False,Grey floor with a dark smudge; nothing bright; track jitters in place.
+r165,5092,5092,codec_artifact,unsure,B,False,Static dark smudge on a gray wall; nothing glowing.
+r166,49568,49568,codec_artifact,unsure,A,False,"Static dark square opening on a white wall; no glow, track jitters on its edge."
+r166,49568,49568,codec_artifact,unsure,B,False,"Top edge of a dark box with a round hole in a wall at the frame top; static, not bright."
+r167,57486,57486,codec_artifact,unsure,A,False,Static dark cable over grey surface; nothing bright.
+r167,57486,57486,codec_artifact,unsure,B,False,Static dark cable against a pale surface near the image edge; no glow.
+r168,11175,11175,fixture_light,unsure,A,False,Static pale lamp-lit band on a dark structure; track creeps along it with no moving glow.
+r168,11175,11175,codec_artifact,unsure,B,False,Track creeps along a pale diagonal band on a dark background; no distinct bright object.
+r168,11175,11175,fixture_light,unsure,adjudicator,True,Track creeps slowly along a static pale lit band on a dark structure. No moving glow.
+r169,64072,64072,reflection,sure,A,False,Static bright crinkle highlights on foil in a pan.
+r169,64072,64072,reflection,sure,B,False,Static glint on foil in a water pan; pink embers appear elsewhere in later frames.
+r170,69623,69623,codec_artifact,unsure,A,False,Grey wall with a dark smoke smudge; no bright object at the centre.
+r170,69623,69623,codec_artifact,unsure,B,False,Pale wall with static gray smudges; the horizontal path follows no visible object.
+r171,70357,70357,moving_non_ember,sure,A,False,White band on a person's blue sleeve; track follows the clothing.
+r171,70357,70357,moving_non_ember,sure,B,False,"End of a white band on a person's blue sleeve; moves with the person, no glow."
+r172,48590,48590,moving_non_ember,unsure,A,False,"Circle on the edge of a grey rounded object, likely a person's head or hood, against blue. Embers pass nearby but not at the track."
+r172,48590,48590,moving_non_ember,unsure,B,False,Edge of a gray rounded object (person or equipment) against a blue background; static. Ember streaks nearby are separate tracks.
+r173,62245,62245,codec_artifact,unsure,A,False,Static grey wall and column; nothing bright at the centre.
+r173,62245,62245,codec_artifact,unsure,B,False,Gray wall and vertical structure; nothing bright or moving at the track.
+r174,64532,64532,reflection,sure,A,False,"Small static white glint on the end of a steel frame bar, unchanged in all frames."
+r174,64532,64532,reflection,sure,B,False,Small static white glint on a steel frame bar; identical in all frames.
+r175,47831,47831,moving_non_ember,unsure,A,False,Circle sits in grey background beside a person's dark arm. Ember streaks pass at the left but the track is not on them.
+r175,47831,47831,moving_non_ember,unsure,B,False,Track stays on the edge of a person's dark clothing. Pink ember streaks pass to the left and are tracked separately.
+r176,54297,54297,codec_artifact,unsure,A,False,Static edge of a dark silhouette against grey; nothing bright.
+r176,54297,54297,moving_non_ember,unsure,B,False,"Edge of a dark silhouette (person or equipment) against a gray background; static, no glow."
+r176,54297,54297,codec_artifact,unsure,adjudicator,True,"Static spot on the edge of a dark silhouette, possibly a person, against a grey background. Nothing bright and nothing moves."
+r177,11398,11398,codec_artifact,unsure,A,False,Murky dark green-brown area with no bright object.
+r177,11398,11398,codec_artifact,unsure,B,False,"Dim, blurry, static area with nothing bright visible."
+r178,16726,16726,reflection,sure,A,False,Static crinkled foil highlights in a pan.
+r178,16726,16726,reflection,sure,B,False,Crumpled foil in a water pan; static bright texture with many other detections nearby.
+r179,69734,69734,faint_possible_ember,unsure,A,False,"Faint pale vertical streak crosses the centre at t only, with a similar streak lower in the frame before. Too faint to confirm."
+r179,69734,69734,faint_possible_ember,unsure,B,False,Faint pale vertical streak crosses the centre only in frame t; the rest of the track sits on a static background.
+r180,41494,41494,moving_non_ember,unsure,A,False,Dark blue clothing of a person; no glow at the centre.
+r180,41494,41494,moving_non_ember,unsure,B,False,"Dark blue clothing of a person; no bright object, track static."
+r181,67282,67282,moving_non_ember,unsure,A,False,"At the frame edge on a pale pinkish shape, likely a person's arm, by a dark bar. Static, not glowing."
+r181,67282,67282,moving_non_ember,unsure,B,False,"Dark rod next to a pinkish arm or hand at the left image edge; static, no glow."
+r182,61503,61503,codec_artifact,unsure,A,False,Static vertical steel posts; nothing bright at the centre.
+r182,61503,61503,codec_artifact,unsure,B,False,Static spot on gray vertical frame members; nothing bright or moving.
+r183,58378,58378,fixture_light,unsure,A,False,Static bright white paper on a table; track sits at its edge.
+r183,58378,58378,fixture_light,unsure,B,False,Static edge of white paper lying on a table; bright but not moving and not glowing.
+r184,39130,39130,codec_artifact,unsure,A,False,Dark murky area with no visible bright object.
+r184,39130,39130,codec_artifact,unsure,B,False,Dark area with no visible object in any zoom frame; the short path looks like noise.
+r185,43838,43838,moving_non_ember,sure,A,False,Person's blue shirt and pocket shadow; no glow.
+r185,43838,43838,moving_non_ember,unsure,B,False,"Track sits on a fold of a person's blue clothing; no glow, nearly static."
+r186,8942,8942,reflection,unsure,A,False,"Small white spot on the edge of a steel post that brightens while a large ember passes, then dims while barely moving. Likely a glint, possibly a small settled ember."
+r186,8942,8942,reflection,unsure,B,False,"Small white spot on the edge of the frame beam. It brightens while a large pink out-of-focus ember passes, then fades. Likely a glint, though possibly an ember sitting on the beam."
+r187,33625,33625,codec_artifact,unsure,A,False,Static steel frame junction; dark grey centre with no glow.
+r187,33625,33625,codec_artifact,unsure,B,False,"Track drifts along a dark steel beam, but no bright object is visible in any zoom frame."
+r188,12657,12657,reflection,sure,A,False,Static white glint on a metal pan rim.
+r188,12657,12657,reflection,sure,B,False,Static white highlight on the metal pan rim; the crop is identical in all five frames.
+r189,49074,49074,reflection,sure,A,False,Static foil highlight at a pan edge.
+r189,49074,49074,reflection,sure,B,False,Static bright spot on the foil rim of a water pan; nothing moves across frames.
+r190,12344,12344,codec_artifact,unsure,A,False,Pale bluish surface beside a dark pole; nothing bright or moving at the track position in any frame.
+r190,12344,12344,reflection,unsure,B,False,Static spot at the edge of a dark rod against a bright water or foil surface.
+r190,12344,12344,reflection,unsure,adjudicator,True,Static spot on a pale bluish water or foil surface beside a dark rod. No particle in any frame.
+r191,40159,40159,fixture_light,unsure,A,False,"Track sits still on a small dark static spot on the wall; not glowing, does not move. Static spot, not an ember."
+r191,40159,40159,codec_artifact,unsure,B,False,Track sits on a static small dark spot on the wall; nothing glowing.
+r191,40159,40159,codec_artifact,unsure,adjudicator,True,"Track sits on a small static dark spot on the wall. Nothing bright or glowing, so it is not a light or an ember."
+r192,58618,58618,codec_artifact,unsure,A,False,"Dark shaded area under the steel frame; no bright object at the track position, only faint texture."
+r192,58618,58618,codec_artifact,unsure,B,False,Dark pan interior with no visible bright object; nothing moving.
+r193,10271,10271,codec_artifact,unsure,A,False,Flat pale surface near the edge of a curved object; nothing bright or moving.
+r193,10271,10271,codec_artifact,unsure,B,False,Static edge of a curved pale object; nothing bright or moving.
+r194,11428,11428,codec_artifact,unsure,A,False,"Static boundary between olive wall and white surface; no bright spot, nothing moving."
+r194,11428,11428,codec_artifact,unsure,B,False,Static boundary between wall and white surface; nothing visible.
+r195,72856,72856,moving_non_ember,sure,A,False,"Edge of a person's dark trouser leg against a light background, with a pale highlight along the edge. No ember."
+r195,72856,72856,moving_non_ember,unsure,B,False,Track on the outline of a person's dark trouser leg with a faint light rim; no ember.
+r196,20736,20736,moving_non_ember,unsure,A,False,Edge of dark navy clothing of a person next to a dark bar; no bright particle at the track.
+r196,20736,20736,moving_non_ember,unsure,B,False,Track on the edge of a person's dark clothing against the background; no bright object.
+r197,22610,22610,codec_artifact,unsure,A,False,Pale surface with a static dark smudge; nothing bright or moving.
+r197,22610,22610,codec_artifact,unsure,B,False,Static grey smudges on a pale wall; nothing glowing.
+r198,3205,3205,codec_artifact,unsure,A,False,"Dark, low contrast scene; track sits on a dim patch with no glowing object."
+r198,3205,3205,codec_artifact,unsure,B,False,Dark scene; green path moves but no visible bright object in any crop.
+r199,37537,37537,codec_artifact,unsure,A,False,Static edge of a pale post against a grey panel; no bright particle.
+r199,37537,37537,codec_artifact,unsure,B,False,Static grey panel corner; nothing bright or moving.
+r200,24639,24639,fixture_light,unsure,A,False,"Track stays on a static dark spot on a dark wall; real embers pass elsewhere in the context but not at the track. Static spot, not an ember."
+r200,24639,24639,codec_artifact,unsure,B,False,Track sits on a static dark spot in a dark area; real ember streaks move nearby but not through the circle.
+r200,24639,24639,codec_artifact,unsure,adjudicator,True,Track sits on a static dark spot in a dark area. Real ember streaks pass nearby but not through the circle.
+r201,9770,9770,fixture_light,unsure,A,False,Static pale fitting above a white bracket on a grey panel; does not move across frames.
+r201,9770,9770,fixture_light,unsure,B,False,Track sits still on top of a static white rectangular object on a grey panel.
+r202,47887,47887,codec_artifact,unsure,A,False,"Grey surface next to a dark beam edge; faint smudge only, nothing glowing."
+r202,47887,47887,codec_artifact,unsure,B,False,Static corner between a dark beam and grey background; nothing visible.
+r203,62191,62191,reflection,unsure,A,False,"Track sits on crumpled foil or fuel folds in a pan next to a bright foil area; brightness flickers in place. Pink embers fall elsewhere, not followed by this track."
+r203,62191,62191,faint_possible_ember,unsure,B,False,"Cluttered foil and fuel area; light patches shift and a pink vertical streak appears below centre at t+1, possibly a falling ember but foil glints are also likely."
+r203,62191,62191,reflection,unsure,adjudicator,True,"Track sits on crumpled foil or fuel folds next to a bright foil area, and the brightness flickers in place. A pink streak below centre at t+1 is not the tracked object."
+r204,2025,2025,fixture_light,unsure,A,False,Tip of a static dark elongated mark on a pale surface; not glowing and not moving.
+r204,2025,2025,codec_artifact,unsure,B,False,Track sits on the tip of a static dark smudge on a pale surface; nothing bright.
+r204,2025,2025,codec_artifact,unsure,adjudicator,True,Track sits on the tip of a static dark smudge on a pale surface. Nothing bright and no motion.
+r205,58583,58583,codec_artifact,unsure,A,False,"Dark area with faint static pale speckles; nothing bright at the track. A pink ember appears at the top of the context only later, not on the track."
+r205,58583,58583,codec_artifact,unsure,B,False,Dark static area with faint grey speckle; no glowing or moving object at the track.
+r206,2414,2414,moving_non_ember,unsure,A,False,Track on the sleeve or body edge of a person in dark blue clothing; embers pass elsewhere in the context.
+r206,2414,2414,moving_non_ember,unsure,B,False,Track sits on a person's dark blue jacket; embers fly nearby but not at the circle.
+r207,31409,31409,reflection,unsure,A,False,"Static rim edge of a water pan with pale foil above it; no particle, track stays in place."
+r207,31409,31409,reflection,unsure,B,False,Static bright edge of a water pan or foil surface; nothing moves.
+r208,24442,24442,reflection,sure,A,False,Static thin bright highlight along a dark metal pole; track sits on the top end of the highlight.
+r208,24442,24442,reflection,unsure,B,False,Static pale metal rod at the image edge; no motion.
+r209,32216,32216,reflection,unsure,A,False,"Edge of a bright white block, likely foil or lit surface, on the steel frame; static across frames."
+r209,32216,32216,reflection,unsure,B,False,Static bright white block (likely foil or metal) on the frame; track sits on its top edge.
+r210,56333,56333,codec_artifact,unsure,A,False,Track stays on a pale column edge with nothing bright at the center; embers pass nearby but the track does not follow them.
+r210,56333,56333,codec_artifact,unsure,B,False,Track stays on a static grey panel edge; nearby moving white particles do not pass through the circle.
+r211,32827,32827,codec_artifact,unsure,A,False,Dark region below a pale strip on a dark metal structure; nothing bright at the track.
+r211,32827,32827,codec_artifact,unsure,B,False,Dark static area below a bright metal strip; nothing at the track position.
+r212,41581,41581,ember,sure,A,False,"Bright pink streak falling downward through the center, consistent with the green path from above."
+r212,41581,41581,ember,sure,B,False,Long pink glowing streak falling through the crop; track follows it along the green path.
+r213,1513,1513,ember,sure,A,False,Pink glowing streak moving down across the frame and through the track position along the green path.
+r213,1513,1513,ember,unsure,B,False,"Track follows the path of a pink ember streak falling through the crop, though at t the streak is mostly above the circle."
+r214,65905,65905,reflection,sure,A,False,Static white glint on the edge of a steel frame member; does not move.
+r214,65905,65905,reflection,sure,B,False,Static white glint on the edge of a metal tray; does not move.
+r215,53450,53450,ember,sure,A,False,"Bright white particle moving steadily downward in front of a still forearm, frame to frame along the path."
+r215,53450,53450,ember,sure,B,False,"Bright white blob moves steadily downward across all five frames in front of a person's arm, consistent with a falling ember."
+r216,24303,24303,codec_artifact,unsure,A,False,Static olive wall and white surface boundary; nothing bright at the track.
+r216,24303,24303,codec_artifact,unsure,B,False,Static boundary between wall and white surface; nothing visible moving.
+r217,46884,46884,codec_artifact,unsure,A,False,Dark low contrast region with a dim spot; no glowing object.
+r217,46884,46884,codec_artifact,unsure,B,False,Dark featureless area; no visible object at the track position.
+r218,69200,69200,codec_artifact,unsure,A,False,Corner of a static white panel frame; nothing bright or moving.
+r218,69200,69200,codec_artifact,unsure,B,False,Static corner of a box frame against the wall; nothing bright or moving.
+r219,10769,10769,faint_possible_ember,unsure,A,False,A faint pale particle rises from a bright spot below into the center over two frames and fades; could be a small ember or a moving glint.
+r219,10769,10769,faint_possible_ember,unsure,B,False,"A whitish streak moves upward through the crop over frames t-2 to t, fading by t+1; consistent motion but faint and not orange."
+r220,42821,42821,codec_artifact,sure,A,False,Uniform grey surface; nothing visible at the track position in any frame.
+r220,42821,42821,codec_artifact,unsure,B,False,Uniform grey surface with no visible object at the track position.
+r221,25974,25974,reflection,unsure,A,False,Static pale line along the edge of a diagonal metal beam; no particle.
+r221,25974,25974,reflection,unsure,B,False,Static faint highlight along the edge of a steel beam; nothing moving or glowing.
+r222,19132,19132,moving_non_ember,sure,A,False,Track sits on a person's forearm; no bright particle present.
+r222,19132,19132,moving_non_ember,sure,B,False,Track is on a person's forearm.
+r223,15904,15904,moving_non_ember,unsure,A,False,Edge of a person's dark trouser leg against grey; pink embers pass elsewhere but not at the track.
+r223,15904,15904,codec_artifact,unsure,B,False,Track sits still at the boundary of a dark object and grey background; real pink ember streaks pass elsewhere but not through the circle.
+r223,15904,15904,codec_artifact,unsure,adjudicator,True,"Track sits still on the boundary between a dark object, possibly a trouser leg, and a grey background. Pink ember streaks pass elsewhere but not through the circle."
+r224,33353,33353,codec_artifact,unsure,A,False,Bottom tip of a static dark rod against a pale background; nothing glowing.
+r224,33353,33353,codec_artifact,unsure,B,False,Static bottom end of a dark rod against a pale background; nothing glowing or moving.
+r225,8053,8053,codec_artifact,unsure,A,False,"Pale textured surface, possibly foil or water, static; no bright particle."
+r225,8053,8053,codec_artifact,unsure,B,False,Flat grey smoky background with no bright object at the track position; nothing moves.
+r226,71614,71614,reflection,sure,A,False,Static bright highlight on the rounded end of a steel brace; does not move.
+r226,71614,71614,reflection,sure,B,False,Static bright highlight on a steel frame strut; no motion across frames.
+r227,1377,1377,flame_glare_edge,unsure,A,False,"Track sits on the edge of a very bright white glare region in a pan with foil, likely lamp or reflection bloom; jitters in place with blocky compression."
+r227,1377,1377,flame_glare_edge,unsure,B,False,Track sits still at the edge of a large white lamp bloom over crumpled foil; nothing moves through the crop.
+r228,64320,64320,codec_artifact,unsure,A,False,At the left frame edge on a dark static object next to white material. Nothing bright or moving in the crops.
+r228,64320,64320,codec_artifact,unsure,B,False,"At the ROI left edge where a dark object meets a white bag, moving along the boundary. Nothing glows."
+r229,14890,14890,reflection,sure,A,False,Circle sits still on a bright edge of the foil tray. A real red ember streak appears above at t+2 but the track is not on it.
+r229,14890,14890,reflection,sure,B,False,On static foil highlights at a pan rim. The pink ember at t+2 enters from above and is not on the track.
+r230,6449,6449,ember,sure,A,False,Bright white blob moves steadily upward across frames among other white ember streaks.
+r230,6449,6449,ember,unsure,B,False,"A small bright white blob near the centre drifts up and right from t to t+2, with white ember streaks falling nearby. Probably a bouncing or lofted ember, but the early path is jumpy."
+r231,64595,64595,codec_artifact,unsure,A,False,Near the top edge on a static pale structure. No distinct bright spot and no motion.
+r231,64595,64595,codec_artifact,unsure,B,False,"At the ROI top edge on a pale beam against a grey background, static. No glow."
+r232,14971,14971,codec_artifact,sure,A,False,Dark region with nothing visible in any frame.
+r232,14971,14971,codec_artifact,sure,B,False,Dark area with nothing visible in any frame.
+r233,51320,51320,ember,sure,A,False,Pink glowing streak passes through the centre at t and moves steadily downward in later frames.
+r233,51320,51320,ember,sure,B,False,Pink streak moving steadily downward through the crop from t-1 to t+2 and on the circle at t.
+r234,30165,30165,reflection,sure,A,False,"Static pale glint on the foil tray edge, no motion."
+r234,30165,30165,reflection,unsure,B,False,Small light bump on a metal pan rim that stays in place across frames. Likely a glint.
+r235,42362,42362,codec_artifact,unsure,A,False,Dark area with a dim static grey shape. Nothing glowing or moving.
+r235,42362,42362,codec_artifact,unsure,B,False,Dark area next to a dim static grey shape. No glow.
+r236,17405,17405,codec_artifact,unsure,A,False,Dark area with a faint static grey smudge. No moving bright particle.
+r236,17405,17405,codec_artifact,unsure,B,False,Dark area with a faint static grey smudge. Nothing glowing.
+r237,62212,62212,codec_artifact,sure,A,False,"Flat grey floor area, nothing bright or moving."
+r237,62212,62212,codec_artifact,sure,B,False,Dim grey-green surface with no particle. The crops are unchanged.
+r238,66759,66759,codec_artifact,sure,A,False,Grey vertical post surface with no bright object in any frame.
+r238,66759,66759,codec_artifact,sure,B,False,Grey vertical pole with no feature or particle in any frame.
+r239,45212,45212,fixture_light,unsure,A,False,Static pale bracket on the wall; the track sits in place on it. No moving glow.
+r239,45212,45212,codec_artifact,unsure,B,False,Static on a wall handle or bracket. No glow and no motion.
+r239,45212,45212,reflection,unsure,adjudicator,True,Static highlight on a metal handle or bracket on the wall. No glow and no motion.
+r240,71511,71511,reflection,unsure,A,False,"At t the circle is on a bright foil tray edge. The long path suggests it was linked to a falling ember elsewhere, but the tracked spot itself is foil glare."
+r240,71511,71511,reflection,unsure,B,False,At t the track sits on a bright foil edge in a pan. The path starts near a pink ember at the top at t-2 but jumps down onto the foil.
+r241,17027,17027,reflection,sure,A,False,Static bright highlights along the foil tray rim.
+r241,17027,17027,reflection,sure,B,False,Static highlights on crumpled foil along a pan rim.
+r242,21612,21612,ember,unsure,A,False,"Large out of focus orange streak sweeps down through the crop at t, likely an ember very close to the camera at the frame edge."
+r242,21612,21612,ember,sure,B,False,"A large pink-orange streak crosses the crop at t, entering from the top at t-1 and leaving at the bottom at t+1. A close, fast ember."
+r243,40722,40722,fixture_light,unsure,A,False,Static edge of white paper on a table. No glow or motion.
+r243,40722,40722,codec_artifact,unsure,B,False,"On the edge of white paper on a dark table, static. Nothing glowing."
+r243,40722,40722,fixture_light,unsure,adjudicator,True,Static edge of bright white paper on a dark table. No glow and no motion.
+r244,4271,4271,codec_artifact,sure,A,False,"Plain pale wall with a faint line, nothing there."
+r244,4271,4271,codec_artifact,sure,B,False,"Washed-out white wall with a faint line, static. No object."
+r245,13041,13041,reflection,unsure,A,False,"At t the circle is on a static pale highlight on the steel frame. The path links to a pink ember far to the right, but the tracked spot does not move."
+r245,13041,13041,unclear,unsure,B,False,"At t-2 the path starts at a pink ember streak, then jumps to a static spot on the frame where nothing glows at t. Looks like a bad association."
+r245,13041,13041,reflection,unsure,adjudicator,True,"The path starts at a pink ember at t-2, then jumps to a static pale bracket edge on the steel frame where nothing glows at t. This looks like a bad association, and the tracked spot is a static highlight."
+r246,38936,38936,codec_artifact,unsure,A,False,Grey floor with a small static dark spot. Nothing bright visible despite the curved path.
+r246,38936,38936,codec_artifact,unsure,B,False,"Dull grey-green surface with a small static dark spot. The path is long, but no moving bright particle shows in the crops."
+r247,37760,37760,fixture_light,unsure,A,False,Static edge of a bright white object against a dark surface. No moving glow.
+r247,37760,37760,codec_artifact,unsure,B,False,Static at the boundary between a bright white surface and a darker bar. No particle.
+r247,37760,37760,fixture_light,unsure,adjudicator,True,Static boundary between a bright white surface and a darker bar. No particle and no motion.
+r248,32120,32120,reflection,sure,A,False,Crumpled foil in a pan with shifting highlights. Ember streaks pass nearby but the track stays on foil.
+r248,32120,32120,reflection,sure,B,False,On crumpled foil in a pan with flickering highlights. The pink ember streaks nearby are not what the track follows.
+r249,33950,33950,codec_artifact,sure,A,False,"Top frame edge on grey surfaces, nothing bright."
+r249,33950,33950,codec_artifact,unsure,B,False,"At the ROI top edge on a grey vertical structure, static. No glow."
+r250,44069,44069,codec_artifact,sure,A,False,"Dark textured area, no bright object in any frame."
+r250,44069,44069,codec_artifact,sure,B,False,"Dark, low-texture area with the track jittering. Nothing visible."
+r251,59975,59975,reflection,sure,A,False,Static light highlight along a diagonal steel bar near the foil trays.
+r251,59975,59975,reflection,sure,B,False,Static highlight on a crumpled foil ridge. The ember streaks elsewhere in the context are not on the track.
+r252,10644,10644,fixture_light,unsure,A,False,Static pale background patch between dark objects. No moving bright particle.
+r252,10644,10644,fixture_light,unsure,B,False,"Sits still on a small whitish bit of equipment next to a dark object. A static bright spot, not moving."
+r253,64841,64841,codec_artifact,unsure,A,False,"Pale grey vertical post between dark areas, static. Nothing glowing."
+r253,64841,64841,codec_artifact,unsure,B,False,"On a pale grey vertical frame member, static. Nothing glowing."
+r254,58834,58834,codec_artifact,unsure,A,False,Edge of a dark static silhouette against a pale wall. No bright particle.
+r254,58834,58834,codec_artifact,unsure,B,False,Runs along the edge of a static dark silhouette against a bright wall. No particle.
+r255,35032,35032,reflection,unsure,A,False,Small static pale glint on a dark steel bracket.
+r255,35032,35032,codec_artifact,unsure,B,False,On a dark frame bracket over a grey wall. Nothing glowing; the crops are unchanged.
+r255,35032,35032,reflection,unsure,adjudicator,True,Small static pale glint on a dark steel bracket over a grey wall. It is the same in all five frames.
+r256,40366,40366,ember,sure,A,False,Pink glowing streak crosses the centre at t and moves steadily downward between frames.
+r256,40366,40366,ember,sure,B,False,Pink-orange motion streak falling through the crop and on the circle at t. A clear flying ember.
+r257,41332,41332,fixture_light,unsure,A,False,Small round pale spot that stays fixed above a dark ledge in all frames.
+r257,41332,41332,reflection,unsure,B,False,Small dim whitish spot on dark metal that stays fixed in all frames. Looks like a glint on a fitting.
+r257,41332,41332,reflection,unsure,adjudicator,True,Small round pale spot on dark metal above a ledge that stays fixed in all frames. Likely a glint on a fitting.
+r258,10417,10417,codec_artifact,unsure,A,False,Dark static bracket on a pale wall. Nothing bright or moving.
+r258,10417,10417,codec_artifact,unsure,B,False,Static on a dark bracket on the wall. No glow and no motion.
+r259,38300,38300,codec_artifact,sure,A,False,"Grey green wall next to a dark post, nothing there."
+r259,38300,38300,codec_artifact,unsure,B,False,Grey wall beside a steel frame post. No particle is visible in any of the zoomed frames.
+r260,71001,71001,codec_artifact,sure,A,False,"Wall and beam edges, no bright object."
+r260,71001,71001,codec_artifact,unsure,B,False,On a wall and column corner with nothing glowing. The path jumps in from the right and the crops are unchanged.
+r261,23850,23850,codec_artifact,unsure,A,False,Static wall bracket on a pale wall. Nothing glowing.
+r261,23850,23850,codec_artifact,unsure,B,False,Static on a pipe and bracket on a pale wall. Nothing glows and nothing moves.
+r262,4651,4651,codec_artifact,unsure,A,False,At the very top frame edge on a static bright white surface. No distinct spot or motion.
+r262,4651,4651,codec_artifact,unsure,B,False,Sits still at the ROI top edge on an overexposed white area. There is no distinct object; it could also count as a static bright spot.
+r263,19616,19616,moving_non_ember,sure,A,False,Track sits on the white hard hat of a person.
+r263,19616,19616,moving_non_ember,sure,B,False,Follows the white hard hat of a person walking through the frame.
+r264,21266,21266,codec_artifact,sure,A,False,"Top frame edge on a plain pale wall, nothing there."
+r264,21266,21266,codec_artifact,unsure,B,False,"At the top edge of the ROI, on a pale wall next to a shadow boundary. Nothing glows and the scene is static."
+r265,28120,28120,codec_artifact,sure,A,False,"Plain pale wall with a mortar line, nothing bright."
+r265,28120,28120,codec_artifact,sure,B,False,Washed-out pale wall with a faint horizontal line. No particle in any frame; the track drifts over a blank surface.
+r266,10396,10396,codec_artifact,unsure,A,False,"Dark area under a pale ledge; nothing bright or moving in any crop, short jittery path."
+r266,10396,10396,codec_artifact,unsure,B,False,Static top edge of a dark panel below a pale ledge; no glow.
+r267,17067,17067,codec_artifact,unsure,A,False,"Track sits on the top image border (y about 1); only padding and a grey pipe, no bright object."
+r267,17067,17067,codec_artifact,unsure,B,False,At the top frame border on static vertical structures; nothing bright.
+r268,153,153,codec_artifact,unsure,A,False,"Brown beam over a white object; no glowing particle visible in any frame, scene static."
+r268,153,153,codec_artifact,unsure,B,False,Static brown beam with a pale object below; no visible particle.
+r269,19359,19359,codec_artifact,unsure,A,False,Very faint pale smudge in a dark region that stays in place across all five frames; not a moving particle.
+r269,19359,19359,fixture_light,unsure,B,False,Tiny faint grey spot in a dark area of the frame that stays exactly in place; it could also be a glint on metal.
+r269,19359,19359,fixture_light,unsure,adjudicator,True,"Tiny faint grey spot on a dark metal post. It stays exactly in place for all five frames, with no motion and no glow. It may be a dull glint on the metal rather than a lamp."
+r270,33783,33783,codec_artifact,unsure,A,False,Edge of dark clothing next to a fire extinguisher; nothing bright at the track position.
+r270,33783,33783,moving_non_ember,unsure,B,False,"Edge of a person's dark clothing beside a pale pole and an extinguisher; static, no glow."
+r270,33783,33783,moving_non_ember,unsure,adjudicator,True,The track sits on the edge of a person's dark clothing next to a pale pole and a fire extinguisher. Nothing bright is there and the track barely moves.
+r271,48945,48945,ember,unsure,A,False,"Pale then pinkish vertical streak descends through the centre from t-1 to t+1, matching the downward green path; dim but consistent."
+r271,48945,48945,faint_possible_ember,unsure,B,False,"Dim pinkish vertical bar moving steadily downward along the track path; faint, against cluttered metal."
+r271,48945,48945,ember,unsure,adjudicator,True,"The track has measured points at t-2, t-1 and t along a straight downward path. A pale bar at t-1 becomes a pink vertical streak at the centre at t. Dim, but it moves like other falling embers."
+r272,62353,62353,ember,unsure,A,False,White then pink streak moves down through the centre over t-2 to t+1; consistent falling motion over a cluttered metal background.
+r272,62353,62353,faint_possible_ember,unsure,B,False,Faint pinkish streak crosses the centre at t and moves down; it is dim and the scene around it is cluttered.
+r272,62353,62353,ember,unsure,adjudicator,True,"A white blob just above centre at t-2 and t-1 becomes a pink streak through the centre at t, then shows lower at t+1. Steady downward motion through a dense ember area."
+r273,10246,10246,codec_artifact,sure,A,False,Tip of a dark static bracket against a pale wall; nothing bright or moving.
+r273,10246,10246,codec_artifact,unsure,B,False,Static tip of a dark object against a pale background; no glow.
+r274,34198,34198,moving_non_ember,unsure,A,False,Track sits on the edge of a person's dark leg against a grey floor; no bright spot.
+r274,34198,34198,moving_non_ember,unsure,B,False,Edge of a person's dark leg against a pale floor; nothing glowing.
+r275,51651,51651,codec_artifact,unsure,A,False,Pale wall and ledge; no visible particle along the curved green path in any zoom frame.
+r275,51651,51651,codec_artifact,unsure,B,False,Static wall ledge; no bright point in any crop.
+r276,5629,5629,moving_non_ember,unsure,A,False,"Track on the edge of a person's blue sleeve; the real pink ember streaks are to the right, not at the circle."
+r276,5629,5629,moving_non_ember,unsure,B,False,Track ends on the edge of a person's dark sleeve with no glow. Red ember streaks pass to the right but are not on the track.
+r277,2341,2341,codec_artifact,unsure,A,False,Uniform greenish floor or water surface; nothing bright along the short vertical path.
+r277,2341,2341,codec_artifact,unsure,B,False,Plain grey-green surface with no visible particle in any crop.
+r278,63556,63556,reflection,sure,A,False,Static bright highlight on a diagonal metal rail; does not move between frames.
+r278,63556,63556,reflection,sure,B,False,Static bright white glint along the rim of a metal pan.
+r279,49769,49769,reflection,unsure,A,False,"Small pale highlight on a grey metal tray, essentially static."
+r279,49769,49769,reflection,unsure,B,False,Faint highlight on the edge of a metal pan; nearly stationary.
+r280,31325,31325,codec_artifact,unsure,A,False,Pale wall beside a vertical pipe; no bright object at the track position.
+r280,31325,31325,codec_artifact,unsure,B,False,Static vertical door frame edge; no particle visible in the crops.
+r281,41732,41732,moving_non_ember,unsure,A,False,"Track sits inside a pale smoke plume seen through a dark window; diffuse, not a particle."
+r281,41732,41732,codec_artifact,unsure,B,False,"Static pale blurry shape behind a dark window, possibly a reflection on the glass; no distinct moving point."
+r281,41732,41732,moving_non_ember,unsure,adjudicator,True,"Diffuse pale plume, likely smoke, seen through a dark window. It is nearly static and has no distinct bright particle."
+r282,70316,70316,ember,sure,A,False,"Compact bright white particle at centre at t, moving steadily downward at t+1 and t+2 along the green path."
+r282,70316,70316,ember,unsure,B,False,Compact bright white blob moves steadily downward from t to t+2. Earlier frames may come from a large pale firebrand passing by.
+r283,22642,22642,codec_artifact,sure,A,False,Dull grey green textured surface; nothing bright or moving.
+r283,22642,22642,codec_artifact,unsure,B,False,Static mottled wall surface; nothing bright.
+r284,40188,40188,codec_artifact,unsure,A,False,"Tip of a dark vertical rod on a pale background; static, no glow."
+r284,40188,40188,codec_artifact,unsure,B,False,Static bottom tip of a dark vertical rod; no glow.
+r285,870,870,moving_non_ember,unsure,A,False,"Circle at t sits on a person's clothing edge with nothing bright; a pink ember streak only passes near the centre later, at t+1 and t+2."
+r285,870,870,moving_non_ember,unsure,B,False,"Track sits on the dull edge of a person's dark clothing. Red ember streaks pass nearby, but none is on the track at t."
+r286,35692,35692,reflection,unsure,A,False,Faint pale highlight on a grey metal tray that stays in place.
+r286,35692,35692,reflection,unsure,B,False,Small pale highlight on the crinkled foil of a pan; it sits still and flickers.
+r287,67940,67940,codec_artifact,sure,A,False,Corner of a grey frame against a dark window; nothing bright.
+r287,67940,67940,codec_artifact,unsure,B,False,Static corner of a frame post against a dark opening; nothing bright.
+r288,70970,70970,codec_artifact,unsure,A,False,Dark diagonal edge in a dim scene; no bright particle in any frame.
+r288,70970,70970,codec_artifact,unsure,B,False,Static diagonal edge of a dark region; nothing bright.
+r289,67312,67312,codec_artifact,unsure,A,False,"Track sits at the left image border junction near a pale arm or object; static, no glow."
+r289,67312,67312,codec_artifact,unsure,B,False,At the left frame border on a static dark edge; no glow.
+r290,27731,27731,codec_artifact,unsure,A,False,Pale wall with dark static markings; no bright object.
+r290,27731,27731,codec_artifact,unsure,B,False,Static painted marking on a wall; nothing bright or moving.
+r291,56580,56580,faint_possible_ember,unsure,A,False,A pink to white blob descends and fades through the centre from t-2 to t; plausible fading ember but faint and over a reddish cluttered background.
+r291,56580,56580,ember,unsure,B,False,Red-pink glowing blob drifts down along a metal rail and fades; it could also be an ember reflection on the metal.
+r291,56580,56580,ember,unsure,adjudicator,True,"A red blob at t-2 turns pink-white at t-1 and fades by t as it moves down onto the track position. The track coasted before t, and a reflection on the rail cannot be ruled out."
+r292,71711,71711,reflection,unsure,A,False,"Static dark brand lying on a bright white foil sheet; no glow or motion, likely the bright foil edge."
+r292,71711,71711,codec_artifact,unsure,B,False,Static dark mark on a white sheet on a table; no light and no motion.
+r292,71711,71711,reflection,unsure,adjudicator,True,"Static dark burnt mark on a saturated white sheet on a table. Nothing glows or moves, so the response likely comes from the bright white surface."
+r293,45238,45238,moving_non_ember,unsure,A,False,Edge of a dark silhouette of a person against a grey wall; nothing bright.
+r293,45238,45238,codec_artifact,unsure,B,False,Static edge of a dark silhouette against a pale wall near a worker; no glow.
+r293,45238,45238,moving_non_ember,unsure,adjudicator,True,"Edge of a person's dark silhouette against a grey wall next to a worker in a hard hat. Static, with nothing bright."
+r294,1930,1930,reflection,unsure,A,False,"Pale vertical highlight on a dark pole, static across frames."
+r294,1930,1930,reflection,unsure,B,False,Dim grey vertical highlight on a dark diagonal frame member; it stays in place across all frames.
+r295,7519,7519,ember,sure,A,False,"Large bright white streak moving diagonally down through the centre from t-1 to t+1, matching the green path."
+r295,7519,7519,ember,sure,B,False,"Large overexposed white streak moves steadily down and to the left through the centre across t-1 to t+1, among other ember streaks."
+r296,71199,71199,codec_artifact,unsure,A,False,Static dark wall panel on a pale wall; no bright object.
+r296,71199,71199,codec_artifact,unsure,B,False,Static dark mark on a wall-mounted panel; nothing glowing or moving.
+r297,59679,59679,faint_possible_ember,unsure,A,False,"Faint pale short streak at centre at t, with a brighter white blob nearby moving up; track path is unclear about which it follows."
+r297,59679,59679,ember,unsure,B,False,White bright blob and faint streaks move up and to the right near the right frame edge; the track may switch between particles.
+r297,59679,59679,faint_possible_ember,unsure,adjudicator,True,"The track coasted up and to the right at t-2 and t-1, then measured a faint pale short streak at t, which is gone at t+1. The brighter white blob nearby is a separate detection. Faint, and the linking is uncertain."
+r298,1655,1655,codec_artifact,unsure,A,False,Dark object over a pale floor; nothing bright at the track position.
+r298,1655,1655,codec_artifact,unsure,B,False,Static blurry corner of a dark object against a pale floor; nothing bright.
+r299,53215,53215,codec_artifact,unsure,A,False,Grey white surface with a dark band; nothing bright or moving.
+r299,53215,53215,codec_artifact,unsure,B,False,"Static grey surface below a dark band; no glow, and the track jitters in place."
+r300,13294,13294,codec_artifact,unsure,A,False,Plain pale surface below a dark edge; no particle visible along the horizontal path.
+r300,13294,13294,codec_artifact,unsure,B,False,"Path runs along a plain grey surface, but no bright particle shows in any zoom crop."
+r301,28282,28282,duplicate_fragment,unsure,A,False,"A large pink ember streak crosses the circle only at t; before and after, the track sits still on foil. Likely a side piece of a streak another detection covers."
+r301,28282,28282,ember,sure,B,False,"Bright red-pink streak crosses the crop at t-1 and t, moving down over the foil pan; it is a fast glowing ember."
+r301,28282,28282,ember,unsure,adjudicator,True,At t the measured point lies on the body of a bright pink ember streak falling over the foil pan. No other detection sits on the streak at t. Before t the track only coasted in place.
+r302,26436,26436,codec_artifact,unsure,A,False,Dull grey textured surface; nothing bright.
+r302,26436,26436,codec_artifact,unsure,B,False,Static blurry dark grey region with no bright point; nothing moves through the centre.
+r303,22922,22922,codec_artifact,sure,A,False,Edge of a dark static post against a pale background; no glow or motion.
+r303,22922,22922,codec_artifact,unsure,B,False,Track sits still on the edge of a dark steel post against a pale wall; nothing bright or glowing in any frame.
