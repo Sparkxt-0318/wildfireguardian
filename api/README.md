@@ -405,7 +405,7 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 | `WFG_API_PYTHON` | 서버의 `sys.executable` | 키트 작업자와 자식 프로세스를 실행할 인터프리터 |
 | `WFG_API_GIT_COMMIT` | `git rev-parse HEAD` | provenance의 git 커밋 대체값(선택) |
 
-환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다.
+환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다. 같은 목록이 `api/.env.example`에 있습니다. `api/.env`로 복사하고(git 제외) `set -a; . api/.env; set +a`로 셸에 불러온 뒤 `make api`를 실행하세요. API에는 API 키, 토큰, 그 밖의 비밀 값이 필요 없습니다.
 
 ### 테스트와 스모크 스크립트
 
@@ -845,7 +845,7 @@ The research results (`research/routing/final-input-ablation/RESULTS.md`) show w
 | `WFG_API_PYTHON` | the server's `sys.executable` | Interpreter used to launch kit workers and child processes |
 | `WFG_API_GIT_COMMIT` | `git rev-parse HEAD` | Optional override for the git commit in provenance |
 
-Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`.
+Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`. The same list is in `api/.env.example`. Copy it to `api/.env` (git-ignored), load it with `set -a; . api/.env; set +a`, then run `make api`. The API needs no API keys, tokens or other secrets.
 
 ### Testing
 
