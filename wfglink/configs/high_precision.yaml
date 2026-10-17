@@ -14,9 +14,9 @@ verify:
   patch: {target_px: 17, context_px: 51}
   ood: {z_max: 6.0, max_out: 2}
   rules:
-    q: 0.025
-    thresholds: {}              # per profile, written by `verify calibrate`; empty = unavailable
+    q: 0.3
+    thresholds: {file_native: {lower: {snr_med: 33.88813800811768, speed_med: 250.1116625706767, net_disp: 35.66482632676043, straightness: 0.9723160497527162}, upper: {hotspot_max: 13.366779804229735, pre_presence_med: 3.383709573745727, bg_grad_med: 44.528350257873534, large_near_max: 0.2279507830739021, codec_med: 0.24862183332443233, ctx_change_med: 1.9162519395351405}, iqr: {snr_med: 52.727556228637695, speed_med: 796.6629297050272, net_disp: 100.20417526476844, straightness: 0.05068717207948226, hotspot_max: 11.214898943901062, pre_presence_med: 4.045203298330307, bg_grad_med: 38.801145195961, large_near_max: 0.2716262862086296, codec_med: 0.26381763257086277, ctx_change_med: 1.3950475007295609}}}              # per profile, written by `verify calibrate`; empty = unavailable
   models:                       # weights are git-ignored under data/models/; sha256 pinned here
-    patch:    {file_native: {path: data/models/verify/file_native/patch_seed0.npz, sha256: null, threshold: null}}
-    temporal: {file_native: {path: data/models/verify/file_native/temporal_seed0.npz, sha256: null, threshold: null}}
+    patch: {file_native: {path: "data/models/verify/file_native/patch_seed1.npz", sha256: "a28c6b02561956227e0cc170716ea4a2e36c98851f68b0b0c42b1367f0a7be4d", threshold: 0.8}}
+    temporal: {file_native: {path: "data/models/verify/file_native/temporal_seed0.npz", sha256: "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979", threshold: 0.99}}
   dump: false                   # write per-hit features and patches (offline replay, training)
