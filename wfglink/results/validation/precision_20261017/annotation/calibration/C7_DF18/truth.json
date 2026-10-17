@@ -1,0 +1,605 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T13:48:38+08:00",
+  "windows_dir": "/home/user/wildfireguardian/wfglink/results/runs/precision_20261017/windows/C7_DF18",
+  "window_set_id": "7d661c207ac36f55",
+  "clip_id": "C7_DF18",
+  "video_sha256": "dfb768f07073da23027eb7ce734c82978710172220839c34546797cc7becfcb0",
+  "roi_px": [
+    0,
+    0,
+    1920,
+    1080
+  ],
+  "segment_s": [
+    0.0,
+    null
+  ],
+  "manifest_sha256": "7d661c207ac36f55ab897196f39a41becf83c3ebf9a110102b3d7f4dc3113874",
+  "labels": {
+    "a": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/calibration/C7_DF18/labels_a.csv",
+      "sha256": "a62f7506825c279109b22a3de5257270cb657ed43a4a587b968e1dba235a9b04"
+    },
+    "b": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/calibration/C7_DF18/labels_b.csv",
+      "sha256": "a62f7506825c279109b22a3de5257270cb657ed43a4a587b968e1dba235a9b04"
+    },
+    "adjudicator": {
+      "path": null,
+      "sha256": null
+    }
+  },
+  "rules": {
+    "match_px": 3.0,
+    "edge_px": 4.0,
+    "min_points": 3,
+    "min_confidence": 0.75,
+    "coordinates": "x, y: ROI crop pixels as in detections.parquet; tx, ty: tile pixels"
+  },
+  "windows": [
+    {
+      "window_id": "w000",
+      "frames": [
+        2886,
+        2887,
+        2888,
+        2889,
+        2890,
+        2891
+      ],
+      "t": [
+        96.2962,
+        96.32956666666666,
+        96.36293333333333,
+        96.3963,
+        96.42966666666666,
+        96.46303333333333
+      ],
+      "x0": 1367,
+      "y0": 713,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w001",
+      "frames": [
+        3498,
+        3499,
+        3500,
+        3501,
+        3502,
+        3503
+      ],
+      "t": [
+        116.7166,
+        116.74996666666667,
+        116.78333333333333,
+        116.8167,
+        116.85006666666666,
+        116.88343333333333
+      ],
+      "x0": 1050,
+      "y0": 586,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w002",
+      "frames": [
+        186,
+        187,
+        188,
+        189,
+        190,
+        191
+      ],
+      "t": [
+        6.2062,
+        6.239566666666667,
+        6.2729333333333335,
+        6.3063,
+        6.339666666666667,
+        6.373033333333334
+      ],
+      "x0": 726,
+      "y0": 49,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w003",
+      "frames": [
+        3570,
+        3571,
+        3572,
+        3573,
+        3574,
+        3575
+      ],
+      "t": [
+        119.119,
+        119.15236666666667,
+        119.18573333333333,
+        119.2191,
+        119.25246666666666,
+        119.28583333333333
+      ],
+      "x0": 126,
+      "y0": 420,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w004",
+      "frames": [
+        342,
+        343,
+        344,
+        345,
+        346,
+        347
+      ],
+      "t": [
+        11.4114,
+        11.444766666666666,
+        11.478133333333334,
+        11.5115,
+        11.544866666666667,
+        11.578233333333333
+      ],
+      "x0": 1066,
+      "y0": 774,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w005",
+      "frames": [
+        4038,
+        4039,
+        4040,
+        4041,
+        4042,
+        4043
+      ],
+      "t": [
+        134.7346,
+        134.76796666666667,
+        134.80133333333333,
+        134.8347,
+        134.86806666666666,
+        134.90143333333333
+      ],
+      "x0": 197,
+      "y0": 110,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w006",
+      "frames": [
+        4602,
+        4603,
+        4604,
+        4605,
+        4606,
+        4607
+      ],
+      "t": [
+        153.5534,
+        153.58676666666668,
+        153.62013333333334,
+        153.6535,
+        153.68686666666667,
+        153.72023333333334
+      ],
+      "x0": 451,
+      "y0": 684,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w007",
+      "frames": [
+        2658,
+        2659,
+        2660,
+        2661,
+        2662,
+        2663
+      ],
+      "t": [
+        88.6886,
+        88.72196666666666,
+        88.75533333333334,
+        88.7887,
+        88.82206666666667,
+        88.85543333333334
+      ],
+      "x0": 95,
+      "y0": 285,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w008",
+      "frames": [
+        4314,
+        4315,
+        4316,
+        4317,
+        4318,
+        4319
+      ],
+      "t": [
+        143.9438,
+        143.97716666666668,
+        144.01053333333334,
+        144.0439,
+        144.07726666666667,
+        144.11063333333334
+      ],
+      "x0": 820,
+      "y0": 531,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w009",
+      "frames": [
+        4476,
+        4477,
+        4478,
+        4479,
+        4480,
+        4481
+      ],
+      "t": [
+        149.3492,
+        149.38256666666666,
+        149.41593333333333,
+        149.4493,
+        149.48266666666666,
+        149.51603333333333
+      ],
+      "x0": 987,
+      "y0": 208,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w010",
+      "frames": [
+        2880,
+        2881,
+        2882,
+        2883,
+        2884,
+        2885
+      ],
+      "t": [
+        96.096,
+        96.12936666666667,
+        96.16273333333334,
+        96.1961,
+        96.22946666666667,
+        96.26283333333333
+      ],
+      "x0": 1381,
+      "y0": 802,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w011",
+      "frames": [
+        5004,
+        5005,
+        5006,
+        5007,
+        5008,
+        5009
+      ],
+      "t": [
+        166.9668,
+        167.00016666666667,
+        167.03353333333334,
+        167.0669,
+        167.10026666666667,
+        167.13363333333334
+      ],
+      "x0": 836,
+      "y0": 156,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    }
+  ],
+  "totals": {
+    "windows": 12,
+    "windows_labelled": 12,
+    "tracks": 0,
+    "observable_tracks": 0,
+    "dont_care_points": 0,
+    "rejected_points": 0,
+    "windows_adjudicated": 0,
+    "sure_without_ember_id": {
+      "a": 0,
+      "b": 0,
+      "adjudicator": 0
+    }
+  },
+  "warnings": [],
+  "agreement": {
+    "point_f1": {
+      "value": null,
+      "ci": [
+        null,
+        null
+      ]
+    },
+    "matches": 0,
+    "points_a": 0,
+    "points_b": 0,
+    "bootstrap_over": "windows",
+    "ci_note": null,
+    "track_f1": null,
+    "tracks_matched": 0,
+    "tracks_a": 0,
+    "tracks_b": 0,
+    "per_window": [
+      {
+        "window_id": "w000",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w001",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w002",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w003",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w004",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w005",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w006",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w007",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w008",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w009",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w010",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w011",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      }
+    ]
+  }
+}

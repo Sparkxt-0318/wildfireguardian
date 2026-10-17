@@ -1,0 +1,33 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,,,,,,,none
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,0,60.5,33,0.5,1,s,"compact bright dot in smoke, seen in one frame only; gone in k1 with no nearby trace"
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,,,,,,,none
+w010,,,,,,,none
+w011,2,117.6,13.5,0.5,1,m,"pale glowing blob in a dark gap, shaped like a short vertical streak, seen in one frame only; nothing there in k1 or k3"
+w012,,,,,,,none
+w013,,,,,,,none
+w014,,,,,,,none
+w015,,,,,,,none
+w016,,,,,,,none
+w017,,,,,,,none
+w018,1,124.8,50.4,0.5,1,s,"small whitish dot at lower edge of bright fire haze, appears k1"
+w018,1,184,116,0.5,2,s,small bright dot with interlace combing on dark ground near right edge
+w018,2,124.3,50.3,0.5,1,s,"same dot, brighter, drifting left"
+w018,3,122.9,50.3,0.5,1,s,"elongated toward upper left, moving up-left"
+w018,4,119.2,48.9,0.5,1,s,"faint, further up-left, gone in k5"
+w018,4,180.5,117.3,0.5,2,s,"reappears, short horizontal dot with combing; absent k2 and k3"
+w018,5,184.6,120.4,0.5,2,s,"dimmer diffuse dot, moved right and down"
+w019,,,,,,,none
+w020,,,,,,,none
+w021,,,,,,,none
+w022,,,,,,,none
+w023,3,144,22,0.5,1,m,"bright whitish orange vertical blob suddenly appears in dark gap between trunks; barely moves over k3 to k5, may be a flame flare seen through canopy rather than an ember"
+w023,4,144,22,0.5,1,m,"same blob, brighter, nearly stationary"
+w023,5,144,20,0.5,1,m,"same blob, shifted up about 2 px, interlace combing visible"

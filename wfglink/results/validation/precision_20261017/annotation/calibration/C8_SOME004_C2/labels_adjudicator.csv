@@ -1,0 +1,121 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w001,0,103.1,121.2,0.5,1,s,"small bright spot in bed that vanishes by k2, next to where the streak appears"
+w001,1,103.1,121.2,0.5,1,s,duplicate of k0
+w001,2,110.5,117,1,1,m,"thin white diagonal streak, absent in k0 k1 and k4 k5"
+w001,3,110.5,117,1,1,m,duplicate of k2
+w003,0,17.1,161.5,1,1,m,"combed white streak on dark ground, gone by k2"
+w003,0,109,120.4,1,2,m,"combed white streak on dark ground, gone by k2"
+w003,0,85.9,150.4,1,3,m,diagonal combed streak on dark ground
+w003,0,80.7,89.9,0.5,6,m,"diagonal combed streak over sparse bed, only in k0 k1"
+w003,0,35,120.4,0.5,8,m,"diagonal streak over glowing bed, only in k0 k1"
+w003,1,17.1,161.5,1,1,m,duplicate of k0
+w003,1,109,120.4,1,2,m,duplicate of k0
+w003,1,85.9,150.4,1,3,m,duplicate of k0
+w003,1,80.7,89.9,0.5,6,m,duplicate of k0
+w003,1,35,120.4,0.5,8,m,duplicate of k0
+w003,2,32,176.4,1,4,m,combed streak on dark ground
+w003,2,11.6,10.6,0.5,5,m,faint diagonal streak top left
+w003,3,32,176.4,1,4,m,duplicate of k2
+w003,3,11.6,10.6,0.5,5,m,duplicate of k2
+w003,4,40.3,173.6,1,4,m,same ember moved up and right
+w003,4,21.1,6.6,1,5,m,"faint streak, moved up and right"
+w003,4,83,111.6,0.5,7,m,faint dashed diagonal streak
+w003,5,40.3,173.6,1,4,m,duplicate of k4
+w003,5,21.1,6.6,1,5,m,duplicate of k4
+w003,5,83,111.6,0.5,7,m,duplicate of k4
+w004,2,41.9,174.3,0.5,1,m,faint diagonal streak on dark trunk area
+w004,3,41.9,174.3,0.5,1,m,duplicate of k2
+w004,4,51.6,164.1,0.5,1,m,"faint streak, moved up and right"
+w004,5,51.6,164.1,0.5,1,m,duplicate of k4
+w005,0,178.5,180.2,1,1,l,"long faint dashed diagonal streak, gone by k2"
+w005,0,131.1,106.6,1,2,m,"combed horizontal streak left of flame front, gone by k2"
+w005,1,178.5,180.2,1,1,l,duplicate of k0
+w005,1,131.1,106.6,1,2,m,duplicate of k0
+w005,2,169.9,157.7,0.5,3,m,faint diagonal dashed streak
+w005,3,169.9,157.7,0.5,3,m,duplicate of k2
+w006,0,58.2,98.1,1,1,m,combed streak on dark slope
+w006,0,64.9,109.4,0.5,2,m,faint short diagonal streak
+w006,0,4.2,132.2,1,3,m,bright combed streak at left edge
+w006,1,58.2,98.1,1,1,m,duplicate of k0
+w006,1,64.9,109.4,0.5,2,m,duplicate of k0
+w006,1,4.2,132.2,1,3,m,duplicate of k0
+w006,2,2.1,128.6,1,3,s,particle drifting up at left edge
+w006,2,33.6,118.8,1,4,m,combed diagonal streak on dark slope
+w006,2,17,104.3,0.5,5,m,faint diagonal streak
+w006,3,2.1,128.6,1,3,s,duplicate of k2
+w006,3,33.6,118.8,1,4,m,duplicate of k2
+w006,3,17,104.3,0.5,5,m,duplicate of k2
+w006,4,1.2,125.2,0.5,3,s,"faint, still drifting up at left edge"
+w006,4,53,111.6,1,4,m,"streak, moved up and right"
+w006,4,43,93.5,1,5,m,"combed streak, moved up and right"
+w006,4,19.3,111.7,1,6,m,diagonal combed streak on dark slope
+w006,4,27.5,116,0.5,7,m,faint dashes
+w006,4,37.3,125,0.5,8,m,faint horizontal dash
+w006,4,3.6,6.6,1,9,m,"bright combed diagonal streak top left, outside the bed"
+w006,5,1.2,125.2,0.5,3,s,duplicate of k4
+w006,5,53,111.6,1,4,m,duplicate of k4
+w006,5,43,93.5,1,5,m,duplicate of k4
+w006,5,19.3,111.7,1,6,m,duplicate of k4
+w006,5,27.5,116,0.5,7,m,duplicate of k4
+w006,5,37.3,125,0.5,8,m,duplicate of k4
+w006,5,3.6,6.6,1,9,m,duplicate of k4
+w007,0,110.5,55.6,1,1,s,"faint whitish dot drifting right, tracked over 3 distinct images"
+w007,0,144.5,130,1,2,s,"short horizontal streak, moves right"
+w007,0,39.5,190.6,1,3,m,streak on bottom edge moving right
+w007,1,110.5,55.6,1,1,s,duplicate of k0
+w007,1,144.5,130,1,2,s,duplicate of k0
+w007,1,39.5,190.6,1,3,m,duplicate of k0
+w007,2,117.6,54.5,1,1,s,moved right
+w007,2,156.7,133.5,1,2,s,"same ember 12 px to the right, gone after"
+w007,2,54,191,1,3,s,"moved 15 px right along bottom edge, then leaves tile"
+w007,2,184.8,175.8,0.5,4,s,faint short vertical streak near right edge
+w007,3,117.6,54.5,1,1,s,duplicate of k2
+w007,3,156.7,133.5,1,2,s,duplicate of k2
+w007,3,54,191,1,3,s,duplicate of k2
+w007,3,184.8,175.8,0.5,4,s,duplicate of k2
+w007,4,132.9,50.8,1,1,s,moved right and up
+w007,4,189.6,165,0.5,4,s,"faint dash, likely same ember moving up"
+w007,5,132.9,50.8,1,1,s,duplicate of k4
+w007,5,189.6,165,0.5,4,s,duplicate of k4
+w008,0,103.5,164,0.5,10,m,"faint interlaced streak, one image only"
+w008,0,149.2,165.6,0.5,11,s,"tiny single row dot in dark area, appears in k0 and k1 only, motion not shown"
+w008,0,103,123.5,0.5,7,m,"dashed streak below a flame, one image only"
+w008,0,166.7,30,0.5,8,s,"faint short streak, one image only"
+w008,0,122,150,0.5,9,m,"faint interlaced diagonal streak, one image only"
+w008,1,103.5,164,0.5,10,m,duplicate of k0
+w008,1,149.2,165.6,0.5,11,s,duplicate of k0
+w008,1,103,123.5,0.5,7,m,duplicate of k0
+w008,1,166.7,30,0.5,8,s,duplicate of k0
+w008,1,122,150,0.5,9,m,duplicate of k0
+w008,2,142.5,155.5,1,1,m,interlaced diagonal streak rising to the right
+w008,2,68,189.3,1,2,s,short streak at bottom
+w008,2,130.5,19.5,1,3,m,interlaced diagonal streak
+w008,2,6,56.5,1,5,s,faint diagonal streak at left edge
+w008,2,183.7,150.6,0.5,6,s,"faint short streak, one image only"
+w008,3,142.5,155.5,1,1,m,duplicate of k2
+w008,3,68,189.3,1,2,s,duplicate of k2
+w008,3,130.5,19.5,1,3,m,duplicate of k2
+w008,3,6,56.5,1,5,s,duplicate of k2
+w008,3,183.7,150.6,0.5,6,s,duplicate of k2
+w008,4,162.5,146.5,1,1,m,same streak about 20 px up and right
+w008,4,149.8,154,0.5,12,s,"tiny bright single row dot, appears in k4 and k5 only"
+w008,4,75.4,186,1,2,s,"compact dot, moved up and right"
+w008,4,149,11.5,1,3,m,"dashed streak cluster, same ember moved up and right"
+w008,4,181,82.5,1,4,m,"short bright streak in dark air below burning bush, only in k4 and k5"
+w008,4,22.2,45.5,1,5,s,same ember moved up and right
+w008,5,162.5,146.5,1,1,m,duplicate of k4
+w008,5,149.8,154,0.5,12,s,duplicate of k4
+w008,5,75.4,186,1,2,s,duplicate of k4
+w008,5,149,11.5,1,3,m,duplicate of k4
+w008,5,181,82.5,1,4,m,duplicate of k4
+w008,5,22.2,45.5,1,5,s,duplicate of k4
+w009,0,60.9,172.2,0.5,1,s,"very faint dash, start of the track below"
+w009,1,60.9,172.2,0.5,1,s,duplicate of k0
+w009,2,72.5,176,1,1,m,streak moving right
+w009,2,179.5,139.5,1,2,s,"bright detached dot just above the ground fire, absent in other images"
+w009,3,72.5,176,1,1,m,duplicate of k2
+w009,3,179.5,139.5,1,2,s,duplicate of k2
+w009,4,100.5,179.7,1,1,m,"streak, moved 28 px right"
+w009,4,158.2,120.7,1,3,s,"compact glowing dot in dark air above fire, absent in other images, may be ember 2 risen up and left"
+w009,5,100.5,179.7,1,1,m,duplicate of k4
+w009,5,158.2,120.7,1,3,s,duplicate of k4
