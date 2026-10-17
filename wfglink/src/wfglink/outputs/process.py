@@ -190,7 +190,7 @@ def _write_high_precision(out: Path, pipe, cfg: dict, summary: dict, *, points, 
         names[name] = f"{name}.parquet"
     dump = obs.dump_arrays()
     if dump is not None:
-        np.savez(hp_dir / "hp_patches.npz", **dump)
+        np.savez_compressed(hp_dir / "hp_patches.npz", **dump)     # float16 patches compress to about 0.57
         names["hp_patches"] = "hp_patches.npz"
 
     # Totals from the high-precision counter, over the same span and with the same intervals as the
