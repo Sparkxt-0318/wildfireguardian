@@ -1,0 +1,131 @@
+{
+ "recorded_at": "2026-10-17T09:26:41+08:00",
+ "repo_head": "ee903a8f13dda651d811a7be67fffc438fcbd369",
+ "branch": "claude/practical-rubin-5vu12u",
+ "pr": "Sparkxt-0318/wildfireguardian#53 (draft, base Main)",
+ "pr_head_at_start": "c91bc87e58ed6f7c32825e4a2b6d57d30a36cd90",
+ "demo_tag": {
+  "name": "wfglink-demo-20261015-4",
+  "tag_object": "f00e58f517b2be29efef92c35c05c317a4eb10cd",
+  "peels_to": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "action": "preserved; not touched"
+ },
+ "host": {
+  "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.12.3",
+  "cpus": 4,
+  "mem_total_gb": 15.7,
+  "disk_free": "/dev/vda        252G   32G  8.0G  80% /"
+ },
+ "pip_freeze_sha256": "89324f1fbb951cc198446804374706b452ebc95857e6da00aaa61e0c4556bbcc",
+ "pip_freeze": [
+  "av==19.0.1",
+  "contourpy==1.4.0",
+  "cycler==0.12.1",
+  "fonttools==4.67.0",
+  "iniconfig==2.3.1",
+  "kiwisolver==1.5.1",
+  "matplotlib==3.11.2",
+  "numpy==2.5.4",
+  "opencv-contrib-python-headless==4.14.0.94",
+  "packaging==26.3",
+  "pandas==3.0.6",
+  "pillow==12.3.0",
+  "pluggy==1.6.0",
+  "pyarrow==26.0.0",
+  "Pygments==2.21.0",
+  "pyparsing==3.3.3",
+  "PySide6==6.12.0",
+  "PySide6_Addons==6.12.0",
+  "PySide6_Essentials==6.12.0",
+  "PySide6_Pdf==6.12.0.140",
+  "PySide6_WebEngine==6.12.0.140",
+  "pytest==9.1.1",
+  "python-dateutil==2.9.0.post0",
+  "PyYAML==6.0.3",
+  "scipy==1.18.1",
+  "shiboken6==6.12.0",
+  "six==1.17.0",
+  "-e git+https://github.com/Sparkxt-0318/wildfireguardian@ee903a8f13dda651d811a7be67fffc438fcbd369#egg=wfglink&subdirectory=wfglink"
+ ],
+ "tools": {
+  "codebase_memory_mcp": "not available in this session; code was inspected by bounded exact-source reading (git show / grep at c91bc87)",
+  "ml_libraries": "no scikit-learn, torch or onnxruntime; the verifier uses numpy, scipy and OpenCV only (no new pins)"
+ },
+ "external_evidence": {
+  "overnight_soak_20261016": "owner/orchestrator-supplied local evidence, not independently inspected: /Users/jp/... path is not accessible from this container. Reported: 8.06 h elapsed, 7.75 h running, median paint 29.2 fps, p5 26.8, memory slope about -2.9 MB/h, 0 processing errors, OVERALL FAIL from 4 stale-heartbeat restarts late in the run; cause unresolved."
+ },
+ "network": {
+  "upload.wikimedia.org": "HTTP 429 with Retry-After 600 on 2026-10-17 (as in every earlier attempt); Commons clips C2-C4, C9, C11-C13 unavailable",
+  "fs.usda.gov RDS catalogs and Box downloads": "reachable; Box serves HTTP range reads (206)",
+  "sciencedirect.com": "HTTP 403"
+ },
+ "baseline_reproduction": {
+  "command": "results/runs/precision_20261017/baseline_f9e72c2.sh (git archive f9e72c2; WFGLINK_EXPORT_COMMIT set; process data/clips/C5_nist_emberometer.yaml --no-overlay; label-score with the committed labels, match_px 3.0, streak_radius_frac 0.0, min_confidence 0.75, compare = labels_agent_check.csv)",
+  "run_dir": "results/runs/precision_20261017/export_f9e72c2/wfglink/results/runs/process/C5_multiscale (ignored)",
+  "summary": {
+   "frames": 566,
+   "frames_duplicate": 0,
+   "tracks": 12603,
+   "tracks_moving": 12494,
+   "duration_s": 18.667,
+   "cpc_gross": 170,
+   "cpc_gross_ci": [
+    145.4051209598549,
+    197.56347387677286
+   ],
+   "cpc_net": 52,
+   "cpc_net_ci": [
+    15.207626507604687,
+    88.75909876180225
+   ],
+   "count_rate_per_s": 9.107142857142858,
+   "count_rate_ci": [
+    7.7895600514208,
+    10.583757529112834
+   ],
+   "pnf": {
+    "value": 0.5019368858654574,
+    "lo": 0.42931878590282185,
+    "hi": 0.5833199696380529,
+    "unit": "per 100 px per s",
+    "label": "Particle Number Flux (projected, uncalibrated px)"
+   },
+   "gate": {
+    "p1": [
+     1190.4,
+     172.8
+    ],
+    "p2": [
+     1190.4,
+     1987.2
+    ],
+    "length_px": 1814.4,
+    "name": "gate"
+   },
+   "speed_px_s": {
+    "median": 84.0513899189347,
+    "p10": 5.184709881197481,
+    "p90": 553.8261846986287,
+    "tracks": 12494
+   },
+   "direction_deg_circular_mean": 129.84656529048178,
+   "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf"
+  },
+  "label_score": {
+   "tp": 24,
+   "fp": 156,
+   "fn": 20,
+   "dont_care_detections": 5,
+   "unsure_labels": 13,
+   "tiles_scored": 40,
+   "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+   "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+   "run_config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+   "run_git_commit": "f9e72c2445d616490187ea54f759061a6b07111b"
+  },
+  "sealed_reference": "results/validation/continuation_20261015/c5_multiscale_labels.json: TP 24, FP 168, FN 20 (Mac, Darwin arm64)",
+  "discrepancy": "Same commit, config hash, input hash, labels and settings reproduce TP 24, FP 156, FN 20 on this Linux x86_64 host (moving tracks 12494 against 12509, CPC net 52 against 56). The difference is attributed to platform numerics (the sealed run was made on the Apple Silicon Mac); 156 equals the count the Linux verifier recorded in the old handoff notes. Not resolved further; both figures are kept and the Linux figure is the baseline for comparisons made in this container."
+ }
+}

@@ -94,12 +94,59 @@ def select(listings: Path, seed: int, n_cal: int = 3, n_test: int = 6, n_prefix:
             "n_fires_with_clips": len(fires), "selected": chosen}
 
 
+def raw_name(item: dict) -> str:
+    """The file name in data/raw for a selected member, e.g. C8_ROUG016_C3.avi, C8_ROUG016_prefix.avi, C7_PP31.mov."""
+    base = item["member"].split("/")[-1]
+    stem, ext = base.rsplit(".", 1)
+    if item.get("fetch") == "prefix":
+        stem += "_prefix"
+    return f"{item['clip_group']}_{stem}.{ext.lower()}"
+
+
+def fetch(selection: Path, raw_dir: Path, receipts: Path) -> int:
+    """Fetch every selected member into raw_dir (skipping files already complete), appending one
+    provenance record per file to receipts (JSON lines)."""
+    from fetch_rds_members import get_member
+
+    sel = json.loads(selection.read_text())
+    done = set()
+    if receipts.exists():
+        done = {json.loads(line)["member"] for line in receipts.read_text().splitlines() if line.strip()}
+    failures = 0
+    for item in sel["selected"]:
+        out = raw_dir / raw_name(item)
+        if item["member"] in done and out.exists():
+            continue
+        member = {"name": item["member"], "size": item["member_bytes"], "crc32": item["member_crc32"],
+                  "method": 8, "local_offset": None}
+        try:
+            from fetch_rds_members import list_members
+
+            listing = {m["name"]: m for m in list_members(item["archive_url"])["members"]}
+            member = listing[item["member"]]
+            rec = get_member(item["archive_url"], member, out, item.get("prefix_bytes"))
+        except Exception as exc:  # recorded, the run continues with the next member
+            failures += 1
+            print(f"FAILED {item['member']}: {exc}")
+            continue
+        rec.update({"role": item["role"], "clip_group": item["clip_group"], "raw_name": out.name})
+        with open(receipts, "a") as f:
+            f.write(json.dumps(rec) + "\n")
+        print(f"ok {out.name} {rec['bytes_written'] / 1e6:.1f} MB sha256 {rec['sha256'][:16]}")
+    return 1 if failures else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--listings", required=True)
+    ap.add_argument("--listings")
     ap.add_argument("--seed", type=int, default=20261017)
-    ap.add_argument("--out", required=True)
+    ap.add_argument("--out", required=True, help="selection JSON (written by the selection, read by --fetch)")
+    ap.add_argument("--fetch", action="store_true", help="fetch the members of an existing selection")
+    ap.add_argument("--raw-dir", default="data/raw")
+    ap.add_argument("--receipts", default="results/validation/precision_20261017/fetch_receipts.jsonl")
     a = ap.parse_args(argv)
+    if a.fetch:
+        return fetch(Path(a.out), Path(a.raw_dir), Path(a.receipts))
     res = select(Path(a.listings), a.seed)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(json.dumps(res, indent=1))
