@@ -94,6 +94,59 @@ def select(listings: Path, seed: int, n_cal: int = 3, n_test: int = 6, n_prefix:
             "n_fires_with_clips": len(fires), "selected": chosen}
 
 
+def amend_test_from_reserve(selection: dict, listings: Path, n_test: int = 6, n_prefix: int = 2) -> dict:
+    """Amendment of 2026-10-17 (recorded in LOG and the protocol): the first sealed-test fires were
+    decoded while the camera-motion gate was being developed (global-motion statistics only, no
+    labels, no detections), so they can no longer serve as a sealed test. They become calibration
+    material, and a fresh sealed test is drawn from the untouched reserve: the next n_test fires in
+    the original seeded fire order, with plots, clips and prefixes drawn by numpy default_rng(seed + 1)
+    in that order. Content-blind: names and sizes only."""
+    rng = np.random.default_rng(int(selection["seed"]) + 1)
+    c8 = _members(listings, "RDS-2021-0069")
+    clips: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
+    full: dict[tuple[str, str], dict] = {}
+    for m in c8:
+        parts = m["name"].split("/")
+        fire, base = parts[1], parts[-1]
+        if (mc := CLIP_RE.match(base)):
+            clips[fire][mc.group(1).upper() + mc.group(2)].append(m)
+        elif (mf := FULL_RE.match(base)):
+            full[(fire, mf.group(1).upper() + mf.group(2))] = m
+    reserve = [f for f in selection["fire_order"] if selection["fire_roles"][f] == "reserve"]
+    new_test = reserve[:n_test]
+    chosen = []
+    for item in selection["selected"]:
+        it = dict(item)
+        if it["role"] in ("test", "test_negative_footage"):
+            it["role_original"] = it["role"]
+            it["role"] = "calibration" if it["role"] == "test" else "calibration_negative_footage"
+            it["demoted_reason"] = "decoded during camera-motion gate development (global-motion statistics only)"
+        chosen.append(it)
+    for k, fire in enumerate(new_test):
+        plots = sorted(clips[fire])
+        plot = plots[int(rng.integers(len(plots)))]
+        cands = sorted(clips[fire][plot], key=lambda m: m["name"])
+        clip = cands[int(rng.integers(len(cands)))]
+        item = {"archive": "RDS-2021-0069", "clip_group": "C8", "fire": fire, "plot": plot, "role": "test",
+                "member": clip["name"], "member_bytes": clip["size"], "member_crc32": clip["crc32"],
+                "archive_url": clip["archive_url"], "fetch": "whole", "amendment": 1}
+        chosen.append(item)
+        if k < n_prefix and (fire, plot) in full:
+            fm = full[(fire, plot)]
+            chosen.append({**item, "member": fm["name"], "member_bytes": fm["size"], "member_crc32": fm["crc32"],
+                           "archive_url": fm["archive_url"], "fetch": "prefix", "prefix_bytes": 120_000_000,
+                           "role": "test_negative_footage"})
+    roles = dict(selection["fire_roles"])
+    for f in new_test:
+        roles[f] = "test"
+    for f, r in selection["fire_roles"].items():
+        if r == "test":
+            roles[f] = "calibration"
+    return {**selection, "amendment": {"number": 1, "rule": amend_test_from_reserve.__doc__.strip(),
+                                       "rng": f"default_rng({int(selection['seed']) + 1})", "new_test_fires": new_test},
+            "fire_roles": roles, "selected": chosen}
+
+
 def raw_name(item: dict) -> str:
     """The file name in data/raw for a selected member, e.g. C8_ROUG016_C3.avi, C8_ROUG016_prefix.avi, C7_PP31.mov."""
     base = item["member"].split("/")[-1]
@@ -142,12 +195,16 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--seed", type=int, default=20261017)
     ap.add_argument("--out", required=True, help="selection JSON (written by the selection, read by --fetch)")
     ap.add_argument("--fetch", action="store_true", help="fetch the members of an existing selection")
+    ap.add_argument("--amend-from", help="write amendment 1 of this selection (test fires redrawn from the reserve) to --out")
     ap.add_argument("--raw-dir", default="data/raw")
     ap.add_argument("--receipts", default="results/validation/precision_20261017/fetch_receipts.jsonl")
     a = ap.parse_args(argv)
     if a.fetch:
         return fetch(Path(a.out), Path(a.raw_dir), Path(a.receipts))
-    res = select(Path(a.listings), a.seed)
+    if a.amend_from:
+        res = amend_test_from_reserve(json.loads(Path(a.amend_from).read_text()), Path(a.listings))
+    else:
+        res = select(Path(a.listings), a.seed)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(json.dumps(res, indent=1))
     for s in res["selected"]:
