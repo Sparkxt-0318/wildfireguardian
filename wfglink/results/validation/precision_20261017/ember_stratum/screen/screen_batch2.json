@@ -1,0 +1,1432 @@
+{
+  "summary": "Blind two-screener ember-presence and eligibility screen of candidate clips for the ember-positive sealed stratum",
+  "agentCount": 6,
+  "logs": [],
+  "result": {
+    "first": [
+      {
+        "clip_id": "C8_CLOV003_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Low surface fire and flame front at right background behind a pine trunk; only a fluttering red flag moves in the foreground. No particles in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same low flaming front at right background; flames attached to fuel only. No airborne particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Flames in shrubs at right background grow a little; nothing detached or moving between frames."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Surface fire at right background; no glowing particles in the smoke or sky."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.88_k0.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          },
+          {
+            "frame_file": "q80_f00598_t0023.96_k2.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Smoky mixed conifer forest with granite boulders, a large fallen weathered log and green shrubs in the foreground, and a low surface fire burning in the right background.",
+        "caption_text": "2008 Clover Fire Plot3 / 6/19/2008, ~13:33, Clip2",
+        "notes": "The burnt-in stamp is a static caption with an approximate time to the minute ('~13:33') and the same text in every frame. It is not a running clock, so I could not compute a timebase. In q20 and q80, frames k1 and k2 are near duplicates. The file name times are not monotonic in q40 (k2 t=11.92 is earlier than k0 t=11.96)."
+      },
+      {
+        "clip_id": "C8_GEOR007_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Dense blue smoke in a longleaf pine stand; no fire and no glowing particles."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Dense smoke with stakes in view; no fire or embers."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Smoke is thinning, saw palmetto is visible, and foliage at upper right sways. No glowing particles."
+          },
+          {
+            "q": 80,
+            "ember_visible": "yes",
+            "note": "As the fire front arrives the scene glows orange, and many translucent orange motion streaks cross it diagonally. Their positions change between k0 and k1, and some have thin bright cores, which reads as a firebrand shower. k1 and k2 are near-identical duplicate frames."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.96_k2.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Longleaf pine forest with a saw palmetto understory and red and white plot stakes. Heavy smoke early in the clip; by 80 percent the fire front arrives with an orange glow and a firebrand shower.",
+        "caption_text": "2007 Georgia Bay Complex, Plot7 / 5/25/2007, 14:08 Clip1",
+        "notes": "The stamp is a static caption with time to the minute, unchanged across the clip, so it is not a running clock. In q80, k1 and k2 are duplicates (mean difference 0.03). The q80 streaks are long and translucent rather than point-like, so a second screener should confirm that they glow rather than being lit debris."
+      },
+      {
+        "clip_id": "C8_RALS004_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Flames in foreground grass with smoke and trees behind. A small white dot at about (133,431) stays in the same place in all three frames, and dark specks look like lens dirt or non-glowing ash."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Flames and smoke fill the whole frame right at the lens; no distinct particles can be seen."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "Frame is filled with orange flame. k0 shows a thin lighter streak across the flame in mid frame, but against the flame background it cannot be told apart from a flame filament."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flame wall along the bottom with dark smoke above; no glowing particles in the dark area."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          },
+          {
+            "frame_file": "q80_f00598_t0023.96_k2.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Grass and shrub fire in front of a smoky treeline, with a thin pole in mid frame. At 40 and 60 percent, flames engulf the view near the camera.",
+        "caption_text": "2006 Ralston Fire Plot4 / 9/8/2006, ~12:43, Clip3",
+        "notes": "The stamp is a static approximate time ('~12:43'), not a running clock. The viewpoint (the pole position) is unchanged; the large visual changes come from flames over the lens. Duplicate frames: q20 k1 and k2, and q80 k0 and k1."
+      },
+      {
+        "clip_id": "C8_CLOV006_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Smoky surface fire behind trees and small ground flames near a snag; only the anemometer cups move. No airborne particles."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Small flames at the base of the forked snag; white smoke. No embers."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Same view; flames attached to fuel only."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Smoldering with a tiny flame at the snag base; no particles in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.88_k0.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          },
+          {
+            "frame_file": "q80_f00599_t0023.92_k2.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Mixed conifer forest on a slope, with an anemometer mast in the foreground, a pink flag, white smoke and a low surface fire in the midground.",
+        "caption_text": "2008 Clover Fire Plot6 / 6/20/2008, 13:21, Clip3",
+        "notes": "The stamp is a static caption with time to the minute, the same in every frame, so I could not compute a timebase. The spinning anemometer cups are the main moving object."
+      },
+      {
+        "clip_id": "C8_GEOR08B_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "unclear",
+            "note": "Intense fire close to the camera, with a crown or shrub torching at upper right. Small bright dots in the dark area stay in the same place across frames. Blurry orange blobs at right near the lens could be out-of-focus close firebrands or glare, so I cannot call it clearly."
+          },
+          {
+            "q": 40,
+            "ember_visible": "unclear",
+            "note": "k0 shows an isolated bright white point at about (758,312) against smoke. It is gone in k1, and a faint mark appears in the same place in k2, so it may be a stationary flicker. Bright specks in the center right sit inside flame and smoke."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "Frame is almost entirely flame and orange smoke; bright fragments cannot be told apart from burning foliage."
+          },
+          {
+            "q": 80,
+            "ember_visible": "unclear",
+            "note": "Flames at the bottom with a dark forest above and torching at upper right; a few small bright specks, but none clearly in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.96_k2.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, but the image is dark because of thick smoke. Pine forest with shrubs fully involved in an intense flaming front right at the camera, with torching at upper right.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2 / 5/25/2007, 14:19 Clip2",
+        "notes": "The stamp is a static caption with time to the minute, not a running clock. Duplicate frames: k1 and k2 in q40 and q80. This clip is likely to hold embers, but they are hard to separate from the flame background in still triplets; worth checking in video."
+      },
+      {
+        "clip_id": "C8_CLOV005_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Low surface flames on litter left of center and around a trunk; smoke; no particle moves between frames."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Surface flames grow slightly at the same spots; nothing in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Surface flame front left of center plus small flames behind the bushes on the right; all attached to fuel, no moving particles."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Same surface flames; frames k1 and k2 checked closely, k0 was not displayed (tool image limit) but k1 and k2 show no particles in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "2008 Clover Fire Plot5 / 6/20/2008, 16:30, Clip1"
+          },
+          {
+            "frame_file": "q80_f00599_t0023.96_k2.png",
+            "stamp_text": "2008 Clover Fire Plot5 / 6/20/2008, 16:30, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Smoky pine forest on Clover Fire Plot5; low surface fire burning litter and shrubs in the middle distance, with a dark instrument pole in the foreground center, a second thin pole on the right, and a fallen branch on the ground.",
+        "caption_text": "2008 Clover Fire Plot5 6/20/2008, 16:30, Clip1",
+        "notes": "The caption is a fixed overlay with the time to the minute (16:30), the same in every frame. It is not a running clock, so no elapsed time can be read and the ratio cannot be computed. File names show video times slightly out of order within triplets (for example q60 k2 at 17.92 s after k1 at 18.00 s)."
+      },
+      {
+        "clip_id": "C8_CLOV006_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Small surface fire near a log right of center (around x 990, y 410); flames attached, nothing in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Low flaming front along the log on the right; no moving glowing particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Flames on the log right of center, a small glow at the far right; static."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flames along the log and a new patch at the far right edge (x 1230, y 380); all attached to fuel."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0006.00_k0.png",
+            "stamp_text": "2008 Clover Fire Plot6 / 6/20/2008, 11:54, Clip1"
+          },
+          {
+            "frame_file": "q80_f00598_t0024.00_k2.png",
+            "stamp_text": "2008 Clover Fire Plot6 / 6/20/2008, 11:54, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Hazy pine forest slope on Clover Fire Plot6 with rocks, an anemometer mast in the foreground center, a pink flag on the ground, and a small low surface fire on a log in the right middle distance.",
+        "caption_text": "2008 Clover Fire Plot6 6/20/2008, 11:54, Clip1",
+        "notes": "Fixed caption with the time to the minute only (11:54), the same in all frames, so it is not a running clock and the ratio cannot be computed. The fire is small and far away; no embers were seen."
+      },
+      {
+        "clip_id": "C8_GEOR011_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Night. A bright flaming front at the lower right and small flame spots on the left and center (x 60, x 250, x 740 at y 540). A crop of the right side, enlarged, shows only flames attached to fuel and no particle moving between frames."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same flame spots; a brightened crop of the right shows a glowing fuel bed and backlit tree trunks, nothing in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "A tiny dot at the far left of the right crop stays still in all three frames; a small flame at the center (x 740) is attached to fuel. No moving particle."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flames along the ground on the right and small fixed flame spots elsewhere; nothing in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.92_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot11cam2 / 5/27/2007, 00:53 Clip2"
+          },
+          {
+            "frame_file": "q80_f00596_t0023.84_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot11cam2 / 5/27/2007, 00:53 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Night. Dark woodland with silhouetted trees and a thin stake in the center; a bright ground fire at the lower right and small flames scattered left and center; orange glow and smoke behind.",
+        "caption_text": "2007 Georgia Bay Complex, Plot11cam2 5/27/2007, 00:53 Clip2",
+        "notes": "Fixed caption with the time to the minute only (00:53), the same in all frames, so the ratio cannot be computed. The scene is dark, so faint embers would be hard to see; brightened crops were checked on the right side, where the fire is most active."
+      },
+      {
+        "clip_id": "C8_RALS002_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Grass fire front with low flames along the slope behind the stake and flag; heavy smoke; nothing in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Low flames along the grass front; a taller flame at x 380 is attached. No particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "A small white dot above the grass near the flag (around x 620, y 655) stays in the same place in all three frames on an enlarged crop. It is a static bright spot, not an ember."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flaming front on the right and small flames on the left; dark specks in the smoke are not glowing (ash or debris). No glowing particle in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "2006 Ralston Fire Plot2 / 9/7/2006, ~08:05, Clip2"
+          },
+          {
+            "frame_file": "q80_f00599_t0024.04_k2.png",
+            "stamp_text": "2006 Ralston Fire Plot2 / 9/7/2006, ~08:05, Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Dry grass slope with pines on the left and dense smoke on the right; a low grass fire front crosses the middle ground; a metal stake and a pink flag are in the foreground.",
+        "caption_text": "2006 Ralston Fire Plot2 9/7/2006, ~08:05, Clip2",
+        "notes": "Fixed caption with an approximate time (~08:05) that does not change between frames, so the ratio cannot be computed."
+      },
+      {
+        "clip_id": "C8_RALS002_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Flaming patches high on a shrub or branch right of center (around x 950, y 385 and x 1005, y 415) stay in place in all three frames on an enlarged crop. They are flames attached to elevated fuel, not particles in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "unclear",
+            "note": "Two small isolated glowing bits sit in the smoke above the flame front (around x 1050, y 390 and x 940, y 488). The upper one looks like a small comb or double blob. On an enlarged crop both stay at the same position in all three frames, so they may be burning bits hanging on branches rather than embers in flight. I cannot tell."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Many pale specks over the tree canopy on the left are not orange, so they are probably ash or sunlit needles. A tiny orange dot near x 1165, y 375 stays still. Flames are attached."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "A tall flame is torching a shrub on the right; no separate glowing particles moving between frames."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "2006 Ralston Fire Plot2 / 9/7/2006, ~08:02, Clip 1"
+          },
+          {
+            "frame_file": "q80_f00597_t0023.96_k0.png",
+            "stamp_text": "2006 Ralston Fire Plot2 / 9/7/2006, ~08:02, Clip 1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. The same Ralston Plot2 view as Clip2: a dry grass slope with pines, a stake and a pink flag in the foreground, and a more active flame front with flames torching shrubs on the right side.",
+        "caption_text": "2006 Ralston Fire Plot2 9/7/2006, ~08:02, Clip 1",
+        "notes": "Fixed caption with an approximate time (~08:02) that does not change between frames, so the ratio cannot be computed. This is the most active clip in the batch; the q40 candidates could be checked by a second screener."
+      },
+      {
+        "clip_id": "C8_GEOR08A_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Flaming front behind trees; one small white spot near lower center stays in place across frames, static, not an ember."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Large flames in background; small bright points near ground are static, attached to fuel."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Frame filled by intense flames; bright fragments are part of the flame sheet, no isolated particle in flight seen."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Surface fire with smoke; no small glowing particle moving between frames."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.92_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip2"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.96_k2.png",
+            "stamp_text": "5/25/2007, 14:18 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, smoky pine forest understory with an intense surface and shrub fire close to the camera; scene goes from flames behind trees to flames filling the view.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8",
+        "notes": "Stamp shows only minutes (14:18) and does not change, so fewer than two distinct readable times. Exposure varies a lot with fire brightness. File name times within triplets are not in frame order."
+      },
+      {
+        "clip_id": "C8_GEOR005_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Surface flames between trunks; no isolated flying particle."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "View obscured by orange smoke or lens covering, viewpoint shifts between frames; dark specks only, no glowing particle."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Dense flames and smoke; no clear particle in flight."
+          },
+          {
+            "q": 80,
+            "ember_visible": "unclear",
+            "note": "Many tiny white specks in the upper canopy area could be sparks or ash; cannot confirm glowing or motion."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0012.00_k0.png",
+            "stamp_text": "5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.88_k0.png",
+            "stamp_text": "5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "moving",
+        "scene": "Pine plantation with an intense surface fire; dark at start, smoke or lens obstruction at 40 percent, very bright fire at 80 percent.",
+        "caption_text": "2007 Georgia Bay Complex, Plot5",
+        "notes": "Stamp is a fixed range caption, not a running clock. Viewpoint differs between triplets and within the 40 percent triplet, suggesting the camera was knocked or displaced."
+      },
+      {
+        "clip_id": "C8_BEAV002_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Distant small flames in the center background behind pines; nothing in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Distant flames slightly larger; no particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Distant flame line; no particles."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Distant flames; no particles."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00151_t0006.00_k0.png",
+            "stamp_text": "8/11/2014, 16:00, Clip1"
+          },
+          {
+            "frame_file": "q80_f00607_t0024.32_k0.png",
+            "stamp_text": "8/11/2014, 16:00, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, hazy sky, young ponderosa pines framing a grassy opening with a sensor post; fire is far in the background.",
+        "caption_text": "2014 Beaver Fire, Plot2",
+        "notes": "Stamp shows only minutes and does not change. Only k0 frames inspected closely for this clip; fire too distant for embers to be resolved."
+      },
+      {
+        "clip_id": "C8_GEOR08B_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "No fire in view yet, smoke at upper left."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Flames entering at left edge; no particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Large flames at left; small bright spots on a stem and on the ground at right are static burning fuel."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Intense flames, exposure darkened; no isolated particle moving between frames."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0012.00_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip1"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.96_k2.png",
+            "stamp_text": "5/25/2007, 14:18 Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, longleaf pine understory with shrubs and a fallen log in the foreground; fire arrives from the left and engulfs the left half.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2",
+        "notes": "Stamp shows only minutes and does not change. Some k0 and k1 frames of 20 and 60 percent were inspected less closely due to tool limits."
+      },
+      {
+        "clip_id": "C8_GEOR08B_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Surface fire across the floor; small bright bits in upper right sit on branches, static."
+          },
+          {
+            "q": 40,
+            "ember_visible": "unclear",
+            "note": "Small bright flecks at top right and mid trunk shift slightly between frames; likely burning bark or leaves, could be firebrands."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Flames on right shrubs and ground; small bright flecks near top right appear attached."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Fire front on right; no particle in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "5/25/2007, 14:21 Clip3"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.96_k2.png",
+            "stamp_text": "5/25/2007, 14:21 Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, smoky pine forest with an active surface fire burning grass and shrubs around thin trees.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2",
+        "notes": "Stamp shows only minutes and does not change."
+      }
+    ],
+    "second": [
+      {
+        "clip_id": "C8_GEOR08B_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Surface fire with tall flames on the left and a torching crown in the upper right. The bright flecks in the crown and the lit bush stay in the same place in all 3 frames, so they are burning fuel, not particles in flight. I found no separated moving particle."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Dense sunlit orange smoke and flames. The burning bits in the upper right are static across frames. One whitish dot near x758 y312 shows in k0, is gone in k1 and is faint at the same spot in k2. It does not move, so it is not an ember. k1 and k2 are near duplicates."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "The view is almost entirely filled with flame and lit smoke. No discrete particle can be told apart from the flames, so embers cannot be judged."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "A small whitish elongated spot near x717 y259 between trunks moves only about 2 px between k0 and k1, so it is probably a glowing spot on a trunk rather than a firebrand. The crown flames in the upper right are attached to fuel. k1 and k2 are near duplicates."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.92_k0.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.88_k0.png",
+            "stamp_text": "5/25/2007, 14:19 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. In-fire camera in a smoky southern pine forest understory, with a shrub and branch layer in front. An intense surface fire with tall flames and a torching crown upper right. By 60 percent the camera view is filled with flame and smoke, and by 80 percent the flames are lower again.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2",
+        "notes": "The burnt-in date and time line is a fixed clip caption with minute resolution (14:19). It is identical in every frame over 36 video seconds and is not a running clock, so no ratio can be computed. A literal 0/36 would be meaningless. Some file names have frame times out of order (f00299 t12.04 before f00300 t12.00). Near-duplicate frames: q40 k1/k2 and q80 k1/k2."
+      },
+      {
+        "clip_id": "C8_CLOV006_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Daylight, low-intensity surface fire. The small flames at the base of the snag near x870 to 990, y540 are attached to fuel. Only the anemometer cups change between frames. No particle in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same view, with small ground flames and smoke. Nothing glowing in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Same view. The small changing spots are smoke texture and anemometer cups. No ember."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "The fire has mostly died down to a small flame near the snag base, with smoke behind. No ember."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.88_k0.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          },
+          {
+            "frame_file": "q40_f00298_t0012.00_k0.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          },
+          {
+            "frame_file": "q60_f00447_t0017.88_k0.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          },
+          {
+            "frame_file": "q80_f00597_t0023.96_k0.png",
+            "stamp_text": "6/20/2008, 13:21, Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Mixed conifer forest on a slope, with a low surface fire and white smoke in the middle distance. A few small flames sit at the base of a forked snag. In the foreground are an anemometer mast and a pink flag.",
+        "caption_text": "2008 Clover Fire Plot6",
+        "notes": "The stamp is a fixed caption with minute resolution. It is identical in all frames over about 18 video seconds and is not a running clock, so no ratio can be computed. File names have out-of-order times in q40 (f00299 t11.92) and q80 (f00599 t23.92)."
+      },
+      {
+        "clip_id": "C8_RALS004_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "A flame front in the lower half and heavy smoke above. A small whitish dot near x135 y430 stays in the same place in all frames (static). Small dark specks in the air are dark ash or debris that does not glow. k1 and k2 are near duplicates."
+          },
+          {
+            "q": 40,
+            "ember_visible": "unclear",
+            "note": "The camera is engulfed in flame and smoke, and the whole frame is orange flame. Particles cannot be told apart. The dark spot near x248 y240 is dirt on the lens and is present in every triplet."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "Still engulfed in flame. A thin bright line in k0 near x480 to 720, y490 to 550 looks like a flame filament, and no discrete ember can be confirmed."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flames in the lower half and dark smoke above. I checked the dark region and found no glowing particles. k0 and k1 are near duplicates."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          },
+          {
+            "frame_file": "q40_f00297_t0011.92_k0.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          },
+          {
+            "frame_file": "q60_f00447_t0017.92_k0.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          },
+          {
+            "frame_file": "q80_f00596_t0023.88_k0.png",
+            "stamp_text": "9/8/2006, ~12:43, Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Grass and shrub fuel with trees behind, under heavy smoke, and a thin vertical pole in the middle ground. A flaming front passes over the camera, filling the view at 40 and 60 percent. At 80 percent the flames are in the lower half with dark smoke above.",
+        "caption_text": "2006 Ralston Fire Plot4",
+        "notes": "The stamp is a fixed, approximate caption ('~12:43') that is identical in all frames. It is not a running clock, so no ratio can be computed. The pole and the lens spot keep their position throughout, so the viewpoint is static. Near-duplicate frames: q20 k1/k2 and q80 k0/k1."
+      },
+      {
+        "clip_id": "C8_GEOR007_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "A smoky pine stand with no flames in view and no warm bright pixels anywhere in the frames."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same smoky view with no flames or glowing particles."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Same view, slightly clearer. Red and white stakes are visible, and there is no glowing particle."
+          },
+          {
+            "q": 80,
+            "ember_visible": "yes",
+            "note": "A shower of firebrands. Many thin orange streaks cross the frame in different directions, and they change position between k0 and k1, for example across the middle near x450 to 900, y200 to 600. Some broad, diffuse streaks come from particles close to the lens. The scene is lit orange by the approaching fire. k1 and k2 are near duplicates."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.96_k0.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.88_k0.png",
+            "stamp_text": "5/25/2007, 14:08 Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. A smoke-filled southern pine forest with a saw palmetto and shrub understory, two red and white survey stakes, and a pine trunk at the left edge. There are no flames in view until 80 percent, when the scene turns orange and is crossed by many firebrand streaks.",
+        "caption_text": "2007 Georgia Bay Complex, Plot7",
+        "notes": "The stamp is a fixed caption with minute resolution. It is identical in all frames over 36 video seconds and is not a running clock, so no ratio can be computed. File names have out-of-order times in q40 (f00598 t23.88) and q60 (f00899 t35.96). The ember-positive triplet is q80."
+      },
+      {
+        "clip_id": "C8_CLOV003_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Daylight. A low flaming front in the right background near x900 to 1250, y250 to 380, with flames attached to shrubs and litter. No particle in flight. k1 and k2 are near duplicates."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "The flames in the right background are slightly larger, but still attached to fuel. No ember."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "A shrub is torching on the right, with flames attached to it. Nothing glowing in flight against the smoke."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Scattered flames and glowing fuel in the right background stay in the same places across frames. No ember. k1 and k2 are near duplicates."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.88_k0.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          },
+          {
+            "frame_file": "q40_f00297_t0011.96_k0.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          },
+          {
+            "frame_file": "q60_f00447_t0017.92_k0.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          },
+          {
+            "frame_file": "q80_f00596_t0023.80_k0.png",
+            "stamp_text": "6/19/2008, ~13:33, Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Smoky mixed conifer forest with granite boulders, a large fallen log in the foreground, manzanita shrubs at the bottom and a small red flag. A low-intensity flaming front burns in the right background.",
+        "caption_text": "2008 Clover Fire Plot3",
+        "notes": "The stamp is a fixed, approximate caption ('~13:33') that is identical in all frames. It is not a running clock, so no ratio can be computed. File names have an out-of-order time in q40 (f00299 t11.92)."
+      },
+      {
+        "clip_id": "C8_RALS002_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Flame front along slope; a few small glowing spots up in the canopy above the fire stay in place across the 3 frames (burning branches), no particle in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Two small orange spots in the smoke above the flame line (about x 1050, y 380 and x 940, y 490 in full frame) stay at the same position in all 3 frames, so static burning material, not embers in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Surface flame line with a taller flame at right; no moving glowing particles."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Tall flames at right changing shape between frames; no detached glowing particle or streak."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "9/7/2006, ~08:02. Clip 1"
+          },
+          {
+            "frame_file": "q80_f00599_t0024.00_k2.png",
+            "stamp_text": "9/7/2006, ~08:02. Clip 1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Dry grass slope with pine trees, a surface flame front burning along the slope under heavy smoke, two marker stakes with a pink flag in the foreground.",
+        "caption_text": "2006 Ralston Fire Plot2",
+        "notes": "The stamp is a fixed approximate time (~08:02) with no seconds and does not change, so there are fewer than two readable distinct stamps and the timebase cannot be computed. Video seconds in the file names are not strictly monotonic within a triplet (for example f00300 at 11.96 s after f00299 at 12.04 s)."
+      },
+      {
+        "clip_id": "C8_RALS002_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Low surface flames along the grass edge under thick smoke; no moving glowing particles."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Low flames and one small flame tongue near the left trees; nothing detached or moving in the air."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Flame line along the back of the grass; dense smoke; no particles in flight seen."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flames at right base of trees; no ember particles or streaks across the 3 frames."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "9/7/2006, ~08:05, Clip2"
+          },
+          {
+            "frame_file": "q80_f00599_t0024.04_k2.png",
+            "stamp_text": "9/7/2006, ~08:05, Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Same plot as Clip 1: dry grass slope, pine trees, dense smoke, low surface flame line, marker stakes with pink flag in foreground.",
+        "caption_text": "2006 Ralston Fire Plot2",
+        "notes": "The stamp is a fixed approximate time (~08:05) with no seconds and does not change, so the timebase cannot be computed."
+      },
+      {
+        "clip_id": "C8_GEOR011_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Night; bright burning fuel bed at lower right and small fixed flames at left and centre; tiny faint dots in the dark sky region did not glow clearly or move consistently, likely noise."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same fixed flames; no clearly glowing particle in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "A tiny faint dot near the lower left of the right crop (about x 900, y 560 full frame) is visible in frames k0 and k1 at nearly the same place; too faint and small to call an ember, probably noise or a static glow."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Fixed flames; no particles in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.92_k0.png",
+            "stamp_text": "5/27/2007, 00:53 Clip2"
+          },
+          {
+            "frame_file": "q80_f00596_t0023.84_k0.png",
+            "stamp_text": "5/27/2007, 00:53 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Night. Dark woodland with bare tree trunks silhouetted against orange glow, a burning fuel bed at lower right and small flames at left and centre, a marker pole in the middle.",
+        "caption_text": "2007 Georgia Bay Complex, Plot11cam2",
+        "notes": "Stamp shows only hours and minutes (00:53) and is constant, so the timebase cannot be computed. Image is noisy and dark."
+      },
+      {
+        "clip_id": "C8_CLOV006_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Small surface fire in the mid distance at right; no particles in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Low flames at a log in the mid distance; nothing moving in the air."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Flames at a log and a small flame at far right; no embers."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Flames along a log and at far right; no detached glowing particles."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0006.00_k0.png",
+            "stamp_text": "6/20/2008, 11:54, Clip1"
+          },
+          {
+            "frame_file": "q80_f00598_t0024.00_k2.png",
+            "stamp_text": "6/20/2008, 11:54, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Open conifer forest floor with rocks and litter, an anemometer pole in the foreground, a pink flag, and small surface fire with light smoke in the mid distance at right.",
+        "caption_text": "2008 Clover Fire Plot6",
+        "notes": "Stamp shows only hours and minutes and is constant, so the timebase cannot be computed."
+      },
+      {
+        "clip_id": "C8_CLOV005_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Surface flames at left behind shrubs under smoke; no moving glowing particles."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Spreading surface flames; no particles in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Surface flame line and a small glow behind the right trees; nothing detached."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "More flames in the background and around the tree base; no ember particles or streaks."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00148_t0005.96_k0.png",
+            "stamp_text": "6/20/2008, 16:30, Clip1"
+          },
+          {
+            "frame_file": "q80_f00599_t0023.96_k2.png",
+            "stamp_text": "6/20/2008, 16:30, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Smoky pine forest with shrubs, a dark instrument pole in the foreground, and a surface fire burning across the litter in the mid ground.",
+        "caption_text": "2008 Clover Fire Plot5",
+        "notes": "Stamp shows only hours and minutes and is constant, so the timebase cannot be computed."
+      },
+      {
+        "clip_id": "C8_GEOR08B_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "yes",
+            "note": "Upper right, among bare branches above the surface fire: small bright yellow-white particles and a short streak change position across the 3 frames. They look like firebrands in flight, though some may be glowing twig tips."
+          },
+          {
+            "q": 40,
+            "ember_visible": "yes",
+            "note": "Upper right: a bright orange-white fragment near the top and small orange short streaks lower down shift between frames. They read as lofted burning debris. Several bright bits elsewhere are attached flames on branches."
+          },
+          {
+            "q": 60,
+            "ember_visible": "unclear",
+            "note": "One small bright fragment near the top of the right shrub stays almost fixed, so it is probably a burning twig tip. No clear moving particles. The rest is flame attached to the shrub."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Smoky surface fire and torching shrub on the right. No distinct glowing particles in flight."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.96_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot8cam2 / 5/25/2007, 14:21 Clip3"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.92_k0.png",
+            "stamp_text": "5/25/2007, 14:21 Clip3"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25/2007, 14:21 Clip3"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.92_k0.png",
+            "stamp_text": "5/25/2007, 14:21 Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, heavy smoke. Ground-level in-fire camera in a pine forest with surface fire spreading through grass and litter, and shrubs torching on the right.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2",
+        "notes": "The stamp is a fixed caption that reads 14:21 in every frame. It has minute resolution and does not advance, so it is not a running clock and no timebase ratio can be computed. Taken literally, 0 s of stamp time over 36 s of video gives a ratio of 0, which is meaningless here. Video seconds in the file names are not monotonic within some triplets (q80 k1 is 47.88 and k0 is 47.92)."
+      },
+      {
+        "clip_id": "C8_GEOR08B_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Unburned understory with smoke at the upper left. No fire or embers in view."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "The flame front is starting to show at the left behind the brush. No particles in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "yes",
+            "note": "Intense flames at the left. In the smoke above, small bright pale-orange specks and short streaks are at different positions in each of the 3 frames, consistent with embers lofted in flight."
+          },
+          {
+            "q": 80,
+            "ember_visible": "unclear",
+            "note": "Large flames on the left and a dark area on the right. A faint small bright speck in the dark region shifts slightly between frames but is too faint to call with confidence."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0012.00_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot8cam2 / 5/25/2007, 14:18 Clip1"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.88_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip1"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip1"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.88_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day. Ground-level camera in a longleaf pine stand with dense brush and a fallen log in the foreground. The fire arrives from the left and engulfs the view, and the exposure darkens later.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8cam2",
+        "notes": "The stamp is a constant caption (14:18, minute resolution) that does not advance, so no timebase ratio is possible. The camera view is the same throughout; the log and trunks are in the same place in every frame."
+      },
+      {
+        "clip_id": "C8_BEAV002_C1",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Distant small flame patch in the middle ground beyond the young pines. Nothing in flight."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "Same distant flames, slightly larger. No embers."
+          },
+          {
+            "q": 60,
+            "ember_visible": "no",
+            "note": "Distant flame line. No embers."
+          },
+          {
+            "q": 80,
+            "ember_visible": "no",
+            "note": "Distant flames near the sensor post. No embers."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00151_t0006.00_k0.png",
+            "stamp_text": "2014 Beaver Fire, Plot2 / 8/11/2014, 16:00, Clip1"
+          },
+          {
+            "frame_file": "q40_f00303_t0012.20_k0.png",
+            "stamp_text": "8/11/2014, 16:00, Clip1"
+          },
+          {
+            "frame_file": "q60_f00455_t0018.28_k0.png",
+            "stamp_text": "8/11/2014, 16:00, Clip1"
+          },
+          {
+            "frame_file": "q80_f00607_t0024.32_k0.png",
+            "stamp_text": "8/11/2014, 16:00, Clip1"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "Day, overcast and smoky sky. Young ponderosa pines frame a grassy opening with a sensor post, and a low fire burns in the distance.",
+        "caption_text": "2014 Beaver Fire, Plot2",
+        "notes": "The stamp is a constant caption (16:00) and is not a running clock, so no ratio is possible. For q40 to q80 I checked only the k0 frame closely because the scene has no near fire. Video seconds in the file names are not monotonic within triplets (for example, q40 k1 is 12.12 and k0 is 12.20)."
+      },
+      {
+        "clip_id": "C8_GEOR005_C3",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Dark scene with surface flames and lit trunks. No distinct particles moving in zoomed crops of the dark upper area."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "View almost fully obscured by dense orange-lit smoke, with a dark smudge on the lens. No embers can be seen."
+          },
+          {
+            "q": 60,
+            "ember_visible": "yes",
+            "note": "Upper left between the trunks: several short curved bright streaks at different positions in each frame. They look like firebrands in flight."
+          },
+          {
+            "q": 80,
+            "ember_visible": "unclear",
+            "note": "Many tiny pale specks against the lit trunks in the upper left. They shift a little between frames, but they are faint and could be ash or compression noise."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0012.00_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot5 / 5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.92_k0.png",
+            "stamp_text": "5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          },
+          {
+            "frame_file": "q80_f01198_t0047.92_k2.png",
+            "stamp_text": "5/25?/2007, Video time 00:11:30-00:12:30 Clip3"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "static",
+        "scene": "A pine forest inside an intense surface fire. It is very dark at first (time of day unclear, likely day under heavy smoke), then lit orange by flames and smoke. The lens is dirty with dark smudges.",
+        "caption_text": "2007 Georgia Bay Complex, Plot5",
+        "notes": "The caption is constant and gives a source video range of 00:11:30-00:12:30 (60 s), consistent with a clip of about 60 s at real time (the 80 percent point is at about 48 s). It is not a running per-frame clock, so the ratio is left null. The date is printed with a question mark: 5/25?/2007. The heavy smoke at q40 hides the view, but the framing looks unchanged."
+      },
+      {
+        "clip_id": "C8_GEOR08A_C2",
+        "triplets": [
+          {
+            "q": 20,
+            "ember_visible": "no",
+            "note": "Flames in brush behind the trees. One small white spot on the ground is fixed across frames, so not an ember."
+          },
+          {
+            "q": 40,
+            "ember_visible": "no",
+            "note": "A larger flame front. Small bright spots at the ground edge are fixed flamelets. Nothing in flight."
+          },
+          {
+            "q": 60,
+            "ember_visible": "yes",
+            "note": "Upper left: many bright burning flakes and short streaks against the darker smoke change position and shape between the 3 frames. These are lofted burning debris (firebrands)."
+          },
+          {
+            "q": 80,
+            "ember_visible": "unclear",
+            "note": "Bright fragments high in the bare trees at the upper right shift between frames, but they may be burning bark or twigs still attached."
+          }
+        ],
+        "stamps": [
+          {
+            "frame_file": "q20_f00298_t0011.92_k0.png",
+            "stamp_text": "2007 Georgia Bay Complex, Plot8 / 5/25/2007, 14:18 Clip2"
+          },
+          {
+            "frame_file": "q40_f00597_t0023.88_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip2"
+          },
+          {
+            "frame_file": "q60_f00897_t0035.92_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip2"
+          },
+          {
+            "frame_file": "q80_f01196_t0047.88_k0.png",
+            "stamp_text": "5/25/2007, 14:18 Clip2"
+          }
+        ],
+        "timebase_ratio": null,
+        "timebase_verdict": "unknown",
+        "camera": "unclear",
+        "scene": "Day, smoky. Pine and shrub forest with an intense fire front approaching and passing the camera.",
+        "caption_text": "2007 Georgia Bay Complex, Plot8",
+        "notes": "The stamp is a constant caption (14:18) and is not a running clock, so no ratio is possible. The view is steady within each triplet. q20 and q40 share the same framing, but q60 and q80 show visibly different compositions, so the camera may have been moved or knocked, or the clip may contain cuts. I could not tell which."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Screen"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "screen:0:first",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "ab76848e600923f6e",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743324,
+      "lastProgressAt": 1792229743324,
+      "cached": true,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_CLOV003_C2\",\"triplets\":[{\"q\":20,\"ember_visible\":\"no\",\"note\":\"Low surface fire and flame front at right background behind a pine trunk; only a fluttering red flag moves in the foreground. No particles in flight.\"},{\"q\":40,\"ember_visible\":\"no\",\"note\":\"Same low flaming front at right background; flames attached to fuel only. No airborne particles.\"},{\"q\":60,\"ember_visible\":\"n…",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "screen:0:second",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "a2133e8ca438f2cb1",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743325,
+      "lastProgressAt": 1792229743325,
+      "cached": true,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_GEOR08B_C2\",\"triplets\":[{\"q\":20,\"ember_visible\":\"no\",\"note\":\"Surface fire with tall flames on the left and a torching crown in the upper right. The bright flecks in the crown and the lit bush stay in the same place in all 3 frames, so they are burning fuel, not particles in flight. I found no separated moving particle.\"},{\"q\":40,\"ember_visible\":\"no\",\"note\":\"Dense sunlit or…",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "screen:1:first",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "a530a3db26e6cc386",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743326,
+      "lastProgressAt": 1792229743326,
+      "cached": true,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_CLOV005_C1\",\"triplets\":[{\"q\":20,\"ember_visible\":\"no\",\"note\":\"Low surface flames on litter left of center and around a trunk; smoke; no particle moves between frames.\"},{\"q\":40,\"ember_visible\":\"no\",\"note\":\"Surface flames grow slightly at the same spots; nothing in flight.\"},{\"q\":60,\"ember_visible\":\"no\",\"note\":\"Surface flame front left of center plus small flames behind the …",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "screen:1:second",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "a872eb9643b7c43a2",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743326,
+      "lastProgressAt": 1792229743326,
+      "cached": true,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_RALS002_C1\",\"triplets\":[{\"q\":20,\"ember_visible\":\"no\",\"note\":\"Flame front along slope; a few small glowing spots up in the canopy above the fire stay in place across the 3 frames (burning branches), no particle in flight.\"},{\"q\":40,\"ember_visible\":\"no\",\"note\":\"Two small orange spots in the smoke above the flame line (about x 1050, y 380 and x 940, y 490 in full frame) stay …",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "screen:2:first",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "a6ad327b4f0042138",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743415,
+      "queuedAt": 1792229743327,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…",
+      "promptFramed": true,
+      "lastProgressAt": 1792230616538,
+      "tokens": 274954,
+      "toolCalls": 512,
+      "durationMs": 873121,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_GEOR08A_C2\",\"triplets\":[{\"q\":20,\"ember_visible\":\"no\",\"note\":\"Flaming front behind trees; one small white spot near lower center stays in place across frames, static, not an ember.\"},{\"q\":40,\"ember_visible\":\"no\",\"note\":\"Large flames in background; small bright points near ground are static, attached to fuel.\"},{\"q\":60,\"ember_visible\":\"no\",\"note\":\"Frame filled by intense fla…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "screen:2:second",
+      "phaseIndex": 1,
+      "phaseTitle": "Screen",
+      "agentId": "a0fc93264c4413eff",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792229743416,
+      "queuedAt": 1792229743328,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "Screen of wildfire video clips (US Forest Service in-fire cameras) for an evaluation of an ember detector. You have NOT seen and must NOT look for any detector output. For each clip, its folder /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/ember_screen/<clip_id>/ holds 12 frames (enlarged 2x): q<20|40|60|80>_f<frame index>_t<video seconds>_k<0|1|2>.png, i.e. 4 triplets of 3 c…",
+      "promptFramed": true,
+      "lastProgressAt": 1792230132638,
+      "tokens": 184905,
+      "toolCalls": 173,
+      "durationMs": 386401,
+      "resultPreview": "{\"clips\":[{\"clip_id\":\"C8_GEOR08B_C3\",\"triplets\":[{\"q\":20,\"ember_visible\":\"yes\",\"note\":\"Upper right, among bare branches above the surface fire: small bright yellow-white particles and a short streak change position across the 3 frames. They look like firebrands in flight, though some may be glowing twig tips.\"},{\"q\":40,\"ember_visible\":\"yes\",\"note\":\"Upper right: a bright orange-white fragment near …"
+    }
+  ],
+  "totalTokens": 459859,
+  "totalToolCalls": 685
+}
