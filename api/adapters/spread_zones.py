@@ -56,7 +56,10 @@ def _rings_of(geom: dict) -> list:
     for poly in polys or []:
         rings = []
         for ring in poly or []:
-            a = np.asarray(ring, dtype=float)
+            try:
+                a = np.asarray(ring, dtype=float)
+            except (ValueError, TypeError):
+                raise unprocessable("INVALID_ZONES", "each polygon ring must be a list of numeric [lon, lat] positions")
             if a.ndim != 2 or a.shape[0] < 3 or a.shape[1] < 2 or not np.isfinite(a[:, :2]).all():
                 raise unprocessable("INVALID_ZONES", "each polygon ring needs at least 3 finite [lon, lat] positions")
             a = a[:, :2]
@@ -200,7 +203,7 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
                                             sort_keys=True, default=str).encode()).hexdigest()
     assumptions = {
         "adapter": ADAPTER_VERSION, "label": APPROXIMATION,
-        "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell; nested zones take the smallest arrival_h_max",
+        "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell interior (centre or corner inside, or an edge crossing it; a shared boundary line alone does not count); nested zones take the smallest arrival_h_max",
         "bands": "distinct arrival_h_max values ascending; band (H_prev, H], H_prev = 0 for the innermost band",
         "margin_min": margin_min,
         "scenario_rule": "scenario 0 ignites at max(0, H_prev - margin); scenarios 1-3 at H_prev + (H - H_prev) * 1/3, 2/3, 1",
@@ -228,8 +231,8 @@ def build_packet(zone_plan: dict, *, graph_path: Path, out_dir: Path, python: st
     out_dir = Path(out_dir)
     out_dir.parent.mkdir(parents=True, exist_ok=True)
     plan_path = out_dir.parent / "ZONE_PLAN.json"
-    if not plan_path.exists():
-        plan_path.write_text(json.dumps(zone_plan, allow_nan=True))
+    with plan_path.open("x") as f:          # job folders are fresh; never reuse a stale plan
+        f.write(json.dumps(zone_plan, allow_nan=True))
     child = Path(__file__).resolve().parent / "_zone_packet_child.py"
     p = subprocess.run([python, "-I", "-B", str(child), "--plan", str(plan_path), "--graph", str(graph_path), "--out", str(out_dir)],
                        capture_output=True, text=True, timeout=600)

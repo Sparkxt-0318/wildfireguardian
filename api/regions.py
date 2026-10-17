@@ -150,8 +150,12 @@ class GraphIndex:
             lon, lat = self.node_lonlat(nid)
             return {"node_id": nid, "distance_m": 0.0, "lon": lon, "lat": lat, "input": "node_id"}
         lon, lat = float(loc["lon"]), float(loc["lat"])
+        if not (np.isfinite(lon) and np.isfinite(lat)):
+            raise unprocessable("VALIDATION_ERROR", "%s coordinates must be finite numbers" % role, {"role": role})
         x, y = to_5179(lon, lat)
         x, y = float(x), float(y)
+        if not (np.isfinite(x) and np.isfinite(y)):
+            raise unprocessable("SNAP_TOO_FAR", "%s cannot be projected to EPSG:5179" % role, {"role": role})
         idx = np.flatnonzero(self.allowed)
         d2 = (self.xy[idx, 0] - x) ** 2 + (self.xy[idx, 1] - y) ** 2
         k = int(idx[int(np.argmin(d2))])

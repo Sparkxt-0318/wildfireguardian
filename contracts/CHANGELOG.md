@@ -29,3 +29,30 @@ Any change after the first push is recorded here with a new minor version (v1.1,
 - `GET /regions` and `GET /regions/{region}/forecast` can return `503 DATA_UNAVAILABLE` when the recorded routing inputs
   are not installed (`python tools/fetch_routing_inputs.py`). `POST /route-checks` and `POST /dispatch-plans` already
   declared it. Found by the contract tests.
+
+## v1.3 — provenance everywhere and documentation fixes (additive)
+
+- `Error` responses and `GET /health` now include a `provenance` object, so every response carries provenance.
+- KML and CSV exports carry provenance in the `X-WFG-Provenance` header. The CSV body is a plain table with no comment
+  rows.
+- `degraded` health also covers a missing `/usr/bin/time` or `/bin/ps`, which the kit controller needs.
+- `burning_scenario_set_id` is documented as a consistency check. Burning cells always come from the recorded input at
+  `input_time`.
+- Documented error codes `GRID_MISMATCH`, `CHECKPOINT_MISMATCH` and `ZONE_PACKET_BUILD_FAILED`.
+- `api_version` in provenance follows the contract version.
+
+## v1.4 — safety tightening after review (additive fields, stricter dispatch)
+
+- `POST /dispatch-plans` accepts only `policy: full`; anything else returns 422 `POLICY_NOT_ALLOWED`. Repeated
+  `depart_offsets_s` return 422 `DUPLICATE_OFFSET`.
+- `DispatchOriginPlan` gains `latest_contiguous_checked_depart_offset_s`. It is the last offset such that every
+  requested offset from the earliest up to it has a checked route, and it is used for urgency ordering. The
+  `latest_checked_depart_offset_s` field keeps its literal meaning.
+- `run_independent_check` follows the frozen scorer: if the check was requested and did not complete, the result is
+  unresolved (`CHECK_NOT_FINISHED`, raw reason `INDEPENDENT_CHECK_MISSING`).
+- A reduced-policy route that contradicts its own policy's enabled constraints under the independent functions is
+  unresolved (`CHECK_FAILED`), as in the ablation grader.
+- `JobAccepted`, `RouteCheckJob` and `DispatchPlanJob` gain an optional `provenance` (inputs known at acceptance).
+- Request bodies with non-finite numbers (NaN, Infinity) are rejected with 422.
+- A dispatch plan may contain at most 4,800 attempts (origins × destinations × offsets); larger plans return 422
+  `TOO_MANY_ATTEMPTS`. The contract's per-list limits are unchanged.

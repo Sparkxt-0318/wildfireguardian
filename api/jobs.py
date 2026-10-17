@@ -48,18 +48,33 @@ class JobManager:
         self.runtime_dir = Path(runtime_dir)
         (self.runtime_dir / "jobs").mkdir(parents=True, exist_ok=True)
         self.workers = workers
-        self.pool = ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn"), initializer=_init_worker)
+        self.pool = self._new_pool()
+        self.pool_restarts = 0
         self.jobs: dict[str, dict] = {}
         self.lock = threading.RLock()
         self._q: queue.PriorityQueue = queue.PriorityQueue()
         self._seq = itertools.count()
         self._slots = threading.Semaphore(workers)
         self._stop = threading.Event()
-        # start every worker now, while sys.path is clean, so later imports in the server cannot leak into workers
-        for f in [self.pool.submit(_ready) for _ in range(workers)]:
-            f.result(timeout=120)
         self._feeder = threading.Thread(target=self._feed, name="wfg-feeder", daemon=True)
         self._feeder.start()
+
+    def _new_pool(self) -> ProcessPoolExecutor:
+        pool = ProcessPoolExecutor(max_workers=self.workers, mp_context=mp.get_context("spawn"), initializer=_init_worker)
+        # start every worker now, while sys.path is clean, so later imports in the server cannot leak into workers
+        for f in [pool.submit(_ready) for _ in range(self.workers)]:
+            f.result(timeout=120)
+        return pool
+
+    def _ensure_pool(self):
+        """A worker that dies (e.g. killed by the OS) breaks a ProcessPoolExecutor for good; rebuild it once broken."""
+        if getattr(self.pool, "_broken", False):
+            try:
+                self.pool.shutdown(wait=False, cancel_futures=True)
+            except Exception:
+                pass
+            self.pool = self._new_pool()
+            self.pool_restarts += 1
 
     # ---- records -----------------------------------------------------------------------------------------------
     def new_id(self, prefix: str) -> str:
@@ -116,6 +131,7 @@ class JobManager:
             except Exception:
                 pass
             try:
+                self._ensure_pool()
                 fut = self.pool.submit(TASKS[kind], spec)
             except Exception as exc:   # pool broken or shut down
                 self._slots.release()

@@ -124,6 +124,7 @@ def test_route_check_lifecycle_and_exports(client, hs_sid):
     refusal = _post(client, body_from_recorded("hongseong_2023", "20230402T070000Z_FN1", hs_sid["20230402T070000Z"]))
     route = _post(client, body_from_recorded("hongseong_2023", "20230402T230000Z_FD1", hs_sid["20230402T230000Z"]))
     assert refusal.status_code == 202 and route.status_code == 202
+    assert route.json()["provenance"]["kit"] == "v3" and route.json()["provenance"]["evaluated_configuration"] is True
     rid = route.json()["job_id"]
     early = client.get("/v1/route-checks/%s/export" % rid, params={"format": "geojson"})
     if early.status_code == 409:
@@ -149,7 +150,11 @@ def test_route_check_lifecycle_and_exports(client, hs_sid):
         e = client.get("/v1/route-checks/%s/export" % rid, params={"format": fmt})
         assert_conforms(e, "/route-checks/{job_id}/export")
         assert e.status_code == 200 and e.headers["content-type"].startswith(media)
-    assert client.get("/v1/route-checks/%s/export" % rid, params={"format": "csv"}).text.splitlines()[0] == "seq,node_id,lon,lat,time_s,event"
+    csv_resp = client.get("/v1/route-checks/%s/export" % rid, params={"format": "csv"})
+    rows = csv_resp.text.splitlines()
+    assert rows[0] == "seq,node_id,lon,lat,time_s,event" and all(len(r.split(",")) == 6 for r in rows)
+    hdr = json.loads(csv_resp.headers["x-wfg-provenance"])
+    assert hdr["verdict"] == "checked_route" and hdr["checkpoint"].startswith("c651f672")
     e = client.get("/v1/route-checks/%s/export" % refusal.json()["job_id"], params={"format": "geojson"})
     assert_conforms(e, "/route-checks/{job_id}/export")
     assert e.status_code == 409 and e.json()["error"]["code"] == "NO_CHECKED_ROUTE"
@@ -190,6 +195,18 @@ def test_spread_zones_route_check(client, hs_sid):
     assert a["label"] == "approximation, requires expert review" and a["margin_min"] == 60 and len(a["bands_detail"]) == 2
 
 
+def test_dispatch_rejections(client, hs_sid):
+    body = {"region": "hongseong_2023", "input_time": "2023-04-02T07:00:00Z",
+            "fire_input": {"type": "recorded", "scenario_set_id": hs_sid["20230402T070000Z"]},
+            "origins": [{"id": "O1", "location": {"node_id": "osm:4267555571"}}],
+            "destinations": [{"id": "D1", "location": {"node_id": "osm:6430106206"}}], "depart_offsets_s": [0]}
+    for bad, code in ((dict(body, policy="travel_only"), "POLICY_NOT_ALLOWED"), (dict(body, depart_offsets_s=[0, 0.0]), "DUPLICATE_OFFSET"),
+                      (dict(body, origins=body["origins"] * 2), "DUPLICATE_ID")):
+        r = client.post("/v1/dispatch-plans", json=bad)
+        assert_conforms(r, "/dispatch-plans", "post")
+        assert r.status_code == 422 and r.json()["error"]["code"] == code
+
+
 @needs_kit
 def test_dispatch_plan(client, hs_sid):
     body = {"region": "hongseong_2023", "input_time": "2023-04-02T07:00:00Z",
@@ -208,5 +225,6 @@ def test_dispatch_plan(client, hs_sid):
     (plan,) = res["plans"]
     # this is the recorded Hongseong FN1 mission (scoped refusal in the campaign)
     assert plan["best_verdict"] == "model_no_route" and plan["latest_checked_depart_offset_s"] is None and plan["urgency_rank"] == 1
+    assert plan["latest_contiguous_checked_depart_offset_s"] is None and j["provenance"]["kit"] == "v3"
     sub = client.get("/v1/route-checks/" + plan["attempts"][0]["route_check_job_id"])
     assert_conforms(sub, "/route-checks/{job_id}")

@@ -12,6 +12,7 @@ def test_health_degraded_without_inputs(empty_client):
     assert j["status"] == "degraded" and j["regions"] == []
     assert any("fetch_routing_inputs" in i for i in j["issues"])
     assert j["package"] == "wfg_latest" and j["kit"] == "v3" and j["checkpoint"].startswith("c651f672")
+    assert j["provenance"]["git_commit"] == j["git_commit"]
 
 
 def test_regions_and_forecast_unavailable(empty_client):
@@ -35,6 +36,12 @@ def test_route_check_validation_and_unavailable(empty_client):
     r = empty_client.post("/v1/route-checks", content=b"{not json", headers={"content-type": "application/json"})
     assert r.status_code == 422
     assert_conforms(r, "/route-checks", "post")
+    raw = ('{"region": "uljin_2022", "input_time": "2022-03-04T03:00:00Z", "start": {"lon": NaN, "lat": NaN}, '
+           '"destination": {"node_id": "osm:4744584066"}, "fire_input": {"type": "recorded", "scenario_set_id": "x"}}')
+    r = empty_client.post("/v1/route-checks", content=raw.encode(), headers={"content-type": "application/json"})
+    assert_conforms(r, "/route-checks", "post")
+    assert r.status_code == 422 and r.json()["error"]["code"] == "VALIDATION_ERROR"
+    assert r.json()["provenance"]["kit"] == "v3"
 
 
 def test_unknown_jobs_and_exports(empty_client):

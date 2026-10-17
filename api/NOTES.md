@@ -39,7 +39,9 @@ which is verified against `INPUT_FILES.json` and archive SHA-256 `d7e0a5fc…`.
   - `checked_route` requires one of the three `CHECKED_JOURNEY_*` statuses and `whole_road_check.status == CERTIFIED_ADMISSIBLE`. It must not be a road-only route (`ROAD_CERTIFIED_CENTRE_INFEASIBLE_ROUTE`). Whole-road contact must be `CLEAR` whenever flame contact is enforced.
   - `model_no_route` requires `FULL_MODEL_REFUSAL_PROVEN`.
   - Everything else is `unresolved`.
-  - If the independent check runs, its contradictions downgrade the verdict exactly as the scorer does.
+  - If the independent check was requested, the scorer's rules apply. Contradictions downgrade the verdict. A check that did not complete gives `CHECK_NOT_FINISHED` / `INDEPENDENT_CHECK_MISSING`, because the scorer never counts such a run as resolved.
+  - **Reduced policies** (`travel_only`, `flame_*`): the route is re-assessed against the unchanged full hazard with the independent functions, as the ablation grader `grade_route.py` does. If it contradicts the selected policy's own enabled constraints, it is `unresolved/CHECK_FAILED`. `full_policy_assessment` always reports whether it would pass the full policy.
+- **Dispatch plans** accept only `policy=full`. Urgency uses the conservative `latest_contiguous_checked_depart_offset_s`. The ordering follows the task: checked routes (earliest first), then `model_no_route`, then `unresolved`.
 - **Request construction** (`api/requests_build.py`) reproduces the recorded request layout and constants: `objective`, `exposure_scope=including_dwell`, `limits{wall_s 30, max_labels 1e6, max_expansions 1e6, frontier_width 16384}`, `solver baseline`, `as_of = time_origin`, and `horizon = valid_until`. A body that restates a recorded mission yields that mission's request object exactly; provenance `recorded_mission_match` records it.
 - **Timing:** `compute_s` is the controller receipt's `external_launch_to_completion_wall_s`, the same clock and scope as the experiments. The independent check, the full-policy assessment and adapter packet building are reported separately under `provenance.timings_s`.
 - **Caching:**

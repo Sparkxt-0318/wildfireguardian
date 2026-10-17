@@ -56,23 +56,30 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
     app.mount("/static", StaticFiles(directory=str(STATIC)), name="static")
 
     # ---------------------------------------------------------------------------------------------- errors
+    def _error_provenance() -> dict | None:
+        ident = getattr(st, "identity", None)
+        return ident.base() if ident is not None else None
+
     @app.exception_handler(APIError)
     async def _api_error(request, exc: APIError):
-        return JSONResponse(exc.body(), status_code=exc.status)
+        return JSONResponse(dict(exc.body(), provenance=_error_provenance()), status_code=exc.status)
 
     @app.exception_handler(RequestValidationError)
     async def _validation(request, exc: RequestValidationError):
         return JSONResponse({"error": {"code": "VALIDATION_ERROR", "message": "invalid request parameters",
-                                       "details": json.loads(json.dumps(exc.errors(), default=str))}}, status_code=422)
+                                       "details": json.loads(json.dumps(exc.errors(), default=str))},
+                             "provenance": _error_provenance()}, status_code=422)
 
     @app.exception_handler(StarletteHTTPException)
     async def _http(request, exc: StarletteHTTPException):
         code = {404: "NOT_FOUND", 405: "METHOD_NOT_ALLOWED"}.get(exc.status_code, "HTTP_%d" % exc.status_code)
-        return JSONResponse({"error": {"code": code, "message": str(exc.detail)}}, status_code=exc.status_code)
+        return JSONResponse({"error": {"code": code, "message": str(exc.detail)}, "provenance": _error_provenance()},
+                            status_code=exc.status_code)
 
     @app.exception_handler(Exception)
     async def _internal(request, exc: Exception):
-        return JSONResponse({"error": {"code": "INTERNAL_ERROR", "message": "%s: %s" % (type(exc).__name__, exc)}}, status_code=500)
+        return JSONResponse({"error": {"code": "INTERNAL_ERROR", "message": "%s: %s" % (type(exc).__name__, exc)},
+                             "provenance": _error_provenance()}, status_code=500)
 
     # ---------------------------------------------------------------------------------------------- docs
     def _openapi() -> dict:
@@ -99,8 +106,10 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
 
     # ---------------------------------------------------------------------------------------------- helpers
     def _body(raw: bytes, component: str) -> dict:
+        def _no_constant(tok):
+            raise ValueError("non-finite number %s is not valid JSON" % tok)
         try:
-            body = json.loads(raw or b"null")
+            body = json.loads(raw or b"null", parse_constant=_no_constant)
         except ValueError as exc:
             raise unprocessable("VALIDATION_ERROR", "request body is not valid JSON: %s" % exc)
         errs = K.errors(component, body)
@@ -155,6 +164,19 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                                 clock=CLOCK_DEFINITION, recorded_mission_match=recorded_match,
                                 budget_s=C.BUDGET_S, workers=st.settings.workers)
 
+    def _job_prov(region, sset, fire_type: str, policy: str, limits: dict | None) -> dict:
+        """Provenance known when a job is accepted (inputs it will use); the finished result carries the full record."""
+        recorded = fire_type == "recorded"
+        hashes = {"graph": region.graph.sha256}
+        if recorded:
+            hashes["hazard"] = sset.hazard_sha256
+        return st.identity.base(region=region.id, input_time=tag_to_iso(sset.tag), graph_id=region.graph.revision,
+                                input_hashes=hashes, scenario_set_id=sset.scenario_set_id if recorded else None,
+                                scenario_ids=list(sset.scenario_ids) if recorded else [], fire_input_type=fire_type, policy=policy,
+                                evaluated_configuration=(recorded and policy == "full" and limits is not None and is_default_limits(limits)) or None,
+                                approximation=APPROXIMATION_NOTE if fire_type == "spread_zones" else None, clock=CLOCK_DEFINITION,
+                                budget_s=C.BUDGET_S, workers=st.settings.workers)
+
     def _new_route_job(body: dict, region, sset, zone_plan, snap: dict, parent=None, request_params=None, prebuilt=None,
                        callback=None) -> dict:
         job_id = st.jobs.new_id("rc")
@@ -162,7 +184,8 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         policy = body.get("policy", "full")
         limits = request_params["limits"]
         job = {"job_id": job_id, "kind": "route_check", "status": "queued", "created_at": utc_now(), "started_at": None,
-               "finished_at": None, "request": body, "snap": snap, "result": None, "error": None}
+               "finished_at": None, "request": body, "snap": snap, "result": None, "error": None,
+               "provenance": _job_prov(region, sset, fire["type"], policy, limits)}
         if parent:
             job["parent_job_id"] = parent
         st.jobs.put(job)
@@ -235,7 +258,9 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                 "checkpoint": st.identity.checkpoint, "git_commit": st.identity.git_commit, "regions": sorted(reg.regions),
                 "workers": st.settings.workers, "data_root": str(st.settings.data_root), "issues": issues,
                 "jobs": st.jobs.counts(), "queued_tasks": st.jobs.queued(), "budget_s": C.BUDGET_S,
-                "kit_candidate_id": st.identity.kit_candidate_id, "git_dirty": st.identity.git_dirty}
+                "pool_restarts": st.jobs.pool_restarts,
+                "kit_candidate_id": st.identity.kit_candidate_id, "git_dirty": st.identity.git_dirty,
+                "provenance": st.identity.base(input_hashes={"%s/graph" % r.id: r.graph.sha256 for r in reg.regions.values()})}
 
     @app.get("/v1/regions")
     async def regions():
@@ -274,6 +299,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         norm.setdefault("incurred_dose_kj_m2", rp["limits"]["incurred_dose_kj_m2"])
         job = _new_route_job(norm, region, sset, zone_plan, snap, request_params=rp)
         return JSONResponse({"job_id": job["job_id"], "status": "queued", "kind": "route_check", "snap": snap,
+                             "provenance": job["provenance"],
                              "links": {"self": "/v1/route-checks/%s" % job["job_id"],
                                        "export_geojson": "/v1/route-checks/%s/export?format=geojson" % job["job_id"]}},
                             status_code=202)
@@ -304,9 +330,11 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                             headers={"Content-Disposition": 'attachment; filename="%s.geojson"' % fname})
         if format == "kml":
             return Response(X.to_kml(j), media_type="application/vnd.google-earth.kml+xml",
-                            headers={"Content-Disposition": 'attachment; filename="%s.kml"' % fname})
+                            headers={"Content-Disposition": 'attachment; filename="%s.kml"' % fname,
+                                     "X-WFG-Provenance": X.provenance_header(j)})
         return PlainTextResponse(X.to_csv(j), media_type="text/csv",
-                                 headers={"Content-Disposition": 'attachment; filename="%s.csv"' % fname})
+                                 headers={"Content-Disposition": 'attachment; filename="%s.csv"' % fname,
+                                          "X-WFG-Provenance": X.provenance_header(j)})
 
     # ---------------------------------------------------------------------------------------------- dispatch
     @app.post("/v1/dispatch-plans", status_code=202)
@@ -331,12 +359,19 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
             except APIError as e:
                 rejected.append({"origin_id": o["id"], "error": {"code": e.code, "message": e.message}})
         policy = body.get("policy", "full")
+        if policy != "full":
+            raise unprocessable("POLICY_NOT_ALLOWED", "dispatch plans use the full policy only; reduced policies may return routes "
+                                "that fail the full hazard model", {"policy": policy})
+        from .requests_build import lattice_int
+        offs = [lattice_int(o, "depart_offsets_s") for o in body["depart_offsets_s"]]
+        if len(set(offs)) != len(offs):
+            raise unprocessable("DUPLICATE_OFFSET", "depart_offsets_s must not repeat a value", {"depart_offsets_s": body["depart_offsets_s"]})
         dwell_default = body.get("dwell_s", C.DEFAULT_DWELL_S)
         limits_body = {"limits": body.get("limits") or {}}
         attempts_spec, pre_rejected = [], {}
         for o, osnap in origins:
             for d, dsnap in dests:
-                for off in body["depart_offsets_s"]:
+                for off in offs:
                     pseudo = {"depart_offset_s": off, "dwell_s": d.get("dwell_s", dwell_default), "destination_window": d.get("window"),
                               **limits_body}
                     try:
@@ -347,9 +382,14 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                             "raw_reason": e.code, "arrival_s": None, "lower_bound_L_s": None, "compute_s": None, "route_check_job_id": None}
                         continue
                     attempts_spec.append((o, osnap, d, dsnap, off, rp))
+        if len(attempts_spec) + len(pre_rejected) > C.MAX_DISPATCH_ATTEMPTS:
+            raise unprocessable("TOO_MANY_ATTEMPTS", "origins x destinations x offsets is %d; the limit is %d per plan"
+                                % (len(attempts_spec) + len(pre_rejected), C.MAX_DISPATCH_ATTEMPTS))
         job_id = st.jobs.new_id("dp")
         total = len(attempts_spec) + len(pre_rejected)
-        job = {"job_id": job_id, "kind": "dispatch_plan", "status": "queued", "created_at": utc_now(), "started_at": None,
+        dp_limits = effective_limits({"limits": body.get("limits") or {}})
+        job = {"provenance": _job_prov(region, sset, body["fire_input"]["type"], policy, dp_limits),
+               "job_id": job_id, "kind": "dispatch_plan", "status": "queued", "created_at": utc_now(), "started_at": None,
                "finished_at": None, "request": body, "progress": {"done": len(pre_rejected), "total": total}, "result": None, "error": None}
         st.jobs.put(job)
         t_start = time.perf_counter()
@@ -374,7 +414,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                                     scenario_set_id=sset.scenario_set_id if zone_plan is None else None,
                                     scenario_ids=list(sset.scenario_ids) if zone_plan is None else [],
                                     fire_input_type=body["fire_input"]["type"], policy=policy,
-                                    evaluated_configuration=(zone_plan is None and policy == "full" and not body.get("limits")),
+                                    evaluated_configuration=(zone_plan is None and policy == "full" and is_default_limits(dp_limits)),
                                     approximation=APPROXIMATION_NOTE if zone_plan is not None else None, clock=CLOCK_DEFINITION,
                                     budget_s=C.BUDGET_S, workers=st.settings.workers)
             if zone_plan is not None and shared.get("meta"):
@@ -431,6 +471,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
             st.jobs.schedule("zone_packet", {"zone_plan": zone_plan, "graph_path": str(region.graph_path), "out_dir": str(pdir),
                                              "python": st.settings.python}, lambda: None, zp_done, priority=1)
         return JSONResponse({"job_id": job_id, "status": st.jobs.get(job_id)["status"], "kind": "dispatch_plan",
+                             "provenance": job["provenance"],
                              "links": {"self": "/v1/dispatch-plans/%s" % job_id}}, status_code=202)
 
     @app.get("/v1/dispatch-plans/{job_id}")

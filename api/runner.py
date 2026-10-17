@@ -238,6 +238,7 @@ def full_policy_assessment(kit: Path, graph: dict, packet: Path, full_request: d
                  "contact": bool(v.get("flame_contact")) or mid in (contact.get("witnesses") or {})}
            for mid, v in cm["per_member"].items()}
     return {"passes_full_centre_and_contact": bool(gram.get("ok") and cm.get("feasible") and contact.get("status") == "CLEAR"),
+            "grammar_ok": bool(gram.get("ok")),
             "whole_road_contact": contact.get("status"), "violations": viol, "per_scenario": per,
             "scope": "independent grammar, centre-model exposure and exact whole-road contact against the unchanged full hazard; "
                      "the project whole-road radiation check was not repeated"}
@@ -383,6 +384,15 @@ def execute(spec: dict) -> dict:
                     e = fpa["per_scenario"][sid]
                     out["exposure"].append({"scenario_id": sid, "peak_kw_m2": e["peak_kw_m2"], "dose_kj_m2": e["dose_kj_m2"],
                                             "contact": e["contact"], "basis": "full_model_centre_check"})
+                enabled = {"travel_only": set(), "flame_only": {"FLAME"}, "flame_peak": {"FLAME", "PEAK"},
+                           "flame_dose": {"FLAME", "DOSE"}}[policy]          # arm_transform.ENABLED for A0-A3
+                own_ok = fpa["grammar_ok"] and not any(v["constraint"] in enabled for v in fpa["violations"]) and \
+                    ("FLAME" not in enabled or fpa["whole_road_contact"] == "CLEAR")
+                fpa["passes_selected_policy"] = own_ok
+                if not own_ok:      # the ablation grader (grade_route.py) would not count this as a selected-policy route
+                    verdict, reason, raw_reason = V.UNRESOLVED, "CHECK_FAILED", "INDEPENDENT_CONTRADICTION"
+                    out.update(verdict=verdict, reason_code=reason, raw_reason=raw_reason, arrival_s=None, dwell_end_s=None,
+                               route=None, exposure=[])
                 notes.append("Route checked under policy %s only (%s); exposure is reported against the unchanged full hazard. "
                              "It is not a full-policy checked route." % (policy, "flame contact not enforced" if not flame_enforced else
                                                                          "thermal limits partly disabled"))

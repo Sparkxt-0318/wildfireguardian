@@ -5,8 +5,9 @@ receipt-level failures (memory guard, worker failure, no publication) override e
 authoritative journey whose mandatory whole-road check is CERTIFIED_ADMISSIBLE becomes ``checked_route`` (a route the
 runtime centre model rejects -- ROAD_CERTIFIED_CENTRE_INFEASIBLE_ROUTE -- is a road-only route and stays unresolved);
 only FULL_MODEL_REFUSAL_PROVEN becomes ``model_no_route``. Everything else is ``unresolved`` with a reason code.
-When the offline independent checker was requested, its result is applied exactly as the scorer applies it
-(contradictions, invalid trajectory, uncleared disputes or a non-certified refusal downgrade to unresolved).
+When the offline independent checker was requested, the scorer's rules apply: contradictions, an invalid trajectory,
+uncleared disputes or a non-certified refusal downgrade to unresolved, and so does a requested check that did not
+complete (the scorer's INDEPENDENT_CHECK_MISSING is never resolved).
 """
 from __future__ import annotations
 
@@ -81,8 +82,8 @@ def classify(decision: dict, receipt: dict, result: dict, independent: dict | No
         if res.get("primary_status") == "ROAD_CERTIFIED_CENTRE_INFEASIBLE_ROUTE":
             return UNRESOLVED, "CHECK_FAILED", "ROAD_ONLY_ROUTE"
         if ind is not None:
-            if ind.get("status") in ("TIMEOUT", "FAILED", "INVALID_OUTPUT"):
-                return CHECKED, None, None              # corroboration unavailable; runtime authority stands (noted by caller)
+            if ind.get("status") != "OK":
+                return UNRESOLVED, "CHECK_NOT_FINISHED", "INDEPENDENT_CHECK_MISSING"
             if contra:
                 return UNRESOLVED, "CHECK_FAILED", "INDEPENDENT_CONTRADICTION"
             if ci.get("trajectory") != "VALID" or ci.get("whole_road_contact") != "CLEAR":
@@ -94,7 +95,9 @@ def classify(decision: dict, receipt: dict, result: dict, independent: dict | No
         return CHECKED, None, None
     # ---- scoped refusal ---------------------------------------------------------------------------------------------
     if a == "FULL_MODEL_REFUSAL_PROVEN":
-        if ind is not None and ind.get("status") not in ("TIMEOUT", "FAILED", "INVALID_OUTPUT"):
+        if ind is not None and ind.get("status") != "OK":
+            return UNRESOLVED, "CHECK_NOT_FINISHED", "INDEPENDENT_CHECK_MISSING"
+        if ind is not None:
             v = opt.get("verdict")
             if contra or v in DISPUTE_REF:
                 return UNRESOLVED, "CHECK_FAILED", "INDEPENDENT_CONTRADICTION"

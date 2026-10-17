@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.2.0
+  version: 1.4.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -173,7 +173,12 @@ paths:
             text/csv:
               schema:
                 type: string
-                description: 'Header: seq,node_id,lon,lat,time_s,event'
+                description: 'Header: seq,node_id,lon,lat,time_s,event (plain table; provenance is in the X-WFG-Provenance header, v1.3)'
+          headers:
+            X-WFG-Provenance:
+              description: KML·CSV 내보내기의 압축 출처 JSON (v1.3) / compact provenance JSON for KML and CSV exports
+              schema:
+                type: string
         '404':
           $ref: '#/components/responses/NotFound'
         '409':
@@ -280,12 +285,18 @@ components:
                 `VALIDATION_ERROR`, `JOB_NOT_FOUND`, `JOB_NOT_DONE`, `NO_CHECKED_ROUTE`, `DATA_UNAVAILABLE`, `TOO_MANY_ORIGINS`.
                 v1.1: `INVALID_INPUT_TIME`, `SCENARIO_SET_TIME_MISMATCH`, `FORECAST_UNAVAILABLE`, `NOT_ON_TIME_LATTICE`,
                 `DEPARTURE_OUTSIDE_HORIZON`, `INVALID_WINDOW`, `WINDOW_UNSATISFIABLE`, `START_EQUALS_DESTINATION`, `INVALID_LIMITS`,
-                `DUPLICATE_ID`, `INPUT_CHANGED`.
+                `DUPLICATE_ID`, `INPUT_CHANGED`. v1.3: `GRID_MISMATCH`, `CHECKPOINT_MISMATCH`, `ZONE_PACKET_BUILD_FAILED`.
+                v1.4: `POLICY_NOT_ALLOWED`, `DUPLICATE_OFFSET`, `TOO_MANY_ATTEMPTS` (origins × destinations × offsets > 4800).
               examples: [SNAP_TOO_FAR]
             message:
               type: string
             details:
               description: 추가 정보 / extra context
+        provenance:
+          description: 출처 정보 (v1.3, 서버 초기화 전에는 null) / provenance (v1.3; null before start-up completes)
+          oneOf:
+            - $ref: '#/components/schemas/Provenance'
+            - type: 'null'
     Health:
       type: object
       required: [status, api_version, package, package_version, kit, checkpoint, git_commit, regions, workers]
@@ -293,7 +304,9 @@ components:
         status:
           type: string
           enum: [ok, degraded]
-          description: '`degraded` = 기록 입력 데이터가 없거나 일부 지역 로드 실패 / data missing or partially loaded'
+          description: |
+            `degraded` = 기록 입력 데이터가 없거나 일부 지역 로드 실패, 또는 키트 제어기에 필요한 /usr/bin/time·/bin/ps 없음 (v1.3).
+            Data missing or partially loaded, or the controller's /usr/bin/time or /bin/ps missing (v1.3); see `issues`.
         api_version:
           type: string
           examples: ['1.0.0']
@@ -326,6 +339,8 @@ components:
           type: array
           items:
             type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
     RegionList:
       type: object
       required: [regions, provenance]
@@ -593,7 +608,9 @@ components:
           description: 보수적 조기 점화 여유 (분) / conservative early-ignition margin (minutes)
         burning_scenario_set_id:
           type: [string, 'null']
-          description: 지정 시 해당 기록 입력에서 현재 연소 중인 셀은 기록대로 유지 / keep currently-burning cells as recorded
+          description: |
+            현재 연소 중인 셀은 항상 input_time의 기록 입력 그대로 유지됩니다. 이 값을 주면 그 시나리오 세트와 일치하는지만 확인합니다 (v1.3).
+            Currently burning cells are always kept as recorded at input_time; if given, this must equal that recorded set (consistency check, v1.3).
     ZoneCollection:
       type: object
       required: [type, features]
@@ -677,7 +694,10 @@ components:
         run_independent_check:
           type: boolean
           default: false
-          description: 시간 측정 이후 오프라인 독립 점검기(최대 120 s) 실행 / run the offline independent checker after the timed request
+          description: |
+            시간 측정 이후 오프라인 독립 점검기(최대 120 s) 실행. 요청했는데 완료되지 않으면 동결된 채점기처럼 unresolved(CHECK_NOT_FINISHED) (v1.4).
+            Run the offline independent checker after the timed request; if requested but not completed, the result is
+            unresolved (CHECK_NOT_FINISHED), as in the frozen scorer (v1.4). Defined for policy full only.
         client_ref:
           type: [string, 'null']
           maxLength: 200
@@ -698,6 +718,9 @@ components:
           type: object
           additionalProperties:
             type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 작업이 사용할 입력의 출처 (v1.4) / provenance of the inputs the job will use
     JobStatus:
       type: string
       enum: [queued, running, done, failed]
@@ -856,6 +879,8 @@ components:
         full_policy_assessment:
           type: [object, 'null']
           description: |
+            축소 정책 경로가 자기 정책의 제약에도 모순되면 결과는 unresolved(CHECK_FAILED) (v1.4).
+            If a reduced-policy route contradicts its own policy's enabled constraints, the result is unresolved (CHECK_FAILED, v1.4).
             full 이외 정책의 경로를 원래 전체 위험 모델로 오프라인 평가 (독립 점검기 함수 사용, compute_s 미포함) (v1.1).
             Offline assessment of a reduced-policy route against the unchanged full hazard (not charged to compute_s).
         dwell_end_s:
@@ -942,6 +967,9 @@ components:
           oneOf:
             - $ref: '#/components/schemas/JobError'
             - type: 'null'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 접수 시점의 출처; 완료 결과에는 result.provenance가 전체 기록 (v1.4) / provenance at acceptance
     JobError:
       type: object
       required: [code, message]
@@ -1014,6 +1042,7 @@ components:
           default: 120
         policy:
           $ref: '#/components/schemas/Policy'
+          description: 배차 계획은 full만 허용 (그 외 422 POLICY_NOT_ALLOWED, v1.4) / dispatch plans accept full only
         limits:
           $ref: '#/components/schemas/Limits'
         client_ref:
@@ -1058,6 +1087,13 @@ components:
         latest_checked_depart_offset_s:
           type: [number, 'null']
           description: 점검된 경로를 주는 가장 늦은 출발 오프셋 / latest departure offset with a checked route
+        latest_contiguous_checked_depart_offset_s:
+          type: [number, 'null']
+          description: |
+            가장 이른 요청 오프셋부터 끊김 없이 모든 오프셋에 점검된 경로가 있는 마지막 오프셋 (보수적, v1.4). 긴급도 정렬에 사용.
+            출발 전 출발지 체류 중 노출은 점검하지 않습니다.
+            Last offset such that every requested offset from the earliest up to it has a checked route (conservative, v1.4);
+            used for urgency ordering. Exposure while waiting at the origin before departure is not checked.
         best:
           oneOf:
             - $ref: '#/components/schemas/DispatchAttempt'
@@ -1147,6 +1183,9 @@ components:
           oneOf:
             - $ref: '#/components/schemas/JobError'
             - type: 'null'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 접수 시점의 출처 (v1.4) / provenance at acceptance
     RouteExportCollection:
       type: object
       required: [type, features, provenance]

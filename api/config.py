@@ -27,6 +27,7 @@ DEFAULT_DWELL_S = 120              # every recorded final-panel mission
 REQUEST_LIMITS = {"wall_s": 30, "max_labels": 1000000, "max_expansions": 1000000, "frontier_width": 16384}
 REQUEST_CONSTANTS = {"objective": "earliest_arrival", "exposure_scope": "including_dwell", "solver": "baseline"}
 MAX_DISPATCH_ORIGINS = 200
+MAX_DISPATCH_ATTEMPTS = 4800       # origins x destinations x offsets per plan (bounded memory and compute)
 INPUT_SET = "latest_inputs_try02"  # the evaluated final input set (data/routing/latest_inputs_try02)
 
 # API policy name -> final-input ablation arm (research/routing/final-input-ablation/POLICY_TRANSFORMS.json).

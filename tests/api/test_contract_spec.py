@@ -40,6 +40,12 @@ def test_changelog_records_contract_version():
     assert ("v%s" % major_minor) in log
 
 
+def test_api_version_follows_contract(empty_client):
+    from api import API_VERSION
+    assert API_VERSION == SPEC["info"]["version"]
+    assert empty_client.get("/v1/health").json()["api_version"] == API_VERSION
+
+
 def test_openapi_json_is_the_contract(empty_client):
     for url in ("/openapi.json", "/v1/openapi.json"):
         r = empty_client.get(url)
@@ -62,3 +68,4 @@ def test_error_envelope_for_unknown_route(empty_client):
     r = empty_client.get("/v1/route-checks/does-not-exist")
     assert_conforms(r, "/route-checks/{job_id}")
     assert r.status_code == 404 and r.json()["error"]["code"] == "JOB_NOT_FOUND"
+    assert r.json()["provenance"]["checkpoint"].startswith("c651f672")

@@ -59,6 +59,10 @@ def test_independent_check_applies_the_scorer_rules():
     full = dec("CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN")
     assert V.classify(full, OK_RC, ROUTE_RES, good)[0] == "checked_route"
     assert V.classify(full, OK_RC, ROUTE_RES, dict(good, contradictions=["X"]))[0] == "unresolved"
+    for missing in ({"status": "TIMEOUT"}, {"status": "FAILED"}):     # requested but not completed: never resolved
+        assert V.classify(full, OK_RC, ROUTE_RES, missing) == ("unresolved", "CHECK_NOT_FINISHED", "INDEPENDENT_CHECK_MISSING")
+        assert V.classify(dec("FULL_MODEL_REFUSAL_PROVEN"), OK_RC, {"primary_status": "PROVEN_INFEASIBLE", "authority_final": True},
+                          missing)[2] == "INDEPENDENT_CHECK_MISSING"
     disputed = dict(good, optimality_or_refusal={"verdict": "NOT_OPTIMAL_COUNTEREXAMPLE"})
     assert V.classify(full, OK_RC, ROUTE_RES, disputed)[2] == "INDEPENDENT_DISPUTE_UNCLEARED"
     refusal = dec("FULL_MODEL_REFUSAL_PROVEN")
@@ -88,9 +92,17 @@ def test_latest_checked_offset_and_urgency_order():
     p3 = D.origin_plan("refused", None, [att("a", 0, "model_no_route"), att("a", 600, "model_no_route")], order)
     p4 = D.origin_plan("unknown", None, [att("a", 0, "unresolved"), att("a", 600, "model_no_route")], order)
     assert p1["latest_checked_depart_offset_s"] == 600 and p1["best"]["destination_id"] == "b"   # earliest arrival at the latest safe offset
-    assert p2["latest_checked_depart_offset_s"] == 0
+    assert p1["latest_contiguous_checked_depart_offset_s"] == 600
+    assert p2["latest_checked_depart_offset_s"] == 0 and p2["latest_contiguous_checked_depart_offset_s"] == 0
+    gap = D.origin_plan("gap", None, [att("a", 0, "checked_route", 300), att("a", 300, "model_no_route"),
+                                      att("a", 600, "checked_route", 900)], order)
+    assert gap["latest_checked_depart_offset_s"] == 600 and gap["latest_contiguous_checked_depart_offset_s"] == 0
+    late_only = D.origin_plan("late_only", None, [att("a", 0, "unresolved"), att("a", 600, "checked_route", 900)], order)
+    assert late_only["latest_contiguous_checked_depart_offset_s"] is None
     ranked = D.sort_by_urgency([p4, p3, p1, p2], {"late": 0, "early": 1, "refused": 2, "unknown": 3})
     assert [p["origin_id"] for p in ranked] == ["early", "late", "refused", "unknown"]
     assert [p["urgency_rank"] for p in ranked] == [1, 2, 3, 4]
+    ranked2 = D.sort_by_urgency([p1, gap, late_only], {"late": 0, "gap": 1, "late_only": 2})
+    assert [p["origin_id"] for p in ranked2] == ["late_only", "gap", "late"]    # conservative offsets drive urgency
     s = D.summary(ranked, [a for p in ranked for a in p["attempts"]])
     assert (s["checked_route"], s["model_no_route"], s["unresolved"]) == (2, 1, 1)

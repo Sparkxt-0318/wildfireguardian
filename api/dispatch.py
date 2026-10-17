@@ -17,6 +17,20 @@ def best_verdict(attempts: list) -> str:
     return UNRESOLVED
 
 
+def contiguous_latest(attempts: list):
+    """Largest requested offset t such that every requested offset <= t has a checked route (to some destination);
+    None when the earliest requested offset has none. Stops at the first offset with no checked route, because a
+    refusal or unresolved result in between means waiting at the origin until a later offset is not supported."""
+    offsets = sorted({a["depart_offset_s"] for a in attempts})
+    ok = {a["depart_offset_s"] for a in attempts if a["verdict"] == CHECKED}
+    latest = None
+    for t in offsets:
+        if t not in ok:
+            break
+        latest = t
+    return latest
+
+
 def origin_plan(origin_id: str, snap, attempts: list, dest_order: dict) -> dict:
     attempts = sorted(attempts, key=lambda a: (a["depart_offset_s"], dest_order.get(a["destination_id"], 0)))
     checked = [a for a in attempts if a["verdict"] == CHECKED]
@@ -26,16 +40,20 @@ def origin_plan(origin_id: str, snap, attempts: list, dest_order: dict) -> dict:
         cands = [a for a in checked if a["depart_offset_s"] == latest]
         best = min(cands, key=lambda a: (a["arrival_s"], dest_order.get(a["destination_id"], 0)))
     return {"origin_id": origin_id, "urgency_rank": 0, "snap": snap, "best_verdict": best_verdict(attempts),
-            "latest_checked_depart_offset_s": latest, "best": best, "attempts": attempts}
+            "latest_checked_depart_offset_s": latest, "latest_contiguous_checked_depart_offset_s": contiguous_latest(attempts),
+            "best": best, "attempts": attempts}
 
 
 def sort_by_urgency(plans: list, origin_order: dict) -> list:
-    """Earliest latest-safe-departure first, then model_no_route, then unresolved."""
+    """Earliest latest-safe-departure first, then model_no_route, then unresolved (the order the task fixes).
+    Within checked origins the conservative contiguous latest offset is used; an origin whose earliest requested offset
+    has no checked route (contiguous value None) ranks first."""
     group = {CHECKED: 0, NO_ROUTE: 1, UNRESOLVED: 2}
 
     def key(p):
         g = group[p["best_verdict"]]
-        lat = p["latest_checked_depart_offset_s"] if g == 0 else 0
+        c = p.get("latest_contiguous_checked_depart_offset_s")
+        lat = (float("-inf") if c is None else c) if g == 0 else 0
         arr = p["best"]["arrival_s"] if p["best"] else 0
         return (g, lat, arr, origin_order.get(p["origin_id"], 0))
     out = sorted(plans, key=key)
