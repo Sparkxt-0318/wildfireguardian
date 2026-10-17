@@ -266,7 +266,7 @@ def build_zone_packet(spec: dict) -> dict:
         packet, meta = SZ.build_packet(spec["zone_plan"], graph_path=Path(spec["graph_path"]), out_dir=Path(spec["out_dir"]),
                                        python=spec["python"])
         return {"status": "done", "packet_dir": str(packet), "adapter_meta": meta, "adapter_s": time.perf_counter() - t0}
-    except Exception as exc:
+    except (Exception, SystemExit) as exc:     # the frozen controller and packet tools signal some failures with SystemExit
         return {"status": "failed", "error": {"code": "ZONE_PACKET_BUILD_FAILED", "message": "%s: %s" % (type(exc).__name__, exc)}}
 
 
@@ -310,9 +310,13 @@ def execute(spec: dict) -> dict:
         policy_meta = None
         if policy == "full":
             from wfg_latest import api as WA
-            summary = WA.route_and_check(kit_root=C.KIT_ROOT, packet_dir=packet, graph=graph_path, request=request_path,
-                                         out_dir=out_dir, arm="RDA_CAND", python=python, budget_s=C.BUDGET_S,
-                                         memory_guard_mib=C.MEMORY_GUARD_MIB, check=False, label=label)
+            saved_path = list(sys.path)          # route_and_check prepends kit paths on every call; keep the worker's path flat
+            try:
+                summary = WA.route_and_check(kit_root=C.KIT_ROOT, packet_dir=packet, graph=graph_path, request=request_path,
+                                             out_dir=out_dir, arm="RDA_CAND", python=python, budget_s=C.BUDGET_S,
+                                             memory_guard_mib=C.MEMORY_GUARD_MIB, check=False, label=label)
+            finally:
+                sys.path[:] = saved_path
             kit_used, hz_used, rq_used = C.KIT_ROOT, packet / "HAZARD.json", request_path
         else:
             rc_, kit_used, hz_used, rq_used, policy_meta = run_ablation_attempt(
@@ -398,6 +402,9 @@ def execute(spec: dict) -> dict:
                                                                          "thermal limits partly disabled"))
                 if not fpa["passes_full_centre_and_contact"]:
                     notes.append("This route FAILS the full policy: %s." % ", ".join(sorted({v["constraint"] for v in fpa["violations"]})))
+        if assumptions is not None and not assumptions.get("cells_igniting_within_horizon"):
+            notes.append("The zone product contributed no ignition inside the 1 h hazard horizon; this result reflects the "
+                         "recorded present fire only (see assumptions).")
         if verdict == V.NO_ROUTE:
             notes.append("Scoped refusal: no route exists within this model, lattice, scenarios and policy; "
                          "it is not proof that every real-world escape is impossible.")
@@ -421,20 +428,28 @@ def execute(spec: dict) -> dict:
         if adapter_meta:
             hashes.update({"zones/" + k: v for k, v in adapter_meta.get("input_hashes", {}).items()})
         timings["worker_total_s"] = time.perf_counter() - t_start
-        return {"status": "done", "result": out, "error": None, "timings": timings, "request_object": request,
+        tainted = receipt.get("cleanup_state") != "CLEAN" or getattr(CTL, "CURRENT", None) is not None \
+            or (out_dir / "INTERRUPTED_RECEIPT.json").exists()
+        return {"status": "done", "tainted": tainted, "result": out, "error": None, "timings": timings, "request_object": request,
                 "decision_status": decision.get("authoritative_status"), "scenario_ids": sids, "input_hashes": hashes,
                 "graph_id": graph.get("revision"), "policy_meta": policy_meta, "adapter_meta": adapter_meta,
                 "receipt": {k: receipt.get(k) for k in ("on_time_complete_publication", "exit_code", "cleanup_state",
                                                          "deadline_termination_requested", "memory_guard_triggered",
                                                          "external_launch_to_completion_wall_s", "raw_primary_status")}}
-    except Exception as exc:
-        err = {"code": getattr(exc, "code", None) or "INTERNAL_ERROR", "message": "%s: %s" % (type(exc).__name__, exc)}
+    except (Exception, SystemExit) as exc:     # SystemExit: e.g. PRELAUNCH_INPUT_HASH_MISMATCH from the frozen controller
+        err = {"code": getattr(exc, "code", None) if isinstance(getattr(exc, "code", None), str) else "INTERNAL_ERROR",
+               "message": "%s: %s" % (type(exc).__name__, exc)}
+        try:
+            import wfg_controller as _CTL
+            tainted = getattr(_CTL, "CURRENT", None) is not None
+        except Exception:
+            tainted = False
         try:
             (job_dir / "WORKER_ERROR.txt").write_text(traceback.format_exc())
         except Exception:
             pass
         status_code = 422 if getattr(exc, "status", None) == 422 else None
-        return {"status": "failed", "error": err, "http_status": status_code, "details": getattr(exc, "details", None),
+        return {"status": "failed", "tainted": tainted, "error": err, "http_status": status_code, "details": getattr(exc, "details", None),
                 "result": {"verdict": V.UNRESOLVED, "reason_code": "INTERNAL_ERROR", "raw_status": None, "raw_reason": err["message"],
                            "departure_s": None, "arrival_s": None, "lower_bound_L_s": None, "dwell_end_s": None, "route": None,
                            "exposure": [], "compute_s": None, "within_budget": False, "policy": spec.get("policy"),

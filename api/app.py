@@ -142,9 +142,15 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         with np.load(sset.packet_dir / "constructed_arrays.npz", allow_pickle=False) as z:
             present = z["current_active"].copy()
         T = float(md["construction"]["assumptions"]["burning_duration_s"])
-        window = (md.get("regional") or {}).get("window_rows_cols_north_up")
+        reg_md = md.get("regional") or {}
+        window = reg_md.get("window_rows_cols_north_up")
+        event_grid = None
+        if window is not None and reg_md.get("full_event_shape") and reg_md.get("full_event_affine_transform"):
+            hf, wf = reg_md["full_event_shape"]
+            a, _, c, _, e, f = reg_md["full_event_affine_transform"]
+            event_grid = {"x0": c, "y0": f + hf * e, "resolution": a, "width": wf, "height": hf}
         zone_plan = SZ.plan(region=region, sset=sset, fire_input=fire, to_5179=to_5179, horizon_s=sset.horizon_s,
-                            active_duration_s=T, present_fire=present, window=window)
+                            active_duration_s=T, present_fire=present, window=window, event_grid=event_grid)
         return sset, zone_plan
 
     def _prov(out: dict | None, region, sset, fire_type: str, policy: str, limits: dict) -> dict:
@@ -218,6 +224,9 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                     res["provenance"]["timings_s"] = out["timings"]
                 if out.get("receipt"):
                     res["provenance"]["receipt"] = out["receipt"]
+            if out.get("tainted"):
+                st.jobs.pause("kit attempt %s: process cleanup was not confirmed CLEAN; new launches are paused as the frozen "
+                              "controller requires. Check for leftover processes, then restart the API." % job_id)
             st.jobs.update(job_id, status="done" if out.get("status") == "done" else "failed", finished_at=utc_now(),
                            result=res, error=out.get("error"))
             cb = callbacks.pop(job_id, None)
@@ -252,7 +261,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
     @app.get("/v1/health")
     async def health():
         reg = st.registry
-        issues = list(reg.issues) + _tool_issues()
+        issues = list(reg.issues) + _tool_issues() + ([st.jobs.paused] if st.jobs.paused else [])
         return {"status": "ok" if reg.regions and not issues else "degraded", "api_version": API_VERSION,
                 "package": st.identity.package, "package_version": st.identity.package_version, "kit": st.identity.kit,
                 "checkpoint": st.identity.checkpoint, "git_commit": st.identity.git_commit, "regions": sorted(reg.regions),
@@ -284,10 +293,18 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         return Response(json.dumps(body, allow_nan=False), media_type="application/geo+json")
 
     # ---------------------------------------------------------------------------------------------- route checks
+    def _require_capacity(extra: int = 1):
+        from .jobs import MAX_QUEUED_TASKS
+        if st.jobs.queued() + extra > MAX_QUEUED_TASKS:
+            raise unavailable("BUSY", "too many queued checks (%d); retry later" % st.jobs.queued())
+        if st.jobs.paused:
+            raise unavailable("LAUNCHES_PAUSED", st.jobs.paused)
+
     @app.post("/v1/route-checks", status_code=202)
     async def create_route_check(request: Request):
         body = _body(await request.body(), "RouteCheckRequest")
         _require_data()
+        _require_capacity()
         region = st.registry.region(body["region"])
         tag = normalize_input_time(body["input_time"])
         sset, zone_plan = _resolve_fire(region, tag, body["fire_input"])
@@ -382,6 +399,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                             "raw_reason": e.code, "arrival_s": None, "lower_bound_L_s": None, "compute_s": None, "route_check_job_id": None}
                         continue
                     attempts_spec.append((o, osnap, d, dsnap, off, rp))
+        _require_capacity(len(attempts_spec))
         if len(attempts_spec) + len(pre_rejected) > C.MAX_DISPATCH_ATTEMPTS:
             raise unprocessable("TOO_MANY_ATTEMPTS", "origins x destinations x offsets is %d; the limit is %d per plan"
                                 % (len(attempts_spec) + len(pre_rejected), C.MAX_DISPATCH_ATTEMPTS))
@@ -446,9 +464,11 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                 finish()
                 return
             for o, osnap, d, dsnap, off, rp in attempts_spec:
+                fire_ref = body["fire_input"] if body["fire_input"]["type"] == "recorded" else \
+                    {"type": "spread_zones", "see_dispatch_plan": job_id, "plan_sha256": zone_plan["plan_sha256"]}
                 rbody = {"region": body["region"], "input_time": body["input_time"], "start": o["location"],
                          "destination": d["location"], "depart_offset_s": off, "dwell_s": rp["dwell_s"],
-                         "destination_window": d.get("window"), "policy": policy, "fire_input": body["fire_input"],
+                         "destination_window": d.get("window"), "policy": policy, "fire_input": fire_ref,
                          "limits": {k: rp["limits"][k] for k in ("peak_kw_m2", "dose_kj_m2")}, "run_independent_check": False}
                 if rbody["destination_window"] is None:
                     rbody.pop("destination_window")

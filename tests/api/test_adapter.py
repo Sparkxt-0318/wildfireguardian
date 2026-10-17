@@ -165,3 +165,38 @@ def test_packet_build_on_recorded_export(tmp_path):
     nm = json.loads((out / "NATIVE_METADATA.json").read_text())
     assert nm["settings"]["zone_adapter"]["plan_sha256"] == plan["plan_sha256"]
     assert meta["ignitions_per_member"][0] > 0
+
+
+def test_unrelated_zone_does_not_shift_another_fires_band():
+    """Fire A (nested 0.5 h / 2 h) plus an unrelated fire B (0.25 h): A's innermost cells keep H_prev = 0."""
+    fire_a = [rect(375, 375, 1125, 1125, 0.5), rect(0, 0, 1875, 1875, 2.0)]
+    fire_b = [rect(2625, 1875, 3000, 2250, 0.25)]
+    alone = np.array(run(fire_a)["times"])
+    both = run(fire_a + fire_b)
+    t = np.array(both["times"])
+    r, c = cell_rc(750, 750)
+    assert t[0, r, c] == alone[0, r, c] == 0.0 and t[3, r, c] == alone[3, r, c]
+    bands = {(b["arrival_h_max"], b["h_prev"]) for b in both["assumptions"]["bands_detail"]}
+    assert bands == {(0.25, 0.0), (0.5, 0.0), (2.0, 0.5)}
+
+
+def test_issued_after_input_time_keeps_the_margin():
+    """Product issued 30 min after input_time: innermost cells may already burn at input_time (floor on packet clock)."""
+    p = run([rect(375, 375, 1125, 1125, 5)], issued="2023-04-02T07:30:00Z")
+    t = np.array(p["times"])
+    r, c = cell_rc(750, 750)
+    assert t[0, r, c] == 0.0                                    # 1800 s + (0 - 60 min) -> -1800 s -> 0
+    assert p["assumptions"]["cells_igniting_within_horizon"] > 0
+
+
+def test_zone_igniting_only_after_horizon_is_reported():
+    p = run([rect(375, 375, 1125, 1125, 2.0), rect(0, 0, 1875, 1875, 8.0)])
+    # outer band (2 h, 8 h]: earliest 1 h -> exactly the horizon -> unignited; innermost band still ignites at 0
+    assert p["assumptions"]["cells_igniting_within_horizon"] == 4
+
+
+def test_malformed_multipolygon_is_422():
+    bad = {"type": "Feature", "properties": {"arrival_h_max": 5}, "geometry": {"type": "MultiPolygon", "coordinates": [5]}}
+    with pytest.raises(APIError) as e:
+        run([bad])
+    assert e.value.status == 422 and e.value.code == "INVALID_ZONES"

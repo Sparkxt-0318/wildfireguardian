@@ -23,6 +23,15 @@ def _init_worker():
     import os
     os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
     from . import config  # noqa: F401  (puts integration/src first on sys.path)
+    parent = os.getppid()
+
+    def _watch():                        # exit when the server dies, instead of lingering as an orphan
+        import time
+        while True:
+            time.sleep(2)
+            if os.getppid() != parent:
+                os._exit(0)
+    threading.Thread(target=_watch, name="wfg-parent-watch", daemon=True).start()
 
 
 def _ready():
@@ -41,6 +50,8 @@ def _build_zone_packet(spec):
 
 
 TASKS = {"route_check": _execute, "zone_packet": _build_zone_packet}
+MAX_FINISHED_IN_MEMORY = 2000          # finished route-check records kept in memory; older ones are read from job.json
+MAX_QUEUED_TASKS = 20000               # beyond this POST returns 503 BUSY
 
 
 class JobManager:
@@ -50,6 +61,8 @@ class JobManager:
         self.workers = workers
         self.pool = self._new_pool()
         self.pool_restarts = 0
+        self.paused: str | None = None       # frozen lifecycle rule: no new launch after an unconfirmed cleanup
+        self._finished: list = []            # finished job ids, oldest first (memory bound; records stay on disk)
         self.jobs: dict[str, dict] = {}
         self.lock = threading.RLock()
         self._q: queue.PriorityQueue = queue.PriorityQueue()
@@ -91,13 +104,30 @@ class JobManager:
     def get(self, job_id: str):
         with self.lock:
             j = self.jobs.get(job_id)
-            return None if j is None else json.loads(json.dumps(j, default=str))
+            if j is not None:
+                return json.loads(json.dumps(j, default=str))
+        p = self.job_dir(job_id) / "job.json"           # evicted finished job: served from its persisted record
+        if "/" not in job_id and ".." not in job_id and p.is_file():
+            try:
+                return json.loads(p.read_text())
+            except ValueError:
+                return None
+        return None
 
     def update(self, job_id: str, **fields):
         with self.lock:
             j = self.jobs[job_id]
             j.update(fields)
             self._persist(j)
+            if fields.get("status") in ("done", "failed") and j.get("kind") == "route_check":
+                self._finished.append(job_id)
+                while len(self._finished) > MAX_FINISHED_IN_MEMORY:
+                    self.jobs.pop(self._finished.pop(0), None)
+
+    def pause(self, reason: str):
+        with self.lock:
+            if self.paused is None:
+                self.paused = reason
 
     def _persist(self, job: dict):
         d = self.job_dir(job["job_id"])
@@ -125,6 +155,8 @@ class JobManager:
             except queue.Empty:
                 continue
             _, _, kind, spec, on_start, on_done = item
+            while self.paused is not None and not self._stop.is_set():
+                self._stop.wait(1.0)
             self._slots.acquire()
             try:
                 on_start()
@@ -142,7 +174,7 @@ class JobManager:
                 self._slots.release()
                 try:
                     res, err = f.result(), None
-                except Exception as exc:     # worker process died or task raised
+                except BaseException as exc:     # worker died or the task raised (SystemExit included)
                     res, err = None, exc
                 try:
                     on_done(res, err)

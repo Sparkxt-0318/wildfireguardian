@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.4.0
+  version: 1.5.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -287,6 +287,8 @@ components:
                 `DEPARTURE_OUTSIDE_HORIZON`, `INVALID_WINDOW`, `WINDOW_UNSATISFIABLE`, `START_EQUALS_DESTINATION`, `INVALID_LIMITS`,
                 `DUPLICATE_ID`, `INPUT_CHANGED`. v1.3: `GRID_MISMATCH`, `CHECKPOINT_MISMATCH`, `ZONE_PACKET_BUILD_FAILED`.
                 v1.4: `POLICY_NOT_ALLOWED`, `DUPLICATE_OFFSET`, `TOO_MANY_ATTEMPTS` (origins × destinations × offsets > 4800).
+                v1.5 (503): `BUSY` (too many queued checks), `LAUNCHES_PAUSED` (a kit attempt's process cleanup was not
+                confirmed; new launches pause as the frozen controller requires until the API is restarted).
               examples: [SNAP_TOO_FAR]
             message:
               type: string
@@ -645,7 +647,11 @@ components:
             arrival_h_max:
               type: number
               exclusiveMinimum: 0
-              description: 이 구역의 화선 도달 상한 (시간) / upper bound of fire arrival in hours (e.g. 5, 8)
+              description: |
+                이 구역의 화선 도달 상한 (시간). 셀의 하한 H_prev는 같은 구역 안에 포함된(nested) 구역의 값에서만 정해지며
+                다른 화재의 구역은 영향을 주지 않습니다 (v1.5).
+                Upper bound of fire arrival in hours (e.g. 5, 8). A cell's lower bound H_prev comes only from zones nested
+                inside the zone that sets its band; zones of other fires never shift it (v1.5).
     RouteCheckRequest:
       type: object
       required: [region, input_time, start, destination, fire_input]

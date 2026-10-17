@@ -56,3 +56,16 @@ Any change after the first push is recorded here with a new minor version (v1.1,
 - Request bodies with non-finite numbers (NaN, Infinity) are rejected with 422.
 - A dispatch plan may contain at most 4,800 attempts (origins × destinations × offsets); larger plans return 422
   `TOO_MANY_ATTEMPTS`. The contract's per-list limits are unchanged.
+
+## v1.5 — robustness and spread_zones band rule (additive)
+
+- New 503 codes. `BUSY` means too many checks are queued. `LAUNCHES_PAUSED` means a kit attempt's process cleanup was
+  not confirmed CLEAN; new launches pause, as the frozen controller requires, until the API is restarted, and
+  `/health` lists the issue.
+- spread_zones bands: `H_prev` for a cell comes only from zones nested inside the zone that sets its band, so another
+  fire's zones never shift it. The `max(0, H_prev − margin)` floor is applied on the `input_time` clock. This gives the
+  same result when `issued_at <= input_time` and stays conservative when the product is issued later. Polygon edges are
+  densified in lon/lat before projection. Assumptions now report `cells_igniting_within_horizon` and
+  `zone_cells_outside_region_window`.
+- Finished route-check records beyond the most recent 2,000 are served from their persisted `job.json`, so the
+  response does not change.

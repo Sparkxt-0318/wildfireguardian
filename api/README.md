@@ -366,8 +366,8 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 규칙은 모두 결과의 `assumptions`에 다시 기록됩니다.
 
 - **래스터화(보수적):** 375 m 셀의 내부가 구역 다각형과 겹치면 셀은 그 구역에 속합니다. 셀 중심이나 모서리가 다각형 안에 있거나, 다각형 변이 셀을 지나는 경우입니다. 경계선만 공유하는 경우는 포함하지 않습니다. 여러 구역이 한 셀에 닿으면 그중 가장 작은 `arrival_h_max` 대역을 씁니다(중첩 구역).
-- **대역:** 서로 다른 `arrival_h_max` 값을 오름차순으로 정렬해 대역 (H_prev, H]를 만듭니다. 가장 안쪽 대역의 H_prev는 0입니다.
-- **점화:** 대역 (H_prev, H]의 셀은 max(0, H_prev − margin)부터 점화될 수 있습니다. margin 기본값은 60분이고 `margin_min`으로 바꿉니다. 시나리오는 4개입니다. 시나리오 0은 그 가장 이른 시각에 점화합니다. 시나리오 1–3은 H_prev + (H − H_prev) × k/3(k = 1, 2, 3)에 점화하므로 마지막 시나리오는 H에서 점화합니다. 점화된 셀은 [점화, 점화 + T) 동안 연소합니다. T는 실험의 활성 지속 시간(점검기의 스칼라 법칙)이고, 기록된 패킷에서는 3970.46 s입니다. 따라서 가장 늦은 시나리오는 H + T까지 활성입니다.
+- **대역:** 셀은 닿는 구역 중 가장 작은 `arrival_h_max` H를 씁니다. H_prev는 그 구역 안에 포함된(nested) 구역 중 가장 큰 `arrival_h_max`이고, 없으면 0(화재마다 가장 안쪽 대역)입니다. 다른 화재의 구역은 대역을 바꾸지 않습니다(계약 v1.5). 다각형 변은 투영 전에 경위도에서 약 200 m 간격으로 잘게 나눕니다.
+- **점화:** 대역 (H_prev, H]의 셀은 max(0, H_prev − margin)부터 점화될 수 있습니다(0 하한은 input_time 시계에서 적용: issued_at ≤ input_time이면 같은 값이고, 더 늦게 발표된 경우에도 보수적입니다). margin 기본값은 60분이고 `margin_min`으로 바꿉니다. 시나리오는 4개입니다. 시나리오 0은 그 가장 이른 시각에 점화합니다. 시나리오 1–3은 H_prev + (H − H_prev) × k/3(k = 1, 2, 3)에 점화하므로 마지막 시나리오는 H에서 점화합니다. 점화된 셀은 [점화, 점화 + T) 동안 연소합니다. T는 실험의 활성 지속 시간(점검기의 스칼라 법칙)이고, 기록된 패킷에서는 3970.46 s입니다. 따라서 가장 늦은 시나리오는 H + T까지 활성입니다.
 - **시계:** 구역 시간은 `issued_at`부터 세고, 패킷 시간은 `input_time`부터 셉니다. `input_time`보다 이른 시각은 0으로 당깁니다(보수적). 실험의 1시간 위험 지평 이후의 시각은 여정에 영향을 줄 수 없으므로 점화하지 않습니다. 패킷 작성기도 이 처리를 요구합니다.
 - **현재 화재:** `input_time`의 기록된 c651 출력에서 격자, 시계 기준, 현재 연소 셀을 가져옵니다. 현재 연소 셀은 기록 그대로 유지하고, 구역 점화를 그 위에 두지 않습니다. 그래서 `input_time`은 해당 지역의 기록된 입력 시각이어야 합니다(v1.1 범위). `burning_scenario_set_id`를 지정하려면 그 시각의 기록된 세트여야 합니다. 다르면 422 `SCENARIO_SET_TIME_MISMATCH`가 돌아옵니다.
 - **알려진 한계(`assumptions.limitations`):** 구역 예보는 점화 시각이 아니라 도달 범위를 줍니다. 그래서 시나리오 4개는 결정론적 표본일 뿐 확률 모델이 아닙니다. 또 `input_time` 이후 첫 1시간만 표현되고, 복사열은 모든 구역 셀에 실험의 고정 열방출 매개변수를 씁니다.
@@ -423,7 +423,8 @@ make api-smoke    # = bash scripts/api_smoke.sh (실행 중인 서버 필요)
 ### 알려진 한계
 
 - **spread_zones**는 기록된 입력 시각에서만 동작하고 1시간 위험 지평만 다룹니다. 근사이므로 전문가 검토가 필요합니다.
-- **작업은 메모리에 있습니다.** 서버를 다시 시작하면 작업 목록이 사라집니다. 작업 폴더(`job.json`, 입력, 키트 시도 기록)는 런타임 디렉터리 `jobs/<id>/`에 남지만 API가 다시 불러오지는 않습니다.
+- **작업은 메모리에 있습니다.** 서버를 다시 시작하면 작업 목록이 사라집니다. 작업 폴더(`job.json`, 입력, 키트 시도 기록)는 런타임 디렉터리 `jobs/<id>/`에 남지만 API가 다시 불러오지는 않습니다. 실행 중에는 최근 2,000개를 넘는 완료 작업을 `job.json`에서 읽어 응답합니다. 대기열이 20,000개를 넘으면 503 `BUSY`입니다.
+- **정리 미확인 시 일시 정지.** 키트 시도의 프로세스 정리가 CLEAN으로 확인되지 않으면, 동결된 컨트롤러 규칙대로 새 실행을 멈추고 `/health`에 표시합니다(503 `LAUNCHES_PAUSED`). 남은 프로세스를 확인한 뒤 API를 다시 시작하십시오.
 - **호스트 속도와 고정된 30 s 예산:** 평가 호스트(macOS M5 Pro)보다 느린 컴퓨터에서는 무거운 임무가 `unresolved`/`TIMEOUT`이 될 수 있습니다. 예산은 늘리지 않습니다. 기본 작업자 수(물리 코어 − 2)를 넘겨 동시에 실행하면 측정 시간이 늘어날 수 있습니다.
 - **독립 점검은 선택 사항이고 오프라인에서 실행됩니다**(`run_independent_check`, 최대 120 s, full 정책만). 기본으로는 실행되지 않으며 `compute_s`에도 포함되지 않습니다.
 - **인증이 없고 로컬 전용입니다.** 외부에 노출하지 마십시오. `/openapi.json`은 정적 계약을 제공하므로 Swagger UI의 "Try it out" 서버 주소는 항상 `http://127.0.0.1:8765/v1`입니다.
@@ -805,8 +806,8 @@ Receipt-level failures take priority over everything else, in this order: memory
 Every rule below is also echoed in the result's `assumptions`.
 
 - **Rasterization (conservative):** a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior, that is, when the cell's centre or a corner is inside the polygon or a polygon edge crosses the cell. Sharing only a boundary line does not count. When several zones touch a cell, the cell takes the band of the smallest `arrival_h_max` (nested zones).
-- **Bands:** the distinct `arrival_h_max` values, sorted ascending, define the bands (H_prev, H]. The innermost band has H_prev = 0.
-- **Ignition:** a cell in band (H_prev, H] may ignite from max(0, H_prev − margin). The margin defaults to 60 min and is set with `margin_min`. There are four scenarios. Scenario 0 ignites at that earliest time. Scenarios 1–3 ignite at H_prev + (H − H_prev) × k/3 for k = 1, 2, 3, so the last one ignites at H. Each ignited cell then burns on [ignition, ignition + T), where T is the experiment's active duration (the checker's scalar law). T is 3970.46 s in the recorded packets. The latest scenario therefore stays active until H + T.
+- **Bands:** a cell takes the smallest `arrival_h_max` H among the zones touching it. H_prev is the largest `arrival_h_max` of a zone nested inside that zone, or 0 when there is none (each fire's innermost band). Zones of other fires never shift a band (contract v1.5). Polygon edges are densified in lon/lat, at about 200 m, before projection.
+- **Ignition:** a cell in band (H_prev, H] may ignite from max(0, H_prev − margin). The 0 floor is applied on the input_time clock: that is the same value when issued_at ≤ input_time, and it stays conservative for products issued later. The margin defaults to 60 min and is set with `margin_min`. There are four scenarios. Scenario 0 ignites at that earliest time. Scenarios 1–3 ignite at H_prev + (H − H_prev) × k/3 for k = 1, 2, 3, so the last one ignites at H. Each ignited cell then burns on [ignition, ignition + T), where T is the experiment's active duration (the checker's scalar law). T is 3970.46 s in the recorded packets. The latest scenario therefore stays active until H + T.
 - **Clock:** zone hours count from `issued_at`, and packet times count from `input_time`. Times before `input_time` are clamped to 0, which is conservative. Times at or after the experiment's 1 h hazard horizon cannot affect the journey, so they stay unignited, as the packet writer requires.
 - **Present fire:** the recorded c651 export at `input_time` supplies the grid, the clock binding and the cells burning now. Those cells stay exactly as recorded, and zone ignitions are never placed on them. `input_time` must therefore be a recorded input time of the region (v1.1 scope). If you set `burning_scenario_set_id`, it must be the recorded set at that time; otherwise the API returns 422 `SCENARIO_SET_TIME_MISMATCH`.
 - **Stated limitations (`assumptions.limitations`):** zone products give arrival ranges, not ignition times, so the four scenarios are a deterministic sample, not a probability model. Only the first hour after `input_time` is represented. Radiation uses the experiment's fixed heat-release parameters for every zone cell.
@@ -896,7 +897,8 @@ SMOKE OK: both jobs finished
 ### Known limitations
 
 - **spread_zones** works only at a recorded input time and covers only the 1 h hazard horizon. It is an approximation that requires expert review.
-- **Jobs live in memory.** A restart loses the job list. Job folders (`job.json`, inputs and the kit attempt records) stay under `jobs/<id>/` in the runtime directory, but the API does not reload them.
+- **Jobs live in memory.** A restart loses the job list. Job folders (`job.json`, inputs and the kit attempt records) stay under `jobs/<id>/` in the runtime directory, but the API does not reload them. While the server runs, finished jobs beyond the most recent 2,000 are served from their `job.json`. More than 20,000 queued checks returns 503 `BUSY`.
+- **Paused launches after an unconfirmed cleanup.** If a kit attempt's process cleanup is not confirmed CLEAN, new launches pause as the frozen controller requires. `/health` reports this and new requests get 503 `LAUNCHES_PAUSED`. Check for leftover processes, then restart the API.
 - **Host speed and the fixed 30 s budget:** on hosts slower than the evaluated macOS M5 Pro, heavy missions can become `unresolved`/`TIMEOUT`. The budget is never raised. Running more concurrent checks than the default worker count (physical cores − 2) can also inflate the measured times.
 - **The independent check is optional and runs offline** (`run_independent_check`, up to 120 s, full policy only). It does not run by default and is not part of `compute_s`.
 - **There is no authentication, and the API is local only.** Do not expose it. Because `/openapi.json` serves the static contract, Swagger UI's "Try it out" always targets `http://127.0.0.1:8765/v1`.
