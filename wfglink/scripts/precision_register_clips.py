@@ -44,7 +44,7 @@ ARCHIVES = {
     },
 }
 SPLIT = {"calibration": "calibration", "test": "test", "test_negative_footage": "test",
-         "calibration_negative_footage": "calibration"}
+         "calibration_negative_footage": "calibration", "test_ember_positive": "test"}
 AMENDMENT = ROOT / "results/validation/precision_20261017/data_selection_amendment1.json"
 
 
@@ -59,9 +59,21 @@ def probe(path: Path) -> dict:
 
 
 def main() -> int:
-    recs = [json.loads(line) for line in RECEIPTS.read_text().splitlines() if line.strip()]
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--receipts", default=str(RECEIPTS))
+    ap.add_argument("--only", nargs="*", default=None, help="clip ids to register (default: every receipt)")
+    ap.add_argument("--role", default=None, help="role for the registered clips (overrides the receipts)")
+    a = ap.parse_args()
+    recs = [json.loads(line) for line in Path(a.receipts).read_text().splitlines() if line.strip()]
+    if a.only is not None:
+        recs = [r for r in recs if r["raw_name"].rsplit(".", 1)[0] in set(a.only)]
+    if a.role:
+        for r in recs:
+            r["role"] = a.role
     # Roles come from the latest selection (amendment 1 demoted the first test fires to calibration).
-    if AMENDMENT.exists():
+    if AMENDMENT.exists() and not a.role:
         roles = {s["member"]: s["role"] for s in json.loads(AMENDMENT.read_text())["selected"]}
         for rec in recs:
             rec["role"] = roles.get(rec["member"], rec["role"])

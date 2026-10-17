@@ -1,24 +1,18 @@
 {
- "missing": [
-  "C8_GEOR011_C1",
-  "C8_MAPL006_C1",
-  "C8_MAPL003_C1",
-  "C8_RALS002_C3",
-  "C8_CLOV002_C2",
-  "C8_GEOR08A_C1",
-  "C8_CLOV002_C1",
-  "C8_RALS004_C2",
-  "C8_RALS004_C1",
-  "C8_CLOV002_C3",
-  "C8_CLOV003_C1",
-  "C8_BLAC001_C1",
-  "C8_GEOR08A_C3",
-  "C8_MAPL003_C2",
-  "C8_CLOV005_C3",
-  "C8_GEOR005_C1",
-  "C8_MAPL001_C2"
+ "rule": "amendment 3 reading: some triplet with yes from both screeners (all four triplets answered by both), no moving camera or cuts, not time-lapse; at most 2 per fire and 1 per plot, in pool order, until 10",
+ "screens": [
+  "results/validation/precision_20261017/ember_stratum/screen/screen_batch1.json",
+  "results/validation/precision_20261017/ember_stratum/screen/screen_batch2.json",
+  "results/validation/precision_20261017/ember_stratum/screen/screen_batch3.json"
  ],
- "rows_so_far": [
+ "screened_in_order": 58,
+ "qualifying": 4,
+ "included": [
+  "C8_GEOR007_C1",
+  "C8_BLAC001_C2",
+  "C8_GEOR011_C3"
+ ],
+ "rows": [
   {
    "clip_id": "C8_GEOR007_C3",
    "fire": "2007_GABayBigTurnAround_Sweatfarm",
@@ -506,9 +500,73 @@
    "included": false
   },
   {
+   "clip_id": "C8_GEOR011_C1",
+   "fire": "2007_GABayBigTurnAround_Sweatfarm",
+   "plot": "GEOR011",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
    "clip_id": "C8_RALS006_C1",
    "fire": "2006_Ralston",
    "plot": "RALS006",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_MAPL006_C1",
+   "fire": "2016_Maple_Tatanka",
+   "plot": "MAPL006",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_MAPL003_C1",
+   "fire": "2016_Maple_Tatanka",
+   "plot": "MAPL003",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_RALS002_C3",
+   "fire": "2006_Ralston",
+   "plot": "RALS002",
    "triplets_yes_both": [],
    "camera": [
     "static",
@@ -570,9 +628,89 @@
    "included": false
   },
   {
+   "clip_id": "C8_CLOV002_C2",
+   "fire": "2008_Clover",
+   "plot": "CLOV002",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_GEOR08A_C1",
+   "fire": "2007_GABayBigTurnAround_Sweatfarm",
+   "plot": "GEOR08A",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
    "clip_id": "C8_CLOV005_C2",
    "fire": "2008_Clover",
    "plot": "CLOV005",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_CLOV002_C1",
+   "fire": "2008_Clover",
+   "plot": "CLOV002",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_RALS004_C2",
+   "fire": "2006_Ralston",
+   "plot": "RALS004",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_RALS004_C1",
+   "fire": "2006_Ralston",
+   "plot": "RALS004",
    "triplets_yes_both": [],
    "camera": [
     "static",
@@ -634,9 +772,91 @@
    "included": false
   },
   {
+   "clip_id": "C8_CLOV002_C3",
+   "fire": "2008_Clover",
+   "plot": "CLOV002",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
    "clip_id": "C8_BEAV002_C3",
    "fire": "2014_Beaver",
    "plot": "BEAV002",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_CLOV003_C1",
+   "fire": "2008_Clover",
+   "plot": "CLOV003",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_BLAC001_C1",
+   "fire": "2003_BlackMountain",
+   "plot": "BLAC001",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_GEOR08A_C3",
+   "fire": "2007_GABayBigTurnAround_Sweatfarm",
+   "plot": "GEOR08A",
+   "triplets_yes_both": [
+    60
+   ],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": true,
+   "included": false
+  },
+  {
+   "clip_id": "C8_MAPL003_C2",
+   "fire": "2016_Maple_Tatanka",
+   "plot": "MAPL003",
    "triplets_yes_both": [],
    "camera": [
     "static",
@@ -666,9 +886,57 @@
    "included": false
   },
   {
+   "clip_id": "C8_CLOV005_C3",
+   "fire": "2008_Clover",
+   "plot": "CLOV005",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
    "clip_id": "C8_RALS006_C3",
    "fire": "2006_Ralston",
    "plot": "RALS006",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_GEOR005_C1",
+   "fire": "2007_GABayBigTurnAround_Sweatfarm",
+   "plot": "GEOR005",
+   "triplets_yes_both": [],
+   "camera": [
+    "static",
+    "static"
+   ],
+   "timebase": [
+    "unknown",
+    "unknown"
+   ],
+   "qualifies": false,
+   "included": false
+  },
+  {
+   "clip_id": "C8_MAPL001_C2",
+   "fire": "2016_Maple_Tatanka",
+   "plot": "MAPL001",
    "triplets_yes_both": [],
    "camera": [
     "static",
