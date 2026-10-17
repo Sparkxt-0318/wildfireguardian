@@ -8,17 +8,29 @@
  */
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import type { Policy, Verdict } from '../../domain/types';
+import type { RsgTag } from '../../domain/zones';
 
 export interface ExportPlace {
   id: string;
+  /** OSM name (null when OSM has none — never invented) */
   name: string | null;
   nameEn?: string | null;
+  /**
+   * display label for places without a name that the app calls by a descriptor, e.g. research
+   * points "기록 임무 FD1 출발점" (derived from the case id; not an OSM name)
+   */
+  displayName?: string | null;
   /** localised category, e.g. "마을", "학교" */
   categoryLabel: string;
   /** exact source tag, e.g. "place=village" or "request <case> origin node osm:…" */
   sourceTag: string;
   lon: number;
   lat: number;
+  /**
+   * 진입 지점: the road node the checks start/end at (sent as node_id). Travel between the point
+   * and this node is not modelled.
+   */
+  entry?: { node: string; lon: number; lat: number; distanceM: number | null } | null;
 }
 
 export interface ExportOriginPlan {
@@ -31,6 +43,8 @@ export interface ExportOriginPlan {
   best: { shelter: ExportPlace; departureS: number; arrivalS: number | null } | null;
   /** unresolved reason code (contract ReasonCode) when known */
   reasonCode?: string | null;
+  /** raw status of that attempt (e.g. MOCK_NO_RECORDED_RESULT), shown instead of OTHER */
+  rawStatus?: string | null;
   /** planner-side note when the API was never asked */
   note?: 'not_checkable' | 'rejected' | 'not_computed' | null;
 }
@@ -39,6 +53,8 @@ export interface ExportOrigin extends ExportPlace {
   vulnerable: boolean;
   /** drawn zones: Ready-Set-Go tag text (planner-side point-in-polygon), e.g. "실행(Go) — 전원 대피" */
   rsgLabel?: string | null;
+  /** drawn zones: the Ready-Set-Go tag itself (orders inside-zone origins first, as the list does) */
+  rsg?: RsgTag | null;
   /** 1-based urgency rank from the API / core; when absent the export sorts by the planner rule */
   urgencyRank?: number | null;
   /** null = no result at all (shown as unresolved, never safe) */
@@ -64,6 +80,8 @@ export interface ExportProvenance {
   evaluatedConfiguration?: boolean | null;
   recordedMissionMatch?: string | null;
   approximation?: string | null;
+  /** computed on a host other than the evaluated booth host: test data, not the booth cache */
+  testData?: boolean | null;
 }
 
 export type RouteRole = 'evacuation_route' | 'travel_only_comparison';
@@ -115,6 +133,8 @@ export interface ExportInput {
   origins: ExportOrigin[];
   /** route of the selected origin, if any (must be checked_route to be exported) */
   selectedRoute: ExportRoute | null;
+  /** the selected origin and its verdict, also when it has no checked route (dialog explains why) */
+  selectedOrigin?: { place: ExportPlace; verdict: Verdict } | null;
   /** optional travel-time-only comparison of the selected origin */
   comparisonRoute?: ExportRoute | null;
   provenance: ExportProvenance;

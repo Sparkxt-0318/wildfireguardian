@@ -6,6 +6,7 @@
  * "no route in the model", not "no escape in reality".
  */
 import type { Lang } from '../../domain/clock';
+import { ENTRY_LIMIT_M } from '../../domain/plan';
 import type { Verdict } from '../../domain/types';
 
 export type { Lang };
@@ -74,9 +75,45 @@ export function reasonText(code: string | null | undefined, lang: Lang): string 
   return l ? `${pick(l, lang)} (${code})` : code;
 }
 
+/**
+ * Authoritative raw statuses that explain an unresolved result better than reason_code OTHER
+ * (the MOCK answers every unrecorded request this way and computes nothing).
+ */
+export const RAW_STATUS_LABEL: Record<string, L10n> = {
+  MOCK_NO_RECORDED_RESULT: {
+    ko: 'MOCK 서버에 기록된 실행 없음 — 계산하지 않음',
+    en: 'no recorded execution on the MOCK server — nothing computed',
+  },
+  MOCK_SPREAD_ZONES_NOT_EVALUATED: {
+    ko: 'MOCK 서버는 사용자 구역을 평가하지 않음',
+    en: 'the MOCK server does not evaluate user-drawn zones',
+  },
+};
+
+export function isMockNoRecord(a: { rawStatus?: string | null } | null | undefined): boolean {
+  return a?.rawStatus === 'MOCK_NO_RECORDED_RESULT';
+}
+
+export function isMockZones(a: { rawStatus?: string | null } | null | undefined): boolean {
+  return a?.rawStatus === 'MOCK_SPREAD_ZONES_NOT_EVALUATED';
+}
+
+/**
+ * Reason text of an unresolved attempt: the MOCK raw status label when the attempt carries one
+ * (instead of "기타 (OTHER)"), else the reason code text. The reason code itself is never changed.
+ */
+export function attemptReasonText(code: string | null | undefined, rawStatus: string | null | undefined, lang: Lang): string | null {
+  const raw = rawStatus ? RAW_STATUS_LABEL[rawStatus] : undefined;
+  if (raw && (!code || code === 'OTHER')) return `${pick(raw, lang)} (${rawStatus})`;
+  return reasonText(code, lang);
+}
+
+const ENTRY_KM = String(ENTRY_LIMIT_M / 1000);
+
 /** Planner-side notes for origins the API was never asked about. */
 export const NOTE_LABEL: Record<'not_checkable' | 'rejected' | 'not_computed', L10n> = {
-  not_checkable: { ko: '도로망 300 m 밖 — 점검 불가', en: 'More than 300 m from the road graph — cannot be checked' },
+  // same rule and wording as the list label (src/i18n 'list.notCheckable')
+  not_checkable: { ko: `도로망 ${ENTRY_KM} km 밖 — 점검 불가`, en: `No road entry node within ${ENTRY_KM} km — cannot be checked` },
   rejected: { ko: 'API가 요청을 거부함 — 점검 안 됨', en: 'Rejected by the API — not checked' },
   not_computed: { ko: '아직 계산하지 않음', en: 'Not computed yet' },
 };
@@ -110,6 +147,14 @@ export const LIMITATIONS: Limitation[] = [
     short: { ko: '교통 혼잡·도로 통제·사고 미반영', en: 'No congestion, closures or crashes' },
   },
   {
+    id: 'entry_gap',
+    text: {
+      ko: '마을·시설·대피소 지점에서 진입 지점(가장 가까운 허용 도로 노드)까지의 이동은 모델에 포함되지 않습니다. 출발 마감은 진입 지점 기준입니다.',
+      en: 'Travel from a place to its entry point (nearest accepted road node) is not modelled; the departure deadline refers to the entry point.',
+    },
+    short: { ko: '지점→진입 지점 이동 미반영 (마감은 진입 지점 기준)', en: 'Place→entry-point travel not modelled (deadline is at the entry point)' },
+  },
+  {
     id: 'scenarios',
     text: {
       ko: '시나리오는 가능한 모든 산불이 아닙니다 — 기록된 4개 위험 시나리오 또는 사용자가 가정한 확산 구역만 점검합니다.',
@@ -136,12 +181,12 @@ export const LIMITATIONS: Limitation[] = [
     short: { ko: '그래프는 과거 OSM 스냅샷, 장소는 현재 OSM', en: 'Graph: past OSM snapshot; places: current OSM' },
   },
   {
-    id: 'snap_300',
+    id: 'entry_limit',
     text: {
-      ko: '도로까지 300 m를 넘는 장소는 도로망에 연결할 수 없어 점검하지 못합니다.',
-      en: 'Places more than 300 m from the road graph cannot be connected and are not checked.',
+      ko: `장소는 가장 가까운 도로 진입 지점(API가 허용하는 도로 노드)에서 출발·도착한다고 봅니다. ${ENTRY_KM} km 안에 진입 지점이 없는 장소는 점검하지 못합니다 (점검 불가 · 미확인).`,
+      en: `A place is assumed to start or end at its nearest road entry point (a road node the API accepts). Places with no entry point within ${ENTRY_KM} km are not checked (cannot be checked · unresolved).`,
     },
-    short: { ko: '도로까지 300 m 초과 장소는 점검 불가', en: 'Places > 300 m from a road: not checked' },
+    short: { ko: `진입 지점 ${ENTRY_KM} km 밖 장소는 점검 불가 (미확인)`, en: `No entry point within ${ENTRY_KM} km: not checked (unresolved)` },
   },
   {
     id: 'unresolved_not_safe',

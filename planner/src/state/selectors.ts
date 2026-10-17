@@ -72,6 +72,20 @@ export function routeById(s: Pick<PlannerState, 'routes' | 'cache'>, jobId: stri
   return s.routes[jobId] ?? s.cache?.route(jobId) ?? null;
 }
 
+/**
+ * The travel-time-only comparison of an origin, only while it belongs to the origin's current
+ * best checked attempt (a late response of another scenario, fire input or recompute never shows).
+ */
+export function travelOnlyDetail(
+  s: Pick<PlannerState, 'travelOnly' | 'plans'>,
+  originId: string | null | undefined,
+): RouteDetail | null {
+  if (!originId) return null;
+  const st = s.travelOnly[originId];
+  if (!st || st.state !== 'ready' || !st.detail) return null;
+  return st.forJobId !== null && st.forJobId === (s.plans[originId]?.best?.jobId ?? null) ? st.detail : null;
+}
+
 // ---------------------------------------------------------------- drawn spread zones
 
 export function isDrawnMode(s: Pick<PlannerState, 'scenarioId'>): boolean {

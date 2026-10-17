@@ -7,9 +7,13 @@
  */
 import { createRequire } from 'node:module';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { alternativePlanItems, deadlineCell, drawableRoute, exposureSummary } from '../../planner/src/features/plansheet/sheetLogic';
+import { alternativePlanItems, deadlineCell, drawableRoute, exposureSummary, partialCheckedScenarios } from '../../planner/src/features/plansheet/sheetLogic';
 import type { PlanSheetData, PlanSheetScenario } from '../../planner/src/features/plansheet/types';
-import { ALT_PLAN_TEXT } from '../../planner/src/features/shared/strings';
+import { ALT_PLAN_TEXT, LIMITATIONS, NOTE_LABEL } from '../../planner/src/features/shared/strings';
+import { ENTRY_LIMIT_M, planFromAttempts } from '../../planner/src/domain/plan';
+import type { Attempt, Place } from '../../planner/src/domain/types';
+import { scenarioRow } from '../../planner/src/state/featureData';
+import { translate } from '../../planner/src/i18n';
 
 // jsdom is loaded with Node's resolver from planner/ (the tests live outside the Vite root).
 const { JSDOM } = createRequire(new URL('../../planner/package.json', import.meta.url))('jsdom') as {
@@ -177,6 +181,71 @@ describe('alternativePlanItems', () => {
   });
 });
 
+describe('partially checked scenarios', () => {
+  it('a checked scenario whose earlier departures are unresolved is flagged, never "covered"', () => {
+    const partial = sheet('P', [scenario(0, { latestSafeDepartureS: 600, contiguousSafeDepartureS: null })]);
+    expect(alternativePlanItems(partial, 'ko')).toEqual([]);
+    expect(partialCheckedScenarios(partial).map((x) => [x.tag, x.deadline, x.contiguous])).toEqual([['S1', '18:10', null]]);
+    const full = sheet('F', [scenario(0, { latestSafeDepartureS: 1800, contiguousSafeDepartureS: 1800 })]);
+    expect(partialCheckedScenarios(full)).toEqual([]);
+  });
+});
+
+describe('limitations wording', () => {
+  it('states the real entry-point rule (no "300 m") and the entry-point gap', () => {
+    const km = String(ENTRY_LIMIT_M / 1000);
+    for (const lang of ['ko', 'en'] as const) {
+      expect(NOTE_LABEL.not_checkable[lang]).toContain(km);
+      expect(NOTE_LABEL.not_checkable[lang]).not.toContain('300');
+      const limit = LIMITATIONS.find((l) => l.id === 'entry_limit')!;
+      expect(limit.text[lang]).toContain(km);
+      expect(limit.short[lang]).toContain(km);
+      expect(limit.text[lang]).not.toContain('300');
+    }
+    expect(LIMITATIONS.some((l) => l.id === 'snap_300')).toBe(false);
+    const ids = LIMITATIONS.map((l) => l.id);
+    expect(ids).toContain('entry_gap');
+    expect(ids.indexOf('entry_gap')).toBe(ids.indexOf('traffic') + 1);
+  });
+});
+
+describe('scenario rows without a checked route', () => {
+  const t = (k: string, v?: Record<string, string | number>) => translate('ko', k, v);
+  const origin: Place = {
+    id: 'osm:node/1', role: 'origin', category: 'village', name: '합성 마을', nameEn: null, lon: 127, lat: 36, source: 'OpenStreetMap', sourceTag: 'place=village',
+    osm: { type: 'node', id: 1 }, snapNode: 'osm:1', snapDistanceM: 10, entry: { node: 'osm:1', lon: 127, lat: 36, distanceM: 10, withinApiLonlatSnap: true },
+    checkable: true, vulnerable: false, scenarioSetId: null, inputTime: null, caseId: null, recorded: null,
+  };
+  const a = (offsetS: number, verdict: Attempt['verdict'], computeS: number | null, rawStatus: string | null, reasonCode: string | null): Attempt => ({ offsetS, destinationId: 'd', verdict, arrivalS: null, computeS, jobId: `j${offsetS}`, reasonCode, rawStatus });
+  const attempts = [
+    a(0, 'model_no_route', 9.31, 'PROVEN_INFEASIBLE', null),
+    a(600, 'unresolved', null, 'MOCK_NO_RECORDED_RESULT', 'OTHER'),
+    a(1200, 'unresolved', null, 'MOCK_NO_RECORDED_RESULT', 'OTHER'),
+  ];
+  const plan = planFromAttempts({ originId: origin.id, offsetsS: [0, 600, 1200], attempts, source: 'live', mock: true });
+  const row = scenarioRow(
+    { scenarioSetId: 'synthetic:set', inputTimeIso: '2025-03-25T19:00:00Z', issuedAtIso: null, plans: { [origin.id]: plan }, route: () => null, travelOnly: () => null, hostFallback: null },
+    origin,
+    new Map([[origin.id, origin]]),
+    t,
+  );
+  it('carries the compute time of the earliest check and its departure (no route needed)', () => {
+    expect(row.bestVerdict).toBe('unresolved');
+    expect(row.computeS).toBe(9.31);
+    expect(row.computeOffsetS).toBe(0);
+    expect(row.host).toBeNull(); // never invented
+    expect(row.rawStatus).toBe('MOCK_NO_RECORDED_RESULT');
+  });
+  it('the alternative-plan reason lists the recorded no-route time and the MOCK status (not "기타 (OTHER)")', () => {
+    const items = alternativePlanItems(sheet('R', [row]), 'ko');
+    expect(items).toHaveLength(1);
+    expect(items[0]!.reason).toContain('04:00 모델상 경로 없음');
+    expect(items[0]!.reason).toContain('04:10–04:20 미확인');
+    expect(items[0]!.reason).toContain('MOCK_NO_RECORDED_RESULT');
+    expect(items[0]!.reason).not.toContain('기타');
+  });
+});
+
 describe('sheet helpers', () => {
   it('formats the deadline with the contiguous basis', () => {
     const d = deadlineCell(scenario(0, {}), 'ko');
@@ -308,9 +377,65 @@ describe('PlanSheetDialog (jsdom render)', () => {
     expect(dlg.querySelectorAll('[data-alt-scenario]').length).toBe(0);
   });
 
+  it('a partially checked scenario gets a grey caveat instead of "출발 마감 전 출발 전제"', async () => {
+    const dlg = await render([sheet('P', [scenario(0, { latestSafeDepartureS: 600, contiguousSafeDepartureS: null })])]);
+    const caveat = dlg.querySelector<HTMLElement>('[data-alt-caveat]')!;
+    expect(caveat).toBeTruthy();
+    expect(caveat.textContent).toContain('S1');
+    expect(caveat.textContent).toContain('미확인');
+    expect(caveat.textContent).toContain('연속 확인 기준 없음');
+    expect(caveat.querySelector('[data-verdict-icon]')!.getAttribute('data-verdict-icon')).toBe('unresolved');
+    expect(dlg.textContent).not.toContain('출발 마감 전 출발 전제');
+  });
+
+  it('keeps "출발 마감 전 출발 전제" when every departure up to the deadline is checked', async () => {
+    const dlg = await render([sheet('F', [scenario(0, { latestSafeDepartureS: 1800, contiguousSafeDepartureS: 1800 })])]);
+    expect(dlg.querySelector('[data-alt-caveat]')).toBeNull();
+    expect(dlg.querySelector('[data-alt-none]')!.textContent).toContain('출발 마감 전 출발 전제');
+  });
+
+  it('renders the entry-point limitation and labels the entry distance as not modelled', async () => {
+    const dlg = await render([sheet('E', [scenario(0, {})], { origin: { ...MIXED.origin, id: 'E', snapDistanceM: 1191, entryKind: 'village' } })]);
+    expect(dlg.querySelector('[data-limit="entry_gap"]')).toBeTruthy();
+    expect(dlg.querySelector('[data-limit="entry_limit"]')!.textContent).toContain('2 km');
+    const fact = dlg.querySelector<HTMLElement>('[data-entry-fact]')!;
+    expect(fact.textContent).toContain('마을 진입 지점까지');
+    expect(fact.textContent).toContain('1.2 km');
+    expect(fact.textContent).toContain('이 구간 미반영');
+    expect(fact.textContent).not.toContain('예상');
+  });
+
   it('renders the English variant', async () => {
     const dlg = await render([MIXED], 'en');
     expect(dlg.textContent).toContain('Undetermined — do not treat as safe');
     expect(dlg.textContent).toContain('Pre-season evacuation plan');
+  });
+});
+
+describe('AboutPanel (jsdom render)', () => {
+  interface ReactLike {
+    createElement: (type: unknown, props: Record<string, unknown>) => unknown;
+    act: (fn: () => unknown) => Promise<void> | void;
+  }
+  it('lists the entry-point limitations', async () => {
+    installDom();
+    (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+    const req = createRequire(new URL('../../planner/package.json', import.meta.url));
+    const React = req('react') as ReactLike;
+    const { createRoot } = req('react-dom/client') as { createRoot: (el: Element) => { render: (el: unknown) => void; unmount: () => void } };
+    const aboutPath = '../../planner/src/features/about/AboutPanel';
+    const { AboutPanel } = (await import(/* @vite-ignore */ aboutPath)) as { AboutPanel: unknown };
+    const host = document.createElement('div');
+    document.body.appendChild(host);
+    const root = createRoot(host);
+    await React.act(async () => {
+      root.render(React.createElement(AboutPanel, { open: true, onClose: () => {}, lang: 'ko' }));
+    });
+    const panel = document.querySelector('[data-testid="about-panel"]')!;
+    expect(panel.querySelector('[data-limit="entry_gap"]')).toBeTruthy();
+    expect(panel.querySelector('[data-limit="entry_limit"]')!.textContent).toContain('2 km');
+    expect(panel.textContent).not.toContain('300 m');
+    await React.act(() => root.unmount());
+    host.remove();
   });
 });

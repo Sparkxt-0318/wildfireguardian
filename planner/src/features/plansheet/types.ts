@@ -19,6 +19,9 @@ export type SweepVerdict = Verdict | 'window_closed';
 export interface PlanSheetSweepCell {
   offsetS: number;
   verdict: SweepVerdict;
+  /** unresolved cells: reason code / raw status of the first unresolved attempt at this offset */
+  reasonCode?: string | null;
+  rawStatus?: string | null;
 }
 
 export interface PlanSheetExposure {
@@ -68,13 +71,17 @@ export interface PlanSheetScenario {
   exposure: PlanSheetExposure[];
   /** limits used (default 10 kW/m², 100 kJ/m²) */
   limits?: { peakKwM2: number; doseKjM2: number } | null;
-  /** compute time of the shown check (s), recorded or live */
+  /** compute time of the shown check (s), recorded or live; without a route, of the earliest attempt with one */
   computeS: number | null;
+  /** departure offset of the check that `computeS` belongs to (s after input time) */
+  computeOffsetS?: number | null;
   /** host label, e.g. "Apple M5 Pro · macOS (기록)" or "Linux x86_64 · 4 vCPU" */
   host: string | null;
   /** unresolved reason code of the best attempt (contract ReasonCode), else null */
   reasonCode: string | null;
-  /** planner-side note when the API was never asked (e.g. snap > 300 m) */
+  /** raw status of that attempt (e.g. MOCK_NO_RECORDED_RESULT), shown instead of OTHER */
+  rawStatus?: string | null;
+  /** planner-side note when the API was never asked (e.g. no entry point within 2 km) */
   note?: 'not_checkable' | 'rejected' | 'not_computed' | null;
 }
 
@@ -89,13 +96,19 @@ export interface PlanSheetData {
     id: string;
     name: string | null;
     nameEn?: string | null;
+    /** descriptor for places without an OSM name, e.g. "기록 임무 FD1 출발점" (never an invented name) */
+    displayName?: string | null;
     /** e.g. "마을", "요양시설" (already localised by the core) */
     categoryLabel: string;
     sourceTag: string;
     lon: number;
     lat: number;
-    /** planner-side estimated snap distance to the road graph (m) */
+    /** distance from the OSM point to its 진입 지점 (m); travel over it is not modelled */
     snapDistanceM: number | null;
+    /** what the entry point is called on the sheet; research origins start at their recorded node */
+    entryKind?: 'village' | 'facility' | 'research' | null;
+    /** the 진입 지점 road node the checks start at (sent as node_id) */
+    entryNode?: string | null;
     vulnerable: boolean;
   };
   /** drawn zones: Ready-Set-Go tag of the origin (planner-side point-in-polygon), e.g. "실행(Go) — 전원 대피" */
@@ -119,5 +132,9 @@ export interface PlanSheetData {
     approximation?: string | null;
     /** recorded final-panel mission whose request is identical (contract v1.1 recorded_mission_match) */
     recordedMissionMatch?: string | null;
+    /** computed on a host other than the evaluated booth host: test data, not the booth cache */
+    testData?: boolean | null;
+    /** MOCK: true when no check of this origin matched a recorded execution (nothing replayed) */
+    mockNothingReplayed?: boolean | null;
   };
 }

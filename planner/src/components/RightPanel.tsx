@@ -1,16 +1,16 @@
 import { CONFIG } from '../config/env';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
-import type { OriginPlan, Place, RouteDetail } from '../domain/types';
+import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
 import { useLang, useT, type TFunction } from '../i18n';
 import { useEffect } from 'react';
 import { cancelRecompute, ensureRoute, ensureTravelOnly, originCheckCount, recomputeOrigin, selectOffset } from '../state/controller';
-import { drawnReadiness, useClockBase, useCurrentScenarioSet, useHorizon, useRoute, useRsgTags, useScenarioPlaces, useSelectedPlace, useSelectedPlan, useShownAttempt } from '../state/selectors';
+import { drawnReadiness, routeById, travelOnlyDetail, useClockBase, useCurrentScenarioSet, useHorizon, useRoute, useRsgTags, useScenarioPlaces, useSelectedPlace, useSelectedPlan, useShownAttempt } from '../state/selectors';
 import { DRAWN_SCENARIO, getState, useStore } from '../state/store';
 import { setRightTab } from '../state/zoneActions';
 import { AssumptionsBlock, DrawnZonesTab, RsgTagView, SubmittedZonesCard } from './DrawnPanels';
-import { categoryLabel, computeLabel, errorText, fmtKstStamp, fmtNum, placeName, rawStatusText, reasonText, short, sourceTag } from './format';
+import { categoryLabel, computeLabel, errorText, fmtKstStamp, fmtNum, hostLabel, placeName, short, sourceTag, unresolvedReasonText } from './format';
 import { ChevronIcon, NoRouteIcon, RefreshIcon, UnresolvedIcon, CheckIcon } from './Icons';
 import { StatusChip } from './StatusChip';
 import { Timeline } from './Timeline';
@@ -51,6 +51,11 @@ function Header({ place, plan }: { place: Place; plan: OriginPlan | null }) {
           </span>
         ) : null}
       </div>
+      {!isResearch && node && dist !== null && dist > 0 ? (
+        <span className="small-note entry-gap" data-testid="entry-gap">
+          {t('entry.gapNote', { m: Math.round(dist) })}
+        </span>
+      ) : null}
       <div className="mono">
         {sourceTag(place)}
         {node && place.role === 'origin' ? ` · → ${node}` : ''}
@@ -96,6 +101,10 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
   else if (plan?.note === 'rejected' && plan.rejectReason) sub = t('headline.rejectedSub', { code: plan.rejectReason.code, message: plan.rejectReason.message });
   else if (plan?.note === 'not_computed') sub = issuedAt ? t('drawn.notComputedSub') : t('headline.notComputedSub');
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_SPREAD_ZONES_NOT_EVALUATED'))) sub = t('drawn.mockUnresolvedSub');
+  else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_NO_RECORDED_RESULT'))) sub = t('headline.mockNoRecordSub');
+  // departure times whose recorded result IS "no route in the model" (the origin stays unresolved)
+  const noRouteAt = plan ? plan.sweep.filter((c) => c.verdict === 'model_no_route').map((c) => kstClock(inputTime, c.offsetS)) : [];
+  if (noRouteAt.length && plan?.bestVerdict === 'unresolved') sub += ` ${t('headline.recordedNoRoute', { times: noRouteAt.join(', ') })}`;
   if (computing && plan && plan.bestVerdict === 'unresolved') sub = t('headline.computingSub');
   const full = t('headline.unresolved');
   const cut = full.indexOf(' (');
@@ -186,12 +195,13 @@ function ExposureTable({ route, t }: { route: RouteDetail; t: TFunction }) {
   );
 }
 
-function TravelOnly({ originId, inputTime, places, hasBest }: { originId: string; inputTime: string; places: Map<string, Place>; hasBest: boolean }) {
+function TravelOnly({ originId, inputTime, places, hasBest, shownOffsetS }: { originId: string; inputTime: string; places: Map<string, Place>; hasBest: boolean; shownOffsetS: number | null }) {
   const t = useT();
   const lang = useLang();
   const st = useStore((s) => s.travelOnly[originId]);
   const apiOnline = useStore((s) => s.apiStatus === 'online');
-  const d = st?.detail ?? null;
+  // only the comparison of the origin's current best checked attempt (never a late one of another run)
+  const d = useStore((s) => travelOnlyDetail(s, originId));
   return (
     <div className="compare" data-testid="travel-only">
       <div className="c-head">
@@ -204,8 +214,8 @@ function TravelOnly({ originId, inputTime, places, hasBest }: { originId: string
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <span style={{ fontWeight: 700, fontSize: 13 }}>
               {d.verdict === 'checked_route' ? t('travel.found') : d.verdict === 'model_no_route' ? t('travel.notFound') : t('travel.unresolved')}
-              <span className="mono muted" style={{ marginLeft: 6 }}>
-                travel_only · {d.verdict}
+              <span className="small-note" style={{ marginLeft: 6, fontWeight: 500 }}>
+                {t('travel.policyTag')}
               </span>
             </span>
             {d.arrivalS !== null && d.departOffsetS !== null ? (
@@ -217,7 +227,12 @@ function TravelOnly({ originId, inputTime, places, hasBest }: { originId: string
                 · {t('travel.arrival', { time: kstClock(inputTime, d.arrivalS, { seconds: true }), elapsed: formatElapsed(d.arrivalS - d.departOffsetS, lang) })}
               </span>
             ) : null}
-            {d.verdict === 'unresolved' ? <span className="small-note">{reasonText(d.reasonCode, t) ?? rawStatusText(d.rawStatus, t)}</span> : null}
+            {d.verdict === 'unresolved' ? <span className="small-note">{unresolvedReasonText(d.reasonCode, d.rawStatus, t)}</span> : null}
+            {d.coordinates && d.departOffsetS !== null && shownOffsetS !== d.departOffsetS ? (
+              <span className="small-note" data-testid="travel-map-note">
+                {t('travel.mapOnlyWith', { time: kstClock(inputTime, d.departOffsetS) })}
+              </span>
+            ) : null}
           </div>
           {d.exposure.length ? (
             <div>
@@ -242,11 +257,15 @@ function TravelOnly({ originId, inputTime, places, hasBest }: { originId: string
               </div>
               {Object.entries(d.fullPolicy.details)
                 .filter(([k]) => /status$/.test(k))
-                .map(([k, v]) => (
-                  <span key={k} className="mono muted">
-                    {k}: {v}
-                  </span>
-                ))}
+                .map(([k, v]) => {
+                  const label = t(`travel.detail.${k}`);
+                  return (
+                    <span key={k} className="small-note">
+                      {label !== `travel.detail.${k}` ? `${label}: ` : `${k}: `}
+                      <span className="mono">{v}</span>
+                    </span>
+                  );
+                })}
             </div>
           ) : null}
           <span className="small-note">{computeLabel(d.computeS, d.provenance?.host, t)} · {st?.source === 'cache' ? t('prov.cache') : 'API'}</span>
@@ -296,7 +315,34 @@ function Windows({ plan, inputTime }: { plan: OriginPlan; inputTime: string }) {
   );
 }
 
-function Provenance({ route, plan }: { route: RouteDetail | null; plan: OriginPlan }) {
+/** "Recorded refusal scope: {…}" → prefix text + parsed JSON (shown collapsed); null when not JSON. */
+function splitJsonNote(n: string): { head: string; json: unknown } | null {
+  const i = n.indexOf('{');
+  if (i < 0 || !n.trimEnd().endsWith('}')) return null;
+  try {
+    return { head: n.slice(0, i).trim(), json: JSON.parse(n.slice(i)) };
+  } catch {
+    return null;
+  }
+}
+
+function NoteItem({ n }: { n: string }) {
+  const t = useT();
+  const lang = useLang();
+  const j = splitJsonNote(n);
+  if (!j) return <li>{n}</li>;
+  return (
+    <li>
+      {j.head}
+      <details className="note-json">
+        <summary lang={lang}>{t('prov.rawJson')}</summary>
+        <pre className="mono">{JSON.stringify(j.json, null, 2)}</pre>
+      </details>
+    </li>
+  );
+}
+
+function Provenance({ route, plan, recheckOf = null }: { route: RouteDetail | null; plan: OriginPlan; recheckOf?: string | null }) {
   const t = useT();
   const cache = useStore((s) => s.cache);
   const health = useStore((s) => s.health);
@@ -348,6 +394,14 @@ function Provenance({ route, plan }: { route: RouteDetail | null; plan: OriginPl
             </dd>
             <dt>{t('prov.job')}</dt>
             <dd className="mono">{route.jobId}</dd>
+            {recheckOf ? (
+              <>
+                <dt>{t('prov.recheck')}</dt>
+                <dd className="mono" data-testid="recheck-of">
+                  {t('recheck.note', { id: recheckOf })}
+                </dd>
+              </>
+            ) : null}
           </>
         ) : null}
         <dt>{t('prov.source')}</dt>
@@ -368,10 +422,13 @@ function Provenance({ route, plan }: { route: RouteDetail | null; plan: OriginPl
       </dl>
       {route?.notes.length ? (
         <>
-          <div className="small-note" style={{ marginTop: 8, fontWeight: 700 }}>{t('prov.notes')}</div>
-          <ul className="notes">
+          <div className="small-note" style={{ marginTop: 8 }}>
+            <b>{t('prov.notes')}</b> <span>{t('prov.notesHint')}</span>
+          </div>
+          {/* the API's notes stay verbatim (English) and always visible */}
+          <ul className="notes" lang="en">
             {route.notes.map((n, i) => (
-              <li key={i}>{n}</li>
+              <NoteItem key={i} n={n} />
             ))}
           </ul>
         </>
@@ -438,6 +495,47 @@ function Recompute({ place, drawn = false }: { place: Place; drawn?: boolean }) 
   );
 }
 
+/** First attempt with a compute time (earliest offset), e.g. the recorded refusal at 04:00. */
+function firstComputed(attempts: Attempt[]): Attempt | null {
+  return [...attempts].filter((a) => a.computeS !== null).sort((a, b) => a.offsetS - b.offsetS)[0] ?? null;
+}
+
+/** Window text only for "시간창 밖"; a refused request names its code (never the window explanation). */
+function skipText(cell: SweepCell, t: TFunction): string {
+  if (cell.skipped === 'window_unsatisfiable') return t('timeline.tip.window');
+  if (cell.skipped) return t('timeline.tip.rejected', { code: cell.skipped });
+  return t('shelter.noRoute');
+}
+
+/**
+ * Compute time of every departure time that has no checked route (default view of an origin
+ * without a checked route): "04:00 출발 · 계산 9.3초 · Apple M5 Pro (기록)".
+ */
+function ComputeList({ plan, inputTime }: { plan: OriginPlan; inputTime: string }) {
+  const t = useT();
+  const routes = useStore((s) => s.routes);
+  const cache = useStore((s) => s.cache);
+  const rows = plan.sweep
+    .filter((c) => c.verdict !== 'checked_route')
+    .map((c) => ({ c, a: firstComputed(c.attempts) }))
+    .filter((x): x is { c: SweepCell; a: Attempt } => x.a !== null);
+  if (!rows.length) return null;
+  return (
+    <div className="section" data-testid="compute-list">
+      <div className="section-title">{t('compute.listTitle')}</div>
+      {rows.map(({ c, a }) => {
+        const host = routeById({ routes, cache }, a.jobId)?.provenance?.host ?? cache?.meta.computeHost ?? null;
+        return (
+          <span key={c.offsetS} className="small-note tnum">
+            <StatusChip verdict={c.skipped === 'window_unsatisfiable' ? 'window' : c.verdict} />{' '}
+            {t('compute.at', { time: kstClock(inputTime, c.offsetS), s: a.computeS!.toFixed(1), host: hostLabel(host, t) ?? '—' })}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
 /** Detail of the selected origin (recorded scenario or drawn zones). */
 function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inputTime: string; issuedAt: string | null; drawn: boolean }) {
   const t = useT();
@@ -449,8 +547,15 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
   const { byId } = useScenarioPlaces();
   const { cell, attempt } = useShownAttempt();
   const route = useRoute(attempt?.jobId);
-  // evidence for a cell without a checked route: the first attempt's check (raw status, provenance)
-  const evidenceJob = attempt ? null : cell?.attempts.find((a) => a.jobId)?.jobId ?? null;
+  // evidence for a cell without a checked route: the first attempt's check (raw status, provenance);
+  // with no cell selected, the earliest check of this origin that has a compute time
+  const allAttempts = plan ? plan.sweep.flatMap((c) => c.attempts) : [];
+  const evidenceAttempt = attempt
+    ? null
+    : cell
+      ? (cell.attempts.find((a) => a.jobId && a.computeS !== null) ?? cell.attempts.find((a) => a.jobId) ?? null)
+      : (firstComputed(allAttempts.filter((a) => a.jobId)) ?? allAttempts.find((a) => a.jobId) ?? null);
+  const evidenceJob = evidenceAttempt?.jobId ?? null;
   const evidence = useRoute(evidenceJob);
   const routeError = useStore((s) => (attempt?.jobId ? s.routeErrors[attempt.jobId] : undefined));
   const apiOnline = useStore((s) => s.apiStatus === 'online');
@@ -477,17 +582,17 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
   const notComputed = !plan || plan.sweep.every((c) => c.attempts.length === 0);
   const assumptionsRoute = route ?? evidence ?? anyRoute;
   const exposureEl = route && route.verdict === 'checked_route' ? <ExposureTable route={route} t={t} /> : null;
+  const cellComputed = cell ? firstComputed(cell.attempts) : null;
   const computeEl =
     attempt || route ? (
       <div className="small-note tnum" data-testid="compute">
         {computeLabel(route?.computeS ?? attempt?.computeS ?? null, route?.provenance?.host ?? null, t)}
         {route?.withinBudget === true ? ` · ${t('compute.budget')}` : route?.withinBudget === false ? ` · ${t('compute.overBudget')}` : ''}
       </div>
-    ) : evidence && drawn ? (
-      <div className="small-note tnum" data-testid="compute">
-        {computeLabel(evidence.computeS, evidence.provenance?.host ?? null, t)}
-      </div>
+    ) : !cell && plan ? (
+      <ComputeList plan={plan} inputTime={inputTime} />
     ) : null;
+  const recheckOf = attempt?.recheckOf ?? evidenceAttempt?.recheckOf ?? null;
   const assumeEl =
     drawn && assumptionsRoute ? (
       <AssumptionsBlock
@@ -498,7 +603,8 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
       />
     ) : null;
   const submittedEl = drawn && submitted && !notComputed ? <SubmittedZonesCard submitted={submitted} horizonS={horizon} /> : null;
-  const travelEl = plan && !notComputed && (!drawn || plan.best) ? <TravelOnly originId={place.id} inputTime={inputTime} places={byId} hasBest={Boolean(plan.best)} /> : null;
+  const travelEl = plan && !notComputed && (!drawn || plan.best) ? <TravelOnly originId={place.id} inputTime={inputTime} places={byId} hasBest={Boolean(plan.best)} shownOffsetS={attempt?.jobId === plan.best?.jobId ? attempt?.offsetS ?? null : null} /> : null;
+  const windowCell = cell?.skipped === 'window_unsatisfiable';
   return (
     <div className="rp">
       <Header place={place} plan={plan} />
@@ -525,25 +631,30 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         <div className="section">
           <div className="section-title">{t('shelter.title')}</div>
           <ShelterCard route={route} attemptDest={attempt.destinationId} departS={cell.offsetS} arrivalS={attempt.arrivalS} inputTime={inputTime} places={byId} loading={apiOnline && !routeError} />
+          {attempt.recheckOf ? <span className="small-note">{t('recheck.note', { id: attempt.recheckOf })}</span> : null}
         </div>
       ) : cell && cell.attempts.length ? (
-        <div className="card">
+        <div className="card" data-testid="cell-card">
           <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <StatusChip verdict={cell.skipped ? 'window' : cell.verdict} />
+            <StatusChip verdict={windowCell ? 'window' : cell.verdict} />
             <span className="tnum" style={{ fontWeight: 600 }}>{kstClock(inputTime, cell.offsetS)}</span>
           </span>
-          <span className="small-note">{cell.skipped ? t('timeline.tip.window') : t('shelter.noRoute')}</span>
-          {[...new Set(cell.attempts.map((a) => reasonText(a.reasonCode, t) ?? rawStatusText(a.rawStatus, t)).filter(Boolean))].map((r) => (
+          <span className="small-note">{skipText(cell, t)}</span>
+          {[...new Set(cell.attempts.map((a) => unresolvedReasonText(a.reasonCode, a.rawStatus, t)).filter(Boolean))].map((r) => (
             <span key={r} className="small-note mono">{r}</span>
           ))}
+          <span className="small-note tnum" data-testid="cell-compute">
+            {computeLabel(cellComputed?.computeS ?? null, evidence?.provenance?.host ?? null, t)}
+          </span>
+          {evidenceAttempt?.recheckOf ? <span className="small-note">{t('recheck.note', { id: evidenceAttempt.recheckOf })}</span> : null}
         </div>
       ) : cell && !drawn ? (
-        <div className="card">
+        <div className="card" data-testid="cell-card">
           <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <StatusChip verdict={cell.skipped ? 'window' : cell.verdict} />
+            <StatusChip verdict={windowCell ? 'window' : cell.verdict} />
             <span className="tnum" style={{ fontWeight: 600 }}>{kstClock(inputTime, cell.offsetS)}</span>
           </span>
-          <span className="small-note">{cell.skipped ? t('timeline.tip.window') : t('shelter.noRoute')}</span>
+          <span className="small-note">{skipText(cell, t)}</span>
         </div>
       ) : null}
       {drawn ? (
@@ -562,7 +673,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         </>
       )}
       {plan && plan.windows.length && !notComputed ? <Windows plan={plan} inputTime={inputTime} /> : null}
-      {plan && (!drawn || !notComputed) ? <Provenance route={route ?? evidence ?? (drawn ? anyRoute : null)} plan={plan} /> : null}
+      {plan && (!drawn || !notComputed) ? <Provenance route={route ?? evidence ?? (drawn ? anyRoute : null)} plan={plan} recheckOf={recheckOf} /> : null}
       {!drawn || !notComputed || progress ? <Recompute place={place} drawn={drawn} /> : null}
       {routeError ? <span className="small-note">{errorText(routeError, t)}</span> : null}
     </div>

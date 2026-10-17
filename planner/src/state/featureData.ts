@@ -6,14 +6,14 @@ import type { Feature, FeatureCollection, LineString, MultiPolygon, Polygon } fr
 import { compactUtc, kstDateTime } from '../domain/clock';
 import { fireInputBanner } from '../domain/labels';
 import { haversineM, sortByUrgency } from '../domain/plan';
-import type { CacheData, OriginPlan, Place, ProvenanceInfo, RouteDetail } from '../domain/types';
+import type { Attempt, CacheData, OriginPlan, Place, ProvenanceInfo, RouteDetail } from '../domain/types';
 import { rsgTags, sortDrawn, zonesFeatureCollection, zoneSummary, ZONE_KEYS, type RsgTag } from '../domain/zones';
 import type { Lang, TFunction } from '../i18n';
 import type { ExportInput, ExportOrigin, ExportPlace, ExportProvenance, ExportRoute } from '../features/exports/types';
 import type { PlanSheetData, PlanSheetScenario, PlanSheetSweepCell } from '../features/plansheet/types';
 import { categoryLabel, hostLabel, placeName, sourceTag } from '../components/format';
 import { recordedComparison } from './controller';
-import { currentScenarioSet, drawnFireInput, drawnIssuedAt, isMockActive, regionEntry, routeById, scenarioSetsOf } from './selectors';
+import { currentScenarioSet, drawnFireInput, drawnIssuedAt, isMockActive, regionEntry, routeById, scenarioSetsOf, travelOnlyDetail } from './selectors';
 import { DRAWN_SCENARIO, type PlannerState } from './store';
 import { scenarioOrigins } from '../data/staticData';
 
@@ -59,6 +59,8 @@ function provenanceOf(s: PlannerState, t: TFunction, route: RouteDetail | null):
     evaluatedConfiguration: p?.evaluatedConfiguration ?? null,
     recordedMissionMatch: p?.recordedMissionMatch ?? null,
     approximation: p?.approximation ?? drawnApproximation(s),
+    // results shown come from a cache computed on a non-evaluation host (e.g. a Linux container)
+    testData: s.dataSource === 'cache' && s.cache?.meta.testData === true,
   };
 }
 
@@ -118,20 +120,59 @@ export function drawnZonesLayer(s: PlannerState, t: TFunction): FeatureCollectio
   return { type: 'FeatureCollection', features };
 }
 
-function exportPlace(p: Place, t: TFunction): ExportPlace {
-  return { id: p.id, name: p.name, nameEn: p.nameEn, categoryLabel: categoryLabel(p, t), sourceTag: sourceTag(p), lon: p.lon, lat: p.lat };
+/** The app's name for a place without an OSM name ("기록 임무 FD1 출발점", "이름 없는 마을 · node …"); null when named. */
+function displayName(p: Place, t: TFunction, lang: Lang): string | null {
+  return p.name || p.nameEn ? null : placeName(p, t, lang);
+}
+
+function exportPlace(p: Place, t: TFunction, lang: Lang): ExportPlace {
+  return {
+    id: p.id,
+    name: p.name,
+    nameEn: p.nameEn,
+    displayName: displayName(p, t, lang),
+    categoryLabel: categoryLabel(p, t),
+    sourceTag: sourceTag(p),
+    lon: p.lon,
+    lat: p.lat,
+    entry: p.entry ? { node: p.entry.node, lon: p.entry.lon, lat: p.entry.lat, distanceM: p.entry.distanceM } : null,
+  };
 }
 
 function sweepCells(plan: OriginPlan): PlanSheetSweepCell[] {
-  return plan.sweep.map((c) => ({ offsetS: c.offsetS, verdict: c.skipped === 'window_unsatisfiable' ? 'window_closed' : c.verdict }));
+  return plan.sweep.map((c) => {
+    if (c.skipped === 'window_unsatisfiable') return { offsetS: c.offsetS, verdict: 'window_closed' };
+    if (c.verdict !== 'unresolved') return { offsetS: c.offsetS, verdict: c.verdict };
+    const a = c.attempts.find((x) => x.verdict === 'unresolved');
+    return { offsetS: c.offsetS, verdict: c.verdict, reasonCode: a?.reasonCode ?? (c.skipped || null), rawStatus: a?.rawStatus ?? null };
+  });
 }
 
-function bestReason(plan: OriginPlan): string | null {
-  for (const c of plan.sweep) for (const a of c.attempts) if (a.reasonCode) return a.reasonCode;
-  return plan.rejectReason?.code ?? null;
+/** First unresolved attempt with a reason (its code and raw status), else the planner's reject code. */
+function bestReason(plan: OriginPlan): { code: string | null; rawStatus: string | null } {
+  for (const c of plan.sweep) for (const a of c.attempts) if (a.verdict === 'unresolved' && (a.reasonCode || a.rawStatus)) return { code: a.reasonCode, rawStatus: a.rawStatus ?? null };
+  return { code: plan.rejectReason?.code ?? null, rawStatus: null };
 }
 
-interface RowSource {
+/** Compute time to show: the shown route's, else the earliest attempt that has one (with its offset). */
+function computeOf(plan: OriginPlan | undefined, route: RouteDetail | null): { s: number | null; offsetS: number | null; jobId: string | null } {
+  if (route?.computeS !== null && route?.computeS !== undefined) return { s: route.computeS, offsetS: route.departOffsetS ?? plan?.best?.offsetS ?? null, jobId: route.jobId };
+  if (plan?.best?.computeS !== null && plan?.best?.computeS !== undefined) return { s: plan.best.computeS, offsetS: plan.best.offsetS, jobId: plan.best.jobId };
+  const first = (plan?.sweep ?? [])
+    .flatMap((c) => c.attempts)
+    .filter((a): a is Attempt & { computeS: number } => a.computeS !== null)
+    .sort((a, b) => a.offsetS - b.offsetS)[0];
+  return first ? { s: first.computeS, offsetS: first.offsetS, jobId: first.jobId } : { s: null, offsetS: null, jobId: null };
+}
+
+/** MOCK: no check of this origin matched a recorded execution (nothing was replayed for it). */
+function mockNothingReplayed(plans: (OriginPlan | undefined)[]): boolean {
+  const attempts = plans.flatMap((p) => p?.sweep.flatMap((c) => c.attempts) ?? []);
+  return !attempts.some((a) => a.jobId && a.rawStatus !== 'MOCK_NO_RECORDED_RESULT' && a.rawStatus !== 'MOCK_SPREAD_ZONES_NOT_EVALUATED');
+}
+
+/** One scenario row's inputs (exported for tests). */
+export interface RowSource {
   scenarioSetId: string;
   inputTimeIso: string;
   issuedAtIso: string | null;
@@ -141,11 +182,14 @@ interface RowSource {
   hostFallback: string | null;
 }
 
-function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, t: TFunction): PlanSheetScenario {
+/** One plan-sheet scenario row of an origin (exported for tests). */
+export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, t: TFunction): PlanSheetScenario {
   const plan = src.plans[o.id];
   const route = src.route(plan?.best?.jobId);
   const travel = src.travelOnly(o.id);
   const dest = plan?.best ? byId.get(plan.best.destinationId) : null;
+  const compute = computeOf(plan, route);
+  const reason = plan && plan.bestVerdict === 'unresolved' ? bestReason(plan) : null;
   return {
     scenarioSetId: src.scenarioSetId,
     inputTimeIso: src.inputTimeIso,
@@ -163,9 +207,12 @@ function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, t: TFun
     travelOnlyFullPolicyPass: travel?.fullPolicy?.pass ?? null,
     exposure: (route?.exposure ?? []).map((e) => ({ scenarioId: e.scenarioId, peakKwM2: e.peakKwM2, doseKjM2: e.doseKjM2, contact: e.contact })),
     limits: route?.limits ? { peakKwM2: route.limits.peakKwM2, doseKjM2: route.limits.doseKjM2 } : null,
-    computeS: route?.computeS ?? plan?.best?.computeS ?? null,
-    host: hostLabel(route?.provenance?.host, t) ?? src.hostFallback,
-    reasonCode: plan && plan.bestVerdict === 'unresolved' ? bestReason(plan) : null,
+    computeS: compute.s,
+    computeOffsetS: compute.offsetS,
+    // never invent a host: the provenance of the check the time belongs to, else the cache's compute host, else none
+    host: hostLabel(route?.provenance?.host ?? src.route(compute.jobId)?.provenance?.host, t) ?? src.hostFallback,
+    reasonCode: reason?.code ?? null,
+    rawStatus: reason?.rawStatus ?? null,
     note: plan?.note ?? null,
   };
 }
@@ -202,7 +249,7 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
       issuedAtIso: issuedAt,
       plans: s.plans,
       route: routeOf,
-      travelOnly: (id) => s.travelOnly[id]?.detail ?? null,
+      travelOnly: (id) => travelOnlyDetail(s, id),
       hostFallback: null,
     });
     const cmp = recordedComparison();
@@ -214,7 +261,7 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
         issuedAtIso: null,
         plans: cmp.plans,
         route: cacheRoute(s.routes, cmp.cache),
-        travelOnly: (id) => cmp.travelOnly[id]?.detail ?? (cmp.plans[id]?.source === 'cache' ? cmp.cache?.travelOnly[id] ?? null : null),
+        travelOnly: (id) => travelOnlyDetail(cmp, id) ?? (cmp.plans[id]?.source === 'cache' ? cmp.cache?.travelOnly[id] ?? null : null),
         hostFallback: hostLabel(cmp.cache?.meta.computeHost ?? null, t),
       });
     }
@@ -225,7 +272,7 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
       issuedAtIso: null,
       plans: s.plans,
       route: routeOf,
-      travelOnly: (id) => s.travelOnly[id]?.detail ?? null,
+      travelOnly: (id) => travelOnlyDetail(s, id),
       hostFallback: hostLabel(s.cache?.meta.computeHost ?? null, t),
     });
   }
@@ -252,11 +299,14 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
         id: o.id,
         name: o.name,
         nameEn: o.nameEn,
+        displayName: displayName(o, t, lang),
         categoryLabel: categoryLabel(o, t),
         sourceTag: sourceTag(o),
         lon: o.lon,
         lat: o.lat,
         snapDistanceM: o.entry?.distanceM ?? o.snapDistanceM,
+        entryKind: o.role === 'research_origin' ? 'research' : o.category === 'village' || o.category === 'hamlet' ? 'village' : 'facility',
+        entryNode: o.entry?.node ?? o.snapNode,
         vulnerable: o.vulnerable,
       },
       rsgLabel: rsgText(tag, t),
@@ -273,17 +323,19 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
         gitCommit: prov.gitCommit,
         cacheApiMode: prov.cacheApiMode ?? null,
         approximation: prov.approximation ?? null,
+        testData: prov.testData ?? null,
+        mockNothingReplayed: mock ? mockNothingReplayed(sources.map((src) => src.plans[o.id])) : null,
       },
     } satisfies PlanSheetData;
   });
 }
 
-function exportRoute(s: PlannerState, t: TFunction, d: RouteDetail, origin: Place, shelter: Place, role: ExportRoute['role']): ExportRoute | null {
+function exportRoute(s: PlannerState, t: TFunction, lang: Lang, d: RouteDetail, origin: Place, shelter: Place, role: ExportRoute['role']): ExportRoute | null {
   if (!d.coordinates || !d.timesS) return null;
   return {
     role,
-    origin: exportPlace(origin, t),
-    shelter: exportPlace(shelter, t),
+    origin: exportPlace(origin, t, lang),
+    shelter: exportPlace(shelter, t, lang),
     verdict: d.verdict,
     policy: d.policy,
     fullPolicyPass: d.fullPolicy?.pass ?? null,
@@ -313,10 +365,12 @@ export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): Exp
   const exportOrigins: ExportOrigin[] = origins.map((o) => {
     const plan = s.plans[o.id];
     const dest = plan?.best ? byId.get(plan.best.destinationId) : null;
+    const reason = plan && plan.bestVerdict === 'unresolved' ? bestReason(plan) : null;
     return {
-      ...exportPlace(o, t),
+      ...exportPlace(o, t, lang),
       vulnerable: o.vulnerable,
       rsgLabel: rsgText(rsg.get(o.id), t),
+      rsg: rsg.get(o.id) ?? null,
       urgencyRank: null,
       plan: plan
         ? {
@@ -324,8 +378,9 @@ export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): Exp
             latestSafeDepartureS: plan.latestSafeDepartureS,
             contiguousSafeDepartureS: plan.contiguousSafeDepartureS,
             sweep: sweepCells(plan),
-            best: plan.best && dest ? { shelter: exportPlace(dest, t), departureS: plan.best.offsetS, arrivalS: plan.best.arrivalS } : null,
-            reasonCode: plan.bestVerdict === 'unresolved' ? bestReason(plan) : null,
+            best: plan.best && dest ? { shelter: exportPlace(dest, t, lang), departureS: plan.best.offsetS, arrivalS: plan.best.arrivalS } : null,
+            reasonCode: reason?.code ?? null,
+            rawStatus: reason?.rawStatus ?? null,
             note: plan.note ?? null,
           }
         : null,
@@ -340,11 +395,13 @@ export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): Exp
     const attempt = cell?.best ?? plan.best;
     const d = routeById(s, attempt?.jobId);
     const shelter = attempt ? byId.get(attempt.destinationId) : null;
-    if (d && shelter && d.verdict === 'checked_route') selectedRoute = exportRoute(s, t, d, sel, shelter, 'evacuation_route');
-    const tr = s.travelOnly[sel.id]?.detail;
+    if (d && shelter && d.verdict === 'checked_route') selectedRoute = exportRoute(s, t, lang, d, sel, shelter, 'evacuation_route');
+    // only the comparison of the origin's current best checked attempt
+    const tr = travelOnlyDetail(s, sel.id);
     const trShelter = plan.best ? byId.get(plan.best.destinationId) : null;
-    if (tr && trShelter && tr.coordinates) comparisonRoute = exportRoute(s, t, tr, sel, trShelter, 'travel_only_comparison');
+    if (tr && trShelter && tr.coordinates) comparisonRoute = exportRoute(s, t, lang, tr, sel, trShelter, 'travel_only_comparison');
   }
+  const selectedOrigin = sel ? { place: exportPlace(sel, t, lang), verdict: plan?.bestVerdict ?? ('unresolved' as const) } : null;
   const fi = drawn ? drawnFireInput(s) : null;
   return {
     region: { id: region.id, nameKo: region.nameKo, nameEn: region.nameEn, fireYear: region.fireYear },
@@ -357,6 +414,7 @@ export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): Exp
     zones: drawnZonesLayer(s, t),
     origins: exportOrigins,
     selectedRoute,
+    selectedOrigin,
     comparisonRoute,
     provenance: provenanceOf(s, t, selectedRoute ? routeById(s, selectedRoute.jobId) : null),
     generatedAtIso: new Date().toISOString(),

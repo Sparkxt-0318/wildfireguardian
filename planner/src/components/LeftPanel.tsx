@@ -8,9 +8,9 @@ import { cancelBatch, selectOrigin, selectRegion, selectScenario, startBatch } f
 import { useClockBase, useRsgTags, useScenarioPlaces, useScenarioSets } from '../state/selectors';
 import { DRAWN_SCENARIO, setState, useStore, type OriginFilter } from '../state/store';
 import { DrawnSettings, DrawnStrip, RsgTagView } from './DrawnPanels';
-import { categoryLabel, errorText, fmtKstClock, fmtKstStamp, hostLabel, placeName, sourceTag } from './format';
+import { batchCounter, categoryLabel, errorText, fmtKstClock, fmtKstStamp, hostLabel, placeName, sourceTag } from './format';
 import { OriginGlyph, SearchIcon, VerdictIcon } from './Icons';
-import { StatusChip } from './StatusChip';
+import { StatusChip, TestDataChip } from './StatusChip';
 import { findCacheEntry } from '../api/cache';
 
 function RegionSelector() {
@@ -93,6 +93,22 @@ function DataStrip() {
   const cache = useStore((s) => s.cache);
   const batch = useStore((s) => s.batch);
   const apiStatus = useStore((s) => s.apiStatus);
+  const health = useStore((s) => s.health);
+  const plans = useStore((s) => s.plans);
+  // MOCK: how many checks matched a recorded execution (the rest computed nothing)
+  const mockCounts = useMemo(() => {
+    let n = 0;
+    let k = 0;
+    for (const p of Object.values(plans)) {
+      for (const c of p.sweep) {
+        for (const a of c.attempts) {
+          n += 1;
+          if (a.rawStatus !== 'MOCK_NO_RECORDED_RESULT' && a.jobId) k += 1;
+        }
+      }
+    }
+    return { n, k };
+  }, [plans]);
   if (scenarioId === DRAWN_SCENARIO) return <DrawnStrip />;
   if (dataLoading) return <div className="data-strip">{t('data.loading')}</div>;
   if (dataSource === 'cache' && cache) {
@@ -100,17 +116,35 @@ function DataStrip() {
     return (
       <div className="data-strip" data-testid="data-source">
         <span>{t('data.cacheLabel', { time: fmtKstStamp(cache.meta.createdAt), host })}</span>
+        {cache.meta.testData ? <TestDataChip /> : null}
+      </div>
+    );
+  }
+  if (batch.state === 'disabled') {
+    return (
+      <div className="data-strip">
+        <div className="notice outline" data-testid="batch-disabled">
+          <div className="notice-title">{t('batch.disabled')}</div>
+          <div className="notice-body">{t('batch.disabledBody')}</div>
+        </div>
       </div>
     );
   }
   if (batch.state === 'confirm') {
+    const budget = health?.budgetS ?? 30;
+    const workers = Math.max(1, health?.workers ?? 1);
+    const minutes = Math.ceil((batch.total * budget) / workers / 60);
     return (
       <div className="data-strip">
         <div className="notice">
           <div className="notice-title">{t('batch.confirmTitle')}</div>
           <div className="notice-body">
-            {t('batch.confirmBody', { origins: batch.origins, plans: batch.dispatchPlans, research: batch.researchChecks, checks: batch.total })}
+            {t('batch.confirmBody', { origins: batch.origins, plans: batch.dispatchPlans, research: batch.researchChecks, checks: batch.total, b: Math.round(budget) })}
           </div>
+          <div className="notice-body tnum" data-testid="batch-bound">
+            {t('batch.bound', { b: Math.round(budget), w: workers, min: minutes })}
+          </div>
+          <div className="notice-body">{t('batch.confirmNote')}</div>
           <div>
             <button type="button" className="btn btn-ink" onClick={() => void startBatch()} disabled={apiStatus !== 'online'}>
               {t('batch.start')}
@@ -122,15 +156,23 @@ function DataStrip() {
   }
   if (batch.state === 'running' || batch.state === 'done' || batch.state === 'error' || batch.state === 'cancelled') {
     const pct = batch.total ? Math.round((batch.done / batch.total) * 100) : 0;
+    const rejPct = batch.total ? Math.round(((batch.rejected ?? 0) / batch.total) * 100) : 0;
+    const allRejected = batch.done === 0 && (batch.rejected ?? 0) > 0 && batch.state !== 'running';
+    const mock = Boolean(health?.mock);
+    const doneLabel = (batch.rejected ?? 0) > 0 ? t('batch.doneWithRejects') : mock ? t('data.mockLabel', { n: mockCounts.n, k: mockCounts.k }) : t('data.liveLabel');
+    const label =
+      batch.state === 'running' ? t('batch.running') : allRejected ? t('batch.allRejected') : batch.state === 'done' ? doneLabel : batch.state === 'error' ? t('batch.error') : t('batch.cancelled');
     return (
       <div className="data-strip" data-testid="batch-progress">
         <div className="progress-row">
-          <span>{batch.state === 'running' ? t('batch.running') : batch.state === 'done' ? t('data.liveLabel') : batch.state === 'error' ? t('batch.error') : t('batch.cancelled')}</span>
-          <span>{t('batch.progress', { done: batch.done, total: batch.total })}</span>
+          <span>{label}</span>
+          <span>{batchCounter(batch, t)}</span>
         </div>
         <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={batch.total} aria-valuenow={batch.done}>
           <div style={{ width: `${pct}%` }} />
+          {rejPct > 0 ? <div className="rejected" style={{ width: `${rejPct}%` }} /> : null}
         </div>
+        {batch.state === 'done' && mock && (batch.rejected ?? 0) > 0 ? <span>{t('data.mockLabel', { n: mockCounts.n, k: mockCounts.k })}</span> : null}
         {batch.state === 'running' ? (
           <div>
             <button type="button" className="btn" onClick={cancelBatch}>
@@ -138,14 +180,16 @@ function DataStrip() {
             </button>
           </div>
         ) : null}
-        {batch.state === 'error' || batch.state === 'cancelled' ? (
+        {batch.state === 'error' || batch.state === 'cancelled' || (batch.state === 'done' && batch.error) ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {batch.error ? <span style={{ color: 'var(--ink)' }}>{errorText(batch.error, t)}</span> : null}
-            <div>
-              <button type="button" className="btn" onClick={() => void startBatch()} disabled={apiStatus !== 'online'}>
-                {t('batch.retry')}
-              </button>
-            </div>
+            {batch.state !== 'done' ? (
+              <div>
+                <button type="button" className="btn" onClick={() => void startBatch()} disabled={apiStatus !== 'online'}>
+                  {t('batch.retry')}
+                </button>
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

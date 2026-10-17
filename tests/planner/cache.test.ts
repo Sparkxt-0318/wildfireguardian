@@ -3,7 +3,8 @@
  * shaped like planner/scripts/precompute.py output (schema wfg.planner.cache/1).
  */
 import { describe, expect, it } from 'vitest';
-import { cacheToModel, findCacheEntry, parseCacheIndex } from '../../planner/src/api/cache';
+import { cacheToModel, findCacheEntry, isEvaluationHost, parseCacheIndex } from '../../planner/src/api/cache';
+import { deadlineHeadline } from '../../planner/src/domain/plan';
 import type { WireCacheFile, WireDispatchPlanJob, WireProvenance, WireRouteCheckJob } from '../../planner/src/api/wire';
 
 const SET = 'ffb1:20990101T000000Z:synthetic';
@@ -176,5 +177,91 @@ describe('cache file → internal model', () => {
     expect(Object.values(m.plans).every((p) => p.mock)).toBe(true);
     const viaJobs = cacheToModel({ ...DOC, route_checks: { ...DOC.route_checks, rc_r0: rc('rc_r0', 'unresolved', 0, null, 'full', true) } }, ENTRY);
     expect(viaJobs.meta.mock).toBe(true);
+  });
+});
+
+describe('cache robustness and honesty', () => {
+  it('skips the null a refused dispatch plan leaves in plans[] (precompute) and keeps the refusal', () => {
+    const doc: WireCacheFile = {
+      ...DOC,
+      api: { ...DOC.api, host: undefined },
+      plans: [null, plan],
+      rejected_requests: [{ kind: 'dispatch_plan', request: { origins: [{ id: 'osm:node/7' }], depart_offsets_s: [0, 600] }, status: 422, code: 'NODE_NOT_ALLOWED', error: { error: { code: 'NODE_NOT_ALLOWED', message: 'synthetic' } } }],
+    };
+    let m: ReturnType<typeof cacheToModel> | null = null;
+    expect(() => (m = cacheToModel(doc, ENTRY))).not.toThrow();
+    const data = m!;
+    expect(data.plans['osm:node/7']).toMatchObject({ bestVerdict: 'unresolved', note: 'rejected', rejectReason: { code: 'NODE_NOT_ALLOWED' } });
+    // the other origins are unchanged
+    expect(data.plans['osm:node/1']!.latestSafeDepartureS).toBe(600);
+    // firstHost walks plans[] too (api.host absent): no throw, host from the results
+    expect(data.meta.computeHost).toMatchObject({ machine: 'x86_64' });
+  });
+
+  it('a re-check replaces the attempt it re-ran (cell, deadline and evidence agree) — new and old file layouts', () => {
+    const timeoutPlan: WireDispatchPlanJob = JSON.parse(JSON.stringify(plan));
+    timeoutPlan.result!.plans[0]!.attempts[1] = { destination_id: 'osm:node/9', depart_offset_s: 600, verdict: 'unresolved', reason_code: 'TIMEOUT', arrival_s: null, compute_s: 30, route_check_job_id: 'rc_osm_600' };
+    timeoutPlan.result!.plans[0]!.best = { destination_id: 'osm:node/9', depart_offset_s: 0, verdict: 'checked_route', reason_code: null, arrival_s: 1200, compute_s: 6, route_check_job_id: 'rc_osm_0' };
+    const original = rc('rc_osm_600', 'unresolved', 600, null);
+    const recheck = { ...rc('rc_recheck_1', 'checked_route', 600, 1750), recheck_of: 'rc_osm_600' };
+    const layouts: Record<string, WireRouteCheckJob>[] = [
+      // new layout: the re-check under its own id, the original kept
+      { rc_osm_0: DOC.route_checks.rc_osm_0!, rc_osm_600: original, rc_recheck_1: recheck },
+      // old layout: the re-check stored under the original id (the original is gone)
+      { rc_osm_0: DOC.route_checks.rc_osm_0!, rc_osm_600: recheck },
+    ];
+    for (const route_checks of layouts) {
+      const data = cacheToModel({ ...DOC, plans: [timeoutPlan], route_checks }, ENTRY);
+      const p = data.plans['osm:node/1']!;
+      const cell = p.sweep.find((c) => c.offsetS === 600)!;
+      expect(cell.verdict).toBe('checked_route');
+      expect(cell.attempts[0]).toMatchObject({ jobId: 'rc_recheck_1', recheckOf: 'rc_osm_600', arrivalS: 1750 });
+      expect(p.latestSafeDepartureS).toBe(600);
+      expect(p.best?.jobId).toBe('rc_recheck_1');
+      // the evidence of the cell is the re-check itself
+      expect(data.route('rc_recheck_1')?.verdict).toBe('checked_route');
+      const orig = data.route('rc_osm_600');
+      if (orig) expect(orig.verdict).toBe('unresolved');
+    }
+  });
+
+  it('a refused research check is an unresolved attempt with the code (not "시간창 밖")', () => {
+    const doc: WireCacheFile = {
+      ...DOC,
+      research_checks: [
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 0, job_id: 'rc_r600x' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 300, job_id: null, skipped: 'NODE_NOT_ALLOWED' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 600, job_id: 'rc_r600' },
+        { origin_id: RID, destination_id: 'rd', depart_offset_s: 3000, job_id: null, skipped: 'WINDOW_UNSATISFIABLE' },
+      ],
+      route_checks: { ...DOC.route_checks, rc_r600x: rc('rc_r600x', 'checked_route', 0, 1500) },
+      travel_only: {},
+    };
+    const p = cacheToModel(doc, ENTRY).plans[RID]!;
+    const c300 = p.sweep.find((c) => c.offsetS === 300)!;
+    expect(c300.verdict).toBe('unresolved');
+    expect(c300.skipped).toBeUndefined();
+    expect(c300.attempts[0]).toMatchObject({ verdict: 'unresolved', reasonCode: 'NODE_NOT_ALLOWED' });
+    expect(p.sweep.find((c) => c.offsetS === 3000)!.skipped).toBe('window_unsatisfiable');
+    expect(p.contiguousSafeDepartureS).toBe(0);
+    expect(deadlineHeadline(p).caveat).toEqual({ contiguousS: 0 });
+    expect(p.note).toBeUndefined();
+    // every request refused: the origin is "rejected" with the first code
+    const all = cacheToModel(
+      { ...doc, research_checks: [{ origin_id: RID, destination_id: 'rd', depart_offset_s: 0, job_id: null, skipped: 'NODE_NOT_ALLOWED' }, { origin_id: RID, destination_id: 'rd', depart_offset_s: 3000, job_id: null, skipped: 'WINDOW_UNSATISFIABLE' }] },
+      ENTRY,
+    ).plans[RID]!;
+    expect(all).toMatchObject({ bestVerdict: 'unresolved', note: 'rejected', rejectReason: { code: 'NODE_NOT_ALLOWED' } });
+  });
+
+  it('marks results from a non-evaluation host as test data (never MOCK or recorded results)', () => {
+    expect(cacheToModel(DOC, ENTRY).meta.testData).toBe(true); // Linux x86_64
+    const mac = { platform: 'macOS-15.3-arm64-arm-64bit', machine: 'arm64', cpu_count: 14 };
+    expect(cacheToModel({ ...DOC, api: { ...DOC.api, host: mac } }, ENTRY).meta.testData).toBe(false);
+    expect(cacheToModel({ ...DOC, api: { ...DOC.api, mode: 'mock' } }, { ...ENTRY, apiMode: 'mock' }).meta.testData).toBe(false);
+    expect(cacheToModel({ ...DOC, api: { ...DOC.api, host: mac }, generator: { ...DOC.generator, purpose: 'test' } }, ENTRY).meta.testData).toBe(true);
+    expect(isEvaluationHost({ recorded: false, machine: 'arm64', os: null, platform: 'macOS-15.3-arm64-arm-64bit', cpuCount: 14 })).toBe(true);
+    expect(isEvaluationHost({ recorded: false, machine: 'x86_64', os: null, platform: 'Linux-6.0-x86_64', cpuCount: 4 })).toBe(false);
+    expect(isEvaluationHost(null)).toBe(false);
   });
 });

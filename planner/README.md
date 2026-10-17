@@ -26,7 +26,10 @@ contract is [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
   checked (the contract's `latest_contiguous_checked_depart_offset_s` differs or is null) the
   headline adds "앞선 출발 시각 중 확인되지 않은 구간이 있습니다 (연속 확인 기준 HH:MM | 없음)".
   The urgency list sorts model_no_route first, then unresolved, then checked origins by the
-  contiguous deadline (fallback: the deadline), vulnerable facilities first on ties.
+  contiguous deadline ascending (contract `latest_contiguous_checked_depart_offset_s`, as the API
+  sorts): a checked origin whose earliest departure time has no checked route ranks first among
+  them, then by its deadline; vulnerable facilities first on ties. Drawn zones put inside-zone
+  origins first (Go before Set). The CSV, the list and the plan sheets use the same order.
 - Departure times whose recorded arrival window cannot be met are not sent (the API would answer
   422 `WINDOW_UNSATISFIABLE`) and are shown as a distinct grey **시간창 밖** cell — never safe.
 - Every screen states its fire input: "2025년 실제 산불 기록 기반 시나리오 재현" (recorded
@@ -37,7 +40,11 @@ contract is [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
   never green or called safe.
 - Places come only from OSM and the recorded research missions; unnamed places stay unnamed
   ("이름 없는 마을 · node 123"). Places with no accepted road node within 2 km are shown as
-  "도로망 2 km 밖 — 점검 불가" and never sent.
+  "도로망 2 km 밖 — 점검 불가" and never sent. Each place starts/ends at its 진입 지점 (nearest accepted
+  road node, sent as `node_id`); travel between the place and its entry point is not modelled and
+  is stated in the right panel, About, the plan sheet and the exports.
+- Results computed on a host other than the evaluated booth host (e.g. a Linux container) are
+  marked "시험 데이터 · 평가 호스트 아님" in the top bar, the data strip, the plan sheet and exports.
 
 ## Quick start
 
@@ -62,6 +69,35 @@ npm run dev                           # terminal 2: app (VITE_WFG_API_MODE=mock 
 VITE_WFG_API_MODE=real VITE_WFG_API_TARGET=http://127.0.0.1:8765 npm run dev   # real API
 ```
 
+`npm run demo -- --help` lists the launcher options (`--no-batch` keeps a booth from starting
+batches on scenarios without a cache; the launcher exits non-zero when the app server cannot start,
+e.g. a busy port).
+
+### Real Route-Check API
+
+The real API is **not part of this branch's tree**: it lives on branch `feat/api` (repository-root
+`Makefile` and `api/`, contract v1.5.0, commit `bb2acd0`). `make api` therefore exists only in a
+checkout where that branch is merged or checked out.
+
+- If the repository root has a `Makefile` with an `api` target, run `make api` there.
+- Otherwise use a separate worktree:
+
+  ```bash
+  git fetch origin feat/api
+  git worktree add --detach ../wfg-api origin/feat/api
+  (cd ../wfg-api && make api)
+  ```
+
+- Prerequisites: Python 3.12, GNU `time` (`/usr/bin/time`) and `procps` (`/bin/ps`); `make api`
+  creates its `.venv` and fetches the recorded inputs on first use.
+- It serves `http://127.0.0.1:8765/v1` — the same port as the mock, so stop the mock first.
+- Then, from this planner checkout: `planner/scripts/precompute_planner.sh` (booth cache) or
+  `npm run demo -- --mode real`. The precompute script talks to the API over HTTP only, so the two
+  checkouts may be separate.
+- The booth cache (`planner/cache/`) must come from the evaluated Apple M5 Pro host (native macOS
+  arm64). On any other host the script refuses unless `ALLOW_NON_MAC=1`, and then writes test data
+  to `planner/.test-cache/` (never committed; view with `WFG_CACHE_DIR=.test-cache npm run dev`).
+
 Deep links (query, used by `scripts/screenshots.mjs` and `scripts/export_plan_pdfs.mjs`):
 `?region=<id>&scenario=<input_compact|scenario_set_id|zones>&origin=<place id>&lang=ko|en`, e.g.
 `?region=uiseong_andong_2025&scenario=20250324T090000Z&lang=en`. Drawn zones also take
@@ -79,14 +115,20 @@ are loaded and `"false"` while loading.
    research `research_checks` become sweeps from the stored route checks, `travel_only` holds the
    comparison routes. The booth cache is produced only by `scripts/precompute_planner.sh` on the
    evaluation host; results computed elsewhere belong in `planner/.test-cache/` (view them with
-   `WFG_CACHE_DIR=.test-cache npm run dev`).
+   `WFG_CACHE_DIR=.test-cache npm run dev` on the command line — not as a permanent `.env` line) and
+   are marked "시험 데이터 · 평가 호스트 아님" in the app. `precompute.py` itself refuses to write
+   non-evaluation-host or MOCK results into `planner/cache`.
 2. **Live API** — otherwise, when the API is reachable: OSM origins are grouped by their K nearest
    shelters into `POST /dispatch-plans` (≤ 200 origins, ≤ 20 destinations, ≤ 24 offsets,
    ≤ 4 800 attempts per plan, policy `full`, entry nodes as `{node_id}`), research origins run as
    single `POST /route-checks` with their recorded destination, dwell, window, incurred dose and
-   limits; a progress bar shows "n / total 점검 완료". Against the mock this starts at once (it
-   answers from recordings in under a second); against the real API it starts only after
-   "점검 시작" is pressed, because a region is hundreds of ~10 s checks on a shared API.
+   limits; a progress bar shows "n / total 점검 완료" (refused or failed checks are counted
+   separately as "거부·실패 n", never as done). Against the mock this starts at once (it answers
+   from recordings in under a second); against the real API it starts only after "점검 시작" is
+   pressed, because a region is hundreds of ~10 s checks on a shared API. The API has no cancel
+   endpoint: "화면에서 중지" stops only this browser; submitted checks finish on the API, and
+   "다시 시도" re-attaches to them (job ids are kept in memory, not across a reload).
+   `VITE_WFG_ALLOW_BATCH=0` (or `npm run demo -- --no-batch`) never offers the batch.
 3. **Neither** — the honest empty state "계산 결과 없음 — API 연결 또는 사전 계산 캐시가 필요합니다".
 
 "이 출발지 다시 계산" re-runs ONE origin: one route check per departure offset per candidate shelter,
@@ -141,11 +183,12 @@ polygons and the app sends them to the API as `fire_input {type: "spread_zones"}
 | Key | Default | Meaning |
 |---|---|---|
 | `VITE_WFG_API_MODE` | `mock` | `mock` → proxy `/api/v1` to the mock on `:8765`; `real` → to `VITE_WFG_API_TARGET` |
-| `VITE_WFG_API_TARGET` | `http://127.0.0.1:8765` | real API base (booth machine: `make api`) |
+| `VITE_WFG_API_TARGET` | `http://127.0.0.1:8765` | real API base (see [Real Route-Check API](#real-route-check-api)) |
 | `VITE_DEPARTURE_STEP_MIN` | `10` | departure offset step (5/10/15/20/30 min) over `[0, horizon)` |
-| `VITE_SHELTERS_PER_ORIGIN` | `3` | K nearest shelters per origin (1–5) |
+| `VITE_SHELTERS_PER_ORIGIN` | `3` | K nearest shelters per origin with distinct entry nodes (1–5) |
+| `VITE_WFG_ALLOW_BATCH` | `1` | `0`: never offer "점검 시작" for a scenario without a cache (real API) |
 | `VWORLD_API_KEY` | empty | optional VWorld raster background (internet; off unless toggled) |
-| `WFG_CACHE_DIR` | `cache` | server-side: folder served at `/cache/**` and copied into `dist/cache` |
+| `WFG_CACHE_DIR` | `cache` | server-side: folder served at `/cache/**` and copied into `dist/cache` (the build warns when it is not the booth cache) |
 
 The browser always calls same-origin `/api/v1/*`; `vite dev` and `vite preview` proxy it, and
 both serve the cache folder at `/cache/**` (its `.state/` working folder is never served).

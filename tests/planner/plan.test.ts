@@ -29,6 +29,7 @@ import {
   unresolvedPlan,
   verdictWindows,
   windowUnsatisfiable,
+  sameNodeDestinations,
 } from '../../planner/src/domain/plan';
 import type { Attempt, Place, Verdict } from '../../planner/src/domain/types';
 
@@ -165,6 +166,29 @@ describe('window-unsatisfiable offsets', () => {
   });
 });
 
+describe('skips other than window_unsatisfiable', () => {
+  it('a refused request is an unresolved cell, not "시간창 밖", and breaks the contiguous run', () => {
+    const sweep = buildSweep([0, 600, 1200], [att(1200, 'a', 'checked_route', 2000)], { 0: 'window_unsatisfiable', 600: 'NODE_NOT_ALLOWED' });
+    const c0 = sweep.find((c) => c.offsetS === 0)!;
+    const c600 = sweep.find((c) => c.offsetS === 600)!;
+    expect(c0.skipped).toBe('window_unsatisfiable');
+    expect(c600.verdict).toBe('unresolved');
+    expect(c600.skipped).not.toBe('window_unsatisfiable');
+    // windows: the "시간창 밖" run covers 0 only; the refused offset is a plain unresolved run
+    const w = verdictWindows(sweep);
+    expect(w.map((x) => [x.verdict, x.fromS, x.toS, Boolean(x.skipped)])).toEqual([
+      ['unresolved', 0, 0, true],
+      ['unresolved', 600, 600, false],
+      ['checked_route', 1200, 1200, false],
+    ]);
+    // 0 is not a requested offset (left out); 600 was requested and has no checked route → no contiguous basis
+    expect(contiguousSafeDeparture(sweep)).toBeNull();
+    const plan = planFromAttempts({ originId: 'o', offsetsS: [0, 600, 1200], attempts: [att(1200, 'a', 'checked_route', 2000)], source: 'cache', mock: false, skipped: { 0: 'window_unsatisfiable', 600: 'NODE_NOT_ALLOWED' } });
+    expect(plan.windows.filter((x) => x.skipped).map((x) => [x.fromS, x.toS])).toEqual([[0, 0]]);
+    expect(deadlineHeadline(plan).caveat).toEqual({ contiguousS: null });
+  });
+});
+
 describe('offsets', () => {
   it('grid every step over [0, horizon) plus recorded offsets', () => {
     expect(gridOffsets(3600, 10)).toEqual([0, 600, 1200, 1800, 2400, 3000]);
@@ -190,6 +214,17 @@ describe('K-nearest shelters and dispatch grouping', () => {
     const sameNode = place('o2', 128.0, 36.0, { entry: { node: 'osm:s1', lon: 128, lat: 36, distanceM: 1, withinApiLonlatSnap: true } });
     expect(kNearestDestinations(sameNode, shelters, 2).map((d) => d.id)).toEqual(['s2', 's3']);
     expect(kNearestDestinations(o, shelters, 9).map((d) => d.id)).not.toContain('s4');
+  });
+  it('K nearest have K distinct entry nodes (shelters sharing a node are one alternative)', () => {
+    const o = place('o1', 128.0, 36.0);
+    const sharedA = place('sa', 128.01, 36.0, { role: 'destination', category: 'school', entry: { node: 'osm:shared', lon: 128.01, lat: 36.0, distanceM: 5, withinApiLonlatSnap: true } });
+    const sharedB = place('sb', 128.011, 36.0, { role: 'destination', category: 'school', entry: { node: 'osm:shared', lon: 128.01, lat: 36.0, distanceM: 8, withinApiLonlatSnap: true } });
+    const other = place('so', 128.05, 36.0, { role: 'destination', category: 'shelter' });
+    const far = place('sf', 128.2, 36.0, { role: 'destination', category: 'shelter' });
+    const near = kNearestDestinations(o, [sharedB, far, other, sharedA], 3);
+    expect(near.map((d) => d.id)).toEqual(['sa', 'so', 'sf']);
+    expect(new Set(near.map((d) => d.entry!.node)).size).toBe(3);
+    expect(sameNodeDestinations(sharedA, [sharedA, sharedB, other]).map((d) => d.id)).toEqual(['sb']);
   });
   it('OSM places are sent by their entry node', () => {
     expect(placeLocation(place('o1', 128.01, 36.0))).toEqual({ kind: 'node', nodeId: 'osm:o1' });
@@ -232,17 +267,25 @@ describe('urgency order', () => {
     vulnerable,
     plan: { originId: id, bestVerdict: verdict, latestSafeDepartureS: latest, contiguousSafeDepartureS: contiguous, sweep: [], windows: [], source: 'live' as const, mock: false },
   });
-  it('model_no_route, then unresolved, then checked by contiguous (fallback latest); ties vulnerable first, then name', () => {
+  it('model_no_route, then unresolved, then checked by contiguous (null first, as the API); ties vulnerable first, then name', () => {
     const items = [
       mk('c-late', 'checked_route', 3000, 3000),
-      mk('c-gap', 'checked_route', 3000, 600), // contiguous 600 sorts before 1200
-      mk('c-null', 'checked_route', 1200, null), // fallback latest 1200
+      mk('c-gap', 'checked_route', 3000, 600), // contiguous 600
+      mk('c-null', 'checked_route', 1200, null), // no checked route at the earliest departure: most urgent checked
       mk('u', 'unresolved', null, null),
       mk('n', 'model_no_route', null, null),
       mk('c-tie-b', 'checked_route', 1800, 1800),
       mk('c-tie-a', 'checked_route', 1800, 1800, true),
     ];
-    expect(sortByUrgency(items).map((i) => i.id)).toEqual(['n', 'u', 'c-gap', 'c-null', 'c-tie-a', 'c-tie-b', 'c-late']);
+    expect(sortByUrgency(items).map((i) => i.id)).toEqual(['n', 'u', 'c-null', 'c-gap', 'c-tie-a', 'c-tie-b', 'c-late']);
+  });
+  it('matches the contract order: an origin whose earliest departure is unresolved ranks first among checked', () => {
+    // A: 0 TIMEOUT then 600–3000 checked; B checked 0–1200; C checked 0–600; D checked only at 0
+    const items = [mk('B', 'checked_route', 1200, 1200), mk('A', 'checked_route', 3000, null), mk('C', 'checked_route', 600, 600), mk('D', 'checked_route', 0, 0)];
+    expect(sortByUrgency(items).map((i) => i.id)).toEqual(['A', 'D', 'C', 'B']);
+    // two null contiguous: by latest checked offset, never NaN
+    const two = [mk('late', 'checked_route', 3000, null), mk('early', 'checked_route', 600, null), mk('z', 'checked_route', 0, 0)];
+    expect(sortByUrgency(two).map((i) => i.id)).toEqual(['early', 'late', 'z']);
   });
 });
 

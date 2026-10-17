@@ -12,7 +12,7 @@
  */
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FOOTER_APP, MOCK_BADGE_TITLE, pick, type Lang } from '../shared/strings';
+import { FOOTER_APP, MOCK_BADGE_TITLE, pick, VERDICT_LABEL, type Lang } from '../shared/strings';
 import { IconChevronLeft, IconChevronRight, IconClose, IconPages, IconPrint } from '../shared/Icons';
 import { MockBadge, VerdictIcon } from '../shared/VerdictIcon';
 import { useModal } from '../shared/useModal';
@@ -274,11 +274,15 @@ export function PlanSheetDialog(props: PlanSheetDialogProps): JSX.Element | null
                 <li key={s.origin.id}>
                   <button type="button" className="wfgf-plansheet__item" aria-current={i === current ? 'page' : undefined} onClick={() => go(i)}>
                     <span className="wfgf-plansheet__itemn wfgf-num">{i + 1}</span>
-                    <span className="wfgf-plansheet__itemname">{(lang === 'en' ? s.origin.nameEn || s.origin.name : s.origin.name) || `${s.origin.categoryLabel} · ${t(SHEET.unnamed)}`}</span>
-                    <span className="wfgf-plansheet__itemicons">
+                    <span className="wfgf-plansheet__itemname">
+                      {(lang === 'en' ? s.origin.nameEn || s.origin.name : s.origin.name) || s.origin.displayName || `${s.origin.categoryLabel} · ${t(SHEET.unnamed)}`}
+                    </span>
+                    {/* status = icon + text: the verdict words are the icons' accessible name and tooltip */}
+                    <span className="wfgf-plansheet__itemicons" title={s.scenarios.map((sc) => t(VERDICT_LABEL[sc.bestVerdict])).join(' · ')}>
                       {s.scenarios.map((sc, k) => (
                         <VerdictIcon key={k} verdict={sc.bestVerdict} size={12} />
                       ))}
+                      <span className="wfgf-sr-only">{s.scenarios.map((sc) => t(VERDICT_LABEL[sc.bestVerdict])).join(' · ')}</span>
                     </span>
                   </button>
                 </li>

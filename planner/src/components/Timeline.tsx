@@ -4,7 +4,7 @@ import type { OriginPlan, Place, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
 import { useLang, useT } from '../i18n';
 import type { CellProgress } from '../state/store';
-import { placeName, reasonText, rawStatusText } from './format';
+import { placeName, unresolvedReasonText } from './format';
 import { VerdictIcon, WindowIcon } from './Icons';
 
 type CellLook = 'checked_route' | 'model_no_route' | 'unresolved' | 'window' | 'pending' | 'running';
@@ -12,7 +12,8 @@ type CellLook = 'checked_route' | 'model_no_route' | 'unresolved' | 'window' | '
 function lookOf(cell: SweepCell, progress: CellProgress | undefined): CellLook {
   if (progress === 'running') return 'running';
   if (progress === 'pending') return 'pending';
-  if (cell.skipped) return 'window';
+  // only window_unsatisfiable is "시간창 밖"; any other skip is an unresolved, unchecked offset
+  if (cell.skipped === 'window_unsatisfiable') return 'window';
   return cell.verdict;
 }
 
@@ -66,7 +67,7 @@ export function Timeline({
   const tipLines = (cell: SweepCell): string[] => {
     const lines: string[] = [];
     if (cell.skipped) {
-      lines.push(cell.skipped === 'window_unsatisfiable' ? t('timeline.tip.window') : `${t('verdict.unresolved')} · ${cell.skipped}`);
+      lines.push(cell.skipped === 'window_unsatisfiable' ? t('timeline.tip.window') : t('timeline.tip.rejected', { code: cell.skipped }));
       return lines;
     }
     if (cell.attempts.length === 0) {
@@ -84,10 +85,11 @@ export function Timeline({
       if (cell.attempts.length > 1) lines.push(t('timeline.tip.attempts', { n: cell.attempts.length }));
     } else {
       lines.push(t('timeline.tip.attempts', { n: cell.attempts.length }));
-      const reasons = [...new Set(cell.attempts.map((a) => reasonText(a.reasonCode, t) ?? rawStatusText(a.rawStatus, t)).filter(Boolean))];
+      const reasons = [...new Set(cell.attempts.map((a) => unresolvedReasonText(a.reasonCode, a.rawStatus, t)).filter(Boolean))];
       for (const r of reasons.slice(0, 2)) lines.push(t('timeline.tip.reason', { code: r! }));
     }
     if (computes.length) lines.push(t('timeline.tip.compute', { s: computes.map((c) => c.toFixed(1)).join(' / ') }));
+    if (cell.attempts.some((a) => a.recheckOf)) lines.push(t('timeline.tip.recheck'));
     return lines;
   };
 
@@ -157,7 +159,7 @@ export function Timeline({
             {t('timeline.tip.offset', { time: kstClock(inputTime, tip.cell.offsetS), rel: formatOffsetMinutes(tip.cell.offsetS, lang) })}
           </b>
           {issuedAt ? <span className="tnum">{t('drawn.clock.rel', { rel: formatRelative(secondsSinceIssue(inputTime, issuedAt, tip.cell.offsetS)) })}</span> : null}
-          <span>{tip.cell.skipped ? t('verdict.window') : t(`verdict.${tip.cell.verdict}`)}</span>
+          <span>{tip.cell.skipped === 'window_unsatisfiable' ? t('verdict.window') : t(`verdict.${tip.cell.verdict}`)}</span>
           {tipLines(tip.cell).map((l, i) => (
             <span key={i} className="tnum" style={{ color: '#D0D0D4' }}>
               {l}

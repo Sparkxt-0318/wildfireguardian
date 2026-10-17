@@ -1,16 +1,43 @@
 /**
  * Precompute cache (planner/cache/**, written by planner/scripts/precompute.py, served at /cache/**).
  * Loads INDEX.json and one cache file into the internal model:
- * - dispatch plans' attempts → per-origin sweeps;
- * - research_checks → sweeps built from the route_checks results; offsets skipped as
- *   WINDOW_UNSATISFIABLE become distinct "시간창 밖" cells (no check, grey, never safe);
+ * - dispatch plans' attempts → per-origin sweeps (null entries — dispatch plans the API refused at
+ *   submission — are skipped; their origins come from `rejected_requests`);
+ * - re-checks (route_checks entries with `recheck_of`, precompute --recheck-timeouts) replace the
+ *   attempt they re-ran, so the cell, deadline and evidence all show the same check;
+ * - research_checks → sweeps built from the route_checks results; only offsets skipped as
+ *   WINDOW_UNSATISFIABLE become distinct "시간창 밖" cells (no check, grey, never safe); any other
+ *   refusal is an unresolved attempt with the API's code (it breaks the contiguous run);
  * - travel_only comparison checks;
- * - provenance: api.mode, created_at, generator.client_host and each result's provenance.host.
+ * - provenance: api.mode, created_at, generator.client_host and each result's provenance.host;
+ *   results from a host other than the evaluated Apple-silicon macOS host are marked test data.
  */
-import type { WireCacheFile, WireCacheIndexEntry, WireDispatchPlanRequest, WireRouteCheckJob } from './wire';
+import type { WireCacheFile, WireCacheIndexEntry, WireDispatchPlanJob, WireDispatchPlanRequest, WireRouteCheckJob } from './wire';
 import type { CacheData, CacheEntry, CacheMeta, HostInfo, OriginPlan, RouteDetail, SkipReason, Attempt } from '../domain/types';
 import { adaptDispatchJob, adaptHealth, adaptHost, adaptRouteJob, attemptFromRoute, isMockHealth } from './adapter';
 import { planFromAttempts, unresolvedPlan } from '../domain/plan';
+
+/** Dispatch-plan jobs of a cache file; refused requests are stored as null and skipped here. */
+function planJobs(doc: WireCacheFile): WireDispatchPlanJob[] {
+  return (doc.plans ?? []).filter((j): j is WireDispatchPlanJob => !!j && typeof j === 'object');
+}
+
+/**
+ * The evaluated booth host (ARCHITECTURE.md §6): native macOS on Apple silicon. The API reports
+ * only platform/machine, so the chip ("M5 Pro") cannot be verified — the test is macOS + arm64.
+ */
+export function isEvaluationHost(h: HostInfo | null | undefined): boolean {
+  if (!h || h.recorded) return false;
+  const plat = `${h.platform ?? ''} ${h.os ?? ''}`;
+  return (/(^|\s)macOS/.test(plat) || plat.includes('Darwin')) && h.machine === 'arm64';
+}
+
+/** Test data = a real (non-MOCK, non-recorded) result from another host, or an unknown host. */
+export function isTestDataHost(h: HostInfo | null | undefined, mock: boolean): boolean {
+  if (mock) return false;
+  if (h?.recorded) return false;
+  return !isEvaluationHost(h);
+}
 
 export const CACHE_BASE = '/cache';
 
@@ -65,7 +92,7 @@ function firstHost(doc: WireCacheFile): HostInfo | null {
     const d = adaptRouteJob(job);
     if (d.provenance?.host) return d.provenance.host;
   }
-  for (const job of doc.plans ?? []) {
+  for (const job of planJobs(doc)) {
     const h = adaptDispatchJob(job, 'cache').provenance?.host;
     if (h) return h;
   }
@@ -86,7 +113,34 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
   const generator = (doc.generator ?? {}) as Record<string, unknown>;
   const health = doc.api?.health ? adaptHealth(doc.api.health) : null;
   const plans: Record<string, OriginPlan> = {};
-  const jobs: Record<string, WireRouteCheckJob> = doc.route_checks ?? {};
+  // route checks by their OWN job id; re-checks by the id of the check they re-ran. Older files
+  // stored a re-check under the original id (the original is then gone and is not served).
+  const jobs: Record<string, WireRouteCheckJob> = {};
+  const rechecks: Record<string, WireRouteCheckJob> = {};
+  for (const [key, job] of Object.entries(doc.route_checks ?? {})) {
+    if (!job || typeof job !== 'object') continue;
+    const of = typeof job.recheck_of === 'string' && job.recheck_of ? job.recheck_of : null;
+    if (of) {
+      rechecks[of] = job;
+      if (job.job_id) jobs[job.job_id] = job;
+      if (key !== of && !(key in jobs)) jobs[key] = job;
+    } else {
+      if (!(key in jobs)) jobs[key] = job;
+      if (job.job_id && !(job.job_id in jobs)) jobs[job.job_id] = job;
+    }
+  }
+  const recheckAttempt = (a: Attempt): Attempt => {
+    const rj = a.jobId ? rechecks[a.jobId] : undefined;
+    if (!rj) return a;
+    return { ...attemptFromRoute(adaptRouteJob(rj), a.destinationId, a.offsetS), recheckOf: a.jobId };
+  };
+  const withRechecks = (p: OriginPlan): OriginPlan => {
+    const attempts = p.sweep.flatMap((c) => c.attempts);
+    if (!attempts.some((a) => a.jobId && rechecks[a.jobId])) return p;
+    const out = planFromAttempts({ originId: p.originId, offsetsS: p.sweep.map((c) => c.offsetS), attempts: attempts.map(recheckAttempt), source: p.source, mock: p.mock });
+    if (p.apiSnap) out.apiSnap = p.apiSnap;
+    return out;
+  };
   let anyMock = doc.api?.mode === 'mock' || isMockHealth(doc.api?.health);
 
   // Dispatch plans (OSM origins).
@@ -100,10 +154,10 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
     }
   }
   const offsetsS = [...offsets].sort((a, b) => a - b);
-  for (const job of doc.plans ?? []) {
+  for (const job of planJobs(doc)) {
     const a = adaptDispatchJob(job, 'cache');
     if (a.mock) anyMock = true;
-    for (const p of a.plans) plans[p.originId] = p;
+    for (const p of a.plans) plans[p.originId] = withRechecks(p);
     const reqOffsets = Array.isArray(job.request?.depart_offsets_s) ? (job.request.depart_offsets_s as number[]).map(Number) : offsetsS;
     for (const r of a.rejected) {
       const plan = unresolvedPlan(r.originId, reqOffsets, 'rejected', 'cache', a.mock);
@@ -138,40 +192,65 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
   }
 
   // Research origins: individual route checks per offset.
-  const byOrigin = new Map<string, { attempts: Attempt[]; offsets: number[]; skipped: Record<number, SkipReason>; snap: RouteDetail['snap'] }>();
+  interface ResearchSlot {
+    attempts: Attempt[];
+    offsets: number[];
+    skipped: Record<number, SkipReason>;
+    snap: RouteDetail['snap'];
+    /** checks that were meant to be sent (window-unsatisfiable offsets are not) */
+    sent: number;
+    refused: number;
+    firstRefused: string | null;
+  }
+  const byOrigin = new Map<string, ResearchSlot>();
   for (const rc of doc.research_checks ?? []) {
-    const slot = byOrigin.get(rc.origin_id) ?? { attempts: [], offsets: [], skipped: {}, snap: null };
+    const slot = byOrigin.get(rc.origin_id) ?? { attempts: [], offsets: [], skipped: {}, snap: null, sent: 0, refused: 0, firstRefused: null };
     byOrigin.set(rc.origin_id, slot);
     const off = Number(rc.depart_offset_s);
     slot.offsets.push(off);
-    const job = rc.job_id ? jobs[rc.job_id] : undefined;
+    const job = rc.job_id ? jobs[rc.job_id] ?? rechecks[rc.job_id] : undefined;
     if (job) {
-      const d = adaptRouteJob(job);
+      slot.sent += 1;
+      const re = rc.job_id ? rechecks[rc.job_id] : undefined;
+      const d = adaptRouteJob(re ?? job);
       if (d.mock) anyMock = true;
-      slot.attempts.push(attemptFromRoute(d, rc.destination_id, off));
+      const a = attemptFromRoute(d, rc.destination_id, off);
+      slot.attempts.push(re ? { ...a, recheckOf: rc.job_id ?? null } : a);
       if (!slot.snap && d.snap) slot.snap = d.snap;
+    } else if (rc.skipped === 'WINDOW_UNSATISFIABLE' || rc.skipped === 'window_unsatisfiable') {
+      slot.skipped[off] = 'window_unsatisfiable';
     } else if (rc.skipped) {
-      slot.skipped[off] = rc.skipped === 'WINDOW_UNSATISFIABLE' ? 'window_unsatisfiable' : rc.skipped;
+      // the API refused this request (4xx code): an unresolved, unchecked offset — never "시간창 밖"
+      slot.sent += 1;
+      slot.refused += 1;
+      slot.firstRefused = slot.firstRefused ?? rc.skipped;
+      slot.attempts.push({ offsetS: off, destinationId: rc.destination_id, verdict: 'unresolved', arrivalS: null, computeS: null, jobId: null, reasonCode: rc.skipped, rawStatus: null });
     } else {
       // listed but no result stored: unknown, shown as unresolved (never safe)
+      slot.sent += 1;
       slot.attempts.push({ offsetS: off, destinationId: rc.destination_id, verdict: 'unresolved', arrivalS: null, computeS: null, jobId: null, reasonCode: null });
     }
   }
   for (const [originId, slot] of byOrigin) {
     const plan = planFromAttempts({ originId, offsetsS: slot.offsets, attempts: slot.attempts, source: 'cache', mock: anyMock, skipped: slot.skipped });
     if (slot.snap) plan.apiSnap = slot.snap.start;
-    if (slot.attempts.length === 0 && Object.keys(slot.skipped).length > 0) {
-      const codes = Object.values(slot.skipped).filter((c) => c !== 'window_unsatisfiable');
-      if (codes.length) {
-        plan.note = 'rejected';
-        plan.rejectReason = { code: String(codes[0]), message: '' };
-      }
+    // every request of this origin was refused: say so (the cells keep each code)
+    if (slot.sent > 0 && slot.refused === slot.sent) {
+      plan.note = 'rejected';
+      plan.rejectReason = { code: String(slot.firstRefused ?? 'REJECTED'), message: '' };
     }
     plans[originId] = plan;
   }
 
   const travelOnly: Record<string, RouteDetail> = {};
-  for (const [originId, job] of Object.entries(doc.travel_only ?? {})) travelOnly[originId] = adaptRouteJob(job);
+  for (const [originId, job] of Object.entries(doc.travel_only ?? {})) {
+    if (!job || typeof job !== 'object') continue;
+    const d = adaptRouteJob(job);
+    // a comparison belongs to the origin's best checked attempt (same departure); drop a stale one
+    const best = plans[originId]?.best;
+    if (best && d.departOffsetS !== null && d.departOffsetS !== best.offsetS) continue;
+    travelOnly[originId] = d;
+  }
 
   const memo = new Map<string, RouteDetail>();
   const route = (jobId: string): RouteDetail | null => {
@@ -184,6 +263,8 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
     return d;
   };
 
+  const computeHost = firstHost(doc);
+  const mock = anyMock || entry.apiMode === 'mock';
   const meta: CacheMeta = {
     entry,
     createdAt: str(doc.created_at) ?? entry.createdAt,
@@ -192,12 +273,13 @@ export function cacheToModel(doc: WireCacheFile, entry: CacheEntry): CacheData {
     plannerCommit: str(doc.planner_commit),
     health,
     clientHost: str(generator.client_host),
-    computeHost: firstHost(doc),
+    computeHost,
     stepMin: num(generator.step_min),
     sheltersPerOrigin: num(generator.shelters_per_origin),
     wallS: num(generator.wall_s) ?? num(generator.wall_s_this_invocation),
     rejectedRequests: (doc.rejected_requests ?? []).length,
-    mock: anyMock || entry.apiMode === 'mock',
+    mock,
+    testData: isTestDataHost(computeHost, mock) || (!mock && generator.purpose === 'test'),
   };
   for (const p of Object.values(plans)) p.mock = meta.mock;
   return { meta, plans, route, travelOnly, offsetsS, horizonS: horizon };

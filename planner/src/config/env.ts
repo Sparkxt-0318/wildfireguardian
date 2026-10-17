@@ -13,6 +13,11 @@ export interface PlannerConfig {
   stepMin: number;
   sheltersPerOrigin: number;
   vworldKey: string | null;
+  /**
+   * VITE_WFG_ALLOW_BATCH (default 1). 0: against a real API, a scenario without a precomputed
+   * cache never offers "점검 시작" (booth: nobody can start hours of checks by browsing).
+   */
+  allowBatch: boolean;
 }
 
 const env = import.meta.env;
@@ -23,4 +28,5 @@ export const CONFIG: PlannerConfig = {
   stepMin: normalizeStepMin(env.VITE_DEPARTURE_STEP_MIN ?? 10),
   sheltersPerOrigin: normalizeShelterCount(env.VITE_SHELTERS_PER_ORIGIN ?? 3),
   vworldKey: env.VWORLD_API_KEY && env.VWORLD_API_KEY.trim() ? env.VWORLD_API_KEY.trim() : null,
+  allowBatch: String(env.VITE_WFG_ALLOW_BATCH ?? '1').trim() !== '0',
 };

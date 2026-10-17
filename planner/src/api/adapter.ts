@@ -141,6 +141,7 @@ export function adaptHealth(h: WireHealth): HealthInfo {
     mock: isMockHealth(h),
     host: adaptHost(h.provenance?.host),
     queued,
+    budgetS: num(h.budget_s),
   };
 }
 
@@ -252,6 +253,10 @@ export interface AdaptedDispatch {
 }
 
 export function adaptDispatchJob(job: WireDispatchPlanJob, source: 'cache' | 'live'): AdaptedDispatch {
+  if (!job || typeof job !== 'object') {
+    // tolerate a malformed entry (cache files store null for a refused request): nothing in it
+    return { jobId: '', status: 'failed', progress: { done: 0, total: 0 }, plans: [], rejected: [], error: { code: 'BAD_RESPONSE', message: 'no dispatch job' }, mock: false, medianComputeS: null, provenance: null, assumptions: null };
+  }
   const mock = isMockDispatchJob(job);
   const req = (job.request ?? {}) as Partial<WireDispatchPlanRequest>;
   const offsets = Array.isArray(req.depart_offsets_s) ? [...new Set(req.depart_offsets_s.map(Number))].sort((a, b) => a - b) : [];

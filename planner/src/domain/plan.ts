@@ -9,7 +9,8 @@
  * - the contiguous deadline follows the contract's `latest_contiguous_checked_depart_offset_s`:
  *   the last offset such that every checked-for offset from the earliest up to it is checked;
  * - offsets whose recorded destination window cannot be met are skipped (no check, "시간창 밖"),
- *   never counted as safe and never counted in a verdict.
+ *   never counted as safe and never counted in a verdict. Only `window_unsatisfiable` is such a
+ *   skip: a request the API refused (any other code) is an unresolved, unchecked offset.
  */
 import type {
   Attempt,
@@ -145,6 +146,11 @@ export function buildSweep(offsetsS: number[], attempts: Attempt[], skipped: Rec
     });
 }
 
+/** True for a "시간창 밖" cell: no request because the arrival window cannot be met. */
+export function isWindowSkip(c: { skipped?: SkipReason | undefined }): boolean {
+  return c.skipped === 'window_unsatisfiable';
+}
+
 /** Latest offset with a checked route; unresolved and skipped cells are ignored (never safe). */
 export function latestSafeDeparture(sweep: SweepCell[]): number | null {
   let latest: number | null = null;
@@ -161,7 +167,8 @@ export function latestSafeDeparture(sweep: SweepCell[]): number | null {
  * (not computed) break the run: an unknown cell is never assumed safe.
  */
 export function contiguousSafeDeparture(sweep: SweepCell[]): number | null {
-  const cells = [...sweep].filter((c) => !c.skipped).sort((a, b) => a.offsetS - b.offsetS);
+  // only "시간창 밖" offsets are left out; a refused request (other skip codes) breaks the run
+  const cells = [...sweep].filter((c) => !isWindowSkip(c)).sort((a, b) => a.offsetS - b.offsetS);
   let latest: number | null = null;
   for (const c of cells) {
     if (c.verdict !== 'checked_route') break;
@@ -176,7 +183,8 @@ export function verdictWindows(sweep: SweepCell[]): VerdictWindow[] {
   const out: VerdictWindow[] = [];
   for (const c of sorted) {
     const last = out[out.length - 1];
-    const skipped = Boolean(c.skipped);
+    // runs of "시간창 밖" (window_unsatisfiable) only; other skips are plain unresolved cells
+    const skipped = isWindowSkip(c);
     if (last && last.verdict === c.verdict && Boolean(last.skipped) === skipped) last.toS = c.offsetS;
     else out.push(skipped ? { verdict: c.verdict, fromS: c.offsetS, toS: c.offsetS, skipped: true } : { verdict: c.verdict, fromS: c.offsetS, toS: c.offsetS });
   }
@@ -256,27 +264,44 @@ export function deadlineHeadline(plan: OriginPlan | null | undefined): DeadlineH
 
 const VERDICT_RANK: Record<Verdict, number> = { model_no_route: 0, unresolved: 1, checked_route: 2 };
 
+/** The plan fields the urgency order reads (a dropped field is a compile error). */
+export type UrgencyPlan = Pick<OriginPlan, 'bestVerdict' | 'latestSafeDepartureS' | 'contiguousSafeDepartureS'>;
+
 export interface UrgencyItem {
   id: string;
   name: string;
   vulnerable: boolean;
-  plan?: OriginPlan | null;
+  plan?: UrgencyPlan | null;
+}
+
+/** Contiguous deadline key: null (the earliest requested offset has no checked route) → −∞. */
+function contiguousKey(p: UrgencyPlan | null | undefined): number {
+  const c = p?.contiguousSafeDepartureS;
+  return c === null || c === undefined ? Number.NEGATIVE_INFINITY : c;
 }
 
 /**
  * Urgency order: origins whose results are only model_no_route first, then origins with no
- * checked route (unresolved), then checked origins by the contiguous deadline ascending (fallback:
- * the latest safe departure when the contiguous one is null); ties put vulnerable facilities first,
- * then name, then id.
+ * checked route (unresolved), then checked origins by the contiguous deadline ascending (contract
+ * `latest_contiguous_checked_depart_offset_s`, as the API sorts). An origin with no contiguous
+ * checked departure (the earliest requested offset has no checked route) ranks first among the
+ * checked origins, then by its latest checked offset; ties put vulnerable facilities first, then
+ * name, then id.
  */
 export function compareUrgency(a: UrgencyItem, b: UrgencyItem): number {
   const va: Verdict = a.plan?.bestVerdict ?? 'unresolved';
   const vb: Verdict = b.plan?.bestVerdict ?? 'unresolved';
   if (VERDICT_RANK[va] !== VERDICT_RANK[vb]) return VERDICT_RANK[va] - VERDICT_RANK[vb];
   if (va === 'checked_route') {
-    const la = a.plan?.contiguousSafeDepartureS ?? a.plan?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY;
-    const lb = b.plan?.contiguousSafeDepartureS ?? b.plan?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY;
-    if (la !== lb) return la - lb;
+    const ka = contiguousKey(a.plan);
+    const kb = contiguousKey(b.plan);
+    // never subtract: −∞ − −∞ is NaN
+    if (ka !== kb) return ka < kb ? -1 : 1;
+    if (ka === Number.NEGATIVE_INFINITY) {
+      const la = a.plan?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY;
+      const lb = b.plan?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY;
+      if (la !== lb) return la < lb ? -1 : 1;
+    }
   }
   if (a.vulnerable !== b.vulnerable) return a.vulnerable ? -1 : 1;
   const n = a.name.localeCompare(b.name, 'ko');
@@ -302,18 +327,39 @@ export function placeNode(p: Place): string | null {
 }
 
 /**
- * K nearest checkable destinations by straight-line distance between the OSM points (ties → id).
- * A destination that shares the origin's road node is never paired (START_EQUALS_DESTINATION).
+ * K nearest checkable destinations by straight-line distance between the OSM points (ties → id),
+ * with K DISTINCT entry nodes: a destination whose road node is already chosen (several OSM
+ * shelters often share one 진입 지점) is skipped, so no check is repeated and K candidates are K
+ * real alternatives. A destination that shares the origin's road node is never paired
+ * (START_EQUALS_DESTINATION). The same rule is applied by planner/scripts/precompute.py.
  */
 export function kNearestDestinations(origin: Place, destinations: Place[], k: number): Place[] {
   const o: [number, number] = [origin.lon, origin.lat];
   const node = placeNode(origin);
-  return destinations
+  const sorted = destinations
     .filter((d) => d.checkable && (node === null || placeNode(d) !== node))
     .map((d) => ({ d, dist: haversineM(o, [d.lon, d.lat]) }))
-    .sort((x, y) => x.dist - y.dist || x.d.id.localeCompare(y.d.id))
-    .slice(0, Math.max(0, k))
-    .map((x) => x.d);
+    .sort((x, y) => x.dist - y.dist || x.d.id.localeCompare(y.d.id));
+  const want = Math.max(0, k);
+  const out: Place[] = [];
+  const nodes = new Set<string>();
+  for (const { d } of sorted) {
+    if (out.length >= want) break;
+    const n = placeNode(d);
+    if (n !== null) {
+      if (nodes.has(n)) continue;
+      nodes.add(n);
+    }
+    out.push(d);
+  }
+  return out;
+}
+
+/** Other destinations on the same entry node as `chosen` (aliases of one checked shelter node). */
+export function sameNodeDestinations(chosen: Place, destinations: Place[]): Place[] {
+  const n = placeNode(chosen);
+  if (n === null) return [];
+  return destinations.filter((d) => d.id !== chosen.id && placeNode(d) === n);
 }
 
 function chunk<T>(xs: T[], size: number): T[][] {

@@ -10,6 +10,7 @@ import { useT } from '../i18n';
 import { useZoneIssues } from '../state/selectors';
 import { useStore } from '../state/store';
 import * as za from '../state/zoneActions';
+import { pluralKey } from '../components/format';
 
 const NOTICE_MS = 8000;
 
@@ -108,9 +109,9 @@ export function ZoneToolbar({ map }: { map: MLMap | null }) {
       </div>
       <div className="zt-status tnum">
         {edit.drawing ? (
-          <span>{t('zones.drawingStatus', { zone: t(`zones.${active}`), n: edit.draft.length })}</span>
+          <span>{t(pluralKey('zones.drawingStatus', edit.draft.length), { zone: t(`zones.${active}`), n: edit.draft.length })}</span>
         ) : summary.polygons ? (
-          <span>{t('zones.status', { p: summary.polygons, v: summary.vertices, a: summary.areaKm2.toFixed(1) })}</span>
+          <span>{t(pluralKey('zones.status', summary.polygons), { p: summary.polygons, v: summary.vertices, a: summary.areaKm2.toFixed(1) })}</span>
         ) : (
           <span className="muted">{t('zones.status.empty', { zone: t(`zones.${active}`) })}</span>
         )}

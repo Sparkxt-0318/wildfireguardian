@@ -30,13 +30,20 @@ export interface Attempt {
   /** original authoritative status string when the API gives one (e.g. MOCK_NO_RECORDED_RESULT) */
   rawStatus?: string | null;
   lowerBoundS?: number | null;
+  /**
+   * set when this attempt is the result of a re-check (precompute --recheck-timeouts) that
+   * replaced the original attempt: the original route_check_job_id
+   */
+  recheckOf?: string | null;
 }
 
 /**
  * Why a departure offset has no check at all. `window_unsatisfiable`: the recorded destination
  * window cannot be met from this offset (max(offset, open) + dwell > min(close, horizon)), so the
  * API was not asked (it would answer 422 WINDOW_UNSATISFIABLE). Shown as "시간창 밖" — never safe.
- * Other values are the API error code of a rejected request.
+ * Only `window_unsatisfiable` is produced by the planner (a request the API refused is an
+ * unresolved attempt with the API's code, not a skip). Any other value is treated as an
+ * unresolved, unchecked offset — never as "시간창 밖" and never skipped by the deadline rules.
  */
 export type SkipReason = 'window_unsatisfiable' | (string & {});
 
@@ -56,7 +63,7 @@ export interface VerdictWindow {
   fromS: number;
   /** last departure offset of the run, inclusive */
   toS: number;
-  /** run of skipped ("시간창 밖") cells */
+  /** run of "시간창 밖" cells (skipped as window_unsatisfiable only) */
   skipped?: boolean;
 }
 
@@ -310,6 +317,8 @@ export interface HealthInfo {
   mock: boolean;
   host: HostInfo | null;
   queued: number | null;
+  /** compute budget per check reported by /health (budget_s), when given */
+  budgetS: number | null;
 }
 
 export interface ForecastProps {
@@ -361,6 +370,12 @@ export interface CacheMeta {
   wallS: number | null;
   rejectedRequests: number;
   mock: boolean;
+  /**
+   * true when the results were computed on a host other than the evaluated Apple-silicon macOS
+   * booth host (e.g. a Linux container) or the compute host is unknown: test data, not the booth
+   * cache (ARCHITECTURE.md §6). Never set for MOCK caches (they carry the MOCK badge instead).
+   */
+  testData: boolean;
 }
 
 /** A loaded precompute cache file in internal form. */

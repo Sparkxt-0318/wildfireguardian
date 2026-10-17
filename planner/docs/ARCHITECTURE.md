@@ -263,12 +263,17 @@ export interface OriginPlan { originId: string; latestSafeDepartureS: number | n
 Per offset the cell verdict is `checked_route` if any destination is checked, `model_no_route` only if every
 destination is `model_no_route`, else `unresolved` (same rule as the contract's `best_verdict`).
 Urgency order: origins whose best verdict is `model_no_route` first, then `unresolved`, then `checked_route`
-origins by `latestSafeDepartureS` ascending; ties put `vulnerable` facilities first, then name.
+origins by the contiguous deadline (`contiguousSafeDepartureS`, contract `latest_contiguous_checked_depart_offset_s`)
+ascending; an origin with no contiguous checked departure (the earliest requested offset has no checked route)
+ranks first among checked origins, then by latest checked offset; ties: vulnerable, name, id. Drawn zones put
+origins inside the 5 h zone (Go) before the 8 h zone (Set) before the rest, then this order. The list, the plan
+sheets and the CSV use the same comparators.
 
 Departure sweep: offsets every 10 min (configurable 5/10/15/20/30) over the window the scenario supports —
 recorded: `[0, horizon_s)`; drawn zones: also `[0, horizon_s)` of the chosen recorded input time, because the
 contract (v1.1+) keeps the 1 h hazard horizon for spread_zones (≤ 24 offsets per dispatch plan) — plus the recorded departure offset of research origins. Shelter candidates per origin: the
-K = 3 nearest destinations by straight-line distance (configurable 1–5); research origins use their recorded
+K = 3 nearest destinations by straight-line distance with K distinct entry nodes (configurable 1–5; shelters on an
+already chosen entry node are skipped, so no check is repeated); research origins use their recorded
 destination with its recorded dwell, window, incurred dose and limits. OSM places are sent as
 `{node_id: entry.node}`. Places with `checkable: false` (no accepted road node within 2 km) are shown as
 unresolved "도로망 2 km 밖 — 점검 불가" without calling the API.

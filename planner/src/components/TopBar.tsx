@@ -5,6 +5,7 @@ import { openDialog } from '../state/controller';
 import { useCurrentScenarioSet, useMockActive, useRegionEntry } from '../state/selectors';
 import { DRAWN_SCENARIO, useStore } from '../state/store';
 import { DocumentIcon, ExportIcon, InfoIcon, ProductMark } from './Icons';
+import { TestDataChip } from './StatusChip';
 
 export function FireInputBanner() {
   const t = useT();
@@ -64,6 +65,8 @@ export function TopBar() {
   const lang = useLang();
   const setLang = useLangStore((s) => s.setLang);
   const mock = useMockActive();
+  // a cache computed on a non-evaluation host (e.g. a Linux container) is test data, never the booth cache
+  const testData = useStore((s) => s.dataSource === 'cache' && s.scenarioId !== DRAWN_SCENARIO && s.cache?.meta.testData === true);
   return (
     <header className="topbar">
       <div className="brand">
@@ -76,6 +79,7 @@ export function TopBar() {
       <div className="topbar-mid">
         <FireInputBanner />
         {mock ? <MockBadge /> : null}
+        {testData ? <TestDataChip short /> : null}
       </div>
       <div className="topbar-right">
         <ApiStatusLabel />

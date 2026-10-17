@@ -585,6 +585,16 @@
   font-weight: 560;
 }
 
+/* a checked scenario whose earlier departures are unresolved: grey + question icon, never green */
+.wfgf-sheet__alt li.wfgf-sheet__altcaveat {
+  grid-template-columns: 4mm 1fr;
+  color: #3a3a3e;
+}
+
+.wfgf-sheet__alt li.wfgf-sheet__altcaveat .wfgf-sheet__alttext {
+  font-weight: 500;
+}
+
 /* basis + limitations */
 .wfgf-sheet__basis {
   flex: none;

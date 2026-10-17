@@ -9,6 +9,12 @@
  * Live recompute of ONE origin: one route check per offset per candidate shelter, concurrency 2,
  * coarse-to-fine order.
  *
+ * The API has no cancel endpoint: "중지" only stops this browser. Submitted batch jobs are
+ * remembered in memory (per API identity and request body) so "다시 시도" or coming back to the
+ * scenario re-attaches to them instead of submitting the same work again. After a fatal
+ * LAUNCHES_PAUSED, checks still in flight are waited for at most TAIL_AFTER_PAUSE_MS and then shown
+ * as unresolved with that code (queued work never starts while launches are paused).
+ *
  * Drawn spread zones (사용자 입력 확산 구역, 가정): no cache exists, nothing starts by itself.
  *   - "선택한 출발지 계산": the live recompute machinery with fire_input {type: "spread_zones"};
  *   - "구역 안·주변 마을 계산": origins inside a zone or within 2 km, grouped into dispatch plans,
@@ -76,10 +82,139 @@ import {
 import { applyPreset, ensureInputTime, loadZonesForRegion, notice, onFireInputChange, setFootprints, setRightTab } from './zoneActions';
 
 const HEALTH_POLL_MS = 15000;
+/** after a fatal LAUNCHES_PAUSED: how long checks already in flight are still waited for */
+export const TAIL_AFTER_PAUSE_MS = 120000;
 
 let scenarioCtrl: AbortController | null = null;
 let recomputeCtrl: AbortController | null = null;
 let healthTimer: ReturnType<typeof setInterval> | null = null;
+/** in-flight travel-time-only comparisons by origin (aborted on scenario / fire-input change) */
+const travelCtrls = new Map<string, AbortController>();
+
+// ---------------------------------------------------------------- submitted batch jobs (re-attach)
+
+/** job ids of batch submissions by (API identity, kind, request body hash); in memory only */
+const submittedJobs = new Map<string, string>();
+let submittedApi: string | null = null;
+
+function apiIdentity(): string {
+  const h = getState().health;
+  return h ? `${h.apiVersion}|${h.gitCommit}|${h.checkpoint}|${h.mock ? 'mock' : 'real'}` : 'none';
+}
+
+/** 53-bit string hash (cyrb53) — keys stay small for large request bodies. */
+function hash53(str: string): string {
+  let h1 = 0xdeadbeef;
+  let h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+
+function submissionKey(kind: 'dispatch' | 'route_check', body: unknown): string {
+  return `${apiIdentity()}|${kind}|${hash53(JSON.stringify(body))}`;
+}
+
+/** Forget remembered submissions when the API identity changes (another API or a new build). */
+function syncSubmittedApi(): void {
+  const id = apiIdentity();
+  if (submittedApi !== null && submittedApi !== id) submittedJobs.clear();
+  submittedApi = id;
+}
+
+/** Test hook: forget every remembered submission. */
+export function forgetSubmittedJobs(): void {
+  submittedJobs.clear();
+}
+
+/**
+ * Submit `body` once per API identity: a remembered job id is re-attached (polled) instead of
+ * submitting the same work again; a job the API no longer knows (404) is submitted again.
+ * A job that ended `failed` is forgotten, so a retry submits it again.
+ */
+async function submitOnceAndWait<J extends { status: string }>(
+  kind: 'dispatch' | 'route_check',
+  body: unknown,
+  submit: () => Promise<string>,
+  wait: (id: string) => Promise<J>,
+  onId?: (id: string) => void,
+): Promise<J> {
+  const key = submissionKey(kind, body);
+  let id = submittedJobs.get(key);
+  if (!id) {
+    id = await submit();
+    submittedJobs.set(key, id);
+  }
+  onId?.(id);
+  let job: J;
+  try {
+    job = await wait(id);
+  } catch (e) {
+    if (!(e instanceof ApiError && e.status === 404)) throw e;
+    submittedJobs.delete(key);
+    id = await submit();
+    submittedJobs.set(key, id);
+    onId?.(id);
+    job = await wait(id);
+  }
+  if (job.status === 'failed') submittedJobs.delete(key);
+  return job;
+}
+
+// ---------------------------------------------------------------- run guard (fatal + bounded tail)
+
+/** An AbortSignal that aborts when either input aborts. */
+function linkedSignal(a: AbortSignal, b: AbortSignal): AbortSignal {
+  const c = new AbortController();
+  const stop = () => c.abort();
+  if (a.aborted || b.aborted) c.abort();
+  else {
+    a.addEventListener('abort', stop, { once: true });
+    b.addEventListener('abort', stop, { once: true });
+  }
+  return c.signal;
+}
+
+/**
+ * Fatal error of a run (5xx at submission: BUSY, LAUNCHES_PAUSED, DATA_UNAVAILABLE) reported at
+ * once, plus a bounded tail: after LAUNCHES_PAUSED nothing queued will start, so the checks still
+ * in flight are given TAIL_AFTER_PAUSE_MS and then become unresolved with that code.
+ */
+class RunGuard {
+  fatal: ApiErrorInfo | null = null;
+  private readonly tail = new AbortController();
+  private timer: ReturnType<typeof setTimeout> | null = null;
+  readonly signal: AbortSignal;
+  constructor(
+    private readonly outer: AbortSignal,
+    private readonly onFatal: (e: ApiErrorInfo) => void = () => {},
+  ) {
+    this.signal = linkedSignal(outer, this.tail.signal);
+  }
+  setFatal(e: ApiErrorInfo): void {
+    if (this.fatal) return;
+    this.fatal = e;
+    this.onFatal(e);
+    if (e.code === 'LAUNCHES_PAUSED') this.timer = setTimeout(() => this.tail.abort(), TAIL_AFTER_PAUSE_MS);
+  }
+  /** the tail ran out (not a user stop or a scenario change) */
+  tailExpired(): boolean {
+    return this.tail.signal.aborted && !this.outer.aborted;
+  }
+  /** unresolved code of checks cut off by the tail */
+  tailCode(): ApiErrorInfo {
+    return this.fatal ?? { code: 'LAUNCHES_PAUSED', message: '' };
+  }
+  dispose(): void {
+    if (this.timer !== null) clearTimeout(this.timer);
+    this.timer = null;
+  }
+}
 
 function errInfo(e: unknown): ApiErrorInfo {
   if (e instanceof ApiError) return { code: e.code, message: e.message, status: e.status };
@@ -191,6 +326,7 @@ export async function refreshApi(): Promise<void> {
       apiRegions = Object.fromEntries(list.map((r: ApiRegion) => [r.id, r]));
     }
     setState({ apiStatus: 'online', health, apiError: null, apiRegions });
+    syncSubmittedApi();
     if (before !== 'online') onApiCameOnline();
   } catch (e) {
     setState({ apiStatus: 'offline', apiError: errInfo(e) });
@@ -342,6 +478,16 @@ function abortScenarioWork(): void {
   scenarioCtrl = null;
   recomputeCtrl?.abort();
   recomputeCtrl = null;
+  // a comparison started for the old scenario / fire input must never land in the new state
+  for (const c of travelCtrls.values()) c.abort();
+  travelCtrls.clear();
+}
+
+/** Stashed comparisons still marked "loading" were cut off by the switch: drop them. */
+function settledTravelOnly(t: Record<string, TravelOnlyState>): Record<string, TravelOnlyState> {
+  const out: Record<string, TravelOnlyState> = {};
+  for (const [k, v] of Object.entries(t)) if (v.state !== 'loading') out[k] = v;
+  return out;
 }
 
 /** Plans for every origin of the scenario; origins without a result are unresolved (never safe). */
@@ -395,7 +541,7 @@ export async function selectScenario(scenarioId: string, opts: { originId?: stri
   const st = recordedStash;
   if (st && st.regionId === s.regionId && st.scenarioId === scenarioId && st.batch.state !== 'running') {
     recordedStash = null;
-    setState({ plans: st.plans, cache: st.cache, dataSource: st.dataSource, batch: st.batch, travelOnly: st.travelOnly });
+    setState({ plans: st.plans, cache: st.cache, dataSource: st.dataSource, batch: st.batch, travelOnly: settledTravelOnly(st.travelOnly) });
     loadForecast();
     if (keep) selectOrigin(keep);
     return;
@@ -451,7 +597,7 @@ function enterDrawn(prevInputTime: string | null, opts: { inputTime?: string; pr
     setState((st) => ({
       plans: { ...drawnBasePlans(st), ...ds.plans },
       batch: ds.batch,
-      travelOnly: ds.travelOnly,
+      travelOnly: settledTravelOnly(ds.travelOnly),
       dataSource: 'live',
       drawn: { ...st.drawn, resultsKey: ds.key, submitted: ds.submitted, dispatch: ds.dispatch },
     }));
@@ -518,81 +664,104 @@ export async function loadForecast(): Promise<void> {
 interface DispatchRunHooks {
   /** plans adapted from finished jobs (and unresolved plans of rejected groups) */
   onPlans: (plans: OriginPlan[]) => void;
+  /** checks of a job the API processed (finished, any verdict) */
   onProgress: (id: string, done: number) => void;
+  /** checks the API refused (422 at submission, rejected origins) or that failed without a result */
+  onRejected: (id: string, n: number, info: ApiErrorInfo) => void;
   onResult?: (info: DrawnDispatchInfo) => void;
 }
 
 /**
- * Submits every group as POST /dispatch-plans and waits for all of them. A 5xx at submission
- * (BUSY, LAUNCHES_PAUSED, DATA_UNAVAILABLE) stops the run with `state.fatal`; a 422 leaves the
- * group's origins unresolved with the API's code.
+ * Submits every group as POST /dispatch-plans (re-attaching to a job submitted earlier for the
+ * same body) and waits for all of them. A 5xx at submission (BUSY, LAUNCHES_PAUSED,
+ * DATA_UNAVAILABLE) stops the run with `guard.fatal`; a 422 leaves the group's origins unresolved
+ * with the API's code and counts its checks as rejected, never as done.
  */
 async function runDispatchGroups(
   groups: DispatchGroup[],
   placesById: Map<string, Place>,
   ctx: RecordedContext & { horizonS: number },
-  signal: AbortSignal,
   alive: () => boolean,
-  state: { fatal: ApiErrorInfo | null },
+  guard: RunGuard,
   hooks: DispatchRunHooks,
 ): Promise<void> {
-  const jobs: { id: string; group: DispatchGroup }[] = [];
   const size = (g: DispatchGroup) => g.originIds.length * g.destinationIds.length * g.offsetsS.length;
+  const unresolved = (group: DispatchGroup, ids: string[], info: { code: string; message: string }, mock: boolean) =>
+    ids.map((id) => {
+      const p = unresolvedPlan(id, group.offsetsS, 'rejected', 'live', mock);
+      p.rejectReason = { code: info.code, message: info.message };
+      return p;
+    });
+  const runs: Promise<void>[] = [];
   for (const group of groups) {
-    if (!alive() || state.fatal) break;
-    try {
-      const acc = await api.submitDispatch(toWireDispatch(group, placesById, ctx, `planner-ui:${ctx.region}`), { signal });
-      jobs.push({ id: acc.job_id, group });
-    } catch (e) {
-      if (isAbort(e)) return;
-      const info = errInfo(e);
-      if (info.status && info.status >= 500) {
-        state.fatal = info; // BUSY / LAUNCHES_PAUSED / DATA_UNAVAILABLE: stop and say why
-        break;
-      }
-      // 422 (e.g. TOO_MANY_ATTEMPTS, SNAP_TOO_FAR, INVALID_ZONES): these origins stay unresolved with the code
-      hooks.onPlans(
-        group.originIds.map((id) => {
-          const p = unresolvedPlan(id, group.offsetsS, 'rejected', 'live', false);
-          p.rejectReason = { code: info.code, message: info.message };
-          return p;
-        }),
-      );
-      hooks.onProgress(`rejected:${group.originIds[0]}`, size(group));
-    }
-  }
-  await Promise.all(
-    jobs.map(async ({ id, group }) => {
+    if (!alive() || guard.fatal) break;
+    const body = toWireDispatch(group, placesById, ctx, `planner-ui:${ctx.region}`);
+    const key = `group:${group.originIds[0]}:${group.offsetsS[0]}`;
+    let resolveSubmitted: () => void = () => {};
+    const submitted = new Promise<void>((r) => (resolveSubmitted = r));
+    let submitError: unknown = null;
+    let currentId: string | null = null;
+    const onId = (id: string) => {
+      // a job the API forgot was submitted again: its old progress no longer counts
+      if (currentId && currentId !== id) hooks.onProgress(currentId, 0);
+      currentId = id;
+      resolveSubmitted();
+    };
+    const run = (async () => {
       try {
-        const job = await waitDispatch(
-          id,
-          (j) => hooks.onProgress(id, Math.min(j.progress?.done ?? 0, size(group))),
-          { signal },
+        const job = await submitOnceAndWait(
+          'dispatch',
+          body,
+          async () => (await api.submitDispatch(body, { signal: guard.signal })).job_id,
+          (id) => waitDispatch(id, (j) => hooks.onProgress(id, Math.min(j.progress?.done ?? 0, size(group))), { signal: guard.signal }),
+          onId,
         );
+        if (!alive()) return;
         const a = adaptDispatchJob(job, 'live');
         const rejected = a.rejected.map((r) => {
           const p = unresolvedPlan(r.originId, group.offsetsS, 'rejected', 'live', a.mock);
           p.rejectReason = { code: r.code, message: r.message };
           return p;
         });
-        const failed =
-          job.status === 'failed'
-            ? group.originIds
-                .filter((oid) => !a.plans.some((p) => p.originId === oid))
-                .map((oid) => {
-                  const p = unresolvedPlan(oid, group.offsetsS, 'rejected', 'live', a.mock);
-                  p.rejectReason = a.error ?? { code: 'JOB_FAILED', message: '' };
-                  return p;
-                })
-            : [];
+        const missing = group.originIds.filter((oid) => !a.plans.some((p) => p.originId === oid) && !a.rejected.some((r) => r.originId === oid));
+        const failed = job.status === 'failed' ? unresolved(group, missing, a.error ?? { code: 'JOB_FAILED', message: '' }, a.mock) : [];
         hooks.onPlans([...a.plans, ...rejected, ...failed]);
         hooks.onResult?.({ jobId: a.jobId, assumptions: a.assumptions, provenance: a.provenance, mock: a.mock, origins: group.originIds.length });
-        hooks.onProgress(id, size(group));
+        const perOrigin = group.destinationIds.length * group.offsetsS.length;
+        const notRun = (rejected.length + failed.length) * perOrigin;
+        hooks.onProgress(a.jobId, Math.max(0, size(group) - notRun));
+        if (notRun > 0) hooks.onRejected(`${a.jobId}:rejected`, notRun, a.rejected[0] ? { code: a.rejected[0].code, message: a.rejected[0].message } : a.error ?? { code: 'JOB_FAILED', message: '' });
       } catch (e) {
-        if (!isAbort(e)) state.fatal = state.fatal ?? errInfo(e);
+        resolveSubmitted();
+        if (isAbort(e)) {
+          // the bounded tail after LAUNCHES_PAUSED ran out: these checks never started
+          if (guard.tailExpired() && alive()) {
+            const info = guard.tailCode();
+            hooks.onPlans(unresolved(group, group.originIds, info, false));
+            hooks.onRejected(key, size(group), info);
+          }
+          return;
+        }
+        submitError = e;
+        const info = errInfo(e);
+        if (!info.status || info.status >= 500) {
+          // BUSY / LAUNCHES_PAUSED / DATA_UNAVAILABLE / API gone: stop and say why
+          guard.setFatal(info);
+          return;
+        }
+        if (!alive()) return;
+        // 422 (e.g. TOO_MANY_ATTEMPTS, SNAP_TOO_FAR, INVALID_ZONES) or a poll failure: these
+        // origins stay unresolved with the code, and their checks count as rejected/failed
+        hooks.onPlans(unresolved(group, group.originIds, info, false));
+        hooks.onRejected(key, size(group), info);
       }
-    }),
-  );
+    })();
+    runs.push(run);
+    // submit one group at a time (keeps a 5xx from flooding the API); polls then run in parallel
+    await submitted;
+    if (submitError && guard.fatal) break;
+  }
+  await Promise.all(runs);
 }
 
 // ---------------------------------------------------------------- live batch (recorded)
@@ -626,7 +795,10 @@ function batchInput(): BatchPlanInput | null {
   return { ctx: { region: s.regionId, inputTime: set.inputTime, scenarioSetId: set.id, horizonS: horizon }, osmOrigins, shelters, groups, research, gridOffsetsS: grid };
 }
 
-/** Counts the batch and either starts it (mock) or asks for confirmation (real API). */
+/**
+ * Counts the batch and either starts it (mock) or asks for confirmation (real API). With
+ * VITE_WFG_ALLOW_BATCH=0 a real API never offers it (state 'disabled').
+ */
 export function prepareBatch(): void {
   if (getState().scenarioId === DRAWN_SCENARIO) {
     prepareDrawnBatch();
@@ -636,10 +808,11 @@ export function prepareBatch(): void {
   if (!input) return;
   const researchChecks = input.research.reduce((n, r) => n + r.specs.length, 0);
   const total = countAttempts(input.groups) + researchChecks;
+  const mock = getState().health?.mock === true;
   setState({
     batch: {
       ...IDLE_BATCH,
-      state: 'confirm',
+      state: !CONFIG.allowBatch && !mock ? 'disabled' : 'confirm',
       key: scenarioKey(),
       total,
       dispatchPlans: input.groups.length,
@@ -647,9 +820,10 @@ export function prepareBatch(): void {
       origins: input.groups.reduce((n, g) => n + g.originIds.length, 0) + input.research.length,
     },
   });
-  if (getState().health?.mock) void startBatch();
+  if (mock) void startBatch();
 }
 
+/** Stops waiting in this browser; submitted checks keep running on the API (no cancel endpoint). */
 export function cancelBatch(): void {
   scenarioCtrl?.abort();
   const s = getState();
@@ -657,8 +831,16 @@ export function cancelBatch(): void {
   else if (s.batch.state === 'confirm' && s.scenarioId === DRAWN_SCENARIO) setState({ batch: IDLE_BATCH });
 }
 
+/** Final batch state: error when fatal or when the API refused everything; never a plain "done" with refusals hidden. */
+function finalBatch(b: BatchState, guard: RunGuard, firstReject: ApiErrorInfo | null): Partial<BatchState> {
+  if (guard.fatal) return { state: 'error', error: guard.fatal, finishedAt: Date.now() };
+  if (b.done === 0 && b.rejected > 0) return { state: 'error', error: firstReject, finishedAt: Date.now() };
+  return { state: 'done', error: b.rejected > 0 ? firstReject : null, finishedAt: Date.now() };
+}
+
 export async function startBatch(): Promise<void> {
   if (getState().scenarioId === DRAWN_SCENARIO) return startDrawnBatch();
+  if (getState().batch.state === 'disabled') return;
   const input = batchInput();
   if (!input) return;
   scenarioCtrl?.abort();
@@ -670,17 +852,28 @@ export async function startBatch(): Promise<void> {
   const researchTotal = input.research.reduce((n, r) => n + r.specs.length, 0);
   const total = countAttempts(input.groups) + researchTotal;
   const planProgress = new Map<string, number>();
+  const planRejected = new Map<string, number>();
   let researchDone = 0;
+  let researchFailed = 0;
+  let firstReject: ApiErrorInfo | null = null;
   setState((s) => ({
     dataSource: 'live',
-    batch: { ...s.batch, state: 'running', key, total, done: 0, error: null, startedAt: Date.now(), finishedAt: null },
+    batch: { ...s.batch, state: 'running', key, total, done: 0, rejected: 0, error: null, startedAt: Date.now(), finishedAt: null },
   }));
   const alive = () => !ctrl.signal.aborted && scenarioKey() === key;
   const bump = () => {
     if (!alive()) return;
     let done = researchDone;
     for (const v of planProgress.values()) done += v;
-    setState((s) => ({ batch: { ...s.batch, done: Math.min(done, total) } }));
+    let rejected = researchFailed;
+    for (const v of planRejected.values()) rejected += v;
+    done = Math.min(done, total);
+    setState((s) => ({ batch: { ...s.batch, done, rejected: Math.min(rejected, total - done) } }));
+  };
+  const reject = (id: string, n: number, info: ApiErrorInfo) => {
+    firstReject = firstReject ?? info;
+    planRejected.set(id, n);
+    bump();
   };
   const mergePlans = (plans: OriginPlan[]) => {
     if (!alive() || plans.length === 0) return;
@@ -690,7 +883,10 @@ export async function startBatch(): Promise<void> {
       return { plans: next };
     });
   };
-  const state: { fatal: ApiErrorInfo | null } = { fatal: null };
+  // a fatal error shows at once (in-flight checks keep arriving until the bounded tail ends)
+  const guard = new RunGuard(ctrl.signal, (e) => {
+    if (alive()) setState((s) => ({ batch: { ...s.batch, state: 'error', error: e } }));
+  });
 
   // Research skipped cells are known before any request.
   mergePlans(
@@ -701,17 +897,18 @@ export async function startBatch(): Promise<void> {
     }),
   );
 
-  const dispatchRun = runDispatchGroups(input.groups, placesById, ctx, ctrl.signal, alive, state, {
+  const dispatchRun = runDispatchGroups(input.groups, placesById, ctx, alive, guard, {
     onPlans: mergePlans,
     onProgress: (id, done) => {
       planProgress.set(id, done);
       bump();
     },
+    onRejected: reject,
   });
 
   const researchRun = (async () => {
     for (const r of input.research) {
-      if (!alive() || state.fatal) return;
+      if (!alive() || guard.fatal) return;
       const attempts: Attempt[] = [];
       let snap: RouteDetail['snap'] = null;
       const update = () => {
@@ -724,41 +921,56 @@ export async function startBatch(): Promise<void> {
         r.specs,
         2,
         async (spec) => {
-          if (!alive() || state.fatal) return;
+          if (!alive() || guard.fatal) return;
           try {
-            const d = await runOneCheck(spec, ctx, ctrl.signal);
+            const d = await runOneCheck(spec, ctx, guard.signal, undefined, true);
             if (d.snap && !snap) snap = d.snap;
             attempts.push(attemptFromRoute(d, spec.destinationId, spec.offsetS));
+            researchDone += 1;
           } catch (e) {
-            if (isAbort(e)) return;
-            const info = errInfo(e);
-            if (info.status && info.status >= 500) state.fatal = state.fatal ?? info;
+            if (isAbort(e) && !guard.tailExpired()) return;
+            const info = isAbort(e) ? guard.tailCode() : errInfo(e);
+            if (!isAbort(e) && (!info.status || info.status >= 500)) guard.setFatal(info);
+            // refused or failed without a result: unresolved with the code, never counted as done
             attempts.push({ offsetS: spec.offsetS, destinationId: spec.destinationId, verdict: 'unresolved', arrivalS: null, computeS: null, jobId: null, reasonCode: info.code, rawStatus: info.message });
+            researchFailed += 1;
+            firstReject = firstReject ?? info;
           }
-          researchDone += 1;
           update();
           bump();
         },
-        ctrl.signal,
+        guard.signal,
       );
     }
   })();
 
   await Promise.all([dispatchRun, researchRun]);
+  guard.dispose();
   if (!alive()) return;
-  setState((s) => ({
-    batch: { ...s.batch, state: state.fatal ? 'error' : 'done', error: state.fatal, finishedAt: Date.now() },
-  }));
+  setState((s) => ({ batch: { ...s.batch, ...finalBatch(s.batch, guard, firstReject) } }));
   const sel = getState().selectedOriginId;
   if (sel) selectOrigin(sel);
 }
 
-/** Submits one route check, waits for it and stores the detail. */
-async function runOneCheck(spec: Omit<CheckSpec, 'originId' | 'destinationId'> & { originId?: string }, ctx: RecordedContext, signal: AbortSignal, onStatus?: (status: string) => void): Promise<RouteDetail> {
+/**
+ * Submits one route check, waits for it and stores the detail. `reuse` (batches only): re-attach
+ * to a job submitted earlier for the same request instead of submitting it again.
+ */
+async function runOneCheck(
+  spec: Omit<CheckSpec, 'originId' | 'destinationId'> & { originId?: string },
+  ctx: RecordedContext,
+  signal: AbortSignal,
+  onStatus?: (status: string) => void,
+  reuse = false,
+): Promise<RouteDetail> {
   const body = toWireRouteCheck(spec, ctx, spec.originId ? `planner-ui:${spec.originId}` : 'planner-ui');
-  const acc = await api.submitRouteCheck(body, { signal });
-  onStatus?.(acc.status);
-  const job = await waitRouteCheck(acc.job_id, (j) => onStatus?.(j.status), { signal });
+  const submit = async () => {
+    const acc = await api.submitRouteCheck(body, { signal });
+    onStatus?.(acc.status);
+    return acc.job_id;
+  };
+  const wait = (id: string) => waitRouteCheck(id, (j) => onStatus?.(j.status), { signal });
+  const job = reuse ? await submitOnceAndWait('route_check', body, submit, wait) : await wait(await submit());
   const d = adaptRouteJob(job);
   setState((s) => ({ routes: { ...s.routes, [d.jobId]: d } }));
   return d;
@@ -887,13 +1099,26 @@ export async function startDrawnBatch(): Promise<void> {
   const placesById = new Map(getState().places.map((p) => [p.id, p]));
   const total = countAttempts(input.groups);
   const progress = new Map<string, number>();
+  const rejectedBy = new Map<string, number>();
+  let firstReject: ApiErrorInfo | null = null;
   setState((s) => ({
     dataSource: 'live',
-    batch: { ...s.batch, state: 'running', key, total, done: 0, error: null, startedAt: Date.now(), finishedAt: null, dispatchPlans: input.groups.length, origins: input.inside.length + input.near.length },
+    batch: { ...s.batch, state: 'running', key, total, done: 0, rejected: 0, error: null, startedAt: Date.now(), finishedAt: null, dispatchPlans: input.groups.length, origins: input.inside.length + input.near.length },
   }));
   const alive = () => !ctrl.signal.aborted && scenarioKey() === key && getState().drawn.resultsKey === fireKey;
-  const state: { fatal: ApiErrorInfo | null } = { fatal: null };
-  await runDispatchGroups(input.groups, placesById, input.ctx, ctrl.signal, alive, state, {
+  const bump = () => {
+    if (!alive()) return;
+    let n = 0;
+    for (const v of progress.values()) n += v;
+    let r = 0;
+    for (const v of rejectedBy.values()) r += v;
+    const done = Math.min(n, total);
+    setState((s) => ({ batch: { ...s.batch, done, rejected: Math.min(r, total - done) } }));
+  };
+  const guard = new RunGuard(ctrl.signal, (e) => {
+    if (alive()) setState((s) => ({ batch: { ...s.batch, state: 'error', error: e } }));
+  });
+  await runDispatchGroups(input.groups, placesById, input.ctx, alive, guard, {
     onPlans: (plans) => {
       if (!alive() || !plans.length) return;
       setState((s) => {
@@ -903,19 +1128,22 @@ export async function startDrawnBatch(): Promise<void> {
       });
     },
     onProgress: (id, done) => {
-      if (!alive()) return;
       progress.set(id, done);
-      let n = 0;
-      for (const v of progress.values()) n += v;
-      setState((s) => ({ batch: { ...s.batch, done: Math.min(n, total) } }));
+      bump();
+    },
+    onRejected: (id, n, info) => {
+      firstReject = firstReject ?? info;
+      rejectedBy.set(id, n);
+      bump();
     },
     onResult: (info) => {
       if (!alive()) return;
       setState((s) => ({ drawn: { ...s.drawn, dispatch: [...s.drawn.dispatch, info] } }));
     },
   });
+  guard.dispose();
   if (!alive()) return;
-  setState((s) => ({ batch: { ...s.batch, state: state.fatal ? 'error' : 'done', error: state.fatal, finishedAt: Date.now() } }));
+  setState((s) => ({ batch: { ...s.batch, ...finalBatch(s.batch, guard, firstReject) } }));
   const sel = getState().selectedOriginId;
   if (sel) selectOrigin(sel);
 }
@@ -986,16 +1214,31 @@ export async function ensureTravelOnly(originId: string, userRequested: boolean)
   if (!ctx) return;
   const drawnKey = s.scenarioId === DRAWN_SCENARIO ? s.drawn.resultsKey : null;
   if (s.scenarioId === DRAWN_SCENARIO && (!drawnKey || drawnKey !== drawnFireKey(s))) return;
+  // one comparison per origin at a time; aborted by a scenario / fire-input switch
+  travelCtrls.get(originId)?.abort();
+  const ctrl = new AbortController();
+  travelCtrls.set(originId, ctrl);
+  const key = scenarioKey();
+  const alive = () =>
+    !ctrl.signal.aborted &&
+    scenarioKey() === key &&
+    getState().plans[originId]?.best?.jobId === bestJob &&
+    (!drawnKey || getState().drawn.resultsKey === drawnKey);
   setState((st) => ({ travelOnly: { ...st.travelOnly, [originId]: { state: 'loading', forJobId: bestJob, detail: null, error: null, source: 'live' } } }));
   try {
     const full = await ensureRoute(bestJob);
+    if (!alive()) return;
     const spec = full ? travelOnlySpec(full) : null;
     if (!spec) throw new ApiError(0, 'NO_REQUEST', 'the checked route has no request to compare');
-    const d = await runOneCheck({ ...spec, originId }, ctx, new AbortController().signal);
-    if (drawnKey && getState().drawn.resultsKey !== drawnKey) return;
+    const d = await runOneCheck({ ...spec, originId }, ctx, ctrl.signal);
+    if (!alive()) return;
     setState((st) => ({ travelOnly: { ...st.travelOnly, [originId]: { state: 'ready', forJobId: bestJob, detail: d, error: null, source: 'live' } } }));
   } catch (e) {
+    // an aborted or outdated request never writes an entry (also not an error)
+    if (isAbort(e) || !alive()) return;
     setState((st) => ({ travelOnly: { ...st.travelOnly, [originId]: { state: 'error', forJobId: bestJob, detail: null, error: errInfo(e), source: 'live' } } }));
+  } finally {
+    if (travelCtrls.get(originId) === ctrl) travelCtrls.delete(originId);
   }
 }
 
@@ -1080,21 +1323,24 @@ export async function recomputeOrigin(originId: string): Promise<void> {
     setState((st) => ({ plans: { ...st.plans, [originId]: plan } }));
   };
   publish();
-  let fatal: ApiErrorInfo | null = null;
+  // a fatal error shows at once; checks in flight keep arriving until the bounded tail ends
+  const guard = new RunGuard(ctrl.signal, (e) => {
+    if (alive()) setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, state: 'error', error: e } } : {}));
+  });
   await runPool(
     specs,
     2,
     async (spec) => {
-      if (!alive() || fatal) return;
+      if (!alive() || guard.fatal) return;
       setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, cells: { ...st.recompute.cells, [spec.offsetS]: 'running' } } } : {}));
       try {
-        const d = await runOneCheck(spec, ctx, ctrl.signal);
+        const d = await runOneCheck(spec, ctx, guard.signal);
         if (d.snap && !snap) snap = d.snap;
         attempts.push(attemptFromRoute(d, spec.destinationId, spec.offsetS));
       } catch (e) {
-        if (isAbort(e)) return;
-        const info = errInfo(e);
-        if (info.status && info.status >= 500) fatal = info;
+        if (isAbort(e) && !guard.tailExpired()) return;
+        const info = isAbort(e) ? guard.tailCode() : errInfo(e);
+        if (!isAbort(e) && (!info.status || info.status >= 500)) guard.setFatal(info);
         attempts.push({ offsetS: spec.offsetS, destinationId: spec.destinationId, verdict: 'unresolved', arrivalS: null, computeS: null, jobId: null, reasonCode: info.code, rawStatus: info.message });
       }
       const n = (finished.get(spec.offsetS) ?? 0) + 1;
@@ -1112,9 +1358,11 @@ export async function recomputeOrigin(originId: string): Promise<void> {
           : {},
       );
     },
-    ctrl.signal,
+    guard.signal,
   );
+  guard.dispose();
   if (!alive()) return;
+  const fatal = guard.fatal;
   setState((st) => (st.recompute && st.recompute.originId === originId ? { recompute: { ...st.recompute, state: fatal ? 'error' : 'done', error: fatal, finishedAt: Date.now() } } : {}));
   // refresh the shown route + comparison for the new result
   const plan = getState().plans[originId];

@@ -18,7 +18,7 @@ import { useDrawnFireKey, useRecordedInputTimes, useZoneIssues } from '../state/
 import { getState, useStore, type DrawnDispatchInfo, type SubmittedZones } from '../state/store';
 import { applyPreset, setDrawnSettings } from '../state/zoneActions';
 import { drawnReadiness } from '../state/selectors';
-import { errorText } from './format';
+import { batchCounter, errorText, pluralKey } from './format';
 import { UnresolvedIcon } from './Icons';
 import { MockBadge } from './TopBar';
 
@@ -91,14 +91,29 @@ export function DrawnStrip() {
   const computed = useMemo(() => Object.values(plans).filter((p) => p.note !== 'not_computed' && p.note !== 'not_checkable' && p.sweep.some((c) => c.attempts.length)).length, [plans]);
   if (batch.state === 'running' || batch.state === 'done' || batch.state === 'error' || batch.state === 'cancelled') {
     const pct = batch.total ? Math.round((batch.done / batch.total) * 100) : 0;
+    const rejPct = batch.total ? Math.round(((batch.rejected ?? 0) / batch.total) * 100) : 0;
+    const allRejected = batch.done === 0 && (batch.rejected ?? 0) > 0 && batch.state !== 'running';
+    const label =
+      batch.state === 'running'
+        ? t('drawn.strip.running')
+        : allRejected
+          ? t('batch.allRejected')
+          : batch.state === 'done'
+            ? (batch.rejected ?? 0) > 0
+              ? t('batch.doneWithRejects')
+              : t('drawn.strip.done')
+            : batch.state === 'error'
+              ? t('batch.error')
+              : t('batch.cancelled');
     return (
       <div className="data-strip" data-testid="batch-progress">
         <div className="progress-row">
-          <span>{batch.state === 'running' ? t('drawn.strip.running') : batch.state === 'done' ? t('drawn.strip.done') : batch.state === 'error' ? t('batch.error') : t('batch.cancelled')}</span>
-          <span>{t('batch.progress', { done: batch.done, total: batch.total })}</span>
+          <span>{label}</span>
+          <span>{batchCounter(batch, t)}</span>
         </div>
         <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={batch.total} aria-valuenow={batch.done}>
           <div style={{ width: `${pct}%` }} />
+          {rejPct > 0 ? <div className="rejected" style={{ width: `${rejPct}%` }} /> : null}
         </div>
         {batch.state === 'running' ? (
           <div>
@@ -210,7 +225,7 @@ export function SubmittedZonesCard({ submitted, horizonS }: { submitted: Submitt
             <span className="mono">arrival_h_max {z.arrivalHMax}</span>
           </span>
           <span className="small-note tnum" style={{ color: 'var(--ink)' }}>
-            {t('zones.status', { p: z.polygons, v: z.vertices, a: z.areaKm2.toFixed(1) })}
+            {t(pluralKey('zones.status', z.polygons), { p: z.polygons, v: z.vertices, a: z.areaKm2.toFixed(1) })}
           </span>
           <span className="small-note">
             {z.presetTime ? t('drawn.zone.source.preset', { time: kstDateTime(z.presetTime) }) : t('drawn.zone.source.drawn')}
@@ -260,8 +275,8 @@ function ZoneCard({ zone }: { zone: ZoneKey }) {
       {sum.polygons ? (
         <>
           <span className="small-note tnum" style={{ color: 'var(--ink)' }}>
-            {t('zones.status', { p: sum.polygons, v: sum.vertices, a: sum.areaKm2.toFixed(1) })}
-            {sum.holes ? ` · ${t('zones.holes', { n: sum.holes })}` : ''}
+            {t(pluralKey('zones.status', sum.polygons), { p: sum.polygons, v: sum.vertices, a: sum.areaKm2.toFixed(1) })}
+            {sum.holes ? ` · ${t(pluralKey('zones.holes', sum.holes), { n: sum.holes })}` : ''}
           </span>
           <span className="small-note">
             {z.preset ? t('drawn.zone.source.preset', { time: kstDateTime(z.preset.inputTime) }) : t('drawn.zone.source.drawn')}
@@ -376,6 +391,7 @@ function BatchCard() {
   const readiness = useMemo(() => drawnReadiness(getState()), [zones, fireKey, apiStatus, issues, inputTime]);
   const preview = useMemo(() => (readiness.ok ? drawnBatchPreview() : null), [readiness.ok, fireKey, places, zones]);
   const workers = Math.max(1, health?.workers ?? 1);
+  const budget = health?.budgetS ?? 30;
   const running = batch.state === 'running';
   return (
     <section className="card batch" aria-labelledby="dbatch-title" data-testid="drawn-batch">
@@ -392,7 +408,7 @@ function BatchCard() {
       {batch.state === 'confirm' && preview ? (
         <div className="notice" data-testid="drawn-batch-confirm">
           <div className="notice-title tnum">{t('drawn.batch.confirm', { n: batch.total })}</div>
-          <div className="notice-body tnum">{t('drawn.batch.bound', { w: workers, min: Math.max(1, Math.ceil((batch.total * 30) / workers / 60)) })}</div>
+          <div className="notice-body tnum">{t('drawn.batch.bound', { b: Math.round(budget), w: workers, min: Math.max(1, Math.ceil((batch.total * budget) / workers / 60)) })}</div>
           {health?.mock ? <div className="notice-body">{t('drawn.batch.mockNote')}</div> : null}
           <div style={{ display: 'flex', gap: 8 }}>
             <button type="button" className="btn btn-ink" onClick={() => void startDrawnBatch()} disabled={apiStatus !== 'online'} data-testid="drawn-batch-start">
@@ -404,7 +420,7 @@ function BatchCard() {
           </div>
         </div>
       ) : running ? (
-        <div className="small-note tnum">{t('batch.progress', { done: batch.done, total: batch.total })}</div>
+        <div className="small-note tnum">{batchCounter(batch, t)}</div>
       ) : (
         <div>
           <button type="button" className="btn btn-block" disabled={!readiness.ok || !preview || preview.checks === 0} onClick={prepareDrawnBatch} data-testid="drawn-batch-prepare">

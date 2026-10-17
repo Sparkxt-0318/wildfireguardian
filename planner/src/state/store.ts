@@ -29,9 +29,13 @@ export interface ApiErrorInfo {
 }
 
 export interface BatchState {
-  state: 'idle' | 'confirm' | 'running' | 'done' | 'error' | 'cancelled';
+  /** 'disabled': no cache and starting a batch is switched off (VITE_WFG_ALLOW_BATCH=0, real API) */
+  state: 'idle' | 'confirm' | 'running' | 'done' | 'error' | 'cancelled' | 'disabled';
   key: string | null;
+  /** checks the API actually processed (finished, whatever the verdict) */
   done: number;
+  /** checks the API refused (422) or that failed before a result (never counted in `done`) */
+  rejected: number;
   total: number;
   dispatchPlans: number;
   researchChecks: number;
@@ -196,6 +200,7 @@ export const IDLE_BATCH: BatchState = {
   state: 'idle',
   key: null,
   done: 0,
+  rejected: 0,
   total: 0,
   dispatchPlans: 0,
   researchChecks: 0,

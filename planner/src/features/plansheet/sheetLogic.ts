@@ -2,8 +2,8 @@
  * Pure helpers of the plan sheet (unit-tested in tests/planner/features.plansheet.test.ts).
  */
 import type { Verdict } from '../../domain/types';
-import { clockAt, formatExposure } from '../shared/format';
-import { ALT_PLAN_TEXT, NOTE_LABEL, pick, reasonText, type Lang } from '../shared/strings';
+import { clockAt, formatExposure, kstClock } from '../shared/format';
+import { ALT_PLAN_TEXT, attemptReasonText, NOTE_LABEL, pick, RAW_STATUS_LABEL, VERDICT_LABEL, type Lang } from '../shared/strings';
 import { SHEET } from './strings';
 import type { PlanSheetData, PlanSheetScenario } from './types';
 
@@ -40,9 +40,57 @@ export interface AltPlanItem {
   reason: string | null;
 }
 
+/** Reason of an unresolved scenario row: the MOCK raw status instead of "기타 (OTHER)". */
+export function scenarioReasonText(s: Pick<PlanSheetScenario, 'reasonCode' | 'rawStatus'>, lang: Lang, opts: { short?: boolean } = {}): string | null {
+  const text = attemptReasonText(s.reasonCode, s.rawStatus ?? null, lang);
+  // short: the MOCK label without its raw status token (the alternative-plan line keeps the code)
+  return opts.short && text && s.rawStatus && RAW_STATUS_LABEL[s.rawStatus] && (!s.reasonCode || s.reasonCode === 'OTHER') ? pick(RAW_STATUS_LABEL[s.rawStatus]!, lang) : text;
+}
+
+/**
+ * What each departure time of an unresolved scenario says, as runs of equal results:
+ * "04:00 모델상 경로 없음; 04:10–04:40 미확인 · <reason>". Checked and "시간창 밖" cells are left out.
+ */
+export function sweepReasonRuns(s: PlanSheetScenario, lang: Lang): string[] {
+  return sweepRuns(s, lang).runs;
+}
+
+function sweepRuns(s: PlanSheetScenario, lang: Lang): { runs: string[]; cellReasons: boolean } {
+  const cells = [...s.sweep].sort((a, b) => a.offsetS - b.offsetS);
+  const runs: { from: number; to: number; label: string }[] = [];
+  let any = false;
+  let cellReasons = false;
+  for (const c of cells) {
+    if (c.verdict !== 'model_no_route' && c.verdict !== 'unresolved') {
+      runs.push({ from: c.offsetS, to: c.offsetS, label: '' });
+      continue;
+    }
+    let label = pick(VERDICT_LABEL[c.verdict], lang);
+    if (c.verdict === 'model_no_route') any = true;
+    if (c.verdict === 'unresolved') {
+      const r = attemptReasonText(c.reasonCode ?? null, c.rawStatus ?? null, lang);
+      if (r) {
+        any = true;
+        cellReasons = true;
+        label += ` · ${r}`;
+      }
+    }
+    const last = runs[runs.length - 1];
+    if (last && last.label === label) last.to = c.offsetS;
+    else runs.push({ from: c.offsetS, to: c.offsetS, label });
+  }
+  // nothing but reason-less unresolved cells: the scenario note / reason code says it
+  if (!any) return { runs: [], cellReasons };
+  return {
+    runs: runs.filter((r) => r.label).map((r) => `${kstClock(s.inputTimeIso, r.from)}${r.to !== r.from ? `–${kstClock(s.inputTimeIso, r.to)}` : ''} ${r.label}`),
+    cellReasons,
+  };
+}
+
 /**
  * Scenarios that need an alternative plan: exactly those whose best verdict is NOT checked_route.
- * model_no_route → "차량 대피 경로를 확인하지 못함: …"; unresolved → "판단 불가 — 안전으로 간주하지 말 것".
+ * model_no_route → "차량 대피 경로를 확인하지 못함: …"; unresolved → "판단 불가 — 안전으로 간주하지 말 것"
+ * with what every departure time said (recorded no-route offsets included).
  */
 export function alternativePlanItems(sheet: Pick<PlanSheetData, 'scenarios'>, lang: Lang): AltPlanItem[] {
   const out: AltPlanItem[] = [];
@@ -52,8 +100,13 @@ export function alternativePlanItems(sheet: Pick<PlanSheetData, 'scenarios'>, la
     const reasons: string[] = [];
     if (verdict === 'unresolved') {
       if (s.note) reasons.push(pick(NOTE_LABEL[s.note], lang));
-      const r = reasonText(s.reasonCode, lang);
-      if (r) reasons.push(r);
+      const { runs, cellReasons } = sweepRuns(s, lang);
+      if (runs.length) reasons.push(runs.join('; '));
+      // cells without their own reason: the scenario's reason code (MOCK status instead of OTHER)
+      if (!cellReasons) {
+        const r = scenarioReasonText(s, lang);
+        if (r) reasons.push(r);
+      }
     }
     out.push({
       index,
@@ -67,6 +120,43 @@ export function alternativePlanItems(sheet: Pick<PlanSheetData, 'scenarios'>, la
     });
   });
   return out;
+}
+
+export interface PartialCheckedItem {
+  index: number;
+  tag: string;
+  scenarioSetId: string;
+  /** "18:30" — the departure deadline */
+  deadline: string;
+  /** "18:10" or null when even the first departure time is not a checked route */
+  contiguous: string | null;
+}
+
+/**
+ * Checked scenarios whose earlier departure times are not all checked routes (contiguous basis
+ * differs from the deadline, or is null): "departure before the deadline" is NOT covered for them,
+ * so the sheet must not claim that no alternative plan is needed. Same rule as deadlineCell's sub.
+ */
+export function partialCheckedScenarios(sheet: Pick<PlanSheetData, 'scenarios'>): PartialCheckedItem[] {
+  const out: PartialCheckedItem[] = [];
+  sheet.scenarios.forEach((s, index) => {
+    if (s.bestVerdict !== 'checked_route' || s.latestSafeDepartureS === null) return;
+    if (s.contiguousSafeDepartureS === s.latestSafeDepartureS) return;
+    const base = { inputTimeIso: s.inputTimeIso, issuedAtIso: s.issuedAtIso ?? null };
+    out.push({
+      index,
+      tag: scenarioTag(index),
+      scenarioSetId: s.scenarioSetId,
+      deadline: clockAt(base, s.latestSafeDepartureS),
+      contiguous: s.contiguousSafeDepartureS === null ? null : clockAt(base, s.contiguousSafeDepartureS),
+    });
+  });
+  return out;
+}
+
+/** The caveat line of a partially checked scenario (ko/en). */
+export function partialCheckedText(item: PartialCheckedItem, lang: Lang): string {
+  return fill(pick(SHEET.altCaveat, lang), { tag: item.tag, deadline: item.deadline, time: item.contiguous ?? pick(SHEET.altNoneWord, lang) });
 }
 
 export interface ExposureSummary {

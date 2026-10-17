@@ -175,7 +175,13 @@ export function OriginGlyph({ kind }: { kind: 'village' | 'facility' | 'not_chec
       {kind === 'village' && <circle cx="8" cy="8" r="5" fill="#FFFFFF" stroke="#0B0B0C" strokeWidth="1.8" />}
       {kind === 'facility' && <rect x="3" y="3" width="10" height="10" rx="3" fill="#FFFFFF" stroke="#0B0B0C" strokeWidth="1.8" />}
       {kind === 'not_checkable' && <circle cx="8" cy="8" r="5" fill="none" stroke="#9A9AA0" strokeWidth="1.6" strokeDasharray="2 1.6" />}
-      {kind === 'shelter' && <circle cx="8" cy="8" r="5" fill="#FFFFFF" stroke="#1A9E55" strokeWidth="2.4" />}
+      {kind === 'shelter' && (
+        <>
+          {/* same as the map sprite: white disc, ink ring, ink "+" (green is for checked routes only) */}
+          <circle cx="8" cy="8" r="5.6" fill="#FFFFFF" stroke="#0B0B0C" strokeWidth="1.6" />
+          <path d="M8 5.4v5.2M5.4 8h5.2" stroke="#0B0B0C" strokeWidth="1.5" strokeLinecap="round" />
+        </>
+      )}
       {kind === 'research' && <path d="M8 2.6 13.4 8 8 13.4 2.6 8z" fill="#FFFFFF" stroke="#0B0B0C" strokeWidth="1.7" strokeLinejoin="round" />}
     </svg>
   );

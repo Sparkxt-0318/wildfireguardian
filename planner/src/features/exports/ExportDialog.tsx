@@ -13,7 +13,7 @@ import { FOOTER_APP, MOCK_BADGE_TITLE, pick, VERDICT_LABEL, type Lang } from '..
 import { MockBadge, VerdictBadge, VerdictIcon } from '../shared/VerdictIcon';
 import { useModal } from '../shared/useModal';
 import { downloadText } from './download';
-import { dispatchListCSV, exportFileName, isExportable, MIME, routeToGeoJSON, routeToKML, zonesToGeoJSON } from './exports';
+import { dispatchListCSV, exportFileName, isExportable, MIME, placeLabel, routeToGeoJSON, routeToKML, zonesToGeoJSON } from './exports';
 import { EXP } from './strings';
 import type { ExportInput } from './types';
 import '../shared/features.css';
@@ -24,11 +24,6 @@ export interface ExportDialogProps {
   onClose: () => void;
   input: ExportInput;
   lang: Lang;
-}
-
-/** Name, or "{category} · 이름 없음" — names are never invented. */
-function placeLabel(p: { name: string | null; categoryLabel: string }, lang: Lang): string {
-  return p.name || `${p.categoryLabel} · ${lang === 'en' ? 'unnamed' : '이름 없음'}`;
 }
 
 function fillVars(s: string, vars: Record<string, string | number>): string {
@@ -114,6 +109,20 @@ export function ExportDialog(props: ExportDialogProps): JSX.Element | null {
                   )}
                 </div>
                 {!routeOk && <p className="wfgf-export__refused" role="note">{t(EXP.routeRefused)}</p>}
+              </div>
+            ) : input.selectedOrigin ? (
+              // an origin is selected but has no checked route: say so, with its verdict
+              <div className="wfgf-export__route" data-exportable="false" data-testid="export-route-refused">
+                <div className="wfgf-export__routeline">
+                  <strong>{placeLabel(input.selectedOrigin.place, lang)}</strong>
+                </div>
+                <div className="wfgf-export__ids">{input.selectedOrigin.place.sourceTag}</div>
+                <div className="wfgf-export__routefacts">
+                  <VerdictBadge verdict={input.selectedOrigin.verdict} lang={lang} size={15} />
+                </div>
+                <p className="wfgf-export__refused" role="note">
+                  {input.selectedOrigin.verdict === 'checked_route' ? t(EXP.routeUnavailable) : t(EXP.routeRefused)}
+                </p>
               </div>
             ) : (
               <p className="wfgf-export__refused">{t(EXP.routeNone)}</p>

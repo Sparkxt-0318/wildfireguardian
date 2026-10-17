@@ -12,6 +12,10 @@ export const EXP = {
     ko: '확인된 경로가 없어 내보낼 수 없습니다. 모델상 경로 없음·미확인 결과는 경로로 내보내지 않습니다.',
     en: 'There is no checked route to export. No-route and unresolved results are never exported as routes.',
   },
+  routeUnavailable: {
+    ko: '경로 세부 정보를 불러오지 못해 내보낼 수 없습니다 (API 연결 또는 사전 계산 자료 필요).',
+    en: 'The route details are not loaded, so nothing can be exported (needs the API or precomputed data).',
+  },
   routeFrom: { ko: '출발', en: 'Depart' },
   routeArrive: { ko: '도착', en: 'Arrive' },
   includeComparison: { ko: '비교용 이동시간 최단 경로 함께 넣기 (화재 미고려 · 대피 경로 아님)', en: 'Include the travel-time-only comparison (fire ignored · not an evacuation route)' },

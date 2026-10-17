@@ -60,13 +60,42 @@ export function errorText(e: { code: string; message?: string } | null | undefin
 export function reasonText(code: string | null | undefined, t: TFunction): string | null {
   if (!code) return null;
   const s = t(`reason.${code}`);
-  return s === `reason.${code}` ? code : `${code} · ${s}`;
+  if (s !== `reason.${code}`) return `${code} · ${s}`;
+  // a request the API refused carries the API's error code (e.g. NODE_NOT_ALLOWED)
+  const e = t(`error.${code}`);
+  return e === `error.${code}` ? code : `${code} · ${e}`;
 }
 
 export function rawStatusText(raw: string | null | undefined, t: TFunction): string | null {
   if (!raw) return null;
   const s = t(`raw.${raw}`);
   return s === `raw.${raw}` ? raw : `${raw} · ${s}`;
+}
+
+/** True when the raw status has its own explanation (e.g. MOCK_NO_RECORDED_RESULT). */
+export function hasRawStatusText(raw: string | null | undefined, t: TFunction): boolean {
+  return Boolean(raw) && t(`raw.${raw}`) !== `raw.${raw}`;
+}
+
+/**
+ * Reason of an unresolved attempt: when the code is OTHER (or missing) and the raw status has its
+ * own explanation, that explanation ("MOCK_NO_RECORDED_RESULT · 기록된 실행 없음 …") instead of
+ * "OTHER · 기타"; otherwise the reason code text, then the raw status. Codes are never changed.
+ */
+export function unresolvedReasonText(code: string | null | undefined, rawStatus: string | null | undefined, t: TFunction): string | null {
+  if ((!code || code === 'OTHER') && hasRawStatusText(rawStatus, t)) return rawStatusText(rawStatus, t);
+  return reasonText(code, t) ?? rawStatusText(rawStatus, t);
+}
+
+/** The batch counter: "{done} / {total} 점검 완료" (+ " · 거부·실패 {n}" only when there are refusals). */
+export function batchCounter(b: { done: number; total: number; rejected?: number }, t: TFunction): string {
+  const r = b.rejected ?? 0;
+  return t('batch.progress', { done: b.done, total: b.total }) + (r > 0 ? t('batch.progressRejected', { rejected: r }) : '');
+}
+
+/** English plural forms: `key.one` when n === 1 (Korean has no plural and repeats the text). */
+export function pluralKey(key: string, n: number): string {
+  return n === 1 ? `${key}.one` : key;
 }
 
 export function fmtKstClock(inputTime: string | null | undefined, offsetS: number | null | undefined, seconds = false): string {

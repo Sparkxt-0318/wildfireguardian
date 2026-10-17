@@ -18,6 +18,9 @@ import {
   routeToKML,
 } from '../../planner/src/features/exports/exports';
 import type { ExportInput, ExportOrigin, ExportRoute } from '../../planner/src/features/exports/types';
+import { VERDICT_LABEL } from '../../planner/src/features/shared/strings';
+import { sortByUrgency } from '../../planner/src/domain/plan';
+import { sortDrawn } from '../../planner/src/domain/zones';
 
 // jsdom is loaded with Node's resolver from planner/ (the tests live outside the Vite root).
 const { JSDOM } = createRequire(new URL('../../planner/package.json', import.meta.url))('jsdom') as {
@@ -197,7 +200,7 @@ describe('routeToGeoJSON', () => {
     expect(String(fc.name).includes('MOCK')).toBe(false);
   });
 
-  it('labels a travel-only comparison as a comparison with its verdict fields', () => {
+  it('labels a travel-only comparison as a comparison: no checked verdict, policy-qualified result', () => {
     const inp = input();
     const fc = routeToGeoJSON(inp, inp.selectedRoute, { comparison: inp.comparisonRoute });
     const cmp = fc.features.find((f) => (f.properties as Record<string, unknown>).role === 'travel_only_comparison');
@@ -205,9 +208,82 @@ describe('routeToGeoJSON', () => {
     const p = cmp!.properties as Record<string, unknown>;
     expect(p.evacuation_route).toBe(false);
     expect(p.policy).toBe('travel_only');
-    expect(p.verdict).toBe('checked_route');
+    // a generic verdict == 'checked_route' filter must never match a route that ignores the fire
+    expect(p.verdict).toBeNull();
+    expect(p.travel_only_result).toBe('checked_route');
+    expect(p.checked_by_full_policy).toBe(false);
     expect(p.full_policy_pass).toBe(false);
     expect(String(p.note)).toContain('대피 경로 아님');
+    // unknown full-policy grade (null) is never "checked by the full policy"
+    const unknown = routeToGeoJSON(inp, inp.selectedRoute, { comparison: { ...inp.comparisonRoute!, fullPolicyPass: null } });
+    const pu = unknown.features.find((f) => (f.properties as Record<string, unknown>).role === 'travel_only_comparison')!.properties as Record<string, unknown>;
+    expect(pu.checked_by_full_policy).toBe(false);
+  });
+
+  it('never gives a comparison the checked-route label (GeoJSON and KML), in both languages', () => {
+    const inp = input();
+    for (const lang of ['ko', 'en'] as const) {
+      const fc = routeToGeoJSON(inp, inp.selectedRoute, { comparison: inp.comparisonRoute, lang });
+      const cmp = fc.features.filter((f) => (f.properties as Record<string, unknown>).role === 'travel_only_comparison');
+      expect(cmp.length).toBe(1);
+      for (const f of cmp) {
+        const label = String((f.properties as Record<string, unknown>).verdict_label);
+        expect(label).not.toContain(VERDICT_LABEL.checked_route.ko);
+        expect(label).not.toContain(VERDICT_LABEL.checked_route.en);
+      }
+      const kml = routeToKML(inp, inp.selectedRoute, { comparison: inp.comparisonRoute, lang });
+      const doc = new DOMParser().parseFromString(kml, 'application/xml');
+      const placemarks = Array.from(doc.getElementsByTagName('Placemark'));
+      const cmpPm = placemarks.filter((pm) => Array.from(pm.getElementsByTagName('Data')).some((d) => d.getAttribute('name') === 'role' && d.textContent === 'travel_only_comparison'));
+      expect(cmpPm.length).toBe(1);
+      for (const pm of cmpPm) {
+        const labels = Array.from(pm.getElementsByTagName('Data'))
+          .filter((d) => d.getAttribute('name') === 'verdict_label')
+          .map((d) => d.textContent ?? '');
+        expect(labels.length).toBe(1);
+        for (const l of labels) {
+          expect(l).not.toContain(VERDICT_LABEL.checked_route.ko);
+          expect(l).not.toContain(VERDICT_LABEL.checked_route.en);
+        }
+        const verdict = Array.from(pm.getElementsByTagName('Data')).find((d) => d.getAttribute('name') === 'verdict');
+        expect(verdict?.textContent ?? '').toBe('');
+      }
+    }
+  });
+
+  it('keeps the checked-route label on the evacuation route', () => {
+    for (const lang of ['ko', 'en'] as const) {
+      const inp = input();
+      const fc = routeToGeoJSON(inp, inp.selectedRoute, { comparison: inp.comparisonRoute, lang });
+      const evac = fc.features.find((f) => (f.properties as Record<string, unknown>).role === 'evacuation_route')!;
+      const p = evac.properties as Record<string, unknown>;
+      expect(p.verdict).toBe('checked_route');
+      expect(p.verdict_label).toBe(VERDICT_LABEL.checked_route[lang]);
+    }
+  });
+
+  it('states the 진입 지점 and that travel to it is not modelled; the entry node is its own point', () => {
+    const withEntry = (p: typeof ORIGIN, node: string, d: number) => ({ ...p, entry: { node, lon: p.lon + 0.001, lat: p.lat + 0.001, distanceM: d } });
+    const inp = input({ selectedRoute: route({ origin: withEntry(ORIGIN, 'osm:111', 420.4), shelter: withEntry(SHELTER, 'osm:222', 0) }) });
+    const fc = routeToGeoJSON(inp);
+    const line = fc.features.find((f) => (f.properties as Record<string, unknown>).role === 'evacuation_route')!.properties as Record<string, unknown>;
+    expect(line.origin_entry_node).toBe('osm:111');
+    expect(line.origin_entry_distance_m).toBe(420.4);
+    expect(String(line.entry_note)).toContain('진입 지점');
+    const origin = fc.features.find((f) => (f.properties as Record<string, unknown>).role === 'origin')!.properties as Record<string, unknown>;
+    expect(origin.entry_node).toBe('osm:111');
+    expect(origin.entry_distance_m).toBe(420.4);
+    expect(String(origin.entry_note)).toContain('모델에 포함되지 않습니다');
+    // only the origin's entry node lies away from its point (the shelter's is 0 m)
+    const entries = fc.features.filter((f) => (f.properties as Record<string, unknown>).role === 'entry_point');
+    expect(entries.map((f) => (f.properties as Record<string, unknown>).entry_node)).toEqual(['osm:111']);
+    expect(String((fc.wfg as Record<string, unknown>).entry_note)).toContain('진입 지점');
+    const kml = routeToKML(inp);
+    const doc = new DOMParser().parseFromString(kml, 'application/xml');
+    expect(doc.getElementsByTagName('parsererror').length).toBe(0);
+    const data = Array.from(doc.getElementsByTagName('Data')).map((d) => [d.getAttribute('name'), d.textContent]);
+    expect(data).toContainEqual(['entry_node', 'osm:111']);
+    expect(data).toContainEqual(['role', 'entry_point']);
   });
 
   it('refuses anything but a checked route', () => {
@@ -341,6 +417,56 @@ describe('dispatchListCSV', () => {
     expect(late[9]).toBe('2025-03-24 18:00 KST');
     expect(late[10]).toBe('사전 계산 캐시 (MOCK)');
     expect(late[11]).toContain('MOCK');
+  });
+
+  it('notes the entry-point gap and the MOCK raw status (never "기타 (OTHER)") in the CSV', () => {
+    const inp = input({
+      origins: [
+        origin('o:gap', '합성 마을 진입', null, { entry: { node: 'osm:5', lon: 127.001, lat: 36.001, distanceM: 640 } }),
+        origin('o:mock', '합성 마을 MOCK', { bestVerdict: 'unresolved', latestSafeDepartureS: null, contiguousSafeDepartureS: null, best: null, reasonCode: 'OTHER', rawStatus: 'MOCK_NO_RECORDED_RESULT' }),
+      ],
+    });
+    for (const lang of ['ko', 'en'] as const) {
+      const rows = parseCsv(dispatchListCSV(inp, { lang }).slice(1)).slice(1);
+      const byId = Object.fromEntries(rows.map((r) => [r[3]!.split(' · ')[1], r]));
+      expect(byId['o:gap']![11]).toContain('640 m');
+      expect(byId['o:gap']![11]).toContain(lang === 'ko' ? '진입 지점' : 'entry point');
+      const notes = byId['o:mock']![11]!;
+      expect(notes).toContain('MOCK_NO_RECORDED_RESULT');
+      expect(notes).not.toMatch(/기타|\bother\b/i);
+    }
+  });
+
+  it('orders checked origins by the contiguous deadline, as the list does (contiguous null first)', () => {
+    const chk = (latest: number, contiguous: number | null) => ({ bestVerdict: 'checked_route' as const, latestSafeDepartureS: latest, contiguousSafeDepartureS: contiguous, best: { shelter: SHELTER, departureS: latest, arrivalS: latest + 600 } });
+    const origins = [
+      origin('o:B', '합성 B', chk(1800, 1800)),
+      origin('o:A', '합성 A', chk(3000, 600)),
+      origin('o:N', '합성 N', chk(3000, null)),
+      origin('o:D', '합성 D', chk(1200, 0)),
+    ];
+    const ids = orderOrigins(origins).map((o) => o.id);
+    expect(ids).toEqual(['o:N', 'o:D', 'o:A', 'o:B']);
+    // the same order as the planner list (sortByUrgency) for the same fixture
+    const list = sortByUrgency(origins.map((o) => ({ id: o.id, name: o.name ?? '', vulnerable: o.vulnerable, plan: o.plan })));
+    expect(ids).toEqual(list.map((x) => x.id));
+    const rows = parseCsv(dispatchListCSV(input({ origins })).slice(1)).slice(1);
+    expect(rows.map((r) => r[3]!.split(' · ')[1])).toEqual(ids);
+  });
+
+  it('drawn zones: inside-zone origins first (Go before Set), as the list does', () => {
+    const chk = (latest: number) => ({ bestVerdict: 'checked_route' as const, latestSafeDepartureS: latest, contiguousSafeDepartureS: latest, best: null });
+    const origins = [
+      origin('o:out-early', '합성 밖', chk(600)),
+      origin('o:go-late', '합성 Go', chk(3000), { rsg: 'go', rsgLabel: '실행(Go) — 전원 대피' }),
+      origin('o:set', '합성 Set', chk(1200), { rsg: 'set', rsgLabel: '준비(Set)' }),
+    ];
+    const ids = orderOrigins(origins).map((o) => o.id);
+    expect(ids).toEqual(['o:go-late', 'o:set', 'o:out-early']);
+    const list = sortDrawn(origins.map((o) => ({ id: o.id, name: o.name ?? '', vulnerable: o.vulnerable, plan: o.plan, rsg: o.rsg ?? null })));
+    expect(ids).toEqual(list.map((x) => x.id));
+    const rows = parseCsv(dispatchListCSV(input({ origins, fireInputType: 'spread_zones' })).slice(1)).slice(1);
+    expect(rows.map((r) => r[3]!.split(' · ')[1])).toEqual(ids);
   });
 
   it('uses the API urgency rank when every origin has one', () => {

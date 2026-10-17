@@ -4,9 +4,20 @@
  */
 import { kstDateTime } from '../../domain/clock';
 import { clockAt, formatCoord, formatDistanceM, formatSeconds, kstStamp, sweepStepMin } from '../shared/format';
-import { FIXED_IDENTITY, LIMITATIONS, NOTE_LABEL, pick, reasonText, VERDICT_LABEL, WINDOW_CLOSED_LABEL, type Lang } from '../shared/strings';
+import { FIXED_IDENTITY, LIMITATIONS, NOTE_LABEL, pick, VERDICT_LABEL, WINDOW_CLOSED_LABEL, type Lang } from '../shared/strings';
 import { MockBadge, SweepCellGlyph, VerdictBadge, VerdictIcon } from '../shared/VerdictIcon';
-import { alternativePlanItems, arrivalCell, deadlineCell, exposureSummary, exposureText, fill, scenarioTag } from './sheetLogic';
+import {
+  alternativePlanItems,
+  arrivalCell,
+  deadlineCell,
+  exposureSummary,
+  exposureText,
+  fill,
+  partialCheckedScenarios,
+  partialCheckedText,
+  scenarioReasonText,
+  scenarioTag,
+} from './sheetLogic';
 import { MapLegendGlyph, StaticRouteMap } from './StaticRouteMap';
 import { SHEET } from './strings';
 import type { PlanSheetData, PlanSheetScenario } from './types';
@@ -30,9 +41,19 @@ function originName(sheet: PlanSheetData, lang: Lang): string | null {
   return (lang === 'en' ? sheet.origin.nameEn || sheet.origin.name : sheet.origin.name) || null;
 }
 
-/** Title: the OSM name, or "{category} · 이름 없음" — a name is never invented. */
+/** Title: the OSM name, the app's descriptor ("기록 임무 FD1 출발점"), or "{category} · 이름 없음" — a name is never invented. */
 function originTitle(sheet: PlanSheetData, lang: Lang): string {
-  return originName(sheet, lang) ?? `${sheet.origin.categoryLabel} · ${pick(SHEET.unnamed, lang)}`;
+  return originName(sheet, lang) ?? sheet.origin.displayName ?? `${sheet.origin.categoryLabel} · ${pick(SHEET.unnamed, lang)}`;
+}
+
+/** "마을 진입 지점까지" + "1.2 km (이 구간 미반영)"; research origins start at their recorded node (no gap). */
+function entryFact(sheet: PlanSheetData, lang: Lang): { label: string; value: string } {
+  const kind = sheet.origin.entryKind ?? (sheet.origin.vulnerable ? 'facility' : 'village');
+  if (kind === 'research') return { label: pick(SHEET.entryResearch, lang), value: sheet.origin.entryNode ?? '—' };
+  const label = pick(kind === 'facility' ? SHEET.entryFacility : SHEET.entryVillage, lang);
+  const d = sheet.origin.snapDistanceM;
+  if (d === null || !Number.isFinite(d)) return { label, value: '—' };
+  return { label, value: d > 0 ? `${formatDistanceM(d, lang)} ${pick(SHEET.entryGap, lang)}` : formatDistanceM(d, lang) };
 }
 
 function SweepStrip({ s, lang }: { s: PlanSheetScenario; lang: Lang }) {
@@ -61,7 +82,8 @@ function ScenarioRows({ s, i, lang, drawnSheet }: { s: PlanSheetScenario; i: num
   const dl = deadlineCell(s, lang);
   const ex = exposureSummary(s);
   const checked = s.bestVerdict === 'checked_route';
-  const reason = s.bestVerdict === 'unresolved' ? [s.note ? pick(NOTE_LABEL[s.note], lang) : null, reasonText(s.reasonCode, lang)].filter(Boolean).join(' · ') : '';
+  // the narrow table cell carries the reason text; the raw code is in 대체 계획 필요 시나리오
+  const reason = s.bestVerdict === 'unresolved' ? [s.note ? pick(NOTE_LABEL[s.note], lang) : null, scenarioReasonText(s, lang, { short: true })].filter(Boolean).join(' · ') : '';
   const shelterName = s.shelter ? s.shelter.name || pick(SHEET.unnamed, lang) : null;
   return (
     <>
@@ -123,7 +145,11 @@ function ScenarioRows({ s, i, lang, drawnSheet }: { s: PlanSheetScenario; i: num
 
 function apiModeText(sheet: PlanSheetData, lang: Lang): string {
   const p = sheet.provenance;
-  if (p.apiMode === 'mock') return pick(SHEET.modeMock, lang);
+  if (p.apiMode === 'mock') {
+    // the MOCK evaluates no user zones and replays only recorded executions
+    if (sheet.fireInputType === 'spread_zones') return pick(SHEET.modeMockZones, lang);
+    return pick(p.mockNothingReplayed ? SHEET.modeMockNone : SHEET.modeMock, lang);
+  }
   if (p.apiMode === 'live') return pick(SHEET.modeLive, lang);
   if (p.cacheApiMode) return fill(pick(SHEET.modeCacheOf, lang), { mode: p.cacheApiMode === 'mock' ? 'MOCK' : 'live API' });
   return pick(SHEET.modeCache, lang);
@@ -142,8 +168,15 @@ export function PlanSheet(props: PlanSheetProps) {
   const anyRoute = sheet.scenarios.some((s) => s.bestVerdict === 'checked_route' && s.route);
   const anyTravel = sheet.scenarios.some((s) => s.bestVerdict === 'checked_route' && s.route && s.travelOnlyRoute);
   const hosts = sheet.scenarios
-    .map((s, i) => (s.computeS !== null || s.host ? `${scenarioTag(i)} ${formatSeconds(s.computeS)}${s.host ? ` (${s.host})` : ''}` : null))
+    .map((s, i) => {
+      if (s.computeS === null && !s.host) return null;
+      const base = { inputTimeIso: s.inputTimeIso, issuedAtIso: s.issuedAtIso ?? null };
+      const at = s.computeOffsetS !== null && s.computeOffsetS !== undefined ? ` · ${clockAt(base, s.computeOffsetS)}` : '';
+      return `${scenarioTag(i)}${at} ${formatSeconds(s.computeS)}${s.host ? ` (${s.host})` : ''}`;
+    })
     .filter(Boolean) as string[];
+  const partial = alt.length === 0 ? partialCheckedScenarios(sheet) : [];
+  const entry = entryFact(sheet, lang);
 
   return (
     <article
@@ -196,9 +229,9 @@ export function PlanSheet(props: PlanSheetProps) {
             <dt>{t(SHEET.coords)}</dt>
             <dd className="wfgf-num">{formatCoord(sheet.origin.lon, sheet.origin.lat)}</dd>
           </div>
-          <div>
-            <dt>{t(SHEET.snap)}</dt>
-            <dd className="wfgf-num">{formatDistanceM(sheet.origin.snapDistanceM, lang)}</dd>
+          <div data-entry-fact="true">
+            <dt>{entry.label}</dt>
+            <dd className="wfgf-num">{entry.value}</dd>
           </div>
         </dl>
       </section>
@@ -302,10 +335,24 @@ export function PlanSheet(props: PlanSheetProps) {
 
       <section className="wfgf-sheet__section wfgf-sheet__alt" data-alt-plan="true">
         <h2>{t(SHEET.altTitle)}</h2>
-        {alt.length === 0 ? (
+        {alt.length === 0 && partial.length === 0 ? (
           <p className="wfgf-sheet__muted" data-alt-none="true">
             {t(SHEET.altNone)}
           </p>
+        ) : alt.length === 0 ? (
+          <>
+            <p className="wfgf-sheet__muted" data-alt-none="true">
+              {t(SHEET.altNoneShort)}
+            </p>
+            <ul>
+              {partial.map((p) => (
+                <li key={`${p.scenarioSetId}-${p.index}`} className="wfgf-sheet__altcaveat" data-alt-caveat={p.scenarioSetId} data-alt-verdict="unresolved">
+                  <VerdictIcon verdict="unresolved" size={13} />
+                  <span className="wfgf-sheet__alttext">{partialCheckedText(p, lang)}</span>
+                </li>
+              ))}
+            </ul>
+          </>
         ) : (
           <ul>
             {alt.map((a) => (
@@ -355,6 +402,12 @@ export function PlanSheet(props: PlanSheetProps) {
               <div className="wfgf-sheet__prov-wide">
                 <dt>{t(SHEET.pHost)}</dt>
                 <dd className="wfgf-num">{hosts.join(' · ')}</dd>
+              </div>
+            )}
+            {sheet.provenance.testData && (
+              <div className="wfgf-sheet__prov-wide" data-test-data="true">
+                <dt>{t(SHEET.pTestData)}</dt>
+                <dd>{t(SHEET.testData)}</dd>
               </div>
             )}
             {sheet.provenance.approximation && (

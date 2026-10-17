@@ -6,8 +6,9 @@ API (official contract: planner/contract/wfg_api_v1.yaml):
 
 * OSM origins (villages, care facilities) start at their 진입 지점 (entry point: the nearest road node
   the API accepts, see planner/public/data/regions/<region>/places.geojson -> properties.entry) and
-  are grouped by their K nearest shelters into POST /dispatch-plans (policy "full"; ≤ 200 origins,
-  ≤ 20 destinations, ≤ 24 departure offsets, ≤ 4 800 attempts per plan).
+  are grouped by their K nearest shelters — K distinct entry nodes, the same rule as the app's
+  kNearestDestinations — into POST /dispatch-plans (policy "full"; ≤ 200 origins, ≤ 20 destinations,
+  ≤ 24 departure offsets, ≤ 4 800 attempts per plan).
 * Recorded research-panel origins are sent as individual POST /route-checks with their recorded
   destination, dwell, arrival window, incurred dose and limits (dispatch plans have no incurred dose),
   at every grid offset plus their recorded departure offset. Offsets whose recorded arrival window
@@ -21,10 +22,18 @@ the same command continues where it stopped: finished work is reused, in-flight 
 already matches the planned requests is skipped. Use --fresh to ignore saved state.
 
 Each scenario set is written to <out>/<region>/<input_compact>.json with provenance (API version, git
-commit, host that computed the results), plus <out>/INDEX.json. Standard library only.
+commit, host that computed the results, generator.purpose "booth" | "test"), plus <out>/INDEX.json.
+Standard library only.
 
+Booth cache vs test data (ARCHITECTURE.md §6): only the real API on the evaluated host (native macOS on
+Apple silicon) writes planner/cache/ (purpose "booth"). Any other host, or the MOCK, writes test data to
+planner/.test-cache/ by default (never committed or shipped); --out planner/cache is refused for them.
+
+    # booth (on the M5 Pro, real API running):
     python3 planner/scripts/precompute.py --api http://127.0.0.1:8765/v1 \
         --regions uiseong_andong_2025,yeongdeok_2025
+    # anywhere else (test data; view with WFG_CACHE_DIR=.test-cache npm run dev):
+    python3 planner/scripts/precompute.py --api http://127.0.0.1:8765/v1 --out planner/.test-cache
 """
 from __future__ import annotations
 
@@ -205,7 +214,17 @@ def dispatch_requests(region_id: str, sset: dict, places: list[dict], offsets: l
         oc = o['geometry']['coordinates']
         # Never pair an origin with a shelter that shares its entry node (START_EQUALS_DESTINATION).
         cand = [s for s in shelters if s['properties']['entry']['node'] != o['properties']['entry']['node']]
-        near = sorted(cand, key=lambda s: (haversine_m(oc, s['geometry']['coordinates']), s['properties']['id']))[:k]
+        # K nearest with K DISTINCT entry nodes: several OSM shelters often share one 진입 지점, and
+        # checking the same node twice repeats the same check (same rule as the app).
+        near, seen = [], set()
+        for s in sorted(cand, key=lambda s: (haversine_m(oc, s['geometry']['coordinates']), s['properties']['id'])):
+            node = s['properties']['entry']['node']
+            if node in seen:
+                continue
+            seen.add(node)
+            near.append(s)
+            if len(near) >= k:
+                break
         groups.setdefault(tuple(sorted(s['properties']['id'] for s in near)), []).append(o)
     horizon = float(sset['horizon_s'])
     per_plan = max(1, min(MAX_ORIGINS, MAX_ATTEMPTS // max(1, k * len(offsets))))
@@ -407,14 +426,28 @@ def recheck_timeouts(api: Api, state: State, poll_s: float, timeout_s: float) ->
     return n
 
 
-def best_checked(plan_records: list[dict], research: list[dict], checks: dict[str, dict]) -> dict[str, dict]:
-    """Per origin: the attempt shown by default (latest checked offset, earliest arrival)."""
+def best_checked(plan_records: list[dict], research: list[dict], checks: dict[str, dict],
+                 rechecks: dict[str, dict] | None = None) -> dict[str, dict]:
+    """Per origin: the attempt shown by default (latest checked offset, earliest arrival, then destination
+    id) — the app's rule, with re-checks replacing the attempt they re-ran."""
+    rechecks = rechecks or {}
     best = {}
     for rec in plan_records:
         for plan in ((rec.get('job') or {}).get('result') or {}).get('plans', []):
-            b = plan.get('best')
-            if plan.get('best_verdict') == 'checked_route' and b and b.get('route_check_job_id') in checks:
-                best[plan['origin_id']] = checks[b['route_check_job_id']]
+            rows = []
+            for att in plan.get('attempts', []):
+                cid = att.get('route_check_job_id')
+                rj = rechecks.get(cid) if cid else None
+                if rj is not None:
+                    res = rj.get('result') or {}
+                    verdict, arrival, jid = res.get('verdict'), res.get('arrival_s'), rj.get('job_id')
+                else:
+                    verdict, arrival, jid = att.get('verdict'), att.get('arrival_s'), cid
+                if verdict == 'checked_route' and jid in checks:
+                    rows.append((-int(att['depart_offset_s']), arrival if arrival is not None else math.inf,
+                                 str(att.get('destination_id')), jid))
+            if rows:
+                best[plan['origin_id']] = checks[min(rows)[3]]
     rows: dict[str, list] = {}
     for r in research:
         jid = r['meta'].get('job_id')
@@ -437,7 +470,9 @@ def main() -> None:
     ap.add_argument('--scenario-sets', default='', help='comma-separated input times (compact, e.g. 20250324T090000Z); default all')
     ap.add_argument('--step-min', type=int, default=10, help='departure offset step in minutes')
     ap.add_argument('--k', type=int, default=3, help='candidate shelters per origin (nearest by straight line)')
-    ap.add_argument('--out', type=Path, default=PLANNER / 'cache')
+    ap.add_argument('--out', type=Path, default=None,
+                    help='output folder; default planner/cache on the evaluated host (real API, macOS arm64), '
+                         'else planner/.test-cache (test data)')
     ap.add_argument('--poll', type=float, default=3.0)
     ap.add_argument('--timeout-h', type=float, default=24.0)
     ap.add_argument('--no-travel-only', action='store_true', help='skip the travel-time-only comparison checks')
@@ -459,6 +494,19 @@ def main() -> None:
     if health.get('status') != 'ok':
         raise SystemExit(f'API health is {health.get("status")!r}: {health.get("issues")}')
     host = (health.get('provenance') or {}).get('host')
+    # Booth cache only from the real API on the evaluated host (native macOS, Apple silicon); the chip
+    # (M5 Pro) is not reported by the API, so the test is macOS + arm64.
+    plat, mach = str((host or {}).get('platform') or ''), str((host or {}).get('machine') or '')
+    booth_host = (plat.startswith('macOS') or 'Darwin' in plat) and mach == 'arm64'
+    purpose = 'booth' if (booth_host and mode == 'live') else 'test'
+    booth_dir = (PLANNER / 'cache').resolve()
+    if a.out is None:
+        a.out = PLANNER / 'cache' if purpose == 'booth' else PLANNER / '.test-cache'
+        log(f'output {a.out} ({"booth cache" if purpose == "booth" else "TEST DATA — not the booth cache, never commit"})')
+    if a.out.resolve() == booth_dir and purpose != 'booth' and not a.plan_only:
+        raise SystemExit('Not the evaluation host (real API on native macOS arm64) or the MOCK: the booth cache '
+                         'planner/cache must not receive these results. Write them to planner/.test-cache with '
+                         '--out planner/.test-cache')
     regions = {r['id']: r for r in api.get('/regions')['regions']}
     wanted = [r.strip() for r in a.regions.split(',') if r.strip()]
     only = {s.strip() for s in a.scenario_sets.split(',') if s.strip()}
@@ -512,14 +560,18 @@ def main() -> None:
                 n = recheck_timeouts(api, state, a.poll, timeout_s)
                 log(f'  rechecked {n} TIMEOUT attempts')
 
-            plan_records, checks = [], {}
+            plan_records, checks, rechecks = [], {}, {}
             for u in units:
                 rec = state.done(u['key']) or {}
                 if u['kind'] == 'dispatch_plan':
                     plan_records.append(rec)
                     checks.update(rec.get('route_checks') or {})
+                    # a re-check is stored under its OWN job id with recheck_of = the check it re-ran; the
+                    # original stays under its id (the app shows the re-check in that cell)
                     for cid, rj in (rec.get('rechecks') or {}).items():
-                        checks[cid] = {**rj, 'recheck_of': cid}
+                        rid = rj.get('job_id') or f'{cid}:recheck'
+                        checks[rid] = {**rj, 'recheck_of': cid}
+                        rechecks[cid] = checks[rid]
                 elif rec.get('job'):
                     checks[rec['job']['job_id']] = rec['job']
             for r in research:
@@ -531,7 +583,7 @@ def main() -> None:
 
             travel_only = {}
             if not a.no_travel_only:
-                best = best_checked([r for r in plan_records if r.get('job')], research, checks)
+                best = best_checked([r for r in plan_records if r.get('job')], research, checks, rechecks)
                 to_units = []
                 for oid, job in sorted(best.items()):
                     req = {k2: v for k2, v in job['request'].items()
@@ -563,9 +615,12 @@ def main() -> None:
                               'client_host': f'{platform.system()} {platform.machine()}',
                               'step_min': a.step_min, 'shelters_per_origin': a.k,
                               'default_dwell_s': DEFAULT_DWELL_S, 'origin_location': 'entry node (진입 지점) as node_id',
+                              'destinations': 'K nearest shelters with distinct entry nodes',
+                              'purpose': purpose,
                               'wall_s_this_invocation': round(time.monotonic() - t0, 1)},
                 'requests': plans_req,
-                'plans': [r.get('job') for r in plan_records],
+                # refused dispatch plans have no job; they are listed in rejected_requests
+                'plans': [r['job'] for r in plan_records if r.get('job')],
                 'research_checks': [r['meta'] for r in research],
                 'rejected_requests': rejected,
                 'route_checks': checks,
@@ -575,13 +630,16 @@ def main() -> None:
             if len(raw) > LFS_LIMIT_BYTES:
                 log(f'  WARNING {out} is {len(raw) / 1e6:.1f} MB: store it with Git LFS or as a Release asset')
             verdicts: dict[str, int] = {}
-            for cj in checks.values():
+            for cid, cj in checks.items():
+                if cid in rechecks:      # superseded by its re-check (counted there)
+                    continue
                 res = cj.get('result') or {}
                 key = res.get('verdict', 'none') + ('/' + res['reason_code'] if res.get('reason_code') else '')
                 verdicts[key] = verdicts.get(key, 0) + 1
             index = [e for e in index if not (e['region_id'] == region_id and e['scenario_set_id'] == sset['scenario_set_id'])]
             index.append({'region_id': region_id, 'scenario_set_id': sset['scenario_set_id'],
                           'input_time': sset['input_time'], 'path': rel.as_posix(), 'api_mode': mode,
+                          'purpose': purpose,
                           'api_version': health.get('api_version'), 'host': host,
                           'created_at': doc['created_at'], 'origins': n_orig, 'checks': len(checks),
                           'verdicts': verdicts, 'bytes': len(raw), 'sha256': sha256_bytes(raw)})

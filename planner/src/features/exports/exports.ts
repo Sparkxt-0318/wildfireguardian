@@ -7,16 +7,19 @@
  * - dispatchListCSV: one row per origin, UTF-8 with BOM (Excel), RFC 4180 quoting, CRLF.
  *
  * Honesty: only a checked_route is ever emitted as a route (ExportRefusedError otherwise); a
- * travel-time-only route is only emitted with role "travel_only_comparison", its own verdict and
- * its full-policy grade, and is never called an evacuation route.
+ * travel-time-only route is only emitted with role "travel_only_comparison": its `verdict` is null
+ * (the travel_only policy result is kept in the policy-qualified `travel_only_result`), its label
+ * says "comparison — not an evacuation route", `checked_by_full_policy` and its full-policy grade
+ * are given, and it is never called an evacuation route or a checked route.
  */
 import type { FeatureCollection } from 'geojson';
 import { compactUtc, parseUtc } from '../../domain/clock';
 import { compareUrgency, type UrgencyItem } from '../../domain/plan';
-import type { OriginPlan, Verdict } from '../../domain/types';
+import type { Verdict } from '../../domain/types';
+import { compareDrawn, type DrawnUrgencyItem } from '../../domain/zones';
 import { kstDateClock, kstStamp, slug } from '../shared/format';
-import { ALT_PLAN_TEXT, FOOTER_APP, NOTE_LABEL, pick, reasonText, VERDICT_LABEL, type Lang } from '../shared/strings';
-import type { ExportInput, ExportOrigin, ExportProvenance, ExportRoute } from './types';
+import { ALT_PLAN_TEXT, attemptReasonText, FOOTER_APP, LIMITATIONS, NOTE_LABEL, pick, VERDICT_LABEL, type L10n, type Lang } from '../shared/strings';
+import type { ExportInput, ExportOrigin, ExportPlace, ExportProvenance, ExportRoute } from './types';
 
 export const EXPORT_SCHEMA = 'wfg.planner.export/1';
 
@@ -94,13 +97,39 @@ function provenanceObject(p: ExportProvenance): Record<string, unknown> {
     evaluated_configuration: p.evaluatedConfiguration ?? null,
     recorded_mission_match: p.recordedMissionMatch ?? null,
     approximation: p.approximation ?? null,
+    test_data: p.testData === true,
   };
 }
+
+/** Computed on a non-evaluation host (e.g. a Linux container): test data, not the booth cache. */
+export const TEST_DATA_NOTE: L10n = {
+  ko: '시험 데이터 · 평가 호스트 아님 (부스 캐시 아님)',
+  en: 'Test data · not the evaluation host (not the booth cache)',
+};
 
 const TRAVEL_ONLY_NOTE = {
   ko: '비교용: 이동시간만 고려한 경로 (화재 위험 미반영) — 대피 경로 아님',
   en: 'Comparison only: travel-time-only route (fire hazard ignored) — not an evacuation route',
 };
+
+/** verdict_label of a travel-time-only comparison: never the checked-route label. */
+export const TRAVEL_ONLY_LABEL: L10n = {
+  ko: '비교용 — 이동시간만 (화재 미고려 · 대피 경로 아님)',
+  en: 'Comparison — travel time only (fire not considered, not an evacuation route)',
+};
+
+/** The 진입 지점 limitation (same text as LIMITATIONS 'entry_gap'). */
+export const ENTRY_NOTE: L10n = {
+  ko: '경로는 진입 지점에서 시작합니다. 지점→진입 지점 이동은 모델에 포함되지 않습니다',
+  en: 'The route starts at the entry point. Travel from the place to its entry point is not modelled',
+};
+
+const ENTRY_GAP_LIMIT: L10n = LIMITATIONS.find((l) => l.id === 'entry_gap')?.text ?? ENTRY_NOTE;
+
+function entryDistance(p: ExportPlace): number | null {
+  const d = p.entry?.distanceM;
+  return typeof d === 'number' && Number.isFinite(d) ? Math.round(d * 10) / 10 : null;
+}
 
 function routeProperties(input: ExportInput, route: ExportRoute, lang: Lang): Record<string, unknown> {
   const base = clockBase(input);
@@ -108,15 +137,24 @@ function routeProperties(input: ExportInput, route: ExportRoute, lang: Lang): Re
   const props: Record<string, unknown> = {
     role: route.role,
     evacuation_route: !isComparison,
-    verdict: route.verdict,
-    verdict_label: pick(VERDICT_LABEL[route.verdict], lang),
+    // a comparison's own result is policy-qualified (travel_only_result) so that a generic
+    // verdict == 'checked_route' filter never matches a route that ignores the fire
+    verdict: isComparison ? null : route.verdict,
+    verdict_label: isComparison ? pick(TRAVEL_ONLY_LABEL, lang) : pick(VERDICT_LABEL[route.verdict], lang),
     policy: route.policy,
     origin_id: route.origin.id,
     origin_name: route.origin.name,
+    origin_label: placeLabel(route.origin, lang),
     origin_source_tag: route.origin.sourceTag,
+    origin_entry_node: route.origin.entry?.node ?? null,
+    origin_entry_distance_m: entryDistance(route.origin),
     shelter_id: route.shelter.id,
     shelter_name: route.shelter.name,
+    shelter_label: placeLabel(route.shelter, lang),
     shelter_source_tag: route.shelter.sourceTag,
+    shelter_entry_node: route.shelter.entry?.node ?? null,
+    shelter_entry_distance_m: entryDistance(route.shelter),
+    entry_note: pick(ENTRY_NOTE, lang),
     departure_s: route.departureS,
     departure_kst: kstDateClock(base, route.departureS) || null,
     arrival_s: route.arrivalS,
@@ -141,6 +179,8 @@ function routeProperties(input: ExportInput, route: ExportRoute, lang: Lang): Re
     provenance: provenanceObject(route.provenance ?? input.provenance),
   };
   if (isComparison) {
+    props.travel_only_result = route.verdict;
+    props.checked_by_full_policy = route.fullPolicyPass === true;
     props.full_policy_pass = route.fullPolicyPass ?? null;
     props.full_policy_failures = route.fullPolicyFailures ?? null;
     props.note = pick(TRAVEL_ONLY_NOTE, lang);
@@ -148,9 +188,38 @@ function routeProperties(input: ExportInput, route: ExportRoute, lang: Lang): Re
   return props;
 }
 
-/** Name, or "{category} · 이름 없음" — names are never invented. */
-function placeLabel(p: { name: string | null; categoryLabel: string }, lang: Lang): string {
-  return p.name || `${p.categoryLabel} · ${lang === 'en' ? 'unnamed' : '이름 없음'}`;
+/** Name, the app's descriptor (e.g. "기록 임무 FD1 출발점"), or "{category} · 이름 없음" — names are never invented. */
+export function placeLabel(p: { name: string | null; nameEn?: string | null; displayName?: string | null; categoryLabel: string }, lang: Lang): string {
+  const name = lang === 'en' ? p.nameEn || p.name : p.name || p.nameEn;
+  return name || p.displayName || `${p.categoryLabel} · ${lang === 'en' ? 'unnamed' : '이름 없음'}`;
+}
+
+/** Point properties of an origin or shelter, with its 진입 지점. */
+function placePointProps(p: ExportPlace, role: 'origin' | 'shelter', lang: Lang): Record<string, unknown> {
+  return {
+    role,
+    id: p.id,
+    name: p.name,
+    label: placeLabel(p, lang),
+    category: p.categoryLabel,
+    source_tag: p.sourceTag,
+    entry_node: p.entry?.node ?? null,
+    entry_distance_m: entryDistance(p),
+    entry_note: p.entry ? pick(ENTRY_NOTE, lang) : null,
+  };
+}
+
+/** The entry node as its own point when it lies away from the place point (first/last route vertex). */
+function entryPoints(route: ExportRoute): { of: ExportPlace; role: 'origin' | 'shelter' }[] {
+  const out: { of: ExportPlace; role: 'origin' | 'shelter' }[] = [];
+  for (const [of, role] of [
+    [route.origin, 'origin'],
+    [route.shelter, 'shelter'],
+  ] as const) {
+    const e = of.entry;
+    if (e && Number.isFinite(e.lon) && Number.isFinite(e.lat) && (entryDistance(of) ?? 0) > 0) out.push({ of, role });
+  }
+  return out;
 }
 
 function docName(input: ExportInput, route: ExportRoute, lang: Lang): string {
@@ -194,11 +263,7 @@ export function routeToGeoJSON(
     id: `origin:${route.origin.id}`,
     geometry: { type: 'Point', coordinates: [r7(route.origin.lon), r7(route.origin.lat)] },
     properties: {
-      role: 'origin',
-      id: route.origin.id,
-      name: route.origin.name,
-      category: route.origin.categoryLabel,
-      source_tag: route.origin.sourceTag,
+      ...placePointProps(route.origin, 'origin', lang),
       departure_s: route.departureS,
       departure_kst: kstDateClock(base, route.departureS) || null,
       mock: input.mock,
@@ -209,11 +274,7 @@ export function routeToGeoJSON(
     id: `shelter:${route.shelter.id}`,
     geometry: { type: 'Point', coordinates: [r7(route.shelter.lon), r7(route.shelter.lat)] },
     properties: {
-      role: 'shelter',
-      id: route.shelter.id,
-      name: route.shelter.name,
-      category: route.shelter.categoryLabel,
-      source_tag: route.shelter.sourceTag,
+      ...placePointProps(route.shelter, 'shelter', lang),
       verdict: route.verdict,
       arrival_s: route.arrivalS,
       arrival_kst: kstDateClock(base, route.arrivalS) || null,
@@ -221,6 +282,23 @@ export function routeToGeoJSON(
       mock: input.mock,
     },
   });
+  // the entry nodes explain the first and last route vertex (the route starts at the entry point)
+  for (const { of, role } of entryPoints(route)) {
+    features.push({
+      type: 'Feature',
+      id: `entry_point:${role}:${of.id}`,
+      geometry: { type: 'Point', coordinates: [r7(of.entry!.lon), r7(of.entry!.lat)] },
+      properties: {
+        role: 'entry_point',
+        entry_of: role,
+        place_id: of.id,
+        entry_node: of.entry!.node,
+        entry_distance_m: entryDistance(of),
+        entry_note: pick(ENTRY_NOTE, lang),
+        mock: input.mock,
+      },
+    });
+  }
   return {
     type: 'FeatureCollection',
     name: docName(input, route, lang),
@@ -235,6 +313,9 @@ export function routeToGeoJSON(
       issued_at: input.scenario.issuedAtIso ?? null,
       generated_at: input.generatedAtIso,
       disclaimer: pick(FOOTER_APP, lang),
+      entry_note: pick(ENTRY_GAP_LIMIT, lang),
+      test_data: input.provenance.testData === true,
+      test_data_note: input.provenance.testData ? pick(TEST_DATA_NOTE, lang) : null,
     },
     provenance: provenanceObject(input.provenance),
     features,
@@ -339,7 +420,9 @@ export function routeToKML(
   const mockTag = input.mock ? ' (MOCK)' : '';
   const description = [
     input.mock ? 'MOCK — ' + (lang === 'en' ? 'recorded results replayed by the mock server.' : '모의 서버가 기록 결과를 재생한 자료입니다.') : null,
+    input.provenance.testData ? `${pick(TEST_DATA_NOTE, lang)}.` : null,
     `${lang === 'en' ? 'Fire input' : '산불 입력'}: ${input.fireInputLabel}`,
+    pick(ENTRY_GAP_LIMIT, lang),
     pick(FOOTER_APP, lang),
   ]
     .filter(Boolean)
@@ -359,6 +442,7 @@ export function routeToKML(
     `<Style id="travel_only_comparison"><LineStyle><color>${KML_INK_60}</color><width>2</width></LineStyle></Style>`,
     `<Style id="origin"><IconStyle><color>${KML_INK}</color><scale>1.0</scale></IconStyle><LabelStyle><scale>0.9</scale></LabelStyle></Style>`,
     `<Style id="shelter"><IconStyle><color>${KML_GREEN}</color><scale>1.1</scale></IconStyle><LabelStyle><scale>0.9</scale></LabelStyle></Style>`,
+    `<Style id="entry_point"><IconStyle><color>${KML_INK_60}</color><scale>0.6</scale></IconStyle><LabelStyle><scale>0.7</scale></LabelStyle></Style>`,
     kmlData([
       ['schema', EXPORT_SCHEMA],
       ['region_id', input.region.id],
@@ -368,6 +452,7 @@ export function routeToKML(
       ['scenario_set_id', input.scenario.scenarioSetId],
       ['input_time', input.scenario.inputTimeIso],
       ['generated_at', input.generatedAtIso],
+      ['entry_note', pick(ENTRY_GAP_LIMIT, lang)],
       ...Object.entries(provenanceObject(input.provenance)).map(([k, v]) => [`provenance_${k}`, v] as [string, unknown]),
     ]),
   ];
@@ -380,25 +465,33 @@ export function routeToKML(
   }
   out.push(
     `<Placemark id="origin"><name>${xmlEscape(`${lang === 'en' ? 'Origin' : '출발지'}: ${placeLabel(route.origin, lang)}${mockTag}`)}</name><styleUrl>#origin</styleUrl>${kmlData([
-      ['role', 'origin'],
-      ['id', route.origin.id],
-      ['name', route.origin.name],
-      ['source_tag', route.origin.sourceTag],
+      ...(Object.entries(placePointProps(route.origin, 'origin', lang)) as [string, unknown][]),
       ['departure_kst', kstDateClock(base, route.departureS)],
       ['mock', input.mock],
     ])}<Point><coordinates>${r7(route.origin.lon)},${r7(route.origin.lat)},0</coordinates></Point></Placemark>`,
   );
   out.push(
     `<Placemark id="shelter"><name>${xmlEscape(`${lang === 'en' ? 'Shelter' : '대피소'}: ${placeLabel(route.shelter, lang)}${mockTag}`)}</name><styleUrl>#shelter</styleUrl>${kmlData([
-      ['role', 'shelter'],
-      ['id', route.shelter.id],
-      ['name', route.shelter.name],
-      ['source_tag', route.shelter.sourceTag],
+      ...(Object.entries(placePointProps(route.shelter, 'shelter', lang)) as [string, unknown][]),
       ['verdict', route.verdict],
       ['arrival_kst', kstDateClock(base, route.arrivalS)],
       ['mock', input.mock],
     ])}<Point><coordinates>${r7(route.shelter.lon)},${r7(route.shelter.lat)},0</coordinates></Point></Placemark>`,
   );
+  for (const { of, role } of entryPoints(route)) {
+    const label = `${lang === 'en' ? 'Entry point' : '진입 지점'}: ${placeLabel(of, lang)}${mockTag}`;
+    out.push(
+      `<Placemark id="${xmlEscape(`entry_point-${role}`)}"><name>${xmlEscape(label)}</name><styleUrl>#entry_point</styleUrl>${kmlData([
+        ['role', 'entry_point'],
+        ['entry_of', role],
+        ['place_id', of.id],
+        ['entry_node', of.entry!.node],
+        ['entry_distance_m', entryDistance(of)],
+        ['entry_note', pick(ENTRY_NOTE, lang)],
+        ['mock', input.mock],
+      ])}<Point><coordinates>${r7(of.entry!.lon)},${r7(of.entry!.lat)},0</coordinates></Point></Placemark>`,
+    );
+  }
   out.push('</Document>', '</kml>', '');
   return out.join('\n');
 }
@@ -437,32 +530,40 @@ export function csvRow(fields: unknown[]): string {
   return fields.map(csvField).join(',');
 }
 
-/** Planner urgency order (ARCHITECTURE.md §6) unless every origin carries an urgencyRank. */
+/**
+ * Planner urgency order (ARCHITECTURE.md §6) unless every origin carries an urgencyRank — the same
+ * comparators as the origin list and the plan sheets (drawn zones: inside-zone Go before Set before
+ * outside, then urgency), so the CSV, list and sheets cannot drift apart.
+ */
 export function orderOrigins(origins: ExportOrigin[]): ExportOrigin[] {
   if (origins.length > 0 && origins.every((o) => typeof o.urgencyRank === 'number')) {
     return [...origins].sort((a, b) => a.urgencyRank! - b.urgencyRank! || a.id.localeCompare(b.id));
   }
+  const drawn = origins.some((o) => o.rsg);
   const items = origins.map((o) => ({
     o,
     u: {
       id: o.id,
-      name: o.name ?? '',
+      // the list sorts by the display name; an unnamed place sorts by its descriptor / id
+      name: o.name ?? o.displayName ?? '',
       vulnerable: o.vulnerable,
       plan: o.plan
-        ? ({ bestVerdict: o.plan.bestVerdict, latestSafeDepartureS: o.plan.latestSafeDepartureS } as unknown as OriginPlan)
+        ? { bestVerdict: o.plan.bestVerdict, latestSafeDepartureS: o.plan.latestSafeDepartureS, contiguousSafeDepartureS: o.plan.contiguousSafeDepartureS }
         : null,
-    } satisfies UrgencyItem,
+      rsg: o.rsg ?? null,
+    } satisfies UrgencyItem & DrawnUrgencyItem,
   }));
-  items.sort((a, b) => compareUrgency(a.u, b.u));
+  items.sort((a, b) => (drawn ? compareDrawn(a.u, b.u) : compareUrgency(a.u, b.u)));
   return items.map((x) => x.o);
 }
 
 function apiModeLabel(p: ExportProvenance, lang: Lang): string {
+  const test = p.testData ? ` · ${pick(TEST_DATA_NOTE, lang)}` : '';
   if (p.apiMode === 'mock') return 'MOCK';
-  if (p.apiMode === 'live') return lang === 'en' ? 'live API' : '실시간 API';
+  if (p.apiMode === 'live') return (lang === 'en' ? 'live API' : '실시간 API') + test;
   const inner = p.cacheApiMode === 'mock' ? 'MOCK' : p.cacheApiMode === 'live' ? (lang === 'en' ? 'live API' : '실시간 API') : null;
   const head = lang === 'en' ? 'precomputed cache' : '사전 계산 캐시';
-  return inner ? `${head} (${inner})` : head;
+  return (inner ? `${head} (${inner})` : head) + test;
 }
 
 function originNotes(input: ExportInput, o: ExportOrigin, lang: Lang): string {
@@ -473,13 +574,21 @@ function originNotes(input: ExportInput, o: ExportOrigin, lang: Lang): string {
     notes.push(pick(ALT_PLAN_TEXT.unresolved, lang));
     if (!o.plan) notes.push(pick(NOTE_LABEL.not_computed, lang));
     if (o.plan?.note) notes.push(pick(NOTE_LABEL[o.plan.note], lang));
-    const r = reasonText(o.plan?.reasonCode ?? null, lang);
+    const r = attemptReasonText(o.plan?.reasonCode ?? null, o.plan?.rawStatus ?? null, lang);
     if (r) notes.push(r);
   }
   if (v === 'checked_route' && o.plan) {
     const { latestSafeDepartureS: l, contiguousSafeDepartureS: c } = o.plan;
     if (c === null) notes.push(lang === 'en' ? 'first departure time not checked — no contiguous basis' : '첫 출발 시각부터 확인되지 않음 — 연속 확인 기준 없음');
     else if (l !== null && c < l) notes.push(lang === 'en' ? 'some departures before the deadline are not checked routes' : '마감 이전 일부 출발 시각은 확인된 경로 아님');
+  }
+  const gap = entryDistance(o);
+  if (o.entry && gap !== null && gap > 0) {
+    notes.push(
+      lang === 'en'
+        ? `entry point ${Math.round(gap)} m away (${o.entry.node}); travel to it not modelled`
+        : `진입 지점 ${Math.round(gap)} m (${o.entry.node}) · 지점→진입 지점 이동 미반영`,
+    );
   }
   if (o.rsgLabel) notes.push(o.rsgLabel);
   if (o.vulnerable) notes.push(lang === 'en' ? 'vulnerable facility' : '취약시설');
@@ -501,13 +610,13 @@ export function dispatchListCSV(input: ExportInput, opts: { lang?: Lang } = {}):
     const checked = v === 'checked_route' && plan !== null;
     const best = checked ? plan!.best : null;
     const unnamed = lang === 'en' ? 'Unnamed' : '이름 없음';
-    const shelter = best ? `${best.shelter.name || unnamed} (${best.shelter.sourceTag})` : '';
+    const shelter = best ? `${best.shelter.name || best.shelter.displayName || unnamed} (${best.shelter.sourceTag})` : '';
     let contiguous = '';
     if (checked) contiguous = plan!.contiguousSafeDepartureS === null ? (lang === 'en' ? 'none' : '없음') : kstDateClock(base, plan!.contiguousSafeDepartureS);
     lines.push(
       csvRow([
         i + 1,
-        o.name || unnamed,
+        (lang === 'en' ? o.nameEn || o.name : o.name) || o.displayName || unnamed,
         o.categoryLabel,
         `${o.sourceTag} · ${o.id}`,
         pick(VERDICT_LABEL[v], lang),

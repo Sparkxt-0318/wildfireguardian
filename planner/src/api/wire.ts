@@ -409,6 +409,8 @@ export interface WireRouteCheckJob {
   provenance?: WireProvenance;
   /** extension (mock only) */
   mock?: boolean;
+  /** cache files only (precompute --recheck-timeouts): job id of the check this one re-ran */
+  recheck_of?: string;
 }
 
 export interface WireDispatchDestination {
@@ -531,7 +533,8 @@ export interface WireCacheFile {
   planner_commit: string | null;
   generator?: Record<string, unknown>;
   requests: WireDispatchPlanRequest[];
-  plans: WireDispatchPlanJob[];
+  /** one job per planned request; null when the API refused the request (see rejected_requests) */
+  plans: (WireDispatchPlanJob | null)[];
   route_checks: Record<string, WireRouteCheckJob>;
   travel_only: Record<string, WireRouteCheckJob>;
   /**

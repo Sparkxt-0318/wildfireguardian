@@ -12,9 +12,9 @@ import { positionAt } from '../domain/plan';
 import type { Place, RouteDetail } from '../domain/types';
 import { translate, useLang, useLangStore, useT } from '../i18n';
 import { selectOrigin } from '../state/controller';
-import { useRegionEntry, useRoute, useScenarioPlaces, useShownAttempt } from '../state/selectors';
+import { travelOnlyDetail, useRegionEntry, useRoute, useScenarioPlaces, useShownAttempt } from '../state/selectors';
 import { DRAWN_SCENARIO, getState, setState, useStore } from '../state/store';
-import { errorText, placeName } from '../components/format';
+import { categoryLabel, errorText, placeName, sourceTag } from '../components/format';
 import { ChevronIcon, OriginGlyph } from '../components/Icons';
 import { BASEMAP_ATTRIBUTION, LOCAL_IDEOGRAPH_FONT, basemapStyle, ensurePmtilesProtocol, hasRegionBasemap, paperStyle, vworldRasterSource } from './basemapStyle';
 import { ZONE_KEYS, zoneBounds } from '../domain/zones';
@@ -65,6 +65,30 @@ function addImages(map: MLMap) {
         ctx.fill();
         ctx.lineWidth = 1.8 * px;
         ctx.strokeStyle = INK;
+        ctx.stroke();
+      }),
+      { pixelRatio: px },
+    );
+  // shelters: white disc, ink ring and ink "+" — never the checked-route green (green = checked route only)
+  if (!map.hasImage('wfg-shelter'))
+    map.addImage(
+      'wfg-shelter',
+      canvasImage(14 * px, (ctx, s) => {
+        ctx.beginPath();
+        ctx.arc(s / 2, s / 2, s / 2 - 1.4 * px, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.lineWidth = 1.8 * px;
+        ctx.strokeStyle = INK;
+        ctx.stroke();
+        const arm = s * 0.22;
+        ctx.beginPath();
+        ctx.moveTo(s / 2 - arm, s / 2);
+        ctx.lineTo(s / 2 + arm, s / 2);
+        ctx.moveTo(s / 2, s / 2 - arm);
+        ctx.lineTo(s / 2, s / 2 + arm);
+        ctx.lineWidth = 1.6 * px;
+        ctx.lineCap = 'round';
         ctx.stroke();
       }),
       { pixelRatio: px },
@@ -141,10 +165,10 @@ function addOverlays(map: MLMap) {
   add({ id: 'wfg-shelters-nc', type: 'symbol', source: 'wfg-shelters', filter: ['!', ['get', 'checkable']], layout: { 'icon-image': 'wfg-nc', 'icon-size': 0.8, 'icon-allow-overlap': true } });
   add({
     id: 'wfg-shelters',
-    type: 'circle',
+    type: 'symbol',
     source: 'wfg-shelters',
     filter: ['get', 'checkable'],
-    paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3.5, 13, 5.5], 'circle-color': '#FFFFFF', 'circle-stroke-color': GREEN, 'circle-stroke-width': 2.2 },
+    layout: { 'icon-image': 'wfg-shelter', 'icon-size': ['interpolate', ['linear'], ['zoom'], 9, 0.6, 13, 0.9], 'icon-allow-overlap': true },
   });
   add({
     id: 'wfg-origins-village',
@@ -171,6 +195,8 @@ function addOverlays(map: MLMap) {
 }
 
 const ORIGIN_LAYERS = ['wfg-origins-village', 'wfg-origins-nc', 'wfg-origins-facility', 'wfg-origins-research'];
+/** hover only (name, category, source tag); a shelter click never selects anything */
+const SHELTER_LAYERS = ['wfg-shelters', 'wfg-shelters-nc'];
 
 function setData(map: MLMap | null, id: string, data: FeatureCollection) {
   const s = map?.getSource(id) as GeoJSONSource | undefined;
@@ -301,9 +327,15 @@ export function MapView() {
   const selectedId = useStore((s) => s.selectedOriginId);
   const hoverOriginId = useStore((s) => s.hoverOriginId);
   const clockS = useStore((s) => s.clockS);
-  const travel = useStore((s) => (selectedId ? s.travelOnly[selectedId]?.detail ?? null : null));
+  // the comparison of the origin's CURRENT best checked attempt only (never another run's)
+  const travelDetail = useStore((s) => travelOnlyDetail(s, selectedId));
+  const travelFor = useStore((s) => (selectedId ? s.travelOnly[selectedId]?.forJobId ?? null : null));
+  const recomputeRunning = useStore((s) => s.recompute?.state === 'running' && s.recompute.originId === selectedId);
   const { attempt } = useShownAttempt();
   const route = useRoute(attempt?.jobId);
+  // the dashed line is drawn only together with the green route it was computed for
+  const travel =
+    route?.verdict === 'checked_route' && attempt?.jobId && travelFor === attempt.jobId && travelDetail?.coordinates && !recomputeRunning ? travelDetail : null;
 
   // create the map once
   useEffect(() => {
@@ -336,24 +368,32 @@ export function MapView() {
       const id = e.features?.[0]?.properties?.id;
       if (typeof id === 'string') selectOrigin(id);
     };
-    const onMove = (e: MapLayerMouseEvent) => {
+    // one map-level hover for origins and shelters; origins win where they overlap (they are drawn on top)
+    const onMove = (e: maplibregl.MapMouseEvent) => {
       if (getState().drawn.edit.drawing && getState().scenarioId === DRAWN_SCENARIO) {
         setHover(null); // no place tooltips while drawing a zone
         return;
       }
-      const id = e.features?.[0]?.properties?.id;
-      map.getCanvas().style.cursor = id ? 'pointer' : '';
-      if (typeof id === 'string') setHover({ x: e.point.x, y: e.point.y, id });
+      const layers = [...ORIGIN_LAYERS, ...SHELTER_LAYERS].filter((l) => map.getLayer(l));
+      if (!layers.length) return;
+      const feats = map.queryRenderedFeatures(e.point, { layers });
+      const hit = feats.find((f) => ORIGIN_LAYERS.includes(f.layer.id)) ?? feats.find((f) => SHELTER_LAYERS.includes(f.layer.id));
+      const id = hit?.properties?.id;
+      if (typeof id === 'string') {
+        map.getCanvas().style.cursor = ORIGIN_LAYERS.includes(hit!.layer.id) ? 'pointer' : 'default';
+        setHover({ x: e.point.x, y: e.point.y, id });
+      } else {
+        map.getCanvas().style.cursor = '';
+        setHover(null);
+      }
     };
     const onLeave = () => {
       map.getCanvas().style.cursor = '';
       setHover(null);
     };
-    for (const l of ORIGIN_LAYERS) {
-      map.on('click', l, onClick);
-      map.on('mousemove', l, onMove);
-      map.on('mouseleave', l, onLeave);
-    }
+    for (const l of ORIGIN_LAYERS) map.on('click', l, onClick);
+    map.on('mousemove', onMove);
+    map.on('mouseout', onLeave);
     mapRef.current = map;
     setMapObj(map);
     (window as unknown as { __wfgMap?: MLMap }).__wfgMap = map;
@@ -480,7 +520,7 @@ export function MapView() {
   useEffect(() => {
     if (!styleKey) return;
     setData(mapRef.current, 'wfg-travel', travel && travel.coordinates ? lineFC(travel) : EMPTY);
-  }, [travel, styleKey]);
+  }, [travel, route, attempt, recomputeRunning, styleKey]);
 
   // frame the selection when its route arrives
   const framed = useRef<string | null>(null);
@@ -555,8 +595,15 @@ export function MapView() {
         </div>
       ) : null}
       {hover && hoverPlace ? (
-        <div className="map-overlay map-hover" style={{ left: hover.x, top: hover.y }}>
-          {placeName(hoverPlace, t, lang)}
+        <div
+          className={`map-overlay map-hover${hover.x > (container.current?.clientWidth ?? 0) - 170 ? ' edge-right' : hover.x < 170 ? ' edge-left' : ''}`}
+          style={{ left: hover.x, top: hover.y }}
+          data-testid="map-hover"
+        >
+          <span>{placeName(hoverPlace, t, lang)}</span>
+          <span className="map-hover-sub">
+            {categoryLabel(hoverPlace, t)} · <span className="mono">{sourceTag(hoverPlace)}</span>
+          </span>
         </div>
       ) : null}
     </div>

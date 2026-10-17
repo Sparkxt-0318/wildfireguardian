@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { cpSync, createReadStream, existsSync, statSync } from 'node:fs';
+import { cpSync, createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -71,6 +71,21 @@ function plannerCache(CACHE_DIR: string): Plugin {
         this.warn('planner/cache not found: the build has no precomputed cache (the app computes via the API).');
         return;
       }
+      // never ship test data silently as the booth cache (the app also marks it in the UI)
+      const booth = resolve(here, 'cache');
+      if (CACHE_DIR !== booth) this.warn(`TEST CACHE: copying ${CACHE_DIR} (WFG_CACHE_DIR) into dist/cache — this is NOT the booth cache planner/cache.`);
+      try {
+        const index = JSON.parse(readFileSync(join(CACHE_DIR, 'INDEX.json'), 'utf8')) as { api_mode?: string; purpose?: string; host?: { platform?: string; machine?: string } | null; path?: string }[];
+        for (const e of Array.isArray(index) ? index : []) {
+          const plat = String(e.host?.platform ?? '');
+          const evalHost = (plat.startsWith('macOS') || plat.includes('Darwin')) && e.host?.machine === 'arm64';
+          if (e.api_mode === 'mock' || e.purpose === 'test' || !evalHost) {
+            this.warn(`cache ${e.path ?? '?'} is ${e.api_mode === 'mock' ? 'MOCK' : 'test data (not the evaluation host)'} — it ships in dist/cache labelled as such, not as the booth cache.`);
+          }
+        }
+      } catch {
+        /* no or unreadable INDEX.json: nothing to check */
+      }
       cpSync(CACHE_DIR, join(outDir, 'cache'), {
         recursive: true,
         filter: (src) => !src.slice(CACHE_DIR.length).split(sep).some((part) => part.startsWith('.')),
@@ -99,7 +114,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), plannerCache(cacheDir)],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
-    build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1600, sourcemap: false },
+    build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },
     test: {
       dir: resolve(here, '../tests/planner'),
       include: ['**/*.test.ts'],
