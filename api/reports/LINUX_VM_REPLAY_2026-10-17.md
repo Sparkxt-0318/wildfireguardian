@@ -27,6 +27,18 @@ In this run 울진 FX1 was `unresolved/TIMEOUT` at 30.28 s. The same mission met
 budget edge. A diagnostic run of the same request outside the API, through `wfg_latest.api.route_and_check` with
 `budget_s=120`, took 38.6 s and returned `CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN` with arrival 3,119 s.
 
+### Golden re-run on the final code (commit bb2acd0, after review fixes, fresh reboot)
+
+| region | mission | recorded | API verdict | reason | arrival (rec/API) | legs (rec/API) | compute_s | recorded wall_s | match |
+|---|---|---|---|---|---|---|---:|---:|---|
+| uiseong_andong_2025 | 20250324T090000Z_FL2 | checked_route | checked_route |  | 2143 / 2143 | 472 / 472 | 20.23 | 7.15/6.86 | yes |
+| hongseong_2023 | 20230402T140000Z_FW2 | checked_route | checked_route |  | 1459 / 1459 | 217 / 217 | 28.18 | 12.61/12.37 | yes |
+| uljin_2022 | 20220304T030000Z_FX1 | checked_route | unresolved | TIMEOUT | 3119 / None | 512 / None | 30.12 | 14.53/14.59 | NO |
+
+identical: 2/3; median compute_s: 28.179262609999995; median recorded wall_s (M5 Pro, both reps): 12.492
+
+The outcome is the same: FL2 and FW2 are identical, and FX1 stays on the 30 s edge on this VM (30.12 s).
+
 ## Full final panel, 20 missions (`pytest tests/api -m panel`)
 
 | region | mission | recorded | API verdict | reason | arrival (rec/API) | legs (rec/API) | compute_s | recorded wall_s | match |
