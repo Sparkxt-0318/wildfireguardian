@@ -425,6 +425,8 @@ make api-smoke    # = bash scripts/api_smoke.sh (실행 중인 서버 필요)
 - **spread_zones**는 기록된 입력 시각에서만 동작하고 1시간 위험 지평만 다룹니다. 근사이므로 전문가 검토가 필요합니다.
 - **작업은 메모리에 있습니다.** 서버를 다시 시작하면 작업 목록이 사라집니다. 작업 폴더(`job.json`, 입력, 키트 시도 기록)는 런타임 디렉터리 `jobs/<id>/`에 남지만 API가 다시 불러오지는 않습니다. 실행 중에는 최근 2,000개를 넘는 완료 작업을 `job.json`에서 읽어 응답합니다. 대기열이 20,000개를 넘으면 503 `BUSY`입니다.
 - **정리 미확인 시 일시 정지.** 키트 시도의 프로세스 정리가 CLEAN으로 확인되지 않으면, 동결된 컨트롤러 규칙대로 새 실행을 멈추고 `/health`에 표시합니다(503 `LAUNCHES_PAUSED`). 남은 프로세스를 확인한 뒤 API를 다시 시작하십시오.
+- **강제 종료된 풀 작업자.** 풀 작업자 프로세스가 시도 도중 강제로 종료되면(예: OOM killer), 그 시도의 키트 작업자는 자기 세션에서 SIGTERM을 무시하며 실행되므로 스스로 끝날 때까지 남을 수 있습니다. 풀은 다시 만들어지고 `/health`의 `pool_restarts`가 늘어납니다. 해당 작업은 `failed`입니다.
+- **창으로 잘린 지역의 spread_zones.** 의성·안동 2025와 영덕 2025는 패킷이 공유 이벤트 격자의 창(window)만 담습니다. 창 밖에 걸친 구역 셀은 패킷에 넣을 수 없으며 `zone_cells_outside_region_window`로 개수만 보고합니다. 지평 안에서 아무 셀도 점화하지 않는 구역 입력은 받아들이고 결과의 notes에 그렇게 적습니다.
 - **호스트 속도와 고정된 30 s 예산:** 평가 호스트(macOS M5 Pro)보다 느린 컴퓨터에서는 무거운 임무가 `unresolved`/`TIMEOUT`이 될 수 있습니다. 예산은 늘리지 않습니다. 기본 작업자 수(물리 코어 − 2)를 넘겨 동시에 실행하면 측정 시간이 늘어날 수 있습니다.
 - **독립 점검은 선택 사항이고 오프라인에서 실행됩니다**(`run_independent_check`, 최대 120 s, full 정책만). 기본으로는 실행되지 않으며 `compute_s`에도 포함되지 않습니다.
 - **인증이 없고 로컬 전용입니다.** 외부에 노출하지 마십시오. `/openapi.json`은 정적 계약을 제공하므로 Swagger UI의 "Try it out" 서버 주소는 항상 `http://127.0.0.1:8765/v1`입니다.
@@ -899,6 +901,8 @@ SMOKE OK: both jobs finished
 - **spread_zones** works only at a recorded input time and covers only the 1 h hazard horizon. It is an approximation that requires expert review.
 - **Jobs live in memory.** A restart loses the job list. Job folders (`job.json`, inputs and the kit attempt records) stay under `jobs/<id>/` in the runtime directory, but the API does not reload them. While the server runs, finished jobs beyond the most recent 2,000 are served from their `job.json`. More than 20,000 queued checks returns 503 `BUSY`.
 - **Paused launches after an unconfirmed cleanup.** If a kit attempt's process cleanup is not confirmed CLEAN, new launches pause as the frozen controller requires. `/health` reports this and new requests get 503 `LAUNCHES_PAUSED`. Check for leftover processes, then restart the API.
+- **Hard-killed pool workers.** If a pool worker process is killed mid-attempt (for example by the OOM killer), that attempt's kit worker runs in its own session and ignores SIGTERM, so it can linger until it exits on its own. The pool is rebuilt, `/health` increments `pool_restarts`, and the job is `failed`.
+- **spread_zones in windowed regions.** For Uiseong-Andong 2025 and Yeongdeok 2025 the packet holds only a window of the shared event grid. Zone cells outside that window cannot be placed in the packet and are only counted in `zone_cells_outside_region_window`. A zones input that ignites no cell within the horizon is accepted, and the result says so in its notes.
 - **Host speed and the fixed 30 s budget:** on hosts slower than the evaluated macOS M5 Pro, heavy missions can become `unresolved`/`TIMEOUT`. The budget is never raised. Running more concurrent checks than the default worker count (physical cores − 2) can also inflate the measured times.
 - **The independent check is optional and runs offline** (`run_independent_check`, up to 120 s, full policy only). It does not run by default and is not part of `compute_s`.
 - **There is no authentication, and the API is local only.** Do not expose it. Because `/openapi.json` serves the static contract, Swagger UI's "Try it out" always targets `http://127.0.0.1:8765/v1`.
