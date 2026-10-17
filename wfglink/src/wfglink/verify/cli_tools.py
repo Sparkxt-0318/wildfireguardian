@@ -198,6 +198,22 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_select(args: argparse.Namespace) -> int:
+    from wfglink.verify.calibrate import write_reviewed_selection
+    from wfglink.verify.evaluate import ProtocolError
+    from wfglink.verify.freeze import read_sha256
+
+    try:
+        rec = write_reviewed_selection(args.calibration, args.review, _hp_cfg(args), args.protocol,
+                                       read_sha256(args.sha256), write_overlay=args.write_config,
+                                       overlay=args.overlay, command_line=_cmdline())
+    except (ProtocolError, ValueError, FileNotFoundError, KeyError) as exc:
+        raise SystemExit(f"verify select: {exc}") from None
+    print(json.dumps({k: rec.get(k) for k in ("status", "branch", "target_missed", "recall_basis", "selected",
+                                                "overlay_sha256")}, indent=2, default=str))
+    return 0
+
+
 def cmd_replay(args: argparse.Namespace) -> int:
     from wfglink.verify.config import VerifyConfig
     from wfglink.verify.replay import ReplayError, load_dump, replay, write_replay
@@ -399,6 +415,18 @@ def add_parser(sub) -> argparse.ArgumentParser:
     q.add_argument("--overlay", default=None, help="the overlay to pin (default configs/high_precision.yaml)")
     q.add_argument("--config", nargs="*")
     q.set_defaults(func=cmd_calibrate)
+
+    q = vs.add_parser("select", help="protocol amendment 2: select on the blind accepted-track review of a "
+                                     "calibration; --write-config pins the overlay")
+    q.add_argument("--calibration", required=True, help="the verify calibrate output folder")
+    q.add_argument("--review", required=True, help="review_points.json of scripts/precision_review.py score")
+    q.add_argument("--protocol", required=True, help="the frozen, committed protocol")
+    q.add_argument("--sha256", required=True, help="the protocol's pinned SHA-256 (hex or protocol.sha256)")
+    q.add_argument("--write-config", action="store_true", help="pin the selection into the overlay and write "
+                                                               "selection.json")
+    q.add_argument("--overlay", default=None, help="the overlay to pin (default configs/high_precision.yaml)")
+    q.add_argument("--config", nargs="*")
+    q.set_defaults(func=cmd_select)
 
     q = vs.add_parser("replay", help="rebuild a method's decisions and crossings offline from a verify dump")
     q.add_argument("run", help="dump run folder")

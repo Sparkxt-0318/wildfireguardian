@@ -1,0 +1,398 @@
+{
+ "schema_version": 1,
+ "question": "Why does the f9e72c2 C5 baseline score FP 168 on the booth Mac (sealed record) and FP 156 on this Linux host?",
+ "scores": {
+  "mac_sealed": {
+   "tp": 24,
+   "fp": 168,
+   "fn": 20,
+   "source": "results/validation/continuation_20261015/c5_multiscale_labels.json (Darwin arm64, 2026-10-15); kept unchanged as the original record"
+  },
+  "linux_reproduction": {
+   "tp": 24,
+   "fp": 156,
+   "fn": 20,
+   "source": "export of f9e72c2, this host (Linux x86_64), 2026-10-17"
+  },
+  "linux_opencv_unoptimized": {
+   "tp": 24,
+   "fp": 156,
+   "fn": 20,
+   "source": "the same export with cv2.setUseOptimized(False) set in a probe sitecustomize (no code change)"
+  }
+ },
+ "same_inputs": {
+  "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+  "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+  "tile_set_id": "13ead63b1cbec569",
+  "match_px": 3.0,
+  "min_confidence": 0.75,
+  "linux_matches": true,
+  "pinned_versions": "av 19.0.1, numpy 2.5.4, opencv-contrib-python-headless 4.14.0.94 on both platforms (requirements.txt; source_environment_20261015.txt); the wheels are separate arm64 and x86_64 builds"
+ },
+ "findings": [
+  "TP and FN are identical on every one of the 40 scored tiles (TP 24, FN 20): every agent-labelled ember is found, or missed, the same way on both platforms.",
+  "Only unlabelled detections differ: 22 of 40 tiles, in both directions (Mac minus Linux per tile from -4 to 5); net Mac +12 false positives, +12 detections inside the scored tiles.",
+  "Both platforms are deterministic on their own (plausibility determinism: identical tables on two reruns). From a cold start on the same 61 frames (0.67 to 2.67 s) the Mac made 17196 detections and Linux 17166 (-0.17 percent): the detectors differ frame by frame from the first frames, not only through state accumulated over the clip.",
+  "The estimated exposure differs by -0.041 percent (Mac 0.0325574 s, Linux 0.0325441 s), a downstream consequence of different detections.",
+  "Forcing OpenCV's unoptimized code paths on Linux changes nothing (FP 156, identical detections on all 40 tiles), so OpenCV's optimized dispatch on this host is not the source."
+ ],
+ "explanation": "Platform numerics of the per-frame image path: identical code, configuration, input and labels give slightly different detections near the detection threshold on arm64 (Mac) and x86_64 (Linux) builds of the same pinned libraries. The remaining candidates are the platform builds of the decoder and pixel-format conversion (PyAV and its bundled FFmpeg) and floating-point reduction order in numpy and OpenCV kernels that setUseOptimized does not switch; separating them needs the Mac's intermediate outputs (decoded frames or detections), which are not available here. Not resolved further.",
+ "consequence": "The C5 frame-level false-positive count has a cross-platform spread of at least 12 of 168 (7 percent) at identical TP and FN. Every comparison in this run is made on one platform (Linux) between methods applied to the same detections, so the spread does not enter the comparisons; gains on C5 below that spread are not claimed as platform independent. The Mac score stays the original record; the Linux score is reported beside it and is never written over it.",
+ "tiles_that_differ": [
+  {
+   "tile_id": "t001",
+   "frame": 411,
+   "mac": {
+    "detections": 4,
+    "tp": 0,
+    "fp": 4,
+    "fn": 2
+   },
+   "linux": {
+    "detections": 5,
+    "tp": 0,
+    "fp": 5,
+    "fn": 2
+   }
+  },
+  {
+   "tile_id": "t002",
+   "frame": 451,
+   "mac": {
+    "detections": 5,
+    "tp": 0,
+    "fp": 5,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 7,
+    "tp": 0,
+    "fp": 7,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t006",
+   "frame": 323,
+   "mac": {
+    "detections": 1,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 2,
+    "tp": 0,
+    "fp": 2,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t008",
+   "frame": 440,
+   "mac": {
+    "detections": 18,
+    "tp": 4,
+    "fp": 11,
+    "fn": 2
+   },
+   "linux": {
+    "detections": 19,
+    "tp": 4,
+    "fp": 12,
+    "fn": 2
+   }
+  },
+  {
+   "tile_id": "t011",
+   "frame": 181,
+   "mac": {
+    "detections": 18,
+    "tp": 0,
+    "fp": 17,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 13,
+    "tp": 0,
+    "fp": 12,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t012",
+   "frame": 540,
+   "mac": {
+    "detections": 5,
+    "tp": 0,
+    "fp": 5,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 6,
+    "tp": 0,
+    "fp": 6,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t013",
+   "frame": 540,
+   "mac": {
+    "detections": 4,
+    "tp": 0,
+    "fp": 4,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 3,
+    "tp": 0,
+    "fp": 3,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t016",
+   "frame": 506,
+   "mac": {
+    "detections": 11,
+    "tp": 3,
+    "fp": 7,
+    "fn": 3
+   },
+   "linux": {
+    "detections": 6,
+    "tp": 3,
+    "fp": 2,
+    "fn": 3
+   }
+  },
+  {
+   "tile_id": "t017",
+   "frame": 506,
+   "mac": {
+    "detections": 4,
+    "tp": 0,
+    "fp": 4,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 5,
+    "tp": 0,
+    "fp": 5,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t018",
+   "frame": 235,
+   "mac": {
+    "detections": 6,
+    "tp": 0,
+    "fp": 6,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 10,
+    "tp": 0,
+    "fp": 10,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t019",
+   "frame": 235,
+   "mac": {
+    "detections": 10,
+    "tp": 0,
+    "fp": 10,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 8,
+    "tp": 0,
+    "fp": 8,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t020",
+   "frame": 384,
+   "mac": {
+    "detections": 3,
+    "tp": 0,
+    "fp": 3,
+    "fn": 1
+   },
+   "linux": {
+    "detections": 2,
+    "tp": 0,
+    "fp": 2,
+    "fn": 1
+   }
+  },
+  {
+   "tile_id": "t021",
+   "frame": 384,
+   "mac": {
+    "detections": 0,
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 1,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t022",
+   "frame": 161,
+   "mac": {
+    "detections": 3,
+    "tp": 1,
+    "fp": 2,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 1,
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t025",
+   "frame": 525,
+   "mac": {
+    "detections": 4,
+    "tp": 0,
+    "fp": 4,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 2,
+    "tp": 0,
+    "fp": 2,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t026",
+   "frame": 28,
+   "mac": {
+    "detections": 9,
+    "tp": 0,
+    "fp": 9,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 5,
+    "tp": 0,
+    "fp": 5,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t028",
+   "frame": 463,
+   "mac": {
+    "detections": 2,
+    "tp": 0,
+    "fp": 2,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 3,
+    "tp": 0,
+    "fp": 3,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t029",
+   "frame": 463,
+   "mac": {
+    "detections": 10,
+    "tp": 0,
+    "fp": 10,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 11,
+    "tp": 0,
+    "fp": 11,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t030",
+   "frame": 313,
+   "mac": {
+    "detections": 6,
+    "tp": 0,
+    "fp": 6,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 3,
+    "tp": 0,
+    "fp": 3,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t037",
+   "frame": 422,
+   "mac": {
+    "detections": 13,
+    "tp": 9,
+    "fp": 4,
+    "fn": 3
+   },
+   "linux": {
+    "detections": 12,
+    "tp": 9,
+    "fp": 3,
+    "fn": 3
+   }
+  },
+  {
+   "tile_id": "t038",
+   "frame": 170,
+   "mac": {
+    "detections": 1,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 2,
+    "tp": 0,
+    "fp": 2,
+    "fn": 0
+   }
+  },
+  {
+   "tile_id": "t039",
+   "frame": 170,
+   "mac": {
+    "detections": 1,
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+   },
+   "linux": {
+    "detections": 0,
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T14:08:52+08:00",
+  "profile": "file_native",
+  "labels_note": "agent labels unless the review says otherwise: PROVISIONAL, development only",
+  "dump_run": "results/runs/precision_20261017/runs/C5_dump",
+  "online_method": "accept_all",
+  "sources": {
+    "dump": {
+      "summary.json": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/summary.json",
+        "sha256": "c89b7cb88ea50d60f45b24d8dc10fa189977aa967c961e23ae9ecaac4d1f1ebb"
+      },
+      "detections.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/detections.parquet",
+        "sha256": "25f6118aa3238dbf16164c663dbd3993c038fe92c679e101cd7139250edf8b45"
+      },
+      "track_points.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/track_points.parquet",
+        "sha256": "20d49bda83c8136a3ddf86df31d2099fb96427eab7b72b1720b6a9f5eb2d1dbc"
+      },
+      "frames.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/frames.parquet",
+        "sha256": "5880f2191a7199418c48872eb4c2d78a870453abffd4c434a855d49141523337"
+      },
+      "hp_summary.json": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/high_precision/hp_summary.json",
+        "sha256": "31d0ba6d9e426948943467d19030d7c759187ac8eff7807ad93df0c802b3b3d2"
+      },
+      "hp_hits.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/high_precision/hp_hits.parquet",
+        "sha256": "12df915343179e9e84ef5a4567d013492b5289ee88b1342cf0711d0def00be90"
+      },
+      "hp_patches.npz": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/high_precision/hp_patches.npz",
+        "sha256": "6bc561f665ea20baeaefcb9c4e98aa7085576ad16b664aed65107510869f8272"
+      },
+      "hp_decisions.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/high_precision/hp_decisions.parquet",
+        "sha256": "e27a625101d2a6a6b78a0ab631e7ff6d5ee25e8761a6093e275762450930cbde"
+      },
+      "hp_frames.parquet": {
+        "path": "results/runs/precision_20261017/runs/C5_dump/high_precision/hp_frames.parquet",
+        "sha256": "8561d7b78d1ab4fcd470dc23199fc80c4283b804a21027b1c7400738fac0b07d"
+      }
+    },
+    "labels": [
+      {
+        "path": "results/validation/precision_20261017/labels/c5_track_review_round1.csv",
+        "sha256": "2173de7c4ae13e02a97988044cbf3d1eaa5bb77fd8340dfe59989606a76d943b"
+      },
+      {
+        "path": "results/validation/precision_20261017/labels/c5_track_review_round2.csv",
+        "sha256": "26be15f9f7ae7530bbdb5cbc385e05c65d4245ab4ea60d6364a609e2da351846"
+      },
+      {
+        "path": "results/validation/precision_20261017/labels/c5_reserve_tile_positives.csv",
+        "sha256": "bb51a59407ef364c49971e40dd155272266bc1242f1a7a6598c048f56d8e45b8"
+      },
+      {
+        "path": "results/validation/precision_20261017/audit/c5_error_inventory.csv",
+        "sha256": "6407e77612902f661d0f060c668101763b5a769544af509ab1ccdd27703a110b"
+      }
+    ]
+  },
+  "config_sha256": "9384b37cc37898438b1849f30af9e99b82e7912187577584c88d9a8c110270d5",
+  "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+  "feature_settings": {
+    "ring_frames": 4,
+    "max_dets_per_frame": {
+      "file_native": 4096,
+      "live_downscaled": 1024
+    },
+    "motion": {
+      "thumb_width": 160,
+      "max_shift_px": 1.5,
+      "consecutive": 2,
+      "max_residual_frac": 0.25,
+      "hold_s": 1.0
+    },
+    "hotspot": {
+      "cell_px": 16,
+      "half_life_s": 10.0
+    },
+    "patch": {
+      "target_px": 17,
+      "context_px": 51
+    }
+  },
+  "feature_settings_sha256": "edf2b1ebfe3eca9288555ff8d77ad307374139d12acba3525849d9c66d415329",
+  "settings": {
+    "block_s": 4.0,
+    "cell_px": 16,
+    "max_neg_per_cell": 20,
+    "max_hits_per_track": 8,
+    "min_hits": 4,
+    "window_hits": 6,
+    "dedupe_cos": 0.995,
+    "patch_px": 17,
+    "ood": {
+      "z_max": 6.0,
+      "max_out": 2
+    },
+    "exclude_tiles": "results/labels/C5",
+    "exclude_px": 16.0,
+    "exclude_s": 1.0,
+    "label_pos_px": 2.0,
+    "label_mismatch_max": 0.05
+  },
+  "categories": {
+    "ember": 1,
+    "fixture_light": 0,
+    "reflection": 0,
+    "flame_glare_edge": 0,
+    "moving_non_ember": 0,
+    "codec_artifact": 0,
+    "overlay_text": 0,
+    "faint_possible_ember": null,
+    "unclear": null,
+    "duplicate_fragment": null,
+    "detected_but_displaced": null,
+    "localization_offset": null,
+    "label_doubtful": null,
+    "missed_merged_or_crowded": null,
+    "missed_large_or_saturated": null
+  },
+  "label_positions": {
+    "rows_checked": 99,
+    "rows_mismatched": 0,
+    "tracks_left_out": 0
+  },
+  "missing_patches": {
+    "buffer_hits_without_dumped_patch": 0,
+    "tracks_left_out": 0
+  },
+  "counts": {
+    "labelled_tracks": 707,
+    "labels_by_category": {
+      "codec_artifact": 260,
+      "duplicate_fragment": 5,
+      "ember": 181,
+      "faint_possible_ember": 23,
+      "fixture_light": 23,
+      "flame_glare_edge": 2,
+      "localization_offset": 2,
+      "moving_non_ember": 61,
+      "reflection": 150
+    },
+    "labels_by_class_and_confidence": {
+      "0": {
+        "sure": 114,
+        "unsure": 382
+      },
+      "1": {
+        "sure": 122,
+        "unsure": 59
+      }
+    },
+    "track_samples": 510,
+    "track_samples_by_class_and_confidence": {
+      "0": {
+        "sure": 76,
+        "unsure": 320
+      },
+      "1": {
+        "sure": 75,
+        "unsure": 39
+      }
+    },
+    "after_cap_by_class_and_confidence": {
+      "0": {
+        "sure": 76,
+        "unsure": 320
+      },
+      "1": {
+        "sure": 75,
+        "unsure": 39
+      }
+    },
+    "track_samples_by_class": {
+      "0": 396,
+      "1": 114
+    },
+    "track_samples_by_category": {
+      "codec_artifact": 193,
+      "ember": 114,
+      "fixture_light": 20,
+      "flame_glare_edge": 2,
+      "moving_non_ember": 56,
+      "reflection": 125
+    },
+    "after_cap_by_class": {
+      "1": 114,
+      "0": 396
+    },
+    "groups": {
+      "0": 132,
+      "1": 107,
+      "2": 87,
+      "3": 109,
+      "4": 75
+    },
+    "negative_cells": 370,
+    "negative_cells_after_cap": 370,
+    "max_negatives_in_a_cell": 2,
+    "hit_rows": 3232,
+    "hit_samples": 3027,
+    "window_hits": 2040,
+    "hit_samples_by_class": {
+      "0": 2331,
+      "1": 696
+    }
+  },
+  "exclusions": {
+    "ambiguous:duplicate_fragment": 5,
+    "ambiguous:faint_possible_ember": 23,
+    "ambiguous:localization_offset": 2,
+    "near_scored_tiles": 167
+  },
+  "conflicts": [],
+  "floor": {
+    "adequate": true,
+    "reason": "",
+    "positive_tracks": 114,
+    "negative_tracks": 396,
+    "negative_cells": 370,
+    "rule": ">= 100 positive and >= 200 negative tracks (after the per-cell cap) and >= 30 distinct negative cells"
+  },
+  "outputs": {
+    "tracks": "tracks.parquet",
+    "hits": "hits.parquet",
+    "patches": "patches.npy",
+    "exclusions": "exclusions.csv"
+  },
+  "files_sha256": {
+    "tracks.parquet": "cac887d165bc105d3059118ec15623e386411dd48381151f0303e915919a4989",
+    "hits.parquet": "73c90c9f944c1954a6433f792e713aed249448d453273403063557d4438bc31f",
+    "patches.npy": "78b3a3dac7efd16e95d56b6e7dcdc8c6bfe3356bf6dc96c4c8725aaa97a335e2"
+  },
+  "command_line": "python -m wfglink verify dataset results/runs/precision_20261017/runs/C5_dump --labels results/validation/precision_20261017/labels/c5_track_review_round1.csv results/validation/precision_20261017/labels/c5_track_review_round2.csv results/validation/precision_20261017/labels/c5_reserve_tile_positives.csv results/validation/precision_20261017/audit/c5_error_inventory.csv --exclude-tiles results/labels/C5 --out results/runs/precision_20261017/dataset_c5 --profile file_native",
+  "notes": [
+    "the run does not record its feature settings hash: that the config's verify ring_frames, max_dets_per_frame, motion, hotspot and patch are the run's was not checked"
+  ],
+  "git_commit": "ae3b63896024a569da0a21cd7dfa0929c662c35f",
+  "git_dirty": false
+}

@@ -1,0 +1,1113 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T14:08:55+08:00",
+  "label": "development estimate on agent labels (cross-validated on the development recording): PROVISIONAL",
+  "dataset": "results/runs/precision_20261017/dataset_c5",
+  "training_data_sha256": {
+    "dataset_json": "ced4d8ed69847fb857844fc9ffe948641887e908c049a161d39094cb72f1c7bb",
+    "tracks.parquet": "cac887d165bc105d3059118ec15623e386411dd48381151f0303e915919a4989",
+    "hits.parquet": "73c90c9f944c1954a6433f792e713aed249448d453273403063557d4438bc31f",
+    "patches.npy": "78b3a3dac7efd16e95d56b6e7dcdc8c6bfe3356bf6dc96c4c8725aaa97a335e2"
+  },
+  "profile": "file_native",
+  "command_line": "python -m wfglink verify train results/runs/precision_20261017/dataset_c5 --report results/runs/precision_20261017/train/train_report.json --models /home/user/wildfireguardian/wfglink/data/models/verify --families temporal patch --seeds 0 1",
+  "git_commit": "ae3b63896024a569da0a21cd7dfa0929c662c35f",
+  "git_dirty": false,
+  "status": "OK",
+  "floor": {
+    "adequate": true,
+    "reason": "",
+    "positive_tracks": 114,
+    "negative_tracks": 396,
+    "negative_cells": 370,
+    "rule": ">= 100 positive and >= 200 negative tracks (after the per-cell cap) and >= 30 distinct negative cells"
+  },
+  "settings": {
+    "temporal": {
+      "l2": 1.0,
+      "max_iter": 500,
+      "pca_k": 4,
+      "inputs": [
+        "n_hits",
+        "hit_ratio",
+        "age_s",
+        "speed_med",
+        "speed_cv",
+        "net_disp",
+        "straightness",
+        "accel_rms",
+        "turn_med_deg",
+        "align_frac",
+        "n_streak",
+        "snr_med",
+        "snr_min",
+        "peak_cv",
+        "bg_luma_med",
+        "bg_grad_med",
+        "large_near_max",
+        "codec_med",
+        "density_med",
+        "hotspot_max",
+        "pre_presence_med",
+        "ctx_change_med",
+        "sat_med",
+        "color_med",
+        "scale_max",
+        "patch_pc0_mean",
+        "patch_pc0_sd",
+        "patch_pc1_mean",
+        "patch_pc1_sd",
+        "patch_pc2_mean",
+        "patch_pc2_sd",
+        "patch_pc3_mean",
+        "patch_pc3_sd"
+      ]
+    },
+    "patch": {
+      "hidden": 32,
+      "lr": 0.001,
+      "epochs": 80,
+      "batch_size": 256,
+      "l2": 0.0001,
+      "hard_neg_frac": 0.5,
+      "hard_neg_epoch": 5,
+      "pca_k": 48,
+      "hit_features": [
+        "snr",
+        "log_flux",
+        "area",
+        "width",
+        "length",
+        "sat_frac",
+        "color",
+        "color_nan",
+        "scale",
+        "bg_luma",
+        "bg_grad",
+        "large_near",
+        "codec",
+        "density"
+      ],
+      "patience": 10,
+      "max_seconds": 600.0,
+      "brightness": [
+        0.8,
+        1.25
+      ],
+      "augmentation": "8 dihedral transforms"
+    },
+    "folds": 5,
+    "fold_rule": "rank of the block group among the sorted group ids mod 5",
+    "thresholds": [
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.98,
+      0.99
+    ],
+    "envelope_names": [
+      "snr_med",
+      "speed_med",
+      "bg_luma_med",
+      "bg_grad_med",
+      "codec_med",
+      "density_med",
+      "ctx_change_med",
+      "pre_presence_med",
+      "large_near_max"
+    ],
+    "ood": {
+      "z_max": 6.0,
+      "max_out": 2,
+      "source": "dataset"
+    }
+  },
+  "caveats": [
+    "The folds are 4 s time blocks only: a negative at a fixed place (one cell, for example a fixture light or a foil reflection) can be in the training and the test folds, so the cross-validated precision is optimistic for location-bound false positives (test_negatives_sharing_a_training_cell counts them).",
+    "One development recording with agent labels: not an estimate for other cameras, scenes or annotators.",
+    "Each track is scored at its first scored window only; at run time a window outside the envelope is retried at the next checkpoint, here it is not accepted (by_threshold, auc_runtime). auc uses the raw scores of every track."
+  ],
+  "models": {
+    "temporal_seed0": {
+      "family": "temporal",
+      "seed": 0,
+      "tracks": 510,
+      "cv": {
+        "auc": 0.8695729222045011,
+        "auc_runtime": 0.8676014531277689,
+        "tracks": 510,
+        "positives": 114,
+        "negatives": 396,
+        "scored": 510,
+        "ood_tracks": 5,
+        "test_negatives": 396,
+        "test_negatives_sharing_a_training_cell": 38,
+        "folds": [
+          {
+            "fold": 0,
+            "groups": [
+              0
+            ],
+            "test_tracks": 132,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 1,
+            "test_negatives_sharing_a_training_cell": 9
+          },
+          {
+            "fold": 1,
+            "groups": [
+              1
+            ],
+            "test_tracks": 107,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 2,
+            "groups": [
+              2
+            ],
+            "test_tracks": 87,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 5
+          },
+          {
+            "fold": 3,
+            "groups": [
+              3
+            ],
+            "test_tracks": 109,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 4,
+            "groups": [
+              4
+            ],
+            "test_tracks": 75,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 4
+          }
+        ],
+        "by_threshold": [
+          {
+            "threshold": 0.5,
+            "accepted": 89,
+            "tp": 64,
+            "fp": 25,
+            "fn": 50,
+            "precision": 0.7191011235955056,
+            "recall": 0.5614035087719298
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 75,
+            "tp": 56,
+            "fp": 19,
+            "fn": 58,
+            "precision": 0.7466666666666667,
+            "recall": 0.49122807017543857
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 61,
+            "tp": 47,
+            "fp": 14,
+            "fn": 67,
+            "precision": 0.7704918032786885,
+            "recall": 0.41228070175438597
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 46,
+            "tp": 34,
+            "fp": 12,
+            "fn": 80,
+            "precision": 0.7391304347826086,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 24,
+            "tp": 18,
+            "fp": 6,
+            "fn": 96,
+            "precision": 0.75,
+            "recall": 0.15789473684210525
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 10,
+            "tp": 8,
+            "fp": 2,
+            "fn": 106,
+            "precision": 0.8,
+            "recall": 0.07017543859649122
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 111,
+            "precision": 0.75,
+            "recall": 0.02631578947368421
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 113,
+            "precision": 0.5,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "by_threshold_without_ood": [
+          {
+            "threshold": 0.5,
+            "accepted": 90,
+            "tp": 64,
+            "fp": 26,
+            "fn": 50,
+            "precision": 0.7111111111111111,
+            "recall": 0.5614035087719298
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 76,
+            "tp": 56,
+            "fp": 20,
+            "fn": 58,
+            "precision": 0.7368421052631579,
+            "recall": 0.49122807017543857
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 62,
+            "tp": 47,
+            "fp": 15,
+            "fn": 67,
+            "precision": 0.7580645161290323,
+            "recall": 0.41228070175438597
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 47,
+            "tp": 34,
+            "fp": 13,
+            "fn": 80,
+            "precision": 0.723404255319149,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 25,
+            "tp": 18,
+            "fp": 7,
+            "fn": 96,
+            "precision": 0.72,
+            "recall": 0.15789473684210525
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 11,
+            "tp": 8,
+            "fp": 3,
+            "fn": 106,
+            "precision": 0.7272727272727273,
+            "recall": 0.07017543859649122
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 111,
+            "precision": 0.75,
+            "recall": 0.02631578947368421
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 113,
+            "precision": 0.5,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "ood": {
+          "z_max": 6.0,
+          "max_out": 2,
+          "source": "dataset"
+        }
+      },
+      "final": {
+        "path": "/home/user/wildfireguardian/wfglink/data/models/verify/file_native/temporal_seed0.npz",
+        "sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+        "sidecar_sha256": "ed33241b133b3c525c33f4c838df698f640b9ff9263451a28e46a58f93778f11",
+        "wall_s": 8.19
+      }
+    },
+    "temporal_seed1": {
+      "family": "temporal",
+      "seed": 1,
+      "tracks": 510,
+      "cv": {
+        "auc": 0.8695729222045011,
+        "auc_runtime": 0.8676014531277689,
+        "tracks": 510,
+        "positives": 114,
+        "negatives": 396,
+        "scored": 510,
+        "ood_tracks": 5,
+        "test_negatives": 396,
+        "test_negatives_sharing_a_training_cell": 38,
+        "folds": [
+          {
+            "fold": 0,
+            "groups": [
+              0
+            ],
+            "test_tracks": 132,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 1,
+            "test_negatives_sharing_a_training_cell": 9
+          },
+          {
+            "fold": 1,
+            "groups": [
+              1
+            ],
+            "test_tracks": 107,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 2,
+            "groups": [
+              2
+            ],
+            "test_tracks": 87,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 5
+          },
+          {
+            "fold": 3,
+            "groups": [
+              3
+            ],
+            "test_tracks": 109,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 4,
+            "groups": [
+              4
+            ],
+            "test_tracks": 75,
+            "fitted": true,
+            "stopped": null,
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 4
+          }
+        ],
+        "by_threshold": [
+          {
+            "threshold": 0.5,
+            "accepted": 89,
+            "tp": 64,
+            "fp": 25,
+            "fn": 50,
+            "precision": 0.7191011235955056,
+            "recall": 0.5614035087719298
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 75,
+            "tp": 56,
+            "fp": 19,
+            "fn": 58,
+            "precision": 0.7466666666666667,
+            "recall": 0.49122807017543857
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 61,
+            "tp": 47,
+            "fp": 14,
+            "fn": 67,
+            "precision": 0.7704918032786885,
+            "recall": 0.41228070175438597
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 46,
+            "tp": 34,
+            "fp": 12,
+            "fn": 80,
+            "precision": 0.7391304347826086,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 24,
+            "tp": 18,
+            "fp": 6,
+            "fn": 96,
+            "precision": 0.75,
+            "recall": 0.15789473684210525
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 10,
+            "tp": 8,
+            "fp": 2,
+            "fn": 106,
+            "precision": 0.8,
+            "recall": 0.07017543859649122
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 111,
+            "precision": 0.75,
+            "recall": 0.02631578947368421
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 113,
+            "precision": 0.5,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "by_threshold_without_ood": [
+          {
+            "threshold": 0.5,
+            "accepted": 90,
+            "tp": 64,
+            "fp": 26,
+            "fn": 50,
+            "precision": 0.7111111111111111,
+            "recall": 0.5614035087719298
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 76,
+            "tp": 56,
+            "fp": 20,
+            "fn": 58,
+            "precision": 0.7368421052631579,
+            "recall": 0.49122807017543857
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 62,
+            "tp": 47,
+            "fp": 15,
+            "fn": 67,
+            "precision": 0.7580645161290323,
+            "recall": 0.41228070175438597
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 47,
+            "tp": 34,
+            "fp": 13,
+            "fn": 80,
+            "precision": 0.723404255319149,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 25,
+            "tp": 18,
+            "fp": 7,
+            "fn": 96,
+            "precision": 0.72,
+            "recall": 0.15789473684210525
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 11,
+            "tp": 8,
+            "fp": 3,
+            "fn": 106,
+            "precision": 0.7272727272727273,
+            "recall": 0.07017543859649122
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 111,
+            "precision": 0.75,
+            "recall": 0.02631578947368421
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 113,
+            "precision": 0.5,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "ood": {
+          "z_max": 6.0,
+          "max_out": 2,
+          "source": "dataset"
+        }
+      },
+      "final": {
+        "path": "/home/user/wildfireguardian/wfglink/data/models/verify/file_native/temporal_seed1.npz",
+        "sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+        "sidecar_sha256": "e6811bd5c0113465ff02032a83708b3e366afac0452a327e98cb2e55e2b50084",
+        "wall_s": 4.24
+      },
+      "same_as": "temporal_seed0"
+    },
+    "patch_seed0": {
+      "family": "patch",
+      "seed": 0,
+      "tracks": 510,
+      "cv": {
+        "auc": 0.8877148679780259,
+        "auc_runtime": 0.8861421229842282,
+        "tracks": 510,
+        "positives": 114,
+        "negatives": 396,
+        "scored": 510,
+        "ood_tracks": 5,
+        "test_negatives": 396,
+        "test_negatives_sharing_a_training_cell": 38,
+        "folds": [
+          {
+            "fold": 0,
+            "groups": [
+              0
+            ],
+            "test_tracks": 132,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 1,
+            "test_negatives_sharing_a_training_cell": 9
+          },
+          {
+            "fold": 1,
+            "groups": [
+              1
+            ],
+            "test_tracks": 107,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 2,
+            "groups": [
+              2
+            ],
+            "test_tracks": 87,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 5
+          },
+          {
+            "fold": 3,
+            "groups": [
+              3
+            ],
+            "test_tracks": 109,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 4,
+            "groups": [
+              4
+            ],
+            "test_tracks": 75,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 4
+          }
+        ],
+        "by_threshold": [
+          {
+            "threshold": 0.5,
+            "accepted": 152,
+            "tp": 93,
+            "fp": 59,
+            "fn": 21,
+            "precision": 0.6118421052631579,
+            "recall": 0.8157894736842105
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 133,
+            "tp": 88,
+            "fp": 45,
+            "fn": 26,
+            "precision": 0.6616541353383458,
+            "recall": 0.7719298245614035
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 113,
+            "tp": 74,
+            "fp": 39,
+            "fn": 40,
+            "precision": 0.6548672566371682,
+            "recall": 0.6491228070175439
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 90,
+            "tp": 63,
+            "fp": 27,
+            "fn": 51,
+            "precision": 0.7,
+            "recall": 0.5526315789473685
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 45,
+            "tp": 36,
+            "fp": 9,
+            "fn": 78,
+            "precision": 0.8,
+            "recall": 0.3157894736842105
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 15,
+            "tp": 14,
+            "fp": 1,
+            "fn": 100,
+            "precision": 0.9333333333333333,
+            "recall": 0.12280701754385964
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 4,
+            "fp": 0,
+            "fn": 110,
+            "precision": 1.0,
+            "recall": 0.03508771929824561
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 114,
+            "precision": null,
+            "recall": 0.0
+          }
+        ],
+        "by_threshold_without_ood": [
+          {
+            "threshold": 0.5,
+            "accepted": 154,
+            "tp": 93,
+            "fp": 61,
+            "fn": 21,
+            "precision": 0.6038961038961039,
+            "recall": 0.8157894736842105
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 134,
+            "tp": 88,
+            "fp": 46,
+            "fn": 26,
+            "precision": 0.6567164179104478,
+            "recall": 0.7719298245614035
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 114,
+            "tp": 74,
+            "fp": 40,
+            "fn": 40,
+            "precision": 0.6491228070175439,
+            "recall": 0.6491228070175439
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 91,
+            "tp": 63,
+            "fp": 28,
+            "fn": 51,
+            "precision": 0.6923076923076923,
+            "recall": 0.5526315789473685
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 46,
+            "tp": 36,
+            "fp": 10,
+            "fn": 78,
+            "precision": 0.782608695652174,
+            "recall": 0.3157894736842105
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 16,
+            "tp": 14,
+            "fp": 2,
+            "fn": 100,
+            "precision": 0.875,
+            "recall": 0.12280701754385964
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 4,
+            "tp": 4,
+            "fp": 0,
+            "fn": 110,
+            "precision": 1.0,
+            "recall": 0.03508771929824561
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 114,
+            "precision": null,
+            "recall": 0.0
+          }
+        ],
+        "ood": {
+          "z_max": 6.0,
+          "max_out": 2,
+          "source": "dataset"
+        }
+      },
+      "final": {
+        "path": "/home/user/wildfireguardian/wfglink/data/models/verify/file_native/patch_seed0.npz",
+        "sha256": "e1c0ca36695830fd930f2dc51a3849309213635ba69a9e49736c4ec18bd9dc88",
+        "sidecar_sha256": "2e3901b97f7de0cbddc36b687b1221811615b24b30c42e30e147885247b3d478",
+        "wall_s": 2.97,
+        "epochs_run": 30,
+        "best_epoch": 20,
+        "stopped": "early_stopping",
+        "fit_hits": 2233,
+        "augmented_rows": 17864,
+        "holdout_groups": [
+          0
+        ],
+        "holdout_hits": 794,
+        "early_stopping": true
+      }
+    },
+    "patch_seed1": {
+      "family": "patch",
+      "seed": 1,
+      "tracks": 510,
+      "cv": {
+        "auc": 0.8867402091086302,
+        "auc_runtime": 0.8840155945419104,
+        "tracks": 510,
+        "positives": 114,
+        "negatives": 396,
+        "scored": 510,
+        "ood_tracks": 5,
+        "test_negatives": 396,
+        "test_negatives_sharing_a_training_cell": 38,
+        "folds": [
+          {
+            "fold": 0,
+            "groups": [
+              0
+            ],
+            "test_tracks": 132,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 1,
+            "test_negatives_sharing_a_training_cell": 9
+          },
+          {
+            "fold": 1,
+            "groups": [
+              1
+            ],
+            "test_tracks": 107,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 2,
+            "groups": [
+              2
+            ],
+            "test_tracks": 87,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 5
+          },
+          {
+            "fold": 3,
+            "groups": [
+              3
+            ],
+            "test_tracks": 109,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 2,
+            "test_negatives_sharing_a_training_cell": 10
+          },
+          {
+            "fold": 4,
+            "groups": [
+              4
+            ],
+            "test_tracks": 75,
+            "fitted": true,
+            "stopped": "early_stopping",
+            "ood_tracks": 0,
+            "test_negatives_sharing_a_training_cell": 4
+          }
+        ],
+        "by_threshold": [
+          {
+            "threshold": 0.5,
+            "accepted": 167,
+            "tp": 97,
+            "fp": 70,
+            "fn": 17,
+            "precision": 0.5808383233532934,
+            "recall": 0.8508771929824561
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 139,
+            "tp": 88,
+            "fp": 51,
+            "fn": 26,
+            "precision": 0.6330935251798561,
+            "recall": 0.7719298245614035
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 114,
+            "tp": 80,
+            "fp": 34,
+            "fn": 34,
+            "precision": 0.7017543859649122,
+            "recall": 0.7017543859649122
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 83,
+            "tp": 62,
+            "fp": 21,
+            "fn": 52,
+            "precision": 0.7469879518072289,
+            "recall": 0.543859649122807
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 44,
+            "tp": 34,
+            "fp": 10,
+            "fn": 80,
+            "precision": 0.7727272727272727,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 18,
+            "tp": 13,
+            "fp": 5,
+            "fn": 101,
+            "precision": 0.7222222222222222,
+            "recall": 0.11403508771929824
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 6,
+            "tp": 6,
+            "fp": 0,
+            "fn": 108,
+            "precision": 1.0,
+            "recall": 0.05263157894736842
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 1,
+            "tp": 1,
+            "fp": 0,
+            "fn": 113,
+            "precision": 1.0,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "by_threshold_without_ood": [
+          {
+            "threshold": 0.5,
+            "accepted": 168,
+            "tp": 97,
+            "fp": 71,
+            "fn": 17,
+            "precision": 0.5773809523809523,
+            "recall": 0.8508771929824561
+          },
+          {
+            "threshold": 0.6,
+            "accepted": 140,
+            "tp": 88,
+            "fp": 52,
+            "fn": 26,
+            "precision": 0.6285714285714286,
+            "recall": 0.7719298245614035
+          },
+          {
+            "threshold": 0.7,
+            "accepted": 115,
+            "tp": 80,
+            "fp": 35,
+            "fn": 34,
+            "precision": 0.6956521739130435,
+            "recall": 0.7017543859649122
+          },
+          {
+            "threshold": 0.8,
+            "accepted": 84,
+            "tp": 62,
+            "fp": 22,
+            "fn": 52,
+            "precision": 0.7380952380952381,
+            "recall": 0.543859649122807
+          },
+          {
+            "threshold": 0.9,
+            "accepted": 45,
+            "tp": 34,
+            "fp": 11,
+            "fn": 80,
+            "precision": 0.7555555555555555,
+            "recall": 0.2982456140350877
+          },
+          {
+            "threshold": 0.95,
+            "accepted": 19,
+            "tp": 13,
+            "fp": 6,
+            "fn": 101,
+            "precision": 0.6842105263157895,
+            "recall": 0.11403508771929824
+          },
+          {
+            "threshold": 0.98,
+            "accepted": 6,
+            "tp": 6,
+            "fp": 0,
+            "fn": 108,
+            "precision": 1.0,
+            "recall": 0.05263157894736842
+          },
+          {
+            "threshold": 0.99,
+            "accepted": 1,
+            "tp": 1,
+            "fp": 0,
+            "fn": 113,
+            "precision": 1.0,
+            "recall": 0.008771929824561403
+          }
+        ],
+        "ood": {
+          "z_max": 6.0,
+          "max_out": 2,
+          "source": "dataset"
+        }
+      },
+      "final": {
+        "path": "/home/user/wildfireguardian/wfglink/data/models/verify/file_native/patch_seed1.npz",
+        "sha256": "a28c6b02561956227e0cc170716ea4a2e36c98851f68b0b0c42b1367f0a7be4d",
+        "sidecar_sha256": "c18bc332f28d19a699359a2b93c63ae4d2e95bb214afbcb2ba69b74ebe6e9e9a",
+        "wall_s": 3.45,
+        "epochs_run": 29,
+        "best_epoch": 19,
+        "stopped": "early_stopping",
+        "fit_hits": 2233,
+        "augmented_rows": 17864,
+        "holdout_groups": [
+          0
+        ],
+        "holdout_hits": 794,
+        "early_stopping": true
+      }
+    }
+  },
+  "sampling": {
+    "max_neg_per_cell": 20,
+    "max_negatives_in_a_cell": 2,
+    "cap_binding": false,
+    "identical_training_sets": true,
+    "seeds": [
+      0,
+      1
+    ],
+    "note": "the per-cell cap does not bind: every seed draws the same training tracks, so the temporal seeds are one model (the patch seeds still differ in the MLP's start and the augmentation)"
+  },
+  "distinct_models": {
+    "temporal": [
+      [
+        "temporal_seed0",
+        "temporal_seed1"
+      ]
+    ],
+    "patch": [
+      [
+        "patch_seed0"
+      ],
+      [
+        "patch_seed1"
+      ]
+    ]
+  },
+  "deterministic": true,
+  "report_sha256_of_models": "b78e63b38746c7f86f8c77c4b7c2cb3e1386cf802a56683dbef4138d87033784"
+}
