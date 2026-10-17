@@ -1,0 +1,11 @@
+# Planner data tools (extract_places.py, build_fixtures.py) — versions used to generate the committed data.
+# Python 3.13.16 (CPython); pyproj 3.8.0 bundles PROJ 9.8.1.
+numpy==2.5.3
+pyproj==3.8.0
+shapely==2.2.0
+
+# Tests (tests/planner/test_build_*.py): contract validation and the test runner.
+jsonschema==4.26.0
+referencing==0.37.0
+PyYAML==6.0.1
+pytest==9.1.1

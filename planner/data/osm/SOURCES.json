@@ -1,0 +1,128 @@
+{
+ "license": "ODbL 1.0 — © OpenStreetMap contributors (https://www.openstreetmap.org/copyright)",
+ "note": "Points of interest are CURRENT OpenStreetMap data (see timestamp_osm_base per region), while the road graphs are HISTORICAL OSM snapshots taken just before each fire (graph_snapshot). Places can differ from the road network of the fire date.",
+ "query_template": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"]({bbox});nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"]({bbox});nwr[\"emergency\"~\"^(assembly_point|shelter)$\"]({bbox});nwr[\"social_facility\"]({bbox});nwr[\"building\"~\"^(school|community_centre)$\"]({bbox}););out center tags;",
+ "endpoints_rotation": [
+  "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter"
+ ],
+ "regions": {
+  "hongseong_2023": {
+   "file": "planner/data/osm/hongseong_2023.overpass.json",
+   "sha256": "9df47aadb387c74db44dc70f575a42ed37fc80700e017184d36aa778eb9d12e6",
+   "bytes": 6065,
+   "endpoint": "https://overpass.kumi.systems/api/interpreter",
+   "query": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"](36.5341256,126.4658703,36.5955985,126.5420756);nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"](36.5341256,126.4658703,36.5955985,126.5420756);nwr[\"emergency\"~\"^(assembly_point|shelter)$\"](36.5341256,126.4658703,36.5955985,126.5420756);nwr[\"social_facility\"](36.5341256,126.4658703,36.5955985,126.5420756);nwr[\"building\"~\"^(school|community_centre)$\"](36.5341256,126.4658703,36.5955985,126.5420756););out center tags;",
+   "bbox_swne": [
+    36.5341256,
+    126.4658703,
+    36.5955985,
+    126.5420756
+   ],
+   "query_note": "Downloaded by an earlier, interrupted run of this tool with the same query template over the region graph grid bbox; that run did not record the bbox literal, so the query shown is this tool's; every element of the extract was verified to lie inside this bbox.",
+   "fetched_at": "2026-10-17T06:03:13Z",
+   "fetched_at_source": "modification time of the earlier run's download file",
+   "timestamp_osm_base": "2026-07-28T02:16:18Z",
+   "generator": "Overpass API 0.7.62.11 87bfad18",
+   "element_count": 19,
+   "attempts": null,
+   "reused_from": "planner/.assets/osm_raw/hongseong_2023.json",
+   "graph_revision": "hongseong-osm-20230401-provisional-grid375-dt1-53599a1a7b18-254dfdb05fb5",
+   "graph_snapshot": "2023-04-01T23:59:59Z"
+  },
+  "miryang_2022": {
+   "file": "planner/data/osm/miryang_2022.overpass.json",
+   "sha256": "8e6dd7353cfc63b16a2be2fd86b7186f3c884964a4ad75d17d9c339928b31235",
+   "bytes": 10937,
+   "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+   "query": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"](35.5007151,128.7252734,35.5586536,128.7716529);nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"](35.5007151,128.7252734,35.5586536,128.7716529);nwr[\"emergency\"~\"^(assembly_point|shelter)$\"](35.5007151,128.7252734,35.5586536,128.7716529);nwr[\"social_facility\"](35.5007151,128.7252734,35.5586536,128.7716529);nwr[\"building\"~\"^(school|community_centre)$\"](35.5007151,128.7252734,35.5586536,128.7716529););out center tags;",
+   "bbox_swne": [
+    35.5007151,
+    128.7252734,
+    35.5586536,
+    128.7716529
+   ],
+   "query_note": null,
+   "fetched_at": "2026-10-17T06:27:14Z",
+   "fetched_at_source": "request start time (UTC) of the successful attempt",
+   "timestamp_osm_base": "2026-10-17T06:26:03Z",
+   "generator": "Overpass API 0.7.62.4 2390de5a",
+   "element_count": 37,
+   "attempts": 1,
+   "reused_from": null,
+   "graph_revision": "miryang-osm-20220530-provisional-grid375-dt1-622114b98ad8-254dfdb05fb5",
+   "graph_snapshot": "2022-05-30T23:59:59Z"
+  },
+  "uiseong_andong_2025": {
+   "file": "planner/data/osm/uiseong_andong_2025.overpass.json",
+   "sha256": "ee4b4e0143e3530985bf30d4158a03664d2d09b82831068049f2de419790696c",
+   "bytes": 49638,
+   "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+   "query": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"](36.3315033,128.5459971,36.5542722,128.8547679);nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"](36.3315033,128.5459971,36.5542722,128.8547679);nwr[\"emergency\"~\"^(assembly_point|shelter)$\"](36.3315033,128.5459971,36.5542722,128.8547679);nwr[\"social_facility\"](36.3315033,128.5459971,36.5542722,128.8547679);nwr[\"building\"~\"^(school|community_centre)$\"](36.3315033,128.5459971,36.5542722,128.8547679););out center tags;",
+   "bbox_swne": [
+    36.3315033,
+    128.5459971,
+    36.5542722,
+    128.8547679
+   ],
+   "query_note": "Downloaded by an earlier, interrupted run of this tool with the same query template over the region graph grid bbox; that run did not record the bbox literal, so the query shown is this tool's; every element of the extract was verified to lie inside this bbox.",
+   "fetched_at": "2026-10-17T06:00:10Z",
+   "fetched_at_source": "modification time of the earlier run's download file",
+   "timestamp_osm_base": "2026-10-17T05:57:50Z",
+   "generator": "Overpass API 0.7.62.4 2390de5a",
+   "element_count": 181,
+   "attempts": null,
+   "reused_from": "planner/.assets/osm_raw/uiseong_andong_2025.json",
+   "graph_revision": "uiseong-andong-osm-20250321-provisional-G2window-grid375-dt1-a30e1f054a5e-8b859334ebe8",
+   "graph_snapshot": "2025-03-21T23:59:59Z"
+  },
+  "uljin_2022": {
+   "file": "planner/data/osm/uljin_2022.overpass.json",
+   "sha256": "9530040591f476ba38ed5f1d5f1aa75b45150c02d9b46c9f43f1985638498c4f",
+   "bytes": 38964,
+   "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+   "query": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"](36.9828502,129.1742462,37.1960402,129.4238134);nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"](36.9828502,129.1742462,37.1960402,129.4238134);nwr[\"emergency\"~\"^(assembly_point|shelter)$\"](36.9828502,129.1742462,37.1960402,129.4238134);nwr[\"social_facility\"](36.9828502,129.1742462,37.1960402,129.4238134);nwr[\"building\"~\"^(school|community_centre)$\"](36.9828502,129.1742462,37.1960402,129.4238134););out center tags;",
+   "bbox_swne": [
+    36.9828502,
+    129.1742462,
+    37.1960402,
+    129.4238134
+   ],
+   "query_note": "Downloaded by an earlier, interrupted run of this tool with the same query template over the region graph grid bbox; that run did not record the bbox literal, so the query shown is this tool's; every element of the extract was verified to lie inside this bbox.",
+   "fetched_at": "2026-10-17T06:02:49Z",
+   "fetched_at_source": "modification time of the earlier run's download file",
+   "timestamp_osm_base": "2026-10-17T06:00:51Z",
+   "generator": "Overpass API 0.7.62.4 2390de5a",
+   "element_count": 172,
+   "attempts": null,
+   "reused_from": "planner/.assets/osm_raw/uljin_2022.json",
+   "graph_revision": "uljin-osm-20220303-provisional-grid375-dt1-85d4f6354b9c-280226e79ed7",
+   "graph_snapshot": "2022-03-03T23:59:59Z"
+  },
+  "yeongdeok_2025": {
+   "file": "planner/data/osm/yeongdeok_2025.overpass.json",
+   "sha256": "5de04f405ca135fdb1e75e54dd1daa8c82d14b767e5654fab8c1159a20254d84",
+   "bytes": 76022,
+   "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+   "query": "[out:json][timeout:120];(node[\"place\"~\"^(village|hamlet|isolated_dwelling|neighbourhood|quarter|town)$\"](36.3233948,129.1433292,36.5542555,129.4454665);nwr[\"amenity\"~\"^(nursing_home|social_facility|shelter|community_centre|school|townhall|kindergarten|hospital|clinic)$\"](36.3233948,129.1433292,36.5542555,129.4454665);nwr[\"emergency\"~\"^(assembly_point|shelter)$\"](36.3233948,129.1433292,36.5542555,129.4454665);nwr[\"social_facility\"](36.3233948,129.1433292,36.5542555,129.4454665);nwr[\"building\"~\"^(school|community_centre)$\"](36.3233948,129.1433292,36.5542555,129.4454665););out center tags;",
+   "bbox_swne": [
+    36.3233948,
+    129.1433292,
+    36.5542555,
+    129.4454665
+   ],
+   "query_note": null,
+   "fetched_at": "2026-10-17T06:29:28Z",
+   "fetched_at_source": "request start time (UTC) of the successful attempt",
+   "timestamp_osm_base": "2026-10-17T06:28:05Z",
+   "generator": "Overpass API 0.7.62.4 2390de5a",
+   "element_count": 328,
+   "attempts": 5,
+   "reused_from": null,
+   "graph_revision": "yeongdeok-osm-20250321-provisional-G2window-grid375-dt1-8a804b26a635-8b859334ebe8",
+   "graph_snapshot": "2025-03-21T23:59:59Z"
+  }
+ }
+}

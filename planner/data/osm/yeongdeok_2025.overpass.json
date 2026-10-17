@@ -1,0 +1,4067 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-17T06:28:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 368629333,
+  "lat": 36.5417467,
+  "lon": 129.4130347,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "3",
+    "name": "영해고등학교",
+    "name:en": "Yeonghae High School",
+    "name:ko": "영해고등학교",
+    "name:ko-Latn": "Yeonghaegodeunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368629343,
+  "lat": 36.4162550,
+  "lon": 129.3691063,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "3",
+    "name": "영덕고등학교",
+    "name:en": "Yeongdeok High School",
+    "name:ko": "영덕고등학교"
+  }
+},
+{
+  "type": "node",
+  "id": 368629383,
+  "lat": 36.4133322,
+  "lon": 129.3749887,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "3",
+    "name": "영덕여자고등학교",
+    "name:en": "Yeongdeok Womens High School",
+    "name:ko": "영덕여자고등학교"
+  }
+},
+{
+  "type": "node",
+  "id": 368854004,
+  "lat": 36.4084650,
+  "lon": 129.3728510,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "영덕제일요양병원"
+  }
+},
+{
+  "type": "node",
+  "id": 368854011,
+  "lat": 36.4136324,
+  "lon": 129.3735248,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "영덕군보건소",
+    "name:en": "Yeongdeokgun Public Health Center",
+    "name:ko": "영덕군보건소"
+  }
+},
+{
+  "type": "node",
+  "id": 368893056,
+  "lat": 36.5096649,
+  "lon": 129.4419986,
+  "tags": {
+    "amenity": "kindergarten",
+    "name": "축산항초등학교병설유치원",
+    "name:en": "Chuksanhang Elementary School Kindergarten",
+    "name:ko": "축산항초등학교병설유치원",
+    "name:ko-Latn": "Chuksanhangchodeunghakgyobyeongseolyuchiwon"
+  }
+},
+{
+  "type": "node",
+  "id": 368926756,
+  "lat": 36.5424177,
+  "lon": 129.4135868,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "영해중학교",
+    "name:en": "Yeonghae Middle School",
+    "name:ko": "영해중학교",
+    "name:ko-Latn": "Yeonghaejunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368926758,
+  "lat": 36.4508745,
+  "lon": 129.2826133,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "지품중학교",
+    "name:en": "Jipum Middle School",
+    "name:ko": "지품중학교",
+    "name:ko-Latn": "Jipumjunghakgyo",
+    "wikidata": "Q18567424",
+    "wikipedia": "ko:지품중학교"
+  }
+},
+{
+  "type": "node",
+  "id": 368926764,
+  "lat": 36.5134986,
+  "lon": 129.4062331,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "영덕축산중학교",
+    "name:en": "Yeongdeokchuksan Middle School",
+    "name:ko": "영덕축산중학교",
+    "name:ko-Latn": "Yeongdeokchuksanjunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368926777,
+  "lat": 36.4132779,
+  "lon": 129.3755648,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "영덕여자중학교",
+    "name:en": "Yeongdeok Girls Middle School",
+    "name:ko": "영덕여자중학교",
+    "wikidata": "Q18605514"
+  }
+},
+{
+  "type": "node",
+  "id": 368926782,
+  "lat": 36.4166481,
+  "lon": 129.3688677,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "영덕중학교",
+    "name:en": "Yeongdeok Middle School",
+    "name:ko": "영덕중학교"
+  }
+},
+{
+  "type": "node",
+  "id": 368938228,
+  "lat": 36.3569530,
+  "lon": 129.1554860,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "이전초등학교",
+    "name:en": "Ijeon Elementary School",
+    "name:ko": "이전초등학교",
+    "name:ko-Latn": "Ijeonchodeunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368938239,
+  "lat": 36.5098239,
+  "lon": 129.4423843,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "축산항초등학교",
+    "name:en": "Chuksanhang Elementary School",
+    "name:ko": "축산항초등학교",
+    "name:ko-Latn": "Chuksanhangchodeunghakgyo",
+    "wikidata": "Q19657517"
+  }
+},
+{
+  "type": "node",
+  "id": 368938240,
+  "lat": 36.4130710,
+  "lon": 129.3689400,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "영덕야성초등학교",
+    "name:en": "Yeongdeok-Yaseong Elementary School",
+    "name:ko": "영덕야성초등학교"
+  }
+},
+{
+  "type": "node",
+  "id": 368938248,
+  "lat": 36.5452490,
+  "lon": 129.3420830,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "창수초등학교",
+    "name:en": "Changsu Elementary School",
+    "name:ko": "창수초등학교",
+    "name:ko-Latn": "Changsuchodeunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368938263,
+  "lat": 36.4503337,
+  "lon": 129.2813585,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "지품초등학교",
+    "name:en": "Jipum Elementary School",
+    "name:ko": "지품초등학교",
+    "name:ko-Latn": "Jipumchodeunghakgyo",
+    "wikidata": "Q19657499",
+    "wikipedia": "ko:지품초등학교"
+  }
+},
+{
+  "type": "node",
+  "id": 415158166,
+  "lat": 36.5295600,
+  "lon": 129.2819800,
+  "tags": {
+    "name": "대리",
+    "name:el": "Ντε-ρι",
+    "name:en": "Dae-ri",
+    "name:ko": "대리",
+    "name:ko-Latn": "Dae-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158168,
+  "lat": 36.5492800,
+  "lon": 129.3159600,
+  "tags": {
+    "name": "신기리",
+    "name:el": "Σίνγκι-ρι",
+    "name:en": "Singi-ri",
+    "name:ko": "신기리",
+    "name:ko-Latn": "Singi-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158170,
+  "lat": 36.5514700,
+  "lon": 129.3850200,
+  "tags": {
+    "name": "사천리",
+    "name:el": "Σάτσον-ρι",
+    "name:en": "Sacheon-ri",
+    "name:ko": "사천리",
+    "name:ko-Latn": "Sacheon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158173,
+  "lat": 36.5519400,
+  "lon": 129.3968200,
+  "tags": {
+    "name": "신평리",
+    "name:el": "Σίνπιονγκ-ρι",
+    "name:en": "Sinpyeong-ri",
+    "name:ko": "신평리",
+    "name:ko-Latn": "Sinpyeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158176,
+  "lat": 36.5421800,
+  "lon": 129.3683300,
+  "tags": {
+    "name": "원구리",
+    "name:el": "Ουόνγκου-ρι",
+    "name:en": "Wongu-ri",
+    "name:ko": "원구리",
+    "name:ko-Latn": "Wongu-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158181,
+  "lat": 36.5235300,
+  "lon": 129.3436700,
+  "tags": {
+    "name": "묘곡리",
+    "name:el": "Μιόγκοκ-ρι",
+    "name:en": "Myogok-ri",
+    "name:ko": "묘곡리",
+    "name:ko-Latn": "Myogok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158182,
+  "lat": 36.5113700,
+  "lon": 129.3707700,
+  "tags": {
+    "name": "부곡리",
+    "name:el": "Μπούγκοκ-ρι",
+    "name:en": "Bugok-ri",
+    "name:ko": "부곡리",
+    "name:ko-Latn": "Bugok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158183,
+  "lat": 36.5317700,
+  "lon": 129.3878300,
+  "tags": {
+    "name": "벌영리",
+    "name:el": "Μπόριονγκ-ρι",
+    "name:en": "Beoryeong-ri",
+    "name:ko": "벌영리",
+    "name:ko-Latn": "Beoryeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158184,
+  "lat": 36.5171000,
+  "lon": 129.4045800,
+  "tags": {
+    "name": "도곡리",
+    "name:el": "Ντόγκοκ-ρι",
+    "name:en": "Dogok-ri",
+    "name:ko": "도곡리",
+    "name:ko-Latn": "Dogok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158185,
+  "lat": 36.5328700,
+  "lon": 129.4130400,
+  "tags": {
+    "name": "성내리",
+    "name:el": "Σόνγκνε-ρι",
+    "name:en": "Seongnae-ri",
+    "name:ko": "성내리",
+    "name:ko-Latn": "Seongnae-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158186,
+  "lat": 36.5408900,
+  "lon": 129.4178900,
+  "tags": {
+    "name": "괴시리",
+    "name:el": "Γκοέσι-ρι",
+    "name:en": "Goesi-ri",
+    "name:ko": "괴시리",
+    "name:ko-Latn": "Goesi-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158187,
+  "lat": 36.5491100,
+  "lon": 129.4088700,
+  "tags": {
+    "name": "연평리",
+    "name:el": "Γιόνπιονγκ-ρι",
+    "name:en": "Yeonpyeong-ri",
+    "name:ko": "연평리",
+    "name:ko-Latn": "Yeonpyeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158188,
+  "lat": 36.5371800,
+  "lon": 129.3877700,
+  "tags": {
+    "name": "영해면",
+    "name:el": "Γιόγχε-μιον",
+    "name:en": "Yeonghae-myeon",
+    "name:ja": "寧海面",
+    "name:ko": "영해면",
+    "name:ko-Hani": "寧海面",
+    "name:ko-Latn": "Yeonghae-myeon",
+    "name:ru": "Йонхэ",
+    "name:zh": "寧海面",
+    "name:zh-Hans": "宁海面",
+    "name:zh-Hant": "寧海面",
+    "place": "town",
+    "wikidata": "Q12607567"
+  }
+},
+{
+  "type": "node",
+  "id": 415158212,
+  "lat": 36.5299500,
+  "lon": 129.4380000,
+  "tags": {
+    "name": "사진리",
+    "name:el": "Σάτζιν-τι",
+    "name:en": "Sajin-ri",
+    "name:ko": "사진리",
+    "name:ko-Latn": "Sajin-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158213,
+  "lat": 36.5045600,
+  "lon": 129.4369500,
+  "tags": {
+    "name": "축산리",
+    "name:el": "Τσούκσαν-ρι",
+    "name:en": "Chuksan-ri",
+    "name:ko": "축산리",
+    "name:ko-Latn": "Chuksan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158259,
+  "lat": 36.5451200,
+  "lon": 129.1665800,
+  "tags": {
+    "name": "신평리",
+    "name:el": "Σίνπιονγκ-ρι",
+    "name:en": "Sinpyeong-ri",
+    "name:ko": "신평리",
+    "name:ko-Latn": "Sinpyeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158318,
+  "lat": 36.5368800,
+  "lon": 129.1792600,
+  "tags": {
+    "name": "택전리",
+    "name:el": "Τέκτσον-ρι",
+    "name:en": "Taekjeon-ri",
+    "name:ko": "택전리",
+    "name:ko-Latn": "Taekjeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158320,
+  "lat": 36.5368300,
+  "lon": 129.2266800,
+  "tags": {
+    "name": "삼의리",
+    "name:el": "Σάμι-ρι",
+    "name:en": "Samui-ri",
+    "name:ko": "삼의리",
+    "name:ko-Latn": "Samui-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158321,
+  "lat": 36.5057815,
+  "lon": 129.2111168,
+  "tags": {
+    "name": "포산리",
+    "name:el": "Πόσαν-ρι",
+    "name:en": "Posan-ri",
+    "name:ko": "포산리",
+    "name:ko-Latn": "Posan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415158322,
+  "lat": 36.5213800,
+  "lon": 129.1817400,
+  "tags": {
+    "name": "화매리",
+    "name:el": "Χουάμε-ρι",
+    "name:en": "Hwamae-ri",
+    "name:ko": "화매리",
+    "name:ko-Latn": "Hwamae-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160130,
+  "lat": 36.3332400,
+  "lon": 129.2610100,
+  "tags": {
+    "name": "옥계리",
+    "name:el": "Όκιε-ρι",
+    "name:en": "Okgye-ri",
+    "name:ko": "옥계리",
+    "name:ko-Latn": "Okgye-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160132,
+  "lat": 36.3315100,
+  "lon": 129.3176400,
+  "tags": {
+    "name": "사암리",
+    "name:el": "Σάαμ-ρι",
+    "name:en": "Saam-ri",
+    "name:ko": "사암리",
+    "name:ko-Latn": "Saam-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160143,
+  "lat": 36.3334200,
+  "lon": 129.3737300,
+  "tags": {
+    "name": "남호리",
+    "name:el": "Νάμχο-ρι",
+    "name:en": "Namho-ri",
+    "name:ko": "남호리",
+    "name:ko-Latn": "Namho-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160146,
+  "lat": 36.3359500,
+  "lon": 129.3403400,
+  "tags": {
+    "name": "우곡리",
+    "name:el": "Ούγκοκ-ρι",
+    "name:en": "Ugok-ri",
+    "name:ko": "우곡리",
+    "name:ko-Latn": "Ugok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160147,
+  "lat": 36.3787800,
+  "lon": 129.3667600,
+  "tags": {
+    "name": "원직리",
+    "name:el": "Ουόντζικ-ρι",
+    "name:en": "Wonjik-ri",
+    "name:ko": "원직리",
+    "name:ko-Latn": "Wonjik-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160148,
+  "lat": 36.3684400,
+  "lon": 129.3612800,
+  "tags": {
+    "name": "오포리",
+    "name:el": "Όπο-ρι",
+    "name:en": "Opo-ri",
+    "name:ko": "오포리",
+    "name:ko-Latn": "Opo-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160149,
+  "lat": 36.3665700,
+  "lon": 129.3515000,
+  "tags": {
+    "name": "화전리",
+    "name:el": "Χουάτζον-ρι",
+    "name:en": "Hwajeon-ri",
+    "name:ko": "화전리",
+    "name:ko-Latn": "Hwajeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160150,
+  "lat": 36.3458900,
+  "lon": 129.3576300,
+  "tags": {
+    "name": "남정리",
+    "name:el": "Νάμτζονγκ-ρι",
+    "name:en": "Namjeong-ri",
+    "name:ko": "남정리",
+    "name:ko-Latn": "Namjeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160151,
+  "lat": 36.3772800,
+  "lon": 129.3734700,
+  "tags": {
+    "name": "소월리",
+    "name:el": "Σόουολ-ρι",
+    "name:en": "Sowol-ri",
+    "name:ko": "소월리",
+    "name:ko-Latn": "Sowol-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160152,
+  "lat": 36.3756200,
+  "lon": 129.3739900,
+  "tags": {
+    "name": "강구면",
+    "name:el": "Γκάνγκου-μιον",
+    "name:en": "Ganggu",
+    "name:ja": "江口面",
+    "name:ko": "강구면",
+    "name:ko-Hani": "江口面",
+    "name:ko-Latn": "Ganggu-myeon",
+    "name:ru": "Кангудон",
+    "name:zh": "江口面",
+    "name:zh-Hans": "江口面",
+    "name:zh-Hant": "江口面",
+    "official_name:en": "Ganggu-myeon",
+    "place": "town",
+    "wikidata": "Q12582731"
+  }
+},
+{
+  "type": "node",
+  "id": 415160153,
+  "lat": 36.3462300,
+  "lon": 129.3806100,
+  "tags": {
+    "name": "삼사리",
+    "name:el": "Σάμσα-ρι",
+    "name:en": "Samsa-ri",
+    "name:ko": "삼사리",
+    "name:ko-Latn": "Samsa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160154,
+  "lat": 36.3594640,
+  "lon": 129.3815606,
+  "tags": {
+    "name": "강구리",
+    "name:el": "Γκάνγκου-ρι",
+    "name:en": "Ganggu-ri",
+    "name:ko": "강구리",
+    "name:ko-Latn": "Ganggu-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160155,
+  "lat": 36.3756000,
+  "lon": 129.3980200,
+  "tags": {
+    "name": "금진리",
+    "name:el": "Γκούμτζιν-ρι",
+    "name:en": "Geumjin-ri",
+    "name:ko": "금진리",
+    "name:ko-Latn": "Geumjin-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160156,
+  "lat": 36.3851500,
+  "lon": 129.3832500,
+  "tags": {
+    "name": "금호리",
+    "name:el": "Γκούμχο-ρι",
+    "name:en": "Geumho-ri",
+    "name:ko": "금호리",
+    "name:ko-Latn": "Geumho-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160157,
+  "lat": 36.4190100,
+  "lon": 129.3810200,
+  "tags": {
+    "name": "덕곡리",
+    "name:el": "Ντόκοκ-ρι",
+    "name:en": "Deokgok-ri",
+    "name:ko": "덕곡리",
+    "name:ko-Latn": "Deokgok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160158,
+  "lat": 36.4045300,
+  "lon": 129.3771200,
+  "tags": {
+    "name": "우곡리",
+    "name:el": "Ούγκοκ-ρι",
+    "name:en": "Ugok-ri",
+    "name:ko": "우곡리",
+    "name:ko-Latn": "Ugok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160159,
+  "lat": 36.4052200,
+  "lon": 129.4208300,
+  "tags": {
+    "name": "대부리",
+    "name:el": "Ντέμπου-ρι",
+    "name:en": "Daebu-ri",
+    "name:ko": "대부리",
+    "name:ko-Latn": "Daebu-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160160,
+  "lat": 36.4012900,
+  "lon": 129.4007700,
+  "tags": {
+    "name": "하저리",
+    "name:el": "Χάτζο-ρι",
+    "name:en": "Hajeo-ri",
+    "name:ko": "하저리",
+    "name:ko-Latn": "Hajeo-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160162,
+  "lat": 36.4079200,
+  "lon": 129.3660700,
+  "tags": {
+    "name": "남석리",
+    "name:en": "Namseok-ri",
+    "name:ko": "남석리",
+    "name:ko-Latn": "Namseok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160163,
+  "lat": 36.3935200,
+  "lon": 129.3364800,
+  "tags": {
+    "name": "상직리",
+    "name:el": "Σάνγκτζικ-ρι",
+    "name:en": "Sangjik-ri",
+    "name:ko": "상직리",
+    "name:ko-Latn": "Sangjik-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160164,
+  "lat": 36.4003000,
+  "lon": 129.3578300,
+  "tags": {
+    "name": "남산리",
+    "name:el": "Νάμσαν-ρι",
+    "name:en": "Namsan-ri",
+    "name:ko": "남산리",
+    "name:ko-Latn": "Namsan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160165,
+  "lat": 36.4099100,
+  "lon": 129.3497000,
+  "tags": {
+    "name": "천전리",
+    "name:el": "Τσόντζον-ρι",
+    "name:en": "Cheonjeon-ri",
+    "name:ko": "천전리",
+    "name:ko-Latn": "Cheonjeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160166,
+  "lat": 36.4274000,
+  "lon": 129.3420400,
+  "tags": {
+    "name": "신애리",
+    "name:el": "Σίνε-ρι",
+    "name:en": "Sinae-ri",
+    "name:ko": "신애리",
+    "name:ko-Latn": "Sinae-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160167,
+  "lat": 36.4277700,
+  "lon": 129.3001500,
+  "tags": {
+    "name": "신양리",
+    "name:el": "Σίνιανγκ-ρι",
+    "name:en": "Sinnyang-ri",
+    "name:ko": "신양리",
+    "name:ko-Latn": "Sinnyang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160168,
+  "lat": 36.4033300,
+  "lon": 129.3011100,
+  "tags": {
+    "name": "대지리",
+    "name:el": "Ντέτζι-ρι",
+    "name:en": "Daeji-ri",
+    "name:ko": "대지리",
+    "name:ko-Latn": "Daeji-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160169,
+  "lat": 36.3587800,
+  "lon": 129.3353400,
+  "tags": {
+    "name": "중화리",
+    "name:el": "Τζούγχουα-ρι",
+    "name:en": "Junghwa-ri",
+    "name:ko": "중화리",
+    "name:ko-Latn": "Junghwa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160170,
+  "lat": 36.3690800,
+  "lon": 129.3126200,
+  "tags": {
+    "name": "흥기리",
+    "name:el": "Χούνγκι-ρι",
+    "name:en": "Heunggi-ri",
+    "name:ko": "흥기리",
+    "name:ko-Latn": "Heunggi-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160171,
+  "lat": 36.3758995,
+  "lon": 129.2855578,
+  "tags": {
+    "name": "매일리",
+    "name:el": "Μέιλ-ρι",
+    "name:en": "Maeil-ri",
+    "name:ko": "매일리",
+    "name:ko-Latn": "Maeil-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160172,
+  "lat": 36.3565500,
+  "lon": 129.2693000,
+  "tags": {
+    "name": "주응리",
+    "name:el": "Τζούουνγκ-ρι",
+    "name:en": "Jueung-ri",
+    "name:ko": "주응리",
+    "name:ko-Latn": "Jueung-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160173,
+  "lat": 36.3445300,
+  "lon": 129.2872100,
+  "tags": {
+    "name": "옥산리",
+    "name:el": "Όκσαν-ρι",
+    "name:en": "Oksan-ri",
+    "name:ko": "옥산리",
+    "name:ko-Latn": "Oksan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160174,
+  "lat": 36.3740400,
+  "lon": 129.2731600,
+  "tags": {
+    "name": "달산면",
+    "name:el": "Ντάλσαν-μιον",
+    "name:en": "Dalsan",
+    "name:ja": "達山面",
+    "name:ko": "달산면",
+    "name:ko-Hani": "達山面",
+    "name:ko-Latn": "Dalsan-myeon",
+    "name:zh": "達山面",
+    "name:zh-Hans": "达山面",
+    "name:zh-Hant": "達山面",
+    "official_name:en": "Dalsan-myeon",
+    "place": "town",
+    "wikidata": "Q12591020"
+  }
+},
+{
+  "type": "node",
+  "id": 415160175,
+  "lat": 36.3964800,
+  "lon": 129.2499200,
+  "tags": {
+    "name": "용전리",
+    "name:el": "Γιόνγκτζον-ρι",
+    "name:en": "Yongjeon-ri",
+    "name:ko": "용전리",
+    "name:ko-Latn": "Yongjeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160176,
+  "lat": 36.3897400,
+  "lon": 129.2869400,
+  "tags": {
+    "name": "용평리",
+    "name:el": "Γιόνγκπιονγκ-ρι",
+    "name:en": "Yongpyeong-ri",
+    "name:ko": "용평리",
+    "name:ko-Latn": "Yongpyeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160177,
+  "lat": 36.4083700,
+  "lon": 129.2737400,
+  "tags": {
+    "name": "인곡리",
+    "name:el": "Ίνγκοκ-ρι",
+    "name:en": "Ingok-ri",
+    "name:ko": "인곡리",
+    "name:ko-Latn": "Ingok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160178,
+  "lat": 36.4185200,
+  "lon": 129.2484400,
+  "tags": {
+    "name": "용덕리",
+    "name:el": "Γιόνγκντοκ-ρι",
+    "name:en": "Yongdeok-ri",
+    "name:ko": "용덕리",
+    "name:ko-Latn": "Yongdeok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160179,
+  "lat": 36.4585600,
+  "lon": 129.2520900,
+  "tags": {
+    "name": "지품면",
+    "name:el": "Τζίπουμ-μιον",
+    "name:en": "Jipum-myeon",
+    "name:ja": "知品面",
+    "name:ko": "지품면",
+    "name:ko-Hani": "知品面",
+    "name:ko-Latn": "Jipum-myeon",
+    "name:zh": "知品面",
+    "name:zh-Hans": "知品面",
+    "name:zh-Hant": "知品面",
+    "place": "town",
+    "wikidata": "Q12618098"
+  }
+},
+{
+  "type": "node",
+  "id": 415160181,
+  "lat": 36.4672700,
+  "lon": 129.2819800,
+  "tags": {
+    "name": "율전리",
+    "name:el": "Γιούλτσον-ρι",
+    "name:en": "Yuljeon-ri",
+    "name:ko": "율전리",
+    "name:ko-Latn": "Yuljeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160182,
+  "lat": 36.4499300,
+  "lon": 129.2769100,
+  "tags": {
+    "name": "신안리",
+    "name:el": "Σίναν-ρι",
+    "name:en": "Sinan-ri",
+    "name:ko": "신안리",
+    "name:ko-Latn": "Sinan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160183,
+  "lat": 36.4914700,
+  "lon": 129.2756300,
+  "tags": {
+    "name": "도계리",
+    "name:el": "Ντόγκιε-ρι",
+    "name:en": "Dogye-ri",
+    "name:ko": "도계리",
+    "name:ko-Latn": "Dogye-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160184,
+  "lat": 36.4367600,
+  "lon": 129.3200800,
+  "tags": {
+    "name": "오천리",
+    "name:el": "Ότσον-ρι",
+    "name:en": "Ocheon-ri",
+    "name:ko": "오천리",
+    "name:ko-Latn": "Ocheon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160185,
+  "lat": 36.4855463,
+  "lon": 129.2485545,
+  "tags": {
+    "name": "속곡리",
+    "name:el": "Σόκοκ-ρι",
+    "name:en": "Sokgok-ri",
+    "name:ko": "속곡리",
+    "name:ko-Latn": "Sokgok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160187,
+  "lat": 36.4557900,
+  "lon": 129.3251000,
+  "tags": {
+    "name": "삼화리",
+    "name:el": "Σάμχουα-ρι",
+    "name:en": "Samhwa-ri",
+    "name:ko": "삼화리",
+    "name:ko-Latn": "Samhwa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160188,
+  "lat": 36.4797400,
+  "lon": 129.3036300,
+  "tags": {
+    "name": "옥류리",
+    "name:el": "Όνγκνιου-ρι",
+    "name:en": "Ongnyu-ri",
+    "name:ko": "옥류리",
+    "name:ko-Latn": "Ongnyu-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160189,
+  "lat": 36.4358793,
+  "lon": 129.2871228,
+  "tags": {
+    "name": "눌곡리",
+    "name:el": "Νούλγκοκ-ρι",
+    "name:en": "Nulgok-ri",
+    "name:ko": "눌곡리",
+    "name:ko-Latn": "Nulgok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160190,
+  "lat": 36.4816500,
+  "lon": 129.3846700,
+  "tags": {
+    "name": "기암리",
+    "name:el": "Γκίαμ-ρι",
+    "name:en": "Giam-ri",
+    "name:ko": "기암리",
+    "name:ko-Latn": "Giam-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160191,
+  "lat": 36.4966900,
+  "lon": 129.3842400,
+  "tags": {
+    "name": "축산면",
+    "name:el": "Τσούκσαν-μιον",
+    "name:en": "Chuksan-myeon",
+    "name:ja": "丑山面",
+    "name:ko": "축산면",
+    "name:ko-Hani": "丑山面",
+    "name:ko-Latn": "Chuksan-myeon",
+    "name:zh": "丑山面",
+    "name:zh-Hans": "丑山面",
+    "name:zh-Hant": "丑山面",
+    "place": "town",
+    "wikidata": "Q12620021"
+  }
+},
+{
+  "type": "node",
+  "id": 415160192,
+  "lat": 36.4525500,
+  "lon": 129.4142400,
+  "tags": {
+    "name": "매정리",
+    "name:el": "Μέτζονγκ-ρι",
+    "name:en": "Maejeong-ri",
+    "name:ko": "매정리",
+    "name:ko-Latn": "Maejeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160193,
+  "lat": 36.4513700,
+  "lon": 129.4279300,
+  "tags": {
+    "name": "노물리",
+    "name:el": "Νόμουλ-ρι",
+    "name:en": "Nomul-ri",
+    "name:ko": "노물리",
+    "name:ko-Latn": "Nomul-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160194,
+  "lat": 36.4363700,
+  "lon": 129.4244200,
+  "tags": {
+    "name": "오보리",
+    "name:el": "Όμπο-ρι",
+    "name:en": "Obo-ri",
+    "name:ko": "오보리",
+    "name:ko-Latn": "Obo-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160195,
+  "lat": 36.4996300,
+  "lon": 129.3508100,
+  "tags": {
+    "name": "칠성리",
+    "name:el": "Τσίλσονγκ-ρι",
+    "name:en": "Chilseong-ri",
+    "name:ko": "칠성리",
+    "name:ko-Latn": "Chilseong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160196,
+  "lat": 36.5016700,
+  "lon": 129.3107700,
+  "tags": {
+    "name": "조항리",
+    "name:el": "Τζόγχανγκ-ρι",
+    "name:en": "Johang-ri",
+    "name:ko": "조항리",
+    "name:ko-Latn": "Johang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160197,
+  "lat": 36.4868200,
+  "lon": 129.3408200,
+  "tags": {
+    "name": "대곡리",
+    "name:el": "Ντέγκοκ-ρι",
+    "name:en": "Daegok-ri",
+    "name:ko": "대곡리",
+    "name:ko-Latn": "Daegok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160199,
+  "lat": 36.4647400,
+  "lon": 129.3585200,
+  "tags": {
+    "name": "화천리",
+    "name:el": "Χουάτσον-ρι",
+    "name:en": "Hwacheon-ri",
+    "name:ko": "화천리",
+    "name:ko-Latn": "Hwacheon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160200,
+  "lat": 36.4665600,
+  "lon": 129.4271200,
+  "tags": {
+    "name": "석리",
+    "name:el": "Σοκ-ρι",
+    "name:en": "Seok-ri",
+    "name:ko": "석리",
+    "name:ko-Latn": "Seok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160201,
+  "lat": 36.4852100,
+  "lon": 129.4331600,
+  "tags": {
+    "name": "경정리",
+    "name:el": "Γκιόνγκτζονγκ-ρι",
+    "name:en": "Gyeongjeong-ri",
+    "name:ko": "경정리",
+    "name:ko-Latn": "Gyeongjeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160202,
+  "lat": 36.4160500,
+  "lon": 129.4242200,
+  "tags": {
+    "name": "창포리",
+    "name:el": "Τσάνγκπο-ρι",
+    "name:en": "Changpo-ri",
+    "name:ko": "창포리",
+    "name:ko-Latn": "Changpo-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160203,
+  "lat": 36.5004400,
+  "lon": 129.4029200,
+  "tags": {
+    "name": "상원리",
+    "name:el": "Σάνγουον-ρι",
+    "name:en": "Sangwon-ri",
+    "name:ko": "상원리",
+    "name:ko-Latn": "Sangwon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160204,
+  "lat": 36.4784900,
+  "lon": 129.4069600,
+  "tags": {
+    "name": "고곡리",
+    "name:el": "Γκόγκοκ-ρι",
+    "name:en": "Gogok-ri",
+    "name:ko": "고곡리",
+    "name:ko-Latn": "Gogok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160205,
+  "lat": 36.4297600,
+  "lon": 129.4275900,
+  "tags": {
+    "name": "대탄리",
+    "name:el": "Ντέταν-ρι",
+    "name:en": "Daetan-ri",
+    "name:ko": "대탄리",
+    "name:ko-Latn": "Daetan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160206,
+  "lat": 36.4384300,
+  "lon": 129.3535600,
+  "tags": {
+    "name": "구미리",
+    "name:el": "Γκούμι-ρι",
+    "name:en": "Gumi-ri",
+    "name:ko": "구미리",
+    "name:ko-Latn": "Gumi-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160207,
+  "lat": 36.4300600,
+  "lon": 129.3624200,
+  "tags": {
+    "name": "화개리",
+    "name:el": "Χουάγκε-ρι",
+    "name:en": "Hwagae-ri",
+    "name:ko": "화개리",
+    "name:ko-Latn": "Hwagae-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160208,
+  "lat": 36.4401900,
+  "lon": 129.3830200,
+  "tags": {
+    "name": "화수리",
+    "name:el": "Χουάσου-ρι",
+    "name:en": "Hwasu-ri",
+    "name:ko": "화수리",
+    "name:ko-Latn": "Hwasu-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160209,
+  "lat": 36.4306600,
+  "lon": 129.4042200,
+  "tags": {
+    "name": "삼계리",
+    "name:el": "Σάμγκιε-ρι",
+    "name:en": "Samgye-ri",
+    "name:ko": "삼계리",
+    "name:ko-Latn": "Samgye-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160210,
+  "lat": 36.4296300,
+  "lon": 129.3917500,
+  "tags": {
+    "capital": "6",
+    "name": "영덕읍",
+    "name:el": "Γιόνγκντοκ-ουπ",
+    "name:en": "Yeongdeok-eup",
+    "name:ja": "盈徳邑",
+    "name:ko": "영덕읍",
+    "name:ko-Hani": "盈德邑",
+    "name:ko-Latn": "Yeongdeok-eup",
+    "name:ru": "Йондок",
+    "name:zh": "盈德邑",
+    "name:zh-Hans": "盈德邑",
+    "name:zh-Hant": "盈德邑",
+    "place": "town",
+    "wikidata": "Q12607317"
+  }
+},
+{
+  "type": "node",
+  "id": 415160277,
+  "lat": 36.3566800,
+  "lon": 129.1505700,
+  "tags": {
+    "name": "주왕산면",
+    "name:el": "Τζούουανγκσαν-μιον",
+    "name:en": "Juwangsan-myeon",
+    "name:ja": "周王山面",
+    "name:ko": "주왕산면",
+    "name:ko-Hani": "周王山面",
+    "name:ko-Latn": "Juwangsan-myeon",
+    "name:zh": "周王山面",
+    "name:zh-Hans": "周王山面",
+    "name:zh-Hant": "周王山面",
+    "place": "town",
+    "wikidata": "Q12598693",
+    "wikipedia": "ko:주왕산면"
+  }
+},
+{
+  "type": "node",
+  "id": 415160278,
+  "lat": 36.4044000,
+  "lon": 129.1696300,
+  "tags": {
+    "name": "상의리",
+    "name:el": "Σάνγι-ρι",
+    "name:en": "Sangui-ri",
+    "name:ko": "상의리",
+    "name:ko-Latn": "Sangui-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160302,
+  "lat": 36.4768400,
+  "lon": 129.1637700,
+  "tags": {
+    "name": "지품리",
+    "name:en": "Jipum-ri",
+    "name:ko": "지품리",
+    "name:ko-Latn": "Jipum-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160303,
+  "lat": 36.4948900,
+  "lon": 129.1691100,
+  "tags": {
+    "name": "황장리",
+    "name:el": "Χουάνγκτζανγκ-ρι",
+    "name:en": "Hwangjang-ri",
+    "name:ko": "황장리",
+    "name:ko-Latn": "Hwangjang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160309,
+  "lat": 36.4545500,
+  "lon": 129.1782500,
+  "tags": {
+    "name": "기사리",
+    "name:el": "Γκίσα-ρι",
+    "name:en": "Gisa-ri",
+    "name:ko": "기사리",
+    "name:ko-Latn": "Gisa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160310,
+  "lat": 36.4681300,
+  "lon": 129.2134200,
+  "tags": {
+    "name": "수암리",
+    "name:el": "Σούαμ-ρι",
+    "name:en": "Suam-ri",
+    "name:ko": "수암리",
+    "name:ko-Latn": "Suam-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160311,
+  "lat": 36.4544400,
+  "lon": 129.2400900,
+  "tags": {
+    "name": "낙평리",
+    "name:el": "Νάκπιονγκ-ρι",
+    "name:en": "Nakpyeong-ri",
+    "name:ko": "낙평리",
+    "name:ko-Latn": "Nakpyeong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160312,
+  "lat": 36.4860000,
+  "lon": 129.1890400,
+  "tags": {
+    "name": "원전리",
+    "name:el": "Ουόντζον-ρι",
+    "name:en": "Wonjeon-ri",
+    "name:ko": "원전리",
+    "name:ko-Latn": "Wonjeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160313,
+  "lat": 36.4750600,
+  "lon": 129.1930200,
+  "tags": {
+    "name": "복곡리",
+    "name:el": "Μπόκοκ-ρι",
+    "name:en": "Bokgok-ri",
+    "name:ko": "복곡리",
+    "name:ko-Latn": "Bokgok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160314,
+  "lat": 36.4271200,
+  "lon": 129.2328000,
+  "tags": {
+    "name": "송천리",
+    "name:el": "Σόνγκτσον-ρι",
+    "name:en": "Songcheon-ri",
+    "name:ko": "송천리",
+    "name:ko-Latn": "Songcheon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160315,
+  "lat": 36.3759700,
+  "lon": 129.2436300,
+  "tags": {
+    "name": "덕산리",
+    "name:el": "Ντόκσαν-ρι",
+    "name:en": "Deoksan-ri",
+    "name:ko": "덕산리",
+    "name:ko-Latn": "Deoksan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160316,
+  "lat": 36.3741900,
+  "lon": 129.1825800,
+  "tags": {
+    "name": "주산지리",
+    "name:en": "Jusanji-ri",
+    "name:ko": "주산지리",
+    "name:ko-Hani": "注山池里",
+    "name:ko-Latn": "Jusanji-ri",
+    "name:zh": "注山池里",
+    "name:zh-Hant": "注山池里",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160317,
+  "lat": 36.3613800,
+  "lon": 129.2345100,
+  "tags": {
+    "name": "봉산리",
+    "name:el": "Μπόνγκσαν-ρι",
+    "name:en": "Bongsan-ri",
+    "name:ko": "봉산리",
+    "name:ko-Latn": "Bongsan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160318,
+  "lat": 36.3280700,
+  "lon": 129.2407800,
+  "tags": {
+    "name": "항리",
+    "name:el": "Χανγκ-ρι",
+    "name:en": "Hang-ri",
+    "name:ko": "항리",
+    "name:ko-Latn": "Hang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415160319,
+  "lat": 36.3359500,
+  "lon": 129.2035300,
+  "tags": {
+    "name": "내룡리",
+    "name:en": "Naeryong-ri",
+    "name:ko": "내룡리",
+    "name:ko-Latn": "Naeryong-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 4631373312,
+  "lat": 36.5057603,
+  "lon": 129.4423555,
+  "tags": {
+    "amenity": "hospital",
+    "name": "축산보건지소",
+    "name:ko": "축산보건지소"
+  }
+},
+{
+  "type": "node",
+  "id": 4631431980,
+  "lat": 36.5068665,
+  "lon": 129.4433374,
+  "tags": {
+    "amenity": "hospital",
+    "name": "동해의원",
+    "name:ko": "동해의원"
+  }
+},
+{
+  "type": "node",
+  "id": 4631461991,
+  "lat": 36.5246453,
+  "lon": 129.4024690,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "영덕아산병원"
+  }
+},
+{
+  "type": "node",
+  "id": 4631461999,
+  "lat": 36.5089816,
+  "lon": 129.4142833,
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "67",
+    "addr:postcode": "36419",
+    "addr:province": "경상북도",
+    "addr:street": "도곡길",
+    "addr:town": "축산면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "축산면사무소",
+    "name:ko": "축산면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 5344858158,
+  "lat": 36.5375548,
+  "lon": 129.4071499,
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "7",
+    "addr:postcode": "36413",
+    "addr:province": "경상북도",
+    "addr:street": "예주3길",
+    "addr:town": "영해면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "영해면사무소",
+    "name:en": "Yeonghae Community Service Center",
+    "name:ko": "영해면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 7834447481,
+  "lat": 36.3569059,
+  "lon": 129.1593565,
+  "tags": {
+    "addr:city": "청송군",
+    "addr:housenumber": "1",
+    "addr:postcode": "37438",
+    "addr:province": "경상북도",
+    "addr:street": "이전앞길",
+    "addr:town": "주왕산면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "주왕산면사무소",
+    "name:ko": "주왕산면사무소",
+    "office": "government",
+    "website": "https://www.cs.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 7834489362,
+  "lat": 36.5462680,
+  "lon": 129.3482608,
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "5",
+    "addr:postcode": "36401",
+    "addr:province": "경상북도",
+    "addr:street": "신기길",
+    "addr:town": "창수면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "창수면사무소",
+    "name:ko": "창수면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 7834489364,
+  "lat": 36.3990972,
+  "lon": 129.3032922,
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "1829",
+    "addr:postcode": "36448",
+    "addr:province": "경상북도",
+    "addr:street": "팔각산로",
+    "addr:town": "달산면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "달산면사무소",
+    "name:ko": "달산면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 7834489366,
+  "lat": 36.4095162,
+  "lon": 129.3727900,
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "62",
+    "addr:postcode": "36439",
+    "addr:province": "경상북도",
+    "addr:street": "우곡길",
+    "addr:town": "영덕읍",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "영덕읍사무소",
+    "name:ko": "영덕읍사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 8941051650,
+  "lat": 36.3234177,
+  "lon": 129.2829437,
+  "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo",
+    "tourism": "cabin"
+  }
+},
+{
+  "type": "node",
+  "id": 10211024435,
+  "lat": 36.3965264,
+  "lon": 129.1569230,
+  "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 11753489679,
+  "lat": 36.5498481,
+  "lon": 129.4396277,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대진3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11753629908,
+  "lat": 36.5495675,
+  "lon": 129.4072158,
+  "tags": {
+    "amenity": "townhall",
+    "name": "연평2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11753630010,
+  "lat": 36.5503521,
+  "lon": 129.4058762,
+  "tags": {
+    "amenity": "townhall",
+    "name": "연평1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11753630207,
+  "lat": 36.5439219,
+  "lon": 129.4168239,
+  "tags": {
+    "name": "괴시리전통마을",
+    "place": "hamlet"
+  }
+},
+{
+  "type": "node",
+  "id": 11754890775,
+  "lat": 36.5392854,
+  "lon": 129.4383610,
+  "tags": {
+    "amenity": "townhall",
+    "name": "사진1리사무소"
+  }
+},
+{
+  "type": "node",
+  "id": 11754891181,
+  "lat": 36.5314421,
+  "lon": 129.4400899,
+  "tags": {
+    "amenity": "townhall",
+    "name": "사진2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11755003590,
+  "lat": 36.5274234,
+  "lon": 129.4315548,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 11755003676,
+  "lat": 36.5199418,
+  "lon": 129.4320384,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 11756939706,
+  "lat": 36.5414593,
+  "lon": 129.4076648,
+  "tags": {
+    "amenity": "townhall",
+    "name": "성내5리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11759946486,
+  "lat": 36.5362252,
+  "lon": 129.4089030,
+  "tags": {
+    "amenity": "townhall",
+    "name": "성내2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11759946507,
+  "lat": 36.5389039,
+  "lon": 129.4089172,
+  "tags": {
+    "amenity": "townhall",
+    "name": "성내1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11759946537,
+  "lat": 36.5354381,
+  "lon": 129.4054727,
+  "tags": {
+    "amenity": "townhall",
+    "name": "성내3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11760232648,
+  "lat": 36.5390466,
+  "lon": 129.4134578,
+  "tags": {
+    "amenity": "school",
+    "name": "구 영해여자정보고등학교 터"
+  }
+},
+{
+  "type": "node",
+  "id": 11764445739,
+  "lat": 36.5528297,
+  "lon": 129.3453852,
+  "tags": {
+    "amenity": "townhall",
+    "name": "가산1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11768210102,
+  "lat": 36.5077285,
+  "lon": 129.4445935,
+  "tags": {
+    "amenity": "townhall",
+    "name": "축산1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11769621112,
+  "lat": 36.5392999,
+  "lon": 129.3785897,
+  "tags": {
+    "amenity": "townhall",
+    "name": "원구1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11770737267,
+  "lat": 36.5514767,
+  "lon": 129.3677077,
+  "tags": {
+    "amenity": "townhall",
+    "name": "인량2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11777760668,
+  "lat": 36.4919737,
+  "lon": 129.4435679,
+  "tags": {
+    "amenity": "townhall",
+    "name": "경정2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11779897800,
+  "lat": 36.4845710,
+  "lon": 129.4350371,
+  "tags": {
+    "amenity": "townhall",
+    "name": "경정1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11784514484,
+  "lat": 36.5412099,
+  "lon": 129.3649885,
+  "tags": {
+    "amenity": "townhall",
+    "name": "원구2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11784514589,
+  "lat": 36.5474653,
+  "lon": 129.3470013,
+  "tags": {
+    "amenity": "townhall",
+    "name": "반송지마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11786328498,
+  "lat": 36.4744058,
+  "lon": 129.4335493,
+  "tags": {
+    "amenity": "townhall",
+    "name": "경정3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11786328807,
+  "lat": 36.4668461,
+  "lon": 129.4344048,
+  "tags": {
+    "amenity": "townhall",
+    "name": "석리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11786567469,
+  "lat": 36.4986975,
+  "lon": 129.4345585,
+  "tags": {
+    "amenity": "townhall",
+    "name": "축산2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11786567768,
+  "lat": 36.5026592,
+  "lon": 129.4216255,
+  "tags": {
+    "amenity": "townhall",
+    "name": "고곡리갈전경로당"
+  }
+},
+{
+  "type": "node",
+  "id": 11825802358,
+  "lat": 36.5321465,
+  "lon": 129.3456554,
+  "tags": {
+    "amenity": "townhall",
+    "name": "묘곡2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11825802380,
+  "lat": 36.5202692,
+  "lon": 129.3370316,
+  "tags": {
+    "amenity": "townhall",
+    "name": "묘곡1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11830468902,
+  "lat": 36.5199562,
+  "lon": 129.2770006,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11830469145,
+  "lat": 36.5315071,
+  "lon": 129.2629523,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11830995066,
+  "lat": 36.5037214,
+  "lon": 129.2753255,
+  "tags": {
+    "amenity": "townhall",
+    "name": "도계2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11835362637,
+  "lat": 36.4766147,
+  "lon": 129.2795572,
+  "tags": {
+    "amenity": "townhall",
+    "name": "도계1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11835584974,
+  "lat": 36.4777397,
+  "lon": 129.2982473,
+  "tags": {
+    "amenity": "townhall",
+    "name": "옥류리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11835585188,
+  "lat": 36.4606581,
+  "lon": 129.2796054,
+  "tags": {
+    "amenity": "townhall",
+    "name": "율전리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11835585365,
+  "lat": 36.4484609,
+  "lon": 129.2818195,
+  "tags": {
+    "amenity": "townhall",
+    "name": "지품면사무소"
+  }
+},
+{
+  "type": "node",
+  "id": 11841920284,
+  "lat": 36.5149093,
+  "lon": 129.3964250,
+  "tags": {
+    "amenity": "townhall",
+    "name": "도곡2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11841920759,
+  "lat": 36.5090086,
+  "lon": 129.4050715,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "상원보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 11841920760,
+  "lat": 36.5093328,
+  "lon": 129.4042044,
+  "tags": {
+    "amenity": "school",
+    "name": "구 영해초등학교 축산분교 터"
+  }
+},
+{
+  "type": "node",
+  "id": 11841920802,
+  "lat": 36.5100918,
+  "lon": 129.4107553,
+  "tags": {
+    "amenity": "townhall",
+    "name": "도곡1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11842156129,
+  "lat": 36.5075207,
+  "lon": 129.3991443,
+  "tags": {
+    "amenity": "townhall",
+    "name": "상원리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11842156982,
+  "lat": 36.5032293,
+  "lon": 129.3784241,
+  "tags": {
+    "amenity": "townhall",
+    "name": "부곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11872367051,
+  "lat": 36.4458410,
+  "lon": 129.4335354,
+  "tags": {
+    "amenity": "townhall",
+    "name": "노물리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11872368462,
+  "lat": 36.4416196,
+  "lon": 129.4312698,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오보리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11872368623,
+  "lat": 36.4410316,
+  "lon": 129.4302437,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "오보보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 11872368663,
+  "lat": 36.4972487,
+  "lon": 129.4126389,
+  "tags": {
+    "amenity": "townhall",
+    "name": "고곡1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11877066889,
+  "lat": 36.4946012,
+  "lon": 129.3833001,
+  "tags": {
+    "amenity": "townhall",
+    "name": "기암2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11888500811,
+  "lat": 36.4969715,
+  "lon": 129.3669553,
+  "tags": {
+    "amenity": "townhall",
+    "name": "칠성1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11888501331,
+  "lat": 36.5008702,
+  "lon": 129.3457224,
+  "tags": {
+    "amenity": "townhall",
+    "name": "칠성2리꽃밭마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11897956744,
+  "lat": 36.4359628,
+  "lon": 129.4323611,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대탄리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11910567736,
+  "lat": 36.4521412,
+  "lon": 129.4219661,
+  "tags": {
+    "amenity": "townhall",
+    "name": "매정3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11910567786,
+  "lat": 36.4449605,
+  "lon": 129.4209802,
+  "tags": {
+    "amenity": "townhall",
+    "name": "매정1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11933422134,
+  "lat": 36.4550118,
+  "lon": 129.4069928,
+  "tags": {
+    "amenity": "townhall",
+    "name": "매정2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11933514449,
+  "lat": 36.4749119,
+  "lon": 129.3936870,
+  "tags": {
+    "amenity": "townhall",
+    "name": "버팀바위마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11933582821,
+  "lat": 36.4631335,
+  "lon": 129.3786977,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화천1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11933741017,
+  "lat": 36.4875974,
+  "lon": 129.3515041,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11935180158,
+  "lat": 36.4633281,
+  "lon": 129.3607480,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화천2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11935180227,
+  "lat": 36.4598345,
+  "lon": 129.3527905,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화천3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11935650283,
+  "lat": 36.4289628,
+  "lon": 129.4015327,
+  "tags": {
+    "amenity": "townhall",
+    "name": "삼계리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11936363088,
+  "lat": 36.4192236,
+  "lon": 129.4022349,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 11941445159,
+  "lat": 36.4100380,
+  "lon": 129.4290102,
+  "tags": {
+    "amenity": "townhall",
+    "name": "창포리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11941581963,
+  "lat": 36.4071200,
+  "lon": 129.4251342,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "창포보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 11941582688,
+  "lat": 36.4021219,
+  "lon": 129.4218829,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대부리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11947135797,
+  "lat": 36.4325992,
+  "lon": 129.3788585,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화수1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11952271471,
+  "lat": 36.4265163,
+  "lon": 129.3750192,
+  "tags": {
+    "amenity": "townhall",
+    "name": "미동마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11955031699,
+  "lat": 36.4113966,
+  "lon": 129.3739394,
+  "tags": {
+    "amenity": "townhall",
+    "name": "덕곡2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11959426373,
+  "lat": 36.3900999,
+  "lon": 129.4066504,
+  "tags": {
+    "amenity": "townhall",
+    "name": "하저리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11970046744,
+  "lat": 36.4052012,
+  "lon": 129.3763874,
+  "tags": {
+    "amenity": "townhall",
+    "name": "우곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11970081077,
+  "lat": 36.4099812,
+  "lon": 129.3685791,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남석3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11970081295,
+  "lat": 36.4104578,
+  "lon": 129.3660791,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남석2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11976157018,
+  "lat": 36.4140459,
+  "lon": 129.3690165,
+  "tags": {
+    "amenity": "townhall",
+    "name": "덕곡1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11976273113,
+  "lat": 36.4119834,
+  "lon": 129.3582636,
+  "tags": {
+    "amenity": "townhall",
+    "name": "천전리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11976273467,
+  "lat": 36.4012466,
+  "lon": 129.3729520,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "영덕효요양병원"
+  }
+},
+{
+  "type": "node",
+  "id": 11982470419,
+  "lat": 36.3921797,
+  "lon": 129.3796494,
+  "tags": {
+    "amenity": "townhall",
+    "name": "금호3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11982470490,
+  "lat": 36.3878836,
+  "lon": 129.3826151,
+  "tags": {
+    "amenity": "townhall",
+    "name": "금호2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11982470695,
+  "lat": 36.3854543,
+  "lon": 129.3845353,
+  "tags": {
+    "amenity": "townhall",
+    "name": "금호1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11982470696,
+  "lat": 36.4119125,
+  "lon": 129.3653138,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남석1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11982470927,
+  "lat": 36.4228983,
+  "lon": 129.3632526,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화개2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11984959410,
+  "lat": 36.3773188,
+  "lon": 129.4019707,
+  "tags": {
+    "amenity": "townhall",
+    "name": "금진1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11985894830,
+  "lat": 36.3921712,
+  "lon": 129.3690161,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남산1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11985895393,
+  "lat": 36.3954460,
+  "lon": 129.3608893,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남산2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11985963117,
+  "lat": 36.3682384,
+  "lon": 129.3948897,
+  "tags": {
+    "amenity": "townhall",
+    "name": "금진2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11992071598,
+  "lat": 36.4332569,
+  "lon": 129.3543953,
+  "tags": {
+    "amenity": "townhall",
+    "name": "구미1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11993125558,
+  "lat": 36.4275673,
+  "lon": 129.3450724,
+  "tags": {
+    "amenity": "townhall",
+    "name": "신애리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11993125892,
+  "lat": 36.4396997,
+  "lon": 129.3313412,
+  "tags": {
+    "amenity": "townhall",
+    "name": "삼화1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11993249641,
+  "lat": 36.4469583,
+  "lon": 129.3231082,
+  "tags": {
+    "amenity": "townhall",
+    "name": "삼화2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11993250315,
+  "lat": 36.4278335,
+  "lon": 129.3264342,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오천1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11994901953,
+  "lat": 36.3669479,
+  "lon": 129.3853170,
+  "tags": {
+    "amenity": "townhall",
+    "name": "강구2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 11999581473,
+  "lat": 36.4323440,
+  "lon": 129.3230818,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오천2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12000064607,
+  "lat": 36.3612908,
+  "lon": 129.3922726,
+  "tags": {
+    "amenity": "townhall",
+    "name": "강구4리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12001152803,
+  "lat": 36.3639327,
+  "lon": 129.3756429,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오포1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12009410472,
+  "lat": 36.3566140,
+  "lon": 129.3867062,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오포3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12009410946,
+  "lat": 36.3557170,
+  "lon": 129.3792552,
+  "tags": {
+    "amenity": "townhall",
+    "name": "오포2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12011651591,
+  "lat": 36.3437152,
+  "lon": 129.3821914,
+  "tags": {
+    "amenity": "townhall",
+    "name": "삼사리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12014304168,
+  "lat": 36.3797047,
+  "lon": 129.3636197,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "원직보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 12014304659,
+  "lat": 36.3504452,
+  "lon": 129.3850445,
+  "tags": {
+    "amenity": "shelter",
+    "name": "경북대종각",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 12018756675,
+  "lat": 36.3338625,
+  "lon": 129.3750610,
+  "tags": {
+    "amenity": "school",
+    "name": "구 남호초등학교 터"
+  }
+},
+{
+  "type": "node",
+  "id": 12019767990,
+  "lat": 36.3895592,
+  "lon": 129.4074461,
+  "tags": {
+    "amenity": "shelter"
+  }
+},
+{
+  "type": "node",
+  "id": 12029705265,
+  "lat": 36.4302147,
+  "lon": 129.3069675,
+  "tags": {
+    "amenity": "townhall",
+    "name": "신양리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12030520637,
+  "lat": 36.3453099,
+  "lon": 129.3624024,
+  "tags": {
+    "amenity": "townhall",
+    "name": "남정리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12031151305,
+  "lat": 36.3585541,
+  "lon": 129.3657506,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화전1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12031151366,
+  "lat": 36.3624812,
+  "lon": 129.3570888,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화전2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12031801798,
+  "lat": 36.4024603,
+  "lon": 129.2983678,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대지2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12031802120,
+  "lat": 36.3977800,
+  "lon": 129.3030818,
+  "tags": {
+    "amenity": "townhall",
+    "name": "대지1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12032277410,
+  "lat": 36.3847576,
+  "lon": 129.3100250,
+  "tags": {
+    "amenity": "townhall",
+    "name": "흥기1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12043426660,
+  "lat": 36.3323424,
+  "lon": 129.3564336,
+  "tags": {
+    "amenity": "townhall",
+    "name": "우곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12044831701,
+  "lat": 36.4212044,
+  "lon": 129.2793648,
+  "tags": {
+    "amenity": "townhall",
+    "name": "용덕1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12044831702,
+  "lat": 36.4389168,
+  "lon": 129.2894257,
+  "tags": {
+    "amenity": "townhall",
+    "name": "눌곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12044832239,
+  "lat": 36.4087272,
+  "lon": 129.2739849,
+  "tags": {
+    "amenity": "townhall",
+    "name": "인곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045046231,
+  "lat": 36.3985567,
+  "lon": 129.2576280,
+  "tags": {
+    "amenity": "townhall",
+    "name": "용전하리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045046491,
+  "lat": 36.3774496,
+  "lon": 129.2796317,
+  "tags": {
+    "amenity": "townhall",
+    "name": "매일2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045046798,
+  "lat": 36.4345405,
+  "lon": 129.2863223,
+  "tags": {
+    "amenity": "townhall",
+    "name": "눌곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045046849,
+  "lat": 36.3719343,
+  "lon": 129.3087053,
+  "tags": {
+    "amenity": "townhall",
+    "name": "흥기2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045201835,
+  "lat": 36.3402691,
+  "lon": 129.3402454,
+  "tags": {
+    "amenity": "townhall",
+    "name": "우곡2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045201929,
+  "lat": 36.3539343,
+  "lon": 129.3462925,
+  "tags": {
+    "amenity": "townhall",
+    "name": "중화1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045202233,
+  "lat": 36.3744831,
+  "lon": 129.3027568,
+  "tags": {
+    "amenity": "townhall",
+    "name": "매일1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045202361,
+  "lat": 36.3940942,
+  "lon": 129.2570393,
+  "tags": {
+    "amenity": "townhall",
+    "name": "용전리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12045202380,
+  "lat": 36.3941358,
+  "lon": 129.2567436,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "용전보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 12045228705,
+  "lat": 36.3808324,
+  "lon": 129.2544792,
+  "tags": {
+    "amenity": "townhall",
+    "name": "덕산1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12047071385,
+  "lat": 36.3766881,
+  "lon": 129.2513704,
+  "tags": {
+    "amenity": "townhall",
+    "name": "덕산2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12048311121,
+  "lat": 36.4488682,
+  "lon": 129.2827734,
+  "tags": {
+    "amenity": "townhall",
+    "name": "신안리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12050420168,
+  "lat": 36.4378066,
+  "lon": 129.2438169,
+  "tags": {
+    "amenity": "townhall",
+    "name": "송천1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12050429885,
+  "lat": 36.4301954,
+  "lon": 129.2531347,
+  "tags": {
+    "amenity": "townhall",
+    "name": "송천2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12052073635,
+  "lat": 36.4195337,
+  "lon": 129.2615271,
+  "tags": {
+    "amenity": "townhall",
+    "name": "용덕2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12061371595,
+  "lat": 36.4507345,
+  "lon": 129.2348597,
+  "tags": {
+    "amenity": "townhall",
+    "name": "낙평리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12061373832,
+  "lat": 36.4624988,
+  "lon": 129.2165009,
+  "tags": {
+    "amenity": "townhall",
+    "name": "수암리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12061374043,
+  "lat": 36.4739380,
+  "lon": 129.1975856,
+  "tags": {
+    "amenity": "townhall",
+    "name": "복곡리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12067413086,
+  "lat": 36.3250058,
+  "lon": 129.3299258,
+  "tags": {
+    "amenity": "townhall",
+    "name": "사암1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12068645008,
+  "lat": 36.3689341,
+  "lon": 129.2479175,
+  "tags": {
+    "amenity": "townhall",
+    "name": "봉산리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12116790710,
+  "lat": 36.3639766,
+  "lon": 129.3107841,
+  "tags": {
+    "amenity": "townhall",
+    "name": "흥기3리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12116791069,
+  "lat": 36.3636854,
+  "lon": 129.2905787,
+  "tags": {
+    "amenity": "townhall",
+    "name": "주응1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12116791185,
+  "lat": 36.3294481,
+  "lon": 129.3111039,
+  "tags": {
+    "amenity": "townhall",
+    "name": "사암2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12120707269,
+  "lat": 36.4849594,
+  "lon": 129.1920254,
+  "tags": {
+    "amenity": "townhall",
+    "name": "지품면사무소 원전출장소"
+  }
+},
+{
+  "type": "node",
+  "id": 12120707331,
+  "lat": 36.4843583,
+  "lon": 129.1887626,
+  "tags": {
+    "amenity": "townhall",
+    "name": "원전리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12120707523,
+  "lat": 36.4852527,
+  "lon": 129.1880736,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "원전보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 12120783811,
+  "lat": 36.4927280,
+  "lon": 129.1837169,
+  "tags": {
+    "amenity": "townhall",
+    "name": "황장리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12120783838,
+  "lat": 36.4823841,
+  "lon": 129.1820386,
+  "tags": {
+    "amenity": "townhall",
+    "name": "지품리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12120784086,
+  "lat": 36.4795281,
+  "lon": 129.1723423,
+  "tags": {
+    "amenity": "townhall",
+    "name": "지품학곡마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12121530283,
+  "lat": 36.3585971,
+  "lon": 129.2867018,
+  "tags": {
+    "amenity": "townhall",
+    "name": "옥산리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12121532316,
+  "lat": 36.3589946,
+  "lon": 129.2790008,
+  "tags": {
+    "amenity": "townhall",
+    "name": "주응2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12125807800,
+  "lat": 36.3522194,
+  "lon": 129.2790546,
+  "tags": {
+    "amenity": "townhall",
+    "name": "옥산2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12136059922,
+  "lat": 36.4722570,
+  "lon": 129.1760234,
+  "tags": {
+    "amenity": "townhall",
+    "name": "기사리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12136060153,
+  "lat": 36.4626681,
+  "lon": 129.1774361,
+  "tags": {
+    "amenity": "townhall",
+    "name": "기사2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12154357438,
+  "lat": 36.5050575,
+  "lon": 129.2101150,
+  "tags": {
+    "amenity": "townhall",
+    "name": "포산리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12154357526,
+  "lat": 36.5150040,
+  "lon": 129.1808661,
+  "tags": {
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "화매보건진료소"
+  }
+},
+{
+  "type": "node",
+  "id": 12154357668,
+  "lat": 36.5155565,
+  "lon": 129.1797599,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화매2리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12154401414,
+  "lat": 36.5189670,
+  "lon": 129.1793915,
+  "tags": {
+    "amenity": "townhall",
+    "name": "화매1리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12187916345,
+  "lat": 36.3306992,
+  "lon": 129.2668521,
+  "tags": {
+    "amenity": "shelter",
+    "name": "침수정",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 12187916547,
+  "lat": 36.3286870,
+  "lon": 129.2599177,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 12188838412,
+  "lat": 36.3294914,
+  "lon": 129.2481760,
+  "tags": {
+    "amenity": "townhall",
+    "name": "항리마을회관"
+  }
+},
+{
+  "type": "node",
+  "id": 12301854844,
+  "lat": 36.3564002,
+  "lon": 129.1583753,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "node",
+  "id": 12697899496,
+  "lat": 36.5076284,
+  "lon": 129.4019773,
+  "tags": {
+    "amenity": "shelter",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "way",
+  "id": 468645517,
+  "center": {
+    "lat": 36.5096133,
+    "lon": 129.4424479
+  },
+  "tags": {
+    "amenity": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 468649131,
+  "center": {
+    "lat": 36.5384082,
+    "lon": 129.4111817
+  },
+  "tags": {
+    "addr:housenumber": "22",
+    "addr:postcode": "36414",
+    "addr:street": "예주5길",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "영해초등학교",
+    "name:en": "Yeonghae Elementary School",
+    "name:ko": "영해초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 468649133,
+  "center": {
+    "lat": 36.5241748,
+    "lon": 129.4024438
+  },
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "영덕아산병원"
+  }
+},
+{
+  "type": "way",
+  "id": 468649135,
+  "center": {
+    "lat": 36.5131258,
+    "lon": 129.4063245
+  },
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "영덕축산중학교"
+  }
+},
+{
+  "type": "way",
+  "id": 481724163,
+  "center": {
+    "lat": 36.3615246,
+    "lon": 129.3786511
+  },
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "4526",
+    "addr:postcode": "36456",
+    "addr:province": "경상북도",
+    "addr:street": "동해대로",
+    "addr:town": "강구면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "강구면사무소",
+    "name:ko": "강구면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "way",
+  "id": 545750040,
+  "center": {
+    "lat": 36.4484591,
+    "lon": 129.2818165
+  },
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "7153",
+    "addr:postcode": "36444",
+    "addr:province": "경상북도",
+    "addr:street": "경동로",
+    "addr:town": "지품면",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "지품면사무소",
+    "name:ko": "지품면사무소",
+    "office": "government",
+    "website": "https://www.yd.go.kr/"
+  }
+},
+{
+  "type": "way",
+  "id": 651645185,
+  "center": {
+    "lat": 36.3568636,
+    "lon": 129.3791219
+  },
+  "tags": {
+    "addr:housenumber": "8",
+    "addr:postcode": "36458",
+    "addr:street": "나비산길",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "강구초등학교",
+    "name:en": "Ganggu Elementary School",
+    "name:ko": "강구초등학교",
+    "wikidata": "Q19483498"
+  }
+},
+{
+  "type": "way",
+  "id": 651645186,
+  "center": {
+    "lat": 36.3567636,
+    "lon": 129.3785527
+  },
+  "tags": {
+    "building": "school",
+    "name": "강구초등학교",
+    "name:en": "Ganggu Elementary School",
+    "name:ko": "강구초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 651645189,
+  "center": {
+    "lat": 36.3524995,
+    "lon": 129.3799190
+  },
+  "tags": {
+    "addr:housenumber": "45-5",
+    "addr:postcode": "36460",
+    "addr:street": "신강구1길",
+    "amenity": "school",
+    "isced:level": "2;3",
+    "name": "강구중학교/강구정보고등학교",
+    "name:en": "Ganggu Middle School/Ganggu Information High School",
+    "name:ko": "강구중학교/강구정보고등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 651645190,
+  "center": {
+    "lat": 36.3533654,
+    "lon": 129.3799298
+  },
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "45-5",
+    "addr:postcode": "36460",
+    "addr:province": "경상북도",
+    "addr:street": "신강구1길",
+    "addr:town": "강구면",
+    "building": "school",
+    "name": "강구중학교",
+    "name:en": "Ganggu Middle School",
+    "name:ko": "강구중학교",
+    "wikidata": "Q17401196"
+  }
+},
+{
+  "type": "way",
+  "id": 651645191,
+  "center": {
+    "lat": 36.3530822,
+    "lon": 129.3799454
+  },
+  "tags": {
+    "addr:city": "영덕군",
+    "addr:housenumber": "45-5",
+    "addr:postcode": "36460",
+    "addr:province": "경상북도",
+    "addr:street": "신강구1길",
+    "addr:town": "강구면",
+    "building": "school",
+    "name": "강구정보고등학교",
+    "name:en": "Ganggu Information High School",
+    "name:ko": "강구정보고등학교",
+    "wikidata": "Q12582734"
+  }
+},
+{
+  "type": "way",
+  "id": 759812301,
+  "center": {
+    "lat": 36.4127494,
+    "lon": 129.3689362
+  },
+  "tags": {
+    "addr:housenumber": "96",
+    "addr:postcode": "36433",
+    "addr:street": "덕곡길",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "영덕야성초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812302,
+  "center": {
+    "lat": 36.4156168,
+    "lon": 129.3693002
+  },
+  "tags": {
+    "addr:housenumber": "13",
+    "addr:postcode": "36430",
+    "addr:street": "군청1길",
+    "amenity": "school",
+    "isced:level": "2;3",
+    "name": "영덕중학교 영덕고등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812303,
+  "center": {
+    "lat": 36.4131345,
+    "lon": 129.3753194
+  },
+  "tags": {
+    "addr:housenumber": "206",
+    "addr:postcode": "36426",
+    "addr:street": "영덕로",
+    "amenity": "school",
+    "isced:level": "2;3",
+    "name": "영덕여자중학교 영덕여자고등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812306,
+  "center": {
+    "lat": 36.4504959,
+    "lon": 129.2829245
+  },
+  "tags": {
+    "addr:housenumber": "30",
+    "addr:postcode": "36444",
+    "addr:street": "지영로",
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "지품중학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812307,
+  "center": {
+    "lat": 36.4499497,
+    "lon": 129.2814244
+  },
+  "tags": {
+    "addr:housenumber": "7-4",
+    "addr:postcode": "36444",
+    "addr:street": "지영로",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "지품초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812310,
+  "center": {
+    "lat": 36.5422757,
+    "lon": 129.4130286
+  },
+  "tags": {
+    "addr:housenumber": "135",
+    "addr:postcode": "36415",
+    "addr:street": "예주길",
+    "amenity": "school",
+    "isced:level": "2;3",
+    "name": "영해중학교 영해고등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 759812314,
+  "center": {
+    "lat": 36.5452903,
+    "lon": 129.3426622
+  },
+  "tags": {
+    "addr:housenumber": "3184",
+    "addr:postcode": "36401",
+    "addr:street": "영양창수로",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "창수초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 777467137,
+  "center": {
+    "lat": 36.3574148,
+    "lon": 129.1551353
+  },
+  "tags": {
+    "addr:housenumber": "1011-74",
+    "addr:postcode": "37438",
+    "addr:street": "부동로",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "이전초등학교",
+    "name:en": "Ijeon Elementary School",
+    "name:ko": "이전초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 777467138,
+  "center": {
+    "lat": 36.3578554,
+    "lon": 129.1573626
+  },
+  "tags": {
+    "addr:city": "청송군",
+    "addr:housenumber": "1011-28",
+    "addr:postcode": "37438",
+    "addr:province": "경상북도",
+    "addr:street": "부동로",
+    "addr:town": "주왕산면",
+    "amenity": "school",
+    "name": "청송중학교부동분교장",
+    "name:en": "Cheongsong Middle School Budong Branch",
+    "name:ko": "청송중학교부동분교장"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068298,
+  "center": {
+    "lat": 36.4166359,
+    "lon": 129.3689381
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068299,
+  "center": {
+    "lat": 36.4162855,
+    "lon": 129.3690792
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068300,
+  "center": {
+    "lat": 36.4164355,
+    "lon": 129.3699310
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068301,
+  "center": {
+    "lat": 36.4161149,
+    "lon": 129.3698273
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068302,
+  "center": {
+    "lat": 36.4161559,
+    "lon": 129.3703006
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068303,
+  "center": {
+    "lat": 36.4151462,
+    "lon": 129.3694825
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068304,
+  "center": {
+    "lat": 36.4154714,
+    "lon": 129.3694493
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068318,
+  "center": {
+    "lat": 36.4133213,
+    "lon": 129.3753530
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068319,
+  "center": {
+    "lat": 36.4133871,
+    "lon": 129.3746321
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068320,
+  "center": {
+    "lat": 36.4136100,
+    "lon": 129.3745269
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068321,
+  "center": {
+    "lat": 36.4134294,
+    "lon": 129.3754864
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068322,
+  "center": {
+    "lat": 36.4133139,
+    "lon": 129.3759073
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1187068323,
+  "center": {
+    "lat": 36.4130661,
+    "lon": 129.3757512
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 1266585403,
+  "center": {
+    "lat": 36.5477267,
+    "lon": 129.3481633
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 창수중학교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1267199269,
+  "center": {
+    "lat": 36.5402804,
+    "lon": 129.3797109
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 원구초등학교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1267199310,
+  "center": {
+    "lat": 36.5520017,
+    "lon": 129.3713531
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 창수초등학교 인량분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1268306644,
+  "center": {
+    "lat": 36.4858278,
+    "lon": 129.4337918
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 축산항초등학교 경정분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1268814332,
+  "center": {
+    "lat": 36.5454961,
+    "lon": 129.3421234
+  },
+  "tags": {
+    "building": "school",
+    "name": "창수초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 1274084672,
+  "center": {
+    "lat": 36.5204741,
+    "lon": 129.2783526
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 영해초등학교 대동분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1283714602,
+  "center": {
+    "lat": 36.4454178,
+    "lon": 129.4220433
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 영덕초등학교 매정분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1287582287,
+  "center": {
+    "lat": 36.4094057,
+    "lon": 129.4277855
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 영덕야성초등학교 창포분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1291855921,
+  "center": {
+    "lat": 36.4129772,
+    "lon": 129.3689182
+  },
+  "tags": {
+    "building": "school",
+    "name": "영덕야성초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 1294816291,
+  "center": {
+    "lat": 36.4272172,
+    "lon": 129.3258315
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 지품초등학교 오천분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1296559325,
+  "center": {
+    "lat": 36.3792652,
+    "lon": 129.3638409
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 강구초등학교 직천분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1298857998,
+  "center": {
+    "lat": 36.4024376,
+    "lon": 129.2997047
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 영덕중학교 달산분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1298858012,
+  "center": {
+    "lat": 36.3997868,
+    "lon": 129.3028031
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 달산초등학교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1300423219,
+  "center": {
+    "lat": 36.3953486,
+    "lon": 129.2575650
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 달산초등학교 용전분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1302289081,
+  "center": {
+    "lat": 36.4514918,
+    "lon": 129.2335025
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 지품초등학교낙평분교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1308860083,
+  "center": {
+    "lat": 36.4849330,
+    "lon": 129.1920526
+  },
+  "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "지품면사무소 원전출장소"
+  }
+},
+{
+  "type": "way",
+  "id": 1308860084,
+  "center": {
+    "lat": 36.4842682,
+    "lon": 129.1911872
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 원전초등학교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1313106480,
+  "center": {
+    "lat": 36.5150042,
+    "lon": 129.1836536
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 화매초등학교 터"
+  }
+},
+{
+  "type": "way",
+  "id": 1316998267,
+  "center": {
+    "lat": 36.3298451,
+    "lon": 129.2486991
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "구 내룡초등학교 항동분교 터"
+  }
+}
+
+  ]
+}

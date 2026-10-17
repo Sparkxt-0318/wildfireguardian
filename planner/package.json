@@ -1,0 +1,39 @@
+{
+  "name": "wildfireguardian-planner",
+  "private": true,
+  "version": "0.1.0",
+  "description": "WildfireGuardian 마을별 사전 대피계획 도구 — pre-season village evacuation planner (planning aid only, not for live operations)",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "mock": "python3 mock_api/server.py",
+    "demo": "node scripts/demo.mjs"
+  },
+  "dependencies": {
+    "@protomaps/basemaps": "5.7.2",
+    "maplibre-gl": "5.24.0",
+    "pmtiles": "4.5.0",
+    "pretendard": "1.3.9",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zustand": "5.0.15"
+  },
+  "devDependencies": {
+    "@types/geojson": "7946.0.16",
+    "@types/node": "22.18.0",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "5.1.4",
+    "jsdom": "26.1.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.6"
+  }
+}

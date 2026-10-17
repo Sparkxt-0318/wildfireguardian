@@ -1,0 +1,1052 @@
+{
+ "generated_at": "2026-10-17T06:56:21Z",
+ "generator": "planner/tools/build_basemap.py",
+ "license_summary": {
+  "tiles": "© OpenStreetMap contributors, ODbL-1.0; Protomaps Basemap schema/build (BSD-3-Clause code)",
+  "fonts": "Noto Sans, SIL OFL 1.1",
+  "sprites": "Protomaps basemaps-assets"
+ },
+ "tiles": {
+  "source_url": "https://build.protomaps.com/20261016.pmtiles",
+  "source_build": "20261016",
+  "source_etag": "\"51f8ee375e473721a1ae2bc970553a57-518\"",
+  "source_last_modified": "Fri, 16 Oct 2026 09:02:41 GMT",
+  "source_bytes": 138922827597,
+  "source_header": {
+   "tile_type": "MVT",
+   "tile_compression": "GZIP",
+   "min_zoom": 0,
+   "max_zoom": 15
+  },
+  "source_metadata": {
+   "attribution": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap</a>",
+   "description": "Basemap layers derived from OpenStreetMap and Natural Earth",
+   "name": "Protomaps Basemap",
+   "pgf:devanagari:name": "NotoSansDevanagari-Regular",
+   "pgf:devanagari:version": "1",
+   "planetiler:buildtime": "2026-03-28T14:41:39.524Z",
+   "planetiler:githash": "0e5588c4a6e8c29a270a33afe8df62027d889604",
+   "planetiler:osm:osmosisreplicationseq": "123525",
+   "planetiler:osm:osmosisreplicationtime": "2026-10-16T04:00:00Z",
+   "planetiler:osm:osmosisreplicationurl": "https://planet.osm.org/replication/hour/",
+   "planetiler:version": "0.10.2",
+   "type": "baselayer",
+   "version": "4.15.2"
+  },
+  "source_vector_layers": [
+   "boundaries",
+   "buildings",
+   "earth",
+   "landcover",
+   "landuse",
+   "places",
+   "pois",
+   "roads",
+   "water"
+  ],
+  "method": "HTTP Range requests against the source PMTiles archive; tile payloads copied byte-for-byte (no re-encoding); PMTiles v3 written with the python 'pmtiles' writer",
+  "region_box_rule": "lon/lat bbox of all graph nodes (EPSG:5179 -> EPSG:4326, pyproj) padded on each side by 15% of its width/height",
+  "detail_zooms": [
+   0,
+   15
+  ],
+  "context": {
+   "name": "South Korea context",
+   "bbox": [
+    124.5,
+    33.0,
+    131.0,
+    38.7
+   ],
+   "zooms": [
+    0,
+    8
+   ]
+  },
+  "budget_mb": 40.0,
+  "budget_rule": "demo regions always kept; others only while the total of region archives stays <= budget",
+  "regions": [
+   {
+    "region_id": "uiseong_andong_2025",
+    "graph": {
+     "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+     "path": "graphs/uiseong_andong_2025/graph.json",
+     "read_from": "planner/.assets/extracted/WFG-evaluated-routing-inputs-20261015/graphs/uiseong_andong_2025/graph.json",
+     "sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+     "asset_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+     "node_count": 23158,
+     "revision": "uiseong-andong-osm-20250321-provisional-G2window-grid375-dt1-a30e1f054a5e-8b859334ebe8"
+    },
+    "graph_bbox": [
+     128.5462577,
+     36.331602,
+     128.8547063,
+     36.5539141
+    ],
+    "detail_bbox": [
+     128.4999904,
+     36.2982552,
+     128.9009736,
+     36.5872609
+    ],
+    "detail_zooms": [
+     0,
+     15
+    ],
+    "header_bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     128.700482,
+     36.442758,
+     11
+    ],
+    "tile_count": 1729,
+    "detail_tile_count": 1683,
+    "context_tile_count": 55,
+    "tiles_per_zoom": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 4,
+     "7": 9,
+     "8": 36,
+     "9": 2,
+     "10": 4,
+     "11": 9,
+     "12": 25,
+     "13": 90,
+     "14": 323,
+     "15": 1221
+    },
+    "file": "uiseong_andong_2025.pmtiles",
+    "bytes": 7806225,
+    "sha256": "f5ecccc1f736f6bbee777e615a1e61194174626b6d084b1e8ba3dbc32a07f12a",
+    "demo": true
+   },
+   {
+    "region_id": "yeongdeok_2025",
+    "graph": {
+     "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+     "path": "graphs/yeongdeok_2025/graph.json",
+     "read_from": "planner/.assets/extracted/WFG-evaluated-routing-inputs-20261015/graphs/yeongdeok_2025/graph.json",
+     "sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+     "asset_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+     "node_count": 56369,
+     "revision": "yeongdeok-osm-20250321-provisional-G2window-grid375-dt1-8a804b26a635-8b859334ebe8"
+    },
+    "graph_bbox": [
+     129.1440665,
+     36.325104,
+     129.4445093,
+     36.5540926
+    ],
+    "detail_bbox": [
+     129.0990001,
+     36.2907557,
+     129.4895757,
+     36.5884409
+    ],
+    "detail_zooms": [
+     0,
+     15
+    ],
+    "header_bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     129.2942879,
+     36.4395983,
+     11
+    ],
+    "tile_count": 1790,
+    "detail_tile_count": 1747,
+    "context_tile_count": 55,
+    "tiles_per_zoom": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 4,
+     "7": 9,
+     "8": 36,
+     "9": 2,
+     "10": 4,
+     "11": 9,
+     "12": 30,
+     "13": 90,
+     "14": 342,
+     "15": 1258
+    },
+    "file": "yeongdeok_2025.pmtiles",
+    "bytes": 6701294,
+    "sha256": "b4daa00228a6549bd889c5ea3ed178af4b4ba9fc0942e4a430a53767d5ed69fc",
+    "demo": true
+   },
+   {
+    "region_id": "uljin_2022",
+    "graph": {
+     "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+     "path": "graphs/uljin_2022/graph.json",
+     "read_from": "planner/.assets/extracted/WFG-evaluated-routing-inputs-20261015/graphs/uljin_2022/graph.json",
+     "sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+     "asset_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+     "node_count": 9372,
+     "revision": "uljin-osm-20220303-provisional-grid375-dt1-85d4f6354b9c-280226e79ed7"
+    },
+    "graph_bbox": [
+     129.1771811,
+     36.9831727,
+     129.4205401,
+     37.1940896
+    ],
+    "detail_bbox": [
+     129.1406773,
+     36.9515352,
+     129.457044,
+     37.2257271
+    ],
+    "detail_zooms": [
+     0,
+     15
+    ],
+    "header_bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     129.2988606,
+     37.0886311,
+     12
+    ],
+    "tile_count": 1352,
+    "detail_tile_count": 1309,
+    "context_tile_count": 55,
+    "tiles_per_zoom": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 4,
+     "7": 9,
+     "8": 36,
+     "9": 4,
+     "10": 4,
+     "11": 9,
+     "12": 16,
+     "13": 64,
+     "14": 240,
+     "15": 960
+    },
+    "file": "uljin_2022.pmtiles",
+    "bytes": 5847557,
+    "sha256": "f92c0dbcce9941cf4c55846cd5731652cc7f9dedc81b277593db33fee0e8b86e",
+    "demo": false
+   },
+   {
+    "region_id": "miryang_2022",
+    "graph": {
+     "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+     "path": "graphs/miryang_2022/graph.json",
+     "read_from": "planner/.assets/extracted/WFG-evaluated-routing-inputs-20261015/graphs/miryang_2022/graph.json",
+     "sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+     "asset_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+     "node_count": 1494,
+     "revision": "miryang-osm-20220530-provisional-grid375-dt1-622114b98ad8-254dfdb05fb5"
+    },
+    "graph_bbox": [
+     128.72557,
+     35.5009151,
+     128.7713712,
+     35.5583084
+    ],
+    "detail_bbox": [
+     128.7186998,
+     35.4923061,
+     128.7782414,
+     35.5669174
+    ],
+    "detail_zooms": [
+     0,
+     15
+    ],
+    "header_bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     128.7484706,
+     35.5296118,
+     13
+    ],
+    "tile_count": 137,
+    "detail_tile_count": 91,
+    "context_tile_count": 55,
+    "tiles_per_zoom": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 4,
+     "7": 9,
+     "8": 36,
+     "9": 1,
+     "10": 1,
+     "11": 1,
+     "12": 4,
+     "13": 6,
+     "14": 15,
+     "15": 54
+    },
+    "file": "miryang_2022.pmtiles",
+    "bytes": 4260621,
+    "sha256": "a3aefb2d0dd269eeb101bf3f7a0183d807c0186bf813e5b9b1f6867d3fdf0ded",
+    "demo": false
+   },
+   {
+    "region_id": "hongseong_2023",
+    "graph": {
+     "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+     "path": "graphs/hongseong_2023/graph.json",
+     "read_from": "planner/.assets/extracted/WFG-evaluated-routing-inputs-20261015/graphs/hongseong_2023/graph.json",
+     "sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+     "asset_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+     "node_count": 915,
+     "revision": "hongseong-osm-20230401-provisional-grid375-dt1-53599a1a7b18-254dfdb05fb5"
+    },
+    "graph_bbox": [
+     126.4658895,
+     36.5341585,
+     126.54136,
+     36.59545
+    ],
+    "detail_bbox": [
+     126.4545689,
+     36.5249648,
+     126.5526806,
+     36.6046437
+    ],
+    "detail_zooms": [
+     0,
+     15
+    ],
+    "header_bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     126.5036248,
+     36.5648042,
+     13
+    ],
+    "tile_count": 209,
+    "detail_tile_count": 166,
+    "context_tile_count": 55,
+    "tiles_per_zoom": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 4,
+     "7": 9,
+     "8": 36,
+     "9": 2,
+     "10": 2,
+     "11": 2,
+     "12": 6,
+     "13": 12,
+     "14": 30,
+     "15": 100
+    },
+    "file": "hongseong_2023.pmtiles",
+    "bytes": 4401817,
+    "sha256": "dbf5cc6f112571d54bf948aa73525c8058cc2860806473c50694db2b1fc02b49",
+    "demo": false
+   }
+  ],
+  "skipped_regions": [],
+  "total_bytes": 29017514
+ },
+ "fonts": {
+  "source_url_template": "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+  "derived_from": "text-font values in @protomaps/basemaps@5.7.2 dist (layers())",
+  "license": "Noto fonts: SIL Open Font License 1.1",
+  "ranges_per_stack": 256,
+  "fontstacks": [
+   {
+    "fontstack": "Noto Sans Regular",
+    "files": 256,
+    "bytes": 6240473,
+    "ranges_with_glyphs": 64,
+    "glyphs": 12985,
+    "aggregate_sha256": "fbc3d073400304c2773be4a588c3fd29e2469073d8dbcd6c054b1166fc13c53d",
+    "bytes_after_trim": 993444,
+    "aggregate_sha256_after_trim": "dc4f74b29971a06a724e8a3d73b4565a3260b64bd8e346f065793d784677e4b8"
+   },
+   {
+    "fontstack": "Noto Sans Medium",
+    "files": 256,
+    "bytes": 3613867,
+    "ranges_with_glyphs": 48,
+    "glyphs": 7188,
+    "aggregate_sha256": "31204007f5565236a4f70df56981d0f862beb7dcac5e0f21700f995faa49cfc8",
+    "bytes_after_trim": 868596,
+    "aggregate_sha256_after_trim": "c0897342e8052ffec6b457ddac9e64e02836202942d26eb3edf51d9dc40d3bca"
+   },
+   {
+    "fontstack": "Noto Sans Italic",
+    "files": 256,
+    "bytes": 1224916,
+    "ranges_with_glyphs": 25,
+    "glyphs": 2874,
+    "aggregate_sha256": "04e2fbd86b3587017adb4ffab405c971efbe578b739e1c7e597d230407afe730",
+    "bytes_after_trim": 762046,
+    "aggregate_sha256_after_trim": "73356edc62e3ee57357f2f18dbc4eedc90606b1936bbf7f4d6d05293d461b09f"
+   },
+   {
+    "fontstack": "Noto Sans Devanagari Regular v1",
+    "files": 256,
+    "bytes": 6632342,
+    "ranges_with_glyphs": 68,
+    "glyphs": 13885,
+    "aggregate_sha256": "16f11cfded2c5b91afc6ff73a8bb5dc4cc51445859e0a839f5b10da67c7a21f7",
+    "bytes_after_trim": 12200,
+    "aggregate_sha256_after_trim": "d2c4cf43468dc34294264583243d7ed77573402b7b49fc69669c6bb9ded15e54"
+   }
+  ],
+  "total_files": 1024,
+  "total_bytes": 17711598,
+  "aggregate_sha256": "824b33a1270f0768e13d35afa47698ecc8924bdb5e55a4a5ce365c87cc91a05b",
+  "aggregate_sha256_definition": "sha256 over lines 'fonts/<fontstack>/<range>.pbf <sha256> <bytes>\\n' in FONTSTACKS order, ranges ascending",
+  "trim": {
+   "rule": "Ranges outside 0-1279, 7680-7935, 8192-8959, 9472-9983, 12288-12543 and 65280-65535, and every range of Noto Sans Devanagari Regular v1, were replaced with a valid empty glyph PBF (fontstack name and range, no glyphs) so MapLibre never receives a 404. Korean labels are drawn with localIdeographFontFamily (Pretendard), not these glyphs.",
+   "total_bytes_after_trim": 2636286,
+   "restored_from_source": {
+    "ranges": [
+     "4352-4607",
+     "12544-12799",
+     "43264-43519",
+     "44032-44287",
+     "44288-44543",
+     "44544-44799",
+     "44800-45055",
+     "45056-45311",
+     "45312-45567",
+     "45568-45823",
+     "45824-46079",
+     "46080-46335",
+     "46336-46591",
+     "46592-46847",
+     "46848-47103",
+     "47104-47359",
+     "47360-47615",
+     "47616-47871",
+     "47872-48127",
+     "48128-48383",
+     "48384-48639",
+     "48640-48895",
+     "48896-49151",
+     "49152-49407",
+     "49408-49663",
+     "49664-49919",
+     "49920-50175",
+     "50176-50431",
+     "50432-50687",
+     "50688-50943",
+     "50944-51199",
+     "51200-51455",
+     "51456-51711",
+     "51712-51967",
+     "51968-52223",
+     "52224-52479",
+     "52480-52735",
+     "52736-52991",
+     "52992-53247",
+     "53248-53503",
+     "53504-53759",
+     "53760-54015",
+     "54016-54271",
+     "54272-54527",
+     "54528-54783",
+     "54784-55039",
+     "55040-55295"
+    ],
+    "stacks": [
+     "Noto Sans Regular",
+     "Noto Sans Medium",
+     "Noto Sans Italic"
+    ],
+    "note": "Hangul Jamo (U+1100-11FF), Hangul Compatibility Jamo (U+3130-318F), Hangul Jamo Extended-A (U+A960-A97F) and Hangul Syllables plus Jamo Extended-B (U+AC00-D7FF) restored byte-for-byte from the source. The source Noto Sans stacks contain no Hangul glyphs in these ranges (each file is an empty glyph list). MapLibre GL JS 5 draws these code points client-side (codePointUsesLocalIdeographFontFamily); the app maps them to the bundled Pretendard with a unicode-range @font-face so rendering does not depend on system fonts. CJK Symbols and Punctuation (12288-12543) and Halfwidth/Fullwidth Forms (65280-65535) were never trimmed."
+   }
+  }
+ },
+ "sprites": {
+  "source_url_template": "https://protomaps.github.io/basemaps-assets/sprites/v4/{flavor}{.json,.png,@2x.json,@2x.png}",
+  "flavors": [
+   "light",
+   "white",
+   "grayscale"
+  ],
+  "files": [
+   {
+    "path": "sprites/v4/light.json",
+    "bytes": 3549,
+    "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+   },
+   {
+    "path": "sprites/v4/light.png",
+    "bytes": 16174,
+    "sha256": "b6a34640917bdc57d0bd080836db33376371a3312ebe7b849045268015de3481"
+   },
+   {
+    "path": "sprites/v4/light@2x.json",
+    "bytes": 3579,
+    "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+   },
+   {
+    "path": "sprites/v4/light@2x.png",
+    "bytes": 28852,
+    "sha256": "23f6e9df27c2e9a14385763980a24e3608966bfc8192a106058bc2ca959ab563"
+   },
+   {
+    "path": "sprites/v4/white.json",
+    "bytes": 1267,
+    "sha256": "ac20291dac76986ff124918e1ac636a7f6a1e47a085b00780bbafc78337c0309"
+   },
+   {
+    "path": "sprites/v4/white.png",
+    "bytes": 5401,
+    "sha256": "daddc5e45fbd20d63ee0491334f4842c750616c2e99e28d70102e8b47959c8d8"
+   },
+   {
+    "path": "sprites/v4/white@2x.json",
+    "bytes": 1276,
+    "sha256": "74be4f748575cb62ebef6ed21e3da220f2cf5e228927a4d784e3e03b5cbdbf0b"
+   },
+   {
+    "path": "sprites/v4/white@2x.png",
+    "bytes": 6182,
+    "sha256": "db0e68f2a9c6bb6e93aaec761ed26b65ee833474c10ab9d07907256bbd5c8cb1"
+   },
+   {
+    "path": "sprites/v4/grayscale.json",
+    "bytes": 1267,
+    "sha256": "ac20291dac76986ff124918e1ac636a7f6a1e47a085b00780bbafc78337c0309"
+   },
+   {
+    "path": "sprites/v4/grayscale.png",
+    "bytes": 5560,
+    "sha256": "245818d5aa6aaa8e2aa78035cb958930fd8d252324864e5dddd097f1cf81cb9c"
+   },
+   {
+    "path": "sprites/v4/grayscale@2x.json",
+    "bytes": 1276,
+    "sha256": "74be4f748575cb62ebef6ed21e3da220f2cf5e228927a4d784e3e03b5cbdbf0b"
+   },
+   {
+    "path": "sprites/v4/grayscale@2x.png",
+    "bytes": 6187,
+    "sha256": "4bb5f77cca2ee3fc71f52517f9b3d25d1c84a9fd65c4b82e066f86c97dbd4e35"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "region_id": "uiseong_andong_2025",
+   "ok": true,
+   "problems": [],
+   "tiles_read": 1729,
+   "header": {
+    "tile_type": "MVT",
+    "tile_compression": "GZIP",
+    "min_zoom": 0,
+    "max_zoom": 15,
+    "bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     128.700482,
+     36.442758,
+     11
+    ],
+    "addressed_tiles_count": 1729,
+    "tile_entries_count": 1728,
+    "tile_contents_count": 1722,
+    "clustered": true
+   },
+   "centre_tile": {
+    "z": 14,
+    "x": 14049,
+    "y": 6408,
+    "layers": [
+     {
+      "name": "boundaries",
+      "features": 1
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 2
+     },
+     {
+      "name": "places",
+      "features": 1
+     },
+     {
+      "name": "pois",
+      "features": 1
+     },
+     {
+      "name": "roads",
+      "features": 5
+     },
+     {
+      "name": "water",
+      "features": 1
+     }
+    ]
+   },
+   "densest_z14_tile": {
+    "z": 14,
+    "x": 14050,
+    "y": 6401,
+    "bytes": 17854,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 2
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 66
+     },
+     {
+      "name": "places",
+      "features": 26
+     },
+     {
+      "name": "pois",
+      "features": 61
+     },
+     {
+      "name": "roads",
+      "features": 124
+     },
+     {
+      "name": "water",
+      "features": 2
+     }
+    ]
+   }
+  },
+  {
+   "region_id": "yeongdeok_2025",
+   "ok": true,
+   "problems": [],
+   "tiles_read": 1790,
+   "header": {
+    "tile_type": "MVT",
+    "tile_compression": "GZIP",
+    "min_zoom": 0,
+    "max_zoom": 15,
+    "bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     129.2942879,
+     36.4395983,
+     11
+    ],
+    "addressed_tiles_count": 1790,
+    "tile_entries_count": 1624,
+    "tile_contents_count": 1546,
+    "clustered": true
+   },
+   "centre_tile": {
+    "z": 14,
+    "x": 14076,
+    "y": 6408,
+    "layers": [
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 2
+     },
+     {
+      "name": "pois",
+      "features": 2
+     },
+     {
+      "name": "roads",
+      "features": 11
+     },
+     {
+      "name": "water",
+      "features": 2
+     }
+    ]
+   },
+   "densest_z14_tile": {
+    "z": 14,
+    "x": 14079,
+    "y": 6410,
+    "bytes": 11874,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 2
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 31
+     },
+     {
+      "name": "places",
+      "features": 1
+     },
+     {
+      "name": "pois",
+      "features": 25
+     },
+     {
+      "name": "roads",
+      "features": 79
+     },
+     {
+      "name": "water",
+      "features": 5
+     }
+    ]
+   }
+  },
+  {
+   "region_id": "uljin_2022",
+   "ok": true,
+   "problems": [],
+   "tiles_read": 1352,
+   "header": {
+    "tile_type": "MVT",
+    "tile_compression": "GZIP",
+    "min_zoom": 0,
+    "max_zoom": 15,
+    "bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     129.2988606,
+     37.0886312,
+     12
+    ],
+    "addressed_tiles_count": 1352,
+    "tile_entries_count": 1192,
+    "tile_contents_count": 1115,
+    "clustered": true
+   },
+   "centre_tile": {
+    "z": 14,
+    "x": 14076,
+    "y": 6372,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 1
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 3
+     },
+     {
+      "name": "pois",
+      "features": 2
+     },
+     {
+      "name": "roads",
+      "features": 13
+     },
+     {
+      "name": "water",
+      "features": 3
+     }
+    ]
+   },
+   "densest_z14_tile": {
+    "z": 14,
+    "x": 14081,
+    "y": 6377,
+    "bytes": 18224,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 3
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 48
+     },
+     {
+      "name": "places",
+      "features": 2
+     },
+     {
+      "name": "pois",
+      "features": 32
+     },
+     {
+      "name": "roads",
+      "features": 84
+     },
+     {
+      "name": "water",
+      "features": 6
+     }
+    ]
+   }
+  },
+  {
+   "region_id": "miryang_2022",
+   "ok": true,
+   "problems": [],
+   "tiles_read": 137,
+   "header": {
+    "tile_type": "MVT",
+    "tile_compression": "GZIP",
+    "min_zoom": 0,
+    "max_zoom": 15,
+    "bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     128.7484706,
+     35.5296118,
+     13
+    ],
+    "addressed_tiles_count": 137,
+    "tile_entries_count": 137,
+    "tile_contents_count": 136,
+    "clustered": true
+   },
+   "centre_tile": {
+    "z": 14,
+    "x": 14051,
+    "y": 6460,
+    "layers": [
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 3
+     },
+     {
+      "name": "places",
+      "features": 1
+     },
+     {
+      "name": "pois",
+      "features": 3
+     },
+     {
+      "name": "roads",
+      "features": 8
+     },
+     {
+      "name": "water",
+      "features": 1
+     }
+    ]
+   },
+   "densest_z14_tile": {
+    "z": 14,
+    "x": 14051,
+    "y": 6462,
+    "bytes": 16396,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 14
+     },
+     {
+      "name": "earth",
+      "features": 2
+     },
+     {
+      "name": "landuse",
+      "features": 61
+     },
+     {
+      "name": "places",
+      "features": 2
+     },
+     {
+      "name": "pois",
+      "features": 48
+     },
+     {
+      "name": "roads",
+      "features": 120
+     },
+     {
+      "name": "water",
+      "features": 8
+     }
+    ]
+   }
+  },
+  {
+   "region_id": "hongseong_2023",
+   "ok": true,
+   "problems": [],
+   "tiles_read": 209,
+   "header": {
+    "tile_type": "MVT",
+    "tile_compression": "GZIP",
+    "min_zoom": 0,
+    "max_zoom": 15,
+    "bounds": [
+     124.5,
+     33.0,
+     131.0,
+     38.7
+    ],
+    "center": [
+     126.5036248,
+     36.5648042,
+     13
+    ],
+    "addressed_tiles_count": 209,
+    "tile_entries_count": 209,
+    "tile_contents_count": 205,
+    "clustered": true
+   },
+   "centre_tile": {
+    "z": 14,
+    "x": 13949,
+    "y": 6401,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 1
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 6
+     },
+     {
+      "name": "places",
+      "features": 1
+     },
+     {
+      "name": "pois",
+      "features": 5
+     },
+     {
+      "name": "roads",
+      "features": 14
+     },
+     {
+      "name": "water",
+      "features": 2
+     }
+    ]
+   },
+   "densest_z14_tile": {
+    "z": 14,
+    "x": 13951,
+    "y": 6399,
+    "bytes": 6855,
+    "layers": [
+     {
+      "name": "buildings",
+      "features": 1
+     },
+     {
+      "name": "earth",
+      "features": 1
+     },
+     {
+      "name": "landuse",
+      "features": 12
+     },
+     {
+      "name": "places",
+      "features": 2
+     },
+     {
+      "name": "pois",
+      "features": 12
+     },
+     {
+      "name": "roads",
+      "features": 41
+     },
+     {
+      "name": "water",
+      "features": 4
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+/*
+ * Hangul for basemap labels. MapLibre GL JS draws Hangul (and CJK punctuation, Jamo, full-width forms)
+ * client-side instead of loading glyph PBFs. For the basemap's text-font stacks ("Noto Sans …") it uses
+ * that stack name as the CSS font family, so these unicode-range aliases make every Korean label use the
+ * bundled Pretendard (SIL OFL 1.1) instead of whatever Korean system font the machine has. Latin text keeps
+ * the Noto Sans glyph PBFs in /basemap/fonts. Loaded before the first map is created (see main.tsx).
+ */
+@font-face {
+  font-family: 'Noto Sans Regular';
+  src: url('../../node_modules/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7FF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Noto Sans Medium';
+  src: url('../../node_modules/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2') format('woff2');
+  font-weight: 500;
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7FF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Noto Sans Italic';
+  src: url('../../node_modules/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7FF, U+FF00-FFEF;
+}
