@@ -1,0 +1,3 @@
+# generated review sheets and the accepted-track tables: large, regenerable, their SHA-256 are recorded
+review_*/sheets/
+calibration/calibration_accepted.parquet

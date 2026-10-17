@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-18T04:21:15+08:00",
+  "profile": "file_native",
+  "status": "SELECTED",
+  "branch": "min_accepted",
+  "target_missed": true,
+  "rule": "no point reaches precision 0.99 nor recall 0.5: highest precision with at least 5 accepted tracks; the target was missed",
+  "selected": {
+    "name": "temporal_seed0_t0.99",
+    "family": "temporal",
+    "seed": 0,
+    "threshold": 0.99,
+    "precision": 0.25,
+    "recall": 0.1111111111111111,
+    "tp": 1,
+    "fp": 3,
+    "fn": 8,
+    "accepted_tracks": 711,
+    "false_tracks_per_min": 4.521502248857488,
+    "median_confirmation_delay_s": 0.9009,
+    "model_path": "data/models/verify/file_native/temporal_seed0.npz",
+    "model_sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+    "sidecar_sha256": "ed33241b133b3c525c33f4c838df698f640b9ff9263451a28e46a58f93778f11",
+    "model_nondeterministic": false
+  },
+  "family": "temporal",
+  "seed": 0,
+  "q": null,
+  "threshold": 0.99,
+  "model_sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+  "family_bests": {
+    "rules": {
+      "name": "rules_q0.05",
+      "family": "rules",
+      "seed": null,
+      "q": 0.05,
+      "precision": 0.04,
+      "recall": 0.3333333333333333,
+      "tp": 3,
+      "fp": 72,
+      "fn": 6,
+      "accepted_tracks": 37824,
+      "false_tracks_per_min": 341.78893963789983,
+      "median_confirmation_delay_s": 0.09999999999999432,
+      "model_path": null,
+      "model_sha256": null,
+      "sidecar_sha256": null,
+      "model_nondeterministic": false
+    },
+    "temporal": {
+      "name": "temporal_seed0_t0.99",
+      "family": "temporal",
+      "seed": 0,
+      "threshold": 0.99,
+      "precision": 0.25,
+      "recall": 0.1111111111111111,
+      "tp": 1,
+      "fp": 3,
+      "fn": 8,
+      "accepted_tracks": 711,
+      "false_tracks_per_min": 4.521502248857488,
+      "median_confirmation_delay_s": 0.9009,
+      "model_path": "data/models/verify/file_native/temporal_seed0.npz",
+      "model_sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+      "sidecar_sha256": "ed33241b133b3c525c33f4c838df698f640b9ff9263451a28e46a58f93778f11",
+      "model_nondeterministic": false
+    },
+    "patch": {
+      "name": "patch_seed1_t0.95",
+      "family": "patch",
+      "seed": 1,
+      "threshold": 0.95,
+      "precision": 0.25,
+      "recall": 0.1111111111111111,
+      "tp": 1,
+      "fp": 3,
+      "fn": 8,
+      "accepted_tracks": 1468,
+      "false_tracks_per_min": 9.279870845210853,
+      "median_confirmation_delay_s": 0.1668333333333294,
+      "model_path": "data/models/verify/file_native/patch_seed1.npz",
+      "model_sha256": "a28c6b02561956227e0cc170716ea4a2e36c98851f68b0b0c42b1367f0a7be4d",
+      "sidecar_sha256": "c18bc332f28d19a699359a2b93c63ae4d2e95bb214afbcb2ba69b74ebe6e9e9a",
+      "model_nondeterministic": false
+    }
+  },
+  "protocol": {
+    "path": "results/validation/precision_20261017/protocol.yaml",
+    "sha256": "79419caf8cd366b0553e2927c7d0544660b40d94bc308ab9d69c09beff916e60",
+    "name": "precision_20261017",
+    "committed": true
+  },
+  "truth_entries": [
+    {
+      "run": "results/runs/precision_20261017/runs/C7_DF18_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C7_DF18/truth.json",
+      "truth_sha256": "366b8204295e3098aff07b238d382ddd23a3e5d2b90282d7367edabd16307752",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C7_DF18",
+        "sealed": false,
+        "window_set_id": "7d661c207ac36f55",
+        "path": "annotation/calibration/C7_DF18/truth.json",
+        "sha256": "366b8204295e3098aff07b238d382ddd23a3e5d2b90282d7367edabd16307752",
+        "video_sha256": "dfb768f07073da23027eb7ce734c82978710172220839c34546797cc7becfcb0",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C7_GF15_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C7_GF15/truth.json",
+      "truth_sha256": "97ebdc33782c017f66cbc8a08f9e61be06764e16c9bd29afbf40be6dfa3fbcae",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C7_GF15",
+        "sealed": false,
+        "window_set_id": "924060558aa4145d",
+        "path": "annotation/calibration/C7_GF15/truth.json",
+        "sha256": "97ebdc33782c017f66cbc8a08f9e61be06764e16c9bd29afbf40be6dfa3fbcae",
+        "video_sha256": "6dbdedff70c0135d83bb8f04de71e24f27a263477f1b0c95c5cf2b4056a32054",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C7_PP31_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C7_PP31/truth.json",
+      "truth_sha256": "d95cf7e65a3db27e88ee4e01ef0273745b6d9e74c6fb446b9d7f5bb53cd347dd",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C7_PP31",
+        "sealed": false,
+        "window_set_id": "f843c815c584133d",
+        "path": "annotation/calibration/C7_PP31/truth.json",
+        "sha256": "d95cf7e65a3db27e88ee4e01ef0273745b6d9e74c6fb446b9d7f5bb53cd347dd",
+        "video_sha256": "deca7a9128a3857d37929b5ac2ed0991b0ad2c397ef166ef6899f76bca58efa3",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C7_WJ33_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C7_WJ33/truth.json",
+      "truth_sha256": "a71dc261bd259486e3ac79e9c9141bad4106cd20147d0ba4304abe66e1a21dc6",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C7_WJ33",
+        "sealed": false,
+        "window_set_id": "4435c73297497d81",
+        "path": "annotation/calibration/C7_WJ33/truth.json",
+        "sha256": "a71dc261bd259486e3ac79e9c9141bad4106cd20147d0ba4304abe66e1a21dc6",
+        "video_sha256": "272d61d4d9c34cdf634fe92ff92060cd5074303df554fa92c4712f6327098cc1",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_ANTE008_C1_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_ANTE008_C1/truth.json",
+      "truth_sha256": "2c7f0260b5f43506dedae469514a15559e406d084c16dbd38328ab8dc41f8b9f",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_ANTE008_C1",
+        "sealed": false,
+        "window_set_id": "e3194804b62bd920",
+        "path": "annotation/calibration/C8_ANTE008_C1/truth.json",
+        "sha256": "2c7f0260b5f43506dedae469514a15559e406d084c16dbd38328ab8dc41f8b9f",
+        "video_sha256": "c9b00659d6fd4024859c7178bc24e72b42ba63257ded6e468643a0b9b5deddd3",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_FREN002_C2_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_FREN002_C2/truth.json",
+      "truth_sha256": "4d875527edcc22fe98d9dc299afa912faaa2e8aba3067cd64f3cad89dd0270fc",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_FREN002_C2",
+        "sealed": false,
+        "window_set_id": "85bdcfec660eaede",
+        "path": "annotation/calibration/C8_FREN002_C2/truth.json",
+        "sha256": "4d875527edcc22fe98d9dc299afa912faaa2e8aba3067cd64f3cad89dd0270fc",
+        "video_sha256": "bbe3d9fd6085f029131f400811b0aa351779c996034f3833b5a0dac5163db694",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_KING003_C2_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_KING003_C2/truth.json",
+      "truth_sha256": "3e0988c8f299d87c64df7ce23174d69ace6ab6aeb6db9088027899f7689417db",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_KING003_C2",
+        "sealed": false,
+        "window_set_id": "7e041918bfc26b91",
+        "path": "annotation/calibration/C8_KING003_C2/truth.json",
+        "sha256": "3e0988c8f299d87c64df7ce23174d69ace6ab6aeb6db9088027899f7689417db",
+        "video_sha256": "baf2243aee9831caf5961dfc9f1a05ef2e1215dba0b2049d4f1b9f8b22f51b4a",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_RIMF008_C2_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_RIMF008_C2/truth.json",
+      "truth_sha256": "8e87e964c048c55b9c704556d254f3f9c1a2e43d904097ebba61e33a5b4cebea",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_RIMF008_C2",
+        "sealed": false,
+        "window_set_id": "b7d82c28970bb330",
+        "path": "annotation/calibration/C8_RIMF008_C2/truth.json",
+        "sha256": "8e87e964c048c55b9c704556d254f3f9c1a2e43d904097ebba61e33a5b4cebea",
+        "video_sha256": "aa694c14761ebc48fdae88c5ad08c19ee671aa71d39f76f9b02cef91be7b8481",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_ROUG016_C3_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_ROUG016_C3/truth.json",
+      "truth_sha256": "46b233d812803a22eb2441d795b85af5f8c76b2277a0ae1f2bb821de6a7ac341",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_ROUG016_C3",
+        "sealed": false,
+        "window_set_id": "e6eea60043020c4b",
+        "path": "annotation/calibration/C8_ROUG016_C3/truth.json",
+        "sha256": "46b233d812803a22eb2441d795b85af5f8c76b2277a0ae1f2bb821de6a7ac341",
+        "video_sha256": "e9a32d81849f1da005987be8adc9580225098a6dfa423f012b9c45935a0194c9",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_ROUG016_prefix_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_ROUG016_prefix/truth.json",
+      "truth_sha256": "8f459289c0770037fd036b28f16544ace44957636b70b09dd699c5e3d37272e5",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_ROUG016_prefix",
+        "sealed": false,
+        "window_set_id": "287480b4cbc2d9b5",
+        "path": "annotation/calibration/C8_ROUG016_prefix/truth.json",
+        "sha256": "8f459289c0770037fd036b28f16544ace44957636b70b09dd699c5e3d37272e5",
+        "video_sha256": "ac86fa57d38cb19b0ce4191134736dcdc1b42417a326d3f043166239a48c5dff",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_SOME004_C2_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_SOME004_C2/truth.json",
+      "truth_sha256": "96087fa8bfafc3279aef96c1e919398707221b7b5b1dea27c54bf934f56d4fff",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_SOME004_C2",
+        "sealed": false,
+        "window_set_id": "43e3f92935a9e1fd",
+        "path": "annotation/calibration/C8_SOME004_C2/truth.json",
+        "sha256": "96087fa8bfafc3279aef96c1e919398707221b7b5b1dea27c54bf934f56d4fff",
+        "video_sha256": "e8791d44059aa986e0fba3af7e9bf9c1ddef5a13aaa0a7695eb1c3fa66f6fd44",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_WARM004_C2_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_WARM004_C2/truth.json",
+      "truth_sha256": "8c1ae73c4fee66c8d273580c472f6565edf431b9793f2d790ca5e6247aa8aa94",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_WARM004_C2",
+        "sealed": false,
+        "window_set_id": "ae492d2a732545a3",
+        "path": "annotation/calibration/C8_WARM004_C2/truth.json",
+        "sha256": "8c1ae73c4fee66c8d273580c472f6565edf431b9793f2d790ca5e6247aa8aa94",
+        "video_sha256": "6de84d66898023559ff026c9cc09d0ac4ba4b083c231afe399d7fd76a0c819cb",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    },
+    {
+      "run": "results/runs/precision_20261017/runs/C8_WILL006_C1_dump",
+      "truth": "results/validation/precision_20261017/annotation/calibration/C8_WILL006_C1/truth.json",
+      "truth_sha256": "f037b354b04448f99da83e81a2a09512b7d93b531b4fd71326154c1a170f33fb",
+      "frozen": true,
+      "entry": {
+        "population": "calibration_selection",
+        "recording": "C8_WILL006_C1",
+        "sealed": false,
+        "window_set_id": "a74cbc12d8f5b02a",
+        "path": "annotation/calibration/C8_WILL006_C1/truth.json",
+        "sha256": "f037b354b04448f99da83e81a2a09512b7d93b531b4fd71326154c1a170f33fb",
+        "video_sha256": "a05f5b53ae2d258f351b05ddbb179246a85bf5e047f533bc0c311064766482dd",
+        "segment_s": [
+          0.0,
+          null
+        ]
+      }
+    }
+  ],
+  "development": false,
+  "development_note": "",
+  "dataset": {
+    "path": "results/runs/precision_20261017/dataset_c5",
+    "dataset_json_sha256": "ced4d8ed69847fb857844fc9ffe948641887e908c049a161d39094cb72f1c7bb"
+  },
+  "train_report": {
+    "path": "results/validation/precision_20261017/dev/train_report.json",
+    "sha256": "a9fa234e8afc9dc21c66748a29900c716c08dbf18d25ab36ff98522c44df72c2",
+    "status": "OK",
+    "deterministic": true
+  },
+  "duplicate_models": [
+    {
+      "family": "temporal",
+      "seed": 1,
+      "same_as_seed": 0,
+      "sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+      "note": "byte-identical to an earlier seed's model: calibrated once"
+    }
+  ],
+  "feature_settings_sha256": "edf2b1ebfe3eca9288555ff8d77ad307374139d12acba3525849d9c66d415329",
+  "calibration_points": "results/runs/precision_20261017/calibration/calibration_points.json",
+  "calibration_points_sha256": "1b32c4baa8890b447e228343ef15cd0bfb9414207142555eece7a08dae7f0c5e",
+  "labels": "calibration recordings, agent-annotated windows: PROVISIONAL",
+  "rule_note": "the window-truth selection rule of the first draft; protocol amendment 2 selects on the blind accepted-track review instead (verify select), so this record is kept for comparison only",
+  "git_commit": "92a604080bb3fc1f8f53756502c9b02c29bededf",
+  "git_dirty": false
+}
