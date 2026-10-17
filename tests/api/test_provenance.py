@@ -11,7 +11,8 @@ def _git(cwd, *args):
 def _repo(path):
     path.mkdir(parents=True)
     _git(path, "init", "-q")
-    _git(path, "-c", "user.email=t@example.invalid", "-c", "user.name=t", "commit", "-q", "--allow-empty", "-m", "x")
+    _git(path, "-c", "user.email=t@example.invalid", "-c", "user.name=t", "-c", "commit.gpgsign=false",
+         "commit", "-q", "--allow-empty", "-m", "x")
     return subprocess.run(["git", "-C", str(path), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
 
 

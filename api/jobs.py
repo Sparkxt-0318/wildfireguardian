@@ -17,6 +17,7 @@ import json
 import multiprocessing as mp
 import queue
 import threading
+import time
 import uuid
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -85,6 +86,19 @@ class JobManager:
         for f in [pool.submit(_ready) for _ in range(self.workers)]:
             f.result(timeout=120)
         return pool
+
+    def _settle_pool(self, wait_s: float = 10.0):
+        """Make the pool usable for the next launch. A worker that died is seen by the executor's manager thread a moment
+        later; wait for that (the executor then marks itself broken and fails every in-flight future, running each
+        _done and so each worker-death pause), then rebuild."""
+        deadline = time.monotonic() + wait_s
+        while self._has_dead_worker() and not getattr(self.pool, "_broken", False) and time.monotonic() < deadline:
+            time.sleep(0.05)
+        self._ensure_pool()
+
+    def _has_dead_worker(self) -> bool:
+        procs = getattr(self.pool, "_processes", None) or {}
+        return any(p.exitcode is not None for p in list(procs.values()))
 
     def _ensure_pool(self):
         """A worker that dies (e.g. killed by the OS) breaks a ProcessPoolExecutor for good; rebuild it once broken."""
@@ -179,26 +193,41 @@ class JobManager:
             except queue.Empty:
                 continue
             _, _, kind, spec, on_start, on_done = item
-            # hold while paused; re-check after taking a slot, because the task that frees the slot decides on the
-            # pause before releasing it (a launch never slips through between a failed attempt and its pause)
+            # Launch ordering (frozen lifecycle rule: no launch after an attempt whose cleanup was not confirmed).
+            # 1. take a slot; 2. settle the pool: a broken pool's shutdown waits until every in-flight _done has run, so
+            # each worker-death pause is already set; 3. check the pause (hold the item if paused); 4. on_start;
+            # 5. check again just before submit (a pause that landed meanwhile fails this job as unresolved).
+            failed = None
             while True:
                 while self.paused is not None and not self._stop.is_set():
                     self._stop.wait(1.0)
                 self._slots.acquire()
-                if self.paused is None or self._stop.is_set():
+                if self._stop.is_set():
+                    break
+                try:
+                    self._settle_pool()
+                except Exception as exc:          # the pool cannot be rebuilt: nothing will be launched
+                    failed = exc
+                    break
+                if self.paused is None:
                     break
                 self._slots.release()
             if self._stop.is_set():
                 self._slots.release()
                 break
+            if failed is not None:
+                self._slots.release()
+                on_done(None, failed)
+                continue
             try:
                 on_start()
             except Exception:
                 pass
             try:
-                self._ensure_pool()
+                if self.paused is not None:
+                    raise RuntimeError("launches paused before this task started: %s" % self.paused)
                 fut = self.pool.submit(TASKS[kind], spec)
-            except Exception as exc:   # pool broken or shut down: nothing was launched
+            except Exception as exc:   # paused, pool broken or shut down: nothing was launched
                 self._slots.release()
                 on_done(None, exc)
                 continue

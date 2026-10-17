@@ -119,3 +119,28 @@ def test_no_launch_slips_through_after_a_failed_attempt(tmp_path, monkeypatch, a
         assert jm.paused and "rc_first" in jm.paused
     finally:
         jm.shutdown()
+
+
+@pytest.mark.parametrize("attempt", range(2))
+def test_no_launch_slips_through_when_another_task_frees_the_slot(tmp_path, monkeypatch, attempt):
+    """workers=2: a non-launching task (zone packet stand-in) is in flight next to a route check whose worker dies.
+
+    The broken pool fails both futures; the non-launching one may free its slot first. The queued route check must
+    still not start: the feeder settles the pool (which waits for every failure callback, so the pause is set) and
+    checks the pause before starting anything.
+    """
+    monkeypatch.setitem(J.TASKS, "route_check", _pool_tasks.scripted)
+    monkeypatch.setitem(J.TASKS, "t_sleep", _pool_tasks.sleep_then_echo)
+    jm = J.JobManager(tmp_path, workers=2)
+    try:
+        done_a, started_b = threading.Event(), threading.Event()
+        jm.schedule("t_sleep", {"sleep_s": 3.0}, lambda: None, lambda r, e: None)
+        import time
+        time.sleep(0.5)                            # the non-launching task holds the first slot
+        jm.schedule("route_check", {"action": "die", "job_id": "rc_dies"}, lambda: None, lambda r, e: done_a.set())
+        jm.schedule("route_check", {"action": "echo", "job_id": "rc_queued"}, started_b.set, lambda r, e: None)
+        assert done_a.wait(120)
+        assert not started_b.wait(5)
+        assert jm.paused and "rc_dies" in jm.paused
+    finally:
+        jm.shutdown()

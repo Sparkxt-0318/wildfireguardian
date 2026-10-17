@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.7.0
+  version: 1.8.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -290,8 +290,9 @@ components:
                 v1.5 (503): `BUSY` (too many queued checks), `LAUNCHES_PAUSED` (a kit attempt's process cleanup was not
                 confirmed; new launches pause as the frozen controller requires until the API is restarted).
                 v1.6 (작업 오류 / job error): `SERVER_RESTARTED` (the API restarted before the job finished; it is not resumed).
-                요청 본문이 계약 스키마에 맞지 않으면 (예: 구역 200개 초과) `VALIDATION_ERROR` / a body that does not match
-                the contract schema (e.g. more than 200 zones) returns `VALIDATION_ERROR`.
+                요청 본문이 계약 스키마에 맞지 않으면 (예: 구역 200개 초과, 1–100자 문자열이 아닌 fire_id) `VALIDATION_ERROR` /
+                a body that does not match the contract schema (e.g. more than 200 zones, or a fire_id that is not a string of
+                1-100 characters, null included) returns `VALIDATION_ERROR`.
               examples: [SNAP_TOO_FAR]
             message:
               type: string
@@ -686,7 +687,9 @@ components:
                 Upper bound of fire arrival in hours (e.g. 5, 8). A cell's band is (H_prev, H]: H is the smallest value
                 among the zones touching it and H_prev the smallest prev over all of them (v1.7). Zone j is nested in zone i
                 when both belong to one fire, H_j < H_i, every cell of j is a cell of i and j is not cut off by the region
-                grid edge; prev(i) is the smallest H over the outermost zones nested in i, 0 when none.
+                grid edge; prev(i) is the smallest H over the outermost zones nested in i, 0 when none. A cut-off zone of
+                the same fire whose visible cells lie in i can lower prev(i) to its H but never raise it (v1.8).
+                경계에 잘린 같은 화재의 구역은 보이는 셀이 i 안에 있으면 prev(i)를 자기 H로 낮출 수는 있어도 높이지는 않습니다 (v1.8).
             fire_id:
               type: string
               minLength: 1
@@ -775,7 +778,10 @@ components:
     JobStatus:
       type: string
       enum: [queued, running, done, failed]
-      description: '`failed` = API 내부 오류; 결과는 항상 unresolved로 취급 / internal error; always treat as unresolved'
+      description: |
+        `failed`는 결코 안전한 결과가 아니며 항상 unresolved로 취급합니다. 결과는 unresolved 결과이거나 null입니다
+        (예: 작업 오류 `SERVER_RESTARTED`, v1.6). `failed` is never safe; always treat it as unresolved. Its result is an
+        unresolved result or null (e.g. job error `SERVER_RESTARTED`, v1.6); read `error.code` for the reason.
     SnapInfo:
       type: object
       required: [node_id, distance_m, lon, lat, input]

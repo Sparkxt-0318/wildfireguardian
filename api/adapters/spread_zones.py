@@ -7,13 +7,13 @@ models. It only decides per-cell ignition times and then builds the hazard packe
 
 Rules (all echoed under ``assumptions``):
 * Rasterization (conservative): a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior
-  (centre or corner inside, or a polygon edge crossing the cell); sharing only a boundary line does not count. A cell takes the band of the smallest ``arrival_h_max`` among
-  the zones that touch it (nested zones).
+  (centre or corner inside, or a polygon edge crossing the cell); sharing only a boundary line does not count.
 * Fires: zones with the same optional ``fire_id`` property (or all zones without one) belong to one fire.
 * Bands: zone j is nested in zone i when both belong to the same fire, H_j < H_i, every cell of j is a cell of i, and j
-  lies wholly inside the region grid (a zone cut off by the grid or window edge is never nested: its hidden part could
-  lie outside i). prev(i) is the smallest H_j over the outermost zones nested in i (those not nested in another zone
-  nested in i), 0 when none: for concentric zones of one fire, the next band edge in. A cell's band is (H_prev, H] with
+  lies wholly inside the region grid. prev(i) is the smallest H_j over the outermost zones nested in i (those not nested
+  in another zone nested in i), 0 when none: for concentric zones of one fire, the next band edge in. A zone cut off by
+  the grid or window edge whose visible cells lie in i may or may not be inside i; prev(i) takes the earlier reading
+  (the smaller of prev(i) and its H), so such a zone can lower prev(i) but never raise it. A cell's band is (H_prev, H] with
   H the smallest ``arrival_h_max`` and H_prev the smallest prev over all zones touching it, whichever fire they belong to.
   With a distinct ``fire_id`` per fire, adding another fire's zones never makes any ignition later. Without fire ids a
   zone lying inside another zone of larger H is read as its inner band (one fire), as the band rule intends.
@@ -44,7 +44,7 @@ import numpy as np
 
 from ..errors import unprocessable
 
-ADAPTER_VERSION = "wfg.api.spread-zones-adapter/3"   # /3: fire_id, truncated zones never nested, cell H_prev = min (v1.7)
+ADAPTER_VERSION = "wfg.api.spread-zones-adapter/4"   # /4: a cut-off zone can lower prev but never raise it (v1.8)
 APPROXIMATION = "approximation, requires expert review"
 DEFAULT_MARGIN_MIN = 60.0
 LATER_FRACTIONS = (1.0 / 3.0, 2.0 / 3.0, 1.0)
@@ -223,8 +223,9 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
                             {"zones_outside": outside, "region_bbox_wgs84": list(region.graph.bbox)})
     # j is nested in i when they share a fire, H_j < H_i, cells(j) is a subset of cells(i) and j is not cut off by the grid
     # edge. prev(i) = min{H_j : j nested in i and not nested in another zone nested in i} (the outermost nested zones), or
-    # 0. A cell's band is (min prev, min H] over every zone touching it, so with distinct fire ids another fire's zones can
-    # only move a cell's ignitions earlier (conservative), never later.
+    # 0, lowered by any cut-off zone of the fire whose visible cells lie in i. A cell's band is (min prev, min H] over
+    # every zone touching it, so with distinct fire ids another fire's zones can only move a cell's ignitions earlier
+    # (conservative), never later.
     n = len(zone_rows)
     hs = np.array([h for h, _ in zone_rows])
     flat = np.array([m.ravel() for _, m in zone_rows], dtype=np.float64).reshape(n, H * W)
@@ -233,13 +234,17 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
     same_fire = np.array([[a == b for b in fire_ids] for a in fire_ids], dtype=bool).reshape(n, n)
     whole = np.ones(n, dtype=bool)
     whole[truncated] = False
-    nested = ((inter == size[:, None]) & (size[:, None] > 0) & (hs[:, None] < hs[None, :])
-              & same_fire & whole[:, None])                                                  # nested[j, i]
+    inside = (inter == size[:, None]) & (size[:, None] > 0) & (hs[:, None] < hs[None, :]) & same_fire   # [j, i]
+    nested = inside & whole[:, None]                                                                     # [j, i]
     prev = []
     for i in range(len(zone_rows)):
         inner = np.flatnonzero(nested[:, i])
         outer = [j for j in inner if not nested[j, inner].any()]
-        prev.append(float(min(hs[j] for j in outer)) if outer else 0.0)
+        p = float(min(hs[j] for j in outer)) if outer else 0.0
+        # a cut-off zone whose visible cells lie in i may be an inner band of i or not: take the earlier reading, so it
+        # can lower prev(i) but never raise it
+        cut = [hs[j] for j in np.flatnonzero(inside[:, i] & ~whole)]
+        prev.append(float(min([p] + cut)))
     band_h = np.full((H, W), np.inf)
     for h, m in zone_rows:
         band_h = np.where(m & (h < band_h), h, band_h)
@@ -280,7 +285,7 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
         "adapter": ADAPTER_VERSION, "label": APPROXIMATION,
         "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell interior (centre or corner inside, or an edge crossing it; a shared boundary line alone does not count); polygon edges (straight in lon/lat) are densified every %g deg before projection" % DENSIFY_DEG,
         "fires": "zones with the same fire_id property (or all zones without one) are one fire; nesting is computed within a fire only",
-        "bands": "zone j is nested in zone i when both are one fire, H_j < H_i, every cell of j is a cell of i and j is not cut off by the region grid edge; prev(i) is the smallest H_j over the outermost zones nested in i (those not nested in another zone nested in i), 0 when none; a cell's band is (H_prev, H] with H the smallest arrival_h_max and H_prev the smallest prev over every zone touching it, so with a distinct fire_id per fire another fire's zones never make an ignition later; without fire ids a zone inside another zone of larger H is read as its inner band",
+        "bands": "zone j is nested in zone i when both are one fire, H_j < H_i, every cell of j is a cell of i and j is not cut off by the region grid edge; prev(i) is the smallest H_j over the outermost zones nested in i (those not nested in another zone nested in i), 0 when none, and a cut-off zone of the fire whose visible cells lie in i can lower prev(i) to its H but never raise it; a cell's band is (H_prev, H] with H the smallest arrival_h_max and H_prev the smallest prev over every zone touching it, so with a distinct fire_id per fire another fire's zones never make an ignition later; without fire ids a zone inside another zone of larger H is read as its inner band",
         "fire_ids": sorted({f for f in fire_ids if f is not None}),
         "zones_cut_off_by_grid_edge": truncated,
         "margin_min": margin_min,

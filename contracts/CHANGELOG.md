@@ -127,3 +127,25 @@ Documentation only:
 - More than 200 zones fails contract validation (422 `VALIDATION_ERROR`). The adapter's own `INVALID_ZONES` check is
   only a backstop.
 - A `failed` job has either an `unresolved` result or `result: null` (`SERVER_RESTARTED`, or a failed dispatch plan).
+
+## v1.8 — cut-off zones lower H_prev only, launch ordering
+
+Behaviour changes:
+- spread_zones (adapter `wfg.api.spread-zones-adapter/4`): in v1.7 a zone cut off by the grid or window edge was never
+  nested. Excluding it could raise `prev(i)` when it was the smallest of i's outermost inner zones next to a whole one.
+  A cut-off zone of the same fire whose visible cells all lie in i may or may not be one of i's inner bands, so
+  `prev(i)` now takes the earlier reading: `prev(i) = min(prev from whole nested zones, H of each such cut-off zone)`.
+  Such a zone can lower `prev(i)` but never raise it, and the result is never later than v1.6 or v1.7 for the same
+  input. A zone of another fire (a different `fire_id`) is still never involved.
+- Launch ordering: after taking a worker slot, the feeder first settles the pool. It waits for the executor to notice
+  a dead worker, and rebuilding a broken pool waits for every failure callback, so each worker-death pause is set by
+  then. The feeder then checks the pause before starting the job. It checks once more just before submitting, and a
+  pause that landed in between fails that job as `unresolved` without launching it. With several workers, v1.7 could
+  still start one queued check when a different task freed the slot.
+
+Documentation only:
+- A `fire_id` that is not a string of 1-100 characters (null included) fails contract validation with 422
+  `VALIDATION_ERROR`, like more than 200 zones. The adapter's `INVALID_ZONES` check for both is only a backstop.
+- `JobStatus.failed`: the result is an unresolved result or null (for example `SERVER_RESTARTED`). It is never safe.
+- The v1.7 property test now builds concentric fires, so nested bands are exercised; it asserts a floor on such
+  trials. It covers the `fire_id` and cell-`H_prev` rules. The cut-off rules are covered by their own tests.

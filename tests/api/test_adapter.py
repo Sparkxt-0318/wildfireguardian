@@ -289,25 +289,54 @@ def test_cell_takes_the_smallest_h_prev_of_every_zone_touching_it():
     assert np.all(t <= t_k) and np.all(t <= t_a)
 
 
+def test_cut_off_zone_can_lower_h_prev_but_never_raise_it():
+    """One fire: a 4 h zone, a whole 2 h zone inside it and a 1 h zone that reaches 10 m past the west grid edge.
+
+    The 1 h zone may or may not be an inner band of the 4 h zone; prev takes the earlier reading (1 h, not 2 h), so the
+    4 h band ignites at 0 as when the 1 h zone ends exactly on the edge.
+    """
+    big = rect(-3000, -3000, 6000, 5000, 4.0)
+    mid = rect(1500, 750, 2250, 1500, 2.0)
+    r, c = cell_rc(2800, 200)                              # in the 4 h zone only
+    for west in (-10, 0):
+        p = run([big, mid, rect(west, 750, 750, 1500, 1.0)])
+        assert np.array(p["times"])[0, r, c] == 0.0, west
+        assert (4.0, 1.0) in {(x["arrival_h_max"], x["h_prev"]) for x in p["assumptions"]["bands_detail"]}
+
+
+def _random_fire(rng, name):
+    """1-3 concentric zones of one fire (increasing H); one fire in four is drawn across the grid edge."""
+    hs = sorted(rng.choice([0.25, 0.5, 1.0, 1.5, 2.0, 3.0], size=int(rng.integers(1, 4)), replace=False))
+    cx, cy = rng.uniform(300, 2700), rng.uniform(300, 1950)
+    clip = rng.uniform() < 0.75
+    zones = []
+    for k, h in enumerate(hs):
+        r = 300 + 450 * k + rng.uniform(0, 300)
+        x0, y0, x1, y1 = cx - r, cy - r * rng.uniform(0.6, 1.0), cx + r, cy + r * rng.uniform(0.6, 1.0)
+        if clip:
+            x0, y0, x1, y1 = max(x0, 0), max(y0, 0), min(x1, 3000), min(y1, 2250)
+        zones.append(fire(rect(x0, y0, x1, y1, float(h)), name))
+    return zones
+
+
 def test_adding_another_fire_never_delays_any_ignition(monkeypatch):
-    """Property check on random rectangles: with a distinct fire_id per fire, A+B ignites every cell no later than A or B."""
+    """Property check: with a distinct fire_id per fire, A+B ignites every cell no later than A or B alone.
+
+    Fires are concentric zone sets (so nesting and H_prev > 0 are exercised), some cut off by the grid edge.
+    """
     monkeypatch.setattr(SZ, "_densify", lambda ring, step=None: ring)   # straight edges under the synthetic projection
     rng = np.random.default_rng(20261017)
+    nested_trials = 0
     for trial in range(600):
-        fires = []
-        for name in ("A", "B"):
-            zs = []
-            for _ in range(int(rng.integers(1, 4))):
-                x0, y0 = rng.uniform(-600, 2800), rng.uniform(-600, 2100)
-                w, hgt = rng.uniform(200, 2400), rng.uniform(200, 1800)
-                zs.append(fire(rect(x0, y0, x0 + w, y0 + hgt, float(rng.choice([0.25, 0.5, 1.0, 1.5, 2.0, 3.0]))), name))
-            fires.append(zs)
-        a, b = fires
+        a, b = _random_fire(rng, "A"), _random_fire(rng, "B")
         try:
-            ta, tb, tab = (np.array(run(z)["times"]) for z in (a, b, a + b))
+            pa, pb, pab = run(a), run(b), run(a + b)
         except APIError:                                   # a random zone may miss the grid entirely
             continue
+        ta, tb, tab = (np.array(p["times"]) for p in (pa, pb, pab))
         assert np.all(tab <= ta) and np.all(tab <= tb), trial
+        nested_trials += any(x["h_prev"] > 0 for p in (pa, pb) for x in p["assumptions"]["bands_detail"])
+    assert nested_trials >= 300, nested_trials           # the generator must keep exercising nested bands
 
 
 def test_invalid_fire_id_is_422():

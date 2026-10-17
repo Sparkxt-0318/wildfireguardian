@@ -23,3 +23,9 @@ def scripted(spec):
     if action == "taint":
         return {"status": "done", "tainted": True, "echo": spec}
     return {"status": "done", "echo": spec}
+
+
+def sleep_then_echo(spec):
+    import time
+    time.sleep(spec.get("sleep_s", 2.0))
+    return {"status": "done", "echo": spec}
