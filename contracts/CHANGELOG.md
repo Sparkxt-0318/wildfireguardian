@@ -149,3 +149,15 @@ Documentation only:
 - `JobStatus.failed`: the result is an unresolved result or null (for example `SERVER_RESTARTED`). It is never safe.
 - The v1.7 property test now builds concentric fires, so nested bands are exercised; it asserts a floor on such
   trials. It covers the `fire_id` and cell-`H_prev` rules. The cut-off rules are covered by their own tests.
+
+## v1.8.1 — launch-pause hardening and a correction (no contract change)
+
+- The feeder never submits a task into a pool that has a dead worker. In v1.8 it waited up to 10 s for the executor
+  to register a dead worker and then submitted anyway. That could happen when the executor's manager thread was busy
+  in a slow callback, for example launching a very large dispatch plan. Now:
+  - it waits up to 300 s;
+  - it checks for a dead worker again just before submitting;
+  - if the wait runs out, the job fails as `unresolved` without starting, and launches pause.
+  Deterministic tests with a stand-in pool cover the settle-then-check order and the dead-worker refusal.
+- Correction to v1.8: "never later than v1.6 or v1.7 for the same input" holds for inputs without `fire_id`. With
+  `fire_id`, v1.8 is never later than v1.7. v1.6 ignored `fire_id` and read all zones as one fire.

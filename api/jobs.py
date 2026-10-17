@@ -87,12 +87,20 @@ class JobManager:
             f.result(timeout=120)
         return pool
 
-    def _settle_pool(self, wait_s: float = 10.0):
+    SETTLE_WAIT_S = 300.0                 # how long to wait for the executor to notice a dead worker
+
+    def _settle_pool(self):
         """Make the pool usable for the next launch. A worker that died is seen by the executor's manager thread a moment
-        later; wait for that (the executor then marks itself broken and fails every in-flight future, running each
-        _done and so each worker-death pause), then rebuild."""
-        deadline = time.monotonic() + wait_s
-        while self._has_dead_worker() and not getattr(self.pool, "_broken", False) and time.monotonic() < deadline:
+        later (longer while that thread runs a slow callback); wait for that, because the executor then marks itself
+        broken and fails every in-flight future, running each _done and so each worker-death pause; then rebuild. A
+        dead worker that is still not noticed after SETTLE_WAIT_S raises: nothing is ever submitted to such a pool."""
+        deadline = time.monotonic() + self.SETTLE_WAIT_S
+        while self._has_dead_worker() and not getattr(self.pool, "_broken", False) and not self._stop.is_set():
+            if time.monotonic() >= deadline:
+                self.pause("a pool worker died and the process pool did not register it within %.0f s; its kit "
+                           "attempt's cleanup was not confirmed, so new launches are paused. Restart the API."
+                           % self.SETTLE_WAIT_S)
+                raise RuntimeError("pool worker died; launch refused")
             time.sleep(0.05)
         self._ensure_pool()
 
@@ -226,6 +234,8 @@ class JobManager:
             try:
                 if self.paused is not None:
                     raise RuntimeError("launches paused before this task started: %s" % self.paused)
+                if self._has_dead_worker():       # a worker died after the pool was settled: never submit into it
+                    raise RuntimeError("a pool worker died before this task started; launch refused")
                 fut = self.pool.submit(TASKS[kind], spec)
             except Exception as exc:   # paused, pool broken or shut down: nothing was launched
                 self._slots.release()

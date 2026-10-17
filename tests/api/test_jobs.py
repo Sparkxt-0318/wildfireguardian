@@ -144,3 +144,77 @@ def test_no_launch_slips_through_when_another_task_frees_the_slot(tmp_path, monk
         assert jm.paused and "rc_dies" in jm.paused
     finally:
         jm.shutdown()
+
+
+class _FakeFuture:
+    def __init__(self, result):
+        self._result = result
+
+    def add_done_callback(self, fn):
+        fn(self)
+
+    def result(self):
+        return self._result
+
+
+class _FakePool:
+    """Stand-in for ProcessPoolExecutor: records submissions; can look broken or hold a dead worker."""
+
+    def __init__(self, broken=False, dead_worker=False, on_shutdown=None):
+        self._broken = broken
+        self._processes = {1: type("P", (), {"exitcode": 1 if dead_worker else None})()}
+        self.on_shutdown = on_shutdown
+        self.submitted = []
+
+    def shutdown(self, wait=False, cancel_futures=False):
+        if self.on_shutdown:
+            self.on_shutdown()
+
+    def submit(self, fn, spec):
+        self.submitted.append(spec)
+        return _FakeFuture({"status": "done"})
+
+
+def _manager_with(tmp_path, monkeypatch, pool):
+    fresh = _FakePool()
+    monkeypatch.setattr(J.JobManager, "_new_pool", lambda self: fresh)
+    jm = J.JobManager(tmp_path, workers=1)
+    jm.pool = pool
+    return jm, fresh
+
+
+def test_feeder_settles_the_pool_before_checking_the_pause(tmp_path, monkeypatch):
+    """The pause a dying attempt sets while the broken pool is being shut down must stop the next launch (v1.8 order)."""
+    holder = {}
+    broken = _FakePool(broken=True, on_shutdown=lambda: holder["jm"].pause("rc_dead: worker died"))
+    jm, fresh = _manager_with(tmp_path, monkeypatch, broken)
+    holder["jm"] = jm
+    try:
+        started = threading.Event()
+        jm.schedule("route_check", {"job_id": "rc_next"}, started.set, lambda r, e: None)
+        assert not started.wait(3)
+        assert fresh.submitted == [] and jm.paused == "rc_dead: worker died"
+    finally:
+        jm.shutdown()
+
+
+def test_feeder_never_submits_into_a_pool_with_a_dead_worker(tmp_path, monkeypatch):
+    """A dead worker the executor has not registered (its manager thread is busy) blocks the launch; on timeout the job
+    fails as unresolved without starting, and launches pause."""
+    monkeypatch.setattr(J.JobManager, "SETTLE_WAIT_S", 1.0)
+    pool = _FakePool(dead_worker=True)
+    jm, _ = _manager_with(tmp_path, monkeypatch, pool)
+    try:
+        started, done = threading.Event(), {}
+        ev = threading.Event()
+
+        def on_done(res, exc):
+            done["r"] = (res, exc)
+            ev.set()
+        jm.schedule("route_check", {"job_id": "rc_next"}, started.set, on_done)
+        assert ev.wait(30)
+        assert not started.is_set() and pool.submitted == []
+        assert done["r"][0] is None and isinstance(done["r"][1], RuntimeError)
+        assert jm.paused and "did not register" in jm.paused
+    finally:
+        jm.shutdown()
