@@ -25,3 +25,9 @@ node_modules/
 /downloads/
 /build/
 /dist/
+# Village evacuation planner: dependencies, builds, downloaded release assets
+/planner/node_modules/
+/planner/dist/
+/planner/.assets/
+/planner/test-results/
+/planner/playwright-report/
