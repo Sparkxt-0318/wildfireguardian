@@ -1,0 +1,1634 @@
+{
+ "first": [
+  {
+   "clip_id": "C7_DF18",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000527_t17.58.png",
+     "video_t_s": 17.58,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002637_t87.99.png",
+     "video_t_s": 87.99,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f004746_t158.36.png",
+     "video_t_s": 158.36,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005273_t175.94.png",
+     "video_t_s": 175.94,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, outdoor experimental burn site. Two small conifer trees standing in straw bales in front of a brush pile with a blue tarp; a large fan on a wooden stand at right; white tiles or trays laid on gravel at left; forest behind. Frame 1 and 2 show a torch or small flame at the right of the bales; frame 3 shows the trees fully flaming with smoke; frames 4 and 5 show the trees mostly burned with residual flames and smoke.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio can be computed. Motion from ignition to burnout over about 176 s looks plausible for real time but nothing in five stills makes the timebase unmistakable, so verdict is unknown. Camera is fixed; only a few pixels of shift in the last frame. Glowing red smoldering fuel is clearly visible at the base in frames 3 to 5; no distinct airborne glowing particles are obvious at this scale. Frame rate implied by index/time is about 29.97 fps."
+  },
+  {
+   "clip_id": "C7_GF15",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000287_t9.58.png",
+     "video_t_s": 9.58,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f001438_t47.98.png",
+     "video_t_s": 47.98,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002589_t86.39.png",
+     "video_t_s": 86.39,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002876_t95.96.png",
+     "video_t_s": 95.96,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, same type of outdoor experimental burn site as the other C7 clips. Small conifer trees in straw in front of a brush pile with a blue tarp; white tiles or trays on gravel at left; concrete block in foreground; forest behind. Frames 1 and 2 show tall flames through a tree; frame 3 lower flames and heavy smoke; frames 4 and 5 mostly smoke with small residual flames and glowing char at the base.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio can be computed and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Camera viewpoint identical in all five frames. Small orange glowing specks are visible near the flames in frames 1 and 3, and glowing char at the base in later frames. Implied frame rate about 29.97 fps."
+  },
+  {
+   "clip_id": "C7_PP31",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000617_t20.56.png",
+     "video_t_s": 20.56,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f003085_t102.81.png",
+     "video_t_s": 102.81,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005553_t185.06.png",
+     "video_t_s": 185.06,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006169_t205.59.png",
+     "video_t_s": 205.59,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, outdoor experimental burn site. A small pine tree in straw bales in front of a brush pile; large fan on a wooden stand at right; white tiles or trays on gravel at left; forest behind. Frame 1 shows a person walking away (no fire yet); frame 2 shows ignition at the right end of the bales; frame 3 flames and heavy smoke; frames 4 and 5 charred bales with heavy white smoke and small flames.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio can be computed and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. The person in frame 1 wears a shirt printed 'Mo's CHOWDER PATROL'; this is clothing, not a caption. Camera viewpoint identical in all five frames. Only faint red glowing patches inside the charred straw in frames 4 and 5; no distinct glowing particles seen, hence unclear. Implied frame rate about 30 fps."
+  },
+  {
+   "clip_id": "C7_WJ33",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000696_t23.20.png",
+     "video_t_s": 23.2,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f003483_t116.08.png",
+     "video_t_s": 116.08,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006270_t208.96.png",
+     "video_t_s": 208.96,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006966_t232.15.png",
+     "video_t_s": 232.15,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "moving",
+   "scene": "Day with low sun and lens flare at top left, outdoor experimental burn site. Juniper-like shrubs or small trees in straw in front of a brush pile; large fan on a wooden stand; concrete wall at right; white tiles or trays on gravel at left; mulch pile at right. Frame 1 shows a person and no fire; frame 2 ignition and smoke; frame 3 large flames; frames 4 and 5 burned skeletons with smoke and residual flames.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption, so no ratio can be computed and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Frames 1 to 4 share the same viewpoint, but in frame 5 the whole scene sits about 75 px (of 720) higher with the same scale, so the camera was tilted or repositioned between 208.96 s and 232.15 s; marked moving for that reframing, otherwise a fixed tripod view. Person's shirt reads 'Mo's CHOWDER PATROL' (clothing, not a caption). Small orange glowing spots near the base in frame 4 and glowing patches in the burned area in frame 5; white ash specks drift in the air at left in frame 4. Implied frame rate about 30 fps."
+  },
+  {
+   "clip_id": "C8_ANTE008_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000671_t26.88.png",
+     "video_t_s": 26.88,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Night, forest. Mostly dark frame with a distant fire front of small flames behind dark tree silhouettes in the center right, orange glow of smoke above it.",
+   "caption_text": "2007 Antelope Fire Plot8 / 7/8/2007 (night) Clip1",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "The burnt-in caption carries a date only ('7/8/2007 (night)'), no time of day, so no elapsed stamp time can be computed and the ratio is null. The caption is faint and unreadable in the first frame (fading in) and last frame (fading out), which looks like a title overlay rather than a running clock. Camera viewpoint identical in all frames. Flames are small and distant; a few isolated bright points (for example a persistent point at the right) cannot be told apart from flames or fixed lights at this scale, hence unclear. Implied frame rate 25 fps."
+  },
+  {
+   "clip_id": "C8_BEAV006_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000075_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000375_t15.08.png",
+     "video_t_s": 15.08,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000675_t27.00.png",
+     "video_t_s": 27,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000750_t30.04.png",
+     "video_t_s": 30.04,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Smoky forest understory with an active flaming front behind conifer trunks and drooping branches; orange cast throughout; caption time 07:01 suggests early morning. Interlace combing visible on edges.",
+   "caption_text": "2014 Beaver Fire, Plot6 / 8/10/2014, 07:01, Clip2",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Three frames show the same stamp '8/10/2014, 07:01' (minute resolution) across 24.00 s of video. A literal ratio is 0 s / 24.00 s = 0, which is meaningless here: the stamp cannot resolve under 60 s, and it reads like a fixed title caption giving the clip start time (it sits with the clip name and fades in and out, absent in the first frame and unreadable in the last). If it were a running clock the ratio could be anywhere from 0 up to about 2.5, so real time, time lapse and slow motion cannot be separated; reported null and unknown. Camera viewpoint identical in all frames. Glowing burning points and lines on the ground are visible. Implied frame rate 25 fps."
+  },
+  {
+   "clip_id": "C8_BEAV006_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f001136_t45.44.png",
+     "video_t_s": 45.44,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005683_t227.32.png",
+     "video_t_s": 227.32,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f010230_t409.20.png",
+     "video_t_s": 409.2,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f011366_t454.68.png",
+     "video_t_s": 454.68,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "cuts_between_shots",
+   "scene": "Frame 1 is fully black. Frame 2 is daytime unburned green conifer forest looking up into the canopy, with pink flagging and a white pole or cable at the bottom. Frames 3 to 5 are a low view of a forest understory fire: frame 3 dark and orange with flames behind trunks; frames 4 and 5 smoky daylight with burning ground fuel and many glowing spots.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame (bottom strips checked with contrast stretch), so no ratio can be computed and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Frames do not share one viewpoint: black lead-in, then a pre-fire canopy shot, then the fire view in frames 3 to 5, which appear to be one fixed view with large lighting and smoke changes and burned-off foliage (frame 3 matches the C8_BEAV006_C2 view). Many small glowing particles and burning debris on the ground in frames 3 to 5, with bright streaks in the air. Implied frame rate 25 fps."
+  },
+  {
+   "clip_id": "C8_BLAC002_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000149_t6.04.png",
+     "video_t_s": 6.04,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f000748_t29.96.png",
+     "video_t_s": 29.96,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f001346_t53.88.png",
+     "video_t_s": 53.88,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f001495_t59.76.png",
+     "video_t_s": 59.76,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (caption 14:22), very smoky, backlit orange haze in a stand of thin charred trunks on a slope; burning surface fuel and glowing spots on the ground and on trunks. Viewed through a dirty protective window: a dark blob near bottom center and many out-of-focus specks stay fixed in every frame.",
+   "caption_text": "2003 Black Mtn2 Fire, Plot2 / 8/21/2003, 14:22, Clip3",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Three frames show the same stamp '8/21/2003, 14:22' (minute resolution) across 47.84 s of video. A literal ratio is 0 s / 47.84 s = 0, which is not meaningful: the stamp cannot resolve under 60 s and looks like a fixed title caption (with the clip name, absent in the first frame and fading out unreadably in the last). If it were a running clock the ratio could be from 0 up to about 1.25, so it is consistent with real time but cannot confirm it; reported null and unknown. Camera viewpoint identical in all frames. Glowing spots on the ground and on trunks are visible. Implied frame rate 25 fps."
+  },
+  {
+   "clip_id": "C8_BUFF003_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000373_t15.00.png",
+     "video_t_s": 15,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000672_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000746_t29.88.png",
+     "video_t_s": 29.88,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky ponderosa pine stand on a grassy slope, pink-flagged stakes and a small sensor mast in the foreground, flames visible at the far left edge behind the trees.",
+   "caption_text": "2016 Buffalo Fire, PlotB3 / 8/27/2016, 15:30, Clip1",
+   "embers_visible_in_these_frames": "no",
+   "notes": "The burnt-in time is a fixed editing caption with minute resolution only (15:30), identical in every readable frame. It does not run like a clock, so it cannot measure the timebase. Taken literally the formula gives 0 stamp seconds over 26.88 video seconds, a ratio of 0.0, which would wrongly read as slow motion, so the ratio is reported as null. The caption fades in at t0.04 (unreadable) and fades out at t29.88 (read after contrast enhancement). Nothing in the motion is unmistakably sped up or slowed down. Fire is limited to flames at the left edge; no discrete glowing particles seen."
+  },
+  {
+   "clip_id": "C8_FREN002_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Mixed conifer forest with a large reddish trunk, a low flame front burning across the ground with taller flames at right, smoke drifting over burned ground in the foreground, thin stakes in view.",
+   "caption_text": "2014 French Fire Plot2 / 8/1/2014, ~17:27, Clip2",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "The burnt-in time is a fixed, approximate (tilde) caption with minute resolution, identical in the three readable frames, so it cannot measure the timebase. The literal formula gives 0.0 (would wrongly read as slow motion), so the ratio is reported as null. No caption in t0.04; only a faint unreadable ghost of it in t29.84. No unmistakable speed evidence in the motion. A few small glowing specks sit on the burned ground behind the flame front; from stills it is not clear whether they are embers or small residual flames."
+  },
+  {
+   "clip_id": "C8_FREN002_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000099_t3.30.png",
+     "video_t_s": 3.3,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000498_t16.62.png",
+     "video_t_s": 16.62,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000896_t29.90.png",
+     "video_t_s": 29.9,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000995_t33.20.png",
+     "video_t_s": 33.2,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "moving",
+   "scene": "Day, before the fire. Conifer forest plot with two crew members in yellow shirts working near flagged stakes (t0.00, t3.30); the camera is then carried (heavy motion blur at t16.62) and ends on a different framing of the plot with a rock, orange stakes and a large trunk (t29.90, t33.20). No fire or smoke.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "no",
+   "notes": "No burnt-in caption or date/time stamp in any frame (bottom area checked with contrast enhancement). Frames are 720x480, unlike the 640x480 C2 clip. Timebase unknown; crew motion between t0.00 and t3.30 looks ordinary but nothing is unmistakable from stills. The viewpoint changes with a motion-blurred transition, so the camera is moved rather than cut; it appears to be repositioned into its recording spot."
+  },
+  {
+   "clip_id": "C8_GEOR012_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Very smoky pine flatwoods with saw palmetto understory, scattered small flames in the middle distance that grow into a larger flaming patch at left by t26.92.",
+   "caption_text": "2007 Georgia Bay Complex, Plot12cam2 / 5/27/2007, 15:08 Clip3",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "The burnt-in time is a fixed caption with minute resolution (15:08), identical in all readable frames, so it cannot measure the timebase. The literal formula gives 0.0 over 26.80 video seconds (would wrongly read as slow motion), so the ratio is reported as null. No caption at t0.04; at t29.80 it is fading out and was read after contrast enhancement. No unmistakable speed evidence. A few small isolated glowing spots near the flames; from stills it is not clear whether these are embers or small flames."
+  },
+  {
+   "clip_id": "C8_KING003_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000082_t3.32.png",
+     "video_t_s": 3.32,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000413_t16.56.png",
+     "video_t_s": 16.56,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000744_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000826_t33.08.png",
+     "video_t_s": 33.08,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky mixed conifer stand with several large trunks, a pink-flagged trunk, thin stakes, smoke rising at right with a small fire glow at the right edge. Picture is a 4:3 inset with black borders on all sides.",
+   "caption_text": "2014 King Fire Plot3 / 9/18/2014, 12:12, Clip2",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "The burnt-in time is a fixed caption with minute resolution (12:12), identical in all readable frames, so it cannot measure the timebase. The literal formula gives 0.0 over 29.76 video seconds (would wrongly read as slow motion), so the ratio is reported as null. Caption is fading in at t0.04 (not reliably readable) and fading out at t33.08 (still legible). No unmistakable speed evidence. Only a small orange glow in the smoke near a stake base (t33.08) and a small flame at the right edge (t3.32); not clear whether any of it is embers."
+  },
+  {
+   "clip_id": "C8_MAPL007_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000232_t9.36.png",
+     "video_t_s": 9.36,
+     "stamp_text": "8/23/2016"
+    },
+    {
+     "frame_file": "f001163_t46.60.png",
+     "video_t_s": 46.6,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002093_t83.68.png",
+     "video_t_s": 83.68,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002325_t93.00.png",
+     "video_t_s": 93,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "time_lapse",
+   "camera": "static",
+   "scene": "Day with low sun (sun visible at left early on). Smoky lodgepole pine stand with downed logs, dry grass and a red-and-white stake in the foreground; a flame front advances through the trees in the background and is intense by t83.68 and t93.00, when the picture is darker.",
+   "caption_text": "Plot 7 - Near Gneiss Creek Trail and the Madison River 8/23/2016 - Video Playback at 3x",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No running time stamp: the only burnt-in text is a caption at t9.36 that gives a date only (8/23/2016), so the formula cannot be applied and the ratio is null. The verdict of time_lapse rests on the caption itself, which explicitly states \"Video Playback at 3x\"; that is unmistakable evidence of a sped-up timebase (about 3x). Many small discrete glowing points on the ground along the flame front and one in a tree crown are visible in the last two frames (coarse check only, not labelled)."
+  },
+  {
+   "clip_id": "C8_RALS003_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000078_t3.20.png",
+     "video_t_s": 3.2,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000390_t15.64.png",
+     "video_t_s": 15.64,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000702_t28.12.png",
+     "video_t_s": 28.12,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000780_t31.24.png",
+     "video_t_s": 31.24,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (morning). Hazy oak woodland with dry grass in the foreground, a thin stake, a pink flag in the upper left foliage, and a small patch of flames at the right edge.",
+   "caption_text": "2006 Ralston Fire, Plot3 / 9/8/2006, 08:35, Clip1",
+   "embers_visible_in_these_frames": "no",
+   "notes": "The burnt-in time is a fixed caption with minute resolution (08:35), identical in all readable frames, so it cannot measure the timebase. The literal formula gives 0.0 over 24.92 video seconds (would wrongly read as slow motion), so the ratio is reported as null. No caption at t0.04; only a faint, not reliably readable ghost at t31.24. Leaves at the top shift slightly between frames (wind), viewpoint unchanged. No unmistakable speed evidence. Fire is limited to a small flame patch at the right edge."
+  },
+  {
+   "clip_id": "C8_RIMF008_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoke-filled conifer forest with dead lower branches, a thin low flame front burning diagonally across the ground toward the lower left, a flagged stake in the foreground, smoke over burned ground at right and small flames at the upper right.",
+   "caption_text": "2013 Rim Fire Plot8 / 9/1/2013, ~13:40, Clip2",
+   "embers_visible_in_these_frames": "no",
+   "notes": "The burnt-in time is a fixed, approximate (tilde) caption with minute resolution, identical in all readable frames, so it cannot measure the timebase. The literal formula gives 0.0 over 26.80 video seconds (would wrongly read as slow motion), so the ratio is reported as null. The caption is fading in at t0.04 (not reliably readable) and fading out at t29.80 (read after contrast enhancement; first line no longer legible). No unmistakable speed evidence. Only the linear flame front and small flames visible; no discrete glowing particles seen."
+  },
+  {
+   "clip_id": "C8_ROUG016_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.04.png",
+     "video_t_s": 3.04,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000671_t26.84.png",
+     "video_t_s": 26.84,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky mixed conifer forest with a burning stump and flaming, smoldering ground fuel at lower right; smoke drifting through the trees. 640x480 frame with black letterbox bars.",
+   "caption_text": "2015 Willow Fire, Plot16 / 8/30/15, ~15:00, Clip3",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "The only date/time text is part of the title caption (shown in frames at 3.04 to 26.84 s, absent in the first and last frame). It is a fixed, approximate label (~15:00) that does not change, not a running clock, so it carries no timebase information. Treating it as a clock would give a ratio of 0, which would be meaningless, so ratio is left null and the verdict is unknown. Five stills show no unmistakable unnatural motion. Small glowing orange spots on the ground near the stump are visible in all frames. Caption names the Willow Fire, but the clip id says ROUG016 and the C8_ROUG016_prefix recording of Plot 16 on the same date (8/30/2015) is captioned Rough Fire; the fire name is inconsistent and should be checked against the source."
+  },
+  {
+   "clip_id": "C8_ROUG016_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": "00:00:00"
+    },
+    {
+     "frame_file": "f000541_t21.64.png",
+     "video_t_s": 21.64,
+     "stamp_text": "00:00:21"
+    },
+    {
+     "frame_file": "f002709_t108.32.png",
+     "video_t_s": 108.32,
+     "stamp_text": "00:01:48"
+    },
+    {
+     "frame_file": "f004877_t195.16.png",
+     "video_t_s": 195.16,
+     "stamp_text": "00:03:15"
+    },
+    {
+     "frame_file": "f005418_t216.76.png",
+     "video_t_s": 216.76,
+     "stamp_text": "00:03:36"
+    }
+   ],
+   "timebase_ratio": 0.9967,
+   "timebase_verdict": "real_time",
+   "camera": "static",
+   "scene": "Day. Sunlit, lightly smoky conifer forest on a slope, a red and white survey pole in the center, a downed log or stump and needle litter at right; thin smoke in the background at right. No active flame front in the foreground. 1280x720.",
+   "caption_text": "Rough Fire - Plot 16.  8/30/2015 (top left, all frames); first frame also has: Produced by US Forest Service, Adaptive Management Services Enterprise Team, Fire Behavior Assessment Team (FBAT)",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "Top right shows an HH:MM:SS elapsed counter starting at 00:00:00, read in all five frames. Stamp seconds 0, 21, 108, 195, 216 against video 0.04 to 216.76 s: ratio = 216 / 216.72 = 0.997, consistent across every interval, so real time. Caveat: this is an elapsed counter, not a wall clock, so if it was added in editing it would track playback by construction; nothing in the frames suggests time lapse. The date 8/30/2015 is in the top left caption. Only in the 21.64 s frame are there small orange-red patches near the stump and behind the trees in the background that could be small flames or glowing material; no clear embers elsewhere, so marked unclear."
+  },
+  {
+   "clip_id": "C8_SOME004_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000077_t3.12.png",
+     "video_t_s": 3.12,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000386_t15.48.png",
+     "video_t_s": 15.48,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000695_t27.84.png",
+     "video_t_s": 27.84,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000772_t30.92.png",
+     "video_t_s": 30.92,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Night. Dark forest with large tree trunks on a slope; low surface fire with many glowing fuel patches, small flames and sparks on the ground, flames in the background at upper right; a thin stake in the foreground.",
+   "caption_text": "2006 Somes Fire, Plot4 / 8/1/2006, 23:29, Clip2",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "The date/time is part of the title caption (readable at 3.12 to 27.84 s; absent in the first frame and fading out and unreadable in the last). It reads 23:29 unchanged across 24.7 s of video and has only minute resolution; it is the same fixed-label format as the other C8 captions, not a running clock, so it cannot give a ratio (formula would give 0, which is meaningless). Left null and unknown. No unmistakable unnatural motion in five stills. Long bright streaks at lower left in the later frames look like burning fuel lines or motion blur, not judged further."
+  },
+  {
+   "clip_id": "C8_WALK008_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": "TLC200 PRO 2014/10/08 19:56:20"
+    },
+    {
+     "frame_file": "f000124_t5.00.png",
+     "video_t_s": 5,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:00:25"
+    },
+    {
+     "frame_file": "f000622_t24.88.png",
+     "video_t_s": 24.88,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:17:00"
+    },
+    {
+     "frame_file": "f001119_t44.80.png",
+     "video_t_s": 44.8,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:33:35"
+    },
+    {
+     "frame_file": "f001243_t49.76.png",
+     "video_t_s": 49.76,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:37:45"
+    }
+   ],
+   "timebase_ratio": 49.98,
+   "timebase_verdict": "time_lapse",
+   "camera": "static",
+   "scene": "Day (smoky daylight). Open ponderosa pine forest with grass and needle litter; a surface flame front arrives from the background and burns across the plot, with heavy smoke and scattered glowing ground fuel in the last frame. 640x480 with black letterbox bars.",
+   "caption_text": "2019 Walker Fire Plot8 / 9/14/2019, ~15:00, Clip1 (frames 5.00 to 44.80 s; faded in the last frame). Camera clock line: TLC200 PRO 2014/10/08 ...",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Burnt-in camera clock from a TLC200 PRO (time-lapse camera) readable in all five frames. Stamp elapsed 19:56:20 to 20:37:45 = 2485 s over 49.72 s of video: ratio about 50. Each interval agrees (49.4, 50.05, 49.95, 50.4), so this is clearly time lapse at about 50x. The camera clock date (2014/10/08, around 20:00) does not match the caption (9/14/2019, ~15:00), so the clock was not set correctly, but the intervals are still valid. Glowing spots on the ground near the flames are visible in the later frames."
+  },
+  {
+   "clip_id": "C8_WARM004_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000671_t26.88.png",
+     "video_t_s": 26.88,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Night or very dark, strongly orange-lit. Intense fire: tall flames engulfing shrubs and small trees, then the whole view filled with flame and orange smoke; a thin stake in the foreground.",
+   "caption_text": "2006 Warm Fire Plot4 / 6/20-6/26/2006, video time 00:04:30 - 00:05:00, Clip2",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "The date/time text is a fixed title caption (readable at 3.00 to 26.88 s; absent in the first frame, faded and unreadable in the last). It does not change from frame to frame, so it gives no per-frame ratio; left null and unknown. Other evidence: the caption says this ~30 s clip covers source video time 00:04:30 to 00:05:00, i.e. 30 s of source video, which suggests about 1:1 playback of the source recording, but it does not establish the source camera's own capture rate. Flame appearance looks like ordinary video, not unmistakably unnatural. Many small bright particles lofted above the flames are visible in the 3.00 s frame. The viewpoint (stake and right-hand tree) stays fixed; later frames are dominated by flame and smoke."
+  },
+  {
+   "clip_id": "C8_WILL006_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t2.92.png",
+     "video_t_s": 2.92,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000373_t15.00.png",
+     "video_t_s": 15,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000672_t26.96.png",
+     "video_t_s": 26.96,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000746_t29.88.png",
+     "video_t_s": 29.88,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (smoky, late afternoon light). Conifer forest on a slope with a surface fire: flames and burning fuel along the ground at left and center, flames climbing a snag and a tree trunk at right, smoke in the canopy. 640x480 with black letterbox bars.",
+   "caption_text": "2015 Willow Fire, Plot6 / 7/31/15, 18:57, Clip1",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "The date/time is part of the title caption (readable at 2.92 to 26.96 s; absent in the first and last frame). It reads 18:57 unchanged over 24 s and has only minute resolution; it is a fixed clip label, not a running clock, so no ratio can be computed (formula would give 0, which is meaningless). Left null and unknown. No unmistakable unnatural motion in five stills. Glowing burning fuel on the ground is visible in all frames. The last frame has a red blob at bottom center that looks like a lens artifact or a red object near the camera, not judged further."
+  }
+ ],
+ "second": [
+  {
+   "clip_id": "C7_DF18",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000527_t17.58.png",
+     "video_t_s": 17.58,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002637_t87.99.png",
+     "video_t_s": 87.99,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f004746_t158.36.png",
+     "video_t_s": 158.36,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005273_t175.94.png",
+     "video_t_s": 175.94,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, outdoor experimental burn site. Two small conifer trees standing in straw bales in front of a brush pile with a blue tarp, a large fan on a wooden stand at right, white tiles or trays on gravel at left, black mulch pile at right, forest behind. Frames 1 and 2: a single flame (torch or ignition) at the right end of the bales. Frame 3: both trees and bales fully flaming with smoke. Frames 4 and 5: trees mostly burned, residual flames and smoke over charred bales.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio is possible and the verdict is unknown. Ignition to burnout over about 176 s looks plausible for real time, but nothing in five stills makes the timebase unmistakable. Camera: phase correlation gives 0 px shift for frames 1 to 4 and about 10 px vertical (of 720) in frame 5; that is small shake or a slight bump, so static. Glowing red smoldering coals are clearly visible in the charred bales in frames 3 to 5; no distinct airborne glowing particles at this scale. Implied frame rate about 29.97 fps. Checker agrees with the first screener on every field; only difference is that the frame 5 shift is about 10 px rather than a few px, which does not change the static label."
+  },
+  {
+   "clip_id": "C7_GF15",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000287_t9.58.png",
+     "video_t_s": 9.58,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f001438_t47.98.png",
+     "video_t_s": 47.98,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002589_t86.39.png",
+     "video_t_s": 86.39,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002876_t95.96.png",
+     "video_t_s": 95.96,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, same outdoor experimental burn site as the other C7 clips. Small conifer trees in straw in front of a brush pile with a blue tarp, white tiles or trays on gravel at left, concrete block in the foreground, forest behind. Frames 1 and 2: tall flames running up through a tree. Frame 3: lower flames with heavy smoke. Frames 4 and 5: mostly white smoke with small residual flames and glowing char at the base.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio is possible and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Viewpoint identical in all five frames (measured shift 0 to 1 px). In frame 3 several small orange glowing specks are visible in the air above and beside the flames, and glowing char is visible at the base in frames 3 to 5. Implied frame rate about 29.97 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C7_PP31",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000617_t20.56.png",
+     "video_t_s": 20.56,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f003085_t102.81.png",
+     "video_t_s": 102.81,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005553_t185.06.png",
+     "video_t_s": 185.06,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006169_t205.59.png",
+     "video_t_s": 205.59,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day, outdoor experimental burn site. A small pine tree in straw bales in front of a brush pile, large fan on a wooden stand at right, white tiles or trays on gravel at left, forest behind. Frame 1: a person walking toward the fan, no fire yet. Frame 2: ignition flame and smoke at the right end of the bales. Frame 3: flames mid-bale and a heavy smoke column. Frames 4 and 5: charred bales, very heavy white smoke, small flames at the left end and in the brush.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "No burnt-in date/time stamp or caption in any frame, so no ratio is possible and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. The person's shirt reads 'Mo's CHOWDER PATROL'; that is clothing, not a caption. Viewpoint identical in all five frames (measured shift 0 to 1 px). Enlarged crops of frames 4 and 5 show only dull red glowing patches inside the blackened straw, partly under smoke; no distinct glowing points or airborne particles, so unclear. Implied frame rate about 30 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C7_WJ33",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000696_t23.20.png",
+     "video_t_s": 23.2,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f003483_t116.08.png",
+     "video_t_s": 116.08,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006270_t208.96.png",
+     "video_t_s": 208.96,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f006966_t232.15.png",
+     "video_t_s": 232.15,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "moving",
+   "scene": "Day with low sun and lens flare at upper left, outdoor experimental burn site. Juniper-like shrubs or small trees in straw in front of a brush pile, large fan on a wooden stand, concrete wall at right, white tiles or trays on gravel at left, black mulch pile at right. Frame 1: a person, no fire. Frame 2: ignition flame and smoke at the right of the straw. Frame 3: very large flames through the shrubs. Frames 4 and 5: burned skeletons, smoke, residual flames on a tree and at the base.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption, so no ratio is possible and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Camera: frames 1 to 4 share one viewpoint (measured shift at most 4 px), but in frame 5 the whole scene sits about 72 px (of 720) higher at the same scale, so the camera was tilted or repositioned between 208.96 s and 232.15 s; labelled moving for that reframing, otherwise a fixed tripod view. Person's shirt reads 'Mo's CHOWDER PATROL' (clothing, not a caption). Small orange glowing spots at the base among the ash in frames 4 and 5; many white ash flecks in the air in frames 3 and 4 (not glowing). Implied frame rate about 30 fps. Checker agrees with the first screener on every field (measured shift 72 px versus their estimate of about 75 px)."
+  },
+  {
+   "clip_id": "C8_ANTE008_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000671_t26.88.png",
+     "video_t_s": 26.88,
+     "stamp_text": "7/8/2007 (night)"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Night, forest. Mostly dark frame with a distant line of small flames behind dark tree silhouettes at center, orange smoke glow above it, dark hillside in the foreground.",
+   "caption_text": "2007 Antelope Fire Plot8 / 7/8/2007 (night) Clip1",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "The burnt-in caption gives a date only ('7/8/2007 (night)'), with no time of day, so no elapsed stamp time exists and the ratio is null. The caption is fading in at frame 1 (illegible even after contrast stretch) and fading out at frame 5 (after contrast stretch the layout and '(night) Clip1' are faintly visible but the date digits are not reliably legible), which marks it as a title overlay, not a running clock. Viewpoint identical in all frames (0 px measured shift). In enlarged crops there are a few tiny bright specks near the flames and a persistent isolated bright point at the right, but at this distance they cannot be told apart from flame tips or a fixed glowing spot, hence unclear. Implied frame rate 25 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C8_BEAV006_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000075_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000375_t15.08.png",
+     "video_t_s": 15.08,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000675_t27.00.png",
+     "video_t_s": 27,
+     "stamp_text": "8/10/2014, 07:01"
+    },
+    {
+     "frame_file": "f000750_t30.04.png",
+     "video_t_s": 30.04,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Smoky forest understory with an intense flaming front behind conifer trunks and drooping branches on a slope; orange cast throughout; caption time 07:01 suggests early morning. Interlace combing on edges.",
+   "caption_text": "2014 Beaver Fire, Plot6 / 8/10/2014, 07:01, Clip2",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Three frames show the identical stamp '8/10/2014, 07:01' (minute resolution) across 24.00 s of video (3.00 s to 27.00 s). A literal ratio would be 0 s / 24.00 s = 0, which would mechanically read as slow motion, but that is not meaningful: the stamp cannot resolve under 60 s and it behaves as a fixed title caption (it sits with the fire name and clip number, is absent in frame 1 and fading out unreadably in frame 5). Even if it were a running clock, the same minute over 24 s only bounds the ratio between 0 and 2.5, which spans all three verdicts. Reported null and unknown. Viewpoint identical in all frames (at most 1 px shift). Isolated glowing points and glowing burning lines on the ground below the flame front are visible. Implied frame rate 25 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C8_BEAV006_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f001136_t45.44.png",
+     "video_t_s": 45.44,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f005683_t227.32.png",
+     "video_t_s": 227.32,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f010230_t409.20.png",
+     "video_t_s": 409.2,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f011366_t454.68.png",
+     "video_t_s": 454.68,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "cuts_between_shots",
+   "scene": "Frame 1 fully black. Frame 2 daytime unburned green conifer forest looking up into the canopy, with pink flagging and a white pole at the bottom. Frames 3 to 5 a low view of a forest understory fire on a slope: frame 3 dark orange with flames behind trunks (matches the C8_BEAV006_C2 view); frames 4 and 5 smoky daylight with burned-off foliage, burning surface fuel and many glowing spots on the ground.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "No burnt-in date/time stamp or caption in any frame (frame 1 and the bottom strips checked with contrast stretch; frame 1 is only compression noise), so no ratio is possible and the verdict is unknown; nothing in the stills shows unmistakably unnatural motion. Frames do not share one viewpoint: black lead-in, a pre-fire canopy shot, then the fire view in frames 3 to 5 (which appear to be one fixed camera position with large lighting and smoke changes), so cuts_between_shots. Many glowing particles and burning debris on the ground in frames 4 and 5, with some bright streaks in the air. Implied frame rate 25 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C8_BLAC002_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000149_t6.04.png",
+     "video_t_s": 6.04,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f000748_t29.96.png",
+     "video_t_s": 29.96,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f001346_t53.88.png",
+     "video_t_s": 53.88,
+     "stamp_text": "8/21/2003, 14:22"
+    },
+    {
+     "frame_file": "f001495_t59.76.png",
+     "video_t_s": 59.76,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (caption 14:22), very smoky, backlit orange haze in a stand of thin charred trunks on a slope, burning surface fuel and glowing spots on the ground and on trunks. Viewed through a dirty protective window: a dark blob near bottom center and many out-of-focus specks stay fixed in every frame.",
+   "caption_text": "2003 Black Mtn2 Fire, Plot2 / 8/21/2003, 14:22, Clip3",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Three frames show the identical stamp '8/21/2003, 14:22' (minute resolution) across 47.84 s of video (6.04 s to 53.88 s). A literal ratio would be 0 s / 47.84 s = 0, but that is not meaningful: the stamp cannot resolve under 60 s and behaves as a fixed title caption (with fire name and clip number, absent in frame 1 and fading out unreadably in frame 5). If it were a running clock the same minute over 47.84 s would only bound the ratio between 0 and about 1.25, consistent with real time but not confirming it. Reported null and unknown. Viewpoint identical in all frames (at most 2 px shift). Glowing spots on the ground and along trunks are visible. Implied frame rate 25 fps. Checker agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C8_BUFF003_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000373_t15.00.png",
+     "video_t_s": 15,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000672_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    },
+    {
+     "frame_file": "f000746_t29.88.png",
+     "video_t_s": 29.88,
+     "stamp_text": "8/27/2016, 15:30, Clip1"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky ponderosa pine stand on a grassy slope, pink-flagged stakes and a small instrument mast in the foreground, flames at the far left edge behind the trees (largest at t15.00).",
+   "caption_text": "2016 Buffalo Fire, PlotB3 / 8/27/2016, 15:30, Clip1",
+   "embers_visible_in_these_frames": "no",
+   "notes": "Checker reading. The only time text is a title caption with minute resolution (15:30), identical in all four readable frames. Taken literally the formula gives 0 s over 26.88 video s (ratio 0.0, which would read as slow motion), but a same-minute reading over 26.88 s is compatible with any true ratio from 0 up to about 2.2 (59/26.88), so it measures nothing; it is also an editing caption (fades in and out, carries 'Clip1'), not a running clock. Ratio reported as null, verdict unknown. t0.04: caption fading in, not readable even after contrast stretch. t29.88: caption fading out, read after contrast stretch, same text. Phase correlation gives zero shift between all frames (static). No unmistakable speed cue in the stills. Fire limited to flames at the left edge; no discrete glowing particles seen. Agrees with the first screener on every field."
+  },
+  {
+   "clip_id": "C8_FREN002_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "8/1/2014, ~17:27, Clip2"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Mixed conifer forest with a large reddish trunk, a low flame front burning across the ground with taller flames at right, smoke over burned ground in the foreground, thin stakes and a rock in view.",
+   "caption_text": "2014 French Fire Plot2 / 8/1/2014, ~17:27, Clip2",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "Checker reading. The time text is an approximate (tilde) title caption at minute resolution, identical in the three readable frames (t3.00 to t26.92). Literal formula gives 0 s over 23.92 video s (ratio 0.0, would wrongly read as slow motion); a same-minute reading over 23.92 s fits any ratio from 0 to about 2.5, and the tilde marks the time as an estimate, so it cannot measure the timebase. Ratio null, verdict unknown. No caption at t0.04; at t29.84 only a faint ghost of the first line is visible after contrast stretch, not readable. Zero shift between frames (static). A few small isolated glowing specks lie on the burned ground behind the flame front (t14.92, t26.92); from stills I cannot tell embers from small residual flames, hence unclear. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_FREN002_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.00.png",
+     "video_t_s": 0,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000099_t3.30.png",
+     "video_t_s": 3.3,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000498_t16.62.png",
+     "video_t_s": 16.62,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000896_t29.90.png",
+     "video_t_s": 29.9,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000995_t33.20.png",
+     "video_t_s": 33.2,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "moving",
+   "scene": "Day, before ignition. Conifer forest plot: two crew members in yellow shirts working near stakes beside a large trunk (t0.00, t3.30), a motion-blurred view while the camera is carried (t16.62), then a new framing with a large reddish trunk, white dead branches, a rock and orange stakes (t29.90, t33.20). No fire or smoke.",
+   "caption_text": "",
+   "embers_visible_in_these_frames": "no",
+   "notes": "Checker reading. No caption or date/time stamp in any frame (bottom strip checked with contrast stretch). Frames are 720x480. Timebase unknown; nothing unmistakable about speed in the stills. Camera: the view already shifts between t0.00 and t3.30 (handheld), t16.62 is heavily motion blurred, and t29.90 and t33.20 share one new framing (zero shift between them), so the camera is moved, not cut. The final framing matches the C8_FREN002_C2 view (same trunk, white snag and rock at the same scaled positions), so this prefix appears to be that camera being set in place. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_GEOR012_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "5/27/2007, 15:08 Clip3"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Very smoky pine flatwoods with saw palmetto understory; scattered small flames in the middle distance that grow into a larger flaming patch at left by t26.92 and t29.80.",
+   "caption_text": "2007 Georgia Bay Complex, Plot12cam2 / 5/27/2007, 15:08 Clip3",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "Checker reading. Title caption with minute resolution (15:08), identical in all four readable frames; no comma before 'Clip3'. Literal formula gives 0 s over 26.80 video s (ratio 0.0, would wrongly read as slow motion); a same-minute reading over 26.80 s fits any ratio from 0 to about 2.2, so it cannot measure the timebase. Ratio null, verdict unknown. No caption at t0.04; at t29.80 it is fading out and was read after contrast stretch. Zero shift between frames (static). A few small isolated glowing spots near the flaming patches (for example left of the main fire at t26.92); not clear from stills whether embers or small flames. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_KING003_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000082_t3.32.png",
+     "video_t_s": 3.32,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000413_t16.56.png",
+     "video_t_s": 16.56,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000744_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    },
+    {
+     "frame_file": "f000826_t33.08.png",
+     "video_t_s": 33.08,
+     "stamp_text": "9/18/2014, 12:12, Clip2"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky mixed conifer stand with several large trunks, a pink-flagged trunk and thin stakes; smoke rising at right with a small flame at the right edge (t3.32). Picture is a 4:3 inset with black borders on all sides.",
+   "caption_text": "2014 King Fire Plot3 / 9/18/2014, 12:12, Clip2",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "Checker reading. Title caption with minute resolution (12:12), identical in all four readable frames. Literal formula gives 0 s over 29.76 video s (ratio 0.0, would wrongly read as slow motion); a same-minute reading over 29.76 s fits any ratio from 0 to about 2.0, so it cannot measure the timebase. Ratio null, verdict unknown. At t0.04 the caption is fading in; after contrast stretch its shape matches the same text but the digits are not reliably legible, so left empty. At t33.08 it is fading out but still legible. Zero shift between frames (static). Only a soft, diffuse orange glow inside the smoke near a stake base at t33.08 and a small flame at the right edge at t3.32; the glow is not a discrete particle and could be flame seen through smoke, so unclear. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_MAPL007_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000232_t9.36.png",
+     "video_t_s": 9.36,
+     "stamp_text": "8/23/2016"
+    },
+    {
+     "frame_file": "f001163_t46.60.png",
+     "video_t_s": 46.6,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002093_t83.68.png",
+     "video_t_s": 83.68,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f002325_t93.00.png",
+     "video_t_s": 93,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "time_lapse",
+   "camera": "static",
+   "scene": "Day with low sun visible at upper left in early frames. Smoky lodgepole pine stand with downed logs, dry grass and a red-and-white stake in the foreground; a flame front advances through the trees in the background, intense and spread across the frame by t83.68 and t93.00, when the picture is darker. Black letterbox bars top and bottom.",
+   "caption_text": "Plot 7 - Near Gneiss Creek Trail and the Madison River 8/23/2016 - Video Playback at 3x",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker reading. The only burnt-in text is the caption at t9.36, which gives a date with no time; the black bars are pure black (max pixel value 0) in every frame, so there is no hidden clock. Fewer than two time stamps, so the ratio is null. Verdict time_lapse rests on the caption itself, which states 'Video Playback at 3x': unmistakable evidence of a sped-up timebase of about 3 (above the 1.25 limit). Zero shift between frames (static). In t83.68 and t93.00 there are many small discrete glowing points on the ground along and behind the flame front and an isolated bright point in a tree crown at t93.00 (coarse check only, not labelled). Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_RALS003_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000078_t3.20.png",
+     "video_t_s": 3.2,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000390_t15.64.png",
+     "video_t_s": 15.64,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000702_t28.12.png",
+     "video_t_s": 28.12,
+     "stamp_text": "9/8/2006, 08:35, Clip1"
+    },
+    {
+     "frame_file": "f000780_t31.24.png",
+     "video_t_s": 31.24,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (morning per caption). Hazy oak woodland with dry grass in the foreground, a thin stake, a pink flag in the upper left foliage, and a small patch of flames at the right edge.",
+   "caption_text": "2006 Ralston Fire, Plot3 / 9/8/2006, 08:35, Clip1",
+   "embers_visible_in_these_frames": "no",
+   "notes": "Checker reading. Title caption with minute resolution (08:35), identical in the three readable frames (t3.20 to t28.12). Literal formula gives 0 s over 24.92 video s (ratio 0.0, would wrongly read as slow motion); a same-minute reading over 24.92 s fits any ratio from 0 to about 2.4, so it cannot measure the timebase. Ratio null, verdict unknown. No caption at t0.04; at t31.24 only a faint ghost remains after contrast stretch, time digits not legible. Leaves at the top move between frames (wind) but phase correlation gives zero shift (static). Fire limited to a small flame patch at the right edge; no discrete glowing particles. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_RIMF008_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000671_t26.92.png",
+     "video_t_s": 26.92,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": "9/1/2013, ~13:40, Clip2"
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoke-filled conifer forest with dead lower branches; a thin low flame front runs diagonally across the ground toward the lower left, a stake with white flagging in the foreground, smoke over burned ground at right and small flames at the upper right. Black bar at the bottom carrying the caption.",
+   "caption_text": "2013 Rim Fire Plot8 / 9/1/2013, ~13:40, Clip2",
+   "embers_visible_in_these_frames": "no",
+   "notes": "Checker reading. Approximate (tilde) title caption with minute resolution, identical in all four readable frames. Literal formula gives 0 s over 26.80 video s (ratio 0.0, would wrongly read as slow motion); a same-minute, approximate reading over 26.80 s fits any ratio from 0 to about 2.2, so it cannot measure the timebase. Ratio null, verdict unknown. At t0.04 only a very faint ghost in the black bar, not readable. At t29.80 the caption is fading out; the second line was read after contrast stretch, the first line is no longer legible. Zero shift between frames (static). Only the linear flame front and small flames; no discrete glowing particles. Agrees with the first screener."
+  },
+  {
+   "clip_id": "C8_ROUG016_C3",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.04.png",
+     "video_t_s": 3.04,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000373_t14.92.png",
+     "video_t_s": 14.92,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000671_t26.84.png",
+     "video_t_s": 26.84,
+     "stamp_text": "8/30/15, ~15:00"
+    },
+    {
+     "frame_file": "f000745_t29.80.png",
+     "video_t_s": 29.8,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day. Smoky mixed conifer forest on a slope. A burning stump with flames and smoldering ground fuel at lower right, a thin pole at center, smoke drifting through the trees. 640x480 frame with black letterbox bars top and bottom.",
+   "caption_text": "2015 Willow Fire, Plot16 / 8/30/15, ~15:00, Clip3 (bottom left, frames at 3.04 to 26.84 s only)",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker agrees with the first screener on every field. The only date/time text is inside the title caption, shown in the middle three frames and absent in the first and last. It is a fixed, approximate (~15:00), minute-resolution label that is identical in every frame where it appears, not a running clock, so it carries no timebase information. Plugging it into the formula would give 0 (slow motion), which would be an artifact of a static label, so ratio is null and verdict unknown. No unmistakable unnatural motion can be judged from five stills. Small glowing spots and small flames on the ground around the stump are visible in all frames (ground glowing fuel; no clearly airborne particles noticed). Additional evidence on the fire-name inconsistency: the stump and the thin pole sit in the same positions as the stump and red/white survey pole in C8_ROUG016_prefix (captioned Rough Fire - Plot 16, 8/30/2015), so this looks like the same Plot 16 camera view; the 'Willow Fire' wording in this caption is likely a labeling error in the source and should be checked."
+  },
+  {
+   "clip_id": "C8_ROUG016_prefix",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": "00:00:00"
+    },
+    {
+     "frame_file": "f000541_t21.64.png",
+     "video_t_s": 21.64,
+     "stamp_text": "00:00:21"
+    },
+    {
+     "frame_file": "f002709_t108.32.png",
+     "video_t_s": 108.32,
+     "stamp_text": "00:01:48"
+    },
+    {
+     "frame_file": "f004877_t195.16.png",
+     "video_t_s": 195.16,
+     "stamp_text": "00:03:15"
+    },
+    {
+     "frame_file": "f005418_t216.76.png",
+     "video_t_s": 216.76,
+     "stamp_text": "00:03:36"
+    }
+   ],
+   "timebase_ratio": 0.9967,
+   "timebase_verdict": "real_time",
+   "camera": "static",
+   "scene": "Day. Sunlit, lightly smoky conifer forest on a slope; red and white survey pole at center, a large stump or downed log with needle litter at right, thin smoke in the background at right. No active flame front in the foreground. 1280x720.",
+   "caption_text": "Rough Fire - Plot 16.  8/30/2015 (top left, all frames); first frame also: Produced by US Forest Service, Adaptive Management Services Enterprise Team, Fire Behavior Assessment Team (FBAT)",
+   "embers_visible_in_these_frames": "unclear",
+   "notes": "Checker agrees with the first screener. HH:MM:SS counter at top right, readable in all five frames. Stamp seconds 0, 21, 108, 195, 216 against video 0.04 to 216.76 s: ratio = 216 / 216.72 = 0.997. Per interval: 21/21.60 = 0.97, 87/86.68 = 1.00, 87/86.84 = 1.00, 21/21.60 = 0.97 (the 0.97 values come from whole-second counter rounding), so real time. Caveat: this is an elapsed counter starting at 00:00:00, not a wall clock; if it was added in editing it tracks playback by construction, though nothing in the frames suggests time lapse. Only the 21.64 s frame shows anything fire-colored: a dark red patch at the stump base and small orange patches behind the trees in the background that look like small flames; nothing clearly identifiable as glowing embers, hence unclear."
+  },
+  {
+   "clip_id": "C8_SOME004_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000077_t3.12.png",
+     "video_t_s": 3.12,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000386_t15.48.png",
+     "video_t_s": 15.48,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000695_t27.84.png",
+     "video_t_s": 27.84,
+     "stamp_text": "8/1/2006, 23:29"
+    },
+    {
+     "frame_file": "f000772_t30.92.png",
+     "video_t_s": 30.92,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Night. Dark forest with large tree trunks on a slope; low surface fire with many glowing fuel patches, small flames and bright specks on the ground, flames in the background at upper right; a thin stake in the foreground. Full 640x480 frame, no letterbox.",
+   "caption_text": "2006 Somes Fire, Plot4 / 8/1/2006, 23:29, Clip2 (bottom left; absent in the first frame, faded and unreadable in the last)",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker agrees with the first screener. The date/time is part of the title caption, readable only at 3.12 to 27.84 s, and reads 23:29 unchanged over 24.7 s of video at minute resolution. It is a fixed clip label in the same format as the other C8 captions, not a running clock, so it cannot give a ratio (the formula would give 0, which is meaningless here). Ratio null, verdict unknown. No unmistakable unnatural motion visible in five stills. Many glowing points on the ground across the fire bed are visible in every frame. Bright elongated streaks at lower left in the later frames look like burning fuel lines or motion blur; not judged further."
+  },
+  {
+   "clip_id": "C8_WALK008_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": "TLC200 PRO 2014/10/08 19:56:20"
+    },
+    {
+     "frame_file": "f000124_t5.00.png",
+     "video_t_s": 5,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:00:25"
+    },
+    {
+     "frame_file": "f000622_t24.88.png",
+     "video_t_s": 24.88,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:17:00"
+    },
+    {
+     "frame_file": "f001119_t44.80.png",
+     "video_t_s": 44.8,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:33:35"
+    },
+    {
+     "frame_file": "f001243_t49.76.png",
+     "video_t_s": 49.76,
+     "stamp_text": "TLC200 PRO 2014/10/08 20:37:45"
+    }
+   ],
+   "timebase_ratio": 49.98,
+   "timebase_verdict": "time_lapse",
+   "camera": "static",
+   "scene": "Day (smoky daylight). Open ponderosa pine forest with grass and needle litter; a surface flame front appears in the background, burns across the plot, and by the last frame the plot is heavily smoky with scattered flames and glowing ground fuel. 640x480 with black letterbox bars.",
+   "caption_text": "2019 Walker Fire Plot8 / 9/14/2019, ~15:00, Clip1 (bottom left, frames 5.00 to 44.80 s; absent in the first frame, faded in the last). Camera clock line in every frame: TLC200 PRO 2014/10/08 ...",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker agrees with the first screener. Camera clock from a TLC200 PRO (a time-lapse camera) is burnt in and readable in all five frames (verified on enlarged crops). 19:56:20 to 20:37:45 = 2485 s of stamp time over 49.72 s of video: ratio 49.98. Each interval agrees: 245/4.96 = 49.4, 995/19.88 = 50.05, 995/19.92 = 49.95, 250/4.96 = 50.4. Clearly time lapse at about 50x. The camera clock date and time (2014/10/08, about 20:00) disagree with the caption (9/14/2019, ~15:00), so the clock was not set, but the elapsed intervals are still valid. Glowing spots on the ground near the flames are visible in the 44.80 s and 49.76 s frames."
+  },
+  {
+   "clip_id": "C8_WARM004_C2",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t3.00.png",
+     "video_t_s": 3,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000373_t14.96.png",
+     "video_t_s": 14.96,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000671_t26.88.png",
+     "video_t_s": 26.88,
+     "stamp_text": "6/20-6/26/2006, video time 00:04:30 - 00:05:00"
+    },
+    {
+     "frame_file": "f000745_t29.84.png",
+     "video_t_s": 29.84,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Dark (appears to be night), strongly orange-lit. Intense fire: tall flames engulfing shrubs and small trees with lofted bright particles, then the whole view filled with flame and orange smoke; a thin stake in the foreground.",
+   "caption_text": "2006 Warm Fire Plot4 / 6/20-6/26/2006, video time 00:04:30 - 00:05:00, Clip2 (bottom left; absent in the first frame, faded and unreadable in the last)",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker agrees with the first screener. The date/time text is a fixed title caption, identical in every frame where it is readable (3.00 to 26.88 s), so it gives no per-frame stamps; ratio null, verdict unknown. Other evidence: the caption says this clip covers source video time 00:04:30 to 00:05:00, i.e. 30 s of source, and the clip itself is about 30 s, which suggests roughly 1:1 playback of the source file, but it does not establish the source camera's own capture rate and is not unmistakable, so the verdict stays unknown. Flame appearance in the stills looks like ordinary video. Many small bright particles lofted above the flames are visible in the 3.00 s frame. Viewpoint (stake near x=325 and the small tree at right) holds in the readable frames; the last two frames are dominated by flame and smoke, so static is judged from the earlier frames."
+  },
+  {
+   "clip_id": "C8_WILL006_C1",
+   "stamps": [
+    {
+     "frame_file": "f000000_t0.04.png",
+     "video_t_s": 0.04,
+     "stamp_text": ""
+    },
+    {
+     "frame_file": "f000074_t2.92.png",
+     "video_t_s": 2.92,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000373_t15.00.png",
+     "video_t_s": 15,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000672_t26.96.png",
+     "video_t_s": 26.96,
+     "stamp_text": "7/31/15, 18:57"
+    },
+    {
+     "frame_file": "f000746_t29.88.png",
+     "video_t_s": 29.88,
+     "stamp_text": ""
+    }
+   ],
+   "timebase_ratio": null,
+   "timebase_verdict": "unknown",
+   "camera": "static",
+   "scene": "Day (smoky, late afternoon light). Conifer forest on a slope with a surface fire: flames and burning fuel along the ground at left and center, flames climbing a snag at center and a tree trunk at right, smoke in the canopy. 640x480 with black letterbox bars.",
+   "caption_text": "2015 Willow Fire, Plot6 / 7/31/15, 18:57, Clip1 (bottom left; absent in the first and last frame)",
+   "embers_visible_in_these_frames": "yes",
+   "notes": "Checker agrees with the first screener. The date/time is part of the title caption, readable at 2.92 to 26.96 s, reading 18:57 unchanged over 24 s at minute resolution. It is a fixed clip label, not a running clock, so no ratio can be computed (the formula would give 0, which is meaningless here). Ratio null, verdict unknown. No unmistakable unnatural motion visible in five stills. Glowing burning fuel on the ground is visible in all frames. The last frame has an out-of-focus red double blob at bottom center that looks like a lens artifact or a red object very close to the camera; not judged further."
+  }
+ ]
+}

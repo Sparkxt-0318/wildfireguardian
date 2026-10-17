@@ -4,9 +4,11 @@
 clip_id: C8_MAPL007_C1
 file: data/raw/C8_MAPL007_C1.avi
 split: test
-metrics_scope: all
+metrics_scope: tracking_only
 roi: null
 # The whole recording is analysed; no segment was chosen by looking at the content.
+# Eligibility screen (2026-10-17, two independent screeners, eligibility_screen.json): time-lapse
+# (burnt-in camera clock advances much faster than video time), so tracking only: no decisions, no counts.
 segments_s: null
 gate: null
 distance_m: null
