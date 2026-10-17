@@ -11,3 +11,15 @@ Any change after the first push is recorded here with a new minor version (v1.1,
 - Defaults are the final-experiment values: peak 10 kW/m², dose 100 kJ/m², dwell 120 s, policy `full`.
 - `incurred_dose_kj_m2` (default 0) is included so the recorded final-panel missions with prior exposure (FX missions)
   can be replayed exactly through the API.
+
+## v1.1 — additive clarifications after wrapping the kit (no field removed or renamed)
+
+- `ReasonCode` gains `INPUT_REJECTED`, `AT_ISSUE_FAILURE` and `DISCONNECTED`. These are the kit's pass-through
+  decision statuses, which are always unresolved. Strict clients that enumerated v1.0 codes must accept them.
+- `ScenarioExposure` gains optional `basis`, `peak_upper_kw_m2` and `dose_upper_kj_m2`. Under `travel_only`, `contact`
+  is assessed against the unchanged full hazard and may be `true`, because that policy does not enforce flame contact.
+- `RouteCheckResult` gains optional `lower_bounds` (completed relaxation bounds) and `full_policy_assessment` (an offline
+  full-hazard assessment of routes found under reduced policies).
+- `Provenance` gains optional `recorded_mission_match`.
+- New 422 error codes are documented in `Error.code`.
+- The `spread_zones` scope is documented: `input_time` must be a recorded input time, and the hazard horizon is 1 h.

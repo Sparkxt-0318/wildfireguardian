@@ -50,9 +50,15 @@ def _build(region, sset, identity, npz_path, rec_path, arrays_path, hashes) -> d
     if md["identity"]["forecast_export_sha256"] != hashes["forecast_export"]:
         raise unprocessable("INPUT_CHANGED", "packet was built from a different forecast export")
     with np.load(npz_path, allow_pickle=False) as z:
-        q = z["new_burn_probability"].copy()
-        valid = z["probability_valid"].copy()
-        aff = [float(v) for v in z["affine_transform"]]
+        fc = {k: z[k].copy() for k in z.files}
+    window = (md.get("regional") or {}).get("window_rows_cols_north_up")
+    if window is not None:     # regional window of a shared event grid: the packet writer's own crop rule
+        from wfg_latest import packets as P
+        fc = P.crop_forecast(fc, window)
+    q, valid = fc["new_burn_probability"], fc["probability_valid"]
+    aff = [float(v) for v in fc["affine_transform"]]
+    if any(abs(a - b) > 1e-6 for a, b in zip(aff, md["affine_transform"])):
+        raise unprocessable("GRID_MISMATCH", "forecast affine differs from the packet affine")
     with np.load(arrays_path, allow_pickle=False) as z:
         current = z["current_active"].copy()
         known_burned = z["mask__known_burned"].copy() if "mask__known_burned" in z.files else None
@@ -81,7 +87,7 @@ def _build(region, sset, identity, npz_path, rec_path, arrays_path, hashes) -> d
     return {"type": "FeatureCollection", "region": region.id, "input_time": tag_to_iso(sset.tag),
             "bbox": [float(lon_all.min()), float(lat_all.min()), float(lon_all.max()), float(lat_all.max())],
             "grid": {"crs": "EPSG:5179", "resolution_m": abs(a), "rows": H, "cols": W, "affine_transform": aff,
-                     "row_order": "north-up (row 0 is the northern edge)"},
+                     "row_order": "north-up (row 0 is the northern edge)", "event_window": window},
             "features": feats,
             "provenance_fields": {"region": region.id, "input_time": tag_to_iso(sset.tag), "graph_id": region.graph.revision,
                                   "input_hashes": hashes, "scenario_set_id": sset.scenario_set_id,

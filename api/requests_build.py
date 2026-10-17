@@ -54,6 +54,12 @@ def build_request(*, start_node: str, dest_node: str, depart_offset_s, dwell_s, 
     if not (0 <= open_s < close_s <= horizon):
         raise unprocessable("INVALID_WINDOW", "destination_window must satisfy 0 <= open_s < close_s <= %g" % horizon,
                             {"destination_window": [open_s, close_s], "horizon_s": horizon})
+    if start_node == dest_node:
+        raise unprocessable("START_EQUALS_DESTINATION", "start and destination snap to the same road node %s" % start_node,
+                            {"node_id": start_node})
+    if max(depart, open_s) + dwell > min(close_s, horizon):
+        raise unprocessable("WINDOW_UNSATISFIABLE", "no arrival can satisfy max(depart, open_s) + dwell_s <= min(close_s, horizon)",
+                            {"depart_offset_s": depart, "destination_window": [open_s, close_s], "dwell_s": dwell, "horizon_s": horizon})
     peak, dose, incurred = limits["peak_kw_m2"], limits["dose_kj_m2"], limits["incurred_dose_kj_m2"]
     if not (peak > 0 and dose > 0 and incurred >= 0):
         raise unprocessable("INVALID_LIMITS", "limits must be positive and incurred dose non-negative", limits)

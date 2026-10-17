@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.0.0
+  version: 1.1.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -274,6 +274,9 @@ components:
                 기계 판독용 코드. 예: `UNKNOWN_REGION`, `INPUT_TIME_UNAVAILABLE`, `UNKNOWN_SCENARIO_SET`,
                 `SNAP_TOO_FAR`, `UNKNOWN_NODE`, `NODE_NOT_ALLOWED`, `ZONES_OUTSIDE_REGION`, `INVALID_ZONES`,
                 `VALIDATION_ERROR`, `JOB_NOT_FOUND`, `JOB_NOT_DONE`, `NO_CHECKED_ROUTE`, `DATA_UNAVAILABLE`, `TOO_MANY_ORIGINS`.
+                v1.1: `INVALID_INPUT_TIME`, `SCENARIO_SET_TIME_MISMATCH`, `FORECAST_UNAVAILABLE`, `NOT_ON_TIME_LATTICE`,
+                `DEPARTURE_OUTSIDE_HORIZON`, `INVALID_WINDOW`, `WINDOW_UNSATISFIABLE`, `START_EQUALS_DESTINATION`, `INVALID_LIMITS`,
+                `DUPLICATE_ID`, `INPUT_CHANGED`.
               examples: [SNAP_TOO_FAR]
             message:
               type: string
@@ -565,6 +568,10 @@ components:
         산림청식 5 h / 8 h 화선 도달 범위 같은 구역 예보를 셀 단위 4개 시나리오로 변환합니다 (근사, 전문가 검토 필요).
         Zone forecasts (e.g. Korea Forest Service 5 h / 8 h fire-line ranges) converted to the per-cell 4-scenario format.
         **Approximation, requires expert review.**
+        v1.1 범위: input_time은 해당 지역의 기록된 입력 시각이어야 합니다 (격자·시계·현재 연소 셀을 기록된 c651 출력에서 사용).
+        위험 시계는 실험과 같은 1시간이며, 그 이후 점화는 표현되지 않습니다.
+        Scope: input_time must be a recorded input time of the region (grid, clock and burning-now cells come from the recorded
+        c651 export); the hazard horizon is the experiment's 1 h, so later ignitions are not represented.
       properties:
         type:
           type: string
@@ -721,12 +728,15 @@ components:
       enum: [checked_route, model_no_route, unresolved]
     ReasonCode:
       type: [string, 'null']
-      enum: [TIMEOUT, STATE_CAP, MEMORY_CAP, CHECK_NOT_FINISHED, CHECK_FAILED, WORKER_ERROR, CLEANUP_UNCONFIRMED, INTERNAL_ERROR, OTHER, null]
+      enum: [TIMEOUT, STATE_CAP, MEMORY_CAP, CHECK_NOT_FINISHED, CHECK_FAILED, WORKER_ERROR, CLEANUP_UNCONFIRMED, INTERNAL_ERROR, OTHER,
+             INPUT_REJECTED, AT_ISSUE_FAILURE, DISCONNECTED, null]
       description: |
         unresolved 사유 (그 외 판정에서는 null) / reason for unresolved (null otherwise).
         TIMEOUT 30 s 예산 초과, STATE_CAP 탐색 상태/확장 상한, MEMORY_CAP 메모리 가드, CHECK_NOT_FINISHED 점검 미완료,
         CHECK_FAILED 점검 실패·거부, WORKER_ERROR 작업자 비정상 종료, CLEANUP_UNCONFIRMED 프로세스 정리 미확인,
         INTERNAL_ERROR API 내부 오류, OTHER 기타 (raw_reason 참조).
+        v1.1: INPUT_REJECTED 엔진이 입력을 거부, AT_ISSUE_FAILURE 출발 시점에 이미 한계 초과(기존 누적 선량 등),
+        DISCONNECTED 도로망상 도달 불가(화재와 무관) / engine rejected the input; already in violation at issue time; unreachable in the road graph.
     ScenarioExposure:
       type: object
       required: [scenario_id, peak_kw_m2, dose_kj_m2, contact]
@@ -741,7 +751,21 @@ components:
           description: 여정 누적 선량 (기존 누적 포함) / cumulative dose including incurred (kJ/m²)
         contact:
           type: boolean
-          description: 화염 접촉 여부 — checked_route에서는 항상 false / flame contact; always false for checked_route
+          description: |
+            화염 접촉 여부. full·flame_* 정책의 checked_route에서는 항상 false. travel_only는 화염을 강제하지 않으므로
+            원래(전체) 위험 모델 기준 접촉 여부를 보고하며 true일 수 있습니다 (v1.1).
+            Flame contact; always false for checked_route under full and flame_* policies. travel_only does not enforce flame
+            contact, so its value is assessed against the unchanged full hazard and may be true (v1.1).
+        basis:
+          type: string
+          enum: [centre_model, full_model_centre_check]
+          description: '`centre_model` = 권위 판정의 셀 중심 모델 값(full); `full_model_centre_check` = 축소 정책 경로를 전체 위험으로 재평가 (v1.1)'
+        peak_upper_kw_m2:
+          type: [number, 'null']
+          description: 전 도로 점검의 순간 복사열 상한 (full만) / whole-road check upper bound (full policy only, v1.1)
+        dose_upper_kj_m2:
+          type: [number, 'null']
+          description: 전 도로 점검의 누적 선량 상한 (full만) / whole-road check upper bound (full policy only, v1.1)
     RouteFeature:
       type: object
       required: [type, geometry, properties]
@@ -815,6 +839,21 @@ components:
         lower_bound_L_s:
           type: [number, 'null']
           description: 화염 회피 최조 도착 하한 L (s) / lower bound L from the earliest flame-avoiding candidate
+        lower_bounds:
+          type: array
+          description: 작업자가 유지한 완료된 완화 하한 목록 (v1.1) / completed relaxation bounds kept by the worker
+          items:
+            type: object
+            properties:
+              kind:
+                type: [string, 'null']
+              arrival_s:
+                type: [number, 'null']
+        full_policy_assessment:
+          type: [object, 'null']
+          description: |
+            full 이외 정책의 경로를 원래 전체 위험 모델로 오프라인 평가 (독립 점검기 함수 사용, compute_s 미포함) (v1.1).
+            Offline assessment of a reduced-policy route against the unchanged full hazard (not charged to compute_s).
         dwell_end_s:
           type: [number, 'null']
           description: 체류 종료 시각 / end of required stay
@@ -1164,6 +1203,9 @@ components:
           type: [boolean, 'null']
           description: |
             true = 기록 입력 + full 정책 + 기본 한계 (최종 실험과 같은 구성) / recorded input, full policy, default limits.
+        recorded_mission_match:
+          type: [string, 'null']
+          description: 생성된 요청이 기록된 최종 패널 임무 요청과 정확히 같으면 그 임무 ID (v1.1) / recorded mission whose request is identical
         approximation:
           type: [string, 'null']
           description: spread_zones이면 "approximation, requires expert review"

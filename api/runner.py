@@ -205,13 +205,42 @@ def route_feature(journey: dict, request: dict, graph_edges: dict, node_lonlat) 
 
 
 def _lower_bound_L(result: dict):
+    """L = arrival of the completed contact-only lattice relaxation (the earliest flame-avoiding candidate), exactly as
+    the worker kept it in RESULT.lower_bounds; a bound the worker dropped (EA cross-check disagreement) is never used."""
     for lb in result.get("lower_bounds") or []:
         if isinstance(lb, dict) and lb.get("kind") == "contact_only_lattice_relaxation" and lb.get("arrival") is not None:
             return lb["arrival"]
-    for s in result.get("rda_stages") or []:
-        if isinstance(s, dict) and s.get("stage") == "Z" and s.get("status") == "CONDITIONAL_OPTIMUM" and s.get("arrival") is not None:
-            return s["arrival"]
     return None
+
+
+def _lower_bounds(result: dict) -> list:
+    return [{"kind": lb.get("kind"), "arrival_s": lb.get("arrival")} for lb in result.get("lower_bounds") or [] if isinstance(lb, dict)]
+
+
+def full_policy_assessment(kit: Path, graph: dict, packet: Path, full_request: dict, legs: list, destination: str) -> dict:
+    """Assess a route found under a reduced policy against the UNCHANGED full hazard model with the kit's independent
+    checker functions (grammar, centre model, exact whole-road contact), as the ablation grader (grade_route.py) did.
+    Offline: not charged to compute_s. The project whole-road radiation check is not repeated here."""
+    I = _load("wfg_api_ffi_independent_checker", kit / "runner" / "ffi_independent_checker.py")
+    G = I.Graph(graph)
+    pk = I.Packet(packet, G)
+    gram = I.grammar(G, full_request, legs, destination, pk.horizon)
+    cm = I.centre_model(pk, full_request, gram)
+    contact = I.whole_road_contact(pk, gram)
+    viol = []
+    for mid, v in cm["per_member"].items():
+        for flag, name in (("flame_contact", "FLAME"), ("peak_violation", "PEAK"), ("dose_violation", "DOSE")):
+            if v.get(flag):
+                viol.append({"scenario_id": mid, "constraint": name})
+    if contact.get("status") != "CLEAR":
+        viol.append({"scenario_id": None, "constraint": "WHOLE_ROAD_CONTACT"})
+    per = {mid: {"peak_kw_m2": float(v["peak_kw_m2"]), "dose_kj_m2": float(v["dose_total_kj_m2"]),
+                 "contact": bool(v.get("flame_contact")) or mid in (contact.get("witnesses") or {})}
+           for mid, v in cm["per_member"].items()}
+    return {"passes_full_centre_and_contact": bool(gram.get("ok") and cm.get("feasible") and contact.get("status") == "CLEAR"),
+            "whole_road_contact": contact.get("status"), "violations": viol, "per_scenario": per,
+            "scope": "independent grammar, centre-model exposure and exact whole-road contact against the unchanged full hazard; "
+                     "the project whole-road radiation check was not repeated"}
 
 
 def _graph_lookup(graph_path: Path):
@@ -310,13 +339,15 @@ def execute(spec: dict) -> dict:
         journey = decision.get("journey") or {}
         out = {"verdict": verdict, "reason_code": reason, "raw_status": decision.get("authoritative_status"),
                "raw_reason": raw_reason, "departure_s": request["departure"], "arrival_s": None,
-               "lower_bound_L_s": _lower_bound_L(result), "dwell_end_s": None, "route": None, "exposure": [],
+               "lower_bound_L_s": _lower_bound_L(result), "lower_bounds": _lower_bounds(result),
+               "dwell_end_s": None, "route": None, "exposure": [],
                "compute_s": receipt.get("external_launch_to_completion_wall_s"), "within_budget": False,
                "policy": policy, "limits": dict(rp["limits"]), "independent_check": None, "assumptions": assumptions,
                "notes": notes}
         cs = out["compute_s"]
         out["within_budget"] = bool(cs is not None and cs <= C.BUDGET_S and receipt.get("on_time_complete_publication"))
-        if verdict == V.CHECKED:
+        flame_enforced = policy != "travel_only"
+        if verdict == V.CHECKED and flame_enforced:
             wr = result.get("whole_road_check") or {}
             contact = (wr.get("contact") or {}).get("status")
             if contact != "CLEAR":
@@ -327,16 +358,31 @@ def execute(spec: dict) -> dict:
             out["arrival_s"] = journey["arrival"]
             out["dwell_end_s"] = journey["arrival"] + dwell
             out["route"] = route_feature(journey, request, edges, node_lonlat)
-            published, _role = PUB.route_of(result.get("result") or {})
-            bounds = (((published or {}).get("whole_road_bounds") or {}).get("per_member")) or {}
-            for sid in sids:
-                pm = (journey.get("per_member") or {}).get(sid) or {}
-                b = bounds.get(sid) or {}
-                out["exposure"].append({"scenario_id": sid, "peak_kw_m2": pm.get("peak"), "dose_kj_m2": pm.get("dose"),
-                                        "contact": False, "basis": "centre_model",
-                                        "peak_upper_kw_m2": b.get("peak_upper_kw_m2"), "dose_upper_kj_m2": b.get("dose_upper_kj_m2")})
-            if policy != "full":
-                notes.append("Route checked under policy %s only; it is not guaranteed to pass the full policy." % policy)
+            if len(out["route"]["geometry"]["coordinates"]) < 2:
+                raise RuntimeError("DEGENERATE_ROUTE")
+            if policy == "full":
+                published, _role = PUB.route_of(result.get("result") or {})
+                bounds = (((published or {}).get("whole_road_bounds") or {}).get("per_member")) or {}
+                for sid in sids:
+                    pm = (journey.get("per_member") or {}).get(sid) or {}
+                    b = bounds.get(sid) or {}
+                    out["exposure"].append({"scenario_id": sid, "peak_kw_m2": pm.get("peak"), "dose_kj_m2": pm.get("dose"),
+                                            "contact": False, "basis": "centre_model",
+                                            "peak_upper_kw_m2": b.get("peak_upper_kw_m2"), "dose_upper_kj_m2": b.get("dose_upper_kj_m2")})
+            else:
+                t0 = time.perf_counter()
+                fpa = full_policy_assessment(kit_used, graph, packet, request, journey["legs"], journey["destination"])
+                timings["full_policy_assessment_s"] = time.perf_counter() - t0
+                out["full_policy_assessment"] = fpa
+                for sid in sids:
+                    e = fpa["per_scenario"][sid]
+                    out["exposure"].append({"scenario_id": sid, "peak_kw_m2": e["peak_kw_m2"], "dose_kj_m2": e["dose_kj_m2"],
+                                            "contact": e["contact"], "basis": "full_model_centre_check"})
+                notes.append("Route checked under policy %s only (%s); exposure is reported against the unchanged full hazard. "
+                             "It is not a full-policy checked route." % (policy, "flame contact not enforced" if not flame_enforced else
+                                                                         "thermal limits partly disabled"))
+                if not fpa["passes_full_centre_and_contact"]:
+                    notes.append("This route FAILS the full policy: %s." % ", ".join(sorted({v["constraint"] for v in fpa["violations"]})))
         if verdict == V.NO_ROUTE:
             notes.append("Scoped refusal: no route exists within this model, lattice, scenarios and policy; "
                          "it is not proof that every real-world escape is impossible.")

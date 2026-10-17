@@ -218,10 +218,18 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         return rp
 
     # ---------------------------------------------------------------------------------------------- system
+    def _tool_issues() -> list:
+        import os
+        out = []
+        for tool in ("/usr/bin/time", "/bin/ps"):
+            if not os.access(tool, os.X_OK):
+                out.append("%s is missing; the kit controller needs it (Debian/Ubuntu: apt-get install time procps)" % tool)
+        return out
+
     @app.get("/v1/health")
     async def health():
         reg = st.registry
-        issues = list(reg.issues)
+        issues = list(reg.issues) + _tool_issues()
         return {"status": "ok" if reg.regions and not issues else "degraded", "api_version": API_VERSION,
                 "package": st.identity.package, "package_version": st.identity.package_version, "kit": st.identity.kit,
                 "checkpoint": st.identity.checkpoint, "git_commit": st.identity.git_commit, "regions": sorted(reg.regions),
@@ -325,22 +333,28 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         policy = body.get("policy", "full")
         dwell_default = body.get("dwell_s", C.DEFAULT_DWELL_S)
         limits_body = {"limits": body.get("limits") or {}}
-        attempts_spec = []
+        attempts_spec, pre_rejected = [], {}
         for o, osnap in origins:
             for d, dsnap in dests:
                 for off in body["depart_offsets_s"]:
                     pseudo = {"depart_offset_s": off, "dwell_s": d.get("dwell_s", dwell_default), "destination_window": d.get("window"),
                               **limits_body}
-                    rp = _request_params(pseudo, region, sset, {"start": osnap, "destination": dsnap})
+                    try:
+                        rp = _request_params(pseudo, region, sset, {"start": osnap, "destination": dsnap})
+                    except APIError as e:   # this combination cannot be posed (e.g. window unsatisfiable): never a route
+                        pre_rejected[(o["id"], d["id"], off)] = {
+                            "destination_id": d["id"], "depart_offset_s": off, "verdict": "unresolved", "reason_code": "INPUT_REJECTED",
+                            "raw_reason": e.code, "arrival_s": None, "lower_bound_L_s": None, "compute_s": None, "route_check_job_id": None}
+                        continue
                     attempts_spec.append((o, osnap, d, dsnap, off, rp))
         job_id = st.jobs.new_id("dp")
-        total = len(attempts_spec)
+        total = len(attempts_spec) + len(pre_rejected)
         job = {"job_id": job_id, "kind": "dispatch_plan", "status": "queued", "created_at": utc_now(), "started_at": None,
-               "finished_at": None, "request": body, "progress": {"done": 0, "total": total}, "result": None, "error": None}
+               "finished_at": None, "request": body, "progress": {"done": len(pre_rejected), "total": total}, "result": None, "error": None}
         st.jobs.put(job)
         t_start = time.perf_counter()
         lock = threading.Lock()
-        records: dict = {}
+        records: dict = dict(pre_rejected)
         dest_order = {d["id"]: i for i, (d, _) in enumerate(dests)}
         origin_order = {o["id"]: i for i, o in enumerate(body["origins"])}
 
@@ -388,7 +402,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         shared: dict = {}
 
         def launch(prebuilt=None):
-            if total == 0:
+            if not attempts_spec:
                 finish()
                 return
             for o, osnap, d, dsnap, off, rp in attempts_spec:
