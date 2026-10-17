@@ -1,6 +1,6 @@
 {
  "region_id": "yeongdeok_2025",
- "generated_at": "2026-10-17T06:40:37Z",
+ "generated_at": "2026-10-17T09:25:32Z",
  "generator": "planner/tools/extract_places.py",
  "osm_extract": {
   "file": "planner/data/osm/yeongdeok_2025.overpass.json",
@@ -20,26 +20,26 @@
   "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
   "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
   "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
-  "snap": "nearest node of the largest strongly connected component of the directed road graph",
-  "checkable": "snap distance <= 300 m",
-  "dropped": "snap distance > 2000 m",
+  "entry": "nearest node of the largest strongly connected component of the directed road graph (진입 지점), sent as node_id",
+  "checkable": "entry distance <= 2000 m",
+  "not_checkable": "entry distance > 2000 m (kept, listed in dropped_far)",
   "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
  },
  "counts": {
   "osm_elements": 328,
-  "origins": 90,
+  "origins": 91,
   "destinations": 179,
   "research": 8,
   "excluded": 52,
   "dropped_far": 1,
   "merged": 6,
-  "checkable": 244,
-  "not_checkable": 25
+  "checkable": 269,
+  "not_checkable": 1
  },
  "snap_distance_m": {
   "min": 3.8,
-  "median": 25.2,
-  "max": 1032.9
+  "median": 25.35,
+  "max": 3666.7
  },
  "excluded": [
   {
@@ -823,11 +823,11 @@
    },
    "role": "origin",
    "category": "village",
-   "snap": {
+   "entry": {
     "node": "osm:12309196829",
     "distance_m": 3666.7
    },
-   "reason": "snap distance 3666.7 m > 2000 m to the largest strongly connected road component"
+   "reason": "kept as not checkable: nearest accepted road node is 3666.7 m away (> 2000 m)"
   }
  ],
  "merged": [

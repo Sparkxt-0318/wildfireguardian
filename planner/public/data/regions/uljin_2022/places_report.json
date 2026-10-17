@@ -1,6 +1,6 @@
 {
  "region_id": "uljin_2022",
- "generated_at": "2026-10-17T06:40:37Z",
+ "generated_at": "2026-10-17T09:25:32Z",
  "generator": "planner/tools/extract_places.py",
  "osm_extract": {
   "file": "planner/data/osm/uljin_2022.overpass.json",
@@ -20,26 +20,26 @@
   "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
   "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
   "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
-  "snap": "nearest node of the largest strongly connected component of the directed road graph",
-  "checkable": "snap distance <= 300 m",
-  "dropped": "snap distance > 2000 m",
+  "entry": "nearest node of the largest strongly connected component of the directed road graph (진입 지점), sent as node_id",
+  "checkable": "entry distance <= 2000 m",
+  "not_checkable": "entry distance > 2000 m (kept, listed in dropped_far)",
   "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
  },
  "counts": {
   "osm_elements": 172,
-  "origins": 36,
-  "destinations": 106,
+  "origins": 37,
+  "destinations": 107,
   "research": 8,
   "excluded": 27,
   "dropped_far": 2,
   "merged": 1,
-  "checkable": 124,
-  "not_checkable": 18
+  "checkable": 142,
+  "not_checkable": 2
  },
  "snap_distance_m": {
   "min": 5.1,
-  "median": 54.95,
-  "max": 1530.7
+  "median": 56.15,
+  "max": 4825.1
  },
  "excluded": [
   {
@@ -460,11 +460,11 @@
    },
    "role": "origin",
    "category": "village",
-   "snap": {
+   "entry": {
     "node": "osm:5554288554",
     "distance_m": 4825.1
    },
-   "reason": "snap distance 4825.1 m > 2000 m to the largest strongly connected road component"
+   "reason": "kept as not checkable: nearest accepted road node is 4825.1 m away (> 2000 m)"
   },
   {
    "id": "osm:node/11445808720",
@@ -477,11 +477,11 @@
    },
    "role": "destination",
    "category": "community_hall",
-   "snap": {
+   "entry": {
     "node": "osm:3679196003",
     "distance_m": 2453.3
    },
-   "reason": "snap distance 2453.3 m > 2000 m to the largest strongly connected road component"
+   "reason": "kept as not checkable: nearest accepted road node is 2453.3 m away (> 2000 m)"
   }
  ],
  "merged": [

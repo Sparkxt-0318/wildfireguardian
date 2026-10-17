@@ -116,8 +116,12 @@ def test_feature_properties_well_formed(places):
             assert p["source"] in ("OpenStreetMap", "연구 패널 기록 임무")
             snap = p["snap"]
             assert isinstance(snap["node"], str) and snap["node"].startswith("osm:")
-            assert 0 <= snap["distance_m"] <= 2000
-            assert p["checkable"] == (snap["distance_m"] <= 300)
+            entry = p["entry"]
+            assert entry["node"] == snap["node"] and entry["distance_m"] == snap["distance_m"] >= 0
+            assert 124 < entry["lon"] < 132 and 33 < entry["lat"] < 39
+            # 진입 지점 rule: checkable whenever an accepted road node lies within 2 km (sent as node_id).
+            assert p["checkable"] == (entry["distance_m"] <= 2000)
+            assert entry["within_api_lonlat_snap"] == (entry["distance_m"] <= 300)
             assert p["vulnerable"] == (p["category"] in ("nursing_home", "social_facility"))
             if p["role"].startswith("research"):
                 assert p["category"] == "research"
@@ -188,10 +192,13 @@ def test_every_osm_element_is_accounted_for(places, reports, raw):
         for e in rep["excluded"] + rep["dropped_far"]:
             assert e["reason"]
         ids = {f"osm:{e['type']}/{e['id']}" for e in raw[region]["elements"]}
-        assert ids == used | excluded | dropped | merged, region
-        assert not (excluded & used) and not (dropped & used)
+        assert ids == used | excluded | merged, region
+        assert not (excluded & used)
+        # Points with no accepted road node within 2 km are kept as not checkable (listed, never dropped).
+        not_checkable = {p["id"] for p in props(places[region]) if p["source"] == "OpenStreetMap" and not p["checkable"]}
+        assert dropped == not_checkable, region
         for d in rep["dropped_far"]:
-            assert d["snap"]["distance_m"] > 2000
+            assert d["entry"]["distance_m"] > 2000
         assert rep["counts"]["osm_elements"] == len(raw[region]["elements"])
 
 
@@ -213,6 +220,8 @@ def test_snap_is_nearest_allowed_node(places):
     for region in REGIONS:
         t = load(FIXTURES / "nodes" / f"{region}.json")
         allowed = np.array(t["allowed"], bool)
+        # entry points are the nearest nodes of the largest SCC (ARCHITECTURE.md 4.2), all of which the API allows
+        allowed[t.get("not_in_largest_scc", [])] = False
         ids = np.array(t["ids"])[allowed]
         x, y = to_5179(np.array(t["lon"])[allowed], np.array(t["lat"])[allowed])
         x, y = np.asarray(x), np.asarray(y)
@@ -242,6 +251,7 @@ def test_research_points(places):
             assert p["source"] == "연구 패널 기록 임무"
             assert p["source_tag"] == f"request {p['case_id']} {word} node {p['snap']['node']}"
             assert p["snap"]["distance_m"] == 0 and p["checkable"] is True
+            assert p["entry"]["node"] == p["snap"]["node"] and p["entry"]["distance_m"] == 0
             assert p["osm"] is None and p["name"] is None
             assert p["scenario_set_id"].startswith("ffb1:" + p["case_id"].split("_")[0] + ":")
             compact = p["input_time"].replace("-", "").replace(":", "")

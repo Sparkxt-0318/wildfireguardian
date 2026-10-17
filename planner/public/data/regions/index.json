@@ -20,8 +20,8 @@
   "zoom": 11.75,
   "demo": false,
   "counts": {
-   "origins": 36,
-   "destinations": 106,
+   "origins": 37,
+   "destinations": 107,
    "research": 8
   }
  },
@@ -98,7 +98,7 @@
   "zoom": 11.5,
   "demo": true,
   "counts": {
-   "origins": 84,
+   "origins": 86,
    "destinations": 48,
    "research": 8
   }
@@ -124,7 +124,7 @@
   "zoom": 11.5,
   "demo": true,
   "counts": {
-   "origins": 90,
+   "origins": 91,
    "destinations": 179,
    "research": 8
   }

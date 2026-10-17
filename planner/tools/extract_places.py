@@ -74,8 +74,8 @@ REUSED_FETCHED_AT = {  # mtime (UTC) of the earlier run's download files
 
 SHELTER_TYPE_EXCLUDED = {"gazebo", "public_transport", "picnic_shelter", "sun_shelter", "weather_shelter",
                          "field_shelter", "changing_rooms", "lean_to", "rock_shelter"}
-SNAP_CHECKABLE_M = 300.0
-SNAP_DROP_M = 2000.0
+ENTRY_MAX_M = 2000.0      # no accepted road node within this distance -> 점검 불가 (kept, never dropped)
+API_SNAP_LIMIT_M = 300.0  # the API refuses lon/lat snaps beyond this; entry points are sent as node_id instead
 SCHOOL_MERGE_M = 150.0
 
 
@@ -379,16 +379,23 @@ def build_region(region_meta: dict, sources: dict, log=print):
                                            "name": a["el"]["tags"]["name"], "distance_m": round(d, 1),
                                            "note": "same name within 150 m, not node+way school pair; kept both"})
 
+    # Entry point (진입 지점): the nearest road node the API accepts as a node_id start/destination. Nodes of
+    # the largest strongly connected component all have incoming and outgoing roads (the API's node rule) and
+    # can reach each other. OSM villages here are mapped as points, so "inside or nearest to the village area"
+    # reduces to the nearest such node to the OSM point. Only points with no such node within 2 km are
+    # marked not checkable (점검 불가); none are dropped.
     snaps = snap_points(g, [c["x"] for c in candidates], [c["y"] for c in candidates])
     features = []
     for c, (node, dist) in zip(candidates, snaps):
         el, tags = c["el"], c["el"].get("tags", {})
-        if dist > SNAP_DROP_M:
+        i = g.index[node]
+        elon, elat = pc.to_wgs84(g.x[i], g.y[i])
+        checkable = dist <= ENTRY_MAX_M
+        if not checkable:
             dropped.append({"id": f"osm:{osm_ref(el)}", "osm_type": el["type"], "osm_id": el["id"],
                             "name": tags.get("name"), "tags": tags, "role": c["role"], "category": c["category"],
-                            "snap": {"node": node, "distance_m": round(dist, 1)},
-                            "reason": "snap distance %.1f m > 2000 m to the largest strongly connected road component" % dist})
-            continue
+                            "entry": {"node": node, "distance_m": round(dist, 1)},
+                            "reason": "kept as not checkable: nearest accepted road node is %.1f m away (> 2000 m)" % dist})
         features.append({
             "type": "Feature",
             "geometry": {"type": "Point", "coordinates": [round(c["lon"], 7), round(c["lat"], 7)]},
@@ -400,7 +407,9 @@ def build_region(region_meta: dict, sources: dict, log=print):
                 "source": "OpenStreetMap", "source_tag": c["source_tag"],
                 "osm": {"type": el["type"], "id": el["id"], "tags": tags, "merged_ids": c["merged"]},
                 "snap": {"node": node, "distance_m": round(dist, 1)},
-                "checkable": dist <= SNAP_CHECKABLE_M,
+                "entry": {"node": node, "lon": round(float(elon), 7), "lat": round(float(elat), 7),
+                          "distance_m": round(dist, 1), "within_api_lonlat_snap": dist <= API_SNAP_LIMIT_M},
+                "checkable": checkable,
                 "vulnerable": c["category"] in ("nursing_home", "social_facility"),
                 "scenario_set_id": None, "input_time": None, "case_id": None, "recorded": None,
             },
@@ -463,6 +472,8 @@ def build_region(region_meta: dict, sources: dict, log=print):
                     "source_tag": f"request {case_id} {word} node {node}",
                     "osm": None,
                     "snap": {"node": node, "distance_m": 0.0, "in_largest_scc": bool(g.scc_mask[i])},
+                    "entry": {"node": node, "lon": round(float(lon), 7), "lat": round(float(lat), 7),
+                              "distance_m": 0.0, "within_api_lonlat_snap": True},
                     "checkable": True, "vulnerable": False,
                     "scenario_set_id": ssid, "input_time": pc.iso_z(input_compact), "case_id": case_id,
                     "recorded": recorded,
@@ -481,15 +492,17 @@ def build_region(region_meta: dict, sources: dict, log=print):
           "region_id": region,
           "notes": ["OpenStreetMap points are current OSM (timestamp_osm_base %s); the road graph is the "
                     "historical snapshot %s." % (src["timestamp_osm_base"], pc.graph_snapshot_date(g)),
-                    "snap = nearest node of the largest strongly connected road component (display only); "
-                    "checkable = snap distance <= 300 m."],
+                    "entry = 진입 지점: nearest node of the largest strongly connected road component (every such "
+                    "node has incoming and outgoing roads, the API's node_id rule); the planner sends it as "
+                    "{node_id}. checkable = entry distance <= 2000 m; travel between the OSM point and its entry "
+                    "point is not modelled."],
           "features": all_features}
     out_dir = PUBLIC_REGIONS / region
     pc.write_json(out_dir / "places.geojson", fc, compact=True)
 
     n_orig = sum(1 for f in features if f["properties"]["role"] == "origin")
     n_dest = sum(1 for f in features if f["properties"]["role"] == "destination")
-    dists = [f["properties"]["snap"]["distance_m"] for f in features]
+    dists = [f["properties"]["entry"]["distance_m"] for f in features]
     report = {
         "region_id": region,
         "generated_at": pc.utc_now(),
@@ -503,8 +516,8 @@ def build_region(region_meta: dict, sources: dict, log=print):
                              "building=school; amenity=community_centre; amenity=townhall with 회관 in name"
                              % sorted(SHELTER_TYPE_EXCLUDED)),
             "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
-            "snap": "nearest node of the largest strongly connected component of the directed road graph",
-            "checkable": "snap distance <= 300 m", "dropped": "snap distance > 2000 m",
+            "entry": "nearest node of the largest strongly connected component of the directed road graph (진입 지점), sent as node_id",
+            "checkable": "entry distance <= 2000 m", "not_checkable": "entry distance > 2000 m (kept, listed in dropped_far)",
             "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre",
         },
         "counts": {"osm_elements": len(doc["elements"]), "origins": n_orig, "destinations": n_dest,
