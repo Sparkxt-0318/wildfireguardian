@@ -47,6 +47,12 @@ def log(msg: str) -> None:
     print(msg, file=sys.stderr, flush=True)
 
 
+class ApiError(Exception):
+    def __init__(self, status: int, body: dict | str):
+        super().__init__(f'HTTP {status}: {str(body)[:300]}')
+        self.status, self.body = status, body
+
+
 class Api:
     def __init__(self, base: str, timeout: float = 60.0):
         self.base = base.rstrip('/')
@@ -62,9 +68,12 @@ class Api:
                 with urllib.request.urlopen(req, timeout=self.timeout) as r:
                     return json.loads(r.read().decode('utf-8'))
             except urllib.error.HTTPError as e:
-                detail = e.read().decode('utf-8', 'replace')[:800]
+                detail = e.read().decode('utf-8', 'replace')
                 if e.code < 500:
-                    raise SystemExit(f'{method} {path} failed with HTTP {e.code}: {detail}')
+                    try:
+                        raise ApiError(e.code, json.loads(detail))
+                    except json.JSONDecodeError:
+                        raise ApiError(e.code, detail[:800])
                 last = e
             except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
                 last = e
@@ -166,7 +175,14 @@ def research_requests(region_id: str, sset: dict, places: list[dict], offsets: l
             continue
         rec = p['recorded']
         offs = sorted(set(offsets) | {int(rec['depart_offset_s'])})
+        open_s, close_s = rec['destination_window']
+        horizon = float(rec.get('horizon_s') or sset['horizon_s'])
         for off in offs:
+            if max(off, open_s) + rec['dwell_s'] > min(close_s, horizon):
+                # Same rule the API applies (422 WINDOW_UNSATISFIABLE): no arrival can meet the recorded window.
+                out.append(({'origin_id': p['id'], 'destination_id': rec['destination_id'], 'depart_offset_s': off,
+                             'job_id': None, 'skipped': 'WINDOW_UNSATISFIABLE'}, None))
+                continue
             body = {
                 'region': region_id,
                 'input_time': sset['input_time'],
@@ -181,6 +197,8 @@ def research_requests(region_id: str, sset: dict, places: list[dict], offsets: l
             }
             if rec.get('incurred_dose_kj_m2') is not None:
                 body['incurred_dose_kj_m2'] = rec['incurred_dose_kj_m2']
+            if rec.get('limits'):   # FN/FX missions carry mission-specific recorded dose limits
+                body['limits'] = rec['limits']
             out.append(({'origin_id': p['id'], 'destination_id': rec['destination_id'], 'depart_offset_s': off}, body))
     return out
 
@@ -219,6 +237,8 @@ def best_checked(plan_jobs: list[dict], research: list[tuple[dict, dict]], check
                 best[plan['origin_id']] = b['route_check_job_id']
     by_origin: dict[str, list] = {}
     for meta, _ in research:
+        if not meta.get('job_id'):
+            continue
         res = (checks.get(meta['job_id']) or {}).get('result') or {}
         if res.get('verdict') == 'checked_route':
             by_origin.setdefault(meta['origin_id'], []).append((meta['depart_offset_s'], -(res.get('arrival_s') or 0), meta['job_id']))
@@ -241,7 +261,10 @@ def main() -> None:
     a = ap.parse_args()
 
     api = Api(a.api)
-    health = api.get('/health')
+    try:
+        health = api.get('/health')
+    except ApiError as e:
+        raise SystemExit(f'GET /health failed: {e}')
     mode = 'mock' if is_mock(health) else 'live'
     if mode == 'mock' and not a.allow_mock:
         raise SystemExit('The API is the MOCK server. Pass --allow-mock to write a MOCK-labelled cache.')
@@ -266,11 +289,26 @@ def main() -> None:
             n_attempts = sum(len(r['origins']) * len(r['destinations']) * len(r['depart_offsets_s']) for r in plans_req)
             log(f'  {len(plans_req)} dispatch plans ({n_attempts} checks) + {len(research)} research checks')
 
-            plan_ids = [api.post('/dispatch-plans', body)['job_id'] for body in plans_req]
+            plan_ids, rejected = [], []
+            for body in plans_req:
+                try:
+                    plan_ids.append(api.post('/dispatch-plans', body)['job_id'])
+                except ApiError as e:
+                    rejected.append({'kind': 'dispatch_plan', 'origins': [o['id'] for o in body['origins']],
+                                     'status': e.status, 'error': e.body})
+                    log(f'  dispatch plan rejected: {e}')
             for meta, body in research:
-                meta['job_id'] = api.post('/route-checks', body)['job_id']
+                if body is None:
+                    continue
+                try:
+                    meta['job_id'] = api.post('/route-checks', body)['job_id']
+                except ApiError as e:
+                    meta['job_id'], meta['skipped'] = None, (e.body.get('error', {}).get('code') if isinstance(e.body, dict) else 'REJECTED')
+                    rejected.append({'kind': 'route_check', 'origin_id': meta['origin_id'],
+                                     'depart_offset_s': meta['depart_offset_s'], 'status': e.status, 'error': e.body})
+                    log(f'  route check rejected: {e}')
             plan_jobs = wait_jobs(api, 'dispatch_plan', plan_ids, a.poll, timeout_s)
-            check_ids = [m['job_id'] for m, _ in research]
+            check_ids = [m['job_id'] for m, _ in research if m.get('job_id')]
             for job in plan_jobs.values():
                 for plan in (job.get('result') or {}).get('plans', []):
                     check_ids += [x['route_check_job_id'] for x in plan.get('attempts', []) if x.get('route_check_job_id')]
@@ -285,7 +323,11 @@ def main() -> None:
                     for key in ('policy', 'limits', 'run_independent_check', 'client_ref'):
                         req.pop(key, None)
                     req.update({'policy': 'travel_only', 'client_ref': f'planner-precompute:travel_only:{oid}'})
-                    to_ids[api.post('/route-checks', req)['job_id']] = oid
+                    try:
+                        to_ids[api.post('/route-checks', req)['job_id']] = oid
+                    except ApiError as e:
+                        rejected.append({'kind': 'travel_only', 'origin_id': oid, 'status': e.status, 'error': e.body})
+                        log(f'  travel_only check rejected: {e}')
                 for jid, job in wait_jobs(api, 'route_check', list(to_ids), a.poll, timeout_s).items():
                     travel_only[to_ids[jid]] = job
 
@@ -305,6 +347,7 @@ def main() -> None:
                 'requests': plans_req,
                 'plans': [plan_jobs[i] for i in plan_ids],
                 'research_checks': [m for m, _ in research],
+                'rejected_requests': rejected,
                 'route_checks': checks,
                 'travel_only': travel_only,
             }
