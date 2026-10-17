@@ -1,0 +1,37 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w002,2,115,87,0.5,1,s,"small detached glowing dot above flames, one frame; glowing spot at 136 to 145, 88 to 102 is a static smouldering twig, not an ember"
+w008,0,170,34,1,1,m,bright ember drifting left
+w008,0,116,110,0.5,2,s,"faint, start of left drifting dot"
+w008,0,126,17,1,3,s,"moving up and left, leaves top"
+w008,0,172,74,1,4,s,"moving up and left about 7,10 px per frame"
+w008,0,136,38,0.5,5,s,faint start of left drifting dot
+w008,0,162,45,0.5,7,s,small dot seen in k0 only
+w008,1,156,32,1,1,m,
+w008,1,109,111,1,2,s,
+w008,1,120,10,1,3,s,
+w008,1,166,64,1,4,s,
+w008,1,127,35,1,5,s,
+w008,2,142,34,1,1,m,
+w008,2,103,112,1,2,s,
+w008,2,115,4,1,3,s,
+w008,2,158,53,1,4,s,
+w008,2,118,33,1,5,s,
+w008,2,143,25,1,6,s,drifting left
+w008,3,132,35,1,1,m,
+w008,3,96,112,1,2,s,
+w008,3,150,42,1,4,s,
+w008,3,110,32,1,5,s,
+w008,3,132,22,1,6,s,
+w008,3,164,168,0.5,9,s,"pale dot among lit leaves, moves down"
+w008,4,124,36,1,1,m,
+w008,4,91,110,1,2,s,
+w008,4,143,32,0.5,4,s,fading
+w008,4,103,30,1,5,s,
+w008,4,125,24,1,6,s,
+w008,4,172,139,1,8,s,dot moving left in front of vegetation
+w008,4,163,178,0.5,9,s,
+w008,5,119,37,1,1,m,
+w008,5,188,164,0.5,10,s,"dot at right edge, one frame"
+w008,5,90,109,1,2,s,
+w008,5,96,30,1,5,s,
+w008,5,158,136,1,8,s,

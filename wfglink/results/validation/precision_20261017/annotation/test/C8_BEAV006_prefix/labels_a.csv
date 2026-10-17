@@ -1,0 +1,28 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,172,39,0.5,1,l,"thin diagonal comb streak about 13 px long in orange smoke just above the right flame; seen only in this frame, so it may be a flame tip"
+w000,2,180,32,0.5,2,m,"small bright comb streak about 8 px above the right flame top; seen only in this frame, so it may be a flame tip"
+w001,,,,,,,none
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,3,81.7,112.8,0.5,1,s,"small bright dot appears beside a thin twig in the smoke, falls down and right in later frames"
+w005,4,91.2,123.4,0.5,1,s,faint dot on the falling path
+w005,5,95.1,136.2,0.5,1,s,"bright dot with dark core, continues falling"
+w006,0,56,26,0.5,1,s,"white 3 px dot with a short tail, seen only in k0, next to static distant lights at (53,22) and (68,20)"
+w007,4,14.4,42,0.5,1,m,"short whitish diagonal streak appears in dark smoky area, absent before"
+w007,5,18.2,42.7,0.5,1,m,same streak moved about 4 px right
+w008,,,,,,,none
+w009,0,67.5,36.2,0.5,3,m,"faint fast horizontal dash in smoke, field offset shows leftward motion"
+w009,1,36,32.6,0.5,3,m,"same faint dash moved about 32 px left, gone afterwards"
+w009,2,67.5,79,0.5,1,l,"long thin falling burning twig left of trunk, partly dark with bright spots"
+w009,2,99.7,40.3,0.5,2,s,"small bright dot at trunk left edge, start of falling ember"
+w009,3,43,93.5,0.5,1,l,"same twig moved down left, bright dashed streak"
+w009,3,99.1,56.3,1,2,m,"bright vertical streak in one field, falling fast"
+w009,4,14,106,0.5,1,l,"twig fragments near left edge, still moving down left"
+w009,4,102.5,71.8,1,2,m,"bright vertical streak, continues falling"
+w009,4,61.5,65.8,0.5,4,m,"bright fragment leaving trunk edge, moving left"
+w009,4,16.6,80.1,0.5,5,m,"separate bright fragment above the twig pieces, only in this frame"
+w009,5,106.7,93.7,0.5,2,s,"compact bright spot with short trail above, further down"
+w009,5,42,74,0.5,4,m,same fragment moved down left
+w010,,,,,,,none
+w011,,,,,,,none

@@ -1,0 +1,606 @@
+{
+  "precision": {
+    "value": 0.06329113924050633,
+    "ci": [
+      0.010471204188481676,
+      0.140139828821656
+    ]
+  },
+  "recall": {
+    "value": 0.22727272727272727,
+    "ci": [
+      0.07136699507389173,
+      0.387783446712018
+    ]
+  },
+  "f1": {
+    "value": 0.09900990099009901,
+    "ci": [
+      0.0191275768009659,
+      0.19178979481964462
+    ]
+  },
+  "tp": 10,
+  "fp": 148,
+  "fn": 34,
+  "frames": 20,
+  "bootstrap": 2000,
+  "seed": 0,
+  "level": 0.95,
+  "min_frames_ci": 5,
+  "replicates_undefined": {
+    "precision": 0,
+    "recall": 0,
+    "f1": 0
+  },
+  "tag": "agent-labeled",
+  "match_px": 3.0,
+  "streak_radius_frac": 0.0,
+  "min_confidence": 0.75,
+  "frames_target": 20,
+  "tiles_scored": 40,
+  "tiles_labelled": 59,
+  "tiles_skipped": [
+    {
+      "tile_id": "t041",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t042",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t043",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t044",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t045",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t046",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t047",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t048",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t049",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t050",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t051",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t052",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t053",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t054",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t055",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t056",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t057",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t058",
+      "reason": "reserve not needed (enough frames scored)"
+    },
+    {
+      "tile_id": "t059",
+      "reason": "reserve not needed (enough frames scored)"
+    }
+  ],
+  "labels_outside_tile": 0,
+  "unsure_labels": 13,
+  "dont_care_detections": 4,
+  "warnings": [],
+  "tile_set_id": "13ead63b1cbec569",
+  "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+  "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+  "run_config_sha256": "a0f59f8f444cbb245c62a7fa39b7201e1bdccbb83e95b701576f81165face6af",
+  "run_git_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+  "run_dir": "results/runs/process/C5_baseline",
+  "tile_dir": "results/labels/C5",
+  "per_tile": [
+    {
+      "tile_id": "t000",
+      "frame": 411,
+      "labels": 1,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 1,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t001",
+      "frame": 411,
+      "labels": 2,
+      "unsure_labels": 0,
+      "detections": 3,
+      "tp": 0,
+      "fn": 2,
+      "fp": 3,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t002",
+      "frame": 451,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t003",
+      "frame": 451,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 0,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t004",
+      "frame": 360,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 3,
+      "tp": 0,
+      "fn": 0,
+      "fp": 3,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t005",
+      "frame": 360,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 13,
+      "tp": 0,
+      "fn": 0,
+      "fp": 13,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t006",
+      "frame": 323,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 1,
+      "tp": 0,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t007",
+      "frame": 323,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 0,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t008",
+      "frame": 440,
+      "labels": 6,
+      "unsure_labels": 4,
+      "detections": 16,
+      "tp": 2,
+      "fn": 4,
+      "fp": 11,
+      "dont_care_detections": 3
+    },
+    {
+      "tile_id": "t009",
+      "frame": 440,
+      "labels": 8,
+      "unsure_labels": 1,
+      "detections": 0,
+      "tp": 0,
+      "fn": 8,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t010",
+      "frame": 181,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 0,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t011",
+      "frame": 181,
+      "labels": 0,
+      "unsure_labels": 1,
+      "detections": 17,
+      "tp": 0,
+      "fn": 0,
+      "fp": 16,
+      "dont_care_detections": 1
+    },
+    {
+      "tile_id": "t012",
+      "frame": 540,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 5,
+      "tp": 0,
+      "fn": 0,
+      "fp": 5,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t013",
+      "frame": 540,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t014",
+      "frame": 288,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 1,
+      "tp": 0,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t015",
+      "frame": 288,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 0,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t016",
+      "frame": 506,
+      "labels": 6,
+      "unsure_labels": 1,
+      "detections": 6,
+      "tp": 0,
+      "fn": 6,
+      "fp": 6,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t017",
+      "frame": 506,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t018",
+      "frame": 235,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 6,
+      "tp": 0,
+      "fn": 0,
+      "fp": 6,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t019",
+      "frame": 235,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 10,
+      "tp": 0,
+      "fn": 0,
+      "fp": 10,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t020",
+      "frame": 384,
+      "labels": 1,
+      "unsure_labels": 0,
+      "detections": 3,
+      "tp": 0,
+      "fn": 1,
+      "fp": 3,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t021",
+      "frame": 384,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 0,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t022",
+      "frame": 161,
+      "labels": 1,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 1,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t023",
+      "frame": 161,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t024",
+      "frame": 525,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 0,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t025",
+      "frame": 525,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t026",
+      "frame": 28,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 7,
+      "tp": 0,
+      "fn": 0,
+      "fp": 7,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t027",
+      "frame": 28,
+      "labels": 6,
+      "unsure_labels": 3,
+      "detections": 2,
+      "tp": 2,
+      "fn": 4,
+      "fp": 0,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t028",
+      "frame": 463,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 0,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t029",
+      "frame": 463,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 10,
+      "tp": 0,
+      "fn": 0,
+      "fp": 10,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t030",
+      "frame": 313,
+      "labels": 0,
+      "unsure_labels": 1,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t031",
+      "frame": 313,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 3,
+      "tp": 0,
+      "fn": 0,
+      "fp": 3,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t032",
+      "frame": 38,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 1,
+      "tp": 0,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t033",
+      "frame": 38,
+      "labels": 1,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 1,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t034",
+      "frame": 322,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 0,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t035",
+      "frame": 322,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 2,
+      "tp": 0,
+      "fn": 0,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t036",
+      "frame": 422,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 4,
+      "tp": 0,
+      "fn": 0,
+      "fp": 4,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t037",
+      "frame": 422,
+      "labels": 12,
+      "unsure_labels": 2,
+      "detections": 7,
+      "tp": 5,
+      "fn": 7,
+      "fp": 2,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t038",
+      "frame": 170,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 1,
+      "tp": 0,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    },
+    {
+      "tile_id": "t039",
+      "frame": 170,
+      "labels": 0,
+      "unsure_labels": 0,
+      "detections": 1,
+      "tp": 0,
+      "fn": 0,
+      "fp": 1,
+      "dont_care_detections": 0
+    }
+  ],
+  "inter_labeler": {
+    "f1": {
+      "value": 0.8125,
+      "ci": [
+        0.7692307692307693,
+        1.0
+      ]
+    },
+    "matches": 13,
+    "labels_a": 16,
+    "labels_b": 16,
+    "unsure_labels": 9,
+    "labels_outside_tile": 0,
+    "tiles": 10,
+    "units": 5,
+    "bootstrap_over": "frames",
+    "ci_note": null,
+    "replicates_undefined": {
+      "precision": 162,
+      "recall": 162,
+      "f1": 162
+    },
+    "labelers": [
+      "agent-labeled",
+      "agent-labeled"
+    ],
+    "tag": "agent-labeled vs agent-labeled",
+    "match_px": 3.0,
+    "min_confidence": 0.75,
+    "labels_a_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+    "labels_b_sha256": "4542f6d9a1e36f6ad6d1a48513165462769e7f52519842c09769e41b17cfc913"
+  }
+}

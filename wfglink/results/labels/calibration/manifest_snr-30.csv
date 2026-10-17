@@ -1,0 +1,7 @@
+tile_id,clip_id,segment,run_start_s,frame,t,pts_s,draw,reserve,check,x0,y0,w,h,roi_x0,roi_y0,scale,png,raw_png,context_frames,context_png,raw_sha256
+t000,cal_snr-30,0,0.0,123,4.1,4.1,0,False,False,528,293,256,256,0,0,4,t000.png,raw/t000.png,122;124,t000_prev1.png;t000_next1.png,7263d58581b35da1d2d5f9af680fdd17a0a450d6a71636909e5c91f94aa0c7d2
+t001,cal_snr-30,0,0.0,123,4.1,4.1,0,False,False,55,129,256,256,0,0,4,t001.png,raw/t001.png,122;124,t001_prev1.png;t001_next1.png,2b7daa79795f69fc6ef9e7aa737a198d53fa2ce09cf31dfb803745f21d1c98fc
+t002,cal_snr-30,0,0.0,105,3.5,3.5,1,False,False,392,265,256,256,0,0,4,t002.png,raw/t002.png,104;106,t002_prev1.png;t002_next1.png,e61c60a50ea6615dee77f3ecbb7f86cdba5526831866a31b5018ada6459abe20
+t003,cal_snr-30,0,0.0,105,3.5,3.5,1,False,False,46,0,256,256,0,0,4,t003.png,raw/t003.png,104;106,t003_prev1.png;t003_next1.png,58f505c46635936afe555e1625a79f69033a26460e8bbd8ace500a8d7dbda55d
+t004,cal_snr-30,0,0.0,22,0.7333333333333333,0.7333333333333333,2,False,False,49,69,256,256,0,0,4,t004.png,raw/t004.png,21;23,t004_prev1.png;t004_next1.png,b4bc68b591d7de8a53275c6ee7c086e96df2b40543610e1cb164aaa87e4d007c
+t005,cal_snr-30,0,0.0,22,0.7333333333333333,0.7333333333333333,2,False,False,1024,88,256,256,0,0,4,t005.png,raw/t005.png,21;23,t005_prev1.png;t005_next1.png,3ce883f613fc65f7e28c01f26c5700219a541ff6bf7bbfe32bd141b7f2cdccd2

@@ -1,0 +1,16 @@
+{
+  "assembled_at_utc": "2026-10-15T12:01:16.111784+00:00",
+  "assembly_host": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.12.1"
+  },
+  "assembly_head": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "evidence_contexts": {
+    "fire_frozen": "f9e72c2445d616490187ea54f759061a6b07111b",
+    "c10_tracking_only": "8e39d448c8b45b3b6a300ba00e780ee301ed2652",
+    "phone_checkpoint": "d640408a612cba9c5cee54591258dbd035eeadb1",
+    "synthetic_input_generator": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff"
+  },
+  "provenance_policy": "Assembly host/HEAD describe packaging only. Original per-report commits, dirty flags and source hashes remain authoritative; no single commit or clean flag is assigned to all evidence."
+}

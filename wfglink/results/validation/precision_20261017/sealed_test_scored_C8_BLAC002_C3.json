@@ -1,0 +1,24 @@
+{
+  "status": "scored",
+  "protocol": "results/validation/precision_20261017/protocol.yaml",
+  "protocol_sha256": "79419caf8cd366b0553e2927c7d0544660b40d94bc308ab9d69c09beff916e60",
+  "recording": "C8_BLAC002_C3",
+  "identity": {
+    "method": "rules",
+    "model_sha256": null,
+    "overlay_sha256": "c8a1592e493568d75583f61256919764cfc1d8e7b34a818c366947dab2e39073",
+    "profile": "file_native",
+    "selection_sha256": "7a5fcde0e4ec702d775bbc4a6223cd19dbc734efccda1d0a965bfb5df721acfd",
+    "sidecar_sha256": null,
+    "threshold": null,
+    "thresholds_sha256": "96cf1b8188d28822db8d005b891e1c641a3684dd58786e3ea4d5f56d8007ecca",
+    "verify_sha256": "d26e6a0f2aa5d59f85afe75ae5e0a3aa4a84afdaf602668803412eb11d8f6fc4"
+  },
+  "run_dir": "results/runs/precision_20261017/sealed/C8_BLAC002_C3_rules",
+  "started": "2026-10-18T05:06:50+08:00",
+  "git_commit": "114b8339fad8e6da2926e0d279662731e08ff50c",
+  "git_dirty": false,
+  "scored": "2026-10-18T05:06:52+08:00",
+  "result_sha256": "8b6df8641afb2a9d28531f55607fe43cfc2819abdbc885f7fecc868ef3f36244",
+  "result": "results/validation/precision_20261017/sealed/eval_C8_BLAC002_C3.json"
+}

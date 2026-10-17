@@ -1,0 +1,78 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fifty_mode_switches_leak_no_threads_or_memory ______________
+
+scripted_camera = ([<ember_standin.ScriptedCamera object at 0x1523527b0>, <ember_standin.ScriptedCamera object at 0x15235db50>, <ember_s..., <ember_standin.ScriptedCamera object at 0x15235e810>, <ember_standin.ScriptedCamera object at 0x15235f050>, ...], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106ac5b20>
+
+    @pytest.mark.slow
+    def test_fifty_mode_switches_leak_no_threads_or_memory(scripted_camera, monkeypatch):
+        sys.path.insert(0, str(TESTS))
+        from ember_standin import FakeEmberPipeline
+
+        from wfglink.ui.booth_app import BoothEngine, rss_mb
+        from wfglink.io.synthetic_live import SyntheticLiveSource
+
+        requested, boundary, resume = threading.Event(), threading.Event(), threading.Event()
+        resume.set()
+        original_read = SyntheticLiveSource.read
+        def read_at_boundary(source):
+            frame = original_read(source)
+            if requested.is_set():
+                boundary.set()
+                resume.wait()
+                boundary.clear()
+            return frame
+        monkeypatch.setattr(SyntheticLiveSource, "read", read_at_boundary)
+
+        def retained_rss():
+            # Compare completed-frame boundaries, rather than arbitrary 720p renderer scratch
+            # allocations in the playback thread. The same live source and workload still run.
+            resume.clear()
+            requested.set()
+            try:
+                assert boundary.wait(5.0)
+                return rss_mb(os.getpid())
+            finally:
+                requested.clear()
+                resume.set()
+
+        made, _ = scripted_camera
+        eng = BoothEngine(_phone_cfg(), {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+        eng.start("fire")
+        try:
+            def switch(k):
+                eng.set_mode("ember")
+                assert _steps(eng, "ember"), k
+                eng.set_mode("fire")
+                assert _steps(eng, "fire"), k
+
+            for k in range(5):                     # warm up: imports, caches, first allocations
+                switch(k)
+            # Background seeding returns no detections. Warm full analysis and its first noise-map
+            # replacement (old maps are still held by DetectorState) before measuring retention.
+            detect = eng.cfg["detect"]
+            first_full = int(detect["background"]["warmup_frames"]) + 1
+            period = max(1, int(detect["noise"]["update_every"]))
+            first_refresh = (first_full // period + 1) * period
+            def fire_ready():
+                state = eng.step()
+                pipe = eng.analyser.pipes.get(eng.analyser.active)
+                return (state is not None and pipe.detector.ready
+                        and pipe.stats.frames_analysed >= first_refresh)
+            assert _until(fire_ready)
+            threads, mem = threading.active_count(), retained_rss()
+            for k in range(50):
+                switch(k)
+            assert threading.active_count() == threads
+            assert not any(t.name == "camera" and t.is_alive() for t in threading.enumerate())
+            assert all(c.opened == c.closed == 1 for c in made) and eng.entries == 55
+            after = retained_rss()
+>           assert after - mem < 40, (mem, after)
+E           AssertionError: (387.140625, 449.90625)
+E           assert (449.90625 - 387.140625) < 40
+
+tests/test_booth_app.py:879: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory
+1 failed in 5.22s

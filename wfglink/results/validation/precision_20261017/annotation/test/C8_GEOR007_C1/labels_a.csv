@@ -1,0 +1,52 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,,,,,,,none
+w002,,,,,,,none
+w003,3,35,6,0.5,1,l,"long orange horizontal motion streak, x 0 to 70, enters from left"
+w003,4,120,11,0.5,1,l,"long orange streak x 50 to 191 (doubled lines y 8 and 16), exits right edge"
+w003,5,118,25,0.5,2,l,long orange streak x 45 to 191 crossing in front of trunk
+w003,5,64,102,0.5,3,l,"long orange streak x 3 to 125, slightly sloping down to the right"
+w004,,,,,,,none
+w005,,,,,,,none
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,1,111,108,0.5,1,m,faint pinkish diagonal streak above grass
+w009,2,120,128,0.5,2,m,faint diagonal streak
+w009,3,157,186,1,3,m,orange streak bottom right
+w009,3,182,4,0.5,4,s,small orange dash at top
+w009,4,157,186,1,3,m,"frame k4 is a duplicate of k3, same streak"
+w009,4,182,4,0.5,4,s,duplicate frame of k3
+w009,5,177,100,0.5,5,l,long faint diagonal streak at right edge
+w010,,,,,,,none
+w011,0,60,122,1,1,l,pinkish orange streak
+w011,0,57,181,1,2,m,orange diagonal streak at bottom
+w011,0,70,101,0.5,3,l,faint diagonal streak
+w011,0,90,6,0.5,4,m,short faint streak near top
+w011,1,78,164,0.5,10,m,faint diagonal streak
+w011,1,84,15,1,5,l,orange streak near top
+w011,1,54,41,1,6,l,orange diagonal streak
+w011,1,48,24,0.5,7,m,second parallel streak above
+w011,1,79,114,0.5,8,l,faint pinkish horizontal streak
+w011,1,144,138,1,9,m,orange streak
+w011,2,89,60,1,11,l,bright orange streak
+w011,2,118,113,1,12,l,orange streak
+w011,2,178,146,0.5,13,m,streak at right edge
+w011,2,104,184,0.5,14,m,faint streak at bottom
+w011,3,128,71,1,15,l,bright orange streak
+w011,3,155,115,0.5,16,l,faint orange streak
+w011,3,64,61,0.5,17,l,faint whitish diagonal streak
+w011,3,185,25,0.5,18,m,streak at right edge top
+w011,4,164,29,1,19,l,horizontal orange streak
+w011,4,89,137,0.5,20,m,faint pinkish streak
+w011,5,164,29,1,19,l,frame k5 is a duplicate of k4
+w011,5,89,137,0.5,20,m,duplicate frame of k4
+w012,0,95,40,0.5,1,l,"long faint streak crossing tile; k1 is a whole-frame glare flash, not labelled"
+w012,0,95,75,0.5,2,l,long faint parallel streak crossing tile
+w012,2,95,49,0.5,3,l,long pinkish near-horizontal streak
+w012,3,181,61,0.5,4,m,short pale streak at right edge
+w012,3,5,92,0.5,5,m,short pale streak at left edge
+w013,0,52,79,0.5,1,m,faint diagonal streak
+w013,1,89,109,0.5,2,m,faint whitish streak
+w014,1,118,80,0.5,1,l,faint pinkish horizontal streak
+w015,,,,,,,none

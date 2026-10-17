@@ -1,0 +1,8 @@
+Debug result (orchestrator, 2026-10-17): in this PERSISTENT export of 4d0092c (wfglink/ here, data/raw and
+data/synthetic symlinked to the checkout), scripts/ held 16 files before the harness, 16 after the harness
+(harness return code 1, its asserts fail on this host as expected), and 16 after validate --suite ember
+(return code 0). So neither the harness nor validate deletes scripts/check_ember_stride.py in a persistent
+export. The two failing runs used tempfile exports (results/runs/tmp/tmpXXXX, then the system /tmp/tmpXXXX)
+inside precision_phone_check.py, run under scripts/run_from_head.sh. In the first failing run the harness
+also failed because --out-dir was relative (fixed: absolute). Look at what differs in the script's own
+temp-export code path (paths, cwd, symlinks, the TemporaryDirectory lifetime), not at the release code.

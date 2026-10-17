@@ -1,0 +1,118 @@
+# Approved clips (PLAN.md section 13; user decision 2026-10-14). Downloaded by
+# scripts/fetch_clips.py into data/raw/ (never committed). Licenses were verified on
+# 2026-10-14 from the source pages and the Wikimedia Commons API.
+# metrics_scope: all, tracking_only (C10: 4x slow motion timebase), negative (no embers expected)
+# split: tune or heldout. Real clips never tune the detector thresholds used for the
+# headline numbers; "tune" here only allows looking at them while developing.
+
+clips:
+  - id: C2_dolan
+    title: Holding The Line On The Dolan Fire (U.S. Army, 2020)
+    page_url: https://commons.wikimedia.org/wiki/File:Holding_The_Line_On_The_Dolan_Fire_0YVumnT9NiQ.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/1/1a/Holding_The_Line_On_The_Dolan_Fire_0YVumnT9NiQ.webm
+    license: Public domain (PD-USGov-Military-Army)
+    credit: "Video: Cynthia McIntyre / U.S. Army, public domain, via Wikimedia Commons"
+    event: Dolan Fire, Fort Hunter Liggett, California, 2020-09
+    metrics_scope: all
+    split: heldout
+  - id: C3_kaiser
+    title: Kaiser Canyon Fire extreme behavior (USFS, 2026)
+    page_url: https://commons.wikimedia.org/wiki/File:Kaiser_Canyon_Fire_extreme_behavior.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/b/bf/Kaiser_Canyon_Fire_extreme_behavior.webm
+    license: Public domain (US federal work, USDA Forest Service)
+    credit: "U.S. Forest Service / InciWeb, public domain, via Wikimedia Commons"
+    event: Kaiser Canyon Fire, Washington, 2026-07
+    metrics_scope: all
+    split: heldout
+  - id: C4_madeira
+    title: Madeira Forest Fire at Ribeira da Tabua filmed from ER110 (2017)
+    page_url: https://commons.wikimedia.org/wiki/File:Madeira_Forest_Fire_at_Ribeira_da_Tabua_area_filmed_from_ER110_above_(2017).webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/1/16/Madeira_Forest_Fire_at_Ribeira_da_Tabua_area_filmed_from_ER110_above_%282017%29.webm
+    license: CC BY 3.0
+    credit: "Strinder, CC BY 3.0, via Wikimedia Commons"
+    event: Madeira forest fire, 2017-09
+    metrics_scope: all
+    split: heldout
+  - id: C5_nist_emberometer
+    title: NIST's Emberometer Measures Wildfire-Spreading Embers (2021)
+    page_url: https://www.nist.gov/video/nists-emberometer-measures-wildfire-spreading-embers
+    media_url: https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_yhfc2hvi/format/download/protocol/https/flavorParamIds/0
+    license: Public domain (US federal work; EurekAlert lists no restrictions)
+    credit: "Credit: NIST"
+    event: NIST National Fire Research Laboratory, controlled firebrand generator
+    metrics_scope: all
+    split: tune
+  - id: C6_nist_dragon
+    title: With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)
+    page_url: https://www.nist.gov/video/its-dragon-nist-aims-reduce-toll-wildfires-0
+    media_url: https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/0_g8ypccjy/format/download/protocol/https/flavorParamIds/0
+    license: Public domain (NIST lab footage only, 17.05 to 22.55 s; the Shutterstock dragon graphic up to 16.72 s and the uncredited still from 22.62 s are cut before any use)
+    credit: "Credit: NIST"
+    event: NIST firebrand generator, laboratory
+    metrics_scope: all
+    use_segments: [[17.05, 22.55]]
+    split: tune
+  - id: C9_peterfeuer
+    title: Peterfeuer der FF Leonstein 2026 mit Funkenflug, Video 1
+    page_url: https://commons.wikimedia.org/wiki/File:Peterfeuer_der_FF_Leonstein_2026_mit_Funkenflug_-_Video_1.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/2/2d/Peterfeuer_der_FF_Leonstein_2026_mit_Funkenflug_-_Video_1.webm
+    license: CC BY-SA 4.0
+    credit: "Video: Christoph Waghubinger (Lewenstein), CC BY-SA 4.0, via Wikimedia Commons"
+    event: Bonfire with flying sparks, Gruenburg, Upper Austria, 2026-06-26 night
+    metrics_scope: all
+    split: tune
+  - id: C10_sparkler
+    title: Sparkler in Ultra-HD 4k (5k-crop)
+    page_url: https://commons.wikimedia.org/wiki/File:Sparkler_in_Ultra-HD_4k_(5k-crop).webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/2/28/Sparkler_in_Ultra-HD_4k_%285k-crop%29.webm
+    license: CC BY-SA 3.0
+    credit: "#Reaper (Reaper35), CC BY-SA 3.0, via Wikimedia Commons"
+    event: Sparkler close-up, recorded at 96 fps and played at 24 fps (4x slow motion)
+    metrics_scope: tracking_only
+    split: tune
+  - id: C11_ljubljana_fog
+    title: On the Road, Foggy Ljubljana (night dashcam)
+    page_url: https://commons.wikimedia.org/wiki/File:On_the_Road-_Foggy_Ljubljana.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/3/3d/On_the_Road-_Foggy_Ljubljana.webm
+    license: CC BY 3.0
+    credit: "Renato Lozinšek, CC BY 3.0, via Wikimedia Commons"
+    event: Night city driving in fog, Ljubljana, Slovenia (no fire)
+    metrics_scope: negative
+    split: heldout
+  - id: C12_wonju_dashcam
+    title: 2020-04-16 원주시 도로주행 (Wonju road driving dashcam)
+    page_url: https://commons.wikimedia.org/wiki/File:2020-04-16_원주시_도로주행.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/c/c3/2020-04-16_%EC%9B%90%EC%A3%BC%EC%8B%9C_%EB%8F%84%EB%A1%9C%EC%A3%BC%ED%96%89.webm
+    license: CC0 1.0 (dual-licensed with Free Art License; CC0 chosen)
+    credit: "Choi Kwang-mo (Choikwangmo9), CC0, via Wikimedia Commons"
+    event: Roads in Wonju, Gangwon-do, Korea (no fire)
+    metrics_scope: negative
+    split: heldout
+  - id: C13a_cars_night
+    title: Cars driving at night (San Francisco)
+    page_url: https://commons.wikimedia.org/wiki/File:Cars_driving_at_night.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/8/82/Cars_driving_at_night.webm
+    license: CC BY 3.0
+    credit: "Editor (YouTube channel), CC BY 3.0, via Wikimedia Commons"
+    event: Highway headlights at night (no fire)
+    metrics_scope: negative
+    split: heldout
+  - id: C13b_cutting_sparks
+    title: Sparks while cutting roof, Tokyo area, 2007
+    page_url: https://commons.wikimedia.org/wiki/File:Sparks_while_cutting_roof_-_tokyo_area_-_2007_3_2.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/7/7d/Sparks_while_cutting_roof_-_tokyo_area_-_2007_3_2.webm
+    license: CC BY 4.0 (dual-licensed with GFDL 1.2; CC BY 4.0 chosen)
+    credit: "Nesnad, CC BY 4.0, via Wikimedia Commons"
+    event: Industrial cutting sparks (glowing particles, no fire)
+    metrics_scope: negative
+    split: heldout
+  - id: C14_cfa_ember_attack
+    title: Description of Ember Attacks by the Country Fire Authority, Victoria
+    page_url: https://commons.wikimedia.org/wiki/File:Description_of_Ember_Attacks_by_the_Country_Fire_Authority,_Victoria,_Australia.webm
+    media_url: https://upload.wikimedia.org/wikipedia/commons/1/13/Description_of_Ember_Attacks_by_the_Country_Fire_Authority%2C_Victoria%2C_Australia.webm
+    license: CC BY 3.0 (Commons license review pending)
+    credit: "Country Fire Authority (Victoria), CC BY 3.0, via Wikimedia Commons"
+    event: Ember attack explainer (kept only if it contains real ember footage)
+    metrics_scope: all
+    conditional: true
+    split: heldout

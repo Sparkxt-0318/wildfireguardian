@@ -1,0 +1,494 @@
+{
+  "suite": "mismatch",
+  "suite_path": "configs/suites/mismatch.yaml",
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104
+  ],
+  "clips": [
+    {
+      "case": "base",
+      "factor": null,
+      "label": null,
+      "seed": 100,
+      "path": "base/seed_100",
+      "config_sha256": "2526f6249f997d470777d8cd0d2cdd10a821c8b806116171c6ba88b737a9fd62"
+    },
+    {
+      "case": "base",
+      "factor": null,
+      "label": null,
+      "seed": 101,
+      "path": "base/seed_101",
+      "config_sha256": "b6d6f60f5176a973da0036d502004b283e8e3b161e327a0fb9173b187c655add"
+    },
+    {
+      "case": "base",
+      "factor": null,
+      "label": null,
+      "seed": 102,
+      "path": "base/seed_102",
+      "config_sha256": "e4088271f6896f3f8f4644fb01a984289a554a4a4208009280893fb71080c433"
+    },
+    {
+      "case": "base",
+      "factor": null,
+      "label": null,
+      "seed": 103,
+      "path": "base/seed_103",
+      "config_sha256": "5a337ff0ede07c06cebe52c27294c25387c67555bfba08c55c1d083e475962f9"
+    },
+    {
+      "case": "base",
+      "factor": null,
+      "label": null,
+      "seed": 104,
+      "path": "base/seed_104",
+      "config_sha256": "95e1e644a46eae004740e5c23a02442d401c6df945572aef40f14882e4be5f87"
+    },
+    {
+      "case": "rolling_shutter-0.02",
+      "factor": "rolling_shutter",
+      "label": "0.02",
+      "seed": 100,
+      "path": "rolling_shutter-0.02/seed_100",
+      "config_sha256": "c2ea09ce305625251ab28a3dce747ce1a125ad4027de460e1e616d84b3936df3"
+    },
+    {
+      "case": "rolling_shutter-0.02",
+      "factor": "rolling_shutter",
+      "label": "0.02",
+      "seed": 101,
+      "path": "rolling_shutter-0.02/seed_101",
+      "config_sha256": "c6e9b31f2ba6249936a1e6b1c0b28c708542149bf1c6aad3728070db50080a83"
+    },
+    {
+      "case": "rolling_shutter-0.02",
+      "factor": "rolling_shutter",
+      "label": "0.02",
+      "seed": 102,
+      "path": "rolling_shutter-0.02/seed_102",
+      "config_sha256": "8d710f3d4f2fa33efb35fa2cb5b556e996ea330161f686955644470766470d59"
+    },
+    {
+      "case": "rolling_shutter-0.02",
+      "factor": "rolling_shutter",
+      "label": "0.02",
+      "seed": 103,
+      "path": "rolling_shutter-0.02/seed_103",
+      "config_sha256": "ea35ef6f665f63bed9983b7ca185bd2ccb780e2b89f2fa0fe3a505960994ca6a"
+    },
+    {
+      "case": "rolling_shutter-0.02",
+      "factor": "rolling_shutter",
+      "label": "0.02",
+      "seed": 104,
+      "path": "rolling_shutter-0.02/seed_104",
+      "config_sha256": "585920d252f83be6cec3dc7652ff29eb40f5f848eecc99a9a77f27e867a07fb5"
+    },
+    {
+      "case": "tumble-0.5",
+      "factor": "tumble",
+      "label": "0.5",
+      "seed": 100,
+      "path": "tumble-0.5/seed_100",
+      "config_sha256": "002ae62cee6ba130821f5151d06d34ffb2f08897db5643904dd800f222aa0d1a"
+    },
+    {
+      "case": "tumble-0.5",
+      "factor": "tumble",
+      "label": "0.5",
+      "seed": 101,
+      "path": "tumble-0.5/seed_101",
+      "config_sha256": "e8624168e1bdee5fafccda528b8d9b2d7e17a05e6a91474f2aba8b13dfc7852b"
+    },
+    {
+      "case": "tumble-0.5",
+      "factor": "tumble",
+      "label": "0.5",
+      "seed": 102,
+      "path": "tumble-0.5/seed_102",
+      "config_sha256": "37927cffcf19088c95d896f9a73b2386c51c7b8914509c5459f78b4243abbad6"
+    },
+    {
+      "case": "tumble-0.5",
+      "factor": "tumble",
+      "label": "0.5",
+      "seed": 103,
+      "path": "tumble-0.5/seed_103",
+      "config_sha256": "d35965d4c4c3786884a2e34af89fea50df7439bc969052f2b33cf4d4a3498eb1"
+    },
+    {
+      "case": "tumble-0.5",
+      "factor": "tumble",
+      "label": "0.5",
+      "seed": 104,
+      "path": "tumble-0.5/seed_104",
+      "config_sha256": "b03d713227a216946a76d208dfebf221bc2bff8695019678901aaf0d50eb54c1"
+    },
+    {
+      "case": "defocus-1.5",
+      "factor": "defocus",
+      "label": "1.5",
+      "seed": 100,
+      "path": "defocus-1.5/seed_100",
+      "config_sha256": "48ae1ba7a047c5bce148129a466d44430e00d5851f0a02b915ca99138d859d3b"
+    },
+    {
+      "case": "defocus-1.5",
+      "factor": "defocus",
+      "label": "1.5",
+      "seed": 101,
+      "path": "defocus-1.5/seed_101",
+      "config_sha256": "fcf2055c14a25a0c526dbf07eae3809bfa35f5e96351565f5840ea81615e4109"
+    },
+    {
+      "case": "defocus-1.5",
+      "factor": "defocus",
+      "label": "1.5",
+      "seed": 102,
+      "path": "defocus-1.5/seed_102",
+      "config_sha256": "fe7997a2323a34296495c70431fb9a97869cd32706e84149b1953d3de6f5cba6"
+    },
+    {
+      "case": "defocus-1.5",
+      "factor": "defocus",
+      "label": "1.5",
+      "seed": 103,
+      "path": "defocus-1.5/seed_103",
+      "config_sha256": "f851929c29413abdbed6e2a12801413f7e5ccdfab2cddcde9a9f6b1eec9e2c47"
+    },
+    {
+      "case": "defocus-1.5",
+      "factor": "defocus",
+      "label": "1.5",
+      "seed": 104,
+      "path": "defocus-1.5/seed_104",
+      "config_sha256": "e4afb87c7c66ef9a73eb9a4e234fb62afb800246725db5d9c941348b3fb4762b"
+    },
+    {
+      "case": "exposure_step-2.5",
+      "factor": "exposure_step",
+      "label": "2.5",
+      "seed": 100,
+      "path": "exposure_step-2.5/seed_100",
+      "config_sha256": "69e29eb8c9f25b0faeee732784c00d6bc5f0a3f58bc3311c9232e7688099da95"
+    },
+    {
+      "case": "exposure_step-2.5",
+      "factor": "exposure_step",
+      "label": "2.5",
+      "seed": 101,
+      "path": "exposure_step-2.5/seed_101",
+      "config_sha256": "8fb524cccc3e3670af011ab080bdc11806377822c55e84296598f5d206644587"
+    },
+    {
+      "case": "exposure_step-2.5",
+      "factor": "exposure_step",
+      "label": "2.5",
+      "seed": 102,
+      "path": "exposure_step-2.5/seed_102",
+      "config_sha256": "a6cbaebb5952df9b9daacb6381e01a798a74272005cdfb4a8bf2232126240c2f"
+    },
+    {
+      "case": "exposure_step-2.5",
+      "factor": "exposure_step",
+      "label": "2.5",
+      "seed": 103,
+      "path": "exposure_step-2.5/seed_103",
+      "config_sha256": "da8d538e9a07a86a8a99ba7649886b11d6027fdde460e949e57560a92830b27f"
+    },
+    {
+      "case": "exposure_step-2.5",
+      "factor": "exposure_step",
+      "label": "2.5",
+      "seed": 104,
+      "path": "exposure_step-2.5/seed_104",
+      "config_sha256": "c4e6540429298d94c8740913c47b35cc50c8330301fa24ae2239bb7dff092e42"
+    },
+    {
+      "case": "flow-lamb_oseen",
+      "factor": "flow",
+      "label": "lamb_oseen",
+      "seed": 100,
+      "path": "flow-lamb_oseen/seed_100",
+      "config_sha256": "bb861164d954145ad1921d43a16dfe73de435f09b95dde8ddfec2d32ef7195ca"
+    },
+    {
+      "case": "flow-lamb_oseen",
+      "factor": "flow",
+      "label": "lamb_oseen",
+      "seed": 101,
+      "path": "flow-lamb_oseen/seed_101",
+      "config_sha256": "328c377742e6c54a4e727b8128dd1a05047ff0ee60dc320791d9790681e3d307"
+    },
+    {
+      "case": "flow-lamb_oseen",
+      "factor": "flow",
+      "label": "lamb_oseen",
+      "seed": 102,
+      "path": "flow-lamb_oseen/seed_102",
+      "config_sha256": "33f8ce169c9ffa22a46179217444712940c1a6c0a7ff876de8b3a9b1c3a93656"
+    },
+    {
+      "case": "flow-lamb_oseen",
+      "factor": "flow",
+      "label": "lamb_oseen",
+      "seed": 103,
+      "path": "flow-lamb_oseen/seed_103",
+      "config_sha256": "ba563a7897ae439d10455d9aef99181bf047c62972d946fb82bfa63493edbdc4"
+    },
+    {
+      "case": "flow-lamb_oseen",
+      "factor": "flow",
+      "label": "lamb_oseen",
+      "seed": 104,
+      "path": "flow-lamb_oseen/seed_104",
+      "config_sha256": "e9022f1ec2a4a35d34b8af1a0bcd42b25c9cde966ea659f0ab06e234ae69902e"
+    },
+    {
+      "case": "flow-turbulence",
+      "factor": "flow",
+      "label": "turbulence",
+      "seed": 100,
+      "path": "flow-turbulence/seed_100",
+      "config_sha256": "e27d8a93e02a6f0deeaa47397e72b20c77ddaad6bd415f455e75eec2f1f194cb"
+    },
+    {
+      "case": "flow-turbulence",
+      "factor": "flow",
+      "label": "turbulence",
+      "seed": 101,
+      "path": "flow-turbulence/seed_101",
+      "config_sha256": "f73603d1f93314e7a8521cd5191e8c88ce34f29f1544f40ddc938bccf83aa650"
+    },
+    {
+      "case": "flow-turbulence",
+      "factor": "flow",
+      "label": "turbulence",
+      "seed": 102,
+      "path": "flow-turbulence/seed_102",
+      "config_sha256": "de20e78d184bdacbd9a11c9f7bc9bd3be6e0d70ff3284337164481142f50c503"
+    },
+    {
+      "case": "flow-turbulence",
+      "factor": "flow",
+      "label": "turbulence",
+      "seed": 103,
+      "path": "flow-turbulence/seed_103",
+      "config_sha256": "97532265f982b930fec069d1535873f710704f21a14106ad073b16bb5c75ca7e"
+    },
+    {
+      "case": "flow-turbulence",
+      "factor": "flow",
+      "label": "turbulence",
+      "seed": 104,
+      "path": "flow-turbulence/seed_104",
+      "config_sha256": "d285e901728158e4de0eabdffbeeef43a1a7d866bae7abbbdbc8ac4c7a42c850"
+    },
+    {
+      "case": "conditions-distractors",
+      "factor": "conditions",
+      "label": "distractors",
+      "seed": 100,
+      "path": "conditions-distractors/seed_100",
+      "config_sha256": "f0a027a3543e4b95156a47c791ee3265759c42e9dcad7d730f87d79da6935ed5"
+    },
+    {
+      "case": "conditions-distractors",
+      "factor": "conditions",
+      "label": "distractors",
+      "seed": 101,
+      "path": "conditions-distractors/seed_101",
+      "config_sha256": "7a891151b980b816b392f883aae478a8a5dc4e41056e9a5feb0bbd9bfd67134c"
+    },
+    {
+      "case": "conditions-distractors",
+      "factor": "conditions",
+      "label": "distractors",
+      "seed": 102,
+      "path": "conditions-distractors/seed_102",
+      "config_sha256": "4db3772451c1f316cdab8fb8b972382947214bfb998955dd6991150358828424"
+    },
+    {
+      "case": "conditions-distractors",
+      "factor": "conditions",
+      "label": "distractors",
+      "seed": 103,
+      "path": "conditions-distractors/seed_103",
+      "config_sha256": "fc86355f98268b7fbae87f2b3399d614266a3595dbd8c622c4fbdb5047c56fce"
+    },
+    {
+      "case": "conditions-distractors",
+      "factor": "conditions",
+      "label": "distractors",
+      "seed": 104,
+      "path": "conditions-distractors/seed_104",
+      "config_sha256": "e686c3fd8cda1f16a5cd61885afd90d67dbbe45dcaa939af41029b0d61fca599"
+    },
+    {
+      "case": "conditions-phone_processing",
+      "factor": "conditions",
+      "label": "phone_processing",
+      "seed": 100,
+      "path": "conditions-phone_processing/seed_100",
+      "config_sha256": "f7382fc139c371f5e24219703faaf3cb03ead43b884fd30308515a89cda67a3c"
+    },
+    {
+      "case": "conditions-phone_processing",
+      "factor": "conditions",
+      "label": "phone_processing",
+      "seed": 101,
+      "path": "conditions-phone_processing/seed_101",
+      "config_sha256": "ba814f2d396a3d3bd45b87d55f0a5588b0dfc74aa4fd3b4759d74068af6cc634"
+    },
+    {
+      "case": "conditions-phone_processing",
+      "factor": "conditions",
+      "label": "phone_processing",
+      "seed": 102,
+      "path": "conditions-phone_processing/seed_102",
+      "config_sha256": "dd0e1eabd01350138ba993e5deed4f1672304586134f824f6cd8a027f72fbd67"
+    },
+    {
+      "case": "conditions-phone_processing",
+      "factor": "conditions",
+      "label": "phone_processing",
+      "seed": 103,
+      "path": "conditions-phone_processing/seed_103",
+      "config_sha256": "9cbbdb118270d2ff402f0812c7f14543eb3d393e02bfeca7c51ad81712a6f8f8"
+    },
+    {
+      "case": "conditions-phone_processing",
+      "factor": "conditions",
+      "label": "phone_processing",
+      "seed": 104,
+      "path": "conditions-phone_processing/seed_104",
+      "config_sha256": "df1d892447735af961c917a5805953897ec715db47f8432b6ac78aaec223ca1b"
+    },
+    {
+      "case": "conditions-vfr_duplicates",
+      "factor": "conditions",
+      "label": "vfr_duplicates",
+      "seed": 100,
+      "path": "conditions-vfr_duplicates/seed_100",
+      "config_sha256": "f73a5df59fc00b30e70bb5c0e0eb8c737636ea4948c1dd89fc72f700bfc9745a"
+    },
+    {
+      "case": "conditions-vfr_duplicates",
+      "factor": "conditions",
+      "label": "vfr_duplicates",
+      "seed": 101,
+      "path": "conditions-vfr_duplicates/seed_101",
+      "config_sha256": "6802d1483dac79ab37a9981e65011a3e3252da8edc9806ddee6365fbae3470d3"
+    },
+    {
+      "case": "conditions-vfr_duplicates",
+      "factor": "conditions",
+      "label": "vfr_duplicates",
+      "seed": 102,
+      "path": "conditions-vfr_duplicates/seed_102",
+      "config_sha256": "8299ccfda3b3508d247502cdab8ec4818fccef1b8962aa5c6d388fdbbd1cb78c"
+    },
+    {
+      "case": "conditions-vfr_duplicates",
+      "factor": "conditions",
+      "label": "vfr_duplicates",
+      "seed": 103,
+      "path": "conditions-vfr_duplicates/seed_103",
+      "config_sha256": "a31bcd76e4bd2711fe95e7e745ca5f8787662885cdc160aed3a558efcc25d9e0"
+    },
+    {
+      "case": "conditions-vfr_duplicates",
+      "factor": "conditions",
+      "label": "vfr_duplicates",
+      "seed": 104,
+      "path": "conditions-vfr_duplicates/seed_104",
+      "config_sha256": "5a4c13d6f87efdff3565ab54eddb95115462febc3406ee5489ce4caaeb3568e8"
+    },
+    {
+      "case": "conditions-bright_bloom",
+      "factor": "conditions",
+      "label": "bright_bloom",
+      "seed": 100,
+      "path": "conditions-bright_bloom/seed_100",
+      "config_sha256": "0ff6c6839be6061c4f8615d2766af02bfe43bcc063ac1b591c4a84fd5de13228"
+    },
+    {
+      "case": "conditions-bright_bloom",
+      "factor": "conditions",
+      "label": "bright_bloom",
+      "seed": 101,
+      "path": "conditions-bright_bloom/seed_101",
+      "config_sha256": "84dce0dd74fdb7d57588fd1ee7eab2c826144693c6bc83790ba6a3098e2a8636"
+    },
+    {
+      "case": "conditions-bright_bloom",
+      "factor": "conditions",
+      "label": "bright_bloom",
+      "seed": 102,
+      "path": "conditions-bright_bloom/seed_102",
+      "config_sha256": "0f7457d430890e58348465768d9f260ed78ce6dd35856617931283532966d29b"
+    },
+    {
+      "case": "conditions-bright_bloom",
+      "factor": "conditions",
+      "label": "bright_bloom",
+      "seed": 103,
+      "path": "conditions-bright_bloom/seed_103",
+      "config_sha256": "3a5687ee7888d9c716e0996b35392e0fab1f4684926b1d2744ce1ec93f61c825"
+    },
+    {
+      "case": "conditions-bright_bloom",
+      "factor": "conditions",
+      "label": "bright_bloom",
+      "seed": 104,
+      "path": "conditions-bright_bloom/seed_104",
+      "config_sha256": "650e69d5fc86b40694c7cecd12b3e92b0e85eeb11baf650c57a26e4662766dd5"
+    },
+    {
+      "case": "conditions-smoky_haze",
+      "factor": "conditions",
+      "label": "smoky_haze",
+      "seed": 100,
+      "path": "conditions-smoky_haze/seed_100",
+      "config_sha256": "80a050988566eb93e192ab28fe26052254154b6a76c18c4e7ffa7a03eb0546d8"
+    },
+    {
+      "case": "conditions-smoky_haze",
+      "factor": "conditions",
+      "label": "smoky_haze",
+      "seed": 101,
+      "path": "conditions-smoky_haze/seed_101",
+      "config_sha256": "773ba39dcefb2bbe5dce5c112abaabf079628f5ff6f7ce4f88d850648dae4836"
+    },
+    {
+      "case": "conditions-smoky_haze",
+      "factor": "conditions",
+      "label": "smoky_haze",
+      "seed": 102,
+      "path": "conditions-smoky_haze/seed_102",
+      "config_sha256": "596435fc56026c1cfccb2937ed67ee568737c9dc8a73068444a1ab29aeddfee1"
+    },
+    {
+      "case": "conditions-smoky_haze",
+      "factor": "conditions",
+      "label": "smoky_haze",
+      "seed": 103,
+      "path": "conditions-smoky_haze/seed_103",
+      "config_sha256": "151987c9aabfab7c53988ebc0cb48214c61c86e786345129549dbf370bd07bc5"
+    },
+    {
+      "case": "conditions-smoky_haze",
+      "factor": "conditions",
+      "label": "smoky_haze",
+      "seed": 104,
+      "path": "conditions-smoky_haze/seed_104",
+      "config_sha256": "fbae533d438a97772b133837d495e5aa6884d810b1bc0181dbf2c13fde68a67e"
+    }
+  ],
+  "aliases": {}
+}

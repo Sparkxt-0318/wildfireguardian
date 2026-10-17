@@ -1,0 +1,77 @@
+{
+  "created_at_utc": "2026-10-15T12:29:28.218380+00:00",
+  "scope": "Unique phone_uncertainty payload and source context only; excludes this manifest, root generic reports and old worker manifest.",
+  "accepted_commit": "963b4c6f91fab2049152dcf0d27d2135c2443179",
+  "payload_file_count": 9,
+  "files": [
+    {
+      "path": "phone_uncertainty_fullrate_comparison.json",
+      "source": "results/runs/ember_guard/uncertainty_candidate/fullrate_comparison.json",
+      "bytes": 6475,
+      "sha256": "ebf52c910f973f38b3d5b644ed6d10d34dbc147b0466f12e3fc5d8c05b6864e8",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_baseline_fullrate_suite.json",
+      "source": "results/runs/ember_guard/uncertainty_candidate/baseline_fullrate_suite.json",
+      "bytes": 9629,
+      "sha256": "461165297fcd50969e4c5830c69836565593fce8aea23b4b5b400134659b8a31",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_cadence_fullrate_suite.json",
+      "source": "results/runs/ember_guard/uncertainty_candidate/cadence_fullrate_suite.json",
+      "bytes": 9627,
+      "sha256": "b8bbd36d5687a5ac8e7c99a62d14d2ae98b8feb9014d19195d25f2468eca27ad",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_stride_60s.json",
+      "source": "results/runs/ember_guard/uncertainty_candidate/stride_60s.json",
+      "bytes": 1481,
+      "sha256": "9049b1cc3e70d68e4c32953d670bdde038d66b85eaae4810c7933a87724d6ac9",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_baseline_60s_stride.json",
+      "source": "results/runs/ember_guard/baseline_60s_stride.json",
+      "bytes": 1752,
+      "sha256": "67cd2d411eed4458bc26d5d8636e5e9e3f2399987caa8cd4cc0b9c4870855b4c",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_sourceS_failed_60s_stride.json",
+      "source": "results/runs/ember_guard/cadence_60s_stride.json",
+      "bytes": 1553,
+      "sha256": "a6c1fd71e3e4a3024b0ee5ea5d7fe04474832adecda8e33aa67dbc25c314aa95",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_pending_window_mutation.json",
+      "source": "results/runs/ember_guard/uncertainty_candidate/pending_window_mutation.json",
+      "bytes": 277,
+      "sha256": "d34f2cb95a33c15e70d9d165acae8df38ddfebbd19c3674b5f86b001bc1e2443",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_compare_fullrate_executed.txt",
+      "source": "results/runs/ember_guard/uncertainty_candidate/compare_fullrate.executed.py",
+      "bytes": 4457,
+      "sha256": "06f65ddf504c554523a9b47b205d78a422f8444e3dcfa84e72a6bcb3e8d5800c",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "phone_uncertainty_source_context.json",
+      "bytes": 4312,
+      "sha256": "eca2a2bd59b30d955e258873d15e6900627f049d18a82a66504d507ed8fff68b",
+      "mode": "derived_source_binding_receipt"
+    }
+  ],
+  "generic_alias_at_copy": {
+    "path": "phone_fullrate_comparison.json",
+    "copied_from": "phone_uncertainty_fullrate_comparison.json",
+    "sha256": "ebf52c910f973f38b3d5b644ed6d10d34dbc147b0466f12e3fc5d8c05b6864e8",
+    "byte_identical_at_copy": true
+  },
+  "missing_source_inputs": []
+}

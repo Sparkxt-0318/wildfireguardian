@@ -1,0 +1,53 @@
+{
+  "frames_sha256": "c434c535b44eed44abe73a15d109061e1d4dd136e8afc47df34eb22b31b11949",
+  "rows": [
+    {
+      "frame": 6,
+      "rss_mb": 239.234375,
+      "owned_array_bytes": 20741045,
+      "ready": true,
+      "active_tracks": 0,
+      "record_rows": 0
+    },
+    {
+      "frame": 16,
+      "rss_mb": 273.78125,
+      "owned_array_bytes": 20742197,
+      "ready": true,
+      "active_tracks": 3,
+      "record_rows": 25
+    },
+    {
+      "frame": 26,
+      "rss_mb": 288.171875,
+      "owned_array_bytes": 20743669,
+      "ready": true,
+      "active_tracks": 7,
+      "record_rows": 86
+    },
+    {
+      "frame": 36,
+      "rss_mb": 292.9375,
+      "owned_array_bytes": 20746701,
+      "ready": true,
+      "active_tracks": 15,
+      "record_rows": 217
+    },
+    {
+      "frame": 46,
+      "rss_mb": 293.65625,
+      "owned_array_bytes": 20750317,
+      "ready": true,
+      "active_tracks": 24,
+      "record_rows": 436
+    },
+    {
+      "frame": 56,
+      "rss_mb": 295.484375,
+      "owned_array_bytes": 20752549,
+      "ready": true,
+      "active_tracks": 30,
+      "record_rows": 650
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+tile_id,x,y,confidence,note
+t000,233.0,16.0,1.0,streak entering from top edge
+t001,153.0,207.0,1.0,streak
+t001,173.0,246.0,1.0,streak at bottom edge
+t002,,,1.0,none
+t003,,,1.0,none
+t004,,,1.0,none
+t005,,,1.0,none
+t006,,,1.0,none
+t007,,,1.0,none
+t008,22.0,247.0,0.5,large salmon object leaving bottom edge maybe close firebrand
+t008,63.0,181.0,1.0,short streak
+t008,131.0,189.0,1.0,diagonal streak
+t008,138.0,6.0,0.5,faint diagonal streak
+t008,154.0,190.0,1.0,blob passing in front of extinguisher
+t008,232.0,83.0,0.5,white blob drifting slowly in window
+t008,243.0,253.0,1.0,streak at bottom edge
+t008,244.0,140.0,1.0,streak
+t009,23.0,107.0,1.0,streak
+t009,26.0,175.0,1.0,streak
+t009,41.0,39.0,1.0,streak overlapping a second one
+t009,48.0,184.0,1.0,streak
+t009,49.0,36.0,1.0,streak overlapping the first
+t009,150.0,253.0,0.5,streak tail at bottom edge
+t009,168.0,233.0,1.0,streak
+t009,219.0,85.0,1.0,streak
+t009,249.0,150.0,1.0,streak

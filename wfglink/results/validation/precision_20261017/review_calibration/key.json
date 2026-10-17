@@ -1,0 +1,7932 @@
+{
+ "p0000": {
+  "recording": "C7_WJ33",
+  "track_id": 233120,
+  "role": "decoy",
+  "frame": 3836,
+  "sampled_for": [],
+  "frame_shown": 3836
+ },
+ "p0001": {
+  "recording": "C7_WJ33",
+  "track_id": 207853,
+  "role": "accepted",
+  "frame": 3572,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3572
+ },
+ "p0002": {
+  "recording": "C7_DF18",
+  "track_id": 36685,
+  "role": "accepted",
+  "frame": 954,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 954
+ },
+ "p0003": {
+  "recording": "C7_WJ33",
+  "track_id": 247322,
+  "role": "accepted",
+  "frame": 4008,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 4008
+ },
+ "p0004": {
+  "recording": "C7_DF18",
+  "track_id": 145683,
+  "role": "accepted",
+  "frame": 4899,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4899
+ },
+ "p0005": {
+  "recording": "C7_DF18",
+  "track_id": 70438,
+  "role": "accepted",
+  "frame": 1856,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 1856
+ },
+ "p0006": {
+  "recording": "C7_DF18",
+  "track_id": 147794,
+  "role": "accepted",
+  "frame": 4946,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 4946
+ },
+ "p0007": {
+  "recording": "C7_WJ33",
+  "track_id": 174908,
+  "role": "accepted",
+  "frame": 3303,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3303
+ },
+ "p0008": {
+  "recording": "C7_DF18",
+  "track_id": 85261,
+  "role": "accepted",
+  "frame": 2235,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 2235
+ },
+ "p0009": {
+  "recording": "C7_GF15",
+  "track_id": 118454,
+  "role": "accepted",
+  "frame": 1610,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 1610
+ },
+ "p0010": {
+  "recording": "C7_GF15",
+  "track_id": 138511,
+  "role": "accepted",
+  "frame": 2040,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 2040
+ },
+ "p0011": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 7585,
+  "role": "accepted",
+  "frame": 134,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 134
+ },
+ "p0012": {
+  "recording": "C7_WJ33",
+  "track_id": 302341,
+  "role": "accepted",
+  "frame": 4777,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 4777
+ },
+ "p0013": {
+  "recording": "C7_GF15",
+  "track_id": 31624,
+  "role": "decoy",
+  "frame": 397,
+  "sampled_for": [],
+  "frame_shown": 397
+ },
+ "p0014": {
+  "recording": "C7_WJ33",
+  "track_id": 288946,
+  "role": "accepted",
+  "frame": 4579,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4579
+ },
+ "p0015": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 130689,
+  "role": "decoy",
+  "frame": 2147,
+  "sampled_for": [],
+  "frame_shown": 2147
+ },
+ "p0016": {
+  "recording": "C7_PP31",
+  "track_id": 126513,
+  "role": "accepted",
+  "frame": 2126,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 2126
+ },
+ "p0017": {
+  "recording": "C7_GF15",
+  "track_id": 43652,
+  "role": "accepted",
+  "frame": 533,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 533
+ },
+ "p0018": {
+  "recording": "C7_WJ33",
+  "track_id": 109727,
+  "role": "accepted",
+  "frame": 2349,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 2349
+ },
+ "p0019": {
+  "recording": "C7_DF18",
+  "track_id": 15872,
+  "role": "decoy",
+  "frame": 468,
+  "sampled_for": [],
+  "frame_shown": 468
+ },
+ "p0020": {
+  "recording": "C7_DF18",
+  "track_id": 147781,
+  "role": "accepted",
+  "frame": 4944,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 4944
+ },
+ "p0021": {
+  "recording": "C7_WJ33",
+  "track_id": 336537,
+  "role": "accepted",
+  "frame": 5151,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5151
+ },
+ "p0022": {
+  "recording": "C7_WJ33",
+  "track_id": 327748,
+  "role": "decoy",
+  "frame": 5057,
+  "sampled_for": [],
+  "frame_shown": 5057
+ },
+ "p0023": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 263390,
+  "role": "decoy",
+  "frame": 4075,
+  "sampled_for": [],
+  "frame_shown": 4075
+ },
+ "p0024": {
+  "recording": "C7_WJ33",
+  "track_id": 346512,
+  "role": "accepted",
+  "frame": 5226,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5226
+ },
+ "p0025": {
+  "recording": "C7_GF15",
+  "track_id": 79252,
+  "role": "accepted",
+  "frame": 926,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 926
+ },
+ "p0026": {
+  "recording": "C7_GF15",
+  "track_id": 107883,
+  "role": "accepted",
+  "frame": 1384,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1384
+ },
+ "p0027": {
+  "recording": "C7_GF15",
+  "track_id": 84718,
+  "role": "accepted",
+  "frame": 976,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 976
+ },
+ "p0028": {
+  "recording": "C7_DF18",
+  "track_id": 119246,
+  "role": "accepted",
+  "frame": 3481,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 3481
+ },
+ "p0029": {
+  "recording": "C7_WJ33",
+  "track_id": 436049,
+  "role": "accepted",
+  "frame": 6058,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 6058
+ },
+ "p0030": {
+  "recording": "C7_GF15",
+  "track_id": 111659,
+  "role": "decoy",
+  "frame": 1478,
+  "sampled_for": [],
+  "frame_shown": 1478
+ },
+ "p0031": {
+  "recording": "C7_GF15",
+  "track_id": 126025,
+  "role": "accepted",
+  "frame": 1793,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1793
+ },
+ "p0032": {
+  "recording": "C7_GF15",
+  "track_id": 69912,
+  "role": "accepted",
+  "frame": 801,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 801
+ },
+ "p0033": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 252343,
+  "role": "accepted",
+  "frame": 3931,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3931
+ },
+ "p0034": {
+  "recording": "C7_WJ33",
+  "track_id": 144789,
+  "role": "accepted",
+  "frame": 2961,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 2961
+ },
+ "p0035": {
+  "recording": "C7_GF15",
+  "track_id": 27877,
+  "role": "decoy",
+  "frame": 374,
+  "sampled_for": [],
+  "frame_shown": 374
+ },
+ "p0036": {
+  "recording": "C7_WJ33",
+  "track_id": 268734,
+  "role": "decoy",
+  "frame": 4355,
+  "sampled_for": [],
+  "frame_shown": 4355
+ },
+ "p0037": {
+  "recording": "C7_WJ33",
+  "track_id": 215151,
+  "role": "accepted",
+  "frame": 3630,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 3630
+ },
+ "p0038": {
+  "recording": "C7_GF15",
+  "track_id": 53898,
+  "role": "accepted",
+  "frame": 641,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 641
+ },
+ "p0039": {
+  "recording": "C7_WJ33",
+  "track_id": 409611,
+  "role": "accepted",
+  "frame": 5772,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5772
+ },
+ "p0040": {
+  "recording": "C7_WJ33",
+  "track_id": 336043,
+  "role": "accepted",
+  "frame": 5152,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 5152
+ },
+ "p0041": {
+  "recording": "C7_WJ33",
+  "track_id": 199052,
+  "role": "accepted",
+  "frame": 3503,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 3503
+ },
+ "p0042": {
+  "recording": "C7_DF18",
+  "track_id": 130747,
+  "role": "decoy",
+  "frame": 4055,
+  "sampled_for": [],
+  "frame_shown": 4055
+ },
+ "p0043": {
+  "recording": "C7_PP31",
+  "track_id": 161049,
+  "role": "accepted",
+  "frame": 2643,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 2643
+ },
+ "p0044": {
+  "recording": "C7_GF15",
+  "track_id": 65622,
+  "role": "accepted",
+  "frame": 756,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 756
+ },
+ "p0045": {
+  "recording": "C7_GF15",
+  "track_id": 153123,
+  "role": "accepted",
+  "frame": 2455,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 2455
+ },
+ "p0046": {
+  "recording": "C7_WJ33",
+  "track_id": 70192,
+  "role": "accepted",
+  "frame": 1553,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 1553
+ },
+ "p0047": {
+  "recording": "C7_WJ33",
+  "track_id": 310368,
+  "role": "accepted",
+  "frame": 4844,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4844
+ },
+ "p0048": {
+  "recording": "C7_DF18",
+  "track_id": 119981,
+  "role": "accepted",
+  "frame": 3516,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 3516
+ },
+ "p0049": {
+  "recording": "C7_WJ33",
+  "track_id": 414636,
+  "role": "accepted",
+  "frame": 5837,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 5837
+ },
+ "p0050": {
+  "recording": "C7_DF18",
+  "track_id": 153357,
+  "role": "accepted",
+  "frame": 5149,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 5149
+ },
+ "p0051": {
+  "recording": "C7_WJ33",
+  "track_id": 172640,
+  "role": "decoy",
+  "frame": 3291,
+  "sampled_for": [],
+  "frame_shown": 3291
+ },
+ "p0052": {
+  "recording": "C7_GF15",
+  "track_id": 87374,
+  "role": "accepted",
+  "frame": 1015,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 1015
+ },
+ "p0053": {
+  "recording": "C7_GF15",
+  "track_id": 157661,
+  "role": "accepted",
+  "frame": 2523,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 2523
+ },
+ "p0054": {
+  "recording": "C7_DF18",
+  "track_id": 88175,
+  "role": "accepted",
+  "frame": 2313,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 2313
+ },
+ "p0055": {
+  "recording": "C7_WJ33",
+  "track_id": 128648,
+  "role": "accepted",
+  "frame": 2794,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 2794
+ },
+ "p0056": {
+  "recording": "C7_GF15",
+  "track_id": 33829,
+  "role": "decoy",
+  "frame": 427,
+  "sampled_for": [],
+  "frame_shown": 427
+ },
+ "p0057": {
+  "recording": "C7_WJ33",
+  "track_id": 287952,
+  "role": "accepted",
+  "frame": 4563,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 4563
+ },
+ "p0058": {
+  "recording": "C7_DF18",
+  "track_id": 35574,
+  "role": "decoy",
+  "frame": 909,
+  "sampled_for": [],
+  "frame_shown": 909
+ },
+ "p0059": {
+  "recording": "C7_WJ33",
+  "track_id": 298525,
+  "role": "accepted",
+  "frame": 4705,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4705
+ },
+ "p0060": {
+  "recording": "C7_WJ33",
+  "track_id": 163335,
+  "role": "accepted",
+  "frame": 3188,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 3188
+ },
+ "p0061": {
+  "recording": "C7_PP31",
+  "track_id": 1175,
+  "role": "accepted",
+  "frame": 23,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 23
+ },
+ "p0062": {
+  "recording": "C7_GF15",
+  "track_id": 82196,
+  "role": "decoy",
+  "frame": 965,
+  "sampled_for": [],
+  "frame_shown": 965
+ },
+ "p0063": {
+  "recording": "C7_DF18",
+  "track_id": 88787,
+  "role": "decoy",
+  "frame": 2333,
+  "sampled_for": [],
+  "frame_shown": 2333
+ },
+ "p0064": {
+  "recording": "C7_DF18",
+  "track_id": 82449,
+  "role": "accepted",
+  "frame": 2162,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 2162
+ },
+ "p0065": {
+  "recording": "C7_WJ33",
+  "track_id": 305532,
+  "role": "accepted",
+  "frame": 4803,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 4803
+ },
+ "p0066": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 219578,
+  "role": "accepted",
+  "frame": 3722,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 3722
+ },
+ "p0067": {
+  "recording": "C7_GF15",
+  "track_id": 70396,
+  "role": "accepted",
+  "frame": 833,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 833
+ },
+ "p0068": {
+  "recording": "C7_WJ33",
+  "track_id": 273595,
+  "role": "accepted",
+  "frame": 4427,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4427
+ },
+ "p0069": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 64362,
+  "role": "decoy",
+  "frame": 987,
+  "sampled_for": [],
+  "frame_shown": 987
+ },
+ "p0070": {
+  "recording": "C7_GF15",
+  "track_id": 132818,
+  "role": "accepted",
+  "frame": 1937,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1937
+ },
+ "p0071": {
+  "recording": "C7_DF18",
+  "track_id": 46757,
+  "role": "accepted",
+  "frame": 1187,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1187
+ },
+ "p0072": {
+  "recording": "C7_WJ33",
+  "track_id": 35370,
+  "role": "accepted",
+  "frame": 826,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 826
+ },
+ "p0073": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 113571,
+  "role": "accepted",
+  "frame": 1820,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1820
+ },
+ "p0074": {
+  "recording": "C7_GF15",
+  "track_id": 32767,
+  "role": "accepted",
+  "frame": 403,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 403
+ },
+ "p0075": {
+  "recording": "C7_WJ33",
+  "track_id": 262637,
+  "role": "accepted",
+  "frame": 4273,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 4273
+ },
+ "p0076": {
+  "recording": "C7_GF15",
+  "track_id": 105893,
+  "role": "accepted",
+  "frame": 1343,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1343
+ },
+ "p0077": {
+  "recording": "C7_PP31",
+  "track_id": 254377,
+  "role": "decoy",
+  "frame": 4591,
+  "sampled_for": [],
+  "frame_shown": 4591
+ },
+ "p0078": {
+  "recording": "C7_DF18",
+  "track_id": 112064,
+  "role": "accepted",
+  "frame": 3164,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3164
+ },
+ "p0079": {
+  "recording": "C7_GF15",
+  "track_id": 53419,
+  "role": "accepted",
+  "frame": 653,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 653
+ },
+ "p0080": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 47061,
+  "role": "decoy",
+  "frame": 706,
+  "sampled_for": [],
+  "frame_shown": 706
+ },
+ "p0081": {
+  "recording": "C7_WJ33",
+  "track_id": 57809,
+  "role": "decoy",
+  "frame": 1251,
+  "sampled_for": [],
+  "frame_shown": 1251
+ },
+ "p0082": {
+  "recording": "C7_GF15",
+  "track_id": 11643,
+  "role": "decoy",
+  "frame": 246,
+  "sampled_for": [],
+  "frame_shown": 246
+ },
+ "p0083": {
+  "recording": "C7_GF15",
+  "track_id": 58955,
+  "role": "accepted",
+  "frame": 701,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 701
+ },
+ "p0084": {
+  "recording": "C7_DF18",
+  "track_id": 154021,
+  "role": "accepted",
+  "frame": 5171,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 5171
+ },
+ "p0085": {
+  "recording": "C7_PP31",
+  "track_id": 202359,
+  "role": "accepted",
+  "frame": 3507,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3507
+ },
+ "p0086": {
+  "recording": "C7_GF15",
+  "track_id": 9807,
+  "role": "decoy",
+  "frame": 250,
+  "sampled_for": [],
+  "frame_shown": 250
+ },
+ "p0087": {
+  "recording": "C7_WJ33",
+  "track_id": 12193,
+  "role": "accepted",
+  "frame": 227,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 227
+ },
+ "p0088": {
+  "recording": "C7_DF18",
+  "track_id": 136101,
+  "role": "accepted",
+  "frame": 4382,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 4382
+ },
+ "p0089": {
+  "recording": "C7_GF15",
+  "track_id": 69265,
+  "role": "accepted",
+  "frame": 793,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 793
+ },
+ "p0090": {
+  "recording": "C7_WJ33",
+  "track_id": 409279,
+  "role": "accepted",
+  "frame": 5773,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 5773
+ },
+ "p0091": {
+  "recording": "C7_DF18",
+  "track_id": 83277,
+  "role": "accepted",
+  "frame": 2182,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 2182
+ },
+ "p0092": {
+  "recording": "C7_GF15",
+  "track_id": 106639,
+  "role": "accepted",
+  "frame": 1348,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 1348
+ },
+ "p0093": {
+  "recording": "C7_DF18",
+  "track_id": 115096,
+  "role": "accepted",
+  "frame": 3293,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 3293
+ },
+ "p0094": {
+  "recording": "C7_WJ33",
+  "track_id": 23826,
+  "role": "accepted",
+  "frame": 520,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 520
+ },
+ "p0095": {
+  "recording": "C7_GF15",
+  "track_id": 119844,
+  "role": "accepted",
+  "frame": 1637,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 1637
+ },
+ "p0096": {
+  "recording": "C7_GF15",
+  "track_id": 59648,
+  "role": "decoy",
+  "frame": 701,
+  "sampled_for": [],
+  "frame_shown": 701
+ },
+ "p0097": {
+  "recording": "C7_PP31",
+  "track_id": 229719,
+  "role": "accepted",
+  "frame": 4042,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 4042
+ },
+ "p0098": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 120359,
+  "role": "accepted",
+  "frame": 1945,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 1945
+ },
+ "p0099": {
+  "recording": "C7_WJ33",
+  "track_id": 244073,
+  "role": "decoy",
+  "frame": 3948,
+  "sampled_for": [],
+  "frame_shown": 3948
+ },
+ "p0100": {
+  "recording": "C7_GF15",
+  "track_id": 115012,
+  "role": "accepted",
+  "frame": 1543,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 1543
+ },
+ "p0101": {
+  "recording": "C7_DF18",
+  "track_id": 64667,
+  "role": "accepted",
+  "frame": 1686,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1686
+ },
+ "p0102": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 259032,
+  "role": "accepted",
+  "frame": 4001,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 4001
+ },
+ "p0103": {
+  "recording": "C7_GF15",
+  "track_id": 93973,
+  "role": "accepted",
+  "frame": 1119,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 1119
+ },
+ "p0104": {
+  "recording": "C7_WJ33",
+  "track_id": 14478,
+  "role": "accepted",
+  "frame": 282,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 282
+ },
+ "p0105": {
+  "recording": "C7_WJ33",
+  "track_id": 14104,
+  "role": "accepted",
+  "frame": 275,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 275
+ },
+ "p0106": {
+  "recording": "C7_WJ33",
+  "track_id": 326533,
+  "role": "decoy",
+  "frame": 5039,
+  "sampled_for": [],
+  "frame_shown": 5039
+ },
+ "p0107": {
+  "recording": "C7_DF18",
+  "track_id": 68829,
+  "role": "accepted",
+  "frame": 1804,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 1804
+ },
+ "p0108": {
+  "recording": "C7_GF15",
+  "track_id": 94438,
+  "role": "accepted",
+  "frame": 1117,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1117
+ },
+ "p0109": {
+  "recording": "C7_GF15",
+  "track_id": 106257,
+  "role": "decoy",
+  "frame": 1366,
+  "sampled_for": [],
+  "frame_shown": 1366
+ },
+ "p0110": {
+  "recording": "C7_PP31",
+  "track_id": 194577,
+  "role": "accepted",
+  "frame": 3310,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 3310
+ },
+ "p0111": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 42773,
+  "role": "accepted",
+  "frame": 658,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 658
+ },
+ "p0112": {
+  "recording": "C7_WJ33",
+  "track_id": 441895,
+  "role": "accepted",
+  "frame": 6087,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 6087
+ },
+ "p0113": {
+  "recording": "C7_DF18",
+  "track_id": 49676,
+  "role": "accepted",
+  "frame": 1283,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 1283
+ },
+ "p0114": {
+  "recording": "C7_DF18",
+  "track_id": 118272,
+  "role": "accepted",
+  "frame": 3424,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 3424
+ },
+ "p0115": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 280262,
+  "role": "decoy",
+  "frame": 4400,
+  "sampled_for": [],
+  "frame_shown": 4400
+ },
+ "p0116": {
+  "recording": "C7_DF18",
+  "track_id": 132818,
+  "role": "accepted",
+  "frame": 4180,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 4180
+ },
+ "p0117": {
+  "recording": "C7_WJ33",
+  "track_id": 143980,
+  "role": "accepted",
+  "frame": 2977,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 2977
+ },
+ "p0118": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 200530,
+  "role": "accepted",
+  "frame": 3358,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3358
+ },
+ "p0119": {
+  "recording": "C7_WJ33",
+  "track_id": 137905,
+  "role": "accepted",
+  "frame": 2912,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 2912
+ },
+ "p0120": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 64776,
+  "role": "accepted",
+  "frame": 1010,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 1010
+ },
+ "p0121": {
+  "recording": "C8_KING003_C2",
+  "track_id": 1650,
+  "role": "accepted",
+  "frame": 780,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 780
+ },
+ "p0122": {
+  "recording": "C7_WJ33",
+  "track_id": 473476,
+  "role": "accepted",
+  "frame": 6456,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 6456
+ },
+ "p0123": {
+  "recording": "C7_WJ33",
+  "track_id": 361460,
+  "role": "accepted",
+  "frame": 5341,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 5341
+ },
+ "p0124": {
+  "recording": "C7_WJ33",
+  "track_id": 449559,
+  "role": "decoy",
+  "frame": 6180,
+  "sampled_for": [],
+  "frame_shown": 6180
+ },
+ "p0125": {
+  "recording": "C7_DF18",
+  "track_id": 141776,
+  "role": "accepted",
+  "frame": 4701,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 4701
+ },
+ "p0126": {
+  "recording": "C7_WJ33",
+  "track_id": 378206,
+  "role": "accepted",
+  "frame": 5466,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 5466
+ },
+ "p0127": {
+  "recording": "C7_WJ33",
+  "track_id": 482963,
+  "role": "decoy",
+  "frame": 6618,
+  "sampled_for": [],
+  "frame_shown": 6618
+ },
+ "p0128": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 361,
+  "role": "accepted",
+  "frame": 100,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 100
+ },
+ "p0129": {
+  "recording": "C7_GF15",
+  "track_id": 28607,
+  "role": "accepted",
+  "frame": 378,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 378
+ },
+ "p0130": {
+  "recording": "C7_WJ33",
+  "track_id": 370563,
+  "role": "accepted",
+  "frame": 5397,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 5397
+ },
+ "p0131": {
+  "recording": "C7_DF18",
+  "track_id": 108648,
+  "role": "accepted",
+  "frame": 3023,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 3023
+ },
+ "p0132": {
+  "recording": "C7_GF15",
+  "track_id": 71342,
+  "role": "accepted",
+  "frame": 816,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 816
+ },
+ "p0133": {
+  "recording": "C7_DF18",
+  "track_id": 30695,
+  "role": "accepted",
+  "frame": 742,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 742
+ },
+ "p0134": {
+  "recording": "C7_PP31",
+  "track_id": 239882,
+  "role": "accepted",
+  "frame": 4274,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 4274
+ },
+ "p0135": {
+  "recording": "C7_GF15",
+  "track_id": 91062,
+  "role": "accepted",
+  "frame": 1066,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 1066
+ },
+ "p0136": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 69393,
+  "role": "decoy",
+  "frame": 1085,
+  "sampled_for": [],
+  "frame_shown": 1085
+ },
+ "p0137": {
+  "recording": "C7_GF15",
+  "track_id": 97706,
+  "role": "accepted",
+  "frame": 1172,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 1172
+ },
+ "p0138": {
+  "recording": "C7_WJ33",
+  "track_id": 135868,
+  "role": "accepted",
+  "frame": 2897,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 2897
+ },
+ "p0139": {
+  "recording": "C7_DF18",
+  "track_id": 141990,
+  "role": "accepted",
+  "frame": 4713,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 4713
+ },
+ "p0140": {
+  "recording": "C7_WJ33",
+  "track_id": 439722,
+  "role": "accepted",
+  "frame": 6081,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 6081
+ },
+ "p0141": {
+  "recording": "C7_WJ33",
+  "track_id": 471744,
+  "role": "decoy",
+  "frame": 6411,
+  "sampled_for": [],
+  "frame_shown": 6411
+ },
+ "p0142": {
+  "recording": "C7_WJ33",
+  "track_id": 309610,
+  "role": "accepted",
+  "frame": 4830,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 4830
+ },
+ "p0143": {
+  "recording": "C7_DF18",
+  "track_id": 70921,
+  "role": "accepted",
+  "frame": 1879,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 1879
+ },
+ "p0144": {
+  "recording": "C7_WJ33",
+  "track_id": 181728,
+  "role": "accepted",
+  "frame": 3346,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3346
+ },
+ "p0145": {
+  "recording": "C7_DF18",
+  "track_id": 88825,
+  "role": "accepted",
+  "frame": 2345,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 2345
+ },
+ "p0146": {
+  "recording": "C7_WJ33",
+  "track_id": 495867,
+  "role": "accepted",
+  "frame": 6934,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 6934
+ },
+ "p0147": {
+  "recording": "C7_WJ33",
+  "track_id": 441004,
+  "role": "accepted",
+  "frame": 6078,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 6078
+ },
+ "p0148": {
+  "recording": "C7_DF18",
+  "track_id": 4535,
+  "role": "accepted",
+  "frame": 72,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 72
+ },
+ "p0149": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 35551,
+  "role": "accepted",
+  "frame": 571,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 571
+ },
+ "p0150": {
+  "recording": "C7_GF15",
+  "track_id": 116764,
+  "role": "accepted",
+  "frame": 1567,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 1567
+ },
+ "p0151": {
+  "recording": "C7_GF15",
+  "track_id": 24429,
+  "role": "accepted",
+  "frame": 355,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 355
+ },
+ "p0152": {
+  "recording": "C7_WJ33",
+  "track_id": 276955,
+  "role": "accepted",
+  "frame": 4452,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 4452
+ },
+ "p0153": {
+  "recording": "C7_PP31",
+  "track_id": 20863,
+  "role": "accepted",
+  "frame": 362,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 362
+ },
+ "p0154": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 10412,
+  "role": "decoy",
+  "frame": 187,
+  "sampled_for": [],
+  "frame_shown": 187
+ },
+ "p0155": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 33952,
+  "role": "accepted",
+  "frame": 534,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 534
+ },
+ "p0156": {
+  "recording": "C7_WJ33",
+  "track_id": 13772,
+  "role": "accepted",
+  "frame": 268,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 268
+ },
+ "p0157": {
+  "recording": "C7_WJ33",
+  "track_id": 241707,
+  "role": "accepted",
+  "frame": 3950,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3950
+ },
+ "p0158": {
+  "recording": "C7_GF15",
+  "track_id": 13360,
+  "role": "accepted",
+  "frame": 247,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 247
+ },
+ "p0159": {
+  "recording": "C7_GF15",
+  "track_id": 164819,
+  "role": "accepted",
+  "frame": 2745,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 2745
+ },
+ "p0160": {
+  "recording": "C7_WJ33",
+  "track_id": 234450,
+  "role": "decoy",
+  "frame": 3843,
+  "sampled_for": [],
+  "frame_shown": 3843
+ },
+ "p0161": {
+  "recording": "C7_PP31",
+  "track_id": 190016,
+  "role": "accepted",
+  "frame": 3229,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 3229
+ },
+ "p0162": {
+  "recording": "C7_DF18",
+  "track_id": 79040,
+  "role": "accepted",
+  "frame": 2072,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 2072
+ },
+ "p0163": {
+  "recording": "C7_WJ33",
+  "track_id": 61577,
+  "role": "accepted",
+  "frame": 1352,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1352
+ },
+ "p0164": {
+  "recording": "C7_DF18",
+  "track_id": 135096,
+  "role": "accepted",
+  "frame": 4319,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 4319
+ },
+ "p0165": {
+  "recording": "C7_GF15",
+  "track_id": 6304,
+  "role": "accepted",
+  "frame": 96,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 96
+ },
+ "p0166": {
+  "recording": "C7_GF15",
+  "track_id": 14317,
+  "role": "accepted",
+  "frame": 272,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 272
+ },
+ "p0167": {
+  "recording": "C7_PP31",
+  "track_id": 87256,
+  "role": "accepted",
+  "frame": 1550,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1550
+ },
+ "p0168": {
+  "recording": "C7_WJ33",
+  "track_id": 83847,
+  "role": "accepted",
+  "frame": 1850,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1850
+ },
+ "p0169": {
+  "recording": "C7_WJ33",
+  "track_id": 222438,
+  "role": "accepted",
+  "frame": 3715,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3715
+ },
+ "p0170": {
+  "recording": "C7_WJ33",
+  "track_id": 289586,
+  "role": "decoy",
+  "frame": 4590,
+  "sampled_for": [],
+  "frame_shown": 4590
+ },
+ "p0171": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 334375,
+  "role": "decoy",
+  "frame": 5272,
+  "sampled_for": [],
+  "frame_shown": 5272
+ },
+ "p0172": {
+  "recording": "C7_DF18",
+  "track_id": 34131,
+  "role": "accepted",
+  "frame": 857,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 857
+ },
+ "p0173": {
+  "recording": "C7_GF15",
+  "track_id": 127698,
+  "role": "accepted",
+  "frame": 1813,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 1813
+ },
+ "p0174": {
+  "recording": "C7_GF15",
+  "track_id": 57997,
+  "role": "accepted",
+  "frame": 701,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 701
+ },
+ "p0175": {
+  "recording": "C7_GF15",
+  "track_id": 131222,
+  "role": "accepted",
+  "frame": 1892,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 1892
+ },
+ "p0176": {
+  "recording": "C7_GF15",
+  "track_id": 10141,
+  "role": "decoy",
+  "frame": 231,
+  "sampled_for": [],
+  "frame_shown": 231
+ },
+ "p0177": {
+  "recording": "C7_GF15",
+  "track_id": 66770,
+  "role": "accepted",
+  "frame": 781,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 781
+ },
+ "p0178": {
+  "recording": "C7_GF15",
+  "track_id": 22812,
+  "role": "accepted",
+  "frame": 348,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 348
+ },
+ "p0179": {
+  "recording": "C7_WJ33",
+  "track_id": 392475,
+  "role": "accepted",
+  "frame": 5609,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 5609
+ },
+ "p0180": {
+  "recording": "C7_GF15",
+  "track_id": 2943,
+  "role": "accepted",
+  "frame": 40,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 40
+ },
+ "p0181": {
+  "recording": "C7_WJ33",
+  "track_id": 265612,
+  "role": "accepted",
+  "frame": 4317,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4317
+ },
+ "p0182": {
+  "recording": "C7_DF18",
+  "track_id": 122394,
+  "role": "accepted",
+  "frame": 3648,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3648
+ },
+ "p0183": {
+  "recording": "C7_DF18",
+  "track_id": 128194,
+  "role": "accepted",
+  "frame": 3939,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 3939
+ },
+ "p0184": {
+  "recording": "C7_PP31",
+  "track_id": 304865,
+  "role": "accepted",
+  "frame": 6085,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 6085
+ },
+ "p0185": {
+  "recording": "C7_DF18",
+  "track_id": 32502,
+  "role": "accepted",
+  "frame": 809,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 809
+ },
+ "p0186": {
+  "recording": "C7_WJ33",
+  "track_id": 117652,
+  "role": "accepted",
+  "frame": 2500,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 2500
+ },
+ "p0187": {
+  "recording": "C7_GF15",
+  "track_id": 62989,
+  "role": "decoy",
+  "frame": 751,
+  "sampled_for": [],
+  "frame_shown": 751
+ },
+ "p0188": {
+  "recording": "C7_WJ33",
+  "track_id": 40887,
+  "role": "decoy",
+  "frame": 927,
+  "sampled_for": [],
+  "frame_shown": 927
+ },
+ "p0189": {
+  "recording": "C8_WILL006_C1",
+  "track_id": 2421,
+  "role": "accepted",
+  "frame": 229,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 229
+ },
+ "p0190": {
+  "recording": "C7_DF18",
+  "track_id": 31556,
+  "role": "accepted",
+  "frame": 774,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 774
+ },
+ "p0191": {
+  "recording": "C7_DF18",
+  "track_id": 112360,
+  "role": "accepted",
+  "frame": 3177,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 3177
+ },
+ "p0192": {
+  "recording": "C7_GF15",
+  "track_id": 152905,
+  "role": "decoy",
+  "frame": 2458,
+  "sampled_for": [],
+  "frame_shown": 2458
+ },
+ "p0193": {
+  "recording": "C7_WJ33",
+  "track_id": 20383,
+  "role": "accepted",
+  "frame": 429,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 429
+ },
+ "p0194": {
+  "recording": "C7_WJ33",
+  "track_id": 352599,
+  "role": "accepted",
+  "frame": 5271,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 5271
+ },
+ "p0195": {
+  "recording": "C7_GF15",
+  "track_id": 55006,
+  "role": "accepted",
+  "frame": 657,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 657
+ },
+ "p0196": {
+  "recording": "C7_GF15",
+  "track_id": 4293,
+  "role": "accepted",
+  "frame": 70,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 70
+ },
+ "p0197": {
+  "recording": "C7_GF15",
+  "track_id": 113562,
+  "role": "accepted",
+  "frame": 1503,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 1503
+ },
+ "p0198": {
+  "recording": "C7_WJ33",
+  "track_id": 31879,
+  "role": "accepted",
+  "frame": 699,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 699
+ },
+ "p0199": {
+  "recording": "C7_PP31",
+  "track_id": 260961,
+  "role": "accepted",
+  "frame": 4727,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 4727
+ },
+ "p0200": {
+  "recording": "C7_PP31",
+  "track_id": 33021,
+  "role": "accepted",
+  "frame": 676,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 676
+ },
+ "p0201": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 98267,
+  "role": "accepted",
+  "frame": 1554,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1554
+ },
+ "p0202": {
+  "recording": "C7_WJ33",
+  "track_id": 90548,
+  "role": "decoy",
+  "frame": 1969,
+  "sampled_for": [],
+  "frame_shown": 1969
+ },
+ "p0203": {
+  "recording": "C7_DF18",
+  "track_id": 128933,
+  "role": "accepted",
+  "frame": 3963,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 3963
+ },
+ "p0204": {
+  "recording": "C7_WJ33",
+  "track_id": 363294,
+  "role": "accepted",
+  "frame": 5346,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5346
+ },
+ "p0205": {
+  "recording": "C7_DF18",
+  "track_id": 83665,
+  "role": "accepted",
+  "frame": 2193,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 2193
+ },
+ "p0206": {
+  "recording": "C7_GF15",
+  "track_id": 60840,
+  "role": "decoy",
+  "frame": 713,
+  "sampled_for": [],
+  "frame_shown": 713
+ },
+ "p0207": {
+  "recording": "C7_PP31",
+  "track_id": 216567,
+  "role": "accepted",
+  "frame": 3776,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 3776
+ },
+ "p0208": {
+  "recording": "C7_WJ33",
+  "track_id": 406576,
+  "role": "accepted",
+  "frame": 5771,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 5771
+ },
+ "p0209": {
+  "recording": "C7_GF15",
+  "track_id": 133755,
+  "role": "accepted",
+  "frame": 1968,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 1968
+ },
+ "p0210": {
+  "recording": "C7_DF18",
+  "track_id": 50884,
+  "role": "accepted",
+  "frame": 1293,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1293
+ },
+ "p0211": {
+  "recording": "C7_DF18",
+  "track_id": 38541,
+  "role": "accepted",
+  "frame": 982,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 982
+ },
+ "p0212": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 24334,
+  "role": "accepted",
+  "frame": 365,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 365
+ },
+ "p0213": {
+  "recording": "C7_DF18",
+  "track_id": 139794,
+  "role": "decoy",
+  "frame": 4598,
+  "sampled_for": [],
+  "frame_shown": 4598
+ },
+ "p0214": {
+  "recording": "C7_GF15",
+  "track_id": 39151,
+  "role": "decoy",
+  "frame": 525,
+  "sampled_for": [],
+  "frame_shown": 525
+ },
+ "p0215": {
+  "recording": "C7_PP31",
+  "track_id": 208289,
+  "role": "accepted",
+  "frame": 3591,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3591
+ },
+ "p0216": {
+  "recording": "C7_WJ33",
+  "track_id": 303316,
+  "role": "accepted",
+  "frame": 4763,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 4763
+ },
+ "p0217": {
+  "recording": "C7_WJ33",
+  "track_id": 252922,
+  "role": "decoy",
+  "frame": 4237,
+  "sampled_for": [],
+  "frame_shown": 4237
+ },
+ "p0218": {
+  "recording": "C7_DF18",
+  "track_id": 120620,
+  "role": "decoy",
+  "frame": 3551,
+  "sampled_for": [],
+  "frame_shown": 3551
+ },
+ "p0219": {
+  "recording": "C7_GF15",
+  "track_id": 155486,
+  "role": "decoy",
+  "frame": 2490,
+  "sampled_for": [],
+  "frame_shown": 2490
+ },
+ "p0220": {
+  "recording": "C7_PP31",
+  "track_id": 133640,
+  "role": "accepted",
+  "frame": 2225,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 2225
+ },
+ "p0221": {
+  "recording": "C7_DF18",
+  "track_id": 101081,
+  "role": "accepted",
+  "frame": 2697,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 2697
+ },
+ "p0222": {
+  "recording": "C7_WJ33",
+  "track_id": 397192,
+  "role": "accepted",
+  "frame": 5655,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5655
+ },
+ "p0223": {
+  "recording": "C7_GF15",
+  "track_id": 9090,
+  "role": "accepted",
+  "frame": 184,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 184
+ },
+ "p0224": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 200753,
+  "role": "accepted",
+  "frame": 3372,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 3372
+ },
+ "p0225": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 367,
+  "role": "accepted",
+  "frame": 105,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 105
+ },
+ "p0226": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 96876,
+  "role": "decoy",
+  "frame": 1542,
+  "sampled_for": [],
+  "frame_shown": 1542
+ },
+ "p0227": {
+  "recording": "C7_DF18",
+  "track_id": 78690,
+  "role": "accepted",
+  "frame": 2065,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 2065
+ },
+ "p0228": {
+  "recording": "C7_WJ33",
+  "track_id": 452299,
+  "role": "accepted",
+  "frame": 6212,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 6212
+ },
+ "p0229": {
+  "recording": "C7_GF15",
+  "track_id": 70650,
+  "role": "decoy",
+  "frame": 810,
+  "sampled_for": [],
+  "frame_shown": 810
+ },
+ "p0230": {
+  "recording": "C7_GF15",
+  "track_id": 55377,
+  "role": "accepted",
+  "frame": 650,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 650
+ },
+ "p0231": {
+  "recording": "C7_DF18",
+  "track_id": 102503,
+  "role": "accepted",
+  "frame": 2750,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 2750
+ },
+ "p0232": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 34752,
+  "role": "decoy",
+  "frame": 563,
+  "sampled_for": [],
+  "frame_shown": 563
+ },
+ "p0233": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 208477,
+  "role": "decoy",
+  "frame": 3495,
+  "sampled_for": [],
+  "frame_shown": 3495
+ },
+ "p0234": {
+  "recording": "C7_GF15",
+  "track_id": 13977,
+  "role": "accepted",
+  "frame": 277,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 277
+ },
+ "p0235": {
+  "recording": "C7_GF15",
+  "track_id": 40987,
+  "role": "accepted",
+  "frame": 492,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 492
+ },
+ "p0236": {
+  "recording": "C7_WJ33",
+  "track_id": 197210,
+  "role": "accepted",
+  "frame": 3473,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 3473
+ },
+ "p0237": {
+  "recording": "C7_GF15",
+  "track_id": 20561,
+  "role": "accepted",
+  "frame": 318,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 318
+ },
+ "p0238": {
+  "recording": "C7_WJ33",
+  "track_id": 157853,
+  "role": "accepted",
+  "frame": 3097,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3097
+ },
+ "p0239": {
+  "recording": "C7_DF18",
+  "track_id": 6749,
+  "role": "accepted",
+  "frame": 141,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 141
+ },
+ "p0240": {
+  "recording": "C7_WJ33",
+  "track_id": 391662,
+  "role": "accepted",
+  "frame": 5610,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5610
+ },
+ "p0241": {
+  "recording": "C7_GF15",
+  "track_id": 149409,
+  "role": "accepted",
+  "frame": 2437,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 2437
+ },
+ "p0242": {
+  "recording": "C7_PP31",
+  "track_id": 153497,
+  "role": "decoy",
+  "frame": 2512,
+  "sampled_for": [],
+  "frame_shown": 2512
+ },
+ "p0243": {
+  "recording": "C7_DF18",
+  "track_id": 79409,
+  "role": "decoy",
+  "frame": 2086,
+  "sampled_for": [],
+  "frame_shown": 2086
+ },
+ "p0244": {
+  "recording": "C7_WJ33",
+  "track_id": 491362,
+  "role": "accepted",
+  "frame": 6828,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 6828
+ },
+ "p0245": {
+  "recording": "C7_WJ33",
+  "track_id": 167856,
+  "role": "decoy",
+  "frame": 3236,
+  "sampled_for": [],
+  "frame_shown": 3236
+ },
+ "p0246": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 81386,
+  "role": "decoy",
+  "frame": 1290,
+  "sampled_for": [],
+  "frame_shown": 1290
+ },
+ "p0247": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 187563,
+  "role": "accepted",
+  "frame": 3140,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 3140
+ },
+ "p0248": {
+  "recording": "C7_DF18",
+  "track_id": 42609,
+  "role": "decoy",
+  "frame": 1082,
+  "sampled_for": [],
+  "frame_shown": 1082
+ },
+ "p0249": {
+  "recording": "C7_PP31",
+  "track_id": 91683,
+  "role": "accepted",
+  "frame": 1621,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 1621
+ },
+ "p0250": {
+  "recording": "C7_DF18",
+  "track_id": 99581,
+  "role": "decoy",
+  "frame": 2651,
+  "sampled_for": [],
+  "frame_shown": 2651
+ },
+ "p0251": {
+  "recording": "C7_DF18",
+  "track_id": 141686,
+  "role": "accepted",
+  "frame": 4696,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 4696
+ },
+ "p0252": {
+  "recording": "C7_PP31",
+  "track_id": 242234,
+  "role": "accepted",
+  "frame": 4323,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 4323
+ },
+ "p0253": {
+  "recording": "C7_PP31",
+  "track_id": 71873,
+  "role": "accepted",
+  "frame": 1277,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1277
+ },
+ "p0254": {
+  "recording": "C7_WJ33",
+  "track_id": 224264,
+  "role": "decoy",
+  "frame": 3735,
+  "sampled_for": [],
+  "frame_shown": 3735
+ },
+ "p0255": {
+  "recording": "C7_DF18",
+  "track_id": 89494,
+  "role": "accepted",
+  "frame": 2372,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 2372
+ },
+ "p0256": {
+  "recording": "C7_GF15",
+  "track_id": 64075,
+  "role": "accepted",
+  "frame": 756,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 756
+ },
+ "p0257": {
+  "recording": "C7_GF15",
+  "track_id": 53543,
+  "role": "accepted",
+  "frame": 643,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 643
+ },
+ "p0258": {
+  "recording": "C7_GF15",
+  "track_id": 82002,
+  "role": "accepted",
+  "frame": 935,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 935
+ },
+ "p0259": {
+  "recording": "C7_DF18",
+  "track_id": 133059,
+  "role": "accepted",
+  "frame": 4167,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 4167
+ },
+ "p0260": {
+  "recording": "C7_PP31",
+  "track_id": 296845,
+  "role": "accepted",
+  "frame": 5870,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 5870
+ },
+ "p0261": {
+  "recording": "C7_GF15",
+  "track_id": 16070,
+  "role": "accepted",
+  "frame": 297,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 297
+ },
+ "p0262": {
+  "recording": "C7_PP31",
+  "track_id": 299346,
+  "role": "accepted",
+  "frame": 5942,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 5942
+ },
+ "p0263": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 256351,
+  "role": "accepted",
+  "frame": 3965,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3965
+ },
+ "p0264": {
+  "recording": "C7_DF18",
+  "track_id": 131182,
+  "role": "accepted",
+  "frame": 4080,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 4080
+ },
+ "p0265": {
+  "recording": "C7_WJ33",
+  "track_id": 216831,
+  "role": "accepted",
+  "frame": 3652,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 3652
+ },
+ "p0266": {
+  "recording": "C7_WJ33",
+  "track_id": 127567,
+  "role": "decoy",
+  "frame": 2769,
+  "sampled_for": [],
+  "frame_shown": 2769
+ },
+ "p0267": {
+  "recording": "C7_WJ33",
+  "track_id": 88578,
+  "role": "accepted",
+  "frame": 1934,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1934
+ },
+ "p0268": {
+  "recording": "C7_DF18",
+  "track_id": 143342,
+  "role": "accepted",
+  "frame": 4777,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 4777
+ },
+ "p0269": {
+  "recording": "C7_WJ33",
+  "track_id": 138964,
+  "role": "accepted",
+  "frame": 2914,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 2914
+ },
+ "p0270": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 199834,
+  "role": "accepted",
+  "frame": 3333,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 3333
+ },
+ "p0271": {
+  "recording": "C7_GF15",
+  "track_id": 65231,
+  "role": "accepted",
+  "frame": 754,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 754
+ },
+ "p0272": {
+  "recording": "C7_DF18",
+  "track_id": 72034,
+  "role": "accepted",
+  "frame": 1883,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 1883
+ },
+ "p0273": {
+  "recording": "C7_GF15",
+  "track_id": 42528,
+  "role": "accepted",
+  "frame": 508,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 508
+ },
+ "p0274": {
+  "recording": "C7_GF15",
+  "track_id": 149444,
+  "role": "accepted",
+  "frame": 2433,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 2433
+ },
+ "p0275": {
+  "recording": "C7_PP31",
+  "track_id": 33150,
+  "role": "accepted",
+  "frame": 710,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 710
+ },
+ "p0276": {
+  "recording": "C7_PP31",
+  "track_id": 171915,
+  "role": "accepted",
+  "frame": 2837,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 2837
+ },
+ "p0277": {
+  "recording": "C7_GF15",
+  "track_id": 79780,
+  "role": "decoy",
+  "frame": 929,
+  "sampled_for": [],
+  "frame_shown": 929
+ },
+ "p0278": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 18803,
+  "role": "accepted",
+  "frame": 286,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 286
+ },
+ "p0279": {
+  "recording": "C7_GF15",
+  "track_id": 100237,
+  "role": "accepted",
+  "frame": 1217,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 1217
+ },
+ "p0280": {
+  "recording": "C7_GF15",
+  "track_id": 126092,
+  "role": "decoy",
+  "frame": 1788,
+  "sampled_for": [],
+  "frame_shown": 1788
+ },
+ "p0281": {
+  "recording": "C7_DF18",
+  "track_id": 149047,
+  "role": "accepted",
+  "frame": 5002,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 5002
+ },
+ "p0282": {
+  "recording": "C7_WJ33",
+  "track_id": 220821,
+  "role": "decoy",
+  "frame": 3702,
+  "sampled_for": [],
+  "frame_shown": 3702
+ },
+ "p0283": {
+  "recording": "C7_GF15",
+  "track_id": 60908,
+  "role": "accepted",
+  "frame": 709,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 709
+ },
+ "p0284": {
+  "recording": "C7_WJ33",
+  "track_id": 134460,
+  "role": "accepted",
+  "frame": 2865,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 2865
+ },
+ "p0285": {
+  "recording": "C7_WJ33",
+  "track_id": 271740,
+  "role": "accepted",
+  "frame": 4383,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4383
+ },
+ "p0286": {
+  "recording": "C7_GF15",
+  "track_id": 44803,
+  "role": "accepted",
+  "frame": 524,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 524
+ },
+ "p0287": {
+  "recording": "C7_DF18",
+  "track_id": 134480,
+  "role": "accepted",
+  "frame": 4279,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.98",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 4279
+ },
+ "p0288": {
+  "recording": "C7_PP31",
+  "track_id": 206663,
+  "role": "decoy",
+  "frame": 3535,
+  "sampled_for": [],
+  "frame_shown": 3535
+ },
+ "p0289": {
+  "recording": "C7_WJ33",
+  "track_id": 236144,
+  "role": "decoy",
+  "frame": 3853,
+  "sampled_for": [],
+  "frame_shown": 3853
+ },
+ "p0290": {
+  "recording": "C7_GF15",
+  "track_id": 111158,
+  "role": "accepted",
+  "frame": 1453,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1453
+ },
+ "p0291": {
+  "recording": "C7_WJ33",
+  "track_id": 405257,
+  "role": "accepted",
+  "frame": 5754,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 5754
+ },
+ "p0292": {
+  "recording": "C7_PP31",
+  "track_id": 97298,
+  "role": "decoy",
+  "frame": 1706,
+  "sampled_for": [],
+  "frame_shown": 1706
+ },
+ "p0293": {
+  "recording": "C7_WJ33",
+  "track_id": 125421,
+  "role": "decoy",
+  "frame": 2747,
+  "sampled_for": [],
+  "frame_shown": 2747
+ },
+ "p0294": {
+  "recording": "C7_WJ33",
+  "track_id": 13917,
+  "role": "accepted",
+  "frame": 275,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 275
+ },
+ "p0295": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 264308,
+  "role": "accepted",
+  "frame": 4084,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 4084
+ },
+ "p0296": {
+  "recording": "C7_GF15",
+  "track_id": 149396,
+  "role": "decoy",
+  "frame": 2442,
+  "sampled_for": [],
+  "frame_shown": 2442
+ },
+ "p0297": {
+  "recording": "C7_DF18",
+  "track_id": 811,
+  "role": "accepted",
+  "frame": 45,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 45
+ },
+ "p0298": {
+  "recording": "C7_PP31",
+  "track_id": 144696,
+  "role": "decoy",
+  "frame": 2403,
+  "sampled_for": [],
+  "frame_shown": 2403
+ },
+ "p0299": {
+  "recording": "C7_GF15",
+  "track_id": 145396,
+  "role": "accepted",
+  "frame": 2331,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 2331
+ },
+ "p0300": {
+  "recording": "C7_GF15",
+  "track_id": 100410,
+  "role": "accepted",
+  "frame": 1222,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1222
+ },
+ "p0301": {
+  "recording": "C7_GF15",
+  "track_id": 46174,
+  "role": "accepted",
+  "frame": 553,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 553
+ },
+ "p0302": {
+  "recording": "C7_WJ33",
+  "track_id": 153950,
+  "role": "accepted",
+  "frame": 3052,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 3052
+ },
+ "p0303": {
+  "recording": "C7_WJ33",
+  "track_id": 272333,
+  "role": "accepted",
+  "frame": 4397,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4397
+ },
+ "p0304": {
+  "recording": "C7_DF18",
+  "track_id": 39029,
+  "role": "accepted",
+  "frame": 993,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 993
+ },
+ "p0305": {
+  "recording": "C7_WJ33",
+  "track_id": 451579,
+  "role": "decoy",
+  "frame": 6176,
+  "sampled_for": [],
+  "frame_shown": 6176
+ },
+ "p0306": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 992,
+  "role": "accepted",
+  "frame": 168,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 168
+ },
+ "p0307": {
+  "recording": "C7_WJ33",
+  "track_id": 446807,
+  "role": "accepted",
+  "frame": 6138,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 6138
+ },
+ "p0308": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 60902,
+  "role": "accepted",
+  "frame": 924,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 924
+ },
+ "p0309": {
+  "recording": "C7_WJ33",
+  "track_id": 254630,
+  "role": "accepted",
+  "frame": 4132,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 4132
+ },
+ "p0310": {
+  "recording": "C7_WJ33",
+  "track_id": 162084,
+  "role": "accepted",
+  "frame": 3160,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 3160
+ },
+ "p0311": {
+  "recording": "C7_DF18",
+  "track_id": 141885,
+  "role": "accepted",
+  "frame": 4706,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 4706
+ },
+ "p0312": {
+  "recording": "C7_DF18",
+  "track_id": 72219,
+  "role": "accepted",
+  "frame": 1906,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 1906
+ },
+ "p0313": {
+  "recording": "C7_GF15",
+  "track_id": 92844,
+  "role": "accepted",
+  "frame": 1111,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1111
+ },
+ "p0314": {
+  "recording": "C7_GF15",
+  "track_id": 57106,
+  "role": "accepted",
+  "frame": 689,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 689
+ },
+ "p0315": {
+  "recording": "C7_WJ33",
+  "track_id": 456862,
+  "role": "decoy",
+  "frame": 6251,
+  "sampled_for": [],
+  "frame_shown": 6251
+ },
+ "p0316": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 50948,
+  "role": "accepted",
+  "frame": 759,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 759
+ },
+ "p0317": {
+  "recording": "C7_WJ33",
+  "track_id": 74423,
+  "role": "accepted",
+  "frame": 1655,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 1655
+ },
+ "p0318": {
+  "recording": "C7_DF18",
+  "track_id": 114127,
+  "role": "accepted",
+  "frame": 3264,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3264
+ },
+ "p0319": {
+  "recording": "C7_PP31",
+  "track_id": 220887,
+  "role": "accepted",
+  "frame": 3873,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 3873
+ },
+ "p0320": {
+  "recording": "C7_DF18",
+  "track_id": 26856,
+  "role": "accepted",
+  "frame": 612,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 612
+ },
+ "p0321": {
+  "recording": "C7_DF18",
+  "track_id": 88812,
+  "role": "accepted",
+  "frame": 2331,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 2331
+ },
+ "p0322": {
+  "recording": "C7_DF18",
+  "track_id": 138139,
+  "role": "accepted",
+  "frame": 4520,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 4520
+ },
+ "p0323": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 95353,
+  "role": "accepted",
+  "frame": 1526,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1526
+ },
+ "p0324": {
+  "recording": "C7_WJ33",
+  "track_id": 173581,
+  "role": "accepted",
+  "frame": 3288,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 3288
+ },
+ "p0325": {
+  "recording": "C7_GF15",
+  "track_id": 80682,
+  "role": "accepted",
+  "frame": 920,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 920
+ },
+ "p0326": {
+  "recording": "C7_GF15",
+  "track_id": 137563,
+  "role": "decoy",
+  "frame": 2014,
+  "sampled_for": [],
+  "frame_shown": 2014
+ },
+ "p0327": {
+  "recording": "C7_WJ33",
+  "track_id": 93631,
+  "role": "accepted",
+  "frame": 2052,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 2052
+ },
+ "p0328": {
+  "recording": "C7_DF18",
+  "track_id": 128661,
+  "role": "accepted",
+  "frame": 3957,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 3957
+ },
+ "p0329": {
+  "recording": "C7_WJ33",
+  "track_id": 492673,
+  "role": "accepted",
+  "frame": 6868,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 6868
+ },
+ "p0330": {
+  "recording": "C7_DF18",
+  "track_id": 147851,
+  "role": "decoy",
+  "frame": 4945,
+  "sampled_for": [],
+  "frame_shown": 4945
+ },
+ "p0331": {
+  "recording": "C7_DF18",
+  "track_id": 134504,
+  "role": "accepted",
+  "frame": 4265,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4265
+ },
+ "p0332": {
+  "recording": "C7_WJ33",
+  "track_id": 292208,
+  "role": "accepted",
+  "frame": 4625,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 4625
+ },
+ "p0333": {
+  "recording": "C7_WJ33",
+  "track_id": 414226,
+  "role": "accepted",
+  "frame": 5812,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 5812
+ },
+ "p0334": {
+  "recording": "C7_GF15",
+  "track_id": 59444,
+  "role": "accepted",
+  "frame": 718,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 718
+ },
+ "p0335": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 51253,
+  "role": "accepted",
+  "frame": 765,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 765
+ },
+ "p0336": {
+  "recording": "C7_WJ33",
+  "track_id": 156154,
+  "role": "decoy",
+  "frame": 3090,
+  "sampled_for": [],
+  "frame_shown": 3090
+ },
+ "p0337": {
+  "recording": "C7_DF18",
+  "track_id": 34778,
+  "role": "accepted",
+  "frame": 896,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 896
+ },
+ "p0338": {
+  "recording": "C8_SOME004_C2",
+  "track_id": 392,
+  "role": "decoy",
+  "frame": 57,
+  "sampled_for": [],
+  "frame_shown": 57
+ },
+ "p0339": {
+  "recording": "C7_PP31",
+  "track_id": 33296,
+  "role": "accepted",
+  "frame": 689,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 689
+ },
+ "p0340": {
+  "recording": "C7_DF18",
+  "track_id": 35288,
+  "role": "accepted",
+  "frame": 895,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 895
+ },
+ "p0341": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 318308,
+  "role": "decoy",
+  "frame": 5000,
+  "sampled_for": [],
+  "frame_shown": 5000
+ },
+ "p0342": {
+  "recording": "C7_GF15",
+  "track_id": 44893,
+  "role": "accepted",
+  "frame": 538,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 538
+ },
+ "p0343": {
+  "recording": "C7_DF18",
+  "track_id": 20749,
+  "role": "accepted",
+  "frame": 484,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 484
+ },
+ "p0344": {
+  "recording": "C8_SOME004_C2",
+  "track_id": 2908,
+  "role": "accepted",
+  "frame": 227,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 227
+ },
+ "p0345": {
+  "recording": "C7_GF15",
+  "track_id": 151013,
+  "role": "accepted",
+  "frame": 2464,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 2464
+ },
+ "p0346": {
+  "recording": "C7_DF18",
+  "track_id": 60211,
+  "role": "accepted",
+  "frame": 1548,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1548
+ },
+ "p0347": {
+  "recording": "C7_GF15",
+  "track_id": 67231,
+  "role": "accepted",
+  "frame": 789,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 789
+ },
+ "p0348": {
+  "recording": "C7_DF18",
+  "track_id": 46859,
+  "role": "accepted",
+  "frame": 1190,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 1190
+ },
+ "p0349": {
+  "recording": "C7_DF18",
+  "track_id": 114589,
+  "role": "accepted",
+  "frame": 3270,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 3270
+ },
+ "p0350": {
+  "recording": "C7_WJ33",
+  "track_id": 169820,
+  "role": "accepted",
+  "frame": 3253,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 3253
+ },
+ "p0351": {
+  "recording": "C7_GF15",
+  "track_id": 68633,
+  "role": "accepted",
+  "frame": 810,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 810
+ },
+ "p0352": {
+  "recording": "C7_WJ33",
+  "track_id": 118497,
+  "role": "accepted",
+  "frame": 2495,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 2495
+ },
+ "p0353": {
+  "recording": "C7_DF18",
+  "track_id": 7018,
+  "role": "decoy",
+  "frame": 122,
+  "sampled_for": [],
+  "frame_shown": 122
+ },
+ "p0354": {
+  "recording": "C7_GF15",
+  "track_id": 112933,
+  "role": "accepted",
+  "frame": 1511,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1511
+ },
+ "p0355": {
+  "recording": "C7_DF18",
+  "track_id": 116677,
+  "role": "accepted",
+  "frame": 3371,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 3371
+ },
+ "p0356": {
+  "recording": "C7_WJ33",
+  "track_id": 46737,
+  "role": "accepted",
+  "frame": 1066,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1066
+ },
+ "p0357": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 225555,
+  "role": "accepted",
+  "frame": 3776,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3776
+ },
+ "p0358": {
+  "recording": "C7_WJ33",
+  "track_id": 112872,
+  "role": "accepted",
+  "frame": 2380,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 2380
+ },
+ "p0359": {
+  "recording": "C7_WJ33",
+  "track_id": 300556,
+  "role": "decoy",
+  "frame": 4736,
+  "sampled_for": [],
+  "frame_shown": 4736
+ },
+ "p0360": {
+  "recording": "C7_WJ33",
+  "track_id": 3474,
+  "role": "accepted",
+  "frame": 42,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 42
+ },
+ "p0361": {
+  "recording": "C7_WJ33",
+  "track_id": 221089,
+  "role": "accepted",
+  "frame": 3699,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 3699
+ },
+ "p0362": {
+  "recording": "C7_DF18",
+  "track_id": 145648,
+  "role": "accepted",
+  "frame": 4873,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 4873
+ },
+ "p0363": {
+  "recording": "C7_GF15",
+  "track_id": 312,
+  "role": "accepted",
+  "frame": 32,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 32
+ },
+ "p0364": {
+  "recording": "C7_GF15",
+  "track_id": 12092,
+  "role": "decoy",
+  "frame": 261,
+  "sampled_for": [],
+  "frame_shown": 261
+ },
+ "p0365": {
+  "recording": "C7_GF15",
+  "track_id": 133260,
+  "role": "decoy",
+  "frame": 1953,
+  "sampled_for": [],
+  "frame_shown": 1953
+ },
+ "p0366": {
+  "recording": "C7_GF15",
+  "track_id": 22589,
+  "role": "accepted",
+  "frame": 336,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 336
+ },
+ "p0367": {
+  "recording": "C7_WJ33",
+  "track_id": 316570,
+  "role": "decoy",
+  "frame": 4928,
+  "sampled_for": [],
+  "frame_shown": 4928
+ },
+ "p0368": {
+  "recording": "C7_DF18",
+  "track_id": 120921,
+  "role": "decoy",
+  "frame": 3612,
+  "sampled_for": [],
+  "frame_shown": 3612
+ },
+ "p0369": {
+  "recording": "C7_DF18",
+  "track_id": 88486,
+  "role": "decoy",
+  "frame": 2330,
+  "sampled_for": [],
+  "frame_shown": 2330
+ },
+ "p0370": {
+  "recording": "C7_WJ33",
+  "track_id": 240332,
+  "role": "accepted",
+  "frame": 3915,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 3915
+ },
+ "p0371": {
+  "recording": "C7_WJ33",
+  "track_id": 275124,
+  "role": "decoy",
+  "frame": 4423,
+  "sampled_for": [],
+  "frame_shown": 4423
+ },
+ "p0372": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 104226,
+  "role": "accepted",
+  "frame": 1674,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 1674
+ },
+ "p0373": {
+  "recording": "C7_WJ33",
+  "track_id": 476573,
+  "role": "accepted",
+  "frame": 6501,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 6501
+ },
+ "p0374": {
+  "recording": "C7_GF15",
+  "track_id": 239,
+  "role": "accepted",
+  "frame": 35,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 35
+ },
+ "p0375": {
+  "recording": "C7_PP31",
+  "track_id": 5603,
+  "role": "decoy",
+  "frame": 87,
+  "sampled_for": [],
+  "frame_shown": 87
+ },
+ "p0376": {
+  "recording": "C7_WJ33",
+  "track_id": 116971,
+  "role": "decoy",
+  "frame": 2469,
+  "sampled_for": [],
+  "frame_shown": 2469
+ },
+ "p0377": {
+  "recording": "C7_DF18",
+  "track_id": 27308,
+  "role": "accepted",
+  "frame": 642,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 642
+ },
+ "p0378": {
+  "recording": "C7_GF15",
+  "track_id": 131993,
+  "role": "accepted",
+  "frame": 1908,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1908
+ },
+ "p0379": {
+  "recording": "C7_WJ33",
+  "track_id": 77626,
+  "role": "decoy",
+  "frame": 1707,
+  "sampled_for": [],
+  "frame_shown": 1707
+ },
+ "p0380": {
+  "recording": "C7_WJ33",
+  "track_id": 166651,
+  "role": "accepted",
+  "frame": 3219,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3219
+ },
+ "p0381": {
+  "recording": "C7_PP31",
+  "track_id": 135443,
+  "role": "accepted",
+  "frame": 2254,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 2254
+ },
+ "p0382": {
+  "recording": "C7_GF15",
+  "track_id": 68747,
+  "role": "accepted",
+  "frame": 809,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 809
+ },
+ "p0383": {
+  "recording": "C7_GF15",
+  "track_id": 44023,
+  "role": "accepted",
+  "frame": 539,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 539
+ },
+ "p0384": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 235929,
+  "role": "decoy",
+  "frame": 3832,
+  "sampled_for": [],
+  "frame_shown": 3832
+ },
+ "p0385": {
+  "recording": "C7_DF18",
+  "track_id": 121098,
+  "role": "accepted",
+  "frame": 3579,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 3579
+ },
+ "p0386": {
+  "recording": "C7_DF18",
+  "track_id": 53738,
+  "role": "accepted",
+  "frame": 1368,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 1368
+ },
+ "p0387": {
+  "recording": "C7_WJ33",
+  "track_id": 58478,
+  "role": "accepted",
+  "frame": 1285,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 1285
+ },
+ "p0388": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 277652,
+  "role": "accepted",
+  "frame": 4322,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 4322
+ },
+ "p0389": {
+  "recording": "C7_PP31",
+  "track_id": 54496,
+  "role": "accepted",
+  "frame": 1023,
+  "sampled_for": [
+   "patch_seed0_t0.9",
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 1023
+ },
+ "p0390": {
+  "recording": "C7_DF18",
+  "track_id": 144867,
+  "role": "decoy",
+  "frame": 4881,
+  "sampled_for": [],
+  "frame_shown": 4881
+ },
+ "p0391": {
+  "recording": "C7_PP31",
+  "track_id": 246138,
+  "role": "accepted",
+  "frame": 4434,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4434
+ },
+ "p0392": {
+  "recording": "C7_DF18",
+  "track_id": 135080,
+  "role": "accepted",
+  "frame": 4311,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 4311
+ },
+ "p0393": {
+  "recording": "C7_WJ33",
+  "track_id": 317451,
+  "role": "accepted",
+  "frame": 4950,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4950
+ },
+ "p0394": {
+  "recording": "C7_DF18",
+  "track_id": 6279,
+  "role": "accepted",
+  "frame": 105,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 105
+ },
+ "p0395": {
+  "recording": "C7_DF18",
+  "track_id": 102005,
+  "role": "accepted",
+  "frame": 2728,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 2728
+ },
+ "p0396": {
+  "recording": "C7_GF15",
+  "track_id": 47278,
+  "role": "accepted",
+  "frame": 553,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 553
+ },
+ "p0397": {
+  "recording": "C7_GF15",
+  "track_id": 105255,
+  "role": "accepted",
+  "frame": 1316,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 1316
+ },
+ "p0398": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 11887,
+  "role": "accepted",
+  "frame": 196,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 196
+ },
+ "p0399": {
+  "recording": "C7_WJ33",
+  "track_id": 236213,
+  "role": "accepted",
+  "frame": 3852,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 3852
+ },
+ "p0400": {
+  "recording": "C7_DF18",
+  "track_id": 107106,
+  "role": "accepted",
+  "frame": 2948,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 2948
+ },
+ "p0401": {
+  "recording": "C7_WJ33",
+  "track_id": 393817,
+  "role": "accepted",
+  "frame": 5640,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 5640
+ },
+ "p0402": {
+  "recording": "C7_GF15",
+  "track_id": 74651,
+  "role": "accepted",
+  "frame": 862,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 862
+ },
+ "p0403": {
+  "recording": "C7_WJ33",
+  "track_id": 385521,
+  "role": "accepted",
+  "frame": 5535,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 5535
+ },
+ "p0404": {
+  "recording": "C7_PP31",
+  "track_id": 182225,
+  "role": "accepted",
+  "frame": 3078,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 3078
+ },
+ "p0405": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 12747,
+  "role": "accepted",
+  "frame": 205,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 205
+ },
+ "p0406": {
+  "recording": "C7_GF15",
+  "track_id": 72902,
+  "role": "decoy",
+  "frame": 847,
+  "sampled_for": [],
+  "frame_shown": 847
+ },
+ "p0407": {
+  "recording": "C7_PP31",
+  "track_id": 155912,
+  "role": "accepted",
+  "frame": 2565,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 2565
+ },
+ "p0408": {
+  "recording": "C7_WJ33",
+  "track_id": 350902,
+  "role": "accepted",
+  "frame": 5269,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5269
+ },
+ "p0409": {
+  "recording": "C7_DF18",
+  "track_id": 27133,
+  "role": "accepted",
+  "frame": 612,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 612
+ },
+ "p0410": {
+  "recording": "C7_DF18",
+  "track_id": 74739,
+  "role": "accepted",
+  "frame": 1962,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1962
+ },
+ "p0411": {
+  "recording": "C7_GF15",
+  "track_id": 77420,
+  "role": "accepted",
+  "frame": 880,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 880
+ },
+ "p0412": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 341642,
+  "role": "decoy",
+  "frame": 5395,
+  "sampled_for": [],
+  "frame_shown": 5395
+ },
+ "p0413": {
+  "recording": "C7_PP31",
+  "track_id": 281176,
+  "role": "accepted",
+  "frame": 5344,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 5344
+ },
+ "p0414": {
+  "recording": "C7_DF18",
+  "track_id": 79333,
+  "role": "accepted",
+  "frame": 2079,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 2079
+ },
+ "p0415": {
+  "recording": "C7_DF18",
+  "track_id": 138575,
+  "role": "accepted",
+  "frame": 4567,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4567
+ },
+ "p0416": {
+  "recording": "C7_WJ33",
+  "track_id": 231706,
+  "role": "accepted",
+  "frame": 3806,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 3806
+ },
+ "p0417": {
+  "recording": "C7_GF15",
+  "track_id": 154102,
+  "role": "accepted",
+  "frame": 2461,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 2461
+ },
+ "p0418": {
+  "recording": "C7_WJ33",
+  "track_id": 237300,
+  "role": "accepted",
+  "frame": 3883,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 3883
+ },
+ "p0419": {
+  "recording": "C7_DF18",
+  "track_id": 39984,
+  "role": "accepted",
+  "frame": 1025,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.98",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 1025
+ },
+ "p0420": {
+  "recording": "C7_DF18",
+  "track_id": 36902,
+  "role": "accepted",
+  "frame": 937,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 937
+ },
+ "p0421": {
+  "recording": "C7_WJ33",
+  "track_id": 241324,
+  "role": "accepted",
+  "frame": 3919,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3919
+ },
+ "p0422": {
+  "recording": "C7_GF15",
+  "track_id": 164785,
+  "role": "decoy",
+  "frame": 2738,
+  "sampled_for": [],
+  "frame_shown": 2738
+ },
+ "p0423": {
+  "recording": "C7_WJ33",
+  "track_id": 381648,
+  "role": "accepted",
+  "frame": 5501,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5501
+ },
+ "p0424": {
+  "recording": "C7_DF18",
+  "track_id": 119626,
+  "role": "accepted",
+  "frame": 3507,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 3507
+ },
+ "p0425": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 6602,
+  "role": "accepted",
+  "frame": 145,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 145
+ },
+ "p0426": {
+  "recording": "C7_WJ33",
+  "track_id": 270535,
+  "role": "accepted",
+  "frame": 4390,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4390
+ },
+ "p0427": {
+  "recording": "C7_PP31",
+  "track_id": 299324,
+  "role": "accepted",
+  "frame": 5929,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 5929
+ },
+ "p0428": {
+  "recording": "C7_DF18",
+  "track_id": 54525,
+  "role": "accepted",
+  "frame": 1391,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1391
+ },
+ "p0429": {
+  "recording": "C7_WJ33",
+  "track_id": 79915,
+  "role": "accepted",
+  "frame": 1752,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 1752
+ },
+ "p0430": {
+  "recording": "C7_GF15",
+  "track_id": 72961,
+  "role": "accepted",
+  "frame": 833,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 833
+ },
+ "p0431": {
+  "recording": "C7_GF15",
+  "track_id": 10392,
+  "role": "accepted",
+  "frame": 206,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 206
+ },
+ "p0432": {
+  "recording": "C7_WJ33",
+  "track_id": 257002,
+  "role": "accepted",
+  "frame": 4190,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4190
+ },
+ "p0433": {
+  "recording": "C7_GF15",
+  "track_id": 93717,
+  "role": "accepted",
+  "frame": 1098,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1098
+ },
+ "p0434": {
+  "recording": "C7_WJ33",
+  "track_id": 54086,
+  "role": "decoy",
+  "frame": 1199,
+  "sampled_for": [],
+  "frame_shown": 1199
+ },
+ "p0435": {
+  "recording": "C7_WJ33",
+  "track_id": 254309,
+  "role": "accepted",
+  "frame": 4139,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 4139
+ },
+ "p0436": {
+  "recording": "C7_DF18",
+  "track_id": 33835,
+  "role": "decoy",
+  "frame": 879,
+  "sampled_for": [],
+  "frame_shown": 879
+ },
+ "p0437": {
+  "recording": "C7_DF18",
+  "track_id": 48057,
+  "role": "accepted",
+  "frame": 1233,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1233
+ },
+ "p0438": {
+  "recording": "C7_DF18",
+  "track_id": 8017,
+  "role": "decoy",
+  "frame": 152,
+  "sampled_for": [],
+  "frame_shown": 152
+ },
+ "p0439": {
+  "recording": "C7_DF18",
+  "track_id": 112280,
+  "role": "accepted",
+  "frame": 3180,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 3180
+ },
+ "p0440": {
+  "recording": "C7_WJ33",
+  "track_id": 376474,
+  "role": "accepted",
+  "frame": 5472,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 5472
+ },
+ "p0441": {
+  "recording": "C7_DF18",
+  "track_id": 120589,
+  "role": "accepted",
+  "frame": 3558,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 3558
+ },
+ "p0442": {
+  "recording": "C7_DF18",
+  "track_id": 138775,
+  "role": "accepted",
+  "frame": 4553,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4553
+ },
+ "p0443": {
+  "recording": "C7_GF15",
+  "track_id": 33560,
+  "role": "accepted",
+  "frame": 409,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 409
+ },
+ "p0444": {
+  "recording": "C7_WJ33",
+  "track_id": 500,
+  "role": "accepted",
+  "frame": 11,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 11
+ },
+ "p0445": {
+  "recording": "C7_WJ33",
+  "track_id": 93809,
+  "role": "accepted",
+  "frame": 2042,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 2042
+ },
+ "p0446": {
+  "recording": "C7_WJ33",
+  "track_id": 313280,
+  "role": "accepted",
+  "frame": 4883,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4883
+ },
+ "p0447": {
+  "recording": "C7_WJ33",
+  "track_id": 193752,
+  "role": "accepted",
+  "frame": 3443,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 3443
+ },
+ "p0448": {
+  "recording": "C7_GF15",
+  "track_id": 58579,
+  "role": "accepted",
+  "frame": 687,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 687
+ },
+ "p0449": {
+  "recording": "C7_WJ33",
+  "track_id": 273493,
+  "role": "accepted",
+  "frame": 4428,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4428
+ },
+ "p0450": {
+  "recording": "C7_GF15",
+  "track_id": 152557,
+  "role": "accepted",
+  "frame": 2453,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 2453
+ },
+ "p0451": {
+  "recording": "C7_WJ33",
+  "track_id": 161100,
+  "role": "accepted",
+  "frame": 3154,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3154
+ },
+ "p0452": {
+  "recording": "C7_GF15",
+  "track_id": 163605,
+  "role": "accepted",
+  "frame": 2701,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 2701
+ },
+ "p0453": {
+  "recording": "C7_WJ33",
+  "track_id": 161803,
+  "role": "accepted",
+  "frame": 3167,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 3167
+ },
+ "p0454": {
+  "recording": "C7_GF15",
+  "track_id": 165229,
+  "role": "accepted",
+  "frame": 2748,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 2748
+ },
+ "p0455": {
+  "recording": "C7_WJ33",
+  "track_id": 42090,
+  "role": "accepted",
+  "frame": 951,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 951
+ },
+ "p0456": {
+  "recording": "C7_GF15",
+  "track_id": 167175,
+  "role": "accepted",
+  "frame": 2811,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 2811
+ },
+ "p0457": {
+  "recording": "C7_WJ33",
+  "track_id": 165693,
+  "role": "accepted",
+  "frame": 3208,
+  "sampled_for": [
+   "rules_q0.2",
+   "rules_q0.3"
+  ],
+  "frame_shown": 3208
+ },
+ "p0458": {
+  "recording": "C7_DF18",
+  "track_id": 102342,
+  "role": "accepted",
+  "frame": 2750,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 2750
+ },
+ "p0459": {
+  "recording": "C7_DF18",
+  "track_id": 119069,
+  "role": "accepted",
+  "frame": 3486,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 3486
+ },
+ "p0460": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 148,
+  "role": "accepted",
+  "frame": 58,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 58
+ },
+ "p0461": {
+  "recording": "C7_GF15",
+  "track_id": 56170,
+  "role": "accepted",
+  "frame": 668,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 668
+ },
+ "p0462": {
+  "recording": "C7_DF18",
+  "track_id": 101208,
+  "role": "accepted",
+  "frame": 2701,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 2701
+ },
+ "p0463": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 91602,
+  "role": "decoy",
+  "frame": 1446,
+  "sampled_for": [],
+  "frame_shown": 1446
+ },
+ "p0464": {
+  "recording": "C7_GF15",
+  "track_id": 140242,
+  "role": "decoy",
+  "frame": 2098,
+  "sampled_for": [],
+  "frame_shown": 2098
+ },
+ "p0465": {
+  "recording": "C7_WJ33",
+  "track_id": 463201,
+  "role": "accepted",
+  "frame": 6292,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 6292
+ },
+ "p0466": {
+  "recording": "C7_PP31",
+  "track_id": 293192,
+  "role": "accepted",
+  "frame": 5771,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 5771
+ },
+ "p0467": {
+  "recording": "C7_DF18",
+  "track_id": 71683,
+  "role": "accepted",
+  "frame": 1873,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 1873
+ },
+ "p0468": {
+  "recording": "C7_DF18",
+  "track_id": 106239,
+  "role": "accepted",
+  "frame": 2900,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 2900
+ },
+ "p0469": {
+  "recording": "C7_GF15",
+  "track_id": 32871,
+  "role": "accepted",
+  "frame": 404,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 404
+ },
+ "p0470": {
+  "recording": "C7_WJ33",
+  "track_id": 195844,
+  "role": "accepted",
+  "frame": 3460,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3460
+ },
+ "p0471": {
+  "recording": "C7_WJ33",
+  "track_id": 103663,
+  "role": "accepted",
+  "frame": 2219,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 2219
+ },
+ "p0472": {
+  "recording": "C7_WJ33",
+  "track_id": 78050,
+  "role": "accepted",
+  "frame": 1731,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 1731
+ },
+ "p0473": {
+  "recording": "C7_WJ33",
+  "track_id": 416879,
+  "role": "accepted",
+  "frame": 5830,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5830
+ },
+ "p0474": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 32633,
+  "role": "decoy",
+  "frame": 517,
+  "sampled_for": [],
+  "frame_shown": 517
+ },
+ "p0475": {
+  "recording": "C7_GF15",
+  "track_id": 160935,
+  "role": "accepted",
+  "frame": 2613,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 2613
+ },
+ "p0476": {
+  "recording": "C7_DF18",
+  "track_id": 129488,
+  "role": "accepted",
+  "frame": 3991,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3991
+ },
+ "p0477": {
+  "recording": "C7_WJ33",
+  "track_id": 316009,
+  "role": "decoy",
+  "frame": 4928,
+  "sampled_for": [],
+  "frame_shown": 4928
+ },
+ "p0478": {
+  "recording": "C7_WJ33",
+  "track_id": 384030,
+  "role": "accepted",
+  "frame": 5522,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5522
+ },
+ "p0479": {
+  "recording": "C7_DF18",
+  "track_id": 78494,
+  "role": "decoy",
+  "frame": 2081,
+  "sampled_for": [],
+  "frame_shown": 2081
+ },
+ "p0480": {
+  "recording": "C7_DF18",
+  "track_id": 98403,
+  "role": "accepted",
+  "frame": 2636,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 2636
+ },
+ "p0481": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 1062,
+  "role": "accepted",
+  "frame": 164,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 164
+ },
+ "p0482": {
+  "recording": "C7_GF15",
+  "track_id": 168255,
+  "role": "accepted",
+  "frame": 2868,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 2868
+ },
+ "p0483": {
+  "recording": "C7_WJ33",
+  "track_id": 313862,
+  "role": "decoy",
+  "frame": 4885,
+  "sampled_for": [],
+  "frame_shown": 4885
+ },
+ "p0484": {
+  "recording": "C7_GF15",
+  "track_id": 5065,
+  "role": "accepted",
+  "frame": 71,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 71
+ },
+ "p0485": {
+  "recording": "C7_WJ33",
+  "track_id": 465487,
+  "role": "decoy",
+  "frame": 6315,
+  "sampled_for": [],
+  "frame_shown": 6315
+ },
+ "p0486": {
+  "recording": "C7_PP31",
+  "track_id": 23157,
+  "role": "accepted",
+  "frame": 411,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 411
+ },
+ "p0487": {
+  "recording": "C7_DF18",
+  "track_id": 119291,
+  "role": "accepted",
+  "frame": 3477,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 3477
+ },
+ "p0488": {
+  "recording": "C7_GF15",
+  "track_id": 132737,
+  "role": "accepted",
+  "frame": 1953,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 1953
+ },
+ "p0489": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 12817,
+  "role": "accepted",
+  "frame": 206,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 206
+ },
+ "p0490": {
+  "recording": "C7_DF18",
+  "track_id": 130569,
+  "role": "accepted",
+  "frame": 4068,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 4068
+ },
+ "p0491": {
+  "recording": "C7_GF15",
+  "track_id": 32463,
+  "role": "decoy",
+  "frame": 410,
+  "sampled_for": [],
+  "frame_shown": 410
+ },
+ "p0492": {
+  "recording": "C7_WJ33",
+  "track_id": 138258,
+  "role": "decoy",
+  "frame": 2912,
+  "sampled_for": [],
+  "frame_shown": 2912
+ },
+ "p0493": {
+  "recording": "C7_WJ33",
+  "track_id": 263783,
+  "role": "decoy",
+  "frame": 4303,
+  "sampled_for": [],
+  "frame_shown": 4303
+ },
+ "p0494": {
+  "recording": "C7_WJ33",
+  "track_id": 441984,
+  "role": "accepted",
+  "frame": 6106,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 6106
+ },
+ "p0495": {
+  "recording": "C7_WJ33",
+  "track_id": 412861,
+  "role": "accepted",
+  "frame": 5800,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 5800
+ },
+ "p0496": {
+  "recording": "C7_GF15",
+  "track_id": 41476,
+  "role": "accepted",
+  "frame": 515,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 515
+ },
+ "p0497": {
+  "recording": "C7_PP31",
+  "track_id": 98142,
+  "role": "decoy",
+  "frame": 1714,
+  "sampled_for": [],
+  "frame_shown": 1714
+ },
+ "p0498": {
+  "recording": "C7_WJ33",
+  "track_id": 158368,
+  "role": "decoy",
+  "frame": 3110,
+  "sampled_for": [],
+  "frame_shown": 3110
+ },
+ "p0499": {
+  "recording": "C7_GF15",
+  "track_id": 114517,
+  "role": "accepted",
+  "frame": 1523,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 1523
+ },
+ "p0500": {
+  "recording": "C7_PP31",
+  "track_id": 277388,
+  "role": "decoy",
+  "frame": 5187,
+  "sampled_for": [],
+  "frame_shown": 5187
+ },
+ "p0501": {
+  "recording": "C7_DF18",
+  "track_id": 152820,
+  "role": "accepted",
+  "frame": 5145,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 5145
+ },
+ "p0502": {
+  "recording": "C7_WJ33",
+  "track_id": 307833,
+  "role": "accepted",
+  "frame": 4810,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 4810
+ },
+ "p0503": {
+  "recording": "C7_DF18",
+  "track_id": 126142,
+  "role": "accepted",
+  "frame": 3858,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 3858
+ },
+ "p0504": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 11776,
+  "role": "accepted",
+  "frame": 195,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 195
+ },
+ "p0505": {
+  "recording": "C7_PP31",
+  "track_id": 53808,
+  "role": "accepted",
+  "frame": 1010,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 1010
+ },
+ "p0506": {
+  "recording": "C7_DF18",
+  "track_id": 72060,
+  "role": "accepted",
+  "frame": 1883,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 1883
+ },
+ "p0507": {
+  "recording": "C7_WJ33",
+  "track_id": 261090,
+  "role": "accepted",
+  "frame": 4246,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 4246
+ },
+ "p0508": {
+  "recording": "C7_GF15",
+  "track_id": 140935,
+  "role": "accepted",
+  "frame": 2126,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 2126
+ },
+ "p0509": {
+  "recording": "C7_PP31",
+  "track_id": 23301,
+  "role": "decoy",
+  "frame": 401,
+  "sampled_for": [],
+  "frame_shown": 401
+ },
+ "p0510": {
+  "recording": "C7_PP31",
+  "track_id": 78315,
+  "role": "accepted",
+  "frame": 1390,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 1390
+ },
+ "p0511": {
+  "recording": "C7_DF18",
+  "track_id": 61385,
+  "role": "decoy",
+  "frame": 1623,
+  "sampled_for": [],
+  "frame_shown": 1623
+ },
+ "p0512": {
+  "recording": "C7_GF15",
+  "track_id": 61768,
+  "role": "accepted",
+  "frame": 735,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 735
+ },
+ "p0513": {
+  "recording": "C7_DF18",
+  "track_id": 121161,
+  "role": "accepted",
+  "frame": 3588,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 3588
+ },
+ "p0514": {
+  "recording": "C7_WJ33",
+  "track_id": 292935,
+  "role": "decoy",
+  "frame": 4651,
+  "sampled_for": [],
+  "frame_shown": 4651
+ },
+ "p0515": {
+  "recording": "C7_DF18",
+  "track_id": 119895,
+  "role": "accepted",
+  "frame": 3512,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 3512
+ },
+ "p0516": {
+  "recording": "C7_DF18",
+  "track_id": 48453,
+  "role": "accepted",
+  "frame": 1224,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 1224
+ },
+ "p0517": {
+  "recording": "C7_WJ33",
+  "track_id": 432289,
+  "role": "decoy",
+  "frame": 6007,
+  "sampled_for": [],
+  "frame_shown": 6007
+ },
+ "p0518": {
+  "recording": "C7_WJ33",
+  "track_id": 342732,
+  "role": "accepted",
+  "frame": 5205,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 5205
+ },
+ "p0519": {
+  "recording": "C8_WARM004_C2",
+  "track_id": 1440,
+  "role": "accepted",
+  "frame": 216,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 216
+ },
+ "p0520": {
+  "recording": "C7_PP31",
+  "track_id": 26504,
+  "role": "accepted",
+  "frame": 482,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 482
+ },
+ "p0521": {
+  "recording": "C8_WILL006_C1",
+  "track_id": 4666,
+  "role": "accepted",
+  "frame": 391,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 391
+ },
+ "p0522": {
+  "recording": "C7_DF18",
+  "track_id": 23028,
+  "role": "decoy",
+  "frame": 533,
+  "sampled_for": [],
+  "frame_shown": 533
+ },
+ "p0523": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 215558,
+  "role": "accepted",
+  "frame": 3649,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 3649
+ },
+ "p0524": {
+  "recording": "C7_WJ33",
+  "track_id": 2860,
+  "role": "accepted",
+  "frame": 32,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 32
+ },
+ "p0525": {
+  "recording": "C7_GF15",
+  "track_id": 26287,
+  "role": "accepted",
+  "frame": 357,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 357
+ },
+ "p0526": {
+  "recording": "C7_WJ33",
+  "track_id": 9743,
+  "role": "accepted",
+  "frame": 172,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 172
+ },
+ "p0527": {
+  "recording": "C7_DF18",
+  "track_id": 5785,
+  "role": "decoy",
+  "frame": 98,
+  "sampled_for": [],
+  "frame_shown": 98
+ },
+ "p0528": {
+  "recording": "C7_WJ33",
+  "track_id": 400111,
+  "role": "accepted",
+  "frame": 5688,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 5688
+ },
+ "p0529": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 34909,
+  "role": "accepted",
+  "frame": 571,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 571
+ },
+ "p0530": {
+  "recording": "C7_GF15",
+  "track_id": 21937,
+  "role": "accepted",
+  "frame": 349,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 349
+ },
+ "p0531": {
+  "recording": "C7_WJ33",
+  "track_id": 105167,
+  "role": "accepted",
+  "frame": 2253,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 2253
+ },
+ "p0532": {
+  "recording": "C7_GF15",
+  "track_id": 115923,
+  "role": "accepted",
+  "frame": 1550,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 1550
+ },
+ "p0533": {
+  "recording": "C7_DF18",
+  "track_id": 65915,
+  "role": "accepted",
+  "frame": 1729,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1729
+ },
+ "p0534": {
+  "recording": "C7_DF18",
+  "track_id": 109110,
+  "role": "accepted",
+  "frame": 3020,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3020
+ },
+ "p0535": {
+  "recording": "C7_GF15",
+  "track_id": 94725,
+  "role": "accepted",
+  "frame": 1138,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 1138
+ },
+ "p0536": {
+  "recording": "C7_DF18",
+  "track_id": 137777,
+  "role": "accepted",
+  "frame": 4496,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 4496
+ },
+ "p0537": {
+  "recording": "C7_GF15",
+  "track_id": 147697,
+  "role": "decoy",
+  "frame": 2384,
+  "sampled_for": [],
+  "frame_shown": 2384
+ },
+ "p0538": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 21321,
+  "role": "accepted",
+  "frame": 321,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 321
+ },
+ "p0539": {
+  "recording": "C7_WJ33",
+  "track_id": 208932,
+  "role": "decoy",
+  "frame": 3587,
+  "sampled_for": [],
+  "frame_shown": 3587
+ },
+ "p0540": {
+  "recording": "C7_GF15",
+  "track_id": 110992,
+  "role": "accepted",
+  "frame": 1449,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 1449
+ },
+ "p0541": {
+  "recording": "C7_PP31",
+  "track_id": 181547,
+  "role": "accepted",
+  "frame": 3069,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 3069
+ },
+ "p0542": {
+  "recording": "C7_GF15",
+  "track_id": 6944,
+  "role": "decoy",
+  "frame": 122,
+  "sampled_for": [],
+  "frame_shown": 122
+ },
+ "p0543": {
+  "recording": "C7_GF15",
+  "track_id": 122017,
+  "role": "accepted",
+  "frame": 1695,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 1695
+ },
+ "p0544": {
+  "recording": "C7_PP31",
+  "track_id": 169780,
+  "role": "accepted",
+  "frame": 2781,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 2781
+ },
+ "p0545": {
+  "recording": "C7_DF18",
+  "track_id": 110274,
+  "role": "accepted",
+  "frame": 3074,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 3074
+ },
+ "p0546": {
+  "recording": "C7_WJ33",
+  "track_id": 145173,
+  "role": "accepted",
+  "frame": 2967,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 2967
+ },
+ "p0547": {
+  "recording": "C7_WJ33",
+  "track_id": 104666,
+  "role": "accepted",
+  "frame": 2252,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 2252
+ },
+ "p0548": {
+  "recording": "C7_WJ33",
+  "track_id": 160041,
+  "role": "decoy",
+  "frame": 3138,
+  "sampled_for": [],
+  "frame_shown": 3138
+ },
+ "p0549": {
+  "recording": "C7_WJ33",
+  "track_id": 401314,
+  "role": "accepted",
+  "frame": 5695,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 5695
+ },
+ "p0550": {
+  "recording": "C7_WJ33",
+  "track_id": 7938,
+  "role": "accepted",
+  "frame": 135,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 135
+ },
+ "p0551": {
+  "recording": "C7_PP31",
+  "track_id": 223649,
+  "role": "accepted",
+  "frame": 3915,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3915
+ },
+ "p0552": {
+  "recording": "C7_DF18",
+  "track_id": 136961,
+  "role": "accepted",
+  "frame": 4438,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 4438
+ },
+ "p0553": {
+  "recording": "C7_DF18",
+  "track_id": 119664,
+  "role": "decoy",
+  "frame": 3515,
+  "sampled_for": [],
+  "frame_shown": 3515
+ },
+ "p0554": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 152464,
+  "role": "decoy",
+  "frame": 2490,
+  "sampled_for": [],
+  "frame_shown": 2490
+ },
+ "p0555": {
+  "recording": "C8_WILL006_C1",
+  "track_id": 3026,
+  "role": "accepted",
+  "frame": 247,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 247
+ },
+ "p0556": {
+  "recording": "C7_WJ33",
+  "track_id": 138952,
+  "role": "decoy",
+  "frame": 2914,
+  "sampled_for": [],
+  "frame_shown": 2914
+ },
+ "p0557": {
+  "recording": "C7_DF18",
+  "track_id": 49213,
+  "role": "accepted",
+  "frame": 1265,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 1265
+ },
+ "p0558": {
+  "recording": "C7_GF15",
+  "track_id": 66194,
+  "role": "decoy",
+  "frame": 767,
+  "sampled_for": [],
+  "frame_shown": 767
+ },
+ "p0559": {
+  "recording": "C7_DF18",
+  "track_id": 100573,
+  "role": "accepted",
+  "frame": 2692,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 2692
+ },
+ "p0560": {
+  "recording": "C7_PP31",
+  "track_id": 44533,
+  "role": "decoy",
+  "frame": 865,
+  "sampled_for": [],
+  "frame_shown": 865
+ },
+ "p0561": {
+  "recording": "C7_PP31",
+  "track_id": 110814,
+  "role": "accepted",
+  "frame": 1911,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 1911
+ },
+ "p0562": {
+  "recording": "C7_GF15",
+  "track_id": 33047,
+  "role": "accepted",
+  "frame": 427,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 427
+ },
+ "p0563": {
+  "recording": "C7_GF15",
+  "track_id": 118801,
+  "role": "accepted",
+  "frame": 1620,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1620
+ },
+ "p0564": {
+  "recording": "C7_DF18",
+  "track_id": 151682,
+  "role": "decoy",
+  "frame": 5098,
+  "sampled_for": [],
+  "frame_shown": 5098
+ },
+ "p0565": {
+  "recording": "C7_DF18",
+  "track_id": 130093,
+  "role": "accepted",
+  "frame": 4025,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 4025
+ },
+ "p0566": {
+  "recording": "C7_WJ33",
+  "track_id": 401894,
+  "role": "accepted",
+  "frame": 5700,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 5700
+ },
+ "p0567": {
+  "recording": "C7_WJ33",
+  "track_id": 91845,
+  "role": "accepted",
+  "frame": 1997,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1997
+ },
+ "p0568": {
+  "recording": "C7_DF18",
+  "track_id": 129988,
+  "role": "accepted",
+  "frame": 4009,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4009
+ },
+ "p0569": {
+  "recording": "C7_GF15",
+  "track_id": 62007,
+  "role": "accepted",
+  "frame": 749,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 749
+ },
+ "p0570": {
+  "recording": "C7_DF18",
+  "track_id": 74183,
+  "role": "accepted",
+  "frame": 1970,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 1970
+ },
+ "p0571": {
+  "recording": "C7_DF18",
+  "track_id": 110242,
+  "role": "accepted",
+  "frame": 3087,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 3087
+ },
+ "p0572": {
+  "recording": "C7_GF15",
+  "track_id": 22824,
+  "role": "accepted",
+  "frame": 343,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 343
+ },
+ "p0573": {
+  "recording": "C7_WJ33",
+  "track_id": 351872,
+  "role": "accepted",
+  "frame": 5287,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 5287
+ },
+ "p0574": {
+  "recording": "C7_DF18",
+  "track_id": 53854,
+  "role": "accepted",
+  "frame": 1376,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 1376
+ },
+ "p0575": {
+  "recording": "C7_DF18",
+  "track_id": 38463,
+  "role": "decoy",
+  "frame": 989,
+  "sampled_for": [],
+  "frame_shown": 989
+ },
+ "p0576": {
+  "recording": "C7_DF18",
+  "track_id": 109400,
+  "role": "accepted",
+  "frame": 3033,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 3033
+ },
+ "p0577": {
+  "recording": "C7_WJ33",
+  "track_id": 122596,
+  "role": "decoy",
+  "frame": 2688,
+  "sampled_for": [],
+  "frame_shown": 2688
+ },
+ "p0578": {
+  "recording": "C7_DF18",
+  "track_id": 37061,
+  "role": "decoy",
+  "frame": 983,
+  "sampled_for": [],
+  "frame_shown": 983
+ },
+ "p0579": {
+  "recording": "C7_DF18",
+  "track_id": 142530,
+  "role": "accepted",
+  "frame": 4754,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 4754
+ },
+ "p0580": {
+  "recording": "C7_GF15",
+  "track_id": 42588,
+  "role": "accepted",
+  "frame": 512,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 512
+ },
+ "p0581": {
+  "recording": "C7_GF15",
+  "track_id": 159674,
+  "role": "accepted",
+  "frame": 2602,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 2602
+ },
+ "p0582": {
+  "recording": "C7_WJ33",
+  "track_id": 9394,
+  "role": "accepted",
+  "frame": 191,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 191
+ },
+ "p0583": {
+  "recording": "C7_GF15",
+  "track_id": 114518,
+  "role": "accepted",
+  "frame": 1538,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 1538
+ },
+ "p0584": {
+  "recording": "C7_PP31",
+  "track_id": 256276,
+  "role": "accepted",
+  "frame": 4635,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 4635
+ },
+ "p0585": {
+  "recording": "C7_DF18",
+  "track_id": 131207,
+  "role": "accepted",
+  "frame": 4073,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 4073
+ },
+ "p0586": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 149802,
+  "role": "decoy",
+  "frame": 2448,
+  "sampled_for": [],
+  "frame_shown": 2448
+ },
+ "p0587": {
+  "recording": "C7_WJ33",
+  "track_id": 96993,
+  "role": "decoy",
+  "frame": 2115,
+  "sampled_for": [],
+  "frame_shown": 2115
+ },
+ "p0588": {
+  "recording": "C7_WJ33",
+  "track_id": 165177,
+  "role": "accepted",
+  "frame": 3214,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3214
+ },
+ "p0589": {
+  "recording": "C7_WJ33",
+  "track_id": 252341,
+  "role": "accepted",
+  "frame": 4120,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4120
+ },
+ "p0590": {
+  "recording": "C7_PP31",
+  "track_id": 211118,
+  "role": "accepted",
+  "frame": 3636,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 3636
+ },
+ "p0591": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 335760,
+  "role": "decoy",
+  "frame": 5287,
+  "sampled_for": [],
+  "frame_shown": 5287
+ },
+ "p0592": {
+  "recording": "C7_DF18",
+  "track_id": 86888,
+  "role": "decoy",
+  "frame": 2279,
+  "sampled_for": [],
+  "frame_shown": 2279
+ },
+ "p0593": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 256494,
+  "role": "accepted",
+  "frame": 3961,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 3961
+ },
+ "p0594": {
+  "recording": "C7_WJ33",
+  "track_id": 256597,
+  "role": "decoy",
+  "frame": 4222,
+  "sampled_for": [],
+  "frame_shown": 4222
+ },
+ "p0595": {
+  "recording": "C7_WJ33",
+  "track_id": 297366,
+  "role": "decoy",
+  "frame": 4687,
+  "sampled_for": [],
+  "frame_shown": 4687
+ },
+ "p0596": {
+  "recording": "C7_PP31",
+  "track_id": 89743,
+  "role": "decoy",
+  "frame": 1589,
+  "sampled_for": [],
+  "frame_shown": 1589
+ },
+ "p0597": {
+  "recording": "C7_DF18",
+  "track_id": 145449,
+  "role": "accepted",
+  "frame": 4890,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 4890
+ },
+ "p0598": {
+  "recording": "C7_GF15",
+  "track_id": 67696,
+  "role": "accepted",
+  "frame": 798,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 798
+ },
+ "p0599": {
+  "recording": "C7_GF15",
+  "track_id": 80895,
+  "role": "decoy",
+  "frame": 935,
+  "sampled_for": [],
+  "frame_shown": 935
+ },
+ "p0600": {
+  "recording": "C7_PP31",
+  "track_id": 125668,
+  "role": "accepted",
+  "frame": 2131,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 2131
+ },
+ "p0601": {
+  "recording": "C7_DF18",
+  "track_id": 69651,
+  "role": "accepted",
+  "frame": 1843,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 1843
+ },
+ "p0602": {
+  "recording": "C7_WJ33",
+  "track_id": 16234,
+  "role": "decoy",
+  "frame": 315,
+  "sampled_for": [],
+  "frame_shown": 315
+ },
+ "p0603": {
+  "recording": "C7_GF15",
+  "track_id": 166120,
+  "role": "accepted",
+  "frame": 2801,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 2801
+ },
+ "p0604": {
+  "recording": "C7_DF18",
+  "track_id": 11488,
+  "role": "accepted",
+  "frame": 238,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 238
+ },
+ "p0605": {
+  "recording": "C7_DF18",
+  "track_id": 44005,
+  "role": "decoy",
+  "frame": 1176,
+  "sampled_for": [],
+  "frame_shown": 1176
+ },
+ "p0606": {
+  "recording": "C7_PP31",
+  "track_id": 46837,
+  "role": "accepted",
+  "frame": 908,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 908
+ },
+ "p0607": {
+  "recording": "C7_WJ33",
+  "track_id": 439289,
+  "role": "accepted",
+  "frame": 6062,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6062
+ },
+ "p0608": {
+  "recording": "C7_PP31",
+  "track_id": 202445,
+  "role": "accepted",
+  "frame": 3483,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 3483
+ },
+ "p0609": {
+  "recording": "C7_WJ33",
+  "track_id": 83435,
+  "role": "decoy",
+  "frame": 1835,
+  "sampled_for": [],
+  "frame_shown": 1835
+ },
+ "p0610": {
+  "recording": "C7_WJ33",
+  "track_id": 326117,
+  "role": "accepted",
+  "frame": 5042,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 5042
+ },
+ "p0611": {
+  "recording": "C7_GF15",
+  "track_id": 106810,
+  "role": "accepted",
+  "frame": 1350,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 1350
+ },
+ "p0612": {
+  "recording": "C7_DF18",
+  "track_id": 141656,
+  "role": "accepted",
+  "frame": 4699,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 4699
+ },
+ "p0613": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 283915,
+  "role": "decoy",
+  "frame": 4431,
+  "sampled_for": [],
+  "frame_shown": 4431
+ },
+ "p0614": {
+  "recording": "C7_GF15",
+  "track_id": 13971,
+  "role": "accepted",
+  "frame": 275,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 275
+ },
+ "p0615": {
+  "recording": "C7_GF15",
+  "track_id": 35689,
+  "role": "accepted",
+  "frame": 438,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 438
+ },
+ "p0616": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 32498,
+  "role": "decoy",
+  "frame": 567,
+  "sampled_for": [],
+  "frame_shown": 567
+ },
+ "p0617": {
+  "recording": "C7_WJ33",
+  "track_id": 415853,
+  "role": "decoy",
+  "frame": 5828,
+  "sampled_for": [],
+  "frame_shown": 5828
+ },
+ "p0618": {
+  "recording": "C7_PP31",
+  "track_id": 220734,
+  "role": "accepted",
+  "frame": 3868,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 3868
+ },
+ "p0619": {
+  "recording": "C7_WJ33",
+  "track_id": 381271,
+  "role": "accepted",
+  "frame": 5510,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 5510
+ },
+ "p0620": {
+  "recording": "C7_DF18",
+  "track_id": 37384,
+  "role": "accepted",
+  "frame": 968,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 968
+ },
+ "p0621": {
+  "recording": "C7_WJ33",
+  "track_id": 475128,
+  "role": "accepted",
+  "frame": 6491,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 6491
+ },
+ "p0622": {
+  "recording": "C7_GF15",
+  "track_id": 142840,
+  "role": "accepted",
+  "frame": 2231,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 2231
+ },
+ "p0623": {
+  "recording": "C7_WJ33",
+  "track_id": 476262,
+  "role": "accepted",
+  "frame": 6488,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 6488
+ },
+ "p0624": {
+  "recording": "C7_WJ33",
+  "track_id": 57280,
+  "role": "accepted",
+  "frame": 1241,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 1241
+ },
+ "p0625": {
+  "recording": "C7_WJ33",
+  "track_id": 48650,
+  "role": "accepted",
+  "frame": 1061,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1061
+ },
+ "p0626": {
+  "recording": "C7_DF18",
+  "track_id": 55256,
+  "role": "accepted",
+  "frame": 1439,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1439
+ },
+ "p0627": {
+  "recording": "C7_GF15",
+  "track_id": 56226,
+  "role": "accepted",
+  "frame": 673,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 673
+ },
+ "p0628": {
+  "recording": "C7_GF15",
+  "track_id": 46839,
+  "role": "decoy",
+  "frame": 572,
+  "sampled_for": [],
+  "frame_shown": 572
+ },
+ "p0629": {
+  "recording": "C7_GF15",
+  "track_id": 98730,
+  "role": "accepted",
+  "frame": 1210,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1210
+ },
+ "p0630": {
+  "recording": "C7_DF18",
+  "track_id": 111334,
+  "role": "accepted",
+  "frame": 3129,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 3129
+ },
+ "p0631": {
+  "recording": "C7_WJ33",
+  "track_id": 316402,
+  "role": "decoy",
+  "frame": 4923,
+  "sampled_for": [],
+  "frame_shown": 4923
+ },
+ "p0632": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 259460,
+  "role": "accepted",
+  "frame": 4014,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 4014
+ },
+ "p0633": {
+  "recording": "C7_DF18",
+  "track_id": 99259,
+  "role": "accepted",
+  "frame": 2660,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 2660
+ },
+ "p0634": {
+  "recording": "C7_DF18",
+  "track_id": 125583,
+  "role": "accepted",
+  "frame": 3810,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 3810
+ },
+ "p0635": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 40387,
+  "role": "decoy",
+  "frame": 613,
+  "sampled_for": [],
+  "frame_shown": 613
+ },
+ "p0636": {
+  "recording": "C7_PP31",
+  "track_id": 255411,
+  "role": "decoy",
+  "frame": 4624,
+  "sampled_for": [],
+  "frame_shown": 4624
+ },
+ "p0637": {
+  "recording": "C7_GF15",
+  "track_id": 76208,
+  "role": "accepted",
+  "frame": 867,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 867
+ },
+ "p0638": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 24031,
+  "role": "accepted",
+  "frame": 364,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 364
+ },
+ "p0639": {
+  "recording": "C7_WJ33",
+  "track_id": 152911,
+  "role": "accepted",
+  "frame": 3041,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3041
+ },
+ "p0640": {
+  "recording": "C7_GF15",
+  "track_id": 122217,
+  "role": "decoy",
+  "frame": 1710,
+  "sampled_for": [],
+  "frame_shown": 1710
+ },
+ "p0641": {
+  "recording": "C7_DF18",
+  "track_id": 32346,
+  "role": "accepted",
+  "frame": 808,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 808
+ },
+ "p0642": {
+  "recording": "C7_WJ33",
+  "track_id": 242302,
+  "role": "accepted",
+  "frame": 3935,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3935
+ },
+ "p0643": {
+  "recording": "C7_WJ33",
+  "track_id": 496185,
+  "role": "accepted",
+  "frame": 6933,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 6933
+ },
+ "p0644": {
+  "recording": "C7_DF18",
+  "track_id": 109769,
+  "role": "accepted",
+  "frame": 3051,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 3051
+ },
+ "p0645": {
+  "recording": "C7_WJ33",
+  "track_id": 200206,
+  "role": "decoy",
+  "frame": 3505,
+  "sampled_for": [],
+  "frame_shown": 3505
+ },
+ "p0646": {
+  "recording": "C7_WJ33",
+  "track_id": 183911,
+  "role": "decoy",
+  "frame": 3388,
+  "sampled_for": [],
+  "frame_shown": 3388
+ },
+ "p0647": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 10731,
+  "role": "accepted",
+  "frame": 180,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 180
+ },
+ "p0648": {
+  "recording": "C7_DF18",
+  "track_id": 153145,
+  "role": "decoy",
+  "frame": 5134,
+  "sampled_for": [],
+  "frame_shown": 5134
+ },
+ "p0649": {
+  "recording": "C7_PP31",
+  "track_id": 260507,
+  "role": "accepted",
+  "frame": 4715,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4715
+ },
+ "p0650": {
+  "recording": "C7_DF18",
+  "track_id": 152539,
+  "role": "accepted",
+  "frame": 5113,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 5113
+ },
+ "p0651": {
+  "recording": "C7_DF18",
+  "track_id": 56068,
+  "role": "decoy",
+  "frame": 1438,
+  "sampled_for": [],
+  "frame_shown": 1438
+ },
+ "p0652": {
+  "recording": "C7_WJ33",
+  "track_id": 446883,
+  "role": "decoy",
+  "frame": 6128,
+  "sampled_for": [],
+  "frame_shown": 6128
+ },
+ "p0653": {
+  "recording": "C7_DF18",
+  "track_id": 103695,
+  "role": "accepted",
+  "frame": 2797,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 2797
+ },
+ "p0654": {
+  "recording": "C8_SOME004_C2",
+  "track_id": 11130,
+  "role": "accepted",
+  "frame": 687,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 687
+ },
+ "p0655": {
+  "recording": "C7_GF15",
+  "track_id": 166322,
+  "role": "accepted",
+  "frame": 2804,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 2804
+ },
+ "p0656": {
+  "recording": "C7_PP31",
+  "track_id": 217608,
+  "role": "accepted",
+  "frame": 3792,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 3792
+ },
+ "p0657": {
+  "recording": "C7_PP31",
+  "track_id": 155534,
+  "role": "accepted",
+  "frame": 2560,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 2560
+ },
+ "p0658": {
+  "recording": "C7_PP31",
+  "track_id": 101486,
+  "role": "accepted",
+  "frame": 1787,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1787
+ },
+ "p0659": {
+  "recording": "C7_DF18",
+  "track_id": 139381,
+  "role": "accepted",
+  "frame": 4594,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 4594
+ },
+ "p0660": {
+  "recording": "C7_PP31",
+  "track_id": 285046,
+  "role": "accepted",
+  "frame": 5487,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 5487
+ },
+ "p0661": {
+  "recording": "C7_PP31",
+  "track_id": 210331,
+  "role": "accepted",
+  "frame": 3625,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 3625
+ },
+ "p0662": {
+  "recording": "C7_WJ33",
+  "track_id": 395846,
+  "role": "accepted",
+  "frame": 5644,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 5644
+ },
+ "p0663": {
+  "recording": "C7_DF18",
+  "track_id": 42774,
+  "role": "accepted",
+  "frame": 1098,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 1098
+ },
+ "p0664": {
+  "recording": "C7_WJ33",
+  "track_id": 323613,
+  "role": "accepted",
+  "frame": 5013,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 5013
+ },
+ "p0665": {
+  "recording": "C7_DF18",
+  "track_id": 111105,
+  "role": "accepted",
+  "frame": 3134,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 3134
+ },
+ "p0666": {
+  "recording": "C7_DF18",
+  "track_id": 67707,
+  "role": "accepted",
+  "frame": 1765,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 1765
+ },
+ "p0667": {
+  "recording": "C7_WJ33",
+  "track_id": 285564,
+  "role": "accepted",
+  "frame": 4553,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 4553
+ },
+ "p0668": {
+  "recording": "C7_DF18",
+  "track_id": 133830,
+  "role": "accepted",
+  "frame": 4212,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4212
+ },
+ "p0669": {
+  "recording": "C7_DF18",
+  "track_id": 68958,
+  "role": "accepted",
+  "frame": 1823,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1823
+ },
+ "p0670": {
+  "recording": "C7_GF15",
+  "track_id": 82038,
+  "role": "accepted",
+  "frame": 947,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 947
+ },
+ "p0671": {
+  "recording": "C7_PP31",
+  "track_id": 74025,
+  "role": "decoy",
+  "frame": 1315,
+  "sampled_for": [],
+  "frame_shown": 1315
+ },
+ "p0672": {
+  "recording": "C7_GF15",
+  "track_id": 79785,
+  "role": "accepted",
+  "frame": 926,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 926
+ },
+ "p0673": {
+  "recording": "C7_DF18",
+  "track_id": 14529,
+  "role": "accepted",
+  "frame": 312,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 312
+ },
+ "p0674": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 228587,
+  "role": "decoy",
+  "frame": 3855,
+  "sampled_for": [],
+  "frame_shown": 3855
+ },
+ "p0675": {
+  "recording": "C7_DF18",
+  "track_id": 19983,
+  "role": "accepted",
+  "frame": 470,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 470
+ },
+ "p0676": {
+  "recording": "C7_WJ33",
+  "track_id": 313709,
+  "role": "decoy",
+  "frame": 4888,
+  "sampled_for": [],
+  "frame_shown": 4888
+ },
+ "p0677": {
+  "recording": "C7_GF15",
+  "track_id": 165855,
+  "role": "accepted",
+  "frame": 2784,
+  "sampled_for": [
+   "rules_q0.2",
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 2784
+ },
+ "p0678": {
+  "recording": "C7_WJ33",
+  "track_id": 145013,
+  "role": "accepted",
+  "frame": 2960,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 2960
+ },
+ "p0679": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 65870,
+  "role": "decoy",
+  "frame": 1019,
+  "sampled_for": [],
+  "frame_shown": 1019
+ },
+ "p0680": {
+  "recording": "C7_GF15",
+  "track_id": 141968,
+  "role": "accepted",
+  "frame": 2187,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 2187
+ },
+ "p0681": {
+  "recording": "C7_DF18",
+  "track_id": 25066,
+  "role": "accepted",
+  "frame": 568,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 568
+ },
+ "p0682": {
+  "recording": "C7_PP31",
+  "track_id": 263592,
+  "role": "accepted",
+  "frame": 4814,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 4814
+ },
+ "p0683": {
+  "recording": "C7_DF18",
+  "track_id": 106182,
+  "role": "accepted",
+  "frame": 2898,
+  "sampled_for": [
+   "patch_seed0_t0.99"
+  ],
+  "frame_shown": 2898
+ },
+ "p0684": {
+  "recording": "C7_WJ33",
+  "track_id": 277538,
+  "role": "decoy",
+  "frame": 4458,
+  "sampled_for": [],
+  "frame_shown": 4458
+ },
+ "p0685": {
+  "recording": "C7_DF18",
+  "track_id": 125237,
+  "role": "accepted",
+  "frame": 3814,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 3814
+ },
+ "p0686": {
+  "recording": "C7_GF15",
+  "track_id": 43683,
+  "role": "decoy",
+  "frame": 513,
+  "sampled_for": [],
+  "frame_shown": 513
+ },
+ "p0687": {
+  "recording": "C7_GF15",
+  "track_id": 6518,
+  "role": "accepted",
+  "frame": 109,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 109
+ },
+ "p0688": {
+  "recording": "C7_DF18",
+  "track_id": 106675,
+  "role": "accepted",
+  "frame": 2925,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 2925
+ },
+ "p0689": {
+  "recording": "C7_WJ33",
+  "track_id": 310890,
+  "role": "decoy",
+  "frame": 4846,
+  "sampled_for": [],
+  "frame_shown": 4846
+ },
+ "p0690": {
+  "recording": "C7_WJ33",
+  "track_id": 470643,
+  "role": "accepted",
+  "frame": 6388,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 6388
+ },
+ "p0691": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 141179,
+  "role": "decoy",
+  "frame": 2320,
+  "sampled_for": [],
+  "frame_shown": 2320
+ },
+ "p0692": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 293366,
+  "role": "accepted",
+  "frame": 4563,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 4563
+ },
+ "p0693": {
+  "recording": "C7_DF18",
+  "track_id": 107095,
+  "role": "decoy",
+  "frame": 2943,
+  "sampled_for": [],
+  "frame_shown": 2943
+ },
+ "p0694": {
+  "recording": "C7_WJ33",
+  "track_id": 175790,
+  "role": "decoy",
+  "frame": 3363,
+  "sampled_for": [],
+  "frame_shown": 3363
+ },
+ "p0695": {
+  "recording": "C7_GF15",
+  "track_id": 29947,
+  "role": "accepted",
+  "frame": 407,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 407
+ },
+ "p0696": {
+  "recording": "C7_GF15",
+  "track_id": 161679,
+  "role": "accepted",
+  "frame": 2657,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 2657
+ },
+ "p0697": {
+  "recording": "C7_WJ33",
+  "track_id": 149722,
+  "role": "accepted",
+  "frame": 3027,
+  "sampled_for": [
+   "patch_seed0_t0.98"
+  ],
+  "frame_shown": 3027
+ },
+ "p0698": {
+  "recording": "C7_GF15",
+  "track_id": 17483,
+  "role": "accepted",
+  "frame": 296,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 296
+ },
+ "p0699": {
+  "recording": "C7_WJ33",
+  "track_id": 453813,
+  "role": "accepted",
+  "frame": 6228,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 6228
+ },
+ "p0700": {
+  "recording": "C7_PP31",
+  "track_id": 287966,
+  "role": "accepted",
+  "frame": 5621,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 5621
+ },
+ "p0701": {
+  "recording": "C7_WJ33",
+  "track_id": 76175,
+  "role": "accepted",
+  "frame": 1677,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 1677
+ },
+ "p0702": {
+  "recording": "C7_WJ33",
+  "track_id": 322404,
+  "role": "accepted",
+  "frame": 4981,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 4981
+ },
+ "p0703": {
+  "recording": "C7_GF15",
+  "track_id": 101979,
+  "role": "accepted",
+  "frame": 1250,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1250
+ },
+ "p0704": {
+  "recording": "C7_WJ33",
+  "track_id": 105810,
+  "role": "accepted",
+  "frame": 2266,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 2266
+ },
+ "p0705": {
+  "recording": "C7_GF15",
+  "track_id": 14926,
+  "role": "accepted",
+  "frame": 266,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 266
+ },
+ "p0706": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 328660,
+  "role": "accepted",
+  "frame": 5200,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 5200
+ },
+ "p0707": {
+  "recording": "C7_WJ33",
+  "track_id": 135904,
+  "role": "accepted",
+  "frame": 2883,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 2883
+ },
+ "p0708": {
+  "recording": "C7_WJ33",
+  "track_id": 89530,
+  "role": "decoy",
+  "frame": 1958,
+  "sampled_for": [],
+  "frame_shown": 1958
+ },
+ "p0709": {
+  "recording": "C7_DF18",
+  "track_id": 89454,
+  "role": "accepted",
+  "frame": 2351,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 2351
+ },
+ "p0710": {
+  "recording": "C7_WJ33",
+  "track_id": 171811,
+  "role": "accepted",
+  "frame": 3269,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 3269
+ },
+ "p0711": {
+  "recording": "C7_PP31",
+  "track_id": 219574,
+  "role": "decoy",
+  "frame": 3842,
+  "sampled_for": [],
+  "frame_shown": 3842
+ },
+ "p0712": {
+  "recording": "C7_WJ33",
+  "track_id": 255510,
+  "role": "decoy",
+  "frame": 4154,
+  "sampled_for": [],
+  "frame_shown": 4154
+ },
+ "p0713": {
+  "recording": "C7_WJ33",
+  "track_id": 383934,
+  "role": "accepted",
+  "frame": 5532,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 5532
+ },
+ "p0714": {
+  "recording": "C7_GF15",
+  "track_id": 66980,
+  "role": "accepted",
+  "frame": 791,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 791
+ },
+ "p0715": {
+  "recording": "C7_DF18",
+  "track_id": 47409,
+  "role": "accepted",
+  "frame": 1200,
+  "sampled_for": [
+   "patch_seed1_t0.98",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 1200
+ },
+ "p0716": {
+  "recording": "C7_GF15",
+  "track_id": 78259,
+  "role": "decoy",
+  "frame": 895,
+  "sampled_for": [],
+  "frame_shown": 895
+ },
+ "p0717": {
+  "recording": "C7_DF18",
+  "track_id": 112206,
+  "role": "accepted",
+  "frame": 3170,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3170
+ },
+ "p0718": {
+  "recording": "C7_WJ33",
+  "track_id": 430379,
+  "role": "accepted",
+  "frame": 5975,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 5975
+ },
+ "p0719": {
+  "recording": "C7_GF15",
+  "track_id": 56711,
+  "role": "accepted",
+  "frame": 690,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 690
+ },
+ "p0720": {
+  "recording": "C7_DF18",
+  "track_id": 69080,
+  "role": "decoy",
+  "frame": 1815,
+  "sampled_for": [],
+  "frame_shown": 1815
+ },
+ "p0721": {
+  "recording": "C7_DF18",
+  "track_id": 57047,
+  "role": "accepted",
+  "frame": 1481,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 1481
+ },
+ "p0722": {
+  "recording": "C7_DF18",
+  "track_id": 32085,
+  "role": "accepted",
+  "frame": 818,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 818
+ },
+ "p0723": {
+  "recording": "C7_WJ33",
+  "track_id": 446602,
+  "role": "accepted",
+  "frame": 6145,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 6145
+ },
+ "p0724": {
+  "recording": "C7_DF18",
+  "track_id": 132085,
+  "role": "accepted",
+  "frame": 4124,
+  "sampled_for": [
+   "patch_seed0_t0.98",
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4124
+ },
+ "p0725": {
+  "recording": "C7_GF15",
+  "track_id": 15331,
+  "role": "accepted",
+  "frame": 288,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 288
+ },
+ "p0726": {
+  "recording": "C7_WJ33",
+  "track_id": 11969,
+  "role": "accepted",
+  "frame": 235,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 235
+ },
+ "p0727": {
+  "recording": "C7_PP31",
+  "track_id": 274629,
+  "role": "decoy",
+  "frame": 5092,
+  "sampled_for": [],
+  "frame_shown": 5092
+ },
+ "p0728": {
+  "recording": "C7_GF15",
+  "track_id": 118061,
+  "role": "accepted",
+  "frame": 1608,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 1608
+ },
+ "p0729": {
+  "recording": "C7_GF15",
+  "track_id": 132317,
+  "role": "accepted",
+  "frame": 1928,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 1928
+ },
+ "p0730": {
+  "recording": "C7_WJ33",
+  "track_id": 134070,
+  "role": "accepted",
+  "frame": 2860,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 2860
+ },
+ "p0731": {
+  "recording": "C7_PP31",
+  "track_id": 99045,
+  "role": "decoy",
+  "frame": 1747,
+  "sampled_for": [],
+  "frame_shown": 1747
+ },
+ "p0732": {
+  "recording": "C7_WJ33",
+  "track_id": 219077,
+  "role": "accepted",
+  "frame": 3676,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3676
+ },
+ "p0733": {
+  "recording": "C7_DF18",
+  "track_id": 12853,
+  "role": "accepted",
+  "frame": 296,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 296
+ },
+ "p0734": {
+  "recording": "C7_PP31",
+  "track_id": 219335,
+  "role": "accepted",
+  "frame": 3841,
+  "sampled_for": [
+   "patch_seed0_t0.9"
+  ],
+  "frame_shown": 3841
+ },
+ "p0735": {
+  "recording": "C7_DF18",
+  "track_id": 151018,
+  "role": "accepted",
+  "frame": 5062,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 5062
+ },
+ "p0736": {
+  "recording": "C7_DF18",
+  "track_id": 102692,
+  "role": "accepted",
+  "frame": 2758,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 2758
+ },
+ "p0737": {
+  "recording": "C7_WJ33",
+  "track_id": 233672,
+  "role": "decoy",
+  "frame": 3825,
+  "sampled_for": [],
+  "frame_shown": 3825
+ },
+ "p0738": {
+  "recording": "C7_PP31",
+  "track_id": 130605,
+  "role": "decoy",
+  "frame": 2291,
+  "sampled_for": [],
+  "frame_shown": 2291
+ },
+ "p0739": {
+  "recording": "C7_WJ33",
+  "track_id": 312970,
+  "role": "decoy",
+  "frame": 4932,
+  "sampled_for": [],
+  "frame_shown": 4932
+ },
+ "p0740": {
+  "recording": "C7_WJ33",
+  "track_id": 254585,
+  "role": "accepted",
+  "frame": 4136,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 4136
+ },
+ "p0741": {
+  "recording": "C7_WJ33",
+  "track_id": 74887,
+  "role": "accepted",
+  "frame": 1678,
+  "sampled_for": [
+   "temporal_seed0_t0.95"
+  ],
+  "frame_shown": 1678
+ },
+ "p0742": {
+  "recording": "C7_DF18",
+  "track_id": 43016,
+  "role": "accepted",
+  "frame": 1094,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 1094
+ },
+ "p0743": {
+  "recording": "C7_WJ33",
+  "track_id": 372634,
+  "role": "decoy",
+  "frame": 5434,
+  "sampled_for": [],
+  "frame_shown": 5434
+ },
+ "p0744": {
+  "recording": "C7_GF15",
+  "track_id": 8471,
+  "role": "decoy",
+  "frame": 190,
+  "sampled_for": [],
+  "frame_shown": 190
+ },
+ "p0745": {
+  "recording": "C7_GF15",
+  "track_id": 27691,
+  "role": "accepted",
+  "frame": 384,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 384
+ },
+ "p0746": {
+  "recording": "C7_GF15",
+  "track_id": 60821,
+  "role": "accepted",
+  "frame": 720,
+  "sampled_for": [
+   "patch_seed0_t0.95"
+  ],
+  "frame_shown": 720
+ },
+ "p0747": {
+  "recording": "C7_WJ33",
+  "track_id": 317459,
+  "role": "decoy",
+  "frame": 4943,
+  "sampled_for": [],
+  "frame_shown": 4943
+ },
+ "p0748": {
+  "recording": "C7_WJ33",
+  "track_id": 165425,
+  "role": "accepted",
+  "frame": 3203,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 3203
+ },
+ "p0749": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 41411,
+  "role": "accepted",
+  "frame": 632,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 632
+ },
+ "p0750": {
+  "recording": "C7_WJ33",
+  "track_id": 367612,
+  "role": "accepted",
+  "frame": 5382,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 5382
+ },
+ "p0751": {
+  "recording": "C7_GF15",
+  "track_id": 56935,
+  "role": "accepted",
+  "frame": 666,
+  "sampled_for": [
+   "patch_seed0_t0.99",
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 666
+ },
+ "p0752": {
+  "recording": "C7_WJ33",
+  "track_id": 223217,
+  "role": "accepted",
+  "frame": 3723,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 3723
+ },
+ "p0753": {
+  "recording": "C7_PP31",
+  "track_id": 27058,
+  "role": "accepted",
+  "frame": 509,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 509
+ },
+ "p0754": {
+  "recording": "C7_WJ33",
+  "track_id": 158572,
+  "role": "accepted",
+  "frame": 3109,
+  "sampled_for": [
+   "rules_q0.1"
+  ],
+  "frame_shown": 3109
+ },
+ "p0755": {
+  "recording": "C7_DF18",
+  "track_id": 138958,
+  "role": "accepted",
+  "frame": 4581,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 4581
+ },
+ "p0756": {
+  "recording": "C7_WJ33",
+  "track_id": 20641,
+  "role": "decoy",
+  "frame": 433,
+  "sampled_for": [],
+  "frame_shown": 433
+ },
+ "p0757": {
+  "recording": "C7_PP31",
+  "track_id": 96359,
+  "role": "decoy",
+  "frame": 1701,
+  "sampled_for": [],
+  "frame_shown": 1701
+ },
+ "p0758": {
+  "recording": "C7_DF18",
+  "track_id": 51100,
+  "role": "accepted",
+  "frame": 1306,
+  "sampled_for": [
+   "patch_seed1_t0.99"
+  ],
+  "frame_shown": 1306
+ },
+ "p0759": {
+  "recording": "C7_PP31",
+  "track_id": 152110,
+  "role": "decoy",
+  "frame": 2548,
+  "sampled_for": [],
+  "frame_shown": 2548
+ },
+ "p0760": {
+  "recording": "C7_GF15",
+  "track_id": 56002,
+  "role": "accepted",
+  "frame": 656,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 656
+ },
+ "p0761": {
+  "recording": "C7_PP31",
+  "track_id": 270968,
+  "role": "accepted",
+  "frame": 4968,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 4968
+ },
+ "p0762": {
+  "recording": "C7_WJ33",
+  "track_id": 272705,
+  "role": "accepted",
+  "frame": 4394,
+  "sampled_for": [
+   "patch_seed1_t0.98"
+  ],
+  "frame_shown": 4394
+ },
+ "p0763": {
+  "recording": "C7_DF18",
+  "track_id": 44064,
+  "role": "accepted",
+  "frame": 1119,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1119
+ },
+ "p0764": {
+  "recording": "C7_WJ33",
+  "track_id": 451248,
+  "role": "accepted",
+  "frame": 6200,
+  "sampled_for": [
+   "temporal_seed0_t0.99"
+  ],
+  "frame_shown": 6200
+ },
+ "p0765": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 62528,
+  "role": "decoy",
+  "frame": 961,
+  "sampled_for": [],
+  "frame_shown": 961
+ },
+ "p0766": {
+  "recording": "C8_SOME004_C2",
+  "track_id": 3847,
+  "role": "decoy",
+  "frame": 286,
+  "sampled_for": [],
+  "frame_shown": 286
+ },
+ "p0767": {
+  "recording": "C7_DF18",
+  "track_id": 135485,
+  "role": "accepted",
+  "frame": 4368,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 4368
+ },
+ "p0768": {
+  "recording": "C7_DF18",
+  "track_id": 118617,
+  "role": "decoy",
+  "frame": 3446,
+  "sampled_for": [],
+  "frame_shown": 3446
+ },
+ "p0769": {
+  "recording": "C7_GF15",
+  "track_id": 10293,
+  "role": "accepted",
+  "frame": 228,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 228
+ },
+ "p0770": {
+  "recording": "C7_WJ33",
+  "track_id": 317542,
+  "role": "accepted",
+  "frame": 4948,
+  "sampled_for": [
+   "temporal_seed0_t0.9"
+  ],
+  "frame_shown": 4948
+ },
+ "p0771": {
+  "recording": "C7_DF18",
+  "track_id": 121160,
+  "role": "accepted",
+  "frame": 3591,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3591
+ },
+ "p0772": {
+  "recording": "C7_GF15",
+  "track_id": 28148,
+  "role": "accepted",
+  "frame": 369,
+  "sampled_for": [
+   "rules_q0.005"
+  ],
+  "frame_shown": 369
+ },
+ "p0773": {
+  "recording": "C7_WJ33",
+  "track_id": 478696,
+  "role": "accepted",
+  "frame": 6553,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 6553
+ },
+ "p0774": {
+  "recording": "C7_GF15",
+  "track_id": 62600,
+  "role": "accepted",
+  "frame": 728,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 728
+ },
+ "p0775": {
+  "recording": "C7_WJ33",
+  "track_id": 64726,
+  "role": "accepted",
+  "frame": 1419,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 1419
+ },
+ "p0776": {
+  "recording": "C7_PP31",
+  "track_id": 263300,
+  "role": "accepted",
+  "frame": 4787,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 4787
+ },
+ "p0777": {
+  "recording": "C7_WJ33",
+  "track_id": 342390,
+  "role": "accepted",
+  "frame": 5199,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 5199
+ },
+ "p0778": {
+  "recording": "C7_WJ33",
+  "track_id": 338744,
+  "role": "decoy",
+  "frame": 5206,
+  "sampled_for": [],
+  "frame_shown": 5206
+ },
+ "p0779": {
+  "recording": "C7_WJ33",
+  "track_id": 304136,
+  "role": "decoy",
+  "frame": 4771,
+  "sampled_for": [],
+  "frame_shown": 4771
+ },
+ "p0780": {
+  "recording": "C7_WJ33",
+  "track_id": 215416,
+  "role": "accepted",
+  "frame": 3628,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 3628
+ },
+ "p0781": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 186797,
+  "role": "accepted",
+  "frame": 3129,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 3129
+ },
+ "p0782": {
+  "recording": "C7_DF18",
+  "track_id": 108171,
+  "role": "accepted",
+  "frame": 3003,
+  "sampled_for": [
+   "temporal_seed0_t0.7"
+  ],
+  "frame_shown": 3003
+ },
+ "p0783": {
+  "recording": "C7_PP31",
+  "track_id": 176087,
+  "role": "accepted",
+  "frame": 2924,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 2924
+ },
+ "p0784": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 18821,
+  "role": "accepted",
+  "frame": 310,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 310
+ },
+ "p0785": {
+  "recording": "C7_DF18",
+  "track_id": 50314,
+  "role": "accepted",
+  "frame": 1274,
+  "sampled_for": [
+   "rules_q0.01"
+  ],
+  "frame_shown": 1274
+ },
+ "p0786": {
+  "recording": "C7_PP31",
+  "track_id": 182853,
+  "role": "accepted",
+  "frame": 3091,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 3091
+ },
+ "p0787": {
+  "recording": "C7_DF18",
+  "track_id": 115017,
+  "role": "accepted",
+  "frame": 3290,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 3290
+ },
+ "p0788": {
+  "recording": "C7_WJ33",
+  "track_id": 259779,
+  "role": "accepted",
+  "frame": 4227,
+  "sampled_for": [
+   "patch_seed1_t0.95"
+  ],
+  "frame_shown": 4227
+ },
+ "p0789": {
+  "recording": "C7_WJ33",
+  "track_id": 269975,
+  "role": "accepted",
+  "frame": 4357,
+  "sampled_for": [
+   "patch_seed1_t0.99",
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 4357
+ },
+ "p0790": {
+  "recording": "C7_WJ33",
+  "track_id": 331332,
+  "role": "accepted",
+  "frame": 5100,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 5100
+ },
+ "p0791": {
+  "recording": "C7_WJ33",
+  "track_id": 47714,
+  "role": "accepted",
+  "frame": 1059,
+  "sampled_for": [
+   "patch_seed0_t0.7"
+  ],
+  "frame_shown": 1059
+ },
+ "p0792": {
+  "recording": "C7_GF15",
+  "track_id": 39020,
+  "role": "accepted",
+  "frame": 485,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 485
+ },
+ "p0793": {
+  "recording": "C7_PP31",
+  "track_id": 127410,
+  "role": "accepted",
+  "frame": 2138,
+  "sampled_for": [
+   "patch_seed0_t0.6"
+  ],
+  "frame_shown": 2138
+ },
+ "p0794": {
+  "recording": "C7_DF18",
+  "track_id": 158155,
+  "role": "accepted",
+  "frame": 5271,
+  "sampled_for": [
+   "rules_q0.05"
+  ],
+  "frame_shown": 5271
+ },
+ "p0795": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 92021,
+  "role": "accepted",
+  "frame": 1461,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 1461
+ },
+ "p0796": {
+  "recording": "C7_WJ33",
+  "track_id": 232787,
+  "role": "accepted",
+  "frame": 3815,
+  "sampled_for": [
+   "rules_q0"
+  ],
+  "frame_shown": 3815
+ },
+ "p0797": {
+  "recording": "C7_GF15",
+  "track_id": 66592,
+  "role": "accepted",
+  "frame": 767,
+  "sampled_for": [
+   "rules_q0.025"
+  ],
+  "frame_shown": 767
+ },
+ "p0798": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 290728,
+  "role": "decoy",
+  "frame": 4535,
+  "sampled_for": [],
+  "frame_shown": 4535
+ },
+ "p0799": {
+  "recording": "C7_GF15",
+  "track_id": 10309,
+  "role": "accepted",
+  "frame": 227,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 227
+ },
+ "p0800": {
+  "recording": "C7_WJ33",
+  "track_id": 162162,
+  "role": "accepted",
+  "frame": 3162,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3162
+ },
+ "p0801": {
+  "recording": "C7_WJ33",
+  "track_id": 150265,
+  "role": "decoy",
+  "frame": 3013,
+  "sampled_for": [],
+  "frame_shown": 3013
+ },
+ "p0802": {
+  "recording": "C7_WJ33",
+  "track_id": 221699,
+  "role": "accepted",
+  "frame": 3728,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 3728
+ },
+ "p0803": {
+  "recording": "C7_DF18",
+  "track_id": 140853,
+  "role": "accepted",
+  "frame": 4653,
+  "sampled_for": [
+   "patch_seed1_t0.8"
+  ],
+  "frame_shown": 4653
+ },
+ "p0804": {
+  "recording": "C7_GF15",
+  "track_id": 165291,
+  "role": "accepted",
+  "frame": 2761,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 2761
+ },
+ "p0805": {
+  "recording": "C7_WJ33",
+  "track_id": 25737,
+  "role": "decoy",
+  "frame": 586,
+  "sampled_for": [],
+  "frame_shown": 586
+ },
+ "p0806": {
+  "recording": "C7_WJ33",
+  "track_id": 55841,
+  "role": "decoy",
+  "frame": 1236,
+  "sampled_for": [],
+  "frame_shown": 1236
+ },
+ "p0807": {
+  "recording": "C7_WJ33",
+  "track_id": 133387,
+  "role": "accepted",
+  "frame": 2859,
+  "sampled_for": [
+   "patch_seed1_t0.9"
+  ],
+  "frame_shown": 2859
+ },
+ "p0808": {
+  "recording": "C7_PP31",
+  "track_id": 282449,
+  "role": "accepted",
+  "frame": 5418,
+  "sampled_for": [
+   "temporal_seed0_t0.98"
+  ],
+  "frame_shown": 5418
+ },
+ "p0809": {
+  "recording": "C7_DF18",
+  "track_id": 45754,
+  "role": "accepted",
+  "frame": 1159,
+  "sampled_for": [
+   "patch_seed0_t0.5"
+  ],
+  "frame_shown": 1159
+ },
+ "p0810": {
+  "recording": "C7_WJ33",
+  "track_id": 412875,
+  "role": "accepted",
+  "frame": 5812,
+  "sampled_for": [
+   "temporal_seed0_t0.6"
+  ],
+  "frame_shown": 5812
+ },
+ "p0811": {
+  "recording": "C7_DF18",
+  "track_id": 135736,
+  "role": "decoy",
+  "frame": 4372,
+  "sampled_for": [],
+  "frame_shown": 4372
+ },
+ "p0812": {
+  "recording": "C8_ROUG016_prefix",
+  "track_id": 59255,
+  "role": "decoy",
+  "frame": 899,
+  "sampled_for": [],
+  "frame_shown": 899
+ },
+ "p0813": {
+  "recording": "C7_PP31",
+  "track_id": 225935,
+  "role": "accepted",
+  "frame": 3980,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 3980
+ },
+ "p0814": {
+  "recording": "C7_WJ33",
+  "track_id": 135201,
+  "role": "accepted",
+  "frame": 2874,
+  "sampled_for": [
+   "patch_seed0_t0.8"
+  ],
+  "frame_shown": 2874
+ },
+ "p0815": {
+  "recording": "C7_DF18",
+  "track_id": 76692,
+  "role": "accepted",
+  "frame": 2014,
+  "sampled_for": [
+   "patch_seed1_t0.6"
+  ],
+  "frame_shown": 2014
+ },
+ "p0816": {
+  "recording": "C7_WJ33",
+  "track_id": 153621,
+  "role": "accepted",
+  "frame": 3047,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 3047
+ },
+ "p0817": {
+  "recording": "C7_WJ33",
+  "track_id": 336283,
+  "role": "accepted",
+  "frame": 5153,
+  "sampled_for": [
+   "rules_q0.2"
+  ],
+  "frame_shown": 5153
+ },
+ "p0818": {
+  "recording": "C7_GF15",
+  "track_id": 97982,
+  "role": "accepted",
+  "frame": 1172,
+  "sampled_for": [
+   "patch_seed1_t0.5"
+  ],
+  "frame_shown": 1172
+ },
+ "p0819": {
+  "recording": "C7_WJ33",
+  "track_id": 268781,
+  "role": "decoy",
+  "frame": 4346,
+  "sampled_for": [],
+  "frame_shown": 4346
+ },
+ "p0820": {
+  "recording": "C7_WJ33",
+  "track_id": 317248,
+  "role": "decoy",
+  "frame": 4927,
+  "sampled_for": [],
+  "frame_shown": 4927
+ },
+ "p0821": {
+  "recording": "C7_DF18",
+  "track_id": 85749,
+  "role": "accepted",
+  "frame": 2248,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 2248
+ },
+ "p0822": {
+  "recording": "C7_GF15",
+  "track_id": 13650,
+  "role": "accepted",
+  "frame": 268,
+  "sampled_for": [
+   "temporal_seed0_t0.5"
+  ],
+  "frame_shown": 268
+ },
+ "p0823": {
+  "recording": "C7_PP31",
+  "track_id": 227379,
+  "role": "decoy",
+  "frame": 3992,
+  "sampled_for": [],
+  "frame_shown": 3992
+ },
+ "p0824": {
+  "recording": "C7_WJ33",
+  "track_id": 316568,
+  "role": "decoy",
+  "frame": 4924,
+  "sampled_for": [],
+  "frame_shown": 4924
+ },
+ "p0825": {
+  "recording": "C7_GF15",
+  "track_id": 13646,
+  "role": "accepted",
+  "frame": 267,
+  "sampled_for": [
+   "temporal_seed0_t0.8"
+  ],
+  "frame_shown": 267
+ },
+ "p0826": {
+  "recording": "C7_DF18",
+  "track_id": 115260,
+  "role": "accepted",
+  "frame": 3309,
+  "sampled_for": [
+   "patch_seed1_t0.7"
+  ],
+  "frame_shown": 3309
+ },
+ "p0827": {
+  "recording": "C7_WJ33",
+  "track_id": 192212,
+  "role": "decoy",
+  "frame": 3430,
+  "sampled_for": [],
+  "frame_shown": 3430
+ },
+ "p0828": {
+  "recording": "C8_KING003_C2",
+  "track_id": 917,
+  "role": "decoy",
+  "frame": 404,
+  "sampled_for": [],
+  "frame_shown": 404
+ }
+}

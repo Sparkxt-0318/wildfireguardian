@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-15T19:54:05+08:00",
+  "run_dir": "results/runs/process/C10_tracking_only_verified",
+  "clip_settings": "data/clips/C10_sparkler.yaml",
+  "clip_settings_sha256": "79de84794263a0eaabd5ed4611097ee2fee701d32db5bb256efc328105a58bf1",
+  "clip_id": "C10_sparkler",
+  "input_sha256": "e7a4544a0ede68bdfe5c8d619d95dd8f9ecd60ce198713445c11ecd2c404775c",
+  "clip_file_is_run_input": true,
+  "clip_settings_match_run": true,
+  "clip_settings_match_basis": "SHA-256 of the clip file",
+  "segment_s": [
+    40.0,
+    43.0
+  ],
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "run_config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "git_commit": "8e39d448c8b45b3b6a300ba00e780ee301ed2652",
+  "git_dirty": false,
+  "checks": {
+    "timing": {
+      "status": "pass",
+      "reason": "steady frame interval 42.00 ms, 0 gaps, 0 repeated frames",
+      "values": {
+        "frames": 73,
+        "interval_median_s": 0.04200000000000159,
+        "interval_p5_s": 0.04099999999999682,
+        "interval_p95_s": 0.04200000000000159,
+        "interval_min_s": 0.04099999999999682,
+        "interval_max_s": 0.04200000000000159,
+        "interval_mad_s": 0.0,
+        "interval_spread": 0.023809523809636593,
+        "fps_from_median": 23.809523809522908,
+        "fps_from_span": 24.0,
+        "fps_nominal": 24.0,
+        "gap_factor": 1.5,
+        "gaps": 0,
+        "largest_gap_s": 0.04200000000000159,
+        "variable_frame_rate": false,
+        "timestamps_not_increasing": 0,
+        "repeated_frames": 0,
+        "repeated_fraction": 0.0,
+        "container_frames_in_segment": 72,
+        "container_frames_missing": 0,
+        "frames_without_container_time": 0
+      }
+    },
+    "exposure": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported",
+      "values": {}
+    },
+    "static_lights": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported",
+      "values": {}
+    },
+    "speed": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported",
+      "values": {}
+    },
+    "direction": {
+      "status": "not applicable",
+      "reason": "metrics_scope tracking_only: the timebase is not real time; measurements are not reported",
+      "values": {}
+    },
+    "determinism": {
+      "status": "pass",
+      "reason": "identical tables on two reruns of 40.208 to 42.208 s",
+      "values": {
+        "segment_s": [
+          40.208,
+          42.208
+        ],
+        "tables": [
+          "detections",
+          "frames",
+          "track_points",
+          "tracks",
+          "field"
+        ],
+        "ignored_columns": {
+          "frames": [
+            "ms"
+          ]
+        },
+        "overlay": false,
+        "config_is_run_config": true,
+        "metrics_scope": "tracking_only",
+        "rows": {
+          "detections": 2579,
+          "frames": 49,
+          "track_points": 959,
+          "tracks": 96,
+          "field": null
+        },
+        "first_difference": null
+      }
+    }
+  },
+  "flagged": [],
+  "not_applicable": [
+    "exposure",
+    "static_lights",
+    "speed",
+    "direction"
+  ]
+}

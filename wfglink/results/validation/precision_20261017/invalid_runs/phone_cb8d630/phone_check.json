@@ -1,0 +1,97 @@
+{
+ "reference_commit": "4d0092c",
+ "checks": {
+  "source_identity": {
+   "pass": true,
+   "release": {
+    "src/wfglink/ember/track.py": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
+    "src/wfglink/ember/pipeline.py": "b2620e944aa9090153406e8c981a3b6a0b3ac7cbade50a30736d77fd23ebbd0a",
+    "src/wfglink/io/camera.py": "84e87e40bdbed1e9de0ffde1f7ad7ab023e2b17a2bc7519c697fc601a469d3b8",
+    "src/wfglink/io/sources.py": "81a63c6988f73297b2269184bef194f1760ad57f5a25cc535909fc397f35e2ea"
+   },
+   "now": {
+    "src/wfglink/ember/track.py": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
+    "src/wfglink/ember/pipeline.py": "b2620e944aa9090153406e8c981a3b6a0b3ac7cbade50a30736d77fd23ebbd0a",
+    "src/wfglink/io/camera.py": "84e87e40bdbed1e9de0ffde1f7ad7ab023e2b17a2bc7519c697fc601a469d3b8",
+    "src/wfglink/io/sources.py": "81a63c6988f73297b2269184bef194f1760ad57f5a25cc535909fc397f35e2ea"
+   }
+  },
+  "same_host_exact_history_harness": {
+   "pass": false,
+   "n_differences": 1,
+   "differences": [
+    "missing report"
+   ]
+  },
+  "same_host_validate_ember": {
+   "pass": false,
+   "n_differences": 2,
+   "differences": [
+    "/ember_free/reason: 'no /home/user/wildfireguardian/wfglink/data/raw/ember_free.* (python -m wfglink record ember_free)' != 'no <tree>/data/raw/ember_free.* (python -m wfglink record ember_free)'",
+    "/ember_ruler/reason: 'no /home/user/wildfireguardian/wfglink/data/raw/ember_ruler.* (python -m wfglink record ember_ruler)' != 'no <tree>/data/raw/ember_ruler.* (python -m wfglink record ember_ruler)'"
+   ]
+  },
+  "same_host_stride": {
+   "pass": false,
+   "n_differences": 1,
+   "differences": [
+    "missing report"
+   ]
+  }
+ },
+ "informational": {
+  "harness_asserts_on_this_host": {
+   "all_histories_and_legacy_tracks_exact": false,
+   "quality_speed_ruler_reports_exact": false,
+   "exact_speed_rows_match": true
+  },
+  "harness_inexact_histories_on_this_host": [
+   "three_mixed_6591b7c7a1fd.mp4"
+  ],
+  "validate_ember_vs_mac_release": {
+   "equal": false,
+   "n_differences": 86,
+   "differences": [
+    "/goal_check/id_switches_per_phone_per_min/value: 5.206 != 4.9457",
+    "/goal_check/recall_facing/value: 0.9799 != 0.9807",
+    "/goal_check/speed_median_rel_err/value: 0.0323 != 0.0324",
+    "/synthetic/pooled/fn: 203 != 199",
+    "/synthetic/pooled/fn_after_acquisition: 130 != 125",
+    "/synthetic/pooled/fp: 80 != 81",
+    "/synthetic/pooled/id_switches: 20 != 19",
+    "/synthetic/pooled/id_switches_per_phone_per_min: 5.206 != 4.9457",
+    "/synthetic/pooled/id_switches_persistent: 15 != 14",
+    "/synthetic/pooled/id_switches_persistent_per_phone_per_min: 3.9045 != 3.6442",
+    "/synthetic/pooled/mota: 0.9562 != 0.9568",
+    "/synthetic/pooled/precision: 0.9882 != 0.9881",
+    "/synthetic/pooled/recall: 0.9706 != 0.9712",
+    "/synthetic/pooled/recall_after_acquisition: 0.9799 != 0.9807",
+    "/synthetic/pooled/tp: 6712 != 6716",
+    "/synthetic/pooled/tp_after_acquisition: 6335 != 6340",
+    "/synthetic/ruler/displacement_mean_speed_m_s: 1.2624 != 1.2611",
+    "/synthetic/ruler/move_s: 0.7925 != 0.7934",
+    "/synthetic/ruler/screen_mean_speed_m_s: 1.2546 != 1.2533",
+    "/synthetic/ruler/screen_peak_speed_m_s: 1.829 != 1.8265"
+   ]
+  },
+  "stride_vs_mac_release": {
+   "equal": true,
+   "n_differences": 0,
+   "differences": []
+  }
+ },
+ "baseline_track_sha256": "13bbadcd6e35426c75fd28b7e4f9eaf88b828f9919fe508e40beaa47328990db",
+ "runs": {
+  "under_test": {
+   "harness_returncode": 1,
+   "validate_returncode": 0,
+   "stride_returncode": 0
+  },
+  "reference": {
+   "harness_returncode": 2,
+   "validate_returncode": 0,
+   "stride_returncode": 2
+  }
+ },
+ "pass": false
+}

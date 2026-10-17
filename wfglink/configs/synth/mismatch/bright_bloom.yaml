@@ -1,0 +1,5 @@
+# Mismatch variant: bright embers that saturate and bloom (HELD OUT).
+embers:
+  snr: {median: 150.0, log_sigma: 0.4}
+mismatch:
+  bloom: {enabled: true}

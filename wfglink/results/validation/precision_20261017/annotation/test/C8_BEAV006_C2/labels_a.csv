@@ -1,0 +1,31 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,,,,,,,none
+w002,0,0.6,18.5,0.5,1,s,"bright white-orange dot with an interlace comb pattern at the left tile edge over the dark trunk. It is in k0 only and absent in all other frames, so probably a fast ember crossing the edge"
+w003,,,,,,,none
+w004,,,,,,,none
+w005,0,60.5,33,1,1,s,"isolated whitish orange dot in dark smoke, seen only in k0 and absent at that spot from k1 on"
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,,,,,,,none
+w010,,,,,,,none
+w011,,,,,,,none
+w012,,,,,,,none
+w013,,,,,,,none
+w014,,,,,,,none
+w015,,,,,,,none
+w016,,,,,,,none
+w017,,,,,,,none
+w018,1,184,116.2,0.5,1,s,"faint whitish dot in dark smoke below fire, interlace comb, absent k2 k3"
+w018,1,124.6,50.4,0.5,2,s,"pale orange dot at lower edge of lit ground, nearly static, may be ground glow"
+w018,2,124.6,50.4,0.5,2,s,same dot brighter
+w018,3,123.3,50.5,0.5,2,s,"brightest, drifting slightly left"
+w018,4,180.6,117.3,0.5,1,s,"faint whitish dot reappears, interlace comb"
+w018,4,119.3,49,0.5,2,s,"very faint, further left, gone in k5"
+w018,5,184.8,120.3,0.5,1,s,"faint dot moved down right, fading"
+w019,3,115.5,100,0.5,1,s,"faint isolated dot below the glowing ground line, seen in k3 only; could be a fast ember or a compression blip"
+w020,,,,,,,none
+w021,,,,,,,none
+w022,,,,,,,none
+w023,,,,,,,none

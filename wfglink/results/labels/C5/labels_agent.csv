@@ -1,0 +1,123 @@
+tile_id,x,y,confidence,note
+t000,234.0,16.0,1.0,pink streak cut at top edge
+t001,154.0,206.0,1.0,pink streak
+t001,173.0,246.0,1.0,pink streak cut at bottom edge
+t002,,,1.0,none
+t003,,,1.0,none
+t004,,,1.0,none
+t005,,,1.0,none
+t006,,,1.0,none
+t007,,,1.0,none
+t008,24.0,248.0,0.5,large defocused pink blob cut at bottom edge
+t008,63.0,180.5,1.0,pink blob moving down
+t008,131.5,187.5,1.0,white streak
+t008,153.6,10.3,0.5,slow white blob near top
+t008,155.0,190.5,1.0,white blob passing over extinguisher
+t008,196.0,133.5,0.5,slow white blob in dark window
+t008,232.0,83.5,0.5,slow white blob in dark window
+t008,244.5,253.0,1.0,white blob at bottom edge
+t008,245.5,143.0,1.0,white-pink streak
+t008,254.0,50.0,1.0,white blob at right edge
+t009,24.0,105.5,1.0,pink streak
+t009,27.0,175.0,1.0,pink streak
+t009,34.0,3.8,0.5,slow white blob at top edge
+t009,45.5,37.0,1.0,large pink streak cut at top edge
+t009,48.0,183.0,1.0,short pink streak
+t009,149.5,253.0,1.0,pink streak cut at bottom edge
+t009,169.5,232.5,1.0,pink-white streak
+t009,220.0,85.0,1.0,pink streak
+t009,248.0,149.5,1.0,pink streak
+t010,,,1.0,none
+t011,100.0,196.0,0.5,slow white blob on floor
+t012,,,1.0,none
+t013,,,1.0,none
+t014,,,1.0,none
+t015,,,1.0,none
+t016,34.0,190.0,0.5,dim lavender streak moving up
+t016,40.0,52.0,1.0,pink blob
+t016,43.0,244.0,1.0,pink streak at bottom edge
+t016,52.0,72.0,1.0,white oval moving down-left
+t016,127.0,45.0,1.0,pink streak
+t016,164.0,31.0,1.0,pink streak
+t016,186.0,116.0,1.0,large near-camera streak
+t017,,,1.0,none
+t018,,,1.0,none
+t019,,,1.0,none
+t020,150.0,249.0,1.0,pink streak at bottom edge
+t021,,,1.0,none
+t022,200.0,175.0,1.0,white streak
+t023,,,1.0,none
+t024,,,1.0,none
+t025,,,1.0,none
+t026,,,1.0,none
+t027,20.0,146.0,0.5,static red streak maybe settled ember
+t027,31.0,141.0,0.5,white blob appears then stays
+t027,98.0,69.0,1.0,white oval
+t027,101.0,248.0,1.0,pink streak at bottom edge
+t027,102.0,134.0,1.0,pink streak
+t027,103.0,15.0,1.0,pink streak at top edge
+t027,187.0,52.0,1.0,pink streak
+t027,244.0,175.0,0.5,large cream near-camera streak
+t027,248.0,71.0,1.0,white blob slow
+t028,,,1.0,none
+t029,,,1.0,none
+t030,35.0,118.0,0.5,tiny faint dot in dark area; maybe a spark
+t031,,,1.0,none
+t032,,,1.0,none
+t033,197.0,88.0,1.0,long red-pink falling streak; middle
+t034,,,1.0,none
+t035,,,1.0,none
+t036,,,1.0,none
+t037,63.5,190.0,1.0,white streak in front of dark box
+t037,75.0,38.0,1.0,white streak
+t037,96.0,86.0,1.0,white streak
+t037,133.0,250.0,1.0,white streak at bottom edge
+t037,139.0,141.0,1.0,white vertical streak
+t037,161.0,47.0,1.0,white streak bright part
+t037,172.5,232.0,1.0,white streak
+t037,174.5,40.0,1.0,white streak crossing another
+t037,187.0,55.0,0.5,dim continuation of streak or separate ember
+t037,190.5,143.0,1.0,white short streak
+t037,206.0,9.0,1.0,white streak
+t037,219.0,51.5,1.0,white streak
+t037,237.0,7.0,0.5,faint diagonal streak
+t037,240.0,147.0,1.0,white blob in dark area
+t038,,,1.0,none
+t039,,,1.0,none
+t041,19.0,15.0,1.0,orange streak cut by top edge; middle of visible part
+t041,64.0,39.0,1.0,pink streak
+t041,68.0,153.0,1.0,pink streak
+t041,226.0,114.0,1.0,pink-white long streak
+t042,,,1.0,none
+t043,110.5,227.0,1.0,red streak over dark jacket
+t043,115.5,187.0,1.0,pink streak
+t043,140.0,172.0,1.0,wide orange-pink streak
+t043,179.0,180.0,1.0,short pink streak
+t043,184.0,200.0,1.0,pink-white streak
+t043,220.0,243.0,1.0,whitish streak
+t044,,,1.0,none
+t045,,,1.0,none
+t046,,,1.0,none
+t047,78.0,182.0,1.0,long streak large firebrand
+t047,251.0,12.0,1.0,streak at edge
+t048,101.0,180.0,0.5,white blob moving maybe not glowing
+t048,243.0,185.0,1.0,streak cut by right edge
+t049,,,1.0,none
+t050,253.0,10.0,1.0,streak cut by edge
+t051,,,1.0,none
+t052,,,1.0,none
+t053,32.0,75.0,1.0,streak
+t053,224.0,193.0,1.0,short white streak
+t054,,,1.0,none
+t055,161.0,64.0,1.0,streak
+t056,88.0,246.0,1.0,streak cut by bottom edge
+t056,164.0,54.0,1.0,streak
+t057,112.0,18.0,1.0,white streak
+t057,127.0,221.0,1.0,long streak
+t057,135.0,101.0,1.0,white streak
+t057,137.0,216.0,0.5,small spot beside streak
+t058,,,1.0,none
+t059,129.0,138.0,0.5,bright spot on foil maybe reflection
+t059,149.0,152.0,0.5,bright spot on foil maybe reflection
+t059,182.0,179.0,0.5,glow in foil pan maybe landed ember or reflection
+t059,185.0,196.0,0.5,glow in foil pan maybe landed ember or reflection

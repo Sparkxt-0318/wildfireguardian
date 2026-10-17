@@ -1,0 +1,824 @@
+"""The "Become an ember" mode: detector, static rejection, at most six embers, speeds, the A4
+calibration, the synthetic suite on a small case and the ruler-path analysis."""
+import json
+import math
+
+import numpy as np
+import pytest
+import yaml
+
+from wfglink import cli
+from wfglink.config import load_config
+from wfglink.ember import synth
+from wfglink.ember import validate as V
+from wfglink.ember.calibrate import TargetDetector, calibrate_video, write_local
+from wfglink.ember.pipeline import EmberPipeline, focal_for
+from wfglink.io.frames import Frame
+
+SMALL = (640, 360)
+
+
+from wfglink.ui.i18n import t as t_  # noqa: E402
+
+
+def _cfg(scene=None, **ember):
+    cfg = load_config()
+    if scene is not None:
+        cfg["camera"]["focal_px"] = scene.cam.f
+        cfg["ember"]["calibration"] = {"size": [scene.cam.width, scene.cam.height], "camera": None}
+    cfg["ember"].update(ember)
+    return cfg
+
+
+def _run(scene, cfg, seconds, fps=30):
+    pipe = EmberPipeline(cfg)
+    pipe.record()
+    states = []
+    for i in range(int(seconds * fps)):
+        t = i / fps
+        states.append(pipe.process(Frame(scene.render(t), t, i)))
+    return pipe, states
+
+
+def _line(z, x0, y, vx, seconds, t_start=0.0):
+    t = np.arange(-1.0, seconds + 1.0, 0.002)
+    xyz = np.zeros((len(t), 3))
+    xyz[:, 0] = x0 + vx * np.clip(t - t_start, 0, None)
+    xyz[:, 1], xyz[:, 2] = y, z
+    vel = np.gradient(xyz, 0.002, axis=0)
+    return synth.Trajectory(t, xyz, vel, np.zeros_like(t), np.zeros_like(t))
+
+
+def test_page_profile_matches_the_page():
+    prof, step = synth.page_profile()
+    centre, edge = prof[0], prof[int(round(1.0 / step))]
+    assert centre[2] == pytest.approx(1.0) and centre[0] > 0.6           # #FFF1D6: nearly white (BGR)
+    mid = prof[int(round(0.45 / step))]
+    assert mid[2] == pytest.approx(1.0) and mid[1] < 0.3 and mid[0] < 0.02  # #FF8A1F: orange
+    assert np.all(edge < 1e-3) and np.all(prof[-1] == 0)                  # transparent at the disc's edge
+    assert synth.DISC_FRAC == 0.36
+
+
+def test_detector_finds_the_phone_not_the_lamps_and_mirrors():
+    traj = _line(2.0, -0.4, -0.05, 0.6, 3.0)
+    spec = {"phones": [{"z": 2.0, "trajectory": traj, "landscape": False}], "lamp": True, "bulb": True, "window": True}
+    sc = synth.make_scene("custom", size=SMALL, seconds=3.0, seed=4, spec=spec)
+    pipe, states = _run(sc, _cfg(sc), 2.5)
+    st = states[-1]
+    assert st.mode == "ember" and st.ember_count == 1 and st.speed_unit == "m/s" and st.measured_at_m == 2.0
+    assert st.calibrated and st.camera_state == "ok" and st.warm == 1.0
+    tr = sc.truth(2.5 - 1 / 30)[0]
+    e = st.embers[0]
+    assert e["id"] == 1 and e["x"] == pytest.approx(SMALL[0] - 1 - tr["x"], abs=1.5)   # mirrored
+    assert e["y"] == pytest.approx(tr["y"], abs=1.5)
+    # Ceiling lights, the window and the warm lamp and bulb are never embers.
+    assert all(s.ember_count <= 1 for s in states)
+    assert len(st.trails) == 1 and st.field_uvn.shape == (9, 16, 3) and st.field_uvn[..., 2].sum() >= 1
+
+
+def test_static_lights_never_become_embers():
+    spec = {"phones": [], "lamp": True, "bulb": True, "tv": True, "window": True, "passers": 2}
+    sc = synth.make_scene("empty", size=SMALL, seconds=8.0, seed=9, spec=spec)
+    pipe, states = _run(sc, _cfg(sc), 8.0)
+    assert max(s.ember_count for s in states) == 0
+    # The bare bulb is warm and phone-sized: it is seen, and kept as a static light.
+    assert any(tr.static for tr in pipe.tracker.tracks + pipe.finished)
+
+
+def test_at_most_six_embers_with_ids_one_to_six():
+    phones = [{"z": z, "trajectory": _line(z, -0.9 + 0.22 * k, -0.25 + 0.06 * (k % 3), 0.5 * (-1) ** k, 4.0),
+               "landscape": False} for k, z in enumerate((1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0))]
+    sc = synth.make_scene("eight", size=(960, 540), seconds=4.0, seed=2, spec={"phones": phones})
+    pipe, states = _run(sc, _cfg(sc, max_tracks=6), 3.0)
+    assert max(s.ember_count for s in states) == 6
+    ids = {e["id"] for s in states for e in s.embers}
+    assert ids <= set(range(1, 7)) and len(ids) == 6
+
+
+def test_the_booth_tracks_at_most_three_phones_and_says_so():
+    from PySide6.QtGui import QGuiApplication
+
+    from wfglink.render.scene import render_image
+
+    app = QGuiApplication.instance() or QGuiApplication([])  # noqa: F841
+    phones = [{"z": z, "trajectory": _line(z, -0.9 + 0.22 * k, -0.25 + 0.06 * (k % 3), 0.5 * (-1) ** k, 4.0),
+               "landscape": False} for k, z in enumerate((1.6, 1.8, 2.0, 2.2, 2.4, 2.6))]
+    sc = synth.make_scene("six", size=(960, 540), seconds=4.0, seed=2, spec={"phones": phones})
+    cfg = _cfg(sc)
+    assert cfg["ember"]["max_tracks"] == 3                       # the booth's cap (your decision of 2026-10-15)
+    pipe, states = _run(sc, cfg, 3.0)
+    assert max(s.ember_count for s in states) == 3                # six phones in view, three tracked
+    assert {e["id"] for s in states for e in s.embers} <= {1, 2, 3}
+    assert states[-1].ember_max == 3
+    assert t_("en", "ember_max").format(n=3).startswith("max 3") and "최대 3" in t_("ko", "ember_max").format(n=3)
+    assert not render_image(960, 540, states[-1], "en").isNull()
+
+
+def test_speed_in_m_s_at_the_standing_distance():
+    for z, want in ((2.0, 0.5), (1.0, 1.0), (3.0, 0.5 * 2 / 3)):
+        traj = _line(z, -0.45 * 1.4 * z, 0.0, 0.5, 2.0)           # stays in the 70 degree picture
+        sc = synth.make_scene("line", size=SMALL, seconds=2.0, seed=1, spec={"phones": [{"z": z, "trajectory": traj}]})
+        pipe, states = _run(sc, _cfg(sc), 2.0)
+        speeds = [s.embers[0]["speed_m_s"] for s in states[30:] if s.embers and s.embers[0]["speed_m_s"]]
+        assert len(speeds) >= 25, z
+        # 0.5 m/s across the picture, measured at 2.0 m: right at 2 m, twice at 1 m, two thirds at 3 m.
+        assert np.median(speeds) == pytest.approx(want, rel=0.03), z
+
+
+def test_scale_from_calibration_or_nominal_field_of_view():
+    cfg = load_config()
+    f, cal, src = focal_for(cfg, 1280, 720)
+    assert not cal and f == pytest.approx(640 / np.tan(np.radians(35)))
+    cfg["camera"]["focal_px"] = 1000.0
+    cfg["ember"]["calibration"] = {"size": [1280, 720], "camera": "C920"}
+    assert focal_for(cfg, 640, 360, "C920")[:2] == (500.0, True)
+    assert not focal_for(cfg, 1280, 720, "MacBook Pro Camera")[1]         # another camera: nominal
+    assert not focal_for(cfg, 640, 480)[1]                                 # another aspect: nominal
+    # A calibration through one capture backend is not used for the other (their crops may differ).
+    cfg["ember"]["calibration"]["backend"] = "pyav"
+    assert focal_for(cfg, 1280, 720, "C920", "pyav")[1] and focal_for(cfg, 1280, 720, "C920")[1]
+    f, cal, why = focal_for(cfg, 1280, 720, "C920", "opencv")
+    assert not cal and "backend" in why
+
+
+def test_calibration_on_a_rendered_target(tmp_path):
+    video = tmp_path / "target.mp4"
+    truth = synth.target_clip(video, hfov_deg=66.0, distance_m=2.0, tilt_deg=(7.0, -10.0, 2.0), seconds=1.2)
+    cfg = load_config()
+    res = calibrate_video(video, cfg, 2.0)
+    assert res["focal_px"] == pytest.approx(truth["focal_px"], rel=0.02)
+    assert res["hfov_deg"] == pytest.approx(66.0, abs=1.0) and res["rms_px"] < 1.5
+    # The command writes camera.focal_px and ember.calibration, keeping the file's other keys.
+    local = tmp_path / "booth_local.yaml"
+    local.write_text("ui:\n  screen: external\ncamera:\n  name: c920\n", encoding="utf-8")
+    assert cli.main(["calibrate", "--video", str(video), "--distance-m", "2.0", "--out", str(local)]) in (0, 1)
+    doc = yaml.safe_load(local.read_text(encoding="utf-8"))
+    assert doc["ui"]["screen"] == "external" and doc["camera"]["name"] == "c920"
+    assert doc["camera"]["focal_px"] == pytest.approx(truth["focal_px"], rel=0.02)
+    assert doc["ember"]["distance_m"] == 2.0 and doc["ember"]["calibration"]["size"] == [1280, 720]
+    assert "A4" in doc["ember"]["calibration"]["target"]
+    write_local({"focal_px": 900.0, "distance_m": 2.5}, local)
+    assert yaml.safe_load(local.read_text(encoding="utf-8"))["camera"]["name"] == "c920"
+
+
+def test_calibrate_with_its_preview_window(tmp_path):
+    """The live path (camera thread, fullscreen preview, stable result, config written), run in
+    its own process (a QApplication) on the offscreen platform, with a rendered target as camera."""
+    import os
+    import subprocess
+    import sys
+
+    video = tmp_path / "target.mp4"
+    truth = synth.target_clip(video, hfov_deg=70.0, distance_m=2.0, seconds=1.5)
+    out = tmp_path / "local.yaml"
+    env = dict(os.environ, QT_QPA_PLATFORM="offscreen")
+    res = subprocess.run([sys.executable, "-m", "wfglink", "calibrate", "--fake-camera", str(video), "--out", str(out)],
+                         capture_output=True, text=True, timeout=120, env=env)
+    assert res.returncode == 0, res.stdout + res.stderr
+    doc = yaml.safe_load(out.read_text(encoding="utf-8"))
+    assert doc["camera"]["focal_px"] == pytest.approx(truth["focal_px"], rel=0.02)
+    assert doc["ember"]["calibration"]["camera"] == "fake: target.mp4" and doc["ember"]["calibration"]["stable"]
+
+
+def test_target_markers_are_read_from_the_raster_target():
+    from wfglink.ember import target as T
+
+    img = (T.target_image(3.0) * 255).astype(np.uint8)
+    pad = np.full((img.shape[0] + 80, img.shape[1] + 80), 255, np.uint8)
+    pad[40:-40, 40:-40] = img
+    ids, pts, obj = TargetDetector().find(pad)
+    assert ids == [0, 1, 2, 3] and pts.shape == (16, 2) and obj.shape == (16, 3)
+    # Corner 0 of marker 0 lies MARGIN_MM from the sheet's corner.
+    assert pts[0] == pytest.approx([40 + T.MARGIN_MM * 3.0, 40 + T.MARGIN_MM * 3.0], abs=1.0)
+
+
+def test_ruler_analysis_on_a_synthetic_ruler_clip(tmp_path):
+    sc = synth.ruler_scene(size=SMALL, seed=3, rest_s=1.2)
+    out = synth.write_scene_clip(sc, tmp_path, crf=23, stem="ruler")
+    truth_meta = out["meta"]
+    cfg = _cfg(sc)
+    r = V.ruler_clip(out["video"], cfg, 1.0)
+    assert r["status"] == "ok" and r["calibrated"]
+    assert r["displacement_m"] == pytest.approx(1.0, rel=0.03)
+    assert abs(r["screen_speed_rel_err"]) < 0.06
+    # The move time comes from the video; a minimum-jerk 1 s move leaves its rests a little later
+    # and arrives a little earlier than its nominal start and end.
+    assert 0.6 < r["move_s"] <= truth_meta["ruler"]["move_s"] + 0.05
+
+
+def test_small_synthetic_suite_writes_its_report(tmp_path):
+    cfg = load_config()
+    cfg["validate"]["ember"]["size"] = list(SMALL)
+    rep = V.run_suite(cfg, raw=tmp_path / "raw", out=tmp_path / "ember_report.json", work_dir=tmp_path / "work",
+                      scenes=["two_at_2m", "empty_room"], seconds=5.0, log=lambda m: None)
+    saved = json.loads((tmp_path / "ember_report.json").read_text(encoding="utf-8"))
+    s = saved["synthetic"]
+    assert set(s["scenes"]) == {"two_at_2m", "empty_room"}
+    assert s["scenes"]["two_at_2m"]["recall"] > 0.85 and s["scenes"]["two_at_2m"]["precision"] > 0.9
+    assert s["pooled"]["static_light_tracks"] == 0 and s["scenes"]["empty_room"]["false_tracks"] == 0
+    assert s["ruler"]["status"] == "ok"
+    assert saved["ember_free"]["status"] == "missing" and saved["ember_ruler"]["status"] == "missing"
+    assert set(saved["goal_check"]) == {"recall_facing", "static_light_tracks_per_min", "id_switches_per_phone_per_min",
+                                        "speed_median_rel_err", "ember_ruler_displacement_rel_err",
+                                        "ember_ruler_screen_speed_rel_err",
+                                        "ember_free_probable_id_switches_per_phone_per_min"}
+    # The recordings' goals are n/a without the recordings; the scenes are said to be the tuning set.
+    assert all(saved["goal_check"][k]["status"] == "n/a" for k in saved["goal_check"] if k.startswith("ember_"))
+    assert s["tuned_on"] is True and "id_switches_persistent_per_phone_per_min" in s["pooled"]
+    assert any(line.startswith("synthetic") and "not held out" in line for line in V.summary_lines(rep))
+    # With the recordings, their numbers are judged against the same goals as the synthetic phones.
+    fake = dict(saved, ember_ruler={"status": "ok", "displacement_rel_err": -0.15, "screen_speed_rel_err": 0.04},
+                ember_free={"status": "ok", "probable_id_switches_per_phone_per_min": 0.5})
+    g = V.goal_check(fake, saved["goals"])
+    assert g["ember_ruler_displacement_rel_err"]["status"] == "missed"
+    assert g["ember_ruler_screen_speed_rel_err"]["status"] == "met"
+    assert g["ember_free_probable_id_switches_per_phone_per_min"]["status"] == "met"
+    assert V.persistent_switches([[[1, 0.0, 2.0], [2, 2.03, 2.07], [1, 2.1, 5.0]], [[3, 0.0, 1.0], [4, 1.1, 3.0]]], 0.2) == 1
+    # A second run finds the generated scenes and does not make them again.
+    before = sorted(p.name for p in (tmp_path / "work").iterdir())
+    V.run_suite(cfg, raw=tmp_path / "raw", out=tmp_path / "again.json", work_dir=tmp_path / "work",
+                scenes=["empty_room"], seconds=5.0, log=lambda m: None)
+    assert sorted(p.name for p in (tmp_path / "work").iterdir()) == before
+
+
+def test_free_clip_and_record_command_on_a_fake_camera(tmp_path):
+    from wfglink.synth.degrade import read_video
+
+    # `record` with a generated scene as the camera, without a window: countdown, then the clip.
+    cfg_path = tmp_path / "rec.yaml"
+    cfg_path.write_text("camera:\n  width: 640\n  height: 360\nember:\n  record:\n    countdown_s: 0.3\n", encoding="utf-8")
+    code = cli.main(["record", "ember_free", "--seconds", "2.5", "--out-dir", str(tmp_path), "--no-preview",
+                     "--fake-camera", "one_at_2m", "--config", str(cfg_path)])
+    assert code == 0
+    frames, pts = read_video(tmp_path / "ember_free.mp4")
+    assert len(frames) >= 30 and np.all(np.diff(pts) > 0) and frames[0].shape == (360, 640, 3)
+    assert cli.main(["record", "ember_free", "--seconds", "1", "--out-dir", str(tmp_path), "--no-preview",
+                     "--fake-camera", "one_at_2m"]) == 2            # never overwritten without --force
+    r = V.free_clip(tmp_path / "ember_free.mp4", load_config(str(cfg_path)), phones=1)
+    assert r["status"] == "ok" and r["tracks_shown"] >= 1 and r["most_at_once"] <= 1
+    assert r["coverage"] > 0.5 and not r["calibrated"]
+
+
+def test_record_force_replaces_and_a_cancelled_recording_is_not_kept(tmp_path, monkeypatch):
+    from wfglink.ember import preview as P
+    from wfglink.ember.record import record
+
+    cfg = load_config(overrides={"camera": {"width": 640, "height": 360}, "ember": {"record": {"countdown_s": 0.0}}})
+    first = record(cfg, "ember_free", 1.0, out_dir=tmp_path, fake="one_at_2m", preview=False)
+    assert (tmp_path / "ember_free.mp4").exists() and first["frames"] > 10
+    again = record(cfg, "ember_free", 1.0, out_dir=tmp_path, fake="one_at_2m", preview=False, force=True)
+    assert again["frames"] > 10                                   # the same command with --force records it again
+
+    def cancelled_preview(cfg, on_frame, *, source, on_capture, **kw):   # Esc after a few frames
+        for _ in range(8):
+            f = source.read()
+            if f is not None:
+                on_capture(f)
+        source.close()
+        return {"cancelled": True}
+
+    monkeypatch.setattr(P, "run_preview", cancelled_preview)
+    res = record(cfg, "ember_ruler", 5.0, out_dir=tmp_path, fake="one_at_2m", preview=True)
+    assert res["cancelled"] and res["removed"] and not (tmp_path / "ember_ruler.mp4").exists()
+    # A cancelled retake with --force keeps the earlier good recording.
+    before = (tmp_path / "ember_free.mp4").read_bytes()
+    res = record(cfg, "ember_free", 5.0, out_dir=tmp_path, fake="one_at_2m", preview=True, force=True)
+    assert res["cancelled"] and res["kept_earlier"] and (tmp_path / "ember_free.mp4").read_bytes() == before
+    assert not list(tmp_path.glob(".*.part.mp4"))
+
+
+def test_calibrate_writes_only_a_stable_result_and_warns_on_an_odd_field_of_view(tmp_path, monkeypatch, capsys):
+    from wfglink.ember import calibrate as K
+
+    base = {"focal_px": 914.0, "hfov_deg": 70.0, "distance_m": 2.0, "m_per_px": 0.00219, "size": [1280, 720],
+            "target": "A4", "frames": 30, "spread": 0.004, "rms_px": 0.4, "stable": True, "camera": "c920"}
+    local = tmp_path / "booth_local.yaml"
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base, stable=False, spread=0.05))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 1
+    assert not local.exists() and "nothing written" in capsys.readouterr().err
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base, hfov_deg=93.0, focal_px=607.0))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 0
+    assert "WARNING" in capsys.readouterr().err and local.exists()
+    monkeypatch.setattr(K, "calibrate_video", lambda video, cfg, dist: dict(base))
+    assert cli.main(["calibrate", "--video", "x.mp4", "--out", str(local)]) == 0
+    assert "WARNING" not in capsys.readouterr().err
+
+
+def _blobs(pts, diam=20.0, light=0.0, on_bg=False):
+    from wfglink.ember.detect import Blobs
+
+    n = len(pts)
+    if not n:
+        return Blobs()
+    return Blobs(np.array([p[0] for p in pts], float), np.array([p[1] for p in pts], float), np.full(n, diam),
+                 np.full(n, 255.0), np.ones(n), np.ones(n), np.full(n, on_bg), [(0, 0, 4, 4)] * n,
+                 np.full(n, float(light)))
+
+
+def _sparse_tracker(cfg, px_per_m):
+    """These association fixtures sample a known 60 fps source at 30 fps or below."""
+    from wfglink.ember.track import EmberTracker
+
+    tracker = EmberTracker(cfg, px_per_m)
+    update = tracker.update
+    tracker.update = lambda blobs, t: update(blobs, t, source_fps=60.0)
+    return tracker
+
+
+def _cadence_overlap():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = EmberTracker(load_config(), 457.0)
+    lamp, dt = (500.0, 300.0), 1 / 30
+    for k in range(90):
+        tracker.update(_blobs([lamp], light=1.0), k * dt, source_fps=30.0)
+    (light,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), (90 + k) * dt, source_fps=30.0)
+    (phone,) = tracker.shown()
+    return tracker, light, phone, lamp, 101 * dt, dt
+
+
+@pytest.mark.parametrize("return_rate", [30.0, None])
+def test_sparse_overlap_protection_lasts_until_the_phone_returns(return_rate):
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=30.0)  # one missed source interval
+    assert light.seen and not phone.seen and tracker._cadence_guarded == {phone.tid}
+    tracker.update(_blobs([(520.0, 300.0)]), t + dt, source_fps=return_rate)
+    assert phone.seen and phone.x == 520.0 and not light.shown
+    assert not tracker._cadence_guarded
+    tracker.update(_blobs([(540.0, 300.0)]), t + 2 * dt, source_fps=30.0)
+    assert tracker.shown() == [phone] and phone.seen
+
+
+def test_sparse_overlap_protection_ends_when_the_phone_expires():
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=30.0)
+    assert tracker._cadence_guarded == {phone.tid}
+    for k in range(1, int(tracker.max_coast_s / dt) + 3):
+        tracker.update(_blobs([lamp], light=1.0), t + k * dt, source_fps=30.0)
+    assert phone not in tracker.tracks and light in tracker.tracks
+    assert not tracker._cadence_guarded and not tracker.shown()
+
+
+def test_a_changed_reported_rate_does_not_compare_against_the_old_rate(monkeypatch):
+    tracker, light, phone, lamp, t, dt = _cadence_overlap()
+    def unexpected_sparse(*args):
+        pytest.fail("the first timestamp at a changed source rate has no comparable predecessor")
+    monkeypatch.setattr(tracker, "_update_sparse", unexpected_sparse)
+    tracker.update(_blobs([lamp], light=1.0), t, source_fps=60.0)
+    assert tracker._source_fps == 60.0 and not tracker._cadence_guarded
+
+
+@pytest.mark.parametrize("reported_rate", [15.0, None, 0.0, float("nan"), "unknown"])
+def test_requested_camera_rate_does_not_imply_an_analysis_gap(reported_rate, monkeypatch):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config(overrides={"camera": {"fps": 30}})
+    tracker = EmberTracker(cfg, 457.0)
+    def unexpected_sparse(*args):
+        pytest.fail("requested 30 fps must not classify regularly sampled 15 fps input as sparse")
+    monkeypatch.setattr(tracker, "_update_sparse", unexpected_sparse)
+    for k in range(90):
+        tracker.update(_blobs([(500.0, 300.0)], light=1.0), k / 15, source_fps=reported_rate)
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), (90 + k) / 15, source_fps=reported_rate)
+    tracker.update(_blobs([(500.0, 300.0)], light=1.0), 100 / 15, source_fps=reported_rate)
+    assert not tracker._cadence_guarded
+
+
+def test_fake_camera_reports_its_source_rate_instead_of_the_request():
+    from wfglink.io.camera import FakeCameraSource
+
+    source = FakeCameraSource(scene="one_at_2m", realtime=False, size=SMALL, fps=15,
+                              cfg=load_config(overrides={"camera": {"fps": 30}}))
+    source.open()
+    try:
+        first, second = source.read(), source.read()
+        assert first.meta["source_fps"] == second.meta["source_fps"] == 15
+        assert second.t - first.t == pytest.approx(1 / 15)
+    finally:
+        source.close()
+
+
+def _phone_coasting_towards_a_pending_background(paused=False, evidence="stationary", within_motion_reach=False):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    t = 9 * dt
+    if paused:
+        for _ in range(10):
+            t += dt
+            tracker.update(_blobs([(480.0, 300.0)]), t)
+        assert math.hypot(phone.vx, phone.vy) < 1e-6
+    background = (618.0, 300.0) if within_motion_reach else ((480.0, 120.0) if paused else (520.0, 60.0))
+    # The expanding prediction gate reaches this separate stationary object on the third
+    # background detection. It has independent evidence before that ambiguous reacquisition.
+    wait = 0 if within_motion_reach else 6
+    for k in range(1, wait + 1):
+        tracker.update(_blobs([]), t + k * dt)
+    for k in (wait + 1, wait + 2):
+        px, py, reach = tracker._predict(phone, t + k * dt)
+        assert math.hypot(background[0] - px, background[1] - py) > reach
+        drift = 10 if evidence == "moving" else 1 if evidence == "slow_drift" else 0
+        point = (background[0] + drift, background[1]) if k == wait + 2 else background
+        blobs = _blobs([]) if evidence == "one_hit" and k == wait + 1 else _blobs([point], on_bg=evidence != "off_background")
+        tracker.update(blobs, t + k * dt)
+    (pending,) = [tr for tr in tracker.tracks if not tr.shown]
+    return tracker, phone, pending, background, t + (wait + 3) * dt, dt
+
+
+@pytest.mark.parametrize("reported_rate", [None, 30.0, 15.0])
+@pytest.mark.parametrize("paused", [False, True])
+def test_pending_background_confirmation_keeps_the_coasting_phone_identity(reported_rate, paused):
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(paused, within_motion_reach=not paused)
+    px, py, reach = tracker._predict(phone, t)
+    assert math.hypot(background[0] - px, background[1] - py) <= reach
+    assert pending.hits == pending.background_hits == tracker.confirm_hits - 1
+    tracker.update(_blobs([background], on_bg=True), t, source_fps=reported_rate)
+    assert pending.hits == tracker.confirm_hits and pending.confirmed and pending.seen
+    assert not pending.shown and not phone.seen and tracker.shown() == [phone]
+    returning = (480.0 if paused else 560.0, 300.0)
+    blobs = _blobs([background, returning], on_bg=True)
+    tracker.update(blobs, t + dt, source_fps=reported_rate)
+    assert phone.seen and (phone.x, phone.y) == returning
+    assert pending.seen and (pending.x, pending.y) == background and not pending.shown
+    assert tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("unsupported", ["one_hit", "moving", "off_background", "current_motion"])
+def test_a_pending_object_without_stationary_background_evidence_does_not_own_a_blob(unsupported):
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(evidence=unsupported, within_motion_reach=True)
+    if unsupported == "current_motion":
+        background = (background[0] + 10, background[1])
+    tracker.update(_blobs([background], on_bg=True), t)
+    assert phone.seen and (phone.x, phone.y) == background
+
+
+def test_a_pending_background_owner_can_expire_normally():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(within_motion_reach=True)
+    for k in range(10):
+        tracker.update(_blobs([]), t + k * dt)
+    assert pending not in tracker.tracks and phone in tracker.tracks
+
+
+def test_an_expired_pending_background_cannot_claim_a_coasters_detection():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(within_motion_reach=True)
+    later = t + tracker.confirm_window_s
+    tracker.update(_blobs([background], on_bg=True), later)
+    assert phone.seen and (phone.x, phone.y) == background
+    assert pending not in tracker.tracks
+
+
+def test_pending_confirmation_consumes_its_one_assigned_blob_exactly_once():
+    tracker, phone, pending, background, t, dt = _phone_coasting_towards_a_pending_background(evidence="slow_drift", within_motion_reach=True)
+    # Its normal prediction differs from its median home. The confirming pass must hit the
+    # very blob it selected, rather than reserve one blob and later take a neighboring one.
+    first, second = (background[0] + 0.5, background[1]), (background[0] + 2, background[1])
+    tracker.update(_blobs([first, second], on_bg=True), t)
+    assert pending.seen and (pending.x, pending.y) == first and pending.hits == tracker.confirm_hits
+    assert phone.seen and (phone.x, phone.y) == second
+
+
+@pytest.mark.parametrize("on_bg, light", [(True, 0.0), (False, 1.0), (True, 1.0)])
+def test_a_fast_phone_can_reappear_far_away_on_background_when_its_motion_agrees(on_bg, light):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t, last_x = phone.last_t, phone.x
+    for k in range(1, 18):
+        tracker.update(_blobs([]), last_t + k * dt)
+    t = last_t + 18 * dt
+    returning = tracker._predict(phone, t)[:2]
+    assert returning[0] - last_x > 3 * tracker.min_travel
+    tracker.update(_blobs([returning], on_bg=on_bg, light=light), t)
+    assert phone.seen and tracker.shown() == [phone] and (phone.x, phone.y) == returning
+    continuing = tracker._predict(phone, t + dt)[:2]
+    tracker.update(_blobs([continuing], on_bg=on_bg, light=light), t + dt)
+    assert phone.seen and tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("on_bg, light, accepted", [(False, 0.0, True), (True, 0.0, False), (False, 1.0, False)])
+def test_growing_uncertainty_alone_does_not_reacquire_a_background_light(on_bg, light, accepted):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t = phone.last_t
+    for k in range(1, 9):
+        tracker.update(_blobs([]), last_t + k * dt)
+    t, light_pos = last_t + 9 * dt, (520.0, 60.0)
+    px, py, reach = tracker._predict(phone, t)
+    motion_reach = tracker.gate_px + tracker.gate_speed_frac * math.hypot(phone.vx, phone.vy) * (t - phone.last_t)
+    assert motion_reach < math.hypot(light_pos[0] - px, light_pos[1] - py) <= reach
+    tracker.update(_blobs([light_pos], on_bg=on_bg, light=light), t)
+    assert phone.seen == accepted
+    if not accepted:
+        returning = tracker._predict(phone, t + dt)[:2]
+        tracker.update(_blobs([returning], on_bg=True, light=1.0), t + dt)
+        assert phone.seen and tracker.shown() == [phone] and (phone.x, phone.y) == returning
+
+
+@pytest.mark.parametrize("on_light, accepted", [(False, True), (True, False)])
+def test_an_unobserved_abrupt_stop_on_bright_background_can_remain_ambiguous(on_light, accepted):
+    from wfglink.ember.track import EmberTracker
+
+    tracker, dt = EmberTracker(load_config(), 457.0), 1 / 30
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), k * dt)
+    (phone,) = tracker.shown()
+    last_t = phone.last_t
+    for k in range(1, 9):
+        tracker.update(_blobs([]), last_t + k * dt)
+    # A stop while hidden contradicts the moving predictor. An unlit phone retains the full
+    # uncertainty reach; a bright-background return may be missed until independent support.
+    tracker.update(_blobs([(480.0, 300.0)], light=float(on_light)), last_t + 9 * dt)
+    assert phone.seen == accepted
+
+
+def test_tracker_keeps_a_lamp_on_its_own_track_as_a_phone_sweeps_past():
+    """A phone ember whose prediction lies as near a lamp as its phone takes the phone; the lamp
+    (hidden for a moment by a passer-by) goes back to its own track and never becomes an ember."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    tr = EmberTracker(cfg, 457.0)
+    lamp = (500.0, 300.0)
+    t = 0.0
+    for _ in range(90):                                    # the lamp alone for 3 s: a static light
+        tr.update(_blobs([lamp], light=1.0), t)
+        t += 1 / 30
+    (light_track,) = tr.tracks
+    assert light_track.static and not light_track.shown
+    # A phone comes from the left fast while a passer-by hides the lamp, and stops just short of
+    # it: the ember's prediction runs on to the lamp, 3 px from it and 20 px from the phone.
+    x = 277.0
+    for k in range(13):
+        x = 297.0 + 20.0 * k if k <= 9 else 477.0
+        pts = [(x, 300.0)] + ([] if k in (7, 8, 9) else [lamp])
+        tr.update(_blobs(pts), t)
+        t += 1 / 30
+    shown = tr.shown()
+    assert len(shown) == 1 and abs(shown[0].x - 477.0) < 1.0      # the ember stays on the phone, not the lamp
+    assert not light_track.shown and abs(light_track.x - lamp[0]) < 1.0
+
+
+@pytest.mark.parametrize("stride", [1, 2, 3])
+def test_moving_ember_does_not_take_a_returning_lamp_when_the_phone_is_hidden(stride):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6                     # the booth cap must not hide a false ember
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt = (500.0, 300.0), stride / 30
+    t = 0.0
+    for _ in range(int(3.0 / dt)):
+        tracker.update(_blobs([lamp], light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    assert light_track.static and not light_track.shown
+    # The lamp is hidden while a phone moves towards it. The phone's next prediction lands
+    # on the lamp just as the phone turns away and the lamp comes back.
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    assert tracker._predict(phone, t)[:2] == pytest.approx(lamp)
+    tracker.update(_blobs([lamp], light=1.0), t)
+    assert light_track.seen and (light_track.x, light_track.y) == lamp
+    assert not phone.seen and phone.x == 480.0
+    assert tracker.shown() == [phone]                   # the phone coasts with the same ID
+    returning = _blobs([(480.0, 300.0), lamp])
+    returning.light[:] = [0.0, 1.0]
+    tracker.update(returning, t + dt)
+    assert phone.seen and phone.x == 480.0 and not light_track.shown
+
+
+@pytest.mark.parametrize("stride", [1, 2, 3])
+def test_a_merged_blob_does_not_widen_the_lamps_pin_gate(stride):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt = (500.0, 300.0), stride / 30
+    t = 0.0
+    for _ in range(int(3.0 / dt)):
+        tracker.update(_blobs([lamp], light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([lamp], diam=100.0, light=1.0), t)   # phone and lamp briefly merge
+    tracker.update(_blobs([(450.0, 300.0)]), t + dt)          # the phone emerges, lamp hidden
+    assert not light_track.shown and tracker.shown() == [phone]
+    assert phone.seen and phone.x == 450.0
+
+
+@pytest.mark.parametrize("diam", [20.0, 60.0])
+def test_a_lamp_does_not_take_an_off_light_phone_from_its_coasting_ember(diam):
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    cfg["ember"]["max_tracks"] = 6
+    tracker = _sparse_tracker(cfg, 457.0)
+    lamp, dt, t = (500.0, 300.0), 1 / 30, 0.0
+    for _ in range(90):
+        tracker.update(_blobs([lamp], diam=diam, light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(10):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([lamp], diam=diam, light=1.0), t)
+    for x in range(520, 661, 20):
+        t += dt
+        tracker.update(_blobs([(float(x), 300.0)]), t)
+        assert tracker.shown() == [phone] and phone.seen and phone.x == x
+        assert not light_track.shown
+
+
+def test_one_lamp_owns_only_one_blob_and_a_nearby_phone_keeps_its_ember():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    lamp, dt, t = (500.0, 300.0), 1 / 30, 0.0
+    for _ in range(90):
+        tracker.update(_blobs([lamp], diam=60.0, light=1.0), t)
+        t += dt
+    (light_track,) = tracker.tracks
+    for k in range(9):
+        tracker.update(_blobs([(300.0 + 20 * k, 300.0)]), t)
+        t += dt
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([(480.0, 300.0), lamp], light=1.0), t)
+    assert phone.seen and phone.x == 480.0 and tracker.shown() == [phone]
+    assert light_track.seen and light_track.x == lamp[0] and not light_track.shown
+
+
+def test_a_moving_phone_on_an_unowned_light_map_blob_keeps_its_assignment():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for k in range(20):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    tracker.update(_blobs([(400.0, 300.0)], light=1.0), t)
+    assert phone.seen and phone.x == 400.0 and tracker.shown() == [phone]
+
+
+@pytest.mark.parametrize("light", [0.0, 1.0])
+def test_a_phone_held_still_before_it_moves_can_acquire_an_ember(light):
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for _ in range(90):
+        tracker.update(_blobs([(200.0, 300.0)], light=light, on_bg=True), t)
+        t += 1 / 30
+    assert tracker.shown() == [] and tracker.tracks[0].static
+    for k in range(1, 31):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    assert phone.seen and phone.x == 500.0
+
+
+def test_tracker_ends_an_ember_that_rests_on_a_light():
+    """An ember that comes to rest where the light map is bright (a lamp it caught) ends after
+    ember.track.light_rest_s; one resting on a dark wall stays (a visitor holding still)."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    for light, stays in ((0.9, False), (0.0, True)):
+        tr = EmberTracker(cfg, 457.0)
+        t, x = 0.0, 200.0
+        for _ in range(20):                                # a phone moves and shows
+            x += 10.0
+            tr.update(_blobs([(x, 300.0)]), t)
+            t += 1 / 30
+        assert len(tr.shown()) == 1
+        for _ in range(int(2.0 * 30)):                      # then rests for 2 s
+            tr.update(_blobs([(x, 300.0)], light=light), t)
+            t += 1 / 30
+        assert (len(tr.shown()) == 1) == stays, light
+
+
+def test_a_paused_phone_with_small_centroid_drift_keeps_its_assignment():
+    from wfglink.ember.track import EmberTracker
+
+    tracker = _sparse_tracker(load_config(), 457.0)
+    t = 0.0
+    for k in range(20):
+        tracker.update(_blobs([(200.0 + 10 * k, 300.0)]), t)
+        t += 1 / 30
+    (phone,) = tracker.shown()
+    for _ in range(10):
+        tracker.update(_blobs([(390.0, 300.0)]), t)
+        t += 1 / 30
+    # A paused phone's centroid drifts a little. Even on the light map, a speed near zero is
+    # no moving-phone hand-off, so association continues until the normal light-rest rule.
+    for k in range(10):
+        x = 390.0 + 0.1 * (k + 1)
+        tracker.update(_blobs([(x, 300.0)], light=1.0), t)
+        t += 1 / 30
+        assert tracker.shown() == [phone] and phone.seen and phone.x == x
+    assert 0 < math.hypot(phone.vx, phone.vy) < tracker.min_show_speed
+
+
+def test_tracker_does_not_show_a_track_on_a_jump():
+    """A blob that jumps (a TV picture's cut) has not moved like a phone: the jump does not count."""
+    from wfglink.ember.track import EmberTracker
+
+    cfg = load_config()
+    tr = EmberTracker(cfg, 457.0)
+    t = 0.0
+    for k in range(40):
+        p = (400.0, 300.0) if k < 20 else (460.0, 300.0)    # 0.13 m in one frame, then still
+        tr.update(_blobs([p]), t)
+        t += 1 / 30
+    assert tr.shown() == []
+
+
+@pytest.mark.slow
+def test_the_booth_scene_shows_no_lamp_as_an_ember():
+    """The demo scene (live --synthetic, the demo gate): LiveScene('booth', seed 1) for 40 s. No
+    ember sits on a static light for longer than the rest rule allows, and the count of embers
+    stays at or below the phones seen in the last 0.5 s in at least 97 percent of frames."""
+    seconds, fps = 40.0, 30
+    scene = synth.LiveScene("booth", size=(1280, 720), fps=fps, seed=1)
+    W = 1280
+    lights = [l["box"] for l in scene.scene.room.lights]
+    cfg = load_config()
+    pipe = EmberPipeline(cfg)
+    vis, over, run, longest = [], 0, 0, 0
+    n = int(seconds * fps)
+    for i in range(n):
+        t = i / fps
+        st = pipe.process(Frame(scene.render(t), t, i, t, {"camera": "fake: booth", "synthetic": True}))
+        truth = scene.scene.truth(t)
+        vis.append((t, sum(1 for p in truth if p.get("vis"))))
+        if (st.ember_count or 0) > max(k for tt, k in vis if tt >= t - 0.5):
+            over += 1
+        on_light = False
+        for e in st.embers:
+            near_phone = min((math.hypot(e["x"] - (W - 1 - p["x"]), e["y"] - p["y"]) for p in truth), default=1e9) <= 60
+            in_box = any(W - 1 - b[2] - 5 <= e["x"] <= W - 1 - b[0] + 5 and b[1] - 5 <= e["y"] <= b[3] + 5 for b in lights)
+            on_light |= in_box and not near_phone
+        run = run + 1 if on_light else 0
+        longest = max(longest, run)
+    assert longest / fps <= cfg["ember"]["track"]["light_rest_s"] + 1.0, longest / fps
+    assert 1 - over / n >= 0.97, over / n
+
+
+def test_record_with_its_preview_window(tmp_path):
+    """`record` with the countdown window, in its own process on the offscreen platform."""
+    import os
+    import subprocess
+    import sys
+
+    from wfglink.synth.degrade import read_video
+
+    cfg_path = tmp_path / "rec.yaml"
+    cfg_path.write_text("camera:\n  width: 640\n  height: 360\nember:\n  record:\n    countdown_s: 0.5\n", encoding="utf-8")
+    env = dict(os.environ, QT_QPA_PLATFORM="offscreen")
+    res = subprocess.run([sys.executable, "-m", "wfglink", "record", "ember_ruler", "--seconds", "1.5", "--out-dir",
+                          str(tmp_path), "--fake-camera", "two_at_2m", "--config", str(cfg_path)],
+                         capture_output=True, text=True, timeout=120, env=env)
+    assert res.returncode == 0, res.stdout + res.stderr
+    frames, pts = read_video(tmp_path / "ember_ruler.mp4")
+    assert len(frames) >= 20 and pts[-1] <= 1.5 + 1e-6
+
+
+def test_ember_state_renders_on_the_booth_screen():
+    from PySide6.QtGui import QGuiApplication
+
+    from wfglink.render.scene import render_image
+
+    app = QGuiApplication.instance() or QGuiApplication([])  # noqa: F841
+
+    traj = _line(2.0, -0.3, 0.0, 0.7, 2.0)
+    sc = synth.make_scene("one", size=SMALL, seconds=2.0, seed=5, spec={"phones": [{"z": 2.0, "trajectory": traj}]})
+    _, states = _run(sc, _cfg(sc), 1.5)
+    img = render_image(960, 540, states[-1], "ko")
+    assert img.width() == 960 and not img.isNull()
+
+
+def test_pipeline_cost_per_frame():
+    sc = synth.make_scene("three_mixed", size=(1280, 720), seconds=3.0, seed=6)
+    pipe, _ = _run(sc, _cfg(sc), 2.0)
+    # About 10 ms per 1280x720 frame is the budget; this machine is shared, so allow some room.
+    assert pipe.stats.as_dict()["proc_ms_median"] < 20.0

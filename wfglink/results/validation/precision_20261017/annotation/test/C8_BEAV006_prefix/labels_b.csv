@@ -1,0 +1,33 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,172,39.5,1,1,m,"isolated diagonal combed streak in smoke above the flame, from about (168,35) to (176,44), only in k0"
+w000,1,169.5,19.5,0.5,2,s,"faint transient combed dot in smoky area, only in k1"
+w000,2,179.5,32.5,0.5,3,s,"transient combed bright spot at top of thin dark twig, only in k2"
+w001,,,,,,,none
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,3,82,113,0.5,1,s,"small whitish dot near thin dark trunk, falling right and down"
+w005,4,91,124,0.5,1,s,"very faint, on the track"
+w005,5,95,136,0.5,1,s,small whitish dot further down
+w006,,,,,,,none
+w007,4,14,42,0.5,1,m,pale whitish short diagonal streak appears in dark area
+w007,5,18,43,0.5,1,m,same streak drifted right about 4 px
+w008,5,118.5,141,0.5,1,m,"pale white combed short streak below glowing twig, only in k5; could be lit ash"
+w009,0,67,36,0.5,3,m,faint whitish horizontal double streak moving fast left
+w009,1,38,33,0.5,3,m,"same faint streak, gone after this frame"
+w009,2,70,80,0.5,1,l,"curved bright twig like firebrand falling left and down after leaving the trunk edge, line from about (47,92) to (92,68)"
+w009,2,114,144,0.5,4,m,"faint combed object in front of trunk, falling left and down"
+w009,2,100,41,0.5,5,s,"dim dot on dark trunk, start of a falling track"
+w009,3,42,93,0.5,1,l,"same falling twig firebrand, line from about (19,109) to (65,77), bright ends"
+w009,3,93,161,0.5,4,l,same faint combed object over sky left of trunk
+w009,3,99,56,1,5,l,bright vertical combed streak falling in front of dark trunk
+w009,4,17,89,0.5,1,l,"same object now near vertical, two combed bright ends near (17,79) and (16,100)"
+w009,4,62,65,1,2,m,small white combed particle in open sky moving left
+w009,4,61,188,0.5,4,l,"same object now bright yellow white at bottom edge, then leaves tile"
+w009,4,102,72,1,5,m,same ember continuing down
+w009,4,96,46,0.5,6,s,second small dot falling in front of trunk behind ember 5
+w009,5,42,74,1,2,m,"same particle, moved left and down"
+w009,5,107,94,0.5,5,m,"same ember further down, short streak"
+w009,5,102,72,0.5,6,s,same dot moved down
+w010,,,,,,,none
+w011,,,,,,,none

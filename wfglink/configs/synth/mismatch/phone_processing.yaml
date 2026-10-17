@@ -1,0 +1,5 @@
+# Mismatch variant: phone-style processing (HELD OUT). Temporal denoise blends the previous
+# frame in, then an unsharp mask sharpens; both change ember shapes and the noise texture.
+mismatch:
+  denoise_alpha: 0.6
+  sharpen: {amount: 0.7, sigma_px: 1.0}

@@ -1,0 +1,4499 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T19:14:09+08:00",
+  "windows_dir": "/home/user/wildfireguardian/wfglink/results/runs/precision_20261017/windows/C8_BLAC001_C2",
+  "window_set_id": "ec07fc1fb96fef1c",
+  "clip_id": "C8_BLAC001_C2",
+  "video_sha256": "5a7e91ef5d862e9871934739d0c53bf74d22f911a89d97d7dad1eaa3ed0071d9",
+  "roi_px": [
+    0,
+    0,
+    640,
+    480
+  ],
+  "segment_s": [
+    0.0,
+    null
+  ],
+  "manifest_sha256": "ec07fc1fb96fef1cee8c93dcf62fd11d47c783ee60cab1f62856c3cdc6aca3bc",
+  "labels": {
+    "a": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/test/C8_BLAC001_C2/labels_a.csv",
+      "sha256": "a4aa52b8533b4a481a26dc482cbbca13955d20e7feb26d5df7198824b81d3fca"
+    },
+    "b": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/test/C8_BLAC001_C2/labels_b.csv",
+      "sha256": "7816977216d6c47a22e750aea839ee98fe4fe861ec7244891c5f23bac60dd069"
+    },
+    "adjudicator": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/test/C8_BLAC001_C2/labels_adjudicator.csv",
+      "sha256": "3f7ab13af8cf4b4457c5ae0b84dfbb8a45aecf39f019e615f4473cd9bb591943"
+    }
+  },
+  "rules": {
+    "match_px": 3.0,
+    "edge_px": 4.0,
+    "min_points": 3,
+    "min_confidence": 0.75,
+    "coordinates": "x, y: ROI crop pixels as in detections.parquet; tx, ty: tile pixels"
+  },
+  "windows": [
+    {
+      "window_id": "w000",
+      "frames": [
+        439,
+        440,
+        441,
+        442,
+        443,
+        444
+      ],
+      "t": [
+        17.6,
+        17.64,
+        17.68,
+        17.72,
+        17.76,
+        17.8
+      ],
+      "x0": 287,
+      "y0": 271,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3",
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 99.15,
+              "ty": 105.9,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 439,
+              "t": 17.6,
+              "x": 386.15,
+              "y": 376.9
+            }
+          ],
+          "truth_id": "w000_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 102.8,
+              "ty": 48.85,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 439,
+              "t": 17.6,
+              "x": 389.8,
+              "y": 319.85
+            },
+            {
+              "k": 1,
+              "tx": 102.5,
+              "ty": 49.75,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 440,
+              "t": 17.64,
+              "x": 389.5,
+              "y": 320.75
+            },
+            {
+              "k": 2,
+              "tx": 104.85,
+              "ty": 47.85,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 441,
+              "t": 17.68,
+              "x": 391.85,
+              "y": 318.85
+            }
+          ],
+          "truth_id": "w000_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 133.15,
+              "ty": 56.95,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 439,
+              "t": 17.6,
+              "x": 420.15,
+              "y": 327.95
+            },
+            {
+              "k": 1,
+              "tx": 134.1,
+              "ty": 56.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 440,
+              "t": 17.64,
+              "x": 421.1,
+              "y": 327.8
+            },
+            {
+              "k": 2,
+              "tx": 134.85,
+              "ty": 54.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 441,
+              "t": 17.68,
+              "x": 421.85,
+              "y": 325.8
+            }
+          ],
+          "truth_id": "w000_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4",
+            "b/e/4"
+          ],
+          "points": [
+            {
+              "k": 2,
+              "tx": 124.0,
+              "ty": 118.25,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 441,
+              "t": 17.68,
+              "x": 411.0,
+              "y": 389.25
+            },
+            {
+              "k": 3,
+              "tx": 126.05,
+              "ty": 114.9,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 442,
+              "t": 17.72,
+              "x": 413.05,
+              "y": 385.9
+            },
+            {
+              "k": 4,
+              "tx": 128.9,
+              "ty": 109.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 443,
+              "t": 17.76,
+              "x": 415.9,
+              "y": 380.8
+            }
+          ],
+          "truth_id": "w000_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5",
+            "b/e/5"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 141.2,
+              "ty": 108.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 443,
+              "t": 17.76,
+              "x": 428.2,
+              "y": 379.8
+            }
+          ],
+          "truth_id": "w000_04"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 439,
+          "t": 17.6,
+          "x": 386.15,
+          "y": 376.9,
+          "truth_id": "w000_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 439,
+          "t": 17.6,
+          "x": 389.8,
+          "y": 319.85,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 440,
+          "t": 17.64,
+          "x": 389.5,
+          "y": 320.75,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 441,
+          "t": 17.68,
+          "x": 391.85,
+          "y": 318.85,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 439,
+          "t": 17.6,
+          "x": 420.15,
+          "y": 327.95,
+          "truth_id": "w000_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 440,
+          "t": 17.64,
+          "x": 421.1,
+          "y": 327.8,
+          "truth_id": "w000_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 441,
+          "t": 17.68,
+          "x": 421.85,
+          "y": 325.8,
+          "truth_id": "w000_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 441,
+          "t": 17.68,
+          "x": 411.0,
+          "y": 389.25,
+          "truth_id": "w000_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 442,
+          "t": 17.72,
+          "x": 413.05,
+          "y": 385.9,
+          "truth_id": "w000_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 443,
+          "t": 17.76,
+          "x": 415.9,
+          "y": 380.8,
+          "truth_id": "w000_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 443,
+          "t": 17.76,
+          "x": 428.2,
+          "y": 379.8,
+          "truth_id": "w000_04",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [
+        {
+          "k": 1,
+          "tx": 126.0,
+          "ty": 112.2,
+          "reason": "confidence differs",
+          "frame": 440,
+          "x": 413.0,
+          "y": 383.2
+        }
+      ],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w001",
+      "frames": [
+        563,
+        564,
+        565,
+        566,
+        567,
+        568
+      ],
+      "t": [
+        22.56,
+        22.6,
+        22.64,
+        22.68,
+        22.72,
+        22.76
+      ],
+      "x0": 53,
+      "y0": 38,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 107.7,
+              "ty": 30.9,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 564,
+              "t": 22.6,
+              "x": 160.7,
+              "y": 68.9
+            }
+          ],
+          "truth_id": "w001_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2"
+          ],
+          "points": [
+            {
+              "k": 2,
+              "tx": 168.0,
+              "ty": 115.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 565,
+              "t": 22.64,
+              "x": 221.0,
+              "y": 153.0
+            }
+          ],
+          "truth_id": "w001_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3",
+            "c/e/1"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 101.0,
+              "ty": 96.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 566,
+              "t": 22.68,
+              "x": 154.0,
+              "y": 134.0
+            }
+          ],
+          "truth_id": "w001_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 109.0,
+              "ty": 97.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 566,
+              "t": 22.68,
+              "x": 162.0,
+              "y": 135.0
+            }
+          ],
+          "truth_id": "w001_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4",
+            "c/e/2"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 115.0,
+              "ty": 94.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 566,
+              "t": 22.68,
+              "x": 168.0,
+              "y": 132.0
+            }
+          ],
+          "truth_id": "w001_04"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 147.0,
+              "ty": 167.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 566,
+              "t": 22.68,
+              "x": 200.0,
+              "y": 205.0
+            }
+          ],
+          "truth_id": "w001_05"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/10"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 39.0,
+              "ty": 104.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 92.0,
+              "y": 142.0
+            }
+          ],
+          "truth_id": "w001_06"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/11"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 44.0,
+              "ty": 120.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 97.0,
+              "y": 158.0
+            }
+          ],
+          "truth_id": "w001_07"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/6",
+            "c/e/3"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 105.0,
+              "ty": 74.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 158.0,
+              "y": 112.0
+            }
+          ],
+          "truth_id": "w001_08"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 110.0,
+              "ty": 73.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 163.0,
+              "y": 111.5
+            }
+          ],
+          "truth_id": "w001_09"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/7"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 113.0,
+              "ty": 37.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 166.0,
+              "y": 75.0
+            }
+          ],
+          "truth_id": "w001_10"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/9"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 166.0,
+              "ty": 31.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 219.0,
+              "y": 69.0
+            }
+          ],
+          "truth_id": "w001_11"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/8",
+            "b/e/4",
+            "c/e/4"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 186.3,
+              "ty": 68.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 567,
+              "t": 22.72,
+              "x": 239.3,
+              "y": 106.8
+            }
+          ],
+          "truth_id": "w001_12"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/20"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 13.0,
+              "ty": 54.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 568,
+              "t": 22.76,
+              "x": 66.0,
+              "y": 92.0
+            }
+          ],
+          "truth_id": "w001_13"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/16",
+            "b/e/5",
+            "c/e/5"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 44.0,
+              "ty": 173.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 568,
+              "t": 22.76,
+              "x": 97.0,
+              "y": 211.0
+            }
+          ],
+          "truth_id": "w001_14"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/19"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 46.0,
+              "ty": 38.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 568,
+              "t": 22.76,
+              "x": 99.0,
+              "y": 76.0
+            }
+          ],
+          "truth_id": "w001_15"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/18"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 104.0,
+              "ty": 32.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 568,
+              "t": 22.76,
+              "x": 157.0,
+              "y": 70.0
+            }
+          ],
+          "truth_id": "w001_16"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/17",
+            "b/e/6",
+            "c/e/6"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 126.0,
+              "ty": 158.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 568,
+              "t": 22.76,
+              "x": 179.0,
+              "y": 196.0
+            }
+          ],
+          "truth_id": "w001_17"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/21"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 150.0,
+              "ty": 60.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 568,
+              "t": 22.76,
+              "x": 203.0,
+              "y": 98.0
+            }
+          ],
+          "truth_id": "w001_18"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 1,
+          "frame": 564,
+          "t": 22.6,
+          "x": 160.7,
+          "y": 68.9,
+          "truth_id": "w001_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 565,
+          "t": 22.64,
+          "x": 221.0,
+          "y": 153.0,
+          "truth_id": "w001_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 566,
+          "t": 22.68,
+          "x": 154.0,
+          "y": 134.0,
+          "truth_id": "w001_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 566,
+          "t": 22.68,
+          "x": 162.0,
+          "y": 135.0,
+          "truth_id": "w001_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 566,
+          "t": 22.68,
+          "x": 168.0,
+          "y": 132.0,
+          "truth_id": "w001_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 566,
+          "t": 22.68,
+          "x": 200.0,
+          "y": 205.0,
+          "truth_id": "w001_05",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 92.0,
+          "y": 142.0,
+          "truth_id": "w001_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 97.0,
+          "y": 158.0,
+          "truth_id": "w001_07",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 158.0,
+          "y": 112.0,
+          "truth_id": "w001_08",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 163.0,
+          "y": 111.5,
+          "truth_id": "w001_09",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 166.0,
+          "y": 75.0,
+          "truth_id": "w001_10",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 219.0,
+          "y": 69.0,
+          "truth_id": "w001_11",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 567,
+          "t": 22.72,
+          "x": 239.3,
+          "y": 106.8,
+          "truth_id": "w001_12",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 66.0,
+          "y": 92.0,
+          "truth_id": "w001_13",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 97.0,
+          "y": 211.0,
+          "truth_id": "w001_14",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 99.0,
+          "y": 76.0,
+          "truth_id": "w001_15",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 157.0,
+          "y": 70.0,
+          "truth_id": "w001_16",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 179.0,
+          "y": 196.0,
+          "truth_id": "w001_17",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 568,
+          "t": 22.76,
+          "x": 203.0,
+          "y": 98.0,
+          "truth_id": "w001_18",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [
+        {
+          "k": 5,
+          "tx": 28.0,
+          "ty": 91.0,
+          "reason": "only a",
+          "frame": 568,
+          "x": 81.0,
+          "y": 129.0
+        },
+        {
+          "k": 5,
+          "tx": 44.0,
+          "ty": 92.0,
+          "reason": "only a",
+          "frame": 568,
+          "x": 97.0,
+          "y": 130.0
+        },
+        {
+          "k": 5,
+          "tx": 26.0,
+          "ty": 121.0,
+          "reason": "only a",
+          "frame": 568,
+          "x": 79.0,
+          "y": 159.0
+        },
+        {
+          "k": 5,
+          "tx": 46.0,
+          "ty": 134.0,
+          "reason": "only a",
+          "frame": 568,
+          "x": 99.0,
+          "y": 172.0
+        }
+      ],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w002",
+      "frames": [
+        66,
+        68,
+        70,
+        72,
+        74,
+        75
+      ],
+      "t": [
+        2.72,
+        2.8,
+        2.88,
+        2.96,
+        3.0,
+        3.08
+      ],
+      "x0": 121,
+      "y0": 239,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 6,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 103.2,
+              "ty": 86.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 66,
+              "t": 2.72,
+              "x": 224.2,
+              "y": 325.5
+            },
+            {
+              "k": 1,
+              "tx": 104.0,
+              "ty": 89.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 68,
+              "t": 2.8,
+              "x": 225.0,
+              "y": 328.5
+            },
+            {
+              "k": 2,
+              "tx": 103.1,
+              "ty": 88.6,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 70,
+              "t": 2.88,
+              "x": 224.1,
+              "y": 327.6
+            },
+            {
+              "k": 3,
+              "tx": 104.0,
+              "ty": 88.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 72,
+              "t": 2.96,
+              "x": 225.0,
+              "y": 327.3
+            },
+            {
+              "k": 4,
+              "tx": 103.4,
+              "ty": 88.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 74,
+              "t": 3.0,
+              "x": 224.4,
+              "y": 327.4
+            },
+            {
+              "k": 5,
+              "tx": 104.0,
+              "ty": 89.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 75,
+              "t": 3.08,
+              "x": 225.0,
+              "y": 328.0
+            }
+          ],
+          "truth_id": "w002_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 150.0,
+              "ty": 172.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 66,
+              "t": 2.72,
+              "x": 271.0,
+              "y": 411.5
+            }
+          ],
+          "truth_id": "w002_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/3",
+            "c/e/1"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 176.0,
+              "ty": 142.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 68,
+              "t": 2.8,
+              "x": 297.0,
+              "y": 381.0
+            }
+          ],
+          "truth_id": "w002_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4",
+            "b/e/6",
+            "c/e/4"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 29.0,
+              "ty": 22.5,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 72,
+              "t": 2.96,
+              "x": 150.0,
+              "y": 261.5
+            }
+          ],
+          "truth_id": "w002_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5",
+            "b/e/7"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 50.0,
+              "ty": 103.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 72,
+              "t": 2.96,
+              "x": 171.0,
+              "y": 342.5
+            }
+          ],
+          "truth_id": "w002_04"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3",
+            "b/e/4",
+            "c/e/3"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 69.0,
+              "ty": 7.5,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 72,
+              "t": 2.96,
+              "x": 190.0,
+              "y": 246.5
+            }
+          ],
+          "truth_id": "w002_05"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "b/e/5",
+            "c/e/5"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 86.75,
+              "ty": 50.95,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "both",
+              "frame": 72,
+              "t": 2.96,
+              "x": 207.75,
+              "y": 289.95
+            }
+          ],
+          "truth_id": "w002_06"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/8",
+            "c/e/2"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 184.0,
+              "ty": 93.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 72,
+              "t": 2.96,
+              "x": 305.0,
+              "y": 332.0
+            }
+          ],
+          "truth_id": "w002_07"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/11"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 29.6,
+              "ty": 108.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 74,
+              "t": 3.0,
+              "x": 150.6,
+              "y": 347.8
+            }
+          ],
+          "truth_id": "w002_08"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/8",
+            "b/e/10"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 48.4,
+              "ty": 72.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 74,
+              "t": 3.0,
+              "x": 169.4,
+              "y": 311.0
+            }
+          ],
+          "truth_id": "w002_09"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/9",
+            "b/e/9",
+            "c/e/6"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 64.0,
+              "ty": 105.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 74,
+              "t": 3.0,
+              "x": 185.0,
+              "y": 344.5
+            }
+          ],
+          "truth_id": "w002_10"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/7",
+            "b/e/12"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 100.2,
+              "ty": 71.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "both",
+              "frame": 74,
+              "t": 3.0,
+              "x": 221.2,
+              "y": 310.0
+            }
+          ],
+          "truth_id": "w002_11"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/11"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 82.0,
+              "ty": 138.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 75,
+              "t": 3.08,
+              "x": 203.0,
+              "y": 377.0
+            }
+          ],
+          "truth_id": "w002_12"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/10",
+            "b/e/13",
+            "c/e/7"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 171.05,
+              "ty": 171.85,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "both",
+              "frame": 75,
+              "t": 3.08,
+              "x": 292.05,
+              "y": 410.85
+            }
+          ],
+          "truth_id": "w002_13"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 66,
+          "t": 2.72,
+          "x": 224.2,
+          "y": 325.5,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 68,
+          "t": 2.8,
+          "x": 225.0,
+          "y": 328.5,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 70,
+          "t": 2.88,
+          "x": 224.1,
+          "y": 327.6,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 225.0,
+          "y": 327.3,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 74,
+          "t": 3.0,
+          "x": 224.4,
+          "y": 327.4,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 75,
+          "t": 3.08,
+          "x": 225.0,
+          "y": 328.0,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 66,
+          "t": 2.72,
+          "x": 271.0,
+          "y": 411.5,
+          "truth_id": "w002_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 68,
+          "t": 2.8,
+          "x": 297.0,
+          "y": 381.0,
+          "truth_id": "w002_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 150.0,
+          "y": 261.5,
+          "truth_id": "w002_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 171.0,
+          "y": 342.5,
+          "truth_id": "w002_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 190.0,
+          "y": 246.5,
+          "truth_id": "w002_05",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 207.75,
+          "y": 289.95,
+          "truth_id": "w002_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 72,
+          "t": 2.96,
+          "x": 305.0,
+          "y": 332.0,
+          "truth_id": "w002_07",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 74,
+          "t": 3.0,
+          "x": 150.6,
+          "y": 347.8,
+          "truth_id": "w002_08",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 74,
+          "t": 3.0,
+          "x": 169.4,
+          "y": 311.0,
+          "truth_id": "w002_09",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 74,
+          "t": 3.0,
+          "x": 185.0,
+          "y": 344.5,
+          "truth_id": "w002_10",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 74,
+          "t": 3.0,
+          "x": 221.2,
+          "y": 310.0,
+          "truth_id": "w002_11",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 75,
+          "t": 3.08,
+          "x": 203.0,
+          "y": 377.0,
+          "truth_id": "w002_12",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 75,
+          "t": 3.08,
+          "x": 292.05,
+          "y": 410.85,
+          "truth_id": "w002_13",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [
+        {
+          "k": 3,
+          "tx": 180.0,
+          "ty": 92.0,
+          "reason": "only a",
+          "frame": 72,
+          "x": 301.0,
+          "y": 331.0
+        }
+      ],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w003",
+      "frames": [
+        834,
+        836,
+        838,
+        839,
+        841,
+        842
+      ],
+      "t": [
+        33.44,
+        33.52,
+        33.6,
+        33.64,
+        33.72,
+        33.76
+      ],
+      "x0": 25,
+      "y0": 99,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 134.0,
+              "ty": 157.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 834,
+              "t": 33.44,
+              "x": 159.0,
+              "y": 256.0
+            }
+          ],
+          "truth_id": "w003_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 834,
+          "t": 33.44,
+          "x": 159.0,
+          "y": 256.0,
+          "truth_id": "w003_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w004",
+      "frames": [
+        533,
+        534,
+        536,
+        538,
+        539,
+        541
+      ],
+      "t": [
+        21.4,
+        21.44,
+        21.52,
+        21.6,
+        21.64,
+        21.72
+      ],
+      "x0": 221,
+      "y0": 186,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 91.6,
+              "ty": 94.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 534,
+              "t": 21.44,
+              "x": 312.6,
+              "y": 280.4
+            }
+          ],
+          "truth_id": "w004_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 111.75,
+              "ty": 124.35,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "both",
+              "frame": 538,
+              "t": 21.6,
+              "x": 332.75,
+              "y": 310.35
+            }
+          ],
+          "truth_id": "w004_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 174.8,
+              "ty": 159.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 538,
+              "t": 21.6,
+              "x": 395.8,
+              "y": 345.3
+            }
+          ],
+          "truth_id": "w004_02"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 1,
+          "frame": 534,
+          "t": 21.44,
+          "x": 312.6,
+          "y": 280.4,
+          "truth_id": "w004_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 538,
+          "t": 21.6,
+          "x": 332.75,
+          "y": 310.35,
+          "truth_id": "w004_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 538,
+          "t": 21.6,
+          "x": 395.8,
+          "y": 345.3,
+          "truth_id": "w004_02",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w005",
+      "frames": [
+        598,
+        600,
+        602,
+        604,
+        606,
+        608
+      ],
+      "t": [
+        24.0,
+        24.08,
+        24.16,
+        24.24,
+        24.32,
+        24.4
+      ],
+      "x0": 266,
+      "y0": 73,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 25.8,
+              "ty": 11.05,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "both",
+              "frame": 600,
+              "t": 24.08,
+              "x": 291.8,
+              "y": 84.05
+            }
+          ],
+          "truth_id": "w005_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 1,
+          "frame": 600,
+          "t": 24.08,
+          "x": 291.8,
+          "y": 84.05,
+          "truth_id": "w005_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w006",
+      "frames": [
+        108,
+        110,
+        112,
+        114,
+        116,
+        118
+      ],
+      "t": [
+        4.4,
+        4.48,
+        4.56,
+        4.64,
+        4.72,
+        4.8
+      ],
+      "x0": 372,
+      "y0": 281,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w007",
+      "frames": [
+        458,
+        460,
+        461,
+        463,
+        465,
+        467
+      ],
+      "t": [
+        18.4,
+        18.44,
+        18.52,
+        18.6,
+        18.68,
+        18.72
+      ],
+      "x0": 225,
+      "y0": 54,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w008",
+      "frames": [
+        155,
+        157,
+        159,
+        161,
+        163,
+        165
+      ],
+      "t": [
+        6.28,
+        6.36,
+        6.44,
+        6.52,
+        6.6,
+        6.68
+      ],
+      "x0": 211,
+      "y0": 116,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 52.0,
+              "ty": 169.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 155,
+              "t": 6.28,
+              "x": 263.0,
+              "y": 285.0
+            }
+          ],
+          "truth_id": "w008_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 4,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "c/e/1"
+          ],
+          "points": [
+            {
+              "k": 2,
+              "tx": 15.6,
+              "ty": 7.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 159,
+              "t": 6.44,
+              "x": 226.6,
+              "y": 123.5
+            },
+            {
+              "k": 3,
+              "tx": 19.5,
+              "ty": 6.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 161,
+              "t": 6.52,
+              "x": 230.5,
+              "y": 122.4
+            },
+            {
+              "k": 4,
+              "tx": 14.0,
+              "ty": 8.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 163,
+              "t": 6.6,
+              "x": 225.0,
+              "y": 124.5
+            },
+            {
+              "k": 5,
+              "tx": 11.8,
+              "ty": 9.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 165,
+              "t": 6.68,
+              "x": 222.8,
+              "y": 125.4
+            }
+          ],
+          "truth_id": "w008_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3",
+            "b/e/4",
+            "c/e/2"
+          ],
+          "points": [
+            {
+              "k": 2,
+              "tx": 18.5,
+              "ty": 162.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 159,
+              "t": 6.44,
+              "x": 229.5,
+              "y": 278.0
+            }
+          ],
+          "truth_id": "w008_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5",
+            "b/e/1",
+            "c/e/4"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 18.5,
+              "ty": 114.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 161,
+              "t": 6.52,
+              "x": 229.5,
+              "y": 230.0
+            }
+          ],
+          "truth_id": "w008_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 1,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4",
+            "b/e/2",
+            "c/e/3"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 49.0,
+              "ty": 92.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 161,
+              "t": 6.52,
+              "x": 260.0,
+              "y": 208.0
+            }
+          ],
+          "truth_id": "w008_04"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/6"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 190.3,
+              "ty": 152.0,
+              "sure": false,
+              "edge": true,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 163,
+              "t": 6.6,
+              "x": 401.3,
+              "y": 268.0
+            }
+          ],
+          "truth_id": "w008_05"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/7",
+            "b/e/3",
+            "c/e/5"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 180.0,
+              "ty": 134.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 165,
+              "t": 6.68,
+              "x": 391.0,
+              "y": 250.5
+            }
+          ],
+          "truth_id": "w008_06"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 155,
+          "t": 6.28,
+          "x": 263.0,
+          "y": 285.0,
+          "truth_id": "w008_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 159,
+          "t": 6.44,
+          "x": 226.6,
+          "y": 123.5,
+          "truth_id": "w008_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 161,
+          "t": 6.52,
+          "x": 230.5,
+          "y": 122.4,
+          "truth_id": "w008_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 163,
+          "t": 6.6,
+          "x": 225.0,
+          "y": 124.5,
+          "truth_id": "w008_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 165,
+          "t": 6.68,
+          "x": 222.8,
+          "y": 125.4,
+          "truth_id": "w008_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 159,
+          "t": 6.44,
+          "x": 229.5,
+          "y": 278.0,
+          "truth_id": "w008_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 161,
+          "t": 6.52,
+          "x": 229.5,
+          "y": 230.0,
+          "truth_id": "w008_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 161,
+          "t": 6.52,
+          "x": 260.0,
+          "y": 208.0,
+          "truth_id": "w008_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 163,
+          "t": 6.6,
+          "x": 401.3,
+          "y": 268.0,
+          "truth_id": "w008_05",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 165,
+          "t": 6.68,
+          "x": 391.0,
+          "y": 250.5,
+          "truth_id": "w008_06",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w009",
+      "frames": [
+        761,
+        763,
+        764,
+        766,
+        768,
+        770
+      ],
+      "t": [
+        30.52,
+        30.6,
+        30.64,
+        30.72,
+        30.8,
+        30.88
+      ],
+      "x0": 143,
+      "y0": 202,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": true,
+          "ambiguous": false,
+          "n_points": 6,
+          "n_sure": 5,
+          "reason": "",
+          "nodes": [
+            "a/e/1",
+            "b/e/1",
+            "c/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 87.3,
+              "ty": 125.8,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 761,
+              "t": 30.52,
+              "x": 230.3,
+              "y": 327.8
+            },
+            {
+              "k": 1,
+              "tx": 86.5,
+              "ty": 126.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 763,
+              "t": 30.6,
+              "x": 229.5,
+              "y": 328.0
+            },
+            {
+              "k": 2,
+              "tx": 86.0,
+              "ty": 126.5,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 764,
+              "t": 30.64,
+              "x": 229.0,
+              "y": 328.5
+            },
+            {
+              "k": 3,
+              "tx": 83.2,
+              "ty": 126.4,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 766,
+              "t": 30.72,
+              "x": 226.2,
+              "y": 328.4
+            },
+            {
+              "k": 4,
+              "tx": 80.8,
+              "ty": 126.1,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 768,
+              "t": 30.8,
+              "x": 223.8,
+              "y": 328.1
+            },
+            {
+              "k": 5,
+              "tx": 79.0,
+              "ty": 127.0,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 770,
+              "t": 30.88,
+              "x": 222.0,
+              "y": 329.0
+            }
+          ],
+          "truth_id": "w009_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5",
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 103.25,
+              "ty": 44.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 761,
+              "t": 30.52,
+              "x": 246.25,
+              "y": 246.0
+            }
+          ],
+          "truth_id": "w009_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "c/e/2"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 65.2,
+              "ty": 166.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 766,
+              "t": 30.72,
+              "x": 208.2,
+              "y": 368.2
+            }
+          ],
+          "truth_id": "w009_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/6"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 80.0,
+              "ty": 9.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 766,
+              "t": 30.72,
+              "x": 223.0,
+              "y": 211.5
+            }
+          ],
+          "truth_id": "w009_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 45.6,
+              "ty": 158.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 768,
+              "t": 30.8,
+              "x": 188.6,
+              "y": 360.8
+            }
+          ],
+          "truth_id": "w009_04"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 55.7,
+              "ty": 122.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 768,
+              "t": 30.8,
+              "x": 198.7,
+              "y": 324.8
+            },
+            {
+              "k": 5,
+              "tx": 57.0,
+              "ty": 120.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 770,
+              "t": 30.88,
+              "x": 200.0,
+              "y": 322.0
+            }
+          ],
+          "truth_id": "w009_05"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 1,
+          "frame": 763,
+          "t": 30.6,
+          "x": 229.5,
+          "y": 328.0,
+          "truth_id": "w009_00",
+          "reason": "unsure"
+        },
+        {
+          "k": 0,
+          "frame": 761,
+          "t": 30.52,
+          "x": 246.25,
+          "y": 246.0,
+          "truth_id": "w009_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 766,
+          "t": 30.72,
+          "x": 208.2,
+          "y": 368.2,
+          "truth_id": "w009_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 766,
+          "t": 30.72,
+          "x": 223.0,
+          "y": 211.5,
+          "truth_id": "w009_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 768,
+          "t": 30.8,
+          "x": 188.6,
+          "y": 360.8,
+          "truth_id": "w009_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 768,
+          "t": 30.8,
+          "x": 198.7,
+          "y": 324.8,
+          "truth_id": "w009_05",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 770,
+          "t": 30.88,
+          "x": 200.0,
+          "y": 322.0,
+          "truth_id": "w009_05",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [
+        {
+          "k": 3,
+          "tx": 62.0,
+          "ty": 164.0,
+          "reason": "only b",
+          "frame": 766,
+          "x": 205.0,
+          "y": 366.0
+        }
+      ],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 1
+    },
+    {
+      "window_id": "w010",
+      "frames": [
+        89,
+        90,
+        91,
+        92,
+        93,
+        94
+      ],
+      "t": [
+        3.6,
+        3.64,
+        3.68,
+        3.72,
+        3.76,
+        3.84
+      ],
+      "x0": 83,
+      "y0": 69,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4",
+            "b/e/7"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 78.85,
+              "ty": 176.75,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 89,
+              "t": 3.6,
+              "x": 161.85,
+              "y": 245.75
+            }
+          ],
+          "truth_id": "w010_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 139.0,
+              "ty": 48.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 89,
+              "t": 3.6,
+              "x": 222.0,
+              "y": 117.5
+            }
+          ],
+          "truth_id": "w010_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/5"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 188.0,
+              "ty": 109.0,
+              "sure": false,
+              "edge": true,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 89,
+              "t": 3.6,
+              "x": 271.0,
+              "y": 178.0
+            }
+          ],
+          "truth_id": "w010_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/6"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 172.35,
+              "ty": 86.05,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 90,
+              "t": 3.64,
+              "x": 255.35,
+              "y": 155.05
+            },
+            {
+              "k": 2,
+              "tx": 189.8,
+              "ty": 77.0,
+              "sure": false,
+              "edge": true,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 91,
+              "t": 3.68,
+              "x": 272.8,
+              "y": 146.0
+            }
+          ],
+          "truth_id": "w010_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 174.35,
+              "ty": 182.65,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 90,
+              "t": 3.64,
+              "x": 257.35,
+              "y": 251.65
+            }
+          ],
+          "truth_id": "w010_04"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5"
+          ],
+          "points": [
+            {
+              "k": 2,
+              "tx": 163.0,
+              "ty": 1.0,
+              "sure": false,
+              "edge": true,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 91,
+              "t": 3.68,
+              "x": 246.0,
+              "y": 70.0
+            }
+          ],
+          "truth_id": "w010_05"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 167.6,
+              "ty": 167.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 92,
+              "t": 3.72,
+              "x": 250.6,
+              "y": 236.0
+            },
+            {
+              "k": 4,
+              "tx": 164.3,
+              "ty": 176.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 93,
+              "t": 3.76,
+              "x": 247.3,
+              "y": 245.3
+            },
+            {
+              "k": 5,
+              "tx": 162.6,
+              "ty": 177.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 94,
+              "t": 3.84,
+              "x": 245.6,
+              "y": 246.4
+            }
+          ],
+          "truth_id": "w010_06"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3",
+            "b/e/4"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 176.0,
+              "ty": 124.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 92,
+              "t": 3.72,
+              "x": 259.0,
+              "y": 193.0
+            },
+            {
+              "k": 4,
+              "tx": 187.5,
+              "ty": 120.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 93,
+              "t": 3.76,
+              "x": 270.5,
+              "y": 189.8
+            }
+          ],
+          "truth_id": "w010_07"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 89,
+          "t": 3.6,
+          "x": 161.85,
+          "y": 245.75,
+          "truth_id": "w010_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 89,
+          "t": 3.6,
+          "x": 222.0,
+          "y": 117.5,
+          "truth_id": "w010_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 89,
+          "t": 3.6,
+          "x": 271.0,
+          "y": 178.0,
+          "truth_id": "w010_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 90,
+          "t": 3.64,
+          "x": 255.35,
+          "y": 155.05,
+          "truth_id": "w010_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 91,
+          "t": 3.68,
+          "x": 272.8,
+          "y": 146.0,
+          "truth_id": "w010_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 90,
+          "t": 3.64,
+          "x": 257.35,
+          "y": 251.65,
+          "truth_id": "w010_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 91,
+          "t": 3.68,
+          "x": 246.0,
+          "y": 70.0,
+          "truth_id": "w010_05",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 92,
+          "t": 3.72,
+          "x": 250.6,
+          "y": 236.0,
+          "truth_id": "w010_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 93,
+          "t": 3.76,
+          "x": 247.3,
+          "y": 245.3,
+          "truth_id": "w010_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 94,
+          "t": 3.84,
+          "x": 245.6,
+          "y": 246.4,
+          "truth_id": "w010_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 92,
+          "t": 3.72,
+          "x": 259.0,
+          "y": 193.0,
+          "truth_id": "w010_07",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 93,
+          "t": 3.76,
+          "x": 270.5,
+          "y": 189.8,
+          "truth_id": "w010_07",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w011",
+      "frames": [
+        886,
+        888,
+        890,
+        892,
+        894,
+        895
+      ],
+      "t": [
+        35.52,
+        35.6,
+        35.68,
+        35.76,
+        35.84,
+        35.88
+      ],
+      "x0": 7,
+      "y0": 17,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w012",
+      "frames": [
+        959,
+        960,
+        962,
+        963,
+        965,
+        967
+      ],
+      "t": [
+        38.44,
+        38.48,
+        38.52,
+        38.6,
+        38.68,
+        38.76
+      ],
+      "x0": 84,
+      "y0": 48,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2"
+          ],
+          "points": [
+            {
+              "k": 5,
+              "tx": 155.4,
+              "ty": 24.6,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 967,
+              "t": 38.76,
+              "x": 239.4,
+              "y": 72.6
+            }
+          ],
+          "truth_id": "w012_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 5,
+          "frame": 967,
+          "t": 38.76,
+          "x": 239.4,
+          "y": 72.6,
+          "truth_id": "w012_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [
+        {
+          "k": 0,
+          "tx": 88.6,
+          "ty": 115.85,
+          "reason": "confidence differs",
+          "frame": 959,
+          "x": 172.6,
+          "y": 163.85
+        },
+        {
+          "k": 1,
+          "tx": 106.6,
+          "ty": 119.95,
+          "reason": "confidence differs",
+          "frame": 960,
+          "x": 190.6,
+          "y": 167.95
+        }
+      ],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w013",
+      "frames": [
+        719,
+        721,
+        723,
+        725,
+        727,
+        728
+      ],
+      "t": [
+        28.84,
+        28.92,
+        29.0,
+        29.08,
+        29.16,
+        29.2
+      ],
+      "x0": 1,
+      "y0": 43,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 119.5,
+              "ty": 184.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 719,
+              "t": 28.84,
+              "x": 120.5,
+              "y": 227.3
+            }
+          ],
+          "truth_id": "w013_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 86.1,
+              "ty": 84.7,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 721,
+              "t": 28.92,
+              "x": 87.1,
+              "y": 127.7
+            },
+            {
+              "k": 2,
+              "tx": 86.9,
+              "ty": 80.9,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 723,
+              "t": 29.0,
+              "x": 87.9,
+              "y": 123.9
+            },
+            {
+              "k": 3,
+              "tx": 87.1,
+              "ty": 82.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 725,
+              "t": 29.08,
+              "x": 88.1,
+              "y": 125.2
+            }
+          ],
+          "truth_id": "w013_01"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 719,
+          "t": 28.84,
+          "x": 120.5,
+          "y": 227.3,
+          "truth_id": "w013_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 721,
+          "t": 28.92,
+          "x": 87.1,
+          "y": 127.7,
+          "truth_id": "w013_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 723,
+          "t": 29.0,
+          "x": 87.9,
+          "y": 123.9,
+          "truth_id": "w013_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 725,
+          "t": 29.08,
+          "x": 88.1,
+          "y": 125.2,
+          "truth_id": "w013_01",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w014",
+      "frames": [
+        815,
+        817,
+        819,
+        820,
+        822,
+        823
+      ],
+      "t": [
+        32.68,
+        32.76,
+        32.84,
+        32.88,
+        32.96,
+        33.0
+      ],
+      "x0": 320,
+      "y0": 102,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 100.5,
+              "ty": 65.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 822,
+              "t": 32.96,
+              "x": 420.5,
+              "y": 167.8
+            }
+          ],
+          "truth_id": "w014_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 4,
+              "tx": 120.7,
+              "ty": 51.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 822,
+              "t": 32.96,
+              "x": 440.7,
+              "y": 153.4
+            }
+          ],
+          "truth_id": "w014_01"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 4,
+          "frame": 822,
+          "t": 32.96,
+          "x": 420.5,
+          "y": 167.8,
+          "truth_id": "w014_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 822,
+          "t": 32.96,
+          "x": 440.7,
+          "y": 153.4,
+          "truth_id": "w014_01",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w015",
+      "frames": [
+        1008,
+        1010,
+        1012,
+        1014,
+        1016,
+        1018
+      ],
+      "t": [
+        40.4,
+        40.48,
+        40.56,
+        40.64,
+        40.72,
+        40.8
+      ],
+      "x0": 402,
+      "y0": 205,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": true,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/5"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 29.0,
+              "ty": 60.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 431.0,
+              "y": 265.4
+            }
+          ],
+          "truth_id": "w015_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 6,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/4"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 32.7,
+              "ty": 98.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 434.7,
+              "y": 303.3
+            },
+            {
+              "k": 1,
+              "tx": 33.5,
+              "ty": 98.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1010,
+              "t": 40.48,
+              "x": 435.5,
+              "y": 303.4
+            },
+            {
+              "k": 2,
+              "tx": 35.0,
+              "ty": 99.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1012,
+              "t": 40.56,
+              "x": 437.0,
+              "y": 304.0
+            },
+            {
+              "k": 3,
+              "tx": 35.4,
+              "ty": 99.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1014,
+              "t": 40.64,
+              "x": 437.4,
+              "y": 304.0
+            },
+            {
+              "k": 4,
+              "tx": 34.6,
+              "ty": 101.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1016,
+              "t": 40.72,
+              "x": 436.6,
+              "y": 306.3
+            },
+            {
+              "k": 5,
+              "tx": 34.5,
+              "ty": 101.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1018,
+              "t": 40.8,
+              "x": 436.5,
+              "y": 306.3
+            }
+          ],
+          "truth_id": "w015_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/8"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 67.0,
+              "ty": 181.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 469.0,
+              "y": 386.2
+            },
+            {
+              "k": 1,
+              "tx": 66.9,
+              "ty": 180.9,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1010,
+              "t": 40.48,
+              "x": 468.9,
+              "y": 385.9
+            },
+            {
+              "k": 2,
+              "tx": 69.0,
+              "ty": 180.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1012,
+              "t": 40.56,
+              "x": 471.0,
+              "y": 385.0
+            }
+          ],
+          "truth_id": "w015_02"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/2",
+            "b/e/2",
+            "c/e/2"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 69.0,
+              "ty": 38.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "adjudicated",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 471.0,
+              "y": 243.4
+            }
+          ],
+          "truth_id": "w015_03"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 4,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/3"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 70.9,
+              "ty": 99.6,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 472.9,
+              "y": 304.6
+            },
+            {
+              "k": 1,
+              "tx": 71.1,
+              "ty": 101.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1010,
+              "t": 40.48,
+              "x": 473.1,
+              "y": 306.5
+            },
+            {
+              "k": 2,
+              "tx": 70.5,
+              "ty": 99.6,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1012,
+              "t": 40.56,
+              "x": 472.5,
+              "y": 304.6
+            },
+            {
+              "k": 3,
+              "tx": 70.5,
+              "ty": 100.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1014,
+              "t": 40.64,
+              "x": 472.5,
+              "y": 305.0
+            }
+          ],
+          "truth_id": "w015_04"
+        },
+        {
+          "observable": true,
+          "ambiguous": false,
+          "n_points": 4,
+          "n_sure": 4,
+          "reason": "",
+          "nodes": [
+            "a/e/1",
+            "b/e/1",
+            "c/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 89.4,
+              "ty": 88.9,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 491.4,
+              "y": 293.9
+            },
+            {
+              "k": 1,
+              "tx": 89.8,
+              "ty": 88.2,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 1010,
+              "t": 40.48,
+              "x": 491.8,
+              "y": 293.2
+            },
+            {
+              "k": 2,
+              "tx": 91.0,
+              "ty": 85.2,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 1012,
+              "t": 40.56,
+              "x": 493.0,
+              "y": 290.2
+            },
+            {
+              "k": 3,
+              "tx": 92.5,
+              "ty": 82.1,
+              "sure": true,
+              "edge": false,
+              "dont_care": false,
+              "source": "adjudicated",
+              "frame": 1014,
+              "t": 40.64,
+              "x": 494.5,
+              "y": 287.1
+            }
+          ],
+          "truth_id": "w015_05"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 1,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/3"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 138.0,
+              "ty": 23.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1008,
+              "t": 40.4,
+              "x": 540.0,
+              "y": 228.0
+            }
+          ],
+          "truth_id": "w015_06"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/6"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 37.5,
+              "ty": 63.3,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1010,
+              "t": 40.48,
+              "x": 439.5,
+              "y": 268.3
+            },
+            {
+              "k": 2,
+              "tx": 39.7,
+              "ty": 64.4,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1012,
+              "t": 40.56,
+              "x": 441.7,
+              "y": 269.4
+            }
+          ],
+          "truth_id": "w015_07"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/7"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 32.9,
+              "ty": 62.7,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1014,
+              "t": 40.64,
+              "x": 434.9,
+              "y": 267.7
+            },
+            {
+              "k": 4,
+              "tx": 33.7,
+              "ty": 62.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1016,
+              "t": 40.72,
+              "x": 435.7,
+              "y": 267.2
+            }
+          ],
+          "truth_id": "w015_08"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 431.0,
+          "y": 265.4,
+          "truth_id": "w015_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 434.7,
+          "y": 303.3,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1010,
+          "t": 40.48,
+          "x": 435.5,
+          "y": 303.4,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1012,
+          "t": 40.56,
+          "x": 437.0,
+          "y": 304.0,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 1014,
+          "t": 40.64,
+          "x": 437.4,
+          "y": 304.0,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 1016,
+          "t": 40.72,
+          "x": 436.6,
+          "y": 306.3,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 1018,
+          "t": 40.8,
+          "x": 436.5,
+          "y": 306.3,
+          "truth_id": "w015_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 469.0,
+          "y": 386.2,
+          "truth_id": "w015_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1010,
+          "t": 40.48,
+          "x": 468.9,
+          "y": 385.9,
+          "truth_id": "w015_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1012,
+          "t": 40.56,
+          "x": 471.0,
+          "y": 385.0,
+          "truth_id": "w015_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 471.0,
+          "y": 243.4,
+          "truth_id": "w015_03",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 472.9,
+          "y": 304.6,
+          "truth_id": "w015_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1010,
+          "t": 40.48,
+          "x": 473.1,
+          "y": 306.5,
+          "truth_id": "w015_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1012,
+          "t": 40.56,
+          "x": 472.5,
+          "y": 304.6,
+          "truth_id": "w015_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 1014,
+          "t": 40.64,
+          "x": 472.5,
+          "y": 305.0,
+          "truth_id": "w015_04",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1008,
+          "t": 40.4,
+          "x": 540.0,
+          "y": 228.0,
+          "truth_id": "w015_06",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1010,
+          "t": 40.48,
+          "x": 439.5,
+          "y": 268.3,
+          "truth_id": "w015_07",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1012,
+          "t": 40.56,
+          "x": 441.7,
+          "y": 269.4,
+          "truth_id": "w015_07",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 1014,
+          "t": 40.64,
+          "x": 434.9,
+          "y": 267.7,
+          "truth_id": "w015_08",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 1016,
+          "t": 40.72,
+          "x": 435.7,
+          "y": 267.2,
+          "truth_id": "w015_08",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 1
+    }
+  ],
+  "totals": {
+    "windows": 16,
+    "windows_labelled": 16,
+    "tracks": 78,
+    "observable_tracks": 2,
+    "dont_care_points": 110,
+    "rejected_points": 9,
+    "windows_adjudicated": 7,
+    "sure_without_ember_id": {
+      "a": 0,
+      "b": 0,
+      "adjudicator": 0
+    }
+  },
+  "warnings": [],
+  "agreement": {
+    "point_f1": {
+      "value": 0.5555555555555556,
+      "ci": [
+        0.0,
+        1.0
+      ]
+    },
+    "matches": 5,
+    "points_a": 11,
+    "points_b": 7,
+    "bootstrap_over": "windows",
+    "ci_note": null,
+    "track_f1": 0.0,
+    "tracks_matched": 0,
+    "tracks_a": 2,
+    "tracks_b": 0,
+    "per_window": [
+      {
+        "window_id": "w000",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w001",
+        "tp": 0,
+        "n_a": 4,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w002",
+        "tp": 3,
+        "n_a": 4,
+        "n_b": 4,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w003",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w004",
+        "tp": 1,
+        "n_a": 1,
+        "n_b": 1,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w005",
+        "tp": 1,
+        "n_a": 1,
+        "n_b": 1,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w006",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w007",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w008",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w009",
+        "tp": 0,
+        "n_a": 1,
+        "n_b": 1,
+        "tracks_matched": 0,
+        "tracks_a": 1,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w010",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w011",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w012",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w013",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w014",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w015",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 1,
+        "tracks_b": 0
+      }
+    ]
+  }
+}

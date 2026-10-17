@@ -1,0 +1,297 @@
+{
+  "summary": "Blind adjudication of annotation windows where the two labellers disagree (full relabel of each window)",
+  "agentCount": 1,
+  "logs": [
+    "5 windows in 1 batches, one adjudicator each"
+  ],
+  "result": {
+    "population": "test",
+    "adjudications": [
+      {
+        "who": "C",
+        "bi": 0,
+        "rows": [
+          {
+            "clip_id": "C8_BEAV006_C2",
+            "window_id": "w005",
+            "k": 0,
+            "x": 60.5,
+            "y": 33,
+            "confidence": 0.5,
+            "ember_id": 1,
+            "size_class": "s",
+            "note": "compact bright dot in dark smoke, seen in k0 only, gone in k1; no motion visible so unsure"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w000",
+            "k": 0,
+            "x": 171.5,
+            "y": 39,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "m",
+            "note": "warm diagonal streak in open smoke, interlace combed (one field), transient, fast moving particle"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w000",
+            "k": 2,
+            "x": 180,
+            "y": 32,
+            "confidence": 0.5,
+            "ember_id": 2,
+            "size_class": "s",
+            "note": "faint combed transient beside thin trunk, one frame only"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 3,
+            "x": 88.5,
+            "y": 52,
+            "confidence": 0.5,
+            "ember_id": 1,
+            "size_class": "m",
+            "note": "pinkish combed diagonal streak at trunk edge, likely earlier position of ember 1 on same down-left path"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 4,
+            "x": 62,
+            "y": 65.5,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "m",
+            "note": "white short streak in open air, oriented down-left along its motion"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 5,
+            "x": 42,
+            "y": 74,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "m",
+            "note": "same ember moved about 20 px left and 9 px down"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 2,
+            "x": 100,
+            "y": 40.5,
+            "confidence": 0.5,
+            "ember_id": 2,
+            "size_class": "s",
+            "note": "faint combed dot in front of trunk, start of falling track"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 3,
+            "x": 99,
+            "y": 57,
+            "confidence": 1,
+            "ember_id": 2,
+            "size_class": "m",
+            "note": "white hot vertical streak falling in front of dark trunk"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 4,
+            "x": 102,
+            "y": 71,
+            "confidence": 1,
+            "ember_id": 2,
+            "size_class": "m",
+            "note": "same falling ember, about 13 px lower"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 2,
+            "x": 72,
+            "y": 79,
+            "confidence": 0.5,
+            "ember_id": 3,
+            "size_class": "l",
+            "note": "falling burning twig with bright points, large debris rather than small particle"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 3,
+            "x": 41,
+            "y": 93,
+            "confidence": 0.5,
+            "ember_id": 3,
+            "size_class": "l",
+            "note": "same falling twig moved down-left, white hot ends"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 4,
+            "x": 17,
+            "y": 80,
+            "confidence": 0.5,
+            "ember_id": 4,
+            "size_class": "m",
+            "note": "bright combed transient streak at left edge, ember or twig fragment"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 4,
+            "x": 17,
+            "y": 99.5,
+            "confidence": 0.5,
+            "ember_id": 5,
+            "size_class": "m",
+            "note": "bright combed transient streak at left edge, ember or twig fragment"
+          },
+          {
+            "clip_id": "C8_BEAV006_prefix",
+            "window_id": "w009",
+            "k": 4,
+            "x": 95.5,
+            "y": 46,
+            "confidence": 0.5,
+            "ember_id": 6,
+            "size_class": "s",
+            "note": "bright dot on trunk appears in k4, dim in k5 at nearly same place, may be glowing bark"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w001",
+            "k": 3,
+            "x": 49,
+            "y": 123,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "s",
+            "note": "small pale yellow blob brighter than smoke, moving up-right"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w001",
+            "k": 4,
+            "x": 54,
+            "y": 109,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "s",
+            "note": "same particle moved 5 px right and 14 px up in one frame"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w001",
+            "k": 5,
+            "x": 51,
+            "y": 109,
+            "confidence": 0.5,
+            "ember_id": 2,
+            "size_class": "s",
+            "note": "faint pale blob near k4 position, unclear if same particle"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w001",
+            "k": 0,
+            "x": 150.5,
+            "y": 75.5,
+            "confidence": 0.5,
+            "ember_id": 3,
+            "size_class": "s",
+            "note": "faint small dot, k0 only"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w005",
+            "k": 2,
+            "x": 104,
+            "y": 145,
+            "confidence": 0.5,
+            "ember_id": 1,
+            "size_class": "l",
+            "note": "very faint diagonal motion streak, precursor of k3 streak"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w005",
+            "k": 3,
+            "x": 137.5,
+            "y": 164,
+            "confidence": 1,
+            "ember_id": 1,
+            "size_class": "l",
+            "note": "pale yellow motion streak oriented down-right, moved about 34 px right and 19 px down from k2"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w005",
+            "k": 4,
+            "x": 179,
+            "y": 58.5,
+            "confidence": 0.5,
+            "ember_id": 2,
+            "size_class": "m",
+            "note": "very faint down-right streak at top right"
+          },
+          {
+            "clip_id": "C8_BLAC002_C3",
+            "window_id": "w005",
+            "k": 5,
+            "x": 179,
+            "y": 58.5,
+            "confidence": 0.5,
+            "ember_id": 2,
+            "size_class": "m",
+            "note": "k5 is a duplicate of k4, same faint streak"
+          }
+        ],
+        "done": [
+          "C8_BEAV006_C2/w005",
+          "C8_BEAV006_prefix/w000",
+          "C8_BEAV006_prefix/w009",
+          "C8_BLAC002_C3/w001",
+          "C8_BLAC002_C3/w005"
+        ]
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Adjudicate"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "adj:test:0",
+      "phaseIndex": 1,
+      "phaseTitle": "Adjudicate",
+      "agentId": "a574c1c1eb5cfbb93",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792216108008,
+      "queuedAt": 1792216107967,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are the ADJUDICATOR of an annotation of glowing wildfire embers (firebrands) in video, for an evaluation that must be independent of any detector. You have NOT seen and must NOT look for any detector output; label only what you see. Each window is 6 consecutive frames of one small tile of a video, in /home/user/wildfireguardian/wfglink/results/runs/precision_20261017/windows/<clip_id>/: frames…",
+      "promptFramed": true,
+      "lastProgressAt": 1792216795207,
+      "tokens": 255610,
+      "toolCalls": 99,
+      "durationMs": 687197,
+      "resultPreview": "{\"rows\":[{\"clip_id\":\"C8_BEAV006_C2\",\"window_id\":\"w005\",\"k\":0,\"x\":60.5,\"y\":33,\"confidence\":0.5,\"ember_id\":1,\"size_class\":\"s\",\"note\":\"compact bright dot in dark smoke, seen in k0 only, gone in k1; no motion visible so unsure\"},{\"clip_id\":\"C8_BEAV006_prefix\",\"window_id\":\"w000\",\"k\":0,\"x\":171.5,\"y\":39,\"confidence\":1,\"ember_id\":1,\"size_class\":\"m\",\"note\":\"warm diagonal streak in open smoke, interlace com…"
+    }
+  ],
+  "totalTokens": 255610,
+  "totalToolCalls": 99
+}

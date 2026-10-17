@@ -1,0 +1,10 @@
+{
+  "status": "UNACCEPTED_STRICT_NON_REGRESSION_FAILED",
+  "track_sha256": "1e894fd8b1e39e4d4123fce2f83922cdb64378ce1e2d7de3abc0e468477d1a92",
+  "candidate_suite": "accepted_suite.json",
+  "candidate_stride": "accepted_stride.json",
+  "reason": "Pooled and common-cohort speed medians exceed baseline; names accepted_suite/stride are historical candidate filenames and do not mean acceptance.",
+  "baseline_speed_median_abs_rel_err": 0.032286084643625104,
+  "candidate_speed_median_abs_rel_err": 0.0324990205692355,
+  "candidate_common_speed_median_abs_rel_err": 0.032454562625422005
+}

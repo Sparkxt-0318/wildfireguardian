@@ -1,0 +1,13 @@
+# Near and far embers together in a 2560x1440 frame (configs/suites/hires.yaml): PSF sigmas
+# from 0.6 to 6 px and a wide brightness range.
+frame_size: [2560, 1440]
+px_per_m: 80.0
+flow:
+  type: uniform
+  u: 600.0                       # 20 px per frame
+  v: 0.0
+embers:
+  density:
+    on_screen: 120
+  snr: {median: 25.0, log_sigma: 0.8}
+  sigma_px: [0.6, 6.0]           # snapped to 0.6, 1.3, 2.8 and 6 px (particles.sigma_levels)

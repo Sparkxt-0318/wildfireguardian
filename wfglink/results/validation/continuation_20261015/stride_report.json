@@ -1,0 +1,60 @@
+{
+  "created": "2026-10-15T20:59:24+08:00",
+  "git_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "git_dirty": false,
+  "tuned_on": true,
+  "scene": "booth",
+  "seed": 1,
+  "seconds": 60.0,
+  "max_tracks": 6,
+  "config_sha256": "d4269d4d9275dfade446b383f538470cf8874555e9ce69ab657835993b140a07",
+  "track_sha256": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
+  "strides": {
+    "1": {
+      "frames": 1800,
+      "count_histogram": {
+        "0": 8,
+        "1": 14,
+        "2": 85,
+        "3": 1693
+      },
+      "over_three_frames": 0,
+      "over_three_fraction": 0.0,
+      "over_recent_visible_frames": 0,
+      "over_recent_visible_fraction": 0.0,
+      "lamp_frames": 0,
+      "longest_lamp_s": 0.0
+    },
+    "2": {
+      "frames": 900,
+      "count_histogram": {
+        "0": 5,
+        "1": 6,
+        "2": 44,
+        "3": 845
+      },
+      "over_three_frames": 0,
+      "over_three_fraction": 0.0,
+      "over_recent_visible_frames": 0,
+      "over_recent_visible_fraction": 0.0,
+      "lamp_frames": 0,
+      "longest_lamp_s": 0.0
+    },
+    "3": {
+      "frames": 600,
+      "count_histogram": {
+        "0": 4,
+        "1": 5,
+        "2": 35,
+        "3": 555,
+        "4": 1
+      },
+      "over_three_frames": 1,
+      "over_three_fraction": 0.0016666666666666668,
+      "over_recent_visible_frames": 1,
+      "over_recent_visible_fraction": 0.0016666666666666668,
+      "lamp_frames": 3,
+      "longest_lamp_s": 0.3
+    }
+  }
+}

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wfglink"
+version = "0.1.0"
+description = "Measure glowing wildfire embers and an ember-derived wind estimate from ordinary camera video."
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+license = {text = "Proprietary, WildfireGuardian project"}
+dependencies = []  # pinned in requirements.txt; install that file first
+
+[project.scripts]
+wfglink = "wfglink.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wfglink = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "slow: long-running tests (synthetic suites, soak)",
+    "qt: tests that need PySide6 (offscreen platform)",
+]

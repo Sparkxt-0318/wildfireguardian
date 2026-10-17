@@ -1,0 +1,38 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,0,151,76,0.5,2,s,compact bright dot seen only in this frame
+w001,3,49,123,0.5,1,m,"small whitish glowing blob just above the ground fire, absent in k2"
+w001,4,54,109,1,1,m,"same particle risen about 14 px, bright and isolated"
+w001,5,51,109,0.5,1,m,"dimmer, shifted 3 px left"
+w001,5,145,95,0.5,3,s,faint small dot appearing in last frame beside a dark twig
+w002,0,157,47,0.5,1,s,"small glowing dot on trunk just below the burning top, drifts down over k0 to k4; may be glowing bark"
+w002,1,155,49,0.5,1,s,"orange red dot, slightly lower"
+w002,2,156,52,0.5,1,m,"brightest, larger orange blob"
+w002,3,153,56,0.5,1,s,"small yellowish dot, lower left"
+w002,4,153,56,0.5,1,s,"faint dot, fades out; gone in k5"
+w003,,,,,,,none
+w004,2,142,181,0.5,1,l,"single-frame faint orange streak from about (92,190) to the right edge at (191,173), brightest where it crosses the trunk at (128,188); fast ember streak"
+w005,2,104,144,0.5,1,l,"faint long streak from about (87,133) to (120,155), moving down right"
+w005,3,138,164,1,1,l,"bright streak from about (122,155) to (152,173), continues the k2 path"
+w005,4,179,59,0.5,2,m,"faint short diagonal streak from about (173,55) to (184,62), new in k4"
+w005,5,179,59,0.5,2,m,"same streak, k4 and k5 are near duplicate frames"
+w006,,,,,,,none
+w007,4,76,21,0.5,1,m,"short bright streak in open air right of the burning trunk, absent in k3"
+w007,5,75,23,0.5,1,m,"streak now spans about y 17 to 29, extending downward"
+w008,,,,,,,none
+w009,,,,,,,none
+w010,0,64,154,0.5,1,l,"bright yellow streak, k0 only; may be a flame flare at a stalk base"
+w010,0,171,164,0.5,2,l,"faint thin horizontal streak, k0 only"
+w011,,,,,,,none
+w012,,,,,,,none
+w013,,,,,,,none
+w014,,,,,,,none
+w015,,,,,,,none
+w016,,,,,,,none
+w017,,,,,,,none
+w018,,,,,,,none
+w019,,,,,,,none
+w020,,,,,,,none
+w021,,,,,,,none
+w022,,,,,,,none
+w023,,,,,,,none

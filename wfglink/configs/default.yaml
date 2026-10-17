@@ -1,0 +1,391 @@
+# wfglink default configuration. Every threshold lives here, never in code.
+# Units: px are pixels of the analysed frame, DN are 8-bit luma levels, s are seconds.
+
+detect:
+  background:
+    method: approx_median        # approx_median (live and file) or exact_median (file only)
+    step_dn: 1                   # approx_median: change per frame toward the current frame
+    warmup_frames: 5             # exact median of the first frames seeds the background
+    exact_window: 11             # exact_median: frames in the running window
+  tophat_kernel_px: 9            # removes structures wider than this (flames, glow halos)
+  prefilter_sigma_px: 1.2        # Gaussian matched filter on luma before thresholding (0 = off); chosen on the core suite
+  noise:
+    tiles: [16, 9]               # noise map grid (columns, rows)
+    update_every: 10             # frames between noise map updates
+    subsample: 4                 # pixel stride when estimating noise
+    floor_dn: 1.0                # smallest noise sigma allowed
+  threshold:
+    k_seed: 5.0                  # a component must reach this many sigma somewhere
+    k_grow: 3.0                  # pixels above this many sigma join the component
+    min_seed_dn: 4               # absolute floor for the seed level (after the prefilter)
+  mirror:                        # mirror test against compression error (detect/mirror.py): embers make no dark lobes
+    enabled: true
+    block_px: 32                 # dark lobes are counted in the 3 x 3 blocks of this size around each block (96 px, a few 16 px macroblocks)
+    count: 3                     # this many dark lobes at the seed level there: the encoder's error dominates (chosen on the core suite)
+    ratio: 2.0                   # then a seed must reach this many times the strongest of them (bright and dark lobes come in equal sizes)
+    cap_dn: 16                   # darker lobes are scene changes (an overlay or object gone), not counted; about one quantiser step at QP 28
+                                 # so this test never asks more than ratio x cap_dn (32 DN) of a seed: brighter embers always pass; raising either raises that ceiling
+  components:
+    min_area_px: 2
+    max_area_px: 300             # round blobs larger than this are flames, headlights or glare
+    max_streak_area_px: 4000     # thin streaks may be larger (fast embers, long exposure)
+    max_streak_width_px: 10      # a large component must be thinner than this to count as a streak
+    large_mask_dilate_px: 7      # exclusion band around large bright regions
+    moment_dilate_px: 1          # moments use the signed residual in this wider window (1 px: lowest noise, same bias)
+  multiscale:                    # file mode on large frames (detect/multiscale.py): the detector also runs on downscaled copies, merged by ember size
+    enabled: true
+    min_frame_pixels: 1843200    # frames with fewer pixels (twice 1280x720, the size the detector's scales were chosen at) are analysed at one scale: 720p is unchanged
+    max_octaves: 2               # coarse levels at half, then quarter size ...
+    min_level_pixels: 129600     # ... each only while it keeps at least this many pixels (480x270)
+    native_max_sigma_px: 2.0     # empirical merge cutoff for native PSF sigma (source px), a level of factor f uses f times it;
+                                 # a coarse detection above the best actual matched finer level's cutoff replaces those it covers; a smaller one defers to them
+    replace_max_flux_share: 0.5  # ... unless the finer ones hold at least this share of its flux (signed residual): then they measured it whole and stand
+    footprint_sigma: 2.5         # a coarse detection covers the finer detections within this many of its PSF sigmas of its axis segment ...
+    footprint_min_px: 3.0        # ... and at least this many source px
+    coarse_only_min_sigma_px: 1.0  # a coarse detection that covers no finer one is kept when its PSF sigma (source px) is at least this times the next finer level's factor;
+                                 # a smaller one is point-like at that level, within its range, and that level found nothing there
+  streaks:
+    method: erf                  # file mode streak length (detect/streaks.py): erf (edge profile fit, below) or moments (the detector's moments; refine adds the oriented window)
+    refine: false                # method moments only: remeasure moments in an oriented window (detect/streaks.py)
+    refine_min_length_px: 2.0
+    iterations: 2
+    margin_sigma: 2.5            # window reaches this many PSF widths past the ends and to each side
+    max_change: 0.6              # a refinement changing the length more than this fraction is discarded
+    min_psf_sigma_px: 0.7        # smallest PSF sigma assumed for a window (refine and erf)
+    erf:                         # method erf: a box with two error-function edges fitted to the profile along the streak
+      gamma: 2.2                 # luma is decoded with this power law before the fit, because the model is linear in light; it must match the camera's tone curve (2.2: sRGB or Rec.709 video; 1: linear video; a log or HDR profile needs its own value)
+      reach: 1.5                 # the first window covers a streak this many times the detector's length (its faint ends are cut off) ...
+      margin_sigma: 3.0          # ... plus this many PSF widths past each end
+      half_width_sigma: 3.0      # the window reaches this many PSF widths to each side of the axis
+      step_px: 1.0               # profile sample spacing along and across the axis (bilinear samples)
+      iterations: 1              # 2 repeats the fit once in a window centred on the first fit, axis turned to the halves' centroids
+      max_turn_deg: 20.0         # iterations 2: largest axis turn
+      ramp_sigma: 0.0            # > 0: brightness may change linearly along the streak (flicker within the exposure), prior sd of the end-to-end change
+      max_iter: 8                # Levenberg-Marquardt steps of the joint fit
+      across_iter: 4             # Levenberg-Marquardt steps of the first across-profile fit (0 = start from the detector's width)
+      max_half_length_px: 60.0   # longest window half-length
+      sigma_range_px: [0.3, 6.0] # a fit with its PSF sigma at either bound keeps the detector's length
+  saturation:
+    level_dn: 250
+    flag_min_px: 2               # at least this many saturated pixels sets the saturated flag
+  color:
+    ring_px: 2                   # ring outside the moment window gives the local reference chroma
+    luma_range: [40, 250]        # only unsaturated, visible pixels carry color
+    crcb_warm_min: 15            # chroma excess (Cr - Cb versus surroundings) above this is warm
+
+frames:
+  duplicate_dn: 6                # repeated-frame test: pixels changed by at least this much (luma DN)
+  duplicate_max_px: 2            # a frame with at most this many changed pixels repeats the previous one
+  repeat_move_px: 1.5            # content test for lossy re-encodes: tracks that moved more than this per frame
+  repeat_match_px: 0.5           # ... count as unmoved when a detection lies this close to their last position
+  repeat_fraction: 0.8           # ... and the frame repeats when this fraction of them is unmoved
+  repeat_min_moving: 2           # ... with at least this many moving tracks
+
+track:
+  gate_chi2: 9.21                # 99% chi-square gate for 2 degrees of freedom
+  meas_sigma_px: 1.0
+  accel_sigma_px: 1.0            # process noise, px per frame squared, of a track that moves smoothly
+  accel_sigma_max_px: 3.0        # process noise of a new track; a track whose innovations stay large keeps it
+  accel_adapt_rate: 1.0          # step of the log process-noise scale per hit, times ln d2 minus its mean for a well-modelled track (0 = fixed)
+  accel_adapt_up_max: 0.25       # largest rise of the log scale from one hit
+  accel_adapt_down_max: 0.5      # largest fall of the log scale from one hit (keeps noisy turning tracks, such as a target on a circle)
+  angle_penalty_deg: 30.0        # streak orientation versus predicted motion
+  angle_penalty_cost: 4.0
+  confirm_hits: 3
+  confirm_window: 4
+  max_coast: 5                   # frames a confirmed track may coast (bridges flicker dropouts)
+  birth_radius_px: 15.0
+  static_seconds: 1.0            # tracks that barely move for this long are static lights
+  static_speed_px_s: 3.0
+  meas_sigma_streak_frac: 0.1    # extra centroid sigma along a streak, fraction of its length
+  angle_min_length_px: 5.0       # streak length above which the angle penalty applies
+  birth_length_factor: 1.5       # second-hit search reach = max(birth_radius_px, factor * L / birth_duty_min)
+  birth_duty_min: 0.5            # smallest exposure fraction assumed before T_exp is estimated
+  gate_clutter_max: 0.5          # at most this many other detections expected in a gate or birth reach (0 = off)
+  clutter_knn: 4                 # local detection density from the distance to the k-th nearest detection
+  # accel_sigma_px is px per frame squared, converted with the nominal frame interval
+
+gate:
+  hysteresis_px: 2.0
+  rate_window_s: 10.0
+  bootstrap_bin_s: 1.0
+  bootstrap_block_bins: null     # null: round(n_bins^(1/3))
+  bootstrap: 1000
+
+velocity:
+  savgol_window: 5
+  savgol_order: 2
+  fuse_max_points: 5             # fuse track and streak speed only below this many points
+  streak_min_length_px: 5.0      # streaks predicted (T_exp x track speed) this short give no streak speed
+  streak_min_fraction: 0.5       # and a measured streak shorter than this fraction of the prediction is a dash
+  exposure:
+    window_s: 10.0
+    min_disp_px: 5.0
+    min_tracks: 20
+    min_length_px: 4.0           # predicted streak length T |v| at the speed cut; shorter streaks are mostly floor
+    screen_frac: 0.5             # points measured shorter than this fraction of min_length_px are point-like, not streaks
+    cut_quantiles: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]   # candidate speed cuts (quantiles of point speed)
+    length_sigma_px: 1.0         # streak length noise, sets the Deming variance ratio
+    outlier_k: 3.5               # MAD multiples for outlier rejection
+    max_iter: 20
+    check_start_frac: 0.3        # stability check: refit from the start value scaled by 1 -/+ this
+    stable_tol: 0.05             # decline when that refit, or a refit at the neighbouring speed cut, moves T by more
+    min_speed_ratio: 1.3         # 90th over 10th percentile of the fitted speeds; narrower cannot test proportionality
+    prop_tol: 0.10               # decline unless a free intercept (L = a + b |v|) moves T by less than this, interval included
+    prop_ci: 0.9                 # level of that interval (two one-sided tests at 5 percent)
+    min_tracks_interval: 10      # fewer tracks: the interval part of that check is skipped
+    bootstrap: 200               # bootstrap replicates over tracks
+    ci: 0.95
+
+validate:
+  match_radius_px: 3.0
+  streak_radius_frac: 0.5        # match radius = max(match_radius_px, frac * L)
+  min_true_speed_px_s: 1.0       # truth slower than this is left out of relative errors
+  bright_snr: 20.0               # 'bright embers' metrics treat fainter embers as don't care
+  ember:                         # "Become an ember" check: python -m wfglink validate --suite ember (src/wfglink/ember/validate.py); goals fixed before measuring
+    report: results/validation/ember_report.json
+    max_tracks: 6                # the synthetic scenes test the tracker with up to 6 phones (plan section 4.4), whatever the booth's cap
+    raw_dir: data/raw            # ember_free.* and ember_ruler.* made with `python -m wfglink record`, relative to wfglink/
+    work_dir: data/synthetic/ember   # the generated phone scenes (git-ignored); made again when missing or changed
+    seconds: 20                  # length of each synthetic scene
+    fps: 30
+    size: [1280, 720]            # synthetic camera picture, px
+    crf: 23                      # H.264 quality of the synthetic scenes (webcam-like compression)
+    hfov_deg: 70.0               # synthetic camera field of view; the suite gives the pipeline this exact focal length
+    seed: 2026                   # base seed of the fixed scene set (src/wfglink/ember/synth.py SCENES)
+    match_frac: 0.6              # a shown ember matches a phone within this fraction of the disc's apparent diameter
+    match_min_px: 12.0           # ... and never less than this many px
+    facing_max_yaw_deg: 45       # a phone faces the camera when turned less than this from it
+    min_vis_frac: 0.7            # ... and at least this fraction of its disc is in the picture and not hidden
+    dont_care_yaw_deg: 75        # a phone turned between facing_max_yaw_deg and this is neither required nor a false ember
+    acquire_s: 1.0               # recall after acquisition leaves out each phone's first this many seconds in view
+    stand_tol_m: 0.1             # the speed error at the standing distance uses phones within this depth of ember.distance_m
+    min_speed_m_s: 0.2           # truth slower than this is left out of relative speed errors
+    static_tol_px: 30            # a false track whose points stay within this distance of a static light is a static-light track
+    persistent_run_s: 0.2        # persistent ID switches leave out a phone's matched-track runs shorter than this (flips no visitor sees)
+    goals:                       # stated in the plan before measuring; reported as met or missed
+      recall_facing: 0.95        # recall of phones facing the camera, after acquisition
+      static_light_tracks_per_min: 0.0
+      id_switches_per_phone_per_min: 1.0
+      speed_median_rel_err: 0.10 # median relative speed error at the standing distance
+    free:                        # ember_free: the phone moved freely at the standing spot (no truth)
+      skip_s: 1.0                # the first seconds (background warm-up) are left out of coverage
+      fragment_gap_s: 1.5        # a shown track that starts this soon after another one ended ...
+      fragment_reach_m: 0.6      # ... and this close to where it ended (at the standing distance) is a probable ID switch
+    ruler:                       # ember_ruler: rest at the 0 mark, move to the 100 cm mark in about 1 s, rest
+      rest_min_s: 0.3            # each rest lasts at least this long
+      rest_speed_m_s: 0.08       # slower than this (screen speed scale) is resting
+      move_tol_frac: 0.01        # the move starts and ends where the phone is this fraction of the path from its rest positions
+      min_move_s: 0.2            # a move shorter than this is not the ruler move
+      max_move_s: 5.0            # ... nor one longer than this
+
+plausibility:                    # real-clip checks on a finished file-mode run (plan 4.5, validate/plausibility.py)
+  timing:
+    gap_factor: 1.5              # a frame interval longer than this many median intervals is a gap
+    max_gaps: 0                  # more gaps than this flags the clip
+    vfr_spread_max: 0.1          # (95th minus 5th percentile interval) / median above this: variable frame rate
+    repeat_max_fraction: 0.0     # a larger share of repeated frames flags the clip (the pipeline skips them; flagged for attention)
+    pts_match_s: 0.001           # a frame time and a container packet time closer than this are the same frame
+    start_eps_s: 1.0e-6          # a packet this close before the segment start belongs to it (FileSource's start rule; keep equal)
+  exposure:
+    frame_tol: 0.05              # an estimate longer than (1 + this) frame intervals is physically impossible (as process warns)
+    window_s: 3.0                # stability: T_exp is estimated again in consecutive windows of about this length
+  speed:
+    gust_factor: 1.5             # a track is implausible when faster than gust_factor x peak gust + margin_ms at Z_min (plan 4.5)
+    margin_ms: 8.0               # ... plus this many m/s
+    max_flagged_fraction: 0.0    # the check flags when more than this share of the moving tracks is implausible
+    percentile: 99               # speed percentile reported as an interval in m/s (Z_min to Z_max)
+  direction:
+    tolerance_deg: 45.0          # allowed difference from the annotated drift when the clip settings give no drift_tolerance_deg
+    min_resultant: 0.3           # speed-weighted mean resultant length below this: no dominant direction, flagged (an addition to the plan)
+  determinism:
+    seconds: 2.0                 # rerun length from the run's first ready frame, twice, without the overlay (0 = skip; slow on 4K)
+    ignore_columns:              # timing columns that may differ between reruns, per table
+      frames: [ms]
+
+labels:                          # blind sample labels (plan 4.5, validate/labels.py)
+  frames: 20                     # frames to score per clip, drawn at random after the detector's warm-up
+  reserve_frames: 10             # more frames drawn after them, scored in draw order when the run skips some as repeats
+  check_frames: 5                # the first frames of the draw, labelled again by a second labeler (inter-labeler F1)
+  tiles_per_frame: 2             # non-overlapping tiles per sampled frame, at random positions inside the ROI
+  tile_px: 256                   # tile side in source pixels (smaller when the ROI is smaller)
+  scale: 4                       # nearest-neighbour enlargement of the tile PNGs
+  seed: 0                        # frame and tile position sampling
+  settle_s: 0.5                  # frames are sampled from this many seconds after the detector's warm-up ends
+  context_frames: 1              # nearest changed frames shown before and after each tile (0 = none)
+  grid_step_px: 8                # coordinate grid lines every this many tile pixels
+  tick_step_px: 4                # margin ticks every this many tile pixels
+  label_step_px: 32              # tick labels every this many tile pixels
+  grid_alpha: 0.5                # weight of the grid ink blended over the picture
+  grid_dark_dn: 110              # grid ink is light over pixels darker than this (luma DN), dark over brighter ones
+  match_px: 3.0                  # a label and a detection closer than this (source px) are the same ember
+  streak_radius_frac: 0.0        # match radius max(match_px, this x detection length); 0.5 is the synthetic matcher's rule
+  min_confidence: 0.75           # labels below this confidence (0.5 = unsure) are don't care: neither hits, misses nor false
+  time_tol_s: 1.0e-6             # a tile's frame time and the run's agree within this (both come from the same decoder)
+  bootstrap: 2000                # bootstrap replicates over frames for precision, recall and F1
+  bootstrap_seed: 0              # seed of those replicates (separate from the sampling seed)
+  min_frames_ci: 5               # no bootstrap interval from fewer frames (one or two frames would look certain)
+  ci: 0.95                       # level of those percentile intervals
+
+field:
+  grid: [16, 9]
+  min_tracks_show: 5
+  min_tracks_ci: 10
+  normalized_median_threshold: 2.0
+  normalized_median_eps_px_s: 3.0   # residual floor (0.1 px per frame at 30 fps), px/s
+  mad_k: 3.0                     # per-cell outlier rejection, in robust standard deviations
+  mad_floor_px_s: 10.0           # never reject a sample closer than this to the cell median
+  ci: 0.95
+  live_window_s: 3.0
+  window_s: 10.0                 # file mode: field.parquet has the whole clip and windows of this length
+  bootstrap: 200
+
+camera:                          # live camera of the "Become an ember" mode (src/wfglink/io/camera.py; python -m wfglink cameras)
+  name: auto                     # auto (a USB UVC webcam when one is connected, else the built-in camera) or part of a device name, any case
+  width: 1280                    # capture size and rate asked of the camera (frames wider than width are scaled down to it)
+  height: 720
+  fps: 30
+  backend: auto                  # auto (PyAV's avfoundation input by name, then OpenCV by index), pyav or opencv
+  hfov_deg: 70.0                 # nominal horizontal field of view; sets the scale until an A4 calibration exists (calibrated: false)
+  focal_px: null                 # focal length in px at ember.calibration.size, written by python -m wfglink calibrate
+  open_timeout_s: 8.0            # a camera that gives no frame this long after opening has failed to open
+  stall_s: 2.0                   # no frame for this long while running: the camera is closed and opened again
+  backoff_min_s: 0.5             # first wait before opening again after a failure; doubles up to backoff_max_s
+  backoff_max_s: 5.0
+  permission_timeout_s: 30       # how long `cameras --request` waits for an answer to the macOS camera dialog
+  mask: []                       # [[x0, y0, x1, y1], ...]: parts of the camera picture blanked before detection, as fractions of its width and height (unmirrored), for a dashcam's burned-in time or logo; for example [[0.0, 0.92, 0.45, 1.0]]
+  center_stage: false            # macOS: Center Stage reframes the picture and changes the scale, so wfglink turns it off for itself
+
+ember:                           # "Become an ember" live mode: phones showing booth/ember/index.html, tracked live (src/wfglink/ember/)
+  distance_m: 2.0                # standing distance, camera lens to the phone held over the floor mark; speeds are "measured at" this distance
+  mirror: true                   # mirror the picture first, so a visitor moving right moves right on screen
+  max_tracks: 3                  # the booth tracks at most this many phones at once (IDs 1 to 3); extra phones are ignored and a small "max 3" note shows (your decision of 2026-10-15)
+  distance_range_m: [1.0, 3.0]   # phones are looked for between these distances (sets the blob size limits)
+  blob_m: [0.008, 0.11]          # bright blob diameter at the phone: a small dim phone's core up to a tablet's disc
+  detect_scale: 0.5              # detection runs on the picture scaled by this (cost); positions are intensity-weighted centroids
+  detect:
+    blob_dn: 170                 # a pixel brighter than this (max of R, G, B) belongs to a blob
+    core_dn: 235                 # a phone screen's centre is this bright (an emitting screen saturates; lit objects rarely do)
+    warm_dn: 80                  # pixels in and around the blob brighter than this carry the colour test
+    ring_px: 3                   # the colour test also looks this far around the blob (detection px), where a saturated core turns orange
+    chroma_min: 60               # pixels less saturated than this (HSV S) are white or grey, not coloured
+    warm_sat: 60                 # a warm pixel is at least this saturated (HSV S; motion blur over a grey wall lowers it) ...
+    warm_hue: [0, 35]            # ... with a hue in this range (OpenCV units, 0 to 179: red 0, orange 10 to 20, yellow 30) ...
+    warm_hue_wrap: 172           # ... or at least this (reds just below 360 degrees)
+    warm_frac_min: 0.6           # at least this fraction of the coloured pixels must be warm
+    warm_px_min: 3               # and at least this many (detection px)
+    warm_offset_max: 1.0         # the warm pixels ring the core: their centre lies within this many blob radii of the blob's centre
+    halo_min: 0.5                # and they form a halo: at least this many times the blob's area (lamps and windows clip to large white blobs)
+    max_elongation: 12.0         # motion blur stretches a blob (a fast swing at 1/30 s: about 7); longer than this is not a phone
+    area_blur_factor: 4.0        # the largest blob area allowed grows by this factor for motion blur
+    max_candidates: 40           # only the largest blobs are examined (bounds the cost in a cluttered scene)
+  background:                    # static bright things (lamps, ceiling lights, a window) are learned and never start an ember
+    step_dn: 1                   # approximate running median of brightness: change per frame (absorbs a static light in about 8 s)
+    warmup_frames: 5             # median of the first frames seeds it
+    bright_dn: 200               # a blob whose core lies on background this bright is a static light ...
+    on_frac: 0.5                 # ... when at least this fraction of its core does
+    light_frames: 300            # light map: share of frames each pixel was core-bright, averaged over about this many frames (never protected)
+    light_frac: 0.3              # an ember that comes to rest where the light map was at least this has landed on a lamp (it ends after track.static_s)
+  track:
+    confirm_hits: 3              # a track is confirmed after this many detections ...
+    confirm_window_s: 0.25       # ... within this long of its first one
+    gate_m: 0.15                 # association reach at the standing distance (grows with speed and with time unseen)
+    gate_speed_frac: 0.5         # plus this fraction of the predicted motion since the last detection
+    gate_grow_m_s: 1.0           # plus this much per second unseen (a phone turned away keeps moving)
+    gate_max_m: 1.0              # never more than this
+    coast_hold_s: 0.15           # an unseen track keeps its velocity this long ...
+    coast_tau_s: 0.3             # ... then its predicted motion slows with this time constant
+    max_coast_s: 3.0             # an ember unseen this long ends (a phone turned away or hidden for less keeps its ID)
+    lost_s: 0.4                  # a track not yet shown ends after this long unseen
+    static_forget_s: 3.0         # a static light's track ends after this long unseen
+    min_travel_m: 0.08           # an ember shows only after moving this far from where it was first seen (at the standing distance) ...
+    min_show_speed_m_s: 0.15     # ... and at least this fast (slow drifts, such as a picture on a TV, never show)
+    static_s: 2.0                # a confirmed track that has not shown within this long is a static light (the static-time rule);
+                                 # an ember resting this long on bright static background is one too (it caught a lamp)
+    pin_reach_m: 0.03            # a confirmed track that has not shown or moved (a light), while hidden, takes only a blob this near its home (or within its blob's diameter)
+    jump_m: 0.1                  # a step longer than this ...
+    jump_m_s: 3.0                # ... and faster than this (a TV cut, a blob passing between lights) does not count towards showing: the travel starts again
+    rest_protect_s: 6.0          # the background is learned under a shown ember once it has rested this long, so an ember stuck on a light ends
+    light_rest_s: 1.0            # an ember that came to rest where the light map was bright (background.light_frac) ends after this long
+    speed_window_s: 0.2          # speed: least-squares line through the positions of this many trailing seconds
+    speed_min_points: 3          # ... of at least this many points
+    count_hold_s: 0.4            # an ember unseen for less than this still counts and keeps its speed on screen
+    trail_s: 0.8                 # trail length drawn on screen
+  calibrate:                     # python -m wfglink calibrate: the printed A4 target held flat over the floor mark, where the phones are held
+    min_markers: 3               # at least this many of the target's four markers in a frame
+    max_rms_px: 1.5              # frames whose marker corners the solved pose misses by more than this (RMS, px) are skipped
+    window: 30                   # it finishes when the last this many good frames ...
+    stable_frac: 0.01            # ... agree within this fraction (90th minus 10th percentile, over the median)
+    timeout_s: 90                # live: gives up after this long without a stable result (nothing is written then)
+  record:                        # python -m wfglink record NAME: the camera to data/raw/NAME.mp4
+    seconds: 20                  # recording length (--seconds overrides)
+    countdown_s: 3               # countdown on screen before recording starts
+    crf: 18                      # H.264 quality (lower is better)
+  field_grid: [16, 9]            # wind arrow cells (columns, rows), as in fire mode
+  field_window_s: 3.0            # each ember adds its velocity to the cell it is in; samples older than this are dropped
+  field_min_tracks: 1            # a cell shows an arrow with at least this many embers
+  calibration: null              # written by python -m wfglink calibrate: date, camera, size, focal_px, distance_m, m_per_px, hfov_deg, target
+
+soak:                            # overnight booth soak: python scripts/mac_soak.py --hours 8 (src/wfglink/soak.py)
+  every_s: 60                    # seconds between heartbeat samples (--every overrides)
+  progress_every_s: 600          # a progress line this often
+  stale_s: 30                    # a heartbeat older than this is recorded as stale
+  start_grace_s: 120             # samples before the app's first heartbeat in this window are start-up, not downtime
+  stop_timeout_s: 30             # after SIGTERM, booth.sh gets this long to stop the app before its process group is ended
+  out_dir: logs/soak             # each soak writes soak.csv, soak_meta.json and soak_report.json to a dated folder here (--out overrides)
+  fps_median_min: 20             # paint fps: the median over the sampling intervals must reach this (clips play at 25 to 30 fps)
+  fps_p5_min: 10                 # paint fps: the 5th percentile must reach this
+  mem_slope_max_mb_h: 20.0       # memory growth above this many MB per hour fails (plan rule)
+  mem_fit_last_h: 6.0            # the memory fit uses the last hours only (all data when shorter)
+  mem_warmup_s: 600              # samples from an app's first seconds of uptime are left out of the fit
+  mem_min_hours: 2.0             # a soak shorter than this reports the slope as "too short to judge"
+  restarts_max: 0                # app restarts (crash or hang, from logs/booth.log) allowed during the soak
+  errors_max: 0                  # processing errors (heartbeat error count) allowed during the soak
+  analysis_stall_s: 180          # no frame analysed (not paused) this long in one app instance fails
+  counter_reset_frac: 0.8        # pipeline counters that grew by less than this share of the frames the app processed were restarted (the clip began again)
+  counter_reset_slack: 60        # frames allowed on top: the process worker reports its counters once a second, so they lag the app's count
+  live_fraction_min: 0.9         # share of samples that must find a fresh heartbeat from a running app
+  fallback_max: 0.0              # share of playlist samples allowed on the synthetic fallback (no clip could play)
+
+doctor:                          # python -m wfglink doctor (src/wfglink/doctor.py)
+  python: "3.12"                 # the Python version every pin is made for
+  pythonorg_prefix: /Library/Frameworks/Python.framework/Versions/3.12   # macOS: where python.org's installer puts it
+  font: Pretendard               # the family Qt must resolve for the booth screen and the placards
+
+outputs:
+  table_format: parquet          # parquet or csv
+  overlay_video: true
+  overlay_crf: 20
+
+booth:
+  ember_page_url: ""             # the ember page's public address (booth/ember/index.html on GitHub Pages), once published: ember mode shows it with a QR code, and scripts/make_placards.py makes its A5 QR card; empty: neither
+  playlist: booth/playlist.yaml  # clips the booth plays in a loop (python -m wfglink live, booth/booth.sh)
+  reset_per_clip: true           # true: every clip start resets the counts (counts per clip); false: each clip's counts run on across loops
+  late_frames: 1.0               # playback: a decoded frame later than this many frame intervals is dropped (while dropping catches up)
+  resync_s: 0.5                  # playback: this far behind, the clock restarts at the current frame (the clip plays on slower)
+  cut_gap_s: 1.0                 # playback: time gap at every cut (next segment, clip or loop), so no track joins two shots
+  retry_s: 30                    # no playable clip: synthetic video for this long, then the playlist is tried again
+  synthetic_seed: 1              # synthetic video (--synthetic, or no playable clip)
+  report_events: 100             # playback events kept in a run's report (the player keeps the last 500)
+
+live:
+  worker_mode: thread            # thread or process (playback, the camera and analysis in a child process)
+  analysis_max_width: 1280       # frames are analysed and shown at most this wide (a 4K roi is scaled down while decoding)
+  analysis_max_pixels: 921600    # ... and with at most this many pixels (1280x720), so a tall roi costs no more than a wide one
+  ember_pipeline: wfglink.ember.pipeline:EmberPipeline   # ember mode (key M): module:Class that tracks the phones (tests use a stand-in)
+  camera_permission_timeout_s: 20  # macOS: longest wait for an answer to the camera permission dialog (below booth.sh's 30 s heartbeat limit)
+  camera_start_s: 10             # ember mode: a camera that has given no frame this long after it was asked for is shown as missing
+  camera_lost_s: 2.0             # ember mode: no new camera frame for this long shows the "no camera" message (the picture returns by itself)
+  camera_retry_s: [0.5, 8.0]     # ember mode: a camera that fails is tried again after the first delay, doubling up to the second
+
+ui:
+  screen: auto                   # auto (external monitor when connected, else the built-in screen), external, primary, or a screen name
+  builtin_screen: "built-?in|내장|color lcd|^edp|^lvds|^dsi"   # regex for the names of a laptop's own screen (macOS: "Built-in Retina Display")
+  language: ko                   # ko or en at start-up; key L toggles
+  quit_confirm_s: 3.0            # Esc, then Esc again within this many seconds, quits (a prompt shows meanwhile)
+  raw_fade_s: 0.5                # key A: seconds of the fade between the analysed fire footage and the raw clip (the booth starts analysed; ember mode is always analysed)
+  show_unconfirmed: false        # fire mode draws the points of confirmed tracks only; true also draws every detection (counts are the same either way)
+
+demo_gate:                       # python -m wfglink demo-gate (src/wfglink/ui/demo_gate.py)
+  ember_over_max: 0.01           # the ember run fails when more embers than the scene's phones show in more than this share of its frames
+

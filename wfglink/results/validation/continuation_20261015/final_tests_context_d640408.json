@@ -1,0 +1,39 @@
+{
+  "created_at_utc": "2026-10-15T12:23:51.745993+00:00",
+  "status": "HISTORICAL_REPORT_BINDING_PRESERVED",
+  "context_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "raw_report": "final_tests_d640408.json",
+  "raw_report_sha256": "6c1aeccc271c89afd1720c8f7debc991c611d6feb6d5b0abafddcfa0ccb7a615",
+  "embedded_original_log_reference": "final_full_pytest.txt",
+  "historical_log_file": "final_full_pytest_d640408.txt",
+  "historical_log_sha256": "7dafe675acb04fb7e58ae794aec3050954f40292c1b5856d9a2ffb3ad991f806",
+  "embedded_log_sha256_matches_historical_copy": true,
+  "copied_reports": {
+    "ember_report_d640408.json": {
+      "copied_from": "ember_report.json",
+      "sha256": "46077582ac638202fc4bfbf054cbd90b93d6640f855161b0bc1b439dd41c1f29",
+      "byte_identical_at_copy": true
+    },
+    "stride_report_d640408.json": {
+      "copied_from": "stride_report.json",
+      "sha256": "456e07054e39e367a026f3f481db726b47260b8bb91267596f429fa313e606eb",
+      "byte_identical_at_copy": true
+    },
+    "final_tests_d640408.json": {
+      "copied_from": "final_tests.json",
+      "sha256": "6c1aeccc271c89afd1720c8f7debc991c611d6feb6d5b0abafddcfa0ccb7a615",
+      "byte_identical_at_copy": true
+    },
+    "final_full_pytest_d640408.txt": {
+      "copied_from": "final_full_pytest.txt",
+      "sha256": "7dafe675acb04fb7e58ae794aec3050954f40292c1b5856d9a2ffb3ad991f806",
+      "byte_identical_at_copy": true
+    },
+    "phone_fullrate_comparison_d640408.json": {
+      "copied_from": "phone_fullrate_comparison.json",
+      "sha256": "0767d7f97b7b3b1c9ebf9cf88993907b4fd0f42e8e71a373d55f334d41f85591",
+      "byte_identical_at_copy": true
+    }
+  },
+  "policy": "Raw copied reports and their embedded filenames are unchanged. This context resolves the original log name to its historical copy. Generic root report paths may later be replaced; historical payload hashes remain independent. No clean flags are inferred for the phone comparison."
+}

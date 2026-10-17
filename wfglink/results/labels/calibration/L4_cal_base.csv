@@ -1,0 +1,14 @@
+tile_id,x,y,confidence,note
+t000,117,125,0.5,faint maybe compression ringing
+t001,104,58,1,
+t001,158,58,1,faint streak
+t001,153,82,1,faint
+t002,197,19,1,
+t002,146,167,0.5,faint
+t002,207,170,0.5,faint
+t002,253,6,0.5,edge faint
+t003,190,38,0.5,red blob nearly static
+t004,57,29,1,
+t004,108,29,1,faint
+t004,107,48,0.5,faint
+t005,9,251,0.5,edge maybe

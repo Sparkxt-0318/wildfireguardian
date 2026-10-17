@@ -1,0 +1,61 @@
+{
+  "created": "2026-10-15T20:10:37+08:00",
+  "git_commit": "d640408a612cba9c5cee54591258dbd035eeadb1",
+  "git_dirty": false,
+  "tuned_on": true,
+  "scene": "booth",
+  "seed": 1,
+  "seconds": 60.0,
+  "max_tracks": 6,
+  "config_sha256": "d4269d4d9275dfade446b383f538470cf8874555e9ce69ab657835993b140a07",
+  "track_sha256": "cfe469843f9ea8eb369687ebd715cbd54bf9a0a8b70809fbf3f068bde85f4c74",
+  "strides": {
+    "1": {
+      "frames": 1800,
+      "count_histogram": {
+        "0": 8,
+        "1": 14,
+        "2": 74,
+        "3": 1704
+      },
+      "over_three_frames": 0,
+      "over_three_fraction": 0.0,
+      "over_recent_visible_frames": 7,
+      "over_recent_visible_fraction": 0.0038888888888888888,
+      "lamp_frames": 0,
+      "longest_lamp_s": 0.0
+    },
+    "2": {
+      "frames": 900,
+      "count_histogram": {
+        "0": 5,
+        "1": 6,
+        "2": 43,
+        "3": 834,
+        "4": 12
+      },
+      "over_three_frames": 12,
+      "over_three_fraction": 0.013333333333333334,
+      "over_recent_visible_frames": 12,
+      "over_recent_visible_fraction": 0.013333333333333334,
+      "lamp_frames": 15,
+      "longest_lamp_s": 1.0
+    },
+    "3": {
+      "frames": 600,
+      "count_histogram": {
+        "0": 4,
+        "1": 5,
+        "2": 32,
+        "3": 552,
+        "4": 7
+      },
+      "over_three_frames": 7,
+      "over_three_fraction": 0.011666666666666667,
+      "over_recent_visible_frames": 7,
+      "over_recent_visible_fraction": 0.011666666666666667,
+      "lamp_frames": 13,
+      "longest_lamp_s": 1.0
+    }
+  }
+}

@@ -1,0 +1,42 @@
+tile_id,x,y,confidence,note
+t000,83,128,1,red
+t000,91,84,1,dim grey; red in prev
+t000,183,57,1,white
+t000,70,224,1,pink-white
+t000,166,47,0.5,orange smear same place in prev; gone in next
+t001,106,7.5,1,red
+t001,94.5,44.5,1,yellow
+t001,120,64,1,red small
+t001,30.5,34,1,dim grey
+t001,0.5,117,0.5,red at left edge; centre may be outside
+t001,166.5,49,1,white
+t001,161,60.5,1,white
+t001,16,160,1,pink-white
+t001,140,179,1,white
+t001,99,195,0.5,faint pink same place in prev
+t002,27,68,1,dim yellowish; red in prev and next
+t002,9,125,1,red
+t002,229,25,1,white
+t002,67,191.5,1,pink
+t002,130,130,1,red
+t002,166,167,1,white; vertical smear
+t002,115,228,1,white-pink
+t002,98,241,1,orange-red
+t002,79,243,1,white faint
+t002,130,244,1,white-pink
+t003,24,113,1,orange
+t003,88,120,1,white
+t003,14,151,1,orange
+t003,40,170,1,red
+t003,80.5,163,1,faint white
+t003,205,141,1,white
+t003,212,180.5,1,red
+t004,10,164,1,yellow-white
+t004,26,161,1,orange
+t004,59,164.5,1,pink-white
+t004,57,215.5,1,red
+t004,180.5,239,1,orange streak
+t005,88.5,221.5,1,white
+t005,184,191,1,orange
+t005,246,225,1,orange streak
+t005,221,200,0.5,small red nearly static

@@ -1,0 +1,36 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,3,101,95,0.5,1,m,"short streak, single frame, part of shower"
+w001,3,115,94,0.5,2,m,"short streak parallel to id1, single frame"
+w001,4,105,74,0.5,3,m,"small bright blob, single frame"
+w001,4,186,69,0.5,4,m,short streak at right edge
+w001,5,44,173,1,5,m,"bright white dot, appears only in k5"
+w001,5,126,158,0.5,6,m,"orange streak, single frame"
+w002,1,176,142,0.5,1,s,small dot only in k1
+w002,3,184,93,1,2,m,horizontal streak only in k3
+w002,3,69,7.5,1,3,m,streak only in k3
+w002,3,29,22.5,1,4,s,bright dot only in k3
+w002,3,86.5,51,1,5,m,white streak only in k3
+w002,4,64,105.5,0.5,6,m,faint streak in shower
+w002,5,171,172,1,7,m,vertical streak only in k5
+w008,2,16,7,0.5,1,s,small dot drifting left down over k2 to k5
+w008,2,18.5,162,0.5,2,s,faint dot only in k2
+w008,3,19.4,6.3,0.5,1,s,same dot
+w008,3,49,92,1,3,s,short bright streak only in k3
+w008,3,18.5,114,1,4,s,bright dot only in k3
+w008,4,14.3,8.3,0.5,1,s,same dot
+w008,5,12,9.5,0.5,1,s,same dot
+w008,5,180,134.5,0.5,5,s,small dot only in k5
+w009,0,87.3,125.8,1,1,s,"small pale glowing dot drifting left, camera static"
+w009,1,86.5,126,0.5,1,s,"same dot, faint"
+w009,2,86,126.5,1,1,s,same dot
+w009,3,83.2,126.4,1,1,s,"same dot, brighter, short vertical streak"
+w009,3,65.2,166.2,0.5,2,m,"single frame whitish diagonal streak, possible fast ember"
+w009,4,80.8,126.1,1,1,s,same ember moving left
+w009,5,79,127,1,1,s,same ember moving left
+w012,,,,,,,none
+w015,0,89.4,88.9,1,1,s,"pale dot, then moves up and right as a short streak"
+w015,0,69,38.4,0.5,2,m,"single frame faint diagonal streak, possible fast ember"
+w015,1,89.8,88.2,1,1,s,same ember
+w015,2,91,85.2,1,1,m,"same ember, streak along motion"
+w015,3,92.5,82.1,1,1,s,"same ember, then gone"

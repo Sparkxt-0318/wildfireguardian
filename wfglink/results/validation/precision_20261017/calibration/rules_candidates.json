@@ -1,0 +1,265 @@
+{
+  "profile": "file_native",
+  "positives": 114,
+  "dataset": "results/runs/precision_20261017/dataset_c5",
+  "dataset_json_sha256": "ced4d8ed69847fb857844fc9ffe948641887e908c049a161d39094cb72f1c7bb",
+  "note": "from development positives (agent labels, PROVISIONAL)",
+  "candidates": {
+    "0": {
+      "q": 0.0,
+      "thresholds": {
+        "lower": {
+          "snr_med": 5.378048419952393,
+          "speed_med": 3.458849273765861,
+          "net_disp": 0.6014416812546163,
+          "straightness": 0.09065252366378755
+        },
+        "upper": {
+          "hotspot_max": 59.51762771606445,
+          "pre_presence_med": 63.739379316568375,
+          "bg_grad_med": 142.49666595458984,
+          "large_near_max": 0.7516340017318726,
+          "codec_med": 1.0600000023841858,
+          "ctx_change_med": 10.736361980438232
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.005": {
+      "q": 0.005,
+      "thresholds": {
+        "lower": {
+          "snr_med": 5.4469510626792905,
+          "speed_med": 5.289029647859452,
+          "net_disp": 1.0454323626583142,
+          "straightness": 0.17043244786493794
+        },
+        "upper": {
+          "hotspot_max": 48.98470470428471,
+          "pre_presence_med": 52.53576267406349,
+          "bg_grad_med": 137.91416645050052,
+          "large_near_max": 0.6254267773032194,
+          "codec_med": 0.9673723967373375,
+          "ctx_change_med": 8.681229548454294
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.01": {
+      "q": 0.01,
+      "thresholds": {
+        "lower": {
+          "snr_med": 5.51976262807846,
+          "speed_med": 6.734524695928861,
+          "net_disp": 1.41207110096507,
+          "straightness": 0.23710764684137467
+        },
+        "upper": {
+          "hotspot_max": 39.94035717010501,
+          "pre_presence_med": 43.384039509296436,
+          "bg_grad_med": 133.39313457489018,
+          "large_near_max": 0.526758958697319,
+          "codec_med": 0.8935600322484971,
+          "ctx_change_med": 6.873084297180184
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.025": {
+      "q": 0.025,
+      "thresholds": {
+        "lower": {
+          "snr_med": 5.718969994783402,
+          "speed_med": 7.39497609490426,
+          "net_disp": 1.673898768744796,
+          "straightness": 0.2859243130246716
+        },
+        "upper": {
+          "hotspot_max": 33.25675601959228,
+          "pre_presence_med": 33.41535419821737,
+          "bg_grad_med": 117.73411579132078,
+          "large_near_max": 0.5054368883371353,
+          "codec_med": 0.8615732900798321,
+          "ctx_change_med": 5.2407994866371155
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.05": {
+      "q": 0.05,
+      "thresholds": {
+        "lower": {
+          "snr_med": 5.815870141983032,
+          "speed_med": 16.385672547057148,
+          "net_disp": 3.4046798000669725,
+          "straightness": 0.44500483822523373
+        },
+        "upper": {
+          "hotspot_max": 27.96746807098386,
+          "pre_presence_med": 24.62873144149779,
+          "bg_grad_med": 94.40965843200682,
+          "large_near_max": 0.49548250585794446,
+          "codec_med": 0.7431617751717565,
+          "ctx_change_med": 4.021274507045746
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.1": {
+      "q": 0.1,
+      "thresholds": {
+        "lower": {
+          "snr_med": 11.16005928516388,
+          "speed_med": 59.53573284822187,
+          "net_disp": 5.9275098703358555,
+          "straightness": 0.7464719990265043
+        },
+        "upper": {
+          "hotspot_max": 21.75048656463623,
+          "pre_presence_med": 15.12745022773743,
+          "bg_grad_med": 66.12390804290771,
+          "large_near_max": 0.4168781369924546,
+          "codec_med": 0.5907842621207238,
+          "ctx_change_med": 3.5577114045619966
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.2": {
+      "q": 0.2,
+      "thresholds": {
+        "lower": {
+          "snr_med": 20.726373291015626,
+          "speed_med": 132.21636075403984,
+          "net_disp": 18.318249865335765,
+          "straightness": 0.8993245180718507
+        },
+        "upper": {
+          "hotspot_max": 17.745441055297857,
+          "pre_presence_med": 8.140771770477306,
+          "bg_grad_med": 57.25544548034669,
+          "large_near_max": 0.2924932658672333,
+          "codec_med": 0.3364691615104676,
+          "ctx_change_med": 2.696637678146362
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    },
+    "0.3": {
+      "q": 0.3,
+      "thresholds": {
+        "lower": {
+          "snr_med": 33.88813800811768,
+          "speed_med": 250.1116625706767,
+          "net_disp": 35.66482632676043,
+          "straightness": 0.9723160497527162
+        },
+        "upper": {
+          "hotspot_max": 13.366779804229735,
+          "pre_presence_med": 3.383709573745727,
+          "bg_grad_med": 44.528350257873534,
+          "large_near_max": 0.2279507830739021,
+          "codec_med": 0.24862183332443233,
+          "ctx_change_med": 1.9162519395351405
+        },
+        "iqr": {
+          "snr_med": 52.727556228637695,
+          "speed_med": 796.6629297050272,
+          "net_disp": 100.20417526476844,
+          "straightness": 0.05068717207948226,
+          "hotspot_max": 11.214898943901062,
+          "pre_presence_med": 4.045203298330307,
+          "bg_grad_med": 38.801145195961,
+          "large_near_max": 0.2716262862086296,
+          "codec_med": 0.26381763257086277,
+          "ctx_change_med": 1.3950475007295609
+        }
+      },
+      "skipped": []
+    }
+  }
+}

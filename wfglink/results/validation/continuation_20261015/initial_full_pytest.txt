@@ -1,0 +1,160 @@
+run_from_head: f9e72c2 in /var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.TEcJOFp2A6/wfglink
+...............F......................................FF...............s [ 14%]
+..........F........................s.................................... [ 29%]
+........................................................................ [ 43%]
+..........................................................F............. [ 58%]
+........................................................................ [ 72%]
+........................................s............................F.. [ 87%]
+...............................................................          [100%]
+=================================== FAILURES ===================================
+___________ test_ember_screen_shows_the_page_address_and_its_qr_code ___________
+
+    @pytest.mark.qt
+    def test_ember_screen_shows_the_page_address_and_its_qr_code():
+        """booth.ember_page_url set: a QR code of it and the address, bottom-right, away from the picture's centre;
+        nothing when the address is empty."""
+        import cv2
+        from PySide6.QtGui import QGuiApplication
+
+        from wfglink.render.scene import Layout, page_qr_rect, render_image
+
+        QGuiApplication.instance() or QGuiApplication([])
+        url = "https://example-user.github.io/ember/"
+        L = Layout(1920, 1080)
+        q = page_qr_rect(L)
+        assert q.right() <= L.spark.right() + 1 and q.top() >= L.video.bottom()       # below the picture, at the right
+        for lang in ("ko", "en"):
+            with_url = render_image(1920, 1080, _ember_state(3), lang, page_url=url)
+            without = render_image(1920, 1080, _ember_state(3), lang, page_url="")
+            arr = _rgb(with_url, (0, 0, 1920, 1080)).astype(np.uint8)[..., ::-1].copy()
+>           assert cv2.QRCodeDetector().detectAndDecode(arr)[0] == url                 # a phone camera reads it
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: assert '' == 'https://exam...hub.io/ember/'
+E
+E             - https://example-user.github.io/ember/
+
+tests/test_booth_app.py:282: AssertionError
+__ test_ember_mode_without_a_camera_or_permission[thread-unsupported-missing] __
+
+tmp_path = PosixPath('/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/tmp/pytest-of-jp/pytest-0/test_ember_mode_without_a_came0')
+mode = 'thread', answer = 'unsupported', shown = 'missing'
+
+    @pytest.mark.slow
+    @pytest.mark.qt
+    @pytest.mark.parametrize("mode,answer,shown", [("thread", "unsupported", "missing"), ("process", "unsupported", "missing"),
+                                                   ("process", "denied", "denied"), ("thread", "not_determined", "asking")])
+    def test_ember_mode_without_a_camera_or_permission(tmp_path, mode, answer, shown):
+        """No camera here (Linux, no camera module or no device): a calm message, and M still returns."""
+        hb = tmp_path / "heartbeat.json"
+        res = subprocess.run([sys.executable, "-c", NOCAM, str(hb), mode, answer], capture_output=True, text=True,
+                             timeout=300, env=_child_env())
+        assert res.returncode == 0, res.stderr[-3000:]
+        r = json.loads(res.stdout.split("RESULT ", 1)[1])
+        m = r["marks"]
+        assert m["start"]["mode"] == "fire" and m["start"]["fire"] > 0
+        e = m["ember"]
+>       assert e["mode"] == "ember" and e["camera"] == shown and e["ember"] == 0
+E       AssertionError: assert ('ember' == 'ember'
+E
+E           ember and 'ok' == 'missing'
+E
+E         - missing
+E         + ok)
+
+tests/test_booth_app.py:1461: AssertionError
+_ test_ember_mode_without_a_camera_or_permission[process-unsupported-missing] __
+
+tmp_path = PosixPath('/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/tmp/pytest-of-jp/pytest-0/test_ember_mode_without_a_came1')
+mode = 'process', answer = 'unsupported', shown = 'missing'
+
+    @pytest.mark.slow
+    @pytest.mark.qt
+    @pytest.mark.parametrize("mode,answer,shown", [("thread", "unsupported", "missing"), ("process", "unsupported", "missing"),
+                                                   ("process", "denied", "denied"), ("thread", "not_determined", "asking")])
+    def test_ember_mode_without_a_camera_or_permission(tmp_path, mode, answer, shown):
+        """No camera here (Linux, no camera module or no device): a calm message, and M still returns."""
+        hb = tmp_path / "heartbeat.json"
+        res = subprocess.run([sys.executable, "-c", NOCAM, str(hb), mode, answer], capture_output=True, text=True,
+                             timeout=300, env=_child_env())
+        assert res.returncode == 0, res.stderr[-3000:]
+        r = json.loads(res.stdout.split("RESULT ", 1)[1])
+        m = r["marks"]
+        assert m["start"]["mode"] == "fire" and m["start"]["fire"] > 0
+        e = m["ember"]
+>       assert e["mode"] == "ember" and e["camera"] == shown and e["ember"] == 0
+E       AssertionError: assert ('ember' == 'ember'
+E
+E           ember and 'ok' == 'missing'
+E
+E         - missing
+E         + ok)
+
+tests/test_booth_app.py:1461: AssertionError
+____________ test_pyav_open_that_never_returns_falls_back_to_opencv ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x16c5a2570>
+
+    def test_pyav_open_that_never_returns_falls_back_to_opencv(monkeypatch):
+        """FFmpeg's avfoundation open can wait for a first frame for ever: PyAV gets open_timeout_s
+        in a helper thread, then never again for that camera in this process; OpenCV opens it."""
+        import av
+
+        release = threading.Event()
+
+        def stuck(*a, **k):
+            release.wait(10)
+            return types.SimpleNamespace(close=lambda: None, streams=None)
+
+        monkeypatch.setattr(av, "open", stuck)
+        monkeypatch.setattr(av, "formats_available", set(av.formats_available) | {"v4l2", "avfoundation"})
+        monkeypatch.setattr(C._PyAVCamera, "hung", set())
+        cam = C._PyAVCamera(dict(WEBCAM, unique_id="cam-1"), 1280, 720, 30, [WEBCAM])
+        t0 = C.time.monotonic()
+>       with pytest.raises(SourceError, match="did not return"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'did not return'
+E         Actual message: 'PyAV is not used for this camera: two cameras share this name, so FFmpeg cannot tell them apart'
+
+tests/test_camera.py:336: AssertionError
+____________ test_ember_page_card_carries_the_address_as_a_qr_code _____________
+
+tmp_path = PosixPath('/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/tmp/pytest-of-jp/pytest-0/test_ember_page_card_carries_t0')
+
+    @pytest.mark.qt
+    def test_ember_page_card_carries_the_address_as_a_qr_code(tmp_path):
+        url = "https://example-user.github.io/ember/"
+        res = pl.make_placards(tmp_path, cards=("ember_page",), url=url)
+        assert [(r["card"], r["lang"]) for r in res] == [("ember_page", "ko"), ("ember_page", "en")]
+        for r in res:
+            assert r["body_mm"] >= pl.MIN_TEXT_MM
+            pdf = open(r["pdf"], "rb").read()
+            assert pdf.startswith(b"%PDF") and b"/BaseFont /Pretendard" in pdf
+            img = cv2.imread(r["png"])
+>           assert cv2.QRCodeDetector().detectAndDecode(img)[0] == url      # a phone camera reads the address
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: assert '' == 'https://exam...hub.io/ember/'
+E
+E             - https://example-user.github.io/ember/
+
+tests/test_placards.py:91: AssertionError
+_______________________ test_gamma_quantize_and_unsharp ________________________
+
+    def test_gamma_quantize_and_unsharp():
+        x = np.linspace(0, 255, 1000, dtype=np.float32).reshape(10, 100)
+        enc = D.gamma_encode(np.dstack([x, x, x]), 2.2)
+        assert np.allclose(D.gamma_decode(enc, 2.2)[..., 0], x, atol=1e-3)
+>       assert enc[0, 0, 0] == 0 and enc[-1, -1, 0] == pytest.approx(255.0)
+E       assert (np.float32(1.0688075e-15) == 0)
+
+tests/test_synth_render.py:213: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_camera.py:66: macOS asks for real
+SKIPPED [1] tests/test_doctor.py:158: no system CA bundle here to stand in for certifi's
+SKIPPED [1] tests/test_synth_generate.py:322: set WFGLINK_SLOW=1 to run the 720p timing check
+FAILED tests/test_booth_app.py::test_ember_screen_shows_the_page_address_and_its_qr_code
+FAILED tests/test_booth_app.py::test_ember_mode_without_a_camera_or_permission[thread-unsupported-missing]
+FAILED tests/test_booth_app.py::test_ember_mode_without_a_camera_or_permission[process-unsupported-missing]
+FAILED tests/test_camera.py::test_pyav_open_that_never_returns_falls_back_to_opencv
+FAILED tests/test_placards.py::test_ember_page_card_carries_the_address_as_a_qr_code
+FAILED tests/test_synth_render.py::test_gamma_quantize_and_unsharp - assert (...
+6 failed, 486 passed, 3 skipped in 367.80s (0:06:07)

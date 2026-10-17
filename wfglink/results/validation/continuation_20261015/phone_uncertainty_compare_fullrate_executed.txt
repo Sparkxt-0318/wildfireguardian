@@ -1,0 +1,112 @@
+"""Exact legacy-history comparison and unchanged official ember tuning-suite reports."""
+import argparse
+import dataclasses
+import hashlib
+import importlib.util
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+
+from wfglink.config import load_config
+from wfglink.ember import pipeline as P
+from wfglink.ember import validate as V
+
+ROOT = Path(__file__).parent
+parser = argparse.ArgumentParser()
+parser.add_argument('--out-dir', type=Path, default=ROOT)
+OUT = parser.parse_args().out_dir
+OUT.mkdir(parents=True, exist_ok=True)
+spec = importlib.util.spec_from_file_location("cadence_original_tracker", ROOT / "baseline_track.py")
+baseline = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = baseline
+spec.loader.exec_module(baseline)
+current = P.EmberTracker
+legacy_fields = [f.name for f in dataclasses.fields(baseline.EmberTrack)]
+
+
+class OriginalAdapter(baseline.EmberTracker):
+    def update(self, blobs, t, *, source_fps=None):
+        super().update(blobs, t)
+
+
+def canonical(value):
+    def default(x):
+        if isinstance(x, np.generic):
+            return x.item()
+        raise TypeError(type(x).__name__)
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), default=default).encode()
+
+
+def digest(value):
+    return hashlib.sha256(canonical(value)).hexdigest()
+
+
+original_run = V.run_pipeline
+original_summary = V.speed_summary
+snapshots, exact = {}, {}
+label = None
+
+
+def recording_run(video, cfg):
+    pipe = original_run(video, cfg)
+    tracks = [{name: getattr(tr, name) for name in legacy_fields} for tr in pipe.all_tracks()]
+    snapshots.setdefault(label, {})[Path(video).name] = {
+        "frames": len(pipe.history), "history_sha256": digest(pipe.history),
+        "legacy_tracks_sha256": digest(tracks),
+    }
+    return pipe
+
+
+def recording_summary(rows, z_center, z_tol, min_speed):
+    selected = [r for r in rows if abs(r[0] - z_center) <= z_tol and r[2] >= min_speed]
+    exact.setdefault(label, {})[str(z_center)] = {"rows_sha256": digest(selected), "n": len(selected)}
+    if selected:
+        a = np.asarray(selected)
+        exact[label][str(z_center)]["median_abs_rel_err"] = float(np.median(np.abs((a[:, 1] - a[:, 2]) / a[:, 2])))
+    return original_summary(rows, z_center, z_tol, min_speed)
+
+
+def numeric_content(value):
+    excluded = {"created", "report_path", "proc_ms_median", "proc_ms_p95", "git_dirty", "git_commit", "git_branch"}
+    if isinstance(value, dict):
+        return {k: numeric_content(v) for k, v in value.items() if k not in excluded}
+    if isinstance(value, list):
+        return [numeric_content(v) for v in value]
+    return value
+
+
+V.run_pipeline = recording_run
+V.speed_summary = recording_summary
+reports = {}
+try:
+    for label, tracker in (("baseline", OriginalAdapter), ("cadence", current)):
+        P.EmberTracker = tracker
+        print(label, flush=True)
+        reports[label] = V.run_suite(load_config(), out=OUT / f"{label}_fullrate_suite.json")
+finally:
+    P.EmberTracker = current
+    V.run_pipeline = original_run
+    V.speed_summary = original_summary
+
+comparison = {name: {"baseline": old, "cadence": snapshots["cadence"][name],
+                     "exact_match": old == snapshots["cadence"][name]}
+              for name, old in snapshots["baseline"].items()}
+files = ["src/wfglink/ember/track.py", "src/wfglink/ember/pipeline.py", "src/wfglink/io/camera.py", "src/wfglink/io/sources.py"]
+report = {
+    "baseline_track_sha256": hashlib.sha256((ROOT / "baseline_track.py").read_bytes()).hexdigest(),
+    "source_sha256": {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files},
+    "histories": comparison,
+    "all_histories_and_legacy_tracks_exact": all(x["exact_match"] for x in comparison.values()),
+    "quality_speed_ruler_reports_exact": numeric_content(reports["baseline"]) == numeric_content(reports["cadence"]),
+    "exact_speed_rows_match": exact["baseline"] == exact["cadence"],
+    "exact_speed_summaries": exact,
+    "excluded_report_fields": ["created", "report_path", "proc_ms_median", "proc_ms_p95", "git_dirty", "git_commit", "git_branch"],
+}
+(OUT / "fullrate_comparison.json").write_text(json.dumps(report, indent=2) + "\n")
+(OUT / "compare_fullrate.executed.py").write_bytes(Path(__file__).read_bytes())
+print(json.dumps(report, indent=2), flush=True)
+assert report["all_histories_and_legacy_tracks_exact"]
+assert report["quality_speed_ruler_reports_exact"]
+assert report["exact_speed_rows_match"]

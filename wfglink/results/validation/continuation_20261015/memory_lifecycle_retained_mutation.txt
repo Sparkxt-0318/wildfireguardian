@@ -1,0 +1,119 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fifty_mode_switches_leak_no_threads_or_memory ______________
+
+scripted_camera = ([<ember_standin.ScriptedCamera object at 0x1258a5880>, <ember_standin.ScriptedCamera object at 0x125a8caa0>, <ember_s..., <ember_standin.ScriptedCamera object at 0x125a8d790>, <ember_standin.ScriptedCamera object at 0x125a8e420>, ...], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x125a08440>
+
+    @pytest.mark.slow
+    def test_fifty_mode_switches_leak_no_threads_or_memory(scripted_camera, monkeypatch):
+        """Mode lifecycle retention on a bounded workload, not the evolving fire working set."""
+        import weakref
+
+        sys.path.insert(0, str(TESTS))
+        from ember_standin import FakeEmberPipeline, ScriptedCamera
+
+        from wfglink.ui.booth_app import BoothEngine, rss_mb
+        from wfglink.io.synthetic_live import SyntheticLiveSource
+        from wfglink.io.frames import Frame
+
+        cfg = _phone_cfg()
+        # Keep real full-resolution source pictures, Player and Pipeline, with one configured
+        # noise-update period of inputs. An evolving synthetic cloud changes native CV scratch
+        # sizes even without any mode switch; this test isolates retention across mode entries.
+        period = max(1, int(cfg["detect"]["noise"]["update_every"]))
+        generator = SyntheticLiveSource(seed=int(cfg["booth"]["synthetic_seed"]), realtime=False)
+        corpus = tuple(generator.read().image for _ in range(period))
+        generator.close()
+        del generator
+        assert all(image.shape == (720, 1280, 3) for image in corpus)
+        for image in corpus:
+            image.setflags(write=False)
+        camera_images = []
+        camera_read = ScriptedCamera.read
+        def camera_frame(source):
+            frame = camera_read(source)
+            if frame is not None:
+                camera_images.append(weakref.ref(frame.image))
+            return frame
+        monkeypatch.setattr(ScriptedCamera, "read", camera_frame)
+
+        requested, boundary, resume = threading.Event(), threading.Event(), threading.Event()
+        resume.set()
+        def read_at_boundary(source):
+            index = source._next_index()
+            frame = Frame(corpus[index % len(corpus)], index / source.fps, index,
+                          meta={"source": source.name, "synthetic": True})
+            if requested.is_set():
+                boundary.set()
+                resume.wait()
+                boundary.clear()
+            return frame
+        monkeypatch.setattr(SyntheticLiveSource, "read", read_at_boundary)
+
+        def retained_rss():
+            # Compare completed-frame boundaries in the real playback thread.
+            resume.clear()
+            requested.set()
+            try:
+                assert boundary.wait(5.0)
+                return rss_mb(os.getpid())
+            finally:
+                requested.clear()
+                resume.set()
+
+        made, _ = scripted_camera
+        payloads, assets, analysers, feeds = [], [], [], []
+        eng = BoothEngine(cfg, {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+        eng.start("fire")
+        try:
+            def switch(k):
+                eng.set_mode("ember")
+                assert _steps(eng, "ember"), k
+                inner = made[-1].inner
+                payloads.append(weakref.ref(inner))
+                assets.extend(weakref.ref(a) for a in [inner._sprite, inner._bg]
+                              + [a for pair in inner._noise for a in pair])
+                del inner
+                analysers.append(weakref.ref(eng.ember))
+                feeds.append(weakref.ref(eng.feed))
+                eng.set_mode("fire")
+                assert _steps(eng, "fire"), k
+
+            for k in range(5):                     # warm up: imports, caches, first allocations
+                switch(k)
+            # Seeding returns no detections; then analyse every corpus input at least once.
+            warmed_frames = int(cfg["detect"]["background"]["warmup_frames"]) + len(corpus)
+            corpus_ids, analysed_inputs = {id(image) for image in corpus}, set()
+            def fire_ready():
+                state = eng.step()
+                pipe = eng.analyser.pipes.get(eng.analyser.active)
+                if state is not None and pipe.detector.ready:
+                    analysed_inputs.add(id(state.image))
+                return (state is not None and pipe.detector.ready
+                        and pipe.stats.frames_analysed >= warmed_frames and analysed_inputs >= corpus_ids)
+            assert _until(fire_ready)
+            threads, mem = threading.active_count(), retained_rss()
+            for k in range(50):
+                switch(k)
+            assert threading.active_count() == threads
+            assert not any(t.name == "camera" and t.is_alive() for t in threading.enumerate())
+            assert all(c.opened == c.closed == 1 for c in made) and eng.entries == 55
+>           assert all(ref() is None for ref in payloads + assets + camera_images + analysers)
+E           assert False
+E            +  where False = all(<generator object test_fifty_mode_switches_leak_no_threads_or_memory.<locals>.<genexpr> at 0x125b33850>)
+
+tests/test_booth_app.py:910: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory
+1 failed in 4.09s
+{
+  "returncode": 1,
+  "mutation_retains_payload": true,
+  "rss_probes_mib": [
+    404.4375
+  ],
+  "rss_delta_mib": null,
+  "source_sha256": "687d3ada3f4d89e9753afc07284bf374e001c5015f19eaddb492651328622552",
+  "scope": "Mode lifecycle with real Player/Pipeline on bounded full-resolution replay; not whole evolving-fire working-set validation."
+}

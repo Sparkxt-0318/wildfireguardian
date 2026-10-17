@@ -1,0 +1,42 @@
+{
+  "started_at_utc": "2026-10-15T11:31:49.511973+00:00",
+  "baseline_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+  "export_root": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/c5_baseline_source/wfglink",
+  "output_root": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/synthetic/coverage",
+  "python": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/.venv/bin/python",
+  "source_checks": [
+    {
+      "path": "src/wfglink/synth/generate.py",
+      "export_sha256": "0c428d92411733590d976a0a8677282e36766053e2fd55837b0e7b09aade9054",
+      "git_blob_sha256": "0c428d92411733590d976a0a8677282e36766053e2fd55837b0e7b09aade9054",
+      "matches": true
+    },
+    {
+      "path": "configs/suites/coverage.yaml",
+      "export_sha256": "340062abd8a642d9ecb37f6b9a8ed86a522eebf655a86afee89817e10c00795d",
+      "git_blob_sha256": "340062abd8a642d9ecb37f6b9a8ed86a522eebf655a86afee89817e10c00795d",
+      "matches": true
+    }
+  ],
+  "initial_output_state": {
+    "exists": false,
+    "files": 0,
+    "manifest_exists": false
+  },
+  "environment": {
+    "PYTHONPATH": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/results/runs/c5_baseline_source/wfglink/src",
+    "WFGLINK_EXPORT_COMMIT": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+    "QT_QPA_PLATFORM": "offscreen"
+  },
+  "command": [
+    "-m",
+    "wfglink.synth.generate",
+    "--suite",
+    "configs/suites/coverage.yaml",
+    "--out",
+    "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/synthetic/coverage",
+    "--workers",
+    "2"
+  ],
+  "status": "PREFLIGHT_PASS"
+}

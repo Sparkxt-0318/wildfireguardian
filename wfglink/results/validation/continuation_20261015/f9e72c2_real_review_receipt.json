@@ -1,0 +1,539 @@
+{
+  "sealed_at_utc": "2026-10-15T11:44:48.042845+00:00",
+  "baseline_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+  "review_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+  "commands": [
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink process data/clips/C5_nist_emberometer.yaml --out results/runs/process/C5_multiscale",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink label-score results/labels/C5 --labels results/labels/C5/labels_agent.csv --run results/runs/process/C5_multiscale --compare results/labels/C5/labels_agent_check.csv --tag agent-labeled --compare-tag agent-labeled --out results/runs/process/C5_multiscale_labels.json",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink process data/clips/C10_sparkler.yaml --start-seconds 40 --max-seconds 43 --out results/runs/process/C10_multiscale_short",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink process data/clips/C6_nist_dragon.yaml --out results/runs/process/C6_multiscale",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink plausibility results/runs/process/C5_multiscale --clip data/clips/C5_nist_emberometer.yaml",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink plausibility results/runs/process/C10_multiscale_short --clip data/clips/C10_sparkler.yaml",
+    "QT_QPA_PLATFORM=offscreen bash scripts/run_from_head.sh python -m wfglink plausibility results/runs/process/C6_multiscale --clip data/clips/C6_nist_dragon.yaml"
+  ],
+  "all_command_exit_codes": 0,
+  "runs": {
+    "C5_multiscale": {
+      "source_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+      "git_dirty": false,
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "input_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+      "segment_s": [
+        0.5,
+        19.35
+      ],
+      "metrics_scope": "all",
+      "totals": {
+        "frames": 566,
+        "frames_duplicate": 0,
+        "tracks": 12629,
+        "tracks_moving": 12509,
+        "duration_s": 18.667,
+        "cpc_gross": 170,
+        "cpc_gross_ci": [
+          145.4051209598549,
+          197.56347387677286
+        ],
+        "cpc_net": 56,
+        "cpc_net_ci": [
+          19.277882058236912,
+          92.68592186813564
+        ],
+        "count_rate_per_s": 9.107142857142858,
+        "count_rate_ci": [
+          7.016517857142859,
+          11.410714285714286
+        ],
+        "pnf": {
+          "value": 0.5019368858654574,
+          "lo": 0.42931878590282185,
+          "hi": 0.5833199696380529,
+          "unit": "per 100 px per s",
+          "label": "Particle Number Flux (projected, uncalibrated px)"
+        },
+        "gate": {
+          "p1": [
+            1190.4,
+            172.8
+          ],
+          "p2": [
+            1190.4,
+            1987.2
+          ],
+          "length_px": 1814.4,
+          "name": "gate"
+        },
+        "speed_px_s": {
+          "median": 83.10859744501239,
+          "p10": 4.946161346961082,
+          "p90": 537.4553633647996,
+          "tracks": 12509
+        },
+        "direction_deg_circular_mean": 134.89395016280417
+      },
+      "analysis": {
+        "factors": [
+          1,
+          2,
+          4
+        ],
+        "sizes_px": [
+          [
+            1920,
+            2160
+          ],
+          [
+            960,
+            1080
+          ],
+          [
+            480,
+            540
+          ]
+        ],
+        "multiscale_enabled": true,
+        "min_frame_pixels": 1843200,
+        "detections_by_scale": {
+          "1": 154465,
+          "2": 15340,
+          "4": 5600
+        }
+      },
+      "warnings": [],
+      "plausibility_checks": {
+        "timing": {
+          "status": "pass",
+          "reason": "steady frame interval 33.33 ms, 0 gaps, 0 repeated frames"
+        },
+        "exposure": {
+          "status": "flag",
+          "reason": "unstable: the intervals of 6 windows do not overlap"
+        },
+        "static_lights": {
+          "status": "pass",
+          "reason": "120 static tracks, none counted at the gate"
+        },
+        "speed": {
+          "status": "not applicable",
+          "reason": "clip settings lack peak_gust_ms, gust_source, z_interval_m, focal_px or hfov_deg"
+        },
+        "direction": {
+          "status": "not applicable",
+          "reason": "clip settings lack drift_deg, drift_basis"
+        },
+        "determinism": {
+          "status": "pass",
+          "reason": "identical tables on two reruns of 0.666667 to 2.66667 s"
+        }
+      },
+      "artifacts": {
+        "summary.json": {
+          "sha256": "d9001a666d2c6519a7d7cc2762ddfb2c84c87c8e0d04d03e593250767620fa89",
+          "bytes": 3815
+        },
+        "track_points.parquet": {
+          "sha256": "25ad916f3da0e1071b75eb82c5110c1060c508e2085d21d7b175cc9bbe4f67ab",
+          "bytes": 14491874
+        },
+        "overlay.mp4": {
+          "sha256": "ee56cc2c152deaeed1b86ffe9140cfe89df23747c39e2db8cfa51a716a84443d",
+          "bytes": 15064315
+        },
+        "detections.parquet": {
+          "sha256": "593b30d3d203b3f99b7fc6a80059e9e980e0e5051eaebecfaadadd0a16e1e4ed",
+          "bytes": 10817886
+        },
+        "plausibility.json": {
+          "sha256": "016b54f800a978790f0675e1841d52cec9477399d80dd6bfb156fd685060f2c8",
+          "bytes": 6724
+        },
+        "frames.parquet": {
+          "sha256": "8e35cb7a88a3a8e521bb11faf86b8c64fad58020ba67908892801756e4c2639d",
+          "bytes": 28620
+        },
+        "field.parquet": {
+          "sha256": "838ca984e1392703dac14d5a1e8ab7cab8cef35d02b3436b684ce9c44b6b71a7",
+          "bytes": 33521
+        },
+        "tracks.parquet": {
+          "sha256": "20f921f295d94920b7da6741b3db27fac66850f499f128f1f434123bb44cdd09",
+          "bytes": 1159977
+        }
+      }
+    },
+    "C10_multiscale_short": {
+      "source_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+      "git_dirty": false,
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "input_sha256": "e7a4544a0ede68bdfe5c8d619d95dd8f9ecd60ce198713445c11ecd2c404775c",
+      "segment_s": [
+        40.0,
+        43.0
+      ],
+      "metrics_scope": "tracking_only",
+      "totals": {
+        "frames": 73,
+        "frames_duplicate": 0,
+        "tracks": 149,
+        "tracks_moving": 149,
+        "gate": {
+          "p1": [
+            2380.8,
+            172.8
+          ],
+          "p2": [
+            2380.8,
+            1987.2
+          ],
+          "length_px": 1814.4,
+          "name": "gate"
+        },
+        "direction_deg_circular_mean": 96.51827658288165,
+        "not_reported": {
+          "quantities": [
+            "speed_px_s",
+            "count_rate_per_s",
+            "count_rate_ci",
+            "pnf",
+            "cpc_gross",
+            "cpc_gross_ci",
+            "cpc_net",
+            "cpc_net_ci",
+            "duration_s"
+          ],
+          "reason": "metrics_scope tracking_only: the timebase is not real time"
+        }
+      },
+      "analysis": {
+        "factors": [
+          1,
+          2,
+          4
+        ],
+        "sizes_px": [
+          [
+            3840,
+            2160
+          ],
+          [
+            1920,
+            1080
+          ],
+          [
+            960,
+            540
+          ]
+        ],
+        "multiscale_enabled": true,
+        "min_frame_pixels": 1843200,
+        "detections_by_scale": {
+          "1": 2732,
+          "2": 641,
+          "4": 352
+        }
+      },
+      "warnings": [
+        "exposure time not estimated; streak speeds are not reported",
+        "tracking only: speeds, counts and flux are not reported for this clip (its timebase is not real time)"
+      ],
+      "plausibility_checks": {
+        "timing": {
+          "status": "pass",
+          "reason": "steady frame interval 42.00 ms, 0 gaps, 0 repeated frames"
+        },
+        "exposure": {
+          "status": "not applicable",
+          "reason": "estimator declined: streak length not proportional to speed (a free intercept changes the slope by +27875 percent)"
+        },
+        "static_lights": {
+          "status": "pass",
+          "reason": "no static tracks"
+        },
+        "speed": {
+          "status": "not applicable",
+          "reason": "clip settings lack peak_gust_ms, gust_source, z_interval_m, focal_px or hfov_deg"
+        },
+        "direction": {
+          "status": "not applicable",
+          "reason": "clip settings lack drift_deg, drift_basis"
+        },
+        "determinism": {
+          "status": "pass",
+          "reason": "identical tables on two reruns of 40.208 to 42.208 s"
+        }
+      },
+      "artifacts": {
+        "summary.json": {
+          "sha256": "05257b620be9c9325936be79a75de24ae0a1684e111a4c9450e27809aaf6119d",
+          "bytes": 3416
+        },
+        "track_points.parquet": {
+          "sha256": "731d432f9715c4217fdf5a03af4a63e874aee97d2f5efb60c1a1cd53f909f8d6",
+          "bytes": 146467
+        },
+        "overlay.mp4": {
+          "sha256": "87d8f9ec18dfa1c68cbd1fd8e1d87a91eace5bcbcadd2a9ab8e81a3bbc06016e",
+          "bytes": 661761
+        },
+        "detections.parquet": {
+          "sha256": "187f3e48f34bd4fb4f7761cf34aecca1582191cec31d2d5fc6017ad3605c51f1",
+          "bytes": 256693
+        },
+        "plausibility.json": {
+          "sha256": "46377c8b1a3a1dbd741527be5c76b5224c2b23ed275c32a317688f8de55cc61d",
+          "bytes": 3896
+        },
+        "frames.parquet": {
+          "sha256": "9cef3d7143673ed4aa6556d2633ecec859d48c263d709e3928e40234c8305014",
+          "bytes": 9034
+        },
+        "field.parquet": {
+          "sha256": "52eac209e54a32dfcec8b34ede589e78ed2b469814f2bce5fdc456cab6aaeb6e",
+          "bytes": 9694
+        },
+        "tracks.parquet": {
+          "sha256": "07226a2cfb560182515d00c43c62d3530efea00823a66e0a5b9fff856e7e70ec",
+          "bytes": 25833
+        }
+      }
+    },
+    "C6_multiscale": {
+      "source_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+      "git_dirty": false,
+      "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+      "input_sha256": "b3e509647f1a6ae77e55a8995be7401f862278c902400a709ede7ab961204dbf",
+      "segment_s": [
+        17.05,
+        22.55
+      ],
+      "metrics_scope": "all",
+      "totals": {
+        "frames": 165,
+        "frames_duplicate": 32,
+        "tracks": 513,
+        "tracks_moving": 413,
+        "duration_s": 5.272,
+        "cpc_gross": 21,
+        "cpc_gross_ci": [
+          12.99933098407619,
+          32.10073073494336
+        ],
+        "cpc_net": 5,
+        "cpc_net_ci": [
+          -8.841236729189507,
+          18.77656374141037
+        ],
+        "count_rate_per_s": 3.9833080424886202,
+        "count_rate_ci": [
+          2.4657304598020096,
+          6.08890947172674
+        ],
+        "pnf": {
+          "value": 1.3172314955319515,
+          "lo": 0.815387056812834,
+          "hi": 2.013528264459901,
+          "unit": "per 100 px per s",
+          "label": "Particle Number Flux (projected, uncalibrated px)"
+        },
+        "gate": {
+          "p1": [
+            334.8,
+            28.8
+          ],
+          "p2": [
+            334.8,
+            331.2
+          ],
+          "length_px": 302.4,
+          "name": "gate"
+        },
+        "speed_px_s": {
+          "median": 86.61636205271186,
+          "p10": 8.609684172958527,
+          "p90": 250.32235590974128,
+          "tracks": 413
+        },
+        "direction_deg_circular_mean": 162.5628688302316
+      },
+      "analysis": {
+        "factors": [
+          1
+        ],
+        "sizes_px": [
+          [
+            540,
+            360
+          ]
+        ],
+        "multiscale_enabled": true,
+        "min_frame_pixels": 1843200,
+        "detections_by_scale": {
+          "1": 9139
+        }
+      },
+      "warnings": [
+        "exposure time not estimated; streak speeds are not reported",
+        "32 repeated frames skipped (constant-frame-rate re-encode?)"
+      ],
+      "plausibility_checks": {
+        "timing": {
+          "status": "flag",
+          "reason": "32 repeated frames (19 percent; skipped by the pipeline)"
+        },
+        "exposure": {
+          "status": "not applicable",
+          "reason": "estimator declined: streak length not proportional to speed (a free intercept changes the slope by +123 percent)"
+        },
+        "static_lights": {
+          "status": "pass",
+          "reason": "100 static tracks, none counted at the gate"
+        },
+        "speed": {
+          "status": "not applicable",
+          "reason": "clip settings lack peak_gust_ms, gust_source, z_interval_m, focal_px or hfov_deg"
+        },
+        "direction": {
+          "status": "not applicable",
+          "reason": "clip settings lack drift_deg, drift_basis"
+        },
+        "determinism": {
+          "status": "pass",
+          "reason": "identical tables on two reruns of 17.218 to 19.218 s"
+        }
+      },
+      "artifacts": {
+        "summary.json": {
+          "sha256": "20f8b58a3fd936621a188a537a98aa33ea5c39c0c98dfe83afd0dcd7773cb9e7",
+          "bytes": 3641
+        },
+        "track_points.parquet": {
+          "sha256": "bfc65f8b6c8056f09f8faeb33e50ccfeb51d26c6ce01d927700b4c5e184d7a33",
+          "bytes": 1016888
+        },
+        "overlay.mp4": {
+          "sha256": "6152d6e0f7c706b417bd72a9fc3928fa1db63db1059bb7fd2c5027e02a9a6b51",
+          "bytes": 1940936
+        },
+        "detections.parquet": {
+          "sha256": "d1666a7632fdc6140bc1eebdc73506f7076e31b0323ff548c981ee3bd6f6038b",
+          "bytes": 614177
+        },
+        "plausibility.json": {
+          "sha256": "ab96401c5368b1c6d4c4395fb781f8228d719e12ad18ad961b2b4c0f96696f1c",
+          "bytes": 3987
+        },
+        "frames.parquet": {
+          "sha256": "206c722b38bc3077f13126dbe1f3bff81532b336975526c122e7cb8b0a801a5e",
+          "bytes": 12556
+        },
+        "field.parquet": {
+          "sha256": "5072fe1461c8590966f48e2c38b138acdf90a6de1c10fda5a59d63432b9903aa",
+          "bytes": 11105
+        },
+        "tracks.parquet": {
+          "sha256": "e87ede65278fb90c512d4f1e96a44f8d896d02c94b73aa84ad536b9284666caa",
+          "bytes": 58035
+        }
+      }
+    }
+  },
+  "c5_blind_label_comparison": {
+    "C5_baseline": {
+      "tp": 10,
+      "fp": 148,
+      "fn": 34,
+      "precision": {
+        "value": 0.06329113924050633,
+        "ci": [
+          0.010471204188481676,
+          0.140139828821656
+        ]
+      },
+      "recall": {
+        "value": 0.22727272727272727,
+        "ci": [
+          0.07136699507389173,
+          0.387783446712018
+        ]
+      },
+      "f1": {
+        "value": 0.09900990099009901,
+        "ci": [
+          0.0191275768009659,
+          0.19178979481964462
+        ]
+      },
+      "frames": 20,
+      "tiles_scored": 40,
+      "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+      "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+      "run_git_commit": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+      "artifact_sha256": "54e7823d5887208cd2966bcddd235d63d68f6f57f05ff0a948d334ae7f3c3470",
+      "inter_labeler_f1": {
+        "value": 0.8125,
+        "ci": [
+          0.7692307692307693,
+          1.0
+        ]
+      }
+    },
+    "C5_multiscale": {
+      "tp": 24,
+      "fp": 168,
+      "fn": 20,
+      "precision": {
+        "value": 0.125,
+        "ci": [
+          0.030483185513673326,
+          0.22857748184019366
+        ]
+      },
+      "recall": {
+        "value": 0.5454545454545454,
+        "ci": [
+          0.3333333333333333,
+          0.68295892169448
+        ]
+      },
+      "f1": {
+        "value": 0.2033898305084746,
+        "ci": [
+          0.05577135900841081,
+          0.3320817420053582
+        ]
+      },
+      "frames": 20,
+      "tiles_scored": 40,
+      "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+      "video_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+      "run_git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+      "artifact_sha256": "1ec6aa5b6c33389cf4fec4cd951bc1cc71865820aded37fd15c7fb59d5666d7f",
+      "inter_labeler_f1": {
+        "value": 0.8125,
+        "ci": [
+          0.7692307692307693,
+          1.0
+        ]
+      }
+    }
+  },
+  "perceptual_findings": {
+    "C5": [
+      "Readable layout and correct left-half ROI; orange marks densely cover equipment, fixtures, people and pan reflections; many associations visually suspect.",
+      "Low precision persists: no ember-only tracking claim."
+    ],
+    "C10": [
+      "Summary omits invalid totals, but overlay displays rate/CPC/flux/speed, violating tracking_only policy.",
+      "Tracking-only presentation/export fix required; do not reuse this overlay as compliant."
+    ],
+    "C6": [
+      "Shower partly followed, but burnt-in caption letters are detected and some long associations are suspect.",
+      "32 repeated frames skipped; no ground-truth performance claim."
+    ]
+  },
+  "limits": [
+    "Tune-split sample only.",
+    "Plausibility/determinism are not physical validation.",
+    "No mismatch or coverage scoring/evaluation/tuning performed."
+  ]
+}

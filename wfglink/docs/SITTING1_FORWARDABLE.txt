@@ -1,0 +1,169 @@
+Sitting 1 tonight: exact commands and changes from the manual
+
+Copy this command block into Mac Terminal. It assumes your existing main clone
+is ~/wildfireguardian. Change source_repo if it is elsewhere. It creates
+~/wfglink-run only when absent, or safely updates that existing worktree.
+
+```sh
+wfglink_tonight() {
+  local source_repo="$HOME/wildfireguardian"
+  local run_repo="$HOME/wfglink-run"
+  local branch="claude/practical-rubin-5vu12u"
+  local current_branch
+
+  if [ -e "$run_repo" ]; then
+    if [ ! -e "$run_repo/.git" ]; then
+      printf 'Stopped: %s exists but is not a Git worktree. Keep it and send the error.\n' "$run_repo"
+      return 1
+    fi
+    git -C "$run_repo" rev-parse --verify HEAD >/dev/null || return
+    current_branch=$(git -C "$run_repo" symbolic-ref --quiet --short HEAD) || current_branch=""
+    case "$current_branch" in
+      ""|"$branch") ;;
+      *) printf 'Stopped: worktree is on %s. No branch was switched.\n' "$current_branch"; return 1 ;;
+    esac
+    if ! git -C "$run_repo" diff --quiet || ! git -C "$run_repo" diff --cached --quiet; then
+      printf 'Stopped: tracked files have local changes. Keep them and send git status --short.\n'
+      git -C "$run_repo" status --short
+      return 1
+    fi
+    git -C "$run_repo" fetch origin "$branch" || return
+    git -C "$run_repo" merge --ff-only "origin/$branch" || return
+  else
+    git -C "$source_repo" fetch origin "$branch" || return
+    git -C "$source_repo" worktree add --detach "$run_repo" "origin/$branch" || return
+  fi
+
+  cd "$run_repo/wfglink" || return
+  open booth/ember/calibration_target_A4.pdf || return
+  ./scripts/sitting1_tonight.sh
+}
+wfglink_tonight
+```
+
+If an update stops, send the error and the output of
+git -C ~/wfglink-run status --short. Do not force a checkout, reset or delete files.
+The script uses .venv/bin/python directly; environment activation is unnecessary.
+
+Before continuing: install python.org Python 3.12 if missing, connect the charger,
+quit FaceTime, Photo Booth, Zoom and other camera apps, and connect Mac and iPhone
+to the same Wi-Fi. A guest network may block the phone from reaching the Mac.
+Internet is needed for the first setup and approved clip downloads.
+
+The script runs this checklist in order:
+
+1. Setup: press Enter to install/check packages and the approved booth clips.
+   Click Allow if macOS asks for camera permission.
+2. Doctor: read every check and fix any FAIL before relying on the booth. These
+   checks use normal booth settings, so a stale camera setting remains visible.
+3. Built-in camera: automatically select the MacBook's usable built-in camera by
+   name, request permission and open it briefly. No USB or iPhone is substituted.
+4. Approved fire clip: press Enter for 60 seconds of C5, the NIST emberometer clip.
+   Try A twice for raw/analysed and L twice for language. Note trails and counters.
+   Esc twice exits early.
+5. Local page and ember mode: allow incoming connections if asked. Scan the
+   printed Terminal QR or open its local address on the iPhone. Set brightness to
+   maximum, turn Low Power Mode off and tap once; check that the ember glows.
+   Press Enter for 60 seconds with the built-in camera. Hold the phone facing it
+   over a floor mark 2.0 m from the lens. Move slowly and quickly, hold still and
+   turn away. Note missing tracks or false lamps/windows. Turn off all camera
+   video effects in the Mac menu bar. Speeds here precede A4 calibration and use
+   the nominal field of view.
+6. A4 calibration: print the opened PDF on A4 at actual size, Scale 100%, with
+   Fit to page off. Its 100 mm line must measure 100 mm. Keep the sheet flat on
+   card and hold all four markers in view over the same 2.0 m mark as the phone.
+   Enter the measured print-line length when asked, then hold still. Calibration
+   saves only when stable; a failure remains in the report.
+7. Send the complete report.txt printed at the end, or report.json at the exact
+   path printed beside it, including failures and skipped steps. Each run has a
+   fresh directory under ~/wfglink-run/wfglink/results/runs/sitting1/. The same
+   directory holds tonight.yaml, app reports, command logs and your notes.
+
+Control-C stops the local server and preserves an interrupted combined report.
+Skipped steps make the report incomplete. A completed checklist is a smoke check
+of app health plus your observations, not physical or speed-accuracy validation.
+
+Every difference from the earlier build manual and longer sitting:
+
+- Tonight uses the built-in MacBook camera and the iPhone only as the glowing
+  page. No iPad filming, Continuity Camera, re-filmed-screen checks, frame codes,
+  held-frame or loopback suite are required. Fire mode analyses approved files
+  as they play; ember mode uses the live camera.
+- The LED rig, LED turntable recordings, validate --suite led, led_notes.yaml,
+  rotation timings and LED speed goal were removed by the later decisions.
+  No new dashcam, webcam or turntable is needed tonight. Dashcam room/night-drive
+  recordings and the iPad slow-motion recording are not in this short sitting.
+- One script replaces the separate setup/doctor/synthetic-screen/camera/page/
+  calibration commands. The fire check uses approved C5 rather than generated
+  footage. The built-in camera open check is 3 seconds. Setup still creates
+  .venv and data/raw, installs packages and fetches missing approved booth clips.
+- Doctor adds video, camera, data and clips to the manual's python, packages,
+  fonts and screens checks. A camera failure in normal settings is not erased by
+  tonight's separate successful built-in check. App errors, missing frames,
+  missing camera or synthetic fire fallback also fail report checks.
+- A toggles raw/analysed fire footage; M switches fire/ember mode. Fire mode starts
+  analysed. L, T, F, G, Space, I and Esc twice remain available. Ember mode tracks
+  at most 3 phones, ignores extra phones and shows a small max 3 note.
+- Tonight pins the built-in camera and disables old focal calibration and masks
+  only in its isolated tonight.yaml. It preserves configs/booth_local.yaml.
+  To reuse tonight's calibrated speeds, copy the exact live --ember --config
+  command printed at the end, including the full path to this run's tonight.yaml.
+  Normal booth commands do not automatically use that file. Before the normal
+  booth rehearsal, select its camera and run normal calibrate to save into
+  configs/booth_local.yaml, or deliberately keep using the explicit override.
+- Reports now live in a unique results/runs/sitting1/<run>/ directory, not
+  ~/wfglink-sitting1/report.txt. No real recordings or validation suites run
+  tonight. Later, use docs/SITTING1.md for ember_free, ember_ruler and
+  validate --suite ember, whose report is results/validation/ember_report.json.
+- Updates are fast-forward only and stop on divergence, an unrelated branch or
+  tracked local changes. They do not switch your main checkout or discard files.
+- C5 already uses the live analysis resolution cap, giving roughly half-scale
+  working images. Separate half-resolution booth video copies were not made.
+  This does not establish equivalent decoding cost/results or physical accuracy.
+- A future dashcam must support USB PC camera/UVC mode, not just mass storage.
+  List it with .venv/bin/python -m wfglink cameras, then choose its listed name
+  under camera.name in configs/booth_local.yaml. Use camera.mask for a burned-in
+  clock/logo, as rectangles [x0,y0,x1,y1] in fractions before mirroring. Recalibrate
+  that camera and check it in ember mode. A purchased device is not yet verified.
+- Local hosting is enough tonight. The LAN server stops when the script ends;
+  its address can change with Wi-Fi. To reopen it, run
+  cd ~/wfglink-run/wfglink
+  .venv/bin/python -u scripts/serve_page.py
+  Keep that Terminal window open. Plain HTTP can limit screen wake lock; tap once
+  to start the page's video fallback and verify that the phone stays awake.
+
+Permanent GitHub Pages publishing, separate from tonight:
+
+1. In GitHub, create a separate public repository named ember under your account.
+   This keeps the WildfireGuardian repository's hosting unchanged.
+2. In Finder, open ~/wfglink-run/wfglink/booth/ember/. Upload only index.html to
+   the new repository's root and commit it on main. No recordings, clips or
+   local configuration belong in that repository.
+3. In that repository, choose Settings > Pages > Build and deployment > Source:
+   Deploy from a branch. Select main and / (root), then Save. Wait for deployment.
+4. Open the address GitHub shows, usually https://YOUR-NAME.github.io/ember/, on
+   the iPhone and check the page. Use the actual address, not that placeholder.
+5. In ~/wfglink-run/wfglink, run touch configs/booth_local.yaml and then
+   open -e configs/booth_local.yaml. Preserve all existing settings. Under the
+   existing booth: mapping set ember_page_url: to the actual URL, replacing an
+   existing value or adding the key if absent, indented two spaces. If booth: is
+   absent, copy the exact two file lines below,
+   replacing the URL. booth: starts in column zero; its child has two spaces.
+
+```yaml
+booth:
+  ember_page_url: https://YOUR-NAME.github.io/ember/
+```
+
+6. From the same folder run
+   .venv/bin/python scripts/make_placards.py --card ember_page
+   Print booth/placards/ember_page_ko.pdf and ember_page_en.pdf on A5 at 100%.
+   Scan the printed QR and check it opens the page. Normal ember mode uses this
+   permanent address and QR. Tonight's isolated override keeps its local URL.
+
+Branch-based Pages offers the repository root or /docs as its source folder;
+it cannot directly select wfglink/booth/ember/. Using the existing repository
+would need a Pages workflow or a separate publishing branch. The separate ember
+repository is the simpler route. These instructions do not publish anything or
+assume access to your GitHub account. GitHub's publishing instructions:
+https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site

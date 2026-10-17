@@ -1,0 +1,9 @@
+# Rankine vortex in a cross wind, a tuning flow. Positive circulation turns clockwise on
+# screen (y down): above the centre the air moves right, below it moves left. core_speed
+# is the tangential speed at the core radius (circulation = 2 pi core_radius core_speed).
+flow:
+  type: rankine
+  center_frac: [0.5, 0.5]
+  core_radius: 120.0
+  core_speed: 150.0
+  background: [100.0, 0.0]

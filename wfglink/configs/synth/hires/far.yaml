@@ -1,0 +1,13 @@
+# Far embers in a 2560x1440 frame (configs/suites/hires.yaml): the core base case with its
+# scale and speeds doubled for the larger frame; small (PSF sigma 0.6 to 1.2 px) and faint.
+frame_size: [2560, 1440]
+px_per_m: 80.0                   # twice the core scale, so terminal velocities are twice as many px/s
+flow:
+  type: uniform
+  u: 300.0                       # twice the core drift (px/s)
+  v: 0.0
+embers:
+  density:
+    on_screen: 200               # twice the core medium density on four times the area
+  snr: {median: 12.0, log_sigma: 0.5}   # around the core detection limit, spread wide enough to measure it
+  sigma_px: [0.6, 1.2]           # a pixel or two wide

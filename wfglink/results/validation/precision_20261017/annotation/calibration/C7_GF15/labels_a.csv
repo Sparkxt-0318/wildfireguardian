@@ -1,0 +1,17 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,9,132,0.5,1,s,small warm white dot just above dark branch in flame lit smoke; shifts about 2 px and vanishes after k1; could be a glowing twig tip
+w000,1,10,131,0.5,1,s,"same dot, last frame seen; gone from k2"
+w001,5,130,200,0.5,1,m,"pale peach diagonal streak from about (127,203) to (133,198), separate from the defocused foreground flame, seen only in the last frame; could be a flame wisp"
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,,,,,,,none
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,0,218.8,108.2,0.5,1,s,"small white fleck in smoke above the fire, drifting; neutral white colour, could be sunlit ash"
+w009,1,216.1,106,0.5,1,s,"same white fleck, brightest frame"
+w009,2,220,104.9,0.5,1,s,"same fleck, slightly elongated, moving right"
+w009,3,227.5,103.6,0.5,1,m,"same fleck as a faint horizontal streak about 9 px long, fading; not visible in k4 and k5"
+w010,,,,,,,none
+w011,,,,,,,none

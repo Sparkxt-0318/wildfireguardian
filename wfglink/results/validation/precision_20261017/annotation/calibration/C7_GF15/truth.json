@@ -1,0 +1,1155 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T13:48:41+08:00",
+  "windows_dir": "/home/user/wildfireguardian/wfglink/results/runs/precision_20261017/windows/C7_GF15",
+  "window_set_id": "924060558aa4145d",
+  "clip_id": "C7_GF15",
+  "video_sha256": "6dbdedff70c0135d83bb8f04de71e24f27a263477f1b0c95c5cf2b4056a32054",
+  "roi_px": [
+    0,
+    0,
+    1920,
+    1080
+  ],
+  "segment_s": [
+    0.0,
+    null
+  ],
+  "manifest_sha256": "924060558aa4145dee5b25eb36e1a10d48bd3634b240543b38392f14c562e26a",
+  "labels": {
+    "a": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/calibration/C7_GF15/labels_a.csv",
+      "sha256": "866d1f8d3a99eef2e504074be6ce043a13c8ef0f317f58bb347bfdd078b65cb5"
+    },
+    "b": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/calibration/C7_GF15/labels_b.csv",
+      "sha256": "f3be1a4a000acb948f9a906a44d55c613d1a0f7804d4bb2f29eba4d21952f33d"
+    },
+    "adjudicator": {
+      "path": null,
+      "sha256": null
+    }
+  },
+  "rules": {
+    "match_px": 3.0,
+    "edge_px": 4.0,
+    "min_points": 3,
+    "min_confidence": 0.75,
+    "coordinates": "x, y: ROI crop pixels as in detections.parquet; tx, ty: tile pixels"
+  },
+  "windows": [
+    {
+      "window_id": "w000",
+      "frames": [
+        1572,
+        1573,
+        1574,
+        1575,
+        1576,
+        1577
+      ],
+      "t": [
+        52.4524,
+        52.48576666666666,
+        52.519133333333336,
+        52.5525,
+        52.58586666666667,
+        52.619233333333334
+      ],
+      "x0": 1367,
+      "y0": 713,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 9.0,
+              "ty": 132.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1572,
+              "t": 52.4524,
+              "x": 1376.0,
+              "y": 845.0
+            },
+            {
+              "k": 1,
+              "tx": 10.0,
+              "ty": 131.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "a_unsure",
+              "frame": 1573,
+              "t": 52.48576666666666,
+              "x": 1377.0,
+              "y": 844.0
+            }
+          ],
+          "truth_id": "w000_00"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 4,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 122.3,
+              "ty": 158.7,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1572,
+              "t": 52.4524,
+              "x": 1489.3,
+              "y": 871.7
+            },
+            {
+              "k": 2,
+              "tx": 128.7,
+              "ty": 174.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1574,
+              "t": 52.519133333333336,
+              "x": 1495.7,
+              "y": 887.5
+            },
+            {
+              "k": 3,
+              "tx": 128.8,
+              "ty": 178.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1575,
+              "t": 52.5525,
+              "x": 1495.8,
+              "y": 891.8
+            },
+            {
+              "k": 4,
+              "tx": 133.8,
+              "ty": 184.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1576,
+              "t": 52.58586666666667,
+              "x": 1500.8,
+              "y": 897.5
+            }
+          ],
+          "truth_id": "w000_01"
+        },
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 2,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/2"
+          ],
+          "points": [
+            {
+              "k": 1,
+              "tx": 233.7,
+              "ty": 231.7,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1573,
+              "t": 52.48576666666666,
+              "x": 1600.7,
+              "y": 944.7
+            },
+            {
+              "k": 2,
+              "tx": 237.1,
+              "ty": 242.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1574,
+              "t": 52.519133333333336,
+              "x": 1604.1,
+              "y": 955.0
+            }
+          ],
+          "truth_id": "w000_02"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 1572,
+          "t": 52.4524,
+          "x": 1376.0,
+          "y": 845.0,
+          "truth_id": "w000_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1573,
+          "t": 52.48576666666666,
+          "x": 1377.0,
+          "y": 844.0,
+          "truth_id": "w000_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 0,
+          "frame": 1572,
+          "t": 52.4524,
+          "x": 1489.3,
+          "y": 871.7,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1574,
+          "t": 52.519133333333336,
+          "x": 1495.7,
+          "y": 887.5,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 1575,
+          "t": 52.5525,
+          "x": 1495.8,
+          "y": 891.8,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 1576,
+          "t": 52.58586666666667,
+          "x": 1500.8,
+          "y": 897.5,
+          "truth_id": "w000_01",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 1573,
+          "t": 52.48576666666666,
+          "x": 1600.7,
+          "y": 944.7,
+          "truth_id": "w000_02",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 1574,
+          "t": 52.519133333333336,
+          "x": 1604.1,
+          "y": 955.0,
+          "truth_id": "w000_02",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w001",
+      "frames": [
+        1902,
+        1903,
+        1904,
+        1905,
+        1906,
+        1907
+      ],
+      "t": [
+        63.4634,
+        63.496766666666666,
+        63.53013333333333,
+        63.5635,
+        63.59686666666666,
+        63.63023333333334
+      ],
+      "x0": 1050,
+      "y0": 586,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 3,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 3,
+              "tx": 129.0,
+              "ty": 198.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1905,
+              "t": 63.5635,
+              "x": 1179.0,
+              "y": 784.0
+            },
+            {
+              "k": 4,
+              "tx": 127.0,
+              "ty": 202.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 1906,
+              "t": 63.59686666666666,
+              "x": 1177.0,
+              "y": 788.0
+            },
+            {
+              "k": 5,
+              "tx": 130.0,
+              "ty": 200.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 1907,
+              "t": 63.63023333333334,
+              "x": 1180.0,
+              "y": 786.5
+            }
+          ],
+          "truth_id": "w001_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 3,
+          "frame": 1905,
+          "t": 63.5635,
+          "x": 1179.0,
+          "y": 784.0,
+          "truth_id": "w001_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 1906,
+          "t": 63.59686666666666,
+          "x": 1177.0,
+          "y": 788.0,
+          "truth_id": "w001_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 1907,
+          "t": 63.63023333333334,
+          "x": 1180.0,
+          "y": 786.5,
+          "truth_id": "w001_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w002",
+      "frames": [
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "t": [
+        3.6036,
+        3.6369666666666665,
+        3.6703333333333332,
+        3.7037,
+        3.7370666666666668,
+        3.7704333333333335
+      ],
+      "x0": 726,
+      "y0": 49,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 6,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 32.7,
+              "ty": 227.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 108,
+              "t": 3.6036,
+              "x": 758.7,
+              "y": 276.5
+            },
+            {
+              "k": 1,
+              "tx": 31.1,
+              "ty": 227.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 109,
+              "t": 3.6369666666666665,
+              "x": 757.1,
+              "y": 276.2
+            },
+            {
+              "k": 2,
+              "tx": 27.9,
+              "ty": 226.5,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 110,
+              "t": 3.6703333333333332,
+              "x": 753.9,
+              "y": 275.5
+            },
+            {
+              "k": 3,
+              "tx": 23.8,
+              "ty": 227.1,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 111,
+              "t": 3.7037,
+              "x": 749.8,
+              "y": 276.1
+            },
+            {
+              "k": 4,
+              "tx": 18.9,
+              "ty": 228.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 112,
+              "t": 3.7370666666666668,
+              "x": 744.9,
+              "y": 277.2
+            },
+            {
+              "k": 5,
+              "tx": 14.2,
+              "ty": 229.2,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "b_unsure",
+              "frame": 113,
+              "t": 3.7704333333333335,
+              "x": 740.2,
+              "y": 278.2
+            }
+          ],
+          "truth_id": "w002_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 108,
+          "t": 3.6036,
+          "x": 758.7,
+          "y": 276.5,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 109,
+          "t": 3.6369666666666665,
+          "x": 757.1,
+          "y": 276.2,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 110,
+          "t": 3.6703333333333332,
+          "x": 753.9,
+          "y": 275.5,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 111,
+          "t": 3.7037,
+          "x": 749.8,
+          "y": 276.1,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 4,
+          "frame": 112,
+          "t": 3.7370666666666668,
+          "x": 744.9,
+          "y": 277.2,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 5,
+          "frame": 113,
+          "t": 3.7704333333333335,
+          "x": 740.2,
+          "y": 278.2,
+          "truth_id": "w002_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w003",
+      "frames": [
+        1944,
+        1945,
+        1946,
+        1947,
+        1948,
+        1949
+      ],
+      "t": [
+        64.8648,
+        64.89816666666667,
+        64.93153333333333,
+        64.9649,
+        64.99826666666667,
+        65.03163333333333
+      ],
+      "x0": 126,
+      "y0": 420,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w004",
+      "frames": [
+        192,
+        193,
+        194,
+        195,
+        196,
+        197
+      ],
+      "t": [
+        6.4064,
+        6.439766666666666,
+        6.473133333333333,
+        6.5065,
+        6.539866666666667,
+        6.5732333333333335
+      ],
+      "x0": 1066,
+      "y0": 774,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w005",
+      "frames": [
+        2190,
+        2191,
+        2192,
+        2193,
+        2194,
+        2195
+      ],
+      "t": [
+        73.073,
+        73.10636666666667,
+        73.13973333333334,
+        73.1731,
+        73.20646666666667,
+        73.23983333333334
+      ],
+      "x0": 197,
+      "y0": 110,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w006",
+      "frames": [
+        2502,
+        2503,
+        2504,
+        2505,
+        2506,
+        2507
+      ],
+      "t": [
+        83.4834,
+        83.51676666666667,
+        83.55013333333333,
+        83.5835,
+        83.61686666666667,
+        83.65023333333333
+      ],
+      "x0": 451,
+      "y0": 684,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w007",
+      "frames": [
+        1440,
+        1441,
+        1442,
+        1443,
+        1444,
+        1445
+      ],
+      "t": [
+        48.048,
+        48.08136666666667,
+        48.114733333333334,
+        48.1481,
+        48.181466666666665,
+        48.21483333333333
+      ],
+      "x0": 95,
+      "y0": 285,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w008",
+      "frames": [
+        2322,
+        2323,
+        2324,
+        2325,
+        2326,
+        2327
+      ],
+      "t": [
+        77.4774,
+        77.51076666666667,
+        77.54413333333333,
+        77.5775,
+        77.61086666666667,
+        77.64423333333333
+      ],
+      "x0": 820,
+      "y0": 531,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w009",
+      "frames": [
+        2418,
+        2419,
+        2420,
+        2421,
+        2422,
+        2423
+      ],
+      "t": [
+        80.6806,
+        80.71396666666666,
+        80.74733333333333,
+        80.7807,
+        80.81406666666666,
+        80.84743333333333
+      ],
+      "x0": 987,
+      "y0": 208,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [
+        {
+          "observable": false,
+          "ambiguous": false,
+          "n_points": 4,
+          "n_sure": 0,
+          "reason": "fewer than 3 sure points",
+          "nodes": [
+            "a/e/1",
+            "b/e/1"
+          ],
+          "points": [
+            {
+              "k": 0,
+              "tx": 218.9,
+              "ty": 108.1,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 2418,
+              "t": 80.6806,
+              "x": 1205.9,
+              "y": 316.1
+            },
+            {
+              "k": 1,
+              "tx": 216.05,
+              "ty": 106.0,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 2419,
+              "t": 80.71396666666666,
+              "x": 1203.05,
+              "y": 314.0
+            },
+            {
+              "k": 2,
+              "tx": 220.0,
+              "ty": 104.95,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 2420,
+              "t": 80.74733333333333,
+              "x": 1207.0,
+              "y": 312.95
+            },
+            {
+              "k": 3,
+              "tx": 227.75,
+              "ty": 103.8,
+              "sure": false,
+              "edge": false,
+              "dont_care": true,
+              "source": "both_unsure",
+              "frame": 2421,
+              "t": 80.7807,
+              "x": 1214.75,
+              "y": 311.8
+            }
+          ],
+          "truth_id": "w009_00"
+        }
+      ],
+      "dont_care": [
+        {
+          "k": 0,
+          "frame": 2418,
+          "t": 80.6806,
+          "x": 1205.9,
+          "y": 316.1,
+          "truth_id": "w009_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 1,
+          "frame": 2419,
+          "t": 80.71396666666666,
+          "x": 1203.05,
+          "y": 314.0,
+          "truth_id": "w009_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 2,
+          "frame": 2420,
+          "t": 80.74733333333333,
+          "x": 1207.0,
+          "y": 312.95,
+          "truth_id": "w009_00",
+          "reason": "track fewer than 3 sure points"
+        },
+        {
+          "k": 3,
+          "frame": 2421,
+          "t": 80.7807,
+          "x": 1214.75,
+          "y": 311.8,
+          "truth_id": "w009_00",
+          "reason": "track fewer than 3 sure points"
+        }
+      ],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w010",
+      "frames": [
+        1560,
+        1561,
+        1562,
+        1563,
+        1564,
+        1565
+      ],
+      "t": [
+        52.052,
+        52.085366666666665,
+        52.11873333333333,
+        52.1521,
+        52.18546666666666,
+        52.218833333333336
+      ],
+      "x0": 1381,
+      "y0": 802,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w011",
+      "frames": [
+        2706,
+        2707,
+        2708,
+        2709,
+        2710,
+        2711
+      ],
+      "t": [
+        90.2902,
+        90.32356666666666,
+        90.35693333333333,
+        90.3903,
+        90.42366666666666,
+        90.45703333333333
+      ],
+      "x0": 836,
+      "y0": 156,
+      "w": 256,
+      "h": 256,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    }
+  ],
+  "totals": {
+    "windows": 12,
+    "windows_labelled": 12,
+    "tracks": 6,
+    "observable_tracks": 0,
+    "dont_care_points": 21,
+    "rejected_points": 0,
+    "windows_adjudicated": 0,
+    "sure_without_ember_id": {
+      "a": 0,
+      "b": 0,
+      "adjudicator": 0
+    }
+  },
+  "warnings": [],
+  "agreement": {
+    "point_f1": {
+      "value": null,
+      "ci": [
+        null,
+        null
+      ]
+    },
+    "matches": 0,
+    "points_a": 0,
+    "points_b": 0,
+    "bootstrap_over": "windows",
+    "ci_note": null,
+    "track_f1": null,
+    "tracks_matched": 0,
+    "tracks_a": 0,
+    "tracks_b": 0,
+    "per_window": [
+      {
+        "window_id": "w000",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w001",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w002",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w003",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w004",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w005",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w006",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w007",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w008",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w009",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w010",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w011",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      }
+    ]
+  }
+}

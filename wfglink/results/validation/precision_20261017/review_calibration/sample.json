@@ -1,0 +1,826 @@
+{
+ "population": "calibration",
+ "seed": 20261017,
+ "per_point": 20,
+ "max": 300,
+ "control": 100,
+ "decoy_frac": 0.3,
+ "accepted_table": "results/runs/precision_20261017/calibration/calibration_accepted.parquet",
+ "accepted_sha256": "c72437e97fa87bb72a7f4921740b7650413106285b753101727af1ac0ad67fb6",
+ "key_sha256": "dfc0ccee5aff51b031e52345b503a3431ade46d45a4a65ecd7461a0fef0e921c",
+ "n_items": 829,
+ "n_scored_items": 638,
+ "n_decoys": 191,
+ "recordings": [
+  "C7_DF18",
+  "C7_GF15",
+  "C7_PP31",
+  "C7_WJ33",
+  "C8_ANTE008_C1",
+  "C8_FREN002_C2",
+  "C8_KING003_C2",
+  "C8_RIMF008_C2",
+  "C8_ROUG016_C3",
+  "C8_ROUG016_prefix",
+  "C8_SOME004_C2",
+  "C8_WARM004_C2",
+  "C8_WILL006_C1"
+ ],
+ "recordings_source": "results/runs/precision_20261017/calibration/calibration_points.json",
+ "tracking_only": [],
+ "supported_rows": "accepted table column supported (verify calibrate)",
+ "inclusion": {
+  "accept_all": {
+   "accepted": 300498,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 76
+   },
+   "per_recording": {
+    "C7_DF18": 52576,
+    "C7_GF15": 47906,
+    "C7_PP31": 43382,
+    "C7_WJ33": 99219,
+    "C8_ANTE008_C1": 383,
+    "C8_FREN002_C2": 405,
+    "C8_KING003_C2": 569,
+    "C8_RIMF008_C2": 266,
+    "C8_ROUG016_C3": 411,
+    "C8_ROUG016_prefix": 51346,
+    "C8_SOME004_C2": 1397,
+    "C8_WARM004_C2": 874,
+    "C8_WILL006_C1": 1764
+   },
+   "probability": 6.655618340221898e-05
+  },
+  "patch_seed0_t0.5": {
+   "accepted": 44827,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 12691,
+    "C7_GF15": 8595,
+    "C7_PP31": 5624,
+    "C7_WJ33": 13796,
+    "C8_ANTE008_C1": 47,
+    "C8_FREN002_C2": 128,
+    "C8_KING003_C2": 51,
+    "C8_RIMF008_C2": 74,
+    "C8_ROUG016_C3": 35,
+    "C8_ROUG016_prefix": 2964,
+    "C8_SOME004_C2": 163,
+    "C8_WARM004_C2": 392,
+    "C8_WILL006_C1": 267
+   },
+   "probability": 0.0004461596805496687
+  },
+  "patch_seed0_t0.6": {
+   "accepted": 28491,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 8580,
+    "C7_GF15": 5348,
+    "C7_PP31": 3878,
+    "C7_WJ33": 8740,
+    "C8_ANTE008_C1": 17,
+    "C8_FREN002_C2": 72,
+    "C8_KING003_C2": 23,
+    "C8_RIMF008_C2": 34,
+    "C8_ROUG016_C3": 26,
+    "C8_ROUG016_prefix": 1294,
+    "C8_SOME004_C2": 67,
+    "C8_WARM004_C2": 294,
+    "C8_WILL006_C1": 118
+   },
+   "probability": 0.0007019760626162648
+  },
+  "patch_seed0_t0.7": {
+   "accepted": 16631,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 5436,
+    "C7_GF15": 3126,
+    "C7_PP31": 2365,
+    "C7_WJ33": 4899,
+    "C8_ANTE008_C1": 5,
+    "C8_FREN002_C2": 31,
+    "C8_KING003_C2": 10,
+    "C8_RIMF008_C2": 11,
+    "C8_ROUG016_C3": 16,
+    "C8_ROUG016_prefix": 471,
+    "C8_SOME004_C2": 34,
+    "C8_WARM004_C2": 184,
+    "C8_WILL006_C1": 43
+   },
+   "probability": 0.001202573507305634
+  },
+  "patch_seed0_t0.8": {
+   "accepted": 8054,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 2862,
+    "C7_GF15": 1533,
+    "C7_PP31": 1151,
+    "C7_WJ33": 2226,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 9,
+    "C8_KING003_C2": 3,
+    "C8_RIMF008_C2": 3,
+    "C8_ROUG016_C3": 9,
+    "C8_ROUG016_prefix": 148,
+    "C8_SOME004_C2": 4,
+    "C8_WARM004_C2": 98,
+    "C8_WILL006_C1": 8
+   },
+   "probability": 0.0024832381425378696
+  },
+  "patch_seed0_t0.9": {
+   "accepted": 2458,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 1029,
+    "C7_GF15": 490,
+    "C7_PP31": 315,
+    "C7_WJ33": 563,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 1,
+    "C8_KING003_C2": 1,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 2,
+    "C8_ROUG016_prefix": 28,
+    "C8_SOME004_C2": 1,
+    "C8_WARM004_C2": 27,
+    "C8_WILL006_C1": 1
+   },
+   "probability": 0.008136696501220505
+  },
+  "patch_seed0_t0.95": {
+   "accepted": 773,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 392,
+    "C7_GF15": 175,
+    "C7_PP31": 62,
+    "C7_WJ33": 131,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 7,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 6,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.0258732212160414
+  },
+  "patch_seed0_t0.98": {
+   "accepted": 155,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 101,
+    "C7_GF15": 27,
+    "C7_PP31": 11,
+    "C7_WJ33": 14,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 1,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 1,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.12903225806451613
+  },
+  "patch_seed0_t0.99": {
+   "accepted": 46,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 28,
+    "C7_GF15": 11,
+    "C7_PP31": 3,
+    "C7_WJ33": 3,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 1,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 0,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.43478260869565216
+  },
+  "patch_seed1_t0.5": {
+   "accepted": 55983,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 16039,
+    "C7_GF15": 10131,
+    "C7_PP31": 6788,
+    "C7_WJ33": 17822,
+    "C8_ANTE008_C1": 53,
+    "C8_FREN002_C2": 192,
+    "C8_KING003_C2": 84,
+    "C8_RIMF008_C2": 104,
+    "C8_ROUG016_C3": 58,
+    "C8_ROUG016_prefix": 3633,
+    "C8_SOME004_C2": 222,
+    "C8_WARM004_C2": 507,
+    "C8_WILL006_C1": 350
+   },
+   "probability": 0.0003572513084329171
+  },
+  "patch_seed1_t0.6": {
+   "accepted": 38965,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 11582,
+    "C7_GF15": 6806,
+    "C7_PP31": 5327,
+    "C7_WJ33": 12548,
+    "C8_ANTE008_C1": 23,
+    "C8_FREN002_C2": 132,
+    "C8_KING003_C2": 58,
+    "C8_RIMF008_C2": 67,
+    "C8_ROUG016_C3": 40,
+    "C8_ROUG016_prefix": 1685,
+    "C8_SOME004_C2": 104,
+    "C8_WARM004_C2": 392,
+    "C8_WILL006_C1": 201
+   },
+   "probability": 0.0005132811497497754
+  },
+  "patch_seed1_t0.7": {
+   "accepted": 25831,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 7942,
+    "C7_GF15": 4401,
+    "C7_PP31": 3879,
+    "C7_WJ33": 8325,
+    "C8_ANTE008_C1": 6,
+    "C8_FREN002_C2": 75,
+    "C8_KING003_C2": 32,
+    "C8_RIMF008_C2": 29,
+    "C8_ROUG016_C3": 25,
+    "C8_ROUG016_prefix": 715,
+    "C8_SOME004_C2": 40,
+    "C8_WARM004_C2": 289,
+    "C8_WILL006_C1": 73
+   },
+   "probability": 0.0007742634818628779
+  },
+  "patch_seed1_t0.8": {
+   "accepted": 14655,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 4727,
+    "C7_GF15": 2481,
+    "C7_PP31": 2398,
+    "C7_WJ33": 4468,
+    "C8_ANTE008_C1": 3,
+    "C8_FREN002_C2": 33,
+    "C8_KING003_C2": 12,
+    "C8_RIMF008_C2": 6,
+    "C8_ROUG016_C3": 16,
+    "C8_ROUG016_prefix": 331,
+    "C8_SOME004_C2": 7,
+    "C8_WARM004_C2": 154,
+    "C8_WILL006_C1": 19
+   },
+   "probability": 0.001364721937905152
+  },
+  "patch_seed1_t0.9": {
+   "accepted": 4854,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 1862,
+    "C7_GF15": 891,
+    "C7_PP31": 730,
+    "C7_WJ33": 1193,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 2,
+    "C8_KING003_C2": 1,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 3,
+    "C8_ROUG016_prefix": 126,
+    "C8_SOME004_C2": 1,
+    "C8_WARM004_C2": 43,
+    "C8_WILL006_C1": 2
+   },
+   "probability": 0.004120313143798929
+  },
+  "patch_seed1_t0.95": {
+   "accepted": 1468,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 721,
+    "C7_GF15": 288,
+    "C7_PP31": 149,
+    "C7_WJ33": 255,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 1,
+    "C8_ROUG016_prefix": 45,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 9,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.013623978201634877
+  },
+  "patch_seed1_t0.98": {
+   "accepted": 317,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 203,
+    "C7_GF15": 57,
+    "C7_PP31": 21,
+    "C7_WJ33": 27,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 8,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 1,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.06309148264984227
+  },
+  "patch_seed1_t0.99": {
+   "accepted": 88,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 59,
+    "C7_GF15": 16,
+    "C7_PP31": 6,
+    "C7_WJ33": 6,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 1,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 0,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.22727272727272727
+  },
+  "rules_q0": {
+   "accepted": 144727,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 22927,
+    "C7_GF15": 27844,
+    "C7_PP31": 17038,
+    "C7_WJ33": 49479,
+    "C8_ANTE008_C1": 120,
+    "C8_FREN002_C2": 190,
+    "C8_KING003_C2": 242,
+    "C8_RIMF008_C2": 134,
+    "C8_ROUG016_C3": 141,
+    "C8_ROUG016_prefix": 25012,
+    "C8_SOME004_C2": 525,
+    "C8_WARM004_C2": 542,
+    "C8_WILL006_C1": 533
+   },
+   "probability": 0.00013819121518445074
+  },
+  "rules_q0.005": {
+   "accepted": 114848,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 17882,
+    "C7_GF15": 23422,
+    "C7_PP31": 13172,
+    "C7_WJ33": 39618,
+    "C8_ANTE008_C1": 91,
+    "C8_FREN002_C2": 159,
+    "C8_KING003_C2": 199,
+    "C8_RIMF008_C2": 108,
+    "C8_ROUG016_C3": 113,
+    "C8_ROUG016_prefix": 18814,
+    "C8_SOME004_C2": 414,
+    "C8_WARM004_C2": 500,
+    "C8_WILL006_C1": 356
+   },
+   "probability": 0.00017414321538032878
+  },
+  "rules_q0.01": {
+   "accepted": 87171,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 13668,
+    "C7_GF15": 19085,
+    "C7_PP31": 9643,
+    "C7_WJ33": 30513,
+    "C8_ANTE008_C1": 70,
+    "C8_FREN002_C2": 132,
+    "C8_KING003_C2": 145,
+    "C8_RIMF008_C2": 82,
+    "C8_ROUG016_C3": 91,
+    "C8_ROUG016_prefix": 12730,
+    "C8_SOME004_C2": 324,
+    "C8_WARM004_C2": 457,
+    "C8_WILL006_C1": 231
+   },
+   "probability": 0.00022943410079040048
+  },
+  "rules_q0.025": {
+   "accepted": 65562,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 10467,
+    "C7_GF15": 15561,
+    "C7_PP31": 6525,
+    "C7_WJ33": 23118,
+    "C8_ANTE008_C1": 50,
+    "C8_FREN002_C2": 110,
+    "C8_KING003_C2": 120,
+    "C8_RIMF008_C2": 61,
+    "C8_ROUG016_C3": 68,
+    "C8_ROUG016_prefix": 8732,
+    "C8_SOME004_C2": 236,
+    "C8_WARM004_C2": 382,
+    "C8_WILL006_C1": 132
+   },
+   "probability": 0.0003050547573289405
+  },
+  "rules_q0.05": {
+   "accepted": 37824,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 5823,
+    "C7_GF15": 11422,
+    "C7_PP31": 2986,
+    "C7_WJ33": 13883,
+    "C8_ANTE008_C1": 23,
+    "C8_FREN002_C2": 75,
+    "C8_KING003_C2": 59,
+    "C8_RIMF008_C2": 40,
+    "C8_ROUG016_C3": 31,
+    "C8_ROUG016_prefix": 3025,
+    "C8_SOME004_C2": 133,
+    "C8_WARM004_C2": 279,
+    "C8_WILL006_C1": 45
+   },
+   "probability": 0.0005287648054145516
+  },
+  "rules_q0.1": {
+   "accepted": 5471,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 355,
+    "C7_GF15": 1601,
+    "C7_PP31": 290,
+    "C7_WJ33": 3147,
+    "C8_ANTE008_C1": 1,
+    "C8_FREN002_C2": 3,
+    "C8_KING003_C2": 1,
+    "C8_RIMF008_C2": 1,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 44,
+    "C8_SOME004_C2": 20,
+    "C8_WARM004_C2": 8,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.003655638822884299
+  },
+  "rules_q0.2": {
+   "accepted": 892,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 27,
+    "C7_GF15": 169,
+    "C7_PP31": 75,
+    "C7_WJ33": 619,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 1,
+    "C8_SOME004_C2": 1,
+    "C8_WARM004_C2": 0,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.02242152466367713
+  },
+  "rules_q0.3": {
+   "accepted": 98,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 0,
+    "C7_GF15": 14,
+    "C7_PP31": 7,
+    "C7_WJ33": 77,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 0,
+    "C8_KING003_C2": 0,
+    "C8_RIMF008_C2": 0,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 0,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 0,
+    "C8_WILL006_C1": 0
+   },
+   "probability": 0.20408163265306123
+  },
+  "temporal_seed0_t0.5": {
+   "accepted": 50464,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 10170,
+    "C7_GF15": 13139,
+    "C7_PP31": 4100,
+    "C7_WJ33": 14682,
+    "C8_ANTE008_C1": 69,
+    "C8_FREN002_C2": 98,
+    "C8_KING003_C2": 111,
+    "C8_RIMF008_C2": 79,
+    "C8_ROUG016_C3": 62,
+    "C8_ROUG016_prefix": 6930,
+    "C8_SOME004_C2": 300,
+    "C8_WARM004_C2": 304,
+    "C8_WILL006_C1": 420
+   },
+   "probability": 0.0003963221306277743
+  },
+  "temporal_seed0_t0.6": {
+   "accepted": 41062,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 8303,
+    "C7_GF15": 11053,
+    "C7_PP31": 3294,
+    "C7_WJ33": 11724,
+    "C8_ANTE008_C1": 51,
+    "C8_FREN002_C2": 82,
+    "C8_KING003_C2": 90,
+    "C8_RIMF008_C2": 64,
+    "C8_ROUG016_C3": 50,
+    "C8_ROUG016_prefix": 5497,
+    "C8_SOME004_C2": 251,
+    "C8_WARM004_C2": 257,
+    "C8_WILL006_C1": 346
+   },
+   "probability": 0.00048706833568749696
+  },
+  "temporal_seed0_t0.7": {
+   "accepted": 32031,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 6493,
+    "C7_GF15": 8955,
+    "C7_PP31": 2521,
+    "C7_WJ33": 8934,
+    "C8_ANTE008_C1": 31,
+    "C8_FREN002_C2": 73,
+    "C8_KING003_C2": 74,
+    "C8_RIMF008_C2": 52,
+    "C8_ROUG016_C3": 37,
+    "C8_ROUG016_prefix": 4197,
+    "C8_SOME004_C2": 175,
+    "C8_WARM004_C2": 217,
+    "C8_WILL006_C1": 272
+   },
+   "probability": 0.0006243951172301833
+  },
+  "temporal_seed0_t0.8": {
+   "accepted": 22815,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 4589,
+    "C7_GF15": 6725,
+    "C7_PP31": 1782,
+    "C7_WJ33": 6164,
+    "C8_ANTE008_C1": 18,
+    "C8_FREN002_C2": 57,
+    "C8_KING003_C2": 57,
+    "C8_RIMF008_C2": 34,
+    "C8_ROUG016_C3": 30,
+    "C8_ROUG016_prefix": 2875,
+    "C8_SOME004_C2": 113,
+    "C8_WARM004_C2": 174,
+    "C8_WILL006_C1": 197
+   },
+   "probability": 0.0008766162612316459
+  },
+  "temporal_seed0_t0.9": {
+   "accepted": 12028,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 2511,
+    "C7_GF15": 3864,
+    "C7_PP31": 920,
+    "C7_WJ33": 3005,
+    "C8_ANTE008_C1": 7,
+    "C8_FREN002_C2": 37,
+    "C8_KING003_C2": 38,
+    "C8_RIMF008_C2": 18,
+    "C8_ROUG016_C3": 17,
+    "C8_ROUG016_prefix": 1332,
+    "C8_SOME004_C2": 42,
+    "C8_WARM004_C2": 122,
+    "C8_WILL006_C1": 115
+   },
+   "probability": 0.0016627868307283007
+  },
+  "temporal_seed0_t0.95": {
+   "accepted": 5714,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 1276,
+    "C7_GF15": 1945,
+    "C7_PP31": 454,
+    "C7_WJ33": 1344,
+    "C8_ANTE008_C1": 2,
+    "C8_FREN002_C2": 18,
+    "C8_KING003_C2": 23,
+    "C8_RIMF008_C2": 6,
+    "C8_ROUG016_C3": 10,
+    "C8_ROUG016_prefix": 505,
+    "C8_SOME004_C2": 15,
+    "C8_WARM004_C2": 73,
+    "C8_WILL006_C1": 43
+   },
+   "probability": 0.0035001750087504373
+  },
+  "temporal_seed0_t0.98": {
+   "accepted": 1850,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 467,
+    "C7_GF15": 664,
+    "C7_PP31": 134,
+    "C7_WJ33": 415,
+    "C8_ANTE008_C1": 1,
+    "C8_FREN002_C2": 6,
+    "C8_KING003_C2": 5,
+    "C8_RIMF008_C2": 3,
+    "C8_ROUG016_C3": 2,
+    "C8_ROUG016_prefix": 109,
+    "C8_SOME004_C2": 2,
+    "C8_WARM004_C2": 33,
+    "C8_WILL006_C1": 9
+   },
+   "probability": 0.010810810810810811
+  },
+  "temporal_seed0_t0.99": {
+   "accepted": 711,
+   "sampled": 20,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C7_DF18": 191,
+    "C7_GF15": 262,
+    "C7_PP31": 51,
+    "C7_WJ33": 151,
+    "C8_ANTE008_C1": 0,
+    "C8_FREN002_C2": 3,
+    "C8_KING003_C2": 3,
+    "C8_RIMF008_C2": 1,
+    "C8_ROUG016_C3": 0,
+    "C8_ROUG016_prefix": 33,
+    "C8_SOME004_C2": 0,
+    "C8_WARM004_C2": 14,
+    "C8_WILL006_C1": 2
+   },
+   "probability": 0.02812939521800281
+  }
+ }
+}

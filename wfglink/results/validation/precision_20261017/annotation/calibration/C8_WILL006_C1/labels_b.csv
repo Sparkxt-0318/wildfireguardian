@@ -1,0 +1,13 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,1,123,115.5,0.5,1,s,"single frame white dot about 5 px below the flame tip on the burning trunk edge, separated by a darker gap; absent in k0 and k2; could be a flame flicker rather than an ember"
+w001,,,,,,,"none; burning snag at left, flickering ground fire and glowing log segments at bottom left, static white dot near (115,97), flame spot near (185,189) present in all frames; no detached moving particle"
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,,,,,,,none
+w006,3,128.5,64,0.5,1,s,"pale warm dot appears in foliage, almost stationary; may be a flame glint seen through branches"
+w006,4,128.6,64.4,0.5,1,s,"brightest frame of the pale dot, 2x2 pixels"
+w006,5,127,63.5,0.5,1,s,"dot fading, shifted about 1.5 px up and left"
+w007,,,,,,,none
+w008,,,,,,,none
+w009,,,,,,,none

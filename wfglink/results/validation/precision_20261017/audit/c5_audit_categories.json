@@ -1,0 +1,5459 @@
+{
+ "workflow": "precision-audit-c5 (run wf_12e8a53a-469)",
+ "method": "two independent agent categorisers per sheet (blind sheets: no TP/FP/FN status shown, only 'det' or 'lab'), an agent adjudicator for disagreements; agent-only, PROVISIONAL",
+ "sheets": "results/runs/precision_20261017/audit/sheets_blind (not committed; rendered by python -m wfglink verify sheets)",
+ "n_items": 218,
+ "n_disagree": 29,
+ "items": [
+  {
+   "item_id": "a000",
+   "A": {
+    "item_id": "a000",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the right tip of a static saturated white highlight in a foil water pan; nothing moves there at t and embers only enter the crop at t+1."
+   },
+   "B": {
+    "item_id": "a000",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the right tip of a large static white reflection in the water pan, while the ember streaks pass nearby only in later frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a000",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the right tip of a static saturated white highlight in a foil water pan; nothing moves there at t and embers only enter the crop at t+1."
+   }
+  },
+  {
+   "item_id": "a001",
+   "A": {
+    "item_id": "a001",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "A small bright white spot appears on the foil pan at t-1 and t with a few px of motion and leaves a faint pink trace at t+1, which could be a landing ember or a brief glint."
+   },
+   "B": {
+    "item_id": "a001",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A white glint on the foil water pan shifts slightly between frames t-1 and t and then vanishes, which looks like a water ripple highlight rather than a flying ember."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a001",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A compact white blob on the foil water pan shifts about 4 px between t-1 and t and then vanishes, leaving only a broad pink tint nearby, which looks more like a water glint than a flying ember."
+   }
+  },
+  {
+   "item_id": "a002",
+   "A": {
+    "item_id": "a002",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink motion streak crosses the circle centre at t and is absent at t-1 and t+1, a falling ember."
+   },
+   "B": {
+    "item_id": "a002",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The circle is on a bright pink ember streak that is present only at frame t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a002",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink motion streak crosses the circle centre at t and is absent at t-1 and t+1, a falling ember."
+   }
+  },
+  {
+   "item_id": "a003",
+   "A": {
+    "item_id": "a003",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a clear pink ember streak and a detection sits about 8 px above it on the same streak."
+   },
+   "B": {
+    "item_id": "a003",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is near the lower end of a long pink ember streak, and the nearest detection is about 7 px above it on the same streak."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a003",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a clear pink ember streak and a detection sits about 8 px above it on the same streak."
+   }
+  },
+  {
+   "item_id": "a004",
+   "A": {
+    "item_id": "a004",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dim grey region with only block noise at the centre; no bright or moving speck in any frame."
+   },
+   "B": {
+    "item_id": "a004",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A stationary track sits on the edge of a static dark horizontal band with no glowing particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a004",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dim grey region with only block noise at the centre; no bright or moving speck in any frame."
+   }
+  },
+  {
+   "item_id": "a005",
+   "A": {
+    "item_id": "a005",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Centre lies on a static boundary between lighter haze and a darker area; difference images show only block noise."
+   },
+   "B": {
+    "item_id": "a005",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Smooth dim smoky region with nothing visible at the mark, while the real ember streaks pass well to the right."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a005",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Centre lies on a static boundary between lighter haze and a darker area; difference images show only block noise."
+   }
+  },
+  {
+   "item_id": "a006",
+   "A": {
+    "item_id": "a006",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark grey static area just below a faint static light patch; nothing bright or moving at t."
+   },
+   "B": {
+    "item_id": "a006",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A stationary track sits on a smooth blue-grey gradient below a faint static lighter patch, with nothing glowing or moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a006",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark grey static area just below a faint static light patch; nothing bright or moving at t."
+   }
+  },
+  {
+   "item_id": "a007",
+   "A": {
+    "item_id": "a007",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static background with no visible speck at the centre in any frame."
+   },
+   "B": {
+    "item_id": "a007",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dim smoky background with no particle at the mark, only block changes after frame 411."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a007",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static background with no visible speck at the centre in any frame."
+   }
+  },
+  {
+   "item_id": "a008",
+   "A": {
+    "item_id": "a008",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long pink ember streak passes through the circle centre at t, matching the green track direction."
+   },
+   "B": {
+    "item_id": "a008",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The circle is centred on a bright pink ember streak that appears only at frame t and falls through the frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a008",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long pink ember streak passes through the circle centre at t, matching the green track direction."
+   }
+  },
+  {
+   "item_id": "a009",
+   "A": {
+    "item_id": "a009",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a clear pink ember streak and a detection lies within about 3 px of it on the same streak, so it looks effectively detected."
+   },
+   "B": {
+    "item_id": "a009",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a clear pink falling streak and a detection sits only about 3 to 4 px away on the same streak, so it may in fact be detected."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a009",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a clear pink ember streak and a detection lies within about 3 px of it on the same streak, so it looks effectively detected."
+   }
+  },
+  {
+   "item_id": "a010",
+   "A": {
+    "item_id": "a010",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is near the upper end of a pink ember streak and the detection sits about 20 px lower on the same streak."
+   },
+   "B": {
+    "item_id": "a010",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is near the upper end of a long pink ember streak, and the only detection on that streak is about 20 px lower at its middle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a010",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is near the upper end of a pink ember streak and the detection sits about 20 px lower on the same streak."
+   }
+  },
+  {
+   "item_id": "a011",
+   "A": {
+    "item_id": "a011",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Very dark static region at the top edge of a dim diffuse glow; no bright or moving speck at the centre."
+   },
+   "B": {
+    "item_id": "a011",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smoky area where nothing is visible at the mark, only a block refresh between frames 450 and 451."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a011",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Very dark static region at the top edge of a dim diffuse glow; no bright or moving speck at the centre."
+   }
+  },
+  {
+   "item_id": "a012",
+   "A": {
+    "item_id": "a012",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the tip of a dim static grey smudge in a dark area that does not move across the five frames."
+   },
+   "B": {
+    "item_id": "a012",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is at the end of a static dim grey smudge in a dark area that does not move or brighten across frames."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a012",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits at the tip of a dim, static grey smudge in a dark area with only low-level flicker, so nothing glows or moves at the mark."
+   }
+  },
+  {
+   "item_id": "a013",
+   "A": {
+    "item_id": "a013",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area where only compression blocks change between frames; nothing ember like."
+   },
+   "B": {
+    "item_id": "a013",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark region with a stationary track and no bright object, with block pattern changes only from frame 451."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a013",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area where only compression blocks change between frames; nothing ember like."
+   }
+  },
+  {
+   "item_id": "a014",
+   "A": {
+    "item_id": "a014",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a lighter haze and a dark region with block noise only; nothing moves."
+   },
+   "B": {
+    "item_id": "a014",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smoky region with a stationary track, where only block changes at the frame 451 refresh are visible."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a014",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a lighter haze and a dark region with block noise only; nothing moves."
+   }
+  },
+  {
+   "item_id": "a015",
+   "A": {
+    "item_id": "a015",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area; enhanced and difference views show no speck at the centre in any frame."
+   },
+   "B": {
+    "item_id": "a015",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark area that has a short moving track, yet the crops show only a faint blocky lightening at frame t with no visible particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a015",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area; enhanced and difference views show no speck at the centre in any frame."
+   }
+  },
+  {
+   "item_id": "a016",
+   "A": {
+    "item_id": "a016",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static region with a slightly darker dot at the centre and no bright feature."
+   },
+   "B": {
+    "item_id": "a016",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark area where only compression blocks change at frame 451 and no light source or particle is present."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a016",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static region with a slightly darker dot at the centre and no bright feature."
+   }
+  },
+  {
+   "item_id": "a017",
+   "A": {
+    "item_id": "a017",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area above the floor boundary; nothing visible at the centre."
+   },
+   "B": {
+    "item_id": "a017",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark region above a floor edge with no particle at the mark; the small white speck below is static and outside the circle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a017",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area above the floor boundary; nothing visible at the centre."
+   }
+  },
+  {
+   "item_id": "a018",
+   "A": {
+    "item_id": "a018",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform pale grey surface with no speck or motion at the centre."
+   },
+   "B": {
+    "item_id": "a018",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform pale wall with nothing visible at frame t; there is only a very faint brownish mark in the two earlier duplicated frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a018",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform pale grey surface with no speck or motion at the centre."
+   }
+  },
+  {
+   "item_id": "a019",
+   "A": {
+    "item_id": "a019",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Pale grey static surface near a dark stain; no bright or moving object at the centre."
+   },
+   "B": {
+    "item_id": "a019",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Pale grey wall with faint smudges where the only change is a block refresh at frame 451, with no bright particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a019",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Pale grey static surface near a dark stain; no bright or moving object at the centre."
+   }
+  },
+  {
+   "item_id": "a020",
+   "A": {
+    "item_id": "a020",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the left edge of a wavering white specular highlight on the water pan; no flying particle."
+   },
+   "B": {
+    "item_id": "a020",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the left edge of a large bright reflection blob on the water pan that changes shape but does not fly."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a020",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the left edge of a wavering white specular highlight on the water pan; no flying particle."
+   }
+  },
+  {
+   "item_id": "a021",
+   "A": {
+    "item_id": "a021",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static glint on the metal pan rim next to a dark notch; nothing moves."
+   },
+   "B": {
+    "item_id": "a021",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static white glint on the foil pan rim sits right next to the circle and does not move across the frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a021",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static glint on the metal pan rim next to a dark notch; nothing moves."
+   }
+  },
+  {
+   "item_id": "a022",
+   "A": {
+    "item_id": "a022",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Shimmering white reflection on the water and foil pan around the centre; no ember colored moving speck."
+   },
+   "B": {
+    "item_id": "a022",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Rippling bright reflections on the foil water pan shift between frames at the mark, but nothing flies through."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a022",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Shimmering white reflection on the water and foil pan around the centre; no ember colored moving speck."
+   }
+  },
+  {
+   "item_id": "a023",
+   "A": {
+    "item_id": "a023",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static high contrast edge of the steel post with ringing at the centre; no particle."
+   },
+   "B": {
+    "item_id": "a023",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Same dark pole edge as the neighbouring item, with a transient block notch and no glowing particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a023",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static high contrast edge of the steel post with ringing at the centre; no particle."
+   }
+  },
+  {
+   "item_id": "a024",
+   "A": {
+    "item_id": "a024",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static steel post edge as a nearby detection, with compression ringing only."
+   },
+   "B": {
+    "item_id": "a024",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a dark pole against a pale wall, where only a small dark compression notch appears at frame 360."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a024",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static steel post edge as a nearby detection, with compression ringing only."
+   }
+  },
+  {
+   "item_id": "a025",
+   "A": {
+    "item_id": "a025",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the edge of a static bright white highlight along a curved hose or pipe; nothing moves."
+   },
+   "B": {
+    "item_id": "a025",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on a static bright white curved metal surface that does not change across frames, so it is a lit surface and not an ember."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a025",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the edge of a static bright white highlight along a curved hose or pipe; nothing moves."
+   }
+  },
+  {
+   "item_id": "a026",
+   "A": {
+    "item_id": "a026",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static fitting next to a bright hose highlight; no speck at the centre in any frame."
+   },
+   "B": {
+    "item_id": "a026",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the dark side of a static white curved fixture edge, with nothing moving or glowing there."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a026",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static fitting next to a bright hose highlight; no speck at the centre in any frame."
+   }
+  },
+  {
+   "item_id": "a027",
+   "A": {
+    "item_id": "a027",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area on the post with no visible feature at the centre."
+   },
+   "B": {
+    "item_id": "a027",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark steel frame member with no bright object, only block pattern changes between frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a027",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area on the post with no visible feature at the centre."
+   }
+  },
+  {
+   "item_id": "a028",
+   "A": {
+    "item_id": "a028",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static post region with no bright or moving speck."
+   },
+   "B": {
+    "item_id": "a028",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark steel upright where contrast stretching shows only compression blocks that change at frame 361, with no particle present."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a028",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static post region with no bright or moving speck."
+   }
+  },
+  {
+   "item_id": "a029",
+   "A": {
+    "item_id": "a029",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area beside a light grey equipment shape; only block noise changes."
+   },
+   "B": {
+    "item_id": "a029",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform dark area of the frame with no visible particle, only slight compression changes after frame 360."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a029",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area beside a light grey equipment shape; only block noise changes."
+   }
+  },
+  {
+   "item_id": "a030",
+   "A": {
+    "item_id": "a030",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark notch at the edge of a light grey shape; nothing moves."
+   },
+   "B": {
+    "item_id": "a030",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark notch beside a white metal edge; nothing glows or moves across the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a030",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark notch at the edge of a light grey shape; nothing moves."
+   }
+  },
+  {
+   "item_id": "a031",
+   "A": {
+    "item_id": "a031",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey metal equipment surface with no speck or motion at the centre."
+   },
+   "B": {
+    "item_id": "a031",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Mid-grey static metal surface with no bright spot at the mark, part of a frame 360 burst of spurious detections."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a031",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey metal equipment surface with no speck or motion at the centre."
+   }
+  },
+  {
+   "item_id": "a032",
+   "A": {
+    "item_id": "a032",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a static lighter patch on a dark mount against a pale background; nothing moves."
+   },
+   "B": {
+    "item_id": "a032",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Same static dark object as a nearby item, with no glow or motion at the mark, only block changes between frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a032",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a static lighter patch on a dark mount against a pale background; nothing moves."
+   }
+  },
+  {
+   "item_id": "a033",
+   "A": {
+    "item_id": "a033",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Same static mount and light patch as a nearby detection; no particle at the centre."
+   },
+   "B": {
+    "item_id": "a033",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static dark object with a lighter grey patch that is identical across all five frames, so the track appears to come from compression noise."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a033",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Same static mount and light patch as a nearby detection; no particle at the centre."
+   }
+  },
+  {
+   "item_id": "a034",
+   "A": {
+    "item_id": "a034",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area beside light equipment; block noise only."
+   },
+   "B": {
+    "item_id": "a034",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static region next to a grey metal piece; the frame differences show only compression block noise and no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a034",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area beside light equipment; block noise only."
+   }
+  },
+  {
+   "item_id": "a035",
+   "A": {
+    "item_id": "a035",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey metal equipment with no bright or moving speck at the centre."
+   },
+   "B": {
+    "item_id": "a035",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between grey metal and a dark area during a burst of detections at frames 359 and 360, with no bright or moving particle at the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a035",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey metal equipment with no bright or moving speck at the centre."
+   }
+  },
+  {
+   "item_id": "a036",
+   "A": {
+    "item_id": "a036",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Corner of a static dark box against a pale background, with compression noise only at the edge."
+   },
+   "B": {
+    "item_id": "a036",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the static top-left edge of a dark camera-like box against a grey wall, with nothing glowing or moving in any of the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a036",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Corner of a static dark box against a pale background, with compression noise only at the edge."
+   }
+  },
+  {
+   "item_id": "a037",
+   "A": {
+    "item_id": "a037",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the tip of a dim grey static protrusion against a black background that does not move in any of the five frames, so this is a static structure and not an ember."
+   },
+   "B": {
+    "item_id": "a037",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the tip of a static, lit, hook-shaped bracket against a black background, and a long-lived track holds still on it."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a037",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the tip of a dim grey static protrusion against a black background that does not move in any of the five frames, so this is a static structure and not an ember."
+   }
+  },
+  {
+   "item_id": "a038",
+   "A": {
+    "item_id": "a038",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static window mullion crossing over pale glass with no bright spot, and the frame difference shows only compression block noise."
+   },
+   "B": {
+    "item_id": "a038",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the dark junction of a window or glass frame, static in all frames, with only block noise in the frame differences."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a038",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static window mullion crossing over pale glass with no bright spot, and the frame difference shows only compression block noise."
+   }
+  },
+  {
+   "item_id": "a039",
+   "A": {
+    "item_id": "a039",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper edge of a diffuse, static lit patch on a dark beam, with only block flicker between frames and nothing moving."
+   },
+   "B": {
+    "item_id": "a039",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "This is the same static diffuse light patch as a040, about 9 px away, with no moving object."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a039",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Upper edge of a static, diffuse pale patch on a dark beam with only block flicker between frames and no particle or glint."
+   }
+  },
+  {
+   "item_id": "a040",
+   "A": {
+    "item_id": "a040",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static diffuse lit patch as the neighbouring detection, with no particle and only compression flicker at the mark."
+   },
+   "B": {
+    "item_id": "a040",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the upper edge of a static, diffuse light patch on a surface that does not change between frames."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a040",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static diffuse pale patch as a039, about 9 px away, with no particle and only compression flicker at the mark."
+   }
+  },
+  {
+   "item_id": "a041",
+   "A": {
+    "item_id": "a041",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static boundary between a lit grey surface and a dark shadow, with nothing moving and only a small compression change at t."
+   },
+   "B": {
+    "item_id": "a041",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static grey and dark region next to a dark spot; the frame differences show only block noise."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a041",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static boundary between a lit grey surface and a dark shadow, with nothing moving and only a small compression change at t."
+   }
+  },
+  {
+   "item_id": "a042",
+   "A": {
+    "item_id": "a042",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint white streak sits on the circle at t and moves up and to the right across frames along the green track, next to a separate static light."
+   },
+   "B": {
+    "item_id": "a042",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint pale streak at the mark moves upward along the track and is brighter at t+1, so it looks like a rising ember."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a042",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint white streak sits on the circle at t and moves up and to the right across frames along the green track, next to a separate static light."
+   }
+  },
+  {
+   "item_id": "a043",
+   "A": {
+    "item_id": "a043",
+    "category": "fixture_light",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A compact white light that stays at the same spot and brightness in all five frames, so it is a static lamp or bright spot and not an ember."
+   },
+   "B": {
+    "item_id": "a043",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact bright white spot on the frame bar drifts about 6 px over four frames against a static background, likely a landed or slowly sliding ember, though a glint cannot be ruled out."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a043",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact bright white spot drifts steadily right about 5 px over four frames while the wall behind it stays fixed, so it is a slow-moving ember and not a lamp, though a glint cannot be fully ruled out."
+   }
+  },
+  {
+   "item_id": "a044",
+   "A": {
+    "item_id": "a044",
+    "category": "fixture_light",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper right part of a static white placard on a grey panel, and nothing moves there."
+   },
+   "B": {
+    "item_id": "a044",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static white paper label on the cabinet that looks the same in all five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a044",
+    "category": "fixture_light",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper right part of a static white placard on a grey panel, and nothing moves there."
+   }
+  },
+  {
+   "item_id": "a045",
+   "A": {
+    "item_id": "a045",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static door frame edge where zoom and difference images show no particle, so the track seems to link flicker detections rather than a real object."
+   },
+   "B": {
+    "item_id": "a045",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Only a static door-frame edge is visible, and the frame differences show just block compression noise, although a track links detections across it."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a045",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static door frame edge where zoom and difference images show no particle, so the track seems to link flicker detections rather than a real object."
+   }
+  },
+  {
+   "item_id": "a046",
+   "A": {
+    "item_id": "a046",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on plain grey panel just below a static white placard, with no bright or moving object at the mark."
+   },
+   "B": {
+    "item_id": "a046",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on grey cabinet surface just below the bottom edge of a static white label, with no object or motion."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a046",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on plain grey panel just below a static white placard, with no bright or moving object at the mark."
+   }
+  },
+  {
+   "item_id": "a047",
+   "A": {
+    "item_id": "a047",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static boundary between the grey panel and the darker door, with only a faint static smudge that is the same in all frames."
+   },
+   "B": {
+    "item_id": "a047",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is at the end of a slightly lighter horizontal seam on the cabinet, a static feature with nothing moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a047",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static boundary between the grey panel and the darker door, with only a faint static smudge that is the same in all frames."
+   }
+  },
+  {
+   "item_id": "a048",
+   "A": {
+    "item_id": "a048",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob on the circle moves slowly left along the top edge of a dark opening and changes shape across frames, which looks like an ember."
+   },
+   "B": {
+    "item_id": "a048",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob slides slowly left and up along the ledge edge over five frames, likely a bouncing or landed ember."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a048",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob on the circle moves slowly left along the top edge of a dark opening and changes shape across frames, which looks like an ember."
+   }
+  },
+  {
+   "item_id": "a049",
+   "A": {
+    "item_id": "a049",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the right end of a static white label next to a dark knob, and neither moves in any frame."
+   },
+   "B": {
+    "item_id": "a049",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the right end of a static white label beside a dark hole on the cabinet, with no change between frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a049",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the right end of a static white label next to a dark knob, and neither moves in any frame."
+   }
+  },
+  {
+   "item_id": "a050",
+   "A": {
+    "item_id": "a050",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static dark knob beside a white label, with no glowing object and only compression change around it."
+   },
+   "B": {
+    "item_id": "a050",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the static dark hole beside the white cabinet label, and a static track repeats there in every frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a050",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static dark knob beside a white label, with no glowing object and only compression change around it."
+   }
+  },
+  {
+   "item_id": "a051",
+   "A": {
+    "item_id": "a051",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on featureless grey panel to the left of a static white label, and nothing is there in any frame."
+   },
+   "B": {
+    "item_id": "a051",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is at the lower-left corner of the static white cabinet label; the horizontal track links detections with no visible moving object."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a051",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on featureless grey panel to the left of a static white label, and nothing is there in any frame."
+   }
+  },
+  {
+   "item_id": "a052",
+   "A": {
+    "item_id": "a052",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on featureless grey panel below a static label and knob, with nothing bright or moving at the mark."
+   },
+   "B": {
+    "item_id": "a052",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the static edge just below a white cabinet label next to a dark hole, where several detections cluster; nothing moves."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a052",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on featureless grey panel below a static label and knob, with nothing bright or moving at the mark."
+   }
+  },
+  {
+   "item_id": "a053",
+   "A": {
+    "item_id": "a053",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white streak crosses the circle at t and continues down and to the left along the green track in later frames."
+   },
+   "B": {
+    "item_id": "a053",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink-white streak crosses the mark at t and moves down along the confirmed track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a053",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white streak crosses the circle at t and continues down and to the left along the green track in later frames."
+   }
+  },
+  {
+   "item_id": "a054",
+   "A": {
+    "item_id": "a054",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob on the circle drifts slowly left across all frames in front of a dark window; it is probably an ember, though a reflection in the glass cannot be ruled out."
+   },
+   "B": {
+    "item_id": "a054",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact white blob is centred on the mark and moves left a few px per frame along its track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a054",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob on the circle drifts slowly left across all frames in front of a dark window; it is probably an ember, though a reflection in the glass cannot be ruled out."
+   }
+  },
+  {
+   "item_id": "a055",
+   "A": {
+    "item_id": "a055",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white core with a pink halo sits on the circle at t and moves steadily downward along the track."
+   },
+   "B": {
+    "item_id": "a055",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink-white blob is centred on the mark and falls steadily down along the track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a055",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white core with a pink halo sits on the circle at t and moves steadily downward along the track."
+   }
+  },
+  {
+   "item_id": "a056",
+   "A": {
+    "item_id": "a056",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static dark slot in the wall, and the nearby embers and the large pink object pass beside it, not over it at t."
+   },
+   "B": {
+    "item_id": "a056",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is beside a static dark slot on the grey wall, with no bright or moving object in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a056",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static dark slot in the wall, and the nearby embers and the large pink object pass beside it, not over it at t."
+   }
+  },
+  {
+   "item_id": "a057",
+   "A": {
+    "item_id": "a057",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static wall edge just below a dark hole, while the large pink object passes well to the lower right."
+   },
+   "B": {
+    "item_id": "a057",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on plain wall just below a static dark hole, with nothing bright; the tiny track stays in the same place in every frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a057",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a static wall edge just below a dark hole, while the large pink object passes well to the lower right."
+   }
+  },
+  {
+   "item_id": "a058",
+   "A": {
+    "item_id": "a058",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "At t the circle is on the static top edge of a dark opening, and the large pink object that covered it one frame earlier has already moved away to the lower left."
+   },
+   "B": {
+    "item_id": "a058",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Nothing bright is at the mark at t, only the top edge of a dark box; a huge near-ember streak covered this spot at t-1 and is about 18 px down-left at t, so this may be a leftover from it."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a058",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "At t the circle is on the static top edge of a dark opening, and the large pink object that covered it one frame earlier has already moved away to the lower left."
+   }
+  },
+  {
+   "item_id": "a059",
+   "A": {
+    "item_id": "a059",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long white diagonal streak passes through the circle at t and moves down and to the left along the green track."
+   },
+   "B": {
+    "item_id": "a059",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A cream-white diagonal streak passes through the mark at t and moves quickly down-left along its track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a059",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long white diagonal streak passes through the circle at t and moves down and to the left along the green track."
+   }
+  },
+  {
+   "item_id": "a060",
+   "A": {
+    "item_id": "a060",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white blob starts above a dark object at t-2 and moves steadily down across it, and at t it sits on the circle."
+   },
+   "B": {
+    "item_id": "a060",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white particle falls about 10 px per frame, passing from the wall onto the dark object, and is centred in the circle at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a060",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white blob starts above a dark object at t-2 and moves steadily down across it, and at t it sits on the circle."
+   }
+  },
+  {
+   "item_id": "a061",
+   "A": {
+    "item_id": "a061",
+    "category": "missed_large_or_saturated",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a large, fast-moving, glowing pink object that looks like a near, blurred firebrand, and no detection lies on it at t."
+   },
+   "B": {
+    "item_id": "a061",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A very large, wide pink band from a near ember covers the mark at t, and the only crosses are around its edges, none on the band."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a061",
+    "category": "missed_large_or_saturated",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a large, fast-moving, glowing pink object that looks like a near, blurred firebrand, and no detection lies on it at t."
+   }
+  },
+  {
+   "item_id": "a062",
+   "A": {
+    "item_id": "a062",
+    "category": "label_doubtful",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a compact white light that stays fixed and steady in all five frames, so it is a static fixture and not an ember (detection a043 is at the same point)."
+   },
+   "B": {
+    "item_id": "a062",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact bright white spot at the mark drifts only a few px over five frames, possibly a landed ember; det a043 in this batch sits on the same point at frame 440, so it does not look like a real miss."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a062",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on the same slowly drifting white spot as det a043, which has crosses on it in the neighbouring frames and sits at this exact point at frame 440, so this does not look like a real miss."
+   }
+  },
+  {
+   "item_id": "a063",
+   "A": {
+    "item_id": "a063",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright, isolated white blob drifting slowly left is at the mark, and nothing faint, crowded or oversized explains a miss (det a054 sits at this same point)."
+   },
+   "B": {
+    "item_id": "a063",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white horizontal blob moves slowly left at the mark; this sheet shows no cross at t, but det a054 in this batch sits on the same point at frame 440."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a063",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright, isolated white blob drifting slowly left is at the mark, and nothing faint, crowded or oversized explains a miss (det a054 sits at this same point)."
+   }
+  },
+  {
+   "item_id": "a064",
+   "A": {
+    "item_id": "a064",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob moving along the top edge of a dark opening is at the mark, and nothing in the sheet explains a miss (det a048 sits at this same point)."
+   },
+   "B": {
+    "item_id": "a064",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white blob drifts slowly along the ledge edge at the mark; this sheet shows no cross on it at t, but det a048 in this batch sits on the same point at frame 440, so it does not look like a real miss."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a064",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob moving along the top edge of a dark opening is at the mark, and nothing in the sheet explains a miss (det a048 sits at this same point)."
+   }
+  },
+  {
+   "item_id": "a065",
+   "A": {
+    "item_id": "a065",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white vertical streak moving down covers the mark, and the only detection at t sits about 5 px lower on the same streak."
+   },
+   "B": {
+    "item_id": "a065",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is at the top end of a short white vertical streak, and the detection sits about 5 px lower at the streak centre."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a065",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white vertical streak moving down covers the mark, and the only detection at t sits about 5 px lower on the same streak."
+   }
+  },
+  {
+   "item_id": "a066",
+   "A": {
+    "item_id": "a066",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white ember moving down and to the left is at the mark over a static diagonal cable, with no detection on it at t and the nearest cross about 24 px away."
+   },
+   "B": {
+    "item_id": "a066",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white moving blob at the mark has no cross on it at t; the nearest detection is about 20 px down-right on a faint streak that touches the blob."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a066",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white ember moving left and down is at the mark with no cross on it at t-1 or t, and the nearest cross is about 23 px away on a separate faint streak, so the images do not show why it was missed."
+   }
+  },
+  {
+   "item_id": "a067",
+   "A": {
+    "item_id": "a067",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white elongated ember sits on the circle at t and moves downward along the green track."
+   },
+   "B": {
+    "item_id": "a067",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright pink-white streak is centred on the mark and falls along the track between t-1 and t+1."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a067",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white elongated ember sits on the circle at t and moves downward along the green track."
+   }
+  },
+  {
+   "item_id": "a068",
+   "A": {
+    "item_id": "a068",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A red and pink streak passes through the circle at t, moving downward along the track in front of dark structure."
+   },
+   "B": {
+    "item_id": "a068",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A red streak is centred on the mark and moves down along the green track from frame to frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a068",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A red and pink streak passes through the circle at t, moving downward along the track in front of dark structure."
+   }
+  },
+  {
+   "item_id": "a069",
+   "A": {
+    "item_id": "a069",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white vertical streak is centred on the circle at t and moves downward along the green track."
+   },
+   "B": {
+    "item_id": "a069",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink-white streak is centred in the circle and moves steadily down along its confirmed track across all five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a069",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink and white vertical streak is centred on the circle at t and moves downward along the green track."
+   }
+  },
+  {
+   "item_id": "a070",
+   "A": {
+    "item_id": "a070",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a long, wide pink and red streak in front of dark trousers, and there are no detections on any of these long streaks at t."
+   },
+   "B": {
+    "item_id": "a070",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a wide, long pink streak in front of dark trousers, with no cross on the streak at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a070",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a long, wide pink and red streak in front of dark trousers, and there are no detections on any of these long streaks at t."
+   }
+  },
+  {
+   "item_id": "a071",
+   "A": {
+    "item_id": "a071",
+    "category": "missed_large_or_saturated",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a long diagonal red streak beside a shorter pink one, and neither has a detection at t."
+   },
+   "B": {
+    "item_id": "a071",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a long diagonal pink streak over a dark shoe, and no detection lies anywhere on that streak at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a071",
+    "category": "missed_large_or_saturated",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a long diagonal red streak beside a shorter pink one, and neither has a detection at t."
+   }
+  },
+  {
+   "item_id": "a072",
+   "A": {
+    "item_id": "a072",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small round white and pink ember at the mark touches a large red streak at t, and it is detected only in the later frames once it has separated from the streak."
+   },
+   "B": {
+    "item_id": "a072",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small pink-white moving dot at the mark touches the top of a long red streak at t and has no cross, although it does get crosses at t-1 and t+1."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a072",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small round white and pink ember at the mark touches a large red streak at t, and it is detected only in the later frames once it has separated from the streak."
+   }
+  },
+  {
+   "item_id": "a073",
+   "A": {
+    "item_id": "a073",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a very long, wide red streak that fills the whole crop height, and no detection is on it at t."
+   },
+   "B": {
+    "item_id": "a073",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark sits on a long saturated red streak, a near ember falling in front of a dark leg, and there is no cyan cross anywhere along that streak at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a073",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a very long, wide red streak that fills the whole crop height, and no detection is on it at t."
+   }
+  },
+  {
+   "item_id": "a074",
+   "A": {
+    "item_id": "a074",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small pink ember sits in the circle right beside a long saturated streak, and no cross appears on it at t although crosses mark the same ember at t-1 and t+1."
+   },
+   "B": {
+    "item_id": "a074",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small pink ember is at the mark next to a long bright streak about 20 px to its left; it was detected at t-1 and t+1, but no detections appear anywhere in the context at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a074",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small pink ember sits in the circle right beside a long saturated streak, and no cross appears on it at t although crosses mark the same ember at t-1 and t+1."
+   }
+  },
+  {
+   "item_id": "a075",
+   "A": {
+    "item_id": "a075",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember streak is in the circle at t; the nearest cross sits on the lower part of the streak about 6 px below the mark."
+   },
+   "B": {
+    "item_id": "a075",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A short pink streak falls through the mark, and a cross sits on the same streak about 6 px lower, near its centre."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a075",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember streak is in the circle at t; the nearest cross sits on the lower part of the streak about 6 px below the mark."
+   }
+  },
+  {
+   "item_id": "a076",
+   "A": {
+    "item_id": "a076",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with horizontal banding and block noise; nothing glows or moves, one of many scattered detections in this frame."
+   },
+   "B": {
+    "item_id": "a076",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static corrugated wall with faint compression banding and no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a076",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with horizontal banding and block noise; nothing glows or moves, one of many scattered detections in this frame."
+   }
+  },
+  {
+   "item_id": "a077",
+   "A": {
+    "item_id": "a077",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with banding and block noise; no particle in any of the five frames."
+   },
+   "B": {
+    "item_id": "a077",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static corrugated wall with faint compression banding and no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a077",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with banding and block noise; no particle in any of the five frames."
+   }
+  },
+  {
+   "item_id": "a078",
+   "A": {
+    "item_id": "a078",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with banding; nothing bright or moving at the mark."
+   },
+   "B": {
+    "item_id": "a078",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static corrugated wall with faint compression banding, at a frame with many detections appearing at once."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a078",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey shutter wall with banding; nothing bright or moving at the mark."
+   }
+  },
+  {
+   "item_id": "a079",
+   "A": {
+    "item_id": "a079",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the static white highlight line of a metal rail; nothing moves across the five frames."
+   },
+   "B": {
+    "item_id": "a079",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The static bright highlight line along a metal rail, unchanged across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a079",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle sits on the static white highlight line of a metal rail; nothing moves across the five frames."
+   }
+  },
+  {
+   "item_id": "a080",
+   "A": {
+    "item_id": "a080",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the dark underside of a static rail just below its highlight; no glowing object in any frame."
+   },
+   "B": {
+    "item_id": "a080",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The dark band of a static metal rail just below its highlight; nothing moves."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a080",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the dark underside of a static rail just below its highlight; no glowing object in any frame."
+   }
+  },
+  {
+   "item_id": "a081",
+   "A": {
+    "item_id": "a081",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain blue grey floor below the rail; nothing bright or moving."
+   },
+   "B": {
+    "item_id": "a081",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The static lower edge of a metal rail, with no particle in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a081",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain blue grey floor below the rail; nothing bright or moving."
+   }
+  },
+  {
+   "item_id": "a082",
+   "A": {
+    "item_id": "a082",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface with only a faint static dark speck; nothing glows."
+   },
+   "B": {
+    "item_id": "a082",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A featureless hazy grey area below a rail, with nothing bright or moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a082",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface with only a faint static dark speck; nothing glows."
+   }
+  },
+  {
+   "item_id": "a083",
+   "A": {
+    "item_id": "a083",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface; the confirmed track is stationary and nothing glows or moves."
+   },
+   "B": {
+    "item_id": "a083",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A featureless hazy grey area below a rail, at a frame where many detections appear at once."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a083",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface; the confirmed track is stationary and nothing glows or moves."
+   }
+  },
+  {
+   "item_id": "a084",
+   "A": {
+    "item_id": "a084",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface below the rail with no bright or moving feature."
+   },
+   "B": {
+    "item_id": "a084",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A featureless hazy grey area below a rail where block patterns shift, at a frame where many detections appear at once."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a084",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain floor surface below the rail with no bright or moving feature."
+   }
+  },
+  {
+   "item_id": "a085",
+   "A": {
+    "item_id": "a085",
+    "category": "duplicate_fragment",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A white moving ember sits about 10 px down left of the circle and already carries its own detection, so this is a displaced second detection of it."
+   },
+   "B": {
+    "item_id": "a085",
+    "category": "duplicate_fragment",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is about 10 px up-right of the white ember that another detection already marks, and nothing is at the circle itself."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a085",
+    "category": "duplicate_fragment",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A white moving ember sits about 10 px down left of the circle and already carries its own detection, so this is a displaced second detection of it."
+   }
+  },
+  {
+   "item_id": "a086",
+   "A": {
+    "item_id": "a086",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white particle centred in the circle moves steadily down left across all five frames along the confirmed track."
+   },
+   "B": {
+    "item_id": "a086",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob drifts steadily down-left about 4 px per frame through the circle, consistent with an ember in flight."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a086",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white particle centred in the circle moves steadily down left across all five frames along the confirmed track."
+   }
+  },
+  {
+   "item_id": "a087",
+   "A": {
+    "item_id": "a087",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on a person's hand holding a dark object; no glow and only slight motion."
+   },
+   "B": {
+    "item_id": "a087",
+    "category": "moving_non_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The person's fingers holding a dark object; no glowing particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a087",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on a person's hand holding a dark object; no glow and only slight motion."
+   }
+  },
+  {
+   "item_id": "a088",
+   "A": {
+    "item_id": "a088",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the dark object held in a person's hand; no glow."
+   },
+   "B": {
+    "item_id": "a088",
+    "category": "moving_non_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The dark tip of an object held in a person's hand; it does not glow."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a088",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the dark object held in a person's hand; no glow."
+   }
+  },
+  {
+   "item_id": "a089",
+   "A": {
+    "item_id": "a089",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white ember is centred on the mark; this sheet shows no cross on it at t (one cross about 10 px up right), but det sheet a086 shows a detection at this same point and frame, so it may not be a miss."
+   },
+   "B": {
+    "item_id": "a089",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember drifting slowly down-left is at the mark with no cross drawn on it, but det item a086 lies on this same point in this frame (and a085 about 10 px away), so this sheet does not explain a miss."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a089",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white ember is centred on the mark; this sheet shows no cross on it at t (one cross about 10 px up right), but det sheet a086 shows a detection at this same point and frame, so it may not be a miss."
+   }
+  },
+  {
+   "item_id": "a090",
+   "A": {
+    "item_id": "a090",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static steel post; the track stays in place and nothing glows."
+   },
+   "B": {
+    "item_id": "a090",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static vertical dark post against a grey background, with no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a090",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static steel post; the track stays in place and nothing glows."
+   }
+  },
+  {
+   "item_id": "a091",
+   "A": {
+    "item_id": "a091",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a dark rail and lighter floor; nothing bright or moving."
+   },
+   "B": {
+    "item_id": "a091",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A uniform grey plate below a dark beam, with nothing at the circle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a091",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a dark rail and lighter floor; nothing bright or moving."
+   }
+  },
+  {
+   "item_id": "a092",
+   "A": {
+    "item_id": "a092",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the end of a static light grey metal bar highlight that does not move in any frame."
+   },
+   "B": {
+    "item_id": "a092",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The same static white glint bar on a steel rod; it does not move."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a092",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle is on the end of a static light grey metal bar highlight that does not move in any frame."
+   }
+  },
+  {
+   "item_id": "a093",
+   "A": {
+    "item_id": "a093",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static light metal bar end as a nearby detection; no motion across frames."
+   },
+   "B": {
+    "item_id": "a093",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static white glint at the end of a steel rod that stays the same in all five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a093",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Same static light metal bar end as a nearby detection; no motion across frames."
+   }
+  },
+  {
+   "item_id": "a094",
+   "A": {
+    "item_id": "a094",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static highlight edge on a diagonal metal beam; nothing moves or glows."
+   },
+   "B": {
+    "item_id": "a094",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static dark steel beam surface with no bright or moving feature."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a094",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark featureless beam surface just below a lit stripe, identical in frames t-2 to t, with no bright or moving feature at the mark."
+   }
+  },
+  {
+   "item_id": "a095",
+   "A": {
+    "item_id": "a095",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a dark beam and lighter floor; stationary track and no glow."
+   },
+   "B": {
+    "item_id": "a095",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static diagonal edge between a dark beam and a grey plate; nothing bright or moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a095",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a dark beam and lighter floor; stationary track and no glow."
+   }
+  },
+  {
+   "item_id": "a096",
+   "A": {
+    "item_id": "a096",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against a bright background; nothing glows or moves."
+   },
+   "B": {
+    "item_id": "a096",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static edge of dark equipment against a light background, with only a tiny static grey speck."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a096",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against a bright background; nothing glows or moves."
+   }
+  },
+  {
+   "item_id": "a097",
+   "A": {
+    "item_id": "a097",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a light panel against a dark silhouette; stationary track and no glow."
+   },
+   "B": {
+    "item_id": "a097",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static corner edge between a light panel and a dark silhouette, with no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a097",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a light panel against a dark silhouette; stationary track and no glow."
+   }
+  },
+  {
+   "item_id": "a098",
+   "A": {
+    "item_id": "a098",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against a light background; nothing bright or moving."
+   },
+   "B": {
+    "item_id": "a098",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static high-contrast edge of a dark silhouette against a light wall; nothing glows or moves."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a098",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against a light background; nothing bright or moving."
+   }
+  },
+  {
+   "item_id": "a099",
+   "A": {
+    "item_id": "a099",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Boundary of a hazy smoke patch over a dark region; no particle, the track only drifts slowly."
+   },
+   "B": {
+    "item_id": "a099",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A smooth dark area below the steel frame with no bright or moving feature at the circle."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a099",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Soft boundary between grey haze and a dark area with no particle and only faint low-level flicker, even though a short track exists."
+   }
+  },
+  {
+   "item_id": "a100",
+   "A": {
+    "item_id": "a100",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static bright patch of background beside a person's head; stationary track and no particle in flight."
+   },
+   "B": {
+    "item_id": "a100",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a pale background patch beside the person's head, with no moving particle in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a100",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static bright patch of background beside a person's head; stationary track and no particle in flight."
+   }
+  },
+  {
+   "item_id": "a101",
+   "A": {
+    "item_id": "a101",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink ember streak centred in the circle, moving down left along the confirmed track."
+   },
+   "B": {
+    "item_id": "a101",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink motion-blurred streak is centred on the circle and moves down-left along its track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a101",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink ember streak centred in the circle, moving down left along the confirmed track."
+   }
+  },
+  {
+   "item_id": "a102",
+   "A": {
+    "item_id": "a102",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink ember streak centred in the circle at t, moving down left along the confirmed track."
+   },
+   "B": {
+    "item_id": "a102",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink motion-blurred streak is centred on the circle and moves down-left from frame to frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a102",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink ember streak centred in the circle at t, moving down left along the confirmed track."
+   }
+  },
+  {
+   "item_id": "a103",
+   "A": {
+    "item_id": "a103",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A whitish streak with a reddish rim is centred in the circle and moves steadily upward along the track; looks like an ember though dimmer than the pink ones."
+   },
+   "B": {
+    "item_id": "a103",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A pale white-pink streak moves upward about 15 px per frame through the circle along a straight track, most likely a rising ember."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a103",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A whitish streak with a reddish rim is centred in the circle and moves steadily upward along the track; looks like an ember though dimmer than the pink ones."
+   }
+  },
+  {
+   "item_id": "a104",
+   "A": {
+    "item_id": "a104",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink white ember streak centred in the circle, moving downward along the confirmed track."
+   },
+   "B": {
+    "item_id": "a104",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A fast-falling pink streak is centred on the circle and follows the straight vertical track across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a104",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink white ember streak centred in the circle, moving downward along the confirmed track."
+   }
+  },
+  {
+   "item_id": "a105",
+   "A": {
+    "item_id": "a105",
+    "category": "localization_offset",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle falls between a pink ember about 16 px up left and a white ember about 12 px down right, both moving down left; neither is at the mark, so the centroid looks merged or displaced."
+   },
+   "B": {
+    "item_id": "a105",
+    "category": "localization_offset",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the shoulder midway between a pink ember and a white ember, about 12 px from each, like a merged centroid, and nothing glows at the circle itself."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a105",
+    "category": "localization_offset",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Circle falls between a pink ember about 16 px up left and a white ember about 12 px down right, both moving down left; neither is at the mark, so the centroid looks merged or displaced."
+   }
+  },
+  {
+   "item_id": "a106",
+   "A": {
+    "item_id": "a106",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A whitish ember streak is on the mark at t with no cross shown on this sheet, but det sheet a103 shows a detection at this same point and frame, so it may not be a miss."
+   },
+   "B": {
+    "item_id": "a106",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A pale streak moving upward about 15 px per frame is at the mark with no cross drawn on it, but det item a103 lies on this same point in this frame, so this sheet does not explain a miss."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a106",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A whitish ember streak is on the mark at t with no cross shown on this sheet, but det sheet a103 shows a detection at this same point and frame, so it may not be a miss."
+   }
+  },
+  {
+   "item_id": "a107",
+   "A": {
+    "item_id": "a107",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Pink ember in the circle at t; the nearest cross sits about 11 px down right, between this ember and a white one."
+   },
+   "B": {
+    "item_id": "a107",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember with a red trail sits at the mark; the nearest cross is about 12 px away, between this ember and a white ember just below it, so the two look merged."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a107",
+    "category": "missed_merged_or_crowded",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember sits at the mark and the only nearby cross lies about 12 px away, exactly midway between it and a white ember just below, so the two were merged into one detection."
+   }
+  },
+  {
+   "item_id": "a108",
+   "A": {
+    "item_id": "a108",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "White moving ember in the circle at t; the nearest cross sits about 12 px up left, between it and a pink ember."
+   },
+   "B": {
+    "item_id": "a108",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white ember moving down-left sits at the mark; the only nearby cross is about 12 px away, midway between it and a second pink ember, so the two look merged."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a108",
+    "category": "missed_merged_or_crowded",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember sits at the mark and the only nearby cross lies about 12 px away, exactly midway between it and the pink ember above, so the two were merged into one detection."
+   }
+  },
+  {
+   "item_id": "a109",
+   "A": {
+    "item_id": "a109",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large saturated pink streak covers the mark at t and no cross appears anywhere on it."
+   },
+   "B": {
+    "item_id": "a109",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large, bright, motion-blurred pink-orange streak crosses the mark at t and no detection cross lies anywhere on it."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a109",
+    "category": "missed_large_or_saturated",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large saturated pink streak covers the mark at t and no cross appears anywhere on it."
+   }
+  },
+  {
+   "item_id": "a110",
+   "A": {
+    "item_id": "a110",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a grey surface; the track stays in place and nothing glows."
+   },
+   "B": {
+    "item_id": "a110",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smear in a hazy grey area; nothing glows or moves at the circle in any of the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a110",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a grey surface; the track stays in place and nothing glows."
+   }
+  },
+  {
+   "item_id": "a111",
+   "A": {
+    "item_id": "a111",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static gray smoky background beside a dark vertical bar, with nothing glowing or moving in any of the five frames."
+   },
+   "B": {
+    "item_id": "a111",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey texture beside a dark vertical line, with no glowing or moving particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a111",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static gray smoky background beside a dark vertical bar, with nothing glowing or moving in any of the five frames."
+   }
+  },
+  {
+   "item_id": "a112",
+   "A": {
+    "item_id": "a112",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static blurred gray background with a faint darker blob and no bright or moving speck."
+   },
+   "B": {
+    "item_id": "a112",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Grey hazy texture with a faint static dark smudge and nothing bright."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a112",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static blurred gray background with a faint darker blob and no bright or moving speck."
+   }
+  },
+  {
+   "item_id": "a113",
+   "A": {
+    "item_id": "a113",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale gray area beside a black occluding shape, with nothing glowing or moving."
+   },
+   "B": {
+    "item_id": "a113",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Hazy grey area with no object and no change across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a113",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale gray area beside a black occluding shape, with nothing glowing or moving."
+   }
+  },
+  {
+   "item_id": "a114",
+   "A": {
+    "item_id": "a114",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Pale gray area at the edge of a static black shape, with no glowing particle in any frame despite the track."
+   },
+   "B": {
+    "item_id": "a114",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Hazy grey area beside the static edge of a black silhouette, with no particle even though a track exists."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a114",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Pale gray area at the edge of a static black shape, with no glowing particle in any frame despite the track."
+   }
+  },
+  {
+   "item_id": "a115",
+   "A": {
+    "item_id": "a115",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Plain wall just left of a static white panel, with nothing bright or moving at the mark."
+   },
+   "B": {
+    "item_id": "a115",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Plain pale wall left of a frame, with nothing there in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a115",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Plain wall just left of a static white panel, with nothing bright or moving at the mark."
+   }
+  },
+  {
+   "item_id": "a116",
+   "A": {
+    "item_id": "a116",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Right edge of a static pale wall panel, with no moving particle across the five frames."
+   },
+   "B": {
+    "item_id": "a116",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static right edge of a framed panel, with no moving or glowing object."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a116",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark border of a pale framed panel in frame 235, where many static edges fire at once, with no moving or glowing object."
+   }
+  },
+  {
+   "item_id": "a117",
+   "A": {
+    "item_id": "a117",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the wall and a dark window, with nothing glowing."
+   },
+   "B": {
+    "item_id": "a117",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge between a grey wall and a dark opening, with no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a117",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the wall and a dark window, with nothing glowing."
+   }
+  },
+  {
+   "item_id": "a118",
+   "A": {
+    "item_id": "a118",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall area just below a white panel, with no bright or moving speck."
+   },
+   "B": {
+    "item_id": "a118",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Bottom inner edge of a static framed panel, with nothing glowing or moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a118",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall area just below a white panel, with no bright or moving speck."
+   }
+  },
+  {
+   "item_id": "a119",
+   "A": {
+    "item_id": "a119",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner where a gray shelf meets a white monitor bezel, with nothing glowing."
+   },
+   "B": {
+    "item_id": "a119",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Plain grey-green wall with a slight compression block change at t, and no object."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a119",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner where a gray shelf meets a white monitor bezel, with nothing glowing."
+   }
+  },
+  {
+   "item_id": "a120",
+   "A": {
+    "item_id": "a120",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Top edge of a person's dark head silhouette against the wall, nearly still, with no ember."
+   },
+   "B": {
+    "item_id": "a120",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Pale wall just above the static dark outline of a person's head, with no particle."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a120",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Pale wall just above a still head silhouette in frame 235, where many static edges fire at once, with no particle."
+   }
+  },
+  {
+   "item_id": "a121",
+   "A": {
+    "item_id": "a121",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner of a white monitor bezel against a dark screen, with nothing glowing."
+   },
+   "B": {
+    "item_id": "a121",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark monitor area below a white frame edge, with nothing there in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a121",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner of a white monitor bezel against a dark screen, with nothing glowing."
+   }
+  },
+  {
+   "item_id": "a122",
+   "A": {
+    "item_id": "a122",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a dark person silhouette against a lit wall, nearly still, with no ember."
+   },
+   "B": {
+    "item_id": "a122",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner where a lit wall meets a dark silhouette, with no particle even though a track exists."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a122",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner where the lit wall meets a dark silhouette, unchanged across frames, one of many frame 235 edge detections."
+   }
+  },
+  {
+   "item_id": "a123",
+   "A": {
+    "item_id": "a123",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a dark person silhouette against the wall, static across frames, with no ember."
+   },
+   "B": {
+    "item_id": "a123",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against a pale wall, with nothing bright or moving."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a123",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a dark silhouette against the wall, unchanged across frames, one of many frame 235 edge detections."
+   }
+  },
+  {
+   "item_id": "a124",
+   "A": {
+    "item_id": "a124",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a pale reflected shape in a dark glass pane, static across frames, with no flying particle."
+   },
+   "B": {
+    "item_id": "a124",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale nub on the edge of a light shape seen through window glass, unchanged across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a124",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Edge of a pale reflected shape in a dark glass pane, static across frames, with no flying particle."
+   }
+  },
+  {
+   "item_id": "a125",
+   "A": {
+    "item_id": "a125",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static lower edge of a bright white sheet of paper on a dark table, with nothing moving."
+   },
+   "B": {
+    "item_id": "a125",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the white paper and the dark table, with no particle."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a125",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static lower edge of the white paper over the dark table in frame 235, where many static edges fire at once, with nothing moving."
+   }
+  },
+  {
+   "item_id": "a126",
+   "A": {
+    "item_id": "a126",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static lower edge of a bright white sheet of paper on a dark table, with nothing moving."
+   },
+   "B": {
+    "item_id": "a126",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of the white paper over the dark table, the same in all five frames."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a126",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of the white paper over the dark table, the same in all five frames, one of the frame 235 edge detections."
+   }
+  },
+  {
+   "item_id": "a127",
+   "A": {
+    "item_id": "a127",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static corner of a bright white sheet of paper over the dark table, with no moving particle."
+   },
+   "B": {
+    "item_id": "a127",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static notch in the edge of the white paper against the dark table, with nothing glowing or moving."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a127",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static notch in the white paper edge against the dark table, unchanged across frames, with nothing glowing or moving."
+   }
+  },
+  {
+   "item_id": "a128",
+   "A": {
+    "item_id": "a128",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of a bright white sheet of paper over the dark table, with no moving particle."
+   },
+   "B": {
+    "item_id": "a128",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of saturated white paper against the dark table, with no particle."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a128",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static edge of saturated white paper against the dark table, unchanged across frames, one of the frame 235 edge detections."
+   }
+  },
+  {
+   "item_id": "a129",
+   "A": {
+    "item_id": "a129",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the dark table edge and a bright white chair, with nothing moving."
+   },
+   "B": {
+    "item_id": "a129",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark table edge band below the white paper, unchanged across frames, so this is edge ringing only."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a129",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the dark table edge and the white chair below, unchanged across frames, so this is edge flicker only."
+   }
+  },
+  {
+   "item_id": "a130",
+   "A": {
+    "item_id": "a130",
+    "category": "fixture_light",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static boundary between the dark table edge and a bright white chair seat, with nothing moving."
+   },
+   "B": {
+    "item_id": "a130",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static high-contrast edge between the dark table and the white chair, with no object there."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a130",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static high-contrast edge between the dark table and the white chair seat, unchanged across frames, with no object at the mark."
+   }
+  },
+  {
+   "item_id": "a131",
+   "A": {
+    "item_id": "a131",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static rim of a water pan with pale water or foil highlights, with no flying particle."
+   },
+   "B": {
+    "item_id": "a131",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static bright white highlight on a curved metal rim that does not move between frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a131",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static rim of a water pan with pale water or foil highlights, with no flying particle."
+   }
+  },
+  {
+   "item_id": "a132",
+   "A": {
+    "item_id": "a132",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static water pan rim beside a fixed dark spot, a light band but no flying particle."
+   },
+   "B": {
+    "item_id": "a132",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale band beside a dark spot on a pan support, with no glowing particle in any frame."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a132",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale band beside a dark spot on the pan support, unchanged across frames, with nothing glowing even though a track sits on it."
+   }
+  },
+  {
+   "item_id": "a133",
+   "A": {
+    "item_id": "a133",
+    "category": "moving_non_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Bluish lit edge of a person's dark clothing, essentially static, with no ember."
+   },
+   "B": {
+    "item_id": "a133",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static blue-lit fabric of a person's clothing near a dark edge, with nothing glowing or moving."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a133",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static blue-lit fabric near the dark edge of a person's clothing, with only small flicker and no glowing particle."
+   }
+  },
+  {
+   "item_id": "a134",
+   "A": {
+    "item_id": "a134",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform dark clothing showing only faint block noise, while a real ember streak passes well away from the mark."
+   },
+   "B": {
+    "item_id": "a134",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Very dark clothing region with no visible object and no change."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a134",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform dark clothing showing only faint block noise, while a real ember streak passes well away from the mark."
+   }
+  },
+  {
+   "item_id": "a135",
+   "A": {
+    "item_id": "a135",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A long saturated pink ember streak has its upper end at the mark at t, and the nearest detection sits about 25 px lower on the middle of the same streak."
+   },
+   "B": {
+    "item_id": "a135",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large pink ember streak passes the mark at t, and the detection sits on the same streak about 25 px lower instead of at the labelled upper end."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a135",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A long saturated pink ember streak has its upper end at the mark at t, and the nearest detection sits about 25 px lower on the middle of the same streak."
+   }
+  },
+  {
+   "item_id": "a136",
+   "A": {
+    "item_id": "a136",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smoky area with only faint blotchy texture and no bright speck in any frame, despite the track."
+   },
+   "B": {
+    "item_id": "a136",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smooth gradient with no object in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a136",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smoky area with only faint blotchy texture and no bright speck in any frame, despite the track."
+   }
+  },
+  {
+   "item_id": "a137",
+   "A": {
+    "item_id": "a137",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak crosses the mark at t and moves along the confirmed track between frames."
+   },
+   "B": {
+    "item_id": "a137",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "Bright white streak crosses the crop at t with the circle on its centre, and it follows the confirmed track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a137",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak crosses the mark at t and moves along the confirmed track between frames."
+   }
+  },
+  {
+   "item_id": "a138",
+   "A": {
+    "item_id": "a138",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a gray surface that looks the same in all five frames, with nothing glowing."
+   },
+   "B": {
+    "item_id": "a138",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark speck on a grey surface that stays the same across frames and does not glow."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a138",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a gray surface that looks the same in all five frames, with nothing glowing."
+   }
+  },
+  {
+   "item_id": "a139",
+   "A": {
+    "item_id": "a139",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a gray surface, with no bright or moving particle."
+   },
+   "B": {
+    "item_id": "a139",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Top edge of a static dark patch on a grey surface, with nothing glowing or moving even though a track exists."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a139",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark smudge on a gray surface, with no bright or moving particle."
+   }
+  },
+  {
+   "item_id": "a140",
+   "A": {
+    "item_id": "a140",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static mottled gray surface texture, with nothing glowing or moving."
+   },
+   "B": {
+    "item_id": "a140",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey surface texture near a darker patch, with nothing bright or moving."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a140",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static mottled gray surface texture, with nothing glowing or moving."
+   }
+  },
+  {
+   "item_id": "a141",
+   "A": {
+    "item_id": "a141",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static mottled gray surface texture, with nothing glowing or moving."
+   },
+   "B": {
+    "item_id": "a141",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Featureless grey textured surface that stays the same in every frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a141",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static mottled gray surface texture, with nothing glowing or moving."
+   }
+  },
+  {
+   "item_id": "a142",
+   "A": {
+    "item_id": "a142",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static small dark spot with a faint color tint that shifts from frame to frame, likely compression, with nothing bright or flying."
+   },
+   "B": {
+    "item_id": "a142",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static dark, non-glowing speck on a grey surface with block noise around it, and no moving bright particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a142",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static small dark spot with a faint color tint that shifts from frame to frame, likely compression, with nothing bright or flying."
+   }
+  },
+  {
+   "item_id": "a143",
+   "A": {
+    "item_id": "a143",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Faint color smear just right of a static dark spot, with no bright moving particle."
+   },
+   "B": {
+    "item_id": "a143",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Faint brownish smear beside a static dark speck that appears when the compression blocks change at t; nothing glows or moves."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a143",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Faint color smear just right of a static dark spot, with no bright moving particle."
+   }
+  },
+  {
+   "item_id": "a144",
+   "A": {
+    "item_id": "a144",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Very dark region showing only compression block texture, with no visible particle in any frame."
+   },
+   "B": {
+    "item_id": "a144",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform dark region with no visible object and no change across the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a144",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Very dark region showing only compression block texture, with no visible particle in any frame."
+   }
+  },
+  {
+   "item_id": "a145",
+   "A": {
+    "item_id": "a145",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static highlight along the edge of a steel beam, with no moving particle."
+   },
+   "B": {
+    "item_id": "a145",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Small bright spot on the beam highlight edge that sits in the same place in all five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a145",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static highlight along the edge of a steel beam, with no moving particle."
+   }
+  },
+  {
+   "item_id": "a146",
+   "A": {
+    "item_id": "a146",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static beam edge next to a fixed bright glint on the metal, with nothing flying through the mark."
+   },
+   "B": {
+    "item_id": "a146",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static highlight on the steel beam edge near a fixed white spot, with no moving particle in any of the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a146",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static beam edge next to a fixed bright glint on the metal, with nothing flying through the mark."
+   }
+  },
+  {
+   "item_id": "a147",
+   "A": {
+    "item_id": "a147",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static bright highlight line along a steel beam, while the real ember streak passes well to the right."
+   },
+   "B": {
+    "item_id": "a147",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Highlight line along the steel beam edge that brightens slightly at t but does not fly, likely a glint from embers passing nearby."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a147",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Static bright highlight line along a steel beam, while the real ember streak passes well to the right."
+   }
+  },
+  {
+   "item_id": "a148",
+   "A": {
+    "item_id": "a148",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the pale highlight along a static steel beam edge, and nothing glowing or moving appears in any of the five frames."
+   },
+   "B": {
+    "item_id": "a148",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the faint highlight strip of a static diagonal metal bar, with several detections along the bar and no glowing particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a148",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the pale highlight along a static steel beam edge, and nothing glowing or moving appears in any of the five frames."
+   }
+  },
+  {
+   "item_id": "a149",
+   "A": {
+    "item_id": "a149",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small bright white elongated particle sits on the circle at t and moves across the crop from frame to frame along its track."
+   },
+   "B": {
+    "item_id": "a149",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white elongated particle is at the centre at t and moves steadily left and down between frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a149",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small bright white elongated particle sits on the circle at t and moves across the crop from frame to frame along its track."
+   }
+  },
+  {
+   "item_id": "a150",
+   "A": {
+    "item_id": "a150",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob is centred on the mark and drifts slowly down and to the left from t-1 to t+2 on its track, consistent with a slow ember."
+   },
+   "B": {
+    "item_id": "a150",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white oval particle is at the centre at t and drifts slowly left and down between frames along its track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a150",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob is centred on the mark and drifts slowly down and to the left from t-1 to t+2 on its track, consistent with a slow ember."
+   }
+  },
+  {
+   "item_id": "a151",
+   "A": {
+    "item_id": "a151",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long pink streak passes through the circle at t only, matching the track line, which is clearly a flying ember."
+   },
+   "B": {
+    "item_id": "a151",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long, bright pink ember streak passes through the centre at t, matching a straight falling track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a151",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long pink streak passes through the circle at t only, matching the track line, which is clearly a flying ember."
+   }
+  },
+  {
+   "item_id": "a152",
+   "A": {
+    "item_id": "a152",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink streak is centred on the mark at t, with the same ember above it at t-1 and below it at t+1 along the track."
+   },
+   "B": {
+    "item_id": "a152",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember streak is centred in the circle at t and moves down along a consistent track across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a152",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink streak is centred on the mark at t, with the same ember above it at t-1 and below it at t+1 along the track."
+   }
+  },
+  {
+   "item_id": "a153",
+   "A": {
+    "item_id": "a153",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a white hot spot that appears at t on a glowing red elongated object, which stays almost still in all frames and looks like a landed firebrand, not one in flight."
+   },
+   "B": {
+    "item_id": "a153",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The circle is on a nearly static pink glowing streak with a white blob appearing at t; it looks like a glowing firebrand resting on the floor rather than one in flight."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a153",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on a white hot spot that appears at t on a glowing red elongated object, which stays almost still in all frames and looks like a landed firebrand, not one in flight."
+   }
+  },
+  {
+   "item_id": "a154",
+   "A": {
+    "item_id": "a154",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint pale streak crosses the centre at t over the grating, with the same ember above at t-1 and below at t+1 along the track."
+   },
+   "B": {
+    "item_id": "a154",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint pinkish white streak crosses the centre at t and moves down between frames along the straight track over the dark grating."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a154",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint pale streak crosses the centre at t over the grating, with the same ember above at t-1 and below at t+1 along the track."
+   }
+  },
+  {
+   "item_id": "a155",
+   "A": {
+    "item_id": "a155",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A wide pink streak covers the centre at t and is seen higher up at t-1, consistent with the falling ember on the track."
+   },
+   "B": {
+    "item_id": "a155",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large pink ember blob moves down over the water pan and is at the circle at t, following a consistent track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a155",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A wide pink streak covers the centre at t and is seen higher up at t-1, consistent with the falling ember on the track."
+   }
+  },
+  {
+   "item_id": "a156",
+   "A": {
+    "item_id": "a156",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A very bright white streak runs through the circle at t along the track line, which is clearly a flying ember."
+   },
+   "B": {
+    "item_id": "a156",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large, bright, saturated ember streak passes through the circle at t, consistent with a straight falling track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a156",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A very bright white streak runs through the circle at t along the track line, which is clearly a flying ember."
+   }
+  },
+  {
+   "item_id": "a157",
+   "A": {
+    "item_id": "a157",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label sits on the static red glowing body of a firebrand, and the only detection is about 9 px to the right on its white hot spot."
+   },
+   "B": {
+    "item_id": "a157",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on the body of a nearly static pink glowing streak that touches a white blob at t, and the single detection sits at the junction about 9 px away."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a157",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the pink glowing body of a nearly static firebrand, and the detection sits about 10 px to the right where a white hot spot joins its end, off the labelled point."
+   }
+  },
+  {
+   "item_id": "a158",
+   "A": {
+    "item_id": "a158",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the white hot spot of the stationary glowing firebrand, and a detection sits about 5 px away on the same spot."
+   },
+   "B": {
+    "item_id": "a158",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white blob appears at t on the end of a nearly static pink glowing streak, and a detection sits on the blob about 5 px from the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a158",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the white hot spot of the stationary glowing firebrand, and a detection sits about 5 px away on the same spot."
+   }
+  },
+  {
+   "item_id": "a159",
+   "A": {
+    "item_id": "a159",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a wide pink streak at t, and a detection on the same streak sits about 5 px lower inside the circle."
+   },
+   "B": {
+    "item_id": "a159",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large, defocused pink ember is moving down over the water pan at the mark, and a detection sits on it inside the circle about 4 to 5 px from the centre."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a159",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a wide pink streak at t, and a detection on the same streak sits about 5 px lower inside the circle."
+   }
+  },
+  {
+   "item_id": "a160",
+   "A": {
+    "item_id": "a160",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A clear pink streak passes through the mark with no cross on it, while the nearest cross sits on the lower end of a brighter neighbouring streak just above it."
+   },
+   "B": {
+    "item_id": "a160",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A pink ember streak passes through the mark at t right next to a brighter streak, and the only nearby detection sits between the two about 45 px away."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a160",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A clear pink streak passes through the mark with no cross on it, while the nearest cross sits on the lower end of a brighter neighbouring streak just above it."
+   }
+  },
+  {
+   "item_id": "a161",
+   "A": {
+    "item_id": "a161",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a long saturated white streak, and the only detection is on the same streak about 16 px further up along it."
+   },
+   "B": {
+    "item_id": "a161",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large saturated white ember streak passes through the mark at t, and the nearest detection lies on the same streak about 17 px further up."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a161",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a long saturated white streak, and the only detection is on the same streak about 16 px further up along it."
+   }
+  },
+  {
+   "item_id": "a162",
+   "A": {
+    "item_id": "a162",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on bright static white metal slats under the frame, with no moving or glowing particle in any frame."
+   },
+   "B": {
+    "item_id": "a162",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is at the edge of a bright striped metal or foil surface next to a dark bar; it is static and only reflects light."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a162",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on bright static white metal slats under the frame, with no moving or glowing particle in any frame."
+   }
+  },
+  {
+   "item_id": "a163",
+   "A": {
+    "item_id": "a163",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static light grey surface with only a faint blotch near the mark and nothing bright or moving, so this looks like compression noise on a static track."
+   },
+   "B": {
+    "item_id": "a163",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the boundary between a dark metal bar and a grey surface, static across frames with nothing bright."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a163",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static light grey surface with only a faint blotch near the mark and nothing bright or moving, so this looks like compression noise on a static track."
+   }
+  },
+  {
+   "item_id": "a164",
+   "A": {
+    "item_id": "a164",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static grey surface beside a dark seam, with no bright or moving object in any of the five frames."
+   },
+   "B": {
+    "item_id": "a164",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is at the edge of a dark vertical pole against grey smoke or wall; it is static and nothing glows at the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a164",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static grey surface beside a dark seam, with no bright or moving object in any of the five frames."
+   }
+  },
+  {
+   "item_id": "a165",
+   "A": {
+    "item_id": "a165",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the edge of a dark cable over a pale floor, with no glow and many similar crosses along the cable edge."
+   },
+   "B": {
+    "item_id": "a165",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of the dark cable on a pale surface with nothing ember-like present."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a165",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the edge of a dark cable over a pale floor, with no glow and many similar crosses along the cable edge."
+   }
+  },
+  {
+   "item_id": "a166",
+   "A": {
+    "item_id": "a166",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static detection on the edge of a dark cable over a pale surface, with nothing bright or moving at the mark."
+   },
+   "B": {
+    "item_id": "a166",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static dark cable, and the persistent track sits on a fixed edge with no glow."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a166",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static detection on the edge of a dark cable over a pale surface, with nothing bright or moving at the mark."
+   }
+  },
+  {
+   "item_id": "a167",
+   "A": {
+    "item_id": "a167",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the edge of a dark cable where two cables meet, which is static and not glowing, with crosses scattered along the cable edge."
+   },
+   "B": {
+    "item_id": "a167",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is where two dark cables meet on a pale background, which is static and not glowing."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a167",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the edge of a dark cable where two cables meet, which is static and not glowing, with crosses scattered along the cable edge."
+   }
+  },
+  {
+   "item_id": "a168",
+   "A": {
+    "item_id": "a168",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper edge of a static dark cable over a pale floor, with no ember present."
+   },
+   "B": {
+    "item_id": "a168",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper edge of the static dark cable with no bright object in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a168",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the upper edge of a static dark cable over a pale floor, with no ember present."
+   }
+  },
+  {
+   "item_id": "a169",
+   "A": {
+    "item_id": "a169",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection on the lower edge of a dark cable, with nothing glowing in any frame."
+   },
+   "B": {
+    "item_id": "a169",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of the dark cable; the track follows the static edge and no glowing particle is present."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a169",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection on the lower edge of a dark cable, with nothing glowing in any frame."
+   }
+  },
+  {
+   "item_id": "a170",
+   "A": {
+    "item_id": "a170",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a thin dark wire lying on a pale surface, which is static with no bright object."
+   },
+   "B": {
+    "item_id": "a170",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a thin dark wire on a pale surface, which is static across frames, and nothing glows."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a170",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a thin dark wire lying on a pale surface, which is static with no bright object."
+   }
+  },
+  {
+   "item_id": "a171",
+   "A": {
+    "item_id": "a171",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the edge of a static dark cable, one of a cluster of crosses along the cable edge, with no glow."
+   },
+   "B": {
+    "item_id": "a171",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static dark cable edge on a pale background with nothing bright at the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a171",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the edge of a static dark cable, one of a cluster of crosses along the cable edge, with no glow."
+   }
+  },
+  {
+   "item_id": "a172",
+   "A": {
+    "item_id": "a172",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the lower edge of a static dark cable over a pale floor, with nothing bright or moving."
+   },
+   "B": {
+    "item_id": "a172",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of the dark cable, one of several detections strung along the static edge with no glowing object."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a172",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the lower edge of a static dark cable over a pale floor, with nothing bright or moving."
+   }
+  },
+  {
+   "item_id": "a173",
+   "A": {
+    "item_id": "a173",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static detection on the dark cable edge next to several other crosses on the same edge, with no ember."
+   },
+   "B": {
+    "item_id": "a173",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a dark cable, which is static from t-2 to t+1, and nothing ember-like is at the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a173",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static detection on the dark cable edge next to several other crosses on the same edge, with no ember."
+   }
+  },
+  {
+   "item_id": "a174",
+   "A": {
+    "item_id": "a174",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of a static dark cable, with no glowing or moving particle."
+   },
+   "B": {
+    "item_id": "a174",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is just below a dark static cable edge on a pale surface, with no bright or moving object present."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a174",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of a static dark cable, with no glowing or moving particle."
+   }
+  },
+  {
+   "item_id": "a175",
+   "A": {
+    "item_id": "a175",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the pale floor just below a static dark cable edge, with nothing ember-like in any frame."
+   },
+   "B": {
+    "item_id": "a175",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the lower edge of a dark cable over a pale background; nothing glows and the cable is static until a camera shake at t+2."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a175",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the pale floor just below a static dark cable edge, with nothing ember-like in any frame."
+   }
+  },
+  {
+   "item_id": "a176",
+   "A": {
+    "item_id": "a176",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection on the pale highlight line of a steel beam edge against a dark background, with no moving particle."
+   },
+   "B": {
+    "item_id": "a176",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the static bright edge of the diagonal metal bar; the track just follows this fixed highlight."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a176",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection on the pale highlight line of a steel beam edge against a dark background, with no moving particle."
+   }
+  },
+  {
+   "item_id": "a177",
+   "A": {
+    "item_id": "a177",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the edge of the same static steel beam highlight, with nothing glowing or moving."
+   },
+   "B": {
+    "item_id": "a177",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle lies on the bright highlight line of a static diagonal metal bar that does not change across frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a177",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the edge of the same static steel beam highlight, with nothing glowing or moving."
+   }
+  },
+  {
+   "item_id": "a178",
+   "A": {
+    "item_id": "a178",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a plain dark area just above the image bottom border, with no object, and the only bright spot is a static blob well away from the mark."
+   },
+   "B": {
+    "item_id": "a178",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark area right at the bottom edge of the frame with nothing bright at the mark; the only bright spot is a static one off to the upper right."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a178",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on a plain dark area just above the image bottom border, with no object, and the only bright spot is a static blob well away from the mark."
+   }
+  },
+  {
+   "item_id": "a179",
+   "A": {
+    "item_id": "a179",
+    "category": "label_doubtful",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "In a very dark area there is only a faint static whitish smudge about 5 px left of the mark that does not move across frames, so it is not clearly an ember."
+   },
+   "B": {
+    "item_id": "a179",
+    "category": "label_doubtful",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "Only a faint grey smudge a few pixels from the mark, and it stays in the same place in all five frames, so it does not look like a flying ember."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a179",
+    "category": "label_doubtful",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "In a very dark area there is only a faint static whitish smudge about 5 px left of the mark that does not move across frames, so it is not clearly an ember."
+   }
+  },
+  {
+   "item_id": "a180",
+   "A": {
+    "item_id": "a180",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static grey surface beside a dark vertical seam, with no bright or moving object."
+   },
+   "B": {
+    "item_id": "a180",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is beside the jagged edge of a dark vertical pole, which is static, with nothing glowing there."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a180",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static grey surface beside a dark vertical seam, with no bright or moving object."
+   }
+  },
+  {
+   "item_id": "a181",
+   "A": {
+    "item_id": "a181",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A plain static grey surface fills the crop, with nothing at the circle in any frame."
+   },
+   "B": {
+    "item_id": "a181",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Uniform grey surface with no visible object at the mark in any of the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a181",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A plain static grey surface fills the crop, with nothing at the circle in any frame."
+   }
+  },
+  {
+   "item_id": "a182",
+   "A": {
+    "item_id": "a182",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection at a dim boundary between a brownish region and black, with no glow or motion."
+   },
+   "B": {
+    "item_id": "a182",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark smoky boundary region with nothing bright or moving at the mark in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a182",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static tracked detection at a dim boundary between a brownish region and black, with no glow or motion."
+   }
+  },
+  {
+   "item_id": "a183",
+   "A": {
+    "item_id": "a183",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a small dark speck on a pale surface that stays still in all five frames and is not glowing, possibly a dark resting particle or a surface mark."
+   },
+   "B": {
+    "item_id": "a183",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A small dark, non-glowing speck on a pale surface stays in exactly the same place in all five frames, so it is not a flying ember."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a183",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A static, non-glowing dark speck on a pale surface with only a one-frame faint brightening beside it, which looks like compression ringing rather than an ember."
+   }
+  },
+  {
+   "item_id": "a184",
+   "A": {
+    "item_id": "a184",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the bright highlight of a curved metal rail, which is static in all frames while real embers pass elsewhere."
+   },
+   "B": {
+    "item_id": "a184",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the bright highlight along a static steel bar edge that does not move across the five frames; the pink ember streaks pass elsewhere."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a184",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the bright highlight of a curved metal rail, which is static in all frames while real embers pass elsewhere."
+   }
+  },
+  {
+   "item_id": "a185",
+   "A": {
+    "item_id": "a185",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "White blobs flicker on the foil water pan near the mark at t-2 and t-1 and only a faint fading smudge remains at t, which looks like glints rather than a particle in flight."
+   },
+   "B": {
+    "item_id": "a185",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A white glint on the foil or water is bright at t-2 and t-1, fades near the mark at t and is gone after, flickering without flying."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a185",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "White glints on the foil pan flicker near the mark at t-2 and t-1 and only a faint smudge remains at t, with no flying particle."
+   }
+  },
+  {
+   "item_id": "a186",
+   "A": {
+    "item_id": "a186",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the static bright edge of a diagonal metal rail that looks the same in all five frames."
+   },
+   "B": {
+    "item_id": "a186",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the static bright highlight of a metal pan rim, and nothing moves."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a186",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle sits on the static bright edge of a diagonal metal rail that looks the same in all five frames."
+   }
+  },
+  {
+   "item_id": "a187",
+   "A": {
+    "item_id": "a187",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Nothing is visible at the mark in any frame; there is only a static dark bar with slight frame-wide brightness flicker."
+   },
+   "B": {
+    "item_id": "a187",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static diagonal brown band, and no particle or streak is visible in any frame or in the frame differences, despite the long track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a187",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Nothing is visible at the mark in any frame; there is only a static dark bar with slight frame-wide brightness flicker."
+   }
+  },
+  {
+   "item_id": "a188",
+   "A": {
+    "item_id": "a188",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long red-pink motion streak with a whitish core crosses the mark at t only, one of several fast streaks in these frames, and the circle sits on its axis."
+   },
+   "B": {
+    "item_id": "a188",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The circle is on a large pink-orange ember streak falling through the crop at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a188",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A long red-pink motion streak with a whitish core crosses the mark at t only, one of several fast streaks in these frames, and the circle sits on its axis."
+   }
+  },
+  {
+   "item_id": "a189",
+   "A": {
+    "item_id": "a189",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a long red ember streak, and a detection sits on the same streak about 6 px above the mark."
+   },
+   "B": {
+    "item_id": "a189",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A large pink-orange near-field ember streak passes through the mark, and a detection sits about 6 px above it on the same streak."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a189",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on a long red ember streak, and a detection sits on the same streak about 6 px above the mark."
+   }
+  },
+  {
+   "item_id": "a190",
+   "A": {
+    "item_id": "a190",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static floor with no particle in any frame; the only change is a small brightness step across the area at t."
+   },
+   "B": {
+    "item_id": "a190",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "A dark region where the track stays still for five frames, and frame differences show only blocky compression changes with no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a190",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static floor with no particle in any frame; the only change is a small brightness step across the area at t."
+   }
+  },
+  {
+   "item_id": "a191",
+   "A": {
+    "item_id": "a191",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Dark static area with no moving speck at the mark, only blocky low-level noise and a brightness step."
+   },
+   "B": {
+    "item_id": "a191",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "A dark, low-contrast area where even contrast stretching shows no clear particle, although the track moves steadily right; this could be a very faint object or noise."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a191",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "Dark low-contrast area with only blocky noise at the mark and no visible speck following the track, even after contrast stretching."
+   }
+  },
+  {
+   "item_id": "a192",
+   "A": {
+    "item_id": "a192",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the left edge of a large saturated white specular patch on the foil pan that does not move."
+   },
+   "B": {
+    "item_id": "a192",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static bright spot on the left edge of a large white glare patch on the foil pan, unchanged across the five frames."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a192",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The circle is on the left edge of a large saturated white specular patch on the foil pan that does not move."
+   }
+  },
+  {
+   "item_id": "a193",
+   "A": {
+    "item_id": "a193",
+    "category": "unclear",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "A compact white blob appears at t-1 and drifts up and left over the foil water pan while it grows, so it could be a moving glint or a bouncing ember."
+   },
+   "B": {
+    "item_id": "a193",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "A small bright speck drifts slowly up and left across the foil pan from t-1 to t+2; it could be an ember or a moving water glint."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a193",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "unclear",
+    "note": "A compact white blob moves steadily up and left about 4 px per frame along the foil pan rim from t-1 to t+2, which may be a slow or bouncing ember but could be a moving glint."
+   }
+  },
+  {
+   "item_id": "a194",
+   "A": {
+    "item_id": "a194",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is inside a large saturated white glare patch on the foil that stays in place across all frames."
+   },
+   "B": {
+    "item_id": "a194",
+    "category": "reflection",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the right part of a large, saturated, static white glare patch on the foil pan, and the track stays in place."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a194",
+    "category": "reflection",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is inside a large saturated white glare patch on the foil that stays in place across all frames."
+   }
+  },
+  {
+   "item_id": "a195",
+   "A": {
+    "item_id": "a195",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey wall texture with nothing moving or bright at the mark."
+   },
+   "B": {
+    "item_id": "a195",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static grey textured surface with no bright or moving feature at the mark."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a195",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static grey wall texture with nothing moving or bright at the mark."
+   }
+  },
+  {
+   "item_id": "a196",
+   "A": {
+    "item_id": "a196",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall with a dark vertical seam and no particle at the mark in any frame."
+   },
+   "B": {
+    "item_id": "a196",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static dark notch on a wall seam that is identical in all five frames, with no particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a196",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall with a dark vertical seam and no particle at the mark in any frame."
+   }
+  },
+  {
+   "item_id": "a197",
+   "A": {
+    "item_id": "a197",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale wall with no bright or moving object at the mark."
+   },
+   "B": {
+    "item_id": "a197",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static grey textured surface with a darker blotch at the mark and no bright or moving object."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a197",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static pale wall with no bright or moving object at the mark."
+   }
+  },
+  {
+   "item_id": "a198",
+   "A": {
+    "item_id": "a198",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall beside a dark seam with nothing moving at the mark."
+   },
+   "B": {
+    "item_id": "a198",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static wall or smoke texture next to a dark seam, with nothing moving in five frames; many scattered detections lie along the seam."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a198",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "Static wall beside a dark seam with nothing moving at the mark."
+   }
+  },
+  {
+   "item_id": "a199",
+   "A": {
+    "item_id": "a199",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint grey blurred streak passes through the mark at t and moves up and left between frames, possibly a dim or out-of-focus ember."
+   },
+   "B": {
+    "item_id": "a199",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint light grey motion streak crosses the mark only at t, and a similar faint streak appears up and to the left at t+1, along the track."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a199",
+    "category": "faint_possible_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint grey blurred streak passes through the mark at t and moves up and left between frames, possibly a dim or out-of-focus ember."
+   }
+  },
+  {
+   "item_id": "a200",
+   "A": {
+    "item_id": "a200",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white elongated ember moves down and right through the frames and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a200",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white elongated particle moves down and to the right and is centred on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a200",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white elongated ember moves down and right through the frames and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a201",
+   "A": {
+    "item_id": "a201",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white streak ember moves left across the frames and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a201",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak moves left across the crop and is on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a201",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white streak ember moves left across the frames and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a202",
+   "A": {
+    "item_id": "a202",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static door or wall edge with no particle at the mark in any frame."
+   },
+   "B": {
+    "item_id": "a202",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a static light vertical door-frame edge with no particle in any frame."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a202",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static door or wall edge with no particle at the mark in any frame."
+   }
+  },
+  {
+   "item_id": "a203",
+   "A": {
+    "item_id": "a203",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small white ember falls straight down through the frames and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a203",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small bright white particle moves down in front of the dark doorway and is centred on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a203",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small white ember falls straight down through the frames and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a204",
+   "A": {
+    "item_id": "a204",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact bright white particle drifts slowly right and up over the dark surface and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a204",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A small bright white dot drifts slowly right and slightly up across the dark curved surface in all five frames and is centred at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a204",
+    "category": "true_ember",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A compact bright white particle drifts slowly right and up over the dark surface and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a205",
+   "A": {
+    "item_id": "a205",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember streak moving down and left is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a205",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak moves down and to the left through the crop and is on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a205",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember streak moving down and left is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a206",
+   "A": {
+    "item_id": "a206",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls downward through the frames and sits on the mark at t."
+   },
+   "B": {
+    "item_id": "a206",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A small bright white particle moves steadily downward and is centred on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a206",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls downward through the frames and sits on the mark at t."
+   }
+  },
+  {
+   "item_id": "a207",
+   "A": {
+    "item_id": "a207",
+    "category": "localization_offset",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "Crossing ember streaks are in the window at t, but the circle sits in grey space about 7 px above the long streak and away from the others."
+   },
+   "B": {
+    "item_id": "a207",
+    "category": "localization_offset",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The circle centre sits on the dark band between crossing streaks, with the long streak about 5 px below and a bright streak 15 px to the right, so this is a merged-cluster centroid."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a207",
+    "category": "localization_offset",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "Crossing ember streaks are in the window at t, but the circle sits in grey space about 7 px above the long streak and away from the others."
+   }
+  },
+  {
+   "item_id": "a208",
+   "A": {
+    "item_id": "a208",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white streak ember moves down and left and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a208",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak moves down and to the left, and its middle is on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a208",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white streak ember moves down and left and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a209",
+   "A": {
+    "item_id": "a209",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls vertically and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a209",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak falls straight down through the crop and is centred on the mark at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a209",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls vertically and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a210",
+   "A": {
+    "item_id": "a210",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls down past a dark box and is centred on the mark at t."
+   },
+   "B": {
+    "item_id": "a210",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white particle moves steadily downward across the five frames and sits at the centre at t."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a210",
+    "category": "true_ember",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "A white ember falls down past a dark box and is centred on the mark at t."
+   }
+  },
+  {
+   "item_id": "a211",
+   "A": {
+    "item_id": "a211",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the left part of a long streak that crosses another streak in a V, and the only nearby detection is about 33 px to the right on that cluster."
+   },
+   "B": {
+    "item_id": "a211",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A long light streak passes through the mark next to a crossing streak, and the only nearby detection is about 33 px to the right on the merged cluster."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a211",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the left part of a long streak that crosses another streak in a V, and the only nearby detection is about 33 px to the right on that cluster."
+   }
+  },
+  {
+   "item_id": "a212",
+   "A": {
+    "item_id": "a212",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is at the junction of two crossing ember streaks, and the cluster has a single detection about 20 px away."
+   },
+   "B": {
+    "item_id": "a212",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on the vertex of the V formed by two crossing streaks; the nearest detection is about 20 px away, at the merged cluster centroid."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a212",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is at the junction of two crossing ember streaks, and the cluster has a single detection about 20 px away."
+   }
+  },
+  {
+   "item_id": "a213",
+   "A": {
+    "item_id": "a213",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The label is on the right part of the long crossing streak, and a detection sits about 10 px up and to the right of the mark."
+   },
+   "B": {
+    "item_id": "a213",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is where two streaks cross in a V shape; the nearest detection is about 10 px up and right, at the centroid of the merged cluster."
+   },
+   "adjudicated": true,
+   "final": {
+    "item_id": "a213",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "The mark is on one of two crossing streaks with a third ember close by, and the only detection sits about 10 px up and to the right, between them and not on any single streak."
+   }
+  },
+  {
+   "item_id": "a214",
+   "A": {
+    "item_id": "a214",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak lies on the mark with no detection on it; the nearest detection is about 25 px left on the neighbouring crossing streak cluster."
+   },
+   "B": {
+    "item_id": "a214",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak sits at the mark, part of a chain of crossing streaks; the only nearby detection is about 25 px left at the centroid of the merged chain."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a214",
+    "category": "missed_merged_or_crowded",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A bright white streak lies on the mark with no detection on it; the nearest detection is about 25 px left on the neighbouring crossing streak cluster."
+   }
+  },
+  {
+   "item_id": "a215",
+   "A": {
+    "item_id": "a215",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label sits on a faint moving grey streak, and a detection lies on the same streak about 6 px above the mark."
+   },
+   "B": {
+    "item_id": "a215",
+    "category": "detected_but_displaced",
+    "confidence": "unsure",
+    "ember_present_at_mark": "yes",
+    "note": "A faint grey diagonal streak passes through the mark at t, and the nearest detection sits about 6 px up along the same streak."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a215",
+    "category": "detected_but_displaced",
+    "confidence": "sure",
+    "ember_present_at_mark": "yes",
+    "note": "The label sits on a faint moving grey streak, and a detection lies on the same streak about 6 px above the mark."
+   }
+  },
+  {
+   "item_id": "a216",
+   "A": {
+    "item_id": "a216",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static smoky or cloudy grey area with a fixed light patch and nothing moving at the mark."
+   },
+   "B": {
+    "item_id": "a216",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on a faint, static light smudge in grey smoke texture that does not move in any of the five frames; only block compression changes are visible."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a216",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "A static smoky or cloudy grey area with a fixed light patch and nothing moving at the mark."
+   }
+  },
+  {
+   "item_id": "a217",
+   "A": {
+    "item_id": "a217",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the static edge between a dark vertical post and a bright background, with no particle in any frame."
+   },
+   "B": {
+    "item_id": "a217",
+    "category": "codec_artifact",
+    "confidence": "unsure",
+    "ember_present_at_mark": "no",
+    "note": "The mark sits on a static edge between a dark post and grey smoke; frame differences show only blocky compression changes and no moving particle."
+   },
+   "adjudicated": false,
+   "final": {
+    "item_id": "a217",
+    "category": "codec_artifact",
+    "confidence": "sure",
+    "ember_present_at_mark": "no",
+    "note": "The mark is on the static edge between a dark vertical post and a bright background, with no particle in any frame."
+   }
+  }
+ ]
+}

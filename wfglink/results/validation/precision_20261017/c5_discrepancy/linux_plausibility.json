@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T14:13:14+08:00",
+  "run_dir": "results/runs/process/C5_multiscale",
+  "clip_settings": "data/clips/C5_nist_emberometer.yaml",
+  "clip_settings_sha256": "e76f68438e8b85e78ce079658a43c26fd7f04fe93f684da30185cce54e35cc55",
+  "clip_id": "C5_nist_emberometer",
+  "input_sha256": "4aa46db5950172d6ea3d78cb4694cff0a334c45dbe2b1991ad1d381d7d798d10",
+  "clip_file_is_run_input": true,
+  "clip_settings_match_run": true,
+  "clip_settings_match_basis": "SHA-256 of the clip file",
+  "segment_s": [
+    0.5,
+    19.35
+  ],
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "run_config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+  "git_dirty": false,
+  "checks": {
+    "timing": {
+      "status": "pass",
+      "reason": "steady frame interval 33.33 ms, 0 gaps, 0 repeated frames",
+      "values": {
+        "frames": 566,
+        "interval_median_s": 0.033333333333333215,
+        "interval_p5_s": 0.03333333333333144,
+        "interval_p95_s": 0.03333333333333499,
+        "interval_min_s": 0.03333333333333144,
+        "interval_max_s": 0.03333333333333499,
+        "interval_mad_s": 0.0,
+        "interval_spread": 1.0658141036401541e-13,
+        "fps_from_median": 30.000000000000107,
+        "fps_from_span": 30.000000000000004,
+        "fps_nominal": 30.0,
+        "gap_factor": 1.5,
+        "gaps": 0,
+        "largest_gap_s": 0.03333333333333499,
+        "variable_frame_rate": false,
+        "timestamps_not_increasing": 0,
+        "repeated_frames": 0,
+        "repeated_fraction": 0.0,
+        "container_frames_in_segment": 566,
+        "container_frames_missing": 0,
+        "frames_without_container_time": 0
+      }
+    },
+    "exposure": {
+      "status": "flag",
+      "reason": "unstable: the intervals of 6 windows do not overlap",
+      "values": {
+        "source": "estimated",
+        "t_exp_s": 0.03254406999863976,
+        "ci_s": [
+          0.03242774728568832,
+          0.03266018077880069
+        ],
+        "frame_interval_s": 0.033333333333333215,
+        "frame_interval_basis": "decoded frames",
+        "decoded_interval_s": 0.033333333333333215,
+        "unique_interval_s": null,
+        "repeated_frames": 0,
+        "frame_tol": 0.05,
+        "limit_s": 0.03499999999999988,
+        "duty": 0.9763220999591964,
+        "windows": [
+          {
+            "t0": 0.16666666666666663,
+            "t1": 3.2777777777777772,
+            "ok": true,
+            "t_exp_s": 0.03265375191348272,
+            "ci_s": [
+              0.03253956004228455,
+              0.0327810237317519
+            ],
+            "tracks": 369,
+            "reason": "",
+            "kind": "accepted"
+          },
+          {
+            "t0": 3.2777777777777772,
+            "t1": 6.388888888888888,
+            "ok": true,
+            "t_exp_s": 0.03265203534725214,
+            "ci_s": [
+              0.03242018423088391,
+              0.032882231423690796
+            ],
+            "tracks": 311,
+            "reason": "",
+            "kind": "accepted"
+          },
+          {
+            "t0": 6.388888888888888,
+            "t1": 9.499999999999998,
+            "ok": true,
+            "t_exp_s": 0.032412208887555645,
+            "ci_s": [
+              0.032162498554845244,
+              0.032622751174039705
+            ],
+            "tracks": 324,
+            "reason": "",
+            "kind": "accepted"
+          },
+          {
+            "t0": 9.499999999999998,
+            "t1": 12.611111111111109,
+            "ok": true,
+            "t_exp_s": 0.03198358480468928,
+            "ci_s": [
+              0.031543883866021166,
+              0.03233603496190498
+            ],
+            "tracks": 360,
+            "reason": "",
+            "kind": "accepted"
+          },
+          {
+            "t0": 12.611111111111109,
+            "t1": 15.72222222222222,
+            "ok": true,
+            "t_exp_s": 0.03258321058099522,
+            "ci_s": [
+              0.03241740077548405,
+              0.032784621758688876
+            ],
+            "tracks": 463,
+            "reason": "",
+            "kind": "accepted"
+          },
+          {
+            "t0": 15.72222222222222,
+            "t1": 18.833333333333332,
+            "ok": true,
+            "t_exp_s": 0.032856441728323076,
+            "ci_s": [
+              0.03271815564061982,
+              0.033007480395011356
+            ],
+            "tracks": 369,
+            "reason": "",
+            "kind": "accepted"
+          }
+        ],
+        "window_s": 3.0,
+        "windows_accepted": 6,
+        "windows_without_interval": 0,
+        "windows_too_few_tracks": 0,
+        "windows_inconclusive": 0,
+        "windows_declined": 0,
+        "common_interval_s": null,
+        "stability": "unstable: the intervals of 6 windows do not overlap",
+        "stability_tested": true
+      }
+    },
+    "static_lights": {
+      "status": "pass",
+      "reason": "109 static tracks, none counted at the gate",
+      "values": {
+        "tracks": 12603,
+        "static_tracks": 109,
+        "static_tracks_with_crossings": 0,
+        "static_crossings": 0,
+        "track_ids": []
+      }
+    },
+    "speed": {
+      "status": "not applicable",
+      "reason": "clip settings lack peak_gust_ms, gust_source, z_interval_m, focal_px or hfov_deg",
+      "values": {
+        "missing": [
+          "peak_gust_ms",
+          "gust_source",
+          "z_interval_m",
+          "focal_px or hfov_deg"
+        ]
+      }
+    },
+    "direction": {
+      "status": "not applicable",
+      "reason": "clip settings lack drift_deg, drift_basis",
+      "values": {
+        "missing": [
+          "drift_deg",
+          "drift_basis"
+        ]
+      }
+    },
+    "determinism": {
+      "status": "pass",
+      "reason": "identical tables on two reruns of 0.666667 to 2.66667 s",
+      "values": {
+        "segment_s": [
+          0.6666666666666666,
+          2.6666666666666665
+        ],
+        "tables": [
+          "detections",
+          "frames",
+          "track_points",
+          "tracks",
+          "field"
+        ],
+        "ignored_columns": {
+          "frames": [
+            "ms"
+          ]
+        },
+        "overlay": false,
+        "t_exp_s": 0.03254406999863976,
+        "t_exp_from": "the run (estimated)",
+        "config_is_run_config": true,
+        "rows": {
+          "detections": 17166,
+          "frames": 61,
+          "track_points": 13798,
+          "tracks": 1261,
+          "field": 144
+        },
+        "first_difference": null
+      }
+    }
+  },
+  "flagged": [
+    "exposure"
+  ],
+  "not_applicable": [
+    "speed",
+    "direction"
+  ]
+}

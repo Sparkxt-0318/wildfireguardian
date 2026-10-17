@@ -1,0 +1,19 @@
+# High-resolution check suite (METHODS section 2, multi-scale detection): 2560x1440, 5 s
+# clips, two seeds per kind. far: the core base case scaled to the larger frame (small, faint
+# embers); near: embers close to the camera (large, bright, long streaks); mixed: both sizes
+# in one clip. A check that file mode finds near and far embers at this size (the core suite
+# is 720p), never a tuning suite.
+# Generate with wfglink.synth.generate.run_suite("configs/suites/hires.yaml", out_root, workers).
+name: hires
+configs: [configs/synth/hires/far.yaml]
+overrides:
+  frame_size: [2560, 1440]
+  fps: 30.0
+  duration_s: 5.0
+seeds: [11, 12]
+factors:
+  kind:
+    configs:
+      far: [configs/synth/hires/far.yaml]
+      near: [configs/synth/hires/near.yaml]
+      mixed: [configs/synth/hires/mixed.yaml]

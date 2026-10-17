@@ -1,0 +1,9 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w001,0,150.5,75.5,0.5,3,s,"faint small dot, k0 only"
+w001,3,49,123,1,1,s,"small pale yellow blob brighter than smoke, moving up-right"
+w001,4,54,109,1,1,s,same particle moved 5 px right and 14 px up in one frame
+w001,5,51,109,0.5,2,s,"faint pale blob near k4 position, unclear if same particle"
+w005,2,104,145,0.5,1,l,"very faint diagonal motion streak, precursor of k3 streak"
+w005,3,137.5,164,1,1,l,"pale yellow motion streak oriented down-right, moved about 34 px right and 19 px down from k2"
+w005,4,179,58.5,0.5,2,m,very faint down-right streak at top right
+w005,5,179,58.5,0.5,2,m,"k5 is a duplicate of k4, same faint streak"

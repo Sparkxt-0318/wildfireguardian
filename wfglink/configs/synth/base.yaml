@@ -1,0 +1,152 @@
+# Synthetic ember clip: base configuration (PLAN.md 4.1, core base case: 720p30, CRF 23,
+# SNR 10, duty 0.5, medium density, uniform flow). Files under configs/synth and suite
+# overrides are merged over this file; the `flow` and `gates` sections are replaced as a
+# whole, everything else is merged key by key.
+# Units: px are pixels of the generated frame (x right, y down), s are seconds, velocities
+# are px/s, DN are linear 8-bit levels (0 to 255 scale, before gamma) at camera gain 1 and
+# the reference exposure duty / fps.
+
+seed: 0
+frame_size: [1280, 720]          # width, height
+fps: 30.0                        # nominal frame rate
+duration_s: 5.0
+duty: 0.5                        # exposure time / nominal frame interval
+px_per_m: 40.0                   # declared scale at the ember reference depth
+field_grid: [16, 9]              # truth_field cells (columns, rows)
+
+flow:
+  type: uniform
+  u: 150.0
+  v: 0.0
+
+embers:
+  density:
+    on_screen: 100               # target mean number of embers inside the frame (pilot-calibrated birth rate)
+    rate_hz: null                # fixed birth rate (1/s); overrides on_screen when set
+    pilot_particles: 1500        # particles in the calibration pilot
+    pilot_horizon_s: 60.0        # the pilot follows particles at most this long after the clip
+  gust:
+    strength: 0.3                # s in rate(t) = rate_hz exp(s G(t) - s^2 / 2); 0 gives a Poisson process
+                                 # (with 0.3 the on-screen count of a 5 s clip varies by about 20 to 25 percent between seeds)
+    tau_s: 1.0                   # timescale of the unit-variance Ornstein-Uhlenbeck gust process G
+  spawn:
+    mode: upwind                 # upwind (just outside the edges the drift comes from), frame, or rect
+    rect: null                   # [x0, y0, x1, y1] px for mode rect (or rect_frac: fractions of W, H)
+    margin_px: 8                 # upwind spawn distance outside the frame edge
+  vt_m_s: [1.0, 2.5, 5.0, 8.0]   # terminal velocity: list (equally likely), {range: [a, b]}, or null for tracers
+  lifetime_s: 10.0               # mean of the exponential lifetime
+  fade_in_s: 0.2
+  fade_out_s: 0.5                # linear fade before the natural end of life
+  snr: {median: 10.0, log_sigma: 0.3}   # point-source SNR, log-normal (see generate.py for the definition)
+  flux: null                     # alternative to snr: {median: DN px^2, log_sigma} at gain 1
+  sigma_px: [0.6, 2.0]           # PSF sigma range (uniform, snapped to particles.sigma_levels levels)
+  temperature_k: [900, 1300]     # glow color from deep red to orange-yellow
+  flicker: {amp: [0.2, 0.8], freq_hz: [3.0, 15.0]}   # 1 + a sin(2 pi f t + phi) between frames
+  tumble: {prob: 0.0, amp: [0.8, 1.0], freq_hz: [30.0, 60.0]}   # in-exposure flicker (dashed streaks)
+  eject_speed_px_s: 0.0          # kick relative to the air at birth (sparks)
+  eject_angle_deg: [0.0, 360.0]  # kick direction, from +x toward +y (-90 is straight up)
+
+sparks:                          # optional distractor population; unset keys come from embers
+  enabled: false
+  density: {rate_hz: 4.0, on_screen: null}
+  gust: {strength: 0.0}
+  spawn: {mode: rect, rect_frac: [0.3, 0.6, 0.7, 0.95]}
+  vt_m_s: {range: [2.0, 4.0]}
+  lifetime_s: 0.4
+  fade_in_s: 0.0
+  fade_out_s: 0.2
+  snr: {median: 25.0, log_sigma: 0.3}
+  sigma_px: [0.6, 1.0]
+  temperature_k: [1600, 2200]
+  flicker: {amp: [0.0, 0.3], freq_hz: [3.0, 15.0]}
+  tumble: {prob: 0.0}
+  eject_speed_px_s: [200.0, 600.0]
+  eject_angle_deg: [-160.0, -20.0]
+
+particles:
+  sigma_levels: 4                # PSF sigmas snap to this many geometric levels (one blur per level)
+  kill_margin_px: 40             # particles die this far outside the frame
+  warmup_s: auto                 # pre-roll before t = 0 (auto: time to cross the frame, capped below)
+  warmup_factor: 1.05            # auto warm-up = this x the longest frame-crossing time
+  warmup_max_s: 15.0
+  max_step_s: null               # integration step cap; the step is at most Vt / (4 g) and 1 / (fps n_sub_min)
+  g_m_s2: 9.81
+
+render:
+  n_sub_min: 8                   # sub-frame samples per exposure: max(n_sub_min, ceil(samples_per_px x path))
+  n_sub_max: 48
+  samples_per_px: 2.0
+  samples_per_tumble_cycle: 8.0
+  rs_iterations: 10              # most fixed-point iterations for rolling-shutter sample times
+  psf_cut_sigma: 5.0             # pixel-integrated Gaussian spots are cut at this many sigma (+ 1 px) and renormalised
+
+scene:
+  background: {kind: night}      # night or smoky; preset values can be overridden (top_dn, horizon_dn, ...)
+  lights:
+    count: 0                     # static point lights (kind "light")
+    region_frac: [0.0, 0.55, 1.0, 1.0]
+    sigma_px: [1.0, 2.0]
+    peak_dn: [40.0, 200.0]
+    temperature_k: [2200, 4500]
+    flicker: {amp: [0.0, 0.1], freq_hz: [0.2, 1.0]}
+  flame:
+    enabled: false
+    center_frac: [0.75, 0.86]
+    size_frac: [0.12, 0.12]      # semi-axes as fractions of W and H
+    brightness_dn: 220.0
+    temperature_k: 1250
+    flicker_hz: 6.0
+    texture_px: 10.0
+    texture_amp: 0.6
+    mask_level: 0.15             # envelope level that bounds the in_large_region mask
+    envelope_power: 1.5          # envelope (1 - r^2)^p of the elliptical region
+  headlights:
+    enabled: false
+    path_frac: [[-0.1, 0.82], [1.1, 0.82]]   # start and end of the lamp pair's midpoint
+    t_range_s: [0.0, 5.0]
+    separation_px: 60.0
+    sigma_px: 6.0
+    peak_dn: 600.0
+    temperature_k: 4500
+    region_radius_px: 24.0
+
+haze:
+  beta_per_m: 0.0                # extinction; 0 disables haze
+  airlight_dn: [10.0, 14.0, 20.0]
+  depth: {mode: constant, depth_m: 30.0}   # or {mode: ground_plane, camera_height_m, focal_px, horizon_frac, z_max_m}
+  particle_depth_m: 30.0         # embers' own depth; null uses the depth map
+
+camera:
+  gain: 1.0
+  electrons_per_dn: 4.0          # at gain 1
+  read_noise_dn: 0.4
+  shot_noise: gaussian           # gaussian (normal approximation of Poisson) or poisson (exact, slower)
+  channel_noise_corr: 0.5        # correlation of the noise of the B, G, R channels (demosaicking, chroma denoise)
+  gamma: 2.2
+  flicker: {amp: 0.0, freq_hz: 2.0}   # global illumination flicker
+
+timing:
+  jitter_frac: 0.0               # frame intervals (1 / fps)(1 + jitter_frac U(-1, 1))
+  duplicate_prob: 0.0            # probability that a slot repeats the previous frame
+  exposure_step: {t_s: null, factor: 0.5, gain_compensate: true}
+
+mismatch:
+  rolling_shutter_s: 0.0         # readout time from the top row to the bottom row
+  defocus_radius_px: 0.0         # pillbox defocus
+  sharpen: {amount: 0.0, sigma_px: 1.0}
+  denoise_alpha: 1.0             # temporal denoise blend weight of the current frame (1 = off)
+  bloom: {enabled: false, full_well_dn: 255.0, sigma_px: 2.5, vertical_frac: 0.5, vertical_len_px: 21}
+
+compression:
+  codec: h264                    # h264 (libx264) or h265 (libx265, if this PyAV build has it)
+  crf: 23
+  preset: medium
+  time_base: 90000               # PTS ticks per second
+  threads: 4                     # encoder threads, fixed so the bitstream does not depend on the machine (0: encoder default)
+
+truth:
+  visible_min_snr: 3.0           # detectability floor for the visible flag
+
+gates:                           # normal n = (-(y2 - y1), x2 - x1): left to right and downward are +1
+  - {name: center_vertical, p1_frac: [0.5, 1.0], p2_frac: [0.5, 0.0]}
+  - {name: center_horizontal, p1_frac: [0.0, 0.5], p2_frac: [1.0, 0.5]}

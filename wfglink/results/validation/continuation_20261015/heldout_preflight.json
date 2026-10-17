@@ -1,0 +1,21 @@
+{
+  "created": "2026-10-15T19:44:09+08:00",
+  "source": {
+    "git_commit": "f9e72c2445d616490187ea54f759061a6b07111b",
+    "git_dirty": false
+  },
+  "config_sha256": "71a445337165ffcbed5f0cd17fbdd6cd0fb717a46a2cc8394803585e9a91a4cf",
+  "policy": "Each suite scored once; preserve failed goals and errors; never tune on these outputs.",
+  "suites": {
+    "mismatch": {
+      "expected_clips": 60,
+      "manifest_sha256": "f3470ca78408bc8393bd9c34964d81036b37fa7f0caff4bab5a0c1b411a92d55",
+      "output": "/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.n9nS0WA34f/wfglink/results/runs/suite_mismatch_final_f9e72c2"
+    },
+    "coverage": {
+      "expected_clips": 200,
+      "manifest_sha256": "0b1c042d9c6dfd21d83dacf2467301d26473e67a04a984f7b750ac044a2f39c7",
+      "output": "/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/tmp.n9nS0WA34f/wfglink/results/runs/suite_coverage_final_f9e72c2"
+    }
+  }
+}

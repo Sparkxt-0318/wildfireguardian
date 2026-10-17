@@ -1,0 +1,9 @@
+{
+ "question": "Do the dumps used by the C5 development comparison and the calibration replays carry the feature settings of the code that replays them?",
+ "dumps_record": "hp_summary.scorer.overlay_sha256; the dumps predate feature_settings_sha256 (added in K2), so replay notes the hash as not checked",
+ "overlay_sha256_at_dump_commit_7f9d2b1": "ce17575b05b4d819d42e074c11b0701f4cafff9c4a47352dde17a2646fd39589",
+ "overlay_sha256_at_HEAD": "ce17575b05b4d819d42e074c11b0701f4cafff9c4a47352dde17a2646fd39589",
+ "dumps_overlay_sha256": "ce17575b05b4d819d42e074c11b0701f4cafff9c4a47352dde17a2646fd39589 for C5, C7_PP31, C7_GF15, C7_DF18, every C8 calibration dump and C8_ROUG016_prefix",
+ "default_yaml_verify_keys": "none (the verify section exists only in the overlay)",
+ "verdict": "IDENTICAL: the overlay, which alone holds ring_frames, max_dets_per_frame, motion, hotspot and patch, is byte-identical at the dump commits and at HEAD, and every dump records that overlay hash; the legacy config hash is checked by replay as before"
+}

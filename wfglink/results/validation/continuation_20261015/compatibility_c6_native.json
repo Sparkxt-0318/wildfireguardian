@@ -1,0 +1,88 @@
+{
+  "reference": "17c4b5d83292aa64c9b0dcbb9c4b262650f865ff",
+  "old_detector_sha256": "797b0a5cb07c22313ae9d70d4857116898bb073724f0b21d224e599f330650bc",
+  "old_pipeline_sha256": "b0d4c6ea76ce38850ffdd561b117b6e11480f7421946b37ad1076ff66267e0fd",
+  "new_source_sha256": {
+    "src/wfglink/pipeline.py": "3169f20cc1da7c1b237a37c95348eb0d68077cf6770360bab2edb0bd4d4ec644",
+    "src/wfglink/detect/candidates.py": "f41aca5f4a661da51ff4331c32d853b6be36843b5d561ceca320058de1ebd015",
+    "src/wfglink/detect/multiscale.py": "553941e3cfa89be77330a112e3dff8a9347dd11000e677f304c44b99694fcc66",
+    "configs/default.yaml": "2163c8abadd8149be7aeee3e4de1f2fbbb09a6b8edfe1efcb5c373e329330b9a"
+  },
+  "input": "/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-handoff/work/wildfireguardian/wfglink/data/raw/C6_nist_dragon.mp4",
+  "scope": "exact native-output compatibility, excluding timing; not accuracy/performance evidence",
+  "modes": {
+    "file_erf": {
+      "status": "EXACT_MATCH",
+      "source_frames": 165,
+      "injected_duplicates": 0,
+      "frames_sha256": "15cb98ff02733705a6eab904ee0e315ee3eda5d5d9bb27138121bfde464878f9",
+      "tables": {
+        "detections": 9139,
+        "frames": 133,
+        "tracks": 8865
+      },
+      "gate_counts": {
+        "gross": 21,
+        "net": 5,
+        "positive": 13,
+        "negative": 8
+      },
+      "stats": {
+        "frames_in": 165,
+        "frames_analysed": 133,
+        "frames_duplicate": 32,
+        "tracks_finished": 513,
+        "tracks_static": 100
+      }
+    },
+    "file_moments_refined": {
+      "status": "EXACT_MATCH",
+      "source_frames": 165,
+      "injected_duplicates": 0,
+      "frames_sha256": "15cb98ff02733705a6eab904ee0e315ee3eda5d5d9bb27138121bfde464878f9",
+      "tables": {
+        "detections": 10942,
+        "frames": 156,
+        "tracks": 11610
+      },
+      "gate_counts": {
+        "gross": 24,
+        "net": 8,
+        "positive": 16,
+        "negative": 8
+      },
+      "stats": {
+        "frames_in": 165,
+        "frames_analysed": 156,
+        "frames_duplicate": 9,
+        "tracks_finished": 583,
+        "tracks_static": 101
+      }
+    },
+    "live": {
+      "status": "EXACT_MATCH",
+      "source_frames": 165,
+      "injected_duplicates": 0,
+      "frames_sha256": "15cb98ff02733705a6eab904ee0e315ee3eda5d5d9bb27138121bfde464878f9",
+      "tables": {
+        "detections": 0,
+        "frames": 0,
+        "tracks": 0
+      },
+      "gate_counts": {
+        "gross": 24,
+        "net": 4,
+        "positive": 14,
+        "negative": 10
+      },
+      "stats": {
+        "frames_in": 165,
+        "frames_analysed": 134,
+        "frames_duplicate": 31,
+        "tracks_finished": 519,
+        "tracks_static": 97
+      }
+    }
+  },
+  "status": "PASS"
+}

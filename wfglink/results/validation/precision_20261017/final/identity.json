@@ -1,0 +1,36 @@
+{
+  "clip": "C8_RIMF008_C2",
+  "head_commit": "cc5b6b163a5d64f3d5959bba0833102dd64e7a5f",
+  "release_commit": "4d0092c",
+  "comparisons": {
+    "head_legacy_vs_release_legacy": {
+      "tables_equal": true,
+      "tables": {
+        "detections.parquet": true,
+        "field.parquet": true,
+        "frames.parquet": true,
+        "track_points.parquet": true,
+        "tracks.parquet": true
+      },
+      "summary_fields_differing": [
+        "input.path"
+      ],
+      "verdict": "PASS"
+    },
+    "head_legacy_vs_head_high_precision_top_level": {
+      "tables_equal": true,
+      "tables": {
+        "detections.parquet": true,
+        "field.parquet": true,
+        "frames.parquet": true,
+        "track_points.parquet": true,
+        "tracks.parquet": true
+      },
+      "summary_fields_differing": [
+        "input.path"
+      ],
+      "verdict": "PASS"
+    }
+  },
+  "note": "verify identity exits 1 on both comparisons only because summary.json records input.path, which is the temporary code export's data/raw link and differs between runs; every table is identical, and no other summary field differs apart from created and seconds (which verify identity ignores) and the high_precision block of the high-precision run (excluded by design). Legacy mode imports nothing of verify/ (tests)."
+}

@@ -1,0 +1,42 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fifty_mode_switches_leak_no_threads_or_memory ______________
+
+scripted_camera = ([<ember_standin.ScriptedCamera object at 0x1258dd3d0>, <ember_standin.ScriptedCamera object at 0x125b513d0>, <ember_s..., <ember_standin.ScriptedCamera object at 0x125b51b80>, <ember_standin.ScriptedCamera object at 0x125b51eb0>, ...], {})
+
+    @pytest.mark.slow
+    def test_fifty_mode_switches_leak_no_threads_or_memory(scripted_camera):
+        sys.path.insert(0, str(TESTS))
+        from ember_standin import FakeEmberPipeline
+
+        from wfglink.ui.booth_app import BoothEngine, rss_mb
+
+        made, _ = scripted_camera
+        eng = BoothEngine(_phone_cfg(), {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+        eng.start("fire")
+        try:
+            def switch(k):
+                eng.set_mode("ember")
+                assert _steps(eng, "ember"), k
+                eng.set_mode("fire")
+                assert _steps(eng, "fire"), k
+
+            for k in range(5):                     # warm up: imports, caches, first allocations
+                switch(k)
+            threads, mem = threading.active_count(), rss_mb(os.getpid())
+            for k in range(50):
+                switch(k)
+            assert threading.active_count() == threads
+            assert not any(t.name == "camera" and t.is_alive() for t in threading.enumerate())
+            assert all(c.opened == c.closed == 1 for c in made) and eng.entries == 55
+>           assert rss_mb(os.getpid()) - mem < 40, (mem, rss_mb(os.getpid()))
+E           AssertionError: (377.28125, 506.0625)
+E           assert (506.0625 - 377.28125) < 40
+E            +  where 506.0625 = <function rss_mb at 0x125adc180>(42669)
+E            +    where 42669 = <built-in function getpid>()
+E            +      where <built-in function getpid> = os.getpid
+
+tests/test_booth_app.py:841: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory
+1 failed in 4.53s

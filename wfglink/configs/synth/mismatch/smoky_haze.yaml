@@ -1,0 +1,5 @@
+# Mismatch variant: smoky sky and haze between the camera and the embers (HELD OUT).
+scene:
+  background: {kind: smoky}
+haze:
+  beta_per_m: 0.02

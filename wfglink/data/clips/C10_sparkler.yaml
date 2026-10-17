@@ -1,0 +1,17 @@
+# Clip settings for file mode (python -m wfglink process data/clips/C10_sparkler.yaml).
+clip_id: C10_sparkler
+file: data/raw/C10_sparkler.webm
+split: tune                 # used for development; never part of a headline number
+# User decision (2026-10-14): 4x slow motion, so its timebase is not real time. It is used
+# only to stress the tracker with dense spark streaks; it never gives a speed, flux or count.
+metrics_scope: tracking_only
+roi: null
+# One continuous shot of a sparkler on black (VP8, 3840x2160, 24 fps). 40 to 60 s has no cut
+# (checked frame by frame on 2026-10-15: no frame-wide change); it is not in the booth playlist,
+# because the booth shows speeds.
+segments_s: [[40.0, 60.0]]
+gate: null
+distance_m: null
+notes: >
+  Sparkler in Ultra-HD 4k (5k-crop), Wikimedia Commons, CC BY-SA 3.0 (credit line in
+  data/clips.csv). Dense, fast spark streaks on a black background: a tracking stress test.

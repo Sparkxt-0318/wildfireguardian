@@ -1,0 +1,54 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_fifty_mode_switches_leak_no_threads_or_memory ______________
+
+scripted_camera = ([<ember_standin.ScriptedCamera object at 0x13163b050>, <ember_standin.ScriptedCamera object at 0x131669b20>, <ember_s..., <ember_standin.ScriptedCamera object at 0x13166a780>, <ember_standin.ScriptedCamera object at 0x13166b170>, ...], {})
+
+    @pytest.mark.slow
+    def test_fifty_mode_switches_leak_no_threads_or_memory(scripted_camera):
+        sys.path.insert(0, str(TESTS))
+        from ember_standin import FakeEmberPipeline
+
+        from wfglink.ui.booth_app import BoothEngine, rss_mb
+
+        made, _ = scripted_camera
+        eng = BoothEngine(_phone_cfg(), {"kind": "synthetic"}, {"kind": "camera"}, pipeline_class=FakeEmberPipeline)
+        eng.start("fire")
+        try:
+            def switch(k):
+                eng.set_mode("ember")
+                assert _steps(eng, "ember"), k
+                eng.set_mode("fire")
+                assert _steps(eng, "fire"), k
+
+            for k in range(5):                     # warm up: imports, caches, first allocations
+                switch(k)
+            # Background seeding returns no detections. Warm full analysis and its first noise-map
+            # replacement (old maps are still held by DetectorState) before measuring retention.
+            detect = eng.cfg["detect"]
+            first_full = int(detect["background"]["warmup_frames"]) + 1
+            period = max(1, int(detect["noise"]["update_every"]))
+            first_refresh = (first_full // period + 1) * period
+            def fire_ready():
+                state = eng.step()
+                pipe = eng.analyser.pipes.get(eng.analyser.active)
+                return (state is not None and pipe.detector.ready
+                        and pipe.stats.frames_analysed >= first_refresh)
+            assert _until(fire_ready)
+            threads, mem = threading.active_count(), rss_mb(os.getpid())
+            for k in range(50):
+                switch(k)
+            assert threading.active_count() == threads
+            assert not any(t.name == "camera" and t.is_alive() for t in threading.enumerate())
+            assert all(c.opened == c.closed == 1 for c in made) and eng.entries == 55
+>           assert rss_mb(os.getpid()) - mem < 40, (mem, rss_mb(os.getpid()))
+E           AssertionError: (397.3125, 444.234375)
+E           assert (444.234375 - 397.3125) < 40
+E            +  where 444.234375 = <function rss_mb at 0x1315f4220>(44295)
+E            +    where 44295 = <built-in function getpid>()
+E            +      where <built-in function getpid> = os.getpid
+
+tests/test_booth_app.py:853: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_booth_app.py::test_fifty_mode_switches_leak_no_threads_or_memory
+1 failed in 4.83s

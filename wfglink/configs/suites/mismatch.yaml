@@ -1,0 +1,37 @@
+# Mismatch synthetic suite (PLAN.md 4.1): NEVER used for tuning; it supplies the headline
+# numbers. Each case changes one condition the core suite never contains, starting from the
+# core base case (720p30, CRF 23, SNR 10, duty 0.5, medium density, uniform flow, 5 s).
+# Seeds 100 to 104 do not overlap the core seeds. 12 cases x 5 seeds = 60 clips.
+# Not available in the generator: 3D particles with perspective and depth-dependent defocus
+# (the defocus case uses one defocus for all embers).
+name: mismatch
+configs: [configs/synth/uniform.yaml]
+overrides:
+  frame_size: [1280, 720]
+  fps: 30.0
+  duration_s: 5.0
+seeds: [100, 101, 102, 103, 104]
+factors:
+  rolling_shutter:
+    key: mismatch.rolling_shutter_s
+    values: [0.02]
+  tumble:
+    key: embers.tumble.prob
+    values: [0.5]
+  defocus:
+    key: mismatch.defocus_radius_px
+    values: [1.5]
+  exposure_step:
+    key: timing.exposure_step.t_s
+    values: [2.5]
+  flow:
+    configs:
+      lamb_oseen: [configs/synth/lamb_oseen.yaml]
+      turbulence: [configs/synth/turbulence.yaml]
+  conditions:
+    configs:
+      distractors: [configs/synth/uniform.yaml, configs/synth/mismatch/distractors.yaml]
+      phone_processing: [configs/synth/uniform.yaml, configs/synth/mismatch/phone_processing.yaml]
+      vfr_duplicates: [configs/synth/uniform.yaml, configs/synth/mismatch/vfr_duplicates.yaml]
+      bright_bloom: [configs/synth/uniform.yaml, configs/synth/mismatch/bright_bloom.yaml]
+      smoky_haze: [configs/synth/uniform.yaml, configs/synth/mismatch/smoky_haze.yaml]

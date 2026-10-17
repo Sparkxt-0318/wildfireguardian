@@ -1,0 +1,25 @@
+tile_id,x,y,confidence,note
+t000,117,125,0.5,faint point cluster no neighbour counterpart
+t000,36,56,0.5,faint point cluster
+t000,98,57,0.5,faint point cluster
+t001,104,58,1,blob
+t001,153,82,1,faint glow
+t001,157,58,1,faint blob
+t001,88,229,0.5,point with ringing
+t001,182,211,0.5,faint cluster
+t002,197,19,1,red blob
+t002,147,168,0.5,faint yellow blob
+t003,243,83,0.5,bright point
+t003,253,181,0.5,edge point
+t003,247,180,0.5,faint
+t003,10,139,0.5,faint cluster
+t004,56,28,1,blob
+t004,107,29,1,faint blob
+t004,83,234,1,faint blob
+t004,164,241,0.5,faint blob
+t004,2,253,0.5,edge
+t004,121,43,0.5,point
+t005,184,163,1,faint blob
+t005,30,152,0.5,faint cluster
+t005,173,184,0.5,points
+t005,190,51,0.5,faint cluster

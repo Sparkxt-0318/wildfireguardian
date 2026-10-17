@@ -1,0 +1,11 @@
+item_id,track_key,track_id,category,confidence,reviewer,adjudicated,note
+t041_112,8101,8101,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t041 (never scored) at frame 112 within 0.0 px of the track's measured point; label note: pink streak
+t041_112,12697,12697,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t041 (never scored) at frame 112 within 0.7 px of the track's measured point; label note: pink-white long streak
+t047_353,43532,43532,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t047 (never scored) at frame 353 within 2.6 px of the track's measured point; label note: long streak large firebrand
+t047_353,38082,38082,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t047 (never scored) at frame 353 within 3.1 px of the track's measured point; label note: streak at edge
+t053_21,2198,2198,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t053 (never scored) at frame 21 within 1.1 px of the track's measured point; label note: streak
+t053_21,36,36,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t053 (never scored) at frame 21 within 0.4 px of the track's measured point; label note: short white streak
+t055_287,28659,28659,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t055 (never scored) at frame 287 within 0.7 px of the track's measured point; label note: streak
+t056_41,482,482,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t056 (never scored) at frame 41 within 1.1 px of the track's measured point; label note: streak
+t057_41,4776,4776,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t057 (never scored) at frame 41 within 0.7 px of the track's measured point; label note: white streak
+t057_41,5247,5247,ember,sure,c5_reserve_tile_labels,False,sure agent tile label in reserve tile t057 (never scored) at frame 41 within 4.0 px of the track's measured point; label note: white streak

@@ -1,0 +1,129 @@
+{
+ "schema_version": 1,
+ "run": "baseline f9e72c2 C5_multiscale (Linux reproduction: TP 24, FP 156, FN 20)",
+ "tag": "agent-labeled, PROVISIONAL, development evidence",
+ "n_items": 218,
+ "by_status": {
+  "fp": 156,
+  "tp": 24,
+  "fn": 20,
+  "unsure": 13,
+  "dont_care": 5
+ },
+ "categories_by_status": {
+  "dont_care": {
+   "true_ember": 5
+  },
+  "fn": {
+   "detected_but_displaced": 8,
+   "unclear": 1,
+   "missed_large_or_saturated": 4,
+   "missed_merged_or_crowded": 7
+  },
+  "fp": {
+   "reflection": 23,
+   "true_ember": 8,
+   "codec_artifact": 114,
+   "fixture_light": 4,
+   "duplicate_fragment": 1,
+   "moving_non_ember": 2,
+   "localization_offset": 2,
+   "faint_possible_ember": 2
+  },
+  "tp": {
+   "true_ember": 24
+  },
+  "unsure": {
+   "missed_large_or_saturated": 1,
+   "unclear": 5,
+   "missed_merged_or_crowded": 2,
+   "detected_but_displaced": 4,
+   "label_doubtful": 1
+  }
+ },
+ "fp": {
+  "n": 156,
+  "with_track": 71,
+  "confirmed": 53,
+  "booth_drawn": 53,
+  "crossing": 3,
+  "by_category": {
+   "codec_artifact": {
+    "n": 114,
+    "with_track": 45,
+    "confirmed": 32,
+    "booth_drawn": 32,
+    "crossing": 2
+   },
+   "duplicate_fragment": {
+    "n": 1,
+    "with_track": 0,
+    "confirmed": 0,
+    "booth_drawn": 0,
+    "crossing": 0
+   },
+   "faint_possible_ember": {
+    "n": 2,
+    "with_track": 2,
+    "confirmed": 1,
+    "booth_drawn": 1,
+    "crossing": 0
+   },
+   "fixture_light": {
+    "n": 4,
+    "with_track": 2,
+    "confirmed": 2,
+    "booth_drawn": 2,
+    "crossing": 0
+   },
+   "localization_offset": {
+    "n": 2,
+    "with_track": 2,
+    "confirmed": 2,
+    "booth_drawn": 2,
+    "crossing": 0
+   },
+   "moving_non_ember": {
+    "n": 2,
+    "with_track": 2,
+    "confirmed": 2,
+    "booth_drawn": 2,
+    "crossing": 0
+   },
+   "reflection": {
+    "n": 23,
+    "with_track": 11,
+    "confirmed": 8,
+    "booth_drawn": 8,
+    "crossing": 0
+   },
+   "true_ember": {
+    "n": 8,
+    "with_track": 7,
+    "confirmed": 6,
+    "booth_drawn": 6,
+    "crossing": 1
+   }
+  },
+  "unlabelled_real_embers": 8
+ },
+ "agreement": {
+  "items_with_both": 218,
+  "same_category": 190,
+  "adjudicated": 29
+ },
+ "credit": "Video: NIST Emberometer firebrand shower test (C5, public domain, credit NIST). Sheets: wfglink precision audit 2026-10-17. Categories are agent-only (PROVISIONAL).",
+ "examples": {
+  "file": "c5_audit_examples.jpg",
+  "items": [
+   "a004",
+   "a020",
+   "a044",
+   "a002",
+   "a053",
+   "a003",
+   "a107",
+   "a070"
+  ]
+ }
+}

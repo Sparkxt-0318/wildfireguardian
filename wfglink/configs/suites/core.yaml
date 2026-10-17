@@ -1,0 +1,30 @@
+# Core synthetic suite (PLAN.md 4.1): tuning only. One factor varied at a time around the
+# base case: 720p30, CRF 23, SNR 10, duty 0.5, medium density, uniform flow, 5 s clips,
+# seeds 0 to 2. Variants that equal the base case are generated once (as "base").
+# 13 distinct cases x 3 seeds = 39 clips.
+# Generate with wfglink.synth.generate.run_suite("configs/suites/core.yaml", out_root, workers).
+name: core
+configs: [configs/synth/uniform.yaml]   # base case files, merged over configs/synth/base.yaml
+overrides:
+  frame_size: [1280, 720]
+  fps: 30.0
+  duration_s: 5.0
+seeds: [0, 1, 2]
+factors:
+  crf:
+    key: compression.crf
+    values: [18, 23, 28, 35]
+  snr:
+    key: embers.snr.median
+    values: [3, 5, 10, 30]
+  duty:
+    key: duty
+    values: [0.25, 0.5, 1.0]
+  density:
+    key: embers.density.on_screen    # mean embers inside the frame
+    values: {low: 30, medium: 100, high: 300}
+  flow:
+    configs:
+      uniform: [configs/synth/uniform.yaml]
+      shear: [configs/synth/shear.yaml]
+      rankine: [configs/synth/rankine.yaml]

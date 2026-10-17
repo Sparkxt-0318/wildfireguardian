@@ -1,0 +1,648 @@
+item_id,track_key,track_id,category,confidence,reviewer,adjudicated,note
+s000,57860,57860,moving_non_ember,unsure,A,False,Track sits still on the edge of a dark trouser leg against the light wall; nothing glowing at the circle. A real white ember passes to its right but the track does not follow it.
+s000,57860,57860,moving_non_ember,unsure,B,False,Track stays on the edge of a person's dark clothing; a white ember moves nearby but the track does not follow it.
+s001,28071,28071,codec_artifact,unsure,A,False,Track sits still on the grey foil of a pan over a dark mark; no bright spot visible in any frame. Pink embers pass nearby but not at the track.
+s001,28071,28071,codec_artifact,unsure,B,False,Static on a dull grey pan surface; an ember passes to the right but the track does not follow it.
+s002,7139,7139,reflection,sure,A,False,Static white highlight on a curved metal edge; the track does not move across the five frames.
+s002,7139,7139,reflection,sure,B,False,Static bright white rim on the foil pan edge.
+s003,8169,8169,moving_non_ember,unsure,A,False,"Track sits still on the edge of a dark leg against the light wall; nothing bright there. A white ember moves past to the right, not followed."
+s003,8169,8169,moving_non_ember,unsure,B,False,Static on the edge of a person's dark clothing against a pale wall; no particle at the track.
+s004,20638,20638,moving_non_ember,unsure,A,False,Static position on the edge of a dark trouser leg against the wall; no glowing object at the circle.
+s004,20638,20638,moving_non_ember,unsure,B,False,Static on the edge of a person's dark clothing against a pale wall; no particle at the track.
+s005,252,252,faint_possible_ember,unsure,A,False,"Small white blob over a dark area at t-2 and t-1 drifts slightly left and fades out by t; could be an ember dimming or a glint, too faint to be sure."
+s005,252,252,faint_possible_ember,unsure,B,False,Small white blob drifts left at t-2 and t-1 then has faded to a smudge at t.
+s006,458,458,ember,sure,A,False,Bright pinkish white streak moves up along the green path and reaches the top frame edge at t.
+s006,458,458,ember,sure,B,False,Pink white streak climbs toward the top border and a short white streak is centred at t.
+s007,35927,35927,codec_artifact,unsure,A,False,"Track sits on the edge of a dark hose against a light floor; nothing bright, no motion of the track."
+s007,35927,35927,codec_artifact,unsure,B,False,Static on the lower edge of a dark hose against a pale floor; nothing bright.
+s008,537,537,ember,sure,A,False,White elongated particle moving consistently next to a second ember; the circle stays on one of the two bright particles.
+s008,537,537,ember,sure,B,False,"One of two white particles flying together, moving consistently leftward; track stays on one of them."
+s009,52393,52393,ember,sure,A,False,Bright white streak moving steadily upward along a straight green path.
+s009,52393,52393,ember,sure,B,False,White particle moves steadily upward through the centre across all five frames.
+s010,41381,41381,moving_non_ember,unsure,A,False,Static light patch of wall seen in the gap between a person's dark trouser legs; does not move or glow.
+s010,41381,41381,moving_non_ember,sure,B,False,Static pale patch between a person's dark trouser legs.
+s011,9303,9303,ember,sure,A,False,White streak moving up and left reaches the top frame edge at t; consistent path.
+s011,9303,9303,ember,sure,B,False,White streak moves up and left along the path and reaches the top border at t.
+s012,2199,2199,faint_possible_ember,unsure,A,False,"At t nothing clearly visible at the top frame edge; the path runs along the same up and left direction as embers here, and a bright streak arrives at t+2."
+s012,2199,2199,codec_artifact,unsure,B,False,Track at the top image border with nothing visible at t; an ember streak only arrives nearby at t+1 and t+2.
+s012,2199,2199,codec_artifact,unsure,adjudicator,True,"Track sits on the top image border and nothing is visible at the circle at t, even with a contrast stretch. The bright streak only arrives at t+1 and t+2 along the same line, so the detection at t has no visible object."
+s013,23306,23306,moving_non_ember,unsure,A,False,"Track sits on the brim of a person's white hard hat; static bright surface, not an ember."
+s013,23306,23306,moving_non_ember,sure,B,False,Static on the brim of a person's white hard hat.
+s014,72687,72687,codec_artifact,unsure,A,False,Static spot at the edge of a grey panel and a dark corner on the frame structure; nothing glowing and no motion.
+s014,72687,72687,codec_artifact,unsure,B,False,Static on the corner of a dark window frame next to a pale post; nothing bright.
+s015,38784,38784,reflection,unsure,A,False,Faint pinkish blob moves up across the foil of a pan toward a falling ember and vanishes where they meet; looks like the ember mirrored in the water or foil.
+s015,38784,38784,reflection,unsure,B,False,Path starts at a passing pink glow but at t the centre is plain foil texture with faint glints.
+s016,313,313,ember,unsure,A,False,"Faint white short horizontal streak moves steadily left over a dark background for three frames, then fades; consistent motion but dim."
+s016,313,313,ember,unsure,B,False,Dim grey white horizontal streak moves steadily right to left through the centre over three frames.
+s017,19208,19208,reflection,sure,A,False,Small static white glint on a metal bracket of the steel frame; jitters in place.
+s017,19208,19208,reflection,sure,B,False,Small static white glint on the metal frame near the foil pan.
+s018,69388,69388,moving_non_ember,sure,A,False,Track sits on the white shirt of a distant standing person; static.
+s018,69388,69388,moving_non_ember,sure,B,False,Static on a distant person's white shirt above blue trousers.
+s019,578,578,codec_artifact,unsure,A,False,"Nothing visible at the circle on the top frame edge; the path jumps from a horizontal streak far below that is moving left, not toward this point."
+s019,578,578,codec_artifact,unsure,B,False,Track at the top image border with nothing visible at t; the path links back toward unrelated streaks below.
+s020,32004,32004,ember,unsure,A,False,Small white blob moves upward along the green path from t-1 to t and then fades; consistent motion but small and dim at t.
+s020,32004,32004,faint_possible_ember,unsure,B,False,"Whitish particles move nearby and the path climbs, but at t the centre holds only a faint lighter smear."
+s020,32004,32004,faint_possible_ember,unsure,adjudicator,True,"Track climbs steadily and touches a small white particle at t-1, but at t the centre holds only a faint pale vertical smear and the white blob sits about 20 px below it. Probably a dim ember, not certain."
+s021,56452,56452,ember,sure,A,False,Large pink blurred particle (close to the camera) moves straight down along the path and is at the circle at t.
+s021,56452,56452,ember,sure,B,False,Pink glowing blob descends along the green path and is centred at t.
+s022,1271,1271,reflection,unsure,A,False,Pale soft glow on the foil of the pan near the circle while a pink ember passes above; looks like a glint or reflection rather than a particle.
+s022,1271,1271,reflection,unsure,B,False,Static pale spots on foil near the frame bottom that shift brightness between frames; no moving particle.
+s023,52026,52026,ember,unsure,A,False,"Pale pink vertical bar at the circle at t, right after a large blurred pink streak passes on the left; likely a defocused near-camera ember over a grey pipe."
+s023,52026,52026,faint_possible_ember,unsure,B,False,Faint pale pink vertical band appears on a grey pole at t next to passing ember streaks; track barely moves.
+s023,52026,52026,faint_possible_ember,unsure,adjudicator,True,"A pale pink vertical band appears on the grey pipe at t and shifts down at t+1, right after a big pink streak passes on the left. Could be a defocused falling ember or a reflection of one on the round pipe."
+s024,52588,52588,ember,sure,A,False,"White blob moves steadily upward from the bottom of the crop to the centre at t, then fades."
+s024,52588,52588,ember,unsure,B,False,Small whitish particle moves upward consistently over t-2 to t; dim but clearly in flight.
+s025,6299,6299,ember,sure,A,False,Pink streak moves down along the green path; the circle is on the streak at t.
+s025,6299,6299,ember,sure,B,False,Pink streak moves down along the path and is centred at t.
+s026,72764,72764,ember,sure,A,False,"Long pink streak descending along the path, centred on the circle at t."
+s026,72764,72764,ember,sure,B,False,"Long pink streak passes through the centre at t, matching the green path from above."
+s027,59458,59458,moving_non_ember,unsure,A,False,Static spot on the edge of a dark silhouette (person) against a light wall; nothing glowing.
+s027,59458,59458,moving_non_ember,unsure,B,False,Static on the edge of a person's dark head or shoulder against a green wall; no bright particle.
+s028,28721,28721,codec_artifact,unsure,A,False,"Faint grey smudge on dark clothing that stays in the same place in all five frames; the earlier path points are predictions, not a moving object."
+s028,28721,28721,reflection,unsure,B,False,Faint grey smudge on dark clothing that stays identical across all frames; not a moving ember.
+s028,28721,28721,reflection,unsure,adjudicator,True,"Faint light patch on dark clothing that is identical in all five frames, likely a fabric sheen. Not codec noise since it is stable, and not a moving ember; earlier path points are predictions."
+s029,47770,47770,reflection,sure,A,False,At t the circle is on a static white highlight on the foil that is present in every frame; the path came from a pink ember falling from above.
+s029,47770,47770,reflection,unsure,B,False,Path comes down from above but at t the centre is a static white glint on the pan edge present in all frames.
+s030,66729,66729,reflection,sure,A,False,Static white crumpled foil highlights in the pan; the track does not move.
+s030,66729,66729,reflection,sure,B,False,Track sits still on crumpled foil in a pan; brightness comes from foil glints with a slight pink tint.
+s031,35090,35090,codec_artifact,unsure,A,False,Static point on the top frame border above a grey bar on a bright background; nothing glowing.
+s031,35090,35090,codec_artifact,sure,B,False,Track at the top image border on a grey bar over white background; nothing bright or moving.
+s032,32855,32855,ember,sure,A,False,Large pink blurred particle moves down along the path and covers the circle at t.
+s032,32855,32855,ember,sure,B,False,Pink glowing streak descends along the green path onto the foil pan and is centred at t.
+s033,43850,43850,codec_artifact,unsure,A,False,"Static faint mark on a light wall next to a dark strip near a fire extinguisher; nothing bright, no motion."
+s033,43850,43850,codec_artifact,unsure,B,False,Static on a pale grey surface beside dark clothing and an extinguisher; nothing bright or moving at the centre.
+s034,5605,5605,moving_non_ember,unsure,A,False,Track sits still on the edge of a dark trouser leg against the light wall; pink embers pass elsewhere.
+s034,5605,5605,moving_non_ember,unsure,B,False,Static on the edge of a person's dark clothing against a pale wall; no bright particle at the track position.
+s035,9984,9984,ember,sure,A,False,Pink streak moving down and left along the path; a separate white streak runs parallel beside it.
+s035,9984,9984,ember,sure,B,False,"Bright orange and white streak moving down through the centre at t, consistent with the green path."
+s036,64093,64093,ember,unsure,A,False,White bar slides slowly left across the top of a white label from t to t+2 after ember streaks pass; could also be a glint on the label.
+s036,64093,64093,ember,unsure,B,False,"Track follows a white streak crossing a white label at t, then lingers on a bright bar at the label top in later frames."
+s037,29432,29432,codec_artifact,sure,A,False,Small grey block appears for one frame at the top right image corner on the frame border; no physical object.
+s037,29432,29432,codec_artifact,sure,B,False,"Track sits at the top image border on a dull grey area; only a tiny light block appears in one frame, no physical bright object."
+s038,31636,31636,ember,sure,A,False,"Bright white streak at center at t, moving down through frames t-1 to t+2; path consistent."
+s038,31636,31636,ember,sure,B,False,Bright white particle moves steadily downward through the centre over five frames.
+s039,14900,14900,reflection,sure,A,False,Static bright crumpled foil in a pan; nothing moves.
+s039,14900,14900,reflection,sure,B,False,Static bright foil region.
+s040,67914,67914,reflection,unsure,A,False,Static dull spot on a foil or metal pan near a light stripe; no particle.
+s040,67914,67914,reflection,sure,B,False,Static glint on a metal rib in the pan.
+s041,21768,21768,codec_artifact,unsure,A,False,"Dull gray textured surface, nothing bright or moving at the track position."
+s041,21768,21768,reflection,unsure,B,False,Static spot on grey foil or metal texture. Nothing glowing.
+s041,21768,21768,codec_artifact,unsure,adjudicator,True,Static grey crumpled surface near the bottom border with many noise detections around it. Nothing bright or glinting at the circle in any frame.
+s042,60662,60662,reflection,unsure,A,False,"Small white spot on a dark fixture stays in place at t-2, t and t+1 while real embers pass by; looks like a static glint."
+s042,60662,60662,reflection,unsure,B,False,Small white spot in a dark recess on a metal fitting. It stays still while larger embers pass over it.
+s043,52213,52213,codec_artifact,unsure,A,False,Static metal frame edge with no bright object at the track position.
+s043,52213,52213,reflection,sure,B,False,Static spot on the metal edge of a pan.
+s043,52213,52213,codec_artifact,unsure,adjudicator,True,"Static spot between the lit metal rim and its dark shadow band on a pan. No glint or glow at the circle, the scene does not change."
+s044,51863,51863,moving_non_ember,unsure,A,False,"Track sits on the edge of a person's forearm; nothing bright there at t, an ember only crosses later at t+2."
+s044,51863,51863,moving_non_ember,unsure,B,False,On the edge of a person's arm or leg. A pink ember only crosses the circle at t+2.
+s045,30170,30170,codec_artifact,unsure,A,False,Dark static area with nothing visible at the track position in any frame.
+s045,30170,30170,codec_artifact,unsure,B,False,Static spot on the edge of a dark panel. Nothing bright.
+s046,59262,59262,ember,sure,A,False,"White streak at center at t, moving up and left across frames; path from below."
+s046,59262,59262,ember,sure,B,False,"White streak at the centre at t, among many ember streaks."
+s047,6785,6785,fixture_light,unsure,A,False,Static top edge of a white sign or card on the wall; track does not move.
+s047,6785,6785,fixture_light,sure,B,False,Corner of a static bright white panel or card on a green wall. The track does not move.
+s048,13461,13461,reflection,sure,A,False,Static bright foil in a pan.
+s048,13461,13461,reflection,sure,B,False,Static glint on foil in a pan.
+s049,7248,7248,codec_artifact,unsure,A,False,"Dark static object, nothing bright at the track position."
+s049,7248,7248,codec_artifact,unsure,B,False,Static spot on a dark object (bag or equipment). Nothing bright.
+s050,60369,60369,ember,sure,A,False,Bright white blob moving consistently left and up across all five frames.
+s050,60369,60369,ember,sure,B,False,Bright white particle moves steadily up and to the left over five frames.
+s051,70772,70772,ember,sure,A,False,"Streak moving down along a dark edge; pink above at t-1, white at center at t, pink below at t+1."
+s051,70772,70772,ember,sure,B,False,"Pink/white streak falls from the upper right through the centre at t, past a dark leg and hose."
+s052,15053,15053,ember,sure,A,False,"Long bright streak crosses the center at t, coming from upper left."
+s052,15053,15053,ember,sure,B,False,Long white streak crosses the centre at t.
+s053,54974,54974,ember,sure,A,False,"Pink streak moving down, centered at t; path from above."
+s053,54974,54974,ember,sure,B,False,Pink streak comes down from the upper right and crosses the centre at t.
+s054,57635,57635,reflection,sure,A,False,Static glint on a metal pan edge that fades in place.
+s054,57635,57635,reflection,sure,B,False,Bluish white glint on a metal pan rib. It stays in place and fades.
+s055,14896,14896,reflection,sure,A,False,Static crumpled foil texture.
+s055,14896,14896,reflection,sure,B,False,Static spot on foil texture.
+s056,65565,65565,unclear,unsure,A,False,Track at center of a gray helmet-like surface with nothing clear at t; glints and embers nearby but not at the circle.
+s056,65565,65565,reflection,unsure,B,False,On the surface of a grey helmet that carries lamp glints. Nothing glows at the centre.
+s056,65565,65565,reflection,unsure,adjudicator,True,Track is on a person's grey shiny hood whose lamp glints shift as the head moves. Nothing glows at the circle at t; the pink ember passes to the right.
+s057,48653,48653,ember,sure,A,False,"White streak moving upward, centered at t, below at t-1 and above at t+1."
+s057,48653,48653,ember,sure,B,False,White curved streak moves up from the lower left to the centre over consecutive frames.
+s058,45727,45727,fixture_light,unsure,A,False,Static tip of the bright background gap between a person's dark legs; no motion.
+s058,45727,45727,moving_non_ember,unsure,B,False,Tip of the light background showing between a person's legs. It is static and is not an ember.
+s058,45727,45727,moving_non_ember,unsure,adjudicator,True,"Static tip of the light background gap between a person's dark trouser legs. A person outline, not a lamp and not an ember."
+s059,32809,32809,codec_artifact,unsure,A,False,Static dark post against a light background; nothing bright at the track.
+s059,32809,32809,codec_artifact,unsure,B,False,Static spot on the edge of a dark stand against a light wall. Nothing bright.
+s060,5946,5946,ember,unsure,A,False,"Faint white streak crosses the center at t; faint streak lower right at t-1, consistent with upward left motion."
+s060,5946,5946,ember,sure,B,False,"Pale white streak runs diagonally through the centre at t. It moves consistently, and the scene has other ember streaks."
+s061,35973,35973,reflection,unsure,A,False,Faint static gray spot on a dark surface in all five frames.
+s061,35973,35973,reflection,unsure,B,False,Faint grey spot on dark metal that stays still in every frame.
+s062,60875,60875,ember,sure,A,False,"White and pink streak at center at t, moving up and left at t+1."
+s062,60875,60875,ember,sure,B,False,White/pink streak at the centre at t that moves up and to the left at t+1.
+s063,21699,21699,ember,sure,A,False,"Pink streak falling straight down, above at t-1, centered at t, below at t+1."
+s063,21699,21699,ember,sure,B,False,Red streak crosses the centre at t while moving downward. It is seen above at t-1 and below at t+1.
+s064,56351,56351,faint_possible_ember,unsure,A,False,"Faint gray smudge near center at t to t+2, drifting slightly; could be a dim distant particle or noise."
+s064,56351,56351,codec_artifact,unsure,B,False,Faint grey smudge that stays in place after bright embers pass nearby. No glowing particle at the centre.
+s064,56351,56351,codec_artifact,unsure,adjudicator,True,"Very faint grey smear near the centre from t to t+2 that barely moves, appearing after bright embers pass above. No glow; most likely a compression residue."
+s065,55272,55272,codec_artifact,unsure,A,False,Dull purplish surface with no visible object at the track position; embers appear elsewhere.
+s065,55272,55272,faint_possible_ember,unsure,B,False,Nothing clearly bright at the centre at t. A short path heads up and to the right toward faint pink streaks.
+s065,55272,55272,codec_artifact,unsure,adjudicator,True,"Track near the bottom border on a dull purplish surface; nothing at the circle at t even with contrast stretch. The white and pink embers at t+1 and t+2 are up and to the right, not on the track."
+s066,10576,10576,ember,sure,A,False,"Bright pink and white streak through the center at t, coming down from upper right."
+s066,10576,10576,ember,sure,B,False,"Long white streak passes through the centre at t, coming from the upper right."
+s067,52374,52374,ember,sure,A,False,"Pink streak descending from the top, centered at t, lower at t+1."
+s067,52374,52374,ember,sure,B,False,Pink/white streak falls through the centre and keeps moving down in the next frames.
+s068,48832,48832,codec_artifact,unsure,A,False,Track sits on a static pillar edge with nothing bright at t.
+s068,48832,48832,codec_artifact,unsure,B,False,At t the circle sits on a static edge of a grey column with nothing bright. The path jumps over from an ember streak that was falling lower right.
+s069,67343,67343,reflection,sure,A,False,Static crumpled foil in a pan.
+s069,67343,67343,reflection,sure,B,False,Static spot on crumpled foil texture; nothing glowing.
+s070,8288,8288,ember,sure,A,False,"Large motion-blurred white streak crosses the center at t, path from upper right."
+s070,8288,8288,ember,sure,B,False,"White streak crosses the centre at t, coming from the upper right. It matches the other ember streaks in the scene."
+s071,57932,57932,ember,sure,A,False,White blob moving downward steadily from t-1 to t+2.
+s071,57932,57932,ember,sure,B,False,Bright white particle moving steadily downward across a dark surface through all frames.
+s072,61079,61079,flame_glare_edge,unsure,A,False,At t the track sits on the edge of the bright white glare of a lit foil pan; a pink blob was near at t-1.
+s072,61079,61079,ember,unsure,B,False,"A red/pink streak comes down from above at t-2 and t-1 onto the foil pan. At t the circle sits at the edge of the bright foil, where the ember is hard to see."
+s072,61079,61079,ember,unsure,adjudicator,True,The track comes straight down with a pink ember that is above the centre at t-2 and at the centre at t-1. At t the ember reaches the edge of the bright foil glare and is lost there.
+s073,11558,11558,fixture_light,unsure,A,False,Static bright background gap between a person's dark trouser legs; no motion.
+s073,11558,11558,moving_non_ember,unsure,B,False,The track slides down the edge of a trouser leg against the light floor. The red ember streaks pass to the right and never reach the circle.
+s073,11558,11558,moving_non_ember,unsure,adjudicator,True,Track jitters down the edge of a person's dark trouser leg against the light floor while the scene stays still. Red ember streaks pass to the right and never reach the circle.
+s074,21254,21254,codec_artifact,unsure,A,False,Dull static metal edge with nothing bright at the track position.
+s074,21254,21254,codec_artifact,unsure,B,False,"Dim grey spot on a dark seam between steel panels. Nothing bright, and it does not move."
+s075,68548,68548,reflection,sure,A,False,Static white glints on a helmet that stay in place in every frame.
+s075,68548,68548,reflection,sure,B,False,Small white glint on a grey helmet-like dome; it stays in the same place in all five frames.
+s076,3242,3242,ember,sure,A,False,Bright pinkish white streak crosses the centre at t and is gone at t+1; clear moving streak among other streaks.
+s076,3242,3242,ember,unsure,B,False,"At t a long white ember streak crosses the circle. In the other frames the track points sit on a plain dark spot near the centre, so the track only briefly holds the ember."
+s077,57632,57632,ember,unsure,A,False,"Pinkish white blob appears at t and moves left at t+1, faint pink above at t-1; moving glowing particle but dim."
+s077,57632,57632,ember,sure,B,False,"Pink and white glowing particle arrives from top right along the path at t, then moves left at t+1."
+s078,23853,23853,ember,sure,A,False,Bright white elongated particle moves steadily up and left across all five frames.
+s078,23853,23853,ember,sure,B,False,"Bright white elongated streak moves steadily up and left across all frames, matching the green path."
+s079,42895,42895,ember,sure,A,False,Pink glowing streak appears at centre at t and moves down at t+1 over the pan rim.
+s079,42895,42895,ember,sure,B,False,"Pink ember streak comes down from the top along the path, crosses the circle at t and continues below at t+1."
+s080,33251,33251,fixture_light,unsure,A,False,Track sits still on a lit horizontal window crossbar; nothing moves in the zoom frames.
+s080,33251,33251,reflection,unsure,B,False,Static spot on a lit horizontal window rail. The bright line does not move.
+s080,33251,33251,fixture_light,unsure,adjudicator,True,Track sits still on a lit horizontal window crossbar; the bright line is identical in all frames.
+s081,36215,36215,moving_non_ember,sure,A,False,Track is on a person's chin and neck edge above a blue shirt; no bright particle.
+s081,36215,36215,moving_non_ember,unsure,B,False,Track sits on a person's chin and blue collar. Nothing bright and essentially no motion. A false detection on a person.
+s082,24660,24660,ember,unsure,A,False,"Pink streak descends from the top at t-2 and t-1 and becomes a small white spot at centre at t, then fades."
+s082,24660,24660,ember,sure,B,False,Pink ember falls from the top at t-2 and t-1 and becomes a bright white blob at the centre at t.
+s083,21302,21302,moving_non_ember,sure,A,False,"Track sits on the outline of a person's grey head covering; static, no glow at the circle."
+s083,21302,21302,reflection,unsure,B,False,Static highlight on a person's grey protective hood. Nothing glowing moves through the circle.
+s083,21302,21302,reflection,unsure,adjudicator,True,"Track is anchored on a person's grey hood: at t-2 it is on a white glint lower on the hood, at t it jitters to the hood outline. Static, nothing glowing."
+s084,54148,54148,ember,sure,A,False,"Pinkish white vertical streak passes through centre at t, faint above at t-1; falling ember."
+s084,54148,54148,ember,sure,B,False,Pinkish white streak comes down the path from the top and crosses the circle at t. A second ember passes to the right.
+s085,13464,13464,reflection,sure,A,False,Static highlight on crinkled foil in a pan; track does not move.
+s085,13464,13464,reflection,sure,B,False,Track jitters on the bright crumpled foil near the pan rim. Ember streaks pass to the left and above.
+s086,7060,7060,moving_non_ember,sure,A,False,"Track is on a dark spot on a person's dark jacket edge; no glow, embers pass elsewhere."
+s086,7060,7060,codec_artifact,unsure,B,False,Static spot on a person's dark blue clothing against a light wall. No glow. Embers pass to the right.
+s086,7060,7060,moving_non_ember,unsure,adjudicator,True,Static dark spot on the edge of a person's dark jacket against a light wall; stable in all frames so not codec noise. Embers pass to the right.
+s087,54035,54035,codec_artifact,unsure,A,False,Only a dim grey smudge on dark structure at centre with no consistent motion; the pink streak at left is a separate detection.
+s087,54035,54035,codec_artifact,unsure,B,False,Track sits on a faint grey smudge in a dark region. A pink ember passes well to the left and is not on the track.
+s088,64219,64219,ember,sure,A,False,White then pinkish streak moves down through centre from t-1 to t+1 over the foil pan.
+s088,64219,64219,ember,unsure,B,False,Faint whitish blob moves down through the centre from t-1 to t and appears as a pink streak below at t+1. Low contrast against the foil.
+s089,32388,32388,ember,sure,A,False,"Bright pink streak at centre at t, pink blob lower at t+1 and smaller at t+2; moving glowing particle."
+s089,32388,32388,ember,sure,B,False,"Bright pink ember streak crosses the circle at t, then appears as a glowing blob just below at t+1."
+s090,71192,71192,ember,sure,A,False,"Large pink streak crosses centre at t, seen above at t-1 and below at t+1."
+s090,71192,71192,ember,sure,B,False,"Large pink streak falls through the centre at t, coming from the top along the green path."
+s091,44268,44268,codec_artifact,unsure,A,False,Static greyish patch at the edge of a box near the frame top; nothing bright or moving in any zoom frame.
+s091,44268,44268,codec_artifact,unsure,B,False,"Near the top frame edge, at a static corner between a white wall and a grey box. Nothing bright or moving. The long path links in from far right."
+s092,56109,56109,codec_artifact,unsure,A,False,Tiny faint light dot at the tip of a dark object against a pale wall; static ringing at a high contrast edge.
+s092,56109,56109,codec_artifact,unsure,B,False,Small light speck at the tip of a dark silhouette against a bright pale background. Edge ringing with no glow and no motion of its own.
+s093,4974,4974,ember,sure,A,False,Pink streak above centre at t-1 reaches the centre at t and continues down; falling ember.
+s093,4974,4974,ember,unsure,B,False,"At t a pink ember streak passes through the circle. Earlier and later track points sit on the edge of a saturated white bloom, so the track is partly glare edge."
+s094,55595,55595,faint_possible_ember,unsure,A,False,Faint pale streak moves up toward the frame top edge from t-1 to t; weak glow.
+s094,55595,55595,faint_possible_ember,unsure,B,False,"At the top edge of the frame, a faint pale streak moves up and left along the path from t-2 to t. Dim and partly cut off by the frame edge."
+s095,67355,67355,reflection,sure,A,False,Small white glint on foil that stays in place across frames; red embers pass elsewhere at t+1 and t+2.
+s095,67355,67355,reflection,sure,B,False,Small static white glint on the foil inside the pan. Embers appear only at the top in the last frames.
+s096,10041,10041,ember,sure,A,False,Pink streak descends from top at t-1 to centre at t; the white spot below is a separate static glint.
+s096,10041,10041,ember,unsure,B,False,"At t a pink ember streak passes through the circle. Before and after, the track sits on a static white glint just below, so the track mixes a glint with a passing ember."
+s097,54207,54207,ember,sure,A,False,Compact bright white dot moves steadily downward across all five frames; consistent flight.
+s097,54207,54207,ember,unsure,B,False,"Small round white glowing dot moves steadily downward about 5 px per frame against a dark background. Consistent motion, likely a slow or distant ember."
+s098,24361,24361,reflection,sure,A,False,Track sits on the edge of a saturated white foil glare region that changes size with exposure; no particle.
+s098,24361,24361,flame_glare_edge,unsure,B,False,Track sits on the boundary of a large saturated white bloom on the foil. The bloom expands over the frames. Nothing moves like an ember.
+s098,24361,24361,flame_glare_edge,unsure,adjudicator,True,Track sits on the boundary of a saturated white bloom on the foil that grows over the frames. Nothing moves like an ember.
+s099,60763,60763,codec_artifact,unsure,A,False,"Nothing bright at centre, only static grey and blue texture of the pan; no moving object."
+s099,60763,60763,codec_artifact,unsure,B,False,Nothing bright at the circle on grey foil in any frame. The long vertical path links in from far above. No visible object.
+s100,63913,63913,reflection,sure,A,False,Track stays on the bright pan rim and foil edge; pink embers pass above but not at the circle.
+s100,63913,63913,reflection,sure,B,False,Track jitters on the bright foil ridge. A pink ember passes above only at t-1 and is not followed.
+s101,37308,37308,faint_possible_ember,unsure,A,False,"Soft round white dot in a black region fades out in place over t-2 to t; could be a dying ember, no motion."
+s101,37308,37308,fixture_light,unsure,B,False,"Round bright dot in a black region near the bottom edge stays in place and fades to nothing by t. It is a static spot, not moving like a flying ember. It may be a landed ember cooling."
+s101,37308,37308,faint_possible_ember,unsure,adjudicator,True,Round glowing dot in a dark area near the bottom border fades to nothing in place over t-2 to t. Too quick for a lamp change; could be an ember being quenched or moving along the line of sight.
+s102,44076,44076,reflection,unsure,A,False,Track jitters on a static metal rim edge; no bright moving object.
+s102,44076,44076,reflection,sure,B,False,Faint static light spot on the edge of the steel pan frame. No change across frames.
+s103,70131,70131,ember,unsure,A,False,"Pink streak descends at t-1 and arrives as a pinkish white blob on the rail at t, lingering after; ember that appears to land."
+s103,70131,70131,ember,sure,B,False,Pink ember streak comes down from top right along the path and lands on the rail at the circle at t.
+s104,40669,40669,reflection,sure,A,False,Static small glint in a notch of the metal pan rim; same in all frames.
+s104,40669,40669,reflection,sure,B,False,Fixed white glint on the foil and pan rim. Identical in all five frames.
+s105,58468,58468,reflection,sure,A,False,Track sits on the edge of a saturated white foil highlight; static.
+s105,58468,58468,reflection,sure,B,False,Static spot on the edge of a saturated white foil patch in the pan. Embers pass elsewhere.
+s106,42246,42246,ember,sure,A,False,"Long pink white diagonal streak crosses centre at t, seen above at t-1 and below at t+1."
+s106,42246,42246,ember,sure,B,False,Long pink and white streak runs diagonally from top right through the circle. It matches the green path and is gone afterwards.
+s107,5398,5398,ember,unsure,A,False,Whitish streak crosses near centre at t with pinkish streaks nearby in following frames; busy area with several streaks.
+s107,5398,5398,ember,unsure,B,False,"At the right frame edge, thin white and pink streaks cross the centre in changing positions while many ember streaks fall nearby. Probably a fast ember, but the curved path is odd."
+s108,30830,30830,reflection,unsure,A,False,"Small white spot fixed in place in all five frames inside a dark pan area; static glint, possibly a resting glow."
+s108,30830,30830,reflection,unsure,B,False,"Small fixed white spot in a dark area under the frame, near a saturated bright region. Likely a glint on metal. No motion."
+s109,58759,58759,reflection,unsure,A,False,Track jitters on bright foil edges; pink embers pass at the left edge but not at the circle.
+s109,58759,58759,reflection,sure,B,False,Track sits on a bright foil ridge and barely moves. Red ember streaks pass to the left but are not on the track.
+s110,5827,5827,reflection,unsure,A,False,Track is on the bright pan rim and foil; a brief brighter patch at t-1 but no clear moving particle.
+s110,5827,5827,reflection,unsure,B,False,Track jitters on bright crumpled foil at the pan rim. No glowing particle crosses the centre.
+s111,30921,30921,reflection,sure,A,False,"Static white highlight on foil near the rim, unchanged across frames."
+s111,30921,30921,reflection,sure,B,False,Static white glint on the foil pan rim. An ember passes far to the right only at the last frame.
+s112,58642,58642,moving_non_ember,sure,A,False,Track sits on a highlight at the brim of a person's white hard hat; static.
+s112,58642,58642,reflection,sure,B,False,Small static white highlight on the front edge of a worker's white hard hat. It does not move between frames.
+s112,58642,58642,reflection,unsure,adjudicator,True,Small static white highlight at the front of a worker's white hard hat brim; it does not change between frames.
+s113,69168,69168,ember,sure,A,False,Pink vertical streak falls straight down through centre from t-1 to t+1.
+s113,69168,69168,ember,sure,B,False,Pink glowing streak falls straight down through the centre across frames 564 to 566 and follows the green path.
+s114,4754,4754,moving_non_ember,sure,A,False,Circle sits on a person's forearm in every frame; no bright particle at the track position.
+s114,4754,4754,moving_non_ember,unsure,B,False,At t the circle sits on a person's forearm with no glow; the long path came from embers at the upper right.
+s115,51541,51541,ember,unsure,A,False,"Small bright white blob appears on the beam ledge at t and drifts slightly by t+2, after streaks pass; looks like an ember landing or bouncing."
+s115,51541,51541,ember,unsure,B,False,"White glowing piece arrives along the path and sits on the ledge at t and t+1, then shifts slightly; looks like an ember that has landed."
+s116,30147,30147,reflection,sure,A,False,Static bright highlight on a steel gusset; nothing moves across the five frames.
+s116,30147,30147,reflection,sure,B,False,Static highlight on a triangular steel gusset; nothing moves.
+s117,3996,3996,moving_non_ember,unsure,A,False,Track sits still on the edge of a person's dark trouser leg against the floor; nothing bright there. Ember streaks pass nearby but not along the track.
+s117,3996,3996,fixture_light,unsure,B,False,Track stays still at the corner of a bright panel next to a dark post; no glowing particle until other embers pass at t+1.
+s117,3996,3996,moving_non_ember,unsure,adjudicator,True,Track stays still where a dark trouser leg meets a bright grey panel and a dark cable. Nothing glows at the circle; pink embers pass nearby at t and t+1 but not on the track.
+s118,33193,33193,ember,sure,A,False,Pink streak comes down from above at t-1 and becomes a glowing pink-white blob at the center at t and t+1; path matches the descent.
+s118,33193,33193,ember,sure,B,False,"Pink streak comes down from the top at t-1 and becomes a glowing pink-white blob at the centre, appearing to land on the frame."
+s119,51825,51825,ember,sure,A,False,Bright white blob moves steadily downward through the center from t-2 to t+1.
+s119,51825,51825,ember,sure,B,False,Pink-white blob moves steadily downward through the centre from t-2 to t+1.
+s120,18647,18647,reflection,sure,A,False,Static white highlight on the steel frame; the track jitters in place.
+s120,18647,18647,reflection,sure,B,False,Static white glint on foil near the frame corner; it does not move.
+s121,19070,19070,codec_artifact,unsure,A,False,Nothing bright at the circle on the grey ledge in any frame; the track coasts on an empty static area.
+s121,19070,19070,codec_artifact,unsure,B,False,Circle sits on a plain grey surface below a dark band; nothing bright at the centre in any frame.
+s122,36521,36521,reflection,sure,A,False,Static glint on foil or steel surface; no moving particle at the track position.
+s122,36521,36521,reflection,sure,B,False,Static glints on crumpled foil; the track only jitters slightly.
+s123,9032,9032,reflection,unsure,A,False,"Small static white spot on the back of a person's head or helmet, unchanged across frames; likely a glint or reflective patch."
+s123,9032,9032,reflection,unsure,B,False,Small static white mark on the back of a grey helmet or head; it stays put while embers pass around it.
+s124,72814,72814,ember,sure,A,False,Track follows a pink streak falling diagonally; at t the circle is on the streak.
+s124,72814,72814,ember,sure,B,False,"Pink-white streak moves down through the centre along the path, frame after frame."
+s125,47474,47474,ember,unsure,A,False,"Pink streak rises through the center at t-1 and a small white spot sits at the top frame edge at t, then gone; ember leaving the frame."
+s125,47474,47474,ember,sure,B,False,"Pink streak moves up through the centre at t-1, and a white blob leaves at the top image edge at t."
+s126,45354,45354,reflection,sure,A,False,Static bright highlight on the steel member; no motion.
+s126,45354,45354,reflection,sure,B,False,Static highlight on the steel bar and foil; nothing moves.
+s127,69229,69229,moving_non_ember,sure,A,False,Circle sits on the edge of a person's blue jacket against the wall; nothing glowing.
+s127,69229,69229,moving_non_ember,sure,B,False,Track sits on the edge of a person's blue shirt against the wall; no glowing particle.
+s128,24694,24694,codec_artifact,unsure,A,False,Circle on the corner of a dark box against a grey wall; nothing bright at the track in any frame.
+s128,24694,24694,codec_artifact,unsure,B,False,Circle sits on the top edge of a dark box against the pale wall; nothing bright at the centre in any frame.
+s129,9563,9563,moving_non_ember,sure,A,False,Circle stays on a person's hand; a real ember streak passes to the right but the track does not follow it.
+s129,9563,9563,moving_non_ember,unsure,B,False,Track sits almost still on the edge of a person's hand; the ember streak passing to the right is a separate detection.
+s130,6620,6620,faint_possible_ember,unsure,A,False,"After a large ember passes, a small white spot sits nearly still on the beam from t to t+2; could be a landed fragment or a glint."
+s130,6620,6620,ember,unsure,B,False,"Small white spot arrives right after a large firebrand passes and then rests on the beam for three frames; likely a landed ember fragment, though it could be a glint."
+s130,6620,6620,ember,unsure,adjudicator,True,"Track rides a large firebrand at t-2 and t-1, then stays on a small bright white fragment that drifts slowly right on the beam from t to t+2. Its steady motion argues against a fixed glint."
+s131,4281,4281,ember,unsure,A,False,"Faint thin pinkish streak at the center at t, with the track drifting consistently; brighter streak arrives at t+2."
+s131,4281,4281,faint_possible_ember,unsure,B,False,"Thin faint pinkish diagonal line through the centre at t, possibly a fast ember streak; brighter embers pass nearby."
+s131,4281,4281,ember,unsure,adjudicator,True,"Thin faint pinkish streak through the centre at t, oriented along the up and left motion of nearby embers, and the track climbs consistently from below. A fast ember streak caught at low contrast."
+s132,3155,3155,ember,sure,A,False,Track follows a pink ember descending from above; large pink blob reaches the center at t+1.
+s132,3155,3155,reflection,unsure,B,False,At t the circle sits just above the bright diagonal steel bar with no glowing object; a large ember only reaches the centre at t+1.
+s132,3155,3155,ember,unsure,adjudicator,True,"Track descends straight down a column of falling pink embers. At t it is slightly ahead with nothing visible, and a large pink ember reaches the circle at t+1 and t+2. No glint at the centre."
+s133,18771,18771,ember,sure,A,False,Pink streak passes vertically through the center at t near the top edge; gone afterwards.
+s133,18771,18771,ember,sure,B,False,Pink streak passes through the centre at t near the top edge of the image.
+s134,20,20,ember,sure,A,False,White blob moves steadily upward from t-2 to t and exits at the top edge.
+s134,20,20,ember,sure,B,False,Small white blob moves steadily upward to the top edge of the image and leaves the frame.
+s135,6497,6497,ember,sure,A,False,Pink streak falls straight down through the center from t-1 to t+1.
+s135,6497,6497,ember,sure,B,False,"Vertical pink-white streak at the centre at t, entering from the top at t-1 and leaving at the bottom at t+1."
+s136,62701,62701,ember,sure,A,False,White streak moving left passes through the center at t; consistent path.
+s136,62701,62701,ember,sure,B,False,"White streak crosses the centre at t, moving left along the path, among several other streaks."
+s137,50552,50552,reflection,sure,A,False,Static highlight on foil or steel; nothing moves.
+s137,50552,50552,reflection,sure,B,False,Static glints on crumpled foil; the track jitters in place.
+s138,2589,2589,ember,unsure,A,False,Path follows a pink streak that passed through at t-2 and t-1; at t the circle lags on an empty dark area behind it.
+s138,2589,2589,codec_artifact,unsure,B,False,"Track lags behind a real pink streak that has already left the crop; at t the circle sits on empty background, which looks like a trailing ghost."
+s138,2589,2589,duplicate_fragment,unsure,adjudicator,True,"The path runs along a pink streak that another detection already covers at t-2. This track moves slower, lags behind the streak and at t sits on empty background, so it is a trailing duplicate rather than a separate ember."
+s139,11811,11811,ember,sure,A,False,"Pink streak runs down the beam and turns into a bright white blob at the center at t, moving right at t+1."
+s139,11811,11811,ember,sure,B,False,"Bright white-pink firebrand at the centre at t that moves right at t+1, after a pink streak came down along the bar."
+s140,60357,60357,reflection,unsure,A,False,Faint small static spot under the beam that jitters in place and fades; no flight motion.
+s140,60357,60357,faint_possible_ember,unsure,B,False,"Faint small pale dot drifts up and right through the centre over t-2 to t, then disappears; very low contrast."
+s140,60357,60357,faint_possible_ember,unsure,adjudicator,True,"Small pale, slightly warm dot moves steadily up through the centre over t-2 to t, then vanishes near the dark beam. Very low contrast, so not sure it is an ember."
+s141,60373,60373,ember,sure,A,False,Small white particle moves up through the center from t-2 to t+1 as a short streak.
+s141,60373,60373,ember,sure,B,False,"Small white particle moves steadily upward through the centre from t-2 to t+1, with other embers nearby."
+s142,1851,1851,unclear,unsure,A,False,Track jumps down to the bottom frame edge but nothing bright is visible at the circle in any frame.
+s142,1851,1851,codec_artifact,unsure,B,False,"Path is a straight line from the upper right, but no bright object shows at the centre in any frame, even with contrast boosted; it sits at the bottom edge of the image."
+s142,1851,1851,codec_artifact,unsure,adjudicator,True,"Straight path from the upper right to the bottom image border, but no object is visible at the circle in any frame, even with contrast boost."
+s143,51198,51198,ember,unsure,A,False,Large bright white pieces and a thin white streak move through the center near the right edge; busy scene.
+s143,51198,51198,ember,unsure,B,False,"Large saturated white near-camera firebrand moving down-left; at t the circle sits on its right edge next to a faint streak, so it may be a side fragment."
+s144,28914,28914,unclear,unsure,A,False,Round white glow in a black region stays in place and fades out over three frames; could be a lamp glint or a near-camera ember.
+s144,28914,28914,faint_possible_ember,unsure,B,False,"Defocused white blob in a dark corner that stays in place and fades out over three frames; maybe an ember moving toward or away from the camera, not clearly an ember."
+s144,28914,28914,faint_possible_ember,unsure,adjudicator,True,Round white glow with a faint reddish halo in a dark corner stays in place and fades out over three frames. Could be an ember quenching or moving toward the camera; not a steady lamp.
+s145,28429,28429,ember,sure,A,False,Pink streak falls diagonally through the center at t-1 and t.
+s145,28429,28429,ember,sure,B,False,"Long pink streak passes down through the centre at t-1 and t, following the path."
+s146,12249,12249,reflection,sure,A,False,Static highlight on foil and steel frame; no motion.
+s146,12249,12249,reflection,sure,B,False,Static glints on crumpled foil and the steel bar; nothing moves.
+s147,15167,15167,fixture_light,sure,A,False,Static bright white label on a gas cylinder; identical in all frames.
+s147,15167,15167,fixture_light,sure,B,False,Static white label on a gas cylinder; it does not move across the five frames.
+s148,58238,58238,moving_non_ember,unsure,A,False,"Circle on the edge of a dark silhouette, likely a person's head or shoulder, against a lit wall; nothing glowing."
+s148,58238,58238,moving_non_ember,unsure,B,False,Track sits on the edge of a dark silhouette (likely a person) against the pale wall; nothing glowing.
+s149,55780,55780,ember,sure,A,False,White streaks move diagonally down-left through the center along the green path.
+s149,55780,55780,ember,sure,B,False,"Bright white-pink streak travels down-left through the centre, frame after frame, along the path."
+s150,5380,5380,ember,sure,A,False,Pink streak falls through the center from t-1 to t+1.
+s150,5380,5380,ember,sure,B,False,Pink-orange streak moves steadily down through the centre from t-1 to t+1 along the green path.
+s151,11707,11707,reflection,unsure,A,False,"Track jitters in place on a steel member highlight; only a faint transient line at t, no consistent motion."
+s151,11707,11707,reflection,unsure,B,False,"Track sits almost still on the pale edge of the steel frame; only a faint light blip at t, no particle moving through the centre."
+s152,6746,6746,ember,sure,A,False,"Bright white elongated streak moving steadily down-left across a dark silhouette, fading out by t+1."
+s152,6746,6746,ember,sure,B,False,Bright white streak moves steadily down and left across a dark silhouette and fades out after t.
+s153,65930,65930,reflection,sure,A,False,Static flickering light patch on the foil in a water pan; no motion.
+s153,65930,65930,reflection,sure,B,False,Static flickering highlight on foil in a pan.
+s154,58215,58215,ember,unsure,A,False,"Dense shower of pink-white streaks near the frame edge; at t the track sits on a pink streak, but it may hop between different streaks."
+s154,58215,58215,ember,unsure,B,False,"Pink white streak at the centre at t, with falling pink streaks moving down in later frames. The scene is busy, so the track may be mixing pieces."
+s155,48992,48992,codec_artifact,unsure,A,False,Static wall beside a blue panel edge with nothing bright at the track position.
+s155,48992,48992,codec_artifact,unsure,B,False,Static spot on a pale wall beside a blue sign. Nothing glowing.
+s156,62241,62241,codec_artifact,unsure,A,False,"A real white ember rises about 20 px to the left and has its own detection. The track stays on the plain column edge, where nothing is visible."
+s156,62241,62241,codec_artifact,unsure,B,False,"Track stays at a static corner of a post and box. The bright white particle moving upward nearby is a separate detection, not this track."
+s157,3392,3392,codec_artifact,unsure,A,False,"Track sits on plain foil while red ember streaks pass nearby, with a whole-crop colour flicker at t+1. Nothing physical is at the track position."
+s157,3392,3392,codec_artifact,unsure,B,False,Track sits on the pan surface with nothing bright at the centre. Pink embers pass at the edges but not at the track.
+s158,49761,49761,reflection,sure,A,False,Small static highlight on the edge of a metal pan or frame; does not move.
+s158,49761,49761,reflection,unsure,B,False,Small static light spot on the rim of a pan against a dark area.
+s159,61889,61889,moving_non_ember,unsure,A,False,Track on the edge of a person's dark blue sleeve against the wall. Nothing glowing is there; pink embers pass elsewhere.
+s159,61889,61889,moving_non_ember,sure,B,False,Track sits on the edge of a person's blue sleeve. Pink embers pass elsewhere.
+s160,474,474,faint_possible_ember,unsure,A,False,"Path comes straight down like falling embers, but the centre at t is only grey haze next to a pink streak. At most a very faint blob."
+s160,474,474,unclear,unsure,B,False,"Vertical path from above but at t the circle is on empty grey smoke. A real pink ember passes just left of the circle, not on it."
+s160,474,474,codec_artifact,unsure,adjudicator,True,"Vertical path from above, but at t the circle is on empty grey haze with nothing visible even with contrast stretch. Real pink embers fall faster and to the left, not on the track."
+s161,73119,73119,moving_non_ember,unsure,A,False,"Track on the outline of a person's dark head against the wall; static, nothing glowing."
+s161,73119,73119,moving_non_ember,unsure,B,False,"Static spot on the edge of a dark silhouette, likely a person, against a wall. Nothing glowing."
+s162,22695,22695,ember,sure,A,False,"At t the track is on a white-pink streak falling past a ledge, with other falling embers around it."
+s162,22695,22695,ember,sure,B,False,Pink white streak falls through the centre at t and continues downward in later frames.
+s163,15257,15257,reflection,unsure,A,False,Static bright foil surface next to a dark mark in the pan; no motion or glow.
+s163,15257,15257,reflection,unsure,B,False,Static faint highlight on the water pan surface near a dark mark. No change across frames.
+s164,15559,15559,moving_non_ember,sure,A,False,Track sits on the brim of a person's white hard hat; no ember.
+s164,15559,15559,moving_non_ember,sure,B,False,Track sits on the brim of a person's white hard hat.
+s165,49140,49140,fixture_light,unsure,A,False,Static light spot on top of a box-like object in a hazy area behind equipment; does not move.
+s165,49140,49140,fixture_light,unsure,B,False,"Static dim light patch on background equipment, unchanged across frames."
+s166,49515,49515,reflection,sure,A,False,Static highlight on a ridge of crumpled foil in the pan.
+s166,49515,49515,reflection,sure,B,False,"Static glint on foil that brightens slightly at t, no motion."
+s167,57969,57969,fixture_light,unsure,A,False,Static light ledge end next to a fire extinguisher; nothing moving or glowing.
+s167,57969,57969,codec_artifact,unsure,B,False,Static spot on the dark edge of a shelf next to a white box and red extinguisher. Nothing glowing.
+s167,57969,57969,codec_artifact,unsure,adjudicator,True,Static spot at the end of a light shelf ledge next to a white box and red extinguisher. Nothing bright or glowing; the scene does not change.
+s168,61285,61285,ember,sure,A,False,"At t a forked white ember streak passes through the centre, with other white embers nearby. The track jumps between streaks but follows embers."
+s168,61285,61285,ember,unsure,B,False,"At t a bright white streak pair crosses the centre, like other white embers in the area. Path from the left suggests linking across different embers."
+s169,62653,62653,reflection,unsure,A,False,"Pink-tinted light patch on foil ridges in the pan that shifts slightly; looks like reflected glow, not a particle."
+s169,62653,62653,reflection,unsure,B,False,Track jitters on foil lit with a pinkish tint. No distinct particle at the centre.
+s170,57439,57439,codec_artifact,unsure,A,False,Static wall and column with nothing bright at the track position.
+s170,57439,57439,moving_non_ember,unsure,B,False,"Slow drift over a grey wall in smoke. Nothing bright, likely a smoke edge."
+s170,57439,57439,codec_artifact,unsure,adjudicator,True,"Track drifts slowly over a grey wall and column, but the frames are nearly identical and no smoke edge or bright object is visible at the circle."
+s171,60601,60601,ember,unsure,A,False,"Pink-white glowing spot that comes down from above and sits on the pan rim, growing at t+2. Looks like a landed ember, not in flight."
+s171,60601,60601,ember,unsure,B,False,"Pink white glowing blob on the pan rim; the track arrives from above and settles on it, looks like a glowing ember that landed. Could be a reflection."
+s172,43276,43276,codec_artifact,unsure,A,False,Track on a foil surface near the frame bottom with nothing visible at the centre; embers pass elsewhere.
+s172,43276,43276,unclear,unsure,B,False,"Short path from above but nothing distinct at the centre at t. A white particle appears at the right edge later, not at the track."
+s172,43276,43276,codec_artifact,unsure,adjudicator,True,Track on a foil crease near the bottom border among many noise detections. Nothing distinct at the centre in any frame; the white particle at t+1 and t+2 is off to the right.
+s173,5156,5156,moving_non_ember,unsure,A,False,Track on the edge of a person's dark jacket against a grey background. Pink embers pass to the right but not at the track.
+s173,5156,5156,moving_non_ember,unsure,B,False,Static spot on the edge of a person's dark jacket against a grey wall. Nothing glowing.
+s174,72565,72565,reflection,sure,A,False,Static bright foil ridges in the pan; the track jitters in place.
+s174,72565,72565,reflection,unsure,B,False,"Track sits still on crumpled foil among many foil glints. A thin horizontal white line appears at the centre row for three frames, possibly compression."
+s175,72158,72158,ember,sure,A,False,Bright white particle moving steadily upward along a ledge and lengthening into a streak.
+s175,72158,72158,ember,sure,B,False,Bright white particle moves steadily upward across the crop and becomes a streak at t+2.
+s176,41452,41452,reflection,sure,A,False,Static light foil ridge in the pan; no motion.
+s176,41452,41452,reflection,sure,B,False,"Static spot on foil ridges, no change across frames."
+s177,27028,27028,faint_possible_ember,unsure,A,False,Faint pinkish vertical smear moving down through the centre over foil. Could be a faint ember or a reflection of one.
+s177,27028,27028,reflection,unsure,B,False,Track jitters on a small static glint on corrugated foil. A faint pink smear passes below but the track stays on the glint.
+s177,27028,27028,faint_possible_ember,unsure,adjudicator,True,"A faint pink vertical smear moves down through the centre at t-2 and t-1 and the track follows it, but at t the circle is back on a foil crease near a static glint. Could be a dim ember."
+s178,55929,55929,faint_possible_ember,unsure,A,False,"Track comes in fast from above. At t only a faint pink tint is at the centre, and a diffuse pink glow follows above. Possibly an out-of-focus ember."
+s178,55929,55929,unclear,unsure,B,False,"Vertical path from above but nothing visible at the centre at t. A reddish blur appears at the top later, not at the track."
+s178,55929,55929,faint_possible_ember,unsure,adjudicator,True,"Track comes straight down from above. At t only a faint pink tint covers the crop and a large diffuse pink glow follows above at t+1, likely an out of focus ember near the camera."
+s179,44847,44847,reflection,unsure,A,False,"Track on the edge of a large saturated white glare patch on the pan surface; static, shape shimmers."
+s179,44847,44847,reflection,unsure,B,False,"Track sits on the edge of a large saturated white patch in a pan, likely lamp glare on water or foil. Could also be glare bloom."
+s180,55573,55573,faint_possible_ember,unsure,A,False,Fast downward path. At t a faint light vertical band crosses the centre; may be a faint falling ember.
+s180,55573,55573,faint_possible_ember,unsure,B,False,Vertical path from above. With contrast stretch a faint light vertical streak shows at the centre at t only.
+s181,51187,51187,ember,sure,A,False,"Broad pink streak falls from the top of the frame through the centre at t, matching the vertical track path."
+s181,51187,51187,ember,sure,B,False,"Faint pink streak passes through the centre at t, moving down along the vertical path over foil."
+s182,94,94,ember,unsure,A,False,"Dense ember shower. At t a large pink streak covers the centre. On other frames the track sits near a slow-drifting small white dot, so the links may be mixed."
+s182,94,94,ember,unsure,B,False,"Track mostly follows a small white dot drifting slowly down and left on a dark background, likely a slow ember. At t the position jumps onto a passing pink streak."
+s183,15364,15364,codec_artifact,unsure,A,False,"Diagonal path, but no object is visible at the centre in any frame, only the wall and a blue pipe edge."
+s183,15364,15364,unclear,unsure,B,False,"Track moves along a diagonal path but the crops show only the smooth edge of a blue pipe, nothing bright even with contrast stretch."
+s183,15364,15364,codec_artifact,unsure,adjudicator,True,"Diagonal path near the top border, but the crops show only the wall and the smooth edge of a blue pipe, nothing bright even after high pass filtering."
+s184,6950,6950,reflection,unsure,A,False,"Bright white glint on foil that flares for three frames and fades, while a pink ember lands nearby."
+s184,6950,6950,reflection,unsure,B,False,White highlight flickers in place on the foil surface for two frames then fades. Track does not move.
+s185,59969,59969,codec_artifact,unsure,A,False,Diagonal path ends on a grey upright bar where nothing bright is visible. The pink ember in the crop moves away down-left.
+s185,59969,59969,unclear,unsure,B,False,Path comes in from upper left but at t the circle sits on a dark area beside a grey post with nothing bright. Real pink embers pass to the left.
+s185,59969,59969,codec_artifact,unsure,adjudicator,True,"Path comes in from the upper left, but at t the circle sits on a dark area beside a grey post with nothing bright. The pink embers move down and left, away from the track."
+s186,60362,60362,ember,sure,A,False,Broad pink streak falls through the centre at t along the vertical track path.
+s186,60362,60362,ember,sure,B,False,Pink motion blurred streak crosses the centre at t and continues down along the vertical path.
+s187,55313,55313,reflection,unsure,A,False,Small static white highlight on a metal fitting on equipment; does not move.
+s187,55313,55313,fixture_light,unsure,B,False,Static small light highlight on background equipment. No motion and no glow.
+s187,55313,55313,reflection,unsure,adjudicator,True,Small static white highlight on a metal fitting of background equipment. No motion and no glow.
+s188,66714,66714,reflection,sure,A,False,Static highlight on a foil ridge in the pan; pink embers pass elsewhere.
+s188,66714,66714,reflection,sure,B,False,Static glint on crumpled foil in a pan. The pink embers nearby pass by but the track stays on the foil.
+s189,59935,59935,codec_artifact,unsure,A,False,Track jitters by the edge of a dark foreground silhouette against grey smoke. At most a tiny speck at t.
+s189,59935,59935,codec_artifact,unsure,B,False,"Track sits still on the edge of a dark silhouette against grey smoke. Nothing glowing at the position, only faint speckle at the edge."
+s190,59687,59687,ember,unsure,A,False,"Pink streak sits under the circle at t and the track runs along a long, straight diagonal path. Several streaks pass through this area, so the track may jump between embers."
+s190,59687,59687,ember,sure,B,False,"Pink streak moves down through the centre at t, with a consistent path from above."
+s191,65824,65824,reflection,sure,A,False,"Static white glint on a grey rounded object, likely a helmet. It does not move across the five frames."
+s191,65824,65824,reflection,sure,B,False,Static highlight on a hard hat that does not move.
+s192,11499,11499,reflection,sure,A,False,Glint on crinkled foil in a pan. Nothing glowing moves through the centre.
+s192,11499,11499,reflection,sure,B,False,Static glint on foil in a pan.
+s193,59899,59899,moving_non_ember,unsure,A,False,"Pale patch at the edge of a person's dark clothing. Nothing glows at the centre, and the pink embers pass off to the right."
+s193,59899,59899,moving_non_ember,unsure,B,False,"Edge of a person's dark clothing against the gray background. Pink embers pass to the right of the track, not through it."
+s194,6375,6375,faint_possible_ember,unsure,A,False,"Track moves steadily up and to the left toward the top border of the frame, but nothing bright shows at its position in the crops."
+s194,6375,6375,codec_artifact,unsure,B,False,"Dark band near the top edge. Nothing shows at the track in any frame, even with a contrast stretch, and the embers are elsewhere."
+s194,6375,6375,codec_artifact,unsure,adjudicator,True,"Track moves up and left to the top image border, but nothing shows at its position in any frame, even with contrast stretch. The visible embers are elsewhere."
+s195,63672,63672,reflection,sure,A,False,"Glint at the edge of bright foil in a pan, with only small jitter."
+s195,63672,63672,reflection,unsure,B,False,Track jitters at the edge of saturated white glare on foil. It could also be a glare edge.
+s196,56325,56325,ember,sure,A,False,Clear pink streak falls along the path and is under the circle at t.
+s196,56325,56325,ember,sure,B,False,"Pink streak falls through a dark area to the centre at t, with a long straight path."
+s197,10367,10367,ember,sure,A,False,Pink streak comes down along the path and reaches the centre at t.
+s197,10367,10367,ember,sure,B,False,"Pink streak comes down to the centre at t near the bottom edge of the image, with a consistent path."
+s198,43278,43278,ember,sure,A,False,Bright pink streak crosses the centre at t along the path.
+s198,43278,43278,ember,sure,B,False,"Bright pink streak through the centre at t, with a long straight path from above."
+s199,70839,70839,reflection,unsure,A,False,Small pale blobs near the foil pan and steel frame that flicker more than they travel. They look like reflections.
+s199,70839,70839,reflection,unsure,B,False,"Small white spot jitters next to crumpled foil under strong glare, with little steady motion."
+s200,48866,48866,ember,unsure,A,False,"White and pink small blobs drift down against a dark background, and the circle at t is on one of them."
+s200,48866,48866,ember,sure,B,False,A bright white blob that turns pink moves from right to left and downward across a dark object.
+s201,21279,21279,ember,unsure,A,False,Thin white streak near the top border at t. Its orientation matches the track's steady motion up and to the left.
+s201,21279,21279,ember,unsure,B,False,"Faint white streak at the top edge of the frame at t, after earlier streaks moving upward. It then leaves the frame."
+s202,911,911,ember,sure,A,False,"Bright pink streak falls through the centre at t, following the path."
+s202,911,911,ember,sure,B,False,"Long pink streak through the centre at t, with a long straight path from the upper right."
+s203,2803,2803,ember,sure,A,False,Pink streak is at the centre at t.
+s203,2803,2803,ember,sure,B,False,"Pink streak passes straight down through the centre at t, with a consistent path."
+s204,60882,60882,ember,sure,A,False,"Small pink streak is under the circle at t, with steady motion along the path among many embers."
+s204,60882,60882,faint_possible_ember,unsure,B,False,"Path runs up through a column of falling pink embers to the beam. At t the circle is at the beam edge with only a dim red tint, so the tracker has probably joined different embers."
+s204,60882,60882,ember,unsure,adjudicator,True,"Track climbs through a dense column of falling pink embers and picks up a different ember each frame. At t the circle catches the red fringe of a pink ember at the beam edge, so its detections are real embers but the identity hops."
+s205,2614,2614,ember,sure,A,False,White streak moves steadily up and to the right across the frames.
+s205,2614,2614,ember,sure,B,False,White streak moves steadily across the crop and is at the centre at t.
+s206,32962,32962,reflection,unsure,A,False,"Static spot on the foil in a pan, with a short path. Nothing glowing is at the centre."
+s206,32962,32962,reflection,unsure,B,False,Glint on the foil surface of a pan with a static track. No moving bright object at the centre.
+s207,56326,56326,reflection,unsure,A,False,"Static light ridge on foil or metal. The pink ember passes to the left of the track, not through it."
+s207,56326,56326,reflection,unsure,B,False,"Light highlight on a metal pan. The track is static with a short path, and a pink ember passes to the side at t."
+s208,62692,62692,ember,sure,A,False,"Bright pink streak is at the centre at t, coming down along the path."
+s208,62692,62692,ember,sure,B,False,Large pink streak falls straight down through the track position at t. The path is a long straight line.
+s209,28844,28844,moving_non_ember,unsure,A,False,Sits still on the edge of a person's dark leg against a grey wall. Nothing glows there.
+s209,28844,28844,moving_non_ember,unsure,B,False,Edge of a person's dark trousers against a light background. Static and not glowing.
+s210,14334,14334,reflection,unsure,A,False,Static spot at the edge of the bright white foil in a pan. A pink ember passes nearby but is not the tracked spot.
+s210,14334,14334,reflection,unsure,B,False,"Track stays on the edge of a static white glare on foil. A pink ember passes to the left, but the track does not follow it."
+s211,7971,7971,reflection,sure,A,False,"Static glint on foil in a pan, with only small jitter."
+s211,7971,7971,reflection,sure,B,False,Glint on foil in a pan that jitters in place.
+s212,57959,57959,moving_non_ember,unsure,A,False,"Follows the leading edge of a dark moving object, probably a gloved hand or equipment. The white dot nearby is a separate detection."
+s212,57959,57959,ember,sure,B,False,Small bright white spot moves steadily from right to left across a dark object over t-2 to t.
+s212,57959,57959,moving_non_ember,unsure,adjudicator,True,"At t the circle is on the static junction of a person's grey helmet and a dark object, with nothing glowing. The small white spot nearby is a separate detection about 20 px away; earlier the track touched a passing pink streak."
+s213,57517,57517,fixture_light,unsure,A,False,Sits still on the lower edge of a static red container. It is not glowing and not moving.
+s213,57517,57517,fixture_light,unsure,B,False,"Static bottom edge of a red cylinder, probably an extinguisher. It does not glow or move."
+s214,11098,11098,codec_artifact,unsure,A,False,Nothing bright at the centre on the grey wall at t. White streaks pass only at t+1.
+s214,11098,11098,codec_artifact,unsure,B,False,"Static dark mark on a gray wall above a beam. An ember streak crosses only at t+1, away from the track."
+s215,12533,12533,codec_artifact,unsure,A,False,"Dark, nearly featureless region with no visible bright object. The track sits in place."
+s215,12533,12533,codec_artifact,unsure,B,False,Faint dim smudge on a dark vertical post. It does not move and nothing glows.
+s216,43534,43534,reflection,unsure,A,False,Faint static light spot on the foil and pan surface.
+s216,43534,43534,reflection,unsure,B,False,"Faint static bluish spot on dark metal, probably a small glint."
+s217,35268,35268,reflection,sure,A,False,"Edge of a bright white foil highlight in a pan, with small jitter."
+s217,35268,35268,reflection,unsure,B,False,Track jitters at the edge of saturated white glare on crumpled foil. It could also be a glare edge.
+s218,63929,63929,ember,sure,A,False,Pink streak comes down the long path and is under the circle at t.
+s218,63929,63929,ember,sure,B,False,Track follows a large pink streak falling from the upper right. At t the crop is filled by the near ember.
+s219,26560,26560,reflection,unsure,A,False,Static small white glint on a person's dark blue shirt.
+s219,26560,26560,moving_non_ember,unsure,B,False,"Small pale spot on a person's blue shirt, probably a button. It stays still in every frame."
+s219,26560,26560,reflection,unsure,adjudicator,True,"Small static pale spot on a person's dark blue shirt, likely a button catching lamp light. Identical in every frame."
+s220,49320,49320,unclear,unsure,A,False,"Short hooked path in a dense area of falling white streaks. It does not clearly stay on one ember, so it may be a fragment or an association hop."
+s220,49320,49320,ember,unsure,B,False,"At t the track is on the lower end of a white streak. Several streaks pass through and the track jitters in place, so it may be catching different embers in turn."
+s220,49320,49320,ember,unsure,adjudicator,True,"At t the circle is on the lower end of a white falling streak, and at t-1 on another streak. The track stays nearly in place in a dense stream, so it catches different embers in turn, but each detection is a real ember."
+s221,44269,44269,codec_artifact,unsure,A,False,Static spot on a grey wall ledge with nothing bright visible.
+s221,44269,44269,codec_artifact,unsure,B,False,"Static gray wall area with a dark slot. Nothing bright at the track, and the embers pass elsewhere."
+s222,19712,19712,reflection,unsure,A,False,Faint static grey smudge on a dark panel or screen beside indicator lamps.
+s222,19712,19712,reflection,unsure,B,False,Faint static gray smudge on a dark screen or glass panel. No motion.
+s223,65568,65568,reflection,unsure,A,False,Static spot on the edge of a white hard hat in front of the control panel.
+s223,65568,65568,moving_non_ember,unsure,B,False,Track sits still on the top edge of a white hard hat worn by a person. No ember.
+s223,65568,65568,reflection,unsure,adjudicator,True,"Track sits still on the overexposed top edge of a white hard hat against the control panel for all five frames. Nothing moves and nothing glows, so it is lamp light off a bright surface, not a moving object."
+s224,55029,55029,codec_artifact,unsure,A,False,Track jumps in and then sits still on a smoky grey area where nothing is visible.
+s224,55029,55029,codec_artifact,unsure,B,False,"Plain gray floor with no visible bright object in any frame, even after a contrast stretch."
+s225,16546,16546,reflection,unsure,A,False,Jitters in place on crinkled foil among many detections. A faint pink ember passes nearby only at t-1.
+s225,16546,16546,reflection,unsure,B,False,"Track jitters on a foil glint in a pan. A pink streak crosses nearby at t-1, but the track stays on the foil."
+s226,53483,53483,codec_artifact,unsure,A,False,Static spot on a dark object clamped to the steel frame. Nothing glows there.
+s226,53483,53483,codec_artifact,unsure,B,False,Static dark bracket on the steel frame. Nothing bright or moving at the track position.
+s227,20445,20445,moving_non_ember,sure,A,False,On a person's hand holding a dark object. It is not glowing.
+s227,20445,20445,moving_non_ember,unsure,B,False,Track sits on a dark tool held in a person's hand. Nothing glows and it barely moves.
+s228,20378,20378,ember,sure,A,False,"Pink glowing streak enters from the top at t-1 and is on the circle at t, moving down along the green path over the water pan."
+s228,20378,20378,ember,unsure,B,False,"Diffuse pink blob moves down into centre over t-2 to t, matching the path; looks like an out of focus ember."
+s229,18748,18748,reflection,unsure,A,False,"Circle sits on crinkled bright foil; nothing moves in the crops, and the path jumps in from a bright white region above."
+s229,18748,18748,reflection,unsure,B,False,Bright foil or metal highlights below a large white glare region; nothing pink or moving like an ember at centre.
+s230,14156,14156,reflection,sure,A,False,Static highlight on the edge of the steel frame or pan; identical in all five frames.
+s230,14156,14156,reflection,sure,B,False,Static white highlight on a dark metal edge; no motion across frames.
+s231,52377,52377,ember,sure,A,False,"Bright pink-white streak crosses the centre at t and moves down-left by t+1, consistent with the long path from above."
+s231,52377,52377,ember,sure,B,False,"Pink-white streak at centre at t, coming down from above and continuing lower left at t+1."
+s232,65480,65480,duplicate_fragment,unsure,A,False,"At t-2 the track is on the top end of a falling pink-white streak, then it trails behind on dark background. At t the centre is empty while the ember has moved on."
+s232,65480,65480,faint_possible_ember,unsure,B,False,Track starts at the top of a white streak at t-2 but at t sits on dark background with nothing clear; may be a dim trailing ember.
+s232,65480,65480,duplicate_fragment,unsure,adjudicator,True,"At t-2 the track is on the top end of a falling pink-white streak, then steps down much slower than the ember. At t the centre is dark and empty while the ember has moved lower under another detection."
+s233,50448,50448,moving_non_ember,sure,A,False,Circle is on the fingertips of a person's hanging hand; no glowing particle.
+s233,50448,50448,moving_non_ember,sure,B,False,Track sits on a person's hand and fingers; no glowing particle.
+s234,71778,71778,reflection,sure,A,False,Static spot on bright crinkled foil in the pan; the embers in the scene pass elsewhere.
+s234,71778,71778,reflection,sure,B,False,Static bright crinkled foil; nothing glowing at centre.
+s235,22323,22323,ember,sure,A,False,Pink glowing particle falls through the centre from t-1 to t+1.
+s235,22323,22323,ember,sure,B,False,Bright pink streak falls straight down through centre from t-1 to t+1.
+s236,37316,37316,faint_possible_ember,unsure,A,False,"Track moves left along a horizontal bar; at t there is only a tiny faint mark on the bar edge, with no clear glowing particle."
+s236,37316,37316,faint_possible_ember,unsure,B,False,"Tiny faint light fleck on a rail at centre, path moves leftward; too faint to confirm."
+s237,35258,35258,reflection,unsure,A,False,From t-2 to t the circle stays on a dim grey spot on the steel edge. A pink ember streak only passes through at t+1 and t+2.
+s237,35258,35258,reflection,unsure,B,False,Track sits still on a faint pale spot on the metal frame edge from t-2 to t; an ember passes through only at t+1.
+s238,45367,45367,ember,sure,A,False,"Pink-white streak crosses the centre at t, moving down-left between t-1 and t+1."
+s238,45367,45367,ember,sure,B,False,Pinkish white diagonal streak moves from upper right to lower left through centre.
+s239,47788,47788,ember,sure,A,False,Compact bright white particle moves steadily across the dark band from t-1 to t+1.
+s239,47788,47788,ember,sure,B,False,Bright white streak moves left to right through centre over t-1 to t+1 on a dark background.
+s240,7017,7017,ember,sure,A,False,"Pink streak passes through the centre at t during a dense shower, moving down-left."
+s240,7017,7017,ember,sure,B,False,Pink streak moves from top through centre to bottom across t-1 to t+1.
+s241,18098,18098,ember,sure,A,False,"Large pink streak fills the centre at t, consistent with the long downward path."
+s241,18098,18098,ember,sure,B,False,"Long pink streak crosses centre at t, path comes from above."
+s242,489,489,codec_artifact,unsure,A,False,"A pink ember falls past at t-2 and t-1, but the track stays where it was. At t the crop centre is plain grey floor next to a boot."
+s242,489,489,codec_artifact,unsure,B,False,"A pink ember passes at t-2 and t-1, but at t the track sits on empty floor beside a boot with only a faint trail; track jitters in place."
+s243,10053,10053,reflection,unsure,A,False,"Static spot at the edge of a bright white foil box on a metal plate; nothing moves, and the path jumps in from far below."
+s243,10053,10053,fixture_light,unsure,B,False,"Edge of a static white object on a grey panel at t; long path looks mislinked, no ember at centre."
+s243,10053,10053,reflection,unsure,adjudicator,True,"Static spot on the right edge of a bright white box, possibly foil, on a grey metal plate. Nothing moves across the frames and the long path from below looks mislinked."
+s244,51115,51115,reflection,sure,A,False,Static bright spot on crinkled foil; the frames are identical.
+s244,51115,51115,reflection,sure,B,False,Bright foil highlights on a pan; track barely moves and nothing glows.
+s245,20998,20998,moving_non_ember,sure,A,False,Circle is on the chin and neck of a person in a hard hat; no glowing object.
+s245,20998,20998,moving_non_ember,sure,B,False,"Track on the face of a person in a hard hat; static, no glow."
+s246,61690,61690,ember,sure,A,False,Pink glowing particle falls through the centre over the foil pan from t-1 to t+1.
+s246,61690,61690,ember,sure,B,False,"Pink streak moves down through centre across the foil pan, matching the path from above."
+s247,35974,35974,reflection,sure,A,False,Static spot on bright crinkled foil with a short jittery path; the ember streaks pass to the side.
+s247,35974,35974,reflection,sure,B,False,Crinkled foil surface with white highlights; nothing glowing at the track position. A pink ember passes nearby but is not tracked.
+s248,55122,55122,ember,sure,A,False,"Pink-white particle on a dark background at the centre at t, moving down with other falling embers."
+s248,55122,55122,ember,sure,B,False,"Pink ember streak moving down through centre against a dark background, consistent with the short vertical path."
+s249,17996,17996,moving_non_ember,sure,A,False,"Circle is on a person's chin under a hard hat; static, no glowing object."
+s249,17996,17996,moving_non_ember,sure,B,False,Track sits on the chin of a person in a hard hat; no ember.
+s250,21781,21781,faint_possible_ember,unsure,A,False,"Faint pinkish smear with a small white spot near the centre from t-2 to t, gone by t+1, at the bottom edge of the frame over a metal plate."
+s250,21781,21781,faint_possible_ember,unsure,B,False,"Faint pink-white smear near the bottom edge of the frame for a few frames, then gone; weak signal."
+s251,50408,50408,ember,sure,A,False,"Compact bright white particle near the centre at t-1 and t, drifting slowly right, against a dark panel in a dense shower."
+s251,50408,50408,ember,unsure,B,False,"Compact bright white blob at centre for t-1 to t+1 on a dark panel amid an ember shower; moves only slightly, possibly a slow or tumbling ember."
+s252,46856,46856,faint_possible_ember,unsure,A,False,"Track moves down-left to the edge of a dark object; at t there is only a faint whitish smear near the centre, with faint pink nearby at t+1."
+s252,46856,46856,faint_possible_ember,unsure,B,False,At t the centre is on dark clothing with only a faint light fleck; faint pink appears at centre right at t+1; possibly a dim ember edge.
+s253,31802,31802,reflection,sure,A,False,Small static highlight on the edge of a steel bar; the same in all frames.
+s253,31802,31802,reflection,sure,B,False,Static small white highlight on a metal pan edge; no motion.
+s254,57630,57630,faint_possible_ember,unsure,A,False,A small yellow-white blob creeps slowly down along a tan stick or pole in a dark opening while bright streaks pass nearby. It could be a slow ember or a highlight.
+s254,57630,57630,faint_possible_ember,unsure,B,False,Small pale blob drifting slowly down along a brown stick amid many passing embers; not clearly glowing.
+s255,15486,15486,moving_non_ember,unsure,A,False,Circle is on the edge of a person's head near a skin highlight; static. It could also be counted as a reflection.
+s255,15486,15486,reflection,sure,B,False,"Specular highlight on a person's bald head; static, track sits at the head edge."
+s255,15486,15486,reflection,unsure,adjudicator,True,"Static. Track sits on the lit edge of a bald head just below a specular skin highlight, which has its own detection. The person does not move in the window."
+s256,25432,25432,reflection,unsure,A,False,Small static white spot on a dark surface that fades over t+1 and t+2. It does not move; it could be a glint or a resting particle.
+s256,25432,25432,reflection,unsure,B,False,Small static white glint on a dark object beside a large bright patch; does not move across frames.
+s257,67623,67623,duplicate_fragment,unsure,A,False,"Track follows the tail of a falling pink streak at t-2 and t-1. At t the centre is empty while the ember head is lower, under another detection."
+s257,67623,67623,ember,unsure,B,False,Track follows the upper end of a pink ember streak at t-2 and t-1; at t only a faint dark red trace remains at centre.
+s257,67623,67623,duplicate_fragment,unsure,adjudicator,True,"Track follows the upper tail of a falling pink streak at t-2 and t-1, and another detection sits on the lower part of the same streak. At t the centre holds only a faint dark red trace while the ember head is lower."
+s258,68337,68337,codec_artifact,unsure,A,False,Static spot on a dark steel beam with nothing bright visible at the centre.
+s258,68337,68337,codec_artifact,unsure,B,False,Dark steel beam with no bright feature at the track position; track stays still.
+s259,56891,56891,reflection,unsure,A,False,"Static spot on the grey edge of the metal frame, with nothing bright at the centre. The path jumps in from far above, and there is a pink glow off to the side."
+s259,56891,56891,reflection,unsure,B,False,At t the circle is on lit grey metal with no glowing particle; long diagonal path looks mislinked over glints on the steel.
+s260,46479,46479,reflection,unsure,A,False,Static spot on the lower edge of an overexposed white sheet on a table; nothing moves.
+s260,46479,46479,fixture_light,unsure,B,False,Static edge of a bright white sheet or plate on a table; track does not move and nothing glows.
+s260,46479,46479,reflection,unsure,adjudicator,True,Static lower edge of an overexposed white sheet on a dark table. Nothing moves and nothing glows; it is bright lamp light off a surface.
+s261,66813,66813,moving_non_ember,unsure,A,False,Static spot on the boundary between a person's blue trousers and the pale floor; no glowing object.
+s261,66813,66813,moving_non_ember,unsure,B,False,Track sits on the edge of a person's dark blue trousers against the grey floor; no glowing particle.
+s262,63240,63240,codec_artifact,unsure,A,False,Static spot on a plain wall just above a blue electrical box; nothing bright or moving.
+s262,63240,63240,codec_artifact,unsure,B,False,"Blank pale wall above a static box, nothing visible at the track position; track sits still."
+s263,27288,27288,faint_possible_ember,unsure,A,False,"A pink blurry blob appears over the centre mainly at t, with faint pink at t-1 and t+1, while the track stays in place. It could be an ember passing out of focus."
+s263,27288,27288,faint_possible_ember,unsure,B,False,Diffuse pink blob appears at centre only at t on a dark area near the frame bottom; could be an out of focus ember passing close to the camera or a codec flash.
+s264,1904,1904,codec_artifact,unsure,A,False,"Static spot on a dark bracket on a pale wall; no bright object at the centre. A static white spot sits at the left edge, off target."
+s264,1904,1904,codec_artifact,unsure,B,False,"Static dark bracket on a pale wall, nothing bright or moving at the track position in any frame."
+s265,51075,51075,ember,sure,A,False,"Pink streak at the centre at t falls downward, consistent with the path from above, in a dense shower."
+s265,51075,51075,ember,sure,B,False,Pink vertical streak sits at centre at t and the path comes down from above; matches the many pink ember streaks in context.
+s266,32726,32726,codec_artifact,unsure,A,False,Track sits on a dull gray curved post at the ROI edge; no bright or moving object visible in any zoom frame.
+s266,32726,32726,codec_artifact,sure,B,False,Plain grey surface at the ROI edge with nothing visible at the centre.
+s267,68798,68798,ember,sure,A,False,"Bright white streak moves up and to the right consistently across frames -1 to +1, then leaves."
+s267,68798,68798,ember,sure,B,False,"White streak rises to the centre, shows as a compact bright spot at t, then streaks away, possibly after a bounce."
+s268,68263,68263,ember,sure,A,False,"Bright white elongated particle moves steadily up and left from -2 to 0, then exits the top of the ROI."
+s268,68263,68263,ember,sure,B,False,White elongated particle moves steadily up-left toward the top ROI edge.
+s269,6951,6951,ember,sure,A,False,Pink glowing streak falls down along the green path through the centre at t.
+s269,6951,6951,ember,sure,B,False,Pink ember streak falls from the top through the centre at t.
+s270,24955,24955,ember,sure,A,False,"Pink glowing blob moves steadily downward past the dark coat, consistent frame to frame."
+s270,24955,24955,ember,sure,B,False,Pink ember moves steadily down along the edge of the dark coat through the centre.
+s271,19596,19596,reflection,sure,A,False,Track jitters in place on bright crumpled foil in a pan; nothing moves.
+s271,19596,19596,reflection,sure,B,False,Static foil highlight in the water pan.
+s272,23842,23842,ember,sure,A,False,Long pink and white streak moves down and left through the centre across frames -1 to +1.
+s272,23842,23842,ember,sure,B,False,Bright pale-pink streak falls diagonally down-left through the centre.
+s273,24883,24883,ember,unsure,A,False,"White blob appears at t and drifts up and right over the next two frames on the steel structure; could be a landed or bouncing ember, possibly a glint."
+s273,24883,24883,ember,unsure,B,False,"A white blob appears at the centre at t and moves steadily up-right over t+1 and t+2, possibly an ember bouncing across the pan."
+s274,51963,51963,codec_artifact,sure,A,False,Flat blurry gray panel edge with no visible object; many scattered cyan detections nearby suggest compression noise.
+s274,51963,51963,codec_artifact,sure,B,False,Uniform grey wall and box edge with nothing visible at the centre. Many noise detections around.
+s275,14856,14856,reflection,sure,A,False,"Static gray-white highlight on a dark vertical pole, unchanged across all five frames."
+s275,14856,14856,reflection,unsure,B,False,Static pale elongated highlight on a vertical frame member in a dark area. It stays in place.
+s276,9427,9427,codec_artifact,unsure,A,False,Track path jumps in from upper right but zoom frames show only dark foil and steel texture with no bright moving object.
+s276,9427,9427,codec_artifact,unsure,B,False,The track jumps in from far away onto dark metal with only a faint grey spot at the centre and no motion. Possibly a weak glint.
+s277,14522,14522,ember,sure,A,False,"White vertical streak moves upward consistently from -2 to 0, then leaves the ROI."
+s277,14522,14522,ember,sure,B,False,Pale small streak rises consistently from the bottom to the centre near the top ROI edge.
+s278,13107,13107,reflection,sure,A,False,Small static highlight on a person's gray hood or helmet; moves only with the head.
+s278,13107,13107,reflection,unsure,B,False,"Small static white glint on the side of a person's head, possibly glasses or skin shine. Not an ember."
+s279,7813,7813,reflection,sure,A,False,Track sits on bright highlights of crumpled foil in a pan; no moving particle.
+s279,7813,7813,reflection,sure,B,False,Static highlight on foil in the pan. Nothing moves.
+s280,14898,14898,reflection,sure,A,False,"Static glint on crumpled foil in the pan, same spot across all frames."
+s280,14898,14898,reflection,sure,B,False,Static white highlight on foil.
+s281,6610,6610,reflection,sure,A,False,Track on bright foil highlight in a pan; nearly still; a separate pink ember passes later at +2.
+s281,6610,6610,reflection,sure,B,False,Bright foil surface in a water pan. The track jitters in place on the glare.
+s282,6939,6939,ember,sure,A,False,"Bright white elongated particle near the centre in every frame, moving among many falling embers."
+s282,6939,6939,ember,sure,B,False,"Compact white particle moves steadily downward through the centre, like the other pale embers around it."
+s283,11802,11802,ember,sure,A,False,Pink glowing streak moves downward through the centre at t and continues down at +1 and +2.
+s283,11802,11802,ember,sure,B,False,Red ember streak falls through the centre at t and continues down at t+1.
+s284,57045,57045,fixture_light,unsure,A,False,Track sits on a static round white bright spot on dark steel that stays in place while embers stream past; could be a bolt glint.
+s284,57045,57045,unclear,unsure,B,False,The track sits beside a static bright blob near the ROI edge while pale ember streaks pass through. Cannot tell which the track follows.
+s284,57045,57045,faint_possible_ember,unsure,adjudicator,True,"The track is not on the static round white blob, which has its own detection about 10 px up and left. At t the track sits on a small faint pale spot at the ROI edge, likely the cut-off tip of a passing ember streak. Its path runs up and right, against the ember flow, so it may be linking different fragments."
+s285,48312,48312,ember,sure,A,False,White and pink streak moves up through the centre from the bottom then out the top left.
+s285,48312,48312,ember,sure,B,False,Bright white-pink streak moves steadily up through the centre from bottom to top.
+s286,54813,54813,codec_artifact,unsure,A,False,Track on a blue steel post with no visible bright object at the centre in any frame.
+s286,54813,54813,codec_artifact,unsure,B,False,Nothing bright at the centre on the blue pole edge. The track jitters in place while embers pass elsewhere.
+s287,38785,38785,codec_artifact,sure,A,False,Flat featureless wall at the top edge of the ROI; nothing visible.
+s287,38785,38785,codec_artifact,sure,B,False,Plain beige wall at the top edge of the ROI with nothing visible. Only faint block tint changes.
+s288,34571,34571,moving_non_ember,sure,A,False,Track sits on the tip of the light background gap between a person's dark trouser legs.
+s288,34571,34571,moving_non_ember,sure,B,False,Static pale gap between a person's dark trouser legs. Nothing glowing.
+s289,2904,2904,ember,sure,A,False,Long white and pink streak moves down and left consistently across frames -1 to +1.
+s289,2904,2904,ember,sure,B,False,Bright white-pink streak moves diagonally down-left through the centre at t.
+s290,36308,36308,reflection,sure,A,False,Static bright foil highlight in a pan; pink embers pass elsewhere but not at the track.
+s290,36308,36308,reflection,sure,B,False,Static white highlight on crumpled foil in a water pan.
+s291,18927,18927,ember,unsure,A,False,Path follows a pink ember falling through the centre at -1; at t only a faint pale remnant remains at the ROI bottom edge.
+s291,18927,18927,ember,unsure,B,False,"A red streak falls toward the centre over t-2 and t-1 and ends as a faint pale spot at t, probably the ember landing or fading."
+s292,9636,9636,moving_non_ember,sure,A,False,Track sits on a person's hand and wrist holding a small object.
+s292,9636,9636,moving_non_ember,sure,B,False,"A person's hand holding a small object. The circle sits on the knuckles, which stay put."
+s293,52897,52897,ember,sure,A,False,Large pink and red glowing streak moves straight down along the ROI right edge.
+s293,52897,52897,ember,sure,B,False,Red ember streak falls down the right edge of the ROI through the centre.
+s294,58220,58220,ember,sure,A,False,"Pink glowing particle comes down from the top and sits at the centre at t, continuing downward."
+s294,58220,58220,ember,sure,B,False,Pink ember streak falls from the upper right and crosses the metal bar at the centre at t.
+s295,8032,8032,ember,unsure,A,False,"Path follows a pink streak falling at -2 and -1; at t the crop centre is dark, so the hit at t may be a lagging trail."
+s295,8032,8032,ember,unsure,B,False,The track follows red ember streaks falling past a dark coat. The ember is barely visible at the centre at t itself.
+s296,11920,11920,faint_possible_ember,unsure,A,False,Faint grayish white streak moves up and right through the centre; not clearly glowing.
+s296,11920,11920,faint_possible_ember,unsure,B,False,A faint pale diagonal streak moves up through the centre over t-2 to t. It is consistent with the pale embers nearby but low contrast.
+s297,58955,58955,faint_possible_ember,unsure,A,False,"Faint pale vertical shape moves up through the centre on a gray panel; low contrast, could be smoke or a dim particle."
+s297,58955,58955,faint_possible_ember,unsure,B,False,"A faint pale vertical streak crosses the centre against the grey wall, and the path runs from the lower right. Too faint to confirm."
+s298,8348,8348,reflection,unsure,A,False,"Small white spot flickers in place on a foil pan at -1 and 0, then fades; no motion."
+s298,8348,8348,reflection,sure,B,False,Small white glint on the metal pan structure that flickers in place without moving.
+s299,36538,36538,ember,sure,A,False,Pink glowing streak falls down along the green path through the centre at t.
+s299,36538,36538,ember,sure,B,False,"Bright red streak falling diagonally through the centre at t, coming down from the top over t-1."

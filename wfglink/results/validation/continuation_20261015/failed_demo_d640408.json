@@ -1,0 +1,486 @@
+{
+  "at": "2026-10-15T20:05:01+08:00",
+  "git": {
+    "git_commit": "unknown",
+    "git_dirty": true
+  },
+  "seconds": 60.0,
+  "runs": {
+    "synthetic": {
+      "seconds": 59.8,
+      "frames": 1790,
+      "paints": 1791,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "synthetic",
+      "clip": "synthetic",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 8.1,
+        "cpc": 355,
+        "pnf": 0.9848505024679659,
+        "speed": 117.30163461501145,
+        "fps": 30.1565579033371,
+        "state": "synthetic",
+        "label": ""
+      },
+      "pipelines": {
+        "synthetic": {
+          "frames_in": 1790,
+          "frames_analysed": 1790,
+          "frames_duplicate": 0,
+          "tracks_finished": 1891,
+          "tracks_static": 2,
+          "proc_ms_median": 8.569291501771659,
+          "proc_ms_p95": 17.748666641273303
+        }
+      },
+      "playback": {
+        "decoded": 0,
+        "shown": 1791,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 121617.996,
+          "event": "synthetic",
+          "reason": "synthetic source"
+        }
+      ],
+      "states": {
+        "synthetic": 1789
+      },
+      "clips": {},
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 121617.903,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "fire": 1789
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 0,
+        "max_count": 0,
+        "speeds": 0,
+        "numbers": [],
+        "counts": {}
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ok": true,
+      "why": []
+    },
+    "playlist": {
+      "seconds": 60.0,
+      "frames": 1779,
+      "paints": 1778,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "playlist",
+      "clip": "C5_nist_emberometer",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 5.4,
+        "cpc": 55,
+        "pnf": 0.6048757827092628,
+        "speed": 179.4421226582597,
+        "fps": 29.989914615434873,
+        "state": "playing",
+        "label": "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)"
+      },
+      "pipelines": {
+        "C5_nist_emberometer": {
+          "frames_in": 321,
+          "frames_analysed": 321,
+          "frames_duplicate": 0,
+          "tracks_finished": 1541,
+          "tracks_static": 37,
+          "proc_ms_median": 13.527791496017016,
+          "proc_ms_p95": 19.81352225629962
+        },
+        "C6_nist_dragon": {
+          "frames_in": 165,
+          "frames_analysed": 133,
+          "frames_duplicate": 32,
+          "tracks_finished": 428,
+          "tracks_static": 69,
+          "proc_ms_median": 5.347084006643854,
+          "proc_ms_p95": 7.947683605016209
+        }
+      },
+      "playback": {
+        "decoded": 1785,
+        "shown": 1784,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 2,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 121678.063,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 121696.975,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 121702.512,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 121721.408,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 121726.945,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        }
+      ],
+      "states": {
+        "playing": 1778
+      },
+      "clips": {
+        "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 1448,
+        "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 330
+      },
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 121677.741,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "fire": 1778
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 0,
+        "max_count": 0,
+        "speeds": 0,
+        "numbers": [],
+        "counts": {}
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ok": true,
+      "why": []
+    },
+    "ember": {
+      "seconds": 60.0,
+      "frames": 1791,
+      "paints": 1794,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "synthetic",
+      "clip": null,
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": null,
+        "cpc": null,
+        "pnf": null,
+        "speed": 0.427109413705726,
+        "fps": 29.92145680976032,
+        "state": "synthetic",
+        "label": ""
+      },
+      "pipelines": {
+        "ember": {
+          "frames_in": 1791,
+          "frames_analysed": 1791
+        }
+      },
+      "playback": {
+        "decoded": 0,
+        "shown": 0,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 121737.708,
+          "event": "paused"
+        },
+        {
+          "t": 121737.753,
+          "event": "synthetic",
+          "reason": "synthetic source"
+        }
+      ],
+      "states": {
+        "synthetic": 1791
+      },
+      "clips": {},
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 121737.707,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "ember",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "ember": 1791
+      },
+      "camera_state": "ok",
+      "ember": {
+        "states": 1791,
+        "max_count": 4,
+        "speeds": 5220,
+        "numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "counts": {
+          "0": 8,
+          "1": 15,
+          "2": 69,
+          "3": 1673,
+          "4": 26
+        }
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ember_over_share": 0.0145,
+      "ok": false,
+      "why": [
+        "ember mode counted more embers than the scene's 3 phones in 1.5% of its frames (at most 1%; most at once 4)"
+      ]
+    },
+    "keys": {
+      "seconds": 60.0,
+      "frames": 1691,
+      "paints": 1743,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "playlist",
+      "clip": "C5_nist_emberometer",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 4.761904761904761,
+        "cpc": 40,
+        "pnf": 0.5568697682085275,
+        "speed": 189.970772356169,
+        "fps": 30.03336950164922,
+        "state": "playing",
+        "label": "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)"
+      },
+      "pipelines": {
+        "C5_nist_emberometer": {
+          "frames_in": 253,
+          "frames_analysed": 253,
+          "frames_duplicate": 0,
+          "tracks_finished": 1246,
+          "tracks_static": 29,
+          "proc_ms_median": 13.07370800350327,
+          "proc_ms_p95": 19.330132807954215
+        },
+        "C6_nist_dragon": {
+          "frames_in": 165,
+          "frames_analysed": 133,
+          "frames_duplicate": 32,
+          "tracks_finished": 428,
+          "tracks_static": 69,
+          "proc_ms_median": 5.242667000857182,
+          "proc_ms_p95": 15.3532667987747
+        },
+        "ember": {
+          "frames_in": 715,
+          "frames_analysed": 715
+        }
+      },
+      "playback": {
+        "decoded": 986,
+        "shown": 985,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 1,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 121797.771,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 121816.661,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 121818.663,
+          "event": "paused"
+        },
+        {
+          "t": 121845.668,
+          "event": "resumed"
+        },
+        {
+          "t": 121849.202,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        }
+      ],
+      "states": {
+        "playing": 976,
+        "synthetic": 715
+      },
+      "clips": {
+        "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 811,
+        "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 165
+      },
+      "pauses": 2,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 121797.717,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 2,
+      "mode_switches": 2,
+      "modes": {
+        "fire": 976,
+        "ember": 715
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 715,
+        "max_count": 3,
+        "speeds": 2019,
+        "numbers": [
+          1,
+          2,
+          3
+        ],
+        "counts": {
+          "0": 8,
+          "1": 14,
+          "2": 37,
+          "3": 656
+        }
+      },
+      "keys_pressed": [
+        {
+          "key": "A",
+          "at_s": 9.0,
+          "mode": "fire",
+          "raw": true,
+          "paused": false
+        },
+        {
+          "key": "A",
+          "at_s": 15.0,
+          "mode": "fire",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "M",
+          "at_s": 21.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "Space",
+          "at_s": 36.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": true
+        },
+        {
+          "key": "Space",
+          "at_s": 39.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "M",
+          "at_s": 48.0,
+          "mode": "fire",
+          "raw": false,
+          "paused": false
+        }
+      ],
+      "threads_start": 1,
+      "threads_end": 2,
+      "ember_over_share": 0.0,
+      "ok": true,
+      "why": []
+    }
+  },
+  "ember_scene_phones": 3,
+  "pass": false
+}

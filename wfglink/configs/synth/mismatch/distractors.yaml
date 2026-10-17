@@ -1,0 +1,8 @@
+# Mismatch variant: things that glow but are not embers (HELD OUT, never used for tuning).
+# Static street lights, a flame region, a passing headlight pair and short-lived sparks.
+scene:
+  lights: {count: 6}
+  flame: {enabled: true}
+  headlights: {enabled: true}
+sparks:
+  enabled: true

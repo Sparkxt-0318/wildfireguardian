@@ -1,0 +1,163 @@
+{
+  "baseline_track_sha256": "13bbadcd6e35426c75fd28b7e4f9eaf88b828f9919fe508e40beaa47328990db",
+  "source_sha256": {
+    "src/wfglink/ember/track.py": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
+    "src/wfglink/ember/pipeline.py": "b2620e944aa9090153406e8c981a3b6a0b3ac7cbade50a30736d77fd23ebbd0a",
+    "src/wfglink/io/camera.py": "84e87e40bdbed1e9de0ffde1f7ad7ab023e2b17a2bc7519c697fc601a469d3b8",
+    "src/wfglink/io/sources.py": "81a63c6988f73297b2269184bef194f1760ad57f5a25cc535909fc397f35e2ea"
+  },
+  "histories": {
+    "one_at_2m_3f1a3b99730b.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "5b886fd7cc6ebefd9a61a004cf99cebfc5b31f2a31e9ed421cdf5d737557b296",
+        "legacy_tracks_sha256": "67fa34ee23b4c8fed63fb9a5f73a6a48fe9a8e2ff10c2e54dafd26ce24f1615b"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "5b886fd7cc6ebefd9a61a004cf99cebfc5b31f2a31e9ed421cdf5d737557b296",
+        "legacy_tracks_sha256": "67fa34ee23b4c8fed63fb9a5f73a6a48fe9a8e2ff10c2e54dafd26ce24f1615b"
+      },
+      "exact_match": true
+    },
+    "two_at_2m_572835c97bac.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "0ff914820184c3ee37dcd8a201ed1ec99ad5b57f6ee2c4438988938c2062c717",
+        "legacy_tracks_sha256": "ab3db1354d58a396de43a6cd360cdb17904a8429e82133bb2bbf4b7098970f61"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "0ff914820184c3ee37dcd8a201ed1ec99ad5b57f6ee2c4438988938c2062c717",
+        "legacy_tracks_sha256": "ab3db1354d58a396de43a6cd360cdb17904a8429e82133bb2bbf4b7098970f61"
+      },
+      "exact_match": true
+    },
+    "three_mixed_6591b7c7a1fd.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "caea25c9990b0c6b0b91a77ce4b5ce59b5c1536239ec76e79f25b9f96b81d6e5",
+        "legacy_tracks_sha256": "1c8e61105d5b36a6b2a4eb20f89705cf7c06fd1998174ec4c846be1adbd32205"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "0085cc201a5405cea0edaa613cb9215c849bd2ed75b98aada2ad5208e74646c1",
+        "legacy_tracks_sha256": "c4624e258bf6be9a5d1c498e3e9680aa84dbe5b4f871484e49e8f90571b7b4e0"
+      },
+      "exact_match": false
+    },
+    "six_crowd_0dd731e67768.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "0fa4b5f023c81747056cb2cf2d50fb2088a014a85785afc40bd7e72f679efda7",
+        "legacy_tracks_sha256": "da508ba51145e2c8b033a337905c4963e47c47e9ae5108d5c9d4a042635226e1"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "0fa4b5f023c81747056cb2cf2d50fb2088a014a85785afc40bd7e72f679efda7",
+        "legacy_tracks_sha256": "da508ba51145e2c8b033a337905c4963e47c47e9ae5108d5c9d4a042635226e1"
+      },
+      "exact_match": true
+    },
+    "near_far_374e50bd15e0.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "42cf653efbf2455242020efd1d9f1b89e24451b4c9abc48ba8e0be2a9d5103da",
+        "legacy_tracks_sha256": "525940a17b094d54a5661d8790d8e392804fb252c1911ca51ad7229ac7013694"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "42cf653efbf2455242020efd1d9f1b89e24451b4c9abc48ba8e0be2a9d5103da",
+        "legacy_tracks_sha256": "525940a17b094d54a5661d8790d8e392804fb252c1911ca51ad7229ac7013694"
+      },
+      "exact_match": true
+    },
+    "fast_acd9e7945dfe.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "ea3c199c8f211fa9d1850a2d7c1f84ab312324a62ad5f0a0e7329db7cd2782f6",
+        "legacy_tracks_sha256": "7d66a31d35dee19090de730ca43eaf199cf2d4c9d737cec10bc6d9ed55b0da57"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "ea3c199c8f211fa9d1850a2d7c1f84ab312324a62ad5f0a0e7329db7cd2782f6",
+        "legacy_tracks_sha256": "7d66a31d35dee19090de730ca43eaf199cf2d4c9d737cec10bc6d9ed55b0da57"
+      },
+      "exact_match": true
+    },
+    "empty_room_39c7a1e84e80.mp4": {
+      "baseline": {
+        "frames": 600,
+        "history_sha256": "37375bdf0c7fe55e74fc183fe49237f414238b7c4798f8c551bb578887e067e4",
+        "legacy_tracks_sha256": "2bc7a036b5939810924051cf96279cceec9384ca014278a71bd527fcfc5ddd84"
+      },
+      "cadence": {
+        "frames": 600,
+        "history_sha256": "37375bdf0c7fe55e74fc183fe49237f414238b7c4798f8c551bb578887e067e4",
+        "legacy_tracks_sha256": "2bc7a036b5939810924051cf96279cceec9384ca014278a71bd527fcfc5ddd84"
+      },
+      "exact_match": true
+    },
+    "ruler_ab5417c9f333.mp4": {
+      "baseline": {
+        "frames": 135,
+        "history_sha256": "a9a4bafe097e2daf74fdfaa0e14b76fe8f1b8551889f6800672ba6020cadaec4",
+        "legacy_tracks_sha256": "c98bb4e6c6d9a35ce8fd2d7cc5eb6c43aff43cdef22058decd24d13e3ab62df7"
+      },
+      "cadence": {
+        "frames": 135,
+        "history_sha256": "a9a4bafe097e2daf74fdfaa0e14b76fe8f1b8551889f6800672ba6020cadaec4",
+        "legacy_tracks_sha256": "c98bb4e6c6d9a35ce8fd2d7cc5eb6c43aff43cdef22058decd24d13e3ab62df7"
+      },
+      "exact_match": true
+    }
+  },
+  "all_histories_and_legacy_tracks_exact": false,
+  "quality_speed_ruler_reports_exact": false,
+  "exact_speed_rows_match": true,
+  "exact_speed_summaries": {
+    "baseline": {
+      "2.0": {
+        "rows_sha256": "ce0ccd1ea33187b720d1b027ef00bcb7e54d7cc82678ce9c42b34188406e789d",
+        "n": 2600,
+        "median_abs_rel_err": 0.0324494935592945
+      },
+      "1.0": {
+        "rows_sha256": "bb8e7dfb8e7888fa307e2e6d706faed41faacaa3cf81406ba13afa00c8a22672",
+        "n": 878,
+        "median_abs_rel_err": 0.9572239553115514
+      },
+      "3.0": {
+        "rows_sha256": "a2f3aa3466b86a5678f514fe5c31d71c63554a165b72a599bcf439c4e5e69490",
+        "n": 429,
+        "median_abs_rel_err": 0.3555589456531502
+      }
+    },
+    "cadence": {
+      "2.0": {
+        "rows_sha256": "ce0ccd1ea33187b720d1b027ef00bcb7e54d7cc82678ce9c42b34188406e789d",
+        "n": 2600,
+        "median_abs_rel_err": 0.0324494935592945
+      },
+      "1.0": {
+        "rows_sha256": "bb8e7dfb8e7888fa307e2e6d706faed41faacaa3cf81406ba13afa00c8a22672",
+        "n": 878,
+        "median_abs_rel_err": 0.9572239553115514
+      },
+      "3.0": {
+        "rows_sha256": "a2f3aa3466b86a5678f514fe5c31d71c63554a165b72a599bcf439c4e5e69490",
+        "n": 429,
+        "median_abs_rel_err": 0.3555589456531502
+      }
+    }
+  },
+  "excluded_report_fields": [
+    "created",
+    "report_path",
+    "proc_ms_median",
+    "proc_ms_p95",
+    "git_dirty",
+    "git_commit",
+    "git_branch"
+  ]
+}

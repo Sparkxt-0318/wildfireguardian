@@ -1,0 +1,31 @@
+{
+  "commit": "cc5b6b163a5d64f3d5959bba0833102dd64e7a5f",
+  "passed": 728,
+  "failed": 0,
+  "skipped": 2,
+  "full_run": {
+    "command": "bash scripts/run_from_head.sh python -m pytest -q (TMPDIR inside the checkout)",
+    "passed": 726,
+    "failed": 2,
+    "skipped": 2,
+    "failed_tests": [
+      "tests/test_verify_eval.py::test_protocol_refusals",
+      "tests/test_verify_eval.py::test_git_clean_on_the_repository"
+    ]
+  },
+  "reruns": [
+    {
+      "command": "run_from_head with the system temporary folder: tests/test_verify_eval.py",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 1,
+      "skipped_test": "test_git_clean_on_the_repository (an export is not a git checkout)"
+    },
+    {
+      "command": "in the checkout: tests/test_verify_eval.py -k 'git_clean or protocol_refusals'",
+      "passed": 2,
+      "failed": 0
+    }
+  ],
+  "explanation": "The two failures of the full run are an artefact of where the code export was placed: TMPDIR pointed inside the checkout (results/runs/tmp, untracked), so git saw the export's configs as untracked files of the repository and the two git-state tests failed. With the export outside the checkout the protocol test passes, and the git-state test, which needs a real checkout, passes in the checkout itself. No code changed between the runs."
+}

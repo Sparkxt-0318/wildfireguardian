@@ -1,0 +1,63 @@
+{
+  "status": "LIFECYCLE_COMPONENT_PASS_FULL_SUITE_PENDING",
+  "scope": "Real Player and real LiveAnalyser/Pipeline on a fixed full-resolution immutable corpus; 5 warmup mode entries, 50 measured entries, 55 total, raw RSS delta <40 MiB. This is not whole evolving-fire working-set validation.",
+  "test_sha256": "687d3ada3f4d89e9753afc07284bf374e001c5015f19eaddb492651328622552",
+  "owned_file": "tests/test_booth_app.py",
+  "production_changes": false,
+  "phone_tracker_sha256": "54dbe435dd6a09d66fffb8a0dc92413705009dc01c1c45e4d2fc752e8a27435e",
+  "fixed_corpus_rule": "One existing configured noise.update_every period of full1280x720 generated frames, built beforemeasurement; timestamps/indicesadvance; ready+actualimageidentitycoverage afterbackgroundbootstrap, plusminimumbootstrap+corpusframecount.",
+  "passes": [
+    {
+      "rss_probes_mib": [
+        394.0,
+        403.53125
+      ],
+      "rss_delta_mib": 9.53125,
+      "fire_frames": 65,
+      "strictly_monotonic_t_index": true
+    },
+    {
+      "rss_probes_mib": [
+        409.265625,
+        424.265625
+      ],
+      "rss_delta_mib": 15.0,
+      "fire_frames": 65,
+      "strictly_monotonic_t_index": true
+    },
+    {
+      "rss_probes_mib": [
+        401.4375,
+        419.71875
+      ],
+      "rss_delta_mib": 18.28125,
+      "fire_frames": 65,
+      "strictly_monotonic_t_index": true
+    }
+  ],
+  "mutation": {
+    "retains_closed_camera_inner": true,
+    "expected_failure": true,
+    "caught_by": "explicit weakref lifetime assertion",
+    "report": "mode_switch_corpus_retained_mutation.json"
+  },
+  "preserved_failures_mib": {
+    "original_full_suite_delta": 68.734375,
+    "unchanged_isolated_delta": 128.78125,
+    "readiness_only_delta": 74.890625,
+    "first_refresh_delta": 46.921875,
+    "completed_read_boundary_delta": 62.765625
+  },
+  "exact_saved_fire_without_modes": {
+    "frames_metadata_sha256": "c434c535b44eed44abe73a15d109061e1d4dd136e8afc47df34eb22b31b11949",
+    "rss_delta_mib": 56.25,
+    "owned_array_growth_bytes": 11504,
+    "active_records_last": 650,
+    "report": "mode_switch_exact_fire.json"
+  },
+  "limits": [
+    "Original evolving-fire raw40MiB working-set claim remains unresolved; do not report the component fixture pass as solving it.",
+    "Saved input replay and object accounting locate substantial growth outside large reachable ndarray retention; native workspace/allocator attribution remains a diagnosis, not a formal library leak proof.",
+    "Long-lived live-fire Track.records are an independent potential scalar-history lifetime issue; not repaired or claimed solved here."
+  ]
+}

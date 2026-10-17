@@ -1,0 +1,46 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,78,63,0.5,1,s,"faint pale small vertical dash near a thin stem, stationary k0 to k3, then moves up about 10 px in k4"
+w000,1,78,63,0.5,1,s,same faint dash
+w000,2,79,61,0.5,1,s,"same faint dash, brighter"
+w000,3,79,61,0.5,1,s,same faint dash; k3 duplicates k2
+w000,4,81,52,0.5,1,s,dash has moved up; old position empty
+w000,5,81,51,0.5,1,s,"same dash; glowing stick, hook twig and trunk bark are static fuel, not labelled"
+w001,0,150.5,75.5,0.5,2,s,small bright dot present only in this frame
+w001,3,49,123,0.5,1,m,pale short streak in front of dark trunk
+w001,4,54,109,0.5,1,m,pale streak moved up-right
+w001,5,51,109,0.5,1,s,faint dimmer dot near previous position
+w002,,,,,,,none
+w003,,,,,,,none
+w004,2,160,178,0.5,1,l,"faint reddish long thin streak from about (131,182) to (191,173), only in k2; flame on trunk top right not labelled"
+w004,3,150,133,0.5,2,l,very faint thin near horizontal streak from about x 108 to 191 at y 132 to 134; possibly not an ember
+w004,4,150,133,0.5,2,l,same faint streak; k4 is an identical duplicate of k3
+w005,2,103.5,143,0.5,1,l,"faint long thin diagonal streak moving down-right, x 87 to 120"
+w005,3,136,164,0.5,1,l,"continuation of streak, x 120 to 151, brighter"
+w005,4,178.5,58.5,0.5,2,m,"faint thin diagonal streak, new; k4 and k5 are duplicate frames"
+w005,5,178.5,58.5,0.5,2,m,"same streak, duplicate of k4 frame"
+w006,0,176,2,0.5,1,m,"faint pale defocused blob cut by top edge, present only in k0; other bright blobs and the glowing point at (74,180) are static"
+w007,4,76,21,0.5,1,m,"pale yellow short streak appears right of dark trunk, absent k0-k3"
+w007,5,75,24,0.5,1,m,"same particle drifting down, elongated with two bright ends"
+w008,,,,,,,none
+w009,,,,,,,none
+w010,,,,,,,none
+w011,,,,,,,none
+w012,,,,,,,none
+w013,1,77,158,0.5,1,l,"long thin glowing streak low on a thin stem line, rises about 6 px per frame in later frames; may be a glow running up the stem"
+w013,2,84,141,0.5,1,l,"bright diagonal streak, moved up along the same line"
+w013,3,84,141,0.5,1,l,frame is a duplicate of k2
+w013,4,91,127,0.5,1,m,streak higher up and fading
+w013,5,94,119,0.5,1,m,faint streak still rising
+w014,,,,,,,none
+w015,,,,,,,none
+w016,,,,,,,none
+w017,,,,,,,none
+w018,,,,,,,none
+w019,,,,,,,none
+w020,,,,,,,none
+w021,0,171,64,0.5,1,s,"faint orange blob left of the right trunk, drifts right; could be glow flicker along a branch"
+w021,1,177,64,0.5,1,s,same blob moved right about 5 px
+w021,2,179,62,0.5,1,s,blob reaches the trunk edge
+w021,3,178,62,0.5,1,s,blob stalls at the trunk edge and is gone by k4
+w022,,,,,,,none
+w023,,,,,,,none

@@ -1,0 +1,21 @@
+{
+  "created": "2026-10-15T21:06:05+08:00",
+  "tested_commit": "4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53",
+  "gate_report": "demo_gate_report.json",
+  "gate_pass": true,
+  "visuals_inspected": [
+    "demo_gate_synthetic.png",
+    "demo_gate_playlist.png",
+    "demo_gate_ember.png",
+    "demo_gate_keys.png",
+    "layout_fixture_1080_fire_ko.png",
+    "layout_fixture_1080_ember_ko.png"
+  ],
+  "scope": "Four real headless gate captures plus separate 1080p layout fixtures from the complete committed test. Layout fixtures are injected states, not real-video accuracy checks. Gate ember capture lifts cap to six; production default remains three.",
+  "observations": [
+    "Generated-data and uncalibrated labels are visible.",
+    "Gate captures use a narrow square viewport with truncated long sidebar units; separate 1080p layout fixtures are legible. This is not a full responsive-layout certification.",
+    "Actual C5 captures retain visible false fixture/reflection detections and long suspect associations, consistent with the poor development precision already reported.",
+    "All gate runs pass without application errors; generated-phone excess-count share is zero in ember and keyboard runs. Physical-camera accuracy, whole-app memory and overnight soak remain unvalidated."
+  ]
+}
