@@ -1,0 +1,866 @@
+{
+ "schema_version": 1,
+ "created": "2026-10-17T14:40:54+08:00",
+ "tag": "development, agent labels, PROVISIONAL",
+ "recording": "C5_nist_emberometer (development)",
+ "run": "results/runs/precision_20261017/runs/C5_dump",
+ "labels": "results/labels/C5/labels_agent.csv",
+ "labels_sha256": "6efcae04e9f9048edf979c0fda7ec77b74d55b108d26d73def17d53fa56c97a8",
+ "score": "validate.labels.score_labels, unchanged settings (3 px, unsure labels don't care)",
+ "baseline_note": "legacy_raw_detections is the dump's raw detections, the same detector output as the Linux reproduction of the f9e72c2 baseline; the Mac record (FP 168) is kept separately (c5_baseline_discrepancy.json)",
+ "training_exclusion": "tracks within 16 px and 1 s of the 40 scored tiles were excluded from training",
+ "dataset_json_sha256": "ced4d8ed69847fb857844fc9ffe948641887e908c049a161d39094cb72f1c7bb",
+ "train_report_sha256": "a9fa234e8afc9dc21c66748a29900c716c08dbf18d25ab36ff98522c44df72c2",
+ "duplicate_models": [
+  {
+   "family": "temporal",
+   "seed": 1,
+   "same_as_seed": 0,
+   "sha256": "598948452984a1417de2d5e132d5ace83202cb9ca4b731ea8fe3767bf0a4b979",
+   "note": "byte-identical to an earlier seed's model: calibrated once"
+  }
+ ],
+ "replay_notes": [
+  "the run does not record its feature settings hash: that the config's verify ring_frames, max_dets_per_frame, motion, hotspot and patch are the run's was not checked"
+ ],
+ "supported_minutes": 0.3111166666666667,
+ "rows": [
+  {
+   "name": "legacy_raw_detections",
+   "family": "baseline",
+   "tp": 24,
+   "fp": 156,
+   "fn": 20,
+   "precision": 0.13333333333333333,
+   "recall": 0.5454545454545454,
+   "accepted_tracks": null
+  },
+  {
+   "name": "accept_all",
+   "family": "accept_all",
+   "seed": null,
+   "param": null,
+   "available": true,
+   "unavailable": null,
+   "tp": 22,
+   "fp": 53,
+   "fn": 22,
+   "precision": 0.29333333333333333,
+   "precision_ci": [
+    0.09086850649350657,
+    0.4605516194331982
+   ],
+   "recall": 0.5,
+   "recall_ci": [
+    0.3333333333333333,
+    0.5925925925925926
+   ],
+   "accepted_tracks": 12603,
+   "accepted_tracks_per_min": 40508.91948358065,
+   "crossings": 170,
+   "median_confirm_to_accept_s": 0.0
+  },
+  {
+   "name": "rules_q0",
+   "family": "rules",
+   "seed": null,
+   "param": 0.0,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 26,
+   "fn": 23,
+   "precision": 0.44680851063829785,
+   "precision_ci": [
+    0.172371740958789,
+    0.627923588039867
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 6099,
+   "accepted_tracks_per_min": 19603.57850752665,
+   "crossings": 131,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.005",
+   "family": "rules",
+   "seed": null,
+   "param": 0.005,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 24,
+   "fn": 23,
+   "precision": 0.4666666666666667,
+   "precision_ci": [
+    0.18181818181818182,
+    0.639344262295082
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 5449,
+   "accepted_tracks_per_min": 17514.33010124819,
+   "crossings": 126,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.01",
+   "family": "rules",
+   "seed": null,
+   "param": 0.01,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 20,
+   "fn": 23,
+   "precision": 0.5121951219512195,
+   "precision_ci": [
+    0.21212121212121213,
+    0.6727458256029684
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 4234,
+   "accepted_tracks_per_min": 13609.042695666147,
+   "crossings": 110,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.025",
+   "family": "rules",
+   "seed": null,
+   "param": 0.025,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 18,
+   "fn": 23,
+   "precision": 0.5384615384615384,
+   "precision_ci": [
+    0.23071428571428582,
+    0.7037037037037037
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 3650,
+   "accepted_tracks_per_min": 11731.933358332886,
+   "crossings": 105,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.05",
+   "family": "rules",
+   "seed": null,
+   "param": 0.05,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 13,
+   "fn": 23,
+   "precision": 0.6176470588235294,
+   "precision_ci": [
+    0.3076086956521741,
+    0.7742137096774192
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 2590,
+   "accepted_tracks_per_min": 8324.85134194032,
+   "crossings": 85,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.1",
+   "family": "rules",
+   "seed": null,
+   "param": 0.1,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 11,
+   "fn": 23,
+   "precision": 0.65625,
+   "precision_ci": [
+    0.3684210526315789,
+    0.8095238095238095
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1079,
+   "accepted_tracks_per_min": 3468.152354422242,
+   "crossings": 57,
+   "median_confirm_to_accept_s": 0.03333333333333344
+  },
+  {
+   "name": "rules_q0.2",
+   "family": "rules",
+   "seed": null,
+   "param": 0.2,
+   "available": true,
+   "unavailable": null,
+   "tp": 19,
+   "fp": 7,
+   "fn": 25,
+   "precision": 0.7307692307692307,
+   "precision_ci": [
+    0.5332352941176473,
+    0.8235661764705879
+   ],
+   "recall": 0.4318181818181818,
+   "recall_ci": [
+    0.29163306451612914,
+    0.55
+   ],
+   "accepted_tracks": 785,
+   "accepted_tracks_per_min": 2523.1692291209083,
+   "crossings": 51,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "rules_q0.3",
+   "family": "rules",
+   "seed": null,
+   "param": 0.3,
+   "available": true,
+   "unavailable": null,
+   "tp": 7,
+   "fp": 3,
+   "fn": 37,
+   "precision": 0.7,
+   "precision_ci": [
+    0.6,
+    1.0
+   ],
+   "recall": 0.1590909090909091,
+   "recall_ci": [
+    0.0,
+    0.3181818181818182
+   ],
+   "accepted_tracks": 425,
+   "accepted_tracks_per_min": 1366.047034874377,
+   "crossings": 31,
+   "median_confirm_to_accept_s": 0.16666666666666674
+  },
+  {
+   "name": "patch_seed0_t0.5",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.5,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 14,
+   "fn": 23,
+   "precision": 0.6,
+   "precision_ci": [
+    0.3076923076923077,
+    0.772763929618768
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1786,
+   "accepted_tracks_per_min": 5740.611774789735,
+   "crossings": 79,
+   "median_confirm_to_accept_s": 0.03333333333333344
+  },
+  {
+   "name": "patch_seed0_t0.6",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.6,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 11,
+   "fn": 23,
+   "precision": 0.65625,
+   "precision_ci": [
+    0.3634740259740263,
+    0.8421463815789471
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1541,
+   "accepted_tracks_per_min": 4953.125837038624,
+   "crossings": 74,
+   "median_confirm_to_accept_s": 0.033333333333333326
+  },
+  {
+   "name": "patch_seed0_t0.7",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.7,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 9,
+   "fn": 23,
+   "precision": 0.7,
+   "precision_ci": [
+    0.4117647058823529,
+    0.9
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1351,
+   "accepted_tracks_per_min": 4342.422456741843,
+   "crossings": 72,
+   "median_confirm_to_accept_s": 0.033333333333333326
+  },
+  {
+   "name": "patch_seed0_t0.8",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.8,
+   "available": true,
+   "unavailable": null,
+   "tp": 19,
+   "fp": 8,
+   "fn": 25,
+   "precision": 0.7037037037037037,
+   "precision_ci": [
+    0.4666666666666667,
+    0.9
+   ],
+   "recall": 0.4318181818181818,
+   "recall_ci": [
+    0.29163306451612914,
+    0.55
+   ],
+   "accepted_tracks": 1140,
+   "accepted_tracks_per_min": 3664.220281780682,
+   "crossings": 61,
+   "median_confirm_to_accept_s": 0.033333333333333326
+  },
+  {
+   "name": "patch_seed0_t0.9",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.9,
+   "available": true,
+   "unavailable": null,
+   "tp": 15,
+   "fp": 6,
+   "fn": 29,
+   "precision": 0.7142857142857143,
+   "precision_ci": [
+    0.5,
+    1.0
+   ],
+   "recall": 0.3409090909090909,
+   "recall_ci": [
+    0.18516081871345033,
+    0.5357829670329667
+   ],
+   "accepted_tracks": 850,
+   "accepted_tracks_per_min": 2732.094069748754,
+   "crossings": 53,
+   "median_confirm_to_accept_s": 0.03333333333333344
+  },
+  {
+   "name": "patch_seed0_t0.95",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.95,
+   "available": true,
+   "unavailable": null,
+   "tp": 8,
+   "fp": 4,
+   "fn": 36,
+   "precision": 0.6666666666666666,
+   "precision_ci": [
+    0.45454545454545453,
+    1.0
+   ],
+   "recall": 0.18181818181818182,
+   "recall_ci": [
+    0.0625,
+    0.4090909090909091
+   ],
+   "accepted_tracks": 603,
+   "accepted_tracks_per_min": 1938.1796753629396,
+   "crossings": 44,
+   "median_confirm_to_accept_s": 0.06666666666666643
+  },
+  {
+   "name": "patch_seed0_t0.98",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.98,
+   "available": true,
+   "unavailable": null,
+   "tp": 5,
+   "fp": 3,
+   "fn": 39,
+   "precision": 0.625,
+   "precision_ci": [
+    0.25,
+    1.0
+   ],
+   "recall": 0.11363636363636363,
+   "recall_ci": [
+    0.0,
+    0.3125
+   ],
+   "accepted_tracks": 332,
+   "accepted_tracks_per_min": 1067.1238013606899,
+   "crossings": 29,
+   "median_confirm_to_accept_s": 0.1999999999999993
+  },
+  {
+   "name": "patch_seed0_t0.99",
+   "family": "patch",
+   "seed": 0,
+   "param": 0.99,
+   "available": true,
+   "unavailable": null,
+   "tp": 1,
+   "fp": 2,
+   "fn": 43,
+   "precision": 0.3333333333333333,
+   "precision_ci": [
+    0.0,
+    0.5
+   ],
+   "recall": 0.022727272727272728,
+   "recall_ci": [
+    0.0,
+    0.09527649769585232
+   ],
+   "accepted_tracks": 129,
+   "accepted_tracks_per_min": 414.63545293834034,
+   "crossings": 9,
+   "median_confirm_to_accept_s": 0.2666666666666675
+  },
+  {
+   "name": "patch_seed1_t0.5",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.5,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 13,
+   "fn": 23,
+   "precision": 0.6176470588235294,
+   "precision_ci": [
+    0.3333333333333333,
+    0.788486842105263
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1791,
+   "accepted_tracks_per_min": 5756.682916376492,
+   "crossings": 75,
+   "median_confirm_to_accept_s": 0.03333333333333344
+  },
+  {
+   "name": "patch_seed1_t0.6",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.6,
+   "available": true,
+   "unavailable": null,
+   "tp": 21,
+   "fp": 12,
+   "fn": 23,
+   "precision": 0.6363636363636364,
+   "precision_ci": [
+    0.35,
+    0.8076923076923077
+   ],
+   "recall": 0.4772727272727273,
+   "recall_ci": [
+    0.3181818181818182,
+    0.5652536231884056
+   ],
+   "accepted_tracks": 1541,
+   "accepted_tracks_per_min": 4953.125837038624,
+   "crossings": 72,
+   "median_confirm_to_accept_s": 0.03333333333333344
+  },
+  {
+   "name": "patch_seed1_t0.7",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.7,
+   "available": true,
+   "unavailable": null,
+   "tp": 20,
+   "fp": 9,
+   "fn": 24,
+   "precision": 0.6896551724137931,
+   "precision_ci": [
+    0.42857142857142855,
+    0.8636363636363636
+   ],
+   "recall": 0.45454545454545453,
+   "recall_ci": [
+    0.30434782608695654,
+    0.5588235294117647
+   ],
+   "accepted_tracks": 1321,
+   "accepted_tracks_per_min": 4245.995607221299,
+   "crossings": 68,
+   "median_confirm_to_accept_s": 0.033333333333333215
+  },
+  {
+   "name": "patch_seed1_t0.8",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.8,
+   "available": true,
+   "unavailable": null,
+   "tp": 18,
+   "fp": 8,
+   "fn": 26,
+   "precision": 0.6923076923076923,
+   "precision_ci": [
+    0.4666666666666667,
+    0.8888888888888888
+   ],
+   "recall": 0.4090909090909091,
+   "recall_ci": [
+    0.26666666666666666,
+    0.5454545454545454
+   ],
+   "accepted_tracks": 1116,
+   "accepted_tracks_per_min": 3587.0788021642466,
+   "crossings": 65,
+   "median_confirm_to_accept_s": 0.033333333333333326
+  },
+  {
+   "name": "patch_seed1_t0.9",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.9,
+   "available": true,
+   "unavailable": null,
+   "tp": 12,
+   "fp": 5,
+   "fn": 32,
+   "precision": 0.7058823529411765,
+   "precision_ci": [
+    0.4527777777777782,
+    1.0
+   ],
+   "recall": 0.2727272727272727,
+   "recall_ci": [
+    0.06666666666666667,
+    0.4772974308300394
+   ],
+   "accepted_tracks": 783,
+   "accepted_tracks_per_min": 2516.740772486205,
+   "crossings": 51,
+   "median_confirm_to_accept_s": 0.03333333333333366
+  },
+  {
+   "name": "patch_seed1_t0.95",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.95,
+   "available": true,
+   "unavailable": null,
+   "tp": 5,
+   "fp": 3,
+   "fn": 39,
+   "precision": 0.625,
+   "precision_ci": [
+    0.25,
+    1.0
+   ],
+   "recall": 0.11363636363636363,
+   "recall_ci": [
+    0.0,
+    0.3125
+   ],
+   "accepted_tracks": 543,
+   "accepted_tracks_per_min": 1745.3259763218512,
+   "crossings": 42,
+   "median_confirm_to_accept_s": 0.09999999999999964
+  },
+  {
+   "name": "patch_seed1_t0.98",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.98,
+   "available": true,
+   "unavailable": null,
+   "tp": 4,
+   "fp": 3,
+   "fn": 40,
+   "precision": 0.5714285714285714,
+   "precision_ci": [
+    0.25,
+    1.0
+   ],
+   "recall": 0.09090909090909091,
+   "recall_ci": [
+    0.0,
+    0.21742527173913023
+   ],
+   "accepted_tracks": 288,
+   "accepted_tracks_per_min": 925.6977553972249,
+   "crossings": 21,
+   "median_confirm_to_accept_s": 0.20000000000000007
+  },
+  {
+   "name": "patch_seed1_t0.99",
+   "family": "patch",
+   "seed": 1,
+   "param": 0.99,
+   "available": true,
+   "unavailable": null,
+   "tp": 1,
+   "fp": 2,
+   "fn": 43,
+   "precision": 0.3333333333333333,
+   "precision_ci": [
+    0.0,
+    0.5
+   ],
+   "recall": 0.022727272727272728,
+   "recall_ci": [
+    0.0,
+    0.09527649769585232
+   ],
+   "accepted_tracks": 115,
+   "accepted_tracks_per_min": 369.6362564954197,
+   "crossings": 5,
+   "median_confirm_to_accept_s": 0.2666666666666675
+  },
+  {
+   "name": "temporal_seed0_t0.5",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.5,
+   "available": true,
+   "unavailable": null,
+   "tp": 20,
+   "fp": 11,
+   "fn": 24,
+   "precision": 0.6451612903225806,
+   "precision_ci": [
+    0.3570378151260506,
+    0.8333333333333334
+   ],
+   "recall": 0.45454545454545453,
+   "recall_ci": [
+    0.3076923076923077,
+    0.557720588235294
+   ],
+   "accepted_tracks": 2261,
+   "accepted_tracks_per_min": 7267.370225531686,
+   "crossings": 112,
+   "median_confirm_to_accept_s": 0.13333333333333464
+  },
+  {
+   "name": "temporal_seed0_t0.6",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.6,
+   "available": true,
+   "unavailable": null,
+   "tp": 20,
+   "fp": 9,
+   "fn": 24,
+   "precision": 0.6896551724137931,
+   "precision_ci": [
+    0.375,
+    0.9259259259259259
+   ],
+   "recall": 0.45454545454545453,
+   "recall_ci": [
+    0.3076923076923077,
+    0.557720588235294
+   ],
+   "accepted_tracks": 1979,
+   "accepted_tracks_per_min": 6360.95784003857,
+   "crossings": 101,
+   "median_confirm_to_accept_s": 0.1333333333333333
+  },
+  {
+   "name": "temporal_seed0_t0.7",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.7,
+   "available": true,
+   "unavailable": null,
+   "tp": 19,
+   "fp": 7,
+   "fn": 25,
+   "precision": 0.7307692307692307,
+   "precision_ci": [
+    0.44,
+    0.95
+   ],
+   "recall": 0.4318181818181818,
+   "recall_ci": [
+    0.27586206896551724,
+    0.5555555555555556
+   ],
+   "accepted_tracks": 1701,
+   "accepted_tracks_per_min": 5467.40236781486,
+   "crossings": 90,
+   "median_confirm_to_accept_s": 0.13333333333333286
+  },
+  {
+   "name": "temporal_seed0_t0.8",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.8,
+   "available": true,
+   "unavailable": null,
+   "tp": 15,
+   "fp": 7,
+   "fn": 29,
+   "precision": 0.6818181818181818,
+   "precision_ci": [
+    0.375,
+    0.9333333333333333
+   ],
+   "recall": 0.3409090909090909,
+   "recall_ci": [
+    0.1875,
+    0.4884509262908943
+   ],
+   "accepted_tracks": 1396,
+   "accepted_tracks_per_min": 4487.06273102266,
+   "crossings": 79,
+   "median_confirm_to_accept_s": 0.13333333333333375
+  },
+  {
+   "name": "temporal_seed0_t0.9",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.9,
+   "available": true,
+   "unavailable": null,
+   "tp": 14,
+   "fp": 6,
+   "fn": 30,
+   "precision": 0.7,
+   "precision_ci": [
+    0.4166666666666667,
+    1.0
+   ],
+   "recall": 0.3181818181818182,
+   "recall_ci": [
+    0.13333333333333333,
+    0.4878048780487805
+   ],
+   "accepted_tracks": 1059,
+   "accepted_tracks_per_min": 3403.8677880752125,
+   "crossings": 64,
+   "median_confirm_to_accept_s": 0.16666666666666785
+  },
+  {
+   "name": "temporal_seed0_t0.95",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.95,
+   "available": true,
+   "unavailable": null,
+   "tp": 12,
+   "fp": 5,
+   "fn": 32,
+   "precision": 0.7058823529411765,
+   "precision_ci": [
+    0.5,
+    1.0
+   ],
+   "recall": 0.2727272727272727,
+   "recall_ci": [
+    0.06666666666666667,
+    0.4772974308300394
+   ],
+   "accepted_tracks": 835,
+   "accepted_tracks_per_min": 2683.880644988482,
+   "crossings": 56,
+   "median_confirm_to_accept_s": 0.23333333333333428
+  },
+  {
+   "name": "temporal_seed0_t0.98",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.98,
+   "available": true,
+   "unavailable": null,
+   "tp": 11,
+   "fp": 3,
+   "fn": 33,
+   "precision": 0.7857142857142857,
+   "precision_ci": [
+    0.6666666666666666,
+    1.0
+   ],
+   "recall": 0.25,
+   "recall_ci": [
+    0.06666666666666667,
+    0.472321428571428
+   ],
+   "accepted_tracks": 623,
+   "accepted_tracks_per_min": 2002.4642417099692,
+   "crossings": 42,
+   "median_confirm_to_accept_s": 0.33333333333333304
+  },
+  {
+   "name": "temporal_seed0_t0.99",
+   "family": "temporal",
+   "seed": 0,
+   "param": 0.99,
+   "available": true,
+   "unavailable": null,
+   "tp": 8,
+   "fp": 3,
+   "fn": 36,
+   "precision": 0.7272727272727273,
+   "precision_ci": [
+    0.5192307692307708,
+    1.0
+   ],
+   "recall": 0.18181818181818182,
+   "recall_ci": [
+    0.0625,
+    0.3181818181818182
+   ],
+   "accepted_tracks": 502,
+   "accepted_tracks_per_min": 1613.5426153104406,
+   "crossings": 39,
+   "median_confirm_to_accept_s": 0.40000000000000124
+  }
+ ],
+ "git_commit": "f65831c381d6c75d2f755f0e4e4f4c66e62701bf",
+ "git_dirty": false
+}
