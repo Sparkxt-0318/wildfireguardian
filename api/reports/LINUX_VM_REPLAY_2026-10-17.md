@@ -41,6 +41,8 @@ The outcome is the same: FL2 and FW2 are identical, and FX1 stays on the 30 s ed
 
 ## Full final panel, 20 missions (`pytest tests/api -m panel`)
 
+### First panel run (code just before commit 487c36c, i.e. before the review fixes)
+
 | region | mission | recorded | API verdict | reason | arrival (rec/API) | legs (rec/API) | compute_s | recorded wall_s | match |
 |---|---|---|---|---|---|---|---:|---:|---|
 | hongseong_2023 | 20230402T070000Z_FN1 | model_no_route | model_no_route |  | None / None | None / None | 0.59 | 0.31/0.27 | yes |
@@ -71,5 +73,43 @@ All 17 identical missions also have identical route hashes, and the offline inde
 timeouts. For each of them the independent checker agrees with the recorded outcome: `RELAXATION_INFEASIBLE` for FD1,
 whose recorded result is a refusal, and `FEASIBLE_ROUTE_EXISTS` for FX2 and FL2, whose recorded results are routes. The
 mismatch comes from host speed: the request did not finish inside the fixed budget. It is not a different answer.
+
+### Panel re-run on the final code (commit 60265e4)
+
+The same 20 requests, with the same 30 s budget, ran once more on the final head. Read-only review agents were running
+at the same time (file reads and greps, no tests), and run-to-run times on this VM vary by 10–20 % in any case
+(compare the two golden runs above).
+
+| region | mission | recorded | API verdict | reason | arrival (rec/API) | legs (rec/API) | compute_s | recorded wall_s | match |
+|---|---|---|---|---|---|---|---:|---:|---|
+| hongseong_2023 | 20230402T070000Z_FN1 | model_no_route | model_no_route |  | None / None | None / None | 0.91 | 0.31/0.27 | yes |
+| hongseong_2023 | 20230402T070000Z_FX1 | model_no_route | model_no_route |  | None / None | None / None | 0.77 | 0.34/0.30 | yes |
+| hongseong_2023 | 20230402T140000Z_FW2 | checked_route | checked_route |  | 1459 / 1459 | 217 / 217 | 28.64 | 12.61/12.37 | yes |
+| hongseong_2023 | 20230402T230000Z_FD1 | checked_route | checked_route |  | 531 / 531 | 119 / 119 | 15.93 | 7.41/7.43 | yes |
+| miryang_2022 | 20220531T100000Z_FN1 | checked_route | checked_route |  | 1142 / 1142 | 195 / 195 | 26.68 | 12.28/12.22 | yes |
+| miryang_2022 | 20220601T020000Z_FW1 | checked_route | checked_route |  | 1270 / 1270 | 242 / 242 | 15.10 | 6.75/6.41 | yes |
+| miryang_2022 | 20220601T080000Z_FD1 | model_no_route | model_no_route |  | None / None | None / None | 1.25 | 0.35/0.34 | yes |
+| miryang_2022 | 20220601T080000Z_FX1 | model_no_route | model_no_route |  | None / None | None / None | 0.82 | 0.42/0.38 | yes |
+| uiseong_andong_2025 | 20250323T010000Z_FD1 | checked_route | checked_route |  | 2460 / 2460 | 410 / 410 | 16.25 | 5.96/5.99 | yes |
+| uiseong_andong_2025 | 20250323T010000Z_FX2 | checked_route | checked_route |  | 2540 / 2540 | 322 / 322 | 18.30 | 6.59/6.80 | yes |
+| uiseong_andong_2025 | 20250324T090000Z_FL2 | checked_route | checked_route |  | 2143 / 2143 | 472 / 472 | 18.58 | 7.15/6.86 | yes |
+| uiseong_andong_2025 | 20250325T170000Z_FW1 | checked_route | checked_route |  | 1064 / 1064 | 362 / 362 | 29.56 | 8.90/8.85 | yes |
+| uljin_2022 | 20220304T030000Z_FD1 | checked_route | checked_route |  | 1589 / 1589 | 212 / 212 | 18.10 | 7.76/8.45 | yes |
+| uljin_2022 | 20220304T030000Z_FX1 | checked_route | unresolved | TIMEOUT | 3119 / None | 512 / None | 30.17 | 14.53/14.59 | NO |
+| uljin_2022 | 20220304T060000Z_FL1 | checked_route | checked_route |  | 2067 / 2067 | 453 / 453 | 10.00 | 3.43/3.44 | yes |
+| uljin_2022 | 20220304T120000Z_FW2 | checked_route | checked_route |  | 1655 / 1655 | 246 / 246 | 8.15 | 3.20/3.12 | yes |
+| yeongdeok_2025 | 20250325T190000Z_FD1 | model_no_route | unresolved | TIMEOUT | None / None | None / None | 30.22 | 9.31/9.45 | NO |
+| yeongdeok_2025 | 20250325T190000Z_FX2 | checked_route | unresolved | TIMEOUT | 2512 / None | 1129 / None | 30.22 | 22.48/22.44 | NO |
+| yeongdeok_2025 | 20250325T230000Z_FL2 | checked_route | unresolved | TIMEOUT | 1922 / None | 657 / None | 29.38 | 12.73/12.65 | NO |
+| yeongdeok_2025 | 20250326T080000Z_FW1 | checked_route | checked_route |  | 896 / 896 | 187 / 187 | 20.07 | 8.25/8.35 | yes |
+
+identical: 16/20; median compute_s: 18.203815526000028; median recorded wall_s (M5 Pro, both reps): 7.281
+
+All 16 identical missions also have identical route hashes, and the offline independent checker corroborates every one:
+12 `INDEPENDENTLY_CERTIFIED_OPTIMAL` and 4 `INDEPENDENTLY_CERTIFIED_REFUSAL`. The four differences are all
+`unresolved/TIMEOUT`: the same three 영덕 missions as in the first run, plus 울진 FX1 at 30.17 s, which met the budget at
+29.94 s in the first run. For each of them the independent checker agrees with the recorded outcome:
+`FEASIBLE_ROUTE_EXISTS` for 울진 FX1, 영덕 FX2 and 영덕 FL2 (recorded routes) and `RELAXATION_INFEASIBLE` for 영덕 FD1
+(recorded refusal). No mission returned a different answer; four ran out of budget on this host.
 
 Nothing was tuned in response. To reproduce on the evaluated host, run `make api-golden` and `make api-panel`.
