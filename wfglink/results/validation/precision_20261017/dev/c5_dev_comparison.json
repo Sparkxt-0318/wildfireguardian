@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "created": "2026-10-17T14:40:54+08:00",
+ "created": "2026-10-17T18:00:15+08:00",
  "tag": "development, agent labels, PROVISIONAL",
  "recording": "C5_nist_emberometer (development)",
  "run": "results/runs/precision_20261017/runs/C5_dump",
@@ -861,6 +861,6 @@
    "median_confirm_to_accept_s": 0.40000000000000124
   }
  ],
- "git_commit": "f65831c381d6c75d2f755f0e4e4f4c66e62701bf",
+ "git_commit": "cce5e2063e871ecc07576fd367c1ea60a8ec33d6",
  "git_dirty": false
 }
