@@ -324,6 +324,22 @@ def get_job(api: Api, kind: str, job_id: str) -> dict | None:
         raise
 
 
+def api_has_live_work(api: Api) -> bool:
+    """True when the API process holds queued or running work (GET /health). After an API restart, jobs that were
+    queued or running at shutdown are still served from their persisted job.json with that frozen status, but the
+    new process never continues them; with no live work reported, such a job can never finish."""
+    try:
+        h = api.get('/health')
+    except (ApiError, SystemExit):
+        return True              # cannot tell: keep waiting rather than resubmitting
+    counts = h.get('jobs') or {}
+    return bool(h.get('queued_tasks')) or any(counts.get(k) for k in ('queued', 'running'))
+
+
+def is_stale(job: dict | None, live: bool) -> bool:
+    return job is not None and job.get('status') not in DONE and not live
+
+
 def submit(api: Api, kind: str, body: dict) -> str:
     path = '/dispatch-plans' if kind == 'dispatch_plan' else '/route-checks'
     return api.post(path, body)['job_id']
@@ -333,13 +349,18 @@ def run_units(api: Api, state: State, units: list[dict], poll_s: float, timeout_
     """units: [{key, kind, body}]. Submits what is not done or in flight, polls until all are done.
     A finished dispatch plan is saved together with every route-check job its attempts reference."""
     pending = []
+    live = api_has_live_work(api)
     for u in units:
         if state.done(u['key']) is not None:
             continue
         inf = state.inflight.get(u['key'])
-        if inf and get_job(api, u['kind'], inf['job_id']) is not None:
-            pending.append({**u, 'job_id': inf['job_id']})
-            continue
+        if inf:
+            prev = get_job(api, u['kind'], inf['job_id'])
+            if prev is not None and not is_stale(prev, live):
+                pending.append({**u, 'job_id': inf['job_id']})
+                continue
+            if prev is not None:
+                log(f'  {label}: job {inf["job_id"]} is frozen at {prev.get("status")!r} from before an API restart; resubmitting')
         try:
             jid = submit(api, u['kind'], u['body'])
         except ApiError as e:
@@ -353,9 +374,13 @@ def run_units(api: Api, state: State, units: list[dict], poll_s: float, timeout_
     started, last = time.monotonic(), None
     while pending:
         still = []
+        live = api_has_live_work(api)   # one /health per poll cycle
         for u in pending:
             job = get_job(api, u['kind'], u['job_id'])
-            if job is None:      # forgotten by a restarted API: resubmit once more
+            if is_stale(job, live):   # frozen by an API restart (served from job.json, never continued)
+                log(f'  {label}: job {u["job_id"]} is frozen at {job.get("status")!r} after an API restart; resubmitting')
+                job = None
+            if job is None:      # forgotten or frozen by a restarted API: resubmit once more
                 try:
                     u['job_id'] = submit(api, u['kind'], u['body'])
                     state.set_inflight(u['key'], u['job_id'], u['kind'])
