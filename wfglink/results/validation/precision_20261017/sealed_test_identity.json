@@ -1,0 +1,18 @@
+{
+  "protocol": "results/validation/precision_20261017/protocol.yaml",
+  "protocol_sha256": "79419caf8cd366b0553e2927c7d0544660b40d94bc308ab9d69c09beff916e60",
+  "identity": {
+    "method": "rules",
+    "model_sha256": null,
+    "overlay_sha256": "c8a1592e493568d75583f61256919764cfc1d8e7b34a818c366947dab2e39073",
+    "profile": "file_native",
+    "selection_sha256": "7a5fcde0e4ec702d775bbc4a6223cd19dbc734efccda1d0a965bfb5df721acfd",
+    "sidecar_sha256": null,
+    "threshold": null,
+    "thresholds_sha256": "96cf1b8188d28822db8d005b891e1c641a3684dd58786e3ea4d5f56d8007ecca",
+    "verify_sha256": "d26e6a0f2aa5d59f85afe75ae5e0a3aa4a84afdaf602668803412eb11d8f6fc4"
+  },
+  "first_recording": "C8_BEAV006_C2",
+  "first_run_dir": "results/runs/precision_20261017/sealed/C8_BEAV006_C2_rules",
+  "created": "2026-10-18T05:06:45+08:00"
+}
