@@ -1,0 +1,14 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,171.5,39,1,1,m,"warm diagonal streak in open smoke, interlace combed (one field), transient, fast moving particle"
+w000,2,180,32,0.5,2,s,"faint combed transient beside thin trunk, one frame only"
+w009,2,100,40.5,0.5,2,s,"faint combed dot in front of trunk, start of falling track"
+w009,2,72,79,0.5,3,l,"falling burning twig with bright points, large debris rather than small particle"
+w009,3,88.5,52,0.5,1,m,"pinkish combed diagonal streak at trunk edge, likely earlier position of ember 1 on same down-left path"
+w009,3,99,57,1,2,m,white hot vertical streak falling in front of dark trunk
+w009,3,41,93,0.5,3,l,"same falling twig moved down-left, white hot ends"
+w009,4,62,65.5,1,1,m,"white short streak in open air, oriented down-left along its motion"
+w009,4,102,71,1,2,m,"same falling ember, about 13 px lower"
+w009,4,17,80,0.5,4,m,"bright combed transient streak at left edge, ember or twig fragment"
+w009,4,17,99.5,0.5,5,m,"bright combed transient streak at left edge, ember or twig fragment"
+w009,4,95.5,46,0.5,6,s,"bright dot on trunk appears in k4, dim in k5 at nearly same place, may be glowing bark"
+w009,5,42,74,1,1,m,same ember moved about 20 px left and 9 px down

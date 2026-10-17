@@ -1,0 +1,1133 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-17T14:00:18+08:00",
+  "windows_dir": "/home/user/wildfireguardian/wfglink/results/runs/precision_20261017/windows/C8_GEOR012_C3",
+  "window_set_id": "8b6d0f94ff583131",
+  "clip_id": "C8_GEOR012_C3",
+  "video_sha256": "f25a27c86402ded812fd6088d6a1186ae431d6590aea3ee7fc905c28b63a7d7e",
+  "roi_px": [
+    0,
+    0,
+    640,
+    480
+  ],
+  "segment_s": [
+    0.0,
+    null
+  ],
+  "manifest_sha256": "8b6d0f94ff583131dc0a38d5723a1dc403c885d7a9d4da0a16bd3301d75ac401",
+  "labels": {
+    "a": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/test/C8_GEOR012_C3/labels_a.csv",
+      "sha256": "3f7aad6076f100226f4a2b19e5a7ef1c5d4d1b5b29fb2b13c73d98954d3b2486"
+    },
+    "b": {
+      "path": "/home/user/wildfireguardian/wfglink/results/validation/precision_20261017/annotation/test/C8_GEOR012_C3/labels_b.csv",
+      "sha256": "3f7aad6076f100226f4a2b19e5a7ef1c5d4d1b5b29fb2b13c73d98954d3b2486"
+    },
+    "adjudicator": {
+      "path": null,
+      "sha256": null
+    }
+  },
+  "rules": {
+    "match_px": 3.0,
+    "edge_px": 4.0,
+    "min_points": 3,
+    "min_confidence": 0.75,
+    "coordinates": "x, y: ROI crop pixels as in detections.parquet; tx, ty: tile pixels"
+  },
+  "windows": [
+    {
+      "window_id": "w000",
+      "frames": [
+        268,
+        270,
+        271,
+        273,
+        275,
+        276
+      ],
+      "t": [
+        10.8,
+        10.84,
+        10.92,
+        11.0,
+        11.04,
+        11.12
+      ],
+      "x0": 211,
+      "y0": 116,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w001",
+      "frames": [
+        195,
+        196,
+        198,
+        200,
+        201,
+        203
+      ],
+      "t": [
+        7.84,
+        7.92,
+        8.0,
+        8.04,
+        8.12,
+        8.2
+      ],
+      "x0": 143,
+      "y0": 202,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w002",
+      "frames": [
+        391,
+        392,
+        394,
+        396,
+        397,
+        399
+      ],
+      "t": [
+        15.68,
+        15.76,
+        15.84,
+        15.88,
+        15.96,
+        16.04
+      ],
+      "x0": 83,
+      "y0": 69,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w003",
+      "frames": [
+        35,
+        37,
+        39,
+        40,
+        42,
+        44
+      ],
+      "t": [
+        1.48,
+        1.56,
+        1.6,
+        1.68,
+        1.76,
+        1.8
+      ],
+      "x0": 7,
+      "y0": 17,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w004",
+      "frames": [
+        442,
+        444,
+        446,
+        447,
+        449,
+        451
+      ],
+      "t": [
+        17.76,
+        17.84,
+        17.88,
+        17.96,
+        18.04,
+        18.08
+      ],
+      "x0": 84,
+      "y0": 48,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w005",
+      "frames": [
+        87,
+        89,
+        90,
+        92,
+        95,
+        97
+      ],
+      "t": [
+        3.56,
+        3.6,
+        3.68,
+        3.76,
+        3.88,
+        3.96
+      ],
+      "x0": 1,
+      "y0": 43,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w006",
+      "frames": [
+        339,
+        341,
+        342,
+        344,
+        347,
+        349
+      ],
+      "t": [
+        13.64,
+        13.68,
+        13.76,
+        13.84,
+        13.96,
+        14.04
+      ],
+      "x0": 320,
+      "y0": 102,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w007",
+      "frames": [
+        55,
+        57,
+        59,
+        60,
+        62,
+        64
+      ],
+      "t": [
+        2.28,
+        2.36,
+        2.4,
+        2.48,
+        2.56,
+        2.6
+      ],
+      "x0": 402,
+      "y0": 205,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w008",
+      "frames": [
+        515,
+        517,
+        518,
+        520,
+        522,
+        523
+      ],
+      "t": [
+        20.68,
+        20.72,
+        20.8,
+        20.88,
+        20.92,
+        21.0
+      ],
+      "x0": 278,
+      "y0": 184,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w009",
+      "frames": [
+        236,
+        238,
+        240,
+        241,
+        243,
+        245
+      ],
+      "t": [
+        9.52,
+        9.6,
+        9.64,
+        9.72,
+        9.8,
+        9.84
+      ],
+      "x0": 142,
+      "y0": 89,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w010",
+      "frames": [
+        421,
+        422,
+        424,
+        426,
+        427,
+        429
+      ],
+      "t": [
+        16.88,
+        16.96,
+        17.04,
+        17.08,
+        17.16,
+        17.24
+      ],
+      "x0": 377,
+      "y0": 163,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w011",
+      "frames": [
+        317,
+        319,
+        321,
+        322,
+        324,
+        326
+      ],
+      "t": [
+        12.76,
+        12.84,
+        12.88,
+        12.96,
+        13.04,
+        13.08
+      ],
+      "x0": 291,
+      "y0": 101,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w012",
+      "frames": [
+        464,
+        466,
+        468,
+        470,
+        472,
+        474
+      ],
+      "t": [
+        18.64,
+        18.72,
+        18.8,
+        18.88,
+        18.96,
+        19.04
+      ],
+      "x0": 304,
+      "y0": 160,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w013",
+      "frames": [
+        723,
+        724,
+        726,
+        728,
+        729,
+        731
+      ],
+      "t": [
+        28.96,
+        29.04,
+        29.12,
+        29.16,
+        29.24,
+        29.32
+      ],
+      "x0": 341,
+      "y0": 108,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w014",
+      "frames": [
+        361,
+        362,
+        364,
+        366,
+        367,
+        369
+      ],
+      "t": [
+        14.48,
+        14.56,
+        14.64,
+        14.68,
+        14.76,
+        14.84
+      ],
+      "x0": 345,
+      "y0": 25,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w015",
+      "frames": [
+        401,
+        402,
+        404,
+        406,
+        407,
+        409
+      ],
+      "t": [
+        16.08,
+        16.16,
+        16.24,
+        16.28,
+        16.36,
+        16.44
+      ],
+      "x0": 164,
+      "y0": 48,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w016",
+      "frames": [
+        595,
+        596,
+        598,
+        600,
+        601,
+        603
+      ],
+      "t": [
+        23.88,
+        23.92,
+        24.0,
+        24.08,
+        24.12,
+        24.2
+      ],
+      "x0": 236,
+      "y0": 3,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w017",
+      "frames": [
+        605,
+        608,
+        610,
+        613,
+        615,
+        617
+      ],
+      "t": [
+        24.28,
+        24.4,
+        24.48,
+        24.6,
+        24.68,
+        24.72
+      ],
+      "x0": 428,
+      "y0": 259,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w018",
+      "frames": [
+        503,
+        505,
+        508,
+        510,
+        512,
+        513
+      ],
+      "t": [
+        20.2,
+        20.28,
+        20.4,
+        20.48,
+        20.52,
+        20.6
+      ],
+      "x0": 81,
+      "y0": 274,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w019",
+      "frames": [
+        291,
+        293,
+        295,
+        297,
+        299,
+        301
+      ],
+      "t": [
+        11.72,
+        11.8,
+        11.88,
+        11.96,
+        12.04,
+        12.12
+      ],
+      "x0": 246,
+      "y0": 249,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w020",
+      "frames": [
+        525,
+        527,
+        528,
+        530,
+        532,
+        533
+      ],
+      "t": [
+        21.08,
+        21.12,
+        21.2,
+        21.28,
+        21.32,
+        21.4
+      ],
+      "x0": 283,
+      "y0": 78,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w021",
+      "frames": [
+        65,
+        67,
+        69,
+        70,
+        72,
+        74
+      ],
+      "t": [
+        2.68,
+        2.76,
+        2.8,
+        2.88,
+        2.96,
+        3.0
+      ],
+      "x0": 244,
+      "y0": 35,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w022",
+      "frames": [
+        256,
+        258,
+        261,
+        263,
+        265,
+        266
+      ],
+      "t": [
+        10.32,
+        10.4,
+        10.52,
+        10.6,
+        10.64,
+        10.72
+      ],
+      "x0": 425,
+      "y0": 75,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    },
+    {
+      "window_id": "w023",
+      "frames": [
+        215,
+        216,
+        218,
+        221,
+        223,
+        225
+      ],
+      "t": [
+        8.64,
+        8.72,
+        8.8,
+        8.92,
+        9.0,
+        9.04
+      ],
+      "x0": 394,
+      "y0": 182,
+      "w": 192,
+      "h": 192,
+      "status": "ok",
+      "adjudicated": false,
+      "tracks": [],
+      "dont_care": [],
+      "rejected": [],
+      "labels_outside_tile": 0,
+      "sure_without_ember_id": {
+        "a": 0,
+        "b": 0,
+        "adjudicator": 0
+      },
+      "observable_tracks": 0
+    }
+  ],
+  "totals": {
+    "windows": 24,
+    "windows_labelled": 24,
+    "tracks": 0,
+    "observable_tracks": 0,
+    "dont_care_points": 0,
+    "rejected_points": 0,
+    "windows_adjudicated": 0,
+    "sure_without_ember_id": {
+      "a": 0,
+      "b": 0,
+      "adjudicator": 0
+    }
+  },
+  "warnings": [],
+  "agreement": {
+    "point_f1": {
+      "value": null,
+      "ci": [
+        null,
+        null
+      ]
+    },
+    "matches": 0,
+    "points_a": 0,
+    "points_b": 0,
+    "bootstrap_over": "windows",
+    "ci_note": null,
+    "track_f1": null,
+    "tracks_matched": 0,
+    "tracks_a": 0,
+    "tracks_b": 0,
+    "per_window": [
+      {
+        "window_id": "w000",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w001",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w002",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w003",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w004",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w005",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w006",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w007",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w008",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w009",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w010",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w011",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w012",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w013",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w014",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w015",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w016",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w017",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w018",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w019",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w020",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w021",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w022",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      },
+      {
+        "window_id": "w023",
+        "tp": 0,
+        "n_a": 0,
+        "n_b": 0,
+        "tracks_matched": 0,
+        "tracks_a": 0,
+        "tracks_b": 0
+      }
+    ]
+  }
+}

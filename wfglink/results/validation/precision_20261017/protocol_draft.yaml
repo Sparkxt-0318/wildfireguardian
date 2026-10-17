@@ -1,0 +1,155 @@
+# Evaluation protocol for the opt-in high-precision verifier (run id precision_20261017).
+# Frozen (hashed and committed) before any method output on the calibration or test recordings is
+# scored. verify eval refuses to run when this file's sha256 differs from protocol.sha256, when the
+# file is uncommitted, or when the sealed test has already been scored once (sealed_test_scored.json).
+run_id: precision_20261017
+created: FILLED_AT_FREEZE
+source_identity:
+  scoring_commit: FILLED_AT_FREEZE          # commit that froze this protocol; scoring runs from an export of it
+  overlay: configs/high_precision.yaml       # sha256 recorded per scored run in hp_summary.json
+  default_config_sha256: FILLED_AT_FREEZE
+  platform: Linux x86_64 container (timing is a reference only; the booth Mac is not measured here)
+
+populations:
+  development:
+    recordings: [C5_nist_emberometer]
+    use: training and development of families B and C, rule ranges for A, error audit; development evidence only
+    groups: "4 s time blocks of C5 for early stopping; tracks within 16 px and 1 s of the 40 scored C5 label tiles are excluded from training"
+    labels: agent-only (results/labels/C5, plus the C5 track review of this run); PROVISIONAL
+  calibration_selection:
+    recordings: FILLED_AT_FREEZE   # from data_selection_amendment1.json: C8 calibration fires (3 drawn plus 6 demoted by amendment 1, one highlight clip each), the Rough pre-arrival prefix, and the C7 tree burns (4)
+    use: rule thresholds (A), model thresholds (B, C), choice of family and operating point
+    groups: one group per C8 fire (incident, camera deployment) and one per C7 test burn (one burn site)
+    note: "C8_ROUG016_C3 shows the burnt-in caption '2015 Willow Fire, Plot16' while the archive files it under 2015_Rough; Rough and Willow may be one incident, which matters only inside calibration (C8_WILL006_C1 is also calibration)"
+  sealed_test:
+    recordings: FILLED_AT_FREEZE   # amendment 1: C8 test fires drawn from the reserve with default_rng(seed + 1): 6 highlight clips plus the one pre-arrival prefix whose plot has a full video (Beaver)
+    stratum: "low observability: the blind window annotation found no observable ember track in its 132 windows (amendment 2). It is kept, unchanged, as false-alarm and low-observability evidence (false accepted tracks per supported minute, accepted-track precision by blind review); it cannot measure ember recall."
+    use: scored once, after selection.json is committed
+    groups: one group per fire (incident and camera deployment); the camera is unseen relative to C5 and C7
+    amendment_1: "The first six test fires were decoded while the camera-motion gate was being developed (global-motion statistics only; no labels, detections or method outputs were viewed). They were demoted to calibration and a fresh sealed test was drawn from the untouched reserve before any window of it was rendered (commit b5e1fbe)."
+    eligibility: "Screen of 2026-10-17 (results/validation/precision_20261017/eligibility_screen.json, two agent screeners): C8_MAPL007_C1 is time-lapse, so tracking only (no decisions; it reports unsupported time and is not scored for accuracy). C8_BEAV006_prefix has cuts between shots: the camera-motion gate withholds those frames; it is kept as representative negative footage."
+  sealed_test_ember_positive:
+    recordings: FILLED_AT_FREEZE   # chosen by the rule below (amendment 2) before any method output on them exists
+    stratum: "ember positive: separate recordings from the low-observability stratum, independently annotated, where the independent ember-recall gate is measured"
+    selection_rule: "Pool: every RDS-2021-0069 highlight clip (*_C<n>.avi) of the six sealed-test fires (2007_GABayBigTurnAround_Sweatfarm, 2014_Beaver, 2006_Ralston, 2003_BlackMountain, 2016_Buffalo_Tatanka, 2016_Maple_Tatanka) and of the never-used reserve fire 2008_Clover, except the clips already registered in this run. No calibration fire (its incident shaped the calibration), no C7 burn (the calibration burn site), and no C5 or C6 material (development). Order: the pool sorted by archive path, permuted with numpy default_rng(20261019). Fetch whole clips in that order (in batches, as disk allows). Screen each fetched clip blind to any detector or method output: two independent agent screeners see 4 triplets of 3 consecutive frames at 20, 40, 60 and 80 percent of the clip, and report per triplet whether a glowing ember in flight is visible (yes, no, unclear), plus the eligibility facts (static camera, real-time timebase from burnt-in stamps, as in the eligibility screen). A clip qualifies when both screeners report yes for at least one triplet, neither reports a moving camera or cuts, and its timebase is not time-lapse. Inclusion: qualifying clips in the permuted order, at most 2 per fire and 1 per plot, until 10 clips (all qualifying clips if fewer). Windows: verify windows, 16 per clip, k = 6, seed 20261017, uniform in time and space as for the other window sets. Annotation: as for the other populations (two blind agent labellers per window and an agent adjudicator for disagreements); labelled before any method output on these clips is produced. Fetched clips that are not included are deleted after the screen (they stay listed with their screen result)."
+    groups: "one group per fire (incident); within a fire, one per plot (camera deployment)"
+    use: scored once with the sealed test (same selected method, same lock), after selection.json is committed
+  excluded:
+    - "C10_sparkler: tracking only everywhere (4x slow motion)"
+    - "C6_nist_dragon: too dense to point-label; burned-in caption used only as training negatives"
+    - "old mismatch and coverage suites: scored once on 2026-10-15; never rerun, regenerated or tuned on"
+    - "C8 calibration fires' other clips, the other C7 burns, C5 and C6: never part of a sealed stratum (their incidents or sites shaped development or calibration)"
+    - "C8_WALK008_C1 (calibration): time-lapse, tracking only; no windows"
+    - "C8_FREN002_prefix (calibration negative footage): moving camera, and its truncated DV stream fails to decode at its end; no windows"
+  contingency:
+    - "If a calibration recording cannot be decoded, it is dropped and the drop is reported."
+    - "If fewer than 3 sealed-test recordings decode, accuracy status is INSUFFICIENT_EVIDENCE."
+  rights: "USFS Research Data Archive: usable without additional permissions or fees, citation required (RDS-2021-0069, RDS-2022-0071). NIST C5/C6: public domain. Example sheets carry the credit line."
+
+operating_envelope:
+  camera: static (camera-motion detector withholds decisions; moving footage reports unsupported time, not accuracy)
+  timebase: real time (tracking-only clips get no decisions)
+  profile_primary: file_native
+  profile_secondary: live_downscaled (reported if time allows; not used for the target claims)
+  scenes: day and night outdoor fire scenes and the NIST indoor laboratory; strata reported separately
+  note: the envelope is fixed here and is not narrowed after results are seen
+
+annotation:
+  windows:
+    seed: 20261017
+    per_recording: FILLED_AT_FREEZE   # from each windows.json (with its manifest sha256)
+    frames_per_window: 6              # consecutive non-repeated frames (k)
+    tile_px: FILLED_AT_FREEZE         # by resolution, from windows.json
+    enlargement: FILLED_AT_FREEZE
+    sampling: "as each windows.json states: non-repeated frames from the detector warm-up plus 0.5 s, cut into consecutive blocks of k after a seeded offset, blocks drawn without replacement; one tile per window with its corner uniform at random fully inside the ROI"
+  labellers: two independent agent labellers per window plus an agent adjudicator for disagreements; all agent-only, so results are PROVISIONAL
+  labeller_calibration: "reused: results/labels/calibration (7 agent labellers, synthetic tiles with hidden truth; recall about 0.03 below SNR 10, about 1.0 above SNR 20). Labels are therefore a bright-ember reference."
+  blindness: windows are sampled and labelled before any method output on that recording is viewed; labellers never see detections, tracks or scores
+  observable_track: an ember id with at least 3 sure points in the window and at least one point at least 4 px inside the tile
+  dont_care: unsure points, ember ids with fewer than 3 sure points, points within 4 px of the tile edge, and the class "non-wildfire glowing particle" if labelled
+  ambiguity_variants: [primary, optimistic (unsure counted as truth), pessimistic (unsure counted as absent)]
+
+matching:
+  frame_level:
+    rule: one-to-one Hungarian, radius 3 px (labeller p90 position error about 1.9 px plus detector centroid error about 1 px); unsure labels are don't-care
+    sensitivity_radius_px: 5
+    reported_for: [raw proposals, accepted observations as displayed]
+  track_level:
+    judged_if: a predicted accepted track has at least 2 measured points inside the window's space-time box
+    point_radius: max(4 px, 0.5 x streak length)
+    colocated_if: shared matched frames >= min(2, truth frames) and >= 50 percent of their joint frames
+    assignment: one-to-one Hungarian on matched-frame counts
+    duplicates: a second prediction on an already matched truth track is false in primary precision; excluded in the fragment-tolerant variant
+    reported_separately: [fragmentation, id_switches]
+    misses: rejections and abstentions (insufficient_evidence) count as misses for recall
+
+metrics:
+  - accepted-track precision (primary and fragment-tolerant), recall over observable truth tracks
+  - frame-level precision and recall for raw proposals and accepted observations (kept separate)
+  - unique false accepted tracks per supported minute; false gate crossings per minute; false-track occupancy seconds per minute
+  - accepted-output coverage (share of supported time with any accepted track), supported and unsupported time
+  - confirmation delay (decision time minus confirmation, and minus first hit)
+  - precision-recall curve over the predeclared threshold grid
+uncertainty:
+  precision: exact one-sided 95 percent Clopper-Pearson lower bound over judged predicted tracks; window-cluster bootstrap (2000 replicates, seed 0) reported beside it
+  recall: Clopper-Pearson two-sided 95 percent
+  rates: exact Poisson one-sided 95 percent upper bound per supported minute
+  independence_note: windows and frames within one recording are correlated; claims use recording groups
+
+precision_review:
+  why: "Added on 2026-10-17 before any method output on calibration or sealed-test material was scored or viewed, after the blind window annotation found very few observable embers (calibration: 5 observable truth tracks in 136 windows before adjudication; sealed test, first half: no sure ember point). Window truth alone cannot estimate accepted-track precision or support a selection, so accepted tracks are also reviewed directly, blind to their status. The window measurements below are kept unchanged."
+  sheets: "verify sheets track items: a 64 px crop enlarged 4x around the track at frames t-2 .. t+2 of its decision frame, and a 192 px context crop with the track's path; no method, score, state, count or accept/reject mark is shown"
+  reviewers: "two independent agent reviewers per batch and an agent adjudicator for disagreements; categories as in the C5 track review (ember, faint_possible_ember, fixture_light, reflection, flame_glare_edge, moving_non_ember, codec_artifact, overlay_text, duplicate_fragment, unclear); agent-only, so PROVISIONAL"
+  mixing: "the reviewed items are accepted tracks mixed with decoys (tracks of the accept_all control of the same recordings that the reviewed method or candidate did not accept), in a seeded random order with randomised item ids; the key is written to a file before the review and read only after adjudication"
+  outcome_per_track: "true: ember; false: fixture_light, reflection, flame_glare_edge, moving_non_ember, codec_artifact, overlay_text, duplicate_fragment; ambiguous: faint_possible_ember, unclear"
+  precision: "true / (true + false) over reviewed accepted tracks (primary); optimistic counts ambiguous as true, pessimistic as false; exact one-sided 95 percent Clopper-Pearson lower bound and a recording-cluster bootstrap (2000 replicates, seed 0)"
+  false_track_rate: "false reviewed accepted tracks divided by the sampled fraction of accepted tracks, per supported minute; exact Poisson one-sided 95 percent upper bound on the reviewed false count, scaled the same way"
+  calibration_sample: "for every candidate point of the selection grid (accept_all included), up to 20 of its accepted tracks over all calibration recordings in supported time, drawn with numpy default_rng(20261017) from its accepted tracks sorted by (recording, track key); the union is reviewed once (a track in several samples is reviewed once and counts for each); decoys: 30 percent of the item count, uniform (same seed) from accept_all tracks that reached a checkpoint and are in no sample"
+  sealed_test_sample: "all accepted tracks of the selected method on the sealed-test recordings (both strata) in supported time when there are at most 300, otherwise a uniform sample of 300 (default_rng(20261017)); the accept_all control as a separate scored point: a uniform sample of 100 of its tracks that reached a checkpoint (same seed); decoys: 50 percent of the item count from accept_all tracks the method did not accept"
+  inclusion_probabilities: "every scored point's sample is a simple random sample of its accepted tracks; its inclusion probability (sampled / accepted) is reported per point and per recording, and the per-point estimates use only that point's own sample"
+  decoys: "decoys exist only to keep reviewers blind to status; they are excluded from every scored quantity (their count is reported, nothing else)"
+  deduplication: "each (recording, track) is presented once, whatever the number of points that sampled it; a repeated presentation, if any, is dropped and its first review is used"
+  unresolved: "an item without a final category (a reviewer and the adjudicator gave none) is unresolved; unresolved counts are reported per point, excluded from the primary precision and counted as false in the pessimistic variant"
+  status: "agent-only review: every reviewed figure is PROVISIONAL"
+
+targets:   # fixed before results; never lowered after seeing results
+  accepted_track_precision: 0.99
+  accepted_track_recall: 0.50
+  false_accepted_tracks_per_min: 0.1
+status_rules:
+  PASSED: point estimate meets the target AND the one-sided 95 percent bound meets it
+  FAILED: zero accepted predictions (precision undefined), or the bound excludes the target in the wrong direction, or the point estimate misses it
+  INSUFFICIENT_EVIDENCE: "the point estimate meets the target but the bound does not (too few independent samples), or the data cannot measure the quantity (for recall: fewer than 20 observable truth tracks in the ember-positive sealed stratum; the point estimate is still reported). A target is never replaced by another quantity when the data cannot establish it."
+  PROVISIONAL: label applied to every accuracy figure that rests on agent-only annotation
+gates:
+  precision: "accepted-track precision of the selected method on the sealed test (both strata pooled), from the blind review (precision_review, primary); PASSED only when its one-sided 95 percent lower bound is at least 0.99, and FAILED when the window-judged accepted-track precision (matching.track_level) has a point estimate below 0.99 over at least 10 judged tracks; otherwise as status_rules"
+  recall: "independent ember recall: the share of observable window-truth tracks of the ember-positive sealed stratum that the selected method accepted and matched (matching.track_level); proposal retention never counts"
+  false_alarm: "false accepted tracks per supported minute on the sealed test: from the blind review (scaled by the inclusion probability) and from the windows; the gate uses the review estimate's Poisson upper bound"
+  separate_reports: "implementation, accuracy evidence (precision, recall, false alarm), phone non-regression, runtime and reliability are separate gates; none stands in for another"
+validated_claim_requirements: "at least 299 judged accepted tracks with 0 errors (474 with 1 error) for a one-sided 95 percent lower bound >= 0.99, from at least 5 independent static-camera recordings with human annotation; at least 30 supported minutes of representative negative footage with 0 false accepted tracks for an upper bound <= 0.1 per minute"
+
+selection:
+  families: [accept_all (control), rules (A), patch (B), temporal (C)]
+  seeds: {patch: [0, 1], temporal: [0, 1]}
+  grids:
+    rules_q: [0.0, 0.005, 0.01, 0.025, 0.05, 0.1, 0.2, 0.3]
+    model_threshold: [0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.98, 0.99]
+  rule: "On calibration material only. Precision of a candidate point: its reviewed precision (precision_review, primary) when it has at least 10 reviewed accepted tracks that are true or false; otherwise undefined. Recall for selection: window-truth recall over the observable calibration truth tracks when there are at least 20 of them; otherwise proposal retention, the point's estimated true-ember yield per supported minute (reviewed precision times accepted tracks per supported minute) divided by that of accept_all. Proposal retention is a development selection aid declared before any calibration scoring; it measures how many of the detector's own true proposals a point keeps, not ember recall, and it never satisfies or replaces the independent ember-recall gate (the report then says that ember recall was not measurable on calibration). Among points with precision >= 0.99 choose the highest recall; ties: rules, then temporal, then patch, then lower median confirmation delay. If none reaches 0.99, choose the highest precision point with recall >= 0.5; if none, the highest precision point with defined precision, and record that the target was missed. If no point has defined precision, the selection is INSUFFICIENT_EVIDENCE and the point with the most reviewed true tracks is recorded."
+  frozen_artifacts: selection.json (family, seed, threshold, overlay sha256, model sha256) committed before the sealed test is scored
+
+runtime:
+  file_mode: frames.parquet ms (median, p95), wall time, peak RSS; legacy against high-precision on the same inputs
+  live: headless booth playlist, 300 s per mode, throughput, skipped frames, processing and observer ms, publish-to-state latency p50/p95 (target p95 <= 250 ms at decision frames), RSS peak and slope, confirmation delay
+  criteria_kept: median paint >= 20 fps and p5 >= 10 fps for live checks
+  note: Linux container reference only; the booth Mac is NOT_RUN in this task
+
+amendments:
+  - id: 1
+    date: "2026-10-17 (commit b5e1fbe)"
+    change: "sealed test redrawn from the reserve; the first test fires became calibration"
+    motivated_by: "the first test fires had been decoded while the camera-motion gate was developed (global-motion statistics only)"
+  - id: 2
+    date: "2026-10-17, before any freeze and before any method output on calibration or sealed-test material was scored or viewed"
+    change: "blind accepted-track precision review (precision_review); selection on reviewed precision with proposal retention as a declared development aid; the ember-positive sealed stratum and its selection rule; explicit gates; this log"
+    motivated_by: "the blind window annotation: calibration windows held 9 observable truth tracks after adjudication (136 windows) and the sealed-test windows none (132 windows), so window truth cannot estimate precision or support a selection and cannot measure recall on these recordings; and the owner's instruction of 2026-10-17 to keep the original targets, rename recall relative to proposals as proposal retention, and obtain a separate, independently annotated ember-positive stratum. No candidate's output on calibration or test recordings had been produced as a score at this point (accept_all dumps exist; nothing was scored or viewed)."
+    evidence_role: "the low-observability sealed stratum was annotated but not used to design any acceptance rule; it remains confirmatory false-alarm evidence. Any population later used to redesign acceptance rules becomes development evidence, and a confirmatory claim then needs an untouched population."
