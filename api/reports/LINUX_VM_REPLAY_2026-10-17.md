@@ -74,9 +74,9 @@ timeouts. For each of them the independent checker agrees with the recorded outc
 whose recorded result is a refusal, and `FEASIBLE_ROUTE_EXISTS` for FX2 and FL2, whose recorded results are routes. The
 mismatch comes from host speed: the request did not finish inside the fixed budget. It is not a different answer.
 
-### Panel re-run on the final code (commit 60265e4)
+### Panel re-run on the final recorded-path code (commit 60265e4)
 
-The same 20 requests, with the same 30 s budget, ran once more on the final head. Read-only review agents were running
+The same 20 requests, with the same 30 s budget, ran once more on commit 60265e4. The code these requests exercise (`api/runner.py`, `api/verdict.py`, `api/requests_build.py`, `api/regions.py`) is unchanged from bb2acd0 through ed38cb8, apart from a docstring; the later commits changed scheduling, provenance and the spread_zones adapter. Read-only review agents were running
 at the same time (file reads and greps, no tests), and run-to-run times on this VM vary by 10–20 % in any case
 (compare the two golden runs above).
 
