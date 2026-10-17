@@ -155,3 +155,176 @@ When the verification fixes are done, send me the exact command list and every d
 ### 2026-10-15, strict phone-suite non-regression
 Question: "The handoff requires ember-suite numbers not to worsen. The phone fix removes lamp over-counts and improves recall and identity switches, but median speed error rises slightly from 3.23% to 3.25% (still below the 10% goal). Should I keep working toward strict non-regression, or accept this documented tradeoff?"
 Answer: "Keep strict non-regression"
+
+### 2026-10-17, precision-first fire-ember verifier (task brief, verbatim)
+Answer (uploaded task file wfglink-claude-code-high-precision-prompt.txt):
+
+"Continue wfglink in Sparkxt-0318/wildfireguardian, draft PR #53. Implement and evaluate a precision-first fire-ember candidate verifier. This is an execution task: deliver a working opt-in prototype, a bounded comparison and an honest evidence report. Do not stop at proposing an architecture.
+
+CONTEXT AND OBJECTIVE
+
+The current prototype runs, but C5 detection quality is poor. We want substantially higher precision on genuine, image-visible ember observations, with useful recall and measured runtime performance. A larger model name or a passing UI gate is not the objective.
+
+The recommended design is:
+existing candidate detector -> short causal candidate/track verifier -> explicit acceptance decision -> accepted observations and measurements.
+
+The learned verifier must distinguish actual ember candidates from the hard negatives that currently fool the system: fixtures, reflections, lights, flame/glare edges, moving background objects and compression artifacts. Preserve raw proposals so the verifier's effect remains measurable.
+
+The submission is October 18, 2026; the booth is October 25. Keep this bounded and prioritize a reviewable software improvement. The dashcam/GNSS dock, optical-sync firmware, new hardware and forecasting/routing work are outside this task.
+
+1. ESTABLISH THE BASELINE AND PRESERVE OWNERSHIP
+
+- Read the applicable AGENTS.md/CLAUDE.md, wfglink/README.md, PLAN.md, recent LOG.md entries, docs/METHODS.md, docs/LIMITS.md and results/validation/continuation_20261015/RELEASE_README.txt. The old docs/handoff/HANDOFF.md is historical and contains superseded instructions; do not reapply its old patch.
+- Inspect the current PR and local Git state. Expected last reviewed PR head: c91bc87e58ed6f7c32825e4a2b6d57d30a36cd90, branch claude/practical-rubin-5vu12u, base Main. Verify rather than assuming that this is still current.
+- Published demo wfglink-demo-20261015-4 peels to tested application source 4d0092cb7808dc2fa4b2f6321ae9fd2ea5b95a53. Preserve that tag and its artifacts.
+- Work only inside wfglink/. Never alter or import forecasting, routing or Monte Carlo code. Never modify root dependencies/configuration. Raw videos and large generated caches stay uncommitted.
+- Preserve other people's changes. Do not switch branches, stash, reset, rebase, force-push or merge Main. If the checkout has advanced, account for the changes and use the existing branch without discarding work.
+- When codebase-memory MCP is available, confirm the graph project and generation, use Tier 2 graph discovery, read exact material snippets, and check coverage for every relied-on path. Read missed/stale ranges directly. If the tools are unavailable, state that and use bounded exact-source inspection without claiming graph verification.
+- Record the exact source, environment, configuration, input hashes and output locations before experiments. Keep frozen raw baseline reports separate from later summaries.
+
+Current evidence, with distinct populations:
+
+- C5 NIST imagery: 20 frames and 40 agent-labelled tiles, reused for development. Final TP=24, FP=168, FN=20: precision 12.5%, recall 54.55%. Earlier TP=10, FP=148, FN=34. These are frame/tile detection results, not final accepted-track precision.
+- Synthetic phone development suite: median trailing-window relative speed error 3.228608%, with strict deterministic full-rate non-regression. Identity switches remain 5.206 per phone-minute, missing the goal.
+- Previously frozen held-out synthetic fire base condition: median track-speed relative error 1.96%, conditional on successful tracking; frame recall 25.05%, F1 0.3867. Exposure acceptance and count-interval coverage were zero in that condition.
+- Separate controlled bright-population count coverage: 200/200 clips. Do not generalize this to real footage or incomplete detection.
+- Committed regression: 550 passed, 3 skipped; four short demo gates passed. Preserve failures and the actual scope of each check.
+
+There is newer LOCAL overnight evidence not yet in the PR. The run at
+/Users/jp/Documents/Codex/2026-10-15/files-pasted-by-the-user-you/work/wfglink-native-review/logs/soak/20261016-0016/
+completed 8.06 hours elapsed, with 7.75 hours recorded running. Median paint rate was 29.2 fps, p5 26.8; the fitted memory slope was about -2.9 MB/hour; processing errors were zero. Its OVERALL VERDICT WAS FAIL because four stale-heartbeat events triggered restarts late in the run. Raw booth logs corroborate four hang-triggered restarts. Cause is unresolved. If this Mac path is inaccessible, label this as owner/orchestrator-supplied local evidence, not an independently inspected run. Do not claim the overnight gate passed or silently weaken it.
+
+2. USE THE LITERATURE CORRECTLY
+
+Read these primary sources, extract the relevant methods, and record which parts you actually accessed:
+
+- Bouvet et al., NIST TN 2093 (2020), and corresponding 2021 Emberometer work:
+  https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.2093.pdf
+  https://doi.org/10.1007/s00348-021-03277-6
+  Relevant: multiview/spatiotemporal correspondence, trajectory filtering and fragmentation. Its short/low-displacement trajectory rejection trades off against genuine slow firebrands. Four synchronized cameras supply evidence unavailable to a single ordinary camera. Do not turn a low spurious-trajectory fraction in one controlled case into a general detection-precision claim.
+
+- Wessies, Bouvet and Link, Classification of Airborne Firebrand Combustion State Using a CNN (2023):
+  https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=936170
+  Relevant: lightweight/transfer-learned classification of small particle crops. Its approximately 95% accuracy distinguishes flaming from smoldering among already tracked firebrands; it does not classify ember versus background. The imaging system includes modified cameras and IR filters. Its weights/results are not a validated RGB ember detector.
+
+- Methodology for detecting firebrand generation and the analysis of influential variables in quantification (2025):
+  https://www.sciencedirect.com/science/article/pii/S0379711225002139
+  https://doi.org/10.1016/j.firesaf.2025.104549
+  Relevant: U-Net-based firebrand segmentation. The accessible abstract reports over 80% accuracy in wind-tunnel work; do not reinterpret that as precision, recall or independent field performance without the necessary definitions and full evidence.
+
+- FIgLib and SmokeyNet (2022):
+  https://arxiv.org/html/2112.08598
+  Relevant: spatial/temporal context, difficult negatives and complete-fire splits. This is smoke detection, not individual-ember detection. Borrow evaluation and temporal-context ideas; do not use smoke classification as proof that a candidate is an ember or make visible smoke a mandatory detection gate.
+
+- Shrivastava et al., Online Hard Example Mining (CVPR 2016):
+  https://arxiv.org/abs/1604.03540
+  Relevant: preferentially train on the difficult mistakes rather than overwhelming the learner with easy background. This is a general detection method, not an ember performance result.
+
+State clearly which design choices are proposed adaptations. Do not promise that any paper's accuracy, mAP or position error transfers to wfglink.
+
+3. AUDIT THE FAILURE BEFORE TRAINING
+
+Reproduce the existing C5 development scoring with its original settings and provenance when the source data are available. Do not alter the matching radius, label-confidence rule, ROI or time interval to inflate the baseline. Preserve any inability to reproduce as an explicit discrepancy.
+
+Create an inspectable error inventory with full-resolution crops, neighbouring frames, source times, candidate/track IDs and spatial context. Identify:
+- true ember, fixture/light, reflection, flame/glare edge, moving non-ember, codec artifact;
+- duplicate components or fragments, localization/matching errors, annotation uncertainty;
+- whether each false proposal survives confirmation, appears in the display, or generates a count/gate crossing.
+
+Human review and independently adjudicated labels are stronger evidence than agent-only labels. Agent-only results remain explicitly provisional. Do not automatically treat ambiguous annotations as background or silently remove them from the report.
+
+Inspect the actual code. The reviewed path already has background subtraction, a compression-mirror test, multiscale proposals, Kalman/Hungarian association and static-track handling. It computes a warm-colour feature, but the inspected detector's final candidate filter is based on finite moments, geometry and large-region masking. Do not propose simply adding tracking/background subtraction as if they did not exist. A blanket warm-colour veto can reject genuine saturated or pale embers and will not reliably reject warm reflections.
+
+4. BUILD A BOUNDED COMPARISON
+
+Compare the unchanged baseline with exactly three candidate families:
+
+A. A stricter rules-based verifier using informative existing features and measured temporal/background evidence.
+B. A lightweight image-patch classifier using a target crop plus surrounding context.
+C. A causal temporal verifier using recent candidate-centred crops/context and motion/background features.
+
+For B/C, use actual development false positives as hard negatives, alongside independently labelled real positives. Synthetic augmentation can supplement real material, but cannot substitute for real evaluation. Keep all augmented crops/re-encodes from one recording in the same group. Deduplicate near-identical samples and avoid letting a persistent lamp dominate the training set through thousands of redundant frames.
+
+Use a small supported model and minimal pinned dependencies. Specify a finite epoch/wall-time budget, fixed configurations, seeds and early-stopping rules before training. At most two predetermined seeds per learned family; no open-ended architecture search. If training data are inadequate, still complete the interfaces, rule baseline, dataset tooling and reproducible training/evaluation commands, and state why learned results are provisional or unavailable. Do not present a randomly initialized or untrained verifier as a finished detector.
+
+Use only past/current frames in live mode and report the confirmation delay. If a separate offline bidirectional mode is useful, label its use of future frames and score it separately. Camera motion requires registration or an explicit unsupported state; a fixed-camera background rule must not be silently applied to moving dashcam footage. Unresolvable or out-of-distribution candidates should be withheld with a reason.
+
+5. INTEGRATE WITHOUT DAMAGING THE EXISTING DEMO
+
+- Deliver a named opt-in high-precision mode. Keep the legacy default and existing published demo intact during this task.
+- Keep the phone detector/tracker, velocity estimator and calibration behavior unchanged. Verify the exact existing deterministic phone non-regression contract, not merely a rounded median or a relaxed tolerance.
+- Retain raw proposals and the original frame-detection metrics. Add explicit states such as candidate, method-accepted, rejected and insufficient evidence. "Accepted" means accepted by this method, not independently proven to be a true ember.
+- Only accepted tracks may feed the new mode's counts, gate crossings and measurement summaries. All consumers must use the same acceptance decision.
+- Define acceptance transitions, fragmentation handling and count timing. If confirmation occurs after a crossing, specify whether bounded retrospective reporting is supported; retain the original event timestamp and separate it from the decision/reporting time. Never create a fictitious speed or crossing time from confirmation latency.
+- Preserve original timestamps and units. A classifier cannot establish ember depth, physical scale, exposure or wind accuracy. C10 remains tracking-only throughout overlays, tables and summaries.
+- Batch patch inference and bound history/queues. If the processing budget is exceeded, report incomplete analysis/abstention; do not silently drop difficult targets while claiming complete counts.
+- Keep model weights/caches ignored unless repository policy explicitly permits a small licensed model artifact. Record acquisition/training commands, licenses and hashes. The mode must report unavailable weights clearly, with no silent fallback to calling raw proposals accepted embers. Offline operation should be reproducible once the declared assets are present.
+
+6. FREEZE A FRESH EVALUATION PROTOCOL
+
+Before final scoring, save and hash a protocol with data manifests, source identity, observability rules, matching criteria, metrics, operating thresholds and the validation-selection rule.
+
+Use approved, provenance-recorded footage. No YouTube downloading, invented permissions or unrequested contact with authors/agencies. Inspect existing permissions before acquisition or model training. If additional approval, annotation or recordings are unavailable, keep the test status unavailable rather than manufacturing data.
+
+Separate training/development, threshold calibration/selection and a sealed final test. Group by complete recording, physical camera/deployment and incident. Overlapping segments, alternate resolutions and re-encodes must never cross groups. Include a genuinely unseen-camera evaluation when available. C5 remains development evidence.
+
+The OLD mismatch and coverage suites have already been scored once. Do not retune on, regenerate, overwrite or rerun them for this new method. New method claims need a new, separately identified evaluation population.
+
+Annotate observable targets independently of the model, using neighbouring frames and full-resolution context. Do not define eligibility by whether a target passes the verifier's minimum track length, brightness or confidence. Score all annotated observable targets, with separately reported size/visibility/camera strata and ambiguity sensitivity. A narrowly supported operating envelope must be explicit and fixed before final scoring.
+
+Use predeclared one-to-one matching at two levels:
+- Frame detections: precision/recall with a justified tiny-target location tolerance.
+- Accepted tracks: precision/recall with fixed temporal support and spatial criteria. Duplicate fragments cannot each become a true positive for the same ground-truth trajectory; report fragmentation and identity switches separately.
+
+Also report unique false accepted tracks/minute, false gate crossings/minute and time occupied by false tracks. One persistent false lamp must not look harmless because it counts as one event. Rejections and abstentions remain misses for recall. Zero accepted predictions means precision is undefined and the capability has not passed.
+
+7. TARGETS AND EVIDENCE STATUS
+
+Initial engineering targets for the declared final-test population:
+- Accepted-track precision >=99%.
+- Accepted-track recall >=50% over independently annotated observable tracks.
+- False accepted tracks <=0.1/minute on representative negative footage; also report false gate crossings and persistent false-track time.
+
+These are targets, not promised results. The 50% track-recall target is not comparable to the old 25.05% frame recall. Report the precision-recall curve and accepted-output coverage, not just a selected attractive point. Do not lower these targets after observing results to manufacture a pass.
+
+Distinguish a point-estimate target from statistical validation. Report uncertainty using independent recording/camera groups. A claimed validated 99% precision needs adequate independent evidence, including a defensible one-sided lower confidence bound. Hundreds of correlated frames are not hundreds of independent trials. If samples or annotation quality cannot support the claim, use INSUFFICIENT_EVIDENCE even if observed precision is 100%.
+
+Select the candidate and acceptance threshold on validation/calibration material only. Freeze the selected source, weights, thresholds and protocol, then score the new sealed test once. Preserve failed results. Subsequent improvement requires a new test population rather than silently recycling the inspected final test.
+
+Measure performance separately from accuracy:
+- Fixed source, resolution, cadence, device/backend and dropped-frame policy.
+- Actual analysis throughput, median/p95 processing latency, source-to-result latency, confirmation delay, queue/backlog behavior and peak/sustained memory.
+- Preserve the existing median paint >=20 fps and p5 >=10 fps criteria for live checks. An initial latency target is p95 source-to-accepted-result <=250 ms at the declared configuration; log misses and any speed/accuracy tradeoff.
+- A fast isolated model call or 30 fps camera capture is not end-to-end throughput evidence.
+
+8. REGRESSION AND RELIABILITY
+
+Run meaningful tests for the new acceptance/counting path, model-unavailable behavior, causality, timestamps, ambiguous candidates, duplicates and bounded retained state. Include deliberate failure controls proving that the metrics catch an empty detector, a persistent false light and duplicate accepted tracks.
+
+Run the relevant existing tests, strict phone non-regression, complete regression and unchanged four-mode demo gate on the final committed source. Preserve skips/failures and report the actual new totals; do not quote the old 550 as a new run.
+
+Accuracy and reliability are separate gates. The existing failed overnight soak remains failed until its cause is understood and a qualifying rerun passes. Carry that failure into the report; do not turn the negative memory slope into an application-wide memory-bound claim. Do not let soak diagnosis expand into an unrelated refactor. Run any long candidate soak serially on the Mac using unchanged criteria, or mark it NOT_RUN when the host/time is unavailable. Never run competing training, heavy benchmarks or a second booth instance during a qualifying soak; do not stop other owners' jobs without authorization.
+
+9. DELIVERABLES AND PUBLICATION
+
+Deliver:
+1. Working opt-in mode with exact launch/process commands, configuration and reproducible model/data preparation.
+2. Baseline false-positive audit and inspectable example sequences with credits/provenance.
+3. Frozen protocol and grouped data manifests, with annotation provenance and rights status.
+4. Baseline/rules/image/temporal comparison at matched recall or stated operating points, including runtime cost and uncertainty.
+5. Raw frame metrics and accepted-track/count metrics kept separate.
+6. Source/weight/config/input hashes and a compact evidence manifest.
+7. A concise status table for implementation, data, annotation, accuracy, speed, phone non-regression, demo, reliability and default promotion. Use PASSED, FAILED, NOT_RUN, PROVISIONAL or INSUFFICIENT_EVIDENCE as appropriate.
+8. Updated README/METHODS/LIMITS and append-only LOG explaining the final behavior and every missed goal. Preserve historical reports. Put small durable reports under a new wfglink/results/validation/precision_<run-id>/ directory and large/temporary/raw artifacts in ignored run directories.
+
+Follow existing numeric provenance rules: every numerical README/LOG result must have a NUMBERS.json record and its required citation tag. Use plain English without em/en dashes.
+
+Before each commit, run the repository's wfglink staged-file and documentation guards from the directory expected by the scripts. Stage only wfglink/ paths. Commit meaningful checkpoints with [wfglink] messages and push normally to the existing draft PR #53. Do not overwrite the published demo tag, merge the PR, or promote the high-precision mode to the default in this task. Give a promotion recommendation tied to the evidence instead.
+
+Finish with a self-contained report: what was built; exact source identity; commands; measured gains and regressions; per-population limitations; failed/unresolved gates; and the next highest-value missing evidence. If fresh data or human labels are missing, deliver the usable prototype and evaluation tooling, identify the exact missing inputs, and make no high-precision validation claim.
+
+Proceed autonomously with routine implementation decisions. Keep the work bounded, preserve the existing demo, and optimize for demonstrated precision at useful recall rather than an attractive headline.
+"
+
+Question: "The plan is written. Should I start?" (options: proceed as planned; minimum deliverable only; proceed but skip USFS data)
+Answer: "Proceed as planned (Recommended)"
