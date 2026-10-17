@@ -1,0 +1,23 @@
+# Clip settings for file mode (python -m wfglink process data/clips/C7_PP31.yaml).
+# Fetched for the precision evaluation of 2026-10-17 by a content-blind seeded selection
+# (results/validation/precision_20261017/data_selection.json); role: calibration.
+clip_id: C7_PP31
+file: data/raw/C7_PP31.mov
+split: calibration
+metrics_scope: all
+roi: null
+# The whole recording is analysed; no segment was chosen by looking at the content.
+segments_s: null
+gate: null
+distance_m: null
+peak_gust_ms: null
+gust_source: null
+z_interval_m: null
+focal_px: null
+hfov_deg: null
+drift_deg: null
+drift_basis: null
+drift_tolerance_deg: null
+notes: >
+  Firebrand generation from trees, outdoor tree-scale burns (RDS-2022-0071). outdoor tree burn, test PP31. Timebase assumed real time
+  (not verified against an external clock).
