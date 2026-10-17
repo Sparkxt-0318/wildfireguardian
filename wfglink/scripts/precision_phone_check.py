@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REL = ROOT / "results/validation/continuation_20261015"
 EXCLUDED = {"created", "report_path", "proc_ms_median", "proc_ms_p95", "git_dirty", "git_commit", "git_branch",
             "ms", "ms_median", "ms_p95", "wall_s", "elapsed_s", "out", "config_path"}
-TMP_PATH = re.compile(r"(/private)?(/var/folders/[^ ]*?/T|/tmp)/tmp\.[A-Za-z0-9]+/wfglink")
+TMP_PATH = re.compile(r"\S*/wfglink(?=/data/)")      # the tree a report was made in: temporary or the checkout
 
 
 def numeric(v):
@@ -80,7 +80,10 @@ def run_tree(tree: Path, out: Path, seconds: float, baseline: bytes) -> dict:
                        cwd=tree, env=env, capture_output=True, text=True)
     (out / "validate_ember.log").write_text(r.stdout + r.stderr)
     res["validate_returncode"] = r.returncode
-    r = subprocess.run([py, "scripts/check_ember_stride.py", "--seconds", str(seconds), "--out",
+    stride = tree / "scripts" / "check_ember_stride.py"
+    if not stride.is_file():
+        raise SystemExit(f"{stride} is missing")
+    r = subprocess.run([py, str(stride), "--seconds", str(seconds), "--out",
                         str(out / "stride_report.json")], cwd=tree, env=env, capture_output=True, text=True)
     (out / "stride.log").write_text(r.stdout + r.stderr)
     res["stride_returncode"] = r.returncode
@@ -97,7 +100,7 @@ def main() -> int:
     ap.add_argument("--reference", default="4d0092c")
     ap.add_argument("--seconds", type=float, default=60.0)
     a = ap.parse_args()
-    out = Path(a.out)
+    out = Path(a.out).resolve()                   # absolute: each tree runs in its own folder
     out.mkdir(parents=True, exist_ok=True)
     repo = (ROOT / "results").resolve().parent   # run_from_head links results to the checkout, a git work tree
     rec: dict = {"reference_commit": a.reference, "checks": {}, "informational": {}}
@@ -109,7 +112,7 @@ def main() -> int:
     baseline = subprocess.run(["git", "-C", str(repo), "show", "2d87bf3:wfglink/src/wfglink/ember/track.py"],
                               capture_output=True, check=True).stdout
     rec["baseline_track_sha256"] = hashlib.sha256(baseline).hexdigest()
-    with tempfile.TemporaryDirectory(dir=str(ROOT / "results" / "runs" / "tmp")) as td:
+    with tempfile.TemporaryDirectory() as td:      # outside results/: nothing a run cleans there can touch it
         export = Path(td)
         tar = subprocess.run(["git", "-C", str(repo), "archive", "--prefix=wfglink/", f"{a.reference}:wfglink"],
                              capture_output=True, check=True).stdout
@@ -119,8 +122,8 @@ def main() -> int:
         for d in ("raw", "synthetic"):
             if (ROOT / "data" / d).exists() and not (rtree / "data" / d).exists():
                 (rtree / "data" / d).symlink_to((ROOT / "data" / d).resolve())
-        rec["runs"] = {"under_test": run_tree(ROOT, out / "under_test", a.seconds, baseline),
-                       "reference": run_tree(rtree, out / "reference", a.seconds, baseline)}
+        reference = run_tree(rtree, out / "reference", a.seconds, baseline)
+        rec["runs"] = {"reference": reference, "under_test": run_tree(ROOT, out / "under_test", a.seconds, baseline)}
     for name, fname in (("exact_history_harness", "fullrate_comparison.json"), ("validate_ember", "ember_report.json"),
                         ("stride", "stride_report.json")):
         x, y = load(out / "under_test" / fname), load(out / "reference" / fname)
