@@ -452,7 +452,7 @@
     ]
    }
   },
-  "allowed_nodes": "largest strongly connected component of the directed road graph (mock assumption)",
+  "allowed_nodes": "at least one incoming and one outgoing road edge (the Route-Check API rule, api/regions.py GraphIndex.load)",
   "records": "full = final panel RDA_CAND repetition 1 (repetition 2 recorded); other policies = ablation repetition 1 (repetition 2 recorded)"
  },
  "panel_check": {
@@ -1669,28 +1669,28 @@
   },
   {
    "path": "nodes/hongseong_2023.json",
-   "sha256": "54b26a989b1a3bf7c6cdf293b396d764a4635d068911f7323732fb9808c53a5d",
-   "bytes": 37278
+   "sha256": "424c7b0c012692fd965dfaee0b8d81d7148c16b939678f5bd4573e46f4f63583",
+   "bytes": 37778
   },
   {
    "path": "nodes/miryang_2022.json",
-   "sha256": "550257a5fb5205abb3523ea4db04b0cd330f17f255d54dbb89e8f932e2844a3d",
-   "bytes": 60530
+   "sha256": "ca11ed7b31e808ddf94505c9c0f0f101cfcf25cab883eb4809485c9982d9c6da",
+   "bytes": 60812
   },
   {
    "path": "nodes/uiseong_andong_2025.json",
-   "sha256": "cc595434d4b9c2e622e9280ac38e1f0cef850c35cfa86e8725f0b54f97a9d978",
-   "bytes": 899198
+   "sha256": "feb33f6e7f38ca68cf7b327badd7846e12984acdc4dff67fd6e7f344f6983cef",
+   "bytes": 910398
   },
   {
    "path": "nodes/uljin_2022.json",
-   "sha256": "adaf46956cfd8211cc36e05c393c8e40c6c2376c2461e2f5ea7812b08b9b1815",
-   "bytes": 371441
+   "sha256": "fc60d7d22d18dc85a7bb19be8619d34bb3dbb7fcb86d439b878fe84b15f834a4",
+   "bytes": 374218
   },
   {
    "path": "nodes/yeongdeok_2025.json",
-   "sha256": "6a5e397d4dbcb07e38aa182c3155756017d4ae56423340ecf58ea2729409ca99",
-   "bytes": 2287995
+   "sha256": "d9cac826d144494d345d4701a0c0f4ae104f70e25c1db0f7c7c721696e2a3350",
+   "bytes": 2295134
   },
   {
    "path": "records/hongseong_2023/20230402T070000Z_FN1__flame_dose.json",
@@ -2194,8 +2194,8 @@
   },
   {
    "path": "regions.json",
-   "sha256": "0f6003ae926f623892078e9f3b9a42433b1aa0a5808aeb1fdf5515a5823e7263",
-   "bytes": 13755
+   "sha256": "fbefe0053afa1296bc9119f845b3f09148539cfc267bef1d2024ee86dac0b5c6",
+   "bytes": 13777
   }
  ],
  "public_files": [
@@ -2225,5 +2225,73 @@
    "bytes": 16167
   }
  ],
- "total_fixture_bytes": 19052360
+ "total_fixture_bytes": 19074280,
+ "partial_regenerations": [
+  {
+   "at": "2026-10-17T11:22:19Z",
+   "generator": "planner/tools/build_fixtures.py --nodes-only",
+   "git_commit": "fcce408dd12c74574a8d34c9fdb21c154079bbda",
+   "files": [
+    "nodes/uljin_2022.json",
+    "nodes/miryang_2022.json",
+    "nodes/hongseong_2023.json",
+    "nodes/uiseong_andong_2025.json",
+    "nodes/yeongdeok_2025.json",
+    "regions.json"
+   ],
+   "reason": "nodes-only regeneration: allowed nodes follow the Route-Check API rule; regions.json changed only in allowed_node_count and provenance.allowed_node_rule",
+   "regions": {
+    "uljin_2022": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 8835,
+     "allowed_node_count_before": 8835,
+     "allowed_node_count": 9367,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "miryang_2022": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 1457,
+     "allowed_node_count_before": 1457,
+     "allowed_node_count": 1491,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "hongseong_2023": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 824,
+     "allowed_node_count_before": 824,
+     "allowed_node_count": 907,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "uiseong_andong_2025": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 21187,
+     "allowed_node_count_before": 21187,
+     "allowed_node_count": 23128,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "yeongdeok_2025": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 55090,
+     "allowed_node_count_before": 55090,
+     "allowed_node_count": 56363,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    }
+   }
+  }
+ ]
 }

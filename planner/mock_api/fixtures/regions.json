@@ -16,7 +16,7 @@
    "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
    "node_count": 9372,
    "edge_count": 18909,
-   "allowed_node_count": 8835,
+   "allowed_node_count": 9367,
    "crs": "EPSG:5179",
    "grid": {
     "x0": 1149000.0,
@@ -85,7 +85,7 @@
    "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
    "node_count": 1494,
    "edge_count": 3115,
-   "allowed_node_count": 1457,
+   "allowed_node_count": 1491,
    "crs": "EPSG:5179",
    "grid": {
     "x0": 1111125.0,
@@ -154,7 +154,7 @@
    "graph_sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
    "node_count": 915,
    "edge_count": 1806,
-   "allowed_node_count": 824,
+   "allowed_node_count": 907,
    "crs": "EPSG:5179",
    "grid": {
     "x0": 907500.0,
@@ -223,7 +223,7 @@
    "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
    "node_count": 23158,
    "edge_count": 43826,
-   "allowed_node_count": 21187,
+   "allowed_node_count": 23128,
    "crs": "EPSG:5179",
    "grid": {
     "x0": 1093875.0,
@@ -292,7 +292,7 @@
    "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
    "node_count": 56369,
    "edge_count": 111924,
-   "allowed_node_count": 55090,
+   "allowed_node_count": 56363,
    "crs": "EPSG:5179",
    "grid": {
     "x0": 1147500.0,
@@ -379,6 +379,6 @@
   "scenario_ids": [],
   "generated_at": "2026-10-17T06:40:37Z",
   "mock": true,
-  "allowed_node_rule": "allowed_node_count = size of the largest strongly connected component of the directed road graph (mock rule; the real API may differ)"
+  "allowed_node_rule": "allowed_node_count = number of nodes with at least one incoming and one outgoing edge of the directed road graph (the Route-Check API rule, api/regions.py)"
  }
 }

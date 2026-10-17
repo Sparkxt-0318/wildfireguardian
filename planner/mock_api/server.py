@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """WildfireGuardian Route-Check API v1 -- MOCK server (Python standard library only).
 
-Implements every path of the official contract ``planner/contract/wfg_api_v1.yaml`` (base path ``/v1``) so the
-village evacuation planner can be developed and demonstrated without the real API.
+Implements every path of the official contract ``planner/contract/wfg_api_v1.yaml`` (v1.5.0, base path ``/v1``) so
+the village evacuation planner can be developed and demonstrated without the real API. Error codes, check order and
+response shapes mirror the real implementation (origin/feat/api ``api/*.py``) wherever a mock can.
 
 Honesty rule (planner/docs/ARCHITECTURE.md section 5.1): the mock computes nothing. It returns a recorded result only
 when region, input_time, fire_input.scenario_set_id, start node, destination node, depart_offset_s, dwell_s,
@@ -12,6 +13,14 @@ execution in ``fixtures/records/``. Every other request is ``unresolved`` (reaso
 ``MOCK_SPREAD_ZONES_NOT_EVALUATED``) with an ``assumptions`` object saying so. ``/health`` reports ``"mode": "mock"``
 and every provenance block carries ``"mock": true``. Jobs move queued -> running -> done over about 0.6 s of wall
 clock (no sleeping threads); recorded ``compute_s`` values are served as recorded, never invented.
+
+Contract v1.4 rules the mock applies to recorded results, exactly as the real API does:
+* ``run_independent_check: true`` with policy ``full``: the mock never runs the offline independent checker, so the
+  requested check did not complete and a recorded ``checked_route`` / ``model_no_route`` is served as ``unresolved``
+  (``CHECK_NOT_FINISHED``, raw_reason ``INDEPENDENT_CHECK_MISSING``), as the frozen scorer requires. Other policies:
+  the checker is not defined, a note says so and the verdict is unchanged.
+* a reduced-policy route whose recorded full-hazard grade contradicts its own policy's enabled constraints is
+  ``unresolved`` (``CHECK_FAILED``, raw_reason ``INDEPENDENT_CONTRADICTION``).
 
 Usage:
     python3 planner/mock_api/server.py [--host 127.0.0.1] [--port 8765] [--fixtures DIR] [--quiet]
@@ -45,7 +54,7 @@ PLANNER = HERE.parent
 CONTRACT_PATH = PLANNER / "contract" / "wfg_api_v1.yaml"
 
 # ---------------------------------------------------------------------------------------------------- fixed facts
-API_VERSION = "1.0.0"               # info.version of the contract copy this mock implements
+API_VERSION = "1.5.0"               # info.version of the contract copy this mock implements
 PACKAGE = "wfg_latest"
 PACKAGE_VERSION = "1.0.0"
 KIT = "v3"
@@ -57,6 +66,8 @@ DEFAULT_MARGIN_MIN = 60
 SNAP_MAX_M = 300.0
 BUDGET_S = 30.0
 MAX_ORIGINS = 200
+MAX_DISPATCH_ATTEMPTS = 4800        # origins x destinations x offsets per plan (contract v1.4, TOO_MANY_ATTEMPTS)
+MOCK_WORKERS = 1
 MAX_BODY_BYTES = 32 * 1024 * 1024
 DEFAULT_QUEUED_S = 0.15             # queued while elapsed < 0.15 s
 DEFAULT_DONE_S = 0.6                # running while elapsed < 0.6 s, then done
@@ -66,9 +77,20 @@ POLICIES = ("full", "travel_only", "flame_only", "flame_peak", "flame_dose")
 VERDICTS = ("checked_route", "model_no_route", "unresolved")
 CHECKED, NO_ROUTE, UNRESOLVED = VERDICTS
 REASON_CODES = ("TIMEOUT", "STATE_CAP", "MEMORY_CAP", "CHECK_NOT_FINISHED", "CHECK_FAILED", "WORKER_ERROR",
-                "CLEANUP_UNCONFIRMED", "INTERNAL_ERROR", "OTHER")
+                "CLEANUP_UNCONFIRMED", "INTERNAL_ERROR", "OTHER",
+                "INPUT_REJECTED", "AT_ISSUE_FAILURE", "DISCONNECTED")          # v1.1 pass-through decision statuses
+# Constraints each reduced policy enforces (final-input ablation arm_transform.ENABLED for A0-A3; api/runner.py).
+POLICY_ENABLED = {"travel_only": frozenset(), "flame_only": frozenset({"FLAME"}),
+                  "flame_peak": frozenset({"FLAME", "PEAK"}), "flame_dose": frozenset({"FLAME", "DOSE"})}
 
 RECORDED_CLOCK = "complete-request wall time recorded on the native campaign host"
+NOTE_UNRESOLVED = "Unresolved is never safe: no checked route and no scoped refusal were established."
+NOTE_NO_ROUTE = ("Scoped refusal: no route exists within this model, lattice, scenarios and policy; it is not proof "
+                 "that every real-world escape is impossible.")
+NOTE_NO_INDEPENDENT = ("run_independent_check was requested: the MOCK server never runs the offline independent "
+                       "checker, so the requested check did not complete and, as the frozen scorer requires, the "
+                       "result is unresolved (CHECK_NOT_FINISHED, INDEPENDENT_CHECK_MISSING).")
+NODE_RULE = "at least one incoming and one outgoing road"
 RECORDED_HOST = {"recorded": True, "machine": "Apple M5 Pro", "os": "macOS (native)"}
 NOT_COMPUTED_HOST = {"recorded": False, "machine": None, "os": None,
                      "note": "MOCK: nothing was computed for this response"}
@@ -383,10 +405,6 @@ class NodeTable:
         self.allowed = [bool(a) for a in allowed]
         self.allowed_rule = doc.get("allowed_rule")
         self.index = {n: i for i, n in enumerate(self.ids)}
-        # Recorded mission endpoints were accepted by the recorded executions; they stay valid node_id inputs even
-        # when the MOCK allowed rule excludes them (fixtures/nodes/<region>.json "recorded_mission_nodes").
-        self.recorded_endpoints = {m["node_id"] for m in doc.get("recorded_mission_nodes") or []
-                                   if isinstance(m, dict) and isinstance(m.get("node_id"), str)}
         if len(self.index) != len(self.ids):
             raise ValueError("duplicate node ids")
         self._b_all: dict = {}
@@ -442,7 +460,7 @@ class Record:
     """One recorded execution (fixtures/records/<region>/<case>__<policy>.json, ARCHITECTURE.md section 4.1)."""
 
     __slots__ = ("doc", "path", "region", "case_id", "policy", "ssid", "tag", "start", "dest", "depart", "dwell",
-                 "window", "peak", "dose", "incurred", "verdict", "source_arm", "repetition")
+                 "window", "peak", "dose", "incurred", "verdict", "source_arm", "repetition", "route", "fpa")
 
     def label(self) -> str:
         return "%s__%s" % (self.case_id, self.policy)
@@ -463,7 +481,9 @@ class Fixtures:
         self.nodes: dict = {}             # region -> NodeTable
         self.records: list = []
         self.by_key: dict = {}            # (region, ssid, policy, start, dest) -> [Record]
+        self.by_mission: dict = {}        # (region, ssid, start, dest) -> [Record] (every policy)
         self.by_region: dict = {}         # region -> [Record]
+        self.kit_candidate_id = None      # executed kit candidate named in the recorded source paths
         self.forecast_paths: dict = {}    # (region, tag) -> Path
         self._fc_cache: OrderedDict = OrderedDict()
         self._fc_lock = threading.Lock()
@@ -593,7 +613,19 @@ class Fixtures:
                                 % (other.label(), rec.label(), other.label()))
             self.records.append(rec)
             self.by_key.setdefault(key, []).append(rec)
+            self.by_mission.setdefault((rec.region, rec.ssid, rec.start, rec.dest), []).append(rec)
             self.by_region.setdefault(rec.region, []).append(rec)
+            if self.kit_candidate_id is None:
+                for s in rec.doc.get("source_records") or []:
+                    m = _KIT_RE.search(str((s or {}).get("path") or "")) if isinstance(s, dict) else None
+                    if m:
+                        self.kit_candidate_id = m.group(1)
+                        break
+
+    def recorded_missions(self, rid: str) -> list:
+        """Recorded final-panel missions of a region (GET /regions ``recorded_missions``, as the real API lists them)."""
+        keys = sorted({(r.case_id, r.tag) for r in self.by_region.get(rid, ())})
+        return [{"mission": c, "input_time": tag_to_iso(t)} for c, t in keys]
 
     def _parse_record(self, path: Path, doc: dict):
         req, out = doc["request"], doc["outcome"]
@@ -632,13 +664,23 @@ class Fixtures:
             raise ValueError("unknown verdict %r" % rec.verdict)
         if rec.verdict == CHECKED and not isinstance(doc.get("route"), dict):
             self._issue("record %s is checked_route but has no route" % rec.label())
+        rec.route = None
+        if rec.verdict == CHECKED and isinstance(doc.get("route"), dict):
+            try:
+                rec.route = served_route(doc["route"])
+            except (KeyError, TypeError, ValueError) as e:
+                rec.route = doc["route"]
+                self._issue("record %s: route served as recorded (cannot apply the API vertex rule: %s)" % (rec.label(), e))
+        rec.fpa = full_policy_assessment(rec) if rec.verdict == CHECKED and rec.policy != "full" else None
         if rec.region in self.nodes:
             table = self.nodes[rec.region]
             for role, nid in (("origin", rec.start), ("destination", rec.dest)):
-                if nid not in table.index:
+                i = table.index.get(nid)
+                if i is None:
                     self._issue("record %s: %s node %s is not in nodes/%s.json" % (rec.label(), role, nid, rec.region))
-                else:
-                    table.recorded_endpoints.add(nid)
+                elif not table.allowed[i]:
+                    self._issue("record %s: %s node %s is not allowed (%s), so its request cannot be posed"
+                                % (rec.label(), role, nid, table.allowed_rule or "node table"))
         return rec
 
     # -------------------------------------------------------------------------------------------- matching
@@ -681,6 +723,15 @@ class Fixtures:
                 return rec
         return None
 
+    def mission_match(self, q: dict):
+        """case_id of the recorded mission whose request q restates in every compared field except the policy: the
+        real API's provenance.recorded_mission_match (its built request equals the mission's request file, which
+        every policy shares), else None."""
+        for rec in self.by_mission.get((q["region"], q["ssid"], q["start"], q["dest"]), ()):
+            if all(name == "policy" for name, _, _ in self._diff(rec, q)):
+                return rec.case_id
+        return None
+
     def explain(self, q: dict) -> str:
         """Why request q matches no recorded execution (names the closest recorded execution and its differences)."""
         recs = self.by_region.get(q["region"], [])
@@ -695,6 +746,31 @@ class Fixtures:
             len(recs), q["region"], closest.label(), "; ".join(parts))
 
     # -------------------------------------------------------------------------------------------- forecast
+    def _north_up(self, rid: str, doc: dict) -> dict:
+        """The fixture numbers ForecastCell rows from the SOUTH edge (graph cell convention, fixtures MANIFEST.json);
+        the real API (api/forecast.py) numbers them north-up (row 0 = northern edge) and adds a ``grid`` block. Same
+        cells, polygons and values: only ``row`` and ``id`` are re-numbered; ``cell`` keeps the graph index."""
+        g = (self.regions.get(rid) or {}).get("grid") or {}
+        try:
+            h, w, res = int(g["height"]), int(g["width"]), float(g["resolution_m"])
+            x0, y0 = float(g["x0"]), float(g["y0"])
+        except (KeyError, TypeError, ValueError):
+            self._issue("forecast for %s: regions.json grid incomplete; rows served as in the fixture" % rid)
+            return doc
+        feats = []
+        for f in doc.get("features") or []:
+            p = dict(f.get("properties") or {})
+            if isinstance(p.get("row"), int) and isinstance(p.get("col"), int):
+                p["row"] = h - 1 - p["row"]
+                f = dict(f, id="r%dc%d" % (p["row"], p["col"]), properties=p)
+            feats.append(f)
+        out = dict(doc, features=feats)
+        out["grid"] = {"crs": "EPSG:5179", "resolution_m": res, "rows": h, "cols": w,
+                       "affine_transform": [res, 0.0, x0, 0.0, -res, y0 + h * res],
+                       "row_order": "north-up (row 0 is the northern edge)",
+                       "cell_index": "properties.cell (MOCK extension) is the graph cell row_south * cols + col"}
+        return out
+
     def forecast_doc(self, rid: str, tag: str) -> dict:
         key = (rid, tag)
         with self._fc_lock:
@@ -702,7 +778,7 @@ class Fixtures:
             if doc is not None:
                 self._fc_cache.move_to_end(key)
                 return doc
-        doc = self._read_json(self.forecast_paths[key])
+        doc = self._north_up(rid, self._read_json(self.forecast_paths[key]))
         with self._fc_lock:
             self._fc_cache[key] = doc
             while len(self._fc_cache) > 4:
@@ -717,6 +793,112 @@ def _valid_from(sset: dict) -> float:
     return 0
 
 
+_KIT_RE = re.compile(r"(WFG-latest-completion-kit-[0-9]{8}-v[0-9]+)")
+SERVED_VERTEX_RULE = ("Route-Check API vertex rule (api/runner.py route_feature): the origin, one vertex per EDGE leg "
+                      "end, and one vertex at the end of each run of consecutive WAIT legs; node_ids has one entry per "
+                      "vertex; segment_count counts EDGE legs, legs_total all legs. MOCK: re-expressed from the recorded "
+                      "route (recorded positions and times; only intermediate 1 s wait vertices are dropped).")
+
+
+def served_route(route: dict) -> dict:
+    """A recorded route (ARCHITECTURE.md 4.1: one vertex per leg end, so a wait of n 1 s WAIT legs adds n vertices;
+    node_ids either per vertex or the origin plus each EDGE leg's end node) in the real API's layout. Raises ValueError
+    when the recorded vertices cannot be attributed to EDGE and WAIT legs unambiguously."""
+    geom = route["geometry"]
+    coords = geom["coordinates"]
+    props = route["properties"]
+    times = props["times_s"]
+    ids = list(props.get("node_ids") or [])
+    edges = list(props.get("edge_ids") or [])
+    waits = [w for w in props.get("waits") or [] if isinstance(w, dict)]
+    n = len(coords)
+    if n == 0 or len(times) != n:
+        raise ValueError("coordinates and times_s differ in length")
+
+    def waiting(node, i) -> bool:
+        return coords[i] == coords[i - 1] and any(w.get("node_id") == node and w["from_s"] < times[i] <= w["to_s"]
+                                                  for w in waits)
+    per_vertex = len(ids) == n
+    if not per_vertex and len(ids) != len(edges) + 1:
+        raise ValueError("node_ids is neither per vertex nor per EDGE leg end")
+    out_c, out_t, out_n = [coords[0]], [times[0]], [ids[0]]
+    cur, k, pending = ids[0], 0, None
+    for i in range(1, n):
+        if waiting(cur, i) and (not per_vertex or ids[i] == cur):
+            pending = i                       # inside a run of WAIT legs: keep only its last vertex
+            continue
+        if pending is not None:
+            out_c.append(coords[pending]); out_t.append(times[pending]); out_n.append(cur)
+            pending = None
+        k += 1
+        if per_vertex:
+            cur = ids[i]
+        else:
+            if k >= len(ids):
+                raise ValueError("more EDGE vertices than recorded EDGE legs")
+            cur = ids[k]
+        out_c.append(coords[i]); out_t.append(times[i]); out_n.append(cur)
+    if pending is not None:
+        out_c.append(coords[pending]); out_t.append(times[pending]); out_n.append(cur)
+    if not per_vertex and k != len(ids) - 1:
+        raise ValueError("EDGE vertices do not match the recorded EDGE legs")
+    legs_total = props.get("segment_count")
+    p = dict(props)
+    p.update({"times_s": out_t, "node_ids": out_n, "segment_count": k,
+              "legs_total": legs_total if isinstance(legs_total, int) else n - 1, "vertex_rule": SERVED_VERTEX_RULE})
+    if edges and len(edges) != k:
+        raise ValueError("edge_ids do not match the EDGE vertices")
+    return {"type": "Feature", "geometry": dict(geom, coordinates=out_c), "properties": p}
+
+
+def full_policy_assessment(rec) -> dict:
+    """The recorded full-hazard grade of a reduced-policy route in the real API's full_policy_assessment layout
+    (api/runner.py), plus the record's own fields. Nothing is recomputed: violations are the recorded failure
+    components (attributed to scenarios only where the recorded member values identify them), per_scenario is the
+    recorded offline full-model centre check, and passes_selected_policy applies the API's rule to those components."""
+    doc = rec.doc
+    fpc = doc.get("full_policy_check") if isinstance(doc.get("full_policy_check"), dict) else {}
+    fme = doc.get("full_model_exposure") if isinstance(doc.get("full_model_exposure"), dict) else {}
+    members = [m for m in fme.get("members") or [] if isinstance(m, dict) and isinstance(m.get("scenario_id"), str)]
+    comps = [str(c) for c in fpc.get("failure_components") or []]
+    passed = fpc.get("pass") if isinstance(fpc.get("pass"), bool) else None
+    violations = []
+    for c in comps:
+        if c == "FLAME":
+            hit = [m["scenario_id"] for m in members if m.get("contact") is True]
+        elif c == "PEAK":
+            hit = [m["scenario_id"] for m in members if _is_num(m.get("peak_kw_m2")) and m["peak_kw_m2"] > rec.peak]
+        elif c == "DOSE":
+            hit = [m["scenario_id"] for m in members if _is_num(m.get("dose_kj_m2")) and m["dose_kj_m2"] > rec.dose]
+        else:
+            hit = []
+        violations += [{"scenario_id": s, "constraint": c} for s in hit] or [{"scenario_id": None, "constraint": c}]
+    if passed is True:
+        passes_full = True
+    elif passed is False and {"FLAME", "PEAK", "DOSE", "WHOLE_ROAD_CONTACT"} & set(comps):
+        passes_full = False
+    else:
+        passes_full = None
+    enabled = POLICY_ENABLED.get(rec.policy, frozenset())
+    if passed is None:
+        own = True if not enabled else None
+    else:
+        own = not (enabled & set(comps)) and not ("FLAME" in enabled and "WHOLE_ROAD_CONTACT" in comps)
+    own_exposure = [m for m in doc.get("exposure") or [] if isinstance(m, dict)]
+    return {"passes_full_centre_and_contact": passes_full, "grammar_ok": None,
+            "whole_road_contact": fme.get("independent_contact_status"), "violations": violations,
+            "per_scenario": {m["scenario_id"]: {"peak_kw_m2": m.get("peak_kw_m2"), "dose_kj_m2": m.get("dose_kj_m2"),
+                                                "contact": m.get("contact")} for m in members},
+            "scope": fme.get("scope"), "passes_selected_policy": own,
+            "pass": passed, "failure_components": fpc.get("failure_components"), "source": fpc.get("source"),
+            "full_model_exposure_scope": fme.get("scope"),
+            "independent_contact_status": fme.get("independent_contact_status"),
+            "full_whole_status": fme.get("full_whole_status"),
+            "policy_exposure": {"scope": doc.get("exposure_scope"), "members": own_exposure},
+            "recorded": True, "charged_to_compute_s": False,
+            "note": "MOCK: recorded ablation dual-policy grade of this route (grammar_ok was not recorded: null)."}
+
+
 # ---------------------------------------------------------------------------------------------------- jobs
 class FireContext:
     """Resolved fire input shared by one route check or all attempts of one dispatch plan."""
@@ -726,12 +908,12 @@ class FireContext:
 
 class RouteJob:
     __slots__ = ("job_id", "created", "created_wall", "start_after", "done_after", "request", "snap", "region",
-                 "ctx", "query", "record", "parent", "_reason")
+                 "ctx", "query", "record", "mission", "parent", "provenance", "_reason", "_outcome")
 
 
 class PlanJob:
     __slots__ = ("job_id", "created", "created_wall", "start_after", "done_after", "request", "region", "ctx",
-                 "origins", "rejected", "dests", "attempt_jobs", "total", "_result", "_lock")
+                 "origins", "rejected", "dests", "attempt_jobs", "total", "provenance", "limits", "_result", "_lock")
 
 
 class JobStore:
@@ -810,10 +992,39 @@ class MockApi:
         try:
             return self._route(method, raw_path, body, headers or {})
         except ApiError as e:
-            return _json(e.status, e.body(), headers=e.headers)
+            return self.error_response(e)
         except Exception as e:  # noqa: BLE001
             traceback.print_exc(file=sys.stderr)
-            return _json(500, {"error": {"code": "INTERNAL_ERROR", "message": "%s: %s" % (type(e).__name__, e)}})
+            return self.error_response(ApiError(500, "INTERNAL_ERROR", "%s: %s" % (type(e).__name__, e)))
+
+    def error_response(self, e: ApiError) -> Response:
+        """Error envelope with provenance (contract v1.3: every response carries provenance)."""
+        return _json(e.status, dict(e.body(), provenance=self._prov(host=NOT_COMPUTED_HOST)), headers=e.headers)
+
+    @staticmethod
+    def _query_error(loc: str, kind: str, msg: str, value):
+        """422 for a bad query parameter, with the real API's (FastAPI/pydantic) details layout."""
+        return _unprocessable("VALIDATION_ERROR", "invalid request parameters",
+                              [{"type": kind, "loc": ["query", loc], "msg": msg, "input": value}])
+
+    def _query_value(self, query: dict, name: str, required: bool = True):
+        vals = query.get(name)
+        if not vals:
+            if required:
+                raise self._query_error(name, "missing", "Field required", None)
+            return None
+        return vals[-1]
+
+    def _query_bool(self, query: dict, name: str, default: bool) -> bool:
+        raw = self._query_value(query, name, required=False)
+        if raw is None:
+            return default
+        v = raw.lower()
+        if v in ("1", "on", "t", "true", "y", "yes"):
+            return True
+        if v in ("0", "off", "f", "false", "n", "no"):
+            return False
+        raise self._query_error(name, "bool_parsing", "Input should be a valid boolean, unable to interpret input", raw)
 
     def _route(self, method: str, raw_path: str, body: bytes, headers) -> Response:
         parts = urlsplit(raw_path)
@@ -893,6 +1104,7 @@ class MockApi:
               extra=None) -> dict:
         region = self.fx.regions.get(region_id) or {}
         p = {"api_version": API_VERSION, "package": PACKAGE, "package_version": PACKAGE_VERSION, "kit": KIT,
+             "kit_candidate_id": self.fx.kit_candidate_id,
              "checkpoint": CHECKPOINT, "git_commit": self.git_commit, "git_dirty": None,
              "region": region_id, "input_time": tag_to_iso(tag) if tag else None,
              "graph_id": region.get("graph_id") if region_id else None,
@@ -901,14 +1113,44 @@ class MockApi:
              "fire_input_type": fire_type, "policy": policy, "evaluated_configuration": evaluated,
              "approximation": approximation, "clock": clock, "host": host,
              "generated_at": iso_ms(generated_at or utc_now()), "mock": True}
+        if region_id:
+            p.update({"budget_s": BUDGET_S, "workers": MOCK_WORKERS})
         if extra:
             p.update(extra)
         return p
 
+    @staticmethod
+    def _default_limits(peak, dose, incurred) -> bool:
+        return num_eq(peak, DEFAULT_PEAK_KW_M2) and num_eq(dose, DEFAULT_DOSE_KJ_M2) and num_eq(incurred, 0)
+
+    def _job_prov(self, region_id: str, ctx, policy: str, peak, dose, incurred, generated_at=None) -> dict:
+        """Provenance known when a job is accepted (contract v1.4; real API _job_prov): the inputs it will use.
+        evaluated_configuration is true or null here; the finished result carries the full record."""
+        recorded = ctx.type == "recorded"
+        return self._prov(region_id=region_id, tag=ctx.tag, fire_type=ctx.type, policy=policy,
+                          scenario_set_id=ctx.sset["scenario_set_id"] if recorded else None,
+                          scenario_ids=(ctx.sset.get("scenario_ids") or ()) if recorded else (),
+                          input_hashes=self._region_hashes(region_id, ctx.sset if recorded else None),
+                          evaluated=(recorded and policy == "full" and self._default_limits(peak, dose, incurred)) or None,
+                          approximation=APPROXIMATION if not recorded else None, clock=None, host=NOT_COMPUTED_HOST,
+                          generated_at=generated_at)
+
+    def _route_job_prov(self, job) -> dict:
+        if job.provenance is None:
+            q = job.query
+            job.provenance = self._job_prov(job.region, job.ctx, job.request["policy"], q["peak"], q["dose"],
+                                            q["incurred"], generated_at=job.created_wall)
+        return job.provenance
+
     def _fixture_prov(self, base) -> dict:
+        """Provenance stored in a fixture (regions.json, forecast) as served: api_version follows the contract version
+        this mock serves (v1.3); the version recorded at fixture generation is kept as fixture_api_version."""
         p = self._prov(host=NOT_COMPUTED_HOST)
         if isinstance(base, dict):
             p.update(base)
+            if base.get("api_version") not in (None, API_VERSION):
+                p["fixture_api_version"] = base["api_version"]
+        p["api_version"] = API_VERSION
         p["mock"] = True
         return p
 
@@ -934,39 +1176,46 @@ class MockApi:
     def health(self) -> dict:
         fx = self.fx
         issues = list(fx.issues)
+        graphs = {"%s/graph" % rid: r["graph_sha256"] for rid, r in sorted(fx.regions.items())
+                  if isinstance(r.get("graph_sha256"), str)}
         return {"status": "ok" if fx.regions and not issues else "degraded", "api_version": API_VERSION,
                 "package": PACKAGE, "package_version": PACKAGE_VERSION, "kit": KIT, "checkpoint": CHECKPOINT,
-                "git_commit": self.git_commit, "regions": sorted(fx.regions), "workers": 1,
+                "git_commit": self.git_commit, "regions": sorted(fx.regions), "workers": MOCK_WORKERS,
                 "data_root": str(self.fixtures_dir), "issues": issues, "mode": "mock", "mock": True,
-                "budget_s": BUDGET_S, "jobs": dict(self.jobs.counts),
+                "budget_s": BUDGET_S, "jobs": dict(self.jobs.counts), "queued_tasks": 0, "pool_restarts": 0,
+                "kit_candidate_id": fx.kit_candidate_id, "git_dirty": None,
                 "fixtures": {"manifest": fx.manifest is not None,
                              "generated_at": (fx.manifest or {}).get("generated_at"),
                              "records": len(fx.records),
                              "records_by_policy": {p: sum(r.policy == p for r in fx.records) for p in POLICIES},
                              "node_tables": sorted(fx.nodes), "forecasts": len(fx.forecast_paths)},
-                "started_at": iso_ms(self.started_at)}
+                "started_at": iso_ms(self.started_at),
+                "provenance": self._prov(input_hashes=graphs, host=NOT_COMPUTED_HOST)}
+
+    def _require_data(self) -> None:
+        """503 DATA_UNAVAILABLE when no region is loaded (real API _require_data; contract v1.2 for the read paths)."""
+        if not self.fx.regions:
+            raise ApiError(503, "DATA_UNAVAILABLE", "no MOCK fixtures are loaded (planner/tools/build_fixtures.py "
+                           "generates planner/mock_api/fixtures/)", {"issues": self.fx.issues})
 
     def list_regions(self) -> dict:
+        self._require_data()
         doc = dict(self.fx.regions_doc)
-        doc["regions"] = list(self.fx.regions.values())
+        doc["regions"] = [dict(self.fx.regions[rid], recorded_missions=self.fx.recorded_missions(rid))
+                          for rid in sorted(self.fx.regions)]
         doc["provenance"] = self._fixture_prov(self.fx.regions_doc.get("provenance"))
         return doc
 
     # -------------------------------------------------------------------------------------------- forecast
     def forecast(self, region_id: str, query: dict, headers) -> Response:
         fx = self.fx
+        # real API order: query parameters (FastAPI) -> 503 -> 404 region -> input time -> 404 time -> 422 forecast
+        raw_time = self._query_value(query, "input_time")
+        only = self._query_bool(query, "only_nonzero", False)
+        self._require_data()
         if region_id not in fx.regions:
             raise ApiError(404, "UNKNOWN_REGION", "region %r is not available" % region_id, {"available": sorted(fx.regions)})
-        vals = query.get("input_time") or []
-        if not vals or not vals[0].strip():
-            raise _unprocessable("VALIDATION_ERROR", "query parameter input_time is required",
-                                 [{"path": "input_time", "message": "field required"}])
-        tag = normalize_input_time(vals[0])
-        only_raw = (query.get("only_nonzero") or ["false"])[0].strip().lower()
-        if only_raw not in ("true", "false", "1", "0", "yes", "no", "on", "off", ""):
-            raise _unprocessable("VALIDATION_ERROR", "only_nonzero must be true or false",
-                                 [{"path": "only_nonzero", "message": "%r is not a boolean" % only_raw}])
-        only = only_raw in ("true", "1", "yes", "on")
+        tag = normalize_input_time(raw_time)
         available = sorted(t for (r, t) in fx.sets_at if r == region_id)
         if tag not in available:
             raise ApiError(404, "INPUT_TIME_UNAVAILABLE", "no recorded input for %s at %s" % (region_id, tag_to_iso(tag)),
@@ -993,10 +1242,9 @@ class MockApi:
 
     # -------------------------------------------------------------------------------------------- shared checks
     def _require_region(self, region_id: str) -> dict:
+        self._require_data()
         r = self.fx.regions.get(region_id)
         if r is None:
-            if not self.fx.regions:
-                raise ApiError(503, "DATA_UNAVAILABLE", "no MOCK fixtures are loaded", {"issues": self.fx.issues})
             raise _unprocessable("UNKNOWN_REGION", "region %r is not available" % region_id, {"available": sorted(self.fx.regions)})
         if region_id not in self.fx.nodes:
             raise ApiError(503, "DATA_UNAVAILABLE", "the MOCK node table for %s is not loaded" % region_id,
@@ -1023,15 +1271,15 @@ class MockApi:
                     {"scenario_sets_at_input_time": [s["scenario_set_id"] for s in here]})
             ctx.type, ctx.sset = "recorded", want
         else:
+            # v1.1 scope: input_time is a recorded input time of the region (checked above); v1.3: burning cells always
+            # come from that recorded input, and burning_scenario_set_id is only a consistency check against it.
             ctx.type, ctx.sset = "spread_zones", here[0]
             bsid = fire.get("burning_scenario_set_id")
-            if bsid is not None:
-                if bsid not in fx.sets[region_id]:
-                    raise _unprocessable("UNKNOWN_SCENARIO_SET", "burning_scenario_set_id %r is not recorded for %s" % (bsid, region_id),
-                                         {"available": sorted(fx.sets[region_id])})
-                if fx.set_tag[(region_id, bsid)] != tag:
-                    raise _unprocessable("SCENARIO_SET_TIME_MISMATCH", "burning_scenario_set_id must be the recorded scenario set "
-                                         "at input_time (%s)" % ", ".join(s["scenario_set_id"] for s in here))
+            if bsid is not None and bsid not in [s["scenario_set_id"] for s in here]:
+                raise _unprocessable("SCENARIO_SET_TIME_MISMATCH", "burning_scenario_set_id must be the recorded scenario "
+                                     "set at input_time (%s)" % ", ".join(s["scenario_set_id"] for s in here),
+                                     {"burning_scenario_set_id": bsid,
+                                      "scenario_sets_at_input_time": [s["scenario_set_id"] for s in here]})
             try:
                 _parse_utc(fire["issued_at"])
             except (ValueError, TypeError):
@@ -1050,9 +1298,10 @@ class MockApi:
 
     @staticmethod
     def _check_zones(region: dict, zones: dict) -> int:
+        """The real adapter's structural checks (api/adapters/spread_zones.py). An empty feature list is accepted, as
+        there (only the recorded present fire would remain); 'outside' is judged on the region bbox here, on the
+        rasterised region grid there."""
         feats = zones["features"]
-        if not feats:
-            raise _unprocessable("INVALID_ZONES", "zones.features must contain at least one zone")
         bbox = region.get("bbox")
         outside = []
         for i, f in enumerate(feats):
@@ -1092,14 +1341,10 @@ class MockApi:
             if i is None:
                 raise _unprocessable("UNKNOWN_NODE", "%s node %r is not in the %s road graph" % (role, nid, region_id),
                                      {"role": role, "node_id": nid})
-            if not table.allowed[i] and nid not in table.recorded_endpoints:
-                raise _unprocessable("NODE_NOT_ALLOWED", "%s node %r is not allowed as a start or destination (%s)"
-                                     % (role, nid, table.allowed_rule or "MOCK node table"), {"role": role, "node_id": nid})
-            info = {"node_id": nid, "distance_m": 0.0, "lon": table.lon[i], "lat": table.lat[i], "input": "node_id"}
             if not table.allowed[i]:
-                info["note"] = ("accepted as a recorded mission endpoint although the MOCK allowed rule (%s) excludes it"
-                                % (table.allowed_rule or "node table"))
-            return info
+                raise _unprocessable("NODE_NOT_ALLOWED", "%s node %r needs %s" % (role, nid, NODE_RULE),
+                                     {"role": role, "node_id": nid})
+            return {"node_id": nid, "distance_m": 0.0, "lon": table.lon[i], "lat": table.lat[i], "input": "node_id"}
         found = table.nearest(float(loc["lon"]), float(loc["lat"]))
         if found is None:
             raise ApiError(503, "DATA_UNAVAILABLE", "the MOCK node table for %s has no allowed node" % region_id)
@@ -1151,18 +1396,22 @@ class MockApi:
         job.created, job.created_wall = created, created_wall
         job.start_after, job.done_after = start_after, done_after
         job.request, job.snap, job.region, job.ctx, job.parent = request, snap, region_id, ctx, parent
-        job._reason = None
+        job._reason = job._outcome = None
         job.query = {"region": region_id, "tag": ctx.tag, "ssid": ctx.sset["scenario_set_id"], "policy": request["policy"],
                      "start": snap["start"]["node_id"], "dest": snap["destination"]["node_id"], "depart": params["depart"],
                      "dwell": params["dwell"], "window": params["window"], "peak": params["peak"], "dose": params["dose"],
                      "incurred": params["incurred"]}
         job.record = self.fx.match(job.query) if ctx.type == "recorded" else None
+        job.mission = job.record.case_id if job.record is not None else (
+            self.fx.mission_match(job.query) if ctx.type == "recorded" else None)
+        job.provenance = None
         if register:
             self.jobs.add(job)
         return job
 
     # -------------------------------------------------------------------------------------------- route checks
     def create_route_check(self, body):
+        # real API order: JSON + schema -> 503 data -> region -> input_time -> fire input -> snaps -> request checks
         self._validate(body, "RouteCheckRequest")
         region_id = body["region"]
         self._require_region(region_id)
@@ -1193,7 +1442,8 @@ class MockApi:
         self.log("route check %s: %s -> %s, %s" % (job.job_id, snap["start"]["node_id"], snap["destination"]["node_id"],
                                                     ("recorded " + job.record.label()) if job.record else
                                                     (MOCK_ZONES if ctx.type == "spread_zones" else MOCK_NO_RECORD)))
-        accepted = {"job_id": job.job_id, "status": "queued", "kind": "route_check", "snap": snap, "links": self._links(job)}
+        accepted = {"job_id": job.job_id, "status": "queued", "kind": "route_check", "snap": snap,
+                    "provenance": self._route_job_prov(job), "links": self._links(job)}
         return accepted, "application/json; charset=utf-8", {"Location": "/v1/route-checks/%s" % job.job_id}
 
     @staticmethod
@@ -1222,150 +1472,204 @@ class MockApi:
         view = {"job_id": job.job_id, "kind": "route_check", "status": status, "created_at": iso_ms(job.created_wall),
                 "started_at": started, "finished_at": finished, "request": job.request, "snap": job.snap,
                 "result": self.route_result(job, finished) if status == "done" else None, "error": None,
-                "links": self._links(job), "mock": True}
+                "provenance": self._route_job_prov(job), "links": self._links(job), "mock": True}
         if job.parent:
             view["parent_job_id"] = job.parent
         return view
 
-    def _summary(self, job: RouteJob) -> dict:
-        """Verdict-level outcome of a route job (shared by results and dispatch attempts)."""
-        if job.ctx.type == "spread_zones":
-            return {"verdict": UNRESOLVED, "reason_code": "OTHER", "raw_status": MOCK_ZONES, "arrival_s": None,
-                    "lower_bound_L_s": None, "compute_s": None, "case_id": None}
-        rec = job.record
-        if rec is None:
-            return {"verdict": UNRESOLVED, "reason_code": "OTHER", "raw_status": MOCK_NO_RECORD, "arrival_s": None,
-                    "lower_bound_L_s": None, "compute_s": None, "case_id": None}
-        o = rec.doc.get("outcome") or {}
-        reason = None
-        if rec.verdict == UNRESOLVED:
-            reason = o.get("reason_code") if o.get("reason_code") in REASON_CODES else "OTHER"
-        return {"verdict": rec.verdict, "reason_code": reason, "raw_status": o.get("raw_status"),
-                "arrival_s": o.get("arrival_s"), "lower_bound_L_s": o.get("lower_bound_L_s"),
-                "compute_s": o.get("compute_s") if _is_num(o.get("compute_s")) else None, "case_id": rec.case_id}
+    def _outcome(self, job: RouteJob) -> dict:
+        """Verdict-level outcome of a route job (shared by results and dispatch attempts; cached per job). Recorded
+        values are served as recorded; the contract v1.4 rules (independent check requested but not run, reduced-policy
+        route contradicting its own policy) downgrade a recorded verdict to unresolved exactly as the real API would."""
+        if job._outcome is not None:
+            return job._outcome
+        req, ctx, rec = job.request, job.ctx, job.record
+        policy = req["policy"]
+        out = {"verdict": UNRESOLVED, "reason_code": "OTHER", "raw_status": None, "raw_reason": None,
+               "departure_s": job.query["depart"], "arrival_s": None, "lower_bound_L_s": None, "dwell_end_s": None,
+               "route": None, "exposure": [], "fpa": None, "compute_s": None, "within_budget": False,
+               "case_id": None, "independent": None, "notes": []}
+        notes = out["notes"]
+        if ctx.type == "spread_zones":
+            out["raw_status"] = MOCK_ZONES
+        elif rec is None:
+            out["raw_status"] = MOCK_NO_RECORD
+        else:
+            o = rec.doc.get("outcome") or {}
+            notes.append("MOCK: recorded result of case %s (%s rep %s) served without recomputation"
+                         % (rec.case_id, rec.source_arm, rec.repetition))
+            verdict, reason = rec.verdict, None
+            if verdict == UNRESOLVED:
+                reason = o.get("reason_code") if o.get("reason_code") in REASON_CODES else "OTHER"
+                if o.get("reason_code") not in REASON_CODES and o.get("reason_code") is not None:
+                    notes.append("Recorded reason code %r is not in contract v%s; served as OTHER."
+                                 % (o.get("reason_code"), API_VERSION))
+            compute_s = o.get("compute_s") if _is_num(o.get("compute_s")) else None
+            within = o.get("within_budget")
+            if not isinstance(within, bool):
+                within = compute_s is not None and compute_s <= BUDGET_S
+                notes.append("within_budget was not recorded for this execution; derived from compute_s." if compute_s is not None
+                             else "Neither compute_s nor within_budget was recorded for this execution.")
+            if compute_s is not None:
+                notes.append("compute_s is the recorded complete-request wall time of this execution on the native campaign "
+                             "host (Apple M5 Pro, macOS); the MOCK computed nothing.")
+            else:
+                notes.append("No wall time was recorded for this execution (compute_s null).")
+            if o.get("raw_status") or o.get("raw_reason"):
+                notes.append("Recorded kit result: primary status %s%s." % (
+                    o.get("raw_status"), (" (%s)" % o["raw_reason"]) if o.get("raw_reason") else ""))
+            checked = verdict == CHECKED
+            exposure, fpa = [], None
+            if checked:
+                own = [m for m in rec.doc.get("exposure") or [] if isinstance(m, dict)]
+                fme = rec.doc.get("full_model_exposure")
+                if rec.policy == "full":
+                    exposure = [dict(m, basis="centre_model", peak_upper_kw_m2=m.get("peak_upper_kw_m2"),
+                                     dose_upper_kj_m2=m.get("dose_upper_kj_m2")) for m in own]
+                    if any(e["peak_upper_kw_m2"] is None for e in exposure):
+                        notes.append("The whole-road check upper bounds (peak_upper_kw_m2, dose_upper_kj_m2) were not "
+                                     "recorded in the MOCK fixture (null).")
+                elif isinstance(fme, dict) and isinstance(fme.get("members"), list) and fme["members"]:
+                    # A reduced policy does not enforce (all of) the hazard; report the recorded full-hazard check.
+                    exposure = [dict(m, basis="full_model_centre_check") for m in fme["members"] if isinstance(m, dict)]
+                    notes.append("exposure is the recorded offline full-hazard centre-model check of this route (%s); the "
+                                 "policy's own centre-model values are in full_policy_assessment.policy_exposure."
+                                 % (fme.get("scope") or "full_model_exposure"))
+                else:
+                    exposure = own
+                    notes.append("exposure is the policy's own centre model (%s); no full-hazard check was recorded."
+                                 % (rec.doc.get("exposure_scope") or "recorded scope unknown"))
+                fpa = rec.fpa
+            if rec.policy != "full":
+                notes.append("Policy %s is a recorded final-input ablation configuration (%s); a route found under it is not "
+                             "guaranteed to pass the full hazard policy." % (rec.policy, rec.source_arm))
+                fpc = rec.doc.get("full_policy_check")
+                if isinstance(fpc, dict) and isinstance(fpc.get("pass"), bool):
+                    comps = fpc.get("failure_components")
+                    notes.append("Recorded full-policy check of this execution: %s." % (
+                        "pass" if fpc["pass"] else "fail" + (" (%s)" % ", ".join(map(str, comps)) if comps else "")))
+                if checked:
+                    notes.append("Route checked under policy %s only (%s); exposure is reported against the unchanged full "
+                                 "hazard. It is not a full-policy checked route." % (
+                                     rec.policy, "flame contact not enforced" if rec.policy == "travel_only"
+                                     else "thermal limits partly disabled"))
+                    if fpa is not None and fpa.get("passes_full_centre_and_contact") is False:
+                        notes.append("This route FAILS the full policy: %s." % ", ".join(
+                            sorted({v["constraint"] for v in fpa["violations"]})))
+            scope = rec.doc.get("refusal_scope")
+            if verdict == NO_ROUTE and scope:
+                notes.append("Recorded refusal scope: %s" % (scope if isinstance(scope, str) else json.dumps(scope, ensure_ascii=False)))
+            reps = rec.doc.get("repetitions")
+            if isinstance(reps, list) and len(reps) > 1:
+                notes.append("Recorded repetitions: " + "; ".join(
+                    "%s r%s %s (%s s)" % (r.get("arm"), r.get("rep"), r.get("verdict"), r.get("wall_s"))
+                    for r in reps if isinstance(r, dict)))
+            out.update({"verdict": verdict, "reason_code": reason,
+                        "raw_status": o.get("authoritative_decision") or o.get("raw_status"),
+                        "raw_reason": o.get("raw_reason") if verdict == UNRESOLVED else None,
+                        "departure_s": o.get("departure_s") if _is_num(o.get("departure_s")) else job.query["depart"],
+                        "arrival_s": o.get("arrival_s") if checked else None,
+                        "lower_bound_L_s": o.get("lower_bound_L_s") if _is_num(o.get("lower_bound_L_s")) else None,
+                        "dwell_end_s": o.get("dwell_end_s") if checked else None,
+                        "route": rec.route if checked else None, "exposure": exposure, "fpa": fpa,
+                        "compute_s": compute_s, "within_budget": within, "case_id": rec.case_id})
+            if checked and fpa is not None and fpa.get("passes_selected_policy") is False:
+                # v1.4: the ablation grader would not count this as a selected-policy route (api/runner.py)
+                out.update(verdict=UNRESOLVED, reason_code="CHECK_FAILED", raw_reason="INDEPENDENT_CONTRADICTION",
+                           arrival_s=None, dwell_end_s=None, route=None, exposure=[])
+                notes.append("The recorded full-hazard grade contradicts this route's own policy %s (it enforces %s; "
+                             "recorded failures %s), so the result is unresolved (CHECK_FAILED), as the API rule "
+                             "requires." % (rec.policy, ", ".join(sorted(POLICY_ENABLED[rec.policy])),
+                                            ", ".join(fpa.get("failure_components") or [])))
+        if req.get("run_independent_check"):
+            if policy == "full":
+                out["independent"] = {"status": "NOT_RUN_MOCK", "classification": None, "verdict": None,
+                                      "contradictions": None, "elapsed_s": None,
+                                      "note": "The MOCK server does not run the offline independent checker."}
+                if out["verdict"] in (CHECKED, NO_ROUTE):
+                    out.update(verdict=UNRESOLVED, reason_code="CHECK_NOT_FINISHED", raw_reason="INDEPENDENT_CHECK_MISSING",
+                               arrival_s=None, dwell_end_s=None, route=None, exposure=[])
+                    notes.append(NOTE_NO_INDEPENDENT)
+                else:
+                    notes.append("run_independent_check was requested; the MOCK server does not run the offline "
+                                 "independent checker.")
+            else:
+                notes.append("The offline independent checker is defined for the full policy only; it was not run for %s."
+                             % policy)
+        job._outcome = out
+        return out
+
+    def _evaluated(self, job: RouteJob) -> bool:
+        """provenance.evaluated_configuration as the real API sets it: recorded input, policy full and the default limits
+        (or a request identical to a recorded final-panel mission)."""
+        q = job.query
+        return (job.ctx.type == "recorded" and q["policy"] == "full"
+                and (self._default_limits(q["peak"], q["dose"], q["incurred"]) or job.mission is not None))
 
     def route_result(self, job: RouteJob, finished_iso) -> dict:
         req, ctx, rec = job.request, job.ctx, job.record
         gen = _parse_utc(finished_iso) if finished_iso else utc_now()
-        limits = {"peak_kw_m2": req["limits"]["peak_kw_m2"], "dose_kj_m2": req["limits"]["dose_kj_m2"],
-                  "incurred_dose_kj_m2": req["incurred_dose_kj_m2"]}
-        indep = None
-        if req.get("run_independent_check"):
-            indep = {"status": "NOT_RUN_MOCK", "classification": None, "verdict": None, "contradictions": None,
-                     "note": "The MOCK server does not run the offline independent checker."}
-        s = self._summary(job)
-        base = {"verdict": s["verdict"], "reason_code": s["reason_code"], "raw_status": s["raw_status"], "raw_reason": None,
-                "departure_s": None, "arrival_s": None, "lower_bound_L_s": None, "dwell_end_s": None, "route": None,
-                "exposure": [], "compute_s": None, "within_budget": True, "policy": req["policy"], "limits": limits,
-                "independent_check": indep, "assumptions": None, "notes": []}
+        s = self._outcome(job)
+        res = {"verdict": s["verdict"], "reason_code": s["reason_code"], "raw_status": s["raw_status"],
+               "raw_reason": s["raw_reason"], "departure_s": s["departure_s"], "arrival_s": s["arrival_s"],
+               "lower_bound_L_s": s["lower_bound_L_s"], "dwell_end_s": s["dwell_end_s"], "route": s["route"],
+               "exposure": s["exposure"], "compute_s": s["compute_s"], "within_budget": s["within_budget"],
+               "policy": req["policy"],
+               "limits": {"peak_kw_m2": req["limits"]["peak_kw_m2"], "dose_kj_m2": req["limits"]["dose_kj_m2"],
+                          "incurred_dose_kj_m2": req["incurred_dose_kj_m2"]},
+               "independent_check": s["independent"], "assumptions": None, "notes": list(s["notes"])}
+        if s["fpa"] is not None:
+            res["full_policy_assessment"] = s["fpa"]
         if ctx.type == "spread_zones":
-            base["raw_reason"] = ("MOCK: user-drawn spread zones are validated but never converted or evaluated by the "
-                                  "mock server; nothing was computed.")
-            base["assumptions"] = ctx.assumptions
-            base["notes"] = ["MOCK: spread_zones input was not evaluated. Unresolved is never safe.",
-                             SPREAD_ZONES_TEXT["en"]]
-            base["provenance"] = self._prov(
+            res["raw_reason"] = ("MOCK: user-drawn spread zones are validated but never converted or evaluated by the "
+                                 "mock server; nothing was computed.")
+            res["assumptions"] = ctx.assumptions
+            res["notes"] = ["MOCK: spread_zones input was not evaluated. Unresolved is never safe.",
+                            SPREAD_ZONES_TEXT["en"]] + res["notes"]
+            res["provenance"] = self._prov(
                 region_id=job.region, tag=ctx.tag, fire_type="spread_zones", policy=req["policy"], scenario_set_id=None,
                 scenario_ids=(), input_hashes={**self._region_hashes(job.region), "zones": ctx.zones_sha256},
                 evaluated=False, approximation=APPROXIMATION, clock=None, host=NOT_COMPUTED_HOST, generated_at=gen,
                 extra={"burning_scenario_set_id": ctx.fire.get("burning_scenario_set_id"), "recorded_mission_match": None})
-            return base
-        if rec is None:
+        elif rec is None:
             if job._reason is None:
                 job._reason = self.fx.explain(job.query)
-            base["raw_reason"] = job._reason
-            base["notes"] = ["MOCK: no recorded execution matches this request, so nothing is shown as checked. "
-                             "Unresolved is never safe.",
-                             "The MOCK serves only recorded results (planner/docs/ARCHITECTURE.md 5.1); connect the real "
-                             "Route-Check API to evaluate this request."]
-            base["provenance"] = self._prov(
+            res["raw_reason"] = job._reason
+            res["notes"] = ["MOCK: no recorded execution matches this request, so nothing is shown as checked.",
+                            "The MOCK serves only recorded results (planner/docs/ARCHITECTURE.md 5.1); connect the real "
+                            "Route-Check API to evaluate this request."] + res["notes"]
+            res["provenance"] = self._prov(
                 region_id=job.region, tag=ctx.tag, fire_type="recorded", policy=req["policy"],
                 scenario_set_id=ctx.sset["scenario_set_id"], scenario_ids=ctx.sset.get("scenario_ids") or (),
-                input_hashes=self._region_hashes(job.region, ctx.sset), evaluated=False, clock=None,
-                host=NOT_COMPUTED_HOST, generated_at=gen, extra={"recorded_mission_match": None})
-            return base
-        o = rec.doc.get("outcome") or {}
-        notes = ["MOCK: recorded result of case %s (%s rep %s) served without recomputation"
-                 % (rec.case_id, rec.source_arm, rec.repetition)]
-        if rec.verdict == UNRESOLVED and o.get("reason_code") not in REASON_CODES and o.get("reason_code") is not None:
-            notes.append("Recorded reason code %r is not in contract v%s; served as OTHER." % (o.get("reason_code"), API_VERSION))
-        compute_s = o.get("compute_s") if _is_num(o.get("compute_s")) else None
-        within = o.get("within_budget")
-        if not isinstance(within, bool):
-            within = compute_s <= BUDGET_S if compute_s is not None else True
-            notes.append("within_budget was not recorded for this execution; derived from compute_s." if compute_s is not None
-                         else "Neither compute_s nor within_budget was recorded for this execution.")
-        if compute_s is not None:
-            notes.append("compute_s is the recorded complete-request wall time of this execution on the native campaign "
-                         "host (Apple M5 Pro, macOS); the MOCK computed nothing.")
+                input_hashes=self._region_hashes(job.region, ctx.sset), evaluated=self._evaluated(job), clock=None,
+                host=NOT_COMPUTED_HOST, generated_at=gen, extra={"recorded_mission_match": job.mission})
         else:
-            notes.append("No wall time was recorded for this execution (compute_s null).")
-        if rec.policy != "full":
-            notes.append("Policy %s is a recorded final-input ablation configuration (%s); a route found under it is not "
-                         "guaranteed to pass the full hazard policy." % (rec.policy, rec.source_arm))
-            fpc = rec.doc.get("full_policy_check")
-            if isinstance(fpc, dict) and isinstance(fpc.get("pass"), bool):
-                comps = fpc.get("failure_components")
-                notes.append("Recorded full-policy check of this execution: %s." % (
-                    "pass" if fpc["pass"] else "fail" + (" (%s)" % ", ".join(map(str, comps)) if comps else "")))
-        scope = rec.doc.get("refusal_scope")
-        if rec.verdict == NO_ROUTE and scope:
-            notes.append("Recorded refusal scope: %s" % (scope if isinstance(scope, str) else json.dumps(scope, ensure_ascii=False)))
-        reps = rec.doc.get("repetitions")
-        if isinstance(reps, list) and len(reps) > 1:
-            notes.append("Recorded repetitions: " + "; ".join(
-                "%s r%s %s (%s s)" % (r.get("arm"), r.get("rep"), r.get("verdict"), r.get("wall_s")) for r in reps if isinstance(r, dict)))
-        if req.get("run_independent_check"):
-            notes.append("run_independent_check was requested; the MOCK server does not run the offline independent checker.")
-        checked = rec.verdict == CHECKED
-        exposure, fpa = [], None
-        if checked:
-            fme = rec.doc.get("full_model_exposure")
-            own = [m for m in rec.doc.get("exposure") or [] if isinstance(m, dict)]
-            if rec.policy == "full":
-                exposure = [dict(m, basis="centre_model") for m in own]
-            elif isinstance(fme, dict) and isinstance(fme.get("members"), list) and fme["members"]:
-                # A reduced policy does not enforce (all of) the hazard; report the recorded full-hazard check of the route.
-                exposure = [dict(m, basis="full_model_centre_check") for m in fme["members"] if isinstance(m, dict)]
-                notes.append("exposure is the recorded offline full-hazard centre-model check of this route (%s); the "
-                             "policy's own centre-model values are in full_policy_assessment.policy_exposure."
-                             % (fme.get("scope") or "full_model_exposure"))
-            else:
-                exposure = own
-                notes.append("exposure is the policy's own centre model (%s); no full-hazard check was recorded."
-                             % (rec.doc.get("exposure_scope") or "recorded scope unknown"))
-            if rec.policy != "full":
-                fpc = rec.doc.get("full_policy_check") if isinstance(rec.doc.get("full_policy_check"), dict) else {}
-                fpa = {"pass": fpc.get("pass"), "failure_components": fpc.get("failure_components"),
-                       "source": fpc.get("source"),
-                       "full_model_exposure_scope": fme.get("scope") if isinstance(fme, dict) else None,
-                       "independent_contact_status": fme.get("independent_contact_status") if isinstance(fme, dict) else None,
-                       "full_whole_status": fme.get("full_whole_status") if isinstance(fme, dict) else None,
-                       "policy_exposure": {"scope": rec.doc.get("exposure_scope"), "members": own},
-                       "recorded": True, "charged_to_compute_s": False}
-        base.update({"raw_reason": o.get("raw_reason"), "departure_s": o.get("departure_s"), "arrival_s": o.get("arrival_s"),
-                     "lower_bound_L_s": o.get("lower_bound_L_s"), "dwell_end_s": o.get("dwell_end_s"),
-                     "route": rec.doc.get("route") if checked else None, "exposure": exposure,
-                     "full_policy_assessment": fpa,
-                     "compute_s": compute_s, "within_budget": within, "policy": rec.policy, "notes": notes})
-        base["provenance"] = self._prov(
-            region_id=job.region, tag=rec.tag, fire_type="recorded", policy=rec.policy, scenario_set_id=rec.ssid,
-            scenario_ids=rec.doc.get("scenario_ids") or ctx.sset.get("scenario_ids") or (),
-            input_hashes=rec.doc.get("input_hashes") or {}, evaluated=rec.policy == "full", clock=RECORDED_CLOCK,
-            host=dict(RECORDED_HOST), generated_at=gen,
-            extra={"recorded_mission_match": rec.case_id if rec.policy == "full" else None,
-                   "recorded_execution": {"case_id": rec.case_id, "policy": rec.policy, "source_arm": rec.source_arm,
-                                          "repetition": rec.repetition,
-                                          "fixture": rec.path.relative_to(self.fixtures_dir).as_posix(),
-                                          "source_records": rec.doc.get("source_records") or []}})
-        return base
+            o = rec.doc.get("outcome") or {}
+            res["provenance"] = self._prov(
+                region_id=job.region, tag=rec.tag, fire_type="recorded", policy=rec.policy, scenario_set_id=rec.ssid,
+                scenario_ids=rec.doc.get("scenario_ids") or ctx.sset.get("scenario_ids") or (),
+                input_hashes=rec.doc.get("input_hashes") or {}, evaluated=self._evaluated(job), clock=RECORDED_CLOCK,
+                host=dict(RECORDED_HOST), generated_at=gen,
+                extra={"recorded_mission_match": job.mission,
+                       "recorded_execution": {"case_id": rec.case_id, "policy": rec.policy, "source_arm": rec.source_arm,
+                                              "repetition": rec.repetition, "verdict": rec.verdict,
+                                              "raw_primary_status": o.get("raw_status"),
+                                              "raw_primary_reason": o.get("raw_reason"),
+                                              "frozen_state": o.get("frozen_state"),
+                                              "fixture": rec.path.relative_to(self.fixtures_dir).as_posix(),
+                                              "source_records": rec.doc.get("source_records") or []}})
+        if res["verdict"] == NO_ROUTE:
+            res["notes"].append(NOTE_NO_ROUTE)
+        elif res["verdict"] == UNRESOLVED:
+            res["notes"].append(NOTE_UNRESOLVED)
+        return res
 
     # -------------------------------------------------------------------------------------------- exports
     def export(self, job_id: str, query: dict) -> Response:
+        fmt = self._query_value(query, "format")          # a missing parameter fails first (FastAPI query validation)
         job = self.jobs.get(job_id)
         if not isinstance(job, RouteJob):
             raise ApiError(404, "JOB_NOT_FOUND", "route check %r not found" % job_id)
-        fmt = (query.get("format") or [""])[0]
         if fmt not in ("geojson", "kml", "csv"):
             raise _unprocessable("VALIDATION_ERROR", "format must be geojson, kml or csv", {"format": fmt})
         status, _, finished = self._state(job, time.monotonic())
@@ -1379,43 +1683,78 @@ class MockApi:
         if fmt == "geojson":
             return _json(200, self._export_geojson(job, res), ctype="application/geo+json; charset=utf-8",
                          headers={"Content-Disposition": 'attachment; filename="%s.geojson"' % fname})
+        prov_header = self._provenance_header(job, res)
         if fmt == "kml":
             return Response(200, "application/vnd.google-earth.kml+xml; charset=utf-8", self._export_kml(job, res).encode("utf-8"),
-                            {"Content-Disposition": 'attachment; filename="%s.kml"' % fname})
+                            {"Content-Disposition": 'attachment; filename="%s.kml"' % fname, "X-WFG-Provenance": prov_header})
         return Response(200, "text/csv; charset=utf-8", self._export_csv(job, res).encode("utf-8"),
-                        {"Content-Disposition": 'attachment; filename="%s.csv"' % fname})
+                        {"Content-Disposition": 'attachment; filename="%s.csv"' % fname, "X-WFG-Provenance": prov_header})
 
     @staticmethod
-    def _export_common(job: RouteJob, res: dict) -> dict:
-        rec = (res["provenance"].get("recorded_execution") or {})
-        return {"job_id": job.job_id, "verdict": res["verdict"], "policy": res["policy"], "mock": True,
-                "case_id": rec.get("case_id")}
+    def _label(res: dict) -> str:
+        """Export label that never lets a reduced-policy or approximate route pass as a full checked route (as the real
+        API's exports.py _label)."""
+        prov = res.get("provenance") or {}
+        parts = ["checked route" if res.get("policy") == "full" else
+                 "route checked under policy %s only (NOT a full-policy route)" % res.get("policy")]
+        if prov.get("approximation"):
+            parts.append(prov["approximation"])
+        fpa = res.get("full_policy_assessment")
+        if fpa is not None and fpa.get("passes_full_centre_and_contact") is False:
+            parts.append("FAILS the full hazard check")
+        return "; ".join(parts)
+
+    @staticmethod
+    def _provenance_header(job: RouteJob, res: dict) -> str:
+        """Compact ASCII provenance for the X-WFG-Provenance header of KML/CSV exports (contract v1.3)."""
+        prov = res["provenance"]
+        keep = ("api_version", "package", "package_version", "kit", "checkpoint", "git_commit", "region", "input_time",
+                "scenario_set_id", "fire_input_type", "policy", "evaluated_configuration", "approximation")
+        out = {k: prov.get(k) for k in keep}
+        out["job_id"], out["verdict"] = job.job_id, res["verdict"]
+        fpa = res.get("full_policy_assessment")
+        out["full_policy_centre_and_contact_pass"] = None if fpa is None else fpa.get("passes_full_centre_and_contact")
+        out["input_hashes"] = prov.get("input_hashes")
+        out["recorded_mission_match"] = prov.get("recorded_mission_match")
+        out["mock"] = True
+        return json.dumps(out, separators=(",", ":"), ensure_ascii=True)
+
+    def _export_common(self, job: RouteJob, res: dict) -> dict:
+        prov = res["provenance"]
+        fpa = res.get("full_policy_assessment")
+        return {"job_id": job.job_id, "verdict": res["verdict"], "policy": res["policy"],
+                "full_policy_route": res["policy"] == "full",
+                "full_policy_centre_and_contact_pass": None if fpa is None else fpa.get("passes_full_centre_and_contact"),
+                "fire_input_type": prov.get("fire_input_type"), "approximation": prov.get("approximation"),
+                "evaluated_configuration": prov.get("evaluated_configuration"), "label": self._label(res),
+                "mock": True, "case_id": (prov.get("recorded_execution") or {}).get("case_id")}
 
     def _export_geojson(self, job: RouteJob, res: dict) -> dict:
         route, snap = res["route"], job.snap
         common = self._export_common(job, res)
-        coords = route["geometry"]["coordinates"]
-        times = route["properties"].get("times_s") or []
         feats = [
             {"type": "Feature", "geometry": route["geometry"],
              "properties": dict(route["properties"], **common, role="route", departure_s=res["departure_s"],
                                 arrival_s=res["arrival_s"], dwell_end_s=res["dwell_end_s"],
                                 lower_bound_L_s=res["lower_bound_L_s"], compute_s=res["compute_s"],
                                 exposure=res["exposure"])},
-            {"type": "Feature", "geometry": {"type": "Point", "coordinates": list(coords[0][:2])},
-             "properties": dict(common, role="origin", node_id=snap["start"]["node_id"],
-                                time_s=times[0] if times else res["departure_s"], snap=snap["start"])},
-            {"type": "Feature", "geometry": {"type": "Point", "coordinates": list(coords[-1][:2])},
+            {"type": "Feature", "geometry": {"type": "Point", "coordinates": [snap["start"]["lon"], snap["start"]["lat"]]},
+             "properties": dict(common, role="start", node_id=snap["start"]["node_id"], time_s=res["departure_s"],
+                                snap=snap["start"])},
+            {"type": "Feature", "geometry": {"type": "Point",
+                                             "coordinates": [snap["destination"]["lon"], snap["destination"]["lat"]]},
              "properties": dict(common, role="destination", node_id=snap["destination"]["node_id"],
                                 arrival_s=res["arrival_s"], dwell_end_s=res["dwell_end_s"], snap=snap["destination"])},
         ]
-        return {"type": "FeatureCollection", "name": "MOCK WildfireGuardian checked route %s" % job.job_id,
+        return {"type": "FeatureCollection", "name": "MOCK WildfireGuardian %s %s" % (common["label"], job.job_id),
                 "features": feats, "provenance": res["provenance"]}
 
     def _export_kml(self, job: RouteJob, res: dict) -> str:
         route, snap, prov = res["route"], job.snap, res["provenance"]
         coords = route["geometry"]["coordinates"]
         rec = prov.get("recorded_execution") or {}
+        label = self._label(res)
+        full = res["policy"] == "full"
 
         def esc(v) -> str:
             if isinstance(v, (dict, list)):
@@ -1426,37 +1765,43 @@ class MockApi:
             return "<ExtendedData>%s</ExtendedData>" % "".join(
                 '<Data name="%s"><value>%s</value></Data>' % (esc(k), esc(v)) for k, v in pairs)
 
-        route_data = [("mock", "true"), ("verdict", res["verdict"]), ("policy", res["policy"]),
+        route_data = [("mock", "true"), ("verdict", res["verdict"]), ("policy", res["policy"]), ("label", label),
                       ("departure_s", res["departure_s"]), ("arrival_s", res["arrival_s"]),
                       ("dwell_end_s", res["dwell_end_s"]), ("compute_s", res["compute_s"]), ("job_id", job.job_id),
                       ("case_id", rec.get("case_id"))]
         route_data += [("provenance_%s" % k, prov.get(k)) for k in
                        ("api_version", "package", "package_version", "kit", "checkpoint", "git_commit", "region",
                         "input_time", "graph_id", "scenario_set_id", "scenario_ids", "fire_input_type",
-                        "evaluated_configuration", "clock", "host", "input_hashes", "generated_at")]
+                        "evaluated_configuration", "recorded_mission_match", "clock", "host", "input_hashes",
+                        "generated_at")]
         line = " ".join("%.7f,%.7f,0" % (c[0], c[1]) for c in coords)
-        name = "MOCK — WildfireGuardian checked route %s%s" % (job.job_id, (" (case %s)" % rec["case_id"]) if rec.get("case_id") else "")
+        name = "MOCK — WildfireGuardian %s %s%s" % (label, job.job_id, (" (case %s)" % rec["case_id"]) if rec.get("case_id") else "")
+        placemark = ("확인된 경로 / checked route (MOCK)" if full else
+                     "정책 %s 한정 경로 — 전체 정책 경로 아님 / %s (MOCK)" % (res["policy"], label))
         out = ['<?xml version="1.0" encoding="UTF-8"?>',
                '<kml xmlns="http://www.opengis.net/kml/2.2">',
                "<Document>",
                "<name>%s</name>" % esc(name),
                "<description>%s</description>" % esc(
-                   "MOCK server: recorded result served without recomputation. 사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 "
-                   "아닙니다. / Planning aid only — not for live evacuation operations."),
+                   "MOCK server: recorded result served without recomputation. %s. 사전 계획 보조 도구입니다. 실시간 대피 "
+                   "지휘·운영용이 아닙니다. / Planning aid only — not for live evacuation operations." % label),
                '<Style id="checked"><LineStyle><color>ff559e1a</color><width>4</width></LineStyle></Style>',
-               "<Placemark><name>%s</name><styleUrl>#checked</styleUrl>%s" % (esc("확인된 경로 / checked route (MOCK)"), data(route_data)),
+               '<Style id="reduced"><LineStyle><color>ff73706e</color><width>3</width></LineStyle></Style>',
+               "<Placemark><name>%s</name><styleUrl>#%s</styleUrl>%s" % (esc(placemark), "checked" if full else "reduced",
+                                                                       data(route_data)),
                "<LineString><tessellate>1</tessellate><coordinates>%s</coordinates></LineString></Placemark>" % line]
-        for role, s, t, c in (("origin", snap["start"], res["departure_s"], coords[0]),
-                              ("destination", snap["destination"], res["arrival_s"], coords[-1])):
+        for role, s, t in (("start", snap["start"], res["departure_s"]), ("destination", snap["destination"], res["arrival_s"])):
             out.append("<Placemark><name>%s</name>%s<Point><coordinates>%.7f,%.7f,0</coordinates></Point></Placemark>" % (
                 esc("%s %s (MOCK)" % (role, s["node_id"])),
                 data([("mock", "true"), ("role", role), ("node_id", s["node_id"]), ("time_s", t),
                       ("snap_distance_m", s["distance_m"]), ("snap_input", s["input"])]),
-                c[0], c[1]))
+                s["lon"], s["lat"]))
         out += ["</Document>", "</kml>", ""]
         return "\n".join(out)
 
     def _vertex_node_ids(self, job: RouteJob, route: dict) -> list:
+        """node id per vertex: the route's own node_ids when they are per vertex (the served layout), else attributed
+        through the node table (fallback for a route served as recorded)."""
         coords = route["geometry"]["coordinates"]
         ids = list(route["properties"].get("node_ids") or [])
         if len(ids) == len(coords):
@@ -1478,38 +1823,50 @@ class MockApi:
         return out
 
     def _export_csv(self, job: RouteJob, res: dict) -> str:
+        """Plain table, header seq,node_id,lon,lat,time_s,event; events depart|pass|wait_end|arrive and a final
+        dwell_end row, as the real API's exports.py to_csv."""
         route = res["route"]
         coords = route["geometry"]["coordinates"]
         times = list(route["properties"].get("times_s") or [])
         nids = self._vertex_node_ids(job, route)
+        waits_end = {(w.get("node_id"), w.get("to_s")) for w in route["properties"].get("waits") or [] if isinstance(w, dict)}
         buf = io.StringIO()
         w = csv.writer(buf, lineterminator="\n")
         w.writerow(["seq", "node_id", "lon", "lat", "time_s", "event"])
         n = len(coords)
-        rows = []
         for i, c in enumerate(coords):
+            nid, t = nids[i] if i < len(nids) else "", times[i] if i < len(times) else ""
             if i == 0:
                 ev = "depart"
+            elif (nid, t) in waits_end and nids[i - 1] == nid:
+                ev = "wait_end"
             elif i == n - 1:
                 ev = "arrive"
-            elif haversine_m(c[0], c[1], coords[i - 1][0], coords[i - 1][1]) < 0.01:
-                ev = "wait"
             else:
-                ev = "edge"
-            rows.append([nids[i] if i < len(nids) else "", "%.7f" % c[0], "%.7f" % c[1],
-                         times[i] if i < len(times) else "", ev])
-        if n == 1:
-            rows.append(rows[0][:4] + ["arrive"])
-        for seq, row in enumerate(rows):
-            w.writerow([seq] + row)
+                ev = "pass"
+            w.writerow([i, nid, "%.7f" % c[0], "%.7f" % c[1], t, ev])
+        w.writerow([n, nids[-1] if nids else "", "%.7f" % coords[-1][0], "%.7f" % coords[-1][1], res["dwell_end_s"],
+                    "dwell_end"])
         return buf.getvalue()
 
     # -------------------------------------------------------------------------------------------- dispatch plans
+    @staticmethod
+    def _lattice_offset(v) -> int:
+        f = float(v)
+        if not math.isfinite(f) or f < 0 or not f.is_integer():
+            raise _unprocessable("NOT_ON_TIME_LATTICE", "depart_offsets_s must be a non-negative whole number of seconds on "
+                                 "the 1 s lattice", {"field": "depart_offsets_s", "value": v})
+        return int(f)
+
     def create_dispatch(self, body):
-        if isinstance(body, dict) and isinstance(body.get("origins"), list) and len(body["origins"]) > MAX_ORIGINS:
+        # real API order: JSON + schema (maxItems 200 origins) -> 503 data -> region -> input_time -> fire input ->
+        # destination snaps -> DUPLICATE_ID -> origin snaps (rejected_origins) -> POLICY_NOT_ALLOWED -> offsets
+        # (NOT_ON_TIME_LATTICE, DUPLICATE_OFFSET) -> per-attempt request checks -> TOO_MANY_ATTEMPTS
+        self._validate(body, "DispatchPlanRequest")
+        self._require_data()
+        if len(body["origins"]) > MAX_ORIGINS:          # unreachable after the schema's maxItems, as in the real API
             raise _unprocessable("TOO_MANY_ORIGINS", "at most %d origins per dispatch plan; split the plan" % MAX_ORIGINS,
                                  {"max_origins": MAX_ORIGINS, "origins": len(body["origins"])})
-        self._validate(body, "DispatchPlanRequest")
         region_id = body["region"]
         self._require_region(region_id)
         tag = normalize_input_time(body["input_time"])
@@ -1540,10 +1897,22 @@ class MockApi:
                     err["details"] = e.details
                 rejected.append({"origin_id": o["id"], "error": err})
         policy = body.get("policy", "full")
+        if policy != "full":
+            raise _unprocessable("POLICY_NOT_ALLOWED", "dispatch plans use the full policy only; reduced policies may "
+                                 "return routes that fail the full hazard model", {"policy": policy})
+        offsets = [self._lattice_offset(x) for x in body["depart_offsets_s"]]
+        if len(set(offsets)) != len(offsets):
+            raise _unprocessable("DUPLICATE_OFFSET", "depart_offsets_s must not repeat a value",
+                                 {"depart_offsets_s": body["depart_offsets_s"]})
+        total = len(origins) * len(dests) * len(offsets)
+        if total > MAX_DISPATCH_ATTEMPTS:
+            raise _unprocessable("TOO_MANY_ATTEMPTS", "origins x destinations x offsets is %d; the limit is %d per plan"
+                                 % (total, MAX_DISPATCH_ATTEMPTS),
+                                 {"attempts": total, "limit": MAX_DISPATCH_ATTEMPTS, "origins": len(origins),
+                                  "destinations": len(dests), "depart_offsets": len(offsets)})
         dwell_default = body.get("dwell_s", DEFAULT_DWELL_S)
         lim = body.get("limits") or {}
         peak, dose = lim.get("peak_kw_m2", DEFAULT_PEAK_KW_M2), lim.get("dose_kj_m2", DEFAULT_DOSE_KJ_M2)
-        offsets = sorted({_num_out(x) for x in body["depart_offsets_s"]})
         norm = dict(body)
         norm.update({"input_time": tag_to_iso(tag), "fire_input": ctx.fire, "depart_offsets_s": offsets,
                      "dwell_s": dwell_default, "policy": policy, "limits": {"peak_kw_m2": peak, "dose_kj_m2": dose},
@@ -1554,22 +1923,26 @@ class MockApi:
         plan.start_after, plan.done_after = self.queued_s, self.done_s
         plan.request, plan.region, plan.ctx = norm, region_id, ctx
         plan.rejected, plan.dests = rejected, [(d["id"], s) for d, s in dests]
+        plan.limits = {"peak_kw_m2": peak, "dose_kj_m2": dose, "incurred_dose_kj_m2": 0}
+        plan.provenance = self._job_prov(region_id, ctx, policy, peak, dose, 0, generated_at=plan.created_wall)
         plan._result, plan._lock = None, threading.Lock()
-        # pose every (origin, destination, offset); requests the real API would reject become INPUT_REJECTED attempts
+        # pose every (origin, destination, offset); a combination the real API cannot pose (e.g. an unsatisfiable
+        # window) is an unresolved attempt with reason_code INPUT_REJECTED and the request error code as raw_reason
         specs = []
         for o, osnap in origins:
             entries = []
-            for off in offsets:
-                for d, dsnap in dests:
+            for d, dsnap in dests:
+                for off in offsets:
                     dwell = d.get("dwell_s", dwell_default)
                     window = d.get("window")
                     try:
                         params = self._request_params(ctx, osnap["node_id"], dsnap["node_id"], off, dwell, window, peak, dose, 0)
                     except ApiError as e:
                         entries.append(("rejected", {
-                            "destination_id": d["id"], "depart_offset_s": off, "verdict": UNRESOLVED, "reason_code": "OTHER",
-                            "raw_status": "INPUT_REJECTED", "raw_reason": "%s: %s" % (e.code, e.message), "arrival_s": None,
-                            "lower_bound_L_s": None, "compute_s": None, "route_check_job_id": None, "case_id": None}))
+                            "destination_id": d["id"], "depart_offset_s": off, "verdict": UNRESOLVED,
+                            "reason_code": "INPUT_REJECTED", "raw_reason": e.code, "arrival_s": None,
+                            "lower_bound_L_s": None, "compute_s": None, "route_check_job_id": None,
+                            "raw_message": e.message, "case_id": None}))
                         continue
                     req = {"region": region_id, "input_time": tag_to_iso(tag), "start": o["location"],
                            "destination": d["location"], "depart_offset_s": off, "dwell_s": dwell, "policy": policy,
@@ -1581,7 +1954,7 @@ class MockApi:
                     entries.append(("job", (req, {"start": osnap, "destination": dsnap}, params, d["id"], off)))
             specs.append((o["id"], osnap, entries))
         n_jobs = sum(1 for _, _, es in specs for kind, _ in es if kind == "job")
-        plan.total = sum(len(es) for _, _, es in specs)
+        plan.total = total
         plan.attempt_jobs = []
         plan.origins = []
         k = 0
@@ -1605,8 +1978,9 @@ class MockApi:
         self.jobs.add_many(plan.attempt_jobs + [plan])
         self.log("dispatch plan %s: %d origins (%d rejected) x %d destinations x %d offsets = %d attempts" % (
             plan.job_id, len(origins), len(rejected), len(dests), len(offsets), plan.total))
-        accepted = {"job_id": plan.job_id, "status": "queued", "kind": "dispatch_plan",
-                    "links": {"self": "/v1/dispatch-plans/%s" % plan.job_id}, "progress": {"done": 0, "total": plan.total}}
+        accepted = {"job_id": plan.job_id, "status": "queued", "kind": "dispatch_plan", "provenance": plan.provenance,
+                    "links": {"self": "/v1/dispatch-plans/%s" % plan.job_id},
+                    "progress": {"done": plan.total - n_jobs, "total": plan.total}}
         return accepted, "application/json; charset=utf-8", {"Location": "/v1/dispatch-plans/%s" % plan.job_id}
 
     def _progress(self, plan: PlanJob, now: float) -> dict:
@@ -1631,13 +2005,26 @@ class MockApi:
         progress = self._progress(plan, time.monotonic()) if status != "done" else {"done": plan.total, "total": plan.total}
         return {"job_id": plan.job_id, "kind": "dispatch_plan", "status": status, "created_at": iso_ms(plan.created_wall),
                 "started_at": started, "finished_at": finished, "request": plan.request, "progress": progress,
-                "result": result, "error": None, "links": {"self": "/v1/dispatch-plans/%s" % plan.job_id}, "mock": True}
+                "result": result, "error": None, "provenance": plan.provenance,
+                "links": {"self": "/v1/dispatch-plans/%s" % plan.job_id}, "mock": True}
 
     def _attempt(self, job: RouteJob, did: str, off) -> dict:
-        s = self._summary(job)
+        s = self._outcome(job)
         return {"destination_id": did, "depart_offset_s": off, "verdict": s["verdict"], "reason_code": s["reason_code"],
-                "raw_status": s["raw_status"], "arrival_s": s["arrival_s"], "lower_bound_L_s": s["lower_bound_L_s"],
-                "compute_s": s["compute_s"], "route_check_job_id": job.job_id, "case_id": s["case_id"]}
+                "arrival_s": s["arrival_s"], "lower_bound_L_s": s["lower_bound_L_s"], "compute_s": s["compute_s"],
+                "route_check_job_id": job.job_id, "raw_status": s["raw_status"], "case_id": s["case_id"]}
+
+    @staticmethod
+    def _contiguous_latest(attempts: list):
+        """Largest requested offset t such that every requested offset <= t has a checked route (contract v1.4
+        latest_contiguous_checked_depart_offset_s; real API dispatch.contiguous_latest); None when the earliest has none."""
+        ok = {a["depart_offset_s"] for a in attempts if a["verdict"] == CHECKED}
+        latest = None
+        for t in sorted({a["depart_offset_s"] for a in attempts}):
+            if t not in ok:
+                break
+            latest = t
+        return latest
 
     def _plan_result(self, plan: PlanJob, finished_iso) -> dict:
         dest_order = {did: i for i, (did, _) in enumerate(plan.dests)}
@@ -1661,13 +2048,17 @@ class MockApi:
                 best = min(cands, key=lambda a: (a["arrival_s"] if _is_num(a["arrival_s"]) else math.inf,
                                                  dest_order.get(a["destination_id"], 0)))
             plans.append({"origin_id": oid, "urgency_rank": 0, "snap": osnap, "best_verdict": best_verdict,
-                          "latest_checked_depart_offset_s": latest, "best": dict(best) if best else None,
-                          "attempts": attempts, "_order": order})
+                          "latest_checked_depart_offset_s": latest,
+                          "latest_contiguous_checked_depart_offset_s": self._contiguous_latest(attempts),
+                          "best": dict(best) if best else None, "attempts": attempts, "_order": order})
         group = {CHECKED: 0, NO_ROUTE: 1, UNRESOLVED: 2}
 
         def urgency(p):
+            # real API dispatch.sort_by_urgency: checked origins by the conservative contiguous latest offset (an origin
+            # whose earliest requested offset has no checked route ranks first), then model_no_route, then unresolved
             g = group[p["best_verdict"]]
-            lat = p["latest_checked_depart_offset_s"] if g == 0 else 0
+            c = p["latest_contiguous_checked_depart_offset_s"]
+            lat = (-math.inf if c is None else c) if g == 0 else 0
             arr = p["best"]["arrival_s"] if p["best"] and _is_num(p["best"]["arrival_s"]) else 0
             return (g, lat, arr, p["_order"])
         plans.sort(key=urgency)
@@ -1686,10 +2077,7 @@ class MockApi:
         ctx = plan.ctx
         recorded = [j.record for j in plan.attempt_jobs if j.record is not None]
         gen = _parse_utc(finished_iso) if finished_iso else utc_now()
-        notes = ["MOCK: every attempt is a recorded result or unresolved; nothing was computed.",
-                 "summary.checked_route / model_no_route / unresolved count origins by best_verdict; "
-                 "summary.attempt_verdicts counts attempts.",
-                 "summary.wall_s is null because the MOCK did not compute; median_compute_s is over recorded wall times only."]
+        lim = plan.limits
         if ctx.type == "spread_zones":
             prov = self._prov(region_id=plan.region, tag=ctx.tag, fire_type="spread_zones", policy=plan.request["policy"],
                               scenario_set_id=None, scenario_ids=(),
@@ -1700,11 +2088,16 @@ class MockApi:
             prov = self._prov(region_id=plan.region, tag=ctx.tag, fire_type="recorded", policy=plan.request["policy"],
                               scenario_set_id=ctx.sset["scenario_set_id"], scenario_ids=ctx.sset.get("scenario_ids") or (),
                               input_hashes=self._region_hashes(plan.region, ctx.sset),
-                              evaluated=bool(plan.attempt_jobs) and len(recorded) == len(all_attempts)
-                              and all(r.policy == "full" for r in recorded),
+                              evaluated=self._default_limits(lim["peak_kw_m2"], lim["dose_kj_m2"], 0),
                               clock=RECORDED_CLOCK if recorded else None,
                               host=dict(RECORDED_HOST) if recorded else NOT_COMPUTED_HOST, generated_at=gen,
                               extra={"recorded_cases": sorted({r.label() for r in recorded})})
+        notes = ["MOCK: every attempt is a recorded result or unresolved; nothing was computed.",
+                 "summary.checked_route / model_no_route / unresolved count origins by best_verdict; "
+                 "summary.attempt_verdicts counts attempts.",
+                 "summary.wall_s is null because the MOCK did not compute; median_compute_s is over recorded wall times only.",
+                 "Urgency uses latest_contiguous_checked_depart_offset_s (contract v1.4); exposure while waiting at the "
+                 "origin before departure is not checked."]
         return {"plans": plans, "summary": summary, "rejected_origins": plan.rejected,
                 "assumptions": ctx.assumptions if ctx.type == "spread_zones" else None, "provenance": prov,
                 "destinations": [{"id": did, "snap": s} for did, s in plan.dests], "notes": notes}
@@ -1772,8 +2165,8 @@ class Handler(BaseHTTPRequestHandler):
             body = self._read_body()
         except ValueError:
             self.close_connection = True
-            resp = _json(422, {"error": {"code": "VALIDATION_ERROR",
-                                         "message": "request body missing a valid Content-Length or larger than %d bytes" % MAX_BODY_BYTES}})
+            resp = api.error_response(ApiError(422, "VALIDATION_ERROR", "request body missing a valid Content-Length or "
+                                               "larger than %d bytes" % MAX_BODY_BYTES))
         else:
             resp = api.handle(method, self.path, body, self.headers)
         try:
@@ -1791,7 +2184,7 @@ class Handler(BaseHTTPRequestHandler):
         allowed = req_headers if req_headers and re.fullmatch(r"[A-Za-z0-9\-_, ]{1,512}", req_headers) else "Content-Type, Accept"
         self.send_header("Access-Control-Allow-Headers", allowed)
         self.send_header("Access-Control-Max-Age", "600")
-        self.send_header("Access-Control-Expose-Headers", "Content-Disposition, Location, X-WFG-Mock")
+        self.send_header("Access-Control-Expose-Headers", "Content-Disposition, Location, X-WFG-Mock, X-WFG-Provenance")
         self.send_header("X-WFG-Mock", "1")
         self.send_header("Cache-Control", "no-store")
         if resp.ctype:

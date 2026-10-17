@@ -326,7 +326,8 @@ def test_node_tables(regions):
         assert n == r["node_count"] == len(t["lon"]) == len(t["lat"]) == len(t["allowed"])
         assert set(t["allowed"]) <= {0, 1}
         assert sum(t["allowed"]) == r["allowed_node_count"] == t["allowed_count"]
-        assert t["allowed_rule"] == "largest strongly connected component (mock assumption)"
+        # the Route-Check API's rule (api/regions.py): at least one incoming and one outgoing edge
+        assert t["allowed_rule"].startswith("at least one incoming and one outgoing road edge")
         lon0, lat0, lon1, lat1 = r["bbox"]
         assert min(t["lon"]) >= lon0 - 1e-5 and max(t["lon"]) <= lon1 + 1e-5
         assert min(t["lat"]) >= lat0 - 1e-5 and max(t["lat"]) <= lat1 + 1e-5

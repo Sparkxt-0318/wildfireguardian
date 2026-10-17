@@ -227,7 +227,7 @@ NODES = {  # id: (lon, lat, allowed)
     "test:n4": (128.002, 36.001, 0),   # not allowed, ~212 m from test:n1
     "test:n5": (128.000, 36.008, 1),
     "test:n6": (128.020, 36.008, 1),
-    "test:n7": (128.015, 36.015, 0),   # outside the allowed rule but a recorded mission endpoint
+    "test:n7": (128.015, 36.015, 0),   # not allowed although listed in recorded_mission_nodes (no exception any more)
 }
 EXPOSURE = [{"scenario_id": s, "peak_kw_m2": 0.001 * (i + 1), "dose_kj_m2": 0.01 * (i + 1), "contact": False}
             for i, s in enumerate(SIDS0)]
@@ -248,14 +248,20 @@ def make_record(case, policy, start, dest, verdict, *, depart=0, dwell=120, wind
     if route is not None:   # route = [(node, t), ...] ; node_ids per vertex unless route["distinct"]
         pts, distinct = route if isinstance(route, tuple) else (route, False)
         ids = [n for n, _ in pts]
-        if distinct:
+        if distinct:        # the build_fixtures.py layout: origin plus each EDGE leg's end node
             ids = [n for k, n in enumerate(ids) if k == 0 or n != ids[k - 1]]
+        waits = []          # consecutive WAIT legs at one node are merged, as build_fixtures.py does
+        for k in range(1, len(pts)):
+            if pts[k][0] == pts[k - 1][0]:
+                if waits and waits[-1]["node_id"] == pts[k][0] and waits[-1]["to_s"] == pts[k - 1][1]:
+                    waits[-1]["to_s"] = pts[k][1]
+                else:
+                    waits.append({"node_id": pts[k][0], "from_s": pts[k - 1][1], "to_s": pts[k][1]})
+        n_edges = sum(1 for k in range(1, len(pts)) if pts[k][0] != pts[k - 1][0])
         feature = {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [ll(n) for n, _ in pts]},
                    "properties": {"times_s": [t for _, t in pts], "node_ids": ids, "segment_count": len(pts) - 1,
-                                  "edge_ids": ["test:e%d" % k for k in range(len(pts) - 1)],
-                                  "waits": [{"node_id": pts[k][0], "from_s": pts[k - 1][1], "to_s": pts[k][1]}
-                                            for k in range(1, len(pts)) if pts[k][0] == pts[k - 1][0]],
-                                  "length_m": 1000.0 * (len(pts) - 1)}}
+                                  "edge_ids": ["test:e%d" % k for k in range(n_edges)], "waits": waits,
+                                  "length_m": 1000.0 * n_edges}}
     return {
         "case_id": case, "region_id": REGION, "policy": policy,
         "source_arm": source_arm or ("RDA_CAND" if policy == "full" else "A0"), "repetition": 1,
@@ -305,10 +311,27 @@ RECORDS = [
                 route=[("test:n1", 600), ("test:n2", 750), ("test:n3", 900)]),
     make_record("test:case5", "full", "test:n2", "test:n3", "checked_route", outcome=checked(150, 150, 5.0),
                 route=[("test:n2", 0), ("test:n3", 150)]),
+    # case5 flame_only: the recorded full-hazard grade finds flame contact, which flame_only itself enforces (v1.4)
+    make_record("test:case5", "flame_only", "test:n2", "test:n3", "checked_route", outcome=checked(140, 140, 0.3),
+                route=[("test:n2", 0), ("test:n3", 140)], source_arm="A1",
+                fme={"scope": "test full-model check", "members": [dict(m, contact=(i == 1)) for i, m in enumerate(EXPOSURE)],
+                     "independent_contact_status": "DEFINITE_CONTACT", "full_whole_status": "DEFINITE_REJECT"},
+                fpc={"pass": False, "failure_components": ["FLAME", "WHOLE_ROAD_CONTACT"]}),
+    # case6: waits 2 s at the origin as two 1 s WAIT legs (one vertex each), node_ids per EDGE leg end
     make_record("test:case6", "full", "test:n1", "test:n2", "checked_route", outcome=checked(100, 100, 4.0),
-                route=[("test:n1", 0), ("test:n2", 100)]),
+                route=([("test:n1", 0), ("test:n1", 1), ("test:n1", 2), ("test:n2", 100)], True)),
+    # case6 flame_peak: fails only DOSE under the full hazard, which flame_peak does not enforce -> stays checked
+    make_record("test:case6", "flame_peak", "test:n1", "test:n2", "checked_route", outcome=checked(95, 95, 0.4),
+                route=[("test:n1", 0), ("test:n2", 95)], source_arm="A2",
+                fme={"scope": "test full-model check", "members": [dict(m, dose_kj_m2=150.0) if i == 3 else m
+                                                                   for i, m in enumerate(EXPOSURE)],
+                     "independent_contact_status": "CLEAR", "full_whole_status": "DEFINITE_REJECT"},
+                fpc={"pass": False, "failure_components": ["DOSE"]}),
     make_record("test:case7", "full", "test:n5", "test:n3", "model_no_route", outcome=NO_ROUTE_OUTCOME),
     make_record("test:case8", "full", "test:n5", "test:n3", "model_no_route", depart=600, outcome=NO_ROUTE_OUTCOME),
+    # case10: n5 -> n2 checked only when departing at 600 s (contiguous-urgency case)
+    make_record("test:case10", "full", "test:n5", "test:n2", "checked_route", depart=600, outcome=checked(800, 790, 5.5),
+                route=[("test:n5", 600), ("test:n2", 800)]),
 ]
 
 
@@ -491,11 +514,17 @@ def test_health(fast):
     assert status == 200
     validate(h, "Health")
     assert h["status"] == "ok", h["issues"]
+    assert h["api_version"] == "1.5.0" == S.API_VERSION
     assert h["mode"] == "mock" and h["mock"] is True
     assert h["regions"] == [REGION] and h["workers"] == 1 and h["issues"] == []
     assert h["checkpoint"] == S.CHECKPOINT and h["package"] == "wfg_latest" and h["kit"] == "v3"
     assert h["fixtures"]["records"] == len(RECORDS)
     assert headers["access-control-allow-origin"] == "*"
+    # v1.3: /health carries provenance
+    p = h["provenance"]
+    validate(p, "Provenance")
+    assert p["mock"] is True and p["api_version"] == "1.5.0" and p["input_hashes"] == {"%s/graph" % REGION: "test-graph-hash"}
+    assert h["queued_tasks"] == 0 and h["kit_candidate_id"] is None      # synthetic source paths name no kit
 
 
 def test_health_degraded_without_fixtures(tmp_path):
@@ -504,12 +533,17 @@ def test_health_degraded_without_fixtures(tmp_path):
         status, h, _ = client.get("/health")
         validate(h, "Health")
         assert h["status"] == "degraded" and h["issues"] and h["regions"] == []
-        st, regions, _ = client.get("/regions")
-        assert st == 200
-        validate(regions, "RegionList")
-        assert regions["regions"] == [] and regions["provenance"]["mock"] is True
+        # v1.2: the read endpoints answer 503 DATA_UNAVAILABLE when the recorded inputs are missing
+        err = expect_error(client.get("/regions"), 503, "DATA_UNAVAILABLE")
+        assert err["details"]["issues"]
+        expect_error(client.get("/regions/%s/forecast?input_time=%s" % (REGION, T0)), 503, "DATA_UNAVAILABLE")
         rec = by_case("test:case1")
         expect_error(client.post("/route-checks", body_for(rec)), 503, "DATA_UNAVAILABLE")
+        expect_error(client.post("/dispatch-plans", plan_body([{"id": "o", "location": {"node_id": "test:n1"}}],
+                                                              [{"id": "d", "location": {"node_id": "test:n3"}}], [0])),
+                     503, "DATA_UNAVAILABLE")
+        # query parameters are validated before data availability, as FastAPI does in the real API
+        expect_error(client.get("/regions/%s/forecast" % REGION), 422, "VALIDATION_ERROR")
     finally:
         stop_server(httpd)
 
@@ -545,6 +579,13 @@ def test_regions(fast):
     assert [r["id"] for r in doc["regions"]] == [REGION]
     assert doc["regions"][0]["fire_year"] == 2025
     assert doc["provenance"]["mock"] is True
+    # v1.3: api_version in provenance follows the contract version (the fixture was written under 1.0.0)
+    assert doc["provenance"]["api_version"] == "1.5.0" and doc["provenance"]["fixture_api_version"] == "1.0.0"
+    fc = fast.get("/regions/%s/forecast?input_time=%s" % (REGION, T0))[1]
+    assert fc["provenance"]["api_version"] == "1.5.0"
+    # the real API lists the recorded missions of each region
+    cases = sorted({r["case_id"] for r in RECORDS})
+    assert doc["regions"][0]["recorded_missions"] == [{"mission": c, "input_time": T0} for c in cases]
 
 
 # ------------------------------------------------------------------------------------------------ forecast
@@ -559,7 +600,16 @@ def test_forecast_full_and_only_nonzero(fast):
         assert doc["provenance"]["mock"] is True
     status, doc, _ = fast.get("/regions/%s/forecast?input_time=%s&only_nonzero=true" % (REGION, T0))
     validate(doc, "ForecastCollection")
-    assert [(f["properties"]["row"], f["properties"]["col"]) for f in doc["features"]] == [(0, 0), (0, 1)]
+    # rows are served north-up (row 0 = northern edge) like the real API; the fixture's rows count from the south
+    assert [(f["properties"]["row"], f["properties"]["col"]) for f in doc["features"]] == [(1, 0), (1, 1)]
+    assert [f["id"] for f in doc["features"]] == ["r1c0", "r1c1"]
+    assert [f["properties"]["cell"] for f in doc["features"]] == [0, 1]            # graph cell index unchanged
+    fixture = {f["properties"]["cell"]: f for f in forecast_doc()["features"]}
+    assert all(f["geometry"] == fixture[f["properties"]["cell"]]["geometry"] for f in doc["features"])
+    assert doc["grid"] == {"crs": "EPSG:5179", "resolution_m": 375.0, "rows": 2, "cols": 2,
+                           "affine_transform": [375.0, 0.0, 0.0, 0.0, -375.0, 750.0],
+                           "row_order": "north-up (row 0 is the northern edge)",
+                           "cell_index": "properties.cell (MOCK extension) is the graph cell row_south * cols + col"}
     status, doc, _ = fast.get("/regions/%s/forecast?input_time=%s&only_nonzero=false" % (REGION, T0))
     assert len(doc["features"]) == 4
 
@@ -571,10 +621,19 @@ def test_forecast_errors(fast):
     assert err["details"]["available"] == [T0, T1]
     status, doc, _ = fast.get("/regions/%s/forecast?input_time=%s" % (REGION, T1))
     assert status == 200 and doc["input_time"] == T1
-    expect_error(fast.get("/regions/%s/forecast" % REGION), 422, "VALIDATION_ERROR")
+    err = expect_error(fast.get("/regions/%s/forecast" % REGION), 422, "VALIDATION_ERROR")
+    assert err["details"] == [{"type": "missing", "loc": ["query", "input_time"], "msg": "Field required", "input": None}]
+    # query parameters are checked before the region (FastAPI validation in the real API)
+    expect_error(fast.get("/regions/test:nowhere/forecast"), 422, "VALIDATION_ERROR")
     expect_error(fast.get("/regions/%s/forecast?input_time=yesterday" % REGION), 422, "INVALID_INPUT_TIME")
     expect_error(fast.get("/regions/%s/forecast?input_time=2025-01-01T00:30:00Z" % REGION), 422, "INVALID_INPUT_TIME")
-    expect_error(fast.get("/regions/%s/forecast?input_time=%s&only_nonzero=maybe" % (REGION, T0)), 422, "VALIDATION_ERROR")
+    for bad in ("maybe", "", "2"):
+        err = expect_error(fast.get("/regions/%s/forecast?input_time=%s&only_nonzero=%s" % (REGION, T0, bad)), 422,
+                           "VALIDATION_ERROR")
+        assert err["details"][0]["type"] == "bool_parsing" and err["details"][0]["loc"] == ["query", "only_nonzero"]
+    for ok, n in (("T", 2), ("yes", 2), ("off", 4), ("0", 4)):
+        status, doc, _ = fast.get("/regions/%s/forecast?input_time=%s&only_nonzero=%s" % (REGION, T0, ok))
+        assert status == 200 and len(doc["features"]) == n, ok
 
 
 # ------------------------------------------------------------------------------------------------ route checks
@@ -584,16 +643,26 @@ def test_exact_match_returns_recorded_checked_route(fast):
     res = job["result"]
     o = rec["outcome"]
     assert res["verdict"] == "checked_route" and res["reason_code"] is None
-    for k in ("raw_status", "raw_reason", "departure_s", "arrival_s", "lower_bound_L_s", "dwell_end_s", "compute_s",
-              "within_budget"):
+    for k in ("raw_status", "departure_s", "arrival_s", "lower_bound_L_s", "dwell_end_s", "compute_s", "within_budget"):
         assert res[k] == o[k], k
-    assert res["route"] == rec["route"]
+    assert res["raw_reason"] is None          # the real API's raw_reason is null for a decided verdict
+    assert any("Recorded kit result: primary status CHECKED_ROUTE (TEST_CHECKED)" in n for n in res["notes"])
+    # the recorded route in the real API's vertex layout (no consecutive wait vertices here, so the same vertices)
+    route, recorded = res["route"], rec["route"]
+    assert route["geometry"] == recorded["geometry"]
+    assert route["properties"]["times_s"] == recorded["properties"]["times_s"]
+    assert route["properties"]["node_ids"] == recorded["properties"]["node_ids"]
+    assert route["properties"]["segment_count"] == 2 and route["properties"]["legs_total"] == 3   # 2 EDGE legs + 1 WAIT
+    assert route["properties"]["edge_ids"] == recorded["properties"]["edge_ids"]
     assert [{k: e[k] for k in ("scenario_id", "peak_kw_m2", "dose_kj_m2", "contact")} for e in res["exposure"]] == EXPOSURE
+    assert all(e["basis"] == "centre_model" and e["peak_upper_kw_m2"] is None and e["dose_upper_kj_m2"] is None
+               for e in res["exposure"])
+    assert "full_policy_assessment" not in res
     assert res["notes"][0] == "MOCK: recorded result of case test:case1 (RDA_CAND rep 1) served without recomputation"
     assert res["policy"] == "full" and res["assumptions"] is None and res["independent_check"] is None
     assert res["limits"] == {"peak_kw_m2": 10, "dose_kj_m2": 100, "incurred_dose_kj_m2": 0}
     p = res["provenance"]
-    assert p["mock"] is True and p["evaluated_configuration"] is True
+    assert p["mock"] is True and p["evaluated_configuration"] is True and p["api_version"] == "1.5.0"
     assert p["host"] == {"recorded": True, "machine": "Apple M5 Pro", "os": "macOS (native)"}
     assert p["clock"] == "complete-request wall time recorded on the native campaign host"
     assert p["input_hashes"] == rec["input_hashes"]
@@ -601,8 +670,29 @@ def test_exact_match_returns_recorded_checked_route(fast):
     assert p["region"] == REGION and p["input_time"] == T0 and p["graph_id"] == "test:graph"
     assert p["fire_input_type"] == "recorded" and p["policy"] == "full" and p["approximation"] is None
     assert p["recorded_mission_match"] == "test:case1"
+    assert p["recorded_execution"]["raw_primary_status"] == "CHECKED_ROUTE"
+    assert p["budget_s"] == 30.0 and p["workers"] == 1
     assert p["git_commit"] and p["checkpoint"] == S.CHECKPOINT
     assert job["snap"]["start"] == {"node_id": "test:n1", "distance_m": 0.0, "lon": 128.0, "lat": 36.0, "input": "node_id"}
+    # v1.4: the job carries the provenance known at acceptance
+    jp = job["provenance"]
+    validate(jp, "Provenance")
+    assert jp["mock"] is True and jp["evaluated_configuration"] is True and jp["host"]["recorded"] is False
+    assert jp["input_hashes"] == {"graph": "test-graph-hash", "hazard": "test-hazard-hash"}
+
+
+def test_recorded_kit_decision_is_the_raw_status(tmp_path):
+    """raw_status is the kit's authoritative decision (outcome.authoritative_decision), as the real API reports it."""
+    root = write_synthetic_fixtures(tmp_path / "fx")
+    p = root / "records" / REGION / "test:case1__full.json"
+    doc = json.loads(p.read_text(encoding="utf-8"))
+    doc["outcome"]["authoritative_decision"] = "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+    p.write_text(json.dumps(doc), encoding="utf-8")
+    api = S.MockApi(root, quiet=True, queued_s=0.0, done_s=0.0)
+    r = api.handle("POST", "/v1/route-checks", json.dumps(body_for(by_case("test:case1"))).encode())
+    job = json.loads(api.handle("GET", "/v1/route-checks/%s" % json.loads(r.body)["job_id"]).body)
+    assert job["result"]["raw_status"] == "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+    assert job["result"]["provenance"]["recorded_execution"]["raw_primary_status"] == "CHECKED_ROUTE"
 
 
 def test_defaults_restate_recorded_request(fast):
@@ -641,15 +731,24 @@ def test_lonlat_snaps_to_recorded_node(fast):
     ({"destination": {"node_id": "test:n6"}}, "destination node"),
 ])
 def test_unmatched_requests_are_unresolved(fast, override, field):
-    job = fast.check(body_for(by_case("test:case1"), **override))
+    body = body_for(by_case("test:case1"), **override)
+    job = fast.check(body)
     res = job["result"]
     assert res["verdict"] == "unresolved" and res["reason_code"] == "OTHER"
     assert res["raw_status"] == "MOCK_NO_RECORDED_RESULT"
     assert field in res["raw_reason"] and "test:case1" in res["raw_reason"]
-    assert res["compute_s"] is None and res["within_budget"] is True
+    # nothing was computed: no compute time, so not within budget (as the real API reports a null compute_s)
+    assert res["compute_s"] is None and res["within_budget"] is False
     assert res["route"] is None and res["exposure"] == [] and res["arrival_s"] is None
+    assert res["departure_s"] == body["depart_offset_s"]
+    assert res["notes"][-1] == S.NOTE_UNRESOLVED
     p = res["provenance"]
-    assert p["mock"] is True and p["evaluated_configuration"] is False and p["host"]["recorded"] is False
+    assert p["mock"] is True and p["host"]["recorded"] is False
+    # evaluated_configuration describes the configuration (recorded input, policy full, default limits), as the real API
+    default = body["limits"] == {"peak_kw_m2": 10, "dose_kj_m2": 100} and body["incurred_dose_kj_m2"] == 0
+    assert p["evaluated_configuration"] is (body["policy"] == "full" and default)
+    # the request restates recorded mission test:case1 when only the policy differs
+    assert p["recorded_mission_match"] == ("test:case1" if field == "policy" else None)
     assert p["input_hashes"] == {"graph": "test-graph-hash", "hazard": "test-hazard-hash"}
     assert p["scenario_ids"] == SIDS0
 
@@ -658,9 +757,14 @@ def test_recorded_model_no_route_and_unresolved(fast):
     rec2 = by_case("test:case2")
     res = fast.check(body_for(rec2))["result"]
     assert res["verdict"] == "model_no_route" and res["reason_code"] is None
+    assert res["raw_status"] == "CERTIFIED_CENTRE_REFUSAL" and res["raw_reason"] is None
     assert res["route"] is None and res["exposure"] == [] and res["compute_s"] == 3.2
+    assert res["departure_s"] == 600          # recorded departure null: the requested departure, as the real API
     assert res["limits"]["incurred_dose_kj_m2"] == 5.0
-    assert any("refusal scope" in n for n in res["notes"])
+    assert any("refusal scope" in n for n in res["notes"]) and res["notes"][-1] == S.NOTE_NO_ROUTE
+    # FN/FX-style mission with prior exposure: non-default limits, yet the evaluated configuration (recorded mission)
+    assert res["provenance"]["recorded_mission_match"] == "test:case2"
+    assert res["provenance"]["evaluated_configuration"] is True
     res = fast.check(body_for(rec2, incurred_dose_kj_m2=None))["result"]           # omitted incurred = 0 != 5
     assert res["verdict"] == "unresolved" and res["raw_status"] == "MOCK_NO_RECORDED_RESULT"
     assert "incurred_dose_kj_m2" in res["raw_reason"]
@@ -675,28 +779,86 @@ def test_ablation_record_reports_full_hazard_exposure(fast):
     assert res["verdict"] == "checked_route" and res["policy"] == "travel_only"
     assert res["notes"][0] == "MOCK: recorded result of case test:case1 (A0 rep 1) served without recomputation"
     assert res["provenance"]["evaluated_configuration"] is False
-    assert res["provenance"]["recorded_mission_match"] is None
+    # the real API matches the recorded mission request whatever the policy (all policies share it)
+    assert res["provenance"]["recorded_mission_match"] == "test:case1"
     assert all(e["contact"] is True and e["basis"] == "full_model_centre_check" for e in res["exposure"])
     fpa = res["full_policy_assessment"]
     assert fpa["pass"] is False and fpa["failure_components"] == ["FLAME", "PEAK"]
     assert fpa["policy_exposure"]["members"] == EXPOSURE
+    # the real API's layout of the same recorded grade
+    assert fpa["passes_full_centre_and_contact"] is False and fpa["passes_selected_policy"] is True
+    assert fpa["whole_road_contact"] == "DEFINITE_CONTACT" and fpa["grammar_ok"] is None
+    assert fpa["violations"] == [{"scenario_id": s, "constraint": c} for c in ("FLAME", "PEAK") for s in SIDS0]
+    assert fpa["per_scenario"] == {s: {"peak_kw_m2": 12.5, "dose_kj_m2": 0.01 * (i + 1), "contact": True}
+                                   for i, s in enumerate(SIDS0)}
     assert any("not guaranteed to pass the full hazard policy" in n for n in res["notes"])
+    assert any(n == "This route FAILS the full policy: FLAME, PEAK." for n in res["notes"])
+
+
+def test_reduced_policy_route_contradicting_its_own_policy_is_unresolved(fast):
+    """v1.4: a flame_only route whose recorded full-hazard grade finds flame contact fails its own policy."""
+    res = fast.check(body_for(by_case("test:case5", "flame_only")))["result"]
+    assert res["verdict"] == "unresolved" and res["reason_code"] == "CHECK_FAILED"
+    assert res["raw_reason"] == "INDEPENDENT_CONTRADICTION"
+    assert res["route"] is None and res["exposure"] == [] and res["arrival_s"] is None and res["dwell_end_s"] is None
+    assert res["compute_s"] == 0.3
+    fpa = res["full_policy_assessment"]
+    assert fpa["passes_selected_policy"] is False and fpa["passes_full_centre_and_contact"] is False
+    assert fpa["violations"] == [{"scenario_id": SIDS0[1], "constraint": "FLAME"},
+                                 {"scenario_id": None, "constraint": "WHOLE_ROAD_CONTACT"}]
+    assert res["provenance"]["recorded_mission_match"] == "test:case5"
+    # a failure outside the policy's own constraints keeps the recorded verdict (flame_peak does not enforce dose)
+    res = fast.check(body_for(by_case("test:case6", "flame_peak")))["result"]
+    assert res["verdict"] == "checked_route" and res["route"] is not None
+    fpa = res["full_policy_assessment"]
+    assert fpa["passes_selected_policy"] is True and fpa["passes_full_centre_and_contact"] is False
+    assert fpa["violations"] == [{"scenario_id": SIDS0[3], "constraint": "DOSE"}]
 
 
 def test_run_independent_check_is_not_faked(fast):
-    res = fast.check(body_for(by_case("test:case1"), run_independent_check=True))["result"]
-    assert res["verdict"] == "checked_route"
+    """v1.4: requested but not completed (the MOCK never runs it) -> unresolved CHECK_NOT_FINISHED for policy full."""
+    rec = by_case("test:case1")
+    job = fast.check(body_for(rec, run_independent_check=True))
+    res = job["result"]
+    assert res["verdict"] == "unresolved" and res["reason_code"] == "CHECK_NOT_FINISHED"
+    assert res["raw_reason"] == "INDEPENDENT_CHECK_MISSING" and res["raw_status"] == "CHECKED_ROUTE"
+    assert res["route"] is None and res["exposure"] == [] and res["arrival_s"] is None and res["dwell_end_s"] is None
+    assert res["compute_s"] == rec["outcome"]["compute_s"] and res["lower_bound_L_s"] == rec["outcome"]["lower_bound_L_s"]
     assert res["independent_check"]["status"] == "NOT_RUN_MOCK" and res["independent_check"]["verdict"] is None
+    assert S.NOTE_NO_INDEPENDENT in res["notes"] and res["notes"][-1] == S.NOTE_UNRESOLVED
+    assert res["provenance"]["recorded_mission_match"] == "test:case1"
+    expect_error(fast.get("/route-checks/%s/export?format=geojson" % job["job_id"]), 409, "NO_CHECKED_ROUTE")
+    res = fast.check(body_for(by_case("test:case2"), run_independent_check=True))["result"]
+    assert (res["verdict"], res["reason_code"], res["raw_reason"]) == ("unresolved", "CHECK_NOT_FINISHED",
+                                                                       "INDEPENDENT_CHECK_MISSING")
+    res = fast.check(body_for(by_case("test:case3"), run_independent_check=True))["result"]     # already unresolved
+    assert (res["verdict"], res["reason_code"]) == ("unresolved", "TIMEOUT")
+    assert res["independent_check"]["status"] == "NOT_RUN_MOCK"
+    # the checker is defined for policy full only: other policies keep their verdict, with a note
+    res = fast.check(body_for(by_case("test:case1", "travel_only"), run_independent_check=True))["result"]
+    assert res["verdict"] == "checked_route" and res["independent_check"] is None
+    assert "The offline independent checker is defined for the full policy only; it was not run for travel_only." in res["notes"]
+    # without the flag the recorded verdict stands
+    assert fast.check(body_for(rec))["result"]["verdict"] == "checked_route"
 
 
-def test_recorded_endpoint_outside_allowed_rule(fast):
-    job = fast.check(body_for(by_case("test:case1"), destination={"node_id": "test:n7"}))
-    assert job["snap"]["destination"]["node_id"] == "test:n7" and "note" in job["snap"]["destination"]
-    assert job["result"]["verdict"] == "unresolved"
-    # coordinates never snap to a node outside the allowed rule, even a recorded endpoint
+def test_allowed_rule_has_no_recorded_endpoint_exception(fast, tmp_path):
+    """The real API allows a node with at least one incoming and one outgoing road; there is no exception."""
+    err = expect_error(fast.post("/route-checks", body_for(by_case("test:case1"), destination={"node_id": "test:n7"})),
+                       422, "NODE_NOT_ALLOWED")
+    assert err["details"] == {"role": "destination", "node_id": "test:n7"}
+    assert "needs at least one incoming and one outgoing road" in err["message"]
+    # coordinates never snap to a node outside the allowed rule
     err = expect_error(fast.post("/route-checks", body_for(by_case("test:case1"), destination={"lon": 128.015, "lat": 36.015})),
                        422, "SNAP_TOO_FAR")
     assert err["details"]["nearest_node_id"] == "test:n6"
+    # a record whose endpoint the node table does not allow can never be posed: reported as an issue
+    root = write_synthetic_fixtures(tmp_path / "fx")
+    bad = make_record("test:case11", "full", "test:n7", "test:n3", "model_no_route", outcome=NO_ROUTE_OUTCOME)
+    (root / "records" / REGION / "test:case11__full.json").write_text(json.dumps(bad), encoding="utf-8")
+    api = S.MockApi(root, quiet=True)
+    assert any("test:case11__full" in i and "not allowed" in i for i in api.fx.issues)
+    assert api.health()["status"] == "degraded"
 
 
 def test_spread_zones_are_never_evaluated(fast):
@@ -716,10 +878,16 @@ def test_spread_zones_are_never_evaluated(fast):
     assert job["request"]["fire_input"]["margin_min"] == 60
 
 
+def test_spread_zones_empty_feature_list_is_accepted(fast):
+    """As the real adapter: no zones leaves only the recorded present fire; the MOCK still evaluates nothing."""
+    res = fast.check(body_for(by_case("test:case1"), fire_input=spread([])))["result"]
+    assert res["verdict"] == "unresolved" and res["raw_status"] == "MOCK_SPREAD_ZONES_NOT_EVALUATED"
+    assert res["assumptions"]["zones_received"] == 0
+
+
 @pytest.mark.parametrize("fire, status, code", [
     (spread([ZONE_OUT]), 422, "ZONES_OUTSIDE_REGION"),
     (spread([ZONE_IN, ZONE_OUT]), 422, "ZONES_OUTSIDE_REGION"),
-    (spread([]), 422, "INVALID_ZONES"),
     (spread([zone([[128.0, 36.0], [128.01, 36.0]])]), 422, "INVALID_ZONES"),
     (spread([zone([[128.0, 36.0], [128.01, 36.0], [500, 36.0]])]), 422, "INVALID_ZONES"),
     (spread([zone([[128.0, 36.0], [128.01, 36.0], [128.01, 36.01]], h=0)]), 422, "VALIDATION_ERROR"),
@@ -727,7 +895,8 @@ def test_spread_zones_are_never_evaluated(fast):
               "properties": {"arrival_h_max": 5}}]), 422, "VALIDATION_ERROR"),
     (spread([ZONE_IN], issued_at="soon"), 422, "INVALID_ZONES"),
     (spread([ZONE_IN], margin_min=-1), 422, "VALIDATION_ERROR"),
-    (spread([ZONE_IN], burning_scenario_set_id="test:ss:none"), 422, "UNKNOWN_SCENARIO_SET"),
+    # v1.3: burning_scenario_set_id is only a consistency check against the recorded set at input_time
+    (spread([ZONE_IN], burning_scenario_set_id="test:ss:none"), 422, "SCENARIO_SET_TIME_MISMATCH"),
     (spread([ZONE_IN], burning_scenario_set_id=SSID1), 422, "SCENARIO_SET_TIME_MISMATCH"),
 ])
 def test_spread_zones_validation(fast, fire, status, code):
@@ -786,6 +955,21 @@ def test_route_check_request_errors(fast, override, code):
 @pytest.mark.parametrize("data", [b"", b"{not json", b"[]", b'{"a": NaN}', "ÿ".encode("latin-1")])
 def test_malformed_bodies(fast, data):
     st, headers, raw = fast.raw("POST", "/route-checks", data=data)
+    err = expect_error((st, json.loads(raw), headers), 422, "VALIDATION_ERROR")
+    assert json.loads(raw)["provenance"]["mock"] is True        # v1.3: errors carry provenance too
+
+
+@pytest.mark.parametrize("path", ["/route-checks", "/dispatch-plans"])
+@pytest.mark.parametrize("token", ["NaN", "Infinity", "-Infinity", "1e999"])
+def test_non_finite_numbers_are_rejected(fast, path, token):
+    """v1.4: request bodies with non-finite numbers are rejected with 422 (1e999 overflows to infinity)."""
+    if path == "/route-checks":
+        text = json.dumps(body_for(by_case("test:case1"))).replace('"depart_offset_s": 0', '"depart_offset_s": %s' % token)
+    else:
+        text = json.dumps(plan_body([{"id": "o", "location": {"node_id": "test:n1"}}],
+                                    [{"id": "d", "location": {"node_id": "test:n3"}}], [0])).replace("[0]", "[%s]" % token)
+    assert token in text
+    st, headers, raw = fast.raw("POST", path, data=text.encode())
     expect_error((st, json.loads(raw), headers), 422, "VALIDATION_ERROR")
 
 
@@ -798,6 +982,7 @@ def test_cors_preflight_and_methods(fast):
     assert headers["access-control-allow-origin"] == "*"
     assert "POST" in headers["access-control-allow-methods"]
     assert "content-type" in headers["access-control-allow-headers"].lower()
+    assert "X-WFG-Provenance" in headers["access-control-expose-headers"]
     err = expect_error(fast.get("/route-checks"), 405, "METHOD_NOT_ALLOWED")
     assert err["details"]["allowed"] == ["POST"]
     expect_error(fast.post("/health", {}), 405, "METHOD_NOT_ALLOWED")
@@ -809,7 +994,10 @@ def test_cors_preflight_and_methods(fast):
 
 
 def test_unknown_jobs(fast):
-    expect_error(fast.get("/route-checks/rc_nope"), 404, "JOB_NOT_FOUND")
+    st, body, _ = fast.get("/route-checks/rc_nope")
+    assert st == 404 and body["error"]["code"] == "JOB_NOT_FOUND"
+    validate(body["provenance"], "Provenance")
+    assert body["provenance"]["mock"] is True and body["provenance"]["host"]["recorded"] is False
     expect_error(fast.get("/dispatch-plans/dp_nope"), 404, "JOB_NOT_FOUND")
     acc = fast.post("/route-checks", body_for(by_case("test:case1")))[1]
     expect_error(fast.get("/dispatch-plans/%s" % acc["job_id"]), 404, "JOB_NOT_FOUND")
@@ -902,17 +1090,26 @@ def test_exports_of_checked_route(fast):
     assert "attachment" in headers["content-disposition"] and ".geojson" in headers["content-disposition"]
     gj = json.loads(raw)
     validate(gj, "RouteExportCollection")
+    assert "x-wfg-provenance" not in headers           # GeoJSON carries provenance in the body
     roles = [f["properties"]["role"] for f in gj["features"]]
-    assert roles == ["route", "origin", "destination"]
+    assert roles == ["route", "start", "destination"]  # the real API's roles
     assert gj["features"][0]["geometry"]["coordinates"] == coords
     assert gj["features"][1]["geometry"]["coordinates"] == coords[0]
     assert gj["features"][2]["geometry"]["coordinates"] == coords[-1]
-    assert gj["features"][0]["properties"]["verdict"] == "checked_route"
+    props = gj["features"][0]["properties"]
+    assert props["verdict"] == "checked_route" and props["full_policy_route"] is True and props["label"] == "checked route"
+    assert props["full_policy_centre_and_contact_pass"] is None and props["fire_input_type"] == "recorded"
+    assert gj["features"][1]["properties"]["time_s"] == 0
     assert gj["provenance"]["mock"] is True
     validate(gj["provenance"], "Provenance")
 
     status, headers, raw = fast.raw("GET", "/route-checks/%s/export?format=kml" % jid)
     assert status == 200 and headers["content-type"].startswith("application/vnd.google-earth.kml+xml")
+    xprov = json.loads(headers["x-wfg-provenance"])        # v1.3: KML and CSV carry provenance in a header
+    assert xprov["job_id"] == jid and xprov["verdict"] == "checked_route" and xprov["mock"] is True
+    assert xprov["checkpoint"] == S.CHECKPOINT and xprov["api_version"] == "1.5.0"
+    assert xprov["input_hashes"] == rec["input_hashes"] and xprov["recorded_mission_match"] == "test:case1"
+    assert headers["x-wfg-provenance"].isascii()
     root = ET.fromstring(raw)
     ns = {"k": "http://www.opengis.net/kml/2.2"}
     assert root.tag == "{http://www.opengis.net/kml/2.2}kml"
@@ -927,24 +1124,55 @@ def test_exports_of_checked_route(fast):
 
     status, headers, raw = fast.raw("GET", "/route-checks/%s/export?format=csv" % jid)
     assert status == 200 and headers["content-type"].startswith("text/csv")
+    assert json.loads(headers["x-wfg-provenance"])["job_id"] == jid
     text = raw.decode("utf-8")
     assert text.splitlines()[0] == "seq,node_id,lon,lat,time_s,event"
+    assert not any(line.startswith("#") for line in text.splitlines())       # plain table, no comment rows (v1.3)
     rows = list(csv.DictReader(io.StringIO(text)))
-    assert len(rows) == len(coords)
-    assert [r["event"] for r in rows] == ["depart", "edge", "wait", "arrive"]
-    assert [r["node_id"] for r in rows] == rec["route"]["properties"]["node_ids"]
-    assert [int(r["seq"]) for r in rows] == list(range(len(coords)))
-    assert [float(r["time_s"]) for r in rows] == rec["route"]["properties"]["times_s"]
-    assert all(set(r["event"]) and r["event"] in ("depart", "edge", "wait", "arrive") for r in rows)
+    # the real API's table: one row per vertex (depart | pass | wait_end | arrive) and a final dwell_end row
+    assert len(rows) == len(coords) + 1
+    assert [r["event"] for r in rows] == ["depart", "pass", "wait_end", "arrive", "dwell_end"]
+    assert [r["node_id"] for r in rows] == rec["route"]["properties"]["node_ids"] + ["test:n3"]
+    assert [int(r["seq"]) for r in rows] == list(range(len(coords) + 1))
+    assert [float(r["time_s"]) for r in rows] == rec["route"]["properties"]["times_s"] + [rec["outcome"]["dwell_end_s"]]
+    assert [(r["lon"], r["lat"]) for r in rows[:-1]] == [("%.7f" % c[0], "%.7f" % c[1]) for c in coords]
 
 
 def test_csv_node_ids_when_record_lists_distinct_nodes(fast):
     rec = by_case("test:case1", "travel_only")
     job = fast.check(body_for(rec))
-    text = fast.raw("GET", "/route-checks/%s/export?format=csv" % job["job_id"])[2].decode()
-    rows = list(csv.DictReader(io.StringIO(text)))
-    assert [r["node_id"] for r in rows] == ["test:n1", "test:n2", "test:n2", "test:n3"]
-    assert [r["event"] for r in rows] == ["depart", "edge", "wait", "arrive"]
+    assert job["result"]["route"]["properties"]["node_ids"] == ["test:n1", "test:n2", "test:n2", "test:n3"]
+    st, headers, raw = fast.raw("GET", "/route-checks/%s/export?format=csv" % job["job_id"])
+    rows = list(csv.DictReader(io.StringIO(raw.decode())))
+    assert [r["node_id"] for r in rows] == ["test:n1", "test:n2", "test:n2", "test:n3", "test:n3"]
+    assert [r["event"] for r in rows] == ["depart", "pass", "wait_end", "arrive", "dwell_end"]
+    # a reduced-policy route is never labelled as a full checked route
+    assert json.loads(headers["x-wfg-provenance"])["full_policy_centre_and_contact_pass"] is False
+    gj = json.loads(fast.raw("GET", "/route-checks/%s/export?format=geojson" % job["job_id"])[2])
+    assert gj["features"][0]["properties"]["label"] == ("route checked under policy travel_only only (NOT a full-policy "
+                                                        "route); FAILS the full hazard check")
+    assert gj["features"][0]["properties"]["full_policy_route"] is False
+    kml = fast.raw("GET", "/route-checks/%s/export?format=kml" % job["job_id"])[2].decode()
+    assert "NOT a full-policy route" in kml and "확인된 경로 / checked route" not in kml
+
+
+def test_served_route_uses_the_api_vertex_rule(fast):
+    """A run of 1 s WAIT legs (one recorded vertex each) becomes one vertex at the wait's end, as the real API builds it."""
+    rec = by_case("test:case6")
+    route = fast.check(body_for(rec))["result"]["route"]
+    assert rec["route"]["properties"]["node_ids"] == ["test:n1", "test:n2"]          # recorded: per EDGE leg end
+    assert route["geometry"]["coordinates"] == [ll("test:n1"), ll("test:n1"), ll("test:n2")]
+    assert route["properties"]["times_s"] == [0, 2, 100]
+    assert route["properties"]["node_ids"] == ["test:n1", "test:n1", "test:n2"]
+    assert route["properties"]["waits"] == [{"node_id": "test:n1", "from_s": 0, "to_s": 2}]
+    assert route["properties"]["segment_count"] == 1 and route["properties"]["legs_total"] == 3
+    assert route["properties"]["edge_ids"] == ["test:e0"]
+    assert route["properties"]["vertex_rule"] == S.SERVED_VERTEX_RULE
+    # the helper refuses an ambiguous layout instead of guessing
+    broken = json.loads(json.dumps(rec["route"]))
+    broken["properties"]["node_ids"] = ["test:n1"]
+    with pytest.raises(ValueError):
+        S.served_route(broken)
 
 
 def test_exports_refused_without_checked_route(fast):
@@ -975,13 +1203,15 @@ def test_dispatch_aggregation_and_urgency(fast):
                {"id": "village-n5", "location": {"lon": 128.0, "lat": 36.008}},
                {"id": "village-n6", "location": {"node_id": "test:n6"}},
                {"id": "village-far", "location": FAR}]
-    job = fast.plan(plan_body(origins, [{"id": "shelter-n3", "location": {"node_id": "test:n3"}}], [600, 0, 600]))
+    job = fast.plan(plan_body(origins, [{"id": "shelter-n3", "location": {"node_id": "test:n3"}}], [600, 0]))
     res = job["result"]
     validate(res, "DispatchPlanResult")
-    assert job["request"]["depart_offsets_s"] == [0, 600]
-    order = [(p["origin_id"], p["urgency_rank"], p["best_verdict"], p["latest_checked_depart_offset_s"]) for p in res["plans"]]
-    assert order == [("village-n2", 1, "checked_route", 0), ("village-n1", 2, "checked_route", 600),
-                     ("village-n5", 3, "model_no_route", None), ("village-n6", 4, "unresolved", None)]
+    assert job["request"]["depart_offsets_s"] == [600, 0]          # echoed as requested
+    validate(job["provenance"], "Provenance")
+    order = [(p["origin_id"], p["urgency_rank"], p["best_verdict"], p["latest_checked_depart_offset_s"],
+              p["latest_contiguous_checked_depart_offset_s"]) for p in res["plans"]]
+    assert order == [("village-n2", 1, "checked_route", 0, 0), ("village-n1", 2, "checked_route", 600, 600),
+                     ("village-n5", 3, "model_no_route", None, None), ("village-n6", 4, "unresolved", None, None)]
     plans = {p["origin_id"]: p for p in res["plans"]}
     assert plans["village-n1"]["best"]["arrival_s"] == 900 and plans["village-n1"]["best"]["depart_offset_s"] == 600
     assert plans["village-n2"]["best"]["arrival_s"] == 150
@@ -997,7 +1227,8 @@ def test_dispatch_aggregation_and_urgency(fast):
     assert s["median_compute_s"] == statistics.median(recorded_cs) and s["wall_s"] is None
     assert job["progress"] == {"done": 8, "total": 8}
     assert res["assumptions"] is None and res["provenance"]["mock"] is True
-    assert res["provenance"]["evaluated_configuration"] is False
+    # recorded input, policy full, default limits: the evaluated configuration (real API rule for dispatch plans)
+    assert res["provenance"]["evaluated_configuration"] is True and job["provenance"]["evaluated_configuration"] is True
     # every attempt is backed by a route-check job carrying its full result
     for p in res["plans"]:
         for a in p["attempts"]:
@@ -1007,6 +1238,21 @@ def test_dispatch_aggregation_and_urgency(fast):
             assert rc["result"]["verdict"] == a["verdict"] and rc["result"]["arrival_s"] == a["arrival_s"]
             assert rc["result"]["compute_s"] == a["compute_s"]
             assert rc["request"]["depart_offset_s"] == a["depart_offset_s"]
+            validate(rc["provenance"], "Provenance")
+            # an attempt job's request is a valid RouteCheckRequest (the planner re-posts it for travel_only checks)
+            assert S.schema_errors(rc["request"], "RouteCheckRequest") == []
+
+
+def test_dispatch_urgency_uses_contiguous_offset(fast):
+    """v1.4: urgency uses latest_contiguous_checked_depart_offset_s. village-n5 is checked only when departing at 600 s
+    (not at 0 s), so its contiguous value is null and it ranks first among checked origins."""
+    origins = [{"id": "village-n1", "location": {"node_id": "test:n1"}},
+               {"id": "village-n5", "location": {"node_id": "test:n5"}}]
+    res = fast.plan(plan_body(origins, [{"id": "shelter-n2", "location": {"node_id": "test:n2"}}], [0, 600]))["result"]
+    order = [(p["origin_id"], p["best_verdict"], p["latest_checked_depart_offset_s"],
+              p["latest_contiguous_checked_depart_offset_s"]) for p in res["plans"]]
+    assert order == [("village-n5", "checked_route", 600, None), ("village-n1", "checked_route", 0, 0)]
+    assert [p["urgency_rank"] for p in res["plans"]] == [1, 2]
 
 
 def test_dispatch_best_is_earliest_arrival_at_latest_offset(fast):
@@ -1029,10 +1275,19 @@ def test_dispatch_model_no_route_only_if_every_attempt(fast):
 
 def test_dispatch_rejected_attempts_and_all_rejected(fast):
     dest = [{"id": "d", "location": {"node_id": "test:n3"}, "window": [0, 100]}]   # unsatisfiable with dwell 120
+    status, acc, _ = fast.post("/dispatch-plans", plan_body([{"id": "o", "location": {"node_id": "test:n1"}}], dest, [0]))
+    assert status == 202 and acc["progress"] == {"done": 1, "total": 1}
     job = fast.plan(plan_body([{"id": "o", "location": {"node_id": "test:n1"}}], dest, [0]))
     a = job["result"]["plans"][0]["attempts"][0]
-    assert a["verdict"] == "unresolved" and a["route_check_job_id"] is None and a["raw_status"] == "INPUT_REJECTED"
+    # the real API: an attempt that cannot be posed is unresolved INPUT_REJECTED with the request error as raw_reason
+    assert a["verdict"] == "unresolved" and a["route_check_job_id"] is None
+    assert a["reason_code"] == "INPUT_REJECTED" and a["raw_reason"] == "WINDOW_UNSATISFIABLE"
     assert job["progress"] == {"done": 1, "total": 1}
+    # an offset outside the hazard horizon is posed per attempt too
+    a = fast.plan(plan_body([{"id": "o", "location": {"node_id": "test:n1"}}],
+                            [{"id": "d", "location": {"node_id": "test:n3"}}], [0, 4000]))["result"]["plans"][0]["attempts"]
+    assert [(x["depart_offset_s"], x["reason_code"], x.get("raw_reason")) for x in a] == [
+        (0, None, None), (4000, "INPUT_REJECTED", "DEPARTURE_OUTSIDE_HORIZON")]
     job = fast.plan(plan_body([{"id": "far", "location": FAR}], [{"id": "d", "location": {"node_id": "test:n3"}}], [0]))
     assert job["result"]["plans"] == [] and job["result"]["summary"]["origins"] == 0
     assert job["result"]["rejected_origins"][0]["error"]["code"] == "SNAP_TOO_FAR"
@@ -1053,8 +1308,9 @@ def test_dispatch_request_errors(fast):
     o = [{"id": "o", "location": {"node_id": "test:n1"}}]
     d = [{"id": "d", "location": {"node_id": "test:n3"}}]
     many = [{"id": "o%d" % i, "location": {"node_id": "test:n1"}} for i in range(201)]
-    err = expect_error(fast.post("/dispatch-plans", plan_body(many, d, [0])), 422, "TOO_MANY_ORIGINS")
-    assert err["details"]["max_origins"] == 200
+    # 201 origins fail the schema's maxItems first, as in the real API (its TOO_MANY_ORIGINS check comes after)
+    err = expect_error(fast.post("/dispatch-plans", plan_body(many, d, [0])), 422, "VALIDATION_ERROR")
+    assert any(e["path"] == "origins" and "at most 200" in e["message"] for e in err["details"])
     expect_error(fast.post("/dispatch-plans", plan_body(o + o, d, [0])), 422, "DUPLICATE_ID")
     err = expect_error(fast.post("/dispatch-plans", plan_body(o, [{"id": "d", "location": FAR}], [0])), 422, "SNAP_TOO_FAR")
     assert err["details"]["destination_id"] == "d"
@@ -1063,6 +1319,33 @@ def test_dispatch_request_errors(fast):
     expect_error(fast.post("/dispatch-plans", plan_body([], d, [0])), 422, "VALIDATION_ERROR")
     expect_error(fast.post("/dispatch-plans", plan_body(o, d, [0], region="test:nowhere")), 422, "UNKNOWN_REGION")
     expect_error(fast.post("/dispatch-plans", plan_body(o, d, [0], extra=True)), 422, "VALIDATION_ERROR")
+    # v1.4: policy full only, no repeated offsets
+    for pol in ("travel_only", "flame_only", "flame_peak", "flame_dose"):
+        err = expect_error(fast.post("/dispatch-plans", plan_body(o, d, [0], policy=pol)), 422, "POLICY_NOT_ALLOWED")
+        assert err["details"] == {"policy": pol}
+    assert fast.post("/dispatch-plans", plan_body(o, d, [0], policy="full"))[0] == 202
+    # destinations are snapped before the policy is checked (real API order)
+    expect_error(fast.post("/dispatch-plans", plan_body(o, [{"id": "d", "location": FAR}], [0], policy="travel_only")),
+                 422, "SNAP_TOO_FAR")
+    err = expect_error(fast.post("/dispatch-plans", plan_body(o, d, [600, 0, 600])), 422, "DUPLICATE_OFFSET")
+    assert err["details"] == {"depart_offsets_s": [600, 0, 600]}
+    expect_error(fast.post("/dispatch-plans", plan_body(o, d, [0, 600.0, 600])), 422, "DUPLICATE_OFFSET")
+    err = expect_error(fast.post("/dispatch-plans", plan_body(o, d, [0, 0.5])), 422, "NOT_ON_TIME_LATTICE")
+    assert err["details"] == {"field": "depart_offsets_s", "value": 0.5}
+
+
+def test_dispatch_attempt_limit(fast):
+    """v1.4: at most 4,800 attempts (origins x destinations x offsets) per plan; rejected origins do not count."""
+    def origins(n):
+        return [{"id": "o%03d" % i, "location": {"node_id": "test:n1"}} for i in range(n)]
+    dests = [{"id": "d%02d" % i, "location": {"node_id": "test:n3"}} for i in range(12)]
+    err = expect_error(fast.post("/dispatch-plans", plan_body(origins(200), dests, [0, 600, 1200])), 422, "TOO_MANY_ATTEMPTS")
+    assert err["details"]["attempts"] == 7200 and err["details"]["limit"] == 4800
+    far = [{"id": "far%d" % i, "location": FAR} for i in range(10)]
+    job = fast.plan(plan_body(origins(190) + far, dests, [0, 600]))         # 190 x 12 x 2 = 4560 attempts
+    assert job["progress"]["total"] == 4560 and len(job["result"]["rejected_origins"]) == 10
+    status, acc, _ = fast.post("/dispatch-plans", plan_body(origins(200), dests, [0, 600]))   # exactly 4800
+    assert status == 202 and acc["progress"]["total"] == 4800
 
 
 def test_client_validates_every_json_response(fast):
@@ -1111,12 +1394,35 @@ def test_real_health_and_regions(real_server):
     assert h["status"] == "ok", h["issues"]
     assert h["mode"] == "mock"
     assert set(h["regions"]) == {"uljin_2022", "miryang_2022", "hongseong_2023", "uiseong_andong_2025", "yeongdeok_2025"}
+    assert h["kit_candidate_id"] == "WFG-latest-completion-kit-20261015-v3"       # named in the recorded source paths
     status, doc, _ = client.get("/regions")
     validate(doc, "RegionList")
+    assert [r["id"] for r in doc["regions"]] == sorted(r["id"] for r in doc["regions"])   # sorted, as the real API
     for r in doc["regions"]:
         assert len(r["scenario_sets"]) == len(r["input_times"]) >= 1
         for s in r["scenario_sets"]:
             assert len(s["scenario_ids"]) == 4
+        assert len(r["recorded_missions"]) == 4
+        assert {m["mission"] for m in r["recorded_missions"]} == {x["case_id"] for x in REAL_RECORDS if x["region_id"] == r["id"]}
+        # the allowed-node count follows the real API's rule (a node with at least one incoming and one outgoing edge)
+        nodes = json.loads((REAL_FIXTURES / "nodes" / ("%s.json" % r["id"])).read_text())
+        assert sum(nodes["allowed"]) == r["allowed_node_count"] == nodes["allowed_count"]
+        assert nodes["allowed_rule"].startswith("at least one incoming and one outgoing road edge")
+
+
+@real
+def test_real_allowed_rule_matches_api_rule():
+    """fixtures/nodes allowed == the real API's rule recomputed from the release graph (when the extracts exist)."""
+    graphs = ROOT / "planner" / ".assets" / "extracted" / "WFG-evaluated-routing-inputs-20261015" / "graphs"
+    if not graphs.is_dir():
+        pytest.skip("planner/.assets release extracts missing")
+    for rid in ("miryang_2022", "hongseong_2023"):           # small graphs keep the test fast
+        g = json.loads((graphs / rid / "graph.json").read_text())
+        outs = {e["u"] for e in g["edges"]}
+        ins = {e["v"] for e in g["edges"]}
+        want = [int(n["id"] in outs and n["id"] in ins) for n in g["nodes"]]
+        nodes = json.loads((REAL_FIXTURES / "nodes" / ("%s.json" % rid)).read_text())
+        assert nodes["ids"] == [n["id"] for n in g["nodes"]] and nodes["allowed"] == want
 
 
 @real
@@ -1132,7 +1438,15 @@ def test_real_forecasts_validate(real_server):
     r = doc["regions"][0]
     st, fc, _ = client.get("/regions/%s/forecast?input_time=%s" % (r["id"], r["input_times"][0]))
     validate(fc, "ForecastCollection")
-    assert len(fc["features"]) == r["grid"]["width"] * r["grid"]["height"]
+    w, h = r["grid"]["width"], r["grid"]["height"]
+    assert len(fc["features"]) == w * h
+    # north-up rows like the real API: cell (graph index, south-up) = (h - 1 - row) * w + col; polygon tops decrease
+    assert all(f["properties"]["cell"] == (h - 1 - f["properties"]["row"]) * w + f["properties"]["col"]
+               and f["id"] == "r%dc%d" % (f["properties"]["row"], f["properties"]["col"]) for f in fc["features"])
+    top = {f["properties"]["row"]: max(p[1] for p in f["geometry"]["coordinates"][0])
+           for f in fc["features"] if f["properties"]["col"] == 0}
+    assert all(top[k] > top[k + 1] for k in range(h - 1))
+    assert fc["grid"]["rows"] == h and fc["grid"]["cols"] == w and fc["grid"]["row_order"].startswith("north-up")
 
 
 def _real_body(rec):
@@ -1152,11 +1466,33 @@ def test_real_full_missions_replay_recorded_verdicts(real_server):
         assert res["arrival_s"] == rec["outcome"]["arrival_s"] and res["compute_s"] == rec["outcome"]["compute_s"]
         assert res["notes"][0] == "MOCK: recorded result of case %s (RDA_CAND rep 1) served without recomputation" % rec["case_id"]
         assert res["provenance"]["evaluated_configuration"] is True and res["provenance"]["mock"] is True
+        assert res["provenance"]["recorded_mission_match"] == rec["case_id"]
+        assert res["raw_status"] == rec["outcome"]["authoritative_decision"] and res["raw_reason"] is None
         if res["verdict"] == "checked_route":
-            assert res["route"] == rec["route"] and len(res["exposure"]) == 4
-            assert all(e["contact"] is False for e in res["exposure"])
+            assert_served_route(res["route"], rec["route"])
+            assert len(res["exposure"]) == 4
+            assert all(e["contact"] is False and e["basis"] == "centre_model" for e in res["exposure"])
         counts[res["verdict"]] += 1
     assert counts == {"checked_route": 15, "model_no_route": 5, "unresolved": 0}
+
+
+def assert_served_route(route: dict, recorded: dict) -> None:
+    """The served route is the recorded one in the real API's vertex layout: per-vertex node_ids, the recorded EDGE
+    vertices unchanged, and each run of recorded wait vertices reduced to its last vertex."""
+    rc, rt = recorded["geometry"]["coordinates"], recorded["properties"]["times_s"]
+    sc, st, sn = route["geometry"]["coordinates"], route["properties"]["times_s"], route["properties"]["node_ids"]
+    assert len(sc) == len(st) == len(sn) and sc[0] == rc[0] and sc[-1] == rc[-1] and st[0] == rt[0] and st[-1] == rt[-1]
+    assert route["properties"]["edge_ids"] == recorded["properties"]["edge_ids"]
+    assert route["properties"]["segment_count"] == len(recorded["properties"]["edge_ids"])
+    assert route["properties"]["legs_total"] == recorded["properties"]["segment_count"] == len(rc) - 1
+    assert sn[0] == recorded["properties"]["node_ids"][0] and sn[-1] == recorded["properties"]["node_ids"][-1]
+    pairs = list(zip(map(tuple, rc), rt))
+    assert all(p in pairs for p in zip(map(tuple, sc), st))
+    runs = sum(1 for i in range(1, len(rc)) if rc[i] == rc[i - 1] and not (i > 1 and rc[i - 1] == rc[i - 2]))
+    waits = sum(1 for i in range(1, len(rc)) if rc[i] == rc[i - 1])
+    assert len(sc) == len(rc) - waits + runs
+    if not recorded["properties"]["waits"]:
+        assert sc == rc and st == rt and sn == recorded["properties"]["node_ids"]
 
 
 @real
@@ -1170,6 +1506,14 @@ def test_real_ablation_records_replay(real_server, policy):
         assert res["verdict"] == rec["outcome"]["verdict"], rec["case_id"]
         assert res["policy"] == policy and res["provenance"]["evaluated_configuration"] is False
         assert res["compute_s"] == rec["outcome"]["compute_s"]
+        assert res["provenance"]["recorded_mission_match"] == rec["case_id"]
+        if res["verdict"] == "checked_route":
+            assert_served_route(res["route"], rec["route"])
+            fpa = res["full_policy_assessment"]
+            assert fpa["passes_selected_policy"] is True
+            assert fpa["passes_full_centre_and_contact"] is rec["full_policy_check"]["pass"]
+            assert sorted({v["constraint"] for v in fpa["violations"]}) == sorted(rec["full_policy_check"]["failure_components"] or [])
+            assert all(e["basis"] == "full_model_centre_check" for e in res["exposure"])
     if policy == "travel_only":
         assert {r["outcome"]["verdict"] for r in recs} <= {"checked_route", "model_no_route", "unresolved"}
 
@@ -1205,7 +1549,8 @@ def test_real_exports(real_server):
     api, client = real_server
     rec = next(r for r in REAL_RECORDS if r["policy"] == "full" and r["outcome"]["verdict"] == "checked_route")
     job = client.check(_real_body(rec))
-    coords = rec["route"]["geometry"]["coordinates"]
+    coords = job["result"]["route"]["geometry"]["coordinates"]          # served layout (one vertex per wait run)
+    assert_served_route(job["result"]["route"], rec["route"])
     gj = json.loads(client.raw("GET", "/route-checks/%s/export?format=geojson" % job["job_id"])[2])
     validate(gj, "RouteExportCollection")
     root = ET.fromstring(client.raw("GET", "/route-checks/%s/export?format=kml" % job["job_id"])[2])
@@ -1214,10 +1559,18 @@ def test_real_exports(real_server):
     text = client.raw("GET", "/route-checks/%s/export?format=csv" % job["job_id"])[2].decode()
     rows = list(csv.DictReader(io.StringIO(text)))
     assert text.splitlines()[0] == "seq,node_id,lon,lat,time_s,event"
-    assert len(rows) == len(coords) and rows[0]["event"] == "depart" and rows[-1]["event"] == "arrive"
+    assert len(rows) == len(coords) + 1 and rows[0]["event"] == "depart"
+    assert rows[-2]["event"] == "arrive" and rows[-1]["event"] == "dwell_end"
+    assert float(rows[-1]["time_s"]) == rec["outcome"]["dwell_end_s"]
     assert rows[0]["node_id"] == rec["request"]["origin_node"] and rows[-1]["node_id"] == rec["request"]["destination_node"]
-    assert {r["event"] for r in rows} <= {"depart", "edge", "wait", "arrive"}
+    assert {r["event"] for r in rows} <= {"depart", "pass", "wait_end", "arrive", "dwell_end"}
     assert all(r["node_id"] for r in rows)
+    # a recorded route with waits: one wait_end row per wait, per-vertex node ids
+    wrec = next(r for r in REAL_RECORDS if r["policy"] == "full" and r["route"] and r["route"]["properties"]["waits"])
+    wjob = client.check(_real_body(wrec))
+    rows = list(csv.DictReader(io.StringIO(client.raw("GET", "/route-checks/%s/export?format=csv" % wjob["job_id"])[2].decode())))
+    assert sum(r["event"] == "wait_end" for r in rows) == len(wrec["route"]["properties"]["waits"])
+    assert len(rows) == len(wjob["result"]["route"]["geometry"]["coordinates"]) + 1 and all(r["node_id"] for r in rows)
     mnr = next(r for r in REAL_RECORDS if r["policy"] == "full" and r["outcome"]["verdict"] == "model_no_route")
     job = client.check(_real_body(mnr))
     expect_error(client.get("/route-checks/%s/export?format=csv" % job["job_id"]), 409, "NO_CHECKED_ROUTE")

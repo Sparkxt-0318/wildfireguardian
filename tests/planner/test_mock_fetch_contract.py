@@ -8,6 +8,7 @@ the contract; exit 2 when no head has it; the working branch is never changed.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -30,9 +31,11 @@ def git(cwd: Path, *args: str) -> str:
 
 
 def contract_text(version: str = "1.0.0") -> str:
+    """The real contract copy (whatever version it is now) with its info.version set to ``version``."""
     body = CONTRACT_COPY.read_text(encoding="utf-8").split("\n", 1)[1]     # drop the copy's source comment
-    assert "  version: 1.0.0\n" in body
-    return body.replace("  version: 1.0.0\n", "  version: %s\n" % version, 1)
+    info_version = re.compile(r"^(info:\n(?:  .*\n)*?)  version: [^\n]+\n", re.M)
+    assert info_version.search(body), "contract copy has no info.version line"
+    return info_version.sub(lambda m: "%s  version: %s\n" % (m.group(1), version), body, count=1)
 
 
 CHANGELOG_V1 = "# changelog\n\n## v1.0.0 — initial contract\n"

@@ -44,6 +44,13 @@ If `feat/api` has no `contracts/wfg_api_v1.yaml`, the script scans the other rem
 | 3 | the contract exists only on other heads, which are listed; rerun with `--branch` after checking which is the API's |
 | 4 | `--check` found a difference |
 
+## Current state
+
+The copy is contract **v1.5.0** (`SOURCE_COMMIT` = feat/api `bb2acd0`). The mock server implements the same
+version (`API_VERSION = "1.5.0"`); `planner/mock_api/README.md` lists the remaining differences from the
+real API. The test suite checks both: `test_request_schemas_mirror_contract` and the response validation in
+`tests/planner/test_mock_api.py`.
+
 ## When `CHANGELOG.md` gains a version
 
 A new version in the change log means the wire format may have changed. Update both consumers in the same
@@ -56,7 +63,8 @@ change:
    - `API_VERSION`;
    - the `REQUEST_SCHEMAS` mirror of the request components;
    - `REASON_CODES`;
-   - new response fields and error codes.
+   - new response fields and error codes. Mirror the real implementation (`api/*.py` on the same commit)
+     for codes, check order and layouts.
 
    Then run `python3 -m pytest tests/planner/test_mock_api.py -q`. The tests validate every mock response
    against the copy, and `test_request_schemas_mirror_contract` fails until the mirror matches it.

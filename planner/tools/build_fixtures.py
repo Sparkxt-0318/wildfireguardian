@@ -14,7 +14,9 @@ Writes:
   planner/mock_api/fixtures/records/<region>/<case>__<policy>.json
   planner/public/data/regions/<region>/footprints.geojson
 
-Usage: python3 planner/tools/build_fixtures.py
+Usage: python3 planner/tools/build_fixtures.py               # everything above
+       python3 planner/tools/build_fixtures.py --nodes-only  # only nodes/*.json (+ allowed_node_count in
+                                                             # regions.json and their MANIFEST.json entries)
 """
 from __future__ import annotations
 
@@ -44,6 +46,12 @@ ARM_EXPECTED_ENABLED = {"A0": set(), "A1": {"FLAME"}, "A2": {"FLAME", "PEAK"}, "
 RECORDED_HOST = {"recorded": True, "machine": "Apple M5 Pro", "os": "macOS (native)",
                  "source": "WildfireGuardian_Latest_Independent_Final_20261015/REPORT.md (native Darwin arm64 Apple M5 Pro host)"}
 CLOCK = "complete-request wall_s recorded for the execution (external launch to authoritative publication) on the recorded native host"
+# Nodes allowed as a start or destination: the Route-Check API's own rule (origin/feat/api api/regions.py,
+# GraphIndex.load: out_degree > 0 and in_degree > 0 over the graph's directed edges). The mock snaps with it.
+ALLOWED_RULE = ("at least one incoming and one outgoing road edge (the Route-Check API rule, "
+                "api/regions.py GraphIndex.load)")
+ALLOWED_COUNT_RULE = ("allowed_node_count = number of nodes with at least one incoming and one outgoing edge of the "
+                      "directed road graph (the Route-Check API rule, api/regions.py)")
 
 
 class BuildError(SystemExit):
@@ -302,6 +310,104 @@ def exposure_from_grade(grade: dict, scenario_ids):
 
 
 # ---------------------------------------------------------------------------------------------
+# Node table (mock snapping)
+# ---------------------------------------------------------------------------------------------
+
+def allowed_mask(g: pc.Graph) -> np.ndarray:
+    """Bool per node: allowed as a start or destination by the Route-Check API's rule (api/regions.py
+    GraphIndex.load): the node has at least one outgoing and at least one incoming edge."""
+    out_deg = np.zeros(g.node_count, dtype=np.int64)
+    in_deg = np.zeros(g.node_count, dtype=np.int64)
+    for e in g.raw["edges"]:
+        out_deg[g.index[e["u"]]] += 1
+        in_deg[g.index[e["v"]]] += 1
+    return (out_deg > 0) & (in_deg > 0)
+
+
+def node_table(region: str, g: pc.Graph, allowed: np.ndarray) -> dict:
+    """fixtures/nodes/<region>.json: ids, WGS84 lon/lat (6 decimals) and the allowed flag of every graph node, plus
+    the recorded mission endpoints (each must be allowed, or the recorded mission could not be posed to the API)."""
+    lon, lat = pc.to_wgs84(g.x, g.y)
+    recorded_nodes = {}
+    for rp in pc.request_paths(region):
+        req = json.loads(rp.read_bytes())
+        for role, node in (("origin", req["position"]["node"]), ("destination", req["destinations"][0]["node"])):
+            k = g.index[node]
+            e = recorded_nodes.setdefault(node, {"node_id": node, "allowed": bool(allowed[k]),
+                                                 "in_largest_scc": bool(g.scc_mask[k]), "uses": []})
+            e["uses"].append(f"{rp.stem}:{role}")
+    bad = sorted(n for n, e in recorded_nodes.items() if not e["allowed"])
+    check(not bad, f"{region}: recorded mission endpoints not allowed by the API rule: {bad}")
+    return {
+        "region": region, "graph_id": g.revision, "graph_sha256": g.sha256, "crs_source": "EPSG:5179",
+        "ids": g.node_ids,
+        "lon": [round(float(v), 6) for v in lon], "lat": [round(float(v), 6) for v in lat],
+        "allowed": [int(b) for b in allowed],
+        "allowed_rule": ALLOWED_RULE,
+        "allowed_count": int(allowed.sum()),
+        "largest_scc_count": int(g.scc_mask.sum()),
+        # indices into ids of the nodes outside the largest strongly connected component (the planner's entry points
+        # are the nearest largest-SCC nodes, ARCHITECTURE.md 4.2; an allowed node outside it may be disconnected)
+        "not_in_largest_scc": [int(i) for i in np.nonzero(~g.scc_mask)[0]],
+        "recorded_mission_nodes": sorted(recorded_nodes.values(), key=lambda e: e["node_id"]),
+        "recorded_mission_nodes_note": ("Recorded mission endpoints: allowed under allowed_rule (checked at build "
+                                        "time) and whether each lies in the largest strongly connected component."),
+    }
+
+
+def build_nodes_only() -> dict:
+    """Regenerate only fixtures/nodes/*.json. regions.json gets the new allowed_node_count (and the provenance text
+    that defines it); MANIFEST.json gets the new entries for the changed files. Every other fixture is untouched."""
+    pc.require_assets()
+    at = pc.utc_now()
+    regions_path, manifest_path = FIXTURES / "regions.json", FIXTURES / "MANIFEST.json"
+    region_list = json.loads(regions_path.read_bytes())
+    manifest = json.loads(manifest_path.read_bytes())
+    by_id = {r["id"]: r for r in region_list["regions"]}
+    before = {p: pc.sha256_file(p) for p in [regions_path] + sorted((FIXTURES / "nodes").glob("*.json"))}
+    changed, counts = [], {}
+    for meta in pc.REGIONS:
+        region = meta["id"]
+        g = pc.load_graph(region)
+        r = by_id[region]
+        check(r["graph_sha256"] == g.sha256 and r["node_count"] == g.node_count,
+              f"{region}: regions.json describes another graph; run the full build")
+        allowed = allowed_mask(g)
+        path = FIXTURES / "nodes" / f"{region}.json"
+        old = json.loads(path.read_bytes()) if path.is_file() else {}
+        new = node_table(region, g, allowed)
+        pc.write_json(path, new, compact=True)
+        changed.append(path)
+        counts[region] = {"allowed_rule_before": old.get("allowed_rule"), "allowed_count_before": old.get("allowed_count"),
+                          "allowed_node_count_before": r["allowed_node_count"], "allowed_node_count": int(allowed.sum()),
+                          "node_table_keys_added": sorted(set(new) - set(old))}
+        r["allowed_node_count"] = int(allowed.sum())
+    region_list["provenance"]["allowed_node_rule"] = ALLOWED_COUNT_RULE
+    pc.write_json(regions_path, region_list, compact=False)
+    changed.append(regions_path)
+    if all(before.get(p) == pc.sha256_file(p) for p in changed):
+        print("node tables and regions.json already current; MANIFEST.json unchanged")
+        return manifest
+    entries = {f["path"]: f for f in manifest["files"]}
+    for p in changed:
+        rel = str(p.relative_to(FIXTURES))
+        check(rel in entries, f"MANIFEST.json has no entry for {rel}")
+        entries[rel].update({"sha256": pc.sha256_file(p), "bytes": p.stat().st_size})
+    manifest["total_fixture_bytes"] = sum(f["bytes"] for f in manifest["files"])
+    manifest["conventions"]["allowed_nodes"] = ALLOWED_RULE
+    manifest.setdefault("partial_regenerations", []).append({
+        "at": at, "generator": "planner/tools/build_fixtures.py --nodes-only", "git_commit": pc.git_commit(),
+        "files": [str(p.relative_to(FIXTURES)) for p in changed],
+        "reason": "nodes-only regeneration: allowed nodes follow the Route-Check API rule; regions.json changed only in "
+                  "allowed_node_count and provenance.allowed_node_rule",
+        "regions": counts})
+    pc.write_json(manifest_path, manifest, compact=False)
+    for region, c in counts.items():
+        print("%s: allowed_node_count %d (was %d)" % (region, c["allowed_node_count"], c["allowed_node_count_before"]))
+    return manifest
+
+
+# ---------------------------------------------------------------------------------------------
 # Main build
 # ---------------------------------------------------------------------------------------------
 
@@ -438,26 +544,8 @@ def build():
             out(FIXTURES / "forecast" / region / f"{pdir.name}.json", fc)
 
         # ---- node table
-        lon, lat = pc.to_wgs84(g.x, g.y)
-        recorded_nodes = {}
-        for rp in pc.request_paths(region):
-            req = json.loads(rp.read_bytes())
-            for role, node in (("origin", req["position"]["node"]), ("destination", req["destinations"][0]["node"])):
-                e = recorded_nodes.setdefault(node, {"node_id": node, "in_largest_scc": bool(g.scc_mask[g.index[node]]),
-                                                     "uses": []})
-                e["uses"].append(f"{rp.stem}:{role}")
-        out(FIXTURES / "nodes" / f"{region}.json", {
-            "region": region, "graph_id": g.revision, "graph_sha256": g.sha256, "crs_source": "EPSG:5179",
-            "ids": g.node_ids,
-            "lon": [round(float(v), 6) for v in lon], "lat": [round(float(v), 6) for v in lat],
-            "allowed": [int(b) for b in g.scc_mask],
-            "allowed_rule": "largest strongly connected component (mock assumption)",
-            "allowed_count": int(g.scc_mask.sum()),
-            "recorded_mission_nodes": sorted(recorded_nodes.values(), key=lambda e: e["node_id"]),
-            "recorded_mission_nodes_note": ("Recorded mission endpoints. A recorded endpoint outside the largest SCC "
-                                            "(in_largest_scc=false) was reached by the recorded execution; the mock "
-                                            "should accept it when given by node_id so the recorded mission replays."),
-        })
+        allowed = allowed_mask(g)
+        out(FIXTURES / "nodes" / f"{region}.json", node_table(region, g, allowed))
 
         # ---- records
         for rp in pc.request_paths(region):
@@ -676,7 +764,7 @@ def build():
             "event_id": meta["expected_event"], "fire_year": meta["fire_year"],
             "bbox": bbox, "graph_id": g.revision, "graph_sha256": g.sha256,
             "node_count": g.node_count, "edge_count": g.edge_count,
-            "allowed_node_count": int(g.scc_mask.sum()),
+            "allowed_node_count": int(allowed.sum()),
             "crs": "EPSG:5179",
             "grid": {"x0": G["x0"], "y0": G["y0"], "resolution_m": int(G["resolution"]) if float(G["resolution"]).is_integer() else G["resolution"],
                      "width": W, "height": H},
@@ -700,9 +788,7 @@ def build():
 
     region_list = {"regions": regions_out,
                    "provenance": provenance(commit, generated_at, input_hashes=list_input_hashes, scenario_ids=[],
-                                            allowed_node_rule=("allowed_node_count = size of the largest strongly "
-                                                               "connected component of the directed road graph "
-                                                               "(mock rule; the real API may differ)"))}
+                                            allowed_node_rule=ALLOWED_COUNT_RULE)}
     out(FIXTURES / "regions.json", region_list, compact=False)
 
     # ---- manifest
@@ -736,7 +822,7 @@ def build():
                                 "ablation": "own_outcome CHECKED_ROUTE + CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN → checked_route; SCOPED_REFUSAL + FULL_MODEL_REFUSAL_PROVEN → model_no_route"},
             "policy_mapping_verified_from": "routing_final_input_ablation_20261016_v1/POLICY_TRANSFORMS.json enabled constraint sets",
             "policy_mapping": arm_map,
-            "allowed_nodes": "largest strongly connected component of the directed road graph (mock assumption)",
+            "allowed_nodes": ALLOWED_RULE,
             "records": "full = final panel RDA_CAND repetition 1 (repetition 2 recorded); other policies = ablation repetition 1 (repetition 2 recorded)",
         },
         "panel_check": {"full_checked_route": n_checked, "full_model_no_route": n_refusal,
@@ -806,4 +892,9 @@ def write_footprints(region: str, event: str, g: pc.Graph, sets_by_time: dict, o
 
 
 if __name__ == "__main__":
-    build()
+    if sys.argv[1:] == ["--nodes-only"]:
+        build_nodes_only()
+    elif sys.argv[1:]:
+        raise SystemExit("usage: python3 planner/tools/build_fixtures.py [--nodes-only]")
+    else:
+        build()
