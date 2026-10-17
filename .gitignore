@@ -25,3 +25,5 @@ node_modules/
 /downloads/
 /build/
 /dist/
+# Route-Check API runtime (job folders, ablation kit copy, packets built per request)
+/artifacts/api_runtime/
