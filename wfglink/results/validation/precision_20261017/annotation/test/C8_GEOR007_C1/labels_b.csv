@@ -1,0 +1,54 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,,,,,,,none
+w002,,,,,,,none
+w003,3,36,6,0.5,1,l,"long faint orange horizontal streak at top left, x 0 to 72, absent in k0 to k2"
+w003,4,124,11,0.5,1,l,"long orange horizontal streak x 55 to tile edge, likely same fast ember moving right"
+w003,5,122,26,0.5,2,l,"long faint orange streak x 55 to edge, slightly descending, crosses tree"
+w003,5,64,105,0.5,3,l,"long faint orange streak x 0 to 128, descending from y 97 to 113"
+w004,,,,,,,none
+w005,,,,,,,none
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,0,113,147,0.5,1,m,pale double diagonal streak
+w009,1,133,182,0.5,1,m,pale double diagonal streak
+w009,1,108,107,0.5,2,m,pale diagonal streak
+w009,2,120,129,0.5,2,m,pale diagonal streak
+w009,2,114,36,0.5,3,m,faint streak
+w009,2,22,98,0.5,4,m,faint streak
+w009,2,165,78,0.5,5,m,faint streak
+w009,2,181,136,0.5,6,m,faint streak
+w009,3,147,81,0.5,7,m,faint streak
+w009,3,99,107,0.5,8,m,faint streak
+w009,3,157,185,1,9,m,orange streak bottom right
+w009,4,157,185,0.5,9,m,k4 nearly duplicate of k3
+w009,5,173,100,1,10,l,long pale diagonal streak
+w010,,,,,,,none
+w011,0,61,122,1,1,l,orange streak in smoke
+w011,0,57,182,0.5,2,l,faint streak
+w011,1,80,15,1,3,l,streak
+w011,1,54,43,1,4,l,streak
+w011,1,81,115,1,5,l,streak
+w011,1,140,137,1,6,l,streak
+w011,1,77,163,0.5,7,l,faint streak
+w011,2,90,59,1,4,l,streak
+w011,2,119,114,1,5,l,streak
+w011,2,182,149,0.5,6,m,streak at right edge
+w011,2,105,182,0.5,7,m,faint streak
+w011,3,130,71,1,4,l,streak
+w011,3,165,117,1,5,l,streak
+w011,3,39,126,0.5,8,l,streak
+w011,3,184,25,0.5,9,m,streak at right edge
+w011,4,168,30,1,10,l,horizontal streak
+w011,5,168,30,0.5,10,l,"same streak, k5 is a duplicate of k4"
+w012,3,181,60,0.5,1,m,"short horizontal streak at right edge, frames k0 k1 washed out by glare"
+w013,0,52,79,1,1,m,faint pale streak moving down right
+w013,1,93,111,1,1,m,streak
+w013,2,141,137,1,1,m,streak
+w013,3,185,161,0.5,1,m,streak leaving at right edge
+w013,3,122,143,0.5,2,m,faint streak
+w013,4,170,159,0.5,2,m,faint streak
+w013,4,7,107,0.5,3,m,streak entering at left edge
+w014,,,,,,,none
+w015,,,,,,,none

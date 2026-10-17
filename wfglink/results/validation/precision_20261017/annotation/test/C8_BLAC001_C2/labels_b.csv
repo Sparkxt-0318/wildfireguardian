@@ -1,0 +1,80 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,133.3,56.9,0.5,1,m,"bright blob with short tail, drifts slightly, fades by k3; could be a glowing spot on a trunk"
+w000,0,102.6,48.7,0.5,2,m,"short diagonal streak, slow"
+w000,0,99.3,105.8,0.5,3,m,short streak
+w000,1,134.2,56.6,0.5,1,m,same blob
+w000,1,103,49.5,0.5,2,m,same streak
+w000,1,126,112.4,1,4,m,bright streak
+w000,2,134.7,54.6,0.5,1,m,"same blob, dimmer"
+w000,2,104.7,47.7,0.5,2,s,"same, faint"
+w000,2,124,118.5,0.5,4,s,faint
+w000,3,126.1,114.8,0.5,4,m,streak
+w000,4,128.8,109.6,0.5,4,m,streak
+w000,4,141.4,108.6,0.5,5,s,small dash
+w001,1,108.4,30.8,0.5,1,s,bright point near top bar in dense faint streak shower; k0 to k2 full of faint unresolvable streaks
+w001,3,109,97,0.5,2,m,"blurred blob, camera panning"
+w001,4,110,73.5,0.5,3,m,blurred blob
+w001,4,186.6,68.6,0.5,4,s,small dash
+w001,5,43.7,173.8,0.5,5,m,"bright blob, only this frame"
+w001,5,126,160,0.5,6,m,blurred streak
+w002,0,103.2,86.5,0.5,1,s,nearly static flickering dot in open air
+w002,0,150,172.5,0.5,2,s,dot near bottom bar
+w002,1,104,89.5,0.5,1,s,same dot
+w002,1,176.5,142.1,1,3,s,isolated glowing dot
+w002,2,103.1,88.6,0.5,1,s,same dot
+w002,3,104,88.3,0.5,1,s,same dot
+w002,3,69.2,7.4,1,4,m,"streak; ember shower starts k3, many fainter streaks not labelled"
+w002,3,86.5,50.9,1,5,s,short dash
+w002,3,28.8,22.7,1,6,s,dot
+w002,3,50,103,0.5,7,m,faint streak
+w002,3,184,93,1,8,m,streak running to right edge
+w002,4,103.4,88.4,0.5,1,s,same dot
+w002,4,48.8,72,0.5,10,m,streak
+w002,4,29.6,108.8,0.5,11,m,faint vertical streak
+w002,4,100.4,71,1,12,m,horizontal streak
+w002,4,64,104.8,1,9,m,streak
+w002,5,104,89,0.5,1,s,"same dot, dim"
+w002,5,171.1,171.7,1,13,m,streak near bottom
+w003,,,,,,,none
+w004,1,91.6,94.4,0.5,1,m,faint streak
+w004,3,112.5,124.7,1,2,l,long diagonal streak
+w004,3,174.8,159.3,0.5,3,m,faint blurred blob
+w005,1,25.6,11.1,1,1,m,"bright blob, only this frame"
+w006,,,,,,,none
+w007,,,,,,,none
+w008,2,18.5,162,0.5,4,s,"faint whitish dot, one frame only"
+w008,3,18.5,114,0.5,1,s,"small bright speck, one frame only"
+w008,3,49,92,0.5,2,s,"faint short speck, one frame only"
+w008,5,180,134.5,0.5,3,s,"small speck, one frame only"
+w009,0,87.4,125.8,0.5,1,s,"glowing dot drifting slowly left, could be a hot spot on a far tree"
+w009,0,103,44,0.5,3,m,"bright patch over a branch, one frame only"
+w009,1,86.6,126.4,0.5,1,s,same drifting dot
+w009,2,86,126.5,0.5,1,s,same drifting dot
+w009,3,83.2,126.5,0.5,1,s,"same drifting dot, brighter"
+w009,3,62,164,1,2,l,"bright diagonal streak from about (51,157) to (68,171), one frame only"
+w009,4,80.8,126.2,0.5,1,s,same drifting dot
+w009,5,79.1,126.9,0.5,1,s,same drifting dot
+w010,0,139,48.5,0.5,1,l,"horizontal orange white streak near twig base, dense ember scene"
+w010,0,188,109,0.5,5,m,"bright blob at right edge, one frame only"
+w010,0,79,178,0.5,7,m,short diagonal light streak
+w010,1,175,181.8,0.5,2,m,"bright red white blob, one frame only"
+w010,1,172.2,86.1,0.5,6,s,"bright dot, one frame only"
+w010,3,167.6,167,0.5,3,s,small white dot moving down
+w010,3,176,124,0.5,4,s,glowing dot moving right
+w010,4,164.3,176.3,0.5,3,s,same dot
+w010,4,188,121,0.5,4,s,"same dot, then leaves tile"
+w010,5,162.6,177.4,0.5,3,s,"same dot, fainter"
+w011,,,,,,,none
+w012,0,88.6,115.8,0.5,1,s,faint white dot
+w012,1,106.6,119.9,0.5,1,s,"dot moved right, gone after"
+w013,0,119.5,184.3,0.5,2,m,"bright short streak along a branch, one frame only"
+w013,1,86.1,84.7,0.5,1,m,diffuse light streak by the trunk
+w013,2,86.9,80.9,0.5,1,m,"bright white blob, could be a flare on the trunk"
+w013,3,87.1,82.2,0.5,1,s,"small dot, fading"
+w014,4,121,51,0.5,1,s,"faint whitish speck, one frame only"
+w015,0,89.3,88.5,0.5,1,s,glowing dot creeping up along thin trunk
+w015,0,69,38,0.5,2,s,"short diagonal streak, one frame only"
+w015,0,138,23,0.5,3,l,"long faint straight streak from about (113,0) to (165,45), one frame only"
+w015,1,89.5,88.2,0.5,1,s,same dot
+w015,2,91,85.3,0.5,1,s,"same dot, short streak"
+w015,3,92.5,82,0.5,1,s,"same dot, brightest"
