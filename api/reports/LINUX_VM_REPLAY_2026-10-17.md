@@ -39,6 +39,18 @@ identical: 2/3; median compute_s: 28.179262609999995; median recorded wall_s (M5
 
 The outcome is the same: FL2 and FW2 are identical, and FX1 stays on the 30 s edge on this VM (30.12 s).
 
+### Golden re-run on the final head (commit 0d3de81, contract v1.8, idle machine)
+
+| region | mission | recorded | API verdict | reason | arrival (rec/API) | legs (rec/API) | compute_s | recorded wall_s | match |
+|---|---|---|---|---|---|---|---:|---:|---|
+| uiseong_andong_2025 | 20250324T090000Z_FL2 | checked_route | checked_route |  | 2143 / 2143 | 472 / 472 | 19.87 | 7.15/6.86 | yes |
+| hongseong_2023 | 20230402T140000Z_FW2 | checked_route | checked_route |  | 1459 / 1459 | 217 / 217 | 27.33 | 12.61/12.37 | yes |
+| uljin_2022 | 20220304T030000Z_FX1 | checked_route | unresolved | TIMEOUT | 3119 / None | 512 / None | 30.17 | 14.53/14.59 | NO |
+
+identical: 2/3; median compute_s: 27.325220450000415; median recorded wall_s (M5 Pro, both reps): 12.492
+
+Unchanged: FL2 and FW2 are identical, and FX1 timed out at 30.17 s. Across all five runs on this VM (three golden, two panel), Uljin FX1 timed out four times (30.12-30.28 s) and met the budget once (29.94 s, identical to the record). The golden test now also asserts FX1's 512 road segments; it applies when FX1 completes.
+
 ## Full final panel, 20 missions (`pytest tests/api -m panel`)
 
 ### First panel run (code just before commit 487c36c, i.e. before the review fixes)
