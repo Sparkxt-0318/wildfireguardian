@@ -1,0 +1,103 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,0,52.8,156.9,0.5,1,s,"faint pale combed streak at trunk edge, only in repeated frames k0 to k2, gone from k3"
+w000,1,53,157,0.5,1,s,"same faint combed streak, frame repeats k0"
+w000,2,53,157,0.5,1,s,"same faint combed streak, frame repeats k0"
+w000,5,38.8,151.8,0.5,2,s,"new white dot in one field only, right of the small ground flame, absent in k0 to k4"
+w001,0,103,121,0.5,1,s,"small white dot, gone by k2, likely the same ember as the k2 streak"
+w001,1,103,121,0.5,1,s,same as k0 (frames come in duplicate pairs)
+w001,2,110.5,117,1,1,m,"white streak about 8 px long, oriented up and right along its motion"
+w001,3,110.5,117,1,1,m,same as k2 (duplicate frame); gone in k4
+w002,,,,,,,none
+w003,0,109,120,1,1,m,"bright horizontal dash in dark area below ember bed, absent later"
+w003,0,86,150.5,0.5,2,m,"dim dotted diagonal dash, absent later"
+w003,0,84,89,0.5,3,m,"faint thin horizontal line, absent later"
+w003,0,17,161,1,4,m,short bright dash in dark lower left
+w003,1,109,120,1,1,m,duplicate of k0
+w003,1,86,150.5,0.5,2,m,duplicate of k0
+w003,1,84,89,0.5,3,m,duplicate of k0
+w003,1,17,161,1,4,m,duplicate of k0
+w003,2,32.5,176.5,1,5,m,bright horizontal streak
+w003,2,50.5,50.5,0.5,6,l,"faint dotted diagonal streak over ember bed, rising up and right"
+w003,3,32.5,176.5,1,5,m,duplicate of k2
+w003,3,50.5,50.5,0.5,6,l,duplicate of k2
+w003,4,40.5,173.5,1,5,m,streak moved right
+w003,4,64.5,34,0.5,6,l,dotted streak further up and right along same line
+w003,5,40.5,173.5,1,5,m,duplicate of k4
+w003,5,64.5,34,0.5,6,l,duplicate of k4
+w004,,,,,,,none
+w005,0,179,181,1,1,l,long dotted diagonal streak from upper right to lower left
+w005,0,131,106.5,0.5,2,m,"faint horizontal streak left of burning log, gone later"
+w005,1,179,181,1,1,l,duplicate of k0
+w005,1,131,106.5,0.5,2,m,duplicate of k0
+w005,2,168,158.5,0.5,3,m,faint shallow streak in dark slope
+w005,2,150,174.5,0.5,4,m,second faint parallel streak lower left
+w005,3,168,158.5,0.5,3,m,duplicate of k2
+w005,3,150,174.5,0.5,4,m,duplicate of k2
+w006,0,4,132,0.5,1,m,combed spark dash at left edge
+w006,0,59,98,0.5,2,m,faint horizontal spark streak
+w006,1,4,132,0.5,1,m,repeat of k0 frame
+w006,1,59,98,0.5,2,m,repeat of k0 frame
+w006,2,2,128,0.5,3,s,short dash at left edge
+w006,2,34,119,0.5,4,m,faint combed streak
+w006,3,2,128,0.5,3,s,repeat of k2 frame
+w006,3,34,119,0.5,4,m,repeat of k2 frame
+w006,4,4,7,0.5,5,m,dash beside glowing patch at top left
+w006,4,53,111.5,0.5,6,m,faint horizontal streak
+w006,4,43,94,0.5,7,m,faint horizontal streak
+w006,4,22,113,0.5,8,m,combed horizontal streak over two fields
+w006,5,4,7,0.5,5,m,repeat of k4 frame
+w006,5,53,111.5,0.5,6,m,repeat of k4 frame
+w006,5,43,94,0.5,7,m,repeat of k4 frame
+w006,5,22,113,0.5,8,m,repeat of k4 frame
+w007,0,111,55.5,0.5,1,s,"dim greyish particle in dark canopy, moving right"
+w007,0,144.5,130,1,2,s,bright short horizontal dash
+w007,0,39,190.5,1,3,m,"streak at bottom edge, partly cut off"
+w007,1,111,55.5,0.5,1,s,duplicate of k0
+w007,1,144.5,130,1,2,s,duplicate of k0
+w007,1,39,190.5,1,3,m,duplicate of k0
+w007,2,117.5,54.5,0.5,1,s,same particle
+w007,2,157,133.5,1,2,s,dash moved right and down
+w007,2,54.5,191,1,3,m,moved right along bottom edge
+w007,2,185,176.5,0.5,4,m,dim short vertical streak near right edge
+w007,3,117.5,54.5,0.5,1,s,duplicate of k2
+w007,3,157,133.5,1,2,s,duplicate of k2
+w007,3,54.5,191,1,3,m,duplicate of k2
+w007,3,185,176.5,0.5,4,m,duplicate of k2
+w007,4,133,51,0.5,1,s,same particle further right
+w007,4,190,164.5,0.5,4,s,moved up and right to tile edge
+w007,5,133,51,0.5,1,s,duplicate of k4
+w007,5,190,164.5,0.5,4,s,duplicate of k4
+w008,0,65,146,0.5,1,s,"isolated bright dot, gone in later frames"
+w008,0,103,123,0.5,2,m,faint interlaced spark streak
+w008,0,149.5,166,0.5,3,s,small faint dot on dark ground area
+w008,0,104,164,0.5,4,m,faint combed horizontal dashes
+w008,1,65,146,0.5,1,s,repeat of k0 frame
+w008,1,103,123,0.5,2,m,repeat of k0 frame
+w008,1,149.5,166,0.5,3,s,repeat of k0 frame
+w008,1,104,164,0.5,4,m,repeat of k0 frame
+w008,2,142.5,155,1,5,l,long diagonal spark streak up right
+w008,2,68,189,0.5,6,m,faint dash near bottom edge
+w008,2,184.5,150,0.5,7,s,faint short dash
+w008,3,142.5,155,1,5,l,repeat of k2 frame
+w008,3,68,189,0.5,6,m,repeat of k2 frame
+w008,3,184.5,150,0.5,7,s,repeat of k2 frame
+w008,4,75.5,186,0.5,10,s,small dot near bottom edge
+w008,4,179.5,83,0.5,11,m,faint horizontal dash below flame cluster
+w008,4,23,45,0.5,12,m,faint diagonal dash
+w008,4,159,148,1,8,l,long dashed diagonal spark streak on same path as earlier one
+w008,4,149,13,0.5,9,m,cluster of faint combed dashes
+w008,5,75.5,186,0.5,10,s,repeat of k4 frame
+w008,5,179.5,83,0.5,11,m,repeat of k4 frame
+w008,5,23,45,0.5,12,m,repeat of k4 frame
+w008,5,159,148,1,8,l,repeat of k4 frame
+w008,5,149,13,0.5,9,m,repeat of k4 frame
+w009,0,61.5,172.5,0.5,1,s,"faint short dash low in dark area, moving right"
+w009,1,61.5,172.5,0.5,1,s,duplicate of k0
+w009,2,72,176,1,1,m,short streak moving right
+w009,2,179,140,0.5,2,s,small dim dot just above ground fire line
+w009,3,72,176,1,1,m,duplicate of k2
+w009,3,179,140,0.5,2,s,duplicate of k2
+w009,4,100.5,179.5,1,1,m,streak further right
+w009,4,158,120,0.5,2,s,dim dot moved up and left
+w009,5,100.5,179.5,1,1,m,duplicate of k4
+w009,5,158,120,0.5,2,s,duplicate of k4

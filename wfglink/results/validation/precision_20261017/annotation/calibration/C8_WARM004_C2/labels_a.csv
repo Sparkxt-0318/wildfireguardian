@@ -1,0 +1,46 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,0,125,83,1,1,l,"large burning fragment detached from flame front, drifting right"
+w001,0,96,94,1,2,s,bright dot drifting right
+w001,0,100,93,0.5,3,s,"dimmer dot 4 px right of ember 2, moves with it, may be the same piece"
+w001,0,101.4,103.5,1,4,s,small dot drifting right
+w001,0,104.5,98.3,0.5,5,s,"faint dot, moving right, brightens later"
+w001,0,85.6,22,0.5,6,s,"faint dim dot sinking slowly, about 2 px over the window"
+w001,1,131,83.5,1,1,l,large burning fragment
+w001,1,97.7,94.8,1,2,s,bright dot drifting right
+w001,1,101.5,94.4,0.5,3,s,dimmer companion of ember 2
+w001,1,102.5,104.1,1,4,s,small dot drifting right
+w001,1,107,98.4,1,5,s,dot moving right
+w001,1,86,22.8,0.5,6,s,faint dim dot sinking slowly
+w001,2,131,83.5,1,1,l,"large burning fragment, frame looks duplicated from k1"
+w001,2,97.6,94.6,1,2,s,bright dot drifting right
+w001,2,101.5,94.3,0.5,3,s,dimmer companion of ember 2
+w001,2,102.5,104.1,1,4,s,small dot drifting right
+w001,2,107,98.5,1,5,s,dot moving right
+w001,2,86,22.6,0.5,6,s,faint dim dot sinking slowly
+w001,3,134.3,84,1,1,l,large burning fragment
+w001,3,98.7,95.3,1,2,s,bright dot drifting right
+w001,3,102.7,94.8,0.5,3,s,dimmer companion of ember 2
+w001,3,103.6,104.3,1,4,s,small dot drifting right
+w001,3,110.5,99.5,1,5,s,short streak moving right
+w001,3,86.3,23.5,0.5,6,s,faint dim dot sinking slowly
+w001,4,134.5,83.8,1,1,l,large burning fragment
+w001,4,99.2,95.1,1,2,s,bright dot drifting right
+w001,4,103.6,94.2,0.5,3,s,dimmer companion of ember 2
+w001,4,104,103.5,1,4,s,small dot drifting right
+w001,4,111.5,99.3,1,5,s,dot moving right
+w001,4,85.6,24,0.5,6,s,faint dim dot sinking slowly
+w001,5,135.4,83.7,1,1,l,large burning fragment
+w001,5,100.1,94.4,1,2,s,bright dot drifting right
+w001,5,103.7,94.1,0.5,3,s,dimmer companion of ember 2
+w001,5,104.4,103,1,4,s,small dot drifting right
+w001,5,113,99.3,1,5,s,dot moving right
+w001,5,86.2,24,0.5,6,s,faint dim dot sinking slowly
+w002,,,,,,,none
+w003,,,,,,,none
+w004,,,,,,,none
+w005,,,,,,,none
+w006,,,,,,,none
+w007,,,,,,,none
+w008,,,,,,,none
+w009,,,,,,,none

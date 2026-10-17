@@ -1,0 +1,129 @@
+window_id,k,x,y,confidence,ember_id,size_class,note
+w000,,,,,,,none
+w001,2,110.5,116.7,0.5,1,m,"short warm-white diagonal streak just above glowing fuel bed, absent in k0 k1 k4 k5; possible spark, could be flame flicker"
+w001,3,110.7,116.8,0.5,1,m,"same streak, k3 nearly a duplicate of k2"
+w002,,,,,,,none
+w003,0,17,161.5,0.5,1,m,"faint whitish diagonal streak on dark ground, only in k0 and k1"
+w003,0,109,120.5,0.5,2,m,"short bright streak, transient, gone in k2"
+w003,0,86,150.5,0.5,3,m,"diagonal interlaced streak, transient"
+w003,0,84.5,89,0.5,4,m,"thin single-row dash near ember bed, transient"
+w003,1,17,161.5,0.5,1,m,duplicate of k0
+w003,1,109,120.5,0.5,2,m,duplicate of k0
+w003,1,86,150.5,0.5,3,m,duplicate of k0
+w003,1,84.5,89,0.5,4,m,duplicate of k0
+w003,2,33,176,1,5,m,interlaced streak moving right
+w003,3,33,176,1,5,m,duplicate of k2
+w003,4,40.5,173.5,1,5,m,same ember moved right
+w003,5,40.5,173.5,1,5,m,duplicate of k4
+w004,0,96,84,0.5,2,m,"faint short streak, up-right orientation, only in k0/k1"
+w004,1,96,84,0.5,2,m,duplicate of k0
+w004,2,41.5,174.5,1,1,m,"dim white diagonal streak on trunk, moves up-right"
+w004,3,41.5,174.5,1,1,m,duplicate of k2
+w004,4,51.5,164.5,1,1,m,same ember moved up-right about 10 px
+w004,4,167,132.5,0.5,3,s,"faint tiny diagonal streak, new in k4"
+w004,5,51.5,164.5,1,1,m,duplicate of k4
+w004,5,167,132.5,0.5,3,s,duplicate of k4
+w005,0,131,106.5,0.5,1,m,"thin horizontal streak left of burning fuel, transient"
+w005,1,131,106.5,0.5,1,m,duplicate of k0
+w006,0,59,98,1,1,l,horizontal spark streak
+w006,0,64,110.5,0.5,2,m,faint horizontal streak
+w006,0,4,132.5,0.5,3,m,"small zigzag spark at left edge, rises slowly"
+w006,1,59,98,1,1,l,duplicate of k0
+w006,1,64,110.5,0.5,2,m,duplicate of k0
+w006,1,4,132.5,0.5,3,m,duplicate of k0
+w006,2,2,128.5,0.5,3,s,left edge spark moved up
+w006,2,33.5,119,1,4,l,horizontal spark streak
+w006,2,18.5,103.5,0.5,5,s,faint short streak
+w006,3,2,128.5,0.5,3,s,duplicate of k2
+w006,3,33.5,119,1,4,l,duplicate of k2
+w006,3,18.5,103.5,0.5,5,s,duplicate of k2
+w006,4,37.5,125,0.5,10,m,faint horizontal streak
+w006,4,4,6.5,1,11,m,white horizontal spark streak at top left edge
+w006,4,1,125,0.5,3,s,"left edge spark moved up, faint"
+w006,4,53,111.5,1,6,m,bright short horizontal streak
+w006,4,43,93.5,1,7,l,horizontal spark streak
+w006,4,19,112,1,8,m,horizontal spark streak
+w006,4,28,116,0.5,9,l,faint horizontal streak
+w006,5,37.5,125,0.5,10,m,duplicate of k4
+w006,5,4,6.5,1,11,m,duplicate of k4
+w006,5,1,125,0.5,3,s,duplicate of k4
+w006,5,53,111.5,1,6,m,duplicate of k4
+w006,5,43,93.5,1,7,l,duplicate of k4
+w006,5,19,112,1,8,m,duplicate of k4
+w006,5,28,116,0.5,9,l,duplicate of k4
+w007,0,110.5,55.5,0.5,1,s,"very faint speck, start of rightward track"
+w007,0,144.5,130,0.5,2,s,short whitish dash
+w007,0,39,190.5,0.5,3,m,"interlaced streak at bottom edge, partly outside tile"
+w007,1,110.5,55.5,0.5,1,s,duplicate of k0
+w007,1,144.5,130,0.5,2,s,duplicate of k0
+w007,1,39,190.5,0.5,3,m,duplicate of k0
+w007,2,117.5,54.5,0.5,1,s,faint speck moving right
+w007,2,156.5,133.5,0.5,2,m,"same particle moved right and down, gone by k4"
+w007,2,54,191,0.5,3,s,moved right along bottom edge
+w007,2,185,175.5,0.5,4,s,faint interlaced dot near right edge
+w007,3,117.5,54.5,0.5,1,s,duplicate of k2
+w007,3,156.5,133.5,0.5,2,m,duplicate of k2
+w007,3,54,191,0.5,3,s,duplicate of k2
+w007,3,185,175.5,0.5,4,s,duplicate of k2
+w007,4,133,51,0.5,1,s,faint speck further right
+w007,4,189.5,165,0.5,4,s,moved up and right
+w007,5,133,51,0.5,1,s,duplicate of k4
+w007,5,189.5,165,0.5,4,s,duplicate of k4
+w008,0,85.5,50.5,0.5,1,l,faint dashed diagonal spark trail
+w008,0,123,149.5,0.5,10,m,faint dashed streak
+w008,0,98,82.5,0.5,2,l,faint dashed diagonal spark trail
+w008,0,116.5,48,0.5,3,m,faint short horizontal streak
+w008,0,166.5,30.5,0.5,4,m,faint small streak
+w008,0,69,110,0.5,5,m,faint dashed diagonal streak
+w008,0,103,123,0.5,6,m,faint dashed streak
+w008,0,64.5,146,1,7,s,"white speck cluster, only in k0/k1"
+w008,0,104,164.5,0.5,8,l,faint dashed horizontal streak
+w008,0,149,165,1,9,s,"white dot, only in k0/k1"
+w008,1,85.5,50.5,0.5,1,l,duplicate of k0
+w008,1,123,149.5,0.5,10,m,duplicate of k0
+w008,1,98,82.5,0.5,2,l,duplicate of k0
+w008,1,116.5,48,0.5,3,m,duplicate of k0
+w008,1,166.5,30.5,0.5,4,m,duplicate of k0
+w008,1,69,110,0.5,5,m,duplicate of k0
+w008,1,103,123,0.5,6,m,duplicate of k0
+w008,1,64.5,146,1,7,s,duplicate of k0
+w008,1,104,164.5,0.5,8,l,duplicate of k0
+w008,1,149,165,1,9,s,duplicate of k0
+w008,2,119.5,52.5,0.5,11,l,faint dashed diagonal spark trail
+w008,2,129.5,19.5,0.5,12,m,faint dashed streak
+w008,2,142.5,155.5,1,13,l,"clear dashed spark streak, up-right"
+w008,2,146,135,0.5,14,m,faint dashed streak
+w008,2,183,150.5,0.5,15,m,faint dashed streak
+w008,2,12,173,0.5,16,m,"streak next to left edge flame, may be flame tongue"
+w008,2,69,189,0.5,17,m,faint dashed streak at bottom
+w008,3,119.5,52.5,0.5,11,l,duplicate of k2
+w008,3,129.5,19.5,0.5,12,m,duplicate of k2
+w008,3,142.5,155.5,1,13,l,duplicate of k2
+w008,3,146,135,0.5,14,m,duplicate of k2
+w008,3,183,150.5,0.5,15,m,duplicate of k2
+w008,3,12,173,0.5,16,m,duplicate of k2
+w008,3,69,189,0.5,17,m,duplicate of k2
+w008,4,159,148.5,1,13,l,"same spark further up-right, bright head at lower left"
+w008,4,149,12,1,18,l,"interlaced spark streak, top right"
+w008,4,181,81.5,1,19,l,dashed spark streak
+w008,4,75.5,186,1,20,s,"white dot, only in k4/k5"
+w008,4,111.5,186.5,0.5,21,s,faint small dot
+w008,4,22,46,0.5,22,m,faint short streak
+w008,4,168.5,125.5,0.5,23,s,faint short streak
+w008,5,159,148.5,1,13,l,duplicate of k4
+w008,5,149,12,1,18,l,duplicate of k4
+w008,5,181,81.5,1,19,l,duplicate of k4
+w008,5,75.5,186,1,20,s,duplicate of k4
+w008,5,111.5,186.5,0.5,21,s,duplicate of k4
+w008,5,22,46,0.5,22,m,duplicate of k4
+w008,5,168.5,125.5,0.5,23,s,duplicate of k4
+w009,0,61.5,172.5,0.5,1,m,"faint short streak, start of rightward track"
+w009,1,61.5,172.5,0.5,1,m,duplicate of k0
+w009,2,72,175.5,1,1,m,interlaced streak moving right
+w009,2,179.5,139.5,1,2,s,white dot just above flame streak
+w009,3,72,175.5,1,1,m,duplicate of k2
+w009,3,179.5,139.5,1,2,s,duplicate of k2
+w009,4,100.5,180,1,1,m,same ember further right
+w009,4,158,121,1,2,s,same ember rose up and left
+w009,5,100.5,180,1,1,m,duplicate of k4
+w009,5,158,121,1,2,s,duplicate of k4
