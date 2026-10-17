@@ -51,7 +51,8 @@ def main() -> int:
 
     sel = rep["selection"]
     pts = rep["cal_review"]["points"]
-    best = pts[sel["point"]["name"]] if isinstance(sel.get("point"), dict) else None
+    chosen = sel.get("point") if isinstance(sel.get("point"), dict) else sel.get("selected")
+    best = pts[chosen["name"]] if isinstance(chosen, dict) else None
     if best:
         put("calibration.selected_true", best["true"], "tracks", "Reviewed true tracks of the selected calibration point", "cal_review")
         put("calibration.selected_false", best["false"], "tracks", "Reviewed false tracks of the selected calibration point", "cal_review")
