@@ -17,7 +17,7 @@ trap 'rm -rf "$EXPORT"' EXIT
 git -C "$REPO" archive --prefix=wfglink/ "$COMMIT:wfglink" | tar -x -C "$EXPORT"
 W="$EXPORT/wfglink"
 mkdir -p "$W/data"
-for d in raw synthetic; do
+for d in raw synthetic models; do
   [[ -e "$ROOT/data/$d" ]] && ln -s "$ROOT/data/$d" "$W/data/$d"
 done
 rm -rf "$W/results"

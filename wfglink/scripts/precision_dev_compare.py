@@ -24,13 +24,35 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+CHECKOUT = (ROOT / "results").resolve().parent      # run_from_head links results to the checkout
 sys.path.insert(0, str(ROOT / "src"))
 RUN = ROOT / "results/runs/precision_20261017/runs/C5_dump"
 DATASET = ROOT / "results/runs/precision_20261017/dataset_c5"
 TRAIN_REPORT = ROOT / "results/runs/precision_20261017/train/train_report.json"
-MODELS = ROOT / "data/models/verify"
+MODELS = CHECKOUT / "data/models/verify"
 TILES = ROOT / "results/labels/C5"
 LABELS = TILES / "labels_agent.csv"
+
+
+def shown_from_decisions(points: pd.DataFrame, decisions: pd.DataFrame) -> list[tuple[int, int]]:
+    """(frame, detection index) of the points drawn as accepted: the measured points of every
+    track ever accepted from its acceptance frame on (a revoked track's up to its revocation),
+    as the online observer records them in file mode."""
+    if not len(decisions):
+        return []
+    d = decisions[(decisions["state"].astype(str) == "method_accepted") | decisions["revoked"].astype(bool)]
+    if not len(d):
+        return []
+    fa = d.set_index("track_id")["frame_accept"].astype(np.int64)
+    rv = d.set_index("track_id")
+    p = points[points["track_id"].isin(fa.index) & ~points["coasted"].astype(bool) & points["det_index"].notna()]
+    p = p[p["det_index"] >= 0]
+    keep = p["frame"].to_numpy(np.int64) >= p["track_id"].map(fa).to_numpy(np.int64)
+    rev = p["track_id"].map(rv["revoked"].astype(bool)).to_numpy(bool)
+    t_rev = p["track_id"].map(rv["t_decision"].astype(float)).to_numpy(float)
+    keep &= ~(rev & (p["t"].to_numpy(float) >= t_rev - 1e-9))
+    p = p[keep]
+    return sorted(zip(p["frame"].astype(int).tolist(), p["det_index"].astype(int).tolist()))
 
 
 def pseudo_run(dst: Path, shown: list[tuple[int, int]], name: str) -> None:
@@ -79,7 +101,17 @@ def main(argv: list[str] | None = None) -> int:
                              {"patch": (0, 1), "temporal": (0, 1)}, ("accept_all", "rules", "patch", "temporal"),
                              sha256_file(DATASET / "dataset.json"), rep, dups)
     dump = load_dump(RUN)
+    unavailable = {n: getattr(c["scorer"], "reason", None) for n, c in cands.items()
+                   if not getattr(c["scorer"], "available", True)}
+    if unavailable:
+        raise SystemExit(f"candidates unavailable (models not found or not of this dataset): {unavailable}")
     res = replay_many(dump, {n: c["scorer"] for n, c in cands.items()}, cfg, "file_native", strict_config=False)
+    points = pd.read_parquet(RUN / "track_points.parquet")
+    online = pd.read_parquet(RUN / "high_precision" / "frame_level" / "detections.parquet")
+    check = shown_from_decisions(points, res["accept_all"].decisions)
+    if len(check) != len(online):
+        raise SystemExit(f"the drawn points rebuilt for accept_all ({len(check)}) differ from the online "
+                         f"frame-level run ({len(online)}): refused")
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     minutes = float(json.loads((RUN / "high_precision" / "hp_summary.json").read_text())["totals"]["supported_s"]) / 60
@@ -89,7 +121,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, c in cands.items():
         r = res[name]
         d = out / "pseudo" / name
-        pseudo_run(d, r.observer.shown_detections(), name)
+        pseudo_run(d, shown_from_decisions(points, r.decisions), name)
         sc = score_labels(TILES, LABELS, d)
         acc = len(r.accepted_ids())
         dl = confirmation_delays(r)
