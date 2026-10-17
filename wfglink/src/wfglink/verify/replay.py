@@ -332,7 +332,7 @@ class ReplayObserver(HighPrecisionObserver):
     def _window(self, key, tr):
         buf = self._buffers.get(key)
         if buf:
-            self.last_hits[key] = list(buf)
+            self.last_hits = {key: list(buf)}      # the hits of the window being built only (a probe reads them now)
         return super()._window(key, tr)
 
     def _make_window(self, key, hits, kin):
