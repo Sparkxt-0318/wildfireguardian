@@ -1,0 +1,71 @@
+{
+ "population": "test",
+ "seed": 20261017,
+ "per_point": 20,
+ "max": 300,
+ "control": 100,
+ "decoy_frac": 0.5,
+ "accepted_table": "results/runs/precision_20261017/sealed/test_accepted.parquet",
+ "accepted_sha256": "f4a058e33996e8e77a1ccc6851035e36ec27690fc71f525e6941dd0bdd8b406c",
+ "key_sha256": "1972c55db0fb44a3a496f925ab1ca50d6e60b6a4e68706fb96276fb5d2040403",
+ "n_items": 151,
+ "n_scored_items": 101,
+ "n_decoys": 50,
+ "recordings": [
+  "C8_BEAV006_C2",
+  "C8_BEAV006_prefix",
+  "C8_BLAC001_C2",
+  "C8_BLAC002_C3",
+  "C8_BUFF003_C1",
+  "C8_GEOR007_C1",
+  "C8_GEOR011_C3",
+  "C8_GEOR012_C3",
+  "C8_RALS003_C1"
+ ],
+ "recordings_source": "the accepted table (give --recordings to name the population's runs)",
+ "tracking_only": [],
+ "supported_rows": "accepted table column supported (verify calibrate)",
+ "inclusion": {
+  "rules_q0.3": {
+   "accepted": 1,
+   "sampled": 1,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 0
+   },
+   "per_recording": {
+    "C8_BEAV006_C2": 0,
+    "C8_BEAV006_prefix": 1,
+    "C8_BLAC001_C2": 0,
+    "C8_BLAC002_C3": 0,
+    "C8_BUFF003_C1": 0,
+    "C8_GEOR007_C1": 0,
+    "C8_GEOR011_C3": 0,
+    "C8_GEOR012_C3": 0,
+    "C8_RALS003_C1": 0
+   },
+   "probability": 1.0
+  },
+  "accept_all": {
+   "accepted": 14997,
+   "sampled": 100,
+   "excluded_rows": {
+    "not_scored_recording": 0,
+    "unsupported": 38,
+    "no_checkpoint": 2526
+   },
+   "per_recording": {
+    "C8_BEAV006_C2": 65,
+    "C8_BEAV006_prefix": 6864,
+    "C8_BLAC001_C2": 630,
+    "C8_BLAC002_C3": 1810,
+    "C8_BUFF003_C1": 1233,
+    "C8_GEOR007_C1": 1335,
+    "C8_GEOR011_C3": 881,
+    "C8_GEOR012_C3": 68,
+    "C8_RALS003_C1": 2111
+   },
+   "probability": 0.006668000266720011
+  }
+ }
+}

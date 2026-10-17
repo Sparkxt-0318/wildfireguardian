@@ -1,0 +1,1412 @@
+{
+ "p0000": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 360,
+  "role": "accepted",
+  "frame": 33,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 33
+ },
+ "p0001": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 49889,
+  "role": "accepted",
+  "frame": 5569,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5569
+ },
+ "p0002": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 78351,
+  "role": "accepted",
+  "frame": 6343,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6343
+ },
+ "p0003": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 15992,
+  "role": "accepted",
+  "frame": 1059,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1059
+ },
+ "p0004": {
+  "recording": "C8_BLAC001_C2",
+  "track_id": 9546,
+  "role": "accepted",
+  "frame": 952,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 952
+ },
+ "p0005": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 5267,
+  "role": "decoy",
+  "frame": 490,
+  "sampled_for": [],
+  "frame_shown": 490
+ },
+ "p0006": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 133559,
+  "role": "accepted",
+  "frame": 7735,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7735
+ },
+ "p0007": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 125231,
+  "role": "accepted",
+  "frame": 7383,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7383
+ },
+ "p0008": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 44813,
+  "role": "decoy",
+  "frame": 5351,
+  "sampled_for": [],
+  "frame_shown": 5351
+ },
+ "p0009": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 79702,
+  "role": "accepted",
+  "frame": 6407,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6407
+ },
+ "p0010": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 8620,
+  "role": "accepted",
+  "frame": 568,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 568
+ },
+ "p0011": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 3488,
+  "role": "accepted",
+  "frame": 197,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 197
+ },
+ "p0012": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 77680,
+  "role": "accepted",
+  "frame": 6293,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6293
+ },
+ "p0013": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 125738,
+  "role": "accepted",
+  "frame": 7400,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7400
+ },
+ "p0014": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 11205,
+  "role": "accepted",
+  "frame": 700,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 700
+ },
+ "p0015": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 20490,
+  "role": "accepted",
+  "frame": 1422,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1422
+ },
+ "p0016": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 3853,
+  "role": "decoy",
+  "frame": 285,
+  "sampled_for": [],
+  "frame_shown": 285
+ },
+ "p0017": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 43304,
+  "role": "accepted",
+  "frame": 5217,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5217
+ },
+ "p0018": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 11534,
+  "role": "accepted",
+  "frame": 717,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 717
+ },
+ "p0019": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 6,
+  "role": "accepted",
+  "frame": 10,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 10
+ },
+ "p0020": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 3418,
+  "role": "decoy",
+  "frame": 253,
+  "sampled_for": [],
+  "frame_shown": 253
+ },
+ "p0021": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 199,
+  "role": "accepted",
+  "frame": 19,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 19
+ },
+ "p0022": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 46,
+  "role": "accepted",
+  "frame": 7,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7
+ },
+ "p0023": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 7249,
+  "role": "decoy",
+  "frame": 452,
+  "sampled_for": [],
+  "frame_shown": 452
+ },
+ "p0024": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 912,
+  "role": "accepted",
+  "frame": 84,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 84
+ },
+ "p0025": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 11968,
+  "role": "decoy",
+  "frame": 754,
+  "sampled_for": [],
+  "frame_shown": 754
+ },
+ "p0026": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 40169,
+  "role": "decoy",
+  "frame": 4994,
+  "sampled_for": [],
+  "frame_shown": 4994
+ },
+ "p0027": {
+  "recording": "C8_BEAV006_C2",
+  "track_id": 10214,
+  "role": "accepted",
+  "frame": 746,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 746
+ },
+ "p0028": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 9349,
+  "role": "decoy",
+  "frame": 646,
+  "sampled_for": [],
+  "frame_shown": 646
+ },
+ "p0029": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 5807,
+  "role": "decoy",
+  "frame": 674,
+  "sampled_for": [],
+  "frame_shown": 674
+ },
+ "p0030": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 7646,
+  "role": "accepted",
+  "frame": 486,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 486
+ },
+ "p0031": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 6640,
+  "role": "accepted",
+  "frame": 462,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 462
+ },
+ "p0032": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 126283,
+  "role": "accepted",
+  "frame": 7417,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7417
+ },
+ "p0033": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 11511,
+  "role": "accepted",
+  "frame": 714,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 714
+ },
+ "p0034": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 124529,
+  "role": "accepted",
+  "frame": 7356,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7356
+ },
+ "p0035": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 3919,
+  "role": "accepted",
+  "frame": 405,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 405
+ },
+ "p0036": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 138146,
+  "role": "accepted",
+  "frame": 7887,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7887
+ },
+ "p0037": {
+  "recording": "C8_BLAC001_C2",
+  "track_id": 9657,
+  "role": "accepted",
+  "frame": 960,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 960
+ },
+ "p0038": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 499,
+  "role": "accepted",
+  "frame": 46,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 46
+ },
+ "p0039": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 5655,
+  "role": "accepted",
+  "frame": 647,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 647
+ },
+ "p0040": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 6007,
+  "role": "decoy",
+  "frame": 699,
+  "sampled_for": [],
+  "frame_shown": 699
+ },
+ "p0041": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 37,
+  "role": "accepted",
+  "frame": 7,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7
+ },
+ "p0042": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 81739,
+  "role": "decoy",
+  "frame": 6481,
+  "sampled_for": [],
+  "frame_shown": 6481
+ },
+ "p0043": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 11347,
+  "role": "decoy",
+  "frame": 708,
+  "sampled_for": [],
+  "frame_shown": 708
+ },
+ "p0044": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 10833,
+  "role": "accepted",
+  "frame": 2957,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 2957
+ },
+ "p0045": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 45394,
+  "role": "accepted",
+  "frame": 5402,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5402
+ },
+ "p0046": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 69922,
+  "role": "accepted",
+  "frame": 6113,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6113
+ },
+ "p0047": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 25336,
+  "role": "accepted",
+  "frame": 3918,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 3918
+ },
+ "p0048": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 5491,
+  "role": "decoy",
+  "frame": 470,
+  "sampled_for": [],
+  "frame_shown": 470
+ },
+ "p0049": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 78508,
+  "role": "accepted",
+  "frame": 6353,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6353
+ },
+ "p0050": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 3457,
+  "role": "accepted",
+  "frame": 1291,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 1291
+ },
+ "p0051": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 126755,
+  "role": "accepted",
+  "frame": 7442,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7442
+ },
+ "p0052": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 57442,
+  "role": "accepted",
+  "frame": 5768,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5768
+ },
+ "p0053": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 66156,
+  "role": "accepted",
+  "frame": 6027,
+  "sampled_for": [
+   "rules_q0.3"
+  ],
+  "frame_shown": 6027
+ },
+ "p0054": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 1591,
+  "role": "decoy",
+  "frame": 146,
+  "sampled_for": [],
+  "frame_shown": 146
+ },
+ "p0055": {
+  "recording": "C8_BLAC001_C2",
+  "track_id": 3268,
+  "role": "accepted",
+  "frame": 272,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 272
+ },
+ "p0056": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 60547,
+  "role": "accepted",
+  "frame": 5867,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5867
+ },
+ "p0057": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 1571,
+  "role": "decoy",
+  "frame": 136,
+  "sampled_for": [],
+  "frame_shown": 136
+ },
+ "p0058": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 5109,
+  "role": "decoy",
+  "frame": 427,
+  "sampled_for": [],
+  "frame_shown": 427
+ },
+ "p0059": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 2621,
+  "role": "accepted",
+  "frame": 187,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 187
+ },
+ "p0060": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 4532,
+  "role": "accepted",
+  "frame": 276,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 276
+ },
+ "p0061": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 3446,
+  "role": "decoy",
+  "frame": 198,
+  "sampled_for": [],
+  "frame_shown": 198
+ },
+ "p0062": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 1228,
+  "role": "accepted",
+  "frame": 49,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 49
+ },
+ "p0063": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 55227,
+  "role": "accepted",
+  "frame": 5704,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5704
+ },
+ "p0064": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 43054,
+  "role": "accepted",
+  "frame": 5196,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5196
+ },
+ "p0065": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 7326,
+  "role": "accepted",
+  "frame": 786,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 786
+ },
+ "p0066": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 2924,
+  "role": "accepted",
+  "frame": 207,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 207
+ },
+ "p0067": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 939,
+  "role": "accepted",
+  "frame": 85,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 85
+ },
+ "p0068": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 4375,
+  "role": "accepted",
+  "frame": 376,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 376
+ },
+ "p0069": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 57928,
+  "role": "decoy",
+  "frame": 5801,
+  "sampled_for": [],
+  "frame_shown": 5801
+ },
+ "p0070": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 126384,
+  "role": "accepted",
+  "frame": 7422,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7422
+ },
+ "p0071": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 7966,
+  "role": "accepted",
+  "frame": 504,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 504
+ },
+ "p0072": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 1242,
+  "role": "accepted",
+  "frame": 106,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 106
+ },
+ "p0073": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 134491,
+  "role": "accepted",
+  "frame": 7773,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7773
+ },
+ "p0074": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 134066,
+  "role": "accepted",
+  "frame": 7756,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7756
+ },
+ "p0075": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 446,
+  "role": "accepted",
+  "frame": 45,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 45
+ },
+ "p0076": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 9688,
+  "role": "accepted",
+  "frame": 608,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 608
+ },
+ "p0077": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 6562,
+  "role": "accepted",
+  "frame": 700,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 700
+ },
+ "p0078": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 4038,
+  "role": "accepted",
+  "frame": 333,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 333
+ },
+ "p0079": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 5511,
+  "role": "decoy",
+  "frame": 470,
+  "sampled_for": [],
+  "frame_shown": 470
+ },
+ "p0080": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 6238,
+  "role": "accepted",
+  "frame": 647,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 647
+ },
+ "p0081": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 131064,
+  "role": "accepted",
+  "frame": 7628,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7628
+ },
+ "p0082": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 179122,
+  "role": "decoy",
+  "frame": 9093,
+  "sampled_for": [],
+  "frame_shown": 9093
+ },
+ "p0083": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 132596,
+  "role": "accepted",
+  "frame": 7697,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7697
+ },
+ "p0084": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 181374,
+  "role": "decoy",
+  "frame": 9175,
+  "sampled_for": [],
+  "frame_shown": 9175
+ },
+ "p0085": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 65368,
+  "role": "accepted",
+  "frame": 6002,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6002
+ },
+ "p0086": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 16843,
+  "role": "decoy",
+  "frame": 1144,
+  "sampled_for": [],
+  "frame_shown": 1144
+ },
+ "p0087": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 125365,
+  "role": "decoy",
+  "frame": 7389,
+  "sampled_for": [],
+  "frame_shown": 7389
+ },
+ "p0088": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 123864,
+  "role": "decoy",
+  "frame": 7338,
+  "sampled_for": [],
+  "frame_shown": 7338
+ },
+ "p0089": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 5983,
+  "role": "decoy",
+  "frame": 697,
+  "sampled_for": [],
+  "frame_shown": 697
+ },
+ "p0090": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 4430,
+  "role": "accepted",
+  "frame": 382,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 382
+ },
+ "p0091": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 3611,
+  "role": "accepted",
+  "frame": 279,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 279
+ },
+ "p0092": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 3107,
+  "role": "decoy",
+  "frame": 234,
+  "sampled_for": [],
+  "frame_shown": 234
+ },
+ "p0093": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 217559,
+  "role": "accepted",
+  "frame": 10703,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 10703
+ },
+ "p0094": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 927,
+  "role": "accepted",
+  "frame": 87,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 87
+ },
+ "p0095": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 126287,
+  "role": "accepted",
+  "frame": 7417,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7417
+ },
+ "p0096": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 9186,
+  "role": "accepted",
+  "frame": 597,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 597
+ },
+ "p0097": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 53851,
+  "role": "decoy",
+  "frame": 5693,
+  "sampled_for": [],
+  "frame_shown": 5693
+ },
+ "p0098": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 132941,
+  "role": "accepted",
+  "frame": 7709,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7709
+ },
+ "p0099": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 12757,
+  "role": "decoy",
+  "frame": 749,
+  "sampled_for": [],
+  "frame_shown": 749
+ },
+ "p0100": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 1816,
+  "role": "decoy",
+  "frame": 126,
+  "sampled_for": [],
+  "frame_shown": 126
+ },
+ "p0101": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 6200,
+  "role": "accepted",
+  "frame": 726,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 726
+ },
+ "p0102": {
+  "recording": "C8_BLAC001_C2",
+  "track_id": 6306,
+  "role": "decoy",
+  "frame": 552,
+  "sampled_for": [],
+  "frame_shown": 552
+ },
+ "p0103": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 7908,
+  "role": "accepted",
+  "frame": 502,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 502
+ },
+ "p0104": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 5522,
+  "role": "accepted",
+  "frame": 507,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 507
+ },
+ "p0105": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 124983,
+  "role": "decoy",
+  "frame": 7377,
+  "sampled_for": [],
+  "frame_shown": 7377
+ },
+ "p0106": {
+  "recording": "C8_BLAC001_C2",
+  "track_id": 7955,
+  "role": "accepted",
+  "frame": 710,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 710
+ },
+ "p0107": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 133876,
+  "role": "decoy",
+  "frame": 7752,
+  "sampled_for": [],
+  "frame_shown": 7752
+ },
+ "p0108": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 132320,
+  "role": "accepted",
+  "frame": 7689,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7689
+ },
+ "p0109": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 49036,
+  "role": "accepted",
+  "frame": 5540,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5540
+ },
+ "p0110": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 3,
+  "role": "decoy",
+  "frame": 12,
+  "sampled_for": [],
+  "frame_shown": 12
+ },
+ "p0111": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 2752,
+  "role": "accepted",
+  "frame": 185,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 185
+ },
+ "p0112": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 3716,
+  "role": "accepted",
+  "frame": 372,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 372
+ },
+ "p0113": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 12692,
+  "role": "decoy",
+  "frame": 755,
+  "sampled_for": [],
+  "frame_shown": 755
+ },
+ "p0114": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 8196,
+  "role": "decoy",
+  "frame": 528,
+  "sampled_for": [],
+  "frame_shown": 528
+ },
+ "p0115": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 125013,
+  "role": "decoy",
+  "frame": 7389,
+  "sampled_for": [],
+  "frame_shown": 7389
+ },
+ "p0116": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 43229,
+  "role": "decoy",
+  "frame": 5214,
+  "sampled_for": [],
+  "frame_shown": 5214
+ },
+ "p0117": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 7105,
+  "role": "accepted",
+  "frame": 770,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 770
+ },
+ "p0118": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 80841,
+  "role": "decoy",
+  "frame": 6444,
+  "sampled_for": [],
+  "frame_shown": 6444
+ },
+ "p0119": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 7657,
+  "role": "accepted",
+  "frame": 488,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 488
+ },
+ "p0120": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 9969,
+  "role": "decoy",
+  "frame": 635,
+  "sampled_for": [],
+  "frame_shown": 635
+ },
+ "p0121": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 188256,
+  "role": "accepted",
+  "frame": 9413,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 9413
+ },
+ "p0122": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 80813,
+  "role": "decoy",
+  "frame": 6448,
+  "sampled_for": [],
+  "frame_shown": 6448
+ },
+ "p0123": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 2854,
+  "role": "decoy",
+  "frame": 1318,
+  "sampled_for": [],
+  "frame_shown": 1318
+ },
+ "p0124": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 2538,
+  "role": "accepted",
+  "frame": 221,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 221
+ },
+ "p0125": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 134256,
+  "role": "decoy",
+  "frame": 7790,
+  "sampled_for": [],
+  "frame_shown": 7790
+ },
+ "p0126": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 79150,
+  "role": "decoy",
+  "frame": 6389,
+  "sampled_for": [],
+  "frame_shown": 6389
+ },
+ "p0127": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 196,
+  "role": "accepted",
+  "frame": 20,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 20
+ },
+ "p0128": {
+  "recording": "C8_GEOR011_C3",
+  "track_id": 4267,
+  "role": "accepted",
+  "frame": 360,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 360
+ },
+ "p0129": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 78136,
+  "role": "accepted",
+  "frame": 6319,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6319
+ },
+ "p0130": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 129244,
+  "role": "accepted",
+  "frame": 7531,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7531
+ },
+ "p0131": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 43575,
+  "role": "accepted",
+  "frame": 5238,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5238
+ },
+ "p0132": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 4072,
+  "role": "decoy",
+  "frame": 291,
+  "sampled_for": [],
+  "frame_shown": 291
+ },
+ "p0133": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 44385,
+  "role": "accepted",
+  "frame": 5306,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5306
+ },
+ "p0134": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 2925,
+  "role": "accepted",
+  "frame": 207,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 207
+ },
+ "p0135": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 3410,
+  "role": "decoy",
+  "frame": 250,
+  "sampled_for": [],
+  "frame_shown": 250
+ },
+ "p0136": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 71244,
+  "role": "accepted",
+  "frame": 6151,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 6151
+ },
+ "p0137": {
+  "recording": "C8_GEOR007_C1",
+  "track_id": 1153,
+  "role": "accepted",
+  "frame": 47,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 47
+ },
+ "p0138": {
+  "recording": "C8_BLAC002_C3",
+  "track_id": 18348,
+  "role": "decoy",
+  "frame": 1264,
+  "sampled_for": [],
+  "frame_shown": 1264
+ },
+ "p0139": {
+  "recording": "C8_BUFF003_C1",
+  "track_id": 1785,
+  "role": "accepted",
+  "frame": 157,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 157
+ },
+ "p0140": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 8945,
+  "role": "accepted",
+  "frame": 586,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 586
+ },
+ "p0141": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 129084,
+  "role": "accepted",
+  "frame": 7525,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7525
+ },
+ "p0142": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 43631,
+  "role": "accepted",
+  "frame": 5242,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5242
+ },
+ "p0143": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 9336,
+  "role": "decoy",
+  "frame": 615,
+  "sampled_for": [],
+  "frame_shown": 615
+ },
+ "p0144": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 57989,
+  "role": "accepted",
+  "frame": 5782,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 5782
+ },
+ "p0145": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 9331,
+  "role": "accepted",
+  "frame": 606,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 606
+ },
+ "p0146": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 200037,
+  "role": "decoy",
+  "frame": 9838,
+  "sampled_for": [],
+  "frame_shown": 9838
+ },
+ "p0147": {
+  "recording": "C8_RALS003_C1",
+  "track_id": 11199,
+  "role": "accepted",
+  "frame": 677,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 677
+ },
+ "p0148": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 57941,
+  "role": "decoy",
+  "frame": 5784,
+  "sampled_for": [],
+  "frame_shown": 5784
+ },
+ "p0149": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 128805,
+  "role": "accepted",
+  "frame": 7514,
+  "sampled_for": [
+   "accept_all"
+  ],
+  "frame_shown": 7514
+ },
+ "p0150": {
+  "recording": "C8_BEAV006_prefix",
+  "track_id": 29724,
+  "role": "decoy",
+  "frame": 4187,
+  "sampled_for": [],
+  "frame_shown": 4187
+ }
+}
