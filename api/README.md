@@ -61,7 +61,7 @@ python3.12 -m venv .venv
 
 기록된 입력이 설치되지 않았으면 `/v1/regions`, 예측, `POST` 엔드포인트가 503 `DATA_UNAVAILABLE`을 반환합니다(계약 v1.2 이상). 계약 변경 이력은 `contracts/CHANGELOG.md`에 있습니다.
 
-작업 상태는 `queued` → `running` → `done` 또는 `failed` 순으로 바뀝니다. `failed`는 API 내부 오류이며, 이때 결과는 항상 `unresolved`(`INTERNAL_ERROR`)입니다. 오류 응답은 모두 `{"error": {"code", "message", "details"}, "provenance": {…}}` 형식입니다.
+작업 상태는 `queued` → `running` → `done` 또는 `failed` 순으로 바뀝니다. `failed`는 결코 안전한 결과가 아니며 `unresolved`로 다루어야 합니다. 실패한 경로 점검의 `result`는 보통 `unresolved`(`INTERNAL_ERROR`) 결과이고, 서버가 다시 시작되어 끝나지 못한 작업(`error.code` `SERVER_RESTARTED`)과 실패한 배차 계획은 `result`가 `null`입니다. `result`를 읽기 전에 `status`와 `error`를 확인하세요. 오류 응답은 모두 `{"error": {"code", "message", "details"}, "provenance": {…}}` 형식입니다.
 
 ### 사용 예 (curl)
 
@@ -366,12 +366,13 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 규칙은 모두 결과의 `assumptions`에 다시 기록됩니다.
 
 - **래스터화(보수적):** 375 m 셀의 내부가 구역 다각형과 겹치면 셀은 그 구역에 속합니다. 셀 중심이나 모서리가 다각형 안에 있거나, 다각형 변이 셀을 지나는 경우입니다. 경계선만 공유하는 경우는 포함하지 않습니다. 여러 구역이 한 셀에 닿으면 그중 가장 작은 `arrival_h_max` 대역을 씁니다(중첩 구역).
-- **대역:** 셀은 닿는 구역 중 가장 작은 `arrival_h_max` H를 씁니다. 구역 j는 H_j < H_i이고 j의 모든 셀이 i의 셀이면 i 안에 포함(nested)됩니다. 구역 i의 H_prev는 i 안에 포함된 가장 바깥 구역들(i 안의 다른 포함 구역에 포함되지 않은 구역)의 H 중 가장 작은 값이고, 없으면 0(가장 안쪽 대역)입니다(계약 v1.6). 같은 화재의 동심 구역이면 바로 안쪽 경계가 되며, 대역 안에 놓인 다른 화재의 구역은 H_prev를 낮출 수는 있어도 높이지는 않습니다. 여러 구역이 셀의 H를 공유하면 그중 가장 작은 H_prev를 씁니다. 다각형 변은 투영 전에 경위도에서 0.002°(약 200 m) 간격으로 잘게 나눕니다. 이 규칙들은 모두 결과의 `assumptions`에 그대로 적힙니다.
+- **화재:** 같은 `fire_id` 속성을 가진 구역(또는 `fire_id`가 없는 모든 구역)은 한 화재입니다(계약 v1.7).
+- **대역:** 구역 j가 i와 같은 화재이고, H_j < H_i이며, j의 모든 셀이 i의 셀이고, j가 지역 격자(창) 경계에 잘리지 않으면 j는 i 안에 포함(nested)됩니다. 경계에 잘린 구역은 보이지 않는 부분이 i 밖에 있을 수 있으므로 포함으로 보지 않습니다. prev(i)는 i 안에 포함된 가장 바깥 구역들(i 안의 다른 포함 구역에 포함되지 않은 구역)의 H 중 가장 작은 값이고, 없으면 0입니다. 같은 화재의 동심 구역이면 바로 안쪽 경계가 됩니다. 셀의 대역은 (H_prev, H]이며, H는 셀에 닿는 구역 중 가장 작은 `arrival_h_max`, H_prev는 셀에 닿는 모든 구역(화재와 무관)의 prev 중 가장 작은 값입니다. 그래서 화재마다 다른 `fire_id`를 주면 다른 화재의 구역을 더해도 어떤 셀의 점화도 늦어지지 않습니다. `fire_id`가 없으면 더 큰 H의 구역 안에 놓인 구역은 그 안쪽 대역으로 읽힙니다(한 화재의 대역 규칙). 한 제품에 여러 화재가 있으면 `fire_id`를 주세요. 다각형 변은 투영 전에 경위도에서 0.002°(약 200 m) 간격으로 잘게 나눕니다. 이 규칙들은 모두 결과의 `assumptions`에 그대로 적힙니다.
 - **점화:** 대역 (H_prev, H]의 셀은 max(0, H_prev − margin)부터 점화될 수 있습니다(0 하한은 input_time 시계에서 적용: issued_at ≤ input_time이면 같은 값이고, 더 늦게 발표된 경우에도 보수적입니다). margin 기본값은 60분이고 `margin_min`으로 바꿉니다. 시나리오는 4개입니다. 시나리오 0은 그 가장 이른 시각에 점화합니다. 시나리오 1–3은 H_prev + (H − H_prev) × k/3(k = 1, 2, 3)에 점화하므로 마지막 시나리오는 H에서 점화합니다. 점화된 셀은 [점화, 점화 + T) 동안 연소합니다. T는 실험의 활성 지속 시간(점검기의 스칼라 법칙)이고, 기록된 패킷에서는 3970.46 s입니다. 따라서 가장 늦은 시나리오는 H + T까지 활성입니다.
 - **시계:** 구역 시간은 `issued_at`부터 세고, 패킷 시간은 `input_time`부터 셉니다. `input_time`보다 이른 시각은 0으로 당깁니다(보수적). 실험의 1시간 위험 지평 이후의 시각은 여정에 영향을 줄 수 없으므로 점화하지 않습니다. 패킷 작성기도 이 처리를 요구합니다.
 - **현재 화재:** `input_time`의 기록된 c651 출력에서 격자, 시계 기준, 현재 연소 셀을 가져옵니다. 현재 연소 셀은 기록 그대로 유지하고, 구역 점화를 그 위에 두지 않습니다. 그래서 `input_time`은 해당 지역의 기록된 입력 시각이어야 합니다(v1.1 범위). `burning_scenario_set_id`를 지정하려면 그 시각의 기록된 세트여야 합니다. 다르면 422 `SCENARIO_SET_TIME_MISMATCH`가 돌아옵니다.
 - **알려진 한계(`assumptions.limitations`):** 구역 예보는 점화 시각이 아니라 도달 범위를 줍니다. 그래서 시나리오 4개는 결정론적 표본일 뿐 확률 모델이 아닙니다. 또 `input_time` 이후 첫 1시간만 표현되고, 복사열은 모든 구역 셀에 실험의 고정 열방출 매개변수를 씁니다.
-- 오류 코드: `INVALID_ZONES`(형식·좌표·시각 오류), `ZONES_OUTSIDE_REGION`(지역 격자에 닿지 않는 구역).
+- 오류 코드: `INVALID_ZONES`(형식·좌표·시각·`fire_id` 오류), `ZONES_OUTSIDE_REGION`(지역 격자에 닿지 않는 구역). 구역은 최대 200개이며, 넘으면 계약 스키마 검증에서 422 `VALIDATION_ERROR`가 됩니다(v1.6).
 
 ### 정책과 절제 실험 arm
 
@@ -388,7 +389,7 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 - **full 정책 경로가 아닙니다.** `notes`에 "It is not a full-policy checked route."가 붙습니다.
 - `full_policy_assessment`가 함께 보고됩니다. 이 값은 바뀌지 않은 전체 위험을 기준으로 독립 점검기 함수(문법, 셀 중심 모델 노출, 정확한 전 도로 접촉)를 써서 오프라인에서 계산한 평가이고, `compute_s`에 포함되지 않습니다. 프로젝트의 전 도로 복사열 점검은 다시 하지 않습니다. 경로가 full 정책을 통과하지 못하면 `notes`에 "This route FAILS the full policy: …"가 붙습니다. 같은 평가에서 경로가 **선택한 정책 자신의** 제약(예: `flame_only`에서 화염 접촉)에 모순되면, 절제 실험 채점기(`grade_route.py`)처럼 결과는 `unresolved`(`CHECK_FAILED`)가 됩니다. 내보내기 파일에는 정책과 "NOT a full-policy route" 표시가 붙고, 배차 계획은 `full` 정책만 받습니다.
 - `exposure[].basis`는 `full_model_centre_check`입니다. `travel_only`는 화염을 강제하지 않으므로 `contact`가 `true`일 수 있습니다.
-- 독립 점검기(`run_independent_check`)는 full 정책에서만 정의되어 있어서 실행되지 않으며, 결과의 notes에 그렇게 적힙니다. 축소 정책의 판정에는 위의 절제 채점기 규칙이 항상 적용됩니다.
+- 독립 점검기(`run_independent_check`)는 full 정책에서만 정의되어 있어서 축소 정책에서는 실행되지 않습니다(`independent_check`는 null). 요청한 경우에는 실행하지 않았다는 내용이 결과의 notes에 적힙니다. 축소 정책의 판정에는 위의 절제 채점기 규칙이 항상 적용됩니다.
 - `evaluated_configuration`은 `false`입니다. `true`가 되려면 기록 입력, `full` 정책, 기본 한계를 모두 써야 합니다.
 
 연구 결과(`research/routing/final-input-ablation/RESULTS.md`)를 보면 왜 이 구분이 필요한지 알 수 있습니다. 이동 시간만 쓴 정책은 20개 임무 모두에서 자기 정책 경로를 찾았지만, 바뀌지 않은 full 정책을 통과한 경로는 12개였습니다.
@@ -403,9 +404,9 @@ GET  /regions/uljin_2022/forecast?input_time=2022-03-04T04:00:00Z  →  404 {"er
 | `WFG_API_HOST` | `127.0.0.1` | 바인드 주소 |
 | `WFG_API_PORT` | `8765` | 포트 |
 | `WFG_API_PYTHON` | 서버의 `sys.executable` | 키트 작업자와 자식 프로세스를 실행할 인터프리터 |
-| `WFG_API_GIT_COMMIT` | (없음) | git 메타데이터가 없는 사본에서만 쓰는 provenance git 커밋 대체값. git이 있으면 `git rev-parse HEAD`가 우선합니다 |
+| `WFG_API_GIT_COMMIT` | (없음) | 저장소 루트가 자기 git 작업 트리의 최상위가 아닐 때(예: git 메타데이터 없는 사본)만 쓰는 provenance git 커밋 대체값. 이때 `git_dirty`는 null입니다 |
 
-환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다. 같은 목록이 `api/.env.example`에 있습니다. `api/.env`로 복사하면(git 제외) `make` 대상이 자동으로 불러옵니다. 셸에 이미 설정된 변수가 우선합니다. `make` 없이 실행할 때는 `set -a; . api/.env; set +a`로 불러오세요. API에는 API 키, 토큰, 그 밖의 비밀 값이 필요 없습니다.
+환경 변수는 경로와 런타임 설정만 바꿉니다. 실험 상수(30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s)는 `api/config.py`에 고정되어 있습니다. 같은 목록이 `api/.env.example`에 있습니다. `api/.env`로 복사하고(git 제외) `set -a; . api/.env; set +a`로 셸에 불러온 뒤(셸 문법) `make api`를 실행하세요. API에는 API 키, 토큰, 그 밖의 비밀 값이 필요 없습니다.
 
 ### 테스트와 스모크 스크립트
 
@@ -429,7 +430,7 @@ make api-smoke    # = bash scripts/api_smoke.sh (실행 중인 서버 필요)
 - **창으로 잘린 지역의 spread_zones.** 의성·안동 2025와 영덕 2025는 패킷이 공유 이벤트 격자의 창(window)만 담습니다. 창 밖에 걸친 구역 셀은 패킷에 넣을 수 없으며 `zone_cells_outside_region_window`로 개수만 보고합니다. 지평 안에서 아무 셀도 점화하지 않는 구역 입력은 받아들이고 결과의 notes에 그렇게 적습니다.
 - **호스트 속도와 고정된 30 s 예산:** 평가 호스트(macOS M5 Pro)보다 느린 컴퓨터에서는 무거운 임무가 `unresolved`/`TIMEOUT`이 될 수 있습니다. 예산은 늘리지 않습니다. 기본 작업자 수(물리 코어 − 2)를 넘겨 동시에 실행하면 측정 시간이 늘어날 수 있습니다.
 - **독립 점검은 선택 사항이고 오프라인에서 실행됩니다**(`run_independent_check`, 최대 120 s, full 정책만). 기본으로는 실행되지 않으며 `compute_s`에도 포함되지 않습니다. 동결된 채점기는 독립 점검이 끝난 실행만 해결된 것으로 셉니다. 따라서 기본 설정의 `checked_route`와 `model_no_route`는 독립적으로 확인되지 않은 키트 판정입니다. 요청하면 채점기 규칙을 적용하되, 최적성 반증(dispute)은 항상 `unresolved`로 둡니다. 채점기는 오프라인 전 도로 증인(witness)으로 반증을 해소할 수 있지만 API는 그 증인을 실행하지 않기 때문입니다(더 엄격함).
-- **30 s 예산의 범위.** 예산은 실험과 같이 키트 시도 하나에 적용됩니다. spread_zones 패킷 생성(최대 600 s)과 선택한 독립 점검(최대 120 s)은 `provenance.timings_s`에 따로 보고되고, 대기 시간은 작업의 `created_at`/`started_at`으로 알 수 있습니다. 작업 전체 시간에는 상한이 없습니다.
+- **30 s 예산의 범위.** 예산은 실험과 같이 키트 시도 하나에 적용됩니다. 단일 경로 점검에서는 spread_zones 패킷 생성(최대 600 s)과 선택한 독립 점검(최대 120 s)이 `provenance.timings_s`(`adapter_s`, `independent_s`)에 따로 보고됩니다. 배차 계획은 패킷을 시도 전에 한 번 만들며, 그 시간은 따로 보고되지 않습니다. 대기 시간은 작업의 `created_at`/`started_at`으로 알 수 있습니다. 작업 전체 시간에는 상한이 없습니다.
 - **인증이 없고 로컬 전용입니다.** 외부에 노출하지 마십시오. `/openapi.json`은 정적 계약을 제공하므로 Swagger UI의 "Try it out" 서버 주소는 항상 `http://127.0.0.1:8765/v1`입니다.
 - 예측은 다시 계산하지 않습니다. 기록된 c651 출력이 있는 입력 시각만 쓸 수 있습니다.
 
@@ -504,7 +505,7 @@ python3.12 -m venv .venv
 
 If the recorded inputs are not installed, `/v1/regions`, the forecast and the `POST` endpoints return 503 `DATA_UNAVAILABLE` (contract v1.2 and later). Contract changes are listed in `contracts/CHANGELOG.md`.
 
-A job's status moves from `queued` to `running` and ends as `done` or `failed`. `failed` is an API internal error, and its result is always `unresolved` (`INTERNAL_ERROR`). Every error response has the shape `{"error": {"code", "message", "details"}, "provenance": {…}}`.
+A job's status moves from `queued` to `running` and ends as `done` or `failed`. `failed` is never safe; treat it as `unresolved`. A failed route check usually carries an `unresolved` (`INTERNAL_ERROR`) result, while a job the server marked failed on restart (`error.code` `SERVER_RESTARTED`) and a failed dispatch plan have `result: null`. Check `status` and `error` before reading `result`. Every error response has the shape `{"error": {"code", "message", "details"}, "provenance": {…}}`.
 
 ### Examples (curl)
 
@@ -809,12 +810,13 @@ Receipt-level failures take priority over everything else, in this order: memory
 Every rule below is also echoed in the result's `assumptions`.
 
 - **Rasterization (conservative):** a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior, that is, when the cell's centre or a corner is inside the polygon or a polygon edge crosses the cell. Sharing only a boundary line does not count. When several zones touch a cell, the cell takes the band of the smallest `arrival_h_max` (nested zones).
-- **Bands:** a cell takes the smallest `arrival_h_max` H among the zones touching it. Zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i. H_prev of zone i is the smallest H over the outermost zones nested in i (those not nested in another zone nested in i), or 0 when there is none (the innermost band; contract v1.6). For concentric zones of one fire that is the next band edge in; a zone of another fire lying inside the band can lower H_prev but never raise it. When several zones share a cell's H, the cell takes the smallest of their H_prev. Polygon edges are densified in lon/lat every 0.002° (about 200 m) before projection. All of these rules are echoed in the result's `assumptions`.
+- **Fires:** zones with the same `fire_id` property (or all zones without one) belong to one fire (contract v1.7).
+- **Bands:** zone j is nested in zone i when both belong to one fire, H_j < H_i, every cell of j is a cell of i, and j is not cut off by the region grid (window) edge. A cut-off zone is never nested, because its hidden part could lie outside i. prev(i) is the smallest H over the outermost zones nested in i (those not nested in another zone nested in i), or 0 when there is none; for concentric zones of one fire that is the next band edge in. A cell's band is (H_prev, H], where H is the smallest `arrival_h_max` among the zones touching it and H_prev the smallest prev over all of them, whichever fire they belong to. With a distinct `fire_id` per fire, adding another fire's zones therefore never makes any cell ignite later. Without fire ids, a zone lying inside another zone of larger H is read as its inner band (the one-fire band rule), so give a `fire_id` when a product holds several fires. Polygon edges are densified in lon/lat every 0.002° (about 200 m) before projection. All of these rules are echoed in the result's `assumptions`.
 - **Ignition:** a cell in band (H_prev, H] may ignite from max(0, H_prev − margin). The 0 floor is applied on the input_time clock: that is the same value when issued_at ≤ input_time, and it stays conservative for products issued later. The margin defaults to 60 min and is set with `margin_min`. There are four scenarios. Scenario 0 ignites at that earliest time. Scenarios 1–3 ignite at H_prev + (H − H_prev) × k/3 for k = 1, 2, 3, so the last one ignites at H. Each ignited cell then burns on [ignition, ignition + T), where T is the experiment's active duration (the checker's scalar law). T is 3970.46 s in the recorded packets. The latest scenario therefore stays active until H + T.
 - **Clock:** zone hours count from `issued_at`, and packet times count from `input_time`. Times before `input_time` are clamped to 0, which is conservative. Times at or after the experiment's 1 h hazard horizon cannot affect the journey, so they stay unignited, as the packet writer requires.
 - **Present fire:** the recorded c651 export at `input_time` supplies the grid, the clock binding and the cells burning now. Those cells stay exactly as recorded, and zone ignitions are never placed on them. `input_time` must therefore be a recorded input time of the region (v1.1 scope). If you set `burning_scenario_set_id`, it must be the recorded set at that time; otherwise the API returns 422 `SCENARIO_SET_TIME_MISMATCH`.
 - **Stated limitations (`assumptions.limitations`):** zone products give arrival ranges, not ignition times, so the four scenarios are a deterministic sample, not a probability model. Only the first hour after `input_time` is represented. Radiation uses the experiment's fixed heat-release parameters for every zone cell.
-- Error codes: `INVALID_ZONES` (bad geometry, coordinates or times) and `ZONES_OUTSIDE_REGION` (a zone does not touch the region grid).
+- Error codes: `INVALID_ZONES` (bad geometry, coordinates, times or `fire_id`) and `ZONES_OUTSIDE_REGION` (a zone does not touch the region grid). At most 200 zones are accepted; more fail contract validation with 422 `VALIDATION_ERROR` (v1.6).
 
 ### Policies and ablation arms
 
@@ -831,7 +833,7 @@ For any policy other than `full`, the API builds a copy of the ablation study ki
 - **They are not full-policy routes.** `notes` includes "It is not a full-policy checked route."
 - `full_policy_assessment` is reported alongside the result. It is an offline assessment against the unchanged full hazard that uses the independent checker's functions (grammar, centre-model exposure and exact whole-road contact). It is not part of `compute_s`, and it does not repeat the project's whole-road radiation check. If the route fails the full policy, `notes` includes "This route FAILS the full policy: …". If the same assessment shows that the route contradicts **its own selected policy's** constraints (for example flame contact under `flame_only`), the result is `unresolved` (`CHECK_FAILED`), as the ablation grader `grade_route.py` would score it. Exported files state the policy and are labelled "NOT a full-policy route". Dispatch plans accept only `full`.
 - `exposure[].basis` is `full_model_centre_check`. Because `travel_only` does not enforce flame contact, its `contact` value can be `true`.
-- The independent checker (`run_independent_check`) is defined for the full policy only, so it is not run, and the result's notes say so. The ablation grader's rule above always applies to reduced policies.
+- The independent checker (`run_independent_check`) is defined for the full policy only, so it never runs for a reduced policy (`independent_check` is null); if you request it, the result's notes say it was not run. The ablation grader's rule above always applies to reduced policies.
 - `evaluated_configuration` is `false`. It is `true` only for recorded input with the `full` policy and default limits.
 
 The research results (`research/routing/final-input-ablation/RESULTS.md`) show why the distinction matters. The travel-only policy found an own-policy route for all 20 missions, but only 12 of those routes passed the unchanged full policy.
@@ -846,9 +848,9 @@ The research results (`research/routing/final-input-ablation/RESULTS.md`) show w
 | `WFG_API_HOST` | `127.0.0.1` | Bind address |
 | `WFG_API_PORT` | `8765` | Port |
 | `WFG_API_PYTHON` | the server's `sys.executable` | Interpreter used to launch kit workers and child processes |
-| `WFG_API_GIT_COMMIT` | (none) | Fallback git commit for provenance, used only in a copy without git metadata; `git rev-parse HEAD` wins when git is available |
+| `WFG_API_GIT_COMMIT` | (none) | Fallback git commit for provenance, used only when the repository root is not the top of its own git work tree (e.g. a copy without git metadata); `git_dirty` is then null |
 
-Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`. The same list is in `api/.env.example`. Copy it to `api/.env` (git-ignored) and the `make` targets load it automatically; a variable already set in your shell wins. Without `make`, load it with `set -a; . api/.env; set +a`. The API needs no API keys, tokens or other secrets.
+Environment variables change only paths and runtime settings. The experiment constants (30 s, 3072 MiB, 300 m, 10 kW/m², 100 kJ/m², 120 s) are fixed in `api/config.py`. The same list is in `api/.env.example`. Copy it to `api/.env` (git-ignored), load it into your shell with `set -a; . api/.env; set +a` (shell syntax), then run `make api`. The API needs no API keys, tokens or other secrets.
 
 ### Testing
 
@@ -906,7 +908,7 @@ SMOKE OK: both jobs finished
 - **spread_zones in windowed regions.** For Uiseong-Andong 2025 and Yeongdeok 2025 the packet holds only a window of the shared event grid. Zone cells outside that window cannot be placed in the packet and are only counted in `zone_cells_outside_region_window`. A zones input that ignites no cell within the horizon is accepted, and the result says so in its notes.
 - **Host speed and the fixed 30 s budget:** on hosts slower than the evaluated macOS M5 Pro, heavy missions can become `unresolved`/`TIMEOUT`. The budget is never raised. Running more concurrent checks than the default worker count (physical cores − 2) can also inflate the measured times.
 - **The independent check is optional and runs offline** (`run_independent_check`, up to 120 s, full policy only). It does not run by default and is not part of `compute_s`. The frozen scorer counts a run as resolved only after that check, so a default `checked_route` or `model_no_route` is the kit's verdict without independent corroboration. When the check is requested the scorer's rules apply, except that a disputed optimum always stays `unresolved`: the scorer can clear a dispute with its offline whole-road witness, which the API does not run (stricter).
-- **What the 30 s budget covers.** As in the experiments, the budget applies to the kit attempt. Building a spread_zones packet (up to 600 s) and the optional independent check (up to 120 s) are reported separately under `provenance.timings_s`, and queue time follows from the job's `created_at`/`started_at`. The job's end-to-end time is not capped.
+- **What the 30 s budget covers.** As in the experiments, the budget applies to the kit attempt. For a single route check, building a spread_zones packet (up to 600 s) and the optional independent check (up to 120 s) are reported under `provenance.timings_s` (`adapter_s`, `independent_s`). A dispatch plan builds its packet once before any attempt, and that time is not reported separately. Queue time follows from the job's `created_at`/`started_at`. The job's end-to-end time is not capped.
 - **There is no authentication, and the API is local only.** Do not expose it. Because `/openapi.json` serves the static contract, Swagger UI's "Try it out" always targets `http://127.0.0.1:8765/v1`.
 - The forecast is never re-run. Only input times with a recorded c651 export are available.
 

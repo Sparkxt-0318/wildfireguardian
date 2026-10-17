@@ -2,6 +2,8 @@
 must fail only that job, and later jobs must still run."""
 import threading
 
+import pytest
+
 from api import jobs as J
 
 from . import _pool_tasks
@@ -99,5 +101,21 @@ def test_jobs_left_running_by_a_previous_server_are_failed_on_start(tmp_path):
             assert j["status"] == "failed" and j["result"] is None and j["error"]["code"] == "SERVER_RESTARTED"
             assert j["finished_at"]
         assert jm.get("rc_c")["status"] == "done" and jm.get("rc_c")["result"] == {"verdict": "x"}
+    finally:
+        jm.shutdown()
+
+
+@pytest.mark.parametrize("action", ["die", "taint"])
+def test_no_launch_slips_through_after_a_failed_attempt(tmp_path, monkeypatch, action):
+    """A route check queued behind a dying (or tainted) attempt must not start: the pause comes before the slot is freed."""
+    monkeypatch.setitem(J.TASKS, "route_check", _pool_tasks.scripted)
+    jm = J.JobManager(tmp_path, workers=1)
+    try:
+        first, started = threading.Event(), threading.Event()
+        jm.schedule("route_check", {"action": action, "job_id": "rc_first"}, lambda: None, lambda r, e: first.set())
+        jm.schedule("route_check", {"action": "echo", "job_id": "rc_second"}, started.set, lambda r, e: None)
+        assert first.wait(120)
+        assert not started.wait(4)                 # the queued attempt never reached on_start
+        assert jm.paused and "rc_first" in jm.paused
     finally:
         jm.shutdown()

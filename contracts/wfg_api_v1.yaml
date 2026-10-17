@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.6.0
+  version: 1.7.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -290,6 +290,8 @@ components:
                 v1.5 (503): `BUSY` (too many queued checks), `LAUNCHES_PAUSED` (a kit attempt's process cleanup was not
                 confirmed; new launches pause as the frozen controller requires until the API is restarted).
                 v1.6 (작업 오류 / job error): `SERVER_RESTARTED` (the API restarted before the job finished; it is not resumed).
+                요청 본문이 계약 스키마에 맞지 않으면 (예: 구역 200개 초과) `VALIDATION_ERROR` / a body that does not match
+                the contract schema (e.g. more than 200 zones) returns `VALIDATION_ERROR`.
               examples: [SNAP_TOO_FAR]
             message:
               type: string
@@ -677,16 +679,24 @@ components:
               type: number
               exclusiveMinimum: 0
               description: |
-                이 구역의 화선 도달 상한 (시간). 셀은 자신을 덮는 구역 중 가장 작은 값 H의 띠 (H_prev, H]에 속합니다.
-                구역 j는 H_j < H_i 이고 j의 모든 셀이 i의 셀이면 i 안에 포함(nested)됩니다. 구역 i의 H_prev는 i 안에 포함된
-                가장 바깥 구역들(i 안의 다른 포함 구역에 포함되지 않은 구역)의 H 중 가장 작은 값이며, 없으면 0입니다 (v1.6).
-                같은 화재의 동심 구역이면 바로 안쪽 경계가 되고, 띠 안에 놓인 다른 화재의 구역은 H_prev를 낮출 수는 있어도
-                높이지는 않습니다.
-                Upper bound of fire arrival in hours (e.g. 5, 8). A cell takes the band (H_prev, H] of the smallest H among
-                the zones touching it. Zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i. H_prev of
-                zone i is the smallest H over the outermost zones nested in i (those not nested in another zone nested in i),
-                0 when none (v1.6). For concentric zones of one fire that is the next band edge in; a zone of another fire
-                lying inside the band can lower H_prev but never raise it.
+                이 구역의 화선 도달 상한 (시간). 셀의 대역은 (H_prev, H]이며 H는 셀을 덮는 구역 중 가장 작은 값,
+                H_prev는 셀을 덮는 모든 구역의 prev 중 가장 작은 값입니다 (v1.7). 구역 j가 i와 같은 화재이고 H_j < H_i이며
+                j의 모든 셀이 i의 셀이고 j가 지역 격자 경계에 잘리지 않으면 j는 i 안에 포함(nested)됩니다. prev(i)는 i 안에
+                포함된 가장 바깥 구역들의 H 중 가장 작은 값이고, 없으면 0입니다.
+                Upper bound of fire arrival in hours (e.g. 5, 8). A cell's band is (H_prev, H]: H is the smallest value
+                among the zones touching it and H_prev the smallest prev over all of them (v1.7). Zone j is nested in zone i
+                when both belong to one fire, H_j < H_i, every cell of j is a cell of i and j is not cut off by the region
+                grid edge; prev(i) is the smallest H over the outermost zones nested in i, 0 when none.
+            fire_id:
+              type: string
+              minLength: 1
+              maxLength: 100
+              description: |
+                선택 사항: 같은 화재의 구역에 같은 값을 줍니다 (v1.7). 구역 포함 관계는 같은 화재 안에서만 계산하므로,
+                화재마다 다른 값을 주면 다른 화재의 구역이 점화를 늦추는 일이 없습니다. 생략하면 모든 구역을 한 화재로 봅니다.
+                Optional: give the zones of one fire the same value (v1.7). Nesting is computed within a fire only, so with a
+                distinct value per fire another fire's zones never make any ignition later. Without it all zones are one
+                fire, and a zone inside another zone of larger H is read as its inner band.
     RouteCheckRequest:
       type: object
       required: [region, input_time, start, destination, fire_input]

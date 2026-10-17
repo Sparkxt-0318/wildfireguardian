@@ -45,12 +45,23 @@ def utc_now() -> str:
     return _dt.datetime.now(_dt.timezone.utc).isoformat()
 
 
-def _git(*args) -> str | None:
+def _git(*args, root: Path = REPO_ROOT) -> str | None:
     try:
-        out = subprocess.run(["git", "-C", str(REPO_ROOT), *args], capture_output=True, text=True, timeout=10)
+        out = subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True, timeout=10)
         return out.stdout.strip() if out.returncode == 0 else None
     except Exception:
         return None
+
+
+def git_identity(root: Path = REPO_ROOT) -> tuple[str, bool | None]:
+    """(commit, dirty) of ``root``. Git is trusted only when ``root`` is the top of its own work tree: a copy without
+    .git that sits inside another checkout would otherwise report that checkout's commit and a clean tree.
+    WFG_API_GIT_COMMIT is the fallback for a copy without git metadata; dirty is then unknown (None)."""
+    top = _git("rev-parse", "--show-toplevel", root=root)
+    own = top is not None and Path(top).resolve() == Path(root).resolve()
+    head = _git("rev-parse", "HEAD", root=root) if own else None
+    status = _git("status", "--porcelain", "--untracked-files=no", root=root) if own else None
+    return head or os.environ.get("WFG_API_GIT_COMMIT") or "unknown", None if status is None else bool(status)
 
 
 class Identity:
@@ -72,10 +83,7 @@ class Identity:
         self.package_path = str(Path(wfg_latest.__file__).resolve().parent)
         manifest = json.loads((KIT_ROOT / "CANDIDATE_MANIFEST.json").read_text())
         self.kit_candidate_id = manifest.get("candidate_id")
-        # the checkout's own commit wins; WFG_API_GIT_COMMIT is only a fallback for a copy without git metadata
-        self.git_commit = _git("rev-parse", "HEAD") or os.environ.get("WFG_API_GIT_COMMIT") or "unknown"
-        status = _git("status", "--porcelain", "--untracked-files=no")
-        self.git_dirty = None if status is None else bool(status)
+        self.git_commit, self.git_dirty = git_identity()
 
     def base(self, **extra) -> dict:
         out = {"api_version": API_VERSION, "package": self.package, "package_version": self.package_version,

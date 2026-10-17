@@ -9,11 +9,14 @@ Rules (all echoed under ``assumptions``):
 * Rasterization (conservative): a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior
   (centre or corner inside, or a polygon edge crossing the cell); sharing only a boundary line does not count. A cell takes the band of the smallest ``arrival_h_max`` among
   the zones that touch it (nested zones).
-* Bands: a cell takes the smallest ``arrival_h_max`` H among the zones touching it. Zone j is nested in zone i when
-  H_j < H_i and every cell of j is a cell of i. H_prev of zone i is the smallest H_j over the outermost zones nested in
-  it (those not nested in another zone nested in i), 0 when none (the innermost band). For concentric zones of one fire
-  that is the next band edge in; a zone of another fire lying inside the band only adds another outermost zone, so it can
-  lower H_prev but never raise it. When several zones share a cell's H, the cell takes the smallest of their H_prev.
+* Fires: zones with the same optional ``fire_id`` property (or all zones without one) belong to one fire.
+* Bands: zone j is nested in zone i when both belong to the same fire, H_j < H_i, every cell of j is a cell of i, and j
+  lies wholly inside the region grid (a zone cut off by the grid or window edge is never nested: its hidden part could
+  lie outside i). prev(i) is the smallest H_j over the outermost zones nested in i (those not nested in another zone
+  nested in i), 0 when none: for concentric zones of one fire, the next band edge in. A cell's band is (H_prev, H] with
+  H the smallest ``arrival_h_max`` and H_prev the smallest prev over all zones touching it, whichever fire they belong to.
+  With a distinct ``fire_id`` per fire, adding another fire's zones never makes any ignition later. Without fire ids a
+  zone lying inside another zone of larger H is read as its inner band (one fire), as the band rule intends.
 * Geometry: polygon edges are straight in lon/lat (GeoJSON), so they are densified every 0.002 deg before projection.
 * Ignition: a cell in band (H_prev, H] may ignite from max(0, H_prev - margin) (margin default 60 min; the floor is
   applied on the input_time clock, which is the same when issued_at <= input_time and stays conservative otherwise). Four scenarios:
@@ -41,11 +44,12 @@ import numpy as np
 
 from ..errors import unprocessable
 
-ADAPTER_VERSION = "wfg.api.spread-zones-adapter/2"   # /2: H_prev from the outermost nested zones (contract v1.6)
+ADAPTER_VERSION = "wfg.api.spread-zones-adapter/3"   # /3: fire_id, truncated zones never nested, cell H_prev = min (v1.7)
 APPROXIMATION = "approximation, requires expert review"
 DEFAULT_MARGIN_MIN = 60.0
 LATER_FRACTIONS = (1.0 / 3.0, 2.0 / 3.0, 1.0)
-MAX_ZONES = 200                # contract ZoneCollection.features maxItems
+MAX_ZONES = 200                # contract ZoneCollection.features maxItems (HTTP bodies are rejected earlier, VALIDATION_ERROR)
+MAX_FIRE_ID = 100
 
 
 # ------------------------------------------------------------------------------------------------- geometry
@@ -176,7 +180,7 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
     H, W = int(grid["height"]), int(grid["width"])
     if present_fire.shape != (H, W):
         raise unprocessable("GRID_MISMATCH", "recorded present-fire grid differs from the region grid")
-    zone_rows, outside, outside_window_cells = [], [], 0
+    zone_rows, outside, outside_window_cells, truncated, fire_ids = [], [], 0, [], []
     for i, f in enumerate(feats):
         if not isinstance(f, dict) or f.get("type") != "Feature":
             raise unprocessable("INVALID_ZONES", "zones.features[%d] must be a GeoJSON Feature" % i)
@@ -184,6 +188,10 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
         h = props.get("arrival_h_max")
         if isinstance(h, bool) or not isinstance(h, (int, float)) or not math.isfinite(h) or h <= 0:
             raise unprocessable("INVALID_ZONES", "zones.features[%d].properties.arrival_h_max must be a positive number of hours" % i)
+        fire_id = props.get("fire_id")
+        if fire_id is not None and not (isinstance(fire_id, str) and 0 < len(fire_id) <= MAX_FIRE_ID):
+            raise unprocessable("INVALID_ZONES", "zones.features[%d].properties.fire_id must be a string of 1-%d characters"
+                                % (i, MAX_FIRE_ID))
         polys = _rings_of(f.get("geometry") or {})
         polys_xy = []
         for rings in polys:
@@ -196,24 +204,37 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
         m = rasterize(polys_xy, grid)
         if not m.any():
             outside.append(i)
+        pts = np.vstack([r for rr in polys_xy for r in rr])
+        gx0, gy0 = float(grid["x0"]), float(grid["y0"])
+        gx1, gy1 = gx0 + W * float(grid["resolution"]), gy0 + H * float(grid["resolution"])
+        eps = 1e-6
+        if (pts[:, 0].min() < gx0 - eps or pts[:, 0].max() > gx1 + eps or pts[:, 1].min() < gy0 - eps
+                or pts[:, 1].max() > gy1 + eps):
+            truncated.append(i)
         if event_grid is not None:
             full = rasterize(polys_xy, event_grid)
             r0, r1, c0, c1 = window["r0"], window["r1"], window["c0"], window["c1"]
             inside = np.zeros_like(full); inside[r0:r1 + 1, c0:c1 + 1] = True
             outside_window_cells += int((full & ~inside).sum())
         zone_rows.append((float(h), m))
+        fire_ids.append(fire_id)
     if outside:
         raise unprocessable("ZONES_OUTSIDE_REGION", "zone(s) %s do not touch the %s grid" % (outside, region.id),
                             {"zones_outside": outside, "region_bbox_wgs84": list(region.graph.bbox)})
-    # j is nested in i when H_j < H_i and cells(j) is a subset of cells(i). prev(i) = min{H_j : j nested in i and not nested
-    # in another zone nested in i} (the outermost nested zones), or 0. Concentric zones of one fire give the next band edge
-    # in; a zone of another fire inside the band can only lower prev(i), never raise it. A cell takes the smallest H among
-    # the zones touching it and, among those zones, the smallest prev (earliest ignition, conservative).
+    # j is nested in i when they share a fire, H_j < H_i, cells(j) is a subset of cells(i) and j is not cut off by the grid
+    # edge. prev(i) = min{H_j : j nested in i and not nested in another zone nested in i} (the outermost nested zones), or
+    # 0. A cell's band is (min prev, min H] over every zone touching it, so with distinct fire ids another fire's zones can
+    # only move a cell's ignitions earlier (conservative), never later.
+    n = len(zone_rows)
     hs = np.array([h for h, _ in zone_rows])
-    flat = np.array([m.ravel() for _, m in zone_rows], dtype=np.float64).reshape(len(zone_rows), H * W)
+    flat = np.array([m.ravel() for _, m in zone_rows], dtype=np.float64).reshape(n, H * W)
     inter = flat @ flat.T                                   # shared cell counts (exact in float64 for any grid here)
     size = flat.sum(axis=1)
-    nested = (inter == size[:, None]) & (size[:, None] > 0) & (hs[:, None] < hs[None, :])    # nested[j, i]
+    same_fire = np.array([[a == b for b in fire_ids] for a in fire_ids], dtype=bool).reshape(n, n)
+    whole = np.ones(n, dtype=bool)
+    whole[truncated] = False
+    nested = ((inter == size[:, None]) & (size[:, None] > 0) & (hs[:, None] < hs[None, :])
+              & same_fire & whole[:, None])                                                  # nested[j, i]
     prev = []
     for i in range(len(zone_rows)):
         inner = np.flatnonzero(nested[:, i])
@@ -224,8 +245,7 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
         band_h = np.where(m & (h < band_h), h, band_h)
     band_prev = np.full((H, W), np.inf)
     for (h, m), hp in zip(zone_rows, prev):
-        sel = m & (band_h == h)
-        band_prev = np.where(sel & (hp < band_prev), hp, band_prev)
+        band_prev = np.where(m & (hp < band_prev), hp, band_prev)
     in_zone = np.isfinite(band_h)
     T = float(active_duration_s)
     times = np.full((4, H, W), np.inf)
@@ -259,7 +279,10 @@ def plan(*, region, sset, fire_input: dict, to_5179, horizon_s: float, active_du
     assumptions = {
         "adapter": ADAPTER_VERSION, "label": APPROXIMATION,
         "rasterization": "conservative: a 375 m EPSG:5179 cell is in a zone when the polygon intersects the cell interior (centre or corner inside, or an edge crossing it; a shared boundary line alone does not count); polygon edges (straight in lon/lat) are densified every %g deg before projection" % DENSIFY_DEG,
-        "bands": "a cell's band (H_prev, H] uses the smallest arrival_h_max H among the zones touching it; zone j is nested in zone i when H_j < H_i and every cell of j is a cell of i; H_prev of zone i is the smallest H_j over the outermost zones nested in i (those not nested in another zone nested in i), 0 when none (innermost band), so a zone of another fire inside a band can lower H_prev but never raise it; when several zones share a cell's H the cell takes the smallest of their H_prev",
+        "fires": "zones with the same fire_id property (or all zones without one) are one fire; nesting is computed within a fire only",
+        "bands": "zone j is nested in zone i when both are one fire, H_j < H_i, every cell of j is a cell of i and j is not cut off by the region grid edge; prev(i) is the smallest H_j over the outermost zones nested in i (those not nested in another zone nested in i), 0 when none; a cell's band is (H_prev, H] with H the smallest arrival_h_max and H_prev the smallest prev over every zone touching it, so with a distinct fire_id per fire another fire's zones never make an ignition later; without fire ids a zone inside another zone of larger H is read as its inner band",
+        "fire_ids": sorted({f for f in fire_ids if f is not None}),
+        "zones_cut_off_by_grid_edge": truncated,
         "margin_min": margin_min,
         "scenario_rule": "scenario 0 ignites at max(0, H_prev - margin) (floor applied on the input_time clock); scenarios 1-3 at H_prev + (H - H_prev) * 1/3, 2/3, 1",
         "burning_law": "each ignited cell burns on [ignition, ignition + T) (experiment scalar law); the latest scenario stays active until H + T",

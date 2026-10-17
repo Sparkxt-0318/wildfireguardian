@@ -179,9 +179,18 @@ class JobManager:
             except queue.Empty:
                 continue
             _, _, kind, spec, on_start, on_done = item
-            while self.paused is not None and not self._stop.is_set():
-                self._stop.wait(1.0)
-            self._slots.acquire()
+            # hold while paused; re-check after taking a slot, because the task that frees the slot decides on the
+            # pause before releasing it (a launch never slips through between a failed attempt and its pause)
+            while True:
+                while self.paused is not None and not self._stop.is_set():
+                    self._stop.wait(1.0)
+                self._slots.acquire()
+                if self.paused is None or self._stop.is_set():
+                    break
+                self._slots.release()
+            if self._stop.is_set():
+                self._slots.release()
+                break
             try:
                 on_start()
             except Exception:
@@ -189,26 +198,33 @@ class JobManager:
             try:
                 self._ensure_pool()
                 fut = self.pool.submit(TASKS[kind], spec)
-            except Exception as exc:   # pool broken or shut down
+            except Exception as exc:   # pool broken or shut down: nothing was launched
                 self._slots.release()
                 on_done(None, exc)
                 continue
 
-            def _done(f, on_done=on_done, kind=kind):
-                self._slots.release()
+            def _done(f, on_done=on_done, kind=kind, spec=spec):
                 try:
-                    res, err = f.result(), None
-                except BaseException as exc:     # worker died or the task raised (SystemExit included)
-                    res, err = None, exc
-                    if kind in LAUNCHING_TASKS:  # the attempt never got the controller's cleanup (frozen lifecycle rule)
-                        self.pause("a pool worker failed while running a %s task (%s); its kit attempt's process cleanup "
-                                   "was not confirmed, so new launches are paused as the frozen controller requires. "
-                                   "Check for leftover processes, then restart the API." % (kind, type(exc).__name__))
-                try:
-                    on_done(res, err)
-                except Exception:
-                    import traceback
-                    traceback.print_exc()
+                    try:
+                        res, err = f.result(), None
+                    except BaseException as exc:     # worker died or the task raised (SystemExit included)
+                        res, err = None, exc
+                        if kind in LAUNCHING_TASKS:  # the attempt never got the controller's cleanup
+                            self.pause("a pool worker failed while running %s task %s (%s); its kit attempt's process "
+                                       "cleanup was not confirmed, so new launches are paused as the frozen controller "
+                                       "requires. Check for leftover processes, then restart the API."
+                                       % (kind, spec.get("job_id", "?"), type(exc).__name__))
+                    try:
+                        on_done(res, err)
+                    except Exception:
+                        import traceback
+                        traceback.print_exc()
+                    if kind in LAUNCHING_TASKS and isinstance(res, dict) and res.get("tainted"):
+                        self.pause("kit attempt of %s task %s: process cleanup was not confirmed CLEAN; new launches are "
+                                   "paused as the frozen controller requires. Check for leftover processes, then restart "
+                                   "the API." % (kind, spec.get("job_id", "?")))
+                finally:
+                    self._slots.release()        # only after the pause decision, so the feeder sees it
             fut.add_done_callback(_done)
 
     def queued(self) -> int:

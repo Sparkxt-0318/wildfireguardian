@@ -209,11 +209,11 @@ def test_three_concentric_bands_take_the_next_edge_in():
     assert bands == {(0.5, 0.0), (1.0, 0.5), (2.0, 1.0)}
 
 
-def test_other_fires_zone_inside_a_band_never_raises_h_prev():
-    """Fire A (0.5 h inside 2 h) plus fire B (1 h) lying inside A's 2 h band but outside A's 0.5 h zone.
+def test_zone_beside_the_inner_zone_does_not_raise_h_prev():
+    """Fire A (0.5 h inside 2 h) plus a 1 h zone lying inside A's 2 h band beside A's 0.5 h zone (no fire ids).
 
-    B adds a second outermost nested zone of the 2 h zone; H_prev of the 2 h band must stay 0.5 h (not B's 1 h), so the
-    band cells outside B ignite exactly as with fire A alone.
+    The 1 h zone adds a second outermost nested zone of the 2 h zone; H_prev of the 2 h band stays 0.5 h (not 1 h), so
+    the band cells outside it ignite exactly as with fire A alone.
     """
     fire_a = [rect(375, 375, 1125, 1125, 0.5), rect(0, 0, 1875, 1875, 2.0)]
     fire_b = [rect(1500, 1500, 1875, 1875, 1.0)]
@@ -240,4 +240,79 @@ def test_plan_digest_covers_adapter_version_and_ignition_times(monkeypatch):
 def test_too_many_zones_is_422():
     with pytest.raises(APIError) as e:
         run([rect(0, 0, 375, 375, 1.0)] * (SZ.MAX_ZONES + 1))
+    assert e.value.status == 422 and e.value.code == "INVALID_ZONES"
+
+
+def fire(f, fire_id):
+    f = json.loads(json.dumps(f))
+    f["properties"]["fire_id"] = fire_id
+    return f
+
+
+def test_zone_cut_off_by_the_grid_edge_is_never_nested():
+    """A 2 h zone that mostly lies east of the grid only shows its western tip inside a 4 h zone: it is not nested."""
+    a = [rect(1500, 0, 3000, 2250, 4.0)]
+    b = [rect(2600, 750, 9000, 1500, 2.0)]                 # grid is x 0..3000 m
+    alone, both = run(a), run(a + b)
+    r, c = cell_rc(1700, 2000)                             # in the 4 h zone, outside the 2 h zone
+    assert np.array_equal(np.array(both["times"])[:, r, c], np.array(alone["times"])[:, r, c])
+    assert np.array(alone["times"])[0, r, c] == 0.0
+    assert both["assumptions"]["zones_cut_off_by_grid_edge"] == [1]
+    assert {(x["arrival_h_max"], x["h_prev"]) for x in both["assumptions"]["bands_detail"]} == {(2.0, 0.0), (4.0, 0.0)}
+
+
+def test_fire_id_keeps_a_contained_zone_of_another_fire_out_of_the_band():
+    """A single 4 h zone (fire A) with a 2 h zone inside it.
+
+    As one fire (no ids) the 2 h zone is A's inner band, so the 4 h band starts at 2 h (the band rule). With different
+    fire ids the 4 h zone keeps H_prev 0, exactly as fire A alone.
+    """
+    a = rect(0, 0, 3000, 2250, 4.0)
+    b = rect(1125, 750, 1875, 1500, 2.0)
+    r, c = cell_rc(200, 200)                               # in A, outside B
+    alone = np.array(run([a])["times"])
+    one_fire = run([a, b])
+    assert {(x["arrival_h_max"], x["h_prev"]) for x in one_fire["assumptions"]["bands_detail"]} == {(2.0, 0.0), (4.0, 2.0)}
+    two = run([fire(a, "A"), fire(b, "B")])
+    assert np.array_equal(np.array(two["times"])[:, r, c], alone[:, r, c])
+    assert two["assumptions"]["fire_ids"] == ["A", "B"]
+    assert {(x["arrival_h_max"], x["h_prev"]) for x in two["assumptions"]["bands_detail"]} == {(2.0, 0.0), (4.0, 0.0)}
+
+
+def test_cell_takes_the_smallest_h_prev_of_every_zone_touching_it():
+    """Fire A (1.5 h inside 2 h) and fire K (one 3 h zone) overlap: the overlap cell may ignite from 0, as K alone says."""
+    a = [fire(rect(0, 0, 750, 750, 1.5), "A"), fire(rect(0, 0, 2250, 2250, 2.0), "A")]
+    k = [fire(rect(1500, 1500, 3000, 2250, 3.0), "K")]
+    r, c = cell_rc(1900, 1900)
+    t_k, t_a, t = (np.array(run(z)["times"])[:, r, c] for z in (k, a, a + k))
+    assert t[0] == 0.0
+    assert np.all(t <= t_k) and np.all(t <= t_a)
+
+
+def test_adding_another_fire_never_delays_any_ignition(monkeypatch):
+    """Property check on random rectangles: with a distinct fire_id per fire, A+B ignites every cell no later than A or B."""
+    monkeypatch.setattr(SZ, "_densify", lambda ring, step=None: ring)   # straight edges under the synthetic projection
+    rng = np.random.default_rng(20261017)
+    for trial in range(600):
+        fires = []
+        for name in ("A", "B"):
+            zs = []
+            for _ in range(int(rng.integers(1, 4))):
+                x0, y0 = rng.uniform(-600, 2800), rng.uniform(-600, 2100)
+                w, hgt = rng.uniform(200, 2400), rng.uniform(200, 1800)
+                zs.append(fire(rect(x0, y0, x0 + w, y0 + hgt, float(rng.choice([0.25, 0.5, 1.0, 1.5, 2.0, 3.0]))), name))
+            fires.append(zs)
+        a, b = fires
+        try:
+            ta, tb, tab = (np.array(run(z)["times"]) for z in (a, b, a + b))
+        except APIError:                                   # a random zone may miss the grid entirely
+            continue
+        assert np.all(tab <= ta) and np.all(tab <= tb), trial
+
+
+def test_invalid_fire_id_is_422():
+    bad = rect(375, 375, 1125, 1125, 1.0)
+    bad["properties"]["fire_id"] = 7
+    with pytest.raises(APIError) as e:
+        run([bad])
     assert e.value.status == 422 and e.value.code == "INVALID_ZONES"

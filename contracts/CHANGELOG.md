@@ -99,3 +99,31 @@ Additive:
 Earlier versions, for clarity. No version removed or renamed a field. v1.4 tightened validation (dispatch `full` only,
 duplicate offsets, attempt cap, non-finite numbers) and made an unfinished requested independent check `unresolved`.
 v1.5 changed the band rule.
+
+## v1.7 — spread_zones fires, launch-pause race, provenance commit
+
+Behaviour changes:
+- spread_zones takes an optional `fire_id` per zone. Zones with the same `fire_id`, or all zones without one, are one
+  fire. Nesting is computed within a fire only.
+- A zone cut off by the region grid or window edge is never nested, because its hidden part could lie outside the
+  other zone. `assumptions.zones_cut_off_by_grid_edge` lists such zones.
+- A cell's band is now (H_prev, H], where H_prev is the smallest prev over **all** zones touching the cell. v1.6 used
+  only the zones with the cell's smallest H.
+- With a distinct `fire_id` per fire, adding another fire's zones never makes any cell ignite later; a property test
+  checks this. Without fire ids, a zone lying inside another zone of larger H is read as its inner band (the one-fire
+  band rule).
+- Correction to v1.6: its "can lower H_prev but never raise it" held only for a zone beside the band's existing inner
+  zone. It did not hold for a band without an inner zone of its own, for a zone containing that inner zone, or for a
+  zone cut off by the grid edge.
+- The adapter version is now `wfg.api.spread-zones-adapter/3`, so the same zones give new scenario IDs.
+- A route check queued behind an attempt that died or reported an unconfirmed cleanup no longer starts before the
+  pause takes effect. The pause is now decided before the worker slot is freed, and the feeder checks again after
+  taking a slot.
+- Provenance `git_commit` now trusts `git rev-parse HEAD` only when the repository root is the top of its own git
+  work tree. Otherwise it uses `WFG_API_GIT_COMMIT` or `unknown`, and `git_dirty` is null. This covers the v1.6
+  precedence change too: the checkout's own commit wins over `WFG_API_GIT_COMMIT`.
+
+Documentation only:
+- More than 200 zones fails contract validation (422 `VALIDATION_ERROR`). The adapter's own `INVALID_ZONES` check is
+  only a backstop.
+- A `failed` job has either an `unresolved` result or `result: null` (`SERVER_RESTARTED`, or a failed dispatch plan).
