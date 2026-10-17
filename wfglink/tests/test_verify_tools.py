@@ -505,10 +505,28 @@ def test_identity_is_stable_and_sensitive(tmp_path):
 
 # CLI ------------------------------------------------------------------------------------------
 
-@pytest.mark.parametrize("name", ["dataset", "train", "calibrate", "replay", "freeze", "bench"])
-def test_later_subcommands_are_clean_stubs(name, capsys):
-    assert verify_main(["verify", name, "--anything", "x"]) == 2
-    assert "not implemented yet (later builder)" in capsys.readouterr().err
+@pytest.mark.parametrize("cmd", [["dataset", "run", "--labels", "l.csv", "--out", "o"],
+                                 ["train", "ds", "--report", "r.json"],
+                                 ["calibrate", "--dataset", "ds", "--recording", "run", "truth.json", "--out", "o"],
+                                 ["replay", "run", "--method", "rules", "--out", "o"],
+                                 ["freeze", "draft.yaml", "--out", "o", "--windows", "sealed_test", "w"],
+                                 ["bench", "--synthetic", "--seconds", "1", "--out", "b.json"]])
+def test_training_selection_and_runtime_subcommands_parse(cmd):
+    """dataset, train, calibrate, replay, freeze and bench are real subcommands (their behaviour is
+    tested in test_verify_train.py and test_verify_replay.py); a call without their required
+    arguments is a usage error."""
+    import argparse
+
+    from wfglink.verify import cli_tools
+    from wfglink.verify.cli_tools import add_parser
+
+    parser = argparse.ArgumentParser(prog="wfglink")
+    add_parser(parser.add_subparsers(dest="command", required=True))
+    args = parser.parse_args(["verify", *cmd])
+    assert args.func is getattr(cli_tools, f"cmd_{cmd[0]}")
+    with pytest.raises(SystemExit) as exc:
+        verify_main(["verify", cmd[0], "--anything", "x"])
+    assert exc.value.code == 2
 
 
 def test_verify_group_adds_to_the_wfglink_parser():
@@ -534,7 +552,8 @@ def test_no_dashes_in_verify_sources():
     import wfglink
 
     root = Path(wfglink.__file__).parent / "verify"
-    mine = ["cli_tools.py", "audit.py", "sheets.py", "windows.py", "truth.py", "evaluate.py", "identity.py"]
+    mine = ["cli_tools.py", "audit.py", "sheets.py", "windows.py", "truth.py", "evaluate.py", "identity.py",
+            "dataset.py", "train.py", "calibrate.py", "replay.py", "freeze.py", "bench.py"]
     for name in mine:
         text = (root / name).read_text(encoding="utf-8")
         assert chr(0x2014) not in text and chr(0x2013) not in text, name

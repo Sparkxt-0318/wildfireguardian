@@ -178,7 +178,16 @@ class MLP:
         h = np.maximum(h_pre, 0.0)
         return h_pre, h, h @ self.W2 + self.b2
 
-    def fit(self, X: np.ndarray, y: np.ndarray) -> "MLP":
+    def fit(self, X: np.ndarray, y: np.ndarray, val: tuple[np.ndarray, np.ndarray] | None = None,
+            patience: int | None = None, max_seconds: float | None = None) -> "MLP":
+        """Train for at most `epochs` epochs. With val = (X_val, y_val) the pos_weight-weighted
+        mean log loss on it is measured after every epoch and the best epoch's weights are kept;
+        patience stops after that many epochs without improvement, max_seconds after that wall
+        time. epochs_run, best_epoch, stopped and val_history record what happened. Without
+        them the fit is the plain fixed-epoch fit (same weights, bit for bit)."""
+        import time as _time
+
+        t_start = _time.perf_counter()
         Z = self.std.fit(X).transform(X)
         y = np.asarray(y, np.float64)
         n, d = Z.shape
@@ -193,6 +202,13 @@ class MLP:
         v = [np.zeros_like(q) for q in params]
         b1_, b2_, eps, step = 0.9, 0.999, 1e-8, 0
         self.history = []
+        self.val_history: list[float] = []
+        self.epochs_run, self.best_epoch, self.stopped = 0, None, "epochs"
+        Zv = yv = wv = None
+        if val is not None:
+            Zv, yv = self.std.transform(val[0]), np.asarray(val[1], np.float64)
+            wv = np.where(yv > 0.5, self.pos_weight, 1.0)
+        best, wait = None, 0
         for ep in range(self.epochs):
             order = rng.permutation(n)
             tot = 0.0
@@ -229,6 +245,24 @@ class MLP:
                     q -= self.lr * (mq / (1 - b1_ ** step)) / (np.sqrt(vq / (1 - b2_ ** step)) + eps)
                 self.b2 = float(params[3][0])
             self.history.append(tot)
+            self.epochs_run = ep + 1
+            if Zv is not None and len(yv):
+                zv = self._forward(Zv)[2]
+                lv = float(np.sum(wv * (_softplus(zv) - yv * zv)) / max(float(wv.sum()), 1e-12))
+                self.val_history.append(lv)
+                if best is None or lv < best[0] - 1e-12:
+                    best, wait = (lv, ep + 1, [q.copy() for q in params]), 0
+                else:
+                    wait += 1
+                if patience is not None and wait >= int(patience):
+                    self.stopped = "early_stopping"
+                    break
+            if max_seconds is not None and _time.perf_counter() - t_start > float(max_seconds):
+                self.stopped = "time_cap"
+                break
+        if best is not None:
+            params = best[2]
+            self.best_epoch = best[1]
         self.W1, self.b1, self.W2 = params[0], params[1], params[2]
         self.b2 = float(params[3][0])
         return self
@@ -417,7 +451,12 @@ def validate(model: Model, patch_px: int) -> None:
                 need(np.asarray(p.mean).shape == (n_patch,) and np.asarray(p.components).ndim == 2
                      and np.asarray(p.components).shape[1] == n_patch and p.k > 0)
         if model.kind == "patch":
-            need(d == (model.pca.k if model.pca is not None else n_patch))
+            # Inputs: the patch PCA components (or the pixels), then any per-hit scalars named
+            # in feature_names (scorers.patch_inputs).
+            from wfglink.verify.features import FEATURE_NAMES
+
+            n_hit = sum(1 for n in model.feature_names if n in FEATURE_NAMES)
+            need(d == (model.pca.k if model.pca is not None else n_patch) + n_hit)
         elif model.kind == "temporal":
             need(model.pca is None and d == len(model.feature_names))
         env = model.envelope

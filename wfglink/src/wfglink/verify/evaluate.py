@@ -16,6 +16,25 @@ crash also uses it up): sealed_test_scored.json next to the protocol and
 results/validation/sealed_scored/<protocol SHA-256>.json in the project, so a copy of the
 protocol in another folder is refused too. Any later scoring is refused.
 
+Frozen protocols (verify freeze) are YAML (.yaml or .yml, read with yaml.safe_load; any
+other suffix is JSON) with the draft's own keys; `normalise_protocol` maps their targets
+(accepted_track_precision -> precision, accepted_track_recall -> recall_min,
+false_accepted_tracks_per_min -> false_tracks_per_min_max, false_crossings_per_min ->
+false_crossings_per_min_max) and takes name from run_id. Their truth is a list, one entry per
+recording ({population, recording, sealed, video_sha256, segment_s, path, sha256, ...}):
+evaluate_run scores a run against the entry of its video and segment start (or the one named
+by recording), and the entry's sealed flag decides the lock; a sealed entry's locks carry its
+recording (sealed_test_scored_<recording>.json, <protocol SHA-256>_<recording>.json), so each
+sealed recording is scored once. The sealed recordings are one test, scored with one scorer:
+the first sealed scoring under a protocol records the run's scorer identity (scorer_identity:
+method, profile, overlay, verify section and model or thresholds SHA-256, threshold, and the
+selection.json SHA-256 when one is given) in sealed_test_identity.json next to the protocol
+and <protocol SHA-256>_identity.json in the project, and a later sealed recording whose run
+has another identity is refused before its lock is taken. With selection (verify eval
+--selection, the committed selection.json of verify calibrate), the run must be the selected
+one: the selected family as its method, the overlay SHA-256 the selection pinned, and the
+selected model SHA-256 and threshold (patch, temporal) or thresholds SHA-256 (rules).
+
 Inputs (`load_predictions`). A high-precision run must hold, in high_precision/,
 hp_summary.json, hp_decisions.parquet (state, track_id, revoked), hp_events.parquet
 (track_id or key, t, x, y), hp_frames.parquet (frame and a boolean motion_unsupported) and
@@ -97,7 +116,9 @@ import numpy as np
 from wfglink import PROJECT_ROOT
 
 LOCK_NAME = "sealed_test_scored.json"
+IDENTITY_NAME = "sealed_test_identity.json"
 SEALED_DIR = PROJECT_ROOT / "results" / "validation" / "sealed_scored"   # one lock per protocol SHA-256
+SCORER_KEYS = ("overlay_sha256", "verify_sha256", "model_sha256", "sidecar_sha256", "thresholds_sha256", "threshold")
 TIME_TOL_S = 1e-6
 PASSED, FAILED, INSUFFICIENT = "PASSED", "FAILED", "INSUFFICIENT_EVIDENCE"
 DEFAULTS: dict[str, Any] = {
@@ -145,7 +166,16 @@ def load_protocol(path: str | Path, expect_sha256: str | None, require_clean: bo
     sha = sha256_file(p)
     if sha != expect_sha256.strip().lower():
         raise ProtocolError(f"the protocol's SHA-256 is {sha[:16]}, not the pinned {expect_sha256[:16]}: refused")
-    proto = json.loads(p.read_text(encoding="utf-8"))
+    text = p.read_text(encoding="utf-8")
+    if p.suffix.lower() in (".yaml", ".yml"):
+        import yaml
+
+        proto = yaml.safe_load(text)
+    else:
+        proto = json.loads(text)
+    if not isinstance(proto, dict):
+        raise ProtocolError(f"{p} does not hold a protocol mapping")
+    proto = normalise_protocol(proto)
     if proto.get("sealed") and not require_clean:
         raise ProtocolError("a sealed protocol is scored only as committed; the development override "
                             "(--allow-dirty) is refused for it")
@@ -158,6 +188,46 @@ def load_protocol(path: str | Path, expect_sha256: str | None, require_clean: bo
     return proto
 
 
+TARGET_ALIASES = {"accepted_track_precision": "precision", "accepted_track_recall": "recall_min",
+                  "false_accepted_tracks_per_min": "false_tracks_per_min_max",
+                  "false_crossings_per_min": "false_crossings_per_min_max"}
+
+
+def normalise_protocol(proto: dict[str, Any]) -> dict[str, Any]:
+    """A frozen protocol's draft keys in the shape scoring reads (see the module notes); the
+    keys scoring already reads are kept as they are."""
+    t = dict(proto.get("targets") or {})
+    for a, b in TARGET_ALIASES.items():
+        if a in t and b not in t:
+            t[b] = t[a]
+    if t:
+        proto["targets"] = t
+    if "name" not in proto and proto.get("run_id"):
+        proto["name"] = proto["run_id"]
+    return proto
+
+
+def pick_truth(proto: dict[str, Any], run_dir: str | Path, recording: str | None = None) -> dict[str, Any]:
+    """The truth entry of a list-form protocol for this run (its video and segment start), or
+    the one named by recording."""
+    entries = [e for e in (proto.get("truth") or []) if isinstance(e, dict)]
+    if recording is not None:
+        entries = [e for e in entries if str(e.get("recording")) == str(recording)]
+        if not entries:
+            raise ProtocolError(f"the protocol has no truth for recording {recording!r}")
+    summary_p = Path(run_dir) / "summary.json"
+    inp = (json.loads(summary_p.read_text(encoding="utf-8")).get("input") or {}) if summary_p.is_file() else {}
+    start = float((inp.get("segment_s") or [0.0])[0] or 0.0)
+    match = [e for e in entries if e.get("video_sha256") == inp.get("sha256")
+             and abs(float((e.get("segment_s") or [0.0])[0] or 0.0) - start) <= TIME_TOL_S]
+    if not match:
+        raise ProtocolError("the protocol pins no truth for this run's video and segment start")
+    if len(match) > 1:
+        raise ProtocolError(f"{len(match)} truth entries fit this run ({', '.join(str(e.get('recording')) for e in match)}"
+                            "): name one with recording")
+    return match[0]
+
+
 def settings(proto: dict[str, Any] | None = None) -> dict[str, Any]:
     """DEFAULTS overridden by the protocol's settings."""
     from wfglink.config import deep_merge
@@ -167,7 +237,13 @@ def settings(proto: dict[str, Any] | None = None) -> dict[str, Any]:
 
 
 def lock_paths(proto: dict[str, Any]) -> tuple[Path, Path]:
-    """(the lock next to the protocol, the project's lock for the protocol's SHA-256)."""
+    """(the lock next to the protocol, the project's lock for the protocol's SHA-256); for an entry
+    of a list-form protocol, both carry the entry's recording."""
+    rec = proto.get("_recording")
+    if rec:
+        tag = "".join(c if c.isalnum() or c in "-_." else "_" for c in str(rec))
+        return (Path(proto["_path"]).parent / f"{Path(LOCK_NAME).stem}_{tag}.json",
+                Path(SEALED_DIR) / f"{proto['_sha256']}_{tag}.json")
     return Path(proto["_path"]).parent / LOCK_NAME, Path(SEALED_DIR) / f"{proto['_sha256']}.json"
 
 
@@ -176,14 +252,109 @@ def sealed_used(proto: dict[str, Any]) -> Path | None:
     return next((p for p in lock_paths(proto) if p.exists()), None)
 
 
-def claim_sealed(proto: dict[str, Any], run_dir: str | Path) -> list[Path]:
-    """Create both sealed-test locks (exclusively) or refuse when either exists."""
+def scorer_identity(info: dict[str, Any], selection_sha256: str | None = None) -> dict[str, Any]:
+    """What one sealed test binds every sealed recording to: a high-precision run's method,
+    profile and scorer hashes (hp_summary scorer), or a legacy run's config_sha256; and the
+    selection.json SHA-256 when one was given."""
+    if info.get("source") == "legacy":
+        ident: dict[str, Any] = {"method": "legacy", "config_sha256": info.get("config_sha256")}
+    else:
+        sc = info.get("scorer") or {}
+        ident = {"method": info.get("method"), "profile": info.get("profile"), **{k: sc.get(k) for k in SCORER_KEYS}}
+    ident["selection_sha256"] = selection_sha256
+    return json.loads(json.dumps(ident, sort_keys=True, default=str))
+
+
+def identity_paths(proto: dict[str, Any]) -> tuple[Path, Path]:
+    """(the identity record next to the protocol, the project's for the protocol's SHA-256)."""
+    return Path(proto["_path"]).parent / IDENTITY_NAME, Path(SEALED_DIR) / f"{proto['_sha256']}_identity.json"
+
+
+def _identity_differs(have: dict[str, Any], want: dict[str, Any]) -> list[str]:
+    return sorted(k for k in set(have) | set(want) if have.get(k) != want.get(k))
+
+
+def bind_identity(proto: dict[str, Any], identity: dict[str, Any], run_dir: str | Path) -> list[Path]:
+    """The first sealed scoring under a list-form protocol records its scorer identity; a later
+    one with another identity is refused (ProtocolError). Returns the identity records made."""
+    from wfglink.provenance import now_shanghai
+
+    def check(p: Path) -> None:
+        have = (json.loads(p.read_text(encoding="utf-8")) or {}).get("identity") or {}
+        diff = _identity_differs(have, identity)
+        if diff:
+            raise ProtocolError(f"{p}: the sealed test was started with another scorer ({', '.join(diff)} differ, first "
+                                f"{have.get('method')!r}, now {identity.get('method')!r}); every sealed recording is "
+                                "scored with the scorer of the first: refused")
+
+    paths = identity_paths(proto)
+    for p in paths:
+        if p.exists():
+            check(p)
+    rec = {"protocol": proto["_path"], "protocol_sha256": proto["_sha256"], "identity": identity,
+           "first_recording": proto.get("_recording"), "first_run_dir": str(run_dir), "created": now_shanghai()}
+    made = []
+    for p in reversed(paths):                       # the project's record first: it also covers copies
+        if p.exists():
+            continue
+        p.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with open(p, "x", encoding="utf-8") as f:
+                json.dump(rec, f, indent=2)
+        except FileExistsError:
+            check(p)
+            continue
+        made.append(p)
+    return made
+
+
+def check_selection(path: str | Path, info: dict[str, Any], require_clean: bool = True) -> dict[str, Any]:
+    """The run is the one selection.json selected (see the module notes); returns its record."""
+    from wfglink.provenance import sha256_file
+
+    p = Path(path)
+    if not p.is_file():
+        raise ProtocolError(f"no selection at {p}")
+    if require_clean and git_clean(p) is not True:
+        raise ProtocolError(f"{p} is not committed or changed: the selection is used only as committed")
+    sel = json.loads(p.read_text(encoding="utf-8"))
+    fam = sel.get("family")
+    if sel.get("status") != "SELECTED" or not fam:
+        raise ProtocolError(f"the selection chose no method (status {sel.get('status')!r}): nothing to score")
+    if info.get("method") != fam:
+        raise ProtocolError(f"the selection chose {fam!r}, the run's method is {info.get('method')!r}")
+    if sel.get("profile") and info.get("profile") != sel["profile"]:
+        raise ProtocolError(f"the selection is for profile {sel['profile']!r}, the run's is {info.get('profile')!r}")
+    sc = info.get("scorer") or {}
+    if sel.get("overlay_sha256") and sc.get("overlay_sha256") != sel["overlay_sha256"]:
+        raise ProtocolError("the run's overlay SHA-256 is not the one the selection pinned")
+    if fam in ("patch", "temporal"):
+        if sc.get("model_sha256") != sel.get("model_sha256"):
+            raise ProtocolError("the run's model SHA-256 is not the selected model's")
+        if sel.get("threshold") is None or sc.get("threshold") is None or \
+                abs(float(sc["threshold"]) - float(sel["threshold"])) > 1e-12:
+            raise ProtocolError(f"the run's threshold {sc.get('threshold')} is not the selected {sel.get('threshold')}")
+    want = ((sel.get("pinned_identity") or {}).get(fam) or {}).get("thresholds_sha256")
+    if fam == "rules" and want and sc.get("thresholds_sha256") != want:
+        raise ProtocolError("the run's rules thresholds are not the ones the selection pinned")
+    return {"path": str(p), "sha256": sha256_file(p), "family": fam, "seed": sel.get("seed"), "q": sel.get("q"),
+            "threshold": sel.get("threshold"), "model_sha256": sel.get("model_sha256")}
+
+
+def claim_sealed(proto: dict[str, Any], run_dir: str | Path, identity: dict[str, Any] | None = None) -> list[Path]:
+    """Create both sealed-test locks (exclusively) or refuse when either exists; for an entry of
+    a list-form protocol, first bind (or check) the sealed test's scorer identity."""
     from wfglink.provenance import git_state, now_shanghai
 
     used = sealed_used(proto)
     if used is not None:
         raise ProtocolError(f"{used} exists: the sealed test was scored already (a second scoring is refused)")
+    if proto.get("_recording"):
+        if identity is None:
+            raise ProtocolError("a sealed recording of a list-form protocol is scored only with the run's scorer identity")
+        bind_identity(proto, identity, run_dir)
     rec = {"status": "started", "protocol": proto["_path"], "protocol_sha256": proto["_sha256"],
+           "recording": proto.get("_recording"), "identity": identity,
            "run_dir": str(run_dir), "started": now_shanghai(), **git_state()}
     made = []
     for p in reversed(lock_paths(proto)):            # the project's lock first: it also covers copies
@@ -700,15 +871,23 @@ def evaluate(truth: dict[str, Any], preds: dict[str, Any], proto: dict[str, Any]
 
 
 def evaluate_run(protocol: str | Path, expect_sha256: str, run_dir: str | Path, out: str | Path | None = None,
-                 require_clean: bool = True, cfg: dict | None = None) -> dict[str, Any]:
+                 require_clean: bool = True, cfg: dict | None = None, recording: str | None = None,
+                 selection: str | Path | None = None) -> dict[str, Any]:
     """Score a run under a frozen protocol (see the module notes); write the result to out.
 
     cfg: the config whose track settings replay a legacy run's static flags (default
-    configs/default.yaml); not used for high-precision runs."""
+    configs/default.yaml); not used for high-precision runs. recording: the truth entry of a
+    list-form protocol (default: the one of the run's video and segment start). selection: the
+    committed selection.json the run must match (its SHA-256 joins the sealed identity)."""
     from wfglink.provenance import git_state, now_shanghai, sha256_file, sha256_json
     from wfglink.verify.truth import load_truth
 
     proto = load_protocol(protocol, expect_sha256, require_clean)
+    if isinstance(proto.get("truth"), list):
+        entry = pick_truth(proto, run_dir, recording)
+        proto["truth"] = entry
+        proto["sealed"] = bool(entry.get("sealed", proto.get("sealed")))
+        proto["_recording"] = str(entry.get("recording") or "")
     if proto.get("sealed"):
         used = sealed_used(proto)
         if used is not None:
@@ -744,12 +923,15 @@ def evaluate_run(protocol: str | Path, expect_sha256: str, run_dir: str | Path, 
             raise ProtocolError(f"the run's high-precision status is {info['status']!r} "
                                 f"({info.get('status_reason') or 'no reason given'}): a sealed test is not spent on it")
         warnings.append(f"the run's high-precision status is {info['status']!r}: it accepts nothing as intended")
-    locks = claim_sealed(proto, run_dir) if proto.get("sealed") else []
+    sel = check_selection(selection, info, require_clean or bool(proto.get("sealed"))) if selection is not None \
+        else None
+    identity = scorer_identity(info, sel["sha256"] if sel else None)
+    locks = claim_sealed(proto, run_dir, identity) if proto.get("sealed") else []
     res = evaluate(truth, preds, proto)
     res.update(protocol={"path": proto["_path"], "sha256": proto["_sha256"], "name": proto.get("name"),
-                         "sealed": bool(proto.get("sealed"))},
+                         "sealed": bool(proto.get("sealed")), "recording": proto.get("_recording")},
                truth={"path": str(tpath), "sha256": tsha}, run_dir=str(run_dir), run=info, notes=warnings,
-               created=now_shanghai(), **git_state())
+               scorer_identity=identity, selection=sel, created=now_shanghai(), **git_state())
     text = json.dumps(res, indent=2, default=str)
     if out is not None:
         Path(out).parent.mkdir(parents=True, exist_ok=True)

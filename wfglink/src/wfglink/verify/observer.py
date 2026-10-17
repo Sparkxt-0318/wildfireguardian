@@ -246,8 +246,10 @@ class HighPrecisionObserver:
                 self.stats["dump_windows"] += 1
             else:
                 self.stats["dump_truncated"] = True
+        hv = [h.values for h in hits if h.patch is not None and h.values is not None]   # rows of window_patches
         return Window(vec, window_patches(hits), sum(h.values is not None for h in hits),
-                      any(h.values is None for h in hits), any(not h.supported for h in hits))
+                      any(h.values is None for h in hits), any(not h.supported for h in hits),
+                      np.stack(hv) if hv else None)
 
     def _feed(self, key: int, t: float, x: float, y: float, t_now: float, retro: bool) -> int:
         """One position of an accepted track into the counter; a new event gets its track's decision
@@ -315,13 +317,7 @@ class HighPrecisionObserver:
         fidx = int(frame.index)
         self._frame_now = fidx
         h, w = image.shape[:2]
-        ds = pipe.detector.state
-        fresh = (ds is not self._state_ref and ds is not None and ds.luma is not None
-                 and ds.background is not None and ds.sigma is not None and ds.luma.shape == (h, w))
-        if fresh:
-            ms = self.motion.update(ds.luma, t)
-        else:
-            ms = MotionStatus(0.0, 0.0, t < self.motion.unsupported_until)
+        ms, ds, fresh = self._motion_now(pipe, t, h, w)
         dt = t - self._last_t if self._last_t is not None else 0.0
         self._last_t = t
         self.stats["frames"] += 1
@@ -357,29 +353,7 @@ class HighPrecisionObserver:
             j = int(r[15])
             owner[j] = self.key(tr.track_id)
             prio[j] = 0 if tr.status == CONFIRMED else (1 if len(tr.records) >= 2 else 2)
-        self.hot.ensure((h, w))
-        levels = {f: d.state for f, d in getattr(pipe.detector, "levels", [])}
-        mirror = getattr(getattr(pipe.detector, "native", None), "mirror", None)
-        block = mirror.block if mirror is not None and mirror.enabled else None
-        batch = hit_features(det, ds if fresh else None, self.ring, self.hot, ms, levels, patch_cfg=v.patch, t=t,
-                             frame=fidx, priority=prio, cap=v.budget(self.profile), mirror_block=block)
-        self._batches.append((batch, not ms.unsupported))
-        over = int(batch.over_budget.sum()) if n and fresh else 0     # rows left without features by the budget
-        if over:
-            self.stats["over_budget_frames"] += 1
-        if n:
-            self.hot.add(det.x, det.y, t)
-        if fresh:
-            luma = ds.luma.copy() if image.ndim == 2 else ds.luma
-            self.ring.push(RingFrame(fidx, float(t), luma, ds.background, ds.sigma))
-            self._state_ref = ds
-        if v.dump and n:
-            if self.stats["dump_rows"] + n <= DUMP_MAX_ROWS:
-                self._dump_hits.append(np.column_stack([np.full(n, fidx), np.full(n, t), np.arange(n), owner,
-                                                        batch.over_budget, batch.values]))
-                self.stats["dump_rows"] += n
-            else:
-                self.stats["dump_truncated"] = True
+        batch, over = self._features(pipe, image, t, fidx, det, ds, fresh, ms, prio, owner)
 
         # 2. Hits of confirmed tracks; new candidates.
         measured: list[tuple[int, Any]] = []
@@ -457,6 +431,52 @@ class HighPrecisionObserver:
                            "tiles_changed": int(ms.tiles_changed), "over_budget": over, "cpc_gross": hp.cpc_gross, "count_rate": hp.count_rate,
                            "status": hp.precision_status, "observer_ms": round(ms_used, 3)})
         return hp
+
+    def _motion_now(self, pipe, t: float, h: int, w: int) -> tuple[MotionStatus, Any, bool]:
+        """Camera motion of this frame, the detector's native state and whether that state is new
+        (a fresh state of the picture's size; otherwise motion keeps its hold and no features)."""
+        ds = pipe.detector.state
+        fresh = (ds is not self._state_ref and ds is not None and ds.luma is not None
+                 and ds.background is not None and ds.sigma is not None and ds.luma.shape == (h, w))
+        if fresh:
+            ms = self.motion.update(ds.luma, t)
+        else:
+            ms = MotionStatus(0.0, 0.0, t < self.motion.unsupported_until)
+        return ms, ds, fresh
+
+    def _features(self, pipe, image: np.ndarray, t: float, fidx: int, det, ds, fresh: bool, ms: MotionStatus,
+                  prio: np.ndarray, owner: np.ndarray) -> tuple[HitBatch, int]:
+        """This frame's per-hit features (the ring and the hotspot map hold earlier frames only),
+        then the frame enters the ring and the map; the dump rows. Returns the batch and the
+        number of rows left without features by the budget. (verify/replay.py replaces this and
+        _motion_now with the dumped values.)"""
+        v = self.vcfg
+        h, w = image.shape[:2]
+        n = len(det)
+        self.hot.ensure((h, w))
+        levels = {f: d.state for f, d in getattr(pipe.detector, "levels", [])}
+        mirror = getattr(getattr(pipe.detector, "native", None), "mirror", None)
+        block = mirror.block if mirror is not None and mirror.enabled else None
+        batch = hit_features(det, ds if fresh else None, self.ring, self.hot, ms, levels, patch_cfg=v.patch, t=t,
+                             frame=fidx, priority=prio, cap=v.budget(self.profile), mirror_block=block)
+        self._batches.append((batch, not ms.unsupported))
+        over = int(batch.over_budget.sum()) if n and fresh else 0     # rows left without features by the budget
+        if over:
+            self.stats["over_budget_frames"] += 1
+        if n:
+            self.hot.add(det.x, det.y, t)
+        if fresh:
+            luma = ds.luma.copy() if image.ndim == 2 else ds.luma
+            self.ring.push(RingFrame(fidx, float(t), luma, ds.background, ds.sigma))
+            self._state_ref = ds
+        if v.dump and n:
+            if self.stats["dump_rows"] + n <= DUMP_MAX_ROWS:
+                self._dump_hits.append(np.column_stack([np.full(n, fidx), np.full(n, t), np.arange(n), owner,
+                                                        batch.over_budget, batch.values]))
+                self.stats["dump_rows"] += n
+            else:
+                self.stats["dump_truncated"] = True
+        return batch, over
 
     def _backfill(self, key: int, tr) -> None:
         """A new candidate's buffer from its earlier hits whose features are still held."""

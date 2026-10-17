@@ -96,13 +96,16 @@ PUBLIC_FIELDS = tuple(f.name for f in fields(TrackDecision) if f.name not in ("r
 @dataclass
 class Window:
     """What a checkpoint sees of a track: window features, patches of hits with features, the
-    number of such hits, and whether any hit lacked features or fell in motion-unsupported time."""
+    number of such hits, whether any hit lacked features or fell in motion-unsupported time,
+    and the per-hit features (FEATURE_NAMES) of the hits with patches, row for row (patch
+    models with hit scalars read them; None when not given)."""
 
     vec: np.ndarray
     patches: np.ndarray | None
     n_feature_hits: int
     over_budget: bool = False
     motion_tainted: bool = False
+    hit_values: np.ndarray | None = None
 
 
 def is_ever_accepted(d: TrackDecision) -> bool:
@@ -188,7 +191,10 @@ class Ledger:
         if window.n_feature_hits < scorer.min_hits:
             d.reasons.add("budget" if window.over_budget else "too_few_hits")
             return False
-        s, valid, reason = scorer.score(window.vec, window.patches)
+        # A scorer that needs more of the window than its features and patches (a patch model with
+        # hit scalars) reads the whole window.
+        score_window = getattr(scorer, "score_window", None)
+        s, valid, reason = score_window(window) if score_window is not None else scorer.score(window.vec, window.patches)
         if not valid:
             d.reasons.add(reason.split(":")[0] if reason.startswith("missing_feature") else reason)
             d.ood |= reason == "out_of_distribution"

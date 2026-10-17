@@ -14,7 +14,9 @@ of hits with features, (k, 2, P, P), or None.
   (value - threshold) / iqr for a lower bound and (threshold - value) / iqr for an upper one
   (raw margins for the two fixed rules), so the window passes when the score is >= 0. A rule
   whose feature is missing (NaN) makes the window invalid (missing_feature).
-- PatchScorer (family B): the mean logit of the window's hit patches (PCA, then the model).
+- PatchScorer (family B): the mean logit of the window's hit patches (PCA, then the model);
+  a model whose feature names list per-hit features (FEATURE_NAMES) after its PCA components
+  also takes those hit scalars of the same hits (patch_inputs; the window's hit_values).
 - TemporalScorer (family C): window features and patch PCA statistics, then the model.
   Both report sigmoid(logit) as the score and use the pinned threshold of their profile.
 - Unavailable(reason): never valid.
@@ -31,7 +33,7 @@ from typing import Any, Protocol
 import numpy as np
 
 from wfglink.verify.config import VerifyConfig
-from wfglink.verify.features import WI
+from wfglink.verify.features import FI, WI
 
 RULE_LOWER = ("snr_med", "speed_med", "net_disp", "straightness")
 RULE_UPPER = ("hotspot_max", "pre_presence_med", "bg_grad_med", "large_near_max", "codec_med", "ctx_change_med")
@@ -164,17 +166,52 @@ class _ModelScorer:
                 "sidecar_sha256": meta.get("sidecar_sha256"), "threshold": self.threshold}
 
 
+def hit_scalar_names(names) -> tuple[str, ...]:
+    """The per-hit features (FEATURE_NAMES) among a patch model's input names, in order."""
+    return tuple(n for n in names if n in FI)
+
+
+def patch_inputs(model, patches: np.ndarray, hit_values: np.ndarray | None = None) -> np.ndarray:
+    """A patch model's inputs per hit: the PCA projections of the flattened patches, then the
+    hit scalars its feature names list (hit_values: rows of FEATURE_NAMES, one per patch).
+    Without hit scalars the flattened patches themselves (the model's PCA applies in logits)."""
+    X = np.asarray(patches, np.float32).reshape(len(patches), -1)
+    hs = hit_scalar_names(model.feature_names)
+    if not hs:
+        return X
+    if hit_values is None or len(hit_values) != len(X):
+        raise ValueError("this patch model needs the hit scalars of every patch")
+    proj = model.pca.transform(X) if model.pca is not None else X.astype(np.float64)
+    H = np.asarray(hit_values, np.float64)[:, [FI[n] for n in hs]]
+    return np.hstack([proj, H])
+
+
+def patch_logits(model, patches: np.ndarray, hit_values: np.ndarray | None = None) -> np.ndarray:
+    """Per-hit logits of a patch model (training and the scorer use this one function)."""
+    X = patch_inputs(model, patches, hit_values)
+    if hit_scalar_names(model.feature_names):
+        return np.asarray(model.estimator.decision_function(X), np.float64)
+    return model.logits(X)
+
+
 class PatchScorer(_ModelScorer):
     method = "patch"
 
     def score(self, window_vec, patch_stats):
+        return self._score(window_vec, patch_stats, None)
+
+    def score_window(self, window):
+        return self._score(window.vec, window.patches, getattr(window, "hit_values", None))
+
+    def _score(self, window_vec, patch_stats, hit_values):
         w = np.asarray(window_vec, np.float64)
         if patch_stats is None or len(patch_stats) == 0:
             return math.nan, False, "too_few_hits"
         if self._ood(w):
             return math.nan, False, "out_of_distribution"
-        X = np.asarray(patch_stats, np.float32).reshape(len(patch_stats), -1)
-        z = float(np.mean(self.model.logits(X)))
+        if hit_scalar_names(self.model.feature_names) and (hit_values is None or len(hit_values) != len(patch_stats)):
+            return math.nan, False, "missing_feature:hit_values"
+        z = float(np.mean(patch_logits(self.model, patch_stats, hit_values)))
         return float(1.0 / (1.0 + math.exp(-z))) if z > -700 else 0.0, True, ""
 
 
@@ -276,5 +313,5 @@ def build_scorer(vcfg: VerifyConfig, profile: str):
     return Unavailable("unknown_method", method)
 
 
-__all__ = ["AcceptAll", "PatchScorer", "RuleScorer", "Scorer", "TemporalScorer", "Unavailable", "build_scorer", "ood",
-           "patch_pc_stats", "temporal_vector"]
+__all__ = ["AcceptAll", "PatchScorer", "RuleScorer", "Scorer", "TemporalScorer", "Unavailable", "build_scorer",
+           "hit_scalar_names", "ood", "patch_inputs", "patch_logits", "patch_pc_stats", "temporal_vector"]

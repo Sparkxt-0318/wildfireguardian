@@ -162,6 +162,7 @@ def _write_high_precision(out: Path, pipe, cfg: dict, summary: dict, *, points, 
 
     from wfglink.measure.gate import garwood_interval
     from wfglink.verify.config import OVERLAY
+    from wfglink.verify.replay import feature_settings_sha256
 
     obs = pipe.observer
     hp_dir = out / "high_precision"
@@ -242,7 +243,8 @@ def _write_high_precision(out: Path, pipe, cfg: dict, summary: dict, *, points, 
     ms = obs.observer_ms()
     identity = {**scorer.identity(), "overlay": OVERLAY.name,
                 "overlay_sha256": sha256_file(OVERLAY) if OVERLAY.exists() else None,
-                "verify_sha256": sha256_json(cfg.get("verify")), "config_sha256": sha256_json(cfg)}
+                "verify_sha256": sha256_json(cfg.get("verify")), "config_sha256": sha256_json(cfg),
+                "feature_settings_sha256": feature_settings_sha256(cfg)}
 
     # The frame-level pseudo-run: the legacy input block, and only the points drawn as accepted.
     fl = hp_dir / "frame_level"
