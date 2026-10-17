@@ -1,0 +1,486 @@
+{
+  "at": "2026-10-17T23:42:19+08:00",
+  "git": {
+    "git_commit": "dfa2ddd55c11c1bd8dfeccdc01461b0d7fc52d20",
+    "git_dirty": false
+  },
+  "seconds": 60.0,
+  "runs": {
+    "synthetic": {
+      "seconds": 60.7,
+      "frames": 653,
+      "paints": 648,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "synthetic",
+      "clip": "synthetic",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 5.4,
+        "cpc": 113,
+        "pnf": 0.8018825078910808,
+        "speed": 144.35479892383256,
+        "fps": 10.239825921570786,
+        "state": "synthetic",
+        "label": ""
+      },
+      "pipelines": {
+        "synthetic": {
+          "frames_in": 653,
+          "frames_analysed": 653,
+          "frames_duplicate": 0,
+          "tracks_finished": 618,
+          "tracks_static": 1,
+          "proc_ms_median": 80.83908099979453,
+          "proc_ms_p95": 113.7416518999089
+        }
+      },
+      "playback": {
+        "decoded": 0,
+        "shown": 704,
+        "late": 0,
+        "resyncs": 612,
+        "loops": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 22835.161,
+          "event": "synthetic",
+          "reason": "synthetic source"
+        }
+      ],
+      "states": {
+        "synthetic": 651
+      },
+      "clips": {},
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 22834.609,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "fire": 651
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 0,
+        "max_count": 0,
+        "speeds": 0,
+        "numbers": [],
+        "counts": {}
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ok": true,
+      "why": []
+    },
+    "playlist": {
+      "seconds": 59.9,
+      "frames": 805,
+      "paints": 802,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "playlist",
+      "clip": "C5_nist_emberometer",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 0.8421052631578947,
+        "cpc": 8,
+        "pnf": 0.09847802216740277,
+        "speed": 227.66424881451803,
+        "fps": 12.763497183073852,
+        "state": "playing",
+        "label": "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)"
+      },
+      "pipelines": {
+        "C5_nist_emberometer": {
+          "frames_in": 126,
+          "frames_analysed": 126,
+          "frames_duplicate": 0,
+          "tracks_finished": 160,
+          "tracks_static": 15,
+          "proc_ms_median": 66.5224375006801,
+          "proc_ms_p95": 102.629939750841
+        },
+        "C6_nist_dragon": {
+          "frames_in": 101,
+          "frames_analysed": 99,
+          "frames_duplicate": 2,
+          "tracks_finished": 216,
+          "tracks_static": 1,
+          "proc_ms_median": 45.78234000291559,
+          "proc_ms_p95": 60.81267399931676
+        }
+      },
+      "playback": {
+        "decoded": 1758,
+        "shown": 1757,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 2,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 22895.594,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 22914.72,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 22920.405,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 22939.471,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 22945.153,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        }
+      ],
+      "states": {
+        "playing": 803
+      },
+      "clips": {
+        "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 596,
+        "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 207
+      },
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 22895.296,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "fire": 803
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 0,
+        "max_count": 0,
+        "speeds": 0,
+        "numbers": [],
+        "counts": {}
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ok": true,
+      "why": []
+    },
+    "ember": {
+      "seconds": 60.0,
+      "frames": 838,
+      "paints": 839,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "synthetic",
+      "clip": null,
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": null,
+        "cpc": null,
+        "pnf": null,
+        "speed": 0.5086267969351973,
+        "fps": 13.715278405544854,
+        "state": "synthetic",
+        "label": ""
+      },
+      "pipelines": {
+        "ember": {
+          "frames_in": 838,
+          "frames_analysed": 838
+        }
+      },
+      "playback": {
+        "decoded": 0,
+        "shown": 0,
+        "late": 0,
+        "resyncs": 0,
+        "loops": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 22955.197,
+          "event": "paused"
+        },
+        {
+          "t": 22955.423,
+          "event": "synthetic",
+          "reason": "synthetic source"
+        }
+      ],
+      "states": {
+        "synthetic": 838
+      },
+      "clips": {},
+      "pauses": 0,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 22955.194,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "ember",
+      "raw": false,
+      "raw_toggles": 0,
+      "mode_switches": 0,
+      "modes": {
+        "ember": 838
+      },
+      "camera_state": "ok",
+      "ember": {
+        "states": 838,
+        "max_count": 4,
+        "speeds": 2373,
+        "numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "counts": {
+          "0": 6,
+          "1": 7,
+          "2": 48,
+          "3": 776,
+          "4": 1
+        }
+      },
+      "keys_pressed": [],
+      "threads_start": 1,
+      "threads_end": 1,
+      "ember_over_share": 0.0012,
+      "ok": true,
+      "why": []
+    },
+    "keys": {
+      "seconds": 59.9,
+      "frames": 773,
+      "paints": 813,
+      "errors": [],
+      "error_count": 0,
+      "worker_mode": "thread",
+      "source": "playlist",
+      "clip": "C5_nist_emberometer",
+      "quit_confirmed": false,
+      "signal": null,
+      "last": {
+        "count_rate": 0.27272727272727276,
+        "cpc": 2,
+        "pnf": 0.03189345036103386,
+        "speed": 116.59217554357245,
+        "fps": 12.880387770482937,
+        "state": "playing",
+        "label": "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)"
+      },
+      "pipelines": {
+        "C5_nist_emberometer": {
+          "frames_in": 93,
+          "frames_analysed": 93,
+          "frames_duplicate": 0,
+          "tracks_finished": 118,
+          "tracks_static": 5,
+          "proc_ms_median": 70.31162999919616,
+          "proc_ms_p95": 110.85688339953775
+        },
+        "C6_nist_dragon": {
+          "frames_in": 100,
+          "frames_analysed": 95,
+          "frames_duplicate": 5,
+          "tracks_finished": 211,
+          "tracks_static": 1,
+          "proc_ms_median": 46.5703139998368,
+          "proc_ms_p95": 64.81767230034166
+        },
+        "ember": {
+          "frames_in": 343,
+          "frames_analysed": 343
+        }
+      },
+      "playback": {
+        "decoded": 960,
+        "shown": 955,
+        "late": 4,
+        "resyncs": 0,
+        "loops": 1,
+        "skipped": 0,
+        "failed": 0
+      },
+      "events": [
+        {
+          "t": 23015.502,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        },
+        {
+          "t": 23034.636,
+          "event": "started",
+          "clip": "C6_nist_dragon"
+        },
+        {
+          "t": 23036.042,
+          "event": "paused"
+        },
+        {
+          "t": 23063.048,
+          "event": "resumed"
+        },
+        {
+          "t": 23067.333,
+          "event": "started",
+          "clip": "C5_nist_emberometer"
+        }
+      ],
+      "states": {
+        "playing": 429,
+        "synthetic": 343
+      },
+      "clips": {
+        "NIST's Emberometer Measures Wildfire-Spreading Embers (2021)": 329,
+        "With Its Dragon, NIST Aims to Reduce the Toll of Wildfires (2014)": 100
+      },
+      "pauses": 2,
+      "screen": {
+        "name": "",
+        "moves": [
+          {
+            "t": 23015.257,
+            "screen": ""
+          }
+        ]
+      },
+      "ember_source": "synthetic",
+      "permission": "authorized",
+      "permission_asks": 0,
+      "mode": "fire",
+      "raw": false,
+      "raw_toggles": 2,
+      "mode_switches": 2,
+      "modes": {
+        "fire": 429,
+        "ember": 343
+      },
+      "camera_state": "off",
+      "ember": {
+        "states": 343,
+        "max_count": 3,
+        "speeds": 949,
+        "numbers": [
+          1,
+          2,
+          3
+        ],
+        "counts": {
+          "0": 6,
+          "1": 8,
+          "2": 26,
+          "3": 303
+        }
+      },
+      "keys_pressed": [
+        {
+          "key": "A",
+          "at_s": 9.0,
+          "mode": "fire",
+          "raw": true,
+          "paused": false
+        },
+        {
+          "key": "A",
+          "at_s": 15.0,
+          "mode": "fire",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "M",
+          "at_s": 21.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "Space",
+          "at_s": 36.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": true
+        },
+        {
+          "key": "Space",
+          "at_s": 39.0,
+          "mode": "ember",
+          "raw": false,
+          "paused": false
+        },
+        {
+          "key": "M",
+          "at_s": 48.0,
+          "mode": "fire",
+          "raw": false,
+          "paused": false
+        }
+      ],
+      "threads_start": 1,
+      "threads_end": 2,
+      "ember_over_share": 0.0,
+      "ok": true,
+      "why": []
+    }
+  },
+  "ember_scene_phones": 3,
+  "pass": true,
+  "tested_commit": "dfa2ddd55c11c1bd8dfeccdc01461b0d7fc52d20",
+  "note": "Run directly with python -m wfglink demo-gate (the gate of scripts/tag_demo.sh) on an export of the tested commit; no tag was made or pushed (the brief forbids a tag). The calibration preview ran on the same host at the same time, so frame counts are lower than an idle run."
+}
