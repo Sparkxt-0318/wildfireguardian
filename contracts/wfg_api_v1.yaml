@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: WildfireGuardian Route-Check API
-  version: 1.1.0
+  version: 1.2.0
   summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
   description: |
     WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
@@ -61,6 +61,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegionList'
+        '503':
+          $ref: '#/components/responses/Unavailable'
   /regions/{region}/forecast:
     get:
       tags: [forecast]
@@ -99,6 +101,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/Unprocessable'
+        '503':
+          $ref: '#/components/responses/Unavailable'
   /route-checks:
     post:
       tags: [route-checks]

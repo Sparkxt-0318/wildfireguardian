@@ -23,3 +23,9 @@ Any change after the first push is recorded here with a new minor version (v1.1,
 - `Provenance` gains optional `recorded_mission_match`.
 - New 422 error codes are documented in `Error.code`.
 - The `spread_zones` scope is documented: `input_time` must be a recorded input time, and the hazard horizon is 1 h.
+
+## v1.2 — declare 503 on read endpoints (additive)
+
+- `GET /regions` and `GET /regions/{region}/forecast` can return `503 DATA_UNAVAILABLE` when the recorded routing inputs
+  are not installed (`python tools/fetch_routing_inputs.py`). `POST /route-checks` and `POST /dispatch-plans` already
+  declared it. Found by the contract tests.

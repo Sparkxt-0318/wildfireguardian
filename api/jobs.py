@@ -25,6 +25,11 @@ def _init_worker():
     from . import config  # noqa: F401  (puts integration/src first on sys.path)
 
 
+def _ready():
+    import sys
+    return sys.path[:1]
+
+
 def _execute(spec):
     from .runner import execute
     return execute(spec)
@@ -50,6 +55,9 @@ class JobManager:
         self._seq = itertools.count()
         self._slots = threading.Semaphore(workers)
         self._stop = threading.Event()
+        # start every worker now, while sys.path is clean, so later imports in the server cannot leak into workers
+        for f in [self.pool.submit(_ready) for _ in range(workers)]:
+            f.result(timeout=120)
         self._feeder = threading.Thread(target=self._feed, name="wfg-feeder", daemon=True)
         self._feeder.start()
 

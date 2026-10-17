@@ -6,8 +6,8 @@ models. It only decides per-cell ignition times and then builds the hazard packe
 (``bridge.draw_ignitions``) -- the same injection point ``packets.construct_regional`` uses for regional windows.
 
 Rules (all echoed under ``assumptions``):
-* Rasterization (conservative): a 375 m cell belongs to a zone when the zone polygon intersects the cell (centre or
-  corner inside, or a polygon edge crossing the cell). A cell takes the band of the smallest ``arrival_h_max`` among
+* Rasterization (conservative): a 375 m cell belongs to a zone when the zone polygon intersects the cell's interior
+  (centre or corner inside, or a polygon edge crossing the cell); sharing only a boundary line does not count. A cell takes the band of the smallest ``arrival_h_max`` among
   the zones that touch it (nested zones).
 * Bands: the distinct ``arrival_h_max`` values sorted ascending give bands (H_prev, H]; H_prev = 0 for the innermost.
 * Ignition: a cell in band (H_prev, H] may ignite from max(0, H_prev - margin) (margin default 60 min). Four scenarios:
@@ -103,8 +103,9 @@ def rasterize(polys_xy: list, grid: dict) -> np.ndarray:
     H, W, res = int(grid["height"]), int(grid["width"]), float(grid["resolution"])
     x0, ytop = float(grid["x0"]), float(grid["y0"]) + H * res
     cols, rows = np.meshgrid(np.arange(W), np.arange(H))
-    xl = x0 + cols * res; xr = xl + res
-    yt = ytop - rows * res; yb = yt - res
+    eps = 1e-6 * res     # closed cell minus a hair: a polygon that only shares a cell's boundary line does not claim it
+    xl = x0 + cols * res + eps; xr = x0 + (cols + 1) * res - eps
+    yt = ytop - rows * res - eps; yb = ytop - (rows + 1) * res + eps
     mask = np.zeros((H, W), dtype=bool)
     for rings in polys_xy:
         pts = [((xl + xr) / 2, (yb + yt) / 2), (xl, yb), (xr, yb), (xr, yt), (xl, yt)]

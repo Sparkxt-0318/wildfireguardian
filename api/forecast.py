@@ -15,6 +15,18 @@ _cache: dict = {}
 _lock = threading.Lock()
 
 
+def _packets():
+    """Import wfg_latest.packets without keeping the sys.path entry it inserts (its directory holds a module named
+    ``api``, which would shadow this package in pool workers spawned later)."""
+    import sys
+    saved = list(sys.path)
+    try:
+        from wfg_latest import packets
+    finally:
+        sys.path[:] = saved
+    return packets
+
+
 def forecast_collection(region, sset, identity, only_nonzero=False) -> dict:
     tag = sset.tag
     if tag not in region.exports:
@@ -53,8 +65,7 @@ def _build(region, sset, identity, npz_path, rec_path, arrays_path, hashes) -> d
         fc = {k: z[k].copy() for k in z.files}
     window = (md.get("regional") or {}).get("window_rows_cols_north_up")
     if window is not None:     # regional window of a shared event grid: the packet writer's own crop rule
-        from wfg_latest import packets as P
-        fc = P.crop_forecast(fc, window)
+        fc = _packets().crop_forecast(fc, window)
     q, valid = fc["new_burn_probability"], fc["probability_valid"]
     aff = [float(v) for v in fc["affine_transform"]]
     if any(abs(a - b) > 1e-6 for a, b in zip(aff, md["affine_transform"])):

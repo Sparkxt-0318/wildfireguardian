@@ -358,6 +358,11 @@ def execute(spec: dict) -> dict:
             out["arrival_s"] = journey["arrival"]
             out["dwell_end_s"] = journey["arrival"] + dwell
             out["route"] = route_feature(journey, request, edges, node_lonlat)
+            stage = (result.get("result") or {}).get("published_stage")
+            rh = [st_.get("route_sha256") for st_ in result.get("rda_stages") or []
+                  if isinstance(st_, dict) and st_.get("stage") == stage and st_.get("route_sha256")]
+            out["route"]["properties"]["route_sha256"] = rh[-1] if rh else None
+            out["route"]["properties"]["published_stage"] = stage
             if len(out["route"]["geometry"]["coordinates"]) < 2:
                 raise RuntimeError("DEGENERATE_ROUTE")
             if policy == "full":
