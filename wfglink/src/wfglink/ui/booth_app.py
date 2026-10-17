@@ -231,7 +231,10 @@ class LiveAnalyser:
         self._times.append(now)
         span = self._times[-1] - self._times[0]
         s = _own_state(st)
-        if not self.show_unconfirmed:
+        obs = getattr(self.pipes[key], "observer", None)
+        if obs is not None:      # high-precision mode: the accepted tracks' points only
+            s.detections = obs.accepted_points(s.t)
+        elif not self.show_unconfirmed:
             s.detections = confirmed_points(self.pipes[key], s.t)
         s.source_label = str(m.get("label") or "")
         s.source_credit = str(m.get("credit") or "")

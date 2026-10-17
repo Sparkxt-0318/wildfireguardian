@@ -10,6 +10,12 @@ Timing: every frame carries its true presentation time (file mode), or its playb
 time; the times stay true). Repeated frames (difference below the noise level) are skipped
 so they never create zero displacements. At a cut in the booth playlist (next segment, or
 the same clip again) cut() restarts the background model and the tracks and keeps the counts.
+
+High-precision mode (opt-in): with a `verify` config section (configs/high_precision.yaml) the
+pipeline carries a HighPrecisionObserver (wfglink/verify/observer.py), imported only then. It
+sees every analysed frame after the legacy state is built, every retired track, cuts and the
+end, and returns the LiveState of the accepted tracks; the legacy state, counter and tables
+are computed exactly as without it.
 """
 from __future__ import annotations
 
@@ -75,6 +81,13 @@ def _smooth_tail(pts: np.ndarray, max_turn_deg: float = 100.0) -> np.ndarray:
     return pts[sharp[-1] + 1:] if sharp.size else pts
 
 
+def _make_observer(cfg: dict, pipe: "Pipeline"):
+    """The high-precision verifier (wfglink/verify), imported only when the config asks for it."""
+    from wfglink.verify.observer import HighPrecisionObserver
+
+    return HighPrecisionObserver(cfg, pipe)
+
+
 class Pipeline:
     def __init__(self, cfg: dict, gate: dict | None = None,
                  fps: float | None = None, m_per_px: float | None = None, distance_m: float | None = None,
@@ -108,6 +121,8 @@ class Pipeline:
         self._rep_move = float(fr.get("repeat_move_px", 1.5))
         self._mask: np.ndarray | None = None
         self.reset()
+        # High-precision mode (opt-in, configs/high_precision.yaml): only with a verify section.
+        self.observer = _make_observer(cfg, self) if "verify" in cfg else None
 
     # State ----------------------------------------------------------------------------------
     def reset(self) -> None:
@@ -131,6 +146,8 @@ class Pipeline:
         self._last_prune = -np.inf
         self.last_state = LiveState()
         self.stats = PipelineStats()
+        if getattr(self, "observer", None) is not None:
+            self.observer.reset()
 
     def _make_detector(self) -> MultiScaleDetector:
         # File mode (record) analyses large frames at several scales (detect/multiscale.py);
@@ -149,6 +166,8 @@ class Pipeline:
             self.tracker.set_exposure_hint(self.t_exp_hint)
         self._prev_small = None
         self._moving_last = None
+        if self.observer is not None:
+            self.observer.on_cut()
 
     def _ensure_gate(self, w: int, h: int) -> None:
         if self._gate_obj is not None and self._size == (w, h):
@@ -220,6 +239,8 @@ class Pipeline:
         self.stats.frames_analysed += 1
         self.stats.proc_ms.append((time.perf_counter() - t0) * 1000)
         state = self._build_state(image, t, det, snaps, meta)
+        if self.observer is not None:
+            state = self.observer.on_frame(self, frame, image, t, det, snaps, state)
         self.last_state = state
         return state
 
@@ -251,6 +272,8 @@ class Pipeline:
         self._moving_last = np.array(pts) if pts else None
 
     def _retire(self, tracks) -> None:
+        if self.observer is not None:
+            self.observer.on_retire(tracks)
         for tr in tracks:
             if tr.static:
                 self.counter.exclude(tr.track_id, since=getattr(tr, "static_since", None))
@@ -288,6 +311,8 @@ class Pipeline:
         """End of a file: finish the confirmed tracks still open so the stats include them."""
         if self.counter is not None:
             self._retire(self.tracker.finish_all())
+        if self.observer is not None:
+            self.observer.finalize()
 
     def _prepare(self, frame: Frame) -> tuple[np.ndarray, float, np.ndarray | None, dict]:
         img = frame.image

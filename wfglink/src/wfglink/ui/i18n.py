@@ -70,6 +70,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "limit_3": "보정에는 불확실성이 있습니다. 도로 표시는 도로 면에서만 크기를 알려 주므로, 공중의 불티는 가정한 거리 범위로 계산합니다.",
         "limit_4": "빛나고 보이는 불티만 셉니다. 개수는 최솟값이며, 플럭스는 NIST의 제곱미터당 값이 아니라 화면 속 선의 길이당 값입니다.",
         "limit_5": "검증은 합성 영상과 타당성 점검으로 했습니다. 실제 화재에서 NIST 장비와 나란히 비교하지는 않았습니다.",
+        "hp_mode": "고정밀 모드 ({m}), 검증된 궤적만",
+        "hp_unavailable": "검증기 없음, 집계 안 함",
+        "hp_motion": "카메라 움직임, 판정 보류",
+        "hp_incomplete": "분석 미완료",
+        "hp_timebase": "실시간 아님, 판정 안 함",
     },
     "en": {
         "app": "wfglink",
@@ -133,6 +138,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "limit_3": "Calibration is uncertain. Road markings only scale the road surface, so airborne embers use an assumed distance range.",
         "limit_4": "Only glowing, visible embers are counted, so counts are lower bounds. Flux is per length of a line in the picture, not NIST's per square metre.",
         "limit_5": "Validated on synthetic video and plausibility checks; not side by side with a NIST Emberometer in a real fire.",
+        "hp_mode": "High-precision mode ({m}), accepted tracks only",
+        "hp_unavailable": "Verifier unavailable, not counted",
+        "hp_motion": "Camera moving, decisions withheld",
+        "hp_incomplete": "Analysis incomplete",
+        "hp_timebase": "Not real time, no decisions",
     },
 }
 

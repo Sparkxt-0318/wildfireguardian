@@ -19,7 +19,10 @@ def cmd_live(args: argparse.Namespace) -> int:
     from wfglink.config import load_config
     from wfglink.ui.booth_app import ember_spec, run_live, source_spec
 
-    cfg = load_config(*(args.config or []), local=True)
+    if args.high_precision:
+        cfg = _hp_cfg(args.high_precision, args.config, local=True)
+    else:
+        cfg = load_config(*(args.config or []), local=True)
     spec = source_spec(synthetic=args.synthetic, playlist=args.playlist, clip=args.clip, cfg=cfg)
     if args.fake_camera and not Path(args.fake_camera).is_file():
         raise SystemExit(f"live: --fake-camera {args.fake_camera}: file not found")
@@ -31,6 +34,18 @@ def cmd_live(args: argparse.Namespace) -> int:
         with open(args.report, "w") as f:
             json.dump(res, f, indent=2, default=str)
     return 0 if (res["quit_confirmed"] or (args.duration and not res["signal"])) else 1
+
+
+def _hp_cfg(method: str, extra: list[str] | None, local: bool = False, dump: bool = False) -> dict:
+    """The config of high-precision mode (configs/high_precision.yaml over default.yaml, then the extra
+    configs, then the method); wfglink.verify is imported only here."""
+    from wfglink.verify.config import hp_config
+
+    try:
+        return hp_config(method, extra_configs=extra or (), overrides={"verify": {"dump": True}} if dump else None,
+                         local=local)
+    except ValueError as exc:
+        raise SystemExit(f"--high-precision: {exc}") from None
 
 
 def _gate_arg(text: str | None) -> dict | None:
@@ -50,7 +65,12 @@ def cmd_process(args: argparse.Namespace) -> int:
     from wfglink.config import load_config
     from wfglink.outputs.process import process_clip
 
-    cfg = load_config(*(args.config or []))
+    if args.verify_dump and not args.high_precision:
+        raise SystemExit("--verify-dump needs --high-precision")
+    if args.high_precision:
+        cfg = _hp_cfg(args.high_precision, args.config, dump=args.verify_dump)
+    else:
+        cfg = load_config(*(args.config or []))
     clip = Path(args.clip)
     cc: dict = {}
     if clip.suffix in (".yaml", ".yml"):   # a clip settings file (data/clips/<id>.yaml)
@@ -71,6 +91,10 @@ def cmd_process(args: argparse.Namespace) -> int:
           f"CPC gross {t.get('cpc_gross')}, speed median {t.get('speed_px_s', {}).get('median')} px/s -> {out}")
     for w in s["warnings"]:
         print("warning:", w)
+    if "high_precision" in s:
+        hp = s["high_precision"]
+        print(f"high precision ({hp['method']}, {hp['profile']}): {hp['status']}, {hp['accepted_tracks']} accepted "
+              f"tracks, CPC gross {hp['cpc_gross']} -> {out / hp['folder']}")
     return 0
 
 
@@ -283,6 +307,28 @@ def cmd_demo_gate(args: argparse.Namespace) -> int:
     return demo_gate(seconds=args.seconds, playlist=args.playlist, out=args.out, config=args.config)
 
 
+def cmd_verify(args: argparse.Namespace) -> int:
+    """`verify ...`: the verifier's offline tools; wfglink/verify/cli_tools.py is imported only now."""
+    try:
+        from wfglink.verify.cli_tools import add_parser
+    except ImportError as exc:
+        raise SystemExit(f"verify: the offline tools are not available ({exc})") from None
+    parser = argparse.ArgumentParser(prog="wfglink")
+    add_parser(parser.add_subparsers(dest="command", required=True))
+    sub_args = parser.parse_args(["verify", *args.verify_args])
+    return int(sub_args.func(sub_args) or 0)
+
+
+def _add_verify(sub) -> None:
+    """Register `verify`: the arguments are parsed by wfglink.verify.cli_tools.add_parser(sub) in
+    cmd_verify, so no other command imports wfglink.verify."""
+    p = sub.add_parser("verify", add_help=False, prefix_chars="+",
+                       help="high-precision verifier tools (audit, sheets, windows, truth, dataset, train, calibrate, "
+                            "replay, freeze, eval, bench, identity); `verify -h` lists them")
+    p.add_argument("verify_args", nargs="*")
+    p.set_defaults(func=cmd_verify)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="wfglink", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -311,6 +357,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--report", default=None, help="write a JSON report of the run here")
     p.add_argument("--screenshot", default=None, help="save the screen here when --duration ends")
     p.add_argument("--config", nargs="*", help="extra YAML config files")
+    p.add_argument("--high-precision", nargs="?", const="rules", default=None, metavar="METHOD",
+                   help="high-precision mode: count and draw only tracks accepted by METHOD (accept_all, rules, "
+                        "patch, temporal; default rules); configs/high_precision.yaml")
     p.set_defaults(func=cmd_live)
 
     p = sub.add_parser("process", help="file mode: tables, summary JSON and overlay video for one clip")
@@ -326,6 +375,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--m-per-px", type=float, default=None, help="scale at the stated distance (default: pixels)")
     p.add_argument("--distance-m", type=float, default=None)
     p.add_argument("--config", nargs="*")
+    p.add_argument("--high-precision", nargs="?", const="rules", default=None, metavar="METHOD",
+                   help="also write high_precision/: tables, counts and a frame-level run of the tracks accepted by "
+                        "METHOD (accept_all, rules, patch, temporal; default rules); the legacy outputs are unchanged")
+    p.add_argument("--verify-dump", action="store_true",
+                   help="with --high-precision: also write per-hit features and patches (offline replay, training)")
     p.set_defaults(func=cmd_process)
 
     p = sub.add_parser("plausibility", help="real-clip plausibility checks on a process run (writes plausibility.json)")
@@ -406,6 +460,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--out", default="results/runs/demo_gate")
     p.add_argument("--config", nargs="*", help="extra YAML config files")
     p.set_defaults(func=cmd_demo_gate)
+
+    _add_verify(sub)   # verify subcommands: wfglink.verify.cli_tools.add_parser(sub), imported lazily
     return parser
 
 

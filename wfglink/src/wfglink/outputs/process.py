@@ -140,6 +140,177 @@ def _track_table(points, counter, cfg: dict, t_exp: float | None, t_exp_sd: floa
     return pd.DataFrame(rows)
 
 
+def _stat(v) -> dict[str, Any]:
+    v = np.asarray(v, np.float64)
+    v = v[np.isfinite(v)]
+    return {"median": float(np.median(v)) if v.size else None, "p95": float(np.percentile(v, 95)) if v.size else None,
+            "n": int(v.size)}
+
+
+def _write_high_precision(out: Path, pipe, cfg: dict, summary: dict, *, points, rows, det_table, t_exp, t_exp_sd,
+                          m_per_px, distance_m, overlay: bool) -> dict[str, Any]:
+    """High-precision mode (wfglink/verify): write <out>/high_precision/ (the observer's tables as
+    Parquet, hp_summary.json and the frame-level pseudo-run frame_level/, whose detections are the
+    points drawn as accepted, so `label-score` scores them unchanged) and return the short block
+    for summary.json. The legacy files are not touched.
+
+    The track set of hp_tracks, hp_points, the delays and accepted_tracks is the tracks ever
+    accepted (accepted now, or accepted and then revoked as static): they were drawn and
+    counted while accepted, so the crossings in hp_tracks add up to the totals and every point
+    of frame_level/ is in hp_points (accepted_at marks the points drawn while accepted)."""
+    import pandas as pd
+
+    from wfglink.measure.gate import garwood_interval
+    from wfglink.verify.config import OVERLAY
+
+    obs = pipe.observer
+    hp_dir = out / "high_precision"
+    hp_dir.mkdir(parents=True, exist_ok=True)
+    tabs = obs.tables()
+    dec = tabs["hp_decisions"]
+    acc = dec[(dec["state"] == "method_accepted") | dec["revoked"].astype(bool)] if len(dec) else dec
+    acc0 = acc[acc["epoch"] == 0] if len(acc) else acc
+    acc_ids = set(acc0["track_id"].astype(int)) if len(acc0) else set()
+    pts = points[points["track_id"].isin(acc_ids)] if len(points) and acc_ids else points.iloc[0:0]
+    if len(pts):
+        tt = _track_table(pts, obs.counter, cfg, t_exp, t_exp_sd)
+        tabs["hp_tracks"] = tt.merge(tabs["hp_tracks"].drop(columns=["crossings_pos", "crossings_neg"]), on="track_id",
+                                     how="left")
+        # Drawn while accepted: from the acceptance on, and before the revocation of a revoked track.
+        a = acc0.set_index("track_id")
+        tid, tp = pts["track_id"], pts["t"].to_numpy()
+        t_acc, t_dec = tid.map(a["t_accept"]).to_numpy(float), tid.map(a["t_decision"]).to_numpy(float)
+        rev = tid.map(a["revoked"]).to_numpy(bool)
+        tabs["hp_points"] = pts.assign(accepted_at=(tp >= t_acc - 1e-9) & (~rev | (tp < t_dec - 1e-9)))
+    else:
+        tabs["hp_points"] = pts.assign(accepted_at=pd.Series(dtype=bool))
+    names = {}
+    for name, df in tabs.items():
+        df.to_parquet(hp_dir / f"{name}.parquet", index=False)
+        names[name] = f"{name}.parquet"
+    dump = obs.dump_arrays()
+    if dump is not None:
+        np.savez(hp_dir / "hp_patches.npz", **dump)
+        names["hp_patches"] = "hp_patches.npz"
+
+    # Totals from the high-precision counter, over the same span and with the same intervals as the
+    # legacy totals; the bootstrap only when crossings were fed all the time.
+    fr = pd.DataFrame(rows)
+    ready = fr[fr["ready"] & ~fr["duplicate"]] if len(fr) else fr
+    st = dict(obs.stats)
+    scorer = obs.scorer
+    available = bool(getattr(scorer, "available", True))
+    totals: dict[str, Any] | None = None
+    if obs.counting and obs.counter is not None and len(ready) > 1:
+        c = obs.counter
+        ta, tb = float(ready["t"].iloc[0]), float(ready["t"].iloc[-1])
+        dur = tb - ta
+        withheld = _withheld_in(tabs["hp_frames"], ta, tb)
+        sup = max(dur - withheld, 0.0)
+        cpc = c.cumulative_particle_count()
+        if withheld <= 0:
+            rg = c.rate_interval(ta, tb, net=False, cfg=cfg)
+            rate_ci, how = [rg["lo"], rg["hi"]], "garwood and moving-block bootstrap (union)"
+        else:
+            lo, hi = garwood_interval(cpc["gross"])
+            rate_ci = [lo / sup, hi / sup] if sup > 0 else [None, None]
+            how = "garwood (time with camera motion excluded)"
+        flux = c.particle_number_flux(sup, m_per_px=m_per_px, z_m=distance_m)
+        totals = {"duration_s": round(dur, 3), "supported_s": round(sup, 3), "withheld_s": round(withheld, 3),
+                  "cpc_gross": cpc["gross"],
+                  "cpc_gross_ci": [cpc["gross_lo"], cpc["gross_hi"]], "cpc_net": cpc["net"],
+                  "cpc_net_ci": [cpc["net_lo"], cpc["net_hi"]],
+                  "count_rate_per_s": cpc["gross"] / sup if sup > 0 else None, "count_rate_ci": rate_ci,
+                  "count_rate_ci_method": how,
+                  "pnf": {"value": flux.value, "lo": flux.lo, "hi": flux.hi, "unit": flux.unit, "label": flux.label}}
+    # The timebase comes first: on a clip that is not real time no method could decide.
+    if obs.tracking_only:
+        status, reason = "not_real_time", "metrics_scope tracking_only: the timebase is not real time"
+    elif not available:
+        status, reason = "unavailable", str(getattr(scorer, "reason", ""))
+    elif st["withheld_s"] > 0 or st["over_budget_frames"] > 0 or st["dump_truncated"]:
+        status, reason = "partial", "; ".join(r for r, on in (
+            ("decisions withheld while the camera moved", st["withheld_s"] > 0),
+            ("detections over the feature budget", st["over_budget_frames"] > 0),
+            ("the feature dump was cut at its row limit", st["dump_truncated"])) if on)
+    else:
+        status, reason = "ok", ""
+    accd = acc if len(acc) else None
+    delays = {"confirm_to_decision_s": _stat([] if accd is None else accd["t_accept"] - accd["t_confirm"]),
+              "first_to_decision_s": _stat([] if accd is None else accd["t_accept"] - accd["t_first"]),
+              "tracks": "ever accepted (revoked ones included), from their acceptance time"}
+    ms = obs.observer_ms()
+    identity = {**scorer.identity(), "overlay": OVERLAY.name,
+                "overlay_sha256": sha256_file(OVERLAY) if OVERLAY.exists() else None,
+                "verify_sha256": sha256_json(cfg.get("verify")), "config_sha256": sha256_json(cfg)}
+
+    # The frame-level pseudo-run: the legacy input block, and only the points drawn as accepted.
+    fl = hp_dir / "frame_level"
+    fl.mkdir(parents=True, exist_ok=True)
+    shown = obs.shown_detections()
+    det = det_table
+    if len(det) and shown:
+        j = det.groupby("frame").cumcount().to_numpy()
+        key = pd.MultiIndex.from_arrays([det["frame"].to_numpy(np.int64), j])
+        det = det[key.isin(pd.MultiIndex.from_tuples(shown))]
+    else:
+        det = det.iloc[0:0]
+    det.to_parquet(fl / "detections.parquet", index=False)
+    n_by = det.groupby("frame").size() if len(det) else pd.Series(dtype=np.int64)
+    ffl = fr[["frame", "t", "duplicate", "ready"]].copy() if len(fr) else pd.DataFrame(
+        columns=["frame", "t", "duplicate", "ready"])
+    ffl["detections"] = ffl["frame"].map(n_by).fillna(0).astype(np.int64) if len(ffl) else pd.Series(dtype=np.int64)
+    ffl.to_parquet(fl / "frames.parquet", index=False)
+    fl_summary = {"schema_version": 1, "created": now_shanghai(), "input": summary["input"],
+                  "config_sha256": sha256_json(cfg), **git_state(), "metrics_scope": summary.get("metrics_scope"),
+                  "pseudo_run": {"of": "high_precision", "method": obs.method, "profile": obs.profile,
+                                 "detections": "the measured points of tracks accepted at or before their frame"},
+                  "outputs": {"detections": "detections.parquet", "frames": "frames.parquet"}}
+    (fl / "summary.json").write_text(json.dumps(fl_summary, indent=2, ensure_ascii=False, default=str),
+                                     encoding="utf-8")
+
+    hp_summary = {
+        "schema_version": 1, "created": now_shanghai(), "mode": obs.vcfg.mode, "method": obs.method,
+        "profile": obs.profile, "status": status, "status_reason": reason,
+        "scorer_status": "available" if available else str(getattr(scorer, "reason", "")),
+        "observer_error": obs.failed,
+        "scorer": identity, "decisions": obs.decision_counts(), "delays": delays, "totals": totals,
+        "time": {"supported_s": round(float(st["supported_s"]), 3),
+                 "motion_unsupported_s": round(float(st["motion_unsupported_s"]), 3),
+                 "withheld_s": round(float(st["withheld_s"]), 3)},
+        "frames": int(st["frames"]), "over_budget_frames": int(st["over_budget_frames"]),
+        "dump": {k: st[k] for k in ("dump_rows", "dump_patches", "dump_windows", "dump_truncated")}
+        if obs.vcfg.dump else None,
+        "observer_ms": {"median": float(np.median(ms)) if ms.size else None,
+                        "p95": float(np.percentile(ms, 95)) if ms.size else None},
+        "raw_reference": summary.get("totals"),
+        "outputs": {**names, "frame_level": "frame_level/"} | ({"overlay": "overlay.mp4"} if overlay else {}),
+        "labels": {"accepted": "accepted by this method, not proven to be an ember"},
+    }
+    (hp_dir / "hp_summary.json").write_text(json.dumps(hp_summary, indent=2, ensure_ascii=False, default=str),
+                                            encoding="utf-8")
+    return {"method": obs.method, "profile": obs.profile, "status": status, "folder": "high_precision/",
+            "accepted_tracks": int(len(acc)), "revoked_tracks": int(acc["revoked"].astype(bool).sum()) if len(acc) else 0,
+            "cpc_gross": None if totals is None else totals["cpc_gross"]}
+
+
+def _withheld_in(frames, ta: float, tb: float) -> float:
+    """Seconds of [ta, tb] in which crossings were withheld (camera motion), from hp_frames: each
+    withheld frame stands for the interval since the previous analysed frame."""
+    if not len(frames):
+        return 0.0
+    t = frames["t"].to_numpy(float)
+    t0 = np.concatenate([[t[0]], t[:-1]])
+    lo, hi = np.maximum(t0, ta), np.minimum(t, tb)
+    w = frames["withheld"].to_numpy(bool)
+    return float(np.sum(np.clip(hi - lo, 0.0, None)[w]))
+
+
+def _legacy_cfg(cfg: dict) -> dict:
+    """The config without the opt-in verify section: what the legacy outputs depend on (and hash)."""
+    return {k: v for k, v in cfg.items() if k != "verify"} if "verify" in cfg else cfg
+
+
 def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None, gate: dict | None = None,
                  t_exp: float | None = None, overlay: bool | None = None, lang: str = "ko",
                  overlay_size: tuple[int, int] = (1920, 1080), max_seconds: float | None = None,
@@ -173,9 +344,11 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
     warnings: list[str] = []
     t0 = time.perf_counter()
 
-    def run(t_hint, writer=None, rows=None):
-        pipe = Pipeline(cfg, gate=gate, fps=fps, record=True, t_exp_hint=t_hint, m_per_px=m_per_px,
+    def run(t_hint, writer=None, rows=None, run_cfg=None, hp_writer=None):
+        pipe = Pipeline(run_cfg or cfg, gate=gate, fps=fps, record=True, t_exp_hint=t_hint, m_per_px=m_per_px,
                         distance_m=distance_m)
+        if pipe.observer is not None:
+            pipe.observer.set_metrics_scope(metrics_scope)
         src = FileSource(clip, start_s=start_s)
         src.open()
         try:
@@ -186,7 +359,11 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                     f = Frame(np.ascontiguousarray(f.image[crop[1]:crop[3], crop[0]:crop[2]]), f.t, f.index, f.t_wall, f.meta)
                 dup0 = pipe.stats.frames_duplicate
                 ta = time.perf_counter()
-                st = pipe.process(f)
+                st = hp_st = pipe.process(f)
+                if pipe.observer is not None and pipe.observer.legacy_state is not None:
+                    # High-precision mode: the legacy tables and overlay come from the legacy state.
+                    st = pipe.observer.legacy_state
+                    st.image = hp_st.image
                 if rows is not None:
                     rows.append({"frame": int(f.index), "t": float(f.t), "duplicate": pipe.stats.frames_duplicate > dup0,
                                  "ready": bool(pipe.detector.ready), "detections": int(len(st.detections)),
@@ -203,6 +380,13 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                                      field_uvn=None, gate=None, sparkline=np.zeros(0),
                                      calibrated=False, distance_m=None)
                     writer.write(st)
+                if hp_writer is not None:
+                    hp_st.source_state, hp_st.source_label = "file", clip.name
+                    if tracking_only:
+                        hp_st = replace(hp_st, metrics_scope=metrics_scope, count_rate=None, cpc_gross=None,
+                                        cpc_net=None, pnf=None, speed=None, direction_deg=None, field_uvn=None,
+                                        gate=None, sparkline=np.zeros(0), calibrated=False, distance_m=None)
+                    hp_writer.write(hp_st)
         finally:
             src.close()
         pipe.finish()
@@ -214,7 +398,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         t_exp = None
         exp_info = {"status": "not reported: tracking_only; the timebase is not real time"}
     elif not t_exp:
-        p1 = run(None)
+        p1 = run(None, run_cfg=_legacy_cfg(cfg))   # the exposure pass needs no verifier
         tr = p1.tables()["tracks"]
         tr = tr[~tr["static"].astype(bool)] if len(tr) else tr
         est = exposure_from_tracks(tr, cfg, fps or 30.0)
@@ -231,14 +415,21 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         exp_info["t_exp_s"] = t_exp
 
     rows: list[dict] = []
-    writer = None
+    writer = hp_writer = None
+    high_precision = "verify" in cfg
     if overlay:
         writer = OverlayWriter(out / "overlay.mp4", overlay_size, fps or 30.0, int(ocfg.get("overlay_crf", 20)), lang)
+        if high_precision:
+            (out / "high_precision").mkdir(parents=True, exist_ok=True)
+            hp_writer = OverlayWriter(out / "high_precision" / "overlay.mp4", overlay_size, fps or 30.0,
+                                      int(ocfg.get("overlay_crf", 20)), lang)
     try:
-        pipe = run(t_exp, writer, rows)
+        pipe = run(t_exp, writer, rows, hp_writer=hp_writer)
     finally:
         if writer is not None:
             writer.close()
+        if hp_writer is not None:
+            hp_writer.close()
 
     import pandas as pd
 
@@ -341,7 +532,7 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
         "schema_version": 1,
         "created": now_shanghai(),
         "input": {"path": str(clip), "sha256": sha256_file(clip), "segment_s": [start_s, max_seconds], **meta},
-        "config_sha256": sha256_json(cfg),
+        "config_sha256": sha256_json(_legacy_cfg(cfg)),
         **git_state(),
         "versions": {"python": platform.python_version(), "numpy": np.__version__, "scipy": scipy.__version__,
                      "opencv": cv2.__version__, "av": av.__version__, "pandas": pd.__version__},
@@ -362,5 +553,9 @@ def process_clip(clip: str | Path, out_dir: str | Path, cfg: dict | None = None,
                    "cpc": "Cumulative Particle Count (gate): tracks crossing the gate line; a lower bound, "
                           "only glowing, visible embers count"},
     }
+    if pipe.observer is not None:
+        summary["high_precision"] = _write_high_precision(
+            out, pipe, cfg, summary, points=points, rows=rows, det_table=det_export, t_exp=t_exp, t_exp_sd=t_exp_sd,
+            m_per_px=m_per_px, distance_m=distance_m, overlay=hp_writer is not None)
     (out / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
     return summary

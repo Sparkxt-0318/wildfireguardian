@@ -13,6 +13,7 @@ dist/
 # Large or licensed data: never committed
 data/raw/
 data/synthetic/
+data/models/
 results/runs/
 
 # Video files anywhere in wfglink (raw video is never committed)

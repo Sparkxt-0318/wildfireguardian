@@ -1,0 +1,22 @@
+# High-precision mode (opt-in). Loaded on top of default.yaml only when asked for
+# (python -m wfglink process CLIP --high-precision rules). Not part of default.yaml, so legacy
+# runs keep their config hash. See docs/METHODS.md section 13.
+verify:
+  mode: high_precision
+  method: rules                 # accept_all | rules | patch | temporal
+  ring_frames: 4                # recent analysed frames kept for persistence features
+  window_hits: 6                # last measured hits used for a track's window features
+  min_hits: 4                   # fewer measured feature hits: no decision yet
+  deadline_s: 1.0               # after confirmation; then rejected or insufficient_evidence
+  max_dets_per_frame: {file_native: 4096, live_downscaled: 1024}
+  motion: {thumb_width: 160, max_shift_px: 1.5, consecutive: 2, max_residual_frac: 0.25, hold_s: 1.0}
+  hotspot: {cell_px: 16, half_life_s: 10.0}
+  patch: {target_px: 17, context_px: 51}
+  ood: {z_max: 6.0, max_out: 2}
+  rules:
+    q: 0.025
+    thresholds: {}              # per profile, written by `verify calibrate`; empty = unavailable
+  models:                       # weights are git-ignored under data/models/; sha256 pinned here
+    patch:    {file_native: {path: data/models/verify/file_native/patch_seed0.npz, sha256: null, threshold: null}}
+    temporal: {file_native: {path: data/models/verify/file_native/temporal_seed0.npz, sha256: null, threshold: null}}
+  dump: false                   # write per-hit features and patches (offline replay, training)

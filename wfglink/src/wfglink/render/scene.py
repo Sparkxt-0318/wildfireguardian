@@ -12,7 +12,8 @@ Layout at 1920x1080 (all sizes scale with height):
 - a 60 s sparkline under the video and a small status line (clip name, credit line, what
   the picture is, analysis fps);
 - small tags on the video: "synthetic video" when the picture is generated, "paused" while
-  playback is paused; a visible prompt after the first Esc; the limits card on key I.
+  playback is paused, and in high-precision mode (precision_mode set; wfglink/verify) the
+  method and why decisions wait; a visible prompt after the first Esc; the limits card on key I.
 
 Ember mode (state.mode "ember", "Become an ember", key M): the same design on the live
 camera. The panel has the header "당신이 불티입니다 / You are an ember" in both languages (the
@@ -87,6 +88,10 @@ class LiveState:
     measured_at_m: float | None = None            # ember mode: speeds in m/s hold at this distance (ember.distance_m)
     camera_state: str = "off"                     # off (fire mode), starting, ok, missing, denied, asking, error
     metrics_scope: str = "all"                    # tracking_only: slow-motion geometry, never physical readouts
+    # High-precision mode (opt-in, wfglink/verify); empty precision_mode: the legacy screen.
+    precision_mode: str = ""                      # the verifier's method: accept_all, rules, patch or temporal
+    precision_status: str = ""                    # "", unavailable, camera_motion, incomplete or not_real_time
+    precision_pending: int = 0                    # confirmed tracks still waiting for a decision
 
 
 def _c(hexcode: str, alpha: float = 1.0) -> QColor:
@@ -307,6 +312,8 @@ def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, p
     x, y = rect.x() + theme.px(14, L.H), rect.y() + theme.px(14, L.H)
     for text in tags:
         x += _pill(p, QPointF(x, y), text, theme.INK, L.H, "left", top=True) + theme.px(10, L.H)
+    if s.precision_mode and picture and raw < 1.0 - FADE_EPS:
+        x = _paint_precision_tags(p, L, x, y, s, lang, 1.0 - raw)
     if raw <= FADE_EPS or not picture:
         return
     p.setOpacity(raw)
@@ -320,6 +327,23 @@ def _paint_tags(p: QPainter, L: Layout, rect: QRectF, s: LiveState, lang: str, p
         _pill(p, QPointF(rect.right() - theme.px(14, L.H), yb), text, theme.INK2, L.H, "right")
         yb -= p.fontMetrics().height() + 2 * theme.px(6, L.H) + theme.px(8, L.H)
     p.setOpacity(1.0)
+
+
+HP_STATUS_KEYS = {"unavailable": "hp_unavailable", "camera_motion": "hp_motion", "incomplete": "hp_incomplete",
+                  "not_real_time": "hp_timebase"}
+
+
+def _paint_precision_tags(p: QPainter, L: Layout, x: float, y: float, s: LiveState, lang: str, alpha: float) -> float:
+    """High-precision mode: the method's tag and, when decisions are held back, why (faded with the
+    analysed picture by alpha). Returns the x after the last pill."""
+    p.setOpacity(alpha)
+    texts = [t(lang, "hp_mode", m=s.precision_mode)]
+    if s.precision_status in HP_STATUS_KEYS:
+        texts.append(t(lang, HP_STATUS_KEYS[s.precision_status]))
+    for i, text in enumerate(texts):
+        x += _pill(p, QPointF(x, y), text, theme.INK if i == 0 else theme.INK2, L.H, "left", top=True) + theme.px(10, L.H)
+    p.setOpacity(1.0)
+    return x
 
 
 def _paint_prompt(p: QPainter, rect: QRectF, text: str, H: int) -> None:
