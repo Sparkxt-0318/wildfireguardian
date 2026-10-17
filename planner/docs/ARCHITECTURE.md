@@ -159,8 +159,9 @@ WGS84 FeatureCollection of candidate origins and destinations. Point properties:
   "source": "OpenStreetMap",           // OpenStreetMap | 연구 패널 기록 임무
   "source_tag": "place=village",       // exact OSM tag, or "request <case_id> origin node osm:…"
   "osm": {"type": "node", "id": 415158323, "tags": {}, "merged_ids": []},
-  "snap": {"node": "osm:123", "distance_m": 84.2},   // nearest node of the largest SCC (display only)
-  "checkable": true,                   // false when snap.distance_m > 300 (the API refuses snaps > 300 m)
+  "snap": {"node": "osm:123", "distance_m": 84.2},   // same node as entry (kept for compatibility)
+  "entry": {"node": "osm:123", "lon": 128.69, "lat": 36.35, "distance_m": 84.2, "within_api_lonlat_snap": true},
+  "checkable": true,                   // false only when entry.distance_m > 2000 (점검 불가)
   "vulnerable": false,                 // true for nursing_home / social_facility
   "scenario_set_id": null, "input_time": null, "case_id": null,   // research_* only
   "recorded": null                     // research_origin only: {destination_id, destination_node, depart_offset_s,
@@ -172,10 +173,24 @@ Filters: origins = `place=village|hamlet` nodes and `amenity=nursing_home|social
 `social_facility=*`) inside the graph bbox. Destinations = `amenity=shelter` (excluding `shelter_type`
 gazebo, public_transport, picnic_shelter, sun_shelter, weather_shelter, field_shelter, changing_rooms,
 lean_to, rock_shelter), `emergency=assembly_point`, `amenity=school` / `building=school`,
-`amenity=community_centre`, and `amenity=townhall` whose name contains `회관` (community hall). Points with
-snap distance > 2 000 m are dropped and listed in `places_report.json` with the reason (as is every other
-excluded element). Research points are the recorded missions' origin/destination nodes, one feature per
-(case, role), id `research:<region>:<case_id>:origin|destination`.
+`amenity=community_centre`, and `amenity=townhall` whose name contains `회관` (community hall). Research
+points are the recorded missions' origin/destination nodes, one feature per (case, role), id
+`research:<region>:<case_id>:origin|destination`.
+
+**진입 지점 (entry point).** Every OSM point gets `properties.entry = {node, lon, lat, distance_m,
+within_api_lonlat_snap}`: the nearest road node of the largest strongly connected component (each such node
+has incoming and outgoing roads, which is the API's rule for `{node_id}` locations, and all of them reach each
+other). OSM villages here are mapped as points, so "inside or nearest to the village area" is the nearest
+such node to the point. The planner and precompute send `{node_id: entry.node}`, so the API's 300 m lon/lat
+snap limit does not apply; the UI labels the node "마을 진입 지점" (시설/대피소 진입 지점 for other points)
+and shows `entry.distance_m` from the OSM point. Travel between the OSM point and its entry point is not
+modelled (stated in the limitations). `checkable` is false only when no such node lies within 2 km; those
+points are kept, listed in `places_report.json` → `dropped_far`, and shown as 점검 불가 (unresolved).
+
+**임시주거시설 (optional).** `planner/tools/import_temporary_housing.py` imports 행정안전부_이재민 임시주거시설
+정보 조회 서비스 (data.go.kr 15139148) only when its response includes coordinates, into
+`planner/public/data/regions/<region>/temporary_housing.geojson` (category `temporary_housing`, label
+"임시주거시설", never "대피소"). When present, these are extra candidate destinations.
 
 - `planner/public/data/regions/index.json` — `[{region_id, name:{ko,en}, fire_year, event_id, bbox:[w,s,e,n],
   center:[lon,lat], zoom, demo:boolean, counts:{origins, destinations, research}}]`.
@@ -251,11 +266,16 @@ Urgency order: origins whose best verdict is `model_no_route` first, then `unres
 origins by `latestSafeDepartureS` ascending; ties put `vulnerable` facilities first, then name.
 
 Departure sweep: offsets every 10 min (configurable 5/10/15/20/30) over the window the scenario supports —
-recorded: `[0, horizon_s)`; drawn zones: `[0, max arrival_h_max × 3600)` (≤ 24 offsets per dispatch plan; split
-plans if needed) — plus the recorded departure offset of research origins. Shelter candidates per origin: the
+recorded: `[0, horizon_s)`; drawn zones: also `[0, horizon_s)` of the chosen recorded input time, because the
+contract (v1.1+) keeps the 1 h hazard horizon for spread_zones (≤ 24 offsets per dispatch plan) — plus the recorded departure offset of research origins. Shelter candidates per origin: the
 K = 3 nearest destinations by straight-line distance (configurable 1–5); research origins use their recorded
-destination with its recorded dwell, window and incurred dose. Non-checkable places (snap > 300 m) are shown as
-unresolved "도로망 300 m 밖 — 점검 불가" without calling the API.
+destination with its recorded dwell, window, incurred dose and limits. OSM places are sent as
+`{node_id: entry.node}`. Places with `checkable: false` (no accepted road node within 2 km) are shown as
+unresolved "도로망 2 km 밖 — 점검 불가" without calling the API.
+
+Booth cache: `planner/cache/` is produced only by `planner/scripts/precompute_planner.sh` against the real API on
+the evaluated Apple M5 Pro host. Results computed in other environments (for example a Linux CI/cloud container)
+are test data: they go to the ignored `planner/.test-cache/`, keep their host provenance and are never shipped.
 
 Clock display: recorded scenarios show KST wall time = input time + offset ("출발 마감 18:10");
 drawn zones show issued time + offset and the relative "T+1:40".
