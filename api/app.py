@@ -5,6 +5,8 @@ Every response carries provenance. Verdicts come only from the kit's authoritati
 from __future__ import annotations
 
 import json
+import math
+import sys
 import threading
 import time
 from contextlib import asynccontextmanager
@@ -108,8 +110,20 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
     def _body(raw: bytes, component: str) -> dict:
         def _no_constant(tok):
             raise ValueError("non-finite number %s is not valid JSON" % tok)
+
+        def _finite_float(tok):               # 1e999 parses to inf; reject it like NaN and Infinity
+            v = float(tok)
+            if not math.isfinite(v):
+                raise ValueError("number %s is outside the finite range" % tok[:40])
+            return v
+
+        def _finite_int(tok):                 # an integer too large for a float would overflow later
+            v = int(tok)
+            if abs(v) > sys.float_info.max:
+                raise ValueError("integer %s... is outside the finite range" % tok[:20])
+            return v
         try:
-            body = json.loads(raw or b"null", parse_constant=_no_constant)
+            body = json.loads(raw or b"null", parse_constant=_no_constant, parse_float=_finite_float, parse_int=_finite_int)
         except ValueError as exc:
             raise unprocessable("VALIDATION_ERROR", "request body is not valid JSON: %s" % exc)
         errs = K.errors(component, body)

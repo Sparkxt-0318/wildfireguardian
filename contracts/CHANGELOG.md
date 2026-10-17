@@ -161,3 +161,10 @@ Documentation only:
   Deterministic tests with a stand-in pool cover the settle-then-check order and the dead-worker refusal.
 - Correction to v1.8: "never later than v1.6 or v1.7 for the same input" holds for inputs without `fire_id`. With
   `fire_id`, v1.8 is never later than v1.7. v1.6 ignored `fire_id` and read all zones as one fire.
+
+## v1.8.2 — out-of-range numbers return 422 (no contract change)
+
+- A request body number that overflows (`1e999`, or an integer literal too large for a float) is rejected with 422
+  `VALIDATION_ERROR`, like `NaN` and `Infinity`. Before, `1e999` in `depart_offset_s` or `dwell_s` and a huge integer
+  returned 500 `INTERNAL_ERROR`, although v1.4 promised 422 for non-finite numbers. Reported on the PR; reproduced on
+  the v1.8 head.
