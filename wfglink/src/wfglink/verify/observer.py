@@ -239,7 +239,12 @@ class HighPrecisionObserver:
             if r[0] < f0:
                 break
             elapsed += 1
-        vec = window_features(hits, Kin(float(tr.t_first), elapsed))
+        return self._make_window(key, hits, Kin(float(tr.t_first), elapsed))
+
+    def _make_window(self, key: int, hits: list[HitRecord], kin: Kin) -> Window:
+        """The checkpoint view of these hits (oldest first): a pure function of the hits and kin
+        apart from the window dump."""
+        vec = window_features(hits, kin)
         if self.vcfg.dump:
             if self.stats["dump_windows"] < DUMP_MAX_ROWS:
                 self._dump_windows.append(np.concatenate([[key, hits[-1].t, hits[-1].frame], vec]))

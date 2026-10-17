@@ -154,6 +154,30 @@ def test_replaying_a_pinned_patch_model_with_hit_scalars_equals_the_online_run(r
     assert "method_accepted" in set(dec["state"]) and dec["state"].nunique() > 1      # it does not accept all
 
 
+def test_scorers_replayed_together_decide_as_each_replayed_alone(runs):
+    """replay_many builds a window once per frame and shares it among its scorers: one pass with
+    several scorers gives every scorer the decisions and events of its own replay."""
+    for clip in ("embers", "pan"):
+        r = runs[clip]
+        dump = load_dump(r["dump"])
+        scorers = {"aa": AcceptAll, "a": lambda: RuleScorer(RULES_A, 4), "b": lambda: RuleScorer(RULES_B, 4)}
+        together = replay_many(dump, {k: f() for k, f in scorers.items()}, _dump_cfg())
+        for k, f in scorers.items():
+            alone = replay_many(load_dump(r["dump"]), {k: f()}, _dump_cfg())[k]
+            assert compare_decisions(alone.decisions, together[k].decisions)["identical"], (clip, k)
+            assert compare_events(alone.events, together[k].events)["identical"], (clip, k)
+
+
+def test_a_scorer_cannot_write_into_a_shared_window(runs):
+    class Writing(RuleScorer):
+        def score(self, window_vec, patch_stats):
+            window_vec[0] = 0.0
+            return super().score(window_vec, patch_stats)
+
+    with pytest.raises(ReplayError, match="observer failed"):
+        replay_many(load_dump(runs["embers"]["dump"]), {"w": Writing(RULES_A, 4), "aa": AcceptAll()}, _dump_cfg())
+
+
 def test_replayed_windows_are_the_online_windows(runs):
     """The window features rebuilt from the dumped hit features equal those the online run computed."""
     r = runs["embers"]

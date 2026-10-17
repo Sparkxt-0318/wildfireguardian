@@ -297,6 +297,7 @@ class ReplayObserver(HighPrecisionObserver):
         self.missing_patches = 0
         self.missing_hits: set[tuple[int, int]] = set()
         self.last_hits: dict[int, list[HitRecord]] = {}
+        self.window_cache: dict | None = None      # shared by the observers of one replay_many frame
 
     def reset(self) -> None:
         super().reset()
@@ -333,6 +334,23 @@ class ReplayObserver(HighPrecisionObserver):
         if buf:
             self.last_hits[key] = list(buf)
         return super()._window(key, tr)
+
+    def _make_window(self, key, hits, kin):
+        """Every scorer of one replay sees the same tracker and dumped features, so a window of the
+        same track, hits and kin is the same for all: it is built once per frame and shared, with
+        its arrays read-only (a scorer that writes into one fails the replay)."""
+        cache = self.window_cache
+        if cache is None:
+            return super()._make_window(key, hits, kin)
+        ck = (key, kin, tuple((h.frame, h.det_index, h.supported, h.values is None, h.patch is None) for h in hits))
+        win = cache.get(ck)
+        if win is None:
+            win = super()._make_window(key, hits, kin)
+            for a in (win.vec, win.patches, win.hit_values):
+                if a is not None:
+                    a.setflags(write=False)
+            cache[ck] = win
+        return win
 
     def _hp_state(self, pipe, image, t, snaps, new_events, w, h, state, ms, over):
         return _Light(self.ledger.pending(), self._status(ms, over))
@@ -425,6 +443,9 @@ def replay_many(run, scorers: dict[str, Any], cfg: dict, profile: str = "file_na
         o.set_metrics_scope(dump.metrics_scope)
         if getattr(scorers[name], "observer", False) is None:     # a probe that reads its observer's hit buffers
             scorers[name].observer = o
+    cache: dict = {}
+    for o in obs.values():
+        o.window_cache = cache
     P = next(iter(obs.values())).vcfg.patch.target_px if obs else 17
     w, h = dump.size
     image = np.broadcast_to(np.zeros((), np.uint8), (max(h, 1), max(w, 1)))
@@ -434,6 +455,7 @@ def replay_many(run, scorers: dict[str, Any], cfg: dict, profile: str = "file_na
         f, t = int(dump.frames[i]), float(dump.times[i])
         det = dump.detections(i)
         pipe._last_t = t
+        cache.clear()
         snaps = tracker.update(det, t, f)
         fin = tracker.pop_finished()
         batch, has = dump.batch(i, P)
