@@ -309,6 +309,8 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 @media (max-width: 860px) { .cmpchip { top: 64px; max-width: calc(100% - 28px); white-space: normal; } .regmenu { width: min(310px, calc(100vw - 32px)); } }
 .scale { text-shadow: 0 0 3px #000, 0 1px 3px #000c; }
 .scale .bar { margin-top: 4px; }
+.logger-open { display: flex; flex-direction: column; gap: 2px; margin: 4px 4px 10px; padding: 10px 12px; border-radius: 9px; background: var(--fire-soft); color: var(--ink); text-decoration: none; border: 1px solid transparent; }
+.logger-open:hover { border-color: var(--fire); } .logger-open b { color: var(--fire); font-size: 13px; } .logger-open span { font-size: 12px; color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -1535,7 +1537,8 @@ const LOGGER = {
     ['GNSS', tr('Gravity TEL0157 · UART (D11/D10) · 패치 안테나', 'Gravity TEL0157 · UART (D11/D10) · patch antenna')],
     [tr('화면', 'Display'), tr('1.54인치 240×240 ST7789', '1.54 in 240×240 ST7789')],
     [tr('전원', 'Power'), tr('14500 셀 800 mAh · USB-C 충전 · 계획용 추정 1회 충전 5–6시간 (직접 측정 전)', '14500 cell 800 mAh · USB-C charging · plan on 5–6 h per charge until measured')],
-    [tr('저장', 'Storage'), tr('약 2.5 MB · 약 14시간 기록 · 기록 형식 2 (48바이트)', 'About 2.5 MB · about 14 h of recordings · record format 2 (48 bytes)')],
+    [tr('기록', 'Logging'), tr('GNSS 에포크마다 1행, 최대 1행/초 (펌웨어 0.3.0) · 행당 48바이트', 'One row per GNSS epoch, at most 1 row per second (firmware 0.3.0) · 48 bytes per row')],
+    [tr('저장', 'Storage'), tr('약 2.5 MB · 약 14시간 기록 (48 B/s로 계산, 측정 전)', 'About 2.5 MB · about 14 h of recordings (calculated at 48 B/s, not measured)')],
     [tr('조작', 'Control'), tr('버튼 1개 (IO27): 대기 중 짧게 = 이동 방식 변경 · 기록 중 짧게 = 이벤트 표시 · 2.5초 = 기록 시작/정지 · 대기 중 6초 이상 = Wi-Fi 내보내기', 'One button (IO27): short in idle = change mode · short while recording = event mark · 2.5 s = start/stop · over 6 s in idle = Wi-Fi export')],
     [tr('이동 방식', 'Modes'), 'WALK · VEHICLE · UNKNOWN'],
     [tr('케이스', 'Case'), tr('PETG 3D 출력 · 0.20 mm 층 · 25% gyroid · 180×180 mm 베드', 'PETG 3D print · 0.20 mm layers · 25% gyroid · 180×180 mm bed')],
@@ -1554,13 +1557,14 @@ const LOGGER = {
     ['fig01', tr('전자 부품', 'Electronics parts')], ['fig02', tr('출력 부품', 'Printed parts')], ['fig03', tr('FireBeetle 핀 배치', 'FireBeetle pin map')], ['fig04', tr('화면 배선', 'Display wiring')], ['fig05', tr('GNSS 배선', 'GNSS wiring')],
     ['fig06', tr('화면 GNSS 상태 (NO FIX · no data · 3D)', 'Screen GNSS states (NO FIX · no data · 3D)')], ['fig07', tr('셀 극성 확인', 'Cell polarity check')], ['fig08', tr('GNSS 브래킷의 패치 안테나', 'Patch antenna on the GNSS bracket')], ['fig09', tr('버튼 하나로 조작', 'One-button controls')], ['fig10', tr('화면 읽는 법', 'Reading the screen')],
   ],
-  note: tr('설명서 요약입니다. 설명서에는 연구 목적, 샘플링 주기, 비용, 현장 시험 결과가 적혀 있지 않아 여기에도 넣지 않았습니다. 기록은 Mac에 남고 git에는 올리지 않습니다.', 'A summary of the build manual. The manual does not state the research purpose, sample rate, cost or field-test results, so they are not shown here. Recordings stay on the Mac and out of git.'),
+  note: tr('설명서 요약입니다. 기록 간격은 펌웨어 0.3.0 설정값입니다. 설명서에는 연구 목적, 비용, 현장 시험 결과가 적혀 있지 않아 여기에도 넣지 않았습니다. 기록은 Mac에 남고 git에는 올리지 않습니다.', 'A summary of the build manual; the logging rate is the firmware 0.3.0 setting. The manual does not state the research purpose, cost or field-test results, so they are not shown here. Recordings stay on the Mac and out of git.'),
 };
 function buildDocs() {
   const pv = B.provenance, fp = B.footprints;
   $('pDocs').innerHTML = `
     <div class="grp-h"><span>${LOGGER.title}</span></div>
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
+    ${window.WFG_FIG ? '' : `<a class="logger-open" href="logger.html${EN ? '#lang=en' : ''}"><b>${tr('3D 분해 모델 · 전체 제작 설명서 열기', 'Open the exploded 3D model and full build manual')}</b><span>${tr('부품별 정보, 조립 순서 애니메이션, 37단계 전체', 'Part details, step-by-step assembly, all 37 steps')} →</span></a>`}
     <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>

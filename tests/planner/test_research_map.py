@@ -87,3 +87,26 @@ def test_region_index_and_page(bundles, index):
         assert tex['key'].split(':')[1] == rid
         for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask'):
             assert tex[k].startswith(f'regions/{rid}/') and (RM / 'site' / tex[k]).stat().st_size > 1000
+
+
+def test_logger_page():
+    """Route logger page: the web model has the plain FireBeetle stand-in (no vendor mesh), every part in the export's
+    part list is a node of the model, and every manual picture the page links exists."""
+    import base64, re, struct
+    page = (RM / 'site' / 'logger.html').read_text()
+    for n in ['three.min.js', 'OrbitControls.js', 'GLTFLoader.js', 'RoomEnvironment.js']:
+        assert f'vendor/{n}' in page and (RM / 'site' / 'vendor' / n).is_file()
+    js = (RM / 'site' / 'logger' / 'model.js').read_text()
+    glb = base64.b64decode(js[js.index('"') + 1:js.rindex('"')])
+    gltf = json.loads(glb[20:20 + struct.unpack('<I', glb[12:16])[0]])
+    names = {n.get('name') for n in gltf['nodes']}
+    fb = [n for n in names if n and n.startswith('firebeetle2_esp32e__')]
+    assert sorted(fb) == ['firebeetle2_esp32e__standin_can', 'firebeetle2_esp32e__standin_pcb', 'firebeetle2_esp32e__standin_usb']
+    assert not any(re.match(r'fb_', m.get('name', '')) for m in gltf['meshes'])
+    d = (RM / 'site' / 'logger' / 'data.js').read_text()
+    rl = json.loads(d[d.index('=') + 1:].rstrip().rstrip(';'))
+    assert {p['node'] for p in rl['parts']} <= names and len(rl['parts']) == 21
+    assert sum(s['step'] is not None for s in rl['manual']['slides']) == 37
+    files = [im['file'] for s in rl['manual']['slides'] for im in s['images'] if im['file']] + list(rl['img'].values())
+    for f in files:
+        assert (RM / 'site' / f).stat().st_size > 1000, f

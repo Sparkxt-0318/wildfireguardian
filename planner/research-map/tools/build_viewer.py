@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble the 3D layer map page from src/ (style.css, body.html, loader.js, core.js, ui.js).
 
-usage: python tools/build_viewer.py            -> site/index.html, offline: site/vendor scripts, system fonts, works from file://
+usage: python tools/build_viewer.py            -> site/index.html (+ site/logger.html), offline: site/vendor scripts, system fonts, works from file://
        python tools/build_viewer.py --cdn OUT  -> a page fragment that loads three.js from cdnjs/jsdelivr and Noto Sans KR
                                                   from Google Fonts (for hosting where the page gets its own document shell)
 The region data is loaded at run time from regions/<id>.js next to the page (tools/build_regions.py).
@@ -69,6 +69,8 @@ if __name__ == '__main__':
     out = Path(a.cdn) if a.cdn else ROOT / 'site' / 'index.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build(bool(a.cdn)))
+    if not a.cdn:   # the route logger page (data from tools/build_logger.py) is a plain copy
+        (ROOT / 'site' / 'logger.html').write_text((SRC / 'logger.html').read_text())
     if a.single:
         Path(a.single).write_text(build_single())
         print(f'wrote {a.single} ({Path(a.single).stat().st_size / 1e6:.1f} MB, single file)')

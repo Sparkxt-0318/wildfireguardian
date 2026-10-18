@@ -41,6 +41,7 @@ in this repository).
 | 대피 현황 (evacuation status) | `planner/cache/` (booth cache, real Route-Check API) | 의성·안동 and 영덕 only |
 | 기존 연구 비교 | records' `full_policy_check`; poster Table 1 | the presets show only the kind of output each approach produces; they are not runs of those tools |
 | 자료 (route logger) | WildfireGuardian Route Logger build manual (Oct 2026) | summary and figures; the manual states no purpose, sample rate or cost, so none is shown |
+| Route logger page (`site/logger.html`) | Route Logger website export (Case v2, firmware 0.3.0): web GLB, part list, exploded and step offsets, manual text and pictures | the FireBeetle vendor model is replaced by a plain stand-in; all rights reserved |
 | ✱ temperature, wind, canopy, biome | synthetic | illustrative patterns, not model inputs |
 | F(h) hourly Monte Carlo | `tools/run_hourly_export.sh` output | empty until a real export is merged (below) |
 
@@ -61,6 +62,16 @@ python3 tools/build_viewer.py       # site/index.html from src/
 PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tools/bake_textures.mjs   # site/regions/<id>.tex.js: pre-built terrain
 python3 tools/build_viewer.py --cdn /tmp/page.html   # page fragment with CDN scripts, for hosting
 ```
+
+Route logger page, from the logger's website export folder (`WildfireGuardian_Route_Logger`):
+
+```bash
+GLTF_TRANSFORM=/path/to/node_modules node tools/logger_standin.mjs <export>/01_3D_models/route_logger_assembled_web.glb /tmp/rl.glb
+python3 tools/build_logger.py <export> /tmp/rl.glb      # site/logger/model.js, data.js, img/
+```
+
+`logger_standin.mjs` needs `@gltf-transform/core`, `functions` and `extensions` 4.x. It swaps the FireBeetle's DFRobot
+mesh (redistribution terms unconfirmed) for boxes of the same outline and removes the vendor geometry from the file.
 
 `tools/bake_textures.mjs` lets the page draw each region's static terrain once in headless Chromium and saves the
 images, so visitors decode them instead of drawing for several seconds; rerun it after `build_regions.py` (a stale file
