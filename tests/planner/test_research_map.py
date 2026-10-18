@@ -107,6 +107,7 @@ def test_logger_page():
     rl = json.loads(d[d.index('=') + 1:].rstrip().rstrip(';'))
     assert {p['node'] for p in rl['parts']} <= names and len(rl['parts']) == 21
     assert sum(s['step'] is not None for s in rl['manual']['slides']) == 37
-    files = [im['file'] for s in rl['manual']['slides'] for im in s['images'] if im['file']] + list(rl['img'].values())
+    files = [im['file'] for s in rl['manual']['slides'] for im in s['images']] + list(rl['img'].values())
+    assert all(files), 'a manual picture is missing from the export'
     for f in files:
         assert (RM / 'site' / f).stat().st_size > 1000, f
