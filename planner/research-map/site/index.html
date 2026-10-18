@@ -1530,8 +1530,8 @@ function renderCompare() {
 const figSrc = f => (window.WFG_FIG && window.WFG_FIG[f]) || `logger/${f}.png`;
 const LOGGER = {
   title: tr('현장 경로 기록기 (Route Logger)', 'Field route logger (Route Logger)'),
-  sub: tr('WildfireGuardian 직접 제작 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian self-built GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
-  what: tr('걷거나 차량으로 이동하며 경로와 이벤트 표시를 기록하고, Mac 브라우저 앱에서 다시 재생하는 주머니 크기 GPS 기록기입니다. 직접 출력·배선·조립하며 37단계, 손 작업 약 4시간(출력 시간 별도)입니다.', 'A pocket GPS logger that records a route (with event marks) on foot or in a vehicle and replays it in a Mac browser app. You print, wire and assemble it yourself: 37 steps, about 4 hours of hands-on work plus printing.'),
+  sub: tr('WildfireGuardian 직접 제작용 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian build-it-yourself GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
+  what: tr('걷거나 차량으로 이동하며 경로와 이벤트 표시를 기록하고, Mac 브라우저 앱에서 다시 재생하는 주머니 크기 GPS 기록기입니다. 직접 출력·배선·조립하며 37단계, 손 작업 약 4시간(추정, 출력 시간 별도)입니다.', 'A pocket GPS logger that records a route (with event marks) on foot or in a vehicle and replays it in a Mac browser app. You print, wire and assemble it yourself: 37 steps, about 4 hours of hands-on work plus printing (estimate).'),
   specs: [
     [tr('보드', 'Board'), 'FireBeetle 2 ESP32-E (DFR0654-F)'],
     ['GNSS', tr('Gravity TEL0157 · UART (D11/D10) · 패치 안테나', 'Gravity TEL0157 · UART (D11/D10) · patch antenna')],

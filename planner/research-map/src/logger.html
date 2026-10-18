@@ -192,7 +192,7 @@ const facts = [
   [tr('기록 간격', 'Logging rate'), tr('최대 1행/초', 'At most 1 row per second'), tr('GNSS 에포크마다 1행, 1000 ms 간격 제한. 1.5 s 동안 수신이 없으면 no-fix 행. 행당 48바이트, CRC-32', 'One row per GNSS epoch, at most every 1000 ms; a no-fix row after 1.5 s without an epoch; 48 bytes per row with CRC-32'), 'fw'],
   [tr('저장 용량', 'Storage'), tr('약 14시간', 'About 14 hours'), tr('2,555,904바이트 ÷ 48 B/s로 계산한 값(약 14.8 h)이며, 가득 채워 확인한 값이 아닙니다', 'Calculated from the 2,555,904-byte partition at 48 B/s (about 14.8 h), not measured on a full recording'), 'calc'],
   [tr('충전당 기록', 'Recording per charge'), tr('5–6시간', '5 to 6 hours'), tr('설명서의 계획용 추정치이며 측정하지 않았습니다', 'Planning estimate from the manual, not measured'), 'est'],
-  [tr('부품', 'Parts'), tr('FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 화면 · 14500 셀', 'FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 display · 14500 cell'), tr('출력 부품 6종 (PETG 약 60–75 g, 추정)', '6 printed parts (about 60 to 75 g of PETG, estimate)'), 'est'],
+  [tr('부품', 'Parts'), tr('FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 화면 · 14500 셀', 'FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 display · 14500 cell'), tr('출력 부품 6종 (PETG 약 60–75 g, 추정)', '6 printed parts (about 60 to 75 g of PETG, estimate)'), ''],
   [tr('질량', 'Mass'), tr('측정하지 않음', 'Not measured'), '', ''],
 ];
 const ftag = { design: [tr('설계값', 'design'), ''], fw: [tr('펌웨어 0.3.0', 'firmware 0.3.0'), 'ok'], calc: [tr('계산값', 'calculated'), ''], est: [tr('추정', 'estimate'), ''] };
