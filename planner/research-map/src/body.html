@@ -1,0 +1,108 @@
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 26 18" aria-hidden="true"><path d="M1 17 9 5l4 6 3-4 9 10z" fill="#e2552b"/><path d="M9 5l4 6-2.2 3L6 9.5z" fill="#f6a067"/></svg>
+      WildfireGuardian
+    </div>
+    <div class="sub" data-en="Wildfire layer map">산불 확산 레이어 지도</div>
+    <div class="regwrap">
+      <button class="chipbtn sel" type="button" id="regBtn" aria-haspopup="true" aria-expanded="false" title="연구 지역 바꾸기" data-en-title="Change study region"><span id="regName"></span> <span id="regEvent" style="color:var(--muted);font-weight:400"></span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <div class="regmenu" id="regMenu" role="menu" hidden></div>
+    </div>
+    <span class="meta loc" id="regLoc"></span>
+    <span class="meta date"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3" stroke="currentColor"/></svg><span id="dateRange"></span></span>
+    <span class="grow"></span>
+    <span class="badge fire" title="화재 입력 종류" data-en-title="Fire input type" data-en="Fire input: recorded (reconstructed)">화재 입력: 기록 (재구성)</span>
+    <div class="seg" role="group" aria-label="보기 방식" data-en-aria="View">
+      <button type="button" id="v3d" aria-pressed="true" data-en="3D terrain">3D 지형</button>
+      <button type="button" id="v2d" aria-pressed="false" data-en="2D map">2D 지도</button>
+    </div>
+    <div class="seg" role="group" aria-label="언어" data-en-aria="Language">
+      <button type="button" id="lKo" lang="ko" aria-pressed="true">한국어</button>
+      <button type="button" id="lEn" lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <section class="map" id="map" aria-label="지도. 드래그로 회전 또는 이동, 휠로 확대" data-en-aria="Map. Drag to rotate or pan, scroll to zoom">
+    <div class="loading" id="loading" data-en="Preparing terrain and layers…">지형과 층을 준비하는 중…</div>
+    <div class="labels" id="labels"></div>
+    <button class="ov compass" id="compass" type="button" title="북쪽 정렬" aria-label="북쪽으로 정렬" data-en-title="North up" data-en-aria="Turn north up">
+      <svg viewBox="0 0 26 26" id="needle" aria-hidden="true"><path d="M13 2 18 15h-10z" fill="#fff"/><path d="M13 24 8 15h10z" fill="#77706a"/><text x="13" y="11.5" font-size="6" text-anchor="middle" fill="#2a2724" font-weight="700">N</text></svg>
+    </button>
+    <div class="ov firechip" id="firechip"></div>
+    <div class="ov cmpchip" id="cmpChip" hidden></div>
+    <div class="ov scale" id="scale"><span id="scaleTxt">1 km</span><div class="bar" id="scaleBar" style="width:80px"></div></div>
+    <div class="ov mapctl">
+      <div class="grp" id="baseGrp" hidden>
+        <button type="button" id="bTopo" aria-pressed="true" data-en="Topo">지형도</button>
+        <button type="button" id="bReal" aria-pressed="false" data-en="Realistic">실사</button>
+      </div>
+      <div class="grp">
+        <button type="button" id="m2d" aria-pressed="false">2D</button>
+        <button type="button" id="m3d" aria-pressed="true">3D</button>
+      </div>
+      <div class="grp exg"><label for="exag"><span data-en="Relief">고도</span> ×<b id="exv">3</b></label><input id="exag" type="range" min="1" max="6" step="0.5" value="3" aria-label="고도 과장 배율" data-en-aria="Vertical exaggeration"></div>
+      <div class="grp"><button type="button" id="fs" title="전체 화면" aria-label="전체 화면" data-en-title="Full screen" data-en-aria="Full screen"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></div>
+    </div>
+    <div class="tip" id="tip"></div>
+  </section>
+
+  <aside class="side">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-p="pLayers" type="button" data-en="Layers">레이어</button>
+      <button role="tab" aria-selected="false" data-p="pOverview" type="button" data-en="Regions">개요</button>
+      <button role="tab" aria-selected="false" data-p="pEvac" type="button" data-en="Evacuation">대피 현황</button>
+      <button role="tab" aria-selected="false" data-p="pRoute" type="button" data-en="Route check">경로 점검</button>
+      <button role="tab" aria-selected="false" data-p="pCompare" type="button" data-en="Compare">기존 연구 비교</button>
+      <button role="tab" aria-selected="false" data-p="pModel" type="button" data-en="Model">연구 구조</button>
+      <button role="tab" aria-selected="false" data-p="pDocs" type="button" data-en="Resources">자료</button>
+    </div>
+    <div class="pane" id="pLayers" role="tabpanel"></div>
+    <div class="pane" id="pOverview" role="tabpanel" hidden></div>
+    <div class="pane" id="pEvac" role="tabpanel" hidden></div>
+    <div class="pane rt" id="pRoute" role="tabpanel" hidden></div>
+    <div class="pane" id="pCompare" role="tabpanel" hidden></div>
+    <div class="pane" id="pModel" role="tabpanel" hidden></div>
+    <div class="pane" id="pDocs" role="tabpanel" hidden></div>
+    <div class="card">
+      <h3><span data-en="Environment now">현재 시각 환경</span> <small id="envTime"></small></h3>
+      <div class="wx">
+        <div><small data-en="Wind ✱">바람 ✱</small><b id="wxWind">–</b><span id="wxDir"></span></div>
+        <div><small data-en="Temp ✱">기온 ✱</small><b id="wxTemp">–</b><span data-en="at 300 m">해발 300 m 기준</span></div>
+        <div><small data-en="Sun elevation">태양 고도</small><b id="wxSun">–</b><span id="wxSunTxt"></span></div>
+      </div>
+      <p class="note" style="margin:8px 0 0" data-en="✱ Illustrative synthetic values, not the model’s real weather input.">✱ 설명용 합성 값입니다. 모델의 실제 기상 입력이 아닙니다.</p>
+    </div>
+    <div class="card">
+      <h3><span data-en="Under the cursor">커서 위치</span> <small data-en="hover the map">지도 위에 마우스를 올리세요</small></h3>
+      <dl class="kv" id="cursorKv"><dt data-en="Position">위치</dt><dd>–</dd></dl>
+    </div>
+  </aside>
+
+  <section class="time" aria-label="타임라인" data-en-aria="Timeline">
+    <div class="th"><div class="tb"><h2 data-en="Timeline">타임라인</h2><button type="button" id="detailBtn" aria-pressed="false" title="모델 입력 시각부터 1시간을 분 단위로 봅니다" data-en-title="See the hour after a model input minute by minute" data-en="1-hour detail">1시간 상세</button><span id="detailTxt" class="foot"></span></div><span class="foot" data-en="Planning aid · not an evacuation order · times in KST">계획 보조 도구 · 실제 대피 명령이 아닙니다 · 시각은 한국 표준시(KST)</span></div>
+    <div class="trow">
+      <div class="pctl">
+        <button type="button" id="back" title="1시간 뒤로" aria-label="1시간 뒤로" data-en-title="Back 1 hour" data-en-aria="Back 1 hour"><svg viewBox="0 0 16 16"><path d="M12 3 6 8l6 5zM4 3v10" fill="currentColor" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        <button type="button" id="play" class="primary" aria-label="재생"><svg viewBox="0 0 16 16" id="playIc"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        <button type="button" id="fwd" title="1시간 앞으로" aria-label="1시간 앞으로" data-en-title="Forward 1 hour" data-en-aria="Forward 1 hour"><svg viewBox="0 0 16 16"><path d="M4 3l6 5-6 5zM12 3v10" fill="currentColor" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        <select id="speed" aria-label="재생 속도" data-en-aria="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+      </div>
+      <div class="track" id="track" role="slider" tabindex="0" aria-label="시각" data-en-aria="Time" aria-valuemin="0">
+        <div class="rail"></div><div class="fill" id="tFill"></div><div id="tMarks"></div><div class="knob" id="tKnob"></div><div class="bub" id="tBub"></div>
+      </div>
+    </div>
+    <div class="charts">
+      <div class="chart"><h4><span><span data-en="Recorded burned area">기록 연소 면적</span> <small>km²</small></span><b id="c1v"></b></h4><svg id="c1"></svg></div>
+      <div class="chart"><h4><span id="c2t"></span><b id="c2v"></b></h4><svg id="c2"></svg></div>
+      <div class="chart"><h4><span id="c3t"></span><b id="c3v"></b></h4><svg id="c3"></svg></div>
+    </div>
+  </section>
+
+  <section class="events" aria-label="주요 기록" data-en-aria="Key records">
+    <h2><span data-en="Key records">주요 기록</span> <small data-en="click to jump there">누르면 그 시각으로 이동</small></h2>
+    <ul id="evList"></ul>
+  </section>
+</div>
+<div class="lightbox" id="lightbox" hidden><figure><img alt=""><figcaption><span></span><button type="button" data-en="Close">닫기</button></figcaption></figure></div>
