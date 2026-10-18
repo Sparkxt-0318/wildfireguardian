@@ -20,6 +20,14 @@ Hash options (combine with `&`): `region=uljin_2022|miryang_2022|hongseong_2023|
 `cmp=spread|travel|ours`, `t=<hours from the first record>`, `lite=1` (no bloom, fewer trees and a 1× pixel ratio
 for slower machines and projectors). The region and language choice are also remembered in `localStorage`.
 
+## Publish on Vercel
+
+`site/` is a static site with no build step (`site/vercel.json` only sets cache headers). One-time setup on
+vercel.com: **Add New → Project → Import** `Sparkxt-0318/wildfireguardian` → **Root Directory**
+`planner/research-map/site` → **Framework Preset** "Other", leave Build and Output empty → **Deploy**. Every push to
+Main then redeploys it. The site is public: anyone with the URL can see the map and its data (all of it is already
+in this repository).
+
 ## What each part shows
 
 | Part | Source | Notes |
