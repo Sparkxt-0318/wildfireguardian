@@ -283,10 +283,11 @@ export function useMockActive(): boolean {
   const routes = useStore((s) => s.routes);
   const healthMock = useStore((s) => Boolean(s.health?.mock));
   const forecastMock = useStore((s) => Boolean(s.forecast.data?.mock));
+  const fromCache = useStore((s) => s.dataSource === 'cache' && Boolean(s.cache));
   return useMemo(() => {
     const resultsMock = cacheMock || forecastMock || Object.values(plans).some((p) => p.mock) || Object.values(routes).some((r) => r.mock);
-    return mockActive({ envMode: CONFIG.apiMode, healthMock, resultsMock });
-  }, [cacheMock, plans, routes, healthMock, forecastMock]);
+    return mockActive({ envMode: CONFIG.apiMode, healthMock, resultsMock, realCacheOnly: fromCache && !cacheMock });
+  }, [cacheMock, plans, routes, healthMock, forecastMock, fromCache]);
 }
 
 export function useSelectedPlace(): Place | null {

@@ -35,6 +35,10 @@ export function parseApiMode(v: unknown): ApiModeSetting {
  * - any loaded result, plan, cache or provenance carries mock: true.
  * With mode "real", a real API (no markers) and no MOCK-derived results, it disappears.
  */
-export function mockActive(signals: { envMode: ApiModeSetting; healthMock: boolean; resultsMock: boolean }): boolean {
-  return signals.envMode === 'mock' || signals.healthMock || signals.resultsMock;
+export function mockActive(signals: { envMode: ApiModeSetting; healthMock: boolean; resultsMock: boolean; realCacheOnly?: boolean }): boolean {
+  if (signals.healthMock || signals.resultsMock) return true;
+  // Everything on screen comes from a precompute cache made against the real API and no mock server is
+  // answering: the build's default mock setting alone does not make that data MOCK.
+  if (signals.realCacheOnly) return false;
+  return signals.envMode === 'mock';
 }

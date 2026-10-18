@@ -36,6 +36,13 @@ describe('MOCK badge', () => {
     expect(mockActive({ envMode: 'real', healthMock: true, resultsMock: false })).toBe(true);
     expect(mockActive({ envMode: 'real', healthMock: false, resultsMock: true })).toBe(true);
   });
+  it('does not mark a real-API booth cache as MOCK just because the build defaults to mock', () => {
+    expect(mockActive({ envMode: 'mock', healthMock: false, resultsMock: false, realCacheOnly: true })).toBe(false);
+  });
+  it('still shows MOCK beside a cache when a mock server answers or mock results are on screen', () => {
+    expect(mockActive({ envMode: 'mock', healthMock: true, resultsMock: false, realCacheOnly: true })).toBe(true);
+    expect(mockActive({ envMode: 'mock', healthMock: false, resultsMock: true, realCacheOnly: true })).toBe(true);
+  });
   it('disappears for a real API without markers in real mode', () => {
     expect(mockActive({ envMode: 'real', healthMock: false, resultsMock: false })).toBe(false);
   });
