@@ -664,7 +664,7 @@ for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c
 function quad(ctx, i, X, Y) { ctx.moveTo(X[i * 4], Y[i * 4]); ctx.lineTo(X[i * 4 + 1], Y[i * 4 + 1]); ctx.lineTo(X[i * 4 + 2], Y[i * 4 + 2]); ctx.lineTo(X[i * 4 + 3], Y[i * 4 + 3]); ctx.closePath(); }
 const Q_STOPS = [[.005, [253, 230, 205]], [.03, [251, 196, 140]], [.1, [244, 140, 66]], [.25, [226, 85, 43]], [.5, [170, 30, 25]]];
 function qColor(q) { let c = Q_STOPS[0][1]; for (let j = 0; j < Q_STOPS.length - 1; j++) if (q >= Q_STOPS[j][0]) c = mix3(Q_STOPS[j][1], Q_STOPS[j + 1][1], clamp((q - Q_STOPS[j][0]) / (Q_STOPS[j + 1][0] - Q_STOPS[j][0]), 0, 1)); return c; }
-const MC_STOPS = [[.01, [237, 226, 246]], [.1, [203, 170, 226]], [.3, [158, 105, 200]], [.6, [110, 50, 160]], [.9, [64, 16, 110]]];
+const MC_STOPS = [[.01, [214, 194, 238]], [.1, [186, 146, 222]], [.3, [158, 105, 200]], [.6, [110, 50, 160]], [.9, [64, 16, 110]]];
 function mcColor(q) { let c = MC_STOPS[0][1]; for (let j = 0; j < MC_STOPS.length - 1; j++) if (q >= MC_STOPS[j][0]) c = mix3(MC_STOPS[j][1], MC_STOPS[j + 1][1], clamp((q - MC_STOPS[j][0]) / (MC_STOPS[j + 1][0] - MC_STOPS[j][0]), 0, 1)); return c; }
 const ageOf = (i, t) => first[i] === 0 ? t + 24 : t - REC[first[i]];   // the first record already holds fire from 03-22
 function burnedAt(i, k) { return first[i] !== 255 && first[i] <= k; }

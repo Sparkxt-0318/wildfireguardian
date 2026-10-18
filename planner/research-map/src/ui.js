@@ -44,7 +44,7 @@ function legendHTML(id) {
   if (id === 'heat') return `<div class="legend" style="display:block"><div class="memsel" id="memsel">${[tr('최대', 'Max'), 'S1', 'S2', 'S3', 'S4'].map((n, i) => `<button type="button" data-m="${i - 1}" aria-pressed="${i === 0}">${n}</button>`).join('')}</div>
     <span>0.01</span><span class="ramp" style="background:linear-gradient(90deg,#c43c4e,#e8602c,#f8961e,#f6d746,#fcffa4)"></span><span>1 kW/m² · <i style="background:#fff3c0"></i>${tr('화염 접촉 셀', 'flame-contact cell')}</span><br><span>${tr('0.01 kW/m² 미만은 그리지 않습니다. 모델 입력 시각부터 1시간만 있으니 1시간 상세로 보세요.', 'Below 0.01 kW/m² is not drawn. Exists for 1 h after each model input; use the 1-hour detail.')}</span></div>`;
   if (id === 'heat3d') return '';
-  if (id === 'mc') return HR ? `<div class="legend"><span>1%</span><span class="ramp" style="background:linear-gradient(90deg,#ede2f6,#cbaae2,#9e69c8,#6e32a0,#40106e)"></span><span>90%+ · ${tr('점선: 50% 도달 시각(1시간 간격)', 'dashed: hour F reaches 50%')}</span></div>`
+  if (id === 'mc') return HR ? `<div class="legend"><span>1%</span><span class="ramp" style="background:linear-gradient(90deg,#d6c2ee,#ba92de,#9e69c8,#6e32a0,#40106e)"></span><span>90%+ · ${tr('점선: 50% 도달 시각(1시간 간격)', 'dashed: hour F reaches 50%')}</span></div>`
     : `<div class="legend" style="color:var(--warn)">${tr('시간별 결과는 환경 입력 래스터가 필요해 이 화면에 아직 없습니다. 자료 탭의 출처를 보세요.', 'The hourly results need the environmental input rasters and are not in this view yet. See Sources in the Docs tab.')}</div>`;
   if (id === 'q') return `<div class="legend"><span>0.5%</span><span class="ramp" style="background:linear-gradient(90deg,#fde6cd,#fbc48c,#f48c42,#e2552b,#aa1e19)"></span><span>50%+</span></div>`;
   if (id === 'temp') return `<div class="legend"><span>−2°</span><span class="ramp" style="background:linear-gradient(90deg,#466ebe,#8cb9e1,#f6f0c4,#f4aa5c,#de5c32,#961e1e)"></span><span>30°C · ${tr('등온선 2°C', 'isotherms 2°C')}</span></div>`;
@@ -270,7 +270,7 @@ function buildDocs() {
   $('pDocs').querySelectorAll('[data-big]').forEach(b => b.onclick = () => openLightbox(b.dataset.big, b.title || b.alt || ''));
 }
 function openLightbox(src, cap) {
-  const lb = $('lightbox'); lb.querySelector('img').src = src; lb.querySelector('figcaption').textContent = cap; lb.hidden = false; lb.querySelector('button').focus();
+  const lb = $('lightbox'); lb.querySelector('img').src = src; lb.querySelector('figcaption span').textContent = cap; lb.hidden = false; lb.querySelector('button').focus();
 }
 $('lightbox').onclick = e => { if (e.target.closest('img') && !e.target.closest('button')) return; $('lightbox').hidden = true; };
 addEventListener('keydown', e => { if (e.key === 'Escape') { $('lightbox').hidden = true; $('regMenu').hidden = true; $('regBtn').setAttribute('aria-expanded', 'false'); } });
@@ -525,7 +525,7 @@ addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')
 let prevRec = null, prevBooth = null;
 function updateTimeUI() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), pct = pctOf(t);
-  $('tFill').style.width = pct + '%'; $('tKnob').style.left = pct + '%'; $('tBub').style.left = pct + '%'; $('tBub').textContent = state.detail ? `${fmt(t)} · +${((t - rangeLo()) * 60).toFixed(1)}${tr('분', ' min')}` : fmt(t);
+  $('tFill').style.width = pct + '%'; $('tKnob').style.left = pct + '%'; $('tBub').style.left = pct + '%'; $('tBub').style.transform = `translateX(${pct > 80 ? -100 : pct < 20 ? 0 : -50}%)`;   /* stays inside the track at the ends */ $('tBub').textContent = state.detail ? `${fmt(t)} · +${((t - rangeLo()) * 60).toFixed(1)}${tr('분', ' min')}` : fmt(t);
   track.setAttribute('aria-valuenow', t.toFixed(1)); track.setAttribute('aria-valuetext', fmt(t) + ' KST');
   const qAge = qi >= 0 ? t - INP[qi] : null;
   $('firechip').innerHTML = `<b>${tr('화재 입력 · 기록 (재구성)', 'Fire input · recorded (reconstructed)')}</b> ${B.event}<br><span>${tr('연소 기록', 'Burn record')} ${k >= 0 ? fmt(REC[k]) : tr('없음', 'none')} · q ${qi >= 0 ? (qAge <= 1 ? `${fmt(INP[qi])} ${tr('입력 (유효)', 'input (valid)')}` : `${fmt(INP[qi])} ${tr('입력 · 유효 시간 지남', 'input · expired')}`) : tr('없음', 'none')}</span>`;

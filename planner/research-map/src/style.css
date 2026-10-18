@@ -234,7 +234,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
 .regmenu b { font-size: 13px; } .regmenu span { font-size: 11.5px; color: var(--ink-2); } .regmenu small { font-size: 11px; color: var(--muted); }
 .regmenu em { font-style: normal; color: var(--ok); font-weight: 600; }
 #regBtn { cursor: pointer; }
-.tabs { overflow-x: auto; scrollbar-width: none; }
+.tabs { overflow-x: auto; scrollbar-width: none; flex: none; }   /* flex: none keeps the tab bar from shrinking in the .side column */
 .tabs::-webkit-scrollbar { display: none; }
 .tabs button { white-space: nowrap; flex: none; }
 .mk.shelter { background: #3c6f9c; }
@@ -298,3 +298,5 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 @media (max-width: 1400px) { .top .sub, .top .meta.loc { display: none; } }
 @media (max-width: 1180px) { .top .meta.date { display: none; } }
 @media (max-width: 860px) { .cmpchip { top: 64px; max-width: calc(100% - 28px); white-space: normal; } .regmenu { width: min(310px, calc(100vw - 32px)); } }
+.scale { text-shadow: 0 0 3px #000, 0 1px 3px #000c; }
+.scale .bar { margin-top: 4px; }
