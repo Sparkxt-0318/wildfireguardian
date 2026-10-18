@@ -307,8 +307,8 @@ def booth_summary(rid, R: Path, byid, tol):
         for o in origins:
             pl = byid.get(o['id']) or {}
             t = travel.get(o['id'])
-            if t and o.get('dep') is not None and t['dep'] != o['dep']:
-                t = None      # a comparison belongs to the best checked departure (planner rule)
+            if t and (o.get('dep') is None or t['dep'] != o['dep']):
+                t = None      # a comparison belongs to the best checked departure; none without one (planner rule)
             dn = byid.get(o['dest']) or {}
             rows.append(dict(o, name=pl.get('name') or (o['id'].split(':')[-2] if o.get('research') else o['id']), ne=pl.get('ne'), cat=pl.get('cat', 'research' if o.get('research') else None),
                              vul=pl.get('vul', False), lon=pl.get('lon'), lat=pl.get('lat'), dname=dn.get('name'), dne=dn.get('ne'), travel=t))

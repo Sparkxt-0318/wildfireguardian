@@ -7,6 +7,7 @@ const caseLabel = r => r.label;
 const fmtS = s => s == null ? '–' : EN ? `${Math.floor(s / 60)} min ${String(Math.round(s % 60)).padStart(2, '0')} s` : `${Math.floor(s / 60)}분 ${String(Math.round(s % 60)).padStart(2, '0')}초`;
 const fmtMin = s => EN ? `${Math.round(s / 60)} min` : `${Math.round(s / 60)}분`;
 const sci = (x, d = 2) => x == null || !isFinite(x) ? '–' : x === 0 ? '0' : x < 1e-3 ? x.toExponential(1) : x.toFixed(d);
+const kstDay = iso => iso ? new Date(Date.parse(iso) + 9 * 3.6e6).toISOString().slice(0, 10) : '';
 const fmtLim = v => v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(2) : v.toPrecision(2);
 const niceMax = v => { v = Math.max(v, 1e-6) * 1.1; const e = Math.pow(10, Math.floor(Math.log10(v))); return [1, 2, 2.5, 5, 10].map(m => m * e).find(m => m >= v); };
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -139,13 +140,16 @@ function renderEvac() {
   }
   const k = Math.max(0, state.boothK), b = BOOTH[k], c = boothCounts(b), api = b.api || {};
   const noRoute = b.rows.filter(r => r.v !== 'checked_route').sort((a, z) => ['model_no_route', 'unresolved', 'not_checkable'].indexOf(a.v) - ['model_no_route', 'unresolved', 'not_checkable'].indexOf(z.v));
-  const hor = 3000, dl = b.rows.filter(r => r.v === 'checked_route' && r.last != null).sort((a, z) => a.last - z.last || (z.vul ? 1 : 0) - (a.vul ? 1 : 0));
-  const urgent = dl.filter(r => r.last < hor), rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + r.name : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
+  // deadline = latest contiguous checked departure from +0 (planner rule); later isolated checks are noted, never counted
+  const hor = 3000, dk = r => r.contig == null ? -1 : r.contig, dl = b.rows.filter(r => r.v === 'checked_route' && r.last != null).sort((a, z) => dk(a) - dk(z) || (z.vul ? 1 : 0) - (a.vul ? 1 : 0));
+  const urgent = dl.filter(r => dk(r) < hor || r.last !== r.contig), dlText = r => r.contig == null
+      ? tr(`+0분 출발 미확인 · +${Math.round(r.last / 60)}분 출발만 확인`, `+0 min not checked · only +${Math.round(r.last / 60)} min checked`)
+      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + r.name : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
   el.innerHTML = `
     <div class="grp-h"><span>${tr('입력 시각별 판정 · 부스 캐시', 'Verdicts per input time · booth cache')}</span><span>${tr('타임라인을 따라감', 'follows the timeline')}</span></div>
     <div class="seg2">${BOOTH.map((x, i) => `<button type="button" data-k="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</div>
     <div class="tiles">
-      <div class="tile ok"><b>${c.all.checked_route || 0}</b><span>/ ${c.total.all} ${tr('출발지', 'origins')}</span><small>${tr('확인된 경로', 'checked route')}</small></div>
+      <div class="tile ok"><b>${c.all.checked_route || 0}</b><span>/ ${c.total.all} ${tr('출발지', 'origins')}</span><small>${tr('확인된 경로 (연구 사례 출발지 포함)', 'checked route (incl. recorded research origins)')}</small></div>
       <div class="tile bad"><b>${c.total.all - (c.all.checked_route || 0)}</b><small>${tr('확인된 경로 없음', 'no checked route')}<br>${tr(`경로 없음 ${c.all.model_no_route || 0} · 미확인 ${c.all.unresolved || 0} · 점검 불가 ${c.all.not_checkable || 0}`, `no route ${c.all.model_no_route || 0} · unresolved ${c.all.unresolved || 0} · not checkable ${c.all.not_checkable || 0}`)}</small></div>
       <div class="tile care">${c.total.care ? `<b>${c.care.checked_route || 0}</b><span>/ ${c.total.care}</span><small>${tr('요양·복지시설 확인된 경로', 'care facilities with a checked route')}</small>` : `<b>–</b><small>${tr('이 지역 OSM 출발지에 요양·복지시설이 없습니다', 'No care facilities among this region’s OSM origins')}</small>`}</div>
       <div class="tile hit"><b>${c.hits}</b><small>${tr('같은 출발 시각에 이동시간만 고려한 경로였다면 화염 접촉', 'would touch flame on the travel-time-only route at the same departure')}</small></div>
@@ -153,13 +157,13 @@ function renderEvac() {
     <div class="bars"><div><span>${tr('마을', 'Villages')} ${c.total.village}</span>${stackBar(c.village, c.total.village)}</div><div><span>${tr('요양·복지', 'Care')} ${c.total.care}</span>${stackBar(c.care, c.total.care)}</div></div>
     <h4 class="sub-h">${tr('확인된 경로가 없는 출발지', 'Origins without a checked route')} <small>${noRoute.length}</small></h4>
     <ul class="olist">${noRoute.map(r => rowHTML(r, STATUS[r.v].t)).join('') || `<li class="note" style="padding:4px 8px">${tr('없음', 'None')}</li>`}</ul>
-    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('이 시각까지 출발하면 확인된 경로', 'checked route if leaving by')}</small></h4>
-    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, `${fmt(b.t0 + r.last / 3600, false)} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`)).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 점검한 마지막 출발 시각(+50분)까지 확인된 경로가 있습니다.', 'Every origin has a checked route up to the last departure checked (+50 min).')}</li>`}</ul>
+    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('입력 시각부터 이 시각까지 모든 출발 시각에 확인된 경로', 'every departure from the input time up to this time has a checked route')}</small></h4>
+    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 점검한 마지막 출발 시각(+50분)까지 확인된 경로가 있습니다.', 'Every origin has a checked route up to the last departure checked (+50 min).')}</li>`}</ul>
     ${dl.length - urgent.length ? `<p class="note" style="margin:2px 4px 8px">${tr(`나머지 ${dl.length - urgent.length}곳은 점검한 모든 출발 시각(+0–50분)에 확인된 경로가 있습니다.`, `The other ${dl.length - urgent.length} have a checked route at every departure checked (+0–50 min).`)}</p>` : ''}
     <h4 class="sub-h">${tr('입력 시각별 요약', 'Summary per input time')}</h4>
     <table class="mini"><tr><th>${tr('입력', 'Input')}</th><th>${tr('확인', 'Checked')}</th><th>${tr('경로 없음', 'No route')}</th><th>${tr('미확인', 'Unres.')}</th><th>${tr('불가', 'N/C')}</th><th>${tr('요양 확인', 'Care ok')}</th><th>${tr('접촉*', 'Flame*')}</th></tr>
       ${BOOTH.map(x => { const cc = boothCounts(x); return `<tr><td>${fmt(x.t0)}</td><td>${cc.all.checked_route || 0}</td><td>${cc.all.model_no_route || 0}</td><td>${cc.all.unresolved || 0}</td><td>${cc.all.not_checkable || 0}</td><td>${cc.care.checked_route || 0}/${cc.total.care}</td><td>${cc.hits}</td></tr>`; }).join('')}</table>
-    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 scenario)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${(api.created_at || '').slice(0, 10)} 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${(api.created_at || '').slice(0, 10)} · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
+    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 scenario)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
   el.querySelectorAll('.seg2 button').forEach(bt => bt.onclick = () => { if (state.detail) setDetail(false); setTime(BOOTH[+bt.dataset.k].t0 + .02); setPlaying(false); });
   el.querySelectorAll('[data-o]').forEach(bt => bt.onclick = () => focusOrigin(bt.dataset.o));
 }
@@ -170,7 +174,7 @@ const TABLE1 = [
   ['Google ML', ['미래 산불 지도', 'Future fire maps'], ['개인 이동 중 노출 미평가', 'No exposure along a trip'], ['이동 경로별 위험 점검', 'Hazard checked per route']],
   ['WUIVAC', ['대피 개시 구역', 'Evacuation trigger zones'], ['사전 지정 경로 평가', 'Evaluates preset routes'], ['경로 탐색·누적 노출 평가', 'Route search + dose check']],
   ['WUI-NITY', ['산불·대피 연계 simulation', 'Coupled fire–evacuation simulation'], ['인구 집단 simulation 중심', 'Population-level simulation'], ['개별 이동 독립 검증', 'Each trip checked on its own']],
-  ['Time-expanded routing', ['위험 반영 대피 흐름', 'Hazard-aware evacuation flow'], ['해당 정식화에 개인 누적 열노출 한도 없음', 'No per-person cumulative heat limit'], ['시나리오별 누적 열노출·목적지 체류 평가·최적화', 'Per-scenario dose, destination dwell, optimality']],
+  ['Time-expanded routing', ['위험 반영 대피 흐름', 'Hazard-aware evacuation flow'], ['해당 정식화에 개인 누적 열노출 한도 없음', 'No per-person cumulative heat limit'], ['시나리오별 누적 열노출·목적지 체류 평가·최적화', 'Per-scenario dose, destination dwell, evaluation and optimization']],
 ];
 const CMP = {
   spread: { n: tr('확산 예측만', 'Spread forecast only'), d: tr('FARSITE·ML 확산 지도류가 내놓는 산출물: 연소 상태와 확률 지도. 경로·노출 평가 없음.', 'What spread simulators and ML fire maps output: burned state and probability maps. No routes or exposure.'), on: ['burn', 'front', 'q', 'mc'], off: ['heat', 'heat3d', 'routes', 'booth'] },
@@ -213,20 +217,21 @@ const LOGGER = {
     [tr('보드', 'Board'), 'FireBeetle 2 ESP32-E (DFR0654-F)'],
     ['GNSS', tr('Gravity TEL0157 · UART (D11/D10) · 패치 안테나', 'Gravity TEL0157 · UART (D11/D10) · patch antenna')],
     [tr('화면', 'Display'), tr('1.54인치 240×240 ST7789', '1.54 in 240×240 ST7789')],
-    [tr('전원', 'Power'), tr('14500 셀 800 mAh · USB-C 충전 · 1회 충전 약 5–6시간 기록', '14500 cell 800 mAh · USB-C charging · about 5–6 h of recording per charge')],
+    [tr('전원', 'Power'), tr('14500 셀 800 mAh · USB-C 충전 · 계획용 추정 1회 충전 5–6시간 (직접 측정 전)', '14500 cell 800 mAh · USB-C charging · plan on 5–6 h per charge until measured')],
     [tr('저장', 'Storage'), tr('약 2.5 MB · 약 14시간 기록 · 기록 형식 2 (48바이트)', 'About 2.5 MB · about 14 h of recordings · record format 2 (48 bytes)')],
-    [tr('조작', 'Control'), tr('버튼 1개 (IO27): 짧게 = 이벤트 표시 · 2.5초 = 기록 시작/정지 · 6초 이상 = Wi-Fi 내보내기', 'One button (IO27): short = event mark · 2.5 s = start/stop · over 6 s = Wi-Fi export')],
+    [tr('조작', 'Control'), tr('버튼 1개 (IO27): 대기 중 짧게 = 이동 방식 변경 · 기록 중 짧게 = 이벤트 표시 · 2.5초 = 기록 시작/정지 · 대기 중 6초 이상 = Wi-Fi 내보내기', 'One button (IO27): short in idle = change mode · short while recording = event mark · 2.5 s = start/stop · over 6 s in idle = Wi-Fi export')],
     [tr('이동 방식', 'Modes'), 'WALK · VEHICLE · UNKNOWN'],
     [tr('케이스', 'Case'), tr('PETG 3D 출력 · 0.20 mm 층 · 25% gyroid · 180×180 mm 베드', 'PETG 3D print · 0.20 mm layers · 25% gyroid · 180×180 mm bed')],
     [tr('한계', 'Limits'), tr('방수·내열 아님 (비·뜨거운 차 안 주의) · Wi-Fi는 내보내기 모드에서만', 'Not waterproof or heat-proof (rain, hot cars) · Wi-Fi only in export mode')],
   ],
   phases: [
-    [tr('1 · 시험 출력', '1 · Test prints'), tr('USB·버튼·화면 맞춤을 확인하는 시험 조각 출력 (약 1시간)', 'Test pieces to check USB, button and display fit (about 1 h)')],
-    [tr('2 · 펌웨어', '2 · Firmware'), tr('PlatformIO로 0.3.0 업로드 · 시리얼에서 HELLO → OK HELLO fw=0.3.0', 'Upload 0.3.0 with PlatformIO · HELLO on serial → OK HELLO fw=0.3.0')],
-    [tr('3 · 배선', '3 · Wiring'), tr('화면 8선 (BLK는 D7, D13 금지) · GNSS 4선 · 앱으로 5단계 시험', 'Display 8 wires (BLK on D7, never D13) · GNSS 4 wires · 5-step test in the app')],
-    [tr('4 · 셀', '4 · Cell'), tr('멀티미터로 극성 확인(+3.0–4.2 V) 후 연결 · 앱에서 전압 보정', 'Check polarity with a multimeter (+3.0–4.2 V) before plugging in · calibrate in the app')],
-    [tr('5 · 케이스', '5 · Case'), tr('하판 2.5–3.5시간 · 상판 1.5–2시간 출력 · 보드·GNSS 브래킷·안테나·화면 조립 · M3×12 나사 2개', 'Bottom 2.5–3.5 h · top 1.5–2 h prints · fit board, GNSS bracket, antenna, display · 2 × M3×12')],
-    [tr('6 · 첫 기록', '6 · First recording'), tr('야외에서 초록 3D 확인 → 2.5초 눌러 REC → 짧게 눌러 이벤트 → 2.5초 정지 → USB로 앱에 가져와 재생', 'Outdoors wait for green 3D → hold 2.5 s for REC → short press for events → hold 2.5 s to stop → pull into the app over USB and replay')],
+    [tr('1 · 시험 조각 출력', '1 · Print test pieces'), tr('USB·버튼·화면 맞춤을 확인하는 시험 조각과 버튼 부품 출력 (약 1시간)', 'Test pieces and button parts to check USB, button and display fit (about 1 h)')],
+    [tr('2 · 펌웨어 올리기', '2 · Flash the firmware'), tr('PlatformIO로 0.3.0 업로드 · 시리얼에서 HELLO → OK HELLO fw=0.3.0', 'Upload 0.3.0 with PlatformIO · HELLO on serial → OK HELLO fw=0.3.0')],
+    [tr('3 · 벤치 시험', '3 · Bench test'), tr('화면 8선(BLK는 D7, D13 금지) · GNSS 4선 · 앱 5단계 시험 · 멀티미터로 셀 극성 확인(+3.0–4.2 V) 후 연결·전압 보정', 'Display 8 wires (BLK on D7, never D13) · GNSS 4 wires · 5-step app test · check cell polarity (+3.0–4.2 V), plug in, calibrate')],
+    [tr('4 · 맞춤 시험', '4 · Test fits'), tr('USB 플러그(12.4×7.0 mm까지) · 버튼 딸깍 · 화면 창 위치', 'USB plug (up to 12.4×7.0 mm) · button click · display window')],
+    [tr('5 · 케이스 출력', '5 · Print the case'), tr('하판 2.5–3.5시간 · 상판 1.5–2시간 · 베젤·GNSS 브래킷 1시간 이내', 'Bottom 2.5–3.5 h · top 1.5–2 h · bezel and GNSS bracket under 1 h')],
+    [tr('6 · 조립', '6 · Assemble'), tr('버튼·보드·GNSS 브래킷·안테나·셀·화면·베젤 순서로 조립 · 뒤에서 M3×12 나사 2개', 'Button, board, GNSS bracket, antenna, cell, display, bezel · 2 × M3×12 from the back')],
+    [tr('7 · 첫 사용', '7 · First use'), tr('야외에서 초록 3D 확인 → 2.5초 눌러 REC → 짧게 눌러 이벤트 → 2.5초 정지 → USB로 앱에 가져와 재생', 'Outdoors wait for green 3D → hold 2.5 s for REC → short press for events → hold 2.5 s to stop → pull into the app over USB and replay')],
   ],
   figs: [
     ['fig01', tr('전자 부품', 'Electronics parts')], ['fig02', tr('출력 부품', 'Printed parts')], ['fig03', tr('FireBeetle 핀 배치', 'FireBeetle pin map')], ['fig04', tr('화면 배선', 'Display wiring')], ['fig05', tr('GNSS 배선', 'GNSS wiring')],
@@ -437,7 +442,7 @@ function buildRouteTab() {
     <p class="note" style="margin:4px">${tr('전체 위험 검사: 각 정책의 경로를 같은 화재 입력의 전체 조건(화염 접촉·순간 열유속·누적 노출, 4개 scenario)으로 다시 검사한 기록입니다. 주황 점선 = 이동시간만 고려한 경로, 빨간 점 = 그 경로가 화염 셀을 지나는 지점.', 'Full check: each policy’s route re-checked against the full constraints of the same fire input (flame contact, peak flux, dose; 4 scenarios). Orange dashes = travel-time-only route; red dots = where it passes a flame cell.')}</p>`;
   if (!ok) {
     el.innerHTML = head + `
-      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('네 scenario 모두에서 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 이 모델·조건에서 없음이 증명되었습니다', 'It is proven that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
+      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('경로 엔진이 이 모델·조건에서 네 scenario 모두 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 없다고 기록했습니다 (공급된 4개 scenario · 1초 격자에서의 엔진 증명 기록)', 'The route engine recorded that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window (an engine proof for the 4 supplied scenarios on a 1 s lattice)')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
       ${tp ? `<div><b>${tr('같은 출발의 이동시간만 경로', 'Travel-time-only route, same departure')}</b>${tr(`도착 +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · 전체 위험 검사 ${tp.full_check && !tp.full_check.passed ? '불통과 (' + (tp.full_check.components || []).join(', ') + ')' : '통과'} · 이 화면 재계산 화염 셀 통과 ${sc.travelHits.length}지점`, `Arrival +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · full check ${tp.full_check && !tp.full_check.passed ? 'fails (' + (tp.full_check.components || []).join(', ') + ')' : 'passes'} · ${sc.travelHits.length} flame-cell points recomputed here`)}</div>` : ''}</div>
       ${ablation}
       ${tp && tp.dense.length > 1 ? `<h4>${tr('점유 구간 검사 · 이동시간만 경로', 'Occupancy check · travel-only route')} <small>${tr('주황 = 차량 점유 · 색 막대 = scenario 화염 구간', 'orange = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>` : ''}`;
@@ -453,7 +458,7 @@ function buildRouteTab() {
     <h4>${tr('탐색 순서', 'Search order')} <small>${tr('보고서 그림 6', 'report Fig. 6')}</small></h4>
     <div class="flow"><div><b>${tr('1단계 · 화재 회피 완화 탐색', 'Stage 1 · relaxed fire-avoiding search')}</b>${tr(`순간·누적 열 조건만 빼고 도로·회전·대기·체류·화재 접촉을 지킨 가장 이른 도착 → 하한 L = +${fmtS(p.L)}`, `Earliest arrival keeping roads, turns, waits, dwell and flame contact, dropping only the peak and dose limits → lower bound L = +${fmtS(p.L)}`)}</div>
       <div><b>${tr('2단계 · 전체 여정 검사', 'Stage 2 · whole-journey check')}</b>${tr('후보 여정의 이동·대기·체류 구간을 네 scenario에서 접촉·순간 열유속·누적 노출로 검사 → 통과', 'The candidate’s travel, wait and dwell are checked in all four scenarios for contact, peak flux and dose → pass')}</div>
-      <div class="ok"><b>${tr('결과', 'Result')} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t}</b>${tr('도착', 'Arrival')} +${fmtS(p.arr)} ${p.arr === p.L ? tr('= 하한 L → 이 모델·조건에서 더 이른 안전 도착은 없음 (조건부 최적)', '= lower bound L → no earlier safe arrival in this model (conditionally optimal)') : tr('> 하한 L', '> lower bound L')}<br><span class="note">${p.decision || ''}</span></div></div>
+      <div class="ok"><b>${tr('결과', 'Result')} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t}</b>${tr('도착', 'Arrival')} +${fmtS(p.arr)} ${p.arr === p.L ? tr('= 하한 L → 이 모델·조건에서 더 이른 도착은 없음 (모델 기준 조건부 최적)', '= lower bound L → no earlier arrival in this model and these conditions (conditional model optimum)') : tr('> 하한 L', '> lower bound L')}<br><span class="note">${p.decision || ''}</span></div></div>
     ${ablation}
     <h4>${tr('scenario별 노출', 'Exposure per scenario')} <small>${tr('전체 조건 경로', 'full-constraint route')}</small></h4>
     <table class="mini"><tr><th>scenario</th><th>${tr('기록 최대', 'Rec. peak')}</th><th>${tr('기록 누적', 'Rec. dose')}</th><th>${tr('재계산 누적*', 'Recomp.*')}</th><th>${tr('접촉', 'Contact')}</th></tr>
@@ -487,9 +492,9 @@ function buildModelTab() {
       <div class="f">D̂(γ) = D<sub>prior</sub> + ∫ q<sub>m</sub>(x(t), t) dt ≤ D<sub>lim</sub>  (scenario m = 1…4)<br>${tr('순간 열유속 ≤ 10 kW/m² · 화재 접촉 없음 · 도착 허용 시간 안 체류 완료', 'peak flux ≤ 10 kW/m² · no flame contact · dwell finished inside the window')}<br>${tr('1단계 완화 탐색 → 하한 L,  2단계 전체 여정 검사', 'stage 1 relaxed search → lower bound L, stage 2 whole-journey check')}</div>
       <div class="live" id="lv3"></div></div>
     <div class="grp-h" style="margin-top:12px"><span>${tr('보고서 기록 결과', 'Reported results')}</span><span>${tr('이 화면에서 다시 계산하지 않음', 'not recomputed here')}</span></div>
-    <table class="mini"><tr><td>${tr('예측 AP (재구성 평가)', 'Forecast AP (reconstructed test)')}</td><td>0.162 vs ${tr('기준', 'baseline')} 0.092</td></tr><tr><td>${tr('Wapiti 25구간 Brier · AP', 'Wapiti 25 intervals Brier · AP')}</td><td>0.0084 · 0.146 (FARSITE 0.0238 · 0.063)</td></tr>
-      <tr><td>${tr('routing 해결 (30초 · 20 case)', 'Routing solved (30 s · 20 cases)')}</td><td>20/20 vs 13/20 (route 15 + ${tr('부재', 'none')} 5)</td></tr><tr><td>${tr('이동시간만 고려한 route 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
-      <tr><td>${tr('요청 시간 중앙값', 'Median request time')}</td><td>8.006${tr('초', ' s')} vs 7.344${tr('초', ' s')}</td></tr><tr><td>${tr('영덕 도로 준비', 'Yeongdeok road preparation')}</td><td>28.523${tr('초', ' s')} → 2.219${tr('초', ' s')} (−92.2%)</td></tr></table>`;
+    <table class="mini"><tr><td>${tr('예측 AP (재구성 평가)', 'Forecast AP (reconstructed test)')}</td><td>0.162 vs ${tr('기준', 'baseline')} 0.092 <span class="note">${tr('(한국 AP는 기준보다 낮음)', '(Korean AP below baseline)')}</span></td></tr><tr><td>${tr('Wapiti 25구간 Brier · AP', 'Wapiti 25 intervals Brier · AP')}</td><td>0.0084 · 0.146 (FARSITE 0.0238 · 0.063) <span class="note">${tr('(시험 지역 1곳)', '(one test region)')}</span></td></tr>
+      <tr><td>${tr('routing 해결 (30초 · 20 case)', 'Routing resolved (30 s · 20 cases)')}</td><td>20/20 ${tr('(범위가 정해진 거절 5 포함)', '(incl. 5 scoped refusals)')} vs 13/20</td></tr><tr><td>${tr('이동시간만 고려한 route 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
+      <tr><td>${tr('요청 시간 중앙값 (함께 해결된 26쌍)', 'Median request time (26 jointly resolved pairs)')}</td><td>${tr('제안 8.006초 vs 기준 7.344초 (제안이 느림)', 'candidate 8.006 s vs reference 7.344 s (candidate slower)')}</td></tr><tr><td>${tr('영덕 도로 준비 (별도 입력·별도 실험)', 'Yeongdeok road preparation (separate input and experiment)')}</td><td>28.523${tr('초', ' s')} → 2.219${tr('초', ' s')} (−92.2%)</td></tr></table>`;
   renderLive();
 }
 function renderLive() {
