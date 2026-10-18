@@ -42,11 +42,11 @@ const K300 = Math.max(0, H.findIndex(v => Math.abs(v - 300) < 4));
 // surrounding terrain (context ring), same projection scale and centre as the analysis box
 const CXB = B.context, [CW, CS, CE, CN] = CXB.bbox, [CKXr, CKYr] = CXB.km, CKX = CKXr * SF, CKY = CKYr * SF, CDEC = isPhone ? 2 : 1;
 const CGX = Math.floor((CXB.w - 1) / CDEC) + 1, CGY = Math.floor((CXB.h - 1) / CDEC) + 1, CH = new Float32Array(CGX * CGY);
-{ const bin = atob(CXB.b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+// the ring's heights come in <id>.ctx.js, which loads while the first frame is drawn (see boot)
+function attachContext(b64) { const bin = atob(b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
   const u16 = new Uint16Array(u8.buffer); for (let y = 0; y < CGY; y++) for (let x = 0; x < CGX; x++) CH[y * CGX + x] = u16[(y * CDEC) * CXB.w + x * CDEC] * CXB.scale; }
 function celevUV(u, v) { const gx = clamp(u * (CGX - 1), 0, CGX - 1.0001), gy = clamp(v * (CGY - 1), 0, CGY - 1.0001), x0 = gx | 0, y0 = gy | 0, fx = gx - x0, fy = gy - y0, i = y0 * CGX + x0;
   return CH[i] * (1 - fx) * (1 - fy) + CH[i + 1] * fx * (1 - fy) + CH[i + CGX] * (1 - fx) * fy + CH[i + CGX + 1] * fx * fy; }
-let CMAX = 0; for (const v of CH) CMAX = Math.max(CMAX, v);
 // hourly cumulative new-burn probability F(h) from the recursive Monte Carlo rollout (optional bundle part)
 // hourly F(h) arrives after the first frames (regions/<id>.hourly.js); HM describes it before then
 let HR = null, HH = 0, HP = [], HSE = [], HV = [], HCUT = [], A50 = [];
@@ -140,7 +140,10 @@ let ground, groundHS, topo, hsCv, slopeCv, canopyCv, biomeCv, F, LC, tempCv, BIO
 // first visit to a region draws them (≈ 2–3 s) and saves them in the background; later visits and region switches decode the
 // saved images instead. Any failure (private window, Safari on file://, quota) falls back to drawing them.
 const BAKE = /(^#|&)bake=1(&|$)/.test(location.hash);   // tools/bake_textures.mjs: draw everything, ignore stored textures
-const TEX_VERSION = 2, TEX_KEY = [TEX_VERSION, B.id, GX, GY, B.dem.b64.length, B.context.b64.length, B.osm.roads.length, B.osm.landuse.length].join(':');
+const TEX_VERSION = 2, TEX_KEY = [TEX_VERSION, B.id, GX, GY, B.dem.b64.length, B.parts.ctx_b64, B.parts.osm_roads, B.parts.osm_landuse].join(':');
+// OSM vectors (<id>.osm.js) are needed only to draw the terrain in the page and for the 2D maps
+let osmReq;
+const needOsm = () => osmReq || (osmReq = window.__wfgLoad(`${B.id}.osm.js`).then(() => { B.osm = (window.WFG_OSM || {})[B.id] || { roads: [], water: [], landuse: [] }; }));
 const texCache = {
   db: null,
   open() { return this.db || (this.db = new Promise((ok, no) => { const r = indexedDB.open('wfg3d', 1); r.onupgradeneeded = () => r.result.createObjectStore('tex'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
@@ -148,7 +151,9 @@ const texCache = {
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
 const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
-const imgCanvas = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => { const c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d').drawImage(im, 0, 0); ok(c); }; im.onerror = no; im.src = src; });
+const imgEl = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+// read = the pixels are read back (the mask): keep that canvas in memory rather than on the GPU
+const imgCanvas = async (src, read) => { const im = await (typeof src === 'string' ? imgEl(src) : src), c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(im, 0, 0); return c; };
 // land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
 function maskCanvas() { const c = mk(MW, MH), x = c.getContext('2d'), im = x.createImageData(MW, MH); for (let i = 0; i < MW * MH; i++) im.data.set([LC[i] * 40, F[i] ? 255 : 0, 0, 255], i * 4); x.putImageData(im, 0, 0); return c; }
 async function loadTextures() {
@@ -156,17 +161,21 @@ async function loadTextures() {
   // 1) pre-built with the site (regions/<id>.tex.js, tools/bake_textures.mjs), used when it matches this data
   const pre = (window.WFG_TEX || {})[B.id];
   if (pre && pre.key === TEX_KEY) try {
-    const [g, h, cr, ct, m] = await Promise.all([pre.ground, pre.hs, pre.ctxReal, pre.ctxTopo, pre.mask].map(imgCanvas));
-    const md = m.getContext('2d').getImageData(0, 0, MW, MH).data, F_ = new Uint8Array(MW * MH), LC_ = new Uint8Array(MW * MH);
+    // the loader started these downloads before the region data arrived; the 2D ring texture (ctxTopo) loads on first use
+    const early = window.__wfgImg || {}, src = k => early[k] || pre[k];
+    const [g, h, cr, m] = await Promise.all([imgCanvas(src('ground')), imgCanvas(src('hs')), imgCanvas(src('ctxReal')), imgCanvas(src('mask'), true)]);
+    const md = m.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, MW, MH).data, F_ = new Uint8Array(MW * MH), LC_ = new Uint8Array(MW * MH);
     for (let i = 0; i < MW * MH; i++) { LC_[i] = Math.round(md[i * 4] / 40); F_[i] = md[i * 4 + 1] > 127 ? 1 : 0; }
-    return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: F_, LC: LC_ };
+    return { ground: g, hs: h, ctxReal: cr, ctxTopo: null, ctxTopoSrc: pre.ctxTopo, F: F_, LC: LC_ };
   } catch (e) { }
   // 2) saved in this browser after an earlier visit
   const hit = await texCache.get(TEX_KEY); if (!hit) return null;
   try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
-window.__bakeTextures = () => ({ key: TEX_KEY, ground: ground.toDataURL('image/jpeg', .8), hs: HSC.toDataURL('image/jpeg', .85),
-  ctxReal: CTX_REAL.toDataURL('image/jpeg', .8), ctxTopo: CTX_TOPO.toDataURL('image/jpeg', .8), mask: maskCanvas().toDataURL('image/png') });
+// WebP: about 40 % smaller than JPEG at the same look; the mask is lossless (quality 1), and tools/bake_textures.mjs checks that
+window.__bakeTextures = () => ({ key: TEX_KEY, ground: ground.toDataURL('image/webp', .8), hs: HSC.toDataURL('image/webp', .82),
+  ctxReal: CTX_REAL.toDataURL('image/webp', .8), ctxTopo: CTX_TOPO.toDataURL('image/webp', .8), mask: maskCanvas().toDataURL('image/webp', 1) });
+window.__maskCodes = () => Array.from(LC, (c, i) => c * 2 + F[i]).join('');
 function saveTextures() {
   if (BAKE) return;
   // stored as ArrayBuffers: Chrome does not keep Blobs in IndexedDB for file:// pages
@@ -238,7 +247,9 @@ function buildStatic(hit) {
 // the 2D maps are only needed in 2D mode: built on first use, not at start-up
 let HSD, HSC;
 function ensureFlat() {
-  if (topo) return; const hd = HSD || HSC.getContext('2d').getImageData(0, 0, MW, MH).data;
+  if (topo) return true;
+  if (!B.osm) { needOsm().then(() => { lastKey = ''; dirty = true; }); return false; }   // 3D colours until the OSM vectors arrive
+  const hd = HSD || HSC.getContext('2d').getImageData(0, 0, MW, MH).data;
   // realistic + baked hillshade (2D "실사")
   groundHS = mk(TW, TH); const GH = groundHS.getContext('2d'); GH.drawImage(ground, 0, 0);
   GH.globalCompositeOperation = 'multiply'; GH.drawImage(HSC, 0, 0, TW, TH); GH.globalCompositeOperation = 'source-over';
@@ -263,6 +274,7 @@ function ensureFlat() {
     row.set(next);
   }
   T.putImageData(ti, 0, 0); drawWater(T, TW, TH, 'topo'); drawRoads(T, TW, TH, 'topo');
+  return true;
 }
 function buildOverlays() {
 
@@ -425,7 +437,7 @@ function buildTerrain() {
   matFlat = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false });
   terrain = new THREE.Mesh(geo, matReal); terrain.castShadow = terrain.receiveShadow = true;
   // geometry y holds metres/1000 (km at ×1); scale.y applies exaggeration
-  for (let i = 0; i < p.count; i++) p.setY(i, H[i] / 1000);
+  for (let i = 0, a = p.array; i < p.count; i++) a[i * 3 + 1] = H[i] / 1000;
   p.needsUpdate = true; geo.computeVertexNormals();
   scene.add(terrain);
   // skirt so the block reads as a slab of land
@@ -446,12 +458,19 @@ function buildContext(hit) {
     const inside = lon > W + mlon && lon < E - mlon && lat > S + mlat && lat < N - mlat; p.setY(i, (CH[i] - (inside ? 80 : 0)) / 1000); }
   geo.computeVertexNormals();
   const CTW = 1024, CTH = Math.round(CTW * CKY / CKX);
-  const real = hit ? hit.ctxReal : mk(CTW, CTH), topoC = hit ? hit.ctxTopo : mk(CTW, CTH); CTX_REAL = real; CTX_TOPO = topoC;
-  if (!hit) drawContext(real, topoC, CTW, CTH);
-  const tex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
-  ctxMatReal = new THREE.MeshStandardMaterial({ map: tex(real), roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  ctxMatFlat = new THREE.MeshBasicMaterial({ map: tex(topoC), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  if (hit) { CTX_REAL = hit.ctxReal; CTX_TOPO = hit.ctxTopo; ctxTopoSrc = hit.ctxTopoSrc; }
+  else { CTX_REAL = mk(CTW, CTH); CTX_TOPO = mk(CTW, CTH); drawContext(CTX_REAL, CTX_TOPO, CTW, CTH); }
+  ctxMatReal = new THREE.MeshStandardMaterial({ map: ctxTex(CTX_REAL), roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
   ctxMesh = new THREE.Mesh(geo, ctxMatReal); ctxMesh.receiveShadow = true; ctxMesh.castShadow = true; scene.add(ctxMesh);
+}
+const ctxTex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
+// the 2D ring texture: made on first use (2D mode); a pre-built one is fetched then
+let ctxTopoSrc, ctxTopoReq;
+function ctxFlat() {
+  if (ctxMatFlat) return ctxMatFlat;
+  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { });
+  return null;
 }
 function drawContext(real, topoC, CTW, CTH) {
   const rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
@@ -755,8 +774,8 @@ function buildEmber() {
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
   const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
-  if (flat) ensureFlat();
-  if (L.base.on) { cx.drawImage(flat ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
+  const flatOk = flat && ensureFlat();
+  if (L.base.on) { cx.drawImage(flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
   else { cx.fillStyle = '#d9d5cc'; cx.fillRect(0, 0, TW, TH); if (flat) { cx.globalCompositeOperation = 'multiply'; cx.drawImage(hsCv, 0, 0, TW, TH); cx.globalCompositeOperation = 'source-over'; } }
   cx.imageSmoothingEnabled = true;
   if (L.biome.on) { ensureBiome(); cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }

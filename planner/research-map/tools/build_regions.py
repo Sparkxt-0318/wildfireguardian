@@ -323,6 +323,17 @@ def booth_summary(rid, R: Path, byid, tol):
     return out
 
 
+def write_parts(b, rid, outd):
+    """<id>.js holds what the first frame draws. The surrounding-terrain heights (<id>.ctx.js, the outer ring, added a moment
+    later) and the OSM vectors (<id>.osm.js, only for drawing the terrain in the page or the 2D maps) are separate files."""
+    js = lambda name, obj: f'(window.{name}=window.{name}||{{}})[{json.dumps(rid)}]=' + json.dumps(obj, ensure_ascii=False, separators=(',', ':')) + ';\n'
+    b = dict(b); ctx = dict(b['context']); osm = b.pop('osm')
+    b['context'] = {k: v for k, v in ctx.items() if k != 'b64'}
+    b['parts'] = dict(ctx_b64=len(ctx['b64']), osm_roads=len(osm['roads']), osm_landuse=len(osm['landuse']))   # texture key, see core.js
+    for name, text in [(f'{rid}.js', js('WFG_REGIONS', b)), (f'{rid}.ctx.js', js('WFG_CTX', ctx['b64'])), (f'{rid}.osm.js', js('WFG_OSM', osm))]:
+        (outd / name).write_text(text); print(f'  wrote {name} {len(text.encode()) / 1e6:.2f} MB')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     assets = Path(os.environ.get('WFG_ASSETS_DIR') or REPO / 'planner/.assets')
@@ -350,9 +361,7 @@ def main(argv=None):
             print(f'  wrote {hf.name} {hf.stat().st_size / 1e6:.2f} MB (loaded after the first view)')
         elif hf.exists():
             hf.unlink()
-        s = json.dumps(b, ensure_ascii=False, separators=(',', ':'))
-        (outd / f'{rid}.js').write_text(f'(window.WFG_REGIONS=window.WFG_REGIONS||{{}})[{json.dumps(rid)}]={s};\n')
-        print(f'  wrote {rid}.js {len(s.encode()) / 1e6:.2f} MB')
+        write_parts(b, rid, outd)
         bs = None
         if b['booth']:
             bs = [dict(input_time=x['input_time'], counts=Counter((r['v'], 'care' if r.get('vul') else 'village' if r.get('cat') == 'village' else r.get('cat')) for r in x['rows'])) for x in b['booth']]

@@ -564,7 +564,7 @@ function setMode(m) {
   for (const [a, b] of [['m2d', 'm3d'], ['v2d', 'v3d']]) { $(a).setAttribute('aria-pressed', String(flat)); $(b).setAttribute('aria-pressed', String(!flat)); }
   $('baseGrp').hidden = !flat; mapEl.classList.toggle('flat', flat);
   flatTarget = flat ? 1 : 0;
-  terrain.material = flat ? matFlat : matReal; ctxMesh.material = flat ? ctxMatFlat : ctxMatReal; skyDome.visible = !flat;
+  terrain.material = flat ? matFlat : matReal; if (ctxMesh) ctxMesh.material = flat && ctxFlat() || ctxMatReal; skyDome.visible = !flat;
   conifers.visible = broadleaf.visible = !flat && L.canopy.on; smoke.visible = !flat;
   windMat.blending = flat ? THREE.SubtractiveBlending : THREE.AdditiveBlending; windMat.needsUpdate = true;
   controls.enableRotate = !flat;
@@ -720,7 +720,16 @@ function frame(now) {
 // ---------------- boot ----------------
 async function boot() {
   const hit = await loadTextures();
-  buildStatic(hit); buildTerrain(); buildContext(hit); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+  const hp0 = new URLSearchParams(location.hash.slice(1));
+  if (!hit || hp0.get('mode') === '2d') await needOsm();   // drawing the terrain here, or the 2D maps, uses the OSM vectors
+  buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+  // the surrounding terrain ring is added when its heights arrive (they load while this first frame is built)
+  const ctxDone = (window.__wfgCtx || Promise.resolve(null)).then(b64 => {
+    if (!b64) return; attachContext(b64); buildContext(hit); ctxMesh.scale.y = yScale() * 1000;
+    if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
+    dirty = true; if (!hit) setTimeout(saveTextures, 800);
+  });
+  await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
   buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
@@ -739,10 +748,13 @@ async function boot() {
   if (hp.has('focus')) { const k = boothAt(state.t), r = k >= 0 && BOOTH[k].rows.find(x => x.name === hp.get('focus') || x.id === hp.get('focus')); if (r) focusOrigin(r.id); }
   if (hp.has('tab')) showTab(hp.get('tab'));
   renderEvac();
-  resize(); $('loading').remove(); setPlaying(false);
+  resize(); setPlaying(false);
+  $('loading').remove();
   window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
+  // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
+  window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
-  if (!hit) setTimeout(saveTextures, 1500);   // after the first frames, off the critical path
+  if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
   if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
 }
 requestAnimationFrame(() => setTimeout(boot, 30));
