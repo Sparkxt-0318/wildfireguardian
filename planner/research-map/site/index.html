@@ -587,7 +587,29 @@ const LANDCODE = { wood: 1, forest: 1, farmland: 2, meadow: 4, grass: 4, park: 4
 const WATER_POLY = k => k === 'water';
 
 let ground, groundHS, topo, hsCv, slopeCv, canopyCv, biomeCv, F, LC, tempCv, BIOME_COUNTS;
-function buildStatic() {
+// ---------------- texture cache (IndexedDB): the static terrain textures are the same on every visit ----------------
+// first visit to a region draws them (≈ 2–3 s) and saves them in the background; later visits and region switches decode the
+// saved images instead. Any failure (private window, Safari on file://, quota) falls back to drawing them.
+const TEX_VERSION = 1, TEX_KEY = [TEX_VERSION, B.id, GX, GY, isPhone ? 'p' : 'd', B.dem.b64.length, B.context.b64.length, B.osm.roads.length, B.osm.landuse.length].join(':');
+const texCache = {
+  db: null,
+  open() { return this.db || (this.db = new Promise((ok, no) => { const r = indexedDB.open('wfg3d', 1); r.onupgradeneeded = () => r.result.createObjectStore('tex'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
+  async get(key) { try { const db = await this.open(); return await new Promise(ok => { const q = db.transaction('tex').objectStore('tex').get(key); q.onsuccess = () => ok(q.result || null); q.onerror = () => ok(null); }); } catch (e) { return null; } },
+  async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
+};
+const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
+async function loadTextures() {
+  const hit = await texCache.get(TEX_KEY); if (!hit) return null;
+  try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
+}
+function saveTextures() {
+  // stored as ArrayBuffers: Chrome does not keep Blobs in IndexedDB for file:// pages
+  const blob = (c, type) => new Promise(ok => c.toBlob(b => ok(b ? b.arrayBuffer() : null), type, .9));
+  Promise.all([blob(ground, 'image/jpeg'), blob(HSC, 'image/png'), blob(CTX_REAL, 'image/jpeg'), blob(CTX_TOPO, 'image/jpeg')])
+    .then(([g, h, cr, ct]) => g && h && cr && ct && texCache.put(TEX_KEY, { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F, LC })).catch(() => { });
+}
+function buildStatic(hit) {
+  if (hit) { ground = hit.ground; hsCv = HSC = hit.hs; F = hit.F; LC = hit.LC; buildOverlays(); return; }
   // land cover mask
   const mc = mk(MW, MH), m = mc.getContext('2d');
   m.fillStyle = '#000'; m.fillRect(0, 0, MW, MH);
@@ -644,9 +666,16 @@ function buildStatic() {
   for (let n = 0; n < 160000; n++) { const u = rnd(), v = rnd(); if (!F[((v * MH) | 0) * MW + ((u * MW) | 0)]) continue; crowns.push(u, v); G.fillRect(u * TW - 1, v * TH - 1, 2.4, 2.4); }
   G.fillStyle = 'rgba(150,152,96,.22)'; for (let n = 0; n < crowns.length; n += 4) G.fillRect(crowns[n] * TW - 1.6, crowns[n + 1] * TH - 1.8, 1.4, 1.4);
   drawWater(G, TW, TH, 'real'); drawRoads(G, TW, TH, 'real');
+  HSD = hd; HSC = hc;
+  buildOverlays();
+}
+// the 2D maps are only needed in 2D mode: built on first use, not at start-up
+let HSD, HSC;
+function ensureFlat() {
+  if (topo) return; const hd = HSD || HSC.getContext('2d').getImageData(0, 0, MW, MH).data;
   // realistic + baked hillshade (2D "실사")
   groundHS = mk(TW, TH); const GH = groundHS.getContext('2d'); GH.drawImage(ground, 0, 0);
-  GH.globalCompositeOperation = 'multiply'; GH.drawImage(hc, 0, 0, TW, TH); GH.globalCompositeOperation = 'source-over';
+  GH.globalCompositeOperation = 'multiply'; GH.drawImage(HSC, 0, 0, TW, TH); GH.globalCompositeOperation = 'source-over';
 
   // topographic map (2D "지형도")
   topo = mk(TW, TH); const T = topo.getContext('2d'), ti = T.createImageData(TW, TH), td = ti.data;
@@ -668,6 +697,8 @@ function buildStatic() {
     row.set(next);
   }
   T.putImageData(ti, 0, 0); drawWater(T, TW, TH, 'topo'); drawRoads(T, TW, TH, 'topo');
+}
+function buildOverlays() {
 
   // slope overlay (real, from DEM)
   slopeCv = mk(GX, GY); { const sc = slopeCv.getContext('2d'), im = sc.createImageData(GX, GY);
@@ -681,13 +712,16 @@ function buildStatic() {
     for (let i = 0; i < MW * MH; i++) if (F[i]) im.data.set([255, 255, 255, 255], i * 4);
     fx.putImageData(im, 0, 0); cc.filter = 'blur(4px)'; cc.drawImage(fm, 0, 0); cc.filter = 'none';
     cc.globalCompositeOperation = 'source-in'; cc.fillStyle = '#2f8a3e'; cc.fillRect(0, 0, MW, MH); }
-  // biome classes (illustrative, 8 of the 14 one-hot channels appear here)
+  tempCv = mk(GX, GY);
+}
+// biome classes (illustrative, 8 of the 14 one-hot channels appear here): built when the layer is first shown
+function ensureBiome() {
+  if (biomeCv) return;
   biomeCv = mk(MW, MH); BIOME_COUNTS = new Array(BIOMES.length).fill(0);
   { const bc = biomeCv.getContext('2d'), im = bc.createImageData(MW, MH);
     for (let y = 0; y < MH; y++) for (let x = 0; x < MW; x++) { const i = y * MW + x, u = (x + .5) / MW, v = (y + .5) / MH, b = biomeAt(u, v, i); BIOME_COUNTS[b]++;
       const c = BIOMES[b].rgb; im.data.set([c[0], c[1], c[2], 255], i * 4); }
     bc.putImageData(im, 0, 0); }
-  tempCv = mk(GX, GY);
 }
 const BIOMES = [
   { n: tr('하천·수역', 'Water'), c: '#6f9fc0' }, { n: tr('시가지', 'Built-up'), c: '#b4aca0' }, { n: tr('농경지', 'Farmland'), c: '#e3cd7c' }, { n: tr('초지·관목', 'Grass · scrub'), c: '#c4cf78' },
@@ -797,7 +831,7 @@ controls.enableDamping = true; controls.dampingFactor = .09; controls.screenSpac
 controls.minDistance = 2.5; controls.maxDistance = 150; controls.maxPolarAngle = THREE.MathUtils.degToRad(84);
 controls.target.set(1.2, .3, .8); camera.position.set(-2.5, 17, 25);
 const hemi = new THREE.HemisphereLight(0xf2f4ff, 0x6d6450, .6); scene.add(hemi);
-const sunL = new THREE.DirectionalLight(0xfff1dc, 1.4); sunL.castShadow = true; sunL.shadow.mapSize.set(isPhone ? 2048 : 4096, isPhone ? 2048 : 4096);
+const sunL = new THREE.DirectionalLight(0xfff1dc, 1.4); sunL.castShadow = true; sunL.shadow.mapSize.set(2048, 2048);
 Object.assign(sunL.shadow.camera, { left: -44, right: 44, top: 44, bottom: -44, near: 1, far: 260 }); sunL.shadow.bias = -.0005; sunL.shadow.normalBias = .05;
 // sky dome: zenith/horizon gradient with sun glow; follows the camera
 const skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false,
@@ -838,14 +872,23 @@ function buildTerrain() {
   skirt = new THREE.Mesh(sg, new THREE.MeshStandardMaterial({ color: 0x8d826f, roughness: 1, side: THREE.DoubleSide })); scene.add(skirt);
 }
 let skirt, ctxMesh, ctxMatReal, ctxMatFlat, boundary;
-function buildContext() {
+let CTX_REAL, CTX_TOPO;
+function buildContext(hit) {
   const geo = new THREE.PlaneGeometry(CKX, CKY, CGX - 1, CGY - 1); geo.rotateX(-Math.PI / 2);
   const p = geo.attributes.position, mlon = 1.5 * (CE - CW) / (CGX - 1), mlat = 1.5 * (CN - CS) / (CGY - 1);
   for (let y = 0; y < CGY; y++) for (let x = 0; x < CGX; x++) { const i = y * CGX + x, lon = CW + x / (CGX - 1) * (CE - CW), lat = CN - y / (CGY - 1) * (CN - CS);
     const inside = lon > W + mlon && lon < E - mlon && lat > S + mlat && lat < N - mlat; p.setY(i, (CH[i] - (inside ? 80 : 0)) / 1000); }
   geo.computeVertexNormals();
-  const CTW = isPhone ? 1024 : 2048, CTH = Math.round(CTW * CKY / CKX);
-  const real = mk(CTW, CTH), topoC = mk(CTW, CTH), rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
+  const CTW = isPhone ? 768 : 1024, CTH = Math.round(CTW * CKY / CKX);
+  const real = hit ? hit.ctxReal : mk(CTW, CTH), topoC = hit ? hit.ctxTopo : mk(CTW, CTH); CTX_REAL = real; CTX_TOPO = topoC;
+  if (!hit) drawContext(real, topoC, CTW, CTH);
+  const tex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
+  ctxMatReal = new THREE.MeshStandardMaterial({ map: tex(real), roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  ctxMatFlat = new THREE.MeshBasicMaterial({ map: tex(topoC), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  ctxMesh = new THREE.Mesh(geo, ctxMatReal); ctxMesh.receiveShadow = true; ctxMesh.castShadow = true; scene.add(ctxMesh);
+}
+function drawContext(real, topoC, CTW, CTH) {
+  const rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
   const cdx = CKXr * 1000 / (CGX - 1), cdy = CKYr * 1000 / (CGY - 1), haze = [196, 201, 204];
   for (let y = 0; y < CTH; y++) for (let x = 0; x < CTW; x++) {
     const u = x / (CTW - 1), v = y / (CTH - 1), e = celevUV(u, v), du = 1 / (CGX - 1), dv = 1 / (CGY - 1);
@@ -864,11 +907,7 @@ function buildContext() {
   }
   rc.putImageData(ri, 0, 0); tc.putImageData(ti, 0, 0);
   // conifer specks for texture at distance
-  seed = 17; rc.fillStyle = 'rgba(16,26,14,.35)'; for (let n = 0; n < (isPhone ? 30000 : 90000); n++) { const u = rnd(), v = rnd(); const e = celevUV(u, v); if (e > 260) rc.fillRect(u * CTW, v * CTH, 1.6, 1.6); }
-  const tex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
-  ctxMatReal = new THREE.MeshStandardMaterial({ map: tex(real), roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  ctxMatFlat = new THREE.MeshBasicMaterial({ map: tex(topoC), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  ctxMesh = new THREE.Mesh(geo, ctxMatReal); ctxMesh.receiveShadow = true; ctxMesh.castShadow = true; scene.add(ctxMesh);
+  seed = 17; rc.fillStyle = 'rgba(16,26,14,.35)'; for (let n = 0; n < (isPhone ? 12000 : 30000); n++) { const u = rnd(), v = rnd(); const e = celevUV(u, v); if (e > 260) rc.fillRect(u * CTW, v * CTH, 1.6, 1.6); }
 }
 function buildBoundary() {
   if (boundary) { boundary.geometry.dispose(); scene.remove(boundary); }
@@ -1150,10 +1189,11 @@ function buildEmber() {
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
   const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
+  if (flat) ensureFlat();
   if (L.base.on) { cx.drawImage(flat ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
   else { cx.fillStyle = '#d9d5cc'; cx.fillRect(0, 0, TW, TH); if (flat) { cx.globalCompositeOperation = 'multiply'; cx.drawImage(hsCv, 0, 0, TW, TH); cx.globalCompositeOperation = 'source-over'; } }
   cx.imageSmoothingEnabled = true;
-  if (L.biome.on) { cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }
+  if (L.biome.on) { ensureBiome(); cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }
   if (L.canopy.on) { cx.globalAlpha = (flat ? .55 : .2) * L.canopy.op / 100; cx.drawImage(canopyCv, 0, 0, TW, TH); }
   if (L.slope.on) { cx.globalAlpha = L.slope.op / 100; cx.drawImage(slopeCv, 0, 0, TW, TH); }
   if (L.temp.on) { const tk = Math.round(t * 2) / 2; if (tk + '' !== tempKey) { drawTemp(tk); tempKey = tk + ''; } cx.globalAlpha = L.temp.op / 100; cx.drawImage(tempCv, 0, 0, TW, TH); }
@@ -1269,11 +1309,11 @@ function thumb(cv, id) {
   const c = cv.getContext('2d'); c.clearRect(0, 0, 60, 60);
   const crop = (src, fx = .42, fy = .42, fw = .18) => { const sw = src.width * fw; c.drawImage(src, src.width * fx, src.height * fy, sw, sw, 0, 0, 60, 60); };
   ({
-    relief: () => crop(hsCv, .3, .2, .25), base: () => crop(topo, .5, .45, .08), slope: () => { crop(hsCv, .3, .2, .25); crop(slopeCv, .3, .2, .25); },
+    relief: () => crop(hsCv, .3, .2, .25), base: () => crop(ground, .5, .45, .08), slope: () => { crop(hsCv, .3, .2, .25); crop(slopeCv, .3, .2, .25); },
     temp: () => { drawTemp(state.t); crop(tempCv, .3, .3, .3); },
     wu: () => { c.fillStyle = '#dfe9f1'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#3c6f9c'; c.lineWidth = 3; for (let y = 12; y < 60; y += 16) { c.beginPath(); c.moveTo(8, y); c.lineTo(48, y); c.lineTo(42, y - 5); c.moveTo(48, y); c.lineTo(42, y + 5); c.stroke(); } },
     wv: () => { c.fillStyle = '#dfe9f1'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#3c6f9c'; c.lineWidth = 3; for (let x = 12; x < 60; x += 16) { c.beginPath(); c.moveTo(x, 52); c.lineTo(x, 10); c.lineTo(x - 5, 16); c.moveTo(x, 10); c.lineTo(x + 5, 16); c.stroke(); } },
-    canopy: () => { crop(ground, .55, .3, .06); }, biome: () => crop(biomeCv, .3, .35, .25),
+    canopy: () => { crop(ground, .55, .3, .06); }, biome: () => { BIOMES.forEach((b, i) => { c.fillStyle = b.c; c.fillRect((i % 4) * 15, ((i / 4) | 0) * 30, 15, 30); }); },
     burn: () => { c.fillStyle = '#d8cfbf'; c.fillRect(0, 0, 60, 60); c.fillStyle = '#2e2824'; c.beginPath(); c.moveTo(0, 0); c.lineTo(44, 0); c.lineTo(30, 30); c.lineTo(38, 60); c.lineTo(0, 60); c.fill(); },
     front: () => { c.fillStyle = '#2e2824'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#ff6a1f'; c.lineWidth = 5; c.beginPath(); c.moveTo(40, 0); c.lineTo(28, 22); c.lineTo(38, 40); c.lineTo(30, 60); c.stroke(); },
     heat: () => { const g = c.createRadialGradient(30, 34, 2, 30, 30, 34); g.addColorStop(0, '#fcffa4'); g.addColorStop(.25, '#f37819'); g.addColorStop(.6, '#932667'); g.addColorStop(1, '#160b39'); c.fillStyle = g; c.fillRect(0, 0, 60, 60); },
@@ -1962,8 +2002,9 @@ function frame(now) {
 }
 
 // ---------------- boot ----------------
-function boot() {
-  buildStatic(); buildTerrain(); buildContext(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+async function boot() {
+  const hit = await loadTextures();
+  buildStatic(hit); buildTerrain(); buildContext(hit); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
   buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
@@ -1985,6 +2026,7 @@ function boot() {
   resize(); $('loading').remove(); setPlaying(false);
   window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
   requestAnimationFrame(frame);
+  if (!hit) setTimeout(saveTextures, 1500);   // after the first frames, off the critical path
 }
 requestAnimationFrame(() => setTimeout(boot, 30));
 

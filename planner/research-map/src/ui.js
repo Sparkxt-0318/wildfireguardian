@@ -23,11 +23,11 @@ function thumb(cv, id) {
   const c = cv.getContext('2d'); c.clearRect(0, 0, 60, 60);
   const crop = (src, fx = .42, fy = .42, fw = .18) => { const sw = src.width * fw; c.drawImage(src, src.width * fx, src.height * fy, sw, sw, 0, 0, 60, 60); };
   ({
-    relief: () => crop(hsCv, .3, .2, .25), base: () => crop(topo, .5, .45, .08), slope: () => { crop(hsCv, .3, .2, .25); crop(slopeCv, .3, .2, .25); },
+    relief: () => crop(hsCv, .3, .2, .25), base: () => crop(ground, .5, .45, .08), slope: () => { crop(hsCv, .3, .2, .25); crop(slopeCv, .3, .2, .25); },
     temp: () => { drawTemp(state.t); crop(tempCv, .3, .3, .3); },
     wu: () => { c.fillStyle = '#dfe9f1'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#3c6f9c'; c.lineWidth = 3; for (let y = 12; y < 60; y += 16) { c.beginPath(); c.moveTo(8, y); c.lineTo(48, y); c.lineTo(42, y - 5); c.moveTo(48, y); c.lineTo(42, y + 5); c.stroke(); } },
     wv: () => { c.fillStyle = '#dfe9f1'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#3c6f9c'; c.lineWidth = 3; for (let x = 12; x < 60; x += 16) { c.beginPath(); c.moveTo(x, 52); c.lineTo(x, 10); c.lineTo(x - 5, 16); c.moveTo(x, 10); c.lineTo(x + 5, 16); c.stroke(); } },
-    canopy: () => { crop(ground, .55, .3, .06); }, biome: () => crop(biomeCv, .3, .35, .25),
+    canopy: () => { crop(ground, .55, .3, .06); }, biome: () => { BIOMES.forEach((b, i) => { c.fillStyle = b.c; c.fillRect((i % 4) * 15, ((i / 4) | 0) * 30, 15, 30); }); },
     burn: () => { c.fillStyle = '#d8cfbf'; c.fillRect(0, 0, 60, 60); c.fillStyle = '#2e2824'; c.beginPath(); c.moveTo(0, 0); c.lineTo(44, 0); c.lineTo(30, 30); c.lineTo(38, 60); c.lineTo(0, 60); c.fill(); },
     front: () => { c.fillStyle = '#2e2824'; c.fillRect(0, 0, 60, 60); c.strokeStyle = '#ff6a1f'; c.lineWidth = 5; c.beginPath(); c.moveTo(40, 0); c.lineTo(28, 22); c.lineTo(38, 40); c.lineTo(30, 60); c.stroke(); },
     heat: () => { const g = c.createRadialGradient(30, 34, 2, 30, 30, 34); g.addColorStop(0, '#fcffa4'); g.addColorStop(.25, '#f37819'); g.addColorStop(.6, '#932667'); g.addColorStop(1, '#160b39'); c.fillStyle = g; c.fillRect(0, 0, 60, 60); },
@@ -716,8 +716,9 @@ function frame(now) {
 }
 
 // ---------------- boot ----------------
-function boot() {
-  buildStatic(); buildTerrain(); buildContext(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+async function boot() {
+  const hit = await loadTextures();
+  buildStatic(hit); buildTerrain(); buildContext(hit); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
   buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
@@ -739,5 +740,6 @@ function boot() {
   resize(); $('loading').remove(); setPlaying(false);
   window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
   requestAnimationFrame(frame);
+  if (!hit) setTimeout(saveTextures, 1500);   // after the first frames, off the critical path
 }
 requestAnimationFrame(() => setTimeout(boot, 30));
