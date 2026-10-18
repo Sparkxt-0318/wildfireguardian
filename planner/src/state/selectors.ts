@@ -64,7 +64,8 @@ export function isMockActive(s: PlannerState): boolean {
     Object.values(s.plans).some((p) => p.mock) ||
     Object.values(s.routes).some((r) => r.mock) ||
     Boolean(s.forecast.data?.mock);
-  return mockActive({ envMode: CONFIG.apiMode, healthMock: Boolean(s.health?.mock), resultsMock });
+  const realCacheOnly = s.dataSource === 'cache' && Boolean(s.cache) && !s.cache?.meta.mock;
+  return mockActive({ envMode: CONFIG.apiMode, healthMock: Boolean(s.health?.mock), resultsMock, realCacheOnly });
 }
 
 export function routeById(s: Pick<PlannerState, 'routes' | 'cache'>, jobId: string | null | undefined): RouteDetail | null {
