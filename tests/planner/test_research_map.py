@@ -78,3 +78,7 @@ def test_region_index_and_page(bundles, index):
         assert f'vendor/{n}' in page and (RM / 'site' / 'vendor' / n).is_file()
     assert 'cdnjs' not in page and 'jsdelivr' not in page and 'fonts.googleapis' not in page    # offline build
     assert len(list((RM / 'site' / 'logger').glob('fig*.png'))) == 10
+    for rid in REGIONS:   # pre-built terrain (tools/bake_textures.mjs); the page ignores it when its key no longer matches the data
+        t = (RM / 'site' / 'regions' / f'{rid}.tex.js').read_text()
+        tex = json.loads(t[t.index('=', t.index(']')) + 1:].rstrip().rstrip(';'))
+        assert tex['key'].split(':')[1] == rid and all(tex[k].startswith('data:image/') for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask'))
