@@ -449,10 +449,13 @@ if (EN) {
 }
 if (!window.THREE) { document.getElementById('loading').textContent = tr('3D 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인하거나 오프라인 판(vendor 폴더 포함)을 여세요.', 'Could not load the 3D library. Check the connection or open the offline build (with its vendor folder).'); return; }
 if (window.WFG_REGIONS && window.WFG_REGIONS[RID]) { main(window.WFG_REGIONS[RID]); return; }   // single-file build: data already inline
-const s = document.createElement('script'); s.src = `regions/${RID}.js`;
-s.onload = () => main(window.WFG_REGIONS[RID]);
-s.onerror = () => { document.getElementById('loading').textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; };
-document.head.appendChild(s);
+// region data and its pre-built terrain images load in parallel; the images are optional (drawn in the page without them)
+const load = src => new Promise(ok => { const s = document.createElement('script'); s.src = src; s.onload = () => ok(true); s.onerror = () => ok(false); document.head.appendChild(s); });
+const texReady = window.WFG_TEX && window.WFG_TEX[RID] ? Promise.resolve(true) : load(`regions/${RID}.tex.js`);
+load(`regions/${RID}.js`).then(async ok => {
+  if (!ok) { document.getElementById('loading').textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
+  await texReady; main(window.WFG_REGIONS[RID]);
+});
 function main(B) {
 'use strict';
 // scene units: every region is drawn at the same size (SF scene units per km), so camera, fog and lights are shared
@@ -590,7 +593,8 @@ let ground, groundHS, topo, hsCv, slopeCv, canopyCv, biomeCv, F, LC, tempCv, BIO
 // ---------------- texture cache (IndexedDB): the static terrain textures are the same on every visit ----------------
 // first visit to a region draws them (≈ 2–3 s) and saves them in the background; later visits and region switches decode the
 // saved images instead. Any failure (private window, Safari on file://, quota) falls back to drawing them.
-const TEX_VERSION = 1, TEX_KEY = [TEX_VERSION, B.id, GX, GY, isPhone ? 'p' : 'd', B.dem.b64.length, B.context.b64.length, B.osm.roads.length, B.osm.landuse.length].join(':');
+const BAKE = /(^#|&)bake=1(&|$)/.test(location.hash);   // tools/bake_textures.mjs: draw everything, ignore stored textures
+const TEX_VERSION = 2, TEX_KEY = [TEX_VERSION, B.id, GX, GY, B.dem.b64.length, B.context.b64.length, B.osm.roads.length, B.osm.landuse.length].join(':');
 const texCache = {
   db: null,
   open() { return this.db || (this.db = new Promise((ok, no) => { const r = indexedDB.open('wfg3d', 1); r.onupgradeneeded = () => r.result.createObjectStore('tex'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
@@ -598,11 +602,27 @@ const texCache = {
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
 const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
+const imgCanvas = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => { const c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d').drawImage(im, 0, 0); ok(c); }; im.onerror = no; im.src = src; });
+// land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
+function maskCanvas() { const c = mk(MW, MH), x = c.getContext('2d'), im = x.createImageData(MW, MH); for (let i = 0; i < MW * MH; i++) im.data.set([LC[i] * 40, F[i] ? 255 : 0, 0, 255], i * 4); x.putImageData(im, 0, 0); return c; }
 async function loadTextures() {
+  if (BAKE) return null;
+  // 1) pre-built with the site (regions/<id>.tex.js, tools/bake_textures.mjs), used when it matches this data
+  const pre = (window.WFG_TEX || {})[B.id];
+  if (pre && pre.key === TEX_KEY) try {
+    const [g, h, cr, ct, m] = await Promise.all([pre.ground, pre.hs, pre.ctxReal, pre.ctxTopo, pre.mask].map(imgCanvas));
+    const md = m.getContext('2d').getImageData(0, 0, MW, MH).data, F_ = new Uint8Array(MW * MH), LC_ = new Uint8Array(MW * MH);
+    for (let i = 0; i < MW * MH; i++) { LC_[i] = Math.round(md[i * 4] / 40); F_[i] = md[i * 4 + 1] > 127 ? 1 : 0; }
+    return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: F_, LC: LC_ };
+  } catch (e) { }
+  // 2) saved in this browser after an earlier visit
   const hit = await texCache.get(TEX_KEY); if (!hit) return null;
   try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
+window.__bakeTextures = () => ({ key: TEX_KEY, ground: ground.toDataURL('image/jpeg', .8), hs: HSC.toDataURL('image/jpeg', .85),
+  ctxReal: CTX_REAL.toDataURL('image/jpeg', .8), ctxTopo: CTX_TOPO.toDataURL('image/jpeg', .8), mask: maskCanvas().toDataURL('image/png') });
 function saveTextures() {
+  if (BAKE) return;
   // stored as ArrayBuffers: Chrome does not keep Blobs in IndexedDB for file:// pages
   const blob = (c, type) => new Promise(ok => c.toBlob(b => ok(b ? b.arrayBuffer() : null), type, .9));
   Promise.all([blob(ground, 'image/jpeg'), blob(HSC, 'image/png'), blob(CTX_REAL, 'image/jpeg'), blob(CTX_TOPO, 'image/jpeg')])
@@ -879,7 +899,7 @@ function buildContext(hit) {
   for (let y = 0; y < CGY; y++) for (let x = 0; x < CGX; x++) { const i = y * CGX + x, lon = CW + x / (CGX - 1) * (CE - CW), lat = CN - y / (CGY - 1) * (CN - CS);
     const inside = lon > W + mlon && lon < E - mlon && lat > S + mlat && lat < N - mlat; p.setY(i, (CH[i] - (inside ? 80 : 0)) / 1000); }
   geo.computeVertexNormals();
-  const CTW = isPhone ? 768 : 1024, CTH = Math.round(CTW * CKY / CKX);
+  const CTW = 1024, CTH = Math.round(CTW * CKY / CKX);
   const real = hit ? hit.ctxReal : mk(CTW, CTH), topoC = hit ? hit.ctxTopo : mk(CTW, CTH); CTX_REAL = real; CTX_TOPO = topoC;
   if (!hit) drawContext(real, topoC, CTW, CTH);
   const tex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
@@ -907,7 +927,7 @@ function drawContext(real, topoC, CTW, CTH) {
   }
   rc.putImageData(ri, 0, 0); tc.putImageData(ti, 0, 0);
   // conifer specks for texture at distance
-  seed = 17; rc.fillStyle = 'rgba(16,26,14,.35)'; for (let n = 0; n < (isPhone ? 12000 : 30000); n++) { const u = rnd(), v = rnd(); const e = celevUV(u, v); if (e > 260) rc.fillRect(u * CTW, v * CTH, 1.6, 1.6); }
+  seed = 17; rc.fillStyle = 'rgba(16,26,14,.35)'; for (let n = 0; n < 30000; n++) { const u = rnd(), v = rnd(); const e = celevUV(u, v); if (e > 260) rc.fillRect(u * CTW, v * CTH, 1.6, 1.6); }
 }
 function buildBoundary() {
   if (boundary) { boundary.geometry.dispose(); scene.remove(boundary); }
@@ -974,7 +994,7 @@ function updateHeatMesh(t) {
 function spriteMat(kind) {
   return new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: kind === 'smoke' ? THREE.NormalBlending : THREE.AdditiveBlending,
-    uniforms: { linOut: { value: 0 }, sz: { value: Math.min(3, Math.pow(SF, .8)) }, time: { value: 0 }, scale: { value: 400 }, ys: { value: .0025 }, wind: { value: new THREE.Vector2() }, night: { value: 0 }, op: { value: 1 } },
+    uniforms: { linOut: { value: 0 }, sz: { value: Math.min(1.8, Math.pow(SF, .6)) }, time: { value: 0 }, scale: { value: 400 }, ys: { value: .0025 }, wind: { value: new THREE.Vector2() }, night: { value: 0 }, op: { value: 1 } },
     vertexShader: `attribute float phase; attribute float kind; attribute float base; uniform float time, scale, ys, sz; uniform vec2 wind; varying float vA; varying float vK; varying float vAge;
       void main(){ vec3 p = position; p.y = base*ys + 0.012; float age; float size;
         if (kind < 0.5) { age = fract(time*1.9 + phase); p.y += sz*(0.02 + age*0.10); p.xz += sz*wind*age*0.08; size = sz*0.13*(1.0-age*0.55)*(0.8+0.4*fract(phase*7.0)); vA = (1.0-age); }

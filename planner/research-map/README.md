@@ -58,10 +58,13 @@ Prerequisites: `cd planner && npm ci` (the OSM extractor uses the planner's `pmt
 cd planner/research-map
 python3 tools/build_regions.py      # site/regions/<id>.js + index.js (downloads DEM tiles once into .cache/)
 python3 tools/build_viewer.py       # site/index.html from src/
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tools/bake_textures.mjs   # site/regions/<id>.tex.js: pre-built terrain
 python3 tools/build_viewer.py --cdn /tmp/page.html   # page fragment with CDN scripts, for hosting
 ```
 
-`.cache/` (DEM tiles, OSM extracts, merged hourly files) is not committed. The region bundles are deterministic:
+`tools/bake_textures.mjs` lets the page draw each region's static terrain once in headless Chromium and saves the
+images, so visitors decode them instead of drawing for several seconds; rerun it after `build_regions.py` (a stale file
+is ignored by key and the page draws instead). `.cache/` (DEM tiles, OSM extracts, merged hourly files) is not committed. The region bundles are deterministic:
 a rebuild from the same inputs is byte-identical.
 
 ### Hourly cumulative probability F(h)
