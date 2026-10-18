@@ -463,17 +463,18 @@ window.__wfgLoad = load;
 // images start downloading as soon as their small index file is in, not after the region data.
 const img = src => new Promise((ok, no) => { const im = new Image(); im.decoding = 'async'; im.onload = () => ok(im); im.onerror = no; im.src = src; });
 // a picture of the opening view (tools/bake_textures.mjs) stands in for the map while it starts, when the link asks for that view
-const DEFAULT_VIEW = [...hp0.keys()].every(k => ['region', 'lang', 'tab', 'lite'].includes(k));
+// (desktop only: the picture is taken at desktop size, and phones and lite=1 use a different camera distance)
+const DEFAULT_VIEW = [...hp0.keys()].every(k => ['region', 'lang', 'tab'].includes(k)) && !matchMedia('(max-width: 860px)').matches;
 const texReady = load(`${RID}.tex.js`).then(ok => { const t = ok && (window.WFG_TEX || {})[RID];
   const ld = document.getElementById('loading');
   const show = t && t.poster && DEFAULT_VIEW && ld;
   if (show) { ld.classList.add('poster'); ld.innerHTML = `<span>${tr('3D 지형 준비 중…', 'Preparing the 3D view…')}</span>`; }
   // the poster goes first (it is small and is what you see); the terrain images follow it
-  const first = show ? img(t.poster).then(im => { ld.style.backgroundImage = `url("${im.src}")`; }, () => { }) : Promise.resolve();
+  const first = show ? img(t.poster).then(im => { ld.style.backgroundImage = `url("${im.src}")`; }, () => ld.classList.remove('poster')) : Promise.resolve();
   if (t) window.__wfgImg = Object.fromEntries(['ground', 'hs', 'ctxReal', 'mask'].map(k => { const p = first.then(() => img(t[k])); p.catch(() => { }); return [k, p]; })); });
 const ctxP = load(`${RID}.ctx.js`).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
 load(`${RID}.js`).then(async ok => {
-  if (!ok) { document.getElementById('loading').textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
+  if (!ok) { const ld = document.getElementById('loading'); ld.className = 'loading'; ld.style.backgroundImage = ''; ld.textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
   // the surrounding-terrain heights follow; the first frame does not wait for them
   window.__wfgCtx = ctxP;
   await texReady; main(window.WFG_REGIONS[RID]);
@@ -623,8 +624,10 @@ let ground, groundHS, topo, hsCv, slopeCv, canopyCv, biomeCv, F, LC, tempCv, BIO
 const BAKE = /(^#|&)bake=1(&|$)/.test(location.hash);   // tools/bake_textures.mjs: draw everything, ignore stored textures
 const TEX_VERSION = 2, TEX_KEY = [TEX_VERSION, B.id, GX, GY, B.dem.b64.length, B.parts.ctx_b64, B.parts.osm_roads, B.parts.osm_landuse].join(':');
 // OSM vectors (<id>.osm.js) are needed only to draw the terrain in the page and for the 2D maps
+// resolves true when B.osm is set; a failed load is tried again on the next call
 let osmReq;
-const needOsm = () => osmReq || (osmReq = window.__wfgLoad(`${B.id}.osm.js`).then(() => { B.osm = (window.WFG_OSM || {})[B.id] || { roads: [], water: [], landuse: [] }; }));
+const needOsm = () => osmReq || (osmReq = window.__wfgLoad(`${B.id}.osm.js`).then(ok => { const o = ok && (window.WFG_OSM || {})[B.id];
+  if (o) B.osm = o; else osmReq = null; return !!o; }));
 const texCache = {
   db: null,
   open() { return this.db || (this.db = new Promise((ok, no) => { const r = indexedDB.open('wfg3d', 1); r.onupgradeneeded = () => r.result.createObjectStore('tex'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
@@ -729,7 +732,7 @@ function buildStatic(hit) {
 let HSD, HSC;
 function ensureFlat() {
   if (topo) return true;
-  if (!B.osm) { needOsm().then(() => { lastKey = ''; dirty = true; }); return false; }   // 3D colours until the OSM vectors arrive
+  if (!B.osm) { needOsm().then(ok => { if (ok) { lastKey = ''; dirty = true; } }); return false; }   // 3D colours until the OSM vectors arrive
   const hd = HSD || HSC.getContext('2d').getImageData(0, 0, MW, MH).data;
   // realistic + baked hillshade (2D "실사")
   groundHS = mk(TW, TH); const GH = groundHS.getContext('2d'); GH.drawImage(ground, 0, 0);
@@ -950,7 +953,7 @@ let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
   if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { });
+  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
 }
 function drawContext(real, topoC, CTW, CTH) {
@@ -2073,13 +2076,15 @@ function frame(now) {
 async function boot() {
   const hit = await loadTextures();
   const hp0 = new URLSearchParams(location.hash.slice(1));
-  if (!hit || hp0.get('mode') === '2d') await needOsm();   // drawing the terrain here, or the 2D maps, uses the OSM vectors
+  // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
+  const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
+  if (!hit && !osmOk) B.osm = { roads: [], water: [], landuse: [] };
   buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
   // the surrounding terrain ring is added when its heights arrive (they load while this first frame is built)
   const ctxDone = (window.__wfgCtx || Promise.resolve(null)).then(b64 => {
     if (!b64) return; attachContext(b64); buildContext(hit); ctxMesh.scale.y = yScale() * 1000;
     if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
-    dirty = true; if (!hit) setTimeout(saveTextures, 800);
+    dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
@@ -2109,7 +2114,8 @@ async function boot() {
   if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
   if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
 }
-requestAnimationFrame(() => setTimeout(boot, 30));
+requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('loading'); if (ld) { ld.className = 'loading'; ld.style.backgroundImage = '';
+  ld.textContent = tr('지도를 시작하지 못했습니다: ', 'The map could not start: ') + (e && e.message || e); } console.error(e); }), 30));
 
 }
 })();

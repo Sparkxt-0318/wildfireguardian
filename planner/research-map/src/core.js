@@ -142,8 +142,10 @@ let ground, groundHS, topo, hsCv, slopeCv, canopyCv, biomeCv, F, LC, tempCv, BIO
 const BAKE = /(^#|&)bake=1(&|$)/.test(location.hash);   // tools/bake_textures.mjs: draw everything, ignore stored textures
 const TEX_VERSION = 2, TEX_KEY = [TEX_VERSION, B.id, GX, GY, B.dem.b64.length, B.parts.ctx_b64, B.parts.osm_roads, B.parts.osm_landuse].join(':');
 // OSM vectors (<id>.osm.js) are needed only to draw the terrain in the page and for the 2D maps
+// resolves true when B.osm is set; a failed load is tried again on the next call
 let osmReq;
-const needOsm = () => osmReq || (osmReq = window.__wfgLoad(`${B.id}.osm.js`).then(() => { B.osm = (window.WFG_OSM || {})[B.id] || { roads: [], water: [], landuse: [] }; }));
+const needOsm = () => osmReq || (osmReq = window.__wfgLoad(`${B.id}.osm.js`).then(ok => { const o = ok && (window.WFG_OSM || {})[B.id];
+  if (o) B.osm = o; else osmReq = null; return !!o; }));
 const texCache = {
   db: null,
   open() { return this.db || (this.db = new Promise((ok, no) => { const r = indexedDB.open('wfg3d', 1); r.onupgradeneeded = () => r.result.createObjectStore('tex'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); })); },
@@ -248,7 +250,7 @@ function buildStatic(hit) {
 let HSD, HSC;
 function ensureFlat() {
   if (topo) return true;
-  if (!B.osm) { needOsm().then(() => { lastKey = ''; dirty = true; }); return false; }   // 3D colours until the OSM vectors arrive
+  if (!B.osm) { needOsm().then(ok => { if (ok) { lastKey = ''; dirty = true; } }); return false; }   // 3D colours until the OSM vectors arrive
   const hd = HSD || HSC.getContext('2d').getImageData(0, 0, MW, MH).data;
   // realistic + baked hillshade (2D "실사")
   groundHS = mk(TW, TH); const GH = groundHS.getContext('2d'); GH.drawImage(ground, 0, 0);
@@ -469,7 +471,7 @@ let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
   if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { });
+  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
 }
 function drawContext(real, topoC, CTW, CTH) {

@@ -721,13 +721,15 @@ function frame(now) {
 async function boot() {
   const hit = await loadTextures();
   const hp0 = new URLSearchParams(location.hash.slice(1));
-  if (!hit || hp0.get('mode') === '2d') await needOsm();   // drawing the terrain here, or the 2D maps, uses the OSM vectors
+  // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
+  const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
+  if (!hit && !osmOk) B.osm = { roads: [], water: [], landuse: [] };
   buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
   // the surrounding terrain ring is added when its heights arrive (they load while this first frame is built)
   const ctxDone = (window.__wfgCtx || Promise.resolve(null)).then(b64 => {
     if (!b64) return; attachContext(b64); buildContext(hit); ctxMesh.scale.y = yScale() * 1000;
     if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
-    dirty = true; if (!hit) setTimeout(saveTextures, 800);
+    dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
@@ -757,4 +759,5 @@ async function boot() {
   if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
   if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
 }
-requestAnimationFrame(() => setTimeout(boot, 30));
+requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('loading'); if (ld) { ld.className = 'loading'; ld.style.backgroundImage = '';
+  ld.textContent = tr('지도를 시작하지 못했습니다: ', 'The map could not start: ') + (e && e.message || e); } console.error(e); }), 30));
