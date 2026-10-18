@@ -23,8 +23,10 @@ def web_image(src: Path, dst_dir: Path) -> str:
     if im.width > w:
         im = im.resize((w, round(im.height * w / im.width)), Image.NEAREST if pixel_art else Image.LANCZOS)
     has_alpha = im.mode in ('RGBA', 'LA') and im.getextrema()[-1][0] < 255
-    if pixel_art or has_alpha or src.parent.name == '4_wiring_diagrams':
+    if pixel_art or src.parent.name == '4_wiring_diagrams':
         name = src.stem + '.png'; im.save(dst_dir / name, optimize=True)
+    elif has_alpha:              # renders on a transparent background
+        name = src.stem + '.webp'; im.save(dst_dir / name, quality=84, method=6)
     else:
         name = src.stem + '.jpg'; im.convert('RGB').save(dst_dir / name, quality=84, optimize=True, progressive=True)
     return 'logger/img/' + name

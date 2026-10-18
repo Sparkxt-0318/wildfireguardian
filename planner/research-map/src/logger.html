@@ -94,7 +94,7 @@ th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: lef
 .tbl { overflow-x: auto; }
 .figs { display: grid; gap: 10px; align-content: start; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .figs.one { grid-template-columns: 1fr; }
-figure { margin: 0; } figure button { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; cursor: zoom-in; }
+figure { margin: 0; } .figs figure.wide { grid-column: 1 / -1; } figure button { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; cursor: zoom-in; }
 figure img { display: block; width: 100%; height: auto; } figure .px { image-rendering: pixelated; }
 .ptiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-top: 6px; }
 .ptiles figcaption { display: none; } .ptiles b { display: block; margin-top: 6px; font-size: 13.5px; } .pd { font-size: 12.5px; color: var(--ink-2); }
@@ -219,7 +219,7 @@ const fig = (im, qty) => {
   const q = qty ? `<span class="qty">${md(qty)}</span>` : '';
   if (!im.file) return `<div class="missing">${tr('그림 파일 준비 중', 'Picture not added yet')}<br>${q}${esc(im.alt || '')}</div>`;
   const px = /screen_/.test(im.file), sim = isSim(im.file);
-  return `<figure><button type="button" data-big="${im.file}" data-cap="${esc(im.alt || '')}"><img src="${im.file}" alt="${esc(im.alt || '')}" loading="lazy"${px ? ' class="px"' : ''}></button>`
+  return `<figure${im.kind === '1_step_renders' ? ' class="wide"' : ''}><button type="button" data-big="${im.file}" data-cap="${esc(im.alt || '')}"><img src="${im.file}" alt="${esc(im.alt || '')}" loading="lazy"${px ? ' class="px"' : ''}></button>`
     + `<figcaption>${q}${sim ? `<span class="tag sim">${tr('시뮬레이션', 'simulated')}</span> ` : ''}${esc(im.alt || '')}</figcaption></figure>`;
 };
 let html = '', lastPh = null;
