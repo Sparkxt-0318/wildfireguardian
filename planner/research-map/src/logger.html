@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Route Logger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="WildfireGuardian 현장 경로 기록기: 분해 3D 모델과 37단계 제작 설명서">
+<style>
+:root {
+  --bg: #ebe8e1; --panel: #faf8f4; --panel-2: #f2efe8; --line: #e1dcd2; --line-2: #d3cdc1;
+  --ink: #26231f; --ink-2: #4b463e; --muted: #8b8478; --fire: #e2552b; --fire-soft: #fbe5d9;
+  --ok: #2f8a57; --ok-soft: #e2f1e7; --info: #3c6f9c; --warn-soft: #f4ecd8; --warn: #8a6a1f; --stage: #dedad2;
+  --font: 'Pretendard', 'Noto Sans KR', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141311; --panel: #1d1b18; --panel-2: #24221e; --line: #322f2a; --line-2: #403c35; --ink: #ece8e1; --ink-2: #cbc5ba;
+    --muted: #8f887c; --fire: #f0683c; --fire-soft: #3a231a; --ok: #4fb377; --ok-soft: #1c2e23; --info: #79a8d6; --warn-soft: #2e2818;
+    --warn: #d8b45a; --stage: #262420; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141311; --panel: #1d1b18; --panel-2: #24221e; --line: #322f2a; --line-2: #403c35; --ink: #ece8e1; --ink-2: #cbc5ba;
+  --muted: #8f887c; --fire: #f0683c; --fire-soft: #3a231a; --ok: #4fb377; --ok-soft: #1c2e23; --info: #79a8d6; --warn-soft: #2e2818;
+  --warn: #d8b45a; --stage: #262420; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 64px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+button, input, select { font: inherit; color: inherit; }
+a { color: var(--info); }
+.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.top b { font-size: 15px; white-space: nowrap; } .top .sub { color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top .grow { flex: 1; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--panel); text-decoration: none; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.btn:hover { background: var(--panel-2); } .btn.sel { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 18px 16px 48px; }
+h1 { font-size: 26px; line-height: 1.25; margin: 6px 0 6px; letter-spacing: -.01em; }
+h2 { font-size: 19px; margin: 34px 0 10px; } h3 { font-size: 15.5px; margin: 0; }
+.lede { color: var(--ink-2); max-width: 760px; margin: 0 0 16px; }
+/* viewer */
+.viewer { display: grid; grid-template-columns: minmax(0, 1fr) 340px; height: min(680px, calc(100dvh - 90px)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--panel); }
+.stage { position: relative; min-height: 460px; background: var(--stage); }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.stage .hint { position: absolute; left: 12px; bottom: 10px; font-size: 12px; color: var(--muted); pointer-events: none; }
+.stage .badge { position: absolute; left: 12px; top: 10px; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); }
+.stage .load { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+.tip { position: absolute; pointer-events: none; padding: 4px 8px; border-radius: 6px; background: var(--ink); color: var(--panel); font-size: 12px; transform: translate(12px, -50%); white-space: nowrap; }
+.side { border-left: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+.seg { display: flex; gap: 6px; padding: 12px 12px 0; } .seg .btn { flex: 1; justify-content: center; }
+.ctl { padding: 12px; border-bottom: 1px solid var(--line); }
+.ctl label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-2); margin-bottom: 4px; }
+.ctl input[type=range] { width: 100%; accent-color: var(--fire); }
+.row { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+.steptitle { font-weight: 600; margin-top: 6px; } .stepnote { font-size: 12.5px; color: var(--muted); }
+.parts { overflow: auto; flex: 1; padding: 6px 0; min-height: 120px; }
+.info { max-height: 40%; overflow: auto; }
+.parts button { display: flex; width: 100%; align-items: center; gap: 8px; padding: 5px 12px; border: 0; background: none; text-align: left; cursor: pointer; font-size: 13px; }
+.parts button:hover, .parts button.sel { background: var(--panel-2); }
+.parts button.off { opacity: .4; }
+.parts .sw { width: 10px; height: 10px; border-radius: 3px; flex: none; border: 1px solid rgba(0,0,0,.15); }
+.parts .t { font-size: 11px; color: var(--muted); margin-left: auto; flex: none; padding-left: 6px; }
+.parts .g { padding: 8px 12px 2px; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.info { padding: 12px; border-top: 1px solid var(--line); font-size: 12.5px; min-height: 96px; }
+.info dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 6px 0 0; } .info dt { color: var(--muted); } .info dd { margin: 0; }
+/* facts and notes */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
+.fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.fact .k { font-size: 12px; color: var(--muted); } .fact .v { font-size: 16px; font-weight: 600; margin: 2px 0; } .fact .n { font-size: 12px; color: var(--ink-2); }
+.tag { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 5px; background: var(--warn-soft); color: var(--warn); font-weight: 600; vertical-align: 1px; }
+.tag.sim { background: var(--fire-soft); color: var(--fire); } .tag.ok { background: var(--ok-soft); color: var(--ok); }
+.notes { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: var(--panel-2); font-size: 13px; color: var(--ink-2); }
+.notes ul { margin: 4px 0 0; padding-left: 18px; }
+/* manual */
+.toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.toc a { text-decoration: none; }
+.phase { margin: 26px 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 10px 0; }
+.card.noimg { grid-template-columns: minmax(0, 1fr); }
+.card .num { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 14px; background: var(--fire); color: #fff; font-weight: 700; font-size: 13px; margin-right: 8px; }
+.card > div { min-width: 0; }
+.card .head { display: flex; align-items: center; margin-bottom: 8px; }
+.card p { margin: 6px 0; }
+.card .qty { display: inline-block; font-weight: 700; color: var(--fire); }
+.check, .warnbox { margin: 8px 0; padding: 8px 10px; border-radius: 8px; font-size: 13.5px; }
+.check { background: var(--ok-soft); } .check b { color: var(--ok); }
+.warnbox { background: var(--warn-soft); } .warnbox b { color: var(--warn); }
+.callouts { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+pre { position: relative; background: #1f1d1a; color: #ece8e1; padding: 10px 12px; border-radius: 8px; overflow: auto; font: 12.5px/1.5 var(--mono); }
+pre .cp { position: absolute; top: 6px; right: 6px; font-size: 11px; padding: 2px 7px; border-radius: 5px; border: 1px solid #4a463f; background: #2a2724; color: #ece8e1; cursor: pointer; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; } th { color: var(--muted); font-weight: 600; }
+.tbl { overflow-x: auto; }
+.figs { display: grid; gap: 10px; align-content: start; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.figs.one { grid-template-columns: 1fr; }
+figure { margin: 0; } figure button { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; cursor: zoom-in; }
+figure img { display: block; width: 100%; height: auto; } figure .px { image-rendering: pixelated; }
+.ptiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-top: 6px; }
+.ptiles figcaption { display: none; } .ptiles b { display: block; margin-top: 6px; font-size: 13.5px; } .pd { font-size: 12.5px; color: var(--ink-2); }
+figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; } figcaption .qty { margin-right: 4px; }
+.missing { display: grid; place-items: center; aspect-ratio: 4 / 3; border: 1px dashed var(--line-2); border-radius: 8px; font-size: 12px; color: var(--muted); padding: 8px; text-align: center; }
+.lb { position: fixed; inset: 0; z-index: 20; background: rgba(10,10,10,.86); display: grid; place-items: center; padding: 16px; }
+.lb img { max-width: 100%; max-height: calc(100dvh - 90px); background: #fff; border-radius: 6px; }
+.lb .cap { color: #eee; font-size: 13px; margin-top: 8px; text-align: center; max-width: 900px; }
+.lb .x { position: absolute; top: 12px; right: 12px; background: #fff; color: #222; border: 0; }
+footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+@media (max-width: 860px) {
+  .viewer { grid-template-columns: 1fr; height: auto; } .info { max-height: none; } .parts { flex: none; } .side { border-left: 0; border-top: 1px solid var(--line); }
+  .stage { min-height: 340px; height: 58vw; } .parts { max-height: 260px; }
+  .card { grid-template-columns: 1fr; } .top .sub, .top .full { display: none; } h1 { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="btn" id="back" href="index.html">←</a>
+  <b>Route Logger</b><span class="sub" id="sub"></span>
+  <span class="grow"></span>
+  <button class="btn" id="lang" type="button">EN</button>
+</header>
+<main class="wrap">
+  <h1 id="h1"></h1>
+  <p class="lede" id="lede"></p>
+  <section class="viewer" aria-label="3D model">
+    <div class="stage" id="stage"><div class="load" id="load"></div><span class="badge" id="badge"></span><span class="hint" id="hint"></span></div>
+    <div class="side">
+      <div class="seg"><button class="btn sel" type="button" data-m="explode" id="mExp"></button><button class="btn" type="button" data-m="steps" id="mStep"></button></div>
+      <div class="ctl" id="ctlExp">
+        <label><span id="lExp"></span><span id="vExp"></span></label>
+        <input type="range" id="explode" min="0" max="1" step="0.01" value="0.6">
+        <div class="row"><button class="btn" type="button" id="bAsm"></button><button class="btn" type="button" id="bExp"></button><span class="grow"></span><button class="btn" type="button" id="bWire"></button></div>
+      </div>
+      <div class="ctl" id="ctlStep" hidden>
+        <label><span id="lStep"></span><span id="vStep"></span></label>
+        <input type="range" id="step" min="16" max="35" step="1" value="16">
+        <div class="steptitle" id="stTitle"></div><div class="stepnote" id="stNote"></div>
+        <div class="row"><button class="btn" type="button" id="prev">‹</button><button class="btn" type="button" id="play"></button><button class="btn" type="button" id="next">›</button><span class="grow"></span><a class="btn" id="toStep" href="#"></a></div>
+      </div>
+      <div class="parts" id="parts"></div>
+      <div class="info" id="info"></div>
+    </div>
+  </section>
+  <div class="facts" id="facts"></div>
+  <div class="notes" id="notes"></div>
+  <h2 id="hMan"></h2>
+  <p class="lede" id="manNote"></p>
+  <nav class="toc" id="toc"></nav>
+  <div id="manual"></div>
+  <footer id="foot"></footer>
+</main>
+<script src="vendor/three.min.js"></script>
+<script src="vendor/OrbitControls.js"></script>
+<script src="vendor/GLTFLoader.js"></script>
+<script src="vendor/RoomEnvironment.js"></script>
+<script src="logger/data.js"></script>
+<script>
+(() => {
+const stored = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const hp = new URLSearchParams(location.hash.slice(1));
+const EN = (hp.get('lang') || stored('wfg3d.lang') || 'ko') === 'en';
+const tr = (ko, en) => EN ? en : ko;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const RL = window.RL;
+document.documentElement.lang = EN ? 'en' : 'ko';
+
+// ---------------- text ----------------
+$('back').href = 'index.html#tab=pDocs' + (EN ? '&lang=en' : '');
+$('back').innerHTML = '← <span class="full">' + tr('산불 레이어 지도', 'Wildfire layer map') + '</span>';
+$('lang').textContent = EN ? '한국어' : 'EN';
+$('lang').onclick = () => { const l = EN ? 'ko' : 'en'; try { localStorage.setItem('wfg3d.lang', l); } catch (e) { } location.hash = 'lang=' + l; location.reload(); };
+$('sub').textContent = tr('WildfireGuardian 현장 경로 기록기 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian field route logger · Case v2 · firmware 0.3.0');
+$('h1').textContent = tr('현장 경로 기록기: 분해 3D 모델과 제작 설명서', 'Route Logger: exploded 3D model and build manual');
+$('lede').textContent = tr(
+  '걷거나 차량으로 이동하며 경로와 이벤트 표시를 기록하고, Mac 앱에서 다시 재생하는 주머니 크기 GPS 기록기입니다. 아래 모델은 설명서 그림을 만든 CAD 장면에서 내보낸 것입니다. 부품을 눌러 정보를 보고, 조립 순서 모드에서 단계별로 부품이 들어가는 모습을 볼 수 있습니다.',
+  'A pocket GPS logger that records a route, with event marks, on foot or in a vehicle and replays it in a Mac app. The model below is exported from the CAD scene that rendered the manual pictures. Click a part for its details, or use the assembly mode to watch the parts go in step by step.');
+$('mExp').textContent = tr('분해도', 'Exploded'); $('mStep').textContent = tr('조립 순서', 'Assembly');
+$('lExp').textContent = tr('분해 정도', 'Explode'); $('bAsm').textContent = tr('조립', 'Assembled'); $('bExp').textContent = tr('분해', 'Exploded');
+$('lStep').textContent = tr('설명서 단계', 'Manual step');
+$('hint').textContent = tr('드래그: 회전 · 스크롤: 확대 · 부품 클릭: 정보', 'Drag: rotate · scroll: zoom · click a part: details');
+$('badge').textContent = tr('렌더 모델 · 사진 아님', 'Rendered model · not a photo');
+$('load').textContent = tr('3D 모델 불러오는 중…', 'Loading the 3D model…');
+$('hMan').textContent = tr('제작 설명서 (37단계)', 'Build manual (37 steps)');
+$('manNote').innerHTML = tr(
+  '설명서는 영어로만 작성되어 있어 원문 그대로 싣습니다. 그림은 모두 렌더이며 실제 기기 사진이 아닙니다. 화면 그림과 앱 화면은 <span class="tag sim">시뮬레이션</span>입니다.',
+  'The manual text is shown as written. All pictures are renders, not photos of the built logger. The screen pictures and app screenshots are <span class="tag sim">simulated</span>.');
+
+const facts = [
+  [tr('케이스 크기', 'Case size'), '87.9 × 60.8 × 40.0 mm', tr('베젤 포함 높이 41.6 mm. CAD 설계값이며 출력물을 잰 값이 아닙니다', '41.6 mm high with the bezel. Design dimensions from the CAD model, not measured on the printed case'), 'design'],
+  [tr('기록 간격', 'Logging rate'), tr('최대 1행/초', 'At most 1 row per second'), tr('GNSS 에포크마다 1행, 1000 ms 간격 제한. 1.5 s 동안 수신이 없으면 no-fix 행. 행당 48바이트, CRC-32', 'One row per GNSS epoch, at most every 1000 ms; a no-fix row after 1.5 s without an epoch; 48 bytes per row with CRC-32'), 'fw'],
+  [tr('저장 용량', 'Storage'), tr('약 14시간', 'About 14 hours'), tr('2,555,904바이트 ÷ 48 B/s로 계산한 값(약 14.8 h)이며, 가득 채워 확인한 값이 아닙니다', 'Calculated from the 2,555,904-byte partition at 48 B/s (about 14.8 h), not measured on a full recording'), 'calc'],
+  [tr('충전당 기록', 'Recording per charge'), tr('5–6시간', '5 to 6 hours'), tr('설명서의 계획용 추정치이며 측정하지 않았습니다', 'Planning estimate from the manual, not measured'), 'est'],
+  [tr('부품', 'Parts'), tr('FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 화면 · 14500 셀', 'FireBeetle 2 ESP32-E · TEL0157 GNSS · 1.54″ 240×240 display · 14500 cell'), tr('출력 부품 6종 (PETG 약 60–75 g, 추정)', '6 printed parts (about 60 to 75 g of PETG, estimate)'), ''],
+  [tr('질량', 'Mass'), tr('측정하지 않음', 'Not measured'), '', ''],
+];
+const ftag = { design: [tr('설계값', 'design'), ''], fw: [tr('펌웨어 0.3.0', 'firmware 0.3.0'), 'ok'], calc: [tr('계산값', 'calculated'), ''], est: [tr('추정', 'estimate'), ''] };
+$('facts').innerHTML = facts.map(([k, v, n, t]) => `<div class="fact"><div class="k">${k} ${t ? `<span class="tag ${ftag[t][1]}">${ftag[t][0]}</span>` : ''}</div><div class="v">${v}</div><div class="n">${n}</div></div>`).join('');
+$('notes').innerHTML = `<b>${tr('이 모델과 그림에 대해', 'About this model and the pictures')}</b><ul>${[
+  tr('케이스와 출력 부품은 직접 설계한 CadQuery 모델입니다. GNSS 보드, 패치 안테나, 화면, 셀은 치수 도면을 바탕으로 단순화한 대용 모델이고 일부 높이는 가정값입니다.', 'The case and printed parts are the project\'s own CadQuery model. The GNSS board, patch antenna, display and cell are simplified stand-ins drawn from dimension drawings; some heights are assumed.'),
+  tr('FireBeetle 보드는 이 웹 모델에서 같은 크기의 단순한 대용 모양(기판, 모듈 덮개, USB-C)으로 바꿨습니다. 제조사 모델은 배포하지 않습니다. 설명서 그림 속 보드는 렌더입니다.', 'In this web model the FireBeetle board is a plain stand-in of the same size (board, module can, USB-C); the vendor model is not published. The board in the manual pictures is a render.'),
+  tr('배선 경로는 그림용이며 실측이 아닙니다. 화면 속 표시는 시뮬레이션 화면입니다.', 'The wire routing is illustrative, not measured. The picture on the display is a simulated screen.'),
+  tr('분해 거리는 분해 렌더에서 쓴 값이고, 조립 순서 모드의 위치는 설명서 단계 그림에서 쓴 값입니다. 그 밖의 위치는 만들지 않았습니다(배선은 분해 시 숨김).', 'The exploded distances are the ones the exploded render used; the assembly positions are those of the manual\'s step pictures. No other positions were made up (the wires are hidden when exploded).'),
+].map(s => `<li>${s}</li>`).join('')}</ul>`;
+$('foot').innerHTML = tr(
+  '© 2026 WildfireGuardian. 케이스 CAD, 렌더, 그림, 설명서 내용의 모든 권리 보유. 글꼴: IBM Plex, Inter (SIL OFL 1.1), DejaVu Sans, Adafruit GLCD (BSD). 3D 표시: three.js r128 (MIT).',
+  '© 2026 WildfireGuardian. All rights reserved for the case CAD, renders, pictures and manual text. Fonts: IBM Plex and Inter (SIL OFL 1.1), DejaVu Sans, Adafruit GLCD (BSD). 3D display: three.js r128 (MIT).');
+
+// ---------------- manual ----------------
+const PH = [['intro', tr('준비물', 'What you need')], ['p1', tr('1 시험 출력', '1 Test prints')], ['p2', tr('2 펌웨어', '2 Firmware')], ['p3', tr('3 탁상 시험', '3 Bench test')],
+  ['p4', tr('4 맞춤 확인', '4 Test fits')], ['p5', tr('5 케이스 출력', '5 Print the case')], ['p6', tr('6 조립', '6 Assemble')], ['p7', tr('7 첫 사용', '7 First use')]];
+const slides = RL.manual.slides, sec = RL.manual.sections;
+const startIdx = Object.fromEntries(Object.entries(sec).map(([k, v]) => [k, slides.findIndex(s => s.slide_id === v.start)]));
+const phaseOf = i => PH.reduce((a, [k]) => startIdx[k] <= i ? k : a, 'intro');
+$('toc').innerHTML = PH.map(([k, l]) => `<a class="btn" href="#ph-${k}">${l}</a>`).join('');
+const isSim = f => /SIMULATED|screen_/.test(f || '') || /app_|screen_/.test(f || '');
+const fig = (im, qty) => {
+  const q = qty ? `<span class="qty">${md(qty)}</span>` : '';
+  if (!im.file) return `<div class="missing">${tr('그림 파일 준비 중', 'Picture not added yet')}<br>${q}${esc(im.alt || '')}</div>`;
+  const px = /screen_/.test(im.file), sim = isSim(im.file);
+  return `<figure><button type="button" data-big="${im.file}" data-cap="${esc(im.alt || '')}"><img src="${im.file}" alt="${esc(im.alt || '')}" loading="lazy"${px ? ' class="px"' : ''}></button>`
+    + `<figcaption>${q}${sim ? `<span class="tag sim">${tr('시뮬레이션', 'simulated')}</span> ` : ''}${esc(im.alt || '')}</figcaption></figure>`;
+};
+let html = '', lastPh = null;
+slides.forEach((s, i) => {
+  if (s.slide_id === 'cover') return;
+  const ph = phaseOf(i);
+  if (ph !== lastPh) { html += `<div class="phase" id="ph-${ph}">${esc(sec[ph].description)}</div>`; lastPh = ph; }
+  const callouts = new Set(s.callouts);
+  if (/^parts-/.test(s.slide_id) && s.paragraphs.length >= 2 * s.images.length) {     // parts pages: name, then description, per picture
+    const rest = s.paragraphs.slice(2 * s.images.length);
+    html += `<article class="card noimg" id="${s.slide_id}"><div><div class="head"><h3>${esc(s.title)}</h3></div><div class="ptiles">${s.images.map((im, k) =>
+      `<div>${fig(im)}<b>${md(s.paragraphs[2 * k]).replace(/^(\d+×(?: \(\+\d\))?)\s/, '<span class="qty">$1</span> ')}</b><div class="pd">${md(s.paragraphs[2 * k + 1])}</div></div>`).join('')}</div>${rest.map(r => `<p class="pd">${md(r)}</p>`).join('')}</div></article>`;
+    return;
+  }
+  let paras = s.paragraphs.filter(p => !callouts.has(p) && !s.checks.some(c => c.toLowerCase().endsWith(p.toLowerCase())) && p !== s.kicker);
+  // quantity labels ("1×", "2× M2×5") belong to the part pictures, in order
+  const qtys = paras.filter(p => /^\d+×(\s.{0,24})?$/.test(p)), partImgs = s.images.filter(im => im.kind === '2_part_pictures');
+  const qtyOf = new Map();
+  if (qtys.length && partImgs.length) {
+    const used = qtys.slice(0, partImgs.length); used.forEach((q, k) => qtyOf.set(partImgs[k], q));
+    for (const q of used) paras.splice(paras.indexOf(q), 1);
+  }
+  const text = paras.map(p => `<p>${md(p).replace(/^(\d+×)\s/, '<span class="qty">$1</span> ')}</p>`).join('')
+    + s.checks.map(c => `<div class="check"><b>${tr('확인', 'Check')}</b> ${md(c)}</div>`).join('')
+    + s.warnings.map(w => `<div class="warnbox"><b>${tr('주의', 'Warning')}</b> ${md(w)}</div>`).join('')
+    + (s.list.length ? `<ul>${s.list.map(l => `<li>${md(l)}</li>`).join('')}</ul>` : '')
+    + s.tables.map(t => `<div class="tbl"><table><thead><tr>${t[0].map(c => `<th>${md(c)}</th>`).join('')}</tr></thead><tbody>${t.slice(1).map(r => `<tr>${r.map(c => `<td>${md(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`).join('')
+    + (s.code.length ? `<pre><button class="cp" type="button">${tr('복사', 'Copy')}</button><code>${esc(s.code.join('\n'))}</code></pre>` : '')
+    + (s.callouts.length ? `<div class="callouts">${tr('그림 표시', 'Callouts')}: ${s.callouts.map(esc).join(' · ')}</div>` : '');
+  const imgs = s.images.length ? `<div class="figs${s.images.length === 1 ? ' one' : ''}">${s.images.map(im => fig(im, qtyOf.get(im))).join('')}</div>` : '';
+  html += `<article class="card${imgs ? '' : ' noimg'}" id="${s.step ? 'step-' + s.step : s.slide_id}"><div><div class="head">${s.step ? `<span class="num">${s.step}</span>` : ''}<h3>${esc(s.title)}</h3></div>${text}</div>${imgs}</article>`;
+});
+$('manual').innerHTML = html;
+document.addEventListener('click', e => {
+  const cp = e.target.closest('.cp');
+  if (cp) { navigator.clipboard && navigator.clipboard.writeText(cp.nextElementSibling.textContent).then(() => { cp.textContent = tr('복사됨', 'Copied'); setTimeout(() => cp.textContent = tr('복사', 'Copy'), 1200); }); return; }
+  const b = e.target.closest('[data-big]');
+  if (!b) return;
+  const lb = document.createElement('div'); lb.className = 'lb';
+  lb.innerHTML = `<button class="btn x" type="button">${tr('닫기', 'Close')}</button><div><img src="${b.dataset.big}" alt=""><div class="cap"></div></div>`;
+  lb.querySelector('.cap').textContent = b.dataset.cap || '';
+  lb.onclick = ev => { if (ev.target === lb || ev.target.closest('.x')) lb.remove(); };
+  document.body.appendChild(lb);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.lb').forEach(l => l.remove()); });
+
+// ---------------- 3D ----------------
+const parts = RL.parts, byNode = Object.fromEntries(parts.map(p => [p.node, p]));
+const GROUPS = [['printed', tr('출력 부품', 'Printed')], ['electronics', tr('전자 부품', 'Electronics')], ['hardware', tr('기타 부품', 'Hardware')]];
+const groupOf = p => p.type === 'printed' ? 'printed' : p.type === 'electronics' ? 'electronics' : 'hardware';
+const WIRES = Object.keys(RL.exploded).filter(k => RL.exploded[k] === null);
+const name = p => EN ? p.en : p.ko;
+// first assembly step that handles each part (manual Phase 6 = steps 16..35); parts with none stay hidden in assembly mode until 35
+const firstAsm = p => (p.install_steps || []).filter(s => s >= 16 && s <= 35).sort((a, b) => a - b)[0];
+const stepMove = {}; for (const r of RL.steps) (stepMove[r.step] = stepMove[r.step] || []).push(r);
+const stepSlide = Object.fromEntries(slides.filter(s => s.step).map(s => [s.step, s]));
+
+const stage = $('stage');
+if (!window.THREE || !THREE.GLTFLoader) { $('load').textContent = tr('3D 라이브러리를 불러오지 못했습니다', 'The 3D library failed to load'); return; }
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.outputEncoding = THREE.sRGBEncoding; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.physicallyCorrectLights = true;
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const bgCol = () => getComputedStyle(document.documentElement).getPropertyValue('--stage').trim() || '#dedad2';
+scene.background = new THREE.Color(bgCol());
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
+const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(60, 140, 90); scene.add(key);
+const camera = new THREE.PerspectiveCamera(32, 1, 1, 4000);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.08; controls.minDistance = 80; controls.maxDistance = 900;
+const resize = () => { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); renderer.domElement.style.height = h + 'px'; camera.aspect = w / h; camera.updateProjectionMatrix(); dirty = true; };
+let dirty = true, model = null, nodes = {}, home = {}, sel = null, hover = null, t = +$('explode').value, tGoal = t, showWires = true;
+let mode = 'explode', step = 16, anim = 1, playing = null;
+new ResizeObserver(resize).observe(stage);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { scene.background = new THREE.Color(bgCol()); dirty = true; });
+
+const fail = () => { $('load').textContent = tr('3D 모델을 불러오지 못했습니다', 'The 3D model failed to load'); };
+const ms = document.createElement('script'); ms.src = 'logger/model.js'; ms.onerror = fail;
+ms.onload = () => {
+  const bin = atob(window.RL_GLB), buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  new THREE.GLTFLoader().parse(buf.buffer, '', onModel, fail);
+};
+document.body.appendChild(ms);
+function onModel(g) {
+  model = g.scene;
+  model.traverse(o => {
+    if (byNode[o.name]) { nodes[o.name] = o; home[o.name] = o.position.clone(); }
+    if (o.isMesh) { o.material = o.material.clone(); o.userData.base = o.material.emissive ? o.material.emissive.clone() : null; }
+  });
+  scene.add(model);
+  const box = new THREE.Box3().setFromObject(model), c = box.getCenter(new THREE.Vector3());
+  controls.target.copy(c).add(new THREE.Vector3(0, 20, 0));
+  camera.position.set(c.x - 150, c.y + 170, c.z + 210);
+  $('load').remove(); listParts(); apply(); dirty = true;
+}
+
+const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+function apply() {               // place every part for the current mode
+  if (!model) return;
+  for (const [n, o] of Object.entries(nodes)) {
+    const p0 = home[n]; let off = [0, 0, 0], vis = true;
+    if (mode === 'explode') {
+      const ex = RL.exploded[n];
+      if (ex === null) vis = showWires && t < 0.02; else if (ex) off = ex.map(v => v * ease(t));
+    } else {
+      const f = firstAsm(byNode[n]);
+      vis = f !== undefined ? f <= step : step >= 35;
+      const mv = (stepMove[step] || []).find(r => r.nodes === n);
+      if (mv && vis) off = mv.offset_gltf_mm.map(v => v * (1 - ease(anim)));
+    }
+    o.visible = vis; o.position.set(p0.x + off[0], p0.y + off[1], p0.z + off[2]);
+  }
+  paintSel(); dirty = true;
+}
+function paintSel() {
+  model.traverse(o => {
+    if (!o.isMesh || !o.material.emissive) return;
+    let p = o; while (p && !byNode[p.name]) p = p.parent;
+    const on = p && (p.name === sel || p.name === hover);
+    o.material.emissive.copy(on ? new THREE.Color(p.name === sel ? 0xb04414 : 0x5a2c14) : o.userData.base);
+  });
+  document.querySelectorAll('#parts button').forEach(b => { b.classList.toggle('sel', b.dataset.n === sel); b.classList.toggle('off', model && nodes[b.dataset.n] && !nodes[b.dataset.n].visible); });
+}
+const colOf = p => ((p.colour || '').match(/#[0-9a-f]{6}/i) || ['#999'])[0];
+function listParts() {
+  $('parts').innerHTML = GROUPS.map(([g, l]) => `<div class="g">${l}</div>` + parts.filter(p => groupOf(p) === g && nodes[p.node]).map(p =>
+    `<button type="button" data-n="${p.node}"><span class="sw" style="background:${colOf(p)}"></span>${esc(name(p))}${p.qty > 1 ? ` ×${p.qty}` : ''}<span class="t">${firstAsm(p) ? tr('단계 ', 'step ') + firstAsm(p) : ''}</span></button>`).join('')).join('');
+  $('parts').onclick = e => { const b = e.target.closest('button'); if (b) pick(b.dataset.n === sel ? null : b.dataset.n); };
+  $('parts').onmouseover = e => { const b = e.target.closest('button'); hover = b ? b.dataset.n : null; paintSel(); dirty = true; };
+  $('parts').onmouseleave = () => { hover = null; paintSel(); dirty = true; };
+  pick(null);
+}
+function pick(n) {
+  sel = n; paintSel(); dirty = true;
+  const p = byNode[n];
+  if (!p) { $('info').innerHTML = `<span style="color:var(--muted)">${tr('부품을 누르면 정보가 나옵니다.', 'Click a part for its details.')}</span>`; return; }
+  const rows = [[tr('종류', 'Type'), p.type], [tr('수량', 'Qty'), p.qty + (p.qty_note ? ` (${p.qty_note})` : '')], [tr('재료', 'Material'), p.material], [tr('색', 'Colour'), p.colour],
+    [tr('출력 파일', 'Print file'), p.print_file && p.print_file.split('/').pop()], [tr('설명서 단계', 'Manual steps'), (p.install_steps || []).map(s => `<a href="#step-${s}">${s}</a>`).join(', ')], [tr('모델', 'Model'), p.model_source]];
+  $('info').innerHTML = `<b>${esc(name(p))}</b>${EN ? '' : ` <span style="color:var(--muted)">${esc(p.en)}</span>`}<dl>${rows.filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${k === tr('설명서 단계', 'Manual steps') ? v : esc(v)}</dd>`).join('')}</dl>`;
+}
+// picking in the canvas
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(), tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; stage.appendChild(tip);
+const partAt = e => {
+  const r = renderer.domElement.getBoundingClientRect(); mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const hit = model && ray.intersectObject(model, true).find(h => { let o = h.object; while (o) { if (!o.visible) return false; o = o.parent; } return true; });
+  let o = hit && hit.object; while (o && !byNode[o.name]) o = o.parent; return o ? o.name : null;
+};
+let down = null;
+renderer.domElement.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', e => { if (down && Math.hypot(e.clientX - down[0], e.clientY - down[1]) < 5) pick(partAt(e)); down = null; });
+renderer.domElement.addEventListener('pointermove', e => {
+  if (e.buttons) return; const n = partAt(e);
+  if (n !== hover) { hover = n; paintSel(); dirty = true; }
+  tip.hidden = !n; if (n) { tip.textContent = name(byNode[n]); const r = stage.getBoundingClientRect(); tip.style.left = (e.clientX - r.left) + 'px'; tip.style.top = (e.clientY - r.top) + 'px'; }
+});
+renderer.domElement.addEventListener('pointerleave', () => { hover = null; tip.hidden = true; paintSel(); dirty = true; });
+
+// controls
+const setMode = m => {
+  mode = m; $('ctlExp').hidden = m !== 'explode'; $('ctlStep').hidden = m !== 'steps';
+  $('mExp').classList.toggle('sel', m === 'explode'); $('mStep').classList.toggle('sel', m === 'steps');
+  if (m === 'steps') setStep(step); else { stop(); apply(); }
+};
+$('mExp').onclick = () => setMode('explode'); $('mStep').onclick = () => setMode('steps');
+const showT = () => { $('vExp').textContent = Math.round(t * 100) + '%'; };
+$('explode').oninput = e => { t = tGoal = +e.target.value; showT(); apply(); };
+$('bAsm').onclick = () => { tGoal = 0; }; $('bExp').onclick = () => { tGoal = 1; };
+const wireLabel = () => { $('bWire').textContent = showWires ? tr('배선 숨기기', 'Hide wires') : tr('배선 보기', 'Show wires'); };
+$('bWire').onclick = () => { showWires = !showWires; wireLabel(); apply(); }; wireLabel(); showT();
+function setStep(s) {
+  step = Math.max(16, Math.min(35, s)); $('step').value = step; $('vStep').textContent = `${step} / 35`; anim = 0;
+  const sl = stepSlide[step]; $('stTitle').textContent = sl ? sl.title : '';
+  $('stNote').textContent = (stepMove[step] || []).map(r => r.note).join('; ') || tr('이 단계 그림에서 움직인 부품 위치는 기록되지 않아, 제자리에 표시합니다.', 'No part offset was recorded for this step\'s picture; parts are shown in place.');
+  $('toStep').href = '#step-' + step; $('toStep').textContent = tr('설명서 보기', 'Read step');
+  apply();
+}
+$('step').oninput = e => { stop(); setStep(+e.target.value); };
+$('prev').onclick = () => { stop(); setStep(step - 1); }; $('next').onclick = () => { stop(); setStep(step + 1); };
+const playLabel = () => { $('play').textContent = playing ? tr('정지', 'Pause') : tr('재생', 'Play'); };
+function stop() { if (playing) { clearInterval(playing); playing = null; playLabel(); } }
+$('play').onclick = () => { if (playing) return stop(); if (step >= 35) setStep(16); playing = setInterval(() => step >= 35 ? stop() : setStep(step + 1), 1800); playLabel(); };
+playLabel();
+if (hp.get('mode') === 'steps') setMode('steps');
+
+let last = performance.now();
+(function loop(now) {
+  requestAnimationFrame(loop);
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (mode === 'explode' && Math.abs(tGoal - t) > 1e-3) { t += Math.sign(tGoal - t) * Math.min(Math.abs(tGoal - t), dt * 1.4); $('explode').value = t; showT(); apply(); }
+  if (mode === 'steps' && anim < 1) { anim = Math.min(1, anim + dt * 1.25); apply(); }
+  if (controls.update() || dirty) { renderer.render(scene, camera); dirty = false; }
+})(last);
+controls.addEventListener('change', () => { dirty = true; });
+})();
+</script>
+</body>
+</html>

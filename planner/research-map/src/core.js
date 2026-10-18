@@ -48,10 +48,10 @@ function celevUV(u, v) { const gx = clamp(u * (CGX - 1), 0, CGX - 1.0001), gy = 
   return CH[i] * (1 - fx) * (1 - fy) + CH[i + 1] * fx * (1 - fy) + CH[i + CGX] * (1 - fx) * fy + CH[i + CGX + 1] * fx * fy; }
 let CMAX = 0; for (const v of CH) CMAX = Math.max(CMAX, v);
 // hourly cumulative new-burn probability F(h) from the recursive Monte Carlo rollout (optional bundle part)
-const HR = B.hourly || null, HH = HR ? HR.meta.hours.length : 0;
+// hourly F(h) arrives after the first frames (regions/<id>.hourly.js); HM describes it before then
+let HR = null, HH = 0, HP = [], HSE = [], HV = [], HCUT = [], A50 = [];
+const HM = B.hourly ? B.hourly.meta : B.hourly_meta || null;
 const decB = s => { const b = atob(s), a = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; };
-const HP = HR ? HR.p.map(decB) : [], HSE = HR ? HR.se.map(decB) : [], HV = HR ? HR.valid.map(decB) : [];
-const HCUT = HR ? HR.meta.cutoffs.map(c => (Date.parse(c) - T0) / 3.6e6) : [];
 function elevG(gx, gy) { gx = clamp(gx, 0, GX - 1.0001); gy = clamp(gy, 0, GY - 1.0001); const x0 = gx | 0, y0 = gy | 0, fx = gx - x0, fy = gy - y0, i = y0 * GX + x0;
   return H[i] * (1 - fx) * (1 - fy) + H[i + 1] * fx * (1 - fy) + H[i + GX] * (1 - fx) * fy + H[i + GX + 1] * fx * fy; }
 const elevUV = (u, v) => elevG(u * (GX - 1), v * (GY - 1));       // metres; u east 0..1, v south 0..1
@@ -117,7 +117,12 @@ const fluxV = F => F > 0 ? clamp((Math.log10(F) + 6) / 6, 0, 1) : 0;      // 1e-
 const POLICY = { full: { n: tr('전체 조건', 'Full constraints'), c: 0x2f8a57, css: '#2f8a57' }, flame_dose: { n: tr('불길 + 누적 노출', 'Flame + dose'), c: 0x4f86c6, css: '#4f86c6' }, flame_peak: { n: tr('불길 + 순간 열유속', 'Flame + peak flux'), c: 0x8a6fc0, css: '#8a6fc0' }, flame_only: { n: tr('불길만', 'Flame only'), c: 0x8d8d8d, css: '#8d8d8d' }, travel_only: { n: tr('이동시간만', 'Travel time only'), c: 0xe8862a, css: '#e8862a' } };
 const POLICY_ORDER = ['full', 'flame_dose', 'flame_peak', 'flame_only', 'travel_only'];
 const MEMBER_CSS = ['#d9472b', '#e8a33a', '#7a5cc4', '#2f8fb3'];
-const A50 = HP.map((_, k) => { const a = new Uint8Array(NCELL).fill(255); for (let i = 0; i < NCELL; i++) { if (!HV[k][i]) continue; for (let h = 1; h <= HH; h++) if (Fh(k, i, h) >= .5) { a[i] = h; break; } } return a; });
+function attachHourly(h) {
+  HR = h; HH = h.meta.hours.length; HP = h.p.map(decB); HSE = h.se.map(decB); HV = h.valid.map(decB);
+  HCUT = h.meta.cutoffs.map(c => (Date.parse(c) - T0) / 3.6e6);
+  A50 = HP.map((_, k) => { const a = new Uint8Array(NCELL).fill(255); for (let i = 0; i < NCELL; i++) { if (!HV[k][i]) continue; for (let h = 1; h <= HH; h++) if (Fh(k, i, h) >= .5) { a[i] = h; break; } } return a; });
+}
+if (B.hourly) attachHourly(B.hourly);
 
 // ---------------- canvases ----------------
 const TW = 2048, TH = Math.round(2048 * KY / KX), MW = 1024, MH = Math.round(1024 * KY / KX);
@@ -702,7 +707,7 @@ const LAYERS = [
   { id: 'q', n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
   { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: true, op: 90 },
   { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: true, op: 80 },
-  { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HR ? tr(`몬테카를로 ${HR.meta.n_samples.toLocaleString()}회 · 1–${HH}시간`, `Monte Carlo ${HR.meta.n_samples.toLocaleString()} runs · 1–${HH} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HR, on: !!HR, op: 80, disabled: !HR },
+  { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
   { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
   { id: 'booth', n: tr('대피 현황 (부스 캐시)', 'Evacuation status (booth cache)'), src: B.booth ? tr('실제 API 결과 · 출발지별 판정', 'Real API results · per origin') : tr('이 지역은 캐시 없음', 'No cache for this region'), on: !!B.booth, op: 100, disabled: !B.booth },
   { id: 'places', n: tr('마을 · 대피소', 'Villages · shelters'), src: tr(`OSM · 출발지 ${N_ORIG}, 대피소 ${N_DEST}`, `OSM · ${N_ORIG} origins, ${N_DEST} shelters`), on: true, op: 100 },

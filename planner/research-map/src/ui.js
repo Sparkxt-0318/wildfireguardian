@@ -44,7 +44,7 @@ function legendHTML(id) {
   if (id === 'heat') return `<div class="legend" style="display:block"><div class="memsel" id="memsel">${[tr('최대', 'Max'), 'S1', 'S2', 'S3', 'S4'].map((n, i) => `<button type="button" data-m="${i - 1}" aria-pressed="${i === 0}">${n}</button>`).join('')}</div>
     <span>0.01</span><span class="ramp" style="background:linear-gradient(90deg,#c43c4e,#e8602c,#f8961e,#f6d746,#fcffa4)"></span><span>1 kW/m² · <i style="background:#fff3c0"></i>${tr('화염 접촉 셀', 'flame-contact cell')}</span><br><span>${tr('0.01 kW/m² 미만은 그리지 않습니다. 모델 입력 시각부터 1시간만 있으니 1시간 상세로 보세요.', 'Below 0.01 kW/m² is not drawn. Exists for 1 h after each model input; use the 1-hour detail.')}</span></div>`;
   if (id === 'heat3d') return '';
-  if (id === 'mc') return HR ? `<div class="legend"><span>1%</span><span class="ramp" style="background:linear-gradient(90deg,#d6c2ee,#ba92de,#9e69c8,#6e32a0,#40106e)"></span><span>90%+ · ${tr('점선: 50% 도달 시각(1시간 간격)', 'dashed: hour F reaches 50%')}</span></div>`
+  if (id === 'mc') return HM ? `<div class="legend"><span>1%</span><span class="ramp" style="background:linear-gradient(90deg,#d6c2ee,#ba92de,#9e69c8,#6e32a0,#40106e)"></span><span>90%+ · ${tr('점선: 50% 도달 시각(1시간 간격)', 'dashed: hour F reaches 50%')}</span></div>`
     : `<div class="legend" style="color:var(--warn)">${tr('시간별 결과는 환경 입력 래스터가 필요해 이 화면에 아직 없습니다. 자료 탭의 출처를 보세요.', 'The hourly results need the environmental input rasters and are not in this view yet. See Sources in the Docs tab.')}</div>`;
   if (id === 'q') return `<div class="legend"><span>0.5%</span><span class="ramp" style="background:linear-gradient(90deg,#fde6cd,#fbc48c,#f48c42,#e2552b,#aa1e19)"></span><span>50%+</span></div>`;
   if (id === 'temp') return `<div class="legend"><span>−2°</span><span class="ramp" style="background:linear-gradient(90deg,#466ebe,#8cb9e1,#f6f0c4,#f4aa5c,#de5c32,#961e1e)"></span><span>30°C · ${tr('등온선 2°C', 'isotherms 2°C')}</span></div>`;
@@ -212,14 +212,15 @@ function renderCompare() {
 const figSrc = f => (window.WFG_FIG && window.WFG_FIG[f]) || `logger/${f}.png`;
 const LOGGER = {
   title: tr('현장 경로 기록기 (Route Logger)', 'Field route logger (Route Logger)'),
-  sub: tr('WildfireGuardian 직접 제작 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian self-built GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
-  what: tr('걷거나 차량으로 이동하며 경로와 이벤트 표시를 기록하고, Mac 브라우저 앱에서 다시 재생하는 주머니 크기 GPS 기록기입니다. 직접 출력·배선·조립하며 37단계, 손 작업 약 4시간(출력 시간 별도)입니다.', 'A pocket GPS logger that records a route (with event marks) on foot or in a vehicle and replays it in a Mac browser app. You print, wire and assemble it yourself: 37 steps, about 4 hours of hands-on work plus printing.'),
+  sub: tr('WildfireGuardian 직접 제작용 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian build-it-yourself GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
+  what: tr('걷거나 차량으로 이동하며 경로와 이벤트 표시를 기록하고, Mac 브라우저 앱에서 다시 재생하는 주머니 크기 GPS 기록기입니다. 직접 출력·배선·조립하며 37단계, 손 작업 약 4시간(추정, 출력 시간 별도)입니다.', 'A pocket GPS logger that records a route (with event marks) on foot or in a vehicle and replays it in a Mac browser app. You print, wire and assemble it yourself: 37 steps, about 4 hours of hands-on work plus printing (estimate).'),
   specs: [
     [tr('보드', 'Board'), 'FireBeetle 2 ESP32-E (DFR0654-F)'],
     ['GNSS', tr('Gravity TEL0157 · UART (D11/D10) · 패치 안테나', 'Gravity TEL0157 · UART (D11/D10) · patch antenna')],
     [tr('화면', 'Display'), tr('1.54인치 240×240 ST7789', '1.54 in 240×240 ST7789')],
     [tr('전원', 'Power'), tr('14500 셀 800 mAh · USB-C 충전 · 계획용 추정 1회 충전 5–6시간 (직접 측정 전)', '14500 cell 800 mAh · USB-C charging · plan on 5–6 h per charge until measured')],
-    [tr('저장', 'Storage'), tr('약 2.5 MB · 약 14시간 기록 · 기록 형식 2 (48바이트)', 'About 2.5 MB · about 14 h of recordings · record format 2 (48 bytes)')],
+    [tr('기록', 'Logging'), tr('GNSS 에포크마다 1행, 최대 1행/초 (펌웨어 0.3.0) · 행당 48바이트', 'One row per GNSS epoch, at most 1 row per second (firmware 0.3.0) · 48 bytes per row')],
+    [tr('저장', 'Storage'), tr('약 2.5 MB · 약 14시간 기록 (48 B/s로 계산, 측정 전)', 'About 2.5 MB · about 14 h of recordings (calculated at 48 B/s, not measured)')],
     [tr('조작', 'Control'), tr('버튼 1개 (IO27): 대기 중 짧게 = 이동 방식 변경 · 기록 중 짧게 = 이벤트 표시 · 2.5초 = 기록 시작/정지 · 대기 중 6초 이상 = Wi-Fi 내보내기', 'One button (IO27): short in idle = change mode · short while recording = event mark · 2.5 s = start/stop · over 6 s in idle = Wi-Fi export')],
     [tr('이동 방식', 'Modes'), 'WALK · VEHICLE · UNKNOWN'],
     [tr('케이스', 'Case'), tr('PETG 3D 출력 · 0.20 mm 층 · 25% gyroid · 180×180 mm 베드', 'PETG 3D print · 0.20 mm layers · 25% gyroid · 180×180 mm bed')],
@@ -238,13 +239,14 @@ const LOGGER = {
     ['fig01', tr('전자 부품', 'Electronics parts')], ['fig02', tr('출력 부품', 'Printed parts')], ['fig03', tr('FireBeetle 핀 배치', 'FireBeetle pin map')], ['fig04', tr('화면 배선', 'Display wiring')], ['fig05', tr('GNSS 배선', 'GNSS wiring')],
     ['fig06', tr('화면 GNSS 상태 (NO FIX · no data · 3D)', 'Screen GNSS states (NO FIX · no data · 3D)')], ['fig07', tr('셀 극성 확인', 'Cell polarity check')], ['fig08', tr('GNSS 브래킷의 패치 안테나', 'Patch antenna on the GNSS bracket')], ['fig09', tr('버튼 하나로 조작', 'One-button controls')], ['fig10', tr('화면 읽는 법', 'Reading the screen')],
   ],
-  note: tr('설명서 요약입니다. 설명서에는 연구 목적, 샘플링 주기, 비용, 현장 시험 결과가 적혀 있지 않아 여기에도 넣지 않았습니다. 기록은 Mac에 남고 git에는 올리지 않습니다.', 'A summary of the build manual. The manual does not state the research purpose, sample rate, cost or field-test results, so they are not shown here. Recordings stay on the Mac and out of git.'),
+  note: tr('설명서 요약입니다. 기록 간격은 펌웨어 0.3.0 설정값입니다. 설명서에는 연구 목적, 비용, 현장 시험 결과가 적혀 있지 않아 여기에도 넣지 않았습니다. 기록은 Mac에 남고 git에는 올리지 않습니다.', 'A summary of the build manual; the logging rate is the firmware 0.3.0 setting. The manual does not state the research purpose, cost or field-test results, so they are not shown here. Recordings stay on the Mac and out of git.'),
 };
 function buildDocs() {
   const pv = B.provenance, fp = B.footprints;
   $('pDocs').innerHTML = `
     <div class="grp-h"><span>${LOGGER.title}</span></div>
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
+    ${window.WFG_FIG ? '' : `<a class="logger-open" href="logger.html${EN ? '#lang=en' : ''}"><b>${tr('3D 분해 모델 · 전체 제작 설명서 열기', 'Open the exploded 3D model and full build manual')}</b><span>${tr('부품별 정보, 조립 순서 애니메이션, 37단계 전체', 'Part details, step-by-step assembly, all 37 steps')} →</span></a>`}
     <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
@@ -259,7 +261,7 @@ function buildDocs() {
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
       <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
-      <li><b>${tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative probability F(h)')}</b> — ${HR ? tr(`재귀 몬테카를로 확산(predict_cumulative) · 체크포인트 ${HR.meta.checkpoint_sha256.slice(0, 8)} · 궤적 ${HR.meta.n_samples.toLocaleString()}개 · 1–${HH}시간. ±는 몬테카를로 표본 오차(95%)입니다.`, `Recursive Monte Carlo (predict_cumulative) · checkpoint ${HR.meta.checkpoint_sha256.slice(0, 8)} · ${HR.meta.n_samples.toLocaleString()} trajectories · 1–${HH} h. ± is the Monte Carlo sampling error (95%).`)
+      <li><b>${tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative probability F(h)')}</b> — ${HM ? tr(`재귀 몬테카를로 확산(predict_cumulative) · 체크포인트 ${HM.checkpoint_sha256.slice(0, 8)} · 궤적 ${HM.n_samples.toLocaleString()}개 · 1–${HM.hours.length}시간. ±는 몬테카를로 표본 오차(95%)입니다.`, `Recursive Monte Carlo (predict_cumulative) · checkpoint ${HM.checkpoint_sha256.slice(0, 8)} · ${HM.n_samples.toLocaleString()} trajectories · 1–${HM.hours.length} h. ± is the Monte Carlo sampling error (95%).`)
         : tr('저장소의 predict_cumulative가 만드는 1시간 간격 누적 확률입니다. 실행에 필요한 환경 입력 래스터가 GitHub에 없어(forecast/README.md, External inputs) 이 화면에는 아직 결과가 없습니다. 만들어 내거나 q로 근사하지 않았습니다.', 'Hourly cumulative probability from the repository’s predict_cumulative. The environmental input rasters it needs are not on GitHub (forecast/README.md, External inputs), so this view has no results yet. Nothing is made up or approximated from q.')}</li>
       <li><b>${tr('복사 열유속 F(x) · 화재 scenario 4개', 'Radiant flux F(x) · 4 fire scenarios')}</b> — ${tr(`경로 점검에 실제로 쓰인 위험 입력(HAZARD.json, ${HZ.length}개 입력 시각). 입력 시각부터 1시간만 유효하며 연기·대류열·불티는 포함되지 않습니다.`, `The hazard input the route checks used (HAZARD.json, ${HZ.length} input times). Valid for 1 h after input; smoke, convective heat and embers are not included.`)}</li>
       <li><b>${tr('대피 경로 점검 · 정책 비교', 'Route checks · policy comparison')}</b> — ${tr(`기록된 Route-Check ${routes.length}건과 5개 정책 기록. 재계산 누적 노출은 셀 중심 근사이고, 판정과 기록 노출값은 원래 점검 결과입니다.`, `${routes.length} recorded Route-Checks and their 5 policy records. Recomputed dose is a cell-centre approximation; verdicts and recorded exposure are the original results.`)}</li>
@@ -741,5 +743,6 @@ async function boot() {
   window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
   requestAnimationFrame(frame);
   if (!hit) setTimeout(saveTextures, 1500);   // after the first frames, off the critical path
+  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
 }
 requestAnimationFrame(() => setTimeout(boot, 30));

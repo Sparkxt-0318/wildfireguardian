@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Assemble the 3D layer map page from src/ (style.css, body.html, loader.js, core.js, ui.js).
 
-usage: python tools/build_viewer.py            -> site/index.html, offline: site/vendor scripts, system fonts, works from file://
+usage: python tools/build_viewer.py            -> site/index.html (+ site/logger.html), offline: site/vendor scripts, system fonts, works from file://
        python tools/build_viewer.py --cdn OUT  -> a page fragment that loads three.js from cdnjs/jsdelivr and Noto Sans KR
                                                   from Google Fonts (for hosting where the page gets its own document shell)
 The region data is loaded at run time from regions/<id>.js next to the page (tools/build_regions.py).
 """
-import argparse
+import argparse, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,16 +26,26 @@ FONTS = ['<link rel="preconnect" href="https://fonts.googleapis.com">', '<link r
 
 
 def build_single() -> str:
-    """One self-contained HTML file: libraries, every region and the logger figures inline (open it on its own)."""
+    """One self-contained HTML file. Libraries are inline; each region's data, terrain and hourly file sit in inert
+    <script type="text/plain"> blocks that the loader runs only for the region being viewed."""
     import base64
     page = build(False)
     site = ROOT / 'site'
     inline = lambda p: '<script>\n' + p.read_text().replace('</script', '<\\/script') + '\n</script>'
+    block = lambda name, text: f'<script type="text/plain" id="wfg:{name}">' + text.replace('</script', '<\\/script') + '</script>'
     for n in LIBS:
         page = page.replace(f'<script src="vendor/{n}"></script>', inline(site / 'vendor' / n))
+    blocks = []
+    for p in sorted((site / 'regions').glob('*.js')):
+        if p.name == 'index.js': continue
+        text = p.read_text()
+        if p.name.endswith('.tex.js'):   # image paths -> data URLs
+            for path in re.findall(r'"(regions/[^"]+\.(?:jpg|png))"', text):
+                mime = 'image/png' if path.endswith('.png') else 'image/jpeg'
+                text = text.replace(f'"{path}"', '"data:' + mime + ';base64,' + base64.b64encode((site / path).read_bytes()).decode() + '"')
+        blocks.append(block(p.name, text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
-    data = ''.join(inline(p) for p in sorted((site / 'regions').glob('*.js')) if p.name != 'index.js')
-    page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + data
+    page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + ''.join(blocks)
                         + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
     return page
 
@@ -59,6 +69,8 @@ if __name__ == '__main__':
     out = Path(a.cdn) if a.cdn else ROOT / 'site' / 'index.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build(bool(a.cdn)))
+    if not a.cdn:   # the route logger page (data from tools/build_logger.py) is a plain copy
+        (ROOT / 'site' / 'logger.html').write_text((SRC / 'logger.html').read_text())
     if a.single:
         Path(a.single).write_text(build_single())
         print(f'wrote {a.single} ({Path(a.single).stat().st_size / 1e6:.1f} MB, single file)')

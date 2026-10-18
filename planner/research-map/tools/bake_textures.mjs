@@ -7,7 +7,7 @@
 // writes site/regions/<id>.tex.js. The page uses that file only while its key matches the region data (else it draws).
 // Playwright: PLAYWRIGHT_MODULE=/path/to/node_modules/playwright, else the planner's node_modules; CHROMIUM_PATH optional.
 import { createRequire } from 'module';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
@@ -36,9 +36,16 @@ for (const id of regions) {
   await page.waitForSelector('#loading', { state: 'detached', timeout: 600000 });
   if (errors.length) throw new Error(`${id}: ${errors[0]}`);
   const tex = await page.evaluate(() => window.__bakeTextures());
+  // binary image files next to a small key file: smaller than base64, cached and decoded off the main thread
+  const dir = join(SITE, 'regions', id); mkdirSync(dir, { recursive: true });
+  const ref = { key: tex.key }; let kb = 0;
+  for (const k of ['ground', 'hs', 'ctxReal', 'ctxTopo', 'mask']) {
+    const [head, b64] = tex[k].split(','), ext = head.includes('png') ? 'png' : 'jpg', buf = Buffer.from(b64, 'base64');
+    writeFileSync(join(dir, `${k}.${ext}`), buf); ref[k] = `regions/${id}/${k}.${ext}`; kb += buf.length / 1024;
+  }
   const out = join(SITE, 'regions', `${id}.tex.js`);
-  writeFileSync(out, `(window.WFG_TEX=window.WFG_TEX||{})[${JSON.stringify(id)}]=${JSON.stringify(tex)};\n`);
-  const kb = Math.round(readFileSync(out).length / 1024);
+  writeFileSync(out, `(window.WFG_TEX=window.WFG_TEX||{})[${JSON.stringify(id)}]=${JSON.stringify(ref)};\n`);
+  kb = Math.round(kb);
   console.log(`${id}: ${kb} kB, key ${tex.key} (${((Date.now() - t0) / 1000).toFixed(1)} s)`);
   await page.close();
 }
