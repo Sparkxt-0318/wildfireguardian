@@ -72,7 +72,10 @@ def test_region_index_and_page(bundles, index):
     for r in index:
         b = bundles[r['id']]
         assert r['inputs'] == b['input_times'] and r['cases'] == sorted(b['policies'])
-        assert not b.get('hourly', {}).get('synthetic', False)
+        hf = RM / 'site' / 'regions' / f"{r['id']}.hourly.js"     # hourly F(h) loads after the first view
+        assert bool(b.get('hourly_meta')) == hf.exists() == r['hourly'] and 'hourly' not in b
+        if hf.exists():
+            assert '"synthetic":false' in hf.read_text()[:2000] or '"synthetic":false' in hf.read_text()
     page = (RM / 'site' / 'index.html').read_text()
     for n in ['three.min.js', 'OrbitControls.js', 'EffectComposer.js', 'UnrealBloomPass.js']:
         assert f'vendor/{n}' in page and (RM / 'site' / 'vendor' / n).is_file()
@@ -81,4 +84,6 @@ def test_region_index_and_page(bundles, index):
     for rid in REGIONS:   # pre-built terrain (tools/bake_textures.mjs); the page ignores it when its key no longer matches the data
         t = (RM / 'site' / 'regions' / f'{rid}.tex.js').read_text()
         tex = json.loads(t[t.index('=', t.index(']')) + 1:].rstrip().rstrip(';'))
-        assert tex['key'].split(':')[1] == rid and all(tex[k].startswith('data:image/') for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask'))
+        assert tex['key'].split(':')[1] == rid
+        for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask'):
+            assert tex[k].startswith(f'regions/{rid}/') and (RM / 'site' / tex[k]).stat().st_size > 1000

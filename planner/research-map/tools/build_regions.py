@@ -248,7 +248,7 @@ def build(rid, repo: Path, packets: Path, meta_idx: dict):
         hr = json.loads(hp.read_text())
         if hr.get('synthetic'):
             sys.exit(f'{hp} is a synthetic rehearsal export; it is never shipped. Delete it or merge a real export.')
-        bundle['hourly'] = hr
+        bundle['hourly'] = hr   # main() moves it to <id>.hourly.js and leaves hourly_meta, so the first view does not wait for it
         log.append(f'  hourly F(h) attached from {hp.name} ({len(hr["meta"]["cutoffs"])} cutoffs, {hr["meta"]["n_samples"]} samples)')
     log.append(f'  cells {NR}x{NC}, inputs {len(times)}, cases {sorted(policies)}, places {Counter(p["role"] for p in places)}, booth {"yes" if booth else "no"}, '
                f'osm {({k: len(v) for k, v in o2.items()})}, labels {len(labels)} peaks {len(peaks)}')
@@ -341,6 +341,15 @@ def main(argv=None):
     for rid in ids:
         b, log = build(rid, repo, packets, idx)
         print('\n'.join(log))
+        hourly = b.pop('hourly', None)
+        hf = outd / f'{rid}.hourly.js'
+        if hourly:
+            m = hourly['meta']
+            b['hourly_meta'] = dict(n_samples=m['n_samples'], hours=m['hours'], cutoffs=len(m['cutoffs']), env=m['env'], checkpoint_sha256=m['checkpoint_sha256'])
+            hf.write_text(f'(window.WFG_HOURLY=window.WFG_HOURLY||{{}})[{json.dumps(rid)}]=' + json.dumps(hourly, separators=(',', ':')) + ';\n')
+            print(f'  wrote {hf.name} {hf.stat().st_size / 1e6:.2f} MB (loaded after the first view)')
+        elif hf.exists():
+            hf.unlink()
         s = json.dumps(b, ensure_ascii=False, separators=(',', ':'))
         (outd / f'{rid}.js').write_text(f'(window.WFG_REGIONS=window.WFG_REGIONS||{{}})[{json.dumps(rid)}]={s};\n')
         print(f'  wrote {rid}.js {len(s.encode()) / 1e6:.2f} MB')
@@ -351,7 +360,7 @@ def main(argv=None):
         summary.append(dict(id=rid, name=b['name'], year=b['year'], event=b['event'], loc_ko=b['loc_ko'], loc_en=b['loc_en'], bbox=b['bbox'], km=b['km'],
                             inputs=b['input_times'], cases=sorted(b['policies']), rq3=b['rq3'], booth=bs,
                             origins=sum(1 for p in b['places'] if p['role'] == 'origin'), destinations=sum(1 for p in b['places'] if p['role'] == 'destination'),
-                            hourly=bool(b.get('hourly'))))
+                            hourly=bool(b.get('hourly_meta'))))
     if a.only:
         print('index.js not rewritten (--only); run without --only to refresh the region index')
     else:
