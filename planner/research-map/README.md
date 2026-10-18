@@ -20,6 +20,17 @@ Hash options (combine with `&`): `region=uljin_2022|miryang_2022|hongseong_2023|
 `cmp=spread|travel|ours`, `t=<hours from the first record>`, `lite=1` (no bloom, fewer trees and a 1× pixel ratio
 for slower machines and projectors). The region and language choice are also remembered in `localStorage`.
 
+For a copy that runs with no internet on any computer, build the offline folder and open its `index.html`:
+
+```bash
+python3 tools/build_viewer.py --offline /tmp/WildfireMap_offline     # zip the folder to hand it over
+```
+
+It holds the same files as `site/` with each region's terrain images inside its `tex.js` (a page opened from disk cannot
+read the pixels of separate image files, so it would otherwise draw the terrain itself, about 9 s slower). It opens as
+fast as the website. `--single OUT` writes everything into one HTML file instead; that is slower to open (the browser
+reads all 39 MB first) and leaves out the route logger page.
+
 ## Publish on Vercel
 
 `site/` is a static site with no build step (`site/vercel.json` only sets cache headers). One-time setup on

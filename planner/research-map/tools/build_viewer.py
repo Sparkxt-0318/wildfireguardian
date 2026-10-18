@@ -25,6 +25,27 @@ FONTS = ['<link rel="preconnect" href="https://fonts.googleapis.com">', '<link r
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">']
 
 
+def inline_tex(text: str, site: Path) -> str:
+    """A tex.js with its image paths turned into data URLs. Pages opened from file:// cannot read the pixels of image
+    files (Chrome treats each file as its own origin), so offline builds carry the terrain images inside the script."""
+    import base64
+    for path in re.findall(r'"(regions/[^"]+\.(?:jpg|png|webp))"', text):
+        mime = {'png': 'image/png', 'webp': 'image/webp'}.get(path.rsplit('.', 1)[1], 'image/jpeg')
+        text = text.replace(f'"{path}"', '"data:' + mime + ';base64,' + base64.b64encode((site / path).read_bytes()).decode() + '"')
+    return text
+
+
+def build_offline(out: Path):
+    """A folder to unzip and open from disk (index.html): the same files as the site, loaded one region at a time, with
+    each region's terrain images inside its tex.js (see inline_tex)."""
+    import shutil
+    site = ROOT / 'site'
+    if out.exists(): shutil.rmtree(out)
+    shutil.copytree(site, out, ignore=shutil.ignore_patterns('vercel.json'))
+    for t in sorted((out / 'regions').glob('*.tex.js')):
+        t.write_text(inline_tex(t.read_text(), site)); shutil.rmtree(out / 'regions' / t.name[:-len('.tex.js')])
+
+
 def build_single() -> str:
     """One self-contained HTML file. Libraries are inline; each region's data, terrain and hourly file sit in inert
     <script type="text/plain"> blocks that the loader runs only for the region being viewed."""
@@ -39,11 +60,7 @@ def build_single() -> str:
     for p in sorted((site / 'regions').glob('*.js')):
         if p.name == 'index.js': continue
         text = p.read_text()
-        if p.name.endswith('.tex.js'):   # image paths -> data URLs
-            for path in re.findall(r'"(regions/[^"]+\.(?:jpg|png|webp))"', text):
-                mime = {'png': 'image/png', 'webp': 'image/webp'}.get(path.rsplit('.', 1)[1], 'image/jpeg')
-                text = text.replace(f'"{path}"', '"data:' + mime + ';base64,' + base64.b64encode((site / path).read_bytes()).decode() + '"')
-        blocks.append(block(p.name, text))
+        blocks.append(block(p.name, inline_tex(text, site) if p.name.endswith('.tex.js') else text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
     page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + ''.join(blocks)
                         + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
@@ -65,12 +82,15 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--cdn', metavar='OUT', help='write the CDN fragment to OUT instead of the offline site/index.html')
     ap.add_argument('--single', metavar='OUT', help='also write one self-contained HTML file (everything inline) to OUT')
+    ap.add_argument('--offline', metavar='DIR', help='also write a folder to open from disk (fastest offline) to DIR')
     a = ap.parse_args()
     out = Path(a.cdn) if a.cdn else ROOT / 'site' / 'index.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build(bool(a.cdn)))
     if not a.cdn:   # the route logger page (data from tools/build_logger.py) is a plain copy
         (ROOT / 'site' / 'logger.html').write_text((SRC / 'logger.html').read_text())
+    if a.offline:
+        build_offline(Path(a.offline)); print(f'wrote {a.offline}/ (offline folder, open index.html)')
     if a.single:
         Path(a.single).write_text(build_single())
         print(f'wrote {a.single} ({Path(a.single).stat().st_size / 1e6:.1f} MB, single file)')
