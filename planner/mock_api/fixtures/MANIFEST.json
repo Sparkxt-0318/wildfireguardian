@@ -1,0 +1,2297 @@
+{
+ "generated_at": "2026-10-17T06:40:37Z",
+ "generator": "planner/tools/build_fixtures.py",
+ "git_commit": "ec2b17b80bef4ce475d836f22e4a4e8545a73cdc",
+ "sources": [
+  {
+   "release_tag": "research-final-20261015",
+   "asset": "WFG-evaluated-routing-inputs-20261015.zip",
+   "sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202"
+  },
+  {
+   "release_tag": "research-final-20261015",
+   "asset": "WildfireGuardian_Latest_Independent_Final_20261015.zip",
+   "sha256": "a3cd27b88d065883ce3d0534592d1406e3f9798c1abd98256c730f0cf3d60d3f"
+  },
+  {
+   "release_tag": "routing-ablation-final-inputs-20261016",
+   "asset": "WFG-final-input-routing-ablation-20261016-v1.zip",
+   "sha256": "661090bd059a862a9874c4e19977c105d1978bf32ee6d6d3cd7f6d40d244c006"
+  }
+ ],
+ "conventions": {
+  "grid_orientation": {
+   "summary": "Graph edge segments[].cell and HAZARD.json member arrays use cell = row*width + col with row 0 at the SOUTH edge (grid.y0) and col 0 at grid.x0. constructed_arrays.npz and the event export FORECAST_<t>.npz are native north-up rasters (row 0 at the north edge, affine [375,0,x0,0,-375,y_top]); native row = height-1-row. HAZARD row_reversal: true denotes exactly this reversal. ForecastCell row/col/cell/id use the south-up graph convention; polygons are the cell's EPSG:5179 square [x0+col*375, y0+row*375] → WGS84.",
+   "verified": true,
+   "edge_segment_checks": {
+    "uljin_2022": {
+     "segments": 21596,
+     "midpoint_cell_south_up_rows": 21596,
+     "midpoint_cell_north_up_rows": 0,
+     "wgs84_polygon_sample": 3000,
+     "wgs84_sample_inside_assigned_cell": 3000,
+     "wgs84_sample_inside_if_rows_flipped": 0,
+     "pass": true
+    },
+    "miryang_2022": {
+     "segments": 3511,
+     "midpoint_cell_south_up_rows": 3511,
+     "midpoint_cell_north_up_rows": 26,
+     "wgs84_polygon_sample": 3000,
+     "wgs84_sample_inside_assigned_cell": 3000,
+     "wgs84_sample_inside_if_rows_flipped": 19,
+     "pass": true
+    },
+    "hongseong_2023": {
+     "segments": 2075,
+     "midpoint_cell_south_up_rows": 2075,
+     "midpoint_cell_north_up_rows": 0,
+     "wgs84_polygon_sample": 2033,
+     "wgs84_sample_inside_assigned_cell": 2033,
+     "wgs84_sample_inside_if_rows_flipped": 0,
+     "pass": true
+    },
+    "uiseong_andong_2025": {
+     "segments": 49045,
+     "midpoint_cell_south_up_rows": 49045,
+     "midpoint_cell_north_up_rows": 633,
+     "wgs84_polygon_sample": 3000,
+     "wgs84_sample_inside_assigned_cell": 3000,
+     "wgs84_sample_inside_if_rows_flipped": 40,
+     "pass": true
+    },
+    "yeongdeok_2025": {
+     "segments": 118271,
+     "midpoint_cell_south_up_rows": 118271,
+     "midpoint_cell_north_up_rows": 2042,
+     "wgs84_polygon_sample": 3000,
+     "wgs84_sample_inside_assigned_cell": 3000,
+     "wgs84_sample_inside_if_rows_flipped": 69,
+     "pass": true
+    }
+   },
+   "packet_export_checks": [
+    {
+     "region": "uljin_2022",
+     "input": "20220304T030000Z",
+     "event_id": "KFS_02",
+     "export_event_id": "KFS_02",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      4,
+      4
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      4
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "uljin_2022",
+     "input": "20220304T060000Z",
+     "event_id": "KFS_02",
+     "export_event_id": "KFS_02",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      104,
+      104
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      104
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "uljin_2022",
+     "input": "20220304T120000Z",
+     "event_id": "KFS_02",
+     "export_event_id": "KFS_02",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      72,
+      72
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      72
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "miryang_2022",
+     "input": "20220531T100000Z",
+     "event_id": "KFS_11",
+     "export_event_id": "KFS_11",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      12,
+      12
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      12
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "miryang_2022",
+     "input": "20220601T020000Z",
+     "event_id": "KFS_11",
+     "export_event_id": "KFS_11",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      8,
+      8
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      8
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "miryang_2022",
+     "input": "20220601T080000Z",
+     "event_id": "KFS_11",
+     "export_event_id": "KFS_11",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      20,
+      20
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      20
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "hongseong_2023",
+     "input": "20230402T070000Z",
+     "event_id": "KFS_05",
+     "export_event_id": "KFS_05",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      24,
+      24
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      24
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "hongseong_2023",
+     "input": "20230402T140000Z",
+     "event_id": "KFS_05",
+     "export_event_id": "KFS_05",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      24,
+      24
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      24
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "hongseong_2023",
+     "input": "20230402T230000Z",
+     "event_id": "KFS_05",
+     "export_event_id": "KFS_05",
+     "export_window_rows_cols": [
+      0,
+      0
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      16,
+      16
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      16
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "uiseong_andong_2025",
+     "input": "20250323T010000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      14,
+      23
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      112,
+      112
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      112
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "uiseong_andong_2025",
+     "input": "20250324T090000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      14,
+      23
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      40,
+      40
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      40
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "uiseong_andong_2025",
+     "input": "20250325T170000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      14,
+      23
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      1864,
+      1864
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      176,
+      1864
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "yeongdeok_2025",
+     "input": "20250325T190000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      12,
+      166
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      960,
+      960
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      36,
+      960
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "yeongdeok_2025",
+     "input": "20250325T230000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      12,
+      166
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      192,
+      192
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      12,
+      192
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    },
+    {
+     "region": "yeongdeok_2025",
+     "input": "20250326T080000Z",
+     "event_id": "KFS_01",
+     "export_event_id": "KFS_01",
+     "export_window_rows_cols": [
+      12,
+      166
+     ],
+     "packet_probability_equals_export_window_native_order": true,
+     "packet_probability_equals_export_window_if_flipped": false,
+     "hazard_flame0_at_current_active_south_up_index": [
+      48,
+      48
+     ],
+     "hazard_flame0_at_current_active_same_order_index": [
+      0,
+      48
+     ],
+     "policy_zero_cells_have_zero_probability": true,
+     "pass": true
+    }
+   ]
+  },
+  "forecast_cell": {
+   "p_new_burn_1h": "mask__constructed_probability (6 significant digits)",
+   "valid": "mask__probability_valid_native (false = policy zero, p = 0)",
+   "burning_now": "current_active",
+   "known_burned": "mask__known_burned",
+   "coordinates": "WGS84, 6 decimals, ring SW→SE→NE→NW→SW"
+  },
+  "times": "seconds after input_time (UTC); route times_s absolute, one per vertex",
+  "verdict_mapping": {
+   "CHECKED_CENTRE_OPTIMUM/CHECKED_ROUTE": "checked_route",
+   "CERTIFIED_CENTRE_REFUSAL (PROVEN_INFEASIBLE, complete refusal certificate)": "model_no_route",
+   "anything else": "unresolved (TIMEOUT for worker MAX_LABELS/timeout, CHECK_FAILED for end-check rejection, OTHER otherwise)",
+   "ablation": "own_outcome CHECKED_ROUTE + CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN → checked_route; SCOPED_REFUSAL + FULL_MODEL_REFUSAL_PROVEN → model_no_route"
+  },
+  "policy_mapping_verified_from": "routing_final_input_ablation_20261016_v1/POLICY_TRANSFORMS.json enabled constraint sets",
+  "policy_mapping": {
+   "A0": {
+    "policy": "travel_only",
+    "enabled_constraints": []
+   },
+   "A1": {
+    "policy": "flame_only",
+    "enabled_constraints": [
+     "FLAME"
+    ]
+   },
+   "A2": {
+    "policy": "flame_peak",
+    "enabled_constraints": [
+     "FLAME",
+     "PEAK"
+    ]
+   },
+   "A3": {
+    "policy": "flame_dose",
+    "enabled_constraints": [
+     "DOSE",
+     "FLAME"
+    ]
+   },
+   "A4": {
+    "policy": "full",
+    "enabled_constraints": [
+     "DOSE",
+     "FLAME",
+     "PEAK"
+    ]
+   }
+  },
+  "allowed_nodes": "at least one incoming and one outgoing road edge (the Route-Check API rule, api/regions.py GraphIndex.load)",
+  "records": "full = final panel RDA_CAND repetition 1 (repetition 2 recorded); other policies = ablation repetition 1 (repetition 2 recorded)"
+ },
+ "panel_check": {
+  "full_checked_route": 15,
+  "full_model_no_route": 5,
+  "final_review_RDA_CAND": {
+   "both_repetitions_checked_route_missions": 15,
+   "both_repetitions_scoped_refusal_missions": 5
+  },
+  "repetitions_agree_full": true
+ },
+ "regions": {
+  "uljin_2022": {
+   "graph_snapshot": "2022-03-03T23:59:59Z",
+   "scenario_windows": {
+    "2022-03-04T03:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2022-03-04T06:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2022-03-04T12:00:00Z": [
+     0.0,
+     3600.0
+    ]
+   }
+  },
+  "miryang_2022": {
+   "graph_snapshot": "2022-05-30T23:59:59Z",
+   "scenario_windows": {
+    "2022-05-31T10:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2022-06-01T02:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2022-06-01T08:00:00Z": [
+     0.0,
+     3600.0
+    ]
+   }
+  },
+  "hongseong_2023": {
+   "graph_snapshot": "2023-04-01T23:59:59Z",
+   "scenario_windows": {
+    "2023-04-02T07:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2023-04-02T14:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2023-04-02T23:00:00Z": [
+     0.0,
+     3600.0
+    ]
+   }
+  },
+  "uiseong_andong_2025": {
+   "graph_snapshot": "2025-03-21T23:59:59Z",
+   "scenario_windows": {
+    "2025-03-23T01:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2025-03-24T09:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2025-03-25T17:00:00Z": [
+     0.0,
+     3600.0
+    ]
+   }
+  },
+  "yeongdeok_2025": {
+   "graph_snapshot": "2025-03-21T23:59:59Z",
+   "scenario_windows": {
+    "2025-03-25T19:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2025-03-25T23:00:00Z": [
+     0.0,
+     3600.0
+    ],
+    "2025-03-26T08:00:00Z": [
+     0.0,
+     3600.0
+    ]
+   }
+  }
+ },
+ "records": [
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FD1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1589,
+   "compute_s": 7.758935167003074,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FD1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1589,
+   "compute_s": 1.5320606250024866,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FD1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1589,
+   "compute_s": 1.700155791011639,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FD1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1589,
+   "compute_s": 7.076167541992618,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FD1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1589,
+   "compute_s": 7.094427417003317,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FX1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 3119,
+   "compute_s": 14.532054333001724,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FX1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 3119,
+   "compute_s": 1.9818466669821646,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FX1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 3119,
+   "compute_s": 2.5160582920070738,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FX1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 3119,
+   "compute_s": 12.905003416002728,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T030000Z_FX1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 3119,
+   "compute_s": 12.988683834002586,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 2067,
+   "compute_s": 3.428898541998933,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1536,
+   "compute_s": 1.731925667001633,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 2067,
+   "compute_s": 2.267287374997977,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 2067,
+   "compute_s": 3.354414542001905,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T060000Z_FL1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 2067,
+   "compute_s": 3.3316743329924066,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T120000Z_FW2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1655,
+   "compute_s": 3.1960351660090964,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T120000Z_FW2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1655,
+   "compute_s": 1.474662292021094,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T120000Z_FW2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1655,
+   "compute_s": 1.7396312909841072,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T120000Z_FW2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1655,
+   "compute_s": 2.9392814169987105,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uljin_2022",
+   "case_id": "20220304T120000Z_FW2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1655,
+   "compute_s": 2.9230522500001825,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220531T100000Z_FN1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1142,
+   "compute_s": 12.277584666997427,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220531T100000Z_FN1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1142,
+   "compute_s": 0.3797290420043282,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220531T100000Z_FN1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1142,
+   "compute_s": 0.4023053749988321,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220531T100000Z_FN1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1142,
+   "compute_s": 11.475664249999681,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220531T100000Z_FN1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1142,
+   "compute_s": 11.256623291003052,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T020000Z_FW1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1270,
+   "compute_s": 6.748424290999537,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T020000Z_FW1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1270,
+   "compute_s": 0.39299720799317583,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T020000Z_FW1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1270,
+   "compute_s": 0.4019640829937998,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T020000Z_FW1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1270,
+   "compute_s": 6.200054957997054,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T020000Z_FW1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1270,
+   "compute_s": 6.189702708012192,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "policy": "full",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.3515846660011448,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1465,
+   "compute_s": 0.35656770900823176,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "policy": "flame_only",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.3205500410113018,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "policy": "flame_peak",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.31157845800044015,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FD1",
+   "policy": "flame_dose",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.31423925000126474,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "policy": "full",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.4192292079969775,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 869,
+   "compute_s": 0.36429070800659247,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "policy": "flame_only",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.3509704169991892,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "policy": "flame_peak",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.34874620800837874,
+   "repetitions_agree": true
+  },
+  {
+   "region": "miryang_2022",
+   "case_id": "20220601T080000Z_FX1",
+   "policy": "flame_dose",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.3316415420267731,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "policy": "full",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.3107584169920301,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 936,
+   "compute_s": 0.3555361669859849,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "policy": "flame_only",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.2403339589945972,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "policy": "flame_peak",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.2475696670007892,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FN1",
+   "policy": "flame_dose",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.24416454098536633,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "policy": "full",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.34065529200597666,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 551,
+   "compute_s": 0.2801472080172971,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "policy": "flame_only",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.23777504099416547,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "policy": "flame_peak",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.2437083340191748,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T070000Z_FX1",
+   "policy": "flame_dose",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 0.24259241699473932,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T140000Z_FW2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1459,
+   "compute_s": 12.609637417001068,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T140000Z_FW2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1459,
+   "compute_s": 0.3237182919983752,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T140000Z_FW2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1459,
+   "compute_s": 0.35472195799229667,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T140000Z_FW2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1459,
+   "compute_s": 11.958264166984009,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T140000Z_FW2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1459,
+   "compute_s": 11.909524082991993,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T230000Z_FD1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 531,
+   "compute_s": 7.409658250006032,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T230000Z_FD1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 531,
+   "compute_s": 0.2926641659869347,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T230000Z_FD1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 531,
+   "compute_s": 0.29542208299972117,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T230000Z_FD1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 531,
+   "compute_s": 6.86514320797869,
+   "repetitions_agree": true
+  },
+  {
+   "region": "hongseong_2023",
+   "case_id": "20230402T230000Z_FD1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 531,
+   "compute_s": 6.836156292003579,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FD1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 2460,
+   "compute_s": 5.957145332999062,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FD1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 2460,
+   "compute_s": 3.8101638329972047,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FD1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 2460,
+   "compute_s": 4.25414620799711,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FD1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 2460,
+   "compute_s": 5.577915249974467,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FD1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 2460,
+   "compute_s": 5.4803322500083596,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FX2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 2540,
+   "compute_s": 6.594019209005637,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FX2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 2540,
+   "compute_s": 3.5165178750175983,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FX2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 2540,
+   "compute_s": 3.9498413339897525,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FX2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 2540,
+   "compute_s": 5.585653041984187,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250323T010000Z_FX2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 2540,
+   "compute_s": 5.62384962500073,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 2143,
+   "compute_s": 7.152710249996744,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1616,
+   "compute_s": 3.4081256670178846,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 2143,
+   "compute_s": 4.658734666008968,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 2143,
+   "compute_s": 6.1469675000116695,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250324T090000Z_FL2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 2143,
+   "compute_s": 6.155841291998513,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250325T170000Z_FW1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1064,
+   "compute_s": 8.899816042001476,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250325T170000Z_FW1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1064,
+   "compute_s": 3.994455542007927,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250325T170000Z_FW1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1064,
+   "compute_s": 5.180986083025346,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250325T170000Z_FW1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1064,
+   "compute_s": 8.372872542007826,
+   "repetitions_agree": true
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "case_id": "20250325T170000Z_FW1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1064,
+   "compute_s": 9.018561290984508,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "policy": "full",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 9.310715582992998,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 2739,
+   "compute_s": 11.630302750010742,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "policy": "flame_only",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 9.147382499999367,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "policy": "flame_peak",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 8.736148958007107,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FD1",
+   "policy": "flame_dose",
+   "verdict": "model_no_route",
+   "arrival_s": null,
+   "compute_s": 8.424239708023379,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 2512,
+   "compute_s": 22.480224208993604,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 2022,
+   "compute_s": 10.000551374978386,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 2512,
+   "compute_s": 13.17756958300015,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 2512,
+   "compute_s": 19.106523834023392,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T190000Z_FX2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 2512,
+   "compute_s": 19.35598612501053,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T230000Z_FL2",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 1922,
+   "compute_s": 12.728216458010138,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T230000Z_FL2",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 1922,
+   "compute_s": 9.055406250001397,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T230000Z_FL2",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 1922,
+   "compute_s": 9.952642415999435,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T230000Z_FL2",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 1922,
+   "compute_s": 11.647604207973927,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250325T230000Z_FL2",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 1922,
+   "compute_s": 11.570962875004625,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250326T080000Z_FW1",
+   "policy": "full",
+   "verdict": "checked_route",
+   "arrival_s": 896,
+   "compute_s": 8.252081874990836,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250326T080000Z_FW1",
+   "policy": "travel_only",
+   "verdict": "checked_route",
+   "arrival_s": 896,
+   "compute_s": 6.937687999976333,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250326T080000Z_FW1",
+   "policy": "flame_only",
+   "verdict": "checked_route",
+   "arrival_s": 896,
+   "compute_s": 7.090952208003728,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250326T080000Z_FW1",
+   "policy": "flame_peak",
+   "verdict": "checked_route",
+   "arrival_s": 896,
+   "compute_s": 7.63728108300711,
+   "repetitions_agree": true
+  },
+  {
+   "region": "yeongdeok_2025",
+   "case_id": "20250326T080000Z_FW1",
+   "policy": "flame_dose",
+   "verdict": "checked_route",
+   "arrival_s": 896,
+   "compute_s": 7.60254070800147,
+   "repetitions_agree": true
+  }
+ ],
+ "footprints": {
+  "uljin_2022": [
+   {
+    "input_time": "2022-03-04T03:00:00Z",
+    "area_km2": 0.141,
+    "written": true,
+    "cells": 1
+   },
+   {
+    "input_time": "2022-03-04T06:00:00Z",
+    "area_km2": 14.625,
+    "written": true,
+    "cells": 104
+   },
+   {
+    "input_time": "2022-03-04T12:00:00Z",
+    "area_km2": 27.844,
+    "written": true,
+    "cells": 198
+   }
+  ],
+  "miryang_2022": [
+   {
+    "input_time": "2022-05-31T10:00:00Z",
+    "area_km2": 1.688,
+    "written": true,
+    "cells": 12
+   },
+   {
+    "input_time": "2022-06-01T02:00:00Z",
+    "area_km2": 4.781,
+    "written": true,
+    "cells": 34
+   },
+   {
+    "input_time": "2022-06-01T08:00:00Z",
+    "area_km2": 6.328,
+    "written": true,
+    "cells": 45
+   }
+  ],
+  "hongseong_2023": [
+   {
+    "input_time": "2023-04-02T07:00:00Z",
+    "area_km2": 7.734,
+    "written": true,
+    "cells": 55
+   },
+   {
+    "input_time": "2023-04-02T14:00:00Z",
+    "area_km2": 10.828,
+    "written": true,
+    "cells": 77
+   },
+   {
+    "input_time": "2023-04-02T23:00:00Z",
+    "area_km2": 15.469,
+    "written": true,
+    "cells": 110
+   }
+  ],
+  "uiseong_andong_2025": [
+   {
+    "input_time": "2025-03-23T01:00:00Z",
+    "area_km2": 57.094,
+    "written": true,
+    "cells": 425
+   },
+   {
+    "input_time": "2025-03-24T09:00:00Z",
+    "area_km2": 119.484,
+    "written": true,
+    "cells": 1050
+   },
+   {
+    "input_time": "2025-03-25T17:00:00Z",
+    "area_km2": 420.141,
+    "written": true,
+    "cells": 4673
+   },
+   {
+    "input_time": "2025-03-25T19:00:00Z",
+    "area_km2": 555.797,
+    "written": true,
+    "cells": 8900
+   },
+   {
+    "input_time": "2025-03-25T23:00:00Z",
+    "area_km2": 582.797,
+    "written": true,
+    "cells": 10147
+   },
+   {
+    "input_time": "2025-03-26T08:00:00Z",
+    "area_km2": 599.766,
+    "written": true,
+    "cells": 10824
+   }
+  ],
+  "yeongdeok_2025": [
+   {
+    "input_time": "2025-03-23T01:00:00Z",
+    "area_km2": 0.0,
+    "written": false,
+    "reason": "no recorded burned cells inside the padded region window"
+   },
+   {
+    "input_time": "2025-03-24T09:00:00Z",
+    "area_km2": 0.0,
+    "written": false,
+    "reason": "no recorded burned cells inside the padded region window"
+   },
+   {
+    "input_time": "2025-03-25T17:00:00Z",
+    "area_km2": 93.516,
+    "written": true,
+    "cells": 4673
+   },
+   {
+    "input_time": "2025-03-25T19:00:00Z",
+    "area_km2": 272.484,
+    "written": true,
+    "cells": 8900
+   },
+   {
+    "input_time": "2025-03-25T23:00:00Z",
+    "area_km2": 324.344,
+    "written": true,
+    "cells": 10147
+   },
+   {
+    "input_time": "2025-03-26T08:00:00Z",
+    "area_km2": 353.266,
+    "written": true,
+    "cells": 10824
+   }
+  ]
+ },
+ "files": [
+  {
+   "path": "forecast/hongseong_2023/20230402T070000Z.json",
+   "sha256": "d1b188447d32800ef5ca1af91c587f823f8e9cb8aedb15ba5602a43b08122cf7",
+   "bytes": 102214
+  },
+  {
+   "path": "forecast/hongseong_2023/20230402T140000Z.json",
+   "sha256": "0be7cf83cf4891b4e0c018b5c9e01162e2abbdcd6a10bdb935a4373e22ed723e",
+   "bytes": 102170
+  },
+  {
+   "path": "forecast/hongseong_2023/20230402T230000Z.json",
+   "sha256": "fc76452a43d83f9bc7ea3f575c646b21865ad824f32aed9a7e45b8aaa7be68b1",
+   "bytes": 102106
+  },
+  {
+   "path": "forecast/miryang_2022/20220531T100000Z.json",
+   "sha256": "7d7d0233fb2a1f78f1b20740904ed26091957a3ea9db538875be268b0a2770b5",
+   "bytes": 59331
+  },
+  {
+   "path": "forecast/miryang_2022/20220601T020000Z.json",
+   "sha256": "226380a8cbca964c605b834f70218ccd2c81487b50b785e194b518c03eba3d60",
+   "bytes": 59288
+  },
+  {
+   "path": "forecast/miryang_2022/20220601T080000Z.json",
+   "sha256": "513a978890189e3135a9e91a9b1d7cc14b17d593857e195b38b30789447fed25",
+   "bytes": 59263
+  },
+  {
+   "path": "forecast/uiseong_andong_2025/20250323T010000Z.json",
+   "sha256": "eb8312ebea56e5fdc406c236a90c70feca34442343b04d68154cc3c820a022f8",
+   "bytes": 1490585
+  },
+  {
+   "path": "forecast/uiseong_andong_2025/20250324T090000Z.json",
+   "sha256": "60f268ada0625a7178d5f272036bafa14d3f0b9a1d5bfc4f84e70f3b32317d8a",
+   "bytes": 1490826
+  },
+  {
+   "path": "forecast/uiseong_andong_2025/20250325T170000Z.json",
+   "sha256": "657b6c1ee11239f691e9d33bbfaf467e7715763682b94119b6d6b54efa579527",
+   "bytes": 1488864
+  },
+  {
+   "path": "forecast/uljin_2022/20220304T030000Z.json",
+   "sha256": "a95bec559374eca5afcae16f04176b443608992d194c0173d4660b85c4ebce07",
+   "bytes": 1129683
+  },
+  {
+   "path": "forecast/uljin_2022/20220304T060000Z.json",
+   "sha256": "64afd974c0cb4e25959319480f7ec04eea090a1f389810b1115830614a15344d",
+   "bytes": 1130973
+  },
+  {
+   "path": "forecast/uljin_2022/20220304T120000Z.json",
+   "sha256": "6efa8861219fbf07e498fefee24f336be99d1ed99b17d87551d35de5e83d1d7a",
+   "bytes": 1131243
+  },
+  {
+   "path": "forecast/yeongdeok_2025/20250325T190000Z.json",
+   "sha256": "1eeb341ac531b8ea28fff252a396fe4283d7e06e52e2ce433607a5634771adf1",
+   "bytes": 1492597
+  },
+  {
+   "path": "forecast/yeongdeok_2025/20250325T230000Z.json",
+   "sha256": "b1c381f8fc06885e3a350fdde3a15defc259f06ca88e4cc69d44060fdbebc058",
+   "bytes": 1491574
+  },
+  {
+   "path": "forecast/yeongdeok_2025/20250326T080000Z.json",
+   "sha256": "0af0fa94b88e7a3d711a4bab3bca71dd922aac3cece28b7e4900537707fd27cb",
+   "bytes": 1491158
+  },
+  {
+   "path": "nodes/hongseong_2023.json",
+   "sha256": "424c7b0c012692fd965dfaee0b8d81d7148c16b939678f5bd4573e46f4f63583",
+   "bytes": 37778
+  },
+  {
+   "path": "nodes/miryang_2022.json",
+   "sha256": "ca11ed7b31e808ddf94505c9c0f0f101cfcf25cab883eb4809485c9982d9c6da",
+   "bytes": 60812
+  },
+  {
+   "path": "nodes/uiseong_andong_2025.json",
+   "sha256": "feb33f6e7f38ca68cf7b327badd7846e12984acdc4dff67fd6e7f344f6983cef",
+   "bytes": 910398
+  },
+  {
+   "path": "nodes/uljin_2022.json",
+   "sha256": "fc60d7d22d18dc85a7bb19be8619d34bb3dbb7fcb86d439b878fe84b15f834a4",
+   "bytes": 374218
+  },
+  {
+   "path": "nodes/yeongdeok_2025.json",
+   "sha256": "d9cac826d144494d345d4701a0c0f4ae104f70e25c1db0f7c7c721696e2a3350",
+   "bytes": 2295134
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FN1__flame_dose.json",
+   "sha256": "959a7343f09b3804c977df6060327dfccf990a6fc99e9ee2dfb0dcb67bbb2b52",
+   "bytes": 5916
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FN1__flame_only.json",
+   "sha256": "6bd9e3f7a319492fe4cf11fc21e49b2bdd9ebca579b5f29b617e973dfc4a95ff",
+   "bytes": 6020
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FN1__flame_peak.json",
+   "sha256": "26928060cb594b902b0cf47e311dd8fac8cf696bf78d390200b2e64b3d58161c",
+   "bytes": 5915
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FN1__full.json",
+   "sha256": "b7310a87d1598941590778337cb1801bcf7ec982ef0079cc3df7fee8346bb39e",
+   "bytes": 6059
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FN1__travel_only.json",
+   "sha256": "7fa94ba86857ea43133a2f1ef0fef42871eec2d4ef1ff8d8cef0e3017a60349b",
+   "bytes": 20204
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FX1__flame_dose.json",
+   "sha256": "0c0e7db15fca699bb07583b0d92a606dc4b9a4466698bb62b5cb86ea59955325",
+   "bytes": 5999
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FX1__flame_only.json",
+   "sha256": "8a2f7e2a65fe194aa0315f87f5b6d0e25ca5df1c38c9e6ce028f811662e6bf1d",
+   "bytes": 6105
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FX1__flame_peak.json",
+   "sha256": "ed776824d58c700a49f85b4b579f503133cbe9ba3d13a983d1bccaae4d961b05",
+   "bytes": 5996
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FX1__full.json",
+   "sha256": "152bf902ffac8b36e2201673c6d72dbacf3c00a4a2d89c39a298e6925ab02e39",
+   "bytes": 6145
+  },
+  {
+   "path": "records/hongseong_2023/20230402T070000Z_FX1__travel_only.json",
+   "sha256": "03cba1b4c522ea7ff75ccba85566ef5b90ab1951e61dbbe86538ec05a142f1b8",
+   "bytes": 14279
+  },
+  {
+   "path": "records/hongseong_2023/20230402T140000Z_FW2__flame_dose.json",
+   "sha256": "a6acbe4f3e76bd22a8ef26c65bcbc0a64787932b079d9cfeed8dc7516f6ab6a4",
+   "bytes": 20484
+  },
+  {
+   "path": "records/hongseong_2023/20230402T140000Z_FW2__flame_only.json",
+   "sha256": "f63a9d134d383bc7ee7d83520f9058d740ce88b2e6a2ca08c62b9fae7a8ce694",
+   "bytes": 20457
+  },
+  {
+   "path": "records/hongseong_2023/20230402T140000Z_FW2__flame_peak.json",
+   "sha256": "726f99c1be9e46411c730ebeb638f26af05cdaa1a9f2366ccf35189c9d30c31d",
+   "bytes": 20485
+  },
+  {
+   "path": "records/hongseong_2023/20230402T140000Z_FW2__full.json",
+   "sha256": "c35e513baf888e985bb8a55fa3798671de6ed5f9046ea0a745aa91b33f5be6ae",
+   "bytes": 19499
+  },
+  {
+   "path": "records/hongseong_2023/20230402T140000Z_FW2__travel_only.json",
+   "sha256": "431ca66d7260c15be138fc3cb3e696fec7f78694ce1ba74830ec0977805583ec",
+   "bytes": 20455
+  },
+  {
+   "path": "records/hongseong_2023/20230402T230000Z_FD1__flame_dose.json",
+   "sha256": "7c131cb4325c8cadfa3930a0d5a93d45d55dee6390e1cec0674771e04bd39a28",
+   "bytes": 14806
+  },
+  {
+   "path": "records/hongseong_2023/20230402T230000Z_FD1__flame_only.json",
+   "sha256": "8a8b15cd5c719e1721aa6cd3a5b604d642bd72cd72449ba6f5024388c45d5a23",
+   "bytes": 14777
+  },
+  {
+   "path": "records/hongseong_2023/20230402T230000Z_FD1__flame_peak.json",
+   "sha256": "58305e773d77605090e64dbc940e772bd9db9e9f461ad7a17a541555ddcab22c",
+   "bytes": 14804
+  },
+  {
+   "path": "records/hongseong_2023/20230402T230000Z_FD1__full.json",
+   "sha256": "8e6610727ea03840f3160cf966bde93103817fc00eb9a124412a477580c19011",
+   "bytes": 13814
+  },
+  {
+   "path": "records/hongseong_2023/20230402T230000Z_FD1__travel_only.json",
+   "sha256": "ab012b6ee61be24ecdda8c577ff7d2102cf811ef1555634593b113f9171ad824",
+   "bytes": 14776
+  },
+  {
+   "path": "records/miryang_2022/20220531T100000Z_FN1__flame_dose.json",
+   "sha256": "c14da56322fe70baff949682b9d8059d702f12a01ae0ffc8610fa1d2e02ddda2",
+   "bytes": 19567
+  },
+  {
+   "path": "records/miryang_2022/20220531T100000Z_FN1__flame_only.json",
+   "sha256": "fa8050d7c20ea9ec7c9a19136d54e18ef998f4bb9ee66f3c4f5a275873a5281d",
+   "bytes": 19534
+  },
+  {
+   "path": "records/miryang_2022/20220531T100000Z_FN1__flame_peak.json",
+   "sha256": "c0e1d7a6e0399990bf5b2444d0dbc0ca99e3d171bf2afcb0bb09ffacf871429c",
+   "bytes": 19566
+  },
+  {
+   "path": "records/miryang_2022/20220531T100000Z_FN1__full.json",
+   "sha256": "c1552d81e52bf6a5fd0d540cbbc3bb6ed907ce88bba156744bd2eb9908643681",
+   "bytes": 18576
+  },
+  {
+   "path": "records/miryang_2022/20220531T100000Z_FN1__travel_only.json",
+   "sha256": "4a1411e4319a5d4338e88c5df67ec41223e968538372d44cbf5a31a210511b01",
+   "bytes": 19536
+  },
+  {
+   "path": "records/miryang_2022/20220601T020000Z_FW1__flame_dose.json",
+   "sha256": "9a43d89b4f0cb9df8af39e5e186b27f385a68f1e5696b71f450e415df933ae82",
+   "bytes": 21157
+  },
+  {
+   "path": "records/miryang_2022/20220601T020000Z_FW1__flame_only.json",
+   "sha256": "842380a496d6b7b9531db04b07d9f4ad1418909f35c26b6a98c4d4a2f5993bd3",
+   "bytes": 21130
+  },
+  {
+   "path": "records/miryang_2022/20220601T020000Z_FW1__flame_peak.json",
+   "sha256": "13f3467d02e10568625a4fb2309ad065c519f499968fe5cd93ce84cf37025b9e",
+   "bytes": 21158
+  },
+  {
+   "path": "records/miryang_2022/20220601T020000Z_FW1__full.json",
+   "sha256": "87d609573ea8c76055512061e7cbc2a3bd2f1403788a8ac20e11f30cb6eed6ef",
+   "bytes": 20179
+  },
+  {
+   "path": "records/miryang_2022/20220601T020000Z_FW1__travel_only.json",
+   "sha256": "3d9060dbd9fc52a4968d3a5e9c1927a6306a5c4374868ede3a22ebe3c0501ec8",
+   "bytes": 21134
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FD1__flame_dose.json",
+   "sha256": "1ea5f47340bdf0bbc2398701142ec57c4b49e80741115d229d1fc5fff89d3e07",
+   "bytes": 5893
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FD1__flame_only.json",
+   "sha256": "861e38198f5a3a899ad610eb59c4414aa30d13aca42c41c4a8939e8affc27fe0",
+   "bytes": 5996
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FD1__flame_peak.json",
+   "sha256": "e414036790884d79fe274c5982a0f5e8f95a8e93c1ab4cb10683b10264d90c60",
+   "bytes": 5893
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FD1__full.json",
+   "sha256": "ca824c28bdc1b09e5a05c537e36a9dd957ef96739907438bb8038312504f3bf0",
+   "bytes": 6036
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FD1__travel_only.json",
+   "sha256": "1fbbe0140f232d462aa0043019393eab0df6c09724c07b58037fb4f62a0b9f53",
+   "bytes": 17193
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FX1__flame_dose.json",
+   "sha256": "74e643f5122708c310e1d243bed69d56669a7b2926f9d31021951bc28ec6f871",
+   "bytes": 5987
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FX1__flame_only.json",
+   "sha256": "33b23c0dbfd49263d24a329a2f0f0c6e697ad53cda46814d06e4bbcd8509ec91",
+   "bytes": 6092
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FX1__flame_peak.json",
+   "sha256": "422403ab696173a1a6a5f49cf4c2aa7331828b41c2141ff820fd9a75bee5dc5d",
+   "bytes": 5989
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FX1__full.json",
+   "sha256": "a1d2223070b117c7406c96340033c3aa2ebd4e13edaf6d6c9bf44ce15d328b49",
+   "bytes": 6131
+  },
+  {
+   "path": "records/miryang_2022/20220601T080000Z_FX1__travel_only.json",
+   "sha256": "bbdf55b88e0a545ed44c892122b97c97b6f49445a6b519e4c1759b651232af52",
+   "bytes": 16798
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FD1__flame_dose.json",
+   "sha256": "d14569a019e1b132bf5fd2d4ab5730de407aec124f27ebd8d3e0b8134380efaf",
+   "bytes": 32396
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FD1__flame_only.json",
+   "sha256": "fac8c89c17a18edb17e7c602171a53ac959620ca11708c0c18f6451a005f70ef",
+   "bytes": 32356
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FD1__flame_peak.json",
+   "sha256": "d9270fe3657ccc79a22386d0d40cfd0ff7e1db05fe88a36326b12a7f59218b3a",
+   "bytes": 32393
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FD1__full.json",
+   "sha256": "4c0f0ad677806a49da974c79fef5bea8a8075315051d2fab80f80cb3e8c93647",
+   "bytes": 31401
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FD1__travel_only.json",
+   "sha256": "12dc442edcb3b5d7a2e8197123d3782452a82f34523554ceff582035f8874fe9",
+   "bytes": 32361
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FX2__flame_dose.json",
+   "sha256": "8c753a6752c27adbd1435794f20356451e76cebe8a44150db3ab6df33636b8d7",
+   "bytes": 27473
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FX2__flame_only.json",
+   "sha256": "33a7a79d3cf455374fac019fe2811d4d3975fb22feefce0694bc6922458aa640",
+   "bytes": 27518
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FX2__flame_peak.json",
+   "sha256": "5f7e2c1c7344e335c9318f761c83cc5aa6fe6601ad5515fe1ee96e3e9893370c",
+   "bytes": 27476
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FX2__full.json",
+   "sha256": "8cde301bba1dd10426ac650c31c85865214647d2f97a76208298986c55dbe748",
+   "bytes": 26501
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250323T010000Z_FX2__travel_only.json",
+   "sha256": "4c691628f07c60f7d072c9f63291d71a99e1ff0056bf5c37d8d2af525646be1b",
+   "bytes": 27521
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250324T090000Z_FL2__flame_dose.json",
+   "sha256": "c175b04a2418112ecf0b9850d0030286533d42b4502b9d55cb24519af769fb4c",
+   "bytes": 37144
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250324T090000Z_FL2__flame_only.json",
+   "sha256": "cc72abc3d7020eff53a9dd5f9170cdbf8234842d2277e6a8973cddb0cda46e58",
+   "bytes": 37113
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250324T090000Z_FL2__flame_peak.json",
+   "sha256": "836d087789cf1cc42aedf65edaadb32451bbe141868fa66ef60a82f2b6750a7f",
+   "bytes": 37148
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250324T090000Z_FL2__full.json",
+   "sha256": "fa6e570b0b6fd39ba7117cc3719d4a57c3c9ae79509d03ea7ff7425053f35c4e",
+   "bytes": 36153
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250324T090000Z_FL2__travel_only.json",
+   "sha256": "41f9ea42e9f3f5e42409353c9348fad486fbdebaa9417d0a471dce2746cf2d99",
+   "bytes": 23989
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250325T170000Z_FW1__flame_dose.json",
+   "sha256": "111449fe2de295527357cf59f71a9ae5cc32143df16fca7a03123a0e2db54f1e",
+   "bytes": 28876
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250325T170000Z_FW1__flame_only.json",
+   "sha256": "b8049af6588e1e827d9b765332476e0a999a6570129df7e23388956f54e04db5",
+   "bytes": 28845
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250325T170000Z_FW1__flame_peak.json",
+   "sha256": "3f749829339d19700f4fbf49720bd38e4954d63d5028a5bc269064ec2fa58484",
+   "bytes": 28876
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250325T170000Z_FW1__full.json",
+   "sha256": "9c925c7cc3c4df7337c46d832f6e4016b4f4fe2e6933dbbfd3b81b1d3fd49755",
+   "bytes": 27890
+  },
+  {
+   "path": "records/uiseong_andong_2025/20250325T170000Z_FW1__travel_only.json",
+   "sha256": "8123b8fb1ca874b12b5174575ffe05d84c688b804df46cefd0693c29adbc1099",
+   "bytes": 28847
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FD1__flame_dose.json",
+   "sha256": "16d93335798af00c4b9ab4c5327dd74bc183160fc719a75c249d1d78723d9088",
+   "bytes": 20706
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FD1__flame_only.json",
+   "sha256": "c662f6e3b2fdad1d315f48f3b8c0b7760be41f45ef77dfa1c007f353eecb2ce4",
+   "bytes": 20666
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FD1__flame_peak.json",
+   "sha256": "f69f70538d987e0fb7fb564d573c997e60e872390401b16f1328303ee338d18c",
+   "bytes": 20708
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FD1__full.json",
+   "sha256": "987c142a24de6da06981d8d27fc01604638808043a06d0bb47b83781f4c7549d",
+   "bytes": 19710
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FD1__travel_only.json",
+   "sha256": "bb03c21fe4986792b6919ca5c3384085d8844df886bc666d25857c9db4a5b784",
+   "bytes": 20670
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FX1__flame_dose.json",
+   "sha256": "1014a808165384527a48dbef6afba5ecbfda56ac6ffa84b3be594998772353b6",
+   "bytes": 39416
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FX1__flame_only.json",
+   "sha256": "ca7df16f174d72a31d05eb4ceaa1a385f23418225abcc6e7fea1bf433c1a7be7",
+   "bytes": 39445
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FX1__flame_peak.json",
+   "sha256": "3daccaa7ac9b508d06d9943c2e7b988f0510121c6639d6d0a3869a4ec60d2481",
+   "bytes": 39416
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FX1__full.json",
+   "sha256": "45626206793754fc4eb83ff907203be2f4e8ae38e791ad4e77905bf806d7d940",
+   "bytes": 38434
+  },
+  {
+   "path": "records/uljin_2022/20220304T030000Z_FX1__travel_only.json",
+   "sha256": "be2899d5159e0ed7f14724720c44e7bb5aff5b6f429c404db7d9a85b6b8f77ce",
+   "bytes": 39446
+  },
+  {
+   "path": "records/uljin_2022/20220304T060000Z_FL1__flame_dose.json",
+   "sha256": "b640d31c34d5ec3e00b421fd78c76a9c741fa22ce25ae6639e291455e110d7aa",
+   "bytes": 35763
+  },
+  {
+   "path": "records/uljin_2022/20220304T060000Z_FL1__flame_only.json",
+   "sha256": "a9b3f4397b6e96cf76a2662b98c22e0bc4812ff7210154f5e178586521a21073",
+   "bytes": 35728
+  },
+  {
+   "path": "records/uljin_2022/20220304T060000Z_FL1__flame_peak.json",
+   "sha256": "ca61670d984afc00250a4c75a9c21c59d7d0d8b0e4ef8d6a99d75a71966179f2",
+   "bytes": 35761
+  },
+  {
+   "path": "records/uljin_2022/20220304T060000Z_FL1__full.json",
+   "sha256": "f054eadad9b368ce253949ac073614fa79803bd4346adc3094ebde221962057c",
+   "bytes": 34771
+  },
+  {
+   "path": "records/uljin_2022/20220304T060000Z_FL1__travel_only.json",
+   "sha256": "a7a412001f7136b31e39cc45db8a03702838af9f45f1c25fadebf69ee85755a9",
+   "bytes": 31983
+  },
+  {
+   "path": "records/uljin_2022/20220304T120000Z_FW2__flame_dose.json",
+   "sha256": "869ad7217a3392db13c4b5f1b1b78289157617692512d9ecde8ff7a83bfcfba5",
+   "bytes": 21050
+  },
+  {
+   "path": "records/uljin_2022/20220304T120000Z_FW2__flame_only.json",
+   "sha256": "f1c8c7cdd2a34f9a18ee7a19c589bce998307f155a6aa293360059d4a119ac5b",
+   "bytes": 21020
+  },
+  {
+   "path": "records/uljin_2022/20220304T120000Z_FW2__flame_peak.json",
+   "sha256": "7b49376430d7bf451cd451782c2e0ae606dfeeafa8d9f178f4508f62a2253cb3",
+   "bytes": 21050
+  },
+  {
+   "path": "records/uljin_2022/20220304T120000Z_FW2__full.json",
+   "sha256": "71931484e338db0183e71dd523a66d442717248c7c5a69c3d536468ce0604c4e",
+   "bytes": 20066
+  },
+  {
+   "path": "records/uljin_2022/20220304T120000Z_FW2__travel_only.json",
+   "sha256": "07632be0b374443fa47b75f670a0fce6117a63519721b38fdc4ad8134a94a683",
+   "bytes": 21020
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FD1__flame_dose.json",
+   "sha256": "717a29d19083195c1d32140ed038dfac760a5370fa601e9f31e2eb30b33bea45",
+   "bytes": 5904
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FD1__flame_only.json",
+   "sha256": "58ed652274471406b8de33ab0df3d0acff023d08c259860fa966ef33a3b62ed8",
+   "bytes": 6009
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FD1__flame_peak.json",
+   "sha256": "311856b733d5cb04914dda377779a3946aedad84667b71f0202eace8ac8a5611",
+   "bytes": 5904
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FD1__full.json",
+   "sha256": "6ce66cbe52edc185f1618e68de28695c5261d3f2e061c9532a063175f2dd37b5",
+   "bytes": 6048
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FD1__travel_only.json",
+   "sha256": "5f9d8b3cd6acc25cb29cb3fb1b334b15a9501f06ca295d7e6329287eccfe8b3f",
+   "bytes": 83073
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FX2__flame_dose.json",
+   "sha256": "aaab45ade3feefe1f19c2a500d87e6d1d86774917f8eaa4a9da8677e16e95707",
+   "bytes": 80137
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FX2__flame_only.json",
+   "sha256": "d57aab94e69684008bf78c7ceff67423df89aabb62612a0d2469d32009e4577f",
+   "bytes": 80170
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FX2__flame_peak.json",
+   "sha256": "2f55901aeba4fc62cd6a7ef4706123587e422e573aeede96fbe32b2ecd2ebf4e",
+   "bytes": 80139
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FX2__full.json",
+   "sha256": "82a704c44f4aaa787093ccfc434f3b200b5b817dc1a3d3ce40c37c27767c1eeb",
+   "bytes": 79160
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T190000Z_FX2__travel_only.json",
+   "sha256": "f5144c245886800e7eb843315efb171a8e1ceede8830779a7c5b8252a8b2c9e1",
+   "bytes": 60459
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T230000Z_FL2__flame_dose.json",
+   "sha256": "01a28a1d12c025a745ccd563c34c6b7e0406d607b458ebc5c8d79adbddb8957a",
+   "bytes": 49744
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T230000Z_FL2__flame_only.json",
+   "sha256": "9f4dc0aef0769f0d39b95609de57a40810dcaa8652c88aeb51214a4b0a235a89",
+   "bytes": 49711
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T230000Z_FL2__flame_peak.json",
+   "sha256": "4b663c54945baf212615ed11558951b82b379ccbbbd49324fb18ea9465c0a82b",
+   "bytes": 49744
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T230000Z_FL2__full.json",
+   "sha256": "ac2fccf7a5083099b27c7d93c40415d05f2c4d70a3f803d9dd0bafed4a755699",
+   "bytes": 48758
+  },
+  {
+   "path": "records/yeongdeok_2025/20250325T230000Z_FL2__travel_only.json",
+   "sha256": "8c435f913fcc873f5eee05035e690e352caa12b4007671b4eed17120506e4f41",
+   "bytes": 49712
+  },
+  {
+   "path": "records/yeongdeok_2025/20250326T080000Z_FW1__flame_dose.json",
+   "sha256": "7f1c3b5bc2036e812aada48856f4e49ded918ba4075adcb51c9b451218382774",
+   "bytes": 19412
+  },
+  {
+   "path": "records/yeongdeok_2025/20250326T080000Z_FW1__flame_only.json",
+   "sha256": "32f06bbd59a7b5f938c144b4ef2bd2d35faf31434d77642bbd7c5abcbe1f2323",
+   "bytes": 19367
+  },
+  {
+   "path": "records/yeongdeok_2025/20250326T080000Z_FW1__flame_peak.json",
+   "sha256": "dfff9c6a35444e722b7135d85499fc3d54fa9a7045a2400aa5547d57795106c8",
+   "bytes": 19412
+  },
+  {
+   "path": "records/yeongdeok_2025/20250326T080000Z_FW1__full.json",
+   "sha256": "05dcdcfb6e1e989b6f0e0f6e862bacfc0a633fc00272165e34c85270441cda19",
+   "bytes": 18410
+  },
+  {
+   "path": "records/yeongdeok_2025/20250326T080000Z_FW1__travel_only.json",
+   "sha256": "2de58798eed3683e6bc007e4139e22c3660e53c8e6bfcb188fd74c2b4475e1eb",
+   "bytes": 19369
+  },
+  {
+   "path": "regions.json",
+   "sha256": "fbefe0053afa1296bc9119f845b3f09148539cfc267bef1d2024ee86dac0b5c6",
+   "bytes": 13777
+  }
+ ],
+ "public_files": [
+  {
+   "path": "public/data/regions/hongseong_2023/footprints.geojson",
+   "sha256": "7cf021f3987868771fbb1a058cb196430bbb3255bf57c34b5457b8d344f16cf1",
+   "bytes": 4092
+  },
+  {
+   "path": "public/data/regions/miryang_2022/footprints.geojson",
+   "sha256": "d7e77aa0796aa0419a2968a0cc5850e149aa2509a7c1b56ae8f680efa8417637",
+   "bytes": 3445
+  },
+  {
+   "path": "public/data/regions/uiseong_andong_2025/footprints.geojson",
+   "sha256": "d36778b2ef677e0414e4f20878bcc29edb9603cb688edf8d1bf5bd244121231c",
+   "bytes": 19567
+  },
+  {
+   "path": "public/data/regions/uljin_2022/footprints.geojson",
+   "sha256": "86400b167e3326ce3824be8839a3894459e889191e11f826450d277b26740061",
+   "bytes": 4445
+  },
+  {
+   "path": "public/data/regions/yeongdeok_2025/footprints.geojson",
+   "sha256": "763c89bfbcb6b013f1fcfa88a48dbd8a315779f5be9e48d8d0353e4b49cf5806",
+   "bytes": 16167
+  }
+ ],
+ "total_fixture_bytes": 19074280,
+ "partial_regenerations": [
+  {
+   "at": "2026-10-17T11:22:19Z",
+   "generator": "planner/tools/build_fixtures.py --nodes-only",
+   "git_commit": "fcce408dd12c74574a8d34c9fdb21c154079bbda",
+   "files": [
+    "nodes/uljin_2022.json",
+    "nodes/miryang_2022.json",
+    "nodes/hongseong_2023.json",
+    "nodes/uiseong_andong_2025.json",
+    "nodes/yeongdeok_2025.json",
+    "regions.json"
+   ],
+   "reason": "nodes-only regeneration: allowed nodes follow the Route-Check API rule; regions.json changed only in allowed_node_count and provenance.allowed_node_rule",
+   "regions": {
+    "uljin_2022": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 8835,
+     "allowed_node_count_before": 8835,
+     "allowed_node_count": 9367,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "miryang_2022": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 1457,
+     "allowed_node_count_before": 1457,
+     "allowed_node_count": 1491,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "hongseong_2023": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 824,
+     "allowed_node_count_before": 824,
+     "allowed_node_count": 907,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "uiseong_andong_2025": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 21187,
+     "allowed_node_count_before": 21187,
+     "allowed_node_count": 23128,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    },
+    "yeongdeok_2025": {
+     "allowed_rule_before": "largest strongly connected component (mock assumption)",
+     "allowed_count_before": 55090,
+     "allowed_node_count_before": 55090,
+     "allowed_node_count": 56363,
+     "node_table_keys_added": [
+      "largest_scc_count",
+      "not_in_largest_scc"
+     ]
+    }
+   }
+  }
+ ]
+}

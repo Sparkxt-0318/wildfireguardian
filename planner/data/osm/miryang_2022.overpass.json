@@ -1,0 +1,555 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-17T06:26:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 368844002,
+  "lat": 35.5061318,
+  "lon": 128.7344487,
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "3528",
+    "addr:province": "경상남도",
+    "addr:street": "창밀로",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "새한솔병원",
+    "name:en": "New Hansol Hospital"
+  }
+},
+{
+  "type": "node",
+  "id": 368844006,
+  "lat": 35.5063240,
+  "lon": 128.7341831,
+  "tags": {
+    "amenity": "hospital",
+    "name": "한솔병원 장례식장",
+    "name:en": "Hansolbyeongwon Jangnyesikjang",
+    "name:ko": "한솔병원 장례식장",
+    "name:ko-Latn": "Hansolbyeongwon Jangnyesikjang"
+  }
+},
+{
+  "type": "node",
+  "id": 368891267,
+  "lat": 35.5508790,
+  "lon": 128.7695970,
+  "tags": {
+    "amenity": "kindergarten",
+    "name": "상동초등학교병설유치원",
+    "name:en": "Sangdong Elementary School Kindergarten",
+    "name:ko": "상동초등학교병설유치원",
+    "name:ko-Latn": "Sangdongchodeunghakgyobyeongseolyuchiwon"
+  }
+},
+{
+  "type": "node",
+  "id": 368902745,
+  "lat": 35.5109859,
+  "lon": 128.7571738,
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "189",
+    "addr:postcode": "50420",
+    "addr:province": "경상남도",
+    "addr:street": "교동로",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "교동 행정복지센터",
+    "name:en": "Gyodong Community Service Center",
+    "name:ko": "교동 행정복지센터",
+    "name:ko-Latn": "Gyodongjuminsenteo",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 415150605,
+  "lat": 35.5090800,
+  "lon": 128.7650400,
+  "tags": {
+    "name": "교동",
+    "name:el": "Γκιο-ντονγκ",
+    "name:en": "Gyo-dong",
+    "name:ja": "校洞",
+    "name:ko": "교동",
+    "name:ko-Latn": "Gyo-dong",
+    "place": "quarter"
+  }
+},
+{
+  "type": "node",
+  "id": 415150606,
+  "lat": 35.5373191,
+  "lon": 128.7564557,
+  "tags": {
+    "name": "안인리",
+    "name:el": "Άνιν-ρι",
+    "name:en": "Anin-ri",
+    "name:ja": "安仁里",
+    "name:ko": "안인리",
+    "name:ko-Latn": "Anin-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415150607,
+  "lat": 35.5507700,
+  "lon": 128.7714800,
+  "tags": {
+    "name": "금산리",
+    "name:el": "Γκούμσαν-ρι",
+    "name:en": "Geumsan-ri",
+    "name:ja": "金山里",
+    "name:ko": "금산리",
+    "name:ko-Latn": "Geumsan-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415150771,
+  "lat": 35.5389900,
+  "lon": 128.7265900,
+  "tags": {
+    "name": "무연리",
+    "name:en": "Muyeon-ri",
+    "name:ja": "舞鳶里",
+    "name:ko": "무연리",
+    "name:ko-Latn": "Muyeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415150788,
+  "lat": 35.5117600,
+  "lon": 128.7263300,
+  "tags": {
+    "name": "운전리",
+    "name:el": "Ούντζον-ρι",
+    "name:en": "Unjeon-ri",
+    "name:ja": "雲田里",
+    "name:ko": "운전리",
+    "name:ko-Latn": "Unjeon-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415150789,
+  "lat": 35.5280000,
+  "lon": 128.7327700,
+  "tags": {
+    "name": "춘화리",
+    "name:en": "Chunhwa-ri",
+    "name:ja": "春化里",
+    "name:ko": "춘화리",
+    "name:ko-Latn": "Chunhwa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415150790,
+  "lat": 35.5187300,
+  "lon": 128.7425800,
+  "tags": {
+    "name": "용지리",
+    "name:el": "Γιόνγκτζι-ρι",
+    "name:en": "Yongji-ri",
+    "name:ja": "龍池里",
+    "name:ko": "용지리",
+    "name:ko-Latn": "Yongji-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 8176093214,
+  "lat": 35.5041176,
+  "lon": 128.7359038,
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "17",
+    "addr:province": "경상남도",
+    "addr:street": "내이신촌2길",
+    "amenity": "townhall",
+    "name": "내이6통회관",
+    "townhall:type": "town"
+  }
+},
+{
+  "type": "node",
+  "id": 8176232453,
+  "lat": 35.5098555,
+  "lon": 128.7567812,
+  "tags": {
+    "amenity": "social_facility",
+    "name": "한마음경로당",
+    "operator": "한마음타운",
+    "social_facility": "group_home",
+    "social_facility:for": "senior"
+  }
+},
+{
+  "type": "node",
+  "id": 11461282094,
+  "lat": 35.5185785,
+  "lon": 128.7529273,
+  "tags": {
+    "amenity": "shelter",
+    "name": "정자",
+    "shelter_type": "gazebo"
+  }
+},
+{
+  "type": "way",
+  "id": 493692725,
+  "center": {
+    "lat": 35.5549588,
+    "lon": 128.7622639
+  },
+  "tags": {
+    "addr:housenumber": "4",
+    "addr:street": "금산5길",
+    "amenity": "school",
+    "description": "폐교되었음",
+    "isced:level": "1",
+    "name": "상동초등학교",
+    "name:ko": "상동초등학교"
+  }
+},
+{
+  "type": "way",
+  "id": 493692726,
+  "center": {
+    "lat": 35.5528155,
+    "lon": 128.7632842
+  },
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "554",
+    "addr:postcode": "50409",
+    "addr:province": "경상남도",
+    "addr:street": "상동로",
+    "addr:town": "상동면",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "상동면 행정복지센터",
+    "name:ko": "상동면 행정복지센터",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+  }
+},
+{
+  "type": "way",
+  "id": 493697948,
+  "center": {
+    "lat": 35.5534907,
+    "lon": 128.7616124
+  },
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "4",
+    "addr:province": "경상남도",
+    "addr:street": "금산5길",
+    "addr:town": "상동면",
+    "building": "school",
+    "name": "상동중학교",
+    "name:ko": "상동중학교"
+  }
+},
+{
+  "type": "way",
+  "id": 553781131,
+  "center": {
+    "lat": 35.5036466,
+    "lon": 128.7467130
+  },
+  "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "name": "밀양시청",
+    "name:en": "Miryang City Hall",
+    "name:ja": "密陽市庁",
+    "name:ko": "밀양시청",
+    "townhall:type": "city"
+  }
+},
+{
+  "type": "way",
+  "id": 569989792,
+  "center": {
+    "lat": 35.5014105,
+    "lon": 128.7517039
+  },
+  "tags": {
+    "addr:housenumber": "127",
+    "addr:street": "석정로",
+    "amenity": "school",
+    "isced:level": "2;3",
+    "name": "밀성중고등학교",
+    "name:en": "Milseong Middle & High School",
+    "name:ko": "밀성중고등학교",
+    "wikidata": "Q18566645"
+  }
+},
+{
+  "type": "way",
+  "id": 569989793,
+  "center": {
+    "lat": 35.5026689,
+    "lon": 128.7518971
+  },
+  "tags": {
+    "addr:housenumber": "139",
+    "addr:street": "석정로",
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "밀성초등학교",
+    "name:en": "Milseong Elementary School",
+    "name:ko": "밀성초등학교",
+    "wikidata": "Q18999978"
+  }
+},
+{
+  "type": "way",
+  "id": 569989795,
+  "center": {
+    "lat": 35.5026139,
+    "lon": 128.7506862
+  },
+  "tags": {
+    "addr:housenumber": "2078",
+    "addr:street": "밀양대로",
+    "amenity": "school",
+    "isced:level": "3",
+    "name": "밀성제일고등학교",
+    "name:en": "Jeil High School",
+    "name:ko": "제일고등학교",
+    "wikidata": "Q12596361"
+  }
+},
+{
+  "type": "way",
+  "id": 569989798,
+  "center": {
+    "lat": 35.5015971,
+    "lon": 128.7505125
+  },
+  "tags": {
+    "addr:housenumber": "17",
+    "addr:street": "밀성로",
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "밀성여자중학교",
+    "name:en": "Milseong Girls' Middle School",
+    "name:ko": "밀성여자중학교",
+    "wikidata": "Q18605129"
+  }
+},
+{
+  "type": "way",
+  "id": 570196337,
+  "center": {
+    "lat": 35.5112131,
+    "lon": 128.7297368
+  },
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "28",
+    "addr:postcode": "50402",
+    "addr:province": "경상남도",
+    "addr:street": "부북로",
+    "addr:town": "부북면",
+    "amenity": "townhall",
+    "building": "public",
+    "government": "administrative",
+    "name": "부북면 행정복지센터",
+    "name:en": "Bubuk Community Service Center",
+    "name:ko": "부북면 행정복지센터",
+    "office": "government",
+    "website": "https://www.miryang.go.kr/"
+  }
+},
+{
+  "type": "way",
+  "id": 570196339,
+  "center": {
+    "lat": 35.5145383,
+    "lon": 128.7300942
+  },
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "부북초등학교",
+    "name:en": "Bubuk Elementary School",
+    "name:ko": "부북초등학교",
+    "wikidata": "Q19940024"
+  }
+},
+{
+  "type": "way",
+  "id": 991094660,
+  "center": {
+    "lat": 35.5017530,
+    "lon": 128.7520375
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094661,
+  "center": {
+    "lat": 35.5017910,
+    "lon": 128.7512053
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094662,
+  "center": {
+    "lat": 35.5009973,
+    "lon": 128.7514892
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094663,
+  "center": {
+    "lat": 35.5013777,
+    "lon": 128.7523658
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094665,
+  "center": {
+    "lat": 35.5015887,
+    "lon": 128.7508950
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094666,
+  "center": {
+    "lat": 35.5011126,
+    "lon": 128.7505227
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094667,
+  "center": {
+    "lat": 35.5019811,
+    "lon": 128.7504424
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094669,
+  "center": {
+    "lat": 35.5029784,
+    "lon": 128.7521696
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094670,
+  "center": {
+    "lat": 35.5026442,
+    "lon": 128.7513791
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094671,
+  "center": {
+    "lat": 35.5021621,
+    "lon": 128.7512039
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094673,
+  "center": {
+    "lat": 35.5025534,
+    "lon": 128.7506881
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991094674,
+  "center": {
+    "lat": 35.5028861,
+    "lon": 128.7508348
+  },
+  "tags": {
+    "building": "school"
+  }
+},
+{
+  "type": "way",
+  "id": 991372669,
+  "center": {
+    "lat": 35.5060121,
+    "lon": 128.7346797
+  },
+  "tags": {
+    "addr:city": "밀양시",
+    "addr:housenumber": "3528",
+    "addr:province": "경상남도",
+    "addr:street": "창밀로",
+    "amenity": "hospital",
+    "building": "hospital",
+    "healthcare": "hospital",
+    "name": "새한솔병원",
+    "name:en": "New Hansol Hospital"
+  }
+}
+
+  ]
+}

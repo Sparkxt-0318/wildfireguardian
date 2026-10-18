@@ -1,0 +1,286 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-28T02:16:18Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 368853086,
+  "lat": 36.5740710,
+  "lon": 126.5094960,
+  "tags": {
+    "amenity": "hospital",
+    "name": "삼성의원",
+    "name:en": "Samseong Clinic",
+    "name:ko": "삼성의원",
+    "name:ko-Latn": "Samseonguiwon"
+  }
+},
+{
+  "type": "node",
+  "id": 368853102,
+  "lat": 36.5813925,
+  "lon": 126.5134200,
+  "tags": {
+    "amenity": "hospital",
+    "name": "서부보건지소",
+    "name:en": "Seobubogeonjiso",
+    "name:ko": "서부보건지소",
+    "name:ko-Latn": "Seobubogeonjiso"
+  }
+},
+{
+  "type": "node",
+  "id": 368892363,
+  "lat": 36.5474260,
+  "lon": 126.4734710,
+  "tags": {
+    "amenity": "kindergarten",
+    "name": "신당초등학교병설유치원",
+    "name:en": "Sindang Elementary School Kindergarten",
+    "name:ko": "신당초등학교병설유치원",
+    "name:ko-Latn": "Sindangchodeunghakgyobyeongseolyuchiwon"
+  }
+},
+{
+  "type": "node",
+  "id": 368903188,
+  "lat": 36.5803396,
+  "lon": 126.5172287,
+  "tags": {
+    "addr:city": "홍성군",
+    "addr:housenumber": "17-2",
+    "addr:postcode": "32204",
+    "addr:province": "충청남도",
+    "addr:street": "서부로544번길",
+    "addr:town": "서부면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "서부면 행정복지센터",
+    "name:en": "Seobumyeon Community Service Center",
+    "name:ko": "서부면 행정복지센터",
+    "name:ko-Latn": "Seobumyeon Juminsenteo",
+    "office": "government",
+    "website": "http://www.hongseong.go.kr/"
+  }
+},
+{
+  "type": "node",
+  "id": 368926213,
+  "lat": 36.5714630,
+  "lon": 126.5092110,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "2",
+    "name": "서부중학교",
+    "name:en": "Seobu Middle School",
+    "name:ko": "서부중학교",
+    "name:ko-Latn": "Seobujunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 368937671,
+  "lat": 36.5474590,
+  "lon": 126.4732250,
+  "tags": {
+    "amenity": "school",
+    "isced:level": "1",
+    "name": "홍성신당초등학교",
+    "name:en": "Hongseongsindang Elementary School",
+    "name:ko": "홍성신당초등학교",
+    "name:ko-Latn": "Hongseongsindangchodeunghakgyo"
+  }
+},
+{
+  "type": "node",
+  "id": 415159029,
+  "lat": 36.5953703,
+  "lon": 126.4762418,
+  "tags": {
+    "name": "궁리",
+    "name:el": "Γκουνγκ-ρι",
+    "name:en": "Gung-ri",
+    "name:ko": "궁리",
+    "name:ko-Latn": "Gung-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159031,
+  "lat": 36.5613600,
+  "lon": 126.4863900,
+  "tags": {
+    "name": "어사리",
+    "name:el": "Όσα-ρι",
+    "name:en": "Eosa-ri",
+    "name:ko": "어사리",
+    "name:ko-Latn": "Eosa-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159032,
+  "lat": 36.5630100,
+  "lon": 126.4910700,
+  "tags": {
+    "name": "서부면",
+    "name:el": "Σόμπου-μιον",
+    "name:en": "Seobu-myeon",
+    "name:ja": "西部面",
+    "name:ko": "서부면",
+    "name:ko-Hani": "西部面",
+    "name:ko-Latn": "Seobu-myeon",
+    "name:zh": "西部面",
+    "name:zh-Hans": "西部面",
+    "name:zh-Hant": "西部面",
+    "place": "town",
+    "wikidata": "Q16170063"
+  }
+},
+{
+  "type": "node",
+  "id": 415159033,
+  "lat": 36.5793400,
+  "lon": 126.4776000,
+  "tags": {
+    "name": "상황리",
+    "name:el": "Σάγχουανγκ-ρι",
+    "name:en": "Sanghwang-ri",
+    "name:ko": "상황리",
+    "name:ko-Latn": "Sanghwang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159034,
+  "lat": 36.5709100,
+  "lon": 126.4847600,
+  "tags": {
+    "name": "거차리",
+    "name:el": "Γκότσα-ρι",
+    "name:en": "Geocha-ri",
+    "name:ko": "거차리",
+    "name:ko-Latn": "Geocha-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159035,
+  "lat": 36.5414116,
+  "lon": 126.4734114,
+  "tags": {
+    "name": "남당리",
+    "name:el": "Νάμντανγκ-ρι",
+    "name:en": "Namdang-ri",
+    "name:ko": "남당리",
+    "name:ko-Latn": "Namdang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159294,
+  "lat": 36.5447300,
+  "lon": 126.5381700,
+  "tags": {
+    "name": "무량리",
+    "name:el": "Μούριανγκ-ρι",
+    "name:en": "Muryang-ri",
+    "name:ko": "무량리",
+    "name:ko-Latn": "Muryang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159298,
+  "lat": 36.5438100,
+  "lon": 126.5208100,
+  "tags": {
+    "name": "판교리",
+    "name:el": "Πάνγκιο-ρι",
+    "name:en": "Pangyo-ri",
+    "name:ko": "판교리",
+    "name:ko-Latn": "Pangyo-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159299,
+  "lat": 36.5782622,
+  "lon": 126.5108742,
+  "tags": {
+    "name": "이호리",
+    "name:en": "Iho-ri",
+    "name:ko": "이호리",
+    "name:ko-Latn": "Iho-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159300,
+  "lat": 36.5541100,
+  "lon": 126.5033700,
+  "tags": {
+    "name": "양곡리",
+    "name:el": "Γιάνγκοκ-ρι",
+    "name:en": "Yanggok-ri",
+    "name:ko": "양곡리",
+    "name:ko-Latn": "Yanggok-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159301,
+  "lat": 36.5765800,
+  "lon": 126.5235800,
+  "tags": {
+    "name": "중리",
+    "name:el": "Τζουνγκ-ρι",
+    "name:en": "Jung-ri",
+    "name:ko": "중리",
+    "name:ko-Latn": "Jung-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "node",
+  "id": 415159302,
+  "lat": 36.5767470,
+  "lon": 126.5398910,
+  "tags": {
+    "name": "교항리",
+    "name:el": "Γκιόχανγκ-ρι",
+    "name:en": "Gyohang-ri",
+    "name:ko": "교항리",
+    "name:ko-Latn": "Gyohang-ri",
+    "place": "village"
+  }
+},
+{
+  "type": "way",
+  "id": 1357684332,
+  "center": {
+    "lat": 36.5790405,
+    "lon": 126.5113824
+  },
+  "tags": {
+    "amenity": "school",
+    "name": "홍성서부초등학교"
+  }
+}
+
+  ]
+}

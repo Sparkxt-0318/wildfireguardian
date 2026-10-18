@@ -1,0 +1,152 @@
+[
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+  "input_time": "2025-03-23T01:00:00Z",
+  "path": "uiseong_andong_2025/20250323T010000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-17T22:54:04+00:00",
+  "origins": 86,
+  "checks": 1523,
+  "verdicts": {
+   "model_no_route": 335,
+   "checked_route": 1188
+  },
+  "bytes": 25196184,
+  "sha256": "e94d3dfae1860f618f2bc9cdd9b04221e752174767a1c0fb81c0497633f88f94"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "ffb1:20250324T090000Z:08721049cc48e045",
+  "input_time": "2025-03-24T09:00:00Z",
+  "path": "uiseong_andong_2025/20250324T090000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-17T22:54:05+00:00",
+  "origins": 85,
+  "checks": 1518,
+  "verdicts": {
+   "model_no_route": 354,
+   "checked_route": 1158,
+   "unresolved/AT_ISSUE_FAILURE": 6
+  },
+  "bytes": 26649805,
+  "sha256": "53e54f019c540b517d762292729e4f1e6719b5a4ea6ea71c210259628ab37a83"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "ffb1:20250325T170000Z:53e6da7897bf9b5b",
+  "input_time": "2025-03-25T17:00:00Z",
+  "path": "uiseong_andong_2025/20250325T170000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-17T23:10:25+00:00",
+  "origins": 85,
+  "checks": 1557,
+  "verdicts": {
+   "model_no_route": 399,
+   "checked_route": 1029,
+   "unresolved/AT_ISSUE_FAILURE": 90
+  },
+  "bytes": 23259256,
+  "sha256": "f851a19ba71c0484125603b2b99707d5dda4d2dd6de9f992e3b5ffd561a8b2f4"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "ffb1:20250325T190000Z:20cb6955b51ab0c6",
+  "input_time": "2025-03-25T19:00:00Z",
+  "path": "yeongdeok_2025/20250325T190000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-18T00:10:31+00:00",
+  "origins": 92,
+  "checks": 1810,
+  "verdicts": {
+   "checked_route": 1400,
+   "model_no_route": 161,
+   "unresolved/AT_ISSUE_FAILURE": 54,
+   "unresolved/TIMEOUT": 16
+  },
+  "bytes": 25257547,
+  "sha256": "fad4d227e81e7d6c37d641de47f5fd5111b3529089f79b8a4ed3c4d481e17acb"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "ffb1:20250325T230000Z:c1b46f3c00c2036c",
+  "input_time": "2025-03-25T23:00:00Z",
+  "path": "yeongdeok_2025/20250325T230000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-18T00:24:29+00:00",
+  "origins": 91,
+  "checks": 1673,
+  "verdicts": {
+   "checked_route": 1486,
+   "model_no_route": 138,
+   "unresolved/TIMEOUT": 2
+  },
+  "bytes": 26933583,
+  "sha256": "b0700a1b288bf8d1d076ce87ec85f4d9db28ba31d1e59705fa7b29fb9c5e61b7"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "ffb1:20250326T080000Z:d8d21b8e3ced8a48",
+  "input_time": "2025-03-26T08:00:00Z",
+  "path": "yeongdeok_2025/20250326T080000Z.json",
+  "api_mode": "live",
+  "purpose": "booth",
+  "api_version": "1.8.0",
+  "host": {
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "machine": "arm64",
+   "python": "3.12.1",
+   "cpu_count": 15
+  },
+  "created_at": "2026-10-18T00:29:34+00:00",
+  "origins": 91,
+  "checks": 1641,
+  "verdicts": {
+   "checked_route": 1510,
+   "model_no_route": 81,
+   "unresolved/AT_ISSUE_FAILURE": 36
+  },
+  "bytes": 26949940,
+  "sha256": "a7f3fe90211dbb78404235f2a82d699c578ea3f11381e07d385590e6a27957f2"
+ }
+]

@@ -1,0 +1,214 @@
+/**
+ * Strings shared by the feature modules (About panel, plan sheet, exports). Korean first, English
+ * variant for every string. Kept here (not in src/i18n) so the feature builder never edits core files.
+ *
+ * Honesty wording (ARCHITECTURE.md §0.4): unresolved is never described as safe; model_no_route is
+ * "no route in the model", not "no escape in reality".
+ */
+import type { Lang } from '../../domain/clock';
+import { ENTRY_LIMIT_M } from '../../domain/plan';
+import type { Verdict } from '../../domain/types';
+
+export type { Lang };
+
+export type L10n = Record<Lang, string>;
+
+export function pick(s: L10n, lang: Lang): string {
+  return s[lang] ?? s.ko;
+}
+
+export const VERDICT_LABEL: Record<Verdict, L10n> = {
+  checked_route: { ko: '확인된 경로', en: 'Checked route' },
+  model_no_route: { ko: '모델상 경로 없음', en: 'No route in the model' },
+  unresolved: { ko: '미확인', en: 'Unresolved' },
+};
+
+/** Long definitions (About panel, plan-sheet legend). */
+export const VERDICT_DEFINITION: Record<Verdict, L10n> = {
+  checked_route: {
+    ko: '운행·대기·대피소 체류(120초)를 포함한 전체 여정이 4개 위험 시나리오 모두에서 화염 접촉 없이 순간 복사열 10 kW/m²·누적 노출 100 kJ/m² 한계 안으로 점검된 경로입니다.',
+    en: 'The whole journey — driving, waiting and the 120 s stay at the shelter — was checked in all four hazard scenarios: no flame contact, instantaneous heat flux within 10 kW/m² and cumulative exposure within 100 kJ/m².',
+  },
+  model_no_route: {
+    ko: '완화 탐색까지 모두 소진했지만 이 모델과 입력 범위 안에서는 조건을 만족하는 차량 경로가 없습니다. 현실에서 탈출이 불가능하다는 뜻은 아니며, 대체 계획이 필요하다는 신호입니다.',
+    en: 'The relaxed search was exhausted: within this model and its inputs no vehicle route meets the conditions. It does not mean escape is impossible in reality; it signals that an alternative plan is needed.',
+  },
+  unresolved: {
+    ko: '시간 초과·탐색 상한·점검 미완료·점검 실패, 또는 MOCK 서버에 기록된 실행 없음(계산하지 않음) 등으로 판단하지 못했습니다. 절대 안전으로 해석하지 마십시오. 출발 마감 계산에도 포함하지 않습니다.',
+    en: 'No decision: time-out, search cap, unfinished or failed check, no recorded execution on the MOCK server (nothing computed), and similar. Never read it as safe. It never counts toward a departure deadline.',
+  },
+};
+
+export const WINDOW_CLOSED_LABEL: L10n = { ko: '도착 허용 시간 밖 (점검 안 함)', en: 'Outside the arrival window (not checked)' };
+
+/** Alternative-plan wording (plan sheet section 대체 계획 필요 시나리오, CSV 비고). */
+export const ALT_PLAN_TEXT: Record<'model_no_route' | 'unresolved', L10n> = {
+  model_no_route: {
+    ko: '차량 대피 경로를 확인하지 못함: 조기 대피 또는 실내 대피(대피 장소 사전 지정) 등 대안 필요',
+    en: 'No vehicle evacuation route could be confirmed: an alternative is needed, such as earlier evacuation or sheltering indoors (designate the refuge in advance)',
+  },
+  unresolved: {
+    ko: '판단 불가 — 안전으로 간주하지 말 것',
+    en: 'Undetermined — do not treat as safe',
+  },
+};
+
+/** Unresolved reason codes (contract ReasonCode, v1.0 + v1.1). Unknown codes are shown verbatim. */
+export const REASON_LABEL: Record<string, L10n> = {
+  TIMEOUT: { ko: '30초 계산 예산 초과', en: '30 s compute budget exceeded' },
+  JOB_FROZEN: { ko: 'API 재시작으로 점검이 끝나지 않음', en: 'check never finished: the API restarted' },
+  STATE_CAP: { ko: '탐색 상태 상한 도달', en: 'search state cap reached' },
+  MEMORY_CAP: { ko: '메모리 상한 도달', en: 'memory guard reached' },
+  CHECK_NOT_FINISHED: { ko: '점검 미완료', en: 'check not finished' },
+  CHECK_FAILED: { ko: '점검 실패·거부', en: 'check failed or refused' },
+  WORKER_ERROR: { ko: '작업자 비정상 종료', en: 'worker ended abnormally' },
+  CLEANUP_UNCONFIRMED: { ko: '프로세스 정리 미확인', en: 'process clean-up not confirmed' },
+  INTERNAL_ERROR: { ko: 'API 내부 오류', en: 'API internal error' },
+  OTHER: { ko: '기타', en: 'other' },
+  INPUT_REJECTED: { ko: '엔진이 입력을 거부', en: 'engine rejected the input' },
+  AT_ISSUE_FAILURE: { ko: '출발 시점에 이미 한계 초과', en: 'already over a limit at departure' },
+  DISCONNECTED: { ko: '도로망상 도달 불가 (화재와 무관)', en: 'unreachable in the road graph (not fire related)' },
+};
+
+export function reasonText(code: string | null | undefined, lang: Lang): string | null {
+  if (!code) return null;
+  const l = REASON_LABEL[code];
+  return l ? `${pick(l, lang)} (${code})` : code;
+}
+
+/**
+ * Authoritative raw statuses that explain an unresolved result better than reason_code OTHER
+ * (the MOCK answers every unrecorded request this way and computes nothing).
+ */
+export const RAW_STATUS_LABEL: Record<string, L10n> = {
+  MOCK_NO_RECORDED_RESULT: {
+    ko: 'MOCK 서버에 기록된 실행 없음 — 계산하지 않음',
+    en: 'no recorded execution on the MOCK server — nothing computed',
+  },
+  MOCK_SPREAD_ZONES_NOT_EVALUATED: {
+    ko: 'MOCK 서버는 사용자 구역을 평가하지 않음',
+    en: 'the MOCK server does not evaluate user-drawn zones',
+  },
+};
+
+export function isMockNoRecord(a: { rawStatus?: string | null } | null | undefined): boolean {
+  return a?.rawStatus === 'MOCK_NO_RECORDED_RESULT';
+}
+
+export function isMockZones(a: { rawStatus?: string | null } | null | undefined): boolean {
+  return a?.rawStatus === 'MOCK_SPREAD_ZONES_NOT_EVALUATED';
+}
+
+/**
+ * Reason text of an unresolved attempt: the MOCK raw status label when the attempt carries one
+ * (instead of "기타 (OTHER)"), else the reason code text. The reason code itself is never changed.
+ */
+export function attemptReasonText(code: string | null | undefined, rawStatus: string | null | undefined, lang: Lang): string | null {
+  const raw = rawStatus ? RAW_STATUS_LABEL[rawStatus] : undefined;
+  if (raw && (!code || code === 'OTHER')) return `${pick(raw, lang)} (${rawStatus})`;
+  return reasonText(code, lang);
+}
+
+const ENTRY_KM = String(ENTRY_LIMIT_M / 1000);
+
+/** Planner-side notes for origins the API was never asked about. */
+export const NOTE_LABEL: Record<'not_checkable' | 'rejected' | 'not_computed', L10n> = {
+  // same rule and wording as the list label (src/i18n 'list.notCheckable')
+  not_checkable: { ko: `도로망 ${ENTRY_KM} km 밖 — 점검 불가`, en: `No road entry node within ${ENTRY_KM} km — cannot be checked` },
+  rejected: { ko: 'API가 요청을 거부함 — 점검 안 됨', en: 'Rejected by the API — not checked' },
+  not_computed: { ko: '아직 계산하지 않음', en: 'Not computed yet' },
+};
+
+export const FOOTER_APP: L10n = {
+  ko: '사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.',
+  en: 'Planning aid only — not for live evacuation operations.',
+};
+
+export const MOCK_BADGE_TITLE: L10n = {
+  ko: 'MOCK 서버의 기록 결과입니다 (새로 계산하지 않음)',
+  en: 'Recorded results served by the MOCK server (nothing recomputed)',
+};
+
+/** Honest limitations — the About panel shows all, the plan sheet a compact version. */
+export interface Limitation {
+  id: string;
+  text: L10n;
+  short: L10n;
+}
+
+export const LIMITATIONS: Limitation[] = [
+  {
+    id: 'vehicle_only',
+    text: { ko: '차량 이동만 고려합니다 (도보·대중교통 제외).', en: 'Vehicle travel only (no walking or public transport).' },
+    short: { ko: '차량 이동만 고려 (도보·대중교통 제외)', en: 'Vehicle travel only (no walking, no public transport)' },
+  },
+  {
+    id: 'traffic',
+    text: { ko: '교통 혼잡·도로 통제·사고는 반영하지 않습니다.', en: 'Traffic congestion, road closures and crashes are not modelled.' },
+    short: { ko: '교통 혼잡·도로 통제·사고 미반영', en: 'No congestion, closures or crashes' },
+  },
+  {
+    id: 'entry_gap',
+    text: {
+      ko: '마을·시설·대피소 지점에서 진입 지점(가장 가까운 허용 도로 노드)까지의 이동은 모델에 포함되지 않습니다. 출발 마감은 진입 지점 기준입니다.',
+      en: 'Travel from a place to its entry point (nearest accepted road node) is not modelled; the departure deadline refers to the entry point.',
+    },
+    short: { ko: '지점→진입 지점 이동 미반영 (마감은 진입 지점 기준)', en: 'Place→entry-point travel not modelled (deadline is at the entry point)' },
+  },
+  {
+    id: 'scenarios',
+    text: {
+      ko: '시나리오는 가능한 모든 산불이 아닙니다 — 기록된 4개 위험 시나리오 또는 사용자가 가정한 확산 구역만 점검합니다.',
+      en: 'The scenarios are not every possible fire — only the four recorded hazard scenarios or user-assumed spread zones are checked.',
+    },
+    short: { ko: '시나리오는 가능한 모든 산불이 아님', en: 'Scenarios are not every possible fire' },
+  },
+  {
+    id: 'not_validated',
+    text: { ko: '주민·현장 검증 전입니다 (not validated with residents).', en: 'Not yet validated with residents or in the field.' },
+    short: { ko: '주민·현장 검증 전', en: 'Not validated with residents' },
+  },
+  {
+    id: 'smoke',
+    text: { ko: '연기와 비화(불똥)는 반영하지 않습니다.', en: 'Smoke and ember spotting are not modelled.' },
+    short: { ko: '연기·비화 미반영', en: 'No smoke or embers' },
+  },
+  {
+    id: 'osm_snapshot',
+    text: {
+      ko: '도로 그래프는 과거 OSM 스냅샷이고, 마을·시설·대피소(POI)는 현재 OSM 기준입니다.',
+      en: 'The road graph is a historical OSM snapshot; villages, facilities and shelters (POIs) come from current OSM.',
+    },
+    short: { ko: '그래프는 과거 OSM 스냅샷, 장소는 현재 OSM', en: 'Graph: past OSM snapshot; places: current OSM' },
+  },
+  {
+    id: 'entry_limit',
+    text: {
+      ko: `장소는 가장 가까운 도로 진입 지점(API가 허용하는 도로 노드)에서 출발·도착한다고 봅니다. ${ENTRY_KM} km 안에 진입 지점이 없는 장소는 점검하지 못합니다 (점검 불가 · 미확인).`,
+      en: `A place is assumed to start or end at its nearest road entry point (a road node the API accepts). Places with no entry point within ${ENTRY_KM} km are not checked (cannot be checked · unresolved).`,
+    },
+    short: { ko: `진입 지점 ${ENTRY_KM} km 밖 장소는 점검 불가 (미확인)`, en: `No entry point within ${ENTRY_KM} km: not checked (unresolved)` },
+  },
+  {
+    id: 'unresolved_not_safe',
+    text: { ko: '미확인은 안전이 아닙니다.', en: 'Unresolved is not safe.' },
+    short: { ko: '미확인은 안전이 아님', en: 'Unresolved is not safe' },
+  },
+  {
+    id: 'planning_only',
+    text: {
+      ko: '사전 계획 보조 도구이며 실시간 대피 지휘·운영용이 아닙니다.',
+      en: 'A pre-season planning aid, not a tool for live evacuation command or operations.',
+    },
+    short: { ko: '계획 보조 도구 · 실시간 운영용 아님', en: 'Planning aid · not for live operations' },
+  },
+];
+
+/** Fixed identities of the evaluated research configuration (ARCHITECTURE.md §1). */
+export const FIXED_IDENTITY = {
+  checkpoint: 'c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843',
+  packageName: 'wfg_latest',
+  packageVersion: '1.0.0',
+  kit: 'v3',
+  releaseTags: ['research-final-20261015', 'routing-ablation-final-inputs-20261016'],
+} as const;

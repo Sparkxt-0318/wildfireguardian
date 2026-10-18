@@ -1,0 +1,161 @@
+{
+ "region_id": "hongseong_2023",
+ "generated_at": "2026-10-17T09:25:32Z",
+ "generator": "planner/tools/extract_places.py",
+ "osm_extract": {
+  "file": "planner/data/osm/hongseong_2023.overpass.json",
+  "sha256": "9df47aadb387c74db44dc70f575a42ed37fc80700e017184d36aa778eb9d12e6",
+  "endpoint": "https://overpass.kumi.systems/api/interpreter",
+  "timestamp_osm_base": "2026-07-28T02:16:18Z",
+  "element_count": 19
+ },
+ "graph": {
+  "revision": "hongseong-osm-20230401-provisional-grid375-dt1-53599a1a7b18-254dfdb05fb5",
+  "sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+  "snapshot": "2023-04-01T23:59:59Z",
+  "node_count": 915,
+  "largest_scc_nodes": 824
+ },
+ "filters": {
+  "origins": "place=village|hamlet nodes; amenity=nursing_home|social_facility; social_facility=*",
+  "destinations": "amenity=shelter (shelter_type not in ['changing_rooms', 'field_shelter', 'gazebo', 'lean_to', 'picnic_shelter', 'public_transport', 'rock_shelter', 'sun_shelter', 'weather_shelter']); emergency=assembly_point; amenity=school; building=school; amenity=community_centre; amenity=townhall with 회관 in name",
+  "inside": "point inside the road-graph grid rectangle (EPSG:5179)",
+  "entry": "nearest node of the largest strongly connected component of the directed road graph (진입 지점), sent as node_id",
+  "checkable": "entry distance <= 2000 m",
+  "not_checkable": "entry distance > 2000 m (kept, listed in dropped_far)",
+  "school_dedupe": "school node + way with the same name within 150 m -> keep the way centre"
+ },
+ "counts": {
+  "osm_elements": 19,
+  "origins": 10,
+  "destinations": 3,
+  "research": 8,
+  "excluded": 6,
+  "dropped_far": 0,
+  "merged": 0,
+  "checkable": 13,
+  "not_checkable": 0
+ },
+ "snap_distance_m": {
+  "min": 46.6,
+  "median": 149.0,
+  "max": 789.9
+ },
+ "excluded": [
+  {
+   "id": "osm:node/368853086",
+   "osm_type": "node",
+   "osm_id": 368853086,
+   "name": "삼성의원",
+   "tags": {
+    "amenity": "hospital",
+    "name": "삼성의원",
+    "name:en": "Samseong Clinic",
+    "name:ko": "삼성의원",
+    "name:ko-Latn": "Samseonguiwon"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368853102",
+   "osm_type": "node",
+   "osm_id": 368853102,
+   "name": "서부보건지소",
+   "tags": {
+    "amenity": "hospital",
+    "name": "서부보건지소",
+    "name:en": "Seobubogeonjiso",
+    "name:ko": "서부보건지소",
+    "name:ko-Latn": "Seobubogeonjiso"
+   },
+   "reason": "amenity=hospital is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368892363",
+   "osm_type": "node",
+   "osm_id": 368892363,
+   "name": "신당초등학교병설유치원",
+   "tags": {
+    "amenity": "kindergarten",
+    "name": "신당초등학교병설유치원",
+    "name:en": "Sindang Elementary School Kindergarten",
+    "name:ko": "신당초등학교병설유치원",
+    "name:ko-Latn": "Sindangchodeunghakgyobyeongseolyuchiwon"
+   },
+   "reason": "amenity=kindergarten is excluded by the §4.2 filters"
+  },
+  {
+   "id": "osm:node/368903188",
+   "osm_type": "node",
+   "osm_id": 368903188,
+   "name": "서부면 행정복지센터",
+   "tags": {
+    "addr:city": "홍성군",
+    "addr:housenumber": "17-2",
+    "addr:postcode": "32204",
+    "addr:province": "충청남도",
+    "addr:street": "서부로544번길",
+    "addr:town": "서부면",
+    "amenity": "townhall",
+    "government": "administrative",
+    "name": "서부면 행정복지센터",
+    "name:en": "Seobumyeon Community Service Center",
+    "name:ko": "서부면 행정복지센터",
+    "name:ko-Latn": "Seobumyeon Juminsenteo",
+    "office": "government",
+    "website": "http://www.hongseong.go.kr/"
+   },
+   "reason": "amenity=townhall whose name does not contain 회관 (administrative office, not a community hall)"
+  },
+  {
+   "id": "osm:node/415159029",
+   "osm_type": "node",
+   "osm_id": 415159029,
+   "name": "궁리",
+   "tags": {
+    "name": "궁리",
+    "name:el": "Γκουνγκ-ρι",
+    "name:en": "Gung-ri",
+    "name:ko": "궁리",
+    "name:ko-Latn": "Gung-ri",
+    "place": "village"
+   },
+   "reason": "outside the region road-graph grid rectangle (EPSG:5179)"
+  },
+  {
+   "id": "osm:node/415159032",
+   "osm_type": "node",
+   "osm_id": 415159032,
+   "name": "서부면",
+   "tags": {
+    "name": "서부면",
+    "name:el": "Σόμπου-μιον",
+    "name:en": "Seobu-myeon",
+    "name:ja": "西部面",
+    "name:ko": "서부면",
+    "name:ko-Hani": "西部面",
+    "name:ko-Latn": "Seobu-myeon",
+    "name:zh": "西部面",
+    "name:zh-Hans": "西部面",
+    "name:zh-Hant": "西部面",
+    "place": "town",
+    "wikidata": "Q16170063"
+   },
+   "reason": "place=town is not an origin category (village|hamlet only)"
+  }
+ ],
+ "dropped_far": [],
+ "merged": [],
+ "possible_duplicates_not_merged": [],
+ "research": {
+  "features": 8,
+  "missions": 4,
+  "shared_nodes": {
+   "osm:4267555571": [
+    "research:hongseong_2023:20230402T070000Z_FN1:origin",
+    "research:hongseong_2023:20230402T070000Z_FX1:origin"
+   ]
+  },
+  "notes": []
+ }
+}

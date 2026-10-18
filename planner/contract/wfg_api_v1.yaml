@@ -1,0 +1,1269 @@
+# Fetched from origin/feat/api commit bb2acd0d339fe957bd75ea2d466dafedc5e541ac (contracts/wfg_api_v1.yaml). Do not edit; re-run planner/scripts/fetch_contract.sh.
+openapi: 3.1.0
+info:
+  title: WildfireGuardian Route-Check API
+  version: 1.5.0
+  summary: 산불 확산 예측 기반 차량 경로 점검 API (로컬 전용)
+  description: |
+    WildfireGuardian 경로 점검 API는 동결된 연구 패키지 **wfg_latest 1.0.0**(실행 키트 **v3**)과
+    선택된 예측 체크포인트 **c651**(`c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843`)을
+    감싸는 로컬 HTTP 인터페이스입니다. 알고리즘, 임계값, 기록된 결과는 변경하지 않습니다.
+
+    The API wraps the frozen research package; it never re-implements forecasting, routing or checking.
+
+    **결과는 정확히 세 가지 상태만 가집니다 / Exactly three verdicts:**
+    - `checked_route` — 운행·대기·목적지 체류 전 구간이 화염 접촉 없이 열 한계(순간 10 kW/m², 누적 선량) 이내로 점검된 경로.
+    - `model_no_route` — 완화 탐색이 소진됨: 이 모델과 입력 범위에서 경로가 없음. 현실의 모든 탈출 불가능을 의미하지 않습니다.
+    - `unresolved` — 시간 초과, 상태 상한, 점검 미완료 또는 점검 실패. **절대 안전으로 해석하지 마십시오 / never treat as safe.**
+
+    요청당 시간 예산은 30 s 입니다 (`compute_s`는 실험과 동일한 시계로 측정).
+    모든 응답은 출처 정보(`provenance`: 패키지 버전, 키트, 체크포인트, git 커밋, 입력 해시, 시나리오 ID)를 포함합니다.
+
+    All endpoints are local (http://127.0.0.1:8765/v1); there is no authentication and no external network at runtime.
+  license:
+    name: MIT
+    identifier: MIT
+servers:
+  - url: http://127.0.0.1:8765/v1
+    description: 로컬 서버 / local server
+tags:
+  - name: system
+    description: 상태 및 지역 정보 / health and region metadata
+  - name: forecast
+    description: 기록된 예측 출력 / recorded forecast outputs
+  - name: route-checks
+    description: 단일 여정 경로 점검 / single journey route checks
+  - name: dispatch-plans
+    description: 다중 출발지 대피 계획 / batched evacuation dispatch planning
+paths:
+  /health:
+    get:
+      tags: [system]
+      operationId: getHealth
+      summary: 서버 상태 / service health
+      description: 패키지·키트·체크포인트·git 커밋과 로드된 지역 목록을 반환합니다.
+      responses:
+        '200':
+          description: 상태 / health
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /regions:
+    get:
+      tags: [system]
+      operationId: listRegions
+      summary: 지역 목록 / list regions
+      description: 각 지역의 WGS84 경계, 도로 그래프 ID, 노드·간선 수, 기록된 입력 시각, 시나리오 세트 ID를 반환합니다.
+      responses:
+        '200':
+          description: 지역 목록 / regions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionList'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /regions/{region}/forecast:
+    get:
+      tags: [forecast]
+      operationId: getRegionForecast
+      summary: 기록된 1시간 신규 연소 확률 / recorded next-hour new-burn forecast
+      description: |
+        375 m 격자(EPSG:5179)의 각 셀을 WGS84 다각형으로 변환한 GeoJSON FeatureCollection.
+        기록된 출력만 제공합니다 (새 추론 없음). 해당 시각의 기록이 없으면 404를 반환합니다.
+      parameters:
+        - $ref: '#/components/parameters/RegionPath'
+        - name: input_time
+          in: query
+          required: true
+          description: 기록된 입력 시각 (UTC, 정시). 예 `2022-03-04T03:00:00Z` 또는 `20220304T030000Z`.
+          schema:
+            type: string
+            examples: ['2022-03-04T03:00:00Z']
+        - name: only_nonzero
+          in: query
+          required: false
+          description: true이면 확률>0 이거나 현재 연소 중인 셀만 반환 / only cells with p>0 or burning now.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: 예측 격자 / forecast grid
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/ForecastCollection'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastCollection'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /route-checks:
+    post:
+      tags: [route-checks]
+      operationId: createRouteCheck
+      summary: 경로 점검 작업 생성 / submit a route check
+      description: |
+        여정(운행, 대기, 목적지 체류)을 점검하는 비동기 작업을 생성합니다. 좌표 입력은 허용된 가장 가까운 도로 노드로
+        스냅되며 스냅 거리가 300 m를 넘으면 422로 거부합니다. 지역·시각·시나리오 세트가 없으면 422를 반환합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteCheckRequest'
+      responses:
+        '202':
+          description: 접수됨 / accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /route-checks/{job_id}:
+    get:
+      tags: [route-checks]
+      operationId: getRouteCheck
+      summary: 경로 점검 결과 조회 / get route check status and result
+      parameters:
+        - $ref: '#/components/parameters/JobIdPath'
+      responses:
+        '200':
+          description: 작업 상태 / job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteCheckJob'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /route-checks/{job_id}/export:
+    get:
+      tags: [route-checks]
+      operationId: exportRouteCheck
+      summary: 점검된 경로 내보내기 / export a checked route
+      description: |
+        `checked_route` 판정의 경로만 내보냅니다. 작업이 끝나지 않았거나(409 `JOB_NOT_DONE`)
+        점검된 경로가 없으면(409 `NO_CHECKED_ROUTE`) 내보내지 않습니다 — 미해결 결과를 경로처럼 그리지 않기 위함입니다.
+      parameters:
+        - $ref: '#/components/parameters/JobIdPath'
+        - name: format
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [geojson, kml, csv]
+      responses:
+        '200':
+          description: 내보낸 파일 / exported file
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/RouteExportCollection'
+            application/vnd.google-earth.kml+xml:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+                description: 'Header: seq,node_id,lon,lat,time_s,event (plain table; provenance is in the X-WFG-Provenance header, v1.3)'
+          headers:
+            X-WFG-Provenance:
+              description: KML·CSV 내보내기의 압축 출처 JSON (v1.3) / compact provenance JSON for KML and CSV exports
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+  /dispatch-plans:
+    post:
+      tags: [dispatch-plans]
+      operationId: createDispatchPlan
+      summary: 대피 배차 계획 작업 생성 / submit a dispatch plan
+      description: |
+        같은 지역·화재 입력·목적지 후보·출발 오프셋 목록을 공유하는 최대 200개 출발지를 일괄 점검합니다.
+        각 출발지마다 목적지 전체에서의 최선 판정과, 점검된 경로를 주는 가장 늦은 출발 오프셋을 반환하고
+        긴급도 순(가장 이른 최종 안전 출발 → model_no_route → unresolved)으로 정렬합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DispatchPlanRequest'
+      responses:
+        '202':
+          description: 접수됨 / accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /dispatch-plans/{job_id}:
+    get:
+      tags: [dispatch-plans]
+      operationId: getDispatchPlan
+      summary: 배차 계획 결과 조회 / get dispatch plan status and result
+      parameters:
+        - $ref: '#/components/parameters/JobIdPath'
+      responses:
+        '200':
+          description: 작업 상태 / job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchPlanJob'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    RegionPath:
+      name: region
+      in: path
+      required: true
+      description: 지역 ID / region id
+      schema:
+        type: string
+        examples: [uljin_2022]
+    JobIdPath:
+      name: job_id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: 없음 / not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: 현재 상태에서 불가 / not possible in the current state
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unprocessable:
+      description: 입력 오류 또는 사용할 수 없는 입력 / invalid or unavailable input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unavailable:
+      description: 필요한 데이터가 로드되지 않음 / required data not loaded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              description: |
+                기계 판독용 코드. 예: `UNKNOWN_REGION`, `INPUT_TIME_UNAVAILABLE`, `UNKNOWN_SCENARIO_SET`,
+                `SNAP_TOO_FAR`, `UNKNOWN_NODE`, `NODE_NOT_ALLOWED`, `ZONES_OUTSIDE_REGION`, `INVALID_ZONES`,
+                `VALIDATION_ERROR`, `JOB_NOT_FOUND`, `JOB_NOT_DONE`, `NO_CHECKED_ROUTE`, `DATA_UNAVAILABLE`, `TOO_MANY_ORIGINS`.
+                v1.1: `INVALID_INPUT_TIME`, `SCENARIO_SET_TIME_MISMATCH`, `FORECAST_UNAVAILABLE`, `NOT_ON_TIME_LATTICE`,
+                `DEPARTURE_OUTSIDE_HORIZON`, `INVALID_WINDOW`, `WINDOW_UNSATISFIABLE`, `START_EQUALS_DESTINATION`, `INVALID_LIMITS`,
+                `DUPLICATE_ID`, `INPUT_CHANGED`. v1.3: `GRID_MISMATCH`, `CHECKPOINT_MISMATCH`, `ZONE_PACKET_BUILD_FAILED`.
+                v1.4: `POLICY_NOT_ALLOWED`, `DUPLICATE_OFFSET`, `TOO_MANY_ATTEMPTS` (origins × destinations × offsets > 4800).
+                v1.5 (503): `BUSY` (too many queued checks), `LAUNCHES_PAUSED` (a kit attempt's process cleanup was not
+                confirmed; new launches pause as the frozen controller requires until the API is restarted).
+              examples: [SNAP_TOO_FAR]
+            message:
+              type: string
+            details:
+              description: 추가 정보 / extra context
+        provenance:
+          description: 출처 정보 (v1.3, 서버 초기화 전에는 null) / provenance (v1.3; null before start-up completes)
+          oneOf:
+            - $ref: '#/components/schemas/Provenance'
+            - type: 'null'
+    Health:
+      type: object
+      required: [status, api_version, package, package_version, kit, checkpoint, git_commit, regions, workers]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+          description: |
+            `degraded` = 기록 입력 데이터가 없거나 일부 지역 로드 실패, 또는 키트 제어기에 필요한 /usr/bin/time·/bin/ps 없음 (v1.3).
+            Data missing or partially loaded, or the controller's /usr/bin/time or /bin/ps missing (v1.3); see `issues`.
+        api_version:
+          type: string
+          examples: ['1.0.0']
+        package:
+          type: string
+          const: wfg_latest
+        package_version:
+          type: string
+          examples: ['1.0.0']
+        kit:
+          type: string
+          examples: [v3]
+        checkpoint:
+          type: string
+          description: 예측 체크포인트 SHA-256 (c651…)
+          pattern: '^[0-9a-f]{64}$'
+        git_commit:
+          type: string
+        regions:
+          type: array
+          description: 로드된 지역 ID / loaded region ids
+          items:
+            type: string
+        workers:
+          type: integer
+          minimum: 1
+        data_root:
+          type: [string, 'null']
+        issues:
+          type: array
+          items:
+            type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    RegionList:
+      type: object
+      required: [regions, provenance]
+      properties:
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Region'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    Region:
+      type: object
+      required: [id, name_ko, name_en, bbox, graph_id, node_count, edge_count, input_times, scenario_sets, crs, grid]
+      properties:
+        id:
+          type: string
+          examples: [uljin_2022]
+        name_ko:
+          type: string
+          examples: [울진]
+        name_en:
+          type: string
+          examples: [Uljin]
+        event_id:
+          type: string
+          description: 상위 화재 이벤트 ID / parent fire event
+          examples: [KFS_02]
+        bbox:
+          $ref: '#/components/schemas/BBox'
+        graph_id:
+          type: string
+          description: 도로 그래프 revision
+        graph_sha256:
+          type: string
+        node_count:
+          type: integer
+        edge_count:
+          type: integer
+        allowed_node_count:
+          type: integer
+          description: 출발지·목적지로 허용되는 노드 수 / nodes allowed as start or destination
+        crs:
+          type: string
+          const: EPSG:5179
+        grid:
+          $ref: '#/components/schemas/Grid'
+        input_times:
+          type: array
+          description: 기록된 입력 시각 (UTC) / recorded input times
+          items:
+            type: string
+            format: date-time
+        scenario_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioSet'
+    ScenarioSet:
+      type: object
+      required: [scenario_set_id, input_time, scenario_ids, horizon_s]
+      properties:
+        scenario_set_id:
+          type: string
+          description: 기록된 4개 화재 시나리오 묶음 ID / recorded 4-scenario set id
+          examples: ['ffb1:20220304T030000Z:163ba1c65bd35c6e']
+        input_time:
+          type: string
+          format: date-time
+        scenario_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        horizon_s:
+          type: number
+        hazard_sha256:
+          type: string
+    Grid:
+      type: object
+      required: [x0, y0, resolution_m, width, height]
+      properties:
+        x0:
+          type: number
+        y0:
+          type: number
+        resolution_m:
+          type: number
+          const: 375
+        width:
+          type: integer
+        height:
+          type: integer
+    BBox:
+      type: array
+      description: '[min_lon, min_lat, max_lon, max_lat] (WGS84)'
+      items:
+        type: number
+      minItems: 4
+      maxItems: 4
+    ForecastCollection:
+      type: object
+      required: [type, features, provenance]
+      properties:
+        type:
+          type: string
+          const: FeatureCollection
+        region:
+          type: string
+        input_time:
+          type: string
+          format: date-time
+        bbox:
+          $ref: '#/components/schemas/BBox'
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastCell'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    ForecastCell:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          const: Feature
+        id:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/GeoPolygon'
+        properties:
+          type: object
+          required: [row, col, p_new_burn_1h, valid, burning_now]
+          properties:
+            row:
+              type: integer
+            col:
+              type: integer
+            p_new_burn_1h:
+              type: [number, 'null']
+              minimum: 0
+              maximum: 1
+              description: 다음 1시간 신규 연소 확률 / next-hour new-burn probability (기록값 / recorded)
+            valid:
+              type: boolean
+              description: true = 모델 계산값, false = 정책상 0 / true = model-computed, false = policy zero
+            burning_now:
+              type: boolean
+              description: 입력 시각에 연소 중 / burning at input time
+    GeoPolygon:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          const: Polygon
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Position'
+    Position:
+      type: array
+      description: '[lon, lat] (WGS84)'
+      items:
+        type: number
+      minItems: 2
+      maxItems: 3
+    Location:
+      description: 좌표 또는 도로 노드 / coordinates or a road node id
+      oneOf:
+        - $ref: '#/components/schemas/LonLat'
+        - $ref: '#/components/schemas/NodeRef'
+    LonLat:
+      type: object
+      required: [lon, lat]
+      additionalProperties: false
+      properties:
+        lon:
+          type: number
+          minimum: -180
+          maximum: 180
+        lat:
+          type: number
+          minimum: -90
+          maximum: 90
+    NodeRef:
+      type: object
+      required: [node_id]
+      additionalProperties: false
+      properties:
+        node_id:
+          type: string
+          examples: ['osm:5554288566']
+    Policy:
+      type: string
+      enum: [full, travel_only, flame_only, flame_peak, flame_dose]
+      default: full
+      description: |
+        위험 정책 (최종 입력 제약 절제 실험의 5개 정책과 동일) / hazard policy (same five policies as the final-input ablation):
+        `full` 화염+순간+누적, `travel_only` 이동 시간만, `flame_only` 화염 접촉만, `flame_peak` 화염+순간, `flame_dose` 화염+누적.
+        `full` 이외 정책의 경로는 전체 정책을 통과한다는 보장이 없습니다.
+    Limits:
+      type: object
+      additionalProperties: false
+      description: 열 한계 (생략 시 실험 기본값) / heat limits (defaults = experiment values)
+      properties:
+        peak_kw_m2:
+          type: number
+          exclusiveMinimum: 0
+          default: 10
+          description: 순간 복사열 한계 / instantaneous incident flux limit (kW/m²)
+        dose_kj_m2:
+          type: number
+          exclusiveMinimum: 0
+          default: 100
+          description: 누적 선량 한계 / cumulative dose limit (kJ/m²)
+    FireInput:
+      description: 화재 입력 / fire input
+      oneOf:
+        - $ref: '#/components/schemas/RecordedFireInput'
+        - $ref: '#/components/schemas/SpreadZonesFireInput'
+      discriminator:
+        propertyName: type
+        mapping:
+          recorded: '#/components/schemas/RecordedFireInput'
+          spread_zones: '#/components/schemas/SpreadZonesFireInput'
+    RecordedFireInput:
+      type: object
+      required: [type, scenario_set_id]
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          const: recorded
+        scenario_set_id:
+          type: string
+          description: '`GET /regions`의 시나리오 세트 ID; input_time과 일치해야 함 / must match input_time'
+    SpreadZonesFireInput:
+      type: object
+      required: [type, zones, issued_at]
+      additionalProperties: false
+      description: |
+        산림청식 5 h / 8 h 화선 도달 범위 같은 구역 예보를 셀 단위 4개 시나리오로 변환합니다 (근사, 전문가 검토 필요).
+        Zone forecasts (e.g. Korea Forest Service 5 h / 8 h fire-line ranges) converted to the per-cell 4-scenario format.
+        **Approximation, requires expert review.**
+        v1.1 범위: input_time은 해당 지역의 기록된 입력 시각이어야 합니다 (격자·시계·현재 연소 셀을 기록된 c651 출력에서 사용).
+        위험 시계는 실험과 같은 1시간이며, 그 이후 점화는 표현되지 않습니다.
+        Scope: input_time must be a recorded input time of the region (grid, clock and burning-now cells come from the recorded
+        c651 export); the hazard horizon is the experiment's 1 h, so later ignitions are not represented.
+      properties:
+        type:
+          type: string
+          const: spread_zones
+        zones:
+          $ref: '#/components/schemas/ZoneCollection'
+        issued_at:
+          type: string
+          format: date-time
+          description: 구역 예보 발표 시각; arrival_h_max는 이 시각 기준 / zone hours are relative to this time
+        margin_min:
+          type: number
+          minimum: 0
+          default: 60
+          description: 보수적 조기 점화 여유 (분) / conservative early-ignition margin (minutes)
+        burning_scenario_set_id:
+          type: [string, 'null']
+          description: |
+            현재 연소 중인 셀은 항상 input_time의 기록 입력 그대로 유지됩니다. 이 값을 주면 그 시나리오 세트와 일치하는지만 확인합니다 (v1.3).
+            Currently burning cells are always kept as recorded at input_time; if given, this must equal that recorded set (consistency check, v1.3).
+    ZoneCollection:
+      type: object
+      required: [type, features]
+      properties:
+        type:
+          type: string
+          const: FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoneFeature'
+    ZoneFeature:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          const: Feature
+        geometry:
+          type: object
+          required: [type, coordinates]
+          properties:
+            type:
+              type: string
+              enum: [Polygon, MultiPolygon]
+            coordinates:
+              type: array
+        properties:
+          type: object
+          required: [arrival_h_max]
+          properties:
+            arrival_h_max:
+              type: number
+              exclusiveMinimum: 0
+              description: |
+                이 구역의 화선 도달 상한 (시간). 셀의 하한 H_prev는 같은 구역 안에 포함된(nested) 구역의 값에서만 정해지며
+                다른 화재의 구역은 영향을 주지 않습니다 (v1.5).
+                Upper bound of fire arrival in hours (e.g. 5, 8). A cell's lower bound H_prev comes only from zones nested
+                inside the zone that sets its band; zones of other fires never shift it (v1.5).
+    RouteCheckRequest:
+      type: object
+      required: [region, input_time, start, destination, fire_input]
+      additionalProperties: false
+      properties:
+        region:
+          type: string
+          examples: [uljin_2022]
+        input_time:
+          type: string
+          description: 입력 시각 (UTC 정시) — 여정 시계의 원점 / input time; origin of the journey clock
+          examples: ['2022-03-04T03:00:00Z']
+        start:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        depart_offset_s:
+          type: number
+          minimum: 0
+          default: 0
+          description: input_time 기준 출발 시각 (s) / departure offset from input_time
+        dwell_s:
+          type: number
+          minimum: 0
+          default: 120
+          description: 목적지 체류 시간 (s) / required stay at destination (experiment value 120 s)
+        destination_window:
+          type: array
+          description: '[open_s, close_s] 목적지 도착 허용 구간 (input_time 기준). 생략 시 [0, horizon] / arrival window'
+          items:
+            type: number
+            minimum: 0
+          minItems: 2
+          maxItems: 2
+        policy:
+          $ref: '#/components/schemas/Policy'
+        limits:
+          $ref: '#/components/schemas/Limits'
+        incurred_dose_kj_m2:
+          type: number
+          minimum: 0
+          default: 0
+          description: 요청 이전에 이미 받은 누적 선량 (모든 시나리오 동일) / dose already received before departure
+        fire_input:
+          $ref: '#/components/schemas/FireInput'
+        run_independent_check:
+          type: boolean
+          default: false
+          description: |
+            시간 측정 이후 오프라인 독립 점검기(최대 120 s) 실행. 요청했는데 완료되지 않으면 동결된 채점기처럼 unresolved(CHECK_NOT_FINISHED) (v1.4).
+            Run the offline independent checker after the timed request; if requested but not completed, the result is
+            unresolved (CHECK_NOT_FINISHED), as in the frozen scorer (v1.4). Defined for policy full only.
+        client_ref:
+          type: [string, 'null']
+          maxLength: 200
+    JobAccepted:
+      type: object
+      required: [job_id, status, kind]
+      properties:
+        job_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        kind:
+          type: string
+          enum: [route_check, dispatch_plan]
+        snap:
+          $ref: '#/components/schemas/SnapPair'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 작업이 사용할 입력의 출처 (v1.4) / provenance of the inputs the job will use
+    JobStatus:
+      type: string
+      enum: [queued, running, done, failed]
+      description: '`failed` = API 내부 오류; 결과는 항상 unresolved로 취급 / internal error; always treat as unresolved'
+    SnapInfo:
+      type: object
+      required: [node_id, distance_m, lon, lat, input]
+      properties:
+        node_id:
+          type: string
+        distance_m:
+          type: number
+          minimum: 0
+          description: 입력 좌표에서 노드까지 거리 (EPSG:5179 평면) / snap distance; 0 for node_id input
+        lon:
+          type: number
+        lat:
+          type: number
+        input:
+          type: string
+          enum: [lonlat, node_id]
+    SnapPair:
+      type: object
+      required: [start, destination]
+      properties:
+        start:
+          $ref: '#/components/schemas/SnapInfo'
+        destination:
+          $ref: '#/components/schemas/SnapInfo'
+    Verdict:
+      type: string
+      enum: [checked_route, model_no_route, unresolved]
+    ReasonCode:
+      type: [string, 'null']
+      enum: [TIMEOUT, STATE_CAP, MEMORY_CAP, CHECK_NOT_FINISHED, CHECK_FAILED, WORKER_ERROR, CLEANUP_UNCONFIRMED, INTERNAL_ERROR, OTHER,
+             INPUT_REJECTED, AT_ISSUE_FAILURE, DISCONNECTED, null]
+      description: |
+        unresolved 사유 (그 외 판정에서는 null) / reason for unresolved (null otherwise).
+        TIMEOUT 30 s 예산 초과, STATE_CAP 탐색 상태/확장 상한, MEMORY_CAP 메모리 가드, CHECK_NOT_FINISHED 점검 미완료,
+        CHECK_FAILED 점검 실패·거부, WORKER_ERROR 작업자 비정상 종료, CLEANUP_UNCONFIRMED 프로세스 정리 미확인,
+        INTERNAL_ERROR API 내부 오류, OTHER 기타 (raw_reason 참조).
+        v1.1: INPUT_REJECTED 엔진이 입력을 거부, AT_ISSUE_FAILURE 출발 시점에 이미 한계 초과(기존 누적 선량 등),
+        DISCONNECTED 도로망상 도달 불가(화재와 무관) / engine rejected the input; already in violation at issue time; unreachable in the road graph.
+    ScenarioExposure:
+      type: object
+      required: [scenario_id, peak_kw_m2, dose_kj_m2, contact]
+      properties:
+        scenario_id:
+          type: string
+        peak_kw_m2:
+          type: number
+          description: 여정 중 최대 순간 복사열 / maximum instantaneous flux over the journey (kW/m²)
+        dose_kj_m2:
+          type: number
+          description: 여정 누적 선량 (기존 누적 포함) / cumulative dose including incurred (kJ/m²)
+        contact:
+          type: boolean
+          description: |
+            화염 접촉 여부. full·flame_* 정책의 checked_route에서는 항상 false. travel_only는 화염을 강제하지 않으므로
+            원래(전체) 위험 모델 기준 접촉 여부를 보고하며 true일 수 있습니다 (v1.1).
+            Flame contact; always false for checked_route under full and flame_* policies. travel_only does not enforce flame
+            contact, so its value is assessed against the unchanged full hazard and may be true (v1.1).
+        basis:
+          type: string
+          enum: [centre_model, full_model_centre_check]
+          description: '`centre_model` = 권위 판정의 셀 중심 모델 값(full); `full_model_centre_check` = 축소 정책 경로를 전체 위험으로 재평가 (v1.1)'
+        peak_upper_kw_m2:
+          type: [number, 'null']
+          description: 전 도로 점검의 순간 복사열 상한 (full만) / whole-road check upper bound (full policy only, v1.1)
+        dose_upper_kj_m2:
+          type: [number, 'null']
+          description: 전 도로 점검의 누적 선량 상한 (full만) / whole-road check upper bound (full policy only, v1.1)
+    RouteFeature:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          const: Feature
+        geometry:
+          type: object
+          required: [type, coordinates]
+          properties:
+            type:
+              type: string
+              const: LineString
+            coordinates:
+              type: array
+              items:
+                $ref: '#/components/schemas/Position'
+              minItems: 1
+        properties:
+          type: object
+          required: [times_s, node_ids, segment_count]
+          properties:
+            times_s:
+              type: array
+              description: 각 꼭짓점의 시각 (input_time 기준 s, coordinates와 같은 길이) / per-vertex time
+              items:
+                type: number
+            node_ids:
+              type: array
+              items:
+                type: string
+            segment_count:
+              type: integer
+              description: 도로 구간(leg) 수 / number of road legs
+            edge_ids:
+              type: array
+              items:
+                type: string
+            waits:
+              type: array
+              description: 노드 대기 / waits at nodes
+              items:
+                type: object
+                required: [node_id, from_s, to_s]
+                properties:
+                  node_id:
+                    type: string
+                  from_s:
+                    type: number
+                  to_s:
+                    type: number
+    RouteCheckResult:
+      type: object
+      required: [verdict, reason_code, arrival_s, lower_bound_L_s, dwell_end_s, route, exposure, compute_s, within_budget, provenance]
+      properties:
+        verdict:
+          $ref: '#/components/schemas/Verdict'
+        reason_code:
+          $ref: '#/components/schemas/ReasonCode'
+        raw_status:
+          type: [string, 'null']
+          description: 원본 권위 판정 문자열 / original authoritative status string
+        raw_reason:
+          type: [string, 'null']
+        departure_s:
+          type: [number, 'null']
+        arrival_s:
+          type: [number, 'null']
+          description: 목적지 도착 시각 (input_time 기준 s) / arrival time
+        lower_bound_L_s:
+          type: [number, 'null']
+          description: 화염 회피 최조 도착 하한 L (s) / lower bound L from the earliest flame-avoiding candidate
+        lower_bounds:
+          type: array
+          description: 작업자가 유지한 완료된 완화 하한 목록 (v1.1) / completed relaxation bounds kept by the worker
+          items:
+            type: object
+            properties:
+              kind:
+                type: [string, 'null']
+              arrival_s:
+                type: [number, 'null']
+        full_policy_assessment:
+          type: [object, 'null']
+          description: |
+            축소 정책 경로가 자기 정책의 제약에도 모순되면 결과는 unresolved(CHECK_FAILED) (v1.4).
+            If a reduced-policy route contradicts its own policy's enabled constraints, the result is unresolved (CHECK_FAILED, v1.4).
+            full 이외 정책의 경로를 원래 전체 위험 모델로 오프라인 평가 (독립 점검기 함수 사용, compute_s 미포함) (v1.1).
+            Offline assessment of a reduced-policy route against the unchanged full hazard (not charged to compute_s).
+        dwell_end_s:
+          type: [number, 'null']
+          description: 체류 종료 시각 / end of required stay
+        route:
+          oneOf:
+            - $ref: '#/components/schemas/RouteFeature'
+            - type: 'null'
+          description: checked_route일 때만 제공 / only for checked_route
+        exposure:
+          type: array
+          description: 시나리오별 노출 (checked_route만) / per-scenario exposure (checked_route only)
+          items:
+            $ref: '#/components/schemas/ScenarioExposure'
+        compute_s:
+          type: [number, 'null']
+          description: "요청 시간 (실험과 같은 시계 — 외부 실행부터 게시 완료까지) / request time, same clock as the experiments"
+        within_budget:
+          type: boolean
+          description: compute_s ≤ 30 s
+        policy:
+          $ref: '#/components/schemas/Policy'
+        limits:
+          type: object
+          required: [peak_kw_m2, dose_kj_m2]
+          properties:
+            peak_kw_m2:
+              type: number
+            dose_kj_m2:
+              type: number
+            incurred_dose_kj_m2:
+              type: number
+        independent_check:
+          type: [object, 'null']
+          description: 오프라인 독립 점검 결과 (요청 시) / offline independent check
+          properties:
+            status:
+              type: [string, 'null']
+            classification:
+              type: [string, 'null']
+            verdict:
+              type: [string, 'null']
+            contradictions: {}
+        assumptions:
+          type: [object, 'null']
+          description: spread_zones 변환 가정 / spread_zones adapter assumptions (null for recorded)
+        notes:
+          type: array
+          items:
+            type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    RouteCheckJob:
+      type: object
+      required: [job_id, kind, status, created_at, request, snap, result, error]
+      properties:
+        job_id:
+          type: string
+        kind:
+          type: string
+          const: route_check
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: [string, 'null']
+          format: date-time
+        finished_at:
+          type: [string, 'null']
+          format: date-time
+        request:
+          type: object
+          description: 접수된 요청 (기본값 반영) / accepted request with defaults applied
+        snap:
+          $ref: '#/components/schemas/SnapPair'
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/RouteCheckResult'
+            - type: 'null'
+        error:
+          oneOf:
+            - $ref: '#/components/schemas/JobError'
+            - type: 'null'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 접수 시점의 출처; 완료 결과에는 result.provenance가 전체 기록 (v1.4) / provenance at acceptance
+    JobError:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    DispatchDestination:
+      type: object
+      required: [id, location]
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        dwell_s:
+          type: number
+          minimum: 0
+        window:
+          type: array
+          items:
+            type: number
+            minimum: 0
+          minItems: 2
+          maxItems: 2
+    DispatchOrigin:
+      type: object
+      required: [id, location]
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+    DispatchPlanRequest:
+      type: object
+      required: [region, input_time, fire_input, origins, destinations, depart_offsets_s]
+      additionalProperties: false
+      properties:
+        region:
+          type: string
+        input_time:
+          type: string
+        fire_input:
+          $ref: '#/components/schemas/FireInput'
+        origins:
+          type: array
+          minItems: 1
+          maxItems: 200
+          items:
+            $ref: '#/components/schemas/DispatchOrigin'
+        destinations:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/DispatchDestination'
+        depart_offsets_s:
+          type: array
+          minItems: 1
+          maxItems: 24
+          items:
+            type: number
+            minimum: 0
+        dwell_s:
+          type: number
+          minimum: 0
+          default: 120
+        policy:
+          $ref: '#/components/schemas/Policy'
+          description: 배차 계획은 full만 허용 (그 외 422 POLICY_NOT_ALLOWED, v1.4) / dispatch plans accept full only
+        limits:
+          $ref: '#/components/schemas/Limits'
+        client_ref:
+          type: [string, 'null']
+          maxLength: 200
+    DispatchAttempt:
+      type: object
+      required: [destination_id, depart_offset_s, verdict, reason_code, arrival_s, compute_s]
+      properties:
+        destination_id:
+          type: string
+        depart_offset_s:
+          type: number
+        verdict:
+          $ref: '#/components/schemas/Verdict'
+        reason_code:
+          $ref: '#/components/schemas/ReasonCode'
+        arrival_s:
+          type: [number, 'null']
+        lower_bound_L_s:
+          type: [number, 'null']
+        compute_s:
+          type: [number, 'null']
+        route_check_job_id:
+          type: [string, 'null']
+    DispatchOriginPlan:
+      type: object
+      required: [origin_id, urgency_rank, best_verdict, latest_checked_depart_offset_s, best, attempts]
+      properties:
+        origin_id:
+          type: string
+        urgency_rank:
+          type: integer
+          minimum: 1
+        snap:
+          $ref: '#/components/schemas/SnapInfo'
+        best_verdict:
+          $ref: '#/components/schemas/Verdict'
+          description: |
+            출발지의 최선 판정: 하나라도 checked_route면 checked_route, 모든 시도가 model_no_route면 model_no_route, 그 외 unresolved.
+            Best verdict: checked_route if any attempt is checked; model_no_route only if every attempt is model_no_route; otherwise unresolved.
+        latest_checked_depart_offset_s:
+          type: [number, 'null']
+          description: 점검된 경로를 주는 가장 늦은 출발 오프셋 / latest departure offset with a checked route
+        latest_contiguous_checked_depart_offset_s:
+          type: [number, 'null']
+          description: |
+            가장 이른 요청 오프셋부터 끊김 없이 모든 오프셋에 점검된 경로가 있는 마지막 오프셋 (보수적, v1.4). 긴급도 정렬에 사용.
+            출발 전 출발지 체류 중 노출은 점검하지 않습니다.
+            Last offset such that every requested offset from the earliest up to it has a checked route (conservative, v1.4);
+            used for urgency ordering. Exposure while waiting at the origin before departure is not checked.
+        best:
+          oneOf:
+            - $ref: '#/components/schemas/DispatchAttempt'
+            - type: 'null'
+          description: 가장 늦은 안전 출발에서 가장 이른 도착 시도 / earliest-arrival attempt at the latest checked offset
+        attempts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DispatchAttempt'
+    DispatchPlanResult:
+      type: object
+      required: [plans, summary, provenance]
+      properties:
+        plans:
+          type: array
+          description: 긴급도 순 / sorted by urgency
+          items:
+            $ref: '#/components/schemas/DispatchOriginPlan'
+        summary:
+          type: object
+          required: [origins, attempts, checked_route, model_no_route, unresolved]
+          properties:
+            origins:
+              type: integer
+            attempts:
+              type: integer
+            checked_route:
+              type: integer
+            model_no_route:
+              type: integer
+            unresolved:
+              type: integer
+            median_compute_s:
+              type: [number, 'null']
+            wall_s:
+              type: [number, 'null']
+        rejected_origins:
+          type: array
+          description: 스냅 실패 등으로 점검하지 못한 출발지 / origins that could not be checked (e.g. snap > 300 m)
+          items:
+            type: object
+            required: [origin_id, error]
+            properties:
+              origin_id:
+                type: string
+              error:
+                $ref: '#/components/schemas/JobError'
+        assumptions:
+          type: [object, 'null']
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    DispatchPlanJob:
+      type: object
+      required: [job_id, kind, status, created_at, request, progress, result, error]
+      properties:
+        job_id:
+          type: string
+        kind:
+          type: string
+          const: dispatch_plan
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: [string, 'null']
+          format: date-time
+        finished_at:
+          type: [string, 'null']
+          format: date-time
+        request:
+          type: object
+        progress:
+          type: object
+          required: [done, total]
+          properties:
+            done:
+              type: integer
+            total:
+              type: integer
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/DispatchPlanResult'
+            - type: 'null'
+        error:
+          oneOf:
+            - $ref: '#/components/schemas/JobError'
+            - type: 'null'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+          description: 접수 시점의 출처 (v1.4) / provenance at acceptance
+    RouteExportCollection:
+      type: object
+      required: [type, features, provenance]
+      properties:
+        type:
+          type: string
+          const: FeatureCollection
+        features:
+          type: array
+          items:
+            type: object
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+    Provenance:
+      type: object
+      required: [api_version, package, package_version, kit, checkpoint, git_commit, input_hashes, scenario_ids]
+      description: 출처 정보 / provenance carried by every response
+      properties:
+        api_version:
+          type: string
+        package:
+          type: string
+          const: wfg_latest
+        package_version:
+          type: string
+        kit:
+          type: string
+        checkpoint:
+          type: string
+          pattern: '^[0-9a-f]{64}$'
+        git_commit:
+          type: string
+        git_dirty:
+          type: [boolean, 'null']
+        region:
+          type: [string, 'null']
+        input_time:
+          type: [string, 'null']
+        graph_id:
+          type: [string, 'null']
+        input_hashes:
+          type: object
+          description: 'SHA-256 of every input file (graph, hazard, request, packet sources, forecast export)'
+          additionalProperties:
+            type: string
+        scenario_set_id:
+          type: [string, 'null']
+        scenario_ids:
+          type: array
+          items:
+            type: string
+        fire_input_type:
+          type: [string, 'null']
+          enum: [recorded, spread_zones, null]
+        policy:
+          type: [string, 'null']
+        evaluated_configuration:
+          type: [boolean, 'null']
+          description: |
+            true = 기록 입력 + full 정책 + 기본 한계 (최종 실험과 같은 구성) / recorded input, full policy, default limits.
+        recorded_mission_match:
+          type: [string, 'null']
+          description: 생성된 요청이 기록된 최종 패널 임무 요청과 정확히 같으면 그 임무 ID (v1.1) / recorded mission whose request is identical
+        approximation:
+          type: [string, 'null']
+          description: spread_zones이면 "approximation, requires expert review"
+        clock:
+          type: [string, 'null']
+          description: compute_s 시계 정의 / compute_s clock definition
+        host:
+          type: [object, 'null']
+        generated_at:
+          type: string
+          format: date-time

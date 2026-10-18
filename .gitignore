@@ -25,5 +25,15 @@ node_modules/
 /downloads/
 /build/
 /dist/
+# Village evacuation planner: dependencies, builds, downloaded release assets
+/planner/node_modules/
+/planner/dist/
+/planner/.assets/
+/planner/test-results/
+/planner/playwright-report/
+/planner/cache/.state/
+/planner/.test-cache/
+/planner/exports/
+
 # Route-Check API runtime (job folders, ablation kit copy, packets built per request)
 /artifacts/api_runtime/
