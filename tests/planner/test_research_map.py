@@ -85,7 +85,13 @@ def test_region_index_and_page(bundles, index):
         t = (RM / 'site' / 'regions' / f'{rid}.tex.js').read_text()
         tex = json.loads(t[t.index('=', t.index(']')) + 1:].rstrip().rstrip(';'))
         assert tex['key'].split(':')[1] == rid
-        for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask'):
+        # the first view loads <id>.js; the ring heights (<id>.ctx.js) and OSM vectors (<id>.osm.js) are separate files, and the
+        # texture key is computed from their recorded sizes, so those must match the files
+        b, ctx, osm = bundles[rid], load_js(RM / 'site' / 'regions' / f'{rid}.ctx.js'), load_js(RM / 'site' / 'regions' / f'{rid}.osm.js')
+        assert 'osm' not in b and 'b64' not in b['context']
+        assert b['parts'] == dict(ctx_b64=len(ctx), osm_roads=len(osm['roads']), osm_landuse=len(osm['landuse']))
+        assert tex['key'] == ':'.join(map(str, [2, rid, b['dem']['w'], b['dem']['h'], len(b['dem']['b64']), len(ctx), len(osm['roads']), len(osm['landuse'])]))
+        for k in ('ground', 'hs', 'ctxReal', 'ctxTopo', 'mask', 'poster'):
             assert tex[k].startswith(f'regions/{rid}/') and (RM / 'site' / tex[k]).stat().st_size > 1000
 
 

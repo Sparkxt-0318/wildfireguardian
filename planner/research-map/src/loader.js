@@ -22,10 +22,24 @@ const load = name => new Promise(ok => {
   const s = document.createElement('script'); s.src = 'regions/' + name; s.onload = () => ok(true); s.onerror = () => ok(false); document.head.appendChild(s);
 });
 window.__wfgLoad = load;
-// region data and its pre-built terrain load in parallel; the terrain is optional (drawn in the page without it)
-const texReady = load(`${RID}.tex.js`);
+// region data and its pre-built terrain load in parallel; the terrain is optional (drawn in the page without it). The terrain
+// images start downloading as soon as their small index file is in, not after the region data.
+const img = src => new Promise((ok, no) => { const im = new Image(); im.decoding = 'async'; im.onload = () => ok(im); im.onerror = no; im.src = src; });
+// a picture of the opening view (tools/bake_textures.mjs) stands in for the map while it starts, when the link asks for that view
+// (desktop only: the picture is taken at desktop size, and phones and lite=1 use a different camera distance)
+const DEFAULT_VIEW = [...hp0.keys()].every(k => ['region', 'lang', 'tab'].includes(k)) && !matchMedia('(max-width: 860px)').matches;
+const texReady = load(`${RID}.tex.js`).then(ok => { const t = ok && (window.WFG_TEX || {})[RID];
+  const ld = document.getElementById('loading');
+  const show = t && t.poster && DEFAULT_VIEW && ld;
+  if (show) { ld.classList.add('poster'); ld.innerHTML = `<span>${tr('3D 지형 준비 중…', 'Preparing the 3D view…')}</span>`; }
+  // the poster goes first (it is small and is what you see); the terrain images follow it
+  const first = show ? img(t.poster).then(im => { ld.style.backgroundImage = `url("${im.src}")`; }, () => ld.classList.remove('poster')) : Promise.resolve();
+  if (t) window.__wfgImg = Object.fromEntries(['ground', 'hs', 'ctxReal', 'mask'].map(k => { const p = first.then(() => img(t[k])); p.catch(() => { }); return [k, p]; })); });
+const ctxP = load(`${RID}.ctx.js`).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
 load(`${RID}.js`).then(async ok => {
-  if (!ok) { document.getElementById('loading').textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
+  if (!ok) { const ld = document.getElementById('loading'); ld.className = 'loading'; ld.style.backgroundImage = ''; ld.textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
+  // the surrounding-terrain heights follow; the first frame does not wait for them
+  window.__wfgCtx = ctxP;
   await texReady; main(window.WFG_REGIONS[RID]);
 });
 function main(B) {

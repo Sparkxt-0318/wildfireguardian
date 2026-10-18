@@ -74,8 +74,13 @@ python3 tools/build_logger.py <export> /tmp/rl.glb      # site/logger/model.js, 
 mesh (redistribution terms unconfirmed) for boxes of the same outline and removes the vendor geometry from the file.
 
 `tools/bake_textures.mjs` lets the page draw each region's static terrain once in headless Chromium and saves the
-images, so visitors decode them instead of drawing for several seconds; rerun it after `build_regions.py` (a stale file
-is ignored by key and the page draws instead). `.cache/` (DEM tiles, OSM extracts, merged hourly files) is not committed. The region bundles are deterministic:
+images (WebP; the land-cover mask lossless and checked), so visitors decode them instead of drawing for several seconds.
+It also saves `poster.webp`, a picture of the opening view that the page shows while it starts. Rerun it after
+`build_regions.py` (a stale file is ignored by key and the page draws instead).
+
+What the first view loads: `regions/<id>.js` (what the first frame draws), `<id>.ctx.js` (heights of the surrounding
+ring) and the terrain images, all in parallel. `<id>.osm.js` (OSM vectors, for drawing the terrain in the page and the 2D
+maps) and `<id>.hourly.js` follow after the first frame. `.cache/` (DEM tiles, OSM extracts, merged hourly files) is not committed. The region bundles are deterministic:
 a rebuild from the same inputs is byte-identical.
 
 ### Hourly cumulative probability F(h)

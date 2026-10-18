@@ -40,8 +40,8 @@ def build_single() -> str:
         if p.name == 'index.js': continue
         text = p.read_text()
         if p.name.endswith('.tex.js'):   # image paths -> data URLs
-            for path in re.findall(r'"(regions/[^"]+\.(?:jpg|png))"', text):
-                mime = 'image/png' if path.endswith('.png') else 'image/jpeg'
+            for path in re.findall(r'"(regions/[^"]+\.(?:jpg|png|webp))"', text):
+                mime = {'png': 'image/png', 'webp': 'image/webp'}.get(path.rsplit('.', 1)[1], 'image/jpeg')
                 text = text.replace(f'"{path}"', '"data:' + mime + ';base64,' + base64.b64encode((site / path).read_bytes()).decode() + '"')
         blocks.append(block(p.name, text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}

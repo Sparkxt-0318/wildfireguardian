@@ -83,6 +83,8 @@ button, select, input { font: inherit; color: inherit; }
 .tip .d { color: #b7b0a4; font-size: 11px; }
 .tip .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
 .loading { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; background: #d8d5cd; color: #4b463e; font-size: 13px; }
+.loading.poster { background: #d8d5cd center / cover no-repeat; place-items: end center; padding-bottom: 64px; }
+.loading.poster span { padding: 5px 11px; border-radius: 999px; background: rgba(250, 248, 244, .92); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
 /* side panel */
 .side { grid-area: side; border-left: 1px solid var(--line); overflow-y: auto; background: var(--panel); display: flex; flex-direction: column; }
 .tabs { display: flex; gap: 2px; padding: 10px 12px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 2; }
