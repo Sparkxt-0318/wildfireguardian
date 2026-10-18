@@ -25,6 +25,21 @@ FONTS = ['<link rel="preconnect" href="https://fonts.googleapis.com">', '<link r
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">']
 
 
+def build_single() -> str:
+    """One self-contained HTML file: libraries, every region and the logger figures inline (open it on its own)."""
+    import base64
+    page = build(False)
+    site = ROOT / 'site'
+    inline = lambda p: '<script>\n' + p.read_text().replace('</script', '<\\/script') + '\n</script>'
+    for n in LIBS:
+        page = page.replace(f'<script src="vendor/{n}"></script>', inline(site / 'vendor' / n))
+    figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
+    data = ''.join(inline(p) for p in sorted((site / 'regions').glob('*.js')) if p.name != 'index.js')
+    page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + data
+                        + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
+    return page
+
+
 def build(cdn: bool) -> str:
     read = lambda n: (SRC / n).read_text()
     js = read('loader.js').replace('__MAIN__', read('core.js') + '\n' + read('ui.js'))
@@ -39,8 +54,12 @@ def build(cdn: bool) -> str:
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--cdn', metavar='OUT', help='write the CDN fragment to OUT instead of the offline site/index.html')
+    ap.add_argument('--single', metavar='OUT', help='also write one self-contained HTML file (everything inline) to OUT')
     a = ap.parse_args()
     out = Path(a.cdn) if a.cdn else ROOT / 'site' / 'index.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build(bool(a.cdn)))
+    if a.single:
+        Path(a.single).write_text(build_single())
+        print(f'wrote {a.single} ({Path(a.single).stat().st_size / 1e6:.1f} MB, single file)')
     print(f'wrote {out} ({out.stat().st_size / 1e3:.0f} kB, {"CDN" if a.cdn else "offline"})')

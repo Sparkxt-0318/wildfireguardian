@@ -209,6 +209,7 @@ function renderCompare() {
 }
 
 // ---------------- docs: route logger + sources ----------------
+const figSrc = f => (window.WFG_FIG && window.WFG_FIG[f]) || `logger/${f}.png`;
 const LOGGER = {
   title: tr('현장 경로 기록기 (Route Logger)', 'Field route logger (Route Logger)'),
   sub: tr('WildfireGuardian 직접 제작 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian self-built GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
@@ -244,13 +245,13 @@ function buildDocs() {
   $('pDocs').innerHTML = `
     <div class="grp-h"><span>${LOGGER.title}</span></div>
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
-    <figure class="hero"><img src="logger/fig10.png" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="logger/fig10.png"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
+    <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <h4 class="sub-h">${tr('제작 단계', 'Build phases')}</h4>
     <ol class="phases">${LOGGER.phases.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ol>
     <h4 class="sub-h">${tr('설명서 그림', 'Manual figures')} <small>${tr('누르면 크게', 'click to enlarge')}</small></h4>
-    <div class="gallery">${LOGGER.figs.map(([f, c]) => `<button type="button" data-big="logger/${f}.png" title="${c}"><img src="logger/${f}.png" alt="${c}" loading="lazy"><span>${c}</span></button>`).join('')}</div>
+    <div class="gallery">${LOGGER.figs.map(([f, c]) => `<button type="button" data-big="${figSrc(f)}" title="${c}"><img src="${figSrc(f)}" alt="${c}" loading="lazy"><span>${c}</span></button>`).join('')}</div>
     <p class="note" style="margin:6px 4px 14px">${LOGGER.note}</p>
     <div class="grp-h"><span>${tr('데이터 출처 · 한계', 'Data sources · limits')}</span></div>
     <ul class="src">

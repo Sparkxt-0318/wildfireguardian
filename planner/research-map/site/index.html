@@ -446,6 +446,7 @@ if (EN) {
   document.querySelector('.lightbox figcaption').innerHTML = '<span></span><button type="button">Close</button>';
 }
 if (!window.THREE) { document.getElementById('loading').textContent = tr('3D 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인하거나 오프라인 판(vendor 폴더 포함)을 여세요.', 'Could not load the 3D library. Check the connection or open the offline build (with its vendor folder).'); return; }
+if (window.WFG_REGIONS && window.WFG_REGIONS[RID]) { main(window.WFG_REGIONS[RID]); return; }   // single-file build: data already inline
 const s = document.createElement('script'); s.src = `regions/${RID}.js`;
 s.onload = () => main(window.WFG_REGIONS[RID]);
 s.onerror = () => { document.getElementById('loading').textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; };
@@ -1452,6 +1453,7 @@ function renderCompare() {
 }
 
 // ---------------- docs: route logger + sources ----------------
+const figSrc = f => (window.WFG_FIG && window.WFG_FIG[f]) || `logger/${f}.png`;
 const LOGGER = {
   title: tr('현장 경로 기록기 (Route Logger)', 'Field route logger (Route Logger)'),
   sub: tr('WildfireGuardian 직접 제작 GPS 기록기 · 제작 설명서 2026년 10월 · Case v2 · 펌웨어 0.3.0', 'WildfireGuardian self-built GPS logger · build manual October 2026 · Case v2 · firmware 0.3.0'),
@@ -1487,13 +1489,13 @@ function buildDocs() {
   $('pDocs').innerHTML = `
     <div class="grp-h"><span>${LOGGER.title}</span></div>
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
-    <figure class="hero"><img src="logger/fig10.png" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="logger/fig10.png"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
+    <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <h4 class="sub-h">${tr('제작 단계', 'Build phases')}</h4>
     <ol class="phases">${LOGGER.phases.map(([a, b]) => `<li><b>${a}</b><span>${b}</span></li>`).join('')}</ol>
     <h4 class="sub-h">${tr('설명서 그림', 'Manual figures')} <small>${tr('누르면 크게', 'click to enlarge')}</small></h4>
-    <div class="gallery">${LOGGER.figs.map(([f, c]) => `<button type="button" data-big="logger/${f}.png" title="${c}"><img src="logger/${f}.png" alt="${c}" loading="lazy"><span>${c}</span></button>`).join('')}</div>
+    <div class="gallery">${LOGGER.figs.map(([f, c]) => `<button type="button" data-big="${figSrc(f)}" title="${c}"><img src="${figSrc(f)}" alt="${c}" loading="lazy"><span>${c}</span></button>`).join('')}</div>
     <p class="note" style="margin:6px 4px 14px">${LOGGER.note}</p>
     <div class="grp-h"><span>${tr('데이터 출처 · 한계', 'Data sources · limits')}</span></div>
     <ul class="src">
