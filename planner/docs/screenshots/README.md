@@ -1,21 +1,18 @@
 # 화면 스크린샷 (Screenshots)
 
-Re-shot 2026-10-18 (KST) against the **MOCK** server (`http://127.0.0.1:8765/v1`, recorded results only; the MOCK badge is visible in every image). Each screen exists at 1440x900 and 1920x1080 (`NN-<state>-<WxH>.png`).
+Re-shot 2026-10-18 (KST) from the **booth cache** (`planner/cache/`), which was computed on the evaluated host (Apple M5 Pro, native macOS, 13 API workers, real Route-Check API v1.8.0) on 2026-10-18. No API was connected while shooting (`오프라인 · 캐시 사용`), so every result on screen comes from that cache. Each screen exists at 1440x900 and 1920x1080 (`NN-<state>-<WxH>.png`), captured with `scripts/screenshots.mjs` (state list and deep links in `manifest.json`).
 
-| File | What it shows | Data source | Date |
-|---|---|---|---|
-| 01-main-uiseong | 의성·안동, recorded scenario 2025-03-24 18:00 KST, nothing selected | MOCK | 2026-10-18 |
-| 02-origin-fl2-route | Recorded mission FL2 origin: checked route (green) + dashed travel-only comparison + timeline | MOCK | 2026-10-18 |
-| 03-village-entry | A village (감계리) selected, showing the 진입 지점 distance (197 m); status 미확인 | MOCK | 2026-10-18 |
-| 04-yeongdeok-fd1-no-route | 영덕 recorded mission FD1 selected (모델상 경로 없음 at 04:00) | MOCK | 2026-10-18 |
-| 05-english | English UI (FL2 selected) | MOCK | 2026-10-18 |
-| 06-about | About panel | MOCK | 2026-10-18 |
-| 07-plansheet | Plan-sheet preview (one A4 page per origin, FL2) | MOCK | 2026-10-18 |
-| 07b-plansheet-printed-page-A4 | One page of the printed PDF (FL2, A4; page 87 of 87 of the all-origins PDF), rasterised at 110 dpi (one size) | MOCK | 2026-10-18 |
-| 08-export | Export dialog (GeoJSON / KML / CSV) | MOCK | 2026-10-18 |
-| 09-drawn-zones-preset | Drawn-zone mode, recorded-footprint preset, 5 h / 8 h zones, Set/Go tags in the list | MOCK (zones are user assumptions) | 2026-10-18 |
-| 10-drawn-assumptions | Drawn-zone mode with the API assumptions panel (MOCK) | MOCK | 2026-10-18 |
-| 11-live-recompute | Live recompute in progress (0/6 checks) | MOCK | 2026-10-18 |
-| 12-offline | API unreachable (requests blocked); no cache loaded, so the honest empty state | none | 2026-10-18 |
+| File | What it shows | Data source |
+|---|---|---|
+| 01-main-uiseong | 의성·안동, input 2025-03-23 10:00 KST, nothing selected (85 checked · 1 model no-route · 2 unresolved origins) | booth cache |
+| 02-main-yeongdeok | 영덕, first recorded input | booth cache |
+| 03-origin-route | Recorded mission FL2 origin: deadline 18:20 on a checked route (green), dashed travel-only comparison, departure timeline | booth cache |
+| 04-english | English UI | booth cache |
+| 05-about | About panel | booth cache |
+| 06-plan-sheet | Plan-sheet preview (one A4 page per origin) | booth cache |
+| 07-export | Export dialog (GeoJSON / KML / CSV) | booth cache |
+| 08-drawn-zones | Drawn-zone mode with the recorded-footprint preset; drawn zones are always evaluated live, so with no API the screen says so and computes nothing | none (zones are user assumptions) |
 
-**Note.** These images use the MOCK server, which replays recorded results only. Most OSM villages therefore show **미확인 (unresolved)**, never safe, until the booth cache computed on the M5 Pro is loaded. Linux/MOCK output is not the booth cache.
+`09-live-recompute` is not shot here: the script triggers computation only against the MOCK, never a real API.
+
+`mock/` keeps the earlier set shot against the MOCK server (recorded results only, MOCK badge visible), including the live-recompute, drawn-zone assumptions and offline-empty states.

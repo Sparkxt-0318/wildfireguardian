@@ -1,0 +1,152 @@
+{
+ "generated_at": "2026-10-18T02:25:35.693Z",
+ "url": "http://127.0.0.1:4173/",
+ "states": [
+  {
+   "state": "main-uiseong",
+   "title": "메인 — 의성·안동 (기록 시나리오)",
+   "size": "1440x900",
+   "file": "01-main-uiseong-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "main-yeongdeok",
+   "title": "메인 — 영덕 (기록 시나리오)",
+   "size": "1440x900",
+   "file": "02-main-yeongdeok-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "origin-route",
+   "title": "출발지 선택 + 확인된 경로",
+   "size": "1440x900",
+   "file": "03-origin-route-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "english",
+   "title": "English UI",
+   "size": "1440x900",
+   "file": "04-english-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "about",
+   "title": "소개 (About)",
+   "size": "1440x900",
+   "file": "05-about-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "plan-sheet",
+   "title": "사전 대피계획서 미리보기",
+   "size": "1440x900",
+   "file": "06-plan-sheet-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "export",
+   "title": "내보내기",
+   "size": "1440x900",
+   "file": "07-export-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "drawn-zones",
+   "title": "사용자 입력 확산 구역 (가정)",
+   "size": "1440x900",
+   "file": "08-drawn-zones-1440x900.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "live-recompute",
+   "title": "실시간 재계산 진행 중 (MOCK API)",
+   "size": "1440x900",
+   "file": null,
+   "ok": false,
+   "reason": "skipped: the API is not the MOCK — screenshots never trigger computation on a real API",
+   "page_errors": []
+  },
+  {
+   "state": "main-uiseong",
+   "title": "메인 — 의성·안동 (기록 시나리오)",
+   "size": "1920x1080",
+   "file": "01-main-uiseong-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "main-yeongdeok",
+   "title": "메인 — 영덕 (기록 시나리오)",
+   "size": "1920x1080",
+   "file": "02-main-yeongdeok-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "origin-route",
+   "title": "출발지 선택 + 확인된 경로",
+   "size": "1920x1080",
+   "file": "03-origin-route-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "english",
+   "title": "English UI",
+   "size": "1920x1080",
+   "file": "04-english-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "about",
+   "title": "소개 (About)",
+   "size": "1920x1080",
+   "file": "05-about-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "plan-sheet",
+   "title": "사전 대피계획서 미리보기",
+   "size": "1920x1080",
+   "file": "06-plan-sheet-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "export",
+   "title": "내보내기",
+   "size": "1920x1080",
+   "file": "07-export-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "drawn-zones",
+   "title": "사용자 입력 확산 구역 (가정)",
+   "size": "1920x1080",
+   "file": "08-drawn-zones-1920x1080.png",
+   "ok": true,
+   "page_errors": []
+  },
+  {
+   "state": "live-recompute",
+   "title": "실시간 재계산 진행 중 (MOCK API)",
+   "size": "1920x1080",
+   "file": null,
+   "ok": false,
+   "reason": "skipped: the API is not the MOCK — screenshots never trigger computation on a real API",
+   "page_errors": []
+  }
+ ]
+}
