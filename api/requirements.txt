@@ -1,0 +1,13 @@
+# Route-Check API runtime and test dependencies (Python 3.12). Install with the routing constraints:
+#   python -m pip install -c constraints-routing.txt './integration[packets]' -r api/requirements.txt
+fastapi==0.143.3
+starlette==1.8.0
+pydantic==2.14.1
+uvicorn==0.54.0
+PyYAML==6.0.3
+jsonschema==4.26.0
+referencing==0.37.0
+psutil==7.2.2
+httpx==0.28.1
+pytest==9.1.1
+openapi-spec-validator==0.9.0

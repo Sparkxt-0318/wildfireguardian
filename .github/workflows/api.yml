@@ -1,0 +1,20 @@
+name: Route-Check API contract and adapter tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the routing package and API dependencies
+        run: python -m pip install -c constraints-routing.txt './integration[packets]' -r api/requirements.txt
+      - name: Contract, adapter, verdict and dispatch tests
+        # Tests that need the recorded routing inputs (not in the repository) are skipped and listed by -rs.
+        # Golden and full-panel replays are timing-sensitive and run on the evaluated host: make api-golden / api-panel.
+        run: python -m pytest tests/api -m "not golden and not panel" -rs -v
