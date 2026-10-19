@@ -350,7 +350,7 @@ function buildEvents() {
   const ul = $('evList'); ul.innerHTML = '';
   EVENTS.forEach(ev => { const li = document.createElement('li'), b = document.createElement('button'); b.type = 'button';
     b.innerHTML = `<span class="ic" style="background:${ev.c}"></span><span class="x">${ev.x}</span><span class="t">${fmt(ev.t)}</span>`;
-    b.onclick = () => { if (ev.route) { openCase(ev.route.idx); } else { if (state.detail) setDetail(false); setTime(ev.t + .02); setPlaying(false); if (ev.booth) showTab('pEvac'); } };
+    b.onclick = () => { if (ev.route) { openCase(ev.route.idx); } else { if (NAV.on) navExit('pLayers'); if (state.detail) setDetail(false); setTime(ev.t + .02); setPlaying(false); if (ev.booth) showTab('pEvac'); } };
     li.appendChild(b); ul.appendChild(li); ev.btn = b; });
 }
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -398,8 +398,9 @@ function drawCharts() {
   $('c3v').textContent = moving ? `${Math.round(cur[1])} m` : `${tr('최고', 'max')} ${Math.round(Math.max(...dense.map(p => p.e)))} m`;
 }
 function selectRoute(i) { selRoute = i; buildRouteMeshes(); drawCharts(); buildRouteTab(); }
-function showTab(id) { document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.p === id))); document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== id); const b = document.querySelector(`.tabs button[data-p="${id}"]`); if (b) b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); if (id === 'pNav') navEnter(); }
-function openCase(i) { const c = CASES[i]; if (!c) return; selectRoute(i); if (c.k >= 0) setDetail(true, c.k); setTime(c.r.tDep - 2 / 60); setPlaying(true, 1); flyTo(c.r); if (state.cmp !== 'travel') showTab('pRoute'); }
+function showTab(id) { if (id !== 'pNav' && NAV.on) return navExit(id);     // leaving the navigation tab leaves navigation (navExit shows `id`)
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.p === id))); document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== id); const b = document.querySelector(`.tabs button[data-p="${id}"]`); if (b) b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); if (id === 'pNav') navEnter(); }
+function openCase(i) { const c = CASES[i]; if (!c) return; if (NAV.on) navExit('pRoute'); selectRoute(i); if (c.k >= 0) setDetail(true, c.k); setTime(c.r.tDep - 2 / 60); setPlaying(true, 1); flyTo(c.r); if (state.cmp !== 'travel') showTab('pRoute'); }
 
 // ---------------- research tabs: route check (stage 03) and model structure (01 → 02 → 03) ----------------
 function drawDose(svg, sc, sNow, big) {
@@ -682,9 +683,8 @@ function frame(now) {
   if (state.playing) { state.t += dt * state.speed * (state.detail ? 1 / 60 : 1 / 1.4); const hi = state.detail ? rangeHi() - 1e-4 : TMAX; if (state.t >= hi) { state.t = hi; setPlaying(false); } dirty = true; }
   if (Math.abs(flatF - flatTarget) > 1e-3) { flatF += (flatTarget - flatF) * Math.min(1, dt * 7); if (Math.abs(flatF - flatTarget) < 2e-3) flatF = flatTarget; applyHeights(); }
   const t = state.t;
-  const key = [recIdx(t), inpIdx(t), t - INP[Math.max(0, inpIdx(t))] <= 1, Math.round(t * 2), Math.ceil(t - 1e-6), hzSig(t), state.mode, state.base2d, ...LAYERS.map(l => (l.on ? 1 : 0) + ':' + l.op)].join('|');
-  if (key !== lastKey && !NAV.real) { lastKey = key; compose(); updateTimeUI(); }     // the real 3D map (nav.js) hides the scene
-  else if (key !== lastKey) updateTimeUI();
+  const key = [recIdx(t), inpIdx(t), t - INP[Math.max(0, inpIdx(t))] <= 1, Math.round(t * 2), Math.ceil(t - 1e-6), hzSig(t), state.mode, state.base2d, NAV.on, ...LAYERS.map(l => (l.on ? 1 : 0) + ':' + l.op)].join('|');
+  if (key !== lastKey) { lastKey = key; if (!NAV.real) compose(); updateTimeUI(); }     // the real 3D map (nav.js) hides the scene
   else if (dirty && (now - uiT > 90 || !state.playing)) { updateTimeUI(); uiT = now; }
   dirty = false;
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
@@ -706,7 +706,7 @@ function frame(now) {
   flameMat.uniforms.op.value = smokeMat.uniforms.op.value = L.front.op / 100;
   if (windLines.visible) stepWind(reduceMotion ? 0 : dt);
   stepTween(now); controls.update();
-  updateCars(t); navFrame(t);
+  updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
   if (NAV.real) { /* the real map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);

@@ -1,7 +1,8 @@
 // ---------------- 길 안내 (navigation view): one recorded case played on a road map ----------------
 // One headline case per region for now. The car moves by the routing engine's recorded departure and arrival times for
 // that case; the fire is the routing hazard input (worst of the four scenarios at each moment); red road = flame contact
-// in the cell-centre recomputation, which agrees with the recorded full-risk check (tests/planner/test_research_map.py).
+// in the cell-centre recomputation. The pass / fail on the route cards is the recorded full-risk check
+// (tests/planner/test_research_map.py::test_navigation_view).
 const NAV_CASES = { uiseong_andong_2025: '20250324T090000Z_FL2' };
 const NAV_ROUTES = [
   ['full', tr('점검된 길', 'Checked route'), tr('화재 위험 검사 통과', 'passes the fire-risk check')],
@@ -52,7 +53,7 @@ function navInit() {
 function navEnter() {
   if (NAV.on || NAV.ci < 0) { if (NAV.on) navPanel(); return; }
   NAV.on = true; NAV.follow = true;
-  NAV.prev = { layers: Object.fromEntries(LAYERS.map(l => [l.id, l.on])), mode: state.mode, base2d: state.base2d, pols: new Set(state.pols), sel: selRoute };
+  NAV.prev = { cmp: state.cmp, layers: Object.fromEntries(LAYERS.map(l => [l.id, l.on])), mode: state.mode, base2d: state.base2d, pols: new Set(state.pols), sel: selRoute };
   if (state.cmp !== 'ours') setCompare('ours');
   const want = new Set(['base', 'burn', 'front', 'heat', 'routes', 'places', 'labels']);
   for (const l of LAYERS) if (l.id !== 'relief') setLayer(l.id, want.has(l.id));
@@ -62,12 +63,13 @@ function navEnter() {
   mapEl.classList.add('nav'); $('navHud').hidden = false;
   navView(NAV.view || 'chase', true); navRoute(NAV.pol);
 }
-function navExit() {
+function navExit(to = 'pRoute') {
   if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false);
   const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
   state.pols = pv.pols; setBase(pv.base2d); if (pv.mode !== state.mode) setMode(pv.mode);
-  navMarks(); selectRoute(pv.sel); showTab('pRoute');
+  if (pv.cmp !== state.cmp) setCompare(pv.cmp);
+  navMarks(); selectRoute(pv.sel); showTab(to);
 }
 // choose the route, then play it from just before departure
 function navRoute(pol) {
@@ -97,7 +99,7 @@ function navPanel() {
     return `<button type="button" class="nav-rt${pol === NAV.pol ? ' sel' : ''}" data-pol="${pol}" aria-pressed="${pol === NAV.pol}">
       <span class="t"><b>${fmtMin(p.arr - p.dep)}</b> ${(p.length_m / 1000).toFixed(1)} km</span>
       <span class="n">${name} <small>${why}</small></span>
-      <span class="${ok ? 'ok' : 'bad'}">${ok ? tr('✓ 화염 접촉 없음 · 열 한도 이하', '✓ no flame contact · within heat limits') : tr(`✕ 화염 통과 (${(p.full_check.components || []).map(c => ({ FLAME: '화염', WHOLE_ROAD_CONTACT: '도로 접촉', DOSE: '누적 노출', PEAK: '순간 열유속' }[c] || c)).join(' · ')})`, `✕ through flame (${(p.full_check.components || []).join(', ').toLowerCase().replace(/_/g, ' ')})`)}</span></button>`; };
+      <span class="${ok ? 'ok' : 'bad'}">${ok ? tr('✓ 화염 접촉 없음 · 열 한도 이하', '✓ no flame contact · within heat limits') : tr(`✕ ${(p.full_check.components || []).includes('FLAME') ? '화염 통과' : '위험 검사 불통과'} (${(p.full_check.components || []).map(c => ({ FLAME: '화염', WHOLE_ROAD_CONTACT: '도로 접촉', DOSE: '누적 노출', PEAK: '순간 열유속' }[c] || c)).join(' · ')})`, `✕ ${(p.full_check.components || []).includes('FLAME') ? 'through flame' : 'fails the risk check'} (${(p.full_check.components || []).join(', ').toLowerCase().replace(/_/g, ' ')})`)}</span></button>`; };
   el.innerHTML = `<div class="nav">
     <div class="nav-h"><b>${tr(`${B.name.ko} 산불 · ${navDate(r.t0)} ${navClock(r.t0)} 출발`, `${B.name.en} fire · depart ${navDate(r.t0)} ${navClock(r.t0)}`)}</b>
       <small>${tr(`기록된 경로 점검 사례 ${r.label} · 화재 scenario 4개`, `Recorded route-check case ${r.label} · 4 fire scenarios`)}</small></div>
@@ -119,7 +121,7 @@ function navPanel() {
   $('navPlay').onclick = () => { const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
   $('navFollow').onchange = e => { NAV.follow = e.target.checked; if (!NAV.follow) navFit(); };
-  $('navExit').onclick = navExit;
+  $('navExit').onclick = () => navExit();
 }
 const navDate = h => { const d = kst(h); return EN ? `${d.getUTCDate()} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()]} ${d.getUTCFullYear()}` : `${d.getUTCFullYear()}년 ${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`; };
 const _navT = new THREE.Vector3();
@@ -135,14 +137,15 @@ function navFrame(t) {
   let fl = 0, F = 0, D = 0;
   if (k >= 0 && q.cell >= 0 && moving) for (let mi = 0; mi < 4; mi++) { if (hzFlame(k, mi, q.cell, s)) fl++; F = Math.max(F, hzFlux(k, mi, q.cell, s)); }
   if (p.exp) for (const m of p.exp) { let v = 0; for (const [ts, dv] of m.series) { if (ts > s) break; v = dv; } D = Math.max(D, v); }
-  const lim = p.limits, state_ = fl ? 'fire' : F >= lim.peak_kw_m2 ? 'fire' : F >= lim.peak_kw_m2 * .1 ? 'warn' : 'ok';
+  const lim = p.limits, state_ = !moving ? 'idle' : fl || F >= lim.peak_kw_m2 || D >= lim.dose_kj_m2 ? 'fire' : F >= lim.peak_kw_m2 * .1 ? 'warn' : 'ok';
   NAV.car.el.className = `navcar ${state_}`;
   if (state.playing && s >= p.arr + p.dwell_s) setPlaying(false);
   const cur = NAV.steps.reduce((c, st, i) => st.s <= s + .5 ? i : c, -1);
   if (cur !== NAV.cur) { NAV.cur = cur; document.querySelectorAll('#pNav .nav-steps li').forEach((li, i) => li.classList.toggle('now', i === cur)); }
   const play = $('navPlay'); if (play) play.textContent = state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
   const phase = s < p.dep ? tr('출발 전', 'Before departure') : s <= p.arr ? tr(`출발 후 ${fmtS(s - p.dep)}`, `${fmtS(s - p.dep)} after departure`) : s <= p.arr + p.dwell_s ? tr('대피소 도착 · 머무는 중', 'At the shelter') : tr('도착 완료', 'Arrived');
-  const stTxt = fl ? tr(`화염 속 · 화재 scenario ${fl}/4개`, `In flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('열 한도 초과', 'Over the heat limit') : state_ === 'warn' ? tr('강한 복사 열', 'Strong radiant heat') : tr('화염 없음 · 열 한도 이하', 'No flame · within heat limits');
+  // at the car's position now; whole-road contact is in the recorded check on the route card
+  const stTxt = !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 scenario ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
   const key = [navClock(t), phase, stTxt, q.d.toFixed(1), F.toPrecision(2), D.toPrecision(2), NAV.pol].join('|');
   if (key !== navHudKey) { navHudKey = key; const name = NAV_ROUTES.find(x => x[0] === NAV.pol)[1];
     $('navHud').innerHTML = `<div class="nh-top"><b>${navClock(t)}</b><span>${phase}</span></div>
@@ -170,8 +173,11 @@ function navView(v, quiet) {
 }
 function navReal(on) {
   NAV.real = on; mapEl.classList.toggle('nav3d', on);
-  let el = $('navReal'); if (!on) { if (el) el.hidden = true; lastKey = ''; return; }
-  if (!el) { el = document.createElement('div'); el.id = 'navReal'; el.className = 'navreal'; mapEl.appendChild(el); }
+  let el = $('navReal'); if (!on) { if (el) { el.hidden = true; $('navPhoto').hidden = true; } return; }
+  if (!el) { el = document.createElement('div'); el.id = 'navReal'; el.className = 'navreal'; el.dataset.msg = tr('실제 지도를 불러오는 중…', 'Loading the real map…'); mapEl.appendChild(el);
+    const bd = document.createElement('div'); bd.id = 'navPhoto'; bd.className = 'navphoto'; mapEl.appendChild(bd); }
+  $('navPhoto').hidden = false; $('navPhoto').textContent = NAV.tileErr ? tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection')
+    : tr('위성 사진은 화재 당시 모습이 아닙니다 · 불·경로는 기록 자료', 'Photos are not from the time of the fire · fire and routes are recorded data');
   el.hidden = false;
   navMap().then(map => { map.resize(); navMapRoute(); NAV.burnK = NAV.heatK = null; },
     () => { NAV.realErr = true; navMapP = null; if (NAV.real) navView('2d'); });
@@ -205,6 +211,7 @@ function navMap() {
           { id: 'hits', type: 'line', source: 'hits', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ff2a14', 'line-width': 7 } },
           { id: 'ends', type: 'circle', source: 'ends', paint: { 'circle-radius': 7, 'circle-color': ['get', 'c'], 'circle-stroke-color': '#1e1e1e', 'circle-stroke-width': 2.5, 'circle-pitch-alignment': 'map' } }] } });
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
     await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
     NAV.mlCar = new maplibregl.Marker({ element: car, rotationAlignment: 'map', pitchAlignment: 'map' }).setLngLat(map.getCenter()).addTo(map);
@@ -252,11 +259,13 @@ function navMapFrame(t, p, q, cls, cut) {
   const here = navLL(q.u, q.v), a = navAhead(p.dense, q, .25), ah = navLL(a.u, a.v);
   if (Math.hypot(ah[0] - here[0], ah[1] - here[1]) > 1e-7) { const hd = navBear(here, ah); NAV.hd = NAV.hd == null || cut ? hd : NAV.hd + (((hd - NAV.hd) % 360 + 540) % 360 - 180) * .08; }
   const hd = NAV.hd ?? 0;
-  NAV.mlCar.setLngLat(here).setRotation(hd); NAV.mlCar.getElement().className = `navmlcar ${cls}` + (NAV.view === 'chase' ? '' : ' off');
+  NAV.mlCar.setLngLat(here).setRotation(hd); const ce = NAV.mlCar.getElement();     // classList: MapLibre keeps its own classes on the marker
+  for (const c of ['ok', 'warn', 'fire', 'idle']) ce.classList.toggle(c, c === cls); ce.classList.toggle('off', NAV.view !== 'chase');
   // chase: behind and above the car, the car in the lower part of the view
   if (NAV.view === 'chase') { map.jumpTo({ center: here, bearing: hd, pitch: 62, zoom: 15.8, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } }); return; }
-  // driver's view: eye 12 m above the road, looking at the ground 450 m ahead
+  // driver's view: eye 15 m above the road, aimed at the road 160 m ahead (pitch about 85°, MapLibre's limit; the horizon
+  // stays in view above)
   const ground = ll => { const z = map.queryTerrainElevation(ll); return z == null ? 0 : z + map.transform.elevation; };
-  const to = navStep(here, hd, .45), o = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(here), ground(here) + 12, maplibregl.LngLat.convert(to), ground(to));
+  const to = navStep(here, hd, .16), o = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(here), ground(here) + 15, maplibregl.LngLat.convert(to), ground(to));
   map.jumpTo({ ...o, bearing: hd, padding: { top: 0, bottom: 0, left: 0, right: 0 } });
 }

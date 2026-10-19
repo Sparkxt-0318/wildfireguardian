@@ -113,6 +113,14 @@ def test_navigation_view(bundles):
     for f in ('maplibre-gl.js', 'maplibre-gl.css', 'maplibre-gl.LICENSE.txt'):
         assert (RM / 'site' / 'vendor' / f).is_file()
     assert 'MapLibre GL JS' in (RM / 'site' / 'vendor' / 'maplibre-gl.js').read_text()[:200]
+    # the CDN copy (CDN fragment, single file) is the same release: its integrity hashes are the vendored files' hashes
+    import base64, hashlib, importlib.util
+    for k in ('js', 'css'):
+        h = 'sha384-' + base64.b64encode(hashlib.sha384((RM / 'site' / 'vendor' / f'maplibre-gl.{k}').read_bytes()).digest()).decode()
+        assert f"{k}: '{h}'" in nav, k
+    spec = importlib.util.spec_from_file_location('build_viewer', RM / 'tools' / 'build_viewer.py'); bv = importlib.util.module_from_spec(spec); spec.loader.exec_module(bv)
+    cdn = bv.build(True)
+    assert '__MAPLIBRE__' not in cdn and "const NAV_ML = 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.'" in cdn
 
 
 def test_logger_page():
