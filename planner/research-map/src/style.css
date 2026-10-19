@@ -337,10 +337,26 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 #navReal { position: absolute; inset: 0; z-index: 4; background: #d8d5cd; }   /* id: MapLibre's own .maplibregl-map sets position: relative */
 #navReal:not(.maplibregl-map)::after { content: attr(data-msg); position: absolute; inset: 0; display: grid; place-items: center; color: #4b463e; font-size: 13px; }
 .navphoto { position: absolute; z-index: 5; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(32,33,36,.78); color: #fff; font-size: 12px; padding: 5px 10px; border-radius: 6px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; }
-.map:not(.nav3d) .navphoto { display: none; }
-.map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip { display: none; }
+.map:not(.nav3d) #navPhoto, #navReal.warm + #navPhoto { display: none; }
+#navReal.warm { visibility: hidden; pointer-events: none; }
+.map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip,
+.map.navsv .labels, .map.navsv .mapctl, .map.navsv .scale, .map.navsv .compass, .map.navsv .firechip, .map.navsv .cmpchip { display: none; }
 .navmlcar { width: 42px; height: 42px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
 .navmlcar svg { width: 100%; height: 100%; } .navmlcar path { fill: #1a73e8; stroke: #fff; stroke-width: 2; stroke-linejoin: round; }
 .navmlcar.warn path { fill: #e8a21a; } .navmlcar.fire path { fill: #e23b1d; } .navmlcar.idle path { fill: #6b7280; } .navmlcar.off { visibility: hidden; }
 .navmlfire { background: #e23b1d; color: #fff; font: 600 12px/1 system-ui, sans-serif; padding: 4px 7px; border-radius: 5px; box-shadow: 0 1px 4px rgba(0,0,0,.35); white-space: nowrap; }
 .nav-views button:disabled { opacity: .45; cursor: not-allowed; }
+/* navigation view, road view (Kakao Roadview) */
+#navStreet { position: absolute; inset: 0; z-index: 4; background: #2b2b2b; }
+#navStreet .sv-view { position: absolute; inset: 0; }
+#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 3; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
+#navStreet .sv-photo { z-index: 3; }
+#navStreet .sv-mini { position: absolute; z-index: 3; right: 12px; bottom: 64px; width: 260px; height: 190px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.35); border: 2px solid #fff; }
+#navStreet .sv-ctl { position: absolute; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 10px; background: var(--panel); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 12px; }
+#navStreet .sv-ctl button { min-width: 40px; height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+#navStreet .sv-ctl #svAuto { min-width: 104px; }
+#navStreet .sv-ctl span { color: var(--muted); min-width: 92px; text-align: center; font-variant-numeric: tabular-nums; }
+.nav-key { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
+.nav-key summary { cursor: pointer; font-weight: 600; } .nav-key p { margin: 6px 0; color: var(--muted); line-height: 1.5; } .nav-key code { word-break: break-all; }
+.nav-key input { width: 60%; padding: 4px 6px; border: 1px solid var(--line-2); border-radius: 6px; font: inherit; }
+@media (max-width: 860px) { #navStreet .sv-mini { width: 160px; height: 117px; bottom: 60px; } }

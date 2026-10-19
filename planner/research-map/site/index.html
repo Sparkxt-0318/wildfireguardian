@@ -346,13 +346,29 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 #navReal { position: absolute; inset: 0; z-index: 4; background: #d8d5cd; }   /* id: MapLibre's own .maplibregl-map sets position: relative */
 #navReal:not(.maplibregl-map)::after { content: attr(data-msg); position: absolute; inset: 0; display: grid; place-items: center; color: #4b463e; font-size: 13px; }
 .navphoto { position: absolute; z-index: 5; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(32,33,36,.78); color: #fff; font-size: 12px; padding: 5px 10px; border-radius: 6px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; }
-.map:not(.nav3d) .navphoto { display: none; }
-.map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip { display: none; }
+.map:not(.nav3d) #navPhoto, #navReal.warm + #navPhoto { display: none; }
+#navReal.warm { visibility: hidden; pointer-events: none; }
+.map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip,
+.map.navsv .labels, .map.navsv .mapctl, .map.navsv .scale, .map.navsv .compass, .map.navsv .firechip, .map.navsv .cmpchip { display: none; }
 .navmlcar { width: 42px; height: 42px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
 .navmlcar svg { width: 100%; height: 100%; } .navmlcar path { fill: #1a73e8; stroke: #fff; stroke-width: 2; stroke-linejoin: round; }
 .navmlcar.warn path { fill: #e8a21a; } .navmlcar.fire path { fill: #e23b1d; } .navmlcar.idle path { fill: #6b7280; } .navmlcar.off { visibility: hidden; }
 .navmlfire { background: #e23b1d; color: #fff; font: 600 12px/1 system-ui, sans-serif; padding: 4px 7px; border-radius: 5px; box-shadow: 0 1px 4px rgba(0,0,0,.35); white-space: nowrap; }
 .nav-views button:disabled { opacity: .45; cursor: not-allowed; }
+/* navigation view, road view (Kakao Roadview) */
+#navStreet { position: absolute; inset: 0; z-index: 4; background: #2b2b2b; }
+#navStreet .sv-view { position: absolute; inset: 0; }
+#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 3; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
+#navStreet .sv-photo { z-index: 3; }
+#navStreet .sv-mini { position: absolute; z-index: 3; right: 12px; bottom: 64px; width: 260px; height: 190px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.35); border: 2px solid #fff; }
+#navStreet .sv-ctl { position: absolute; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 10px; background: var(--panel); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 12px; }
+#navStreet .sv-ctl button { min-width: 40px; height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+#navStreet .sv-ctl #svAuto { min-width: 104px; }
+#navStreet .sv-ctl span { color: var(--muted); min-width: 92px; text-align: center; font-variant-numeric: tabular-nums; }
+.nav-key { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
+.nav-key summary { cursor: pointer; font-weight: 600; } .nav-key p { margin: 6px 0; color: var(--muted); line-height: 1.5; } .nav-key code { word-break: break-all; }
+.nav-key input { width: 60%; padding: 4px 6px; border: 1px solid var(--line-2); border-radius: 6px; font: inherit; }
+@media (max-width: 860px) { #navStreet .sv-mini { width: 160px; height: 117px; bottom: 60px; } }
 </style>
 </head>
 <body>
@@ -2135,7 +2151,7 @@ function frame(now) {
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (NAV.real) { /* the real map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  if (NAV.real || NAV.street) { /* the real map or road view covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
@@ -2199,8 +2215,9 @@ const NAV_ROUTES = [
   ['full', tr('점검된 길', 'Checked route'), tr('화재 위험 검사 통과', 'passes the fire-risk check')],
   ['travel_only', tr('가장 빠른 길', 'Fastest route'), tr('이동 시간만 고려', 'travel time only')],
 ];
-// views: a chase camera behind the car and a driver's-eye camera on a real 3D map (satellite photos on terrain), or the 2D road map
-const NAV_VIEWS = [['chase', tr('3D 따라가기', '3D chase')], ['driver', tr('운전자 시점', "Driver's view")], ['2d', tr('2D 지도', '2D map')]];
+// views: street-level photos along the route (Kakao Roadview, stepped with buttons or driven automatically), a chase camera
+// on a real 3D map (satellite photos on terrain), or the 2D road map
+const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
 const navNum = x => x < 1e-4 ? '< 0.0001' : x < .01 ? x.toExponential(1) : x.toPrecision(2);
 const navName = l => l ? (EN ? (l.ne || l.n) : l.n) : '';
 const navClock = h => { const d = kst(h); return `${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}`; };
@@ -2240,6 +2257,13 @@ function navInit() {
   $('tabNav').hidden = false;
   NAV.car = addDom('navcar', '<i></i>', 0, 0, { layer: 'routes', lift: .06, show: false });
   controls.addEventListener('start', () => { if (NAV.on && NAV.follow) { NAV.follow = false; const cb = $('navFollow'); if (cb) cb.checked = false; } });
+  setTimeout(() => (window.requestIdleCallback || setTimeout)(navWarm), 3000);
+  // the Kakao key can come with the link (#…&kakao=KEY): kept in this browser, then taken out of the address
+  const hp = new URLSearchParams(location.hash.slice(1));
+  if (hp.get('kakao')) { navKeySet(hp.get('kakao')); hp.delete('kakao'); history.replaceState(null, '', '#' + hp.toString()); }
+  addEventListener('keydown', e => { if (!NAV.street || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    const k = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
+    if (k) { e.preventDefault(); navAuto(false); navSvGo(NAV.svI + k * (e.shiftKey ? 5 : 1)); } else if (e.key === ' ') { e.preventDefault(); navAuto(!NAV.auto); } });
 }
 function navEnter() {
   if (NAV.on || NAV.ci < 0) { if (NAV.on) navPanel(); return; }
@@ -2252,10 +2276,10 @@ function navEnter() {
   setBase('road');
   const sc = CASES[NAV.ci]; if (sc.k >= 0) setDetail(true, sc.k);
   mapEl.classList.add('nav'); $('navHud').hidden = false;
-  navView(NAV.view || 'chase', true); navRoute(NAV.pol);
+  navView(NAV.view || (navKey() ? 'street' : 'chase'), true); navRoute(NAV.pol);
 }
 function navExit(to = 'pRoute') {
-  if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false);
+  if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false); navStreet(false);
   const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
   state.pols = pv.pols; setBase(pv.base2d); if (pv.mode !== state.mode) setMode(pv.mode);
@@ -2265,8 +2289,9 @@ function navExit(to = 'pRoute') {
 // choose the route, then play it from just before departure
 function navRoute(pol) {
   NAV.pol = pol; const sc = CASES[NAV.ci], p = sc.pol[pol];
-  NAV.steps = navSteps(sc, p); NAV.cur = -1; buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); navMapRoute();
-  setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(true, Number($('speed').value) || 1);
+  NAV.steps = navSteps(sc, p); NAV.cur = -1; NAV.sv = navSvSamples(p.dense); NAV.svI = 0; buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); navMapRoute();
+  setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
+  if (NAV.view === 'street') { navAuto(false); navSvGo(0); } else setPlaying(true, Number($('speed').value) || 1);
 }
 // a label on the map where the route drives through flame
 function navMarks() {
@@ -2298,6 +2323,9 @@ function navPanel() {
       <div><i class="d"></i>${tr(`도착 · ${dest} 대피소`, `To · ${dest} shelter`)}</div></div>
     <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${NAV.realErr && v !== '2d' ? ' disabled' : ''}>${n}</button>`).join('')}</div>
     ${NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
+    ${NAV.view === 'street' || !navKey() ? `<details class="nav-key"${navKey() ? '' : ' open'}><summary>${tr('로드뷰 키 (카카오)', 'Road view key (Kakao)')}${navKey() ? ' ✓' : ''}</summary>
+      <p>${tr('카카오 개발자 사이트(developers.kakao.com)에서 만든 JavaScript 키를 넣으세요. 이 브라우저에만 저장되고 저장소에는 올라가지 않습니다. 앱 설정의 Web 플랫폼에 이 주소를 등록해야 합니다:', 'Paste the JavaScript key from developers.kakao.com. It is kept in this browser only, never in the repository. Register this address under the app\'s Web platform:')} <code>${location.origin}</code></p>
+      <div><input id="navKey" type="password" autocomplete="off" placeholder="${tr('JavaScript 키', 'JavaScript key')}" value=""> <button type="button" class="btn" id="navKeySave">${tr('저장', 'Save')}</button>${navKey() ? ` <button type="button" class="btn" id="navKeyClear">${tr('지우기', 'Remove')}</button>` : ''}</div></details>` : ''}
     <div class="nav-rts">${NAV_ROUTES.map(card).join('')}</div>
     <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button>
       <label ${NAV.view === '2d' ? '' : 'hidden'}><input type="checkbox" id="navFollow" ${NAV.follow ? 'checked' : ''}> ${tr('차 따라가기', 'Follow the car')}</label></div>
@@ -2309,7 +2337,9 @@ function navPanel() {
   el.querySelectorAll('.nav-rt').forEach(b => b.onclick = () => navRoute(b.dataset.pol));
   el.querySelectorAll('.nav-views button').forEach(b => b.onclick = () => navView(b.dataset.view));
   el.querySelectorAll('.nav-steps li').forEach(li => li.onclick = () => { const st = NAV.steps[+li.dataset.i]; setPlaying(false); setTime(r.t0 + (st.kind === 'fire' ? (st.s + st.s2) / 2 : st.s) / 3600); });
-  $('navPlay').onclick = () => { const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
+  if ($('navKeySave')) $('navKeySave').onclick = () => { const v = $('navKey').value.trim(); if (!v) return; navKeySet(v); if (window.kakao?.maps) location.reload(); else { navPanel(); if (NAV.view === 'street') navStreet(true); else navView('street'); } };
+  if ($('navKeyClear')) $('navKeyClear').onclick = () => { navKeySet(''); location.reload(); };
+  $('navPlay').onclick = () => { if (NAV.street) return navAuto(!NAV.auto); const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
   $('navFollow').onchange = e => { NAV.follow = e.target.checked; if (!NAV.follow) navFit(); };
   $('navExit').onclick = () => navExit();
@@ -2333,7 +2363,7 @@ function navFrame(t) {
   if (state.playing && s >= p.arr + p.dwell_s) setPlaying(false);
   const cur = NAV.steps.reduce((c, st, i) => st.s <= s + .5 ? i : c, -1);
   if (cur !== NAV.cur) { NAV.cur = cur; document.querySelectorAll('#pNav .nav-steps li').forEach((li, i) => li.classList.toggle('now', i === cur)); }
-  const play = $('navPlay'); if (play) play.textContent = state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
+  const play = $('navPlay'); if (play) play.textContent = NAV.street ? (NAV.auto ? tr('자동 주행 정지', 'Stop driving') : tr('자동 주행', 'Drive')) : state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
   const phase = s < p.dep ? tr('출발 전', 'Before departure') : s <= p.arr ? tr(`출발 후 ${fmtS(s - p.dep)}`, `${fmtS(s - p.dep)} after departure`) : s <= p.arr + p.dwell_s ? tr('대피소 도착 · 머무는 중', 'At the shelter') : tr('도착 완료', 'Arrived');
   // at the car's position now; whole-road contact is in the recorded check on the route card
   const stTxt = !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 scenario ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
@@ -2344,7 +2374,8 @@ function navFrame(t) {
       <dl><dt>${name}</dt><dd>${q.d.toFixed(1)} / ${(p.length_m / 1000).toFixed(1)} km</dd>
         <dt>${tr('차 위치 복사 열', 'Heat at the car')}</dt><dd>${navNum(F)} kW/m² <small>${tr('한도', 'limit')} ${lim.peak_kw_m2}</small></dd>
         <dt>${tr('누적 열 노출', 'Heat dose so far')}</dt><dd>${navNum(D)} kJ/m² <small>${tr('한도', 'limit')} ${fmtLim(lim.dose_kj_m2)}</small></dd></dl>`; }
-  if (NAV.view !== '2d') navMapFrame(t, p, q, state_, cut);
+  if (NAV.street) navSvFrame(t, p, s, q);
+  else if (NAV.view !== '2d') navMapFrame(t, p, q, state_, cut);
   else if (NAV.follow && !tween) { _navT.set(sxU(q.u), yAt(q.u, q.v), szV(q.v)).sub(controls.target).multiplyScalar(.08); controls.target.add(_navT); camera.position.add(_navT); }
 }
 
@@ -2353,39 +2384,86 @@ function navFrame(t) {
 // The photos were taken at another time, not during the fire. Needs an internet connection; without one the 2D map stays.
 const NAV_ML = 'vendor/maplibre-gl.';     // tools/build_viewer.py: vendor/maplibre-gl. (site, offline folder) or the pinned CDN copy, 4.7.1
 const NAV_SRI = { js: 'sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj', css: 'sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V' };
-const NAV_ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+// tile addresses: photos and roads on Esri's two host names (more connections at once), heights on AWS. Photos and roads stop
+// at zoom 16 (MapLibre enlarges them closer in): a quarter of the zoom-17 requests the chase camera would otherwise make
+const NAV_TILES = { sat: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  roads: 'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',
+  dem: 'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png' };
 const navLL = (u, v) => [W + u * (E - W), N - v * (N - S)];
+const NAV_CHASE = { pitch: 62, zoom: 15.8 };
 let navMapP = null;
 function navView(v, quiet) {
   NAV.view = v; NAV.hd = null;
   if (state.mode !== '2d') setMode('2d');
-  if (v === '2d') { navReal(false); navFit(); } else navReal(true);
+  navStreet(v === 'street'); navReal(v === 'chase'); if (v === '2d') navFit();
   if (!quiet) navPanel();
 }
 function navReal(on) {
   NAV.real = on; mapEl.classList.toggle('nav3d', on);
-  let el = $('navReal'); if (!on) { if (el) { el.hidden = true; $('navPhoto').hidden = true; } return; }
-  if (!el) { el = document.createElement('div'); el.id = 'navReal'; el.className = 'navreal'; el.dataset.msg = tr('실제 지도를 불러오는 중…', 'Loading the real map…'); mapEl.appendChild(el);
-    const bd = document.createElement('div'); bd.id = 'navPhoto'; bd.className = 'navphoto'; mapEl.appendChild(bd); }
+  let el = $('navReal'); if (!on) { if (el) { el.classList.add('warm'); $('navPhoto').hidden = true; } return; }     // kept, hidden: ready next time
+  el = navRealEl(); el.classList.remove('warm');
   $('navPhoto').hidden = false; $('navPhoto').textContent = NAV.tileErr ? tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection')
     : tr('위성 사진은 화재 당시 모습이 아닙니다 · 불·경로는 기록 자료', 'Photos are not from the time of the fire · fire and routes are recorded data');
-  el.hidden = false;
-  navMap().then(map => { map.resize(); navMapRoute(); NAV.burnK = NAV.heatK = null; },
+  // while the view's own first picture loads, the look-ahead waits (same hosts, same connections)
+  NAV.pfHold = true; const resume = () => { if (!NAV.pfHold) return; NAV.pfHold = false; navPrefetch(4); }; setTimeout(resume, 6000);
+  const hold = !NAV.map && state.playing; if (hold) setPlaying(false);     // first time: don't drive into an empty map
+  navMap().then(map => { map.resize(); navMapRoute(); NAV.burnK = NAV.heatK = null; map.once('idle', resume);
+    if (hold) { let go = () => { go = null; if (NAV.real && !state.playing) setPlaying(true, Number($('speed').value) || 1); };
+      map.once('idle', () => go && go()); setTimeout(() => go && go(), 5000); } },
     () => { NAV.realErr = true; navMapP = null; if (NAV.real) navView('2d'); });
 }
 const navLoad = (tag, attrs) => new Promise((ok, no) => { const e = Object.assign(document.createElement(tag), attrs, { onload: ok, onerror: no }); document.head.appendChild(e); });
 const navSri = k => NAV_ML.startsWith('https:') ? { integrity: NAV_SRI[k], crossOrigin: 'anonymous' } : {};     // CDN copy only: file:// cannot be checked
+let navLibP = null;
+const navLib = () => navLibP ??= window.maplibregl ? Promise.resolve()
+  : Promise.all([navLoad('script', { src: NAV_ML + 'js', ...navSri('js') }), navLoad('link', { rel: 'stylesheet', href: NAV_ML + 'css', ...navSri('css') })]).catch(e => { navLibP = null; throw e; });
+// Warm-up, a few seconds after the page has opened (not on phones or data saver): the map library, connections to the tile
+// hosts, and the tiles along both routes, nearest the start first. Both hosts let the browser keep tiles, so when the tab
+// opens and the car drives, the ground is already here instead of arriving while it moves.
+function navWarm() {
+  if (NAV.ci < 0 || isPhone || navigator.connection?.saveData) return;
+  for (const h of ['https://server.arcgisonline.com', 'https://services.arcgisonline.com', 'https://s3.amazonaws.com'])
+    document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'preconnect', href: h, crossOrigin: 'anonymous' }));
+  navPrefetch(3);
+  // the 3D map itself, built out of sight at the departure view: its first picture loads before anyone opens the view
+  navLib().then(() => { navRealEl(); return navMap(); }).catch(() => { });
+  if (navKey()) navKakao().catch(() => { });
+}
+// the 3D map's element: created once, hidden (class warm) when another view is shown
+function navRealEl() {
+  let el = $('navReal'); if (el) return el;
+  el = document.createElement('div'); el.id = 'navReal'; el.className = 'navreal warm'; el.dataset.msg = tr('실제 지도를 불러오는 중…', 'Loading the real map…'); mapEl.appendChild(el);
+  const bd = document.createElement('div'); bd.id = 'navPhoto'; bd.className = 'navphoto'; bd.hidden = true; mapEl.appendChild(bd);
+  return el;
+}
+const navTile = (k, z, x, y) => NAV_TILES[k].replace('{z}', z).replace('{x}', x).replace('{y}', y);
+function navPrefetchList() {
+  const sc = CASES[NAV.ci], out = [], seen = new Set(), add = u => { if (!seen.has(u)) { seen.add(u); out.push(u); } };
+  // zoom levels the chase camera asks for (measured): heights and the wider photo zooms one tile either side of the road,
+  // the closest zoom on the road itself (about 300 tiles, 4 MB, for both routes)
+  const want = [['dem', 12, 1], ['dem', 13, 1], ['dem', 14, 1], ['sat', 13, 1], ['sat', 14, 1], ['sat', 15, 1], ['sat', 16, 0], ['roads', 15, 0], ['roads', 16, 0]];
+  const pts = []; for (const pol of ['full', 'travel_only']) { let last = -1; for (const q of sc.pol[pol].dense) if (q.d - last >= .15) { last = q.d; pts.push(q); } }
+  pts.sort((a, b) => a.d - b.d);
+  for (const q of pts) { const [lon, lat] = navLL(q.u, q.v), r = lat * Math.PI / 180;
+    for (const [k, z, w] of want) { const n = 2 ** z, x = Math.floor((lon + 180) / 360 * n), y = Math.floor((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n);
+      for (let dx = -w; dx <= w; dx++) for (let dy = -w; dy <= w; dy++) add(navTile(k, z, x + dx, y + dy)); } }
+  return out;
+}
+function navPrefetch(par) {
+  NAV.pfPar = Math.max(NAV.pfPar || 0, par); if (!NAV.pf) { NAV.pf = navPrefetchList(); NAV.pfI = 0; NAV.pfN = 0; }
+  while (!NAV.pfHold && NAV.pfN < NAV.pfPar && NAV.pfI < NAV.pf.length) { const u = NAV.pf[NAV.pfI++]; NAV.pfN++;
+    fetch(u, { mode: 'cors', credentials: 'same-origin' }).then(r => r.arrayBuffer()).catch(() => { }).finally(() => { NAV.pfN--; navPrefetch(0); }); }
+}
 function navMap() {
   if (navMapP) return navMapP;
   return navMapP = (async () => {
-    if (!window.maplibregl) await Promise.all([navLoad('script', { src: NAV_ML + 'js', ...navSri('js') }), navLoad('link', { rel: 'stylesheet', href: NAV_ML + 'css', ...navSri('css') })]);
-    const ras = (path, attribution) => ({ type: 'raster', tiles: [NAV_ESRI + path + '/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 18, attribution });
-    const fc = { type: 'FeatureCollection', features: [] }, first = CASES[NAV.ci].pol.full.dense[0];
+    await navLib();
+    const ras = (k, attribution) => ({ type: 'raster', tiles: [NAV_TILES[k]], tileSize: 256, maxzoom: 16, attribution });
+    const fc = { type: 'FeatureCollection', features: [] }, d0 = CASES[NAV.ci].pol[NAV.pol].dense, first = d0[0], a0 = navAhead(d0, { ...first, i: 0 }, .25);
     const map = new maplibregl.Map({ container: 'navReal', interactive: false, attributionControl: false, maxPitch: 85, fadeDuration: 0,
-      center: navLL(first.u, first.v), zoom: 14, pitch: 60, style: { version: 8,
-        sources: { sat: ras('World_Imagery', 'Imagery © Esri, Maxar, Earthstar Geographics'), roads: ras('Reference/World_Transportation', 'Roads © Esri'),
-          places: ras('Reference/World_Boundaries_and_Places', 'Places © Esri'),
-          dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 15, encoding: 'terrarium', attribution: 'Elevation: Terrain Tiles (Mapzen, AWS Open Data)' },
+      center: navLL(first.u, first.v), bearing: navBear(navLL(first.u, first.v), navLL(a0.u, a0.v)), ...NAV_CHASE, style: { version: 8,
+        sources: { sat: ras('sat', 'Imagery © Esri, Maxar, Earthstar Geographics'), roads: ras('roads', 'Roads © Esri'),
+          dem: { type: 'raster-dem', tiles: [NAV_TILES.dem], tileSize: 256, maxzoom: 15, encoding: 'terrarium', attribution: 'Elevation: Terrain Tiles (Mapzen, AWS Open Data)' },
           burn: { type: 'geojson', data: fc }, heat: { type: 'geojson', data: fc },
           alt: { type: 'geojson', data: fc }, route: { type: 'geojson', data: fc }, hits: { type: 'geojson', data: fc }, ends: { type: 'geojson', data: fc } },
         terrain: { source: 'dem', exaggeration: 1 },
@@ -2395,7 +2473,6 @@ function navMap() {
           { id: 'burn', type: 'fill', source: 'burn', paint: { 'fill-color': '#1f1a17', 'fill-opacity': .5, 'fill-antialias': false } },
           { id: 'heat', type: 'fill', source: 'heat', paint: { 'fill-color': ['get', 'c'], 'fill-opacity': ['get', 'o'], 'fill-antialias': false } },
           { id: 'roads', type: 'raster', source: 'roads', paint: { 'raster-opacity': .8 } },
-          { id: 'places', type: 'raster', source: 'places' },
           { id: 'alt', type: 'line', source: 'alt', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#9aa0a6', 'line-width': 5, 'line-opacity': .9 } },
           { id: 'casing', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': 10 } },
           { id: 'route', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#1a73e8', 'line-width': 6 } },
@@ -2453,12 +2530,107 @@ function navMapFrame(t, p, q, cls, cut) {
   NAV.mlCar.setLngLat(here).setRotation(hd); const ce = NAV.mlCar.getElement();     // classList: MapLibre keeps its own classes on the marker
   for (const c of ['ok', 'warn', 'fire', 'idle']) ce.classList.toggle(c, c === cls); ce.classList.toggle('off', NAV.view !== 'chase');
   // chase: behind and above the car, the car in the lower part of the view
-  if (NAV.view === 'chase') { map.jumpTo({ center: here, bearing: hd, pitch: 62, zoom: 15.8, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } }); return; }
-  // driver's view: eye 15 m above the road, aimed at the road 160 m ahead (pitch about 85°, MapLibre's limit; the horizon
-  // stays in view above)
-  const ground = ll => { const z = map.queryTerrainElevation(ll); return z == null ? 0 : z + map.transform.elevation; };
-  const to = navStep(here, hd, .16), o = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(here), ground(here) + 15, maplibregl.LngLat.convert(to), ground(to));
-  map.jumpTo({ ...o, bearing: hd, padding: { top: 0, bottom: 0, left: 0, right: 0 } });
+  map.jumpTo({ center: here, bearing: hd, ...NAV_CHASE, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } });
+}
+
+// ---- 로드뷰: Kakao Roadview photos along the recorded route ----
+// The key is the user's own Kakao JavaScript key (developers.kakao.com), kept in this browser's storage, never in the
+// repository. Kakao serves only the web addresses registered for that key, so road view does not work from file://.
+// The photos were taken at other times; the fire shown (inset map, box) is the recorded data at the moment the car would
+// be at that spot.
+const navKey = () => { try { return localStorage.getItem('wfgKakaoKey') || ''; } catch { return ''; } };
+const navKeySet = v => { try { v ? localStorage.setItem('wfgKakaoKey', v) : localStorage.removeItem('wfgKakaoKey'); } catch { } };
+let navKakaoP = null;
+function navKakao() {
+  return navKakaoP ??= new Promise((ok, no) => {
+    if (window.kakao?.maps?.Roadview) return ok();
+    setTimeout(() => no(new Error('timeout')), 15000);
+    navLoad('script', { src: `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(navKey())}&autoload=false` })
+      .then(() => window.kakao?.maps?.load ? kakao.maps.load(ok) : no(new Error('no kakao.maps')), no);
+  }).catch(e => { navKakaoP = null; throw e; });
+}
+// stops along the route every 30 m, each with the time the car is there
+function navSvSamples(dense) { const out = []; let next = 0; for (const q of dense) if (q.d >= next) { out.push(q); next = q.d + .03; } if (out[out.length - 1] !== dense[dense.length - 1]) out.push(dense[dense.length - 1]); return out; }
+const navSvMsg = t => { const m = $('navSvMsg'); if (m) m.textContent = t; };
+function navStreet(on) {
+  NAV.street = on; mapEl.classList.toggle('navsv', on);
+  let el = $('navStreet'); if (!on) { if (el) el.hidden = true; navAuto(false); return; }
+  if (!el) { el = document.createElement('div'); el.id = 'navStreet'; el.className = 'navstreet';
+    el.innerHTML = `<div class="sv-view" id="navSvView"></div><div class="sv-msg" id="navSvMsg"></div>
+      <div class="navphoto sv-photo">${tr('로드뷰 사진은 화재 당시 모습이 아닙니다 · 불은 기록 자료 (작은 지도·왼쪽 상자)', 'Road photos are not from the time of the fire · the fire is recorded data (inset map, box)')}</div>
+      <canvas class="sv-mini" id="navMini" width="520" height="380" aria-label="${tr('작은 지도: 경로와 기록된 불', 'Inset map: routes and recorded fire')}"></canvas>
+      <div class="sv-ctl"><button type="button" id="svBack" title="${tr('뒤로 30 m (←, Shift: 150 m)', 'Back 30 m (←, Shift: 150 m)')}">◀</button>
+        <button type="button" id="svAuto"></button><button type="button" id="svFwd" title="${tr('앞으로 30 m (→, Shift: 150 m)', 'Forward 30 m (→, Shift: 150 m)')}">▶</button><span id="svPos"></span></div>`;
+    mapEl.appendChild(el);
+    $('svBack').onclick = e => { navAuto(false); navSvGo(NAV.svI - (e.shiftKey ? 5 : 1)); };
+    $('svFwd').onclick = e => { navAuto(false); navSvGo(NAV.svI + (e.shiftKey ? 5 : 1)); };
+    $('svAuto').onclick = () => navAuto(!NAV.auto); }
+  el.hidden = false; navAuto(false);
+  if (!navKey()) return navSvMsg(tr('로드뷰를 보려면 오른쪽 패널에 카카오 JavaScript 키를 넣으세요. 작은 지도와 단계 이동은 키 없이도 됩니다.', 'Add a Kakao JavaScript key in the panel on the right to see road photos. The inset map and stepping work without it.'));
+  navSvMsg(tr('로드뷰를 불러오는 중…', 'Loading road view…'));
+  navKakao().then(() => { navSvInit(); NAV.rv.relayout(); if (NAV.sv) navSvGo(NAV.svI || 0, true); },
+    () => navSvMsg(tr(`카카오 로드뷰를 불러오지 못했습니다. 키가 맞는지, 앱의 Web 플랫폼에 ${location.origin} 이 등록되었는지, 인터넷 연결을 확인하세요.`, `Could not load Kakao road view. Check the key, that ${location.origin} is registered under the app's Web platform, and the internet connection.`)));
+}
+function navSvInit() {
+  if (NAV.rv) return;
+  NAV.rv = new kakao.maps.Roadview($('navSvView')); NAV.rvc = new kakao.maps.RoadviewClient();
+  const loaded = () => { clearTimeout(NAV.rvWatch); if (NAV.svPan != null) NAV.rv.setViewpoint({ pan: NAV.svPan, tilt: 0, zoom: 0 }); if (NAV.svMiss == null) navSvMsg(''); const f = NAV.svDone; NAV.svDone = null; if (f) f(); };
+  kakao.maps.event.addListener(NAV.rv, 'init', loaded); kakao.maps.event.addListener(NAV.rv, 'panoid_changed', loaded);
+}
+// go to stop j: the time follows (so the box and inset map show the fire then), and the nearest photo within 50 m, facing
+// along the route
+function navSvGo(j, keepTime) {
+  const S = NAV.sv; if (!S) return; j = Math.max(0, Math.min(S.length - 1, j)); NAV.svI = j;
+  const sc = CASES[NAV.ci], q = S[j], dense = sc.pol[NAV.pol].dense, ll = navLL(q.u, q.v), a = navAhead(dense, q, .06);
+  NAV.svHd = navBear(ll, navLL(a.u, a.v)); NAV.svPan = (NAV.svHd + 360) % 360;
+  if (!keepTime) { NAV.svT = sc.r.t0 + q.ts / 3600; setTime(NAV.svT); }
+  const pos = $('svPos'); if (pos) pos.textContent = `${q.d.toFixed(2)} / ${(sc.pol[NAV.pol].length_m / 1000).toFixed(1)} km`;
+  if (!NAV.rv) return;
+  const req = NAV.svReq = (NAV.svReq || 0) + 1, at = new kakao.maps.LatLng(ll[1], ll[0]);
+  NAV.rvc.getNearestPanoId(at, 50, id => {
+    if (req !== NAV.svReq) return;     // a newer step was asked for
+    if (id == null) { NAV.svMiss = j; navSvMsg(tr('이 지점 50 m 안에는 로드뷰 사진이 없습니다 · 앞뒤로 이동해 보세요', 'No road photo within 50 m of this point · step on or back')); const f = NAV.svDone; NAV.svDone = null; if (f) f(); return; }
+    NAV.svMiss = null; navSvMsg('');
+    clearTimeout(NAV.rvWatch); NAV.rvWatch = setTimeout(() => navSvMsg(tr(`로드뷰 사진이 오지 않습니다. 앱의 Web 플랫폼에 ${location.origin} 이 등록되었는지 확인하세요.`, `Road photos are not arriving. Check that ${location.origin} is registered under the app's Web platform.`)), 8000);
+    NAV.rv.setPanoId(id, at); NAV.rv.setViewpoint({ pan: NAV.svPan, tilt: 0, zoom: 0 });
+  });
+}
+// automatic drive: 150 m at a time, waiting for each photo (at most 4 s)
+function navAuto(on) {
+  NAV.auto = on; clearTimeout(NAV.autoT); NAV.svDone = null;
+  const b = $('svAuto'); if (b) b.textContent = on ? tr('■ 정지', '■ Stop') : tr('▶ 자동 주행', '▶ Drive');
+  if (on) navAutoStep();
+}
+function navAutoStep() {
+  if (!NAV.auto || !NAV.street) return;
+  if (NAV.svI >= NAV.sv.length - 1) return navAuto(false);
+  let next = () => { next = null; NAV.autoT = setTimeout(navAutoStep, 700); };
+  NAV.svDone = () => next && next(); NAV.autoT = setTimeout(() => next && next(), NAV.rv ? 4000 : 900);
+  navSvGo(NAV.svI + 5);
+}
+// each frame in road view: follow time changes made elsewhere (directions list, timeline), the timeline's play drives,
+// and the inset map is redrawn
+function navSvFrame(t, p, s, q) {
+  if (state.playing) { setPlaying(false); navAuto(true); }
+  if (NAV.sv && NAV.svT != null && Math.abs(t - NAV.svT) > 1e-7) { NAV.svT = t; let j = 0, bd = 1e9;
+    NAV.sv.forEach((x, i) => { const d = Math.abs(x.ts - s); if (d < bd) { bd = d; j = i; } }); if (j !== NAV.svI) navSvGo(j, true); }
+  NAV.svT ??= t;
+  navMini(p, q);
+}
+// inset map: 2.4 km of the road map with the recorded fire (the 2D view's picture), both routes and the car
+function navMini(p, q) {
+  const c = $('navMini'); if (!c || !composite) return;
+  const x = c.getContext('2d'), cw = c.width, ch = c.height, sw = 2.4 / KXr * TW, sh = sw * ch / cw, x0 = q.u * TW - sw / 2, y0 = q.v * TH - sh / 2;
+  const P = (u, v) => [(u * TW - x0) * cw / sw, (v * TH - y0) * ch / sh];
+  x.fillStyle = '#e8e4da'; x.fillRect(0, 0, cw, ch); x.drawImage(composite, x0, y0, sw, sh, 0, 0, cw, ch);
+  const sc = CASES[NAV.ci], line = (d, w, col) => { x.beginPath(); d.forEach((pt, i) => { const [a, b] = P(pt.u, pt.v); i ? x.lineTo(a, b) : x.moveTo(a, b); }); x.lineWidth = w; x.strokeStyle = col; x.stroke(); };
+  x.lineCap = x.lineJoin = 'round';
+  const A = sc.pol[NAV.pol === 'full' ? 'travel_only' : 'full']; if (A) line(A.dense, 6, '#9aa0a6');
+  line(p.dense, 11, '#fff'); line(p.dense, 7, '#1a73e8');
+  const [cx, cy] = P(q.u, q.v); x.save(); x.translate(cx, cy); x.rotate((NAV.svHd || 0) * Math.PI / 180);
+  x.beginPath(); x.moveTo(0, -16); x.lineTo(11, 12); x.lineTo(0, 6); x.lineTo(-11, 12); x.closePath(); x.fillStyle = '#1a73e8'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore();
+  x.font = '600 20px system-ui, sans-serif'; x.fillStyle = 'rgba(255,255,255,.88)'; x.fillRect(0, ch - 32, cw, 32); x.fillStyle = '#3c3a36';
+  x.fillText(tr('빨강 화염 · 주황 열 · 검정 연소 (기록) · 2.4 km 폭', 'red flame · orange heat · black burned (recorded) · 2.4 km wide'), 10, ch - 10);
 }
 
 }
