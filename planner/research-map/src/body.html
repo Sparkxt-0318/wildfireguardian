@@ -27,6 +27,7 @@
   <section class="map" id="map" aria-label="지도. 드래그로 회전 또는 이동, 휠로 확대" data-en-aria="Map. Drag to rotate or pan, scroll to zoom">
     <div class="loading" id="loading" data-en="Preparing terrain and layers…">지형과 층을 준비하는 중…</div>
     <div class="labels" id="labels"></div>
+    <div class="navhud" id="navHud" hidden aria-live="polite"></div>
     <button class="ov compass" id="compass" type="button" title="북쪽 정렬" aria-label="북쪽으로 정렬" data-en-title="North up" data-en-aria="Turn north up">
       <svg viewBox="0 0 26 26" id="needle" aria-hidden="true"><path d="M13 2 18 15h-10z" fill="#fff"/><path d="M13 24 8 15h10z" fill="#77706a"/><text x="13" y="11.5" font-size="6" text-anchor="middle" fill="#2a2724" font-weight="700">N</text></svg>
     </button>
@@ -37,6 +38,7 @@
       <div class="grp" id="baseGrp" hidden>
         <button type="button" id="bTopo" aria-pressed="true" data-en="Topo">지형도</button>
         <button type="button" id="bReal" aria-pressed="false" data-en="Realistic">실사</button>
+        <button type="button" id="bRoad" aria-pressed="false" data-en="Roads">도로</button>
       </div>
       <div class="grp">
         <button type="button" id="m2d" aria-pressed="false">2D</button>
@@ -53,6 +55,7 @@
       <button role="tab" aria-selected="true" data-p="pLayers" type="button" data-en="Layers">레이어</button>
       <button role="tab" aria-selected="false" data-p="pOverview" type="button" data-en="Regions">개요</button>
       <button role="tab" aria-selected="false" data-p="pEvac" type="button" data-en="Evacuation">대피 현황</button>
+      <button role="tab" aria-selected="false" data-p="pNav" type="button" data-en="Navigate" id="tabNav" hidden>길 안내</button>
       <button role="tab" aria-selected="false" data-p="pRoute" type="button" data-en="Route check">경로 점검</button>
       <button role="tab" aria-selected="false" data-p="pCompare" type="button" data-en="Compare">기존 연구 비교</button>
       <button role="tab" aria-selected="false" data-p="pModel" type="button" data-en="Model">연구 구조</button>
@@ -61,6 +64,7 @@
     <div class="pane" id="pLayers" role="tabpanel"></div>
     <div class="pane" id="pOverview" role="tabpanel" hidden></div>
     <div class="pane" id="pEvac" role="tabpanel" hidden></div>
+    <div class="pane" id="pNav" role="tabpanel" hidden></div>
     <div class="pane rt" id="pRoute" role="tabpanel" hidden></div>
     <div class="pane" id="pCompare" role="tabpanel" hidden></div>
     <div class="pane" id="pModel" role="tabpanel" hidden></div>

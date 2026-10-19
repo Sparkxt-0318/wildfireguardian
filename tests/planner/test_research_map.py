@@ -95,6 +95,26 @@ def test_region_index_and_page(bundles, index):
             assert tex[k].startswith(f'regions/{rid}/') and (RM / 'site' / tex[k]).stat().st_size > 1000
 
 
+def test_navigation_view(bundles):
+    """길 안내: each headline case named in src/nav.js is in the bundle with both routes, and the pass / fail the panel shows
+    is the recorded full-risk check; the real 3D map's library is vendored (loaded only when that view opens)."""
+    import re
+    nav = (RM / 'src' / 'nav.js').read_text()
+    cases = dict(re.findall(r"(\w+): '(\d{8}T\d{6}Z_\w+)'", nav[nav.index('NAV_CASES'):nav.index('\n', nav.index('NAV_CASES'))]))
+    assert cases == {'uiseong_andong_2025': '20250324T090000Z_FL2'}
+    for rid, case in cases.items():
+        pol = bundles[rid]['policies'][case]
+        recs = {f.name.split('__')[1][:-5]: json.loads(f.read_text()) for f in (P / 'mock_api/fixtures/records' / rid).glob(f'{case}__*.json')}
+        for name in ('full', 'travel_only'):
+            assert pol[name]['full_check']['passed'] == (recs[name]['full_policy_check']['pass'] is True), (rid, case, name)
+        assert pol['full']['full_check']['passed'] and not pol['travel_only']['full_check']['passed']
+    page = (RM / 'site' / 'index.html').read_text()
+    assert 'id="tabNav"' in page and "const NAV_ML = 'vendor/maplibre-gl.'" in page
+    for f in ('maplibre-gl.js', 'maplibre-gl.css', 'maplibre-gl.LICENSE.txt'):
+        assert (RM / 'site' / 'vendor' / f).is_file()
+    assert 'MapLibre GL JS' in (RM / 'site' / 'vendor' / 'maplibre-gl.js').read_text()[:200]
+
+
 def test_logger_page():
     """Route logger page: the web model has the plain FireBeetle stand-in (no vendor mesh), every part in the export's
     part list is a node of the model, and every manual picture the page links exists."""

@@ -53,6 +53,8 @@ in this repository).
 | 기존 연구 비교 | records' `full_policy_check`; poster Table 1 | the presets show only the kind of output each approach produces; they are not runs of those tools |
 | 자료 (route logger) | WildfireGuardian Route Logger build manual (Oct 2026) | summary and figures; the manual states no purpose, sample rate or cost, so none is shown |
 | Route logger page (`site/logger.html`) | Route Logger website export (Case v2, firmware 0.3.0): web GLB, part list, exploded and step offsets, manual text and pictures | the FireBeetle vendor model is replaced by a plain stand-in; all rights reserved |
+| 길 안내 (navigation), 의성·안동 only | one recorded case (`20250324T090000Z_FL2`): its two routes, departure and arrival times, hazard input and full-risk check | 2D road map from the region's OSM vectors; 3D chase and driver views on a real map (below) |
+| 길 안내 3D map | MapLibre GL JS 4.7.1 (`site/vendor/`), Esri World Imagery and reference tiles, AWS Terrain Tiles | online only; photos are not from the time of the fire; the recorded data is laid flat on top |
 | ✱ temperature, wind, canopy, biome | synthetic | illustrative patterns, not model inputs |
 | F(h) hourly Monte Carlo | `tools/run_hourly_export.sh` output | empty until a real export is merged (below) |
 
@@ -109,6 +111,8 @@ A synthetic rehearsal export is refused by `build_regions.py`.
 
 ## Licences
 
-three.js r128 (`site/vendor/`): MIT, © three.js authors. Map data © OpenStreetMap contributors (ODbL 1.0).
+three.js r128 (`site/vendor/`): MIT, © three.js authors. MapLibre GL JS 4.7.1 (`site/vendor/`): BSD-3-Clause, ©
+MapLibre contributors (`maplibre-gl.LICENSE.txt`). Navigation 3D view tiles, loaded live and not stored: imagery © Esri,
+Maxar, Earthstar Geographics; roads and places © Esri. Map data © OpenStreetMap contributors (ODbL 1.0).
 Terrain: AWS Terrain Tiles (Mapzen Terrarium; SRTM, GMTED and other public sources). Route logger figures: from the
 project's own build manual.
