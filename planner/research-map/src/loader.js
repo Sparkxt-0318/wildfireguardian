@@ -34,9 +34,12 @@ const texReady = load(`${RID}.tex.js`).then(ok => { const t = ok && (window.WFG_
   if (show) { ld.classList.add('poster'); ld.innerHTML = `<span>${tr('3D 지형 준비 중…', 'Preparing the 3D view…')}</span>`; }
   // the poster goes first (it is small and is what you see); the terrain images follow it
   const first = show ? img(t.poster).then(im => { ld.style.backgroundImage = `url("${im.src}")`; }, () => ld.classList.remove('poster')) : Promise.resolve();
-  if (t) window.__wfgImg = Object.fromEntries(['ground', 'hs', 'ctxReal', 'mask'].map(k => { const p = first.then(() => img(t[k])); p.catch(() => { }); return [k, p]; })); });
-const ctxP = load(`${RID}.ctx.js`).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
-load(`${RID}.js`).then(async ok => {
+  if (t) window.__wfgImg = Object.fromEntries(['ground', 'hs', 'ctxReal', 'mask'].map(k => { const p = first.then(() => img(t[k])); p.catch(() => { }); return [k, p]; }));
+  return show ? first.then(() => new Promise(ok => requestAnimationFrame(() => setTimeout(ok, 0)))) : null; });
+// opened from disk, files arrive at once and parsing the region data would hold the poster back: start it once the poster is up
+const gate = location.protocol === 'file:' ? texReady : Promise.resolve();
+const ctxP = gate.then(() => load(`${RID}.ctx.js`)).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
+gate.then(() => load(`${RID}.js`)).then(async ok => {
   if (!ok) { const ld = document.getElementById('loading'); ld.className = 'loading'; ld.style.backgroundImage = ''; ld.textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
   // the surrounding-terrain heights follow; the first frame does not wait for them
   window.__wfgCtx = ctxP;
