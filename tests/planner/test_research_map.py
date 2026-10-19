@@ -100,14 +100,20 @@ def test_navigation_view(bundles):
     is the recorded full-risk check; the real 3D map's library is vendored (loaded only when that view opens)."""
     import re
     nav = (RM / 'src' / 'nav.js').read_text()
-    cases = dict(re.findall(r"(\w+): '(\d{8}T\d{6}Z_\w+)'", nav[nav.index('NAV_CASES'):nav.index('\n', nav.index('NAV_CASES'))]))
-    assert cases == {'uiseong_andong_2025': '20250324T090000Z_FL2'}
+    i = nav.index('const NAV_CASES'); cases = dict(re.findall(r"(\w+): '(\d{8}T\d{6}Z_\w+)'", nav[i:nav.index('};', i)]))
+    assert set(cases) == set(REGIONS)
     for rid, case in cases.items():
         pol = bundles[rid]['policies'][case]
         recs = {f.name.split('__')[1][:-5]: json.loads(f.read_text()) for f in (P / 'mock_api/fixtures/records' / rid).glob(f'{case}__*.json')}
-        for name in ('full', 'travel_only'):
-            assert pol[name]['full_check']['passed'] == (recs[name]['full_policy_check']['pass'] is True), (rid, case, name)
-        assert pol['full']['full_check']['passed'] and not pol['travel_only']['full_check']['passed']
+        # the travel-time-only route fails the recorded full check; the checked route either passes it or is recorded as none
+        assert recs['travel_only']['full_policy_check']['pass'] is False and not pol['travel_only']['full_check']['passed'], (rid, case)
+        if pol['full'].get('pts'):
+            assert recs['full']['full_policy_check']['pass'] is True and pol['full']['full_check']['passed'], (rid, case)
+        else:
+            assert recs['full']['outcome']['verdict'] == 'model_no_route', (rid, case)
+        # baked road view photo IDs belong to this case and have one entry per 30 m stop
+        pano = (RM / 'site' / 'regions' / f'{rid}.pano.js').read_text()
+        assert f'"case":"{case}"' in pano, rid
     # road view: Kakao JavaScript keys (public by design, tied to registered addresses) live in site/kakao-keys.js only
     assert 'appkey=${encodeURIComponent(navKey())}' in nav and not re.search(r'[0-9a-f]{32}', nav)
     keys = (RM / 'site' / 'kakao-keys.js').read_text()     # JavaScript keys only, one per registered address

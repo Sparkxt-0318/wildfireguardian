@@ -358,9 +358,15 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 /* navigation view, road view (Kakao Roadview) */
 #navStreet { position: absolute; inset: 0; z-index: 4; background: #2b2b2b; }
 #navStreet.warm { opacity: 0; pointer-events: none; }   /* built ahead, unseen (Kakao fetches the photo itself once it is shown) */
-#navStreet .sv-view { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
+#navStreet .sv-view { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 52%; transition: opacity .4s ease, transform .4s ease-out; }
+#navStreet .sv-view.go-fwd { transform: scale(1.25); transition: opacity .4s ease, transform 1.1s cubic-bezier(.35,.1,.6,1); }
+#navStreet .sv-view.go-back { transform: scale(.86); transition: opacity .4s ease, transform 1.1s cubic-bezier(.35,.1,.6,1); }
+#navStreet .sv-curtain { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; gap: 12px; justify-items: center; background: #26282b; color: #e8e8e8; font-size: 14px; transition: opacity .4s; }
+#navStreet .sv-curtain i { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #555; border-top-color: #fff; animation: svspin .9s linear infinite; }
+#navStreet.ready .sv-curtain { opacity: 0; pointer-events: none; }
+@keyframes svspin { to { transform: rotate(360deg); } }
 #navStreet .sv-view.on { opacity: 1; z-index: 1; }
-#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 3; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
+#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 5; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
 #navStreet .sv-photo { z-index: 3; }
 #navStreet .sv-minibox { position: absolute; z-index: 3; right: 12px; bottom: 64px; }
 #navStreet .sv-mini { display: block; width: 260px; height: 190px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.35); border: 2px solid #fff; cursor: zoom-in; }
@@ -375,6 +381,15 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .nav-key summary { cursor: pointer; font-weight: 600; } .nav-key p { margin: 6px 0; color: var(--muted); line-height: 1.5; } .nav-key code { word-break: break-all; }
 .nav-key input { width: 60%; padding: 4px 6px; border: 1px solid var(--line-2); border-radius: 6px; font: inherit; }
 @media (max-width: 860px) { #navStreet .sv-mini { width: 160px; height: 117px; } }
+/* navigation: what the colours mean */
+.navlegend { position: absolute; z-index: 5; top: 12px; left: 12px; padding: 8px 10px; border-radius: 9px; background: color-mix(in srgb, var(--panel) 94%, transparent); box-shadow: 0 2px 8px rgba(0,0,0,.2); font-size: 11.5px; line-height: 1.75; }
+.navlegend div { display: flex; align-items: center; gap: 7px; }
+.navlegend i { width: 18px; height: 10px; border-radius: 2px; flex: none; }
+.navlegend .lg-burn { background: #2c2723; } .navlegend .lg-front { height: 3px; background: #ff6a1f; }
+.navlegend .lg-flame { background: #e23b1d; } .navlegend .lg-heat { background: linear-gradient(90deg, #f6a33a, #c74419); }
+.navlegend .lg-q { background: linear-gradient(90deg, rgba(255,238,160,.6), #f06a14, #680020); }
+.navlegend .lg-route { height: 5px; background: linear-gradient(90deg, #1a73e8 70%, #ff2a14 70%); }
+@media (max-width: 860px) { .navlegend { display: none; } }
 </style>
 </head>
 <body>
@@ -408,6 +423,14 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
     <div class="loading" id="loading" data-en="Preparing terrain and layers…">지형과 층을 준비하는 중…</div>
     <div class="labels" id="labels"></div>
     <div class="navhud" id="navHud" hidden aria-live="polite"></div>
+    <div class="navlegend" id="navLegend" hidden>
+      <div><i class="lg-burn"></i><span data-en="Burned (recorded)">탄 곳 (기록)</span></div>
+      <div><i class="lg-front"></i><span data-en="Fire front now (recorded)">지금 불 가장자리 (기록)</span></div>
+      <div><i class="lg-flame"></i><span data-en="Flame (model, worst of 4)">화염 (모델, 4개 중 최악)</span></div>
+      <div><i class="lg-heat"></i><span data-en="Radiant heat">복사 열</span></div>
+      <div><i class="lg-q"></i><span data-en="Likely to burn next hour (model)">다음 1시간 번질 확률 (모델)</span></div>
+      <div><i class="lg-route"></i><span data-en="Route · red where it meets flame">경로 · 화염과 만나는 곳은 빨강</span></div>
+    </div>
     <button class="ov compass" id="compass" type="button" title="북쪽 정렬" aria-label="북쪽으로 정렬" data-en-title="North up" data-en-aria="Turn north up">
       <svg viewBox="0 0 26 26" id="needle" aria-hidden="true"><path d="M13 2 18 15h-10z" fill="#fff"/><path d="M13 24 8 15h10z" fill="#77706a"/><text x="13" y="11.5" font-size="6" text-anchor="middle" fill="#2a2724" font-weight="700">N</text></svg>
     </button>
@@ -472,6 +495,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
         <button type="button" id="play" class="primary" aria-label="재생"><svg viewBox="0 0 16 16" id="playIc"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button>
         <button type="button" id="fwd" title="1시간 앞으로" aria-label="1시간 앞으로" data-en-title="Forward 1 hour" data-en-aria="Forward 1 hour"><svg viewBox="0 0 16 16"><path d="M4 3l6 5-6 5zM12 3v10" fill="currentColor" stroke="currentColor" stroke-width="1.2"/></svg></button>
         <select id="speed" aria-label="재생 속도" data-en-aria="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+        <button type="button" id="reset" title="처음으로" aria-label="처음으로" data-en-title="Back to the start" data-en-aria="Back to the start"><svg viewBox="0 0 16 16"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <div class="track" id="track" role="slider" tabindex="0" aria-label="시각" data-en-aria="Time" aria-valuemin="0">
         <div class="rail"></div><div class="fill" id="tFill"></div><div id="tMarks"></div><div class="knob" id="tKnob"></div><div class="bub" id="tBub"></div>
@@ -1379,7 +1403,7 @@ function compose() {
     for (const [key, cells] of buckets) ember(cells, key / 10 * .9);
   }
   if (L.front.on && qiNow >= 0 && BURNING[qiNow].size) { if (!L.burn.on) { bc.fillStyle = 'rgb(44,39,35)'; bc.beginPath(); for (const i of BURNING[qiNow]) quad(bc, i, QX, QY); bc.fill(); } ember([...BURNING[qiNow]], 1, .22); }
-  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100 * (NAV.on ? .55 : 1); /* lighter in the navigation view, so roads stay readable */ cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
+  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
@@ -1973,6 +1997,8 @@ function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = sp
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
 $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(state.t + 1.001));
+// back to the start: the navigation replay restarts; otherwise the first moment of the timeline (or of the 1-hour detail)
+$('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
 addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
@@ -2219,7 +2245,18 @@ requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('l
 // that case; the fire is the routing hazard input (worst of the four scenarios at each moment); red road = flame contact
 // in the cell-centre recomputation. The pass / fail on the route cards is the recorded full-risk check
 // (tests/planner/test_research_map.py::test_navigation_view).
-const NAV_CASES = { uiseong_andong_2025: '20250324T090000Z_FL2' };
+// one headline case per fire: where the travel-time-only route fails the recorded full check. In 울진 and 영덕 (and
+// 의성·안동) the checker found a detour; in 밀양 and 홍성 every such case is recorded as no fire-safe route at all.
+const NAV_CASES = { uljin_2022: '20220304T060000Z_FL1', miryang_2022: '20220601T080000Z_FD1', hongseong_2023: '20230402T070000Z_FN1',
+  uiseong_andong_2025: '20250324T090000Z_FL2', yeongdeok_2025: '20250325T190000Z_FX2' };
+const navHas = pol => (CASES[NAV.ci]?.pol[pol]?.dense?.length || 0) > 1;     // a recorded route to drive (none: model_no_route)
+const navPols = () => ['full', 'travel_only'].filter(navHas);
+// the shelter's name; where the record only says "research" (a research shelter), the village nearest the route's end
+function navDest(sc) {
+  const r = sc.r; if (r.dest && r.dest !== 'research') return EN ? (r.dest_en || r.dest) : r.dest;
+  const d = sc.pol[navPols()[0]].dense, e = d[d.length - 1], l = navNear(e.u, e.v, 3);
+  return l ? tr(`${navName(l)} 부근`, `near ${navName(l)}`) : tr('연구 사례 도착지', 'research destination');
+}
 const NAV_ROUTES = [
   ['full', tr('점검된 길', 'Checked route'), tr('화재 위험 검사 통과', 'passes the fire-risk check')],
   ['travel_only', tr('가장 빠른 길', 'Fastest route'), tr('이동 시간만 고려', 'travel time only')],
@@ -2255,14 +2292,16 @@ function navSteps(sc, p) {
   for (const r of runs) { const a = d[r.a], b = d[Math.min(d.length - 1, r.b + 1)], near = navNear(a.u, a.v, 2.5);
     steps.push({ s: a.ts, s2: b.ts, kind: 'fire', km: a.d, text: tr(`화염 속을 지남${near ? ' · ' + navName(near) + ' 부근' : ''}`, `Drives through flame${near ? ' · near ' + navName(near) : ''}`),
       sub: tr(`${Math.max(.1, b.d - a.d).toFixed(1)} km · 화재 scenario ${r.ms.size}/4개에서 화염`, `${Math.max(.1, b.d - a.d).toFixed(1)} km · flame in ${r.ms.size} of 4 fire scenarios`) }); }
-  const dest = EN ? (sc.r.dest_en || sc.r.dest) : sc.r.dest;
+  const dest = navDest(sc);
   steps.push({ s: p.arr, kind: 'end', km: last.d, text: tr(`도착 · ${dest || navName(end)} 대피소`, `Arrive · ${dest || navName(end)} shelter`) });
   if (p.dwell_s) steps.push({ s: p.arr + p.dwell_s, kind: 'dwell', km: last.d, text: tr(`대피소에서 ${Math.round(p.dwell_s / 60)}분 머묾 (점검 포함)`, `${Math.round(p.dwell_s / 60)} min at the shelter (checked too)`) });
   return steps.sort((a, b) => a.s - b.s || (a.kind === 'end' ? -1 : 1));
 }
 function navInit() {
-  NAV.ci = CASES.findIndex(c => c.r.case === NAV_CASES[B.id] && c.pol.full && c.pol.travel_only);
+  NAV.ci = CASES.findIndex(c => c.r.case === NAV_CASES[B.id] && (c.pol.travel_only?.dense?.length || 0) > 1);
   if (NAV.ci < 0) return;
+  NAV.pol = navHas('full') ? 'full' : 'travel_only';
+  window.__wfgLoad(B.id + '.pano.js').then(() => { NAV.ids = null; });     // the baked photo list, when there is one
   $('tabNav').hidden = false;
   NAV.car = addDom('navcar', '<i></i>', 0, 0, { layer: 'routes', lift: .06, show: false });
   controls.addEventListener('start', () => { if (NAV.on && NAV.follow) { NAV.follow = false; const cb = $('navFollow'); if (cb) cb.checked = false; } });
@@ -2281,17 +2320,17 @@ function navEnter() {
   NAV.on = true; NAV.follow = true;
   NAV.prev = { cmp: state.cmp, layers: Object.fromEntries(LAYERS.map(l => [l.id, l.on])), mode: state.mode, base2d: state.base2d, pols: new Set(state.pols), sel: selRoute };
   if (state.cmp !== 'ours') setCompare('ours');
-  const want = new Set(['base', 'burn', 'front', 'heat', 'routes', 'places', 'labels']);
+  const want = new Set(['base', 'burn', 'front', 'heat', 'q', 'routes', 'places', 'labels']);     // q: where the model expects it to spread next
   for (const l of LAYERS) if (l.id !== 'relief') setLayer(l.id, want.has(l.id));
   state.pols = new Set(); selRoute = NAV.ci;
   setBase('road');
   const sc = CASES[NAV.ci]; if (sc.k >= 0) setDetail(true, sc.k);
-  mapEl.classList.add('nav'); $('navHud').hidden = false;
+  mapEl.classList.add('nav'); $('navHud').hidden = false; $('navLegend').hidden = false;
   navView(NAV.view || (navKey() ? 'street' : 'chase'), true); navRoute(NAV.pol);
 }
 function navExit(to = 'pRoute') {
   if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false); navStreet(false);
-  const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true;
+  const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true; $('navLegend').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
   state.pols = pv.pols; setBase(pv.base2d); if (pv.mode !== state.mode) setMode(pv.mode);
   if (pv.cmp !== state.cmp) setCompare(pv.cmp);
@@ -2299,8 +2338,8 @@ function navExit(to = 'pRoute') {
 }
 // choose the route, then play it from just before departure
 function navRoute(pol) {
-  NAV.pol = pol; const sc = CASES[NAV.ci], p = sc.pol[pol];
-  NAV.steps = navSteps(sc, p); NAV.cur = -1; NAV.sv = navSvSamples(p.dense); NAV.svI = 0; navResolve(); buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); navMapRoute();
+  NAV.pol = pol; NAV.camBear = NAV.camC = null; const sc = CASES[NAV.ci], p = sc.pol[pol];
+  NAV.steps = navSteps(sc, p); NAV.cur = -1; NAV.sv = navSvSamples(p.dense); NAV.svI = 0; navResolve(); buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); if (NAV.real) navMapRoute();
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
   if (NAV.view === 'street') { navAuto(false); navSvGo(0); } else setPlaying(true, Number($('speed').value) || 1);
 }
@@ -2313,16 +2352,18 @@ function navMarks() {
 }
 // frame both routes; while following, the camera keeps the car in view instead
 function navFit() {
-  const sc = CASES[NAV.ci], pts = [...sc.pol.full.dense, ...sc.pol.travel_only.dense];
+  const sc = CASES[NAV.ci], pts = navPols().flatMap(p => sc.pol[p].dense);
   const u0 = Math.min(...pts.map(q => q.u)), u1 = Math.max(...pts.map(q => q.u)), v0 = Math.min(...pts.map(q => q.v)), v1 = Math.max(...pts.map(q => q.v));
   const asp = mapEl.clientWidth / Math.max(1, mapEl.clientHeight), span = Math.max((v1 - v0) * KY, (u1 - u0) * KX / asp) * 1.35;
   const u = (u0 + u1) / 2, v = (v0 + v1) / 2;
   tweenView({ r: Math.max(4, span / (2 * Math.tan(camera.fov * Math.PI / 360))), phi: .0005, th: 0, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 900);
 }
 function navPanel() {
-  const sc = CASES[NAV.ci], r = sc.r, el = $('pNav'), first = sc.pol.full.dense[0];
-  const start = navNear(first.u, first.v, 3), dest = EN ? (r.dest_en || r.dest) : r.dest;
-  const card = ([pol, name, why]) => { const p = sc.pol[pol], hits = sc.k >= 0 ? flameHits(p.dense, sc.k) : [], ok = p.full_check ? p.full_check.passed : !hits.length;
+  const sc = CASES[NAV.ci], r = sc.r, el = $('pNav'), first = sc.pol[NAV.pol].dense[0];
+  const start = navNear(first.u, first.v, 3), dest = navDest(sc);
+  const card = ([pol, name, why]) => { if (!navHas(pol)) return `<div class="nav-rt none"><span class="n">${name} <small>${why}</small></span>
+      <span class="bad">${tr('✕ 없음: 이 출발지에서 화재 위험 검사를 통과하는 길을 모델이 찾지 못했습니다 (기록)', '✕ none: the model found no route from here that passes the fire-risk check (recorded)')}</span></div>`;
+    const p = sc.pol[pol], hits = sc.k >= 0 ? flameHits(p.dense, sc.k) : [], ok = p.full_check ? p.full_check.passed : !hits.length;
     return `<button type="button" class="nav-rt${pol === NAV.pol ? ' sel' : ''}" data-pol="${pol}" aria-pressed="${pol === NAV.pol}">
       <span class="t"><b>${fmtMin(p.arr - p.dep)}</b> ${(p.length_m / 1000).toFixed(1)} km</span>
       <span class="n">${name} <small>${why}</small></span>
@@ -2357,6 +2398,20 @@ function navPanel() {
 }
 const navDate = h => { const d = kst(h); return EN ? `${d.getUTCDate()} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()]} ${d.getUTCFullYear()}` : `${d.getUTCFullYear()}년 ${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`; };
 const _navT = new THREE.Vector3();
+// the fire around the car at time t: distance to the nearest flame or burning cell (recorded front and the hazard input's
+// flame, worst scenario), and the direction the model's next-hour new-burn probability lies from the burning cells
+const NAV_DIRS = [['북', 'N', '↑'], ['북동', 'NE', '↗'], ['동', 'E', '→'], ['남동', 'SE', '↘'], ['남', 'S', '↓'], ['남서', 'SW', '↙'], ['서', 'W', '←'], ['북서', 'NW', '↖']];
+function navFireNear(t, s, q) {
+  const qi = inpIdx(t), zk = hzK(t), cells = new Set(qi >= 0 ? BURNING[qi] : []);
+  if (zk >= 0) for (const i of hzField(zk, (t - HZ[zk].t0) * 3600, state.member).flame) cells.add(i);
+  let best = Infinity, bu = 0, bv = 0, n = 0;
+  for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat), d = Math.hypot((u - q.u) * KXr, (v - q.v) * KYr); if (d < best) best = d; bu += u; bv += v; n++; }
+  let dir = null;
+  if (qi >= 0 && n && t - INP[qi] <= 1) { let wu = 0, wv = 0, w = 0; const Q = QF[qi];
+    for (let i = 0; i < NCELL; i++) if (Q[i] >= .05) { const [lon, lat] = cellCenter(i); wu += uOf(lon) * Q[i]; wv += vOf(lat) * Q[i]; w += Q[i]; }
+    if (w > 0) { const dx = (wu / w - bu / n) * KXr, dy = -(wv / w - bv / n) * KYr; if (Math.hypot(dx, dy) > .2) dir = NAV_DIRS[Math.round(((Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360) / 45) % 8]; } }
+  return { km: n ? best : null, dir };
+}
 let navHudKey = '';
 function navFrame(t) {
   if (!NAV.car) return;
@@ -2378,11 +2433,13 @@ function navFrame(t) {
   const phase = s < p.dep ? tr('출발 전', 'Before departure') : s <= p.arr ? tr(`출발 후 ${fmtS(s - p.dep)}`, `${fmtS(s - p.dep)} after departure`) : s <= p.arr + p.dwell_s ? tr('대피소 도착 · 머무는 중', 'At the shelter') : tr('도착 완료', 'Arrived');
   // at the car's position now; whole-road contact is in the recorded check on the route card
   const stTxt = !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 scenario ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
-  const key = [navClock(t), phase, stTxt, q.d.toFixed(1), F.toPrecision(2), D.toPrecision(2), NAV.pol].join('|');
+  const fk = [recIdx(t), inpIdx(t), hzSig(t), (q.d * 10).toFixed(0)].join(':'); if (fk !== NAV.fireK) { NAV.fireK = fk; NAV.fire = navFireNear(t, s, q); } const fire = NAV.fire;
+  const key = [navClock(t), phase, stTxt, q.d.toFixed(1), F.toPrecision(2), D.toPrecision(2), NAV.pol, fire.km, fire.dir?.[1]].join('|');
   if (key !== navHudKey) { navHudKey = key; const name = NAV_ROUTES.find(x => x[0] === NAV.pol)[1];
-    $('navHud').innerHTML = `<div class="nh-top"><b>${navClock(t)}</b><span>${phase}</span></div>
-      <div class="nh-st ${state_}">${stTxt}</div>
+    $('navHud').innerHTML = `<div class="nh-st ${state_}">${stTxt}</div>
       <dl><dt>${name}</dt><dd>${q.d.toFixed(1)} / ${(p.length_m / 1000).toFixed(1)} km</dd>
+        <dt>${tr('가장 가까운 불', 'Nearest fire')}</dt><dd>${fire.km == null ? '–' : fire.km < .05 ? tr('차 위치', 'at the car') : fire.km.toFixed(1) + ' km'}</dd>
+        ${fire.dir ? `<dt>${tr('번지는 방향 (모델, 1시간)', 'Spreading toward (model, 1 h)')}</dt><dd>${fire.dir[2]} ${EN ? fire.dir[1] : fire.dir[0]}</dd>` : ''}
         <dt>${tr('차 위치 복사 열', 'Heat at the car')}</dt><dd>${navNum(F)} kW/m² <small>${tr('한도', 'limit')} ${lim.peak_kw_m2}</small></dd>
         <dt>${tr('누적 열 노출', 'Heat dose so far')}</dt><dd>${navNum(D)} kJ/m² <small>${tr('한도', 'limit')} ${fmtLim(lim.dose_kj_m2)}</small></dd></dl>`; }
   if (NAV.street) navSvFrame(t, p, s, q);
@@ -2413,8 +2470,7 @@ function navReal(on) {
   NAV.real = on; mapEl.classList.toggle('nav3d', on);
   let el = $('navReal'); if (!on) { if (el) { el.classList.add('warm'); $('navPhoto').hidden = true; } return; }     // kept, hidden: ready next time
   el = navRealEl(); el.classList.remove('warm');
-  $('navPhoto').hidden = false; $('navPhoto').textContent = NAV.tileErr ? tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection')
-    : tr('위성 사진은 화재 당시 모습이 아닙니다 · 불·경로는 기록 자료', 'Photos are not from the time of the fire · fire and routes are recorded data');
+  $('navPhoto').hidden = !NAV.tileErr; $('navPhoto').textContent = tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection');
   // while the view's own first picture loads, the look-ahead waits (same hosts, same connections)
   NAV.pfHold = true; const resume = () => { if (!NAV.pfHold) return; NAV.pfHold = false; navPrefetch(4); }; setTimeout(resume, 6000);
   const hold = !NAV.map && state.playing; if (hold) setPlaying(false);     // first time: don't drive into an empty map
@@ -2437,7 +2493,8 @@ function navWarm() {
     document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'preconnect', href: h, crossOrigin: 'anonymous' }));
   navPrefetch(3);
   // the 3D map itself, built out of sight at the departure view: its first picture loads before anyone opens the view
-  navLib().then(() => { navRealEl(); return navMap(); }).catch(() => { });
+  // and drawn once with the route and the fire, so its drawing programs are compiled now, not when a view opens
+  navLib().then(() => { navRealEl(); return navMap(); }).then(map => { navMapRoute(); const sc = CASES[NAV.ci]; navFire(map, sc.r.t0 + sc.pol[NAV.pol].dep / 3600); map.triggerRepaint(); }).catch(() => { });
   if (navKey()) { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); }
 }
 // the 3D map's element: created once, hidden (class warm) when another view is shown
@@ -2453,7 +2510,7 @@ function navPrefetchList() {
   // zoom levels the chase camera asks for (measured): heights and the wider photo zooms one tile either side of the road,
   // the closest zoom on the road itself (about 300 tiles, 4 MB, for both routes)
   const want = [['dem', 12, 1], ['dem', 13, 1], ['dem', 14, 1], ['sat', 13, 1], ['sat', 14, 1], ['sat', 15, 1], ['sat', 16, 0], ['roads', 15, 0], ['roads', 16, 0]];
-  const pts = []; for (const pol of ['full', 'travel_only']) { let last = -1; for (const q of sc.pol[pol].dense) if (q.d - last >= .15) { last = q.d; pts.push(q); } }
+  const pts = []; for (const pol of navPols()) { let last = -1; for (const q of sc.pol[pol].dense) if (q.d - last >= .15) { last = q.d; pts.push(q); } }
   pts.sort((a, b) => a.d - b.d);
   for (const q of pts) { const [lon, lat] = navLL(q.u, q.v), r = lat * Math.PI / 180;
     for (const [k, z, w] of want) { const n = 2 ** z, x = Math.floor((lon + 180) / 360 * n), y = Math.floor((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n);
@@ -2489,7 +2546,7 @@ function navMap() {
           { id: 'route', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#1a73e8', 'line-width': 6 } },
           { id: 'hits', type: 'line', source: 'hits', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ff2a14', 'line-width': 7 } },
           { id: 'ends', type: 'circle', source: 'ends', paint: { 'circle-radius': 7, 'circle-color': ['get', 'c'], 'circle-stroke-color': '#1e1e1e', 'circle-stroke-width': 2.5, 'circle-pitch-alignment': 'map' } }] } });
-    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'top-right');
     map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
     await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
@@ -2510,7 +2567,7 @@ function navMapRoute() {
   const a = P.dense[0], b = P.dense[P.dense.length - 1], pt = (q, c) => ({ type: 'Feature', properties: { c }, geometry: { type: 'Point', coordinates: navLL(q.u, q.v) } });
   map.getSource('ends').setData({ type: 'FeatureCollection', features: [pt(a, '#ffffff'), pt(b, '#d93025')] });
   for (const m of NAV.mlMarks || []) m.remove();
-  NAV.mlMarks = NAV.steps.filter(st => st.kind === 'fire').map(st => { const q = navAt(P.dense, st.s), e = document.createElement('div');
+  NAV.mlMarks = (NAV.steps || []).filter(st => st.kind === 'fire').map(st => { const q = navAt(P.dense, st.s), e = document.createElement('div');
     e.className = 'navmlfire'; e.textContent = `${tr('화염', 'Flame')} ${navClock(sc.r.t0 + st.s / 3600)}`;
     return new maplibregl.Marker({ element: e, anchor: 'bottom', offset: [0, -6] }).setLngLat(navLL(q.u, q.v)).addTo(map); });
 }
@@ -2540,8 +2597,12 @@ function navMapFrame(t, p, q, cls, cut) {
   const hd = NAV.hd ?? 0;
   NAV.mlCar.setLngLat(here).setRotation(hd); const ce = NAV.mlCar.getElement();     // classList: MapLibre keeps its own classes on the marker
   for (const c of ['ok', 'warn', 'fire', 'idle']) ce.classList.toggle(c, c === cls); ce.classList.toggle('off', NAV.view !== 'chase');
-  // chase: behind and above the car, the car in the lower part of the view
-  map.jumpTo({ center: here, bearing: hd, ...NAV_CHASE, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } });
+  // a calm camera: one fixed direction (start to end of the route), height and tilt; it drifts gently after the car instead
+  // of turning with every bend
+  const d = p.dense, e0 = navLL(d[0].u, d[0].v), e1 = navLL(d[d.length - 1].u, d[d.length - 1].v);
+  NAV.camBear ??= navBear(e0, e1);
+  if (!NAV.camC || cut) NAV.camC = here.slice(); else { NAV.camC[0] += (here[0] - NAV.camC[0]) * .025; NAV.camC[1] += (here[1] - NAV.camC[1]) * .025; }
+  map.jumpTo({ center: NAV.camC, bearing: NAV.camBear, pitch: 55, zoom: 14.6, padding: { top: Math.round(map.getContainer().clientHeight * .15), bottom: 0, left: 0, right: 0 } });
 }
 
 // ---- 로드뷰: Kakao Roadview photos along the recorded route ----
@@ -2569,19 +2630,23 @@ function navSvSamples(dense) { const out = []; let next = 0; for (const q of den
 const navSvMsg = t => { const m = $('navSvMsg'); if (m) m.textContent = t; };
 // ---- photo IDs along both routes, looked up once (four at a time) and kept in this browser ----
 const navIdKey = pol => `wfgPano:${B.id}:${CASES[NAV.ci].r.case}:${pol}`;
+// baked list first (site/regions/<id>.pano.js, tools/bake_panos.mjs), then this browser's own lookups
 function navIds(pol) {
   NAV.ids ??= {};
-  if (!NAV.ids[pol]) { let a = null; try { a = JSON.parse(localStorage.getItem(navIdKey(pol)) || 'null'); } catch { }
+  if (!NAV.ids[pol]) { const bk = (window.WFG_PANO || {})[B.id]; let a = !NAV_BAKING && bk && bk.case === CASES[NAV.ci].r.case ? bk[pol] : null;
+    if (!a && !NAV_BAKING) try { a = JSON.parse(localStorage.getItem(navIdKey(pol)) || 'null'); } catch { }
     const n = navSvSamples(CASES[NAV.ci].pol[pol].dense).length; NAV.ids[pol] = a && a.length === n ? a : new Array(n).fill(undefined); }
   return NAV.ids[pol];
 }
+const NAV_BAKING = /(^#|&)bakepano=1(&|$)/.test(location.hash);
+window.__navPano = () => ({ case: NAV.ci >= 0 ? CASES[NAV.ci].r.case : null, pols: navPols(), ids: NAV.ids || {}, left: (NAV.resQ?.length || 0) + (NAV.resN || 0) });
 function navResolve() {
   if (NAV.ci < 0 || !navKey()) return;
   navKakao().then(() => {
     NAV.rvc ??= new kakao.maps.RoadviewClient();
     // the chosen route from the current stop first, then the rest of it, then the other route
-    const order = [], other = NAV.pol === 'full' ? 'travel_only' : 'full';
-    for (const pol of [NAV.pol, other]) { const ids = navIds(pol), from = pol === NAV.pol ? NAV.svI || 0 : 0;
+    const order = [];
+    for (const pol of [NAV.pol, ...navPols().filter(x => x !== NAV.pol)]) { const ids = navIds(pol), from = pol === NAV.pol ? NAV.svI || 0 : 0;
       for (let k = 0; k < ids.length; k++) { const j = (from + k) % ids.length; if (ids[j] === undefined) order.push([pol, j]); } }
     NAV.resQ = order; NAV.resN ??= 0; for (let k = 0; k < 4; k++) navResolveNext();
   }, () => { });
@@ -2602,7 +2667,7 @@ function navStreetEl() {
   let el = $('navStreet'); if (el) return el;
   el = document.createElement('div'); el.id = 'navStreet'; el.className = 'navstreet warm';
   el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-msg" id="navSvMsg"></div>
-    <div class="navphoto sv-photo">${tr('로드뷰 사진은 화재 당시 모습이 아닙니다 · 불은 기록 자료 (작은 지도·왼쪽 상자)', 'Road photos are not from the time of the fire · the fire is recorded data (inset map, box)')}</div>
+    <div class="sv-curtain"><i></i>${tr('로드뷰 준비 중…', 'Preparing road view…')}</div>
     <div class="sv-minibox"><canvas class="sv-mini" id="navMini" width="520" height="380" aria-label="${tr('작은 지도: 경로와 기록된 불', 'Inset map: routes and recorded fire')}"></canvas>
       <div class="sv-zoom"><button type="button" id="miniIn" title="${tr('확대', 'Zoom in')}">+</button><button type="button" id="miniOut" title="${tr('축소', 'Zoom out')}">−</button></div></div>
     <div class="sv-ctl"><button type="button" id="svBack" title="${tr('뒤로 (←, Shift: 크게)', 'Back (←, Shift: bigger step)')}">◀</button>
@@ -2621,14 +2686,19 @@ function navStreetEl() {
 function navSvInit() {
   if (NAV.rvs) return;
   NAV.rvc ??= new kakao.maps.RoadviewClient();
-  NAV.rvs = ['navSvA', 'navSvB'].map(id => { const b = { el: $(id), id: null, ready: false };
-    b.rv = new kakao.maps.Roadview(b.el);
-    const loaded = () => { clearTimeout(b.t); b.t = setTimeout(() => { b.ready = true; if (b.onReady) { const f = b.onReady; b.onReady = null; f(); } }, 350); };
-    kakao.maps.event.addListener(b.rv, 'init', loaded); kakao.maps.event.addListener(b.rv, 'panoid_changed', loaded);
-    return b; });
-  NAV.front = 0; NAV.rvs[0].el.classList.add('on');
-  setTimeout(() => NAV.rvs.forEach(b => b.rv.relayout()), 50);     // Kakao waits for a size before it loads photos
+  // one road view first (each costs Kakao a lot of work when it starts); the second, for the photo ahead, once the first
+  // photo is on screen
+  NAV.rvs = [navSvMake('navSvA')]; NAV.front = 0; NAV.rvs[0].el.classList.add('on');
 }
+function navSvMake(id) {
+  const b = { el: $(id), id: null, ready: false };
+  b.rv = new kakao.maps.Roadview(b.el);
+  const loaded = () => { clearTimeout(b.t); b.t = setTimeout(() => { b.ready = true; if (b.onReady) { const f = b.onReady; b.onReady = null; f(); } }, 500); };
+  kakao.maps.event.addListener(b.rv, 'init', loaded); kakao.maps.event.addListener(b.rv, 'panoid_changed', loaded);
+  setTimeout(() => b.rv.relayout(), 50);     // Kakao waits for a size before it loads photos
+  return b;
+}
+function navSvSecond() { if (NAV.rvs.length < 2) { NAV.rvs[1] = navSvMake(NAV.rvs[0].el.id === 'navSvA' ? 'navSvB' : 'navSvA'); } }
 // build out of sight at the first stop, so the first photo is already there when the view opens
 function navStreetWarm() {
   if (!navKey() || NAV.ci < 0) return;
@@ -2640,15 +2710,15 @@ function navStreet(on) {
   el.classList.toggle('warm', !on); if (!on) { navAuto(false); return; }
   navAuto(false);
   if (!navKey()) return navSvMsg(tr('로드뷰 키가 없습니다. 오른쪽 패널에 카카오 JavaScript 키를 넣으세요.', 'No road view key. Add a Kakao JavaScript key in the panel on the right.'));
-  if (!NAV.rvs) navSvMsg(tr('로드뷰를 불러오는 중…', 'Loading road view…'));
-  navKakao().then(() => { navSvInit(); NAV.rvs.forEach(b => b.rv.relayout()); if (NAV.sv) navSvGo(NAV.svI || 0, true); navResolve(); },
+
+  navKakao().then(() => new Promise(ok => requestAnimationFrame(() => requestAnimationFrame(ok)))).then(() => { if (!NAV.street) return; navSvInit(); NAV.rvs.forEach(b => b.rv.relayout()); if (NAV.sv) navSvGo(NAV.svI || 0, true); navResolve(); },
     () => navSvMsg(tr(`카카오 로드뷰를 불러오지 못했습니다. 키와 등록된 주소(${location.origin}), 인터넷 연결을 확인하세요.`, `Could not load Kakao road view. Check the key, the registered address (${location.origin}) and the internet connection.`)));
 }
 // heading at stop j: along the route, 60 m ahead
 function navSvHd(j) { const S = NAV.sv, q = S[j], d = CASES[NAV.ci].pol[NAV.pol].dense, a = navAhead(d, q, .06); return (navBear(navLL(q.u, q.v), navLL(a.u, a.v)) + 360) % 360; }
 // step n stops (each to a different photo); the car's time follows
 function navSvStep(n) {
-  const S = NAV.sv; if (!S) return; const ids = NAV.rvs ? navIds(NAV.pol) : null, dir = Math.sign(n); let j = NAV.svI, left = Math.abs(n);
+  NAV.svDir = Math.sign(n) || 1; const S = NAV.sv; if (!S) return; const ids = NAV.rvs ? navIds(NAV.pol) : null, dir = Math.sign(n); let j = NAV.svI, left = Math.abs(n);
   while (left > 0 && j + dir >= 0 && j + dir < S.length) { j += dir; const id = ids?.[j]; if (id === null) continue; if (!ids || id === undefined || id !== ids[NAV.svI]) left--; }
   navSvGo(j);
 }
@@ -2669,15 +2739,24 @@ function navSvShow(j) {
   if (NAV.svMiss != null) { NAV.svMiss = null; navSvMsg(''); }
   const ll = navLL(NAV.sv[j].u, NAV.sv[j].v), at = new kakao.maps.LatLng(ll[1], ll[0]);
   const after = () => { NAV.stepDone?.(); navSvPreload(j); };
+  if (!Bk) {     // only one view yet: load into it, then add the second
+    if (F.id !== id) { F.id = id; F.ready = false; F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
+    F.onReady = () => { if (NAV.svI !== j) return; $('navStreet')?.classList.add('ready'); navSvMsg(''); setTimeout(() => { navSvSecond(); after(); }, 300); };
+    if (F.ready && F.id === id) F.onReady();
+    return; }
   if (F.id === id) { navSvTurn(F, pan); return after(); }
-  const swap = () => { if (NAV.svI !== j) return; Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); Bk.el.classList.add('on'); F.el.classList.remove('on'); NAV.front = 1 - NAV.front; navSvMsg(''); after(); };
+  // straight away, the current photo moves the way we go (forward: zooms in, back: out) while the next one gets ready
+  const dir = NAV.svDir || 1; F.el.classList.remove('go-fwd', 'go-back'); void F.el.offsetWidth; if (F.id != null) F.el.classList.add(dir > 0 ? 'go-fwd' : 'go-back');
+  const swap = () => { if (NAV.svI !== j) return; Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); Bk.el.classList.remove('go-fwd', 'go-back');
+    Bk.el.classList.add('on'); F.el.classList.remove('on'); NAV.front = 1 - NAV.front; navSvMsg(''); $('navStreet')?.classList.add('ready');
+    setTimeout(() => F.el.classList.remove('go-fwd', 'go-back'), 450); after(); };
   if (Bk.id === id && Bk.ready) return swap();
   if (Bk.id !== id) { Bk.id = id; Bk.ready = false; Bk.rv.relayout(); Bk.rv.setPanoId(id, at); Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
   Bk.onReady = swap;
 }
 // next photo ahead into the hidden view, facing the way it will be seen
 function navSvPreload(j) {
-  const ids = navIds(NAV.pol), Bk = NAV.rvs[1 - NAV.front], cur = ids[j]; let k = j;
+  const ids = navIds(NAV.pol), Bk = NAV.rvs[1 - NAV.front], cur = ids[j]; let k = j; if (!Bk) return;
   const step = NAV.auto ? +($('svSpeed')?.value || 4) : 1;
   for (let left = step; left > 0 && k < ids.length - 1;) { k++; if (ids[k] && ids[k] !== cur) left--; }
   const id = ids[k]; if (!id || id === cur || Bk.id === id) return;

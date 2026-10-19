@@ -827,7 +827,7 @@ function compose() {
     for (const [key, cells] of buckets) ember(cells, key / 10 * .9);
   }
   if (L.front.on && qiNow >= 0 && BURNING[qiNow].size) { if (!L.burn.on) { bc.fillStyle = 'rgb(44,39,35)'; bc.beginPath(); for (const i of BURNING[qiNow]) quad(bc, i, QX, QY); bc.fill(); } ember([...BURNING[qiNow]], 1, .22); }
-  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100 * (NAV.on ? .55 : 1); /* lighter in the navigation view, so roads stay readable */ cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
+  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;

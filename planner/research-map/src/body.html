@@ -28,6 +28,14 @@
     <div class="loading" id="loading" data-en="Preparing terrain and layers…">지형과 층을 준비하는 중…</div>
     <div class="labels" id="labels"></div>
     <div class="navhud" id="navHud" hidden aria-live="polite"></div>
+    <div class="navlegend" id="navLegend" hidden>
+      <div><i class="lg-burn"></i><span data-en="Burned (recorded)">탄 곳 (기록)</span></div>
+      <div><i class="lg-front"></i><span data-en="Fire front now (recorded)">지금 불 가장자리 (기록)</span></div>
+      <div><i class="lg-flame"></i><span data-en="Flame (model, worst of 4)">화염 (모델, 4개 중 최악)</span></div>
+      <div><i class="lg-heat"></i><span data-en="Radiant heat">복사 열</span></div>
+      <div><i class="lg-q"></i><span data-en="Likely to burn next hour (model)">다음 1시간 번질 확률 (모델)</span></div>
+      <div><i class="lg-route"></i><span data-en="Route · red where it meets flame">경로 · 화염과 만나는 곳은 빨강</span></div>
+    </div>
     <button class="ov compass" id="compass" type="button" title="북쪽 정렬" aria-label="북쪽으로 정렬" data-en-title="North up" data-en-aria="Turn north up">
       <svg viewBox="0 0 26 26" id="needle" aria-hidden="true"><path d="M13 2 18 15h-10z" fill="#fff"/><path d="M13 24 8 15h10z" fill="#77706a"/><text x="13" y="11.5" font-size="6" text-anchor="middle" fill="#2a2724" font-weight="700">N</text></svg>
     </button>
@@ -92,6 +100,7 @@
         <button type="button" id="play" class="primary" aria-label="재생"><svg viewBox="0 0 16 16" id="playIc"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button>
         <button type="button" id="fwd" title="1시간 앞으로" aria-label="1시간 앞으로" data-en-title="Forward 1 hour" data-en-aria="Forward 1 hour"><svg viewBox="0 0 16 16"><path d="M4 3l6 5-6 5zM12 3v10" fill="currentColor" stroke="currentColor" stroke-width="1.2"/></svg></button>
         <select id="speed" aria-label="재생 속도" data-en-aria="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+        <button type="button" id="reset" title="처음으로" aria-label="처음으로" data-en-title="Back to the start" data-en-aria="Back to the start"><svg viewBox="0 0 16 16"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <div class="track" id="track" role="slider" tabindex="0" aria-label="시각" data-en-aria="Time" aria-valuemin="0">
         <div class="rail"></div><div class="fill" id="tFill"></div><div id="tMarks"></div><div class="knob" id="tKnob"></div><div class="bub" id="tBub"></div>

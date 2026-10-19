@@ -522,6 +522,8 @@ function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = sp
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
 $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(state.t + 1.001));
+// back to the start: the navigation replay restarts; otherwise the first moment of the timeline (or of the 1-hour detail)
+$('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
 addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
