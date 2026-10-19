@@ -64,6 +64,7 @@ def build_single() -> str:
         text = p.read_text()
         blocks.append(block(p.name, inline_tex(text, site) if p.name.endswith('.tex.js') else text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
+    page = page.replace('<script src="kakao-keys.js"></script>', inline(site / 'kakao-keys.js'))
     page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + ''.join(blocks)
                         + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
     return page
@@ -74,7 +75,7 @@ def build(cdn: bool, single: bool = False) -> str:
     js = read('loader.js').replace('__MAIN__', read('core.js') + '\n' + read('ui.js') + '\n' + read('nav.js').replace('__MAPLIBRE__', MAPLIBRE[cdn or single]))
     libs = '\n'.join(f'<script src="{CDN[n] if cdn else "vendor/" + n}"></script>' for n in LIBS)
     style = '<style>\n' + read('style.css') + '</style>'
-    tail = libs + '\n<script src="regions/index.js"></script>\n<script>\n' + js + '</script>\n'
+    tail = libs + '\n<script src="regions/index.js"></script>\n<script src="kakao-keys.js"></script>\n<script>\n' + js + '</script>\n'
     if cdn:
         return '\n'.join(META + FONTS + [style]) + '\n' + read('body.html') + tail
     return '\n'.join(['<!doctype html>', '<html lang="ko">', '<head>', '<meta charset="utf-8">'] + META + [style, '</head>', '<body>']) + '\n' + read('body.html') + tail + '</body>\n</html>\n'

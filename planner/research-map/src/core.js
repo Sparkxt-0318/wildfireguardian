@@ -768,9 +768,11 @@ const NAV = { on: false, ci: -1, pol: 'full', follow: true, car: null, prev: nul
 const QX = new Float32Array(NCELL * 4), QY = new Float32Array(NCELL * 4), EQX = new Float32Array(NCELL * 4), EQY = new Float32Array(NCELL * 4);
 for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c; [[r, c], [r, c + 1], [r + 1, c + 1], [r + 1, c]].forEach(([rr, cc], j) => { const [lo, la] = lat_(rr, cc); const [x, y] = toPx(lo, la, TW, TH); QX[i * 4 + j] = x; QY[i * 4 + j] = y; EQX[i * 4 + j] = x * MW / TW; EQY[i * 4 + j] = y * MH / TH; }); }
 function quad(ctx, i, X, Y) { ctx.moveTo(X[i * 4], Y[i * 4]); ctx.lineTo(X[i * 4 + 1], Y[i * 4 + 1]); ctx.lineTo(X[i * 4 + 2], Y[i * 4 + 2]); ctx.lineTo(X[i * 4 + 3], Y[i * 4 + 3]); ctx.closePath(); }
-const Q_STOPS = [[.005, [253, 230, 205]], [.03, [251, 196, 140]], [.1, [244, 140, 66]], [.25, [226, 85, 43]], [.5, [170, 30, 25]]];
+// high and low probability far apart: pale yellow -> orange -> red -> dark crimson, and low values nearly see-through (qAlpha)
+const Q_STOPS = [[.005, [255, 238, 160]], [.05, [253, 186, 56]], [.15, [240, 106, 20]], [.35, [196, 24, 22]], [.6, [104, 0, 32]]];
+const qAlpha = v => .18 + .82 * smooth(.005, .35, v);
 function qColor(q) { let c = Q_STOPS[0][1]; for (let j = 0; j < Q_STOPS.length - 1; j++) if (q >= Q_STOPS[j][0]) c = mix3(Q_STOPS[j][1], Q_STOPS[j + 1][1], clamp((q - Q_STOPS[j][0]) / (Q_STOPS[j + 1][0] - Q_STOPS[j][0]), 0, 1)); return c; }
-const MC_STOPS = [[.01, [214, 194, 238]], [.1, [186, 146, 222]], [.3, [158, 105, 200]], [.6, [110, 50, 160]], [.9, [64, 16, 110]]];
+const MC_STOPS = [[.01, [228, 214, 245]], [.1, [190, 150, 228]], [.3, [146, 84, 206]], [.6, [92, 28, 160]], [.9, [44, 0, 92]]];
 function mcColor(q) { let c = MC_STOPS[0][1]; for (let j = 0; j < MC_STOPS.length - 1; j++) if (q >= MC_STOPS[j][0]) c = mix3(MC_STOPS[j][1], MC_STOPS[j + 1][1], clamp((q - MC_STOPS[j][0]) / (MC_STOPS[j + 1][0] - MC_STOPS[j][0]), 0, 1)); return c; }
 const ageOf = (i, t) => first[i] === 0 ? t + 24 : t - REC[first[i]];   // the first record already holds fire from 03-22
 function burnedAt(i, k) { return first[i] !== 255 && first[i] <= k; }
@@ -829,7 +831,7 @@ function compose() {
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
-    for (let i = 0; i < NCELL; i++) { if (!HV[hk][i]) continue; const v = Fh(hk, i, hs); if (v < .01) continue; const c = mcColor(v); cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
+    for (let i = 0; i < NCELL; i++) { if (!HV[hk][i]) continue; const v = Fh(hk, i, hs); if (v < .01) continue; const c = mcColor(v); cx.fillStyle = `rgba(${c.map(Math.round)},${qAlpha(v).toFixed(3)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
     cx.globalAlpha = L.mc.op / 100 * f * .9; cx.strokeStyle = '#2b0b4a'; cx.lineWidth = 1.6; cx.setLineDash([6, 4]); cx.beginPath();
     const a = A50[hk];
     for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c, ai = a[i];
@@ -839,7 +841,7 @@ function compose() {
   // q: model output, valid one hour after its input time
   if (L.q.on && qi >= 0) { const age = t - INP[qi], f = age <= 1 ? 1 : .42; cx.globalAlpha = L.q.op / 100 * f;
     const q = QF[qi];
-    for (let i = 0; i < NCELL; i++) { const v = q[i]; if (v < .005 || (L.burn.on && burnedAt(i, k) && age > 1)) continue; const c = qColor(v); cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
+    for (let i = 0; i < NCELL; i++) { const v = q[i]; if (v < .005 || (L.burn.on && burnedAt(i, k) && age > 1)) continue; const c = qColor(v); cx.fillStyle = `rgba(${c.map(Math.round)},${qAlpha(v).toFixed(3)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
     if (age <= 1) { cx.globalAlpha = L.q.op / 100 * .9; cx.strokeStyle = 'rgba(120,20,10,.55)'; cx.lineWidth = 1; for (let i = 0; i < NCELL; i++) if (q[i] >= .1) { cx.beginPath(); quad(cx, i, QX, QY); cx.stroke(); } }
   }
   // F(x): recorded routing hazard (incident radiant flux) for the selected scenario, or the maximum of the four

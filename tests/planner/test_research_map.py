@@ -108,8 +108,10 @@ def test_navigation_view(bundles):
         for name in ('full', 'travel_only'):
             assert pol[name]['full_check']['passed'] == (recs[name]['full_policy_check']['pass'] is True), (rid, case, name)
         assert pol['full']['full_check']['passed'] and not pol['travel_only']['full_check']['passed']
-    # road view: the Kakao key comes only from the user's browser storage, never from the repository
-    assert 'appkey=${encodeURIComponent(navKey())}' in nav and not re.search(r'appkey=[0-9a-f]{20,}', nav)
+    # road view: Kakao JavaScript keys (public by design, tied to registered addresses) live in site/kakao-keys.js only
+    assert 'appkey=${encodeURIComponent(navKey())}' in nav and not re.search(r'[0-9a-f]{32}', nav)
+    keys = (RM / 'site' / 'kakao-keys.js').read_text()     # JavaScript keys only, one per registered address
+    assert 'WFG_KAKAO_KEYS' in keys and 'kakao-keys.js' in (RM / 'site' / 'index.html').read_text()
     page = (RM / 'site' / 'index.html').read_text()
     assert 'id="tabNav"' in page and "const NAV_ML = 'vendor/maplibre-gl.'" in page
     for f in ('maplibre-gl.js', 'maplibre-gl.css', 'maplibre-gl.LICENSE.txt'):
