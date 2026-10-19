@@ -95,6 +95,44 @@ def test_region_index_and_page(bundles, index):
             assert tex[k].startswith(f'regions/{rid}/') and (RM / 'site' / tex[k]).stat().st_size > 1000
 
 
+def test_navigation_view(bundles):
+    """길 안내: each headline case named in src/nav.js is in the bundle with both routes, and the pass / fail the panel shows
+    is the recorded full-risk check; the real 3D map's library is vendored (loaded only when that view opens)."""
+    import re
+    nav = (RM / 'src' / 'nav.js').read_text()
+    i = nav.index('const NAV_CASES'); cases = dict(re.findall(r"(\w+): '(\d{8}T\d{6}Z_\w+)'", nav[i:nav.index('};', i)]))
+    assert set(cases) == set(REGIONS)
+    for rid, case in cases.items():
+        pol = bundles[rid]['policies'][case]
+        recs = {f.name.split('__')[1][:-5]: json.loads(f.read_text()) for f in (P / 'mock_api/fixtures/records' / rid).glob(f'{case}__*.json')}
+        # the travel-time-only route fails the recorded full check; the checked route either passes it or is recorded as none
+        assert recs['travel_only']['full_policy_check']['pass'] is False and not pol['travel_only']['full_check']['passed'], (rid, case)
+        if pol['full'].get('pts'):
+            assert recs['full']['full_policy_check']['pass'] is True and pol['full']['full_check']['passed'], (rid, case)
+        else:
+            assert recs['full']['outcome']['verdict'] == 'model_no_route', (rid, case)
+        # baked road view photo IDs belong to this case and have one entry per 30 m stop
+        pano = (RM / 'site' / 'regions' / f'{rid}.pano.js').read_text()
+        assert f'"case":"{case}"' in pano, rid
+    # road view: Kakao JavaScript keys (public by design, tied to registered addresses) live in site/kakao-keys.js only
+    assert 'appkey=${encodeURIComponent(navKey())}' in nav and not re.search(r'[0-9a-f]{32}', nav)
+    keys = (RM / 'site' / 'kakao-keys.js').read_text()     # JavaScript keys only, one per registered address
+    assert 'WFG_KAKAO_KEYS' in keys and 'kakao-keys.js' in (RM / 'site' / 'index.html').read_text()
+    page = (RM / 'site' / 'index.html').read_text()
+    assert 'id="tabNav"' in page and "const NAV_ML = 'vendor/maplibre-gl.'" in page
+    for f in ('maplibre-gl.js', 'maplibre-gl.css', 'maplibre-gl.LICENSE.txt'):
+        assert (RM / 'site' / 'vendor' / f).is_file()
+    assert 'MapLibre GL JS' in (RM / 'site' / 'vendor' / 'maplibre-gl.js').read_text()[:200]
+    # the CDN copy (CDN fragment, single file) is the same release: its integrity hashes are the vendored files' hashes
+    import base64, hashlib, importlib.util
+    for k in ('js', 'css'):
+        h = 'sha384-' + base64.b64encode(hashlib.sha384((RM / 'site' / 'vendor' / f'maplibre-gl.{k}').read_bytes()).digest()).decode()
+        assert f"{k}: '{h}'" in nav, k
+    spec = importlib.util.spec_from_file_location('build_viewer', RM / 'tools' / 'build_viewer.py'); bv = importlib.util.module_from_spec(spec); spec.loader.exec_module(bv)
+    cdn = bv.build(True)
+    assert '__MAPLIBRE__' not in cdn and "const NAV_ML = 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.'" in cdn
+
+
 def test_logger_page():
     """Route logger page: the web model has the plain FireBeetle stand-in (no vendor mesh), every part in the export's
     part list is a node of the model, and every manual picture the page links exists."""

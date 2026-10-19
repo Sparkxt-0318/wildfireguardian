@@ -17,6 +17,8 @@ CDN = {'three.min.js': 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/thr
        'OrbitControls.js': 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js'}
 CDN.update({n: f'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/{n}' for n in LIBS[2:5]})
 CDN.update({n: f'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/{n}' for n in LIBS[5:]})
+# MapLibre (navigation view's real 3D map) loads only when that view opens: from site/vendor, or the same release on the CDN
+MAPLIBRE = {False: 'vendor/maplibre-gl.', True: 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.'}
 META = ['<title>산불 레이어 지도</title>',
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">',
         '<meta name="claude:viewport-fit-sides" content="cover">',
@@ -50,7 +52,7 @@ def build_single() -> str:
     """One self-contained HTML file. Libraries are inline; each region's data, terrain and hourly file sit in inert
     <script type="text/plain"> blocks that the loader runs only for the region being viewed."""
     import base64
-    page = build(False)
+    page = build(False, single=True)     # one file has no vendor folder beside it: MapLibre from the CDN
     site = ROOT / 'site'
     inline = lambda p: '<script>\n' + p.read_text().replace('</script', '<\\/script') + '\n</script>'
     block = lambda name, text: f'<script type="text/plain" id="wfg:{name}">' + text.replace('</script', '<\\/script') + '</script>'
@@ -62,17 +64,18 @@ def build_single() -> str:
         text = p.read_text()
         blocks.append(block(p.name, inline_tex(text, site) if p.name.endswith('.tex.js') else text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
+    page = page.replace('<script src="kakao-keys.js"></script>', inline(site / 'kakao-keys.js'))
     page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + ''.join(blocks)
                         + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
     return page
 
 
-def build(cdn: bool) -> str:
+def build(cdn: bool, single: bool = False) -> str:
     read = lambda n: (SRC / n).read_text()
-    js = read('loader.js').replace('__MAIN__', read('core.js') + '\n' + read('ui.js'))
+    js = read('loader.js').replace('__MAIN__', read('core.js') + '\n' + read('ui.js') + '\n' + read('nav.js').replace('__MAPLIBRE__', MAPLIBRE[cdn or single]))
     libs = '\n'.join(f'<script src="{CDN[n] if cdn else "vendor/" + n}"></script>' for n in LIBS)
     style = '<style>\n' + read('style.css') + '</style>'
-    tail = libs + '\n<script src="regions/index.js"></script>\n<script>\n' + js + '</script>\n'
+    tail = libs + '\n<script src="regions/index.js"></script>\n<script src="kakao-keys.js"></script>\n<script>\n' + js + '</script>\n'
     if cdn:
         return '\n'.join(META + FONTS + [style]) + '\n' + read('body.html') + tail
     return '\n'.join(['<!doctype html>', '<html lang="ko">', '<head>', '<meta charset="utf-8">'] + META + [style, '</head>', '<body>']) + '\n' + read('body.html') + tail + '</body>\n</html>\n'

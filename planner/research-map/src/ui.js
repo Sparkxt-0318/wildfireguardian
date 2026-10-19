@@ -350,7 +350,7 @@ function buildEvents() {
   const ul = $('evList'); ul.innerHTML = '';
   EVENTS.forEach(ev => { const li = document.createElement('li'), b = document.createElement('button'); b.type = 'button';
     b.innerHTML = `<span class="ic" style="background:${ev.c}"></span><span class="x">${ev.x}</span><span class="t">${fmt(ev.t)}</span>`;
-    b.onclick = () => { if (ev.route) { openCase(ev.route.idx); } else { if (state.detail) setDetail(false); setTime(ev.t + .02); setPlaying(false); if (ev.booth) showTab('pEvac'); } };
+    b.onclick = () => { if (ev.route) { openCase(ev.route.idx); } else { if (NAV.on) navExit('pLayers'); if (state.detail) setDetail(false); setTime(ev.t + .02); setPlaying(false); if (ev.booth) showTab('pEvac'); } };
     li.appendChild(b); ul.appendChild(li); ev.btn = b; });
 }
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -398,8 +398,9 @@ function drawCharts() {
   $('c3v').textContent = moving ? `${Math.round(cur[1])} m` : `${tr('최고', 'max')} ${Math.round(Math.max(...dense.map(p => p.e)))} m`;
 }
 function selectRoute(i) { selRoute = i; buildRouteMeshes(); drawCharts(); buildRouteTab(); }
-function showTab(id) { document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.p === id))); document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== id); const b = document.querySelector(`.tabs button[data-p="${id}"]`); if (b) b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
-function openCase(i) { const c = CASES[i]; if (!c) return; selectRoute(i); if (c.k >= 0) setDetail(true, c.k); setTime(c.r.tDep - 2 / 60); setPlaying(true, 1); flyTo(c.r); if (state.cmp !== 'travel') showTab('pRoute'); }
+function showTab(id) { if (id !== 'pNav' && NAV.on) return navExit(id);     // leaving the navigation tab leaves navigation (navExit shows `id`)
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', String(x.dataset.p === id))); document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== id); const b = document.querySelector(`.tabs button[data-p="${id}"]`); if (b) b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); if (id === 'pNav') navEnter(); }
+function openCase(i) { const c = CASES[i]; if (!c) return; if (NAV.on) navExit('pRoute'); selectRoute(i); if (c.k >= 0) setDetail(true, c.k); setTime(c.r.tDep - 2 / 60); setPlaying(true, 1); flyTo(c.r); if (state.cmp !== 'travel') showTab('pRoute'); }
 
 // ---------------- research tabs: route check (stage 03) and model structure (01 → 02 → 03) ----------------
 function drawDose(svg, sc, sNow, big) {
@@ -521,6 +522,8 @@ function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = sp
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
 $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(state.t + 1.001));
+// back to the start: the navigation replay restarts; otherwise the first moment of the timeline (or of the 1-hour detail)
+$('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
 addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
@@ -583,8 +586,8 @@ function flyTo(r) {
 }
 $('m2d').onclick = $('v2d').onclick = () => setMode('2d');
 $('m3d').onclick = $('v3d').onclick = () => setMode('3d');
-$('bTopo').onclick = () => { state.base2d = 'topo'; $('bTopo').setAttribute('aria-pressed', 'true'); $('bReal').setAttribute('aria-pressed', 'false'); dirty = true; };
-$('bReal').onclick = () => { state.base2d = 'real'; $('bReal').setAttribute('aria-pressed', 'true'); $('bTopo').setAttribute('aria-pressed', 'false'); dirty = true; };
+function setBase(b) { state.base2d = b; for (const [id, v] of [['bTopo', 'topo'], ['bReal', 'real'], ['bRoad', 'road']]) $(id).setAttribute('aria-pressed', String(b === v)); dirty = true; }
+$('bTopo').onclick = () => setBase('topo'); $('bReal').onclick = () => setBase('real'); $('bRoad').onclick = () => setBase('road');
 $('exag').oninput = e => { EXAG = +e.target.value; $('exv').textContent = EXAG; applyHeights(); dirty = true; };
 $('fs').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else mapEl.requestFullscreen?.(); };
 $('compass').onclick = () => { const s = sph(camera.position, controls.target); tweenView({ r: s.r, phi: s.phi, th: 0, tgt: controls.target.clone() }, 600); };
@@ -682,8 +685,8 @@ function frame(now) {
   if (state.playing) { state.t += dt * state.speed * (state.detail ? 1 / 60 : 1 / 1.4); const hi = state.detail ? rangeHi() - 1e-4 : TMAX; if (state.t >= hi) { state.t = hi; setPlaying(false); } dirty = true; }
   if (Math.abs(flatF - flatTarget) > 1e-3) { flatF += (flatTarget - flatF) * Math.min(1, dt * 7); if (Math.abs(flatF - flatTarget) < 2e-3) flatF = flatTarget; applyHeights(); }
   const t = state.t;
-  const key = [recIdx(t), inpIdx(t), t - INP[Math.max(0, inpIdx(t))] <= 1, Math.round(t * 2), Math.ceil(t - 1e-6), hzSig(t), state.mode, state.base2d, ...LAYERS.map(l => (l.on ? 1 : 0) + ':' + l.op)].join('|');
-  if (key !== lastKey) { lastKey = key; compose(); updateTimeUI(); }
+  const key = [recIdx(t), inpIdx(t), t - INP[Math.max(0, inpIdx(t))] <= 1, Math.round(t * 2), Math.ceil(t - 1e-6), hzSig(t), state.mode, state.base2d, NAV.on, ...LAYERS.map(l => (l.on ? 1 : 0) + ':' + l.op)].join('|');
+  if (key !== lastKey) { lastKey = key; if (!NAV.real) compose(); updateTimeUI(); }     // the real 3D map (nav.js) hides the scene
   else if (dirty && (now - uiT > 90 || !state.playing)) { updateTimeUI(); uiT = now; }
   dirty = false;
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
@@ -705,10 +708,10 @@ function frame(now) {
   flameMat.uniforms.op.value = smokeMat.uniforms.op.value = L.front.op / 100;
   if (windLines.visible) stepWind(reduceMotion ? 0 : dt);
   stepTween(now); controls.update();
-  updateCars(t);
+  updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  if (NAV.real || NAV.street) { /* the real map or road view covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
@@ -733,7 +736,7 @@ async function boot() {
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
-  buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));

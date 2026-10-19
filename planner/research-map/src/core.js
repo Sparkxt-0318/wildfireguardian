@@ -294,6 +294,20 @@ function buildOverlays() {
     cc.globalCompositeOperation = 'source-in'; cc.fillStyle = '#2f8a3e'; cc.fillRect(0, 0, MW, MH); }
   tempCv = mk(GX, GY);
 }
+// road map (2D "도로", used by the navigation view): land cover, water and OSM roads in a plain map style, built on first use
+let roadCv;
+function ensureRoadMap() {
+  if (roadCv) return true;
+  if (!B.osm) { needOsm().then(ok => { if (ok) { lastKey = ''; dirty = true; } }); return false; }
+  roadCv = mk(TW, TH); const R = roadCv.getContext('2d'), lc = mk(MW, MH), lx = lc.getContext('2d'), im = lx.createImageData(MW, MH);
+  for (let i = 0; i < MW * MH; i++) { const code = LC[i];
+    const c = code === 5 ? [170, 211, 239] : F[i] ? [206, 228, 198] : code === 2 ? [240, 237, 224] : code === 3 ? [234, 230, 225] : code === 4 || code === 6 ? [222, 236, 208] : [243, 240, 234];
+    im.data[i * 4] = c[0]; im.data[i * 4 + 1] = c[1]; im.data[i * 4 + 2] = c[2]; im.data[i * 4 + 3] = 255; }
+  lx.putImageData(im, 0, 0); R.imageSmoothingQuality = 'high'; R.drawImage(lc, 0, 0, TW, TH);
+  R.globalCompositeOperation = 'multiply'; R.globalAlpha = .2; R.drawImage(HSC, 0, 0, TW, TH); R.globalAlpha = 1; R.globalCompositeOperation = 'source-over';   // faint relief
+  drawWater(R, TW, TH, 'road'); drawRoads(R, TW, TH, 'road');
+  return true;
+}
 // biome classes (illustrative, 8 of the 14 one-hot channels appear here): built when the layer is first shown
 function ensureBiome() {
   if (biomeCv) return;
@@ -316,17 +330,19 @@ function biomeAt(u, v, mi) {
 function drawWater(ctx, w, h, style) {
   const s = w / 2048;
   ctx.save(); ctx.lineCap = ctx.lineJoin = 'round';
-  ctx.fillStyle = style === 'topo' ? '#a9c9dc' : '#4f7684';
+  ctx.fillStyle = style === 'topo' ? '#a9c9dc' : style === 'road' ? '#aad3ef' : '#4f7684';
   for (const [k, , g] of B.osm.water) if (WATER_POLY(k)) { ringPath(ctx, g, w, h, true); ctx.fill(); }
   for (const [k, , g] of B.osm.water) if (!WATER_POLY(k)) {
-    ctx.strokeStyle = style === 'topo' ? '#8fb6cf' : '#4f7684'; ctx.lineWidth = (k === 'river' ? 2.6 : k === 'stream' ? 1.2 : 1) * s; ctx.globalAlpha = k === 'stream' ? .8 : 1;
+    ctx.strokeStyle = style === 'topo' ? '#8fb6cf' : style === 'road' ? '#9cc9ea' : '#4f7684'; ctx.lineWidth = (k === 'river' ? 2.6 : k === 'stream' ? 1.2 : 1) * s; ctx.globalAlpha = k === 'stream' ? .8 : 1;
     ringPath(ctx, g, w, h, false); ctx.stroke(); }
   ctx.restore();
 }
 function drawRoads(ctx, w, h, style) {
   const s = w / 2048, topoS = style === 'topo';
   const cls = (k, d) => k === 'highway' ? 0 : k === 'major_road' ? (d === 'trunk' || d === 'primary' || d === 'trunk_link' || d === 'primary_link' ? 1 : 2) : k === 'minor_road' ? 3 : k === 'rail' ? 5 : 4;
-  const st = topoS
+  const st = style === 'road'   // road map: motorways amber, main roads pale yellow, the rest white with a grey edge
+    ? [{ cw: 6.2, cc: '#d9a23a', w: 4.4, c: '#fbcf63' }, { cw: 5.2, cc: '#dcb25a', w: 3.6, c: '#fde69c' }, { cw: 4.2, cc: '#cdc8bf', w: 3, c: '#ffffff' }, { cw: 3, cc: '#d6d1c8', w: 2, c: '#ffffff' }, { w: 1, c: '#bfb8aa', dash: [3, 3] }, { w: 1.4, c: '#9b958b', dash: [6, 3] }]
+    : topoS
     ? [{ cw: 5.2, cc: '#c38d4b', w: 3.6, c: '#f7d7a0' }, { cw: 4.2, cc: '#c9a36a', w: 2.8, c: '#fbe6bd' }, { cw: 3.2, cc: '#b9b0a2', w: 2.1, c: '#ffffff' }, { w: 1.3, c: '#ffffff', cw: 2.2, cc: '#cfc8bb' }, { w: .9, c: '#a39a88', dash: [3, 3] }, { w: 1.4, c: '#8a8378', dash: [6, 3] }]
     : [{ cw: 5, cc: '#5f584c', w: 3.4, c: '#d8d0bd' }, { cw: 4, cc: '#6a6255', w: 2.6, c: '#ded6c4' }, { cw: 3, cc: '#71695b', w: 1.9, c: '#d3cab5' }, { w: 1.2, c: '#c9bfa8' }, { w: .9, c: '#a99d82', dash: [3, 3] }, { w: 1.5, c: '#544e45', dash: [6, 3] }];
   ctx.save(); ctx.lineCap = ctx.lineJoin = 'round';
@@ -684,6 +700,12 @@ function buildRouteMeshes() {
       const p0 = dense[run[0]], m = new THREE.Mesh(new THREE.SphereGeometry(w * .9, 12, 8), new THREE.MeshBasicMaterial({ color: 0xff2a14, toneMapped: false })); m.position.set(sxU(p0.u), p0.e * ys + .1 + ys * 4, szV(p0.v)); m.renderOrder = 9; routeGroup.add(m); run = null; };
     for (const h of hits) { if (run && h.i === run[1] + 1) run[1] = h.i; else { flush(); run = [h.i, h.i]; } } flush(); };
   const sc = CASES[selRoute], op = L.routes.op / 100;
+  // navigation view: the chosen route in blue on a white edge, the other one in grey, flame contact in red
+  if (NAV.on) { const nc = CASES[NAV.ci], P = nc.pol[NAV.pol], A = nc.pol[NAV.pol === 'full' ? 'travel_only' : 'full'];
+    if (A && A.dense.length > 1) ribbon(A.dense, .075, 0x9aa0a6, .95, 0, .02, 4);
+    ribbon(P.dense, .16, 0xffffff, 1, 0, .025, 5); ribbon(P.dense, .105, 0x1a73e8, 1, 0, .03, 6);
+    markHits(P.dense, flameHits(P.dense, nc.k), .15);
+    const a = P.dense[0], b = P.dense[P.dense.length - 1]; routeGroup.add(puck(a.u, a.v, 0xffffff, .13), puck(b.u, b.v, 0xd93025, .13)); return; }
   // comparison mode "travel time only": every case's travel-time-only route, flame contact marked in red
   if (state.cmp === 'travel') {
     for (const c of CASES) { const pp = c.pol.travel_only; if (!pp || pp.dense.length < 2) continue; const sel = c === sc;
@@ -739,14 +761,18 @@ const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] +
 // which result layers the comparison mode keeps: 'ours' = everything
 const cmpShows = what => state.cmp === 'ours' || (state.cmp === 'travel' && what === 'travel');
 let dirty = true, lastKey = '';
+// navigation view (nav.js): one recorded case played on a road map
+const NAV = { on: false, ci: -1, pol: 'full', follow: true, car: null, prev: null, steps: [], cur: -1, real: false };
 
 // ---------------- compose draped texture ----------------
 const QX = new Float32Array(NCELL * 4), QY = new Float32Array(NCELL * 4), EQX = new Float32Array(NCELL * 4), EQY = new Float32Array(NCELL * 4);
 for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c; [[r, c], [r, c + 1], [r + 1, c + 1], [r + 1, c]].forEach(([rr, cc], j) => { const [lo, la] = lat_(rr, cc); const [x, y] = toPx(lo, la, TW, TH); QX[i * 4 + j] = x; QY[i * 4 + j] = y; EQX[i * 4 + j] = x * MW / TW; EQY[i * 4 + j] = y * MH / TH; }); }
 function quad(ctx, i, X, Y) { ctx.moveTo(X[i * 4], Y[i * 4]); ctx.lineTo(X[i * 4 + 1], Y[i * 4 + 1]); ctx.lineTo(X[i * 4 + 2], Y[i * 4 + 2]); ctx.lineTo(X[i * 4 + 3], Y[i * 4 + 3]); ctx.closePath(); }
-const Q_STOPS = [[.005, [253, 230, 205]], [.03, [251, 196, 140]], [.1, [244, 140, 66]], [.25, [226, 85, 43]], [.5, [170, 30, 25]]];
+// high and low probability far apart: pale yellow -> orange -> red -> dark crimson, and low values nearly see-through (qAlpha)
+const Q_STOPS = [[.005, [255, 238, 160]], [.05, [253, 186, 56]], [.15, [240, 106, 20]], [.35, [196, 24, 22]], [.6, [104, 0, 32]]];
+const qAlpha = v => .18 + .82 * smooth(.005, .35, v);
 function qColor(q) { let c = Q_STOPS[0][1]; for (let j = 0; j < Q_STOPS.length - 1; j++) if (q >= Q_STOPS[j][0]) c = mix3(Q_STOPS[j][1], Q_STOPS[j + 1][1], clamp((q - Q_STOPS[j][0]) / (Q_STOPS[j + 1][0] - Q_STOPS[j][0]), 0, 1)); return c; }
-const MC_STOPS = [[.01, [214, 194, 238]], [.1, [186, 146, 222]], [.3, [158, 105, 200]], [.6, [110, 50, 160]], [.9, [64, 16, 110]]];
+const MC_STOPS = [[.01, [228, 214, 245]], [.1, [190, 150, 228]], [.3, [146, 84, 206]], [.6, [92, 28, 160]], [.9, [44, 0, 92]]];
 function mcColor(q) { let c = MC_STOPS[0][1]; for (let j = 0; j < MC_STOPS.length - 1; j++) if (q >= MC_STOPS[j][0]) c = mix3(MC_STOPS[j][1], MC_STOPS[j + 1][1], clamp((q - MC_STOPS[j][0]) / (MC_STOPS[j + 1][0] - MC_STOPS[j][0]), 0, 1)); return c; }
 const ageOf = (i, t) => first[i] === 0 ? t + 24 : t - REC[first[i]];   // the first record already holds fire from 03-22
 function burnedAt(i, k) { return first[i] !== 255 && first[i] <= k; }
@@ -776,8 +802,8 @@ function buildEmber() {
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
   const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
-  const flatOk = flat && ensureFlat();
-  if (L.base.on) { cx.drawImage(flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
+  const roadOk = flat && state.base2d === 'road' && ensureRoadMap(), flatOk = flat && !roadOk && state.base2d !== 'road' && ensureFlat();
+  if (L.base.on) { cx.drawImage(roadOk ? roadCv : flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
   else { cx.fillStyle = '#d9d5cc'; cx.fillRect(0, 0, TW, TH); if (flat) { cx.globalCompositeOperation = 'multiply'; cx.drawImage(hsCv, 0, 0, TW, TH); cx.globalCompositeOperation = 'source-over'; } }
   cx.imageSmoothingEnabled = true;
   if (L.biome.on) { ensureBiome(); cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }
@@ -805,7 +831,7 @@ function compose() {
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
-    for (let i = 0; i < NCELL; i++) { if (!HV[hk][i]) continue; const v = Fh(hk, i, hs); if (v < .01) continue; const c = mcColor(v); cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
+    for (let i = 0; i < NCELL; i++) { if (!HV[hk][i]) continue; const v = Fh(hk, i, hs); if (v < .01) continue; const c = mcColor(v); cx.fillStyle = `rgba(${c.map(Math.round)},${qAlpha(v).toFixed(3)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
     cx.globalAlpha = L.mc.op / 100 * f * .9; cx.strokeStyle = '#2b0b4a'; cx.lineWidth = 1.6; cx.setLineDash([6, 4]); cx.beginPath();
     const a = A50[hk];
     for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c, ai = a[i];
@@ -815,14 +841,14 @@ function compose() {
   // q: model output, valid one hour after its input time
   if (L.q.on && qi >= 0) { const age = t - INP[qi], f = age <= 1 ? 1 : .42; cx.globalAlpha = L.q.op / 100 * f;
     const q = QF[qi];
-    for (let i = 0; i < NCELL; i++) { const v = q[i]; if (v < .005 || (L.burn.on && burnedAt(i, k) && age > 1)) continue; const c = qColor(v); cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
+    for (let i = 0; i < NCELL; i++) { const v = q[i]; if (v < .005 || (L.burn.on && burnedAt(i, k) && age > 1)) continue; const c = qColor(v); cx.fillStyle = `rgba(${c.map(Math.round)},${qAlpha(v).toFixed(3)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
     if (age <= 1) { cx.globalAlpha = L.q.op / 100 * .9; cx.strokeStyle = 'rgba(120,20,10,.55)'; cx.lineWidth = 1; for (let i = 0; i < NCELL; i++) if (q[i] >= .1) { cx.beginPath(); quad(cx, i, QX, QY); cx.stroke(); } }
   }
   // F(x): recorded routing hazard (incident radiant flux) for the selected scenario, or the maximum of the four
   const zk = hzK(t);
   if (L.heat.on && zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member);
     for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); cx.globalAlpha = L.heat.op / 100 * smooth(.5, .75, v) * .9; cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
-    cx.globalAlpha = L.heat.op / 100; cx.fillStyle = '#fff3c0'; cx.beginPath(); fld.flame.forEach(i => quad(cx, i, QX, QY)); cx.fill();
+    cx.globalAlpha = L.heat.op / 100; cx.fillStyle = NAV.on ? '#e23b1d' : '#fff3c0'; cx.beginPath(); fld.flame.forEach(i => quad(cx, i, QX, QY)); cx.fill();   // flame cells: red on the road map
     em.globalAlpha = .8; em.fillStyle = '#ffd27a'; em.beginPath(); fld.flame.forEach(i => quad(em, i, EQX, EQY)); em.fill(); em.globalAlpha = 1; }
   // front
   const fe = frontEdges(k, t), act = new Set();
@@ -860,13 +886,13 @@ function placeDom() {
   for (const it of domItems) {
     const lay = L[it.layer]; let show = lay.on && it.show !== false;
     let u = it.u, v = it.v, extraY = 0;
-    if (it.veh) { const r = it.veh; show = show && r.has && cmpShows('full') && t >= r.tDep && t <= r.tArr + .05; if (show) { const s = (t - r.t0) * 3600; let j = r.dense.findIndex(p => p.ts >= s); if (j < 0) j = r.dense.length - 1; const p = r.dense[j]; u = p.u; v = p.v;
+    if (it.veh) { const r = it.veh; show = show && !NAV.on && r.has && cmpShows('full') && t >= r.tDep && t <= r.tArr + .05; if (show) { const s = (t - r.t0) * 3600; let j = r.dense.findIndex(p => p.ts >= s); if (j < 0) j = r.dense.length - 1; const p = r.dense[j]; u = p.u; v = p.v;
       it.el.innerHTML = `<b>●</b> ${r.label} ${tr('이동 중', 'moving')} · ${fmt(t, false)} · ${(p.d).toFixed(1)}/${r.lenKm.toFixed(1)} km`; } }
     if (show && it.near && camD > it.near * 1.6) show = false;
     if (!show) { if (it.el.style.display !== 'none') it.el.style.display = 'none'; continue; }
     _v.set(sxU(u), yAt(u, v) + (it.lift || 0) * (flatF > .5 ? 0 : 1) + extraY, szV(v)).project(camera);
     if (_v.z > 1 || Math.abs(_v.x) > 1.1 || Math.abs(_v.y) > 1.1) { it.el.style.display = 'none'; continue; }
     it.el.style.display = ''; it.el.style.opacity = lay.op / 100;
-    it.el.style.transform = `translate(${((_v.x + 1) / 2 * w).toFixed(1)}px, ${((1 - _v.y) / 2 * h).toFixed(1)}px)` + (it.el.classList.contains('peak') ? ' translate(-50%, -100%)' : it.el.classList.contains('lb') ? ' translate(-50%, -50%)' : it.el.classList.contains('veh') ? ' translate(-50%, -130%)' : '');
+    it.el.style.transform = `translate(${((_v.x + 1) / 2 * w).toFixed(1)}px, ${((1 - _v.y) / 2 * h).toFixed(1)}px)` + (it.el.classList.contains('peak') ? ' translate(-50%, -100%)' : it.el.classList.contains('lb') || it.el.classList.contains('navcar') ? ' translate(-50%, -50%)' : it.el.classList.contains('veh') ? ' translate(-50%, -130%)' : '');
   }
 }
