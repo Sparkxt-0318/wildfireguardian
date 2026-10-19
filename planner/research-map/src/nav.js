@@ -10,7 +10,7 @@ const NAV_ROUTES = [
 ];
 // views: street-level photos along the route (Kakao Roadview, stepped with buttons or driven automatically), a chase camera
 // on a real 3D map (satellite photos on terrain), or the 2D road map
-const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
+const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['driver', tr('1인칭', 'First person')], ['2d', tr('2D 지도', '2D map')]];
 const navNum = x => x < 1e-4 ? '< 0.0001' : x < .01 ? x.toExponential(1) : x.toPrecision(2);
 const navName = l => l ? (EN ? (l.ne || l.n) : l.n) : '';
 const navClock = h => { const d = kst(h); return `${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}`; };
@@ -188,7 +188,7 @@ let navMapP = null;
 function navView(v, quiet) {
   NAV.view = v; NAV.hd = null;
   if (state.mode !== '2d') setMode('2d');
-  navStreet(v === 'street'); navReal(v === 'chase'); if (v === '2d') navFit();
+  navStreet(v === 'street'); navReal(v === 'chase' || v === 'driver'); if (v === '2d') navFit();
   if (!quiet) navPanel();
 }
 function navReal(on) {
@@ -323,7 +323,11 @@ function navMapFrame(t, p, q, cls, cut) {
   NAV.mlCar.setLngLat(here).setRotation(hd); const ce = NAV.mlCar.getElement();     // classList: MapLibre keeps its own classes on the marker
   for (const c of ['ok', 'warn', 'fire', 'idle']) ce.classList.toggle(c, c === cls); ce.classList.toggle('off', NAV.view !== 'chase');
   // chase: behind and above the car, the car in the lower part of the view
-  map.jumpTo({ center: here, bearing: hd, ...NAV_CHASE, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } });
+  if (NAV.view === 'chase') return map.jumpTo({ center: here, bearing: hd, ...NAV_CHASE, padding: { top: Math.round(map.getContainer().clientHeight * .3), bottom: 0, left: 0, right: 0 } });
+  // first person: eye 15 m above the road, aimed at the road 160 m ahead (pitch about 85°, MapLibre's limit)
+  const ground = ll => { const z = map.queryTerrainElevation(ll); return z == null ? 0 : z + map.transform.elevation; };
+  const to = navStep(here, hd, .16), o = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(here), ground(here) + 15, maplibregl.LngLat.convert(to), ground(to));
+  map.jumpTo({ ...o, bearing: hd, padding: { top: 0, bottom: 0, left: 0, right: 0 } });
 }
 
 // ---- 로드뷰: Kakao Roadview photos along the recorded route ----
