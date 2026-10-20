@@ -324,7 +324,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .navhud .nh-top { display: flex; align-items: baseline; gap: 8px; } .navhud .nh-top b { font-size: 20px; letter-spacing: -.01em; } .navhud .nh-top span { color: var(--muted); }
 .navhud .nh-st { margin: 6px 0; padding: 5px 8px; border-radius: 6px; font-weight: 600; background: var(--ok-soft); color: var(--ok); }
 .navhud .nh-st.idle { background: var(--line); color: var(--muted); } .navhud .nh-st.warn { background: var(--warn-soft); color: var(--warn); } .navhud .nh-st.fire { background: #e23b1d; color: #fff; }
-.navhud dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; } .navhud dt { color: var(--muted); } .navhud dd { margin: 0; text-align: right; } .navhud dd small { color: var(--muted); }
+.navhud dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; } .navhud dt { color: var(--muted); } .navhud dd { margin: 0; text-align: right; white-space: nowrap; } .navhud dd small { color: var(--muted); }
 .map.nav .firechip { display: none; }
 .nav { padding: 2px 4px 12px; } .nav-h b { display: block; font-size: 14px; } .nav-h small { color: var(--muted); }
 .nav-od { margin: 10px 0; padding: 8px 10px; border-radius: 8px; background: var(--panel-2); display: grid; gap: 4px; font-size: 12.5px; }
@@ -448,6 +448,19 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
   #navStreet .sv-danger .note, #navStreet .sv-danger .risk, #navStreet .sv-danger .st { display: none; } #navStreet .sv-mini { width: 160px; height: 117px; }
 }
 .map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
+/* the gist card on the map (ui.js buildImpact) */
+.impact { left: 12px; top: 112px; width: 290px; padding: 9px 12px 11px; border-radius: 11px; background: color-mix(in srgb, var(--panel) 95%, transparent); box-shadow: 0 3px 14px rgba(0,0,0,.22); font-size: 12.5px; line-height: 1.5; }
+.impact:not([open]) { width: auto; padding: 6px 11px; }
+.impact summary { cursor: pointer; font-weight: 700; font-size: 13px; }
+.impact .big { display: flex; align-items: baseline; gap: 5px; margin: 4px 0 2px; } .impact .big b { font-size: 30px; line-height: 1; color: #d9472b; } .impact .big span { color: var(--muted); }
+.impact p { margin: 4px 0; } .impact ul { margin: 6px 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.impact li { display: flex; gap: 7px; align-items: baseline; } .impact li i { flex: none; width: 10px; height: 10px; border-radius: 50%; transform: translateY(1px); }
+.impact li i.ok { background: #2f8a57; } .impact li i.nr { background: #1e1e1e; border: 1px solid #888; }
+.impact .here { color: var(--muted); font-size: 11.5px; } .impact .btn { margin-top: 4px; width: 100%; }
+.map.nav .impact { display: none; }
+.more-layers { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+.more-layers > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; padding: 6px 4px; color: var(--accent, #1a73e8); }
+@media (max-width: 860px) { .impact { top: auto; bottom: 10px; left: 8px; width: min(290px, calc(100% - 16px)); } }
 </style>
 </head>
 <body>
@@ -1383,24 +1396,24 @@ let selRoute = routes[2] && routes[2].has ? 2 : Math.max(0, routes.findIndex(r =
 // ---------------- layers & state ----------------
 const N_ORIG = B.places.filter(p => p.role === 'origin').length, N_DEST = B.places.filter(p => p.role === 'destination').length;
 const LAYERS = [
-  { g: tr('지형·바탕', 'Terrain · base'), id: 'relief', n: tr('지형 (3D)', 'Terrain (3D)'), src: tr('공개 DEM', 'Public DEM'), on: true, op: 100, noOp: true },
-  { id: 'base', n: tr('바탕 지도', 'Base map'), src: tr('OSM 도로·하천·토지이용', 'OSM roads · water · land use'), on: true, op: 100 },
+  { g: tr('지형·바탕', 'Terrain · base'), id: 'relief', core: true, n: tr('지형 (3D)', 'Terrain (3D)'), src: tr('공개 DEM', 'Public DEM'), on: true, op: 100, noOp: true },
+  { id: 'base', core: true, n: tr('바탕 지도', 'Base map'), src: tr('OSM 도로·하천·토지이용', 'OSM roads · water · land use'), on: true, op: 100 },
   { id: 'slope', n: tr('경사', 'Slope'), src: tr('DEM에서 계산 · 1ch', 'From the DEM · 1 ch'), on: false, op: 75 },
   { g: tr('환경 입력 ✱ 설명용', 'Environment inputs ✱ illustrative'), id: 'temp', n: tr('기온', 'Temperature'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 70 },
-  { id: 'wu', n: tr('바람 u (동서 성분)', 'Wind u (east–west)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: true, op: 90 },
-  { id: 'wv', n: tr('바람 v (남북 성분)', 'Wind v (north–south)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: true, op: 90 },
-  { id: 'canopy', n: tr('수목 피복률', 'Canopy cover'), src: tr('설명용 · 1ch · 3D 나무 포함', 'Illustrative · 1 ch · with 3D trees'), ill: true, on: true, op: 100 },
+  { id: 'wu', n: tr('바람 u (동서 성분)', 'Wind u (east–west)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 90 },
+  { id: 'wv', n: tr('바람 v (남북 성분)', 'Wind v (north–south)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 90 },
+  { id: 'canopy', n: tr('수목 피복률', 'Canopy cover'), src: tr('설명용 · 1ch · 3D 나무 포함', 'Illustrative · 1 ch · with 3D trees'), ill: true, on: false, op: 100 },
   { id: 'biome', n: tr('생물군계', 'Biome'), src: tr('설명용 · one-hot 14ch', 'Illustrative · one-hot 14 ch'), ill: true, on: false, op: 65 },
-  { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
-  { id: 'front', n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
-  { id: 'q', n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
-  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: true, op: 90 },
-  { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: true, op: 80 },
+  { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', core: true, n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
+  { id: 'front', core: true, n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
+  { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
+  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
+  { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: false, op: 80 },
   { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
-  { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
-  { id: 'booth', n: tr('대피 현황 (부스 캐시)', 'Evacuation status (booth cache)'), src: B.booth ? tr('실제 API 결과 · 출발지별 판정', 'Real API results · per origin') : tr('이 지역은 캐시 없음', 'No cache for this region'), on: !!B.booth, op: 100, disabled: !B.booth },
-  { id: 'places', n: tr('마을 · 대피소', 'Villages · shelters'), src: tr(`OSM · 출발지 ${N_ORIG}, 대피소 ${N_DEST}`, `OSM · ${N_ORIG} origins, ${N_DEST} shelters`), on: true, op: 100 },
-  { id: 'labels', n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
+  { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', core: true, n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
+  { id: 'booth', core: true, n: tr('대피 현황 (부스 캐시)', 'Evacuation status (booth cache)'), src: B.booth ? tr('실제 API 결과 · 출발지별 판정', 'Real API results · per origin') : tr('이 지역은 캐시 없음', 'No cache for this region'), on: !!B.booth, op: 100, disabled: !B.booth },
+  { id: 'places', core: true, n: tr('마을 · 대피소', 'Villages · shelters'), src: tr(`OSM · 출발지 ${N_ORIG}, 대피소 ${N_DEST}`, `OSM · ${N_ORIG} origins, ${N_DEST} shelters`), on: true, op: 100 },
+  { id: 'labels', core: true, n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
 ];
 const L = Object.fromEntries(LAYERS.map(l => [l.id, l]));
 const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
@@ -1445,6 +1458,7 @@ function buildEmber() {
   x.putImageData(im, 0, 0);
   cellsCv = mk(TW, TH); emberPat = cellsCv.getContext('2d').createPattern(c, 'repeat'); emberPatE = emissive.getContext('2d').createPattern(c, 'repeat');
 }
+let heatCv = null;
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
   const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
@@ -1493,8 +1507,13 @@ function compose() {
   // F(x): recorded routing hazard (incident radiant flux) for the selected scenario, or the maximum of the four
   const zk = hzK(t);
   if (L.heat.on && zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member);
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); cx.globalAlpha = L.heat.op / 100 * smooth(.5, .75, v) * .9; cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
-    cx.globalAlpha = L.heat.op / 100; cx.fillStyle = NAV.on ? '#e23b1d' : '#fff3c0'; cx.beginPath(); fld.flame.forEach(i => quad(cx, i, QX, QY)); cx.fill();   // flame cells: red on the road map
+    // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
+    const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
+    if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(.5, .75, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
+    if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
+    cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);
     em.globalAlpha = .8; em.fillStyle = '#ffd27a'; em.beginPath(); fld.flame.forEach(i => quad(em, i, EQX, EQY)); em.fill(); em.globalAlpha = 1; }
   // front
   const fe = frontEdges(k, t), act = new Set();
@@ -1613,19 +1632,25 @@ function legendHTML(id) {
   return '';
 }
 function buildLayerPanel() {
-  const p = $('pLayers'); p.innerHTML = '';
+  const root = $('pLayers'); root.innerHTML = '';
+  // the gist (fire, spread, routes, villages) on top; the other layers folded under "more layers", each can be added on top
+  const more = document.createElement('details'); more.className = 'more-layers';
+  more.innerHTML = `<summary>${tr(`레이어 더 보기 (${LAYERS.filter(l => !l.core).length}개 · 바람·기온·수목·열유속·몬테카를로 등)`, `More layers (${LAYERS.filter(l => !l.core).length} · wind, temperature, canopy, heat flux, Monte Carlo …)`)}</summary>`;
+  let grp = null; const seen = new Set();
   LAYERS.forEach(l => {
-    if (l.g) p.insertAdjacentHTML('beforeend', `<div class="grp-h"><span>${l.g}</span>${l.id === 'temp' ? `<span>${tr('19ch 중 표시', 'of the 19 channels')}</span>` : ''}</div>`);
+    if (l.g) grp = l.g; const p = l.core ? root : more;
+    if (grp && !seen.has(grp + l.core)) { seen.add(grp + l.core); p.insertAdjacentHTML('beforeend', `<div class="grp-h"><span>${grp}</span>${!l.core && grp === LAYERS.find(x => x.id === 'temp').g ? `<span>${tr('19ch 중 표시', 'of the 19 channels')}</span>` : ''}</div>`); }
     const row = document.createElement('div'); row.className = 'lr' + (l.on ? '' : ' off'); row.id = 'lr-' + l.id;
     row.innerHTML = `<input type="checkbox" ${l.on ? 'checked' : ''} ${l.disabled ? `disabled title="${tr('이 화면에 이 층의 데이터가 없습니다', 'No data for this layer here')}"` : ''} aria-label="${l.n}"><canvas width="60" height="60"></canvas><div class="nm"><div>${l.n}</div><small class="${l.ill ? 'ill' : ''}">${l.src}</small></div>
       <div class="op">${l.noOp ? '' : `<input type="range" min="0" max="100" value="${l.op}" aria-label="${l.n} ${tr('불투명도', 'opacity')}"><span>${l.op}%</span>`}</div>`;
     p.appendChild(row); l.row = row;
     const lg = legendHTML(l.id); if (lg) { const d = document.createElement('div'); d.innerHTML = lg; d.firstElementChild.dataset.for = l.id; d.firstElementChild.hidden = !l.on && !l.disabled; p.appendChild(d.firstElementChild); }
     thumb(row.querySelector('canvas'), l.id);
-    row.querySelector('input[type=checkbox]').onchange = e => { l.on = e.target.checked; row.classList.toggle('off', !l.on); const lg = p.querySelector(`.legend[data-for="${l.id}"]`); if (lg) lg.hidden = !l.on; onLayerChange(l.id); };
+    row.querySelector('input[type=checkbox]').onchange = e => { l.on = e.target.checked; row.classList.toggle('off', !l.on); const lg = root.querySelector(`.legend[data-for="${l.id}"]`); if (lg) lg.hidden = !l.on; onLayerChange(l.id); };
     const rg = row.querySelector('input[type=range]'); if (rg) rg.oninput = e => { l.op = +e.target.value; rg.nextElementSibling.textContent = l.op + '%'; onLayerChange(l.id); };
   });
-  p.insertAdjacentHTML('beforeend', `<p class="note" style="margin:10px 4px 0">${tr('모델 입력은 환경 19채널(기온 1 · 바람 u 1 · 바람 v 1 · 경사 1 · 수목 피복률 1 · 생물군계 14)과 현재 연소 상태 B(t)입니다. ✱ 표시 층은 무늬와 색이 설명용이며 실제 입력 값이 아닙니다.', 'The model input is 19 environmental channels (temperature 1 · wind u 1 · wind v 1 · slope 1 · canopy 1 · biome 14) plus the burned state B(t). Layers marked ✱ show illustrative patterns, not the real input values.')}</p>`);
+  root.appendChild(more);
+  more.insertAdjacentHTML('beforeend', `<p class="note" style="margin:10px 4px 0">${tr('모델 입력은 환경 19채널(기온 1 · 바람 u 1 · 바람 v 1 · 경사 1 · 수목 피복률 1 · 생물군계 14)과 현재 연소 상태 B(t)입니다. ✱ 표시 층은 무늬와 색이 설명용이며 실제 입력 값이 아닙니다.', 'The model input is 19 environmental channels (temperature 1 · wind u 1 · wind v 1 · slope 1 · canopy 1 · biome 14) plus the burned state B(t). Layers marked ✱ show illustrative patterns, not the real input values.')}</p>`);
 }
 function setLayer(id, on) { const l = L[id]; if (!l || l.disabled || l.on === on) return; const cb = l.row.querySelector('input[type=checkbox]'); cb.checked = on; cb.onchange({ target: cb }); }
 document.addEventListener('click', e => { const b = e.target.closest('#memsel button'); if (!b) return; state.member = +b.dataset.m; document.querySelectorAll('#memsel button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); if (state.detail) buildTrack(); dirty = true; });
@@ -1851,6 +1876,22 @@ function openLightbox(src, cap) {
 }
 $('lightbox').onclick = e => { if (e.target.closest('img') && !e.target.closest('button')) return; $('lightbox').hidden = true; };
 addEventListener('keydown', e => { if (e.key === 'Escape') { $('lightbox').hidden = true; $('regMenu').hidden = true; $('regBtn').setAttribute('aria-expanded', 'false'); } });
+
+// ---------------- the gist: what the recorded results show (from regions/index.js, all five fires) ----------------
+function buildImpact() {
+  const all = RIDX.flatMap(r => r.rq3), fail = all.filter(q => q.travel_fails_full), ok = fail.filter(q => q.full_verdict === 'checked_route').length, here = RIDX.find(r => r.id === RID), hf = here ? here.rq3.filter(q => q.travel_fails_full).length : 0;
+  const el = document.createElement('details'); el.className = 'ov impact'; el.id = 'impact'; let open = true; try { open = localStorage.getItem('wfg3d.impact') !== '0'; } catch (e) { } el.open = open;
+  el.innerHTML = `<summary>${tr('핵심 요약', 'The gist')}</summary>
+    <div class="big"><b>${fail.length}</b><span>${tr(`/ ${all.length}건`, `of ${all.length}`)}</span></div>
+    <p>${tr(`실제 산불 ${RIDX.length}곳의 기록된 경로 점검 ${all.length}건 중 <b>${fail.length}건</b>에서 <b>가장 빠른 길</b>(이동 시간만 본 길)이 화염에 닿거나 열 한도를 넘었습니다.`, `In <b>${fail.length}</b> of ${all.length} recorded route checks on ${RIDX.length} real fires, the <b>fastest route</b> (travel time only) touched flame or went over the heat limit.`)}</p>
+    <ul><li><i class="ok"></i><span>${tr(`${ok}건: 화염 접촉 없이 열 한도 이하인 <b>점검된 다른 길</b>을 찾음`, `${ok}: a <b>checked route</b> with no flame contact, within heat limits, was found`)}</span></li>
+      <li><i class="nr"></i><span>${tr(`${fail.length - ok}건: 모델상 지나갈 길이 없음 → 그 길로 보내지 않고 미리 알림`, `${fail.length - ok}: no route in the model → flagged instead of sending people through`)}</span></li></ul>
+    <p class="here">${tr(`이 산불 (${REG_NAME(here)} ${here.year}): ${here.rq3.length}건 중 ${hf}건`, `This fire (${REG_NAME(here)} ${here.year}): ${hf} of ${here.rq3.length}`)} · ${tr(`출발지 ${here.origins}곳`, `${here.origins} origins`)}</p>
+    <button type="button" class="btn" id="impactNav">${tr('길 안내로 보기 ▶', 'See it in navigation ▶')}</button>`;
+  mapEl.appendChild(el);
+  el.addEventListener('toggle', () => { try { localStorage.setItem('wfg3d.impact', el.open ? '1' : '0'); } catch (e) { } });
+  $('impactNav').onclick = () => { if (!$('tabNav').hidden) { el.open = false; $('tabNav').click(); } };
+}
 
 // ---------------- overview ----------------
 function caseTable() {
@@ -2311,7 +2352,7 @@ async function boot() {
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
-  navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  navInit(); buildRegionMenu(); buildLayerPanel(); buildImpact(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));
@@ -2363,6 +2404,15 @@ const NAV_ROUTES = [
 ];
 // views: street-level photos along the route (Kakao Roadview, stepped with buttons or driven automatically), a chase camera
 // on a real 3D map (satellite photos on terrain), or the 2D road map
+// photo views need the internet (Kakao, Esri tiles); without it (offline folder at the venue) only the 2D map is offered, and nothing waits on a server
+const navOnline = () => navigator.onLine !== false && location.protocol !== 'file:' && NAV.netOk !== false;
+// one small request decides whether the map hosts can be reached (a network without internet, e.g. venue Wi-Fi, still reads
+// as online): without it, hundreds of tile requests would fail one by one while the page waits
+let navNetP = null;
+const navNet = () => navNetP ??= !navOnline() ? Promise.resolve(false) : new Promise(ok => {
+  const ac = new AbortController(), to = setTimeout(() => ac.abort(), 4000);
+  fetch(NAV_TILES.dem.replace('{z}', 0).replace('{x}', 0).replace('{y}', 0), { mode: 'cors', signal: ac.signal, cache: 'no-store' })
+    .then(r => r.ok, () => false).then(v => { clearTimeout(to); NAV.netOk = v; if (!v && NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } ok(v); }); });
 const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
 const navNum = x => x < 1e-4 ? '< 0.0001' : x < .01 ? x.toExponential(1) : x.toPrecision(2);
 const navName = l => l ? (EN ? (l.ne || l.n) : l.n) : '';
@@ -2408,7 +2458,8 @@ function navInit() {
   NAV.race = true;
   setTimeout(() => (window.requestIdleCallback || setTimeout)(navWarm, { timeout: 1500 }), 1200);
   // road view first (its photos come from Kakao, not the map hosts): library, first photo and photo list straight away
-  if (navKey() && !isPhone) setTimeout(() => { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); }, 500);
+  addEventListener('online', () => { navNetP = null; NAV.netOk = null; NAV.on && navPanel(); }); addEventListener('offline', () => { if (NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } });
+  if (navKey() && !isPhone && navOnline()) setTimeout(() => navNet().then(up => up && (() => { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); })()), 500);
   // the Kakao key can come with the link (#…&kakao=KEY): kept in this browser, then taken out of the address
   const hp = new URLSearchParams(location.hash.slice(1));
   if (hp.get('kakao')) { navKeySet(hp.get('kakao')); hp.delete('kakao'); history.replaceState(null, '', '#' + hp.toString()); }
@@ -2427,7 +2478,7 @@ function navEnter() {
   setBase('road');
   const sc = CASES[NAV.ci]; if (sc.k >= 0) setDetail(true, sc.k);
   mapEl.classList.add('nav'); $('navHud').hidden = false; $('navLegend').hidden = false;
-  navView(NAV.view || (navKey() ? 'street' : 'chase'), true); navRoute(NAV.pol); navToMap();
+  navView(navOnline() ? NAV.view || (navKey() ? 'street' : 'chase') : '2d', true); navRoute(NAV.pol); navToMap();
 }
 // phones: the map sits above the panel, so bring it into view when navigation opens or the view changes
 const navToMap = () => { if (matchMedia('(max-width: 860px)').matches) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
@@ -2476,8 +2527,9 @@ function navPanel() {
       <small>${tr(`기록된 경로 점검 사례 ${r.label} · 화재 scenario 4개`, `Recorded route-check case ${r.label} · 4 fire scenarios`)}</small></div>
     <div class="nav-od"><div><i class="o"></i>${tr(`출발 · ${start ? navName(start) + ' 부근 ' : ''}(연구 사례 출발지)`, `From · ${start ? 'near ' + navName(start) + ' ' : ''}(research origin)`)}</div>
       <div><i class="d"></i>${tr(`도착 · ${dest} 대피소`, `To · ${dest} shelter`)}</div></div>
-    <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${NAV.realErr && v !== '2d' ? ' disabled' : ''}>${n}</button>`).join('')}</div>
-    ${NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
+    <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${(NAV.realErr || !navOnline()) && v !== '2d' ? ` disabled title="${tr('인터넷 연결이 있어야 합니다', 'Needs an internet connection')}"` : ''}>${n}</button>`).join('')}</div>
+    ${!navOnline() ? `<p class="note nav-err">${tr('인터넷 없이 여는 중: 2D 지도로 보여 줍니다. 3D 위성과 로드뷰는 인터넷이 있을 때 켜집니다.', 'Opened without internet: shown on the 2D map. 3D satellite and road view turn on with an internet connection.')}</p>` : ''}
+    ${navOnline() && NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
     ${NAV.view === 'street' || !navKey() ? `<details class="nav-key"${navKey() ? '' : ' open'}><summary>${tr('로드뷰 키 (카카오)', 'Road view key (Kakao)')}${navKey() ? ' ✓' : ''}</summary>
       <p>${tr('카카오 개발자 사이트(developers.kakao.com)에서 만든 JavaScript 키를 넣으세요. 이 브라우저에만 저장되고 저장소에는 올라가지 않습니다. 앱 설정의 Web 플랫폼에 이 주소를 등록해야 합니다:', 'Paste the JavaScript key from developers.kakao.com. It is kept in this browser only, never in the repository. Register this address under the app\'s Web platform:')} <code>${location.origin}</code></p>
       <div><input id="navKey" type="password" autocomplete="off" placeholder="${tr('JavaScript 키', 'JavaScript key')}" value=""> <button type="button" class="btn" id="navKeySave">${tr('저장', 'Save')}</button>${navKey() ? ` <button type="button" class="btn" id="navKeyClear">${tr('지우기', 'Remove')}</button>` : ''}</div></details>` : ''}
@@ -2606,7 +2658,7 @@ function navGraph() {
   const X = m => pl + m / mMax * (W - pl - pr), Y = km => pt + (1 - Math.min(km, kMax) / kMax) * (H - pt - pb);
   let g = `<line x1="${pl}" x2="${W - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="#e23b1d" stroke-width="1" stroke-dasharray="3 3"/>`;
   for (const v of [0, Math.round(kMax / 2), Math.floor(kMax)]) g += `<text x="${pl - 4}" y="${Y(v) + 3}" text-anchor="end">${v} km</text>`;
-  for (const m of [0, Math.round(mMax / 2), Math.round(mMax)]) g += `<text x="${X(m)}" y="${H - 4}" text-anchor="middle">${m}${tr('분', ' min')}</text>`;
+  [0, Math.round(mMax / 2), Math.round(mMax)].forEach((m, i) => { g += `<text x="${X(m)}" y="${H - 4}" text-anchor="${['start', 'middle', 'end'][i]}">${m}${tr('분', ' min')}</text>`; });
   for (const [pol, d] of ser) { const col = pol === 'full' ? '#1a73e8' : '#8a8f96', w = pol === NAV.pol ? 2.6 : 1.8;
     g += `<polyline fill="none" stroke="${col}" stroke-width="${w}" points="${d.filter(x => x.km != null).map(x => `${X(x.m).toFixed(1)},${Y(x.km).toFixed(1)}`).join(' ')}"/>`;
     g += d.filter(x => x.fl).map(x => `<circle cx="${X(x.m).toFixed(1)}" cy="${Y(0)}" r="3.2" fill="#e23b1d"/>`).join('');
@@ -2660,6 +2712,10 @@ const navLib = () => navLibP ??= window.maplibregl ? Promise.resolve()
 // hosts, and the tiles along both routes, nearest the start first. Both hosts let the browser keep tiles, so when the tab
 // opens and the car drives, the ground is already here instead of arriving while it moves.
 function navWarm() {
+  if (!navOnline()) return;
+  navNet().then(up => up && navWarmGo());
+}
+function navWarmGo() {
   if (NAV.ci < 0 || isPhone || navigator.connection?.saveData) return;
   for (const h of ['https://server.arcgisonline.com', 'https://services.arcgisonline.com', 'https://s3.amazonaws.com'])
     document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'preconnect', href: h, crossOrigin: 'anonymous' }));

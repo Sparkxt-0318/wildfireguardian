@@ -68,19 +68,25 @@ function legendHTML(id) {
   return '';
 }
 function buildLayerPanel() {
-  const p = $('pLayers'); p.innerHTML = '';
+  const root = $('pLayers'); root.innerHTML = '';
+  // the gist (fire, spread, routes, villages) on top; the other layers folded under "more layers", each can be added on top
+  const more = document.createElement('details'); more.className = 'more-layers';
+  more.innerHTML = `<summary>${tr(`레이어 더 보기 (${LAYERS.filter(l => !l.core).length}개 · 바람·기온·수목·열유속·몬테카를로 등)`, `More layers (${LAYERS.filter(l => !l.core).length} · wind, temperature, canopy, heat flux, Monte Carlo …)`)}</summary>`;
+  let grp = null; const seen = new Set();
   LAYERS.forEach(l => {
-    if (l.g) p.insertAdjacentHTML('beforeend', `<div class="grp-h"><span>${l.g}</span>${l.id === 'temp' ? `<span>${tr('19ch 중 표시', 'of the 19 channels')}</span>` : ''}</div>`);
+    if (l.g) grp = l.g; const p = l.core ? root : more;
+    if (grp && !seen.has(grp + l.core)) { seen.add(grp + l.core); p.insertAdjacentHTML('beforeend', `<div class="grp-h"><span>${grp}</span>${!l.core && grp === LAYERS.find(x => x.id === 'temp').g ? `<span>${tr('19ch 중 표시', 'of the 19 channels')}</span>` : ''}</div>`); }
     const row = document.createElement('div'); row.className = 'lr' + (l.on ? '' : ' off'); row.id = 'lr-' + l.id;
     row.innerHTML = `<input type="checkbox" ${l.on ? 'checked' : ''} ${l.disabled ? `disabled title="${tr('이 화면에 이 층의 데이터가 없습니다', 'No data for this layer here')}"` : ''} aria-label="${l.n}"><canvas width="60" height="60"></canvas><div class="nm"><div>${l.n}</div><small class="${l.ill ? 'ill' : ''}">${l.src}</small></div>
       <div class="op">${l.noOp ? '' : `<input type="range" min="0" max="100" value="${l.op}" aria-label="${l.n} ${tr('불투명도', 'opacity')}"><span>${l.op}%</span>`}</div>`;
     p.appendChild(row); l.row = row;
     const lg = legendHTML(l.id); if (lg) { const d = document.createElement('div'); d.innerHTML = lg; d.firstElementChild.dataset.for = l.id; d.firstElementChild.hidden = !l.on && !l.disabled; p.appendChild(d.firstElementChild); }
     thumb(row.querySelector('canvas'), l.id);
-    row.querySelector('input[type=checkbox]').onchange = e => { l.on = e.target.checked; row.classList.toggle('off', !l.on); const lg = p.querySelector(`.legend[data-for="${l.id}"]`); if (lg) lg.hidden = !l.on; onLayerChange(l.id); };
+    row.querySelector('input[type=checkbox]').onchange = e => { l.on = e.target.checked; row.classList.toggle('off', !l.on); const lg = root.querySelector(`.legend[data-for="${l.id}"]`); if (lg) lg.hidden = !l.on; onLayerChange(l.id); };
     const rg = row.querySelector('input[type=range]'); if (rg) rg.oninput = e => { l.op = +e.target.value; rg.nextElementSibling.textContent = l.op + '%'; onLayerChange(l.id); };
   });
-  p.insertAdjacentHTML('beforeend', `<p class="note" style="margin:10px 4px 0">${tr('모델 입력은 환경 19채널(기온 1 · 바람 u 1 · 바람 v 1 · 경사 1 · 수목 피복률 1 · 생물군계 14)과 현재 연소 상태 B(t)입니다. ✱ 표시 층은 무늬와 색이 설명용이며 실제 입력 값이 아닙니다.', 'The model input is 19 environmental channels (temperature 1 · wind u 1 · wind v 1 · slope 1 · canopy 1 · biome 14) plus the burned state B(t). Layers marked ✱ show illustrative patterns, not the real input values.')}</p>`);
+  root.appendChild(more);
+  more.insertAdjacentHTML('beforeend', `<p class="note" style="margin:10px 4px 0">${tr('모델 입력은 환경 19채널(기온 1 · 바람 u 1 · 바람 v 1 · 경사 1 · 수목 피복률 1 · 생물군계 14)과 현재 연소 상태 B(t)입니다. ✱ 표시 층은 무늬와 색이 설명용이며 실제 입력 값이 아닙니다.', 'The model input is 19 environmental channels (temperature 1 · wind u 1 · wind v 1 · slope 1 · canopy 1 · biome 14) plus the burned state B(t). Layers marked ✱ show illustrative patterns, not the real input values.')}</p>`);
 }
 function setLayer(id, on) { const l = L[id]; if (!l || l.disabled || l.on === on) return; const cb = l.row.querySelector('input[type=checkbox]'); cb.checked = on; cb.onchange({ target: cb }); }
 document.addEventListener('click', e => { const b = e.target.closest('#memsel button'); if (!b) return; state.member = +b.dataset.m; document.querySelectorAll('#memsel button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); if (state.detail) buildTrack(); dirty = true; });
@@ -306,6 +312,22 @@ function openLightbox(src, cap) {
 }
 $('lightbox').onclick = e => { if (e.target.closest('img') && !e.target.closest('button')) return; $('lightbox').hidden = true; };
 addEventListener('keydown', e => { if (e.key === 'Escape') { $('lightbox').hidden = true; $('regMenu').hidden = true; $('regBtn').setAttribute('aria-expanded', 'false'); } });
+
+// ---------------- the gist: what the recorded results show (from regions/index.js, all five fires) ----------------
+function buildImpact() {
+  const all = RIDX.flatMap(r => r.rq3), fail = all.filter(q => q.travel_fails_full), ok = fail.filter(q => q.full_verdict === 'checked_route').length, here = RIDX.find(r => r.id === RID), hf = here ? here.rq3.filter(q => q.travel_fails_full).length : 0;
+  const el = document.createElement('details'); el.className = 'ov impact'; el.id = 'impact'; let open = true; try { open = localStorage.getItem('wfg3d.impact') !== '0'; } catch (e) { } el.open = open;
+  el.innerHTML = `<summary>${tr('핵심 요약', 'The gist')}</summary>
+    <div class="big"><b>${fail.length}</b><span>${tr(`/ ${all.length}건`, `of ${all.length}`)}</span></div>
+    <p>${tr(`실제 산불 ${RIDX.length}곳의 기록된 경로 점검 ${all.length}건 중 <b>${fail.length}건</b>에서 <b>가장 빠른 길</b>(이동 시간만 본 길)이 화염에 닿거나 열 한도를 넘었습니다.`, `In <b>${fail.length}</b> of ${all.length} recorded route checks on ${RIDX.length} real fires, the <b>fastest route</b> (travel time only) touched flame or went over the heat limit.`)}</p>
+    <ul><li><i class="ok"></i><span>${tr(`${ok}건: 화염 접촉 없이 열 한도 이하인 <b>점검된 다른 길</b>을 찾음`, `${ok}: a <b>checked route</b> with no flame contact, within heat limits, was found`)}</span></li>
+      <li><i class="nr"></i><span>${tr(`${fail.length - ok}건: 모델상 지나갈 길이 없음 → 그 길로 보내지 않고 미리 알림`, `${fail.length - ok}: no route in the model → flagged instead of sending people through`)}</span></li></ul>
+    <p class="here">${tr(`이 산불 (${REG_NAME(here)} ${here.year}): ${here.rq3.length}건 중 ${hf}건`, `This fire (${REG_NAME(here)} ${here.year}): ${hf} of ${here.rq3.length}`)} · ${tr(`출발지 ${here.origins}곳`, `${here.origins} origins`)}</p>
+    <button type="button" class="btn" id="impactNav">${tr('길 안내로 보기 ▶', 'See it in navigation ▶')}</button>`;
+  mapEl.appendChild(el);
+  el.addEventListener('toggle', () => { try { localStorage.setItem('wfg3d.impact', el.open ? '1' : '0'); } catch (e) { } });
+  $('impactNav').onclick = () => { if (!$('tabNav').hidden) { el.open = false; $('tabNav').click(); } };
+}
 
 // ---------------- overview ----------------
 function caseTable() {
@@ -766,7 +788,7 @@ async function boot() {
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
-  navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  navInit(); buildRegionMenu(); buildLayerPanel(); buildImpact(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));
