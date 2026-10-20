@@ -418,3 +418,24 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .dotpop button:hover { background: rgba(128,128,128,.16); }
 .dotpop button#dotZoom { background: #1a73e8; border-color: #1a73e8; color: #fff; }
 .dotpop button#dotZoom:hover { background: #1765cc; }
+
+/* road view: the fire laid over the photo (nav.js navSvFire) */
+#navStreet .sv-glow, #navStreet .sv-haze { position: absolute; inset: 0; z-index: 2; pointer-events: none; transition: opacity .6s, background .6s; }
+#navStreet .sv-haze { opacity: 0; background: radial-gradient(ellipse at 50% 40%, rgba(150,120,100,.55), rgba(90,70,60,.85)); mix-blend-mode: multiply; }
+#navStreet .sv-glow.pulse { animation: svpulse 1.6s ease-in-out infinite; }
+@keyframes svpulse { 50% { opacity: .65; } }
+#navStreet .sv-danger { position: absolute; z-index: 3; left: 12px; top: 12px; max-width: min(440px, 60%); padding: 10px 12px; border-radius: 10px; background: rgba(24,24,26,.82); color: #f2f2f2; font-size: 12.5px; line-height: 1.45; display: grid; gap: 4px; pointer-events: none; }
+#navStreet .sv-danger:empty { display: none; }
+#navStreet .sv-danger .big { font-size: 17px; font-weight: 700; } #navStreet .sv-danger .big b { color: #ff8a5c; }
+#navStreet .sv-danger .big.fire { color: #ff6b4a; } #navStreet .sv-danger .row { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+#navStreet .sv-danger em { font-style: normal; font-weight: 700; color: #cfcfcf; } #navStreet .sv-danger em.up { color: #ff7b52; } #navStreet .sv-danger em.dn { color: #6fd08c; }
+#navStreet .sv-danger .st.ok { color: #6fd08c; } #navStreet .sv-danger .st.warn { color: #ffc35c; } #navStreet .sv-danger .st.fire { color: #ff6b4a; font-weight: 700; }
+#navStreet .sv-danger b.hi { color: #ff6b4a; } #navStreet .sv-danger b.mid { color: #ffc35c; }
+#navStreet .sv-danger .ghost { color: #c9c9c9; } #navStreet .sv-danger .ghost.fire b { color: #ff6b4a; } #navStreet .sv-danger .ghost.ok b { color: #6fd08c; }
+#navStreet .sv-danger .note { font-size: 10.5px; color: #9a9a9a; }
+#navStreet .sv-mini { width: 320px; height: 234px; }
+@media (max-width: 860px) {
+  #navStreet .sv-danger { top: 56px; left: 8px; max-width: 54%; font-size: 11px; padding: 7px 9px; } #navStreet .sv-danger .big { font-size: 13.5px; }
+  #navStreet .sv-danger .note, #navStreet .sv-danger .risk, #navStreet .sv-danger .st { display: none; } #navStreet .sv-mini { width: 160px; height: 117px; }
+}
+.map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
