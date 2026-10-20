@@ -517,7 +517,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
         <button type="button" id="m2d" aria-pressed="false">2D</button>
         <button type="button" id="m3d" aria-pressed="true">3D</button>
       </div>
-      <div class="grp exg"><label for="exag"><span data-en="Relief">고도</span> ×<b id="exv">3</b></label><input id="exag" type="range" min="1" max="6" step="0.5" value="3" aria-label="고도 과장 배율" data-en-aria="Vertical exaggeration"></div>
+      <div class="grp exg"><label for="exag"><span data-en="Relief">고도</span> ×<b id="exv">5</b></label><input id="exag" type="range" min="1" max="10" step="0.5" value="5" aria-label="고도 과장 배율" data-en-aria="Vertical exaggeration"></div>
       <div class="grp"><button type="button" id="fs" title="전체 화면" aria-label="전체 화면" data-en-title="Full screen" data-en-aria="Full screen"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button></div>
     </div>
     <div class="tip" id="tip"></div>
@@ -1086,7 +1086,7 @@ const skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: fals
 const skyDome = new THREE.Mesh(new THREE.SphereGeometry(600, 32, 16), skyMat); skyDome.renderOrder = -1; skyDome.frustumCulled = false; scene.add(skyDome);
 scene.add(sunL, sunL.target);
 
-let EXAG = 3, flatF = 0, flatTarget = 0, reliefOn = true;
+let EXAG = 5, flatF = 0, flatTarget = 0, reliefOn = true;
 const yScale = () => (reliefOn ? EXAG : 0) * SF / 1000 * (1 - flatF) + 1e-6;     // metres -> scene units, exaggerated
 const yAt = (u, v) => elevUV(u, v) * yScale();
 
@@ -1832,7 +1832,7 @@ function buildDocs() {
     <p class="note" style="margin:6px 4px 14px">${LOGGER.note}</p>
     <div class="grp-h"><span>${tr('데이터 출처 · 한계', 'Data sources · limits')}</span></div>
     <ul class="src">
-      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 기본 3배 과장합니다.`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 3× by default.`)}</li>
+      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 기본 5배 과장합니다 (아래 고도 막대로 1–10배).`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 5× by default (1–10× with the relief slider).`)}</li>
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
       <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
@@ -2267,8 +2267,8 @@ function frame(now) {
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
   const day = smooth(-4, 14, sun.el), dusk = Math.exp(-Math.pow(sun.el / 7, 2));
   sunL.position.set(Math.sin(az) * Math.cos(el) * 110, Math.max(.05, Math.sin(el)) * 110 + 4, -Math.cos(az) * Math.cos(el) * 110);
-  sunL.intensity = 1.55 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
-  hemi.intensity = .28 + .42 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
+  sunL.intensity = .25 + 1.6 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
+  hemi.intensity = .2 + .3 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
   _sc.copy(sky.night).lerp(sky.day, day).lerp(sky.dusk, dusk * .55 * (day > .05 ? 1 : .4));
   renderer.setClearColor(_sc);
   skyMat.uniforms.horizon.value.copy(_sc); skyMat.uniforms.top.value.copy(skyTop.night).lerp(skyTop.day, day).lerp(skyTop.dusk, dusk * .35 * (day > .05 ? 1 : .3));
@@ -2482,7 +2482,9 @@ function navPanel() {
       <p>${tr('카카오 개발자 사이트(developers.kakao.com)에서 만든 JavaScript 키를 넣으세요. 이 브라우저에만 저장되고 저장소에는 올라가지 않습니다. 앱 설정의 Web 플랫폼에 이 주소를 등록해야 합니다:', 'Paste the JavaScript key from developers.kakao.com. It is kept in this browser only, never in the repository. Register this address under the app\'s Web platform:')} <code>${location.origin}</code></p>
       <div><input id="navKey" type="password" autocomplete="off" placeholder="${tr('JavaScript 키', 'JavaScript key')}" value=""> <button type="button" class="btn" id="navKeySave">${tr('저장', 'Save')}</button>${navKey() ? ` <button type="button" class="btn" id="navKeyClear">${tr('지우기', 'Remove')}</button>` : ''}</div></details>` : ''}
     <div class="nav-rts">${NAV_ROUTES.map(card).join('')}</div>
-    ${navOther() ? `<label class="nav-race"><input type="checkbox" id="navRace" ${NAV.race ? 'checked' : ''}> ${tr('두 길 동시에 달리기 (2D·3D 위성)', 'Race both routes at once (2D · 3D satellite)')}</label>` : ''}
+    ${navOther() ? `<div class="seg nav-show" role="group" aria-label="${tr('보여 줄 길', 'Routes shown')}">${[['both', tr('두 길 함께', 'Both routes')], ['full', tr('점검된 길만', 'Checked route only')], ['travel_only', tr('불 통과 길만', 'Through-fire route only')]].map(([k, n]) =>
+      `<button type="button" data-show="${k}" aria-pressed="${k === (NAV.race ? 'both' : NAV.pol)}">${n}</button>`).join('')}</div>` : ''}
+    ${NAV.view === 'chase' ? `<label class="nav-race"><input type="checkbox" id="navFree" ${NAV.free ? 'checked' : ''}> ${tr('자유 시점: 끌어서 이동·회전, 휠로 확대·축소 (오른쪽 끌기·Ctrl: 기울이기)', 'Free view: drag to move and turn, wheel to zoom (right-drag or Ctrl: tilt)')}</label>` : ''}
     <div class="nav-graph"><div class="h">${tr('가장 가까운 불까지 거리', 'Distance to the nearest fire')} <small>${tr('출발 후 분 · 기록·모델 불', 'minutes after departure · recorded and model fire')}</small></div><svg id="navGraph" role="img"></svg>
       <div class="k">${navPols().map(p => `<span><i style="background:${p === 'full' ? '#1a73e8' : '#8a8f96'}"></i>${NAV_ROUTES.find(x => x[0] === p)[1]}</span>`).join('')}<span><i class="fl"></i>${tr('화염 접촉', 'flame contact')}</span></div></div>
     <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button>
@@ -2499,7 +2501,9 @@ function navPanel() {
   if ($('navKeyClear')) $('navKeyClear').onclick = () => { navKeySet(''); location.reload(); };
   $('navPlay').onclick = () => { if (NAV.street) return navAuto(!NAV.auto); const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
-  if ($('navRace')) $('navRace').onchange = e => { NAV.race = e.target.checked; navHudKey = ''; NAV.camC = null; };
+  document.querySelectorAll('#pNav .nav-show button').forEach(b => b.onclick = () => { const k = b.dataset.show; navHudKey = ''; NAV.camC = null;
+    if (k === 'both') { NAV.race = true; navMapRoute(); navPanel(); } else { NAV.race = false; if (k !== NAV.pol && navHas(k)) navRoute(k); else { navMapRoute(); navPanel(); } } });
+  if ($('navFree')) $('navFree').onchange = e => navFree(e.target.checked);
   navGraph();
   $('navExit').onclick = () => navExit();
 }
@@ -2561,8 +2565,31 @@ function navFrame(t) {
         ${fire.dir ? `<dt>${tr('번지는 방향 (모델, 1시간)', 'Spreading toward (model, 1 h)')}</dt><dd>${fire.dir[2]} ${EN ? fire.dir[1] : fire.dir[0]}</dd>` : ''}
         <dt class="ph-x">${tr('차 위치 복사 열', 'Heat at the car')}</dt><dd class="ph-x">${navNum(F)} kW/m² <small>${tr('한도', 'limit')} ${lim.peak_kw_m2}</small></dd>
         <dt class="ph-x">${tr('누적 열 노출', 'Heat dose so far')}</dt><dd class="ph-x">${navNum(D)} kJ/m² <small>${tr('한도', 'limit')} ${fmtLim(lim.dose_kj_m2)}</small></dd></dl>`; }
+  navFlames2D(t);
   if (NAV.street) navSvFrame(t, p, s, q);
   else if (NAV.view !== '2d') navMapFrame(t, p, q, state_, cut);
+}
+
+// ---- 2D navigation: flames as glowing, flickering points over the map (modelled flame and cells burning in the record) ----
+function navGlowTex(stops) { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  stops.forEach(([o, col]) => g.addColorStop(o, col)); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); }
+function navFlames2D(t) {
+  const on = NAV.on && NAV.view === '2d';
+  if (!NAV.fl2) { if (!on) return;
+    const mat = (tex, size) => new THREE.PointsMaterial({ map: tex, size, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
+    const [a, b] = [cellCenter(0), cellCenter(1)], cw = Math.abs(sxU(uOf(b[0])) - sxU(uOf(a[0]))) || .1;
+    NAV.fl2 = { cw, glow: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,90,20,.9)'], [.45, 'rgba(255,60,10,.35)'], [1, 'rgba(255,40,0,0)']]), cw * 5)),
+      core: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,250,200,1)'], [.35, 'rgba(255,200,60,.9)'], [1, 'rgba(255,90,0,0)']]), cw * 2.2)) };
+    NAV.fl2.glow.renderOrder = NAV.fl2.core.renderOrder = 20; scene.add(NAV.fl2.glow, NAV.fl2.core); }
+  const F = NAV.fl2; F.glow.visible = F.core.visible = on; if (!on) return;
+  const zk = hzK(t), qi = inpIdx(t), key = hzSig(t) + ':' + qi + ':' + state.member;
+  if (key !== F.key) { F.key = key; const cells = new Set();
+    if (zk >= 0) hzField(zk, (t - HZ[zk].t0) * 3600, state.member).flame.forEach(i => cells.add(i));
+    if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) cells.add(i);
+    const pos = []; for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat); pos.push(sxU(u), yAt(u, v) + .02, szV(v)); }
+    for (const o of [F.glow, F.core]) { o.geometry.dispose(); o.geometry = new THREE.BufferGeometry(); o.geometry.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); } }
+  const now = performance.now() / 1000, k = .5 + .5 * Math.sin(now * 8.5) * Math.sin(now * 4.7);
+  F.glow.material.size = F.cw * (4.4 + 1.4 * k); F.glow.material.opacity = .7 + .3 * k; F.core.material.size = F.cw * (1.9 + .6 * (1 - k));
 }
 
 // ---- distance to the nearest fire along each route (a sample every 30 s of the trip), drawn under the route cards ----
@@ -2605,6 +2632,7 @@ const navLL = (u, v) => [W + u * (E - W), N - v * (N - S)];
 const NAV_CHASE = { pitch: 62, zoom: 15.8 };
 let navMapP = null;
 function navView(v, quiet) {
+  if (v !== 'chase' && NAV.free) navFree(false);
   NAV.view = v; NAV.hd = null; NAV.camC = null;
   if (state.mode !== '2d') setMode('2d');
   navStreet(v === 'street'); navReal(v === 'chase'); if (v === '2d') navFit();
@@ -2676,14 +2704,15 @@ function navMap() {
       center: navLL(first.u, first.v), bearing: navBear(navLL(first.u, first.v), navLL(a0.u, a0.v)), ...NAV_CHASE, style: { version: 8,
         sources: { sat: ras('sat', 'Imagery © Esri, Maxar, Earthstar Geographics'), roads: ras('roads', 'Roads © Esri'),
           dem: { type: 'raster-dem', tiles: [NAV_TILES.dem], tileSize: 256, maxzoom: 15, encoding: 'terrarium', attribution: 'Elevation: Terrain Tiles (Mapzen, AWS Open Data)' },
-          burn: { type: 'geojson', data: fc }, heat: { type: 'geojson', data: fc },
+          burn: { type: 'geojson', data: fc }, heat: { type: 'geojson', data: fc }, flame: { type: 'geojson', data: fc },
           alt: { type: 'geojson', data: fc }, route: { type: 'geojson', data: fc }, hits: { type: 'geojson', data: fc }, ends: { type: 'geojson', data: fc } },
         terrain: { source: 'dem', exaggeration: 1 },
         sky: { 'sky-color': '#8db7de', 'horizon-color': '#dfe8ee', 'fog-color': '#dfe6ea', 'sky-horizon-blend': .6, 'horizon-fog-blend': .7, 'fog-ground-blend': .75 },
         layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#d8d5cd' } },
           { id: 'sat', type: 'raster', source: 'sat' },
-          { id: 'burn', type: 'fill', source: 'burn', paint: { 'fill-color': '#1f1a17', 'fill-opacity': .5, 'fill-antialias': false } },
+          { id: 'burn', type: 'fill', source: 'burn', paint: { 'fill-color': '#0e0a08', 'fill-opacity': .74, 'fill-antialias': false } },
           { id: 'heat', type: 'fill', source: 'heat', paint: { 'fill-color': ['get', 'c'], 'fill-opacity': ['get', 'o'], 'fill-antialias': false } },
+          { id: 'flame', type: 'fill-extrusion', source: 'flame', paint: { 'fill-extrusion-color': ['get', 'c'], 'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-opacity': .9, 'fill-extrusion-vertical-gradient': true } },
           { id: 'roads', type: 'raster', source: 'roads', paint: { 'raster-opacity': .8 } },
           { id: 'alt', type: 'line', source: 'alt', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#9aa0a6', 'line-width': 5, 'line-opacity': .9 } },
           { id: 'casing', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': 10 } },
@@ -2708,7 +2737,7 @@ function navMapRoute() {
   const line = d => ({ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: d.map(q => navLL(q.u, q.v)) } });
   const runs = []; let run = null;
   for (const h of sc.k >= 0 ? flameHits(P.dense, sc.k) : []) { if (run && h.i === run[1] + 1) run[1] = h.i; else { run = [h.i, h.i]; runs.push(run); } }
-  map.getSource('alt').setData(A && A.dense.length > 1 ? line(A.dense) : { type: 'FeatureCollection', features: [] });
+  map.getSource('alt').setData(A && A.dense.length > 1 && NAV.race ? line(A.dense) : { type: 'FeatureCollection', features: [] });
   map.getSource('route').setData(line(P.dense));
   map.getSource('hits').setData({ type: 'FeatureCollection', features: runs.map(([a, b]) => line(P.dense.slice(a, b + 2))) });
   const a = P.dense[0], b = P.dense[P.dense.length - 1], pt = (q, c) => ({ type: 'Feature', properties: { c }, geometry: { type: 'Point', coordinates: navLL(q.u, q.v) } });
@@ -2718,19 +2747,36 @@ function navMapRoute() {
     e.className = 'navmlfire'; e.textContent = `${tr('화염', 'Flame')} ${navClock(sc.r.t0 + st.s / 3600)}`;
     return new maplibregl.Marker({ element: e, anchor: 'bottom', offset: [0, -6] }).setLngLat(navLL(q.u, q.v)).addTo(map); });
 }
+// free view in 3D: the map takes the mouse (drag, wheel, right-drag to tilt) and the camera stops following the car
+function navFree(on) {
+  NAV.free = on; const map = NAV.map; if (!map) return;
+  for (const h of ['dragPan', 'scrollZoom', 'dragRotate', 'touchZoomRotate', 'touchPitch', 'keyboard', 'doubleClickZoom']) map[h]?.[on ? 'enable' : 'disable']();
+  map.getContainer().classList.toggle('free', on); if (!on) NAV.camC = null;
+}
 // fire at time t as cell polygons laid on the terrain: recorded burned area dark (changes with the record), radiant heat
 // orange and flame cells red (change with the hazard input). Polygons, not one picture: MapLibre 4.7.1 drapes an image
 // source on terrain only inside a single map tile.
 const navCell = (i, c, o) => { const r = (i / NC) | 0, k = i % NC;
   return { type: 'Feature', properties: { c, o }, geometry: { type: 'Polygon', coordinates: [[lat_(r, k), lat_(r, k + 1), lat_(r + 1, k + 1), lat_(r + 1, k), lat_(r, k)]] } }; };
 function navFire(map, t) {
-  const k = recIdx(t), zk = hzK(t), hk = hzSig(t), fc = features => ({ type: 'FeatureCollection', features });
+  const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }
-  if (hk !== NAV.heatK) { NAV.heatK = hk; const f = [];
-    if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member), fl = new Set(fld.flame);
-      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) { f.push(navCell(i, '#e23b1d', .6)); continue; }
-        const v = fluxV(fld.f[i]); if (v >= .5) f.push(navCell(i, `rgb(${inferno(.15 + .85 * v).map(Math.round)})`, smooth(.5, .75, v) * .55)); } }
+  const fk = hk + ':' + qi;
+  if (fk !== NAV.heatK) { NAV.heatK = fk; const f = [], fl = new Set(), pts = [];
+    if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member); fld.flame.forEach(i => fl.add(i));
+      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push(navCell(i, `rgb(${inferno(.25 + .75 * v).map(Math.round)})`, .25 + smooth(.4, .8, v) * .5)); } }
+    if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) fl.add(i);     // burning now in the record
+    NAV.flCells = [...fl]; NAV.flT = 0;
     map.getSource('heat').setData(fc(f)); }
+  // flames: each burning cell as a cluster of 4×4 thin columns, 15–120 m, yellow to red, redrawn a few times a second so they flicker
+  const now = performance.now() / 1000;
+  if (NAV.flCells && now - (NAV.flT || 0) > .16) { NAV.flT = now; const cols = ['#fff07a', '#ffd23a', '#ffa21f', '#ff7a14', '#f04a12', '#d81e10'], n = 4, out = [];
+    for (const i of NAV.flCells) { const r = (i / NC) | 0, c = i % NC, A = lat_(r, c), Bq = lat_(r, c + 1), C = lat_(r + 1, c + 1), D = lat_(r + 1, c);
+      const at = (x, y) => [A[0] + (Bq[0] - A[0]) * x + (D[0] - A[0]) * y + (A[0] - Bq[0] + C[0] - D[0]) * x * y, A[1] + (Bq[1] - A[1]) * x + (D[1] - A[1]) * y + (A[1] - Bq[1] + C[1] - D[1]) * x * y];
+      for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) { const x0 = (a + .18) / n, x1 = (a + .82) / n, y0 = (b + .18) / n, y1 = (b + .82) / n, rnd = Math.random(), edge = Math.min(a, b, n - 1 - a, n - 1 - b) === 0;
+        const h = (edge ? 15 : 45) + rnd * (edge ? 50 : 75), col = cols[Math.min(5, Math.floor((1 - h / 120) * 4 + Math.random() * 2))];
+        out.push({ type: 'Feature', properties: { c: col, h }, geometry: { type: 'Polygon', coordinates: [[at(x0, y0), at(x1, y0), at(x1, y1), at(x0, y1), at(x0, y0)]] } }); } }
+    map.getSource('flame').setData({ type: 'FeatureCollection', features: out }); }
 }
 // heading along the route: from the car to a point `ahead` km further on
 function navAhead(dense, q, ahead) { const want = q.d + ahead; let j = Math.max(1, q.i || 1); while (j < dense.length - 1 && dense[j].d < want) j++; return dense[j]; }
@@ -2757,6 +2803,7 @@ function navMapFrame(t, p, q, cls, cut) {
   if (rop) { const o = navAt(rop.dense, (t - CASES[NAV.ci].r.t0) * 3600), h2 = navLL(o.u, o.v), km = Math.hypot((h2[0] - here[0]) * 111.32 * Math.cos(here[1] * Math.PI / 180), (h2[1] - here[1]) * 110.57);
     aim = [(here[0] + h2[0]) / 2, (here[1] + h2[1]) / 2]; zoom = 14.6 - Math.log2(Math.max(1, km / 1.4)); }
   if (!NAV.camC || cut) { NAV.camC = aim.slice(); NAV.camZ = zoom; } else { NAV.camC[0] += (aim[0] - NAV.camC[0]) * .025; NAV.camC[1] += (aim[1] - NAV.camC[1]) * .025; NAV.camZ += (zoom - NAV.camZ) * .025; }
+  if (NAV.free) return;
   map.jumpTo({ center: NAV.camC, bearing: NAV.camBear, pitch: 55, zoom: NAV.camZ, padding: { top: Math.round(map.getContainer().clientHeight * .15), bottom: 0, left: 0, right: 0 } });
 }
 

@@ -287,7 +287,7 @@ function buildDocs() {
     <p class="note" style="margin:6px 4px 14px">${LOGGER.note}</p>
     <div class="grp-h"><span>${tr('데이터 출처 · 한계', 'Data sources · limits')}</span></div>
     <ul class="src">
-      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 기본 3배 과장합니다.`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 3× by default.`)}</li>
+      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 기본 5배 과장합니다 (아래 고도 막대로 1–10배).`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 5× by default (1–10× with the relief slider).`)}</li>
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
       <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
@@ -722,8 +722,8 @@ function frame(now) {
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
   const day = smooth(-4, 14, sun.el), dusk = Math.exp(-Math.pow(sun.el / 7, 2));
   sunL.position.set(Math.sin(az) * Math.cos(el) * 110, Math.max(.05, Math.sin(el)) * 110 + 4, -Math.cos(az) * Math.cos(el) * 110);
-  sunL.intensity = 1.55 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
-  hemi.intensity = .28 + .42 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
+  sunL.intensity = .25 + 1.6 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
+  hemi.intensity = .2 + .3 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
   _sc.copy(sky.night).lerp(sky.day, day).lerp(sky.dusk, dusk * .55 * (day > .05 ? 1 : .4));
   renderer.setClearColor(_sc);
   skyMat.uniforms.horizon.value.copy(_sc); skyMat.uniforms.top.value.copy(skyTop.night).lerp(skyTop.day, day).lerp(skyTop.dusk, dusk * .35 * (day > .05 ? 1 : .3));
