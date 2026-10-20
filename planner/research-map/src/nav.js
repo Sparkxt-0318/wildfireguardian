@@ -114,6 +114,20 @@ function navRoute(pol) {
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
   if (NAV.view === 'street') { navAuto(false); navSvGo(0); } else setPlaying(true, Number($('speed').value) || 1);
 }
+// the recorded spread, fast: from the first burn record to the departure (about 15 s), with both routes on the map; the
+// burned area grows at each record time and the modelled flame shows in the hour after each model input. Then the
+// trip starts again.
+function navReplay() {
+  const sc = CASES[NAV.ci], dep = sc.r.t0 + sc.pol[NAV.pol].dep / 3600, a = Math.min(REC[0] ?? dep - 6, dep - .5);
+  if (NAV.view === 'street') navView('2d');
+  cancelAnimationFrame(NAV.rpRaf); setPlaying(false); setDetail(false);
+  let lb = $('navReplayLb'); if (!lb) { lb = document.createElement('div'); lb.id = 'navReplayLb'; lb.className = 'nav-replay'; mapEl.appendChild(lb); }
+  const t0 = performance.now(), dur = 15000;
+  const step = now => { const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t);
+    lb.innerHTML = `<b>${tr('불 번짐 재생 (기록)', 'Spread replay (recorded)')}</b> ${navDate(t)} ${navClock(t)} <i style="width:${(k * 100).toFixed(1)}%"></i>`;
+    if (k < 1 && NAV.on) NAV.rpRaf = requestAnimationFrame(step); else { lb.remove(); if (NAV.on) { if (sc.k >= 0) setDetail(true, sc.k); navRoute(NAV.pol); } } };
+  NAV.rpRaf = requestAnimationFrame(step);
+}
 // a label on the map where the route drives through flame
 function navMarks() {
   for (const it of NAV.marks || []) { it.el.remove(); const i = domItems.indexOf(it); if (i >= 0) domItems.splice(i, 1); }
@@ -156,7 +170,7 @@ function navPanel() {
     ${NAV.view === 'chase' ? `<label class="nav-race"><input type="checkbox" id="navFree" ${NAV.free ? 'checked' : ''}> ${tr('자유 시점: 끌어서 이동·회전, 휠로 확대·축소 (오른쪽 끌기·Ctrl: 기울이기)', 'Free view: drag to move and turn, wheel to zoom (right-drag or Ctrl: tilt)')}</label>` : ''}
     <div class="nav-graph"><div class="h">${tr('가장 가까운 불까지 거리', 'Distance to the nearest fire')} <small>${tr('출발 후 분 · 기록·모델 불', 'minutes after departure · recorded and model fire')}</small></div><svg id="navGraph" role="img"></svg>
       <div class="k">${navPols().map(p => `<span><i style="background:${p === 'full' ? '#1a73e8' : '#8a8f96'}"></i>${NAV_ROUTES.find(x => x[0] === p)[1]}</span>`).join('')}<span><i class="fl"></i>${tr('화염 접촉', 'flame contact')}</span></div></div>
-    <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button>
+    <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button><button type="button" class="btn" id="navReplay" title="${tr('첫 기록부터 출발 시각까지 기록된 불의 번짐을 빠르게 보여 줍니다', 'Plays the recorded spread from the first record to departure, fast')}">${tr('🔥 불 번짐 재생', '🔥 Replay the spread')}</button>
 </div>
     <h4>${tr('경로 안내', 'Directions')} <small>${tr('누르면 그 순간으로', 'click to jump there')}</small></h4>
     <ol class="nav-steps">${NAV.steps.map((st, i) => `<li class="${st.kind}" data-i="${i}"><time>${navClock(r.t0 + st.s / 3600)}</time><span>${st.text}${st.sub ? `<small>${st.sub}</small>` : ''}</span><em>${st.km.toFixed(1)} km</em></li>`).join('')}</ol>
@@ -170,6 +184,7 @@ function navPanel() {
   if ($('navKeyClear')) $('navKeyClear').onclick = () => { navKeySet(''); location.reload(); };
   $('navPlay').onclick = () => { if (NAV.street) return navAuto(!NAV.auto); const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
+  $('navReplay').onclick = () => navReplay();
   document.querySelectorAll('#pNav .nav-show button').forEach(b => b.onclick = () => { const k = b.dataset.show; navHudKey = ''; NAV.camC = null;
     if (k === 'both') { NAV.race = true; navMapRoute(); navPanel(); } else { NAV.race = false; if (k !== NAV.pol && navHas(k)) navRoute(k); else { navMapRoute(); navPanel(); } } });
   if ($('navFree')) $('navFree').onchange = e => navFree(e.target.checked);
@@ -384,8 +399,9 @@ function navMap() {
         layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#d8d5cd' } },
           { id: 'sat', type: 'raster', source: 'sat' },
           { id: 'burn', type: 'fill', source: 'burn', paint: { 'fill-color': '#0e0a08', 'fill-opacity': .74, 'fill-antialias': false } },
-          { id: 'heat', type: 'fill', source: 'heat', paint: { 'fill-color': ['get', 'c'], 'fill-opacity': ['get', 'o'], 'fill-antialias': false } },
-          { id: 'flame', type: 'fill-extrusion', source: 'flame', paint: { 'fill-extrusion-color': ['get', 'c'], 'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-opacity': .9, 'fill-extrusion-vertical-gradient': true } },
+          { id: 'heat', type: 'heatmap', source: 'heat', paint: { 'heatmap-weight': ['get', 'w'], 'heatmap-intensity': 1.1, 'heatmap-opacity': .85,
+            'heatmap-radius': ['interpolate', ['exponential', 2], ['zoom'], 10, 6, 13, 30, 15, 110, 17, 440],
+            'heatmap-color': ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(255,120,0,0)', .15, 'rgba(255,120,0,.18)', .4, 'rgba(255,80,0,.45)', .7, 'rgba(240,40,0,.7)', .9, 'rgba(255,170,40,.85)', 1, 'rgba(255,235,150,.9)'] } },
           { id: 'roads', type: 'raster', source: 'roads', paint: { 'raster-opacity': .8 } },
           { id: 'alt', type: 'line', source: 'alt', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#9aa0a6', 'line-width': 5, 'line-opacity': .9 } },
           { id: 'casing', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': 10 } },
@@ -396,6 +412,7 @@ function navMap() {
     map.once('idle', () => map.getContainer().querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'));     // credits folded to the (i) button
     map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
     await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
+    navFlameImages(map);
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
     NAV.mlCar = new maplibregl.Marker({ element: car, rotationAlignment: 'map', pitchAlignment: 'map' }).setLngLat(map.getCenter()).addTo(map);
     const car2 = car.cloneNode(true); car2.classList.add('alt');
@@ -431,25 +448,47 @@ function navFree(on) {
 // source on terrain only inside a single map tile.
 const navCell = (i, c, o) => { const r = (i / NC) | 0, k = i % NC;
   return { type: 'Feature', properties: { c, o }, geometry: { type: 'Polygon', coordinates: [[lat_(r, k), lat_(r, k + 1), lat_(r + 1, k + 1), lat_(r + 1, k), lat_(r, k)]] } }; };
+// flames and smoke as small animated pictures standing up on the ground (drawn here, no image files): three flame
+// pictures with different flicker phases and one drifting smoke puff
+function navFlameImages(map) {
+  const anim = (w, h, draw) => ({ width: w, height: h, data: new Uint8Array(w * h * 4),
+    onAdd() { this.cv = Object.assign(document.createElement('canvas'), { width: w, height: h }); this.cx = this.cv.getContext('2d', { willReadFrequently: true }); },
+    render() { const x = this.cx; x.clearRect(0, 0, w, h); draw(x, performance.now() / 1000); this.data = x.getImageData(0, 0, w, h).data; map.triggerRepaint(); return true; } });
+  const tongue = (x, cx, base, hgt, wid, sway) => { x.beginPath(); x.moveTo(cx - wid, base); x.bezierCurveTo(cx - wid, base - hgt * .45, cx + sway - wid * .3, base - hgt * .7, cx + sway, base - hgt);
+    x.bezierCurveTo(cx + sway + wid * .3, base - hgt * .7, cx + wid, base - hgt * .45, cx + wid, base); x.closePath(); x.fill(); };
+  for (let k = 0; k < 3; k++) map.addImage('fire' + k, anim(48, 80, (x, t) => {
+    const base = 78, g = x.createLinearGradient(0, base, 0, 0); g.addColorStop(0, 'rgba(255,240,170,1)'); g.addColorStop(.25, 'rgba(255,190,40,.95)'); g.addColorStop(.6, 'rgba(255,90,10,.85)'); g.addColorStop(1, 'rgba(200,20,0,0)');
+    x.fillStyle = g; x.globalCompositeOperation = 'lighter';
+    for (let j = 0; j < 4; j++) { const ph = t * (7 + j * 1.7) + k * 2.1 + j * 1.3, hgt = 50 + 22 * Math.sin(ph) + 8 * Math.sin(ph * 2.3), sway = 6 * Math.sin(ph * .7 + j);
+      tongue(x, 24 + (j - 1.5) * 6, base, hgt, 9 - j, sway); }
+    x.globalCompositeOperation = 'source-over'; }), { pixelRatio: 2 });
+  map.addImage('smoke', anim(64, 64, (x, t) => {
+    for (let j = 0; j < 4; j++) { const p = (t * .35 + j / 4) % 1, cy = 56 - p * 44, r = 10 + p * 16, g = x.createRadialGradient(32 + 6 * Math.sin(j * 2 + t), cy, 0, 32, cy, r);
+      g.addColorStop(0, `rgba(88,80,74,${.85 * (1 - p * .7)})`); g.addColorStop(1, 'rgba(70,64,60,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); } }), { pixelRatio: 2 });
+  const sz = k => ['interpolate', ['exponential', 2], ['zoom'], 11, ['*', ['get', 's'], k * .5], 14, ['*', ['get', 's'], k * 2], 17, ['*', ['get', 's'], k * 10]];
+  map.addLayer({ id: 'smoke', type: 'symbol', source: 'flame', filter: ['==', ['get', 'smoke'], 1], layout: { 'icon-image': 'smoke', 'icon-size': sz(1.6), 'icon-anchor': 'bottom',
+    'icon-offset': [0, -8], 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport' }, paint: { 'icon-opacity': .9 } });
+  map.addLayer({ id: 'flame', type: 'symbol', source: 'flame', layout: { 'icon-image': ['concat', 'fire', ['get', 'im']], 'icon-size': sz(.45), 'icon-anchor': 'bottom',
+    'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
+}
 function navFire(map, t) {
   const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }
   const fk = hk + ':' + qi;
   if (fk !== NAV.heatK) { NAV.heatK = fk; const f = [], fl = new Set(), pts = [];
     if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member); fld.flame.forEach(i => fl.add(i));
-      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push(navCell(i, `rgb(${inferno(.25 + .75 * v).map(Math.round)})`, .25 + smooth(.4, .8, v) * .5)); } }
+      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push({ type: 'Feature', properties: { w: .15 + .6 * smooth(.4, .9, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
     if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) fl.add(i);     // burning now in the record
-    NAV.flCells = [...fl]; NAV.flT = 0;
+    NAV.flCells = [...fl]; for (const i of fl) f.push({ type: 'Feature', properties: { w: 1 }, geometry: { type: 'Point', coordinates: cellCenter(i) } });
     map.getSource('heat').setData(fc(f)); }
-  // flames: each burning cell as a cluster of 4×4 thin columns, 15–120 m, yellow to red, redrawn a few times a second so they flicker
-  const now = performance.now() / 1000;
-  if (NAV.flCells && now - (NAV.flT || 0) > .16) { NAV.flT = now; const cols = ['#fff07a', '#ffd23a', '#ffa21f', '#ff7a14', '#f04a12', '#d81e10'], n = 4, out = [];
-    for (const i of NAV.flCells) { const r = (i / NC) | 0, c = i % NC, A = lat_(r, c), Bq = lat_(r, c + 1), C = lat_(r + 1, c + 1), D = lat_(r + 1, c);
-      const at = (x, y) => [A[0] + (Bq[0] - A[0]) * x + (D[0] - A[0]) * y + (A[0] - Bq[0] + C[0] - D[0]) * x * y, A[1] + (Bq[1] - A[1]) * x + (D[1] - A[1]) * y + (A[1] - Bq[1] + C[1] - D[1]) * x * y];
-      for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) { const x0 = (a + .18) / n, x1 = (a + .82) / n, y0 = (b + .18) / n, y1 = (b + .82) / n, rnd = Math.random(), edge = Math.min(a, b, n - 1 - a, n - 1 - b) === 0;
-        const h = (edge ? 15 : 45) + rnd * (edge ? 50 : 75), col = cols[Math.min(5, Math.floor((1 - h / 120) * 4 + Math.random() * 2))];
-        out.push({ type: 'Feature', properties: { c: col, h }, geometry: { type: 'Polygon', coordinates: [[at(x0, y0), at(x1, y0), at(x1, y1), at(x0, y1), at(x0, y0)]] } }); } }
-    map.getSource('flame').setData({ type: 'FeatureCollection', features: out }); }
+  // flames: a glowing bed on each burning cell and flame pictures scattered over it (fixed per cell, so they do not jump),
+  // with a smoke puff over some of them
+  if (NAV.flCells !== NAV.flDrawn) { NAV.flDrawn = NAV.flCells; const pts = [];
+    for (const i of NAV.flCells || []) { const r = (i / NC) | 0, c = i % NC, A = lat_(r, c), Bq = lat_(r, c + 1), D = lat_(r + 1, c);
+      let seed = (i * 7919) % 233280; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+      for (let j = 0; j < 16; j++) { const x = rnd(), y = rnd();
+        pts.push({ type: 'Feature', properties: { im: j % 3, s: .7 + .6 * rnd(), smoke: j % 5 === 0 ? 1 : 0 }, geometry: { type: 'Point', coordinates: [A[0] + (Bq[0] - A[0]) * x + (D[0] - A[0]) * y, A[1] + (Bq[1] - A[1]) * x + (D[1] - A[1]) * y] } }); } }
+    map.getSource('flame').setData({ type: 'FeatureCollection', features: pts }); }
 }
 // heading along the route: from the car to a point `ahead` km further on
 function navAhead(dense, q, ahead) { const want = q.d + ahead; let j = Math.max(1, q.i || 1); while (j < dense.length - 1 && dense[j].d < want) j++; return dense[j]; }

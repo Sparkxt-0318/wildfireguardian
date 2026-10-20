@@ -438,3 +438,6 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
 .more-layers { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
 .more-layers > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; padding: 6px 4px; color: var(--accent, #1a73e8); }
+/* spread replay label (nav.js navReplay) */
+.nav-replay { position: absolute; z-index: 5; left: 50%; top: 14px; transform: translateX(-50%); padding: 8px 14px 12px; border-radius: 10px; background: rgba(24,24,26,.86); color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; min-width: 260px; text-align: center; }
+.nav-replay b { color: #ff9a5c; margin-right: 6px; } .nav-replay i { position: absolute; left: 0; bottom: 0; height: 4px; border-radius: 0 0 0 10px; background: #ff6a2a; }
