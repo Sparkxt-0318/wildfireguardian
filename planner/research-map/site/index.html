@@ -1502,7 +1502,7 @@ function buildDom() {
   B.places.forEach(p => { const cls = p.role === 'destination' ? 'mk shelter' : p.vul ? 'mk care' : 'mk';
     const it = addDom(cls, '', uOf(p.lon), vOf(p.lat), { layer: 'places', lift: .03, place: p });
     PLACE_DOM.set(p.id, it);
-    it.el.title = placeName(p) + ' · ' + (p.role === 'destination' ? tr('대피소', 'Shelter') + ' (OSM ' + catName(p.cat) + ')' : p.vul ? tr('요양·복지시설 (취약)', 'Care facility (vulnerable)') : tr('마을 출발지', 'Village origin')); });
+    it.el.title = placeName(p) + ' · ' + placeKind(p); });
   routes.forEach(r => { r.veh = addDom('veh', '', 0, 0, { layer: 'routes', veh: r }); });
 }
 const _v = new THREE.Vector3();
@@ -1523,9 +1523,19 @@ function placeDom() {
 }
 
 // ---------------- names ----------------
-const CAT = { village: ['마을', 'village'], hamlet: ['마을', 'hamlet'], social_facility: ['복지시설', 'social facility'], nursing_home: ['요양시설', 'nursing home'], school: ['학교', 'school'], community_centre: ['마을회관', 'community centre'], shelter: ['대피소', 'shelter'], research: ['연구 사례 출발지', 'research origin'] };
+const CAT = { village: ['마을', 'village'], hamlet: ['마을', 'hamlet'], social_facility: ['복지시설', 'social facility'], nursing_home: ['요양시설', 'nursing home'], school: ['학교', 'school'], community_centre: ['마을회관', 'community centre'], community_hall: ['마을회관', 'village hall'], shelter: ['대피소', 'shelter'], research: ['연구 사례 출발지', 'research origin'] };
 const catName = c => (CAT[c] || [c || '', c || ''])[EN ? 1 : 0];
-const placeName = p => (EN ? (p.ne || p.name) : p.name) || (p.role === 'destination' ? tr('이름 없는 대피소', 'Unnamed shelter') : tr('이름 없는 출발지', 'Unnamed origin'));
+// the nearest named village (OSM place=village/hamlet), to say where an unnamed or building-only place is
+const nearVillage = p => { if (p.lon == null) return ''; let best = null, bd = 1e9;
+  for (const q of B.places) if (q !== p && (q.cat === 'village' || q.cat === 'hamlet') && q.name) { const d = (q.lon - p.lon) ** 2 + (q.lat - p.lat) ** 2; if (d < bd) { bd = d; best = q; } }
+  return best ? (EN ? best.ne || best.name : best.name) : ''; };
+// OSM names as they are; an unnamed place says what it is and where; a school building (교사동, 체육관…) says it is one
+const placeName = p => { const v = nearVillage(p), at = v ? tr(` · ${v} 부근`, ` · near ${v}`) : '', n = EN ? p.ne || p.name : p.name;
+  if (!n) return (p.role === 'destination' ? tr(`이름 없는 ${catName(p.cat) || '대피소'}`, `Unnamed ${catName(p.cat) || 'shelter'}`) : tr('이름 없는 출발지', 'Unnamed origin')) + at;
+  if (p.cat === 'school' && !/학교|초등|대학|school|college|university/i.test(n)) return tr(`${n} (학교 건물)${at}`, `${n} (school building)${at}`);
+  return n; };
+// what a dot is, in plain words
+const placeKind = p => p.role === 'destination' ? tr(`대피소 · ${catName(p.cat) || '시설'}`, `Shelter · ${catName(p.cat) || 'facility'}`) : p.vul ? tr('요양·복지시설 (취약 계층) · 대피 출발지', 'Care facility (vulnerable people) · evacuation origin') : tr('마을 · 대피 출발지', 'Village · evacuation origin');
 const REG_NAME = r => EN ? r.name.en : r.name.ko;
 const caseLabel = r => r.label;
 const fmtS = s => s == null ? '–' : EN ? `${Math.floor(s / 60)} min ${String(Math.round(s % 60)).padStart(2, '0')} s` : `${Math.floor(s / 60)}분 ${String(Math.round(s % 60)).padStart(2, '0')}초`;
@@ -1646,7 +1656,7 @@ function updateBooth(force) {
 function dotInfo(it) {
   const k = state.boothK, rowOf = id => L.booth.on && k >= 0 && state.cmp === 'ours' ? BOOTH[k].rows.find(r => r.id === id) : null;
   if (it.place) { const p = it.place, row = p.role === 'origin' ? rowOf(p.id) : null;
-    return { name: placeName(p), kind: p.role === 'destination' ? tr('대피소', 'Shelter') + ` (OSM ${catName(p.cat)})` : p.vul ? tr('요양·복지시설 (취약 계층)', 'Care facility (vulnerable people)') : tr('마을 · 대피 출발지', 'Village · evacuation origin'), row }; }
+    return { name: placeName(p), kind: placeKind(p), row }; }
   if (it.rid != null) { const row = rowOf(it.rid); return { name: row ? row.name : it.el.title.replace(/^.*?(출발지|origin) /, ''), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
   return null;
 }

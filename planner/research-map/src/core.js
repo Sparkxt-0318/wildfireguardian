@@ -877,7 +877,7 @@ function buildDom() {
   B.places.forEach(p => { const cls = p.role === 'destination' ? 'mk shelter' : p.vul ? 'mk care' : 'mk';
     const it = addDom(cls, '', uOf(p.lon), vOf(p.lat), { layer: 'places', lift: .03, place: p });
     PLACE_DOM.set(p.id, it);
-    it.el.title = placeName(p) + ' · ' + (p.role === 'destination' ? tr('대피소', 'Shelter') + ' (OSM ' + catName(p.cat) + ')' : p.vul ? tr('요양·복지시설 (취약)', 'Care facility (vulnerable)') : tr('마을 출발지', 'Village origin')); });
+    it.el.title = placeName(p) + ' · ' + placeKind(p); });
   routes.forEach(r => { r.veh = addDom('veh', '', 0, 0, { layer: 'routes', veh: r }); });
 }
 const _v = new THREE.Vector3();
