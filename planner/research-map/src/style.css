@@ -414,3 +414,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
   #navStreet .sv-minibox { right: 8px; bottom: auto; top: 56px; }
   .map.navsv .navhud { bottom: 6px; }
 }
+.dotpop button { flex: 1; padding: 5px 0; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+.dotpop button:hover { background: rgba(128,128,128,.16); }
+.dotpop button#dotZoom { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+.dotpop button#dotZoom:hover { background: #1765cc; }

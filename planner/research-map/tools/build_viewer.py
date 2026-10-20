@@ -46,6 +46,20 @@ def build_offline(out: Path):
     shutil.copytree(site, out, ignore=shutil.ignore_patterns('vercel.json'))
     for t in sorted((out / 'regions').glob('*.tex.js')):
         t.write_text(inline_tex(t.read_text(), site)); shutil.rmtree(out / 'regions' / t.name[:-len('.tex.js')])
+    (out / '읽어보기-README.txt').write_text(OFFLINE_NOTE)
+
+
+OFFLINE_NOTE = '''WildfireGuardian — 오프라인 판 (offline copy)
+
+열기: 압축을 풀고 index.html 을 Chrome 또는 Edge 로 여세요. 인터넷이 없어도 5개 산불 지도, 타임라인, 2D 길 안내가 모두 됩니다.
+Open: unzip, then open index.html in Chrome or Edge. All five fires, the timeline and the 2D route view work with no internet.
+
+인터넷이 필요한 것 (Needs internet):
+- 로드뷰 (카카오): 카카오는 파일(file://)에서 열면 동작하지 않습니다. 로드뷰는 https://wildfireguardian-site.vercel.app 에서 보세요.
+  Road View (Kakao) does not run from a file; use the website for it.
+- 3D 위성 사진 타일 (Esri): 인터넷이 있으면 받아 옵니다.
+  3D satellite tiles load from the internet when it is available.
+'''
 
 
 def build_single() -> str:

@@ -1,0 +1,38 @@
+name: Research map offline package
+# Every change to the research map on Main rebuilds the offline folder (tools/build_viewer.py --offline) and puts the zip
+# on the release "offline-latest", replacing the previous one. Stable download address:
+# https://github.com/Sparkxt-0318/wildfireguardian/releases/download/offline-latest/wildfireguardian-offline.zip
+on:
+  push:
+    branches: [Main]
+    paths: ['planner/research-map/**', '.github/workflows/offline-package.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: offline-package
+  cancel-in-progress: true
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build the offline folder and zip it
+        working-directory: planner/research-map
+        run: |
+          python tools/build_viewer.py --offline "$RUNNER_TEMP/pkg/wildfireguardian-offline"
+          cd "$RUNNER_TEMP/pkg" && zip -qr -9 wildfireguardian-offline.zip wildfireguardian-offline && ls -lh wildfireguardian-offline.zip
+      - name: Replace the zip on the offline-latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notes="Research map, ready to use offline: download, unzip, open index.html in Chrome or Edge. Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d). Road View (Kakao) and the 3D satellite photos need internet."
+          if gh release view offline-latest >/dev/null 2>&1; then
+            gh release edit offline-latest --notes "$notes" --target "$GITHUB_SHA"
+            gh release upload offline-latest "$RUNNER_TEMP/pkg/wildfireguardian-offline.zip" --clobber
+          else
+            gh release create offline-latest "$RUNNER_TEMP/pkg/wildfireguardian-offline.zip" --title "Research map — offline package" --notes "$notes" --target "$GITHUB_SHA" --latest=false
+          fi

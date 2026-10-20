@@ -479,7 +479,7 @@ function navIdSave() { for (const pol in NAV.ids || {}) try { localStorage.setIt
 function navStreetEl() {
   let el = $('navStreet'); if (el) return el;
   el = document.createElement('div'); el.id = 'navStreet'; el.className = 'navstreet warm';
-  el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-msg" id="navSvMsg"></div>
+  el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-view" id="navSvC"></div><div class="sv-msg" id="navSvMsg"></div>
     <div class="sv-curtain"><i></i>${tr('로드뷰 준비 중…', 'Preparing road view…')}</div>
     <div class="sv-minibox"><canvas class="sv-mini" id="navMini" width="520" height="380" aria-label="${tr('작은 지도: 경로와 기록된 불', 'Inset map: routes and recorded fire')}"></canvas>
       <div class="sv-zoom"><button type="button" id="miniIn" title="${tr('확대', 'Zoom in')}">+</button><button type="button" id="miniOut" title="${tr('축소', 'Zoom out')}">−</button></div></div>
@@ -513,7 +513,8 @@ function navSvMake(id) {
   setTimeout(() => b.rv.relayout(), 50);     // Kakao waits for a size before it loads photos
   return b;
 }
-function navSvSecond() { if (NAV.rvs.length < 2) { NAV.rvs[1] = navSvMake(NAV.rvs[0].el.id === 'navSvA' ? 'navSvB' : 'navSvA'); } }
+// the hidden views, once the first photo is on screen: one for the photo ahead and one for the photo behind
+function navSvSecond() { for (const id of ['navSvA', 'navSvB', 'navSvC']) if (!NAV.rvs.some(b => b.el.id === id)) NAV.rvs.push(navSvMake(id)); }
 // build out of sight at the first stop, so the first photo is already there when the view opens
 function navStreetWarm() {
   if (!navKey() || NAV.ci < 0) return;
@@ -545,41 +546,45 @@ function navSvGo(j, keepTime) {
   const pos = $('svPos'); if (pos) pos.textContent = `${q.d.toFixed(2)} / ${(sc.pol[NAV.pol].length_m / 1000).toFixed(1)} km`;
   if (NAV.rvs) navSvShow(j);
 }
-// show stop j's photo: from the hidden view if it already holds it (cross-fade), else load it there and fade when it is ready;
-// the current photo stays until then (no blur). Afterwards the hidden view loads the next stop ahead.
+// show stop j's photo: from a hidden view that already holds it (cross-fade, sharp at once); a click whose photo is
+// still loading waits for it a moment, then loads it in the visible view. Afterwards the hidden views load the photos
+// on both sides (ahead and behind; while driving, the next two ahead).
 function navSvShow(j) {
-  const ids = navIds(NAV.pol), id = ids[j], F = NAV.rvs[NAV.front], Bk = NAV.rvs[1 - NAV.front], pan = NAV.svHd;
+  const ids = navIds(NAV.pol), id = ids[j], F = NAV.rvs[NAV.front], others = NAV.rvs.filter(b => b !== F), pan = NAV.svHd;
   if (id === undefined) { NAV.svWait = j; navSvLookup(j); return; }
   if (id === null) { NAV.svMiss = j; navSvMsg(tr('이 지점 50 m 안에는 로드뷰 사진이 없습니다 · 앞뒤로 이동해 보세요', 'No road photo within 50 m of this point · step on or back')); NAV.stepDone?.(); return; }
   if (NAV.svMiss != null) { NAV.svMiss = null; navSvMsg(''); }
   const ll = navLL(NAV.sv[j].u, NAV.sv[j].v), at = new kakao.maps.LatLng(ll[1], ll[0]);
   const after = () => { NAV.stepDone?.(); navSvPreload(j); };
-  if (!Bk) {     // only one view yet: load into it, then add the second
+  if (!others.length) {     // only one view yet: load into it, then add the others
     if (F.id !== id) { F.id = id; F.at = at; F.pan = pan; F.ready = false; F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
     F.onReady = () => { if (NAV.svI !== j) return; $('navStreet')?.classList.add('ready'); navSvMsg(''); setTimeout(() => { navSvSecond(); after(); }, 300); };
     if (F.ready && F.id === id) F.onReady();
     return; }
+  clearTimeout(NAV.svFall);
   if (F.id === id) { navSvTurn(F, pan); return after(); }
   // straight away, the current photo moves the way we go (forward: zooms in, back: out) while the next one gets ready
   const dir = NAV.svDir || 1; F.el.classList.remove('go-fwd', 'go-back'); void F.el.offsetWidth; if (F.id != null) F.el.classList.add(dir > 0 ? 'go-fwd' : 'go-back');
-  const swap = () => { if (NAV.svI !== j) return; Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); Bk.el.classList.remove('go-fwd', 'go-back');
-    Bk.el.classList.add('on'); F.el.classList.remove('on'); NAV.front = 1 - NAV.front; navSvMsg(''); $('navStreet')?.classList.add('ready');
+  const swap = Bk => { if (NAV.svI !== j) return; clearTimeout(NAV.svFall); Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); Bk.el.classList.remove('go-fwd', 'go-back');
+    Bk.el.classList.add('on'); F.el.classList.remove('on'); NAV.front = NAV.rvs.indexOf(Bk); navSvMsg(''); $('navStreet')?.classList.add('ready');
     setTimeout(() => F.el.classList.remove('go-fwd', 'go-back'), 450); after(); };
-  if (Bk.id === id && Bk.ready) return swap();
-  if (!NAV.auto) {     // a click: no waiting for the hidden view, the visible one moves on now
-    F.el.classList.remove('go-fwd', 'go-back'); F.id = id; F.at = at; F.pan = pan; F.ready = false; F.onReady = null;
-    F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); navSvMsg(''); return after(); }
-  if (Bk.id !== id) { Bk.id = id; Bk.at = at; Bk.pan = pan; Bk.ready = false; Bk.rv.relayout(); Bk.rv.setPanoId(id, at); Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
-  Bk.onReady = swap;
+  let H = others.find(b => b.id === id);
+  if (H && H.ready) return swap(H);
+  if (!H) { H = others.find(b => b.onReady == null) || others[0]; H.id = id; H.at = at; H.pan = pan; H.ready = false; H.rv.relayout(); H.rv.setPanoId(id, at); H.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
+  others.forEach(b => { if (b !== H) b.onReady = null; }); H.onReady = () => swap(H);
+  if (!NAV.auto) NAV.svFall = setTimeout(() => {     // still not there after 1.5 s: load it in the visible view instead
+    if (NAV.svI !== j || NAV.rvs[NAV.front] !== F) return; H.onReady = null; F.el.classList.remove('go-fwd', 'go-back');
+    F.id = id; F.at = at; F.pan = pan; F.ready = false; F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); after(); }, 1500);
 }
-// next photo ahead into the hidden view, facing the way it will be seen
+// the photos next to stop j into the hidden views, each facing the way it will be seen
 function navSvPreload(j) {
-  const ids = navIds(NAV.pol), Bk = NAV.rvs[1 - NAV.front], cur = ids[j]; let k = j; if (!Bk) return;
-  const dir = NAV.auto ? 1 : NAV.svDir || 1;
-  while (k + dir >= 0 && k + dir < ids.length) { k += dir; if (ids[k] && ids[k] !== cur) break; }
-  const id = ids[k]; if (!id || id === cur || Bk.id === id) return;
-  const ll = navLL(NAV.sv[k].u, NAV.sv[k].v); Bk.id = id; Bk.at = new kakao.maps.LatLng(ll[1], ll[0]); Bk.pan = navSvHd(k); Bk.ready = false; Bk.onReady = null;
-  Bk.rv.setPanoId(id, Bk.at); Bk.rv.setViewpoint({ pan: Bk.pan, tilt: 0, zoom: 0 });
+  const ids = navIds(NAV.pol), cur = ids[j], F = NAV.rvs[NAV.front], others = NAV.rvs.filter(b => b !== F); if (!others.length) return;
+  const near = (k, d) => { while (k >= 0 && k + d >= 0 && k + d < ids.length) { k += d; if (ids[k] && ids[k] !== cur && ids[k] !== ids[k - d]) return k; } return -1; };
+  const dir = NAV.svDir || 1, a = near(j, NAV.auto ? 1 : dir), ks = (NAV.auto ? [a, near(a, 1)] : [a, near(j, -dir)]).filter(k => k >= 0);
+  const free = others.filter(b => b.onReady == null && !ks.some(k => ids[k] === b.id));
+  for (const k of ks) { if (others.some(b => b.id === ids[k])) continue; const b = free.shift(); if (!b) break;
+    const ll = navLL(NAV.sv[k].u, NAV.sv[k].v); b.id = ids[k]; b.at = new kakao.maps.LatLng(ll[1], ll[0]); b.pan = navSvHd(k); b.ready = false;
+    b.rv.setPanoId(b.id, b.at); b.rv.setViewpoint({ pan: b.pan, tilt: 0, zoom: 0 }); }
 }
 // a stop not looked up yet: ask now (ahead of the queue)
 function navSvLookup(j) {
