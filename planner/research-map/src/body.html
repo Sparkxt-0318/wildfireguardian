@@ -28,6 +28,18 @@
     <div class="loading" id="loading" data-en="Preparing terrain and layers…">지형과 층을 준비하는 중…</div>
     <div class="labels" id="labels"></div>
     <div class="navhud" id="navHud" hidden aria-live="polite"></div>
+    <details class="ov dotlegend" id="dotLegend"><summary data-en="Map symbols">지도 기호</summary>
+      <div><i class="mk"></i><span data-en="Village (evacuation origin)">마을 (대피 출발지)</span></div>
+      <div><i class="mk care"></i><span data-en="Care facility (vulnerable people)">요양·복지시설 (취약 계층)</span></div>
+      <div><i class="mk shelter"></i><span data-en="Shelter">대피소</span></div>
+      <div><i class="mk research"></i><span data-en="Research case origin">연구 사례 출발지</span></div>
+      <p data-en="With evacuation status on, the colour is the result at that time:">대피 현황을 켜면 그 시각의 결과 색:</p>
+      <div><i class="mk st-ok"></i><span data-en="Checked route">확인된 경로</span></div>
+      <div><i class="mk st-nr"></i><span data-en="No route in the model">모델상 경로 없음</span></div>
+      <div><i class="mk st-un"></i><span data-en="Unresolved">미확인</span></div>
+      <p data-en="Click a dot to see what it is and zoom in.">점을 누르면 이름과 종류를 보고 확대할 수 있습니다.</p>
+    </details>
+    <div class="dotpop" id="dotPop" hidden></div>
     <div class="navlegend" id="navLegend" hidden>
       <div><i class="lg-burn"></i><span data-en="Burned (recorded)">탄 곳 (기록)</span></div>
       <div><i class="lg-front"></i><span data-en="Fire front now (recorded)">지금 불 가장자리 (기록)</span></div>

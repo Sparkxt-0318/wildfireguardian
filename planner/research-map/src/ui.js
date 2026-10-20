@@ -118,6 +118,26 @@ function updateBooth(force) {
     if (r.tdense.length > 1 && (r.hit || f)) boothGroup.add(ribbonMesh(r.tdense, f ? .07 : .045, r.hit ? 0xd9472b : 0xe8862a, (f ? 1 : .85) * op, .25, .02, 5));
     if (f && r.dense.length > 1) boothGroup.add(puck(r.dense[r.dense.length - 1].u, r.dense[r.dense.length - 1].v, 0x2f8a57, .07)); }
 }
+// ---------------- map dots: what each one is (click), and a zoom to it ----------------
+function dotInfo(it) {
+  const k = state.boothK, rowOf = id => L.booth.on && k >= 0 && state.cmp === 'ours' ? BOOTH[k].rows.find(r => r.id === id) : null;
+  if (it.place) { const p = it.place, row = p.role === 'origin' ? rowOf(p.id) : null;
+    return { name: placeName(p), kind: p.role === 'destination' ? tr('대피소', 'Shelter') + ` (OSM ${catName(p.cat)})` : p.vul ? tr('요양·복지시설 (취약 계층)', 'Care facility (vulnerable people)') : tr('마을 · 대피 출발지', 'Village · evacuation origin'), row }; }
+  if (it.rid != null) { const row = rowOf(it.rid); return { name: row ? row.name : it.el.title.replace(/^.*?(출발지|origin) /, ''), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
+  return null;
+}
+function dotOpen(it, x, y) {
+  const d = dotInfo(it); if (!d) return; const pop = $('dotPop');
+  pop.innerHTML = `<b>${d.name}</b><span>${d.kind}</span>${d.row ? `<span class="st"><i style="background:${STATUS[d.row.v].c}"></i>${tr('대피 결과', 'Evacuation result')}: ${STATUS[d.row.v].t}</span>` : ''}
+    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button><button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
+  const r = mapEl.getBoundingClientRect(); pop.hidden = false;
+  pop.style.left = Math.min(r.width - 230, Math.max(8, x - r.left + 12)) + 'px'; pop.style.top = Math.min(r.height - 120, Math.max(8, y - r.top + 12)) + 'px';
+  $('dotClose').onclick = () => { pop.hidden = true; };
+  $('dotZoom').onclick = () => { pop.hidden = true; const flat = state.mode === '2d';
+    tweenView({ r: flat ? 4 : 6, phi: flat ? .0005 : THREE.MathUtils.degToRad(50), th: flat ? 0 : sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(it.u), yAt(it.u, it.v), szV(it.v)) }, 1000); };
+}
+labelsEl.addEventListener('click', e => { const el = e.target.closest('.mk'); if (!el) return; const it = domItems.find(x => x.el === el); if (it) { e.stopPropagation(); dotOpen(it, e.clientX, e.clientY); } });
+controls.addEventListener('start', () => { $('dotPop').hidden = true; });
 function focusOrigin(id) {
   state.focus = state.focus === id ? null : id; updateBooth(true); renderEvac();
   const k = state.boothK, r = k >= 0 && BOOTH[k].rows.find(x => x.id === id);
