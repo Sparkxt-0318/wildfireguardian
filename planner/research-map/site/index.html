@@ -2912,10 +2912,10 @@ function navFlameImages(map) {
     x.globalCompositeOperation = 'source-over'; }), { pixelRatio: 2 });
   map.addImage('smoke', anim(64, 64, (x, t) => {
     for (let j = 0; j < 4; j++) { const p = (t * .35 + j / 4) % 1, cy = 56 - p * 44, r = 10 + p * 16, g = x.createRadialGradient(32 + 6 * Math.sin(j * 2 + t), cy, 0, 32, cy, r);
-      g.addColorStop(0, `rgba(88,80,74,${.85 * (1 - p * .7)})`); g.addColorStop(1, 'rgba(70,64,60,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); } }), { pixelRatio: 2 });
+      g.addColorStop(0, `rgba(205,200,194,${.8 * (1 - p * .75)})`); g.addColorStop(1, 'rgba(205,200,194,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); } }), { pixelRatio: 2 });
   const sz = k => ['interpolate', ['exponential', 2], ['zoom'], 11, ['*', ['get', 's'], k * .5], 14, ['*', ['get', 's'], k * 2], 17, ['*', ['get', 's'], k * 10]];
   map.addLayer({ id: 'smoke', type: 'symbol', source: 'flame', filter: ['==', ['get', 'smoke'], 1], layout: { 'icon-image': 'smoke', 'icon-size': sz(1.6), 'icon-anchor': 'bottom',
-    'icon-offset': [0, -8], 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport' }, paint: { 'icon-opacity': .9 } });
+    'icon-offset': [0, -26], 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport' }, paint: { 'icon-opacity': .9 } });
   map.addLayer({ id: 'flame', type: 'symbol', source: 'flame', layout: { 'icon-image': ['concat', 'fire', ['get', 'im']], 'icon-size': sz(.45), 'icon-anchor': 'bottom',
     'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
 }
