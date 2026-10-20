@@ -737,24 +737,24 @@ let selRoute = routes[2] && routes[2].has ? 2 : Math.max(0, routes.findIndex(r =
 // ---------------- layers & state ----------------
 const N_ORIG = B.places.filter(p => p.role === 'origin').length, N_DEST = B.places.filter(p => p.role === 'destination').length;
 const LAYERS = [
-  { g: tr('지형·바탕', 'Terrain · base'), id: 'relief', n: tr('지형 (3D)', 'Terrain (3D)'), src: tr('공개 DEM', 'Public DEM'), on: true, op: 100, noOp: true },
-  { id: 'base', n: tr('바탕 지도', 'Base map'), src: tr('OSM 도로·하천·토지이용', 'OSM roads · water · land use'), on: true, op: 100 },
+  { g: tr('지형·바탕', 'Terrain · base'), id: 'relief', core: true, n: tr('지형 (3D)', 'Terrain (3D)'), src: tr('공개 DEM', 'Public DEM'), on: true, op: 100, noOp: true },
+  { id: 'base', core: true, n: tr('바탕 지도', 'Base map'), src: tr('OSM 도로·하천·토지이용', 'OSM roads · water · land use'), on: true, op: 100 },
   { id: 'slope', n: tr('경사', 'Slope'), src: tr('DEM에서 계산 · 1ch', 'From the DEM · 1 ch'), on: false, op: 75 },
   { g: tr('환경 입력 ✱ 설명용', 'Environment inputs ✱ illustrative'), id: 'temp', n: tr('기온', 'Temperature'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 70 },
-  { id: 'wu', n: tr('바람 u (동서 성분)', 'Wind u (east–west)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: true, op: 90 },
-  { id: 'wv', n: tr('바람 v (남북 성분)', 'Wind v (north–south)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: true, op: 90 },
-  { id: 'canopy', n: tr('수목 피복률', 'Canopy cover'), src: tr('설명용 · 1ch · 3D 나무 포함', 'Illustrative · 1 ch · with 3D trees'), ill: true, on: true, op: 100 },
+  { id: 'wu', n: tr('바람 u (동서 성분)', 'Wind u (east–west)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 90 },
+  { id: 'wv', n: tr('바람 v (남북 성분)', 'Wind v (north–south)'), src: tr('설명용 · 1ch', 'Illustrative · 1 ch'), ill: true, on: false, op: 90 },
+  { id: 'canopy', n: tr('수목 피복률', 'Canopy cover'), src: tr('설명용 · 1ch · 3D 나무 포함', 'Illustrative · 1 ch · with 3D trees'), ill: true, on: false, op: 100 },
   { id: 'biome', n: tr('생물군계', 'Biome'), src: tr('설명용 · one-hot 14ch', 'Illustrative · one-hot 14 ch'), ill: true, on: false, op: 65 },
-  { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
-  { id: 'front', n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
-  { id: 'q', n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
-  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: true, op: 90 },
-  { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: true, op: 80 },
+  { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', core: true, n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
+  { id: 'front', core: true, n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
+  { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
+  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
+  { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: false, op: 80 },
   { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
-  { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
-  { id: 'booth', n: tr('대피 현황 (부스 캐시)', 'Evacuation status (booth cache)'), src: B.booth ? tr('실제 API 결과 · 출발지별 판정', 'Real API results · per origin') : tr('이 지역은 캐시 없음', 'No cache for this region'), on: !!B.booth, op: 100, disabled: !B.booth },
-  { id: 'places', n: tr('마을 · 대피소', 'Villages · shelters'), src: tr(`OSM · 출발지 ${N_ORIG}, 대피소 ${N_DEST}`, `OSM · ${N_ORIG} origins, ${N_DEST} shelters`), on: true, op: 100 },
-  { id: 'labels', n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
+  { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', core: true, n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
+  { id: 'booth', core: true, n: tr('대피 현황 (부스 캐시)', 'Evacuation status (booth cache)'), src: B.booth ? tr('실제 API 결과 · 출발지별 판정', 'Real API results · per origin') : tr('이 지역은 캐시 없음', 'No cache for this region'), on: !!B.booth, op: 100, disabled: !B.booth },
+  { id: 'places', core: true, n: tr('마을 · 대피소', 'Villages · shelters'), src: tr(`OSM · 출발지 ${N_ORIG}, 대피소 ${N_DEST}`, `OSM · ${N_ORIG} origins, ${N_DEST} shelters`), on: true, op: 100 },
+  { id: 'labels', core: true, n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
 ];
 const L = Object.fromEntries(LAYERS.map(l => [l.id, l]));
 const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
@@ -799,6 +799,7 @@ function buildEmber() {
   x.putImageData(im, 0, 0);
   cellsCv = mk(TW, TH); emberPat = cellsCv.getContext('2d').createPattern(c, 'repeat'); emberPatE = emissive.getContext('2d').createPattern(c, 'repeat');
 }
+let heatCv = null;
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
   const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
@@ -847,8 +848,13 @@ function compose() {
   // F(x): recorded routing hazard (incident radiant flux) for the selected scenario, or the maximum of the four
   const zk = hzK(t);
   if (L.heat.on && zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member);
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); cx.globalAlpha = L.heat.op / 100 * smooth(.5, .75, v) * .9; cx.fillStyle = `rgb(${c.map(Math.round)})`; cx.beginPath(); quad(cx, i, QX, QY); cx.fill(); }
-    cx.globalAlpha = L.heat.op / 100; cx.fillStyle = NAV.on ? '#e23b1d' : '#fff3c0'; cx.beginPath(); fld.flame.forEach(i => quad(cx, i, QX, QY)); cx.fill();   // flame cells: red on the road map
+    // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
+    const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
+    if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(.5, .75, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
+    if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
+    cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);
     em.globalAlpha = .8; em.fillStyle = '#ffd27a'; em.beginPath(); fld.flame.forEach(i => quad(em, i, EQX, EQY)); em.fill(); em.globalAlpha = 1; }
   // front
   const fe = frontEdges(k, t), act = new Set();

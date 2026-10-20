@@ -21,6 +21,15 @@ const NAV_ROUTES = [
 ];
 // views: street-level photos along the route (Kakao Roadview, stepped with buttons or driven automatically), a chase camera
 // on a real 3D map (satellite photos on terrain), or the 2D road map
+// photo views need the internet (Kakao, Esri tiles); without it (offline folder at the venue) only the 2D map is offered, and nothing waits on a server
+const navOnline = () => navigator.onLine !== false && location.protocol !== 'file:' && NAV.netOk !== false;
+// one small request decides whether the map hosts can be reached (a network without internet, e.g. venue Wi-Fi, still reads
+// as online): without it, hundreds of tile requests would fail one by one while the page waits
+let navNetP = null;
+const navNet = () => navNetP ??= !navOnline() ? Promise.resolve(false) : new Promise(ok => {
+  const ac = new AbortController(), to = setTimeout(() => ac.abort(), 4000);
+  fetch(NAV_TILES.dem.replace('{z}', 0).replace('{x}', 0).replace('{y}', 0), { mode: 'cors', signal: ac.signal, cache: 'no-store' })
+    .then(r => r.ok, () => false).then(v => { clearTimeout(to); NAV.netOk = v; if (!v && NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } ok(v); }); });
 const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
 const navNum = x => x < 1e-4 ? '< 0.0001' : x < .01 ? x.toExponential(1) : x.toPrecision(2);
 const navName = l => l ? (EN ? (l.ne || l.n) : l.n) : '';
@@ -66,7 +75,8 @@ function navInit() {
   NAV.race = true;
   setTimeout(() => (window.requestIdleCallback || setTimeout)(navWarm, { timeout: 1500 }), 1200);
   // road view first (its photos come from Kakao, not the map hosts): library, first photo and photo list straight away
-  if (navKey() && !isPhone) setTimeout(() => { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); }, 500);
+  addEventListener('online', () => { navNetP = null; NAV.netOk = null; NAV.on && navPanel(); }); addEventListener('offline', () => { if (NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } });
+  if (navKey() && !isPhone && navOnline()) setTimeout(() => navNet().then(up => up && (() => { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); })()), 500);
   // the Kakao key can come with the link (#…&kakao=KEY): kept in this browser, then taken out of the address
   const hp = new URLSearchParams(location.hash.slice(1));
   if (hp.get('kakao')) { navKeySet(hp.get('kakao')); hp.delete('kakao'); history.replaceState(null, '', '#' + hp.toString()); }
@@ -85,7 +95,7 @@ function navEnter() {
   setBase('road');
   const sc = CASES[NAV.ci]; if (sc.k >= 0) setDetail(true, sc.k);
   mapEl.classList.add('nav'); $('navHud').hidden = false; $('navLegend').hidden = false;
-  navView(NAV.view || (navKey() ? 'street' : 'chase'), true); navRoute(NAV.pol); navToMap();
+  navView(navOnline() ? NAV.view || (navKey() ? 'street' : 'chase') : '2d', true); navRoute(NAV.pol); navToMap();
 }
 // phones: the map sits above the panel, so bring it into view when navigation opens or the view changes
 const navToMap = () => { if (matchMedia('(max-width: 860px)').matches) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
@@ -134,8 +144,9 @@ function navPanel() {
       <small>${tr(`기록된 경로 점검 사례 ${r.label} · 화재 scenario 4개`, `Recorded route-check case ${r.label} · 4 fire scenarios`)}</small></div>
     <div class="nav-od"><div><i class="o"></i>${tr(`출발 · ${start ? navName(start) + ' 부근 ' : ''}(연구 사례 출발지)`, `From · ${start ? 'near ' + navName(start) + ' ' : ''}(research origin)`)}</div>
       <div><i class="d"></i>${tr(`도착 · ${dest} 대피소`, `To · ${dest} shelter`)}</div></div>
-    <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${NAV.realErr && v !== '2d' ? ' disabled' : ''}>${n}</button>`).join('')}</div>
-    ${NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
+    <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${(NAV.realErr || !navOnline()) && v !== '2d' ? ` disabled title="${tr('인터넷 연결이 있어야 합니다', 'Needs an internet connection')}"` : ''}>${n}</button>`).join('')}</div>
+    ${!navOnline() ? `<p class="note nav-err">${tr('인터넷 없이 여는 중: 2D 지도로 보여 줍니다. 3D 위성과 로드뷰는 인터넷이 있을 때 켜집니다.', 'Opened without internet: shown on the 2D map. 3D satellite and road view turn on with an internet connection.')}</p>` : ''}
+    ${navOnline() && NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
     ${NAV.view === 'street' || !navKey() ? `<details class="nav-key"${navKey() ? '' : ' open'}><summary>${tr('로드뷰 키 (카카오)', 'Road view key (Kakao)')}${navKey() ? ' ✓' : ''}</summary>
       <p>${tr('카카오 개발자 사이트(developers.kakao.com)에서 만든 JavaScript 키를 넣으세요. 이 브라우저에만 저장되고 저장소에는 올라가지 않습니다. 앱 설정의 Web 플랫폼에 이 주소를 등록해야 합니다:', 'Paste the JavaScript key from developers.kakao.com. It is kept in this browser only, never in the repository. Register this address under the app\'s Web platform:')} <code>${location.origin}</code></p>
       <div><input id="navKey" type="password" autocomplete="off" placeholder="${tr('JavaScript 키', 'JavaScript key')}" value=""> <button type="button" class="btn" id="navKeySave">${tr('저장', 'Save')}</button>${navKey() ? ` <button type="button" class="btn" id="navKeyClear">${tr('지우기', 'Remove')}</button>` : ''}</div></details>` : ''}
@@ -264,7 +275,7 @@ function navGraph() {
   const X = m => pl + m / mMax * (W - pl - pr), Y = km => pt + (1 - Math.min(km, kMax) / kMax) * (H - pt - pb);
   let g = `<line x1="${pl}" x2="${W - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="#e23b1d" stroke-width="1" stroke-dasharray="3 3"/>`;
   for (const v of [0, Math.round(kMax / 2), Math.floor(kMax)]) g += `<text x="${pl - 4}" y="${Y(v) + 3}" text-anchor="end">${v} km</text>`;
-  for (const m of [0, Math.round(mMax / 2), Math.round(mMax)]) g += `<text x="${X(m)}" y="${H - 4}" text-anchor="middle">${m}${tr('분', ' min')}</text>`;
+  [0, Math.round(mMax / 2), Math.round(mMax)].forEach((m, i) => { g += `<text x="${X(m)}" y="${H - 4}" text-anchor="${['start', 'middle', 'end'][i]}">${m}${tr('분', ' min')}</text>`; });
   for (const [pol, d] of ser) { const col = pol === 'full' ? '#1a73e8' : '#8a8f96', w = pol === NAV.pol ? 2.6 : 1.8;
     g += `<polyline fill="none" stroke="${col}" stroke-width="${w}" points="${d.filter(x => x.km != null).map(x => `${X(x.m).toFixed(1)},${Y(x.km).toFixed(1)}`).join(' ')}"/>`;
     g += d.filter(x => x.fl).map(x => `<circle cx="${X(x.m).toFixed(1)}" cy="${Y(0)}" r="3.2" fill="#e23b1d"/>`).join('');
@@ -318,6 +329,10 @@ const navLib = () => navLibP ??= window.maplibregl ? Promise.resolve()
 // hosts, and the tiles along both routes, nearest the start first. Both hosts let the browser keep tiles, so when the tab
 // opens and the car drives, the ground is already here instead of arriving while it moves.
 function navWarm() {
+  if (!navOnline()) return;
+  navNet().then(up => up && navWarmGo());
+}
+function navWarmGo() {
   if (NAV.ci < 0 || isPhone || navigator.connection?.saveData) return;
   for (const h of ['https://server.arcgisonline.com', 'https://services.arcgisonline.com', 'https://s3.amazonaws.com'])
     document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'preconnect', href: h, crossOrigin: 'anonymous' }));

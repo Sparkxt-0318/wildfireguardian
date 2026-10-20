@@ -47,18 +47,25 @@ def build_offline(out: Path):
     for t in sorted((out / 'regions').glob('*.tex.js')):
         t.write_text(inline_tex(t.read_text(), site)); shutil.rmtree(out / 'regions' / t.name[:-len('.tex.js')])
     (out / '읽어보기-README.txt').write_text(OFFLINE_NOTE)
+    for f in (ROOT / 'tools' / 'offline').iterdir():     # local server start scripts (localhost:8840 is registered for road view)
+        shutil.copy2(f, out / f.name)
 
 
 OFFLINE_NOTE = '''WildfireGuardian — 오프라인 판 (offline copy)
 
-열기: 압축을 풀고 index.html 을 Chrome 또는 Edge 로 여세요. 인터넷이 없어도 5개 산불 지도, 타임라인, 2D 길 안내가 모두 됩니다.
-Open: unzip, then open index.html in Chrome or Edge. All five fires, the timeline and the 2D route view work with no internet.
+[가장 좋은 방법] 이 폴더에서 시작 파일을 더블클릭하세요. 이 컴퓨터 안에서만 작은 서버가 켜지고 브라우저가 열립니다.
+  Windows: start-windows.bat      Mac: start-mac.command  (처음 한 번: 오른쪽 클릭 → 열기)
+  주소는 http://localhost:8840 입니다. 창을 닫으면 끝납니다.
+  - 인터넷이 없어도: 5개 산불 지도, 3D 지형, 타임라인, 2D 길 안내, 경로 점검이 모두 됩니다.
+  - 휴대폰 핫스폿을 켜면: 로드뷰(카카오)와 3D 위성도 켜집니다 (이 주소는 카카오에 등록되어 있습니다).
+[예비] 시작 파일이 막히면 index.html 을 Chrome/Edge 로 바로 여세요 (인터넷 없이 되는 부분은 같고, 로드뷰는 안 됩니다).
 
-인터넷이 필요한 것 (Needs internet):
-- 로드뷰 (카카오): 카카오는 파일(file://)에서 열면 동작하지 않습니다. 로드뷰는 https://wildfireguardian-site.vercel.app 에서 보세요.
-  Road View (Kakao) does not run from a file; use the website for it.
-- 3D 위성 사진 타일 (Esri): 인터넷이 있으면 받아 옵니다.
-  3D satellite tiles load from the internet when it is available.
+[Best] Double-click the start file in this folder: a small server runs on this computer only and the browser opens.
+  Windows: start-windows.bat      Mac: start-mac.command  (first time: right-click → Open)
+  Address: http://localhost:8840 . Close the window to stop.
+  - With no internet: all five fire maps, 3D terrain, the timeline, 2D navigation and route checks work.
+  - With a phone hotspot: road view (Kakao) and 3D satellite work too (this address is registered with Kakao).
+[Fallback] If the start file is blocked, open index.html in Chrome or Edge directly (same offline features; no road view).
 '''
 
 
