@@ -440,7 +440,7 @@ const skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: fals
 const skyDome = new THREE.Mesh(new THREE.SphereGeometry(600, 32, 16), skyMat); skyDome.renderOrder = -1; skyDome.frustumCulled = false; scene.add(skyDome);
 scene.add(sunL, sunL.target);
 
-let EXAG = 5, flatF = 0, flatTarget = 0, reliefOn = true;
+let EXAG = 6.5, flatF = 0, flatTarget = 0, reliefOn = true;
 const yScale = () => (reliefOn ? EXAG : 0) * SF / 1000 * (1 - flatF) + 1e-6;     // metres -> scene units, exaggerated
 const yAt = (u, v) => elevUV(u, v) * yScale();
 

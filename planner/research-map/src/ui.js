@@ -293,7 +293,7 @@ function buildDocs() {
     <p class="note" style="margin:6px 4px 14px">${LOGGER.note}</p>
     <div class="grp-h"><span>${tr('데이터 출처 · 한계', 'Data sources · limits')}</span></div>
     <ul class="src">
-      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 기본 5배 과장합니다 (아래 고도 막대로 1–10배).`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 5× by default (1–10× with the relief slider).`)}</li>
+      <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 6.5배 과장해 산의 기복이 잘 보이게 했습니다.`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 6.5× so the mountains read clearly.`)}</li>
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
       <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
@@ -312,22 +312,6 @@ function openLightbox(src, cap) {
 }
 $('lightbox').onclick = e => { if (e.target.closest('img') && !e.target.closest('button')) return; $('lightbox').hidden = true; };
 addEventListener('keydown', e => { if (e.key === 'Escape') { $('lightbox').hidden = true; $('regMenu').hidden = true; $('regBtn').setAttribute('aria-expanded', 'false'); } });
-
-// ---------------- the gist: what the recorded results show (from regions/index.js, all five fires) ----------------
-function buildImpact() {
-  const all = RIDX.flatMap(r => r.rq3), fail = all.filter(q => q.travel_fails_full), ok = fail.filter(q => q.full_verdict === 'checked_route').length, here = RIDX.find(r => r.id === RID), hf = here ? here.rq3.filter(q => q.travel_fails_full).length : 0;
-  const el = document.createElement('details'); el.className = 'ov impact'; el.id = 'impact'; let open = true; try { open = localStorage.getItem('wfg3d.impact') !== '0'; } catch (e) { } el.open = open;
-  el.innerHTML = `<summary>${tr('핵심 요약', 'The gist')}</summary>
-    <div class="big"><b>${fail.length}</b><span>${tr(`/ ${all.length}건`, `of ${all.length}`)}</span></div>
-    <p>${tr(`실제 산불 ${RIDX.length}곳의 기록된 경로 점검 ${all.length}건 중 <b>${fail.length}건</b>에서 <b>가장 빠른 길</b>(이동 시간만 본 길)이 화염에 닿거나 열 한도를 넘었습니다.`, `In <b>${fail.length}</b> of ${all.length} recorded route checks on ${RIDX.length} real fires, the <b>fastest route</b> (travel time only) touched flame or went over the heat limit.`)}</p>
-    <ul><li><i class="ok"></i><span>${tr(`${ok}건: 화염 접촉 없이 열 한도 이하인 <b>점검된 다른 길</b>을 찾음`, `${ok}: a <b>checked route</b> with no flame contact, within heat limits, was found`)}</span></li>
-      <li><i class="nr"></i><span>${tr(`${fail.length - ok}건: 모델상 지나갈 길이 없음 → 그 길로 보내지 않고 미리 알림`, `${fail.length - ok}: no route in the model → flagged instead of sending people through`)}</span></li></ul>
-    <p class="here">${tr(`이 산불 (${REG_NAME(here)} ${here.year}): ${here.rq3.length}건 중 ${hf}건`, `This fire (${REG_NAME(here)} ${here.year}): ${hf} of ${here.rq3.length}`)} · ${tr(`출발지 ${here.origins}곳`, `${here.origins} origins`)}</p>
-    <button type="button" class="btn" id="impactNav">${tr('길 안내로 보기 ▶', 'See it in navigation ▶')}</button>`;
-  mapEl.appendChild(el);
-  el.addEventListener('toggle', () => { try { localStorage.setItem('wfg3d.impact', el.open ? '1' : '0'); } catch (e) { } });
-  $('impactNav').onclick = () => { if (!$('tabNav').hidden) { el.open = false; $('tabNav').click(); } };
-}
 
 // ---------------- overview ----------------
 function caseTable() {
@@ -640,7 +624,6 @@ $('m2d').onclick = $('v2d').onclick = () => setMode('2d');
 $('m3d').onclick = $('v3d').onclick = () => setMode('3d');
 function setBase(b) { state.base2d = b; for (const [id, v] of [['bTopo', 'topo'], ['bReal', 'real'], ['bRoad', 'road']]) $(id).setAttribute('aria-pressed', String(b === v)); dirty = true; }
 $('bTopo').onclick = () => setBase('topo'); $('bReal').onclick = () => setBase('real'); $('bRoad').onclick = () => setBase('road');
-$('exag').oninput = e => { EXAG = +e.target.value; $('exv').textContent = EXAG; applyHeights(); dirty = true; };
 $('fs').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else mapEl.requestFullscreen?.(); };
 $('compass').onclick = () => { const s = sph(camera.position, controls.target); tweenView({ r: s.r, phi: s.phi, th: 0, tgt: controls.target.clone() }, 600); };
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => showTab(b.dataset.p));
@@ -788,7 +771,7 @@ async function boot() {
   });
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
-  navInit(); buildRegionMenu(); buildLayerPanel(); buildImpact(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));
