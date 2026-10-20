@@ -46,7 +46,7 @@ def build_offline(out: Path):
     shutil.copytree(site, out, ignore=shutil.ignore_patterns('vercel.json'))
     for t in sorted((out / 'regions').glob('*.tex.js')):
         t.write_text(inline_tex(t.read_text(), site)); shutil.rmtree(out / 'regions' / t.name[:-len('.tex.js')])
-    (out / '읽어보기-README.txt').write_text(OFFLINE_NOTE)
+    (out / 'README.txt').write_text(OFFLINE_NOTE)     # ASCII name: zip tools on other systems garble non-ASCII file names
     for f in (ROOT / 'tools' / 'offline').iterdir():     # local server start scripts (localhost:8840 is registered for road view)
         shutil.copy2(f, out / f.name)
 
