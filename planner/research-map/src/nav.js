@@ -168,13 +168,13 @@ const NAV_DIRS = [['북', 'N', '↑'], ['북동', 'NE', '↗'], ['동', 'E', '�
 function navFireNear(t, s, q, noDir) {
   const qi = inpIdx(t), zk = hzK(t), cells = new Set(qi >= 0 ? BURNING[qi] : []);
   if (zk >= 0) for (const i of hzField(zk, (t - HZ[zk].t0) * 3600, state.member).flame) cells.add(i);
-  let best = Infinity, bu = 0, bv = 0, n = 0;
-  for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat), d = Math.hypot((u - q.u) * KXr, (v - q.v) * KYr); if (d < best) best = d; bu += u; bv += v; n++; }
+  let best = Infinity, bu = 0, bv = 0, n = 0, nu = 0, nv = 0;
+  for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat), d = Math.hypot((u - q.u) * KXr, (v - q.v) * KYr); if (d < best) { best = d; nu = u; nv = v; } bu += u; bv += v; n++; }
   let dir = null;
   if (!noDir && qi >= 0 && n && t - INP[qi] <= 1) { let wu = 0, wv = 0, w = 0; const Q = QF[qi];
     for (let i = 0; i < NCELL; i++) if (Q[i] >= .05) { const [lon, lat] = cellCenter(i); wu += uOf(lon) * Q[i]; wv += vOf(lat) * Q[i]; w += Q[i]; }
     if (w > 0) { const dx = (wu / w - bu / n) * KXr, dy = -(wv / w - bv / n) * KYr; if (Math.hypot(dx, dy) > .2) dir = NAV_DIRS[Math.round(((Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360) / 45) % 8]; } }
-  return { km: n ? best : null, dir };
+  return { km: n ? best : null, dir, u: nu, v: nv };
 }
 let navHudKey = '';
 // a car on route p at s seconds: where, flame in how many scenarios, heat, and its colour class
@@ -479,7 +479,7 @@ function navIdSave() { for (const pol in NAV.ids || {}) try { localStorage.setIt
 function navStreetEl() {
   let el = $('navStreet'); if (el) return el;
   el = document.createElement('div'); el.id = 'navStreet'; el.className = 'navstreet warm';
-  el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-view" id="navSvC"></div><div class="sv-msg" id="navSvMsg"></div>
+  el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-view" id="navSvC"></div><div class="sv-haze" id="svHaze"></div><div class="sv-glow" id="svGlow"></div><div class="sv-danger" id="svDanger"></div><div class="sv-msg" id="navSvMsg"></div>
     <div class="sv-curtain"><i></i>${tr('로드뷰 준비 중…', 'Preparing road view…')}</div>
     <div class="sv-minibox"><canvas class="sv-mini" id="navMini" width="520" height="380" aria-label="${tr('작은 지도: 경로와 기록된 불', 'Inset map: routes and recorded fire')}"></canvas>
       <div class="sv-zoom"><button type="button" id="miniIn" title="${tr('확대', 'Zoom in')}">+</button><button type="button" id="miniOut" title="${tr('축소', 'Zoom out')}">−</button></div></div>
@@ -619,21 +619,72 @@ function navSvFrame(t, p, s, q) {
   if (NAV.sv && NAV.svT != null && Math.abs(t - NAV.svT) > 1e-7) { NAV.svT = t; let j = 0, bd = 1e9;
     NAV.sv.forEach((x, i) => { const d = Math.abs(x.ts - s); if (d < bd) { bd = d; j = i; } }); if (j !== NAV.svI) navSvGo(j, true); }
   NAV.svT ??= t;
+  navSvFire(t, p, s, q);
   navMini(p, q);
 }
-// inset map: the road map with the recorded fire (the 2D view's picture), both routes and the car; + / − or the wheel zoom it
+// inset map, heading up (the road ahead points up, as in the photo): the road map with the recorded fire (the 2D view's
+// picture), both routes, the car and a pulsing ring on the nearest fire; + / − or the wheel zoom it
 function navMini(p, q) {
   const c = $('navMini'); if (!c || !composite) return;
   const km = NAV.miniKm || 2.4, x = c.getContext('2d'), cw = c.width, ch = c.height, sw = km / KXr * TW, sh = sw * ch / cw, x0 = q.u * TW - sw / 2, y0 = q.v * TH - sh / 2;
-  const P = (u, v) => [(u * TW - x0) * cw / sw, (v * TH - y0) * ch / sh];
-  x.fillStyle = '#e8e4da'; x.fillRect(0, 0, cw, ch); x.drawImage(composite, x0, y0, sw, sh, 0, 0, cw, ch);
+  const P = (u, v) => [(u * TW - x0) * cw / sw, (v * TH - y0) * ch / sh], hd = (NAV.svView ?? NAV.svHd ?? 0) * Math.PI / 180;
+  x.fillStyle = '#e8e4da'; x.fillRect(0, 0, cw, ch);
+  x.save(); x.translate(cw / 2, ch / 2); x.rotate(-hd); x.translate(-cw / 2, -ch / 2);
+  const mg = sw * .75, md = mg * cw / sw; x.drawImage(composite, x0 - mg, y0 - mg, sw + 2 * mg, sh + 2 * mg, -md, -md, cw + 2 * md, ch + 2 * md);     // wider than the box: corners stay filled when it turns
   const sc = CASES[NAV.ci], line = (d, w, col) => { x.beginPath(); d.forEach((pt, i) => { const [a, b] = P(pt.u, pt.v); i ? x.lineTo(a, b) : x.moveTo(a, b); }); x.lineWidth = w; x.strokeStyle = col; x.stroke(); };
   x.lineCap = x.lineJoin = 'round';
   const A = sc.pol[NAV.pol === 'full' ? 'travel_only' : 'full']; if (A) line(A.dense, 6, '#9aa0a6');
   line(p.dense, 11, '#fff'); line(p.dense, 7, '#1a73e8');
   const end = p.dense[p.dense.length - 1], [ex, ey] = P(end.u, end.v); x.beginPath(); x.arc(ex, ey, 9, 0, 7); x.fillStyle = '#d93025'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke();
-  const [cx, cy] = P(q.u, q.v); x.save(); x.translate(cx, cy); x.rotate((NAV.svHd || 0) * Math.PI / 180);
-  x.beginPath(); x.moveTo(0, -16); x.lineTo(11, 12); x.lineTo(0, 6); x.lineTo(-11, 12); x.closePath(); x.fillStyle = '#1a73e8'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore();
+  const f = NAV.svF; if (f && f.km != null) { const [fx, fy] = P(f.u, f.v), k = (performance.now() % 1400) / 1400;
+    x.beginPath(); x.arc(fx, fy, 10 + 26 * k, 0, 7); x.lineWidth = 5; x.strokeStyle = `rgba(255,60,20,${1 - k})`; x.stroke();
+    x.beginPath(); x.arc(fx, fy, 8, 0, 7); x.fillStyle = '#ff3c14'; x.fill(); }
+  x.restore();
+  if (f && f.km != null) {     // off the box: a red arrow on its edge points to it
+    const [fx, fy] = P(f.u, f.v), dx = fx - cw / 2, dy = fy - ch / 2, c_ = Math.cos(-hd), s_ = Math.sin(-hd), rx = dx * c_ - dy * s_, ry = dx * s_ + dy * c_;
+    if (Math.abs(rx) > cw / 2 - 14 || Math.abs(ry) > ch / 2 - 40) { const k = Math.min((cw / 2 - 26) / Math.abs(rx || 1e-9), (ch / 2 - 52) / Math.abs(ry || 1e-9)), ax = cw / 2 + rx * k, ay = ch / 2 + ry * k;
+      x.save(); x.translate(ax, ay); x.rotate(Math.atan2(ry, rx)); x.beginPath(); x.moveTo(18, 0); x.lineTo(-8, -12); x.lineTo(-8, 12); x.closePath(); x.fillStyle = '#ff3c14'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore(); } }
+  // the car, always pointing up; N shows where north is
+  x.save(); x.translate(cw / 2, ch / 2); x.beginPath(); x.moveTo(0, -16); x.lineTo(11, 12); x.lineTo(0, 6); x.lineTo(-11, 12); x.closePath(); x.fillStyle = '#1a73e8'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore();
+  x.save(); x.translate(cw - 34, 30); x.rotate(-hd); x.font = '700 18px system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.beginPath(); x.arc(0, 0, 17, 0, 7); x.fillStyle = 'rgba(255,255,255,.9)'; x.fill(); x.fillStyle = '#d93025'; x.fillText('N', 0, 1); x.restore();
   x.font = '600 20px system-ui, sans-serif'; x.fillStyle = 'rgba(255,255,255,.88)'; x.fillRect(0, ch - 32, cw, 32); x.fillStyle = '#3c3a36';
-  x.fillText(tr(`빨강 화염 · 주황 열 · 검정 연소 (기록) · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} 폭`, `red flame · orange heat · black burned (recorded) · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} wide`), 10, ch - 10);
+  x.fillText(tr(`진행 방향 위 · 빨간 고리: 가장 가까운 불 · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} 폭`, `heading up · red ring: nearest fire · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} wide`), 10, ch - 10);
+}
+// ---- the fire around the road view: all from the recorded fire and the model, laid over the photo (taken on another day) ----
+// 1 glow on the side of the photo where the nearest fire is, stronger when closer; 2 haze when the fire is close or the
+// heat at the car is high (an effect, not real smoke); 3 distance, side and trend, and the model's chance of spread onto
+// the road ahead in the next hour; 5 where the other route's car would be at this moment.
+const NAV_SIDE = rel => { const a = ((rel % 360) + 540) % 360 - 180, A = Math.abs(a);
+  return A <= 30 ? tr('앞', 'ahead') : A >= 150 ? tr('뒤', 'behind') : (a > 0 ? tr('오른쪽', 'right') : tr('왼쪽', 'left')) + (A < 70 ? tr(' 앞', ' ahead') : A > 110 ? tr(' 뒤', ' behind') : ''); };
+function navSvFire(t, p, s, q) {
+  const sc = CASES[NAV.ci], k = sc.k, F_ = NAV.rvs?.[NAV.front], vp = F_?.rv?.getViewpoint?.();
+  NAV.svView = vp && vp.pan != null ? vp.pan : NAV.svHd;
+  const key = [recIdx(t), inpIdx(t), hzSig(t), (q.d * 20).toFixed(0), NAV.pol].join(':');
+  if (key !== NAV.svFk) { NAV.svFk = key;
+    const f = navFireNear(t, s, q, true), f0 = navFireNear(t - 1 / 60, s - 60, navAt(p.dense, s - 60), true), me = navCarAt(p, s, k);
+    // the road in the next 1 km: the model's highest chance of fire there in the next hour (latest input, if within the hour)
+    const qi = inpIdx(t); let risk = null;
+    if (qi >= 0 && t - INP[qi] <= 1) { risk = 0; for (const pt of p.dense) if (pt.d >= q.d && pt.d <= q.d + 1 && pt.cell >= 0) risk = Math.max(risk, QF[qi][pt.cell]); }
+    const op = sc.pol[navOther() || ''], o = op ? navCarAt(op, s, k) : null;
+    NAV.svF = f; NAV.svFo = { f0, me, risk, o, op }; }
+  const f = NAV.svF, { f0, me, risk, o, op } = NAV.svFo, lim = p.limits, glow = $('svGlow'), haze = $('svHaze'), box = $('svDanger'); if (!glow) return;
+  const brg = f.km != null ? (Math.atan2((f.u - q.u) * KXr, -(f.v - q.v) * KYr) * 180 / Math.PI + 360) % 360 : null, rel = brg == null ? 0 : brg - NAV.svView;
+  // 1 glow: within 4 km, full at the car
+  const near = f.km == null ? 0 : Math.max(0, Math.min(1, 1 - f.km / 5)), hot = me.moving ? Math.min(1, me.F / lim.peak_kw_m2) : 0, a = Math.max(.25 + .75 * near, hot, me.fl ? 1 : 0) * (near > 0 || hot > 0 ? 1 : 0);
+  const r = rel * Math.PI / 180, gx = 50 + 50 * Math.sin(r), gy = 50 - 50 * Math.cos(r);
+  glow.style.background = a > .02 ? `radial-gradient(ellipse 75% 70% at ${gx.toFixed(1)}% ${gy.toFixed(1)}%, rgba(255,70,20,${(.75 * a).toFixed(3)}), rgba(255,120,30,${(.35 * a).toFixed(3)}) 40%, rgba(255,120,30,0) 72%)` : 'none';
+  glow.classList.toggle('pulse', a > .6);
+  // 2 haze: kept light; strongest only in flame
+  const h = Math.max(near > .6 ? (near - .6) / .4 * .35 : 0, hot * .45, me.fl ? .5 : 0); haze.style.opacity = h.toFixed(3);
+  // 3 + 5 the panel
+  const trend = f.km == null || f0.km == null ? '' : f.km < f0.km - .02 ? `<em class="up">${tr('▲ 가까워지는 중', '▲ getting closer')}</em>` : f.km > f0.km + .02 ? `<em class="dn">${tr('▼ 멀어지는 중', '▼ falling behind')}</em>` : `<em>${tr('거리 비슷', 'about the same')}</em>`;
+  const st = !me.moving ? (s < p.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : me.fl ? tr('지금 화염 속', 'in flame now') : me.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음 · 열 한도 이하', 'no flame · within heat limits');
+  const on = NAV_ROUTES.find(x => x[0] === navOther())?.[1], ost = o ? (!o.moving ? (s < op.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : o.fl ? tr('지금 화염 속', 'in flame now') : o.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음', 'no flame')) : '';
+  const html = `<div class="big ${me.cls}">${f.km == null ? tr('주변에 기록된 불 없음', 'No recorded fire nearby') : f.km < .05 ? tr('불이 차 위치에', 'Fire at the car') : `${tr('가장 가까운 불', 'Nearest fire')} <b>${f.km < 1 ? Math.round(f.km * 1000) + ' m' : f.km.toFixed(1) + ' km'}</b> · ${NAV_SIDE(rel)}`}</div>
+    <div class="row">${trend}<span class="st ${me.cls}">${tr('차 위치', 'At the car')}: ${st}</span></div>
+    ${risk != null && me.moving ? `<div class="row risk">${tr('앞 1 km 도로 · 다음 1시간 번질 확률 (모델)', 'Road 1 km ahead · chance of spread in the next hour (model)')} <b class="${risk >= .3 ? 'hi' : risk >= .05 ? 'mid' : ''}">${risk < .005 ? '<1' : Math.round(risk * 100)}%</b></div>` : ''}
+    ${o ? `<div class="row ghost ${o.cls}">${tr(`${on}이었다면 지금`, `On the ${on} now`)}: <b>${ost}</b></div>` : ''}
+    <div class="note">${tr('사진은 평상시 · 불빛·연기는 기록·모델 자료로 그린 표시', 'Photos from an ordinary day · glow and haze drawn from the recorded and model data')}</div>`;
+  if (html !== NAV.svHtml) { NAV.svHtml = html; box.innerHTML = html; }
 }
