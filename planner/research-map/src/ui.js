@@ -100,7 +100,7 @@ function onLayerChange(id) {
   dirty = true;
 }
 function applyHeights() {
-  terrain.scale.y = yScale() * 1000; skirt.scale.y = yScale() * 1000; if (ctxMesh) ctxMesh.scale.y = yScale() * 1000; buildBoundary();
+  terrain.scale.y = yScale() * 1000; skirt.scale.y = yScale() * 1000; detailGroup.scale.y = yScale() * 1000; if (ctxMesh) ctxMesh.scale.y = yScale() * 1000; buildBoundary();
   flameMat.uniforms.ys.value = smokeMat.uniforms.ys.value = yScale();
   placeTrees(); buildRouteMeshes(); updateHeatMesh(state.t); updateBooth(true);
 }
@@ -697,6 +697,59 @@ function viewHash(extra = {}) {
 function switchRegion(id, extra = {}) { try { localStorage.setItem('wfg3d.region', id); } catch (e) { } location.hash = viewHash({ ...extra, region: id }); location.reload(); }
 function switchLang(l) { try { localStorage.setItem('wfg3d.lang', l); } catch (e) { } location.hash = viewHash({ lang: l, keepTime: true, cmp: state.cmp !== 'ours' ? state.cmp : '' }); location.reload(); }
 
+// ---------------- satellite close-up (online only) ----------------
+// Zoomed in with an internet connection: Esri World Imagery photos (zoom 16, about 2.4 m per pixel) of a 4 km square
+// around the view centre, laid on the terrain with the map's own layers (fire, spread, routes) drawn over them. The
+// photos were taken on another day. Without internet (navNet in nav.js) nothing is requested.
+const SAT_Z = 16, SAT_R = 2, SAT_N = 2048;
+const sat = { mesh: null, photo: null, out: null, key: '', gen: -1, t: 0, want: null };
+function satTick(kmPerPx) {
+  const on = L.base.on && kmPerPx < .006 && !(NAV.real || NAV.street) && NAV.netOk !== false;
+  if (sat.mesh) sat.mesh.visible = on && sat.ready;
+  const rop = sat.mesh?.visible ? .4 : 1; for (const m of detailGroup.userData.roads || []) m.material.opacity = rop;     // over the photo the roads are already visible: lighter lines
+  if (!on) return;
+  if (NAV.netOk == null) { navNet(); return; }
+  const tu = controls.target.x / KX + .5, tv = controls.target.z / KY + .5;
+  if (sat.cu == null || Math.hypot((tu - sat.cu) * KXr, (tv - sat.cv) * KYr) > SAT_R * .45) {     // moved far: new square once the view rests
+    clearTimeout(sat.t); sat.want = [tu, tv]; sat.t = setTimeout(() => satBuild(...sat.want), 600); }
+  else if (sat.ready && sat.gen !== layerGen) satPaint();
+}
+function satBuild(cu, cvv) {
+  sat.cu = cu; sat.cv = cvv; sat.ready = false; const du = SAT_R / KXr, dv = SAT_R / KYr, u0 = cu - du, u1 = cu + du, v0 = cvv - dv, v1 = cvv + dv; sat.box = [u0, u1, v0, v1];
+  sat.photo ??= mk(SAT_N, SAT_N); sat.out ??= mk(SAT_N, SAT_N); const px = sat.photo.getContext('2d'); px.fillStyle = '#6f7a5e'; px.fillRect(0, 0, SAT_N, SAT_N);
+  const lonOf = u => W + u * (E - W), latOf = v => N - v * (N - S), n = 2 ** SAT_Z;
+  const tx = lon => Math.floor((lon + 180) / 360 * n), ty = lat => Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * n);
+  const lonT = x => x / n * 360 - 180, latT = y => Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))) * 180 / Math.PI;
+  const X = u => (u - u0) / (u1 - u0) * SAT_N, Y = v => (v - v0) / (v1 - v0) * SAT_N, key = sat.key = u0.toFixed(5) + ':' + v0.toFixed(5);
+  let left = 0;
+  for (let x = tx(lonOf(u0)); x <= tx(lonOf(u1)); x++) for (let y = ty(latOf(v0)); y <= ty(latOf(v1)); y++) { left++;
+    const im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = () => { if (sat.key !== key) return; const a = X(uOf(lonT(x))), b = Y(vOf(latT(y))), c = X(uOf(lonT(x + 1))), d = Y(vOf(latT(y + 1))); px.drawImage(im, a, b, c - a + .6, d - b + .6); if (--left === 0) satDone(); else if (left % 12 === 0) satPaint(); };
+    im.onerror = () => { if (sat.key === key && --left === 0) satDone(); };
+    im.src = NAV_TILES.sat.replace('{z}', SAT_Z).replace('{x}', x).replace('{y}', y); }
+  // the ground piece the photos lie on: a 128 × 128 grid following the terrain
+  const G = 128, pos = [], uvs = [], idx = [];
+  for (let j = 0; j <= G; j++) for (let i = 0; i <= G; i++) { const u = u0 + (u1 - u0) * i / G, v = v0 + (v1 - v0) * j / G;
+    pos.push(sxU(u), elevUV(clamp(u, 0, 1), clamp(v, 0, 1)) / 1000 + .0008, szV(v)); uvs.push(i / G, 1 - j / G);
+    if (i < G && j < G) { const k = j * (G + 1) + i; idx.push(k, k + G + 1, k + 1, k + 1, k + G + 1, k + G + 2); } }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); g.setIndex(idx); g.computeVertexNormals();
+  if (!sat.mesh) { const tx_ = new THREE.CanvasTexture(sat.out); tx_.encoding = THREE.sRGBEncoding; tx_.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    sat.mesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: tx_, transparent: true, roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+    sat.mesh.renderOrder = 2; sat.mesh.receiveShadow = true; detailGroup.add(sat.mesh); }
+  else { sat.mesh.geometry.dispose(); sat.mesh.geometry = g; }
+  setTimeout(() => { if (sat.key === key && !sat.ready) satDone(); }, 8000);
+}
+function satDone() { sat.ready = true; satPaint(); dirty = true; }
+// photo + the map's layer sheet for the same square, edges faded into the map
+function satPaint() {
+  if (!sat.out || !layerCv) return; const o = sat.out.getContext('2d'), [u0, u1, v0, v1] = sat.box;
+  o.globalCompositeOperation = 'source-over'; o.globalAlpha = 1; o.clearRect(0, 0, SAT_N, SAT_N); o.drawImage(sat.photo, 0, 0);
+  o.imageSmoothingEnabled = true; o.drawImage(layerCv, u0 * TW, v0 * TH, (u1 - u0) * TW, (v1 - v0) * TH, 0, 0, SAT_N, SAT_N);
+  const fade = o.createRadialGradient(SAT_N / 2, SAT_N / 2, SAT_N * .36, SAT_N / 2, SAT_N / 2, SAT_N * .5); fade.addColorStop(0, 'rgba(0,0,0,1)'); fade.addColorStop(1, 'rgba(0,0,0,0)');
+  o.globalCompositeOperation = 'destination-in'; o.fillStyle = fade; o.fillRect(0, 0, SAT_N, SAT_N); o.globalCompositeOperation = 'source-over';
+  sat.gen = layerGen; if (sat.mesh) sat.mesh.material.map.needsUpdate = true; dirty = true;
+}
+
 // ---------------- resize / loop ----------------
 let composer = null, bloom = null;
 if (!isPhone && THREE.EffectComposer && THREE.UnrealBloomPass && THREE.GammaCorrectionShader) {
@@ -750,6 +803,8 @@ function frame(now) {
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
+  detailGroup.visible = L.base.on && kmPerPx < .012 && !(NAV.real || NAV.street);     // close-up roads and buildings below ~12 m per pixel
+  satTick(kmPerPx);
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }
   requestAnimationFrame(frame);
@@ -762,7 +817,7 @@ async function boot() {
   // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
   const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
   if (!hit && !osmOk) B.osm = { roads: [], water: [], landuse: [] };
-  buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+  buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; conifers.visible = broadleaf.visible = L.canopy.on;     // 3D trees follow the canopy layer (off at first) buildDom();
   // the surrounding terrain ring is added when its heights arrive (they load while this first frame is built)
   const ctxDone = (window.__wfgCtx || Promise.resolve(null)).then(b64 => {
     if (!b64) return; attachContext(b64); buildContext(hit); ctxMesh.scale.y = yScale() * 1000;
@@ -772,6 +827,8 @@ async function boot() {
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  // close-up roads and buildings: loaded after the first picture, built once
+  setTimeout(() => window.__wfgLoad(RID + '.detail.js').then(ok => { const D = ok && (window.WFG_DETAIL || {})[RID]; if (D) { buildDetail(D); dirty = true; } }), 1500);
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));
@@ -790,7 +847,8 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+    look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);

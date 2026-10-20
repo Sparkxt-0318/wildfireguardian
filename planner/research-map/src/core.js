@@ -660,6 +660,39 @@ const CASES = routes.map(r => { const k = HZ.findIndex(h => Math.abs(h.t0 - r.t0
   const travelHits = pol.travel_only ? flameHits(pol.travel_only.dense, k) : [];
   return { r, k, pol, travelHits }; });
 const routeGroup = new THREE.Group(); scene.add(routeGroup);
+// ---------------- close-up map detail: OSM roads at their real width and OSM buildings (regions/<id>.detail.js) ----------------
+// Shown only when zoomed in (the draped map image is too coarse there). Geometry y is in km, scaled with the terrain.
+const detailGroup = new THREE.Group(); detailGroup.visible = false; scene.add(detailGroup);
+const ROAD_W = [36, 26, 20, 16, 12, 8, 4];     // drawn width (m, about twice real so they read up close): motorway, primary, secondary, tertiary, minor, track/service, path
+const ROAD_C = [0xf2b84b, 0xf6cf6a, 0xf9e29a, 0xffffff, 0xffffff, 0xece0c4, 0xd9ccb0];
+function buildDetail(D) {
+  disposeGroup(detailGroup); const roads = detailGroup.userData.roads = []; const [W0, S0] = D.o, step = Math.min(KXr * 1000 / (GX - 1), KYr * 1000 / (GY - 1)) / 1000;     // km
+  const uv = (x, y) => [uOf(W0 + x * 1e-5), vOf(S0 + y * 1e-5)], km = (u, v) => [u * KXr, v * KYr];
+  // roads: one strip per class (casing below, fill above), points every DEM step so they follow the ground
+  const strips = ROAD_W.map(() => ({ pos: [], idx: [] })), casing = { pos: [], idx: [] };
+  const strip = (S, pts, w, lift) => { const n0 = S.pos.length / 3;
+    pts.forEach((p, i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)]; let dx = (b[0] - a[0]) * KX, dz = (b[1] - a[1]) * KY; const l = Math.hypot(dx, dz) || 1; dx /= l; dz /= l;
+      const x = sxU(p[0]), z = szV(p[1]), y = elevUV(p[0], p[1]) / 1000 + lift, ww = w * SF; S.pos.push(x - dz * ww, y, z + dx * ww, x + dz * ww, y, z - dx * ww);
+      if (i) { const k = n0 + (i - 1) * 2; S.idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2); } }); };
+  for (const r of D.r) { const c = r[0], raw = []; for (let i = 1; i < r.length; i += 2) raw.push(uv(r[i], r[i + 1]));
+    const pts = [raw[0]]; for (let i = 1; i < raw.length; i++) { const a = raw[i - 1], b = raw[i], [ax, ay] = km(...a), [bx, by] = km(...b), n = Math.ceil(Math.hypot(bx - ax, by - ay) / step);
+      for (let j = 1; j <= n; j++) pts.push([a[0] + (b[0] - a[0]) * j / n, a[1] + (b[1] - a[1]) * j / n]); }
+    const w = ROAD_W[c] / 2000; if (c < 6) strip(casing, pts, w + .0015, .0012); strip(strips[c], pts, w, .0016); }
+  const mesh = (S, color, order, mat) => { if (!S.idx.length) return; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.pos, 3)); g.setIndex(S.idx);
+    const m = new THREE.Mesh(g, mat || new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4 - order, polygonOffsetUnits: -4 - order, toneMapped: false })); m.renderOrder = 3 + order * .01; detailGroup.add(m); roads.push(m); };
+  mesh(casing, 0x857c6c, 0); strips.forEach((S, c) => mesh(S, ROAD_C[c], 6 - c));
+  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn twice true height so they read next to the
+  // exaggerated hills; walls and a flat roof, lit by the scene's sun
+  const pos = [], idx = [], ex = 2 / EXAG / 1000;
+  for (const b of D.b) { const h = (b[0] || 6) * ex, ring = []; for (let i = 1; i < b.length; i += 2) ring.push(uv(b[i], b[i + 1]));
+    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h + .004, n0 = pos.length / 3;
+    ring.forEach(p => pos.push(sxU(p[0]), base - .002, szV(p[1]), sxU(p[0]), top, szV(p[1])));
+    for (let i = 0; i < ring.length; i++) { const a = n0 + i * 2, c = n0 + ((i + 1) % ring.length) * 2; idx.push(a, c, a + 1, a + 1, c, c + 1); }
+    THREE.ShapeUtils.triangulateShape(ring.map(p => new THREE.Vector2(sxU(p[0]), szV(p[1]))), []).forEach(t => idx.push(n0 + t[0] * 2 + 1, n0 + t[1] * 2 + 1, n0 + t[2] * 2 + 1)); }
+  if (idx.length) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0xd8cfbf, roughness: .85, flatShading: true, side: THREE.DoubleSide })); m.castShadow = true; detailGroup.add(m); }
+  detailGroup.scale.y = yScale() * 1000; detailGroup.userData.n = [D.r.length, D.b.length];
+}
 // vehicles: one per recorded case, moving on the checked (full-policy) route by its recorded times
 const cars = routes.map(() => { const grp = new THREE.Group();
   const body = new THREE.Mesh(new THREE.BoxGeometry(.17, .055, .085).translate(0, .045, 0), new THREE.MeshStandardMaterial({ color: 0xf2f1ec, roughness: .35, metalness: .25 }));
@@ -799,13 +832,16 @@ function buildEmber() {
   x.putImageData(im, 0, 0);
   cellsCv = mk(TW, TH); emberPat = cellsCv.getContext('2d').createPattern(c, 'repeat'); emberPatE = emissive.getContext('2d').createPattern(c, 'repeat');
 }
-let heatCv = null;
+let heatCv = null, layerCv = null, layerGen = 0;
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
-  const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
+  const bx = composite.getContext('2d'); bx.globalAlpha = 1; bx.globalCompositeOperation = 'source-over';
   const roadOk = flat && state.base2d === 'road' && ensureRoadMap(), flatOk = flat && !roadOk && state.base2d !== 'road' && ensureFlat();
-  if (L.base.on) { cx.drawImage(roadOk ? roadCv : flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
-  else { cx.fillStyle = '#d9d5cc'; cx.fillRect(0, 0, TW, TH); if (flat) { cx.globalCompositeOperation = 'multiply'; cx.drawImage(hsCv, 0, 0, TW, TH); cx.globalCompositeOperation = 'source-over'; } }
+  if (L.base.on) { bx.drawImage(roadOk ? roadCv : flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { bx.globalAlpha = 1 - L.base.op / 100; bx.fillStyle = '#d6d2c9'; bx.fillRect(0, 0, TW, TH); } }
+  else { bx.fillStyle = '#d9d5cc'; bx.fillRect(0, 0, TW, TH); if (flat) { bx.globalCompositeOperation = 'multiply'; bx.drawImage(hsCv, 0, 0, TW, TH); bx.globalCompositeOperation = 'source-over'; } }
+  // everything above the base map goes on its own sheet (layerCv), then onto the map image: the satellite close-up
+  // (ui.js) lays the same sheet over its photo, so fire and routes stay visible there
+  layerCv ??= mk(TW, TH); const cx = layerCv.getContext('2d'); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.clearRect(0, 0, TW, TH);
   cx.imageSmoothingEnabled = true;
   if (L.biome.on) { ensureBiome(); cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }
   if (L.canopy.on) { cx.globalAlpha = (flat ? .55 : .2) * L.canopy.op / 100; cx.drawImage(canopyCv, 0, 0, TW, TH); }
@@ -865,7 +901,7 @@ function compose() {
     em.strokeStyle = '#ff7a2a'; em.lineWidth = 2.4; em.beginPath(); for (const [a, b] of fe.act) { const A = toPx(...lat_(...a), MW, MH), Bp = toPx(...lat_(...b), MW, MH); em.moveTo(...A); em.lineTo(...Bp); } em.stroke();
   }
   if (zk >= 0) hzField(zk, (t - HZ[zk].t0) * 3600, state.member).flame.forEach(i => act.add(i)); else if (qi >= 0) for (const i of BURNING[qi]) act.add(i);
-  cx.globalAlpha = 1;
+  cx.globalAlpha = 1; bx.globalAlpha = 1; bx.drawImage(layerCv, 0, 0); layerGen++;
   tex.needsUpdate = true; emTex.needsUpdate = true;
   activeCells = L.front.on ? [...act] : [];
   setFireParticles(activeCells); updateHeatMesh(t);

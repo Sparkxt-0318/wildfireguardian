@@ -447,6 +447,9 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
 .more-layers { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
 .more-layers > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; padding: 6px 4px; color: var(--accent, #1a73e8); }
+/* spread replay label (nav.js navReplay) */
+.nav-replay { position: absolute; z-index: 5; left: 50%; top: 14px; transform: translateX(-50%); padding: 8px 14px 12px; border-radius: 10px; background: rgba(24,24,26,.86); color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; min-width: 260px; text-align: center; }
+.nav-replay b { color: #ff9a5c; margin-right: 6px; } .nav-replay i { position: absolute; left: 0; bottom: 0; height: 4px; border-radius: 0 0 0 10px; background: #ff6a2a; }
 </style>
 </head>
 <body>
@@ -1304,6 +1307,39 @@ const CASES = routes.map(r => { const k = HZ.findIndex(h => Math.abs(h.t0 - r.t0
   const travelHits = pol.travel_only ? flameHits(pol.travel_only.dense, k) : [];
   return { r, k, pol, travelHits }; });
 const routeGroup = new THREE.Group(); scene.add(routeGroup);
+// ---------------- close-up map detail: OSM roads at their real width and OSM buildings (regions/<id>.detail.js) ----------------
+// Shown only when zoomed in (the draped map image is too coarse there). Geometry y is in km, scaled with the terrain.
+const detailGroup = new THREE.Group(); detailGroup.visible = false; scene.add(detailGroup);
+const ROAD_W = [36, 26, 20, 16, 12, 8, 4];     // drawn width (m, about twice real so they read up close): motorway, primary, secondary, tertiary, minor, track/service, path
+const ROAD_C = [0xf2b84b, 0xf6cf6a, 0xf9e29a, 0xffffff, 0xffffff, 0xece0c4, 0xd9ccb0];
+function buildDetail(D) {
+  disposeGroup(detailGroup); const roads = detailGroup.userData.roads = []; const [W0, S0] = D.o, step = Math.min(KXr * 1000 / (GX - 1), KYr * 1000 / (GY - 1)) / 1000;     // km
+  const uv = (x, y) => [uOf(W0 + x * 1e-5), vOf(S0 + y * 1e-5)], km = (u, v) => [u * KXr, v * KYr];
+  // roads: one strip per class (casing below, fill above), points every DEM step so they follow the ground
+  const strips = ROAD_W.map(() => ({ pos: [], idx: [] })), casing = { pos: [], idx: [] };
+  const strip = (S, pts, w, lift) => { const n0 = S.pos.length / 3;
+    pts.forEach((p, i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)]; let dx = (b[0] - a[0]) * KX, dz = (b[1] - a[1]) * KY; const l = Math.hypot(dx, dz) || 1; dx /= l; dz /= l;
+      const x = sxU(p[0]), z = szV(p[1]), y = elevUV(p[0], p[1]) / 1000 + lift, ww = w * SF; S.pos.push(x - dz * ww, y, z + dx * ww, x + dz * ww, y, z - dx * ww);
+      if (i) { const k = n0 + (i - 1) * 2; S.idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2); } }); };
+  for (const r of D.r) { const c = r[0], raw = []; for (let i = 1; i < r.length; i += 2) raw.push(uv(r[i], r[i + 1]));
+    const pts = [raw[0]]; for (let i = 1; i < raw.length; i++) { const a = raw[i - 1], b = raw[i], [ax, ay] = km(...a), [bx, by] = km(...b), n = Math.ceil(Math.hypot(bx - ax, by - ay) / step);
+      for (let j = 1; j <= n; j++) pts.push([a[0] + (b[0] - a[0]) * j / n, a[1] + (b[1] - a[1]) * j / n]); }
+    const w = ROAD_W[c] / 2000; if (c < 6) strip(casing, pts, w + .0015, .0012); strip(strips[c], pts, w, .0016); }
+  const mesh = (S, color, order, mat) => { if (!S.idx.length) return; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.pos, 3)); g.setIndex(S.idx);
+    const m = new THREE.Mesh(g, mat || new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4 - order, polygonOffsetUnits: -4 - order, toneMapped: false })); m.renderOrder = 3 + order * .01; detailGroup.add(m); roads.push(m); };
+  mesh(casing, 0x857c6c, 0); strips.forEach((S, c) => mesh(S, ROAD_C[c], 6 - c));
+  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn twice true height so they read next to the
+  // exaggerated hills; walls and a flat roof, lit by the scene's sun
+  const pos = [], idx = [], ex = 2 / EXAG / 1000;
+  for (const b of D.b) { const h = (b[0] || 6) * ex, ring = []; for (let i = 1; i < b.length; i += 2) ring.push(uv(b[i], b[i + 1]));
+    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h + .004, n0 = pos.length / 3;
+    ring.forEach(p => pos.push(sxU(p[0]), base - .002, szV(p[1]), sxU(p[0]), top, szV(p[1])));
+    for (let i = 0; i < ring.length; i++) { const a = n0 + i * 2, c = n0 + ((i + 1) % ring.length) * 2; idx.push(a, c, a + 1, a + 1, c, c + 1); }
+    THREE.ShapeUtils.triangulateShape(ring.map(p => new THREE.Vector2(sxU(p[0]), szV(p[1]))), []).forEach(t => idx.push(n0 + t[0] * 2 + 1, n0 + t[1] * 2 + 1, n0 + t[2] * 2 + 1)); }
+  if (idx.length) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0xd8cfbf, roughness: .85, flatShading: true, side: THREE.DoubleSide })); m.castShadow = true; detailGroup.add(m); }
+  detailGroup.scale.y = yScale() * 1000; detailGroup.userData.n = [D.r.length, D.b.length];
+}
 // vehicles: one per recorded case, moving on the checked (full-policy) route by its recorded times
 const cars = routes.map(() => { const grp = new THREE.Group();
   const body = new THREE.Mesh(new THREE.BoxGeometry(.17, .055, .085).translate(0, .045, 0), new THREE.MeshStandardMaterial({ color: 0xf2f1ec, roughness: .35, metalness: .25 }));
@@ -1443,13 +1479,16 @@ function buildEmber() {
   x.putImageData(im, 0, 0);
   cellsCv = mk(TW, TH); emberPat = cellsCv.getContext('2d').createPattern(c, 'repeat'); emberPatE = emissive.getContext('2d').createPattern(c, 'repeat');
 }
-let heatCv = null;
+let heatCv = null, layerCv = null, layerGen = 0;
 function compose() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), flat = state.mode === '2d';
-  const cx = composite.getContext('2d'); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
+  const bx = composite.getContext('2d'); bx.globalAlpha = 1; bx.globalCompositeOperation = 'source-over';
   const roadOk = flat && state.base2d === 'road' && ensureRoadMap(), flatOk = flat && !roadOk && state.base2d !== 'road' && ensureFlat();
-  if (L.base.on) { cx.drawImage(roadOk ? roadCv : flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { cx.globalAlpha = 1 - L.base.op / 100; cx.fillStyle = '#d6d2c9'; cx.fillRect(0, 0, TW, TH); } }
-  else { cx.fillStyle = '#d9d5cc'; cx.fillRect(0, 0, TW, TH); if (flat) { cx.globalCompositeOperation = 'multiply'; cx.drawImage(hsCv, 0, 0, TW, TH); cx.globalCompositeOperation = 'source-over'; } }
+  if (L.base.on) { bx.drawImage(roadOk ? roadCv : flatOk ? (state.base2d === 'topo' ? topo : groundHS) : ground, 0, 0); if (L.base.op < 100) { bx.globalAlpha = 1 - L.base.op / 100; bx.fillStyle = '#d6d2c9'; bx.fillRect(0, 0, TW, TH); } }
+  else { bx.fillStyle = '#d9d5cc'; bx.fillRect(0, 0, TW, TH); if (flat) { bx.globalCompositeOperation = 'multiply'; bx.drawImage(hsCv, 0, 0, TW, TH); bx.globalCompositeOperation = 'source-over'; } }
+  // everything above the base map goes on its own sheet (layerCv), then onto the map image: the satellite close-up
+  // (ui.js) lays the same sheet over its photo, so fire and routes stay visible there
+  layerCv ??= mk(TW, TH); const cx = layerCv.getContext('2d'); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.clearRect(0, 0, TW, TH);
   cx.imageSmoothingEnabled = true;
   if (L.biome.on) { ensureBiome(); cx.globalAlpha = L.biome.op / 100; cx.drawImage(biomeCv, 0, 0, TW, TH); }
   if (L.canopy.on) { cx.globalAlpha = (flat ? .55 : .2) * L.canopy.op / 100; cx.drawImage(canopyCv, 0, 0, TW, TH); }
@@ -1509,7 +1548,7 @@ function compose() {
     em.strokeStyle = '#ff7a2a'; em.lineWidth = 2.4; em.beginPath(); for (const [a, b] of fe.act) { const A = toPx(...lat_(...a), MW, MH), Bp = toPx(...lat_(...b), MW, MH); em.moveTo(...A); em.lineTo(...Bp); } em.stroke();
   }
   if (zk >= 0) hzField(zk, (t - HZ[zk].t0) * 3600, state.member).flame.forEach(i => act.add(i)); else if (qi >= 0) for (const i of BURNING[qi]) act.add(i);
-  cx.globalAlpha = 1;
+  cx.globalAlpha = 1; bx.globalAlpha = 1; bx.drawImage(layerCv, 0, 0); layerGen++;
   tex.needsUpdate = true; emTex.needsUpdate = true;
   activeCells = L.front.on ? [...act] : [];
   setFireParticles(activeCells); updateHeatMesh(t);
@@ -1649,7 +1688,7 @@ function onLayerChange(id) {
   dirty = true;
 }
 function applyHeights() {
-  terrain.scale.y = yScale() * 1000; skirt.scale.y = yScale() * 1000; if (ctxMesh) ctxMesh.scale.y = yScale() * 1000; buildBoundary();
+  terrain.scale.y = yScale() * 1000; skirt.scale.y = yScale() * 1000; detailGroup.scale.y = yScale() * 1000; if (ctxMesh) ctxMesh.scale.y = yScale() * 1000; buildBoundary();
   flameMat.uniforms.ys.value = smokeMat.uniforms.ys.value = yScale();
   placeTrees(); buildRouteMeshes(); updateHeatMesh(state.t); updateBooth(true);
 }
@@ -2246,6 +2285,59 @@ function viewHash(extra = {}) {
 function switchRegion(id, extra = {}) { try { localStorage.setItem('wfg3d.region', id); } catch (e) { } location.hash = viewHash({ ...extra, region: id }); location.reload(); }
 function switchLang(l) { try { localStorage.setItem('wfg3d.lang', l); } catch (e) { } location.hash = viewHash({ lang: l, keepTime: true, cmp: state.cmp !== 'ours' ? state.cmp : '' }); location.reload(); }
 
+// ---------------- satellite close-up (online only) ----------------
+// Zoomed in with an internet connection: Esri World Imagery photos (zoom 16, about 2.4 m per pixel) of a 4 km square
+// around the view centre, laid on the terrain with the map's own layers (fire, spread, routes) drawn over them. The
+// photos were taken on another day. Without internet (navNet in nav.js) nothing is requested.
+const SAT_Z = 16, SAT_R = 2, SAT_N = 2048;
+const sat = { mesh: null, photo: null, out: null, key: '', gen: -1, t: 0, want: null };
+function satTick(kmPerPx) {
+  const on = L.base.on && kmPerPx < .006 && !(NAV.real || NAV.street) && NAV.netOk !== false;
+  if (sat.mesh) sat.mesh.visible = on && sat.ready;
+  const rop = sat.mesh?.visible ? .4 : 1; for (const m of detailGroup.userData.roads || []) m.material.opacity = rop;     // over the photo the roads are already visible: lighter lines
+  if (!on) return;
+  if (NAV.netOk == null) { navNet(); return; }
+  const tu = controls.target.x / KX + .5, tv = controls.target.z / KY + .5;
+  if (sat.cu == null || Math.hypot((tu - sat.cu) * KXr, (tv - sat.cv) * KYr) > SAT_R * .45) {     // moved far: new square once the view rests
+    clearTimeout(sat.t); sat.want = [tu, tv]; sat.t = setTimeout(() => satBuild(...sat.want), 600); }
+  else if (sat.ready && sat.gen !== layerGen) satPaint();
+}
+function satBuild(cu, cvv) {
+  sat.cu = cu; sat.cv = cvv; sat.ready = false; const du = SAT_R / KXr, dv = SAT_R / KYr, u0 = cu - du, u1 = cu + du, v0 = cvv - dv, v1 = cvv + dv; sat.box = [u0, u1, v0, v1];
+  sat.photo ??= mk(SAT_N, SAT_N); sat.out ??= mk(SAT_N, SAT_N); const px = sat.photo.getContext('2d'); px.fillStyle = '#6f7a5e'; px.fillRect(0, 0, SAT_N, SAT_N);
+  const lonOf = u => W + u * (E - W), latOf = v => N - v * (N - S), n = 2 ** SAT_Z;
+  const tx = lon => Math.floor((lon + 180) / 360 * n), ty = lat => Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * n);
+  const lonT = x => x / n * 360 - 180, latT = y => Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))) * 180 / Math.PI;
+  const X = u => (u - u0) / (u1 - u0) * SAT_N, Y = v => (v - v0) / (v1 - v0) * SAT_N, key = sat.key = u0.toFixed(5) + ':' + v0.toFixed(5);
+  let left = 0;
+  for (let x = tx(lonOf(u0)); x <= tx(lonOf(u1)); x++) for (let y = ty(latOf(v0)); y <= ty(latOf(v1)); y++) { left++;
+    const im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = () => { if (sat.key !== key) return; const a = X(uOf(lonT(x))), b = Y(vOf(latT(y))), c = X(uOf(lonT(x + 1))), d = Y(vOf(latT(y + 1))); px.drawImage(im, a, b, c - a + .6, d - b + .6); if (--left === 0) satDone(); else if (left % 12 === 0) satPaint(); };
+    im.onerror = () => { if (sat.key === key && --left === 0) satDone(); };
+    im.src = NAV_TILES.sat.replace('{z}', SAT_Z).replace('{x}', x).replace('{y}', y); }
+  // the ground piece the photos lie on: a 128 × 128 grid following the terrain
+  const G = 128, pos = [], uvs = [], idx = [];
+  for (let j = 0; j <= G; j++) for (let i = 0; i <= G; i++) { const u = u0 + (u1 - u0) * i / G, v = v0 + (v1 - v0) * j / G;
+    pos.push(sxU(u), elevUV(clamp(u, 0, 1), clamp(v, 0, 1)) / 1000 + .0008, szV(v)); uvs.push(i / G, 1 - j / G);
+    if (i < G && j < G) { const k = j * (G + 1) + i; idx.push(k, k + G + 1, k + 1, k + 1, k + G + 1, k + G + 2); } }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); g.setIndex(idx); g.computeVertexNormals();
+  if (!sat.mesh) { const tx_ = new THREE.CanvasTexture(sat.out); tx_.encoding = THREE.sRGBEncoding; tx_.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    sat.mesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: tx_, transparent: true, roughness: 1, metalness: 0, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+    sat.mesh.renderOrder = 2; sat.mesh.receiveShadow = true; detailGroup.add(sat.mesh); }
+  else { sat.mesh.geometry.dispose(); sat.mesh.geometry = g; }
+  setTimeout(() => { if (sat.key === key && !sat.ready) satDone(); }, 8000);
+}
+function satDone() { sat.ready = true; satPaint(); dirty = true; }
+// photo + the map's layer sheet for the same square, edges faded into the map
+function satPaint() {
+  if (!sat.out || !layerCv) return; const o = sat.out.getContext('2d'), [u0, u1, v0, v1] = sat.box;
+  o.globalCompositeOperation = 'source-over'; o.globalAlpha = 1; o.clearRect(0, 0, SAT_N, SAT_N); o.drawImage(sat.photo, 0, 0);
+  o.imageSmoothingEnabled = true; o.drawImage(layerCv, u0 * TW, v0 * TH, (u1 - u0) * TW, (v1 - v0) * TH, 0, 0, SAT_N, SAT_N);
+  const fade = o.createRadialGradient(SAT_N / 2, SAT_N / 2, SAT_N * .36, SAT_N / 2, SAT_N / 2, SAT_N * .5); fade.addColorStop(0, 'rgba(0,0,0,1)'); fade.addColorStop(1, 'rgba(0,0,0,0)');
+  o.globalCompositeOperation = 'destination-in'; o.fillStyle = fade; o.fillRect(0, 0, SAT_N, SAT_N); o.globalCompositeOperation = 'source-over';
+  sat.gen = layerGen; if (sat.mesh) sat.mesh.material.map.needsUpdate = true; dirty = true;
+}
+
 // ---------------- resize / loop ----------------
 let composer = null, bloom = null;
 if (!isPhone && THREE.EffectComposer && THREE.UnrealBloomPass && THREE.GammaCorrectionShader) {
@@ -2299,6 +2391,8 @@ function frame(now) {
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
+  detailGroup.visible = L.base.on && kmPerPx < .012 && !(NAV.real || NAV.street);     // close-up roads and buildings below ~12 m per pixel
+  satTick(kmPerPx);
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }
   requestAnimationFrame(frame);
@@ -2311,7 +2405,7 @@ async function boot() {
   // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
   const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
   if (!hit && !osmOk) B.osm = { roads: [], water: [], landuse: [] };
-  buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; buildDom();
+  buildStatic(hit); buildTerrain(); buildEmber(); buildTrees(); skirt.visible = false; conifers.visible = broadleaf.visible = L.canopy.on;     // 3D trees follow the canopy layer (off at first) buildDom();
   // the surrounding terrain ring is added when its heights arrive (they load while this first frame is built)
   const ctxDone = (window.__wfgCtx || Promise.resolve(null)).then(b64 => {
     if (!b64) return; attachContext(b64); buildContext(hit); ctxMesh.scale.y = yScale() * 1000;
@@ -2321,6 +2415,8 @@ async function boot() {
   await ctxDone;
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
+  // close-up roads and buildings: loaded after the first picture, built once
+  setTimeout(() => window.__wfgLoad(RID + '.detail.js').then(ok => { const D = ok && (window.WFG_DETAIL || {})[RID]; if (D) { buildDetail(D); dirty = true; } }), 1500);
   buildHeatMesh(); buildModelTab(); selectRoute(selRoute); applyHeights(); updateWind(state.t);
   const h = HOME3D(); controls.target.copy(h.tgt); camera.position.set(h.tgt.x + h.r * Math.sin(h.phi) * Math.sin(h.th), h.tgt.y + h.r * Math.cos(h.phi), h.tgt.z + h.r * Math.sin(h.phi) * Math.cos(h.th));
   const hp = new URLSearchParams(location.hash.slice(1));
@@ -2339,7 +2435,8 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x) };
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+    look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
@@ -2465,6 +2562,20 @@ function navRoute(pol) {
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
   if (NAV.view === 'street') { navAuto(false); navSvGo(0); } else setPlaying(true, Number($('speed').value) || 1);
 }
+// the recorded spread, fast: from the first burn record to the departure (about 15 s), with both routes on the map; the
+// burned area grows at each record time and the modelled flame shows in the hour after each model input. Then the
+// trip starts again.
+function navReplay() {
+  const sc = CASES[NAV.ci], dep = sc.r.t0 + sc.pol[NAV.pol].dep / 3600, a = Math.min(REC[0] ?? dep - 6, dep - .5);
+  if (NAV.view === 'street') navView('2d');
+  cancelAnimationFrame(NAV.rpRaf); setPlaying(false); setDetail(false);
+  let lb = $('navReplayLb'); if (!lb) { lb = document.createElement('div'); lb.id = 'navReplayLb'; lb.className = 'nav-replay'; mapEl.appendChild(lb); }
+  const t0 = performance.now(), dur = 15000;
+  const step = now => { const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t);
+    lb.innerHTML = `<b>${tr('불 번짐 재생 (기록)', 'Spread replay (recorded)')}</b> ${navDate(t)} ${navClock(t)} <i style="width:${(k * 100).toFixed(1)}%"></i>`;
+    if (k < 1 && NAV.on) NAV.rpRaf = requestAnimationFrame(step); else { lb.remove(); if (NAV.on) { if (sc.k >= 0) setDetail(true, sc.k); navRoute(NAV.pol); } } };
+  NAV.rpRaf = requestAnimationFrame(step);
+}
 // a label on the map where the route drives through flame
 function navMarks() {
   for (const it of NAV.marks || []) { it.el.remove(); const i = domItems.indexOf(it); if (i >= 0) domItems.splice(i, 1); }
@@ -2507,7 +2618,7 @@ function navPanel() {
     ${NAV.view === 'chase' ? `<label class="nav-race"><input type="checkbox" id="navFree" ${NAV.free ? 'checked' : ''}> ${tr('자유 시점: 끌어서 이동·회전, 휠로 확대·축소 (오른쪽 끌기·Ctrl: 기울이기)', 'Free view: drag to move and turn, wheel to zoom (right-drag or Ctrl: tilt)')}</label>` : ''}
     <div class="nav-graph"><div class="h">${tr('가장 가까운 불까지 거리', 'Distance to the nearest fire')} <small>${tr('출발 후 분 · 기록·모델 불', 'minutes after departure · recorded and model fire')}</small></div><svg id="navGraph" role="img"></svg>
       <div class="k">${navPols().map(p => `<span><i style="background:${p === 'full' ? '#1a73e8' : '#8a8f96'}"></i>${NAV_ROUTES.find(x => x[0] === p)[1]}</span>`).join('')}<span><i class="fl"></i>${tr('화염 접촉', 'flame contact')}</span></div></div>
-    <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button>
+    <div class="nav-ctl"><button type="button" class="btn" id="navPlay"></button><button type="button" class="btn" id="navRestart">${tr('처음부터', 'Restart')}</button><button type="button" class="btn" id="navReplay" title="${tr('첫 기록부터 출발 시각까지 기록된 불의 번짐을 빠르게 보여 줍니다', 'Plays the recorded spread from the first record to departure, fast')}">${tr('🔥 불 번짐 재생', '🔥 Replay the spread')}</button>
 </div>
     <h4>${tr('경로 안내', 'Directions')} <small>${tr('누르면 그 순간으로', 'click to jump there')}</small></h4>
     <ol class="nav-steps">${NAV.steps.map((st, i) => `<li class="${st.kind}" data-i="${i}"><time>${navClock(r.t0 + st.s / 3600)}</time><span>${st.text}${st.sub ? `<small>${st.sub}</small>` : ''}</span><em>${st.km.toFixed(1)} km</em></li>`).join('')}</ol>
@@ -2521,6 +2632,7 @@ function navPanel() {
   if ($('navKeyClear')) $('navKeyClear').onclick = () => { navKeySet(''); location.reload(); };
   $('navPlay').onclick = () => { if (NAV.street) return navAuto(!NAV.auto); const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
+  $('navReplay').onclick = () => navReplay();
   document.querySelectorAll('#pNav .nav-show button').forEach(b => b.onclick = () => { const k = b.dataset.show; navHudKey = ''; NAV.camC = null;
     if (k === 'both') { NAV.race = true; navMapRoute(); navPanel(); } else { NAV.race = false; if (k !== NAV.pol && navHas(k)) navRoute(k); else { navMapRoute(); navPanel(); } } });
   if ($('navFree')) $('navFree').onchange = e => navFree(e.target.checked);
@@ -2735,8 +2847,9 @@ function navMap() {
         layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#d8d5cd' } },
           { id: 'sat', type: 'raster', source: 'sat' },
           { id: 'burn', type: 'fill', source: 'burn', paint: { 'fill-color': '#0e0a08', 'fill-opacity': .74, 'fill-antialias': false } },
-          { id: 'heat', type: 'fill', source: 'heat', paint: { 'fill-color': ['get', 'c'], 'fill-opacity': ['get', 'o'], 'fill-antialias': false } },
-          { id: 'flame', type: 'fill-extrusion', source: 'flame', paint: { 'fill-extrusion-color': ['get', 'c'], 'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-opacity': .9, 'fill-extrusion-vertical-gradient': true } },
+          { id: 'heat', type: 'heatmap', source: 'heat', paint: { 'heatmap-weight': ['get', 'w'], 'heatmap-intensity': 1.1, 'heatmap-opacity': .85,
+            'heatmap-radius': ['interpolate', ['exponential', 2], ['zoom'], 10, 6, 13, 30, 15, 110, 17, 440],
+            'heatmap-color': ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(255,120,0,0)', .15, 'rgba(255,120,0,.18)', .4, 'rgba(255,80,0,.45)', .7, 'rgba(240,40,0,.7)', .9, 'rgba(255,170,40,.85)', 1, 'rgba(255,235,150,.9)'] } },
           { id: 'roads', type: 'raster', source: 'roads', paint: { 'raster-opacity': .8 } },
           { id: 'alt', type: 'line', source: 'alt', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#9aa0a6', 'line-width': 5, 'line-opacity': .9 } },
           { id: 'casing', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': 10 } },
@@ -2747,6 +2860,7 @@ function navMap() {
     map.once('idle', () => map.getContainer().querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'));     // credits folded to the (i) button
     map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
     await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
+    navFlameImages(map);
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
     NAV.mlCar = new maplibregl.Marker({ element: car, rotationAlignment: 'map', pitchAlignment: 'map' }).setLngLat(map.getCenter()).addTo(map);
     const car2 = car.cloneNode(true); car2.classList.add('alt');
@@ -2782,25 +2896,47 @@ function navFree(on) {
 // source on terrain only inside a single map tile.
 const navCell = (i, c, o) => { const r = (i / NC) | 0, k = i % NC;
   return { type: 'Feature', properties: { c, o }, geometry: { type: 'Polygon', coordinates: [[lat_(r, k), lat_(r, k + 1), lat_(r + 1, k + 1), lat_(r + 1, k), lat_(r, k)]] } }; };
+// flames and smoke as small animated pictures standing up on the ground (drawn here, no image files): three flame
+// pictures with different flicker phases and one drifting smoke puff
+function navFlameImages(map) {
+  const anim = (w, h, draw) => ({ width: w, height: h, data: new Uint8Array(w * h * 4),
+    onAdd() { this.cv = Object.assign(document.createElement('canvas'), { width: w, height: h }); this.cx = this.cv.getContext('2d', { willReadFrequently: true }); },
+    render() { const x = this.cx; x.clearRect(0, 0, w, h); draw(x, performance.now() / 1000); this.data = x.getImageData(0, 0, w, h).data; map.triggerRepaint(); return true; } });
+  const tongue = (x, cx, base, hgt, wid, sway) => { x.beginPath(); x.moveTo(cx - wid, base); x.bezierCurveTo(cx - wid, base - hgt * .45, cx + sway - wid * .3, base - hgt * .7, cx + sway, base - hgt);
+    x.bezierCurveTo(cx + sway + wid * .3, base - hgt * .7, cx + wid, base - hgt * .45, cx + wid, base); x.closePath(); x.fill(); };
+  for (let k = 0; k < 3; k++) map.addImage('fire' + k, anim(48, 80, (x, t) => {
+    const base = 78, g = x.createLinearGradient(0, base, 0, 0); g.addColorStop(0, 'rgba(255,240,170,1)'); g.addColorStop(.25, 'rgba(255,190,40,.95)'); g.addColorStop(.6, 'rgba(255,90,10,.85)'); g.addColorStop(1, 'rgba(200,20,0,0)');
+    x.fillStyle = g; x.globalCompositeOperation = 'lighter';
+    for (let j = 0; j < 4; j++) { const ph = t * (7 + j * 1.7) + k * 2.1 + j * 1.3, hgt = 50 + 22 * Math.sin(ph) + 8 * Math.sin(ph * 2.3), sway = 6 * Math.sin(ph * .7 + j);
+      tongue(x, 24 + (j - 1.5) * 6, base, hgt, 9 - j, sway); }
+    x.globalCompositeOperation = 'source-over'; }), { pixelRatio: 2 });
+  map.addImage('smoke', anim(64, 64, (x, t) => {
+    for (let j = 0; j < 4; j++) { const p = (t * .35 + j / 4) % 1, cy = 56 - p * 44, r = 10 + p * 16, g = x.createRadialGradient(32 + 6 * Math.sin(j * 2 + t), cy, 0, 32, cy, r);
+      g.addColorStop(0, `rgba(205,200,194,${.8 * (1 - p * .75)})`); g.addColorStop(1, 'rgba(205,200,194,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); } }), { pixelRatio: 2 });
+  const sz = k => ['interpolate', ['exponential', 2], ['zoom'], 11, ['*', ['get', 's'], k * .5], 14, ['*', ['get', 's'], k * 2], 17, ['*', ['get', 's'], k * 10]];
+  map.addLayer({ id: 'smoke', type: 'symbol', source: 'flame', filter: ['==', ['get', 'smoke'], 1], layout: { 'icon-image': 'smoke', 'icon-size': sz(1.6), 'icon-anchor': 'bottom',
+    'icon-offset': [0, -26], 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport' }, paint: { 'icon-opacity': .9 } });
+  map.addLayer({ id: 'flame', type: 'symbol', source: 'flame', layout: { 'icon-image': ['concat', 'fire', ['get', 'im']], 'icon-size': sz(.45), 'icon-anchor': 'bottom',
+    'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
+}
 function navFire(map, t) {
   const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }
   const fk = hk + ':' + qi;
   if (fk !== NAV.heatK) { NAV.heatK = fk; const f = [], fl = new Set(), pts = [];
     if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member); fld.flame.forEach(i => fl.add(i));
-      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push(navCell(i, `rgb(${inferno(.25 + .75 * v).map(Math.round)})`, .25 + smooth(.4, .8, v) * .5)); } }
+      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push({ type: 'Feature', properties: { w: .15 + .6 * smooth(.4, .9, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
     if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) fl.add(i);     // burning now in the record
-    NAV.flCells = [...fl]; NAV.flT = 0;
+    NAV.flCells = [...fl]; for (const i of fl) f.push({ type: 'Feature', properties: { w: 1 }, geometry: { type: 'Point', coordinates: cellCenter(i) } });
     map.getSource('heat').setData(fc(f)); }
-  // flames: each burning cell as a cluster of 4×4 thin columns, 15–120 m, yellow to red, redrawn a few times a second so they flicker
-  const now = performance.now() / 1000;
-  if (NAV.flCells && now - (NAV.flT || 0) > .16) { NAV.flT = now; const cols = ['#fff07a', '#ffd23a', '#ffa21f', '#ff7a14', '#f04a12', '#d81e10'], n = 4, out = [];
-    for (const i of NAV.flCells) { const r = (i / NC) | 0, c = i % NC, A = lat_(r, c), Bq = lat_(r, c + 1), C = lat_(r + 1, c + 1), D = lat_(r + 1, c);
-      const at = (x, y) => [A[0] + (Bq[0] - A[0]) * x + (D[0] - A[0]) * y + (A[0] - Bq[0] + C[0] - D[0]) * x * y, A[1] + (Bq[1] - A[1]) * x + (D[1] - A[1]) * y + (A[1] - Bq[1] + C[1] - D[1]) * x * y];
-      for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) { const x0 = (a + .18) / n, x1 = (a + .82) / n, y0 = (b + .18) / n, y1 = (b + .82) / n, rnd = Math.random(), edge = Math.min(a, b, n - 1 - a, n - 1 - b) === 0;
-        const h = (edge ? 15 : 45) + rnd * (edge ? 50 : 75), col = cols[Math.min(5, Math.floor((1 - h / 120) * 4 + Math.random() * 2))];
-        out.push({ type: 'Feature', properties: { c: col, h }, geometry: { type: 'Polygon', coordinates: [[at(x0, y0), at(x1, y0), at(x1, y1), at(x0, y1), at(x0, y0)]] } }); } }
-    map.getSource('flame').setData({ type: 'FeatureCollection', features: out }); }
+  // flames: a glowing bed on each burning cell and flame pictures scattered over it (fixed per cell, so they do not jump),
+  // with a smoke puff over some of them
+  if (NAV.flCells !== NAV.flDrawn) { NAV.flDrawn = NAV.flCells; const pts = [];
+    for (const i of NAV.flCells || []) { const r = (i / NC) | 0, c = i % NC, A = lat_(r, c), Bq = lat_(r, c + 1), D = lat_(r + 1, c);
+      let seed = (i * 7919) % 233280; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+      for (let j = 0; j < 16; j++) { const x = rnd(), y = rnd();
+        pts.push({ type: 'Feature', properties: { im: j % 3, s: .7 + .6 * rnd(), smoke: j % 5 === 0 ? 1 : 0 }, geometry: { type: 'Point', coordinates: [A[0] + (Bq[0] - A[0]) * x + (D[0] - A[0]) * y, A[1] + (Bq[1] - A[1]) * x + (D[1] - A[1]) * y] } }); } }
+    map.getSource('flame').setData({ type: 'FeatureCollection', features: pts }); }
 }
 // heading along the route: from the car to a point `ahead` km further on
 function navAhead(dense, q, ahead) { const want = q.d + ahead; let j = Math.max(1, q.i || 1); while (j < dense.length - 1 && dense[j].d < want) j++; return dense[j]; }
