@@ -1328,12 +1328,12 @@ function buildDetail(D) {
   const mesh = (S, color, order, mat) => { if (!S.idx.length) return; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.pos, 3)); g.setIndex(S.idx);
     const m = new THREE.Mesh(g, mat || new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4 - order, polygonOffsetUnits: -4 - order, toneMapped: false })); m.renderOrder = 3 + order * .01; detailGroup.add(m); roads.push(m); };
   mesh(casing, 0x857c6c, 0); strips.forEach((S, c) => mesh(S, ROAD_C[c], 6 - c));
-  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn twice true height so they read next to the
-  // exaggerated hills; walls and a flat roof, lit by the scene's sun
-  const pos = [], idx = [], ex = 2 / EXAG / 1000;
+  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn 1.5 times true height (the hills are 6.5 times) so
+  // they read without towering; walls and a flat roof, lit by the scene's sun
+  const pos = [], idx = [], ex = 1.5 / EXAG / 1000;
   for (const b of D.b) { const h = (b[0] || 6) * ex, ring = []; for (let i = 1; i < b.length; i += 2) ring.push(uv(b[i], b[i + 1]));
-    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h + .004, n0 = pos.length / 3;
-    ring.forEach(p => pos.push(sxU(p[0]), base - .002, szV(p[1]), sxU(p[0]), top, szV(p[1])));
+    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h, n0 = pos.length / 3;
+    ring.forEach(p => pos.push(sxU(p[0]), base - .002 / EXAG, szV(p[1]), sxU(p[0]), top, szV(p[1])));
     for (let i = 0; i < ring.length; i++) { const a = n0 + i * 2, c = n0 + ((i + 1) % ring.length) * 2; idx.push(a, c, a + 1, a + 1, c, c + 1); }
     THREE.ShapeUtils.triangulateShape(ring.map(p => new THREE.Vector2(sxU(p[0]), szV(p[1]))), []).forEach(t => idx.push(n0 + t[0] * 2 + 1, n0 + t[1] * 2 + 1, n0 + t[2] * 2 + 1)); }
   if (idx.length) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
