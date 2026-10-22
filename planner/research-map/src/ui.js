@@ -135,23 +135,99 @@ function updateBooth(force) {
     if (f && r.dense.length > 1) boothGroup.add(puck(r.dense[r.dense.length - 1].u, r.dense[r.dense.length - 1].v, 0x2f8a57, .07)); }
 }
 // ---------------- map dots: what each one is (click), and a zoom to it ----------------
+function caseIdLabel(name) {     // case ids such as 20250325T170000Z_FW1 -> FW1 · 03-26 02:00 입력 (KST)
+  const m = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)\d\dZ_(\w+)$/.exec(name || ''); if (!m) return name;
+  const d = new Date(Date.UTC(+m[1], m[2] - 1, +m[3], +m[4] + 9, +m[5]));
+  return `${m[6]} · ${p2(d.getUTCMonth() + 1)}-${p2(d.getUTCDate())} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} ${tr('입력', 'input')}`;
+}
 function dotInfo(it) {
   const k = state.boothK, rowOf = id => L.booth.on && k >= 0 && state.cmp === 'ours' ? BOOTH[k].rows.find(r => r.id === id) : null;
   if (it.place) { const p = it.place, row = p.role === 'origin' ? rowOf(p.id) : null;
     return { name: placeName(p), kind: placeKind(p), row }; }
-  if (it.rid != null) { const row = rowOf(it.rid); return { name: row ? row.name : it.el.title.replace(/^.*?(출발지|origin) /, ''), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
+  if (it.rid != null) { const row = rowOf(it.rid); return { name: caseIdLabel(row ? row.name : it.rname), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
   return null;
 }
 function dotOpen(it, x, y) {
   const d = dotInfo(it); if (!d) return; const pop = $('dotPop');
   pop.innerHTML = `<b>${d.name}</b><span>${d.kind}</span>${d.row ? `<span class="st"><i style="background:${STATUS[d.row.v].c}"></i>${tr('대피 결과', 'Evacuation result')}: ${STATUS[d.row.v].t}</span>` : ''}
-    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button><button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
+    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button>${d.row && d.row.v !== 'not_checkable' ? `<button type="button" class="btn" id="dotApi">${tr('API 응답', 'API response')}</button>` : ''}<button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
   const r = mapEl.getBoundingClientRect(); pop.hidden = false;
   pop.style.left = Math.min(r.width - 230, Math.max(8, x - r.left + 12)) + 'px'; pop.style.top = Math.min(r.height - 120, Math.max(8, y - r.top + 12)) + 'px';
   $('dotClose').onclick = () => { pop.hidden = true; };
+  if ($('dotApi')) $('dotApi').onclick = () => { pop.hidden = true; apiOpen(d.row.id); };
   $('dotZoom').onclick = () => { pop.hidden = true; const flat = state.mode === '2d';
     tweenView({ r: flat ? 4 : 6, phi: flat ? .0005 : THREE.MathUtils.degToRad(50), th: flat ? 0 : sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(it.u), yAt(it.u, it.v), szV(it.v)) }, 1000); };
 }
+// ---------------- API 응답 보기: the recorded real Route-Check API exchange behind an origin's verdict ----------------
+// site/regions/<id>.api.js (tools/build_api_log.py) holds the jobs exactly as the API returned them, loaded on first open.
+const PLACE_ID = new Map(B.places.map(p => [p.id, p]));
+let apiReq = null, apiSel = null;
+const apiData = () => apiReq || (apiReq = window.__wfgLoad(`${B.id}.api.js`).then(ok => ok && (window.WFG_API || {})[B.id] || null));
+const jsonHTML = o => esc(JSON.stringify(o, null, 2)).replace(/(&quot;(?:[^&]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)/gi,
+  (m, str, colon, lit, num) => str ? `<span class="${colon ? 'jk' : 'js'}">${str}</span>${colon || ''}` : lit ? `<span class="jl">${lit}</span>` : `<span class="jn">${num}</span>`);
+const API_C = { checked_route: '#2f8a57', model_no_route: '#4a4f57', unresolved: '#8a8a8a' };     // verdict colours readable on the dark viewer
+const apiDur = (a, b) => a && b ? ((Date.parse(b) - Date.parse(a)) / 1000).toFixed(1) + ' s' : '–';
+const apiName = id => { const rm = /^research:[^:]+:([^:]+):(origin|destination)$/.exec(id || '');
+  if (rm) return tr('연구 사례 ', 'Research ') + caseIdLabel(rm[1]) + (rm[2] === 'destination' ? tr(' · 도착지', ' · destination') : '');
+  const p = PLACE_ID.get(id); if (p) return placeName(p); const r = BOOTH.flatMap(b => b.rows).find(x => x.id === id); return r ? (r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name) : id; };
+function apiOpen(oid, k) {
+  if (!BOOTH.length) return;
+  k = k ?? Math.max(0, state.boothK); const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable');
+  apiSel = { k, oid: rows.some(r => r.id === oid) ? oid : (rows.find(r => r.v === 'checked_route') || rows[0] || {}).id };
+  const box = $('apiView'); box.hidden = false; box.querySelector('.api-body').innerHTML = `<p class="note">${tr('기록된 API 응답을 불러오는 중…', 'Loading the recorded API responses…')}</p>`;
+  apiData().then(d => apiRender(d));
+}
+function apiRender(d) {
+  const box = $('apiView'), body = box.querySelector('.api-body'); if (box.hidden) return;
+  const { k, oid } = apiSel, t = d && d.times.find(x => x.input_time === BOOTH[k].input_time), row = t && t.rows[oid];
+  const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable').sort((a, z) => (a.research ? 0 : 1) - (z.research ? 0 : 1) || String(apiName(a.id)).localeCompare(apiName(z.id)));
+  const head = `<div class="api-pick"><label>${tr('입력 시각', 'Input time')} <span class="seg2">${BOOTH.map((x, i) => `<button type="button" data-ak="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</span></label>
+    <label>${tr('출발지', 'Origin')} <select id="apiOrigin">${rows.map(r => `<option value="${esc(r.id)}"${r.id === oid ? ' selected' : ''}>${esc(apiName(r.id))} · ${STATUS[r.v].t}</option>`).join('')}</select></label></div>`;
+  if (!row) { body.innerHTML = head + `<p class="note">${tr('이 출발지·입력 시각의 기록된 API 응답이 없습니다.', 'No recorded API response for this origin and input time.')}</p>`; apiWire(d); return; }
+  const rc = row.rc && t.rc[row.rc], plan = row.plan && t.plans[row.plan], res = (rc && rc.result) || {}, pv = (rc && rc.result && rc.result.provenance) || (rc && rc.provenance) || {};
+  const hp = t.health || {}, host = pv.host || {};
+  // the dispatch plan as the API returned it, with this origin's own attempt list put back in place
+  const planView = plan && JSON.parse(JSON.stringify(plan));
+  if (planView) for (const o of planView.result.plans) o.attempts = o.origin_id === oid
+    ? row.att.map(([dest, dep, v, arr, cs, job]) => ({ destination_id: dest, depart_offset_s: dep, verdict: v, arrival_s: arr, compute_s: cs, route_check_job_id: job }))
+    : tr(`… 시도 ${o.attempts}건 (다른 출발지)`, `… ${o.attempts} attempts (another origin)`);
+  const dests = [...new Set(row.att.map(a => a[0]))], deps = [...new Set(row.att.map(a => a[1]))].sort((a, z) => a - z);
+  const cell = (dst, dep) => { const a = row.att.find(x => x[0] === dst && x[1] === dep); if (!a) return `<td class="na">–</td>`;
+    const tip = `${a[5]} · ${STATUS[a[2]].t}${a[3] != null ? ` · ${tr('도착', 'arrival')} +${fmtS(a[3])}` : ''} · ${tr('계산', 'compute')} ${a[4] != null ? a[4].toFixed(1) + ' s' : '–'}`;
+    return `<td title="${esc(tip)}" class="${a[5] === row.rc ? 'shown' : ''}" style="background:${API_C[a[2]] || '#8a8a8a'}">${a[4] != null ? a[4].toFixed(1) : ''}</td>`; };
+  const step = (n, verb, path, code, note, open) => `<details class="api-step"${open ? ' open' : ''}><summary><b>${n}</b><span class="verb ${verb.toLowerCase()}">${verb}</span><code>${esc(path)}</code><small>${note}</small></summary>${code}</details>`;
+  const pre = o => `<pre class="json">${jsonHTML(o)}</pre>`;
+  const steps = plan
+    ? [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/dispatch-plans', pre(plan.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(plan.job_id)}</code></div>`, tr('출발지 × 대피소 × 출발 시각을 한 번에 점검 요청', 'one request: origins × shelters × departure times'), true),
+       step(3, 'GET', `/v1/dispatch-plans/${plan.job_id}`, pre(planView), tr(`200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`, `200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`)),
+       rc ? step(4, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict} · 지도에 그린 경로`, `200 · verdict ${res.verdict} · the route drawn on the map`), true) : '']
+    : [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/route-checks', pre(rc.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(rc.job_id)}</code></div>`, tr('연구 사례 출발지 한 경로 점검 요청', 'one route check for a research-case origin'), true),
+       step(3, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict}`, `200 · verdict ${res.verdict}`), true)];
+  body.innerHTML = head + `
+    <div class="api-prov">${tr('실제 API 기록', 'Recorded real API run')}: <b>Route-Check API ${esc(pv.api_version || d.cache.api_version)}</b> · ${esc(pv.package || '')} ${esc(pv.package_version || '')} · ${tr('키트', 'kit')} ${esc(pv.kit || '')} · ${tr('체크포인트', 'checkpoint')} <code>${esc((pv.checkpoint || '').slice(0, 8))}</code> · git <code>${esc((pv.git_commit || '').slice(0, 7))}</code>
+      <br>${tr('실행', 'Run')} ${esc(kstDay(pv.generated_at || d.cache.created_at))} · ${esc(host.platform || '')}${host.cpu_count ? ` · ${host.cpu_count} ${tr('코어', 'cores')}` : ''} · ${tr('요청당 시간 예산', 'time budget per request')} ${pv.budget_s || 30} s · <code>${esc(t.base || '')}</code></div>
+    <div class="api-sum">
+      <div><small>${tr('판정', 'Verdict')}</small><b style="color:${res.verdict === 'checked_route' ? '#7fd1a2' : res.verdict === 'model_no_route' ? '#f0a58f' : '#e6e9ec'}">${STATUS[res.verdict]?.t || esc(res.verdict)}</b><code>${esc(res.verdict || '')}${res.reason_code ? ' · ' + esc(res.reason_code) : ''}</code></div>
+      <div><small>${res.verdict === 'checked_route' ? tr('대피소', 'Shelter') : tr('펼친 작업의 대피소', 'Shelter of the job shown')}</small><b>${esc(apiName(row.att.find(a => a[5] === row.rc)?.[0]))}</b></div>
+      <div><small>${tr('출발 → 도착', 'Departure → arrival')}</small><b>+${fmtS(res.departure_s || 0)} → ${res.arrival_s != null ? '+' + fmtS(res.arrival_s) : '–'}</b></div>
+      <div><small>${tr('API 계산 시간', 'API compute time')}</small><b>${res.compute_s != null ? res.compute_s.toFixed(2) + ' s' : '–'} / ${pv.budget_s || 30} s</b><code>${res.within_budget ? tr('예산 안', 'within budget') : tr('예산 초과', 'over budget')}</code></div>
+    </div>
+    <div class="api-grid"><div class="sub-h" style="margin:10px 0 4px">${tr(`이 출발지에 보낸 점검 ${row.att.length}건 · 칸마다 실제 API 작업 1개 (숫자 = 계산 초)`, `${row.att.length} checks sent for this origin · each cell is one real API job (number = compute seconds)`)}</div>
+      <table><tr><th></th>${deps.map(x => `<th>+${Math.round(x / 60)}${tr('분', 'm')}</th>`).join('')}</tr>${dests.map(dst => `<tr><th>${esc(apiName(dst))}</th>${deps.map(x => cell(dst, x)).join('')}</tr>`).join('')}</table>
+      <div class="api-key">${['checked_route', 'model_no_route', 'unresolved'].map(v => `<span><i style="background:${API_C[v]}"></i>${STATUS[v].t}</span>`).join('')}<span><i class="shown"></i>${tr('아래에 펼친 작업', 'job shown below')}</span></div></div>
+    <div class="api-steps">${steps.join('')}</div>
+    <p class="note">${tr('응답은 저장된 그대로입니다. 경로 좌표 같은 긴 배열만 개수로 줄였습니다(지도에 그린 선). 이 화면은 인터넷 없이도 열립니다.', 'Responses are shown as stored; only long arrays such as route coordinates are folded to a count (the line drawn on the map). This view works without internet.')}</p>`;
+  apiWire(d);
+}
+function apiWire(d) {
+  const body = $('apiView').querySelector('.api-body');
+  body.querySelectorAll('[data-ak]').forEach(b => b.onclick = () => { apiSel.k = +b.dataset.ak; apiRender(d); });
+  const sel = body.querySelector('#apiOrigin'); if (sel) sel.onchange = () => { apiSel.oid = sel.value; apiRender(d); };
+}
+$('apiView').addEventListener('click', e => { if (e.target.id === 'apiView' || e.target.closest('.api-close')) $('apiView').hidden = true; });
+addEventListener('keydown', e => { if (e.key === 'Escape') $('apiView').hidden = true; });
 labelsEl.addEventListener('click', e => { const el = e.target.closest('.mk'); if (!el) return; const it = domItems.find(x => x.el === el); if (it) { e.stopPropagation(); dotOpen(it, e.clientX, e.clientY); } });
 controls.addEventListener('start', () => { $('dotPop').hidden = true; });
 function focusOrigin(id) {
@@ -180,10 +256,11 @@ function renderEvac() {
   const hor = 3000, dk = r => r.contig == null ? -1 : r.contig, dl = b.rows.filter(r => r.v === 'checked_route' && r.last != null).sort((a, z) => dk(a) - dk(z) || (z.vul ? 1 : 0) - (a.vul ? 1 : 0));
   const urgent = dl.filter(r => dk(r) < hor || r.last !== r.contig), dlText = r => r.contig == null
       ? tr(`+0분 출발 미확인 · +${Math.round(r.last / 60)}분 출발만 확인`, `+0 min not checked · only +${Math.round(r.last / 60)} min checked`)
-      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + r.name : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
+      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
   el.innerHTML = `
     <div class="grp-h"><span>${tr('입력 시각별 판정 · 부스 캐시', 'Verdicts per input time · booth cache')}</span><span>${tr('타임라인을 따라감', 'follows the timeline')}</span></div>
     <div class="seg2">${BOOTH.map((x, i) => `<button type="button" data-k="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</div>
+    <button type="button" class="api-open" id="evacApi"><b>${tr('API 응답 보기', 'View API responses')}</b><span>${state.focus && b.rows.some(r => r.id === state.focus && r.v !== 'not_checkable') ? tr(`${esc(apiName(state.focus))}의 판정을 만든 실제 Route-Check API 요청·응답`, `The real Route-Check API request and response behind ${esc(apiName(state.focus))}`) : tr('이 판정들을 만든 실제 Route-Check API 요청·응답 (출발지를 골라 보기)', 'The real Route-Check API requests and responses behind these verdicts (pick an origin)')}</span></button>
     <div class="tiles">
       <div class="tile ok"><b>${c.all.checked_route || 0}</b><span>/ ${c.total.all} ${tr('출발지', 'origins')}</span><small>${tr('확인된 경로 (연구 사례 출발지 포함)', 'checked route (incl. recorded research origins)')}</small></div>
       <div class="tile bad"><b>${c.total.all - (c.all.checked_route || 0)}</b><small>${tr('확인된 경로 없음', 'no checked route')}<br>${tr(`경로 없음 ${c.all.model_no_route || 0} · 미확인 ${c.all.unresolved || 0} · 점검 불가 ${c.all.not_checkable || 0}`, `no route ${c.all.model_no_route || 0} · unresolved ${c.all.unresolved || 0} · not checkable ${c.all.not_checkable || 0}`)}</small></div>
@@ -193,23 +270,24 @@ function renderEvac() {
     <div class="bars"><div><span>${tr('마을', 'Villages')} ${c.total.village}</span>${stackBar(c.village, c.total.village)}</div><div><span>${tr('요양·복지', 'Care')} ${c.total.care}</span>${stackBar(c.care, c.total.care)}</div></div>
     <h4 class="sub-h">${tr('확인된 경로가 없는 출발지', 'Origins without a checked route')} <small>${noRoute.length}</small></h4>
     <ul class="olist">${noRoute.map(r => rowHTML(r, STATUS[r.v].t)).join('') || `<li class="note" style="padding:4px 8px">${tr('없음', 'None')}</li>`}</ul>
-    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('입력 시각부터 이 시각까지 모든 출발 시각에 확인된 경로', 'every departure from the input time up to this time has a checked route')}</small></h4>
-    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 점검한 마지막 출발 시각(+50분)까지 확인된 경로가 있습니다.', 'Every origin has a checked route up to the last departure checked (+50 min).')}</li>`}</ul>
+    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('10분 간격으로 점검한 출발 시각 중 마지막 경로 확인 시각', 'last checked departure with a route among 10-minute samples; intervening times are untested')}</small></h4>
+    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 마지막 출발 표본(+50분)에서 확인된 경로가 있습니다. 표본 사이 시각은 미검사입니다.', 'Every origin has a checked route at the last sampled departure (+50 min). Times between samples are untested.')}</li>`}</ul>
     ${dl.length - urgent.length ? `<p class="note" style="margin:2px 4px 8px">${tr(`나머지 ${dl.length - urgent.length}곳은 점검한 모든 출발 시각(+0–50분)에 확인된 경로가 있습니다.`, `The other ${dl.length - urgent.length} have a checked route at every departure checked (+0–50 min).`)}</p>` : ''}
     <h4 class="sub-h">${tr('입력 시각별 요약', 'Summary per input time')}</h4>
     <table class="mini"><tr><th>${tr('입력', 'Input')}</th><th>${tr('확인', 'Checked')}</th><th>${tr('경로 없음', 'No route')}</th><th>${tr('미확인', 'Unres.')}</th><th>${tr('불가', 'N/C')}</th><th>${tr('요양 확인', 'Care ok')}</th><th>${tr('접촉*', 'Flame*')}</th></tr>
       ${BOOTH.map(x => { const cc = boothCounts(x); return `<tr><td>${fmt(x.t0)}</td><td>${cc.all.checked_route || 0}</td><td>${cc.all.model_no_route || 0}</td><td>${cc.all.unresolved || 0}</td><td>${cc.all.not_checkable || 0}</td><td>${cc.care.checked_route || 0}/${cc.total.care}</td><td>${cc.hits}</td></tr>`; }).join('')}</table>
-    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 scenario)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
+    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 시나리오)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
   el.querySelectorAll('.seg2 button').forEach(bt => bt.onclick = () => { if (state.detail) setDetail(false); setTime(BOOTH[+bt.dataset.k].t0 + .02); setPlaying(false); });
   el.querySelectorAll('[data-o]').forEach(bt => bt.onclick = () => focusOrigin(bt.dataset.o));
+  $('evacApi').onclick = () => apiOpen(state.focus, k);
 }
 
 // ---------------- prior research comparison ----------------
 const TABLE1 = [
-  ['FARSITE', ['산불 확산 simulation', 'Wildfire spread simulation'], ['대피 경로 계획은 별도', 'Evacuation routing is separate'], ['예측·경로 탐색 연계', 'Forecast linked to routing']],
+  ['FARSITE', ['산불 확산 시뮬레이션', 'Wildfire spread simulation'], ['대피 경로 계획은 별도', 'Evacuation routing is separate'], ['예측·경로 탐색 연계', 'Forecast linked to routing']],
   ['Google ML', ['미래 산불 지도', 'Future fire maps'], ['개인 이동 중 노출 미평가', 'No exposure along a trip'], ['이동 경로별 위험 점검', 'Hazard checked per route']],
   ['WUIVAC', ['대피 개시 구역', 'Evacuation trigger zones'], ['사전 지정 경로 평가', 'Evaluates preset routes'], ['경로 탐색·누적 노출 평가', 'Route search + dose check']],
-  ['WUI-NITY', ['산불·대피 연계 simulation', 'Coupled fire–evacuation simulation'], ['인구 집단 simulation 중심', 'Population-level simulation'], ['개별 이동 독립 검증', 'Each trip checked on its own']],
+  ['WUI-NITY', ['산불·대피 연계 시뮬레이션', 'Coupled fire–evacuation simulation'], ['인구 집단 시뮬레이션 중심', 'Population-level simulation'], ['개별 이동 독립 검증', 'Each trip checked on its own']],
   ['Time-expanded routing', ['위험 반영 대피 흐름', 'Hazard-aware evacuation flow'], ['해당 정식화에 개인 누적 열노출 한도 없음', 'No per-person cumulative heat limit'], ['시나리오별 누적 열노출·목적지 체류 평가·최적화', 'Per-scenario dose, destination dwell, evaluation and optimization']],
 ];
 const CMP = {
@@ -284,6 +362,7 @@ function buildDocs() {
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
     ${window.WFG_FIG ? '' : `<a class="logger-open" href="logger.html${EN ? '#lang=en' : ''}"><b>${tr('3D 분해 모델 · 전체 제작 설명서 열기', 'Open the exploded 3D model and full build manual')}</b><span>${tr('부품별 정보, 조립 순서 애니메이션, 37단계 전체', 'Part details, step-by-step assembly, all 37 steps')} →</span></a>`}
     <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
+    ${EN ? '' : `<ol class="fig-key"><li><b>상태</b>: 대기(IDLE), 기록 중(REC, 점 깜빡임), 가득 참(FULL), 내보내기(EXPORT) · 오른쪽은 이동 방식</li><li><b>GNSS</b>: 신호 없음(빨강), 위치 미확정 NO FIX(노랑), 3D·2D 위치와 위성 수·HDOP(초록)</li><li><b>배터리</b>: 잔량(%)과 전압</li><li><b>저장 공간</b>: 사용량과 남은 기록 시간</li><li><b>세션</b>: 세션 번호와 지금까지의 기록 수</li><li><b>마지막 이벤트 표시</b>: 위치(loc) 또는 NO POS, 표시한 뒤 지난 시간</li><li><b>아래 막대</b>: 길게 누르기 카운트다운 또는 안내 문구</li></ol><p class="note">그림 속 글은 기기 화면과 제작 설명서 원본(영어) 그대로입니다.</p>`}
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <h4 class="sub-h">${tr('제작 단계', 'Build phases')}</h4>
@@ -296,10 +375,10 @@ function buildDocs() {
       <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 6.5배 과장해 산의 기복이 잘 보이게 했습니다.`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 6.5× so the mountains read clearly.`)}</li>
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
-      <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
+      <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.시나리오s}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
       <li><b>${tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative probability F(h)')}</b> — ${HM ? tr(`재귀 몬테카를로 확산(predict_cumulative) · 체크포인트 ${HM.checkpoint_sha256.slice(0, 8)} · 궤적 ${HM.n_samples.toLocaleString()}개 · 1–${HM.hours.length}시간. ±는 몬테카를로 표본 오차(95%)입니다.`, `Recursive Monte Carlo (predict_cumulative) · checkpoint ${HM.checkpoint_sha256.slice(0, 8)} · ${HM.n_samples.toLocaleString()} trajectories · 1–${HM.hours.length} h. ± is the Monte Carlo sampling error (95%).`)
         : tr('저장소의 predict_cumulative가 만드는 1시간 간격 누적 확률입니다. 실행에 필요한 환경 입력 래스터가 GitHub에 없어(forecast/README.md, External inputs) 이 화면에는 아직 결과가 없습니다. 만들어 내거나 q로 근사하지 않았습니다.', 'Hourly cumulative probability from the repository’s predict_cumulative. The environmental input rasters it needs are not on GitHub (forecast/README.md, External inputs), so this view has no results yet. Nothing is made up or approximated from q.')}</li>
-      <li><b>${tr('복사 열유속 F(x) · 화재 scenario 4개', 'Radiant flux F(x) · 4 fire scenarios')}</b> — ${tr(`경로 점검에 실제로 쓰인 위험 입력(HAZARD.json, ${HZ.length}개 입력 시각). 입력 시각부터 1시간만 유효하며 연기·대류열·불티는 포함되지 않습니다.`, `The hazard input the route checks used (HAZARD.json, ${HZ.length} input times). Valid for 1 h after input; smoke, convective heat and embers are not included.`)}</li>
+      <li><b>${tr('복사 열유속 F(x) · 화재 시나리오 4개', 'Radiant flux F(x) · 4 fire scenarios')}</b> — ${tr(`경로 점검에 실제로 쓰인 위험 입력(HAZARD.json, ${HZ.length}개 입력 시각). 입력 시각부터 1시간만 유효하며 연기·대류열·불티는 포함되지 않습니다.`, `The hazard input the route checks used (HAZARD.json, ${HZ.length} input times). Valid for 1 h after input; smoke, convective heat and embers are not included.`)}</li>
       <li><b>${tr('대피 경로 점검 · 정책 비교', 'Route checks · policy comparison')}</b> — ${tr(`기록된 Route-Check ${routes.length}건과 5개 정책 기록. 재계산 누적 노출은 셀 중심 근사이고, 판정과 기록 노출값은 원래 점검 결과입니다.`, `${routes.length} recorded Route-Checks and their 5 policy records. Recomputed dose is a cell-centre approximation; verdicts and recorded exposure are the original results.`)}</li>
       ${B.booth ? `<li><b>${tr('대피 현황', 'Evacuation status')}</b> — ${tr('플래너 부스 캐시(planner/cache): 실제 Route-Check API로 모든 출발지를 미리 점검한 결과. 화면에서는 계산하지 않습니다.', 'Planner booth cache (planner/cache): every origin checked in advance with the real Route-Check API. Nothing is computed in this view.')}</li>` : ''}
       <li><b>${tr('✱ 기온 · 바람 u/v · 수목 피복률 · 생물군계', '✱ Temperature · wind u/v · canopy · biome')}</b> — ${tr('설명용 합성 필드입니다. 실제 모델 입력 값이 아닙니다.', 'Illustrative synthetic fields, not the real model inputs.')}</li>
@@ -328,7 +407,7 @@ function buildOverview() {
       <dt>${tr('격자', 'Grid')}</dt><dd>${tr(`375 m 셀 ${NR} × ${NC} (유효 ${valid.reduce((a, b) => a + b, 0).toLocaleString()}개)`, `375 m cells ${NR} × ${NC} (${valid.reduce((a, b) => a + b, 0).toLocaleString()} valid)`)}</dd>
       <dt>${tr('연소 기록', 'Burn records')}</dt><dd>${tr(`${fp.length}개 시각`, `${fp.length} times`)} · ${fmt(REC[0])} – ${fmt(REC[REC.length - 1])}</dd>
       <dt>${tr('모델 입력', 'Model inputs')}</dt><dd>${INP.map(h => fmt(h)).join(', ')}</dd>
-      <dt>${tr('모델', 'Model')}</dt><dd>${pv.package} · ${tr('체크포인트', 'checkpoint')} ${pv.model} · ${tr(`시나리오 ${pv.scenarios}개`, `${pv.scenarios} scenarios`)}</dd>
+      <dt>${tr('모델', 'Model')}</dt><dd>${pv.package} · ${tr('체크포인트', 'checkpoint')} ${pv.model} · ${tr(`시나리오 ${pv.시나리오s}개`, `${pv.scenarios} scenarios`)}</dd>
       <dt>${tr('현재 기록 면적', 'Recorded area now')}</dt><dd id="ovArea">–</dd>
       <dt>${tr('현재 활성 셀', 'Active cells now')}</dt><dd id="ovActive">–</dd>
     </dl>
@@ -348,6 +427,7 @@ const rangeLo = () => state.detail ? HZ[state.dk].t0 : 0, rangeHi = () => state.
 const pctOf = h => (h - rangeLo()) / (rangeHi() - rangeLo()) * 100;
 const md = d => EN ? `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()]} ${d.getUTCDate()}` : `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`;
 function setDetail(on, k) {
+  navCancelReplay();
   if (on && HZ.length) {
     const inside = hzK(state.t);
     state.dk = k != null ? k : inside >= 0 ? inside : HZ.reduce((b, h, i) => Math.abs(h.t0 - state.t) < Math.abs(HZ[b].t0 - state.t) ? i : b, 0);
@@ -423,7 +503,7 @@ function drawCharts() {
     $('c2v').textContent = qi >= 0 ? QS[qi].toFixed(2) + ' km²' + (t - INP[qi] > 1 ? tr(' (지남)', ' (expired)') : '') : '–';
   }
   const sc = CASES[selRoute];
-  if (state.detail && sc && sc.k === state.dk && sc.pol.full && sc.pol.full.exp) { drawDose($('c3'), sc, (t - sc.r.t0) * 3600, false); $('c3t').innerHTML = `${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${sc.r.label} · ${tr('scenario 4개', '4 scenarios')} · log</small>`; const e = sc.pol.full.exp; $('c3v').textContent = `${tr('최대', 'max')} ${Math.max(...e.map(x => x.dose)).toFixed(3)} / ${fmtLim(sc.pol.full.limits.dose_kj_m2)} kJ/m²`; return; }
+  if (state.detail && sc && sc.k === state.dk && sc.pol.full && sc.pol.full.exp) { drawDose($('c3'), sc, (t - sc.r.t0) * 3600, false); $('c3t').innerHTML = `${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${sc.r.label} · ${tr('시나리오 4개', '4 scenarios')} · log</small>`; const e = sc.pol.full.exp; $('c3v').textContent = `${tr('최대', 'max')} ${Math.max(...e.map(x => x.dose)).toFixed(3)} / ${fmtLim(sc.pol.full.limits.dose_kj_m2)} kJ/m²`; return; }
   const r = routes[selRoute], tpol = sc && sc.pol.travel_only, dense = r && r.has ? r.dense : tpol && tpol.dense.length > 1 ? tpol.dense : null;
   if (!dense) { $('c3').innerHTML = ''; $('c3t').innerHTML = tr('고도 단면', 'Elevation profile'); $('c3v').textContent = ''; return; }
   const len = dense[dense.length - 1].d, s = (t - r.t0) * 3600, moving = r.has && t >= r.tDep && t <= r.tArr;
@@ -474,18 +554,18 @@ function buildRouteTab() {
   const p = sc.pol.full, r = sc.r, ok = p.verdict === 'checked_route', tp = sc.pol.travel_only;
   const head = `<div class="grp-h"><span>${tr(`기록된 Route-Check 사례 · ${B.name.ko}`, `Recorded Route-Check cases · ${B.name.en}`)}</span><span>${tr('누르면 그 1시간을 재생', 'click to play that hour')}</span></div>
     <div class="cases">${CASES.map((c, i) => `<button type="button" data-i="${i}" aria-pressed="${i === selRoute}" class="${c.r.has ? '' : 'nr'}"><b>${c.r.label}</b><small>${fmt(c.r.t0)}</small></button>`).join('')}</div>
-    <h4>${r.label} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t} <small>${tr('입력', 'input')} ${fmt(r.t0)} · ${tr('scenario 4개', '4 scenarios')}</small></h4>`;
-  const ablation = `<h4>${tr('제약 ablation', 'Constraint ablation')} <small>${tr('같은 사례 · 5개 정책 · 지도에 표시', 'same case · 5 policies · on the map')}</small></h4>
+    <h4>${r.label} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t} <small>${tr('입력', 'input')} ${fmt(r.t0)} · ${tr('시나리오 4개', '4 scenarios')}</small></h4>`;
+  const ablation = `<h4>${tr('제약 제거 비교 (ablation)', 'Constraint ablation')} <small>${tr('같은 사례 · 5개 정책 · 지도에 표시', 'same case · 5 policies · on the map')}</small></h4>
     <table class="mini"><tr><th>${tr('정책', 'Policy')}</th><th>${tr('판정', 'Verdict')}</th><th>${tr('도착', 'Arrival')}</th><th>${tr('길이', 'Length')}</th><th>${tr('전체 위험 검사', 'Full check')}</th></tr>
       ${POLICY_ORDER.filter(n => sc.pol[n]).map(n => { const q = sc.pol[n], fc = q.full_check;
         return `<tr><td><label><input type="checkbox" data-pol="${n}" ${n === 'full' ? `checked disabled title="${tr('기준 경로 (항상 표시)', 'Reference route (always shown)')}"` : state.pols.has(n) ? 'checked' : ''}><i style="display:inline-block;width:10px;height:3px;background:${POLICY[n].css};vertical-align:3px;margin-right:4px"></i>${POLICY[n].n}</label></td><td>${q.verdict === 'checked_route' ? '✓' : tr('없음', 'none')}</td><td>${q.arr != null ? '+' + fmtS(q.arr) : '–'}</td><td>${q.length_m != null ? (q.length_m / 1000).toFixed(1) + ' km' : '–'}</td><td>${fc ? (fc.passed ? tr('통과', 'pass') : `<b style="color:#d9472b">${tr('불통과', 'fail')}</b>`) : '–'}</td></tr>`; }).join('')}</table>
-    <p class="note" style="margin:4px">${tr('전체 위험 검사: 각 정책의 경로를 같은 화재 입력의 전체 조건(화염 접촉·순간 열유속·누적 노출, 4개 scenario)으로 다시 검사한 기록입니다. 주황 점선 = 이동시간만 고려한 경로, 빨간 점 = 그 경로가 화염 셀을 지나는 지점.', 'Full check: each policy’s route re-checked against the full constraints of the same fire input (flame contact, peak flux, dose; 4 scenarios). Orange dashes = travel-time-only route; red dots = where it passes a flame cell.')}</p>`;
+    <p class="note" style="margin:4px">${tr('전체 위험 검사: 각 정책의 경로를 같은 화재 입력의 전체 조건(화염 접촉·순간 열유속·누적 노출, 4개 시나리오)으로 다시 검사한 기록입니다. 주황 점선 = 이동시간만 고려한 경로, 빨간 점 = 그 경로가 화염 셀을 지나는 지점.', 'Full check: each policy’s route re-checked against the full constraints of the same fire input (flame contact, peak flux, dose; 4 scenarios). Orange dashes = travel-time-only route; red dots = where it passes a flame cell.')}</p>`;
   if (!ok) {
     el.innerHTML = head + `
-      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('경로 엔진이 이 모델·조건에서 네 scenario 모두 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 없다고 기록했습니다 (공급된 4개 scenario · 1초 격자에서의 엔진 증명 기록)', 'The route engine recorded that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window (an engine proof for the 4 supplied scenarios on a 1 s lattice)')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
+      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('경로 엔진이 이 모델·조건에서 네 시나리오 모두 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 없다고 기록했습니다 (공급된 4개 시나리오 · 1초 격자에서의 엔진 증명 기록)', 'The route engine recorded that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window (an engine proof for the 4 supplied scenarios on a 1 s lattice)')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
       ${tp ? `<div><b>${tr('같은 출발의 이동시간만 경로', 'Travel-time-only route, same departure')}</b>${tr(`도착 +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · 전체 위험 검사 ${tp.full_check && !tp.full_check.passed ? '불통과 (' + (tp.full_check.components || []).join(', ') + ')' : '통과'} · 이 화면 재계산 화염 셀 통과 ${sc.travelHits.length}지점`, `Arrival +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · full check ${tp.full_check && !tp.full_check.passed ? 'fails (' + (tp.full_check.components || []).join(', ') + ')' : 'passes'} · ${sc.travelHits.length} flame-cell points recomputed here`)}</div>` : ''}</div>
       ${ablation}
-      ${tp && tp.dense.length > 1 ? `<h4>${tr('점유 구간 검사 · 이동시간만 경로', 'Occupancy check · travel-only route')} <small>${tr('주황 = 차량 점유 · 색 막대 = scenario 화염 구간', 'orange = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>` : ''}`;
+      ${tp && tp.dense.length > 1 ? `<h4>${tr('점유 구간 검사 · 이동시간만 경로', 'Occupancy check · travel-only route')} <small>${tr('주황 = 차량 점유 · 색 막대 = 시나리오 화염 구간', 'orange = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>` : ''}`;
     bindRouteTab(el); const tok = ++routeTabTok;
     requestAnimationFrame(() => { if (tok === routeTabTok && tp && tp.dense.length > 1 && $('rtOcc')) { const o = drawOccupancy($('rtOcc'), sc, 'travel_only'); $('rtOccNote').textContent = tr(`차량 점유와 겹치는 화염 구간 ${o.overlap}개 → 화염 접촉.`, `${o.overlap} flame intervals overlap the vehicle’s occupancy → flame contact.`); } });
     return;
@@ -497,18 +577,18 @@ function buildRouteTab() {
       <dt>${tr('계산 시간', 'Compute')}</dt><dd>${p.compute_s != null ? p.compute_s.toFixed(2) + tr('초 (30초 한도 ', ' s (30 s budget, ') + (p.within_budget ? tr('안', 'within') : tr('초과', 'over')) + ')' : '–'}</dd></dl>
     <h4>${tr('탐색 순서', 'Search order')} <small>${tr('보고서 그림 6', 'report Fig. 6')}</small></h4>
     <div class="flow"><div><b>${tr('1단계 · 화재 회피 완화 탐색', 'Stage 1 · relaxed fire-avoiding search')}</b>${tr(`순간·누적 열 조건만 빼고 도로·회전·대기·체류·화재 접촉을 지킨 가장 이른 도착 → 하한 L = +${fmtS(p.L)}`, `Earliest arrival keeping roads, turns, waits, dwell and flame contact, dropping only the peak and dose limits → lower bound L = +${fmtS(p.L)}`)}</div>
-      <div><b>${tr('2단계 · 전체 여정 검사', 'Stage 2 · whole-journey check')}</b>${tr('후보 여정의 이동·대기·체류 구간을 네 scenario에서 접촉·순간 열유속·누적 노출로 검사 → 통과', 'The candidate’s travel, wait and dwell are checked in all four scenarios for contact, peak flux and dose → pass')}</div>
+      <div><b>${tr('2단계 · 전체 여정 검사', 'Stage 2 · whole-journey check')}</b>${tr('후보 여정의 이동·대기·체류 구간을 네 시나리오에서 접촉·순간 열유속·누적 노출로 검사 → 통과', 'The candidate’s travel, wait and dwell are checked in all four scenarios for contact, peak flux and dose → pass')}</div>
       <div class="ok"><b>${tr('결과', 'Result')} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t}</b>${tr('도착', 'Arrival')} +${fmtS(p.arr)} ${p.arr === p.L ? tr('= 하한 L → 이 모델·조건에서 더 이른 도착은 없음 (모델 기준 조건부 최적)', '= lower bound L → no earlier arrival in this model and these conditions (conditional model optimum)') : tr('> 하한 L', '> lower bound L')}<br><span class="note">${p.decision || ''}</span></div></div>
     ${ablation}
-    <h4>${tr('scenario별 노출', 'Exposure per scenario')} <small>${tr('전체 조건 경로', 'full-constraint route')}</small></h4>
+    <h4>${tr('시나리오별 노출', 'Exposure per scenario')} <small>${tr('전체 조건 경로', 'full-constraint route')}</small></h4>
     <table class="mini"><tr><th>scenario</th><th>${tr('기록 최대', 'Rec. peak')}</th><th>${tr('기록 누적', 'Rec. dose')}</th><th>${tr('재계산 누적*', 'Recomp.*')}</th><th>${tr('접촉', 'Contact')}</th></tr>
       ${p.exposure.map((e, mi) => `<tr><td><i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${MEMBER_CSS[mi]};margin-right:5px"></i>S${mi + 1}</td><td>${sci(e.peak, 4)} kW/m²</td><td>${sci(e.dose, 3)} kJ/m²</td><td>${p.exp ? sci(p.exp[mi].dose, 3) : '–'}</td><td>${e.contact ? tr('있음', 'yes') : tr('없음', 'no')}</td></tr>`).join('')}</table>
     <p class="note" style="margin:4px">${tr('* 셀 중심·구간별 상수 열유속으로 이 화면에서 다시 더한 근사입니다. 공식 판정은 셀 경계로 나눈 점유 구간 검사(기록값)입니다.', '* Re-summed in this view with cell-centre, piecewise-constant flux. The official verdict uses the occupancy-interval check split at cell edges (recorded values).')}</p>
     <h4>${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${tr('log · 점선 = D_lim', 'log · dashed = D_lim')}</small></h4><svg class="svgbox" id="rtDose"></svg>
-    <h4>${tr('점유 구간 검사', 'Occupancy check')} <small>${tr('보고서 그림 5 · 파랑 = 차량 점유 · 색 막대 = scenario 화염 구간', 'report Fig. 5 · blue = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>`;
+    <h4>${tr('점유 구간 검사', 'Occupancy check')} <small>${tr('보고서 그림 5 · 파랑 = 차량 점유 · 색 막대 = 시나리오 화염 구간', 'report Fig. 5 · blue = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>`;
   bindRouteTab(el); const tok = ++routeTabTok;
   requestAnimationFrame(() => { if (tok !== routeTabTok) return; if (p.exp) drawDose($('rtDose'), sc, state.detail ? (state.t - sc.r.t0) * 3600 : null, true); const n = drawOccupancy($('rtOcc'), sc).flames;
-    $('rtOccNote').textContent = n ? tr(`화염 구간 ${n}개가 표시됩니다. 차량 점유와 겹치지 않아야 통과합니다.`, `${n} flame intervals shown. The route passes only if none overlaps the vehicle’s occupancy.`) : tr('이 경로가 지나는 셀에는 네 scenario 모두 이 1시간 동안 화염 구간이 없습니다 (접촉 없음).', 'No scenario has a flame interval in the cells this route crosses during the hour (no contact).'); });
+    $('rtOccNote').textContent = n ? tr(`화염 구간 ${n}개가 표시됩니다. 차량 점유와 겹치지 않아야 통과합니다.`, `${n} flame intervals shown. The route passes only if none overlaps the vehicle’s occupancy.`) : tr('이 경로가 지나는 셀에는 네 시나리오 모두 이 1시간 동안 화염 구간이 없습니다 (접촉 없음).', 'No scenario has a flame interval in the cells this route crosses during the hour (no contact).'); });
 }
 function bindRouteTab(el) {
   el.querySelectorAll('.cases button').forEach(b => b.onclick = () => openCase(+b.dataset.i));
@@ -525,7 +605,7 @@ function buildModelTab() {
       <table class="mini"><tr><th>kernel</th><th>a<sub>s</sub></th><th>${tr('rate 비중 검증/평가', 'rate share val/test')}</th><th>${tr('제거 시 Brier', 'Brier if removed')}</th></tr>${KERNELS.map(k => `<tr><td>${k[0]}×${k[0]}</td><td>${k[1].toFixed(3)}</td><td>${k[3].toFixed(1)}% / ${k[4].toFixed(1)}%</td><td>+${k[5].toFixed(6)}</td></tr>`).join('')}</table>
       <p class="note" style="margin:4px 0 0">${tr('표: 보고서 표 6 (선택 checkpoint c651). 9×9 분기가 rate에 가장 크게 기여(최대 1.5 km 범위).', 'Table: report Table 6 (selected checkpoint c651). The 9×9 branch contributes most to the rate (up to 1.5 km reach).')}</p>
       <div class="live" id="lv1"></div></div>
-    <div class="stage s2"><h5><i>02</i>${tr('복사열 계산', 'Radiant heat')} <small style="color:var(--muted);font-weight:400">${tr('화재 scenario 4개 → 열유속', '4 fire scenarios → heat flux')}</small></h5>
+    <div class="stage s2"><h5><i>02</i>${tr('복사열 계산', 'Radiant heat')} <small style="color:var(--muted);font-weight:400">${tr('화재 시나리오 4개 → 열유속', '4 fire scenarios → heat flux')}</small></h5>
       <div class="f">Q<sub>source</sub> = c·H / T  → ${(a.fuel_load_kg_m2 * a.consumed_fraction).toFixed(1)} kg/m² × ${(a.heat_of_combustion_j_kg / 1e6).toFixed(3)} MJ/kg ÷ ${(a.burning_duration_s || 0).toFixed(0)} s = ${(Q / 1000).toFixed(2)} kW/m²<br>S<sub>i</sub> = χ Q (χ = ${a.radiative_fraction}),  F(x) = Σ<sub>i</sub> G<sub>i</sub>(x) S<sub>i</sub> m<sub>i</sub>  [kW/m²]<br>scenario: ${tr('점화 시각 균등 배정 · 독립', 'ignition times spread evenly · independent')} · seed ${a.seed} · ${tr('방출 높이', 'emission height')} ${a.emission_height_m} m</div>
       <div class="live" id="lv2"></div></div>
     <div class="stage s3"><h5><i>03</i>${tr('경로 탐색', 'Route search')} <small style="color:var(--muted);font-weight:400">${tr('열 노출 제한조건 A*', 'heat-exposure-constrained A*')}</small></h5>
@@ -533,7 +613,7 @@ function buildModelTab() {
       <div class="live" id="lv3"></div></div>
     <div class="grp-h" style="margin-top:12px"><span>${tr('보고서 기록 결과', 'Reported results')}</span><span>${tr('이 화면에서 다시 계산하지 않음', 'not recomputed here')}</span></div>
     <table class="mini"><tr><td>${tr('예측 AP (재구성 평가)', 'Forecast AP (reconstructed test)')}</td><td>0.162 vs ${tr('기준', 'baseline')} 0.092 <span class="note">${tr('(한국 AP는 기준보다 낮음)', '(Korean AP below baseline)')}</span></td></tr><tr><td>${tr('Wapiti 25구간 Brier · AP', 'Wapiti 25 intervals Brier · AP')}</td><td>0.0084 · 0.146 (FARSITE 0.0238 · 0.063) <span class="note">${tr('(시험 지역 1곳)', '(one test region)')}</span></td></tr>
-      <tr><td>${tr('routing 해결 (30초 · 20 case)', 'Routing resolved (30 s · 20 cases)')}</td><td>20/20 ${tr('(범위가 정해진 거절 5 포함)', '(incl. 5 scoped refusals)')} vs 13/20</td></tr><tr><td>${tr('이동시간만 고려한 route 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
+      <tr><td>${tr('경로 탐색 해결 (30초 · 20개 사례)', 'Routing resolved (30 s · 20 cases)')}</td><td>20/20 ${tr('(범위가 정해진 거절 5 포함)', '(incl. 5 scoped refusals)')} vs 13/20</td></tr><tr><td>${tr('이동시간만 고려한 경로 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
       <tr><td>${tr('요청 시간 중앙값 (함께 해결된 26쌍)', 'Median request time (26 jointly resolved pairs)')}</td><td>${tr('제안 8.006초 vs 기준 7.344초 (제안이 느림)', 'candidate 8.006 s vs reference 7.344 s (candidate slower)')}</td></tr><tr><td>${tr('영덕 도로 준비 (별도 입력·별도 실험)', 'Yeongdeok road preparation (separate input and experiment)')}</td><td>28.523${tr('초', ' s')} → 2.219${tr('초', ' s')} (−92.2%)</td></tr></table>`;
   renderLive();
 }
@@ -552,8 +632,8 @@ function renderLive() {
 }
 
 // ---------------- time & playback ----------------
-function setTime(t) { state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
-function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
+function setTime(t, fromReplay = false) { if (!fromReplay) navCancelReplay(); state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
+function setPlaying(p, speed) { navCancelReplay(); state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
   $('playIc').innerHTML = p ? '<path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/>' : '<path d="M4 2.5v11l9-5.5z" fill="currentColor"/>'; $('play').setAttribute('aria-label', p ? tr('일시정지', 'Pause') : tr('재생', 'Play')); }
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
@@ -562,7 +642,12 @@ $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(st
 $('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
-addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
+addEventListener('keydown', e => {
+  if (e.target.closest('input,select,textarea,button,[contenteditable=true]')) return;
+  if (e.code === 'Space') { e.preventDefault(); if (e.repeat) return;
+    navCancelReplay(); $('play').click();
+  }
+});
 let prevRec = null, prevBooth = null;
 function updateTimeUI() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), pct = pctOf(t);
@@ -704,7 +789,7 @@ function switchLang(l) { try { localStorage.setItem('wfg3d.lang', l); } catch (e
 const SAT_Z = 16, SAT_R = 2, SAT_N = 2048;
 const sat = { mesh: null, photo: null, out: null, key: '', gen: -1, t: 0, want: null };
 function satTick(kmPerPx) {
-  const on = L.base.on && kmPerPx < .006 && !(NAV.real || NAV.street) && NAV.netOk !== false;
+  const on = L.base.on && kmPerPx < .006 && !NAV.real && NAV.netOk !== false;
   if (sat.mesh) sat.mesh.visible = on && sat.ready;
   const rop = sat.mesh?.visible ? .4 : 1; for (const m of detailGroup.userData.roads || []) m.material.opacity = rop;     // over the photo the roads are already visible: lighter lines
   if (!on) return;
@@ -780,8 +865,9 @@ function frame(now) {
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
   const day = smooth(-4, 14, sun.el), dusk = Math.exp(-Math.pow(sun.el / 7, 2));
   sunL.position.set(Math.sin(az) * Math.cos(el) * 110, Math.max(.05, Math.sin(el)) * 110 + 4, -Math.cos(az) * Math.cos(el) * 110);
-  sunL.intensity = .25 + 1.6 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
-  hemi.intensity = .2 + .3 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
+  sunL.intensity = .5 + 1.35 * day;     // at night a cool moonlight keeps the terrain readable
+  sunL.color.setRGB(.72 + .28 * day, .8 + (.02 + .16 * (1 - dusk)) * day, .95 + (-.33 + .3 * (1 - dusk)) * day);
+  hemi.intensity = .38 + .12 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
   _sc.copy(sky.night).lerp(sky.day, day).lerp(sky.dusk, dusk * .55 * (day > .05 ? 1 : .4));
   renderer.setClearColor(_sc);
   skyMat.uniforms.horizon.value.copy(_sc); skyMat.uniforms.top.value.copy(skyTop.night).lerp(skyTop.day, day).lerp(skyTop.dusk, dusk * .35 * (day > .05 ? 1 : .3));
@@ -799,11 +885,11 @@ function frame(now) {
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (NAV.real || NAV.street) { /* the real map or road view covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
-  detailGroup.visible = L.base.on && kmPerPx < .012 && !(NAV.real || NAV.street);     // close-up roads and buildings below ~12 m per pixel
+  detailGroup.visible = L.base.on && kmPerPx < .012 && !NAV.real;     // close-up roads and buildings below ~12 m per pixel
   satTick(kmPerPx);
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }
@@ -812,7 +898,7 @@ function frame(now) {
 
 // ---------------- boot ----------------
 async function boot() {
-  const hit = await loadTextures();
+  const hit = await withDeadline(loadTextures(), 10000, null);
   const hp0 = new URLSearchParams(location.hash.slice(1));
   // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
   const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
@@ -824,8 +910,8 @@ async function boot() {
     if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
     dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
-  await ctxDone;
-  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
+  ctxDone.catch(e => console.warn('Optional surrounding terrain unavailable', e));
+  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.rname = r.name; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + caseIdLabel(r.name); RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   // close-up roads and buildings: loaded after the first picture, built once
   setTimeout(() => window.__wfgLoad(RID + '.detail.js').then(ok => { const D = ok && (window.WFG_DETAIL || {})[RID]; if (D) { buildDetail(D); dirty = true; } }), 1500);
@@ -847,13 +933,27 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x),
+    // what the map draws as fire within km of a point at time t (hours): recorded burned / burning cells, model flame, heat
+    fireNear: (lon, lat, km, t) => { const near = i => { const [x, y] = cellCenter(i); return Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57) <= km; };
+      const k = recIdx(t), qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null, o = { burned: 0, burning: 0, flame: 0, heat: 0, maxF: 0 };
+      for (let i = 0; i < NCELL; i++) { if (!near(i)) continue; if (k >= 0 && burnedAt(i, k)) o.burned++; if (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i)) o.burning++;
+        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= .4) o.heat++; o.maxF = Math.max(o.maxF, F); } }
+      return o; },
+    setLayer: (id, on) => setLayer(id, on),
+    fireDist: (lon, lat, t) => { const qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null; let fl = Infinity, ht = Infinity;
+      for (let i = 0; i < NCELL; i++) { const [x, y] = cellCenter(i), d = Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57);
+        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= .4) ht = Math.min(ht, d); }
+      return { flame: fl, heat: ht }; }, detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
     look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
-  if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
-  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
+  if (hit) setTimeout(() => ctxDone.then(needOsm, needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
+  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => {
+    const h = ok && (window.WFG_HOURLY || {})[B.id];
+    if (h) { attachHourly(h); lastKey = ''; dirty = true; }
+    else { const l = L.mc; l.on = false; l.disabled = true; l.src = tr('시간별 자료를 불러오지 못함 · 다시 열어 재시도', 'Hourly data unavailable · reload to retry'); buildLayerPanel(); dirty = true; }
+  }), 400);
 }
-requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('loading'); if (ld) { ld.className = 'loading'; ld.style.backgroundImage = '';
-  ld.textContent = tr('지도를 시작하지 못했습니다: ', 'The map could not start: ') + (e && e.message || e); } console.error(e); }), 30));
+requestAnimationFrame(() => setTimeout(() => boot().catch(e => { startupError(e); console.error(e); }), 30));

@@ -153,7 +153,7 @@ const texCache = {
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
 const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
-const imgEl = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+const imgEl = img;
 // read = the pixels are read back (the mask): keep that canvas in memory rather than on the GPU
 const imgCanvas = async (src, read) => { const im = await (typeof src === 'string' ? imgEl(src) : src), c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(im, 0, 0); return c; };
 // land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
@@ -171,7 +171,7 @@ async function loadTextures() {
     return { ground: g, hs: h, ctxReal: cr, ctxTopo: null, ctxTopoSrc: pre.ctxTopo, F: F_, LC: LC_ };
   } catch (e) { }
   // 2) saved in this browser after an earlier visit
-  const hit = await texCache.get(TEX_KEY); if (!hit) return null;
+  const hit = await withDeadline(texCache.get(TEX_KEY), 2500, null); if (!hit) return null;
   try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
 // WebP: about 40 % smaller than JPEG at the same look; the mask is lossless (quality 1), and tools/bake_textures.mjs checks that
@@ -486,9 +486,18 @@ const ctxTex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.s
 let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
-  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(ctxTopo2D(CTX_TOPO)), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
   if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
+}
+// the ring outside the study area in 2D: sea drawn as water (the paper tone read as a blank), land a little paler so the
+// study area's own map stands out. A copy: CTX_TOPO itself is what the texture cache keeps.
+function ctxTopo2D(src) {
+  const w = src.width, h = src.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); g.drawImage(src, 0, 0); const im = g.getImageData(0, 0, w, h), d = im.data;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, sea = celevUV(x / (w - 1), y / (h - 1)) < 1;
+    if (sea) { d[i] = 170; d[i + 1] = 205; d[i + 2] = 224; } else { d[i] = d[i] * .7 + 246 * .3; d[i + 1] = d[i + 1] * .7 + 244 * .3; d[i + 2] = d[i + 2] * .7 + 238 * .3; } }
+  g.putImageData(im, 0, 0); return c;
 }
 function drawContext(real, topoC, CTW, CTH) {
   const rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
@@ -681,12 +690,12 @@ function buildDetail(D) {
   const mesh = (S, color, order, mat) => { if (!S.idx.length) return; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.pos, 3)); g.setIndex(S.idx);
     const m = new THREE.Mesh(g, mat || new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4 - order, polygonOffsetUnits: -4 - order, toneMapped: false })); m.renderOrder = 3 + order * .01; detailGroup.add(m); roads.push(m); };
   mesh(casing, 0x857c6c, 0); strips.forEach((S, c) => mesh(S, ROAD_C[c], 6 - c));
-  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn twice true height so they read next to the
-  // exaggerated hills; walls and a flat roof, lit by the scene's sun
-  const pos = [], idx = [], ex = 2 / EXAG / 1000;
+  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn 1.5 times true height (the hills are 6.5 times) so
+  // they read without towering; walls and a flat roof, lit by the scene's sun
+  const pos = [], idx = [], ex = 1.5 / EXAG / 1000;
   for (const b of D.b) { const h = (b[0] || 6) * ex, ring = []; for (let i = 1; i < b.length; i += 2) ring.push(uv(b[i], b[i + 1]));
-    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h + .004, n0 = pos.length / 3;
-    ring.forEach(p => pos.push(sxU(p[0]), base - .002, szV(p[1]), sxU(p[0]), top, szV(p[1])));
+    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h, n0 = pos.length / 3;
+    ring.forEach(p => pos.push(sxU(p[0]), base - .002 / EXAG, szV(p[1]), sxU(p[0]), top, szV(p[1])));
     for (let i = 0; i < ring.length; i++) { const a = n0 + i * 2, c = n0 + ((i + 1) % ring.length) * 2; idx.push(a, c, a + 1, a + 1, c, c + 1); }
     THREE.ShapeUtils.triangulateShape(ring.map(p => new THREE.Vector2(sxU(p[0]), szV(p[1]))), []).forEach(t => idx.push(n0 + t[0] * 2 + 1, n0 + t[1] * 2 + 1, n0 + t[2] * 2 + 1)); }
   if (idx.length) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
@@ -781,7 +790,7 @@ const LAYERS = [
   { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', core: true, n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
   { id: 'front', core: true, n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
   { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
-  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
+  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 시나리오 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
   { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: false, op: 80 },
   { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
   { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', core: true, n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
@@ -790,7 +799,7 @@ const LAYERS = [
   { id: 'labels', core: true, n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
 ];
 const L = Object.fromEntries(LAYERS.map(l => [l.id, l]));
-const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
+const state = { t: INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
 // which result layers the comparison mode keeps: 'ours' = everything
 const cmpShows = what => state.cmp === 'ours' || (state.cmp === 'travel' && what === 'travel');
 let dirty = true, lastKey = '';
@@ -864,7 +873,7 @@ function compose() {
     for (const [key, cells] of buckets) ember(cells, key / 10 * .9);
   }
   if (L.front.on && qiNow >= 0 && BURNING[qiNow].size) { if (!L.burn.on) { bc.fillStyle = 'rgb(44,39,35)'; bc.beginPath(); for (const i of BURNING[qiNow]) quad(bc, i, QX, QY); bc.fill(); } ember([...BURNING[qiNow]], 1, .22); }
-  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
+  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.drawImage(cellsCv, 0, 0); }
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
@@ -887,7 +896,8 @@ function compose() {
     // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
     const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
     if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(.5, .75, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    const vmin = NAV.on ? 5 / 6 : .5;     // navigation: from 0.1 kW/m² (see NAV_HEAT_V in nav.js)
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < vmin) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(vmin, vmin + .2, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
     hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
     if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
     cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);

@@ -47,7 +47,7 @@ def build_offline(out: Path):
     for t in sorted((out / 'regions').glob('*.tex.js')):
         t.write_text(inline_tex(t.read_text(), site)); shutil.rmtree(out / 'regions' / t.name[:-len('.tex.js')])
     (out / 'README.txt').write_text(OFFLINE_NOTE)     # ASCII name: zip tools on other systems garble non-ASCII file names
-    for f in (ROOT / 'tools' / 'offline').iterdir():     # local server start scripts (localhost:8840 is registered for road view)
+    for f in (ROOT / 'tools' / 'offline').iterdir():     # local server start scripts (http://localhost:8840)
         shutil.copy2(f, out / f.name)
 
 
@@ -57,15 +57,15 @@ OFFLINE_NOTE = '''WildfireGuardian — 오프라인 판 (offline copy)
   Windows: start-windows.bat      Mac: start-mac.command  (처음 한 번: 오른쪽 클릭 → 열기)
   주소는 http://localhost:8840 입니다. 창을 닫으면 끝납니다.
   - 인터넷이 없어도: 5개 산불 지도, 3D 지형, 타임라인, 2D 길 안내, 경로 점검이 모두 됩니다.
-  - 휴대폰 핫스폿을 켜면: 로드뷰(카카오)와 3D 위성도 켜집니다 (이 주소는 카카오에 등록되어 있습니다).
-[예비] 시작 파일이 막히면 index.html 을 Chrome/Edge 로 바로 여세요 (인터넷 없이 되는 부분은 같고, 로드뷰는 안 됩니다).
+  - 휴대폰 핫스폿을 켜면: 길 안내의 3D 위성도 켜집니다.
+[예비] 시작 파일이 막히면 index.html 을 Chrome/Edge 로 바로 여세요 (인터넷 없이 되는 부분은 모두 같습니다).
 
 [Best] Double-click the start file in this folder: a small server runs on this computer only and the browser opens.
   Windows: start-windows.bat      Mac: start-mac.command  (first time: right-click → Open)
   Address: http://localhost:8840 . Close the window to stop.
   - With no internet: all five fire maps, 3D terrain, the timeline, 2D navigation and route checks work.
-  - With a phone hotspot: road view (Kakao) and 3D satellite work too (this address is registered with Kakao).
-[Fallback] If the start file is blocked, open index.html in Chrome or Edge directly (same offline features; no road view).
+  - With a phone hotspot: the 3D satellite view in navigation works too.
+[Fallback] If the start file is blocked, open index.html in Chrome or Edge directly (the same offline features).
 '''
 
 
@@ -85,7 +85,6 @@ def build_single() -> str:
         text = p.read_text()
         blocks.append(block(p.name, inline_tex(text, site) if p.name.endswith('.tex.js') else text))
     figs = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode() for p in sorted((site / 'logger').glob('fig*.png'))}
-    page = page.replace('<script src="kakao-keys.js"></script>', inline(site / 'kakao-keys.js'))
     page = page.replace('<script src="regions/index.js"></script>', inline(site / 'regions' / 'index.js') + ''.join(blocks)
                         + '<script>window.WFG_FIG=' + __import__('json').dumps(figs) + ';</script>')
     return page
@@ -96,7 +95,7 @@ def build(cdn: bool, single: bool = False) -> str:
     js = read('loader.js').replace('__MAIN__', read('core.js') + '\n' + read('ui.js') + '\n' + read('nav.js').replace('__MAPLIBRE__', MAPLIBRE[cdn or single]))
     libs = '\n'.join(f'<script src="{CDN[n] if cdn else "vendor/" + n}"></script>' for n in LIBS)
     style = '<style>\n' + read('style.css') + '</style>'
-    tail = libs + '\n<script src="regions/index.js"></script>\n<script src="kakao-keys.js"></script>\n<script>\n' + js + '</script>\n'
+    tail = libs + '\n<script src="regions/index.js"></script>\n<script>\n' + js + '</script>\n'
     if cdn:
         return '\n'.join(META + FONTS + [style]) + '\n' + read('body.html') + tail
     return '\n'.join(['<!doctype html>', '<html lang="ko">', '<head>', '<meta charset="utf-8">'] + META + [style, '</head>', '<body>']) + '\n' + read('body.html') + tail + '</body>\n</html>\n'

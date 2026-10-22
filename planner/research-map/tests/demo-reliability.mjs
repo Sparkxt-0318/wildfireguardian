@@ -30,12 +30,16 @@ await test('Restart cancels replay and already captured callback cannot overwrit
 await test('Manual timeline change cancels replay and stale callback',()=>{const n=navigation();n.navReplay();n.frame(3000);const stale=n.allCallbacks.at(-1);n.setTime(7);stale(4000);assert.equal(n.state.t,7);assert.equal(n.queue.size,0);});
 await test('Playback stop cancels replay',()=>{const n=navigation();n.navReplay();n.frame(3000);const stale=n.allCallbacks.at(-1);n.setPlaying(false);const t=n.state.t;stale(5000);assert.equal(n.state.t,t);assert.equal(n.queue.size,0);});
 await test('Replay naturally completes and restarts chosen recorded journey',()=>{const n=navigation();n.navReplay();n.frame(15000);assert.equal(n.state.t,10);assert.equal(n.state.playing,true);assert.equal(n.queue.size,0);});
-await test('Roadview Space stops auto and cannot be reversed by next frame',()=>{
- const listeners=[],state={playing:false},NAV={on:true,street:true,auto:true,sv:null};
- const s={state,NAV,Math,addEventListener:(k,fn)=>listeners.push(fn),$:()=>({click:()=>{state.playing=!state.playing;}}),navCancelReplay(){},navAuto:v=>{NAV.auto=v;},setPlaying:v=>{state.playing=v;},navSvFire(){},navMini(){}};
- vm.createContext(s);vm.runInContext(section("addEventListener('keydown', e => {\n  if (e.target.closest('input,select,textarea,button",'let prevRec')+section('function navSvFrame(t, p, s, q)','// inset map, heading up'),s);
- const event={code:'Space',repeat:false,target:{closest:()=>null},preventDefault(){}};listeners[0](event);assert.equal(NAV.auto,false);assert.equal(state.playing,false);s.navSvFrame(0,{},0,{});assert.equal(NAV.auto,false);listeners[0](event);assert.equal(NAV.auto,true);
- NAV.auto=false;listeners[0]({...event,repeat:true});assert.equal(NAV.auto,false);listeners[0]({...event,target:{closest:()=>({})}});assert.equal(NAV.auto,false);
+await test('Space toggles playback once, cancels replay, ignores repeats and form controls',()=>{
+ // 로드뷰 (road view) was removed: Space now only drives the timeline playback
+ const listeners=[],state={playing:false};let cancelled=0;
+ const s={state,Math,addEventListener:(k,fn)=>listeners.push(fn),$:()=>({click:()=>{state.playing=!state.playing;}}),navCancelReplay(){cancelled++;}};
+ vm.createContext(s);vm.runInContext(section("addEventListener('keydown', e => {\n  if (e.target.closest('input,select,textarea,button",'let prevRec'),s);
+ const event={code:'Space',repeat:false,target:{closest:()=>null},preventDefault(){}};
+ listeners[0](event);assert.equal(state.playing,true);assert.equal(cancelled,1);
+ listeners[0]({...event,repeat:true});assert.equal(state.playing,true);
+ listeners[0]({...event,target:{closest:()=>({})}});assert.equal(state.playing,true);
+ listeners[0](event);assert.equal(state.playing,false);assert.equal(cancelled,2);
 });
 function clock(){let id=0;const timers=new Map();return{timers,setTimeout:fn=>{const k=++id;timers.set(k,fn);return k;},clearTimeout:k=>timers.delete(k),run(){const batch=[...timers.values()];timers.clear();for(const f of batch)f();}};}
 await test('Regional loader success clears deadline and resolves once',async()=>{

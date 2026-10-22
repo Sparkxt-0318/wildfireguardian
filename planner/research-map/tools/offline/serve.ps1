@@ -1,5 +1,5 @@
 # WildfireGuardian offline: serves this folder at http://localhost:8840 (Windows, no install) and opens the browser.
-# The address is registered for the road view key, so with a hotspot road view and 3D satellite work too.
+# With a hotspot, the 3D satellite view in navigation works too.
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $port = 8840
@@ -7,10 +7,11 @@ $types = @{ '.html'='text/html; charset=utf-8'; '.js'='text/javascript; charset=
   '.png'='image/png'; '.jpg'='image/jpeg'; '.webp'='image/webp'; '.svg'='image/svg+xml'; '.txt'='text/plain; charset=utf-8'; '.woff2'='font/woff2' }
 $l = New-Object System.Net.HttpListener
 $l.Prefixes.Add("http://localhost:$port/")
-try { $l.Start() } catch { Write-Host "Port $port is busy: is the demo already open? Opening the browser."; Start-Process "http://localhost:$port/"; exit }
+try { $l.Start() } catch { Write-Host "Port $port is busy: is the demo already open? Opening the browser."; try { Start-Process "http://localhost:$port/" } catch { }; Read-Host "Press Enter to close"; exit }
 Write-Host "WildfireGuardian: http://localhost:$port/  (close this window to stop)"
-Start-Process "http://localhost:$port/"
+try { Start-Process "http://localhost:$port/" } catch { Write-Host "Open http://localhost:$port/ in Chrome or Edge." }
 while ($l.IsListening) {
+  try {
   $c = $l.GetContext(); $p = [Uri]::UnescapeDataString($c.Request.Url.AbsolutePath.TrimStart('/'))
   if ($p -eq '') { $p = 'index.html' }
   $f = [IO.Path]::GetFullPath((Join-Path $root $p))
@@ -20,4 +21,5 @@ while ($l.IsListening) {
     $c.Response.ContentLength64 = $b.Length; $c.Response.OutputStream.Write($b, 0, $b.Length)
   } else { $c.Response.StatusCode = 404 }
   $c.Response.Close()
+  } catch { Write-Host "request failed: $($_.Exception.Message)" }
 }

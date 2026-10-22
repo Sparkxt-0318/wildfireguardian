@@ -93,8 +93,8 @@ button, select, input { font: inherit; color: inherit; }
 .loading.poster span { padding: 5px 11px; border-radius: 999px; background: rgba(250, 248, 244, .92); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
 /* side panel */
 .side { grid-area: side; border-left: 1px solid var(--line); overflow-y: auto; background: var(--panel); display: flex; flex-direction: column; }
-.tabs { display: flex; gap: 2px; padding: 10px 12px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 2; }
-.tabs button { border: 0; background: none; padding: 7px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 0 2px; padding: 8px 10px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 2; }
+.tabs button { border: 0; background: none; padding: 6px 8px 7px; white-space: nowrap; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; }
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 700; }
 .pane { padding: 8px 12px 12px; }
 .pane[hidden] { display: none; }
@@ -104,7 +104,7 @@ button, select, input { font: inherit; color: inherit; }
 .lr input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--ink); margin: 0; }
 .lr canvas { width: 30px; height: 30px; border-radius: 5px; border: 1px solid var(--line); display: block; }
 .lr .nm { min-width: 0; }
-.lr .nm div { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lr .nm div { font-weight: 500; overflow-wrap: anywhere; line-height: 1.3; }
 .lr .nm small { color: var(--muted); font-size: 11px; }
 .lr .nm small.ill { color: var(--warn); }
 .lr .op { display: flex; align-items: center; gap: 5px; }
@@ -192,6 +192,7 @@ button, select, input { font: inherit; color: inherit; }
 table.mini { width: 100%; border-collapse: collapse; font-size: 11.5px; }
 table.mini { table-layout: auto; }
 table.mini th, table.mini td { padding: 4px 3px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; font-size: 11px; }
+table.mini td { white-space: normal; word-break: keep-all; overflow-wrap: anywhere; }     /* long cells wrap inside the panel */
 table.mini td:first-child { white-space: normal; }
 table.mini th:first-child, table.mini td:first-child { text-align: left; }
 table.mini th { color: var(--muted); font-weight: 500; }
@@ -274,7 +275,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
 .olist li button:hover { background: var(--panel-2); } .olist li button.sel { background: #fff3cf; }
 .olist .dot { width: 9px; height: 9px; border-radius: 50%; }
 .olist .x { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.olist .t { color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.olist .t { color: var(--muted); font-size: 11px; text-align: right; line-height: 1.3; overflow-wrap: anywhere; max-width: 210px; }
 em.care { font-style: normal; font-size: 10.5px; color: var(--fire); border: 1px solid currentColor; border-radius: 4px; padding: 0 3px; }
 .pill { display: inline-block; font-size: 10.5px; padding: 1px 6px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line-2); color: var(--ink-2); white-space: nowrap; }
 .pill.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; } .pill.bad { background: #fde3dc; color: #c23a1e; border-color: transparent; } .pill.dark { background: #2a2724; color: #f4f1eb; border-color: transparent; }
@@ -345,39 +346,13 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .navphoto { position: absolute; z-index: 5; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(32,33,36,.78); color: #fff; font-size: 12px; padding: 5px 10px; border-radius: 6px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; }
 .map:not(.nav3d) #navPhoto, #navReal.warm + #navPhoto { display: none; }
 #navReal.warm { visibility: hidden; pointer-events: none; }
+#navReal.warm .maplibregl-control-container { display: none; }     /* its credits must not show over the main map while it waits */
 .map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip,
-.map.navsv .labels, .map.navsv .mapctl, .map.navsv .scale, .map.navsv .compass, .map.navsv .firechip, .map.navsv .cmpchip { display: none; }
 .navmlcar { width: 42px; height: 42px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
 .navmlcar svg { width: 100%; height: 100%; } .navmlcar path { fill: #1a73e8; stroke: #fff; stroke-width: 2; stroke-linejoin: round; }
 .navmlcar.warn path { fill: #e8a21a; } .navmlcar.fire path { fill: #e23b1d; } .navmlcar.idle path { fill: #6b7280; } .navmlcar.off { visibility: hidden; }
 .navmlfire { background: #e23b1d; color: #fff; font: 600 12px/1 system-ui, sans-serif; padding: 4px 7px; border-radius: 5px; box-shadow: 0 1px 4px rgba(0,0,0,.35); white-space: nowrap; }
 .nav-views button:disabled { opacity: .45; cursor: not-allowed; }
-/* navigation view, road view (Kakao Roadview) */
-#navStreet { position: absolute; inset: 0; z-index: 4; background: #2b2b2b; }
-#navStreet.warm { z-index: -1; pointer-events: none; }   /* built ahead behind the map: its first photos load before the tab is opened */
-#navStreet .sv-view { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 52%; transition: opacity .4s ease, transform .4s ease-out; }
-#navStreet .sv-view.go-fwd { transform: scale(1.25); transition: opacity .4s ease, transform var(--svgap, 1.1s) linear; }
-#navStreet .sv-view.go-back { transform: scale(.86); transition: opacity .4s ease, transform var(--svgap, 1.1s) linear; }
-#navStreet .sv-curtain { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; gap: 12px; justify-items: center; background: #26282b; color: #e8e8e8; font-size: 14px; transition: opacity .4s; }
-#navStreet .sv-curtain i { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #555; border-top-color: #fff; animation: svspin .9s linear infinite; }
-#navStreet.ready .sv-curtain { opacity: 0; pointer-events: none; }
-@keyframes svspin { to { transform: rotate(360deg); } }
-#navStreet .sv-view.on { opacity: 1; z-index: 1; }
-#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 5; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
-#navStreet .sv-photo { z-index: 3; }
-#navStreet .sv-minibox { position: absolute; z-index: 3; right: 12px; bottom: 64px; }
-#navStreet .sv-mini { display: block; width: 260px; height: 190px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.35); border: 2px solid #fff; cursor: zoom-in; }
-#navStreet .sv-zoom { position: absolute; top: 6px; right: 6px; display: flex; flex-direction: column; gap: 4px; }
-#navStreet .sv-zoom button { width: 28px; height: 28px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--panel); font: 700 16px/1 system-ui, sans-serif; cursor: pointer; }
-#navStreet .sv-ctl select { height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); font: inherit; }
-#navStreet .sv-ctl { position: absolute; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 10px; background: var(--panel); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 12px; }
-#navStreet .sv-ctl button { min-width: 40px; height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
-#navStreet .sv-ctl #svAuto { min-width: 104px; }
-#navStreet .sv-ctl span { color: var(--muted); min-width: 92px; text-align: center; font-variant-numeric: tabular-nums; }
-.nav-key { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
-.nav-key summary { cursor: pointer; font-weight: 600; } .nav-key p { margin: 6px 0; color: var(--muted); line-height: 1.5; } .nav-key code { word-break: break-all; }
-.nav-key input { width: 60%; padding: 4px 6px; border: 1px solid var(--line-2); border-radius: 6px; font: inherit; }
-@media (max-width: 860px) { #navStreet .sv-mini { width: 160px; height: 117px; } }
 /* navigation: what the colours mean */
 .navlegend { position: absolute; z-index: 5; top: 12px; left: 12px; padding: 8px 10px; border-radius: 9px; background: color-mix(in srgb, var(--panel) 94%, transparent); box-shadow: 0 2px 8px rgba(0,0,0,.2); font-size: 11.5px; line-height: 1.75; }
 .navlegend div { display: flex; align-items: center; gap: 7px; }
@@ -411,45 +386,66 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .nav-graph svg { display: block; width: 100%; } .nav-graph text { font-size: 9.5px; fill: var(--muted); }
 .nav-graph .k { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--muted); margin: 2px 0 2px 26px; }
 .nav-graph .k span { display: flex; align-items: center; gap: 5px; } .nav-graph .k i { width: 14px; height: 3px; border-radius: 2px; } .nav-graph .k i.fl { width: 7px; height: 7px; border-radius: 50%; background: #e23b1d; }
-/* navigation on phones: a compact box, controls that fit, the inset map smaller */
+/* navigation on phones: a compact box */
 @media (max-width: 860px) {
   .navhud { padding: 7px 9px; font-size: 11px; bottom: 6px; } .navhud .nh-st { margin: 0 0 4px; padding: 4px 7px; } .navhud .ph-x { display: none; }
   .navhud .nh-race { margin: 0 0 4px; font-size: 11px; }
-  #navStreet .sv-ctl { left: 8px; right: 8px; transform: none; bottom: auto; top: 8px; justify-content: center; gap: 4px; padding: 5px; }
-  #navStreet .sv-ctl #svAuto { min-width: 84px; } #navStreet .sv-ctl span { min-width: 0; font-size: 11px; }
-  #navStreet .sv-minibox { right: 8px; bottom: auto; top: 56px; }
-  .map.navsv .navhud { bottom: 6px; }
 }
 .dotpop button { flex: 1; padding: 5px 0; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
 .dotpop button:hover { background: rgba(128,128,128,.16); }
 .dotpop button#dotZoom { background: #1a73e8; border-color: #1a73e8; color: #fff; }
 .dotpop button#dotZoom:hover { background: #1765cc; }
 
-/* road view: the fire laid over the photo (nav.js navSvFire) */
-#navStreet .sv-glow, #navStreet .sv-haze { position: absolute; inset: 0; z-index: 2; pointer-events: none; transition: opacity .6s, background .6s; }
-#navStreet .sv-haze { opacity: 0; background: radial-gradient(ellipse at 50% 40%, rgba(150,120,100,.55), rgba(90,70,60,.85)); mix-blend-mode: multiply; }
-#navStreet .sv-glow.pulse { animation: svpulse 1.6s ease-in-out infinite; }
-@keyframes svpulse { 50% { opacity: .65; } }
-#navStreet .sv-danger { position: absolute; z-index: 3; left: 12px; top: 12px; max-width: min(440px, 60%); padding: 10px 12px; border-radius: 10px; background: rgba(24,24,26,.82); color: #f2f2f2; font-size: 12.5px; line-height: 1.45; display: grid; gap: 4px; pointer-events: none; }
-#navStreet .sv-danger:empty { display: none; }
-#navStreet .sv-danger .big { font-size: 17px; font-weight: 700; } #navStreet .sv-danger .big b { color: #ff8a5c; }
-#navStreet .sv-danger .big.fire { color: #ff6b4a; } #navStreet .sv-danger .row { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
-#navStreet .sv-danger em { font-style: normal; font-weight: 700; color: #cfcfcf; } #navStreet .sv-danger em.up { color: #ff7b52; } #navStreet .sv-danger em.dn { color: #6fd08c; }
-#navStreet .sv-danger .st.ok { color: #6fd08c; } #navStreet .sv-danger .st.warn { color: #ffc35c; } #navStreet .sv-danger .st.fire { color: #ff6b4a; font-weight: 700; }
-#navStreet .sv-danger b.hi { color: #ff6b4a; } #navStreet .sv-danger b.mid { color: #ffc35c; }
-#navStreet .sv-danger .ghost { color: #c9c9c9; } #navStreet .sv-danger .ghost.fire b { color: #ff6b4a; } #navStreet .sv-danger .ghost.ok b { color: #6fd08c; }
-#navStreet .sv-danger .note { font-size: 10.5px; color: #9a9a9a; }
-#navStreet .sv-mini { width: 320px; height: 234px; }
-@media (max-width: 860px) {
-  #navStreet .sv-danger { top: 56px; left: 8px; max-width: 54%; font-size: 11px; padding: 7px 9px; } #navStreet .sv-danger .big { font-size: 13.5px; }
-  #navStreet .sv-danger .note, #navStreet .sv-danger .risk, #navStreet .sv-danger .st { display: none; } #navStreet .sv-mini { width: 160px; height: 117px; }
-}
-.map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
 .more-layers { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
 .more-layers > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; padding: 6px 4px; color: var(--accent, #1a73e8); }
 /* spread replay label (nav.js navReplay) */
 .nav-replay { position: absolute; z-index: 5; left: 50%; top: 14px; transform: translateX(-50%); padding: 8px 14px 12px; border-radius: 10px; background: rgba(24,24,26,.86); color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; min-width: 260px; text-align: center; }
 .nav-replay b { color: #ff9a5c; margin-right: 6px; } .nav-replay i { position: absolute; left: 0; bottom: 0; height: 4px; border-radius: 0 0 0 10px; background: #ff6a2a; }
+.fig-key { margin: 6px 4px 4px 18px; padding: 0; font-size: 12px; line-height: 1.55; } .fig-key li { margin: 1px 0; }
+/* API 응답 보기: recorded real Route-Check API requests and responses */
+.api-open { display: grid; gap: 2px; width: 100%; margin: 8px 0 4px; padding: 9px 12px; text-align: left; border: 1px solid #2f8a5755; border-radius: 10px; background: linear-gradient(135deg, #1f2a24, #26332c); color: #eaf4ee; cursor: pointer; font: inherit; }
+.api-open b { font-size: 13px; } .api-open b::before { content: '{ } '; color: #7fd1a2; font-family: ui-monospace, Menlo, Consolas, monospace; }
+.api-open span { font-size: 11.5px; color: #b8cfc1; line-height: 1.4; }
+.api-open:hover { border-color: #7fd1a2; }
+.apiview { position: fixed; inset: 0; z-index: 55; background: #000b; display: grid; place-items: center; padding: 20px; }
+.apiview[hidden] { display: none; }
+.api-card { width: min(1080px, 100%); max-height: 92vh; overflow: auto; background: #15181b; color: #e6e9ec; border-radius: 14px; box-shadow: 0 20px 60px #0008; font-size: 13px; }
+.api-top { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 18px; background: #1c2024; border-bottom: 1px solid #2b3036; }
+.api-top b { font-size: 15px; } .api-top b::before { content: '{ } '; color: #7fd1a2; font-family: ui-monospace, Menlo, Consolas, monospace; }
+.api-close { border: 0; border-radius: 7px; background: #fff; color: #222; padding: 6px 12px; cursor: pointer; font-weight: 600; }
+.api-body { padding: 14px 18px 18px; }
+.api-body .note { color: #9aa3ab; }
+.api-pick { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-bottom: 10px; color: #aab3bb; font-size: 12px; }
+.api-pick label { display: flex; align-items: center; gap: 8px; }
+.api-pick .seg2 { margin: 0; } .api-pick .seg2 button { background: #23282d; color: #d7dde2; border-color: #353b42; }
+.api-pick .seg2 button[aria-pressed="true"] { background: #e6e9ec; color: #15181b; }
+.api-pick select { max-width: 420px; background: #23282d; color: #e6e9ec; border: 1px solid #353b42; border-radius: 7px; padding: 5px 8px; font: inherit; }
+.api-prov { padding: 8px 12px; border-radius: 9px; background: #1f2a24; color: #c9dccf; font-size: 12px; line-height: 1.6; border: 1px solid #2f8a5744; }
+.api-body code, .api-prov code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; color: #9fe0b8; }
+.api-sum { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.api-sum > div { display: grid; gap: 2px; padding: 9px 11px; border-radius: 9px; background: #1e2226; border: 1px solid #2b3036; min-width: 0; }
+.api-sum small { color: #8c959d; font-size: 11px; } .api-sum b { font-size: 14px; overflow-wrap: anywhere; } .api-sum code { color: #8c959d; }
+.api-grid table { border-collapse: separate; border-spacing: 3px; font-size: 11px; }
+.api-grid th { color: #9aa3ab; font-weight: 500; text-align: left; padding: 0 6px 0 0; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.api-grid td { width: 54px; height: 24px; text-align: center; color: #fff; border-radius: 4px; font-variant-numeric: tabular-nums; cursor: default; }
+.api-grid td.na { background: #23282d; color: #59616a; }
+.api-grid td.shown { outline: 2px solid #ffd166; outline-offset: 1px; }
+.api-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; color: #9aa3ab; font-size: 11px; }
+.api-key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.api-key i.shown { outline: 2px solid #ffd166; background: transparent; }
+.api-steps { display: grid; gap: 8px; margin-top: 14px; }
+.api-step { border: 1px solid #2b3036; border-radius: 10px; background: #1a1d21; overflow: hidden; }
+.api-step summary { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; list-style: none; flex-wrap: wrap; }
+.api-step summary::-webkit-details-marker { display: none; }
+.api-step summary > b { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #2b3036; font-size: 11px; }
+.api-step summary small { color: #8c959d; margin-left: auto; }
+.api-step .verb { font: 700 11px ui-monospace, Menlo, Consolas, monospace; padding: 2px 7px; border-radius: 5px; }
+.api-step .verb.get { background: #1e3a5f; color: #8cc4ff; } .api-step .verb.post { background: #3d2c12; color: #ffc46b; }
+.api-step summary code { font-size: 12px; color: #e6e9ec; overflow-wrap: anywhere; }
+.api-step pre.json { margin: 0; padding: 12px 14px; max-height: 360px; overflow: auto; background: #111316; border-top: 1px solid #2b3036; font: 11.5px/1.5 ui-monospace, Menlo, Consolas, monospace; color: #c7ced5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.json .jk { color: #8cc4ff; } .json .js { color: #a5e3b9; } .json .jn { color: #ffc46b; } .json .jl { color: #f29e9e; }
+.api-resp { padding: 8px 14px; border-top: 1px solid #2b3036; color: #c9dccf; font-size: 12px; }
+@media (max-width: 760px) { .api-sum { grid-template-columns: 1fr 1fr; } .apiview { padding: 6px; } .api-body { padding: 10px; } }
 </style>
 </head>
 <body>
@@ -499,7 +495,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
       <div><i class="lg-burn"></i><span data-en="Burned (recorded)">탄 곳 (기록)</span></div>
       <div><i class="lg-front"></i><span data-en="Fire front now (recorded)">지금 불 가장자리 (기록)</span></div>
       <div><i class="lg-flame"></i><span data-en="Flame (model, worst of 4)">화염 (모델, 4개 중 최악)</span></div>
-      <div><i class="lg-heat"></i><span data-en="Radiant heat">복사 열</span></div>
+      <div><i class="lg-heat"></i><span data-en="Radiant heat (0.1 kW/m² and above)">복사 열 (0.1 kW/m² 이상)</span></div>
       <div><i class="lg-q"></i><span data-en="Likely to burn next hour (model)">다음 1시간 번질 확률 (모델)</span></div>
       <div><i class="lg-route"></i><span data-en="Route · red where it meets flame">경로 · 화염과 만나는 곳은 빨강</span></div>
     </div>
@@ -584,6 +580,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
     <ul id="evList"></ul>
   </section>
 </div>
+<div class="apiview" id="apiView" hidden><div class="api-card" role="dialog" aria-label="API"><div class="api-top"><b data-en="Route-Check API · recorded real responses">Route-Check API · 실제 응답 기록</b><button type="button" class="api-close" data-en="Close">닫기</button></div><div class="api-body"></div></div></div>
 <div class="lightbox" id="lightbox" hidden><figure><img alt=""><figcaption><span></span><button type="button" data-en="Close">닫기</button></figcaption></figure></div>
 <script src="vendor/three.min.js"></script>
 <script src="vendor/OrbitControls.js"></script>
@@ -595,7 +592,6 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 <script src="vendor/ShaderPass.js"></script>
 <script src="vendor/UnrealBloomPass.js"></script>
 <script src="regions/index.js"></script>
-<script src="kakao-keys.js"></script>
 <script>
 (() => {
 'use strict';
@@ -1151,9 +1147,18 @@ const ctxTex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.s
 let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
-  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(ctxTopo2D(CTX_TOPO)), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
   if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
+}
+// the ring outside the study area in 2D: sea drawn as water (the paper tone read as a blank), land a little paler so the
+// study area's own map stands out. A copy: CTX_TOPO itself is what the texture cache keeps.
+function ctxTopo2D(src) {
+  const w = src.width, h = src.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); g.drawImage(src, 0, 0); const im = g.getImageData(0, 0, w, h), d = im.data;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, sea = celevUV(x / (w - 1), y / (h - 1)) < 1;
+    if (sea) { d[i] = 170; d[i + 1] = 205; d[i + 2] = 224; } else { d[i] = d[i] * .7 + 246 * .3; d[i + 1] = d[i + 1] * .7 + 244 * .3; d[i + 2] = d[i + 2] * .7 + 238 * .3; } }
+  g.putImageData(im, 0, 0); return c;
 }
 function drawContext(real, topoC, CTW, CTH) {
   const rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
@@ -1346,12 +1351,12 @@ function buildDetail(D) {
   const mesh = (S, color, order, mat) => { if (!S.idx.length) return; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(S.pos, 3)); g.setIndex(S.idx);
     const m = new THREE.Mesh(g, mat || new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4 - order, polygonOffsetUnits: -4 - order, toneMapped: false })); m.renderOrder = 3 + order * .01; detailGroup.add(m); roads.push(m); };
   mesh(casing, 0x857c6c, 0); strips.forEach((S, c) => mesh(S, ROAD_C[c], 6 - c));
-  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn twice true height so they read next to the
-  // exaggerated hills; walls and a flat roof, lit by the scene's sun
-  const pos = [], idx = [], ex = 2 / EXAG / 1000;
+  // buildings: footprint raised to OSM height (6 m when OSM has none), drawn 1.5 times true height (the hills are 6.5 times) so
+  // they read without towering; walls and a flat roof, lit by the scene's sun
+  const pos = [], idx = [], ex = 1.5 / EXAG / 1000;
   for (const b of D.b) { const h = (b[0] || 6) * ex, ring = []; for (let i = 1; i < b.length; i += 2) ring.push(uv(b[i], b[i + 1]));
-    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h + .004, n0 = pos.length / 3;
-    ring.forEach(p => pos.push(sxU(p[0]), base - .002, szV(p[1]), sxU(p[0]), top, szV(p[1])));
+    if (ring.length < 3) continue; const base = Math.min(...ring.map(p => elevUV(p[0], p[1]))) / 1000, top = base + h, n0 = pos.length / 3;
+    ring.forEach(p => pos.push(sxU(p[0]), base - .002 / EXAG, szV(p[1]), sxU(p[0]), top, szV(p[1])));
     for (let i = 0; i < ring.length; i++) { const a = n0 + i * 2, c = n0 + ((i + 1) % ring.length) * 2; idx.push(a, c, a + 1, a + 1, c, c + 1); }
     THREE.ShapeUtils.triangulateShape(ring.map(p => new THREE.Vector2(sxU(p[0]), szV(p[1]))), []).forEach(t => idx.push(n0 + t[0] * 2 + 1, n0 + t[1] * 2 + 1, n0 + t[2] * 2 + 1)); }
   if (idx.length) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
@@ -1446,7 +1451,7 @@ const LAYERS = [
   { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', core: true, n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
   { id: 'front', core: true, n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
   { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
-  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 scenario 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
+  { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 시나리오 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
   { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: false, op: 80 },
   { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
   { g: tr('대피 계획', 'Evacuation planning'), id: 'routes', core: true, n: tr('대피 경로 점검', 'Route checks'), src: tr(`기록된 Route-Check ${routes.length}건`, `${routes.length} recorded Route-Checks`), on: true, op: 100 },
@@ -1529,7 +1534,7 @@ function compose() {
     for (const [key, cells] of buckets) ember(cells, key / 10 * .9);
   }
   if (L.front.on && qiNow >= 0 && BURNING[qiNow].size) { if (!L.burn.on) { bc.fillStyle = 'rgb(44,39,35)'; bc.beginPath(); for (const i of BURNING[qiNow]) quad(bc, i, QX, QY); bc.fill(); } ember([...BURNING[qiNow]], 1, .22); }
-  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
+  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.drawImage(cellsCv, 0, 0); }
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
@@ -1552,7 +1557,8 @@ function compose() {
     // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
     const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
     if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(.5, .75, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    const vmin = NAV.on ? 5 / 6 : .5;     // navigation: from 0.1 kW/m² (see NAV_HEAT_V in nav.js)
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < vmin) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(vmin, vmin + .2, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
     hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
     if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
     cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);
@@ -1741,23 +1747,99 @@ function updateBooth(force) {
     if (f && r.dense.length > 1) boothGroup.add(puck(r.dense[r.dense.length - 1].u, r.dense[r.dense.length - 1].v, 0x2f8a57, .07)); }
 }
 // ---------------- map dots: what each one is (click), and a zoom to it ----------------
+function caseIdLabel(name) {     // case ids such as 20250325T170000Z_FW1 -> FW1 · 03-26 02:00 입력 (KST)
+  const m = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)\d\dZ_(\w+)$/.exec(name || ''); if (!m) return name;
+  const d = new Date(Date.UTC(+m[1], m[2] - 1, +m[3], +m[4] + 9, +m[5]));
+  return `${m[6]} · ${p2(d.getUTCMonth() + 1)}-${p2(d.getUTCDate())} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} ${tr('입력', 'input')}`;
+}
 function dotInfo(it) {
   const k = state.boothK, rowOf = id => L.booth.on && k >= 0 && state.cmp === 'ours' ? BOOTH[k].rows.find(r => r.id === id) : null;
   if (it.place) { const p = it.place, row = p.role === 'origin' ? rowOf(p.id) : null;
     return { name: placeName(p), kind: placeKind(p), row }; }
-  if (it.rid != null) { const row = rowOf(it.rid); return { name: row ? row.name : it.el.title.replace(/^.*?(출발지|origin) /, ''), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
+  if (it.rid != null) { const row = rowOf(it.rid); return { name: caseIdLabel(row ? row.name : it.rname), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
   return null;
 }
 function dotOpen(it, x, y) {
   const d = dotInfo(it); if (!d) return; const pop = $('dotPop');
   pop.innerHTML = `<b>${d.name}</b><span>${d.kind}</span>${d.row ? `<span class="st"><i style="background:${STATUS[d.row.v].c}"></i>${tr('대피 결과', 'Evacuation result')}: ${STATUS[d.row.v].t}</span>` : ''}
-    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button><button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
+    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button>${d.row && d.row.v !== 'not_checkable' ? `<button type="button" class="btn" id="dotApi">${tr('API 응답', 'API response')}</button>` : ''}<button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
   const r = mapEl.getBoundingClientRect(); pop.hidden = false;
   pop.style.left = Math.min(r.width - 230, Math.max(8, x - r.left + 12)) + 'px'; pop.style.top = Math.min(r.height - 120, Math.max(8, y - r.top + 12)) + 'px';
   $('dotClose').onclick = () => { pop.hidden = true; };
+  if ($('dotApi')) $('dotApi').onclick = () => { pop.hidden = true; apiOpen(d.row.id); };
   $('dotZoom').onclick = () => { pop.hidden = true; const flat = state.mode === '2d';
     tweenView({ r: flat ? 4 : 6, phi: flat ? .0005 : THREE.MathUtils.degToRad(50), th: flat ? 0 : sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(it.u), yAt(it.u, it.v), szV(it.v)) }, 1000); };
 }
+// ---------------- API 응답 보기: the recorded real Route-Check API exchange behind an origin's verdict ----------------
+// site/regions/<id>.api.js (tools/build_api_log.py) holds the jobs exactly as the API returned them, loaded on first open.
+const PLACE_ID = new Map(B.places.map(p => [p.id, p]));
+let apiReq = null, apiSel = null;
+const apiData = () => apiReq || (apiReq = window.__wfgLoad(`${B.id}.api.js`).then(ok => ok && (window.WFG_API || {})[B.id] || null));
+const jsonHTML = o => esc(JSON.stringify(o, null, 2)).replace(/(&quot;(?:[^&]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)/gi,
+  (m, str, colon, lit, num) => str ? `<span class="${colon ? 'jk' : 'js'}">${str}</span>${colon || ''}` : lit ? `<span class="jl">${lit}</span>` : `<span class="jn">${num}</span>`);
+const API_C = { checked_route: '#2f8a57', model_no_route: '#4a4f57', unresolved: '#8a8a8a' };     // verdict colours readable on the dark viewer
+const apiDur = (a, b) => a && b ? ((Date.parse(b) - Date.parse(a)) / 1000).toFixed(1) + ' s' : '–';
+const apiName = id => { const rm = /^research:[^:]+:([^:]+):(origin|destination)$/.exec(id || '');
+  if (rm) return tr('연구 사례 ', 'Research ') + caseIdLabel(rm[1]) + (rm[2] === 'destination' ? tr(' · 도착지', ' · destination') : '');
+  const p = PLACE_ID.get(id); if (p) return placeName(p); const r = BOOTH.flatMap(b => b.rows).find(x => x.id === id); return r ? (r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name) : id; };
+function apiOpen(oid, k) {
+  if (!BOOTH.length) return;
+  k = k ?? Math.max(0, state.boothK); const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable');
+  apiSel = { k, oid: rows.some(r => r.id === oid) ? oid : (rows.find(r => r.v === 'checked_route') || rows[0] || {}).id };
+  const box = $('apiView'); box.hidden = false; box.querySelector('.api-body').innerHTML = `<p class="note">${tr('기록된 API 응답을 불러오는 중…', 'Loading the recorded API responses…')}</p>`;
+  apiData().then(d => apiRender(d));
+}
+function apiRender(d) {
+  const box = $('apiView'), body = box.querySelector('.api-body'); if (box.hidden) return;
+  const { k, oid } = apiSel, t = d && d.times.find(x => x.input_time === BOOTH[k].input_time), row = t && t.rows[oid];
+  const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable').sort((a, z) => (a.research ? 0 : 1) - (z.research ? 0 : 1) || String(apiName(a.id)).localeCompare(apiName(z.id)));
+  const head = `<div class="api-pick"><label>${tr('입력 시각', 'Input time')} <span class="seg2">${BOOTH.map((x, i) => `<button type="button" data-ak="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</span></label>
+    <label>${tr('출발지', 'Origin')} <select id="apiOrigin">${rows.map(r => `<option value="${esc(r.id)}"${r.id === oid ? ' selected' : ''}>${esc(apiName(r.id))} · ${STATUS[r.v].t}</option>`).join('')}</select></label></div>`;
+  if (!row) { body.innerHTML = head + `<p class="note">${tr('이 출발지·입력 시각의 기록된 API 응답이 없습니다.', 'No recorded API response for this origin and input time.')}</p>`; apiWire(d); return; }
+  const rc = row.rc && t.rc[row.rc], plan = row.plan && t.plans[row.plan], res = (rc && rc.result) || {}, pv = (rc && rc.result && rc.result.provenance) || (rc && rc.provenance) || {};
+  const hp = t.health || {}, host = pv.host || {};
+  // the dispatch plan as the API returned it, with this origin's own attempt list put back in place
+  const planView = plan && JSON.parse(JSON.stringify(plan));
+  if (planView) for (const o of planView.result.plans) o.attempts = o.origin_id === oid
+    ? row.att.map(([dest, dep, v, arr, cs, job]) => ({ destination_id: dest, depart_offset_s: dep, verdict: v, arrival_s: arr, compute_s: cs, route_check_job_id: job }))
+    : tr(`… 시도 ${o.attempts}건 (다른 출발지)`, `… ${o.attempts} attempts (another origin)`);
+  const dests = [...new Set(row.att.map(a => a[0]))], deps = [...new Set(row.att.map(a => a[1]))].sort((a, z) => a - z);
+  const cell = (dst, dep) => { const a = row.att.find(x => x[0] === dst && x[1] === dep); if (!a) return `<td class="na">–</td>`;
+    const tip = `${a[5]} · ${STATUS[a[2]].t}${a[3] != null ? ` · ${tr('도착', 'arrival')} +${fmtS(a[3])}` : ''} · ${tr('계산', 'compute')} ${a[4] != null ? a[4].toFixed(1) + ' s' : '–'}`;
+    return `<td title="${esc(tip)}" class="${a[5] === row.rc ? 'shown' : ''}" style="background:${API_C[a[2]] || '#8a8a8a'}">${a[4] != null ? a[4].toFixed(1) : ''}</td>`; };
+  const step = (n, verb, path, code, note, open) => `<details class="api-step"${open ? ' open' : ''}><summary><b>${n}</b><span class="verb ${verb.toLowerCase()}">${verb}</span><code>${esc(path)}</code><small>${note}</small></summary>${code}</details>`;
+  const pre = o => `<pre class="json">${jsonHTML(o)}</pre>`;
+  const steps = plan
+    ? [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/dispatch-plans', pre(plan.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(plan.job_id)}</code></div>`, tr('출발지 × 대피소 × 출발 시각을 한 번에 점검 요청', 'one request: origins × shelters × departure times'), true),
+       step(3, 'GET', `/v1/dispatch-plans/${plan.job_id}`, pre(planView), tr(`200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`, `200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`)),
+       rc ? step(4, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict} · 지도에 그린 경로`, `200 · verdict ${res.verdict} · the route drawn on the map`), true) : '']
+    : [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/route-checks', pre(rc.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(rc.job_id)}</code></div>`, tr('연구 사례 출발지 한 경로 점검 요청', 'one route check for a research-case origin'), true),
+       step(3, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict}`, `200 · verdict ${res.verdict}`), true)];
+  body.innerHTML = head + `
+    <div class="api-prov">${tr('실제 API 기록', 'Recorded real API run')}: <b>Route-Check API ${esc(pv.api_version || d.cache.api_version)}</b> · ${esc(pv.package || '')} ${esc(pv.package_version || '')} · ${tr('키트', 'kit')} ${esc(pv.kit || '')} · ${tr('체크포인트', 'checkpoint')} <code>${esc((pv.checkpoint || '').slice(0, 8))}</code> · git <code>${esc((pv.git_commit || '').slice(0, 7))}</code>
+      <br>${tr('실행', 'Run')} ${esc(kstDay(pv.generated_at || d.cache.created_at))} · ${esc(host.platform || '')}${host.cpu_count ? ` · ${host.cpu_count} ${tr('코어', 'cores')}` : ''} · ${tr('요청당 시간 예산', 'time budget per request')} ${pv.budget_s || 30} s · <code>${esc(t.base || '')}</code></div>
+    <div class="api-sum">
+      <div><small>${tr('판정', 'Verdict')}</small><b style="color:${res.verdict === 'checked_route' ? '#7fd1a2' : res.verdict === 'model_no_route' ? '#f0a58f' : '#e6e9ec'}">${STATUS[res.verdict]?.t || esc(res.verdict)}</b><code>${esc(res.verdict || '')}${res.reason_code ? ' · ' + esc(res.reason_code) : ''}</code></div>
+      <div><small>${res.verdict === 'checked_route' ? tr('대피소', 'Shelter') : tr('펼친 작업의 대피소', 'Shelter of the job shown')}</small><b>${esc(apiName(row.att.find(a => a[5] === row.rc)?.[0]))}</b></div>
+      <div><small>${tr('출발 → 도착', 'Departure → arrival')}</small><b>+${fmtS(res.departure_s || 0)} → ${res.arrival_s != null ? '+' + fmtS(res.arrival_s) : '–'}</b></div>
+      <div><small>${tr('API 계산 시간', 'API compute time')}</small><b>${res.compute_s != null ? res.compute_s.toFixed(2) + ' s' : '–'} / ${pv.budget_s || 30} s</b><code>${res.within_budget ? tr('예산 안', 'within budget') : tr('예산 초과', 'over budget')}</code></div>
+    </div>
+    <div class="api-grid"><div class="sub-h" style="margin:10px 0 4px">${tr(`이 출발지에 보낸 점검 ${row.att.length}건 · 칸마다 실제 API 작업 1개 (숫자 = 계산 초)`, `${row.att.length} checks sent for this origin · each cell is one real API job (number = compute seconds)`)}</div>
+      <table><tr><th></th>${deps.map(x => `<th>+${Math.round(x / 60)}${tr('분', 'm')}</th>`).join('')}</tr>${dests.map(dst => `<tr><th>${esc(apiName(dst))}</th>${deps.map(x => cell(dst, x)).join('')}</tr>`).join('')}</table>
+      <div class="api-key">${['checked_route', 'model_no_route', 'unresolved'].map(v => `<span><i style="background:${API_C[v]}"></i>${STATUS[v].t}</span>`).join('')}<span><i class="shown"></i>${tr('아래에 펼친 작업', 'job shown below')}</span></div></div>
+    <div class="api-steps">${steps.join('')}</div>
+    <p class="note">${tr('응답은 저장된 그대로입니다. 경로 좌표 같은 긴 배열만 개수로 줄였습니다(지도에 그린 선). 이 화면은 인터넷 없이도 열립니다.', 'Responses are shown as stored; only long arrays such as route coordinates are folded to a count (the line drawn on the map). This view works without internet.')}</p>`;
+  apiWire(d);
+}
+function apiWire(d) {
+  const body = $('apiView').querySelector('.api-body');
+  body.querySelectorAll('[data-ak]').forEach(b => b.onclick = () => { apiSel.k = +b.dataset.ak; apiRender(d); });
+  const sel = body.querySelector('#apiOrigin'); if (sel) sel.onchange = () => { apiSel.oid = sel.value; apiRender(d); };
+}
+$('apiView').addEventListener('click', e => { if (e.target.id === 'apiView' || e.target.closest('.api-close')) $('apiView').hidden = true; });
+addEventListener('keydown', e => { if (e.key === 'Escape') $('apiView').hidden = true; });
 labelsEl.addEventListener('click', e => { const el = e.target.closest('.mk'); if (!el) return; const it = domItems.find(x => x.el === el); if (it) { e.stopPropagation(); dotOpen(it, e.clientX, e.clientY); } });
 controls.addEventListener('start', () => { $('dotPop').hidden = true; });
 function focusOrigin(id) {
@@ -1786,10 +1868,11 @@ function renderEvac() {
   const hor = 3000, dk = r => r.contig == null ? -1 : r.contig, dl = b.rows.filter(r => r.v === 'checked_route' && r.last != null).sort((a, z) => dk(a) - dk(z) || (z.vul ? 1 : 0) - (a.vul ? 1 : 0));
   const urgent = dl.filter(r => dk(r) < hor || r.last !== r.contig), dlText = r => r.contig == null
       ? tr(`+0분 출발 미확인 · +${Math.round(r.last / 60)}분 출발만 확인`, `+0 min not checked · only +${Math.round(r.last / 60)} min checked`)
-      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + r.name : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
+      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
   el.innerHTML = `
     <div class="grp-h"><span>${tr('입력 시각별 판정 · 부스 캐시', 'Verdicts per input time · booth cache')}</span><span>${tr('타임라인을 따라감', 'follows the timeline')}</span></div>
     <div class="seg2">${BOOTH.map((x, i) => `<button type="button" data-k="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</div>
+    <button type="button" class="api-open" id="evacApi"><b>${tr('API 응답 보기', 'View API responses')}</b><span>${state.focus && b.rows.some(r => r.id === state.focus && r.v !== 'not_checkable') ? tr(`${esc(apiName(state.focus))}의 판정을 만든 실제 Route-Check API 요청·응답`, `The real Route-Check API request and response behind ${esc(apiName(state.focus))}`) : tr('이 판정들을 만든 실제 Route-Check API 요청·응답 (출발지를 골라 보기)', 'The real Route-Check API requests and responses behind these verdicts (pick an origin)')}</span></button>
     <div class="tiles">
       <div class="tile ok"><b>${c.all.checked_route || 0}</b><span>/ ${c.total.all} ${tr('출발지', 'origins')}</span><small>${tr('확인된 경로 (연구 사례 출발지 포함)', 'checked route (incl. recorded research origins)')}</small></div>
       <div class="tile bad"><b>${c.total.all - (c.all.checked_route || 0)}</b><small>${tr('확인된 경로 없음', 'no checked route')}<br>${tr(`경로 없음 ${c.all.model_no_route || 0} · 미확인 ${c.all.unresolved || 0} · 점검 불가 ${c.all.not_checkable || 0}`, `no route ${c.all.model_no_route || 0} · unresolved ${c.all.unresolved || 0} · not checkable ${c.all.not_checkable || 0}`)}</small></div>
@@ -1805,17 +1888,18 @@ function renderEvac() {
     <h4 class="sub-h">${tr('입력 시각별 요약', 'Summary per input time')}</h4>
     <table class="mini"><tr><th>${tr('입력', 'Input')}</th><th>${tr('확인', 'Checked')}</th><th>${tr('경로 없음', 'No route')}</th><th>${tr('미확인', 'Unres.')}</th><th>${tr('불가', 'N/C')}</th><th>${tr('요양 확인', 'Care ok')}</th><th>${tr('접촉*', 'Flame*')}</th></tr>
       ${BOOTH.map(x => { const cc = boothCounts(x); return `<tr><td>${fmt(x.t0)}</td><td>${cc.all.checked_route || 0}</td><td>${cc.all.model_no_route || 0}</td><td>${cc.all.unresolved || 0}</td><td>${cc.all.not_checkable || 0}</td><td>${cc.care.checked_route || 0}/${cc.total.care}</td><td>${cc.hits}</td></tr>`; }).join('')}</table>
-    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 scenario)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
+    <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 시나리오)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
   el.querySelectorAll('.seg2 button').forEach(bt => bt.onclick = () => { if (state.detail) setDetail(false); setTime(BOOTH[+bt.dataset.k].t0 + .02); setPlaying(false); });
   el.querySelectorAll('[data-o]').forEach(bt => bt.onclick = () => focusOrigin(bt.dataset.o));
+  $('evacApi').onclick = () => apiOpen(state.focus, k);
 }
 
 // ---------------- prior research comparison ----------------
 const TABLE1 = [
-  ['FARSITE', ['산불 확산 simulation', 'Wildfire spread simulation'], ['대피 경로 계획은 별도', 'Evacuation routing is separate'], ['예측·경로 탐색 연계', 'Forecast linked to routing']],
+  ['FARSITE', ['산불 확산 시뮬레이션', 'Wildfire spread simulation'], ['대피 경로 계획은 별도', 'Evacuation routing is separate'], ['예측·경로 탐색 연계', 'Forecast linked to routing']],
   ['Google ML', ['미래 산불 지도', 'Future fire maps'], ['개인 이동 중 노출 미평가', 'No exposure along a trip'], ['이동 경로별 위험 점검', 'Hazard checked per route']],
   ['WUIVAC', ['대피 개시 구역', 'Evacuation trigger zones'], ['사전 지정 경로 평가', 'Evaluates preset routes'], ['경로 탐색·누적 노출 평가', 'Route search + dose check']],
-  ['WUI-NITY', ['산불·대피 연계 simulation', 'Coupled fire–evacuation simulation'], ['인구 집단 simulation 중심', 'Population-level simulation'], ['개별 이동 독립 검증', 'Each trip checked on its own']],
+  ['WUI-NITY', ['산불·대피 연계 시뮬레이션', 'Coupled fire–evacuation simulation'], ['인구 집단 시뮬레이션 중심', 'Population-level simulation'], ['개별 이동 독립 검증', 'Each trip checked on its own']],
   ['Time-expanded routing', ['위험 반영 대피 흐름', 'Hazard-aware evacuation flow'], ['해당 정식화에 개인 누적 열노출 한도 없음', 'No per-person cumulative heat limit'], ['시나리오별 누적 열노출·목적지 체류 평가·최적화', 'Per-scenario dose, destination dwell, evaluation and optimization']],
 ];
 const CMP = {
@@ -1890,6 +1974,7 @@ function buildDocs() {
     <p class="note" style="margin:0 4px 6px">${LOGGER.sub}</p>
     ${window.WFG_FIG ? '' : `<a class="logger-open" href="logger.html${EN ? '#lang=en' : ''}"><b>${tr('3D 분해 모델 · 전체 제작 설명서 열기', 'Open the exploded 3D model and full build manual')}</b><span>${tr('부품별 정보, 조립 순서 애니메이션, 37단계 전체', 'Part details, step-by-step assembly, all 37 steps')} →</span></a>`}
     <figure class="hero"><img src="${figSrc('fig10')}" alt="${LOGGER.figs[9][1]}" loading="lazy" data-big="${figSrc('fig10')}"><figcaption>${LOGGER.figs[9][1]}</figcaption></figure>
+    ${EN ? '' : `<ol class="fig-key"><li><b>상태</b>: 대기(IDLE), 기록 중(REC, 점 깜빡임), 가득 참(FULL), 내보내기(EXPORT) · 오른쪽은 이동 방식</li><li><b>GNSS</b>: 신호 없음(빨강), 위치 미확정 NO FIX(노랑), 3D·2D 위치와 위성 수·HDOP(초록)</li><li><b>배터리</b>: 잔량(%)과 전압</li><li><b>저장 공간</b>: 사용량과 남은 기록 시간</li><li><b>세션</b>: 세션 번호와 지금까지의 기록 수</li><li><b>마지막 이벤트 표시</b>: 위치(loc) 또는 NO POS, 표시한 뒤 지난 시간</li><li><b>아래 막대</b>: 길게 누르기 카운트다운 또는 안내 문구</li></ol><p class="note">그림 속 글은 기기 화면과 제작 설명서 원본(영어) 그대로입니다.</p>`}
     <p style="margin:6px 4px;font-size:12px;color:var(--ink-2)">${LOGGER.what}</p>
     <dl class="kv" style="padding:0 4px">${LOGGER.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
     <h4 class="sub-h">${tr('제작 단계', 'Build phases')}</h4>
@@ -1902,10 +1987,10 @@ function buildDocs() {
       <li><b>${tr('지형 · 경사', 'Terrain · slope')}</b> — ${tr(`AWS Terrain Tiles (terrarium, SRTM 등 공개 DEM)를 ${B.dem.w}×${B.dem.h} 격자로 재표본. 경사·사면 방향은 이 DEM에서 계산했습니다. 해수면 아래는 0 m로 두고 바다로 그립니다. 높이는 6.5배 과장해 산의 기복이 잘 보이게 했습니다.`, `AWS Terrain Tiles (terrarium; SRTM and other public DEMs) resampled to ${B.dem.w}×${B.dem.h}. Slope and aspect are computed from it. Below sea level is set to 0 m and drawn as sea. Heights are exaggerated 6.5× so the mountains read clearly.`)}</li>
       <li><b>${tr('바탕 지도 · 지명 · 산 높이', 'Base map · names · peaks')}</b> — © OpenStreetMap contributors (${tr('Protomaps 빌드, 플래너 기본 지도와 같은 파일', 'Protomaps build, the same file as the planner basemap')}). ${tr('나무와 산림 색은 OSM 산림 폴리곤과 경사로 추정한 표시입니다.', 'Trees and forest colour are estimated from OSM forest polygons and slope.')}</li>
       <li><b>${tr('연소 상태 B(t)', 'Burned state B(t)')}</b> — ${tr(`기록된 연소 범위를 375 m 셀로 나타낸 ${fp.length}개 시각. 기록 사이에는 직전 기록을 보여 주며, 불씨에서 재로 식는 색은 표시용입니다.`, `${fp.length} recorded burned-area times on the 375 m cells. Between records the previous record is shown; the ember-to-ash colour is for display.`)}</li>
-      <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.scenarios}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
+      <li><b>${tr('새 연소 확률 q', 'New-burn probability q')}</b> — ${tr(`모델 출력 p_new_burn_1h (${pv.package}, 체크포인트 ${pv.model}, 시나리오 ${pv.시나리오s}개). 입력 시각부터 1시간만 유효하며 보간하지 않습니다.`, `Model output p_new_burn_1h (${pv.package}, checkpoint ${pv.model}, ${pv.scenarios} scenarios). Valid for 1 h after each input time; never interpolated.`)}</li>
       <li><b>${tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative probability F(h)')}</b> — ${HM ? tr(`재귀 몬테카를로 확산(predict_cumulative) · 체크포인트 ${HM.checkpoint_sha256.slice(0, 8)} · 궤적 ${HM.n_samples.toLocaleString()}개 · 1–${HM.hours.length}시간. ±는 몬테카를로 표본 오차(95%)입니다.`, `Recursive Monte Carlo (predict_cumulative) · checkpoint ${HM.checkpoint_sha256.slice(0, 8)} · ${HM.n_samples.toLocaleString()} trajectories · 1–${HM.hours.length} h. ± is the Monte Carlo sampling error (95%).`)
         : tr('저장소의 predict_cumulative가 만드는 1시간 간격 누적 확률입니다. 실행에 필요한 환경 입력 래스터가 GitHub에 없어(forecast/README.md, External inputs) 이 화면에는 아직 결과가 없습니다. 만들어 내거나 q로 근사하지 않았습니다.', 'Hourly cumulative probability from the repository’s predict_cumulative. The environmental input rasters it needs are not on GitHub (forecast/README.md, External inputs), so this view has no results yet. Nothing is made up or approximated from q.')}</li>
-      <li><b>${tr('복사 열유속 F(x) · 화재 scenario 4개', 'Radiant flux F(x) · 4 fire scenarios')}</b> — ${tr(`경로 점검에 실제로 쓰인 위험 입력(HAZARD.json, ${HZ.length}개 입력 시각). 입력 시각부터 1시간만 유효하며 연기·대류열·불티는 포함되지 않습니다.`, `The hazard input the route checks used (HAZARD.json, ${HZ.length} input times). Valid for 1 h after input; smoke, convective heat and embers are not included.`)}</li>
+      <li><b>${tr('복사 열유속 F(x) · 화재 시나리오 4개', 'Radiant flux F(x) · 4 fire scenarios')}</b> — ${tr(`경로 점검에 실제로 쓰인 위험 입력(HAZARD.json, ${HZ.length}개 입력 시각). 입력 시각부터 1시간만 유효하며 연기·대류열·불티는 포함되지 않습니다.`, `The hazard input the route checks used (HAZARD.json, ${HZ.length} input times). Valid for 1 h after input; smoke, convective heat and embers are not included.`)}</li>
       <li><b>${tr('대피 경로 점검 · 정책 비교', 'Route checks · policy comparison')}</b> — ${tr(`기록된 Route-Check ${routes.length}건과 5개 정책 기록. 재계산 누적 노출은 셀 중심 근사이고, 판정과 기록 노출값은 원래 점검 결과입니다.`, `${routes.length} recorded Route-Checks and their 5 policy records. Recomputed dose is a cell-centre approximation; verdicts and recorded exposure are the original results.`)}</li>
       ${B.booth ? `<li><b>${tr('대피 현황', 'Evacuation status')}</b> — ${tr('플래너 부스 캐시(planner/cache): 실제 Route-Check API로 모든 출발지를 미리 점검한 결과. 화면에서는 계산하지 않습니다.', 'Planner booth cache (planner/cache): every origin checked in advance with the real Route-Check API. Nothing is computed in this view.')}</li>` : ''}
       <li><b>${tr('✱ 기온 · 바람 u/v · 수목 피복률 · 생물군계', '✱ Temperature · wind u/v · canopy · biome')}</b> — ${tr('설명용 합성 필드입니다. 실제 모델 입력 값이 아닙니다.', 'Illustrative synthetic fields, not the real model inputs.')}</li>
@@ -1934,7 +2019,7 @@ function buildOverview() {
       <dt>${tr('격자', 'Grid')}</dt><dd>${tr(`375 m 셀 ${NR} × ${NC} (유효 ${valid.reduce((a, b) => a + b, 0).toLocaleString()}개)`, `375 m cells ${NR} × ${NC} (${valid.reduce((a, b) => a + b, 0).toLocaleString()} valid)`)}</dd>
       <dt>${tr('연소 기록', 'Burn records')}</dt><dd>${tr(`${fp.length}개 시각`, `${fp.length} times`)} · ${fmt(REC[0])} – ${fmt(REC[REC.length - 1])}</dd>
       <dt>${tr('모델 입력', 'Model inputs')}</dt><dd>${INP.map(h => fmt(h)).join(', ')}</dd>
-      <dt>${tr('모델', 'Model')}</dt><dd>${pv.package} · ${tr('체크포인트', 'checkpoint')} ${pv.model} · ${tr(`시나리오 ${pv.scenarios}개`, `${pv.scenarios} scenarios`)}</dd>
+      <dt>${tr('모델', 'Model')}</dt><dd>${pv.package} · ${tr('체크포인트', 'checkpoint')} ${pv.model} · ${tr(`시나리오 ${pv.시나리오s}개`, `${pv.scenarios} scenarios`)}</dd>
       <dt>${tr('현재 기록 면적', 'Recorded area now')}</dt><dd id="ovArea">–</dd>
       <dt>${tr('현재 활성 셀', 'Active cells now')}</dt><dd id="ovActive">–</dd>
     </dl>
@@ -2030,7 +2115,7 @@ function drawCharts() {
     $('c2v').textContent = qi >= 0 ? QS[qi].toFixed(2) + ' km²' + (t - INP[qi] > 1 ? tr(' (지남)', ' (expired)') : '') : '–';
   }
   const sc = CASES[selRoute];
-  if (state.detail && sc && sc.k === state.dk && sc.pol.full && sc.pol.full.exp) { drawDose($('c3'), sc, (t - sc.r.t0) * 3600, false); $('c3t').innerHTML = `${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${sc.r.label} · ${tr('scenario 4개', '4 scenarios')} · log</small>`; const e = sc.pol.full.exp; $('c3v').textContent = `${tr('최대', 'max')} ${Math.max(...e.map(x => x.dose)).toFixed(3)} / ${fmtLim(sc.pol.full.limits.dose_kj_m2)} kJ/m²`; return; }
+  if (state.detail && sc && sc.k === state.dk && sc.pol.full && sc.pol.full.exp) { drawDose($('c3'), sc, (t - sc.r.t0) * 3600, false); $('c3t').innerHTML = `${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${sc.r.label} · ${tr('시나리오 4개', '4 scenarios')} · log</small>`; const e = sc.pol.full.exp; $('c3v').textContent = `${tr('최대', 'max')} ${Math.max(...e.map(x => x.dose)).toFixed(3)} / ${fmtLim(sc.pol.full.limits.dose_kj_m2)} kJ/m²`; return; }
   const r = routes[selRoute], tpol = sc && sc.pol.travel_only, dense = r && r.has ? r.dense : tpol && tpol.dense.length > 1 ? tpol.dense : null;
   if (!dense) { $('c3').innerHTML = ''; $('c3t').innerHTML = tr('고도 단면', 'Elevation profile'); $('c3v').textContent = ''; return; }
   const len = dense[dense.length - 1].d, s = (t - r.t0) * 3600, moving = r.has && t >= r.tDep && t <= r.tArr;
@@ -2081,18 +2166,18 @@ function buildRouteTab() {
   const p = sc.pol.full, r = sc.r, ok = p.verdict === 'checked_route', tp = sc.pol.travel_only;
   const head = `<div class="grp-h"><span>${tr(`기록된 Route-Check 사례 · ${B.name.ko}`, `Recorded Route-Check cases · ${B.name.en}`)}</span><span>${tr('누르면 그 1시간을 재생', 'click to play that hour')}</span></div>
     <div class="cases">${CASES.map((c, i) => `<button type="button" data-i="${i}" aria-pressed="${i === selRoute}" class="${c.r.has ? '' : 'nr'}"><b>${c.r.label}</b><small>${fmt(c.r.t0)}</small></button>`).join('')}</div>
-    <h4>${r.label} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t} <small>${tr('입력', 'input')} ${fmt(r.t0)} · ${tr('scenario 4개', '4 scenarios')}</small></h4>`;
-  const ablation = `<h4>${tr('제약 ablation', 'Constraint ablation')} <small>${tr('같은 사례 · 5개 정책 · 지도에 표시', 'same case · 5 policies · on the map')}</small></h4>
+    <h4>${r.label} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t} <small>${tr('입력', 'input')} ${fmt(r.t0)} · ${tr('시나리오 4개', '4 scenarios')}</small></h4>`;
+  const ablation = `<h4>${tr('제약 제거 비교 (ablation)', 'Constraint ablation')} <small>${tr('같은 사례 · 5개 정책 · 지도에 표시', 'same case · 5 policies · on the map')}</small></h4>
     <table class="mini"><tr><th>${tr('정책', 'Policy')}</th><th>${tr('판정', 'Verdict')}</th><th>${tr('도착', 'Arrival')}</th><th>${tr('길이', 'Length')}</th><th>${tr('전체 위험 검사', 'Full check')}</th></tr>
       ${POLICY_ORDER.filter(n => sc.pol[n]).map(n => { const q = sc.pol[n], fc = q.full_check;
         return `<tr><td><label><input type="checkbox" data-pol="${n}" ${n === 'full' ? `checked disabled title="${tr('기준 경로 (항상 표시)', 'Reference route (always shown)')}"` : state.pols.has(n) ? 'checked' : ''}><i style="display:inline-block;width:10px;height:3px;background:${POLICY[n].css};vertical-align:3px;margin-right:4px"></i>${POLICY[n].n}</label></td><td>${q.verdict === 'checked_route' ? '✓' : tr('없음', 'none')}</td><td>${q.arr != null ? '+' + fmtS(q.arr) : '–'}</td><td>${q.length_m != null ? (q.length_m / 1000).toFixed(1) + ' km' : '–'}</td><td>${fc ? (fc.passed ? tr('통과', 'pass') : `<b style="color:#d9472b">${tr('불통과', 'fail')}</b>`) : '–'}</td></tr>`; }).join('')}</table>
-    <p class="note" style="margin:4px">${tr('전체 위험 검사: 각 정책의 경로를 같은 화재 입력의 전체 조건(화염 접촉·순간 열유속·누적 노출, 4개 scenario)으로 다시 검사한 기록입니다. 주황 점선 = 이동시간만 고려한 경로, 빨간 점 = 그 경로가 화염 셀을 지나는 지점.', 'Full check: each policy’s route re-checked against the full constraints of the same fire input (flame contact, peak flux, dose; 4 scenarios). Orange dashes = travel-time-only route; red dots = where it passes a flame cell.')}</p>`;
+    <p class="note" style="margin:4px">${tr('전체 위험 검사: 각 정책의 경로를 같은 화재 입력의 전체 조건(화염 접촉·순간 열유속·누적 노출, 4개 시나리오)으로 다시 검사한 기록입니다. 주황 점선 = 이동시간만 고려한 경로, 빨간 점 = 그 경로가 화염 셀을 지나는 지점.', 'Full check: each policy’s route re-checked against the full constraints of the same fire input (flame contact, peak flux, dose; 4 scenarios). Orange dashes = travel-time-only route; red dots = where it passes a flame cell.')}</p>`;
   if (!ok) {
     el.innerHTML = head + `
-      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('경로 엔진이 이 모델·조건에서 네 scenario 모두 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 없다고 기록했습니다 (공급된 4개 scenario · 1초 격자에서의 엔진 증명 기록)', 'The route engine recorded that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window (an engine proof for the 4 supplied scenarios on a 1 s lattice)')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
+      <div class="flow"><div><b>${tr('결과 · 모델상 경로 없음', 'Result · no route in the model')}</b>${tr('경로 엔진이 이 모델·조건에서 네 시나리오 모두 화염 접촉 없이 도착 허용 시간 안에 체류를 마치는 여정이 없다고 기록했습니다 (공급된 4개 시나리오 · 1초 격자에서의 엔진 증명 기록)', 'The route engine recorded that, in this model and these conditions, no journey avoids flame contact in all four scenarios and finishes its dwell within the arrival window (an engine proof for the 4 supplied scenarios on a 1 s lattice)')} (${esc(p.raw || p.decision || '')}).<br><span class="note">${tr('대피 판단은 공식 안내를 따라야 합니다. 이 판정은 "안전한 길이 없다"가 아니라 "이 모델에서 확인된 길이 없다"는 뜻입니다.', 'Follow official guidance. This means “no route could be checked in this model”, not “there is no safe road”.')}</span></div>
       ${tp ? `<div><b>${tr('같은 출발의 이동시간만 경로', 'Travel-time-only route, same departure')}</b>${tr(`도착 +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · 전체 위험 검사 ${tp.full_check && !tp.full_check.passed ? '불통과 (' + (tp.full_check.components || []).join(', ') + ')' : '통과'} · 이 화면 재계산 화염 셀 통과 ${sc.travelHits.length}지점`, `Arrival +${fmtS(tp.arr)} · ${(tp.length_m / 1000).toFixed(1)} km · full check ${tp.full_check && !tp.full_check.passed ? 'fails (' + (tp.full_check.components || []).join(', ') + ')' : 'passes'} · ${sc.travelHits.length} flame-cell points recomputed here`)}</div>` : ''}</div>
       ${ablation}
-      ${tp && tp.dense.length > 1 ? `<h4>${tr('점유 구간 검사 · 이동시간만 경로', 'Occupancy check · travel-only route')} <small>${tr('주황 = 차량 점유 · 색 막대 = scenario 화염 구간', 'orange = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>` : ''}`;
+      ${tp && tp.dense.length > 1 ? `<h4>${tr('점유 구간 검사 · 이동시간만 경로', 'Occupancy check · travel-only route')} <small>${tr('주황 = 차량 점유 · 색 막대 = 시나리오 화염 구간', 'orange = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>` : ''}`;
     bindRouteTab(el); const tok = ++routeTabTok;
     requestAnimationFrame(() => { if (tok === routeTabTok && tp && tp.dense.length > 1 && $('rtOcc')) { const o = drawOccupancy($('rtOcc'), sc, 'travel_only'); $('rtOccNote').textContent = tr(`차량 점유와 겹치는 화염 구간 ${o.overlap}개 → 화염 접촉.`, `${o.overlap} flame intervals overlap the vehicle’s occupancy → flame contact.`); } });
     return;
@@ -2104,18 +2189,18 @@ function buildRouteTab() {
       <dt>${tr('계산 시간', 'Compute')}</dt><dd>${p.compute_s != null ? p.compute_s.toFixed(2) + tr('초 (30초 한도 ', ' s (30 s budget, ') + (p.within_budget ? tr('안', 'within') : tr('초과', 'over')) + ')' : '–'}</dd></dl>
     <h4>${tr('탐색 순서', 'Search order')} <small>${tr('보고서 그림 6', 'report Fig. 6')}</small></h4>
     <div class="flow"><div><b>${tr('1단계 · 화재 회피 완화 탐색', 'Stage 1 · relaxed fire-avoiding search')}</b>${tr(`순간·누적 열 조건만 빼고 도로·회전·대기·체류·화재 접촉을 지킨 가장 이른 도착 → 하한 L = +${fmtS(p.L)}`, `Earliest arrival keeping roads, turns, waits, dwell and flame contact, dropping only the peak and dose limits → lower bound L = +${fmtS(p.L)}`)}</div>
-      <div><b>${tr('2단계 · 전체 여정 검사', 'Stage 2 · whole-journey check')}</b>${tr('후보 여정의 이동·대기·체류 구간을 네 scenario에서 접촉·순간 열유속·누적 노출로 검사 → 통과', 'The candidate’s travel, wait and dwell are checked in all four scenarios for contact, peak flux and dose → pass')}</div>
+      <div><b>${tr('2단계 · 전체 여정 검사', 'Stage 2 · whole-journey check')}</b>${tr('후보 여정의 이동·대기·체류 구간을 네 시나리오에서 접촉·순간 열유속·누적 노출로 검사 → 통과', 'The candidate’s travel, wait and dwell are checked in all four scenarios for contact, peak flux and dose → pass')}</div>
       <div class="ok"><b>${tr('결과', 'Result')} · ${(VERDICT[p.verdict] || VERDICT.unresolved).t}</b>${tr('도착', 'Arrival')} +${fmtS(p.arr)} ${p.arr === p.L ? tr('= 하한 L → 이 모델·조건에서 더 이른 도착은 없음 (모델 기준 조건부 최적)', '= lower bound L → no earlier arrival in this model and these conditions (conditional model optimum)') : tr('> 하한 L', '> lower bound L')}<br><span class="note">${p.decision || ''}</span></div></div>
     ${ablation}
-    <h4>${tr('scenario별 노출', 'Exposure per scenario')} <small>${tr('전체 조건 경로', 'full-constraint route')}</small></h4>
+    <h4>${tr('시나리오별 노출', 'Exposure per scenario')} <small>${tr('전체 조건 경로', 'full-constraint route')}</small></h4>
     <table class="mini"><tr><th>scenario</th><th>${tr('기록 최대', 'Rec. peak')}</th><th>${tr('기록 누적', 'Rec. dose')}</th><th>${tr('재계산 누적*', 'Recomp.*')}</th><th>${tr('접촉', 'Contact')}</th></tr>
       ${p.exposure.map((e, mi) => `<tr><td><i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${MEMBER_CSS[mi]};margin-right:5px"></i>S${mi + 1}</td><td>${sci(e.peak, 4)} kW/m²</td><td>${sci(e.dose, 3)} kJ/m²</td><td>${p.exp ? sci(p.exp[mi].dose, 3) : '–'}</td><td>${e.contact ? tr('있음', 'yes') : tr('없음', 'no')}</td></tr>`).join('')}</table>
     <p class="note" style="margin:4px">${tr('* 셀 중심·구간별 상수 열유속으로 이 화면에서 다시 더한 근사입니다. 공식 판정은 셀 경계로 나눈 점유 구간 검사(기록값)입니다.', '* Re-summed in this view with cell-centre, piecewise-constant flux. The official verdict uses the occupancy-interval check split at cell edges (recorded values).')}</p>
     <h4>${tr('누적 열 노출', 'Cumulative heat dose')} D̂(t) <small>${tr('log · 점선 = D_lim', 'log · dashed = D_lim')}</small></h4><svg class="svgbox" id="rtDose"></svg>
-    <h4>${tr('점유 구간 검사', 'Occupancy check')} <small>${tr('보고서 그림 5 · 파랑 = 차량 점유 · 색 막대 = scenario 화염 구간', 'report Fig. 5 · blue = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>`;
+    <h4>${tr('점유 구간 검사', 'Occupancy check')} <small>${tr('보고서 그림 5 · 파랑 = 차량 점유 · 색 막대 = 시나리오 화염 구간', 'report Fig. 5 · blue = vehicle occupancy · bars = scenario flame intervals')}</small></h4><svg class="svgbox" id="rtOcc"></svg><p class="note" id="rtOccNote" style="margin:4px"></p>`;
   bindRouteTab(el); const tok = ++routeTabTok;
   requestAnimationFrame(() => { if (tok !== routeTabTok) return; if (p.exp) drawDose($('rtDose'), sc, state.detail ? (state.t - sc.r.t0) * 3600 : null, true); const n = drawOccupancy($('rtOcc'), sc).flames;
-    $('rtOccNote').textContent = n ? tr(`화염 구간 ${n}개가 표시됩니다. 차량 점유와 겹치지 않아야 통과합니다.`, `${n} flame intervals shown. The route passes only if none overlaps the vehicle’s occupancy.`) : tr('이 경로가 지나는 셀에는 네 scenario 모두 이 1시간 동안 화염 구간이 없습니다 (접촉 없음).', 'No scenario has a flame interval in the cells this route crosses during the hour (no contact).'); });
+    $('rtOccNote').textContent = n ? tr(`화염 구간 ${n}개가 표시됩니다. 차량 점유와 겹치지 않아야 통과합니다.`, `${n} flame intervals shown. The route passes only if none overlaps the vehicle’s occupancy.`) : tr('이 경로가 지나는 셀에는 네 시나리오 모두 이 1시간 동안 화염 구간이 없습니다 (접촉 없음).', 'No scenario has a flame interval in the cells this route crosses during the hour (no contact).'); });
 }
 function bindRouteTab(el) {
   el.querySelectorAll('.cases button').forEach(b => b.onclick = () => openCase(+b.dataset.i));
@@ -2132,7 +2217,7 @@ function buildModelTab() {
       <table class="mini"><tr><th>kernel</th><th>a<sub>s</sub></th><th>${tr('rate 비중 검증/평가', 'rate share val/test')}</th><th>${tr('제거 시 Brier', 'Brier if removed')}</th></tr>${KERNELS.map(k => `<tr><td>${k[0]}×${k[0]}</td><td>${k[1].toFixed(3)}</td><td>${k[3].toFixed(1)}% / ${k[4].toFixed(1)}%</td><td>+${k[5].toFixed(6)}</td></tr>`).join('')}</table>
       <p class="note" style="margin:4px 0 0">${tr('표: 보고서 표 6 (선택 checkpoint c651). 9×9 분기가 rate에 가장 크게 기여(최대 1.5 km 범위).', 'Table: report Table 6 (selected checkpoint c651). The 9×9 branch contributes most to the rate (up to 1.5 km reach).')}</p>
       <div class="live" id="lv1"></div></div>
-    <div class="stage s2"><h5><i>02</i>${tr('복사열 계산', 'Radiant heat')} <small style="color:var(--muted);font-weight:400">${tr('화재 scenario 4개 → 열유속', '4 fire scenarios → heat flux')}</small></h5>
+    <div class="stage s2"><h5><i>02</i>${tr('복사열 계산', 'Radiant heat')} <small style="color:var(--muted);font-weight:400">${tr('화재 시나리오 4개 → 열유속', '4 fire scenarios → heat flux')}</small></h5>
       <div class="f">Q<sub>source</sub> = c·H / T  → ${(a.fuel_load_kg_m2 * a.consumed_fraction).toFixed(1)} kg/m² × ${(a.heat_of_combustion_j_kg / 1e6).toFixed(3)} MJ/kg ÷ ${(a.burning_duration_s || 0).toFixed(0)} s = ${(Q / 1000).toFixed(2)} kW/m²<br>S<sub>i</sub> = χ Q (χ = ${a.radiative_fraction}),  F(x) = Σ<sub>i</sub> G<sub>i</sub>(x) S<sub>i</sub> m<sub>i</sub>  [kW/m²]<br>scenario: ${tr('점화 시각 균등 배정 · 독립', 'ignition times spread evenly · independent')} · seed ${a.seed} · ${tr('방출 높이', 'emission height')} ${a.emission_height_m} m</div>
       <div class="live" id="lv2"></div></div>
     <div class="stage s3"><h5><i>03</i>${tr('경로 탐색', 'Route search')} <small style="color:var(--muted);font-weight:400">${tr('열 노출 제한조건 A*', 'heat-exposure-constrained A*')}</small></h5>
@@ -2140,7 +2225,7 @@ function buildModelTab() {
       <div class="live" id="lv3"></div></div>
     <div class="grp-h" style="margin-top:12px"><span>${tr('보고서 기록 결과', 'Reported results')}</span><span>${tr('이 화면에서 다시 계산하지 않음', 'not recomputed here')}</span></div>
     <table class="mini"><tr><td>${tr('예측 AP (재구성 평가)', 'Forecast AP (reconstructed test)')}</td><td>0.162 vs ${tr('기준', 'baseline')} 0.092 <span class="note">${tr('(한국 AP는 기준보다 낮음)', '(Korean AP below baseline)')}</span></td></tr><tr><td>${tr('Wapiti 25구간 Brier · AP', 'Wapiti 25 intervals Brier · AP')}</td><td>0.0084 · 0.146 (FARSITE 0.0238 · 0.063) <span class="note">${tr('(시험 지역 1곳)', '(one test region)')}</span></td></tr>
-      <tr><td>${tr('routing 해결 (30초 · 20 case)', 'Routing resolved (30 s · 20 cases)')}</td><td>20/20 ${tr('(범위가 정해진 거절 5 포함)', '(incl. 5 scoped refusals)')} vs 13/20</td></tr><tr><td>${tr('이동시간만 고려한 route 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
+      <tr><td>${tr('경로 탐색 해결 (30초 · 20개 사례)', 'Routing resolved (30 s · 20 cases)')}</td><td>20/20 ${tr('(범위가 정해진 거절 5 포함)', '(incl. 5 scoped refusals)')} vs 13/20</td></tr><tr><td>${tr('이동시간만 고려한 경로 접촉', 'Travel-only routes touching flame')}</td><td>8/20</td></tr>
       <tr><td>${tr('요청 시간 중앙값 (함께 해결된 26쌍)', 'Median request time (26 jointly resolved pairs)')}</td><td>${tr('제안 8.006초 vs 기준 7.344초 (제안이 느림)', 'candidate 8.006 s vs reference 7.344 s (candidate slower)')}</td></tr><tr><td>${tr('영덕 도로 준비 (별도 입력·별도 실험)', 'Yeongdeok road preparation (separate input and experiment)')}</td><td>28.523${tr('초', ' s')} → 2.219${tr('초', ' s')} (−92.2%)</td></tr></table>`;
   renderLive();
 }
@@ -2172,7 +2257,7 @@ $('speed').onchange = e => { state.speed = +e.target.value; };
 addEventListener('keydown', e => {
   if (e.target.closest('input,select,textarea,button,[contenteditable=true]')) return;
   if (e.code === 'Space') { e.preventDefault(); if (e.repeat) return;
-    navCancelReplay(); if (NAV.on && NAV.street) { setPlaying(false); navAuto(!NAV.auto); } else $('play').click();
+    navCancelReplay(); $('play').click();
   }
 });
 let prevRec = null, prevBooth = null;
@@ -2316,7 +2401,7 @@ function switchLang(l) { try { localStorage.setItem('wfg3d.lang', l); } catch (e
 const SAT_Z = 16, SAT_R = 2, SAT_N = 2048;
 const sat = { mesh: null, photo: null, out: null, key: '', gen: -1, t: 0, want: null };
 function satTick(kmPerPx) {
-  const on = L.base.on && kmPerPx < .006 && !(NAV.real || NAV.street) && NAV.netOk !== false;
+  const on = L.base.on && kmPerPx < .006 && !NAV.real && NAV.netOk !== false;
   if (sat.mesh) sat.mesh.visible = on && sat.ready;
   const rop = sat.mesh?.visible ? .4 : 1; for (const m of detailGroup.userData.roads || []) m.material.opacity = rop;     // over the photo the roads are already visible: lighter lines
   if (!on) return;
@@ -2392,8 +2477,9 @@ function frame(now) {
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
   const day = smooth(-4, 14, sun.el), dusk = Math.exp(-Math.pow(sun.el / 7, 2));
   sunL.position.set(Math.sin(az) * Math.cos(el) * 110, Math.max(.05, Math.sin(el)) * 110 + 4, -Math.cos(az) * Math.cos(el) * 110);
-  sunL.intensity = .25 + 1.6 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
-  hemi.intensity = .2 + .3 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
+  sunL.intensity = .5 + 1.35 * day;     // at night a cool moonlight keeps the terrain readable
+  sunL.color.setRGB(.72 + .28 * day, .8 + (.02 + .16 * (1 - dusk)) * day, .95 + (-.33 + .3 * (1 - dusk)) * day);
+  hemi.intensity = .38 + .12 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
   _sc.copy(sky.night).lerp(sky.day, day).lerp(sky.dusk, dusk * .55 * (day > .05 ? 1 : .4));
   renderer.setClearColor(_sc);
   skyMat.uniforms.horizon.value.copy(_sc); skyMat.uniforms.top.value.copy(skyTop.night).lerp(skyTop.day, day).lerp(skyTop.dusk, dusk * .35 * (day > .05 ? 1 : .3));
@@ -2411,11 +2497,11 @@ function frame(now) {
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (NAV.real || NAV.street) { /* the real map or road view covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
-  detailGroup.visible = L.base.on && kmPerPx < .012 && !(NAV.real || NAV.street);     // close-up roads and buildings below ~12 m per pixel
+  detailGroup.visible = L.base.on && kmPerPx < .012 && !NAV.real;     // close-up roads and buildings below ~12 m per pixel
   satTick(kmPerPx);
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }
@@ -2437,7 +2523,7 @@ async function boot() {
     dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
   ctxDone.catch(e => console.warn('Optional surrounding terrain unavailable', e));
-  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
+  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.rname = r.name; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + caseIdLabel(r.name); RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   // close-up roads and buildings: loaded after the first picture, built once
   setTimeout(() => window.__wfgLoad(RID + '.detail.js').then(ok => { const D = ok && (window.WFG_DETAIL || {})[RID]; if (D) { buildDetail(D); dirty = true; } }), 1500);
@@ -2459,7 +2545,18 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x),
+    // what the map draws as fire within km of a point at time t (hours): recorded burned / burning cells, model flame, heat
+    fireNear: (lon, lat, km, t) => { const near = i => { const [x, y] = cellCenter(i); return Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57) <= km; };
+      const k = recIdx(t), qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null, o = { burned: 0, burning: 0, flame: 0, heat: 0, maxF: 0 };
+      for (let i = 0; i < NCELL; i++) { if (!near(i)) continue; if (k >= 0 && burnedAt(i, k)) o.burned++; if (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i)) o.burning++;
+        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= .4) o.heat++; o.maxF = Math.max(o.maxF, F); } }
+      return o; },
+    setLayer: (id, on) => setLayer(id, on),
+    fireDist: (lon, lat, t) => { const qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null; let fl = Infinity, ht = Infinity;
+      for (let i = 0; i < NCELL; i++) { const [x, y] = cellCenter(i), d = Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57);
+        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= .4) ht = Math.min(ht, d); }
+      return { flame: fl, heat: ht }; }, detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
     look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
@@ -2494,9 +2591,8 @@ const NAV_ROUTES = [
   ['full', tr('점검된 길', 'Checked route'), tr('화재 위험 검사 통과', 'passes the fire-risk check')],
   ['travel_only', tr('가장 빠른 길', 'Fastest route'), tr('이동 시간만 고려', 'travel time only')],
 ];
-// views: street-level photos along the route (Kakao Roadview, stepped with buttons or driven automatically), a chase camera
-// on a real 3D map (satellite photos on terrain), or the 2D road map
-// photo views need the internet (Kakao, Esri tiles); without it (offline folder at the venue) only the 2D map is offered, and nothing waits on a server
+// views: a chase camera on a real 3D map (satellite photos on terrain), or the 2D road map
+// the 3D view needs the internet (Esri tiles); without it (offline folder at the venue) only the 2D map is offered, and nothing waits on a server
 const navOnline = () => navigator.onLine !== false && location.protocol !== 'file:' && NAV.netOk !== false;
 // one small request decides whether the map hosts can be reached (a network without internet, e.g. venue Wi-Fi, still reads
 // as online): without it, hundreds of tile requests would fail one by one while the page waits
@@ -2505,7 +2601,7 @@ const navNet = () => navNetP ??= !navOnline() ? Promise.resolve(false) : new Pro
   const ac = new AbortController(), to = setTimeout(() => ac.abort(), 4000);
   fetch(NAV_TILES.dem.replace('{z}', 0).replace('{x}', 0).replace('{y}', 0), { mode: 'cors', signal: ac.signal, cache: 'no-store' })
     .then(r => r.ok, () => false).then(v => { clearTimeout(to); NAV.netOk = v; if (!v && NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } ok(v); }); });
-const NAV_VIEWS = [['street', tr('로드뷰', 'Road view')], ['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
+const NAV_VIEWS = [['chase', tr('3D 위성', '3D satellite')], ['2d', tr('2D 지도', '2D map')]];
 const navNum = x => x < 1e-4 ? '< 0.0001' : x < .01 ? x.toExponential(1) : x.toPrecision(2);
 const navName = l => l ? (EN ? (l.ne || l.n) : l.n) : '';
 const navClock = h => { const d = kst(h); return `${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}`; };
@@ -2533,7 +2629,7 @@ function navSteps(sc, p) {
   for (const h of hits) { if (run && h.i === run.b + 1) { run.b = h.i; h.ms.forEach(m => run.ms.add(m)); } else { run = { a: h.i, b: h.i, ms: new Set(h.ms) }; runs.push(run); } }
   for (const r of runs) { const a = d[r.a], b = d[Math.min(d.length - 1, r.b + 1)], near = navNear(a.u, a.v, 2.5);
     steps.push({ s: a.ts, s2: b.ts, kind: 'fire', km: a.d, text: tr(`화염 속을 지남${near ? ' · ' + navName(near) + ' 부근' : ''}`, `Drives through flame${near ? ' · near ' + navName(near) : ''}`),
-      sub: tr(`${Math.max(.1, b.d - a.d).toFixed(1)} km · 화재 scenario ${r.ms.size}/4개에서 화염`, `${Math.max(.1, b.d - a.d).toFixed(1)} km · flame in ${r.ms.size} of 4 fire scenarios`) }); }
+      sub: tr(`${Math.max(.1, b.d - a.d).toFixed(1)} km · 화재 시나리오 ${r.ms.size}/4개에서 화염`, `${Math.max(.1, b.d - a.d).toFixed(1)} km · flame in ${r.ms.size} of 4 fire scenarios`) }); }
   const dest = navDest(sc);
   steps.push({ s: p.arr, kind: 'end', km: last.d, text: tr(`도착 · ${dest || navName(end)} 대피소`, `Arrive · ${dest || navName(end)} shelter`) });
   if (p.dwell_s) steps.push({ s: p.arr + p.dwell_s, kind: 'dwell', km: last.d, text: tr(`대피소에서 ${Math.round(p.dwell_s / 60)}분 머묾 (점검 포함)`, `${Math.round(p.dwell_s / 60)} min at the shelter (checked too)`) });
@@ -2543,21 +2639,12 @@ function navInit() {
   NAV.ci = CASES.findIndex(c => c.r.case === NAV_CASES[B.id] && (c.pol.travel_only?.dense?.length || 0) > 1);
   if (NAV.ci < 0) return;
   NAV.pol = navHas('full') ? 'full' : 'travel_only';
-  window.__wfgLoad(B.id + '.pano.js').then(() => { NAV.ids = null; });     // the baked photo list, when there is one
   $('tabNav').hidden = false;
   NAV.car = addDom('navcar', '<i></i>', 0, 0, { layer: 'routes', lift: .06, show: false });
   NAV.car2 = addDom('navcar alt', '<i></i><b></b>', 0, 0, { layer: 'routes', lift: .06, show: false });     // the other route's car (race)
   NAV.race = true;
   setTimeout(() => (window.requestIdleCallback || setTimeout)(navWarm, { timeout: 1500 }), 1200);
-  // road view first (its photos come from Kakao, not the map hosts): library, first photo and photo list straight away
   addEventListener('online', () => { navNetP = null; NAV.netOk = null; NAV.on && navPanel(); }); addEventListener('offline', () => { if (NAV.on) { if (NAV.view !== '2d') navView('2d'); else navPanel(); } });
-  if (navKey() && !isPhone && navOnline()) setTimeout(() => navNet().then(up => up && (() => { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); })()), 500);
-  // the Kakao key can come with the link (#…&kakao=KEY): kept in this browser, then taken out of the address
-  const hp = new URLSearchParams(location.hash.slice(1));
-  if (hp.get('kakao')) { navKeySet(hp.get('kakao')); hp.delete('kakao'); history.replaceState(null, '', '#' + hp.toString()); }
-  addEventListener('keydown', e => { if (!NAV.street || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
-    const k = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
-    if (k) { e.preventDefault(); navAuto(false); navSvStep(k * (e.shiftKey ? 5 : 1)); } });
 }
 function navEnter() {
   if (NAV.on || NAV.ci < 0) { if (NAV.on) navPanel(); return; }
@@ -2570,13 +2657,13 @@ function navEnter() {
   setBase('road');
   const sc = CASES[NAV.ci]; if (sc.k >= 0) setDetail(true, sc.k);
   mapEl.classList.add('nav'); $('navHud').hidden = false; $('navLegend').hidden = false;
-  navView(navOnline() ? NAV.view || (navKey() ? 'street' : 'chase') : '2d', true); navRoute(NAV.pol); navToMap();
+  navView(navOnline() ? NAV.view || 'chase' : '2d', true); navRoute(NAV.pol); navToMap();
 }
 // phones: the map sits above the panel, so bring it into view when navigation opens or the view changes
 const navToMap = () => { if (matchMedia('(max-width: 860px)').matches) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 function navExit(to = 'pRoute') {
   navCancelReplay();
-  if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false); navStreet(false);
+  if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false);
   const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true; $('navLegend').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
   state.pols = pv.pols; setBase(pv.base2d); if (pv.mode !== state.mode) setMode(pv.mode);
@@ -2587,9 +2674,9 @@ function navExit(to = 'pRoute') {
 function navRoute(pol) {
   navCancelReplay();
   NAV.pol = pol; NAV.camBear = NAV.camC = null; const sc = CASES[NAV.ci], p = sc.pol[pol];
-  NAV.steps = navSteps(sc, p); NAV.cur = -1; NAV.sv = navSvSamples(p.dense); NAV.svI = 0; navResolve(); buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); if (NAV.real) navMapRoute();
+  NAV.steps = navSteps(sc, p); NAV.cur = -1; buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); if (NAV.real) navMapRoute();
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
-  if (NAV.view === 'street') { navAuto(false); navSvGo(0); } else setPlaying(true, Number($('speed').value) || 1);
+  setPlaying(true, Number($('speed').value) || 1);
 }
 // the recorded spread, fast: from the first burn record to the departure (about 15 s), with both routes on the map; the
 // burned area grows at each record time and the modelled flame shows in the hour after each model input. Then the
@@ -2600,7 +2687,6 @@ function navCancelReplay() {
 }
 function navReplay() {
   const sc = CASES[NAV.ci], dep = sc.r.t0 + sc.pol[NAV.pol].dep / 3600, a = Math.min(REC[0] ?? dep - 6, dep - .5);
-  if (NAV.view === 'street') navView('2d');
   navCancelReplay(); setPlaying(false); setDetail(false);
   const token = NAV.rpToken;
   let lb = $('navReplayLb'); if (!lb) { lb = document.createElement('div'); lb.id = 'navReplayLb'; lb.className = 'nav-replay'; mapEl.appendChild(lb); }
@@ -2637,15 +2723,12 @@ function navPanel() {
       <span class="${ok ? 'ok' : 'bad'}">${ok ? tr('✓ 화염 접촉 없음 · 열 한도 이하', '✓ no flame contact · within heat limits') : tr(`✕ ${(p.full_check.components || []).includes('FLAME') ? '화염 통과' : '위험 검사 불통과'} (${(p.full_check.components || []).map(c => ({ FLAME: '화염', WHOLE_ROAD_CONTACT: '도로 접촉', DOSE: '누적 노출', PEAK: '순간 열유속' }[c] || c)).join(' · ')})`, `✕ ${(p.full_check.components || []).includes('FLAME') ? 'through flame' : 'fails the risk check'} (${(p.full_check.components || []).join(', ').toLowerCase().replace(/_/g, ' ')})`)}</span></button>`; };
   el.innerHTML = `<div class="nav">
     <div class="nav-h"><b>${tr(`${B.name.ko} 산불 · ${navDate(r.t0)} ${navClock(r.t0)} 출발`, `${B.name.en} fire · depart ${navDate(r.t0)} ${navClock(r.t0)}`)}</b>
-      <small>${tr(`기록된 경로 점검 사례 ${r.label} · 화재 scenario 4개`, `Recorded route-check case ${r.label} · 4 fire scenarios`)}</small></div>
+      <small>${tr(`기록된 경로 점검 사례 ${r.label} · 화재 시나리오 4개`, `Recorded route-check case ${r.label} · 4 fire scenarios`)}</small></div>
     <div class="nav-od"><div><i class="o"></i>${tr(`출발 · ${start ? navName(start) + ' 부근 ' : ''}(연구 사례 출발지)`, `From · ${start ? 'near ' + navName(start) + ' ' : ''}(research origin)`)}</div>
       <div><i class="d"></i>${tr(`도착 · ${dest} 대피소`, `To · ${dest} shelter`)}</div></div>
     <div class="seg nav-views" role="group">${NAV_VIEWS.map(([v, n]) => `<button type="button" data-view="${v}" aria-pressed="${v === NAV.view}"${(NAV.realErr || !navOnline()) && v !== '2d' ? ` disabled title="${tr('인터넷 연결이 있어야 합니다', 'Needs an internet connection')}"` : ''}>${n}</button>`).join('')}</div>
-    ${!navOnline() ? `<p class="note nav-err">${tr('인터넷 없이 여는 중: 2D 지도로 보여 줍니다. 3D 위성과 로드뷰는 인터넷이 있을 때 켜집니다.', 'Opened without internet: shown on the 2D map. 3D satellite and road view turn on with an internet connection.')}</p>` : ''}
+    ${!navOnline() ? `<p class="note nav-err">${tr('인터넷 없이 여는 중: 2D 지도로 보여 줍니다. 3D 위성은 인터넷이 있을 때 켜집니다.', 'Opened without internet: shown on the 2D map. The 3D satellite view turns on with an internet connection.')}</p>` : ''}
     ${navOnline() && NAV.realErr ? `<p class="note nav-err">${tr('3D 실제 지도를 불러오지 못했습니다. 위성 사진과 지형은 인터넷 연결이 있어야 보입니다.', 'Could not load the real 3D map. Satellite photos and terrain need an internet connection.')}</p>` : ''}
-    ${NAV.view === 'street' || !navKey() ? `<details class="nav-key"${navKey() ? '' : ' open'}><summary>${tr('로드뷰 키 (카카오)', 'Road view key (Kakao)')}${navKey() ? ' ✓' : ''}</summary>
-      <p>${tr('카카오 개발자 사이트(developers.kakao.com)에서 만든 JavaScript 키를 넣으세요. 이 브라우저에만 저장되고 저장소에는 올라가지 않습니다. 앱 설정의 Web 플랫폼에 이 주소를 등록해야 합니다:', 'Paste the JavaScript key from developers.kakao.com. It is kept in this browser only, never in the repository. Register this address under the app\'s Web platform:')} <code>${location.origin}</code></p>
-      <div><input id="navKey" type="password" autocomplete="off" placeholder="${tr('JavaScript 키', 'JavaScript key')}" value=""> <button type="button" class="btn" id="navKeySave">${tr('저장', 'Save')}</button>${navKey() ? ` <button type="button" class="btn" id="navKeyClear">${tr('지우기', 'Remove')}</button>` : ''}</div></details>` : ''}
     <div class="nav-rts">${NAV_ROUTES.map(card).join('')}</div>
     ${navOther() ? `<div class="seg nav-show" role="group" aria-label="${tr('보여 줄 길', 'Routes shown')}">${[['both', tr('두 길 함께', 'Both routes')], ['full', tr('점검된 길만', 'Checked route only')], ['travel_only', tr('불 통과 길만', 'Through-fire route only')]].map(([k, n]) =>
       `<button type="button" data-show="${k}" aria-pressed="${k === (NAV.race ? 'both' : NAV.pol)}">${n}</button>`).join('')}</div>` : ''}
@@ -2656,15 +2739,13 @@ function navPanel() {
 </div>
     <h4>${tr('경로 안내', 'Directions')} <small>${tr('누르면 그 순간으로', 'click to jump there')}</small></h4>
     <ol class="nav-steps">${NAV.steps.map((st, i) => `<li class="${st.kind}" data-i="${i}"><time>${navClock(r.t0 + st.s / 3600)}</time><span>${st.text}${st.sub ? `<small>${st.sub}</small>` : ''}</span><em>${st.km.toFixed(1)} km</em></li>`).join('')}</ol>
-    <p class="note">${tr('차는 경로 엔진이 이 사례에서 계산한 출발·도착 시각대로 움직입니다. 불은 경로 점검에 쓴 화재 위험 입력(모델, 화재 scenario 4개 중 가장 나쁜 값)입니다: 빨강 = 화염, 주황 = 복사 열, 검정 = 기록된 연소 범위. 빨간 길 = 차가 지나는 그 시각에 화염인 칸으로, 기록된 전체 위험 검사 결과와 같습니다. OSM 자료에 도로 이름이 없어 가까운 마을 이름으로 안내합니다. 3D 시점은 위성 사진(Esri)과 실제 지형(Terrain Tiles) 위에 같은 기록 자료를 평평하게 겹친 것입니다. 사진은 화재 당시가 아니라 다른 시기에 찍은 것이며, 인터넷 연결이 필요합니다. 연구 재현이며 실제 대피 지시가 아닙니다.',
+    <p class="note">${tr('차는 경로 엔진이 이 사례에서 계산한 출발·도착 시각대로 움직입니다. 불은 경로 점검에 쓴 화재 위험 입력(모델, 화재 시나리오 4개 중 가장 나쁜 값)입니다: 빨강 = 화염, 주황 = 복사 열, 검정 = 기록된 연소 범위. 빨간 길 = 차가 지나는 그 시각에 화염인 칸으로, 기록된 전체 위험 검사 결과와 같습니다. OSM 자료에 도로 이름이 없어 가까운 마을 이름으로 안내합니다. 3D 시점은 위성 사진(Esri)과 실제 지형(Terrain Tiles) 위에 같은 기록 자료를 평평하게 겹친 것입니다. 사진은 화재 당시가 아니라 다른 시기에 찍은 것이며, 인터넷 연결이 필요합니다. 연구 재현이며 실제 대피 지시가 아닙니다.',
       'The car moves by the departure and arrival times the routing engine computed for this case. The fire is the hazard input used for route checking (model, worst of 4 fire scenarios): red = flame, orange = radiant heat, black = recorded burned area. Red road = cells in flame at the moment the car passes, matching the recorded full-risk check. OSM has no road names here, so directions use nearby villages. The 3D views lay the same recorded data flat on satellite photos (Esri) and real terrain (Terrain Tiles); the photos were taken at another time, not during the fire, and need an internet connection. A research replay, not an evacuation instruction.')}</p>
     <button type="button" class="btn" id="navExit">${tr('길 안내 끝내기', 'Leave navigation')}</button></div>`;
   el.querySelectorAll('.nav-rt').forEach(b => b.onclick = () => navRoute(b.dataset.pol));
   el.querySelectorAll('.nav-views button').forEach(b => b.onclick = () => { navView(b.dataset.view); navToMap(); });
   el.querySelectorAll('.nav-steps li').forEach(li => li.onclick = () => { const st = NAV.steps[+li.dataset.i]; setPlaying(false); navToMap(); setTime(r.t0 + (st.kind === 'fire' ? (st.s + st.s2) / 2 : st.s) / 3600); });
-  if ($('navKeySave')) $('navKeySave').onclick = () => { const v = $('navKey').value.trim(); if (!v) return; navKeySet(v); if (window.kakao?.maps) location.reload(); else { navPanel(); if (NAV.view === 'street') navStreet(true); else navView('street'); } };
-  if ($('navKeyClear')) $('navKeyClear').onclick = () => { navKeySet(''); location.reload(); };
-  $('navPlay').onclick = () => { if (NAV.street) return navAuto(!NAV.auto); const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
+  $('navPlay').onclick = () => { const p = sc.pol[NAV.pol], s = (state.t - r.t0) * 3600; if (!state.playing && s >= p.arr + p.dwell_s) setTime(r.t0 + Math.max(0, p.dep - 20) / 3600); setPlaying(!state.playing, Number($('speed').value) || 1); };
   $('navRestart').onclick = () => navRoute(NAV.pol);
   $('navReplay').onclick = () => navReplay();
   document.querySelectorAll('#pNav .nav-show button').forEach(b => b.onclick = () => { const k = b.dataset.show; navHudKey = ''; NAV.camC = null;
@@ -2696,7 +2777,7 @@ function navCarAt(p, s, k) {
   return { q, moving, fl, F, cls: !moving ? 'idle' : fl || F >= p.limits.peak_kw_m2 ? 'fire' : F >= p.limits.peak_kw_m2 * .1 ? 'warn' : 'ok' };
 }
 const navOther = () => navPols().find(x => x !== NAV.pol);
-const navRacing = () => NAV.race && !!navOther() && !NAV.street;
+const navRacing = () => NAV.race && !!navOther();
 function navFrame(t) {
   if (!NAV.car) return;
   NAV.car.show = NAV.on && NAV.view === '2d'; NAV.car2.show = NAV.on && NAV.view === '2d' && navRacing(); if (!NAV.on) return;
@@ -2717,12 +2798,13 @@ function navFrame(t) {
   navGraphNow(s);
   const cur = NAV.steps.reduce((c, st, i) => st.s <= s + .5 ? i : c, -1);
   if (cur !== NAV.cur) { NAV.cur = cur; document.querySelectorAll('#pNav .nav-steps li').forEach((li, i) => li.classList.toggle('now', i === cur)); }
-  const play = $('navPlay'); if (play) play.textContent = NAV.street ? (NAV.auto ? tr('자동 주행 정지', 'Stop driving') : tr('자동 주행', 'Drive')) : state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
+  const play = $('navPlay'); if (play) play.textContent = state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
   const phase = s < p.dep ? tr('출발 전', 'Before departure') : s <= p.arr ? tr(`출발 후 ${fmtS(s - p.dep)}`, `${fmtS(s - p.dep)} after departure`) : s <= p.arr + p.dwell_s ? tr('대피소 도착 · 머무는 중', 'At the shelter') : tr('도착 완료', 'Arrived');
   // at the car's position now; whole-road contact is in the recorded check on the route card
-  const stTxt = !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 scenario ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
   const fk = [recIdx(t), inpIdx(t), hzSig(t), (q.d * 10).toFixed(0)].join(':'); if (fk !== NAV.fireK) { NAV.fireK = fk; NAV.fire = navFireNear(t, s, q); } const fire = NAV.fire;
-  const oTxt = o ? `${NAV_ROUTES.find(x => x[0] === navOther())[1]}: ${!o.moving ? (s < op.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : o.fl ? tr(`화염 속 (scenario ${o.fl}/4)`, `in flame (${o.fl} of 4)`) : o.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음', 'no flame')}` : '';
+  const atShelter = s > p.arr, clear = fire.km == null || fire.km >= .3, kmTxt = fire.km == null ? '' : tr(` · 가장 가까운 불 ${fire.km.toFixed(1)} km`, ` · nearest fire ${fire.km.toFixed(1)} km`);
+  const stTxt = atShelter && clear && !fl ? tr(`대피소 도착 · 대피소에 불 없음${kmTxt}`, `At the shelter · no fire at the shelter${kmTxt}`) : !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 시나리오 ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
+  const oTxt = o ? `${NAV_ROUTES.find(x => x[0] === navOther())[1]}: ${!o.moving ? (s < op.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : o.fl ? tr(`화염 속 (시나리오 ${o.fl}/4)`, `in flame (${o.fl} of 4)`) : o.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음', 'no flame')}` : '';
   const key = [navClock(t), phase, stTxt, q.d.toFixed(1), F.toPrecision(2), D.toPrecision(2), NAV.pol, fire.km, fire.dir?.[1], oTxt, o?.cls].join('|');
   if (key !== navHudKey) { navHudKey = key; const name = NAV_ROUTES.find(x => x[0] === NAV.pol)[1];
     $('navHud').innerHTML = `<div class="nh-st ${state_}">${stTxt}</div>${o ? `<div class="nh-race ${o.cls}"><i></i>${oTxt}</div>` : ''}
@@ -2732,8 +2814,7 @@ function navFrame(t) {
         <dt class="ph-x">${tr('차 위치 복사 열', 'Heat at the car')}</dt><dd class="ph-x">${navNum(F)} kW/m² <small>${tr('한도', 'limit')} ${lim.peak_kw_m2}</small></dd>
         <dt class="ph-x">${tr('누적 열 노출', 'Heat dose so far')}</dt><dd class="ph-x">${navNum(D)} kJ/m² <small>${tr('한도', 'limit')} ${fmtLim(lim.dose_kj_m2)}</small></dd></dl>`; }
   navFlames2D(t);
-  if (NAV.street) navSvFrame(t, p, s, q);
-  else if (NAV.view !== '2d') navMapFrame(t, p, q, state_, cut);
+  if (NAV.view !== '2d') navMapFrame(t, p, q, state_, cut);
 }
 
 // ---- 2D navigation: flames as glowing, flickering points over the map (modelled flame and cells burning in the record) ----
@@ -2744,8 +2825,8 @@ function navFlames2D(t) {
   if (!NAV.fl2) { if (!on) return;
     const mat = (tex, size) => new THREE.PointsMaterial({ map: tex, size, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
     const [a, b] = [cellCenter(0), cellCenter(1)], cw = Math.abs(sxU(uOf(b[0])) - sxU(uOf(a[0]))) || .1;
-    NAV.fl2 = { cw, glow: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,90,20,.9)'], [.45, 'rgba(255,60,10,.35)'], [1, 'rgba(255,40,0,0)']]), cw * 5)),
-      core: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,250,200,1)'], [.35, 'rgba(255,200,60,.9)'], [1, 'rgba(255,90,0,0)']]), cw * 2.2)) };
+    NAV.fl2 = { cw, glow: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,90,20,.9)'], [.45, 'rgba(255,60,10,.35)'], [1, 'rgba(255,40,0,0)']]), cw * 2.4)),
+      core: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,250,200,1)'], [.35, 'rgba(255,200,60,.9)'], [1, 'rgba(255,90,0,0)']]), cw * 1.4)) };
     NAV.fl2.glow.renderOrder = NAV.fl2.core.renderOrder = 20; scene.add(NAV.fl2.glow, NAV.fl2.core); }
   const F = NAV.fl2; F.glow.visible = F.core.visible = on; if (!on) return;
   const zk = hzK(t), qi = inpIdx(t), key = hzSig(t) + ':' + qi + ':' + state.member;
@@ -2755,7 +2836,7 @@ function navFlames2D(t) {
     const pos = []; for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat); pos.push(sxU(u), yAt(u, v) + .02, szV(v)); }
     for (const o of [F.glow, F.core]) { o.geometry.dispose(); o.geometry = new THREE.BufferGeometry(); o.geometry.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); } }
   const now = performance.now() / 1000, k = .5 + .5 * Math.sin(now * 8.5) * Math.sin(now * 4.7);
-  F.glow.material.size = F.cw * (4.4 + 1.4 * k); F.glow.material.opacity = .7 + .3 * k; F.core.material.size = F.cw * (1.9 + .6 * (1 - k));
+  F.glow.material.size = F.cw * (2.1 + .5 * k); F.glow.material.opacity = .7 + .3 * k; F.core.material.size = F.cw * (1.2 + .3 * (1 - k));
 }
 
 // ---- distance to the nearest fire along each route (a sample every 30 s of the trip), drawn under the route cards ----
@@ -2802,11 +2883,13 @@ function navView(v, quiet) {
   if (v !== 'chase' && NAV.free) navFree(false);
   NAV.view = v; NAV.hd = null; NAV.camC = null;
   if (state.mode !== '2d') setMode('2d');
-  navStreet(v === 'street'); navReal(v === 'chase'); if (v === '2d') navFit();
+  navReal(v === 'chase'); if (v === '2d') navFit();
   if (!quiet) navPanel();
 }
 function navReal(on) {
   NAV.real = on; mapEl.classList.toggle('nav3d', on);
+  // the 2D map image is not redrawn while the 3D map covers it: redraw it now, or it shows the fire of an earlier moment
+  if (!on) { lastKey = ''; dirty = true; }
   let el = $('navReal'); if (!on) { if (el) { el.classList.add('warm'); $('navPhoto').hidden = true; } return; }     // kept, hidden: ready next time
   el = navRealEl(); el.classList.remove('warm');
   $('navPhoto').hidden = !NAV.tileErr; $('navPhoto').textContent = tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection');
@@ -2843,7 +2926,6 @@ function navWarmGo() {
   // the 3D map itself, built out of sight at the departure view: its first picture loads before anyone opens the view
   // and drawn once with the route and the fire, so its drawing programs are compiled now, not when a view opens
   navLib().then(() => { navRealEl(); return navMap(); }).then(map => { navMapRoute(); const sc = CASES[NAV.ci]; navFire(map, sc.r.t0 + sc.pol[NAV.pol].dep / 3600); map.triggerRepaint(); }).catch(() => { });
-  if (navKey()) { NAV.sv ??= navSvSamples(CASES[NAV.ci].pol[NAV.pol].dense); NAV.svI ??= 0; navStreetWarm(); navResolve(); }
 }
 // the 3D map's element: created once, hidden (class warm) when another view is shown
 function navRealEl() {
@@ -2960,13 +3042,16 @@ function navFlameImages(map) {
   map.addLayer({ id: 'flame', type: 'symbol', source: 'flame', layout: { 'icon-image': ['concat', 'fire', ['get', 'im']], 'icon-size': sz(.45), 'icon-anchor': 'bottom',
     'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
 }
+// heat is drawn in navigation from 0.1 kW/m² (a hundredth of the route limit); fainter heat, far below anything that
+// matters, would tint places the fire never reaches (fluxV log scale: 1e-6 … 1 kW/m²)
+const NAV_HEAT_V = 5 / 6;
 function navFire(map, t) {
   const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }
   const fk = hk + ':' + qi;
   if (fk !== NAV.heatK) { NAV.heatK = fk; const f = [], fl = new Set(), pts = [];
     if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member); fld.flame.forEach(i => fl.add(i));
-      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push({ type: 'Feature', properties: { w: .15 + .6 * smooth(.4, .9, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
+      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= NAV_HEAT_V) f.push({ type: 'Feature', properties: { w: .2 + .6 * smooth(NAV_HEAT_V, .97, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
     if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) fl.add(i);     // burning now in the record
     NAV.flCells = [...fl]; for (const i of fl) f.push({ type: 'Feature', properties: { w: 1 }, geometry: { type: 'Point', coordinates: cellCenter(i) } });
     map.getSource('heat').setData(fc(f)); }
@@ -3006,277 +3091,6 @@ function navMapFrame(t, p, q, cls, cut) {
   if (!NAV.camC || cut) { NAV.camC = aim.slice(); NAV.camZ = zoom; } else { NAV.camC[0] += (aim[0] - NAV.camC[0]) * .025; NAV.camC[1] += (aim[1] - NAV.camC[1]) * .025; NAV.camZ += (zoom - NAV.camZ) * .025; }
   if (NAV.free) return;
   map.jumpTo({ center: NAV.camC, bearing: NAV.camBear, pitch: 55, zoom: NAV.camZ, padding: { top: Math.round(map.getContainer().clientHeight * .15), bottom: 0, left: 0, right: 0 } });
-}
-
-// ---- 로드뷰: Kakao Roadview photos along the recorded route ----
-// Keys: one Kakao JavaScript key per web address it is registered for (site/kakao-keys.js); a key pasted in the panel
-// overrides it in that browser. Kakao serves only registered addresses, so road view does not work from file://.
-// The photos were taken at other times; the fire shown (inset map, box) is the recorded data at the moment the car would
-// be at that spot.
-// Smooth stepping: the photo nearest every 30 m stop of both routes is looked up once, ahead of time (kept in the
-// browser), and two road views take turns: the next photo loads, sharp, in the hidden one while the current one is
-// shown, then they cross-fade and the view turns gently towards the road ahead.
-const navKey = () => { try { return localStorage.getItem('wfgKakaoKey') || (window.WFG_KAKAO_KEYS || {})[location.origin] || ''; } catch { return (window.WFG_KAKAO_KEYS || {})[location.origin] || ''; } };
-const navKeySet = v => { try { v ? localStorage.setItem('wfgKakaoKey', v) : localStorage.removeItem('wfgKakaoKey'); } catch { } };
-let navKakaoP = null;
-function navKakao() {
-  return navKakaoP ??= new Promise((ok, no) => {
-    if (window.kakao?.maps?.Roadview) return ok();
-    if (!navKey()) return no(new Error('no key'));
-    setTimeout(() => no(new Error('timeout')), 15000);
-    navLoad('script', { src: `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(navKey())}&autoload=false` })
-      .then(() => window.kakao?.maps?.load ? kakao.maps.load(ok) : no(new Error('no kakao.maps')), no);
-  }).catch(e => { navKakaoP = null; throw e; });
-}
-// stops along the route every 30 m, each with the time the car is there
-function navSvSamples(dense) { const out = []; let next = 0; for (const q of dense) if (q.d >= next) { out.push(q); next = q.d + .03; } if (out[out.length - 1] !== dense[dense.length - 1]) out.push(dense[dense.length - 1]); return out; }
-const navSvMsg = t => { const m = $('navSvMsg'); if (m) m.textContent = t; };
-// ---- photo IDs along both routes, looked up once (four at a time) and kept in this browser ----
-const navIdKey = pol => `wfgPano:${B.id}:${CASES[NAV.ci].r.case}:${pol}`;
-// baked list first (site/regions/<id>.pano.js, tools/bake_panos.mjs), then this browser's own lookups
-function navIds(pol) {
-  NAV.ids ??= {};
-  if (!NAV.ids[pol]) { const bk = (window.WFG_PANO || {})[B.id]; let a = !NAV_BAKING && bk && bk.case === CASES[NAV.ci].r.case ? bk[pol] : null;
-    if (!a && !NAV_BAKING) try { a = JSON.parse(localStorage.getItem(navIdKey(pol)) || 'null'); } catch { }
-    const n = navSvSamples(CASES[NAV.ci].pol[pol].dense).length; NAV.ids[pol] = a && a.length === n ? a : new Array(n).fill(undefined); }
-  return NAV.ids[pol];
-}
-const NAV_BAKING = /(^#|&)bakepano=1(&|$)/.test(location.hash);
-window.__navPano = () => ({ case: NAV.ci >= 0 ? CASES[NAV.ci].r.case : null, pols: navPols(), ids: NAV.ids || {}, left: (NAV.resQ?.length || 0) + (NAV.resN || 0) });
-function navResolve() {
-  if (NAV.ci < 0 || !navKey()) return;
-  navKakao().then(() => {
-    NAV.rvc ??= new kakao.maps.RoadviewClient();
-    // the chosen route from the current stop first, then the rest of it, then the other route
-    const order = [];
-    for (const pol of [NAV.pol, ...navPols().filter(x => x !== NAV.pol)]) { const ids = navIds(pol), from = pol === NAV.pol ? NAV.svI || 0 : 0;
-      for (let k = 0; k < ids.length; k++) { const j = (from + k) % ids.length; if (ids[j] === undefined) order.push([pol, j]); } }
-    NAV.resQ = order; NAV.resN ??= 0; for (let k = 0; k < 4; k++) navResolveNext();
-  }, () => { });
-}
-function navResolveNext() {
-  if (NAV.resN >= 4 || !NAV.resQ?.length) return;
-  const [pol, j] = NAV.resQ.shift(), ids = navIds(pol); if (ids[j] !== undefined) return navResolveNext();
-  const q = navSvSamples(CASES[NAV.ci].pol[pol].dense)[j], ll = navLL(q.u, q.v); NAV.resN++;
-  NAV.rvc.getNearestPanoId(new kakao.maps.LatLng(ll[1], ll[0]), 50, id => {
-    NAV.resN--; ids[j] = id ?? null; (NAV.resW ??= {})[pol] = true;
-    if (pol === NAV.pol && NAV.svWait === j) { NAV.svWait = null; navSvShow(j); }
-    if (!NAV.resQ.length || NAV.resQ.length % 40 === 0) navIdSave();
-    navResolveNext(); });
-}
-function navIdSave() { for (const pol in NAV.ids || {}) try { localStorage.setItem(navIdKey(pol), JSON.stringify(NAV.ids[pol])); } catch { } }
-// ---- the two road views ----
-function navStreetEl() {
-  let el = $('navStreet'); if (el) return el;
-  el = document.createElement('div'); el.id = 'navStreet'; el.className = 'navstreet warm';
-  el.innerHTML = `<div class="sv-view" id="navSvA"></div><div class="sv-view" id="navSvB"></div><div class="sv-view" id="navSvC"></div><div class="sv-haze" id="svHaze"></div><div class="sv-glow" id="svGlow"></div><div class="sv-danger" id="svDanger"></div><div class="sv-msg" id="navSvMsg"></div>
-    <div class="sv-curtain"><i></i>${tr('로드뷰 준비 중…', 'Preparing road view…')}</div>
-    <div class="sv-minibox"><canvas class="sv-mini" id="navMini" width="520" height="380" aria-label="${tr('작은 지도: 경로와 기록된 불', 'Inset map: routes and recorded fire')}"></canvas>
-      <div class="sv-zoom"><button type="button" id="miniIn" title="${tr('확대', 'Zoom in')}">+</button><button type="button" id="miniOut" title="${tr('축소', 'Zoom out')}">−</button></div></div>
-    <div class="sv-ctl"><button type="button" id="svBack" title="${tr('뒤로 (←, Shift: 크게)', 'Back (←, Shift: bigger step)')}">◀</button>
-      <button type="button" id="svAuto"></button><button type="button" id="svFwd" title="${tr('앞으로 (→, Shift: 크게)', 'Forward (→, Shift: bigger step)')}">▶</button>
-      <select id="svSpeed" aria-label="${tr('자동 주행 속도', 'Drive speed')}"><option value="1500">${tr('천천히', 'Slow')}</option><option value="1000" selected>${tr('보통', 'Normal')}</option><option value="650">${tr('빠르게', 'Fast')}</option></select><span id="svPos"></span></div>`;
-  mapEl.appendChild(el);
-  $('svBack').onclick = e => { navAuto(false); navSvStep(-(e.shiftKey ? 5 : 1)); };
-  $('svFwd').onclick = e => { navAuto(false); navSvStep(e.shiftKey ? 5 : 1); };
-  $('svAuto').onclick = () => navAuto(!NAV.auto);
-  const zoom = f => { NAV.miniKm = Math.max(.8, Math.min(16, (NAV.miniKm || 2.4) * f)); };
-  $('miniIn').onclick = () => zoom(1 / 1.6); $('miniOut').onclick = () => zoom(1.6);
-  $('navMini').addEventListener('wheel', e => { e.preventDefault(); zoom(e.deltaY > 0 ? 1.25 : .8); }, { passive: false });
-  navAuto(false);
-  return el;
-}
-function navSvInit() {
-  if (NAV.rvs) return;
-  NAV.rvc ??= new kakao.maps.RoadviewClient();
-  // one road view first (each costs Kakao a lot of work when it starts); the second, for the photo ahead, once the first
-  // photo is on screen
-  NAV.rvs = [navSvMake('navSvA')]; NAV.front = 0; NAV.rvs[0].el.classList.add('on');
-}
-function navSvMake(id) {
-  const b = { el: $(id), id: null, ready: false };
-  b.rv = new kakao.maps.Roadview(b.el);
-  // Kakao drops a photo asked for before the view has started: ask again once it says it is ready
-  kakao.maps.event.addListener(b.rv, 'init', () => { if (!b.inited) { b.inited = true; if (b.id != null && b.at) { b.rv.setPanoId(b.id, b.at); if (b.pan != null) b.rv.setViewpoint({ pan: b.pan, tilt: 0, zoom: 0 }); } } });
-  const loaded = () => { clearTimeout(b.t); b.t = setTimeout(() => { b.ready = true; if (b.onReady) { const f = b.onReady; b.onReady = null; f(); } }, 120); };
-  kakao.maps.event.addListener(b.rv, 'init', loaded); kakao.maps.event.addListener(b.rv, 'panoid_changed', loaded);
-  setTimeout(() => b.rv.relayout(), 50);     // Kakao waits for a size before it loads photos
-  return b;
-}
-// the hidden views, once the first photo is on screen: one for the photo ahead and one for the photo behind
-function navSvSecond() { for (const id of ['navSvA', 'navSvB', 'navSvC']) if (!NAV.rvs.some(b => b.el.id === id)) NAV.rvs.push(navSvMake(id)); }
-// build out of sight at the first stop, so the first photo is already there when the view opens
-function navStreetWarm() {
-  if (!navKey() || NAV.ci < 0) return;
-  navStreetEl(); navKakao().then(() => { navSvInit(); if (NAV.sv && NAV.rvs[NAV.front].id == null) navSvGo(NAV.svI || 0, true); }, () => { });
-}
-function navStreet(on) {
-  NAV.street = on; mapEl.classList.toggle('navsv', on);
-  const el = on ? navStreetEl() : $('navStreet'); if (!el) return;
-  el.classList.toggle('warm', !on); if (!on) { navAuto(false); return; }
-  navAuto(false);
-  if (!navKey()) return navSvMsg(tr('로드뷰 키가 없습니다. 오른쪽 패널에 카카오 JavaScript 키를 넣으세요.', 'No road view key. Add a Kakao JavaScript key in the panel on the right.'));
-
-  navKakao().then(() => new Promise(ok => requestAnimationFrame(() => requestAnimationFrame(ok)))).then(() => { if (!NAV.street) return; navSvInit(); NAV.rvs.forEach(b => b.rv.relayout()); if (NAV.sv) navSvGo(NAV.svI || 0, true); navResolve(); },
-    () => navSvMsg(tr(`카카오 로드뷰를 불러오지 못했습니다. 키와 등록된 주소(${location.origin}), 인터넷 연결을 확인하세요.`, `Could not load Kakao road view. Check the key, the registered address (${location.origin}) and the internet connection.`)));
-}
-// heading at stop j: along the route, 60 m ahead
-function navSvHd(j) { const S = NAV.sv, q = S[j], d = CASES[NAV.ci].pol[NAV.pol].dense, a = navAhead(d, q, .06); return (navBear(navLL(q.u, q.v), navLL(a.u, a.v)) + 360) % 360; }
-// step n stops (each to a different photo); the car's time follows
-function navSvStep(n) {
-  NAV.svDir = Math.sign(n) || 1; const S = NAV.sv; if (!S) return; const ids = NAV.rvs ? navIds(NAV.pol) : null, dir = Math.sign(n); let j = NAV.svI, left = Math.abs(n);
-  while (left > 0 && j + dir >= 0 && j + dir < S.length) { j += dir; const id = ids?.[j]; if (id === null) continue; if (!ids || id === undefined || id !== ids[NAV.svI]) left--; }
-  navSvGo(j);
-}
-// go to stop j: time, inset map, then the photo
-function navSvGo(j, keepTime) {
-  const S = NAV.sv; if (!S) return; j = Math.max(0, Math.min(S.length - 1, j)); NAV.svI = j;
-  const sc = CASES[NAV.ci], q = S[j]; NAV.svHd = navSvHd(j);
-  if (!keepTime) { NAV.svT = sc.r.t0 + q.ts / 3600; setTime(NAV.svT); }
-  const pos = $('svPos'); if (pos) pos.textContent = `${q.d.toFixed(2)} / ${(sc.pol[NAV.pol].length_m / 1000).toFixed(1)} km`;
-  if (NAV.rvs) navSvShow(j);
-}
-// show stop j's photo: from a hidden view that already holds it (cross-fade, sharp at once); a click whose photo is
-// still loading waits for it a moment, then loads it in the visible view. Afterwards the hidden views load the photos
-// on both sides (ahead and behind; while driving, the next two ahead).
-function navSvShow(j) {
-  const ids = navIds(NAV.pol), id = ids[j], F = NAV.rvs[NAV.front], others = NAV.rvs.filter(b => b !== F), pan = NAV.svHd;
-  if (id === undefined) { NAV.svWait = j; navSvLookup(j); return; }
-  if (id === null) { NAV.svMiss = j; navSvMsg(tr('이 지점 50 m 안에는 로드뷰 사진이 없습니다 · 앞뒤로 이동해 보세요', 'No road photo within 50 m of this point · step on or back')); NAV.stepDone?.(); return; }
-  if (NAV.svMiss != null) { NAV.svMiss = null; navSvMsg(''); }
-  const ll = navLL(NAV.sv[j].u, NAV.sv[j].v), at = new kakao.maps.LatLng(ll[1], ll[0]);
-  const after = () => { NAV.stepDone?.(); navSvPreload(j); };
-  if (!others.length) {     // only one view yet: load into it, then add the others
-    if (F.id !== id) { F.id = id; F.at = at; F.pan = pan; F.ready = false; F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
-    F.onReady = () => { if (NAV.svI !== j) return; $('navStreet')?.classList.add('ready'); navSvMsg(''); setTimeout(() => { navSvSecond(); after(); }, 300); };
-    if (F.ready && F.id === id) F.onReady();
-    return; }
-  clearTimeout(NAV.svFall);
-  if (F.id === id) { navSvTurn(F, pan); return after(); }
-  // straight away, the current photo moves the way we go (forward: zooms in, back: out) while the next one gets ready
-  const dir = NAV.svDir || 1; F.el.classList.remove('go-fwd', 'go-back'); void F.el.offsetWidth; if (F.id != null) F.el.classList.add(dir > 0 ? 'go-fwd' : 'go-back');
-  const swap = Bk => { if (NAV.svI !== j) return; clearTimeout(NAV.svFall); Bk.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); Bk.el.classList.remove('go-fwd', 'go-back');
-    Bk.el.classList.add('on'); F.el.classList.remove('on'); NAV.front = NAV.rvs.indexOf(Bk); navSvMsg(''); $('navStreet')?.classList.add('ready');
-    setTimeout(() => F.el.classList.remove('go-fwd', 'go-back'), 450); after(); };
-  let H = others.find(b => b.id === id);
-  if (H && H.ready) return swap(H);
-  if (!H) { H = others.find(b => b.onReady == null) || others[0]; H.id = id; H.at = at; H.pan = pan; H.ready = false; H.rv.relayout(); H.rv.setPanoId(id, at); H.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); }
-  others.forEach(b => { if (b !== H) b.onReady = null; }); H.onReady = () => swap(H);
-  if (!NAV.auto) NAV.svFall = setTimeout(() => {     // still not there after 1.5 s: load it in the visible view instead
-    if (NAV.svI !== j || NAV.rvs[NAV.front] !== F) return; H.onReady = null; F.el.classList.remove('go-fwd', 'go-back');
-    F.id = id; F.at = at; F.pan = pan; F.ready = false; F.rv.setPanoId(id, at); F.rv.setViewpoint({ pan, tilt: 0, zoom: 0 }); after(); }, 1500);
-}
-// the photos next to stop j into the hidden views, each facing the way it will be seen
-function navSvPreload(j) {
-  const ids = navIds(NAV.pol), cur = ids[j], F = NAV.rvs[NAV.front], others = NAV.rvs.filter(b => b !== F); if (!others.length) return;
-  const near = (k, d) => { while (k >= 0 && k + d >= 0 && k + d < ids.length) { k += d; if (ids[k] && ids[k] !== cur && ids[k] !== ids[k - d]) return k; } return -1; };
-  const dir = NAV.svDir || 1, a = near(j, NAV.auto ? 1 : dir), ks = (NAV.auto ? [a, near(a, 1)] : [a, near(j, -dir)]).filter(k => k >= 0);
-  const free = others.filter(b => b.onReady == null && !ks.some(k => ids[k] === b.id));
-  for (const k of ks) { if (others.some(b => b.id === ids[k])) continue; const b = free.shift(); if (!b) break;
-    const ll = navLL(NAV.sv[k].u, NAV.sv[k].v); b.id = ids[k]; b.at = new kakao.maps.LatLng(ll[1], ll[0]); b.pan = navSvHd(k); b.ready = false;
-    b.rv.setPanoId(b.id, b.at); b.rv.setViewpoint({ pan: b.pan, tilt: 0, zoom: 0 }); }
-}
-// a stop not looked up yet: ask now (ahead of the queue)
-function navSvLookup(j) {
-  const ids = navIds(NAV.pol), q = NAV.sv[j], ll = navLL(q.u, q.v);
-  NAV.rvc.getNearestPanoId(new kakao.maps.LatLng(ll[1], ll[0]), 50, id => { if (ids[j] === undefined) ids[j] = id ?? null; if (NAV.svWait === j) { NAV.svWait = null; navSvShow(j); } });
-}
-// turn the view gently to the road's direction (shortest way round, 0.5 s)
-function navSvTurn(b, pan) {
-  cancelAnimationFrame(NAV.turnRaf); const v0 = b.rv.getViewpoint ? b.rv.getViewpoint() : { pan, tilt: 0 }, p0 = v0.pan || 0, d = ((pan - p0) % 360 + 540) % 360 - 180, t0 = performance.now();
-  if (Math.abs(d) < 1) return;
-  const f = now => { const k = Math.min(1, (now - t0) / 500), e = k * k * (3 - 2 * k); b.rv.setViewpoint({ pan: (p0 + d * e + 360) % 360, tilt: 0, zoom: v0.zoom || 0 }); if (k < 1) NAV.turnRaf = requestAnimationFrame(f); };
-  NAV.turnRaf = requestAnimationFrame(f);
-}
-// automatic drive: the next photo every beat (1.5 / 1 / 0.65 s), already loaded in the hidden view
-function navAuto(on) {
-  NAV.auto = on; clearTimeout(NAV.autoT); NAV.stepDone = null;
-  const b = $('svAuto'); if (b) b.textContent = on ? tr('■ 정지', '■ Stop') : tr('▶ 자동 주행', '▶ Drive');
-  if (on) navAutoStep();
-}
-function navAutoStep() {
-  if (!NAV.auto || !NAV.street) return;
-  if (NAV.svI >= NAV.sv.length - 1) return navAuto(false);
-  const gap = +($('svSpeed')?.value || 1000), t0 = performance.now(); $('navStreet')?.style.setProperty('--svgap', gap + 'ms');
-  let next = () => { next = null; NAV.stepDone = null; NAV.autoT = setTimeout(navAutoStep, Math.max(0, gap - (performance.now() - t0))); };
-  NAV.stepDone = () => next && next(); NAV.autoT = setTimeout(() => next && next(), NAV.rvs ? 6000 : gap);
-  navSvStep(1);
-}
-// each frame in road view: follow time changes made elsewhere (directions list, timeline), the timeline's play drives,
-// and the inset map is redrawn
-function navSvFrame(t, p, s, q) {
-  if (state.playing) { setPlaying(false); navAuto(true); }
-  if (NAV.sv && NAV.svT != null && Math.abs(t - NAV.svT) > 1e-7) { NAV.svT = t; let j = 0, bd = 1e9;
-    NAV.sv.forEach((x, i) => { const d = Math.abs(x.ts - s); if (d < bd) { bd = d; j = i; } }); if (j !== NAV.svI) navSvGo(j, true); }
-  NAV.svT ??= t;
-  navSvFire(t, p, s, q);
-  navMini(p, q);
-}
-// inset map, heading up (the road ahead points up, as in the photo): the road map with the recorded fire (the 2D view's
-// picture), both routes, the car and a pulsing ring on the nearest fire; + / − or the wheel zoom it
-function navMini(p, q) {
-  const c = $('navMini'); if (!c || !composite) return;
-  const km = NAV.miniKm || 2.4, x = c.getContext('2d'), cw = c.width, ch = c.height, sw = km / KXr * TW, sh = sw * ch / cw, x0 = q.u * TW - sw / 2, y0 = q.v * TH - sh / 2;
-  const P = (u, v) => [(u * TW - x0) * cw / sw, (v * TH - y0) * ch / sh], hd = (NAV.svView ?? NAV.svHd ?? 0) * Math.PI / 180;
-  x.fillStyle = '#e8e4da'; x.fillRect(0, 0, cw, ch);
-  x.save(); x.translate(cw / 2, ch / 2); x.rotate(-hd); x.translate(-cw / 2, -ch / 2);
-  const mg = sw * .75, md = mg * cw / sw; x.drawImage(composite, x0 - mg, y0 - mg, sw + 2 * mg, sh + 2 * mg, -md, -md, cw + 2 * md, ch + 2 * md);     // wider than the box: corners stay filled when it turns
-  const sc = CASES[NAV.ci], line = (d, w, col) => { x.beginPath(); d.forEach((pt, i) => { const [a, b] = P(pt.u, pt.v); i ? x.lineTo(a, b) : x.moveTo(a, b); }); x.lineWidth = w; x.strokeStyle = col; x.stroke(); };
-  x.lineCap = x.lineJoin = 'round';
-  const A = sc.pol[NAV.pol === 'full' ? 'travel_only' : 'full']; if (A) line(A.dense, 6, '#9aa0a6');
-  line(p.dense, 11, '#fff'); line(p.dense, 7, '#1a73e8');
-  const end = p.dense[p.dense.length - 1], [ex, ey] = P(end.u, end.v); x.beginPath(); x.arc(ex, ey, 9, 0, 7); x.fillStyle = '#d93025'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke();
-  const f = NAV.svF; if (f && f.km != null) { const [fx, fy] = P(f.u, f.v), k = (performance.now() % 1400) / 1400;
-    x.beginPath(); x.arc(fx, fy, 10 + 26 * k, 0, 7); x.lineWidth = 5; x.strokeStyle = `rgba(255,60,20,${1 - k})`; x.stroke();
-    x.beginPath(); x.arc(fx, fy, 8, 0, 7); x.fillStyle = '#ff3c14'; x.fill(); }
-  x.restore();
-  if (f && f.km != null) {     // off the box: a red arrow on its edge points to it
-    const [fx, fy] = P(f.u, f.v), dx = fx - cw / 2, dy = fy - ch / 2, c_ = Math.cos(-hd), s_ = Math.sin(-hd), rx = dx * c_ - dy * s_, ry = dx * s_ + dy * c_;
-    if (Math.abs(rx) > cw / 2 - 14 || Math.abs(ry) > ch / 2 - 40) { const k = Math.min((cw / 2 - 26) / Math.abs(rx || 1e-9), (ch / 2 - 52) / Math.abs(ry || 1e-9)), ax = cw / 2 + rx * k, ay = ch / 2 + ry * k;
-      x.save(); x.translate(ax, ay); x.rotate(Math.atan2(ry, rx)); x.beginPath(); x.moveTo(18, 0); x.lineTo(-8, -12); x.lineTo(-8, 12); x.closePath(); x.fillStyle = '#ff3c14'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore(); } }
-  // the car, always pointing up; N shows where north is
-  x.save(); x.translate(cw / 2, ch / 2); x.beginPath(); x.moveTo(0, -16); x.lineTo(11, 12); x.lineTo(0, 6); x.lineTo(-11, 12); x.closePath(); x.fillStyle = '#1a73e8'; x.fill(); x.lineWidth = 3; x.strokeStyle = '#fff'; x.stroke(); x.restore();
-  x.save(); x.translate(cw - 34, 30); x.rotate(-hd); x.font = '700 18px system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
-  x.beginPath(); x.arc(0, 0, 17, 0, 7); x.fillStyle = 'rgba(255,255,255,.9)'; x.fill(); x.fillStyle = '#d93025'; x.fillText('N', 0, 1); x.restore();
-  x.font = '600 20px system-ui, sans-serif'; x.fillStyle = 'rgba(255,255,255,.88)'; x.fillRect(0, ch - 32, cw, 32); x.fillStyle = '#3c3a36';
-  x.fillText(tr(`진행 방향 위 · 빨간 고리: 가장 가까운 불 · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} 폭`, `heading up · red ring: nearest fire · ${km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km'} wide`), 10, ch - 10);
-}
-// ---- the fire around the road view: all from the recorded fire and the model, laid over the photo (taken on another day) ----
-// 1 glow on the side of the photo where the nearest fire is, stronger when closer; 2 haze when the fire is close or the
-// heat at the car is high (an effect, not real smoke); 3 distance, side and trend, and the model's chance of spread onto
-// the road ahead in the next hour; 5 where the other route's car would be at this moment.
-const NAV_SIDE = rel => { const a = ((rel % 360) + 540) % 360 - 180, A = Math.abs(a);
-  return A <= 30 ? tr('앞', 'ahead') : A >= 150 ? tr('뒤', 'behind') : (a > 0 ? tr('오른쪽', 'right') : tr('왼쪽', 'left')) + (A < 70 ? tr(' 앞', ' ahead') : A > 110 ? tr(' 뒤', ' behind') : ''); };
-function navSvFire(t, p, s, q) {
-  const sc = CASES[NAV.ci], k = sc.k, F_ = NAV.rvs?.[NAV.front], vp = F_?.rv?.getViewpoint?.();
-  NAV.svView = vp && vp.pan != null ? vp.pan : NAV.svHd;
-  const key = [recIdx(t), inpIdx(t), hzSig(t), (q.d * 20).toFixed(0), NAV.pol].join(':');
-  if (key !== NAV.svFk) { NAV.svFk = key;
-    const f = navFireNear(t, s, q, true), f0 = navFireNear(t - 1 / 60, s - 60, navAt(p.dense, s - 60), true), me = navCarAt(p, s, k);
-    // the road in the next 1 km: the model's highest chance of fire there in the next hour (latest input, if within the hour)
-    const qi = inpIdx(t); let risk = null;
-    if (qi >= 0 && t - INP[qi] <= 1) { risk = 0; for (const pt of p.dense) if (pt.d >= q.d && pt.d <= q.d + 1 && pt.cell >= 0) risk = Math.max(risk, QF[qi][pt.cell]); }
-    const op = sc.pol[navOther() || ''], o = op ? navCarAt(op, s, k) : null;
-    NAV.svF = f; NAV.svFo = { f0, me, risk, o, op }; }
-  const f = NAV.svF, { f0, me, risk, o, op } = NAV.svFo, lim = p.limits, glow = $('svGlow'), haze = $('svHaze'), box = $('svDanger'); if (!glow) return;
-  const brg = f.km != null ? (Math.atan2((f.u - q.u) * KXr, -(f.v - q.v) * KYr) * 180 / Math.PI + 360) % 360 : null, rel = brg == null ? 0 : brg - NAV.svView;
-  // 1 glow: within 4 km, full at the car
-  const near = f.km == null ? 0 : Math.max(0, Math.min(1, 1 - f.km / 5)), hot = me.moving ? Math.min(1, me.F / lim.peak_kw_m2) : 0, a = Math.max(.25 + .75 * near, hot, me.fl ? 1 : 0) * (near > 0 || hot > 0 ? 1 : 0);
-  const r = rel * Math.PI / 180, gx = 50 + 50 * Math.sin(r), gy = 50 - 50 * Math.cos(r);
-  glow.style.background = a > .02 ? `radial-gradient(ellipse 75% 70% at ${gx.toFixed(1)}% ${gy.toFixed(1)}%, rgba(255,70,20,${(.75 * a).toFixed(3)}), rgba(255,120,30,${(.35 * a).toFixed(3)}) 40%, rgba(255,120,30,0) 72%)` : 'none';
-  glow.classList.toggle('pulse', a > .6);
-  // 2 haze: kept light; strongest only in flame
-  const h = Math.max(near > .6 ? (near - .6) / .4 * .35 : 0, hot * .45, me.fl ? .5 : 0); haze.style.opacity = h.toFixed(3);
-  // 3 + 5 the panel
-  const trend = f.km == null || f0.km == null ? '' : f.km < f0.km - .02 ? `<em class="up">${tr('▲ 가까워지는 중', '▲ getting closer')}</em>` : f.km > f0.km + .02 ? `<em class="dn">${tr('▼ 멀어지는 중', '▼ falling behind')}</em>` : `<em>${tr('거리 비슷', 'about the same')}</em>`;
-  const st = !me.moving ? (s < p.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : me.fl ? tr('지금 화염 속', 'in flame now') : me.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음 · 열 한도 이하', 'no flame · within heat limits');
-  const on = NAV_ROUTES.find(x => x[0] === navOther())?.[1], ost = o ? (!o.moving ? (s < op.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : o.fl ? tr('지금 화염 속', 'in flame now') : o.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음', 'no flame')) : '';
-  const html = `<div class="big ${me.cls}">${f.km == null ? tr('주변에 기록된 불 없음', 'No recorded fire nearby') : f.km < .05 ? tr('불이 차 위치에', 'Fire at the car') : `${tr('가장 가까운 불', 'Nearest fire')} <b>${f.km < 1 ? Math.round(f.km * 1000) + ' m' : f.km.toFixed(1) + ' km'}</b> · ${NAV_SIDE(rel)}`}</div>
-    <div class="row">${trend}<span class="st ${me.cls}">${tr('차 위치', 'At the car')}: ${st}</span></div>
-    ${risk != null && me.moving ? `<div class="row risk">${tr('앞 1 km 도로 · 다음 1시간 번질 확률 (모델)', 'Road 1 km ahead · chance of spread in the next hour (model)')} <b class="${risk >= .3 ? 'hi' : risk >= .05 ? 'mid' : ''}">${risk < .005 ? '<1' : Math.round(risk * 100)}%</b></div>` : ''}
-    ${o ? `<div class="row ghost ${o.cls}">${tr(`${on}이었다면 지금`, `On the ${on} now`)}: <b>${ost}</b></div>` : ''}
-    <div class="note">${tr('사진은 평상시 · 불빛·연기는 기록·모델 자료로 그린 표시', 'Photos from an ordinary day · glow and haze drawn from the recorded and model data')}</div>`;
-  if (html !== NAV.svHtml) { NAV.svHtml = html; box.innerHTML = html; }
 }
 
 }
