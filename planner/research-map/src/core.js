@@ -153,7 +153,7 @@ const texCache = {
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
 const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
-const imgEl = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+const imgEl = img;
 // read = the pixels are read back (the mask): keep that canvas in memory rather than on the GPU
 const imgCanvas = async (src, read) => { const im = await (typeof src === 'string' ? imgEl(src) : src), c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(im, 0, 0); return c; };
 // land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
@@ -171,7 +171,7 @@ async function loadTextures() {
     return { ground: g, hs: h, ctxReal: cr, ctxTopo: null, ctxTopoSrc: pre.ctxTopo, F: F_, LC: LC_ };
   } catch (e) { }
   // 2) saved in this browser after an earlier visit
-  const hit = await texCache.get(TEX_KEY); if (!hit) return null;
+  const hit = await withDeadline(texCache.get(TEX_KEY), 2500, null); if (!hit) return null;
   try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
 // WebP: about 40 % smaller than JPEG at the same look; the mask is lossless (quality 1), and tools/bake_textures.mjs checks that
@@ -799,7 +799,7 @@ const LAYERS = [
   { id: 'labels', core: true, n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
 ];
 const L = Object.fromEntries(LAYERS.map(l => [l.id, l]));
-const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
+const state = { t: INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
 // which result layers the comparison mode keeps: 'ours' = everything
 const cmpShows = what => state.cmp === 'ours' || (state.cmp === 'travel' && what === 'travel');
 let dirty = true, lastKey = '';

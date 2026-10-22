@@ -270,8 +270,8 @@ function renderEvac() {
     <div class="bars"><div><span>${tr('마을', 'Villages')} ${c.total.village}</span>${stackBar(c.village, c.total.village)}</div><div><span>${tr('요양·복지', 'Care')} ${c.total.care}</span>${stackBar(c.care, c.total.care)}</div></div>
     <h4 class="sub-h">${tr('확인된 경로가 없는 출발지', 'Origins without a checked route')} <small>${noRoute.length}</small></h4>
     <ul class="olist">${noRoute.map(r => rowHTML(r, STATUS[r.v].t)).join('') || `<li class="note" style="padding:4px 8px">${tr('없음', 'None')}</li>`}</ul>
-    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('입력 시각부터 이 시각까지 모든 출발 시각에 확인된 경로', 'every departure from the input time up to this time has a checked route')}</small></h4>
-    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 점검한 마지막 출발 시각(+50분)까지 확인된 경로가 있습니다.', 'Every origin has a checked route up to the last departure checked (+50 min).')}</li>`}</ul>
+    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('10분 간격으로 점검한 출발 시각 중 마지막 경로 확인 시각', 'last checked departure with a route among 10-minute samples; intervening times are untested')}</small></h4>
+    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 마지막 출발 표본(+50분)에서 확인된 경로가 있습니다. 표본 사이 시각은 미검사입니다.', 'Every origin has a checked route at the last sampled departure (+50 min). Times between samples are untested.')}</li>`}</ul>
     ${dl.length - urgent.length ? `<p class="note" style="margin:2px 4px 8px">${tr(`나머지 ${dl.length - urgent.length}곳은 점검한 모든 출발 시각(+0–50분)에 확인된 경로가 있습니다.`, `The other ${dl.length - urgent.length} have a checked route at every departure checked (+0–50 min).`)}</p>` : ''}
     <h4 class="sub-h">${tr('입력 시각별 요약', 'Summary per input time')}</h4>
     <table class="mini"><tr><th>${tr('입력', 'Input')}</th><th>${tr('확인', 'Checked')}</th><th>${tr('경로 없음', 'No route')}</th><th>${tr('미확인', 'Unres.')}</th><th>${tr('불가', 'N/C')}</th><th>${tr('요양 확인', 'Care ok')}</th><th>${tr('접촉*', 'Flame*')}</th></tr>
@@ -427,6 +427,7 @@ const rangeLo = () => state.detail ? HZ[state.dk].t0 : 0, rangeHi = () => state.
 const pctOf = h => (h - rangeLo()) / (rangeHi() - rangeLo()) * 100;
 const md = d => EN ? `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()]} ${d.getUTCDate()}` : `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`;
 function setDetail(on, k) {
+  navCancelReplay();
   if (on && HZ.length) {
     const inside = hzK(state.t);
     state.dk = k != null ? k : inside >= 0 ? inside : HZ.reduce((b, h, i) => Math.abs(h.t0 - state.t) < Math.abs(HZ[b].t0 - state.t) ? i : b, 0);
@@ -631,8 +632,8 @@ function renderLive() {
 }
 
 // ---------------- time & playback ----------------
-function setTime(t) { state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
-function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
+function setTime(t, fromReplay = false) { if (!fromReplay) navCancelReplay(); state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
+function setPlaying(p, speed) { navCancelReplay(); state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
   $('playIc').innerHTML = p ? '<path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/>' : '<path d="M4 2.5v11l9-5.5z" fill="currentColor"/>'; $('play').setAttribute('aria-label', p ? tr('일시정지', 'Pause') : tr('재생', 'Play')); }
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
@@ -641,7 +642,12 @@ $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(st
 $('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
-addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
+addEventListener('keydown', e => {
+  if (e.target.closest('input,select,textarea,button,[contenteditable=true]')) return;
+  if (e.code === 'Space') { e.preventDefault(); if (e.repeat) return;
+    navCancelReplay(); $('play').click();
+  }
+});
 let prevRec = null, prevBooth = null;
 function updateTimeUI() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), pct = pctOf(t);
@@ -892,7 +898,7 @@ function frame(now) {
 
 // ---------------- boot ----------------
 async function boot() {
-  const hit = await loadTextures();
+  const hit = await withDeadline(loadTextures(), 10000, null);
   const hp0 = new URLSearchParams(location.hash.slice(1));
   // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
   const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
@@ -904,7 +910,7 @@ async function boot() {
     if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
     dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
-  await ctxDone;
+  ctxDone.catch(e => console.warn('Optional surrounding terrain unavailable', e));
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.rname = r.name; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + caseIdLabel(r.name); RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   // close-up roads and buildings: loaded after the first picture, built once
@@ -943,8 +949,11 @@ async function boot() {
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
-  if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
-  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
+  if (hit) setTimeout(() => ctxDone.then(needOsm, needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
+  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => {
+    const h = ok && (window.WFG_HOURLY || {})[B.id];
+    if (h) { attachHourly(h); lastKey = ''; dirty = true; }
+    else { const l = L.mc; l.on = false; l.disabled = true; l.src = tr('시간별 자료를 불러오지 못함 · 다시 열어 재시도', 'Hourly data unavailable · reload to retry'); buildLayerPanel(); dirty = true; }
+  }), 400);
 }
-requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('loading'); if (ld) { ld.className = 'loading'; ld.style.backgroundImage = '';
-  ld.textContent = tr('지도를 시작하지 못했습니다: ', 'The map could not start: ') + (e && e.message || e); } console.error(e); }), 30));
+requestAnimationFrame(() => setTimeout(() => boot().catch(e => { startupError(e); console.error(e); }), 30));

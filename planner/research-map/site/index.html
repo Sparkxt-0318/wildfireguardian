@@ -609,21 +609,39 @@ if (EN) {
   document.querySelectorAll('[data-en-aria]').forEach(e => { e.setAttribute('aria-label', e.dataset.enAria); });
   document.querySelector('.lightbox figcaption').innerHTML = '<span></span><button type="button">Close</button>';
 }
-if (!window.THREE) { document.getElementById('loading').textContent = tr('3D 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인하거나 오프라인 판(vendor 폴더 포함)을 여세요.', 'Could not load the 3D library. Check the connection or open the offline build (with its vendor folder).'); return; }
+if (!window.THREE || !window.THREE.OrbitControls) { startupError(tr('3D 라이브러리를 불러오지 못했습니다. 오프라인 판의 vendor 폴더를 확인하세요.', '3D libraries unavailable. Check the offline build vendor folder.')); return; }
 // regions/<name> as a script file, or (single-file build) from an inert text block that is run only when needed
-const load = name => new Promise(ok => {
+// Bound remote/optional resources so a stalled venue connection cannot trap the opening screen.
+const withDeadline = (promise, ms, fallback) => new Promise(resolve => {
+  let done = false; const finish = value => { if (done) return; done = true; clearTimeout(timer); resolve(value); };
+  const timer = setTimeout(() => finish(fallback), ms); Promise.resolve(promise).then(finish, () => finish(fallback));
+});
+function startupError(error) {
+  const ld = document.getElementById('loading'); if (!ld) return;
+  ld.className = 'loading'; ld.style.backgroundImage = ''; ld.textContent = tr('지도를 시작하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요. ', 'The map could not start. Check the connection and retry. ') + (error && error.message || error || '');
+  const retry = document.createElement('button'); retry.type = 'button'; retry.className = 'btn'; retry.textContent = tr('다시 열기', 'Retry'); retry.onclick = () => location.reload(); ld.appendChild(retry);
+}
+const load = (name, timeout = 12000) => new Promise(ok => {
   const inline = document.getElementById('wfg:' + name);
   if (inline) { try { (0, eval)(inline.textContent); ok(true); } catch (e) { ok(false); } return; }
-  const s = document.createElement('script'); s.src = 'regions/' + name; s.onload = () => ok(true); s.onerror = () => ok(false); document.head.appendChild(s);
+  const s = document.createElement('script'); let settled = false;
+  const finish = value => { if (settled) return; settled = true; clearTimeout(timer); s.onload = s.onerror = null; if (!value) s.remove(); ok(value); };
+  const timer = setTimeout(() => finish(false), timeout);
+  s.src = 'regions/' + name; s.onload = () => finish(true); s.onerror = () => finish(false); document.head.appendChild(s);
 });
 window.__wfgLoad = load;
 // region data and its pre-built terrain load in parallel; the terrain is optional (drawn in the page without it). The terrain
 // images start downloading as soon as their small index file is in, not after the region data.
-const img = src => new Promise((ok, no) => { const im = new Image(); im.decoding = 'async'; im.onload = () => ok(im); im.onerror = no; im.src = src; });
+const img = src => new Promise((ok, no) => {
+  const im = new Image(); let settled = false; im.decoding = 'async';
+  const finish = error => { if (settled) return; settled = true; clearTimeout(timer); im.onload = im.onerror = null; error ? no(error) : ok(im); };
+  const timer = setTimeout(() => { finish(new Error('Image load timed out')); im.src = ''; }, 6000);
+  im.onload = () => finish(null); im.onerror = () => finish(new Error('Image load failed')); im.src = src;
+});
 // a picture of the opening view (tools/bake_textures.mjs) stands in for the map while it starts, when the link asks for that view
 // (desktop only: the picture is taken at desktop size, and phones and lite=1 use a different camera distance)
 const DEFAULT_VIEW = [...hp0.keys()].every(k => ['region', 'lang', 'tab'].includes(k)) && !matchMedia('(max-width: 860px)').matches;
-const texReady = load(`${RID}.tex.js`).then(ok => { const t = ok && (window.WFG_TEX || {})[RID];
+const texReady = load(`${RID}.tex.js`, 6000).then(ok => { const t = ok && (window.WFG_TEX || {})[RID];
   const ld = document.getElementById('loading');
   const show = t && t.poster && DEFAULT_VIEW && ld;
   if (show) { ld.classList.add('poster'); ld.innerHTML = `<span>${tr('3D 지형 준비 중…', 'Preparing the 3D view…')}</span>`; }
@@ -633,13 +651,13 @@ const texReady = load(`${RID}.tex.js`).then(ok => { const t = ok && (window.WFG_
   return show ? first.then(() => new Promise(ok => requestAnimationFrame(() => setTimeout(ok, 0)))) : null; });
 // opened from disk, files arrive at once and parsing the region data would hold the poster back: start it once the poster is up
 const gate = location.protocol === 'file:' ? texReady : Promise.resolve();
-const ctxP = gate.then(() => load(`${RID}.ctx.js`)).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
-gate.then(() => load(`${RID}.js`)).then(async ok => {
-  if (!ok) { const ld = document.getElementById('loading'); ld.className = 'loading'; ld.style.backgroundImage = ''; ld.textContent = tr('지역 데이터를 불러오지 못했습니다: ', 'Could not load region data: ') + RID; return; }
+const ctxP = gate.then(() => load(`${RID}.ctx.js`, 8000)).then(ok => ok ? (window.WFG_CTX || {})[RID] : null);
+gate.then(() => load(`${RID}.js`, 18000)).then(async ok => {
+  if (!ok) { startupError(tr('지역 데이터: ', 'Region data: ') + RID); return; }
   // the surrounding-terrain heights follow; the first frame does not wait for them
   window.__wfgCtx = ctxP;
   await texReady; main(window.WFG_REGIONS[RID]);
-});
+}).catch(startupError);
 function main(B) {
 'use strict';
 // scene units: every region is drawn at the same size (SF scene units per km), so camera, fog and lights are shared
@@ -796,7 +814,7 @@ const texCache = {
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
 const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
-const imgEl = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+const imgEl = img;
 // read = the pixels are read back (the mask): keep that canvas in memory rather than on the GPU
 const imgCanvas = async (src, read) => { const im = await (typeof src === 'string' ? imgEl(src) : src), c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(im, 0, 0); return c; };
 // land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
@@ -814,7 +832,7 @@ async function loadTextures() {
     return { ground: g, hs: h, ctxReal: cr, ctxTopo: null, ctxTopoSrc: pre.ctxTopo, F: F_, LC: LC_ };
   } catch (e) { }
   // 2) saved in this browser after an earlier visit
-  const hit = await texCache.get(TEX_KEY); if (!hit) return null;
+  const hit = await withDeadline(texCache.get(TEX_KEY), 2500, null); if (!hit) return null;
   try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
 // WebP: about 40 % smaller than JPEG at the same look; the mask is lossless (quality 1), and tools/bake_textures.mjs checks that
@@ -1442,7 +1460,7 @@ const LAYERS = [
   { id: 'labels', core: true, n: tr('지명 · 산', 'Place names · peaks'), src: 'OSM', on: true, op: 100 },
 ];
 const L = Object.fromEntries(LAYERS.map(l => [l.id, l]));
-const state = { t: B.id === 'uiseong_andong_2025' ? 70.3 : INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
+const state = { t: INP[INP.length - 1] + .3, playing: false, speed: 1, mode: '3d', base2d: 'topo', member: -1, detail: false, dk: 0, pols: new Set(['travel_only']), cmp: 'ours', boothK: -1, focus: null };
 // which result layers the comparison mode keeps: 'ours' = everything
 const cmpShows = what => state.cmp === 'ours' || (state.cmp === 'travel' && what === 'travel');
 let dirty = true, lastKey = '';
@@ -1864,8 +1882,8 @@ function renderEvac() {
     <div class="bars"><div><span>${tr('마을', 'Villages')} ${c.total.village}</span>${stackBar(c.village, c.total.village)}</div><div><span>${tr('요양·복지', 'Care')} ${c.total.care}</span>${stackBar(c.care, c.total.care)}</div></div>
     <h4 class="sub-h">${tr('확인된 경로가 없는 출발지', 'Origins without a checked route')} <small>${noRoute.length}</small></h4>
     <ul class="olist">${noRoute.map(r => rowHTML(r, STATUS[r.v].t)).join('') || `<li class="note" style="padding:4px 8px">${tr('없음', 'None')}</li>`}</ul>
-    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('입력 시각부터 이 시각까지 모든 출발 시각에 확인된 경로', 'every departure from the input time up to this time has a checked route')}</small></h4>
-    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 점검한 마지막 출발 시각(+50분)까지 확인된 경로가 있습니다.', 'Every origin has a checked route up to the last departure checked (+50 min).')}</li>`}</ul>
+    <h4 class="sub-h">${tr('출발 마감이 이른 곳', 'Earliest departure deadlines')} <small>${tr('10분 간격으로 점검한 출발 시각 중 마지막 경로 확인 시각', 'last checked departure with a route among 10-minute samples; intervening times are untested')}</small></h4>
+    <ul class="olist">${urgent.slice(0, 12).map(r => rowHTML(r, dlText(r))).join('') || `<li class="note" style="padding:4px 8px">${tr('모든 출발지가 마지막 출발 표본(+50분)에서 확인된 경로가 있습니다. 표본 사이 시각은 미검사입니다.', 'Every origin has a checked route at the last sampled departure (+50 min). Times between samples are untested.')}</li>`}</ul>
     ${dl.length - urgent.length ? `<p class="note" style="margin:2px 4px 8px">${tr(`나머지 ${dl.length - urgent.length}곳은 점검한 모든 출발 시각(+0–50분)에 확인된 경로가 있습니다.`, `The other ${dl.length - urgent.length} have a checked route at every departure checked (+0–50 min).`)}</p>` : ''}
     <h4 class="sub-h">${tr('입력 시각별 요약', 'Summary per input time')}</h4>
     <table class="mini"><tr><th>${tr('입력', 'Input')}</th><th>${tr('확인', 'Checked')}</th><th>${tr('경로 없음', 'No route')}</th><th>${tr('미확인', 'Unres.')}</th><th>${tr('불가', 'N/C')}</th><th>${tr('요양 확인', 'Care ok')}</th><th>${tr('접촉*', 'Flame*')}</th></tr>
@@ -2021,6 +2039,7 @@ const rangeLo = () => state.detail ? HZ[state.dk].t0 : 0, rangeHi = () => state.
 const pctOf = h => (h - rangeLo()) / (rangeHi() - rangeLo()) * 100;
 const md = d => EN ? `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()]} ${d.getUTCDate()}` : `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`;
 function setDetail(on, k) {
+  navCancelReplay();
   if (on && HZ.length) {
     const inside = hzK(state.t);
     state.dk = k != null ? k : inside >= 0 ? inside : HZ.reduce((b, h, i) => Math.abs(h.t0 - state.t) < Math.abs(HZ[b].t0 - state.t) ? i : b, 0);
@@ -2225,8 +2244,8 @@ function renderLive() {
 }
 
 // ---------------- time & playback ----------------
-function setTime(t) { state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
-function setPlaying(p, speed) { state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
+function setTime(t, fromReplay = false) { if (!fromReplay) navCancelReplay(); state.t = clamp(t, rangeLo(), state.detail ? rangeHi() - 1e-4 : rangeHi()); dirty = true; }
+function setPlaying(p, speed) { navCancelReplay(); state.playing = p; if (speed) { state.speed = speed; $('speed').value = String(speed); }
   $('playIc').innerHTML = p ? '<path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/>' : '<path d="M4 2.5v11l9-5.5z" fill="currentColor"/>'; $('play').setAttribute('aria-label', p ? tr('일시정지', 'Pause') : tr('재생', 'Play')); }
 $('play').onclick = () => { if (!state.playing && state.t >= rangeHi() - .01) setTime(rangeLo()); setPlaying(!state.playing); };
 $('back').onclick = () => setTime(state.detail ? state.t - 5 / 60 : Math.ceil(state.t - 1.001));
@@ -2235,7 +2254,12 @@ $('fwd').onclick = () => setTime(state.detail ? state.t + 5 / 60 : Math.floor(st
 $('reset').onclick = () => { setPlaying(false); if (NAV.on) return navRoute(NAV.pol); setTime(rangeLo()); };
 $('detailBtn').onclick = () => setDetail(!state.detail);
 $('speed').onchange = e => { state.speed = +e.target.value; };
-addEventListener('keydown', e => { if (e.target.closest('input,select,textarea')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } });
+addEventListener('keydown', e => {
+  if (e.target.closest('input,select,textarea,button,[contenteditable=true]')) return;
+  if (e.code === 'Space') { e.preventDefault(); if (e.repeat) return;
+    navCancelReplay(); $('play').click();
+  }
+});
 let prevRec = null, prevBooth = null;
 function updateTimeUI() {
   const t = state.t, k = recIdx(t), qi = inpIdx(t), pct = pctOf(t);
@@ -2486,7 +2510,7 @@ function frame(now) {
 
 // ---------------- boot ----------------
 async function boot() {
-  const hit = await loadTextures();
+  const hit = await withDeadline(loadTextures(), 10000, null);
   const hp0 = new URLSearchParams(location.hash.slice(1));
   // drawing the terrain here, or the 2D maps, uses the OSM vectors; without them the terrain is drawn plain and not stored
   const osmOk = (!hit || hp0.get('mode') === '2d') ? await needOsm() : true;
@@ -2498,7 +2522,7 @@ async function boot() {
     if (state.mode === '2d') ctxMesh.material = ctxFlat() || ctxMatReal;
     dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
-  await ctxDone;
+  ctxDone.catch(e => console.warn('Optional surrounding terrain unavailable', e));
   for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.rname = r.name; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + caseIdLabel(r.name); RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   // close-up roads and buildings: loaded after the first picture, built once
@@ -2537,11 +2561,14 @@ async function boot() {
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
-  if (hit) setTimeout(() => ctxDone.then(needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
-  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => { const h = ok && (window.WFG_HOURLY || {})[B.id]; if (h) { attachHourly(h); lastKey = ''; dirty = true; } }), 400);
+  if (hit) setTimeout(() => ctxDone.then(needOsm, needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
+  if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => {
+    const h = ok && (window.WFG_HOURLY || {})[B.id];
+    if (h) { attachHourly(h); lastKey = ''; dirty = true; }
+    else { const l = L.mc; l.on = false; l.disabled = true; l.src = tr('시간별 자료를 불러오지 못함 · 다시 열어 재시도', 'Hourly data unavailable · reload to retry'); buildLayerPanel(); dirty = true; }
+  }), 400);
 }
-requestAnimationFrame(() => setTimeout(() => boot().catch(e => { const ld = $('loading'); if (ld) { ld.className = 'loading'; ld.style.backgroundImage = '';
-  ld.textContent = tr('지도를 시작하지 못했습니다: ', 'The map could not start: ') + (e && e.message || e); } console.error(e); }), 30));
+requestAnimationFrame(() => setTimeout(() => boot().catch(e => { startupError(e); console.error(e); }), 30));
 
 // ---------------- 길 안내 (navigation view): one recorded case played on a road map ----------------
 // One headline case per region for now. The car moves by the routing engine's recorded departure and arrival times for
@@ -2635,6 +2662,7 @@ function navEnter() {
 // phones: the map sits above the panel, so bring it into view when navigation opens or the view changes
 const navToMap = () => { if (matchMedia('(max-width: 860px)').matches) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 function navExit(to = 'pRoute') {
+  navCancelReplay();
   if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false);
   const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true; $('navLegend').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
@@ -2644,6 +2672,7 @@ function navExit(to = 'pRoute') {
 }
 // choose the route, then play it from just before departure
 function navRoute(pol) {
+  navCancelReplay();
   NAV.pol = pol; NAV.camBear = NAV.camC = null; const sc = CASES[NAV.ci], p = sc.pol[pol];
   NAV.steps = navSteps(sc, p); NAV.cur = -1; buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); if (NAV.real) navMapRoute();
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
@@ -2652,12 +2681,17 @@ function navRoute(pol) {
 // the recorded spread, fast: from the first burn record to the departure (about 15 s), with both routes on the map; the
 // burned area grows at each record time and the modelled flame shows in the hour after each model input. Then the
 // trip starts again.
+function navCancelReplay() {
+  NAV.rpToken = (NAV.rpToken || 0) + 1; cancelAnimationFrame(NAV.rpRaf); NAV.rpRaf = null;
+  $('navReplayLb')?.remove();
+}
 function navReplay() {
   const sc = CASES[NAV.ci], dep = sc.r.t0 + sc.pol[NAV.pol].dep / 3600, a = Math.min(REC[0] ?? dep - 6, dep - .5);
-  cancelAnimationFrame(NAV.rpRaf); setPlaying(false); setDetail(false);
+  navCancelReplay(); setPlaying(false); setDetail(false);
+  const token = NAV.rpToken;
   let lb = $('navReplayLb'); if (!lb) { lb = document.createElement('div'); lb.id = 'navReplayLb'; lb.className = 'nav-replay'; mapEl.appendChild(lb); }
   const t0 = performance.now(), dur = 15000;
-  const step = now => { const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t);
+  const step = now => { if (token !== NAV.rpToken || !NAV.on) return; const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t, true);
     lb.innerHTML = `<b>${tr('불 번짐 재생 (기록)', 'Spread replay (recorded)')}</b> ${navDate(t)} ${navClock(t)} <i style="width:${(k * 100).toFixed(1)}%"></i>`;
     if (k < 1 && NAV.on) NAV.rpRaf = requestAnimationFrame(step); else { lb.remove(); if (NAV.on) { if (sc.k >= 0) setDetail(true, sc.k); navRoute(NAV.pol); } } };
   NAV.rpRaf = requestAnimationFrame(step);
@@ -2845,6 +2879,7 @@ const navLL = (u, v) => [W + u * (E - W), N - v * (N - S)];
 const NAV_CHASE = { pitch: 62, zoom: 15.8 };
 let navMapP = null;
 function navView(v, quiet) {
+  navCancelReplay();
   if (v !== 'chase' && NAV.free) navFree(false);
   NAV.view = v; NAV.hd = null; NAV.camC = null;
   if (state.mode !== '2d') setMode('2d');
@@ -2866,7 +2901,12 @@ function navReal(on) {
       map.once('idle', () => go && go()); setTimeout(() => go && go(), 5000); } },
     () => { NAV.realErr = true; navMapP = null; if (NAV.real) navView('2d'); });
 }
-const navLoad = (tag, attrs) => new Promise((ok, no) => { const e = Object.assign(document.createElement(tag), attrs, { onload: ok, onerror: no }); document.head.appendChild(e); });
+const navLoad = (tag, attrs) => new Promise((ok, no) => {
+  const e = Object.assign(document.createElement(tag), attrs); let settled = false;
+  const finish = error => { if (settled) return; settled = true; clearTimeout(timer); e.onload = e.onerror = null; if (error) { e.remove(); no(error); } else ok(); };
+  const timer = setTimeout(() => finish(new Error('Map resource timed out')), 12000);
+  e.onload = () => finish(null); e.onerror = () => finish(new Error('Map resource unavailable')); document.head.appendChild(e);
+});
 const navSri = k => NAV_ML.startsWith('https:') ? { integrity: NAV_SRI[k], crossOrigin: 'anonymous' } : {};     // CDN copy only: file:// cannot be checked
 let navLibP = null;
 const navLib = () => navLibP ??= window.maplibregl ? Promise.resolve()
@@ -2941,7 +2981,8 @@ function navMap() {
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'top-right');
     map.once('idle', () => map.getContainer().querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'));     // credits folded to the (i) button
     map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
-    await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
+    const styleOk = await withDeadline(new Promise(ok => map.isStyleLoaded() ? ok(true) : map.once('style.load', () => ok(true))), 12000, false);
+    if (!styleOk) { map.remove(); throw new Error('Map style timed out'); }
     navFlameImages(map);
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
     NAV.mlCar = new maplibregl.Marker({ element: car, rotationAlignment: 'map', pitchAlignment: 'map' }).setLngLat(map.getCenter()).addTo(map);

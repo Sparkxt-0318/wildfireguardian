@@ -187,6 +187,12 @@ $('manNote').innerHTML = tr(
   '설명서는 영어로만 작성되어 있어 원문 그대로 싣습니다. 그림은 모두 렌더이며 실제 기기 사진이 아닙니다. 화면 그림과 앱 화면은 <span class="tag sim">시뮬레이션</span>입니다.',
   'The manual text is shown as written. All pictures are renders, not photos of the built logger. The screen pictures and app screenshots are <span class="tag sim">simulated</span>.');
 
+if (!RL || !RL.manual || !Array.isArray(RL.manual.slides) || !Array.isArray(RL.parts) || !RL.exploded || !Array.isArray(RL.steps)) {
+  $('load').textContent = tr('기록기 자료를 불러오지 못했습니다. 새로고침하거나 로컬 시연본을 열어 주세요.', 'Logger data failed to load. Reload this page or open the local demo.');
+  $('manual').textContent = tr('제작 설명서 자료를 불러오지 못했습니다.', 'The build-manual data is unavailable.');
+  return;
+}
+
 const facts = [
   [tr('케이스 크기', 'Case size'), '87.9 × 60.8 × 40.0 mm', tr('베젤 포함 높이 41.6 mm. CAD 설계값이며 출력물을 잰 값이 아닙니다', '41.6 mm high with the bezel. Design dimensions from the CAD model, not measured on the printed case'), 'design'],
   [tr('기록 간격', 'Logging rate'), tr('최대 1행/초', 'At most 1 row per second'), tr('GNSS 에포크마다 1행, 1000 ms 간격 제한. 1.5 s 동안 수신이 없으면 no-fix 행. 행당 48바이트, CRC-32', 'One row per GNSS epoch, at most every 1000 ms; a no-fix row after 1.5 s without an epoch; 48 bytes per row with CRC-32'), 'fw'],
@@ -278,8 +284,18 @@ const stepMove = {}; for (const r of RL.steps) (stepMove[r.step] = stepMove[r.st
 const stepSlide = Object.fromEntries(slides.filter(s => s.step).map(s => [s.step, s]));
 
 const stage = $('stage');
-if (!window.THREE || !THREE.GLTFLoader) { $('load').textContent = tr('3D 라이브러리를 불러오지 못했습니다', 'The 3D library failed to load'); return; }
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+function showModelFallback(message) {
+  let load = $('load');
+  if (!load) { load = document.createElement('div'); load.id = 'load'; load.className = 'load'; stage.appendChild(load); }
+  load.style.cssText = 'padding:20px;text-align:center;align-content:center;gap:12px;overflow:auto';
+  load.innerHTML = '<div>' + esc(message) + '</div><img src="logger/img/cad_03_exploded.webp" alt="' + esc(tr('기록기 CAD 분해도', 'Logger CAD exploded view')) + '" style="max-width:100%;max-height:300px;object-fit:contain"><a href="#hMan">' + esc(tr('아래 제작 설명서 보기', 'Read the build manual below')) + '</a>';
+  ['mExp','mStep','explode','bAsm','bExp','bWire','step','prev','next','play'].forEach(id => { const el = $(id); if (el) el.disabled = true; });
+}
+if (!window.THREE || !THREE.GLTFLoader || !THREE.OrbitControls) { showModelFallback(tr('3D 라이브러리를 불러오지 못했습니다. 제작 설명서는 아래에서 볼 수 있습니다.', 'The 3D library is unavailable. The build manual remains available below.')); return; }
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
+catch (error) { showModelFallback(tr('이 브라우저에서 3D 표시를 시작하지 못했습니다. CAD 그림과 제작 설명서를 표시합니다.', 'This browser could not start 3D rendering. The CAD image and build manual remain available.')); return; }
+renderer.domElement.addEventListener('webglcontextlost', event => { event.preventDefault(); stop(); showModelFallback(tr('3D 표시가 중단되었습니다. 새로고침하거나 아래 제작 설명서를 확인하세요.', '3D rendering was interrupted. Reload the page or read the build manual below.')); });
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 renderer.outputEncoding = THREE.sRGBEncoding; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
 renderer.physicallyCorrectLights = true;
@@ -288,7 +304,7 @@ const scene = new THREE.Scene();
 const bgCol = () => getComputedStyle(document.documentElement).getPropertyValue('--stage').trim() || '#dedad2';
 scene.background = new THREE.Color(bgCol());
 const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
+if (THREE.RoomEnvironment) { try { scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture; } catch (error) { /* Direct lighting remains available. */ } }
 const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(60, 140, 90); scene.add(key);
 const camera = new THREE.PerspectiveCamera(32, 1, 1, 4000);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -299,15 +315,24 @@ let mode = 'explode', step = 16, anim = 1, playing = null;
 new ResizeObserver(resize).observe(stage);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { scene.background = new THREE.Color(bgCol()); dirty = true; });
 
-const fail = () => { $('load').textContent = tr('3D 모델을 불러오지 못했습니다', 'The 3D model failed to load'); };
+let modelFailed = false;
+let modelTimer;
+const fail = () => { modelFailed = true; clearTimeout(modelTimer); showModelFallback(tr('3D 모델을 불러오지 못했습니다. CAD 그림과 제작 설명서를 표시합니다.', 'The 3D model could not load. The CAD image and build manual remain available.')); };
 const ms = document.createElement('script'); ms.src = 'logger/model.js'; ms.onerror = fail;
+modelTimer = setTimeout(fail, 15000);
 ms.onload = () => {
-  const bin = atob(window.RL_GLB), buf = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
-  new THREE.GLTFLoader().parse(buf.buffer, '', onModel, fail);
+  if (modelFailed) return;
+  try {
+    if (typeof window.RL_GLB !== 'string') throw new Error('MODEL_DATA_MISSING');
+    const bin = atob(window.RL_GLB), buf = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+    new THREE.GLTFLoader().parse(buf.buffer, '', onModel, fail);
+  } catch (error) { fail(); }
 };
 document.body.appendChild(ms);
 function onModel(g) {
+  if (modelFailed) return;
+  clearTimeout(modelTimer);
   model = g.scene;
   model.traverse(o => {
     if (byNode[o.name]) { nodes[o.name] = o; home[o.name] = o.position.clone(); }
@@ -407,6 +432,7 @@ const playLabel = () => { $('play').textContent = playing ? tr('정지', 'Pause'
 function stop() { if (playing) { clearInterval(playing); playing = null; playLabel(); } }
 $('play').onclick = () => { if (playing) return stop(); if (step >= 35) setStep(16); playing = setInterval(() => step >= 35 ? stop() : setStep(step + 1), 1800); playLabel(); };
 playLabel();
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
 if (hp.get('mode') === 'steps') setMode('steps');
 
 let last = performance.now();

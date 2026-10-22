@@ -90,6 +90,7 @@ function navEnter() {
 // phones: the map sits above the panel, so bring it into view when navigation opens or the view changes
 const navToMap = () => { if (matchMedia('(max-width: 860px)').matches) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 function navExit(to = 'pRoute') {
+  navCancelReplay();
   if (!NAV.on) return; NAV.on = false; setPlaying(false); navReal(false);
   const pv = NAV.prev; mapEl.classList.remove('nav'); $('navHud').hidden = true; $('navLegend').hidden = true;
   for (const l of LAYERS) if (l.id !== 'relief' && l.id in pv.layers) setLayer(l.id, pv.layers[l.id]);
@@ -99,6 +100,7 @@ function navExit(to = 'pRoute') {
 }
 // choose the route, then play it from just before departure
 function navRoute(pol) {
+  navCancelReplay();
   NAV.pol = pol; NAV.camBear = NAV.camC = null; const sc = CASES[NAV.ci], p = sc.pol[pol];
   NAV.steps = navSteps(sc, p); NAV.cur = -1; buildRouteMeshes(); navPanel(); if (NAV.view === '2d') navFit(); navMarks(); if (NAV.real) navMapRoute();
   setTime(sc.r.t0 + Math.max(0, p.dep - 20) / 3600);
@@ -107,12 +109,17 @@ function navRoute(pol) {
 // the recorded spread, fast: from the first burn record to the departure (about 15 s), with both routes on the map; the
 // burned area grows at each record time and the modelled flame shows in the hour after each model input. Then the
 // trip starts again.
+function navCancelReplay() {
+  NAV.rpToken = (NAV.rpToken || 0) + 1; cancelAnimationFrame(NAV.rpRaf); NAV.rpRaf = null;
+  $('navReplayLb')?.remove();
+}
 function navReplay() {
   const sc = CASES[NAV.ci], dep = sc.r.t0 + sc.pol[NAV.pol].dep / 3600, a = Math.min(REC[0] ?? dep - 6, dep - .5);
-  cancelAnimationFrame(NAV.rpRaf); setPlaying(false); setDetail(false);
+  navCancelReplay(); setPlaying(false); setDetail(false);
+  const token = NAV.rpToken;
   let lb = $('navReplayLb'); if (!lb) { lb = document.createElement('div'); lb.id = 'navReplayLb'; lb.className = 'nav-replay'; mapEl.appendChild(lb); }
   const t0 = performance.now(), dur = 15000;
-  const step = now => { const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t);
+  const step = now => { if (token !== NAV.rpToken || !NAV.on) return; const k = Math.min(1, (now - t0) / dur), t = a + (dep - a) * k; setTime(t, true);
     lb.innerHTML = `<b>${tr('불 번짐 재생 (기록)', 'Spread replay (recorded)')}</b> ${navDate(t)} ${navClock(t)} <i style="width:${(k * 100).toFixed(1)}%"></i>`;
     if (k < 1 && NAV.on) NAV.rpRaf = requestAnimationFrame(step); else { lb.remove(); if (NAV.on) { if (sc.k >= 0) setDetail(true, sc.k); navRoute(NAV.pol); } } };
   NAV.rpRaf = requestAnimationFrame(step);
@@ -300,6 +307,7 @@ const navLL = (u, v) => [W + u * (E - W), N - v * (N - S)];
 const NAV_CHASE = { pitch: 62, zoom: 15.8 };
 let navMapP = null;
 function navView(v, quiet) {
+  navCancelReplay();
   if (v !== 'chase' && NAV.free) navFree(false);
   NAV.view = v; NAV.hd = null; NAV.camC = null;
   if (state.mode !== '2d') setMode('2d');
@@ -321,7 +329,12 @@ function navReal(on) {
       map.once('idle', () => go && go()); setTimeout(() => go && go(), 5000); } },
     () => { NAV.realErr = true; navMapP = null; if (NAV.real) navView('2d'); });
 }
-const navLoad = (tag, attrs) => new Promise((ok, no) => { const e = Object.assign(document.createElement(tag), attrs, { onload: ok, onerror: no }); document.head.appendChild(e); });
+const navLoad = (tag, attrs) => new Promise((ok, no) => {
+  const e = Object.assign(document.createElement(tag), attrs); let settled = false;
+  const finish = error => { if (settled) return; settled = true; clearTimeout(timer); e.onload = e.onerror = null; if (error) { e.remove(); no(error); } else ok(); };
+  const timer = setTimeout(() => finish(new Error('Map resource timed out')), 12000);
+  e.onload = () => finish(null); e.onerror = () => finish(new Error('Map resource unavailable')); document.head.appendChild(e);
+});
 const navSri = k => NAV_ML.startsWith('https:') ? { integrity: NAV_SRI[k], crossOrigin: 'anonymous' } : {};     // CDN copy only: file:// cannot be checked
 let navLibP = null;
 const navLib = () => navLibP ??= window.maplibregl ? Promise.resolve()
@@ -396,7 +409,8 @@ function navMap() {
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'top-right');
     map.once('idle', () => map.getContainer().querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'));     // credits folded to the (i) button
     map.on('error', e => { if (!NAV.tileErr && (e.sourceId === 'sat' || e.sourceId === 'dem')) { NAV.tileErr = true; if (NAV.real) navReal(true); } });
-    await new Promise(ok => map.isStyleLoaded() ? ok() : map.once('style.load', ok));
+    const styleOk = await withDeadline(new Promise(ok => map.isStyleLoaded() ? ok(true) : map.once('style.load', () => ok(true))), 12000, false);
+    if (!styleOk) { map.remove(); throw new Error('Map style timed out'); }
     navFlameImages(map);
     const car = document.createElement('div'); car.className = 'navmlcar'; car.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2 20 21 12 17 4 21z"/></svg>';
     NAV.mlCar = new maplibregl.Marker({ element: car, rotationAlignment: 'map', pitchAlignment: 'map' }).setLngLat(map.getCenter()).addTo(map);
