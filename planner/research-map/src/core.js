@@ -486,9 +486,18 @@ const ctxTex = c => { const t = new THREE.CanvasTexture(c); t.encoding = THREE.s
 let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
-  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(CTX_TOPO), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
+  if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(ctxTopo2D(CTX_TOPO)), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
   if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
+}
+// the ring outside the study area in 2D: sea drawn as water (the paper tone read as a blank), land a little paler so the
+// study area's own map stands out. A copy: CTX_TOPO itself is what the texture cache keeps.
+function ctxTopo2D(src) {
+  const w = src.width, h = src.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); g.drawImage(src, 0, 0); const im = g.getImageData(0, 0, w, h), d = im.data;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, sea = celevUV(x / (w - 1), y / (h - 1)) < 1;
+    if (sea) { d[i] = 170; d[i + 1] = 205; d[i + 2] = 224; } else { d[i] = d[i] * .7 + 246 * .3; d[i + 1] = d[i + 1] * .7 + 244 * .3; d[i + 2] = d[i + 2] * .7 + 238 * .3; } }
+  g.putImageData(im, 0, 0); return c;
 }
 function drawContext(real, topoC, CTW, CTH) {
   const rc = real.getContext('2d'), tc = topoC.getContext('2d'), ri = rc.createImageData(CTW, CTH), ti = tc.createImageData(CTW, CTH);
