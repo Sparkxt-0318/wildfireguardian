@@ -420,6 +420,9 @@ renderer.setPixelRatio(LITE ? 1 : Math.min(devicePixelRatio, 2));
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// shader programs compile without the page waiting for each one's log (the browser compiles them in the background);
+// the shaders are fixed and tested, so a compile error would show at once in development
+renderer.debug.checkShaderErrors = false;
 mapEl.prepend(renderer.domElement);
 const scene = new THREE.Scene(); scene.fog = new THREE.Fog(0xcfd6d9, 30, 150);
 const camera = new THREE.PerspectiveCamera(36, 1, .03, 900);
@@ -495,7 +498,7 @@ function ctxFlat() {
 // study area's own map stands out. A copy: CTX_TOPO itself is what the texture cache keeps.
 function ctxTopo2D(src) {
   const w = src.width, h = src.height, c = document.createElement('canvas'); c.width = w; c.height = h;
-  const g = c.getContext('2d'); g.drawImage(src, 0, 0); const im = g.getImageData(0, 0, w, h), d = im.data;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(src, 0, 0); const im = g.getImageData(0, 0, w, h), d = im.data;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4, sea = celevUV(x / (w - 1), y / (h - 1)) < 1;
     if (sea) { d[i] = 170; d[i + 1] = 205; d[i + 2] = 224; } else { d[i] = d[i] * .7 + 246 * .3; d[i + 1] = d[i + 1] * .7 + 244 * .3; d[i + 2] = d[i + 2] * .7 + 238 * .3; } }
   g.putImageData(im, 0, 0); return c;

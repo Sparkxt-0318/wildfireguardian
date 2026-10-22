@@ -885,9 +885,11 @@ function frame(now) {
   if (windLines.visible) stepWind(reduceMotion ? 0 : dt);
   stepTween(now); controls.update();
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
+  // 2D and 3D both draw through the composer (2D with the glow off): one set of shader programs, so switching views
+  // never recompiles them (drawn straight to the screen, every program needs a second, sRGB-output version)
   const useBloom = composer && state.mode === '3d' && flatF < .01;
-  skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = composer ? 1 : 0;
+  if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (composer) { bloom.enabled = useBloom; if (useBloom) bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
@@ -896,6 +898,22 @@ function frame(now) {
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }
   requestAnimationFrame(frame);
+}
+
+// ---------------- views prepared ahead ----------------
+// a few seconds after the first view: the 2D map images (지형도, 도로, the surrounding ring) are built and the shader
+// programs that only 2D and 길 안내 use are compiled, one small step per idle moment, so the first switch does not stall
+let warmed = false;
+function warmViews() {
+  if (warmed || !B.osm) return; warmed = true;
+  const idle = fn => new Promise(ok => (window.requestIdleCallback || setTimeout)(() => { try { fn(); } catch (e) { console.warn(e); } ok(); }, { timeout: 1500 }));
+  idle(() => ensureFlat()).then(() => idle(() => ensureRoadMap())).then(() => idle(() => ctxFlat())).then(() => idle(() => {
+    const keep = [terrain.material, ctxMesh && ctxMesh.material], cf = ctxFlat(), pm = new THREE.PointsMaterial({ map: new THREE.CanvasTexture(mk(4, 4)), size: 1, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
+    const pts = new THREE.Points(new THREE.BufferGeometry(), pm); scene.add(pts);
+    terrain.material = matFlat; if (ctxMesh && cf) ctxMesh.material = cf;
+    const rt = renderer.getRenderTarget(); renderer.setRenderTarget(composer ? composer.readBuffer : null); renderer.compile(scene, camera); renderer.setRenderTarget(rt);
+    terrain.material = keep[0]; if (ctxMesh) ctxMesh.material = keep[1]; scene.remove(pts); pts.geometry.dispose();
+  }));
 }
 
 // ---------------- boot ----------------
@@ -951,7 +969,8 @@ async function boot() {
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
   requestAnimationFrame(frame);
-  if (hit) setTimeout(() => ctxDone.then(needOsm, needOsm), 2500);   // then the OSM vectors, so a switch to 2D is instant
+  if (hit) setTimeout(() => ctxDone.then(needOsm, needOsm).then(warmViews), 2500);   // then the OSM vectors, so a switch to 2D is instant
+  else setTimeout(warmViews, 2500);
   if (!HR && B.hourly_meta) setTimeout(() => window.__wfgLoad(`${B.id}.hourly.js`).then(ok => {
     const h = ok && (window.WFG_HOURLY || {})[B.id];
     if (h) { attachHourly(h); lastKey = ''; dirty = true; }
