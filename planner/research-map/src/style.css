@@ -437,3 +437,8 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .json .jk { color: #8cc4ff; } .json .js { color: #a5e3b9; } .json .jn { color: #ffc46b; } .json .jl { color: #f29e9e; }
 .api-resp { padding: 8px 14px; border-top: 1px solid #2b3036; color: #c9dccf; font-size: 12px; }
 @media (max-width: 760px) { .api-sum { grid-template-columns: 1fr 1fr; } .apiview { padding: 6px; } .api-body { padding: 10px; } }
+/* radiant flux legend: log scale, ticks at each factor of ten */
+.logramp { margin: 4px 0 2px; max-width: 240px; }
+.legend .logramp > i { display: block; width: 100%; height: 9px; border-radius: 3px; margin: 0; }
+.logramp > div { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.logramp > div span { position: relative; } .logramp > div span::before { content: ''; position: absolute; left: 50%; top: -5px; width: 1px; height: 4px; background: var(--muted); }
