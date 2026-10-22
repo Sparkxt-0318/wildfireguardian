@@ -150,13 +150,84 @@ function dotInfo(it) {
 function dotOpen(it, x, y) {
   const d = dotInfo(it); if (!d) return; const pop = $('dotPop');
   pop.innerHTML = `<b>${d.name}</b><span>${d.kind}</span>${d.row ? `<span class="st"><i style="background:${STATUS[d.row.v].c}"></i>${tr('대피 결과', 'Evacuation result')}: ${STATUS[d.row.v].t}</span>` : ''}
-    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button><button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
+    <div><button type="button" class="btn" id="dotZoom">${tr('확대', 'Zoom in')}</button>${d.row && d.row.v !== 'not_checkable' ? `<button type="button" class="btn" id="dotApi">${tr('API 응답', 'API response')}</button>` : ''}<button type="button" class="btn" id="dotClose">${tr('닫기', 'Close')}</button></div>`;
   const r = mapEl.getBoundingClientRect(); pop.hidden = false;
   pop.style.left = Math.min(r.width - 230, Math.max(8, x - r.left + 12)) + 'px'; pop.style.top = Math.min(r.height - 120, Math.max(8, y - r.top + 12)) + 'px';
   $('dotClose').onclick = () => { pop.hidden = true; };
+  if ($('dotApi')) $('dotApi').onclick = () => { pop.hidden = true; apiOpen(d.row.id); };
   $('dotZoom').onclick = () => { pop.hidden = true; const flat = state.mode === '2d';
     tweenView({ r: flat ? 4 : 6, phi: flat ? .0005 : THREE.MathUtils.degToRad(50), th: flat ? 0 : sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(it.u), yAt(it.u, it.v), szV(it.v)) }, 1000); };
 }
+// ---------------- API 응답 보기: the recorded real Route-Check API exchange behind an origin's verdict ----------------
+// site/regions/<id>.api.js (tools/build_api_log.py) holds the jobs exactly as the API returned them, loaded on first open.
+const PLACE_ID = new Map(B.places.map(p => [p.id, p]));
+let apiReq = null, apiSel = null;
+const apiData = () => apiReq || (apiReq = window.__wfgLoad(`${B.id}.api.js`).then(ok => ok && (window.WFG_API || {})[B.id] || null));
+const jsonHTML = o => esc(JSON.stringify(o, null, 2)).replace(/(&quot;(?:[^&]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)/gi,
+  (m, str, colon, lit, num) => str ? `<span class="${colon ? 'jk' : 'js'}">${str}</span>${colon || ''}` : lit ? `<span class="jl">${lit}</span>` : `<span class="jn">${num}</span>`);
+const API_C = { checked_route: '#2f8a57', model_no_route: '#4a4f57', unresolved: '#8a8a8a' };     // verdict colours readable on the dark viewer
+const apiDur = (a, b) => a && b ? ((Date.parse(b) - Date.parse(a)) / 1000).toFixed(1) + ' s' : '–';
+const apiName = id => { const rm = /^research:[^:]+:([^:]+):(origin|destination)$/.exec(id || '');
+  if (rm) return tr('연구 사례 ', 'Research ') + caseIdLabel(rm[1]) + (rm[2] === 'destination' ? tr(' · 도착지', ' · destination') : '');
+  const p = PLACE_ID.get(id); if (p) return placeName(p); const r = BOOTH.flatMap(b => b.rows).find(x => x.id === id); return r ? (r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name) : id; };
+function apiOpen(oid, k) {
+  if (!BOOTH.length) return;
+  k = k ?? Math.max(0, state.boothK); const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable');
+  apiSel = { k, oid: rows.some(r => r.id === oid) ? oid : (rows.find(r => r.v === 'checked_route') || rows[0] || {}).id };
+  const box = $('apiView'); box.hidden = false; box.querySelector('.api-body').innerHTML = `<p class="note">${tr('기록된 API 응답을 불러오는 중…', 'Loading the recorded API responses…')}</p>`;
+  apiData().then(d => apiRender(d));
+}
+function apiRender(d) {
+  const box = $('apiView'), body = box.querySelector('.api-body'); if (box.hidden) return;
+  const { k, oid } = apiSel, t = d && d.times.find(x => x.input_time === BOOTH[k].input_time), row = t && t.rows[oid];
+  const rows = BOOTH[k].rows.filter(r => r.v !== 'not_checkable').sort((a, z) => (a.research ? 0 : 1) - (z.research ? 0 : 1) || String(apiName(a.id)).localeCompare(apiName(z.id)));
+  const head = `<div class="api-pick"><label>${tr('입력 시각', 'Input time')} <span class="seg2">${BOOTH.map((x, i) => `<button type="button" data-ak="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</span></label>
+    <label>${tr('출발지', 'Origin')} <select id="apiOrigin">${rows.map(r => `<option value="${esc(r.id)}"${r.id === oid ? ' selected' : ''}>${esc(apiName(r.id))} · ${STATUS[r.v].t}</option>`).join('')}</select></label></div>`;
+  if (!row) { body.innerHTML = head + `<p class="note">${tr('이 출발지·입력 시각의 기록된 API 응답이 없습니다.', 'No recorded API response for this origin and input time.')}</p>`; apiWire(d); return; }
+  const rc = row.rc && t.rc[row.rc], plan = row.plan && t.plans[row.plan], res = (rc && rc.result) || {}, pv = (rc && rc.result && rc.result.provenance) || (rc && rc.provenance) || {};
+  const hp = t.health || {}, host = pv.host || {};
+  // the dispatch plan as the API returned it, with this origin's own attempt list put back in place
+  const planView = plan && JSON.parse(JSON.stringify(plan));
+  if (planView) for (const o of planView.result.plans) o.attempts = o.origin_id === oid
+    ? row.att.map(([dest, dep, v, arr, cs, job]) => ({ destination_id: dest, depart_offset_s: dep, verdict: v, arrival_s: arr, compute_s: cs, route_check_job_id: job }))
+    : tr(`… 시도 ${o.attempts}건 (다른 출발지)`, `… ${o.attempts} attempts (another origin)`);
+  const dests = [...new Set(row.att.map(a => a[0]))], deps = [...new Set(row.att.map(a => a[1]))].sort((a, z) => a - z);
+  const cell = (dst, dep) => { const a = row.att.find(x => x[0] === dst && x[1] === dep); if (!a) return `<td class="na">–</td>`;
+    const tip = `${a[5]} · ${STATUS[a[2]].t}${a[3] != null ? ` · ${tr('도착', 'arrival')} +${fmtS(a[3])}` : ''} · ${tr('계산', 'compute')} ${a[4] != null ? a[4].toFixed(1) + ' s' : '–'}`;
+    return `<td title="${esc(tip)}" class="${a[5] === row.rc ? 'shown' : ''}" style="background:${API_C[a[2]] || '#8a8a8a'}">${a[4] != null ? a[4].toFixed(1) : ''}</td>`; };
+  const step = (n, verb, path, code, note, open) => `<details class="api-step"${open ? ' open' : ''}><summary><b>${n}</b><span class="verb ${verb.toLowerCase()}">${verb}</span><code>${esc(path)}</code><small>${note}</small></summary>${code}</details>`;
+  const pre = o => `<pre class="json">${jsonHTML(o)}</pre>`;
+  const steps = plan
+    ? [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/dispatch-plans', pre(plan.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(plan.job_id)}</code></div>`, tr('출발지 × 대피소 × 출발 시각을 한 번에 점검 요청', 'one request: origins × shelters × departure times'), true),
+       step(3, 'GET', `/v1/dispatch-plans/${plan.job_id}`, pre(planView), tr(`200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`, `200 · ${plan.status} · ${apiDur(plan.started_at, plan.finished_at)}`)),
+       rc ? step(4, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict} · 지도에 그린 경로`, `200 · verdict ${res.verdict} · the route drawn on the map`), true) : '']
+    : [step(1, 'GET', '/v1/health', pre(hp), tr('API 상태 · 버전 확인 (200)', 'API status and versions (200)')),
+       step(2, 'POST', '/v1/route-checks', pre(rc.request) + `<div class="api-resp">→ <b>202 Accepted</b> · job_id <code>${esc(rc.job_id)}</code></div>`, tr('연구 사례 출발지 한 경로 점검 요청', 'one route check for a research-case origin'), true),
+       step(3, 'GET', `/v1/route-checks/${rc.job_id}`, pre(rc), tr(`200 · 판정 ${res.verdict}`, `200 · verdict ${res.verdict}`), true)];
+  body.innerHTML = head + `
+    <div class="api-prov">${tr('실제 API 기록', 'Recorded real API run')}: <b>Route-Check API ${esc(pv.api_version || d.cache.api_version)}</b> · ${esc(pv.package || '')} ${esc(pv.package_version || '')} · ${tr('키트', 'kit')} ${esc(pv.kit || '')} · ${tr('체크포인트', 'checkpoint')} <code>${esc((pv.checkpoint || '').slice(0, 8))}</code> · git <code>${esc((pv.git_commit || '').slice(0, 7))}</code>
+      <br>${tr('실행', 'Run')} ${esc(kstDay(pv.generated_at || d.cache.created_at))} · ${esc(host.platform || '')}${host.cpu_count ? ` · ${host.cpu_count} ${tr('코어', 'cores')}` : ''} · ${tr('요청당 시간 예산', 'time budget per request')} ${pv.budget_s || 30} s · <code>${esc(t.base || '')}</code></div>
+    <div class="api-sum">
+      <div><small>${tr('판정', 'Verdict')}</small><b style="color:${res.verdict === 'checked_route' ? '#7fd1a2' : res.verdict === 'model_no_route' ? '#f0a58f' : '#e6e9ec'}">${STATUS[res.verdict]?.t || esc(res.verdict)}</b><code>${esc(res.verdict || '')}${res.reason_code ? ' · ' + esc(res.reason_code) : ''}</code></div>
+      <div><small>${res.verdict === 'checked_route' ? tr('대피소', 'Shelter') : tr('펼친 작업의 대피소', 'Shelter of the job shown')}</small><b>${esc(apiName(row.att.find(a => a[5] === row.rc)?.[0]))}</b></div>
+      <div><small>${tr('출발 → 도착', 'Departure → arrival')}</small><b>+${fmtS(res.departure_s || 0)} → ${res.arrival_s != null ? '+' + fmtS(res.arrival_s) : '–'}</b></div>
+      <div><small>${tr('API 계산 시간', 'API compute time')}</small><b>${res.compute_s != null ? res.compute_s.toFixed(2) + ' s' : '–'} / ${pv.budget_s || 30} s</b><code>${res.within_budget ? tr('예산 안', 'within budget') : tr('예산 초과', 'over budget')}</code></div>
+    </div>
+    <div class="api-grid"><div class="sub-h" style="margin:10px 0 4px">${tr(`이 출발지에 보낸 점검 ${row.att.length}건 · 칸마다 실제 API 작업 1개 (숫자 = 계산 초)`, `${row.att.length} checks sent for this origin · each cell is one real API job (number = compute seconds)`)}</div>
+      <table><tr><th></th>${deps.map(x => `<th>+${Math.round(x / 60)}${tr('분', 'm')}</th>`).join('')}</tr>${dests.map(dst => `<tr><th>${esc(apiName(dst))}</th>${deps.map(x => cell(dst, x)).join('')}</tr>`).join('')}</table>
+      <div class="api-key">${['checked_route', 'model_no_route', 'unresolved'].map(v => `<span><i style="background:${API_C[v]}"></i>${STATUS[v].t}</span>`).join('')}<span><i class="shown"></i>${tr('아래에 펼친 작업', 'job shown below')}</span></div></div>
+    <div class="api-steps">${steps.join('')}</div>
+    <p class="note">${tr('응답은 저장된 그대로입니다. 경로 좌표 같은 긴 배열만 개수로 줄였습니다(지도에 그린 선). 이 화면은 인터넷 없이도 열립니다.', 'Responses are shown as stored; only long arrays such as route coordinates are folded to a count (the line drawn on the map). This view works without internet.')}</p>`;
+  apiWire(d);
+}
+function apiWire(d) {
+  const body = $('apiView').querySelector('.api-body');
+  body.querySelectorAll('[data-ak]').forEach(b => b.onclick = () => { apiSel.k = +b.dataset.ak; apiRender(d); });
+  const sel = body.querySelector('#apiOrigin'); if (sel) sel.onchange = () => { apiSel.oid = sel.value; apiRender(d); };
+}
+$('apiView').addEventListener('click', e => { if (e.target.id === 'apiView' || e.target.closest('.api-close')) $('apiView').hidden = true; });
+addEventListener('keydown', e => { if (e.key === 'Escape') $('apiView').hidden = true; });
 labelsEl.addEventListener('click', e => { const el = e.target.closest('.mk'); if (!el) return; const it = domItems.find(x => x.el === el); if (it) { e.stopPropagation(); dotOpen(it, e.clientX, e.clientY); } });
 controls.addEventListener('start', () => { $('dotPop').hidden = true; });
 function focusOrigin(id) {
@@ -189,6 +260,7 @@ function renderEvac() {
   el.innerHTML = `
     <div class="grp-h"><span>${tr('입력 시각별 판정 · 부스 캐시', 'Verdicts per input time · booth cache')}</span><span>${tr('타임라인을 따라감', 'follows the timeline')}</span></div>
     <div class="seg2">${BOOTH.map((x, i) => `<button type="button" data-k="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</div>
+    <button type="button" class="api-open" id="evacApi"><b>${tr('API 응답 보기', 'View API responses')}</b><span>${state.focus && b.rows.some(r => r.id === state.focus && r.v !== 'not_checkable') ? tr(`${esc(apiName(state.focus))}의 판정을 만든 실제 Route-Check API 요청·응답`, `The real Route-Check API request and response behind ${esc(apiName(state.focus))}`) : tr('이 판정들을 만든 실제 Route-Check API 요청·응답 (출발지를 골라 보기)', 'The real Route-Check API requests and responses behind these verdicts (pick an origin)')}</span></button>
     <div class="tiles">
       <div class="tile ok"><b>${c.all.checked_route || 0}</b><span>/ ${c.total.all} ${tr('출발지', 'origins')}</span><small>${tr('확인된 경로 (연구 사례 출발지 포함)', 'checked route (incl. recorded research origins)')}</small></div>
       <div class="tile bad"><b>${c.total.all - (c.all.checked_route || 0)}</b><small>${tr('확인된 경로 없음', 'no checked route')}<br>${tr(`경로 없음 ${c.all.model_no_route || 0} · 미확인 ${c.all.unresolved || 0} · 점검 불가 ${c.all.not_checkable || 0}`, `no route ${c.all.model_no_route || 0} · unresolved ${c.all.unresolved || 0} · not checkable ${c.all.not_checkable || 0}`)}</small></div>
@@ -207,6 +279,7 @@ function renderEvac() {
     <p class="note" style="margin:6px 4px">${tr(`* 이동시간만 고려한 경로를 같은 화재 입력의 전체 위험(4개 시나리오)으로 검사해 도로 전체 화염 접촉이 확인된 출발지 수입니다(마을 출발지와 연구 사례 출발지 포함). 표의 수는 연구 사례 출발지를 포함하고, 마을·요양 막대는 OSM 출발지만 셉니다.<br>출처: 부스 캐시 · 실제 Route-Check API ${api.version || ''} · ${api.host || ''} · ${kstDay(api.created_at)} KST 계산 · 출발 +0–50분 ${b.step_min}분 간격 · 가까운 대피소 ${b.shelters}곳. 계획 보조 결과이며 실제 대피 명령이 아닙니다.`, `* Origins whose travel-time-only route, checked against the full hazard of the same fire input (4 scenarios), has confirmed whole-road flame contact (village and recorded research origins). Table counts include research origins; the village and care bars count OSM origins only.<br>Source: booth cache · real Route-Check API ${api.version || ''} · ${api.host || ''} · computed ${kstDay(api.created_at)} KST · departures +0–50 min every ${b.step_min} min · nearest ${b.shelters} shelters. Planning aid, not an evacuation order.`)}</p>`;
   el.querySelectorAll('.seg2 button').forEach(bt => bt.onclick = () => { if (state.detail) setDetail(false); setTime(BOOTH[+bt.dataset.k].t0 + .02); setPlaying(false); });
   el.querySelectorAll('[data-o]').forEach(bt => bt.onclick = () => focusOrigin(bt.dataset.o));
+  $('evacApi').onclick = () => apiOpen(state.focus, k);
 }
 
 // ---------------- prior research comparison ----------------
