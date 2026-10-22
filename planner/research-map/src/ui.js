@@ -783,7 +783,7 @@ function switchLang(l) { try { localStorage.setItem('wfg3d.lang', l); } catch (e
 const SAT_Z = 16, SAT_R = 2, SAT_N = 2048;
 const sat = { mesh: null, photo: null, out: null, key: '', gen: -1, t: 0, want: null };
 function satTick(kmPerPx) {
-  const on = L.base.on && kmPerPx < .006 && !(NAV.real || NAV.street) && NAV.netOk !== false;
+  const on = L.base.on && kmPerPx < .006 && !NAV.real && NAV.netOk !== false;
   if (sat.mesh) sat.mesh.visible = on && sat.ready;
   const rop = sat.mesh?.visible ? .4 : 1; for (const m of detailGroup.userData.roads || []) m.material.opacity = rop;     // over the photo the roads are already visible: lighter lines
   if (!on) return;
@@ -879,11 +879,11 @@ function frame(now) {
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = useBloom ? 1 : 0;
-  if (NAV.real || NAV.street) { /* the real map or road view covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
+  if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (useBloom) { bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
   placeDom();
   $('needle').style.transform = `rotate(${(sph(camera.position, controls.target).th * 180 / Math.PI).toFixed(1)}deg)`;
   const dist = camera.position.distanceTo(controls.target), kmPerPx = 2 * dist * Math.tan(camera.fov * Math.PI / 360) / mapEl.clientHeight / SF;
-  detailGroup.visible = L.base.on && kmPerPx < .012 && !(NAV.real || NAV.street);     // close-up roads and buildings below ~12 m per pixel
+  detailGroup.visible = L.base.on && kmPerPx < .012 && !NAV.real;     // close-up roads and buildings below ~12 m per pixel
   satTick(kmPerPx);
   const nice = [.1, .25, .5, 1, 2, 5, 10].find(v => v / kmPerPx >= 60) || 10; $('scaleBar').style.width = (nice / kmPerPx).toFixed(0) + 'px'; $('scaleTxt').textContent = (nice < 1 ? nice * 1000 + ' m' : nice + ' km') + (state.mode === '3d' ? tr(' (화면 중심)', ' (at centre)') : '');
   if (hoverQueued && now - hoverT > 70) { hover(hoverQueued); hoverQueued = null; hoverT = now; }

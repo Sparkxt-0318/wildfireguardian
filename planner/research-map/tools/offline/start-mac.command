@@ -10,5 +10,5 @@ elif [ -n "$PY" ]; then
   (sleep 1; open "http://localhost:8840/") &
   "$PY" -m http.server 8840 --bind 127.0.0.1
 else
-  echo "python3 not found: opening the file directly (the map works; road view needs the server and internet)"; open index.html
+  echo "python3 not found: opening the file directly (everything that works offline works this way too)"; open index.html
 fi

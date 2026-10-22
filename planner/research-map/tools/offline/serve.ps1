@@ -1,5 +1,5 @@
 # WildfireGuardian offline: serves this folder at http://localhost:8840 (Windows, no install) and opens the browser.
-# The address is registered for the road view key, so with a hotspot road view and 3D satellite work too.
+# With a hotspot, the 3D satellite view in navigation works too.
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $port = 8840

@@ -339,38 +339,11 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 #navReal.warm { visibility: hidden; pointer-events: none; }
 #navReal.warm .maplibregl-control-container { display: none; }     /* its credits must not show over the main map while it waits */
 .map.nav3d .labels, .map.nav3d .mapctl, .map.nav3d .scale, .map.nav3d .compass, .map.nav3d .firechip, .map.nav3d .cmpchip,
-.map.navsv .labels, .map.navsv .mapctl, .map.navsv .scale, .map.navsv .compass, .map.navsv .firechip, .map.navsv .cmpchip { display: none; }
 .navmlcar { width: 42px; height: 42px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
 .navmlcar svg { width: 100%; height: 100%; } .navmlcar path { fill: #1a73e8; stroke: #fff; stroke-width: 2; stroke-linejoin: round; }
 .navmlcar.warn path { fill: #e8a21a; } .navmlcar.fire path { fill: #e23b1d; } .navmlcar.idle path { fill: #6b7280; } .navmlcar.off { visibility: hidden; }
 .navmlfire { background: #e23b1d; color: #fff; font: 600 12px/1 system-ui, sans-serif; padding: 4px 7px; border-radius: 5px; box-shadow: 0 1px 4px rgba(0,0,0,.35); white-space: nowrap; }
 .nav-views button:disabled { opacity: .45; cursor: not-allowed; }
-/* navigation view, road view (Kakao Roadview) */
-#navStreet { position: absolute; inset: 0; z-index: 4; background: #2b2b2b; }
-#navStreet.warm { z-index: -1; pointer-events: none; }   /* built ahead behind the map: its first photos load before the tab is opened */
-#navStreet .sv-view { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 52%; transition: opacity .4s ease, transform .4s ease-out; }
-#navStreet .sv-view.go-fwd { transform: scale(1.25); transition: opacity .4s ease, transform var(--svgap, 1.1s) linear; }
-#navStreet .sv-view.go-back { transform: scale(.86); transition: opacity .4s ease, transform var(--svgap, 1.1s) linear; }
-#navStreet .sv-curtain { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; gap: 12px; justify-items: center; background: #26282b; color: #e8e8e8; font-size: 14px; transition: opacity .4s; }
-#navStreet .sv-curtain i { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #555; border-top-color: #fff; animation: svspin .9s linear infinite; }
-#navStreet.ready .sv-curtain { opacity: 0; pointer-events: none; }
-@keyframes svspin { to { transform: rotate(360deg); } }
-#navStreet .sv-view.on { opacity: 1; z-index: 1; }
-#navStreet .sv-msg:not(:empty) { position: absolute; z-index: 5; top: 46px; left: 50%; transform: translateX(-50%); max-width: min(80%, 560px); background: rgba(32,33,36,.88); color: #fff; padding: 9px 13px; border-radius: 8px; font-size: 13px; line-height: 1.5; text-align: center; }
-#navStreet .sv-photo { z-index: 3; }
-#navStreet .sv-minibox { position: absolute; z-index: 3; right: 12px; bottom: 64px; }
-#navStreet .sv-mini { display: block; width: 260px; height: 190px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.35); border: 2px solid #fff; cursor: zoom-in; }
-#navStreet .sv-zoom { position: absolute; top: 6px; right: 6px; display: flex; flex-direction: column; gap: 4px; }
-#navStreet .sv-zoom button { width: 28px; height: 28px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--panel); font: 700 16px/1 system-ui, sans-serif; cursor: pointer; }
-#navStreet .sv-ctl select { height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); font: inherit; }
-#navStreet .sv-ctl { position: absolute; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 10px; background: var(--panel); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 12px; }
-#navStreet .sv-ctl button { min-width: 40px; height: 32px; border: 1px solid var(--line-2); border-radius: 7px; background: var(--panel); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
-#navStreet .sv-ctl #svAuto { min-width: 104px; }
-#navStreet .sv-ctl span { color: var(--muted); min-width: 92px; text-align: center; font-variant-numeric: tabular-nums; }
-.nav-key { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
-.nav-key summary { cursor: pointer; font-weight: 600; } .nav-key p { margin: 6px 0; color: var(--muted); line-height: 1.5; } .nav-key code { word-break: break-all; }
-.nav-key input { width: 60%; padding: 4px 6px; border: 1px solid var(--line-2); border-radius: 6px; font: inherit; }
-@media (max-width: 860px) { #navStreet .sv-mini { width: 160px; height: 117px; } }
 /* navigation: what the colours mean */
 .navlegend { position: absolute; z-index: 5; top: 12px; left: 12px; padding: 8px 10px; border-radius: 9px; background: color-mix(in srgb, var(--panel) 94%, transparent); box-shadow: 0 2px 8px rgba(0,0,0,.2); font-size: 11.5px; line-height: 1.75; }
 .navlegend div { display: flex; align-items: center; gap: 7px; }
@@ -404,40 +377,16 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
 .nav-graph svg { display: block; width: 100%; } .nav-graph text { font-size: 9.5px; fill: var(--muted); }
 .nav-graph .k { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--muted); margin: 2px 0 2px 26px; }
 .nav-graph .k span { display: flex; align-items: center; gap: 5px; } .nav-graph .k i { width: 14px; height: 3px; border-radius: 2px; } .nav-graph .k i.fl { width: 7px; height: 7px; border-radius: 50%; background: #e23b1d; }
-/* navigation on phones: a compact box, controls that fit, the inset map smaller */
+/* navigation on phones: a compact box */
 @media (max-width: 860px) {
   .navhud { padding: 7px 9px; font-size: 11px; bottom: 6px; } .navhud .nh-st { margin: 0 0 4px; padding: 4px 7px; } .navhud .ph-x { display: none; }
   .navhud .nh-race { margin: 0 0 4px; font-size: 11px; }
-  #navStreet .sv-ctl { left: 8px; right: 8px; transform: none; bottom: auto; top: 8px; justify-content: center; gap: 4px; padding: 5px; }
-  #navStreet .sv-ctl #svAuto { min-width: 84px; } #navStreet .sv-ctl span { min-width: 0; font-size: 11px; }
-  #navStreet .sv-minibox { right: 8px; bottom: auto; top: 56px; }
-  .map.navsv .navhud { bottom: 6px; }
 }
 .dotpop button { flex: 1; padding: 5px 0; border: 1px solid var(--line, rgba(128,128,128,.35)); border-radius: 6px; background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
 .dotpop button:hover { background: rgba(128,128,128,.16); }
 .dotpop button#dotZoom { background: #1a73e8; border-color: #1a73e8; color: #fff; }
 .dotpop button#dotZoom:hover { background: #1765cc; }
 
-/* road view: the fire laid over the photo (nav.js navSvFire) */
-#navStreet .sv-glow, #navStreet .sv-haze { position: absolute; inset: 0; z-index: 2; pointer-events: none; transition: opacity .6s, background .6s; }
-#navStreet .sv-haze { opacity: 0; background: radial-gradient(ellipse at 50% 40%, rgba(150,120,100,.55), rgba(90,70,60,.85)); mix-blend-mode: multiply; }
-#navStreet .sv-glow.pulse { animation: svpulse 1.6s ease-in-out infinite; }
-@keyframes svpulse { 50% { opacity: .65; } }
-#navStreet .sv-danger { position: absolute; z-index: 3; left: 12px; top: 12px; max-width: min(440px, 60%); padding: 10px 12px; border-radius: 10px; background: rgba(24,24,26,.82); color: #f2f2f2; font-size: 12.5px; line-height: 1.45; display: grid; gap: 4px; pointer-events: none; }
-#navStreet .sv-danger:empty { display: none; }
-#navStreet .sv-danger .big { font-size: 17px; font-weight: 700; } #navStreet .sv-danger .big b { color: #ff8a5c; }
-#navStreet .sv-danger .big.fire { color: #ff6b4a; } #navStreet .sv-danger .row { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
-#navStreet .sv-danger em { font-style: normal; font-weight: 700; color: #cfcfcf; } #navStreet .sv-danger em.up { color: #ff7b52; } #navStreet .sv-danger em.dn { color: #6fd08c; }
-#navStreet .sv-danger .st.ok { color: #6fd08c; } #navStreet .sv-danger .st.warn { color: #ffc35c; } #navStreet .sv-danger .st.fire { color: #ff6b4a; font-weight: 700; }
-#navStreet .sv-danger b.hi { color: #ff6b4a; } #navStreet .sv-danger b.mid { color: #ffc35c; }
-#navStreet .sv-danger .ghost { color: #c9c9c9; } #navStreet .sv-danger .ghost.fire b { color: #ff6b4a; } #navStreet .sv-danger .ghost.ok b { color: #6fd08c; }
-#navStreet .sv-danger .note { font-size: 10.5px; color: #9a9a9a; }
-#navStreet .sv-mini { width: 320px; height: 234px; }
-@media (max-width: 860px) {
-  #navStreet .sv-danger { top: 56px; left: 8px; max-width: 54%; font-size: 11px; padding: 7px 9px; } #navStreet .sv-danger .big { font-size: 13.5px; }
-  #navStreet .sv-danger .note, #navStreet .sv-danger .risk, #navStreet .sv-danger .st { display: none; } #navStreet .sv-mini { width: 160px; height: 117px; }
-}
-.map.navsv #navLegend { display: none; }     /* road view has its own fire panel */
 .more-layers { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
 .more-layers > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; padding: 6px 4px; color: var(--accent, #1a73e8); }
 /* spread replay label (nav.js navReplay) */
