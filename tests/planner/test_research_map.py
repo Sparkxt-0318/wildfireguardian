@@ -111,14 +111,10 @@ def test_navigation_view(bundles):
             assert recs['full']['full_policy_check']['pass'] is True and pol['full']['full_check']['passed'], (rid, case)
         else:
             assert recs['full']['outcome']['verdict'] == 'model_no_route', (rid, case)
-        # baked road view photo IDs belong to this case and have one entry per 30 m stop
-        pano = (RM / 'site' / 'regions' / f'{rid}.pano.js').read_text()
-        assert f'"case":"{case}"' in pano, rid
-    # road view: Kakao JavaScript keys (public by design, tied to registered addresses) live in site/kakao-keys.js only
-    assert 'appkey=${encodeURIComponent(navKey())}' in nav and not re.search(r'[0-9a-f]{32}', nav)
-    keys = (RM / 'site' / 'kakao-keys.js').read_text()     # JavaScript keys only, one per registered address
-    assert 'WFG_KAKAO_KEYS' in keys and 'kakao-keys.js' in (RM / 'site' / 'index.html').read_text()
+    # 로드뷰 (Kakao road view) was removed: no Kakao code, keys or baked photo lists are left
     page = (RM / 'site' / 'index.html').read_text()
+    assert 'kakao' not in nav.lower() and 'kakao' not in page.lower() and not re.search(r'[0-9a-f]{32}', nav)
+    assert not (RM / 'site' / 'kakao-keys.js').exists() and not list((RM / 'site' / 'regions').glob('*.pano.js'))
     assert 'id="tabNav"' in page and "const NAV_ML = 'vendor/maplibre-gl.'" in page
     for f in ('maplibre-gl.js', 'maplibre-gl.css', 'maplibre-gl.LICENSE.txt'):
         assert (RM / 'site' / 'vendor' / f).is_file()
