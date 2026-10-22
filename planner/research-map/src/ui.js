@@ -786,8 +786,9 @@ function frame(now) {
   const sun = sunPos(t), el = sun.el * Math.PI / 180, az = sun.az * Math.PI / 180;
   const day = smooth(-4, 14, sun.el), dusk = Math.exp(-Math.pow(sun.el / 7, 2));
   sunL.position.set(Math.sin(az) * Math.cos(el) * 110, Math.max(.05, Math.sin(el)) * 110 + 4, -Math.cos(az) * Math.cos(el) * 110);
-  sunL.intensity = .25 + 1.6 * day; sunL.color.setRGB(1, .82 + .16 * (1 - dusk), .62 + .3 * (1 - dusk));
-  hemi.intensity = .2 + .3 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
+  sunL.intensity = .5 + 1.35 * day;     // at night a cool moonlight keeps the terrain readable
+  sunL.color.setRGB(.72 + .28 * day, .8 + (.02 + .16 * (1 - dusk)) * day, .95 + (-.33 + .3 * (1 - dusk)) * day);
+  hemi.intensity = .38 + .12 * day; hemi.color.setRGB(.62 + .35 * day, .68 + .3 * day, .9 + .08 * day);
   _sc.copy(sky.night).lerp(sky.day, day).lerp(sky.dusk, dusk * .55 * (day > .05 ? 1 : .4));
   renderer.setClearColor(_sc);
   skyMat.uniforms.horizon.value.copy(_sc); skyMat.uniforms.top.value.copy(skyTop.night).lerp(skyTop.day, day).lerp(skyTop.dusk, dusk * .35 * (day > .05 ? 1 : .3));
