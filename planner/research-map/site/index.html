@@ -1725,11 +1725,16 @@ function updateBooth(force) {
     if (f && r.dense.length > 1) boothGroup.add(puck(r.dense[r.dense.length - 1].u, r.dense[r.dense.length - 1].v, 0x2f8a57, .07)); }
 }
 // ---------------- map dots: what each one is (click), and a zoom to it ----------------
+function caseIdLabel(name) {     // case ids such as 20250325T170000Z_FW1 -> FW1 · 03-26 02:00 입력 (KST)
+  const m = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)\d\dZ_(\w+)$/.exec(name || ''); if (!m) return name;
+  const d = new Date(Date.UTC(+m[1], m[2] - 1, +m[3], +m[4] + 9, +m[5]));
+  return `${m[6]} · ${p2(d.getUTCMonth() + 1)}-${p2(d.getUTCDate())} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())} ${tr('입력', 'input')}`;
+}
 function dotInfo(it) {
   const k = state.boothK, rowOf = id => L.booth.on && k >= 0 && state.cmp === 'ours' ? BOOTH[k].rows.find(r => r.id === id) : null;
   if (it.place) { const p = it.place, row = p.role === 'origin' ? rowOf(p.id) : null;
     return { name: placeName(p), kind: placeKind(p), row }; }
-  if (it.rid != null) { const row = rowOf(it.rid); return { name: row ? row.name : it.el.title.replace(/^.*?(출발지|origin) /, ''), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
+  if (it.rid != null) { const row = rowOf(it.rid); return { name: caseIdLabel(row ? row.name : it.rname), kind: tr('연구 사례 출발지', 'Research case origin'), row }; }
   return null;
 }
 function dotOpen(it, x, y) {
@@ -1770,7 +1775,7 @@ function renderEvac() {
   const hor = 3000, dk = r => r.contig == null ? -1 : r.contig, dl = b.rows.filter(r => r.v === 'checked_route' && r.last != null).sort((a, z) => dk(a) - dk(z) || (z.vul ? 1 : 0) - (a.vul ? 1 : 0));
   const urgent = dl.filter(r => dk(r) < hor || r.last !== r.contig), dlText = r => r.contig == null
       ? tr(`+0분 출발 미확인 · +${Math.round(r.last / 60)}분 출발만 확인`, `+0 min not checked · only +${Math.round(r.last / 60)} min checked`)
-      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + r.name : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
+      : `${fmt(b.t0 + r.contig / 3600, false)}${r.last !== r.contig ? tr(' (이후 일부 시각도 확인)', ' (some later times also checked)') : ''} · ${esc(placeName({ name: r.dname, ne: r.dne, role: 'destination' }))}`, rowHTML = (r, extra) => `<li><button type="button" data-o="${esc(r.id)}" class="${state.focus === r.id ? 'sel' : ''}"><span class="dot" style="background:${STATUS[r.v].c}"></span><span class="x">${esc(placeName({ name: r.research ? tr('연구 사례 ', 'Research ') + caseIdLabel(r.name) : r.name, ne: r.ne }))}${r.vul ? ` <em class="care">${tr('요양·복지', 'care')}</em>` : ''}</span><span class="t">${extra}</span></button></li>`;
   el.innerHTML = `
     <div class="grp-h"><span>${tr('입력 시각별 판정 · 부스 캐시', 'Verdicts per input time · booth cache')}</span><span>${tr('타임라인을 따라감', 'follows the timeline')}</span></div>
     <div class="seg2">${BOOTH.map((x, i) => `<button type="button" data-k="${i}" aria-pressed="${i === k}">${fmt(x.t0)}</button>`).join('')}</div>
@@ -2416,7 +2421,7 @@ async function boot() {
     dirty = true; if (!hit && osmOk) setTimeout(saveTextures, 800);
   });
   await ctxDone;
-  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + r.name; RESEARCH_DOM.push(it); }
+  for (const b of BOOTH) for (const r of b.rows) if (r.research && r.lon != null && !RESEARCH_DOM.some(x => x.rid === r.id)) { const it = addDom('mk research', '', uOf(r.lon), vOf(r.lat), { layer: 'booth', lift: .03 }); it.rid = r.id; it.rname = r.name; it.el.title = tr('연구 사례 출발지 ', 'Research origin ') + caseIdLabel(r.name); RESEARCH_DOM.push(it); }
   navInit(); buildRegionMenu(); buildLayerPanel(); buildOverview(); buildTrack(); buildEvents(); buildDocs(); renderCompare();
   // close-up roads and buildings: loaded after the first picture, built once
   setTimeout(() => window.__wfgLoad(RID + '.detail.js').then(ok => { const D = ok && (window.WFG_DETAIL || {})[RID]; if (D) { buildDetail(D); dirty = true; } }), 1500);
