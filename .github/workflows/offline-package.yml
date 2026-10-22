@@ -29,7 +29,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          notes="Research map, ready to use offline: download, unzip, open index.html in Chrome or Edge. Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d). Road View (Kakao) and the 3D satellite photos need internet."
+          notes="Research map, ready to use offline: download, unzip, double-click start-windows.bat (Windows) or start-mac.command (Mac); README.txt inside explains. Opening index.html directly also works. Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d). Road View (Kakao) and the 3D satellite photos need internet."
           if gh release view offline-latest >/dev/null 2>&1; then
             gh release edit offline-latest --notes "$notes" --target "$GITHUB_SHA"
             gh release upload offline-latest "$RUNNER_TEMP/pkg/wildfireguardian-offline.zip" --clobber
