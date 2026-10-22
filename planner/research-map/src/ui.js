@@ -52,11 +52,13 @@ function thumb(cv, id) {
 }
 function legendHTML(id) {
   if (id === 'heat') return `<div class="legend" style="display:block"><div class="memsel" id="memsel">${[tr('최대', 'Max'), 'S1', 'S2', 'S3', 'S4'].map((n, i) => `<button type="button" data-m="${i - 1}" aria-pressed="${i === 0}">${n}</button>`).join('')}</div>
-    <span>0.01</span><span class="ramp" style="background:linear-gradient(90deg,#c43c4e,#e8602c,#f8961e,#f6d746,#fcffa4)"></span><span>1 kW/m² · <i style="background:#fff3c0"></i>${tr('화염 접촉 셀', 'flame-contact cell')}</span><br><span>${tr('0.01 kW/m² 미만은 그리지 않습니다. 모델 입력 시각부터 1시간만 있으니 1시간 상세로 보세요.', 'Below 0.01 kW/m² is not drawn. Exists for 1 h after each model input; use the 1-hour detail.')}</span></div>`;
+    <div class="logramp"><i style="background:linear-gradient(90deg,${[0, .25, .5, .75, 1].map(v => `rgb(${inferno(.55 + .45 * v).map(Math.round)})`).join(',')})"></i>
+      <div>${['0.01', '0.1', '1', '10'].map(v => `<span>${v}</span>`).join('')}</div></div>
+    <span>${tr('kW/m² · 로그 눈금 (한 칸 = 10배) · 10 = 경로 한도', 'kW/m² · log scale (each step = ×10) · 10 = route limit')}</span> <span><i style="background:#fff3c0"></i>${tr('화염 접촉 셀', 'flame-contact cell')}</span><br><span>${tr('0.01 kW/m² 미만은 그리지 않습니다. 모델 입력 시각부터 1시간만 있으니 1시간 상세로 보세요.', 'Below 0.01 kW/m² is not drawn. Exists for 1 h after each model input; use the 1-hour detail.')}</span></div>`;
   if (id === 'heat3d') return '';
   if (id === 'mc') return HM ? `<div class="legend"><span>1%</span><span class="ramp" style="background:linear-gradient(90deg,#d6c2ee,#ba92de,#9e69c8,#6e32a0,#40106e)"></span><span>90%+ · ${tr('점선: 50% 도달 시각(1시간 간격)', 'dashed: hour F reaches 50%')}</span></div>`
     : `<div class="legend" style="color:var(--warn)">${tr('시간별 결과는 환경 입력 래스터가 필요해 이 화면에 아직 없습니다. 자료 탭의 출처를 보세요.', 'The hourly results need the environmental input rasters and are not in this view yet. See Sources in the Docs tab.')}</div>`;
-  if (id === 'q') return `<div class="legend"><span>0.5%</span><span class="ramp" style="background:linear-gradient(90deg,#fde6cd,#fbc48c,#f48c42,#e2552b,#aa1e19)"></span><span>50%+</span></div>`;
+  if (id === 'q') return `<div class="legend"><span>0.5%</span><span class="ramp" style="background:linear-gradient(90deg,${Q_STOPS.map(([, c]) => `rgb(${c.join(',')})`).join(',')})"></span><span>50%+</span></div>`;
   if (id === 'temp') return `<div class="legend"><span>−2°</span><span class="ramp" style="background:linear-gradient(90deg,#466ebe,#8cb9e1,#f6f0c4,#f4aa5c,#de5c32,#961e1e)"></span><span>30°C · ${tr('등온선 2°C', 'isotherms 2°C')}</span></div>`;
   if (id === 'slope') return `<div class="legend"><i style="background:#f3e08a"></i>5°<i style="background:#f0a24a"></i>15°<i style="background:#d9622b"></i>25°<i style="background:#8f2d1d"></i>35°+</div>`;
   if (id === 'biome') return `<div class="legend">${BIOMES.map(b => `<span><i style="background:${b.c}"></i>${b.n}</span>`).join('')}</div>`;
@@ -938,12 +940,12 @@ async function boot() {
     fireNear: (lon, lat, km, t) => { const near = i => { const [x, y] = cellCenter(i); return Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57) <= km; };
       const k = recIdx(t), qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null, o = { burned: 0, burning: 0, flame: 0, heat: 0, maxF: 0 };
       for (let i = 0; i < NCELL; i++) { if (!near(i)) continue; if (k >= 0 && burnedAt(i, k)) o.burned++; if (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i)) o.burning++;
-        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= .4) o.heat++; o.maxF = Math.max(o.maxF, F); } }
+        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= NAV_HEAT_V) o.heat++; o.maxF = Math.max(o.maxF, F); } }
       return o; },
     setLayer: (id, on) => setLayer(id, on),
     fireDist: (lon, lat, t) => { const qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null; let fl = Infinity, ht = Infinity;
       for (let i = 0; i < NCELL; i++) { const [x, y] = cellCenter(i), d = Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57);
-        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= .4) ht = Math.min(ht, d); }
+        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= NAV_HEAT_V) ht = Math.min(ht, d); }
       return { flame: fl, heat: ht }; }, detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
     look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up

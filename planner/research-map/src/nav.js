@@ -471,8 +471,8 @@ function navFlameImages(map) {
     'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
 }
 // heat is drawn in navigation from 0.1 kW/m² (a hundredth of the route limit); fainter heat, far below anything that
-// matters, would tint places the fire never reaches (fluxV log scale: 1e-6 … 1 kW/m²)
-const NAV_HEAT_V = 5 / 6;
+// matters, would tint places the fire never reaches (fluxV log scale: 0.01 … 10 kW/m²)
+const NAV_HEAT_V = 1 / 3;
 function navFire(map, t) {
   const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }

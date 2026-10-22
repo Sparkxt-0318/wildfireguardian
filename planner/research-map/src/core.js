@@ -113,7 +113,8 @@ function hzField(k, s, sel) {          // sel −1: maximum over the four scenar
 }
 const INFERNO = ['#000004', '#160b39', '#420a68', '#6a176e', '#932667', '#bc3754', '#dd513a', '#f37819', '#fca50a', '#f6d746', '#fcffa4'].map(hexRgb);
 function inferno(v) { v = clamp(v, 0, 1) * 10; const i = Math.min(9, Math.floor(v)); return mix3(INFERNO[i], INFERNO[i + 1], v - i); }
-const fluxV = F => F > 0 ? clamp((Math.log10(F) + 6) / 6, 0, 1) : 0;      // 1e-6 … 1 kW/m², log scale
+// radiant flux on a log scale: 0.01 → 10 kW/m² (the route limit), one third per factor of ten; 0 below 0.01
+const FLUX_LO = .01, FLUX_HI = 10, fluxV = F => F > 0 ? clamp(Math.log10(F / FLUX_LO) / Math.log10(FLUX_HI / FLUX_LO), 0, 1) : 0;
 const POLICY = { full: { n: tr('전체 조건', 'Full constraints'), c: 0x2f8a57, css: '#2f8a57' }, flame_dose: { n: tr('불길 + 누적 노출', 'Flame + dose'), c: 0x4f86c6, css: '#4f86c6' }, flame_peak: { n: tr('불길 + 순간 열유속', 'Flame + peak flux'), c: 0x8a6fc0, css: '#8a6fc0' }, flame_only: { n: tr('불길만', 'Flame only'), c: 0x8d8d8d, css: '#8d8d8d' }, travel_only: { n: tr('이동시간만', 'Travel time only'), c: 0xe8862a, css: '#e8862a' } };
 const POLICY_ORDER = ['full', 'flame_dose', 'flame_peak', 'flame_only', 'travel_only'];
 const MEMBER_CSS = ['#d9472b', '#e8a33a', '#7a5cc4', '#2f8fb3'];
@@ -578,8 +579,8 @@ function buildHeatMesh() {
 function updateHeatMesh(t) {
   if (!heatMesh) return; const zk = hzK(t), on = L.heat3d.on && zk >= 0 && state.mode === '3d'; heatMesh.visible = on; if (!on) return;
   const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member), ys = yScale(), p = heatMesh.geometry.attributes.position, c = heatMesh.geometry.attributes.color;
-  for (let iy = 0; iy < NR; iy++) for (let ix = 0; ix < NC; ix++) { const i = (NR - 1 - iy) * NC + ix, vi = iy * NC + ix, [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat), fv = fluxV(fld.f[i]), g0 = elevUV(u, v) * ys, up = fv > .5;
-    p.setXYZ(vi, sxU(u), up ? g0 + .04 + Math.pow((fv - .5) / .5, 1.2) * 1.1 : g0 - .2, szV(v)); const cc = inferno(.35 + .65 * fv); c.setXYZ(vi, Math.pow(cc[0] / 255, 2.2), Math.pow(cc[1] / 255, 2.2), Math.pow(cc[2] / 255, 2.2)); }
+  for (let iy = 0; iy < NR; iy++) for (let ix = 0; ix < NC; ix++) { const i = (NR - 1 - iy) * NC + ix, vi = iy * NC + ix, [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat), fv = fluxV(fld.f[i]), g0 = elevUV(u, v) * ys, up = fv > 0;
+    p.setXYZ(vi, sxU(u), up ? g0 + .04 + Math.pow(fv, 1.2) * 1.1 : g0 - .2, szV(v)); const cc = inferno(.35 + .65 * fv); c.setXYZ(vi, Math.pow(cc[0] / 255, 2.2), Math.pow(cc[1] / 255, 2.2), Math.pow(cc[2] / 255, 2.2)); }
   p.needsUpdate = true; c.needsUpdate = true; heatMesh.material.opacity = .5 * L.heat3d.op / 100;
 }
 // fire: flames + embers (additive) and smoke (alpha), on active cells
@@ -789,7 +790,7 @@ const LAYERS = [
   { id: 'biome', n: tr('생물군계', 'Biome'), src: tr('설명용 · one-hot 14ch', 'Illustrative · one-hot 14 ch'), ill: true, on: false, op: 65 },
   { g: tr('기록 · 모델 출력', 'Records · model output'), id: 'burn', core: true, n: tr('연소 상태 B(t)', 'Burned state B(t)'), src: tr(`기록 (재구성) · ${B.footprints.length}개 시각`, `Recorded (reconstructed) · ${B.footprints.length} times`), on: true, op: 92 },
   { id: 'front', core: true, n: tr('연소 전선', 'Fire front'), src: tr('기록 경계 · 활성 셀', 'Recorded edge · active cells'), on: true, op: 100 },
-  { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 88 },
+  { id: 'q', core: true, n: tr('새 연소 확률 q', 'New-burn probability q'), src: tr('모델 출력 · 다음 1시간', 'Model output · next hour'), on: true, op: 100 },
   { id: 'heat', n: tr('복사 열유속 F(x)', 'Radiant heat flux F(x)'), src: tr('경로 위험 입력 · 화재 시나리오 4개 · 입력 후 1시간', 'Routing hazard input · 4 fire scenarios · 1 h after input'), on: false, op: 90 },
   { id: 'heat3d', n: tr('열유속 3D 표면', 'Heat flux 3D surface'), src: tr('같은 값 · log 높이 (3D 지형에서만)', 'Same values · log height (3D only)'), on: false, op: 80 },
   { id: 'mc', n: tr('시간별 누적 연소 확률 F(h)', 'Hourly cumulative burn probability F(h)'), src: HM ? tr(`몬테카를로 ${HM.n_samples.toLocaleString()}회 · 1–${HM.hours.length}시간`, `Monte Carlo ${HM.n_samples.toLocaleString()} runs · 1–${HM.hours.length} h`) : tr('데이터 없음 · Mac에서 내보내기 필요', 'No data · export on the Mac'), ill: !HM, on: !!HM, op: 80, disabled: !HM },
@@ -811,8 +812,8 @@ const QX = new Float32Array(NCELL * 4), QY = new Float32Array(NCELL * 4), EQX = 
 for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) { const i = r * NC + c; [[r, c], [r, c + 1], [r + 1, c + 1], [r + 1, c]].forEach(([rr, cc], j) => { const [lo, la] = lat_(rr, cc); const [x, y] = toPx(lo, la, TW, TH); QX[i * 4 + j] = x; QY[i * 4 + j] = y; EQX[i * 4 + j] = x * MW / TW; EQY[i * 4 + j] = y * MH / TH; }); }
 function quad(ctx, i, X, Y) { ctx.moveTo(X[i * 4], Y[i * 4]); ctx.lineTo(X[i * 4 + 1], Y[i * 4 + 1]); ctx.lineTo(X[i * 4 + 2], Y[i * 4 + 2]); ctx.lineTo(X[i * 4 + 3], Y[i * 4 + 3]); ctx.closePath(); }
 // high and low probability far apart: pale yellow -> orange -> red -> dark crimson, and low values nearly see-through (qAlpha)
-const Q_STOPS = [[.005, [255, 238, 160]], [.05, [253, 186, 56]], [.15, [240, 106, 20]], [.35, [196, 24, 22]], [.6, [104, 0, 32]]];
-const qAlpha = v => .18 + .82 * smooth(.005, .35, v);
+const Q_STOPS = [[.005, [255, 190, 64]], [.03, [248, 138, 24]], [.1, [230, 80, 14]], [.25, [190, 22, 20]], [.5, [104, 0, 32]]];
+const qAlpha = v => .5 + .5 * smooth(.005, .2, v);
 function qColor(q) { let c = Q_STOPS[0][1]; for (let j = 0; j < Q_STOPS.length - 1; j++) if (q >= Q_STOPS[j][0]) c = mix3(Q_STOPS[j][1], Q_STOPS[j + 1][1], clamp((q - Q_STOPS[j][0]) / (Q_STOPS[j + 1][0] - Q_STOPS[j][0]), 0, 1)); return c; }
 const MC_STOPS = [[.01, [228, 214, 245]], [.1, [190, 150, 228]], [.3, [146, 84, 206]], [.6, [92, 28, 160]], [.9, [44, 0, 92]]];
 function mcColor(q) { let c = MC_STOPS[0][1]; for (let j = 0; j < MC_STOPS.length - 1; j++) if (q >= MC_STOPS[j][0]) c = mix3(MC_STOPS[j][1], MC_STOPS[j + 1][1], clamp((q - MC_STOPS[j][0]) / (MC_STOPS[j + 1][0] - MC_STOPS[j][0]), 0, 1)); return c; }
@@ -896,8 +897,8 @@ function compose() {
     // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
     const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
     if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
-    const vmin = NAV.on ? 5 / 6 : .5;     // navigation: from 0.1 kW/m² (see NAV_HEAT_V in nav.js)
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < vmin) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(vmin, vmin + .2, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    const vmin = NAV.on ? NAV_HEAT_V : 1e-6;     // main map: from 0.01 kW/m²; navigation: from 0.1 kW/m² (NAV_HEAT_V)
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < vmin) continue; const c = inferno(.55 + .45 * v); hx.globalAlpha = (.45 + .5 * smooth(vmin, vmin + .34, v)) * .95; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
     hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
     if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
     cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);
