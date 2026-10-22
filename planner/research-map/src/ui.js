@@ -927,7 +927,18 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x),
+    // what the map draws as fire within km of a point at time t (hours): recorded burned / burning cells, model flame, heat
+    fireNear: (lon, lat, km, t) => { const near = i => { const [x, y] = cellCenter(i); return Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57) <= km; };
+      const k = recIdx(t), qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null, o = { burned: 0, burning: 0, flame: 0, heat: 0, maxF: 0 };
+      for (let i = 0; i < NCELL; i++) { if (!near(i)) continue; if (k >= 0 && burnedAt(i, k)) o.burned++; if (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i)) o.burning++;
+        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= .4) o.heat++; o.maxF = Math.max(o.maxF, F); } }
+      return o; },
+    setLayer: (id, on) => setLayer(id, on),
+    fireDist: (lon, lat, t) => { const qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null; let fl = Infinity, ht = Infinity;
+      for (let i = 0; i < NCELL; i++) { const [x, y] = cellCenter(i), d = Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57);
+        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= .4) ht = Math.min(ht, d); }
+      return { flame: fl, heat: ht }; }, detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
     look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };

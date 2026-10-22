@@ -495,7 +495,7 @@ table.t1 td.ours { color: var(--ok); font-weight: 600; }
       <div><i class="lg-burn"></i><span data-en="Burned (recorded)">탄 곳 (기록)</span></div>
       <div><i class="lg-front"></i><span data-en="Fire front now (recorded)">지금 불 가장자리 (기록)</span></div>
       <div><i class="lg-flame"></i><span data-en="Flame (model, worst of 4)">화염 (모델, 4개 중 최악)</span></div>
-      <div><i class="lg-heat"></i><span data-en="Radiant heat">복사 열</span></div>
+      <div><i class="lg-heat"></i><span data-en="Radiant heat (0.1 kW/m² and above)">복사 열 (0.1 kW/m² 이상)</span></div>
       <div><i class="lg-q"></i><span data-en="Likely to burn next hour (model)">다음 1시간 번질 확률 (모델)</span></div>
       <div><i class="lg-route"></i><span data-en="Route · red where it meets flame">경로 · 화염과 만나는 곳은 빨강</span></div>
     </div>
@@ -1516,7 +1516,7 @@ function compose() {
     for (const [key, cells] of buckets) ember(cells, key / 10 * .9);
   }
   if (L.front.on && qiNow >= 0 && BURNING[qiNow].size) { if (!L.burn.on) { bc.fillStyle = 'rgb(44,39,35)'; bc.beginPath(); for (const i of BURNING[qiNow]) quad(bc, i, QX, QY); bc.fill(); } ember([...BURNING[qiNow]], 1, .22); }
-  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.filter = 'blur(1.4px)'; cx.drawImage(cellsCv, 0, 0); cx.filter = 'none'; }
+  if ((L.burn.on && k >= 0) || L.front.on) { cx.globalAlpha = (L.burn.on ? L.burn.op : 100) / 100; cx.drawImage(cellsCv, 0, 0); }
   // F(h): recursive Monte Carlo cumulative new-burn probability, stepped by whole hours after its input time
   const hk = hourIdx(t);
   if (L.mc.on && HR && hk >= 0) { const hh = t - HCUT[hk], hs = hourStep(t, hk), f = hh <= HH ? 1 : .4; cx.globalAlpha = L.mc.op / 100 * f;
@@ -1539,7 +1539,8 @@ function compose() {
     // drawn small (a cell about 4 px) and scaled up smoothly: soft-edged heat and flame instead of grid squares
     const hs = Math.min(1, 4 / (TW * .375 / KXr)), hw = Math.ceil(TW * hs), hh = Math.ceil(TH * hs);
     if (!heatCv || heatCv.width !== hw) heatCv = mk(hw, hh); const hx = heatCv.getContext('2d'); hx.setTransform(1, 0, 0, 1, 0, 0); hx.clearRect(0, 0, hw, hh); hx.setTransform(hs, 0, 0, hs, 0, 0);
-    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < .5) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(.5, .75, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
+    const vmin = NAV.on ? 5 / 6 : .5;     // navigation: from 0.1 kW/m² (see NAV_HEAT_V in nav.js)
+    for (let i = 0; i < NCELL; i++) { const v = fluxV(fld.f[i]); if (v < vmin) continue; const c = inferno(.15 + .85 * v); hx.globalAlpha = smooth(vmin, vmin + .2, v) * .9; hx.fillStyle = `rgb(${c.map(Math.round)})`; hx.beginPath(); quad(hx, i, QX, QY); hx.fill(); }
     hx.globalAlpha = 1; hx.fillStyle = NAV.on ? '#e8321a' : '#fff3c0'; hx.beginPath(); fld.flame.forEach(i => quad(hx, i, QX, QY)); hx.fill();     // flame cells: red on the road map
     if (NAV.on) { hx.fillStyle = '#ffc93a'; fld.flame.forEach(i => { const x = (QX[i * 4] + QX[i * 4 + 2]) / 2, y = (QY[i * 4] + QY[i * 4 + 2]) / 2, r = Math.abs(QX[i * 4 + 1] - QX[i * 4]) * .32; hx.beginPath(); hx.arc(x, y, r, 0, 7); hx.fill(); }); }     // hot core
     cx.globalAlpha = L.heat.op / 100; cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high'; cx.drawImage(heatCv, 0, 0, hw / hs, hh / hs);
@@ -2520,7 +2521,18 @@ async function boot() {
   renderEvac();
   resize(); setPlaying(false);
   $('loading').remove();
-  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x), detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
+  window.__wfg = { state, routes, CASES, BOOTH, RID, SF, TMAX, setTime: x => setTime(x),
+    // what the map draws as fire within km of a point at time t (hours): recorded burned / burning cells, model flame, heat
+    fireNear: (lon, lat, km, t) => { const near = i => { const [x, y] = cellCenter(i); return Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57) <= km; };
+      const k = recIdx(t), qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null, o = { burned: 0, burning: 0, flame: 0, heat: 0, maxF: 0 };
+      for (let i = 0; i < NCELL; i++) { if (!near(i)) continue; if (k >= 0 && burnedAt(i, k)) o.burned++; if (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i)) o.burning++;
+        if (fld) { if (fld.flame.includes ? fld.flame.includes(i) : fld.flame.has(i)) o.flame++; const F = fld.f[i] || 0; if (fluxV(F) >= .4) o.heat++; o.maxF = Math.max(o.maxF, F); } }
+      return o; },
+    setLayer: (id, on) => setLayer(id, on),
+    fireDist: (lon, lat, t) => { const qi = inpIdx(t), zk = hzK(t), fld = zk >= 0 ? hzField(zk, (t - HZ[zk].t0) * 3600, -1) : null; let fl = Infinity, ht = Infinity;
+      for (let i = 0; i < NCELL; i++) { const [x, y] = cellCenter(i), d = Math.hypot((x - lon) * 111.32 * Math.cos(lat * Math.PI / 180), (y - lat) * 110.57);
+        if ((fld && fld.flame.has(i)) || (qi >= 0 && t - INP[qi] <= 1 && BURNING[qi].has(i))) fl = Math.min(fl, d); if (fld && fluxV(fld.f[i] || 0) >= .4) ht = Math.min(ht, d); }
+      return { flame: fl, heat: ht }; }, detail: () => detailGroup.userData.n && { n: detailGroup.userData.n, vis: detailGroup.visible, kids: detailGroup.children.length, sat: !!sat.ready },
     look: (lon, lat, r = 1.2) => { const u = uOf(lon), v = vOf(lat); tweenView({ r, phi: THREE.MathUtils.degToRad(55), th: sph(camera.position, controls.target).th, tgt: new THREE.Vector3(sxU(u), yAt(u, v), szV(v)) }, 10); } };
   // tools/bake_textures.mjs: the opening view as a picture, shown by the loader while the next visit starts up
   window.__wfgPoster = () => { if (composer && state.mode === '3d') composer.render(); else renderer.render(scene, camera); return renderer.domElement.toDataURL('image/webp', .72); };
@@ -2755,8 +2767,9 @@ function navFrame(t) {
   const play = $('navPlay'); if (play) play.textContent = state.playing ? tr('일시정지', 'Pause') : s >= p.arr + p.dwell_s ? tr('다시 재생', 'Replay') : tr('재생', 'Play');
   const phase = s < p.dep ? tr('출발 전', 'Before departure') : s <= p.arr ? tr(`출발 후 ${fmtS(s - p.dep)}`, `${fmtS(s - p.dep)} after departure`) : s <= p.arr + p.dwell_s ? tr('대피소 도착 · 머무는 중', 'At the shelter') : tr('도착 완료', 'Arrived');
   // at the car's position now; whole-road contact is in the recorded check on the route card
-  const stTxt = !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 시나리오 ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
   const fk = [recIdx(t), inpIdx(t), hzSig(t), (q.d * 10).toFixed(0)].join(':'); if (fk !== NAV.fireK) { NAV.fireK = fk; NAV.fire = navFireNear(t, s, q); } const fire = NAV.fire;
+  const atShelter = s > p.arr, clear = fire.km == null || fire.km >= .3, kmTxt = fire.km == null ? '' : tr(` · 가장 가까운 불 ${fire.km.toFixed(1)} km`, ` · nearest fire ${fire.km.toFixed(1)} km`);
+  const stTxt = atShelter && clear && !fl ? tr(`대피소 도착 · 대피소에 불 없음${kmTxt}`, `At the shelter · no fire at the shelter${kmTxt}`) : !moving ? (s < p.dep ? tr('출발 전', 'Not yet on the road') : tr('도착 · 이동 끝', 'Arrived · trip over')) : fl ? tr(`차 위치: 화염 속 · 화재 시나리오 ${fl}/4개`, `At the car: in flame · ${fl} of 4 fire scenarios`) : state_ === 'fire' ? tr('차 위치: 열 한도 초과', 'At the car: over the heat limit') : state_ === 'warn' ? tr('차 위치: 강한 복사 열', 'At the car: strong radiant heat') : tr('차 위치: 화염 없음 · 열 한도 이하', 'At the car: no flame · within heat limits');
   const oTxt = o ? `${NAV_ROUTES.find(x => x[0] === navOther())[1]}: ${!o.moving ? (s < op.dep ? tr('출발 전', 'not yet on the road') : tr('도착', 'arrived')) : o.fl ? tr(`화염 속 (시나리오 ${o.fl}/4)`, `in flame (${o.fl} of 4)`) : o.cls === 'warn' ? tr('강한 복사 열', 'strong radiant heat') : tr('화염 없음', 'no flame')}` : '';
   const key = [navClock(t), phase, stTxt, q.d.toFixed(1), F.toPrecision(2), D.toPrecision(2), NAV.pol, fire.km, fire.dir?.[1], oTxt, o?.cls].join('|');
   if (key !== navHudKey) { navHudKey = key; const name = NAV_ROUTES.find(x => x[0] === NAV.pol)[1];
@@ -2778,8 +2791,8 @@ function navFlames2D(t) {
   if (!NAV.fl2) { if (!on) return;
     const mat = (tex, size) => new THREE.PointsMaterial({ map: tex, size, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
     const [a, b] = [cellCenter(0), cellCenter(1)], cw = Math.abs(sxU(uOf(b[0])) - sxU(uOf(a[0]))) || .1;
-    NAV.fl2 = { cw, glow: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,90,20,.9)'], [.45, 'rgba(255,60,10,.35)'], [1, 'rgba(255,40,0,0)']]), cw * 5)),
-      core: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,250,200,1)'], [.35, 'rgba(255,200,60,.9)'], [1, 'rgba(255,90,0,0)']]), cw * 2.2)) };
+    NAV.fl2 = { cw, glow: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,90,20,.9)'], [.45, 'rgba(255,60,10,.35)'], [1, 'rgba(255,40,0,0)']]), cw * 2.4)),
+      core: new THREE.Points(new THREE.BufferGeometry(), mat(navGlowTex([[0, 'rgba(255,250,200,1)'], [.35, 'rgba(255,200,60,.9)'], [1, 'rgba(255,90,0,0)']]), cw * 1.4)) };
     NAV.fl2.glow.renderOrder = NAV.fl2.core.renderOrder = 20; scene.add(NAV.fl2.glow, NAV.fl2.core); }
   const F = NAV.fl2; F.glow.visible = F.core.visible = on; if (!on) return;
   const zk = hzK(t), qi = inpIdx(t), key = hzSig(t) + ':' + qi + ':' + state.member;
@@ -2789,7 +2802,7 @@ function navFlames2D(t) {
     const pos = []; for (const i of cells) { const [lon, lat] = cellCenter(i), u = uOf(lon), v = vOf(lat); pos.push(sxU(u), yAt(u, v) + .02, szV(v)); }
     for (const o of [F.glow, F.core]) { o.geometry.dispose(); o.geometry = new THREE.BufferGeometry(); o.geometry.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); } }
   const now = performance.now() / 1000, k = .5 + .5 * Math.sin(now * 8.5) * Math.sin(now * 4.7);
-  F.glow.material.size = F.cw * (4.4 + 1.4 * k); F.glow.material.opacity = .7 + .3 * k; F.core.material.size = F.cw * (1.9 + .6 * (1 - k));
+  F.glow.material.size = F.cw * (2.1 + .5 * k); F.glow.material.opacity = .7 + .3 * k; F.core.material.size = F.cw * (1.2 + .3 * (1 - k));
 }
 
 // ---- distance to the nearest fire along each route (a sample every 30 s of the trip), drawn under the route cards ----
@@ -2840,6 +2853,8 @@ function navView(v, quiet) {
 }
 function navReal(on) {
   NAV.real = on; mapEl.classList.toggle('nav3d', on);
+  // the 2D map image is not redrawn while the 3D map covers it: redraw it now, or it shows the fire of an earlier moment
+  if (!on) { lastKey = ''; dirty = true; }
   let el = $('navReal'); if (!on) { if (el) { el.classList.add('warm'); $('navPhoto').hidden = true; } return; }     // kept, hidden: ready next time
   el = navRealEl(); el.classList.remove('warm');
   $('navPhoto').hidden = !NAV.tileErr; $('navPhoto').textContent = tr('위성 사진·지형을 불러오지 못했습니다 · 인터넷 연결을 확인하세요', 'Satellite photos or terrain did not load · check the internet connection');
@@ -2986,13 +3001,16 @@ function navFlameImages(map) {
   map.addLayer({ id: 'flame', type: 'symbol', source: 'flame', layout: { 'icon-image': ['concat', 'fire', ['get', 'im']], 'icon-size': sz(.45), 'icon-anchor': 'bottom',
     'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-pitch-alignment': 'viewport', 'icon-rotation-alignment': 'viewport' } });
 }
+// heat is drawn in navigation from 0.1 kW/m² (a hundredth of the route limit); fainter heat, far below anything that
+// matters, would tint places the fire never reaches (fluxV log scale: 1e-6 … 1 kW/m²)
+const NAV_HEAT_V = 5 / 6;
 function navFire(map, t) {
   const k = recIdx(t), zk = hzK(t), hk = hzSig(t), qi = inpIdx(t), fc = features => ({ type: 'FeatureCollection', features });
   if (k !== NAV.burnK) { NAV.burnK = k; const f = []; if (k >= 0) for (let i = 0; i < NCELL; i++) if (burnedAt(i, k)) f.push(navCell(i)); map.getSource('burn').setData(fc(f)); }
   const fk = hk + ':' + qi;
   if (fk !== NAV.heatK) { NAV.heatK = fk; const f = [], fl = new Set(), pts = [];
     if (zk >= 0) { const fld = hzField(zk, (t - HZ[zk].t0) * 3600, state.member); fld.flame.forEach(i => fl.add(i));
-      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= .4) f.push({ type: 'Feature', properties: { w: .15 + .6 * smooth(.4, .9, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
+      for (let i = 0; i < NCELL; i++) { if (fl.has(i)) continue; const v = fluxV(fld.f[i]); if (v >= NAV_HEAT_V) f.push({ type: 'Feature', properties: { w: .2 + .6 * smooth(NAV_HEAT_V, .97, v) }, geometry: { type: 'Point', coordinates: cellCenter(i) } }); } }
     if (qi >= 0 && t - INP[qi] <= 1) for (const i of BURNING[qi]) fl.add(i);     // burning now in the record
     NAV.flCells = [...fl]; for (const i of fl) f.push({ type: 'Feature', properties: { w: 1 }, geometry: { type: 'Point', coordinates: cellCenter(i) } });
     map.getSource('heat').setData(fc(f)); }
