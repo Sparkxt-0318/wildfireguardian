@@ -855,7 +855,19 @@ const sky = { day: new THREE.Color(0xd5dde1), dusk: new THREE.Color(0xe2ae84), n
 const skyTop = { day: new THREE.Color(0x5d8fc6), dusk: new THREE.Color(0x56688f), night: new THREE.Color(0x070b18) };
 const _sc = new THREE.Color();
 let last = performance.now(), hoverT = 0, uiT = 0;
+// a slow graphics card: draw fewer pixels rather than answer every click late. When most of 40 frames take over 45 ms the
+// map steps down to 1.5, then 1 device pixel per CSS pixel (never lower, so it stays sharp; never back up, so it cannot flicker)
+let slowN = 0, frameN = 0, shadowSig = '';
+function adaptRes(ms) {
+  if (document.hidden || ms > 4000) return;     // a hidden tab or a one-off stall says nothing about the card
+  frameN++; if (ms > 45) slowN++;
+  if (frameN < 40) return;
+  const pr = renderer.getPixelRatio();
+  if (slowN > 30 && pr > 1) { renderer.setPixelRatio(pr > 1.5 ? 1.5 : 1); resize(); dirty = true; }
+  frameN = slowN = 0;
+}
 function frame(now) {
+  adaptRes(now - last);
   const dt = Math.min(.05, (now - last) / 1000); last = now;
   if (state.playing) { state.t += dt * state.speed * (state.detail ? 1 / 60 : 1 / 1.4); const hi = state.detail ? rangeHi() - 1e-4 : TMAX; if (state.t >= hi) { state.t = hi; setPlaying(false); } dirty = true; }
   if (Math.abs(flatF - flatTarget) > 1e-3) { flatF += (flatTarget - flatF) * Math.min(1, dt * 7); if (Math.abs(flatF - flatTarget) < 2e-3) flatF = flatTarget; applyHeights(); }
@@ -887,6 +899,9 @@ function frame(now) {
   updateCars(t); try { navFrame(t); } catch (e) { console.error(e); }     // a navigation error must not stop the viewer
   // 2D and 3D both draw through the composer (2D with the glow off): one set of shader programs, so switching views
   // never recompiles them (drawn straight to the screen, every program needs a second, sRGB-output version)
+  // the sun's place, the terrain's height, the drawn layers, buildings and cars: what can move a shadow (2D shows none)
+  const shSig = state.mode === '2d' && flatF > .999 ? shadowSig : [sunL.position.x, sunL.position.y, sunL.position.z, flatF, terrain.scale.y, lastKey, detailGroup.visible, detailGroup.children.length, cars.reduce((n, c) => n + c.visible, 0), NAV.on && now].join();
+  if (shSig !== shadowSig) { shadowSig = shSig; renderer.shadowMap.needsUpdate = true; }
   const useBloom = composer && state.mode === '3d' && flatF < .01;
   skyMat.uniforms.linOut.value = flameMat.uniforms.linOut.value = smokeMat.uniforms.linOut.value = composer ? 1 : 0;
   if (NAV.real) { /* the real 3D map covers the scene (nav.js) */ } else if (composer) { bloom.enabled = useBloom; if (useBloom) bloom.strength = .32 + .55 * night; composer.render(); } else renderer.render(scene, camera);
@@ -907,13 +922,23 @@ let warmed = false;
 function warmViews() {
   if (warmed || !B.osm) return; warmed = true;
   const idle = fn => new Promise(ok => (window.requestIdleCallback || setTimeout)(() => { try { fn(); } catch (e) { console.warn(e); } ok(); }, { timeout: 1500 }));
-  idle(() => ensureFlat()).then(() => idle(() => ensureRoadMap())).then(() => idle(() => ctxFlat())).then(() => idle(() => {
-    const keep = [terrain.material, ctxMesh && ctxMesh.material], cf = ctxFlat(), pm = new THREE.PointsMaterial({ map: new THREE.CanvasTexture(mk(4, 4)), size: 1, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
-    const pts = new THREE.Points(new THREE.BufferGeometry(), pm); scene.add(pts);
-    terrain.material = matFlat; if (ctxMesh && cf) ctxMesh.material = cf;
-    const rt = renderer.getRenderTarget(); renderer.setRenderTarget(composer ? composer.readBuffer : null); renderer.compile(scene, camera); renderer.setRenderTarget(rt);
-    terrain.material = keep[0]; if (ctxMesh) ctxMesh.material = keep[1]; scene.remove(pts); pts.geometry.dispose();
-  }));
+  const pm = new THREE.PointsMaterial({ map: new THREE.CanvasTexture(mk(4, 4)), size: 1, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
+  const pts = new THREE.Points(new THREE.BufferGeometry(), pm);
+  // the shader programs one material needs, compiled with the 2D materials in place and every other material set aside
+  const solo = mat => {
+    const tm = terrain.material, cm = ctxMesh && ctxMesh.material, cf = ctxFlat(), off = [];
+    terrain.material = matFlat; if (ctxMesh && cf) ctxMesh.material = cf; scene.add(pts);
+    scene.traverse(o => { if (o.material && o.material !== mat) { off.push([o, o.material]); o.material = null; } });
+    const rt = renderer.getRenderTarget(); renderer.setRenderTarget(composer ? composer.readBuffer : null);
+    try { renderer.compile(scene, camera); } finally { renderer.setRenderTarget(rt); off.forEach(([o, m]) => o.material = m); terrain.material = tm; if (ctxMesh) ctxMesh.material = cm; scene.remove(pts); }
+  };
+  // one program per idle moment (the 2D ones first, then anything not drawn yet), so a click waits behind one at most
+  idle(() => ensureFlat()).then(() => idle(() => ensureRoadMap())).then(() => idle(() => ctxFlat())).then(async () => {
+    const todo = [matFlat, ctxFlat(), pm].filter(Boolean);
+    scene.traverse(o => { const m = o.material; if (m && !Array.isArray(m) && !todo.includes(m) && !renderer.properties.get(m).program) todo.push(m); });
+    for (const m of todo) await idle(() => solo(m));
+    pts.geometry.dispose();
+  });
 }
 
 // ---------------- boot ----------------

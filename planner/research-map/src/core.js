@@ -39,8 +39,9 @@ const GX = B.dem.w, GY = B.dem.h, H = new Float32Array(GX * GY);
 let HMIN = Infinity, HMAX = -Infinity, HSUM = 0; for (const v of H) { HMIN = Math.min(HMIN, v); HMAX = Math.max(HMAX, v); HSUM += v; }
 const HMEAN = HSUM / H.length;
 const K300 = Math.max(0, H.findIndex(v => Math.abs(v - 300) < 4));
-// surrounding terrain (context ring), same projection scale and centre as the analysis box
-const CXB = B.context, [CW, CS, CE, CN] = CXB.bbox, [CKXr, CKYr] = CXB.km, CKX = CKXr * SF, CKY = CKYr * SF, CDEC = isPhone ? 2 : 1;
+// surrounding terrain (context ring), same projection scale and centre as the analysis box; every second DEM point is
+// enough for the background and draws a quarter of the triangles
+const CXB = B.context, [CW, CS, CE, CN] = CXB.bbox, [CKXr, CKYr] = CXB.km, CKX = CKXr * SF, CKY = CKYr * SF, CDEC = 2;
 const CGX = Math.floor((CXB.w - 1) / CDEC) + 1, CGY = Math.floor((CXB.h - 1) / CDEC) + 1, CH = new Float32Array(CGX * CGY);
 // the ring's heights come in <id>.ctx.js, which loads while the first frame is drawn (see boot)
 function attachContext(b64) { const bin = atob(b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
@@ -153,9 +154,10 @@ const texCache = {
   async get(key) { try { const db = await this.open(); return await new Promise(ok => { const q = db.transaction('tex').objectStore('tex').get(key); q.onsuccess = () => ok(q.result || null); q.onerror = () => ok(null); }); } catch (e) { return null; } },
   async put(key, v) { try { const db = await this.open(); db.transaction('tex', 'readwrite').objectStore('tex').put(v, key); } catch (e) { } },
 };
-const canvasFrom = async buf => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d').drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
+const canvasFrom = async (buf, read) => { const bm = await createImageBitmap(new Blob([buf])), c = mk(bm.width, bm.height); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(bm, 0, 0); bm.close && bm.close(); return c; };
 const imgEl = img;
-// read = the pixels are read back (the mask): keep that canvas in memory rather than on the GPU
+// read = the pixels are read back (the mask, the hillshade, the 2D ring map): keep that canvas in memory rather than on the GPU,
+// where reading it back stalls the page for seconds on a slow graphics driver
 const imgCanvas = async (src, read) => { const im = await (typeof src === 'string' ? imgEl(src) : src), c = mk(im.naturalWidth, im.naturalHeight); c.getContext('2d', read ? { willReadFrequently: true } : undefined).drawImage(im, 0, 0); return c; };
 // land-cover codes and the forest mask travel as one PNG: R = code × 40, G = forest
 function maskCanvas() { const c = mk(MW, MH), x = c.getContext('2d'), im = x.createImageData(MW, MH); for (let i = 0; i < MW * MH; i++) im.data.set([LC[i] * 40, F[i] ? 255 : 0, 0, 255], i * 4); x.putImageData(im, 0, 0); return c; }
@@ -166,14 +168,14 @@ async function loadTextures() {
   if (pre && pre.key === TEX_KEY) try {
     // the loader started these downloads before the region data arrived; the 2D ring texture (ctxTopo) loads on first use
     const early = window.__wfgImg || {}, src = k => early[k] || pre[k];
-    const [g, h, cr, m] = await Promise.all([imgCanvas(src('ground')), imgCanvas(src('hs')), imgCanvas(src('ctxReal')), imgCanvas(src('mask'), true)]);
+    const [g, h, cr, m] = await Promise.all([imgCanvas(src('ground')), imgCanvas(src('hs'), true), imgCanvas(src('ctxReal')), imgCanvas(src('mask'), true)]);
     const md = m.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, MW, MH).data, F_ = new Uint8Array(MW * MH), LC_ = new Uint8Array(MW * MH);
     for (let i = 0; i < MW * MH; i++) { LC_[i] = Math.round(md[i * 4] / 40); F_[i] = md[i * 4 + 1] > 127 ? 1 : 0; }
     return { ground: g, hs: h, ctxReal: cr, ctxTopo: null, ctxTopoSrc: pre.ctxTopo, F: F_, LC: LC_ };
   } catch (e) { }
   // 2) saved in this browser after an earlier visit
   const hit = await withDeadline(texCache.get(TEX_KEY), 2500, null); if (!hit) return null;
-  try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map(canvasFrom)); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
+  try { const [g, h, cr, ct] = await Promise.all([hit.ground, hit.hs, hit.ctxReal, hit.ctxTopo].map((b, i) => canvasFrom(b, i % 2 === 1))); return { ground: g, hs: h, ctxReal: cr, ctxTopo: ct, F: hit.F, LC: hit.LC }; } catch (e) { return null; }
 }
 // WebP: about 40 % smaller than JPEG at the same look; the mask is lossless (quality 1), and tools/bake_textures.mjs checks that
 window.__bakeTextures = () => ({ key: TEX_KEY, ground: ground.toDataURL('image/webp', .8), hs: HSC.toDataURL('image/webp', .82),
@@ -420,6 +422,8 @@ renderer.setPixelRatio(LITE ? 1 : Math.min(devicePixelRatio, 2));
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// the shadow pass draws the terrain a second time: redrawn only when the sun or a shadow caster moved (ui.js frame)
+renderer.shadowMap.autoUpdate = false;
 // shader programs compile without the page waiting for each one's log (the browser compiles them in the background);
 // the shaders are fixed and tested, so a compile error would show at once in development
 renderer.debug.checkShaderErrors = false;
@@ -476,9 +480,14 @@ let CTX_REAL, CTX_TOPO;
 function buildContext(hit) {
   const geo = new THREE.PlaneGeometry(CKX, CKY, CGX - 1, CGY - 1); geo.rotateX(-Math.PI / 2);
   const p = geo.attributes.position, mlon = 1.5 * (CE - CW) / (CGX - 1), mlat = 1.5 * (CN - CS) / (CGY - 1);
+  const under = new Uint8Array(CGX * CGY);
   for (let y = 0; y < CGY; y++) for (let x = 0; x < CGX; x++) { const i = y * CGX + x, lon = CW + x / (CGX - 1) * (CE - CW), lat = CN - y / (CGY - 1) * (CN - CS);
-    const inside = lon > W + mlon && lon < E - mlon && lat > S + mlat && lat < N - mlat; p.setY(i, (CH[i] - (inside ? 80 : 0)) / 1000); }
+    const inside = lon > W + mlon && lon < E - mlon && lat > S + mlat && lat < N - mlat; under[i] = inside; p.setY(i, (CH[i] - (inside ? 80 : 0)) / 1000); }
   geo.computeVertexNormals();
+  // triangles sunk wholly under the study area are never seen: left out, so each frame draws only the ring itself
+  const all = geo.index.array, keep = [];
+  for (let k = 0; k < all.length; k += 3) if (!(under[all[k]] && under[all[k + 1]] && under[all[k + 2]])) keep.push(all[k], all[k + 1], all[k + 2]);
+  geo.setIndex(keep);
   const CTW = 1024, CTH = Math.round(CTW * CKY / CKX);
   if (hit) { CTX_REAL = hit.ctxReal; CTX_TOPO = hit.ctxTopo; ctxTopoSrc = hit.ctxTopoSrc; }
   else { CTX_REAL = mk(CTW, CTH); CTX_TOPO = mk(CTW, CTH); drawContext(CTX_REAL, CTX_TOPO, CTW, CTH); }
@@ -491,7 +500,7 @@ let ctxTopoSrc, ctxTopoReq;
 function ctxFlat() {
   if (ctxMatFlat) return ctxMatFlat;
   if (CTX_TOPO) return ctxMatFlat = new THREE.MeshBasicMaterial({ map: ctxTex(ctxTopo2D(CTX_TOPO)), toneMapped: false, polygonOffset: true, polygonOffsetFactor: 3, polygonOffsetUnits: 3 });
-  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
+  if (ctxTopoSrc && !ctxTopoReq) ctxTopoReq = imgCanvas(ctxTopoSrc, true).then(c => { CTX_TOPO = c; if (ctxMesh && state.mode === '2d') ctxMesh.material = ctxFlat(); dirty = true; }).catch(() => { ctxTopoReq = null; });
   return null;
 }
 // the ring outside the study area in 2D: sea drawn as water (the paper tone read as a blank), land a little paler so the
