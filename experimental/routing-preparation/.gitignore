@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.dylib
+build/
+*.egg-info/
+.native-build-*
+authority.key
+authority.lock
+*.wfggraph

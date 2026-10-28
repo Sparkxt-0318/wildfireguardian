@@ -1,0 +1,38 @@
+name: Experimental routing preparation
+
+on:
+  pull_request:
+    paths:
+      - 'experimental/routing-preparation/**'
+      - 'research/routing/prepared-graph-cache/**'
+      - '.github/workflows/experimental-routing-preparation.yml'
+  push:
+    paths:
+      - 'experimental/routing-preparation/**'
+      - 'research/routing/prepared-graph-cache/**'
+      - '.github/workflows/experimental-routing-preparation.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test source-only fallback
+        working-directory: experimental/routing-preparation
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - name: Build optional native extension
+        working-directory: experimental/routing-preparation
+        run: python tools/build_native.py
+      - name: Test required native backend
+        working-directory: experimental/routing-preparation
+        run: PYTHONPATH=src WFG_TEST_REQUIRE_NATIVE=1 python -m unittest discover -s tests -v
+      - name: Recompute research statistics
+        run: python research/routing/prepared-graph-cache/recompute.py
