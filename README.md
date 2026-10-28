@@ -29,6 +29,10 @@ A separate **200-execution native study** tests five hazard policies on the same
 
 See the [ablation results, figures, data and reproduction instructions](research/routing/final-input-ablation/README.md). This is a constraint ablation, not a new forecast evaluation or a general speedup claim.
 
+## Experimental graph-preparation cache
+
+An [opt-in research package](experimental/routing-preparation/README.md) explores native graph preparation and authenticated reuse across routing requests. It is separate from the frozen integration kit. [Matched research results](research/routing/prepared-graph-cache/README.md) include cache creation costs and distinguish graph preparation from complete-request time. Those measurements were collected on the earlier sealed candidate, not this namespace-refactored package.
+
 ## Choose what to run
 
 | Component | Directory | Start here |

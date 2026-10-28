@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wildfireguardian-routing-preparation-experimental"
+version = "0.1.0"
+description = "Experimental WildfireGuardian prepared-graph routing and native backend"
+requires-python = ">=3.10"
+classifiers = ["Development Status :: 2 - Pre-Alpha", "Operating System :: POSIX"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wfg_routing_experimental = ["native_cell.c"]
