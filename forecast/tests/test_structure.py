@@ -34,6 +34,18 @@ def test_cell_older_than_residence_contributes_only_smoulder_multiplier():
     assert float(source_weight(torch.tensor(10.0), 3.0, 1.0)) == 1.0
 
 
+def test_burnout_fast_path_equals_explicit_sum():
+    g = torch.Generator().manual_seed(9)
+    window = FlamingWindow(residence_hours=2.5, smoulder=0.3)
+    initial = (torch.rand(1, 1, 4, 4, generator=g) < 0.4).double()
+    ages = torch.rand(1, 1, 4, 4, generator=g, dtype=torch.float64) * 4
+    history = [(k + 0.5, torch.rand(1, 1, 4, 4, generator=g, dtype=torch.float64) * 0.1) for k in range(6)]
+    current = initial + sum(increment for _, increment in history)
+    explicit = window.source(initial, ages, history, 6.0)
+    fast = window.source(initial, ages, history, 6.0, current=current)
+    assert torch.allclose(explicit, fast, rtol=0, atol=1e-12)
+
+
 def test_burnout_mean_field_equals_absorbing_with_unit_multiplier():
     kernels = torch.rand(1, 9, 5, 5, dtype=torch.float64, generator=torch.Generator().manual_seed(2))
     kernels[:, 4] = 0

@@ -84,6 +84,9 @@ class Environment:
         self.root, self.cache = Path(data_root), Path(cache)
         self.cache.mkdir(parents=True, exist_ok=True)
         self.names = None
+        cached = next(iter(sorted(self.cache.glob("*.npz"))), None)
+        if cached is not None:
+            self.names = tuple(str(n) for n in np.load(cached)["names"])
 
     def at(self, event: str, hour: pd.Timestamp) -> np.ndarray:
         key = self.cache / f"{event}_{hour.strftime('%Y%m%dT%H')}.npz"
@@ -340,6 +343,10 @@ def command_heldout(args):
     best_k = json.loads((args.run / "baselines" / "dilation_choice.json").read_text())["best_hours_per_cell"]
     out = args.run / "heldout"
     out.mkdir(parents=True, exist_ok=True)
+    (args.run / "report_inputs.json").write_text(json.dumps(dict(
+        perimeters=str(args.perimeters), data_root=str(args.data_root),
+        data_manifest_sha256=args.data_manifest_sha256, fitted_models=sorted(fitted),
+        best_dilation_hours_per_cell=best_k, n_samples=args.n_samples, seed=args.seed), indent=1) + "\n")
     timings = []
     for event in events:
         target = out / f"{event}.npz"
@@ -453,9 +460,114 @@ def command_baselines(args):
     print(json.dumps(dict(best_dilation=choice, scores=scores)))
 
 
+COMPARE_HOURS = (1, 3, 6, 12, 24)
+
+
+def compare_cases(args, env: Environment) -> list[dict]:
+    """Twelve label-free cutoffs on fit fires: 6 Korean (kriged state), 6 US (NIROPS state).
+
+    Korean: KFS_02 at the 25/50/75 % arrival quantiles, KFS_03 at 33/67 %,
+    KFS_05 at 50 %. US: two fit fires per development year drawn with seed
+    20261029, each at its middle survey time whose next interval is <= 48 h.
+    Only timestamps and arrival quantiles choose cutoffs (no outcome is read).
+    """
+    import rasterio
+    cases = []
+    events = {e["id"]: e for e in json.loads((args.data_root / "events.json").read_text())}
+    for event, quantiles in (("KFS_02", (0.25, 0.5, 0.75)), ("KFS_03", (1 / 3, 2 / 3)), ("KFS_05", (0.5,))):
+        if event not in events:
+            continue
+        with rasterio.open(args.data_root / "regions" / event / "arrival_time_hours.tif") as src:
+            arrival = src.read(1, masked=True).filled(np.nan).astype(np.float64)
+        e = events[event]
+        for q in quantiles:
+            t = math.floor(float(np.nanquantile(arrival, q)))
+            hour = (pd.Timestamp(e["t0_utc"]) + pd.Timedelta(hours=t)).floor("h")
+            t = (hour - pd.Timestamp(e["t0_utc"])).total_seconds() / 3600
+            initial = np.isfinite(arrival) & (arrival <= t)
+            later = {h: np.isfinite(arrival) & (arrival <= t + h) for h in COMPARE_HOURS}
+            cases.append(dict(country="KR", event=event, cutoff=hour, initial=initial, labels=later,
+                              label_kind="kriged reconstruction (not observed)"))
+    rng = np.random.default_rng(20261029)
+    for year, fires in SPLIT["development_folds"]["folds"].items():
+        fires = available(args, fires)
+        for event in rng.choice(sorted(fires), size=min(2, len(fires)), replace=False):
+            data = np.load(args.perimeters / event / "states.npz")
+            times = list(pd.to_datetime(data["times"], utc=True))
+            intervals = consecutive_intervals(times, 48.0)
+            i, j, hours = intervals[len(intervals) // 2]
+            states = data["states"].astype(bool)
+            cases.append(dict(country="US", event=str(event), cutoff=times[i], initial=states[i],
+                              survey_hours=hours, survey_label=states[j], labels={},
+                              label_kind="NIROPS mapped extent at the next survey"))
+    return cases
+
+
+def command_compare(args):
+    """Mean field versus c651 Monte Carlo (1,024 trajectories) on twelve cutoffs."""
+    from wildfire.api import load_model
+    from wildfire.meanfield import propagate_mean_field
+    from wildfire.rollout import simulate
+    torch.set_num_threads(args.threads)
+    env = Environment(args.data_root, args.work / "env")
+    model = load_model(C651, device="cpu")
+    out = args.run / "meanfield_vs_mc"
+    out.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for case in compare_cases(args, env):
+        raw = env.at(case["event"], case["cutoff"])
+        e = torch.from_numpy(raw)[None]
+        fv = torch.isfinite(e)
+        e = torch.where(fv, e, torch.zeros_like(e))
+        burned = torch.from_numpy(case["initial"].astype(np.float32))[None, None]
+        ones = torch.ones_like(burned, dtype=torch.bool)
+        horizons = [("fixed", float(h), [1.0] * h) for h in COMPARE_HOURS]
+        if case["country"] == "US":
+            horizons.append(("survey", case["survey_hours"], step_durations(case["survey_hours"])))
+        for kind, hours, durations in horizons:
+            started = time.perf_counter()
+            mc = simulate(model.predictor, burned, e, channel_names=env.names, burned_area_valid=ones,
+                          feature_valid=fv, hours=(float(sum(durations)),), n_samples=args.n_samples,
+                          seed=args.seed, trajectory_batch_size=32, boundary="zero",
+                          missing_burned_area="unburned", step_durations=durations,
+                          cache_environment_kernels=True)[0]["details"]
+            mc_seconds = time.perf_counter() - started
+            started = time.perf_counter()
+            with torch.no_grad():
+                mf = propagate_mean_field(model.predictor, burned, e, durations, channel_names=env.names,
+                                          p0_valid=ones, feature_valid=fv, boundary="zero")
+            mf_seconds = time.perf_counter() - started
+            p_mc, v_mc = mc.probability[0, 0].numpy(), mc.valid[0, 0].numpy()
+            p_mf, v_mf = mf.new_burn_probability[-1][0, 0].numpy(), mf.valid[-1][0, 0].numpy()
+            mask = v_mc & v_mf & ~case["initial"]
+            if not np.array_equal(v_mc, v_mf):
+                raise AssertionError("Mean-field and Monte Carlo validity differ")
+            a, b = p_mc[mask], p_mf[mask]
+            active = np.maximum(a, b) > 1e-3
+            label = case["labels"].get(int(hours)) if kind == "fixed" else case["survey_label"]
+            row = dict(country=case["country"], event=case["event"], cutoff=case["cutoff"].isoformat(),
+                       horizon_kind=kind, hours=hours, cells=int(mask.sum()), active_cells=int(active.sum()),
+                       rmse_all=float(np.sqrt(np.mean((a - b) ** 2))),
+                       rmse_active=float(np.sqrt(np.mean((a[active] - b[active]) ** 2))) if active.any() else None,
+                       mean_mc=float(a.mean()), mean_mf=float(b.mean()),
+                       expected_new_cells_mc=float(a.sum()), expected_new_cells_mf=float(b.sum()),
+                       max_abs_difference=float(np.abs(a - b).max()),
+                       mc_seconds=mc_seconds, mf_seconds=mf_seconds, n_samples=args.n_samples, seed=args.seed)
+            if label is not None:
+                y = label[mask].astype(np.float64)
+                row.update(label_kind=case["label_kind"], positives=int(y.sum()),
+                           brier_mc=float(np.mean((a - y) ** 2)), brier_mf=float(np.mean((b - y) ** 2)),
+                           brier_persistence=float(np.mean(y ** 2)))
+            rows.append(row)
+            print(json.dumps(row), flush=True)
+    pd.DataFrame(rows).to_csv(out / "meanfield_vs_mc.csv", index=False)
+    (out / "meanfield_vs_mc.json").write_text(json.dumps(dict(rows=rows, host=host_record(),
+                                                              checkpoint_sha256=C651_SHA256), indent=1) + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["fold", "final", "baselines", "heldout"])
+    parser.add_argument("command", choices=["fold", "final", "baselines", "heldout", "compare"])
     parser.add_argument("--data-root", type=Path, required=True)
     parser.add_argument("--perimeters", type=Path, required=True)
     parser.add_argument("--work", type=Path, required=True)
@@ -477,7 +589,8 @@ def main():
     parser.add_argument("--events", nargs="*", default=None)
     args = parser.parse_args()
     args.threads = min(args.threads, 2)
-    dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout)[args.command](args)
+    dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout,
+         compare=command_compare)[args.command](args)
 
 
 if __name__ == "__main__":

@@ -59,12 +59,25 @@ class FlamingWindow:
         if m.ndim != 0 or not bool(torch.isfinite(m)) or not 0 <= float(m) <= 1:
             raise ValueError("smoulder must be a scalar in [0, 1]")
 
-    def source(self, initial: Tensor, initial_age_hours: Tensor, history, clock_hours: float) -> Tensor:
+    def source(self, initial: Tensor, initial_age_hours: Tensor, history, clock_hours: float,
+               current: Tensor | None = None) -> Tensor:
         """Source field at ``clock_hours`` after the cutoff.
 
         ``initial`` is the cutoff occupancy with ages ``initial_age_hours``;
         ``history`` lists ``(ignition_time_hours, increment)`` of earlier steps.
+        When ``current`` (= initial + all increments) is supplied and the
+        residence is a scalar, the identical value is computed as
+        ``m * current + (1 - m) * flaming`` from the young increments only.
         """
+        residence = torch.as_tensor(self.residence_hours)
+        if current is not None and residence.ndim == 0:
+            m = torch.as_tensor(self.smoulder, dtype=current.dtype, device=current.device)
+            young = initial * (initial_age_hours + clock_hours < residence).to(current.dtype)
+            for ignition_time, increment in reversed(history):
+                if clock_hours - ignition_time >= float(residence):
+                    break
+                young = young + increment
+            return m * current + (1 - m) * young
         total = initial * source_weight(initial_age_hours + clock_hours, self.residence_hours, self.smoulder)
         for ignition_time, increment in history:
             age = torch.full_like(increment, clock_hours - ignition_time)

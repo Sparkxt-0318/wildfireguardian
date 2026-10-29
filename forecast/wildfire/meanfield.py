@@ -263,7 +263,7 @@ def propagate_mean_field(
             if burnout is None:
                 source = states[j]
             else:
-                source = burnout.source(clean, age0, history[j], clock)
+                source = burnout.source(clean, age0, history[j], clock, current=states[j])
             extra = None if extra_rate_fn is None else extra_rate_fn(source, k)
             updated = mean_field_step(states[j], safe, dt, source=source, extra_rate=extra)
             # Cells outside the envelope keep their value; their dependents are invalid.
