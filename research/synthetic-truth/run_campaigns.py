@@ -234,7 +234,8 @@ def main():
             for r in rows:
                 f.write(json.dumps(r, default=str) + "\n")
     if sink_legs:
-        (out / ("C4_journeys%s.json" % suffix)).write_text(json.dumps(sink_legs, default=str) + "\n")
+        with gzip.open(out / ("C4_journeys%s.json.gz" % suffix), "wt") as f:
+            f.write(json.dumps(sink_legs, default=str) + "\n")
     host.update(loadavg_end=os.getloadavg(), total_wall_s=time.perf_counter() - t_all, holdout_indices=[HOLDOUT[0], HOLDOUT[-1]],
                 member_pool=POOL, v1_seed=V1_SEED)
     (out / ("host%s.json" % suffix)).write_text(json.dumps(host, indent=1) + "\n")

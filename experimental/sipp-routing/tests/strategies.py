@@ -11,13 +11,22 @@ from wfg_sipp.intervals import normalise  # noqa: E402
 
 
 @st.composite
-def interval_lists(draw, horizon, max_count=3):
+def interval_lists(draw, horizon, max_count=3, max_len=25):
     out = []
     for _ in range(draw(st.integers(0, max_count))):
         a = draw(st.integers(0, horizon))
-        b = draw(st.integers(a, min(horizon, a + draw(st.integers(0, 12)))))
+        b = draw(st.integers(a, min(horizon, a + draw(st.integers(0, max_len)))))
         out.append((a, b))
     return out
+
+
+@st.composite
+def acceptance(draw, horizon):
+    """Destination acceptance seconds: usually one wide window (so that journeys exist), sometimes narrow ones."""
+    if draw(st.integers(0, 9)) < 7:
+        a = draw(st.integers(0, horizon // 3))
+        return [(a, horizon)]
+    return draw(interval_lists(horizon, 2, horizon))
 
 
 @st.composite
@@ -25,7 +34,7 @@ def members(draw, n_nodes, n_edges, horizon, max_members=4):
     out = []
     for _ in range(draw(st.integers(1, max_members))):
         eb = {}
-        for j in draw(st.lists(st.integers(0, n_edges - 1), max_size=max(1, n_edges // 2), unique=True)):
+        for j in draw(st.lists(st.integers(0, n_edges - 1), max_size=n_edges, unique=True)):
             eb[j] = normalise(draw(interval_lists(horizon)))
         wb = {}
         for n in draw(st.lists(st.integers(0, n_nodes - 1), max_size=max(1, n_nodes // 3), unique=True)):
@@ -37,7 +46,7 @@ def members(draw, n_nodes, n_edges, horizon, max_members=4):
 @st.composite
 def instances(draw, with_members=False):
     V = draw(st.integers(5, 30))
-    E = draw(st.integers(V - 1, min(3 * V, 70)))
+    E = draw(st.integers(V - 1, min(4 * V, 90)))
     horizon = draw(st.integers(10, 80))
     departure = draw(st.integers(0, 5))
     tail, head, D = [], [], []
@@ -53,7 +62,7 @@ def instances(draw, with_members=False):
         forbidden.add((draw(st.integers(0, E - 1)), draw(st.integers(0, E - 1))))
     waitable = [draw(st.booleans()) for _ in range(V)]
     dests = draw(st.lists(st.integers(0, V - 1), min_size=1, max_size=2, unique=True))
-    accept = {d: normalise(draw(interval_lists(horizon, 2))) for d in dests}
+    accept = {d: normalise(draw(acceptance(horizon))) for d in dests}
     mems = draw(members(V, E, horizon)) if with_members else [draw(members(V, E, horizon, 1))[0]]
     eb, wb = {}, {}
     for m in mems:
@@ -73,3 +82,34 @@ def rebuild(inst, **changes):
               accept={n: list(v) for n, v in inst.accept.items()}, departure=inst.departure, horizon=inst.horizon)
     kw.update(changes)
     return S.make_instance(**kw)
+
+
+def seeded_instance(seed):
+    """A dense random instance from a NumPy seed (not shrunk towards trivial cases): many blocked departure windows
+    and wait windows, wide acceptance, waitable nodes with probability 0.5."""
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    V = int(rng.integers(5, 31))
+    E = int(rng.integers(V, min(4 * V, 90) + 1))
+    horizon = int(rng.integers(20, 81))
+    tail = [j % V if j < V else int(rng.integers(V)) for j in range(E)]
+    head = [(j + 1) % V if j < V else int(rng.integers(V)) for j in range(E)]
+    D = [int(rng.integers(1, 7)) for _ in range(E)]
+    forbidden = {(int(rng.integers(E)), int(rng.integers(E))) for _ in range(int(rng.integers(0, E + 1)))}
+    waitable = [bool(rng.random() < 0.5) for _ in range(V)]
+    origin = int(rng.integers(V))
+    dests = list({int(rng.integers(V)) for _ in range(int(rng.integers(1, 3)))})
+    accept = {d: [(int(rng.integers(0, horizon // 2)), horizon)] for d in dests}
+    eb, wb = {}, {}
+    for j in range(E):
+        if rng.random() < 0.6:
+            a = int(rng.integers(0, horizon))
+            eb[j] = [(a, a + int(rng.integers(0, 30)))]
+    for n in range(V):
+        if rng.random() < 0.4:
+            a = int(rng.integers(0, horizon))
+            wb[n] = [(a, a + int(rng.integers(0, 20)))]
+    return S.make_instance(n_nodes=V, tail=tail, head=head, D=D, origin=origin, start_state=E, forbidden=forbidden,
+                           waitable=waitable, edge_block=eb, wait_block=wb, accept=accept, departure=int(rng.integers(0, 6)),
+                           horizon=horizon)
+

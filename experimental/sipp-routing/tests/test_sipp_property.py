@@ -1,7 +1,7 @@
 """SIPP versus a brute-force time-expanded search on random small instances, and metamorphic properties.
 
-The equivalence test runs 10,000 Hypothesis cases (environment variable WFG_SIPP_CASES overrides; the derandomised
-database-free profile makes the run reproducible). Any mismatch is a SIPP bug until proven otherwise.
+The equivalence check runs 10,000 instances: 5,000 Hypothesis cases (derandomised, no database) and 5,000 dense seeded
+instances (seeds 0..4999); the environment variable WFG_SIPP_CASES overrides the total. Any mismatch is a SIPP bug until proven otherwise.
 """
 import os
 import random
@@ -12,7 +12,7 @@ from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from strategies import instances, rebuild  # noqa: E402
+from strategies import instances, rebuild, seeded_instance  # noqa: E402
 from wfg_sipp import bruteforce, predicate, sipp as S  # noqa: E402
 from wfg_sipp.intervals import Covered, complement, normalise  # noqa: E402
 
@@ -24,9 +24,7 @@ def _solve(inst):
     return S.solve(inst)
 
 
-@settings(max_examples=CASES, **PROFILE)
-@given(instances())
-def test_sipp_equals_bruteforce_and_returns_a_legal_witness(inst):
+def _check_equivalence(inst):
     expected = bruteforce.earliest_arrival(inst)
     res = _solve(inst)
     got = res["arrival"] if res["status"] == "FOUND" else None
@@ -36,6 +34,17 @@ def test_sipp_equals_bruteforce_and_returns_a_legal_witness(inst):
         assert bruteforce.check_legs(inst, res["legs"], got)
         member = {"edge_block": inst.edge_block, "wait_block": inst.wait_block}
         assert predicate.safe(inst, res["legs"], got, [member]), predicate.violations(inst, res["legs"], got, [member])
+
+
+@settings(max_examples=CASES // 2, **PROFILE)
+@given(instances())
+def test_sipp_equals_bruteforce_and_returns_a_legal_witness(inst):
+    _check_equivalence(inst)
+
+
+def test_sipp_equals_bruteforce_on_dense_seeded_instances():
+    for seed in range(CASES - CASES // 2):
+        _check_equivalence(seeded_instance(seed))
 
 
 @settings(max_examples=max(200, CASES // 20), **PROFILE)

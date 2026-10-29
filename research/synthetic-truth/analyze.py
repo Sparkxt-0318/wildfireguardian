@@ -51,6 +51,8 @@ def summarise(rows, key):
         lo, hi = FG.wilson(fs, n)
         flo, fhi = FG.wilson(fr, len(clair))
         decisions = {(r["cutoff"], r["mission"]) for r in rs}
+        fs_decisions = sorted({"%s %s %s" % (r["region"], r["cutoff"], r["mission"]) for r in rs if r["false_safe"]})
+        fr_decisions = sorted({"%s %s %s" % (r["region"], r["cutoff"], r["mission"]) for r in rs if r["false_refusal"]})
         out.append({"group": k, "cases": n, "decisions": len(decisions), "checked_route": verdict.get("checked_route", 0),
                     "model_no_route": verdict.get("model_no_route", 0), "unresolved": verdict.get("unresolved", 0),
                     "false_safe": fs, "false_safe_rate": fs / n if n else None, "false_safe_wilson95": [lo, hi],
@@ -61,6 +63,7 @@ def summarise(rows, key):
                     "regret_s_mean": statistics.fmean(regrets) if regrets else None,
                     "regret_s_max": max(regrets) if regrets else None,
                     "brier_mean": statistics.fmean(briers) if briers else None,
+                    "missions_with_false_safe": fs_decisions, "missions_with_false_refusal": fr_decisions,
                     "false_safe_by_parent_fire": dict(collections.Counter(r["parent_fire"] for r in rs if r["false_safe"])),
                     "cases_by_parent_fire": dict(collections.Counter(r["parent_fire"] for r in rs))})
     return out
@@ -195,6 +198,7 @@ def fig_map(c4_journeys, region, cutoff, mission, toa_dir, out, name, title_note
     ax.set_xlabel("easting, EPSG:5179 (m)")
     ax.set_ylabel("northing, EPSG:5179 (m)")
     ax.set_aspect("equal")
+    ax.ticklabel_format(style="plain", useOffset=False)
     ax.legend(loc="upper left", bbox_to_anchor=(1.12, 1.0), frameon=False, title=title_note)
     return FG.save(fig, out, name)
 
@@ -226,11 +230,12 @@ def main():
         fig_c2(s2, a.figures)
     if s3:
         fig_c3(s3, a.figures)
-    jp = Path(a.data) / ("C4_journeys%s.json" % (("_" + a.tag) if a.tag else ""))
+    jp = Path(a.data) / ("C4_journeys%s.json.gz" % (("_" + a.tag) if a.tag else ""))
     if jp.exists():
-        js = json.loads(jp.read_text())
-        fig_map(js, "uiseong_andong_2025", "20250325T170000Z", "FW1", a.toa_dir, a.figures, "fig04_retrospective_uiseong_map",
-                "Uiseong-Andong 2025, cutoff 2025-03-25 17:00 UTC, mission FW1")
+        with gzip.open(jp, "rt") as f:
+            js = json.loads(f.read())
+        fig_map(js, "uiseong_andong_2025", "20250324T090000Z", "FL2", a.toa_dir, a.figures, "fig04_retrospective_uiseong_map",
+                "Uiseong-Andong 2025, cutoff 2025-03-24 09:00 UTC, mission FL2")
         fig_map(js, "yeongdeok_2025", "20250325T190000Z", "FX2", a.toa_dir, a.figures, "fig05_retrospective_yeongdeok_map",
                 "Yeongdeok 2025 (Caldor inputs unavailable), cutoff 2025-03-25 19:00 UTC, mission FX2")
     print(json.dumps({k: [(g["group"], g["cases"], g["false_safe"], g["false_refusal"], g["cases_with_clairvoyant_route"]) for g in v]
