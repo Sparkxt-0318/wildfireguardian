@@ -19,6 +19,9 @@ terrain.slope_degrees, vegetation.tree_cover_percent, biome.biome_class one-hot 
 All rasters: EPSG:5179, 375 m, the event grid exactly (the loader rejects any other grid).
 
   python research/scenario-members/fixture_data_root.py --out /path/fixture_root     (forecast environment: rasterio)
+  --large: an 80 x 80 grid, 14 h of weather and a known burned state everywhere (finite arrival in every cell), for the
+           multi-hour extended-horizon FIXTURE panel (the rollout's conservative coverage shrinks from unknown boundaries
+           each hour, so a multi-hour fixture needs room).
 """
 import argparse
 import json
@@ -51,16 +54,24 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--seed", type=int, default=20261029)
+    ap.add_argument("--large", action="store_true")
     a = ap.parse_args()
+    if a.large:
+        EVENT.update(width=80, height=80, end_utc="2000-01-01T14:00:00+00:00",
+                     transform=[375.0, 0.0, 1000000.0, 0.0, -375.0, 1000000.0 + 80 * 375.0])
     root = Path(a.out)
     if root.exists():
         raise SystemExit("refusing to overwrite %s" % root)
     rng = np.random.default_rng(a.seed)
     H, W = EVENT["height"], EVENT["width"]
     rr, cc = np.mgrid[0:H, 0:W]
-    dist = np.hypot(rr - 10, (cc - 6) * 0.8)                      # fire spreading east from (10, 6)
-    toa = 0.3 + 0.55 * dist + rng.uniform(0, 0.2, (H, W))
-    toa[dist > 13] = np.nan
+    if a.large:
+        dist = np.hypot(rr - 40, (cc - 30) * 0.8)                  # fire spreading east from (40, 30); known state everywhere
+        toa = 0.3 + 0.55 * dist + rng.uniform(0, 0.2, (H, W))
+    else:
+        dist = np.hypot(rr - 10, (cc - 6) * 0.8)                  # fire spreading east from (10, 6)
+        toa = 0.3 + 0.55 * dist + rng.uniform(0, 0.2, (H, W))
+        toa[dist > 13] = np.nan
     (root / "regions" / EVENT["id"]).mkdir(parents=True)
     (root / "events.json").write_text(json.dumps([EVENT], indent=1) + "\n")
     (root / "biome_classes.json").write_text(json.dumps({"classes": [{"code": k, "name": "fixture biome %d" % k} for k in range(1, 15)]}) + "\n")

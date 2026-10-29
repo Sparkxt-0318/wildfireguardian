@@ -1,0 +1,5 @@
+data,panel,horizon_h,law,cases,missions,checked_route,model_no_route,unresolved,false_safe,false_safe_wilson95,false_refusal,cases_with_clairvoyant_route,missions_with_false_safe
+FIXTURE,"extended-horizon exploratory panel, not frozen missions",3,trajectory,400,4,400,0,0,6,"[0.006892291919440893, 0.03233463358482672]",0,400,"[""FX_A"", ""FX_C""]"
+FIXTURE,"extended-horizon exploratory panel, not frozen missions",3,independent_marginal,400,4,400,0,0,6,"[0.006892291919440893, 0.03233463358482672]",0,400,"[""FX_A"", ""FX_C""]"
+FIXTURE,"extended-horizon exploratory panel, not frozen missions",6,trajectory,400,4,400,0,0,6,"[0.006892291919440893, 0.03233463358482672]",0,400,"[""FX_A"", ""FX_C""]"
+FIXTURE,"extended-horizon exploratory panel, not frozen missions",6,independent_marginal,400,4,400,0,0,5,"[0.005350750779971611, 0.028923736195967484]",0,400,"[""FX_A"", ""FX_C""]"

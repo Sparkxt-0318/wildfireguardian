@@ -1,0 +1,203 @@
+{
+ "schema": "wfg.latest-forecast-export.record/3",
+ "contract": "wfg.latest-forecast-contract/1.1",
+ "event": "FIX_01",
+ "cutoff_utc": "2000-01-01T03:00:00Z",
+ "clock": {
+  "cutoff_utc": "2000-01-01T03:00:00Z",
+  "cutoff_epoch_s": 946695600,
+  "sample_time_epoch_s": 946695600,
+  "prediction_time_epoch_s": 946695600,
+  "prediction_dt_hours": 1.0,
+  "offset_s": 0
+ },
+ "epsg": 5179,
+ "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+ "checkpoint_path": "forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+ "source_root": "forecast",
+ "wildfire_module": "/home/user/wildfireguardian/.claude/worktrees/agent-acdd2c7ef9033638d/forecast/wildfire/__init__.py",
+ "wildfire_heat_sha256": "e6c07d4d23d377c00a76542ba4f70441ce40913aa4a3d5ca5ee60aecaa41da3b",
+ "wildfire_api_sha256": "71e0397874e781b56b7091b8a2c5535acd088fbeb94e63ac0d44b6bd11dc8c11",
+ "data_root": "/home/user/wfg-artifacts-1c/fixture_root_large",
+ "data_identity_sha256": {
+  "events.json": "2c00f82d87183a1b8533076ffb084717d572438ad72166d68316097c9276d45a",
+  "regions/FIX_01/grid.json": "cb91aed68b5de9987e4aeec5c9d8e48ae26c26731504f97f487cbb2bdaca88e8",
+  "regions/FIX_01/arrival_time_hours.tif": "4fdbbe8484684cd2aa7df9d3ea8e6ecb69111d7d29fcf0041ea6fc6f169433e4",
+  "regions/FIX_01/kriging_std_hours.tif": "feeba732f08e5daf39862e37ebf3daae4c3b0e6b3bd64796e5827b9aea327330"
+ },
+ "exporter_sha256": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+ "contract_sha256": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+ "npz": "FORECAST_20000101T030000Z.npz",
+ "npz_sha256": "05b6ec9fe0ed6697f3e169c965ce785169dcc6b36f5e8d41a69507c4b13e6d48",
+ "policy": {
+  "schema": "wfg.latest-forecast-export/2",
+  "boundary": "unknown",
+  "missing_burned_area": "unknown",
+  "use_cell_burning_duration": true,
+  "point_residence_s": 11.52,
+  "spread_rate_m_s": 0.09472222222222222,
+  "spread_direction_deg": 0.0,
+  "fuel_load_kg_m2": 10.0,
+  "consumed_fraction": 0.1,
+  "heat_of_combustion_j_kg": 18608000.0,
+  "radiative_fraction": 0.3,
+  "emission_height_m": 5.0,
+  "receiver_height_m": 0.0,
+  "atmospheric_transmissivity": 1.0,
+  "ignition_time_model": "uniform",
+  "interval_s": 3600.0
+ },
+ "cell_burning_duration_s": {
+  "value": 3970.4642815249267,
+  "scalar": true,
+  "provenance": {
+   "method": "straight_constant_front_crossing_plus_point_residence",
+   "equation": "T_cell = (abs(n dot u) + abs(n dot v)) / spread_rate_m_s + T_point",
+   "equation_origin": "geometric projection of affine-cell vertices; explicit package model assumption",
+   "output_unit": "seconds",
+   "meaning": "whole-cell emission duration from first front entry until last-point front flame extinction",
+   "point_residence_duration_s": 11.52,
+   "point_residence_time": {
+    "source": "latest documented reference point residence 11.52 s (SAV 2000 ft^-1), documents/heat_parameter_models.md",
+    "scope": "reference scenario, not Korean fuel evidence"
+   },
+   "spread_rate_m_s": 0.09472222222222222,
+   "spread_rate_selection": "reported median reference value",
+   "default_spread_rate_reference": {
+    "author_year": "Benali et al. 2023",
+    "title": "The Portuguese Large Wildfire Spread database (PT-FireSprd)",
+    "url": "https://essd.copernicus.org/articles/15/3791/2023/",
+    "section": "3.1",
+    "reported_statistic": "median reconstructed forward rate of spread",
+    "reported_value_m_h": 341.0,
+    "converted_value_m_s": 0.09472222222222222,
+    "population": "spread observations from 80 large mainland Portuguese wildfires, 2015-2021",
+    "scope": "reference scenario; not a universal speed or a Fish Creek measurement"
+   },
+   "spread_direction_deg": 0.0,
+   "cell_projected_width_m": 375.0,
+   "cell_crossing_duration_s": 3958.9442815249267,
+   "affine_transform": [
+    375.0,
+    0.0,
+    1000000.0,
+    0.0,
+    -375.0,
+    1030000.0
+   ],
+   "direction_convention": "counterclockwise degrees from projected +x; advancing front normal; not wind bearing",
+   "front_assumption": "straight front with constant normal direction and positive constant speed within each cell",
+   "arrival_semantics": "first cell entry/burn start; supplied arrivals are not interpreted as center arrivals",
+   "emission_profile": "uniform whole-cell rectangular pulse on [arrival, arrival + T_cell)",
+   "energy_policy": "fixed supplied phase-consumed mass times heat yield; conditional HRR divided by T_cell; total phase energy preserved",
+   "sources": [
+    {
+     "author_year": "NWCG glossary residence time",
+     "url": "https://www.nwcg.gov/publications/pms205/nwcg-glossary-of-wildland-fire-pms-205/residence-time-94",
+     "supported_role": "defines residence as front flaming time at a stationary fuel point; does not provide cell crossing duration"
+    },
+    {
+     "author_year": "Finney, Seli and Andrews 2003",
+     "url": "https://ams.confex.com/ams/FIRE2003/techprogram/paper_66204.htm",
+     "supported_role": "distinguishes post-frontal flaming and smoldering combustion from perimeter spread; does not supply this geometric crossing law"
+    }
+   ],
+   "limitations": [
+    "spread speed and direction are explicit supplied scenarios, not inferred observations",
+    "cell occupancy duration differs from point flame residence",
+    "uniform rectangular emission does not resolve time-varying burning fraction or moving subcell flame geometry",
+    "no automatic trailing, smoldering, reignition, or crown-combustion extension",
+    "reconstructed arrival data do not establish actual first-cell-entry time"
+   ]
+  }
+ },
+ "heat_release_rate_density_w_m2": 4686.60556564767,
+ "channel_names": [
+  "weather.temperature_2m",
+  "weather.wind_eastward_10m",
+  "weather.wind_northward_10m",
+  "terrain.slope_degrees",
+  "vegetation.tree_cover_percent",
+  "biome.biome_class=1",
+  "biome.biome_class=2",
+  "biome.biome_class=3",
+  "biome.biome_class=4",
+  "biome.biome_class=5",
+  "biome.biome_class=6",
+  "biome.biome_class=7",
+  "biome.biome_class=8",
+  "biome.biome_class=9",
+  "biome.biome_class=10",
+  "biome.biome_class=11",
+  "biome.biome_class=12",
+  "biome.biome_class=13",
+  "biome.biome_class=14"
+ ],
+ "raw_summary": {
+  "shape": [
+   80,
+   80
+  ],
+  "cells": 6400,
+  "probability_native_valid": 5184,
+  "probability_policy_zero": 1216,
+  "burned_state_known": 6400,
+  "burned_state_unknown": 0,
+  "known_burned": 86,
+  "present_fire_exact": 55,
+  "known_burned_unknown_age": 0,
+  "initial_state_invalid": 0,
+  "remaining_s": {
+   "min": 488.92093130520016,
+   "max": 3932.9322380678955,
+   "median": 2224.076704468042
+  },
+  "cell_duration_s": 3970.4642815249267
+ },
+ "timing_s": {
+  "model_load": 0.01798298099947715,
+  "data_load": 0.04337282000051346,
+  "probability": 0.18779970299965498,
+  "heat": 0.10366911799974332
+ },
+ "versions": {
+  "torch": "2.5.1+cpu",
+  "numpy": "1.26.4",
+  "python": "3.12.3"
+ },
+ "utc": "2026-10-29T14:18:55.333362+00:00",
+ "export_version": "wfg.latest-forecast-export/3",
+ "trajectory_count": 512,
+ "trajectory_simulated_count": 512,
+ "trajectory_horizon_hours": 6,
+ "trajectory_boundary": "unknown",
+ "trajectory_missing_policy": "unknown",
+ "trajectory_seed_base": 0,
+ "trajectory_batch_size": 32,
+ "trajectory_seed_semantics": "trajectory_seed[k] = int64 view of SeedSequence([seed, cutoff=0, block=k//batch, stream=0]) (rollout._generator ignition stream of the block); trajectory k is row k % batch",
+ "trajectory_first_burn_hour_coding": {
+  "0": "burned at cutoff",
+  "1..H": "first burned at that whole hour",
+  "-1": "not burned within horizon",
+  "-2": "state unknown (never recorded burned and outside the rollout coverage envelope at the horizon)"
+ },
+ "trajectory_mode": "model",
+ "v2_npz_sha256": "aa4060657c5d81a01768e9bee4f5f3d609d32dbb210151680b37a312425b70b6",
+ "v2_record_sha256": "03241cf3376c0ef243cbe468e51fc02c0d52ce7341907d77f9f5ee1238ef906f",
+ "v2_exporter_sha256": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+ "exporter_v3_sha256": "378b0f41c126b000e7f9f50d8dc5d146e33cce9c8a944bf5ee2fa0dfa9e4363b",
+ "rollout_sha256": "9715b9b4d0c56948e133421a012df8607dd0b48a87932f707db51740364959dc",
+ "trajectory_statistics": {
+  "callback_calls": 96,
+  "ignitions_per_trajectory_mean": 10.705078125,
+  "coverage_cells": 1024
+ },
+ "versions_v3": {
+  "torch": "2.5.1+cpu",
+  "numpy": "1.26.4",
+  "python": "3.12.3"
+ },
+ "utc_v3": "2026-10-29T14:25:53.898250+00:00",
+ "trajectory_wall_s_host_specific": 418.4597775399998,
+ "v2_staging": "/home/user/wfg-artifacts-1c/fixture_export6/v2_staging"
+}

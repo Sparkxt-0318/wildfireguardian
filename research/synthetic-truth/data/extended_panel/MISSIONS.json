@@ -1,0 +1,1170 @@
+{
+ "label": "extended-horizon exploratory panel, not frozen missions",
+ "rule": "wfg.extended-horizon-derivation/1",
+ "horizons_s": [
+  10800,
+  21600
+ ],
+ "missions": [
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T070000Z",
+   "event": "KFS_05",
+   "mission": "FN1",
+   "horizon_s": 10800,
+   "extended_id": "20230402T070000Z_FN1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T070000Z_FN1.json",
+    "source_request_canonical_sha256": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+    "source_request_file_sha256": "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T070000Z",
+   "event": "KFS_05",
+   "mission": "FN1",
+   "horizon_s": 21600,
+   "extended_id": "20230402T070000Z_FN1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T070000Z_FN1.json",
+    "source_request_canonical_sha256": "b8f071d56688743e2855b89873e4d3e5eec1da22ed7085803a3fcd9fc6b540eb",
+    "source_request_file_sha256": "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T070000Z",
+   "event": "KFS_05",
+   "mission": "FX1",
+   "horizon_s": 10800,
+   "extended_id": "20230402T070000Z_FX1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T070000Z_FX1.json",
+    "source_request_canonical_sha256": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+    "source_request_file_sha256": "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T070000Z",
+   "event": "KFS_05",
+   "mission": "FX1",
+   "horizon_s": 21600,
+   "extended_id": "20230402T070000Z_FX1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T070000Z_FX1.json",
+    "source_request_canonical_sha256": "4d3263ad83b7f4b00fc76217b1e8d92caabfe0c2c52e6f39bbe778898c851de6",
+    "source_request_file_sha256": "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T140000Z",
+   "event": "KFS_05",
+   "mission": "FW2",
+   "horizon_s": 10800,
+   "extended_id": "20230402T140000Z_FW2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T140000Z_FW2.json",
+    "source_request_canonical_sha256": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+    "source_request_file_sha256": "36da8b90cd927c2d8605de1cea6afe17683d090acd4e03707723178061796079",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1459,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T140000Z",
+   "event": "KFS_05",
+   "mission": "FW2",
+   "horizon_s": 21600,
+   "extended_id": "20230402T140000Z_FW2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T140000Z_FW2.json",
+    "source_request_canonical_sha256": "5e567afa1d7b207de2a8c4073b19bf602c0439781c2a70c7848c5f49ac467e48",
+    "source_request_file_sha256": "36da8b90cd927c2d8605de1cea6afe17683d090acd4e03707723178061796079",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1459,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T230000Z",
+   "event": "KFS_05",
+   "mission": "FD1",
+   "horizon_s": 10800,
+   "extended_id": "20230402T230000Z_FD1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T230000Z_FD1.json",
+    "source_request_canonical_sha256": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+    "source_request_file_sha256": "8ed4ad99d4b7952dfb6795c801fb58584f850b7343c33a5c86740638da422e1b",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      847
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "hongseong_2023",
+   "cutoff": "20230402T230000Z",
+   "event": "KFS_05",
+   "mission": "FD1",
+   "horizon_s": 21600,
+   "extended_id": "20230402T230000Z_FD1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/hongseong_2023/20230402T230000Z_FD1.json",
+    "source_request_canonical_sha256": "a041c569203f08ee2d51c5e8df938d577df056550066655c863801e11f6796d7",
+    "source_request_file_sha256": "8ed4ad99d4b7952dfb6795c801fb58584f850b7343c33a5c86740638da422e1b",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      847
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220531T100000Z",
+   "event": "KFS_11",
+   "mission": "FN1",
+   "horizon_s": 10800,
+   "extended_id": "20220531T100000Z_FN1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220531T100000Z_FN1.json",
+    "source_request_canonical_sha256": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+    "source_request_file_sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220531T100000Z",
+   "event": "KFS_11",
+   "mission": "FN1",
+   "horizon_s": 21600,
+   "extended_id": "20220531T100000Z_FN1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220531T100000Z_FN1.json",
+    "source_request_canonical_sha256": "f88f22b61fef3c5ef6f595016062e4c2c6ab969b5892eb1e6580103a9c145fd1",
+    "source_request_file_sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T020000Z",
+   "event": "KFS_11",
+   "mission": "FW1",
+   "horizon_s": 10800,
+   "extended_id": "20220601T020000Z_FW1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T020000Z_FW1.json",
+    "source_request_canonical_sha256": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+    "source_request_file_sha256": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1270,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T020000Z",
+   "event": "KFS_11",
+   "mission": "FW1",
+   "horizon_s": 21600,
+   "extended_id": "20220601T020000Z_FW1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T020000Z_FW1.json",
+    "source_request_canonical_sha256": "f5b3a99683ff2329f4db123155d2230a5a496e25cb32b0c2203fbbe1b5fd9f84",
+    "source_request_file_sha256": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1270,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T080000Z",
+   "event": "KFS_11",
+   "mission": "FD1",
+   "horizon_s": 10800,
+   "extended_id": "20220601T080000Z_FD1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T080000Z_FD1.json",
+    "source_request_canonical_sha256": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+    "source_request_file_sha256": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      1701
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T080000Z",
+   "event": "KFS_11",
+   "mission": "FD1",
+   "horizon_s": 21600,
+   "extended_id": "20220601T080000Z_FD1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T080000Z_FD1.json",
+    "source_request_canonical_sha256": "b03865947f237214db0efe018934a2dec3c9f2151074f250bc6587fe861e8f82",
+    "source_request_file_sha256": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      1701
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T080000Z",
+   "event": "KFS_11",
+   "mission": "FX1",
+   "horizon_s": 10800,
+   "extended_id": "20220601T080000Z_FX1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T080000Z_FX1.json",
+    "source_request_canonical_sha256": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+    "source_request_file_sha256": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "miryang_2022",
+   "cutoff": "20220601T080000Z",
+   "event": "KFS_11",
+   "mission": "FX1",
+   "horizon_s": 21600,
+   "extended_id": "20220601T080000Z_FX1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/miryang_2022/20220601T080000Z_FX1.json",
+    "source_request_canonical_sha256": "a642d0aa2e2136d16210bf6236903fcc72500460396a6296c7dc723b9bf991bd",
+    "source_request_file_sha256": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250323T010000Z",
+   "event": "KFS_01",
+   "mission": "FD1",
+   "horizon_s": 10800,
+   "extended_id": "20250323T010000Z_FD1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250323T010000Z_FD1.json",
+    "source_request_canonical_sha256": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+    "source_request_file_sha256": "e6ea78c9ac1cfd26440633dff55f6f5f0698ad891c1052c925510b8a108b3c7a",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      2619
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250323T010000Z",
+   "event": "KFS_01",
+   "mission": "FD1",
+   "horizon_s": 21600,
+   "extended_id": "20250323T010000Z_FD1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250323T010000Z_FD1.json",
+    "source_request_canonical_sha256": "81eb1c6f5920530e79095beea651ca7257e648a40edb7140c70e96c97a06909a",
+    "source_request_file_sha256": "e6ea78c9ac1cfd26440633dff55f6f5f0698ad891c1052c925510b8a108b3c7a",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      2619
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250323T010000Z",
+   "event": "KFS_01",
+   "mission": "FX2",
+   "horizon_s": 10800,
+   "extended_id": "20250323T010000Z_FX2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250323T010000Z_FX2.json",
+    "source_request_canonical_sha256": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+    "source_request_file_sha256": "3f2b7889369d7b91bf0f8bd96290281f7162256ff1d1f5b1825c928d5776d501",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250323T010000Z",
+   "event": "KFS_01",
+   "mission": "FX2",
+   "horizon_s": 21600,
+   "extended_id": "20250323T010000Z_FX2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250323T010000Z_FX2.json",
+    "source_request_canonical_sha256": "5c12406ed99a24854d527cb64df3e986a6c16ece707ee80d6a67de456d562644",
+    "source_request_file_sha256": "3f2b7889369d7b91bf0f8bd96290281f7162256ff1d1f5b1825c928d5776d501",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250324T090000Z",
+   "event": "KFS_01",
+   "mission": "FL2",
+   "horizon_s": 10800,
+   "extended_id": "20250324T090000Z_FL2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250324T090000Z_FL2.json",
+    "source_request_canonical_sha256": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+    "source_request_file_sha256": "c7bb784df79f58f2a5daf2b6af57177b66213b886a2d447f49027a1b8e4898ef",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250324T090000Z",
+   "event": "KFS_01",
+   "mission": "FL2",
+   "horizon_s": 21600,
+   "extended_id": "20250324T090000Z_FL2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250324T090000Z_FL2.json",
+    "source_request_canonical_sha256": "924bf4cf4473c5b75300856b53c2aa1e311f47bb9ac94aa266d812241bdd4715",
+    "source_request_file_sha256": "c7bb784df79f58f2a5daf2b6af57177b66213b886a2d447f49027a1b8e4898ef",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250325T170000Z",
+   "event": "KFS_01",
+   "mission": "FW1",
+   "horizon_s": 10800,
+   "extended_id": "20250325T170000Z_FW1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250325T170000Z_FW1.json",
+    "source_request_canonical_sha256": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+    "source_request_file_sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1064,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "cutoff": "20250325T170000Z",
+   "event": "KFS_01",
+   "mission": "FW1",
+   "horizon_s": 21600,
+   "extended_id": "20250325T170000Z_FW1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uiseong_andong_2025/20250325T170000Z_FW1.json",
+    "source_request_canonical_sha256": "f67a6039f20a56e7fc74953d623054efdf888d43485f481bd1f8c2ee665b97ef",
+    "source_request_file_sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1064,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T030000Z",
+   "event": "KFS_02",
+   "mission": "FD1",
+   "horizon_s": 10800,
+   "extended_id": "20220304T030000Z_FD1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FD1.json",
+    "source_request_canonical_sha256": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+    "source_request_file_sha256": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      1885
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T030000Z",
+   "event": "KFS_02",
+   "mission": "FD1",
+   "horizon_s": 21600,
+   "extended_id": "20220304T030000Z_FD1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FD1.json",
+    "source_request_canonical_sha256": "ad076ef7e19ad561586a347499e3f718d5a07fe4aef316bbbb7ffd2b07b577b8",
+    "source_request_file_sha256": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      1885
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T030000Z",
+   "event": "KFS_02",
+   "mission": "FX1",
+   "horizon_s": 10800,
+   "extended_id": "20220304T030000Z_FX1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json",
+    "source_request_canonical_sha256": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+    "source_request_file_sha256": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T030000Z",
+   "event": "KFS_02",
+   "mission": "FX1",
+   "horizon_s": 21600,
+   "extended_id": "20220304T030000Z_FX1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json",
+    "source_request_canonical_sha256": "a5fe18a876e6421eb3da217decc086535764b7bb655a7acc48ed8eb2c7818828",
+    "source_request_file_sha256": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T060000Z",
+   "event": "KFS_02",
+   "mission": "FL1",
+   "horizon_s": 10800,
+   "extended_id": "20220304T060000Z_FL1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T060000Z_FL1.json",
+    "source_request_canonical_sha256": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+    "source_request_file_sha256": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T060000Z",
+   "event": "KFS_02",
+   "mission": "FL1",
+   "horizon_s": 21600,
+   "extended_id": "20220304T060000Z_FL1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T060000Z_FL1.json",
+    "source_request_canonical_sha256": "efded752958d92267ef0b362f6b70d85076c97bd13f3cb21795037509d0213ff",
+    "source_request_file_sha256": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T120000Z",
+   "event": "KFS_02",
+   "mission": "FW2",
+   "horizon_s": 10800,
+   "extended_id": "20220304T120000Z_FW2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T120000Z_FW2.json",
+    "source_request_canonical_sha256": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+    "source_request_file_sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1655,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "uljin_2022",
+   "cutoff": "20220304T120000Z",
+   "event": "KFS_02",
+   "mission": "FW2",
+   "horizon_s": 21600,
+   "extended_id": "20220304T120000Z_FW2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/uljin_2022/20220304T120000Z_FW2.json",
+    "source_request_canonical_sha256": "7b923410761f45487f91e7e70022638d60748411dba81d8aa51426db55355b51",
+    "source_request_file_sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      1655,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T190000Z",
+   "event": "KFS_01",
+   "mission": "FD1",
+   "horizon_s": 10800,
+   "extended_id": "20250325T190000Z_FD1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T190000Z_FD1.json",
+    "source_request_canonical_sha256": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+    "source_request_file_sha256": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      2981
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T190000Z",
+   "event": "KFS_01",
+   "mission": "FD1",
+   "horizon_s": 21600,
+   "extended_id": "20250325T190000Z_FD1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T190000Z_FD1.json",
+    "source_request_canonical_sha256": "af8d4ac9afddbecb81dacf88ce6f83a77c324591ef39491a8ee90998947165bc",
+    "source_request_file_sha256": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      2981
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T190000Z",
+   "event": "KFS_01",
+   "mission": "FX2",
+   "horizon_s": 10800,
+   "extended_id": "20250325T190000Z_FX2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T190000Z_FX2.json",
+    "source_request_canonical_sha256": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+    "source_request_file_sha256": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T190000Z",
+   "event": "KFS_01",
+   "mission": "FX2",
+   "horizon_s": 21600,
+   "extended_id": "20250325T190000Z_FX2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T190000Z_FX2.json",
+    "source_request_canonical_sha256": "0d1d476625c358cd3db10b1b314424269f92a4ab111d29489f6351c9b0c3f3ff",
+    "source_request_file_sha256": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T230000Z",
+   "event": "KFS_01",
+   "mission": "FL2",
+   "horizon_s": 10800,
+   "extended_id": "20250325T230000Z_FL2_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T230000Z_FL2.json",
+    "source_request_canonical_sha256": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+    "source_request_file_sha256": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250325T230000Z",
+   "event": "KFS_01",
+   "mission": "FL2",
+   "horizon_s": 21600,
+   "extended_id": "20250325T230000Z_FL2_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250325T230000Z_FL2.json",
+    "source_request_canonical_sha256": "583c53d0ab7a0a2cac09e16cbdee27fa44e2049e07242532acc2fc6791336518",
+    "source_request_file_sha256": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      0,
+      21600
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250326T080000Z",
+   "event": "KFS_01",
+   "mission": "FW1",
+   "horizon_s": 10800,
+   "extended_id": "20250326T080000Z_FW1_H3h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250326T080000Z_FW1.json",
+    "source_request_canonical_sha256": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+    "source_request_file_sha256": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 10800.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      896,
+      10800
+     ]
+    ]
+   ]
+  },
+  {
+   "region": "yeongdeok_2025",
+   "cutoff": "20250326T080000Z",
+   "event": "KFS_01",
+   "mission": "FW1",
+   "horizon_s": 21600,
+   "extended_id": "20250326T080000Z_FW1_H6h",
+   "provenance": {
+    "rule": "wfg.extended-horizon-derivation/1",
+    "label": "extended-horizon exploratory panel, not frozen missions",
+    "source": "latest_inputs_try02/requests/yeongdeok_2025/20250326T080000Z_FW1.json",
+    "source_request_canonical_sha256": "514e417fef8127823a5b1f9cb72d475dbfc57d66e83ba7448351cfc99fb1761d",
+    "source_request_file_sha256": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+    "source_horizon_s": 3600.0,
+    "horizon_s": 21600.0,
+    "changed_fields": [
+     "horizon",
+     "destinations[*].open_intervals upper ends equal to the source horizon"
+    ]
+   },
+   "open_intervals": [
+    [
+     [
+      896,
+      21600
+     ]
+    ]
+   ]
+  }
+ ]
+}
