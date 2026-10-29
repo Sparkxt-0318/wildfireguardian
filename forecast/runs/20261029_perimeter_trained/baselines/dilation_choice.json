@@ -1,0 +1,38 @@
+{
+ "training_pooled_brier_full_rectangles": {
+  "1": 0.5690395651797484,
+  "2": 0.36073655201425425,
+  "4": 0.2022667615090609,
+  "8": 0.1049953190004937
+ },
+ "best_hours_per_cell": 8,
+ "fit_events": [
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SHF-001187_Monument",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000651_McCash",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "ID-SCF-022105_Moose",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "OR-WIF-220180_CedarCreek",
+  "UT-ASF-100340_EastFork",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "entries": 19797054,
+ "positives": 118622,
+ "persistence_brier": 0.005991901623342543,
+ "note": "chosen on the 2020 to 2022 fit fires only, full rectangles, intervals <= 48 h; no held-out data read"
+}
