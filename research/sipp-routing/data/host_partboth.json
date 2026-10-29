@@ -1,0 +1,16 @@
+{
+ "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+ "python": "3.12.3",
+ "cpu_count": 4,
+ "loadavg_start": [
+  5.302734375,
+  5.71044921875,
+  5.93603515625
+ ],
+ "note": "host-specific Linux measurement, shared host; not comparable with the frozen native-Mac timings",
+ "loadavg_end": [
+  5.6494140625,
+  6.2109375,
+  6.21728515625
+ ]
+}

@@ -62,7 +62,13 @@ def main():
                               "sipp_complete_s_median": statistics.median(p["sipp_complete_s"] for p in ps),
                               "sweep_rss_mib_max": max(p["sweep_rss_mib"] for p in ps), "sipp_rss_mib_max": max(p["sipp_rss_mib"] for p in ps),
                               "sipp_faster_in": sum(1 for p in ps if p["sipp_planner_s"] < p["sweep_planner_s"])}
-    res = {"equivalence": {"missions": len(missions), "missions_identical_both_reps": len(identical_missions),
+    sc = collections.defaultdict(dict)
+    for r in scal:
+        sc[(r["region"], r["cutoff"], r["mission"], r["K"])][r["planner"]] = r
+    scal_pairs = [(d["sipp"], d["sweep"]) for d in sc.values() if "sipp" in d and "sweep" in d]
+    scal_same = sum(1 for a, b in scal_pairs if (a.get("raw_status"), a.get("arrival")) == (b.get("raw_status"), b.get("arrival")))
+    res = {"equivalence": {"member_scaling_pairs": len(scal_pairs), "member_scaling_pairs_identical": scal_same,
+                           "missions": len(missions), "missions_identical_both_reps": len(identical_missions),
                            "execution_pairs": len(pairs), "pairs_identical": sum(p["identical"] for p in pairs),
                            "unresolved_executions": unresolved, "random_instances": census},
            "cost": {"planner_time_ratio_sipp_over_sweep_median": statistics.median(ratios) if ratios else None,
@@ -100,7 +106,8 @@ def main():
             rs = sorted([r for r in scal if (r["region"], r["cutoff"], r["mission"]) == key and r["planner"] == "sipp" and r.get("pieces")],
                         key=lambda r: r["K"])
             if rs:
-                ax.plot([r["K"] for r in rs], [r["pieces"] for r in rs], marker="o", ms=2.5, lw=0.9, color=FG.CYCLE[k % len(FG.CYCLE)],
+                ax.plot([r["K"] for r in rs], [r["pieces"] for r in rs], marker="osd^v"[k % 5], ms=2.5, lw=0.9,
+                        ls=("-", "--", ":")[k // len(FG.CYCLE)], color=FG.CYCLE[k % len(FG.CYCLE)],
                         label="%s %s %s" % (key[0].split("_")[0], key[1][4:8], key[2]))
         ax.set_xscale("log", base=2)
         ax.set_yscale("log")
@@ -116,7 +123,7 @@ def main():
         labels = ["%s %s" % (p["cutoff"][4:11], p["mission"]) for p in ps]
         load_sw = [p["sweep_complete_s"] - p["sweep_planner_s"] for p in ps]
         load_si = [p["sipp_complete_s"] - p["sipp_planner_s"] for p in ps]
-        ax.bar(x - 0.2, load_sw, 0.38, color=C["grey"], label="interpreter start and input loading")
+        ax.bar(x - 0.2, load_sw, 0.38, color=C["grey"], label="imports and input loading (JSON, packet)")
         ax.bar(x - 0.2, [p["sweep_setup_s"] or 0 for p in ps], 0.38, bottom=load_sw, color=C["sky"], label="setup (sweep static, SIPP instance)")
         ax.bar(x - 0.2, [p["sweep_planner_s"] - (p["sweep_setup_s"] or 0) for p in ps], 0.38,
                bottom=[a + (p["sweep_setup_s"] or 0) for a, p in zip(load_sw, ps)], color=C["blue"], label="search")
