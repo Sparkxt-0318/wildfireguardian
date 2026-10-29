@@ -1,0 +1,9 @@
+parameter,low_value,high_value,q_low,q_high,note
+emissive power E (kW/m2),23.0,200.0,1.030443063016912,8.960374461016626,
+rate of spread R (m/s),0.02,0.5,2.9443562479894103,12.646563853646796,
+flaming consumption w (kg/m2),0.5,2.0,3.261671115946167,6.146202209833056,
+front length (m),100.0,100000.0,4.3802947108018495,4.482474037268318,
+"wind tilt, U = 5 m/s away / toward",-1.66610147810054,1.66610147810054,2.145442192384901,2.5035697190937025,
+receiver height (m),0.0,1.5,4.480187230508313,4.485179943022802,
+receiver orientation (vertical facing / worst case),vertical,worst_case,4.475684051971227,4.480187230508313,
+flame residence time (s): 5 / 60,5.0,60.0,4.480187230508313,4.480187230508313,no effect on radiation outside the flame: the emitter is the leading isochrone; residence only sets the band depth (engulfment)

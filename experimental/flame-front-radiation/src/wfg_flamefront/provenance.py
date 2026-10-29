@@ -37,6 +37,10 @@ TILT_COEFFICIENT = 1.4                # tan(theta) = 1.4 U / sqrt(g L); see SOUR
 # --- emissive power ---------------------------------------------------------------------------------------------
 EMISSIVE_POWER_SURFACE_KW_M2 = 100.0  # grass and shrub default
 EMISSIVE_POWER_CROWN_KW_M2 = 200.0    # crown fire default
+# Measurement-consistent variant for small surface flames (not the default): minimax fit of the solid-flame panel E to
+# Morandini et al. 2006 (2.5 m shrub flames, 30 m plot; 7.8, 2.2, 1.0 kW/m2 at 5, 10, 15 m), worst factor 1.52.
+# Produced by research/flame-front-radiation/physics_validation/run_physics_validation.py before any routing run.
+EMISSIVE_POWER_MEASURED_DECAY_KW_M2 = 22.6
 STEFAN_BOLTZMANN_W_M2_K4 = 5.670374419e-8   # CODATA 2018
 ATMOSPHERIC_TRANSMISSIVITY = 1.0      # same as v1 (contract.POLICY atmospheric_transmissivity)
 RECEIVER_HEIGHT_M = 0.0               # same as v1 (contract.POLICY receiver_height_m)

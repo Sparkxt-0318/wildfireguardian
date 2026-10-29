@@ -23,7 +23,8 @@ from . import provenance as PV
 class FuelParameters:
     heat_content_kj_kg: Any = PV.HEAT_CONTENT_KJ_KG
     consumed_kg_m2: Any = PV.FLAMING_CONSUMPTION_KG_M2
-    emissive_power_kw_m2: Any = PV.EMISSIVE_POWER_SURFACE_KW_M2
+    emissive_power_kw_m2: Any = PV.EMISSIVE_POWER_SURFACE_KW_M2   # flame-surface E of the panels
+    inflame_emissive_power_kw_m2: Any = None                      # flux inside the flame; None = same as above
     residence_s: Any = PV.POINT_RESIDENCE_S
     wind_u_m_s: Any = None              # eastward wind component, scalar or [H, W]; None = no wind field
     wind_v_m_s: Any = None              # northward

@@ -69,7 +69,14 @@ def _residence_map(fuel, shape):
 
 
 def _emissive_map(fuel, shape):
+    """Flame-surface emissive power of the panels (radiation at a distance)."""
     return np.broadcast_to(np.asarray(fuel.emissive_power_kw_m2, float), shape)
+
+
+def _inflame_map(fuel, shape):
+    """In-flame flux for an engulfed receiver; defaults to the panel emissive power."""
+    v = fuel.inflame_emissive_power_kw_m2
+    return _emissive_map(fuel, shape) if v is None else np.broadcast_to(np.asarray(v, float), shape)
 
 
 class _PointGeometry:
@@ -113,8 +120,7 @@ def flux_at_points(points_xy, times_s, member, grid, fuel, receiver="worst_case"
         return (q, {"engulfed": eng, "pieces": npieces}) if details else q
     pg = _PointGeometry(ff, pts)
     res = _residence_map(fuel, ff.shape)[pg.hr, pg.hc]
-    Emap = _emissive_map(fuel, ff.shape)
-    Eh = Emap[pg.hr, pg.hc]
+    Eh = _inflame_map(fuel, ff.shape)[pg.hr, pg.hc]
     zr = float(fuel.receiver_height_m)
     P3 = np.column_stack([pts, np.full(P, zr)])
     cutoff = float(fuel.cutoff_radius_m)
@@ -345,7 +351,7 @@ def _engulf_terms(ff, fuel, box, a, b):
     H, W = ff.shape
     ux0, vy0 = g.to_index(box[0], box[2]); ux1, vy1 = g.to_index(box[1], box[3])
     umin, umax = min(ux0, ux1), max(ux0, ux1); vmin, vmax = min(vy0, vy1), max(vy0, vy1)
-    res = _residence_map(fuel, ff.shape); Em = _emissive_map(fuel, ff.shape)
+    res = _residence_map(fuel, ff.shape); Em = _inflame_map(fuel, ff.shape)
     c00, c01, c10, c11, ok = ff.squares()
     act_any = ff.active_anywhere(a, b)
     act_all = ff.active_throughout(a, b)
