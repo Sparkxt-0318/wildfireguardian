@@ -11,7 +11,10 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "adapters"))
 
 REPO = ROOT.parents[1]
-INPUTS = Path(os.environ.get("WFG_ROUTING_INPUTS", "/home/user/wfg-shared/routing-inputs"))
+_default = REPO / "data/routing"          # where tools/fetch_routing_inputs.py writes by default
+if not (_default / "INPUT_FILES.json").exists():
+    _default = Path("/home/user/wfg-shared/routing-inputs")
+INPUTS = Path(os.environ.get("WFG_ROUTING_INPUTS", str(_default)))
 
 
 def synthetic_member(seed=7, H=14, W=16, cell=375.0):

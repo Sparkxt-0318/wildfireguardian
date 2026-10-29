@@ -103,6 +103,7 @@ def main():
     frozen = frozen_outcomes()
     rows, table_costs = [], {}
     pkt_cache = {}
+    check_cache = {}     # (case, setting, route hash) -> exact check; the check is deterministic, reused across reps/policies
     load_before = os.getloadavg()
     pol_order = ["A0", "A1", "A2", "A3", "A4"]
     for rep in range(1, a.reps + 1):
@@ -146,9 +147,14 @@ def main():
                             else (("SCOPED_REFUSAL", "") in fz and r["status"] in ("EXHAUSTED", "AT_ISSUE_FAILURE"))
                     if r["status"] == "ROUTE":
                         fuel = {} if setting in ("v1", "E100") else JC.FUEL_SETTINGS["E23"]["fuel"]
-                        t1 = time.perf_counter()
-                        chk = JC.check_v2(case, r["legs"], r["destination"], fuel=fuel)
-                        row["check_wall_s"] = time.perf_counter() - t1
+                        rh = JC.hashlib.sha256(json.dumps(r["legs"], sort_keys=True).encode()).hexdigest()
+                        ckey = (case_id, "E100" if setting == "v1" else setting, rh)
+                        if ckey in check_cache:
+                            chk = check_cache[ckey]; row["check_wall_s"] = None; row["check_cached"] = True
+                        else:
+                            t1 = time.perf_counter()
+                            chk = check_cache[ckey] = JC.check_v2(case, r["legs"], r["destination"], fuel=fuel)
+                            row["check_wall_s"] = time.perf_counter() - t1; row["check_cached"] = False
                         own_fail, own_cert, full = judge(pol, chk)
                         row.update({"exact_own_fail": own_fail, "exact_own_certified": own_cert,
                                     "v2_contact_ok": full["contact"], "v2_peak_ok": full["peak"], "v2_dose_ok": full["dose"],
