@@ -1,0 +1,28 @@
+{
+  "label": "API__20220304T030000Z__RDA_CAND",
+  "arm": "RDA_CAND",
+  "on_time": true,
+  "wall_s": 12.915832750033587,
+  "cleanup_state": "CLEAN",
+  "primary_status": "CHECKED_ROUTE",
+  "runtime_whole_road": "CERTIFIED_ADMISSIBLE",
+  "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "successful_journey": true,
+  "unresolved_reason": null,
+  "arrival_s": 3119,
+  "independent": {
+    "classification": {
+      "overall": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "trajectory": "VALID",
+      "centre_model": "FEASIBLE",
+      "whole_road_contact": "CLEAR",
+      "runtime_whole_road_status": "CERTIFIED_ADMISSIBLE",
+      "optimality_or_refusal": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "contradictions": []
+    },
+    "verdict": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+    "contradictions": [],
+    "status": null
+  },
+  "out_dir": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_repository_fix_20261029_v1/API_SMOKE"
+}

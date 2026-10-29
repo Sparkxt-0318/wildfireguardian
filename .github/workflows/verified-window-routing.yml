@@ -1,0 +1,41 @@
+name: Verified request-window routing
+on:
+  push:
+    branches: [Main]
+  pull_request:
+    branches: [Main]
+permissions:
+  contents: read
+jobs:
+  regression:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy==1.26.4
+      - name: Boundary, cache, exposure and unchanged-source controls
+        run: python -B experimental/window-routing/tests/test_full_checker_window.py -v
+      - name: Assemble opt-in API kit
+        run: python -B experimental/window-routing/build_kit.py --out "${RUNNER_TEMP}/window-kit"
+      - name: Recompute published evidence
+        run: python -B research/routing/request-window-20261029/verify_evidence.py
+  # Main requires the GitHub Actions context named "gates". This depends on
+  # both matrix jobs, including source tests, kit assembly and evidence checks.
+  gates:
+    if: always()
+    needs: [regression]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require successful platform regressions
+        env:
+          REGRESSION_RESULT: ${{ needs.regression.result }}
+        run: test "$REGRESSION_RESULT" = success

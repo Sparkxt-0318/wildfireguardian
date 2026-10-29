@@ -4,9 +4,9 @@ WildfireGuardian combines machine-learning wildfire forecasting, time-dependent 
 
 The scientific pipeline is **forecast → scenario hazards → route search → complete-journey checking → checked route or scoped refusal**. The logger and showcase have separate launchers and evidence; the 3D showcase uses an explicitly illustrative scene.
 
-## Final research results
+## Frozen October 15 research results
 
-The latest native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**.
+The frozen native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**.
 
 | Measure | Reference | Candidate |
 |---|---:|---:|
@@ -22,6 +22,14 @@ The latest native-Mac benchmark contains **20 missions across five Korean region
 All 80 outcome records were published within the 30 s request allowance. Reference unresolved outcomes include eight search-label-limit stops and six centre-only refusal publications without qualifying frozen authority. Neither category is an outer deadline termination. Continuous-road radiation-enclosure and global-bound proof obligations remain open. See the [independent report](research/routing/INDEPENDENT_REPORT.v1.md) and [reviewed figures](research/routing/figures/).
 
 ![Reviewed mission outcomes](research/routing/figures/fig01_resolution.png)
+
+## Verified routing update — October 29
+
+The [request-window/check-first repair](experimental/window-routing/README.md) is available as an opt-in kit for the existing API. A fresh replay preserved all original input hashes, cold preparation, 30 s deadlines and the 3,072 MiB memory guard: **80/80 executions completed; candidate 20/20 missions resolved (15 checked routes + 5 scoped no-route decisions), unchanged reference 13/20**. The candidate already had 20/20 coverage; this confirms no regression.
+
+Independent programs checked all **18 distinct returned journeys and 72/72 scenario-specific thermal thresholds**, covering 56 route executions, and corroborated the five candidate no-route missions. All 56 returned witnesses match the historical routes. Across 26 jointly checked route pairs, request medians were **6.846 s candidate versus 6.765 s reference**; this replay establishes no speed gain. In the separate Caldor/Rim engineering panel, the verified repair increased resolution from **3/6 to 6/6** under unchanged limits. The original release kit remains intact.
+
+[Results, per-execution records, independent verification and reproduction instructions](research/routing/request-window-20261029/README.md). These are model-relative computational results, not field safety validation.
 
 ## Final-input routing constraint ablation
 

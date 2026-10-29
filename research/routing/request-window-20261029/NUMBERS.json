@@ -1,0 +1,50 @@
+{
+  "original_panel": {
+    "source": "RESULTS.json",
+    "fields": [
+      "missions",
+      "executions",
+      "by_arm",
+      "matched_route_pairs",
+      "matched_baseline_median_s",
+      "matched_candidate_median_s",
+      "median_paired_candidate_baseline_ratio",
+      "candidate_faster_pairs",
+      "independent_contexts",
+      "independent_route_contexts",
+      "unique_member_threshold_checks",
+      "route_execution_member_assessments",
+      "historical_route_witnesses_unchanged"
+    ]
+  },
+  "resource_limits": {
+    "source": "MANIFEST.json",
+    "fields": [
+      "jobs[*].job_file -> RAW_EXECUTIONS.jsonl.gz job.complete_budget_s",
+      "RAW_EXECUTIONS.jsonl.gz job.memory_guard_mib",
+      "RAW_EXECUTIONS.jsonl.gz job.original_limits",
+      "RAW_EXECUTIONS.jsonl.gz job.preparation_mode"
+    ]
+  },
+  "caldor_panel": {
+    "source": "CALDOR_RIM_INDEPENDENT_REVIEW.json",
+    "fields": [
+      "metrics",
+      "proved_member_thresholds",
+      "member_threshold_assessments",
+      "reference_member_caps"
+    ],
+    "range_source": "CALDOR_RIM_EXECUTIONS.csv rows variant=CANDIDATE and case_id starts Caldor; complete_request_s"
+  },
+  "api_smoke": {
+    "source": "API_SMOKE_RESULT.json",
+    "fields": [
+      "arrival_s",
+      "on_time",
+      "cleanup_state",
+      "successful_journey",
+      "independent"
+    ]
+  },
+  "rounding": "Displayed timings use nearest 0.001 s. Ratios use the median of paired ratios, not the ratio of marginal medians."
+}

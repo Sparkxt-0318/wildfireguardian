@@ -1,0 +1,101 @@
+{
+  "by_arm": {
+    "RDA_BASE": {
+      "executions": {
+        "CHECKED_ROUTE": 26,
+        "UNRESOLVED": 14
+      },
+      "max_sampled_family_mib": 2209.5,
+      "median_all_elapsed_s": 7.732792396505829,
+      "missions": {
+        "CHECKED_ROUTE": 13,
+        "UNRESOLVED": 7
+      },
+      "resolved_missions": 13
+    },
+    "RDA_CAND": {
+      "executions": {
+        "CHECKED_ROUTE": 30,
+        "MODEL_NO_ROUTE": 10
+      },
+      "max_sampled_family_mib": 1489.875,
+      "median_all_elapsed_s": 5.794888167001773,
+      "missions": {
+        "CHECKED_ROUTE": 15,
+        "MODEL_NO_ROUTE": 5
+      },
+      "resolved_missions": 20
+    }
+  },
+  "by_region": {
+    "hongseong_2023": {
+      "RDA_BASE": {
+        "CHECKED_ROUTE": 2,
+        "UNRESOLVED": 2
+      },
+      "RDA_CAND": {
+        "CHECKED_ROUTE": 2,
+        "MODEL_NO_ROUTE": 2
+      }
+    },
+    "miryang_2022": {
+      "RDA_BASE": {
+        "CHECKED_ROUTE": 2,
+        "UNRESOLVED": 2
+      },
+      "RDA_CAND": {
+        "CHECKED_ROUTE": 2,
+        "MODEL_NO_ROUTE": 2
+      }
+    },
+    "uiseong_andong_2025": {
+      "RDA_BASE": {
+        "CHECKED_ROUTE": 3,
+        "UNRESOLVED": 1
+      },
+      "RDA_CAND": {
+        "CHECKED_ROUTE": 4
+      }
+    },
+    "uljin_2022": {
+      "RDA_BASE": {
+        "CHECKED_ROUTE": 4
+      },
+      "RDA_CAND": {
+        "CHECKED_ROUTE": 4
+      }
+    },
+    "yeongdeok_2025": {
+      "RDA_BASE": {
+        "CHECKED_ROUTE": 2,
+        "UNRESOLVED": 2
+      },
+      "RDA_CAND": {
+        "CHECKED_ROUTE": 3,
+        "MODEL_NO_ROUTE": 1
+      }
+    }
+  },
+  "candidate_faster_pairs": 5,
+  "capped_member_references": 0,
+  "executions": 80,
+  "historical_route_witnesses_unchanged": 56,
+  "historical_witness_presence_and_content_matches": 80,
+  "independent_contexts": 25,
+  "independent_route_contexts": 18,
+  "manifest_sha256": "eaee105cba719ba77aeb2bf58c5b31ffe3e9d2df7395476d06bb9f485171b50e",
+  "matched_arrivals_equal": true,
+  "matched_baseline_median_s": 6.76478329199017,
+  "matched_candidate_median_s": 6.845988832996227,
+  "matched_route_pairs": 26,
+  "median_paired_candidate_baseline_ratio": 1.0239013702091075,
+  "member_partition_count_scope": "Sum over member assessments; identical histories reuse the reference calculation, so this is not a count of unique arithmetic operations",
+  "member_partition_records_processed": 77034,
+  "missions": 20,
+  "route_execution_member_assessments": 224,
+  "scope": "Fresh 20-mission paired regression. Cumulative implementation changes, not single-factor attribution. Independent program verification, not physical validation or independent human review.",
+  "status": "VERIFIED_BOUNDED_RESEARCH",
+  "unique_member_threshold_checks": 72,
+  "verification_batch_sha256": "fc303501567434fe731f802c7e9de55b469091f5af64b5386c190ddbf171dacd",
+  "verification_input_sha256": "8c0ca1466c2defd6243142b9949ad2f5ecfbec083d326ec1d58664edba4f6275"
+}
