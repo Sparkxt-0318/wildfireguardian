@@ -1,0 +1,4 @@
+# Test dependencies (routing environment: python3.12 -m venv; pip install -c constraints-routing.txt './integration[packets]' -r this file)
+pytest==8.3.4
+hypothesis==6.170.13
+matplotlib==3.11.2

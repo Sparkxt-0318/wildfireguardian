@@ -1,0 +1,23 @@
+{
+ "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+ "python": "3.12.3",
+ "cpu_count": 4,
+ "loadavg_start": [
+  5.1318359375,
+  6.60791015625,
+  5.52197265625
+ ],
+ "note": "host-specific Linux measurement on a shared host",
+ "loadavg_end": [
+  7.19580078125,
+  7.13623046875,
+  6.3720703125
+ ],
+ "total_wall_s": 715.5819771180004,
+ "holdout_indices": [
+  512,
+  611
+ ],
+ "member_pool": 512,
+ "v1_seed": 20261008
+}

@@ -139,3 +139,29 @@ def test_frozen_uljin_export_replay_agrees_with_saved_probability():
     empirical = (traj["trajectory_first_burn_hour"] == 1).mean(axis=0)
     tol = 6 * np.sqrt(q * (1 - q) / n) + 1.0 / n
     assert np.all(np.abs(empirical - q) <= tol)
+
+
+CHECKPOINT = HERE.parents[2] / "forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt"
+
+
+@pytest.mark.skipif(not CHECKPOINT.is_file(), reason="c651 checkpoint not present")
+def test_fixture_model_mode_end_to_end_and_replay_equals_model_mode_at_one_hour(tmp_path):
+    """FIXTURE: synthetic data root, real c651 checkpoint, frozen v2 exporter, rollout with the callback (model mode);
+    the one-hour replay from the produced v2 export must reproduce every model-mode trajectory exactly."""
+    pytest.importorskip("rasterio")
+    import subprocess
+    repo = HERE.parents[2]
+    root = tmp_path / "fixture_root"
+    subprocess.run([sys.executable, str(repo / "research/scenario-members/fixture_data_root.py"), "--out", str(root)], check=True,
+                   capture_output=True)
+    out = tmp_path / "export"
+    X.main(["model", "--source-root", str(repo / "forecast"), "--data-root", str(root), "--checkpoint", str(CHECKPOINT),
+            "--event", "FIX_01", "--cutoff", "2000-01-01T03:00:00Z", "--out", str(out), "--n", "256", "--export-count", "256"])
+    v2 = X.load_v2(out / "v2_staging" / "FORECAST_20000101T030000Z.npz")
+    with np.load(out / "FORECAST_20000101T030000Z.npz") as z:
+        model_fbh = z["trajectory_first_burn_hour"].copy()
+        for k, v in v2.items():
+            assert z[k].tobytes() == v.tobytes()
+    replay = X.replay_trajectories(v2, n=256, seed=0, batch=32)
+    assert np.array_equal(replay["trajectory_first_burn_hour"], model_fbh)
+    assert (model_fbh == 1).any()

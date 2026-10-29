@@ -5,8 +5,8 @@ by docs/PUBLICATION_SOURCE_MANIFEST.json). This overlay adds, without changing a
 
   trajectory_first_burn_hour  int16 [K,H,W]  first whole hour 1..horizon at which the cell is burned in trajectory k of
                                              the recursive Monte Carlo rollout from the cutoff state; 0 burned at the
-                                             cutoff; -1 never within the horizon; -2 state unknown (outside the
-                                             rollout's conservative coverage at the horizon)
+                                             cutoff; -1 never within the horizon; -2 state unknown (never recorded
+                                             burned and outside the rollout's conservative coverage at the horizon)
   trajectory_seed             int64 [K]      the ignition-stream seed of the trajectory's block, derived exactly as
                                              forecast/wildfire/rollout.py::_generator derives it (uint64 stored as its
                                              int64 two's-complement view); trajectory k is row k % B of block k // B
@@ -94,9 +94,9 @@ class TrajectoryRecorder:
         coverage = np.asarray(coverage, dtype=bool)
         rows = np.concatenate([self.blocks[b] for b in sorted(self.blocks)], axis=0)
         rows[:, self.observed] = 0
-        rows[:, ~coverage & ~self.observed] = -2
-        if np.any(rows[:, ~coverage & ~self.observed] > 0):
-            raise RuntimeError("burn recorded outside the coverage envelope")
+        # a recorded burn happened inside the coverage of its hour (rollout ignites only there) and stays known;
+        # a cell never recorded burned is "never" only inside the final coverage, otherwise its state is unknown
+        rows[(rows == -1) & ~coverage[None]] = -2
         return rows
 
 
@@ -221,7 +221,7 @@ def write_v3(out_dir, tag, v2_arrays, v2_record, v2_npz_sha256, v2_record_sha256
         "trajectory_seed_semantics": "trajectory_seed[k] = int64 view of SeedSequence([seed, cutoff=0, block=k//batch, stream=0]) "
                                      "(rollout._generator ignition stream of the block); trajectory k is row k % batch",
         "trajectory_first_burn_hour_coding": {"0": "burned at cutoff", "1..H": "first burned at that whole hour", "-1": "not burned within horizon",
-                                               "-2": "state unknown (outside the rollout coverage envelope)"},
+                                               "-2": "state unknown (never recorded burned and outside the rollout coverage envelope at the horizon)"},
         "trajectory_mode": mode, "checkpoint_sha256": CHECKPOINT_SHA256,
         "v2_npz_sha256": v2_npz_sha256, "v2_record_sha256": v2_record_sha256, "v2_exporter_sha256": V2_EXPORTER_SHA256,
         "exporter_v3_sha256": sha(__file__), "rollout_sha256": sha(rollout.__file__),
