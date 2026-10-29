@@ -17,7 +17,9 @@ HERE = Path(__file__).resolve()
 sys.path.insert(0, str(HERE.parents[3] / "forecast"))
 from wildfire import baselines as B  # noqa: E402
 
-OKABE_ITO = ["#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"]
+# Okabe-Ito without yellow, which is too faint on white.
+OKABE_ITO = ["#000000", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7"]
+FINE_BINS = np.array([0, 1e-4, 1e-3, 3e-3, 1e-2, 3e-2, 0.1, 0.3, 1.0])
 SINGLE, DOUBLE = 3.5, 7.2
 
 
@@ -83,20 +85,40 @@ def primary_candidate(abl: dict) -> str | None:
     return min(abl, key=lambda v: abl[v]["pooled_brier"]) if abl else None
 
 
-def figure_reliability(plt, scored, out, label):
-    fig, ax = plt.subplots(figsize=(SINGLE, SINGLE))
+def figure_reliability(plt, scored, entries, out, label):
+    fig, (ax, low) = plt.subplots(1, 2, figsize=(DOUBLE, 3.0))
     names = [n for n in ("c651_mc", "c651_meanfield", "logistic", "dilation_best") if n in scored["models"]]
     names += [n for n in scored["models"] if n.startswith(("base", "d4", "ellipse", "burnout", "mixed"))]
+    y_all = entries["y"]
     for colour, name in zip(OKABE_ITO * 3, names):
         table = scored["models"][name]["pooled"]["calibration"]
         x = [r["mean_prediction"] for r in table if r["count"]]
         y = [r["observed_frequency"] for r in table if r["count"]]
         ax.plot(x, y, marker="o", ms=2.5, lw=0.9, color=colour, label=name)
-    ax.plot([0, 1], [0, 1], color="#999999", lw=0.6, ls="--")
-    ax.set_xlabel("Mean forecast probability in bin (ten equal-width bins)")
+        p = entries["predictions"][name]
+        index = np.clip(np.digitize(p, FINE_BINS[1:-1]), 0, len(FINE_BINS) - 2)
+        xs, ys = [], []
+        for b in range(len(FINE_BINS) - 1):
+            use = index == b
+            if use.sum() >= 50:
+                xs.append(max(p[use].mean(), 1e-5))
+                ys.append(max(y_all[use].mean(), 1e-5))
+        low.plot(xs, ys, marker="o", ms=2.5, lw=0.9, color=colour)
+    for axis in (ax, low):
+        axis.plot([1e-5, 1], [1e-5, 1], color="#999999", lw=0.6, ls="--")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    low.set_xscale("log")
+    low.set_yscale("log")
+    low.set_xlim(1e-5, 1)
+    low.set_ylim(1e-5, 1)
+    ax.set_xlabel("Mean forecast probability in bin\n(ten equal-width bins)")
     ax.set_ylabel("Observed new-mapping frequency")
+    low.set_xlabel("Mean forecast probability in bin\n(log bins, >= 50 entries; values floored at 1e-5)")
     ax.set_title(f"Reliability, held-out 2024 intervals{label}")
-    ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), frameon=False)
+    low.set_title("Low-probability range")
+    ax.legend(loc="upper left", frameon=False)
+    fig.tight_layout()
     save(fig, out, "fig01_reliability_all_models")
     plt.close(fig)
 
@@ -229,8 +251,18 @@ def main():
     if heldout.exists() and list(heldout.glob("*.npz")):
         entries = B.load_scored_entries(heldout)
         scored = B.score_entries(entries)
+        inputs = json.loads((args.run / "report_inputs.json").read_text())
+        if "c651_mc" in entries["predictions"]:
+            # A finite-trajectory frequency adds its sampling variance to the Brier
+            # score; subtract the unbiased estimate p(1-p)/(n-1) per entry.
+            n = inputs["n_samples"]
+            p = entries["predictions"]["c651_mc"]
+            pooled = scored["models"]["c651_mc"]["pooled"]
+            pooled["brier_mc_variance_corrected"] = float(pooled["brier"] - np.mean(p * (1 - p)) / (n - 1))
+            pooled["mc_trajectories"] = n
+        results["heldout_inputs"] = inputs
         results["heldout"] = scored
-        figure_reliability(plt, scored, figures, label)
+        figure_reliability(plt, scored, entries, figures, label)
         primary_run = chosen[0] if chosen else None
         figure_per_fire(plt, scored, figures, label, primary_run)
         rows = []
