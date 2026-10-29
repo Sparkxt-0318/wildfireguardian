@@ -86,17 +86,21 @@ def _legs_to_block(graph, hazard, request, legs, destination, member_index):
     return out
 
 
-def _evaluate(graph, hazard, request, plan, weights, rule, radiation_law):
-    reports = member_reports(graph, hazard, request, plan["legs"], plan["destination"], radiation_law=radiation_law)
+def _evaluate(graph, hazard, request, plan, weights, rule, radiation_law, reporter=None):
+    if reporter is not None:
+        reports = reporter(plan)
+    else:
+        reports = member_reports(graph, hazard, request, plan["legs"], plan["destination"], radiation_law=radiation_law)
     flags = [r["passed"] for r in reports]
     return reports, flags, A.passes(flags, weights, rule)
 
 
 def decide(graph, hazard, request, model, *, rule=None, weights=None, planner=sweep_plan, wall_s=600.0, radiation_law="v1",
-           lazy_cap=8, subset_cap=256):
-    """Return a decision dict (Contract D fields) for one mission."""
+           lazy_cap=8, subset_cap=256, reporter=None):
+    """Return a decision dict (Contract D fields) for one mission. `reporter(plan) -> per-member reports` replaces the
+    frozen checker (hazard may then be None; lazy constraints then need the hazard and are unavailable)."""
     rule = rule or {"rule": "all", "k": len(model.ids), "m": len(model.ids)}
-    if [m["id"] for m in hazard["members"]] != list(model.ids):
+    if hazard is not None and [m["id"] for m in hazard["members"]] != list(model.ids):
         raise ValueError("hazard members and contact model members differ")
     weights = A.normalise_weights(weights if weights is not None else model.weights)
     t0 = time.perf_counter()
@@ -130,13 +134,15 @@ def decide(graph, hazard, request, model, *, rule=None, weights=None, planner=sw
                 return ("NO_ROUTE", p, None, None) if not extra else ("LAZY_CUTS_EXHAUSTED", p, None, None)
             if p["status"] != ROUTE:
                 return ("UNRESOLVED", p, None, None)
-            reports, flags, ok = _evaluate(graph, hazard, request, p, weights, rule, radiation_law)
+            reports, flags, ok = _evaluate(graph, hazard, request, p, weights, rule, radiation_law, reporter)
             if ok:
                 return ("OK", p, reports, flags)
             # contact-free in the planning subset but failing the rule: contact in other members (k_of_m), or dose/peak
             failing = [j for j in subset if not flags[j] and not reports[j]["contact"]]
             if not failing:
                 return ("RULE_FAILED", p, reports, flags)
+            if hazard is None:
+                return ("LAZY_UNSUPPORTED", p, reports, flags)
             if log["lazy_iterations"] >= lazy_cap:
                 return ("LAZY_CAP", p, reports, flags)
             add = _legs_to_block(graph, hazard, request, p["legs"], p["destination"], failing[0])

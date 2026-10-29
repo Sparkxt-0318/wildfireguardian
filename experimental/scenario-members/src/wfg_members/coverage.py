@@ -56,52 +56,63 @@ class Kernels:
 
 
 class JourneyEvaluator:
+    """Fixed journey (its occupancy spans and issue point) evaluated against many members cheaply: spans are indexed by
+    cell for contact (exact rational comparisons) and held as arrays for the dose integral (binary64)."""
+
     def __init__(self, spans, issue_cell, departure, request, member_id=None):
         self.spans = [(int(c), F(a), F(b)) for c, a, b in spans]
         self.issue = (int(issue_cell), F(departure))
         self.request = request
-        self.cells = sorted({c for c, _, _ in self.spans} | {self.issue[0]})
+        self.by_cell = {}
+        for c, a, b in self.spans + [(self.issue[0], self.issue[1], self.issue[1])]:
+            self.by_cell.setdefault(c, []).append((a, b))
+        self.cells = sorted(self.by_cell)
         self.budget_peak = float(request["budgets"]["peak"])
         member_id = member_id or next(iter(request["budgets"]["dose"]))
         self.budget_dose = F(request["budgets"]["dose"][member_id])
         self.incurred = F(request["incurred"][member_id])
-        self.duration = float(sum(b - a for _, a, b in self.spans))
+        self.c = np.array([c for c, _, _ in self.spans], dtype=np.int64)
+        self.a = np.array([float(a) for _, a, _ in self.spans])
+        self.b = np.array([float(b) for _, _, b in self.spans])
+        self.duration = float((self.b - self.a).sum())
+        self._shared = {}
 
     def contact(self, births, T, current, R):
         """births {graph cell: second}; current: set of graph cells active on [0, R)."""
+        key = ("contact", tuple(sorted(current)), F(float(R)))
+        if key not in self._shared:
+            Rq = F(float(R))
+            self._shared[key] = R > 0 and any(a < Rq for c in current for a, _ in self.by_cell.get(c, ()))
+        if self._shared[key]:
+            return True
         T = float(T)
-        for c, a, b in self.spans + [(self.issue[0], self.issue[1], self.issue[1])]:
-            if c in current and R > 0 and a < F(float(R)):
-                return True
-            t = births.get(c)
-            if t is not None:
-                ext = round_up_sum(t, T)
-                if a < F(ext) and b >= F(float(t)):
+        for c, t in births.items():
+            spans = self.by_cell.get(c)
+            if spans:
+                ext, start = F(round_up_sum(t, T)), F(float(t))
+                if any(a < ext and b >= start for a, b in spans):
                     return True
         return False
 
     def dose_peak(self, births, T, R, kernels, current_flux):
         """(dose kJ/m2 upper bound incl. incurred, peak kW/m2 upper bound) along the journey."""
-        T = float(T)
-        sources = [(float(t), round_up_sum(t, T), kernels.of_graph_cell(c)) for c, t in births.items()]
-        total = float(self.incurred)
-        peak = 0.0
-        fmax = float((current_flux + sum((k for _, _, k in sources), np.zeros_like(current_flux))).max())  # >= every interval map max
-        margin = 1e-8 * max(1.0, fmax)
-        R = float(R)
-        for c, a, b in self.spans:
-            a, b = float(a), float(b)
-            f_cur = float(current_flux[c])
-            if a < R:
-                total += f_cur * (min(b, R) - a) / 1000.0
-                peak = max(peak, f_cur)
-            for t0, t1, k in sources:
-                lo, hi = max(a, t0), min(b, t1)
-                if hi > lo:
-                    total += float(k[c]) * (hi - lo) / 1000.0
-                if a < t1 and b >= t0:
-                    peak = max(peak, f_cur + float(k[c]))
-            total += margin * (b - a) / 1000.0
+        T, R = float(T), float(R)
+        fcur = current_flux[self.c]
+        cur_on = self.a < R
+        total = float(self.incurred) + float((fcur * np.clip(np.minimum(self.b, R) - self.a, 0, None)).sum()) / 1000.0
+        peak_arr = np.where(cur_on, fcur, 0.0)
+        summ = current_flux.copy()
+        extra = np.zeros(self.c.size)
+        for c, t in births.items():
+            k = kernels.of_graph_cell(c)
+            summ = summ + k
+            t0, t1 = float(t), round_up_sum(t, T)
+            kc = k[self.c]
+            total += float((kc * np.clip(np.minimum(self.b, t1) - np.maximum(self.a, t0), 0, None)).sum()) / 1000.0
+            extra = extra + np.where((self.a < t1) & (self.b >= t0), kc, 0.0)
+        peak = float((peak_arr + extra).max()) if self.c.size else 0.0
+        margin = 1e-8 * max(1.0, float(summ.max()))           # >= the bridge margin of every interval map
+        total += margin * self.duration / 1000.0
         return total, (peak + margin) / 1000.0
 
     def passes(self, births, T, current, R, kernels=None, current_flux=None):
