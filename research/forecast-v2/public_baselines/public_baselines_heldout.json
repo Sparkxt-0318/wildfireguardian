@@ -1,0 +1,4494 @@
+{
+ "models": {
+  "persistence": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.004996835923731393,
+    "bss_vs_persistence": 0.0,
+    "average_precision": 0.004996835923731393,
+    "roc_auc": 0.5,
+    "ece_10_bins": 0.004996835923731393,
+    "clipped_nll": 0.08053957887116864,
+    "exact_zero_probability_positives": 8520,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 1705079,
+     "share": 1.0,
+     "mean_prediction": 0.0,
+     "observed_frequency": 0.004996835923731393
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 1705079,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.004996835923731393
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.007577091441165221,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.007577091441165221,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.007577091441165221,
+     "clipped_nll": 0.12212838384705449,
+     "exact_zero_probability_positives": 3744,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 494121,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.007577091441165221
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 494121,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.007577091441165221
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.0022918977750800594,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.0022918977750800594,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.0022918977750800594,
+     "clipped_nll": 0.03694112733177418,
+     "exact_zero_probability_positives": 438,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 191108,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0022918977750800594
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 191108,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0022918977750800594
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.002561225674159477,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.002561225674159477,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.002561225674159477,
+     "clipped_nll": 0.041282180143675073,
+     "exact_zero_probability_positives": 662,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 258470,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.002561225674159477
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 258470,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.002561225674159477
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.0034061778577194894,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.0034061778577194894,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.0034061778577194894,
+     "clipped_nll": 0.054901200174286235,
+     "exact_zero_probability_positives": 962,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 282428,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0034061778577194894
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 282428,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0034061778577194894
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.00380817323204761,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.00380817323204761,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.00380817323204761,
+     "clipped_nll": 0.06138060002875014,
+     "exact_zero_probability_positives": 956,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 251039,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00380817323204761
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 251039,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.00380817323204761
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.0077134696134051155,
+     "bss_vs_persistence": 0.0,
+     "average_precision": 0.0077134696134051155,
+     "roc_auc": 0.5,
+     "ece_10_bins": 0.0077134696134051155,
+     "clipped_nll": 0.12432654025828221,
+     "exact_zero_probability_positives": 1758,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 227913,
+      "share": 1.0,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0077134696134051155
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 227913,
+       "share": 1.0,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0077134696134051155
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      }
+     ]
+    }
+   }
+  },
+  "dilation_1h": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.6883557887933638,
+    "bss_vs_persistence": -136.75833333333333,
+    "average_precision": 0.007155613783104423,
+    "roc_auc": 0.651349304023601,
+    "ece_10_bins": 0.6883557887933638,
+    "clipped_nll": 11.094984477189037,
+    "exact_zero_probability_positives": 47,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 522952,
+     "share": 0.30670250469333094,
+     "mean_prediction": 0.0,
+     "observed_frequency": 8.987440529914791e-05
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 522952,
+      "share": 0.30670250469333094,
+      "mean_prediction": 0.0,
+      "observed_frequency": 8.987440529914791e-05
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 1182127,
+      "share": 0.6932974953066691,
+      "mean_prediction": 1.0,
+      "observed_frequency": 0.0071675885924270405
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.6794691988399603,
+     "bss_vs_persistence": -88.6741452991453,
+     "average_precision": 0.010915103618163108,
+     "roc_auc": 0.6536957250394947,
+     "ece_10_bins": 0.6794691988399603,
+     "clipped_nll": 10.951749571193192,
+     "exact_zero_probability_positives": 30,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 154697,
+      "share": 0.3130751374663291,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00019392748404946443
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 154697,
+       "share": 0.3130751374663291,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.00019392748404946443
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 339424,
+       "share": 0.6869248625336709,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.010942066559818987
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.75114594888754,
+     "bss_vs_persistence": -326.7397260273973,
+     "average_precision": 0.0030419201600133347,
+     "roc_auc": 0.6235642733518645,
+     "ece_10_bins": 0.75114594888754,
+     "clipped_nll": 12.10704227728,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 47120,
+      "share": 0.2465621533373799,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 47120,
+       "share": 0.2465621533373799,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 143988,
+       "share": 0.75343784666262,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.0030419201600133347
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.5266065694277866,
+     "bss_vs_persistence": -204.60725075528703,
+     "average_precision": 0.004682294324183707,
+     "roc_auc": 0.7247203907617706,
+     "ece_10_bins": 0.5266065694277866,
+     "clipped_nll": 8.487895104076586,
+     "exact_zero_probability_positives": 15,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 121726,
+      "share": 0.4709482725267923,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00012322757668862855
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 121726,
+       "share": 0.4709482725267923,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.00012322757668862855
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 136744,
+       "share": 0.5290517274732077,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.004731469022406834
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.6446634186412112,
+     "bss_vs_persistence": -188.26299376299377,
+     "average_precision": 0.005255882818945217,
+     "roc_auc": 0.6765666190587851,
+     "ece_10_bins": 0.6446634186412112,
+     "clipped_nll": 10.390746680205812,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 99395,
+      "share": 0.3519304035010693,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 99395,
+       "share": 0.3519304035010693,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 183033,
+       "share": 0.6480695964989307,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.005255882818945217
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.8351929381490525,
+     "bss_vs_persistence": -218.31589958158995,
+     "average_precision": 0.004538937053109362,
+     "roc_auc": 0.5808071720188898,
+     "ece_10_bins": 0.8351929381490525,
+     "clipped_nll": 13.46171968101166,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 40417,
+      "share": 0.16099888861889985,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 40417,
+       "share": 0.16099888861889985,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 210622,
+       "share": 0.8390011113811001,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.004538937053109362
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.7308139509374191,
+     "bss_vs_persistence": -93.74516496018202,
+     "average_precision": 0.010429663817182229,
+     "roc_auc": 0.631188152617851,
+     "ece_10_bins": 0.7308139509374191,
+     "clipped_nll": 11.779329191567355,
+     "exact_zero_probability_positives": 2,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 59597,
+      "share": 0.26149013000574783,
+      "mean_prediction": 0.0,
+      "observed_frequency": 3.355873617799554e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 59597,
+       "share": 0.26149013000574783,
+       "mean_prediction": 0.0,
+       "observed_frequency": 3.355873617799554e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 168316,
+       "share": 0.7385098699942522,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.01043275743244849
+      }
+     ]
+    }
+   }
+  },
+  "dilation_2h": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.4466473400939194,
+    "bss_vs_persistence": -88.38603286384976,
+    "average_precision": 0.010318516008753095,
+    "roc_auc": 0.7529576009689339,
+    "ece_10_bins": 0.4466473400939194,
+    "clipped_nll": 7.199104605450145,
+    "exact_zero_probability_positives": 387,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 935764,
+     "share": 0.5488097618937304,
+     "mean_prediction": 0.0,
+     "observed_frequency": 0.00041356581360257503
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 935764,
+      "share": 0.5488097618937304,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00041356581360257503
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 769315,
+      "share": 0.45119023810626957,
+      "mean_prediction": 1.0,
+      "observed_frequency": 0.010571742394207835
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.44071593799899217,
+     "bss_vs_persistence": -57.164262820512825,
+     "average_precision": 0.014910924368638827,
+     "roc_auc": 0.7374062308967622,
+     "ece_10_bins": 0.44071593799899217,
+     "clipped_nll": 7.103501699729628,
+     "exact_zero_probability_positives": 306,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 273222,
+      "share": 0.5529455335838792,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0011199683773634626
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 273222,
+       "share": 0.5529455335838792,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0011199683773634626
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 220899,
+       "share": 0.44705446641612073,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.015563673896215012
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.4090618917052138,
+     "bss_vs_persistence": -177.48173515981736,
+     "average_precision": 0.005571597572920509,
+     "roc_auc": 0.7949992133004667,
+     "ece_10_bins": 0.4090618917052138,
+     "clipped_nll": 6.5932987569757175,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 112495,
+      "share": 0.5886462105197061,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 112495,
+       "share": 0.5886462105197061,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 78613,
+       "share": 0.4113537894802939,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.005571597572920509
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.36386814717375326,
+     "bss_vs_persistence": -141.06797583081573,
+     "average_precision": 0.006736669223311606,
+     "roc_auc": 0.8062985419440458,
+     "ece_10_bins": 0.36386814717375326,
+     "clipped_nll": 5.864861664288218,
+     "exact_zero_probability_positives": 15,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 163789,
+      "share": 0.6336866947808256,
+      "mean_prediction": 0.0,
+      "observed_frequency": 9.158124171952939e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 163789,
+       "share": 0.6336866947808256,
+       "mean_prediction": 0.0,
+       "observed_frequency": 9.158124171952939e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 94681,
+       "share": 0.3663133052191744,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.006833472396784994
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.4046093163567352,
+     "bss_vs_persistence": -117.7869022869023,
+     "average_precision": 0.008348158111684817,
+     "roc_auc": 0.797003901004029,
+     "ece_10_bins": 0.4046093163567352,
+     "clipped_nll": 6.521531722058754,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 167193,
+      "share": 0.5919845057855453,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 167193,
+       "share": 0.5919845057855453,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 115235,
+       "share": 0.40801549421445465,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.008348158111684817
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.5291568242384649,
+     "bss_vs_persistence": -137.95292887029288,
+     "average_precision": 0.007145259538846743,
+     "roc_auc": 0.7344101758216273,
+     "ece_10_bins": 0.5291568242384649,
+     "clipped_nll": 8.529000354795762,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 117244,
+      "share": 0.46703500252948743,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 117244,
+       "share": 0.46703500252948743,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 133795,
+       "share": 0.5329649974705125,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.007145259538846743
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.5461118935734249,
+     "bss_vs_persistence": -69.79977246871444,
+     "average_precision": 0.013204581294275416,
+     "roc_auc": 0.7061960585641414,
+     "ece_10_bins": 0.5461118935734249,
+     "clipped_nll": 8.802283782418543,
+     "exact_zero_probability_positives": 66,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 101821,
+      "share": 0.44675380518004676,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0006481963445654629
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 101821,
+       "share": 0.44675380518004676,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0006481963445654629
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 126092,
+       "share": 0.5532461948199532,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.013418773593883831
+      }
+     ]
+    }
+   }
+  },
+  "dilation_4h": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.2506024647538325,
+    "bss_vs_persistence": -49.152230046948354,
+    "average_precision": 0.015356933234858955,
+    "roc_auc": 0.8065114369221145,
+    "ece_10_bins": 0.2506024647538325,
+    "clipped_nll": 4.039234572339493,
+    "exact_zero_probability_positives": 1157,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 1271576,
+     "share": 0.7457578211918626,
+     "mean_prediction": 0.0,
+     "observed_frequency": 0.0009098944931329311
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 1271576,
+      "share": 0.7457578211918626,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0009098944931329311
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 433503,
+      "share": 0.2542421788081373,
+      "mean_prediction": 1.0,
+      "observed_frequency": 0.016984888224533624
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.25568838401929894,
+     "bss_vs_persistence": -32.74492521367522,
+     "average_precision": 0.01964617600213503,
+     "roc_auc": 0.7652903444761991,
+     "ece_10_bins": 0.25568838401929894,
+     "clipped_nll": 4.121209905026921,
+     "exact_zero_probability_positives": 799,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 365634,
+      "share": 0.7399685502134092,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0021852453546442616
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 365634,
+       "share": 0.7399685502134092,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0021852453546442616
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 128487,
+       "share": 0.2600314497865907,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.022920606753990675
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.19206940578102435,
+     "bss_vs_persistence": -82.80365296803654,
+     "average_precision": 0.011791944863234977,
+     "roc_auc": 0.9037446897781507,
+     "ece_10_bins": 0.19206940578102435,
+     "clipped_nll": 3.095793134895439,
+     "exact_zero_probability_positives": 0,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 153964,
+      "share": 0.8056386964438956,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 153964,
+       "share": 0.8056386964438956,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 37144,
+       "share": 0.1943613035561044,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.011791944863234977
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.22348435021472512,
+     "bss_vs_persistence": -86.25679758308158,
+     "average_precision": 0.007415449641403527,
+     "roc_auc": 0.7757221034581486,
+     "ece_10_bins": 0.22348435021472512,
+     "clipped_nll": 3.6021422110221053,
+     "exact_zero_probability_positives": 149,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 200342,
+      "share": 0.775107362556583,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.000743728224735702
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 200342,
+       "share": 0.775107362556583,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.000743728224735702
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 58128,
+       "share": 0.22489263744341703,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.008825350949628406
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.21109096831758892,
+     "bss_vs_persistence": -60.972972972972975,
+     "average_precision": 0.01556333418174569,
+     "roc_auc": 0.8883960652522397,
+     "ece_10_bins": 0.21109096831758892,
+     "clipped_nll": 3.402384497398308,
+     "exact_zero_probability_positives": 11,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 221870,
+      "share": 0.7855807497840157,
+      "mean_prediction": 0.0,
+      "observed_frequency": 4.9578582052553296e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 221870,
+       "share": 0.7855807497840157,
+       "mean_prediction": 0.0,
+       "observed_frequency": 4.9578582052553296e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 60558,
+       "share": 0.21441925021598426,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.01570395323491529
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.28625432701691766,
+     "bss_vs_persistence": -74.168410041841,
+     "average_precision": 0.01276233760949402,
+     "roc_auc": 0.8479894884103498,
+     "ece_10_bins": 0.28625432701691766,
+     "clipped_nll": 4.613874694884592,
+     "exact_zero_probability_positives": 16,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 178254,
+      "share": 0.7100649699847434,
+      "mean_prediction": 0.0,
+      "observed_frequency": 8.975955658779046e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 178254,
+       "share": 0.7100649699847434,
+       "mean_prediction": 0.0,
+       "observed_frequency": 8.975955658779046e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 72785,
+       "share": 0.2899350300152566,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.0129147489180463
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.3291036491994752,
+     "bss_vs_persistence": -41.666097838452785,
+     "average_precision": 0.019291002854184367,
+     "roc_auc": 0.7828080547916222,
+     "ece_10_bins": 0.3291036491994752,
+     "clipped_nll": 5.304524164139019,
+     "exact_zero_probability_positives": 182,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 151512,
+      "share": 0.664779981835174,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.001201224985479698
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 151512,
+       "share": 0.664779981835174,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.001201224985479698
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 76401,
+       "share": 0.33522001816482605,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.020628002251279434
+      }
+     ]
+    }
+   }
+  },
+  "dilation_8h": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.1284568046407234,
+    "bss_vs_persistence": -24.70762910798122,
+    "average_precision": 0.021768369920779115,
+    "roc_auc": 0.8016758805458606,
+    "ece_10_bins": 0.1284568046407234,
+    "clipped_nll": 2.070479151436878,
+    "exact_zero_probability_positives": 2291,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 1482112,
+     "share": 0.869233624952275,
+     "mean_prediction": 0.0,
+     "observed_frequency": 0.001545767121513084
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 1482112,
+      "share": 0.869233624952275,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.001545767121513084
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 222967,
+      "share": 0.13076637504772506,
+      "mean_prediction": 1.0,
+      "observed_frequency": 0.027936869581597277
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.14310462417100264,
+     "bss_vs_persistence": -17.886485042735043,
+     "average_precision": 0.025507473597929108,
+     "roc_auc": 0.7613144673736895,
+     "ece_10_bins": 0.14310462417100264,
+     "clipped_nll": 2.3065741062461895,
+     "exact_zero_probability_positives": 1257,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 422180,
+      "share": 0.8544061070061787,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0029774030034582406
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 422180,
+       "share": 0.8544061070061787,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0029774030034582406
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 71941,
+       "share": 0.14559389299382136,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.03456999485689662
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.08501998869749043,
+     "bss_vs_persistence": -36.09589041095891,
+     "average_precision": 0.02558508374411288,
+     "roc_auc": 0.9505587722027083,
+     "ece_10_bins": 0.08501998869749043,
+     "clipped_nll": 1.3703604016122866,
+     "exact_zero_probability_positives": 6,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 174434,
+      "share": 0.9127509052472947,
+      "mean_prediction": 0.0,
+      "observed_frequency": 3.439696389465357e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 174434,
+       "share": 0.9127509052472947,
+       "mean_prediction": 0.0,
+       "observed_frequency": 3.439696389465357e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 16674,
+       "share": 0.08724909475270527,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.025908600215905003
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.11314272449413859,
+     "bss_vs_persistence": -43.175226586102724,
+     "average_precision": 0.0075903428630078994,
+     "roc_auc": 0.7097456234790434,
+     "ece_10_bins": 0.11314272449413859,
+     "clipped_nll": 1.823645344351205,
+     "exact_zero_probability_positives": 310,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 229184,
+      "share": 0.8866947808256277,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0013526249650935493
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 229184,
+       "share": 0.8866947808256277,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0013526249650935493
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 29286,
+       "share": 0.11330521917437227,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.012019394932732363
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.10077966773832622,
+     "bss_vs_persistence": -28.58731808731809,
+     "average_precision": 0.026393073066627967,
+     "roc_auc": 0.8940147134014244,
+     "ece_10_bins": 0.10077966773832622,
+     "clipped_nll": 1.6243764142530257,
+     "exact_zero_probability_positives": 107,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 253217,
+      "share": 0.8965718696446527,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00042256246618512975
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 253217,
+       "share": 0.8965718696446527,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.00042256246618512975
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 29211,
+       "share": 0.1034281303553472,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.029269795624935813
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.14287421476344314,
+     "bss_vs_persistence": -36.51778242677825,
+     "average_precision": 0.019203205323678973,
+     "roc_auc": 0.8501378253716837,
+     "ece_10_bins": 0.14287421476344314,
+     "clipped_nll": 2.3028603454002097,
+     "exact_zero_probability_positives": 150,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 214516,
+      "share": 0.8545126454455284,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.000699248540901378
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 214516,
+       "share": 0.8545126454455284,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.000699248540901378
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 36523,
+       "share": 0.14548735455447162,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.02206828573775429
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.1689065564491714,
+     "bss_vs_persistence": -20.89761092150171,
+     "average_precision": 0.026351185852234612,
+     "roc_auc": 0.7847945393396945,
+     "ece_10_bins": 0.1689065564491714,
+     "clipped_nll": 2.722452116118925,
+     "exact_zero_probability_positives": 461,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 188581,
+      "share": 0.8274253772272753,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.002444572889103356
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 188581,
+       "share": 0.8274253772272753,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.002444572889103356
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 39332,
+       "share": 0.17257462277272467,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.03297569409132513
+      }
+     ]
+    }
+   }
+  },
+  "dilation_best": {
+   "pooled": {
+    "entries": 1705079,
+    "positives": 8520,
+    "brier": 0.1284568046407234,
+    "bss_vs_persistence": -24.70762910798122,
+    "average_precision": 0.021768369920779115,
+    "roc_auc": 0.8016758805458606,
+    "ece_10_bins": 0.1284568046407234,
+    "clipped_nll": 2.070479151436878,
+    "exact_zero_probability_positives": 2291,
+    "lowest_bin": {
+     "lower": 0.0,
+     "upper": 0.1,
+     "count": 1482112,
+     "share": 0.869233624952275,
+     "mean_prediction": 0.0,
+     "observed_frequency": 0.001545767121513084
+    },
+    "calibration": [
+     {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 1482112,
+      "share": 0.869233624952275,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.001545767121513084
+     },
+     {
+      "lower": 0.1,
+      "upper": 0.2,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.2,
+      "upper": 0.30000000000000004,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.30000000000000004,
+      "upper": 0.4,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.4,
+      "upper": 0.5,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.5,
+      "upper": 0.6000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.6000000000000001,
+      "upper": 0.7000000000000001,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.7000000000000001,
+      "upper": 0.8,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.8,
+      "upper": 0.9,
+      "count": 0,
+      "share": 0.0,
+      "mean_prediction": null,
+      "observed_frequency": null
+     },
+     {
+      "lower": 0.9,
+      "upper": 1.0,
+      "count": 222967,
+      "share": 0.13076637504772506,
+      "mean_prediction": 1.0,
+      "observed_frequency": 0.027936869581597277
+     }
+    ]
+   },
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": {
+     "entries": 494121,
+     "positives": 3744,
+     "brier": 0.14310462417100264,
+     "bss_vs_persistence": -17.886485042735043,
+     "average_precision": 0.025507473597929108,
+     "roc_auc": 0.7613144673736895,
+     "ece_10_bins": 0.14310462417100264,
+     "clipped_nll": 2.3065741062461895,
+     "exact_zero_probability_positives": 1257,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 422180,
+      "share": 0.8544061070061787,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0029774030034582406
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 422180,
+       "share": 0.8544061070061787,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0029774030034582406
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 71941,
+       "share": 0.14559389299382136,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.03456999485689662
+      }
+     ]
+    },
+    "ID-BOF-000904_Goat": {
+     "entries": 191108,
+     "positives": 438,
+     "brier": 0.08501998869749043,
+     "bss_vs_persistence": -36.09589041095891,
+     "average_precision": 0.02558508374411288,
+     "roc_auc": 0.9505587722027083,
+     "ece_10_bins": 0.08501998869749043,
+     "clipped_nll": 1.3703604016122866,
+     "exact_zero_probability_positives": 6,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 174434,
+      "share": 0.9127509052472947,
+      "mean_prediction": 0.0,
+      "observed_frequency": 3.439696389465357e-05
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 174434,
+       "share": 0.9127509052472947,
+       "mean_prediction": 0.0,
+       "observed_frequency": 3.439696389465357e-05
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 16674,
+       "share": 0.08724909475270527,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.025908600215905003
+      }
+     ]
+    },
+    "ID-BOF-001080_Lava": {
+     "entries": 258470,
+     "positives": 662,
+     "brier": 0.11314272449413859,
+     "bss_vs_persistence": -43.175226586102724,
+     "average_precision": 0.0075903428630078994,
+     "roc_auc": 0.7097456234790434,
+     "ece_10_bins": 0.11314272449413859,
+     "clipped_nll": 1.823645344351205,
+     "exact_zero_probability_positives": 310,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 229184,
+      "share": 0.8866947808256277,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.0013526249650935493
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 229184,
+       "share": 0.8866947808256277,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.0013526249650935493
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 29286,
+       "share": 0.11330521917437227,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.012019394932732363
+      }
+     ]
+    },
+    "ID-SCF-240202_RedRock": {
+     "entries": 282428,
+     "positives": 962,
+     "brier": 0.10077966773832622,
+     "bss_vs_persistence": -28.58731808731809,
+     "average_precision": 0.026393073066627967,
+     "roc_auc": 0.8940147134014244,
+     "ece_10_bins": 0.10077966773832622,
+     "clipped_nll": 1.6243764142530257,
+     "exact_zero_probability_positives": 107,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 253217,
+      "share": 0.8965718696446527,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.00042256246618512975
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 253217,
+       "share": 0.8965718696446527,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.00042256246618512975
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 29211,
+       "share": 0.1034281303553472,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.029269795624935813
+      }
+     ]
+    },
+    "WA-SES-000173_Pioneer": {
+     "entries": 251039,
+     "positives": 956,
+     "brier": 0.14287421476344314,
+     "bss_vs_persistence": -36.51778242677825,
+     "average_precision": 0.019203205323678973,
+     "roc_auc": 0.8501378253716837,
+     "ece_10_bins": 0.14287421476344314,
+     "clipped_nll": 2.3028603454002097,
+     "exact_zero_probability_positives": 150,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 214516,
+      "share": 0.8545126454455284,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.000699248540901378
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 214516,
+       "share": 0.8545126454455284,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.000699248540901378
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 36523,
+       "share": 0.14548735455447162,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.02206828573775429
+      }
+     ]
+    },
+    "WY-BTF-002416_FishCreek": {
+     "entries": 227913,
+     "positives": 1758,
+     "brier": 0.1689065564491714,
+     "bss_vs_persistence": -20.89761092150171,
+     "average_precision": 0.026351185852234612,
+     "roc_auc": 0.7847945393396945,
+     "ece_10_bins": 0.1689065564491714,
+     "clipped_nll": 2.722452116118925,
+     "exact_zero_probability_positives": 461,
+     "lowest_bin": {
+      "lower": 0.0,
+      "upper": 0.1,
+      "count": 188581,
+      "share": 0.8274253772272753,
+      "mean_prediction": 0.0,
+      "observed_frequency": 0.002444572889103356
+     },
+     "calibration": [
+      {
+       "lower": 0.0,
+       "upper": 0.1,
+       "count": 188581,
+       "share": 0.8274253772272753,
+       "mean_prediction": 0.0,
+       "observed_frequency": 0.002444572889103356
+      },
+      {
+       "lower": 0.1,
+       "upper": 0.2,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.2,
+       "upper": 0.30000000000000004,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.30000000000000004,
+       "upper": 0.4,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.4,
+       "upper": 0.5,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.5,
+       "upper": 0.6000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.6000000000000001,
+       "upper": 0.7000000000000001,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.7000000000000001,
+       "upper": 0.8,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.8,
+       "upper": 0.9,
+       "count": 0,
+       "share": 0.0,
+       "mean_prediction": null,
+       "observed_frequency": null
+      },
+      {
+       "lower": 0.9,
+       "upper": 1.0,
+       "count": 39332,
+       "share": 0.17257462277272467,
+       "mean_prediction": 1.0,
+       "observed_frequency": 0.03297569409132513
+      }
+     ]
+    }
+   }
+  }
+ },
+ "paired": {
+  "persistence__vs__dilation_best": {
+   "point_difference": -0.123459968716992,
+   "percentile_95_interval": [
+    -0.14097463199300192,
+    -0.10305286545219931
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": -0.13552753272983742,
+    "ID-BOF-000904_Goat": -0.08272809092241036,
+    "ID-BOF-001080_Lava": -0.11058149881997911,
+    "ID-SCF-240202_RedRock": -0.09737348988060673,
+    "WA-SES-000173_Pioneer": -0.1390660415313955,
+    "WY-BTF-002416_FishCreek": -0.16119308683576627
+   },
+   "fires_favouring_candidate": 6,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_1h__vs__persistence": {
+   "point_difference": 0.6833589528696324,
+   "percentile_95_interval": [
+    0.6116334649671568,
+    0.7598110497827769
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.671892107398795,
+    "ID-BOF-000904_Goat": 0.74885405111246,
+    "ID-BOF-001080_Lava": 0.5240453437536271,
+    "ID-SCF-240202_RedRock": 0.6412572407834917,
+    "WA-SES-000173_Pioneer": 0.831384764917005,
+    "WY-BTF-002416_FishCreek": 0.7231004813240139
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_1h__vs__dilation_best": {
+   "point_difference": 0.5598989841526404,
+   "percentile_95_interval": [
+    0.4949843357162543,
+    0.6337686921667677
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.5363645746689576,
+    "ID-BOF-000904_Goat": 0.6661259601900497,
+    "ID-BOF-001080_Lava": 0.413463844933648,
+    "ID-SCF-240202_RedRock": 0.543883750902885,
+    "WA-SES-000173_Pioneer": 0.6923187233856094,
+    "WY-BTF-002416_FishCreek": 0.5619073944882477
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_2h__vs__persistence": {
+   "point_difference": 0.44165050417018803,
+   "percentile_95_interval": [
+    0.3970774507111217,
+    0.4942842304323651
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.4331388465578269,
+    "ID-BOF-000904_Goat": 0.40676999393013374,
+    "ID-BOF-001080_Lava": 0.36130692149959376,
+    "ID-SCF-240202_RedRock": 0.4012031384990157,
+    "WA-SES-000173_Pioneer": 0.5253486510064174,
+    "WY-BTF-002416_FishCreek": 0.5383984239600198
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_2h__vs__dilation_best": {
+   "point_difference": 0.31819053545319603,
+   "percentile_95_interval": [
+    0.28836399471422663,
+    0.3588142010842229
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.2976113138279895,
+    "ID-BOF-000904_Goat": 0.3240419030077234,
+    "ID-BOF-001080_Lava": 0.2507254226796147,
+    "ID-SCF-240202_RedRock": 0.30382964861840894,
+    "WA-SES-000173_Pioneer": 0.3862826094750218,
+    "WY-BTF-002416_FishCreek": 0.3772053371242535
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_4h__vs__persistence": {
+   "point_difference": 0.24560562883010112,
+   "percentile_95_interval": [
+    0.21584885811049012,
+    0.27874815763475563
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.2481112925781337,
+    "ID-BOF-000904_Goat": 0.18977750800594428,
+    "ID-BOF-001080_Lava": 0.22092312454056565,
+    "ID-SCF-240202_RedRock": 0.20768479045986943,
+    "WA-SES-000173_Pioneer": 0.2824461537848701,
+    "WY-BTF-002416_FishCreek": 0.32139017958607013
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_4h__vs__dilation_best": {
+   "point_difference": 0.12214566011310912,
+   "percentile_95_interval": [
+    0.1102430305301698,
+    0.13998298674869383
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.11258375984829627,
+    "ID-BOF-000904_Goat": 0.10704941708353392,
+    "ID-BOF-001080_Lava": 0.11034162572058653,
+    "ID-SCF-240202_RedRock": 0.11031130057926268,
+    "WA-SES-000173_Pioneer": 0.14338011225347455,
+    "WY-BTF-002416_FishCreek": 0.16019709275030383
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_8h__vs__persistence": {
+   "point_difference": 0.123459968716992,
+   "percentile_95_interval": [
+    0.10305286545219922,
+    0.14097463199300192
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.13552753272983742,
+    "ID-BOF-000904_Goat": 0.08272809092241036,
+    "ID-BOF-001080_Lava": 0.11058149881997911,
+    "ID-SCF-240202_RedRock": 0.09737348988060673,
+    "WA-SES-000173_Pioneer": 0.1390660415313955,
+    "WY-BTF-002416_FishCreek": 0.16119308683576627
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_8h__vs__dilation_best": {
+   "point_difference": 0.0,
+   "percentile_95_interval": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.0,
+    "ID-BOF-000904_Goat": 0.0,
+    "ID-BOF-001080_Lava": 0.0,
+    "ID-SCF-240202_RedRock": 0.0,
+    "WA-SES-000173_Pioneer": 0.0,
+    "WY-BTF-002416_FishCreek": 0.0
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "dilation_best__vs__persistence": {
+   "point_difference": 0.123459968716992,
+   "percentile_95_interval": [
+    0.10305286545219922,
+    0.14097463199300192
+   ],
+   "excludes_zero": true,
+   "fires": 6,
+   "draws": 10000,
+   "seed": 20261029,
+   "per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.13552753272983742,
+    "ID-BOF-000904_Goat": 0.08272809092241036,
+    "ID-BOF-001080_Lava": 0.11058149881997911,
+    "ID-SCF-240202_RedRock": 0.09737348988060673,
+    "WA-SES-000173_Pioneer": 0.1390660415313955,
+    "WY-BTF-002416_FishCreek": 0.16119308683576627
+   },
+   "fires_favouring_candidate": 0,
+   "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  }
+ },
+ "fires": [
+  "ID-BOF-000683_Wapiti_Wapiti",
+  "ID-BOF-000904_Goat",
+  "ID-BOF-001080_Lava",
+  "ID-SCF-240202_RedRock",
+  "WA-SES-000173_Pioneer",
+  "WY-BTF-002416_FishCreek"
+ ],
+ "entries": 1705079,
+ "positives": 8520,
+ "best_hours_per_cell": 8,
+ "scope": "environment-free baselines on all initially unburned rectangle cells of the held-out 2024 intervals; the final comparison uses the subset valid for every model"
+}
