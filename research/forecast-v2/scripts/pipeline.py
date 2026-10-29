@@ -320,7 +320,7 @@ def c651_monte_carlo(predictor, sample: PerimeterSample, names, n_samples: int, 
     outputs = simulate(predictor, burned, env, channel_names=names,
                        burned_area_valid=torch.ones_like(burned, dtype=torch.bool), feature_valid=fv,
                        hours=(float(sum(durations)),), n_samples=n_samples,
-                       seed=case_seed(seed, sample.event_id, sample.t1), trajectory_batch_size=32,
+                       seed=case_seed(seed, sample.event_id, sample.t1), trajectory_batch_size=64,
                        boundary="zero", missing_burned_area="unburned", step_durations=durations,
                        cache_environment_kernels=True)
     details = outputs[0]["details"]
@@ -528,7 +528,7 @@ def command_compare(args):
             started = time.perf_counter()
             mc = simulate(model.predictor, burned, e, channel_names=env.names, burned_area_valid=ones,
                           feature_valid=fv, hours=(float(sum(durations)),), n_samples=args.n_samples,
-                          seed=args.seed, trajectory_batch_size=32, boundary="zero",
+                          seed=args.seed, trajectory_batch_size=64, boundary="zero",
                           missing_burned_area="unburned", step_durations=durations,
                           cache_environment_kernels=True)[0]["details"]
             mc_seconds = time.perf_counter() - started
@@ -584,7 +584,7 @@ def main():
     parser.add_argument("--samples-per-step", type=int, default=4)
     parser.add_argument("--balance", action="store_true")
     parser.add_argument("--threads", type=int, default=2)
-    parser.add_argument("--n-samples", type=int, default=1024)
+    parser.add_argument("--n-samples", type=int, default=128)
     parser.add_argument("--negative-fraction", type=float, default=0.05)
     parser.add_argument("--events", nargs="*", default=None)
     args = parser.parse_args()
