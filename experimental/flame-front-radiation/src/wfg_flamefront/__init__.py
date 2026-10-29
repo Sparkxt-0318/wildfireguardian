@@ -13,11 +13,12 @@ Model-relative research construction only; no field validation and no physical-s
 from .field import FrontField, Grid, LawError, load_packet_members, prepare
 from .intensity import FuelParameters, byram_flame_length_m, byram_intensity_kw_m, tilt_angle_rad
 from .isochrone import front_pieces, front_segments
-from .law_v2 import as3959_band, dose, flux_at_points, flux_enclosure, flux_enclosure_many, probit_lethality
+from .law_v2 import (as3959_band, dose, flux_at_events, flux_at_points, flux_enclosure, flux_enclosure_many,
+                     probit_lethality)
 from . import provenance as constants   # the module (submodules above already hold it as PV)
 from .provenance import LAW_VERSION, provenance   # the package attribute ``provenance`` is the Contract C function
 
 __all__ = ["LAW_VERSION", "provenance", "FrontField", "Grid", "LawError", "load_packet_members", "prepare",
            "FuelParameters", "byram_flame_length_m", "byram_intensity_kw_m", "tilt_angle_rad", "front_pieces",
-           "front_segments", "as3959_band", "dose", "flux_at_points", "flux_enclosure", "flux_enclosure_many",
+           "front_segments", "as3959_band", "dose", "flux_at_events", "flux_at_points", "flux_enclosure", "flux_enclosure_many",
            "probit_lethality"]

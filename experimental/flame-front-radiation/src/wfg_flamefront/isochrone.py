@@ -89,17 +89,30 @@ def _cross(p, q, L):
     return np.where(x, s, np.nan), x
 
 
-def front_pieces(field, t, *, level_offset=None, r_max=PV.MAX_SPREAD_RATE_M_S, active=None):
+def front_pieces(field, t, *, level_offset=None, r_max=PV.MAX_SPREAD_RATE_M_S, active=None, window=None):
     """Flame pieces of the isochrone tau(x) = t (or tau(x) + level_offset(x) = t) clipped to active host cells.
 
+    ``window`` = (r0, r1, c0, c1) restricts the search to dual squares r0 <= r <= r1, c0 <= c <= c1 (inclusive).
     Returns a dict of 1-D arrays: x0, y0, x1, y1 (m), host_r, host_c, sq_r, sq_c, tri, R (m/s), dir_x, dir_y,
     clipped (rate clipped at r_max).
     """
     f = field
-    cs, ok = corner_values(f, level_offset)
-    lo = np.fmin(np.fmin(cs[0], cs[1]), np.fmin(cs[2], cs[3]))
-    hi = np.fmax(np.fmax(cs[0], cs[1]), np.fmax(cs[2], cs[3]))
+    if level_offset is None:
+        if getattr(f, "_sqrange", None) is None:
+            cs0, ok0 = corner_values(f)
+            f._sqrange = (cs0, ok0, np.fmin(np.fmin(cs0[0], cs0[1]), np.fmin(cs0[2], cs0[3])),
+                          np.fmax(np.fmax(cs0[0], cs0[1]), np.fmax(cs0[2], cs0[3])))
+        cs, ok, lo, hi = f._sqrange
+    else:
+        cs, ok = corner_values(f, level_offset)
+        lo = np.fmin(np.fmin(cs[0], cs[1]), np.fmin(cs[2], cs[3]))
+        hi = np.fmax(np.fmax(cs[0], cs[1]), np.fmax(cs[2], cs[3]))
     cand = ok & (lo <= t) & (hi > t)
+    if window is not None:
+        r0, r1, c0, c1 = window
+        wmask = np.zeros_like(cand)
+        wmask[max(r0, 0):max(r1 + 1, 0), max(c0, 0):max(c1 + 1, 0)] = True
+        cand &= wmask
     keys_f = ("x0", "y0", "x1", "y1", "R", "dir_x", "dir_y")
     keys_i = ("host_r", "host_c", "sq_r", "sq_c", "tri")
     empty = {k: np.zeros(0) for k in keys_f}

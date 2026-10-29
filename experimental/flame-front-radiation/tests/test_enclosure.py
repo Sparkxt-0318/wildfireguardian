@@ -87,3 +87,17 @@ def test_engulfment_lower_bound():
     assert q[0, 0] == 100.0
     lo, up = W.flux_enclosure((x - 0.1, x + 0.1, y - 0.1, y + 0.1), (1000.0, 1001.0), ff, g, fuel)
     assert lo == 100.0 and up >= 100.0
+
+
+def test_untruncated_bound_dominates_truncated_and_long_cutoff_points(synth):
+    member, grid = synth
+    ff = W.prepare(member, grid)
+    rng = np.random.default_rng(9)
+    far = W.FuelParameters(cutoff_radius_m=1e7)
+    for box, (a, b) in _random_cases(ff, rng, 120):
+        lo, up_t = W.flux_enclosure(box, (a, b), ff, grid, None)
+        _, up_u = W.flux_enclosure(box, (a, b), ff, grid, None, truncate=False)
+        assert up_u >= up_t
+        xs = rng.uniform(box[0], box[1], 2); ys = rng.uniform(box[2], box[3], 2)
+        q_far = W.flux_at_points(np.column_stack([xs, ys]), [a, b], ff, grid, far)
+        assert np.all(q_far <= up_u)

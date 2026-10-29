@@ -29,8 +29,11 @@ flame piece of the point model is the level line tau = L of one half, for some l
 * both are monotone: enlarging X or [a, b] adds halves, widens level bands and Minkowski boxes (solid angle of a
   superset) and makes the lower-bound conditions harder.
 * the upper bound is never below the point evaluation at any (x, t) in X x [a, b]: each point term is dominated by its
-  half's term, the point sum is truncated at the cutoff while the bound is not, and engulfment is dominated by the
-  engulfment term. A relative margin of 1e-9 and an absolute margin of 1e-12 kW/m2 cover floating-point rounding.
+  half's term, and engulfment is dominated by the engulfment term. With ``truncate=True`` (default, the law as
+  defined) a half is dropped only when its bounding box is farther than the cutoff from the whole receiver box, so it
+  cannot hold a piece the point law counts; with ``truncate=False`` every half is kept and the bound also covers the
+  untruncated sum (the far-field tail). Monotonicity holds in both modes (a larger box is nearer to more halves). A
+  relative margin of 1e-9 and an absolute margin of 1e-12 kW/m2 cover floating-point rounding.
 
 Dose (``dose``): trapezoid integral of samples; ``linear`` gives kJ/m2 (q in kW/m2, t in s), ``tdu`` gives the thermal
 dose unit integral of q^(4/3) dt in (kW/m2)^(4/3) s (Eisenberg et al. 1975; TNO Green Book; UK HSE).
@@ -160,6 +163,59 @@ def flux_at_points(points_xy, times_s, member, grid, fuel, receiver="worst_case"
     return q
 
 
+def flux_at_events(points_xy, times_s, member, grid, fuel, receiver="worst_case", *, present_fire="enclosure"):
+    """Flux q[N] (kW/m2) for paired events (point_i, time_i), for example samples along a trajectory.
+
+    Same law as ``flux_at_points``; only dual squares within the cutoff radius of each point are searched, which is
+    exact because pieces farther than the cutoff are not summed by the point law. Returns (q, engulfed[N]).
+    """
+    ff = _field(member, grid, present_fire)
+    fuel = FuelParameters.coerce(fuel)
+    pts = np.asarray(points_xy, float).reshape(-1, 2)
+    times = np.asarray(times_s, float).reshape(-1)
+    if pts.shape[0] != times.size:
+        raise ValueError("points_xy and times_s must pair up")
+    N = times.size
+    q = np.zeros(N); eng = np.zeros(N, bool)
+    if N == 0:
+        return q, eng
+    pg = _PointGeometry(ff, pts)
+    res = _residence_map(fuel, ff.shape)[pg.hr, pg.hc]
+    Eh = _inflame_map(fuel, ff.shape)[pg.hr, pg.hc]
+    zr = float(fuel.receiver_height_m)
+    cutoff = float(fuel.cutoff_radius_m)
+    g = ff.grid
+    u, v = g.to_index(pts[:, 0], pts[:, 1])
+    ru = int(math.ceil(cutoff / g.dx)) + 1
+    rv = int(math.ceil(cutoff / g.dy)) + 1
+    frame_cache = {}
+    for i in range(N):
+        t = float(times[i])
+        k = ff.frame_index(t)
+        act = frame_cache.get(k)
+        if act is None:
+            act = frame_cache[k] = ff.frames[k]
+        if pg.inside[i] and act[pg.hr[i], pg.hc[i]] and pg.tau[i] <= t < pg.tau[i] + res[i]:
+            q[i] = Eh[i]; eng[i] = True
+            continue
+        cu, cv = int(math.floor(u[i])), int(math.floor(v[i]))
+        p = front_pieces(ff, t, r_max=fuel.r_max_m_s, active=act, window=(cv - rv, cv + rv, cu - ru, cu + ru))
+        if p["x0"].size == 0:
+            continue
+        d = point_to_segment_distance(pts[i:i + 1, 0], pts[i:i + 1, 1], p["x0"], p["y0"], p["x1"], p["y1"])[0]
+        m = d <= cutoff
+        if not m.any():
+            continue
+        sel = {key: val[m] for key, val in p.items()}
+        geo = flame_geometry(sel, fuel)
+        V = panel_vertices(sel["x0"], sel["y0"], sel["x1"], sel["y1"], geo["height"],
+                           geo["reach"] * geo["lean_x"], geo["reach"] * geo["lean_y"], 0.0)
+        P3 = np.tile([pts[i, 0], pts[i, 1], zr], (V.shape[0], 1))
+        F = view_factors_pairs(P3, V, receiver)
+        q[i] = float(fuel.transmissivity * np.sum(geo["E"] * F))
+    return q, eng
+
+
 def view_factors_pairs(P3, V, receiver):
     """View factors for paired receivers [N, 3] and panels [N, 4, 3]."""
     from .solidflame import lambert_vector
@@ -237,7 +293,7 @@ def _half_triangles(ff, fuel):
     return D
 
 
-def _radiation_upper(ff, fuel, boxes, intervals):
+def _radiation_upper(ff, fuel, boxes, intervals, truncate=True):
     """Upper bound of the radiation term for boxes [N, 4] and intervals [N, 2] (see module docstring)."""
     D = _half_triangles(ff, fuel)
     N = boxes.shape[0]
@@ -262,6 +318,14 @@ def _radiation_upper(ff, fuel, boxes, intervals):
     tmin, tmax = D["tmin"][q][None], D["tmax"][q][None]
     Lmin = np.maximum(a, tmin); Lmax = np.minimum(b, tmax)
     m = act & (Lmin <= Lmax) & (Lmin < tmax)
+    if truncate:
+        # the point law drops pieces whose ground distance exceeds the cutoff; a half whose bounding box is farther than
+        # the cutoff from the receiver box can hold no counted piece for any receiver in the box
+        hx0, hx1 = D["PX"][q].min(-1)[None], D["PX"][q].max(-1)[None]
+        hy0, hy1 = D["PY"][q].min(-1)[None], D["PY"][q].max(-1)[None]
+        ddx = np.maximum(0.0, np.maximum(hx0 - boxes[:, 1:2], boxes[:, 0:1] - hx1))
+        ddy = np.maximum(0.0, np.maximum(hy0 - boxes[:, 3:4], boxes[:, 2:3] - hy1))
+        m &= np.hypot(ddx, ddy) <= float(fuel.cutoff_radius_m) * (1.0 + 1e-12)
     if not m.any():
         return up
     ni, qi = np.nonzero(m)
@@ -389,7 +453,7 @@ def _engulf_terms(ff, fuel, box, a, b):
     return up, lower
 
 
-def flux_enclosure(box_xy, interval_s, member, grid, fuel, *, present_fire="enclosure"):
+def flux_enclosure(box_xy, interval_s, member, grid, fuel, *, present_fire="enclosure", truncate=True):
     """Rigorous (lower, upper) bounds (kW/m2) of the point flux over a receiver box and a closed time interval.
 
     ``box_xy``: (xmin, xmax, ymin, ymax) in metres (the kit's order) or [[xmin, ymin], [xmax, ymax]].
@@ -401,14 +465,15 @@ def flux_enclosure(box_xy, interval_s, member, grid, fuel, *, present_fire="encl
     a, b = (float(v) for v in interval_s)
     if b < a:
         raise ValueError("interval must satisfy a <= b")
-    rad = float(_radiation_upper(ff, fuel, box, np.array([[a, b]]))[0])
+    rad = float(_radiation_upper(ff, fuel, box, np.array([[a, b]]), truncate)[0])
     eu, el = _engulf_terms(ff, fuel, box[0], a, b)
     upper = max(rad, eu)
     upper = upper * (1.0 + REL_MARGIN) + ABS_MARGIN_KW_M2
     return float(el), float(upper)
 
 
-def flux_enclosure_many(boxes, intervals, member, grid, fuel, *, present_fire="enclosure", engulfment=True):
+def flux_enclosure_many(boxes, intervals, member, grid, fuel, *, present_fire="enclosure", engulfment=True,
+                        truncate=True):
     """Vectorised upper bounds for many (box, interval) pairs; returns (lower[N], upper[N])."""
     ff = _field(member, grid, present_fire)
     fuel = FuelParameters.coerce(fuel)
@@ -416,7 +481,7 @@ def flux_enclosure_many(boxes, intervals, member, grid, fuel, *, present_fire="e
     I = np.asarray(intervals, float).reshape(-1, 2)
     up = np.zeros(B.shape[0])
     for s0 in range(0, B.shape[0], 256):
-        up[s0:s0 + 256] = _radiation_upper(ff, fuel, B[s0:s0 + 256], I[s0:s0 + 256])
+        up[s0:s0 + 256] = _radiation_upper(ff, fuel, B[s0:s0 + 256], I[s0:s0 + 256], truncate)
     lo = np.zeros(B.shape[0])
     if engulfment:
         for n in range(B.shape[0]):
