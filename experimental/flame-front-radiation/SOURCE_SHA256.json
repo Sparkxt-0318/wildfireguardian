@@ -1,0 +1,48 @@
+{
+ "schema": "wfg.flamefront.source-manifest/1",
+ "law_version": "wfg.radiation.law/2-flamefront",
+ "frozen_copies": [
+  {
+   "copy": "adapters/frozen_copy/routing/core.py",
+   "source": "integration/kit/routing_candidate/baseline/routing-package/routing/core.py",
+   "sha256": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8"
+  },
+  {
+   "copy": "adapters/frozen_copy/routing/independent.py",
+   "source": "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py",
+   "sha256": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+  },
+  {
+   "copy": "adapters/frozen_copy/zsweep.py",
+   "source": "integration/kit/phaseB/zsweep.py",
+   "sha256": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057"
+  }
+ ],
+ "files": {
+  "adapters/flux_tables.py": "7378041eb5b6752e3240271e5272b44e0feca474032f2705aa4a412009f3af61",
+  "adapters/frozen_copy/routing/__init__.py": "d2eeb72d428822dab9827deeda219d0ed9882024555f11ef8448510bf4260fea",
+  "adapters/frozen_copy/routing/core.py": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+  "adapters/frozen_copy/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+  "adapters/frozen_copy/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "adapters/journey_check.py": "a5e5a7b5d90125910876fe4668bd656cc37722275c4c3cf82136fb426512daea",
+  "adapters/journeys.py": "0a8a18699a67f8969efc87bfa813a40c68372352922ff11d423b09d98e0e87ab",
+  "adapters/policy_sweep.py": "2ff0d068900bac961c416dca263cf56375178daa34698a33aaeb1a366e003210",
+  "pyproject.toml": "d990f6959c4e434fb363c8e3711e6a985cc067633b28d77e05bb5314e2c1e053",
+  "requirements-test.txt": "0c61bc459da6e08099ac425ed9750501e33fa9f8535ea27239e7cc48def71ba7",
+  "src/wfg_flamefront/__init__.py": "f37000c4a09d61da24fd4bb9b90b1e9fc36bff49b09624ee348f4ee65c14d042",
+  "src/wfg_flamefront/field.py": "606a55f982a9d278cfd9a33de009fff0ba1e8b24b691ad9d68fd0b5237916a66",
+  "src/wfg_flamefront/intensity.py": "01956dbf732c618f76fc60e12eb19895ea2fef80f473bc699ca4cd9b7491c379",
+  "src/wfg_flamefront/isochrone.py": "c96f967fb43109df621e862e533812bf9700ede2922633e3bc115601ab8a8613",
+  "src/wfg_flamefront/law_v2.py": "d0aa03e57610ea1cae89cb0c465fdb3bc029319d168927e87d3156e54b437093",
+  "src/wfg_flamefront/provenance.py": "a889a9f3b7a27d57794abe7e2a1b20e9f5ad7eecf63519bed650cc3afcc1479c",
+  "src/wfg_flamefront/solidflame.py": "fbd3a2c6dbbb18b3e9cce79d6a56398a18453bb38e2898dae0a39fd511a9cd3f",
+  "tests/conftest.py": "bddce057b3666835f1e0ce7ba7bfec81691cad33c6d869ff5a469303f1f52073",
+  "tests/test_adapter.py": "b139566bc20baaa4301bea89c13022896d893e3362563574c815175909e8dee2",
+  "tests/test_dose_and_provenance.py": "3af1857a7e67608ca802124e06e84bf982c507f661a1f15c4e5cc7884a02b5af",
+  "tests/test_enclosure.py": "dd2da756970592b01cebd4883f24e2af2a1ec74b7b7ba05b1622bdbbf5344372",
+  "tests/test_events.py": "7a4048691c0ea262b5d6e8a64088c8d84a2d48f28dd7c058ef97fb9b7ae2dd2c",
+  "tests/test_isochrone.py": "ebf6e8ae30a5de9b013d64829acbcd6ec3803502c51e03d830a8620f2cc80db1",
+  "tests/test_viewfactor.py": "32f1a19b4266f98d98df3eb6f80f647a225659ae7006ffb37af198def7cbdff5",
+  "tools/write_manifest.py": "5fafa947ed53ae99e0ea7badee14b01d5a74ee1f1f0d3385adee995ef0637170"
+ }
+}
