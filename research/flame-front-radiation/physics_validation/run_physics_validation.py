@@ -126,6 +126,9 @@ def main():
     add("bounds", "20 m x 20 m panel at d = 4h (h = 20 m)", "F", 0.02, facing_panel_view_factor(20.0, 20.0, 80.0), None,
         "vertical receiver on the bisector", "formula check", "prompt-supplied")
 
+    depth_rows_start = len(rows)
+    depth_law_rows(add)
+    depth_rows = rows[depth_rows_start:]
     with open(HERE / "VALIDATION_TABLE.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
@@ -140,6 +143,19 @@ def main():
                            "within_factor_3": (1 / 3) <= rr <= 3, "kind": r["comparison_kind"]})
     out["rows"] = rows
     out["factor_three_screen"] = screen
+    dscreen = [{"quantity": r["quantity"], "reference": r["reference"], "ratio": r["ratio_model_over_published"],
+                "within_factor_3": (1 / 3) <= r["ratio_model_over_published"] <= 3}
+               for r in depth_rows if r["ratio_model_over_published"] is not None]
+    worst = max(dscreen, key=lambda s: max(s["ratio"], 1 / s["ratio"]))
+    all_ok = all(s["within_factor_3"] for s in dscreen)
+    out["depth_law_screen"] = dscreen
+    out["depth_law_decision"] = {
+        "rule": "human decision 29 Oct 2026: headline = depth law if every comparison is within 3x with literature k and T_f, otherwise E = 100 headline with E = 22.6 sensitivity; no tuning",
+        "k_per_m": W.constants.FLAME_EXTINCTION_COEFF_PER_M, "T_f_K": W.constants.FLAME_TEMPERATURE_K,
+        "worst_factor": max(worst["ratio"], 1 / worst["ratio"]), "worst_row": worst,
+        "rows_outside_factor_3": [s for s in dscreen if not s["within_factor_3"]],
+        "all_within_factor_3": all_ok,
+        "headline_setting": "depth law" if all_ok else "E100 (fallback; E = 22.6 as sensitivity)"}
     out["E_1200K_kw_m2"] = E_1200K
     tornado = run_tornado()
     out["tornado"] = tornado
@@ -150,6 +166,56 @@ def main():
     for s in bad:
         print("  ", s["ratio"], s["quantity"], "|", s["reference"][:60])
     print("measured-decay E", round(E_fit, 2), "worst factor", round(worst_fit, 3), "crown fit", round(Ec_fit, 1))
+
+
+def depth_law_rows(add):
+    """Every comparison of the table recomputed with the flame-depth emissivity law (literature k and T_f, no fit).
+
+    Flame depth follows the library chain from the flame height (Byram inverted, R = I / (H w), D = R x 11.52 s)."""
+    from front_model import depth_law_E
+    tag = "depth law (k = %.2f /m, T_f = %.0f K)" % (W.constants.FLAME_EXTINCTION_COEFF_PER_M, W.constants.FLAME_TEMPERATURE_K)
+    kind = "depth law"
+    for h in (2.0, 5.0, 10.0, 20.0):
+        E, R, D = depth_law_E(h)
+        d7 = distance_for_flux(7.0, h, E=E, length=20.0, receiver="vertical")
+        add("depth_law", "Butler and Cohen 1998: >= 4 flame heights for 7 kW/m2",
+            "separation / flame height at 7 kW/m2, h = %g m" % h, 4.0, d7 / h, round(E, 1),
+            "20 m wide panel; D = %.2f m, R = %.3f m/s" % (D, R), kind, tag)
+    for target, ref_val in ((7.0, 3.8), (4.7, 4.8)):
+        for h in (5.0, 10.0):
+            E, R, D = depth_law_E(h)
+            d = distance_for_flux(target, h, E=E, length=20.0, receiver="vertical")
+            add("depth_law", "Zarate et al. 2008: 3.8 to 4.8 flame heights", "separation / flame height at %g kW/m2, h = %g m"
+                % (target, h), ref_val, d / h, round(E, 1), "20 m wide panel; D = %.2f m" % D, kind, tag)
+    E, R, D = depth_law_E(MORANDINI["flame_height_m"])
+    for d, y in zip(MORANDINI["distances_m"], MORANDINI["flux_kw_m2"]):
+        add("depth_law", "Morandini et al. 2006, 2.5 m shrub flames", "q (kW/m2) at %g m" % d, y,
+            straight_front_flux(d, MORANDINI["flame_height_m"], E=E, length=MORANDINI["front_length_m"]), round(E, 1),
+            "30 m front; D = %.2f m" % D, kind, tag)
+    for h in (10.0, 20.0):
+        E, R, D = depth_law_E(h)
+        add("depth_law", "Packham and Pompe 1971 via Butler 2014", "q adjacent (0.1 m) to flames, h = %g m" % h, 100.0,
+            straight_front_flux(0.1, h, E=E), round(E, 1), "infinite front; D = %.1f m" % D, kind, tag)
+        add("depth_law", "Packham and Pompe 1971 via Butler 2014", "q at 7.6 m, assumed h = %g m" % h, 57.0,
+            straight_front_flux(7.6, h, E=E), round(E, 1), "infinite front; flame height not located", kind, tag)
+    E, R, D = depth_law_E(PIMONT["flame_height_m"])
+    for d, (lo, hi) in zip(PIMONT["distances_m"], PIMONT["range_kw_m2"]):
+        add("depth_law", "Pimont, Dupuy and Linn 2014 (FIRETEC)", "q at %g m, h = 20 m" % d, math.sqrt(lo * hi),
+            straight_front_flux(d, PIMONT["flame_height_m"], E=E), round(E, 1), "infinite wall; D = %.0f m" % D, kind, tag)
+    for R_s, lab in ((0.05, "Korean-panel rate 0.05 m/s"), (0.5, "0.5 m/s")):
+        from wfg_flamefront.intensity import panel_emissive_power
+        Er = float(panel_emissive_power(np.array([R_s]), np.array([0]), np.array([0]),
+                                        W.FuelParameters(emissivity_model="flame_depth"))[0])
+        add("depth_law", "Frankman et al. 2013: surface in-flame peaks 20-115 kW/m2", "E (kW/m2) at %s" % lab,
+            math.sqrt(20.0 * 115.0), Er, round(Er, 1), "range midpoint (geometric) 48 kW/m2", kind, tag)
+    E, R, D = depth_law_E(20.0)
+    add("depth_law", "Butler et al. 2004: crown fires about 200 kW/m2 average", "E (kW/m2), 20 m flames", 200.0, E,
+        round(E, 1), "D = %.0f m" % D, kind, tag)
+    add("depth_law", "Silvani and Morandini 2009", "radiative flux at the sensor, 5.6 m flames", 51.0, None,
+        round(depth_law_E(5.6)[0], 1), "sensor distance and slope not located", "not reproduced", tag)
+    for d in (10.0, 20.0, 30.0):
+        add("depth_law", "ICFME (Cohen 2004)", "model q at %g m from 20 m flames" % d, None,
+            straight_front_flux(d, 20.0, E=E), round(E, 1), "qualitative only", "qualitative only", tag)
 
 
 def run_tornado():

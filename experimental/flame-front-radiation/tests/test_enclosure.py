@@ -101,3 +101,18 @@ def test_untruncated_bound_dominates_truncated_and_long_cutoff_points(synth):
         xs = rng.uniform(box[0], box[1], 2); ys = rng.uniform(box[2], box[3], 2)
         q_far = W.flux_at_points(np.column_stack([xs, ys]), [a, b], ff, grid, far)
         assert np.all(q_far <= up_u)
+
+
+def test_flame_depth_emissivity_option_sound(synth):
+    member, grid = synth
+    ff = W.prepare(member, grid)
+    fuel = W.FuelParameters(emissivity_model="flame_depth")
+    rng = np.random.default_rng(17)
+    for box, (a, b) in _random_cases(ff, rng, 150):
+        lo, up = W.flux_enclosure(box, (a, b), ff, grid, fuel)
+        xs = rng.uniform(box[0], box[1], 3); ys = rng.uniform(box[2], box[3], 3)
+        q = W.flux_at_points(np.column_stack([xs, ys]), [a, b], ff, grid, fuel)
+        assert np.all(q >= lo - 1e-12) and np.all(q <= up)
+    from wfg_flamefront.intensity import panel_emissive_power
+    E = panel_emissive_power(np.array([0.05, 0.5, 50.0]), np.array([0, 0, 0]), np.array([0, 0, 0]), fuel)
+    assert E[0] < E[1] < E[2] <= 5.670374419e-8 * 1200.0 ** 4 / 1000 + 1e-9

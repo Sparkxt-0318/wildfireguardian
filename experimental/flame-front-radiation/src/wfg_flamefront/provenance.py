@@ -41,6 +41,10 @@ EMISSIVE_POWER_CROWN_KW_M2 = 200.0    # crown fire default
 # Morandini et al. 2006 (2.5 m shrub flames, 30 m plot; 7.8, 2.2, 1.0 kW/m2 at 5, 10, 15 m), worst factor 1.52.
 # Produced by research/flame-front-radiation/physics_validation/run_physics_validation.py before any routing run.
 EMISSIVE_POWER_MEASURED_DECAY_KW_M2 = 22.6
+# Flame-depth emissivity option (human decision of 29 October 2026): E = eps * sigma * T_f^4, eps = 1 - exp(-k D),
+# D = R * residence (flame depth). Literature values, not fitted to any comparison row.
+FLAME_EXTINCTION_COEFF_PER_M = 0.72   # Agueda et al. 2010 (Int. J. Thermal Sciences 49:543-554)
+FLAME_TEMPERATURE_K = 1200.0          # Butler and Cohen 1998 (Int. J. Wildland Fire 8:73-77) flame temperature
 STEFAN_BOLTZMANN_W_M2_K4 = 5.670374419e-8   # CODATA 2018
 ATMOSPHERIC_TRANSMISSIVITY = 1.0      # same as v1 (contract.POLICY atmospheric_transmissivity)
 RECEIVER_HEIGHT_M = 0.0               # same as v1 (contract.POLICY receiver_height_m)
@@ -73,6 +77,14 @@ SOURCES = {
     "emissive_power": {"values_kw_m2": {"surface": EMISSIVE_POWER_SURFACE_KW_M2, "crown": EMISSIVE_POWER_CROWN_KW_M2},
                        "context": "Butler et al. 2004 (Can. J. For. Res. 34:1577-1587): experimental crown fires, about 200 kW/m2 average and 290 kW/m2 peak; Frankman et al. 2013 (Int. J. Wildland Fire 22:157-167): in-flame radiative peaks 20-115 kW/m2 surface, 120-132 brush, 189-300 crown; blackbody at 1200 K = 117.6 kW/m2",
                        "verification": "prompt-supplied"},
+    "flame_depth_emissivity": {
+        "formula": "E = (1 - exp(-k D)) sigma T_f^4, D = R * residence (flame depth, m)",
+        "k_per_m": FLAME_EXTINCTION_COEFF_PER_M,
+        "k_source": "Agueda, A., Pastor, E., Perez, Y., Planas, E. 2010. Experimental study of the emissivity of flames resulting from the combustion of forest fuels. Int. J. Thermal Sciences 49(3):543-554, doi:10.1016/j.ijthermalsci.2009.09.006 (abstract: emissivity 0.9 needs flames thicker than 3.2 m, extinction coefficient 0.72); about 0.7 m^-1 also reported by Johnston, Wooster and Lynham 2014 (boreal fuel flames 0.2-4.2 m deep)",
+        "T_f_K": FLAME_TEMPERATURE_K,
+        "T_f_source": "Butler, B.W. and Cohen, J.D. 1998. Firefighter safety zones: a theoretical model based on radiative heating. Int. J. Wildland Fire 8(2):73-77 (flame temperature 1200 K, emissivity 1)",
+        "verification": "k from search-retrieved abstracts (full texts not fetched); T_f prompt-supplied",
+        "status": "option (emissivity_model='flame_depth'); chosen by rule before routing, see research README"},
     "view_factor": {"formula": "differential element to planar polygon: v = (1/(2 pi)) sum_i gamma_i u_i with u_i the unit normal of (R_i x R_i+1) and gamma_i the angle between R_i and R_i+1; F(n) = n.v; worst case |v|",
                     "source": "Lambert contour form of the configuration factor; Howell, J.R., Menguc, M.P., Siegel, R. Thermal Radiation Heat Transfer (contour integration, differential area to polygon); Howell catalogue of configuration factors, configuration B-3 (plane element to parallel rectangle, normal through a corner) used as a test",
                     "verification": "standard"},

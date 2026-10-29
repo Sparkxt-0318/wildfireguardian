@@ -52,7 +52,7 @@ import numpy as np
 
 from . import provenance as PV
 from .field import FrontField, Grid, prepare
-from .intensity import FuelParameters, flame_geometry, max_flame_extent
+from .intensity import FuelParameters, flame_geometry, max_flame_extent, panel_emissive_power
 from .isochrone import _TRI, corner_values, front_pieces, pl_value, triangle_plane
 from .solidflame import box_solid_angle, panel_vertices, point_to_segment_distance
 
@@ -285,7 +285,7 @@ def _half_triangles(ff, fuel):
         D["R"] = np.where(mag * fuel.r_max_m_s <= 1.0, fuel.r_max_m_s, 1.0 / mag)
     L, reach = max_flame_extent(D["R"], D["hr"], D["hc"], fuel)
     D["Hf"] = L * (1.0 + 1e-12); D["reach"] = reach
-    D["E"] = _emissive_map(fuel, ff.shape)[D["hr"], D["hc"]]
+    D["E"] = panel_emissive_power(D["R"], D["hr"], D["hc"], fuel)   # one rate per half, so exact per half
     PX, PY = g.to_xy(D["sc"][:, None] + D["U"], D["sr"][:, None] + D["V"])
     D["PX"], D["PY"] = PX, PY
     D["tmin"], D["tmax"] = D["T"].min(-1), D["T"].max(-1)

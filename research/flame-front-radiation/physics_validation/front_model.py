@@ -22,6 +22,19 @@ def flame_length_from_intensity(I_kw_m):
     return float(W.byram_flame_length_m(I_kw_m))
 
 
+def depth_law_E(height_m, residence_s=W.constants.POINT_RESIDENCE_S):
+    """Flame-depth emissive power (kW/m2) of the library's chain for a vertical flame of given height: Byram inverted
+    for the intensity, R = I / (H w) with the default heat content and consumption, D = R * residence,
+    E = (1 - exp(-k D)) sigma T_f^4 with the literature k and T_f in provenance. Returns (E, R, D)."""
+    from wfg_flamefront.intensity import panel_emissive_power
+    c = W.constants
+    I = (height_m / c.BYRAM_FLAME_LENGTH_COEFF) ** (1.0 / c.BYRAM_FLAME_LENGTH_EXPONENT)
+    R = I / (c.HEAT_CONTENT_KJ_KG * c.FLAMING_CONSUMPTION_KG_M2)
+    fuel = W.FuelParameters(emissivity_model="flame_depth", residence_s=residence_s)
+    E = float(panel_emissive_power(np.array([R]), np.array([0]), np.array([0]), fuel)[0])
+    return E, R, R * residence_s
+
+
 def straight_front_flux(d, height, E=100.0, length=1e5, receiver="worst_case", receiver_z=0.0, lean=0.0,
                         tau_a=1.0, n_pieces=1):
     """Flux (kW/m2) at ground distance d from the middle of a straight front lying along x at y = d.

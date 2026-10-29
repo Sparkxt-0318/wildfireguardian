@@ -34,6 +34,9 @@ class FuelParameters:
     r_max_m_s: float = PV.MAX_SPREAD_RATE_M_S
     tilt_coefficient: float = PV.TILT_COEFFICIENT
     flame_height_scale: float = 1.0     # sensitivity multiplier on the Byram flame length (1.0 = Byram)
+    emissivity_model: str = "constant"  # "constant": panels emit emissive_power_kw_m2; "flame_depth": see below
+    flame_extinction_per_m: float = PV.FLAME_EXTINCTION_COEFF_PER_M
+    flame_temperature_k: float = PV.FLAME_TEMPERATURE_K
 
     @classmethod
     def coerce(cls, fuel):
@@ -87,13 +90,28 @@ def tilt_angle_rad(flame_length_m, wind_speed_m_s, coefficient=PV.TILT_COEFFICIE
     return np.arctan(t)
 
 
+def panel_emissive_power(R, r, c, fuel):
+    """Flame-surface E (kW/m2) of panels with rate R in host cells (r, c).
+
+    ``constant``: the ``emissive_power_kw_m2`` value or map. ``flame_depth``: E = (1 - exp(-k D)) sigma T_f^4 with the
+    flame depth D = R * residence(host) (k, T_f literature values recorded in provenance). E increases with R."""
+    fuel = FuelParameters.coerce(fuel)
+    if fuel.emissivity_model == "constant":
+        return fuel.at("emissive_power_kw_m2", r, c)
+    if fuel.emissivity_model == "flame_depth":
+        D = np.asarray(R, float) * fuel.at("residence_s", r, c)
+        eps = 1.0 - np.exp(-fuel.flame_extinction_per_m * D)
+        return eps * PV.STEFAN_BOLTZMANN_W_M2_K4 * fuel.flame_temperature_k ** 4 / 1000.0
+    raise ValueError("emissivity_model must be 'constant' or 'flame_depth'")
+
+
 def flame_geometry(pieces, fuel):
     """Per-piece intensity (kW/m), flame length (m), height (m), tilt (rad), lean unit vector and E (kW/m2)."""
     fuel = FuelParameters.coerce(fuel)
     r, c = pieces["host_r"], pieces["host_c"]
     Hc = fuel.at("heat_content_kj_kg", r, c)
     w = fuel.at("consumed_kg_m2", r, c)
-    E = fuel.at("emissive_power_kw_m2", r, c)
+    E = panel_emissive_power(pieces["R"], r, c, fuel)
     I = byram_intensity_kw_m(pieces["R"], Hc, w)
     L = byram_flame_length_m(I) * fuel.flame_height_scale
     if fuel.has_wind:
