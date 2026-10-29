@@ -1704,3 +1704,276 @@ class BayesianBurnModel(nn.Module):
             probability.masked_fill(~probability_valid, torch.nan), probability_valid,
             rate.masked_fill(~rate_valid, torch.nan), rate_valid,
         )
+
+
+# Structured kernels (track 1B, additive)
+# ---------------------------------------
+# One 9x9 environment-conditioned generator (the ablation's favoured family)
+# with optional structure: an Anderson (1983) elliptical template multiplied
+# by a learned nonnegative residual, wind-frame canonicalization or exact D4
+# group averaging of the generator, a flaming window with a learned
+# smouldering multiplier, and a wind-aligned long-range branch. Nothing above
+# this block is changed; existing classes keep their behaviour and contracts.
+
+STRUCTURED_PRIORS = ("free", "ellipse")
+MPH_PER_M_S = 2.2369362920544
+
+
+def anderson_length_to_breadth(midflame_wind_mph: Tensor) -> Tensor:
+    """Anderson (1983) ellipse length-to-breadth ratio from midflame wind (mph).
+
+    LB = 0.936 exp(0.2566 U) + 0.461 exp(-0.1548 U) - 0.397 (Anderson 1983,
+    USDA Forest Service Research Paper INT-305; also Finney 1998, FARSITE,
+    RMRS-RP-4, eq. 6). LB(0) = 1 (circle). The ratio is capped at 8, the
+    usual FARSITE limit, to keep the template finite at strong winds.
+    """
+    u = midflame_wind_mph.clamp_min(0)
+    lb = 0.936 * torch.exp(0.2566 * u) + 0.461 * torch.exp(-0.1548 * u) - 0.397
+    return lb.clamp(1.0, 8.0)
+
+
+def elliptical_template(u: Tensor, v: Tensor, kernel_size: int, length_cells: Tensor,
+                        wind_adjustment_factor: float = 0.4) -> Tensor:
+    """Nonnegative ``[..., K*K, H, W]`` template from target wind ``u, v`` (m/s, [..., 1, H, W]).
+
+    A source at offset (dy, dx) reaches the target along the map displacement
+    (east, north) = (-dx, dy). With eccentricity e = sqrt(1 - 1/LB^2) and theta
+    the angle between that displacement and the wind, the fire-from-rear-focus
+    ellipse radius relative to the head is r(theta) = (1 - e) / (1 - e cos theta),
+    and the template is exp(-|delta| / (L * r(theta))). Midflame wind is the
+    10 m wind times ``wind_adjustment_factor`` (0.4, a typical open-canopy
+    value; an assumption, not a measured factor).
+    """
+    radius = kernel_size // 2
+    dy, dx = torch.meshgrid(torch.arange(-radius, radius + 1, dtype=u.dtype, device=u.device),
+                            torch.arange(-radius, radius + 1, dtype=u.dtype, device=u.device),
+                            indexing="ij")
+    east, north = (-dx).flatten(), dy.flatten()
+    distance = torch.hypot(east, north)
+    shape = (1,) * (u.ndim - 3) + (kernel_size * kernel_size, 1, 1)
+    east, north, distance = east.reshape(shape), north.reshape(shape), distance.reshape(shape)
+    speed = torch.hypot(u, v)
+    lb = anderson_length_to_breadth(speed * wind_adjustment_factor * MPH_PER_M_S)
+    e = torch.sqrt((1 - 1 / lb.square()).clamp_min(0))
+    cos = torch.where(speed > 1e-9, (east * u + north * v) / (distance.clamp_min(1e-12) * speed.clamp_min(1e-12)),
+                      torch.zeros_like(east * u))
+    relative = (1 - e) / (1 - e * cos)
+    return torch.exp(-distance / (length_cells * relative))
+
+
+class StructuredKernelModel(EnvironmentConditionedConvolution):
+    """Single-generator nonnegative kernel with optional physical structure.
+
+    Inputs are *raw* ordered channels; the model holds its own training-only
+    normalization (``mean``, ``std``), so the wind template and the wind-frame
+    rotation can use physical wind vectors. ``kernel_rates`` keeps the parent
+    availability contract (NaN where the K x K environmental context is
+    unknown). ``forward`` returns the one-interval probability through
+    ``new_burn_probability`` exactly like the released families.
+
+    Options: ``prior`` 'free' or 'ellipse'; ``frame`` 'none', 'd4' (exact
+    group averaging of the generator) or 'wind' (canonicalization);
+    ``residence_hours`` enables a flaming window with a learned smouldering
+    multiplier (used by the mean field); ``spotting_radius`` > K//2 adds a
+    wind-aligned long-range branch acting on flaming sources.
+    """
+
+    def __init__(self, in_channels: int, kernel_size: int = 9, hidden_channels: int = 16,
+                 dropout: float = 0.0, *, channel_names: Sequence[str],
+                 mean: Tensor | None = None, std: Tensor | None = None,
+                 wind_channels: tuple[str, str] = ("weather.wind_eastward_10m", "weather.wind_northward_10m"),
+                 prior: str = "free", frame: str = "none", residence_hours: float | None = None,
+                 spotting_radius: int = 0, wind_adjustment_factor: float = 0.4,
+                 initial_length_cells: float = 2.0):
+        super().__init__(in_channels, kernel_size, hidden_channels)
+        if prior not in STRUCTURED_PRIORS:
+            raise ValueError(f"prior must be one of {STRUCTURED_PRIORS}")
+        if frame not in ("none", "d4", "wind"):
+            raise ValueError("frame must be 'none', 'd4' or 'wind'")
+        names = tuple(channel_names)
+        if len(names) != in_channels or len(set(names)) != len(names):
+            raise ValueError("channel_names must list every input channel exactly once")
+        if any(name not in names for name in wind_channels):
+            raise ValueError("Both wind channels must be among channel_names")
+        if spotting_radius and spotting_radius <= kernel_size // 2:
+            raise ValueError("spotting_radius must exceed the local kernel radius")
+        if residence_hours is not None and (not math.isfinite(residence_hours) or residence_hours <= 0):
+            raise ValueError("residence_hours must be finite and positive")
+        self.channel_names = names
+        self.wind_index = (names.index(wind_channels[0]), names.index(wind_channels[1]))
+        self.prior, self.frame = prior, frame
+        self.hidden_channels, self.dropout = hidden_channels, float(dropout)
+        self.residence_hours = residence_hours
+        self.spotting_radius = int(spotting_radius)
+        self.wind_adjustment_factor = float(wind_adjustment_factor)
+        self.kernel_network = _PatchGenerator(in_channels, kernel_size, "cnn", hidden_channels, 1, dropout)
+        self.register_buffer("mean", torch.zeros(in_channels, 1, 1) if mean is None else mean.reshape(-1, 1, 1).clone())
+        self.register_buffer("std", torch.ones(in_channels, 1, 1) if std is None else std.reshape(-1, 1, 1).clone())
+        self.log_length = nn.Parameter(torch.tensor(math.log(math.expm1(initial_length_cells))))
+        self.smoulder_logit = nn.Parameter(torch.tensor(-2.0)) if residence_hours is not None else None
+        if self.spotting_radius:
+            self.spot_amplitude_logit = nn.Parameter(torch.tensor(-9.0))
+            self.spot_speed_coefficient = nn.Parameter(torch.tensor(0.0))
+            self.spot_log_length = nn.Parameter(torch.tensor(math.log(math.expm1(5.0))))
+            self.spot_log_width = nn.Parameter(torch.tensor(math.log(math.expm1(1.5))))
+
+    def configuration(self) -> dict:
+        return dict(architecture="StructuredKernelModel", in_channels=self.in_channels,
+                    kernel_size=self.kernel_size, hidden_channels=self.hidden_channels,
+                    dropout=self.dropout, channel_names=list(self.channel_names),
+                    wind_channels=[self.channel_names[i] for i in self.wind_index],
+                    prior=self.prior, frame=self.frame, residence_hours=self.residence_hours,
+                    spotting_radius=self.spotting_radius,
+                    wind_adjustment_factor=self.wind_adjustment_factor)
+
+    @torch.no_grad()
+    def initialize_rate(self, rate: float) -> None:
+        """Start every noncentre offset near ``rate`` per hour (output layer only)."""
+        if not math.isfinite(rate) or rate <= 0:
+            raise ValueError("rate must be finite and positive")
+        if self.prior == "ellipse":
+            # The zero-wind template averages exp(-|delta|/L) over offsets.
+            radius = self.kernel_size // 2
+            grid = torch.arange(-radius, radius + 1, dtype=torch.float64)
+            distance = torch.hypot(grid[:, None], grid[None, :]).flatten()
+            mean_template = float(torch.exp(-distance / float(F.softplus(self.log_length.double()))).mean())
+            rate = rate / max(mean_template, 1e-6)
+        self.kernel_network.output.weight.zero_()
+        self.kernel_network.output.bias.fill_(rate + math.log(-math.expm1(-rate)))
+
+    def smoulder(self) -> Tensor | None:
+        return None if self.smoulder_logit is None else torch.sigmoid(self.smoulder_logit)
+
+    def flaming_window(self):
+        if self.residence_hours is None:
+            return None
+        from .burnout import FlamingWindow
+        return FlamingWindow(self.residence_hours, self.smoulder())
+
+    def _raw_wind(self, clean: Tensor) -> tuple[Tensor, Tensor]:
+        iu, iv = self.wind_index
+        u = clean[..., iu:iu + 1, :, :] * self.std[iu] + self.mean[iu]
+        v = clean[..., iv:iv + 1, :, :] * self.std[iv] + self.mean[iv]
+        return u, v
+
+    def _positive(self, clean: Tensor) -> Tensor:
+        logits = self.kernel_network(clean)
+        if not bool(torch.isfinite(logits).all()):
+            raise RuntimeError("The structured kernel generator produced nonfinite values")
+        return F.softplus(logits)
+
+    def _structured(self, clean: Tensor, available: Tensor) -> Tensor:
+        leading = tuple(clean.shape[:-3])
+        c, h, w = clean.shape[-3:]
+        flat = clean.reshape(-1, c, h, w)
+        valid = available.reshape(-1, 1, h, w)
+        if self.frame == "wind":
+            from .canonical import canonical_kernels, mean_wind_angle, rotate_vectors
+            parts = []
+            for n in range(flat.shape[0]):
+                one = flat[n:n + 1]
+                u, v = self._raw_wind(one)
+                angle = mean_wind_angle(u[0, 0], v[0, 0], valid[n, 0])
+                ru, rv = rotate_vectors(u, v, -angle)
+                rotated = one.clone()
+                iu, iv = self.wind_index
+                rotated[:, iu:iu + 1] = (ru - self.mean[iu]) / self.std[iu]
+                rotated[:, iv:iv + 1] = (rv - self.mean[iv]) / self.std[iv]
+                parts.append(canonical_kernels(self._positive, rotated, angle, self.kernel_size))
+            residual = torch.cat(parts)
+        else:
+            residual = self._positive(flat)
+        kernels = residual
+        if self.prior == "ellipse":
+            u, v = self._raw_wind(flat)
+            kernels = kernels * elliptical_template(u, v, self.kernel_size, F.softplus(self.log_length),
+                                                    self.wind_adjustment_factor)
+        kernels = kernels * self.off_center
+        return kernels.reshape(*leading, self.kernel_size ** 2, h, w)
+
+    def kernel_rates(self, environmental_data: Tensor, feature_valid: Tensor | None = None,
+                     *, boundary: str = "unknown") -> Tensor:
+        """Hourly offset rates ``[..., K*K, H, W]`` from raw channels; NaN where unknown."""
+        normalized = (environmental_data - self.mean) / self.std
+        clean, available = self._features(normalized, feature_valid, boundary)
+        if self.frame == "d4":
+            rates = self._d4_rates(environmental_data, feature_valid, clean, available)
+        else:
+            rates = self._structured(clean, available)
+        return rates.masked_fill(~available.expand_as(rates), torch.nan)
+
+    def _d4_rates(self, raw: Tensor, feature_valid, clean: Tensor, available: Tensor) -> Tensor:
+        from .canonical import d4_symmetrize_kernels
+        leading = tuple(clean.shape[:-3])
+        c, h, w = clean.shape[-3:]
+        # The group acts on raw values (wind sign/swap); unknown inputs are
+        # replaced by the training mean, and their targets stay masked.
+        raw_clean = torch.where(torch.isfinite(raw), raw, self.mean.expand_as(raw)).reshape(-1, c, h, w)
+        if feature_valid is not None:
+            raw_clean = torch.where(feature_valid.reshape(-1, c, h, w), raw_clean, self.mean.expand_as(raw_clean))
+
+        def generator(moved_raw):
+            positive = self._positive((moved_raw - self.mean) / self.std)
+            if self.prior == "ellipse":
+                iu, iv = self.wind_index
+                positive = positive * elliptical_template(
+                    moved_raw[:, iu:iu + 1], moved_raw[:, iv:iv + 1], self.kernel_size,
+                    F.softplus(self.log_length), self.wind_adjustment_factor)
+            return positive
+
+        kernels = d4_symmetrize_kernels(generator, raw_clean, self.wind_index) * self.off_center
+        return kernels.reshape(*leading, self.kernel_size ** 2, h, w)
+
+    def spot_rate(self, source: Tensor, environmental_data: Tensor, *, boundary: str = "zero") -> Tensor:
+        """Long-range hourly rate ``[..., 1, H, W]`` from flaming ``source``.
+
+        Support: Chebyshev distance in (K//2, spotting_radius], downwind only.
+        Weight exp(-d_par / L) exp(-d_perp^2 / (2 w^2)) along the domain-mean
+        wind direction, times a target amplitude softplus(a0 + a1 * speed).
+        Only the explicit 'zero' boundary (fully known in-grid states) is
+        supported, because the branch does not track unknown sources.
+        """
+        if not self.spotting_radius:
+            return torch.zeros_like(source)
+        if boundary != "zero":
+            raise ValueError("The long-range branch requires boundary='zero' with fully known in-grid states")
+        from .canonical import mean_wind_angle
+        leading = tuple(source.shape[:-3])
+        h, w = source.shape[-2:]
+        raw = environmental_data.reshape(-1, environmental_data.shape[-3], h, w)
+        src = source.reshape(-1, 1, h, w)
+        iu, iv = self.wind_index
+        radius = self.spotting_radius
+        offsets = torch.arange(-radius, radius + 1, dtype=src.dtype, device=src.device)
+        dy, dx = torch.meshgrid(offsets, offsets, indexing="ij")
+        east, north = -dx, dy
+        local = torch.maximum(dy.abs(), dx.abs()) > self.kernel_size // 2
+        length, width = F.softplus(self.spot_log_length), F.softplus(self.spot_log_width)
+        rates = []
+        for n in range(src.shape[0]):
+            u, v = raw[n, iu], raw[n, iv]
+            finite = torch.isfinite(u) & torch.isfinite(v)
+            angle = mean_wind_angle(u, v, finite)
+            parallel = east * math.cos(angle) + north * math.sin(angle)
+            perpendicular = -east * math.sin(angle) + north * math.cos(angle)
+            weight = torch.exp(-parallel / length) * torch.exp(-perpendicular.square() / (2 * width.square()))
+            weight = torch.where(local & (parallel > 0), weight, torch.zeros_like(weight))
+            spread = F.conv2d(src[n:n + 1], weight[None, None], padding=radius)
+            speed = torch.hypot(torch.where(finite, u, 0), torch.where(finite, v, 0))
+            amplitude = F.softplus(self.spot_amplitude_logit + self.spot_speed_coefficient * speed / 5.0)
+            rates.append(amplitude * spread[0])
+        return torch.stack(rates).reshape(*leading, 1, h, w)
+
+    def forward(self, burned_area: Tensor, environmental_data: Tensor, *, dt_hours: Real | Tensor = 1.0,
+                burned_area_valid: Tensor | None = None, feature_valid: Tensor | None = None,
+                boundary: str = "unknown") -> BurnProbability:
+        """One-interval new-burn probability (local kernel only, absorbing sources)."""
+        kernels = self.kernel_rates(environmental_data, feature_valid, boundary=boundary)
+        finite = torch.isfinite(kernels).all(dim=-3, keepdim=True)
+        return new_burn_probability(burned_area, torch.where(torch.isfinite(kernels), kernels, 0),
+                                    dt_hours=dt_hours, burned_area_valid=burned_area_valid,
+                                    kernel_valid=finite, boundary=boundary)
+
+
+__all__ += ["STRUCTURED_PRIORS", "anderson_length_to_breadth", "elliptical_template",
+            "StructuredKernelModel"]
