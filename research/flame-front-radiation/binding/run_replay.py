@@ -1,8 +1,9 @@
 """Replay the 18 distinct returned journeys of the Korean 20-mission panel under law v1 and law v2.
 
 Order: two repetitions; within repetition r the two checkers (v1 frozen centre check, v2 E = 100 with certification)
-alternate ABBA by journey index (journey i runs v1 first when i + r is even). Timings are wall-clock on this host and
-tracemalloc peaks of Python and NumPy allocations during each check. Afterwards (untimed) every journey is also
+alternate ABBA by journey index (journey i runs v1 first when i + r is even). Each check runs once under tracemalloc
+(peak of Python and NumPy allocations; that run is several times slower and its wall time is kept only as
+``wall_s_under_tracemalloc``) and once uninstrumented for the reported wall time, in the same ABBA position. Afterwards (untimed) every journey is also
 evaluated with the measurement-consistent setting E23 and, as a truncation sensitivity, with a 2,000 m cutoff (E100,
 sampled only). Writes REPLAY.json and REPLAY_MEMBERS.csv next to this script.
 
@@ -78,8 +79,21 @@ def main():
                                      "loadavg": os.getloadavg()})
                 u = store.get(unit)
                 out, el, peak = u["out"], u["wall_s"], u["peak"]
+                # uninstrumented timing pass (tracemalloc slows NumPy-heavy code several fold); same ABBA position
+                tunit = ("time", rep, i, law)
+                if not store.has(tunit):
+                    case = case_of(j)
+                    t0 = time.perf_counter()
+                    if law == "v1":
+                        JC.check_v1(case, j["legs"], j["destination"])
+                    else:
+                        JC.check_v2(case, j["legs"], j["destination"], fuel=JC.FUEL_SETTINGS["E100"]["fuel"])
+                    store.put(tunit, {"wall_s": time.perf_counter() - t0, "loadavg": os.getloadavg()})
+                tu = store.get(tunit)
                 timings.append({"rep": rep, "journey": i, "cohort": j["cohort"], "case_id": j["case_id"],
-                                "law": law, "position": order.index(law), "wall_s": el, "tracemalloc_peak_bytes": peak})
+                                "law": law, "position": order.index(law), "wall_s": tu["wall_s"],
+                                "wall_s_under_tracemalloc": el, "tracemalloc_peak_bytes": peak,
+                                "loadavg_1min": tu["loadavg"][0]})
                 results.setdefault((i, law), []).append(out)
             print("rep", rep, "journey", i, j["case_id"], "done", flush=True)
     # determinism across repetitions
