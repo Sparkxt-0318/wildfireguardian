@@ -118,7 +118,8 @@ def decide(graph, hazard, request, model, *, rule=None, weights=None, planner=sw
                "per_member": reports, "member_pass": flags, "weights": [float(w) for w in weights],
                "passing_weight": float(A.passing_weight(flags, weights)) if flags else None,
                "planning_subset": subset, "planner": plan_["planner"] if plan_ else None,
-               "plan_raw_status": plan_["raw_status"] if plan_ else None, "wall_s": time.perf_counter() - t0, **log}
+               "plan_raw_status": plan_["raw_status"] if plan_ else None, "wall_s": time.perf_counter() - t0, **log,
+               "proven_earliest": bool(verdict == CHECKED and "NOT_PROVEN" not in reason and log["lazy_iterations"] == 0)}
         if verdict == CHECKED and flags is not None:
             alpha = 1 - A.required_fraction(rule) if rule["rule"] == "k_of_m" else F(1, 10)
             out["cvar_alpha"] = float(alpha)
@@ -174,6 +175,11 @@ def decide(graph, hazard, request, model, *, rule=None, weights=None, planner=sw
         return finish(NOROUTE, "SHARED_PRESENT_FIRE_" + str(shared["raw_status"]), shared, subset=[])
     if shared["status"] != ROUTE:
         return finish(UNRES, "SHARED_PLAN_" + str(shared["raw_status"]), shared, subset=[])
+    # exact shortcut: every qualifying subset contains the shared present fire, so the shared-only optimum is a lower
+    # bound; if that very journey passes the rule, it is the chance-constrained optimum
+    rep_sh, flags_sh, ok_sh = _evaluate(graph, hazard, request, shared, weights, rule, radiation_law, reporter)
+    if ok_sh:
+        return finish(CHECKED, "SHARED_BOUND_ROUTE_PASSES_RULE", shared, rep_sh, flags_sh, [])
     state, p_all, rep_all, flags_all = check_with_lazy(model, all_idx)
     if state == "OK" and p_all["arrival"] == shared["arrival"]:
         return finish(CHECKED, "ALL_MEMBERS_ATTAIN_SHARED_BOUND", p_all, rep_all, flags_all, all_idx)
@@ -211,8 +217,8 @@ def decide(graph, hazard, request, model, *, rule=None, weights=None, planner=sw
         exact = all(s in ("OK", "NO_ROUTE") for s in states)
         return finish(CHECKED, "K_OF_M_MINIMUM_OVER_MINIMAL_SUBSETS" if exact else "K_OF_M_CHECKED_NOT_PROVEN_EARLIEST", *best)
     if capped:
-        if best is not None:
-            return finish(UNRES, "SUBSET_CAP_BEST_NOT_PROVEN_EARLIEST", best[0], best[1], best[2], best[3])
+        if best is not None:      # a checked journey passing the rule; only its optimality is unproven
+            return finish(CHECKED, "K_OF_M_SUBSET_CAP_CHECKED_NOT_PROVEN_EARLIEST", best[0], best[1], best[2], best[3])
         return finish(UNRES, "SUBSET_CAP", shared, subset=[])
     if states and all(s == "NO_ROUTE" for s in states):
         return finish(NOROUTE, "EVERY_MINIMAL_QUALIFYING_SUBSET_EXHAUSTED", shared, subset=[])
