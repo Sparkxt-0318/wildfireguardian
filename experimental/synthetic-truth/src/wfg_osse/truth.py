@@ -178,3 +178,51 @@ def device_offline(packet, *, T=None, R=0, current_graph=()):
     return Truth(source="device_offline", label=packet.get("label", "device_offline"), births={}, current=list(current_graph),
                  R=F(R), T=F(T if T is not None else 1), meta={"provenance": packet.get("provenance")}, burning=burning,
                  not_burning=not_burning, horizon=float(packet.get("horizon_s", 3600.0)))
+
+
+def read_esri_ascii(path):
+    """ESRI ASCII grid (FARSITE *_ArrivalTime.asc): returns (array north-up, xll, yll, cellsize, nodata)."""
+    header, rows = {}, []
+    with open(path) as f:
+        for line in f:
+            parts = line.split()
+            if not parts:
+                continue
+            if parts[0].isalpha() or parts[0].upper() in ("NCOLS", "NROWS", "XLLCORNER", "YLLCORNER", "CELLSIZE", "NODATA_VALUE"):
+                header[parts[0].upper()] = float(parts[1])
+            else:
+                rows.append([float(v) for v in parts])
+    arr = np.array(rows, dtype=float)
+    if arr.shape != (int(header["NROWS"]), int(header["NCOLS"])):
+        raise ValueError("ESRI ASCII grid shape differs from its header")
+    nd = header.get("NODATA_VALUE", -9999.0)
+    return np.where(arr == nd, np.nan, arr), header["XLLCORNER"], header["YLLCORNER"], header["CELLSIZE"], nd
+
+
+def external_simulator(arrival_path, *, grid, start_offset_s, current_graph, R, T, label="farsite", units_s=60.0,
+                       horizon_s=3600.0, meta=None):
+    """Truth from an external simulator arrival-time grid (FARSITE minutes since its start). A routing cell ignites at
+    the earliest arrival of any simulator pixel whose centre lies in the cell, shifted by `start_offset_s` (simulator start
+    minus forecast cutoff); cells first reached in (0, horizon) seconds become first-new ignitions. Negative or missing
+    arrivals never ignite. `grid` is the routing graph grid (south-up graph cells)."""
+    arr, xll, yll, cs, _ = read_esri_ascii(arrival_path)
+    nr, nc = arr.shape
+    W, H = int(grid["width"]), int(grid["height"])
+    x0, y0, res = float(grid["x0"]), float(grid["y0"]), float(grid["resolution"])
+    first = {}                       # earliest arrival of the cell over every simulator pixel it contains
+    for i in range(nr):
+        y = yll + (nr - 1 - i + 0.5) * cs
+        for j in range(nc):
+            v = arr[i, j]
+            if not np.isfinite(v) or v < 0:
+                continue
+            x = xll + (j + 0.5) * cs
+            col, row = int(np.floor((x - x0) / res)), int(np.floor((y - y0) / res))
+            if not (0 <= col < W and 0 <= row < H):
+                continue
+            t = F(float(v) * units_s + float(start_offset_s))
+            c = row * W + col
+            first[c] = min(first.get(c, t), t)
+    births = {c: t for c, t in first.items() if 0 < t < horizon_s and c not in set(current_graph)}
+    return Truth(source="external_simulator", label=label, births=births, current=list(current_graph), R=F(R), T=F(T),
+                 meta=dict(meta or {}, arrival_path=str(arrival_path)))

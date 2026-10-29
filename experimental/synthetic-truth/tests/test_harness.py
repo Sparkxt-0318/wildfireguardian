@@ -179,3 +179,26 @@ def test_reconstructed_arrival_truth_matches_the_export_cutoff_state():
                                  current_graph=model.current, R=model.R, T=model.T, shape=model.shape)
     assert t.source == "reconstructed_arrival" and all(0 < float(b) < 3600 for b in t.births.values())
     assert not set(t.births) & set(model.current)
+
+
+def test_external_simulator_arrival_grid_becomes_first_new_ignitions(tmp_path):
+    # 4 x 4 simulator pixels of 50 m over a 2 x 2 routing grid of 100 m cells; arrivals in minutes since start
+    grid = {"x0": 0.0, "y0": 0.0, "resolution": 100.0, "width": 2, "height": 2}
+    rows = ["-9999 30 -9999 -9999", "-9999 -9999 70 80", "5 10 -9999 -9999", "-1 20 -9999 90"]
+    (tmp_path / "a.asc").write_text("NCOLS 4\nNROWS 4\nXLLCORNER 0\nYLLCORNER 0\nCELLSIZE 50\nNODATA_VALUE -9999\n"
+                                    + "\n".join(rows) + "\n")
+    t = TR.external_simulator(tmp_path / "a.asc", grid=grid, start_offset_s=-600, current_graph=[], R=0, T=T)
+    # north row (graph row 1): cell 2 earliest 30 min -> 1200 s; cell 3 earliest 70 min -> 3600 s (not inside the horizon)
+    # south row (graph row 0): cell 0 earliest 5 min -> -300 s (before the cutoff); cell 1 at 90 min -> beyond the horizon
+    assert t.births == {2: F(1200)}
+    assert t.source == "external_simulator"
+
+
+FARSITE_OUT = Path("/home/user/wfg-farsite-1c/run_flatland/out/flat_ArrivalTime.asc")
+
+
+@pytest.mark.skipif(not FARSITE_OUT.is_file(), reason="FARSITE flatland example output not present on this host")
+def test_external_simulator_reads_a_real_farsite_arrival_grid():
+    grid = {"x0": 20000.0, "y0": 20000.0, "resolution": 375.0, "width": 8, "height": 8}
+    t = TR.external_simulator(FARSITE_OUT, grid=grid, start_offset_s=0, current_graph=[], R=0, T=T, horizon_s=7 * 3600)
+    assert t.births and all(0 < float(b) < 7 * 3600 for b in t.births.values())
