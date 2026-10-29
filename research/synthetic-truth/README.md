@@ -24,6 +24,8 @@ At the one-hour horizon of every frozen mission a trajectory is one transition f
 
 ## Tables
 
+Over the one-hour horizon of the frozen missions, trajectory members equal the independent law in distribution, so C1 on the frozen missions tests only sub-hour ordering, member count and reduction weights (orchestrator decision: the 20 frozen missions stay the primary C1 result, unchanged).
+
 C1 (member law and count):
 
 | Forecast members | Cases | Routes / no-route / unresolved (cases) | False-safe | 95% Wilson | False-refusal | 95% Wilson | Missions with a false-safe | Missions with a false-refusal | Mean Brier |
@@ -66,6 +68,23 @@ C3 (acceptance rule; k = ceil(f m)):
 C4 (reconstructed arrival; one truth per window): per-mission rows in `C4_cases.csv`; summary in `C4_summary.csv` and above. The reconstruction burns far more cells in the hour after each cutoff than the forecast members (for example 662 new cells in the Uiseong-Andong window at 2025-03-25 17:00 against a forecast expectation of about 5 inside the window), which shows in the mean Brier score (0.081 against 0.003 to 0.004 for the holdout truths). None of this extra fire lies on a route returned with the frozen members; one route of the forecast-ignoring policies meets it.
 
 How to read the rates. Cases share decisions: each configuration makes only 20 decisions (one per mission), each scored against 100 truths, and false-safe cases cluster in two or three missions. The Wilson intervals are over cases and therefore understate the uncertainty about missions; the mission counts are the more honest summary. The two Gyeongbuk panels (Uiseong-Andong, Yeongdeok) are one parent fire (`C1_by_parent_fire` in `RESULTS.json`). Repetitions are not used.
+
+## Extended-horizon exploratory panel, not frozen missions (FIXTURE so far)
+
+Separate from every count above and never pooled with them. Missions: the same origins, destinations, thresholds and destination rules as the 20 frozen missions, with horizons of 3 h and 6 h. Derivation rule `wfg.extended-horizon-derivation/1` (`experimental/scenario-members/src/wfg_members/extended.py`): only the horizon changes, plus any opening interval whose upper end equals the frozen horizon, which is extended to the new horizon. `derive_extended_missions.py` writes all 40 derived missions with the SHA-256 of each source request file and of its canonical JSON to `data/extended_panel/MISSIONS.json`. The question: once trajectories span several hourly updates, do coherent trajectory members decide differently from members drawn per cell, independently, from the same first-burn-hour marginals (`independent_marginal`)?
+
+Status: the real panel needs model-mode export v3 at 6 h on the real forecast data tree, which is not on this host yet (`run_extended_panel.py --mode real` refuses). TODO when the tree arrives: `python experimental/scenario-members/export_v3.py model --source-root forecast --data-root DATA --checkpoint CK --event KFS_xx --cutoff ISO --out OUT --n 1024 --export-count 1024 --hours 6` for the 15 cutoffs, then `run_extended_panel.py --mode real`.
+
+**FIXTURE run** (synthetic data root from `research/scenario-members/fixture_data_root.py --large`, real c651 checkpoint, frozen v2 exporter, model-mode rollout over 6 h with N = 512 trajectories; synthetic 21 x 21 grid road network; four synthetic 1 h source missions derived to 3 h and 6 h by the same rule; K = 8 members from trajectories 0..255, truths 256..355). These numbers describe no real fire and are not frozen missions:
+
+| Data | Horizon | Law | Cases | Routes / no-route / unresolved | False-safe | False-refusal | Missions with a false-safe |
+|---|---|---|---:|---|---:|---:|---|
+| FIXTURE | 3 h | trajectory | 400 | 400 / 0 / 0 | 6 | 0/400 | FX_A, FX_C |
+| FIXTURE | 3 h | independent_marginal | 400 | 400 / 0 / 0 | 6 | 0/400 | FX_A, FX_C |
+| FIXTURE | 6 h | trajectory | 400 | 400 / 0 / 0 | 6 | 0/400 | FX_A, FX_C |
+| FIXTURE | 6 h | independent_marginal | 400 | 400 / 0 / 0 | 5 | 0/400 | FX_A, FX_C |
+
+On the FIXTURE the routes arrive within 25 minutes and the model spreads about one cell per hour, so the two laws decide identically. The FIXTURE shows that the multi-hour pipeline runs end to end. It says nothing about whether coherence matters on real windows. Records: `data/extended_panel/FIXTURE_extended_records.jsonl.gz`; table `EXTENDED_FIXTURE_SUMMARY.csv`; figure `figures/fig06_extended_horizon_fixture` (false-safe rate over cases and false-refusal rate over cases with a clairvoyant route, per horizon and law, labelled FIXTURE).
 
 ## Figures
 

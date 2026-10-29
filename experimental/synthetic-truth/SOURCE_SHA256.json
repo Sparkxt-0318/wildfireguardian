@@ -1,0 +1,65 @@
+{
+ "external": {
+  "farsite": {
+   "built_with": "forecast/wildfire/farsite_build.py",
+   "executable_sha256_this_host": "b6ee69a21a33e7d737a2bc3a5532a51eb3ca7580b028752e81569bda6b3b9232",
+   "repository": "https://github.com/mbedward/farsite.git",
+   "revision": "4537d60ab013fa91d0b49d8efb385ffb1b3ddd13"
+  },
+  "wildfireguardian_osse_files_consulted_sha256": {
+   "README.md": "1c7f63225c4fe29cf1c74e6d92cb03705c836f9a4eff225ae6eb1f3bb0b8f3b8",
+   "src/wildfireguardian_osse/observations/missingness.py": "b31f3bdbdb15083638f172422fdf761844b0119a63248fbec9edd6c5466d8a7e",
+   "src/wildfireguardian_osse/validation/leakage.py": "6306190d349e0a5a595101c46ec58b7b8cba75261ac112b3fefde564e8e07df5"
+  },
+  "wildfireguardian_osse_repository": "Sparkxt-0318/wildfireguardian-osse at 69f3b7ec77aa40a69fbafeb8e39a41288f2eaceb (read-only clone)",
+  "wildfireguardian_osse_reuse": "concepts only (truth never reaches the planner; closed-open outage intervals; informative missingness); no code copied",
+  "zenodo_21788344_archive_sha256": "612edf5f879d8fe874ae20e9d49d0be5de477e6f8c3101b434f1642d5b19ebad",
+  "zenodo_21788344_doi": "10.5281/zenodo.21788344 (CC-BY-4.0); Korean time-of-arrival rasters, byte-identical to the export records"
+ },
+ "frozen_imports_pinned": {
+  "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+  "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/__init__.py": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/admission_geometry.py": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/core.py": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/prepared.py": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/validation.py": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3",
+  "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+  "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+  "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+  "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+  "integration/src/wfg_latest/radiation/coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+  "integration/src/wfg_latest/radiation/heat.py": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+  "integration/src/wfg_latest/radiation/paths.py": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd",
+  "integration/src/wfg_latest/requests.py": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c"
+ },
+ "imported_from_tracks_1c1_1c2": {
+  "experimental/scenario-members/bridge_v2.py": "3a5beb659b06b6c8f74878eb53ad94a703ec45fb84b0ac2b803261220a6d5d1a",
+  "experimental/scenario-members/src/wfg_members/__init__.py": "ec7b58cd873b8192f2621f87ff0d27065b8be4540bfd8170840794af90b857d8",
+  "experimental/scenario-members/src/wfg_members/acceptance.py": "b8516a4a6658618cef309aa7b304e92afb9826b75621d8d94a91a197f392c0f0",
+  "experimental/scenario-members/src/wfg_members/check.py": "b676807bd9feefadbcb3f901da080527a8f0111b157d882dccc3d06cd6342d99",
+  "experimental/scenario-members/src/wfg_members/contact.py": "e46618b30d83821d36bb9773407810a304a274670d43ac703bd2dca3171d3fec",
+  "experimental/scenario-members/src/wfg_members/coverage.py": "a723c483ef1abf834fd72e77b82627023f2f900129ae803780c9cc7d9f61d786",
+  "experimental/scenario-members/src/wfg_members/decide.py": "a6c7d4a9757c5b5fec37f6e86f1d52f6c63148673721935925941de01f1c378c",
+  "experimental/scenario-members/src/wfg_members/figures.py": "14f33d913dc2f7a1cb5499fef007c3043aeb4115d4263929871c3a01b2f8e237",
+  "experimental/scenario-members/src/wfg_members/kit.py": "82b9b4572544f77261a8d1bf73e31c176c6770c84a7298c980952d7f2ebef17d",
+  "experimental/scenario-members/src/wfg_members/planner.py": "fcb29b7e84b6e7be1d147d377b02b8995e169098f3e224a3ca2e00bc0a5f57b6",
+  "experimental/scenario-members/src/wfg_members/reduction.py": "1ef69fb435eb3d6e2ed290b964feb64b015c6d7b72389d8e3730d17f224b0b3d",
+  "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+  "experimental/sipp-routing/src/wfg_sipp/frontend.py": "27a6212eeeab77b7e52d67dcc490bcd0d7fea760a0c16b0d82e168aa7d76fff7",
+  "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+  "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07"
+ },
+ "overlay": {
+  "experimental/synthetic-truth/README.md": "1cffdd81cdc5b9b02efc9235755c299974d667750387a8093ca17c49985f217b",
+  "experimental/synthetic-truth/make_manifest.py": "c3d8e5d599fbb62045d85d17e64265bee6c0fc7378b53be4f35026c2722deb91",
+  "experimental/synthetic-truth/requirements-test.txt": "376c8e2bde3bc91ef503e25ab9fa792aa85816c4e569782ce5148b4ac943b6bc",
+  "experimental/synthetic-truth/src/wfg_osse/__init__.py": "6afa0612d763c19be37fc34bd96921878d1eed57812a674eeba9125617bc8acd",
+  "experimental/synthetic-truth/src/wfg_osse/harness.py": "ccf119d3083e2f9d782fa8c2156d03598ba8b4f7c0609b1e6e752588117861da",
+  "experimental/synthetic-truth/src/wfg_osse/score.py": "406e034cc30b1de89e821f53ddab1e83e702c360d5fcb5b2f10f9895c3abd70e",
+  "experimental/synthetic-truth/src/wfg_osse/toa.py": "558d5ad20d3862b1391e97e5f996872072a878ef031e9e2bc2ad543b5a730abe",
+  "experimental/synthetic-truth/src/wfg_osse/truth.py": "c63b467ccb16cccd3fd8d2bc19cf18dec3cf27f6aca3eabeb004b2917fac5d9f",
+  "experimental/synthetic-truth/tests/test_harness.py": "a43842568458583eb886b2e95695a41c462d3912e889a3e4e40d15f2b8d0e1c2"
+ }
+}

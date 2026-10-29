@@ -1,0 +1,45 @@
+{
+ "frozen_imports_pinned": {
+  "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+  "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/__init__.py": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/admission_geometry.py": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/core.py": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/prepared.py": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/validation.py": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3",
+  "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+  "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+  "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+  "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+  "integration/src/wfg_latest/radiation/coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+  "integration/src/wfg_latest/radiation/heat.py": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+  "integration/src/wfg_latest/radiation/paths.py": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd",
+  "integration/src/wfg_latest/requests.py": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c"
+ },
+ "overlay": {
+  "experimental/scenario-members/README.md": "471b1dfa690ade071a9d474cd4aea354e8854e7b5ad2a81e2f2c6d08328a9122",
+  "experimental/scenario-members/bridge_v2.py": "3a5beb659b06b6c8f74878eb53ad94a703ec45fb84b0ac2b803261220a6d5d1a",
+  "experimental/scenario-members/export_v3.py": "378b0f41c126b000e7f9f50d8dc5d146e33cce9c8a944bf5ee2fa0dfa9e4363b",
+  "experimental/scenario-members/make_manifest.py": "42cc86b5925d6a0ffce14a2ab202dd5914b565a055e6391e4a105fdeccd76328",
+  "experimental/scenario-members/requirements-test.txt": "376c8e2bde3bc91ef503e25ab9fa792aa85816c4e569782ce5148b4ac943b6bc",
+  "experimental/scenario-members/src/wfg_members/__init__.py": "ec7b58cd873b8192f2621f87ff0d27065b8be4540bfd8170840794af90b857d8",
+  "experimental/scenario-members/src/wfg_members/acceptance.py": "b8516a4a6658618cef309aa7b304e92afb9826b75621d8d94a91a197f392c0f0",
+  "experimental/scenario-members/src/wfg_members/check.py": "b676807bd9feefadbcb3f901da080527a8f0111b157d882dccc3d06cd6342d99",
+  "experimental/scenario-members/src/wfg_members/contact.py": "e46618b30d83821d36bb9773407810a304a274670d43ac703bd2dca3171d3fec",
+  "experimental/scenario-members/src/wfg_members/coverage.py": "a723c483ef1abf834fd72e77b82627023f2f900129ae803780c9cc7d9f61d786",
+  "experimental/scenario-members/src/wfg_members/decide.py": "a6c7d4a9757c5b5fec37f6e86f1d52f6c63148673721935925941de01f1c378c",
+  "experimental/scenario-members/src/wfg_members/extended.py": "2ce15fe83b6613cd940189140b62b4f61682dc8f0cc66b885ccfd4b68b4d5fe8",
+  "experimental/scenario-members/src/wfg_members/figures.py": "14f33d913dc2f7a1cb5499fef007c3043aeb4115d4263929871c3a01b2f8e237",
+  "experimental/scenario-members/src/wfg_members/kit.py": "82b9b4572544f77261a8d1bf73e31c176c6770c84a7298c980952d7f2ebef17d",
+  "experimental/scenario-members/src/wfg_members/planner.py": "fcb29b7e84b6e7be1d147d377b02b8995e169098f3e224a3ca2e00bc0a5f57b6",
+  "experimental/scenario-members/src/wfg_members/reduction.py": "1ef69fb435eb3d6e2ed290b964feb64b015c6d7b72389d8e3730d17f224b0b3d",
+  "experimental/scenario-members/tests/test_bridge_v2.py": "c9873d09f22d7bada2217894f7ff012401942c4ccd904623e1c58092272024b7",
+  "experimental/scenario-members/tests/test_decisions.py": "662e451de461df2fc09853c065920c72a89af2b672c3564de30b366dbf702727",
+  "experimental/scenario-members/tests/test_export_v3.py": "05bd7475733917dc8c2a02f920c2eca9ebc80f9a558caf3eee70ce3953b955ec"
+ },
+ "shared_touch_point": {
+  "forecast/tests/test_rollout_trajectory_callback.py": "fb2a6751e0002a1f335d70d192b78dfc0cc2ebded63b8fe5843ac08de1b57fc1",
+  "forecast/wildfire/rollout.py": "9715b9b4d0c56948e133421a012df8607dd0b48a87932f707db51740364959dc"
+ }
+}

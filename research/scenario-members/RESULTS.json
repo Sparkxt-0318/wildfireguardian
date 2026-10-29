@@ -1,0 +1,3331 @@
+{
+ "outcomes": [
+  {
+   "member_set": "v1",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1655,
+   "arrival_s_sum": 26369,
+   "decision_wall_s_median": 1.4185828444997242,
+   "decision_wall_s_max": 16.01192823099973,
+   "coverage_mean": 0.9893229166666667,
+   "coverage_min": 0.90625,
+   "binding_contact": 8,
+   "binding_destination_window": 6,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v1",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1655,
+   "arrival_s_sum": 26369,
+   "decision_wall_s_median": 1.4185828444997242,
+   "decision_wall_s_max": 16.01192823099973,
+   "coverage_mean": 0.9893229166666667,
+   "coverage_min": 0.90625,
+   "binding_contact": 8,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_first4_uniform",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26494,
+   "decision_wall_s_median": 1.4666664640003546,
+   "decision_wall_s_max": 15.669097836000219,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 10,
+   "binding_destination_window": 6,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first4_uniform",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26494,
+   "decision_wall_s_median": 1.4666664640003546,
+   "decision_wall_s_max": 15.669097836000219,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 10,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_first4_ordered",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26494,
+   "decision_wall_s_median": 1.9092715214997042,
+   "decision_wall_s_max": 16.291864691999763,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 10,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first4_ordered",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 4.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26494,
+   "decision_wall_s_median": 1.9092715214997042,
+   "decision_wall_s_max": 16.291864691999763,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 10,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_first_k_K8",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26634,
+   "decision_wall_s_median": 2.1058450065002035,
+   "decision_wall_s_max": 16.266193736999412,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first_k_K8",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1674,
+   "arrival_s_sum": 26634,
+   "decision_wall_s_median": 2.1058450065002035,
+   "decision_wall_s_max": 16.266193736999412,
+   "coverage_mean": 0.9930338541666667,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_forward_selection_K8",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.4391419614998995,
+   "decision_wall_s_max": 18.91707136000059,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_forward_selection_K8",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.4391419614998995,
+   "decision_wall_s_max": 18.91707136000059,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_k_medoids_K8",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.4869710334996853,
+   "decision_wall_s_max": 22.241967101000228,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_k_medoids_K8",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 8.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.4869710334996853,
+   "decision_wall_s_max": 22.241967101000228,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 20
+  },
+  {
+   "member_set": "v2_first_k_K16",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 14,
+   "model_no_route": 6,
+   "unresolved": 0,
+   "arrival_s_median": 1755.5,
+   "arrival_s_sum": 24960,
+   "decision_wall_s_median": 2.4800887269998384,
+   "decision_wall_s_max": 23.68863121600043,
+   "coverage_mean": 0.9949776785714286,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first_k_K16",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 2.5209013855001103,
+   "decision_wall_s_max": 22.706483365000167,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_forward_selection_K16",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.5689339125001425,
+   "decision_wall_s_max": 24.165906389000156,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_forward_selection_K16",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 2.775016429000061,
+   "decision_wall_s_max": 25.188448431000324,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_k_medoids_K16",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 12,
+   "model_no_route": 8,
+   "unresolved": 0,
+   "arrival_s_median": 1524.0,
+   "arrival_s_sum": 19055,
+   "decision_wall_s_median": 1.6009122144996581,
+   "decision_wall_s_max": 19.513222688000496,
+   "coverage_mean": 0.9989420572916666,
+   "coverage_min": 0.9873046875,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_k_medoids_K16",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 16.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 2.498679811499642,
+   "decision_wall_s_max": 19.71011776099931,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first_k_K32",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 32.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 22314,
+   "decision_wall_s_median": 3.0291202514999895,
+   "decision_wall_s_max": 21.099214830000165,
+   "coverage_mean": 0.9989483173076923,
+   "coverage_min": 0.9873046875,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_first_k_K32",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 32.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 2.8793889150001633,
+   "decision_wall_s_max": 20.8180363700003,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_forward_selection_K32",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 32.0,
+   "checked_route": 13,
+   "model_no_route": 7,
+   "unresolved": 0,
+   "arrival_s_median": 1589,
+   "arrival_s_sum": 21701,
+   "decision_wall_s_median": 1.7282421289996819,
+   "decision_wall_s_max": 22.478585007999754,
+   "coverage_mean": 0.9946664663461539,
+   "coverage_min": 0.943359375,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_forward_selection_K32",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 32.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 3.1996950295001625,
+   "decision_wall_s_max": 21.46825772200009,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_k_medoids_K32",
+   "rule": "all",
+   "missions": 20,
+   "K_members_median": 31.0,
+   "checked_route": 12,
+   "model_no_route": 8,
+   "unresolved": 0,
+   "arrival_s_median": 1524.0,
+   "arrival_s_sum": 19492,
+   "decision_wall_s_median": 2.116785614500259,
+   "decision_wall_s_max": 28.260485519999747,
+   "coverage_mean": 0.997802734375,
+   "coverage_min": 0.9736328125,
+   "binding_contact": 11,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  },
+  {
+   "member_set": "v2_k_medoids_K32",
+   "rule": "k_of_m",
+   "missions": 20,
+   "K_members_median": 31.0,
+   "checked_route": 15,
+   "model_no_route": 5,
+   "unresolved": 0,
+   "arrival_s_median": 1616,
+   "arrival_s_sum": 25842,
+   "decision_wall_s_median": 3.2292116359999454,
+   "decision_wall_s_max": 25.17612035899947,
+   "coverage_mean": 0.9869791666666666,
+   "coverage_min": 0.90625,
+   "binding_contact": 7,
+   "binding_destination_window": 0,
+   "binding_dose": 0,
+   "k_of_m_identical_to_all": 0
+  }
+ ],
+ "reduction_costs": [
+  {
+   "distance": "edge_arrival",
+   "method": "first_k",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 2374176.5167245967,
+   "cost_with_extremes_mean": 2355517.82399978,
+   "relative_to_first_k_K4": 1.0,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "first_k",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 1878647.1772248056,
+   "cost_with_extremes_mean": 1872802.6568428779,
+   "relative_to_first_k_K4": 0.7912836994178423,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "first_k",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 1698029.131055618,
+   "cost_with_extremes_mean": 1692947.877348804,
+   "relative_to_first_k_K4": 0.7152076179231236,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "first_k",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 1563404.934234014,
+   "cost_with_extremes_mean": 1559630.0445474347,
+   "relative_to_first_k_K4": 0.6585040847724669,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "forward_selection",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 1604867.350137692,
+   "cost_with_extremes_mean": 1599951.4144536399,
+   "relative_to_first_k_K4": 0.6759679993599463,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "forward_selection",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 1454916.2064809934,
+   "cost_with_extremes_mean": 1451334.2514888241,
+   "relative_to_first_k_K4": 0.6128087765303101,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "forward_selection",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 1271457.4369633466,
+   "cost_with_extremes_mean": 1269064.2279852936,
+   "relative_to_first_k_K4": 0.5355361861288408,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "forward_selection",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 1064211.7195235305,
+   "cost_with_extremes_mean": 1062163.5289503275,
+   "relative_to_first_k_K4": 0.44824456481092323,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "k_medoids",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 1685456.0955778984,
+   "cost_with_extremes_mean": 1680674.375248959,
+   "relative_to_first_k_K4": 0.7099118720553879,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "k_medoids",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 1578676.1285039787,
+   "cost_with_extremes_mean": 1574554.5615225555,
+   "relative_to_first_k_K4": 0.6649362915449577,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "k_medoids",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 1432040.8324652829,
+   "cost_with_extremes_mean": 1428402.8478212717,
+   "relative_to_first_k_K4": 0.6031736993342517,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "edge_arrival",
+   "method": "k_medoids",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 1224128.4173463045,
+   "cost_with_extremes_mean": 1221616.603831181,
+   "relative_to_first_k_K4": 0.5156012658381048,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 471.125
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "first_k",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 3.958984375,
+   "cost_with_extremes_mean": 3.7330322265625,
+   "relative_to_first_k_K4": 1.0,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "first_k",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 3.5648193359375,
+   "cost_with_extremes_mean": 3.551025390625,
+   "relative_to_first_k_K4": 0.9004378391711889,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "first_k",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 3.25927734375,
+   "cost_with_extremes_mean": 3.246826171875,
+   "relative_to_first_k_K4": 0.8232609768130241,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "first_k",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.961669921875,
+   "cost_with_extremes_mean": 2.9500732421875,
+   "relative_to_first_k_K4": 0.7480883078441046,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "forward_selection",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 2.7156982421875,
+   "cost_with_extremes_mean": 2.7083740234375,
+   "relative_to_first_k_K4": 0.6859583127775037,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "forward_selection",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 2.6103515625,
+   "cost_with_extremes_mean": 2.6041259765625,
+   "relative_to_first_k_K4": 0.6593487913172176,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "forward_selection",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 2.4669189453125,
+   "cost_with_extremes_mean": 2.4622802734375,
+   "relative_to_first_k_K4": 0.6231191415885545,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "forward_selection",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.302001953125,
+   "cost_with_extremes_mean": 2.30126953125,
+   "relative_to_first_k_K4": 0.5814627528367045,
+   "extremes_appended_mean": 0.25,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "k_medoids",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 2.797119140625,
+   "cost_with_extremes_mean": 2.789306640625,
+   "relative_to_first_k_K4": 0.7065244203256044,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "k_medoids",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 2.752685546875,
+   "cost_with_extremes_mean": 2.7449951171875,
+   "relative_to_first_k_K4": 0.6953009373458313,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "k_medoids",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 2.6873779296875,
+   "cost_with_extremes_mean": 2.68017578125,
+   "relative_to_first_k_K4": 0.6788048840651209,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "first_burn_l1",
+   "method": "k_medoids",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.5850830078125,
+   "cost_with_extremes_mean": 2.5782470703125,
+   "relative_to_first_k_K4": 0.6529662062160829,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "first_k",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 3.735961914062508,
+   "cost_with_extremes_mean": 3.510009765625007,
+   "relative_to_first_k_K4": 1.0,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "first_k",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 3.339428710937506,
+   "cost_with_extremes_mean": 3.325634765625006,
+   "relative_to_first_k_K4": 0.8938604803136739,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "first_k",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 2.96322021484376,
+   "cost_with_extremes_mean": 2.9510986328125095,
+   "relative_to_first_k_K4": 0.793161248162066,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "first_k",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.741931152343754,
+   "cost_with_extremes_mean": 2.730554199218754,
+   "relative_to_first_k_K4": 0.7339290965528504,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "forward_selection",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 2.5005737304687514,
+   "cost_with_extremes_mean": 2.4934692382812513,
+   "relative_to_first_k_K4": 0.6693252736480957,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "forward_selection",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 2.3999023437500013,
+   "cost_with_extremes_mean": 2.3938598632812513,
+   "relative_to_first_k_K4": 0.6423786962914546,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "forward_selection",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 2.266589355468752,
+   "cost_with_extremes_mean": 2.2621459960937518,
+   "relative_to_first_k_K4": 0.6066949844796594,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "forward_selection",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.1177490234374994,
+   "cost_with_extremes_mean": 2.1171264648437496,
+   "relative_to_first_k_K4": 0.5668550890377375,
+   "extremes_appended_mean": 0.25,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "k_medoids",
+   "K": 4,
+   "windows_with_variation": 8,
+   "cost_mean": 2.5754272460937506,
+   "cost_with_extremes_mean": 2.567724609375001,
+   "relative_to_first_k_K4": 0.6893612154876642,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "k_medoids",
+   "K": 8,
+   "windows_with_variation": 8,
+   "cost_mean": 2.5438964843750007,
+   "cost_with_extremes_mean": 2.536193847656251,
+   "relative_to_first_k_K4": 0.6809214180689417,
+   "extremes_appended_mean": 0.5,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "k_medoids",
+   "K": 16,
+   "windows_with_variation": 8,
+   "cost_mean": 2.4822631835937514,
+   "cost_with_extremes_mean": 2.475048828125001,
+   "relative_to_first_k_K4": 0.6644241137069096,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  },
+  {
+   "distance": "road_symdiff",
+   "method": "k_medoids",
+   "K": 32,
+   "windows_with_variation": 8,
+   "cost_mean": 2.3869995117187512,
+   "cost_with_extremes_mean": 2.380395507812501,
+   "relative_to_first_k_K4": 0.6389250122528988,
+   "extremes_appended_mean": 0.375,
+   "distinct_trajectories_mean": 611.75
+  }
+ ],
+ "smallest_k": {
+  "first_k": {
+   "coverage_mean": {
+    "8": 0.9930338541666667,
+    "16": 0.9949776785714286,
+    "32": 0.9989483173076923
+   },
+   "within_1pp": 8,
+   "within_2pp": 8
+  },
+  "forward_selection": {
+   "coverage_mean": {
+    "8": 0.9946664663461539,
+    "16": 0.9946664663461539,
+    "32": 0.9946664663461539
+   },
+   "within_1pp": 8,
+   "within_2pp": 8
+  },
+  "k_medoids": {
+   "coverage_mean": {
+    "8": 0.9946664663461539,
+    "16": 0.9989420572916666,
+    "32": 0.997802734375
+   },
+   "within_1pp": 8,
+   "within_2pp": 8
+  }
+ },
+ "per_mission": {
+  "hongseong_2023 20230402T070000Z FN1": {
+   "v1/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v1/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ]
+  },
+  "hongseong_2023 20230402T070000Z FX1": {
+   "v1/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v1/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ]
+  },
+  "hongseong_2023 20230402T140000Z FW2": {
+   "v1/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1459,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1459,
+    1.0
+   ]
+  },
+  "hongseong_2023 20230402T230000Z FD1": {
+   "v1/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    531,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    531,
+    1.0
+   ]
+  },
+  "miryang_2022 20220531T100000Z FN1": {
+   "v1/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1142,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1142,
+    1.0
+   ]
+  },
+  "miryang_2022 20220601T020000Z FW1": {
+   "v1/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1270,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1270,
+    1.0
+   ]
+  },
+  "miryang_2022 20220601T080000Z FD1": {
+   "v1/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v1/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ]
+  },
+  "miryang_2022 20220601T080000Z FX1": {
+   "v1/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v1/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ]
+  },
+  "uiseong_andong_2025 20250323T010000Z FD1": {
+   "v1/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    2460,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    2460,
+    1.0
+   ]
+  },
+  "uiseong_andong_2025 20250323T010000Z FX2": {
+   "v1/all": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    2646,
+    0.9434
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    2540,
+    0.9062
+   ]
+  },
+  "uiseong_andong_2025 20250324T090000Z FL2": {
+   "v1/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    2143,
+    0.9873
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    2580,
+    0.9736
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1616,
+    0.9521
+   ]
+  },
+  "uiseong_andong_2025 20250325T170000Z FW1": {
+   "v1/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1064,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1064,
+    1.0
+   ]
+  },
+  "uljin_2022 20220304T030000Z FD1": {
+   "v1/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1589,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1589,
+    1.0
+   ]
+  },
+  "uljin_2022 20220304T030000Z FX1": {
+   "v1/all": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    3259,
+    0.999
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    3259,
+    0.999
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    3259,
+    0.999
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    3259,
+    0.999
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    3119,
+    0.999
+   ]
+  },
+  "uljin_2022 20220304T060000Z FL1": {
+   "v1/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    2067,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    2067,
+    1.0
+   ]
+  },
+  "uljin_2022 20220304T120000Z FW2": {
+   "v1/all": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1674,
+    0.9658
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1655,
+    0.9473
+   ]
+  },
+  "yeongdeok_2025 20250325T190000Z FD1": {
+   "v1/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v1/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/all": [
+    "model_no_route",
+    null,
+    null
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "model_no_route",
+    null,
+    null
+   ]
+  },
+  "yeongdeok_2025 20250325T190000Z FX2": {
+   "v1/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    2512,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    2512,
+    1.0
+   ]
+  },
+  "yeongdeok_2025 20250325T230000Z FL2": {
+   "v1/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    1922,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    1922,
+    1.0
+   ]
+  },
+  "yeongdeok_2025 20250326T080000Z FW1": {
+   "v1/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v1/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first4_uniform/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first4_uniform/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first4_ordered/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first4_ordered/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K8/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K8/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K8/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K8/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K8/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K8/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K16/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K16/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K16/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K16/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K16/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K16/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K32/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_first_k_K32/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K32/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_forward_selection_K32/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K32/all": [
+    "checked_route",
+    896,
+    1.0
+   ],
+   "v2_k_medoids_K32/k_of_m": [
+    "checked_route",
+    896,
+    1.0
+   ]
+  }
+ },
+ "rows": 480,
+ "cost_rows": 540
+}

@@ -122,8 +122,8 @@ def fig_members(exports, out):
     FG.setup()
     fig, axes = FG.plt.subplots(1, 3, figsize=(FG.DOUBLE, 2.7), sharey=True)
     cmap = FG.plt.get_cmap("cividis").copy()
-    for ax, arr, title in zip(axes, (v1, v2u, v2o), ("v1 member 0 (independent per cell)", "v2 trajectory 0, uniform timing",
-                                                      "v2 trajectory 0, ordered timing")):
+    for ax, arr, title in zip(axes, (v1, v2u, v2o), ("v1 member 0, independent", "v2 trajectory 0, uniform",
+                                                      "v2 trajectory 0, ordered")):
         bg = np.where(cur, 1.0, np.nan)
         ax.imshow(bg, cmap="Greys", vmin=0, vmax=2, interpolation="nearest")
         im = ax.imshow(np.where(np.isfinite(arr), arr, np.nan), cmap=cmap, vmin=0, vmax=3600, interpolation="nearest")

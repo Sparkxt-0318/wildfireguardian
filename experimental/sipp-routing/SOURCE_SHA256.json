@@ -1,0 +1,46 @@
+{
+ "documents": {
+  "docs/JOURNEY_SAFETY_PREDICATE.md": "17eb8014d39d488ca3675c9987fde71fe3f06d556f8af74079b5b749fdea5748",
+  "docs/SIPP_EQUIVALENCE.md": "c7f20e1dd24a4fb8822004cee89e2765586f7883f63c6a7855897edbd3c6140d"
+ },
+ "frozen_imports_pinned": {
+  "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+  "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/__init__.py": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/admission_geometry.py": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/core.py": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/prepared.py": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+  "integration/kit/routing_candidate/baseline/routing-package/routing/validation.py": "ed5f28007aec47eb0b0361fbd0a3bf704c9db5b9e7a5fc8d4dd31db63ce586a3",
+  "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+  "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+  "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+  "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+  "integration/src/wfg_latest/radiation/coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+  "integration/src/wfg_latest/radiation/heat.py": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+  "integration/src/wfg_latest/radiation/paths.py": "37c1a19a4ff191641d2980b7bd6576a1e738b6d7cf56876677b9ad650010d6fd",
+  "integration/src/wfg_latest/requests.py": "f1737cafff686a8112e625894c9ebb8190f28ed78f27c2cdfe8cf60e0a1f0d4c"
+ },
+ "imported_from_track_1c1": {
+  "experimental/scenario-members/src/wfg_members/__init__.py": "ec7b58cd873b8192f2621f87ff0d27065b8be4540bfd8170840794af90b857d8",
+  "experimental/scenario-members/src/wfg_members/contact.py": "e46618b30d83821d36bb9773407810a304a274670d43ac703bd2dca3171d3fec",
+  "experimental/scenario-members/src/wfg_members/figures.py": "14f33d913dc2f7a1cb5499fef007c3043aeb4115d4263929871c3a01b2f8e237",
+  "experimental/scenario-members/src/wfg_members/kit.py": "82b9b4572544f77261a8d1bf73e31c176c6770c84a7298c980952d7f2ebef17d",
+  "experimental/scenario-members/src/wfg_members/planner.py": "fcb29b7e84b6e7be1d147d377b02b8995e169098f3e224a3ca2e00bc0a5f57b6"
+ },
+ "overlay": {
+  "experimental/sipp-routing/README.md": "63d755f48572242445f210f0c3503d69425fdbf54db52ffb5726b56746d10f40",
+  "experimental/sipp-routing/make_manifest.py": "78ad3782c947adb13c6f9689dcbe6ab40e793f55ced6128611a3d9c2585e3be6",
+  "experimental/sipp-routing/requirements-test.txt": "376c8e2bde3bc91ef503e25ab9fa792aa85816c4e569782ce5148b4ac943b6bc",
+  "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+  "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+  "experimental/sipp-routing/src/wfg_sipp/frontend.py": "27a6212eeeab77b7e52d67dcc490bcd0d7fea760a0c16b0d82e168aa7d76fff7",
+  "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+  "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+  "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+  "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+  "experimental/sipp-routing/tests/test_geometric_vs_frozen_sweep.py": "37c14814d66c4777cc6e110ddf2905d192376223c2ec3bc25675fa39db61dc8c",
+  "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+  "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d"
+ }
+}
