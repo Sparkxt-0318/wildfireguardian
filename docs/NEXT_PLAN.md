@@ -30,6 +30,9 @@ The track prompts also name a few documents inside each track's scope (1C: `docs
 - D4. Data that is not in the repository: the Caldor/Rim sealed-study packets (recorded at absolute paths on the owner's Mac), the forecast training and environmental rasters (`--data-root`), and FARSITE. Until the human answers, tracks run on the public Korean inputs (`tools/fetch_routing_inputs.py`), the Zenodo and Mendeley archives already referenced in `forecast/data/source_manifest.json` and `forecast/wildfire/observed_data.py` (hash and licence recorded), and state plainly what was not run.
 - D6. Progress lines: tracks append to `research/<track>/PROGRESS.md` on their own branch and message the orchestrator, which copies the line here. This avoids three branches editing this orchestrator-owned file.
 - D5. Track 1C works on one branch and the orchestrator splits it into three PR branches by path at Step 5 (the deliverables live in disjoint folders).
+- D7. Human decision (2026-10-29): forecast rasters are not rebuilt. The human attaches the real data tree; it is copied read-only with a SHA-256 manifest recorded in every run README. Until it arrives, tracks run what does not need it; if it is still absent at 1B training or the 1C-1 export rerun, the pipeline runs end to end on a documented synthetic fixture data root, marked FIXTURE, with the exact rerun command recorded.
+- D8. Human decision: Contract E gains a fifth truth source `device_offline` (sparse, interval-valued; unknown-state mask excluded from scoring). Track 1C implements loading and scoring on fixtures; a future track 1D produces the packets. `docs/NEXT_INTERFACES.md` itself stays unchanged.
+- D9. Human decisions: export v3 stays an overlay (D1 confirmed); `Sparkxt-0318/wildfireguardian-osse` is available read-only to 1C (commit 69f3b7ec77aa40a69fbafeb8e39a41288f2eaceb); 1C attempts a time-boxed FARSITE install; the human uploads the Caldor/Rim sealed-study inputs.
 
 ## Merge order (recommended, nothing is merged by the orchestrator)
 
@@ -54,3 +57,4 @@ The track prompts also name a few documents inside each track's scope (1C: `docs
 - 2026-10-29: Shared interfaces published at `docs/NEXT_INTERFACES.md`; prompts committed under `docs/next/prompts/`; plan written (orchestrator).
 - 2026-10-29: Frozen Korean routing inputs fetched once and hash-verified (132 files, INPUT_FILES.json sha256 5d820b97740d879d2bc78a76d1b5854420793c927c6315f656dc1c2927b35235) at a shared read-only path for all tracks.
 - 2026-10-29: Tracks 1A, 1B, 1C launched in parallel as background agents in separate git worktrees (branches `track/1a-flame-front-radiation`, `track/1b-forecast-v2`, `track/1c-routing-v2`).
+- 2026-10-29: 1B: SPLIT.json committed before any fit; NIROPS v1 and Zenodo 21788344 archives downloaded outside git with matching SHA-256. Public raster rebuild stopped per D7.
