@@ -1,0 +1,421 @@
+{
+  "entries": {
+    "algorithm_controls": {
+      "field_or_calculation": "control_methods",
+      "file": "candidate_v2/SOURCE_SEAL.json",
+      "scope": "Logical methods; inherited/repeated methods are not additional independent tests",
+      "value": 32
+    },
+    "checker_Caldor2021_G1_r1": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G1__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "10575",
+          "14175"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "checker_Caldor2021_G1_r2": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G1__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "10575",
+          "14175"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "checker_Caldor2021_G2_r1": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G2__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "32325",
+          "35925"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "checker_Caldor2021_G2_r2": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G2__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "32325",
+          "35925"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "checker_Caldor2021_G3_r1": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G3__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "54075",
+          "57675"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "checker_Caldor2021_G3_r2": {
+      "field_or_calculation": "whole_road_check.cache_work.radiation_cache_after selected fields",
+      "file": "execution_v3/runs/Caldor2021_G3__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json",
+      "scope": "Full native/source histories remain present; this counts computed window-relevant geometry",
+      "value": {
+        "ever_active_source_count": 2127,
+        "native_source_count": 4284,
+        "request_window_s": [
+          "54075",
+          "57675"
+        ],
+        "window_active_source_count": 416
+      }
+    },
+    "final_caldor_complete_request_times": {
+      "field_or_calculation": "executions[variant=CANDIDATE,incident=Caldor2021].elapsed_s by case/rep",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "Launch-to-exit seconds including admission/preparation/search/checking/publication, not evacuation travel time",
+      "value": {
+        "Caldor2021_G1": [
+          "6921299981/2147483648",
+          "55541665243/17179869184"
+        ],
+        "Caldor2021_G2": [
+          "32812054067/8589934592",
+          "61548713877/17179869184"
+        ],
+        "Caldor2021_G3": [
+          "8475287151/2147483648",
+          "33813868065/8589934592"
+        ]
+      }
+    },
+    "final_caldor_sampled_memory": {
+      "field_or_calculation": "min/max candidate Caldor sampled_family_peak_rss_bytes / 1048576",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "Sampled controller plus worker family; not an OS ceiling or unsampled peak; no general memory advantage claim",
+      "value": {
+        "max_bytes": 414466048,
+        "max_mib": 395.265625,
+        "min_bytes": 349339648,
+        "min_mib": 333.15625
+      }
+    },
+    "final_execution_metrics": {
+      "field_or_calculation": "metrics",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "Final contemporaneous 24-execution campaign only",
+      "value": {
+        "BASELINE": {
+          "executions": 12,
+          "on_time_model_resolution": 6,
+          "raw_statuses": {
+            "PROVEN_INFEASIBLE": 6,
+            "TIMEOUT": 6
+          },
+          "stop_classes": {
+            "COMPLETE_REQUEST_TIME_CAP": 6,
+            "NO_CONTROLLER_CAP": 6
+          },
+          "supported_on_time_no_route": 6,
+          "verified_on_time_route": 0
+        },
+        "CANDIDATE": {
+          "executions": 12,
+          "on_time_model_resolution": 12,
+          "raw_statuses": {
+            "CHECKED_ROUTE": 6,
+            "PROVEN_INFEASIBLE": 6
+          },
+          "stop_classes": {
+            "NO_CONTROLLER_CAP": 12
+          },
+          "supported_on_time_no_route": 6,
+          "verified_on_time_route": 6
+        }
+      }
+    },
+    "final_mission_metrics": {
+      "field_or_calculation": "missions",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "A mission resolves only when both repetitions qualify",
+      "value": [
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "case_id": "Rim2013_G1",
+          "incident": "Rim2013"
+        },
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "case_id": "Rim2013_G2",
+          "incident": "Rim2013"
+        },
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "PROVEN_INFEASIBLE",
+              "PROVEN_INFEASIBLE"
+            ],
+            "supported_on_time_no_route_both_repetitions": true,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "case_id": "Rim2013_G3",
+          "incident": "Rim2013"
+        },
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": false,
+            "raw_statuses": [
+              "TIMEOUT",
+              "TIMEOUT"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "CHECKED_ROUTE",
+              "CHECKED_ROUTE"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": true
+          },
+          "case_id": "Caldor2021_G1",
+          "incident": "Caldor2021"
+        },
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": false,
+            "raw_statuses": [
+              "TIMEOUT",
+              "TIMEOUT"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "CHECKED_ROUTE",
+              "CHECKED_ROUTE"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": true
+          },
+          "case_id": "Caldor2021_G2",
+          "incident": "Caldor2021"
+        },
+        {
+          "BASELINE": {
+            "on_time_model_resolution_both_repetitions": false,
+            "raw_statuses": [
+              "TIMEOUT",
+              "TIMEOUT"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": false
+          },
+          "CANDIDATE": {
+            "on_time_model_resolution_both_repetitions": true,
+            "raw_statuses": [
+              "CHECKED_ROUTE",
+              "CHECKED_ROUTE"
+            ],
+            "supported_on_time_no_route_both_repetitions": false,
+            "verified_on_time_route_both_repetitions": true
+          },
+          "case_id": "Caldor2021_G3",
+          "incident": "Caldor2021"
+        }
+      ]
+    },
+    "final_population": {
+      "field_or_calculation": "scheduled_executions / physical_missions / repetitions / matched_pairs",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "Six constructed regional missions; repetitions and software variants are not additional missions",
+      "value": {
+        "matched_pairs": 12,
+        "physical_missions": 6,
+        "repetitions": 2,
+        "scheduled_executions": 24
+      }
+    },
+    "independent_member_counts": {
+      "field_or_calculation": "member_execution_assessments / proved_member_execution_thresholds",
+      "file": "reference/COMBINED_INDEPENDENT_GRADES_V3.json",
+      "scope": "Six actual primary returned routes, four full-source independent member checks each",
+      "value": {
+        "member_execution_assessments": 24,
+        "proved_member_execution_thresholds": 24
+      }
+    },
+    "independent_reference_partition": {
+      "field_or_calculation": "sum candidate actual grade continuous_thermal.per_member.refinement records/caps; all six grade files separately pinned",
+      "file": "reference/COMBINED_INDEPENDENT_GRADES_V3.json",
+      "scope": "Independent exact outward enclosures of the complete fixed journeys, not the optimized checker geometry",
+      "value": {
+        "member_rows": 24,
+        "processed_records": 30104,
+        "refinement_caps": {
+          "None": 24
+        },
+        "total_records": 30104
+      }
+    },
+    "intermediate_edition_metrics": {
+      "field_or_calculation": "metrics",
+      "file": "audit/v2/PAIRED_RESULTS.json",
+      "scope": "Separate complete intermediate campaign; retained, not pooled with final edition",
+      "value": {
+        "BASELINE": {
+          "executions": 12,
+          "on_time_model_resolution": 6,
+          "raw_statuses": {
+            "PROVEN_INFEASIBLE": 6,
+            "TIMEOUT": 6
+          },
+          "stop_classes": {
+            "COMPLETE_REQUEST_TIME_CAP": 6,
+            "NO_CONTROLLER_CAP": 6
+          },
+          "supported_on_time_no_route": 6,
+          "verified_on_time_route": 0
+        },
+        "CANDIDATE": {
+          "executions": 12,
+          "on_time_model_resolution": 10,
+          "raw_statuses": {
+            "CHECKED_ROUTE": 4,
+            "PROVEN_INFEASIBLE": 6,
+            "TIMEOUT": 2
+          },
+          "stop_classes": {
+            "COMPLETE_REQUEST_TIME_CAP": 2,
+            "NO_CONTROLLER_CAP": 10
+          },
+          "supported_on_time_no_route": 6,
+          "verified_on_time_route": 4
+        }
+      }
+    },
+    "interrupted_pilot": {
+      "field_or_calculation": "status / len(jobs) / len(not_run)",
+      "file": "results/CAMPAIGN_SUMMARY.json",
+      "scope": "Infrastructure pilot only; preserved, not resumed or pooled into final comparison",
+      "value": {
+        "attempted": 7,
+        "not_run": 17,
+        "status": "STOPPED_QUEUE"
+      }
+    },
+    "matched_route_performance": {
+      "field_or_calculation": "performance",
+      "file": "audit/v3/PAIRED_RESULTS.json",
+      "scope": "No baseline completed checked routes; no matched-route speedup ratio",
+      "value": {
+        "general_speedup_established": false,
+        "matched_verified_on_time_route_execution_pairs": 0,
+        "median_candidate_over_baseline_elapsed_exact": null,
+        "recorded_arrival_equal_pairs": 0,
+        "scope": "Fresh matched checked-route pairs only; repetitions not independent missions. Mixed/capped durations are censored. No component-causal or general-speed claim."
+      }
+    },
+    "monitor_controls": {
+      "field_or_calculation": "control_methods",
+      "file": "runner/REPLAY_V2_SOURCE_SEAL.json",
+      "scope": "Logical methods; inherited/repeated methods are not additional independent tests",
+      "value": 12
+    }
+  },
+  "scope": "Engineering regression panel; full model inputs/resource limits fixed. No universal speedup, physical safety or forecast validation claim.",
+  "source_sha256": {
+    "audit/v2/PAIRED_RESULTS.json": "57a7ab37bdb5963a08c59cf806c9a2b504f15aaf4255569511cb721cec9c9c36",
+    "audit/v3/PAIRED_RESULTS.json": "5217424821cbb8300c1fd56debf928c97fddccdb710ed92694c7404acf0c2392",
+    "candidate_v2/SOURCE_SEAL.json": "866fcbadf4da323fb7a486bb02e6b2f1e5d42be0a94beed5e262c54b28ebbc91",
+    "candidate_v2/STACK_COPY.json": "f71fa6322e6e6b0373d7649e4c9890bd94cbaaeb1b357ab5ecdc974e791c3f02",
+    "coordination/AUDIT_V3_CONTROLS.log": "0c4133c5815fec5e2f1509c21ec487e5c18d91facdcb58f7cab7015d00401a3a",
+    "coordination/CANDIDATE_V2_CONTROLS.log": "1cc9a9b2aa9740095ffff711275065d304a484f143ac0768efdf446d0008082c",
+    "coordination/CONTROLLER_V2_CONTROLS.log": "b5d37b3a8ef9005c6c7a1dddbb48d7c515055a5c068f67b80e84c916b8a84a28",
+    "execution_v3/MANIFEST.json": "e0ab646c851132332d4904a8544b160daba6372d0509d1e6f37d016346810b72",
+    "execution_v3/runs/Caldor2021_G1__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "5b9b41b27fe415a48b73cb22c3065c0cd0de00e3db9a77e73822280530b5e299",
+    "execution_v3/runs/Caldor2021_G1__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "d2235bc59c7351e055a362db3b79223f92e04baabe52944109ae6e7a412c6cea",
+    "execution_v3/runs/Caldor2021_G2__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "2db052608a7abe1f1ed331f1e0818edfc059ca2e66c0f482c5cc856f4313ab26",
+    "execution_v3/runs/Caldor2021_G2__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "ae72d29ae839d4f7971872fd1f324562c1d06b45166cf11e827fb7aa9b59acbe",
+    "execution_v3/runs/Caldor2021_G3__r1__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "b5d67dfd21633338f20a85fb5022bf837ec6714326b4a2ae0d64bfb51efebc47",
+    "execution_v3/runs/Caldor2021_G3__r2__RDA_CAND_BASECHECKER__SIGNED_DOMAIN_MEMORY__DEADLINE_V3_CANDIDATE/RESULT.json": "48f7243fa9ae84759615bb96a10b5385acb2a8e883eb934746e80330b55e32f9",
+    "reference/COMBINED_INDEPENDENT_GRADES_V3.json": "06ce85dfb995418de4389074879ad5877628a133c24526b90f182ebf7ebc512e",
+    "reference/candidate_grade_v3/grades/04_Caldor2021_G1__r1.json": "cc716a6224814e83f9a6dc76768cd0cae92e3f494ee437892c3471d7cdb2fa27",
+    "reference/candidate_grade_v3/grades/05_Caldor2021_G2__r1.json": "2dae268fb2971ed97eb07f9c00e244f07f11835a7c2fdf70d2ff0c5a3f15a31d",
+    "reference/candidate_grade_v3/grades/06_Caldor2021_G3__r1.json": "1f5f3f380d81e3405e8190b6812301a1b9dc959b8506c99bd155d2f444de1585",
+    "reference/candidate_grade_v3/grades/10_Caldor2021_G1__r2.json": "2b0984f8f8f9893a3c842f4d56cc01553adac0c7f93e079defc31f2180a0330c",
+    "reference/candidate_grade_v3/grades/11_Caldor2021_G2__r2.json": "b6573ff133b6eaf0bbd152c505a9a90723c4a016320a2339c1d12208d9c527e5",
+    "reference/candidate_grade_v3/grades/12_Caldor2021_G3__r2.json": "2bf90c628006893f0d5d605b6815123b278f1dbe4d7b7d2a7297cce0720f2132",
+    "results/CAMPAIGN_SUMMARY.json": "3cb2eb2b9e42ee5ea99a01b8cd46a89d2ec74c7c8b56629ee2497b38e73bf54d",
+    "runner/REPLAY_V2_SOURCE_SEAL.json": "c241885028001ea39e116bfa3cbac45ba616cd63f9d1e23c1f532b7e7dfda4a6"
+  },
+  "status": "FINAL_VERIFIED_FIXED_PANEL"
+}

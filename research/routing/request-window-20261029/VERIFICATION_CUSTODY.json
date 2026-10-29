@@ -1,0 +1,458 @@
+{
+  "CAMPAIGN_RECEIPT.json": {
+    "acquired_utc": "2026-10-29T07:06:04.144185+00:00",
+    "batch_wall_s": 643.3036063329782,
+    "cleanup_scope": "Observed descendants and owned PGIDs; command contract forbids detached sessions/groups",
+    "cleanup_verified": true,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_native_confirmation_20261014_v1/WFG-integrated-preparation-candidate-20261014/env/bin/python",
+      "-B",
+      "outputs/routing_repository_fix_20261029_v1/runner/run_jobs.py",
+      "--manifest",
+      "outputs/routing_repository_fix_20261029_v1/MANIFEST.json",
+      "--output-summary",
+      "outputs/routing_repository_fix_20261029_v1/CAMPAIGN_SUMMARY.json"
+    ],
+    "detached_group_contract_violated": false,
+    "ended_utc": "2026-10-29T07:16:47.448734+00:00",
+    "holder": "Codex-thermal-verification-20261028-broader-19065",
+    "lane": "broader",
+    "lease_records": [
+      {
+        "op": "acquire",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:35:59.128834+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:06:04.144113+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:36:24.558974+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:06:24.561001+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:36:44.957350+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:06:44.959694+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:37:05.367958+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:07:05.370665+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:37:25.788256+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:07:25.790602+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:37:46.209240+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:07:46.212973+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:38:06.629381+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:08:06.631784+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:38:27.024005+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:08:27.026028+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:38:47.430177+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:08:47.432316+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:39:07.821944+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:09:07.824242+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:39:28.266459+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:09:28.268686+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:39:48.645361+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:09:48.647511+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:40:09.023663+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:10:09.025715+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:40:29.392156+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:10:29.394467+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:40:49.763000+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:10:49.765412+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:41:10.140302+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:11:10.142405+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:41:30.521333+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:11:30.523397+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:41:50.904422+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:11:50.906542+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:42:11.313014+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:12:11.315231+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:42:31.696053+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:12:31.698542+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:42:52.065279+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:12:52.067549+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:43:12.425888+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:13:12.428148+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:43:32.802621+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:13:32.805243+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:43:53.189385+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:13:53.191664+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:44:13.556060+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:14:13.558384+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:44:33.925965+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:14:33.928074+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:44:54.294187+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:14:54.296472+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:45:14.674456+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:15:14.676990+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:45:35.067698+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:15:35.070244+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:45:55.456273+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:15:55.458949+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:46:15.845589+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:16:15.847662+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-broader-19065\", \"acquired_utc\": \"2026-10-29T07:05:59.128834+00:00\", \"lease_until_utc\": \"2026-10-29T07:46:36.242656+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:16:36.244992+00:00"
+      },
+      {
+        "op": "release",
+        "output": "{\"result\": \"RELEASED\"}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:16:47.516464+00:00"
+      }
+    ],
+    "lease_release": "RELEASED",
+    "owned_pgids": [
+      19075
+    ],
+    "pid": 19075,
+    "power_at_start": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t61%; discharging; 4:02 remaining present: true",
+    "returncode": 0,
+    "schema": "wfg.post-kcf.batch-receipt/1",
+    "scope": "Serialized research batch, not full-request latency benchmark",
+    "started_utc": "2026-10-29T07:06:04.164798+00:00",
+    "surviving_observed_owned_processes": {},
+    "survivors_at_command_end": {},
+    "waiting_utc": "2026-10-29T07:05:59.090727+00:00"
+  },
+  "INTEGRATION_TESTS_V2.json": {
+    "acquired_utc": "2026-10-29T07:04:30.348482+00:00",
+    "batch_wall_s": 2.0496817079838365,
+    "cleanup_scope": "Observed descendants and owned PGIDs; command contract forbids detached sessions/groups",
+    "cleanup_verified": true,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_native_confirmation_20261014_v1/WFG-integrated-preparation-candidate-20261014/env/bin/python",
+      "-B",
+      "work/wfg-verified-routing-20261029/experimental/window-routing/tests/test_full_checker_window.py",
+      "-v"
+    ],
+    "detached_group_contract_violated": false,
+    "ended_utc": "2026-10-29T07:04:32.398495+00:00",
+    "holder": "Codex-thermal-verification-20261028-tests-18879",
+    "lane": "tests",
+    "lease_records": [
+      {
+        "op": "acquire",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-tests-18879\", \"acquired_utc\": \"2026-10-29T07:04:25.339011+00:00\", \"lease_until_utc\": \"2026-10-29T07:34:25.339011+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:04:30.348451+00:00"
+      },
+      {
+        "op": "release",
+        "output": "{\"result\": \"RELEASED\"}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:04:32.457487+00:00"
+      }
+    ],
+    "lease_release": "RELEASED",
+    "owned_pgids": [
+      18884
+    ],
+    "pid": 18884,
+    "power_at_start": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t61%; discharging; 4:12 remaining present: true",
+    "returncode": 0,
+    "schema": "wfg.post-kcf.batch-receipt/1",
+    "scope": "Serialized research batch, not full-request latency benchmark",
+    "started_utc": "2026-10-29T07:04:30.358351+00:00",
+    "surviving_observed_owned_processes": {},
+    "survivors_at_command_end": {},
+    "waiting_utc": "2026-10-29T07:04:25.309317+00:00"
+  },
+  "VERIFICATION_RECEIPT.json": {
+    "acquired_utc": "2026-10-29T07:18:12.888779+00:00",
+    "batch_wall_s": 474.92070437502116,
+    "cleanup_scope": "Observed descendants and owned PGIDs; command contract forbids detached sessions/groups",
+    "cleanup_verified": true,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_native_confirmation_20261014_v1/WFG-integrated-preparation-candidate-20261014/env/bin/python",
+      "-B",
+      "outputs/routing_repository_fix_20261029_v1/reference/run_verification.py",
+      "run"
+    ],
+    "detached_group_contract_violated": false,
+    "ended_utc": "2026-10-29T07:26:07.811307+00:00",
+    "holder": "Codex-thermal-verification-20261028-reference-26331",
+    "lane": "reference",
+    "lease_records": [
+      {
+        "op": "acquire",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:48:07.874465+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:18:12.888721+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:48:33.334934+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:18:33.337207+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:48:53.778091+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:18:53.782355+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:49:14.188682+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:19:14.190970+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:49:34.626645+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:19:34.628935+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:49:55.104945+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:19:55.106966+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:50:15.555816+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:20:15.560613+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:50:35.973700+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:20:35.975852+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:50:56.486870+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:20:56.489720+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:51:16.898295+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:21:16.900434+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:51:37.297653+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:21:37.299814+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:51:57.707605+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:21:57.710265+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:52:18.135333+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:22:18.137328+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:52:38.544457+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:22:38.546397+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:52:58.959783+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:22:58.961812+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:53:19.367519+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:23:19.369756+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:53:39.770703+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:23:39.772657+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:54:00.173211+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:24:00.175514+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:54:20.579263+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:24:20.581380+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:54:40.994723+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:24:40.997051+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:55:01.411059+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:25:01.413087+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:55:21.817299+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:25:21.819724+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:55:42.272424+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:25:42.274853+00:00"
+      },
+      {
+        "op": "renew",
+        "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-reference-26331\", \"acquired_utc\": \"2026-10-29T07:18:07.874465+00:00\", \"lease_until_utc\": \"2026-10-29T07:56:02.728793+00:00\", \"purpose\": \"routing_repository_fix_20261029_v1\"}}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:26:02.730847+00:00"
+      },
+      {
+        "op": "release",
+        "output": "{\"result\": \"RELEASED\"}\n",
+        "rc": 0,
+        "utc": "2026-10-29T07:26:07.849487+00:00"
+      }
+    ],
+    "lease_release": "RELEASED",
+    "owned_pgids": [
+      26349
+    ],
+    "pid": 26349,
+    "power_at_start": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=23330915)\t53%; discharging; 1:31 remaining present: true",
+    "returncode": 0,
+    "schema": "wfg.post-kcf.batch-receipt/1",
+    "scope": "Serialized research batch, not full-request latency benchmark",
+    "started_utc": "2026-10-29T07:18:12.908949+00:00",
+    "surviving_observed_owned_processes": {},
+    "survivors_at_command_end": {},
+    "waiting_utc": "2026-10-29T07:18:07.838128+00:00"
+  }
+}
