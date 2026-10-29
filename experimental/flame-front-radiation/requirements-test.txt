@@ -1,0 +1,5 @@
+# Test and figure dependencies for experimental/flame-front-radiation (install with -c constraints-routing.txt).
+# The library itself needs NumPy only.
+pytest==8.3.3
+hypothesis==6.112.1
+matplotlib==3.9.2

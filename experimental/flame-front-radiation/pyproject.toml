@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wfg-flamefront"
+version = "0.1.0"
+description = "Opt-in research library: flame-front radiation law wfg.radiation.law/2-flamefront (NumPy only)"
+requires-python = ">=3.12"
+dependencies = ["numpy"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
