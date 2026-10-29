@@ -1,7 +1,12 @@
 {
+ "graph_nodes": 441,
+ "graph_edges": 1680,
  "label": "FIXTURE extended-horizon exploratory panel, not frozen missions",
- "export_record_npz_sha256": "05b6ec9fe0ed6697f3e169c965ce785169dcc6b36f5e8d41a69507c4b13e6d48",
- "trajectory_count": 512,
+ "exports": {
+  "FIXTURE": {
+   "v3_npz_sha256": "05b6ec9fe0ed6697f3e169c965ce785169dcc6b36f5e8d41a69507c4b13e6d48"
+  }
+ },
  "pool": 256,
  "holdout": [
   256,
@@ -10,7 +15,7 @@
  "K": 8,
  "independent_seed_base": 20261030,
  "laws": {
-  "trajectory_H3": {
+  "FIXTURE_20000101T030000Z_trajectory_H3": {
    "ignitions_per_member": [
     7,
     10,
@@ -22,7 +27,7 @@
     6
    ]
   },
-  "independent_marginal_H3": {
+  "FIXTURE_20000101T030000Z_independent_marginal_H3": {
    "ignitions_per_member": [
     3,
     2,
@@ -34,7 +39,7 @@
     5
    ]
   },
-  "trajectory_H6": {
+  "FIXTURE_20000101T030000Z_trajectory_H6": {
    "ignitions_per_member": [
     9,
     14,
@@ -46,7 +51,7 @@
     14
    ]
   },
-  "independent_marginal_H6": {
+  "FIXTURE_20000101T030000Z_independent_marginal_H6": {
    "ignitions_per_member": [
     6,
     14,
@@ -59,15 +64,13 @@
    ]
   }
  },
- "graph_nodes": 441,
- "graph_edges": 1680,
- "wall_s": 4.040001048999329,
+ "wall_s": 2.723645449000287,
  "host": {
   "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
   "loadavg": [
-   6.24755859375,
-   6.46044921875,
-   6.26025390625
+   2.80029296875,
+   2.306640625,
+   3.55078125
   ]
  }
 }

@@ -105,36 +105,9 @@ def independent_marginal(fbh_pool, hours, count, seed):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--mode", choices=("fixture", "real"), required=True)
-    ap.add_argument("--export", required=True, help="export v3 folder with v2_staging (model mode, 6 h)")
-    ap.add_argument("--event", default="FIX_01")
-    ap.add_argument("--cutoff", default="20000101T030000Z")
-    ap.add_argument("--out", default=str(HERE / "data" / "extended_panel"))
-    a = ap.parse_args()
-    if a.mode == "real":
-        raise SystemExit("real mode needs model-mode exports at 6 h on the real data tree; not available on this host yet")
-    K_ = kit.install()
-    exp = Path(a.export)
-    rec = json.loads((exp / ("FORECAST_RECORD_%s.json" % a.cutoff)).read_text())
-    with np.load(exp / ("FORECAST_%s.npz" % a.cutoff)) as z:
-        fbh = z["trajectory_first_burn_hour"].copy()
-    if rec["trajectory_horizon_hours"] < 6 or fbh.shape[0] < max(HOLDOUT) + 1:
-        raise SystemExit("need a 6 h export with at least %d trajectories" % (max(HOLDOUT) + 1))
-    fc = B2.load_export(exp / "v2_staging" / ("FORECAST_%s.npz" % a.cutoff), exp / "v2_staging" / ("FORECAST_RECORD_%s.json" % a.cutoff))[0]
-    T = float(fc["contract__cell_duration_s"])
-    st = K_["bridge"].settings_for(T)
-    st["scenario_count"] = 1
-    base = K_["bridge"].construct(fc, cutoff_utc=kit.cutoff_iso(a.cutoff), epsg=5179, settings=st)
-    shape = base["shape"]
-    transform = [float(v) for v in fc["affine_transform"]]
-    graph = fixture_graph(shape, transform)
-    proto = ContactModel.from_arrays(np.full((1,) + shape, np.inf), base["current"], T, base["remaining_s"], ids=["p"])
-    kern = coverage.Kernels(transform, st, 5179, shape)
-    cur_flux = kern.of_mask(base["current"])
-    rows, laws_meta = [], {}
-    t_all = time.perf_counter()
+def run_case(graph, sources, fbh, proto, kern, cur_flux, *, cutoff, region, data_label, rows, laws_meta, source_files=None):
+    """All horizons, both laws and every source mission of one window; appends Contract E rows."""
+    shape = proto.shape
     for H in extended.HORIZONS:
         hours = H // 3600
         traj_ev = B2.ignition_seconds(fbh, list(range(K)), horizon_s=H)
@@ -145,32 +118,103 @@ def main():
                            {"trajectory_index": j}) for j, e in zip(HOLDOUT, graph_events(truth_ev, shape))]
         for law, ev in (("trajectory", traj_ev), ("independent_marginal", ind_ev)):
             model = proto.with_events(graph_events(ev, shape), ["%s:%d" % (law, k) for k in range(K)], label=law)
-            laws_meta["%s_H%d" % (law, hours)] = {"ignitions_per_member": model.new_ignition_counts()}
-            for name, src in fixture_sources().items():
-                req0, prov = extended.derive(src, H, source_name="FIXTURE source " + name)
-                req = B2.rekey_request_k(req0, model.ids, kit.cutoff_iso(a.cutoff))
+            laws_meta["%s_%s_%s_H%d" % (region, cutoff, law, hours)] = {"ignitions_per_member": model.new_ignition_counts()}
+            for name, src in sources.items():
+                sha = (source_files or {}).get(name)
+                req0, prov = extended.derive(src, H, source_file_sha256=sha, source_name="%s source %s" % (data_label, name))
+                req = B2.rekey_request_k(req0, model.ids, kit.cutoff_iso(cutoff))
                 shared = sipp_plan(graph, req, model.shared_only())
                 t0 = time.perf_counter()
                 dec = harness.decide(graph, req, model, kernels=kern, current_flux=cur_flux)
                 wall = time.perf_counter() - t0
-                for r in harness.score_against(graph, req, dec, truths, cutoff=a.cutoff, region="FIXTURE", mission=name,
+                for r in harness.score_against(graph, req, dec, truths, cutoff=cutoff, region=region, mission=name,
                                                forecast_source=law, shared_route=shared, kernels=kern, current_flux=cur_flux):
-                    r.update({"panel": extended.LABEL, "data": "FIXTURE", "horizon_s": H, "members": K, "law": law,
+                    r.update({"panel": extended.LABEL, "data": data_label, "horizon_s": H, "members": K, "law": law,
                               "decision_wall_s": wall, "derivation": prov, "reason": dec["reason"]})
                     rows.append(r)
-                print(json.dumps({"H": hours, "law": law, "mission": name, "verdict": dec["verdict"], "arrival": dec["arrival_s"],
-                                  "fs": sum(1 for r in rows[-len(truths):] if r["false_safe"]),
+                print(json.dumps({"region": region, "H": hours, "law": law, "mission": name, "verdict": dec["verdict"],
+                                  "arrival": dec["arrival_s"], "fs": sum(1 for r in rows[-len(truths):] if r["false_safe"]),
                                   "fr": sum(1 for r in rows[-len(truths):] if r["false_refusal"])}), flush=True)
+
+
+def load_v3(npz, rec_path, need=6):
+    rec = json.loads(Path(rec_path).read_text())
+    if kit.sha256_file(npz) != rec["npz_sha256"]:
+        raise SystemExit("V3_HASH_MISMATCH %s" % npz)
+    with np.load(npz) as z:
+        fbh = z["trajectory_first_burn_hour"].copy()
+    if rec["trajectory_horizon_hours"] < need or fbh.shape[0] < max(HOLDOUT) + 1:
+        raise SystemExit("need a %d h export with at least %d trajectories: %s" % (need, max(HOLDOUT) + 1, npz))
+    return fbh, rec
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mode", choices=("fixture", "real"), required=True)
+    ap.add_argument("--export", required=True, help="fixture: one export v3 folder (model mode, 6 h, with v2_staging); "
+                                                    "real: a folder EXPORTS6/<event>/<cutoff tag>/ per window")
+    ap.add_argument("--event", default="FIX_01")
+    ap.add_argument("--cutoff", default="20000101T030000Z")
+    ap.add_argument("--out", default=str(HERE / "data" / "extended_panel"))
+    a = ap.parse_args()
+    K_ = kit.install()
+    rows, laws_meta, ident = [], {}, {}
+    t_all = time.perf_counter()
+    if a.mode == "fixture":
+        exp = Path(a.export)
+        fbh, rec = load_v3(exp / ("FORECAST_%s.npz" % a.cutoff), exp / ("FORECAST_RECORD_%s.json" % a.cutoff))
+        fc = B2.load_export(exp / "v2_staging" / ("FORECAST_%s.npz" % a.cutoff), exp / "v2_staging" / ("FORECAST_RECORD_%s.json" % a.cutoff))[0]
+        T = float(fc["contract__cell_duration_s"])
+        st = K_["bridge"].settings_for(T)
+        st["scenario_count"] = 1
+        base = K_["bridge"].construct(fc, cutoff_utc=kit.cutoff_iso(a.cutoff), epsg=5179, settings=st)
+        shape = base["shape"]
+        transform = [float(v) for v in fc["affine_transform"]]
+        graph = fixture_graph(shape, transform)
+        proto = ContactModel.from_arrays(np.full((1,) + shape, np.inf), base["current"], T, base["remaining_s"], ids=["p"])
+        kern = coverage.Kernels(transform, st, 5179, shape)
+        run_case(graph, fixture_sources(), fbh, proto, kern, kern.of_mask(base["current"]), cutoff=a.cutoff, region="FIXTURE",
+                 data_label="FIXTURE", rows=rows, laws_meta=laws_meta)
+        ident = {"FIXTURE": {"v3_npz_sha256": rec["npz_sha256"]}}
+        meta = {"graph_nodes": len(graph["nodes"]), "graph_edges": len(graph["edges"])}
+        prefix = "FIXTURE"
+    else:
+        kit.verify_inputs()
+        for region, tag, event, missions in kit.PANEL:
+            d = Path(a.export) / event / tag
+            fbh, rec = load_v3(d / ("FORECAST_%s.npz" % tag), d / ("FORECAST_RECORD_%s.json" % tag))
+            p = kit.paths(region, tag, event)
+            frozen_v2 = json.loads(p["export_record"].read_text())["npz_sha256"]
+            ident["%s %s" % (region, tag)] = {"v3_npz_sha256": rec["npz_sha256"], "v2_npz_sha256": rec["v2_npz_sha256"],
+                                              "frozen_v2_npz_sha256": frozen_v2, "v2_equals_frozen": rec["v2_npz_sha256"] == frozen_v2}
+            window = B2.frozen_window(p["packet"])
+            if window is not None:
+                fbh = fbh[:, window["r0"]:window["r1"] + 1, window["c0"]:window["c1"] + 1]
+            graph = json.loads(p["graph"].read_text())
+            frozen = ContactModel.from_packet(p["packet"])
+            proto = frozen.with_events([{}], ["p"])
+            md = json.loads((p["packet"] / "NATIVE_METADATA.json").read_text())
+            kern = coverage.Kernels(md["affine_transform"], K_["bridge"].settings_for(float(frozen.T)), 5179, tuple(md["shape"]))
+            with np.load(p["packet"] / "constructed_arrays.npz") as z:
+                cur_flux = kern.of_mask(z["current_active"])
+            sources, files = {}, {}
+            for m in missions:
+                rp = kit.paths(region, tag, event, m)["request"]
+                sources[m] = json.loads(rp.read_text())
+                files[m] = kit.sha256_file(rp)
+            run_case(graph, sources, fbh, proto, kern, cur_flux, cutoff=tag, region=region, data_label="REAL", rows=rows,
+                     laws_meta=laws_meta, source_files=files)
+        meta = {}
+        prefix = "REAL"
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    with gzip.open(out / "FIXTURE_extended_records.jsonl.gz", "wt") as f:
+    with gzip.open(out / ("%s_extended_records.jsonl.gz" % prefix), "wt") as f:
         for r in rows:
             f.write(json.dumps(r, default=str) + "\n")
-    (out / "FIXTURE_run.json").write_text(json.dumps({
-        "label": "FIXTURE " + extended.LABEL, "export_record_npz_sha256": rec["npz_sha256"], "trajectory_count": int(fbh.shape[0]),
-        "pool": POOL, "holdout": [HOLDOUT[0], HOLDOUT[-1]], "K": K, "independent_seed_base": SEED, "laws": laws_meta,
-        "graph_nodes": len(graph["nodes"]), "graph_edges": len(graph["edges"]), "wall_s": time.perf_counter() - t_all,
-        "host": {"platform": platform.platform(), "loadavg": os.getloadavg()}}, indent=1) + "\n")
+    (out / ("%s_run.json" % prefix)).write_text(json.dumps(dict(meta, **{
+        "label": "%s %s" % (prefix, extended.LABEL), "exports": ident, "pool": POOL, "holdout": [HOLDOUT[0], HOLDOUT[-1]], "K": K,
+        "independent_seed_base": SEED, "laws": laws_meta, "wall_s": time.perf_counter() - t_all,
+        "host": {"platform": platform.platform(), "loadavg": os.getloadavg()}}), indent=1) + "\n")
 
 
 if __name__ == "__main__":
