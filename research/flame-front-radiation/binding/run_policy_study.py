@@ -29,6 +29,9 @@ sys.path.insert(0, str(REPO / "experimental/flame-front-radiation/adapters"))
 import journey_check as JC  # noqa: E402
 import policy_sweep as PS  # noqa: E402
 import flux_tables as FT  # noqa: E402
+import pickle  # noqa: E402
+sys.path.insert(0, str(HERE))
+from workstore import WorkStore  # noqa: E402
 
 GRID_DT = 10.0
 SETTINGS = {"E100": (100.0, 100.0), "E23": (JC.W.constants.EMISSIVE_POWER_MEASURED_DECAY_KW_M2, 100.0)}
@@ -105,11 +108,21 @@ def main():
     pkt_cache = {}
     check_cache = {}     # (case, setting, route hash) -> exact check; the check is deterministic, reused across reps/policies
     load_before = os.getloadavg()
+    store = WorkStore(HERE / "work" / "policy_study.jsonl")
     pol_order = ["A0", "A1", "A2", "A3", "A4"]
     for rep in range(1, a.reps + 1):
         for mi, (cohort, case_id) in enumerate(ms):
+            unit = ("mission", rep, case_id)
+            if store.has(unit):
+                rows.extend(store.get(unit))
+                continue
+            unit_rows = []
             case = JC.Case(a.inputs, cohort, case_id)
             pkey = (cohort, case.cutoff)
+            tpath = HERE / "work" / ("tables_%s_%s.pkl" % pkey)
+            if pkey not in pkt_cache and tpath.exists():
+                with open(tpath, "rb") as fh:
+                    pkt_cache[pkey], table_costs["%s/%s" % pkey] = pickle.load(fh)
             if pkey not in pkt_cache:
                 t0 = time.perf_counter(); tracemalloc.start()
                 t_end = float(case.request["horizon"]) + 200.0
@@ -121,6 +134,9 @@ def main():
                 table_costs["%s/%s" % pkey] = {"wall_s": time.perf_counter() - t0, "tracemalloc_peak_mib": peakmem / 2**20,
                                                "probes": int(probes.points.shape[0]), "times": int(times.size),
                                                "max_rad_per_unit_E": float(max(r.max() for r, _ in tables)) if probes.points.size else 0.0}
+                store.put(("table", "%s/%s" % pkey), table_costs["%s/%s" % pkey])
+                with open(tpath, "wb") as fh:
+                    pickle.dump(((probes, tables), table_costs["%s/%s" % pkey]), fh)
             probes, tables = pkt_cache[pkey]
             k = mi % 5
             order = pol_order[k:] + pol_order[:k]
@@ -149,12 +165,14 @@ def main():
                         fuel = {} if setting in ("v1", "E100") else JC.FUEL_SETTINGS["E23"]["fuel"]
                         rh = JC.hashlib.sha256(json.dumps(r["legs"], sort_keys=True).encode()).hexdigest()
                         ckey = (case_id, "E100" if setting == "v1" else setting, rh)
-                        if ckey in check_cache:
-                            chk = check_cache[ckey]; row["check_wall_s"] = None; row["check_cached"] = True
+                        if store.has(("check",) + ckey):
+                            chk = store.get(("check",) + ckey); row["check_wall_s"] = None; row["check_cached"] = True
                         else:
                             t1 = time.perf_counter()
-                            chk = check_cache[ckey] = JC.check_v2(case, r["legs"], r["destination"], fuel=fuel)
+                            chk = JC.check_v2(case, r["legs"], r["destination"], fuel=fuel)
                             row["check_wall_s"] = time.perf_counter() - t1; row["check_cached"] = False
+                            chk = json.loads(json.dumps(chk, default=str))
+                            store.put(("check",) + ckey, chk)
                         own_fail, own_cert, full = judge(pol, chk)
                         row.update({"exact_own_fail": own_fail, "exact_own_certified": own_cert,
                                     "v2_contact_ok": full["contact"], "v2_peak_ok": full["peak"], "v2_dose_ok": full["dose"],
@@ -167,8 +185,15 @@ def main():
                                     "engulfed_samples": sum(m["engulfed_samples"] for m in chk["per_member"].values()),
                                     "n_legs": len(r["legs"]),
                                     "route_sha256": JC.hashlib.sha256(json.dumps(r["legs"], sort_keys=True).encode()).hexdigest()})
-                    rows.append(row)
+                    unit_rows.append(row)
                     print(rep, mi, case_id, pol, setting, r["status"], r.get("arrival"), round(wall, 2), flush=True)
+            unit_rows = json.loads(json.dumps(unit_rows, default=str))
+            store.put(unit, unit_rows)
+            rows.extend(unit_rows)
+    for key in list(store.data):
+        k = json.loads(key)
+        if k[0] == "table":
+            table_costs.setdefault(k[1], store.data[key])
     keys = []
     for r in rows:
         for k in r:

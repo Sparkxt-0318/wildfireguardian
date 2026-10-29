@@ -28,6 +28,7 @@ import numpy as np  # noqa: E402
 
 import journey_check as JC  # noqa: E402
 from journeys import load_returned_journeys  # noqa: E402
+from workstore import WorkStore  # noqa: E402
 
 
 def timed(fn):
@@ -54,21 +55,29 @@ def main():
     rows, timings = [], []
     results = {}
     load_before = os.getloadavg()
+    store = WorkStore(HERE / "work" / "replay.jsonl")
+
+    def case_of(j):
+        key = (j["cohort"], j["case_id"])
+        if key not in cases:
+            cases[key] = JC.Case(a.inputs, *key)
+        return cases[key]
     for rep in range(1, a.reps + 1):
         for i, j in enumerate(journeys):
-            key = (j["cohort"], j["case_id"])
-            if key not in cases:
-                cases[key] = JC.Case(a.inputs, *key)
-            case = cases[key]
             order = ["v1", "v2"] if (i + rep) % 2 == 0 else ["v2", "v1"]
-            v1res = None
             for law in order:
-                if law == "v1":
-                    out, el, peak = timed(lambda: JC.check_v1(case, j["legs"], j["destination"]))
-                    v1res = out
-                else:
-                    out, el, peak = timed(lambda: JC.check_v2(case, j["legs"], j["destination"],
-                                                             fuel=JC.FUEL_SETTINGS["E100"]["fuel"]))
+                unit = ("check", rep, i, law)
+                if not store.has(unit):
+                    case = case_of(j)
+                    if law == "v1":
+                        out, el, peak = timed(lambda: JC.check_v1(case, j["legs"], j["destination"]))
+                    else:
+                        out, el, peak = timed(lambda: JC.check_v2(case, j["legs"], j["destination"],
+                                                                 fuel=JC.FUEL_SETTINGS["E100"]["fuel"]))
+                    store.put(unit, {"out": json.loads(json.dumps(out, default=str)), "wall_s": el, "peak": peak,
+                                     "loadavg": os.getloadavg()})
+                u = store.get(unit)
+                out, el, peak = u["out"], u["wall_s"], u["peak"]
                 timings.append({"rep": rep, "journey": i, "cohort": j["cohort"], "case_id": j["case_id"],
                                 "law": law, "position": order.index(law), "wall_s": el, "tracemalloc_peak_bytes": peak})
                 results.setdefault((i, law), []).append(out)
@@ -78,12 +87,16 @@ def main():
                         for v in results.values() for x in v[1:])
     journeys_out = []
     for i, j in enumerate(journeys):
-        case = cases[(j["cohort"], j["case_id"])]
+        case = case_of(j)
         v1 = results[(i, "v1")][0]
         v2 = results[(i, "v2")][0]
-        v2_e23 = JC.check_v2(case, j["legs"], j["destination"], fuel=JC.FUEL_SETTINGS["E23"]["fuel"], contact=v1)
-        v2_far = JC.check_v2(case, j["legs"], j["destination"], fuel={"cutoff_radius_m": 2000.0}, contact=v1,
-                             certify=False)
+        if not store.has(("post", i)):
+            v2_e23 = JC.check_v2(case, j["legs"], j["destination"], fuel=JC.FUEL_SETTINGS["E23"]["fuel"], contact=v1)
+            v2_far = JC.check_v2(case, j["legs"], j["destination"], fuel={"cutoff_radius_m": 2000.0}, contact=v1,
+                                 certify=False)
+            store.put(("post", i), json.loads(json.dumps({"e23": v2_e23, "far": v2_far}, default=str)))
+            print("post", i, "done", flush=True)
+        v2_e23, v2_far = store.get(("post", i))["e23"], store.get(("post", i))["far"]
         recorded_ok = all(abs(v1["per_member"][m]["dose"] - r["dose"]) <= 1e-9 * max(1.0, abs(r["dose"]))
                           for m, r in j["recorded_centre_per_member"].items())
         journeys_out.append({"index": i, "cohort": j["cohort"], "case_id": j["case_id"], "legs_sha256": j["legs_sha256"],
