@@ -58,3 +58,4 @@ The track prompts also name a few documents inside each track's scope (1C: `docs
 - 2026-10-29: Frozen Korean routing inputs fetched once and hash-verified (132 files, INPUT_FILES.json sha256 5d820b97740d879d2bc78a76d1b5854420793c927c6315f656dc1c2927b35235) at a shared read-only path for all tracks.
 - 2026-10-29: Tracks 1A, 1B, 1C launched in parallel as background agents in separate git worktrees (branches `track/1a-flame-front-radiation`, `track/1b-forecast-v2`, `track/1c-routing-v2`).
 - 2026-10-29: 1B: SPLIT.json committed before any fit; NIROPS v1 and Zenodo 21788344 archives downloaded outside git with matching SHA-256. Public raster rebuild stopped per D7.
+- 2026-10-29: 1B stopped the public raster rebuild (no weather raster written; partial static rebuild deleted, not cited). Continuing code and tests; FIXTURE fallback if the data tree is absent at training.
