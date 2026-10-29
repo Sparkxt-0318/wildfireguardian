@@ -1,0 +1,484 @@
+"""Track 1B pipeline: samples, development folds, final fits and held-out scoring.
+
+Every command reads the data root (``events.json`` plus aligned rasters in
+the ``wildfire.data`` layout), the perimeter states written by
+``prepare_perimeters.py`` and the immutable ``SPLIT.json``. Outputs go to
+``--work`` (outside git) and small records to ``--run`` (a run directory).
+
+Commands
+    samples   cache cutoff environments and interval samples
+    fold      fit one variant on a leave-one-year-out development fold
+    final     fit one variant on all fit fires for a fixed number of epochs
+    heldout   score baselines, c651 (Monte Carlo and mean field) and fitted
+              models on the held-out 2024 intervals (run once)
+    compare   mean field versus Monte Carlo on 12 cutoffs
+
+Threads are capped at 2 (shared host). See README.md for exact invocations.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import os
+import pickle
+import platform
+import sys
+import time
+from pathlib import Path
+
+os.environ.setdefault("OMP_NUM_THREADS", "2")
+HERE = Path(__file__).resolve()
+REPO = HERE.parents[3]
+sys.path.insert(0, str(REPO / "forecast"))
+
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
+import torch  # noqa: E402
+
+from wildfire import baselines as B  # noqa: E402
+from wildfire.survival import (  # noqa: E402
+    PerimeterSample, ages_from_states, biome_balance_factors, consecutive_intervals, evaluate_samples,
+    fit_mean_field, fit_normalization, kriging_weight, sample_forecast, step_durations,
+)
+
+SPLIT = json.loads((HERE.parents[1] / "SPLIT.json").read_text())
+SOURCE_CHANNELS = ["weather.temperature_2m", "weather.wind_eastward_10m", "weather.wind_northward_10m",
+                   "terrain.slope_degrees", "vegetation.tree_cover_percent", "biome.biome_class"]
+CLASSES = {"biome.biome_class": list(range(1, 15))}
+C651 = REPO / "forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt"
+C651_SHA256 = "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843"
+MARGIN = 10
+VARIANTS = {
+    "base": dict(prior="free", frame="none", d4=False),
+    "d4": dict(prior="free", frame="none", d4=True),
+    "d4_wind": dict(prior="free", frame="wind", d4=True),
+    "ellipse": dict(prior="ellipse", frame="none", d4=False),
+    "burnout": dict(prior="free", frame="none", d4=False, residence_hours=6.0),
+    "burnout_spotting": dict(prior="free", frame="none", d4=False, residence_hours=6.0, spotting_radius=15),
+    "mixed_base": dict(prior="free", frame="none", d4=False, mixed=True),
+}
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for block in iter(lambda: stream.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def host_record() -> dict:
+    load = os.getloadavg()
+    return dict(python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+                platform=platform.platform(), cpu_count=os.cpu_count(), torch_threads=torch.get_num_threads(),
+                load_average_1_5_15=list(load),
+                note="Linux cloud container, 4 vCPU shared with two other track agents; timings are host-specific")
+
+
+class Environment:
+    """Cutoff covariates through ``wildfire.load_data`` with an npz cache."""
+
+    def __init__(self, data_root: Path, cache: Path):
+        self.root, self.cache = Path(data_root), Path(cache)
+        self.cache.mkdir(parents=True, exist_ok=True)
+        self.names = None
+
+    def at(self, event: str, hour: pd.Timestamp) -> np.ndarray:
+        key = self.cache / f"{event}_{hour.strftime('%Y%m%dT%H')}.npz"
+        if key.exists():
+            data = np.load(key)
+            self.names = tuple(str(n) for n in data["names"])
+            return data["raw"]
+        from wildfire.data import load_data
+        iso = hour.isoformat()
+        with load_data(self.root, events=[event], sequence_length=1, patch_size=None, time_range=(iso, iso),
+                       include_fire_labels=False, channels=SOURCE_CHANNELS, categorical_classes=CLASSES) as ds:
+            if len(ds) != 1:
+                raise ValueError(f"Expected one snapshot for {event} at {iso}")
+            sample = ds[0]
+            names = ds.channel_names
+        raw = np.where(sample["feature_valid"][0].numpy(), sample["features"][0].numpy(), np.nan).astype(np.float32)
+        np.savez_compressed(key, raw=raw, names=np.array(names))
+        self.names = tuple(names)
+        return raw
+
+
+def crop_box(*masks: np.ndarray, margin: int = MARGIN):
+    union = np.zeros_like(masks[0], dtype=bool)
+    for m in masks:
+        union |= m.astype(bool)
+    h, w = union.shape
+    if not union.any():
+        return slice(0, h), slice(0, w)
+    rows, cols = np.flatnonzero(union.any(1)), np.flatnonzero(union.any(0))
+    return (slice(max(0, rows[0] - margin), min(h, rows[-1] + margin + 1)),
+            slice(max(0, cols[0] - margin), min(w, cols[-1] + margin + 1)))
+
+
+def cropped(sample: PerimeterSample) -> PerimeterSample:
+    r, c = crop_box(sample.initial, sample.endpoint)
+    return PerimeterSample(sample.event_id, sample.t1, sample.hours, sample.environment[:, r, c].copy(),
+                           sample.initial[r, c].copy(), sample.endpoint[r, c].copy(), sample.score_mask[r, c].copy(),
+                           sample.label_weight[r, c].copy(), sample.initial_age_hours[r, c].copy(), sample.kind,
+                           sample.weather, dict(sample.meta, crop=[r.start, r.stop, c.start, c.stop]))
+
+
+def perimeter_samples(event: str, perimeters: Path, env: Environment, *, crop: bool) -> list[PerimeterSample]:
+    data = np.load(perimeters / event / "states.npz")
+    times = list(pd.to_datetime(data["times"], utc=True))
+    states = data["states"].astype(bool)
+    result = []
+    for i, j, hours in consecutive_intervals(times, 48.0):
+        raw = env.at(event, times[i].floor("h"))
+        initial, endpoint = states[i], states[j]
+        age = ages_from_states(times, states.astype(np.uint8), i)
+        sample = PerimeterSample(
+            event, times[i].isoformat(), hours, raw, initial, endpoint, ~initial,
+            np.ones(initial.shape, np.float32), np.nan_to_num(age, nan=0.0).astype(np.float32),
+            meta=dict(t2=times[j].isoformat(), interval_index=i))
+        result.append(cropped(sample) if crop else sample)
+    return result
+
+
+def kriged_samples(event: str, data_root: Path, env: Environment, *, window: float = 12.0,
+                   every: float = 12.0) -> list[PerimeterSample]:
+    import rasterio
+    region = data_root / "regions" / event
+    with rasterio.open(region / "arrival_time_hours.tif") as src:
+        arrival = src.read(1, masked=True).filled(np.nan).astype(np.float64)
+    with rasterio.open(region / "kriging_std_hours.tif") as src:
+        std = src.read(1, masked=True).filled(np.nan).astype(np.float64)
+    events = {e["id"]: e for e in json.loads((data_root / "events.json").read_text())}
+    e = events[event]
+    t0 = pd.Timestamp(e["t0_utc"])
+    start, end = pd.Timestamp(e["start_utc"]), pd.Timestamp(e["end_utc"])
+    finite = np.isfinite(arrival)
+    if not finite.any():
+        return []
+    result = []
+    for t in np.arange(math.floor(np.nanmin(arrival)), math.ceil(np.nanmax(arrival)), every):
+        hour = (t0 + pd.Timedelta(hours=float(t))).floor("h")
+        if hour < start or hour > end:
+            continue
+        initial = finite & (arrival <= t)
+        endpoint = finite & (arrival <= t + window)
+        if not initial.any() or not (endpoint & ~initial).any():
+            continue
+        age = np.where(initial, t - arrival, 0.0)
+        sample = PerimeterSample(event, hour.isoformat(), window, env.at(event, hour), initial, endpoint, ~initial,
+                                 kriging_weight(std, window).astype(np.float32), age.astype(np.float32),
+                                 kind="kriged", meta=dict(start_hours=float(t)))
+        result.append(cropped(sample))
+    return result
+
+
+def load_or_build(work: Path, name: str, builder):
+    path = work / "samples" / f"{name}.pkl"
+    if path.exists():
+        return pickle.loads(path.read_bytes())
+    value = builder()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(pickle.dumps(value, protocol=5))
+    return value
+
+
+def build_model(variant: str, train: list[PerimeterSample], names, seed: int, hidden: int):
+    from wildfire.models import StructuredKernelModel
+    spec = VARIANTS[variant]
+    mean, std = fit_normalization(train, names)
+    torch.manual_seed(seed)
+    model = StructuredKernelModel(len(names), 9, hidden, 0.0, channel_names=names, mean=mean, std=std,
+                                  prior=spec["prior"], frame=spec["frame"],
+                                  residence_hours=spec.get("residence_hours"),
+                                  spotting_radius=spec.get("spotting_radius", 0))
+    positives = sum(float((s.endpoint & s.score_mask).sum()) for s in train if s.kind == "perimeter")
+    cells = sum(float(s.score_mask.sum()) for s in train if s.kind == "perimeter")
+    hours = np.mean([s.hours for s in train if s.kind == "perimeter"])
+    # Start near a rate that reproduces the training prevalence for one burned neighbour.
+    model.initialize_rate(max(-math.log1p(-min(positives / max(cells, 1), 0.5)) / hours, 1e-4))
+    return model
+
+
+def fit_samples(args, events: list[str], env: Environment, *, mixed: bool) -> list[PerimeterSample]:
+    samples = []
+    for event in events:
+        samples += load_or_build(args.work, f"perimeter_crop_{event}",
+                                 lambda e=event: perimeter_samples(e, args.perimeters, env, crop=True))
+    if mixed:
+        for event in events + SPLIT["fit"]["korean_kriged_only"]:
+            if (args.data_root / "regions" / event).exists():
+                samples += load_or_build(args.work, f"kriged_{event}",
+                                         lambda e=event: kriged_samples(e, args.data_root, env))
+    return samples
+
+
+def available(args, events):
+    known = {e["id"] for e in json.loads((args.data_root / "events.json").read_text())}
+    return [e for e in events if e in known and (args.perimeters / e / "states.npz").exists()]
+
+
+def balance_for(train, names):
+    channels = {int(n.split("=")[1]): i for i, n in enumerate(names) if n.startswith("biome.biome_class=")}
+    counts = {}
+    for s in train:
+        env = s.environment[:, s.score_mask]
+        for code, i in channels.items():
+            counts[code] = counts.get(code, 0.0) + float((env[i] == 1).sum())
+    counts = {k: v for k, v in counts.items() if v > 0}
+    return biome_balance_factors(counts), channels
+
+
+def command_fold(args):
+    torch.set_num_threads(args.threads)
+    env = Environment(args.data_root, args.work / "env")
+    spec = VARIANTS[args.variant]
+    folds = SPLIT["development_folds"]["folds"]
+    validation_events = available(args, folds[args.fold])
+    train_events = available(args, [e for f, ev in folds.items() if f != args.fold for e in ev])
+    train = fit_samples(args, train_events, env, mixed=spec.get("mixed", False))
+    validation = fit_samples(args, validation_events, env, mixed=False)
+    names = env.names
+    model = build_model(args.variant, train, names, args.seed, args.hidden)
+    balance, channels = balance_for(train, names) if args.balance else (None, None)
+    out = args.run / "folds" / f"{args.variant}_fold{args.fold}_seed{args.seed}"
+    out.mkdir(parents=True, exist_ok=True)
+    started = time.perf_counter()
+    log = open(out / "log.jsonl", "w")
+    result = fit_mean_field(model, train, validation, epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
+                            patience=args.patience, d4=spec["d4"], samples_per_step=args.samples_per_step,
+                            balance=balance, biome_channels=channels,
+                            intervals_per_epoch=args.intervals_per_epoch, validate_each_epoch=False,
+                            log=lambda line: (print(line, flush=True), log.write(line + "\n"), log.flush()))
+    elapsed = time.perf_counter() - started
+    scores = evaluate_samples(model, validation)
+    per_fire = {e: evaluate_samples(model, [s for s in validation if s.event_id == e]) for e in validation_events}
+    record = dict(variant=args.variant, spec=spec, fold=args.fold, seed=args.seed, hidden=args.hidden,
+                  train_events=train_events, validation_events=validation_events,
+                  train_samples=len(train), validation_samples=len(validation),
+                  validation=scores, validation_per_fire=per_fire, fit=result, fit_seconds=elapsed,
+                  parameters=sum(p.numel() for p in model.parameters()), configuration=model.configuration(),
+                  smoulder=None if model.smoulder() is None else float(model.smoulder()),
+                  host=host_record(), data_root=str(args.data_root), data_manifest_sha256=args.data_manifest_sha256)
+    (out / "result.json").write_text(json.dumps(record, indent=1) + "\n")
+    print(json.dumps(dict(variant=args.variant, fold=args.fold, seed=args.seed, brier=scores["brier"],
+                          seconds=elapsed)), flush=True)
+
+
+def command_final(args):
+    torch.set_num_threads(args.threads)
+    env = Environment(args.data_root, args.work / "env")
+    spec = VARIANTS[args.variant]
+    train_events = available(args, SPLIT["fit"]["us_perimeter_and_kriged"])
+    train = fit_samples(args, train_events, env, mixed=spec.get("mixed", False))
+    names = env.names
+    model = build_model(args.variant, train, names, args.seed, args.hidden)
+    balance, channels = balance_for(train, names) if args.balance else (None, None)
+    out = args.run / "final" / f"{args.variant}_seed{args.seed}"
+    out.mkdir(parents=True, exist_ok=True)
+    started = time.perf_counter()
+    result = fit_mean_field(model, train, [], epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
+                            d4=spec["d4"], samples_per_step=args.samples_per_step, balance=balance,
+                            biome_channels=channels, intervals_per_epoch=args.intervals_per_epoch,
+                            validate_each_epoch=False)
+    elapsed = time.perf_counter() - started
+    checkpoint = out / "checkpoint.pt"
+    torch.save(dict(configuration=model.configuration(), state_dict=model.state_dict(), variant=args.variant,
+                    spec=spec, seed=args.seed, epochs=args.epochs, train_events=train_events), checkpoint)
+    record = dict(variant=args.variant, seed=args.seed, epochs=args.epochs, fit=result, fit_seconds=elapsed,
+                  train_events=train_events, train_samples=len(train), checkpoint_sha256=sha256(checkpoint),
+                  parameters=sum(p.numel() for p in model.parameters()), host=host_record(),
+                  data_root=str(args.data_root), data_manifest_sha256=args.data_manifest_sha256)
+    (out / "result.json").write_text(json.dumps(record, indent=1) + "\n")
+    print(json.dumps(dict(variant=args.variant, seed=args.seed, checkpoint_sha256=record["checkpoint_sha256"])))
+
+
+def load_structured(path: Path):
+    from wildfire.models import StructuredKernelModel
+    saved = torch.load(path, map_location="cpu", weights_only=False)
+    cfg = saved["configuration"]
+    model = StructuredKernelModel(cfg["in_channels"], cfg["kernel_size"], cfg["hidden_channels"], cfg["dropout"],
+                                  channel_names=cfg["channel_names"], prior=cfg["prior"], frame=cfg["frame"],
+                                  residence_hours=cfg["residence_hours"], spotting_radius=cfg["spotting_radius"],
+                                  wind_adjustment_factor=cfg["wind_adjustment_factor"])
+    model.load_state_dict(saved["state_dict"])
+    return model.eval()
+
+
+def c651_monte_carlo(predictor, sample: PerimeterSample, names, n_samples: int, seed: int):
+    from wildfire.cumulative_report import case_seed
+    from wildfire.rollout import simulate
+    env = torch.from_numpy(sample.environment)[None]
+    fv = torch.isfinite(env)
+    env = torch.where(fv, env, torch.zeros_like(env))
+    burned = torch.from_numpy(sample.initial.astype(np.float32))[None, None]
+    durations = step_durations(sample.hours)
+    outputs = simulate(predictor, burned, env, channel_names=names,
+                       burned_area_valid=torch.ones_like(burned, dtype=torch.bool), feature_valid=fv,
+                       hours=(float(sum(durations)),), n_samples=n_samples,
+                       seed=case_seed(seed, sample.event_id, sample.t1), trajectory_batch_size=32,
+                       boundary="zero", missing_burned_area="unburned", step_durations=durations,
+                       cache_environment_kernels=True)
+    details = outputs[0]["details"]
+    return details.probability[0, 0].numpy(), details.valid[0, 0].numpy()
+
+
+def command_heldout(args):
+    """Score every model on the held-out 2024 intervals (full rectangles)."""
+    torch.set_num_threads(args.threads)
+    from wildfire.api import load_model
+    if sha256(C651) != C651_SHA256:
+        raise SystemExit("c651 checkpoint hash mismatch")
+    env = Environment(args.data_root, args.work / "env")
+    events = available(args, SPLIT["held_out"]["us_2024"])
+    if args.events:
+        events = [e for e in events if e in args.events]
+    c651 = load_model(C651, device="cpu")
+    fitted = {path.parent.name: load_structured(path) for path in sorted((args.run / "final").glob("*/checkpoint.pt"))}
+    logistic = pickle.loads((args.run / "baselines" / "logistic.pkl").read_bytes())
+    best_k = json.loads((args.run / "baselines" / "dilation_choice.json").read_text())["best_hours_per_cell"]
+    out = args.run / "heldout"
+    out.mkdir(parents=True, exist_ok=True)
+    timings = []
+    for event in events:
+        target = out / f"{event}.npz"
+        if target.exists():
+            continue
+        samples = load_or_build(args.work, f"perimeter_full_{event}",
+                                lambda e=event: perimeter_samples(e, args.perimeters, env, crop=False))
+        names = env.names
+        columns = {k: [] for k in ("interval", "row", "col", "y")}
+        predictions: dict[str, list] = {}
+        for index, sample in enumerate(samples):
+            preds, valids = {}, []
+            started = time.perf_counter()
+            p, v = c651_monte_carlo(c651.predictor, sample, names, args.n_samples, args.seed)
+            timings.append(dict(event=event, interval=index, model="c651_mc", hours=sample.hours,
+                                seconds=time.perf_counter() - started, cells=int(p.size)))
+            preds["c651_mc"], valids = p, [v]
+            started = time.perf_counter()
+            with torch.no_grad():
+                q, w = sample_forecast(c651.predictor, sample, use_burnout=False, use_spotting=False)
+            timings.append(dict(event=event, interval=index, model="c651_meanfield", hours=sample.hours,
+                                seconds=time.perf_counter() - started, cells=int(p.size)))
+            preds["c651_meanfield"] = q.numpy()
+            valids.append(w.numpy())
+            for name, model in fitted.items():
+                with torch.no_grad():
+                    q, w = sample_forecast(model, sample)
+                preds[name] = q.numpy()
+                valids.append(w.numpy())
+            preds["persistence"] = B.persistence(sample.initial)
+            for k in B.DILATION_HOURS:
+                preds[f"dilation_{k}h"] = B.dilation(sample.initial, sample.hours, k)
+            preds["dilation_best"] = preds[f"dilation_{best_k}h"]
+            preds["logistic"] = logistic_predict(logistic, sample, names)
+            known_env = np.isfinite(sample.environment).all(axis=0)
+            mask = (~sample.initial) & known_env & np.logical_and.reduce(valids)
+            for name in preds:
+                mask &= np.isfinite(preds[name])
+            rows, cols = np.nonzero(mask)
+            columns["interval"].append(np.full(len(rows), index))
+            columns["row"].append(rows)
+            columns["col"].append(cols)
+            columns["y"].append(sample.endpoint[mask].astype(np.int8))
+            for name, value in preds.items():
+                predictions.setdefault(name, []).append(value[mask].astype(np.float64))
+            print(json.dumps(dict(event=event, interval=index, hours=sample.hours, cells=int(mask.sum()),
+                                  positives=int(sample.endpoint[mask].sum()))), flush=True)
+        np.savez_compressed(target, **{k: np.concatenate(v) for k, v in columns.items()},
+                            **{f"p_{k}": np.concatenate(v) for k, v in predictions.items()},
+                            t1=np.array([s.t1 for s in samples]), hours=np.array([s.hours for s in samples]))
+    (out / f"timings_{int(time.time())}.json").write_text(json.dumps(dict(host=host_record(), rows=timings)) + "\n")
+
+
+def logistic_features(sample: PerimeterSample, names) -> np.ndarray:
+    i = {n: k for k, n in enumerate(names)}
+    biome = np.zeros(sample.initial.shape)
+    for code in range(1, 15):
+        biome = np.where(sample.environment[i[f"biome.biome_class={code}"]] == 1, code, biome)
+    return B.hand_features(sample.initial, sample.hours,
+                           np.nan_to_num(sample.environment[i["weather.wind_eastward_10m"]]),
+                           np.nan_to_num(sample.environment[i["weather.wind_northward_10m"]]),
+                           sample.environment[i["terrain.slope_degrees"]], biome, list(range(1, 15)))
+
+
+def logistic_predict(fitted, sample, names):
+    return B.predict_logistic(fitted, logistic_features(sample, names)).reshape(sample.initial.shape)
+
+
+def command_baselines(args):
+    """Fit the logistic regression and choose the dilation rate on fit fires only."""
+    env = Environment(args.data_root, args.work / "env")
+    events = available(args, SPLIT["fit"]["us_perimeter_and_kriged"])
+    train = fit_samples(args, events, env, mixed=False)
+    names = env.names
+    rng = np.random.default_rng(args.seed)
+    xs, ys = [], []
+    dilation_sq = {k: [0.0, 0] for k in B.DILATION_HOURS}
+    for sample in train:
+        feats = logistic_features(sample, names)
+        mask = sample.score_mask.ravel()
+        y = sample.endpoint.ravel()[mask]
+        x = feats[mask]
+        keep = (y == 1) | (rng.random(len(y)) < args.negative_fraction)
+        xs.append(x[keep])
+        ys.append(y[keep])
+        for k in B.DILATION_HOURS:
+            d = B.dilation(sample.initial, sample.hours, k)[sample.score_mask]
+            dilation_sq[k][0] += float(((d - sample.endpoint[sample.score_mask]) ** 2).sum())
+            dilation_sq[k][1] += int(sample.score_mask.sum())
+    x, y = np.concatenate(xs), np.concatenate(ys)
+    weights = np.where(y == 1, 1.0, 1.0 / args.negative_fraction)
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler().fit(x)
+    model = LogisticRegression(max_iter=3000, random_state=args.seed)
+    model.fit(scaler.transform(x), y.astype(int), sample_weight=weights)
+    out = args.run / "baselines"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "logistic.pkl").write_bytes(pickle.dumps((scaler, model)))
+    scores = {k: v[0] / max(v[1], 1) for k, v in dilation_sq.items()}
+    choice = B.choose_dilation(scores)
+    (out / "dilation_choice.json").write_text(json.dumps(dict(
+        training_pooled_brier_cropped=scores, best_hours_per_cell=choice, fit_events=events,
+        note="chosen on fit fires only (cropped training rectangles); no held-out data used"), indent=1) + "\n")
+    (out / "logistic.json").write_text(json.dumps(dict(
+        coefficients=model.coef_.tolist(), intercept=model.intercept_.tolist(), rows=int(len(y)),
+        positives=int(y.sum()), negative_fraction=args.negative_fraction, seed=args.seed,
+        features=["log1p(distance)", "distance/hours", "alignment", "alignment*speed", "speed", "slope/45",
+                  "log(hours)"] + [f"biome={c}" for c in range(1, 15)],
+        weighting="negatives subsampled at the stated fraction and weighted by its inverse"), indent=1) + "\n")
+    print(json.dumps(dict(best_dilation=choice, scores=scores)))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", choices=["fold", "final", "baselines", "heldout"])
+    parser.add_argument("--data-root", type=Path, required=True)
+    parser.add_argument("--perimeters", type=Path, required=True)
+    parser.add_argument("--work", type=Path, required=True)
+    parser.add_argument("--run", type=Path, required=True)
+    parser.add_argument("--data-manifest-sha256", default=None)
+    parser.add_argument("--variant", choices=sorted(VARIANTS), default="base")
+    parser.add_argument("--fold", choices=["2020", "2021", "2022"], default="2022")
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--intervals-per-epoch", type=int, default=160)
+    parser.add_argument("--patience", type=int, default=2)
+    parser.add_argument("--lr", type=float, default=3e-3)
+    parser.add_argument("--hidden", type=int, default=16)
+    parser.add_argument("--samples-per-step", type=int, default=4)
+    parser.add_argument("--balance", action="store_true")
+    parser.add_argument("--threads", type=int, default=2)
+    parser.add_argument("--n-samples", type=int, default=1024)
+    parser.add_argument("--negative-fraction", type=float, default=0.05)
+    parser.add_argument("--events", nargs="*", default=None)
+    args = parser.parse_args()
+    args.threads = min(args.threads, 2)
+    dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout)[args.command](args)
+
+
+if __name__ == "__main__":
+    main()

@@ -241,14 +241,25 @@ def propagate_mean_field(
             else torch.where(known, initial_age_hours.to(clean.dtype), torch.zeros_like(clean)))
     outputs, valids, elapsed = [], [], []
     clock = 0.0
+    repeated = sequence is None and masks_seq is None
+    # With repeated inputs the probe depends only on the mask; once a probe
+    # leaves the mask unchanged every later probe returns the same mask, so
+    # it is skipped (exact, not an approximation).
+    converged = [False] * count
+    safe_cache: dict[int, Tensor] = {}
     for k, dt in enumerate(durations):
         components, env, fv = components_at(k)
         for j, (component, _, kernels) in enumerate(components):
-            with torch.no_grad():
-                rate_valid = _probe_valid(component, base, masks[j], env, fv, kernels,
-                                          channel_names, boundary)
-                masks[j] = masks[j] & (observed_burns | rate_valid)
-            safe = torch.where(torch.isfinite(kernels), kernels, torch.zeros_like(kernels))
+            if not (repeated and converged[j]):
+                with torch.no_grad():
+                    rate_valid = _probe_valid(component, base, masks[j], env, fv, kernels,
+                                              channel_names, boundary)
+                    following = masks[j] & (observed_burns | rate_valid)
+                    converged[j] = bool(torch.equal(following, masks[j]))
+                    masks[j] = following
+            if not repeated or j not in safe_cache:
+                safe_cache[j] = torch.where(torch.isfinite(kernels), kernels, torch.zeros_like(kernels))
+            safe = safe_cache[j]
             if burnout is None:
                 source = states[j]
             else:
