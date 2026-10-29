@@ -109,18 +109,26 @@ def edge_arrival_matrix(exposure, births_list, T, horizon, current=(), R=0.0):
     return np.array([exposure.first_unsafe(b, T, horizon, current, R) for b in births_list]) if births_list else np.zeros((0, 0))
 
 
-def l1_distance(X, w=None, chunk=256):
-    """Pairwise weighted L1 distance between rows of X (float). Exact for small integer-valued data."""
+def l1_distance(X, w=None, budget=2_000_000):
+    """Pairwise weighted L1 distance between rows of X, computed on the distinct rows and on varying columns only,
+    in chunks of at most `budget` elements (bounded memory)."""
     X = np.asarray(X, dtype=np.float64)
     if w is not None:
         X = X * np.asarray(w, dtype=np.float64)[None]
     N = X.shape[0]
-    D = np.zeros((N, N))
-    varying = np.flatnonzero(X.max(axis=0) != X.min(axis=0)) if N else []
+    if N == 0:
+        return np.zeros((0, 0))
+    varying = np.flatnonzero(X.max(axis=0) != X.min(axis=0))
     Y = X[:, varying]
-    for lo in range(0, N, chunk):
-        D[lo:lo + chunk] = np.abs(Y[lo:lo + chunk, None, :] - Y[None, :, :]).sum(axis=2)
-    return D
+    U, inv = np.unique(Y, axis=0, return_inverse=True)
+    inv = np.asarray(inv).reshape(-1)
+    n, c = U.shape
+    Du = np.zeros((n, n))
+    if c:
+        rows = max(1, int(budget // max(1, n * c)))
+        for lo in range(0, n, rows):
+            Du[lo:lo + rows] = np.abs(U[lo:lo + rows, None, :] - U[None, :, :]).sum(axis=2)
+    return Du[np.ix_(inv, inv)]
 
 
 def distance_edge_arrival(A, edge_len):

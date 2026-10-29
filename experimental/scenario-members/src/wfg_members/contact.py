@@ -111,6 +111,24 @@ class ContactModel:
         out._union = None
         return out
 
+    def empty(self, label="travel_only"):
+        """No fire at all (travel-only relaxation)."""
+        out = self.shared_only(label=label)
+        out.current, out.R = [], F(0)
+        return out
+
+    def with_events(self, events_graph, ids, weights=None, label=None):
+        """Same present fire, new members given as {graph cell: Fraction birth} dictionaries."""
+        out = ContactModel.__new__(ContactModel)
+        out.shape, out.T, out.R, out.current = self.shape, self.T, self.R, list(self.current)
+        out.events = [dict(e) for e in events_graph]
+        out.ids = list(ids)
+        n = len(out.ids)
+        out.weights = [F(1, n)] * n if weights is None else [F(w) for w in weights]
+        out.label = label
+        out._union = None
+        return out
+
     def member_cell_intervals(self, s, include_current=True):
         out = {}
         for c, b in self.events[s].items():

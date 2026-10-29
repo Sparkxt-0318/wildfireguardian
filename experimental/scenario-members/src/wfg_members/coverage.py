@@ -86,7 +86,7 @@ class JourneyEvaluator:
         sources = [(float(t), round_up_sum(t, T), kernels.of_graph_cell(c)) for c, t in births.items()]
         total = float(self.incurred)
         peak = 0.0
-        fmax = float(current_flux.max()) + sum(float(k.max()) for _, _, k in sources)
+        fmax = float((current_flux + sum((k for _, _, k in sources), np.zeros_like(current_flux))).max())  # >= every interval map max
         margin = 1e-8 * max(1.0, fmax)
         R = float(R)
         for c, a, b in self.spans:

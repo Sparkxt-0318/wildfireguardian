@@ -61,10 +61,62 @@ def tdu(spans, member, including_dwell_span=True):
     return total
 
 
-def member_reports(graph, hazard, request, legs, destination, *, radiation_law="v1"):
+def member_reports(graph, hazard, request, legs, destination, *, radiation_law="v1", per_member_runs=False):
     _require_law(radiation_law)
     ind = kit.install()["independent"]
     spans = journey_spans(graph, request, legs, destination) if destination is not None else []
+    if per_member_runs or destination is None:
+        return _per_member_runs(graph, hazard, request, legs, destination, spans, radiation_law)
+    # One frozen check of all members: structure, support, aggregated contact, per-member peak and dose. The per-member
+    # contact flag uses the checker's own sampling rule on the same spans (closed spans against the packet's half-open
+    # flame bins); the union must agree with the frozen aggregated FLAME_CONTACT code, else every member is re-checked
+    # alone by the frozen checker.
+    r = ind.check_route(graph, hazard, request, legs, destination)
+    codes = set(r["codes"])
+    if r["status"] == "INVALID_ROUTE":
+        return _per_member_runs(graph, hazard, request, legs, destination, spans, radiation_law)
+    nodes = {n["id"]: n for n in graph["nodes"]}
+    edges = {e["id"]: e for e in graph["edges"]}
+    issue = ind._position_spans(graph, request["position"], request["departure"], nodes, edges)
+    contact = [_member_contact(issue + spans, m) for m in hazard["members"]]
+    if any(contact) != ("FLAME_CONTACT" in codes):
+        return _per_member_runs(graph, hazard, request, legs, destination, spans, radiation_law)
+    peak_limit = request["budgets"]["peak"]
+    out = []
+    for m, c in zip(hazard["members"], contact):
+        pm = r["per_member"][m["id"]]
+        peak_ok = not pm["peak"] > peak_limit
+        dose_ok = not F(pm["dose_exact"]) > F(request["budgets"]["dose"][m["id"]])
+        structure_ok, support_ok = "ROUTE_STRUCTURE" not in codes, "MISSING_SUPPORT" not in codes
+        mc = sorted(({"FLAME_CONTACT"} if c else set()) | ({"PEAK_BUDGET"} if not peak_ok else set())
+                    | ({"DOSE_BUDGET"} if not dose_ok else set()) | (codes & {"ROUTE_STRUCTURE", "MISSING_SUPPORT"}))
+        out.append({"id": m["id"], "contact": c, "peak_kw_m2": pm["peak"], "dose_kj_m2": pm["dose"], "dose_exact": pm["dose_exact"],
+                    "dose_tdu": tdu(spans, m) if spans else None, "peak_ok": peak_ok, "dose_ok": dose_ok,
+                    "structure_ok": structure_ok, "support_ok": support_ok, "passed": not mc,
+                    "status": r["status"] if r["status"] == "AT_ISSUE_FAILURE" else ("CHECKED_ROUTE" if not mc else "REJECTED_ROUTE"),
+                    "codes": mc, "radiation_law": radiation_law, "check_mode": "frozen_once_plus_member_contact"})
+    return out
+
+
+def _member_contact(spans, member):
+    """The frozen checker's sampling rule for one member: a span (cell, a, b) meets flame iff some sample time in
+    {a, b} or a member breakpoint strictly inside (a, b) falls in a bin whose flame row is true at that cell."""
+    bp = member["breakpoints"]
+    rows = member["flame"]
+    for cell, a, b in spans:
+        a, b = F(a), F(b)
+        cuts = [a] + [F(t) for t in bp if a < t < b] + ([b] if b != a else [])
+        for t in cuts:
+            if t < bp[0] or t > bp[-1]:
+                continue
+            k = min(bisect.bisect_right(bp, t) - 1, len(rows) - 1)
+            if k >= 0 and rows[k][cell]:
+                return True
+    return False
+
+
+def _per_member_runs(graph, hazard, request, legs, destination, spans, radiation_law):
+    ind = kit.install()["independent"]
     out = []
     for m in hazard["members"]:
         view = dict(hazard)
@@ -76,7 +128,8 @@ def member_reports(graph, hazard, request, legs, destination, *, radiation_law="
                     "dose_exact": pm["dose_exact"], "dose_tdu": tdu(spans, m) if spans else None,
                     "peak_ok": "PEAK_BUDGET" not in codes, "dose_ok": "DOSE_BUDGET" not in codes,
                     "structure_ok": "ROUTE_STRUCTURE" not in codes, "support_ok": "MISSING_SUPPORT" not in codes,
-                    "passed": bool(r["ok"]), "status": r["status"], "codes": sorted(codes), "radiation_law": radiation_law})
+                    "passed": bool(r["ok"]), "status": r["status"], "codes": sorted(codes), "radiation_law": radiation_law,
+                    "check_mode": "frozen_per_member"})
     return out
 
 
