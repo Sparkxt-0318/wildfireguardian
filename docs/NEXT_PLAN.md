@@ -28,6 +28,7 @@ The track prompts also name a few documents inside each track's scope (1C: `docs
 - D2. `forecast/PUBLICATION_MANIFEST.json` records hashes of `forecast/wildfire/rollout.py`, `models.py`, `train.py` and `evaluate.py`. It is not checked by CI and no track owns it, so it is not updated; each track README that changes one of those files must say that the manifest describes the released snapshot.
 - D3. Execution host: a Linux cloud container, 4 vCPU, 15 GiB RAM, no GPU. The frozen protocol was measured on native macOS. Every timing number from this run is host-specific and must say so; it is not comparable as a speedup with the frozen Mac numbers. The three tracks share the host, so each track limits itself to at most 2 compute threads for heavy work and records the load conditions.
 - D4. Data that is not in the repository: the Caldor/Rim sealed-study packets (recorded at absolute paths on the owner's Mac), the forecast training and environmental rasters (`--data-root`), and FARSITE. Until the human answers, tracks run on the public Korean inputs (`tools/fetch_routing_inputs.py`), the Zenodo and Mendeley archives already referenced in `forecast/data/source_manifest.json` and `forecast/wildfire/observed_data.py` (hash and licence recorded), and state plainly what was not run.
+- D6. Progress lines: tracks append to `research/<track>/PROGRESS.md` on their own branch and message the orchestrator, which copies the line here. This avoids three branches editing this orchestrator-owned file.
 - D5. Track 1C works on one branch and the orchestrator splits it into three PR branches by path at Step 5 (the deliverables live in disjoint folders).
 
 ## Merge order (recommended, nothing is merged by the orchestrator)
@@ -51,3 +52,5 @@ The track prompts also name a few documents inside each track's scope (1C: `docs
 ## Progress log
 
 - 2026-10-29: Shared interfaces published at `docs/NEXT_INTERFACES.md`; prompts committed under `docs/next/prompts/`; plan written (orchestrator).
+- 2026-10-29: Frozen Korean routing inputs fetched once and hash-verified (132 files, INPUT_FILES.json sha256 5d820b97740d879d2bc78a76d1b5854420793c927c6315f656dc1c2927b35235) at a shared read-only path for all tracks.
+- 2026-10-29: Tracks 1A, 1B, 1C launched in parallel as background agents in separate git worktrees (branches `track/1a-flame-front-radiation`, `track/1b-forecast-v2`, `track/1c-routing-v2`).
