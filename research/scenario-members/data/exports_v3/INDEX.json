@@ -1,0 +1,147 @@
+{
+ "mode": "replay",
+ "n": 1024,
+ "seed": 0,
+ "inputs": {
+  "root": "/home/user/wfg-shared/routing-inputs",
+  "input_files_json_sha256": "5d820b97740d879d2bc78a76d1b5854420793c927c6315f656dc1c2927b35235",
+  "archive_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202"
+ },
+ "windows": [
+  {
+   "event": "KFS_01",
+   "cutoff": "20250323T010000Z",
+   "v3_npz_sha256": "fdb3fd42485a97b310d0f9bbf4935a2fdc8bf0fcb401e00148243119f447dd1f",
+   "v2_npz_sha256": "ac1cb7d5eae8ddbfa3fb1bb2a92da15c13e16c5534c843c5d39e2438702e29ee",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 5.638671875,
+   "record_sha256": "7cccefb5602b800429cebad490a6580018370d0782848fa40b5fe129270c82af"
+  },
+  {
+   "event": "KFS_01",
+   "cutoff": "20250324T090000Z",
+   "v3_npz_sha256": "889a6d097a4c9e1953a3f144fe87c94baec7c8facc51556987b63cfee7dfb4bb",
+   "v2_npz_sha256": "db24fd1e72c4c3a3fc14b2ed5f2806e8f45615bea57d0a1bb0237a2765c36a4d",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 7.3798828125,
+   "record_sha256": "428cd71e8953cfb9790d15361b8d979b458ae1cad4dac926789e0d4151a45daa"
+  },
+  {
+   "event": "KFS_01",
+   "cutoff": "20250325T170000Z",
+   "v3_npz_sha256": "28939a918915885bc88ac55e584ff345b25051c0acd45b812b8ad3e49554eff5",
+   "v2_npz_sha256": "5e95e82e79459896fc495a790a64b2fda4509eeb122834ef2aff9bcebc746e9f",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 19.5595703125,
+   "record_sha256": "506d62f15dd5d8f8d607ef9a01e293cbc4f94ef664b98aecdfc5006a71be2055"
+  },
+  {
+   "event": "KFS_01",
+   "cutoff": "20250325T190000Z",
+   "v3_npz_sha256": "8ecc1ddb2726906b00ea0bce70f5b8bdbd941bf0f283aa04fb117274598cbeba",
+   "v2_npz_sha256": "f23418aea92fb04076cce97f411e60dfc6042f10e43b871ec2192d0a1933ddc1",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 9.9912109375,
+   "record_sha256": "d881c2cec766c27ce29a911b738e8726226dc048fd2ca763ae5e2d22a452dc57"
+  },
+  {
+   "event": "KFS_01",
+   "cutoff": "20250325T230000Z",
+   "v3_npz_sha256": "6acf2dc9e6b786bca15464b3466715ed5e021ef19d646a8cbf11a121b1f07fd7",
+   "v2_npz_sha256": "9ac3a8123fda9e09d98d99e676e20d4770027bc64ff91ec81ef0caf5c414c9bd",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 3.189453125,
+   "record_sha256": "033f643d015aab3e63d9e039a6a53297652a71af837351bf48f9688d5140ad72"
+  },
+  {
+   "event": "KFS_01",
+   "cutoff": "20250326T080000Z",
+   "v3_npz_sha256": "f816619ca00f9df50510adb8df38f4fadfba370ac976bf88f1dabe29af8b2156",
+   "v2_npz_sha256": "0b10827259d4abd6032dd7741dc55522362ceb33d5d99a0d187685e7d159e61e",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "21f33ab0f582bf62388479cde0268fd8669ad4e935851503be2e289fed362279"
+  },
+  {
+   "event": "KFS_02",
+   "cutoff": "20220304T030000Z",
+   "v3_npz_sha256": "1455003a57b42b78036e92196995ec60a9deaa61a1b9e23cc988d737976e2a8a",
+   "v2_npz_sha256": "c97d3ff2aa5c6258cfca854d9ae0337e4a1a390ad9c977de338297bfb4ebbf69",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0263671875,
+   "record_sha256": "f37dfbb918c41be6e4fef97029dc1ab2e494b4b092823d253197c71b7134eec4"
+  },
+  {
+   "event": "KFS_02",
+   "cutoff": "20220304T060000Z",
+   "v3_npz_sha256": "430000145a997448e49d324d44d27f9eea32afb23bb3e332b65ff0634e02edf9",
+   "v2_npz_sha256": "14342adce16afa7a09a8e997cd51b7187a78803836d8253eb98e50dedf74591b",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 1.318359375,
+   "record_sha256": "3e36e1d9da3e112027844c565c0679d511f285be80edf29a0f6264daafa93ebf"
+  },
+  {
+   "event": "KFS_02",
+   "cutoff": "20220304T120000Z",
+   "v3_npz_sha256": "e2d450ab451ff893b66fb3d57023f544220e40c5e71b2db3956926461f3f9bfb",
+   "v2_npz_sha256": "2e3349fe0454b66512df3d86a314dd498f0a201deb494b4dd137df204bdf30ab",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 1.3701171875,
+   "record_sha256": "3c7100c3e7fd2e8d77f530553221a24c2f892c9f5c63593da851f5b3b9119b06"
+  },
+  {
+   "event": "KFS_05",
+   "cutoff": "20230402T070000Z",
+   "v3_npz_sha256": "3c23b16e3216b7382e279e0dc4676adfe5fde5f9875fa438016e9f660be1ba0e",
+   "v2_npz_sha256": "a0da8cb8c5ce26ebc6b4d9df39bfc1c6b324327897e75ca3334ebed2eb23b532",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "aefe0d01e301d0916c2cad52d33c8c528bf2d5871e5b5ca2f0b6238117f98b14"
+  },
+  {
+   "event": "KFS_05",
+   "cutoff": "20230402T140000Z",
+   "v3_npz_sha256": "4e23b34ccbd612082e3a3521d3db78593536e8a352c7b5dcdf0dfb6aeea54b9b",
+   "v2_npz_sha256": "c8428c1202d48bfb7061ec8ae759f21cb81b826b5f4aaca7da4ee7ae0b413ae7",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "f50dfff95f72d85bafec791c6ad2483d247eaf2d7c068935911bbf85455af8a4"
+  },
+  {
+   "event": "KFS_05",
+   "cutoff": "20230402T230000Z",
+   "v3_npz_sha256": "80e70ade0653f633a43273519a2005f9e22ae5f2eb3008b1f07ceb5740ab0d6a",
+   "v2_npz_sha256": "98128ce93cb2d5bf3c6c8daf33ff92bb6cb65407a2bfcfde6d406dbc031193cb",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "8f8b72a08f5fc0ded9ba7b1989717e5e83696d040d84c98f2599d13ae5f624f4"
+  },
+  {
+   "event": "KFS_11",
+   "cutoff": "20220531T100000Z",
+   "v3_npz_sha256": "1d89e12b29c5278fb3b0dd35fdff6bbd4c0a0057e4872725ce3d91b25aeecc6e",
+   "v2_npz_sha256": "e7529aeb0adf021da85be094c1d44592910e0a0650c3d93dc2db8bb597c5de85",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "b07347ec7befa722311727b6f1230ab3f3854f390060c7cf8da8ec023b32009a"
+  },
+  {
+   "event": "KFS_11",
+   "cutoff": "20220601T020000Z",
+   "v3_npz_sha256": "e9d268cc91da45f9bf0cfba5cc1446173f212b49ded73ab0f6d6b9fe14c6f345",
+   "v2_npz_sha256": "66299315b7533ee9cd9e417ab966c48d7126e2b0b7a1406a2c43024c09fdeac5",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "ba414d9ebe3d8628cc41e98863df1b137e0af49be6650c2e370fd05549714cc6"
+  },
+  {
+   "event": "KFS_11",
+   "cutoff": "20220601T080000Z",
+   "v3_npz_sha256": "495b37126922577cc27bd725b9bbc163bf4e08374a9dc61c6015e3c120cc5993",
+   "v2_npz_sha256": "750112a5f11fbb316614f90412ddeb2493cd9682e3e46c853dbd08823bc95ec4",
+   "trajectory_count": 1024,
+   "ignitions_per_trajectory_mean": 0.0,
+   "record_sha256": "d9104f0c31a2b16730fc1569f28f94afabd2a0725b1d240e59c447502e48ed9d"
+  }
+ ]
+}
