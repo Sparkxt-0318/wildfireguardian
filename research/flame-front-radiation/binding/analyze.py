@@ -169,6 +169,23 @@ def main():
     with open(HERE / "MISSIONS.csv", "w", newline="") as f:
         keys = list(flat[0]); w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(flat)
     rs = replay["summary"]
+    depth = None
+    if (HERE / "DEPTH_COLUMN.json").exists():
+        dc = json.loads((HERE / "DEPTH_COLUMN.json").read_text())
+        a0 = [r for r in dc["routes"] if r["policy"] == "A0" and r["status"] == "ROUTE"]
+        a1 = [r for r in dc["routes"] if r["policy"] == "A1" and r["status"] == "ROUTE"]
+        depth = {"label": dc["law"],
+                 "returned_journeys": dict(Counter(j["journey_status"] for j in dc["journeys"])),
+                 "returned_journeys_max_peak_kw_m2": max(m["peak_kw_m2"] for j in dc["journeys"] for m in j["per_member"].values()),
+                 "returned_journeys_max_added_dose_kj_m2": max(m["dose_added_kj_m2"] for j in dc["journeys"] for m in j["per_member"].values()),
+                 "travel_only_routes": len(a0),
+                 "travel_only_failing_full_policy": sum(1 for r in a0 if not (r["contact_ok"] and r["peak_ok"] and r["dose_ok"])),
+                 "travel_only_failing_by_component": {"contact": sum(not r["contact_ok"] for r in a0),
+                                                      "peak": sum(not r["peak_ok"] for r in a0),
+                                                      "dose": sum(not r["dose_ok"] for r in a0)},
+                 "contact_routes": len(a1),
+                 "contact_routes_failing_thermal": sum(1 for r in a1 if not (r["peak_ok"] and r["dose_ok"])),
+                 "scope": "fixed routes only; thermal policies A2 to A4 not re-planned under this law"}
     results = {
         "schema": "wfg.flamefront.results/1",
         "law_version": "wfg.radiation.law/2-flamefront",
@@ -176,6 +193,8 @@ def main():
         "replay_18_journeys": rs,
         "policy_study": summ,
         "thresholds_side_by_side": thr,
+        "flame_depth_column": depth,
+        "physics_decision": json.loads((RES / "physics_validation/VALIDATION.json").read_text())["depth_law_decision"],
         "table_costs": study["table_costs"],
         "hosts": {"replay": replay["host"], "policy_study": study["host"]},
         "missions": missions,
