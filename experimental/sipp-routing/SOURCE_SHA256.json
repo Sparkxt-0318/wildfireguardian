@@ -1,7 +1,7 @@
 {
  "documents": {
   "docs/JOURNEY_SAFETY_PREDICATE.md": "17eb8014d39d488ca3675c9987fde71fe3f06d556f8af74079b5b749fdea5748",
-  "docs/SIPP_EQUIVALENCE.md": "c7f20e1dd24a4fb8822004cee89e2765586f7883f63c6a7855897edbd3c6140d"
+  "docs/SIPP_EQUIVALENCE.md": "f613e23cc42195533b8f79456f1d6b038c7b26732645eb71ee8415a977bbdbb7"
  },
  "frozen_imports_pinned": {
   "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",

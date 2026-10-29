@@ -2,7 +2,7 @@
 
 Track 1C-2. Code: `experimental/sipp-routing/src/wfg_sipp/` (`sipp.py` search, `frontend.py` geometry, `bruteforce.py` reference). Evidence: `research/sipp-routing/README.md`.
 
-This note states the relaxation both solvers decide, the safe-interval state space, and the argument that Safe Interval Path Planning (SIPP; Phillips and Likhachev 2011, IEEE ICRA, pp. 5628-5635) returns exactly the earliest arrival of the frozen sweep `integration/kit/phaseB/zsweep.py::contact_sweep`, or proves that none exists. Every assumption is listed in the last section; outside them the argument does not apply.
+This note states the relaxation both solvers decide, the safe-interval state space, and the argument that Safe Interval Path Planning (SIPP; Phillips and Likhachev 2011, IEEE ICRA, pp. 5628-5635) returns exactly the earliest arrival of the frozen sweep `integration/kit/phaseB/zsweep.py::contact_sweep`, or proves, within the relaxation and under the assumptions of section 4, that none exists. Every assumption is listed in the last section; outside them the argument does not apply.
 
 **Safe interval (definition used throughout).** For a configuration (here: being at a road node after a given incoming edge), a safe interval is a maximal run of integer seconds during which the configuration can be occupied and, except at its last second, kept by waiting, without flame contact in any member of the planning set. "Safe" in this term means only "contact-free under the supplied members and the declared lattice"; it is not a statement about physical safety.
 

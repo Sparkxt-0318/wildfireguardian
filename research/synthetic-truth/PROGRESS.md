@@ -6,6 +6,7 @@ One line per finished deliverable or gate, newest last. The orchestrator copies 
 - 2026-10-29 (1C-2): SIPP matches the frozen contact sweep on 20/20 Korean missions in both repetitions (40/40 pairs), 81/81 member-scaling pairs, 10,000/10,000 random instances against brute force and 2,000/2,000 geometric instances against the frozen sweep; planner time SIPP/sweep median 0.39 (40/40 faster, Linux host-specific). Commit b38c36e.
 - 2026-10-29 (1C-3): campaigns C1 to C4 done: C1 K = 4 trajectory members false-safe 11/2,000 (0.55%, Wilson 0.31% to 0.98%), equal to frozen v1 members, all from 2 of 20 missions, 0 false refusals, 0 unresolved; C4 reconstructed arrival: frozen members 0 false-safe on 20 missions, forecast-ignoring policy 1. Commit c905585.
 - 2026-10-29 (1C-1, export v3): Contract A replay export for all 15 Korean cutoffs (N = 1,024, seed 0); replay equals model mode exactly on a FIXTURE data root with the real c651 checkpoint. Commits 31c6650, 10e8669.
+- 2026-10-29 (1C-1, members): v1 frozen members reproduce the frozen outcomes exactly (15 routes, 5 refusals, same 15 arrivals); v2 trajectory members at K = 4 give 15 / 5 / 0 (2 arrivals change); routes cover 98.9% of N = 1,024 trajectories on average; K = 8 reaches K = 32 coverage within 1 point; 0 unresolved in 480 decisions. Commit 5d16568.
 - 2026-10-29 (extended-horizon exploratory panel, not frozen missions): derivation of 40 missions (20 x {3 h, 6 h}) with source request hashes; FIXTURE run only (real data tree pending). Commit 61b86d2.
 
 ## Gate run (fresh virtual environment), 2026-10-29
