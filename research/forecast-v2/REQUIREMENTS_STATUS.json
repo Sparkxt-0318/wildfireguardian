@@ -316,7 +316,7 @@
   "schema": "wfg.forecast-v2.requirements/1",
   "evidence_class": "current real-input executions, earlier attempts excluded from primary totals",
   "authenticated_development_fits": 21,
-  "authenticated_final_fits": 6,
+  "authenticated_final_fits": 7,
   "promotion_authority": false,
   "comparison_execution_complete": false,
   "receipts": [
@@ -516,6 +516,11 @@
       "sha256": "a7a6893ca62e80403f8676f2035705250bb845d3f023582b6baed570fec53046"
     },
     {
+      "job": "a05_final_burnout_spotting_flaming_only",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/result.json",
+      "sha256": "cd2fa6aec00f2863568e1fc17647a2329a1fc76919b4c979e5f6ee4ff6d3d205"
+    },
+    {
       "job": "a05_fold_2020_burnout_spotting_flaming_only",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
       "sha256": "ff3c9f5cf75ec8877007c3dba51ba5af259b4b96a2802cc624a0eb490f893961"
@@ -558,14 +563,14 @@
     },
     {
       "id": "1B-2-full-final-fits",
-      "status": "IN_PROGRESS",
-      "authenticated_fits": 6,
+      "status": "COMPLETE",
+      "authenticated_fits": 7,
       "expected_fits": 7,
       "expected": "All eligible fit-fire intervals, fixed3epochs; unsupported zero-weight intervals explicitly logged"
     },
     {
       "id": "1B-3-structural-ablations",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "expected": "none,D4,D4+localwind,ellipse,burnout,burnout+spotting,mixed; sameeligibleperimeterfitpolicy"
     },
     {
@@ -669,7 +674,7 @@
     {
       "id": "1B-ablation-burnout_spotting",
       "development": "COMPLETE",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "executable": "scripts/run_campaign.py spotting-repair --attempt 5",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/result.json"
     },

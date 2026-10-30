@@ -1,7 +1,9 @@
 # Forecast v2, current execution
 
-Twenty-one intended development fits and six intended full final fits are
-complete. The corrected full spotting fit is running. Three earlier spotting
+Twenty-one intended development fits and all seven intended full final fits are
+complete. The corrected full spotting fit used all 1,303 inputs in every epoch,
+with 1,303 optimizer updates and no unsupported skips in each of three epochs.
+Three earlier spotting
 folds and one full fit remain historical
 smouldering-inclusive variants; they do not satisfy intended completeness or
 selection. No heldout forecast-quality result or superiority claim is available.
