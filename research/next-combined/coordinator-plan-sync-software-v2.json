@@ -1,0 +1,8 @@
+{
+  "action": "Parentauthorizedexactplansync, nomerge andnomanualrewriteofearlierRUNNINGprogress",
+  "source_branch": "next/orchestrator",
+  "source_commit": "861cac6a25f61d310332d8f931a781d07aa19ef0",
+  "source_path": "docs/NEXT_PLAN.md",
+  "bytes": 55636,
+  "sha256": "a9ef662dba13a7c4013bf498b58864cf1daad4de4898470c017041c1b8dd2173"
+}

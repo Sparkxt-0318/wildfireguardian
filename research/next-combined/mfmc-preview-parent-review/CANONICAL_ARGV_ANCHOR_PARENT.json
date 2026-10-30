@@ -1,0 +1,7 @@
+{
+  "scope": "Independent canonical historical a06 argv anchor; only declared case-index value normalized to0",
+  "sha256": "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803",
+  "serialization": "json.dumps(argv,separators=(comma,colon),ensure_ascii=True)",
+  "source_receipt_sha256": "afcb80cab500e6138563cac6f9fcb5f8a1b65489d5a0fa20d99175e7f7bb2743",
+  "actual12_full_commands_equal_except_index": true
+}

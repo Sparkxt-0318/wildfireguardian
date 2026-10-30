@@ -13,10 +13,10 @@
     "B_report_alias": "637457f3118bad5575dd6b4b83c74511d93bbd43",
     "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
     "B_report_software": "61c836a058eb5fe866da584f7e7670a2b89185af",
-    "B_current_overlay": "b8039a42b3f1c511cf4a9f47040cf967c6f67119",
+    "B_current_overlay": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "b8039a42b3f1c511cf4a9f47040cf967c6f67119",
+    "B_current_packaging": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61"
   },
   "graphs": {
@@ -92,7 +92,9 @@
     "F65provisionalactualownerPASS21development7final and9612correlatedsavedmetadata predicates are not independentactualcache/member/value replay or canonicalcoveragePASS. ExecutedF65 andcheckedliveF175aredistinct. Wrapperrefusalonlytested, rawnonadmissionUNTESTED. Freshauthorizedcanonicalaudit/selection/registry/heldoutremainunrun.",
     "PreparedMFMCchecker24/24syntheticrecordpreserved; separateactualsavedreconciliationPASSunderF175beforeauthorized65applyafter12case/66rowclosure. Nopercellfieldssavedso norawRMSE/MC/mask/checkpointreplay; separatefrom38preparedheldoutchecker.",
     "ActualMFMCsavedJSON/CSV/receipt/sourceclosurePASS covers12cutoffs66rows,56comparable10unavailable;reference24scored12unavailable30fixedUSnoreference. No rawfield/mask/MC/model/checkpointreplay or speed/scientificpromotion. Exact65appliedb803onlyafteractualreconciliation; newupdatedsuite/release/livecoverage andreportonly68ownercontrolindependentreviewpending; canonicalHOLD, no selection/registry/heldout.",
-    "Parentconfirmedreport7e59P2argparsegrammar defect: trailing--seed=7override canbypassdeclaredseed. All12actualargvcanonicalunderseparaterootinspection, actualMFMCunaffected/noMC rerun. Repair/recheckpending; activeunfinishedreviewfoldernotread/copied."
+    "Historicalreport7e59P2argparsegrammar defect, closedonlyby275scoped22/13review: trailing--seed=7override canbypassdeclaredseed. All12actualargvcanonicalunderseparaterootinspection, actualMFMCunaffected/noMC rerun. Originalfailedprobespreserved; completedrepairreviewnowarchived, noactualcomparisonrerun.",
+    "Separate275report22command/13closurecontrolsPASSand49fixture52correlatedpredicatesPASS, notpooled. Source201Gitidentitychecks andowner3507+367softwarePASS do notclearcanonicalcoverage. LatercompletedownercanonicalPASSarchivedonlyafterexplicitparentcompletionpins, independentreviewpending. PriorgrammarHOLDpreserved; previewQAisnotfinalfivefigQA.",
+    "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; independentcanonicalreviewactive/pending, nooutcomeinferred. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -761,16 +763,16 @@
     "MC_model_or_checkpoint_byte_replay": false,
     "scientific_speed_or_model_promotion": false,
     "shared_24h_call_counts_not_five_independent_timings": true,
-    "canonical_coverage": "HOLD_UPDATED_SOFTWARE_AND_FRESH_LIVE_AUDIT_PENDING",
+    "canonical_coverage": "RUNNING_SEPARATE_FRESH_GATE_NOT_CLEARED_BY_RECONCILIATION",
     "actual_command_form_inspection": "mfmc-final-actual-reconciliation-a06/ACTUAL_COMMAND_FORM_INSPECTION.json",
     "actual_command_inspection_scope": "Parent12actualargv canonical/onlycaseindexvaries, noequals/duplicate/separator, allknownflags. Exactrootreceiptarchived, notMC rerun."
   },
   "B_live_source_transition": {
     "state": "APPLIED_EXACT65_AFTER_COMPARISON_CLOSURE_AND_ACTUAL_RECONCILIATION",
     "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
-    "updated_full_software_suite": "NOT_RUN_PENDING_REPORT_COMMAND_GRAMMAR_REPAIR_AND_RECHECK",
-    "updated_release_check": "NOT_RUN_PENDING_REPORT_COMMAND_GRAMMAR_REPAIR_AND_RECHECK",
-    "fresh_live_canonical_coverage": "NOT_RUN_PENDING_REPORT_COMMAND_GRAMMAR_REPAIR_AND_RECHECK",
+    "updated_full_software_suite": "PASS3507_TESTS_OWNER_RECEIPT_V2",
+    "updated_release_check": "PASS367_HASHES_OWNER_RECEIPT_V2",
+    "fresh_live_canonical_coverage": "OWNER_PASS_PENDING_INDEPENDENT_REVIEW",
     "selection_registry_heldout": "NOT_RUN",
     "readiness_source_apply": false,
     "previous_3373_suite": "Originalpreapplysourcepassonly, notsubstituteforfreshupdatedsuite",
@@ -782,16 +784,74 @@
     "mismatches": 0
   },
   "B_report_only_patch_review": {
-    "state": "HOLD_CONFIRMED_COMMAND_GRAMMAR_DEFECT_REPAIR_AND_INDEPENDENT_RECHECK_PENDING",
-    "owner_controls_reported": 68,
-    "source_pin": "Parentreportedstablecandidate7e59ce24/hashprefix2fce1053; no independentclearancehere",
-    "not_cleared_here": true,
+    "state": "SCOPED_COMMAND_GUARD_REPAIR_PASS",
+    "source_head": "27506618643b05b1335fadf72b8c027fb7c9e9b1",
+    "report_sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+    "review": "mfmc-report-guard-review-27506618/v2/REVIEW_27506618.md",
+    "inventory": "mfmc-report-guard-review-27506618/SOURCE_INVENTORY.json",
+    "command_matrix": {
+      "passed": 22,
+      "total": 22
+    },
+    "separate_prior_closure_plot_controls": {
+      "passed": 13,
+      "total": 13
+    },
+    "counts_not_pooled": true,
+    "original_failure": "mfmc-report-guard-review-27506618/REVIEW_7e59ce24.md",
+    "owner_tests_reported": 98,
+    "readiness_rerun": false
+  },
+  "B_updated_software_v2": {
+    "state": "PASS_OWNER_EXECUTION_SOURCE_LOG_CUSTODY",
+    "source_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+    "receipt": "software-gate-v2-49a7cccc/final_software_gate_v2.json",
+    "inventory": "software-gate-v2-49a7cccc/SOURCE_INVENTORY.json",
+    "passed": 3507,
+    "warnings": 551,
+    "pytest_summary_seconds": 263.24,
+    "release_hashes": 367,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "source_hashes_matched": 201,
+    "default_and_protected_paths_unchanged": true,
     "readiness_rerun": false,
-    "owner_candidate_reference": "7e59ce24",
-    "reported_report_source_sha256_prefix": "2fce1053",
-    "old_definitions_AST_unchanged_reported": 17,
-    "finding": "Parent relays independentP2: reportloader accepts synthetic trailing--seed=7 override despiteclaimedseed0, withsameclassargparseforms. Actual12argv separatelyinspectedcanonical/unaffected; noMC rerunneeded.",
-    "unfinished_review_probes_archived": false,
-    "actual_comparison_reconciliation_affected": false
+    "performance_evidence": false
+  },
+  "B_fixture_lifetime_review": {
+    "state": "SCOPED_TEST_FIXTURE_LIFETIME_PASS",
+    "source_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+    "review": "fixture-lifetime-review-49a7cccc/REVIEW.md",
+    "inventory": "fixture-lifetime-review-49a7cccc/SOURCE_INVENTORY.json",
+    "correlated_predicates": 52,
+    "passed": 52,
+    "not_independent_samples": true,
+    "owner_tests_reported": 118,
+    "production_F65_report56_unchanged": true,
+    "readiness_rerun": false
+  },
+  "B_canonical_coverage_current": {
+    "state": "OWNER_PASS_PENDING_INDEPENDENT_REVIEW",
+    "receipt": "canonical-coverage-owner-ab7fda8d/final_fit_coverage_audit_v2.json",
+    "output": "canonical-coverage-owner-ab7fda8d/FIT_COVERAGE.json",
+    "log": "canonical-coverage-owner-ab7fda8d/final_fit_coverage_audit_v2.log",
+    "inventory": "canonical-coverage-owner-ab7fda8d/SOURCE_INVENTORY.json",
+    "executing_auditor_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+    "owner_pid": 85017,
+    "started_utc": "2026-10-30T12:57:03.082631+00:00",
+    "finished_utc": "2026-10-30T12:57:20.531855+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 17.448909333033953,
+    "development_phases": 21,
+    "final_variants": 7,
+    "source_unchanged": true,
+    "independent_review": "ACTIVE_NOT_ARCHIVED_NO_OUTCOME_CLAIM",
+    "readiness_actual_array_cache_member_model_replay": false,
+    "readiness_rerun": false,
+    "registry_frozen": false,
+    "heldout": "NOT_RUN",
+    "actual_result_checker": "NOT_RUN"
   }
 }

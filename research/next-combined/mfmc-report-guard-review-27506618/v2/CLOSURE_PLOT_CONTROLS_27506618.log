@@ -1,0 +1,206 @@
+{
+  "scope": "Bounded source/custody and synthetic metadata/plot controls only; no actual comparison, model, raw prediction/data array or heldout opened. Full real61 source bytes copied without changing production trust-anchor constants; source-only F65 archive used.",
+  "review_head": "27506618643b05b1335fadf72b8c027fb7c9e9b1",
+  "checks": [
+    {
+      "name": "unmodified_canonical61_F175",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full61_production_anchor_not_patched",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manual_unique_call_costs_not_repeated_horizon_sums",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unmodified_canonical61_F65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unmodified_canonical61_unknown",
+      "passed": true,
+      "detail": "Comparison requires a reviewed current auditor and exact original F1753"
+    },
+    {
+      "name": "unmodified_canonical61_resigned_numeric_drift",
+      "passed": true,
+      "detail": "Comparison complete original producer source closure changed"
+    },
+    {
+      "name": "unmodified_canonical61_bad_old_snapshot",
+      "passed": true,
+      "detail": "Compressed immutable source snapshot differs from the recorded original bytes"
+    },
+    {
+      "name": "manual_KR_cutoffs_vs_unique_events_and_null_support",
+      "passed": true,
+      "detail": [
+        {
+          "country": "KR",
+          "hours": 1,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 3,
+          "declared_catalog_events": 3,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 3,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "KR",
+          "hours": 3,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 3,
+          "declared_catalog_events": 3,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 3,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "KR",
+          "hours": 6,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 3,
+          "declared_catalog_events": 3,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 3,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "KR",
+          "hours": 12,
+          "available_cutoffs": 0,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 0,
+          "declared_catalog_events": 3,
+          "known_support_cutoffs": 3,
+          "known_support_catalog_events": 1,
+          "status": "UNAVAILABLE_ACTIVE_SUPPORT"
+        },
+        {
+          "country": "KR",
+          "hours": 24,
+          "available_cutoffs": 0,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 0,
+          "declared_catalog_events": 3,
+          "known_support_cutoffs": 0,
+          "known_support_catalog_events": 0,
+          "status": "UNAVAILABLE_ACTIVE_SUPPORT"
+        },
+        {
+          "country": "US",
+          "hours": 1,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 6,
+          "declared_catalog_events": 6,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 6,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "US",
+          "hours": 3,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 6,
+          "declared_catalog_events": 6,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 6,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "US",
+          "hours": 6,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 6,
+          "declared_catalog_events": 6,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 6,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "US",
+          "hours": 12,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 6,
+          "declared_catalog_events": 6,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 6,
+          "status": "AVAILABLE"
+        },
+        {
+          "country": "US",
+          "hours": 24,
+          "available_cutoffs": 6,
+          "declared_cutoffs": 6,
+          "available_catalog_events": 6,
+          "declared_catalog_events": 6,
+          "known_support_cutoffs": 6,
+          "known_support_catalog_events": 6,
+          "status": "AVAILABLE"
+        }
+      ]
+    },
+    {
+      "name": "manual_plot_fixed_positions_nulls_and_median",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "plot_scope_disclosures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "known_support_separate_from_no_active_plot_availability",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved_original_and_fixed_evidence_manifest",
+      "passed": true,
+      "detail": {
+        "files": 34,
+        "bad": []
+      }
+    },
+    {
+      "name": "original17_other_function_ASTs_unchanged",
+      "passed": true,
+      "detail": {
+        "style": true,
+        "save": true,
+        "sha256": true,
+        "load_assessment": true,
+        "load_report_inputs": true,
+        "assessment_scores": true,
+        "retrospective_gate": true,
+        "figure_unavailable": true,
+        "absence_reason": true,
+        "ablation": true,
+        "heldout_ablation": true,
+        "primary_candidate": true,
+        "detailed_scores": true,
+        "figure_reliability": true,
+        "figure_per_fire": true,
+        "figure_ablation": true,
+        "figure_example": true
+      }
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "failures": []
+}

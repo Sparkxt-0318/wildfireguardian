@@ -1,0 +1,44 @@
+{
+  "state": "SCOPED_TEST_FIXTURE_LIFETIME_PASS",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-fixture-lifetime-independent-review/REVIEW.md",
+      "archive": "fixture-lifetime-review-49a7cccc/REVIEW.md",
+      "bytes": 4323,
+      "sha256": "ac5a63524bc80be6dff772e6e2672f30ac5c015ac8ec26b3ecb72527a6e0c35c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-fixture-lifetime-independent-review/check_lifetime.py",
+      "archive": "fixture-lifetime-review-49a7cccc/check_lifetime.py",
+      "bytes": 8785,
+      "sha256": "b5b7142c4d128bdc1419090da0340eeecb31249e0b90f7caff5fad73871c5eda"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-fixture-lifetime-independent-review/CHECKS.json",
+      "archive": "fixture-lifetime-review-49a7cccc/CHECKS.json",
+      "bytes": 6857,
+      "sha256": "6897ca3666ad30e4f1e33681e710776aa1e9aac5b68dbe3ced0c9e169842a870"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-fixture-lifetime-independent-review/CHECKS.log",
+      "archive": "fixture-lifetime-review-49a7cccc/CHECKS.log",
+      "bytes": 229,
+      "sha256": "094e75dc5b5734b79c43d402ff081fd2b585d11d9e470a1ac659a7af1aba04a0"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-fixture-lifetime-independent-review/MANIFEST.json",
+      "archive": "fixture-lifetime-review-49a7cccc/MANIFEST.json",
+      "bytes": 346,
+      "sha256": "01bc65902758854edd0b6a0708fd32e34a7f44a72c41b39acc792bf8f87fea2a"
+    }
+  ],
+  "source_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+  "correlated_synthetic_predicates": 52,
+  "not_independent_samples": true,
+  "owner_targeted_tests_reported": 118,
+  "counts_not_pooled": true,
+  "production_F65_and_report56_unchanged_reported": true,
+  "generated_synthetic_scratch_tree_copied": false,
+  "scope": "Exactreview/script/savedchecks/log/manifest only. Smallsyntheticfixturecatalogcopy,mutationrefusal,teardown,productionauditorrefusal assurance. Notactualcoverage/selection/registry/heldout. Generateddummyarrays/checkpoints/caches are regeneratedbytheproducer andwerenotopened/copiedhere.",
+  "readiness_rerun": false
+}

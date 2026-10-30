@@ -1,0 +1,28 @@
+{
+  "scope": "Parent visual review of actual comparison preview only, not final five-figure QA, numerical field replay or model validation",
+  "files": {
+    "fig04_meanfield_vs_mc_rmse_by_horizon.png": "3889bb6b86ccc7cc9f325fb0c26fb1777b172ebe05e2f851d13ec3aad201f356",
+    "fig04_meanfield_vs_mc_rmse_by_horizon.svg": "aca8e23a3e0877d94b14106c1bc71403a87e2669ec0e89b6cbf3f43656d35a82"
+  },
+  "png_pixels": [
+    1050,
+    720
+  ],
+  "png_dpi": [
+    299.9994,
+    299.9994
+  ],
+  "svg_dimensions": {
+    "width": "252pt",
+    "height": "172.8pt"
+  },
+  "visual_findings": [
+    "All 1, 3, 6, 12 and 24 hour positions are present.",
+    "KR active points at 12 and 24 hours are absent, with C 0/6 and E 0/3 unavailable labels.",
+    "Both cutoff and unique catalog-event denominators are visible.",
+    "The band is labelled cutoff min/max rather than a confidence interval.",
+    "The probability activity threshold and distinction from physical flaming are explicit.",
+    "No clipped labels or legend overlap with the data were observed."
+  ],
+  "status": "PASS_PREVIEW_VISUAL_SCOPE"
+}

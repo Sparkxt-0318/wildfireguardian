@@ -1,0 +1,19 @@
+{
+  "CLOSURE_PLOT_CONTROLS_7e59.json": "e9f7d62e5f85775e1aa8b8b8b4b2d20b761571b51303668d83844a34a37a9d6b",
+  "CLOSURE_PLOT_CONTROLS_7e59.log": "e9f7d62e5f85775e1aa8b8b8b4b2d20b761571b51303668d83844a34a37a9d6b",
+  "COMMAND_MATRIX_7e59.json": "86f379fedd4ae3789069adfc81ad1b09cd39dcb2694a86dc983d4c5b353d82e1",
+  "COMMAND_MATRIX_7e59.log": "86f379fedd4ae3789069adfc81ad1b09cd39dcb2694a86dc983d4c5b353d82e1",
+  "PRESERVED_SOURCE.json": "4b63ad986052fd877a74a27798fb36d38bd4a748bd3ca9b614796bc14845f489",
+  "REVIEW_7e59ce24.md": "f10cc9e8f172a5095d4d6bcf30548a1858175015fad7aec11d318372c869317c",
+  "closure_plot_controls_7e59.py": "7e5916def2abcd1b48d21bb32ff9655e909339610e02c36131570d926d7a1fa6",
+  "command_matrix_7e59.py": "7b3968e213649e66d496599785d32f61d6d3df46fea41ac4490103bbbdd6db2b",
+  "manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png": "f01280f4e7d58e2b8b561bd806f493e6bcb4fd1d2ef5eea960d9406465734a32",
+  "manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg": "8089d3561fcf61f8f1581a6193a77e89987f53b966e01c3dbe58edb40ab0b387",
+  "manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png": "2afe835f73ef29e44bb7ad29cbca2738e240ea4fcf16735d16f6978cf7a08d7a",
+  "manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg": "b31f57a5d195954b825d56de1bdfa0a26f48b83b0f13887256d5526abb9da2c5",
+  "pipeline_P88d.py.gz": "53d4137a2b95dae74059195b921f1d8487079762d3a484fe22e9ebd435ef98ed",
+  "probe_effective_equals.json": "8eafac841c0060f41a6a7e35ef4a6f8d18145b4ad739487059f8c5724f4a78bc",
+  "probe_effective_equals.py": "208e547451e5ae9f5cea2748f746e616053c40c0b8a62cd1973100940db3e690",
+  "report_7e59.py.gz": "02b1478e04a8e8027681af4984b1a4b6e03fbde80062f479e892dc68a05dd77f",
+  "test_report_comparison_7e59.py.gz": "2fe5ed99e0802802f7228ad5296ba7f644fbce505b9f5b8c780a665418db6d0c"
+}

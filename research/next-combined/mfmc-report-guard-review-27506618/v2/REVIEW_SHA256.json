@@ -1,0 +1,18 @@
+{
+  "CLOSURE_INITIAL_HARNESS.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "CLOSURE_PLOT_CONTROLS_27506618.json": "69a72b038cc7230cf692266845269b078e7aae37316fffd3ed18a36614b71c51",
+  "CLOSURE_PLOT_CONTROLS_27506618.log": "69a72b038cc7230cf692266845269b078e7aae37316fffd3ed18a36614b71c51",
+  "COMMAND_MATRIX_27506618.json": "d9c5009a669f92d49f1537551264a05ed6dee8f5cb7709e3809d53aa77b1d7a0",
+  "COMMAND_MATRIX_27506618.log": "d9c5009a669f92d49f1537551264a05ed6dee8f5cb7709e3809d53aa77b1d7a0",
+  "INITIAL_HARNESS_REFUSAL.json": "1b4695fc1ad09eefb4abfdb53eea235d1583c9636306cc3cead8e45ce179740f",
+  "PRESERVATION_AND_AST.json": "c6bf7eed78d618e3a044b37d66605663d10d32b527f18109ff53b6e2dec839d2",
+  "REVIEWED_SOURCE_SHA256.json": "428c5d637521307f39f1b21d25dab1e1a78bb8890bdb6ca4e7d9934968d0f75c",
+  "REVIEW_27506618.md": "b914e1606214499af7aaf9293cbe0533fd72f1012e3eac63647b4ee1ded839eb",
+  "closure_plot_controls_27506618.py": "3b8fb2bf09511a85240b7e1bb3217f5c3f386b757b89545478bcc018fe28b014",
+  "closure_plot_controls_initial_harness.py": "2ccddcfc31ceae4366e3a556291c3081237754ecff6924b4faa85a0a5251c986",
+  "command_matrix_27506618.py": "bb3974694e5c1c149005d9e7fcc4cf2fc30a46cbdf935988ff8a3b7f7db66d58",
+  "manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png": "f01280f4e7d58e2b8b561bd806f493e6bcb4fd1d2ef5eea960d9406465734a32",
+  "manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg": "196ba587c30733af62abdff676ca24440cda5a63b0bff2f184a90063d2bfe7a7",
+  "manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png": "2afe835f73ef29e44bb7ad29cbca2738e240ea4fcf16735d16f6978cf7a08d7a",
+  "manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg": "0f4dcca853f446892cf59f4f56267db7c8d1736b33cd016d4fbeae0007463c94"
+}

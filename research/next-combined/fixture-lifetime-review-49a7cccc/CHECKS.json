@@ -1,0 +1,232 @@
+{
+  "status": "PASS_TEST_FIXTURE_LIFETIME_ONLY",
+  "source_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+  "checks": [
+    {
+      "check": "git_head_exact",
+      "pass": true
+    },
+    {
+      "check": "pin:forecast/tests/test_report_readiness.py",
+      "pass": true
+    },
+    {
+      "check": "pin:forecast/tests/test_report_ablation.py",
+      "pass": true
+    },
+    {
+      "check": "pin:research/forecast-v2/scripts/audit_fit_coverage.py",
+      "pass": true
+    },
+    {
+      "check": "pin:research/forecast-v2/review/report_fixture_catalog_lifetime_v1/FIXTURE_LIFETIME.patch.gz",
+      "pass": true
+    },
+    {
+      "check": "pin:research/forecast-v2/review/report_fixture_catalog_lifetime_v1/MANIFEST.json",
+      "pass": true
+    },
+    {
+      "check": "live_matches_git_blob:forecast/tests/test_report_readiness.py",
+      "pass": true
+    },
+    {
+      "check": "live_matches_git_blob:forecast/tests/test_report_ablation.py",
+      "pass": true
+    },
+    {
+      "check": "live_matches_git_blob:research/forecast-v2/scripts/audit_fit_coverage.py",
+      "pass": true
+    },
+    {
+      "check": "production_unchanged_by_lifetime_commit:research/forecast-v2/scripts/audit_fit_coverage.py",
+      "pass": true
+    },
+    {
+      "check": "live_matches_git_blob:research/forecast-v2/scripts/report.py",
+      "pass": true
+    },
+    {
+      "check": "production_unchanged_by_lifetime_commit:research/forecast-v2/scripts/report.py",
+      "pass": true
+    },
+    {
+      "check": "manifest_patch_payload_sha",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:154",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:196",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:205",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:218",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:235",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_readiness.py:128",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_ablation.py:41",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_ablation.py:78",
+      "pass": true
+    },
+    {
+      "check": "caller_has_explicit_monkeypatch:forecast/tests/test_report_ablation.py:101",
+      "pass": true
+    },
+    {
+      "check": "all_nine_callers",
+      "pass": true
+    },
+    {
+      "check": "catalog_registered_after_internal_context",
+      "pass": true
+    },
+    {
+      "check": "catalog_value_exact_precaptured_snapshot",
+      "pass": true
+    },
+    {
+      "check": "catalog_deepcopy_root",
+      "pass": true
+    },
+    {
+      "check": "catalog_deepcopy_current",
+      "pass": true
+    },
+    {
+      "check": "catalog_deepcopy_versions",
+      "pass": true
+    },
+    {
+      "check": "catalog_deepcopy_nested_phase_list",
+      "pass": true
+    },
+    {
+      "check": "temporary_comparator_mock_restored",
+      "pass": true
+    },
+    {
+      "check": "temporary_verifier_mock_restored",
+      "pass": true
+    },
+    {
+      "check": "old_entry_mutation_does_not_change_frozen_catalog",
+      "pass": true
+    },
+    {
+      "check": "positive_fixture_verified",
+      "pass": true
+    },
+    {
+      "check": "production_versions_restored_after_positive",
+      "pass": true
+    },
+    {
+      "check": "production_current_baseline_restored_after_positive",
+      "pass": true
+    },
+    {
+      "check": "fresh_production_has_no_fixture_boundary",
+      "pass": true
+    },
+    {
+      "check": "fresh_production_refuses_fixture_while_catalog_present",
+      "pass": true,
+      "reason": "Unreviewed whole-producer source closure or intended phase"
+    },
+    {
+      "check": "post_freeze_source_mutation_refused",
+      "pass": true,
+      "reason": "Unreviewed whole-producer source closure or intended phase"
+    },
+    {
+      "check": "frozen_catalog_unchanged_by_source_mutation",
+      "pass": true
+    },
+    {
+      "check": "production_versions_restored_after_refusal",
+      "pass": true
+    },
+    {
+      "check": "production_current_baseline_restored_after_refusal",
+      "pass": true
+    },
+    {
+      "check": "catalog_exact_pretest_state_after_teardown",
+      "pass": true
+    },
+    {
+      "check": "fixture_key_absent_after_teardown",
+      "pass": true
+    },
+    {
+      "check": "same_fixture_no_admission_after_teardown",
+      "pass": true,
+      "reason": "Unreviewed whole-producer source closure or intended phase"
+    },
+    {
+      "check": "production_versions_exact_pretest_state",
+      "pass": true
+    },
+    {
+      "check": "production_current_baseline_exact_pretest_state",
+      "pass": true
+    },
+    {
+      "check": "instrumentation_restored",
+      "pass": true
+    },
+    {
+      "check": "source_still_pinned:forecast/tests/test_report_readiness.py",
+      "pass": true
+    },
+    {
+      "check": "source_still_pinned:forecast/tests/test_report_ablation.py",
+      "pass": true
+    },
+    {
+      "check": "source_still_pinned:research/forecast-v2/scripts/audit_fit_coverage.py",
+      "pass": true
+    },
+    {
+      "check": "source_still_pinned:research/forecast-v2/review/report_fixture_catalog_lifetime_v1/FIXTURE_LIFETIME.patch.gz",
+      "pass": true
+    },
+    {
+      "check": "source_still_pinned:research/forecast-v2/review/report_fixture_catalog_lifetime_v1/MANIFEST.json",
+      "pass": true
+    }
+  ],
+  "passed": 52,
+  "total": 52,
+  "pins": {
+    "forecast/tests/test_report_readiness.py": "2b76b959738ee702bca38466da2b5d43882bcdd87eff72c947022aa6de905e6a",
+    "forecast/tests/test_report_ablation.py": "8e249210abb5ed2111e3be86fcba0500e06355ebd593ed0668b9383fd5d2581f",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+    "research/forecast-v2/review/report_fixture_catalog_lifetime_v1/FIXTURE_LIFETIME.patch.gz": "6d737af2b9801ac97e6ccd94b7d7bca6ec65308708ad61f1869fa2e264a8157c",
+    "research/forecast-v2/review/report_fixture_catalog_lifetime_v1/MANIFEST.json": "52631a932ec62945b021c464ad40fea8a212445b5c8fa49353bd200b4b743285"
+  },
+  "report_sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+  "limits": [
+    "No plotting, full suite, fits, actual input arrays, checkpoints, forecasts or heldout evidence accessed.",
+    "Tiny fixture arrays and dummy checkpoint byte strings are test constructions only.",
+    "No actual coverage or registry clearance is claimed."
+  ]
+}
