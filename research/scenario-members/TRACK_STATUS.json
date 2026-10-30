@@ -9,7 +9,7 @@
     {
       "id": "1C-1-real-export",
       "status": "PASS",
-      "evidence": "15 actual Korean windows, 1024 trajectories each; all v2 arrays identical and full-N means exact on known support."
+      "evidence": "15 actual Korean windows, 1024 trajectories each. EXPORT_BYTE_AUDIT.json now independently verifies dtype, shape, raw C-order payload bits including NaNs, and full uncompressed NPY entries for every shared v2 array. Historical value audit retained."
     },
     {
       "id": "1C-1-regeneration-contract",
@@ -24,7 +24,7 @@
     {
       "id": "1C-1-reduction-library",
       "status": "PASS_UNIT_SCOPE",
-      "evidence": "Three distances and three selectors, weight redistribution, extreme append and CVaR tested. Road-arrival feature extraction and full panel reduction not established."
+      "evidence": "Three distances/selectors, exact extracted road first-unsafe integer departures, boundary/outside/native/unknown controls, mass redistribution, exact weighted CVaR tails and stable weight guards tested. Full panel reduction remains gated."
     },
     {
       "id": "1C-1-K-panel-coverage",
@@ -94,12 +94,12 @@
     {
       "id": "1C-3-C4",
       "status": "PARTIAL_ADMISSION_ONLY",
-      "evidence": "Eight Gyeongbuk mission records unresolved. Reconstructed truth scoring and executed-route maps not run; Caldor alignment unestablished."
+      "evidence": "Eight Gyeongbuk admission records remain unresolved. KFS_01 reconstructed-arrival reader now loads actual raster and aligned SD, retaining 7768 unknown cells; no full-policy truth packet, retrospective route map or Caldor c651 alignment established."
     },
     {
       "id": "1C-3-NIROPS-external",
-      "status": "NOT_IMPLEMENTED",
-      "evidence": "Native observed-perimeter and external-simulator truth adapters remain open."
+      "status": "PASS_INTERFACE_SCOPE_WITH_UNSCORABLE_OBSERVATIONS",
+      "evidence": "GeoTIFF reconstruction, NIROPS GeoJSON bounds and stored FARSITE NPZ readers implemented with units, grid, source hash/event/holdout and missingness tests. REAL_READERS_SMOKE.json binds real source bytes and prior extraction ledgers. No exact observed ignition or full-policy risk score."
     },
     {
       "id": "1C-3-Uljin-truth-members",
@@ -119,6 +119,21 @@
         "Initial in-place prototype failed frozen exporter identity check.",
         "Exact producers archived, wrapper relocated, no frozen manifest edit."
       ]
+    },
+    {
+      "id": "1C-1-road-features",
+      "status": "PASS_INTERFACE_AND_FIXTURE_SCOPE",
+      "evidence": "features.py uses copied exact chord midpoint and boundary occupancies with half-open activity, current fire, integer full-traversal departures and explicit horizon capping. 100 independent integer-departure enumerations match exact fractional ignition fixtures. Unknown positive-weight road features refuse reduction."
+    },
+    {
+      "id": "1C-3-current-scoring-guards",
+      "status": "PASS_TARGETED_REPAIR",
+      "evidence": "POST_REPAIR_CORE_AUDIT.json passes9/9. Contradictory checker/oracle evidence and nonfinite/negative values refused; normalization overflow repaired, underflowing positive masses refused, CVaR tail integration exact rational. Old campaign outputs/producers unchanged."
+    },
+    {
+      "id": "1C-3-native-FARSITE-execution",
+      "status": "NOT_RUN_AVAILABILITY_UNCONFIRMED",
+      "evidence": "Stored source-archive outputs and native-engine historical records exist. Neither 1B nor1C established a current runnable native installation; new reader does not execute the engine or inspect historical performance metrics."
     }
   ],
   "fresh_tests": {
@@ -135,5 +150,24 @@
       "entrypoint": "experimental/scenario-members/export_v3.py"
     }
   },
-  "figures": "PNG300dpi plusSVG with captions; selected cost/risk-availability figures visually inspected. Missing requested reduction/scaling/retrospective figures explicitly unrun."
+  "figures": "PNG300dpi plusSVG with captions; selected cost/risk-availability figures visually inspected. Missing requested reduction/scaling/retrospective figures explicitly unrun.",
+  "post_repair_tests": {
+    "software_head": "a1fb31a4e9df9c35957febb1961d68548c01d59b",
+    "routing": {
+      "passed": 40,
+      "skipped": 4,
+      "seconds": 21.56,
+      "skips": "one torch export module and three optional GIS tests"
+    },
+    "forecast_targeted": {
+      "passed": 20,
+      "seconds": 0.91
+    },
+    "core_audit": {
+      "checks": 9,
+      "passed": 9
+    },
+    "release_hashes": 367,
+    "receipt": "research/scenario-members/POST_REPAIR_RECEIPT.json"
+  }
 }
