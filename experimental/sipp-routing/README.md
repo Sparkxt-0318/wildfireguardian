@@ -11,3 +11,8 @@ contact on a known journey footprint while retaining unknown off-road values.
 See docs/KNOWN_FOOTPRINT_CONTACT.md for the exact finite-clock, source-binding,
 history-omission and restricted-failure contract. This does not change the
 strict bridge default or supply peak, dose, full-policy or risk evidence.
+
+The independent fd8bf2e7 review found source-consistency and clock-boundary
+defects beyond the original fixtures. See docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md
+for repaired admission rules and the separate repair receipt. The original
+fixture and receipt are preserved; native execution still requires recheck.

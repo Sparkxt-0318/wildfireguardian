@@ -76,3 +76,23 @@ source hashes, test counts and preserved prior evidence. No timing chart is
 created from software fixture runtimes. The fixed native paired K protocol,
 all thermal/full-policy checks and scientific risk remain on hold pending
 independent review and their separate execution gates.
+
+## Contact adapter source and clock repair
+
+Independent review of fd8bf2e7 identified three additional tiny API boundaries:
+contradictory active/unburned cutoff data was discarded, fractional member
+support could silently change the earliest-arrival problem, and datetime
+precision truncation could alias distinct source/request clocks. The repair
+restores consumed canonical source invariants and explicitly rejects unsupported
+clock precision and fractional member bounds. Exclusive terminal mode requires
+integer dwell; inclusive mode retains exact fractional dwell checking.
+
+The original contact fixture, producer, receipt and contact-contract document
+are byte-preserved. Their original test results remain historical evidence;
+the new boundary tests and repair receipt supersede their admission coverage.
+Run `python research/sipp-routing/verify_known_footprint_repair.py --out FRESH_RECEIPT.json`
+to reproduce the full overlay regression and custody checks. Exact counts,
+reference hashes and supported clock rules are recorded in
+KNOWN_FOOTPRINT_ADAPTER_REPAIR_RECEIPT.json. Native contact/K execution remains
+closed pending independent recheck. No prior static/strict evidence or timing
+record is replaced.

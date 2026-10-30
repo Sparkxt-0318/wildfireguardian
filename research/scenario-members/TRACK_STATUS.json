@@ -166,8 +166,8 @@
     },
     {
       "id": "1C-2-known-footprint-contact-adapter",
-      "status": "PASS_SOFTWARE_FIXTURE_SCOPE_REVIEW_PENDING",
-      "evidence": "Additive opt-in only. Explicit issue/chord/cut/end/turn/wait/dwell support barriers, finite horizon and right-censoring, immutable raw snapshots, original-ID prefix timing, and independent raw-data/geometry witness checking. Typed contact result only; restricted failure unresolved. Original issued history retained, private thermal fields explicitly omitted without rebinding, full-policy/peak/dose/risk unknown. Exact fixture and regression counts/hashes in research/sipp-routing/KNOWN_FOOTPRINT_ADAPTER_RECEIPT.json. No native timed study yet."
+      "status": "PASS_SOURCE_CLOCK_REPAIR_FIXTURES_RECHECK_PENDING",
+      "evidence": "Independent fd8bf2e7 review found3additional tiny source/clock defects beyond the original47fixtures. Source consistency restored before activity intersection; unsupported fractional member bounds and timestamp precision now refuse; exclusive terminal requires integer dwell. Original47fixture/producer/receipt/contract retained byte-for-byte. New boundary tests, full overlay regression and unchanged prior evidence hashes in KNOWN_FOOTPRINT_ADAPTER_REPAIR_RECEIPT.json. No native timed campaign until independent recheck. Contact-only typed result, unchanged original history, unknown full-policy/peak/dose/risk and strict default retained."
     }
   ],
   "fresh_tests": {

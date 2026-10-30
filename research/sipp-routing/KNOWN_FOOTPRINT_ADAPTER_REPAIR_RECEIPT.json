@@ -1,0 +1,183 @@
+{
+  "schema": "wfg.next.known-footprint-contact-adapter-repair/1",
+  "status": "PASS_SOURCE_CLOCK_REPAIR_FIXTURES_RECHECK_PENDING",
+  "base_head": "f9d8cd503170a148c845b1592a6b7c1c74ece92d",
+  "recorded_utc": "2026-10-30T08:03:38.793012+00:00",
+  "producer_sha256": "877fede92813faf7cc2a8f8b7554f207a1914038429384a0b327392a0ac150c7",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "commands": [
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+        "-m",
+        "pytest",
+        "experimental/sipp-routing/tests/test_known_footprint.py",
+        "--collect-only",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "experimental/sipp-routing/tests/test_known_footprint.py::test_offroad_unknown_is_irrelevant_and_original_history_stays_verbatim[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_offroad_unknown_is_irrelevant_and_original_history_stays_verbatim[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[interior-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[interior-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[issue-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[issue-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[destination-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[destination-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[cutoff-invalid-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[cutoff-invalid-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[endpoint-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_occupied_footprints_refuse[endpoint-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_grid_cut_point_refuses_even_with_known_interiors[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_unknown_grid_cut_point_refuses_even_with_known_interiors[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_waiting_and_half_open_expiry_follow_original_law[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_waiting_and_half_open_expiry_follow_original_law[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_dwell_contact_is_checked_and_unknown_initial_age_encloses_full_T[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_dwell_contact_is_checked_and_unknown_initial_age_encloses_full_T[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_turns_and_original_incoming_edge_context_are_retained[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_turns_and_original_incoming_edge_context_are_retained[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_finite_censoring_horizon_equality_and_full_dwell[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_finite_censoring_horizon_equality_and_full_dwell[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_timing_matches_bridge_for_prefixes_original_ids_and_exact_regional_view\nexperimental/sipp-routing/tests/test_known_footprint.py::test_independent_raw_checker_rejects_forged_search_evidence[support-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_independent_raw_checker_rejects_forged_search_evidence[support-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_independent_raw_checker_rejects_forged_search_evidence[flame-sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_independent_raw_checker_rejects_forged_search_evidence[flame-sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_restricted_exhaustion_cannot_be_original_domain_no_route[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_restricted_exhaustion_cannot_be_original_domain_no_route[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_contact_source_cannot_masquerade_as_default_or_full_policy_packet\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_equivalence_to_unchanged_reference_and_strict_unknown_default[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_equivalence_to_unchanged_reference_and_strict_unknown_default[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_clock_grid_outside_and_initial_context_refuse[clock]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_clock_grid_outside_and_initial_context_refuse[grid]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_clock_grid_outside_and_initial_context_refuse[outside]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_clock_grid_outside_and_initial_context_refuse[initial-position]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_clock_grid_outside_and_initial_context_refuse[incoming]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_reference_and_geometry_hashes_stay_frozen\nexperimental/sipp-routing/tests/test_known_footprint.py::test_private_history_omission_retains_kinematic_issue_state[sipp]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_private_history_omission_retains_kinematic_issue_state[sweep]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_both_methods_match_frozen_reference_with_dynamic_constraints[empty]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_both_methods_match_frozen_reference_with_dynamic_constraints[current]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_both_methods_match_frozen_reference_with_dynamic_constraints[new]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_both_methods_match_frozen_reference_with_dynamic_constraints[window]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_all_known_both_methods_match_frozen_reference_with_dynamic_constraints[forbidden]\nexperimental/sipp-routing/tests/test_known_footprint.py::test_checker_keeps_fractional_dwell_exact_at_finite_terminal_point\nexperimental/sipp-routing/tests/test_known_footprint.py::test_full_bridge_construction_timing_matches_K4_8_16_32_and_existing_window_rule\n\n47 tests collected in 0.10s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+        "-m",
+        "pytest",
+        "experimental/sipp-routing/tests",
+        "experimental/scenario-members/tests",
+        "experimental/synthetic-truth/tests",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "........................................................................ [ 60%]\n.................................sss...........                          [100%]\n116 passed, 4 skipped in 19.29s\n",
+      "stderr": ""
+    }
+  ],
+  "targeted_fixture_cases": 47,
+  "overlay_tests_passed": 116,
+  "overlay_tests_skipped": 4,
+  "overlay_skip_scope": "Optional torch export/GIS dependencies remain separate when unavailable.",
+  "source_sha256": {
+    "experimental/sipp-routing/README.md": "2624a482c3d22c21d5c2a2c3ccdb28c2495bc5f6f348b0fe9a6da530be532579",
+    "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md": "a541c76cd1a789fa45b7adefd27fdba236898abea694932d255f9da8ea07f04a",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md": "178a17078fe3b6bb799888e6ddca31ecb8eacc0a69505a3f826ebb881ebb17d8",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md": "c36c66e42a190433a082c7e8bc8c92544b8b6873d4f79a19b5e10102e52c9b26",
+    "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md": "56ce23d42d4bd84aa442ee52ec23c83de8124200adaffefff5bfeffb50638752",
+    "experimental/sipp-routing/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/adapter.py": "a3f4648c4d311e076a1b3547089794d5dca5415e1535eff6f74da816c15b8e3a",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/known_footprint.py": "9fc4acd626f9edb82a56c68d033734b318e8bb8a54ea9134ac581ddccb2d2f06",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/restricted_sweep.py": "fcfc210b699a15e662866099a1eea19b821047173abc577c52641d5ab7754e55",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py": "4e70b61d5b84eeffa79eaed13e55a0c2ee69febe26ca45edf7e9bddefc34b61c",
+    "experimental/sipp-routing/tests/test_known_footprint.py": "f43216a435961cf1b55054dc81ec00ed81b3a774458b7ea6bc6fc3f1aa55fda5",
+    "experimental/sipp-routing/tests/test_known_footprint_boundaries.py": "b37acc56723188d1c61652a277b95641467b24f2c7f81d04f5b2d2910aa98703",
+    "experimental/sipp-routing/tests/test_native_guard.py": "9ab3525813089edd01a519f79bf375d2282ff76cd1358c8fc2765d33c7850a02",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d",
+    "research/sipp-routing/verify_known_footprint_adapter.py": "877fede92813faf7cc2a8f8b7554f207a1914038429384a0b327392a0ac150c7"
+  },
+  "manifest_sha256": "fce74c71cbd846fa251fb35e8ff5f2c1ae258cb833f99e122d18268895b92379",
+  "preserved_evidence_sha256": {
+    "research/sipp-routing/audit_member_scaling.py": "7dcab65089140a699204dbfd4f3d82c3d92b7cb23089e708f2375ce5986f66e7",
+    "research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md": "3aa6234dd3cfb6ad69c8d5fa2ad61a794132d7c8ccf430f2ea57e35b0d342bbc",
+    "research/sipp-routing/census_saved_member_support.py": "3371c98e0827318c7622f0c4caf5bb278df5c36fe0c7d3f76a6b5e2df2e30c80",
+    "research/sipp-routing/FULL_MEMBER_SUPPORT_CENSUS.md": "d231e1e24de04208fc622cd63040402113557d025dc9f8b9386cedc630eb316a",
+    "research/sipp-routing/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py": "ffb7a87a54a325f08ee33e7580771d384a5bb4594174fa70c1c37595385e401f",
+    "research/sipp-routing/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/member-scaling-closure-20261030/FAILURE.json": "eaf3e36f2af85b9261430ca6d3510659417fda79ac3e6952884e541fd68b3e44",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv": "89b99df0ac86ed4f0a51f58687f6572110fdcacc35781e082f424733b8131d41",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json": "cc833cbde7d40e85cfa9fc0b3256a3dff93f0b05ae3b01d70fab1a6dad608f08",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/full-member-support-census-20261030/MEMBER_SUPPORT.csv": "4752747c8b73a7a9011da2101cea2fa223bcde9c096d9d1465843d45c35687d7",
+    "research/sipp-routing/full-member-support-census-20261030/RESULTS.json": "87bf592ae3f3ed674fb21d6b4707083d9bcdd0f5cac429af8a3c9b30f16f756c",
+    "research/sipp-routing/full-member-support-census-20261030/RECEIPT.json": "628503559c7a82aa7b3702fe82811aa5abf344071bcf03e99f5e02b78c64cda6",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-02-result.npz": "c522f979b19c585f68d6cf9ebefc761fc06b88d9a1129155652b15e1128efbdc",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-02-result.json": "5ce48ab374e4d16f2ca16c100dabff93177162a479e4f55245b84565344d5d2c",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-02-input.json": "ec2c1261e1d313d9c3a5a1a2bc575581b8ce02789e75e89413571b6502542a4d",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-00-result.npz": "21e3132f6312ae49ef148b84e938a84c7b2de1f75732570b08d5e95f861e17d6",
+    "research/sipp-routing/known-footprint-topology-20261030/RESULTS.json": "3e88466e34d90e182591e25deee9030c5c212c59978f007c49a5209b9941fd7e",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-04-result.json": "c4660aed68d4c7f07f1a7d9d4f030f8de6e05def190ebf65a70ce3255b2613d9",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-01-result.json": "59f6ddc87386fc9ef49b85f846cb4a9c34c255f956d874f3663fb977ff233730",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-00-input.json": "5c22c0d4a3052d31ab42c125b18c55aff43349679b0b567714f1ad3d9ae32e19",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-03-input.json": "04109e7841d12d4aa95682b2e2788dc32c648a6d97b5eeea57ef81ef69407204",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-03-result.npz": "135a894a00b4b99aadce611e57eec50dd27262fa09dbd7eaae06d7b568f1e1ae",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-03-result.json": "be151923886659da23a6e158cfc018801ae1400b5b425cb8afa42ed262980d0f",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-01-input.json": "15a149a880a914ca902483386a4ca748bb10d4c0ee27e283ad479c12a241a949",
+    "research/sipp-routing/known-footprint-topology-20261030/CONTROL_RECEIPT.json": "0be1099fe42419b6b8e3a4cf3d422aaf1af05e234ae9fdf4d9acbcfef218cc22",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-04-result.npz": "d75d5a90f4b66c81dd8ebc5112e301049499dca5688b7e7b88ef06bd83608267",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-00-result.json": "e2d5e32171c66e202920066bf06d89e3fb6298417bc5347184e84980a845d06c",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-01-result.npz": "8ba4a5e6cd9ea655d4c53dc58354ff50b2d7034b878ef2fbc4c766806ff377df",
+    "research/sipp-routing/known-footprint-topology-20261030/graph-04-input.json": "d7c452719682c3a51e3fa39ef28c93f6c9fc4ca9f6ee450caa17ce58df8ad02b",
+    "research/sipp-routing/KNOWN_FOOTPRINT_CONTACT_PLAN.md": "18c16a7ca5b5fcacd0707ece525595b17be93958ad66a62e1930d3b2f3d2824f",
+    "research/sipp-routing/KNOWN_FOOTPRINT_TOPOLOGY_RESULT.md": "eb94e58847a2fee2353e1d08712b2f68c3f36cd7a9a4eadf447fe8daf5447dbe",
+    "research/sipp-routing/KNOWN_FOOTPRINT_SOURCE_SCOPE.md": "70c7bcc2285fef48d5976d60028fac31df1d396044631a62abaf65e89773778d",
+    "research/sipp-routing/KNOWN_FOOTPRINT_SOURCE_PRECONDITIONS.json": "d8e8ef5b57de9a41692f7b76ed6544b7617c503a723ea5f92adb2b589710f59c",
+    "research/sipp-routing/known-footprint-topology-20261030/RECEIPT.json": "a18ff3d68804e66b5dcf53fa64905da25aee8c4f3ee6565411b6f80e2da11e76"
+  },
+  "frozen_sweep_sha256": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+  "frozen_geometry_sha256": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+  "timing_compatibility_reference": {
+    "sources": {
+      "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+      "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "full_grid_ignition_rule": "experimental/scenario-members/bridge_v2.py:41-65",
+    "full_construction_and_events": "experimental/scenario-members/bridge_v2.py:68-147",
+    "full_event_then_exact_window_rule": "integration/src/wfg_latest/packets.py:47-71",
+    "fixture_K": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "full_construct_crop_and_prefix_equal": true,
+    "independently_cropped_construction_changes_draw_positions": true,
+    "scope": "Tiny bridge construction only. Compatibility is full native construction followed by exact window restriction, not a new independently cropped construction. No native search or simulation."
+  },
+  "graph_evidence": {
+    "project": "wfg-next-1c-audit-fd8bf2e7-20261030",
+    "generation": "2026-10-30T07:47:04Z",
+    "limitation": "Reviewed source/tests/verifier metadata matched before repair; edited/new paths inspected directly. Canonical integration subtree excluded, direct exact-source fallback used."
+  },
+  "checks": {
+    "prior_evidence_byte_preserved": true,
+    "original_graph_geometry_preserved": true,
+    "original_frozen_sweep_preserved": true,
+    "strict_bridge_default_preserved": true,
+    "unknown_values_not_filled": true,
+    "histories_not_rebound": true
+  },
+  "native_timed_campaign": "NOT_RUN_REQUIRES_INDEPENDENT_RECHECK",
+  "no_new_trajectories": true,
+  "no_simulation": true,
+  "no_physical_safety_claim": true,
+  "peak_dose_risk": "UNKNOWN",
+  "limits": "Tiny fixtures and ordinary software regression only. No native temporal feasibility, K scaling, thermal policy or risk result. Command runtimes are test-run bookkeeping, not solver performance.",
+  "reviewed_head": "fd8bf2e78532b76d2dd2cfd094d3499def90fc23",
+  "repair_producer_sha256": "7e53bad6df2bb67c0876d667e2a64ac362b72d2e64ab60287dbe00da0df140b4",
+  "repair_recorded_utc": "2026-10-30T08:03:38.808501+00:00",
+  "reviewed_artifacts_preserved_sha256": {
+    "experimental/sipp-routing/tests/test_known_footprint.py": "f43216a435961cf1b55054dc81ec00ed81b3a774458b7ea6bc6fc3f1aa55fda5",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md": "178a17078fe3b6bb799888e6ddca31ecb8eacc0a69505a3f826ebb881ebb17d8",
+    "research/sipp-routing/KNOWN_FOOTPRINT_ADAPTER_RECEIPT.json": "d1fc5872e7dbd8524a03c654796c2ad65c4b2677422b983c29f926291ad3ee92",
+    "research/sipp-routing/verify_known_footprint_adapter.py": "877fede92813faf7cc2a8f8b7554f207a1914038429384a0b327392a0ac150c7"
+  },
+  "repair_fixture_cases": 25,
+  "total_contact_fixture_cases": 72,
+  "repair_collect": {
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "-m",
+      "pytest",
+      "experimental/sipp-routing/tests/test_known_footprint_boundaries.py",
+      "--collect-only",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "experimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_cutoff_consistency_refusals_match_unchanged_canonical_contract[active-unburned-RAW_ACTIVE_OUTSIDE_KNOWN_BURNED]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_cutoff_consistency_refusals_match_unchanged_canonical_contract[active-unknown-cutoff-RAW_ACTIVE_OUTSIDE_KNOWN_BURNED]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_cutoff_consistency_refusals_match_unchanged_canonical_contract[active-zero-remaining-RAW_ACTIVE_REMAINING_INVALID]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_cutoff_consistency_refusals_match_unchanged_canonical_contract[inactive-positive-remaining-RAW_INACTIVE_REMAINING_NOT_ZERO]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_cutoff_consistency_refusals_match_unchanged_canonical_contract[invalid-mask-negative-remaining-RAW_NEGATIVE_REMAINING]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_valid_cutoff_states_match_canonical_admission_without_filling_unknowns[active-known-burned]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_valid_cutoff_states_match_canonical_admission_without_filling_unknowns[inactive-known-burned]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_valid_cutoff_states_match_canonical_admission_without_filling_unknowns[unknown-age]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_valid_cutoff_states_match_canonical_admission_without_filling_unknowns[unknown-offroad]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_consumed_raw_float_types_match_canonical_admission[source_burned_area]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_consumed_raw_float_types_match_canonical_admission[heat__initial_active_burning_probability]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_consumed_raw_float_types_match_canonical_admission[heat__initial_remaining_burning_duration_s]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_consumed_raw_float_types_match_canonical_admission[affine_transform]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_fractional_member_clock_refuses_instead_of_rounding_earliest_problem[sipp]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_fractional_member_clock_refuses_instead_of_rounding_earliest_problem[sweep]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_exclusive_terminal_fractional_dwell_is_explicitly_unsupported[sipp]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_exclusive_terminal_fractional_dwell_is_explicitly_unsupported[sweep]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_source_clock_rejects_unrepresentable_or_out_of_contract_precision[2025-01-01T00:00:00.000000001Z]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_source_clock_rejects_unrepresentable_or_out_of_contract_precision[2025-01-01T00:00:00.1234567Z]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_source_clock_rejects_unrepresentable_or_out_of_contract_precision[2025-01-01T00:00:00.000000000Z]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_source_clock_rejects_unrepresentable_or_out_of_contract_precision[2025-01-01T00:00:00+00:00:00.000000001]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_request_clock_cannot_alias_nanoseconds_or_mismatched_microseconds[sipp]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_request_clock_cannot_alias_nanoseconds_or_mismatched_microseconds[sweep]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_far_year_microseconds_compare_as_exact_UTC_instants[sipp]\nexperimental/sipp-routing/tests/test_known_footprint_boundaries.py::test_far_year_microseconds_compare_as_exact_UTC_instants[sweep]\n\n25 tests collected in 0.11s\n",
+    "stderr": ""
+  },
+  "repaired_boundaries": [
+    "Canonical consumed cutoff-state consistency before current-fire construction",
+    "Fractional member validity refused; exclusive terminal requires integer dwell",
+    "Unrepresentable timestamp precision refused before datetime parsing"
+  ],
+  "source_admission_reference": {
+    "path": "integration/src/wfg_latest/contract.py",
+    "lines": "185-241",
+    "sha256": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42"
+  },
+  "exact_clock_contract": "RFC3339 seconds with 0..6 fractional digits and Z or HH:MM offset; no fractional offset seconds",
+  "clock_domain": "Source and member validity whole seconds; inclusive terminal permits exact fractional dwell, exclusive terminal requires integer dwell"
+}

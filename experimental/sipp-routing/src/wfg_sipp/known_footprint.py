@@ -13,6 +13,7 @@ import importlib.util
 import json
 import math
 from pathlib import Path
+import re
 from types import MappingProxyType
 
 import numpy as np
@@ -30,6 +31,11 @@ RAW_KEYS = (
 
 
 def _utc(value):
+    # datetime silently truncates fractional precision beyond microseconds,
+    # including fractional offset seconds. Refuse those clocks before parsing.
+    if not isinstance(value, str) or re.fullmatch(
+            r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})", value) is None:
+        raise ValueError("Source clock requires RFC3339 seconds with at most six fractional digits and Z or HH:MM offset")
     t = datetime.fromisoformat(value.replace("Z", "+00:00"))
     if t.tzinfo is None:
         raise ValueError("Explicit UTC-offset source clock required")
@@ -95,6 +101,10 @@ class KnownFootprintSource:
         for name in RAW_KEYS[1:-1]:
             if raw[name].shape != (H, W):
                 raise ValueError("Raw cutoff fields differ from full source grid")
+        for name in ("source_burned_area", "heat__initial_active_burning_probability",
+                     "heat__initial_remaining_burning_duration_s"):
+            if raw[name].dtype.kind != "f":
+                raise ValueError("RAW_FIELD_NOT_FLOAT:" + name)
         if valid.dtype != np.bool_ or iv.dtype != np.bool_:
             raise ValueError("Genuine Boolean source validity masks required")
         if not np.isin(burned[valid], [0, 1]).all() or not np.isin(active[iv], [0, 1]).all():
@@ -102,10 +112,25 @@ class KnownFootprintSource:
         if (not np.isfinite(remaining[iv]).all() or (remaining[iv] < 0).any()
                 or (remaining[iv] > float(T)).any()):
             raise ValueError("Invalid represented initial remaining duration")
+        # Preserve the canonical raw cutoff-state invariants before activity is
+        # intersected with known burned cells. Contradictory fire cannot vanish.
+        known_burned = valid & (burned == 1)
+        active_known = iv & (active == 1)
+        inactive_known = iv & (active == 0)
+        if np.any(active_known & ~known_burned):
+            raise ValueError("RAW_ACTIVE_OUTSIDE_KNOWN_BURNED")
+        if np.any(active_known & (remaining <= 0)):
+            raise ValueError("RAW_ACTIVE_REMAINING_INVALID")
+        if np.any(inactive_known & (remaining != 0)):
+            raise ValueError("RAW_INACTIVE_REMAINING_NOT_ZERO")
+        if np.any(np.isfinite(remaining) & (remaining < 0)):
+            raise ValueError("RAW_NEGATIVE_REMAINING")
         if (np.any(first[:, valid & (burned == 1)] != 0)
                 or np.any(first[:, valid & (burned == 0)] == 0)):
             raise ValueError("Trajectory cutoff state contradicts original raw cutoff state")
-        affine = tuple(map(F, raw["affine_transform"].ravel()[:6]))
+        if raw["affine_transform"].shape != (6,) or raw["affine_transform"].dtype.kind != "f":
+            raise ValueError("RAW_AFFINE: six floating affine values required")
+        affine = tuple(map(F, raw["affine_transform"]))
         if (len(affine) != 6 or affine[0] <= 0 or affine[1] != 0
                 or affine[3] != 0 or affine[4] != -affine[0]):
             raise ValueError("Exact north-up square source affine required")
@@ -121,7 +146,6 @@ class KnownFootprintSource:
         if not (0 <= r0 <= r1 < H and 0 <= c0 <= c1 < W):
             raise ValueError("Existing window outside source grid")
         sl = (slice(r0, r1 + 1), slice(c0, c1 + 1))
-        known_burned = valid & (burned == 1)
         current = known_burned & ((iv & (active == 1)) | ~iv)
         req_remaining = [F(float(v)) for v in remaining[sl][(known_burned & iv & (active == 1))[sl]]]
         if (known_burned & ~iv)[sl].any():
@@ -131,8 +155,8 @@ class KnownFootprintSource:
         if not minimum_R <= R <= T:
             raise ValueError("Declared max-remaining enclosure does not enclose original current fire")
         limits = tuple(F(t) for t in (member_valid_until_s if member_valid_until_s is not None else [horizon] * len(ids)))
-        if len(limits) != len(ids) or any(not 0 < t <= horizon for t in limits):
-            raise ValueError("Explicit finite member validity inside saved horizon required")
+        if len(limits) != len(ids) or any(not 0 < t <= horizon or t.denominator != 1 for t in limits):
+            raise ValueError("Explicit positive whole-second member validity inside saved horizon required")
         if not isinstance(terminal_inclusive, bool):
             raise ValueError("Explicit terminal point convention required")
         self.raw = MappingProxyType(raw)
@@ -216,6 +240,8 @@ def _validate_binding(graph, request, source):
             raise ValueError("Original directed lattice graph required")
     if not request["destinations"] or any(d["node"] not in nodes or F(d["dwell"]) < 0 for d in request["destinations"]):
         raise ValueError("Original destination and nonnegative dwell required")
+    if not source.terminal_inclusive and any(F(d["dwell"]).denominator != 1 for d in request["destinations"]):
+        raise ValueError("Exclusive source terminal requires whole-second dwell for the supported integer finish clock")
     if len({d["node"] for d in request["destinations"]}) != len(request["destinations"]):
         raise ValueError("One opening/dwell record per destination node required")
     return nodes, edges
@@ -359,7 +385,9 @@ def plan_contact_route(graph, request, source, *, method="sipp", wall_s=30.0, ma
             return out
         limit = min(source.member_valid_until_s)
         bound = min(F(request["horizon"]), limit)
-        horizon = math.floor(bound)
+        if bound.denominator != 1:
+            raise ValueError("Unsupported fractional source/member horizon")
+        horizon = int(bound)
         if not source.terminal_inclusive and bound == limit and bound.denominator == 1:
             horizon -= 1
         if horizon < request["departure"]:
