@@ -1,0 +1,25 @@
+{
+  "schema": "wfg.command-observation/1",
+  "recorded_utc": "2026-10-30T10:09:18.773058+00:00",
+  "command": [
+    "../venv-forecast/bin/python",
+    "research/forecast-v2/scripts/audit_farsite.py",
+    "--data",
+    "../data/forecast-v2",
+    "--out",
+    "research/forecast-v2/FARSITE_IDENTITIES_V3.json"
+  ],
+  "exit_code": 0,
+  "mode": "IDENTITY_ONLY_WITHOUT_ASSESSMENT_ARGUMENT",
+  "source_sha256": "6edb769fbcb9a7977e2689f7de337ed327feabd5dadd9983f3cec3443e04a6db",
+  "output_sha256": "0594b65f2264fcb86eb7002d5dc70eb6745c796f7dd3f91cd3f804107f9e02eb",
+  "cases": 30,
+  "native_horizon_available": 30,
+  "eligible_historical_intervals": 29,
+  "scores_available": false,
+  "limits": [
+    "Stored receipt metadata authenticated; no new native execution",
+    "No current or historical forecast-quality scoring; current assessment not supplied",
+    "Historical interval outside frozen0<duration<=48h policy retained as unavailable"
+  ]
+}
