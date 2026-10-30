@@ -11,7 +11,9 @@ import numpy as np
 def distances(first_burn_hour, *, horizon_hours, method="l1", road_weights=None,
               edge_arrival_s=None, edge_lengths_m=None, fixed_hour=1):
     a = np.asarray(first_burn_hour)
-    if a.ndim != 3 or a.dtype.kind not in "iu" or (a == -2).any():
+    if isinstance(horizon_hours, bool) or not np.isfinite(horizon_hours) or horizon_hours <= 0:
+        raise ValueError("Positive finite horizon required")
+    if a.ndim != 3 or a.dtype.kind not in "iu" or (a < -2).any() or (method != "edge_arrival" and (a == -2).any()):
         raise ValueError("Distance requires complete known trajectory fields")
     cap = horizon_hours + 1
     if method == "edge_arrival":
@@ -19,7 +21,9 @@ def distances(first_burn_hour, *, horizon_hours, method="l1", road_weights=None,
         w = np.asarray(edge_lengths_m, dtype=float)
         if x.ndim != 2 or x.shape[0] != len(a) or w.shape != (x.shape[1],) or not np.isfinite(w).all() or (w < 0).any():
             raise ValueError("Edge arrival/length shape or weight")
-        x = np.minimum(x, horizon_hours * 3600)
+        if np.isnan(x[:, w > 0]).any() or np.isneginf(x).any() or (x[np.isfinite(x)] < 0).any():
+            raise ValueError("Unknown positive-weight road feature or invalid arrival")
+        x = np.where(w > 0, np.minimum(x, horizon_hours * 3600), 0)
     elif method == "l1":
         x = np.where(a < 0, cap, a).reshape(len(a), -1).astype(float)
         w = np.ones(x.shape[1])
@@ -49,9 +53,13 @@ def reduce_scenarios(distance_matrix, k, *, method="forward_selection", probabil
     if isinstance(k, bool) or not isinstance(k, int) or not 1 <= k <= n:
         raise ValueError("Invalid k")
     p = np.ones(n) / n if probabilities is None else np.asarray(probabilities, dtype=float)
-    if p.shape != (n,) or not np.isfinite(p).all() or (p < 0).any() or p.sum() <= 0:
+    if p.shape != (n,) or not np.isfinite(p).all() or (p < 0).any() or not (p > 0).any():
         raise ValueError("Invalid probabilities")
+    positive = p > 0
+    p = p / p.max()
     p = p / p.sum()
+    if (positive & (p == 0)).any():
+        raise ValueError("Probability dynamic range underflows normalized mass")
     if method == "first_k":
         kept = list(range(k))
     elif method in ("forward_selection", "k_medoids"):

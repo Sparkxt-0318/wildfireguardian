@@ -30,3 +30,19 @@ def test_unknown_truth_never_becomes_zero_risk_but_known_contact_is_a_violation(
     contact = score_decision({"outcome": "checked_route", "arrival_s": 10},
         evaluator=lambda _: dict(supported=False, passed=False, contact=True), **arguments)
     assert contact["false_safe"] is True
+
+
+def test_inconsistent_checker_or_oracle_and_nonfinite_records_rejected():
+    args = dict(cutoff="fixture", truth_source="holdout_trajectory", forecast_source="fixture", mission="fixture")
+    d = {"outcome": "checked_route", "arrival_s": 10}
+    passing = lambda _: dict(supported=True, passed=True, contact=False, peak=1, dose=2)
+    oracle = dict(scope="full_policy", outcome="checked_route", arrival_s=9)
+    with pytest.raises(ValueError, match="Inconsistent checker"):
+        score_decision(d, evaluator=lambda _: dict(supported=True, passed=True, contact=True), clairvoyant=oracle, **args)
+    with pytest.raises(ValueError, match="contradicts"):
+        score_decision(d, evaluator=passing, clairvoyant=dict(scope="full_policy", outcome="model_no_route"), **args)
+    for value in (float("nan"), float("inf"), -1, True):
+        with pytest.raises(ValueError): score_decision(d, evaluator=passing, clairvoyant=dict(oracle, arrival_s=value), **args)
+        with pytest.raises(ValueError): score_decision(dict(d, arrival_s=value), evaluator=passing, clairvoyant=oracle, **args)
+    with pytest.raises(ValueError):
+        score_decision(d, evaluator=lambda _: dict(supported=True, passed=False, peak=float("nan")), clairvoyant=oracle, **args)

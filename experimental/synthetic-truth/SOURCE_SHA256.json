@@ -1,13 +1,16 @@
 {
   "current_overlay_sources": {
-    "experimental/synthetic-truth/README.md": "37e9f81db0100267a2a8d969569cac59cde8a21b623da2c08aa9716dc2af3699",
+    "experimental/synthetic-truth/README.md": "5f1b63a03cd0031a5b281fcb26832f9b6dc5d981823a155bea16993542d4c82f",
+    "experimental/synthetic-truth/requirements-gis.txt": "a9e4632d046a951635312b1abe9c60e5a6cecde335bdc73142b3b4d1a635e9cd",
     "experimental/synthetic-truth/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
     "experimental/synthetic-truth/src/wfg_synthetic_truth/__init__.py": "602e6b67c7988891fd63663ee850ba0a8a42578ec4d2999a70dc0cbe90ad7f01",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/adapters.py": "cd7984f714c06a35cc4f04f8afed66ca0b45ddeb1f7cb768efbd774ef29c49ef",
     "experimental/synthetic-truth/src/wfg_synthetic_truth/checker.py": "77691255d74492709ac321f68369cf40ec58bfd0223c80bf748854a6f27ebd27",
     "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
-    "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2c3f949d7c007a578950842c97ca1a4f12704a5c6f81c630108ec2302fe09709",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2088af268717d40464ef0a52cc5a9131b7f66371004a57e5ded1665a9e62f4f2",
+    "experimental/synthetic-truth/tests/test_adapters.py": "b642d0795ed2c09858ec55013d4e453e8b9992bdb6b8322b17e04d500d0bdcaa",
     "experimental/synthetic-truth/tests/test_full_checker.py": "b81ddeec58af8726e3a1c2bfa7a7a092015856331ddc92ad7a8b7c518775c535",
-    "experimental/synthetic-truth/tests/test_score.py": "5bfa7cfc4881bfe6d35174ed6c01471dc50c245d602ba2854b4ed69a9ed330bb"
+    "experimental/synthetic-truth/tests/test_score.py": "42e1f819975f8abddeb4c694a8d60372aa719dfb5c4b17b4efe479a80debeb20"
   },
   "original_base_sources": {
     "forecast/wildfire/rollout.py": "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe",

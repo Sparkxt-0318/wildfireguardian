@@ -37,7 +37,7 @@ Figure 2, fig02_decision_vs_forecast_quality (PNG and SVG), plots the diagnostic
 
 ## Scope and limits
 
-Truths are model or reconstruction based, not observed evacuations. Results are conditional on the represented road graph, lattice, horizon, source domain and construction policy. There is no field validation. Complete C1/C2 risk scoring, C3 acceptance trade-offs, retrospective route maps and the Caldor c651 alignment remain open. NIROPS and external-simulator truth adapters are not implemented here. No physical-fatality or real casualty attribution is made.
+Truths are model or reconstruction based, not observed evacuations. Results are conditional on the represented road graph, lattice, horizon, source domain and construction policy. There is no field validation. Complete C1/C2 risk scoring, C3 acceptance trade-offs, retrospective route maps and the Caldor c651 alignment remain open. Independent reconstructed-arrival, NIROPS GeoJSON and stored external-simulator readers are now implemented and tested. Their units, georeferencing, missingness and source identity remain distinct from full-policy truth scorability; see experimental/synthetic-truth/README.md and REAL_READERS_SMOKE.json. No physical-fatality or real casualty attribution is made.
 
 Radiation law v2 is deliberately NOT_RUN. Track 1A's physics and enclosure gate remains unresolved, and the explicit `radiation_law="v2"` seam raises NotImplementedError. No synthetic fronts or guessed present-fire phases bypass that gate. The prior remote campaign's error-rate headlines are not reused: its missingness assumptions differ from the strict contract in this run.
 

@@ -8,6 +8,12 @@ from __future__ import annotations
 
 import math
 
+def _nonnegative(value, name):
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+        raise ValueError("Finite nonnegative " + name + " required")
+    return value
+
+
 OUTCOMES = {"checked_route", "model_no_route", "unresolved"}
 TRUTHS = {"holdout_trajectory", "reconstructed_arrival", "observed_perimeters", "external_simulator"}
 
@@ -24,8 +30,10 @@ def score_decision(decision, *, evaluator, clairvoyant, cutoff, truth_source,
     oracle = clairvoyant
     if oracle.get("scope") != "full_policy":
         raise ValueError("Clairvoyant reference must check the full policy")
+    if oracle.get("outcome") not in OUTCOMES:
+        raise ValueError("Explicit clairvoyant outcome required")
     exists = oracle.get("outcome") == "checked_route"
-    oracle_arrival = oracle.get("arrival_s") if exists else None
+    oracle_arrival = _nonnegative(oracle.get("arrival_s"), "clairvoyant arrival") if exists else None
     row = dict(cutoff=cutoff, truth_source=truth_source, forecast_source=forecast_source,
                mission=mission, outcome=outcome, truth_id=truth_id,
                true_contact=None, true_peak=None, true_dose=None,
@@ -33,7 +41,18 @@ def score_decision(decision, *, evaluator, clairvoyant, cutoff, truth_source,
                false_safe=None, false_refusal=None, regret_s=None)
     if outcome == "checked_route":
         row["false_refusal"] = False
+        _nonnegative(decision.get("arrival_s"), "decision arrival")
         checked = evaluator(decision)
+        for flag in ("contact", "passed", "supported", "definite_thermal_violation"):
+            if checked.get(flag) is not None and not isinstance(checked[flag], bool):
+                raise ValueError("Checker evidence flags require Boolean or unknown")
+        for field in ("peak", "dose"):
+            if checked.get(field) is not None:
+                _nonnegative(checked[field], field)
+        if checked.get("passed") is True and (checked.get("contact") is True or checked.get("definite_thermal_violation") is True):
+            raise ValueError("Inconsistent checker evidence: passing known violation")
+        if checked.get("supported") is True and checked.get("passed") is True and oracle.get("outcome") == "model_no_route":
+            raise ValueError("Passing truth route contradicts clairvoyant no route")
         row.update(true_contact=checked.get("contact"), true_peak=checked.get("peak"),
                    true_dose=checked.get("dose"), arrival_s=decision["arrival_s"])
         if checked.get("contact") is True or checked.get("definite_thermal_violation") is True:

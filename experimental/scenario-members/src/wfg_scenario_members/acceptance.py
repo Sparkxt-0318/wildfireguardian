@@ -6,9 +6,14 @@ import numpy as np
 
 def _weights(weights, length):
     q = np.asarray(weights, dtype=float)
-    if q.shape != (length,) or not np.isfinite(q).all() or (q < 0).any() or q.sum() <= 0:
+    if q.shape != (length,) or not np.isfinite(q).all() or (q < 0).any() or not (q > 0).any():
         raise ValueError("Invalid scenario weights")
-    return q / q.sum()
+    positive = q > 0
+    q = q / q.max()
+    q = q / q.sum()
+    if (positive & (q == 0)).any():
+        raise ValueError("Scenario weight dynamic range underflows normalized mass")
+    return q
 
 
 def accept(passed, *, rule="all", k=None, m=None, weights=None):
@@ -51,17 +56,21 @@ def weighted_cvar(arrivals, weights, *, alpha, horizon):
     Rockafellar and Uryasev (2000), Journal of Risk 2(3), 21-41. Here alpha is
     upper-tail mass, not the paper's confidence-level parameter 1-alpha.
     """
-    if not 0 < alpha <= 1 or not math.isfinite(horizon):
+    if isinstance(alpha, bool) or not 0 < alpha <= 1 or not math.isfinite(horizon) or horizon < 0:
         raise ValueError("Invalid CVaR controls")
     a = np.asarray([horizon if x is None else x for x in arrivals], dtype=float)
-    if not np.isfinite(a).all() or (a < 0).any():
+    if a.ndim != 1 or not len(a) or not np.isfinite(a).all() or (a < 0).any():
         raise ValueError("Invalid arrival")
-    q = _weights(weights, len(a))
-    left, total = float(alpha), 0.0
+    _weights(weights, len(a))  # validates representable normalized masses
+    exact = [Fraction(float(w)) for w in weights]
+    denominator = sum(exact, Fraction(0))
+    q = [w / denominator for w in exact]
+    tail = Fraction(float(alpha))
+    left, total = tail, Fraction(0)
     for index in np.argsort(-a, kind="stable"):
-        mass = min(left, float(q[index]))
-        total += mass * float(a[index])
+        mass = min(left, q[index])
+        total += mass * Fraction(float(a[index]))
         left -= mass
-        if left <= 1e-15:
+        if left <= 0:
             break
-    return total / alpha
+    return float(total / tail)

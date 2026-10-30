@@ -1,17 +1,19 @@
 {
   "current_overlay_sources": {
-    "experimental/scenario-members/README.md": "ce4c75f3123807cf36f9ed135d66a8a6ceaaedf64724d99982429f03d611843f",
+    "experimental/scenario-members/README.md": "d72e5641c16b56089fd6afcdab2e512051aa62b3b5682f3c29a628b70b47aedf",
     "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
     "experimental/scenario-members/export_v3.py": "cdd857752cf9304922311436eec4ceaba7a990776bfe2e82802707872b65b4a9",
     "experimental/scenario-members/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
     "experimental/scenario-members/src/wfg_scenario_members/__init__.py": "a85204775f83fee149124c9de9da58404f49a0d401e8d2816b35f4f5a1028639",
-    "experimental/scenario-members/src/wfg_scenario_members/acceptance.py": "a016249614203d6de200c7984eebf99aede21de73ad5ac1e7f94c9ef29fd6021",
+    "experimental/scenario-members/src/wfg_scenario_members/acceptance.py": "316bbd3a826fcf0816866c3a27694f64cb5323f343a360f2c8e7406f0abf22d8",
     "experimental/scenario-members/src/wfg_scenario_members/contact.py": "d81125d339f6c12347331e9cdeac59ef36fed8bc98b4dfa9becc192a2dfba0ea",
     "experimental/scenario-members/src/wfg_scenario_members/decision.py": "112dc7e42696e10744a03b55b38861dfd267b949f97758de92334ec60610d654",
-    "experimental/scenario-members/src/wfg_scenario_members/reduction.py": "90e6fa1c985c75ea532e1f1190b9348c522ffea80fe533f22b2be918b0af3bc1",
+    "experimental/scenario-members/src/wfg_scenario_members/features.py": "52d95a5f37a4d808379a9017dd164de3f9ae800d075195fcdf15d9d3ca5cedb3",
+    "experimental/scenario-members/src/wfg_scenario_members/reduction.py": "513ecaa49959021630a2e7eab12c2aaa39ee7f5b609e8e12e3d48556357265cc",
     "experimental/scenario-members/tests/test_bridge_v2.py": "798946babe329c862261a6023d7bd405456670f8a4b048a97366c01b97a38bb6",
     "experimental/scenario-members/tests/test_decision.py": "3e89035d83f991d32b220c8c44da4972ca7f0b26f26b271799244ca4d354293d",
     "experimental/scenario-members/tests/test_export_v3.py": "6a8f4e0a3ff5559ac3659419e23b84f766fc1a6f01eede1ef3bd85d1b2a6773d",
+    "experimental/scenario-members/tests/test_features.py": "7e10ea446dc42d73e3474af25cb9f21cbc73d131a5aea7d9bcd5cdef8cc2962a",
     "experimental/scenario-members/tests/test_reduction.py": "c73e1ccd51bbc9d96a1450e5a44f0384e581a15b6aebe3067e590951b9a3e756"
   },
   "original_base_sources": {
