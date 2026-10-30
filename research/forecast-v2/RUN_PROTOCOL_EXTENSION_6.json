@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-10-30T04:02:50.081117+00:00",
+  "before_heldout_score_inspection": true,
+  "reason": "First real comparison found empty shared support at a frozen long horizon; reporter crashed on empty maximum and emitted undefined NaN Brier. Preserve failure, report explicit unavailable support, rerun all frozen cases.",
+  "failed_receipt": "research/forecast-v2/executions/a03_compare.json",
+  "rerun_attempt": 4,
+  "case_and_horizon_policy_changed": false,
+  "known_as_unburned_filling_introduced": false,
+  "per_cutoff_exclusive_leases": true,
+  "mandatory_expected_rows": 66,
+  "unchanged_fit_functions_ast": [
+    "command_final",
+    "command_fold",
+    "build_model",
+    "fit_samples",
+    "perimeter_samples",
+    "kriged_samples",
+    "cropped"
+  ]
+}

@@ -16,18 +16,26 @@ def digest(path):
 
 def main():
     receipts = []
-    for path in sorted((EVIDENCE / "executions").glob("a03_*.json")):
+    for path in sorted((EVIDENCE / "executions").glob("a0[34]_*.json")):
         record = json.loads(path.read_text())
         output = Path(record["output"])
         if record["exit_code"] == 0 and output.is_file() and digest(output) == record["output_sha256"]:
             receipts.append(record)
     names = {r["job"] for r in receipts}
-    folds = sorted(n for n in names if "_fold_" in n)
+    active_path = RUN / "ACTIVE_PHASE.json"
+    active_outputs = {str(RUN / p) for p in json.loads(active_path.read_text())["active_folds"]} if active_path.exists() else None
+    folds = sorted(r["job"] for r in receipts if "_fold_" in r["job"]
+                   and (active_outputs is None or r["output"] in active_outputs))
     finals = sorted(n for n in names if "_final_" in n)
+    us_path, kr_path = RUN / "heldout/ASSESSMENT.json", RUN / "korean2025/ASSESSMENT.json"
+    assessments = {key: json.loads(path.read_text()) if path.exists() else {} for key, path in
+                   [("us2024", us_path), ("korea2025", kr_path)]}
+    report_path = EVIDENCE / "RESULTS.json"
+    report = json.loads(report_path.read_text()) if report_path.exists() else {}
     requirements = [
         dict(id="1B-1-library", status="IMPLEMENTED_TESTED", evidence="forecast/wildfire/meanfield.py and forecast/tests/test_meanfield.py",
              limit="Multi-step closure approximation, not exact MC expectation"),
-        dict(id="1B-1-12cutoffs", status="COMPLETE" if "a03_compare" in names else "PENDING",
+        dict(id="1B-1-12cutoffs", status="COMPLETE" if names & {"a03_compare", "a04_compare"} else "PENDING",
              expected="12cutoffs,6Korean+6US; all1/3/6/12/24h,1024trajectories; actualsurvey-endpoint checks where available",
              evidence="meanfield_vs_mc/meanfield_vs_mc.json"),
         dict(id="1B-2-development", status="COMPLETE" if len(folds) == 21 else "IN_PROGRESS",
@@ -40,13 +48,44 @@ def main():
              expected="none,D4,D4+localwind,ellipse,burnout,burnout+spotting,mixed; sameeligibleperimeterfitpolicy"),
         dict(id="1B-4-baseline-fitting", status="COMPLETE" if "a03_baselines" in names else "PENDING",
              expected="persistence,4dilationrates,training-chosenbestdilation,weightedlogistic,c651"),
-        dict(id="1B-4-heldout-scoring", status="COMPLETE" if "a03_heldout" in names else "PENDING",
+        dict(id="1B-4-heldout-scoring", status="COMPLETE" if all(r.get("status") == "COMPLETE" for r in assessments.values()) else "PENDING",
              expected="sixUS2024fires,fullrectangles,alleligibleintervals,exactcommoncohort; fourKR2025separate"),
         dict(id="1B-4-FARSITE-matched-subset", status="PENDING",
              expected="authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals"),
         dict(id="1B-5-pre-registration", status="NOT_READY",
              expected="exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"),
     ]
+    requirements.extend([
+        dict(id="1B-2-frozen-split", status="COMPLETE" if digest(EVIDENCE / "SPLIT.json") ==
+             json.loads((EVIDENCE / "RUN_PROTOCOL.json").read_text())["split_sha256"] else "HOLD",
+             evidence="research/forecast-v2/SPLIT.json", executable="scripts/run_campaign.py fits"),
+        dict(id="1B-2-exact-model-selection-freeze", status="COMPLETE" if (EVIDENCE / "MODEL_SELECTION.json").exists() else "PENDING",
+             evidence="research/forecast-v2/MODEL_SELECTION.json", executable="scripts/run_campaign.py fits"),
+        dict(id="1B-data-geometry-sensitivity", status="COMPLETE" if (EVIDENCE / "GEOMETRY_AUDIT.json").exists() else "PENDING",
+             evidence="research/forecast-v2/GEOMETRY_AUDIT.json", executable="scripts/audit_geometry.py",
+             limit="Only cell-centre stability under the declared projected make_valid sensitivity; no physical geometry validation"),
+    ])
+    for variant in ("base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base"):
+        current_folds = [r for r in folds if f"_{variant}" in r and
+                         (variant != "base" or "mixed_base" not in r) and
+                         (variant != "d4" or "d4_wind" not in r) and
+                         (variant != "burnout" or "burnout_spotting" not in r)]
+        final = f"a03_final_{variant}"
+        requirements.append(dict(id=f"1B-ablation-{variant}",
+             development="COMPLETE" if len(current_folds) == 3 else "PENDING",
+             status="COMPLETE" if final in names else "IN_PROGRESS", executable="scripts/run_campaign.py fits",
+             evidence=f"forecast/runs/20261030_perimeter_trained/execution_v3/final/{variant}_seed0/result.json"))
+    for cohort, result in assessments.items():
+        requirements.append(dict(id="1B-assessment-" + cohort, status=result.get("status", "PENDING"),
+            evidence=f"forecast/runs/20261030_perimeter_trained/execution_v3/{'heldout' if cohort == 'us2024' else 'korean2025'}/ASSESSMENT.json",
+            executable=f"scripts/score_cohorts.py --cohort {cohort}",
+            evidence_class="NIROPS mapped extent" if cohort == "us2024" else "reconstructed arrival, secondary only"))
+    for metric in ("Brier", "BSS-persistence", "BSS-best-dilation", "AP", "ROC-AUC", "fixed-bin-ECE", "clipped-NLL",
+                   "per-fire-values", "whole-fire-bootstrap", "lowest-bin-calibration"):
+        requirements.append(dict(id="1B-metric-" + metric,
+            status="COMPLETE" if assessments["us2024"].get("status") == "COMPLETE" and
+            "heldout" in report else "PENDING",
+            executable="scripts/report.py", evidence="research/forecast-v2/RESULTS.json"))
     for number, name in enumerate(["reliability_all_models", "per_fire_brier_paired", "ablation_forest_plot",
                                     "meanfield_vs_mc_rmse_by_horizon", "example_forecast_vs_perimeter"], 1):
         stem = f"fig{number:02d}_{name}"

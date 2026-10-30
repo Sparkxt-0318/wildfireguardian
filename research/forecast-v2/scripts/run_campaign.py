@@ -146,6 +146,33 @@ def main():
     else:
         if args.stage == "heldout" and not (EVIDENCE / "MODEL_SELECTION.json").is_file():
             raise RuntimeError("Exact selected checkpoint identities must be frozen first")
+        if args.stage == "compare":
+            import pandas as pd
+            rows, case_receipts, source_phases = [], [], []
+            for index in range(12):
+                name = f"a{args.attempt:02d}_compare_case{index:02d}"
+                expected_case = RUN / "meanfield_vs_mc" / f"case_{index:02d}" / "meanfield_vs_mc.json"
+                job(name, [sys.executable, str(pipeline), "compare", *shared, "--compare-case-index", str(index)], expected_case)
+                result = json.loads(expected_case.read_text())
+                rows.extend(result["rows"])
+                receipt_path = EVIDENCE / "executions" / f"{name}.json"
+                receipt = json.loads(receipt_path.read_text())
+                source_phases.append(receipt["source_sha256"])
+                case_receipts.append(dict(path=str(receipt_path.relative_to(REPO)), sha256=sha(receipt_path)))
+            if any(source != source_phases[0] for source in source_phases):
+                raise ValueError("Preserve per-case output when comparison producer sources differ")
+            if len(rows) != 66:
+                raise ValueError("All sixty fixed-horizon and six next-survey comparison rows are required")
+            out = RUN / "meanfield_vs_mc"
+            pd.DataFrame(rows).to_csv(out / "meanfield_vs_mc.csv", index=False)
+            destination = out / "meanfield_vs_mc.json"
+            write(destination, dict(rows=rows, checkpoint_sha256=result["checkpoint_sha256"], case_receipts=case_receipts,
+                                    host=result["host"], timing="Each fixed-horizon group shares one joint24h MC and MF call"))
+            write(EVIDENCE / "executions" / f"a{args.attempt:02d}_compare.json",
+                  dict(job=f"a{args.attempt:02d}_compare", exit_code=0, output=str(destination), output_sha256=sha(destination),
+                       case_receipts=case_receipts, source_sha256=source_phases[0]))
+            print("All12 frozen cutoff jobs and66 horizon rows aggregated", flush=True)
+            return
         expected = {"baselines": RUN / "baselines/dilation_choice.json",
                     "compare": RUN / "meanfield_vs_mc/meanfield_vs_mc.json",
                     "heldout": RUN / "report_inputs.json"}[args.stage]

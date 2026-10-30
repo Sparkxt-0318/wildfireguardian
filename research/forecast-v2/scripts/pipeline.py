@@ -575,6 +575,31 @@ def compare_cases(args, env: Environment) -> list[dict]:
     return cases
 
 
+def compare_fields(p_mc, p_mf, mask, label=None, label_valid=None):
+    """Summarize a declared shared field, retaining empty support as unavailable."""
+    a, b = p_mc[mask], p_mf[mask]
+    active = np.maximum(a, b) > 1e-3
+    if not np.isfinite(a).all() or not np.isfinite(b).all():
+        raise ValueError("Shared comparison support must contain finite probabilities")
+    result = dict(status="COMPARABLE" if len(a) else "UNAVAILABLE_SHARED_SUPPORT", cells=int(mask.sum()),
+        active_cells=int(active.sum()), rmse_all=float(np.sqrt(np.mean((a - b) ** 2))) if len(a) else None,
+        rmse_active=float(np.sqrt(np.mean((a[active] - b[active]) ** 2))) if active.any() else None,
+        mean_mc=float(a.mean()) if len(a) else None, mean_mf=float(b.mean()) if len(a) else None,
+        expected_new_cells_mc=float(a.sum()) if len(a) else None, expected_new_cells_mf=float(b.sum()) if len(a) else None,
+        max_abs_difference=float(np.abs(a - b).max()) if len(a) else None)
+    if label is not None:
+        supported = mask if label_valid is None else mask & label_valid
+        y = label[supported].astype(float)
+        if not np.isfinite(y).all() or not np.isin(y, (0, 1)).all():
+            raise ValueError("Scored reference labels must be finite and binary")
+        result.update(reference_status="SCORED" if len(y) else "UNAVAILABLE_REFERENCE_SUPPORT", label_cells=len(y),
+            positives=int(y.sum()) if len(y) else None,
+            brier_mc=float(np.mean((p_mc[supported] - y) ** 2)) if len(y) else None,
+            brier_mf=float(np.mean((p_mf[supported] - y) ** 2)) if len(y) else None,
+            brier_persistence=float(np.mean(y ** 2)) if len(y) else None)
+    return result
+
+
 def command_compare(args):
     """Mean field versus c651 Monte Carlo (1,024 trajectories) on twelve cutoffs."""
     from wildfire.api import load_model
@@ -584,16 +609,20 @@ def command_compare(args):
     env = Environment(args.data_root, args.work / "env")
     model = load_model(C651, device="cpu")
     out = args.run / "meanfield_vs_mc"
+    if args.compare_case_index is not None:
+        out = out / f"case_{args.compare_case_index:02d}"
     out.mkdir(parents=True, exist_ok=True)
     rows = []
     cases = compare_cases(args, env)
     frozen = json.loads((HERE.parents[1] / "RUN_PROTOCOL.json").read_text())["mean_field_compare"]["cases"]
     if len(cases) != len(frozen):
         raise ValueError("Mean-field comparison must retain all twelve frozen cutoffs")
-    for case, identity in zip(cases, frozen):
+    for case_index, (case, identity) in enumerate(zip(cases, frozen)):
         if (case["event"] != identity["event"] or case["cutoff"].isoformat() != identity["cutoff"]
                 or hashlib.sha256(case["initial"].tobytes()).hexdigest() != identity["initial_sha256"]):
             raise ValueError("Frozen comparison cutoff or initial state changed")
+        if args.compare_case_index is not None and case_index != args.compare_case_index:
+            continue
         raw = env.at(case["event"], case["cutoff"].floor("h"))
         e = torch.from_numpy(raw)[None]
         fv = torch.isfinite(e)
@@ -642,29 +671,19 @@ def command_compare(args):
             mask = v_mc & v_mf & ~case["initial"]
             if not np.array_equal(v_mc, v_mf):
                 raise AssertionError("Mean-field and Monte Carlo validity differ")
-            a, b = p_mc[mask], p_mf[mask]
-            active = np.maximum(a, b) > 1e-3
             label = case["labels"].get(int(hours)) if kind == "fixed" else case["survey_label"]
             row = dict(country=case["country"], event=case["event"], cutoff=case["cutoff"].isoformat(),
-                       horizon_kind=kind, hours=hours, cells=int(mask.sum()), active_cells=int(active.sum()),
-                       rmse_all=float(np.sqrt(np.mean((a - b) ** 2))),
-                       rmse_active=float(np.sqrt(np.mean((a[active] - b[active]) ** 2))) if active.any() else None,
-                       mean_mc=float(a.mean()), mean_mf=float(b.mean()),
-                       expected_new_cells_mc=float(a.sum()), expected_new_cells_mf=float(b.sum()),
-                       max_abs_difference=float(np.abs(a - b).max()),
+                       horizon_kind=kind, hours=hours,
                        mc_seconds=mc_seconds, mf_seconds=mf_seconds, n_samples=args.n_samples, seed=args.seed,
                        timing_scope="one joint 24h call, shared across five horizon rows" if kind == "fixed" else "one fractional survey-endpoint call")
+            row.update(compare_fields(p_mc, p_mf, mask, label, case.get("label_valid")))
             if label is not None:
-                label_mask = mask & case.get("label_valid", np.ones(mask.shape, bool))
-                y = label[label_mask].astype(np.float64)
-                row.update(label_kind=case["label_kind"], label_cells=int(label_mask.sum()), positives=int(y.sum()),
-                           brier_mc=float(np.mean((p_mc[label_mask] - y) ** 2)), brier_mf=float(np.mean((p_mf[label_mask] - y) ** 2)),
-                           brier_persistence=float(np.mean(y ** 2)))
+                row.update(label_kind=case["label_kind"])
             rows.append(row)
             print(json.dumps(row), flush=True)
     pd.DataFrame(rows).to_csv(out / "meanfield_vs_mc.csv", index=False)
     (out / "meanfield_vs_mc.json").write_text(json.dumps(dict(rows=rows, host=host_record(),
-                                                              checkpoint_sha256=C651_SHA256), indent=1) + "\n")
+                                                              checkpoint_sha256=C651_SHA256), indent=1, allow_nan=False) + "\n")
 
 
 def main():
@@ -678,6 +697,8 @@ def main():
     parser.add_argument("--variant", choices=sorted(VARIANTS), default="base")
     parser.add_argument("--fold", choices=["2020", "2021", "2022"], default="2022")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--compare-case-index", type=int, choices=range(12), default=None,
+                        help="Run one unchanged frozen cutoff, enabling per-cutoff resource leases")
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--intervals-per-epoch", type=int, default=160)
     parser.add_argument("--max-fit-intervals-per-fire", type=int, default=3,
