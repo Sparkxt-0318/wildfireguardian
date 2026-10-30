@@ -1,0 +1,38 @@
+{
+  "controllers": {
+    "forecast-await-comparison-close.py": {
+      "gzip_sha256": "b173b9b94d8a7a451348a4616b155842bc16f1cf99a2643928ca71b6bc16b1d6",
+      "source_bytes": 2753,
+      "source_sha256": "6fe1b65c8e6ea15a13df1ce53206466476c62c0cae5d5a87fd7fca2755845f96",
+      "status": "EXECUTED_SOURCE_CLOSURE_WATCHER_ONLY"
+    },
+    "forecast-current-cohorts-frozen.py": {
+      "gzip_sha256": "576d72798b86fb2b3ef53ebf5ce36eb4a79796e62ffabddc315291a11e492b82",
+      "source_bytes": 4154,
+      "source_sha256": "783334e6bb3731bc93122f9b3aedd8e43ec9be5977589f2c781bccc78d34ec54",
+      "status": "PREPARED_UNEXECUTED_AT_PACKAGING"
+    },
+    "forecast-final-software-check-v2.py": {
+      "gzip_sha256": "558c61e6b1cf0d0e79a41d32fa3e42947959a5af41ef55105f5e0d028ac5dd6f",
+      "source_bytes": 3342,
+      "source_sha256": "fb67ed17350de818b65ce58a1ddd00f7bce01b76f80887c952f26faea6f185f6",
+      "status": "PREPARED_UNEXECUTED_AT_PACKAGING"
+    },
+    "forecast-fit-coverage-final-v2.py": {
+      "gzip_sha256": "200c1df05438198135bf6da9c190e5eaf0473945ef257dd47c7ace3c395e739f",
+      "source_bytes": 3243,
+      "source_sha256": "0899a278634a1e01c178f80b05f32a4858ed0d5ab7d370462e08625b807f1517",
+      "status": "PREPARED_UNEXECUTED_AT_PACKAGING"
+    }
+  },
+  "created_utc": "2026-10-30T12:42:41.325781+00:00",
+  "policy": [
+    "Distinct v2 gate and canonical coverage logs/receipts preserve original gate and live HOLD.",
+    "Software gate requires exact liveF65 and completed a06 aggregate.",
+    "Coverage audit authenticates every source captured by the passing software gate before/after its own execution.",
+    "MD excluded from software capture; final protocol table completed after selection and pinned by later registry.",
+    "Current cohort driver verifies committed source/freeze identities and records each cohort exit independently; no outer HEAVY lease.",
+    "No future2026data or OSF registration commands."
+  ],
+  "schema": "wfg.final-gate-driver-preparation/1"
+}
