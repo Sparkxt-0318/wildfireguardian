@@ -1,6 +1,6 @@
 {
   "tier": "Tier 2 task-directed verification",
-  "scope": "Immutable f9fa03290 A evidence; repaired C core/readers at e68123d81, receipt/native-usage custody; preheldout B scoring tools at be678bb65, synthetic admission/statistic fixtures only",
+  "scope": "Immutable f9 A and e681 C retained evidence, plus independent current B repair-source and synthetic admission recheck at08ac32c7",
   "track_a_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
   "track_c_head": "e68123d81fb9064ad057425d7c954f923b50097c",
   "graph": {
@@ -13,8 +13,8 @@
       "generation": "2026-10-30T03:54:43Z"
     },
     "1B": {
-      "project": "wfg-next-1b-audit-be678bb65-20261030",
-      "generation": "2026-10-30T03:54:55Z"
+      "project": "wfg-next-1b-audit-08ac32c7-20261030",
+      "generation": "2026-10-30T04:24:18Z"
     }
   },
   "query_pagination": "All targeted search and trace results read had has_more false or no continuation; no graph-completeness claim.",
@@ -23,7 +23,8 @@
     "Compressed campaign files excluded: directly decompressed and parsed every record for count/outcome/null-score consistency.",
     "New combined report files untracked in graph generation: directly read and validated as UTF-8/JSON.",
     "B research/forecast-v2/scripts entire subtree excluded: directly read complete score_cohorts.py, blind_test.py and all directly called pipeline helpers. Source review pinned to immutable snapshot; not a graph-trace completeness claim.",
-    "Initially requested research/forecast-v2/PREREGISTRATION.md was missing. Located and read exact forecast/documents/preregistration_blind_test.md, metadata_match."
+    "Initially requested research/forecast-v2/PREREGISTRATION.md was missing. Located and read exact forecast/documents/preregistration_blind_test.md, metadata_match.",
+    "Current B excluded-script fallback: complete score_cohorts/blind_test and directly called Environment, perimeter, sample-cache, model-load/MC/logistic helpers read. Every relevant admission guard tested on synthetic otherwise-valid inputs. A provisional perimeter concern was resolved by exact helper lines224-228; no negative graph claim."
   ],
   "trace_limits": "Generic get/accept method edges included obvious heuristic cross-file noise; material conclusions use exact snippets and executions.",
   "not_audited": [
@@ -35,9 +36,9 @@
     "new scored risk campaign",
     "scientific integration",
     "1C implementation after e68123d81",
-    "B changes after be678bb65",
     "actual 1B heldout input datasets/predictions/scores",
-    "authentication of an external OSF registration or complete future NIROPS release inventory"
+    "authentication of an external OSF registration or complete future NIROPS release inventory",
+    "B changes after08ac32c7"
   ],
   "native_custody_scope": "Independent raw-CSV count/pair reconciliation and internal custody-ledger consistency, not a new native campaign or an independent rehash of every external job file.",
   "export_equality_scope": "New15-window dtype/shape/exactpayload/NPY byte audit receipt preserved separately from the older value-equality method. Artifact and source-manifest file digests match receipt; owner regression distinguishes NaN payloads.",
@@ -57,7 +58,7 @@
     "original_failure_retained": true,
     "latest_record": "audit/1c-core-e68123d81.json"
   },
-  "track_b_head": "be678bb655cb2b3f7985d2b6f73b4f20b044a2ce",
+  "track_b_head": "08ac32c7f23a886dba6a8373eea27dd84e18d83e",
   "reader_horizon": "audit/1c-horizon-e68123d81.json: four synthetic horizon boundaries pass; no actual Wapiti source read",
   "blind_tool_review": {
     "record": "audit/1b-blind-tools-be678bb65.json",
@@ -67,5 +68,17 @@
     "scope": "Synthetic files and mocked numerical producers; no inference that an actual heldout campaign contains wrong numbers"
   },
   "native_execution_availability": "Independently rehashed recorded five native source/binary/manifest files and stdout/stderr, reviewed probe source/process-group/timeout policy. No new execution; usage only, expected exit1, clock skipped heavy lock.",
-  "historical_manifest_caveat": "The old POST_REPAIR_RECEIPT source-manifest digest for synthetic-truth differs from the final current manifest after reader repair. Historical failure and receipt bytes retained; latest READERS_REPAIR_RECEIPT identities independently match."
+  "historical_manifest_caveat": "The old POST_REPAIR_RECEIPT source-manifest digest for synthetic-truth differs from the final current manifest after reader repair. Historical failure and receipt bytes retained; latest READERS_REPAIR_RECEIPT identities independently match.",
+  "blind_tool_repair_review": {
+    "record": "audit/1b-repaired-tools-08ac32c7.json",
+    "checks": 52,
+    "passed": 50,
+    "original_failures_preserved": true,
+    "new_findings": [
+      "executed baseline files differ from frozen-selection paths",
+      "fresh Monte Carlo nonfinite can trim deterministic support"
+    ],
+    "heldout_results_or_input_datasets_inspected": false
+  },
+  "a_provenance_guard": "Parent advanced audit-1a to433 during this B review. Generator reads exact Git objects at the previously reviewed f9 head, and records both source revision and current worktree head. No independent claim about433 is introduced."
 }

@@ -25,7 +25,12 @@ def main():
     parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
     args = parser.parse_args()
     track = args.track_a.resolve()
-    head = subprocess.check_output(["git", "-C", str(track), "rev-parse", "HEAD"], text=True).strip()
+    worktree_head = subprocess.check_output(["git", "-C", str(track), "rev-parse", "HEAD"], text=True).strip()
+    # The orchestrator can advance the audit worktree during a parallel review.
+    # This report retains only the explicitly reviewed radiation revision.
+    head = json.loads((args.out_dir / "audit/1a-simultaneous-repaired.json").read_text())["track_head"]
+    def a_bytes(path):
+        return subprocess.check_output(["git", "-C", str(track), "show", f"{head}:{path}"])
     paths = [
         "research/flame-front-radiation/RESULTS.json",
         "research/flame-front-radiation/REQUIREMENTS_STATUS.json",
@@ -37,8 +42,8 @@ def main():
         "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py",
         "experimental/flame-front-radiation/adapters/journey_check.py",
     ]
-    evidence = json.loads((track / paths[0]).read_text())
-    requirements = json.loads((track / paths[1]).read_text())
+    evidence = json.loads(a_bytes(paths[0]))
+    requirements = json.loads(a_bytes(paths[1]))
     audit_path = args.out_dir / "audit/1a-simultaneous-initial.json"
     audit = json.loads(audit_path.read_text())
     gates = {
@@ -47,6 +52,8 @@ def main():
         "track_evidence": {
             "1A": {
                 "head": head,
+                "source_selection": "Git snapshot pinned by separately reviewed A repair record, independent of current worktree HEAD",
+                "worktree_head_at_generation": worktree_head,
                 "reported_status": evidence["status"],
                 "test_count": evidence["tests"]["passed"],
                 "random_enclosure_cases": evidence["tests"]["random_box_interval_cases"],
@@ -59,7 +66,7 @@ def main():
                 "dose_binding_missions": evidence["dose_binding_missions"],
                 "requirements": requirements,
                 "targeted_audit": {"status": audit["status"], "head": audit["track_head"], "path": str(audit_path.relative_to(args.out_dir))},
-                "source_sha256": {path: digest(track / path) for path in paths},
+                "source_sha256": {path: hashlib.sha256(a_bytes(path)).hexdigest() for path in paths},
                 "reported_host": evidence["host"],
             },
             "1B": {"status": "PENDING_OWNER_FINAL_EVIDENCE", "head": None, "headline": None},
@@ -423,8 +430,61 @@ All historical failures are preserved. C software repair evidence, B tool failur
     print(json.dumps({"c_reader_repair": readers["status"], "c_core": core["status"], "b_tools": review["status"], "cross_track": "NOT_RUN_GATED"}))
 
 
+def extend_b_repair_recheck():
+    """Preserve first failures, then record repaired guards and new fresh-run gaps."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path, required=True)
+    parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    out = args.out_dir
+    gates = json.loads((out / "GATES.json").read_text())
+    audit = json.loads((out / "audit/1b-repaired-tools-08ac32c7.json").read_text())
+    b = gates["track_evidence"]["1B"]
+    b["previous_software_review"] = b.pop("software_review")
+    b["head"] = audit["track_head"]
+    b["status"] = "ORIGINAL_GUARDS_REPAIRED_FRESH_ASSESSMENT_HOLD_TWO_NEW_ADMISSIONS"
+    b["software_review"] = audit
+    b["owner_reported_checks"] = {"targeted_tests": 60, "full_forecast_tests": 2939,
+        "environment_caches_rederived": 1387, "active_sample_lists_rederived": 80,
+        "value_dtype_shape_order_metadata_changes": 0, "obsolete_mixed_caches_retained_excluded": 34,
+        "scope": "Owner report only; this independent review did not open actual study inputs or caches. Synthetic exploits do not establish actual cache corruption."}
+    gates["track_evidence"]["1C"]["draft_pr"] = "https://github.com/Sparkxt-0318/wildfireguardian/pull/86"
+    gates["open_work"][1] = "1B fresh assessment baseline execution identity and deterministic full-support admission; independent repaired review before heldout"
+    gates["commands"].append({"command": "../venv-forecast/bin/python research/next-combined/audit_1b_repaired_tools.py --track-b ../audit-1b --out research/next-combined/audit/1b-repaired-tools-08ac32c7.json", "exit_code": 1, "checks": audit["checks"], "passed": audit["passed"], "scope": "Independent synthetic guard matrix; numerical producers mocked, no study inputs read"})
+    (out / "GATES.json").write_text(json.dumps(gates, indent=2, allow_nan=False) + "\n")
+    text = (out / "README.md").read_text()
+    text = text.replace("Final fits pending; pre-heldout tool audit finds five admission failures; no heldout scores inspected", "Original five guard mechanisms repaired; 50/52 independent synthetic checks pass, with two fresh-assessment admissions open; no heldout scores inspected")
+    text += '''
+
+## Independent B repair recheck
+
+The next immutable B review is pinned to `08ac32c7f23a886dba6a8373eea27dd84e18d83e`. The original failure record and script remain unchanged. The separate repaired harness now correctly treats constructor refusal of an unauthenticated cache as a pass and continues. The independent matrix passes 50/52 checks. A valid assessment control has all 16 expected model columns; the blind protocol has 15 because it excludes the additional c651 mean-field comparator. Separate otherwise valid fixtures test each receipt/source field, integer and exact ordered coordinates, negative/out-of-range/duplicate/reordered/subset coordinates, label identity, missing/extra model columns, nonfinite/out-of-range/misshaped probabilities, counts and the complete common-support hash. They do not rely on an earlier model-set refusal to infer the later guards work.
+
+Direct blind scoring now reruns full validation, rederives current support, compares every endpoint label and exact ordered coordinate, and verifies the validated source/model/input identity of its run receipt. The separate synthetic identity tests refuse changed source, checkpoint and input bytes, a 1999 cohort, old receipt contracts and substituted case metadata. Incomplete primary decisions keep every promotion field false, with subset comparisons explicitly descriptive. The fixed pooled statistic and whole-fire bootstrap remain unchanged. These repairs discharge the original five mechanism findings within the tested scope.
+
+Two fresh-assessment cases still fail, both in `score_cohorts.py`:
+
+| Finding | Exact synthetic reproduction | Required action |
+|---|---|---|
+| Executed baseline paths differ from frozen selection | `identities:82-116` validates logistic and dilation files under the selection's frozen paths, then accepts different files under `--run/baselines`; the loaded hashes differ, and the loaded dilation is 8 instead of the frozen 4 | Compare the actual files consumed by `main` against the selection's frozen baseline bytes before execution |
+| Fresh Monte Carlo numeric failure trims the scored population | `predict_case:174-198` has three deterministic supported cells but one MC NaN with validity true; fresh mask shrinks to two, and `validate_entries` accepts that smaller mask because fresh `main` supplies it as the expected mask | Independently compute fresh deterministic support, require equality and finite MC probabilities on all of it, and refuse numerical failure rather than exclude those cells |
+
+The second guard already exists in the blind producer. Resumed assessment validation recomputes deterministic support; fresh and resumed admission need the same population. The exact producer is `audit_1b_repaired_tools.py`, with separate record `audit/1b-repaired-tools-08ac32c7.json`, exit 1. These synthetic cases do not establish that actual study baselines differ or that actual Monte Carlo predictions contain NaNs. The owner has both findings before any heldout evaluation.
+
+The actual cache audit is a distinct owner report: 1,387 environmental caches and 80 active sample lists were rederived with no value, dtype, shape, order or metadata changes; 34 obsolete mixed caches were retained and excluded. The owner reports 60 targeted tests and 2,939 full forecast tests passed. This independent review did not inspect those study inputs or pool their test counts with the synthetic matrix. A provisional perimeter-binding concern was resolved by the exact helper: `pipeline.perimeter_samples:224-228` checks each states NPZ against the pinned perimeter manifest before reading.
+
+Current US2024/Korean2025 assessment remains held for the two fresh admission fixes and an independent recheck, with final fits, frozen selection and comparison outputs still pending. Future 2026 registration remains NOT_READY separately: a pinned derived event catalog cannot authenticate all incidents/exclusions in a complete future raw NIROPS release, and a supplied OSF URL is not independent registration authentication. Repairing the current five bugs alone does not make that protocol ready.
+
+The repaired C software is available for draft review in [PR 86](https://github.com/Sparkxt-0318/wildfireguardian/pull/86), with its scientific HOLD_PARTIAL retained. A remains pinned here to the independently audited f9fa03290 snapshot while the orchestrator reviews its newer enclosure/math revision. All scientific integration rows remain NOT_RUN_GATED. No heldout predictions or scores were opened, and no branch was merged or pushed by this audit.
+'''
+    (out / "README.md").write_text(text)
+    print(json.dumps({"b_repair_checks": audit["checks"], "passed": audit["passed"], "state": b["status"]}))
+
+
 if __name__ == "__main__":
     main()
     extend_interim_report()
     extend_repaired_core_and_reader_audit()
     extend_reader_repair_and_preheldout_review()
+    extend_b_repair_recheck()
