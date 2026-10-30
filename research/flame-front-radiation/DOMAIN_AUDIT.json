@@ -4,14 +4,16 @@
   "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
   "numpy": "1.26.4",
   "audit_script_sha256": "01bb75a896c98c84fd9f30b88b43322ab21106dfdc8da28110a49e6d350da986",
-  "track_head": "209fd0b1c456de8292ca7e06e07eb69329754ae2",
+  "track_head": "767a13c896bd4074ea4ebe5c9ea509e86189765f",
   "source_sha256": {
     "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
     "experimental/flame-front-radiation/src/wfg_flamefront/intensity.py": "7e65dd4c64934eeb75c2b7c97882e09ddab7f2641447988bb81dcc3c73bd8ff0",
-    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "cab6beb1b01b31f6ebf199574d8d650db476a42042ae14afa973584a27b712bb",
-    "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
+    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "46e3d0f1c0f53cd90b8db4907b53c018078da795f75e2a06ceadcb4a7fc8a4dd",
+    "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "f5d91ca813c79f99eb08db3b1515ec82a04f88cb74ee7c4dacc90fe11ffec529",
     "experimental/flame-front-radiation/src/wfg_flamefront/__init__.py": "1df47d93a1c4fc13da905e9a95f283ff12c6416eaf4b4fe6799eded8f543a16c",
-    "experimental/flame-front-radiation/src/wfg_flamefront/provenance.py": "c3ec3713ddeb9cc0575ee03a309bde6d7fba4e98c05a5705f63f014857781428"
+    "experimental/flame-front-radiation/src/wfg_flamefront/provenance.py": "cfe565ef2f5450e4f0a7d36ed48db5372643c7fdcdea016f103055c7f8c7f71d",
+    "experimental/flame-front-radiation/src/wfg_flamefront/verified_view.py": "2ec65356bee50e552d0958f42521e6a09f73d3acd4d17b4d7423f2b5530e5d02",
+    "experimental/flame-front-radiation/src/wfg_flamefront/geometric_bounds.py": "cc136f68377a21237253f2af99a10d018bbceb1662f214252389fd9d8214f6cd"
   },
   "fixture": {
     "ignition_time_s": [
