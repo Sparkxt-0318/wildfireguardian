@@ -1,0 +1,43 @@
+{
+  "draft_sha256": "02fc66e0914223fa4da0bd06d28c97aa1a4c5570dce25d2d0d4f0d0f595a4d63",
+  "family_counts": {
+    "canonical_figure_pairs": 5,
+    "case_json": 306,
+    "frozen_source_files": 223,
+    "per_fire_npz": 10,
+    "scored_case_npz": 299
+  },
+  "missing_original_pins": {
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d",
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+  },
+  "new_input_count": 654,
+  "no_modified_authorization_execution": true,
+  "no_npz_or_model_decode": true,
+  "original_failed_auth_preserved": true,
+  "output_absent": true,
+  "output_relative_directory": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2",
+  "recorded_utc": "2026-10-30T23:41:47.101360+00:00",
+  "schema": "wfg.descriptive-complete-consumed-input-closure/2",
+  "source_ranges_reviewed": [
+    "protocol86-103",
+    "frozen_point_engine109-146",
+    "Files354-382/check_bindings396-409",
+    "checked_case412-455",
+    "verify_cohort482-578",
+    "authorize645-790",
+    "cohort_expectation794-902",
+    "run_authorized922-996"
+  ],
+  "source_read_sinks": {
+    "CanonicalCohort_model": "Only expected per-fire NPZ entries, supplied.",
+    "authorize": "Exogenous authorization,223 raw-byte freeze, exact canonical/review/proof/method/source roles; all supplied.",
+    "cohort_expectation": "The2 hard-pinned inventories are now supplied;306caseJSON/299caseNPZ/10perfireNPZ already supplied.",
+    "other_read_sinks": "HEAVY lock and newly written output matrix/result/README/source gzip/completion; no additional scientific input family.",
+    "point_engine": "Bundled exact baseline source gzip; present.",
+    "protocol": "Bundled protocol, inherited source review MD and result JSON; all present.",
+    "verify_cohort": "Only artifacts carried by the authenticated expectation and same Files wrapper; all present."
+  },
+  "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "static_input_closure_pass": true
+}
