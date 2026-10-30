@@ -21,6 +21,7 @@ def digest(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path)
     parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
     args = parser.parse_args()
     track = args.track_a.resolve()
@@ -150,5 +151,123 @@ This interim artifact audits one committed prototype and records unfinished work
     print(json.dumps({"status": gates["status"], "track_a_head": head, "track_a_tests": a["test_count"], "cross_track_experiments": "NOT_RUN_GATED"}))
 
 
+def extend_interim_report():
+    """Add the retained repair and the separately audited immutable C snapshot."""
+    import csv
+    import gzip
+    from collections import defaultdict
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path, required=True)
+    parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    out = args.out_dir
+    root = args.track_c.resolve()
+    def read(rel):
+        return json.loads((root / rel).read_text())
+    gates = json.loads((out / "GATES.json").read_text())
+    repaired = json.loads((out / "audit/1a-simultaneous-repaired.json").read_text())
+    audit_c = json.loads((out / "audit/1c-core-393f37748.json").read_text())
+    a = gates["track_evidence"]["1A"]
+    a["initial_targeted_audit"] = a.pop("targeted_audit")
+    a["repaired_targeted_audit"] = {"status": repaired["status"], "head": repaired["track_head"], "path": "audit/1a-simultaneous-repaired.json"}
+    native = read("research/sipp-routing/RESULTS.json")
+    exports = read("research/scenario-members/EXPORT_AUDIT.json")
+    wrapper = read("research/scenario-members/WRAPPER_EQUIVALENCE.json")
+    custody = read("research/sipp-routing/native-panel-20261030/CUSTODY.json")
+    rows = list(csv.DictReader((root / "research/sipp-routing/native-panel-20261030/EXECUTIONS.csv").open()))
+    pairs = defaultdict(dict)
+    for row in rows:
+        pairs[(row["panel"], row["mission"], row["repetition"])][row["method"]] = row
+    equivalent = sum((p["sweep"]["status"], p["sweep"]["arrival"]) == (p["sipp"]["status"], p["sipp"]["arrival"]) and p["sipp"]["status"] != "UNRESOLVED" for p in pairs.values())
+    slower = sum(float(p["sipp"]["complete_wall_s"]) > float(p["sweep"]["complete_wall_s"]) for p in pairs.values())
+    assert len(rows) == native["native"]["executions"]
+    assert equivalent == native["native"]["equivalent_pairs"] and len(pairs) == native["native"]["pairs"]
+    assert slower == native["native"]["sipp_slower_pairs"]
+    fields = [v for row in custody["rows"] for v in row["fields"].values()]
+    assert len(fields) == custody["pinned_fields"]
+    assert sum(v["matches_job"] is True and v["matches_case"] for v in fields) == custody["job_matches"]
+    counts = {}
+    compressed = sorted((root / "research/synthetic-truth/strict-support-20261030").glob("C*.jsonl.gz"))
+    for path in compressed:
+        count = 0
+        with gzip.open(path, "rt") as stream:
+            for line in stream:
+                row = json.loads(line)
+                assert row["outcome"] == "unresolved" and row["false_safe"] is None and row["false_refusal"] is None
+                count += 1
+        counts[path.name.split(".")[0]] = count
+    paths = ["research/sipp-routing/RESULTS.json", "research/sipp-routing/PROPERTY_CENSUS.json", "research/sipp-routing/native-panel-20261030/EXECUTIONS.csv", "research/sipp-routing/native-panel-20261030/CUSTODY.json", "research/scenario-members/EXPORT_AUDIT.json", "research/scenario-members/WRAPPER_EQUIVALENCE.json", "research/scenario-members/TRACK_STATUS.json", "research/scenario-members/TEST_RECEIPT.json", "research/synthetic-truth/RESULTS.json"]
+    paths += [str(path.relative_to(root)) for path in compressed]
+    c = {"status": "AUDITED_INTERIM_SNAPSHOT_OWNER_CONTINUES", "head": subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip(),
+         "native": native["native"], "abstract_census": native["random_census"], "custody": native["custody"],
+         "exports": {k: exports[k] for k in ("windows", "v2_array_identity_passes", "full_n_mean_passes", "windows_with_unknown_support")},
+         "wrapper_equivalence": {k: wrapper[k] for k in ("event", "cutoff", "npz_bytes_identical", "old_npz_sha256", "new_npz_sha256")},
+         "admission_record_counts": counts, "admission_records": sum(counts.values()), "scorable_truth_cases": 0,
+         "false_safe_rate": None, "false_refusal_rate": None, "targeted_audit": audit_c,
+         "owner_requirements": read("research/scenario-members/TRACK_STATUS.json"), "source_sha256": {p: digest(root / p) for p in paths},
+         "audit_scope": "Independent pair/count and internal custody-record checks; original-job/source matches are owner-recorded evidence"}
+    gates["track_evidence"]["1C"] = c
+    gates["track_evidence"]["1B"]["heldout_scores_inspected"] = False
+    gates["open_work"][0] = "1A empirical geometry, usable enclosure and full journey adapter"
+    gates["open_work"].insert(2, "1C defensive score and weight-admission repairs")
+    gates["commands"].append({"command": "ROUTING_PYTHON research/next-combined/audit_1c_semantics.py --track-c SNAPSHOT_C --out FRESH_AUDIT", "exit_code": 1, "scope": "small interface fixtures, not a campaign"})
+    gates["commands"].append({"command": "ROUTING_PYTHON research/next-combined/audit_1a_semantics.py --track-a REPAIRED_A --out FRESH_AUDIT", "exit_code": 0, "scope": "retained repair fixture"})
+    for item in gates["commands"]:
+        command = item.get("command")
+        if isinstance(command, list) and "research/next-combined/build_report.py" in command:
+            command.extend(["--track-c", str(root)])
+    (out / "GATES.json").write_text(json.dumps(gates, indent=2, allow_nan=False) + "\n")
+    text = (out / "README.md").read_text()
+    text = text.replace("build_report.py --track-a ../track-1a", "build_report.py --track-a ../track-1a --track-c ../audit-1c")
+    text = text.replace("Tracks 1B and 1C are still executing.", "Forecast fits are still in progress; an immutable interim 1C snapshot is audited below.")
+    text = text.replace("The independent targeted audit also found an unsupported-case zero-enclosure defect.", "The original unsupported-case zero-enclosure defect has been repaired and independently rechecked; its failing record remains preserved.")
+    text = text.replace("targeted refusal repair needed", "targeted refusal defect repaired")
+    n = c["native"]
+    text = text.replace("| 1C members, SIPP and synthetic truth | Pending final owner evidence | Pending, no headline assigned |", f'| 1C members, SIPP and synthetic truth | {n["equivalent_pairs"]}/{n["pairs"]} native contact pairs; {c["abstract_census"]["agree"]:,}/{c["abstract_census"]["cases"]:,} abstract comparisons; {c["exports"]["v2_array_identity_passes"]}/{c["exports"]["windows"]} export-array equality checks | HOLD_PARTIAL; owner continues; targeted score-admission fixes needed |')
+    text = text.replace("The orchestrator has been notified and owns follow-up with the track agent.", f'The defect was repaired at `{repaired["track_head"]}`. The same fixture now raises consistently from both interfaces: `{repaired["status"]}` in `audit/1a-simultaneous-repaired.json`. This is a bounded interface repair, not an empirical-physics pass.')
+    text = text.replace("final repair verification must be retained separately", "repair verification is retained separately")
+    text = text.replace("The model still needs consistent refusal behavior, a complete adapter, empirical case identification, and the requested journey-level studies.", "The repaired domain guard adds consistent refusal evidence; a complete adapter, empirical case identification, and the requested journey-level studies remain open.")
+    text = text.replace("The targeted audit exited 1, a retained finding.", "The initial targeted audit exited 1; the repaired fixture exited 0, both retained separately.")
+    text += f'''
+
+## Immutable 1C snapshot audit
+
+Snapshot `{c["head"]}` has {n["executions"]} native contact-relaxation executions across {n["missions"]} missions, with {n["equivalent_pairs"]}/{n["pairs"]} paired status-and-arrival matches. SIPP was slower in {n["sipp_slower_pairs"]}/{n["pairs"]} pairs. The raw CSV independently reproduces these counts. The custody ledger is internally consistent with its {custody["job_matches"]}/{custody["pinned_fields"]} reported original-job field matches. Original controller bytes remain retained; its final-after-exit guard was repaired after these executions, which were far below both limits. These are bounded contact-relaxation results, not full thermal-planner or universal runtime claims.
+
+All {exports["windows"]} real exports pass the producing v2-array equality checks and full-N mean checks on known support. That script uses `array_equal`, including equal-NaN handling; this is not a general dtype or NaN-bit identity proof. A separate real {wrapper["event"]} cutoff establishes identical whole-NPZ hashes between the relocated wrapper and archived producer for that cutoff. The frozen exporter was restored; the default rollout diff adds only the optional observer and guarded call. The Boolean observer state is separately allocated. Block identity, offset and batch size are required for individual trajectory replay; seed alone is insufficient.
+
+The copied full-journey checker explicitly checks a cell-centre surrogate. The wrapper preserves rejected candidates as unresolved, retains no-route only for uncut all-member relaxation exhaustion, and does not promote union exhaustion to k-of-m refusal. Its bounded lazy cuts remove whole departure singletons, so their exhaustion cannot prove global infeasibility or optimality. Whole-road validity, real scenario-reduction coverage, member-count scaling and scored risk campaigns remain open. Global-source completeness is a conservative admission policy, not proof that every local checker or pessimistic bound on unknown sources would fail.
+
+The compressed campaign records were independently counted and checked for unresolved outcomes and null false-safe/false-refusal fields:
+
+| Campaign | Admission records | Scored risk cases |
+|---|---:|---:|
+| C1 | {counts["C1"]:,} | 0 |
+| C2 | {counts["C2"]:,} | 0 |
+| C3 | {counts["C3"]:,} | 0 |
+| C4 | {counts["C4"]:,} | 0 |
+
+The total {c["admission_records"]:,} records are unscorable admission records, not risk-validation samples. They identify no numerical false-safe/refusal rate. Brier diagnostics concern joint known cells only. The one-hour single-component case supplies no multi-step coherence contrast, and changing missing-data policy would confound the comparison. Shared truth draws and regional panels are clustered rather than independent fires.
+
+The pure-interface audit passed {audit_c["passed"]}/{audit_c["checks"]} fixtures, with four retained defensive failures: inconsistent evaluator flags can erase a known-contact violation; a supported passing journey can coexist with a no-route oracle without rejection; nonfinite oracle arrival can produce nonfinite regret; and overflowing finite weights can turn positive CVaR into zero. These defects concern admitted inconsistent or extreme inputs, not numerical errors asserted in the unscorable campaign. Exact fixtures and source hashes are retained in `audit/1c-core-393f37748.json`, produced by `audit_1c_semantics.py`, exit 1. The owner has been notified. Unknown-mass decisions and all-member versus k-of-m no-route semantics passed their targeted fixtures. The scoring API also relies on caller-provided truth and oracle identities; the label `scope=full_policy` alone is not an independent proof or source binding.
+
+This audit did not inspect 1B held-out scores. Its final fits, selection registry and reviewed blind protocol remain pending. The 1C owner is adding independent adapters and features after this snapshot, so this report does not finalize that track's gate. All cross-track scientific integration checks remain `NOT_RUN_GATED`.
+
+To regenerate the interim summary and repeat targeted checks, use fresh output paths:
+
+```sh
+../venv-routing/bin/python research/next-combined/audit_1c_semantics.py --track-c ../audit-1c --out FRESH_C_AUDIT.json
+../venv-routing/bin/python research/next-combined/audit_1a_semantics.py --track-a ../track-1a --out FRESH_A_AUDIT.json
+../venv-routing/bin/python research/next-combined/build_report.py --track-a ../track-1a --track-c ../audit-1c
+```
+
+The owner host is native macOS arm64 with Python 3.12.1 and NumPy 1.26.4; export seed 0, member/campaign seed 20261008. Exact commands, owner test receipts, hashes and audit scope are in `GATES.json`. No performance result is derived from these interface fixtures, and no branch was merged.
+'''
+    (out / "README.md").write_text(text)
+    print(json.dumps({"a_repair": repaired["status"], "c_pairs": len(pairs), "c_records": c["admission_records"], "c_interface_audit": audit_c["status"]}))
+
+
 if __name__ == "__main__":
     main()
+    extend_interim_report()

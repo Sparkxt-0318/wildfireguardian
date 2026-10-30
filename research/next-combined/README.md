@@ -1,16 +1,16 @@
 # Combined next-track readiness, interim HOLD
 
-**No combined experiment has run. Track 1A reports 21 passing tests and 1,000 seeded enclosure regression cases, but its empirical physics gate is unresolved. Tracks 1B and 1C are still executing.** The independent targeted audit also found an unsupported-case zero-enclosure defect. This document is a readiness record, not a claim that the requested scientific campaign is complete.
+**No combined experiment has run. Track 1A reports 33 passing tests and 1,000 seeded enclosure regression cases, but its empirical physics gate is unresolved. Forecast fits are still in progress; an immutable interim 1C snapshot is audited below.** The original unsupported-case zero-enclosure defect has been repaired and independently rechecked; its failing record remains preserved. This document is a readiness record, not a claim that the requested scientific campaign is complete.
 
 ## Track evidence
 
 | Track | Current evidence | Acceptance state |
 |---|---|---|
-| 1A radiation | 21 tests, 1,000 enclosure regression cases, seed 20261030; routing rejection and binding counts are null | HOLD_INCOMPLETE; physics unresolved; targeted refusal repair needed |
+| 1A radiation | 33 tests, 1,000 enclosure regression cases, seed 20261030; routing rejection and binding counts are null | HOLD_INCOMPLETE; physics unresolved; targeted refusal defect repaired |
 | 1B forecast | Pending final owner evidence | Pending, no headline assigned |
-| 1C members, SIPP and synthetic truth | Pending final owner evidence | Pending, no headline assigned |
+| 1C members, SIPP and synthetic truth | 52/52 native contact pairs; 10,000/10,000 abstract comparisons; 15/15 export-array equality checks | HOLD_PARTIAL; owner continues; targeted score-admission fixes needed |
 
-The [1A report at its audited source revision](https://github.com/Sparkxt-0318/wildfireguardian/blob/90b125a79d67301fac3058c97fe240b18cf8ae83/research/flame-front-radiation/README.md) gives the detailed source and requirement ledger. `GATES.json` records the source hashes, exact test command, reported host and pending states. Results from the earlier remote Claude run are reference material and are not counted as executions in this run.
+The [1A report at its audited source revision](https://github.com/Sparkxt-0318/wildfireguardian/blob/f9fa03290d57dc3d226543833f612640fd9f414a/research/flame-front-radiation/README.md) gives the detailed source and requirement ledger. `GATES.json` records the source hashes, exact test command, reported host and pending states. Results from the earlier remote Claude run are reference material and are not counted as executions in this run.
 
 ## Cross-track checks
 
@@ -24,7 +24,7 @@ No track branch has been merged into this worktree. A pending or gated result ha
 
 ## Independent targeted finding
 
-At source revision `90b125a79d67301fac3058c97fe240b18cf8ae83`, a 2 by 2 simultaneous-ignition field with a 10 s residence time causes point evaluation at 1.5 s to raise `UnsupportedGeometry`. Enclosure evaluation over the interior interval [1,2] s instead returns [0,0]. An enclosure consumer could mistake that unsupported case for known zero flux. The failing fixture, source hashes and observations are retained in `audit/1a-simultaneous-initial.json`. This is a model-interface defect; it does not measure a physical fire. The orchestrator has been notified and owns follow-up with the track agent.
+At source revision `90b125a79d67301fac3058c97fe240b18cf8ae83`, a 2 by 2 simultaneous-ignition field with a 10 s residence time causes point evaluation at 1.5 s to raise `UnsupportedGeometry`. Enclosure evaluation over the interior interval [1,2] s instead returns [0,0]. An enclosure consumer could mistake that unsupported case for known zero flux. The failing fixture, source hashes and observations are retained in `audit/1a-simultaneous-initial.json`. This is a model-interface defect; it does not measure a physical fire. The defect was repaired at `f9fa03290d57dc3d226543833f612640fd9f414a`. The same fixture now raises consistently from both interfaces: `PASS_TARGETED_REFUSAL` in `audit/1a-simultaneous-repaired.json`. This is a bounded interface repair, not an empirical-physics pass.
 
 ## Commands and provenance
 
@@ -32,10 +32,10 @@ From this worktree, with the fresh pinned routing environment prepared by the or
 
 ```sh
 ../venv-routing/bin/python research/next-combined/audit_1a_semantics.py --track-a ../track-1a --out research/next-combined/audit/1a-simultaneous-initial.json
-../venv-routing/bin/python research/next-combined/build_report.py --track-a ../track-1a
+../venv-routing/bin/python research/next-combined/build_report.py --track-a ../track-1a --track-c ../audit-1c
 ```
 
-The targeted audit exited 1, a retained finding. Report generation exits 0 and only summarizes evidence; it does not turn a failed gate into a pass. The track-owner test command and exit 0 are recorded verbatim in `GATES.json`. Owner test host: macOS-27.0.1-arm64-arm-64bit, Python 3.12.1, NumPy 1.26.4. The summary host and exact versions are also recorded there. No performance claim is derived from unit-test elapsed time. Hashes identify the exact artifact bytes reviewed, not a new field observation.
+The initial targeted audit exited 1; the repaired fixture exited 0, both retained separately. Report generation exits 0 and only summarizes evidence; it does not turn a failed gate into a pass. The track-owner test command and exit 0 are recorded verbatim in `GATES.json`. Owner test host: macOS-27.0.1-arm64-arm-64bit, Python 3.12.1, NumPy 1.26.4. The summary host and exact versions are also recorded there. No performance claim is derived from unit-test elapsed time. Hashes identify the exact artifact bytes reviewed, not a new field observation.
 
 ## What changed in the scientific claims
 
@@ -43,7 +43,7 @@ The optical prototype supports a narrower claim than the requested completed rad
 
 The empirical gate cannot be inferred from the supplied literature numbers alone. Vegetation height is not flame height, plot width is not instantaneous emitting width, and an in-flame sensor measurement does not uniquely identify a spatially uniform emitter power. A diagnostic model ratio under assumed geometry is not a measured validation error. Constants must not be fitted to the desired routing headline. There is consequently no new supported count of formerly accepted journeys rejected under radiation v2, and no supported peak or dose binding frequency.
 
-Support must also be part of a mathematical contract. If a source array does not identify old-fire phases, or a simultaneous ignition does not identify a moving-front gradient, a checker must retain that uncertainty. The targeted zero-enclosure inconsistency illustrates why a successful scalar return is not enough to establish a usable certificate. The model still needs consistent refusal behavior, a complete adapter, empirical case identification, and the requested journey-level studies.
+Support must also be part of a mathematical contract. If a source array does not identify old-fire phases, or a simultaneous ignition does not identify a moving-front gradient, a checker must retain that uncertainty. The targeted zero-enclosure inconsistency illustrates why a successful scalar return is not enough to establish a usable certificate. The repaired domain guard adds consistent refusal evidence; a complete adapter, empirical case identification, and the requested journey-level studies remain open.
 
 For coherent trajectory experiments, a change in missing-data policy would confound a comparison of dependence structures. Invalid trajectory states must remain unknown rather than become never-burned cells. A route whose needed support is unknown remains unresolved or unscorable under its declared contract. Earlier remote results that used a different policy cannot be relabeled as current evidence.
 
@@ -53,8 +53,42 @@ The current scientific conclusion is therefore an explicit hold with retained in
 
 ## Scope and limits
 
-This interim artifact audits one committed prototype and records unfinished work. It is not an integrated software build or a cross-track experiment. No field validation, operational deployment, full continuous-road checker, new default checkpoint, or GitHub merge has occurred. Timing from unit tests is not campaign performance. The source-level finding is bounded to its documented fixture and revision; final repair verification must be retained separately without overwriting the failing preimage.
+This interim artifact audits one committed prototype and records unfinished work. It is not an integrated software build or a cross-track experiment. No field validation, operational deployment, full continuous-road checker, new default checkpoint, or GitHub merge has occurred. Timing from unit tests is not campaign performance. The source-level finding is bounded to its documented fixture and revision; repair verification is retained separately without overwriting the failing preimage.
 
 ## Recommended review and merge order
 
 1C-1 export and members, 1A library, 1B forecast, 1C-2 SIPP, 1C-3 synthetic-truth harness, then integration. This is a logical future order conditional on acceptance, not a recommendation to merge the present held prototype.
+
+
+## Immutable 1C snapshot audit
+
+Snapshot `393f37748acb17bee8182980d7ae47435ab39d4d` has 104 native contact-relaxation executions across 26 missions, with 52/52 paired status-and-arrival matches. SIPP was slower in 4/52 pairs. The raw CSV independently reproduces these counts. The custody ledger is internally consistent with its 156/156 reported original-job field matches. Original controller bytes remain retained; its final-after-exit guard was repaired after these executions, which were far below both limits. These are bounded contact-relaxation results, not full thermal-planner or universal runtime claims.
+
+All 15 real exports pass the producing v2-array equality checks and full-N mean checks on known support. That script uses `array_equal`, including equal-NaN handling; this is not a general dtype or NaN-bit identity proof. A separate real KFS_11 cutoff establishes identical whole-NPZ hashes between the relocated wrapper and archived producer for that cutoff. The frozen exporter was restored; the default rollout diff adds only the optional observer and guarded call. The Boolean observer state is separately allocated. Block identity, offset and batch size are required for individual trajectory replay; seed alone is insufficient.
+
+The copied full-journey checker explicitly checks a cell-centre surrogate. The wrapper preserves rejected candidates as unresolved, retains no-route only for uncut all-member relaxation exhaustion, and does not promote union exhaustion to k-of-m refusal. Its bounded lazy cuts remove whole departure singletons, so their exhaustion cannot prove global infeasibility or optimality. Whole-road validity, real scenario-reduction coverage, member-count scaling and scored risk campaigns remain open. Global-source completeness is a conservative admission policy, not proof that every local checker or pessimistic bound on unknown sources would fail.
+
+The compressed campaign records were independently counted and checked for unresolved outcomes and null false-safe/false-refusal fields:
+
+| Campaign | Admission records | Scored risk cases |
+|---|---:|---:|
+| C1 | 6,000 | 0 |
+| C2 | 12,000 | 0 |
+| C3 | 24,000 | 0 |
+| C4 | 8 | 0 |
+
+The total 42,008 records are unscorable admission records, not risk-validation samples. They identify no numerical false-safe/refusal rate. Brier diagnostics concern joint known cells only. The one-hour single-component case supplies no multi-step coherence contrast, and changing missing-data policy would confound the comparison. Shared truth draws and regional panels are clustered rather than independent fires.
+
+The pure-interface audit passed 5/9 fixtures, with four retained defensive failures: inconsistent evaluator flags can erase a known-contact violation; a supported passing journey can coexist with a no-route oracle without rejection; nonfinite oracle arrival can produce nonfinite regret; and overflowing finite weights can turn positive CVaR into zero. These defects concern admitted inconsistent or extreme inputs, not numerical errors asserted in the unscorable campaign. Exact fixtures and source hashes are retained in `audit/1c-core-393f37748.json`, produced by `audit_1c_semantics.py`, exit 1. The owner has been notified. Unknown-mass decisions and all-member versus k-of-m no-route semantics passed their targeted fixtures. The scoring API also relies on caller-provided truth and oracle identities; the label `scope=full_policy` alone is not an independent proof or source binding.
+
+This audit did not inspect 1B held-out scores. Its final fits, selection registry and reviewed blind protocol remain pending. The 1C owner is adding independent adapters and features after this snapshot, so this report does not finalize that track's gate. All cross-track scientific integration checks remain `NOT_RUN_GATED`.
+
+To regenerate the interim summary and repeat targeted checks, use fresh output paths:
+
+```sh
+../venv-routing/bin/python research/next-combined/audit_1c_semantics.py --track-c ../audit-1c --out FRESH_C_AUDIT.json
+../venv-routing/bin/python research/next-combined/audit_1a_semantics.py --track-a ../track-1a --out FRESH_A_AUDIT.json
+../venv-routing/bin/python research/next-combined/build_report.py --track-a ../track-1a --track-c ../audit-1c
+```
+
+The owner host is native macOS arm64 with Python 3.12.1 and NumPy 1.26.4; export seed 0, member/campaign seed 20261008. Exact commands, owner test receipts, hashes and audit scope are in `GATES.json`. No performance result is derived from these interface fixtures, and no branch was merged.

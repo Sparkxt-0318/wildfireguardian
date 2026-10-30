@@ -1,0 +1,34 @@
+{
+  "tier": "Tier 2 task-directed verification",
+  "scope": "1A repair fixture; immutable 1C core acceptance, centre-checker wrapper, score admission, exporter callback and evidence-record consistency",
+  "track_a_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
+  "track_c_head": "393f37748acb17bee8182980d7ae47435ab39d4d",
+  "graph": {
+    "1A": {
+      "project": "wfg-next-1a-20261030",
+      "generation": "2026-10-30T02:38:59Z"
+    },
+    "1C": {
+      "project": "wfg-next-1c-audit-393f37748-20261030",
+      "generation": "2026-10-30T03:03:41Z"
+    }
+  },
+  "query_pagination": "All targeted search and trace results read had has_more false or no continuation; no graph-completeness claim.",
+  "fallbacks": [
+    "integration/src/wfg_latest/export.py excluded: direct git diff against Main was empty in clean immutable audit worktree.",
+    "Compressed campaign files excluded: directly decompressed and parsed every record for count/outcome/null-score consistency.",
+    "New combined report files untracked in graph generation: directly read and validated as UTF-8/JSON."
+  ],
+  "trace_limits": "Generic get/accept method edges included obvious heuristic cross-file noise; material conclusions use exact snippets and executions.",
+  "not_audited": [
+    "1B held-out scores",
+    "new 1C owner adapters/features after the snapshot",
+    "empirical radiation validation",
+    "whole-road checker proof",
+    "new risk campaign",
+    "scientific integration"
+  ],
+  "native_custody_scope": "Independent raw-CSV count/pair reconciliation and internal custody-ledger consistency, not a new native campaign or an independent rehash of every external job file.",
+  "export_equality_scope": "Owner array_equal checks on all15 windows; separate owner whole-NPZ wrapper equivalence at one actual cutoff. General dtype/NaN-bit identity not inferred.",
+  "defensive_failures_scope": "Inconsistent or extreme admitted inputs; no assertion that current unscorable campaign has non-null incorrect risk scores."
+}

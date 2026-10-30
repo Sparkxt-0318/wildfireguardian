@@ -3,9 +3,9 @@
   "record_kind": "readiness_audit_only_not_integrated_experiment",
   "track_evidence": {
     "1A": {
-      "head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+      "head": "f9fa03290d57dc3d226543833f612640fd9f414a",
       "reported_status": "HOLD_INCOMPLETE",
-      "test_count": 21,
+      "test_count": 33,
       "random_enclosure_cases": 1000,
       "test_exit_code": 0,
       "seed": 20261030,
@@ -31,9 +31,9 @@
           "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
         },
         "spatial_time_enclosure": {
-          "state": "PASS_COARSE_MODEL_BOUND",
-          "evidence": "law_v2.py proof and 1000 regression cases",
-          "limit": "Zero lower bound and global candidate-panel count upper are generally too loose for route acceptance"
+          "state": "PASS_COARSE_MODEL_BOUND_ON_SUPPORTED_DOMAIN",
+          "evidence": "law_v2.py shared interval-wide domain guard, proof and 1000 supported-domain regression cases",
+          "limit": "Unsupported active ignition/expiry interiors and possible receiver/panel intersections are refused; zero lower bound and global panel-count upper are generally too loose for route acceptance"
         },
         "physical_comparisons": {
           "state": "UNRESOLVED",
@@ -106,19 +106,14 @@
           "limit": "Model scenario figures only"
         }
       },
-      "targeted_audit": {
-        "status": "FAIL_TARGETED_REFUSAL",
-        "head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
-        "path": "audit/1a-simultaneous-initial.json"
-      },
       "source_sha256": {
-        "research/flame-front-radiation/RESULTS.json": "5851cdb7a9db416c738af16e027c1525ad0427ed9f8eaf4fc7fdffecafa1ca03",
-        "research/flame-front-radiation/REQUIREMENTS_STATUS.json": "3675fd4ddcc97947ce764d3854021018eabae35b3c9cdfda2dcb52096cb6f639",
-        "research/flame-front-radiation/README.md": "830f50fbf4bf121b1ff6a181a20bdbfbdce27fa99d87280c950f681bf60d2505",
+        "research/flame-front-radiation/RESULTS.json": "a3a8ca00efc810c2bb7388c3d39ff982cee9b48767154d09be7f307766095855",
+        "research/flame-front-radiation/REQUIREMENTS_STATUS.json": "d9bad6777d1b77c8948c7f63e1cbf32f8be2287de3f5507e325f8ee154102244",
+        "research/flame-front-radiation/README.md": "9cf37b47bfa403077ab63a371925751787d841f819b246c48ddf64b651230cbd",
         "research/flame-front-radiation/physics_validation/RESULTS.json": "c34a28de9c1509d5d019666798b3d56004332f5658dfe7906b44cb353dcd1e97",
         "research/flame-front-radiation/physics_validation/SOURCES.json": "216bae8e8b7f25100c0f33d510ab095b1519c3b233bd14e2f609ee4c62ff21dc",
-        "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "5ec5af3016059947fe30479bd058f21805017ef945c2dffb91328f36f06f6725",
-        "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "cc19d7a49f6d321e77ffdcbfb96f8f9b400038b3e351e09a9340452b7dfa5c6f",
+        "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "cab6beb1b01b31f6ebf199574d8d650db476a42042ae14afa973584a27b712bb",
+        "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
         "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
         "experimental/flame-front-radiation/adapters/journey_check.py": "9094abd5ebc498466e499b3e9e19b82d3ab797b64021ae5520e2bc655b90abfc"
       },
@@ -127,17 +122,336 @@
         "machine": "arm64",
         "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
         "numpy": "1.26.4"
+      },
+      "initial_targeted_audit": {
+        "status": "FAIL_TARGETED_REFUSAL",
+        "head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+        "path": "audit/1a-simultaneous-initial.json"
+      },
+      "repaired_targeted_audit": {
+        "status": "PASS_TARGETED_REFUSAL",
+        "head": "f9fa03290d57dc3d226543833f612640fd9f414a",
+        "path": "audit/1a-simultaneous-repaired.json"
       }
     },
     "1B": {
       "status": "PENDING_OWNER_FINAL_EVIDENCE",
       "head": null,
-      "headline": null
+      "headline": null,
+      "heldout_scores_inspected": false
     },
     "1C": {
-      "status": "PENDING_OWNER_FINAL_EVIDENCE",
-      "head": null,
-      "headline": null
+      "status": "AUDITED_INTERIM_SNAPSHOT_OWNER_CONTINUES",
+      "head": "393f37748acb17bee8182980d7ae47435ab39d4d",
+      "native": {
+        "executions": 104,
+        "missions": 26,
+        "equivalent_pairs": 52,
+        "pairs": 52,
+        "sipp_slower_pairs": 4,
+        "median_complete_ratio": 0.6330253728172814,
+        "maximum_complete_wall_s": 5.209566792007536,
+        "maximum_sampled_child_rss_mib": 487.34375,
+        "input_rows_sha256": "b6db82b0e5bdb5bce54a8005cfca82fcdb0720472ab88e66dbe9ab13cf946794"
+      },
+      "abstract_census": {
+        "cases": 10000,
+        "agree": 10000,
+        "disagree": 0,
+        "found": 8312,
+        "no_journey": 1688,
+        "fire_changed_answer": 1244,
+        "witness_legal": 8312,
+        "pieces_total": 231990,
+        "lattice_states_bound_total": 19471518
+      },
+      "custody": {
+        "missions": 26,
+        "pinned_fields": 156,
+        "job_matches": 156,
+        "job_expectations_unavailable": 0,
+        "mismatches": 0,
+        "controller_snapshot_matches_execution": true,
+        "producer_code_commit": "e8a492aef",
+        "actual_reads": [
+          "graph",
+          "request",
+          "REPORT.json",
+          "constructed_arrays.npz"
+        ],
+        "external_native_source_files_read": [],
+        "guard_review": "Original rows all <30 s and <3072 MiB. Final-after-exit admission added after the run; original producer snapshot retained, no pooling with a new campaign."
+      },
+      "exports": {
+        "windows": 15,
+        "v2_array_identity_passes": 15,
+        "full_n_mean_passes": 15,
+        "windows_with_unknown_support": 15
+      },
+      "wrapper_equivalence": {
+        "event": "KFS_11",
+        "cutoff": "2022-06-01T08:00:00Z",
+        "npz_bytes_identical": true,
+        "old_npz_sha256": "b0a6e964805fd38745adeca348aa18574783cb91fae4ea1c53c526356ac3c96a",
+        "new_npz_sha256": "b0a6e964805fd38745adeca348aa18574783cb91fae4ea1c53c526356ac3c96a"
+      },
+      "admission_record_counts": {
+        "C1": 6000,
+        "C2": 12000,
+        "C3": 24000,
+        "C4": 8
+      },
+      "admission_records": 42008,
+      "scorable_truth_cases": 0,
+      "false_safe_rate": null,
+      "false_refusal_rate": null,
+      "targeted_audit": {
+        "scope": "small pure-interface fixtures only, no campaign or routing integration",
+        "track_head": "393f37748acb17bee8182980d7ae47435ab39d4d",
+        "host": "macOS-27.0.1-arm64-arm-64bit",
+        "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+        "audit_script_sha256": "eab6af58e535f187f65fad95cac593312b4fdda3110516c54a7c6daeade6b774",
+        "source_sha256": {
+          "experimental/scenario-members/src/wfg_scenario_members/acceptance.py": "a016249614203d6de200c7984eebf99aede21de73ad5ac1e7f94c9ef29fd6021",
+          "experimental/scenario-members/src/wfg_scenario_members/decision.py": "112dc7e42696e10744a03b55b38861dfd267b949f97758de92334ec60610d654",
+          "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2c3f949d7c007a578950842c97ca1a4f12704a5c6f81c630108ec2302fe09709"
+        },
+        "observations": [
+          {
+            "id": "unknown_mass_not_assumed_pass",
+            "expected": "unresolved",
+            "observed": "unresolved",
+            "pass": true
+          },
+          {
+            "id": "known_mass_suffices_without_unknown",
+            "expected": "checked_route",
+            "observed": "checked_route",
+            "pass": true
+          },
+          {
+            "id": "insufficient_possible_mass_rejects_candidate_only",
+            "expected": "rejected_candidate",
+            "observed": "rejected_candidate",
+            "pass": true
+          },
+          {
+            "id": "union_exhaustion_all",
+            "expected": "model_no_route",
+            "observed": "model_no_route",
+            "pass": true
+          },
+          {
+            "id": "union_exhaustion_k_of_m",
+            "expected": "unresolved",
+            "observed": "unresolved",
+            "pass": true
+          },
+          {
+            "id": "known_contact_overrides_inconsistent_pass",
+            "expected": "reject inconsistent evaluator or retain false_safe=true",
+            "observed": {
+              "state": "RETURNED",
+              "false_safe": false,
+              "false_refusal": false,
+              "regret_s": 1
+            },
+            "pass": false
+          },
+          {
+            "id": "passing_truth_route_contradicts_no_route_oracle",
+            "expected": "reject inconsistent oracle",
+            "observed": {
+              "state": "RETURNED",
+              "false_safe": false,
+              "false_refusal": false,
+              "regret_s": null
+            },
+            "pass": false
+          },
+          {
+            "id": "nonfinite_clairvoyant_arrival",
+            "expected": "reject nonfinite arrival",
+            "observed": {
+              "state": "RETURNED",
+              "false_safe": false,
+              "false_refusal": false,
+              "regret_s": "NaN"
+            },
+            "pass": false
+          },
+          {
+            "id": "finite_weight_normalization_overflow",
+            "expected": "15 or explicit rejection",
+            "observed": 0.0,
+            "pass": false
+          }
+        ],
+        "checks": 9,
+        "passed": 5,
+        "status": "FAIL_TARGETED_INTERFACES",
+        "not_established": [
+          "calibration",
+          "physical correctness",
+          "risk-campaign completion",
+          "whole-road guarantee"
+        ]
+      },
+      "owner_requirements": {
+        "overall": "HOLD_PARTIAL, not all orchestrator acceptance gates pass",
+        "requirements": [
+          {
+            "id": "1C-1-export-default",
+            "status": "PASS",
+            "evidence": "Three fresh forecast tests verify original rollout equality, observation isolation and first-burn/seed/missingness controls."
+          },
+          {
+            "id": "1C-1-real-export",
+            "status": "PASS",
+            "evidence": "15 actual Korean windows, 1024 trajectories each; all v2 arrays identical and full-N means exact on known support."
+          },
+          {
+            "id": "1C-1-regeneration-contract",
+            "status": "QUALIFIED",
+            "evidence": "Old streams are block based; uint64 seed bits in int64 plus block offset and batch size required, not seed alone."
+          },
+          {
+            "id": "1C-1-bridge",
+            "status": "PARTIAL",
+            "evidence": "Known fixture writes inherited four-file packet, loads in unchanged FFI Packet parser, matches sweep/SIPP arrival and passes complete copied centre checker. Actual unknown-source trajectories remain unsupported."
+          },
+          {
+            "id": "1C-1-reduction-library",
+            "status": "PASS_UNIT_SCOPE",
+            "evidence": "Three distances and three selectors, weight redistribution, extreme append and CVaR tested. Road-arrival feature extraction and full panel reduction not established."
+          },
+          {
+            "id": "1C-1-K-panel-coverage",
+            "status": "UNRESOLVED",
+            "evidence": "No all-N route coverage or comparative outcome certificate on unknown global source support. No zero fill or exposure-history invention."
+          },
+          {
+            "id": "1C-1-Caldor-v3",
+            "status": "NOT_RUN",
+            "evidence": "Sealed packets exist but c651 weather/data alignment to those exact graph grids is not established."
+          },
+          {
+            "id": "1C-2-abstract-equivalence",
+            "status": "PASS",
+            "evidence": "10000/10000 independent abstract time-expanded comparisons and 8312 legal returned witnesses; seeds and census retained."
+          },
+          {
+            "id": "1C-2-native-equivalence-cost",
+            "status": "PASS_BOUNDED",
+            "evidence": "52/52 pairs across 26 missions, two repetitions, 104 child executions, zero unresolved. 156/156 sealed-job field matches."
+          },
+          {
+            "id": "1C-2-native-controller",
+            "status": "QUALIFIED",
+            "evidence": "Final-after-exit deadline/RSS admission fixed and boundary tests added after original run; all original rows <5.21 s and <488 MiB, so no classification changes. Original producer retained."
+          },
+          {
+            "id": "1C-2-trajectory-packet-equivalence",
+            "status": "PASS_FIXTURE_ONLY",
+            "evidence": "One complete trajectory fixture, same arrival in both solvers and full centre check. Real trajectory packets remain unsupported."
+          },
+          {
+            "id": "1C-2-proof-predicate",
+            "status": "PASS_REVIEW_SCOPE",
+            "evidence": "Waitable components, nonwaitable arrival runs and pre-dominance admission goals documented. Finite tests and human-readable proof, not machine checked."
+          },
+          {
+            "id": "1C-2-K-scaling",
+            "status": "NOT_RUN",
+            "evidence": "Unknown global source support blocks represented-trajectory decisions; fixed four-member native timings are separate."
+          },
+          {
+            "id": "1C-2-chance-subset",
+            "status": "NOT_IMPLEMENTED_OPTIONAL",
+            "evidence": "Weighted post-hoc acceptance exists, union exhaustion cannot certify chance refusal. No exact subset-search or bitset optimality claim."
+          },
+          {
+            "id": "1C-2-dose-lazy",
+            "status": "PARTIAL",
+            "evidence": "Dose remains outside intervals. Bounded heuristic singleton cuts return unresolved on cap/exhaustion, never a global refusal after cuts."
+          },
+          {
+            "id": "1C-3-C1",
+            "status": "EXECUTED_ADMISSION_UNRESOLVED",
+            "evidence": "6000 case records, three matched-support configurations, null truth scores. One-hour single predictor has no multi-step coherence contrast."
+          },
+          {
+            "id": "1C-3-C2",
+            "status": "EXECUTED_ADMISSION_UNRESOLVED",
+            "evidence": "12000 records, diagnostic Brier on joint known cells, no identifiable false-safe/refusal rates."
+          },
+          {
+            "id": "1C-3-C3",
+            "status": "EXECUTED_ADMISSION_UNRESOLVED",
+            "evidence": "24000 records over member counts and rules, no scored acceptance trade-off."
+          },
+          {
+            "id": "1C-3-C4",
+            "status": "PARTIAL_ADMISSION_ONLY",
+            "evidence": "Eight Gyeongbuk mission records unresolved. Reconstructed truth scoring and executed-route maps not run; Caldor alignment unestablished."
+          },
+          {
+            "id": "1C-3-NIROPS-external",
+            "status": "NOT_IMPLEMENTED",
+            "evidence": "Native observed-perimeter and external-simulator truth adapters remain open."
+          },
+          {
+            "id": "1C-3-Uljin-truth-members",
+            "status": "PASS_CENTRE_REGRESSION",
+            "evidence": "Fresh complete copied centre checker passed all four original Uljin members on the SIPP witness, arrival3119s, zero false-safe members. This is not a withheld-truth or whole-road campaign."
+          },
+          {
+            "id": "1C-law-v2",
+            "status": "NOT_RUN_REQUIRED_GATE",
+            "evidence": "Track1A physics/enclosure gate unresolved; explicit NotImplementedError, no fabricated fronts."
+          },
+          {
+            "id": "release-source-manifest",
+            "status": "PASS_REPAIRED_OVERLAY",
+            "evidence": "Frozen integration exporter restored; opt-in wrapper added. verify_release.py passes367hashes. One actual1024-trajectory wrapper export is NPZ-byte-identical to archived producer output.",
+            "history": [
+              "Initial in-place prototype failed frozen exporter identity check.",
+              "Exact producers archived, wrapper relocated, no frozen manifest edit."
+            ]
+          }
+        ],
+        "fresh_tests": {
+          "routing": {
+            "passed": 29,
+            "skipped": 1,
+            "seconds": 22.49,
+            "reason_for_skip": "Torch export tests run separately in forecast environment",
+            "post_suite_targeted_packet_guard_checks": "5passed0.20s"
+          },
+          "forecast_export": {
+            "passed": 3,
+            "seconds": 0.64,
+            "entrypoint": "experimental/scenario-members/export_v3.py"
+          }
+        },
+        "figures": "PNG300dpi plusSVG with captions; selected cost/risk-availability figures visually inspected. Missing requested reduction/scaling/retrospective figures explicitly unrun."
+      },
+      "source_sha256": {
+        "research/sipp-routing/RESULTS.json": "36a98a231f64cf632abd6b7e3b46b9457b77c8321b9e50ef01b2de24e5578f80",
+        "research/sipp-routing/PROPERTY_CENSUS.json": "6826255db168ab667ef619ec559cffce94a393c53f7cfe8e12b5d2c757d97eb3",
+        "research/sipp-routing/native-panel-20261030/EXECUTIONS.csv": "23482652df88565649ee193b3e9c0624d3f61f6644ae076bc4b6993500ac081c",
+        "research/sipp-routing/native-panel-20261030/CUSTODY.json": "9d2b79428d53821439bd302c63bec50b1dd1e3d206fe7057d76d777462ddaf43",
+        "research/scenario-members/EXPORT_AUDIT.json": "7cdc0f5c30fdf619de908cba83e3882306a95d3fdbc60dea28b6d4a37bf75d7e",
+        "research/scenario-members/WRAPPER_EQUIVALENCE.json": "38faea7d2cc7d270f45f957e6560e0f18505f6bf7cd7cb5c4a0e53628682cf95",
+        "research/scenario-members/TRACK_STATUS.json": "166feb21a6230ecb627f08b07edd542e927f04d7d0fe8e8f4245cf72ce967e0e",
+        "research/scenario-members/TEST_RECEIPT.json": "970cbfc05b7fd35b173b895b3bc7fe50fd0871c74ab36daf3dcdf5bd1c0327a7",
+        "research/synthetic-truth/RESULTS.json": "e8db53f92c0ec97c1b40b7470905aeb67e38e8bc1f4a5313c58729ff6cbad139",
+        "research/synthetic-truth/strict-support-20261030/C1.jsonl.gz": "34dfe3a9adf372a85f637a77a871b2b6cc61f99ed578c4f1c6e8179b586f4d11",
+        "research/synthetic-truth/strict-support-20261030/C2.jsonl.gz": "a7da118f157f879c797dcc959b461edc07923965fa2f6bfa82275b432a16bad0",
+        "research/synthetic-truth/strict-support-20261030/C3.jsonl.gz": "e171dc2c7e36bf46c59f8bc0c0a9118ae7fb36b4b0bc994527539abec1f63e41",
+        "research/synthetic-truth/strict-support-20261030/C4.jsonl.gz": "fd44b4fe08b9e7e62d4b6327dfa409fa7533be44a4b703b52d2e216bbb1d3cab"
+      },
+      "audit_scope": "Independent pair/count and internal custody-record checks; original-job/source matches are owner-recorded evidence"
     }
   },
   "cross_track_checks": {
@@ -185,10 +499,22 @@
         "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
         "research/next-combined/build_report.py",
         "--track-a",
-        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1a"
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1a",
+        "--track-c",
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c"
       ],
       "exit_code": 0,
       "kind": "summary_generation_only"
+    },
+    {
+      "command": "ROUTING_PYTHON research/next-combined/audit_1c_semantics.py --track-c SNAPSHOT_C --out FRESH_AUDIT",
+      "exit_code": 1,
+      "scope": "small interface fixtures, not a campaign"
+    },
+    {
+      "command": "ROUTING_PYTHON research/next-combined/audit_1a_semantics.py --track-a REPAIRED_A --out FRESH_AUDIT",
+      "exit_code": 0,
+      "scope": "retained repair fixture"
     }
   ],
   "summary_host": {
@@ -196,8 +522,9 @@
     "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]"
   },
   "open_work": [
-    "1A targeted refusal repair and renewed audit",
+    "1A empirical geometry, usable enclosure and full journey adapter",
     "1B final cohort evidence",
+    "1C defensive score and weight-admission repairs",
     "1C final export/member/campaign evidence",
     "final ownership/style/figure/claim checks",
     "publication by orchestrator"
