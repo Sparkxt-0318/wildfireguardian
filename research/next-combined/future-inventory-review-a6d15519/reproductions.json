@@ -1,0 +1,37 @@
+{
+  "source_commit": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+  "source_sha256": "f9b8e7d165b0a6713e2ac0e0c50d0f439b77db3d890aa4cbfc2d06b5fa14bd8c",
+  "scope": "Generated synthetic 3x3 fixtures only. No real archive, 2026 study, heldout data, forecasting, or heavy jobs.",
+  "unpinned_symlink_source": {
+    "status_before": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+    "status_after_unpinned_source_mutation": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+    "case_count": 2,
+    "environment_pins": [
+      "environment/biome_classes.json",
+      "environment/events.json"
+    ],
+    "manifest_sha_unchanged": true,
+    "slope_source_sha_before": "447a01c12b34c5641f5e9bc28ac4e6092928541e32a1aa5e2bcb777305072b1d",
+    "slope_source_sha_after": "6d2eeea3dfbc1b296879944ec44f07d645352957dfe16f3570a9bba5489990ee",
+    "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+  },
+  "unindexed_dbf_record": {
+    "status": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+    "case_count": 2,
+    "declared_dbf_count": 3,
+    "dbf_record_size": 221,
+    "appended_unindexed_bytes": 221,
+    "reported_raw_record_count": 3,
+    "record_failures": [],
+    "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+  },
+  "unhandled_tgz_bundle": {
+    "status": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+    "case_count": 2,
+    "outer_member_pinned": true,
+    "omitted_nested_incident": "SYNTHETIC_B",
+    "omitted_nested_records": 3,
+    "reported_raw_record_count": 3,
+    "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "published_head": "1e646b164c18d0dd924c68adefea18f02c6b4d34",
+  "producer_software_head": "e68123d81fb9064ad057425d7c954f923b50097c",
+  "changed_paths_since_software_head": [
+    "research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.json",
+    "research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.md",
+    "research/scenario-members/CALDOR_RIM_INPUT_INVENTORY.json",
+    "research/scenario-members/TRACK_STATUS.json"
+  ],
+  "scope": "Read-only report and inventory identity/internal-count reconciliation; no rerun of sealed-study inventory or independent rehash of every external source asset",
+  "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE",
+  "files": {
+    "CALDOR_RIM_ALIGNMENT_AUDIT.md": {
+      "source_path": "research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.md",
+      "sha256": "0721a5632b2903330da1b048273bb1a53798f6f2f0aed1c27f77a60303c599f5",
+      "verbatim": true
+    },
+    "CALDOR_RIM_ALIGNMENT_AUDIT.json": {
+      "source_path": "research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.json",
+      "sha256": "e6d472b4106842d3c450ff460977cb1ca74d700662dcae500e68709ed2ff6d2a",
+      "verbatim": true
+    },
+    "CALDOR_RIM_INPUT_INVENTORY.json": {
+      "source_path": "research/scenario-members/CALDOR_RIM_INPUT_INVENTORY.json",
+      "sha256": "e0f96b7bc6d44adf097129aed9ae9dda2ba5c70baaf5f4b8fcd68b810655f68d",
+      "verbatim": true
+    },
+    "TRACK_STATUS.json": {
+      "source_path": "research/scenario-members/TRACK_STATUS.json",
+      "sha256": "a2f7c0ad5faf144dbeb7e13ed992b51c82e3128893fefa83e8bdaf7f0d234a82",
+      "verbatim": true
+    }
+  },
+  "inventory": {
+    "files": 1167,
+    "bytes": 51014966,
+    "digest_matches_report": true
+  },
+  "reported_ledger_matches": {
+    "source_assets": [
+      59,
+      59
+    ],
+    "study_source": [
+      158,
+      158
+    ]
+  },
+  "catalog": {
+    "events": 44,
+    "Caldor_Rim_top_level_scalar_matches": 0
+  },
+  "cases": [
+    {
+      "incident": "Caldor2021",
+      "grid_shape": [
+        63,
+        68
+      ],
+      "whole_hour_origin": false,
+      "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE"
+    },
+    {
+      "incident": "Rim2013",
+      "grid_shape": [
+        28,
+        36
+      ],
+      "whole_hour_origin": false,
+      "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE"
+    }
+  ],
+  "experiments_run": false
+}
