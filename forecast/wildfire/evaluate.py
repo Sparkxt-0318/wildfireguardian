@@ -168,8 +168,28 @@ def kernels_main():
     parser.add_argument("--run-dir", type=Path, action="append", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--device", default="cpu")
+    # Additive track 1B option; without it the released kernel comparison runs unchanged.
+    parser.add_argument("--perimeter-scores", action="store_true",
+                        help="Score saved perimeter-interval entry files (RUN_DIR/heldout/*.npz) with "
+                             "wildfire.baselines.score_entries instead of comparing cached kernels")
+    parser.add_argument("--bootstrap-draws", type=int, default=10000)
     args = parser.parse_args()
+    if args.perimeter_scores:
+        return perimeter_scores_main(args)
     evaluate_runs(args.run_dir, args.output_dir, args.device)
+
+
+def perimeter_scores_main(args):
+    """Write pooled, per-fire and fire-paired perimeter scores to OUTPUT_DIR/perimeter_scores.json."""
+    from wildfire.baselines import load_scored_entries, score_entries
+    if len(args.run_dir) != 1:
+        raise SystemExit("--perimeter-scores takes exactly one --run-dir")
+    entries = load_scored_entries(Path(args.run_dir[0]) / "heldout")
+    result = score_entries(entries, draws=args.bootstrap_draws)
+    output = Path(args.output_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    write_json(output / "perimeter_scores.json", result)
+    return result
 
 
 

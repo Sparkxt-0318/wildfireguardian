@@ -1,0 +1,38 @@
+{
+  "source_commit": "0a980d6d0934090b15108300a547d992935aed29",
+  "source_ref": "origin/track/1b-forecast-v2",
+  "reuse_kind": "implementation and scripts only, independently reviewed and rerun; no prior numerical result imported",
+  "original_sha256": {
+    "forecast/wildfire/baselines.py": "0442ecd7c4b5e60b18f4db12fde3e05f952dfa5a0073e11cb4e9e96467354e70",
+    "forecast/wildfire/survival.py": "b386610c875f27650f3301a6f2f889ad8f936d029744d3178fdf80da7ec089c4",
+    "forecast/wildfire/models.py": "357eaa358137b4135d9da624bc2d38352e631532c342d5461588656517f3f2bf",
+    "forecast/wildfire/meanfield.py": "38b9dc4a9f948f72bf66aabf79261693eb8bf38e2f36d1b1ad9bf3d020f56b41",
+    "forecast/wildfire/canonical.py": "b611b12c389c11b0b7f2833f63f5f65421e55c602db338b6d6a699dca1446ac8",
+    "forecast/wildfire/burnout.py": "01c16f48df94ed521a32b15ce76db2e1b96c17e276a8071ffbfdd9fec6872447",
+    "forecast/wildfire/train.py": "5ce6e3d980db247a34261030c13a692ad9eef1c2990fb43d09384a7d2dc35352",
+    "forecast/wildfire/evaluate.py": "a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9",
+    "research/forecast-v2/scripts/make_split.py": "6943405ab94312e7f1356b3c7c67f9d72c3dd9a3318572509f1b6a2e66bed082",
+    "research/forecast-v2/scripts/original_definitions.py": "b16df65e01b08911a5d2e6b401841761a4c9617b7549c1848914486bf5132956",
+    "research/forecast-v2/scripts/prepare_perimeters.py": "f4d0ba9e620a033f4edb1a9e3bfc2dd44ca2629481e79e7c1a03cca48cf68e22",
+    "research/forecast-v2/scripts/rebuild_environment.py": "e2c5a6cf8d2b65286b67f6a80bcd634390b3069d2b658c650490259bca8d88e9",
+    "research/forecast-v2/scripts/pipeline.py": "f9775940aa117ed158cf3495973d47b92d1d3f453b73b454ca2c8470af9438fe",
+    "research/forecast-v2/scripts/fixture_smoke.sh": "9624fc4f1514f609bde99d35e1e0b5a3a157cfc73d704a36305ef399b2e45bbc",
+    "research/forecast-v2/scripts/report.py": "e64d289ea86aebc682af2949f853a56ca050793942b9e4043fa1c6faa2e07c68",
+    "research/forecast-v2/scripts/make_fixture.py": "b47c788d6058a8839afa57dde3b2fd789b78b944a99b9a1684ea6bdebae5d6b7",
+    "research/forecast-v2/scripts/public_baselines.py": "1d9dd27b8d39e4494aeda3bfe95f737b5a513766a2b78ebcb583fc9196a0a876",
+    "forecast/tests/test_structure.py": "e5ca716e01ad80f3533c9699bc90d4bbb4a080d689f51a3e5ef7991bd5ff5aa5",
+    "forecast/tests/test_released_behaviour_preserved.py": "c596a2f073073e3bee67a5d86bcddd8cff52e04c8ef71221614775a51bfdacd8",
+    "forecast/tests/test_survival.py": "0087e51ae1fde661c4bb2a9217a9514327a1b887e58ece19a8ea122f82082e5d",
+    "forecast/tests/test_baselines.py": "791eabf2355266047793734c803438a5bb479f6910555b1d7409c204338a31c4",
+    "forecast/tests/test_meanfield.py": "9923b8c4e9449d224ae1b4b8af4bfd4cd222883c701f1297e6ac629886cd7ee0",
+    "forecast/tests/released_definitions.json": "84a6eb834c0e3c6e88b80aac0c86d9a6599e098da84cbac47c25e8e85be7b758"
+  },
+  "repairs": [
+    "Anderson coefficient wind units corrected from mph to m/s",
+    "Per-target local wind-frame patches replace whole-domain mean rotation",
+    "Kriged missing SD receives zero weight and unknown reconstruction labels excluded",
+    "Future endpoint no longer chooses training crop",
+    "Zero-weight evaluation and fitting now fail explicitly",
+    "Current split timestamp and 2020-2023 fit/2024 holdout are frozen separately"
+  ]
+}
