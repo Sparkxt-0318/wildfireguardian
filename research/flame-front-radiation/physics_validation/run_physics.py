@@ -39,13 +39,15 @@ def write_csv(path,rows):
 
 def save(fig,path):
     fig.savefig(str(path)+".png",dpi=300,bbox_inches="tight",facecolor="white")
-    fig.savefig(str(path)+".svg",bbox_inches="tight",facecolor="white")
+    fig.savefig(str(path)+".svg",bbox_inches="tight",facecolor="white",metadata={"Date":None})
+    svg=Path(str(path)+".svg")
+    svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines())+"\n")
     plt.close(fig)
 
 
 def run():
     out=Path(__file__).resolve().parent
-    plt.rcParams.update({"font.family":"DejaVu Sans","font.size":9,"axes.spines.top":False,"axes.spines.right":False,"figure.facecolor":"white"})
+    plt.rcParams.update({"font.family":"DejaVu Sans","font.size":9,"axes.spines.top":False,"axes.spines.right":False,"figure.facecolor":"white","svg.hashsalt":"wfg-flamefront-20261030"})
     rows=[];fig,ax=plt.subplots(figsize=(7.2,3.4))
     for intensity,color in zip((1000,5000,20000),("#0072B2","#D55E00","#009E73")):
         h=float(flame_length(intensity));ds=np.geomspace(5,100,80)

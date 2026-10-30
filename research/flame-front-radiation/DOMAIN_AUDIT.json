@@ -4,7 +4,7 @@
   "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
   "numpy": "1.26.4",
   "audit_script_sha256": "01bb75a896c98c84fd9f30b88b43322ab21106dfdc8da28110a49e6d350da986",
-  "track_head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+  "track_head": "209fd0b1c456de8292ca7e06e07eb69329754ae2",
   "source_sha256": {
     "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
     "experimental/flame-front-radiation/src/wfg_flamefront/intensity.py": "7e65dd4c64934eeb75c2b7c97882e09ddab7f2641447988bb81dcc3c73bd8ff0",
