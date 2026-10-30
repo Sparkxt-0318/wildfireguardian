@@ -1,0 +1,40 @@
+{
+  "scope": "Bounded current non-code summary consistency pass",
+  "source_before": "3aa2fb4d733605801bfa0c2e17d3a4c189f137b0",
+  "current_admission_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "changes": [
+    "Time-qualified older pending/nonadmission/NOT_RUN statements instead of treating them as current blocks",
+    "Added authoritative current admission map; kept final current-cohort validation pending",
+    "Preserved external2026NOT_READY and all scientificStep4 gates",
+    "Added parent-provided Goat custody pins without opening payloads or claiming independent verification"
+  ],
+  "historical_source_records_time_scoped": [
+    "prospective_wiring_review",
+    "prospective_wiring_initial_review",
+    "source_phase_review",
+    "current_report_alias_repair",
+    "earlier_assessment_admission",
+    "current_development_admission",
+    "paired_ablation_reporting",
+    "status_ledger_repair",
+    "development_aggregate_receipt",
+    "original_development_aggregate_receipt",
+    "prospective_protocol_metadata",
+    "final_software_gate",
+    "seven_final_checkpoint_metadata",
+    "coverage_recipe_candidate_review",
+    "provisional_coverage_review",
+    "prepared_mfmc_result_checker",
+    "live_source_transition",
+    "historical_paired_ablation_failure",
+    "historical_optional_farsite_failure",
+    "historical_actual_fit_coverage_failure",
+    "historical_report_command_grammar_failure",
+    "historical_coverage_recipe_candidate_failure",
+    "historical_prepared_mfmc_checker"
+  ],
+  "original_audits_modified": false,
+  "live_scientific_outputs_or_arrays_opened": false,
+  "Goat_payload_hashes_independently_verified": false,
+  "readiness_numerical_or_test_execution": false
+}

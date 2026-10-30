@@ -80,25 +80,15 @@
   "other_reviewer_archive_scope": "Exact future-inventory and radiation review bytes retained with source pins; no new fixture runs by readiness auditor.",
   "history": "history/AUDIT_METHOD-before-current-63944855.json",
   "limitations": [
-    "Graph coverage is a best-effort signal, not proof of source completeness.",
-    "A empirical physics remains HOLD;42functional and367release checks are not physical validation.",
-    "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual fit coverage is HOLD after exit1 before output; development-only selection/registry and heldout remain unrun.",
-    "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
-    "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
-    "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
-    "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
-    "Owner final software gate3373tests+367release passed; readiness exactreceipt/log/199sourceGit hashes only, no rerun. Seven trained/versioned models are metadata only. Actualcoverage exit1HOLD before output remains unchanged. Separate exact65aV2source-only99/99review closesfivec9recognizer gaps, with133owner/54adaptedoverlappingcounts; complete actualcache/schema/memberadmission stillrequired. Registry/heldout/actualchecker remainNOT_RUN; no data/modelpayload read here.",
-    "Exact65aV2source-only99/99review closesfivec9recognizer gaps for6profiles/28metadata mappings, not actualcoverage.133owner/54adapted counts overlap. All81compressedoriginalsources authenticated duringarchive, no execution. Originalc9failureunchanged; separatecompletedprovisionalrun/savedmetadatareview nowarchived, canonicalcoverageHOLD; later12case66rowclosureandactualsavedreconciliationPASSareseparate.",
-    "F65provisionalactualownerPASS21development7final and9612correlatedsavedmetadata predicates are not independentactualcache/member/value replay or canonicalcoveragePASS. ExecutedF65 andcheckedliveF175aredistinct. Wrapperrefusalonlytested, rawnonadmissionUNTESTED. Freshauthorizedcanonicalaudit/selection/registry/heldoutremainunrun.",
-    "PreparedMFMCchecker24/24syntheticrecordpreserved; separateactualsavedreconciliationPASSunderF175beforeauthorized65applyafter12case/66rowclosure. Nopercellfieldssavedso norawRMSE/MC/mask/checkpointreplay; separatefrom38preparedheldoutchecker.",
-    "ActualMFMCsavedJSON/CSV/receipt/sourceclosurePASS covers12cutoffs66rows,56comparable10unavailable;reference24scored12unavailable30fixedUSnoreference. No rawfield/mask/MC/model/checkpointreplay or speed/scientificpromotion. Exact65appliedb803onlyafteractualreconciliation; newupdatedsuite/release/livecoverage andreportonly68ownercontrolindependentreviewpending; canonicalHOLD, no selection/registry/heldout.",
-    "Historicalreport7e59P2argparsegrammar defect, closedonlyby275scoped22/13review: trailing--seed=7override canbypassdeclaredseed. All12actualargvcanonicalunderseparaterootinspection, actualMFMCunaffected/noMC rerun. Originalfailedprobespreserved; completedrepairreviewnowarchived, noactualcomparisonrerun.",
-    "Separate275report22command/13closurecontrolsPASSand49fixture52correlatedpredicatesPASS, notpooled. Source201Gitidentitychecks andowner3507+367softwarePASS do notclearcanonicalcoverage. LatercompletedownercanonicalPASSarchivedonlyafterexplicitparentcompletionpins, laterindependentsavedmetadatareviewPASSwithscope, notscientificvalidation. PriorgrammarHOLDpreserved; previewQAisnotfinalfivefigQA.",
-    "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; laterindependentcanonicalreview9841scopedPASSrecordedseparately, noactualarray/value/modelreplay. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting.",
-    "Canonicalreview9841correlatedmetadata/custodypredicatesPASS, notscientificsamples. Owneractualruntimeattestationandreviewercurrent61/201byteverificationarescope-distinct. Nocache/member/array/modelreplay. Historicalprefreeze stage preserved; later6887verifiedandonlycurrent273US+33KRauthorized, numericaloutputsunopened. Step4stillgated.",
-    "Freeze6887root223bytechecks/independent25metadataPASSseparatefromnumericalresults. Rootauthorizationonly273US+33KR,startreceiptcomplete. Owner3/273snapshotintermediate; liveoutputsunopened. No checkpoint/logisticbinariescopied/read. Leasekernelacquisitionuninstrumented. Full306censusguardpreparing/actualNOT_RUN; future2026NOT_READY, nomerge/defaultpromotion.",
-    "Additive34-controlcensusguardpreparedonly, actualNOT_RUN; unchangedb3f38metriccheckerremainsseparate. Rootdriver2staticmodule+oneUSargvreviewonly, nodriverreplay/kernelacquisitionproof. US31/273snapshotintermediate, first20durableoutputsnotcohortresult; noactualoutputsread. Source/default/Aphysics/future2026gatesunchanged.",
-    "Wapitiimmutable52integrityreviews:12artifact/13syntheticand11originalmappedlabel/14syntheticchecks, notpooled. Readinesscopyofreports/code/metadataonly,noarrays/probabilitymembersread. Source-labelreviewitselfopensonlyrow/col/y, notprobabilities. No quality/model/physicaltruth orotherscientificinputreplay; fullcohortchecksremainNOT_RUN."
+    "A physics remains HOLD; no Step4 scientific integration clearance follows from software tests.",
+    "B canonical coverage, development-only selection, protocol and registry are cleared/published6887 within recorded software/membership/custody scopes.",
+    "Current US/KR assessments are authorized/running; complete306case census, metrics, FARSITE, finalfigures and quality conclusions remain pending.",
+    "Independent membership reconstruction is savedmetadata/custody work, not actual cache/member-value or model replay; historical runtime attestations and current byte checks stay distinct.",
+    "Wapiti source-label and artifact reviews cover the same52cases, not independent scientific samples; mapped-extent agreement is not physicaltruth/polygon/survey/environment/residence/age/common-validity/prediction validation.",
+    "Goat42SCORED milestone is owner-provided custody only; no payload/array/quality or complete-cohort claim by readiness.",
+    "Future2026 external registration, chronology and documentary prerequisites remainNOT_READY despite committed local protocol/registry.",
+    "C conditional contact results do not clear strict whole-domain support/risk/physics gates.",
+    "Original failures and prior summaries remain immutable in linked archives; no numerical study, live scientific output read, promotion, merge or publication occurs in this consistency pass."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -536,17 +526,20 @@
     "actual_baseline_quality": "NOT_RUN"
   },
   "B_protocol_parent_metadata": {
-    "state": "PENDING_ACTUAL_COVERAGE_REGISTRY_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+    "state": "CURRENT_PROTOCOL_REGISTRY_COMMITTED_6887_EXTERNAL_2026_DOCUMENTARY_GATES_NOT_READY",
     "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
     "inventory": "protocol-status-parent-d2512cbc/SOURCE_INVENTORY.json",
     "parent_ast_receipt": "protocol-status-parent-d2512cbc/protocol-d2512cbc-parent-AST.json",
     "parent_owner_chain_controls": 2,
     "counts_not_independent_4": true,
     "runtime_inventory_ast_equal_cc_outside_docstring": true,
-    "protocol_lines_reported": 305,
-    "clearance_receipts": "Coordinator-described acyclic workflow; no actual registration/clearance executed",
+    "clearance_receipts": "HistoricalD251 workflow record. Currentlocalcoverage/selection/registrycleared6887 through laterreceipts; external2026 registration/documentaryclearance remainsNOT_READY.",
     "external_registration": "NOT_RUN",
-    "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS"
+    "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+    "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+    "historical_protocol_lines_at_D251": 305,
+    "scope": "The linked D251AST/305line protocol record is historical. Current final protocol, coverage, selection and registry are committed and verified at6887; external2026 registration/chronology remainNOT_READY.",
+    "current_protocol_inventory": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json"
   },
   "B_preassessment_metadata": {
     "preassessment_timestamp_metadata": {
@@ -855,14 +848,15 @@
     "readiness_actual_array_cache_member_model_replay": false,
     "readiness_rerun": false,
     "registry_frozen": true,
-    "heldout": "NOT_RUN",
     "actual_result_checker": "NOT_RUN",
     "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
     "independent_review_inventory": "canonical-coverage-independent-ab7fda8d/SOURCE_INVENTORY.json",
     "independent_correlated_predicates": 9841,
     "not_independent_scientific_samples": true,
     "source_window_scope": "Saved canonical receipt attests unchanged three critical sources and 201 gate sources; independently rehashed current61 and201 maps, not independently observed both historical runtime bookends.",
-    "raw_array_cache_value_model_replay": false
+    "raw_array_cache_value_model_replay": false,
+    "assessment_execution_at_coverage_review": "NOT_RUN_AT_THAT_REVIEW",
+    "current_assessment_execution": "AUTHORIZED_RUNNING; current_cohort_execution"
   },
   "B_canonical_independent_review": {
     "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
@@ -940,7 +934,8 @@
       "KR_complete": 0,
       "KR_state": "QUEUED",
       "all223_unchanged_reported": true,
-      "newer83_without_exact_observation_recorded": false
+      "newer83_without_exact_observation_recorded": false,
+      "historical_timestamped_snapshot": true
     },
     "results_read_by_readiness": false,
     "actual_completed_cohort_validation": "NOT_RUN",
@@ -1021,5 +1016,37 @@
     "source_label_boundary_lease_reported": "15:03:20.06..15:03:21.28Z",
     "no_interruption_or_performance_claim": true,
     "full_b3f_census_FARSITE_final5figure_quality": "PENDING_NOT_RUN"
+  },
+  "current_admission": {
+    "state": "CLEARED_COMMITTED_PUBLISHED_6887_WITH_SCOPE",
+    "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
+    "development_only_model_selection": "COMMITTED_VERIFIED_PUBLISHED_D4_WIND",
+    "protocol_registry": "COMMITTED_VERIFIED_PUBLISHED",
+    "current_US_KR_assessments": "AUTHORIZED_AND_RUNNING_AS_A_TWO_COHORT_SEQUENCE",
+    "complete_current_cohort_validation": "PENDING",
+    "future2026_external_registration_chronology": "NOT_READY",
+    "default_checkpoint_promotion": false,
+    "scope": "Authoritative current admission state. Older audit records below retain their own source/time/scope and do not negate the separate later cleared6887 admission.",
+    "evidence": {
+      "canonical_review": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
+      "freeze_metadata": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json",
+      "parent_bytes": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION.json",
+      "independent_protocol_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
+      "current_authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json"
+    }
+  },
+  "record_structure_note": "Current admission is authoritative here and inCURRENT_EVIDENCE.current_admission. Earlier source/time-scoped archive sections preserve what their individual audits established; they are not global current blockers. Exact prior method is retained inpre-current-consistency history.",
+  "historical_limitations_verbatim": "history/pre-current-consistency-3aa2fb4d/AUDIT_METHOD.json",
+  "B_goat_owner_custody": {
+    "state": "OWNER_CUSTODY_ONLY_PARTIAL_COHORT_NO_QUALITY_OR_COMPLETENESS_CLAIM",
+    "snapshot_reference_reported": "8d68",
+    "expected_case_IDs": 42,
+    "case_states_reported": "42_SCORED",
+    "preservation_manifest_sha256_provided": "a0edcefe9d31cbfca38b091bf077cdad7baa4091f05f17e9891892843c53ccb2",
+    "aggregate_sha256_provided": "323bc2c17fa19ceb794fc704d8ff3cafb4b9808c0218eccbdeae4c81e51549b7",
+    "readiness_payload_hash_or_alignment_verification": false,
+    "live_output_or_array_read": false,
+    "scope": "Parent-provided owner custody milestone only. No new total-cohort progress or early metric inferred; independent Goat alignment/source/quality review not claimed."
   }
 }

@@ -38,11 +38,11 @@
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
-      "current_assessment_clearance": "Freeze/currentauthorizationunchanged. TwoindependentWapiti52integrityreviewsscopedPASS, noquality/model/physicalvalidation. US80/273snapshotintermediate, KR0queued; fullb3f/census/FARSITE/5fig/qualitypending, no promotion/merge/future2026.",
-      "numerical_evidence": "21_DEVELOPMENT_7_TRAINED_FINALS_12_A06_66_AGGREGATE_SAVED_RECONCILIATION_PASS_CANONICAL_COVERAGE_HOLD",
+      "current_assessment_clearance": "Freeze6887/canonicalcoverage/development-onlyselection/protocol/registry cleared and published. Current US/KR assessments authorized and running; fullcohort/census/metric/FARSITE/figures/quality validation pending. Older scoped audit limits are not current admission blocks. Future2026 externalregistration/chronology NOT_READY; no defaultpromotion/merge.",
+      "numerical_evidence": "FITS_A06_AND_CANONICAL_ADMISSION_CLEARED_FREEZE6887_PUBLISHED_CURRENT_COHORTS_RUNNING_FULL_RESULTS_PENDING",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
-      "future_protocol_status": "NOT_READY_FOR_EXTERNAL_2026_EXECUTION_OR_REGISTRATION",
+      "future_protocol_status": "EXTERNAL_2026_EXECUTION_REGISTRATION_CHRONOLOGY_NOT_READY_LOCAL_PROTOCOL_COMMITTED",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
       "future_adapter_wiring": "SCOPED_INPUT_WIRING_AND_NUMERICAL_GUARDS_PASS_cc801d07_EXTERNAL_2026_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
@@ -70,7 +70,7 @@
         "observations": 20,
         "scope": "Other independent reviewer fixed synthetic controls, not rerun here"
       },
-      "future_adapter_scope_clearance": "May wire reviewed module, subsequent wiring needs source/pinning/software checks; no future study execution clearance",
+      "future_adapter_scope_clearance": "The historicald03review cleared wiring that module within scope; subsequentcc numerical/wiring and6887freeze records supply currentlocalclearance. External2026 gates remainNOT_READY.",
       "future_adapter_owner_tests": {
         "reported_passed": 74,
         "independently_rerun_by_readiness_auditor": false
@@ -96,7 +96,8 @@
         "actual_study_or_model_access": false,
         "shared_heavy_lease": false,
         "owner_tests_reported": 212,
-        "owner_suite_rerun": false
+        "owner_suite_rerun": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "prospective_wiring_initial_review": {
         "source_head": "9b5eb72f5e939ef5a366ba40a02efe7a03b5bed5",
@@ -111,12 +112,13 @@
         "dummy_registry_builder_execution": true,
         "shared_heavy_lease": false,
         "owner_tests_reported": 181,
-        "owner_suite_rerun": false
+        "owner_suite_rerun": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
-      "source_class_model_compatibility_review": "KNOWN_SOURCE_CONDITIONAL_COMPATIBILITY_PENDING_MANDATORY_CACHE_SCHEMA_AND_COMPLETE_ACTUAL_AUDIT",
+      "source_class_model_compatibility_review": "SOURCE_RECIPE_AND_CANONICAL_MEMBERSHIP_PASS_WITH_SCOPE; INDEPENDENT_RAW_CACHE_VALUE_REPLAY_NOT_ESTABLISHED",
       "source_phase_review": {
         "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
-        "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
+        "status": "HISTORICAL_FAILED_AUDIT_SUPERSEDED_BY_LINKED_REPAIRS",
         "review": "phase-support-review-bbb49a38/REVIEW.md",
         "inventory": "phase-support-review-bbb49a38/SOURCE_INVENTORY.json",
         "audit": "audit/1b-phase-support-bbb49a38.json",
@@ -144,11 +146,13 @@
         "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
         "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
         "actual_study_inputs_or_models_accessed": false,
-        "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit",
+        "later_report_repair": "Separate637alias and a5development repairs passed; current canonical coverage and freeze subsequently cleared at6887. Original failing30/26 and2/1 records remain unchanged.",
         "superseded_current_clearances": {
           "report_alias": "report-alias-repair-637457f3/report-name-repaired-637457f3-parent.json",
           "development_admission": "development-admission-review-a5ba8210/REVIEW_a5ba8210.md"
-        }
+        },
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "original_verdict": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS"
       },
       "current_review_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
       "current_report_alias_repair": {
@@ -159,7 +163,8 @@
         "passed": 2,
         "executed_by": "Parent, archived and source Git object hashes checked by readiness auditor",
         "scope": "Name/gate lookup only, source-auth entry points mocked and dummy figures; no study data-admission or visual clearance",
-        "original_failure": "audit/1b-report-name-bbb49a38.json"
+        "original_failure": "audit/1b-report-name-bbb49a38.json",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "coordinator_reported_progress": {
         "reported_working_source": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -173,7 +178,7 @@
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
         "controllers": "Owner15:03:46Z intermediateUS80/273allreportedSCORED(Wapiti52Goat28),KR0queued,223unchanged. ClosedWapiti52integrityreviewsPASSwithinScope; fullcohort/qualitychecksNOT_RUN. No liveoutputpoll orqualityinspectionbyreadiness.",
-        "heldout": "NOT_RUN",
+        "heldout": "CURRENT_US_AUTHORIZED_RUNNING_KR_AUTHORIZED_QUEUED_AS_LAST_REPORTED",
         "last_full_suite": {
           "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
           "reported_passed": 3373,
@@ -198,7 +203,8 @@
         "review": "audit/1b-final-admission-a6d15519.json",
         "checks": 57,
         "passed": 57,
-        "scope": "Earlier a6 assessment admission57/57, not a current numerical or registry freeze"
+        "scope": "Earlier a6 assessment admission57/57, not a current numerical or registry freeze",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "current_development_admission": {
         "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -216,10 +222,11 @@
         "executed_by": "Other independent reviewer, exact archive verified here without rerun",
         "actual_data_or_model_access": false,
         "training_executed": false,
-        "scope": "Fixed final-argument/development source and exact prefix membership, historical unsupported accounting, source-derived labels, selection/registry/saved-proof binding and distinct a06 comparison output paths; actual all7fit coverage/selection/registry still pending"
+        "scope": "This a5 source/fixture review checks development arguments, membership and accounting. It did not itself execute actual fit/selection/registry admission; those later gates are independently cleared and published at6887.",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "paired_ablation_reporting": {
-        "state": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+        "state": "SCOPED_REPORT_REPAIR_PASS_AT_61_FINAL_CURRENT_COHORT_REPORT_REVIEW_PENDING",
         "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
         "review": "forecast-metrics-repair-61c836a0/REVIEW_61c836a0.md",
         "inventory": "forecast-metrics-repair-61c836a0/SOURCE_INVENTORY.json",
@@ -244,7 +251,8 @@
         "training_and_equal_fire_selection": "UNAFFECTED",
         "numerical_source_unchanged": true,
         "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
-        "numerical_source_files_reported": 61
+        "numerical_source_files_reported": 61,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "current_review_not_yet_published": false,
       "future_adapter_wiring_history": {
@@ -259,7 +267,7 @@
         "synthetic_reproduction": "Equal per-fire Brier0.1 with baseweight100 and burnoutweight50 yields reported difference-0.05 and CI excludingzero",
         "training_and_equal_fire_selection": "UNAFFECTED",
         "training_resume_hold": false,
-        "repair": "Reporting repair pending outside the fixed61-file numerical source closure; training and equal-fire selection unaffected",
+        "repair": "Pending at originala5 audit; subsequently closed by separate61report repair. This historical failing record does not describe current admission.",
         "actual_heldout_inspection": false,
         "review": "forecast-metrics-review-a5ba8210/REVIEW_a5ba8210.md",
         "inventory": "forecast-metrics-review-a5ba8210/SOURCE_INVENTORY.json",
@@ -276,7 +284,8 @@
           -0.05
         ],
         "actual_development_weights_inspected": false,
-        "actual_quality_results_inspected": false
+        "actual_quality_results_inspected": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "earlier_development_admission_source": {
         "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -301,7 +310,7 @@
       },
       "status_ledger_repair": {
         "source_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-        "state": "SCOPED_LEDGER_REPAIR_PASS_ACTUAL_REGISTRY_FREEZE_PENDING",
+        "state": "SCOPED_HISTORICAL_LEDGER_REPAIR_PASS_CURRENT_FREEZE_CLEARED_6887",
         "inventory": "status-ledger-review-ff5b3b73/SOURCE_INVENTORY.json",
         "original_failure": "status-ledger-review-ff5b3b73/repro_8ab690ce.json",
         "repair": "status-ledger-review-ff5b3b73/recheck_ff5b3b73.json",
@@ -309,10 +318,11 @@
         "passed": 13,
         "owner_tests_reported": 14,
         "counts_not_pooled": true,
-        "scope": "Report-only empty-map vacuous-truth and synthetic authenticated delegation/bookkeeping. InitialmacOS/varpath adaptation retained; no actual registry/model/data freeze or execution authority bypass."
+        "scope": "Report-only empty-map vacuous-truth and synthetic authenticated delegation/bookkeeping. InitialmacOS/varpath adaptation retained; no actual registry/model/data freeze or execution authority bypass.",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "development_aggregate_receipt": {
-        "scope": "Parent arithmetic over corrected21actualdevelopmentaggregateJSONs/23fires. Every intended phase path checked, no production metric math reused; not actual source/cache/checkpoint admission or final registryfreeze. Readiness did not reopen resultJSONs.",
+        "scope": "Parent independent arithmetic over corrected21development JSON aggregates/23fires and intended paths only. This audit alone did not authenticate source/cache/checkpoints or freeze; later canonical and committed6887 checks independently clear current selection/registry. Readiness did not reopen result JSONs.",
         "receipt": "development-aggregate-review-parent/development-scores-parent-v2.json",
         "inventory": "development-aggregate-review-parent/V2_SOURCE_INVENTORY.json",
         "producer": "development-aggregate-review-parent/audit_development_scores_parent_v2.py",
@@ -324,13 +334,15 @@
         "all7means_match_owner_reported": true,
         "owner_comparison_absolute_tolerance": 1e-15,
         "paired_common_cell_effects_identified": false,
-        "registry_frozen": false,
         "intended_paths_checked": 21,
         "path_contract_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
         "original_v1_qualification": "V1 omitted _utc_fixed on three mixed-development paths, so its current21phase attribution was wrong. Original files retained unchanged. d4_wind winner/value unaffected; V2 checks every intended path before independent arithmetic.",
         "original_v1_receipt": "development-aggregate-review-parent/development-scores-parent.json",
         "original_v1_producer": "development-aggregate-review-parent/audit_development_scores_parent.py",
-        "training_hold": false
+        "training_hold": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "registry_frozen_by_this_arithmetic_audit": false,
+        "current_registry_reference": "current_admission: COMMITTED_VERIFIED_PUBLISHED_6887"
       },
       "prepared_final_result_checker": {
         "state": "PREPARED_SYNTHETIC_ONLY_ACTUAL_NOT_RUN",
@@ -340,8 +352,8 @@
         "checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
         "checks": 38,
         "passed": 38,
-        "actual_review": "NOT_RUN_AWAITING_EXPLICIT_AUTHORIZATION_OF_FROZEN_SOURCE_AND_ASSESSMENT",
-        "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved.",
+        "actual_review": "NOT_RUN_AWAITING_BOTH_COHORT_COMPLETION_AND_FINAL_REVIEW_HANDOFF",
+        "scope": "Prepared metric checker only; current source/model freeze and execution authorization are already cleared separately. Final current-cohort numerical validation remains pending. It complements the additive306case census guard.",
         "scope_addendum": "Unchanged38-controlb3fmetriccheckercomplementedbyadditive34-controlfull306censusguard; bothactualvalidationNOT_RUN. No model/metrics/policychange."
       },
       "optional_farsite_subset": {
@@ -370,9 +382,11 @@
         "mean_fire_brier": 0.037495116098823784,
         "pooled_own_support_brier": 0.040814820693112826,
         "paired_common_cell_effects_identified": false,
-        "registry_frozen": false,
-        "qualification": "Original parentproducer used3historical mixed_base paths omitting_utc_fixed. Coordinator confirmed oldmixedmean0.04709420965429823 differscorrectedowner0.04688687522451277; d4_windwinner/value unaffected. Originalscript/JSONpreserved, correctedv2intended21phaseaudit pending; no traininghold/sourcechange.",
-        "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
+        "qualification": "Historical V1 used three mixed paths omitting_utc_fixed. Exact original files remain preserved; separate V2 intended-path arithmetic passed and corrected mixed mean to0.04688687522451277. Current final selection/registry are cleared by later6887 checks, not by V1.",
+        "intended_phase_authentication": "V1_NOT_GRANTED; V2_CORRECTION_PASSED_SEPARATELY",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "registry_frozen_by_this_arithmetic_audit": false,
+        "current_registry_reference": "current_admission: COMMITTED_VERIFIED_PUBLISHED_6887"
       },
       "historical_optional_farsite_failure": {
         "state": "HOLD_TWO_CONFIRMED_ADMISSION_GAPS",
@@ -396,25 +410,29 @@
         "long_interval_repro": "farsite-subset-review-6ae52ab2/long_interval_probe.json",
         "quality_data_read": false,
         "native_or_model_execution": false,
-        "repair": "PENDING",
+        "repair": "Pending at original6ae audit; subsequently closed by D251scoped repair. Actual comparator-quality assessment remains pending.",
         "training_hold": false,
-        "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality."
+        "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality.",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "current_packaging_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
       "current_software_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
       "current_packaging_not_yet_published": false,
       "prospective_protocol_metadata": {
-        "state": "PENDING_ACTUAL_COVERAGE_REGISTRY_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+        "state": "CURRENT_PROTOCOL_REGISTRY_COMMITTED_6887_EXTERNAL_2026_DOCUMENTARY_GATES_NOT_READY",
         "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
         "inventory": "protocol-status-parent-d2512cbc/SOURCE_INVENTORY.json",
         "parent_ast_receipt": "protocol-status-parent-d2512cbc/protocol-d2512cbc-parent-AST.json",
         "parent_owner_chain_controls": 2,
         "counts_not_independent_4": true,
         "runtime_inventory_ast_equal_cc_outside_docstring": true,
-        "protocol_lines_reported": 305,
-        "clearance_receipts": "Coordinator-described acyclic workflow; no actual registration/clearance executed",
+        "clearance_receipts": "HistoricalD251 workflow record. Currentlocalcoverage/selection/registrycleared6887 through laterreceipts; external2026 registration/documentaryclearance remainsNOT_READY.",
         "external_registration": "NOT_RUN",
-        "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS"
+        "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "historical_protocol_lines_at_D251": 305,
+        "scope": "The linked D251AST/305line protocol record is historical. Current final protocol, coverage, selection and registry are committed and verified at6887; external2026 registration/chronology remainNOT_READY.",
+        "current_protocol_inventory": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json"
       },
       "preassessment_timestamp_metadata": {
         "packaging_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
@@ -432,7 +450,8 @@
         },
         "catalog_window_exclusions": 0,
         "float_exact_48h_disagreement_events": 0,
-        "scope": "Owner timestamp-only derivation; no state/growth decoded. Readiness metadataGitarchive/internalcount check, not independent original sourcecasecensus or actualassessment."
+        "scope": "Owner timestamp-only derivation; no state/growth decoded. Readiness metadataGitarchive/internalcount check, not independent original sourcecasecensus or actualassessment.",
+        "record_role": "Historical earlier owner-only timestamp inventory; later6887freeze metadata/parent enumeration provide separate current admission evidence"
       },
       "stored_farsite_identity_metadata": {
         "receipt": "preassessment-metadata-ea010ff6/FARSITE_IDENTITIES_V3.json",
@@ -463,7 +482,8 @@
         "source_hashes_checked": 199,
         "source_hash_mismatches": 0,
         "readiness_rerun": false,
-        "performance_evidence": false
+        "performance_evidence": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "actual_fit_coverage": {
         "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
@@ -484,14 +504,15 @@
         "readiness_actual_array_cache_member_model_replay": false,
         "readiness_rerun": false,
         "registry_frozen": true,
-        "heldout": "NOT_RUN",
         "actual_result_checker": "NOT_RUN",
         "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
         "independent_review_inventory": "canonical-coverage-independent-ab7fda8d/SOURCE_INVENTORY.json",
         "independent_correlated_predicates": 9841,
         "not_independent_scientific_samples": true,
         "source_window_scope": "Saved canonical receipt attests unchanged three critical sources and 201 gate sources; independently rehashed current61 and201 maps, not independently observed both historical runtime bookends.",
-        "raw_array_cache_value_model_replay": false
+        "raw_array_cache_value_model_replay": false,
+        "assessment_execution_at_coverage_review": "NOT_RUN_AT_THAT_REVIEW",
+        "current_assessment_execution": "AUTHORIZED_RUNNING; current_cohort_execution"
       },
       "seven_final_checkpoint_metadata": {
         "state": "7_TRAINED_VERSIONED_IDENTITIES_NOT_FIT_ADMISSION",
@@ -503,7 +524,9 @@
         "bytes": 769401,
         "checkpoint_payloads_read_by_readiness": false,
         "models_deserialized": false,
-        "selection_registry_frozen": false
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "selection_registry_frozen_at_checkpoint_milestone": false,
+        "current_admission_reference": "CURRENT_SELECTION_REGISTRY_CLEARED_6887"
       },
       "coverage_recipe_candidate_review": {
         "state": "SCOPED_SOURCE_ONLY_REPAIR_PASS_ACTUAL_COVERAGE_HOLD",
@@ -530,7 +553,8 @@
         "conditions": "All12fixeda06cases plusaggregate/sourcebookends andindependentMFMCresultreconciliation beforelive65apply, thenfreshcanonicalcompleteactualcache/schema/value/memberauditmustPASS. Anyreal mismatchHOLD.",
         "original_failed_review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
         "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json",
-        "boundary_satisfied_by": "12case66rowclosure+rootactualindependentreconciliation, applicationb803receipt"
+        "boundary_satisfied_by": "12case66rowclosure+rootactualindependentreconciliation, applicationb803receipt",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "historical_coverage_recipe_candidate_failure": {
         "state": "HOLD_INITIAL_CANDIDATE_53_CHECKS_48_PASS_V2_NOT_CLEARED",
@@ -554,7 +578,8 @@
         "old_candidate_applied": false,
         "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json",
         "helper_v2": "NOT_CLEARED_NO_GENERIC_CLOSURE_CLAIM",
-        "scope": "Exact other independent source-only review archive, not rerun here; no actual arrays/caches/models/quality outcomes opened by readiness."
+        "scope": "Exact other independent source-only review archive, not rerun here; no actual arrays/caches/models/quality outcomes opened by readiness.",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "provisional_coverage_review": {
         "state": "PROVISIONAL_OWNER_ACTUAL_PASS_AND_INDEPENDENT_SAVED_METADATA_PASS_CANONICAL_HOLD",
@@ -577,15 +602,16 @@
         "wrapper_refusal_tested": true,
         "raw_nonadmission": "UNTESTED",
         "canonical_coverage": "LATER_CANONICAL_SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE_SEPARATE_RECORD",
-        "live_model_selection": "NOT_RUN",
-        "live_registry": "NOT_RUN",
-        "heldout": "NOT_RUN",
         "actual_final_checker": "NOT_RUN",
         "scope": "Other independent savedJSON/gzipmetadata/custody review, not actual input/member/cache-value replay or scientificquality evaluation. RawdiagnosticPASS is provisionalcandidate output only; externalreceipt identifiesF65while source_sha256 describescheckedliveF175 dependency.",
         "conditions": "All12a06+aggregate/sourcebookends andindependentMFMCsavedresultreconciliation beforeauthorizedlive65apply andfreshcanonicalaudit. AnyactualcanonicalmismatchHOLD.",
         "readiness_rerun": false,
-        "boundary_satisfied_by": "12case66rowclosure+rootactualreconciliation before applicationb803; canonicalgate stillHOLD",
-        "canonical_coverage_at_provisional_review": "HOLD"
+        "boundary_satisfied_by": "Historical comparison closure precededF65application. Current canonical coverage, selection and registry later cleared at6887; provisional review alone did not grant that clearance.",
+        "canonical_coverage_at_provisional_review": "HOLD",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission",
+        "live_model_selection_at_provisional_review": "NOT_RUN",
+        "live_registry_at_provisional_review": "NOT_RUN",
+        "heldout_at_provisional_review": "NOT_RUN"
       },
       "prepared_mfmc_result_checker": {
         "state": "PREPARATION24_CONTROLS_COMPLETE_ACTUAL_PASS_IN_SEPARATE_RECORD",
@@ -608,7 +634,8 @@
         "MC_model_or_checkpoint_byte_replay": false,
         "distinct_from_38_control_heldout_checker": true,
         "scope": "Prepared-only exactpackagearchive/savedsyntheticresults; no actualcase/receipt/aggregate/prediction/model/data-cachearrayopenedbythisreviewerand no checker executionhere.",
-        "actual_record": "mfmc_actual_reconciliation"
+        "actual_record": "mfmc_actual_reconciliation",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "mfmc_actual_reconciliation": {
         "state": "PASS_SAVED_METRIC_RECONCILIATION",
@@ -664,7 +691,8 @@
         "raw_field_RMSE_or_mask_replay": false,
         "MC_model_or_checkpoint_byte_replay": false,
         "distinct_from_38_control_heldout_checker": true,
-        "scope": "Prepared-only exactpackagearchive/savedsyntheticresults; no actualcase/receipt/aggregate/prediction/model/data-cachearrayopenedbythisreviewerand no checker executionhere."
+        "scope": "Prepared-only exactpackagearchive/savedsyntheticresults; no actualcase/receipt/aggregate/prediction/model/data-cachearrayopenedbythisreviewerand no checker executionhere.",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "live_source_transition": {
         "state": "APPLIED_EXACT65_AFTER_COMPARISON_CLOSURE_AND_ACTUAL_RECONCILIATION",
@@ -672,7 +700,7 @@
         "updated_full_software_suite": "PASS3507_TESTS_OWNER_RECEIPT_V2",
         "updated_release_check": "PASS367_HASHES_OWNER_RECEIPT_V2",
         "fresh_live_canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
-        "selection_registry_heldout": "NOT_RUN",
+        "selection_registry_heldout": "LATER_SELECTION_REGISTRY_FROZEN_6887_CURRENT_COHORT_ASSESSMENTS_AUTHORIZED_RUNNING",
         "readiness_source_apply": false,
         "previous_3373_suite": "Originalpreapplysourcepassonly, notsubstituteforfreshupdatedsuite",
         "source_commit": "b8039a42b3f1c511cf4a9f47040cf967c6f67119",
@@ -680,7 +708,8 @@
         "parent_check": "live65-application-b8039a42/live65-application-parent.json",
         "inventory": "live65-application-b8039a42/SOURCE_INVENTORY.json",
         "matched_source_files": 63,
-        "mismatches": 0
+        "mismatches": 0,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "report_only_patch_review": {
         "state": "SCOPED_COMMAND_GUARD_REPAIR_PASS",
@@ -712,7 +741,8 @@
         "old_definitions_AST_unchanged_reported": 17,
         "finding": "Parent relays independentP2: reportloader accepts synthetic trailing--seed=7 override despiteclaimedseed0, withsameclassargparseforms. Actual12argv separatelyinspectedcanonical/unaffected; noMC rerunneeded.",
         "unfinished_review_probes_archived": false,
-        "actual_comparison_reconciliation_affected": false
+        "actual_comparison_reconciliation_affected": false,
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "fixture_lifetime_review": {
         "state": "SCOPED_TEST_FIXTURE_LIFETIME_PASS",
@@ -759,7 +789,8 @@
         "heldout": "NOT_RUN",
         "actual_result_checker": "NOT_RUN",
         "readiness_rerun": false,
-        "separate_provisional_record": "provisional_coverage_review; canonical originalHOLD unchanged"
+        "separate_provisional_record": "provisional_coverage_review; canonical originalHOLD unchanged",
+        "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
       "preview_parent_review": {
         "inventory": "mfmc-preview-parent-review/SOURCE_INVENTORY.json",
@@ -842,7 +873,8 @@
           "KR_complete": 0,
           "KR_state": "QUEUED",
           "all223_unchanged_reported": true,
-          "newer83_without_exact_observation_recorded": false
+          "newer83_without_exact_observation_recorded": false,
+          "historical_timestamped_snapshot": true
         },
         "results_read_by_readiness": false,
         "actual_completed_cohort_validation": "NOT_RUN",
@@ -923,6 +955,36 @@
         "source_label_boundary_lease_reported": "15:03:20.06..15:03:21.28Z",
         "no_interruption_or_performance_claim": true,
         "full_b3f_census_FARSITE_final5figure_quality": "PENDING_NOT_RUN"
+      },
+      "current_admission": {
+        "state": "CLEARED_COMMITTED_PUBLISHED_6887_WITH_SCOPE",
+        "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+        "canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
+        "development_only_model_selection": "COMMITTED_VERIFIED_PUBLISHED_D4_WIND",
+        "protocol_registry": "COMMITTED_VERIFIED_PUBLISHED",
+        "current_US_KR_assessments": "AUTHORIZED_AND_RUNNING_AS_A_TWO_COHORT_SEQUENCE",
+        "complete_current_cohort_validation": "PENDING",
+        "future2026_external_registration_chronology": "NOT_READY",
+        "default_checkpoint_promotion": false,
+        "scope": "Authoritative current admission state. Older audit records below retain their own source/time/scope and do not negate the separate later cleared6887 admission.",
+        "evidence": {
+          "canonical_review": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
+          "freeze_metadata": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json",
+          "parent_bytes": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION.json",
+          "independent_protocol_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
+          "current_authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json"
+        }
+      },
+      "goat_owner_custody": {
+        "state": "OWNER_CUSTODY_ONLY_PARTIAL_COHORT_NO_QUALITY_OR_COMPLETENESS_CLAIM",
+        "snapshot_reference_reported": "8d68",
+        "expected_case_IDs": 42,
+        "case_states_reported": "42_SCORED",
+        "preservation_manifest_sha256_provided": "a0edcefe9d31cbfca38b091bf077cdad7baa4091f05f17e9891892843c53ccb2",
+        "aggregate_sha256_provided": "323bc2c17fa19ceb794fc704d8ff3cafb4b9808c0218eccbdeae4c81e51549b7",
+        "readiness_payload_hash_or_alignment_verification": false,
+        "live_output_or_array_read": false,
+        "scope": "Parent-provided owner custody milestone only. No new total-cohort progress or early metric inferred; independent Goat alignment/source/quality review not claimed."
       }
     },
     "1C": {
@@ -1108,8 +1170,8 @@
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
     "integration_published_head": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
-    "coordinator_unpublished_head_reported": "68abecf23dd048df28595abb25a004c05fd49f05",
-    "coordinator_plan_sync": "coordinator-plan-sync-wapiti-integrity.json",
+    "coordinator_unpublished_head_reported": "9597a9f3011a17f5c4e7f9bd677ce03224f02d21",
+    "coordinator_plan_sync": "coordinator-plan-sync-current-consistency.json",
     "current_plan_note": "Exact coordinator history synced. Freeze/source/custody and explicitcurrent-onlyauthorization/start recordedseparatelyfromnumericalresults; noresultfilesopened."
   },
   "logical_review_order": [
@@ -1159,7 +1221,9 @@
     "pre_census_driver_preparation_summary": "history/pre-census-driver-preparation-9a81c8ce/README.md",
     "pre_census_driver_preparation_inventory": "history/pre-census-driver-preparation-9a81c8ce/ARCHIVE_INDEX.json",
     "pre_wapiti_integrity_summary": "history/pre-wapiti-integrity-06b2d5fe/README.md",
-    "pre_wapiti_integrity_inventory": "history/pre-wapiti-integrity-06b2d5fe/ARCHIVE_INDEX.json"
+    "pre_wapiti_integrity_inventory": "history/pre-wapiti-integrity-06b2d5fe/ARCHIVE_INDEX.json",
+    "pre_current_consistency_summary": "history/pre-current-consistency-3aa2fb4d/README.md",
+    "pre_current_consistency_inventory": "history/pre-current-consistency-3aa2fb4d/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -1182,5 +1246,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T15:09:36.927315+00:00"
+  "updated_utc": "2026-10-30T15:21:51.339962+00:00"
 }
