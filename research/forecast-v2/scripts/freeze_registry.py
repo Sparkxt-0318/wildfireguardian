@@ -18,6 +18,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import importlib.metadata
+import importlib.util
 import json
 import math
 from pathlib import Path
@@ -81,7 +82,7 @@ def full_fits(root, run):
     results, receipts = {}, {}
     execution_root = root / "research/forecast-v2/executions"
     split = json.loads(contained(root, root / "research/forecast-v2/SPLIT.json").read_text())
-    fit_events = set(split["fit"]["us_perimeter_and_kriged"])
+    fit_events = split["fit"]["us_perimeter_and_kriged"]
     for variant in VARIANTS:
         checkpoint = contained(root, run / "final" / f"{variant}_seed0/checkpoint.pt")
         path = contained(root, checkpoint.with_name("result.json"))
@@ -89,7 +90,7 @@ def full_fits(root, run):
         if (result.get("variant") != variant or result.get("seed") != 0 or result.get("epochs") != 3
                 or result.get("checkpoint_sha256") != sha(checkpoint)
                 or result.get("train_samples", 0) < 1 or not result.get("train_events")
-                or not set(result["train_events"]) <= fit_events
+                or result["train_events"] != fit_events
                 or len(result.get("fit", {}).get("history", [])) != 3):
             raise ValueError(f"Completed fixed-policy full fit required: {variant}")
         matched = []
@@ -115,6 +116,13 @@ def full_fits(root, run):
     return results, receipts
 
 
+def verified_fit_coverage(root, run, selection):
+    spec = importlib.util.spec_from_file_location("frozen_full_fit_membership", HERE.with_name("audit_fit_coverage.py"))
+    coverage = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(coverage)
+    return coverage.verify_coverage(root, run, selection.get("fit_coverage"))
+
+
 def build_registry(model_root, run_root, selection_path, c651_path):
     root, run = Path(model_root).resolve(), Path(run_root).resolve()
     if not run.is_relative_to(root):
@@ -127,6 +135,7 @@ def build_registry(model_root, run_root, selection_path, c651_path):
             or set(selection.get("checkpoints", {})) != set(VARIANTS)
             or set(selection.get("baselines", {})) != set(BASELINES)):
         raise ValueError("The exact seven-model selection and fitted-baseline freeze is required")
+    fit_coverage, fit_coverage_record = verified_fit_coverage(root, run, selection)
     for name in ("heldout", "korean2025"):
         folder = run / name
         if folder.exists() and any(p.is_file() for p in folder.rglob("*")):
@@ -140,6 +149,9 @@ def build_registry(model_root, run_root, selection_path, c651_path):
         raise ValueError("Primary selection differs from the frozen development minimum and tie order")
     models = {v + "_seed0": authenticate(root, selection["checkpoints"][v], run / "final" / f"{v}_seed0/checkpoint.pt")
               for v in VARIANTS}
+    for variant in VARIANTS:
+        if fit_coverage_record["variants"][variant]["checkpoint"] != models[variant + "_seed0"]:
+            raise ValueError("Coverage must bind the same exact checkpoint authenticated by model selection")
     comparator = identity(root, c651_path)
     if comparator["sha256"] != C651_SHA:
         raise ValueError("The immutable c651 comparator bytes changed")
@@ -155,7 +167,7 @@ def build_registry(model_root, run_root, selection_path, c651_path):
     required |= {p for p in (root / "forecast/wildfire").rglob("*") if p.is_file() and p.suffix in (".py", ".json")}
     required |= set((root / "research/forecast-v2/scripts").glob("*.py"))
     scripts = {p.name for p in required if p.suffix == ".py"}
-    if not {"pipeline.py", "blind_test.py", "blind_inventory.py", "freeze_registry.py", "score_cohorts.py", "run_campaign.py"} <= scripts:
+    if not {"pipeline.py", "blind_test.py", "blind_inventory.py", "freeze_registry.py", "audit_fit_coverage.py", "score_cohorts.py", "run_campaign.py"} <= scripts:
         raise ValueError("The complete executed script closure, including raw inventory admission, is required")
     source = {str(contained(root, p).relative_to(root)): sha(p) for p in sorted(required)}
     if not any(name.startswith("forecast/wildfire/") for name in source):
@@ -166,11 +178,19 @@ def build_registry(model_root, run_root, selection_path, c651_path):
             or baseline_receipt.get("exit_code") != 0
             or baseline_receipt.get("output_sha256") != baselines["dilation_choice"]["sha256"]):
         raise ValueError("Baseline selection must bind its successful execution receipt")
-    cache_path = contained(root, root / "research/forecast-v2/CACHE_AUDIT.json")
+    cache_identity = authenticate(root, selection.get("cache_audit"))
+    cache_path = contained(root, cache_identity["path"])
     cache = json.loads(cache_path.read_text())
     if (selection.get("cache_audit_sha256") != sha(cache_path) or cache.get("status") != "PASS_NO_CONSUMED_VALUES_CHANGED"
             or cache.get("producer_unchanged_during_audit") is not True):
         raise ValueError("The consumed-input cache audit must pass and bind model selection")
+    if fit_coverage_record["cache_audit"] != identity(root, cache_path):
+        raise ValueError("Model selection and fit coverage must bind the same source-recomputed cache audit")
+    if (set(selection.get("input_manifests_sha256", {})) !=
+            {"EXTRACTION_MANIFEST.json", "BASELINE_TERRAIN_MANIFEST.json", "perimeters/PERIMETER_MANIFEST.json"}
+            or any(fit_coverage_record["expected"]["input_sha256"].get(path) != value
+                   for path, value in selection["input_manifests_sha256"].items())):
+        raise ValueError("Model selection and complete fit coverage must bind the same input manifests")
     protocol_path = root / "research/forecast-v2/RUN_PROTOCOL.json"
     if selection.get("protocol_sha256") != sha(protocol_path):
         raise ValueError("Model selection must bind the fixed run protocol")
@@ -181,6 +201,8 @@ def build_registry(model_root, run_root, selection_path, c651_path):
                 selected_model=selected + "_seed0", best_dilation_hours_per_cell=rate,
                 logistic=baselines["logistic"], baselines=baselines,
                 selection=identity(root, selection_path), final_results=fits, final_executions=executions,
+                fit_coverage=fit_coverage,
+                fit_schedule_evidence={name: row["schedule_evidence"] for name, row in fit_coverage_record["variants"].items()},
                 baseline_execution=identity(root, baseline_execution), cache_audit=identity(root, cache_path),
                 producer_source_sha256=source,
                 dependency_versions={name: importlib.metadata.version(name) for name in

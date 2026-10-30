@@ -1,6 +1,7 @@
 """Mechanism fixtures for future blind-test custody, never study evidence."""
 import importlib.util
 import os
+import pickle
 import subprocess
 import json
 from pathlib import Path
@@ -469,32 +470,123 @@ def freezer():
     return module
 
 
+def fit_coverage_module(freezer):
+    path = Path(freezer.__file__).with_name("audit_fit_coverage.py")
+    spec = importlib.util.spec_from_file_location("fit_coverage_fixture", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 @pytest.fixture
 def freeze_inputs(freezer, tmp_path, monkeypatch):
+    from wildfire.survival import PerimeterSample
+    import rasterio
+    from affine import Affine
+    coverage = fit_coverage_module(freezer)
     root = tmp_path / "freeze-repo"
     run = root / "forecast/runs/synthetic"
+    inputs, caches = tmp_path / "synthetic-fit-inputs", tmp_path / "synthetic-fit-work"
     evidence = root / "research/forecast-v2"
-    script_names = ["pipeline", "blind_test", "blind_inventory", "freeze_registry", "score_cohorts", "run_campaign"]
+    script_names = ["pipeline", "blind_test", "blind_inventory", "freeze_registry", "audit_fit_coverage", "score_cohorts", "run_campaign"]
     for relative in ["forecast/wildfire/module.py", "forecast/wildfire/nested/config.json", "forecast/pyproject.toml",
-                     "forecast/documents/preregistration_blind_test.md", "research/forecast-v2/SPLIT.json",
-                     "research/forecast-v2/RUN_PROTOCOL.json", *(f"research/forecast-v2/scripts/{n}.py" for n in script_names)]:
+                     "forecast/documents/preregistration_blind_test.md", "research/forecast-v2/RUN_PROTOCOL.json",
+                     *(f"research/forecast-v2/scripts/{n}.py" for n in script_names)]:
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("synthetic source/configuration")
-    (evidence / "SPLIT.json").write_text(json.dumps(dict(fit=dict(us_perimeter_and_kriged=["synthetic_fit"]))))
+    # Exact production source is evidence for the historical schedule inference;
+    # no production input, checkpoint, result or score is read.
+    source_repo = Path(__file__).resolve().parents[2]
+    for relative in ["research/forecast-v2/scripts/pipeline.py", "forecast/wildfire/survival.py",
+                     "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/scripts/audit_caches.py"]:
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((source_repo / relative).read_bytes())
+    us, kr = ["synthetic_fit", "synthetic_fit_second"], ["synthetic_kr", "synthetic_kr_zero"]
+    split = dict(fit=dict(us_perimeter_and_kriged=us, korean_kriged_only=kr))
+    (evidence / "SPLIT.json").write_text(json.dumps(split))
+    metadata = [dict(id=name, start_utc="2020-01-01T00:00:00Z", end_utc="2020-01-03T00:00:00Z",
+                     t0_utc="2020-01-01T00:30:00Z" if name == "synthetic_kr" else "2020-01-01T00:00:00Z")
+                for name in us + kr]
+    (inputs / "environment").mkdir(parents=True)
+    (inputs / "environment/events.json").write_text(json.dumps(metadata))
+    perimeter_manifest = dict(events={})
+    for name in us:
+        path = inputs / f"perimeters/{name}/states.npz"
+        path.parent.mkdir(parents=True)
+        np.savez(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-02T00:00:00Z"]),
+                 states=np.array([[[1, 0], [0, 0]], [[1, 1], [0, 0]], [[1, 1], [1, 0]]], dtype=np.uint8))
+        perimeter_manifest["events"][name] = dict(states_sha256=coverage.sha(path))
+    (inputs / "perimeters/PERIMETER_MANIFEST.json").write_text(json.dumps(perimeter_manifest))
+    for name in us + kr:
+        for filename in ("arrival_time_hours.tif", "kriging_std_hours.tif"):
+            path = inputs / f"environment/regions/{name}/{filename}"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            values = np.array([[0, 12], [24, 36]], dtype=np.float32) if filename.startswith("arrival") else np.ones((2, 2), np.float32)
+            if name == "synthetic_kr_zero" and filename.startswith("arrival"): values[:] = np.nan
+            with rasterio.open(path, "w", driver="GTiff", height=2, width=2, count=1, dtype="float32", nodata=np.nan,
+                               crs=32610, transform=Affine(375, 0, 500000, 0, -375, 5000000)) as raster:
+                raster.write(values, 1)
+    extraction = inputs / "EXTRACTION_MANIFEST.json"
+    extraction.write_text(json.dumps(dict(members=[dict(path=str(p.relative_to(inputs)), sha256=coverage.sha(p))
+                                                   for p in (inputs / "environment").rglob("*") if p.is_file()])))
+    (inputs / "BASELINE_TERRAIN_MANIFEST.json").write_text(json.dumps(dict(files=[])))
+    (evidence / "RUN_PROTOCOL.json").write_text(json.dumps(dict(data_manifest_sha256=coverage.sha(extraction))))
+    expected = coverage.expected_membership(root, inputs)
+    source = coverage.producer_sources(root)
+    groups, audit_rows = {}, []
+    for kind, ledger in expected["ledger"].items():
+        for event, entry in ledger.items():
+            samples = []
+            for case in entry["cases"]:
+                hours = (coverage._stamp(case["endpoint"]) - coverage._stamp(case["cutoff"])).total_seconds() / 3600
+                samples.append(PerimeterSample(event, case["cutoff"], hours, np.zeros((1, 2, 2), np.float32),
+                    np.array([[True, False], [False, False]]), np.array([[True, True], [False, False]]),
+                    np.array([[False, True], [True, True]]), np.ones((2, 2)), np.zeros((2, 2)), kind=kind,
+                    meta=dict(t2=case["endpoint"]) if kind == "perimeter" else {}))
+            prefix = "perimeter_crop" if kind == "perimeter" else "kriged_utc_v2"
+            path = caches / f"samples/{prefix}_first0_{event}.pkl"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(pickle.dumps(samples, protocol=5))
+            value_id = coverage.sample_list_identity(samples)
+            audit_rows.append(dict(kind="sample-list", cache=str(path), cache_sha256=coverage.sha(path), event=event,
+                                   samples=len(samples), cached_value_identity=value_id, recomputed_value_identity=value_id,
+                                   status="MATCHES_RECOMPUTED_SOURCES"))
+            groups[(kind, event)] = samples
+    perimeter = [s for event in us for s in groups[("perimeter", event)]]
+    mixed = perimeter + [s for event in us + kr for s in groups[("kriged", event)]]
     checkpoints = {}
     for variant in freezer.VARIANTS:
+        samples = mixed if variant == "mixed_base" else perimeter
+        count = len(samples)
         checkpoint = run / "final" / f"{variant}_seed0/checkpoint.pt"
         checkpoint.parent.mkdir(parents=True, exist_ok=True)
         checkpoint.write_bytes(("synthetic exact checkpoint identity " + variant).encode())
+        value = dict(variant=variant, seed=0, epochs=3, train_samples=count, train_events=us,
+                     checkpoint_sha256=freezer.sha(checkpoint), fit=dict(history=[
+                         dict(epoch=i, optimizer_steps=count, skipped_unsupported_intervals=[]) for i in (1, 2, 3)]))
+        if variant == "mixed_base":
+            manifest_path = checkpoint.with_name("FIT_INPUT_MANIFEST.json")
+            coverage.write_new(manifest_path, coverage.capture_sample_manifest(samples, regime="mixed", producer_source_sha256=source,
+                                                                               input_sha256=expected["input_sha256"]))
+            ids = [coverage.case_id(s) for s in samples]
+            value["fit_input_manifest"] = coverage.identity(root, manifest_path)
+            value["intended_kriged_fit_events"] = us + kr
+            value["fit"]["runtime_membership"] = dict(schema=coverage.RUNTIME_SCHEMA, sample_manifest_sha256=coverage.sha(manifest_path),
+                epochs=[dict(epoch=i, attempted_case_ids=ids[::-1], attempted_case_ids_sha256=coverage.object_sha(ids[::-1]),
+                             skipped_case_ids=[], optimizer_steps=count) for i in (1, 2, 3)])
         record = checkpoint.with_name("result.json")
-        record.write_text(json.dumps(dict(variant=variant, seed=0, epochs=3, train_samples=2, train_events=["synthetic_fit"],
-                                         checkpoint_sha256=freezer.sha(checkpoint), fit=dict(history=[{}, {}, {}]))))
+        record.write_text(json.dumps(value))
         execution = evidence / f"executions/a03_final_{variant}.json"
         execution.parent.mkdir(parents=True, exist_ok=True)
         command = ["python", "pipeline.py", "final", "--variant", variant, "--seed", "0", "--epochs", "3",
-                   "--max-fit-intervals-per-fire", "3", "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
-        execution.write_text(json.dumps(dict(exit_code=0, output=str(record), output_sha256=freezer.sha(record), command=command)))
+                   "--max-fit-intervals-per-fire", "3", "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0",
+                   "--samples-per-step", "1", "--work", str(caches), "--run", str(run),
+                   "--data-root", str(inputs / "environment"), "--perimeters", str(inputs / "perimeters"),
+                   "--data-manifest-sha256", coverage.sha(extraction)]
+        execution.write_text(json.dumps(dict(exit_code=0, output=str(record), output_sha256=freezer.sha(record), command=command,
+                                             source_sha256=source)))
         checkpoints[variant] = freezer.identity(root, checkpoint)
     comparator = root / "c651.pt"
     comparator.write_bytes(b"synthetic comparator")
@@ -508,11 +600,17 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     baseline_receipt = evidence / "executions/a03_baselines.json"
     baseline_receipt.write_text(json.dumps(dict(exit_code=0, output_sha256=baselines["dilation_choice"]["sha256"])))
     cache_audit = evidence / "CACHE_AUDIT.json"
-    cache_audit.write_text(json.dumps(dict(status="PASS_NO_CONSUMED_VALUES_CHANGED", producer_unchanged_during_audit=True)))
-    selection = dict(checkpoints=checkpoints, baselines=baselines, selected_variant="base",
+    cache_audit.write_text(json.dumps(dict(status="PASS_NO_CONSUMED_VALUES_CHANGED", producer_unchanged_during_audit=True,
+                                          producer_sha256=source["research/forecast-v2/scripts/pipeline.py"], records=audit_rows, mismatches=[],
+                                          audit_script_sha256=coverage.sha(evidence / "scripts/audit_caches.py"))))
+    coverage_path = evidence / "FIT_COVERAGE.json"
+    coverage.write_new(coverage_path, coverage.audit_coverage(root, inputs, caches, run, cache_audit))
+    selection = dict(checkpoints=checkpoints, baselines=baselines, selected_variant="base", fit_coverage=coverage.identity(root, coverage_path),
                      development_brier={v: .1 for v in freezer.VARIANTS}, frozen_before_heldout_scoring=True,
                      frozen_utc="2026-10-30T00:00:00Z", baseline_execution_sha256=freezer.sha(baseline_receipt),
-                     cache_audit_sha256=freezer.sha(cache_audit), protocol_sha256=freezer.sha(evidence / "RUN_PROTOCOL.json"))
+                     cache_audit=coverage.identity(root, cache_audit), cache_audit_sha256=freezer.sha(cache_audit), protocol_sha256=freezer.sha(evidence / "RUN_PROTOCOL.json"),
+                     input_manifests_sha256={name: coverage.sha(inputs / name) for name in
+                        ["EXTRACTION_MANIFEST.json", "BASELINE_TERRAIN_MANIFEST.json", "perimeters/PERIMETER_MANIFEST.json"]})
     selection_path = evidence / "MODEL_SELECTION.json"
     selection_path.write_text(json.dumps(selection))
     return root, run, selection_path, comparator, selection
@@ -557,7 +655,7 @@ def test_registry_freeze_refuses_incomplete_or_changed_known_identities(freezer,
     if tamper in ("limited_fit", "failed_fit"):
         path = root / "research/forecast-v2/executions/a03_final_base.json"
         record = json.loads(path.read_text())
-        if tamper == "limited_fit": record["command"][-1] = "1"
+        if tamper == "limited_fit": record["command"][record["command"].index("--intervals-per-epoch") + 1] = "1"
         else: record["exit_code"] = 1
         path.write_text(json.dumps(record))
     if tamper == "unreceipted_fit": (root / "research/forecast-v2/executions/a03_final_base.json").unlink()
@@ -915,3 +1013,250 @@ def test_registry_preserves_stale_attempt_receipts_without_using_them(freezer, f
     registry = freezer.build_registry(root, run, selection_path, comparator)
     assert registry["final_executions"]["base"]["path"].endswith("a03_final_base.json")
     assert old.read_text() == original
+
+
+def fit_coverage_state(freezer, freeze_inputs):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    module = fit_coverage_module(freezer)
+    path = root / selection["fit_coverage"]["path"]
+    recorded = json.loads(path.read_text())
+    return module, root, run, Path(recorded["input_root"]), Path(recorded["cache_root"]), path, recorded
+
+
+def resign_result_receipt(freezer, root, run, variant, change):
+    path = run / f"final/{variant}_seed0/result.json"
+    result = json.loads(path.read_text())
+    change(result)
+    path.write_text(json.dumps(result))
+    receipt_path = root / f"research/forecast-v2/executions/a03_final_{variant}.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["output_sha256"] = freezer.sha(path)
+    receipt_path.write_text(json.dumps(receipt))
+
+
+def test_full_fit_coverage_derives_all_case_ids_and_retains_zero_window_korean_keys(freezer, freeze_inputs):
+    module, root, run, inputs, _, _, record = fit_coverage_state(freezer, freeze_inputs)
+    expected = module.expected_membership(root, inputs)
+    assert expected["intended_us_fit_events"] == ["synthetic_fit", "synthetic_fit_second"]
+    assert len(expected["perimeter_cases"]) == 4
+    assert len(expected["mixed_cases"]) == 12
+    assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["sample_count"] == 0
+    assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["cases"] == []
+    assert len(expected["ledger"]["kriged"]["synthetic_kr"]["cases"]) == 2
+    assert expected["ledger"]["kriged"]["synthetic_kr"]["cases"][0]["cutoff"] == "2020-01-01T12:00:00+00:00"
+    assert record["variants"]["base"]["schedule_evidence"] == "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED"
+    assert record["variants"]["base"]["runtime_membership"] is None
+    assert record["variants"]["mixed_base"]["schedule_evidence"].startswith("RUNTIME_ATTEMPTED_IDS")
+    assert record["variants"]["base"]["effective_arguments"]["max_fit_intervals_per_fire"] == "0"
+    assert record["expected"] == expected
+
+
+def test_registry_rejects_parent_audit_incomplete_declared_fire_set(freezer, freeze_inputs):
+    root, run, selection_path, comparator, _ = freeze_inputs
+    split_path = root / "research/forecast-v2/SPLIT.json"
+    original = split_path.read_bytes()
+    split = json.loads(original)
+    split["fit"]["us_perimeter_and_kriged"].append("omitted_intended_fit_fire")
+    split_path.write_text(json.dumps(split))
+    with pytest.raises(ValueError, match="Completed fixed-policy full fit"):
+        freezer.build_registry(root, run, selection_path, comparator)
+    # The fixture leaves the rejected evidence intact for inspection, without
+    # changing any original audit report or source campaign artifacts.
+    assert split_path.read_bytes() != original
+
+
+@pytest.mark.parametrize("tamper", ["omit_cached_case", "duplicate_cached_case", "wrong_cached_cutoff", "wrong_cached_duration", "missing_event_cache"])
+def test_flags_counts_and_re_signed_cache_metadata_cannot_replace_full_source_membership(freezer, freeze_inputs, tamper):
+    module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    path = caches / "samples/perimeter_crop_first0_synthetic_fit.pkl"
+    if tamper == "missing_event_cache":
+        path.unlink()
+    else:
+        samples = pickle.loads(path.read_bytes())
+        if tamper == "omit_cached_case": samples.pop()
+        if tamper == "duplicate_cached_case": samples[1] = samples[0]
+        if tamper == "wrong_cached_cutoff":
+            samples[0].t1 = "2020-01-01T01:00:00+00:00"
+            samples[0].hours = 11.
+        if tamper == "wrong_cached_duration": samples[0].hours = 1.
+        path.write_bytes(pickle.dumps(samples, protocol=5))
+        audit_path = root / "research/forecast-v2/CACHE_AUDIT.json"
+        audit = json.loads(audit_path.read_text())
+        row = next(row for row in audit["records"] if Path(row["cache"]) == path)
+        row.update(cache_sha256=module.sha(path), samples=len(samples), cached_value_identity=module.sample_list_identity(samples),
+                   recomputed_value_identity=module.sample_list_identity(samples))
+        audit_path.write_text(json.dumps(audit))
+    with pytest.raises(ValueError, match="cached full sample identities|existing files|consumed perimeter duration"):
+        module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+
+@pytest.mark.parametrize("tamper", ["wrong_count", "short_epoch", "skipped_sample", "missing_runtime", "runtime_omission", "runtime_duplicate",
+                                    "runtime_hash", "runtime_skip", "missing_zero_window_kr", "input_manifest_omission", "input_manifest_values"])
+def test_coverage_requires_complete_recorded_counts_and_actual_new_mixed_runtime_membership(freezer, freeze_inputs, tamper):
+    module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    variant = "base" if tamper in ("wrong_count", "short_epoch", "skipped_sample") else "mixed_base"
+
+    def change(result):
+        if tamper == "wrong_count": result["train_samples"] -= 1
+        if tamper == "short_epoch": result["fit"]["history"][0]["optimizer_steps"] -= 1
+        if tamper == "skipped_sample": result["fit"]["history"][0]["skipped_unsupported_intervals"] = [dict(event="synthetic_fit")]
+        if tamper == "missing_runtime": result["fit"].pop("runtime_membership")
+        if tamper in ("runtime_omission", "runtime_duplicate", "runtime_hash", "runtime_skip"):
+            epoch = result["fit"]["runtime_membership"]["epochs"][0]
+            if tamper == "runtime_omission": epoch["attempted_case_ids"].pop()
+            if tamper == "runtime_duplicate": epoch["attempted_case_ids"][0] = epoch["attempted_case_ids"][1]
+            if tamper == "runtime_skip": epoch["skipped_case_ids"] = epoch["attempted_case_ids"][:1]
+            epoch["attempted_case_ids_sha256"] = module.object_sha(epoch["attempted_case_ids"])
+            if tamper == "runtime_hash": epoch["attempted_case_ids_sha256"] = "0" * 64
+        if tamper == "missing_zero_window_kr": result["intended_kriged_fit_events"].remove("synthetic_kr_zero")
+        if tamper in ("input_manifest_omission", "input_manifest_values"):
+            path = root / result["fit_input_manifest"]["path"]
+            manifest = json.loads(path.read_text())
+            if tamper == "input_manifest_omission": manifest["sample_cases"].pop()
+            else: manifest["sample_values_sha256"] = "0" * 64
+            path.write_text(json.dumps(manifest))
+            result["fit_input_manifest"]["sha256"] = module.sha(path)
+            result["fit"]["runtime_membership"]["sample_manifest_sha256"] = module.sha(path)
+
+    resign_result_receipt(freezer, root, run, variant, change)
+    with pytest.raises(ValueError):
+        module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+
+def test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source(freezer, freeze_inputs):
+    module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    source_path = root / "forecast/wildfire/survival.py"
+    source_path.write_text(source_path.read_text().replace("sample = train[index]", "sample = train[0]"))
+    receipt_path = root / "research/forecast-v2/executions/a03_final_base.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["source_sha256"]["forecast/wildfire/survival.py"] = module.sha(source_path)
+    receipt_path.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError, match="actual indexed member"):
+        module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+
+@pytest.mark.parametrize("tamper", ["absent_coverage", "coverage_hash", "coverage_counts", "unbound_input_manifest", "wrong_cache_root", "wrong_data_root"])
+def test_registry_cannot_promote_without_rederived_complete_coverage(freezer, freeze_inputs, tamper):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    module, _, _, _, _, coverage_path, coverage = fit_coverage_state(freezer, freeze_inputs)
+    if tamper == "absent_coverage": selection.pop("fit_coverage")
+    if tamper == "coverage_hash": selection["fit_coverage"]["sha256"] = "0" * 64
+    if tamper == "coverage_counts":
+        coverage["variants"]["base"]["sample_count"] -= 1
+        coverage_path.write_text(json.dumps(coverage))
+        selection["fit_coverage"]["sha256"] = module.sha(coverage_path)
+    if tamper == "unbound_input_manifest": selection["input_manifests_sha256"]["EXTRACTION_MANIFEST.json"] = "0" * 64
+    if tamper in ("wrong_cache_root", "wrong_data_root"):
+        path = root / "research/forecast-v2/executions/a03_final_base.json"
+        receipt = json.loads(path.read_text())
+        name = "--work" if tamper == "wrong_cache_root" else "--data-root"
+        receipt["command"][receipt["command"].index(name) + 1] = "/unbound/source/location"
+        path.write_text(json.dumps(receipt))
+    selection_path.write_text(json.dumps(selection))
+    with pytest.raises(ValueError):
+        freezer.build_registry(root, run, selection_path, comparator)
+
+
+def repin_fit_source_fixture(module, root, inputs):
+    extraction = inputs / "EXTRACTION_MANIFEST.json"
+    extraction.write_text(json.dumps(dict(members=[dict(path=str(p.relative_to(inputs)), sha256=module.sha(p))
+                                                   for p in (inputs / "environment").rglob("*") if p.is_file()])))
+    protocol = root / "research/forecast-v2/RUN_PROTOCOL.json"
+    protocol.write_text(json.dumps(dict(data_manifest_sha256=module.sha(extraction))))
+
+
+def test_expected_fit_membership_uses_exact_timestamps_and_no_endpoint_growth_filter(freezer, freeze_inputs):
+    module, root, _, inputs, _, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    path = inputs / "perimeters/synthetic_fit/states.npz"
+    times = ["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-03T12:00:00Z", "2020-01-05T12:00:00.000000001Z"]
+    np.savez(path, times=np.array(times), states=np.ones((4, 2, 2), dtype=np.uint8))
+    manifest_path = inputs / "perimeters/PERIMETER_MANIFEST.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["events"]["synthetic_fit"]["states_sha256"] = module.sha(path)
+    manifest_path.write_text(json.dumps(manifest))
+    catalog = inputs / "environment/events.json"
+    events = json.loads(catalog.read_text())
+    events[0]["end_utc"] = "2020-01-06T00:00:00Z"
+    catalog.write_text(json.dumps(events))
+    repin_fit_source_fixture(module, root, inputs)
+    expected = module.expected_membership(root, inputs)
+    cases = expected["ledger"]["perimeter"]["synthetic_fit"]["cases"]
+    assert len(cases) == 2
+    assert cases[1]["endpoint"] == "2020-01-03T12:00:00+00:00"
+    # All reference states are identical. Eligibility comes from timestamps,
+    # never from endpoint growth or a useful training mask.
+    assert cases[0]["cutoff"] == "2020-01-01T00:00:00+00:00"
+
+
+def test_expected_fit_membership_uses_cutoff_weather_availability_without_losing_declared_keys(freezer, freeze_inputs):
+    module, root, _, inputs, _, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    path = inputs / "environment/events.json"
+    events = json.loads(path.read_text())
+    events[0]["start_utc"] = "2020-01-01T12:00:00Z"
+    path.write_text(json.dumps(events))
+    repin_fit_source_fixture(module, root, inputs)
+    expected = module.expected_membership(root, inputs)
+    assert expected["ledger"]["perimeter"]["synthetic_fit"]["sample_count"] == 1
+    assert expected["ledger"]["kriged"]["synthetic_fit"]["sample_count"] == 2
+    assert set(expected["ledger"]["kriged"]) == set(expected["intended_kriged_fit_events"])
+    assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["sample_count"] == 0
+
+
+def test_historical_schedule_inference_reads_exact_preserved_phase_source(freezer, freeze_inputs):
+    module, root, run, inputs, caches, _, recorded = fit_coverage_state(freezer, freeze_inputs)
+    source = root / "forecast/wildfire/survival.py"
+    original = source.read_bytes()
+    digest = module.sha(source)
+    snapshot = root / "research/forecast-v2/source_snapshots" / digest / source.name
+    snapshot.parent.mkdir(parents=True)
+    snapshot.write_bytes(original)
+    source.write_bytes(original + b"\n# Later metadata-only source comment, never attributed to old runtime.\n")
+    audited = module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+    assert audited["variants"]["base"]["source_schedule_contract"]["survival_sha256"] == digest
+    assert audited["source_sha256"]["forecast/wildfire/survival.py"] != digest
+    assert audited["variants"]["base"]["runtime_membership"] is None
+
+
+def test_registry_authenticates_named_final_cache_audit_while_preserving_original(freezer, freeze_inputs):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    module, _, _, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    original = root / "research/forecast-v2/CACHE_AUDIT.json"
+    original_bytes = original.read_bytes()
+    final = original.with_name("CACHE_AUDIT_FINAL.json")
+    value = json.loads(original_bytes)
+    value["completed_utc"] = "2026-10-30T01:00:00Z"
+    module.write_new(final, value)
+    coverage_path = original.with_name("FIT_COVERAGE_FINAL.json")
+    module.write_new(coverage_path, module.audit_coverage(root, inputs, caches, run, final))
+    selection["fit_coverage"] = module.identity(root, coverage_path)
+    selection["cache_audit"] = module.identity(root, final)
+    selection["cache_audit_sha256"] = module.sha(final)
+    selection_path.write_text(json.dumps(selection))
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    assert registry["cache_audit"] == selection["cache_audit"]
+    assert registry["cache_audit"]["path"].endswith("CACHE_AUDIT_FINAL.json")
+    assert original.read_bytes() == original_bytes
+
+
+def test_declared_kriged_inputs_cannot_be_disappeared_after_the_source_manifest(freezer, freeze_inputs):
+    module, root, _, inputs, _, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    region = inputs / "environment/regions/synthetic_kr_zero"
+    for path in region.iterdir(): path.unlink()
+    region.rmdir()
+    with pytest.raises(ValueError, match="missing despite pinned archive"):
+        module.expected_membership(root, inputs)
+
+
+def test_mixed_regime_source_cannot_declare_full_counts_while_disabling_extra_inputs(freezer, freeze_inputs):
+    module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    path = root / "research/forecast-v2/scripts/pipeline.py"
+    snapshot = root / "research/forecast-v2/source_snapshots" / module.sha(path) / path.name
+    snapshot.parent.mkdir(parents=True)
+    snapshot.write_bytes(path.read_bytes())
+    path.write_text(path.read_text().replace('d4=False, mixed=True)', 'd4=False, mixed=False)'))
+    receipt_path = root / "research/forecast-v2/executions/a03_final_base.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["source_sha256"]["research/forecast-v2/scripts/pipeline.py"] = module.sha(path)
+    receipt_path.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError, match="mixed extra-source regime"):
+        module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
