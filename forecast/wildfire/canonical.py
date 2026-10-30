@@ -259,7 +259,9 @@ def local_canonical_kernels(generator, clean, wind_index, mean, std, kernel_size
         aligned[:, iv] = (-sin * u + cos * v - mean[iv]) / std[iv]
         rotated = _rotate_batch(aligned, angle)[..., margin:margin + kernel_size,
                                                 margin:margin + kernel_size]
-        central = generator(rotated)[:, :, kernel_size // 2, kernel_size // 2]
+        generated = generator(rotated)
+        central = (generated[:, :, 0, 0] if generated.shape[-2:] == (1, 1)
+                   else generated[:, :, kernel_size // 2, kernel_size // 2])
         panel = central.reshape(-1, 1, kernel_size, kernel_size)
         restored = _rotate_batch(panel, -angle).flatten(1)
         outputs.append(restored)

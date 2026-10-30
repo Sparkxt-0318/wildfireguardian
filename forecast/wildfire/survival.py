@@ -210,13 +210,23 @@ def sample_tensors(sample: PerimeterSample, dtype=torch.float32) -> dict:
 def endpoint_brier(probability: Tensor, label: Tensor, weight: Tensor, mask: Tensor) -> tuple[Tensor, Tensor]:
     """Return ``(sum w (p - y)^2, sum w)`` over masked cells (NaN-safe)."""
     use = mask & torch.isfinite(probability)
+    if bool((use & (~torch.isfinite(label) | ((label != 0) & (label != 1)))).any()):
+        raise ValueError("Scored endpoint labels must be binary and finite")
+    if bool((use & (~torch.isfinite(weight) | (weight < 0))).any()):
+        raise ValueError("Scored weights must be finite and nonnegative")
     p = torch.where(use, probability, torch.zeros_like(probability))
+    label = torch.where(use, label, torch.zeros_like(label))
     w = torch.where(use, weight, torch.zeros_like(weight))
     return (w * (p - label).square()).sum(), w.sum()
 
 
 def clipped_nll(probability: Tensor, label: Tensor, weight: Tensor, mask: Tensor) -> tuple[Tensor, Tensor]:
     use = mask & torch.isfinite(probability)
+    if bool((use & (~torch.isfinite(label) | ((label != 0) & (label != 1)))).any()):
+        raise ValueError("Scored endpoint labels must be binary and finite")
+    if bool((use & (~torch.isfinite(weight) | (weight < 0))).any()):
+        raise ValueError("Scored weights must be finite and nonnegative")
+    label = torch.where(use, label, torch.zeros_like(label))
     p = torch.where(use, probability, torch.full_like(probability, 0.5)).clamp(LOG_FLOOR, 1 - LOG_FLOOR)
     w = torch.where(use, weight, torch.zeros_like(weight))
     loss = -(label * torch.log(p) + (1 - label) * torch.log1p(-p))

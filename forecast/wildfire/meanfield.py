@@ -87,6 +87,12 @@ def kernel_source_rate(kernels: Tensor, source: Tensor) -> Tensor:
         raise ValueError("kernels must have K*K channels with odd K >= 3")
     if source.shape[-3] != 1 or source.shape[-2:] != kernels.shape[-2:]:
         raise ValueError("source must be [..., 1, H, W] on the kernel grid")
+    if source.shape[:-3] != kernels.shape[:-3] or source.device != kernels.device:
+        raise ValueError("source and kernels must share leading shape and device")
+    if not bool(torch.isfinite(kernels).all()) or bool((kernels < 0).any()):
+        raise ValueError("kernel_source_rate requires finite nonnegative kernels")
+    if not bool(torch.isfinite(source).all()) or bool(((source < 0) | (source > 1)).any()):
+        raise ValueError("source occupancy must be finite and lie in [0,1]")
     leading = tuple(kernels.shape[:-3])
     h, w = kernels.shape[-2:]
     unfolded = F.unfold(source.reshape(-1, 1, h, w).to(kernels.dtype), k, padding=k // 2)
@@ -103,6 +109,8 @@ def mean_field_step(p: Tensor, kernels: Tensor, dt_hours: Real | Tensor, *,
     """
     rate = kernel_source_rate(kernels, p if source is None else source)
     if extra_rate is not None:
+        if extra_rate.shape != rate.shape or not bool(torch.isfinite(extra_rate).all()) or bool((extra_rate < 0).any()):
+            raise ValueError("extra_rate must match the rate grid and be finite nonnegative")
         rate = rate + extra_rate
     return p + (1 - p) * -torch.expm1(-rate * dt_hours)
 
@@ -209,6 +217,12 @@ def propagate_mean_field(
         raise ValueError("Supply one environment per step or a single repeated tensor")
     masks_seq = (list(feature_valid) if feature_valid is not None and not isinstance(feature_valid, Tensor)
                  else None)
+    if masks_seq is not None and len(masks_seq) != len(durations):
+        raise ValueError("Supply one feature mask per step")
+    if p0.ndim < 3 or p0.shape[-3] != 1 or not p0.is_floating_point():
+        raise ValueError("p0 must be floating [...,1,H,W]")
+    if p0_valid is not None and (p0_valid.dtype != torch.bool or p0_valid.shape != p0.shape):
+        raise ValueError("p0_valid must be Boolean and match p0")
     known = torch.isfinite(p0) if p0_valid is None else (p0_valid & torch.isfinite(p0))
     clean = torch.where(known, p0, torch.zeros_like(p0))
     if bool(((clean < 0) | (clean > 1)).any()):
@@ -239,6 +253,8 @@ def propagate_mean_field(
     history = [[] for _ in range(count)]
     age0 = (torch.zeros_like(clean) if initial_age_hours is None
             else torch.where(known, initial_age_hours.to(clean.dtype), torch.zeros_like(clean)))
+    if burnout is not None and (not bool(torch.isfinite(age0).all()) or bool((age0 < 0).any())):
+        raise ValueError("Initial burnout ages must be finite and nonnegative")
     outputs, valids, elapsed = [], [], []
     clock = 0.0
     repeated = sequence is None and masks_seq is None

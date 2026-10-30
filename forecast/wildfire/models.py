@@ -1867,6 +1867,13 @@ class StructuredKernelModel(EnvironmentConditionedConvolution):
             raise RuntimeError("The structured kernel generator produced nonfinite values")
         return F.softplus(logits)
 
+    def _positive_center(self, patches: Tensor) -> Tensor:
+        """Evaluate only the central generator output of complete local patches."""
+        logits = self.kernel_network.center_logits(patches)
+        if not bool(torch.isfinite(logits).all()):
+            raise RuntimeError("The structured centre generator produced nonfinite values")
+        return F.softplus(logits)
+
     def _structured(self, clean: Tensor, available: Tensor) -> Tensor:
         leading = tuple(clean.shape[:-3])
         c, h, w = clean.shape[-3:]
@@ -1874,7 +1881,7 @@ class StructuredKernelModel(EnvironmentConditionedConvolution):
         valid = available.reshape(-1, 1, h, w)
         if self.frame == "wind":
             from .canonical import local_canonical_kernels
-            residual = local_canonical_kernels(self._positive, flat, self.wind_index,
+            residual = local_canonical_kernels(self._positive_center, flat, self.wind_index,
                                                self.mean, self.std, self.kernel_size)
         else:
             residual = self._positive(flat)
@@ -1962,7 +1969,7 @@ class StructuredKernelModel(EnvironmentConditionedConvolution):
             angle = mean_wind_angle(u, v, finite)
             parallel = east * math.cos(angle) + north * math.sin(angle)
             perpendicular = -east * math.sin(angle) + north * math.cos(angle)
-            weight = torch.exp(-parallel / length) * torch.exp(-perpendicular.square() / (2 * width.square()))
+            weight = torch.exp(-parallel.clamp_min(0) / length) * torch.exp(-perpendicular.square() / (2 * width.square()))
             weight = torch.where(local & (parallel > 0), weight, torch.zeros_like(weight))
             spread = F.conv2d(src[n:n + 1], weight[None, None], padding=radius)
             speed = torch.hypot(torch.where(finite, u, 0), torch.where(finite, v, 0))
