@@ -1,0 +1,33 @@
+{
+  "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+  "files": {
+    "REPAIR_REVIEW_d031b72b.md": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/REPAIR_REVIEW_d031b72b.md",
+      "sha256": "92a7f91e3ca0bf76d0e41597cdbae9909b4500d33f5b343d6c09c6e8ffcb15b6",
+      "verbatim": true
+    },
+    "repaired_controls_d031b72b.py": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repaired_controls_d031b72b.py",
+      "sha256": "0a71c0c7fdd72d04cf2928356da45c26370a84a1a2194fcec19e2f255ef36d0f",
+      "verbatim": true
+    },
+    "repaired_controls_d031b72b.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repaired_controls_d031b72b.json",
+      "sha256": "c4ae0a05f837b88c2855d5fef09e0496dfd49998a3ee96ef32a7bc85f90a7c21",
+      "verbatim": true
+    }
+  },
+  "source_sha256": {
+    "research/forecast-v2/scripts/blind_inventory.py": "6358a96d55f18f61c01a89caaba5fbe4e8fd5cfda01c5cab0f62a0e8e88ca330",
+    "forecast/tests/test_blind_inventory.py": "fab63e1369257b31c8dde12cbc031e916a1a67d71c567cd910c9aa99aa29da2f"
+  },
+  "source_hash_verified_from_exact_git_objects": true,
+  "scope": "Read-only archive and source/result identity checks of another independent reviewer; readiness auditor did not rerun fixtures or read study inputs",
+  "observation_count": 20,
+  "result": "PASS_TARGETED_REPAIR_CONTROLS",
+  "wiring_status": "UNWIRED_AT_REVIEWED_HEAD",
+  "clearance": "Scoped permission to wire reviewed adapter, with separate software/pinning checks for subsequent wiring",
+  "external_execution_status": "NOT_READY_FOR_2026_EXECUTION",
+  "original_execution_layout": "Verbatim controls expect original work/future-inventory-review folder beside work/audit-1b at the pinned commit; restore that layout for reproduction",
+  "universal_or_physical_claim": false
+}

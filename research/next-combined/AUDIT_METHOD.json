@@ -5,7 +5,8 @@
     "A_math": "43324736fc5301a0444b01b918ef14a0372b1ec3",
     "B_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
     "C_software": "e68123d81fb9064ad057425d7c954f923b50097c",
-    "C_report_publication": "1e646b164c18d0dd924c68adefea18f02c6b4d34"
+    "C_report_publication": "1e646b164c18d0dd924c68adefea18f02c6b4d34",
+    "B_future_adapter": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
   },
   "graphs": {
     "integration": {
@@ -26,6 +27,11 @@
       "project": "wfg-next-1a-audit-43324736-20261030",
       "generation": "2026-10-30T04:09:55Z",
       "coverage": "Reviewer graph/snippet/source proof scope retained in archived review; readiness pass checked exact source/artifact identity, not a new proof"
+    },
+    "B_future_adapter": {
+      "project": "wfg-next-1b-audit-d031b72b-20261030",
+      "generation": "2026-10-30T05:29:57Z",
+      "coverage": "Adapter excluded/not_tracked; archived full independent review directly read, exact adapter/test Git object hashes checked. Indexed test file metadata_match. No new source-proof or suite rerun claimed."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -36,7 +42,7 @@
     "Graph coverage is a best-effort signal, not a completeness proof",
     "B numerical evidence and global-wind dependency review pending",
     "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
-    "Future raw-release/exclusion/registration authentication unresolved; adapter unwired with three reported gaps under owner repair",
+    "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
     "C risk records unscorable, whole-road and full-policy validation open"
   ],
   "A_current_functional_evidence": {
@@ -45,5 +51,20 @@
     "source_head": "43324736fc5301a0444b01b918ef14a0372b1ec3",
     "readiness_action": "Archive and verify exact log digests, no rerun",
     "performance_claim": false
+  },
+  "future_adapter_repairs": {
+    "intermediate_review": {
+      "review": "future-inventory-repair-review-961fec6d/REPAIR_REVIEW_961fec6d.md",
+      "inventory": "future-inventory-repair-review-961fec6d/SOURCE_INVENTORY.json",
+      "source_commit": "961fec6d43bd8f89433c183f973805de3a228444"
+    },
+    "final_review": {
+      "review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+      "inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+      "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
+    },
+    "final_targeted_controls": 20,
+    "owner_tests_reported": 74,
+    "readiness_action": "Read/archive exact review/producer/results, verify source hashes and counts; no new execution"
   }
 }

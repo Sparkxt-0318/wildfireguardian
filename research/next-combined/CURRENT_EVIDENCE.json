@@ -41,12 +41,39 @@
       "numerical_evidence": "PENDING_OWNER_DELIVERY",
       "global_wind_dependency_review": "PENDING",
       "heldout_scores_inspected_by_readiness_auditor": false,
-      "future_protocol_status": "NOT_READY",
-      "future_adapter_review": "future-inventory-review-a6d15519/REVIEW.md",
-      "future_adapter_confirmed_gaps": 3,
-      "future_adapter_wiring": "UNWIRED",
-      "future_adapter_repairs": "PENDING_OWNER",
-      "default_checkpoint_promoted": false
+      "future_protocol_status": "NOT_READY_EXTERNAL_RELEASE_CHRONOLOGY_OSF_GATES",
+      "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+      "future_adapter_wiring": "UNWIRED_AT_REVIEWED_HEAD",
+      "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
+      "default_checkpoint_promoted": false,
+      "published_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
+      "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
+      "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+      "future_adapter_source_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+      "future_adapter_historical_confirmed_gaps": 3,
+      "future_adapter_repair_history": {
+        "961fec6d": {
+          "review": "future-inventory-repair-review-961fec6d/REPAIR_REVIEW_961fec6d.md",
+          "inventory": "future-inventory-repair-review-961fec6d/SOURCE_INVENTORY.json",
+          "source_commit": "961fec6d43bd8f89433c183f973805de3a228444"
+        },
+        "d031b72b": {
+          "review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+          "inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+          "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
+        }
+      },
+      "future_adapter_independent_controls": {
+        "passed": 20,
+        "observations": 20,
+        "scope": "Other independent reviewer fixed synthetic controls, not rerun here"
+      },
+      "future_adapter_scope_clearance": "May wire reviewed module, subsequent wiring needs source/pinning/software checks; no future study execution clearance",
+      "future_adapter_owner_tests": {
+        "reported_passed": 74,
+        "independently_rerun_by_readiness_auditor": false
+      }
     },
     "1C": {
       "published_head": "1e646b164c18d0dd924c68adefea18f02c6b4d34",
@@ -108,7 +135,8 @@
     "kind": "Status-only integration draft; no merged track code",
     "branches_merged": [],
     "github_merges": [],
-    "checkpoint_promoted": false
+    "checkpoint_promoted": false,
+    "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87"
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -138,7 +166,8 @@
     "future_adapter_review": "Other independent reviewer; archived unchanged, source SHA matched exact Git object, no own fixture rerun",
     "B_admission": "Readiness auditor independent tiny synthetic tests with mocked numerical producers, no study data",
     "graph": "Current owned reports not_tracked at integration generation02:27:27Z; direct source read. NewC reports not_tracked at e681 generation03:54:43Z; direct report read.",
-    "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning"
+    "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning",
+    "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access"
   },
-  "updated_utc": "2026-10-30T05:21:45.925613+00:00"
+  "updated_utc": "2026-10-30T05:35:35.050078+00:00"
 }

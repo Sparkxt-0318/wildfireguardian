@@ -1,0 +1,33 @@
+{
+  "source_commit": "961fec6d43bd8f89433c183f973805de3a228444",
+  "files": {
+    "REPAIR_REVIEW_961fec6d.md": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/REPAIR_REVIEW_961fec6d.md",
+      "sha256": "7e458ccf36e2462c7aa45fad7a0f428405833addf2420dff49a72d7c10da7730",
+      "verbatim": true
+    },
+    "repaired_controls_961fec6d.py": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repaired_controls_961fec6d.py",
+      "sha256": "d2aa3c84e3fb1a4cebc58894735b5772045ce19ebea1e4373370b5d2569dffa9",
+      "verbatim": true
+    },
+    "repaired_controls_961fec6d.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repaired_controls_961fec6d.json",
+      "sha256": "72da4f82c0418340fd350734289294235bfbf06a4ab14d4a4d6b1e3768ee3ab4",
+      "verbatim": true
+    }
+  },
+  "source_sha256": {
+    "research/forecast-v2/scripts/blind_inventory.py": "50d4c848ef796ed83c3f2fb7de74b4b615c14a3665a427fba0c4d5ff1bc5bbad",
+    "forecast/tests/test_blind_inventory.py": "4b52b1e7f76929f2d29e9c40739ee31e33cea136bd4c28bc8dd16d630393154a"
+  },
+  "source_hash_verified_from_exact_git_objects": true,
+  "scope": "Read-only archive and source/result identity checks of another independent reviewer; readiness auditor did not rerun fixtures or read study inputs",
+  "observation_count": 17,
+  "result": "ONE_QUALITY_DEPENDENCY_GAP_RETAINED",
+  "wiring_status": "UNWIRED_AT_REVIEWED_HEAD",
+  "clearance": "Original three repairs verified; one quality VRT gap remains",
+  "external_execution_status": "NOT_READY_FOR_2026_EXECUTION",
+  "original_execution_layout": "Verbatim controls expect original work/future-inventory-review folder beside work/audit-1b at the pinned commit; restore that layout for reproduction",
+  "universal_or_physical_claim": false
+}

@@ -1,0 +1,99 @@
+{
+  "source_commit": "961fec6d43bd8f89433c183f973805de3a228444",
+  "adapter_sha256": "50d4c848ef796ed83c3f2fb7de74b4b615c14a3665a427fba0c4d5ff1bc5bbad",
+  "scope": "Tiny generated synthetic controls only; no real raw/future/heldout study data or heavy jobs.",
+  "fixture_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repair-961fec6d-0cgp5ox4",
+  "controls": [
+    {
+      "control": "baseline_before_symlink",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "original_internal_directory_symlink",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Filesystem symlinks are not admitted: /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repair-961fec6d-0cgp5ox4/symlink/environment/regions/SYNTHETIC_A"
+    },
+    {
+      "control": "mutated_unpinned_symlink_target",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Filesystem symlinks are not admitted: /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repair-961fec6d-0cgp5ox4/symlink/environment/regions/SYNTHETIC_A"
+    },
+    {
+      "control": "baseline_before_dbf_changes",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "exact_dbf_without_eof",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "exact_dbf_single_eof",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "original_appended_full_dbf_record",
+      "result": "REFUSED_EXPECTED",
+      "reason": "DBF payload must contain exactly declared records and at most one EOF byte"
+    },
+    {
+      "control": "double_dbf_eof",
+      "result": "REFUSED_EXPECTED",
+      "reason": "DBF payload must contain exactly declared records and at most one EOF byte"
+    },
+    {
+      "control": "baseline_before_archive_changes",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "allowlisted_text_metadata",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "original_tgz_with_second_incident",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Archive contains an unhandled member format: other/archive.tgz"
+    },
+    {
+      "control": "binary_tgz_disguised_as_text",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Allowed metadata must be UTF-8 plain text: other/disguised.txt"
+    },
+    {
+      "control": "baseline_before_canonical_vrt",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "canonical_vrt_external_source",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/regions/SYNTHETIC_A/terrain/slope_degrees_375m.tif"
+    },
+    {
+      "control": "baseline_before_quality_raster",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "regular_pinned_quality_geotiff",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2
+    },
+    {
+      "control": "quality_vrt_unpinned_external_dependency",
+      "result": "ACCEPTED_CUSTODY_GAP",
+      "before_status": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+      "after_status": "LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED",
+      "cases": 2,
+      "manifest_unchanged": true,
+      "valid_feature_count_before": 54,
+      "valid_feature_count_after": 45,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    }
+  ]
+}
