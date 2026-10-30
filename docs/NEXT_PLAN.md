@@ -47,9 +47,9 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 | 1B-3 | Structural ablations | in progress |
 | 1B-4 | Baselines | in progress |
 | 1B-5 | Blind pre-registration | in progress |
-| 1C-1 | Export v3, members and reduction | in progress |
-| 1C-2 | SIPP equivalence and cost | 52/52 native pairs match, audit fixes pending |
-| 1C-3 | Synthetic-truth harness and campaigns | in progress |
+| 1C-1 | Export v3, members and reduction | partial; 15 byte-identical exports; real reduction/scaling open |
+| 1C-2 | SIPP equivalence and cost | software checks pass; 52/52 contact-only native pairs match |
+| 1C-3 | Synthetic-truth harness and campaigns | partial; repaired readers; requested risk rates unidentified |
 | INT | Integration checks | pending, gated on track acceptance |
 | EVIDENCE | Combined evidence README | in progress |
 | PR | Four pull requests opened | in progress |
@@ -108,3 +108,7 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 - 2026-10-30: The recovered44-event environment catalog contains neither Caldor nor Rim. The sealed Caldor packet declares retrospective observed-perimeter timing, EPSG3310 and two selected survey clocks. A bounded owner audit is checking whether that sealed study has the causal, channel-complete inputs for a learned forecast export; retrospective routing construction alone is insufficient.
 
 - 2026-10-30: Independent recheck at a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d passes57/57 synthetic admission controls, including matching executed-baseline positive controls and independent MC support checks. The two current fresh-assessment blockers are cleared at that exact source. Qualified US2024/Korean2025 assessment may start only after all seven final fit hashes and model selection are frozen. Future2026 execution and scientific integration remain gated. Original failures remain immutable.
+
+- 2026-10-30: C report-only head1e646b164 is published to PR86 after exact four-file ownership, style and digest checks. The bounded Caldor/Rim availability audit covers1,167files (51,014,966bytes);59/59 original source and158/158study digests match. No acquired environmental raster or causal six-channel c651 alignment is established in that scope. Two off-hour origins and retrospective construction cannot be converted into native forecasts by arbitrary rounding or resampling. No experiments were run for this audit.
+- 2026-10-30: Parent audit confirms A433 and C e681 source snapshots have no ownership/style/commit-message violations or dirty/untracked files. Every current PNG has an SVG pair and nominal300dpi; canvases use3.5 or7.2inches. Three representative C figures were visually inspected and readable. README keyword uses remain scoped to model predicates, proof arguments and explicit limitations. C later report-only changes were separately checked.
+- 2026-10-30: Independent synthetic review of the unwired future-release adapter found three custody/completeness gaps: symlink-hidden environmental dependencies, unchecked trailing DBF records, and unrecognized nested.tgz source bundles. Exact reproductions are retained in task work/future-inventory-review. Repairs and independent recheck are required before wiring; NOT_READY_FOR_2026_EXECUTION held in all reproductions. Separately, the spotting branch global wind dependency is under owner review before the final scoring freeze.
