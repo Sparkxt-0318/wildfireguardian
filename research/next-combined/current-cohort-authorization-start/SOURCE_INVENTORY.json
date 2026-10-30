@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/CURRENT_COHORT_AUTHORIZATION.json",
+      "archive": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
+      "bytes": 1376,
+      "sha256": "554e4fb0fefb2aae290143631f63d2f1b2a24b75cfe4dac250f89a54a31ed2ef"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/current_assessment_start_v2.json",
+      "archive": "current-cohort-authorization-start/current_assessment_start_v2.json",
+      "bytes": 28082,
+      "sha256": "3ea34164002d280540755ddc574eb758c46ff9fa038451655ce399333c41ce08"
+    }
+  ],
+  "scope": "Rootauthorizationandcompletedstartreceipt only, no numericalresult/case/performanceoutputopened. Current273US+33KRonly; frozenmodelset/source/input/seed/Npolicy unchanged.",
+  "driver_hash_reported": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+  "driver_archive_hash_reported": "26e7063e9ef04002baaa716402472d33963bf2302e1851f82c8f0701f0487a44",
+  "driver_source_copied": false,
+  "driver_path_identity_or_independent_replay_claim": false,
+  "lease_scope": "HEAVYkernelacquisitionnotinstrumented. Externalheld-lockobservation13:25:23isseparatefromscorerstart13:24:00.287972Z.",
+  "source223_checks": "Savedstartreceipt reports223match; rootseparatelyverified223beforeauthorization. No binariesorarraysopenedbyreadiness.",
+  "earlier_driver_diagnostic_folder_opened": false,
+  "live_US_or_KR_output_opened": false
+}

@@ -1,0 +1,198 @@
+{
+  "status": "PASS_BOUNDED_FROZEN_METADATA_RECONCILIATION",
+  "scope": "Committed JSON/Markdown metadata only. No model/data/cache arrays, scorer, forecast, heldout output or source-code execution. Binary/source86/201 custody is separately verified by parent. No scientific or 2026 execution clearance.",
+  "commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "checks": [
+    {
+      "name": "selection_fixed_argmin_and_rule",
+      "passed": true,
+      "detail": {
+        "argmin": "d4_wind",
+        "brier": 0.037495116098823784,
+        "criterion": "lowest equal-fire development Brier across three year folds"
+      }
+    },
+    {
+      "name": "all_seven_CP_metadata_equal_across_artifacts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "corrected_spotting_phase_only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "eight_CP_identities_include_original_c651",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "baseline_metadata_equal_fixed8h",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "protocol_exact_CP_and_baseline_table",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "coverage_selection_registry_document_pins",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "handoff_all_six_external_file_pins",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "current_development_membership21_and_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_result_execution_refs_equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pure_final3x1303_accounting_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mixed3x4391_attempt_partition4376plus15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fit_cohort_and_heldout_sets_disjoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "US273_exact_unique_metadata_cases",
+      "passed": true,
+      "detail": {
+        "ID-BOF-000683_Wapiti_Wapiti": 52,
+        "ID-BOF-000904_Goat": 42,
+        "ID-BOF-001080_Lava": 47,
+        "ID-SCF-240202_RedRock": 40,
+        "WA-SES-000173_Pioneer": 55,
+        "WY-BTF-002416_FishCreek": 37
+      }
+    },
+    {
+      "name": "US_duration_exact_boundary_and_no_extra_exclusions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "KR33_reenumerated_only_from_frozen_timestamp_metadata",
+      "passed": true,
+      "detail": {
+        "KFS_01": 8,
+        "KFS_04": 14,
+        "KFS_06": 8,
+        "KFS_13": 3
+      }
+    },
+    {
+      "name": "KR_no_endpoint_clipping",
+      "passed": true,
+      "detail": {
+        "endpoints_after_catalog_end": 4
+      }
+    },
+    {
+      "name": "handoff306_current_case_counts_pinned",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pre_inference_future_and_OSF_states_explicit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "chronology_selection_registry_handoff",
+      "passed": true,
+      "detail": {
+        "selection": "2026-10-30T13:05:51.050639+00:00",
+        "registry": "2026-10-30T13:08:27.999554+00:00",
+        "handoff": "2026-10-30T13:11:30.395002+00:00"
+      }
+    },
+    {
+      "name": "registry86_source_dependencies_no_self",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "acyclic_hash_dependencies_without_self_reference",
+      "passed": true,
+      "detail": {
+        "FIT_COVERAGE.json": [],
+        "MODEL_SELECTION.json": [
+          "FIT_COVERAGE.json"
+        ],
+        "preregistration_blind_test.md": [
+          "FIT_COVERAGE.json",
+          "MODEL_SELECTION.json"
+        ],
+        "BLIND_REGISTRY.json": [
+          "FIT_COVERAGE.json",
+          "MODEL_SELECTION.json",
+          "preregistration_blind_test.md"
+        ],
+        "FREEZE_HANDOFF.json": [
+          "FIT_COVERAGE.json",
+          "MODEL_SELECTION.json",
+          "preregistration_blind_test.md",
+          "BLIND_REGISTRY.json",
+          "PREASSESSMENT_US2024_TIMESTAMPS.json",
+          "PREASSESSMENT_KOREA2025_WINDOWS.json"
+        ],
+        "PREASSESSMENT_US2024_TIMESTAMPS.json": [],
+        "PREASSESSMENT_KOREA2025_WINDOWS.json": []
+      }
+    },
+    {
+      "name": "protocol_frozen_metrics_cohorts_stopping_and_documentary_boundaries",
+      "passed": true,
+      "detail": {
+        "fixed_future_deadline": true,
+        "all_fire_minimum_no_optional_stopping": true,
+        "primary_inconclusive": true,
+        "no_favorable_early_stop": true,
+        "whole_fire_bootstrap": true,
+        "fixed_bootstrap_seed": true,
+        "all_seven_reported": true,
+        "no_future_FARSITE_column": true,
+        "separate_Korean_assessment": true,
+        "no_posthoc_replacement": true,
+        "fixed_MC_count": true,
+        "clipped_NLL_limit": true,
+        "explicit_replay_execution": true,
+        "documentary_human_only": true,
+        "failed_cases_primary_closed": true,
+        "chronology_cannot_manufacture_blindness": true
+      }
+    },
+    {
+      "name": "current_and_future_commands_prescribed_not_executed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_authored_em_dash",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": 25,
+  "total": 25,
+  "failures": []
+}

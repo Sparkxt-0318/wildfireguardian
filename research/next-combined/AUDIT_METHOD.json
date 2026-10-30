@@ -16,7 +16,7 @@
     "B_current_overlay": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
+    "B_current_packaging": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61"
   },
   "graphs": {
@@ -95,7 +95,8 @@
     "Historicalreport7e59P2argparsegrammar defect, closedonlyby275scoped22/13review: trailing--seed=7override canbypassdeclaredseed. All12actualargvcanonicalunderseparaterootinspection, actualMFMCunaffected/noMC rerun. Originalfailedprobespreserved; completedrepairreviewnowarchived, noactualcomparisonrerun.",
     "Separate275report22command/13closurecontrolsPASSand49fixture52correlatedpredicatesPASS, notpooled. Source201Gitidentitychecks andowner3507+367softwarePASS do notclearcanonicalcoverage. LatercompletedownercanonicalPASSarchivedonlyafterexplicitparentcompletionpins, laterindependentsavedmetadatareviewPASSwithscope, notscientificvalidation. PriorgrammarHOLDpreserved; previewQAisnotfinalfivefigQA.",
     "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; laterindependentcanonicalreview9841scopedPASSrecordedseparately, noactualarray/value/modelreplay. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting.",
-    "Canonicalreview9841correlatedmetadata/custodypredicatesPASS, notscientificsamples. Owneractualruntimeattestationandreviewercurrent61/201byteverificationarescope-distinct. Nocache/member/array/modelreplay. RootfreezeCOMMITauthorizedandinprogress, activeoutputsunopened, noUS/KRor2026inferenceauthorization. Step4stillgated."
+    "Canonicalreview9841correlatedmetadata/custodypredicatesPASS, notscientificsamples. Owneractualruntimeattestationandreviewercurrent61/201byteverificationarescope-distinct. Nocache/member/array/modelreplay. Historicalprefreeze stage preserved; later6887verifiedandonlycurrent273US+33KRauthorized, numericaloutputsunopened. Step4stillgated.",
+    "Freeze6887root223bytechecks/independent25metadataPASSseparatefromnumericalresults. Rootauthorizationonly273US+33KR,startreceiptcomplete. Owner3/273snapshotintermediate; liveoutputsunopened. No checkpoint/logisticbinariescopied/read. Leasekernelacquisitionuninstrumented. Full306censusguardpreparing/actualNOT_RUN; future2026NOT_READY, nomerge/defaultpromotion."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -387,7 +388,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "a80b99de66176638763540e47a11f34669a08bb3",
+    "1B": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -513,7 +514,7 @@
       "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
     }
   },
-  "confirmed_integration_published_head": "3e4c5cf5c024df8c671aa7ccd142a249612d1976",
+  "confirmed_integration_published_head": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
   "B_optional_farsite_repair": {
     "state": "SCOPED_OPTIONAL_TOOL_REPAIR_PASS_ACTUAL_QUALITY_NOT_RUN",
     "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
@@ -851,7 +852,7 @@
     "independent_review": "COMPLETED_BOUNDED_SAVED_METADATA_CUSTODY_REVIEW",
     "readiness_actual_array_cache_member_model_replay": false,
     "readiness_rerun": false,
-    "registry_frozen": false,
+    "registry_frozen": true,
     "heldout": "NOT_RUN",
     "actual_result_checker": "NOT_RUN",
     "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
@@ -886,12 +887,56 @@
     "readiness_rerun": false
   },
   "B_freeze_process": {
-    "state": "ROOT_AUTHORIZED_DEVELOPMENT_ONLY_SELECTION_EXACT_PROTOCOL_REGISTRY_FREEZE_COMMIT_IN_PROGRESS",
-    "handoff": "PENDING_OWNER_SEPARATE_DELIVERY",
-    "active_freeze_outputs_read": false,
-    "freeze_readiness_inferred": false,
-    "US_KR_inference_authorized": false,
+    "state": "COMMITTED_PUBLISHED_VERIFIED_WITH_SCOPE",
+    "source_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "metadata_inventory": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json",
+    "parent_inventory": "freeze-parent-verification-6887dc61/SOURCE_INVENTORY.json",
+    "independent_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
+    "independent_inventory": "freeze-protocol-review-6887dc61/SOURCE_INVENTORY.json",
+    "metadata_checks": 25,
+    "root_unique_byte_checks": 223,
+    "root_checkpoint_pointers": 8,
+    "root_source_files": 201,
+    "root_registry_dependencies": 86,
+    "maps_overlap_not_summed": true,
+    "selected_variant": "d4_wind",
+    "selection_basis": "Fixedequal-firedevelopmentargminonly",
+    "US_KR_inference_authorized": true,
     "future2026_inference_authorized": false,
-    "checkpoint_promoted": false
+    "checkpoint_promoted": false,
+    "readiness_binary_or_array_access": false
+  },
+  "B_current_cohort_execution": {
+    "state": "AUTHORIZED_STARTED_RESULTS_UNREAD",
+    "authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
+    "receipt": "current-cohort-authorization-start/current_assessment_start_v2.json",
+    "inventory": "current-cohort-authorization-start/SOURCE_INVENTORY.json",
+    "authorized_utc": "2026-10-30T13:21:50.836536+00:00",
+    "expected_US_cases": 273,
+    "expected_KR_windows": 33,
+    "total_expected_cases": 306,
+    "cohorts_separate": true,
+    "first_cohort_exit_does_not_cancel_second": true,
+    "US_started_utc": "2026-10-30T13:24:00.287972+00:00",
+    "controller_pid": 89407,
+    "scorer_pid": 89416,
+    "session_reported": 76349,
+    "driver_sha256_reported": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+    "driver_source_copied": false,
+    "independent_driver_replay": false,
+    "HEAVY_kernel_acquisition_instrumented": false,
+    "external_held_lock_observed_utc": "2026-10-30T13:25:23Z",
+    "intermediate_progress_from_owner_only": {
+      "snapshot_utc": "2026-10-30T13:28:39Z",
+      "US_SCORED": 3,
+      "US_total": 273,
+      "KR_complete": 0,
+      "KR_state": "QUEUED"
+    },
+    "results_read_by_readiness": false,
+    "actual_completed_cohort_validation": "NOT_RUN",
+    "census_checker": "Separatefull306membershipguardpreparing; older38-controlb3checkerdoesnotestablishfull306census; actualNOT_RUN",
+    "future2026": "NOT_READY_NOT_AUTHORIZED",
+    "github_merges_or_default_promotion_authorized": false
   }
 }

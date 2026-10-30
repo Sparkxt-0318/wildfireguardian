@@ -33,21 +33,21 @@
       "published_head": "43324736fc5301a0444b01b918ef14a0372b1ec3"
     },
     "1B": {
-      "source_head": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
-      "status": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE_FREEZE_COMMIT_IN_PROGRESS_NO_INFERENCE",
+      "source_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "status": "VERIFIED_FROZEN_CURRENT_COHORT_AUTHORIZED_STARTED_NUMERICAL_RESULTS_UNREAD",
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
-      "current_assessment_clearance": "Updatedsoftware3507+367PASSandcanonicalsavedmetadata/custody9841correlatedpredicatesPASSwithinboundedScope. Rootreleaseddevelopment-onlyselection/exactprotocol/registryfreezeCOMMIT, stillinprogress andnotreadhere. NoUS/KRor2026inferenceauthorization, no promotion, Step4gated.",
+      "current_assessment_clearance": "Freeze6887committed/published; root223bytechecksandindependent25metadatareviewPASSwithinScope. Rootexplicitlyauthorizedonlyfrozen273US+33KRandstartreceiptcomplete. Numericalresultsunread, final306census/metricsreviewNOT_RUN, future2026NOT_READY, no merge/defaultpromotion.",
       "numerical_evidence": "21_DEVELOPMENT_7_TRAINED_FINALS_12_A06_66_AGGREGATE_SAVED_RECONCILIATION_PASS_CANONICAL_COVERAGE_HOLD",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
-      "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
+      "future_protocol_status": "NOT_READY_FOR_EXTERNAL_2026_EXECUTION_OR_REGISTRATION",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
       "future_adapter_wiring": "SCOPED_INPUT_WIRING_AND_NUMERICAL_GUARDS_PASS_cc801d07_EXTERNAL_2026_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
-      "published_head": "a80b99de66176638763540e47a11f34669a08bb3",
+      "published_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
       "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
       "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
       "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
@@ -150,7 +150,7 @@
           "development_admission": "development-admission-review-a5ba8210/REVIEW_a5ba8210.md"
         }
       },
-      "current_review_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+      "current_review_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
       "current_report_alias_repair": {
         "source_head": "637457f3118bad5575dd6b4b83c74511d93bbd43",
         "review": "report-alias-repair-637457f3/report-name-repaired-637457f3-parent.json",
@@ -172,7 +172,7 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "Softwarev2andcanonicalmetadata/custody scopedPASS. Rootauthorizeddevelopment-onlyselection/exactprotocol/registryfreezeCOMMITinprogress; noactivefreezeoutputsreadorreadinessinferred, noinference.",
+        "controllers": "Currentassessmentsauthorized/startrecorded. Ownerintermediate13:28:39Z US3of273SCORED, KR0queued; thisisnottotalcompletionorperformance. No liveoutputread/pollhere.",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
@@ -246,7 +246,7 @@
         "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
         "numerical_source_files_reported": 61
       },
-      "current_review_not_yet_published": true,
+      "current_review_not_yet_published": false,
       "future_adapter_wiring_history": {
         "prior_summary": "history/pre-metrics-7ce13650/CURRENT_EVIDENCE.json",
         "prior_value": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD"
@@ -286,7 +286,7 @@
       },
       "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "numerical_source_files": 61,
-      "publication_status": "Coordinatorconfirmsoldpublisheda80CIgreen; newguard/report/fixture49sourceunpublished. No publicationbyreadiness.",
+      "publication_status": "Rootconfirmedcommitted/published6887freeze. No publicationbyreadiness.",
       "review_source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "future_numerical_guard": {
         "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
@@ -341,7 +341,8 @@
         "checks": 38,
         "passed": 38,
         "actual_review": "NOT_RUN_AWAITING_EXPLICIT_AUTHORIZATION_OF_FROZEN_SOURCE_AND_ASSESSMENT",
-        "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved."
+        "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved.",
+        "scope_addendum": "Original38preparedcontrolsdoNOTestablishfull306currentcohortcompleteness; separatecensusguardpreparing, actualNOT_RUN."
       },
       "optional_farsite_subset": {
         "state": "SCOPED_OPTIONAL_TOOL_REPAIR_PASS_ACTUAL_QUALITY_NOT_RUN",
@@ -399,9 +400,9 @@
         "training_hold": false,
         "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality."
       },
-      "current_packaging_head": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
+      "current_packaging_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
       "current_software_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
-      "current_packaging_not_yet_published": true,
+      "current_packaging_not_yet_published": false,
       "prospective_protocol_metadata": {
         "state": "PENDING_ACTUAL_COVERAGE_REGISTRY_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
         "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
@@ -482,7 +483,7 @@
         "independent_review": "COMPLETED_BOUNDED_SAVED_METADATA_CUSTODY_REVIEW",
         "readiness_actual_array_cache_member_model_replay": false,
         "readiness_rerun": false,
-        "registry_frozen": false,
+        "registry_frozen": true,
         "heldout": "NOT_RUN",
         "actual_result_checker": "NOT_RUN",
         "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
@@ -790,13 +791,57 @@
         "readiness_rerun": false
       },
       "freeze_process": {
-        "state": "ROOT_AUTHORIZED_DEVELOPMENT_ONLY_SELECTION_EXACT_PROTOCOL_REGISTRY_FREEZE_COMMIT_IN_PROGRESS",
-        "handoff": "PENDING_OWNER_SEPARATE_DELIVERY",
-        "active_freeze_outputs_read": false,
-        "freeze_readiness_inferred": false,
-        "US_KR_inference_authorized": false,
+        "state": "COMMITTED_PUBLISHED_VERIFIED_WITH_SCOPE",
+        "source_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+        "metadata_inventory": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json",
+        "parent_inventory": "freeze-parent-verification-6887dc61/SOURCE_INVENTORY.json",
+        "independent_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
+        "independent_inventory": "freeze-protocol-review-6887dc61/SOURCE_INVENTORY.json",
+        "metadata_checks": 25,
+        "root_unique_byte_checks": 223,
+        "root_checkpoint_pointers": 8,
+        "root_source_files": 201,
+        "root_registry_dependencies": 86,
+        "maps_overlap_not_summed": true,
+        "selected_variant": "d4_wind",
+        "selection_basis": "Fixedequal-firedevelopmentargminonly",
+        "US_KR_inference_authorized": true,
         "future2026_inference_authorized": false,
-        "checkpoint_promoted": false
+        "checkpoint_promoted": false,
+        "readiness_binary_or_array_access": false
+      },
+      "current_cohort_execution": {
+        "state": "AUTHORIZED_STARTED_RESULTS_UNREAD",
+        "authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
+        "receipt": "current-cohort-authorization-start/current_assessment_start_v2.json",
+        "inventory": "current-cohort-authorization-start/SOURCE_INVENTORY.json",
+        "authorized_utc": "2026-10-30T13:21:50.836536+00:00",
+        "expected_US_cases": 273,
+        "expected_KR_windows": 33,
+        "total_expected_cases": 306,
+        "cohorts_separate": true,
+        "first_cohort_exit_does_not_cancel_second": true,
+        "US_started_utc": "2026-10-30T13:24:00.287972+00:00",
+        "controller_pid": 89407,
+        "scorer_pid": 89416,
+        "session_reported": 76349,
+        "driver_sha256_reported": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+        "driver_source_copied": false,
+        "independent_driver_replay": false,
+        "HEAVY_kernel_acquisition_instrumented": false,
+        "external_held_lock_observed_utc": "2026-10-30T13:25:23Z",
+        "intermediate_progress_from_owner_only": {
+          "snapshot_utc": "2026-10-30T13:28:39Z",
+          "US_SCORED": 3,
+          "US_total": 273,
+          "KR_complete": 0,
+          "KR_state": "QUEUED"
+        },
+        "results_read_by_readiness": false,
+        "actual_completed_cohort_validation": "NOT_RUN",
+        "census_checker": "Separatefull306membershipguardpreparing; older38-controlb3checkerdoesnotestablishfull306census; actualNOT_RUN",
+        "future2026": "NOT_READY_NOT_AUTHORIZED",
+        "github_merges_or_default_promotion_authorized": false
       }
     },
     "1C": {
@@ -981,10 +1026,10 @@
     "github_merges": [],
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
-    "integration_published_head": "3e4c5cf5c024df8c671aa7ccd142a249612d1976",
-    "coordinator_unpublished_head_reported": "c08b4280708bf231fa844798a692eb2a5c0c0287",
-    "coordinator_plan_sync": "coordinator-plan-sync-independent-canonical.json",
-    "current_plan_note": "Exact latest coordinator history synced; root-authorized development-only freeze commit is in progress. Active freeze outputs unopened and no inference authorization inferred."
+    "integration_published_head": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
+    "coordinator_unpublished_head_reported": "3680e7be416ff4bd2579bf9e57bb3ed2b1eac13d",
+    "coordinator_plan_sync": "coordinator-plan-sync-freeze-start.json",
+    "current_plan_note": "Exact coordinator history synced. Freeze/source/custody and explicitcurrent-onlyauthorization/start recordedseparatelyfromnumericalresults; noresultfilesopened."
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -1027,7 +1072,9 @@
     "pre_software_v2_summary": "history/pre-software-v2-44a4f4d8/README.md",
     "pre_software_v2_inventory": "history/pre-software-v2-44a4f4d8/ARCHIVE_INDEX.json",
     "pre_independent_canonical_summary": "history/pre-independent-canonical-22c9d9bd/README.md",
-    "pre_independent_canonical_inventory": "history/pre-independent-canonical-22c9d9bd/ARCHIVE_INDEX.json"
+    "pre_independent_canonical_inventory": "history/pre-independent-canonical-22c9d9bd/ARCHIVE_INDEX.json",
+    "pre_freeze_start_summary": "history/pre-freeze-start-b52e5ae8/README.md",
+    "pre_freeze_start_inventory": "history/pre-freeze-start-b52e5ae8/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -1050,5 +1097,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T13:10:28.349217+00:00"
+  "updated_utc": "2026-10-30T13:33:35.405997+00:00"
 }

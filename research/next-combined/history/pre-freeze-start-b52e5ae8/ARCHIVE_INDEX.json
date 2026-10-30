@@ -1,0 +1,36 @@
+{
+  "source_commit": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
+  "scope": "ExactpriorcanonicalscopedPASS/freezeinprogress/noinferenceauthorizationstage",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 30098,
+      "sha256": "fb35bf26c63540ad867a17ee64d83afbe554c634ddcad9df23f537c73a75b7e0"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 61896,
+      "sha256": "afebd8de26a0e87ec04acaabd9525776b1e6572bc06ca844180cdb97dd44c934"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 61896,
+      "sha256": "afebd8de26a0e87ec04acaabd9525776b1e6572bc06ca844180cdb97dd44c934"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 52562,
+      "sha256": "ea763d6d5de3dd565c28cacd7c6da01c1c3dd259ae34d8d776b5c962eeb866d5"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 33991,
+      "sha256": "b8219000f748a9a3019b9f6f3029c7a841017d6aa7f20fac72f41c62d57fb066"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 87969,
+      "sha256": "447a0f5910058df5a85ce29b99fbc993e652482e7fc5328740107fae96252f92"
+    }
+  ]
+}

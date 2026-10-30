@@ -1,0 +1,24 @@
+{
+  "schema": "wfg.root-current-cohort-authorization/1",
+  "authorized_utc": "2026-10-30T13:21:50.836536+00:00",
+  "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "authorization": "EXECUTE_FROZEN_CURRENT_COHORT_ASSESSMENTS",
+  "expected_cases": {
+    "us2024": 273,
+    "korea2025": 33
+  },
+  "total_expected_cases": 306,
+  "cohorts_are_separate": true,
+  "first_cohort_exit_never_cancels_second": true,
+  "selected_model": "d4_wind_seed0",
+  "parent_freeze_verification_sha256": "1e9def628deb2e7f1035aea691c39f8acf27f606bcdccffd0e6d3dff4f344db6",
+  "independent_protocol_review_sha256": "1e1afefdbfbf5425c0f93b7c3727e5c8a022a61bdff803cfe39ba4742e60a54f",
+  "source_files_fixed": 201,
+  "registry_dependencies_fixed": 86,
+  "full_frozen_file_union_fixed": 223,
+  "policy": "Existing guarded scorer only, original case/window population, N1024, seed0, threads2, no model/hyperparameter/selection/source/input changes. Every failed or unsupported case remains explicit; no zero substitution. Serialize numerical jobs on HEAVY and preserve command, exit, before/after source identities and complete receipts. No reuse of provisional coverage for admission.",
+  "future_2026_execution_authorized": false,
+  "github_merges_authorized": false,
+  "default_checkpoint_promotion_authorized": false,
+  "output_directories_absent_immediately_before_authorization": true
+}

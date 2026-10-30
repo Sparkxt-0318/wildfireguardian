@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "research/forecast-v2/FREEZE_HANDOFF.json",
+      "archive": "freeze-committed-metadata-6887dc61/FREEZE_HANDOFF.json",
+      "bytes": 6593,
+      "sha256": "5a0528835d29bde32fa553e99b096bb6910eea57df617ef8fcee4371383d63b3"
+    },
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "research/forecast-v2/MODEL_SELECTION.json",
+      "archive": "freeze-committed-metadata-6887dc61/MODEL_SELECTION.json",
+      "bytes": 33550,
+      "sha256": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b"
+    },
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "research/forecast-v2/BLIND_REGISTRY.json",
+      "archive": "freeze-committed-metadata-6887dc61/BLIND_REGISTRY.json",
+      "bytes": 49272,
+      "sha256": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e"
+    },
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "forecast/documents/preregistration_blind_test.md",
+      "archive": "freeze-committed-metadata-6887dc61/preregistration_blind_test.md",
+      "bytes": 22541,
+      "sha256": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6"
+    },
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "archive": "freeze-committed-metadata-6887dc61/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "bytes": 50679,
+      "sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    },
+    {
+      "source_git_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "source_git_path": "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json",
+      "archive": "freeze-committed-metadata-6887dc61/PREASSESSMENT_KOREA2025_WINDOWS.json",
+      "bytes": 29290,
+      "sha256": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d"
+    }
+  ],
+  "scope": "ExactGit6887metadata/documentpayloadsonly. No checkpoint/logisticbinary copied, read, deserializedorhashedbyreadiness. Rootreportsliteralpublication6887; nocurrentresultoutputread.",
+  "source_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "current_expected_membership": {
+    "US": 273,
+    "KR": 33
+  },
+  "future2026": "NOT_READY"
+}

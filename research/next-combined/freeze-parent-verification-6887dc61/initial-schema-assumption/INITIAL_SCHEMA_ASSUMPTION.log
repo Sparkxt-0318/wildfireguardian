@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/verify_freeze_parent.py", line 30, in <module>
+    assert len(expected) == 201 and expected == handoff['source_pins']
+AssertionError

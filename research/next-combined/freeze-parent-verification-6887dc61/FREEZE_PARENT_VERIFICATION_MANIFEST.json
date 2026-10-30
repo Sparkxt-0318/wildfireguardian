@@ -1,0 +1,8 @@
+{
+  "files": {
+    "work/verify_freeze_parent.py": "5c3be1c54c7aaa187ce512f3c216ad94f2967300c553d289df171402f66eee25",
+    "work/FREEZE_PARENT_VERIFICATION.json": "1e9def628deb2e7f1035aea691c39f8acf27f606bcdccffd0e6d3dff4f344db6",
+    "work/FREEZE_PARENT_VERIFICATION.log": "2aa94707c12547263bb572f526246e9dcfeca8c4159cd9e8cbd47fc6053c0bb9"
+  },
+  "initial_harness_diagnostic": "Original assertion mistook source_pins count86 for a mapping. Source/log preserved under work/freeze-parent-initial. Corrected harness checks code_json_sources201 and registry86 separately; no production-source failure or inference occurred."
+}
