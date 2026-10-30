@@ -268,6 +268,82 @@ The owner host is native macOS arm64 with Python 3.12.1 and NumPy 1.26.4; export
     print(json.dumps({"a_repair": repaired["status"], "c_pairs": len(pairs), "c_records": c["admission_records"], "c_interface_audit": audit_c["status"]}))
 
 
+def extend_repaired_core_and_reader_audit():
+    """Preserve prior findings while adding the next immutable review stage."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path, required=True)
+    parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    out, root = args.out_dir, args.track_c.resolve()
+    gates = json.loads((out / "GATES.json").read_text())
+    c = gates["track_evidence"]["1C"]
+    repaired = json.loads((out / "audit/1c-core-a2c6f8a69.json").read_text())
+    readers = json.loads((out / "audit/1c-readers-a2c6f8a69.json").read_text())
+    receipt = json.loads((root / "research/scenario-members/POST_REPAIR_RECEIPT.json").read_text())
+    byte_audit = json.loads((root / "research/scenario-members/EXPORT_BYTE_AUDIT.json").read_text())
+    smoke = json.loads((root / "research/synthetic-truth/REAL_READERS_SMOKE.json").read_text())
+    c["initial_targeted_audit"] = c.pop("targeted_audit")
+    c["repaired_targeted_audit"] = repaired
+    c["reader_targeted_audit"] = readers
+    c["export_exact_byte_audit"] = {k: v for k, v in byte_audit.items() if k != "rows"}
+    assert all(row["exact_arrays_equal"] and row["all_npy_entries_equal"] for row in byte_audit["rows"])
+    assert len(byte_audit["rows"]) == byte_audit["exact_array_window_passes"] == byte_audit["exact_npy_window_passes"]
+    c["post_repair_test_receipt"] = receipt
+    for path, expected in receipt["artifacts"].items():
+        assert digest(root / path) == expected
+    for path, expected in receipt["source_manifests"].items():
+        assert digest(root / path) == expected
+    c["post_repair_artifact_hashes_match_receipt"] = True
+    summaries = []
+    for row in smoke["readers"]:
+        summary = {k: v for k, v in row.items() if k != "source"}
+        summary["source_identity"] = {k: v for k, v in row["source"].items() if k in ("path", "source_id", "sha256")}
+        if row["kind"] == "external_simulator":
+            summary["metadata"] = row["source"].get("metadata")
+        summaries.append(summary)
+    c["real_reader_smoke"] = {"scope": smoke["scope"], "readers": summaries, "native_simulator_execution": smoke["native_simulator_execution"]}
+    for rel in ("research/scenario-members/POST_REPAIR_RECEIPT.json", "research/scenario-members/EXPORT_BYTE_AUDIT.json", "research/synthetic-truth/REAL_READERS_SMOKE.json", "experimental/scenario-members/src/wfg_scenario_members/features.py", "experimental/synthetic-truth/src/wfg_synthetic_truth/adapters.py"):
+        c["source_sha256"][rel] = digest(root / rel)
+    gates["open_work"] = ["1A empirical geometry and full journey adapter, separately from a later unaudited enclosure revision", "1B remaining fits, geometry sensitivity, frozen selection and protocol review", "1C reader time/georeference/source-kind admission repairs", "real reduction/coverage and risk campaigns under a declared supported policy", "final publication by orchestrator"]
+    gates["commands"].append({"command": "ROUTING_PYTHON research/next-combined/audit_1c_semantics.py --track-c REPAIRED_C --out FRESH_CORE_AUDIT", "exit_code": 0, "checks": repaired["checks"], "passed": repaired["passed"]})
+    gates["commands"].append({"command": "ROUTING_PYTHON research/next-combined/audit_1c_readers.py --track-c SNAPSHOT_C --out FRESH_READER_AUDIT", "exit_code": 1, "checks": readers["checks"], "passed": readers["passed"]})
+    (out / "GATES.json").write_text(json.dumps(gates, indent=2, allow_nan=False)+"\n")
+    text = (out / "README.md").read_text()
+    text = text.replace("targeted score-admission fixes needed", "prior core defects repaired; reader admission findings open")
+    text = text.replace("The pure-interface audit passed", "The historical core snapshot `393f37748` pure-interface audit passed")
+    text = text.replace("The owner has been notified. Unknown-mass decisions", "The owner repaired those four core findings; the same fixtures now pass at the current snapshot, retained separately below. Unknown-mass decisions")
+    text = text.replace("The 1C owner is adding independent adapters and features after this snapshot", "The 1C owner has added independent adapters and features at this snapshot, with reader-boundary repairs pending")
+    text = text.replace("../track-1a", "../audit-1a")
+    text += f'''
+
+## Repaired core and new reader review
+
+The current immutable 1C snapshot is `{c["head"]}`. The original core failure record at `393f37748` is unchanged. The independent post-repair core audit passes {repaired["passed"]}/{repaired["checks"]} fixtures, recorded separately in `audit/1c-core-a2c6f8a69.json`; it repairs the earlier known-contact, oracle-consistency, nonfinite-arrival and weight-normalization failures. It does not discharge physical, whole-road or risk-study gates.
+
+The stronger export method is now separate from the historical value-equality method: {byte_audit["exact_array_window_passes"]}/{byte_audit["windows"]} windows match dtype, shape, exact payload bytes including NaN bits, and {byte_audit["exact_npy_window_passes"]}/{byte_audit["windows"]} match the uncompressed NPY entries for every shared v2 array. The earlier `array_equal` limitation remains documented as history, not the final method. A regression verifies that different NaN payloads fail this stronger method even when value equality passes. This is shared-array identity; the separate one-cutoff whole-NPZ wrapper comparison has its narrower scope.
+
+The post-repair receipt records 40 routing-environment tests passed with 4 dependency skips, and 20 selected forecast/GIS/export/features/scoring tests passed separately. These selectors overlap and must not be summed as independent tests. The source/artifact digests in the receipt match the archived files. The reported release verifier passes 367 copied hashes. A failed attempt to run the entire suite in the forecast environment is retained because that environment lacked Hypothesis; the successful split-environment receipts are stated explicitly.
+
+The new reconstruction reader uses explicit seconds/minutes/hours and origin-to-cutoff conversion, exact grid alignment, nodata support and optional descriptive SD intervals. Nodata is not never-burned. The observed-perimeter reader keeps only arrival upper bounds, never exact ignition or survey-negative coverage; its actual CedarCreek collection is wholly unscorable after eight invalid source geometries, without silently repairing them. These are reader smoke results, not risk cases. The road-feature function reports unit-second unsafe departure times and metre chord weights, using the declared native-row mapping; no real road-reduction/K-scaling study is added by those fixtures, and caller data/grid admission remains a separate obligation.
+
+The actual stored Wapiti metadata declares FARSITE, minutes, engine origin 1724048580 and a finite 1470 minute duration. It does not describe a new native simulation in this run. The smoke report has 11,655 covered cells, including 11,215 nonarrival sentinels. Those finite-run nonarrivals need a preserved query-time horizon or right-censoring interpretation; they do not establish global never-ignition after the simulation ends.
+
+Five new reader boundary fixtures currently fail defensive admission or qualification, retained in `audit/1c-readers-a2c6f8a69.json`: a 1000 minute arrival is accepted despite a declared 10 minute simulation; nonarrival is exposed as a point-model infinity without a query-time validity bound; explicitly contradictory learned-probability metadata is still labeled FARSITE; an output lacking geometry is accepted against two reference grids shifted by 1000 m without an explicit unverified-alignment state; and a fractional UTC offset is silently truncated to a whole second. These are synthetic schema fixtures. They do not assert that the actual Wapiti file has wrong family, out-of-range arrivals or misaligned coordinates. Borrowed grid information must be qualified as a caller assertion unless verified from source coordinates or an independently bound alignment record. The owner has been notified for repair.
+
+```sh
+../venv-routing/bin/python research/next-combined/audit_1c_semantics.py --track-c ../audit-1c --out FRESH_REPAIRED_CORE.json
+../venv-routing/bin/python research/next-combined/audit_1c_readers.py --track-c ../audit-1c --out FRESH_READER_AUDIT.json
+../venv-routing/bin/python research/next-combined/build_report.py --track-a ../audit-1a --track-c ../audit-1c
+```
+
+The current A evidence remains the immutable f9fa03290 radiation snapshot, not the later spatial-enclosure implementation being developed on its live branch. No claim about that later enclosure is made. All scientific integration experiments remain gated, and B final fits, geometry sensitivity, selection registry, protocol review and held-out results remain pending in this record.
+'''
+    (out / "README.md").write_text(text)
+    print(json.dumps({"core_repair": repaired["status"], "reader_audit": readers["status"], "byte_identity_windows": byte_audit["windows"]}))
+
+
 if __name__ == "__main__":
     main()
     extend_interim_report()
+    extend_repaired_core_and_reader_audit()

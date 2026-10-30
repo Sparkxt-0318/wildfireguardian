@@ -1,16 +1,16 @@
 {
   "tier": "Tier 2 task-directed verification",
-  "scope": "1A repair fixture; immutable 1C core acceptance, centre-checker wrapper, score admission, exporter callback and evidence-record consistency",
+  "scope": "Immutable f9fa03290 A evidence; repaired 1C core interfaces, new truth readers and road feature source, strong export byte method and separate receipts",
   "track_a_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
-  "track_c_head": "393f37748acb17bee8182980d7ae47435ab39d4d",
+  "track_c_head": "a2c6f8a69c46b5c678eea1d83bf9441f63a7e414",
   "graph": {
     "1A": {
       "project": "wfg-next-1a-20261030",
       "generation": "2026-10-30T02:38:59Z"
     },
     "1C": {
-      "project": "wfg-next-1c-audit-393f37748-20261030",
-      "generation": "2026-10-30T03:03:41Z"
+      "project": "wfg-next-1c-audit-a2c6f8a69-20261030",
+      "generation": "2026-10-30T03:27:56Z"
     }
   },
   "query_pagination": "All targeted search and trace results read had has_more false or no continuation; no graph-completeness claim.",
@@ -22,13 +22,27 @@
   "trace_limits": "Generic get/accept method edges included obvious heuristic cross-file noise; material conclusions use exact snippets and executions.",
   "not_audited": [
     "1B held-out scores",
-    "new 1C owner adapters/features after the snapshot",
+    "later live A enclosure implementation",
+    "1C implementation after a2c6f8a69",
+    "new native simulator execution",
     "empirical radiation validation",
     "whole-road checker proof",
-    "new risk campaign",
+    "new scored risk campaign",
     "scientific integration"
   ],
   "native_custody_scope": "Independent raw-CSV count/pair reconciliation and internal custody-ledger consistency, not a new native campaign or an independent rehash of every external job file.",
-  "export_equality_scope": "Owner array_equal checks on all15 windows; separate owner whole-NPZ wrapper equivalence at one actual cutoff. General dtype/NaN-bit identity not inferred.",
-  "defensive_failures_scope": "Inconsistent or extreme admitted inputs; no assertion that current unscorable campaign has non-null incorrect risk scores."
+  "export_equality_scope": "New15-window dtype/shape/exactpayload/NPY byte audit receipt preserved separately from the older value-equality method. Artifact and source-manifest file digests match receipt; owner regression distinguishes NaN payloads.",
+  "defensive_failures_scope": "Inconsistent or extreme admitted inputs; no assertion that current unscorable campaign has non-null incorrect risk scores.",
+  "new_reader_findings": {
+    "count": 5,
+    "fixture_source": "audit_1c_readers.py",
+    "record": "audit/1c-readers-a2c6f8a69.json",
+    "scope": "Synthetic malformed/boundary cases; not a claim actual Wapiti output has wrong family, out-of-range arrivals or grid mismatch"
+  },
+  "core_repair": {
+    "record": "audit/1c-core-a2c6f8a69.json",
+    "checks": 9,
+    "passed": 9,
+    "original_failure_retained": true
+  }
 }
